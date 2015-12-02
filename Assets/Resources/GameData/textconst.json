@@ -61,17 +61,20 @@
     {
         "id": 230,
         "explain": "體力不足",
-        "tw": "體力不足"
+        "tw": "體力不足",
+        "en": "Not enough stamina"
     },
     {
         "id": 231,
         "explain": "挑戰次數已用完",
-        "tw": "挑戰次數已用完"
+        "tw": "挑戰次數已用完",
+        "en": "Out of attempts"
     },
     {
         "id": 232,
         "explain": "未達挑戰等級",
-        "tw": "未達挑戰等級"
+        "tw": "未達挑戰等級",
+        "en": "You are below the required level"
     },
     {
         "id": 301,
@@ -248,7 +251,8 @@
     {
         "id": 701,
         "explain": "連線不穩定時",
-        "tw": "您的資料正送往雲端，除非太陽爆炸，\n否則我們將永久為您保存資料。"
+        "tw": "您的資料正送往雲端，除非太陽爆炸，\n否則我們將永久為您保存資料。",
+        "en": "Your data is being sent to the cloud, unless the solar system erupts, we shall store your data for enternity."
     },
     {
         "id": 1001,
@@ -369,7 +373,8 @@
     {
         "id": 3001,
         "explain": "玩家資訊",
-        "tw": "角色資訊"
+        "tw": "角色資訊",
+        "en": "Player Profile"
     },
     {
         "id": 3002,
@@ -1281,8 +1286,8 @@
     {
         "id": 9391,
         "explain": "Title",
-        "tw": "主線關卡",
-        "en": "Mission"
+        "tw": "生涯競賽",
+        "en": "STORY"
     },
     {
         "id": 9401,
@@ -1350,7 +1355,8 @@
     },
     {
         "id": 9509,
-        "tw": "戰鬥力 {0:F1} "
+        "tw": "戰鬥力 {0:F1} ",
+        "en": "Power {0:F1} "
     },
     {
         "id": 9601,
@@ -1553,8 +1559,8 @@
         "explain": "PlayerInfoBtn/Label",
         "tw": "PLAYER\\n\nINFO",
         "cn": "PLAYER\\n\nINFO",
-        "en": "PLAYER\\n\nINFO",
-        "jp": "PLAYER\\n\nINFO"
+        "en": "PLAYER\nINFO",
+        "jp": "PLAYER\nINFO"
     },
     {
         "id": 10316,
@@ -2113,7 +2119,8 @@
     {
         "id": 2000001,
         "explain": "競賽情報",
-        "tw": "時間競賽"
+        "tw": "時間競賽",
+        "en": "Timing Competition"
     },
     {
         "id": 2000002,
@@ -2488,20 +2495,20 @@
     },
     {
         "id": 2007000,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
+        "tw": "[FFDD33]{1}[-][BBFF33]已達成肘擊目標！！！[-]",
+        "cn": "[FFDD33]{1}[-][BBFF33]已達成肘擊目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved Elbow Objective！！！[-]"
     },
     {
         "id": 2007001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
+        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
         "en": " [FFDD33]{1}[-] Elbow [FF3355]{0}More Times[-] To Obtain Victory"
     },
     {
         "id": 2007002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
+        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
         "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Elbow[-] For The Victory！！！"
     },
     {
@@ -2512,13 +2519,13 @@
     {
         "id": 2007008,
         "tw": "[FFDD33]肘擊[-][33FFDD]成功次數[-]",
-        "cn": "[FFDD33]火鍋[-][33FFDD]成功次數[-]",
+        "cn": "[FFDD33]肘擊[-][33FFDD]成功次數[-]",
         "en": "[FFDD33]Elbow[-] [33FFDD]Times Successful[-]"
     },
     {
         "id": 2007009,
         "tw": "[FFDD33]肘擊[-]",
-        "cn": "[FFDD33]火鍋[-]",
+        "cn": "[FFDD33]肘擊[-]",
         "en": "[FFDD33]Elbow[-]"
     }
 ]

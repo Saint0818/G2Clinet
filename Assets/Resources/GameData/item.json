@@ -1106,10 +1106,11 @@
         "potential": 10,
         "sell": 100,
         "buy": 100,
-        "namecn": "中锋头发11",
+        "namecn": "Dangerous Braids",
         "nameen": "Hair center 11",
         "namejp": "髪センター11",
-        "explaintw": "方便武鬥家施展的髮型"
+        "explaintw": "方便武鬥家施展的髮型",
+        "explainen": "A dangerous look for those who have a very physical game."
     },
     {
         "id": 1012,
@@ -1438,8 +1439,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "前锋头发12",
-        "nameen": "Hair striker 12",
-        "explaintw": "明星氣質的帥氣的西裝頭"
+        "nameen": "Rocker Hairstyle",
+        "explaintw": "明星氣質的帥氣的西裝頭",
+        "explainen": "A cool style inside and outside the court."
     },
     {
         "id": 1112,
@@ -1770,9 +1772,10 @@
         "sell": 100,
         "buy": 100,
         "namecn": "后卫头发13",
-        "nameen": "Guard hair 13",
+        "nameen": "Hip-Hop Hairstyle",
         "namejp": "ガード毛13",
-        "explaintw": "帶有女饒舌歌手的氣質"
+        "explaintw": "帶有女饒舌歌手的氣質",
+        "explainen": "Don't mess with gils from the hood."
     },
     {
         "id": 1212,
@@ -2082,9 +2085,10 @@
         "sell": 100,
         "buy": 110,
         "namecn": "中锋手饰11",
-        "nameen": "Jewelry center 11",
+        "nameen": "Combat Gloves",
         "namejp": "ジュエリーセンター11",
-        "explaintw": "具有效的防護功能"
+        "explaintw": "具有效的防護功能",
+        "explainen": "Improves protection"
     },
     {
         "id": 2012,
@@ -2298,10 +2302,8 @@
         "sell": 100,
         "buy": 110,
         "namecn": "前锋手饰5",
-        "nameen": "Gloves",
-        "namejp": "フォワードジュエリー5",
-        "explaintw": "手套內部充滿流動能量。",
-        "explainen": "Get some extra grip"
+        "nameen": "Forward jewelry 5",
+        "namejp": "フォワードジュエリー5"
     },
     {
         "id": 2106,
@@ -2396,9 +2398,10 @@
         "sell": 100,
         "buy": 110,
         "namecn": "前锋手饰11",
-        "nameen": "Forward jewelry 11",
+        "nameen": "Rock Star Gloves",
         "namejp": "フォワードジュエリー11",
-        "explaintw": "巨星專用的皮質手套"
+        "explaintw": "巨星專用的皮質手套",
+        "explainen": "Fancy leather gloves for an ultimate control of the ball."
     },
     {
         "id": 2112,
@@ -2712,8 +2715,9 @@
         "sell": 100,
         "buy": 110,
         "namecn": "后卫手饰11",
-        "nameen": "Defender jewelry 11",
-        "namejp": "ディフェンダーの宝石11"
+        "nameen": "Hip-Hop gloves",
+        "namejp": "ディフェンダーの宝石11",
+        "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
         "id": 2212,
@@ -3044,9 +3048,10 @@
         "sell": 100,
         "buy": 100,
         "namecn": "中锋衣服11",
-        "nameen": "Clothes center 11",
+        "nameen": "Combat Beads",
         "namejp": "服センター11",
-        "explaintw": "巨型佛珠具有嚇阻作用"
+        "explaintw": "巨型佛珠具有嚇阻作用",
+        "explainen": "Massive beads hault negative energy"
     },
     {
         "id": 3012,
@@ -3374,9 +3379,10 @@
         "sell": 100,
         "buy": 100,
         "namecn": "前锋衣服12",
-        "nameen": "12 striker clothes",
+        "nameen": "Rocker Tights",
         "namejp": "12ストライカー服",
-        "explaintw": "可以有效顯露精壯身材"
+        "explaintw": "可以有效顯露精壯身材",
+        "explainen": "High performance clothes with a lot of personality."
     },
     {
         "id": 3112,
@@ -3709,8 +3715,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "后卫衣服11",
-        "nameen": "Guard clothes 11",
-        "namejp": "Guardは11服"
+        "nameen": "Street Bikini",
+        "namejp": "Guardは11服",
+        "explainen": "For those who take sexiness seriously all the time."
     },
     {
         "id": 3212,
@@ -4039,9 +4046,10 @@
         "sell": 100,
         "buy": 100,
         "namecn": "中锋裤子11",
-        "nameen": "Pants center 11",
+        "nameen": "Swag Pants",
         "namejp": "パンツセンター11",
-        "explaintw": "寬鬆的褲子適合身材壯碩的人"
+        "explaintw": "寬鬆的褲子適合身材壯碩的人",
+        "explainen": "This is your street, show your style."
     },
     {
         "id": 4012,
@@ -4369,10 +4377,11 @@
         "potential": 40,
         "sell": 100,
         "buy": 100,
-        "namecn": "前锋裤子12",
+        "namecn": "Rock Trousers",
         "nameen": "Forward pants 12",
         "namejp": "フォワードパンツ12",
-        "explaintw": "流行又不失帥氣"
+        "explaintw": "流行又不失帥氣",
+        "explainen": "Stylish yet functional."
     },
     {
         "id": 4112,
@@ -4703,9 +4712,10 @@
         "sell": 100,
         "buy": 100,
         "namecn": "后卫裤子11",
-        "nameen": "Defender pants 11",
+        "nameen": "Hip-Hop Tights",
         "namejp": "ディフェンダーパンツ11",
-        "explaintw": "富有個人特色的搶眼配色"
+        "explaintw": "富有個人特色的搶眼配色",
+        "explainen": "High performance full of character."
     },
     {
         "id": 4212,
@@ -5032,9 +5042,10 @@
         "sell": 100,
         "buy": 90,
         "namecn": "中锋鞋子11",
-        "nameen": "Shoes center 11",
+        "nameen": "Army Boots",
         "namejp": "シューズセンター11",
-        "explaintw": "厚重的材質具有保護效果"
+        "explaintw": "厚重的材質具有保護效果",
+        "explainen": "Heavy duty material, for those who take the game to its MAX."
     },
     {
         "id": 5012,
@@ -5244,7 +5255,7 @@
         "sell": 100,
         "buy": 90,
         "namecn": "前锋鞋子4",
-        "nameen": "Sneakers",
+        "nameen": "White Sneakers",
         "namejp": "フォワードシューズ4",
         "explaintw": "簡單又大方的鞋款。",
         "explainen": "Maximum comfort for the game."
@@ -5262,7 +5273,9 @@
         "potential": 20,
         "sell": 100,
         "buy": 90,
-        "namecn": "前锋鞋子5"
+        "namecn": "前锋鞋子5",
+        "nameen": "Red Sneakers",
+        "explainen": "This shoes looke life if they were taken out of hell's flames."
     },
     {
         "id": 5106,
@@ -5278,8 +5291,9 @@
         "sell": 100,
         "buy": 90,
         "namecn": "前锋鞋子6",
-        "nameen": "6 forward Shoes",
-        "namejp": "6前方シューズ"
+        "nameen": "Grey Sneakers",
+        "namejp": "6前方シューズ",
+        "explainen": "For players with an iron will."
     },
     {
         "id": 5107,
@@ -5691,8 +5705,10 @@
         "sell": 100,
         "buy": 90,
         "namecn": "后卫鞋子11",
-        "nameen": "Defender Shoes 11",
-        "namejp": "ディフェンダーシューズ11"
+        "nameen": "Hip-Hop Sneakers",
+        "namejp": "ディフェンダーシューズ11",
+        "explaintw": "特殊配色的慢跑鞋",
+        "explainen": "Comfy, cool, effective."
     },
     {
         "id": 5212,
@@ -5901,9 +5917,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "头饰4",
-        "nameen": "Headdress 4",
+        "nameen": "Army Headware",
         "namejp": "ヘッドドレス4",
-        "explaintw": "神秘的頭飾"
+        "explaintw": "神秘的頭飾",
+        "explainen": "For a tought game anywhere"
     },
     {
         "id": 6005,
@@ -5919,9 +5936,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "头饰5",
-        "nameen": "Headdress 5",
+        "nameen": "Rocker Mirror",
         "namejp": "ヘッドドレス5",
-        "explaintw": "搖滾巨星專屬，帥氣度爆表"
+        "explaintw": "搖滾巨星專屬，帥氣度爆表",
+        "explainen": "Only for real Rockstars."
     },
     {
         "id": 6006,
@@ -5937,9 +5955,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "头饰6",
-        "nameen": "Headwear 6",
+        "nameen": "Hip-Hop Gogles",
         "namejp": "ヘッドウェア6",
-        "explaintw": "街頭運動風的太陽眼鏡"
+        "explaintw": "街頭運動風的太陽眼鏡",
+        "explainen": "Street style sunglasess"
     },
     {
         "id": 6007,
@@ -6215,9 +6234,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "背饰4",
-        "nameen": "Back ornaments 4",
+        "nameen": "Army Shell",
         "namejp": "戻るオーナメント4",
-        "explaintw": "氣勢非凡，大師降臨"
+        "explaintw": "氣勢非凡，大師降臨",
+        "explainen": "The birth of legend"
     },
     {
         "id": 7005,
@@ -6233,9 +6253,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "背饰5",
-        "nameen": "Back decorated 5",
+        "nameen": "Electric Guitar",
         "namejp": "戻る5装飾",
-        "explaintw": "搖滾巨星必備"
+        "explaintw": "搖滾巨星必備",
+        "explainen": "If you're not a rock legend, stay away from it."
     },
     {
         "id": 7006,
@@ -6251,9 +6272,10 @@
         "sell": 100,
         "buy": 120,
         "namecn": "背饰6",
-        "nameen": "Back decorated 6",
+        "nameen": "Street Hip-Hop Star",
         "namejp": "戻る6装飾",
-        "explaintw": "穿上它必定成為大家的注目焦點"
+        "explaintw": "穿上它必定成為大家的注目焦點",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7007,
