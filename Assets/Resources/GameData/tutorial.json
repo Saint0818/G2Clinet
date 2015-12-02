@@ -24,7 +24,7 @@
         "id": 1,
         "line": 3,
         "talkl": 11,
-        "actionl": 1,
+        "actionl": 6,
         "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
         "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
         "texten": "Can't help it! That classical match is deeply imprinted in our brain."
@@ -33,7 +33,7 @@
         "id": 1,
         "line": 4,
         "talkl": 11,
-        "actionl": 1,
+        "actionl": 6,
         "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
         "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
         "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
@@ -84,7 +84,7 @@
         "line": 11,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。",
+        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
         "texten": "Checking the mission details ."
     },
     {
@@ -95,6 +95,12 @@
     {
         "id": 1,
         "line": 13,
+        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
+        "texten": "Click the Next button."
+    },
+    {
+        "id": 1,
+        "line": 14,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
@@ -186,7 +192,7 @@
         "value": 4,
         "uiname": "UIAvatarFitted",
         "talkl": 11,
-        "actionl": 1,
+        "actionl": 4,
         "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6]mix and show your[ff6060]unique style[-]，"
@@ -204,8 +210,8 @@
         "id": 4,
         "line": 3,
         "talkl": 11,
-        "actionl": 1,
-        "texttw": "選擇剛剛獲得的衣服。",
+        "actionl": 4,
+        "texttw": "選擇衣服種類。",
         "texten": "Click the clothes buttom."
     },
     {
@@ -213,7 +219,7 @@
         "line": 4,
         "kind": 4,
         "value": 4,
-        "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/ClothesBtn"
+        "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/2"
     },
     {
         "id": 4,
@@ -277,12 +283,18 @@
         "id": 5,
         "line": 4,
         "kind": 4,
+        "value": 3
+    },
+    {
+        "id": 5,
+        "line": 5,
+        "kind": 4,
         "value": 3,
         "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UsePartSlot"
     },
     {
         "id": 5,
-        "line": 5,
+        "line": 6,
         "kind": 4,
         "value": 3,
         "talkl": 11,
@@ -292,7 +304,7 @@
     },
     {
         "id": 5,
-        "line": 6,
+        "line": 7,
         "kind": 4,
         "value": 3,
         "talkl": 11,
@@ -302,7 +314,7 @@
     },
     {
         "id": 5,
-        "line": 7,
+        "line": 8,
         "uipath": "UI2D/UIMainLobby/MainView/BottomLeft/BackBtn"
     },
     {
