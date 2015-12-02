@@ -314,7 +314,7 @@ public static class StateChecker {
 
 public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 {
-	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
+//	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
 
 	public static Dictionary<EAnimatorState, Dictionary<EPlayerState, int>> AnimtorStatesType = new Dictionary<EAnimatorState, Dictionary<EPlayerState, int>>();
 	public static Dictionary<EAnimatorState, bool> States = new Dictionary<EAnimatorState, bool>();
@@ -322,17 +322,27 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 	void Awake()
 	{
 		InitAnimtorStatesType ();
-		LoopStates.Add(EAnimatorState.Idle,true);
-		LoopStates.Add(EAnimatorState.Run,true);
-		LoopStates.Add(EAnimatorState.Defence,true);
-		LoopStates.Add(EAnimatorState.Dribble,true);
-		LoopStates.Add(EAnimatorState.HoldBall,true);
+
+//		if(!LoopStates.ContainsKey(EAnimatorState.Idle))
+//			LoopStates.Add(EAnimatorState.Idle,true);
+//
+//		if(!LoopStates.ContainsKey(EAnimatorState.Run))
+//			LoopStates.Add(EAnimatorState.Run,true);
+//
+//		if(!LoopStates.ContainsKey(EAnimatorState.Defence))
+//			LoopStates.Add(EAnimatorState.Defence,true);
+//
+//		if(!LoopStates.ContainsKey(EAnimatorState.Dribble))
+//			LoopStates.Add(EAnimatorState.Dribble,true);
+//
+//		if(!LoopStates.ContainsKey(EAnimatorState.HoldBall))
+//			LoopStates.Add(EAnimatorState.HoldBall,true);
 	}
 
-	public bool IsLoopState(EAnimatorState state)
-	{
-		return LoopStates.ContainsKey (state);
-	}
+//	public bool IsLoopState(EAnimatorState state)
+//	{
+//		return LoopStates.ContainsKey (state);
+//	}
 
 	private void InitAnimtorStatesType()
 	{

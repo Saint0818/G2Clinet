@@ -339,26 +339,26 @@ public static class GameFunction
                 att = EAttribute.Steal;
                 break;
 
-            case 6:
+			case 6:
+				att = EAttribute.Speed;
+				break;
+
+            case 7:
                 att = EAttribute.Stamina;
                 break;
 
-            case 7:
+			case 8:
+				att = EAttribute.Strength;
+				break;
+
+            case 9:
                 att = EAttribute.Defence;
                 break;
-            case 8:
+            case 10:
                 att = EAttribute.Dribble;
                 break;
-            case 9:
-                att = EAttribute.Pass;
-                break;
-
-            case 10:
-                att = EAttribute.Speed;
-                break;
-
             case 11:
-                att = EAttribute.Strength;
+                att = EAttribute.Pass;
                 break;
         }
         return att;

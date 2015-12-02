@@ -132,7 +132,7 @@ public class AbilityView
 			GameObject go;
 			for (int i = 0; i < abilitys.Length; i++) {
 				abilitys[i] = new TAbilityItem();
-				go = self.transform.FindChild(string.Format("AttrGroup/AttrKind{0}", i)).gameObject;
+				go = self.transform.FindChild(string.Format("AttrGroup/{0}", i)).gameObject;
 				abilitys[i].Init(go, i);
 			}
 
@@ -157,8 +157,8 @@ public class AbilityView
 		for (int i = 0; i < abilitys.Length; i++) {
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
-			if(team.Player.Potential.ContainsKey(kind))
-				add = team.Player.Potential[kind];
+//			if(team.Player.Potential.ContainsKey(kind))
+//				add = team.Player.Potential[kind];
 
             switch(kind)
             {
@@ -200,14 +200,12 @@ public class AbilityView
                 break; 
             }
 
-            abilitys[i].Value.text = (basic + add).ToString();
+            abilitys[i].Value.text = basic.ToString();
 		}
 
 		RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
 		GameFunction.UpdateAttrHexagon (hexagon, team.Player);
 	}
-
-
 	
 	public void HexagonEnable(bool enable)
 	{
