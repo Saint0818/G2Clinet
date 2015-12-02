@@ -75,7 +75,7 @@ public class SkillController : MonoBehaviour {
 			if (attribute.SkillCards != null && attribute.SkillCards.Length > 0) {
 				for (int i = 0; i < attribute.SkillCards.Length; i++) {
 					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID) && attribute.SkillCards[i].ID < GameConst.ID_LimitActive) {
-						GameData.CardTexture(attribute.SkillCards[i].ID);
+						GameData.CardTexture(GameData.DSkillData[attribute.SkillCards[i].ID].PictureNo);
 						TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 						int key = skillData.Kind;
 						
