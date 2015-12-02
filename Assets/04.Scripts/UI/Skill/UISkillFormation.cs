@@ -257,9 +257,9 @@ public class UISkillFormation : UIBase {
 
 	public static void UIShow(bool isShow){
 		if (instance) {
-//			if (!isShow)
-//				RemoveUI(UIName);
-//			else
+			if (!isShow)
+				RemoveUI(UIName);
+			else
 				instance.Show(isShow);
 		} else
 			if (isShow)
@@ -1299,7 +1299,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoBack() {
-		DoFinish();
+//		DoFinish(); 
 		UIShow(false);
 		if(UISort.Visible)
 			UISort.UIShow(false);

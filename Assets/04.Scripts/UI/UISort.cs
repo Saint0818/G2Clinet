@@ -84,8 +84,8 @@ public class UISort : UIBase {
 				toggleFilter[2] = objGroup[i].transform.FindChild ("ActiveCheck").gameObject.GetComponent<UIToggle>();
 				toggleFilter[3] = objGroup[i].transform.FindChild ("PassiveCheck").gameObject.GetComponent<UIToggle>();
 				toggleFilter[4] = objGroup[i].transform.FindChild ("AllCheck").gameObject.GetComponent<UIToggle>();
-				if(toggleFilter[4])
-					toggleFilter[4].transform.localPosition = new Vector3(185, 8, 0);
+//				if(toggleFilter[4])
+//					toggleFilter[4].transform.localPosition = new Vector3(185, 8, 0);
 
 				for (int j=0; j<toggleCondition.Length; j++) {
 					toggleCondition[j].name = j.ToString();

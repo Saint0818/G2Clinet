@@ -160,7 +160,7 @@ namespace GameStruct
 				Achievements[index] = -1;
 		}
 
-		public bool CheckSkillCarkisNew (int id) {
+		public bool CheckSkillCardisNew (int id) {
 			if(SkillCards == null)
 				SkillCards = new TSkill[0];
 

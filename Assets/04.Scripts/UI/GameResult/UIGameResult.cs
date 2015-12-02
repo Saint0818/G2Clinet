@@ -287,7 +287,7 @@ public class UIGameResult : UIBase {
 		for (int i=0; i<itemAwardGroup.Length; i++) {
 			itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
 			if(i >= 0 && i < 3) {
-				if(isHaveReward && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
 					itemAwardGroup[i].Show(GameData.DItemData[bonusItemIDs[i]]);
 			}
 		}
@@ -305,12 +305,17 @@ public class UIGameResult : UIBase {
 			}
 		}
 
-		if(isHaveReward) {
-			for(int i=0; i<bonusItemIDs.Length; i++) {
-				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
-					bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
-			}
-		}
+		for(int i=0; i<bonusItemIDs.Length; i++) {
+			if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+		}	
+//		if(isHaveReward) {
+//			for(int i=0; i<GetCardLists.Count; i++) {
+//				if(GameData.DItemData.ContainsKey(GetCardLists[i])) {
+//					bonusAwardItems.Add(alreadyGetItems.Count, addItemToAward(i, GameData.DItemData[GetCardLists[i]], false));
+//				}
+//			}
+//		}
 	}
 
 	private void showFinish () {
@@ -460,7 +465,7 @@ public class UIGameResult : UIBase {
 			awardScrollView.MoveRelative(new Vector3(-90 * (alreadyGetItems.Count - 7), 0, 0));
 
 		if(GameData.DItemData[id].Kind == 21) 
-			if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[id].Avatar))
+			if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar))
 				showSkillInfo(id);
 	}
 
@@ -674,7 +679,7 @@ public class UIGameResult : UIBase {
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
 					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
 						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {
-							if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[reward.SurelyItemIDs[i]].Avatar)) {
+							if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[reward.SurelyItemIDs[i]].Avatar)) {
 								GetCardLists.Add(reward.SurelyItemIDs[i]);
 								IsShowFirstCard = true;
 							}
