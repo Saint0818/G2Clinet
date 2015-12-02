@@ -37,8 +37,8 @@
     },
     {
         "id": 208,
-        "tw": "確認花費{0}鑽石購買{1}？",
-        "en": "Confirm Purchase{0}Number of Diamonds Purchased{1}？"
+        "tw": "確認花費 [33FFDD]{0}[-] 鑽石購買 [33FFDD]{1}[-] ？",
+        "en": "Confirm Purchase [33FFDD]{0}[-] Number of Diamonds Purchased [33FFDD]{1}[-]？"
     },
     {
         "id": 209,
@@ -1196,7 +1196,7 @@
         "id": 9102,
         "explain": "MainStageBtn/BtnLabel",
         "tw": "生涯競賽",
-        "en": "Dominate The Basketball World"
+        "en": "STORY"
     },
     {
         "id": 9103,
@@ -1208,7 +1208,7 @@
         "id": 9104,
         "explain": "ChallengeBtn/BtnLabel",
         "tw": "挑 戰",
-        "en": "Challenge"
+        "en": "CHALLENGE"
     },
     {
         "id": 9201,
@@ -2485,5 +2485,40 @@
         "tw": "[FFDD33]火鍋[-]",
         "cn": "[FFDD33]火鍋[-]",
         "en": "[FFDD33]Block[-]"
+    },
+    {
+        "id": 2007000,
+        "tw": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
+        "cn": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved Elbow Objective！！！[-]"
+    },
+    {
+        "id": 2007001,
+        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
+        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
+        "en": " [FFDD33]{1}[-] Elbow [FF3355]{0}More Times[-] To Obtain Victory"
+    },
+    {
+        "id": 2007002,
+        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
+        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
+        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Elbow[-] For The Victory！！！"
+    },
+    {
+        "id": 2007007,
+        "tw": "[33FFDD]終場[-][FFDD33]肘擊數[-][33FFDD]累計[-]",
+        "en": "[33FFDD]End[-] [FFDD33]Successful Elbow[-] [33FFDD]Total[-]"
+    },
+    {
+        "id": 2007008,
+        "tw": "[FFDD33]肘擊[-][33FFDD]成功次數[-]",
+        "cn": "[FFDD33]火鍋[-][33FFDD]成功次數[-]",
+        "en": "[FFDD33]Elbow[-] [33FFDD]Times Successful[-]"
+    },
+    {
+        "id": 2007009,
+        "tw": "[FFDD33]肘擊[-]",
+        "cn": "[FFDD33]火鍋[-]",
+        "en": "[FFDD33]Elbow[-]"
     }
 ]
