@@ -144,7 +144,7 @@ public static class GameData {
 						Setting.AIChangeTimeLv = 0;
 						break;
 					case ESave.UserLanguage: 
-						Setting.Language = ELanguage.TW;
+						Setting.Language = ELanguage.EN;
 						#if UNITY_EDITOR
 							#if TW
 							GameData.Setting.Language = ELanguage.TW;

@@ -360,6 +360,9 @@ public class UISetting : UIBase {
 		if (UISetting.Visible)
 			UISetting.UIShow(true);
 
+		if (UIMainLobby.Get.IsVisible)
+			UIMainLobby.Get.InitText();
+
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 

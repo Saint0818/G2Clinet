@@ -144,6 +144,11 @@ public class UIMainLobby : UIBase
         Main.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
     }
 
+	public void InitText()
+	{
+		initDefaultText (Main.MainMenu);
+	}
+
     public void Hide()
     {
         UI3DMainLobby.Get.Hide();

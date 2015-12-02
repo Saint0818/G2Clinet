@@ -21,6 +21,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public TweenScale PowerTweenScale;
 
     public GameObject Settings;
+	public GameObject MainMenu;
 
     public UILabel NameLabel;
 
