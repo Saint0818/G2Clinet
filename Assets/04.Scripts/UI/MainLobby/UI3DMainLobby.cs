@@ -46,7 +46,7 @@ public class UI3DMainLobby : UIBase
     {
         mImpl.Hide();
 
-        RemoveUI(UIName);
+//        RemoveUI(UIName);
     }
 
     public static UI3DMainLobby Get

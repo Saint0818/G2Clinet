@@ -670,14 +670,10 @@ public class UIGameResult : UIBase {
 		{
 			try {
 				var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
-				
-				Debug.Log(reward);
-				Debug.Log(GameData.Team.Player.Lv);
-				Debug.Log(reward.Player.Lv);
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
 					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
-						if(GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {
+						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {
 							if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[reward.SurelyItemIDs[i]].Avatar)) {
 								GetCardLists.Add(reward.SurelyItemIDs[i]);
 								IsShowFirstCard = true;
