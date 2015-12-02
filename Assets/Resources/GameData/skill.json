@@ -810,7 +810,7 @@
         "valuebase": 200,
         "rate": 999,
         "rateadd": 999,
-        "distance": 12,
+        "distance": 20,
         "distanceadd": 1,
         "lifetime": 5,
         "activecamera": 0,

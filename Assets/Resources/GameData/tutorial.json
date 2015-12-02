@@ -553,18 +553,18 @@
     {
         "id": 1033,
         "line": 3,
-        "talkr": 12,
-        "texttw": "沒問題，是該換妳表現了！！"
-    },
-    {
-        "id": 1033,
-        "line": 4,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
     },
     {
         "id": 1033,
+        "line": 4,
+        "texttw": "看妳的了！"
+    },
+    {
+        "id": 1033,
         "line": 5,
+        "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
     },
     {
