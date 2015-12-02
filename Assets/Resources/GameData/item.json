@@ -1012,8 +1012,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "中锋头发5",
-        "nameen": "5 center hair",
-        "namejp": "5中央髪"
+        "nameen": "Curly white hair",
+        "namejp": "5中央髪",
+        "explainen": "Natural curly hairstyle, white hair"
     },
     {
         "id": 1006,
@@ -1029,8 +1030,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "中锋头发6",
-        "nameen": "Hair center 6",
-        "namejp": "髪のセンター6"
+        "nameen": "Curly black hair",
+        "namejp": "髪のセンター6",
+        "explainen": "Natural curly hairstyle, black hair"
     },
     {
         "id": 1007,
@@ -1094,7 +1096,7 @@
     },
     {
         "id": 1011,
-        "nametw": "武鬥家紅編髮",
+        "nametw": "武鬥家辮髮",
         "quality": 3,
         "kind": 1,
         "position": 0,
@@ -1106,7 +1108,8 @@
         "buy": 100,
         "namecn": "中锋头发11",
         "nameen": "Hair center 11",
-        "namejp": "髪センター11"
+        "namejp": "髪センター11",
+        "explaintw": "方便武鬥家施展的髮型"
     },
     {
         "id": 1012,
@@ -1436,7 +1439,7 @@
         "buy": 100,
         "namecn": "前锋头发12",
         "nameen": "Hair striker 12",
-        "namejp": "髪のストライカー12"
+        "explaintw": "明星氣質的帥氣的西裝頭"
     },
     {
         "id": 1112,
@@ -1768,7 +1771,8 @@
         "buy": 100,
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
-        "namejp": "ガード毛13"
+        "namejp": "ガード毛13",
+        "explaintw": "帶有女饒舌歌手的氣質"
     },
     {
         "id": 1212,
@@ -2079,7 +2083,8 @@
         "buy": 110,
         "namecn": "中锋手饰11",
         "nameen": "Jewelry center 11",
-        "namejp": "ジュエリーセンター11"
+        "namejp": "ジュエリーセンター11",
+        "explaintw": "具有效的防護功能"
     },
     {
         "id": 2012,
@@ -2392,7 +2397,8 @@
         "buy": 110,
         "namecn": "前锋手饰11",
         "nameen": "Forward jewelry 11",
-        "namejp": "フォワードジュエリー11"
+        "namejp": "フォワードジュエリー11",
+        "explaintw": "巨星專用的皮質手套"
     },
     {
         "id": 2112,
@@ -2935,9 +2941,11 @@
         "potential": 30,
         "sell": 100,
         "buy": 100,
-        "namecn": "中锋衣服5",
-        "nameen": "5 center clothes",
-        "namejp": "5中央服"
+        "namecn": "綠色排汗衣",
+        "nameen": "Green training shirt",
+        "namejp": "5中央服",
+        "explaintw": "運動時加速排汗。",
+        "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
         "id": 3006,
@@ -2952,9 +2960,11 @@
         "potential": 30,
         "sell": 100,
         "buy": 100,
-        "namecn": "中锋衣服6",
-        "nameen": "Clothes center 6",
-        "namejp": "服センター6"
+        "namecn": "紫色排汗衣",
+        "nameen": "Purple training shirt",
+        "namejp": "服センター6",
+        "explaintw": "運動時加速排汗。",
+        "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
         "id": 3007,
@@ -3035,7 +3045,8 @@
         "buy": 100,
         "namecn": "中锋衣服11",
         "nameen": "Clothes center 11",
-        "namejp": "服センター11"
+        "namejp": "服センター11",
+        "explaintw": "巨型佛珠具有嚇阻作用"
     },
     {
         "id": 3012,
@@ -3364,7 +3375,8 @@
         "buy": 100,
         "namecn": "前锋衣服12",
         "nameen": "12 striker clothes",
-        "namejp": "12ストライカー服"
+        "namejp": "12ストライカー服",
+        "explaintw": "可以有效顯露精壯身材"
     },
     {
         "id": 3112,
@@ -3597,8 +3609,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "后卫衣服5",
-        "nameen": "Clothes guard 5",
-        "namejp": "服ガード5"
+        "nameen": "Blue Leather Vest",
+        "namejp": "服ガード5",
+        "explainen": "Cool and mysterious."
     },
     {
         "id": 3206,
@@ -3614,8 +3627,9 @@
         "sell": 100,
         "buy": 100,
         "namecn": "后卫衣服6",
-        "nameen": "6 guard clothes",
-        "namejp": "6ガード服"
+        "nameen": "Blue Leather Vest",
+        "namejp": "6ガード服",
+        "explainen": "Cool and mysterious."
     },
     {
         "id": 3207,
@@ -4026,7 +4040,8 @@
         "buy": 100,
         "namecn": "中锋裤子11",
         "nameen": "Pants center 11",
-        "namejp": "パンツセンター11"
+        "namejp": "パンツセンター11",
+        "explaintw": "寬鬆的褲子適合身材壯碩的人"
     },
     {
         "id": 4012,
@@ -4356,7 +4371,8 @@
         "buy": 100,
         "namecn": "前锋裤子12",
         "nameen": "Forward pants 12",
-        "namejp": "フォワードパンツ12"
+        "namejp": "フォワードパンツ12",
+        "explaintw": "流行又不失帥氣"
     },
     {
         "id": 4112,
@@ -4688,7 +4704,8 @@
         "buy": 100,
         "namecn": "后卫裤子11",
         "nameen": "Defender pants 11",
-        "namejp": "ディフェンダーパンツ11"
+        "namejp": "ディフェンダーパンツ11",
+        "explaintw": "富有個人特色的搶眼配色"
     },
     {
         "id": 4212,
@@ -5016,7 +5033,8 @@
         "buy": 90,
         "namecn": "中锋鞋子11",
         "nameen": "Shoes center 11",
-        "namejp": "シューズセンター11"
+        "namejp": "シューズセンター11",
+        "explaintw": "厚重的材質具有保護效果"
     },
     {
         "id": 5012,
@@ -5884,7 +5902,8 @@
         "buy": 120,
         "namecn": "头饰4",
         "nameen": "Headdress 4",
-        "namejp": "ヘッドドレス4"
+        "namejp": "ヘッドドレス4",
+        "explaintw": "神秘的頭飾"
     },
     {
         "id": 6005,
@@ -5901,7 +5920,8 @@
         "buy": 120,
         "namecn": "头饰5",
         "nameen": "Headdress 5",
-        "namejp": "ヘッドドレス5"
+        "namejp": "ヘッドドレス5",
+        "explaintw": "搖滾巨星專屬，帥氣度爆表"
     },
     {
         "id": 6006,
@@ -5918,7 +5938,8 @@
         "buy": 120,
         "namecn": "头饰6",
         "nameen": "Headwear 6",
-        "namejp": "ヘッドウェア6"
+        "namejp": "ヘッドウェア6",
+        "explaintw": "街頭運動風的太陽眼鏡"
     },
     {
         "id": 6007,
@@ -6195,7 +6216,8 @@
         "buy": 120,
         "namecn": "背饰4",
         "nameen": "Back ornaments 4",
-        "namejp": "戻るオーナメント4"
+        "namejp": "戻るオーナメント4",
+        "explaintw": "氣勢非凡，大師降臨"
     },
     {
         "id": 7005,
@@ -6212,7 +6234,8 @@
         "buy": 120,
         "namecn": "背饰5",
         "nameen": "Back decorated 5",
-        "namejp": "戻る5装飾"
+        "namejp": "戻る5装飾",
+        "explaintw": "搖滾巨星必備"
     },
     {
         "id": 7006,
@@ -6229,7 +6252,8 @@
         "buy": 120,
         "namecn": "背饰6",
         "nameen": "Back decorated 6",
-        "namejp": "戻る6装飾"
+        "namejp": "戻る6装飾",
+        "explaintw": "穿上它必定成為大家的注目焦點"
     },
     {
         "id": 7007,
@@ -6595,7 +6619,7 @@
         "id": 11301,
         "nametw": "奈米頭帶α",
         "quality": 4,
-        "icon": 11301,
+        "icon": 11001,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6610,7 +6634,7 @@
         "id": 11302,
         "nametw": "奈米頭帶β",
         "quality": 4,
-        "icon": 11301,
+        "icon": 11001,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6625,7 +6649,7 @@
         "id": 11303,
         "nametw": "奈米頭帶γ",
         "quality": 4,
-        "icon": 11301,
+        "icon": 11001,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6640,7 +6664,7 @@
         "id": 11401,
         "nametw": "液態頭帶α",
         "quality": 5,
-        "icon": 11401,
+        "icon": 11101,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6655,7 +6679,7 @@
         "id": 11402,
         "nametw": "液態頭帶β",
         "quality": 5,
-        "icon": 11401,
+        "icon": 11101,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6670,7 +6694,7 @@
         "id": 11403,
         "nametw": "液態頭帶γ",
         "quality": 5,
-        "icon": 11401,
+        "icon": 11101,
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 1,
@@ -6832,7 +6856,7 @@
         "id": 12301,
         "nametw": "奈米護臂α",
         "quality": 4,
-        "icon": 12301,
+        "icon": 12001,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 40,
@@ -6846,7 +6870,7 @@
         "id": 12302,
         "nametw": "奈米護臂β",
         "quality": 4,
-        "icon": 12301,
+        "icon": 12001,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 40,
@@ -6860,7 +6884,7 @@
         "id": 12303,
         "nametw": "奈米護臂γ",
         "quality": 4,
-        "icon": 12301,
+        "icon": 12001,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 40,
@@ -6874,7 +6898,7 @@
         "id": 12401,
         "nametw": "液態護臂α",
         "quality": 5,
-        "icon": 12401,
+        "icon": 12101,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 50,
@@ -6888,7 +6912,7 @@
         "id": 12402,
         "nametw": "液態護臂β",
         "quality": 5,
-        "icon": 12401,
+        "icon": 12101,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 50,
@@ -6902,7 +6926,7 @@
         "id": 12403,
         "nametw": "液態護臂γ",
         "quality": 5,
-        "icon": 12401,
+        "icon": 12101,
         "kind": 12,
         "attrkind1": 2,
         "attrvalue1": 50,
@@ -7063,7 +7087,7 @@
         "id": 13301,
         "nametw": "奈米機能褲α",
         "quality": 4,
-        "icon": 13301,
+        "icon": 13001,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 40,
@@ -7077,7 +7101,7 @@
         "id": 13302,
         "nametw": "奈米機能褲β",
         "quality": 4,
-        "icon": 13301,
+        "icon": 13001,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 40,
@@ -7091,7 +7115,7 @@
         "id": 13303,
         "nametw": "奈米機能褲γ",
         "quality": 4,
-        "icon": 13301,
+        "icon": 13001,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 40,
@@ -7105,7 +7129,7 @@
         "id": 13401,
         "nametw": "液態機能褲α",
         "quality": 5,
-        "icon": 13401,
+        "icon": 13101,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 50,
@@ -7119,7 +7143,7 @@
         "id": 13402,
         "nametw": "液態機能褲β",
         "quality": 5,
-        "icon": 13401,
+        "icon": 13101,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 50,
@@ -7133,7 +7157,7 @@
         "id": 13403,
         "nametw": "液態機能褲γ",
         "quality": 5,
-        "icon": 13401,
+        "icon": 13101,
         "kind": 13,
         "attrkind1": 6,
         "attrvalue1": 50,
@@ -7294,7 +7318,7 @@
         "id": 14301,
         "nametw": "奈米機能衣α",
         "quality": 4,
-        "icon": 14301,
+        "icon": 14001,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 40,
@@ -7308,7 +7332,7 @@
         "id": 14302,
         "nametw": "奈米機能衣β",
         "quality": 4,
-        "icon": 14301,
+        "icon": 14001,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 40,
@@ -7322,7 +7346,7 @@
         "id": 14303,
         "nametw": "奈米機能衣γ",
         "quality": 4,
-        "icon": 14301,
+        "icon": 14001,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 40,
@@ -7336,7 +7360,7 @@
         "id": 14401,
         "nametw": "液態機能衣α",
         "quality": 5,
-        "icon": 14401,
+        "icon": 14101,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 50,
@@ -7350,7 +7374,7 @@
         "id": 14402,
         "nametw": "液態機能衣β",
         "quality": 5,
-        "icon": 14401,
+        "icon": 14101,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 50,
@@ -7364,7 +7388,7 @@
         "id": 14403,
         "nametw": "液態機能衣γ",
         "quality": 5,
-        "icon": 14401,
+        "icon": 14101,
         "kind": 14,
         "attrkind1": 7,
         "attrvalue1": 50,
@@ -7525,7 +7549,7 @@
         "id": 15301,
         "nametw": "奈米護膝α",
         "quality": 4,
-        "icon": 15301,
+        "icon": 15001,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 40,
@@ -7539,7 +7563,7 @@
         "id": 15302,
         "nametw": "奈米護膝β",
         "quality": 4,
-        "icon": 15301,
+        "icon": 15001,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 40,
@@ -7553,7 +7577,7 @@
         "id": 15303,
         "nametw": "奈米護膝γ",
         "quality": 4,
-        "icon": 15301,
+        "icon": 15001,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 40,
@@ -7567,7 +7591,7 @@
         "id": 15401,
         "nametw": "液態護膝α",
         "quality": 5,
-        "icon": 15401,
+        "icon": 15101,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 50,
@@ -7581,7 +7605,7 @@
         "id": 15402,
         "nametw": "液態護膝β",
         "quality": 5,
-        "icon": 15401,
+        "icon": 15101,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 50,
@@ -7595,7 +7619,7 @@
         "id": 15403,
         "nametw": "液態護膝γ",
         "quality": 5,
-        "icon": 15401,
+        "icon": 15101,
         "kind": 15,
         "attrkind1": 8,
         "attrvalue1": 50,
@@ -7756,7 +7780,7 @@
         "id": 16301,
         "nametw": "奈米腕帶α",
         "quality": 4,
-        "icon": 16301,
+        "icon": 16001,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 40,
@@ -7770,7 +7794,7 @@
         "id": 16302,
         "nametw": "奈米腕帶β",
         "quality": 4,
-        "icon": 16301,
+        "icon": 16001,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 40,
@@ -7784,7 +7808,7 @@
         "id": 16303,
         "nametw": "奈米腕帶γ",
         "quality": 4,
-        "icon": 16301,
+        "icon": 16001,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 40,
@@ -7798,7 +7822,7 @@
         "id": 16401,
         "nametw": "液態腕帶α",
         "quality": 5,
-        "icon": 16401,
+        "icon": 16101,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 50,
@@ -7812,7 +7836,7 @@
         "id": 16402,
         "nametw": "液態腕帶β",
         "quality": 5,
-        "icon": 16401,
+        "icon": 16101,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 50,
@@ -7826,7 +7850,7 @@
         "id": 16403,
         "nametw": "液態腕帶γ",
         "quality": 5,
-        "icon": 16401,
+        "icon": 16101,
         "kind": 16,
         "attrkind1": 10,
         "attrvalue1": 50,
