@@ -389,11 +389,9 @@ public class UIPlayerPotential : UIBase {
 		upgradeView.UpdatePotential(GameData.Team.Player);
 		GameFunction.UpdateAttrHexagon (upgradeView.hexagon, GameData.Team.Player, upgradeView.AddPotential);
 		CrtLvPotential = GameFunction.GetCurrentLvPotential (GameData.Team.Player);
-		pointView.SetLvPotential (CrtLvPotential, upgradeView.UseLvPotential);
 		CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
-		pointView.SetAvatarPotential (CrtAvatarPotential, upgradeView.UseAvatarPotential);
 		upgradeView.UpdateBtnSate();
+		pointView.SetLvPotential (CrtLvPotential, upgradeView.UseLvPotential);
+		pointView.SetAvatarPotential (CrtAvatarPotential, upgradeView.UseAvatarPotential);
 	}
-
-
 }
