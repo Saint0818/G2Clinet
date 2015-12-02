@@ -60,8 +60,6 @@ public class TItemAvatar
 	public bool Enable
 	{
 		set{
-			UpdateBtnUseState();
-
 			if(self){
 				self.SetActive(value);
 				if(self.activeSelf)
@@ -133,7 +131,20 @@ public class TItemAvatar
 			// 永久性裝備 : -1, 時效性裝備 : 1, 已過期裝備 : 2
 			sellBtn.gameObject.SetActive(mode == EAvatarMode.Sell);
 			buyBtn.gameObject.SetActive(!sellBtn.gameObject.activeSelf && UseKind != -1);
-			TrimBottom.gameObject.SetActive (UseKind == 2);
+			switch(UseKind)
+			{
+			case 1: 
+				int compare = TimeSpan.Compare(TimeSpan.FromTicks(DateTime.UtcNow.Ticks), UseTime);
+				TrimBottom.gameObject.SetActive(compare > 0);
+				break;
+			case 2: 
+				TrimBottom.gameObject.SetActive(true);
+				break;
+			default : 
+				TrimBottom.gameObject.SetActive(false);
+				break;
+			}
+
 			getModeLabel.gameObject.SetActive(!sellBtn.gameObject.activeSelf && GameData.DItemData[id].Potential > 0);
 		}
 	}
