@@ -56,16 +56,32 @@
     {
         "id": 1,
         "line": 7,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "先進入[ff6060]生涯競賽[-]",
+        "texten": "Click the Story Buttom."
     },
     {
         "id": 1,
         "line": 8,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/stage101"
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
     },
     {
         "id": 1,
         "line": 9,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "再來選擇第一場競賽。",
+        "texten": "Click the next buttom."
+    },
+    {
+        "id": 1,
+        "line": 10,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
+    },
+    {
+        "id": 1,
+        "line": 11,
         "talkl": 11,
         "actionl": 1,
         "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。",
@@ -73,12 +89,12 @@
     },
     {
         "id": 1,
-        "line": 10,
+        "line": 12,
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/StartButton"
     },
     {
         "id": 1,
-        "line": 11,
+        "line": 13,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
@@ -187,13 +203,21 @@
     {
         "id": 4,
         "line": 3,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "選擇剛剛獲得的衣服。",
+        "texten": "Click the clothes buttom."
+    },
+    {
+        "id": 4,
+        "line": 4,
         "kind": 4,
         "value": 4,
         "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/ClothesBtn"
     },
     {
         "id": 4,
-        "line": 4,
+        "line": 5,
         "kind": 4,
         "value": 4,
         "talkl": 11,
@@ -203,7 +227,7 @@
     },
     {
         "id": 4,
-        "line": 5,
+        "line": 6,
         "kind": 4,
         "value": 4,
         "talkl": 11,
@@ -213,7 +237,7 @@
     },
     {
         "id": 4,
-        "line": 6,
+        "line": 7,
         "kind": 4,
         "value": 4,
         "talkl": 11,
