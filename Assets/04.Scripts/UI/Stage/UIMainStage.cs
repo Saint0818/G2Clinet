@@ -73,28 +73,69 @@ public class UIMainStage : UIBase
     {
 //        Debug.LogFormat("enterGame, StageID:{0}", stageID);
 
-        if(StageTable.Ins.HasByID(stageID))
+        if(!StageTable.Ins.HasByID(stageID))
         {
-            TStageData stageData = StageTable.Ins.GetByID(stageID);
+            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
+            return;
+        }
 
-            if(verifyPlayer(stageData))
-            {
-                PlayerPrefs.SetInt(SelectChapterKey, mMain.CurrentChapter);
-                pveStart(stageID);
-            }
-            else
-                Debug.LogWarningFormat("Player can't enter game!");
+        TStageData stageData = StageTable.Ins.GetByID(stageID);
+        if(!string.IsNullOrEmpty(stageData.verify()))
+        {
+            Debug.LogErrorFormat(stageData.verify());
+            return;
+        }
+
+        string errMsg;
+        if(verifyPlayer(stageData, out errMsg))
+        {
+            PlayerPrefs.SetInt(SelectChapterKey, mMain.CurrentChapter);
+            pveStart(stageID);
         }
         else
-            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
+        {
+            Debug.LogWarning(errMsg);
+            UIHint.Get.ShowHint(errMsg, Color.green);
+        }
+    }
+
+    private bool verifyPlayer(TStageData stageData)
+    {
+        string errMsg;
+        return verifyPlayer(stageData, out errMsg);
     }
 
     /// <summary>
     /// 檢查玩家是否可以進入遊戲.
     /// </summary>
     /// <param name="stageData"></param>
+    /// <param name="errMsg"></param>
     /// <returns></returns>
-    private bool verifyPlayer(TStageData stageData)
+    private bool verifyPlayer(TStageData stageData, out string errMsg)
+    {
+        if(!verifyPlayerCost(stageData))
+        {
+            errMsg = TextConst.S(230);
+            return false;
+        }
+
+        if(!verifyPlayerDailyCount(stageData))
+        {
+            errMsg = TextConst.S(231);
+            return false;
+        }
+
+        if (!verifyPlayerLv(stageData))
+        {
+            errMsg = TextConst.S(232);
+            return false;
+        }
+
+        errMsg = String.Empty;
+        return true;
+    }
+
+    private static bool verifyPlayerCost(TStageData stageData)
     {
         switch(stageData.CostKind)
         {
@@ -107,14 +148,17 @@ public class UIMainStage : UIBase
             default:
                 throw new NotImplementedException();
         }
-
-        if(GameData.Team.Player.Lv < stageData.LimitLevel)
-            return false;
-
-        if(findPlayerDailyCount(stageData) <= 0)
-            return false;
-
         return true;
+    }
+
+    private static bool verifyPlayerDailyCount(TStageData stageData)
+    {
+        return findPlayerDailyCount(stageData) > 0;
+    }
+
+    private static bool verifyPlayerLv(TStageData stageData)
+    {
+        return GameData.Team.Player.Lv >= stageData.LimitLevel;
     }
 
     private void pveStart(int stageID)
@@ -380,7 +424,7 @@ public class UIMainStage : UIBase
 
             Debug.LogFormat("waitStageRewardAgain:{0}", reward);
 
-            stageRewardAgain2(mCurrentStageID);
+//            stageRewardAgain2(mCurrentStageID);
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);

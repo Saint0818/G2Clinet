@@ -1,4 +1,6 @@
-﻿using GameStruct;
+﻿using System;
+using System.Text;
+using GameStruct;
 
 /// <summary>
 /// 
@@ -25,11 +27,32 @@ public class TStageRewardAgain
     /// </summary>
     public TItem[] Items;
 
+    /// <summary>
+    /// 帳號的技能卡資料.
+    /// </summary>
+    public TSkill[] SkillCards;
+
     public override string ToString()
     {
-        int candiateNum = 0;
-        if(CandidateItemIDs != null)
-            candiateNum = CandidateItemIDs.Length;
-        return string.Format("Diamond:{0}, RandomItemID:{1}, CandidateItemNum:{2}", Diamond, RandomItemID, candiateNum);
+        return string.Format("Diamond:{0}, RandomItemID:{1}, CandidateItem:{2}", 
+            Diamond, RandomItemID, convert(CandidateItemIDs));
+    }
+
+    private readonly StringBuilder mBuilder = new StringBuilder();
+    private string convert(int[] data)
+    {
+        if (data == null)
+            return String.Empty;
+
+        mBuilder.Length = 0;
+
+        for (var i = 0; i < data.Length; i++)
+        {
+            mBuilder.Append(data[i]);
+            if (i + 1 < data.Length) // 不是最後一個
+                mBuilder.Append(",");
+        }
+
+        return mBuilder.ToString();
     }
 }

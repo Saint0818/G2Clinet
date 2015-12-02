@@ -3256,15 +3256,21 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [1].AniState(EPlayerState.Shoot0);
 		}
     }
-	
-	public bool PassingStealBall(PlayerBehaviour player, int dir)
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="dir"> -1: 沒碰到 trigger, 0: TriggerTop, 1:TriggerFR, 3:TriggerBR, 5:TriggerFinger, 6:TriggerSteal. </param>
+    /// <returns> true: 抄球成功, false: 抄球失敗. </returns>
+    public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
 		if(player.IsDefence && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) && Passer && passingStealBallTime == 0)
 		{
 			if(Catcher == player)
 				return false;
 
-			int rate = UnityEngine.Random.Range(0, 100);
+			int rate = Random.Range(0, 100);
 
 			if(CourtMgr.Get.RealBallState == EPlayerState.Pass0 || 
 			   CourtMgr.Get.RealBallState == EPlayerState.Pass2 ||
@@ -3320,8 +3326,9 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			return true;
-		}else
-			return false;
+		}
+
+		return false;
 	}
 
 	public void BallTouchPlayer(int index, int dir, bool isEnter)
@@ -3384,8 +3391,8 @@ public class GameController : KnightSingleton<GameController>
 					else if(CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || 
 					        CourtMgr.Get.RealBallState ==  EPlayerState.Rebound0)
                     {
-						    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
-					    		Rebound(player);
+					    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
+					        Rebound(player);
 					}
 				}
 			}
@@ -3596,9 +3603,6 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].AniState(EPlayerState.Ending10);
 			}
 			pveEnd(StageData.ID);
-
-			UIGameResult.UIShow(true);
-			UIGameResult.Get.SetGameRecord(ref GameRecord);
 		}
 		else
 		{
@@ -3654,6 +3658,9 @@ public class GameController : KnightSingleton<GameController>
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
             GameData.Team.Player.Init();
+
+            UIGameResult.UIShow(true);
+            UIGameResult.Get.SetGameRecord(ref GameRecord);
         }
         else
             UIHint.Get.ShowHint("PVE End fail!", Color.red);

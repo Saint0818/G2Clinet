@@ -706,6 +706,7 @@ public class UIGameResult : UIBase {
 				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
 //				GameData.Team.Player.Init();
 				GameData.Team.Items = reward.Items;
+				GameData.Team.SkillCards = reward.SkillCards;
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)
 				{
@@ -786,6 +787,7 @@ public class UIGameResult : UIBase {
 			var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
 			GameData.Team.Diamond = reward.Diamond;
 			GameData.Team.Items = reward.Items;
+			GameData.Team.SkillCards = reward.SkillCards;
 			
 			alreadGetBonusID = reward.RandomItemID;
 			chooseItem(chooseIndex);

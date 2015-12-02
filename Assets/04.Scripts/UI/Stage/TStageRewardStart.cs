@@ -3,9 +3,6 @@ using System;
 using System.Text;
 using GameStruct;
 
-/// <summary>
-/// 
-/// </summary>
 public class TStageRewardStart
 {
     /// <summary>
@@ -57,6 +54,11 @@ public class TStageRewardStart
     /// 玩家的倉庫資料.
     /// </summary>
     public TItem[] Items;
+
+    /// <summary>
+    /// 帳號的技能卡資料.
+    /// </summary>
+    public TSkill[] SkillCards;
 
     public override string ToString()
     {

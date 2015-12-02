@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -32,25 +32,28 @@ public class BallTrigger : MonoBehaviour
 
 	private bool touchPlayer(Collider other, bool isEnter)
     {
-		int dir = -1;
+        // -1: 沒碰到 trigger, 0: TriggerTop, 1:TriggerFR, 3:TriggerBR, 5:TriggerFinger, 6:TriggerSteal.
+        int dir = -1;
+
+        // -1: 
 		int team = -1;
+
+        // 
 		int index = -1;
-		if (other.gameObject.name == "TriggerTop")
+		if(other.gameObject.name == "TriggerTop")
 			dir = 0;
-		else
-		if (other.gameObject.name == "TriggerFR")
+		else if(other.gameObject.name == "TriggerFR")
 			dir = 1;
-		else
-		if (other.gameObject.name == "TriggerBR")
+		else if(other.gameObject.name == "TriggerBR")
 			dir = 3;
-		else
-		if (other.gameObject.name.Contains("TriggerFinger"))
+		else if(other.gameObject.name.Contains("TriggerFinger"))
         {
-			dir = 5;
+            // 球和 Player 接觸.
+            dir = 5;
 			int.TryParse(other.gameObject.name[0].ToString(), out team); 
 			int.TryParse(other.gameObject.name[1].ToString(), out index); 
 		}
-        else if (other.gameObject.name == "TriggerSteal")
+        else if(other.gameObject.name == "TriggerSteal")
 			dir = 6;
 
 		if (dir > -1)
@@ -59,17 +62,18 @@ public class BallTrigger : MonoBehaviour
             {
 				GameController.Get.BallTouchPlayer(team * 3 + index, dir, isEnter);
 			}
-            else if (other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent)
+            else if(other.gameObject.transform.parent && other.gameObject.transform.parent.parent)
             {
 				PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
-				if (player) {
+				if(player)
+                {
 					if(isEnter)
 					{
-						if (!GameController.Get.PassingStealBall(player, dir))
-							GameController.Get.BallTouchPlayer(player, dir, isEnter);
+						if(!GameController.Get.PassingStealBall(player, dir))
+							GameController.Get.BallTouchPlayer(player, dir, true);
 					}
                     else
-						GameController.Get.BallTouchPlayer(player, dir, isEnter);
+						GameController.Get.BallTouchPlayer(player, dir, false);
 					return true;
 				}
 			}
