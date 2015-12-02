@@ -10,7 +10,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
         if (player == null)
             player = animator.gameObject.GetComponent<PlayerBehaviour>();
 
-		Debug.Log ("Showin");
+//		Debug.Log ("Showin");
     }
 
 //  override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -30,7 +30,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
 				player.AniState(EPlayerState.Idle);
 		}
 
-		Debug.Log ("ShowOut");
+//		Debug.Log ("ShowOut");
     }
 
 //  override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo ,int stateMachinePathHash)
