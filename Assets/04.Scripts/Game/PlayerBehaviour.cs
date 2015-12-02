@@ -3506,6 +3506,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanUseActiveSkill(ActiveSkillUsed) || GameStart.Get.TestMode == EGameTest.Skill)
         {
+			if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && skillController.IsGetBuff(ActiveSkillUsed.ID))
+				return false;
+
             GameRecord.Skill++;
             SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID));
 
@@ -3667,7 +3670,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanUseActiveSkill(TSkill tSkill)
     {
         if ((CanMove || crtState == EPlayerState.HoldBall) &&
-            !IsUseActiveSkill && IsAngerFull(tSkill) && !skillController.IsGetBuff(tSkill.ID))
+            !IsUseActiveSkill && IsAngerFull(tSkill))
             return true;
 
         return false;
