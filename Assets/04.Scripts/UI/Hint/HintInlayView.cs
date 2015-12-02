@@ -35,6 +35,8 @@ public class HintInlayView : MonoBehaviour {
 	{
 		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
+		UIValueItemData value = UIEquipUtility.Convert(itemData);
+		
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			AttrKindsIcon[i].gameObject.SetActive(true);
 			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
@@ -43,6 +45,7 @@ public class HintInlayView : MonoBehaviour {
 		for (int i=0; i<itemData.BonusValues.Length; i++) {
 			ValueLabels[i].text = itemData.BonusValues[i].ToString();
 		}
+
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

@@ -26,6 +26,9 @@ public class HintAvatarView : MonoBehaviour {
 		for (int i=0; i<AttrKindsIcon.Length; i++){
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
+
+		for (int i=0; i<AvatarStars.Length; i++)
+			AvatarStars[i].SetActive(false);
 		Hide();
 	}
 	
@@ -38,10 +41,11 @@ public class HintAvatarView : MonoBehaviour {
 	{
 		mGameObject.SetActive(false);
 	}
-	
+
+
 	public void UpdateUI(TItemData itemData)
 	{
-		QualitySquare.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			AttrKindsIcon[i].gameObject.SetActive(true);
@@ -56,9 +60,6 @@ public class HintAvatarView : MonoBehaviour {
 			ItemPic.spriteName = "Item_999999";
 		else
 			ItemPic.spriteName = "Item_" + itemData.Icon;
-
-		for (int i=0; i<AvatarStars.Length; i++)
-			AvatarStars[i].SetActive((i < itemData.LV));
 
 		AmountLabel.text = "";
 	}

@@ -27,6 +27,9 @@ public class AwardAvatarView : MonoBehaviour {
 		Money.SetActive(false);
 		Gem.SetActive(false);
 		EquipmentStar.SetActive(false);
+		
+		for (int i=0; i<AvatarStars.Length; i++)
+			AvatarStars[i].SetActive(false);
 	}
 
 	public void Show () {
@@ -47,12 +50,6 @@ public class AwardAvatarView : MonoBehaviour {
 		else
 			ItemPic.spriteName = "Item_" + itemData.Icon;
 
-		if(itemData.LV > 0) {
-			EquipmentStar.SetActive(true);
-			for (int i=0; i<AvatarStars.Length; i++)
-				AvatarStars[i].SetActive((i < itemData.LV));
-		} else 
-			EquipmentStar.SetActive(false);
 		AmountLabel.text = "";
 	}
 

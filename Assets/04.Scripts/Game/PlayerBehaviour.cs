@@ -522,6 +522,8 @@ public class PlayerBehaviour : MonoBehaviour
 		Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, Attribute.Defence);
 		Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, Attribute.Speed);
 		Attr.StaminaValue = GameData.BaseAttr [Attribute.AILevel].StaminaValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, Attribute.Stamina);
+		
+		Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
 //        Attr.PointRate2 = GameData.BaseAttr [Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f);
 //        Attr.PointRate3 = GameData.BaseAttr [Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f);
 //        Attr.StealRate = GameData.BaseAttr [Attribute.AILevel].StealRate + (Attribute.Steal * 0.1f);
@@ -544,7 +546,6 @@ public class PlayerBehaviour : MonoBehaviour
 //        Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + (Attribute.Defence * 0.1f);
 //        Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.002f);
 //        Attr.StaminaValue = GameData.BaseAttr [Attribute.AILevel].StaminaValue + (Attribute.Stamina * 1f);
-        Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);

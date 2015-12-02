@@ -322,7 +322,6 @@ namespace GameStruct
 		Point3Rate,
 		SpeedValue,
 		StaminaValue,
-		JumpBallRate,
 		StrengthRate,
 		BlockPushRate,
 		ElbowingRate,

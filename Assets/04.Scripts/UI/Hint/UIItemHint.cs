@@ -66,11 +66,12 @@ public class UIItemHint : UIBase {
 		hintInlayView.Hide ();
 		hintSkillView.Hide ();
 	}
-
+	//For First Get
 	public void OnShow(TItemData itemData) {
 		hideAll ();
 		scrollViewExplain.ResetPosition();
 		UIShow(true);
+		gameObject.transform.localPosition = new Vector3(0, 0, -10);
 		if(itemData.Kind == 21) {
 			//For First Get
 			hintSkillView.Show();
