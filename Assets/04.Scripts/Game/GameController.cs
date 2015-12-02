@@ -3588,6 +3588,7 @@ public class GameController : KnightSingleton<GameController>
 		//Player
 		for (int i=0; i<PlayerList.Count; i++) {
 			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
+				PlayerList[i].Reset();
 				PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
 				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
 			}
@@ -3647,6 +3648,10 @@ public class GameController : KnightSingleton<GameController>
 
 			if (!StageData.IsTutorial)
 				SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
+			else {
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetGameRecord(ref GameRecord);
+			}
 		}
     }
 
