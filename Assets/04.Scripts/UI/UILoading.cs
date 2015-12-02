@@ -74,7 +74,7 @@ public class UILoading : UIBase {
 	private static void checkTutorialUI(int id) {
 		if (GameData.DTutorial.ContainsKey(id * 100 + 1)) {
 			UITutorial.Get.ShowTutorial(id, 1);
-			id = -1;
+			AchievementTutorialID = -1;
 		}
 	}
 
