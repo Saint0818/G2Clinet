@@ -381,35 +381,30 @@ public static class GameFunction
         {
             add = 0;
 
-            if (potentialAdds != null)
+            if (potentialAdds != null){
                 add = GetAttributeIndex(item.Key) < potentialAdds.Length ? potentialAdds [GetAttributeIndex(item.Key)] : 0;
+//				add += item.Value;
+			}
 
             switch (item.Key)
             {
                 case EAttribute.Point2:
-                    add += basic.Point2;
-                    attHexagon.SetValue(UIAttributes.EGroup.Point2, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Point2, (basic.Point2 + add) / GameConst.AttributeMax);
                     break;
                 case EAttribute.Point3:
-                    add += basic.Point3;
-                    attHexagon.SetValue(UIAttributes.EGroup.Point3, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Point3, (basic.Point3 + add) / GameConst.AttributeMax);
                     break;
                 case EAttribute.Dunk:
-                    add += basic.Dunk;
-                    attHexagon.SetValue(UIAttributes.EGroup.Dunk, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Dunk, (basic.Dunk + add) / GameConst.AttributeMax);
                     break;
                 case EAttribute.Rebound:
-                    add += basic.Rebound;
-                    attHexagon.SetValue(UIAttributes.EGroup.Rebound, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Rebound, (basic.Rebound + add) / GameConst.AttributeMax);
                     break;
                 case EAttribute.Block:
-                    add += basic.Block;
-                    attHexagon.SetValue(UIAttributes.EGroup.Block, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Block, (basic.Block + add) / GameConst.AttributeMax);
                     break;
                 case EAttribute.Steal:
-                    add += basic.Steal;
-
-                    attHexagon.SetValue(UIAttributes.EGroup.Steal, (item.Value + add) / GameConst.AttributeMax);
+					attHexagon.SetValue(UIAttributes.EGroup.Steal, (basic.Steal + add) / GameConst.AttributeMax);
                     break;
             }
         }

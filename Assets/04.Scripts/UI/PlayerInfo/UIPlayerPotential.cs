@@ -307,6 +307,7 @@ public class UIPlayerPotential : UIBase {
 	public void OnReturn()
 	{
 		UIShow (false);
+		GameData.Team.Player.SetAttribute (GameEnum.ESkillType.Player);
 		UIPlayerInfo.UIShow (true, ref GameData.Team);
 		UIPlayerInfo.Get.UpdatePage (0);
 		UIPlayerInfo.Get.UpdateHexagon(true);
@@ -338,6 +339,7 @@ public class UIPlayerPotential : UIBase {
 		if (ok) {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Player.Potential = team.Player.Potential;
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 			upgradeView.OnCancel();
 			UpdateView();
 		}
@@ -349,6 +351,7 @@ public class UIPlayerPotential : UIBase {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Player.Potential = team.Player.Potential;
 			GameData.Team.Diamond = team.Diamond;
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 			upgradeView.OnCancel();
 			UpdateView();
 			UIMainLobby.Get.UpdateUI();

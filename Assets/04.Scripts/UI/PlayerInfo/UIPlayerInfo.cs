@@ -151,14 +151,15 @@ public class AbilityView
 	{
 //		int index = 0;
         float basic = 0;
-        int add = 0;
+		int add = 0;
 
         EAttribute kind;
 		for (int i = 0; i < abilitys.Length; i++) {
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
-//			if(team.Player.Potential.ContainsKey(kind))
-//				add = team.Player.Potential[kind];
+
+			if(team.Player.Potential.ContainsKey(kind))
+				add = team.Player.Potential[kind];
 
             switch(kind)
             {
@@ -199,8 +200,7 @@ public class AbilityView
                 basic = team.Player.Pass;
                 break; 
             }
-
-            abilitys[i].Value.text = basic.ToString();
+			abilitys[i].Value.text = basic.ToString();
 		}
 
 		RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
@@ -497,7 +497,7 @@ public class TValueAvater
 public class TAbilityItem
 {
 	private GameObject go; 
-	private UISprite pic;
+//	private UISprite pic;
 
 	public int index;
 	public UILabel Value;
@@ -507,11 +507,11 @@ public class TAbilityItem
 	{
 		if (obj) {
 			go = obj;
-			pic = go.GetComponent<UISprite> ();
-			pic.spriteName = string.Format ("AttrKind_{0}", index + 1);
+//			pic = go.GetComponent<UISprite> ();
+//			pic.spriteName = string.Format ("AttrKind_{0}", index + 1);
 			Value = go.transform.FindChild("ValueBaseLabel").gameObject.GetComponent<UILabel>();
 
-			IsInit = go || pic || Value;
+			IsInit = go || Value;
 		}
 	}
 }

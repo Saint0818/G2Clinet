@@ -157,14 +157,14 @@ namespace GameStruct
         {
             if(ID > 0 && GameData.DPlayers.ContainsKey(ID))
             {
-				Point2 = GameData.DPlayers[ID].Point2 + Potential[EAttribute.Point2];
-				Point3 = GameData.DPlayers[ID].Point3 + Potential[EAttribute.Point3];;
-				Steal = GameData.DPlayers[ID].Steal + Potential[EAttribute.Steal];; 
+				Point2 = GameData.DPlayers[ID].Point2;
+				Point3 = GameData.DPlayers[ID].Point3;
+				Steal = GameData.DPlayers[ID].Steal; 
                 Speed = GameData.DPlayers[ID].Speed;
-				Dunk = GameData.DPlayers[ID].Dunk + Potential[EAttribute.Dunk];;
+				Dunk = GameData.DPlayers[ID].Dunk;
                 Strength = GameData.DPlayers[ID].Strength;
-				Rebound = GameData.DPlayers[ID].Rebound + Potential[EAttribute.Rebound];
-				Block = GameData.DPlayers[ID].Block + Potential[EAttribute.Block];
+				Rebound = GameData.DPlayers[ID].Rebound;
+				Block = GameData.DPlayers[ID].Block;
                 Stamina = GameData.DPlayers[ID].Stamina;
                 Dribble = GameData.DPlayers[ID].Dribble;
                 Defence = GameData.DPlayers[ID].Defence;
