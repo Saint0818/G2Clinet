@@ -82,7 +82,10 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			GameController.Get.InitIngameAnimator();
 			GameController.Get.SetBornPositions();
 			GameController.Get.ChangeSituation(situation);
-			AIController.Get.ChangeState(situation);
+
+			if (GameController.Get.IsStart)
+				AIController.Get.ChangeState(situation);
+
 			CameraMgr.Get.ShowPlayerInfoCamera (true);
 			break;
 		case 2: //set ball to player
