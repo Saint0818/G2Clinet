@@ -957,6 +957,7 @@ namespace GameStruct
 		public int UnlockHint;
 		public int UI;
 		public int UnlockName;
+		public int TutorialID;
 	}
 
     public struct TPreloadEffect {

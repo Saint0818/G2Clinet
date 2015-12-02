@@ -210,6 +210,8 @@ public class UISelectRole : UIBase {
 		if (players != null) {
 			for (int i = 0; i < players.Length; i ++) {
 				players[i].Player.Init();
+
+				GameFunction.ItemIdTranslateAvatar(ref players[i].Player.Avatar, players[i].Player.Items);
 				playerList.Add(players[i].Player);
 			}
 		}
@@ -441,7 +443,7 @@ public class UISelectRole : UIBase {
 
 	public void OnChangePlayer(){
 		int index = 1;
-		if (UIButton.current.name == "ChangePlayerB")
+		if (UIButton.current.name == "ChangPlayerB")
 			index = 2;
 
 		UISelectPartner.UIShow(true);
@@ -762,6 +764,7 @@ public class UISelectRole : UIBase {
 				TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
 				GameData.Team.Friends = team.Friends;
 				GameData.Team.LookFriendTime = team.LookFriendTime;
+
 				InitPlayerList(ref GameData.Team.Friends);
 			}
 		}
@@ -771,7 +774,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void InitFriend() {
-		if ((StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend)) {
+		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend)) {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
 				WWWForm form = new WWWForm();
 				SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form);
@@ -800,8 +803,8 @@ public class UISelectRole : UIBase {
 		uiSelect.SetActive(false);
 		doubleClickTime = 1;
 
+		GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 		arrayPlayerData[0] = GameData.Team.Player;
-
 		GameObject temp = arrayPlayer [0];
 		ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
 

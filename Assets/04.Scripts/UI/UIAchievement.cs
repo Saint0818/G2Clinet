@@ -5,6 +5,7 @@ public class UIAchievement : UIBase {
 	private static UIAchievement instance = null;
 	private const string UIName = "UIAchievement";
 	private UILabel descLabel;
+	private int playerLv;
 	
 	public static bool Visible {
 		get {
@@ -19,8 +20,8 @@ public class UIAchievement : UIBase {
 		if (instance)
 			instance.Show(isShow);
 		else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 	
 	public static UIAchievement Get
@@ -37,24 +38,18 @@ public class UIAchievement : UIBase {
 		descLabel = GameObject.Find(UIName + "/Center/BottomView/StageTargetView/DescLabel").GetComponent<UILabel>();
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/Mask")).onClick = OnReturn;
 	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
 
 	public void Show (int lv){
 		UIShow(true);
+		playerLv = lv;
 		descLabel.text = TextConst.S(GameData.DExpData[lv].UnlockName);
 	}
 
 	public void OnReturn (GameObject go) {
-		if (isStage)
+		if (isStage) {
+			UILoading.AchievementUI(playerLv);
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-		else
+		} else
 			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 	}
 

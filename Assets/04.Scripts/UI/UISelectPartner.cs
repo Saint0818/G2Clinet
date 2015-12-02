@@ -86,7 +86,7 @@ public class UISelectPartner : UIBase {
 			team.Item.GetComponent<UIDragScrollView>().scrollView = scrollView;
 			team.LabelTeamName = GameObject.Find(team.Item.name + "/PlayerName/NameLabel").GetComponent<UILabel>();
 			team.LabelPower = GameObject.Find(team.Item.name + "/CombatGroup/CombatValueLabel").GetComponent<UILabel>();
-			team.SpriteFace = GameObject.Find(team.Item.name + "/PlayerInGameBtn/PlayerPic").GetComponent<UISprite>();
+			team.SpriteFace = GameObject.Find(team.Item.name + "/PlayerInGameBtn").GetComponent<UISprite>();
 		
 			int a = index / 2;
 			int b = index % 2;
@@ -116,7 +116,7 @@ public class UISelectPartner : UIBase {
 	}
 
 	public void OnPlayerInfo() {
-		//UIPlayerInfo
+		OnSelectPartner();
 	}
 }
 

@@ -26,6 +26,7 @@ public class UILoading : UIBase {
 	private ELoading loadingKind;
 	private bool closeAfterFinished = false;
 	private int pageLoading = 0;
+	private static int AchievementTutorialID = -1;
 	private float nowProgress;
 	private float toProgress;
 	private float startTimer = 0;
@@ -52,10 +53,40 @@ public class UILoading : UIBase {
 		}
 	}
 
+	public static void AchievementUI(int lv) {
+		if (GameData.DExpData.ContainsKey(lv)) {
+			AchievementTutorialID = GameData.DExpData[lv].TutorialID;
+			switch (GameData.DExpData[lv].UI) {
+			case 0:
+				OpenUI = OpenStageUI;
+				break;
+			case 1:
+				OpenUI = OpenMainUI;
+				break;
+			default:
+				OpenUI = null;
+				break;
+			}
+		} else
+			OpenUI = OpenStageUI;
+	}
+
+	private static void checkTutorialUI(int id) {
+		if (GameData.DTutorial.ContainsKey(id * 100 + 1)) {
+			UITutorial.Get.ShowTutorial(id, 1);
+			id = -1;
+		}
+	}
+
+	public static void OpenMainUI() {
+		checkTutorialUI(AchievementTutorialID);
+	}
+
 	//Open stage after battle
 	public static void OpenStageUI() {
 		UIMainStage.Get.Show ();
 		UIMainLobby.Get.Hide ();
+		checkTutorialUI(AchievementTutorialID);
 	}
 
 	public static void OpenAnnouncement() {
