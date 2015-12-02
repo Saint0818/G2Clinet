@@ -21,6 +21,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public int CurrentEventID = 0;
 	public int NextEventID = 0;
 	public int EventValue = 0;
+	public int EventPlayer = -2;
 	public int BallOwnerTeam = -1;
 	public int BallOwnerIndex = -1;
 	private TToturialAction[] moveActions;
@@ -70,7 +71,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		case 3:
 			if (GameController.Visible) {
 				NextEventID = eventList[i].NextEventID;
-				EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
+				EventPlayer = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			}
 
 			break;
@@ -258,20 +259,21 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public bool CheckSetBallEvent(PlayerBehaviour player=null) {
-		if (NextEventID > 0 && player && GameController.Visible && GameController.Get.IsStart) {
+		if (EventPlayer >= -1 && NextEventID > 0 && player && GameController.Visible && GameController.Get.IsStart) {
 			for (int i = 0; i < eventList.Count; i++) {
 				if (eventList[i].ID == NextEventID) {
 					bool flag = true;
 					
 					//Moving to specific position. Have to check target index.
-					if (EventValue >= 0) {
-						int team = EventValue / GameData.Max_GamePlayer;
-						int index = EventValue % GameData.Max_GamePlayer;
+					if (EventPlayer >= 0) {
+						int team = EventPlayer / GameData.Max_GamePlayer;
+						int index = EventPlayer % GameData.Max_GamePlayer;
 						if (player.Team.GetHashCode() != team || player.Index != index)
 							flag = false;
 					}
 					
 					if (flag) {
+						EventPlayer = -2;
 						HandleEvent(i, player.PlayerRefGameObject);
 						removeEvent(NextEventID);
 						
