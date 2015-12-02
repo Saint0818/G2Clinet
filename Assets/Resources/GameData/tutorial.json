@@ -278,7 +278,7 @@
         "line": 2,
         "kind": 3,
         "value": 101,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
+        "uipath": "UI2D/UIGame/TopRight/0"
     },
     {
         "id": 1013,
@@ -458,7 +458,7 @@
         "line": 1,
         "kind": 3,
         "talkr": 12,
-        "texttw": "既然都剛好在籃下了，直接來個[fff400]絕殺灌籃[-]吧！！！"
+        "texttw": "哈哈，太容易了，再順便送他們一個[fff400]絕殺灌籃[-]吧！！！"
     },
     {
         "id": 1026,
@@ -506,14 +506,15 @@
         "id": 1032,
         "line": 1,
         "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
+        "talkr": 12,
+        "texttw": "糟糕，被騙了，被敵對球員包夾！！！"
     },
     {
         "id": 1032,
         "line": 2,
         "kind": 3,
         "talkl": 11,
-        "texttw": "在競賽中常常會遇到被對手包夾的狀況"
+        "texttw": "別怕，在競賽中常常會遇到被對手包夾的狀況"
     },
     {
         "id": 1032,
@@ -540,20 +541,31 @@
         "line": 1,
         "kind": 3,
         "talkl": 11,
-        "texttw": "這樣是不是少了很多[fff400]阻礙[-]，可以放心的射籃了！！"
+        "texttw": "這樣是不是少了很多[fff400]阻礙[-]，"
     },
     {
         "id": 1033,
         "line": 2,
         "kind": 3,
         "talkl": 11,
-        "texttw": "趁現在快把球傳給前方隊友！！"
+        "texttw": "快把球傳給我，我來給他們致命一擊！！！"
     },
     {
         "id": 1033,
         "line": 3,
+        "talkr": 12,
+        "texttw": "沒問題，是該換妳表現了！！"
+    },
+    {
+        "id": 1033,
+        "line": 4,
         "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectB"
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
+    },
+    {
+        "id": 1033,
+        "line": 5,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
     },
     {
         "id": 1034,
