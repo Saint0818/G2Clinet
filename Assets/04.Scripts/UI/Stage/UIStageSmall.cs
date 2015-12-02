@@ -57,7 +57,7 @@ public class UIStageSmall : MonoBehaviour
     /// NGUI Event: 點擊時被呼叫.
     /// </summary>
     [UsedImplicitly]
-    private void OnClick()
+    public void OnClick()
     {
         Main.Info.Show(StageID, mData);
     }

@@ -211,6 +211,12 @@ public class UITutorial : UIBase {
 						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
 						found = true;
 					}
+				} else {
+					UIStageSmall ss = obj.GetComponent<UIStageSmall>();
+					if (ss) {
+						buttonClick.onClick.Add(new EventDelegate(ss.OnClick));
+						found = true;
+					}
 				}
 			}
 		}
