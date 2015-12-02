@@ -41,6 +41,9 @@ public class UITutorial : UIBase {
 	}
 
 	public static void UIShow(bool isShow) {
+		if (isShow)
+			UIAnnouncement.UIShow(false);
+
 		if (instance) {
 			if (!isShow) { 
 				//if (Get.clickObject)

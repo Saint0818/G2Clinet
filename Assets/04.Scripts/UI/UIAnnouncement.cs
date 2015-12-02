@@ -21,6 +21,9 @@ public class UIAnnouncement : UIBase {
 	}
 	
 	public static void UIShow(bool isShow){
+		if (UITutorial.Visible)
+			return;
+
 		if(instance) {
 			if (!isShow) {
 				Destroy(Get.uiAnnouncement);
