@@ -16,16 +16,15 @@ namespace AI
             CourtMgr.Get.Walls[1].SetActive(false);
             UIGame.Get.ChangeControl(true);
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
-            //        pickBallPlayer = null;
+
+            GameController.Get.PickBallPlayer = null;
+            for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+                GameController.Get.GamePlayers[i].IsCanCatchBall = true;
         }
 
         public override void UpdateAI()
         {
         }
-
-//        public override void Update()
-//        {
-//        }
 
         public override void Exit()
         {
