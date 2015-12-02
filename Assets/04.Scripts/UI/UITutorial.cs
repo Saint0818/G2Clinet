@@ -45,10 +45,7 @@ public class UITutorial : UIBase {
 			UIAnnouncement.UIShow(false);
 
 		if (instance) {
-			if (!isShow) { 
-				//if (Get.clickObject)
-				//	Get.clickObject.layer = Get.clickLayer;
-
+			if (!isShow) {
 				if (Get.NextEventID > 0 && GamePlayTutorial.Visible)
 					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
 
@@ -89,8 +86,17 @@ public class UITutorial : UIBase {
 			NowMessageIndex  = no * 100 + line;
 
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
-				if (!Visible)
+				if (!Visible) {
 					UIShow(true);
+					if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
+						if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
+							GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
+							WWWForm form = new WWWForm();
+							form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
+							SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
+						}
+					}
+				}
 
 				TTutorial tu = GameData.DTutorial[NowMessageIndex];
 				if (string.IsNullOrEmpty(tu.UIpath)) {
@@ -174,17 +180,8 @@ public class UITutorial : UIBase {
 				else {
 					writeEffect.Finish();
 				}
-			} else {
+			} else 
 				UIShow(false);
-				if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
-					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
-						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
-						WWWForm form = new WWWForm();
-						form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
-						SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
-					}
-				}
-			}
 		}
 	}
 
@@ -235,14 +232,6 @@ public class UITutorial : UIBase {
 		} else {
 			Debug.Log("Tutorial click event not found " + path);
 			UIShow(false);
-			if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
-				if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
-					GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
-					WWWForm form = new WWWForm();
-					form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
-					SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
-				}
-			}
 		}
 
 		//UIEventListener.Get(obj).onClick = ButtonClickClose;
