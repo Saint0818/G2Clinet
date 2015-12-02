@@ -360,7 +360,7 @@ public static class GameData {
 	public static string UrlAnnouncement {
 		get {
 			if (Setting.Language == ELanguage.TW || Setting.Language == ELanguage.CN)
-				return "http://nicemarket.com.tw/g2announcement2";
+				return "http://nicemarket.com.tw/g2announcement1";
 			else
 				return "http://nicemarket.com.tw/g2announcement";
 		}
