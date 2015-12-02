@@ -3620,6 +3620,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	private void setEndShowScene () {
+		UITutorial.UIShow(false);
 		//Player
 		for (int i=0; i<PlayerList.Count; i++) {
 			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
