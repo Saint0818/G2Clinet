@@ -1,14 +1,14 @@
-﻿[
+[
     {
         "id": 1,
         "chapter": 1,
         "nametw": "序章",
         "namecn": "序章",
-        "nameen": "Prologue",
+        "nameen": "Chapter 1",
         "namejp": "発端",
         "explaintw": "故事的開端",
         "explaincn": "故事的开端",
-        "explainen": "The story begins",
+        "explainen": 0.1,
         "explainjp": "物語が始まります"
     },
     {
@@ -16,11 +16,11 @@
         "chapter": 2,
         "nametw": "小試身手",
         "namecn": "小试身手",
-        "nameen": "Small test their skills",
+        "nameen": "Chapter 2",
         "namejp": "小テストのスキル",
         "explaintw": "驚豔眾人的開始",
         "explaincn": "惊艳众人的开始",
-        "explainen": "Everyone's stunning start",
+        "explainen": 0.2,
         "explainjp": "みんなの見事なスタート"
     },
     {
@@ -28,11 +28,71 @@
         "chapter": 3,
         "nametw": "漸入佳境",
         "namecn": "渐入佳境",
-        "nameen": "Getting better",
+        "nameen": "Chapter 3",
         "namejp": "良くなります",
         "explaintw": "立足籃壇的表現",
         "explaincn": "立足篮坛的表现",
-        "explainen": "Based on the performance of basketball",
+        "explainen": 0.3,
         "explainjp": "バスケットボールのパフォーマンスに基づいて、"
+    },
+    {
+        "id": 4,
+        "chapter": 4,
+        "nametw": "第四章",
+        "nameen": "Chapter 4",
+        "explaintw": 0.4,
+        "explainen": 0.4
+    },
+    {
+        "id": 5,
+        "chapter": 5,
+        "nametw": "第五章",
+        "nameen": "Chapter 5",
+        "explaintw": 0.5,
+        "explainen": 0.5
+    },
+    {
+        "id": 6,
+        "chapter": 6,
+        "nametw": "第六章",
+        "nameen": "Chapter 6",
+        "explaintw": 0.6,
+        "explainen": 0.6
+    },
+    {
+        "id": 7,
+        "chapter": 7,
+        "nametw": "第七章",
+        "nameen": "Chapter 7",
+        "explaintw": 0.7,
+        "explainen": 0.7
+    },
+    {
+        "id": 8,
+        "chapter": 8,
+        "nametw": "第八章",
+        "nameen": "Chapter 8",
+        "explaintw": 0.8,
+        "explainen": 0.8
+    },
+    {
+        "id": 9,
+        "chapter": 9,
+        "nametw": "第九章",
+        "nameen": "Chapter 9",
+        "explaintw": 0.9,
+        "explainen": 0.9
+    },
+    {
+        "id": 10,
+        "chapter": 10,
+        "nametw": "第十章",
+        "nameen": "Chapter 10",
+        "explaintw": 1,
+        "explainen": 1
+    },
+    {
+        "explaintw": 1.1,
+        "explainen": 1.1
     }
 ]

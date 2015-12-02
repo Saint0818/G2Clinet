@@ -4,6 +4,7 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
+        "talkl": 11,
         "actionl": 5,
         "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
         "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
@@ -22,6 +23,7 @@
     {
         "id": 1,
         "line": 3,
+        "talkl": 11,
         "actionl": 1,
         "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
         "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
@@ -30,6 +32,7 @@
     {
         "id": 1,
         "line": 4,
+        "talkl": 11,
         "actionl": 1,
         "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
         "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
@@ -40,7 +43,7 @@
         "line": 5,
         "talkindex": 1,
         "talkr": -1,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "好啦，走吧！！",
         "textcn": "好啦好啦！！",
         "texten": "Fine fine, let's go!"
@@ -63,6 +66,7 @@
     {
         "id": 1,
         "line": 9,
+        "talkl": 11,
         "actionl": 1,
         "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。"
     },
@@ -283,7 +287,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 3,
+        "actionr": 3,
         "texttw": "只剩下最後的10秒鐘了，我們還落後7分，必須要好好把握這次發球的機會才行。",
         "texten": "10 seconds left and we are still behind by 7, we must seize this possession"
     },
@@ -303,7 +307,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 5,
+        "actionr": 5,
         "texttw": "好！只能這樣做了...來吧！！！",
         "texten": "Aite! Just got to get down to business now!"
     },
@@ -313,7 +317,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 2,
+        "actionr": 2,
         "texttw": "先來顆神準三分球！！",
         "texten": "Hit a clutch 3 point shot!"
     },
@@ -331,7 +335,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "剛剛的三分球讓我增加滿滿的能量，現在可以使用絕技了！！",
         "texten": "That 3 gave me full energy and confidence, I can use the ability chip now!!"
     },
@@ -341,7 +345,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 5,
+        "actionr": 5,
         "texttw": "時間來不及了，看來只能使用瞬間抄球技能。",
         "texten": "We are running out of time, must use the blink steal ability."
     },
@@ -369,7 +373,7 @@
         "kind": 3,
         "value": 101,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "發動終極灌籃絕招來結束這場比賽吧。",
         "texten": "Activate ultimate slam to end this game for good!"
     },
@@ -387,7 +391,6 @@
         "kind": 3,
         "talkl": 11,
         "actionl": 1,
-        "actionr": 1,
         "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺灌籃。",
         "texten": "Damn, that was a crazy game!  Thanks to your clutch moves!"
     },
@@ -396,7 +399,6 @@
         "line": 2,
         "kind": 3,
         "talkr": 12,
-        "actionl": 1,
         "actionr": 1,
         "texttw": "妳客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。",
         "texten": "Nah, basketball is a team sport, it was a team victory."
@@ -442,7 +444,7 @@
         "line": 7,
         "kind": 3,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "原來如此，我們立即來試試吧！！",
         "texten": "I see! Let's give it a shot！！"
     },
@@ -487,7 +489,7 @@
         "line": 1,
         "kind": 3,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "爽！！",
         "texten": "Yes!!!"
     },
@@ -538,7 +540,7 @@
         "line": 1,
         "kind": 3,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "哈哈，太容易了，再順便送他們一個[fff400]絕殺灌籃[-]吧！！！",
         "texten": "That was easy!  Here, take this[fff400]ultimate dunk[-]！！！"
     },
@@ -564,7 +566,7 @@
         "title": "第三關",
         "kind": 3,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "哈哈哈！！其實是他們太弱了！！",
         "texten": "It wan't all me, the opponent is simply not at the same level!"
     },
@@ -582,7 +584,7 @@
         "line": 4,
         "kind": 3,
         "talkr": 12,
-        "actionl": 2,
+        "actionr": 2,
         "texttw": "好啊，放馬過來！！",
         "texten": "Come on! Show me what you got!"
     },
@@ -597,7 +599,7 @@
         "line": 1,
         "kind": 3,
         "talkr": 12,
-        "actionl": 3,
+        "actionr": 3,
         "texttw": "糟糕，被騙了，被敵對球員包夾！！！",
         "texten": "Damn, got tricked into a trap！！！"
     },
@@ -624,7 +626,7 @@
         "line": 4,
         "kind": 3,
         "talkr": 12,
-        "actionl": 5,
+        "actionr": 5,
         "texttw": "好，我來試試！！",
         "texten": "Ok! I'll give it a try!"
     },
@@ -662,7 +664,7 @@
         "id": 1033,
         "line": 4,
         "talkr": 12,
-        "actionl": 1,
+        "actionr": 1,
         "texttw": "看妳的了！",
         "texten": "All yours!"
     },
@@ -720,7 +722,7 @@
         "kind": 3,
         "talkindex": 1,
         "talkr": -1,
-        "actionl": 4,
+        "actionr": 4,
         "texttw": "戰況有些膠著，我們要好好把握這次的進攻！！",
         "texten": "The score has been tight, we must execute better on every possession!"
     },
