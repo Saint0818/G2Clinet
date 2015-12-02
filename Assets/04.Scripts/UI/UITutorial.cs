@@ -50,7 +50,8 @@ public class UITutorial : UIBase {
 					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
 
 				UI3DTutorial.UIShow(false);
-				RemoveUI(UIName);
+				Get.Show(isShow);
+				//RemoveUI(UIName);
 			} else
 				instance.Show(isShow);
 		} else
@@ -216,6 +217,12 @@ public class UITutorial : UIBase {
 					if (ss) {
 						buttonClick.onClick.Add(new EventDelegate(ss.OnClick));
 						found = true;
+					} else {
+						UIEquipItem ei = obj.GetComponent<UIEquipItem>();
+						if (ei) {
+							buttonClick.onClick.Add(new EventDelegate(ei.OnClick));
+							found = true;
+						}
 					}
 				}
 			}

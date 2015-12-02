@@ -77,6 +77,11 @@
         "en": "You are below the required level"
     },
     {
+        "id": 233,
+        "tw": "鑽石不足。",
+        "en": "Diamond is not enough."
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。",
@@ -116,6 +121,10 @@
         "id": 308,
         "tw": "未來的籃球場，罰球線與籃筐的距離是7公尺喔！！",
         "en": "In the future, the free throw line is 7 meters away from the basket!"
+    },
+    {
+        "id": 309,
+        "tw": "在禁區使用投籃時，如果[FFDD33]灌籃值[-]越高，越容易發動[FFDD33]灌籃[-]唷！！"
     },
     {
         "id": 400,

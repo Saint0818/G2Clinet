@@ -66,7 +66,7 @@ public class UIEquipItem : MonoBehaviour
     /// NGUI Event.
     /// </summary>
     [UsedImplicitly]
-    private void OnClick()
+    public void OnClick()
     {
         if(OnClickListener != null)
             OnClickListener();

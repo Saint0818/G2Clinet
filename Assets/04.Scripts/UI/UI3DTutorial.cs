@@ -42,7 +42,8 @@ public class UI3DTutorial : UIBase {
 	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow)
-				RemoveUI(UIName);
+				Get.Show(isShow);
+				//RemoveUI(UIName);
 			else
 				instance.Show(isShow);
 		} else

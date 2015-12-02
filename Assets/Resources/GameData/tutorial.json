@@ -283,14 +283,18 @@
         "id": 5,
         "line": 4,
         "kind": 4,
-        "value": 3
+        "value": 3,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "有更強的裝配可以替換。",
+        "texten": "Let's change better equiptment."
     },
     {
         "id": 5,
         "line": 5,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UsePartSlot"
+        "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UsePartSlot/View/ItemEquipmentBtn(Clone)"
     },
     {
         "id": 5,

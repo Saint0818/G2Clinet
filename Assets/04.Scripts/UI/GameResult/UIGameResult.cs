@@ -367,7 +367,10 @@ public class UIGameResult : UIBase {
 	}
 
 	public void PayChooseReward () {
-		stageRewardAgain(GameData.StageID);
+		if (GameData.Team.Diamond >= chooseCount * 20)
+			stageRewardAgain(GameData.StageID);
+		else
+			UIHint.Get.ShowHint(TextConst.S (233), Color.red);
 	}
 	
 	private void chooseItem (int index) {
