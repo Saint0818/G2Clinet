@@ -530,7 +530,7 @@
         "positiony": 135
     },
     {
-        "id": 114,
+        "id": 113,
         "chapter": 4,
         "order": 1,
         "nametw": "得分競賽",
@@ -565,7 +565,7 @@
         "positiony": 188
     },
     {
-        "id": 115,
+        "id": 114,
         "chapter": 4,
         "order": 2,
         "nametw": "得分競賽",
@@ -601,7 +601,7 @@
         "positiony": -10
     },
     {
-        "id": 116,
+        "id": 115,
         "chapter": 4,
         "order": 3,
         "nametw": "三分球",
@@ -640,7 +640,7 @@
         "positiony": -124
     },
     {
-        "id": 117,
+        "id": 116,
         "chapter": 4,
         "order": 4,
         "nametw": "神射手",
@@ -676,7 +676,7 @@
         "positiony": 59
     },
     {
-        "id": 118,
+        "id": 117,
         "chapter": 4,
         "order": 5,
         "nametw": "對抗",
@@ -716,7 +716,7 @@
         "positiony": -23
     },
     {
-        "id": 119,
+        "id": 118,
         "chapter": 5,
         "order": 1,
         "nametw": "體質的重要",
@@ -753,7 +753,7 @@
         "positiony": 118
     },
     {
-        "id": 120,
+        "id": 119,
         "chapter": 5,
         "order": 2,
         "nametw": "防守再防守",
@@ -790,7 +790,7 @@
         "positiony": -10
     },
     {
-        "id": 121,
+        "id": 120,
         "chapter": 5,
         "order": 3,
         "nametw": "銅牆鐵壁",
@@ -830,7 +830,7 @@
         "positiony": -124
     },
     {
-        "id": 122,
+        "id": 121,
         "chapter": 5,
         "order": 4,
         "nametw": "分數",
@@ -865,7 +865,7 @@
         "positiony": -7
     },
     {
-        "id": 123,
+        "id": 122,
         "chapter": 5,
         "order": 5,
         "nametw": "碰撞",
@@ -905,7 +905,7 @@
         "positiony": 114
     },
     {
-        "id": 124,
+        "id": 123,
         "chapter": 6,
         "order": 1,
         "nametw": "妙手",
@@ -942,7 +942,7 @@
         "positiony": -75
     },
     {
-        "id": 125,
+        "id": 124,
         "chapter": 6,
         "order": 2,
         "nametw": "得分競賽",
@@ -977,7 +977,7 @@
         "positiony": 79
     },
     {
-        "id": 126,
+        "id": 125,
         "chapter": 6,
         "order": 4,
         "nametw": "搶分",
@@ -1015,7 +1015,7 @@
         "positiony": 24
     },
     {
-        "id": 127,
+        "id": 126,
         "chapter": 6,
         "order": 4,
         "nametw": "追分",
@@ -1051,7 +1051,7 @@
         "positiony": -34
     },
     {
-        "id": 128,
+        "id": 127,
         "chapter": 6,
         "order": 5,
         "nametw": "神射手",
@@ -1090,7 +1090,7 @@
         "positiony": 112
     },
     {
-        "id": 129,
+        "id": 128,
         "chapter": 7,
         "order": 1,
         "nametw": "冷箭",
@@ -1126,7 +1126,7 @@
         "positiony": -75
     },
     {
-        "id": 130,
+        "id": 129,
         "chapter": 7,
         "order": 2,
         "nametw": "抄截大賽",
@@ -1163,7 +1163,7 @@
         "positiony": 43
     },
     {
-        "id": 131,
+        "id": 130,
         "chapter": 7,
         "order": 3,
         "nametw": "神偷",
@@ -1203,7 +1203,7 @@
         "positiony": 140
     },
     {
-        "id": 132,
+        "id": 131,
         "chapter": 7,
         "order": 4,
         "nametw": "死守",
@@ -1240,7 +1240,7 @@
         "positiony": 40
     },
     {
-        "id": 133,
+        "id": 132,
         "chapter": 7,
         "order": 5,
         "nametw": "防守再防守",
@@ -1280,7 +1280,7 @@
         "positiony": -84
     },
     {
-        "id": 134,
+        "id": 133,
         "chapter": 8,
         "order": 1,
         "nametw": "得分競賽",
@@ -1315,7 +1315,7 @@
         "positiony": 118
     },
     {
-        "id": 135,
+        "id": 134,
         "chapter": 8,
         "order": 2,
         "nametw": "抄截大賽",
@@ -1352,7 +1352,7 @@
         "positiony": -10
     },
     {
-        "id": 136,
+        "id": 135,
         "chapter": 8,
         "order": 3,
         "nametw": "抄截大賽",
@@ -1392,7 +1392,7 @@
         "positiony": -124
     },
     {
-        "id": 137,
+        "id": 136,
         "chapter": 8,
         "order": 4,
         "nametw": "得分競賽",
@@ -1427,7 +1427,7 @@
         "positiony": -7
     },
     {
-        "id": 138,
+        "id": 137,
         "chapter": 8,
         "order": 5,
         "nametw": "得分競賽",
@@ -1465,7 +1465,7 @@
         "positiony": 114
     },
     {
-        "id": 139,
+        "id": 138,
         "chapter": 9,
         "order": 1,
         "nametw": "灌籃大賽",
@@ -1501,7 +1501,7 @@
         "positiony": -75
     },
     {
-        "id": 140,
+        "id": 139,
         "chapter": 9,
         "order": 2,
         "nametw": "冷箭",
@@ -1537,7 +1537,7 @@
         "positiony": 79
     },
     {
-        "id": 141,
+        "id": 140,
         "chapter": 9,
         "order": 3,
         "nametw": "得分王",
@@ -1576,7 +1576,7 @@
         "positiony": 24
     },
     {
-        "id": 142,
+        "id": 141,
         "chapter": 9,
         "order": 4,
         "nametw": "碰撞",
@@ -1613,7 +1613,7 @@
         "positiony": -34
     },
     {
-        "id": 143,
+        "id": 142,
         "chapter": 9,
         "order": 5,
         "nametw": "肢體接觸",
@@ -1653,7 +1653,7 @@
         "positiony": 112
     },
     {
-        "id": 144,
+        "id": 143,
         "chapter": 10,
         "order": 1,
         "nametw": "鐵桶陣",
@@ -1690,7 +1690,7 @@
         "positiony": -75
     },
     {
-        "id": 145,
+        "id": 144,
         "chapter": 10,
         "order": 2,
         "nametw": "防守至上",
@@ -1727,7 +1727,7 @@
         "positiony": 43
     },
     {
-        "id": 146,
+        "id": 145,
         "chapter": 10,
         "order": 3,
         "nametw": "得分競賽",
@@ -1765,7 +1765,7 @@
         "positiony": 140
     },
     {
-        "id": 147,
+        "id": 146,
         "chapter": 10,
         "order": 4,
         "nametw": "不一樣的策略",
@@ -1802,7 +1802,7 @@
         "positiony": 40
     },
     {
-        "id": 148,
+        "id": 147,
         "chapter": 10,
         "order": 5,
         "nametw": "艱難挑戰",
