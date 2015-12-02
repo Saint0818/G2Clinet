@@ -496,6 +496,9 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					AnimtorStatesType [item].Add(EPlayerState.Show101, 101);
 					AnimtorStatesType [item].Add(EPlayerState.Show102, 102);
 					AnimtorStatesType [item].Add(EPlayerState.Show103, 103);
+					AnimtorStatesType [item].Add(EPlayerState.Show104, 104);
+					AnimtorStatesType [item].Add(EPlayerState.Show201, 201);
+					AnimtorStatesType [item].Add(EPlayerState.Show202, 202);
 					break;
 				case EAnimatorState.Alleyoop:
 					AnimtorStatesType [item].Add(EPlayerState.Alleyoop, 0);
