@@ -447,7 +447,7 @@ public class UIGame : UIBase {
 			labelLimitTime.text = minute.ToString() + ":" + second.ToString();
 	}
 
-	private void resetRange () {
+	public void ResetRange () {
 		isShowElbowRange = false;
 		isShowPushRange = false;
 		isShowSkillRange = false;
@@ -604,11 +604,11 @@ public class UIGame : UIBase {
 			if(PlayerMe.IsBallOwner) {
 				//Elbow
 				if(isShowElbowRange)
-					resetRange();
+					ResetRange();
 			} else {
 				//Push
 				if(isShowPushRange)
-					resetRange();
+					ResetRange();
 			}
 		}
 	}
@@ -621,7 +621,7 @@ public class UIGame : UIBase {
 					if(isShowElbowRange)
 						UIControllerState(EUIControl.Attack);
 				else
-					resetRange();
+					ResetRange();
 				showRange(EUIRangeType.Elbow, state);
 			} else {
 				//Push
@@ -629,7 +629,7 @@ public class UIGame : UIBase {
 					if(isShowPushRange)
 						UIControllerState(EUIControl.Attack);
 				else
-					resetRange();
+					ResetRange();
 				showRange(EUIRangeType.Push, state);
 			}
 		}
@@ -638,14 +638,14 @@ public class UIGame : UIBase {
 	//Defence
 	public void DoBlock() {UIControllerState(EUIControl.Block);}
 
-	public void DoStealOut (GameObject go) {if(isShowStealRange) resetRange ();}
+	public void DoStealOut (GameObject go) {if(isShowStealRange) ResetRange ();}
 
 	public void DoSteal(GameObject go, bool state){
 		if(!state) 
 			if(isShowStealRange)
 				UIControllerState(EUIControl.Steal);
 			else
-				resetRange();
+				ResetRange();
 		
 		showRange(EUIRangeType.Steal, state);
 	}
@@ -653,7 +653,7 @@ public class UIGame : UIBase {
 	//Attack
 	public void DoSkillOut (GameObject go) {
 		if(isShowSkillRange) 
-			resetRange ();
+			ResetRange ();
 	}
 	public void DoSkill(GameObject go, bool state){
 		if(PlayerMe.Attribute.ActiveSkills.Count > 0 && go && IsPlayerMe) {
@@ -664,13 +664,13 @@ public class UIGame : UIBase {
 					if(isShowSkillRange)
 						UIControllerState(EUIControl.Skill);
 					else
-						resetRange();
+						ResetRange();
 				
 				showRange(EUIRangeType.Skill, state);
 				showSkillHint(state, id);
 			}
 		} else
-			resetRange ();
+			ResetRange ();
 	}
 
 	public void OnSpeed(){
@@ -840,7 +840,7 @@ public class UIGame : UIBase {
 				if (GameController.Get.IsStart) {
 					SetPassButton();
 					ShowSkillEnableUI(false);
-					resetRange ();
+					ResetRange ();
 					spriteAttack.gameObject.SetActive(true);
 				}
 				return true;
@@ -884,7 +884,7 @@ public class UIGame : UIBase {
 		int who = GameController.Get.GetBallOwner;
 		switch (who) {
 		case (int)EUIPassType.MeBallOwner:
-			resetRange ();
+			ResetRange ();
 			viewPass.SetActive(true);
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(true);
@@ -1153,7 +1153,7 @@ public class UIGame : UIBase {
 	}
 
 	public void UIState(EUISituation situation){
-		resetRange ();
+		ResetRange ();
 		switch(situation) {
 		case EUISituation.ShowTwo:
 			viewPass.SetActive(false);
