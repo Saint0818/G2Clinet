@@ -1191,7 +1191,7 @@ public class UIGame : UIBase {
 			viewTopLeft.SetActive(true);
 			viewBottomRight.SetActive(true);
 
-			if (!GameController.Get.StageData.IsTutorial) {
+			if (uiJoystick.gameObject.activeInHierarchy) {
 				uiJoystick.gameObject.SetActive(true);
 				uiJoystick.Joystick.isActivated = true;
 			}

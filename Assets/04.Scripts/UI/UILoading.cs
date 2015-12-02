@@ -144,9 +144,7 @@ public class UILoading : UIBase {
 
 			if (closeAfterFinished)
 				UIShow(false);
-		} else 
-		if (!string.IsNullOrEmpty(labelLoading.text))
-			labelLoading.text = "";
+		}
 	}
 
 	protected override void OnShow(bool isShow) {
