@@ -428,6 +428,7 @@ public class TValueAvater
 	private GameObject self;
 	public UISprite BG;
 	private UISprite pic;
+	private UISprite redPoint;
 	private UILabel name;
 	public UIButton Btn;
 	private UISprite[] stars = new UISprite[4];
@@ -445,6 +446,8 @@ public class TValueAvater
 			BG = self.GetComponent<UISprite>();
 
 			pic = self.transform.FindChild("EquipmentPic").gameObject.GetComponent<UISprite>();
+			redPoint = self.transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
+			redPoint.enabled = false;
 			name = self.transform.FindChild("NameLabel").gameObject.GetComponent<UILabel>();
 			Btn = self.GetComponent<UIButton>();
 
