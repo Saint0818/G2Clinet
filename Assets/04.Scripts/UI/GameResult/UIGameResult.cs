@@ -36,7 +36,7 @@ public class UIGameResult : UIBase {
 	private int[] bonusItemIDs;
 
 	private List<ItemAwardGroup> alreadyGetItems;
-	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
+//	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
 	private GameObject uiItem;
@@ -294,7 +294,6 @@ public class UIGameResult : UIBase {
 		hideThree();
 		
 		alreadyGetItems = new List<ItemAwardGroup>();
-		bonusAwardItems = new Dictionary<int, ItemAwardGroup>();
 		awardIndex = awardItemTempIDs.Count;
 		awardMax = awardItemTempIDs.Count;
 		for(int i=0; i<awardItemTempIDs.Count; i++) {
@@ -305,10 +304,12 @@ public class UIGameResult : UIBase {
 			}
 		}
 
-		for(int i=0; i<bonusItemIDs.Length; i++) {
-			if(!bonusAwardItems.ContainsKey(bonusItemIDs[i]) && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
-				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
-		}	
+//		for(int i=0; i<bonusItemIDs.Length; i++) {
+//			if(!bonusAwardItems.ContainsKey(bonusItemIDs[i]) && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+//				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+//			else
+//				bonusAwardItems.Add(bonusItemIDs[i] + "_" + i.ToString() , addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+//		}	
 //		if(isHaveReward) {
 //			for(int i=0; i<GetCardLists.Count; i++) {
 //				if(GameData.DItemData.ContainsKey(GetCardLists[i])) {
@@ -450,16 +451,9 @@ public class UIGameResult : UIBase {
 	}
 
 	private void addItemToBack (int id) {
-		bonusAwardItems[id].gameObject.name = id.ToString();
-		bonusAwardItems[id].transform.parent = awardScaleView.transform;
-		bonusAwardItems[id].transform.localPosition = new Vector3(-450 + (150 * alreadyGetItems.Count), 0, 0);
-		bonusAwardItems[id].transform.localScale = Vector3.one;
-		if(GameData.DItemData.ContainsKey(id))
-			bonusAwardItems[id].Show(GameData.DItemData[id]);
-
-		bonusAwardItems[id].gameObject.SetActive(true);
-		UIEventListener.Get(bonusAwardItems[id].gameObject).onClick = OnShowAwardInfo;
-		alreadyGetItems.Add(bonusAwardItems[id]);
+		ItemAwardGroup itemAwardGroup =  addItemToAward(alreadyGetItems.Count, GameData.DItemData[id], true);
+		itemAwardGroup.Show(GameData.DItemData[id]);
+		alreadyGetItems.Add(itemAwardGroup);
 
 		if(alreadyGetItems.Count > 7)
 			awardScrollView.MoveRelative(new Vector3(-90 * (alreadyGetItems.Count - 7), 0, 0));
