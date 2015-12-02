@@ -207,6 +207,8 @@
         "skilllv3": 5,
         "skill4": 499,
         "skilllv4": 5,
+        "skill5": 1503,
+        "skilllv5": 5,
         "namecn": "Nick",
         "nameen": "Nick",
         "namejp": "Nick"
@@ -312,6 +314,8 @@
         "skilllv4": 5,
         "skill5": 1399,
         "skilllv5": 5,
+        "skill6": 1503,
+        "skilllv6": 5,
         "namecn": "Elvis",
         "nameen": "Elvis",
         "namejp": "Elvis"
@@ -419,6 +423,8 @@
         "skilllv4": 5,
         "skill5": 1899,
         "skilllv5": 5,
+        "skill6": 1503,
+        "skilllv6": 5,
         "namecn": "Elvis",
         "nameen": "Elvis",
         "namejp": "Elvis"
