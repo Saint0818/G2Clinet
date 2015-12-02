@@ -74,7 +74,6 @@ public class UpgradeView
 	// sort Blk = 0, Stl = 1, 2PT = 2, 3PT = 3, Dnk = 4, Reb = 5
 	private TUpgradeBtn[] upgradeBtns  = new TUpgradeBtn[6];
 	public UIAttributes hexagon;
-	private int[] addRules = new int[6];
 	public int[] AddPotential = new int[6];
 
 	private int useLvPotential;
@@ -117,9 +116,6 @@ public class UpgradeView
 
 		for (int i = 0; i < AddPotential.Length; i++)
 			AddPotential [i] = 0;
-
-		for (int i = 0; i <addRules.Length; i++)
-			addRules [i] = 5;
 	}
 	
 	public void UpdatePotential(TPlayer player)

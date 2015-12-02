@@ -2184,7 +2184,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Show202:
             case EPlayerState.Ending0:
             case EPlayerState.Ending10:
-                if (!IsShow && !IsFall && !IsAllShoot)
+                if (!IsShow && !IsFall && !IsAllShoot && !IsBlock && !IsRebound)
                     return true;
                 break;
         }

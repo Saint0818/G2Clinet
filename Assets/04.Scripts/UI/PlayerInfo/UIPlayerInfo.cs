@@ -614,7 +614,6 @@ public class UIPlayerInfo : UIBase {
 		GameObject[] actives = new GameObject[GameConst.Max_ActiveSkill];
 		GameObject[] passives =	new GameObject[GameFunction.GetPassiveSkillCount(GameData.Team.Player.SkillCards)];
 		GameObject clone = Resources.Load ("Prefab/UI/Items/ItemCardEquipped") as GameObject;
-//		GameObject clone = Instantiate() as GameObject;
 
 		for (int i = 0; i < GameConst.Max_ActiveSkill; i++) {
 			actives[i] = obj.transform.FindChild(string.Format("ActiveCard/ActiveCardBase{0}/ItemSkillCard", i)).gameObject;	
@@ -623,8 +622,6 @@ public class UIPlayerInfo : UIBase {
 		for (int i = 0; i < passives.Length; i++) {
 			passives[i] = Instantiate(clone);		
 		}
-
-//		Destroy (clone);
 
 		skillView.Init (obj, GameData.Team.SkillCards, actives, passives);
 
@@ -702,11 +699,10 @@ public class UIPlayerInfo : UIBase {
 	public void OnAvatarItemHint()
 	{
 		int index;
-
 		if (int.TryParse (UIButton.current.name, out index))
-			if (index < GameData.Team.Player.Items.Length && GameData.Team.Player.Items [index].ID > 0)
-				Debug.Log ("index : " + index);
-//				UIItemHint.Get.UIShow(GameData.Team.Player.Items [index].ID);
+				if (index < GameData.Team.Player.Items.Length && GameData.Team.Player.Items [index].ID > 0)
+					if (GameData.DItemData.ContainsKey (GameData.Team.Player.Items [index].ID))
+						UIItemHint.Get.OnShow (GameData.DItemData [GameData.Team.Player.Items [index].ID]);
 	}
 
 	public void OnChangePlayerName()

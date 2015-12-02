@@ -92,15 +92,15 @@ public struct TDoubleClick
 	public void CheckLv()
 	{
 		if(CheckValue < 150 || CheckValue> 400) {
-			Debug.Log("week");
+//			Debug.Log("week");
 			SetLv(0, Index);
 
 		} else if(CheckValue > 250 && CheckValue <= 400) {
-			Debug.Log("good");
+//			Debug.Log("good");
 			SetLv(1, Index);
 
 		} else if(CheckValue >= 150 && CheckValue <= 250) {
-			Debug.Log("perfab");
+//			Debug.Log("perfab");
 			SetLv(2, Index);
 		}
 	}
