@@ -405,6 +405,8 @@ public class UIGameResult : UIBase {
 		} else if (chooseCount == 1) {
 			diamondPay[index].gameObject.SetActive(false);
 			setPayDiamond(40);
+		}else {
+			diamondPay[index].gameObject.SetActive(false);
 		}
 		chooseCount ++ ;
 	}
