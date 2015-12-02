@@ -3474,8 +3474,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ResetMove()
     {
-        moveQueue.Clear();
-        CantMoveTimer.Clear();
+		if (AI.enabled) {
+	        moveQueue.Clear();
+	        CantMoveTimer.Clear();
+		}
     }
     
     public void SetAutoFollowTime()

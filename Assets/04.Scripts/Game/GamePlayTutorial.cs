@@ -18,8 +18,11 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public EventDelegate.Callback OnEventEnd = null;
 	private TEventTrigger eventTrigger = new TEventTrigger();
 
+	public int CurrentEventID = 0;
 	public int NextEventID = 0;
 	public int EventValue = 0;
+	public int BallOwnerTeam = -1;
+	public int BallOwnerIndex = -1;
 	private TToturialAction[] moveActions;
 
 	void OnDestroy() {
@@ -50,6 +53,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public void HandleEvent(int i, GameObject player=null) {
+		CurrentEventID = eventList[i].ID;
 		int otherEventID = 0;
 
 		switch (eventList[i].ConditionKind) {
@@ -82,14 +86,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			CameraMgr.Get.ShowPlayerInfoCamera (true);
 			break;
 		case 2: //set ball to player
-			if (!GameController.Get.IsStart) {
-				GameController.Get.IsStart = true;
-				GameController.Get.StartGame(false);
-				CourtMgr.Get.InitScoreboard(true);
-			}
-
-			UIGame.Get.CloseStartButton();
-			GameController.Get.SetBall(eventList[i].Value1, eventList[i].Value2);
+			BallOwnerTeam = eventList[i].Value1;
+			BallOwnerIndex = eventList[i].Value2;
+			StartCoroutine(setBall(i));
 
 			break;
 		case 3: //set state to player
@@ -167,6 +166,19 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			if (eventList[j].ID == eventID)
 				eventList.RemoveAt(j);
 				return;
+	}
+
+	IEnumerator setBall(int i) {
+		yield return new WaitForEndOfFrame();
+
+		if (!GameController.Get.IsStart) {
+			GameController.Get.IsStart = true;
+			GameController.Get.StartGame(false);
+			CourtMgr.Get.InitScoreboard(true);
+		}
+		
+		UIGame.Get.CloseStartButton();
+		GameController.Get.SetBall(BallOwnerTeam, BallOwnerIndex);
 	}
 
 	IEnumerator setPlayerMove(int i) {

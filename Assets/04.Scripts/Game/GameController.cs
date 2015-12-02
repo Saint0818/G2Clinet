@@ -2262,14 +2262,11 @@ public class GameController : KnightSingleton<GameController>
     {
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
-//            if(GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
 			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
             {
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
-
                 probability = Mathf.Clamp(probability, 10, 100);
-//                probability = Mathf.Clamp(probability, 90, 100);
-				
+
 				int addRate = 0;
 				int addAngle = 0;
 				if(CourtMgr.Get.IsBallSFXEnabled())
@@ -2283,8 +2280,6 @@ public class GameController : KnightSingleton<GameController>
 					addAngle = 90;
 				}
 
-//                Debug.LogFormat("probability:{0}, addRate:{1}, addAngle:{2}", probability, addRate, addAngle);
-				
 				if(Random.Range(0, 100) <= (probability + addRate) && 
 				   Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, BallOwner.PlayerRefGameObject.transform.position)) <= 90 + addAngle)
                 {
@@ -2295,6 +2290,7 @@ public class GameController : KnightSingleton<GameController>
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
+
 						CheckConditionText();
 						IsGameFinish ();
 						return true;
@@ -4315,39 +4311,14 @@ public class GameController : KnightSingleton<GameController>
     {
 		if(IsPassing)
 		{
-//			if (BallOwner != null)
-//				BallOwner.DelActionFlag(ActionFlag.IsPass);
-//			else
-//			{
-//				for(int i = 0; i < PlayerList.Count; i++)
-//				{
-//					if(PlayerList[i].CheckAction(ActionFlag.IsPass))
-//					{
-//						PlayerList[i].DelActionFlag(ActionFlag.IsPass);
-//						break;
-//					}
-//				}
-//			}
-			
 			if (Catcher != null)
 			{
-//				Catcher.DelActionFlag(ActionFlag.IsCatcher);
 				if(Catcher.NeedShooting)
 				{
 					DoShoot();
 					Catcher.NeedShooting = false;
 				}
 			}
-//			else{
-//				for(int i = 0; i < PlayerList.Count; i++)
-//				{
-//					if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
-//					{
-//						PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
-//						break;
-//					}
-//				}				
-//			}
 		}
 		
 		SetBall();

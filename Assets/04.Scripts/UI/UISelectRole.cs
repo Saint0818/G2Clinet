@@ -372,7 +372,9 @@ public class UISelectRole : UIBase {
 
 		arrayPlayerData[1] = new TPlayer();
 		arrayPlayerData[2] = new TPlayer();
-		playerList.RemoveAt(0);
+		if (playerList.Count > 0)
+			playerList.RemoveAt(0);
+
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
 

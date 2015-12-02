@@ -20,13 +20,12 @@ namespace AI
         /// 這是要接球的球員.
         /// </summary>
         [CanBeNull]
-        private PlayerBehaviour mReceiveBallPlayer;
+        private PlayerBehaviour mReceiveBallPlayer = null;
 
         public override void Enter(object extraInfo)
         {
             GameController.Get.IsStart = true;
             CourtMgr.Get.InitScoreboard(true);
-            //        GameController.Get.setPassIcon(true);
 
             // 找出 2 位要跳球的球員.
             mJumpBallPlayers[0] = findJumpBallPlayer(ETeamKind.Self);
@@ -40,7 +39,7 @@ namespace AI
 
         public override void UpdateAI()
         {
-            if (GameController.Get.BallOwner == null && mReceiveBallPlayer != null)
+			if (GameController.Get.BallOwner == null && mReceiveBallPlayer != null && mReceiveBallPlayer.TargetPosNum == 0)
             {
                 GameController.Get.DoPickBall(mReceiveBallPlayer);
             }
@@ -52,11 +51,12 @@ namespace AI
 
         public override void Exit()
         {
+			mReceiveBallPlayer = null;
         }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
-            if (msg.Msg == EGameMsg.PlayerTouchBallWhenJumpBall)
+			if (msg.Msg == EGameMsg.PlayerTouchBallWhenJumpBall && mReceiveBallPlayer == null)
             {
                 var touchPlayer = randomTouchBallPlayer();
                 if (touchPlayer != null)
@@ -96,7 +96,7 @@ namespace AI
         private PlayerBehaviour randomReceiveBallPlayer([NotNull] PlayerBehaviour exceptPlayer)
         {
             var team = AIController.Get.GetTeam(exceptPlayer.Team);
-            PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.GetComponent<PlayerAI>());
+            PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.AI);
 
             if (receivalBallPlayer != null)
                 return receivalBallPlayer.GetComponent<PlayerBehaviour>();
