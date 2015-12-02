@@ -306,7 +306,7 @@ public class UIGameResult : UIBase {
 		}
 
 		for(int i=0; i<bonusItemIDs.Length; i++) {
-			if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+			if(!bonusAwardItems.ContainsKey(bonusItemIDs[i]) && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
 				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
 		}	
 //		if(isHaveReward) {
