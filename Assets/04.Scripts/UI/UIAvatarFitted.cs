@@ -134,8 +134,11 @@ public class TItemAvatar
 			switch(UseKind)
 			{
 			case 1: 
-				int compare = TimeSpan.Compare(TimeSpan.FromTicks(DateTime.UtcNow.Ticks), UseTime);
-				TrimBottom.gameObject.SetActive(compare > 0);
+				DateTime time = Convert.ToDateTime(EndUseTime.ToString());
+				if(DateTime.Compare (time, DateTime.UtcNow) < 0)
+					TrimBottom.gameObject.SetActive(true);
+				else
+					TrimBottom.gameObject.SetActive(false);
 				break;
 			case 2: 
 				TrimBottom.gameObject.SetActive(true);
