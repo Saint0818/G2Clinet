@@ -1650,6 +1650,24 @@
         "en": "AI Mode"
     },
     {
+        "id": 10326,
+        "explain": "球隊數據-戰果 TitleLabel",
+        "tw": "球隊數據",
+        "en": "Team Data"
+    },
+    {
+        "id": 10327,
+        "explain": "獲得物品-戰果",
+        "tw": "獲得物品",
+        "en": "Items Rewarded"
+    },
+    {
+        "id": 10328,
+        "explain": "解鎖成就-戰果",
+        "tw": "解鎖成就",
+        "en": "Achievement Unlocked"
+    },
+    {
         "id": 10401,
         "explain": "戰果流程"
     },
@@ -1998,8 +2016,8 @@
     {
         "id": 12013,
         "explain": "WarningLabel",
-        "tw": "目前AI接管時間為：{0}秒",
-        "en": "TEST"
+        "tw": "目前AI接管時間為：[ff0000]{0}[-]秒",
+        "en": "After [ff0000]{0}[-] seconds, the system will take over your operations characters."
     },
     {
         "id": 12014,
