@@ -62,11 +62,7 @@ public class UIEquipItem : MonoBehaviour
         RedPointVisible = showRedPoint;
     }
 
-    /// <summary>
-    /// NGUI Event.
-    /// </summary>
-    [UsedImplicitly]
-    public void OnClick()
+    public void NotifyClick()
     {
         if(OnClickListener != null)
             OnClickListener();

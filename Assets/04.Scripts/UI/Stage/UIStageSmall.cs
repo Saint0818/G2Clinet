@@ -53,11 +53,7 @@ public class UIStageSmall : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
     }
 
-    /// <summary>
-    /// NGUI Event: 點擊時被呼叫.
-    /// </summary>
-    [UsedImplicitly]
-    public void OnClick()
+    public void NotifyClick()
     {
         Main.Info.Show(StageID, mData);
     }

@@ -194,8 +194,7 @@ public class UITutorial : UIBase {
 			uiCenter.SetActive(false);
 			uiClick.SetActive(true);
 
-
-			buttonClick.onClick.Clear();
+		    buttonClick.onClick.Clear();
 			UIButton btn = obj.GetComponent<UIButton>();
 			if (btn && btn.onClick.Count > 0) {
 				buttonClick.onClick.Add(btn.onClick[0]);
@@ -211,18 +210,6 @@ public class UITutorial : UIBase {
 					if (el.onClick != null) {
 						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
 						found = true;
-					}
-				} else {
-					UIStageSmall ss = obj.GetComponent<UIStageSmall>();
-					if (ss) {
-						buttonClick.onClick.Add(new EventDelegate(ss.OnClick));
-						found = true;
-					} else {
-						UIEquipItem ei = obj.GetComponent<UIEquipItem>();
-						if (ei) {
-							buttonClick.onClick.Add(new EventDelegate(ei.OnClick));
-							found = true;
-						}
 					}
 				}
 			}
