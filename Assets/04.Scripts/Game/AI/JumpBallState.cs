@@ -41,7 +41,7 @@ namespace AI
         {
 			if (GameController.Get.BallOwner == null && mReceiveBallPlayer != null && mReceiveBallPlayer.TargetPosNum == 0)
             {
-                GameController.Get.DoPickBall(mReceiveBallPlayer);
+                GameController.Get.MoveToBall(mReceiveBallPlayer);
             }
         }
 

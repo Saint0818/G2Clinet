@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class BallTrigger : MonoBehaviour
 {
@@ -82,6 +83,7 @@ public class BallTrigger : MonoBehaviour
 		return false;
 	}
 	
+    [UsedImplicitly]
 	void OnTriggerEnter(Collider other)
     {
 		if(touchPlayer(other, true))

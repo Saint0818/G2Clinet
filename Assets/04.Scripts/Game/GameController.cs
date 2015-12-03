@@ -86,8 +86,20 @@ public class GameController : KnightSingleton<GameController>
     /// 投籃出手的人. OnShooting 會有值, 得分後才會設定為 null.
     /// </summary>
     [CanBeNull]public PlayerBehaviour Shooter;
+
+    /// <summary>
+    /// 傳球時, 準備接球的人.
+    /// </summary>
     public PlayerBehaviour Catcher;
+
+    /// <summary>
+    /// 傳球的人.
+    /// </summary>
 	public PlayerBehaviour Passer;
+
+    /// <summary>
+    /// 撿球的人.
+    /// </summary>
 	public PlayerBehaviour PickBallPlayer;
 	private GameObject ballHolder = null; // 這到底是什麼? 好像也從來沒有人設定過...
 
@@ -989,8 +1001,8 @@ public class GameController : KnightSingleton<GameController>
         {
             if(PlayerList[i].Team == team)
             {
-                if(PlayerList[i] == PickBallPlayer) 
-                    DoPickBall(PlayerList[i]);
+                if(PlayerList[i] == PickBallPlayer)
+                    MoveToBall(PlayerList[i]);
                 else 
                     // InboundsBall 其實是混和的行為, 跑到這, 表示沒有持球者.
                     // 所以這行的意思其實是叫進攻方, 撿球以外的人執行戰術跑位.
@@ -1018,15 +1030,15 @@ public class GameController : KnightSingleton<GameController>
 
 //		    Debug.LogFormat("Attack:{0}, Defence:{1}", attackTactical, defTactical);
 
-		    foreach(PlayerBehaviour someone in PlayerList)
+		    for(int i = 0; i < PlayerList.Count; i++)
 		    {
-		        if(someone.Team == team)
+		        if(PlayerList[i].Team == team)
 		        {
 		            if(!IsPassing)
-		                InboundsBall(someone, team, ref attackTactical);
+		                InboundsBall(PlayerList[i], team, ref attackTactical);
 		        }
 		        else
-		            BackToDef(someone, someone.Team, ref defTactical);
+		            BackToDef(PlayerList[i], PlayerList[i].Team, ref defTactical);
 		    }
 		}
     }
@@ -1633,7 +1645,8 @@ public class GameController : KnightSingleton<GameController>
 		if(DoubleClickType == EDoubleType.Weak || ShootDistance > 15) 
 			isSwich = false;
 
-		if(isScore) {
+		if(isScore)
+        {
 			if(isSwich)
 				BasketSituation = EBasketSituation.Swish;
 			else 
@@ -2972,7 +2985,7 @@ public class GameController : KnightSingleton<GameController>
     public void NearestBallPlayerDoPickBall([NotNull]PlayerBehaviour someone)
     {
         if (isNearestBall(someone))
-            DoPickBall(someone);
+            MoveToBall(someone);
         else
             doLookAtBall(someone);
     }
@@ -2981,7 +2994,7 @@ public class GameController : KnightSingleton<GameController>
     /// 叫球員撿球(不見得真的會去撿球).
     /// </summary>
     /// <param name="someone"></param>
-    public void DoPickBall([NotNull] PlayerBehaviour someone)
+    public void MoveToBall([NotNull] PlayerBehaviour someone)
 	{
 	    if(someone.CanMove && someone.CantMoveTimer.IsOff())
 	    {
@@ -3276,17 +3289,20 @@ public class GameController : KnightSingleton<GameController>
     {
 		CourtMgr.Get.ResetBasketEntra();
 		
-		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) 
-			GameController.Get.BallState = EBallState.CanSteal;
+		if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) 
+			BallState = EBallState.CanSteal;
 		else 
-			GameController.Get.BallState = EBallState.None;
+			BallState = EBallState.None;
+
         Shooter = null;
 
-		if (GameStart.Get.TestMode == EGameTest.Shoot) {
+		if(GameStart.Get.TestMode == EGameTest.Shoot)
+        {
 			SetBall(Joysticker);	
 			Joysticker.AniState(EPlayerState.HoldBall);
 		}
-		else if(GameStart.Get.TestMode == EGameTest.Block){
+		else if(GameStart.Get.TestMode == EGameTest.Block)
+        {
 			SetBall(PlayerList [1]);
 			PlayerList [1].AniState(EPlayerState.Dribble0);
 			PlayerList [1].AniState(EPlayerState.Shoot0);
@@ -3457,33 +3473,37 @@ public class GameController : KnightSingleton<GameController>
 
 			break;
 		default :
-			bool canSetball = false;
-			
-			if (!player.IsRebound && (player.IsCatcher || player.CanMove)) {
-				if (Situation == EGameSituation.GamerPickBall) {
-					if (player.Team == ETeamKind.Self)
+			if(!player.IsRebound && (player.IsCatcher || player.CanMove))
+            {
+                bool canSetball = false; // 攻守交換時, 只有進攻方才可以撿球,
+                if(Situation == EGameSituation.GamerPickBall)
+                {
+					if(player.Team == ETeamKind.Self)
 						canSetball = true;
-				} else 
-				if (Situation == EGameSituation.NPCPickBall)
+				}
+                else if(Situation == EGameSituation.NPCPickBall)
 				{
-					if (player.Team == ETeamKind.Npc)
+					if(player.Team == ETeamKind.Npc)
 						canSetball = true;
-				} else
+				}
+                else
 					canSetball = true;
 				
-				if (canSetball && !IsPickBall)
+				if(canSetball && !IsPickBall)
 				{
-					if (Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall){
+					if((Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall) &&
+                        player == PickBallPlayer)
+                    {
 						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
 							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 						else
 							player.AniState(EPlayerState.Pick0, CourtMgr.Get.RealBall.transform.position);
-					} else 
-					if (SetBall(player)) {
+					}
+                    else if(SetBall(player))
+                    {
 						if(player.AIing || player.IsIdle)
 							player.AniState(EPlayerState.Dribble0);
-						else 
-						if(player.IsRun || player.IsDribble)
+						else if(player.IsRun || player.IsDribble)
                         	player.AniState(EPlayerState.Dribble1);
                     	else
                         	player.AniState(EPlayerState.HoldBall);
