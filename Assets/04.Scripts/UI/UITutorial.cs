@@ -100,24 +100,6 @@ public class UITutorial : UIBase {
         OnTutorial();
     }*/
 
-	private void lookingTalkManID(int tutorialID) {
-		talkManID[0] = 0;
-		talkManID[1] = 0;
-
-		foreach (KeyValuePair<int, TTutorial> item in GameData.DTutorial) {
-			if (item.Value.ID == tutorialID) {
-				if (talkManID[0] == 0 && item.Value.TalkL != 0)
-					talkManID[0] = item.Value.TalkL;
-
-				if (talkManID[1] == 0 && item.Value.TalkR != 0)
-					talkManID[1] = item.Value.TalkR;
-
-				if (talkManID[0] != 0 && talkManID[1] != 0)
-					return;
-			}
-		}
-	}
-
 	public void OnClickHint() {
 		UIEventListener listen = buttonClick.GetComponent<UIEventListener>();
 		if (listen) {
@@ -171,7 +153,7 @@ public class UITutorial : UIBase {
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
 				if (!Visible) {
 					UIShow(true);
-					lookingTalkManID(id);
+					GameFunction.FindTalkManID(id, ref talkManID);
 					//if (GameData.DTutorial[NowMessageIndex].Kind == 0) {
 					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
 						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);

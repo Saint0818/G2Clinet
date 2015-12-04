@@ -24,7 +24,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public int EventPlayer = -2;
 	public int BallOwnerTeam = -1;
 	public int BallOwnerIndex = -1;
+	private int[] talkManID = new int[2];
 	private TToturialAction[] moveActions;
+	private List<int> talkManList = new List<int>();
 
 	void OnDestroy() {
 		if (eventTrigger.Item)
@@ -32,12 +34,31 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public void SetTutorialData(int id) {
+		bool hasUIToturial = false;
+		talkManList.Clear();
 		eventList.Clear();
 		if (true) {//GameData.ServerVersion == BundleVersion.Version) {
 			TGamePlayEvent[] temp = GameData.DStageTutorial[id].Events;
 			for (int i = temp.Length-1; i >= 0; i--) {
 				temp[i].ID = i;
 				eventList.Add(temp[i]);
+
+				if (temp[i].Kind == 5) {
+					hasUIToturial = true;
+					GameFunction.FindTalkManID(temp[i].Value1, ref talkManID);
+					for (int j = 0; j < talkManID.Length; j++)
+						if (GameData.DPlayers.ContainsKey(talkManID[j]))
+							talkManList.Add(talkManID[j]);
+				}
+			}
+
+			if (hasUIToturial) {
+				UI3DTutorial.UIShow(true, true);
+				UI3DTutorial.UIShow(false, true);
+				UITutorial.UIShow(true);
+				UITutorial.UIShow(false);
+				int[] ay = talkManList.ToArray();
+				ModelManager.Get.LoadAllSelectPlayer(ref ay);
 			}
 
 			BegeingEvent();

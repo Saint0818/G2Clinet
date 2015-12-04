@@ -683,4 +683,24 @@ public static class GameFunction
 	{
 		return DateTime.Compare (usetime, DateTime.UtcNow) < 0;
 	}
+
+	public static void FindTalkManID(int tutorialID, ref int[] manay) {
+		if (manay != null && manay.Length >= 2) {
+			manay[0] = 0;
+			manay[1] = 0;
+			
+			foreach (KeyValuePair<int, TTutorial> item in GameData.DTutorial) {
+				if (item.Value.ID == tutorialID) {
+					if (manay[0] == 0 && item.Value.TalkL != 0)
+						manay[0] = item.Value.TalkL;
+					
+					if (manay[1] == 0 && item.Value.TalkR != 0)
+						manay[1] = item.Value.TalkR;
+					
+					if (manay[0] != 0 && manay[1] != 0)
+						return;
+				}
+			}
+		}
+	}
 }
