@@ -4,6 +4,7 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
@@ -23,6 +24,7 @@
     {
         "id": 1,
         "line": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
@@ -32,6 +34,7 @@
     {
         "id": 1,
         "line": 4,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
@@ -56,6 +59,7 @@
     {
         "id": 1,
         "line": 7,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "先進入[ff6060]生涯競賽[-]",
@@ -69,6 +73,7 @@
     {
         "id": 1,
         "line": 9,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "再來選擇第一場競賽。",
@@ -82,6 +87,7 @@
     {
         "id": 1,
         "line": 11,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
@@ -111,7 +117,8 @@
         "value": 2,
         "uiname": "UISkillFormation",
         "talkindex": 1,
-        "actionl": 4,
+        "talkr": -1,
+        "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能卡片[-]，這是幹嘛的呀？",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "Just received a [ff6060]ability chip[-]，what is this for？"
@@ -121,16 +128,18 @@
         "line": 2,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "[ff6060]技能卡片[-]是運用科技，讓我們能夠獲得超乎常人的能力，",
-        "texten": "[ff6060]ability chip[-]uses technology to provide us exceptional performance."
+        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance."
     },
     {
         "id": 3,
         "line": 3,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "如果這個卡片運用得當，將對比賽的結果造成決定性的影響。",
@@ -141,6 +150,7 @@
         "line": 4,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "我來教你怎麼安裝它。",
@@ -159,30 +169,33 @@
         "line": 6,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "技能卡片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，",
-        "texten": "Ability chips can be divided into[ff6060]Active[-]and[ff6060]Proactive Abilities[-]，"
+        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Proactive Abilities[-]，"
     },
     {
         "id": 3,
         "line": 7,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "只要將擁有的技能卡片[ff6060]拖曳[-]到對應的[ff6060]右側欄位[-]中即可完成安裝，",
-        "texten": "Use the chip[ff6060]and drag it[-]to the matching[ff6060]right column[-]to complete the install，"
+        "texten": "Use the chip [ff6060]and drag it[-] to the matching [ff6060]right column[-] to complete the install，"
     },
     {
         "id": 3,
         "line": 8,
         "kind": 4,
         "value": 2,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "[f6f6f6]找出最適合的搭配將對你的旅程有絕佳的幫助喔。",
-        "texten": "[f6f6f6]finding the best combo will provide great benefit to your journey!"
+        "texttw": "[f6f6f6]找出最適合的搭配[-]將對你的旅程有絕佳的幫助喔。",
+        "texten": "[f6f6f6]Finding the best combo will provide great benefit to your journey!"
     },
     {
         "id": 4,
@@ -191,11 +204,12 @@
         "kind": 4,
         "value": 4,
         "uiname": "UIAvatarFitted",
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6]mix and show your[ff6060]unique style[-]，"
+        "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
     },
     {
         "id": 4,
@@ -209,10 +223,11 @@
     {
         "id": 4,
         "line": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "選擇衣服種類。",
-        "texten": "Click the clothes buttom."
+        "texten": "Click the clothes button."
     },
     {
         "id": 4,
@@ -226,30 +241,33 @@
         "line": 5,
         "kind": 4,
         "value": 4,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。",
-        "texten": "These style and equipments all have a limited sample[ff6060]period[-]，unless you buy it now, it will expire at that time。"
+        "texten": "These style and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time。"
     },
     {
         "id": 4,
         "line": 6,
         "kind": 4,
         "value": 4,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！",
-        "texten": "Purchasing new stle will increase[ff6060]talent points[-]！！"
+        "texten": "Purchasing new stle will increase [ff6060]Attribution points[-]！！"
     },
     {
         "id": 4,
         "line": 7,
         "kind": 4,
         "value": 4,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "點擊[ff6060]衣服圖示[-]就可以把它穿起來了！！",
-        "texten": "Tap[ff6060]icon[-]to equip it！！"
+        "texten": "Tap [ff6060]icon[-] to equip it！！"
     },
     {
         "id": 5,
@@ -257,6 +275,7 @@
         "title": "裝備",
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "良好的配件有助於我們取得更好的成績，",
@@ -267,6 +286,7 @@
         "line": 2,
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "快把我們剛剛獲得的配件給穿起來吧！！",
@@ -284,6 +304,7 @@
         "line": 4,
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "有更強的裝配可以替換。",
@@ -301,6 +322,7 @@
         "line": 6,
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "接下來選擇剛剛獲得的服裝即可穿上！！",
@@ -311,6 +333,7 @@
         "line": 7,
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "有沒有感覺自己的能力又更上一層了呢？",
@@ -327,6 +350,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 3,
         "texttw": "只剩下最後的10秒鐘了，我們還落後7分，必須要好好把握這次發球的機會才行。",
@@ -337,6 +361,7 @@
         "line": 2,
         "kind": 3,
         "value": 101,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "現在只能靠你的得分能力才有機會扭轉戰局了！！！",
@@ -347,6 +372,7 @@
         "line": 3,
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 5,
         "texttw": "好！只能這樣做了...來吧！！！",
@@ -357,6 +383,7 @@
         "line": 1,
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 2,
         "texttw": "先來顆神準三分球！！",
@@ -367,7 +394,8 @@
         "line": 2,
         "kind": 3,
         "value": 101,
-        "uipath": "UI2D/UIGame/TopRight/0"
+        "uipath": "UI2D/UIGame/TopRight/0",
+        "talkindex": 1
     },
     {
         "id": 1013,
@@ -375,6 +403,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "剛剛的三分球讓我增加滿滿的能量，現在可以使用絕技了！！",
@@ -385,10 +414,11 @@
         "line": 2,
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 5,
-        "texttw": "時間來不及了，看來只能使用瞬間抄球技能。",
-        "texten": "We are running out of time, must use the blink steal ability."
+        "texttw": "時間來不及了，看來只能使用[fff400]瞬間抄球[-]技能。",
+        "texten": "We are running out of time, must use [fff400]the blink steal[-] ability."
     },
     {
         "id": 1013,
@@ -403,6 +433,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "快！！！把握機會！！",
@@ -413,10 +444,11 @@
         "line": 2,
         "kind": 3,
         "value": 101,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
-        "texttw": "發動終極灌籃絕招來結束這場比賽吧。",
-        "texten": "Activate ultimate slam to end this game for good!"
+        "texttw": "發動[fff400]終極灌籃[-]絕招來結束這場比賽吧。",
+        "texten": "Activate [fff400]ultimate slam[-] to end this game for good!"
     },
     {
         "id": 1014,
@@ -430,6 +462,7 @@
         "line": 1,
         "title": "第二關",
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺灌籃。",
@@ -439,6 +472,7 @@
         "id": 1021,
         "line": 2,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "妳客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。",
@@ -448,42 +482,47 @@
         "id": 1021,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "說到團結合作，在混亂的競賽中為了能夠便於分辨敵我，所以我們用了[ff6666]紅[-]、[6666ff]藍[-]、[66ff66]綠[-]三色的投射燈來代表我方球員。",
-        "texten": "Speaking of teamwork, in order to distinquish teammates and opponents, we use[ff6666]red[-]、[6666ff]blue[-]、[66ff66]green[-]colours to represent our players."
+        "texten": "Speaking of teamwork, in order to distinquish teammates and opponents, we use [ff6666]red[-]、[6666ff]blue[-]、[66ff66]green[-] colours to represent our players."
     },
     {
         "id": 1021,
         "line": 4,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "[ff6666]紅[-]投射燈的球員即代表是[fff400]你自己[-]。",
-        "texten": "[ff6666]red[-]player represents[fff400]you[-]。"
+        "texten": "[ff6666]Red[-] player represents [fff400]you[-]。"
     },
     {
         "id": 1021,
         "line": 5,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "[ff6666]紅[-][6666ff]藍[-][66ff66]綠[-]三種投射燈也分別對應[fff400]傳球[-]的三顆按鈕，點擊該顏色的按鈕即可將球傳到該為球員手中。",
-        "texten": "[ff6666]red[-][6666ff]blue[-][66ff66]green[-]buttons are also used for[fff400]passing[-]to each respective players。"
+        "texten": "[ff6666]Red[-] [6666ff]Blue[-] [66ff66]Green[-] buttons are also used fo r[fff400]passing[-] to each respective players。"
     },
     {
         "id": 1021,
         "line": 6,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "靈活運用[fff400]傳球按鈕[-]來製造最佳的團隊配合吧！",
-        "texten": "utilize[fff400]passing[-]going from good shot to great shot！"
+        "texten": "Utilize [fff400]passing[-] going from good shot to great shot！"
     },
     {
         "id": 1021,
         "line": 7,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "原來如此，我們立即來試試吧！！",
@@ -499,10 +538,11 @@
         "id": 1022,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "現在是一個發動[fff400]快攻[-]的大好機會，快叫你的隊友把球傳給你。",
-        "texten": "It is a grea time to initiate[fff400]fast break[-]get ready to catch the pass from your teammate。"
+        "texten": "It is a grea time to initiate [fff400]fast break[-] get ready to catch the pass from your teammate。"
     },
     {
         "id": 1022,
@@ -514,10 +554,11 @@
         "id": 1023,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "趕快把握空檔機會[fff400]灌籃[-]！！！！！",
-        "texten": "Shoot the gap for the[fff400]slam[-]！！！！！"
+        "texten": "Shoot the gap for the [fff400]slam[-]！！！！！"
     },
     {
         "id": 1023,
@@ -529,6 +570,7 @@
         "id": 1024,
         "line": 1,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "爽！！",
@@ -538,24 +580,27 @@
         "id": 1024,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "幹得好！！只要在靠近籃下的地方投籃，都會有[fff400]機率[-]發動[fff400]灌籃[-]喔。",
-        "texten": "Great job! Anytime you shoot near the basket there is a [fff400]percentage to[-]initiate[fff400]dunk attempt[-]."
+        "texten": "Great job! Anytime you shoot near the basket there is a [fff400]percentage to[-] initiate [fff400]dunk attempt[-]."
     },
     {
         "id": 1024,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "接下來我們來個漂亮的[fff400]抄截[-]嚇嚇他們吧！！",
-        "texten": "Let's aim for a great[fff400]steal[-]and surprise them！"
+        "texten": "Let's aim for a great [fff400]steal[-] and surprise them！"
     },
     {
         "id": 1024,
         "line": 4,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "你先偷偷靠近他們的持球者吧！！",
@@ -565,10 +610,11 @@
         "id": 1025,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "趁他還在發呆，直接[fff400]抄球[-]吧，不用客氣了。",
-        "texten": "The player isn't looking[fff400]steal it now[-]don't feel sorry about it."
+        "texten": "The player isn't looking [fff400]steal it now[-] don't feel sorry about it."
     },
     {
         "id": 1025,
@@ -580,10 +626,11 @@
         "id": 1026,
         "line": 1,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "哈哈，太容易了，再順便送他們一個[fff400]絕殺灌籃[-]吧！！！",
-        "texten": "That was easy!  Here, take this[fff400]ultimate dunk[-]！！！"
+        "texten": "That was easy!  Here, take this [fff400] ultimate dunk[-]！！！"
     },
     {
         "id": 1026,
@@ -596,6 +643,7 @@
         "line": 1,
         "title": "第三關",
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "經過了兩場的激戰，對手已經被你優秀的得分能力給震懾。",
@@ -615,15 +663,17 @@
         "id": 1031,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "所以接下來要找[fff400]強勁[-]一點的對手來挑戰看看了。",
-        "texten": "Time to find a better[fff400]opponent[-]for some serious challenge."
+        "texten": "Time to find a better [fff400]opponent[-] for some serious challenge."
     },
     {
         "id": 1031,
         "line": 4,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 2,
         "texttw": "好啊，放馬過來！！",
@@ -648,6 +698,7 @@
         "id": 1032,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "別怕，在競賽中常常會遇到被對手包夾的狀況",
@@ -657,15 +708,17 @@
         "id": 1032,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "這時候，可以使出[fff400]肘擊[-]來保護自己的球，防止對方靠近！！",
-        "texten": "This is a great time to use[fff400]elbow[-]to prevent your opponent from getting too close and protect your basketball！！"
+        "texten": "This is a great time to use [fff400]elbow[-] to prevent your opponent from getting too close and protect your basketball！！"
     },
     {
         "id": 1032,
         "line": 4,
         "kind": 3,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 5,
         "texttw": "好，我來試試！！",
@@ -681,15 +734,17 @@
         "id": 1033,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "這樣是不是少了很多[fff400]阻礙[-]，",
-        "texten": "See? now there is much less[fff400]resistance[-]！？"
+        "texten": "See? now there is much less [fff400]resistance[-]！？"
     },
     {
         "id": 1033,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "快把球傳給我，我來給他們致命一擊！！！",
@@ -704,6 +759,7 @@
     {
         "id": 1033,
         "line": 4,
+        "talkindex": 1,
         "talkr": 12,
         "actionr": 1,
         "texttw": "看妳的了！",
@@ -719,6 +775,7 @@
         "id": 1034,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "禁區已沒有敵對防守球員，此時可以[fff400]指揮隊友[-]進行射籃了！",
@@ -734,6 +791,7 @@
         "id": 1034,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "切記，適時的指揮隊友進攻，將可以創造更有效率地得分。",
@@ -743,15 +801,17 @@
         "id": 10101,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 3,
         "texttw": "這場競賽我們必須要達成限定的[fff400]灌籃次數[-]，才可以取得這個關卡的勝利，",
-        "texten": "In this level we have to reach[fff400]duncks[-]to beat this level"
+        "texten": "In this level we have to reach [fff400]duncks[-] to beat this level"
     },
     {
         "id": 10101,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "條件有點困難，所以要記得要好好利用剛剛所安裝的技能卡片喔！！",
@@ -771,6 +831,7 @@
         "id": 10102,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "適時的喊話讓士氣提升了不少耶。",
@@ -780,10 +841,11 @@
         "id": 10401,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
         "texttw": "這場比賽所需要的[fff400]3分球[-]數量比上一場更多，",
-        "texten": "This level will require[fff400]3 Point Shots[-]which is more than last game"
+        "texten": "This level will require [fff400]3 Point Shots[-] which is more than last game"
     },
     {
         "id": 10401,
@@ -798,6 +860,7 @@
         "id": 10401,
         "line": 3,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手，",
@@ -807,6 +870,7 @@
         "id": 10401,
         "line": 4,
         "kind": 3,
+        "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
         "texttw": "我們把機會做給他吧！！",
