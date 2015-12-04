@@ -253,6 +253,9 @@ public class UILoading : UIBase {
 				UI3D.Get.ShowCamera(false);
 
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+			
+			if (UITutorial.Visible)
+				uiLoadingProgress.fillAmount = 1;
 
 			if (GameData.Team.Player.Lv == 0) {
 				UICreateRole.Get.ShowPositionView();
@@ -260,12 +263,11 @@ public class UILoading : UIBase {
 				UIMainLobby.Get.HideAll ();
 			} else 
 			if (OpenUI != null) {
+				yield return new WaitForSeconds (2);
+
 				OpenUI();
 				OpenUI = null;
 			}
-
-			if (UITutorial.Visible)
-				uiLoadingProgress.fillAmount = 1;
 
 			UIShow(false);
 
