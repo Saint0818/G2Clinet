@@ -125,9 +125,10 @@ public class UIGameResult : UIBase {
 					ShowBonusItem ();
 				} else {
 					if((awardMax - awardIndex) < awardMax ){
-						if(awardItemTempIDs[(awardMax - awardIndex)] > 0)
-							alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
-						else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
+						if(awardItemTempIDs[(awardMax - awardIndex)] > 0){
+							if(GameData.DItemData.ContainsKey (awardItemTempIDs[(awardMax - awardIndex)]))
+								alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
+						}else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
 							alreadyGetItems[awardMax - awardIndex].ShowMoney(tempMoney);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -2) 
 							alreadyGetItems[awardMax - awardIndex].ShowExp(tempExp);

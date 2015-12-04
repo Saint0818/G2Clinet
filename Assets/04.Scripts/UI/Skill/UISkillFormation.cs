@@ -193,6 +193,8 @@ public class UISkillFormation : UIBase {
 	private GameObject gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
 	private UIToggle[] toggleCheckBoxSkill = new UIToggle[2];
+	private UISprite PassiveCheck;
+	private UISprite ActiveCheck;
 
 	//Total Cost
 	private UILabel labelCostValue;
@@ -217,7 +219,6 @@ public class UISkillFormation : UIBase {
 	private TUICard tempUICard;
 	private GameObject tempObj;
 
-	private Vector3 point;
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
 	private int activeFieldLimit = 3;
@@ -232,7 +233,6 @@ public class UISkillFormation : UIBase {
 
 	public bool IsDragNow = false;
 	public bool IsCardActive = false;
-
 
 	private float runShineInternal = 5f;
 	private float runShine = 0;
@@ -301,6 +301,8 @@ public class UISkillFormation : UIBase {
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
 		toggleCheckBoxSkill[1] = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
+		ActiveCheck = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck/Background").GetComponent<UISprite>();
+		PassiveCheck = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck/Background").GetComponent<UISprite>();
 		SetBtnFun (UIName + "/MainView/Right/STitle/ActiveCheck", DoOpenActive);
 		SetBtnFun (UIName + "/MainView/Right/STitle/PassiveCheck", DoOpenPassive);
 
@@ -1205,19 +1207,27 @@ public class UISkillFormation : UIBase {
 			case (int)EFilter.All:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = true;
+				ActiveCheck.color = new Color32(255, 255, 255, 255);
+				PassiveCheck.color = new Color32(255, 255, 255, 255);
 				break;
 			case (int)EFilter.Active:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = false;
+				ActiveCheck.color = new Color32(255, 255, 255, 255);
+				PassiveCheck.color = new Color32(50, 50, 50, 255);
 				break;
 			case (int)EFilter.Passive:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = true;
+				ActiveCheck.color = new Color32(50, 50, 50, 255);
+				PassiveCheck.color = new Color32(255, 255, 255, 255);
 				break;
 			case (int)EFilter.Available:
 			case (int)EFilter.Select:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = false;
+				ActiveCheck.color = new Color32(50, 50, 50, 255);
+				PassiveCheck.color = new Color32(50, 50, 50, 255);
 				break;
 		}
 	}

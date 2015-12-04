@@ -297,23 +297,23 @@ public class UIButtonColor : UIWidgetContainer
 
 	public void UpdateColor (bool instant)
 	{
-		TweenColor tc;
-
-		if (tweenTarget != null)
-		{
-			switch (mState)
-			{
-				case State.Hover: tc = TweenColor.Begin(tweenTarget, duration, hover); break;
-				case State.Pressed: tc = TweenColor.Begin(tweenTarget, duration, pressed); break;
-				case State.Disabled: tc = TweenColor.Begin(tweenTarget, duration, disabledColor); break;
-				default: tc = TweenColor.Begin(tweenTarget, duration, mDefaultColor); break;
-			}
-
-			if (instant && tc != null)
-			{
-				tc.value = tc.to;
-				tc.enabled = false;
-			}
-		}
+//		TweenColor tc;
+//
+//		if (tweenTarget != null)
+//		{
+//			switch (mState)
+//			{
+//				case State.Hover: tc = TweenColor.Begin(tweenTarget, duration, hover); break;
+//				case State.Pressed: tc = TweenColor.Begin(tweenTarget, duration, pressed); break;
+//				case State.Disabled: tc = TweenColor.Begin(tweenTarget, duration, disabledColor); break;
+//				default: tc = TweenColor.Begin(tweenTarget, duration, mDefaultColor); break;
+//			}
+//
+//			if (instant && tc != null)
+//			{
+//				tc.value = tc.to;
+//				tc.enabled = false;
+//			}
+//		}
 	}
 }
