@@ -104,7 +104,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 5: //show ui
-			UIGame.Get.TutorialUI(eventList[i].Value1);
+			StartCoroutine(openTutorial(eventList[i].Value1));
 			break;
 
 		case 6: //open ui tutorial
@@ -195,6 +195,11 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		}
 
 		moveActions = null;
+	}
+
+	IEnumerator openTutorial(int id) {
+		yield return new WaitForSeconds(1);
+		UIGame.Get.TutorialUI(id);
 	}
 
 	public bool CheckNextEvent(int eventID, GameObject player=null) {

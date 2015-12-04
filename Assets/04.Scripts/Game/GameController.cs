@@ -293,7 +293,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
 				GameData.Team.StageTutorial = StageData.ID + 1;
 				WWWForm form = new WWWForm();
-				form.AddField("StageID", GameData.Team.StageTutorial);
+				form.AddField("StageID", StageData.ID);
 				form.AddField("Cause", 0);
 				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
 			}

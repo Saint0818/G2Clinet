@@ -1,5 +1,7 @@
 using GameStruct;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UITutorial : UIBase {
@@ -11,16 +13,18 @@ public class UITutorial : UIBase {
 	private int clickLayer;
 	private bool textFinish = false;
 
-	private GameObject clickObject;
+	//private GameObject clickObject;
 	private GameObject uiClick;
 	private GameObject uiCenter;
+	private GameObject uiBackground;
 	private UIButton buttonClick;
 	private UILabel tutorialMessage;
 	private TypewriterEffect writeEffect;
 	private const int manNum = 2;
 	private GameObject[] uiTalk = new GameObject[manNum];
 	private UILabel[] labelTalk = new UILabel[manNum];
-	private int[] manID = new int[2];
+	private int[] manID = new int[manNum];
+	private int[] talkManID = new int[manNum]; //for loading 3D
 
 	public static bool Visible {
 		get {
@@ -49,7 +53,7 @@ public class UITutorial : UIBase {
 				if (Get.NextEventID > 0 && GamePlayTutorial.Visible)
 					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
 
-				UI3DTutorial.UIShow(false);
+				UI3DTutorial.UIShow(false, true);
 				Get.Show(isShow);
 				//RemoveUI(UIName);
 			} else
@@ -64,6 +68,7 @@ public class UITutorial : UIBase {
 		tutorialMessage = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<UILabel>();
 		writeEffect = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<TypewriterEffect>();
 		writeEffect.onFinished.Add(new EventDelegate(OnTextFinish));
+		uiBackground = GameObject.Find(UIName + "/CenterBg");
 		uiCenter = GameObject.Find(UIName + "/Center");
 		uiClick = GameObject.Find(UIName + "/Hint/Click");
 		buttonClick = uiClick.GetComponent<UIButton>();
@@ -76,62 +81,7 @@ public class UITutorial : UIBase {
 		string temp = tutorialMessage.processedText;
 		writeEffect.ResetToBeginning();
 	}
-
-	public void ShowTutorial(int no, int line) {
-		try {
-			/*if (GameData.ServerVersion != BundleVersion.Version) {
-				UIShow(false);
-				return;
-			}*/
-
-			NowMessageIndex  = no * 100 + line;
-
-			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
-				if (!Visible) {
-					UIShow(true);
-					if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
-						if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
-							GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
-							WWWForm form = new WWWForm();
-							form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
-							SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
-						}
-					}
-				}
-
-				TTutorial tu = GameData.DTutorial[NowMessageIndex];
-				if (string.IsNullOrEmpty(tu.UIpath)) {
-					uiCenter.SetActive(true);
-					uiClick.SetActive(false);
-					tutorialMessage.text = tu.Text;
-					string temp = tutorialMessage.processedText;
-					writeEffect.ResetToBeginning();
-					textFinish = false;
-					manID[0] = tu.TalkL;
-					manID[1] = tu.TalkR;
-					for (int i = 0; i < manNum; i++) {
-						if (GameData.DPlayers.ContainsKey(manID[i])) {
-							uiTalk[i].SetActive(true);
-							labelTalk[i].text = GameData.DPlayers[manID[i]].Name;
-						} else 
-						if (manID[i] == -1) {
-							uiTalk[i].SetActive(true);
-							labelTalk[i].text = GameData.Team.Player.Name;
-						} else
-							uiTalk[i].SetActive(false);
-					}
-
-					UI3DTutorial.Get.ShowTutorial(ref tu);
-				} else
-					ShowHint(tu.UIpath, tu.Offsetx, tu.Offsety);
-			} else {
-				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
-			}
-		} catch (UnityException e) {
-			Debug.Log(e.ToString());
-		}
-	}
-
+	/*
     void ButtonClickClose(GameObject button) {
 		UIPanel temp = button.GetComponent<UIPanel> ();
 		if(temp != null)
@@ -148,7 +98,25 @@ public class UITutorial : UIBase {
 
 		uiClick.SetActive(false);
         OnTutorial();
-    }
+    }*/
+
+	private void lookingTalkManID(int tutorialID) {
+		talkManID[0] = 0;
+		talkManID[1] = 0;
+
+		foreach (KeyValuePair<int, TTutorial> item in GameData.DTutorial) {
+			if (item.Value.ID == tutorialID) {
+				if (talkManID[0] == 0 && item.Value.TalkL != 0)
+					talkManID[0] = item.Value.TalkL;
+
+				if (talkManID[1] == 0 && item.Value.TalkR != 0)
+					talkManID[1] = item.Value.TalkR;
+
+				if (talkManID[0] != 0 && talkManID[1] != 0)
+					return;
+			}
+		}
+	}
 
 	public void OnClickHint() {
 		UIEventListener listen = buttonClick.GetComponent<UIEventListener>();
@@ -178,20 +146,89 @@ public class UITutorial : UIBase {
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1)) {
 				if (textFinish || string.IsNullOrEmpty(tutorialMessage.text) || tutorialMessage.text ==" ")
 					ShowTutorial(NowMessageIndex / 100, NowMessageIndex % 100 + 1);
-				else {
+				else 
 					writeEffect.Finish();
-				}
 			} else 
 				UIShow(false);
 		}
 	}
 
+	IEnumerator showPlayer(TTutorial tu) {
+		yield return new WaitForEndOfFrame();
+
+		UI3DTutorial.Get.ShowTutorial(tu, talkManID[0], talkManID[1]);
+	}
+	
+	public void ShowTutorial(int id, int line) {
+		try {
+			/*if (GameData.ServerVersion != BundleVersion.Version) {
+				UIShow(false);
+				return;
+			}*/
+			
+			NowMessageIndex  = id * 100 + line;
+			
+			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
+				if (!Visible) {
+					UIShow(true);
+					lookingTalkManID(id);
+					//if (GameData.DTutorial[NowMessageIndex].Kind == 0) {
+					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
+						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
+						WWWForm form = new WWWForm();
+						form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
+						SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
+					}
+					//}
+				}
+				
+				TTutorial tu = GameData.DTutorial[NowMessageIndex];
+				if (string.IsNullOrEmpty(tu.UIpath)) {
+					uiCenter.SetActive(true);
+					uiBackground.SetActive(true);
+					uiClick.SetActive(false);
+					tutorialMessage.text = tu.Text;
+					string temp = tutorialMessage.processedText;
+					writeEffect.ResetToBeginning();
+					textFinish = false;
+					manID[0] = tu.TalkL;
+					manID[1] = tu.TalkR;
+					for (int i = 0; i < manNum; i++) {
+						if (GameData.DPlayers.ContainsKey(manID[i])) {
+							uiTalk[i].SetActive(true);
+							labelTalk[i].text = GameData.DPlayers[manID[i]].Name;
+						} else 
+						if (manID[i] == -1) {
+							uiTalk[i].SetActive(true);
+							if (string.IsNullOrEmpty(GameData.Team.Player.Name))
+								labelTalk[i].text = TextConst.S (3404);
+							else
+								labelTalk[i].text = GameData.Team.Player.Name;
+						} else
+							uiTalk[i].SetActive(false);
+					}
+					
+					StartCoroutine(showPlayer(tu));
+				} else
+					ShowHint(tu.UIpath, tu.Offsetx, tu.Offsety);
+			} else {
+				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
+				UIShow(false);
+			}
+		} catch (UnityException e) {
+			Debug.Log(e.ToString());
+			UIShow(false);
+		}
+	}
+
  	public void ShowHint(string path, int offsetx, int offsety) {
+		try {
 		bool found = false;
 		GameObject obj = GameObject.Find(path);
 		if(obj) {
-			UI3DTutorial.UIShow(false);
+			UI3DTutorial.UIShow(false, false);
 			uiCenter.SetActive(false);
+			uiBackground.SetActive(false);
 			uiClick.SetActive(true);
 
 		    buttonClick.onClick.Clear();
@@ -217,7 +254,6 @@ public class UITutorial : UIBase {
 
 		if (found) {
 			buttonClick.onClick.Add(new EventDelegate(OnClickHint));
-
 			buttonClick.name = obj.name;
 			Vector3 v = obj.transform.position;
 			v.x += offsetx;
@@ -225,6 +261,10 @@ public class UITutorial : UIBase {
 			uiClick.transform.position = v;
 		} else {
 			Debug.Log("Tutorial click event not found " + path);
+			UIShow(false);
+		}
+		} catch (UnityException e) {
+			Debug.Log("Tutorial click error " + e.ToString());
 			UIShow(false);
 		}
 
