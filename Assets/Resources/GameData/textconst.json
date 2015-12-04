@@ -875,6 +875,12 @@
         "en": "Select Equipment"
     },
     {
+        "id": 6302,
+        "explain": "引導開啟選單",
+        "tw": "點擊開啟裝備選單",
+        "en": "Click To Initiate Equipment Selections"
+    },
+    {
         "id": 7001,
         "explain": "技能介面",
         "tw": "技 能",
