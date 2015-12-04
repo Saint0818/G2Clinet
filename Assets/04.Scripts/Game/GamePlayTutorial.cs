@@ -130,7 +130,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			break;
 
 		case 6: //open ui tutorial
-			StartCoroutine(openTutorial(eventList[i].Value1, eventList[i].NextEventID));
+			//StartCoroutine(openTutorial(eventList[i].Value1, eventList[i].NextEventID));
+			UITutorial.Get.ShowTutorial(eventList[i].Value1, 1);
+			UITutorial.Get.NextEventID = eventList[i].NextEventID;
 
 			break;
 
