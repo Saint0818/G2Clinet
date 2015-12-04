@@ -50,14 +50,18 @@ public class HintAvatarView : MonoBehaviour {
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			AttrKindsIcon[i].gameObject.SetActive(true);
 			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
-			if(itemData.Bonus[i].GetHashCode() > 0 && itemData.Bonus[i].GetHashCode() < 18)
+			if(itemData.Kind >=0 && itemData.Kind <= 7)
 				AttrKindsIcon[i].gameObject.SetActive(false);
+			else
+				AttrKindsIcon[i].gameObject.SetActive(true);
 		}
 
 		for (int i=0; i<itemData.BonusValues.Length; i++) {
 			ValueLabels[i].text = itemData.BonusValues[i].ToString();
-			if(itemData.BonusValues[i] == 0)
+			if(itemData.Kind >=0 && itemData.Kind <= 7)
 				ValueLabels[i].gameObject.SetActive(false);
+			else
+				ValueLabels[i].gameObject.SetActive(true);
 		}
 
 		if(string.IsNullOrEmpty(itemData.Icon))
