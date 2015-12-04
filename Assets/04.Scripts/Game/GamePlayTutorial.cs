@@ -125,12 +125,13 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 5: //show ui
-			StartCoroutine(openTutorial(eventList[i].Value1));
+			UIGame.Get.TutorialUI(eventList[i].Value1);
+
 			break;
 
 		case 6: //open ui tutorial
-			UITutorial.Get.ShowTutorial(eventList[i].Value1, 1);
-			UITutorial.Get.NextEventID = eventList[i].NextEventID;
+			StartCoroutine(openTutorial(eventList[i].Value1, eventList[i].NextEventID));
+
 			break;
 
 		case 7: //turn on / off AI
@@ -218,9 +219,10 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		moveActions = null;
 	}
 
-	IEnumerator openTutorial(int id) {
+	IEnumerator openTutorial(int id, int nextID) {
 		yield return new WaitForSeconds(1);
-		UIGame.Get.TutorialUI(id);
+		UITutorial.Get.ShowTutorial(id, 1);
+		UITutorial.Get.NextEventID = nextID;
 	}
 
 	public bool CheckNextEvent(int eventID, GameObject player=null) {
