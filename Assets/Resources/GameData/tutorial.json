@@ -19,7 +19,7 @@
         "actionr": 4,
         "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
         "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
-        "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
+        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
     },
     {
         "id": 1,
@@ -63,7 +63,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "先進入[ff6060]生涯競賽[-]",
-        "texten": "Click the Story Buttom."
+        "texten": "Please enter [ff6060]Career Mode[-]."
     },
     {
         "id": 1,
@@ -77,7 +77,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "再來選擇第一場競賽。",
-        "texten": "Click the next buttom."
+        "texten": "Select the first competition."
     },
     {
         "id": 1,
@@ -91,7 +91,7 @@
         "talkl": 11,
         "actionl": 1,
         "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
-        "texten": "Checking the mission details ."
+        "texten": "Make sure you know the winning criteria before moving to the next step."
     },
     {
         "id": 1,
@@ -102,7 +102,7 @@
         "id": 1,
         "line": 13,
         "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
-        "texten": "Click the Next button."
+        "texten": "Here are your teammates for this game, press confirm to begin game."
     },
     {
         "id": 1,
@@ -121,7 +121,7 @@
         "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能卡片[-]，這是幹嘛的呀？",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Just received a [ff6060]ability chip[-]，what is this for？"
+        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
     },
     {
         "id": 3,
@@ -173,7 +173,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "技能卡片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，",
-        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Proactive Abilities[-]，"
+        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
     },
     {
         "id": 3,
@@ -216,9 +216,7 @@
         "line": 2,
         "kind": 4,
         "value": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt"
     },
     {
         "id": 4,
@@ -245,7 +243,7 @@
         "talkl": 11,
         "actionl": 4,
         "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。",
-        "texten": "These style and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time。"
+        "texten": "These styles and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time."
     },
     {
         "id": 4,
@@ -307,7 +305,7 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "有更強的裝配可以替換。",
+        "texttw": "有更強的裝備可以替換。",
         "texten": "Let's change better equiptment."
     },
     {
