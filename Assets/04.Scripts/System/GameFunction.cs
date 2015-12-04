@@ -640,8 +640,9 @@ public static class GameFunction
 		case EPlayerAttributeRate.SpeedValue:
 			return value * 0.002f;
 		case EPlayerAttributeRate.StaminaValue:
-		case EPlayerAttributeRate.PushingRate:
 			return value * 1f;
+		case EPlayerAttributeRate.PushingRate:
+			return value * 0.8f;
 		case EPlayerAttributeRate.StrengthRate:
 		case EPlayerAttributeRate.DunkRate:
 		case EPlayerAttributeRate.TipInRate:
@@ -649,7 +650,7 @@ public static class GameFunction
 		case EPlayerAttributeRate.BlockRate:
 			return value * 0.9f;
 		case EPlayerAttributeRate.ElbowingRate:
-			return value * 0.8f;
+			return value * 0.6f;
 		case EPlayerAttributeRate.AlleyOopRate:
 		case EPlayerAttributeRate.AlleyOopPassRate:
 			return value * 0.6f;
