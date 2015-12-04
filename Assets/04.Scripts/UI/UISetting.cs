@@ -298,14 +298,22 @@ public class UISetting : UIBase {
 
 	public void OnMusic()
 	{
-		AudioMgr.Get.MusicOn(!GameData.Setting.Music);
+		GameData.Setting.Music = !GameData.Setting.Music;
+		AudioMgr.Get.MusicOn(GameData.Setting.Music);
 		gameSetting.UpdateView ();
+
+		PlayerPrefs.SetInt(ESave.MusicOn.ToString(), GameData.Setting.Music == true? 1 : 0);
+		PlayerPrefs.Save ();
 	}
 
 	public void OnSound()
 	{
-		AudioMgr.Get.SoundOn(!GameData.Setting.Sound);
+		GameData.Setting.Sound = !GameData.Setting.Sound;
+		AudioMgr.Get.SoundOn(GameData.Setting.Sound);
 		gameSetting.UpdateView ();
+
+		PlayerPrefs.SetInt(ESave.SoundOn.ToString(), GameData.Setting.Sound == true? 1 : 0);
+		PlayerPrefs.Save ();
 	}
 
 	public void OnEffect()
@@ -314,6 +322,9 @@ public class UISetting : UIBase {
 		gameSetting.UpdateView ();
 		if(CourtMgr.Visible)
 			CourtMgr.Get.EffectEnable(GameData.Setting.Effect);
+
+		PlayerPrefs.SetInt(ESave.EffectOn.ToString(), GameData.Setting.Effect == true? 1 : 0);
+		PlayerPrefs.Save ();
 	}
 
 	public void OnAILv()

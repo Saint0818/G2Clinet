@@ -677,6 +677,8 @@ public class UIAvatarFitted : UIBase {
 
 			if(Mode == EAvatarMode.Sell && (backpackItems[i].Equip || backpackItems[i].SellPrice == 0))
 				backpackItems[i].Enable = false;
+
+			backpackItems[i].UpdateBtnUseState();
 		}
 
 		int count = 0;
