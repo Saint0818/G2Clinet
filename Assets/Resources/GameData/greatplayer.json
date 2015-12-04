@@ -288,7 +288,7 @@
         "stamina": 57,
         "strength": 40,
         "dunk": 0,
-        "rebound": 99,
+        "rebound": 9999,
         "block": 50,
         "defence": 100,
         "steal": 999,
