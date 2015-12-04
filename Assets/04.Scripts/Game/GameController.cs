@@ -1639,7 +1639,7 @@ public class GameController : KnightSingleton<GameController>
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
-		if(DoubleClickType == EDoubleType.Perfect || ShootDistance < 9)
+		if(DoubleClickType == EDoubleType.Perfect || DoubleClickType == EDoubleType.Good || ShootDistance < 9)
 			isAirBall = false;
 
 		if(DoubleClickType == EDoubleType.Weak || ShootDistance > 15) 

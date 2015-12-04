@@ -1110,7 +1110,8 @@ public class UISkillFormation : UIBase {
 
 	public void DoUnEquipCard (){
 		if(!IsBuyState) {
-			removeItems(uiCards[tempObj.name].CardID, tempObj);
+			if(tempObj != null && uiCards.ContainsKey(tempObj.name))
+				removeItems(uiCards[tempObj.name].CardID, tempObj);
 			refreshCards();
 		}
 //		else 
