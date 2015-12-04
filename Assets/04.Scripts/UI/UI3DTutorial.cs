@@ -52,12 +52,9 @@ public class UI3DTutorial : UIBase {
 			Destroy(talkMan[i]);
 	}
 
-	public static void UIShow(bool isShow, bool closeTutorial){
+	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow) {
-				if (closeTutorial)
-					Get.releaseTalkMan();
-
 				Get.Show(isShow);
 				//RemoveUI(UIName);
 			} else
@@ -74,6 +71,16 @@ public class UI3DTutorial : UIBase {
 	}
 
 	public void InitTalkMan(int talkL, int talkR) {
+		if (manID[0] != 0 && manID[0] != talkL) {
+			manRender[0] = null;
+			Destroy(talkMan[0]);
+		}
+
+		if (manID[1] != 0 && manID[1] != talkR) {
+			manRender[1] = null;
+			Destroy(talkMan[1]);
+		}
+
 		manID[0] = talkL;
 		manID[1] = talkR;
 
@@ -104,7 +111,7 @@ public class UI3DTutorial : UIBase {
 
 	public void ShowTutorial(TTutorial tu, int talkL, int talkR) {
 		if (!Visible) {
-			UIShow(true, false);
+			UIShow(true);
 			InitTalkMan(talkL, talkR);
 		}
 

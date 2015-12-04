@@ -53,7 +53,7 @@ public class UITutorial : UIBase {
 				if (Get.NextEventID > 0 && GamePlayTutorial.Visible)
 					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
 
-				UI3DTutorial.UIShow(false, true);
+				UI3DTutorial.UIShow(false);
 				Get.Show(isShow);
 				//RemoveUI(UIName);
 			} else
@@ -208,7 +208,7 @@ public class UITutorial : UIBase {
 		bool found = false;
 		GameObject obj = GameObject.Find(path);
 		if(obj) {
-			UI3DTutorial.UIShow(false, false);
+			UI3DTutorial.UIShow(false);
 			uiCenter.SetActive(false);
 			uiBackground.SetActive(false);
 			uiClick.SetActive(true);

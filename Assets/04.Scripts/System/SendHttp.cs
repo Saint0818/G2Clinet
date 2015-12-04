@@ -287,15 +287,15 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				else
 					SendLogin();
 			} else
-				if (www.error.Contains("java")|| 
-				    www.error.Contains("parse")||
-				    www.error.Contains("key") || 
-				    www.error.Contains("host") || 
-				    www.error.Contains("time out") ||
-				    www.error.Contains("request")|| 
-				    www.error.Contains("connect") ||
-				    www.error.Contains("Connection") ||
-				    www.error == "Empty reply from server")
+			if (www.error.Contains("java")|| 
+			    www.error.Contains("parse")||
+			    www.error.Contains("key") || 
+			    www.error.Contains("host") || 
+			    www.error.Contains("time out") ||
+			    www.error.Contains("request")|| 
+			    www.error.Contains("connect") ||
+			    www.error.Contains("Connection") ||
+			    www.error == "Empty reply from server")
 			{
 				if (UIWaitingHttp.Visible)
 					UIWaitingHttp.Get.ShowResend(TextConst.S (508));

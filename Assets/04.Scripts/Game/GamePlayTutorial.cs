@@ -53,8 +53,8 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			}
 
 			if (hasUIToturial) {
-				UI3DTutorial.UIShow(true, true);
-				UI3DTutorial.UIShow(false, true);
+				UI3DTutorial.UIShow(true);
+				UI3DTutorial.UIShow(false);
 				UITutorial.UIShow(true);
 				UITutorial.UIShow(false);
 				int[] ay = talkManList.ToArray();

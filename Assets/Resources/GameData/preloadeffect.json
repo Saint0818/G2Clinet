@@ -1,20 +1,5 @@
 [
     {
-        "name": "GreatCircle"
-    },
-    {
-        "name": "PerfectCircle"
-    },
-    {
-        "name": "ThreeLineEffect"
-    },
-    {
-        "name": "ThrowInLineEffect"
-    },
-    {
-        "name": "BallShadow"
-    },
-    {
         "name": "BallTouchWall"
     },
     {
@@ -24,19 +9,16 @@
         "name": "DC_Soul"
     },
     {
-        "name": "DunkFX"
+        "name": "DoubleClick"
     },
     {
-        "name": "EffectFire"
+        "name": "DunkFX"
     },
     {
         "name": "FallDownFX"
     },
     {
         "name": "FX_SelectDown"
-    },
-    {
-        "name": "GreatCircle"
     },
     {
         "name": "JumpDownFX"
@@ -57,10 +39,10 @@
         "name": "PassMe"
     },
     {
-        "name": "PerfectCircle"
+        "name": "PlayerInfo"
     },
     {
-        "name": "PlayerInfo"
+        "name": "RangeOfAction"
     },
     {
         "name": "SelectA"
@@ -84,13 +66,25 @@
         "name": "ShotFX"
     },
     {
-        "name": "SkillAreaFX"
+        "name": "ShowWord_Block"
     },
     {
-        "name": "SpriteLose"
+        "name": "ShowWord_Dunk"
     },
     {
-        "name": "SpriteWin"
+        "name": "ShowWord_NiceShot"
+    },
+    {
+        "name": "ShowWord_Punch"
+    },
+    {
+        "name": "ShowWord_Steal"
+    },
+    {
+        "name": "SkillArea_Arrow"
+    },
+    {
+        "name": "SkillArea_Circle"
     },
     {
         "name": "TeamFull"
@@ -102,27 +96,36 @@
         "name": "TeamQuit"
     },
     {
+        "name": "ThreeLineEffect"
+    },
+    {
+        "name": "ThrowInLineEffect"
+    },
+    {
         "name": "UI_FX_A_21"
     },
     {
-        "name": "UseSkillEffect_6"
+        "name": "UIEquipSkill"
     },
     {
-        "name": "UseSkillEffect_7"
+        "name": "UnlockEffect"
     },
     {
-        "name": "UseSkillEffect_21"
+        "name": "UseSkillEffect_40"
     },
     {
-        "name": "ShowWord_Steal"
+        "name": "UseSkillEffect_60"
     },
     {
-        "name": "ShowWord_Punch"
+        "name": "UseSkillEffect_70"
     },
     {
-        "name": "ShowWord_Block"
+        "name": "UseSkillEffect_150"
     },
     {
-        "name": "ShowWord_Dunk"
+        "name": "UseSkillEffect_180"
+    },
+    {
+        "name": "UseSkillEffect_210"
     }
 ]
