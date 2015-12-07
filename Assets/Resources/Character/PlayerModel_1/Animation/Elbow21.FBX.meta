@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: cfd9a2adfd48f8845bfe75eeb648d471
-timeCreated: 1446710781
+timeCreated: 1449475467
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -161,14 +161,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: ElbowEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .581712067
+      - time: .503891051
         functionName: SkillEvent
         data: PushDistancePlayer
         objectReferenceParameter: {instanceID: 0}

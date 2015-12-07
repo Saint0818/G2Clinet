@@ -1191,7 +1191,7 @@ public class UIGame : UIBase {
 			viewTopLeft.SetActive(true);
 			viewBottomRight.SetActive(true);
 
-			if (!GameController.Get.StageData.IsTutorial || GameStart.Get.TestMode != EGameTest.None) {
+			if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer) {
 				uiJoystick.gameObject.SetActive(true);
 				uiJoystick.Joystick.isActivated = true;
 			}

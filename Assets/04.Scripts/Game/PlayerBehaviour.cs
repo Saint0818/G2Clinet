@@ -2082,7 +2082,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow2:
             case EPlayerState.Elbow20:
             case EPlayerState.Elbow21:
-                if (!IsTee && IsBallOwner && (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.HoldBall))
+                if (!IsTee && IsBallOwner && (IsDribble || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
 

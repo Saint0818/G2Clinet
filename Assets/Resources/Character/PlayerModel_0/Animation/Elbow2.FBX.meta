@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 37706bca95cb7f44c831a77bca205e47
-timeCreated: 1446617117
+timeCreated: 1449475273
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .339285731
         functionName: AnimationEvent
         data: ElbowCalculateStart
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: ElbowEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
