@@ -313,26 +313,25 @@ public class UIAvatarFitted : UIBase {
 	private static UIAvatarFitted instance = null;
 	private const string UIName = "UIAvatarFitted";
 	private const int avatarPartCount = 7;
+	private int enableCount = 0;
+	private int avatarPart = 1;
+	private int totalPrice = 0;
+	private int BuyIndex = 0;
+	private bool isCloseUI = false;
+	private GameObject avatar;
 	private GameObject item;
+	private GameObject SellCount;
+	private GameObject disableGroup;
 	private TItemAvatar[] backpackItems;
 	private UIGrid grid;
 	private Transform enablePool;
 	private UIScrollView scrollView;
-	private GameObject disableGroup;
-	private int enableCount = 0;
-	private int avatarPart = 1;
-	private GameObject SellCount;
 	private UILabel TotalPriceLabel;
-	private int totalPrice = 0;
-	private int BuyIndex = 0;
-	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> ExpriedChangeEquips = new Dictionary<int, TEquip>();
 	private TAvatar EquipsAvatar = new TAvatar();
-
 	private TimeSpan checktime;
-	private GameObject avatar;
 	private string[] btnPaths = new string[avatarPartCount];
 	private GameObject[] notice = new GameObject[avatarPartCount];
 	public EAvatarMode Mode = EAvatarMode.Normal;
@@ -392,7 +391,6 @@ public class UIAvatarFitted : UIBase {
 		}
 
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
-		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
@@ -1000,8 +998,13 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnReturn()
 	{
+		OnSave(true);
+	}
+
+	private void DoReturn()
+	{
 		UIShow (false);
-        UIMainLobby.Get.Show();
+		UIMainLobby.Get.Show();
 		if (UISort.Visible)
 			UISort.UIShow (false);
 	}
@@ -1037,8 +1040,9 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
-	private void OnSave()
+	private void OnSave(bool iscloseui = false)
 	{
+		isCloseUI = iscloseui;
 		if (CheckExpiredItem ()) {
 			//發現過期裝備，先重置預設裝備
 			UpdateAvatar (true);
@@ -1076,6 +1080,9 @@ public class UIAvatarFitted : UIBase {
 		else
 		{
 			UpdateAvatar(true);
+
+			if(isCloseUI)
+				DoReturn();
 		}
 	}
 
@@ -1119,6 +1126,11 @@ public class UIAvatarFitted : UIBase {
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
+
+		if (isCloseUI) {
+			DoReturn();
+		}
+		
 	}
 
 	protected override void InitData() {
