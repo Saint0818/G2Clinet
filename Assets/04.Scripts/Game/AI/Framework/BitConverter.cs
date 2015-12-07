@@ -21,7 +21,7 @@ namespace AI
         {
 			if(string.IsNullOrEmpty(bitString))
 			{
-				Debug.LogError("Parameter is Null or empty");
+//				Debug.LogError("Parameter is Null or empty");
 				return null;
 			}
 

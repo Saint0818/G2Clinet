@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Newtonsoft.Json;
-using UnityEngine;
 using UnityEngine.Assertions;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// 記錄關卡的相關資訊.
@@ -52,7 +54,11 @@ public class StageTable
         jsonText = jsonText.Replace("\"{", "{");
         jsonText = jsonText.Replace("}\"", "}");
 
-        var stages = (TStageData[])JsonConvert.DeserializeObject(jsonText, typeof(TStageData[]));
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            ContractResolver = new ForceJSONSerializePrivatesResolver()
+        };
+        var stages = (TStageData[])JsonConvert.DeserializeObject(jsonText, typeof(TStageData[]), settings);
         foreach(TStageData stage in stages)
         {
             if(mStageByIDs.ContainsKey(stage.ID))

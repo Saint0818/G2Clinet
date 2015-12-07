@@ -8,12 +8,15 @@ using JetBrains.Annotations;
 /// </summary>
 public class TStageData
 {
-    public int ID;
-    public int Chapter;
-    public int Order;
-	public int CourtNo;
-	public int CourtMode;
-	public int FriendKind;
+    public int ID { get; private set; }
+    public int Chapter { get; private set; }
+    public int Order { get; private set; }
+	public int CourtNo { get; private set; }
+
+    [UsedImplicitly]
+    public int CourtMode { get; private set; }
+
+	public int FriendKind { get; private set; }
 
     /// <summary>
     /// 1.傳統
@@ -22,7 +25,7 @@ public class TStageData
     /// 4.攻擊
     /// 9.挑戰魔王對手
     /// </summary>
-    public int Kind;
+    public int Kind { get; private set; }
 
     public int KindTextIndex
     {
@@ -34,7 +37,7 @@ public class TStageData
     public int Bit1Num;
     public int Bit2Num;
     public int Bit3Num;
-	private int[] bitNum = new int[4];
+    private int[] bitNum = new int[4];
 	private int[] hintBit = new int[0];
 
     public enum ECostKind
@@ -46,53 +49,58 @@ public class TStageData
     /// <summary>
     /// <para> 進入關卡要消耗的數值種類. </para>
     /// </summary>
-    public ECostKind CostKind;
+    [UsedImplicitly]
+    public ECostKind CostKind { get; private set; }
 
     /// <summary>
     /// 進入關卡要消耗的數值.
     /// </summary>
-    public int CostValue;
+    public int CostValue { get; private set; }
 
     /// <summary>
     /// 每日關卡挑戰次數.
     /// </summary>
-    public int ChallengeNum;
+    public int ChallengeNum { get; private set; }
 
     /// <summary>
     /// 進入關卡的等級限制.
     /// </summary>
-    public int LimitLevel;
+    public int LimitLevel { get; private set; }
     /// <summary>
     /// 進入關卡的戰鬥力限制. 因為戰鬥力是根據屬性算出總和數值, 其實非常像 2K 的總評分數, 所以才
     /// 取名為 Evaluation.
     /// </summary>
-    public int LimitEvaluation;
+    public int LimitEvaluation { get; private set; }
 
     /// <summary>
     /// 亂數獎勵.
     /// </summary>
-    [CanBeNull] public int[] Rewards; // 獎勵 ItemID.
-    [CanBeNull] public int[] RewardRates; // 獎勵機率.
+    [UsedImplicitly]
+    [CanBeNull] public int[] Rewards { get; private set; } // 獎勵 ItemID.
+
+    [UsedImplicitly]
+    [CanBeNull] public int[] RewardRates { get; private set; } // 獎勵機率.
 
     public int WinValue;
-    public int FriendNumber;
+    public int FriendNumber { get; private set; }
 
     /// <summary>
     /// 小關卡在章節上的位置.
     /// </summary>
-    public float PositionX;
-    public float PositionY;
+    public float PositionX { get; private set; }
+    public float PositionY { get; private set; }
 
     public int[] PlayerID;
-	public int[] FriendID;
-    public string NameTW;
-    public string NameCN;
-    public string NameEN;
-    public string NameJP;
-    public string ExplainTW;
-    public string ExplainCN;
-    public string ExplainEN;
-    public string ExplainJP;
+    public int[] FriendID;
+
+    public string NameTW { get; private set; }
+    public string NameCN { get; private set; }
+    public string NameEN { get; private set; }
+    public string NameJP { get; private set; }
+    public string ExplainTW { get; private set; }
+    public string ExplainCN { get; private set; }
+    public string ExplainEN { get; private set; }
+    public string ExplainJP { get; private set; }
 
     public void Clear()
     {

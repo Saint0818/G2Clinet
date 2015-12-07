@@ -1660,8 +1660,8 @@ public class GameController : KnightSingleton<GameController>
 				BasketSituation = EBasketSituation.NoScore;
 		}
 
-		
-		if(isActive || GameStart.Get.TestMode == EGameTest.AttackA) {
+		if(isActive || GameStart.Get.TestMode == EGameTest.AttackA)
+        {
 			BasketSituation = EBasketSituation.Swish;
 //			BasketSituation = EBasketSituation.Score;
 //			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
