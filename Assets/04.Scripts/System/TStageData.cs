@@ -93,14 +93,14 @@ public class TStageData
     public int[] PlayerID;
     public int[] FriendID;
 
-    public string NameTW { get; private set; }
-    public string NameCN { get; private set; }
-    public string NameEN { get; private set; }
-    public string NameJP { get; private set; }
-    public string ExplainTW { get; private set; }
-    public string ExplainCN { get; private set; }
-    public string ExplainEN { get; private set; }
-    public string ExplainJP { get; private set; }
+    private string nameTW;
+    private string nameCN;
+    private string nameEN;
+    private string nameJP;
+    private string explainTW;
+    private string explainCN;
+    private string explainEN;
+    private string explainJP;
 
     public void Clear()
     {
@@ -124,14 +124,14 @@ public class TStageData
 		PositionY = 0;
 		
 		Hint = "";
-		NameTW = "";
-		NameCN = "";
-		NameEN = "";
-		NameJP = "";
-		ExplainTW = "";
-		ExplainCN = "";
-		ExplainEN = "";
-		ExplainJP = "";
+		nameTW = "";
+		nameCN = "";
+		nameEN = "";
+		nameJP = "";
+		explainTW = "";
+		explainCN = "";
+		explainEN = "";
+		explainJP = "";
 
 		if (hintBit != null)
 			Array.Resize(ref hintBit, 0);
@@ -228,10 +228,10 @@ public class TStageData
         {
             switch(GameData.Setting.Language)
             {
-                case ELanguage.TW: return NameTW;
-                case ELanguage.CN: return NameCN;
-                case ELanguage.JP: return NameJP;
-                default : return NameEN;
+                case ELanguage.TW: return nameTW;
+                case ELanguage.CN: return nameCN;
+                case ELanguage.JP: return nameJP;
+                default : return nameEN;
             }
         }
     }
@@ -242,10 +242,10 @@ public class TStageData
         {
             switch(GameData.Setting.Language)
             {
-                case ELanguage.TW: return ExplainTW;
-                case ELanguage.CN: return ExplainCN;
-                case ELanguage.JP: return ExplainJP;
-                default : return ExplainEN;
+                case ELanguage.TW: return explainTW;
+                case ELanguage.CN: return explainCN;
+                case ELanguage.JP: return explainJP;
+                default : return explainEN;
             }
         }
     }

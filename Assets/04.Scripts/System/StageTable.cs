@@ -54,11 +54,7 @@ public class StageTable
         jsonText = jsonText.Replace("\"{", "{");
         jsonText = jsonText.Replace("}\"", "}");
 
-        JsonSerializerSettings settings = new JsonSerializerSettings
-        {
-            ContractResolver = new ForceJSONSerializePrivatesResolver()
-        };
-        var stages = (TStageData[])JsonConvert.DeserializeObject(jsonText, typeof(TStageData[]), settings);
+        var stages = JsonConvertWrapper.DeserializeObject<TStageData[]>(jsonText);
         foreach(TStageData stage in stages)
         {
             if(mStageByIDs.ContainsKey(stage.ID))
