@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 0deda351632f72e48b58fe7c7ce97fb8
+timeCreated: 1449467063
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: CreateRole_SelectModel
+    100002: Dummy001
+    100004: Dummy002
+    100006: Dummy003
+    100008: Dummy004
+    100010: Dummy005
+    100012: Dummy006
+    100014: Dummy007
+    100016: Dummy008
+    100018: Dummy009
+    100020: Dummy010
+    100022: Dummy011
+    100024: Dummy012
+    100026: Dummy013
+    100028: Dummy014
+    100030: Dummy015
+    100032: Dummy016
+    100034: Dummy017
+    100036: Dummy018
+    100038: Dummy_CyTop
+    100040: Dummy_Pivot
+    100042: //RootNode
+    400000: CreateRole_SelectModel
+    400002: Dummy001
+    400004: Dummy002
+    400006: Dummy003
+    400008: Dummy004
+    400010: Dummy005
+    400012: Dummy006
+    400014: Dummy007
+    400016: Dummy008
+    400018: Dummy009
+    400020: Dummy010
+    400022: Dummy011
+    400024: Dummy012
+    400026: Dummy013
+    400028: Dummy014
+    400030: Dummy015
+    400032: Dummy016
+    400034: Dummy017
+    400036: Dummy018
+    400038: Dummy_CyTop
+    400040: Dummy_Pivot
+    400042: //RootNode
+    4300000: CreateRole_SelectModel
+    7400000: PlayerSelect
+    9500000: //RootNode
+    13700000: CreateRole_SelectModel
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PlayerSelect
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CreateRole_SelectModel
+        weight: 1
+      - path: Dummy_Pivot
+        weight: 1
+      - path: Dummy_Pivot/Dummy001
+        weight: 1
+      - path: Dummy_Pivot/Dummy002
+        weight: 1
+      - path: Dummy_Pivot/Dummy003
+        weight: 1
+      - path: Dummy_Pivot/Dummy004
+        weight: 1
+      - path: Dummy_Pivot/Dummy005
+        weight: 1
+      - path: Dummy_Pivot/Dummy006
+        weight: 1
+      - path: Dummy_Pivot/Dummy007
+        weight: 1
+      - path: Dummy_Pivot/Dummy008
+        weight: 1
+      - path: Dummy_Pivot/Dummy009
+        weight: 1
+      - path: Dummy_Pivot/Dummy010
+        weight: 1
+      - path: Dummy_Pivot/Dummy011
+        weight: 1
+      - path: Dummy_Pivot/Dummy012
+        weight: 1
+      - path: Dummy_Pivot/Dummy013
+        weight: 1
+      - path: Dummy_Pivot/Dummy014
+        weight: 1
+      - path: Dummy_Pivot/Dummy015
+        weight: 1
+      - path: Dummy_Pivot/Dummy016
+        weight: 1
+      - path: Dummy_Pivot/Dummy017
+        weight: 1
+      - path: Dummy_Pivot/Dummy018
+        weight: 1
+      - path: Dummy_Pivot/Dummy_CyTop
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 0
+    normalImportMode: 0
+    tangentImportMode: 2
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
