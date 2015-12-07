@@ -270,6 +270,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float dunkCurveTime = 0;
     public AniCurve aniCurve;
     private TDunkCurve playerDunkCurve;
+	private Vector3 recordPlayerPosition;
 
     //Layup
     private bool isLayup = false;
@@ -978,25 +979,33 @@ public class PlayerBehaviour : MonoBehaviour
             Vector3 position = PlayerRefGameObject.transform.position;
             if (Timer.timeScale != 0)
             { 
-                position.y = Mathf.Max(0, playerDunkCurve.aniCurve.Evaluate(dunkCurveTime));
+                position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
                 
                 if (position.y < 0)
                     position.y = 0; 
+
+				if(dunkCurveTime >= playerDunkCurve.StartMoveTime) {
+					position.x = Mathf.Lerp(recordPlayerPosition.x, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
+					position.z = Mathf.Lerp(recordPlayerPosition.z, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
+				}
+
                 if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime)
                 { 
-                    PlayerRefGameObject.transform.DOPlay(); 
+//                    PlayerRefGameObject.transform.DOPlay(); 
                     IsAnimatorMove = true; 
-					float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * Timer.timeScale; 
-                    PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear); 
-                    PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear); 
+//					float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * Timer.timeScale; 
+//                    PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear); 
+//                    PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear); 
+
                     PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0 ? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0); 
                 } 
             } else if (Timer.timeScale == 0)
             { 
-                PlayerRefGameObject.transform.DOPause(); 
+//                PlayerRefGameObject.transform.DOPause(); 
             }
 
-            PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
+//            PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
+			PlayerRefGameObject.transform.position = position;
 
             if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
                 IsCanBlock = true;
@@ -1963,6 +1972,7 @@ public class PlayerBehaviour : MonoBehaviour
 		isShootJump = false;
 		isPush = false;
 		isFall = false;
+		isSkillShow = false;
 		UnityEngine.AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
 		aniEvent.floatParameter = 1;
 		aniEvent.intParameter = 0;
@@ -2308,6 +2318,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Dunk [i].Name == curveName)
                             playerDunkCurve = aniCurve.Dunk [i];
                 }
+				recordPlayerPosition = PlayerRefGameObject.transform.position;
 				isFindCurve = playerDunkCurve != null? true : false;
                 IsAnimatorMove = false;
                 isDunk = true;

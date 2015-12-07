@@ -243,6 +243,7 @@ namespace GameStruct
 		public int ID;
         public int Lv;
 		public string Name;
+		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
 		public Dictionary<EAttribute, int> Potential;
 

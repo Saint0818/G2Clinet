@@ -236,7 +236,7 @@ public static class GameFunction
 
     public static bool IsActiveSkill(int id)
     {
-        if (id > GameConst.ID_LimitActive)
+        if (id >= GameConst.ID_LimitActive)
             return true;
         else
             return false;
