@@ -43,6 +43,19 @@ public struct TActiveStruct {
 		this.CardSN = active.CardSN;
 		this.CardLV = active.CardLV;
 	}
+
+	public bool CheckBeInstall { 
+		get{return itemEquipActiveCard != null;}
+	}
+
+	public string GetSelfName{
+		get{
+			if(itemEquipActiveCard != null)
+				return itemEquipActiveCard.name;
+			else
+				return "";
+		}
+	}
 }
 
 public struct TUICard{
@@ -674,22 +687,20 @@ public class UISkillFormation : UIBase {
 			if(!uiCards[name].InListCard.activeSelf) {
 				if(index < 4){
 					//Active
-					int count = getActiveInstall;
-					if(count == activeFieldLimit) {
+					if(getActiveInstall == activeFieldLimit) {
 						//Delete
 						bool flag = false;
-						if(activeStruct[index].itemEquipActiveCard != null) {
+//						if(activeStruct[index].itemEquipActiveCard != null) {
+						if(activeStruct[index].CheckBeInstall) {
 							if(checkCost(-uiCards[activeStruct[index].itemEquipActiveCard.name].Cost))
 								if(checkCost(uiCards[name].Cost))
 									flag = true;
 
 							if(flag) {
 								if(setCost(-uiCards[activeStruct[index].itemEquipActiveCard.name].Cost)) {
-									if(activeStruct[index].itemEquipActiveCard != null) {
-										if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
-											skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
-										Destroy(activeStruct[index].itemEquipActiveCard);
-									}
+									if(skillsRecord.Contains(activeStruct[index].GetSelfName))
+										skillsRecord.Remove(activeStruct[index].GetSelfName);
+									Destroy(activeStruct[index].itemEquipActiveCard);
 									activeStruct[index].ActiveClear();
 									addItems(uiCards[name], index);
 								}
@@ -702,7 +713,8 @@ public class UISkillFormation : UIBase {
 						}
 
 					} else {
-						if(activeStruct[index].itemEquipActiveCard == null) {
+//						if(activeStruct[index].itemEquipActiveCard == null) {
+						if(!activeStruct[index].CheckBeInstall) {
 							if(checkCost(uiCards[name].Cost)) {
 								addItems(uiCards[name], index);
 							} 
@@ -716,7 +728,7 @@ public class UISkillFormation : UIBase {
 											activeStruct[j - 1].itemEquipActiveCard.transform.parent = activeStruct[j].gridActiveCardBase.transform;
 											activeStruct[j].SetData(activeStruct[j - 1]);
 											activeStruct[j].itemEquipActiveCard.transform.localPosition = Vector3.zero;
-											activeStruct[j].spriteActiveFieldIcon.gameObject.SetActive((activeStruct[j].itemEquipActiveCard == null));
+											activeStruct[j].spriteActiveFieldIcon.gameObject.SetActive((!activeStruct[j].CheckBeInstall));
 										}
 										break;
 									}
@@ -796,9 +808,9 @@ public class UISkillFormation : UIBase {
 					refreshPassiveItems();
 				} else {
 					int index = getContainActiveID(id);
-					if(activeStruct[index].itemEquipActiveCard != null) {
-						if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
-							skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
+					if(activeStruct[index].CheckBeInstall) {
+						if(skillsRecord.Contains(activeStruct[index].GetSelfName))
+						   skillsRecord.Remove(activeStruct[index].GetSelfName);
 						Destroy(activeStruct[index].itemEquipActiveCard);
 					}
 					activeStruct[index].ActiveClear();
@@ -824,9 +836,9 @@ public class UISkillFormation : UIBase {
 	private void refreshActiveItems() {
 		if(activeStruct.Length > 1) {
 			for (int i=0; i<activeStruct.Length; i++) {
-				if(activeStruct[i].itemEquipActiveCard == null) {
+				if(!activeStruct[i].CheckBeInstall) {
 					for (int j=i+1; j<activeStruct.Length; j++) {
-						if(activeStruct[j].itemEquipActiveCard != null) {
+						if(activeStruct[j].CheckBeInstall) {
 							TActiveStruct temp = activeStruct[j];
 							activeStruct[i].SetData(temp);
 							temp.itemEquipActiveCard.transform.parent = activeStruct[i].gridActiveCardBase.transform;
