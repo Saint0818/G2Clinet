@@ -155,7 +155,7 @@ ModelImporter:
       curves: []
       events:
       - time: .0650151595
-        functionName: ZoonIn
+        functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
@@ -190,7 +190,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .39753896
-        functionName: ZoonIn
+        functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
@@ -211,14 +211,14 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .63054657
-        functionName: ZoonIn
+        functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .745070755
-        functionName: ZoonOut
+        functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
