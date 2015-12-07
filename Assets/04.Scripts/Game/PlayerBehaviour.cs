@@ -525,28 +525,6 @@ public class PlayerBehaviour : MonoBehaviour
 		Attr.StaminaValue = GameData.BaseAttr [Attribute.AILevel].StaminaValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, Attribute.Stamina);
 		
 		Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
-//        Attr.PointRate2 = GameData.BaseAttr [Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f);
-//        Attr.PointRate3 = GameData.BaseAttr [Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f);
-//        Attr.StealRate = GameData.BaseAttr [Attribute.AILevel].StealRate + (Attribute.Steal * 0.1f);
-//        Attr.DunkRate = GameData.BaseAttr [Attribute.AILevel].DunkRate + (Attribute.Dunk * 0.9f);
-//        Attr.TipInRate = GameData.BaseAttr [Attribute.AILevel].TipInRate + (Attribute.Dunk * 0.9f);
-//        Attr.AlleyOopRate = GameData.BaseAttr [Attribute.AILevel].AlleyOopRate + (Attribute.Dunk * 0.6f);
-//        Attr.StrengthRate = GameData.BaseAttr [Attribute.AILevel].StrengthRate + (Attribute.Strength * 0.9f);
-//        Attr.BlockPushRate = GameData.BaseAttr [Attribute.AILevel].BlockPushRate + (Attribute.Strength * 0.5f);
-//        Attr.ElbowingRate = GameData.BaseAttr [Attribute.AILevel].ElbowingRate + (Attribute.Strength * 0.8f);
-//        Attr.ReboundRate = GameData.BaseAttr [Attribute.AILevel].ReboundRate + (Attribute.Rebound * 0.9f);
-//        Attr.BlockRate = GameData.BaseAttr [Attribute.AILevel].BlockRate + (Attribute.Block * 0.9f);
-//        Attr.FaketBlockRate = GameData.BaseAttr [Attribute.AILevel].FaketBlockRate + (100 - (Attribute.Block / 1.15f));
-//        Attr.JumpBallRate = GameData.BaseAttr [Attribute.AILevel].JumpBallRate;
-//        Attr.PushingRate = GameData.BaseAttr [Attribute.AILevel].PushingRate + (Attribute.Defence * 1);
-//        Attr.PassRate = GameData.BaseAttr [Attribute.AILevel].PassRate + (Attribute.Pass * 0.7f);
-//        Attr.AlleyOopPassRate = GameData.BaseAttr [Attribute.AILevel].AlleyOopPassRate + (Attribute.Pass * 0.6f);
-//        Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound * 0.005f);
-//        Attr.ReboundHandDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHandDistance + (Attribute.Rebound * 0.02f);
-//        Attr.BlockDistance = GameData.BaseAttr [Attribute.AILevel].BlockDistance + (Attribute.Block * 0.01f);
-//        Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + (Attribute.Defence * 0.1f);
-//        Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.002f);
-//        Attr.StaminaValue = GameData.BaseAttr [Attribute.AILevel].StaminaValue + (Attribute.Stamina * 1f);
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
@@ -984,27 +962,18 @@ public class PlayerBehaviour : MonoBehaviour
                 if (position.y < 0)
                     position.y = 0; 
 
-				if(dunkCurveTime >= playerDunkCurve.StartMoveTime) {
+				if(dunkCurveTime >= playerDunkCurve.StartMoveTime) 
+				{
 					position.x = Mathf.Lerp(recordPlayerPosition.x, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
 					position.z = Mathf.Lerp(recordPlayerPosition.z, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
 				}
 
                 if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime)
                 { 
-//                    PlayerRefGameObject.transform.DOPlay(); 
                     IsAnimatorMove = true; 
-//					float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * Timer.timeScale; 
-//                    PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear); 
-//                    PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear); 
-
                     PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0 ? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0); 
                 } 
-            } else if (Timer.timeScale == 0)
-            { 
-//                PlayerRefGameObject.transform.DOPause(); 
             }
-
-//            PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
 			PlayerRefGameObject.transform.position = position;
 
             if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
@@ -1041,17 +1010,15 @@ public class PlayerBehaviour : MonoBehaviour
             
             if (position.y < 0)
                 position.y = 0;
-            
-            PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
-            
-            if (!isLayupZmove && layupCurveTime >= playerLayupCurve.StartMoveTime)
-            {
-                isLayupZmove = true;
-                int add = (Team == 0 ? -1 : 1);
-                float t = (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime) * 1 * Timer.timeScale;
-                PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, t).SetEase(Ease.Linear);
-                PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
-            }
+
+			if(layupCurveTime >= playerLayupCurve.StartMoveTime) 
+			{
+				int add = (Team == 0 ? -1 : 1);
+				position.x = Mathf.Lerp(recordPlayerPosition.x, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, (layupCurveTime - playerLayupCurve.StartMoveTime) / (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime));
+				position.z = Mathf.Lerp(recordPlayerPosition.z, CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, (layupCurveTime - playerLayupCurve.StartMoveTime) / (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime));
+			}
+
+			PlayerRefGameObject.transform.position = position;
             
             if (layupCurveTime >= playerLayupCurve.LifeTime)
                 isLayup = false;
@@ -2396,6 +2363,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Layup [i].Name == curveName)
                             playerLayupCurve = aniCurve.Layup [i];
                 }
+				recordPlayerPosition = PlayerRefGameObject.transform.position;
 				isFindCurve = playerLayupCurve != null? true : false;
 				layupCurveTime = 0;
                 isLayup = true;
