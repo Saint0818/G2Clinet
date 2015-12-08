@@ -156,7 +156,9 @@ public class GameController : KnightSingleton<GameController>
 //	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
    
 	//Effect
-    public GameObject[] passIcon = new GameObject[3];
+	public GameObject[] passIcon = new GameObject[3];
+	private GameObject playerSelectMe;
+	private PlayerBehaviour npcSelectMe;
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = {EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -637,7 +639,7 @@ public class GameController : KnightSingleton<GameController>
 
         Joysticker = PlayerList[0];
 
-		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
+		playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
 		#if UNITY_EDITOR
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		#else
@@ -659,7 +661,13 @@ public class GameController : KnightSingleton<GameController>
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].PlayerRefGameObject);
-		
+
+		for(int i=0; i<PlayerList.Count; i++) {
+			if(PlayerList[i].Team != Joysticker.Team) {
+				PlayerList[i].SelectMe = EffectManager.Get.PlayEffect("SelectTarget", Vector3.zero, null, PlayerList[i].PlayerRefGameObject, 0, true, false);
+				PlayerList[i].SelectMe.SetActive(false);
+			}
+		}
 		UIGame.Get.InitPlayerSkillUI(Joysticker);
 
 		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
@@ -729,7 +737,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 		#endif
-
+		selectMeEvent();
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
             CoolDownPass = 0;
 
@@ -746,6 +754,40 @@ public class GameController : KnightSingleton<GameController>
 
 		if (IsTimePass())
 			gameResult();
+	}
+
+	private void selectMeEvent() {
+		if(playerSelectMe != null) {
+			if(!playerSelectMe.activeInHierarchy)
+				playerSelectMe.SetActive(true);
+			if(Situation == EGameSituation.AttackGamer) {
+				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position) + 180, 0);
+			} else if(Situation == EGameSituation.AttackNPC) {
+				npcSelectMe = FindNearNpc();
+				showEnemySelect(npcSelectMe);
+				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, npcSelectMe.transform.position) + 180, 0);
+				npcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, npcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
+			} else {
+				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position) + 180, 0);
+			}
+		}
+	}
+
+	private void showEnemySelect (PlayerBehaviour p) {
+		hideAllEnemySelect (p);
+		p.SelectMe.SetActive(true);
+	}
+
+	private void hideAllEnemySelect (PlayerBehaviour p = null) {
+		for(int i=0; i<PlayerList.Count; i++) {
+			if(p == null) {
+				if(PlayerList[i].Team != Joysticker.Team && PlayerList[i] != null)
+					PlayerList[i].SelectMe.SetActive(false);
+			} else {
+				if(PlayerList[i].Team != Joysticker.Team && PlayerList[i] != null && PlayerList[i] != p)
+					PlayerList[i].SelectMe.SetActive(false);
+			}
+		}
 	}
 
 	private void KeyboardControl()
@@ -932,11 +974,11 @@ public class GameController : KnightSingleton<GameController>
 			GUI.Label(new Rect(Screen.width * 0.75f - 25, 200, 300, 50), "Shoot Score Times:" + shootScoreTimes.ToString());
 		}
 
-		if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
-			if (GUI.Button(new Rect(0, 0, 100, 100), "shine player")) {
-				Joysticker.IsChangeColor = true;
-			}
-		}
+//		if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
+//			if (GUI.Button(new Rect(0, 0, 100, 100), "shine player")) {
+//				Joysticker.IsChangeColor = true;
+//			}
+//		}
 
 		if(GameStart.Get.IsShowShootRate) {
 			GUILayout.Label("random rate:"+ randomrate);
@@ -1405,11 +1447,13 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.AttackNPC:
 				break;
 			case EGameSituation.GamerPickBall:
+				hideAllEnemySelect ();
 //				PickBallPlayer = null;
 //				for(int i = 0; i < PlayerList.Count; i++)
 //					PlayerList[i].IsCanCatchBall = true;
                 break;
             case EGameSituation.InboundsGamer:
+				hideAllEnemySelect ();
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				UITransition.Get.SelfAttack();
@@ -3087,7 +3131,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		if(p != null && Situation != EGameSituation.End)
         {
-			p.IsChangeColor = true;
+//			p.IsChangeColor = true;
 			IsReboundTime = false;
 			if (!p.IsAlleyoopState) 
 			{

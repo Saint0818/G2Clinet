@@ -4,10 +4,10 @@ public class UISkillEffect : UIBase {
 	private static UISkillEffect instance = null;
 	private const string UIName = "UISkillEffect";
 
-	private GameObject[] uiMotion = new GameObject[3];
-	private UISprite[] spriteCardFrame = new UISprite[3];
-	private UITexture[] textureCardInfo = new UITexture[3];
-	private UILabel[] labelCardName = new UILabel[3];
+	private GameObject uiMotion;
+	private UISprite spriteCardFrame;
+	private UITexture textureCardInfo;
+	private UILabel labelCardName;
 
 	public static bool Visible{
 		get{
@@ -32,15 +32,9 @@ public class UISkillEffect : UIBase {
 		if(isShow) {
 			Get.Show(isShow);
 			if(picNo != 0 && lv != 0) {
-				for(int i=0; i<Get.uiMotion.Length; i++) {
-					if(kind == i) {
-						Get.spriteCardFrame[kind].spriteName = "cardlevel_" + Mathf.Clamp(lv, 1, 3).ToString();
-						Get.textureCardInfo[kind].mainTexture = GameData.CardTexture(picNo);
-						Get.labelCardName[kind].text = name;
-					} else {
-						Get.uiMotion[i].SetActive(false);
-					}
-				}
+				Get.spriteCardFrame.spriteName = "cardlevel_" + Mathf.Clamp(lv, 1, 3).ToString();
+				Get.textureCardInfo.mainTexture = GameData.CardTexture(picNo);
+				Get.labelCardName.text = name;
 			}
 		} else 
 		if(instance)
@@ -48,11 +42,9 @@ public class UISkillEffect : UIBase {
 	}
 
 	protected override void InitCom() {
-		for(int i=0; i<uiMotion.Length; i++) {
-			uiMotion[i] = GameObject.Find (UIName + "/Center/CardMotion_"+i.ToString());
-			spriteCardFrame[i] = GameObject.Find (UIName + "/Center/CardMotion_"+i.ToString()+"/CardFrame").GetComponent<UISprite>();
-			textureCardInfo[i] = GameObject.Find (UIName + "/Center/CardMotion_"+i.ToString()+"/CardInfo").GetComponent<UITexture>();
-			labelCardName[i] = GameObject.Find (UIName + "/Center/CardMotion_"+i.ToString()+"/CardLabel").GetComponent<UILabel>();
-		}
+		uiMotion = GameObject.Find (UIName + "/Center/CardMotio");
+		spriteCardFrame = GameObject.Find (UIName + "/Center/CardMotion/CardFrame").GetComponent<UISprite>();
+		textureCardInfo = GameObject.Find (UIName + "/Center/CardMotion/CardInfo").GetComponent<UITexture>();
+		labelCardName = GameObject.Find (UIName + "/Center/CardMotion/CardLabel").GetComponent<UILabel>();
 	}
 }

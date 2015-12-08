@@ -353,10 +353,13 @@ public class PlayerBehaviour : MonoBehaviour
     //Camera
     private float yAxizOffset = 0;
 
+	//Select
+	public GameObject SelectMe;
+
     //Change Player Color Value
-    private bool isChangeColor = false;
-    private float changeTime;
-    private Color colorStart = new Color32(150, 150, 150, 255);
+//    private bool isChangeColor = false;
+//    private float changeTime;
+//    private Color colorStart = new Color32(150, 150, 150, 255);
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -443,24 +446,24 @@ public class PlayerBehaviour : MonoBehaviour
             SpeedUpView.enabled = false;
     }
     
-    private void changePlayerColor()
-    {
-        if (isChangeColor)
-        {
-            changeTime += Time.deltaTime;
-            float lerp = (Mathf.PingPong(changeTime, 0.5f * GameConst.PlayerShineTime / GameConst.PlayerShineCount) * 310 * GameConst.PlayerShineCount / GameConst.PlayerShineTime);
-            if (Team == ETeamKind.Self)
-                BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, 255, 255);
-            else
-                BodyMaterial.color = new Color32(255, (byte)lerp, (byte)lerp, 255);
-            if (changeTime >= GameConst.PlayerShineTime)
-                isChangeColor = false;
-        } else
-        {
-            changeTime = 0;
-            BodyMaterial.color = colorStart;
-        }
-    }
+//    private void changePlayerColor()
+//    {
+//        if (isChangeColor)
+//        {
+//            changeTime += Time.deltaTime;
+//            float lerp = (Mathf.PingPong(changeTime, 0.5f * GameConst.PlayerShineTime / GameConst.PlayerShineCount) * 310 * GameConst.PlayerShineCount / GameConst.PlayerShineTime);
+//            if (Team == ETeamKind.Self)
+//                BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, 255, 255);
+//            else
+//                BodyMaterial.color = new Color32(255, (byte)lerp, (byte)lerp, 255);
+//            if (changeTime >= GameConst.PlayerShineTime)
+//                isChangeColor = false;
+//        } else
+//        {
+//            changeTime = 0;
+//            BodyMaterial.color = colorStart;
+//        }
+//    }
 
     public void SetTimerKey(ETimerKind key)
     {
@@ -690,7 +693,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return;
         }
-        changePlayerColor();
+//        changePlayerColor();
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
         CalculationBlock();
@@ -3384,7 +3387,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
                     if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
-                        UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData [ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData [ActiveSkillUsed.ID].Name);
+                        UISkillEffect.UIShow(true, 0, GameData.DSkillData [ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData [ActiveSkillUsed.ID].Name);
                     
                     switch (skillEffectKind)
                     {
@@ -3666,11 +3669,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool IsChangeColor
-    {
-        get{ return isChangeColor;}
-        set{ isChangeColor = value;}
-    }
+//    public bool IsChangeColor
+//    {
+//        get{ return isChangeColor;}
+//        set{ isChangeColor = value;}
+//    }
 
     public bool IsSkillShow
     {

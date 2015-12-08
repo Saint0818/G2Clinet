@@ -27,6 +27,12 @@ namespace G2
 			return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 		}
 
+		public static float FindAngle(Vector3 source, Vector3 target) 
+		{
+			Vector3 relative = target - source;
+			return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+		}
+
 //        public static float GetAngle([NotNull]Transform source, Transform target)
 //        {
 //            Vector3 relative = source.InverseTransformPoint(target.position);
