@@ -32,7 +32,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
 				player.AnimationEvent ("ElbowEnd");
 				break;
 			case EAnimatorState.Fall:
-				player.AnimationEvent ("AnimationEnd");
+				player.AnimationEvent ("FallEnd");
 				break;
 			case EAnimatorState.Show:
 				if (player.IsBallOwner)

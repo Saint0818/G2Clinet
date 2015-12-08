@@ -2085,7 +2085,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow2:
             case EPlayerState.Elbow20:
             case EPlayerState.Elbow21:
-                if (!IsTee && IsBallOwner && (IsDribble || crtState == EPlayerState.HoldBall))
+                if (!IsTee && !IsElbow && IsBallOwner && (IsDribble || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
 
@@ -3088,7 +3088,6 @@ public class PlayerBehaviour : MonoBehaviour
                 OnUI(this);
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
-
                 break;
 
             case "ElbowEnd":
@@ -3097,6 +3096,12 @@ public class PlayerBehaviour : MonoBehaviour
                 CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 break;
+
+			case "FallEnd":
+				OnUI(this);
+				ReSetFlag();
+				AniState(EPlayerState.Idle);
+				break;
 
             case "CatchEnd":
                 if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
@@ -3162,27 +3167,31 @@ public class PlayerBehaviour : MonoBehaviour
 //                          AniState(EPlayerState.HoldBall);
                 }
 
-				CanUseTipIn = false;
-                isUsePass = false;
-				isCanCatchBall = true;
-                IsPassAirMoment = false;
-                blockTrigger.SetActive(false);
-                PlayerRigidbody.useGravity = true;
-                IsKinematic = false;
-                IsPerfectBlockCatch = false;
-                isRebound = false;
-                isPush = false; 
-                IsUseActiveSkill = false;
-                blockCatchTrigger.enabled = false;
-
-                if (!NeedResetFlag)
-                    isCheckLayerToReset = true;
-                else
-                    ResetFlag();
-
+				ReSetFlag();
                 break;
         }
     }
+
+	public void ReSetFlag()
+	{
+		CanUseTipIn = false;
+		isUsePass = false;
+		isCanCatchBall = true;
+		IsPassAirMoment = false;
+		blockTrigger.SetActive(false);
+		PlayerRigidbody.useGravity = true;
+		IsKinematic = false;
+		IsPerfectBlockCatch = false;
+		isRebound = false;
+		isPush = false; 
+		IsUseActiveSkill = false;
+		blockCatchTrigger.enabled = false;
+		
+		if (!NeedResetFlag)
+			isCheckLayerToReset = true;
+		else
+			ResetFlag();
+	}
 
     public void EffectEvent(string effectName)
     {

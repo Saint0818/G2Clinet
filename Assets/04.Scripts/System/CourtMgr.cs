@@ -31,6 +31,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	private GameObject[] BuildDummyAy = new GameObject[2];
 	private Vector3[] animPos = new Vector3[2];
 	private Vector3[] animRotate = new Vector3[2];
+	private GameObject spotlight;
 
 	public GameObject[] DunkPoint = new GameObject[2];
 	public GameObject[] DunkJumpPoint = new GameObject[2];
@@ -51,6 +52,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Transform[] BasketHoopDummy = new Transform[2];
 	public GameObject[] BasketRangeCenter = new GameObject[2];
 	public GameObject Effect;
+		
 	public CircularSectorMeshRenderer SkillRangeOfAction;
 	public GameObject SkillArrowOfAction;
 	private UITexture textureArrow;
@@ -369,6 +371,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
 			crtCollider.transform.parent = RefGameObject.transform;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
+
+			if(spotlight == null && BallShadow)
+				spotlight = BallShadow.transform.FindChild("SpotLight").gameObject; 
 		}
 		
 		EndPlayerPosition[0] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
@@ -440,6 +445,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		BallShadow.RefGameObject.SetActive(true);
 		BallShadow.SetTarget(RealBall);
+		spotlight.SetActive (false);
 	}
 
 	private void switchGameobj(ref GameObject obj1, ref GameObject obj2) {
@@ -668,7 +674,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
                 HideBallSFX();
-				
+				spotlight.SetActive(false);
 				break;
 
 			case EPlayerState.Shoot0: 
@@ -686,6 +692,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Layup3: 
 			case EPlayerState.TipIn: 
 			case EPlayerState.Shooting: 
+				spotlight.SetActive(false);
 				break;
 
 			case EPlayerState.Pass0: 
@@ -700,7 +707,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Pass9: 
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
-
+				spotlight.SetActive(false);
 				break;
 
 			case EPlayerState.Steal0:
@@ -718,6 +725,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 // 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
                 RealBallVelocity = newDir.normalized * 10;
 				mRealBallSFX.SetActive(true);
+				spotlight.SetActive(true);
 			break;
 			case EPlayerState.JumpBall:
 				if(!GameController.Get.IsJumpBall)
@@ -733,6 +741,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 60);
 					mRealBallSFX.SetActive(true);
+					spotlight.SetActive(true);
 				}
 				break;
 			
@@ -751,6 +760,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 				RealBallVelocity = v;
 				mRealBallSFX.SetActive(true);
+				spotlight.SetActive(true);
 				break;
 
 			case EPlayerState.Dunk0:
@@ -769,7 +779,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localEulerAngles = Vector3.zero;
                 RealBallTrigger.SetBoxColliderEnable(false);
                 HideBallSFX();
-
+				spotlight.SetActive(false);
 				break;
 
             case EPlayerState.DunkBasket:
@@ -784,11 +794,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.useGravity = false;
 				RealBall.transform.position = new Vector3(0, 7, 0);
 				mRealBallSFX.SetActive(true);
+				spotlight.SetActive(false);
 				break;
 
 			case EPlayerState.Start:
 				RealBall.transform.localPosition = new Vector3 (0, 6, 0);
 				RealBallAddForce(Vector3.up * 1000);
+				spotlight.SetActive(false);
 				break;
 
 			case EPlayerState.HoldBall:
@@ -807,6 +819,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
                 HideBallSFX();
+				spotlight.SetActive(false);
 				break;
 		}
 

@@ -154,6 +154,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
+		if (!GameStart.Get.ConnectToServer)
+			return;
 		waitingURL = url;
 		waitingCallback = callback;
 		waitingForm = form;
