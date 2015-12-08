@@ -4440,10 +4440,8 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-//		if (!StageData.IsTutorial) {
-			SetBall();
-			CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
-//		}
+		SetBall();
+		CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
 	}
 	
 	public void Reset()

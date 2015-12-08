@@ -28,9 +28,6 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
 	public AudioMixerSnapshot StartST;
-	private bool isMusicOn = false;
-	private bool isSoundOn = false;
-	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
 	void Awake()

@@ -16,7 +16,7 @@ public struct TDoubleClick
 	public int Index;
 	private GameObject Group;
 	private UISprite runSprite;
-	private UISprite targetSprite;
+//	private UISprite targetSprite;
 	public float CrtValue;
 	private float CheckValue;
 	private bool isInit;
@@ -41,7 +41,7 @@ public struct TDoubleClick
 		CrtValue = 800;
 		FramSpeed =  CrtValue / (speed * 30);
 		runSprite = Group.transform.FindChild ("BarSprite").gameObject.GetComponent<UISprite>();
-		targetSprite = Group.transform.FindChild ("TargetSprite").gameObject.GetComponent<UISprite>();
+//		targetSprite = Group.transform.FindChild ("TargetSprite").gameObject.GetComponent<UISprite>();
 		IsStart = false;
 		Enable = false;
 		Group.SetActive (false);

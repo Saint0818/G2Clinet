@@ -372,7 +372,7 @@ public class UISetting : UIBase {
 			UISetting.UIShow(true);
 
 		if (UIMainLobby.Get.IsVisible)
-			UIMainLobby.Get.InitText();
+			UIMainLobby.Get.ResetText();
 
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}

@@ -144,7 +144,7 @@ public class UIMainLobby : UIBase
         Main.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
     }
 
-	public void InitText()
+	public void ResetText()
 	{
 		initDefaultText (Main.MainMenu);
 	}

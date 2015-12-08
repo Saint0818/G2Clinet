@@ -38,6 +38,7 @@ public struct TMail
 }
 
 public class UIMail : UIBase {
+	/*
 	private static UIMail instance = null;
 	private static int mailKind = 0;
 	private const string UIName = "UIMail";
@@ -160,4 +161,5 @@ public class UIMail : UIBase {
 	{
 //		mailContents
 	}
+	*/
 }

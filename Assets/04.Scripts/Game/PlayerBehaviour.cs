@@ -274,7 +274,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Layup
     private bool isLayup = false;
-    private bool isLayupZmove = false;
+//    private bool isLayupZmove = false;
     private float layupCurveTime = 0;
     private TLayupCurve playerLayupCurve;
         
@@ -2370,7 +2370,7 @@ public class PlayerBehaviour : MonoBehaviour
 				isFindCurve = playerLayupCurve != null? true : false;
 				layupCurveTime = 0;
                 isLayup = true;
-                isLayupZmove = false;
+//                isLayupZmove = false;
                 break;
 
             case EAnimatorState.Rebound:

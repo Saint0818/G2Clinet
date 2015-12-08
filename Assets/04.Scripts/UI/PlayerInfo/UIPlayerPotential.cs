@@ -193,23 +193,23 @@ public class UpgradeView
 public class PointView 
 {
 	private GameObject self;
-	private UILabel title;
-	private UILabel lvtitle;
+//	private UILabel title;
+//	private UILabel lvtitle;
 	private UILabel lvVaule;
-	private UILabel avatartitle;
+//	private UILabel avatartitle;
 	private UILabel avatarVaule;
-	private UILabel explanation;
+//	private UILabel explanation;
 
 	public void Init(GameObject go)
 	{
 		if (go) {
 			self = go;
-			title = self.transform.FindChild("HeadingLabel").gameObject.GetComponent<UILabel>();
-			lvtitle = self.transform.FindChild("Top/SubheadLabel1").gameObject.GetComponent<UILabel>();
+//			title = self.transform.FindChild("HeadingLabel").gameObject.GetComponent<UILabel>();
+//			lvtitle = self.transform.FindChild("Top/SubheadLabel1").gameObject.GetComponent<UILabel>();
 			lvVaule = self.transform.FindChild("Top/LevelPointsLabel").gameObject.GetComponent<UILabel>();
-			avatartitle = self.transform.FindChild("Top/SubheadLabel2").gameObject.GetComponent<UILabel>();
+//			avatartitle = self.transform.FindChild("Top/SubheadLabel2").gameObject.GetComponent<UILabel>();
 			avatarVaule = self.transform.FindChild("Top/AvatarPointsLabel").gameObject.GetComponent<UILabel>();
-			explanation = self.transform.FindChild("Bottom/WarningLabel").gameObject.GetComponent<UILabel>();
+//			explanation = self.transform.FindChild("Bottom/WarningLabel").gameObject.GetComponent<UILabel>();
 		}
 	}
 
