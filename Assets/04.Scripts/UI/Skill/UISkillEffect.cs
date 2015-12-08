@@ -42,7 +42,7 @@ public class UISkillEffect : UIBase {
 	}
 
 	protected override void InitCom() {
-		uiMotion = GameObject.Find (UIName + "/Center/CardMotio");
+		uiMotion = GameObject.Find (UIName + "/Center/CardMotion");
 		spriteCardFrame = GameObject.Find (UIName + "/Center/CardMotion/CardFrame").GetComponent<UISprite>();
 		textureCardInfo = GameObject.Find (UIName + "/Center/CardMotion/CardInfo").GetComponent<UITexture>();
 		labelCardName = GameObject.Find (UIName + "/Center/CardMotion/CardLabel").GetComponent<UILabel>();
