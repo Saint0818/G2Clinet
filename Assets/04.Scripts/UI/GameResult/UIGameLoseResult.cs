@@ -180,6 +180,7 @@ public class UIGameLoseResult : UIBase {
 			}
 		} else 
 		{
+			hideAllTargets();
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			hintIndex = 0;
 			bool isFin = false;
