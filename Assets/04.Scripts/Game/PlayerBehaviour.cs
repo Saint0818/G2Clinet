@@ -7,6 +7,7 @@ using DG.Tweening;
 using GameStruct;
 using GamePlayEnum;
 using Chronos;
+using G2;
 using JetBrains.Annotations;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
@@ -356,11 +357,6 @@ public class PlayerBehaviour : MonoBehaviour
 	//Select
 	public GameObject SelectMe;
 
-    //Change Player Color Value
-//    private bool isChangeColor = false;
-//    private float changeTime;
-//    private Color colorStart = new Color32(150, 150, 150, 255);
-
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
         int v = (int)(Mathf.Abs(value) / 5);
@@ -445,25 +441,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (SpeedUpView)
             SpeedUpView.enabled = false;
     }
-    
-//    private void changePlayerColor()
-//    {
-//        if (isChangeColor)
-//        {
-//            changeTime += Time.deltaTime;
-//            float lerp = (Mathf.PingPong(changeTime, 0.5f * GameConst.PlayerShineTime / GameConst.PlayerShineCount) * 310 * GameConst.PlayerShineCount / GameConst.PlayerShineTime);
-//            if (Team == ETeamKind.Self)
-//                BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, 255, 255);
-//            else
-//                BodyMaterial.color = new Color32(255, (byte)lerp, (byte)lerp, 255);
-//            if (changeTime >= GameConst.PlayerShineTime)
-//                isChangeColor = false;
-//        } else
-//        {
-//            changeTime = 0;
-//            BodyMaterial.color = colorStart;
-//        }
-//    }
 
     public void SetTimerKey(ETimerKind key)
     {
@@ -1582,7 +1559,7 @@ public class PlayerBehaviour : MonoBehaviour
                 result = GetStealPostion(aP1, aP2, data.DefPlayer.Index);
                 if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
-					if (DefPlayer != null && Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
+					if (DefPlayer != null && MathUtils.FindAngle(data.DefPlayer.transform, PlayerRefGameObject.transform.position) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.ThreePointDistance + 3)
                     {
                         resultBool = true;
@@ -1763,7 +1740,7 @@ public class PlayerBehaviour : MonoBehaviour
                         else
                             RotateTo(MoveTarget.x, MoveTarget.y);
 
-                        if (GetAngle(new Vector3(MoveTarget.x, 0, MoveTarget.y)) >= 90)
+						if(MathUtils.FindAngle(PlayerRefGameObject.transform, new Vector3(MoveTarget.x, 0, MoveTarget.y)) > 90)
                             AniState(EPlayerState.Defence1);
                         else
                             AniState(EPlayerState.RunningDefence);
@@ -3630,10 +3607,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsAlleyoopState
     {
-        get
-        {
-            return CheckAnimatorSate(EPlayerState.Alleyoop);
-        }
+        get{ return CheckAnimatorSate(EPlayerState.Alleyoop);}
     }
     
     public bool CanMove
@@ -3678,12 +3652,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-//    public bool IsChangeColor
-//    {
-//        get{ return isChangeColor;}
-//        set{ isChangeColor = value;}
-//    }
-
     public bool IsSkillShow
     {
         get { return isSkillShow;}
@@ -3706,8 +3674,6 @@ public class PlayerBehaviour : MonoBehaviour
         set
         {
             isCanBlock = value;
-//            if(CourtMgr.Get.RealBallFX.activeSelf != value)
-//                CourtMgr.Get.RealBallFX.SetActive(value);
             if (CourtMgr.Get.IsBallSFXEnabled() != value)
                 CourtMgr.Get.ShowBallSFX();
         }
@@ -3999,19 +3965,7 @@ public class PlayerBehaviour : MonoBehaviour
 //        isPush = false;
 //        isFall = false;
 //    }
-
-    private float GetAngle(Vector3 target)
-    {
-        Vector3 relative = this.transform.InverseTransformPoint(target);
-        return Math.Abs(Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg);
-    }
-
-    public float GetAngle(Transform t1, Transform t2)
-    {
-        Vector3 relative = t1.InverseTransformPoint(t2.position);
-        return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-    }
-
+	
     public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
     {
         bool cover = false;
@@ -4023,8 +3977,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (GameController.Get.BallOwner && GameController.Get.BallOwner.DefPlayer && GameController.Get.BallOwner.Index != Index)
         {
-            float angle = Math.Abs(GetAngle(GameController.Get.BallOwner.transform, GameController.Get.BallOwner.DefPlayer.transform));
-
+			float angle = Math.Abs(MathUtils.FindAngle(GameController.Get.BallOwner.transform, GameController.Get.BallOwner.DefPlayer.transform.position));
             if (angle > 90)
             {
                 P1 = GameController.Get.BallOwner.transform.position;

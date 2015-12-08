@@ -144,6 +144,7 @@ public class GameController : KnightSingleton<GameController>
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;
 	private EDoubleType doubleType = EDoubleType.None;
+	private WeightedRandomizer<ESkillSituation> shootRandomizer = new WeightedRandomizer<ESkillSituation>();
 
 	//Rebound
 	public bool IsReboundTime = false;
@@ -152,8 +153,6 @@ public class GameController : KnightSingleton<GameController>
 	//Basket
 	public EBasketSituation BasketSituation;
 	public string BasketAnimationName = "BasketballAction_1";
-	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
-//	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
    
 	//Effect
 	public GameObject[] passIcon = new GameObject[3];
@@ -168,10 +167,9 @@ public class GameController : KnightSingleton<GameController>
 	public TCourtInstant CourtInstant;
 	public TStageData StageData = new TStageData();
 
-	private WeightedRandomizer<ESkillSituation> shootRandomizer = new WeightedRandomizer<ESkillSituation>();
+	public float RecordTimeScale = 1;
 
 	//debug value
-	public float RecordTimeScale = 1;
 	public int PlayCount = 0;
 	public int SelfWin = 0;
 	public int NpcWin = 0;
@@ -1521,7 +1519,7 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 	
-	private EBasketDistanceAngle judgeShootAngle(PlayerBehaviour player){
+	private int judgeShootAngle(PlayerBehaviour player){
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
@@ -1544,47 +1542,47 @@ public class GameController : KnightSingleton<GameController>
 		//Angle
 		if(angle > 60) {// > 60 degree
 			if(distanceType == 0)
-				return EBasketDistanceAngle.ShortCenter;
+				return (int)EBasketDistanceAngle.ShortCenter;
 			else if (distanceType == 1)
-				return EBasketDistanceAngle.MediumCenter;
+				return (int)EBasketDistanceAngle.MediumCenter;
 			else if (distanceType == 2)
-				return EBasketDistanceAngle.LongCenter;
+				return (int)EBasketDistanceAngle.LongCenter;
 		} else 
 		if(angle <= 60 && angle > 10){// > 10 degree <= 60 degree
 			if(angleByPlayerHoop > 0) {//right
 				if(distanceType == 0)
-					return EBasketDistanceAngle.ShortRight;
+					return (int)EBasketDistanceAngle.ShortRight;
 				else if (distanceType == 1)
-					return EBasketDistanceAngle.MediumRight;
+					return (int)EBasketDistanceAngle.MediumRight;
 				else if (distanceType == 2)
-					return EBasketDistanceAngle.LongRight;
+					return (int)EBasketDistanceAngle.LongRight;
 			} else {//left
 				if(distanceType == 0)
-					return EBasketDistanceAngle.ShortLeft;
+					return (int)EBasketDistanceAngle.ShortLeft;
 				else if (distanceType == 1)
-					return EBasketDistanceAngle.MediumLeft;
+					return (int)EBasketDistanceAngle.MediumLeft;
 				else if (distanceType == 2)
-					return EBasketDistanceAngle.LongLeft;
+					return (int)EBasketDistanceAngle.LongLeft;
 			}
 		} else 
 		if(angle <= 10 && angle >= -30){ // < 10 degree
 			if(angleByPlayerHoop > 0){ // right
 				if(distanceType == 0)
-					return EBasketDistanceAngle.ShortRightWing;
+					return (int)EBasketDistanceAngle.ShortRightWing;
 				else if (distanceType == 1)
-					return EBasketDistanceAngle.MediumRightWing;
+					return (int)EBasketDistanceAngle.MediumRightWing;
 				else if (distanceType == 2)
-					return EBasketDistanceAngle.LongRightWing;
+					return (int)EBasketDistanceAngle.LongRightWing;
 			} else {//left
 				if(distanceType == 0)
-					return EBasketDistanceAngle.ShortLeftWing;
+					return (int)EBasketDistanceAngle.ShortLeftWing;
 				else if (distanceType == 1)
-					return EBasketDistanceAngle.MediumLeftWing;
+					return (int)EBasketDistanceAngle.MediumLeftWing;
 				else if (distanceType == 2)
-					return EBasketDistanceAngle.LongLeftWing;
+					return (int)EBasketDistanceAngle.LongLeftWing;
 			}
 		}
-		return EBasketDistanceAngle.ShortCenter;
+		return (int)EBasketDistanceAngle.ShortCenter;
 	}
 
 	private void judgeBasketAnimationName (int basketDistanceAngleType) {
@@ -1610,7 +1608,7 @@ public class GameController : KnightSingleton<GameController>
 		
 	}
 
-	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, bool isActive = false) {
+	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, int basketDistanceAngleType, bool isActive = false) {
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDistance >= GameConst.ThreePointDistance) {
@@ -1707,16 +1705,9 @@ public class GameController : KnightSingleton<GameController>
 		if(isActive || GameStart.Get.TestMode == EGameTest.AttackA)
         {
 			BasketSituation = EBasketSituation.Swish;
-//			BasketSituation = EBasketSituation.Score;
-//			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
-//				if((int)GameStart.Get.SelectBasketState > 100)
-//					BasketSituation = EBasketSituation.NoScore;
-//				BasketAnimationName = "BasketballAction_" + basketanimationTest[(int)GameStart.Get.SelectBasketState];
-//				UIHint.Get.ShowHint("BasketAnimationName: "+BasketAnimationName, Color.yellow);
-//			}
 		}
 		
-		judgeBasketAnimationName ((int)basketDistanceAngle);
+		judgeBasketAnimationName (basketDistanceAngleType);
 
 		if (ShootDistance >= GameConst.ThreePointDistance)
 			player.GameRecord.FG3++;
@@ -1894,8 +1885,7 @@ public class GameController : KnightSingleton<GameController>
 				scoreType = EScoreType.LayUp;
 			}
 
-			basketDistanceAngle = judgeShootAngle(player);
-			calculationScoreRate(player, scoreType, isActive);
+			calculationScoreRate(player, scoreType, judgeShootAngle(player), isActive);
 
 			SetBall();
 			CourtMgr.Get.SetBallState(player.crtState);
@@ -4563,7 +4553,6 @@ public class GameController : KnightSingleton<GameController>
         {
 			if(PlayerList[i] && PlayerList[i].Team != player.Team)
             {
-//				if(GameFunction.IsInFanArea(player.transform, PlayerList[i].transform.position, dis, angle))
 				if(player.PlayerRefGameObject.transform.IsInFanArea(PlayerList[i].PlayerRefGameObject.transform.position, dis, angle))
                 {
 					int rate = Random.Range(0, 100);
