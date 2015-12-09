@@ -70,7 +70,7 @@ public class BallTrigger : MonoBehaviour
                 {
 					if(isEnter)
 					{
-						if(!GameController.Get.PassingStealBall(player, dir))
+						if(GameController.Get.PassingStealBall(player, dir)) 
 							GameController.Get.BallTouchPlayer(player, dir, true);
 					}
                     else

@@ -3411,10 +3411,9 @@ public class GameController : KnightSingleton<GameController>
 
                         IsPassing = false;
 					}
+					return true;
 				}
 			}
-
-			return true;
 		}
 
 		return false;
@@ -3487,7 +3486,11 @@ public class GameController : KnightSingleton<GameController>
 			}
             break;
 		case 5: //finger
-			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
+			if(Situation == EGameSituation.JumpBall && isEnter)
+			{
+				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
+			}
+			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
 				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
