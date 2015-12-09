@@ -96,18 +96,20 @@ public class GEBase : EditorWindow {
 		return EditorGUILayout.Popup(select, displayOptions, StyleButton, GUILayout.Width(Width_Button * 2), GUILayout.Height(Height_Line));
 	}
 
-	protected static void SaveFile(string fileName, string Data) {
-		if (File.Exists(fileName))
+	protected static void SaveFile(string fileName, string data)
+    {
+		if(File.Exists(fileName))
 			File.WriteAllText(fileName, string.Empty);
-		
-		using (FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
-			using (StreamWriter myWriter = new StreamWriter(myFile)) {
-				myWriter.Write(Data);
-				myWriter.Close();
-			}
-			
-			myFile.Close();
-		}
+
+        using (FileStream file = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+        {
+            using (StreamWriter myWriter = new StreamWriter(file))
+            {
+                myWriter.Write(data);
+                myWriter.Close();
+            }
+            file.Close();
+        }
 	}
 	
 	protected static string LoadFile(string fileName) {

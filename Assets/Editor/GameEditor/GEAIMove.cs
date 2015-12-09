@@ -266,8 +266,8 @@ public class GEAIMove : GEBase {
                     TacticalData [i].PosAy3 [j].z = (float)System.Math.Round(TacticalData [i].PosAy3 [j].z, 2);
                 }
                 
-                SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
-				SaveFile(BackupFileName, JsonConvert.SerializeObject(TacticalData));
+                SaveFile(FileName, JsonConvert.SerializeObject(TacticalData, Formatting.Indented));
+				SaveFile(BackupFileName, JsonConvert.SerializeObject(TacticalData, Formatting.Indented));
                 FlashTacticalName();
                 Debug.Log(FileName);
 				Debug.Log(BackupFileName);
