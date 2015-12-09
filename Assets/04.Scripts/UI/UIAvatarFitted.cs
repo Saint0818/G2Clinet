@@ -141,6 +141,7 @@ public class TItemAvatar
 					TrimBottom.gameObject.SetActive(false);
 				break;
 			case 2: 
+				usetime.text = TextConst.S (8006);
 				TrimBottom.gameObject.SetActive(true);
 				break;
 			default : 
@@ -271,7 +272,7 @@ public class TItemAvatar
 					}
 					break;
 				case 2:
-					usetime.gameObject.SetActive(false);
+					usetime.gameObject.SetActive(true);
 					getModeLabel.enabled = false;
 					break;
 				default:
@@ -1123,6 +1124,7 @@ public class UIAvatarFitted : UIBase {
 			GameData.Team.Player.Items = team.Player.Items;
 			GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 			UpdateAvatar(true);
+			UIHint.Get.ShowHint(TextConst.S(532), Color.black);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
