@@ -2024,7 +2024,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !IsUseActiveSkill && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (crtState != EPlayerState.Alleyoop && !isUseActiveSkill && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -2095,7 +2095,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.KnockDown0:
             case EPlayerState.KnockDown1:
 
-                if (!IsTee && !IsFall && !IsUseActiveSkill)
+                if (!IsTee && !IsFall && !isUseActiveSkill)
                     return true;
                 break;
 
@@ -2649,7 +2649,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody.useGravity = true;
         IsKinematic = false;
         DribbleTime = 0;
-        IsUseActiveSkill = false;
+        isUseActiveSkill = false;
         if (!isUsePass)
             isCanCatchBall = true;
 
@@ -3181,7 +3181,7 @@ public class PlayerBehaviour : MonoBehaviour
 		IsPerfectBlockCatch = false;
 		isRebound = false;
 		isPush = false; 
-		IsUseActiveSkill = false;
+		isUseActiveSkill = false;
 		blockCatchTrigger.enabled = false;
 		
 		if (!NeedResetFlag)
@@ -3282,7 +3282,7 @@ public class PlayerBehaviour : MonoBehaviour
                             if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers [i].transform.position.x, GameController.Get.GamePlayers [i].transform.position.z), 
                                                      new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData [ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
                             {
-								if( GameController.Get.GamePlayers [i].IsAllShoot)
+								if( GameController.Get.GamePlayers [i].IsAllShoot || GameController.Get.GamePlayers [i].IsDunk)
                                		GameController.Get.GamePlayers [i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
 								else
                                 	GameController.Get.GamePlayers [i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
@@ -3303,12 +3303,13 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameController.Get.Shooter != null) 
                     GameController.Get.Shooter = null;
                 break;
-            case "ActiveSkillEnd":
+			case "ActiveSkillEnd":
+				isUseActiveSkill = false;
                 if (isSkillShow)
                 {
                     if (OnUIJoystick != null)
                         OnUIJoystick(this, true);
-    
+    				
                     isSkillShow = false;
                     UISkillEffect.UIShow(false);
 					aniEvent = new UnityEngine.AnimationEvent();
@@ -3369,12 +3370,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (no < 20)
             return;
 	
-        if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+		if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
             int skillEffectKind = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCameraTime;
 			AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
-            if (this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+            if (this == GameController.Get.Joysticker)
             {
                 if (!isSkillShow)
                 {
@@ -3441,7 +3442,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
 
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseActiveSkill)
+                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !isUseActiveSkill)
                     UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
                 showActiveEffect();
             }
@@ -3634,7 +3635,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (IsUseActiveSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
+            if (isUseActiveSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
                 return false;
             else
                 return true;
@@ -3655,7 +3656,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanUseActiveSkill(TSkill tSkill)
     {
         if ((CanMove || crtState == EPlayerState.HoldBall) &&
-            !IsUseActiveSkill && IsAngerFull(tSkill))
+            !isUseActiveSkill && IsAngerFull(tSkill))
             return true;
 
         return false;

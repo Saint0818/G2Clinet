@@ -2610,9 +2610,11 @@ public class GameController : KnightSingleton<GameController>
 			if ((player.CheckSkillDistance(tSkill) && player.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
 				UIGame.Get.ResetRange();
 				player.ActiveSkillUsed = tSkill;
-				player.CheckSkillValueAdd(tSkill);
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
-				player.IsUseActiveSkill = true;
+				if(result){
+					player.CheckSkillValueAdd(tSkill);
+					player.IsUseActiveSkill = true;
+				}
 			}
 		}
 		return result;

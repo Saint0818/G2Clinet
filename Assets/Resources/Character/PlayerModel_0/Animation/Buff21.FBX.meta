@@ -162,16 +162,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .995260596
-        functionName: SkillEvent
-        data: ActiveSkillEnd
+      - time: .97795409
+        functionName: AnimationEvent
+        data: BuffEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .99999994
-        functionName: AnimationEvent
-        data: BuffEnd
+      - time: .995260596
+        functionName: SkillEvent
+        data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

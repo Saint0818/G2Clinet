@@ -414,10 +414,13 @@ namespace GameStruct
 
         public int GetSkillCount (int skillID) {
             int count = 0;
-            for(int i=0; i<SkillCards.Length; i++) {
-                if(SkillCards[i].ID == skillID)
-                    count ++;
-            }
+			if(SkillCards != null) {
+				for(int i=0; i<SkillCards.Length; i++) {
+					if(SkillCards[i].ID == skillID)
+						count ++;
+				}
+			}
+
             return count;
         }
 

@@ -162,7 +162,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .995260596
+      - time: .971806467
         functionName: SkillEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}

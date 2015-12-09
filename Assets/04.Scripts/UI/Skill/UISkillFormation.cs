@@ -1523,8 +1523,10 @@ public class UISkillFormation : UIBase {
 					refreshAfterInstall ();
 				} else 
 					refreshBeforeSell();
-			} else
+			} else {
 				hide();
+				UIHint.Get.ShowHint(TextConst.S(533), Color.black);
+			}
 
 		} else {
 			Debug.LogError("text:"+www.text);
