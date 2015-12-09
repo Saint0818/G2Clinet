@@ -120,27 +120,27 @@ public class UILoading : UIBase {
 	}
 
 	void FixedUpdate() {
+		loadingTimer += Time.deltaTime;
+		if (loadingTimer >= 0.2f) {
+			loadingTimer = 0;
+			textCount++;
+			loadingText = "";
+			for (int i = 0; i < textCount; i++)
+				loadingText += ".";
+			
+			labelLoading.text = TextConst.S(10106) + loadingText;
+			
+			if (textCount > 2)
+				textCount = 0;
+		}
+
 		if (!LoadingFinished) {
-			loadingTimer += Time.deltaTime;
 			if (nowProgress < toProgress) {
 				nowProgress += Time.deltaTime;
 				if (nowProgress > toProgress)
 					nowProgress = toProgress;
 
 				uiLoadingProgress.fillAmount = nowProgress;
-			}
-
-			if (loadingTimer >= 0.2f) {
-				loadingTimer = 0;
-				textCount++;
-				loadingText = "";
-				for (int i = 0; i < textCount; i++)
-					loadingText += ".";
-
-				labelLoading.text = TextConst.S(10106) + loadingText;
-
-				if (textCount > 2)
-					textCount = 0;
 			}
 
 			if (closeAfterFinished)
@@ -286,7 +286,7 @@ public class UILoading : UIBase {
 				GameController.Get.LoadStage(GameData.StageID);
 			} else {
 				CourtMgr.Get.ShowEnd();
-				GameController.Get.LoadStage(1);
+				GameController.Get.LoadStage(101);
 				GameController.Get.InitIngameAnimator();
 				GameController.Get.SetBornPositions();
 				GameController.Get.ChangeSituation(EGameSituation.JumpBall);

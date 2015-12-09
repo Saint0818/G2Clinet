@@ -34,6 +34,13 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public void SetTutorialData(int id) {
+		CurrentEventID = 0;
+		NextEventID = 0;
+		EventValue = 0;
+		EventPlayer = -2;
+		BallOwnerTeam = -1;
+		BallOwnerIndex = -1;
+
 		bool hasUIToturial = false;
 		talkManList.Clear();
 		eventList.Clear();

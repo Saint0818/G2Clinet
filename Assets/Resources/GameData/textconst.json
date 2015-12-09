@@ -818,6 +818,11 @@
         "en": "[00ffff]Stamina[-] Fill Up"
     },
     {
+        "id": 3601,
+        "explain": "換頭圖",
+        "tw": "變更頭像"
+    },
+    {
         "id": 4001,
         "explain": "商店介面"
     },
@@ -1329,7 +1334,7 @@
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
-        "en": "Select Teammates"
+        "en": "Select Friend"
     },
     {
         "id": 9502,
@@ -1377,6 +1382,26 @@
         "id": 9509,
         "tw": "戰鬥力 {0:F1} ",
         "en": "Power {0:F1} "
+    },
+    {
+        "id": 9510,
+        "tw": "已選擇",
+        "en": "Selected"
+    },
+    {
+        "id": 9511,
+        "tw": "技能晶片卡",
+        "en": "Ability Disk"
+    },
+    {
+        "id": 9512,
+        "tw": "隊友A",
+        "en": "Friend A"
+    },
+    {
+        "id": 9513,
+        "tw": "隊友B",
+        "en": "Friend B"
     },
     {
         "id": 9601,

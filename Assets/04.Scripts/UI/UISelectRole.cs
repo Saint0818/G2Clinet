@@ -21,6 +21,11 @@ public class UISelectRole : UIBase {
 
 	private static int[] selectRoleID = new int[6]{11, 12, 13, 31, 32, 33};
 	private const int MaxValue = 100;
+	private const float X_Partner = 1;
+	private const float Y_Partner = -0.72f;
+	private const float Z_Partner = 2.58f;
+	private const float Y_Player = -0.8f;
+
 	private float axisX;
 	private float roleFallTime = 0;
 	private int selectRoleIndex = 0;
@@ -47,6 +52,7 @@ public class UISelectRole : UIBase {
 	private GameObject uiChangPlayerB;
 	private GameObject uiSelectA;
 	private GameObject uiSelectB;
+	private GameObject uiRedPoint;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
@@ -198,6 +204,7 @@ public class UISelectRole : UIBase {
 				TPlayer player = new TPlayer();
 				player.SetID(ids[i]);
 				player.Name = GameData.DPlayers[ids[i]].Name;
+				player.RoleIndex = i;
 				playerList.Add(player);
 			}
 		}
@@ -210,7 +217,7 @@ public class UISelectRole : UIBase {
 		if (players != null) {
 			for (int i = 0; i < players.Length; i ++) {
 				players[i].Player.Init();
-
+				players[i].Player.RoleIndex = i;
 				GameFunction.ItemIdTranslateAvatar(ref players[i].Player.Avatar, players[i].Player.Items);
 				playerList.Add(players[i].Player);
 			}
@@ -274,8 +281,9 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
 		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
 		SetBtnFun (UIName + "/Right/GameStart", DoStart);
-		SetBtnFun (UIName + "/Center/ViewLoading/ChangPlayerA", OnChangePlayer);
-		SetBtnFun (UIName + "/Center/ViewLoading/ChangPlayerB", OnChangePlayer);
+		SetBtnFun (UIName + "/Bottom/ChangPlayerA", OnChangePlayer);
+		SetBtnFun (UIName + "/Bottom/ChangPlayerB", OnChangePlayer);
+		SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
 
 		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(false);
 
@@ -319,11 +327,13 @@ public class UISelectRole : UIBase {
         mUIAttributes.PlayScale(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
 
 		uiPartnerList = GameObject.Find(UIName + "/Center/ViewLoading/PartnerList");
-		uiChangPlayerA = GameObject.Find(UIName + "/Center/ViewLoading/ChangPlayerA");
-		uiChangPlayerB = GameObject.Find(UIName + "/Center/ViewLoading/ChangPlayerB");
+		uiChangPlayerA = GameObject.Find(UIName + "/Bottom/ChangPlayerA");
+		uiChangPlayerB = GameObject.Find(UIName + "/Bottom/ChangPlayerB");
 		uiSelectA = GameObject.Find(UIName + "/Center/ViewLoading/SelectA");
 		uiSelectB = GameObject.Find(UIName + "/Center/ViewLoading/SelectB");
+		uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
 
+		uiRedPoint.SetActive(false);
 		uiPartnerList.SetActive(false);
 		uiChangPlayerA.SetActive(false);
 		uiChangPlayerB.SetActive(false);
@@ -351,11 +361,11 @@ public class UISelectRole : UIBase {
 					SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[i].BodyType);
 				}else 
 				if(i == 1) {
-					arrayPlayer[i].transform.localPosition = new Vector3(0.5f, -0.6f, 2.87f);
+					arrayPlayer[i].transform.localPosition = new Vector3(1f, -0.72f, 2.87f);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 				}else 
 				if(i == 2) {
-					arrayPlayer[i].transform.localPosition = new Vector3(-0.5f, -0.6f, 2.58f);
+					arrayPlayer[i].transform.localPosition = new Vector3(-1f, -0.72f, 2.58f);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 				}
 				
@@ -379,8 +389,10 @@ public class UISelectRole : UIBase {
 
 		arrayPlayerData[1] = new TPlayer();
 		arrayPlayerData[2] = new TPlayer();
-		if (playerList.Count > 0)
-			playerList.RemoveAt(0);
+		arrayPlayerData[1].RoleIndex = -1;
+		arrayPlayerData[2].RoleIndex = -1;
+		//if (playerList.Count > 0)
+		//	playerList.RemoveAt(0);
 
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
@@ -392,6 +404,130 @@ public class UISelectRole : UIBase {
 
 		setTriangleData();
 	}
+
+	private void UIState(EUIRoleSituation state) {
+		int id = 0;
+		
+		
+		switch (state) {
+		case EUIRoleSituation.SelectRole:
+			uiSelectA.SetActive(false);
+			uiSelectB.SetActive(false);
+			uiPartnerList.SetActive(false);
+			uiChangPlayerA.SetActive(false);
+			uiChangPlayerB.SetActive(false);
+			
+			int roleIndex;
+			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out roleIndex)) {
+				if(selectRoleIndex != roleIndex) {
+					changeBigHead(roleIndex);
+					selectRoleIndex = roleIndex;
+					for(int i = 0; i < spritesLine.Length; i++)
+						spritesLine[i].fillAmount = 0;
+					
+					/*int index = -1;
+					for (int i = 0; i < playerList.Count; i++)
+					if (playerList[i].RoleIndex == roleIndex) {
+						index = i;
+						break;
+					}*/
+					
+					SetPlayerAvatar(0, roleIndex);
+					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
+					setTriangleData();
+				}
+			}
+			
+			break;
+		case EUIRoleSituation.ChooseRole:
+			uiSelectA.SetActive(true);
+			uiSelectB.SetActive(true);
+			uiPartnerList.SetActive(false);
+			uiChangPlayerA.SetActive(false);
+			uiChangPlayerB.SetActive(false);
+			
+			//if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
+				uiChangPlayerA.SetActive(true);
+				uiChangPlayerB.SetActive(true);
+			//} else
+			//	uiPartnerList.SetActive(true);
+			uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
+			uiSelect.SetActive(false);
+			arrayAnimator[0].SetTrigger("Idle");
+			mUIAttributes.SetVisible(false);
+			uiShowTime.SetActive(false);
+			
+			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
+				int index = getFreeListIndex(i);
+				SetPlayerAvatar(i, index);
+				arrayPlayer[i].SetActive(false);
+			}
+			
+			changeRoleInfo();
+			animatorLeft.SetTrigger("Close");
+			animatorRight.SetTrigger("Close");
+			Invoke("otherPlayerDoAnimator", 0.5f);
+			Invoke("otherPlayerShowTime", 0.65f);
+			Invoke("loadingShow", 1f);
+			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
+			
+			break;
+		case EUIRoleSituation.BackToSelectMe:
+			if (isStage) {
+				UIShow(false);
+				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+				else
+					LobbyStart.Get.EnterLobby();
+			} else {
+				Invoke("showUITriangle", 1.25f);
+				Invoke("leftRightShow", 0.5f);
+				animatorLoading.SetTrigger("Close");
+				/*
+				for (int i = arrayPlayerData.Length-1; i >= 1; i--)
+					if (GameData.DPlayers.ContainsKey(arrayPlayerData[i].ID)) {
+						playerList.Insert(0, arrayPlayerData[i]);
+						arrayPlayerData[i].ID = 0;
+					}*/
+				
+				for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
+					arrayPlayer[i].SetActive(false);
+				
+				uiShowTime.SetActive(true);
+			}
+			
+			break;
+		case EUIRoleSituation.Start:
+			for (int i = 0; i < arrayPlayerData.Length; i++)
+				GameData.TeamMembers[i].Player = arrayPlayerData[i];
+			
+			SetEnemyMembers ();
+			
+			int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+			if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
+				UILoading.UIShow(true, ELoading.Game);
+			else
+				SceneMgr.Get.ChangeLevel (courtNo);
+			
+			break;
+		case EUIRoleSituation.ListA: // 1
+		case EUIRoleSituation.ListB: // 2
+			int mIndex;
+			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out mIndex)) {
+				SetPlayerAvatar((int)state, mIndex);
+				changeRoleInfo ();
+			}
+			
+			break;
+		case EUIRoleSituation.BackToMode:
+			Destroy(playerInfoModel);
+			UIShow(false);
+			UI3D.Get.ShowCamera(false);
+			UIGameMode.UIShow (true);
+			break;
+		}
+	}
+
 
 	public void DoPlayerAnimator(GameObject obj){
 //		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
@@ -446,8 +582,14 @@ public class UISelectRole : UIBase {
 		if (UIButton.current.name == "ChangPlayerB")
 			index = 2;
 
+		UISkillFormation.UIShow(false);
 		UISelectPartner.UIShow(true);
-		UISelectPartner.Get.InitMemberList(ref playerList, index);
+		UISelectPartner.Get.InitMemberList(ref playerList, ref arrayPlayerData, index);
+	}
+
+	public void OnSkillCard() {
+		UISelectPartner.UIShow(false);
+		UISkillFormation.UIShow(true);
 	}
 
 	public void SelectRole() {
@@ -470,12 +612,12 @@ public class UISelectRole : UIBase {
 
 	public void SetPlayerAvatar(int roleIndex, int index) {
 		if (index >= 0 && index < playerList.Count) {
-			if (GameData.DPlayers.ContainsKey(arrayPlayerData[roleIndex].ID))
+			/*if (GameData.DPlayers.ContainsKey(arrayPlayerData[roleIndex].ID))
 				playerList.Add(arrayPlayerData[roleIndex]);
 
 			arrayPlayerData[roleIndex] = playerList[index];
-			playerList.RemoveAt(index);
-
+			playerList.RemoveAt(index);*/
+			arrayPlayerData[roleIndex] = playerList[index];
 			GameObject temp = arrayPlayer [roleIndex];
 			ModelManager.Get.SetAvatar(ref arrayPlayer[roleIndex], arrayPlayerData[roleIndex].Avatar, arrayPlayerData[roleIndex].BodyType, EAnimatorType.AvatarControl, false, true);
 
@@ -510,8 +652,8 @@ public class UISelectRole : UIBase {
 				break;
 			}
 
-			if (UISelectPartner.Visible)
-				UISelectPartner.Get.InitMemberList(ref playerList, roleIndex);
+			//if (UISelectPartner.Visible)
+			//	UISelectPartner.Get.InitMemberList(ref playerList, roleIndex);
 		}
 	}
 
@@ -585,129 +727,7 @@ public class UISelectRole : UIBase {
 		mUIAttributes.SetValue(UIAttributes.EGroup.Point3, arrayPlayerData[0].Point3 / MaxValue);
 		mUIAttributes.SetValue(UIAttributes.EGroup.Rebound, arrayPlayerData[0].Rebound / MaxValue);
 	}
-
-	private void UIState(EUIRoleSituation state) {
-		int id = 0;
-
-
-		switch (state) {
-		case EUIRoleSituation.SelectRole:
-			uiSelectA.SetActive(false);
-			uiSelectB.SetActive(false);
-			uiPartnerList.SetActive(false);
-			uiChangPlayerA.SetActive(false);
-			uiChangPlayerB.SetActive(false);
-
-			int roleIndex;
-			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out roleIndex)) {
-				if(selectRoleIndex != roleIndex) {
-					changeBigHead(roleIndex);
-					selectRoleIndex = roleIndex;
-					for(int i = 0; i < spritesLine.Length; i++)
-						spritesLine[i].fillAmount = 0;
-
-					int index = -1;
-					for (int i = 0; i < playerList.Count; i++)
-					if (playerList[i].RoleIndex == roleIndex) {
-						index = i;
-						break;
-					}
-
-					SetPlayerAvatar(0, index);
-					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-					setTriangleData();
-				}
-			}
-
-			break;
-		case EUIRoleSituation.ChooseRole:
-			uiSelectA.SetActive(true);
-			uiSelectB.SetActive(true);
-			uiPartnerList.SetActive(false);
-			uiChangPlayerA.SetActive(false);
-			uiChangPlayerB.SetActive(false);
-
-			if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
-				uiChangPlayerA.SetActive(true);
-				uiChangPlayerB.SetActive(true);
-			} else
-				uiPartnerList.SetActive(true);
-
-			uiSelect.SetActive(false);
-			arrayAnimator[0].SetTrigger("Idle");
-            mUIAttributes.SetVisible(false);
-			uiShowTime.SetActive(false);
-
-			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
-				SetPlayerAvatar(i, 0);
-				arrayPlayer[i].SetActive(false);
-			}
-
-			changeRoleInfo();
-			animatorLeft.SetTrigger("Close");
-			animatorRight.SetTrigger("Close");
-			Invoke("otherPlayerDoAnimator", 0.5f);
-			Invoke("otherPlayerShowTime", 0.65f);
-			Invoke("loadingShow", 1f);
-			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-		
-			break;
-		case EUIRoleSituation.BackToSelectMe:
-			if (isStage) {
-				UIShow(false);
-				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-				else
-					LobbyStart.Get.EnterLobby();
-			} else {
-				Invoke("showUITriangle", 1.25f);
-				Invoke("leftRightShow", 0.5f);
-				animatorLoading.SetTrigger("Close");
-
-				for (int i = arrayPlayerData.Length-1; i >= 1; i--)
-					if (GameData.DPlayers.ContainsKey(arrayPlayerData[i].ID)) {
-						playerList.Insert(0, arrayPlayerData[i]);
-						arrayPlayerData[i].ID = 0;
-					}
-
-				for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
-					arrayPlayer[i].SetActive(false);
-
-				uiShowTime.SetActive(true);
-			}
-
-			break;
-		case EUIRoleSituation.Start:
-			for (int i = 0; i < arrayPlayerData.Length; i++)
-				GameData.TeamMembers[i].Player = arrayPlayerData[i];
-
-			SetEnemyMembers ();
-
-			int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
-			if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
-				UILoading.UIShow(true, ELoading.Game);
-			else
-				SceneMgr.Get.ChangeLevel (courtNo);
-
-			break;
-		case EUIRoleSituation.ListA: // 1
-		case EUIRoleSituation.ListB: // 2
-			int mIndex;
-			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out mIndex)) {
-				SetPlayerAvatar((int)state, mIndex);
-				changeRoleInfo ();
-			}
-
-			break;
-		case EUIRoleSituation.BackToMode:
-			Destroy(playerInfoModel);
-			UIShow(false);
-			UI3D.Get.ShowCamera(false);
-			UIGameMode.UIShow (true);
-			break;
-		}
-	}
-
+	
 	private void hideSelectRoleAnimator(){
 		if (!isStage) {
 			changeBigHead(selectRoleIndex);
@@ -723,12 +743,12 @@ public class UISelectRole : UIBase {
 	}
 	
 	private void playerShowTime (){
-		arrayPlayer[0].transform.localPosition = new Vector3(0, -0.9f, 0);
+		arrayPlayer[0].transform.localPosition = new Vector3(0, Y_Player, 0.5f);
 	}
 
 	private void otherPlayerDoAnimator(){
-		arrayPlayer[1].transform.localPosition = new Vector3(0.5f , 3f, 2.87f);
-		arrayPlayer[2].transform.localPosition = new Vector3(-0.5f, 3f, 2.58f);
+		arrayPlayer[1].transform.localPosition = new Vector3(X_Partner, 3f, Z_Partner);
+		arrayPlayer[2].transform.localPosition = new Vector3(-X_Partner, 3f, Z_Partner);
 		arrayPlayer[1].SetActive(true);
 		arrayPlayer[2].SetActive(true);
 		arrayAnimator[1].SetTrigger("SelectDown");
@@ -738,8 +758,8 @@ public class UISelectRole : UIBase {
 	}
 
 	private void otherPlayerShowTime(){
-		arrayPlayer[1].transform.localPosition = new Vector3(0.5f , -0.6f, 2.87f);
-		arrayPlayer[2].transform.localPosition = new Vector3(-0.5f, -0.6f, 2.58f);
+		arrayPlayer[1].transform.localPosition = new Vector3(X_Partner , Y_Partner, Z_Partner);
+		arrayPlayer[2].transform.localPosition = new Vector3(-X_Partner, Y_Partner, Z_Partner);
 	}
 
 	private void loadingShow(){
@@ -805,6 +825,7 @@ public class UISelectRole : UIBase {
 
 		GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 		arrayPlayerData[0] = GameData.Team.Player;
+		arrayPlayerData[0].RoleIndex = -1;
 		GameObject temp = arrayPlayer [0];
 		ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
 
@@ -829,6 +850,36 @@ public class UISelectRole : UIBase {
 
 		labelPlayerName.text = arrayPlayerData[0].Name;
 		SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[0].BodyType);
+	}
+
+	private int getFreeListIndex(int roleIndex) {
+		for (int i = 0; i < playerList.Count; i++) {
+			bool flag = true;
+			for (int j = 0; j < arrayPlayerData.Length; j++) {
+				if (j != roleIndex) {
+					if (arrayPlayerData[j].RoleIndex == i) {
+						flag = false;
+						break;
+					}
+				}
+			}
+
+			if (flag)
+				return i;
+		}
+
+		return playerList.Count-1;
+	}
+
+	public int GetSelectedListIndex(int roleIndex) {
+		if (roleIndex >= 0 && roleIndex < arrayPlayerData.Length) 
+			return arrayPlayerData[roleIndex].RoleIndex;
+		else
+			return -1;
+	}
+
+	public void DisableRedPoint() {
+		uiRedPoint.SetActive(false);
 	}
 
 	private bool isStage {

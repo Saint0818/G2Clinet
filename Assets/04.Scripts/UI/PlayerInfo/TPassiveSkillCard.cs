@@ -4,6 +4,7 @@ using GameStruct;
 
 public class TPassiveSkillCard
 {
+	public TSkill Skill;
 	private GameObject item;
 	private GameObject btnRemove;
 	private UISprite SkillCard;
@@ -18,7 +19,8 @@ public class TPassiveSkillCard
 	{
 		if (!isInit && go && partent) {
 			go.transform.parent = partent.transform;
-			go.transform.position = Vector3.zero;
+			go.transform.localPosition = Vector3.zero;
+			go.transform.localScale = Vector3.one;
 			item = go;
 			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillLevel =  go.transform.FindChild("SkillLevel").gameObject.GetComponent<UISprite>();
@@ -27,13 +29,13 @@ public class TPassiveSkillCard
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
 			btnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			btn = item.GetComponent<UIButton>();
+			btnRemove.SetActive(false);
 			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn && SkillTexture;
 			
-			if(isInit && btnFunc != null){
-				btnRemove.SetActive(false);
-				btn.onClick.Add(btnFunc);
-			}
-			else
+			if(isInit){
+				if (btnFunc != null)
+					btn.onClick.Add(btnFunc);
+			} else
 				Debug.LogError("Init Error : TPassiveSkillCard");
 		}
 	}
@@ -41,6 +43,7 @@ public class TPassiveSkillCard
 	public void UpdateView(int index, TSkill skill, Vector3 pos)
 	{
 		if(isInit){
+			Skill = skill;
 			item.name = index.ToString();
 			
 			if(GameData.DSkillData.ContainsKey(skill.ID)){

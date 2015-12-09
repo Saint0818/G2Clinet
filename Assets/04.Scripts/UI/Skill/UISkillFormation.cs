@@ -369,14 +369,19 @@ public class UISkillFormation : UIBase {
 		{
 			PlayerPrefs.DeleteKey(ESave.NewCardFlag.ToString());
 			PlayerPrefs.Save();
+
+			if (UISelectRole.Visible)
+				UISelectRole.Get.DisableRedPoint();
 		}
 	}
-
+	
 	private void hide() {
 		UIShow(false);
 		if(UISort.Visible)
 			UISort.UIShow(false);
-		UIMainLobby.Get.Show();
+
+		if (!UISelectRole.Visible)
+			UIMainLobby.Get.Show();
 	}
 
 	private void runShineCard () {
