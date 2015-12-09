@@ -746,7 +746,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Time.time >= moveStartTime)
                 {
                     moveStartTime = Time.time + GameConst.DefMoveTime;
-                    GameController.Get.DefMove(this);
+                    GameController.Get.MoveDefPlayer(this);
                 }
             }
         }
@@ -1616,7 +1616,6 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void moveTo(TMoveData data, bool first = false)
     {
-//        if((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && 
         if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && 
             GameStart.Get.TestMode != EGameTest.Block)
         {
@@ -1641,18 +1640,18 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (data.LookTarget != null)
                         {
-                            if (Vector3.Distance(this.transform.position, data.DefPlayer.transform.position) <= GameConst.StealPushDistance)
+                            if (Vector3.Distance(transform.position, data.DefPlayer.transform.position) <= GameConst.StealPushDistance)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                             else 
                             if (!doMove)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                             else if (dis > GameConst.ThreePointDistance + 4 && data.DefPlayer.AIing &&
-//                                    (data.DefPlayer.WaitMoveTime == 0 || data.DefPlayer.TargetPosNum > 0))
                                 (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
                                 RotateTo(MoveTarget.x, MoveTarget.y);
                             else
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                        } else
+                        }
+                        else
                             RotateTo(MoveTarget.x, MoveTarget.y);
                     } else
                     {

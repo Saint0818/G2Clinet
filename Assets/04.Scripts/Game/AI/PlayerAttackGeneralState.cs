@@ -392,23 +392,21 @@ namespace AI
                                 if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
                                     z = -1;
 
-//                                moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z * z);
                                 moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
 
                                 if (GameController.Get.BallOwner != null && GameController.Get.BallOwner != someone)
                                     moveData.LookTarget = GameController.Get.BallOwner.transform;
 
                                 moveData.TacticalName = tacticalData.FileName;
-                                moveData.MoveFinish = GameController.Get.DefMove;
+                                moveData.MoveFinish = GameController.Get.MoveDefPlayer;
                                 someone.TargetPos = moveData;
                             }
 
-                            GameController.Get.DefMove(someone);
+                            GameController.Get.MoveDefPlayer(someone);
                         }
                     }
                 }
 
-//                if(someone.WaitMoveTime != 0 /*&& GameController.Get.BallOwner != null*/ && 
                 if(someone.CantMoveTimer.IsOn()&& 
                    someone == GameController.Get.BallOwner)
                     someone.AniState(EPlayerState.Dribble0);

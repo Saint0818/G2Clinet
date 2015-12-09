@@ -1049,7 +1049,7 @@ public class GameController : KnightSingleton<GameController>
                     InboundsBall(PlayerList[i], team, ref attackTactical);
             }
             else 
-                BackToDef(PlayerList[i], ETeamKind.Npc, ref defTactical);
+                backToDef(PlayerList[i], ETeamKind.Npc, ref defTactical);
         }
     }
 
@@ -1078,48 +1078,10 @@ public class GameController : KnightSingleton<GameController>
 		                InboundsBall(PlayerList[i], team, ref attackTactical);
 		        }
 		        else
-		            BackToDef(PlayerList[i], PlayerList[i].Team, ref defTactical);
+		            backToDef(PlayerList[i], PlayerList[i].Team, ref defTactical);
 		    }
 		}
     }
-
-//	public void AIFakeShoot([NotNull] PlayerBehaviour player)
-//	{
-//		bool isDoShooting = true;
-//		
-//		if(player.IsRebound || player.IsUseSkill)
-//            isDoShooting = false;
-//		else if(!player.CheckAnimatorSate(EPlayerState.HoldBall) && HasDefPlayer(player, 5, 40) != 0)
-//        {
-//            // 判斷是否要做投籃假動作.
-//			int fakeRate = Random.Range(0, 100);
-//			
-//			if(fakeRate < GameConst.FakeShootRate && PlayerList.Count > 1)
-//            {
-//				for(int i = 0; i < PlayerList.Count; i++)
-//                {
-//					PlayerBehaviour npc = PlayerList[i];
-//
-//                    float dis = AITools.Find2DDis(player.transform.position, npc.transform.position);
-//						
-//                    // 有靠近我的對手時(可以蓋我火鍋的距離內), 我才可能做投籃假動作.
-//					if(npc != player && npc.Team != player.Team && 
-////                           GetDis(player, npc) <= GameConst.BlockDistance)
-//                        dis <= GameConst.BlockDistance)
-//                    {
-//						player.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position);
-//						isDoShooting = false;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//		if(isDoShooting)
-//			DoShoot();
-//		else
-//			coolDownPass = 0;
-//	}
 
     /// <summary>
     /// 不見得真的會傳球.
@@ -1159,72 +1121,35 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 	}
-	
-//	public void AIDefend([NotNull] PlayerBehaviour player)
-//	{
-//		if(player.AIing && !player.IsSteal && !player.IsPush && 
-//		    BallOwner && !IsDunk && !IsShooting)
-//        {
-//			bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;        
-//			bool sucess = false;
-//
-//			TPlayerDisData [] disAy = findPlayerDisData(player);
-//			
-//			for (int i = 0; i < disAy.Length; i++)
-//            {
-//				if (disAy[i].Distance <= GameConst.StealPushDistance && 
-//				    (disAy[i].Player.crtState == EPlayerState.Idle || disAy[i].Player.crtState == EPlayerState.Dribble0) && 
-//				    pushRate && player.CoolDownPush == 0)
-//                {
-//					if(player.DoPassiveSkill(ESkillSituation.Push0, disAy[i].Player.transform.position)) {
-//						player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
-//						sucess = true;
-//						
-//						break;
-//					}
-//				} 
-//			}
-//			
-//			if(!sucess && disAy[0].Distance <= GameConst.StealPushDistance && 
-////                waitStealTime == 0 && 
-//                mStealCDTimer.IsTimeUp() && 
-//                BallOwner.Invincible.IsOff() && 
-//                player.CoolDownSteal == 0)
-//            {
-//				if(Random.Range(0, 100) < player.Attr.StealRate)
-//                {
-//					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerTransform.position)) {
-//						player.CoolDownSteal = Time.time + GameConst.CoolDownStealTime;                              
-////						waitStealTime = Time.time + GameConst.WaitStealTime;
-//                        mStealCDTimer.StartAgain();
-//					}
-//				}
-//			}           
-//		}
-//	}
 
-    public void DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
+    /// <summary>
+    /// 僅用在玩家 or NPC 進攻時使用. 這部份都是對 player.DefPlayer 做移動邏輯.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="speedup"></param>
+    public void MoveDefPlayer([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 		    (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
         {
-//			if(player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
 			if(player.DefPlayer.CanMove && player.DefPlayer.CantMoveTimer.IsOff())
             {
+                // 防守球員可以移動.
 				if(BallOwner != null)
                 {
-					
 					moveData.Clear();
-					if (player == BallOwner)
+					if(player == BallOwner)
                     {
-                        // 我是持球人, 我要防守球員跟著我.
+                        // 我是持球人, 我要防守球員看著我.
 						moveData.DefPlayer = player;
 						
 						if (BallOwner != null)
-							moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+//							moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+							moveData.LookTarget = BallOwner.transform;
 						else
-							moveData.LookTarget = player.PlayerRefGameObject.transform;
+//							moveData.LookTarget = player.PlayerRefGameObject.transform;
+							moveData.LookTarget = player.transform;
 						
 						moveData.Speedup = speedup;
 						player.DefPlayer.TargetPos = moveData;
@@ -1234,13 +1159,15 @@ public class GameController : KnightSingleton<GameController>
                         // 我不是持球人.
                         int index = player.DefPlayer.Postion.GetHashCode();
                         float sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-						float distance = Vector2.Distance(
+
+                        // HomePosition 和 DefPlayer 的距離.
+                        float distance = Vector2.Distance(
                             new Vector2(mHomePositions[index].x, mHomePositions[index].y * sign), 
-							new Vector2(player.DefPlayer.PlayerRefGameObject.transform.position.x, player.DefPlayer.PlayerRefGameObject.transform.position.z));
+							new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						
 						if(distance <= player.DefPlayer.Attr.DefDistance)
                         {
-                            // 防守者離 HomePosition 很接近了.
+                            // 防守者離 HomePosition 很接近了.(也就是靠近防守籃框)
 
                             // 如果有接近的球員, 要靠近他; 沒有接近的球員, 繼續往 Home Region 移動.
 							PlayerBehaviour p = hasNearPlayer(player.DefPlayer, player.DefPlayer.Attr.DefDistance, false, true);
@@ -1251,10 +1178,12 @@ public class GameController : KnightSingleton<GameController>
 							
 							if(moveData.DefPlayer != null)
                             {
-								if (BallOwner != null)
-									moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+								if(BallOwner != null)
+//									moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+									moveData.LookTarget = BallOwner.transform;
 								else
-									moveData.LookTarget = player.PlayerRefGameObject.transform;
+//									moveData.LookTarget = player.PlayerRefGameObject.transform;
+									moveData.LookTarget = player.transform;
 								
 								moveData.Speedup = speedup;
 								player.DefPlayer.TargetPos = moveData;
@@ -1281,7 +1210,7 @@ public class GameController : KnightSingleton<GameController>
                         }
                         else
                         {
-                            // 防守者離 Home Region 不夠進.
+                            // 防守者離 Home Region 不夠近.(比如球員在前場)
                             // 要防守者往 Home Region 跑.
                             player.DefPlayer.ResetMove();
                             sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
@@ -1289,14 +1218,14 @@ public class GameController : KnightSingleton<GameController>
                             moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                             
                             if(BallOwner != null)
-								moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+								moveData.LookTarget = BallOwner.transform;
                             else
                             {
                                 if (player.Team == ETeamKind.Self)
                                     moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
                                 else
                                     moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
-                            }                                   
+                            }
                             
                             player.DefPlayer.TargetPos = moveData;                         
                         }
@@ -1304,7 +1233,7 @@ public class GameController : KnightSingleton<GameController>
                 }
                 else
                 {
-                    // 沒有人持球.
+                    // 沒有人持球, 所以要叫附近的人去撿球.
                     player.DefPlayer.ResetMove();
 
                     if(player.DefPlayer)
@@ -2667,7 +2596,14 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 	
-	private void BackToDef(PlayerBehaviour someone, ETeamKind team, ref TTacticalData tactical, 
+    /// <summary>
+    /// 只有攻守交換的時候才會被呼叫. 叫球員照著戰術路線跑.
+    /// </summary>
+    /// <param name="someone"></param>
+    /// <param name="team"></param>
+    /// <param name="tactical"></param>
+    /// <param name="watchBallOwner"></param>
+	private void backToDef(PlayerBehaviour someone, ETeamKind team, ref TTacticalData tactical, 
                            bool watchBallOwner = false)
 	{
 	    if(tactical.FileName == string.Empty)
@@ -2689,10 +2625,8 @@ public class GameController : KnightSingleton<GameController>
             {
                 moveData.Clear();
                 if (GameStart.Get.CourtMode == ECourtMode.Full && team == ETeamKind.Self)
-//                    moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
                     moveData.SetTarget(tacticalActions[i].x, -tacticalActions[i].z);
                 else
-//                    moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
                     moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z);
 						
                 if (BallOwner != null)
@@ -3587,7 +3521,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if(player1.IsDefence)
         {
-            DefMove(player1.DefPlayer);     
+            MoveDefPlayer(player1.DefPlayer);     
         }
     }
 
