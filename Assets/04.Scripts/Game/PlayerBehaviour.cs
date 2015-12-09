@@ -3069,7 +3069,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "ElbowEnd":
                 OnUI(this);
-                AniState(EPlayerState.HoldBall);
+				if(IsBallOwner)
+                	AniState(EPlayerState.HoldBall);
+				else
+					AniState(EPlayerState.Idle);
                 CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 break;
@@ -3125,11 +3128,11 @@ public class PlayerBehaviour : MonoBehaviour
             case "AnimationEnd":
                 OnUI(this);
 
-                if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform)
-                {
-                    LogMgr.Get.Log(PlayerRefGameObject.name + " AnimationEnd layup no ball.");
-                    GameController.Get.SetBall();
-                }
+//                if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform)
+//                {
+//                    LogMgr.Get.Log(PlayerRefGameObject.name + " AnimationEnd layup no ball.");
+//                    GameController.Get.SetBall();
+//                }
 
 //              Debug.LogWarning(gameObject.name + ".AnimationEnd : " +crtState.ToString());
 
