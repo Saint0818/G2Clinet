@@ -3075,12 +3075,14 @@ public class PlayerBehaviour : MonoBehaviour
             case "OnlyScore":
                 if (OnOnlyScore != null) 
                     OnOnlyScore(this);
+				CourtMgr.Get.IsBallOffensive = true;
                 break;
 
             case "DunkFallBall":
                 OnUI(this);
                 if (OnDunkBasket != null)
-                    OnDunkBasket(this);
+					OnDunkBasket(this);
+				CourtMgr.Get.IsBallOffensive = false;
                 break;
 
             case "ElbowEnd":

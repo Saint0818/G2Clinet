@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: eb2103453293c474c8fe231efb4e6aa6
-timeCreated: 1449653331
+timeCreated: 1449656864
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,9 +154,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .527777672
+      - time: .337215096
         functionName: AnimationEvent
         data: PushCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .580985844
+        functionName: AnimationEvent
+        data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

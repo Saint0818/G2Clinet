@@ -16,6 +16,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	private GameObject crtBasket;
 
 	//RealBall
+	private bool isBallOffensive = false;//Shoot and Dunk (true)
 	public GameObject RealBall;
 	private SphereCollider realBallCollider;
 	public Rigidbody RealBallRigidbody;
@@ -597,6 +598,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.BasketActionSwishEnd:
 				CourtMgr.Get.RealBallDoMoveFinish();
 				IfSwishNoScore ();
+				isBallOffensive = false;
 				break;
 			case EPlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -614,6 +616,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					GameController.Get.shootScoreTimes++;
 					Debug.LogWarning("RealBall Score Out:"+ GameController.Get.BasketAnimationName);
 				}
+				isBallOffensive = false;
 				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;
@@ -629,6 +632,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.BasketActionNoScoreEnd:
 				if(GameStart.Get.IsDebugAnimation)
 					Debug.LogWarning("RealBall NoScore Out:"+ GameController.Get.BasketAnimationName);
+				isBallOffensive = false;
 				GameController.Get.ShowShootSate(false, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
@@ -1008,6 +1012,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public bool IsRealBallActive  {
 		get {return isRealBallInAcitve;}
 		set {isRealBallInAcitve = value;}
+	}
+
+	public bool IsBallOffensive {
+		get {return isBallOffensive;}
+		set {isBallOffensive = value;}
 	}
 }
 

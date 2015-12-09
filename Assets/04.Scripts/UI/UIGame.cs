@@ -1249,7 +1249,6 @@ public class UIGame : UIBase {
 			uiJoystick.gameObject.SetActive(false);
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
-			CameraMgr.Get.FinishGame();
 
 			break;
 		case EUISituation.Reset:

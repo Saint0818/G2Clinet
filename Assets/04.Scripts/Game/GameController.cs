@@ -66,6 +66,8 @@ public class GameController : KnightSingleton<GameController>
 {
 	public OnSkillDCComplete onSkillDCComplete = null;
     public bool IsStart = false;
+	public bool IsFinish = false;
+	public bool IsFinishShow = true;
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
@@ -752,6 +754,14 @@ public class GameController : KnightSingleton<GameController>
 
 		if (IsTimePass())
 			gameResult();
+
+		if(IsFinish && IsFinishShow && !CourtMgr.Get.IsBallOffensive) {
+			IsFinishShow = false;
+			CameraMgr.Get.FinishGame();
+			GameRecord.Done = true;
+			SetGameRecord(true);
+			StartCoroutine(playFinish());
+		}
 	}
 
 	private void selectMeEvent() {
@@ -1396,7 +1406,9 @@ public class GameController : KnightSingleton<GameController>
 				UITransition.Get.SelfOffense();
 				break;
 			case EGameSituation.End:
-//				IsStart = false;
+				SetPlayerAI(false);
+				IsFinish = true;
+				UIGame.Get.GameOver();
 //				for(int i = 0; i < PlayerList.Count; i++)
 //					PlayerList[i].AniState(EPlayerState.Idle);
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
@@ -1774,6 +1786,7 @@ public class GameController : KnightSingleton<GameController>
         if(BallOwner && BallOwner == player)
 		{     
 			CourtMgr.Get.RealBallTrigger.IsAutoRotate = true;
+			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
@@ -3259,6 +3272,7 @@ public class GameController : KnightSingleton<GameController>
 	public void BallOnFloor()
     {
 		CourtMgr.Get.ResetBasketEntra();
+		CourtMgr.Get.IsBallOffensive = false;
 		
 		if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) 
 			BallState = EBallState.CanSteal;
@@ -3580,7 +3594,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	IEnumerator playFinish() {
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1);
 		setEndShowScene ();
 		if(GameStart.Get.IsAutoReplay){
 			UIGamePause.Get.OnAgain();
@@ -3661,12 +3675,6 @@ public class GameController : KnightSingleton<GameController>
 		if(Situation != EGameSituation.End) {
 			ChangeSituation(EGameSituation.End);
 			AIController.Get.ChangeState(EGameSituation.End);
-			
-			UIGame.Get.GameOver();
-			SetPlayerAI(false);
-			GameRecord.Done = true;
-			SetGameRecord(true);
-			StartCoroutine(playFinish());
 		}
     }
 
@@ -3682,6 +3690,11 @@ public class GameController : KnightSingleton<GameController>
 				form.AddField("Cause", 1);
 				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
 
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetGameRecord(ref GameRecord);
+			}
+		} else {
+			if(!GameStart.Get.IsAutoReplay){
 				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
@@ -4380,6 +4393,8 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		IsStart = false;
+		IsFinish = false;
+		IsFinishShow = true;
 		SetPlayerAI(true);
 		SetBallOwnerNull();
 		GameTime = maxGameTime;
