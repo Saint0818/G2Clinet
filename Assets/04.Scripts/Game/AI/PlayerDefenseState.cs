@@ -64,20 +64,18 @@ namespace AI
             {
 				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
                    mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
-                {
-                    GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);
-                    return;
-                }
+				{
+				    if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]))
+                        return; // 真的有做主動技, 才真的結束 AI 的判斷.
+				    
+				}
             }
-
-//            GameController.Get.AIDefend(mPlayer);
 
             doDefenseAction();
         }
 
         private void doDefenseAction()
         {
-//            if(mPlayer.IsSteal || mPlayer.IsPush || GameController.Get.IsDunk ||
             if(GameController.Get.IsDunk || GameController.Get.IsShooting)
                 return;
 
@@ -94,7 +92,6 @@ namespace AI
             var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
             if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, oppPlayerAI.transform.position))
             {
-//                player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
                 mPlayer.PushCD.StartAgain();
             }
         }
@@ -103,8 +100,6 @@ namespace AI
         {
             if(mPlayer.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
             {
-//                player.CoolDownSteal = Time.time + GameConst.CoolDownStealTime;
-//                mStealCDTimer.StartAgain();
                 mPlayer.StealCD.StartAgain();
             }
         }
@@ -145,50 +140,5 @@ namespace AI
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
         }
-
-//        public void AIDefend([NotNull] PlayerBehaviour player)
-//        {
-//            if(!player.IsSteal && !player.IsPush &&
-//                BallOwner && !IsDunk && !IsShooting)
-//            {
-//                bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;
-//                bool sucess = false;
-//
-//                TPlayerDisData[] disAy = findPlayerDisData(player);
-//
-//                for (int i = 0; i < disAy.Length; i++)
-//                {
-//                    if (disAy[i].Distance <= GameConst.StealPushDistance &&
-//                        (disAy[i].Player.crtState == EPlayerState.Idle || disAy[i].Player.crtState == EPlayerState.Dribble0) &&
-//                        pushRate && player.CoolDownPush == 0)
-//                    {
-//                        if (player.DoPassiveSkill(ESkillSituation.Push0, disAy[i].Player.transform.position))
-//                        {
-//                            player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
-//                            sucess = true;
-//
-//                            break;
-//                        }
-//                    }
-//                }
-//
-//                if (!sucess && disAy[0].Distance <= GameConst.StealPushDistance &&
-//                    //                waitStealTime == 0 && 
-//                    mStealCDTimer.IsTimeUp() &&
-//                    BallOwner.Invincible.IsOff() &&
-//                    player.CoolDownSteal == 0)
-//                {
-//                    if (Random.Range(0, 100) < player.Attr.StealRate)
-//                    {
-//                        if (player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position))
-//                        {
-//                            player.CoolDownSteal = Time.time + GameConst.CoolDownStealTime;
-//                            //						waitStealTime = Time.time + GameConst.WaitStealTime;
-//                            mStealCDTimer.StartAgain();
-//                        }
-//                    }
-//                }
-//            }
-//        }
     } // end of the class PlayerDefenseState.
 } // end of the namespace AI.

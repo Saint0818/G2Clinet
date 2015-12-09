@@ -47,7 +47,7 @@ public class ChapterTable
             if(MinChapterID <= chapter.ID && chapter.ID <= MaxChapterID)
                 mChapters.Add(chapter.Chapter, chapter);
             else
-                Debug.LogErrorFormat("StageID({0}) out of range!", chapter.ID);
+                Debug.LogErrorFormat("Chapter ID({0}) out of range!", chapter.ID);
         }
 
         Debug.Log("[stagechapter parsed finished.] ");

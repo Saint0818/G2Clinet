@@ -113,14 +113,14 @@ namespace AI
                 return;
             }
 
+            // 嘗試放主動技.
 			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
 			{
-				if(mPlayer.Attribute.ActiveSkills.Count > 0 && 
-				   mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
+				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
                    mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
 				{
-					GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);
-					return;
+					if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]))
+					    return; // 主動技真的放成功, 才真的會結束 AI 的判斷.
 				}
 			}
 			
