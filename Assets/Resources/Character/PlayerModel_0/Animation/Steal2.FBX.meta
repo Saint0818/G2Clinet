@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 38cc9e16321f5854c903318d24da28df
-timeCreated: 1446617139
+timeCreated: 1449627683
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,9 +154,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .577607989
+      - time: .470246047
         functionName: AnimationEvent
         data: Stealing
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .574343979
+        functionName: AnimationEvent
+        data: StealingEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

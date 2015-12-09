@@ -141,14 +141,14 @@ public class GEPlayerPassiveRate : GEBase {
 					GUILayout.Label("ID:" + passives[i].ID);
 					GUILayout.Label("Name:" + GameData.DSkillData[passives[i].ID].Name);
 					GUILayout.Label("AnimationName:" + GameData.DSkillData[passives[i].ID].Animation);
-//					GUILayout.Label("Explain:" + GameData.DSkillData[passives[i].ID].Explain);
-					GUILayout.Label("Explain:" + string.Format(GameData.DSkillData[passives[i].ID].Explain, 
-					                                           GameData.DSkillData[passives[i].ID].MaxAnger,
-					                                           GameData.DSkillData[passives[i].ID].AniRate(passives[i].Lv),
-					                                           GameData.DSkillData[passives[i].ID].Distance(passives[i].Lv),
-					                                           GameData.DSkillData[passives[i].ID].AttrKind,
-					                                           GameData.DSkillData[passives[i].ID].Value(passives[i].Lv),
-					                                           GameData.DSkillData[passives[i].ID].LifeTime(passives[i].Lv)));
+					GUILayout.Label("Explain:" + GameFunction.GetStringExplain(GameData.DSkillData[passives[i].ID].Explain, passives[i].ID, passives[i].Lv));
+//					GUILayout.Label("Explain:" + string.Format(GameData.DSkillData[passives[i].ID].Explain, 
+//					                                           GameData.DSkillData[passives[i].ID].MaxAnger,
+//					                                           GameData.DSkillData[passives[i].ID].AniRate(passives[i].Lv),
+//					                                           GameData.DSkillData[passives[i].ID].Distance(passives[i].Lv),
+//					                                           GameData.DSkillData[passives[i].ID].AttrKind,
+//					                                           GameData.DSkillData[passives[i].ID].Value(passives[i].Lv),
+//					                                           GameData.DSkillData[passives[i].ID].LifeTime(passives[i].Lv)));
 					GUILayout.Label("passives[i].Rate:" + passives[i].Rate);
 					passives[i].Rate = Mathf.RoundToInt(GUILayout.HorizontalSlider((float) passives[i].Rate , -1, 100));
 				}

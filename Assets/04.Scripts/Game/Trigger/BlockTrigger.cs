@@ -26,37 +26,34 @@ public class BlockTrigger : MonoBehaviour {
 				int rate = Random.Range(0, 100);
 				if(rate < blocker.Attr.BlockPushRate){
 						faller = toucher.GetComponent<PlayerBehaviour> ();
-						if (blocker.Team != faller.Team) {
-							faller.SetAnger(GameConst.DelAnger_Blocked);
-							blocker.SetAnger(GameConst.AddAnger_Block, faller.gameObject);
-
-							if(faller.IsDunk) {
-								if(faller.IsCanBlock && !faller.IsTee) {
-//									GameController.Get.SetBall();
-//									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
-									faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
-									gameObject.SetActive (false);
-
-									blocker.GameRecord.Block++;
-									GameController.Get.IsGameFinish();
-									GameController.Get.CheckConditionText();
-									if(blocker == GameController.Get.Joysticker)
-										GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
-									}
-							} else {
-								if(faller.IsBallOwner)
-								{
-									GameController.Get.SetBall();
-									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
-								}
+						if (blocker.Team != faller.Team && faller.IsDunk) {
+							if(faller.IsCanBlock && !faller.IsTee) {
 								faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 								gameObject.SetActive (false);
-							}
+							
+								faller.SetAnger(GameConst.DelAnger_Blocked);
+								blocker.SetAnger(GameConst.AddAnger_Block, faller.gameObject);
+								blocker.GameRecord.Block++;
+								GameController.Get.IsGameFinish();
+								GameController.Get.CheckConditionText();
+								if(blocker == GameController.Get.Joysticker)
+									GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
+							} 
+//						else {
+//								if(faller.IsBallOwner)
+//								{
+//									GameController.Get.SetBall();
+//									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+//								}
+//								faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
+//								gameObject.SetActive (false);
+//							}
 						}
 				}
 			}
 		} else 
-		if (GameController.Visible && other.gameObject.CompareTag ("RealBall") && !CourtMgr.Get.IsRealBallActive) {
+			if (GameController.Visible && other.gameObject.CompareTag ("RealBall") && !CourtMgr.Get.IsRealBallActive && 
+			   GameController.Get.BallState == GamePlayEnum.EBallState.CanBlock) {
 			faller = GameController.Get.Shooter;
 
 			if (faller) {

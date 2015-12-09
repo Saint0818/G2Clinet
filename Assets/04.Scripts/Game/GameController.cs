@@ -2314,6 +2314,7 @@ public class GameController : KnightSingleton<GameController>
         {
 			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
             {
+				player.IsStealCalculate = false;
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
                 probability = Mathf.Clamp(probability, 10, 100);
 
@@ -4581,9 +4582,11 @@ public class GameController : KnightSingleton<GameController>
 					if (pusher.IsElbow) {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
+						pusher.IsElbowCalculate = false;
 					} else {
 						pusher.GameRecord.Push++;
 						faller.GameRecord.BePush++;
+						pusher.IsPushCalculate = false;
 					}
 					GameController.Get.IsGameFinish();
 					CheckConditionText();

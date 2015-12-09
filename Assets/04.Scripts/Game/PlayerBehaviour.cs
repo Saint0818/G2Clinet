@@ -304,11 +304,16 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isPush = false;
     private float pushCurveTime = 0;
     private TSharedCurve playerPushCurve;
+	public bool IsPushCalculate = false;
+
+	//Elbow
+	public bool IsElbowCalculate = false;
 
     //Steal
     private bool isSteal = false;
     private float stealCurveTime = 0;
-    private TStealCurve playerStealCurve;
+	private TStealCurve playerStealCurve;
+	public bool IsStealCalculate = false;
 
     //Fall
     private bool isFall = false;
@@ -689,6 +694,24 @@ public class PlayerBehaviour : MonoBehaviour
         StealCD.Update(Time.deltaTime);
         PushCD.Update(Time.deltaTime);
         mManually.Update(Time.deltaTime);
+
+		if(IsPushCalculate)
+      		GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
+
+		if(IsElbowCalculate)
+			GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
+
+		if(IsStealCalculate) 
+		{
+			if (OnStealMoment != null)
+			{
+				if (OnStealMoment(this))
+				{
+					GameRecord.Steal++;
+					GameController.Get.IsGameFinish();
+				}
+			}
+		}
 
         if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
             CoolDownElbow = 0;
@@ -2877,19 +2900,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         switch (animationName)
         {
-            case "Stealing":
-                if (OnStealMoment != null)
-                {
-                    if (OnStealMoment(this))
-                    {
-                        GameRecord.Steal++;
-                        GameController.Get.IsGameFinish();
-                    }
-                }
-
-                break;
-
-            case "GotStealing":
+			case "GotStealing":
                 if (OnGotSteal != null)
                 if (OnGotSteal(this))
                     GameRecord.BeSteal++;
@@ -3017,24 +3028,30 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.HoldBall);
                 } else
                     AniState(EPlayerState.Idle);
-                break;
 
+                break;
+			case "Stealing":
+				IsStealCalculate = true;
+				break;
+			case "StealingEnd":
+				IsStealCalculate = false;
+				break;
             case "PushCalculateStart":
-                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
-//              IsPushCalculate = true;
-//                pushTrigger.gameObject.SetActive(true);
+//                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
+				IsPushCalculate = true;
                 break;
 
             case "PushCalculateEnd":
-//              IsPushCalculate = false;
-//                pushTrigger.SetActive(false);
+             	IsPushCalculate = false;
                 break;
 
             case "ElbowCalculateStart":
-                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
+				IsElbowCalculate = true;
+//                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
                 break;
                 
-            case "ElbowCalculateEnd":
+			case "ElbowCalculateEnd":
+				IsElbowCalculate = false;
 //                elbowTrigger.SetActive(false);
                 break;
 

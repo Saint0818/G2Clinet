@@ -154,9 +154,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .329619586
+      - time: .571950853
         functionName: AnimationEvent
         data: Stealing
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .673469365
+        functionName: AnimationEvent
+        data: StealingEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
