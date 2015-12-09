@@ -74,6 +74,10 @@ namespace AI
             doDefenseAction();
         }
 
+        public override void Update()
+        {
+        }
+
         private void doDefenseAction()
         {
             if(GameController.Get.IsDunk || GameController.Get.IsShooting)

@@ -18,6 +18,11 @@
 
         public override void UpdateAI()
         {
+            
+        }
+
+        public override void Update()
+        {
             for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
             {
                 if (GameController.Get.GamePlayers[i].ShowPos != -1)

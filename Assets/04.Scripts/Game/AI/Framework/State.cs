@@ -39,10 +39,10 @@ namespace AI
         /// </summary>
         public abstract void UpdateAI();
 
-//        /// <summary>
-//        /// 呼叫時機: 每個 frame.
-//        /// </summary>
-//        public abstract void Update();
+        /// <summary>
+        /// 呼叫時機: 每個 frame.
+        /// </summary>
+        public abstract void Update();
 
         /// <summary>
         /// 呼叫時機: 收到訊息.

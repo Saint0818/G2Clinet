@@ -47,7 +47,11 @@ namespace AI
         /// </summary>
         private readonly float mUpdateInterval;
 
-        public StateMachine(float updateInterval = 0.016f)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="updateInterval"> 1 秒更新 5 次. </param>
+        public StateMachine(float updateInterval = 1/5f)
         {
             mUpdateInterval = updateInterval;
         }
@@ -78,6 +82,9 @@ namespace AI
         [CanBeNull]
         public State<TEnumState, TEnumMsg> CurrentState { get; private set; }
 
+        /// <summary>
+        /// 每個 Frame 都要呼叫一次.
+        /// </summary>
         public void Update()
         {
             if(Time.time >= mNextUpdateAITime)
@@ -91,11 +98,11 @@ namespace AI
                     CurrentState.UpdateAI();
             }
 
-//            if(mGlobalState != null)
-//                mGlobalState.Update();
-//
-//            if(CurrentState != null)
-//                CurrentState.Update();
+            if(mGlobalState != null)
+                mGlobalState.Update();
+
+            if(CurrentState != null)
+                CurrentState.Update();
         }
 
         public void ChangeState(TEnumState newState, object extraInfo = null)

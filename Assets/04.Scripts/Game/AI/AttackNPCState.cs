@@ -1,5 +1,4 @@
-﻿using GamePlayStruct;
-
+﻿
 namespace AI
 {
     /// <summary>
@@ -63,29 +62,11 @@ namespace AI
                 AITools.RandomTactical(ETactical.Attack, out tactical);
 
             GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
-
-            //        for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            //        {
-            //            PlayerBehaviour player = GameController.Get.GamePlayers[i];
-            //            if (player.AIing && !GameController.Get.DoSkill(player))
-            //            {
-            //                if(player.Team == ETeamKind.Npc)
-            //                {
-            //                    if (!GameController.Get.IsShooting || !player.IsAllShoot)
-            //                    {
-            //                        GameController.Get.AIAttack(player);
-            //                        GameController.Get.AIMove(player, ref tactical);
-            //                    }
-            //                }
-            //                else
-            //                    GameController.Get.AIDefend(player);
-            //            }
-            //        }
         }
 
-//        public override void Update()
-//        {
-//        }
+        public override void Update()
+        {
+        }
 
         public override void Exit()
         {

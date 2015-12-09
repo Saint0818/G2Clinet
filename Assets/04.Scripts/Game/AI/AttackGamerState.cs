@@ -1,5 +1,4 @@
-﻿using GamePlayStruct;
-
+﻿
 namespace AI
 {
     /// <summary>
@@ -83,9 +82,9 @@ namespace AI
             //        }
         }
 
-//        public override void Update()
-//        {
-//        }
+        public override void Update()
+        {
+        }
 
         public override void Exit()
         {

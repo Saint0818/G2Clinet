@@ -59,9 +59,9 @@ namespace AI
             mFSM.Update();
         }
 
-//        public override void Update()
-//        {
-//        }
+        public override void Update()
+        {
+        }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {

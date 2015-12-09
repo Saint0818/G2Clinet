@@ -1,13 +1,9 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using G2;
 using GamePlayEnum;
-using GamePlayStruct;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace AI
 {
@@ -140,9 +136,9 @@ namespace AI
             }
         }
 
-//        public override void Update()
-//        {
-//        }
+        public override void Update()
+        {
+        }
 
         private bool isBallOwner()
         {
