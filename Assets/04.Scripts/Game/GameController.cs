@@ -3642,10 +3642,10 @@ public class GameController : KnightSingleton<GameController>
 	IEnumerator playFinish() {
 		yield return new WaitForSeconds(2);
 		setEndShowScene ();
-//		if(GameStart.Get.IsAutoReplay){
-//			UIGameResult.Get.OnAgain();
-//			Invoke("JumpBallForReplay", 1);
-//		}
+		if(GameStart.Get.IsAutoReplay){
+			UIGamePause.Get.OnAgain();
+			Invoke("JumpBallForReplay", 2);
+		}
 	}
 	//GM Tools
 	public void GMGameResult (bool isSelfWin) {
