@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b152b52473ee1134b9c3adac34e2f253
-timeCreated: 1446799130
+timeCreated: 1449653588
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -241,13 +241,6 @@ ModelImporter:
       - time: .873134315
         functionName: SkillEvent
         data: ActiveSkillEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 38fc75ebfceec6042b6a8cfd17b3bff1
-timeCreated: 1447062405
+timeCreated: 1449653608
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -164,13 +164,6 @@ ModelImporter:
       - time: .450450391
         functionName: AnimationEvent
         data: TipInEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .999999881
-        functionName: AnimationEvent
-        data: CatchEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

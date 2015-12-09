@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: adea1f43ee0b6504a96e12cf22f54446
-timeCreated: 1446617152
+timeCreated: 1449653583
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -153,21 +153,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .990521312
-        functionName: SkillEvent
-        data: ActiveSkillEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: BuffEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

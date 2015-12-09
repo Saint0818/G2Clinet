@@ -10,15 +10,16 @@ using Newtonsoft.Json;
 
 public class GEDataChecker : GEBase {
 //	private string[] checkSubject = new string[3]{"Wait", "Wait", "Wait"};
-	private bool[] states = new bool[3];
-	private Color[] statesColor = new Color[3];
+	private bool[] states = new bool[4];
+	private Color[] statesColor = new Color[4];
 //	private StringBuilder ErrorData = new StringBuilder();
 	
 	private Dictionary<string, string> AnimationEventFunctionData = new Dictionary<string, string>();
 	private Dictionary<string, string> AnimationEventStringData = new Dictionary<string, string>();
 	private Dictionary<string, string> AnimationStateData = new Dictionary<string, string>();
 	private Dictionary<string, string> SkillEffectData = new Dictionary<string, string>();
-	
+	private Dictionary<string, string> SkillEventStringData = new Dictionary<string, string>();
+
 	void OnGUI()
 	{
 		if (GUILayout.Button("Test AnimationEvent", GUILayout.Width(200)))
@@ -36,11 +37,13 @@ public class GEDataChecker : GEBase {
 		GUILayout.Toggle (states[0], "AnimationEvent");
 		GUILayout.Toggle (states[1], "Skill Animation");
 		GUILayout.Toggle (states[2], "Skill Effect");
+		GUILayout.Toggle (states[3], "SkillEvent");
 	}
 
 	public void TestAnimationEvent()
 	{
 		bool haveError = false;
+		bool skilleventerror = false;
 		statesColor [0] = Color.grey; 
 		for(int i = 0; i < 3;i++){
 			UnityEditor.Animations.AnimatorController controller = Resources.Load("Character/PlayerModel_"+i+"/AnimationControl") as UnityEditor.Animations.AnimatorController;
@@ -56,9 +59,20 @@ public class GEDataChecker : GEBase {
 									                             i, animationClip[j].name, animationClip[j].events[k].stringParameter));
 								}
 							}
-							else{
+							else if(animationClip[j].events[k].functionName == EanimationEventFunction.SkillEvent.ToString())
+							{
+								if(!SkillEventStringData.ContainsKey(animationClip[j].events[k].stringParameter))
+								{
+									skilleventerror = true;
+									Debug.LogError(string.Format("Type : Skill Event , Player : {0}, animationClip : {1} , stringParameter : {2}", 
+									                             i, animationClip[j].name, animationClip[j].events[k].stringParameter));
+								}
+
+							}
+							else
+							{
 								//TODO:Other Event Work
-//								Debug.LogError("Other Work : " + animationClip[j].events[k].functionName);
+								//								Debug.LogError("Other Work : " + animationClip[j].events[k].functionName);
 							}
 						}
 						else
@@ -75,6 +89,8 @@ public class GEDataChecker : GEBase {
 
 		states [0] = !haveError;
 		statesColor [0] = (haveError == true? Color.red : Color.white); 
+
+		states [3] = !skilleventerror;
 	}
 
 	public void TestAnimationByCode()
@@ -119,6 +135,15 @@ public class GEDataChecker : GEBase {
 				SkillEffectData.Add(key, key);
 			}
 		}
+
+		//SkillEvent
+		foreach (ESkillEventString item in Enum.GetValues(typeof(ESkillEventString))){
+			if(!SkillEventStringData.ContainsKey(item.ToString())){
+				SkillEventStringData.Add(item.ToString(), item.ToString());
+			}
+		}
+
+
 	}
 
 	private void TestAnimationVsSkillData ()

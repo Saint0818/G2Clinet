@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bedb16b5d105d934ab05e6b84ee70b1a
-timeCreated: 1446617176
+timeCreated: 1449653612
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -185,13 +185,6 @@ ModelImporter:
       - time: .553074896
         functionName: AnimationEvent
         data: Shooting
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .99999994
-        functionName: AnimationEvent
-        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e98dfdfd2abcf12458cd03b3c098ec86
-timeCreated: 1446617150
+timeCreated: 1449653582
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -178,13 +178,6 @@ ModelImporter:
       - time: .630498528
         functionName: AnimationEvent
         data: BlockCatchMomentEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

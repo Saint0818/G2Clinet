@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1e83ebf229e266e48920f38e0a5393bc
-timeCreated: 1446617110
+timeCreated: 1449653310
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -159,20 +159,6 @@ ModelImporter:
         data: SD_Buff
         objectReferenceParameter: {fileID: 8300000, guid: 2ab142812159dfc4db58a28681c6bf3a,
           type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .97795409
-        functionName: AnimationEvent
-        data: BuffEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .995260596
-        functionName: SkillEvent
-        data: ActiveSkillEnd
-        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

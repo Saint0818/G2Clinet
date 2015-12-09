@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7cbef9f29b2faf94f8f8a56661519ec0
-timeCreated: 1446617168
+timeCreated: 1449653601
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .332617998
         functionName: AnimationEvent
         data: Passing
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .99999994
-        functionName: AnimationEvent
-        data: PassEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

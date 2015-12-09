@@ -57,7 +57,24 @@ public enum EAnimationEventString{
 	CloneMesh,
 	DunkBasketStart,
 	OnlyScore,
-	DunkFallBall
+	DunkFallBall,
+	AnimationEnd,
+	PassEnd,
+	CatchEnd,
+	BlockCatchEnd,
+	PickEnd,
+	MoveDodgeEnd,
+	BuffEnd,
+	FakeShootEnd,
+	BlockCatchingEnd
+}
+
+public enum ESkillEventString{
+	CameraAction,
+	Shooting,
+	PushDistancePlayer,
+	SetBallEvent,
+	ActiveSkillEnd
 }
 
 public enum EPlayerState

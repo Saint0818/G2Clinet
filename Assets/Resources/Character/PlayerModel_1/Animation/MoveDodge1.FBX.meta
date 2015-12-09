@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 291a2cfc6078e8b4184a4d93c8afcf5e
-timeCreated: 1446617166
+timeCreated: 1449653599
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -153,14 +153,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .99999994
-        functionName: AnimationEvent
-        data: MoveDodgeEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

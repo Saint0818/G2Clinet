@@ -3369,10 +3369,10 @@ public class GameController : KnightSingleton<GameController>
     {
 		if (Situation == EGameSituation.None || 
 			BallOwner || 
-		    IsShooting || 
+//		    IsShooting || 
 		    !player.IsCanCatchBall || 
-		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
-		    player.IsPush || 
+//		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
+//		    player.IsPush || 
 		    dir == 6)
             return;
 

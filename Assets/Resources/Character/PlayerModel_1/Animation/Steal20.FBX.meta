@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2e4a513be74b62c45821d9f7d464109b
-timeCreated: 1446617181
+timeCreated: 1449653616
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -161,6 +161,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .426605493
+        functionName: SkillEvent
+        data: CameraAction
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: .483642995
         functionName: SkillEvent
         data: SetBallEvent
@@ -171,20 +178,6 @@ ModelImporter:
       - time: .497890294
         functionName: SkillEvent
         data: ActiveSkillEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: AnimationEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .426605493
-        functionName: SkillEvent
-        data: CameraAction
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

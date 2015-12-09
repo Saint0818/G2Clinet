@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f5b980f6f0664b04bae5af887c9deadf
-timeCreated: 1446617171
+timeCreated: 1449653604
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .382280231
         functionName: AnimationEvent
         data: PickUp
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: PickEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

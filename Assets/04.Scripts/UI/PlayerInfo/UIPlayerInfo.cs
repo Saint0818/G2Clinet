@@ -102,7 +102,8 @@ public class PersonalView
 		if (GameData.DExpData.ContainsKey (player.Lv + 1)) 
 		{
 			expValue.text = string.Format ("{0}/{1}", player.Exp, GameData.DExpData[player.Lv + 1].LvExp);
-			expBar.value = player.Exp / GameData.DExpData[player.Lv + 1].LvExp;
+			float y = GameData.DExpData[player.Lv + 1].LvExp;
+			expBar.value = (float)player.Exp / (float)y;
 		}
 		else{
 			expValue.text = "Max";

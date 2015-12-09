@@ -3095,7 +3095,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "FallEnd":
 				OnUI(this);
-				ReSetFlag();
+				InitFlag();
 				AniState(EPlayerState.Idle);
 				break;
 
@@ -3144,31 +3144,20 @@ public class PlayerBehaviour : MonoBehaviour
             case "AnimationEnd":
                 OnUI(this);
 
-//                if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform)
-//                {
-//                    LogMgr.Get.Log(PlayerRefGameObject.name + " AnimationEnd layup no ball.");
-//                    GameController.Get.SetBall();
-//                }
-
-//              Debug.LogWarning(gameObject.name + ".AnimationEnd : " +crtState.ToString());
-
-
                 if (!IsBallOwner)
                     AniState(EPlayerState.Idle);
                 else
                 {
                     if (firstDribble)
                         AniState(EPlayerState.Dribble0);
-//                      else
-//                          AniState(EPlayerState.HoldBall);
                 }
 
-				ReSetFlag();
+				InitFlag();
                 break;
         }
     }
 
-	public void ReSetFlag()
+	public void InitFlag()
 	{
 		CanUseTipIn = false;
 		isUsePass = false;

@@ -5,6 +5,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
 {
 	public EAnimatorState State;
     private PlayerBehaviour player;
+	private AnimationEvent skillEvent = new AnimationEvent();
 
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
@@ -40,6 +41,35 @@ public class ShowStateBehaviour : StateMachineBehaviour
 				else
 					player.AniState (EPlayerState.Idle);
 					break;
+			case EAnimatorState.Pass:
+				player.AnimationEvent ("PassEnd");
+				break;
+			case EAnimatorState.Dunk:
+			case EAnimatorState.Shoot:
+			case EAnimatorState.Layup:
+			case EAnimatorState.KnockDown:
+			case EAnimatorState.Steal:
+			case EAnimatorState.Push:
+			case EAnimatorState.GotSteal:
+				player.AnimationEvent ("AnimationEnd");
+				break;
+			case EAnimatorState.Intercept:
+			case EAnimatorState.Catch:
+			case EAnimatorState.Rebound:
+			case EAnimatorState.Block:
+				player.AnimationEvent ("CatchEnd");
+				break;
+			case EAnimatorState.Pick:
+				player.AnimationEvent ("PickEnd");
+				break;
+			case EAnimatorState.Buff:
+				player.AnimationEvent ("BuffEnd");
+				skillEvent.stringParameter = "ActiveSkillEnd";
+				player.SkillEvent(skillEvent);
+				break;
+			case EAnimatorState.MoveDodge:
+				player.AnimationEvent ("MoveDodgeEnd");
+				break;
 			}
 		}
 		else
