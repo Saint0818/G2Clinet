@@ -255,7 +255,7 @@ public class UIGame : UIBase {
                 uiScoreBar.SetActive(false);
             }
         }
-        showButtonFX();
+       // showButtonFX();
         judgePlayerScreenPosition();
 		setGameTime();
 	}
@@ -335,13 +335,13 @@ public class UIGame : UIBase {
 			uiSkillEnables[i].SetActive(false);
 		}
 
-		buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
-		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
-		buttonStealFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/UI_FX_A_21");
-		buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
-		buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/UI_FX_A_21");
-		buttonPassAFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA/UI_FX_A_21");
-		buttonPassBFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/UI_FX_A_21");
+		//buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
+		//buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
+		//buttonStealFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/UI_FX_A_21");
+		//buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
+		//buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/UI_FX_A_21");
+		//buttonPassAFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA/UI_FX_A_21");
+		//buttonPassBFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/UI_FX_A_21");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
@@ -400,13 +400,13 @@ public class UIGame : UIBase {
 		uiAlleyoopB.SetActive(false);
 		viewTopLeft.SetActive(false);
 		uiSpriteFull.SetActive(false);
-		buttonShootFX.SetActive(false);
-		buttonBlockFX.SetActive(false);
-		buttonStealFX.SetActive(false);
-		buttonAttackFX.SetActive(false);
-		buttonPassFX.SetActive(false);
-		buttonPassAFX.SetActive(false);
-		buttonPassBFX.SetActive(false);
+		//buttonShootFX.SetActive(false);
+		//buttonBlockFX.SetActive(false);
+		//buttonStealFX.SetActive(false);
+		//buttonAttackFX.SetActive(false);
+		//buttonPassFX.SetActive(false);
+		//buttonPassAFX.SetActive(false);
+		//buttonPassBFX.SetActive(false);
 		if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 				uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
