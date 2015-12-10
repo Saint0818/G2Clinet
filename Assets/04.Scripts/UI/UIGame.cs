@@ -780,7 +780,8 @@ public class UIGame : UIBase {
 	
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
-		CourtMgr.Get.SetScoreboards (team, Scores [team]);
+		if(!GameController.Get.IsFinish)
+			CourtMgr.Get.SetScoreboards (team, Scores [team]);
 		showScoreBar(GameController.Get.IsStart);
 		resetScoreRotate();
 		TweenRotation rotateScore = TweenRotation.Begin(labelScores[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);

@@ -104,7 +104,7 @@ public class GameController : KnightSingleton<GameController>
     /// 撿球的人.
     /// </summary>
 	public PlayerBehaviour PickBallPlayer;
-	private GameObject ballHolder = null; // 這到底是什麼? 好像也從來沒有人設定過...
+//	private GameObject ballHolder = null; // 這到底是什麼? 好像也從來沒有人設定過...
 
     // 0:C, 1:F, 2:G
     private readonly Vector2[] mHomePositions =
@@ -267,7 +267,7 @@ public class GameController : KnightSingleton<GameController>
 		Catcher = null;
 		Passer = null;
 		PickBallPlayer  = null;
-		ballHolder = null;
+//		ballHolder = null;
 
 		if (UIGame.Visible)
 			UIGame.Get.ClearLine();
@@ -1830,7 +1830,6 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			calculationScoreRate(player, scoreType, judgeShootAngle(player), isActive);
-
 			SetBall();
 			CourtMgr.Get.SetBallState(player.crtState);
 
@@ -3056,6 +3055,7 @@ public class GameController : KnightSingleton<GameController>
 		return -1;
 	}
 
+	//For Tutorial
 	public bool SetBall(int team, EPlayerPostion index)
     {
 		int p = getPlayerIndex(team, index);
@@ -3202,15 +3202,6 @@ public class GameController : KnightSingleton<GameController>
 			result = true;
 			Shooter = null;
 
-			if(ballHolder != null)
-            {
-				ballHolder.SetActive(true);
-				ballHolder.transform.parent = BallOwner.PlayerRefGameObject.transform;
-				ballHolder.transform.localEulerAngles = Vector3.zero;
-				ballHolder.transform.localScale = Vector3.one;
-				ballHolder.transform.localPosition = BallOwner.BodyHeight.transform.localPosition;
-			}
-			
 			for(int i = 0 ; i < PlayerList.Count; i++)
 				PlayerList[i].ClearAutoFollowTime();
 
@@ -3245,9 +3236,6 @@ public class GameController : KnightSingleton<GameController>
     	}
         else
         {
-			if(ballHolder != null)				
-				ballHolder.SetActive(false);
-        
 			SetBallOwnerNull();
 		}
 
@@ -3307,9 +3295,9 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄球成功, false: 抄球失敗. </returns>
     public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) && Passer && passingStealBallTime == 0)
+		if(player.IsDefence  && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) && Passer && passingStealBallTime == 0)
 		{
-			if(Catcher == player)
+			if(Catcher == player || Catcher.Team == player.Team)
 				return false;
 
 			int rate = Random.Range(0, 100);
@@ -3388,10 +3376,7 @@ public class GameController : KnightSingleton<GameController>
     {
 		if (Situation == EGameSituation.None || 
 			BallOwner || 
-//		    IsShooting || 
 		    !player.IsCanCatchBall || 
-//		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
-//		    player.IsPush || 
 		    dir == 6)
             return;
 
@@ -3407,13 +3392,12 @@ public class GameController : KnightSingleton<GameController>
         // Refactor 完畢後, 這就可以刪除了.(trigger 換成是送 message 的方式)
         if (Situation == EGameSituation.SpecialAction)
             return;
-        
+       
 		switch (dir)
         {
 		case 0: //top ,rebound
 			if(Situation == EGameSituation.JumpBall && isEnter)
             {
-//				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
                 GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
             else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
@@ -3421,11 +3405,6 @@ public class GameController : KnightSingleton<GameController>
 				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
 				   (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
             {
-
-				if (GameStart.Get.TestMode == EGameTest.Rebound ||
-				    Situation == EGameSituation.AttackGamer ||
-				    Situation == EGameSituation.AttackNPC)
-                    {
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
@@ -3435,7 +3414,6 @@ public class GameController : KnightSingleton<GameController>
 					    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
 					        Rebound(player);
 					}
-				}
 			}
             break;
 		case 5: //finger
@@ -3492,14 +3470,16 @@ public class GameController : KnightSingleton<GameController>
 						else
 							player.AniState(EPlayerState.Pick0, CourtMgr.Get.RealBall.transform.position);
 					}
-                    else if(SetBall(player))
-                    {
-						if(player.AIing || player.IsIdle)
-							player.AniState(EPlayerState.Dribble0);
-						else if(player.IsRun || player.IsDribble)
-                        	player.AniState(EPlayerState.Dribble1);
-                    	else
-                        	player.AniState(EPlayerState.HoldBall);
+					else if(!IsPassing || isEnter)
+					{
+						if(SetBall(player)) {
+							if(player.AIing || player.IsIdle)
+								player.AniState(EPlayerState.Dribble0);
+							else if(player.IsRun || player.IsDribble)
+								player.AniState(EPlayerState.Dribble1);
+							else
+								player.AniState(EPlayerState.HoldBall);
+						}
 					}
                 }
             }
@@ -3511,7 +3491,7 @@ public class GameController : KnightSingleton<GameController>
     public bool OnPickUpBall(PlayerBehaviour player)
     {
         if (player && BallOwner == null) {
-            SetBall (player);
+			SetBall (player);
             
             return true;
         }
@@ -3917,7 +3897,7 @@ public class GameController : KnightSingleton<GameController>
 					return true;
 				else{ 
 					if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.WinValue)) return true;
-					else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.WinValue)) return true;
+					else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] > StageData.WinValue)) return true;
 				}
 			} else if(!GameStart.Get.ConnectToServer)
 			{

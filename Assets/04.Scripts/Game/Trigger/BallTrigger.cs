@@ -21,7 +21,6 @@ public class BallTrigger : MonoBehaviour
 
 	void Awake()
 	{
-				
 		ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
 	}
@@ -60,7 +59,7 @@ public class BallTrigger : MonoBehaviour
 
 		if (dir > -1)
         {
-			if (team > -1 && index > -1)
+			if (team > -1 && index > -1 && GameController.Get.Situation == EGameSituation.JumpBall)
             {
 				GameController.Get.BallTouchPlayer(team * 3 + index, dir, isEnter);
 			}
