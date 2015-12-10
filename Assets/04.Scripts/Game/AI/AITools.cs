@@ -11,7 +11,7 @@ public class AITools
     /// <param name="posIndex"> 0:C, 1:F, 2:G. </param>
     /// <param name="data"> true: 取得戰術成功. </param>
     /// <returns></returns>
-    public static bool RandomTactical(ETactical tactical, int posIndex, out TTacticalData data)
+    public static bool RandomTactical(ETactical tactical, EPlayerPostion posIndex, out TTacticalData data)
     {
         return RandomTactical(convert(tactical, posIndex), out data);
     }
@@ -38,7 +38,7 @@ public class AITools
     /// <param name="attData"></param>
     /// <param name="defData"></param>
     /// <returns></returns>
-    public static bool RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, int posIndex,
+    public static bool RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, EPlayerPostion posIndex,
                                                    out TTacticalData attData, out TTacticalData defData)
     {
         ETactical convertAtt = convert(attTactical, posIndex);
@@ -61,52 +61,55 @@ public class AITools
     /// <param name="tactical"></param>
     /// <param name="posIndex"> 0:C, 1:F, 2:G </param>
     /// <returns></returns>
-    private static ETactical convert(ETactical tactical, int posIndex)
+    private static ETactical convert(ETactical tactical, EPlayerPostion posIndex)
     {
         switch (tactical)
         {
             case ETactical.Inbounds:
-                if (posIndex == 0)
+//                if(posIndex == 0)
+                if(posIndex == EPlayerPostion.C)
                     return ETactical.InboundsCenter;
-                if (posIndex == 1)
+//                if (posIndex == 1)
+                if (posIndex == EPlayerPostion.F)
                     return ETactical.InboundsForward;
-                if (posIndex == 2)
+//                if (posIndex == 2)
+                if (posIndex == EPlayerPostion.G)
                     return ETactical.InboundsGuard;
                 break;
     
             case ETactical.InboundsDefence:
-                if (posIndex == 0)
+                if (posIndex == EPlayerPostion.C)
                     return ETactical.InboundsDefenceCenter;
-                if (posIndex == 1)
+                if (posIndex == EPlayerPostion.F)
                     return ETactical.InboundsDefenceForward;
-                if (posIndex == 2)
+                if (posIndex == EPlayerPostion.G)
                     return ETactical.InboundsDefenceGuard;
                 break;
     
             case ETactical.HalfInbounds:
-                if (posIndex == 0)
+                if (posIndex == EPlayerPostion.C)
                     return ETactical.HalfInboundsCenter;
-                if (posIndex == 1)
+                if (posIndex == EPlayerPostion.F)
                     return ETactical.HalfInboundsForward;
-                if (posIndex == 2)
+                if (posIndex == EPlayerPostion.G)
                     return ETactical.HalfInboundsGuard;
                 break;
     
             case ETactical.HalfInboundsDefence:
-                if (posIndex == 0)
+                if (posIndex == EPlayerPostion.C)
                     return ETactical.HalfInboundsDefenceCenter;
-                if (posIndex == 1)
+                if (posIndex == EPlayerPostion.F)
                     return ETactical.HalfInboundsDefenceForward;
-                if (posIndex == 2)
+                if (posIndex == EPlayerPostion.G)
                     return ETactical.HalfInboundsDefenceGuard;
                 break;
     
             case ETactical.Fast:
-                if (posIndex == 0)
+                if (posIndex == EPlayerPostion.C)
                     return ETactical.FastCenter;
-                if (posIndex == 1)
+                if (posIndex == EPlayerPostion.F)
                     return ETactical.FastForward;
-                if (posIndex == 2)
+                if (posIndex == EPlayerPostion.G)
                     return ETactical.FastGuard;
                 break;
     

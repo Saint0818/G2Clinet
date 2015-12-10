@@ -213,7 +213,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		}
 		
 		UIGame.Get.CloseStartButton();
-		GameController.Get.SetBall(BallOwnerTeam, BallOwnerIndex);
+		GameController.Get.SetBall(BallOwnerTeam, (EPlayerPostion)BallOwnerIndex);
 	}
 
 	IEnumerator setPlayerMove(int i) {
@@ -261,7 +261,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 						if (p) {
 							int team = EventValue / GameData.Max_GamePlayer;
 							int index = EventValue % GameData.Max_GamePlayer;
-							if (p.Team.GetHashCode() != team || p.Index != index)
+							if (p.Team.GetHashCode() != team || p.Index.GetHashCode() != index)
 								flag = false;
 						}
 					}
@@ -305,7 +305,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 					if (EventPlayer >= 0) {
 						int team = EventPlayer / GameData.Max_GamePlayer;
 						int index = EventPlayer % GameData.Max_GamePlayer;
-						if (player.Team.GetHashCode() != team || player.Index != index)
+						if (player.Team.GetHashCode() != team || player.Index.GetHashCode() != index)
 							flag = false;
 					}
 					

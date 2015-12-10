@@ -227,14 +227,13 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>
     /// 0: Center, 1:Forward, 2:Guard.
     /// </summary>
-    public int Index;
-//    private float aiTime = 0; // 0: AI 控制中; > 0 玩家控制中.
+    public EPlayerPostion Index;
     private readonly StatusTimer mManually = new StatusTimer();
+
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public EAnimatorState crtAnimatorState = EAnimatorState.Idle;
     public Transform[] DefPointAy = new Transform[8];
-//    public float WaitMoveTime = 0;
 
     /// <summary>
     /// 這是避免近距離時, 人物不斷轉向的問題, 而設計的解決方案.(這不好, 應該要換作法才對)
@@ -1402,7 +1401,7 @@ public class PlayerBehaviour : MonoBehaviour
         //LayerCheck
         if (PlayerRefGameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Player))
         {
-            LogMgr.Get.AnimationError((int)Team * 3 + Index, "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
+            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
         }
 
         //IdleAirCheck
@@ -1414,7 +1413,7 @@ public class PlayerBehaviour : MonoBehaviour
         //Idle ballowner
         if (crtState == EPlayerState.Idle && IsBallOwner && GameController.Get.Situation != EGameSituation.End)
         {
-            LogMgr.Get.AnimationError((int)Team * 3 + Index, PlayerRefGameObject.name + " : Error State: Idle BallOWner");
+            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), PlayerRefGameObject.name + " : Error State: Idle BallOWner");
         }
 
     }
@@ -1722,7 +1721,7 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
                             {
-                                if (GameController.Get.Pass(this, false, false, true))
+                                if(GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = data.Shooting;
                             }
                         }
@@ -3977,59 +3976,62 @@ public class PlayerBehaviour : MonoBehaviour
 //        isFall = false;
 //    }
 	
-    public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
+    public Vector2 GetStealPostion(Vector3 p1, Vector3 p2, EPlayerPostion index)
     {
         bool cover = false;
-        Vector2 Result = Vector2.zero;
-        if (P1.x > 0)
-            Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
+        Vector2 result = Vector2.zero;
+        if (p1.x > 0)
+            result.x = p1.x - (Math.Abs(p1.x - p2.x) / 3);
         else
-            Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+            result.x = p1.x + (Math.Abs(p1.x - p2.x) / 3);
 
         if (GameController.Get.BallOwner && GameController.Get.BallOwner.DefPlayer && GameController.Get.BallOwner.Index != Index)
         {
 			float angle = Math.Abs(MathUtils.FindAngle(GameController.Get.BallOwner.transform, GameController.Get.BallOwner.DefPlayer.transform.position));
             if (angle > 90)
             {
-                P1 = GameController.Get.BallOwner.transform.position;
-                if (P1.x > 0)
-                    Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
+                p1 = GameController.Get.BallOwner.transform.position;
+                if (p1.x > 0)
+                    result.x = p1.x - (Math.Abs(p1.x - p2.x) / 3);
                 else
-                    Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+                    result.x = p1.x + (Math.Abs(p1.x - p2.x) / 3);
 
                 cover = true;
             }
         }
 
-        if (mIndex != Index && !cover)
+        if (index != Index && !cover)
         {
-            switch (mIndex)
+            switch (index)
             {
-                case 0:
-                    if (Index == 1)
-                        Result.x += 1.5f;
+                case EPlayerPostion.C:
+//                    if (Index == 1)
+                    if (Index == EPlayerPostion.F)
+                        result.x += 1.5f;
                     else
-                        Result.x -= 1.5f;
+                        result.x -= 1.5f;
                     break;
-                case 1:
-                    if (Index == 0)
-                        Result.x += 1.5f;
+                case EPlayerPostion.F:
+//                    if (Index == 0)
+                    if (Index == EPlayerPostion.C)
+                        result.x += 1.5f;
                     else
-                        Result.x -= 1.5f;
+                        result.x -= 1.5f;
                     break;
-                case 2:
-                    if (Index == 0)
-                        Result.x += 1.5f;
+                case EPlayerPostion.G:
+//                    if (Index == 0)
+                    if (Index == EPlayerPostion.C)
+                        result.x += 1.5f;
                     else
-                        Result.x -= 1.5f;
+                        result.x -= 1.5f;
                     break;
             }
         }
 
-        if (P2.z > 0)
-            Result.y = P1.z + (Math.Abs(P1.z - P2.z) / 3);
+        if (p2.z > 0)
+            result.y = p1.z + (Math.Abs(p1.z - p2.z) / 3);
         else
-            Result.y = P1.z - (Math.Abs(P1.z - P2.z) / 3);
-        return Result;
+            result.y = p1.z - (Math.Abs(p1.z - p2.z) / 3);
+        return result;
     }
 }

@@ -81,6 +81,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private float passingStealBallTime = 0;
 
+    public bool HasBallOwner { get { return BallOwner != null; } }
 	public PlayerBehaviour BallOwner; // 持球的球員.
 	public PlayerBehaviour Joysticker; // 玩家控制的球員.
 
@@ -2027,11 +2028,13 @@ public class GameController : KnightSingleton<GameController>
             return false;
     }
     
-    public bool Pass(PlayerBehaviour player, bool isTee = false, bool isBtn = false, bool movePass = false) {
+    public bool Pass(PlayerBehaviour player, bool isTee = false, bool isBtn = false, bool movePass = false)
+    {
 		bool result = false;
 		bool canPass = true;
 
-		if(BallOwner) {
+		if(BallOwner)
+        {
 			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
@@ -3043,7 +3046,8 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private int getPlayerIndex(int team, int index) {
+	private int getPlayerIndex(int team, EPlayerPostion index)
+    {
 		for (int i = 0; i < PlayerList.Count; i++)
 			if (PlayerList[i].PlayerRefGameObject.activeInHierarchy && PlayerList[i].Team.GetHashCode() == team && PlayerList[i].Index == index)
 				return i;
@@ -3051,7 +3055,7 @@ public class GameController : KnightSingleton<GameController>
 		return -1;
 	}
 
-	public bool SetBall(int team, int index)
+	public bool SetBall(int team, EPlayerPostion index)
     {
 		int p = getPlayerIndex(team, index);
 		if(p > -1) 
@@ -3583,7 +3587,7 @@ public class GameController : KnightSingleton<GameController>
 								if (BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position))
 									Catcher = player;
 							} else
-								UIGame.Get.ShowAlleyoop(true, player.Index);
+								UIGame.Get.ShowAlleyoop(true, player.Index.GetHashCode());
 
 							player.GameRecord.AlleyoopLaunch++;
 						}
@@ -4304,7 +4308,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void SetPlayerAppear(ref TToturialAction action) {
-		int index = getPlayerIndex(action.Team, action.Index);
+		int index = getPlayerIndex(action.Team, (EPlayerPostion)action.Index);
 		if (index > -1 && index < PlayerList.Count) {
 			if (action.MoveKind > 0)
 				SetPlayerAppear(index, action.Action.x, action.Action.z);

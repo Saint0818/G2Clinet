@@ -63,12 +63,6 @@ namespace AI
 				}
 			}
 
-//            if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
-//            {
-//                TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
-//                mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
-//            }
-
             mTimer.StartAgain();
         }
 
@@ -122,17 +116,15 @@ namespace AI
 			
             if (!mPlayer.IsAllShoot)
             {
-                //            bool isDoingAction;
                 if (isBallOwner())
-                    //                isDoingAction = tryDoShooting();
                     tryDoShooting();
                 else
-                    //                isDoingAction = tryDoPush();
                     tryDoPush();
 
-                //            GameController.Get.AIAttack(mPlayer);
-                //            if(!isDoingAction)
-                moveByTactical(mPlayer, ref mTactical);
+                if(GameController.Get.HasBallOwner)
+                    tryMoveByTactical();
+                else
+                    tryDoPickBall(); // 其實應該要寫一個 PickBallState, 但目前暫時沒寫.
             }
         }
 
@@ -153,7 +145,7 @@ namespace AI
             var probability = randomProbability();
             if(probability == EAction.None)
             {
-                if(mTimer.IsTimeUp())
+                if(mTimer.IsTimeUp()) // 是否持球太久, 持球太久, 強制做某個動作.
                 {
                     probability = randomSpecialProbability();
 //                    Debug.LogFormat("randomSpecialProbability:{0}", probability);
@@ -278,13 +270,11 @@ namespace AI
 
             bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
             bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealPushDistance;
-//            if (isClose && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
             if (isClose && pushRate && mPlayer.PushCD.IsTimeUp() &&
                nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
             {
-                if (mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
+                if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
                 {
-//                    mPlayer.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
                     mPlayer.PushCD.StartAgain();
                     return true;
                 }
@@ -328,87 +318,88 @@ namespace AI
             mPlayer.DoPassiveSkill(ESkillSituation.MoveDodge);
         }
 
-        public void moveByTactical([NotNull] PlayerBehaviour someone, ref TTacticalData tacticalData)
+        public void tryMoveByTactical()
         {
-            if (GameController.Get.BallOwner == null)
+            if(mPlayer.CanMove && mPlayer.TargetPosNum == 0)
             {
-                // 沒人有球, 所以要開始搶球. 最接近球的球員去撿球就好.
-                if (!GameController.Get.Passer)
+                // 該球員目前沒有任何移動位置.
+
+                // 對同隊的其它隊友重置位置, 也就是同隊隊友若是目前有移動路徑, 會清掉.
+                // 但為什麼要這樣做呢? 應該是當某位球員的戰術跑完後, 其它全部的人即使還未跑完,
+                // 也必須要將戰術位置清掉, 重新指定新的戰術位置.
+                for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
                 {
-                    if (GameController.Get.Shooter == null)
+                    if(GameController.Get.GamePlayers[i].Team == mPlayer.Team && 
+                        GameController.Get.GamePlayers[i] != mPlayer &&
+                        mTactical.FileName != string.Empty && 
+                        GameController.Get.GamePlayers[i].TargetPosName != mTactical.FileName)
+                        GameController.Get.GamePlayers[i].ResetMove();
+                }
+
+                // 以下會將戰術的每個跑位點都設定 PlayerBehavior.
+                if(mTactical.FileName != string.Empty)
+                {
+                    var tacticalActions = mTactical.GetActions(mPlayer.Postion);
+
+                    if(tacticalActions != null)
                     {
-                        GameController.Get.NearestBallPlayerDoPickBall(someone);
-                        if (someone.DefPlayer != null)
-                            GameController.Get.NearestBallPlayerDoPickBall(someone.DefPlayer);
-                    }
-                    else
-                    {
-                        // 投籃者出手, 此時球在空中飛行.
-                        if ((GameController.Get.Situation == EGameSituation.AttackGamer && someone.Team == ETeamKind.Self) ||
-                           (GameController.Get.Situation == EGameSituation.AttackNPC && someone.Team == ETeamKind.Npc))
+                        for (int i = 0; i < tacticalActions.Length; i++)
                         {
-                            if (!someone.IsShoot)
-                                GameController.Get.NearestBallPlayerDoPickBall(someone);
-                            if (someone.DefPlayer != null)
-                                GameController.Get.NearestBallPlayerDoPickBall(someone.DefPlayer);
+                            TMoveData moveData = new TMoveData();
+                            moveData.Clear();
+                            moveData.Speedup = tacticalActions[i].Speedup;
+                            moveData.Catcher = tacticalActions[i].Catcher;
+                            moveData.Shooting = tacticalActions[i].Shooting;
+                            int z = 1;
+
+                            if(GameStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team != ETeamKind.Self)
+                                z = -1;
+
+                            moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
+
+                            if(GameController.Get.BallOwner != mPlayer)
+                                moveData.LookTarget = GameController.Get.BallOwner.transform;
+
+                            moveData.TacticalName = mTactical.FileName;
+                            moveData.MoveFinish = GameController.Get.MoveDefPlayer;
+                            mPlayer.TargetPos = moveData;
                         }
+
+                        GameController.Get.MoveDefPlayer(mPlayer);
                     }
                 }
             }
-            else
-            {
-                // 有人有球.
-                if (someone.CanMove && someone.TargetPosNum == 0)
-                {
-                    // 該球員目前沒有任何移動位置.
-                    for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-                    {
-                        if(GameController.Get.GamePlayers[i].Team == someone.Team && 
-                           GameController.Get.GamePlayers[i] != someone &&
-                           tacticalData.FileName != string.Empty && 
-                           GameController.Get.GamePlayers[i].TargetPosName != tacticalData.FileName)
-                            GameController.Get.GamePlayers[i].ResetMove();
-                    }
 
-                    if (tacticalData.FileName != string.Empty)
-                    {
-                        var tacticalActions = tacticalData.GetActions(someone.Postion.GetHashCode());
-
-                        if (tacticalActions != null)
-                        {
-                            for (int i = 0; i < tacticalActions.Length; i++)
-                            {
-                                TMoveData moveData = new TMoveData();
-                                moveData.Clear();
-                                moveData.Speedup = tacticalActions[i].Speedup;
-                                moveData.Catcher = tacticalActions[i].Catcher;
-                                moveData.Shooting = tacticalActions[i].Shooting;
-                                int z = 1;
-
-                                if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
-                                    z = -1;
-
-                                moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
-
-                                if (GameController.Get.BallOwner != null && GameController.Get.BallOwner != someone)
-                                    moveData.LookTarget = GameController.Get.BallOwner.transform;
-
-                                moveData.TacticalName = tacticalData.FileName;
-                                moveData.MoveFinish = GameController.Get.MoveDefPlayer;
-                                someone.TargetPos = moveData;
-                            }
-
-                            GameController.Get.MoveDefPlayer(someone);
-                        }
-                    }
-                }
-
-                if(someone.CantMoveTimer.IsOn()&& 
-                   someone == GameController.Get.BallOwner)
-                    someone.AniState(EPlayerState.Dribble0);
-            }
+            if(mPlayer.CantMoveTimer.IsOn()&&
+                mPlayer == GameController.Get.BallOwner)
+                mPlayer.AniState(EPlayerState.Dribble0);
         }
 
+        private void tryDoPickBall()
+        {
+            // 沒人有球, 所以要開始搶球. 最接近球的球員去撿球就好.
+            if(!GameController.Get.Passer)
+            {
+                if(GameController.Get.Shooter == null)
+                {
+                    GameController.Get.NearestBallPlayerDoPickBall(mPlayer);
+                    if(mPlayer.DefPlayer != null)
+                        GameController.Get.NearestBallPlayerDoPickBall(mPlayer.DefPlayer);
+                }
+                else
+                {
+                    // 投籃者出手, 此時球在空中飛行.
+                    if((GameController.Get.Situation == EGameSituation.AttackGamer && mPlayer.Team == ETeamKind.Self) ||
+                       (GameController.Get.Situation == EGameSituation.AttackNPC && mPlayer.Team == ETeamKind.Npc))
+                    {
+                        if(!mPlayer.IsShoot)
+                            GameController.Get.NearestBallPlayerDoPickBall(mPlayer);
+                        if(mPlayer.DefPlayer != null)
+                            GameController.Get.NearestBallPlayerDoPickBall(mPlayer.DefPlayer);
+                    }
+                }
+            }
+        }
     } // end of the class PlayerAttackGeneralState.
 
 } // end of the namespace AI.

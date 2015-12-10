@@ -182,17 +182,17 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		playerBehaviour.Team = team;
 		playerBehaviour.MoveIndex = -1;
 		playerBehaviour.Attribute = player;
-		playerBehaviour.Index = teamIndex;
+		playerBehaviour.Index = (EPlayerPostion)teamIndex;
 		if(team == ETeamKind.Self)
 			playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
 		else
 			playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
 
-		if(teamIndex == 0)
+		if((EPlayerPostion)teamIndex == EPlayerPostion.C)
 			playerBehaviour.Postion = EPlayerPostion.C;
-		else if(teamIndex == 1)
+		else if((EPlayerPostion)teamIndex == EPlayerPostion.F)
 			playerBehaviour.Postion = EPlayerPostion.F;
-		else if(teamIndex == 2)
+		else if((EPlayerPostion)teamIndex == EPlayerPostion.G)
 			playerBehaviour.Postion = EPlayerPostion.G;
 		
 		playerBehaviour.InitTrigger(DefPointObject);

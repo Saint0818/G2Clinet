@@ -47,15 +47,15 @@ public struct TTacticalData
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="posIndex"> 0:C, 1:F, 2:G </param>
+    /// <param name="pos"> 0:C, 1:F, 2:G </param>
     /// <returns></returns>
-    public TTacticalAction[] GetActions(int posIndex)
+    public TTacticalAction[] GetActions(EPlayerPostion pos)
     {
-        if(posIndex == 0)
+        if(pos == EPlayerPostion.C)
             return PosAy1;
-        if(posIndex == 1)
+        if(pos == EPlayerPostion.F)
             return PosAy2;
-        if(posIndex == 2)
+        if(pos == EPlayerPostion.G)
             return PosAy3;
 
         return null;
