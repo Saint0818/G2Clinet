@@ -509,11 +509,12 @@ public class GameController : KnightSingleton<GameController>
 	
 	public void CreateTeam()
     {
+		int num = 0;
         switch(GameStart.Get.TestMode)
         {
     	case EGameTest.None:
 			if (StageData.FriendKind == 4) {
-				int num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
+				num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
 				for (int i = 0; i < num; i++) {
 					if (GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i])) {
 						GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
@@ -530,7 +531,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 			} else {
 				checkPlayerID();
-				int num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
+				num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
 				for (int i = 0; i < num; i++)
 					PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
 
@@ -601,7 +602,7 @@ public class GameController : KnightSingleton<GameController>
 			break;
     	case EGameTest.Edit:
 			checkPlayerID();
-			int num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
+			num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
 			for (int i = 0; i < num; i++)
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
 

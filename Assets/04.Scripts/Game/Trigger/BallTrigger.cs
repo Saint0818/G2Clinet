@@ -21,6 +21,7 @@ public class BallTrigger : MonoBehaviour
 
 	void Awake()
 	{
+				
 		ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
 	}
