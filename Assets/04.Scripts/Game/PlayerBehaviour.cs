@@ -448,8 +448,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
 
-        if (SpeedUpView)
-            SpeedUpView.enabled = false;
+//        if (SpeedUpView)
+//            SpeedUpView.enabled = false;
     }
 
     public void SetTimerKey(ETimerKind key)
@@ -671,6 +671,20 @@ public class PlayerBehaviour : MonoBehaviour
 		return DefPointAy[kind].position;
 	}
 
+	private void speedBarColor () {
+		if (this == GameController.Get.Joysticker) {
+			SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+			SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+			if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
+				isSpeedStay = false;
+				SpeedAnimator.SetTrigger("SelectMe");
+			} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
+				isSpeedStay = true;
+				SpeedAnimator.SetTrigger("SelectMeStay");
+			}
+		}
+	}
+
     void FixedUpdate()
     {
 //      if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
@@ -760,50 +774,32 @@ public class PlayerBehaviour : MonoBehaviour
         if (Time.time >= mMovePowerTime)
         {
             mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
-            if (isSpeedup)
+			if (isSpeedup)
             {
-                if (mMovePower > 0)
+				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
                 {
                     mMovePower -= GameConst.MovePowerMoving;
                     if (mMovePower < 0)
                         mMovePower = 0;
 
-                    if (this == GameController.Get.Joysticker) {
-						SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
-						SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
-						if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
-							isSpeedStay = false;
-							SpeedAnimator.SetTrigger("SelectMe");
-						} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
-							isSpeedStay = true;
-							SpeedAnimator.SetTrigger("SelectMeStay");
-						}
-					}
+					speedBarColor ();
 
                     if (mMovePower == 0)
                         canSpeedup = false;
                 }
-            } else if (mMovePower < mMaxMovePower)
-            {
-                mMovePower += GameConst.MovePowerRevive;
-                if (mMovePower > mMaxMovePower)
-                    mMovePower = mMaxMovePower;
-
-                if (this == GameController.Get.Joysticker) {
-					SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
-					SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
-					if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
-						isSpeedStay = false;
-						SpeedAnimator.SetTrigger("SelectMe");
-					} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
-						isSpeedStay = true;
-						SpeedAnimator.SetTrigger("SelectMeStay");
-					}
+			} else {
+				if (mMovePower <= mMaxMovePower)
+				{
+					mMovePower += GameConst.MovePowerRevive;
+					if (mMovePower > mMaxMovePower)
+						mMovePower = mMaxMovePower;
+					
+					speedBarColor ();
+					
+					if (mMovePower == mMaxMovePower)
+						canSpeedup = true;
 				}
-
-                if (mMovePower == mMaxMovePower)
-                    canSpeedup = true;
-            }
+			}
         }
 
         if (IsDefence)
@@ -899,8 +895,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (AIActiveHint)
             AIActiveHint.SetActive(false);
 
-        if (SpeedUpView)
-            SpeedUpView.enabled = true;
+//        if (SpeedUpView)
+//            SpeedUpView.enabled = true;
     }
 
     /// <summary>
@@ -921,8 +917,8 @@ public class PlayerBehaviour : MonoBehaviour
                 if (AIActiveHint)
                     AIActiveHint.SetActive(false);
 
-                if (SpeedUpView)
-                    SpeedUpView.enabled = true;
+//                if (SpeedUpView)
+//                    SpeedUpView.enabled = true;
             } else
             {
 //              aiTime = 0;
@@ -930,8 +926,8 @@ public class PlayerBehaviour : MonoBehaviour
                 if (AIActiveHint)
                     AIActiveHint.SetActive(true);
 
-                if (SpeedUpView)
-                    SpeedUpView.enabled = false;
+//                if (SpeedUpView)
+//                    SpeedUpView.enabled = false;
             }
         }
     }

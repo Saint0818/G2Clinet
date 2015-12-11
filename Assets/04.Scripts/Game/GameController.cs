@@ -160,8 +160,13 @@ public class GameController : KnightSingleton<GameController>
    
 	//Effect
 	public GameObject[] passIcon = new GameObject[3];
+
+	//SelectMe
 	private GameObject playerSelectMe;
-	private PlayerBehaviour npcSelectMe;
+	private Transform PlayerSelectArrow;
+	private Vector3 playerTarget;
+	private Vector3 enemyTarget;
+	public PlayerBehaviour NpcSelectMe;
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = {EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -651,7 +656,8 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
 
 		playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
-        #if UNITY_EDITOR
+		PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
+		#if UNITY_EDITOR
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		#else
 		GameObject obj = GameObject.Find("SelectMe/AI");
@@ -663,9 +669,6 @@ public class GameController : KnightSingleton<GameController>
 		Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
 
 		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
-
-		if (Joysticker.SpeedUpView)
-			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
 			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].PlayerRefGameObject);
@@ -779,17 +782,19 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	private void selectMeEvent() {
-		if(playerSelectMe != null) {
+		if(PlayerSelectArrow != null) {
+			if(!playerSelectMe.activeInHierarchy)
+				playerSelectMe.SetActive(true);
 			if(Situation == EGameSituation.AttackGamer) {
-				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position) + 180, 0);
+				NpcSelectMe = FindNearNpc();
+				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position), 0);
 			} else if(Situation == EGameSituation.AttackNPC) {
-				npcSelectMe = FindNearNpc();
-				showEnemySelect(npcSelectMe);
-				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, npcSelectMe.transform.position) + 180, 0);
-				npcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, npcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
-			} else {
-				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position) + 180, 0);
-			}
+				NpcSelectMe = FindNearNpc();
+				showEnemySelect(NpcSelectMe);
+				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
+				NpcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
+			} else
+				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position), 0);
 		}
 	}
 
@@ -4035,7 +4040,7 @@ public class GameController : KnightSingleton<GameController>
 		int score = 2;
 		if (ShootDistance >= GameConst.Point3Distance) {
 			score = 3;
-			if(!Shooter.IsDunk)
+			if(Shooter != null && !Shooter.IsDunk)
 				ShowWord(EShowWordType.NiceShot, team);
 		}
 

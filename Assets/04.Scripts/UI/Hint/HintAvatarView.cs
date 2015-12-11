@@ -10,12 +10,14 @@ public class HintAvatarView : MonoBehaviour {
 	public UISprite ItemPic;
 	public GameObject[] AvatarStars;
 	public UILabel AmountLabel;
+	public UILabel ItemKindLabel;
 
 	public GameObject Money;
 	public GameObject EXP;
 	public GameObject Gem;
 
 	private GameObject mGameObject;
+	private bool isHaveValue = false;
 	private void Awake()
 	{
 		mGameObject = gameObject;
@@ -45,24 +47,27 @@ public class HintAvatarView : MonoBehaviour {
 
 	public void UpdateUI(TItemData itemData)
 	{
+		isHaveValue = false;
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			AttrKindsIcon[i].gameObject.SetActive(true);
 			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
-			if(itemData.Kind >=0 && itemData.Kind <= 7)
+			ValueLabels[i].text = itemData.BonusValues[i].ToString();
+			if(itemData.Kind >=0 && itemData.Kind <= 7){
 				AttrKindsIcon[i].gameObject.SetActive(false);
-			else
+				ValueLabels[i].gameObject.SetActive(false);
+				isHaveValue = true;
+			} else {
 				AttrKindsIcon[i].gameObject.SetActive(true);
+				ValueLabels[i].gameObject.SetActive(true);
+			}
 		}
 
-		for (int i=0; i<itemData.BonusValues.Length; i++) {
-			ValueLabels[i].text = itemData.BonusValues[i].ToString();
-			if(itemData.Kind >=0 && itemData.Kind <= 7)
-				ValueLabels[i].gameObject.SetActive(false);
-			else
-				ValueLabels[i].gameObject.SetActive(true);
-		}
+		ItemKindLabel.gameObject.SetActive(!isHaveValue);
+		if(!isHaveValue) {
+			ItemKindLabel.text = TextConst.S(13000 + itemData.Kind);
+		} 
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

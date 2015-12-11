@@ -135,23 +135,6 @@ public class UIGame : UIBase {
 	private PlayerBehaviour nearP;
 	private float eulor;
 
-	//FX
-	private float fxTime = 0.3f;
-	private GameObject buttonShootFX;
-	private float buttonShootFXTime;
-	private GameObject buttonBlockFX;
-	private float buttonBlockFXTime;
-	private GameObject buttonStealFX;
-	private float buttonStealFXTime;
-	private GameObject buttonAttackFX;
-	private float buttonAttackFXTime;
-	private GameObject buttonPassFX;
-	private float buttonPassFXTime;
-	private GameObject buttonPassAFX;
-	private float buttonPassAFXTime;
-	private GameObject buttonPassBFX;
-	private float buttonPassBFXTime;
-
 	//Location
 	float playerInCameraX;
 	float playerInCameraY;
@@ -198,10 +181,10 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if(PlayerMe) {
+		if(PlayerMe && !IsPlayerAttack) {
 			if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
 				if(isShowPushRange) {
-					nearP = GameController.Get.FindNearNpc();
+					nearP = GameController.Get.NpcSelectMe;
 					CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position));
 				} else if(isShowStealRange) {
 					if(GameController.Get.BallOwner != null)
@@ -255,7 +238,7 @@ public class UIGame : UIBase {
                 uiScoreBar.SetActive(false);
             }
         }
-       // showButtonFX();
+
         judgePlayerScreenPosition();
 		setGameTime();
 	}
@@ -335,14 +318,6 @@ public class UIGame : UIBase {
 			uiSkillEnables[i].SetActive(false);
 		}
 
-		//buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
-		//buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
-		//buttonStealFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/UI_FX_A_21");
-		//buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
-		//buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/UI_FX_A_21");
-		//buttonPassAFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA/UI_FX_A_21");
-		//buttonPassBFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/UI_FX_A_21");
-
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
 		UIEventListener.Get (uiPassA).onPress = DoPassTeammateA;
@@ -400,13 +375,6 @@ public class UIGame : UIBase {
 		uiAlleyoopB.SetActive(false);
 		viewTopLeft.SetActive(false);
 		uiSpriteFull.SetActive(false);
-		//buttonShootFX.SetActive(false);
-		//buttonBlockFX.SetActive(false);
-		//buttonStealFX.SetActive(false);
-		//buttonAttackFX.SetActive(false);
-		//buttonPassFX.SetActive(false);
-		//buttonPassAFX.SetActive(false);
-		//buttonPassBFX.SetActive(false);
 		if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 				uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
@@ -525,7 +493,8 @@ public class UIGame : UIBase {
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
 
-		if(state && IsPlayerMe && !PlayerMe.IsUseActiveSkill) {
+		if(state && IsPlayerMe && !PlayerMe.IsUseActiveSkill && (GameController.Get.Situation == EGameSituation.AttackGamer || 
+																 GameController.Get.Situation == EGameSituation.AttackNPC)) {
 			switch (type){
 			case EUIRangeType.Skill:
 				isShowSkillRange = state;
@@ -568,7 +537,7 @@ public class UIGame : UIBase {
 				isShowStealRange = !state;
 				skillRangeTarget = PlayerMe.PlayerRefGameObject.transform;
 				eulor = 0;
-				nearP = GameController.Get.FindNearNpc();
+				nearP = GameController.Get.NpcSelectMe;
 				if(nearP)
 					eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
@@ -600,7 +569,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoAttackOut (GameObject go) {
-		if(IsPlayerMe) {
+		if(IsPlayerMe && !IsPlayerAttack) {
 			if(PlayerMe.IsBallOwner) {
 				//Elbow
 				if(isShowElbowRange)
@@ -614,23 +583,25 @@ public class UIGame : UIBase {
 	}
 	
 	public void DoAttack(GameObject go, bool state){
-		if(IsPlayerMe) {
+		if(IsPlayerMe && !IsPlayerAttack) {
 			if(PlayerMe.IsBallOwner) {
 				//Elbow
-				if(!state) 
+				if(!state) {
 					if(isShowElbowRange)
 						UIControllerState(EUIControl.Attack);
-				else
+				} else {
 					ResetRange();
-				showRange(EUIRangeType.Elbow, state);
+					showRange(EUIRangeType.Elbow, true);
+				}
 			} else {
 				//Push
-				if(!state) 
+				if(!state) {
 					if(isShowPushRange)
 						UIControllerState(EUIControl.Attack);
-				else
+				} else {
 					ResetRange();
-				showRange(EUIRangeType.Push, state);
+					showRange(EUIRangeType.Push, true);
+				}
 			}
 		}
 	}
@@ -638,16 +609,19 @@ public class UIGame : UIBase {
 	//Defence
 	public void DoBlock() {UIControllerState(EUIControl.Block);}
 
-	public void DoStealOut (GameObject go) {if(isShowStealRange) ResetRange ();}
+	public void DoStealOut (GameObject go) {if(isShowStealRange && !IsPlayerAttack) ResetRange ();}
 
 	public void DoSteal(GameObject go, bool state){
-		if(!state) 
-			if(isShowStealRange)
-				UIControllerState(EUIControl.Steal);
-			else
+		if(!IsPlayerAttack) {
+			if(!state) {
+				if(isShowStealRange)
+					UIControllerState(EUIControl.Steal);
+			} else {
 				ResetRange();
-		
-		showRange(EUIRangeType.Steal, state);
+				showRange(EUIRangeType.Steal, true);
+			}
+			
+		}
 	}
 	
 	//Attack
@@ -859,7 +833,8 @@ public class UIGame : UIBase {
 		if(IsPlayerMe && p == PlayerMe) {
 			if (GameController.Get.IsStart) { 
 				ShowAlleyoop(false);
-				
+				CourtMgr.Get.ShowRangeOfAction(false);
+				CourtMgr.Get.ShowArrowOfAction(false);
 				if(GameController.Get.Situation == EGameSituation.AttackGamer) 
 					UIMaskState(EUIControl.AttackA);
 				else 
@@ -935,8 +910,6 @@ public class UIGame : UIBase {
 		case EUIControl.Attack:
 			if(IsPlayerMe && PlayerMe.IsBallOwner) {
 				//Elbow Attack
-				UIEffectState(EUIControl.Attack);
-
 				uiShoot.SetActive(false);
 				spriteAttack.gameObject.SetActive(true);
 				uiDefenceGroup[0].SetActive(false);
@@ -946,8 +919,6 @@ public class UIGame : UIBase {
 				uiPassObjectGroup[2].SetActive(false);
 			} else {
 				//Push Deffence
-				UIEffectState(EUIControl.Attack);
-
 				ShowSkillEnableUI(false);
 				uiShoot.SetActive(false);
 				spriteAttack.gameObject.SetActive(true);
@@ -959,16 +930,12 @@ public class UIGame : UIBase {
 			}
 			break;
 		case EUIControl.Block:
-			UIEffectState(EUIControl.Block);
-
 			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(true);
 			break;
 		case EUIControl.Steal:
-			UIEffectState(EUIControl.Steal);
-
 			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(true);
@@ -1047,8 +1014,11 @@ public class UIGame : UIBase {
 					   !PlayerMe.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackGamer) {
 						noAI = GameController.Get.DoElbow ();
-						if(noAI)
+						if(noAI) {
 							UIMaskState(EUIControl.Attack);
+							showRange(EUIRangeType.Elbow, true);
+						} else 
+							ResetRange();
 					}
 				} else {
 					//Push
@@ -1057,8 +1027,11 @@ public class UIGame : UIBase {
 					   (GameController.Get.Situation == EGameSituation.AttackNPC || GameController.Get.Situation == EGameSituation.AttackGamer) &&
 					    PlayerMe.CanUseState(EPlayerState.Push0)) {
 						noAI = GameController.Get.DoPush(nearP);
-						if(noAI)
+						if(noAI) {
 							UIMaskState(EUIControl.Attack);
+							showRange(EUIRangeType.Push, true);
+						} else 
+							ResetRange();
 					}
 				}
 
@@ -1080,8 +1053,11 @@ public class UIGame : UIBase {
 				   GameController.Get.StealBtnLiftTime <= 0 && 
 				   PlayerMe.CanUseState(EPlayerState.Steal0)) {
 					noAI = GameController.Get.DoSteal();
-					if(noAI)
+					if(noAI) {
 						UIMaskState(EUIControl.Steal);
+						showRange(EUIRangeType.Steal, true);
+					} else 
+						ResetRange();
 				}
 				break;
 			case EUIControl.Shoot:
@@ -1102,9 +1078,7 @@ public class UIGame : UIBase {
 						if(state && PlayerMe.IsFakeShoot && isShootAvailable) 
 							isShootAvailable = false;
 
-						if (state)
-							UIEffectState(EUIControl.Shoot);
-						else 
+
 						if (!state && shootBtnTime > 0 && isShootAvailable){
 							if(GameController.Get.BallOwner != null) {
 								if(PlayerMe.IsBallOwner) 
@@ -1289,27 +1263,6 @@ public class UIGame : UIBase {
 		}
 		AudioMgr.Get.PauseGame();
 	}
-
-	public void UIEffectState(EUIControl effect){
-		switch(effect){
-		case EUIControl.Attack:
-			buttonAttackFXTime = fxTime;
-			buttonAttackFX.SetActive(true);
-			break;
-		case EUIControl.Block:
-			buttonBlockFXTime = fxTime;
-			buttonBlockFX.SetActive(true);
-			break;
-		case EUIControl.Shoot:
-			buttonShootFXTime = fxTime;
-			buttonShootFX.SetActive(true);
-			break;
-		case EUIControl.Steal:
-			buttonStealFXTime = fxTime;
-			buttonStealFX.SetActive(true);
-			break;
-		}
-	}
 	
 	private void runForceValue () {
 		if(IsPlayerMe) {
@@ -1402,41 +1355,7 @@ public class UIGame : UIBase {
 		} else 
 			uiPlayerLocation.SetActive(false);
 	}
-
-	private void showButtonFX(){
-		if(buttonShootFXTime > 0) {
-			buttonShootFXTime -= Time.deltaTime;
-			if(buttonShootFXTime <= 0) {
-				buttonShootFXTime = 0;
-				buttonShootFX.SetActive(false);
-			}
-		}
 		
-		if(buttonBlockFXTime > 0) {
-			buttonBlockFXTime -= Time.deltaTime;
-			if(buttonBlockFXTime <= 0) {
-				buttonBlockFXTime = 0;
-				buttonBlockFX.SetActive(false);
-			}
-		}
-		
-		if(buttonStealFXTime > 0) {
-			buttonStealFXTime -= Time.deltaTime;
-			if(buttonStealFXTime <= 0) {
-				buttonStealFXTime = 0;
-				buttonStealFX.SetActive(false);
-			}
-		}
-		
-		if(buttonAttackFXTime > 0) {
-			buttonAttackFXTime -= Time.deltaTime;
-			if(buttonAttackFXTime <= 0) {
-				buttonAttackFXTime = 0;
-				buttonAttackFX.SetActive(false);
-			}
-		}
-	}
-
 	public void CloseStartButton() {
 		drawLine.IsShow = false;
 		viewStart.SetActive(false);
@@ -1482,6 +1401,16 @@ public class UIGame : UIBase {
 
 	public bool IsPlayerMe {
 		get {return (PlayerMe != null);}
+	}
+
+	public bool IsPlayerAttack {
+		get {
+			if(IsPlayerMe) {
+				if(PlayerMe.IsPush || PlayerMe.IsSteal || PlayerMe.IsElbow)
+					return true;
+			} 
+			return false;
+		}
 	}
 
 	public bool isStage
