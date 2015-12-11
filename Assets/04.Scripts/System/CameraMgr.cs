@@ -120,9 +120,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
             showAnimatorControl = showCamera.GetComponent<Animator>();
 
-            if (showCamera)
-                for (int i = 0; i < CharacterPos.Length; i++)
-                    CharacterPos [i] = showCamera.transform.FindChild(string.Format("CharacterPos/{0}", i)).gameObject;
+//            if (showCamera)
+//                for (int i = 0; i < CharacterPos.Length; i++)
+//                    CharacterPos [i] = showCamera.transform.FindChild(string.Format("CharacterPos/{0}", i)).gameObject;
         }
     }
 

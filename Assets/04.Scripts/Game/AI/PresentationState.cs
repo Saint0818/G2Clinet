@@ -23,14 +23,14 @@
 
         public override void Update()
         {
-            for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            {
-                if (GameController.Get.GamePlayers[i].ShowPos != -1)
-                {
-                    GameController.Get.GamePlayers[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.position;
-                    GameController.Get.GamePlayers[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.eulerAngles;
-                }
-            }
+//            for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+//            {
+//                if (GameController.Get.GamePlayers[i].ShowPos != -1)
+//                {
+//                    GameController.Get.GamePlayers[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.position;
+//                    GameController.Get.GamePlayers[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.eulerAngles;
+//                }
+//            }
         }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
