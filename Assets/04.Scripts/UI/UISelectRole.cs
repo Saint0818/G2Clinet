@@ -21,10 +21,10 @@ public class UISelectRole : UIBase {
 
 	private static int[] selectRoleID = new int[6]{11, 12, 13, 31, 32, 33};
 	private const int MaxValue = 100;
-	private const float X_Partner = 1;
-	private const float Y_Partner = -0.72f;
-	private const float Z_Partner = 2.58f;
-	private const float Y_Player = -0.8f;
+	private const float X_Partner = 2.6f;
+	private const float Y_Partner = 0;
+	private const float Z_Partner = 0.75f;
+	private const float Y_Player = 0;
 
 	private float axisX;
 	private float roleFallTime = 0;
@@ -355,26 +355,26 @@ public class UISelectRole : UIBase {
 				arrayPlayer[i].AddComponent<SelectEvent>();
 
 				if(i == 0) {
-					arrayPlayer[i].transform.localPosition = new Vector3(0, -0.9f, 0);
+					arrayPlayer[i].transform.localPosition = new Vector3(0, 0, 0);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 					labelPlayerName.text = arrayPlayerData[i].Name;
 					SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[i].BodyType);
 				}else 
 				if(i == 1) {
-					arrayPlayer[i].transform.localPosition = new Vector3(1f, -0.72f, 2.87f);
-					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
+					arrayPlayer[i].transform.localPosition = new Vector3(2.6f, 0, 0.75f);
+					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 				}else 
 				if(i == 2) {
-					arrayPlayer[i].transform.localPosition = new Vector3(-1f, -0.72f, 2.58f);
-					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
+					arrayPlayer[i].transform.localPosition = new Vector3(-2.6f, 0, 0.75f);
+					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 				}
 				
 				if(i == 0)
-					arrayPlayer[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+					arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
 				else
-					arrayPlayer[i].transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+					arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
 				
-				changeLayersRecursively(arrayPlayer[i].transform, "UI");
+				changeLayersRecursively(arrayPlayer[i].transform, "Default");
 				for (int j = 0; j <arrayPlayer[i].transform.childCount; j++) 
 				{ 
 					if(arrayPlayer[i].transform.GetChild(j).name.Contains("PlayerMode")) 
@@ -638,7 +638,7 @@ public class UISelectRole : UIBase {
 			}
 
 			arrayAnimator[roleIndex] = arrayPlayer[roleIndex].GetComponent<Animator>();
-			changeLayersRecursively(arrayPlayer[roleIndex].transform, "UI");
+			changeLayersRecursively(arrayPlayer[roleIndex].transform, "Default");
 
 			switch(roleIndex) {
 			case 0:
@@ -743,7 +743,7 @@ public class UISelectRole : UIBase {
 	}
 	
 	private void playerShowTime (){
-		arrayPlayer[0].transform.localPosition = new Vector3(0, Y_Player, 0.5f);
+		arrayPlayer[0].transform.localPosition = new Vector3(0, Y_Player, 0);
 	}
 
 	private void otherPlayerDoAnimator(){
@@ -846,7 +846,7 @@ public class UISelectRole : UIBase {
 		}
 		
 		arrayAnimator[0] = arrayPlayer[0].GetComponent<Animator>();
-		changeLayersRecursively(arrayPlayer[0].transform, "UI");
+		changeLayersRecursively(arrayPlayer[0].transform, "Default");
 
 		labelPlayerName.text = arrayPlayerData[0].Name;
 		SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[0].BodyType);
