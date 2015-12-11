@@ -679,6 +679,12 @@ public static class GameFunction
 		}
 	}
 
+	public static string GetHintText(int index, int value, int id)
+	{
+		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
+		return TextConst.S(baseValue);
+	}
+
 	public static bool CheckItemIsExpired(DateTime usetime)
 	{
 		return DateTime.Compare (usetime, DateTime.UtcNow) < 0;

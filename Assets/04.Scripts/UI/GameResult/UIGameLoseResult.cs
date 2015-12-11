@@ -121,8 +121,8 @@ public class UIGameLoseResult : UIBase {
 				int value = 0;
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
-				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                             getText(1, value, 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(1, value, 9),
+				                             GameFunction.GetHintText(1, value, 7),
 				                             (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
 				                             true,
 				                             false);
@@ -141,13 +141,13 @@ public class UIGameLoseResult : UIBase {
 				}else if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
-					isFin = (score <= stageData.Bit1Num);
+					isFin = (score < stageData.Bit1Num);
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-				                             getText(2, hintBits[1], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 9),
+				                             GameFunction.GetHintText(2, hintBits[1], 7),
 				                             score.ToString(), "/" + stageData.Bit1Num.ToString(),
 				                             isFin,
 				                             false);
@@ -159,8 +159,8 @@ public class UIGameLoseResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
-				mTargets[hintIndex].UpdateUI(getText(3, hintBits[2], 9),
-				                             getText(3, hintBits[2], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[2], 9),
+				                             GameFunction.GetHintText(3, hintBits[2], 7),
 				                             getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
 				                             isFin,
 				                             false);
@@ -171,8 +171,8 @@ public class UIGameLoseResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
-				mTargets[hintIndex].UpdateUI(getText(3, hintBits[3], 9),
-				                             getText(3, hintBits[3], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[3], 9),
+				                             GameFunction.GetHintText(3, hintBits[3], 7),
 				                             getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
 				                             isFin,
 				                             false);
@@ -191,8 +191,8 @@ public class UIGameLoseResult : UIBase {
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				
-				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                             getText(1, value, 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(1, value, 9),
+				                             GameFunction.GetHintText(1, value, 7),
 				                             (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
 				                             true,
 				                             false);
@@ -214,8 +214,8 @@ public class UIGameLoseResult : UIBase {
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-				                             getText(2, hintBits[1], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 9),
+				                             GameFunction.GetHintText(2, hintBits[1], 7),
 				                             UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
 				                             isFin,
 				                             false);
@@ -236,12 +236,6 @@ public class UIGameLoseResult : UIBase {
 
 	private int getConditionCount(int type) {
 		return GameController.Get.GetSelfTeamCondition(type);
-	}
-	
-	private string getText(int index, int value, int id)
-	{
-		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
-		return TextConst.S(baseValue);
 	}
 
 	public bool isStage

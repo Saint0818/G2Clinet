@@ -322,7 +322,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		UIGame.Get.InitUI();
-
+		UIInGameMission.Get.InitView(id);
 		#if !UNITY_EDITOR
 		if (StageData.IsTutorial)
 			UIGame.Get.InitTutorialUI();
@@ -1390,7 +1390,8 @@ public class GameController : KnightSingleton<GameController>
 				UITransition.UIShow(false);
 				UICourtInstant.UIShow(true);
 				UICourtInstant.UIShow(false);
-
+				UIInGameMission.UIShow(true);
+				UIInGameMission.UIShow(false);
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
@@ -3674,6 +3675,7 @@ public class GameController : KnightSingleton<GameController>
 	private void gameResult()
     {
 		UITutorial.UIShow(false);
+		UIInGameMission.UIShow(false);
 		if(Situation != EGameSituation.End) {
 			ChangeSituation(EGameSituation.End);
 			AIController.Get.ChangeState(EGameSituation.End);
@@ -3814,7 +3816,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.5f))) {
 					if(!CourtInstant.Condition1Instant[1]) {
 						if(StageData.BitNum[2] * 0.5f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[2], 1, (int) (StageData.BitNum[2] * 0.5f));
+							ShowCourtInstant(3, StageData.HintBit[2], 1, StageData.BitNum[2] - GetSelfTeamCondition(StageData.HintBit[2]));
 							CourtInstant.Condition1Instant[1] = true;
 						} 
 					}
@@ -3822,7 +3824,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.1f))) {
 					if(!CourtInstant.Condition1Instant[2]) {
 						if(StageData.BitNum[2] * 0.1f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[2], 2, (int)(StageData.BitNum[2] * 0.1f));
+							ShowCourtInstant(3, StageData.HintBit[2], 2, StageData.BitNum[2] - GetSelfTeamCondition(StageData.HintBit[2]));
 							CourtInstant.Condition1Instant[2] = true;
 						}
 					}
@@ -3841,7 +3843,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.5f))) {
 					if(!CourtInstant.Condition2Instant[1]) {
 						if(StageData.BitNum[3] * 0.5f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[3], 1,  (int) (StageData.BitNum[3] * 0.5f));
+							ShowCourtInstant(3, StageData.HintBit[3], 1,  StageData.BitNum[3] - GetSelfTeamCondition(StageData.HintBit[3]));
 							CourtInstant.Condition2Instant[1] = true;
 						}
 					}
@@ -3849,7 +3851,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.1f))) {
 					if(!CourtInstant.Condition2Instant[2]) {
 						if(StageData.BitNum[3] * 0.1f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[3], 2, (int) (StageData.BitNum[3] * 0.1f));
+							ShowCourtInstant(3, StageData.HintBit[3], 2, StageData.BitNum[3] - GetSelfTeamCondition(StageData.HintBit[3]));
 							CourtInstant.Condition2Instant[2] = true;
 						}
 					}
@@ -3996,7 +3998,13 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	public bool IsGameFinish (){
+		UIInGameMission.Get.CheckMisstion();
 		bool flag = false;
+
+		if(StageData.HintBit[1] == 3) 
+			if (IsScoreFinish)
+				flag = true;
+		
 		if (StageData.HintBit[0] == 0 || StageData.HintBit[0] == 1 ) 
 			if (IsScoreFinish)
 				if(IsConditionPass(Joysticker)) 

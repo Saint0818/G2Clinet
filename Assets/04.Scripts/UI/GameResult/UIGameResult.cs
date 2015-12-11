@@ -534,8 +534,8 @@ public class UIGameResult : UIBase {
 				int value = 0;
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
-				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                         	 getText(1, value, 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(1, value, 9),
+				                         	 GameFunction.GetHintText(1, value, 7),
 				                         	 (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
 				                         	 false);
 				hintIndex ++;
@@ -554,8 +554,8 @@ public class UIGameResult : UIBase {
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-				                             getText(2, hintBits[1], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 9),
+				                             GameFunction.GetHintText(2, hintBits[1], 7),
 				                         	 score.ToString(), "/" + stageData.Bit1Num.ToString(),
 				                         	 false);
 				hintIndex++;
@@ -564,8 +564,8 @@ public class UIGameResult : UIBase {
 			if(hintBits.Length > 2 && hintBits[2] > 0)
 			{
 				mTargets[hintIndex].Show();
-				mTargets[hintIndex].UpdateUI(getText(3, hintBits[2], 9),
-				                         	 getText(3, hintBits[2], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[2], 9),
+				                         	 GameFunction.GetHintText(3, hintBits[2], 7),
 				                         	 getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
 				                             false);
 				hintIndex++;
@@ -574,8 +574,8 @@ public class UIGameResult : UIBase {
 			if(hintBits.Length > 3 && hintBits[3] > 0)
 			{
 				mTargets[hintIndex].Show();
-				mTargets[hintIndex].UpdateUI(getText(3, hintBits[3], 9),
-				                         	 getText(3, hintBits[3], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[3], 9),
+				                         	 GameFunction.GetHintText(3, hintBits[3], 7),
 				                         	 getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
 				                             false);
 			}
@@ -594,8 +594,8 @@ public class UIGameResult : UIBase {
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				
-				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-					                         getText(1, value, 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(1, value, 9),
+					                         GameFunction.GetHintText(1, value, 7),
 				                             (minute * 60 + second).ToString(), "/" + GameController.Get.StageData.Bit0Num.ToString(),
 					                         false);
 				hintIndex++;
@@ -615,8 +615,8 @@ public class UIGameResult : UIBase {
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-				                             getText(2, hintBits[1], 7),
+				mTargets[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 9),
+				                             GameFunction.GetHintText(2, hintBits[1], 7),
 				                             score.ToString(), "/" + GameController.Get.StageData.Bit1Num.ToString(),
 				                             false);
 			}
@@ -635,12 +635,6 @@ public class UIGameResult : UIBase {
 	
 	private int getConditionCount(int type) {
 		return GameController.Get.GetSelfTeamCondition(type);
-	}
-	
-	private string getText(int index, int value, int id)
-	{
-		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
-		return TextConst.S(baseValue);
 	}
 
 	public bool IsExpUnlock {
