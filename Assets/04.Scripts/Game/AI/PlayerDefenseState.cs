@@ -120,8 +120,7 @@ namespace AI
             {
                 var oppPlayer = mPlayerAI.GetComponent<PlayerBehaviour>();
                 
-                if(/*(oppPlayer.IsIdle || oppPlayer.IsDribble) &&*/
-                    oppPlayer.PushCD.IsTimeUp() &&
+                if(oppPlayer.PushCD.IsTimeUp() &&
                    MathUtils.Find2DDis(mPlayerAI.transform.position, oppPlayerAI.transform.position) <= GameConst.StealPushDistance)
                 {
                     mRandomizer.AddOrUpdate(EAction.Push, mPlayer.Attr.PushingRate);

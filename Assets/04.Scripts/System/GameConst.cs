@@ -48,14 +48,14 @@
     /// 超過此距離投籃, 會是撥長距離投籃的動作.
     /// </summary>
 	public const float LongShootDistance = 15f;
-	public const float ThreePointDistance = 10.6f;
-	public const float TwoPointDistance = 7;
+	public const float Point3Distance = 10.6f;
+	public const float Point2Distance = 7;
 	public const float DunkDistance = 7; // 在此距離內, 才會做灌籃.
 	public const float DunkDistanceNoMove = 3; // 在此距離內, 才會做灌籃.
 	public const float LayupDistance = 7;
 	public const float ShortShootDistance = 3;
 	public const float PickBallDistance = 2.5f;
-	public static float[] AITime = new float[6]{1f, 3f, 5f, 15f, 30f, 999999f};
+	public static float[] AITime = {1f, 3f, 5f, 15f, 30f, 999999f};
 
     /// <summary>
     /// 推人, 抄球的距離.
@@ -73,6 +73,7 @@
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
 	public const float CoolDownPushTime = 3; // 推人冷卻時間, 單位:秒.
+	public const float CoolDownElbowTime = 3; // Elbow 冷卻時間, 單位:秒.
     public const float CoolDownStealTime = 1.2f; // 抄截冷卻時間, 單位:秒.
 //	public const float WaitStealTime = 0.5f;
 
@@ -86,13 +87,7 @@
     /// <summary>
     /// 這是避免一直傳球的參數, 傳球後, 經過此時間, 才可以做下一次傳球.
     /// </summary>
-//    public const float PassCoolDownTime = 1.2f;
-    public const float PassCoolDownTime = 3.0f;
-
-//    /// <summary>
-//    /// 籃球特效時間(顯示時, 目前當做是懲罰). 單位:秒.
-//    /// </summary>
-//    public const float BallSFXTime = 3;
+    public const float CoolDownPassTime = 3.0f;
 
     /// <summary>
     /// 預設的懲罰時間, 單位:秒. 

@@ -114,9 +114,9 @@ namespace AI
 				}
 			}
 			
-            if (!mPlayer.IsAllShoot)
+            if(!mPlayer.IsAllShoot)
             {
-                if (isBallOwner())
+                if(isBallOwner())
                     tryDoShooting();
                 else
                     tryDoPush();
@@ -176,17 +176,17 @@ namespace AI
                 mRandomizer.AddOrUpdate(EAction.Dunk, mPlayer.Attr.DunkRate);
 
             // 是否可以投 2 分球.
-            if(shootPointDis <= GameConst.TwoPointDistance && !hasDefPlayer &&
+            if(shootPointDis <= GameConst.Point2Distance && !hasDefPlayer &&
                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
             // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
-            if(shootPointDis <= GameConst.ThreePointDistance + 1 && !hasDefPlayer &&
+            if(shootPointDis <= GameConst.Point3Distance + 1 && !hasDefPlayer &&
                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
-            if(shootPointDis <= GameConst.ThreePointDistance + 1 && hasDefPlayer &&
+            if(shootPointDis <= GameConst.Point3Distance + 1 && hasDefPlayer &&
                !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
             {
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
@@ -194,19 +194,18 @@ namespace AI
 
             // 是否可以用 Elbow 攻擊對方.(對方必須是 Idle 動作時, 才可以做 Elbow, 主要是避免打不到對方)
             PlayerAI defPlayer;
-//            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
             var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealPushDistance, 160, out defPlayer);
-            if(/*Team.IsInUpfield(mPlayer) &&*/ stealThreat &&
+            if(stealThreat &&
                defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
-               mPlayer.CoolDownElbow <= 0 && !mPlayer.IsElbow)
+               mPlayer.ElbowCD.IsTimeUp() && !mPlayer.IsElbow)
             {
                 mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
             }
 
             // 是否可以傳球.
             if(mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) &&
-               GameController.Get.CoolDownPass <= 0 /*&& 
-               !mPlayer.CheckAnimatorSate(EPlayerState.Elbow)*/)
+//               GameController.Get.CoolDownPass <= 0)
+               GameController.Get.PassCD.IsTimeUp())
                 mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
 
             // 是否可以轉身運球過人.
@@ -238,20 +237,21 @@ namespace AI
                 mRandomizer.AddOrUpdate(EAction.Dunk, mPlayer.Attr.DunkRate);
 
             // 是否可以投 2 分球.
-            if(shootPointDis <= GameConst.TwoPointDistance)
+            if(shootPointDis <= GameConst.Point2Distance)
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
             // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
-            if(shootPointDis <= GameConst.ThreePointDistance + 1)
+            if(shootPointDis <= GameConst.Point3Distance + 1)
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
-            if(shootPointDis <= GameConst.ThreePointDistance + 1)
+            if(shootPointDis <= GameConst.Point3Distance + 1)
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
 
 //            mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
             mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
-            GameController.Get.CoolDownPass = 0;
+//            GameController.Get.CoolDownPass = 0;
+            GameController.Get.PassCD.StartAgain();
 
             EAction action = mRandomizer.GetNext();
 
@@ -297,7 +297,7 @@ namespace AI
         {
             if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow0))
             {
-                mPlayer.CoolDownElbow = Time.time + GameConst.PassCoolDownTime;
+                mPlayer.ElbowCD.StartAgain();
 //                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
                 CourtMgr.Get.ShowBallSFX(mPlayer.Attr.PunishTime);
             }
@@ -310,7 +310,7 @@ namespace AI
         private void doPass()
         {
             GameController.Get.AIPass(mPlayer);
-            GameController.Get.CoolDownPass = Time.time + GameConst.PassCoolDownTime;
+            GameController.Get.PassCD.StartAgain();
         }
 
         private void doMoveDodge()

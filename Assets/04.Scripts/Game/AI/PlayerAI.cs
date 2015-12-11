@@ -120,6 +120,16 @@ namespace AI
         {
             return Team.FindNearestOpponentPlayer(transform.position);
         }
+
+        public bool HasDefPlayer(float dis, float angle)
+        {
+            return Team.HasDefPlayer(this, dis, angle);
+        }
+
+        public bool FindDefPlayer(float dis, float angle, out PlayerAI defPlayer)
+        {
+            return Team.FindDefPlayer(this, dis, angle, out defPlayer);
+        }
     } // end of the class PlayerAI.
 } // end of the namespace AI.
 

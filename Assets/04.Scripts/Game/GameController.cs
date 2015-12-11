@@ -71,7 +71,8 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
-    public float CoolDownPass = 0;
+//    public float CoolDownPass = 0;
+    public readonly CountDownTimer PassCD = new CountDownTimer(GameConst.CoolDownPassTime);
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
@@ -750,8 +751,9 @@ public class GameController : KnightSingleton<GameController>
 		}
 		#endif
 		selectMeEvent();
-		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
-            CoolDownPass = 0;
+//		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
+//            CoolDownPass = 0;
+        PassCD.Update(Time.deltaTime);
 
 		if (CoolDownCrossover > 0 && Time.time >= CoolDownCrossover)
             CoolDownCrossover = 0;
@@ -1562,7 +1564,7 @@ public class GameController : KnightSingleton<GameController>
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, int basketDistanceAngleType, bool isActive = false) {
 		//Score Rate
 		float originalRate = 0;
-		if(ShootDistance >= GameConst.ThreePointDistance) {
+		if(ShootDistance >= GameConst.Point3Distance) {
 			originalRate = player.Attr.PointRate3;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else 
@@ -1660,7 +1662,7 @@ public class GameController : KnightSingleton<GameController>
 		
 		judgeBasketAnimationName (basketDistanceAngleType);
 
-		if (ShootDistance >= GameConst.ThreePointDistance)
+		if (ShootDistance >= GameConst.Point3Distance)
 			player.GameRecord.FG3++;
 		else
 			player.GameRecord.FG++;
@@ -1722,7 +1724,7 @@ public class GameController : KnightSingleton<GameController>
 						if(ShootDistance > GameConst.LongShootDistance)
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 						else {
-							if(ShootDistance > GameConst.TwoPointDistance && ShootDistance <= GameConst.LongShootDistance)
+							if(ShootDistance > GameConst.Point2Distance && ShootDistance <= GameConst.LongShootDistance)
 								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
 							
 							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
@@ -1981,7 +1983,7 @@ public class GameController : KnightSingleton<GameController>
 		if (player == BallOwner)
 		{
 			player.GameRecord.Dunk++;
-			if (ShootDistance >= GameConst.ThreePointDistance)
+			if (ShootDistance >= GameConst.Point3Distance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -2009,7 +2011,7 @@ public class GameController : KnightSingleton<GameController>
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
-			if (ShootDistance >= GameConst.ThreePointDistance)
+			if (ShootDistance >= GameConst.Point3Distance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -2094,7 +2096,8 @@ public class GameController : KnightSingleton<GameController>
 
 			if (!IsPassing && canPass && !IsDunk && player != BallOwner)
 			{
-				if(!(isBtn || movePass) && CoolDownPass != 0)
+//				if(!(isBtn || movePass) && CoolDownPass != 0)
+				if(!(isBtn || movePass) && !PassCD.IsTimeUp())
 					return result;
 				
 				if(!isBtn && !BallOwner.AIing)
@@ -3436,7 +3439,8 @@ public class GameController : KnightSingleton<GameController>
 						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
 
 						if (player == BallOwner && inTipinDistance(player)) {
-							CoolDownPass = Time.time + GameConst.PassCoolDownTime;
+//							CoolDownPass = Time.time + GameConst.CoolDownPassTime;
+                            PassCD.StartAgain();
 							if (player == Joysticker)
 								OnDoubleClickMoment(player, EPlayerState.Rebound0);
 							else
@@ -4029,7 +4033,7 @@ public class GameController : KnightSingleton<GameController>
 		CourtMgr.Get.IsRealBallActive = false;
 
 		int score = 2;
-		if (ShootDistance >= GameConst.ThreePointDistance) {
+		if (ShootDistance >= GameConst.Point3Distance) {
 			score = 3;
 			if(!Shooter.IsDunk)
 				ShowWord(EShowWordType.NiceShot, team);
@@ -4342,7 +4346,8 @@ public class GameController : KnightSingleton<GameController>
 			if (Catcher != null && !Catcher.IsFall && !Catcher.IsPush && !Catcher.IsBlock && !Catcher.IsPass)
 	        {
 	            if(SetBall(Catcher))
-					CoolDownPass = Time.time + GameConst.PassCoolDownTime;
+//					CoolDownPass = Time.time + GameConst.CoolDownPassTime;
+                    PassCD.StartAgain();
 
 				if(Catcher && Catcher.NeedShooting)
 				{

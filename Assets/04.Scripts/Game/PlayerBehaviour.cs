@@ -250,8 +250,14 @@ public class PlayerBehaviour : MonoBehaviour
     /// 推人冷卻時間.
     /// </summary>
     public readonly CountDownTimer PushCD = new CountDownTimer(GameConst.CoolDownPushTime);
+
+    /// <summary>
+    /// Elbow 冷卻時間.
+    /// </summary>
+    public readonly CountDownTimer ElbowCD = new CountDownTimer(GameConst.CoolDownElbowTime);
+
     public float JumpHight = 450f;
-    public float CoolDownElbow = 0;
+//    public float CoolDownElbow = 0;
 //    public float AirDrag = 0f;
 //    public float fracJourney = 0;
     public int MoveIndex = -1;
@@ -692,6 +698,7 @@ public class PlayerBehaviour : MonoBehaviour
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
         PushCD.Update(Time.deltaTime);
+        ElbowCD.Update(Time.deltaTime);
         mManually.Update(Time.deltaTime);
 
 		if(IsPushCalculate)
@@ -712,8 +719,8 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-        if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
-            CoolDownElbow = 0;
+//        if(CoolDownElbow > 0 && Time.time >= CoolDownElbow)
+//            CoolDownElbow = 0;
 
         if (SlowDownTime > 0 && Time.time >= SlowDownTime)
         {
@@ -815,7 +822,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
 
-				if (DefPlayer != null && Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.ThreePointDistance)
+				if (DefPlayer != null && Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.Point3Distance)
                 {
                     AutoFollow = false;
                     SetAutoFollowTime();
@@ -1582,7 +1589,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
 					if (DefPlayer != null && MathUtils.FindAngle(data.DefPlayer.transform, PlayerRefGameObject.transform.position) >= 30 && 
-                        Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.ThreePointDistance + 3)
+                        Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.Point3Distance + 3)
                     {
                         resultBool = true;
                     } else
@@ -1644,7 +1651,7 @@ public class PlayerBehaviour : MonoBehaviour
                             else 
                             if (!doMove)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                            else if (dis > GameConst.ThreePointDistance + 4 && data.DefPlayer.AIing &&
+                            else if (dis > GameConst.Point3Distance + 4 && data.DefPlayer.AIing &&
                                 (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
                                 RotateTo(MoveTarget.x, MoveTarget.y);
                             else
@@ -1756,7 +1763,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
                         
-                        if (dis <= GameConst.ThreePointDistance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
+                        if (dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
                             RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                         else
                             RotateTo(MoveTarget.x, MoveTarget.y);

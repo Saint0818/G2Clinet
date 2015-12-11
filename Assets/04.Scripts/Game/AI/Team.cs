@@ -171,12 +171,6 @@ namespace AI
             return false;
         }
 
-//        public enum EFindPlayerResult
-//        {
-//            CannotFound, // 找不到防守球員.
-//            InFront, // 防守球員在前方.
-//            InBack // 防守球員在後方.
-//        }
         /// <summary>
         /// 某位球員在某個距離和角度內, 是否有防守球員?
         /// </summary>
@@ -184,7 +178,6 @@ namespace AI
         /// <param name="dis"></param>
         /// <param name="angle"></param>
         /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
-//        public EFindPlayerResult HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
         public bool HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
         {
             PlayerAI defPlayer;
@@ -206,29 +199,17 @@ namespace AI
 
             for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-//                float realAngle = MathUtils.FindAngle(player.transform, mOpponentPlayers[i].transform.position);
                 float angleBetween = FindAttackAngle(player.transform.position,
                                                      mOpponentPlayers[i].transform.position);
 
                 float disBetween = MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position);
                 if(disBetween <= dis && angleBetween <= angle)
                 {
-//                    if(realAngle >= 0 && realAngle <= angle)
-//                    {
-//                        defPlayer = mOpponentPlayers[i];
-//                        return EFindPlayerResult.InFront;
-//                    }
-//                    if(realAngle <= 0 && realAngle >= -angle)
-//                    {
-//                        defPlayer = mOpponentPlayers[i];
-//                        return EFindPlayerResult.InBack;
-//                    }
                     defPlayer = mOpponentPlayers[i];
                     return true;
                 }
             }
 
-//            return EFindPlayerResult.CannotFound;
             return false;
         }
 
