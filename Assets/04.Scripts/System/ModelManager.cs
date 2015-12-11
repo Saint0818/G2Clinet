@@ -171,7 +171,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.ShowControl); 
+        SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.AnimationControl); //EAnimatorType.ShowControl); 
 
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;

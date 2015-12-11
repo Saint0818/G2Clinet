@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 public enum EGameTest {
-    None,
+	None,
 	All,
     AttackA,
     AttackB,
@@ -496,15 +496,23 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
 	}
 
-	public void InitIngameAnimator()
-	{
-		for(int i = 0; i < PlayerList.Count; i++)
-			if(PlayerList[i])
-				ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType, EAnimatorType.AnimationControl);
-		
-		for(int i = 0; i < PlayerList.Count; i++)
-			if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)
-				PlayerList[i].AniState(EPlayerState.Idle);
+	public void InitIngameAnimator() {
+        //skip for smooth
+        playerSelectMe.SetActive(true);
+        for (int i = 0; i < PlayerList.Count; i++)
+            PlayerList[i].PlayerRefGameObject.SetActive(true);
+         
+        /*
+        if (PlayerList.Count > 0 && PlayerList[0].AnimatorControl && PlayerList[0].AnimatorControl.runtimeAnimatorController &&
+            PlayerList[0].AnimatorControl.runtimeAnimatorController.name == EAnimatorType.ShowControl.ToString()) {
+            for(int i = 0; i < PlayerList.Count; i++)
+                if(PlayerList[i])
+                    ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType, EAnimatorType.AnimationControl);
+
+            for(int i = 0; i < PlayerList.Count; i++)
+                if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)
+                    PlayerList[i].AniState(EPlayerState.Idle);
+        }*/
 	}
 	
 	public void CreateTeam()
@@ -642,7 +650,7 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
 
 		playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
-		#if UNITY_EDITOR
+        #if UNITY_EDITOR
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		#else
 		GameObject obj = GameObject.Find("SelectMe/AI");
@@ -690,8 +698,10 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
 			PlayerList [i].OnUICantUse = UIGame.Get.UICantUse;
 			PlayerList [i].OnUIAnger = UIGame.Get.SetAngerUI;
+            PlayerList [i].PlayerRefGameObject.SetActive(false); //hide player for smooth 
         }
 
+        playerSelectMe.SetActive(false);
 		preLoadSkillEffect();
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
@@ -768,8 +778,6 @@ public class GameController : KnightSingleton<GameController>
 
 	private void selectMeEvent() {
 		if(playerSelectMe != null) {
-			if(!playerSelectMe.activeInHierarchy)
-				playerSelectMe.SetActive(true);
 			if(Situation == EGameSituation.AttackGamer) {
 				playerSelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position) + 180, 0);
 			} else if(Situation == EGameSituation.AttackNPC) {
@@ -1354,7 +1362,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.CameraMovement:
 				if (oldgs != newSituation) {
-					GameController.Get.InitIngameAnimator();
+					InitIngameAnimator();
 					CameraMgr.Get.PlayGameStartCamera();
 					CameraMgr.Get.ShowEnd();
 				}
@@ -4527,7 +4535,8 @@ public class GameController : KnightSingleton<GameController>
 						faller.GameRecord.BePush++;
 						pusher.IsPushCalculate = false;
 					}
-					GameController.Get.IsGameFinish();
+
+					IsGameFinish();
 					CheckConditionText();
 				}
 

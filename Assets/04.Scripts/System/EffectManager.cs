@@ -71,7 +71,7 @@ public class EffectManager : MonoBehaviour
 		if(effectList.ContainsKey(effectName))
 			obj = effectList[effectName];
 		else {
-			obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
+            obj = Resources.Load("Effect/" + effectName) as GameObject;
 			if (obj) {
 				effectList.Add(effectName, obj);
 				#if UNITY_EDITOR
