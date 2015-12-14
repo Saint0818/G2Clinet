@@ -251,13 +251,14 @@ namespace AI
             return otherPlayers[randomIndex];
         }
 
-        public bool IsAllOpponentsBehindMe(Vector3 position)
+        public bool IsAllOpponentsBehindMe(Vector3 position, float disOffset = 0)
         {
             var targetPos = CourtMgr.Get.ShootPoint[(int)mTeamKind].transform.position;
             var meDis = MathUtils.Find2DDis(targetPos, position);
             for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                if(MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, targetPos) < meDis)
+                float oppDis = MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, targetPos) + disOffset;
+                if(oppDis < meDis)
                     return false;
             }
 

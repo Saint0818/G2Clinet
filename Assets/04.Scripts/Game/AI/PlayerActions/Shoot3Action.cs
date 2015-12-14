@@ -26,7 +26,7 @@ namespace AI
 
             var hasDefPlayer = PlayerAI.HasDefPlayer(GameConst.ThreatDistance, GameConst.ThreatAngle);
             return isAnimationValid() &&
-                shootPointDis <= GameConst.Point3Distance + 1 && hasDefPlayer;
+                shootPointDis <= GameConst.Point3Distance + 1 && !hasDefPlayer;
         }
 
         private bool isAnimationValid()

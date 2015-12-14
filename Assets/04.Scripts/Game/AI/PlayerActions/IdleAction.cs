@@ -12,8 +12,11 @@ namespace AI
         /// </summary>
         private float mDoneTime;
 
-        public IdleAction(PlayerAI playerAI, PlayerBehaviour player) : base(playerAI, player)
+        private readonly EPlayerState mAnimation;
+
+        public IdleAction(PlayerAI playerAI, PlayerBehaviour player, EPlayerState playerState) : base(playerAI, player)
         {
+            mAnimation = playerState;
         }
 
         public override float Probability
@@ -28,12 +31,12 @@ namespace AI
 
         public override bool IsValid()
         {
-            return Player.CanUseState(EPlayerState.Idle);
+            return Player.CanUseState(mAnimation);
         }
 
         public override void Do()
         {
-            Player.AniState(EPlayerState.Idle);
+            Player.AniState(mAnimation);
 
             mDoneTime = Time.time + Random.Range(GameConst.AIMinIdleTime, GameConst.AIMaxIdleTime);
         }
