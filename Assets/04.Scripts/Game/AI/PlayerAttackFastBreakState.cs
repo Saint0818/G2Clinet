@@ -30,9 +30,18 @@ namespace AI
             mPlayer.ResetFlag();
             mPlayer.ResetMove();
 
+            updateTarget();
+        }
+
+        private void updateTarget()
+        {
+            if(mPlayer.TargetPosNum > 0)
+                return;
+
             Vector3 shootPoint = mPlayerAI.Team.GetShootPoint();
             TMoveData moveData = new TMoveData();
-            moveData.SetTarget(shootPoint.x, shootPoint.y);
+            moveData.SetTarget(shootPoint.x, shootPoint.z);
+            moveData.Speedup = true;
             mPlayer.TargetPos = moveData;
         }
 
@@ -56,6 +65,10 @@ namespace AI
                 return;
             }
 
+            // 我發現目標位置會被重置, 暫時找不到原因, 所以這邊就會每次更新位置.
+            updateTarget();
+
+            // 靠近籃框, 要做投籃.
             Vector3 shootPoint = mPlayerAI.Team.GetShootPoint();
             if(MathUtils.Find2DDis(shootPoint, mPlayerAI.transform.position) <= GameConst.DunkDistance)
             {
