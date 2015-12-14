@@ -180,6 +180,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	void Awake () {
+		DontDestroyOnLoad(gameObject);
 		downloadCallBack[0] = parseGreatPlayerData;
 		downloadCallBack[1] = parseTacticalData;
 		downloadCallBack[2] = parseBaseAttr;
@@ -201,11 +202,6 @@ public class FileManager : KnightSingleton<FileManager> {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
 		}
-	}
-    
-	protected override void Init() {
-		if (GameStart.Visible)
-			DontDestroyOnLoad(gameObject);
 	}
 
     private void DoStarDownload(){

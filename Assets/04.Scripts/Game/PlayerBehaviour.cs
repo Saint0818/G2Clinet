@@ -1107,7 +1107,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (reboundCurveTime >= playerReboundCurve.LifeTime)
             {
                 isRebound = false;
-                isCheckLayerToReset = true;
             }
         } else
             isRebound = false;
@@ -1291,7 +1290,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (blockCurveTime >= playerBlockCurve.LifeTime)
             {
                 isBlock = false;
-                isCheckLayerToReset = true;
             }
         }
     }
@@ -1332,9 +1330,6 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isShootJump = false;
                 shootJumpCurveTime = 0;
-//                DelActionFlag(ActionFlag.IsDribble);
-//                DelActionFlag(ActionFlag.IsRun);
-                isCheckLayerToReset = true;
             }
         }
     }
@@ -1364,26 +1359,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private bool isCheckLayerToReset = false;
-    private bool isStartCheckLayer = false;
     private bool isStartJump = false;
 
     private void CalculationPlayerHight()
     {
         AnimatorControl.SetFloat("CrtHight", PlayerRefGameObject.transform.localPosition.y);
-
-        /*if (isCheckLayerToReset)
-        {
-            if (gameObject.transform.localPosition.y > 0.2f)
-                isStartCheckLayer = true;
-
-            if (isStartCheckLayer && isTouchPalyer <= 0 && gameObject.transform.localPosition.y <= 0)
-            {
-                gameObject.layer = LayerMask.NameToLayer("Player");
-                isCheckLayerToReset = false;
-                isStartCheckLayer = false;
-            }
-        }*/
 
         //Effect Handel
         if (PlayerRefGameObject.transform.localPosition.y > 0.5f)
@@ -2879,9 +2859,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetShooterLayer()
     {
-        isStartCheckLayer = false;
         PlayerRefGameObject.layer = LayerMask.NameToLayer("Shooter");
-        isCheckLayerToReset = true;
     }
 
     public void ClearAnimatorFlag(EActionFlag addFlag = EActionFlag.None)
@@ -3184,9 +3162,7 @@ public class PlayerBehaviour : MonoBehaviour
 		isUseActiveSkill = false;
 		blockCatchTrigger.enabled = false;
 		
-		if (!NeedResetFlag)
-			isCheckLayerToReset = true;
-		else
+		if (NeedResetFlag)
 			ResetFlag();
 	}
 

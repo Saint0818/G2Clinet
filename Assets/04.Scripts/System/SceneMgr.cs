@@ -22,6 +22,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	
     public static event LevelWillBeLoaded OnLevelWillBeLoaded;
     public static event LevelWaitLoadNextScene OnLevelWaitLoadNext;
+    public int CurrentSceneNo = 0;
     
     IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
@@ -70,6 +71,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     {
 		string scene = ESceneName.Court + courtNo;
 		ChangeLevel(scene, isNeedLoading);
+        CurrentSceneNo = courtNo;
     }
 
     public void ChangeLevel(string scene, bool isNeedLoading = true)
