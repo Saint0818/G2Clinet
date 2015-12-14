@@ -21,10 +21,11 @@ public class UniWebViewHelper{
 	/// </description>
 	public static int screenHeight {
 		get {
-			#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
 			return UniWebViewPlugin.ScreenHeight();
-			#endif
+#else
 			return Screen.height;
+#endif
 		}
 	}
 
@@ -43,10 +44,11 @@ public class UniWebViewHelper{
 	/// </description>
 	public static int screenWidth {
 		get {
-			#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
 			return UniWebViewPlugin.ScreenWidth();
-			#endif
+#else
 			return Screen.width;
+#endif
 		}
 	}
 }

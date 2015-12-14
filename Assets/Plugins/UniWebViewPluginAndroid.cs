@@ -16,9 +16,9 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void ChangeSize(string name, int top, int left, int bottom, int right) {
+	public static void ChangeInsets(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.Android) {
-			webView.CallStatic("_UniWebViewChangeSize", name, top, left, bottom, right);
+			webView.CallStatic("_UniWebViewChangeInsets", name, top, left, bottom, right);
 		}
 	}
 
@@ -60,15 +60,15 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void Show(string name) {
+	public static void Show(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.Android) {
-			webView.CallStatic("_UniWebViewShow", name);
+			webView.CallStatic("_UniWebViewShow", name, fade, direction, duration);
 		}
 	}
 
-	public static void Dismiss(string name) {
+	public static void Hide(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.Android) {
-			webView.CallStatic("_UniWebViewDismiss", name);
+			webView.CallStatic("_UniWebViewHide", name, fade, direction, duration);
 		}
 	}
 
@@ -106,6 +106,26 @@ public class UniWebViewPlugin {
 		if (Application.platform == RuntimePlatform.Android) {
 			webView.CallStatic("_UniWebViewTransparentBackground", name, transparent);
 		}
+	}
+
+	public static void SetBackgroundColor(string name, float r, float g, float b, float a) {
+		if (Application.platform == RuntimePlatform.Android) {
+			webView.CallStatic("_UniWebViewSetBackgroundColor", name, r, g, b, a);
+		}
+	}
+
+	public static bool CanGoBack(string name) {
+		if (Application.platform == RuntimePlatform.Android) {
+			return webView.CallStatic<bool>("_UniWebViewCanGoBack", name);
+		}
+		return false;
+	}
+
+	public static bool CanGoForward(string name) {
+		if (Application.platform == RuntimePlatform.Android) {
+			return webView.CallStatic<bool>("_UniWebViewCanGoForward", name);
+		}
+		return false;
 	}
 
 	public static void GoBack(string name) {
@@ -150,7 +170,7 @@ public class UniWebViewPlugin {
 			webView.CallStatic("_UniWebViewAddUrlScheme", name, scheme);
 		}
 	}
-	
+
 	public static void RemoveUrlScheme(string name, string scheme) {
 		if (Application.platform == RuntimePlatform.Android) {
 			webView.CallStatic("_UniWebViewRemoveUrlScheme", name, scheme);
@@ -174,6 +194,31 @@ public class UniWebViewPlugin {
 			return webView.CallStatic<string>("_UniWebViewGetUserAgent", name);
 		}
 		return "";
+	}
+
+	public static float GetAlpha(string name) {
+		if (Application.platform == RuntimePlatform.Android) {
+			return webView.CallStatic<float>("_UniWebViewGetAlpha", name);
+		}
+		return 0.0f;
+	}
+
+	public static void SetAlpha(string name, float alpha) {
+		if (Application.platform == RuntimePlatform.Android) {
+			webView.CallStatic("_UniWebViewSetAlpha", name, alpha);
+		}
+	}
+
+	public static void SetImmersiveModeEnabled(string name, bool enabled) {
+		if (Application.platform == RuntimePlatform.Android) {
+			webView.CallStatic("_UniWebViewSetImmersiveModeEnabled", name, enabled);
+		}
+	}
+
+	public static void AddPermissionRequestTrustSite(string name, string url) {
+		if (Application.platform == RuntimePlatform.Android) {
+			webView.CallStatic("_UniWebViewAddPermissionRequestTrustSite", name, url);
+		}
 	}
 
 }

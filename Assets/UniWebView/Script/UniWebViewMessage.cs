@@ -70,7 +70,7 @@ public struct UniWebViewMessage {
 
 			string[] split = pathAndArgsString.Split("?"[0]);
 			
-			this.path = split[0];
+			this.path = split[0].TrimEnd('/');
 			this.args = new Dictionary<string, string>();
 			if (split.Length > 1) {
 				foreach (string pair in split[1].Split("&"[0])) {

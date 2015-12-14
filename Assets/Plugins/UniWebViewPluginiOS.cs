@@ -9,7 +9,7 @@ public class UniWebViewPlugin {
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewInit(string name, int top, int left, int bottom, int right);
 	[DllImport("__Internal")]
-	private static extern void _UniWebViewChangeSize(string name, int top, int left, int bottom, int right);
+	private static extern void _UniWebViewChangeInsets(string name, int top, int left, int bottom, int right);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewLoad(string name, string url);
 	[DllImport("__Internal")]
@@ -19,11 +19,11 @@ public class UniWebViewPlugin {
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewStop(string name);
 	[DllImport("__Internal")]
-	private static extern void _UniWebViewShow(string name);
+	private static extern void _UniWebViewShow(string name, bool fade, int direction, float duration);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewEvaluatingJavaScript(string name, string javascript, bool callback);
 	[DllImport("__Internal")]
-	private static extern void _UniWebViewDismiss(string name);
+	private static extern void _UniWebViewHide(string name, bool fade, int direction, float duration);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewCleanCache(string name);
 	[DllImport("__Internal")]
@@ -33,6 +33,8 @@ public class UniWebViewPlugin {
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewTransparentBackground(string name, bool transparent);
 	[DllImport("__Internal")]
+	private static extern void _UniWebViewSetBackgroundColor(string name, float r, float g, float b, float a);
+	[DllImport("__Internal")]
 	private static extern void _UniWebViewSetSpinnerShowWhenLoading(string name, bool show);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewSetSpinnerText(string name, string text);
@@ -40,6 +42,10 @@ public class UniWebViewPlugin {
 	private static extern void _UniWebViewShowToolBar(string name, bool animate);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewHideToolBar(string name, bool animate);
+	[DllImport("__Internal")]
+	private static extern bool _UniWebViewCanGoBack(string name);
+	[DllImport("__Internal")]
+	private static extern bool _UniWebViewCanGoForward(string name);
 	[DllImport("__Internal")]
 	private static extern void _UniWebViewGoBack(string name);
 	[DllImport("__Internal")]
@@ -62,6 +68,10 @@ public class UniWebViewPlugin {
 	private static extern void _UniWebViewSetUserAgent(string userAgent);
 	[DllImport("__Internal")]
 	private static extern string _UniWebViewGetUserAgent(string name);
+	[DllImport("__Internal")]
+	private static extern float _UniWebViewGetAlpha(string name);
+	[DllImport("__Internal")]
+	private static extern void _UniWebViewSetAlpha(string name, float alpha);
 
 	public static void Init(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
@@ -69,9 +79,9 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void ChangeSize(string name, int top, int left, int bottom, int right) {
+	public static void ChangeInsets(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
-			_UniWebViewChangeSize(name, top, left, bottom, right);
+			_UniWebViewChangeInsets(name, top, left, bottom, right);
 		}
 	}
 
@@ -99,9 +109,9 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void Show(string name) {
+	public static void Show(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
-			_UniWebViewShow(name);
+			_UniWebViewShow(name, fade, direction, duration);
 		}
 	}
 
@@ -115,9 +125,9 @@ public class UniWebViewPlugin {
 		EvaluatingJavaScript(name, javaScript, false);
 	}
 
-	public static void Dismiss(string name) {
+	public static void Hide(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
-			_UniWebViewDismiss(name);
+			_UniWebViewHide(name, fade, direction, duration);
 		}
 	}
 
@@ -145,6 +155,12 @@ public class UniWebViewPlugin {
 		}
 	}
 
+	public static void SetBackgroundColor(string name, float r, float g, float b, float a) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			_UniWebViewSetBackgroundColor(name, r, g, b, a);
+		}
+	}
+
 	public static void SetSpinnerShowWhenLoading(string name, bool show) {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
 			_UniWebViewSetSpinnerShowWhenLoading(name, show);
@@ -167,6 +183,20 @@ public class UniWebViewPlugin {
 		if (Application.platform == RuntimePlatform.IPhonePlayer) {
 			_UniWebViewHideToolBar(name, animate);
 		}
+	}
+
+	public static bool CanGoBack(string name) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			return _UniWebViewCanGoBack(name);
+		}
+		return false;
+	}
+	
+	public static bool CanGoForward(string name) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			return _UniWebViewCanGoForward(name);
+		}
+		return false;
 	}
 
 	public static void GoBack(string name) {
@@ -237,6 +267,19 @@ public class UniWebViewPlugin {
 			return _UniWebViewGetUserAgent(name);
 		}
 		return "";
+	}
+
+	public static float GetAlpha(string name) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			return _UniWebViewGetAlpha(name);
+		}
+		return 0.0f;
+	}
+
+	public static void SetAlpha(string name, float alpha) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			_UniWebViewSetAlpha(name, alpha);
+		}
 	}
 }
 #endif

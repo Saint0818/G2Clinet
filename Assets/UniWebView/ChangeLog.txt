@@ -1,16 +1,109 @@
 ## UniWebView - An easier solution for integrating WebView to your mobile games
 
-1.9.3
+2.4.0
+
+Add: Built-in show/hide transition. You could now show or hide the webview with a transition effect. Currently we support fade in/out and transition from/to one of screen edges. Please take a look at reference of Show() and Hide() for more.
+Add: Recreate new demo scenes as a better tutorial. Now most of the useful features are contained in the demo scenes, with fully commented script to show how to use them.
+Add: Now you can use "ESC" in OS X Editor to go back or close the web view.
+Fix: The color of iOS toolbar is now white. This fixed an issue that the clear background tool bar will become black if no web page is underneath.
+Fix: Fix an issue which cause show tool bar property not working in some situation.
+Fix: Remove earlier deprecated methods like Dismiss.
+Fix: Adjust the behavior of insets, it is a preparation for later feature like insets translating. The API of insets remains the same now.
+
+***
+
+Notice: Unity will drop Windows Phone 8 support officially from 5.3. UniWebView will not continue development for Windows Phone as well from the next version.
+
+Reason: The ammount of our Windows Phone users is very few compared to iOS and Android (it is less than 1% share according to report). 
+However, if we want to to support Windows Store App with Windows Phone 8.1 SDK or Windows 10 SDK, it would take even more time than either of other platforms.
+
+Since the Windows Phone SDK itself is not backwards compatible, the transition from Windows 8 to 8.1 or 10 means we need to rewrite all code in the package.
+We have only limited resource. To make sure we could build the asset in a better quality for most of our users, we decided to focus back to iOS and Android only from next version.
+The current Windows Phone 8 support (UniWebViewWP.dll) will be kept in later versions of UniWebView for a while, but we are sorry that it doesn't seem to get updated anymore.
+
+------------------------
+2.3.1
+
+Fix: An issue that script is missing in the prefab if you import the asset in a new version of Unity.
+Fix: Compatibility for Unity 5.2.2 editor.
+
+------------------------
+2.3.0
+
+Add: SMS link support for Android devices.
+
+------------------------
+2.2.5
+
+Fix: Compatibility for Unity 5.2.1 editor.
+
+------------------------
+2.2.4
+
+Fix: A status bar truncating issue which may appears on some Android devices when user show/hide the soft keyboard for several times.
+
+------------------------
+2.2.3
+
+Add: An API to add trusted sites for Android. You will need to add your site url to the white list if you need to request the protected resources of Android devices (such as microphone or camera).
+Add: Add third party support for Craftar.
 Fix: A vulnerability that accept SSL connect even an error hanppes. Now UniWebView will use the default behavior of system and reject all untrusted SSL connection. 
 It will protect your web content from possible man-in-the-middle attacks. At the same time, it means you have to use a valid certification even if you are in test environment.
+Fix: A null exception when inputing in a text field in Editor.
 
 ------------------------
-1.9.2
-Fix: An issue which causes you have to tap back button twice to quit from a Youtube fullscreen video in some devices.
+2.2.2
+
+Fix: An issue in Unity 5.2 which causes the webview not showing correctly in Unity Editor.
+Fix: Alert compatibility for iOS in Unity 5.2.
 
 ------------------------
-1.9.1
-Fix: An issue which causes cookie handling error in some situation.
+2.2.1
+
+Add: APIs to get navigation state of current web view. Now you can use CanGoBack() and CanGoForward() to determine whether there is a page to go back or forward.
+Fix: Optimize performance for 64-bit OSX Editor version.
+
+------------------------
+2.2.0
+
+Add: An API to set background color for the web view.
+Fix: The video will paused when app switched to background in Android devices now.
+Fix: An issue causes the loading indicator not removed in Windows Phone 8 devices when dismiss the webview.
+Fix: Add Neatplugin and RigidFace to default supported third party jar.
+
+------------------------
+2.1.3
+
+Fix: File chooser for Android 5.0+.
+
+------------------------
+2.1.2
+
+Fix: An issue on Android which causes screen remaining black when user taps back button when playing a fullscreen Youtube video.
+
+------------------------
+2.1.1
+
+Add: API for setting and getting alpha value.
+Fix: An issue which causes spinner not hidden when webview dismissed by done button.
+
+------------------------
+2.1.0
+
+Add: Add immersive mode support for Android for API Level 19 and above.
+Add: Google CardBoard support. You can now find a pre-built CardBoard jar library.
+Fix: A crash which causes crash when setting insets to an invalid value.
+
+------------------------
+2.0.0
+
+Add: Support for Windows Phone 8 and 8.1. Please note you need to add WebBrowser capatibility in Windows Phone's manifest file after exported from Unity.
+Add: Support for Unity 5. If you upgrade from UniWebView 1.x, you need to remove the old package and reimport again.
+Add: 64 bit support for Mac Editor version, since Unity 5 is now a 64-bit app.
+Fix: An issue which may cause the cache can not be cleaned completed in iOS.
+Fix: A serialize issue which may cause editor crash in some occation.
+
+Notice: This version is not compatible with Unity 4.x. If you need to use UniWebView on Unity 4.x, please use UniWebView 1.x instead. You can find more information about the earlier version on Asset Store: http://assetstore.unity3d.com/jp/#!/content/12476
 
 ------------------------
 1.9.0

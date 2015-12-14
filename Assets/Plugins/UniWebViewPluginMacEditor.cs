@@ -15,7 +15,7 @@ public class UniWebViewPlugin {
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewInit(string name, int top, int left, int bottom, int right, int screenWidth, int screenHeight);
 	[DllImport("UniWebView")]
-	private static extern void _UniWebViewChangeSize(string name, int top, int left, int bottom, int right, int screenWidth, int screenHeight);
+	private static extern void _UniWebViewChangeInsets(string name, int top, int left, int bottom, int right, int screenWidth, int screenHeight);
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewLoad(string name, string url);
 	[DllImport("UniWebView")]
@@ -23,9 +23,9 @@ public class UniWebViewPlugin {
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewStop(string name);
 	[DllImport("UniWebView")]
-	private static extern void _UniWebViewShow(string name);
+	private static extern void _UniWebViewShow(string name, bool fade, int direction, float duration);
 	[DllImport("UniWebView")]
-	private static extern void _UniWebViewDismiss(string name);
+	private static extern void _UniWebViewHide(string name, bool fade, int direction, float duration);
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewEvaluatingJavaScript(string name, string javascript, bool callback);
 	[DllImport("UniWebView")]
@@ -37,9 +37,15 @@ public class UniWebViewPlugin {
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewTransparentBackground(string name, bool transparent);
 	[DllImport("UniWebView")]
+	private static extern void _UniWebViewSetBackgroundColor(string name, float r, float g, float b, float a);
+	[DllImport("UniWebView")]
 	private static extern void _UniWebViewSetSpinnerShowWhenLoading(string name, bool show);
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewSetSpinnerText(string name, string text);
+	[DllImport("UniWebView")]
+	private static extern bool _UniWebViewCanGoBack(string name);
+	[DllImport("UniWebView")]
+	private static extern bool _UniWebViewCanGoForward(string name);
 	[DllImport("UniWebView")]
 	private static extern void _UniWebViewGoBack(string name);
 	[DllImport("UniWebView")]
@@ -54,7 +60,7 @@ public class UniWebViewPlugin {
 	private static extern string _UniWebViewRemoveUrlScheme(string name, string scheme);
 
 	[DllImport("UniWebView")]
-	private static extern void _UniWebViewInputEvent(string name, int x, int y, float deltaY, 
+	private static extern void _UniWebViewInputEvent(string name, int x, int y, float deltaY,
 	                                                 bool buttonDown, bool buttonPress, bool buttonRelease,
 	                                                 bool keyPress, short keyCode, string keyChars, int textureId);
 	[DllImport("UniWebView")]
@@ -63,7 +69,12 @@ public class UniWebViewPlugin {
 	private static extern void _UniWebViewSetUserAgent(string userAgent);
 	[DllImport("UniWebView")]
 	private static extern string _UniWebViewGetUserAgent(string name);
-
+	[DllImport("UniWebView")]
+	private static extern float _UniWebViewGetAlpha(string name);
+	[DllImport("UniWebView")]
+	private static extern void _UniWebViewSetAlpha(string name, float alpha);
+	[DllImport("UniWebView")]
+	private static extern IntPtr _UniWebViewGetRenderEventFunc();
 
 	public static void Init(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
@@ -71,12 +82,14 @@ public class UniWebViewPlugin {
 				ConnectNativeBundle();
 			}
 			_UniWebViewInit(name, top, left, bottom, right, Screen.width, Screen.height);
+		} else {
+			Debug.LogWarning("Windows Editor is not supported yet in UniWebView. Please build it to devices or use a Mac Editor.");
 		}
 	}
 
-	public static void ChangeSize(string name, int top, int left, int bottom, int right) {
+	public static void ChangeInsets(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
-			_UniWebViewChangeSize(name, top, left, bottom, right, Screen.width, Screen.height);
+			_UniWebViewChangeInsets(name, top, left, bottom, right, Screen.width, Screen.height);
 		}
 	}
 
@@ -92,7 +105,7 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	
+
 	public static void Reload(string name) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
 			_UniWebViewReload(name);
@@ -105,9 +118,15 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void Show(string name) {
+	public static void Show(string name, bool animated, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
-			_UniWebViewShow(name);
+			_UniWebViewShow(name, animated, direction, duration);
+		}
+	}
+
+	public static void Hide(string name, bool animated, int direction, float duration) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			_UniWebViewHide(name, animated, direction, duration);
 		}
 	}
 
@@ -119,12 +138,6 @@ public class UniWebViewPlugin {
 
 	public static void AddJavaScript(string name, string javaScript) {
 		EvaluatingJavaScript(name, javaScript, false);
-	}
-
-	public static void Dismiss(string name) {
-		if (Application.platform == RuntimePlatform.OSXEditor) {
-			_UniWebViewDismiss(name);
-		}
 	}
 
 	public static void CleanCache(string name) {
@@ -151,12 +164,33 @@ public class UniWebViewPlugin {
 		}
 	}
 
+	public static void SetBackgroundColor(string name, float r, float g, float b, float a) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			Debug.LogWarning("This method is limited in OSX Editor. You can only set white/clear background with this method in Editor.");
+			_UniWebViewSetBackgroundColor(name, r, g, b, a);
+		}
+	}
+
 	public static void SetSpinnerShowWhenLoading(string name, bool show) {
 		Debug.Log("UniWebViewSetSpinnerShowWhenLoading will do nothing in Editor");
 	}
-	
+
 	public static void SetSpinnerText(string name, string text) {
 		Debug.Log("UniWebViewSetSpinnerText will do nothing in Editor");
+	}
+
+	public static bool CanGoBack(string name) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			return _UniWebViewCanGoBack(name);
+		}
+		return false;
+	}
+
+	public static bool CanGoForward(string name) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			return _UniWebViewCanGoForward(name);
+		}
+		return false;
 	}
 
 	public static void GoBack(string name) {
@@ -171,7 +205,7 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void InputEvent(string name, int x, int y, float deltaY, 
+	public static void InputEvent(string name, int x, int y, float deltaY,
 	                         bool buttonDown, bool buttonPress, bool buttonRelease,
 	                         bool keyPress, short keyCode, string keyChars, int textureId) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
@@ -226,12 +260,32 @@ public class UniWebViewPlugin {
 			_UniWebViewSetUserAgent(userAgent);
 		}
 	}
-	
+
 	public static string GetUserAgent(string name) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
 			return _UniWebViewGetUserAgent(name);
 		}
 		return "";
+	}
+
+	public static float GetAlpha(string name) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			Debug.LogWarning("Alpha is not available in editor version.");
+		}
+		return 1.0f;
+	}
+
+	public static void SetAlpha(string name, float alpha) {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			Debug.LogWarning("Alpha is not available in editor version.");
+		}
+	}
+
+	public static IntPtr GetRenderEventFunc() {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			return _UniWebViewGetRenderEventFunc();
+		}
+		return IntPtr.Zero;
 	}
 }
 #endif
