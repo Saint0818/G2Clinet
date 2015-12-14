@@ -1172,10 +1172,8 @@ public class GameController : KnightSingleton<GameController>
 						moveData.DefPlayer = player;
 						
 						if (BallOwner != null)
-//							moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
 							moveData.LookTarget = BallOwner.transform;
 						else
-//							moveData.LookTarget = player.PlayerRefGameObject.transform;
 							moveData.LookTarget = player.transform;
 						
 						moveData.Speedup = speedup;
@@ -1206,10 +1204,8 @@ public class GameController : KnightSingleton<GameController>
 							if(moveData.DefPlayer != null)
                             {
 								if(BallOwner != null)
-//									moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
 									moveData.LookTarget = BallOwner.transform;
 								else
-//									moveData.LookTarget = player.PlayerRefGameObject.transform;
 									moveData.LookTarget = player.transform;
 								
 								moveData.Speedup = speedup;
@@ -1219,7 +1215,6 @@ public class GameController : KnightSingleton<GameController>
                             {
 								player.DefPlayer.ResetMove();
 								sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-//                                moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
                                 moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                                 
                                 if (BallOwner != null)

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using G2;
-using GamePlayEnum;
-using GameStruct;
+﻿using GameStruct;
 using JetBrains.Annotations;
 
 namespace AI
@@ -13,25 +10,29 @@ namespace AI
             get { return EPlayerAIState.Defense; }
         }
 
-        private enum EAction
-        {
-            None, Push, Steal
-        }
+//        private enum EAction
+//        {
+//            None, Push, Steal
+//        }
 
-        private readonly PlayerAI mPlayerAI;
         private readonly PlayerBehaviour mPlayer;
         private AISkillJudger mSkillJudger;
 
-        private readonly WeightedRandomizer<EAction> mRandomizer = new WeightedRandomizer<EAction>();
-        private readonly Dictionary<EAction, CommonDelegateMethods.Action> mActions = new Dictionary<EAction, CommonDelegateMethods.Action>();
+//        private readonly WeightedRandomizer<EAction> mRandomizer = new WeightedRandomizer<EAction>();
+//        private readonly Dictionary<EAction, CommonDelegateMethods.Action> mActions = new Dictionary<EAction, CommonDelegateMethods.Action>();
+
+        private readonly ActionRandomizer mActions = new ActionRandomizer();
 
         public PlayerDefenseState([NotNull]PlayerAI playerAI, [NotNull] PlayerBehaviour player)
         {
-            mPlayerAI = playerAI;
             mPlayer = player;
 
-            mActions.Add(EAction.Push, doPush);
-            mActions.Add(EAction.Steal, doSteal);
+//            mActions.Add(EAction.Push, doPush);
+//            mActions.Add(EAction.Steal, doSteal);
+
+            mActions.Add(new CloseDefPlayerAction(playerAI, mPlayer));
+            mActions.Add(new PushAction(playerAI, mPlayer));
+            mActions.Add(new StealAction(playerAI, mPlayer));
         }
 
         public void Init(PlayerBehaviour[] players)
@@ -73,7 +74,7 @@ namespace AI
 
             doDefenseAction();
 
-            GameController.Get.MoveDefPlayer(mPlayer.DefPlayer);
+//            GameController.Get.MoveDefPlayer(mPlayer.DefPlayer);
         }
 
         public override void Update()
@@ -85,62 +86,64 @@ namespace AI
             if(GameController.Get.IsDunk || GameController.Get.IsShooting)
                 return;
 
-            var action = randomAction();
-            if(action == EAction.None)
-                return;
+            mActions.Do();
+
+//            var action = randomAction();
+//            if(action == EAction.None)
+//                return;
 
 //            Debug.LogFormat("Name:{0}, Action:{1}", mPlayerAI.name, action);
-            mActions[action]();
+//            mActions[action]();
         }
 
-        private void doPush()
-        {
-            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
-            if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, oppPlayerAI.transform.position))
-            {
-                mPlayer.PushCD.StartAgain();
-            }
-        }
+//        private void doPush()
+//        {
+//            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
+//            if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, oppPlayerAI.transform.position))
+//            {
+//                mPlayer.PushCD.StartAgain();
+//            }
+//        }
 
-        private void doSteal()
-        {
-            if(mPlayer.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
-            {
-                mPlayer.StealCD.StartAgain();
-            }
-        }
+//        private void doSteal()
+//        {
+//            if(mPlayer.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
+//            {
+//                mPlayer.StealCD.StartAgain();
+//            }
+//        }
 
-        private EAction randomAction()
-        {
-            mRandomizer.Clear();
-
-            // todo 這只是暫時的設定, 只是希望降低 Push, Steal 的發生機率.
-            mRandomizer.AddOrUpdate(EAction.None, 30); 
-
-            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
-            if(oppPlayerAI != null)
-            {
-                var oppPlayer = mPlayerAI.GetComponent<PlayerBehaviour>();
-                
-                if(oppPlayer.PushCD.IsTimeUp() &&
-                   MathUtils.Find2DDis(mPlayerAI.transform.position, oppPlayerAI.transform.position) <= GameConst.StealPushDistance)
-                {
-                    mRandomizer.AddOrUpdate(EAction.Push, mPlayer.Attr.PushingRate);
-                }
-            }
-            
-            if(GameController.Get.BallOwner != null &&
-               mPlayer.StealCD.IsTimeUp() &&
-               MathUtils.Find2DDis(mPlayerAI.transform.position, GameController.Get.BallOwner.transform.position) <= GameConst.StealPushDistance)
-            {
-                mRandomizer.AddOrUpdate(EAction.Steal, mPlayer.Attr.StealRate);
-            }
-
-            if(mRandomizer.IsEmpty())
-                return EAction.None;
-
-            return mRandomizer.GetNext();
-        }
+//        private EAction randomAction()
+//        {
+//            mRandomizer.Clear();
+//
+//            // todo 這只是暫時的設定, 只是希望降低 Push, Steal 的發生機率.
+//            mRandomizer.AddOrUpdate(EAction.None, 30); 
+//
+//            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
+//            if(oppPlayerAI != null)
+//            {
+//                var oppPlayer = mPlayerAI.GetComponent<PlayerBehaviour>();
+//                
+//                if(oppPlayer.PushCD.IsTimeUp() &&
+//                   MathUtils.Find2DDis(mPlayerAI.transform.position, oppPlayerAI.transform.position) <= GameConst.StealPushDistance)
+//                {
+//                    mRandomizer.AddOrUpdate(EAction.Push, mPlayer.Attr.PushingRate);
+//                }
+//            }
+//            
+//            if(GameController.Get.BallOwner != null &&
+//               mPlayer.StealCD.IsTimeUp() &&
+//               MathUtils.Find2DDis(mPlayerAI.transform.position, GameController.Get.BallOwner.transform.position) <= GameConst.StealPushDistance)
+//            {
+//                mRandomizer.AddOrUpdate(EAction.Steal, mPlayer.Attr.StealRate);
+//            }
+//
+//            if(mRandomizer.IsEmpty())
+//                return EAction.None;
+//
+//            return mRandomizer.GetNext();
+//        }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {

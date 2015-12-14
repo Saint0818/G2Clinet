@@ -102,7 +102,7 @@
     public const float AIIdleRate = 30;
 
     /// <summary>
-    /// AI 執行 Idle 的時間範圍.
+    /// AI 執行 Idle 的時間範圍. 單位: 秒.
     /// </summary>
     public const float AIMinIdleTime = 0.5f;
     public const float AIMaxIdleTime = 1.5f;
@@ -113,10 +113,20 @@
     public const float AITacticalRate = 30;
 
     /// <summary>
-    /// AI 執行跑戰術的時間範圍.
+    /// AI 執行跑戰術的時間範圍. 單位: 秒.
     /// </summary>
     public const float AIMinTacticalTime = 2.0f;
     public const float AIMaxTacticalTime = 4.5f;
+
+    /// <summary>
+    /// AI 防守時, 接近對位球員的機率.
+    /// </summary>
+    public const float AICloseDefPlayerRate = 10;
+    /// <summary>
+    /// AI 防守時, 接近球員的時間. 單位: 秒.
+    /// </summary>
+    public const float AIMinCloseDefPlayerTime = 1.0f;
+    public const float AIMaxCloseDefPlayerTime = 3.0f;
 
     public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
