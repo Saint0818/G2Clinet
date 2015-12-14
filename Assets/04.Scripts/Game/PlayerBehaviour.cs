@@ -71,6 +71,11 @@ public struct TMoveData
     }
 
     private Vector2 mTarget;
+
+    /// <summary>
+    /// 當移動到定點的時候, 要往哪個方向看.
+    /// </summary>
+    [CanBeNull]
     public Transform LookTarget;
     public Transform FollowTarget;
     public PlayerBehaviour DefPlayer;
@@ -224,10 +229,9 @@ public class PlayerBehaviour : MonoBehaviour
     public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
     public ETeamKind Team;
 
-    /// <summary>
-    /// 0: Center, 1:Forward, 2:Guard.
-    /// </summary>
     public EPlayerPostion Index;
+    public EPlayerPostion Postion;
+
     private readonly StatusTimer mManually = new StatusTimer();
 
     public EGameSituation situation = EGameSituation.None;
@@ -268,7 +272,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
-    public EPlayerPostion Postion;
+    
 
     //Dunk
     private bool isDunk = false;
@@ -1596,7 +1600,8 @@ public class PlayerBehaviour : MonoBehaviour
                 } else
                     resultBool = true;
             }
-        } else if (data.FollowTarget != null)
+        }
+        else if(data.FollowTarget != null)
         {
             result.x = data.FollowTarget.position.x;
             result.y = data.FollowTarget.position.z;
@@ -1607,7 +1612,8 @@ public class PlayerBehaviour : MonoBehaviour
                 result.y = PlayerRefGameObject.transform.position.z;
             } else
                 resultBool = true;
-        } else
+        }
+        else
         {
             result = data.Target;
             resultBool = true;
@@ -1618,8 +1624,10 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void moveTo(TMoveData data, bool first = false)
     {
-        if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && 
-            GameStart.Get.TestMode != EGameTest.Block)
+        // 蓋火鍋測試場景不希望球員移動, 所以才會有 GameStart.Get.TestMode != EGameTest.Block 
+        // 這樣的判斷式. 這要改為蓋火鍋測試場景在初始化的時候, 叫 AI 不要指定戰術跑位.
+        if((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() &&
+            GameStart.Get.TestMode != EGameTest.Block) 
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
             float temp = Vector2.Distance(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z), MoveTarget);
@@ -1730,16 +1738,16 @@ public class PlayerBehaviour : MonoBehaviour
                         }
                     }
                 }
-                
-                if (data.MoveFinish != null)
-                    data.MoveFinish(this, data.Speedup);
 
                 // 移動到非常接近 target, 所以刪除這筆, 接著移動到下一個 target.
-                if (moveQueue.Count > 0)
+                if(moveQueue.Count > 0)
                 {
                     moveQueue.Dequeue();
 //                    Debug.LogFormat("moveTo(), moveQueue.Dequeue()");
                 }
+
+                if(data.MoveFinish != null)
+                    data.MoveFinish(this, data.Speedup);
             }
             else if(IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5 && 
                     GameController.Get.BallOwner != null)

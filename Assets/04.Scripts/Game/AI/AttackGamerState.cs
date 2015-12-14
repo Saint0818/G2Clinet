@@ -2,9 +2,9 @@
 namespace AI
 {
     /// <summary>
-    /// A 隊(玩家)進攻, B 隊(電腦)防守.
+    /// 玩家進攻, 電腦防守.
     /// </summary>
-    public class AttackGamerState : State<EGameSituation, EGameMsg>
+    public class AttackGamerState : AttackerState
     {
         public override EGameSituation ID
         {
@@ -13,12 +13,23 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+            base.Enter(extraInfo);
+
+            if(Players.Count == 0)
+            {
+                foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
+                {
+                    if(player.Team == ETeamKind.Self)
+                        Players.Add(player);
+                }
+            }
+
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Self);
 
-            if (GameController.Get.Joysticker && GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
+            if(GameController.Get.Joysticker && GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
                 GameController.Get.Joysticker.SetManually();
 
-            foreach (PlayerBehaviour player in GameController.Get.GamePlayers)
+            foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
             {
                 if (player.Team == ETeamKind.Self)
                     player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Attack);
@@ -26,7 +37,7 @@ namespace AI
                     player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Defense);
             }
 
-            if (AIController.Get.AIRemainTime > 0)
+            if(AIController.Get.AIRemainTime > 0)
             {
                 GameController.Get.Joysticker.SetAITime(AIController.Get.AIRemainTime);
                 GameController.Get.Joysticker.AniState(EPlayerState.Idle);
@@ -34,63 +45,11 @@ namespace AI
             }
         }
 
-        public override void UpdateAI()
-        {
-            if (GameController.Get.GamePlayers.Count <= 0)
-                return;
-
-            TTacticalData tactical;
-            if (GameController.Get.BallOwner != null)
-            {
-                switch (GameController.Get.BallOwner.Postion)
-                {
-                    case EPlayerPostion.C:
-                        AITools.RandomTactical(ETactical.Center, out tactical);
-                        break;
-                    case EPlayerPostion.F:
-                        AITools.RandomTactical(ETactical.Forward, out tactical);
-                        break;
-                    case EPlayerPostion.G:
-                        AITools.RandomTactical(ETactical.Guard, out tactical);
-                        break;
-                    default:
-                        AITools.RandomTactical(ETactical.Attack, out tactical);
-                        break;
-                }
-            }
-            else
-                AITools.RandomTactical(ETactical.Attack, out tactical);
-
-            GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
-
-            //        for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            //        {
-            //            PlayerBehaviour player = GameController.Get.GamePlayers[i];
-            //            if(player.AIing && !GameController.Get.DoSkill(player))
-            //            {
-            //                if(player.Team == ETeamKind.Self)
-            //                {
-            //                    if(!GameController.Get.IsShooting || !player.IsAllShoot)
-            //                    {
-            //                        GameController.Get.AIAttack(player);
-            //                        GameController.Get.AIMove(player, ref tactical);
-            //                    }
-            //                }
-            //                else
-            //                    GameController.Get.AIDefend(player);
-            //            }
-            //        }
-        }
-
         public override void Update()
         {
         }
 
         public override void Exit()
-        {
-        }
-
-        public override void HandleMessage(Telegram<EGameMsg> msg)
         {
         }
     } // end of the class.

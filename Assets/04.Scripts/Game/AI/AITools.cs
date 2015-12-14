@@ -11,7 +11,7 @@ public class AITools
     /// <param name="posIndex"> 0:C, 1:F, 2:G. </param>
     /// <param name="data"> true: 取得戰術成功. </param>
     /// <returns></returns>
-    public static bool RandomTactical(ETactical tactical, EPlayerPostion posIndex, out TTacticalData data)
+    public static bool RandomTactical(ETacticalKind tactical, EPlayerPostion posIndex, out TTacticalData data)
     {
         return RandomTactical(convert(tactical, posIndex), out data);
     }
@@ -22,7 +22,7 @@ public class AITools
     /// <param name="tactical"></param>
     /// <param name="data"></param>
     /// <returns> true: 取得戰術成功. </returns>
-    public static bool RandomTactical(ETactical tactical, out TTacticalData data)
+    public static bool RandomTactical(ETacticalKind tactical, out TTacticalData data)
     {
         int randomValue = UnityEngine.Random.Range(0, TacticalTable.Ins.GetCount(tactical));
         return TacticalTable.Ins.GetData(tactical, randomValue, out data);
@@ -38,11 +38,11 @@ public class AITools
     /// <param name="attData"></param>
     /// <param name="defData"></param>
     /// <returns></returns>
-    public static bool RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, EPlayerPostion posIndex,
+    public static bool RandomCorrespondingTactical(ETacticalKind attTactical, ETacticalKind defTactical, EPlayerPostion posIndex,
                                                    out TTacticalData attData, out TTacticalData defData)
     {
-        ETactical convertAtt = convert(attTactical, posIndex);
-        ETactical convertDef = convert(defTactical, posIndex);
+        ETacticalKind convertAtt = convert(attTactical, posIndex);
+        ETacticalKind convertDef = convert(defTactical, posIndex);
 
         // 假如編輯的資料不足, 比如進攻有 4 筆, 防守只有 2 筆, 那麼在找戰術的時候,
         // 進攻就會忽略 2 筆資料.
@@ -61,56 +61,56 @@ public class AITools
     /// <param name="tactical"></param>
     /// <param name="posIndex"> 0:C, 1:F, 2:G </param>
     /// <returns></returns>
-    private static ETactical convert(ETactical tactical, EPlayerPostion posIndex)
+    private static ETacticalKind convert(ETacticalKind tactical, EPlayerPostion posIndex)
     {
         switch (tactical)
         {
-            case ETactical.Inbounds:
+            case ETacticalKind.Inbounds:
 //                if(posIndex == 0)
                 if(posIndex == EPlayerPostion.C)
-                    return ETactical.InboundsCenter;
+                    return ETacticalKind.InboundsCenter;
 //                if (posIndex == 1)
                 if (posIndex == EPlayerPostion.F)
-                    return ETactical.InboundsForward;
+                    return ETacticalKind.InboundsForward;
 //                if (posIndex == 2)
                 if (posIndex == EPlayerPostion.G)
-                    return ETactical.InboundsGuard;
+                    return ETacticalKind.InboundsGuard;
                 break;
     
-            case ETactical.InboundsDefence:
+            case ETacticalKind.InboundsDefence:
                 if (posIndex == EPlayerPostion.C)
-                    return ETactical.InboundsDefenceCenter;
+                    return ETacticalKind.InboundsDefenceCenter;
                 if (posIndex == EPlayerPostion.F)
-                    return ETactical.InboundsDefenceForward;
+                    return ETacticalKind.InboundsDefenceForward;
                 if (posIndex == EPlayerPostion.G)
-                    return ETactical.InboundsDefenceGuard;
+                    return ETacticalKind.InboundsDefenceGuard;
                 break;
     
-            case ETactical.HalfInbounds:
+            case ETacticalKind.HalfInbounds:
                 if (posIndex == EPlayerPostion.C)
-                    return ETactical.HalfInboundsCenter;
+                    return ETacticalKind.HalfInboundsCenter;
                 if (posIndex == EPlayerPostion.F)
-                    return ETactical.HalfInboundsForward;
+                    return ETacticalKind.HalfInboundsForward;
                 if (posIndex == EPlayerPostion.G)
-                    return ETactical.HalfInboundsGuard;
+                    return ETacticalKind.HalfInboundsGuard;
                 break;
     
-            case ETactical.HalfInboundsDefence:
+            case ETacticalKind.HalfInboundsDefence:
                 if (posIndex == EPlayerPostion.C)
-                    return ETactical.HalfInboundsDefenceCenter;
+                    return ETacticalKind.HalfInboundsDefenceCenter;
                 if (posIndex == EPlayerPostion.F)
-                    return ETactical.HalfInboundsDefenceForward;
+                    return ETacticalKind.HalfInboundsDefenceForward;
                 if (posIndex == EPlayerPostion.G)
-                    return ETactical.HalfInboundsDefenceGuard;
+                    return ETacticalKind.HalfInboundsDefenceGuard;
                 break;
     
-            case ETactical.Fast:
+            case ETacticalKind.Fast:
                 if (posIndex == EPlayerPostion.C)
-                    return ETactical.FastCenter;
+                    return ETacticalKind.FastCenter;
                 if (posIndex == EPlayerPostion.F)
-                    return ETactical.FastForward;
+                    return ETacticalKind.FastForward;
                 if (posIndex == EPlayerPostion.G)
-                    return ETactical.FastGuard;
+                    return ETacticalKind.FastGuard;
                 break;
     
             default:

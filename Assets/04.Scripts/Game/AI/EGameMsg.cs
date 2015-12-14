@@ -22,5 +22,11 @@ public enum EGameMsg
     /// <para> 跳球時, 第一個碰到球的球員, 應該要送出此訊息. </para>
     /// <para> Telegram.ExtraInfo: PlayerBehaviour, 跳球時, 第一個碰到球的球員. </para>
     /// </summary>
-    PlayerTouchBallWhenJumpBall
+    PlayerTouchBallWhenJumpBall,
+
+    /// <summary>
+    /// <para> 某位球員跑完戰術. </para>
+    /// <para> Telegram.ExtraInfo: EPlayerPostion, 哪個位置的球員跑完戰術. </para>
+    /// </summary>
+    PlayerTacticalDone
 }

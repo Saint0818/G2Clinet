@@ -72,6 +72,8 @@ namespace AI
             }
 
             doDefenseAction();
+
+            GameController.Get.MoveDefPlayer(mPlayer.DefPlayer);
         }
 
         public override void Update()

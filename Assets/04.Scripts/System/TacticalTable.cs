@@ -17,7 +17,7 @@ using UnityEngine;
 /// 
 /// 新增戰術:
 /// <list type="number">
-/// <item> 修改 ETactical, PrefixNameTacticalPairs. </item>
+/// <item> 修改 ETacticalKind, PrefixNameTacticalPairs. </item>
 /// </list>
 /// 
 /// How to use:
@@ -29,7 +29,7 @@ using UnityEngine;
 /// 
 /// How to add tactical:
 /// <list type="number">
-/// <item> modify ETactical and PrefixNameTacticalPairs. </item>
+/// <item> modify ETacticalKind and PrefixNameTacticalPairs. </item>
 /// </list>
 /// 
 /// 程式碼的壞味道:
@@ -48,38 +48,38 @@ public class TacticalTable
 
     private static readonly TTacticalData EmptyData = new TTacticalData();
 
-    private readonly Dictionary<ETactical, List<TTacticalData>> mTacticals = new Dictionary<ETactical, List<TTacticalData>>();
+    private readonly Dictionary<ETacticalKind, List<TTacticalData>> mTacticals = new Dictionary<ETacticalKind, List<TTacticalData>>();
 
-    public static readonly Dictionary<string, ETactical> PrefixNameTacticalPairs = new Dictionary<string, ETactical>
+    public static readonly Dictionary<string, ETacticalKind> PrefixNameTacticalPairs = new Dictionary<string, ETacticalKind>
     {
-        {"jumpball0", ETactical.None},
-        {"jumpball1", ETactical.None},
+        {"jumpball0", ETacticalKind.None},
+        {"jumpball1", ETacticalKind.None},
 
-        {"normal", ETactical.Attack},
+        {"normal", ETacticalKind.Attack},
 
-        {"tee0", ETactical.InboundsCenter},
-        {"tee1", ETactical.InboundsForward},
-        {"tee2", ETactical.InboundsGuard},
+        {"tee0", ETacticalKind.InboundsCenter},
+        {"tee1", ETacticalKind.InboundsForward},
+        {"tee2", ETacticalKind.InboundsGuard},
 
-        {"teedefence0", ETactical.InboundsDefenceCenter}, 
-        {"teedefence1", ETactical.InboundsDefenceForward},
-        {"teedefence2", ETactical.InboundsDefenceGuard}, 
+        {"teedefence0", ETacticalKind.InboundsDefenceCenter}, 
+        {"teedefence1", ETacticalKind.InboundsDefenceForward},
+        {"teedefence2", ETacticalKind.InboundsDefenceGuard}, 
 
-        {"fast0", ETactical.FastCenter}, 
-        {"fast1", ETactical.FastForward}, 
-        {"fast2", ETactical.FastGuard}, 
+        {"fast0", ETacticalKind.FastCenter}, 
+        {"fast1", ETacticalKind.FastForward}, 
+        {"fast2", ETacticalKind.FastGuard}, 
 
-        {"center", ETactical.Center}, 
-        {"forward", ETactical.Forward}, 
-        {"guard", ETactical.Guard}, 
+        {"center", ETacticalKind.Center}, 
+        {"forward", ETacticalKind.Forward}, 
+        {"guard", ETacticalKind.Guard}, 
 
-        {"teehalf0", ETactical.HalfInboundsCenter}, 
-        {"teehalf1", ETactical.HalfInboundsForward},
-        {"teehalf2", ETactical.HalfInboundsGuard}, 
+        {"teehalf0", ETacticalKind.HalfInboundsCenter}, 
+        {"teehalf1", ETacticalKind.HalfInboundsForward},
+        {"teehalf2", ETacticalKind.HalfInboundsGuard}, 
 
-        {"teedefencehalf0", ETactical.HalfInboundsDefenceCenter}, 
-        {"teedefencehalf1", ETactical.HalfInboundsDefenceForward},
-        {"teedefencehalf2", ETactical.HalfInboundsDefenceGuard}, 
+        {"teedefencehalf0", ETacticalKind.HalfInboundsDefenceCenter}, 
+        {"teedefencehalf1", ETacticalKind.HalfInboundsDefenceForward},
+        {"teedefencehalf2", ETacticalKind.HalfInboundsDefenceGuard}, 
     };
 
     private TacticalTable()
@@ -93,7 +93,7 @@ public class TacticalTable
         TTacticalData[] tacticals = (TTacticalData[])JsonConvert.DeserializeObject(jsonText, typeof(TTacticalData[]));
         foreach(TTacticalData data in tacticals)
         {
-            mTacticals[data.Tactical].Add(data);
+            mTacticals[data.Kind].Add(data);
         }
 
         Debug.Log("[tactical parsed finished.]");
@@ -102,13 +102,13 @@ public class TacticalTable
     private void clear()
     {
         mTacticals.Clear();
-        foreach(ETactical tactical in Enum.GetValues(typeof(ETactical)))
+        foreach(ETacticalKind tactical in Enum.GetValues(typeof(ETacticalKind)))
         {
             mTacticals.Add(tactical, new List<TTacticalData>());
         }
     }
 
-    public int GetCount(ETactical tactical)
+    public int GetCount(ETacticalKind tactical)
     {
         return mTacticals[tactical].Count;
     }
@@ -120,7 +120,7 @@ public class TacticalTable
     /// <param name="index"></param>
     /// <param name="data"></param>
     /// <returns> true: 資料取得成功. </returns>
-    public bool GetData(ETactical tactical, int index, out TTacticalData data)
+    public bool GetData(ETacticalKind tactical, int index, out TTacticalData data)
     {
         if(index < 0 || index >= mTacticals[tactical].Count)
         {

@@ -1055,12 +1055,12 @@ public class GameController : KnightSingleton<GameController>
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
         if(GameStart.Get.CourtMode == ECourtMode.Full)
         {
-            AITools.RandomCorrespondingTactical(ETactical.Inbounds, ETactical.InboundsDefence, 
+            AITools.RandomCorrespondingTactical(ETacticalKind.Inbounds, ETacticalKind.InboundsDefence, 
                                                 PickBallPlayer.Index, out attackTactical, out defTactical);
         }
         else
         {
-            AITools.RandomCorrespondingTactical(ETactical.HalfInbounds, ETactical.HalfInboundsDefence,
+            AITools.RandomCorrespondingTactical(ETacticalKind.HalfInbounds, ETacticalKind.HalfInboundsDefence,
                                                 PickBallPlayer.Index, out attackTactical, out defTactical);
         }
 
@@ -1086,12 +1086,12 @@ public class GameController : KnightSingleton<GameController>
 		{
 		    if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-                AITools.RandomCorrespondingTactical(ETactical.Inbounds, ETactical.InboundsDefence,
+                AITools.RandomCorrespondingTactical(ETacticalKind.Inbounds, ETacticalKind.InboundsDefence,
                                     BallOwner.Index, out attackTactical, out defTactical);
             }
             else
             {
-                AITools.RandomCorrespondingTactical(ETactical.HalfInbounds, ETactical.HalfInboundsDefence,
+                AITools.RandomCorrespondingTactical(ETacticalKind.HalfInbounds, ETacticalKind.HalfInboundsDefence,
                     BallOwner.Index, out attackTactical, out defTactical);
             }
 
@@ -1325,7 +1325,7 @@ public class GameController : KnightSingleton<GameController>
             {
                 // 狀態是邊界發球變成任何其它狀態時, 會設定 npc 的戰術路徑.
                 // todo 這段程式碼應該要拿掉才對, 要放到 PlayerAI 內.
-                AITools.RandomTactical(ETactical.Fast, player.Index, out attackTactical);
+                AITools.RandomTactical(ETacticalKind.Fast, player.Index, out attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
                 {

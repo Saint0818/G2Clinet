@@ -80,6 +80,7 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
 
         GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.UISkipClickOnGaming);
         GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.PlayerTouchBallWhenJumpBall);
+        GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.PlayerTacticalDone);
         GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
     }
 

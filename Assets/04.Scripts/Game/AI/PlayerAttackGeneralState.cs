@@ -30,6 +30,16 @@ namespace AI
         /// </summary>
         private readonly Dictionary<EAction, CommonDelegateMethods.Action> mProbabilityActions = new Dictionary<EAction, CommonDelegateMethods.Action>();
 
+//        /// <summary>
+//        /// 持球行為選擇.
+//        /// </summary>
+//        private readonly ActionRandomizer mBallActions = new ActionRandomizer();
+
+        /// <summary>
+        /// 未持球行為選擇.
+        /// </summary>
+        private readonly ActionRandomizer mNoBallActions = new ActionRandomizer();
+
         public override PlayerAttackState.EPlayerAttackState ID
         {
             get { return PlayerAttackState.EPlayerAttackState.General;}
@@ -44,10 +54,15 @@ namespace AI
             mProbabilityActions.Add(EAction.Shoot2, doShoot);
             mProbabilityActions.Add(EAction.Shoot3, doShoot);
             mProbabilityActions.Add(EAction.Pass, doPass);
-//        mProbabilityActions.Add(EProbability.Push, doPush);
             mProbabilityActions.Add(EAction.Elbow, doElbow);
             mProbabilityActions.Add(EAction.FakeShoot, doFakeShoot);
             mProbabilityActions.Add(EAction.MoveDodge, doMoveDodge);
+
+//            mBallActions.Add(new MoveDodgeAction(mPlayerAI, mPlayer));
+
+            mNoBallActions.Add(new TacticalAction(mPlayerAI, mPlayer));
+            mNoBallActions.Add(new IdleAction(mPlayerAI, mPlayer));
+            mNoBallActions.Add(new PushAction(mPlayerAI, mPlayer));
         }
 
         public override void Enter(object extraInfo)
@@ -72,7 +87,7 @@ namespace AI
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
-            if (msg.Msg == EGameMsg.CoachOrderAttackTactical)
+            if(msg.Msg == EGameMsg.CoachOrderAttackTactical)
             {
                 mTactical = (TTacticalData)msg.ExtraInfo;
 //            Debug.LogFormat("HandleMessage, Tactical:{0}", mTactical);
@@ -114,18 +129,16 @@ namespace AI
 				}
 			}
 			
-            if(!mPlayer.IsAllShoot)
-            {
-                if(isBallOwner())
-                    tryDoShooting();
-                else
-                    tryDoPush();
+            if(isBallOwner())
+                tryDoShooting();
+            else
+//              tryDoPush();
+                mNoBallActions.Do();
 
-                if(GameController.Get.HasBallOwner)
-                    tryMoveByTactical();
-                else
-                    tryDoPickBall(); // 其實應該要寫一個 PickBallState, 但目前暫時沒寫.
-            }
+            if(GameController.Get.HasBallOwner)
+                updateTactical();
+            else
+                tryDoPickBall(); // 其實應該要寫一個 PickBallState, 但目前暫時沒寫.
         }
 
         public override void Update()
@@ -260,28 +273,28 @@ namespace AI
             return action;
         }
 
-        private bool tryDoPush()
-        {
-            // 參數 player 並未持球, 所以只能做 Push 被動技.
-            // 這裡的企劃規則是, 附近的敵對球員必須是 Idle 狀態時, 才會真的執行推人行為.
-            var nearPlayer = mPlayerAI.Team.FindNearestOpponentPlayer(mPlayerAI.transform.position);
-            if (nearPlayer == null)
-                return false;
-
-            bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
-            bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealPushDistance;
-            if (isClose && pushRate && mPlayer.PushCD.IsTimeUp() &&
-               nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
-            {
-                if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
-                {
-                    mPlayer.PushCD.StartAgain();
-                    return true;
-                }
-            }
-
-            return false;
-        }
+//        private bool tryDoPush()
+//        {
+//            // 參數 player 並未持球, 所以只能做 Push 被動技.
+//            // 這裡的企劃規則是, 附近的敵對球員必須是 Idle 狀態時, 才會真的執行推人行為.
+//            var nearPlayer = mPlayerAI.Team.FindNearestOpponentPlayer(mPlayerAI.transform.position);
+//            if (nearPlayer == null)
+//                return false;
+//
+//            bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
+//            bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealPushDistance;
+//            if (isClose && pushRate && mPlayer.PushCD.IsTimeUp() &&
+//               nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
+//            {
+//                if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
+//                {
+//                    mPlayer.PushCD.StartAgain();
+//                    return true;
+//                }
+//            }
+//
+//            return false;
+//        }
 
         private void doShoot()
         {
@@ -298,14 +311,9 @@ namespace AI
             if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow0))
             {
                 mPlayer.ElbowCD.StartAgain();
-//                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
                 CourtMgr.Get.ShowBallSFX(mPlayer.Attr.PunishTime);
             }
         }
-
-//    private void doPush()
-//    {
-//    }
 
         private void doPass()
         {
@@ -318,62 +326,107 @@ namespace AI
             mPlayer.DoPassiveSkill(ESkillSituation.MoveDodge);
         }
 
-        public void tryMoveByTactical()
+        /// <summary>
+        /// 當戰術跑完時, 會通知 AIController, 並會亂數再指定 1 個戰術. 這是避免 Idle 太久.
+        /// 目前遊戲的 Idle 看起來會很呆.
+        /// </summary>
+        public void updateTactical()
         {
-            if(mPlayer.CanMove && mPlayer.TargetPosNum == 0)
+            if(mPlayer.TargetPosNum > 0 || !mTactical.IsValid)
+                return;
+
+            // 以下會將戰術的每個跑位點都設定 PlayerBehavior.
+            var tacticalActions = mTactical.GetActions(mPlayer.Index);
+            for(int i = 0; i < tacticalActions.Length; i++)
             {
-                // 該球員目前沒有任何移動位置.
+                TMoveData moveData = new TMoveData();
+                moveData.Clear();
+                moveData.Speedup = tacticalActions[i].Speedup;
+                moveData.Catcher = tacticalActions[i].Catcher;
+                moveData.Shooting = tacticalActions[i].Shooting;
 
-                // 對同隊的其它隊友重置位置, 也就是同隊隊友若是目前有移動路徑, 會清掉.
-                // 但為什麼要這樣做呢? 應該是當某位球員的戰術跑完後, 其它全部的人即使還未跑完,
-                // 也必須要將戰術位置清掉, 重新指定新的戰術位置.
-                for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-                {
-                    if(GameController.Get.GamePlayers[i].Team == mPlayer.Team && 
-                        GameController.Get.GamePlayers[i] != mPlayer &&
-                        mTactical.FileName != string.Empty && 
-                        GameController.Get.GamePlayers[i].TargetPosName != mTactical.FileName)
-                        GameController.Get.GamePlayers[i].ResetMove();
-                }
+                int signZ = 1;
+                if(GameStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team == ETeamKind.Npc)
+                    signZ = -1;
 
-                // 以下會將戰術的每個跑位點都設定 PlayerBehavior.
-                if(mTactical.FileName != string.Empty)
-                {
-                    var tacticalActions = mTactical.GetActions(mPlayer.Postion);
+                moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * signZ);
 
-                    if(tacticalActions != null)
-                    {
-                        for (int i = 0; i < tacticalActions.Length; i++)
-                        {
-                            TMoveData moveData = new TMoveData();
-                            moveData.Clear();
-                            moveData.Speedup = tacticalActions[i].Speedup;
-                            moveData.Catcher = tacticalActions[i].Catcher;
-                            moveData.Shooting = tacticalActions[i].Shooting;
-                            int z = 1;
+                if(GameController.Get.BallOwner != mPlayer)
+                    moveData.LookTarget = GameController.Get.BallOwner.transform;
 
-                            if(GameStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team != ETeamKind.Self)
-                                z = -1;
-
-                            moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
-
-                            if(GameController.Get.BallOwner != mPlayer)
-                                moveData.LookTarget = GameController.Get.BallOwner.transform;
-
-                            moveData.TacticalName = mTactical.FileName;
-                            moveData.MoveFinish = GameController.Get.MoveDefPlayer;
-                            mPlayer.TargetPos = moveData;
-                        }
-
-                        GameController.Get.MoveDefPlayer(mPlayer);
-                    }
-                }
+                moveData.TacticalName = mTactical.FileName;
+                moveData.MoveFinish = oneMoveDone;
+                mPlayer.TargetPos = moveData;
             }
 
-            if(mPlayer.CantMoveTimer.IsOn()&&
-                mPlayer == GameController.Get.BallOwner)
-                mPlayer.AniState(EPlayerState.Dribble0);
+//            GameController.Get.MoveDefPlayer(mPlayer);
         }
+
+        private void oneMoveDone(PlayerBehaviour player, bool speedup)
+        {
+            GameController.Get.MoveDefPlayer(player, speedup);
+
+            if(mPlayer.TargetPosNum == 0)
+                // 全部的戰術都跑完了.
+                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTacticalDone, mPlayer.Index);
+        }
+
+//        public void tryMoveByTactical()
+//        {
+//            if(mPlayer.CanMove && mPlayer.TargetPosNum == 0)
+//            {
+// 該球員目前沒有任何移動位置.
+
+        // 對同隊的其它隊友重置位置, 也就是同隊隊友若是目前有移動路徑, 會清掉.
+        // 但為什麼要這樣做呢? 應該是當某位球員的戰術跑完後, 其它全部的人即使還未跑完,
+        // 也必須要將戰術位置清掉, 重新指定新的戰術位置.
+        //                for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+        //                {
+        //                    if(GameController.Get.GamePlayers[i].Team == mPlayer.Team && 
+        //                        GameController.Get.GamePlayers[i] != mPlayer &&
+        //                        mTactical.FileName != string.Empty && 
+        //                        GameController.Get.GamePlayers[i].TargetPosName != mTactical.FileName)
+        //                        GameController.Get.GamePlayers[i].ResetMove();
+        //                }
+
+        //                // 以下會將戰術的每個跑位點都設定 PlayerBehavior.
+        //                if(mTactical.FileName != string.Empty)
+        //                {
+        //                    var tacticalActions = mTactical.GetActions(mPlayer.Postion);
+        //
+        //                    if(tacticalActions != null)
+        //                    {
+        //                        for (int i = 0; i < tacticalActions.Length; i++)
+        //                        {
+        //                            TMoveData moveData = new TMoveData();
+        //                            moveData.Clear();
+        //                            moveData.Speedup = tacticalActions[i].Speedup;
+        //                            moveData.Catcher = tacticalActions[i].Catcher;
+        //                            moveData.Shooting = tacticalActions[i].Shooting;
+        //                            int z = 1;
+        //
+        //                            if(GameStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team != ETeamKind.Self)
+        //                                z = -1;
+        //
+        //                            moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
+        //
+        //                            if(GameController.Get.BallOwner != mPlayer)
+        //                                moveData.LookTarget = GameController.Get.BallOwner.transform;
+        //
+        //                            moveData.TacticalName = mTactical.FileName;
+        //                            moveData.MoveFinish = GameController.Get.MoveDefPlayer;
+        //                            mPlayer.TargetPos = moveData;
+        //                        }
+        //
+        //                        GameController.Get.MoveDefPlayer(mPlayer);
+        //                    }
+        //                }
+        //            }
+        //
+        //            if(mPlayer.CantMoveTimer.IsOn()&&
+        //               mPlayer == GameController.Get.BallOwner)
+        //                mPlayer.AniState(EPlayerState.Dribble0);
+        //        }
 
         private void tryDoPickBall()
         {

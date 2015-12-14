@@ -96,6 +96,22 @@
     /// </summary>
     public const float DefaultPunishTime = 3;
 
+    /// <summary>
+    /// AI 執行站在原地的機率.
+    /// </summary>
+    public const float AIIdleRate = 3;
+
+    /// <summary>
+    /// AI 執行跑戰術機率.
+    /// </summary>
+    public const float AITacticalRate = 15;
+
+    /// <summary>
+    /// AI 執行 Idle 的時間範圍.
+    /// </summary>
+    public const float AIMinIdleTime = 0.5f;
+    public const float AIMaxIdleTime = 1.5f;
+
     public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
 	public const int AddAnger_Steal = 20;

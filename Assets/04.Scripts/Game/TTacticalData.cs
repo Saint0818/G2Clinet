@@ -3,13 +3,28 @@ using System.Collections.Generic;
 
 public struct TTacticalAction
 {
+    /// <summary>
+    /// 球員要跑的位置.
+    /// </summary>
     public float x;
     public float z;
+
     public bool Speedup;
+
+    /// <summary>
+    /// true: 球員跑到定點時, 會向持球者要球.
+    /// </summary>
     public bool Catcher;
+
+    /// <summary>
+    /// true: 球員跑到定點時, 投籃.
+    /// </summary>
     public bool Shooting;
 }
 
+/// <summary>
+/// 某個戰術的全部資料.
+/// </summary>
 public struct TTacticalData
 {
     public string FileName; // 戰術名稱.
@@ -17,25 +32,27 @@ public struct TTacticalData
     public TTacticalAction[] PosAy2; // 前鋒的資料.
     public TTacticalAction[] PosAy3; // 後衛的資料.
 
-    public ETactical Tactical
+    public bool IsValid { get { return !string.IsNullOrEmpty(FileName); } }
+
+    public ETacticalKind Kind
     {
         get
         {
-            if(mTactical == ETactical.None)
+            if(mKind == ETacticalKind.None)
                 convert();
 
-            return mTactical;
+            return mKind;
         }
     }
 
-    private ETactical mTactical;
+    private ETacticalKind mKind;
 
     private void convert()
     {
-        foreach(KeyValuePair<string, ETactical> pair in TacticalTable.PrefixNameTacticalPairs)
+        foreach(KeyValuePair<string, ETacticalKind> pair in TacticalTable.PrefixNameTacticalPairs)
         {
             if(FileName.StartsWith(pair.Key))
-                mTactical = pair.Value;
+                mKind = pair.Value;
         }
     }
 		
@@ -47,7 +64,7 @@ public struct TTacticalData
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="pos"> 0:C, 1:F, 2:G </param>
+    /// <param name="pos"></param>
     /// <returns></returns>
     public TTacticalAction[] GetActions(EPlayerPostion pos)
     {
@@ -58,6 +75,6 @@ public struct TTacticalData
         if(pos == EPlayerPostion.G)
             return PosAy3;
 
-        return null;
+        throw new NotImplementedException();
     }
 }
