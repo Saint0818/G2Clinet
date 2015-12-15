@@ -526,8 +526,8 @@ public class UIGame : UIBase {
 				skillRangeTarget = PlayerMe.PlayerRefGameObject.transform;
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               PlayerMe.PlayerRefGameObject.transform, 
-				                               270, 
-				                               GameConst.StealPushDistance); 
+											   PlayerMe.Attr.ElbowExtraAngle, 
+											   PlayerMe.Attr.ElbowDistance); 
 				break;
 			case EUIRangeType.Push:
 				isShowSkillRange = !state;
@@ -541,8 +541,8 @@ public class UIGame : UIBase {
 					eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               PlayerMe.PlayerRefGameObject.transform, 
-				                               30, 
-				                               GameConst.StealPushDistance,
+					PlayerMe.Attr.PushExtraAngle, 
+					PlayerMe.Attr.PushDistance,
 				                               eulor); 
 				break;
 			case EUIRangeType.Steal:
@@ -556,8 +556,8 @@ public class UIGame : UIBase {
 					eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.PlayerRefGameObject.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               PlayerMe.PlayerRefGameObject.transform, 
-				                               30, 
-				                               GameConst.StealPushDistance,
+					PlayerMe.Attr.StealExtraAngle, 
+					PlayerMe.Attr.StealDistance,
 				                               eulor); 
 				break;
 			}

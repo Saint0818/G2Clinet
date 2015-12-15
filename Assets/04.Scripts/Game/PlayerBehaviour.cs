@@ -1921,6 +1921,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void Reset()
     {
         skillController.Reset();
+		angerValue = 0;
 		isDunk = false;
 		isBlock = false;
 		isLayup = false;

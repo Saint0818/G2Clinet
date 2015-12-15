@@ -4520,10 +4520,10 @@ public class GameController : KnightSingleton<GameController>
 			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
 			break;
 		case EShowWordType.GetTwo:
-			EffectManager.Get.PlayEffect("GetScoreTwo", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1.5f, true);
+			EffectManager.Get.PlayEffect("GetScoreTwo", CourtMgr.Get.ShootPoint[team].transform.position);
 			break;
 		case EShowWordType.GetThree:
-			EffectManager.Get.PlayEffect("GetScoreThree", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1.5f, true);
+			EffectManager.Get.PlayEffect("GetScoreThree", CourtMgr.Get.ShootPoint[team].transform.position);
 			break;
 		}
 	}
