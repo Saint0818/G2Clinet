@@ -107,8 +107,8 @@ public class UISkillCardDrag : UIDragDropItem {
 					if (index != -1 && index != 4){
 						UISkillFormation.Get.SwitchItem(originalIndes, index);
 					} else {
-//						transform.localPosition = Vector3.zero;
-						NGUITools.Destroy(gameObject);
+						transform.localPosition = Vector3.zero;
+//						NGUITools.Destroy(gameObject);
 					}
 				}
 			} else {

@@ -42,9 +42,9 @@ public struct TActiveStruct {
 		this.CardID = active.CardID;
 		this.CardSN = active.CardSN;
 		this.CardLV = active.CardLV;
-		this.ItemEquipActiveCard.transform.localPosition = pos;
 		if(parent != null)
 			this.ItemEquipActiveCard.transform.SetParent(parent);
+		this.ItemEquipActiveCard.transform.localPosition = pos;
 	}
 
 	public void SetData (TUICard uiCard, GameObject obj) {
@@ -373,6 +373,13 @@ public class UISkillFormation : UIBase {
 			if (UISelectRole.Visible)
 				UISelectRole.Get.DisableRedPoint();
 		}
+
+		isChangePage = false;
+		isLeave = false;
+		removeIndexs = new int[0];
+		addIndexs = new int[0];
+		orderSNs = new int[0];
+		sellIndexs = new int[0];
 	}
 	
 	private void hide() {
@@ -898,7 +905,7 @@ public class UISkillFormation : UIBase {
 	private bool isSkillCardInPages(int sn) {
 		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
 			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
-				if(GameData.Team.PlayerBank[i].RoleIndex != GameData.Team.Player.RoleIndex) {
+				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
 					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
 						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
 							int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
@@ -913,16 +920,16 @@ public class UISkillFormation : UIBase {
 			}
 		}
 
-		if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
-			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
-				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
-				if (SNs.Length > 0) {
-					for (int j=0; j<SNs.Length; j++)
-						if (SNs[j] == sn)
-							return true;
-				}
-			}
-		}
+//		if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
+//			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
+//				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
+//				if (SNs.Length > 0) {
+//					for (int j=0; j<SNs.Length; j++)
+//						if (SNs[j] == sn)
+//							return true;
+//				}
+//			}
+//		}
 		return false;
 	}
 
@@ -1524,6 +1531,7 @@ public class UISkillFormation : UIBase {
 				} else 
 					refreshBeforeSell();
 			} else {
+				refreshAfterInstall ();
 				hide();
 				UIHint.Get.ShowHint(TextConst.S(533), Color.black);
 			}

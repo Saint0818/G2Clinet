@@ -94,8 +94,10 @@ public class UIGame : UIBase {
 	private GameObject uiSpeed;
 	private GameObject uiPause;
 	private GameObject viewTopLeft;
+	private UILabel[] labelTopLeftScore = new UILabel[2];
 	private GameObject uiLimitTime;
 	private UILabel labelLimitTime;
+
 
 	//Right
 	private GameObject uiPlayerLocation;
@@ -195,15 +197,6 @@ public class UIGame : UIBase {
 			}
 		}
 
-//		if(uiDC != null && uiDC.activeInHierarchy) {
-//			if(dcLifeTime > 0) {
-//				dcLifeTime -= Time.deltaTime;
-//				if(dcLifeTime <= 0) {
-//					uiDC.SetActive(false);
-//				}
-//			}
-//		}
-
 		if(skillHintTime > 0) {
 			skillHintTime -= Time.deltaTime;
 			if(skillHintTime <= 0) {
@@ -278,6 +271,8 @@ public class UIGame : UIBase {
 		uiSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed");
 		uiPause = GameObject.Find(UIName + "/TopLeft/ButtonPause");
 		viewTopLeft = GameObject.Find(UIName + "TopLeft");
+		labelTopLeftScore[0] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Home").GetComponent<UILabel>();
+		labelTopLeftScore[1] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Away").GetComponent<UILabel>();
 		uiLimitTime = GameObject.Find (UIName + "/TopLeft/Countdown");
 		labelLimitTime = GameObject.Find (UIName + "/TopLeft/Countdown/TimeLabel").GetComponent<UILabel>();
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", OnPause);
@@ -358,6 +353,8 @@ public class UIGame : UIBase {
 		isShowScoreBar = false;
 		Scores [0] = 0;
 		Scores [1] = 0;
+		labelTopLeftScore[0].text = "0";
+		labelTopLeftScore[1].text = "0";
 		labelScores[0].text = "0";
 		labelScores[1].text = "0";
 		spriteForce.fillAmount = 0;
@@ -763,6 +760,7 @@ public class UIGame : UIBase {
 		rotateScore.from = Vector3.zero;
 		rotateScore.to = new Vector3(0,720,0);
 		labelScores[team].text = Scores [team].ToString ();
+		labelTopLeftScore[team].text = Scores [team].ToString ();
 	}
 
 	public void ChangeControl(bool IsAttack) {
