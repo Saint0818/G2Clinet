@@ -182,6 +182,7 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOKill();
 		btnMediumTop.SetActive(true);
 		btnMedium.transform.DOLocalMoveX(640, openCardSpeed);
+		btnMedium.transform.DOLocalMoveY(0, openCardSpeed);
 		btnMedium.transform.DOScale(new Vector3(2f, 2f, 1), openCardSpeed);
 		if(isRight)
 			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, 90), openCardSpeed);
@@ -194,6 +195,7 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOKill();
 		btnMediumTop.SetActive(false);
 		btnMedium.transform.DOLocalMoveX(255, openCardSpeed);
+		btnMedium.transform.DOLocalMoveY(-10, openCardSpeed);
 		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed);
 		btnMedium.transform.DOLocalRotate(new Vector3(0, 0, 0), openCardSpeed);
 	}
