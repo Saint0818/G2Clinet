@@ -28,26 +28,29 @@ namespace AI
         protected static void sendTactical()
         {
             TTacticalData tactical;
-            if(GameController.Get.BallOwner != null)
+            if(GameController.Get.HasBallOwner)
             {
-                switch(GameController.Get.BallOwner.Postion)
-                {
-                    case EPlayerPostion.C:
-                        AITools.RandomTactical(ETacticalKind.AttackNormalC, out tactical);
-                        break;
-                    case EPlayerPostion.F:
-                        AITools.RandomTactical(ETacticalKind.AttackNormalF, out tactical);
-                        break;
-                    case EPlayerPostion.G:
-                        AITools.RandomTactical(ETacticalKind.AttackNormalG, out tactical);
-                        break;
-                    default:
-                        AITools.RandomTactical(ETacticalKind.AttackNormal, out tactical);
-                        break;
-                }
+                AITools.RandomTactical(ETacticalAuto.AttackNormal, 
+                    GameController.Get.BallOwner.Index, out tactical);
+
+//                switch (GameController.Get.BallOwner.Postion)
+//                {
+//                    case EPlayerPostion.C:
+//                        AITools.RandomTactical(ETacticalKind.AttackNormalC, out tactical);
+//                        break;
+//                    case EPlayerPostion.F:
+//                        AITools.RandomTactical(ETacticalKind.AttackNormalF, out tactical);
+//                        break;
+//                    case EPlayerPostion.G:
+//                        AITools.RandomTactical(ETacticalKind.AttackNormalG, out tactical);
+//                        break;
+//                    default:
+//                        AITools.RandomTactical(ETacticalAuto.AttackNormal, out tactical);
+//                        break;
+//                }
             }
             else
-                AITools.RandomTactical(ETacticalKind.AttackNormal, out tactical);
+                AITools.RandomTactical(ETacticalAuto.AttackNormal, EPlayerPostion.G, out tactical);
 
             GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
         }

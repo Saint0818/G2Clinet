@@ -53,7 +53,7 @@ public class TacticalTable
 //        {"jumpball0", ETacticalKind.None},
 //        {"jumpball1", ETacticalKind.None},
 
-        {"AttackNormal", ETacticalKind.AttackNormal},
+//        {"AttackNormal", ETacticalKind.AttackNormal},
 
         {"InboundsC", ETacticalKind.InboundsC},
         {"InboundsF", ETacticalKind.InboundsF},

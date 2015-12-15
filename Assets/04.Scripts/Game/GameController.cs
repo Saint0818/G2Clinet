@@ -1060,13 +1060,15 @@ public class GameController : KnightSingleton<GameController>
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
         if(GameStart.Get.CourtMode == ECourtMode.Full)
         {
-            AITools.RandomCorrespondingTactical(ETacticalKind.Inbounds, ETacticalKind.InboundsDefence, 
-                                                PickBallPlayer.Index, out attackTactical, out defTactical);
+            AITools.RandomCorrespondingTactical(
+                ETacticalAuto.Inbounds, ETacticalAuto.InboundsDef, 
+                PickBallPlayer.Index, out attackTactical, out defTactical);
         }
         else
         {
-            AITools.RandomCorrespondingTactical(ETacticalKind.HalfInbounds, ETacticalKind.HalfInboundsDefence,
-                                                PickBallPlayer.Index, out attackTactical, out defTactical);
+            AITools.RandomCorrespondingTactical(
+                ETacticalAuto.HalfInbounds, ETacticalAuto.HalfInboundsDef, 
+                PickBallPlayer.Index, out attackTactical, out defTactical);
         }
 
         for(int i = 0; i < PlayerList.Count; i++)
@@ -1091,13 +1093,15 @@ public class GameController : KnightSingleton<GameController>
 		{
 		    if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-                AITools.RandomCorrespondingTactical(ETacticalKind.Inbounds, ETacticalKind.InboundsDefence,
-                                    BallOwner.Index, out attackTactical, out defTactical);
+                AITools.RandomCorrespondingTactical(
+                    ETacticalAuto.Inbounds, ETacticalAuto.InboundsDef, BallOwner.Index, 
+                    out attackTactical, out defTactical);
             }
             else
             {
-                AITools.RandomCorrespondingTactical(ETacticalKind.HalfInbounds, ETacticalKind.HalfInboundsDefence,
-                    BallOwner.Index, out attackTactical, out defTactical);
+                AITools.RandomCorrespondingTactical(
+                    ETacticalAuto.HalfInbounds, ETacticalAuto.HalfInboundsDef, BallOwner.Index, 
+                    out attackTactical, out defTactical);
             }
 
 //		    Debug.LogFormat("Attack:{0}, Defence:{1}", attackTactical, defTactical);
@@ -1326,7 +1330,7 @@ public class GameController : KnightSingleton<GameController>
                 // 狀態是邊界發球變成任何其它狀態時, 會設定球員的戰術路徑.
                 // 但我認為這應該只是攻守轉換的第一次, 要指定 Fast 戰術.
                 // todo 這段程式碼應該要移動到 PlayerAI.
-                AITools.RandomTactical(ETacticalKind.Fast, player.Index, out attackTactical);
+                AITools.RandomTactical(ETacticalAuto.MoveFrontCourt, player.Index, out attackTactical);
                 
 				if(attackTactical.Name != string.Empty)
                 {
