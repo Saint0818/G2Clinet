@@ -137,7 +137,9 @@ namespace GamePlayEnum {
 		Dunk,
 		NiceShot,
 		Punch,
-		Steal
+		Steal,
+		GetTwo,
+		GetThree
 	}
 	//For ActiveSkill 
 	public enum EBallState {

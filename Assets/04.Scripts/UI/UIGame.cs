@@ -98,7 +98,6 @@ public class UIGame : UIBase {
 	private GameObject uiLimitTime;
 	private UILabel labelLimitTime;
 
-
 	//Right
 	private GameObject uiPlayerLocation;
 
@@ -424,9 +423,12 @@ public class UIGame : UIBase {
 
 	public void InitPlayerSkillUI (PlayerBehaviour p) {
 		PlayerMe = p;
-		for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
-				spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+		if(PlayerMe.Attribute.ActiveSkills != null) {
+			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
+				if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
+					if(spriteSkills[i] != null)
+						spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+				}
 			}
 		}
 
@@ -760,6 +762,11 @@ public class UIGame : UIBase {
 		rotateScore.from = Vector3.zero;
 		rotateScore.to = new Vector3(0,720,0);
 		labelScores[team].text = Scores [team].ToString ();
+
+		TweenRotation rotateTopScore = TweenRotation.Begin(labelTopLeftScore[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
+		rotateTopScore.delay = 1f / Time.timeScale;
+		rotateTopScore.from = Vector3.zero;
+		rotateTopScore.to = new Vector3(0,720,0);
 		labelTopLeftScore[team].text = Scores [team].ToString ();
 	}
 

@@ -73,7 +73,7 @@ public class AutoDestoryEffect : MonoBehaviour
 					GameObject.Destroy(this.gameObject);
 			}
 		} 
-		if(IsNeedPause) {
+		if(IsNeedPause && effect != null) {
 			if(TimerMgr.Get.CrtTime == 0)
 			{
 				effect.Pause(true);

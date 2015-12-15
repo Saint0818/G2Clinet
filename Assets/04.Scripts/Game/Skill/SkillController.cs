@@ -255,7 +255,7 @@ public class SkillController : MonoBehaviour {
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
 		} catch {
-			LogMgr.Get.LogError("this situation isn't contain EPlayerState:" + situation.ToString());
+			LogMgr.Get.LogWarning("this situation isn't contain EPlayerState:" + situation.ToString());
 		}
 		if((GameController.Get.Situation == EGameSituation.InboundsGamer || GameController.Get.Situation == EGameSituation.InboundsNPC) && kind == ESkillKind.Pass) {
 			playerState = EPlayerState.Pass50;
@@ -271,10 +271,9 @@ public class SkillController : MonoBehaviour {
 						LogMgr.Get.LogError("AnimationName: '" + animationName + "'was not found.");
 					return playerState;
 				}
-			} else 
-				return playerState;
-		} else
-			return playerState;
+			}
+		}
+		return playerState;
 	}
 	
 	private string randomPassive(ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
@@ -369,7 +368,7 @@ public class SkillController : MonoBehaviour {
 			return string.Empty;
 	}
 
-	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3), float shootDistance = 0) {
+	public bool DoPassiveSkill(ESkillSituation state, PlayerBehaviour player = null, Vector3 v = default(Vector3), float shootDistance = 0) {
 		bool Result = false;
 		EPlayerState playerState = EPlayerState.Idle;
 		
@@ -379,7 +378,7 @@ public class SkillController : MonoBehaviour {
 		              GameController.Get.Situation == EGameSituation.InboundsNPC||
 		              GameController.Get.Situation == EGameSituation.Opening||
 		              GameController.Get.Situation == EGameSituation.JumpBall)) {
-			switch(State) {
+			switch(state) {
 			case ESkillSituation.Block0:
 				playerState = getPassiveSkill(ESkillSituation.Block0, ESkillKind.Block0, v);
 				Result = player.AniState(playerState, v);
@@ -553,7 +552,7 @@ public class SkillController : MonoBehaviour {
 			}	
 		}
 		try {
-			if(Result && !playerState.ToString().Equals(State.ToString())){
+			if(Result && !playerState.ToString().Equals(state.ToString())){
 				if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
 					CheckSkillValueAdd(player, player.PassiveSkillUsed);
 					if(!player.IsUseActiveSkill)
@@ -563,7 +562,7 @@ public class SkillController : MonoBehaviour {
 				}
 			}
 		} catch {
-			Debug.Log(player.name  +" is no State: "+ State.ToString() +" or have no PassiveID:"+ player.PassiveSkillUsed.ID);
+			Debug.Log(player.name  +" is no State: "+ state.ToString() +" or have no PassiveID:"+ player.PassiveSkillUsed.ID);
 		}
 
 		return Result;

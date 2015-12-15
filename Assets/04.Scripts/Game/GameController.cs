@@ -3722,8 +3722,8 @@ public class GameController : KnightSingleton<GameController>
             UIHint.Get.ShowHint("PVE End fail!", Color.red);
     }
 
-    private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
-	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
+//    private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
+//	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
 
 	public void ShowShootSate(bool isIn, int team)
 	{
@@ -3735,13 +3735,15 @@ public class GameController : KnightSingleton<GameController>
 			{
 				if(PlayerList[i] != PickBallPlayer && !PlayerList[i].IsDunk){
 					if(isIn)
-						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
+						PlayerList[i].DoPassiveSkill(ESkillSituation.ShowOwnIn);
+//						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
 					else {
 					if(PlayerList[i].crtState == EPlayerState.Idle && 
 					   GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
 					                                     CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11
 					   )
-							PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
+							PlayerList[i].DoPassiveSkill(ESkillSituation.ShowOwnOut);
+//							PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
 					}
 				}
 			}
@@ -4057,10 +4059,13 @@ public class GameController : KnightSingleton<GameController>
 		else
 		if (IsStart && GameStart.Get.TestMode == EGameTest.None) {
 			if (Shooter) {
-				if (score == 3)
+				if (score == 3){
 					Shooter.GameRecord.FG3In++;
-				else
+					ShowWord(EShowWordType.GetThree, team);
+				} else {
 					Shooter.GameRecord.FGIn++;
+					ShowWord(EShowWordType.GetTwo, team);
+				}
 
 				if (Shooter.crtState == EPlayerState.TipIn)
 					Shooter.GameRecord.Tipin++;
@@ -4509,6 +4514,12 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case EShowWordType.Steal:
 			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
+			break;
+		case EShowWordType.GetTwo:
+			EffectManager.Get.PlayEffect("GetScoreTwo", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1.5f, true);
+			break;
+		case EShowWordType.GetThree:
+			EffectManager.Get.PlayEffect("GetScoreThree", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1.5f, true);
 			break;
 		}
 	}

@@ -57,10 +57,10 @@ public class HintAvatarView : MonoBehaviour {
 			if(itemData.Kind >=0 && itemData.Kind <= 7){
 				AttrKindsIcon[i].gameObject.SetActive(false);
 				ValueLabels[i].gameObject.SetActive(false);
-				isHaveValue = true;
 			} else {
 				AttrKindsIcon[i].gameObject.SetActive(true);
 				ValueLabels[i].gameObject.SetActive(true);
+				isHaveValue = true;
 			}
 		}
 
