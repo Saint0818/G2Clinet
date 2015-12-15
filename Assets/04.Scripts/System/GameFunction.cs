@@ -636,6 +636,9 @@ public static class GameFunction
 		case EPlayerAttributeRate.Point2Rate:
 		case EPlayerAttributeRate.Point3Rate:
 		case EPlayerAttributeRate.BlockPushRate:
+		case EPlayerAttributeRate.StealExtraAngle:
+		case EPlayerAttributeRate.PushExtraAngle:
+		case EPlayerAttributeRate.ElbowExtraAngle:
 			return value * 0.5f;
 		case EPlayerAttributeRate.SpeedValue:
 			return value * 0.002f;
@@ -663,6 +666,9 @@ public static class GameFunction
 		case EPlayerAttributeRate.BlockDistance:
 		case EPlayerAttributeRate.StealRate:
 		case EPlayerAttributeRate.DefDistance:
+		case EPlayerAttributeRate.StealDistance:
+		case EPlayerAttributeRate.PushDistance:
+		case EPlayerAttributeRate.ElbowDistance:
 			return value * 0.1f;
 		case EPlayerAttributeRate.PassRate:
 			return value * 0.7f;

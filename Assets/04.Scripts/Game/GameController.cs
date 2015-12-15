@@ -323,6 +323,7 @@ public class GameController : KnightSingleton<GameController>
 
 		UIGame.Get.InitUI();
 		UIInGameMission.Get.InitView(id);
+		UIInGameMission.UIShow(false);
 		#if !UNITY_EDITOR
 		if (StageData.IsTutorial)
 			UIGame.Get.InitTutorialUI();
@@ -688,7 +689,7 @@ public class GameController : KnightSingleton<GameController>
         for (int i = 0; i < PlayerList.Count; i ++) {
 			UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
             PlayerList [i].OnShooting = OnShooting;
-            PlayerList [i].OnStealMoment = OnStealMoment;
+//            PlayerList [i].OnStealMoment = OnStealMoment;
 			PlayerList [i].OnGotSteal = OnGotSteal;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnDoubleClickMoment = OnDoubleClickMoment;
@@ -783,18 +784,22 @@ public class GameController : KnightSingleton<GameController>
 
 	private void selectMeEvent() {
 		if(PlayerSelectArrow != null) {
-			if(!playerSelectMe.activeInHierarchy)
-				playerSelectMe.SetActive(true);
-			if(Situation == EGameSituation.AttackGamer) {
-				NpcSelectMe = FindNearNpc();
-				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position), 0);
-			} else if(Situation == EGameSituation.AttackNPC) {
-				NpcSelectMe = FindNearNpc();
-				showEnemySelect(NpcSelectMe);
-				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
-				NpcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
-			} else
-				PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position), 0);
+			if(Situation == EGameSituation.Presentation)
+				playerSelectMe.SetActive(false);
+			else {
+				if(!playerSelectMe.activeInHierarchy)
+					playerSelectMe.SetActive(true);
+				if(Situation == EGameSituation.AttackGamer) {
+					NpcSelectMe = FindNearNpc();
+					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position), 0);
+				} else if(Situation == EGameSituation.AttackNPC) {
+					NpcSelectMe = FindNearNpc();
+					showEnemySelect(NpcSelectMe);
+					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
+					NpcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
+				} else
+					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position), 0);
+			}
 		}
 	}
 
@@ -1391,6 +1396,7 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
 				UIGame.UIShow(true);
+				UIInGameMission.UIShow(true);
 
 				break;
 			case EGameSituation.AttackGamer:
@@ -2256,21 +2262,17 @@ public class GameController : KnightSingleton<GameController>
 		return false;
     }
 
-//    private void Steal(PlayerBehaviour player) {
-//        
-//    }
-	
     /// <summary>
     /// 呼叫時機: 球員撥抄截動作, 在動作撥大概 40% 左右時, 會發出的 event.
     /// </summary>
     /// <param name="player"> 執行抄截的球員. </param>
     /// <returns> true: 抄截成功; false:抄截失敗. </returns>
-	public bool OnStealMoment(PlayerBehaviour player)
+	public bool OnStealMoment(PlayerBehaviour player, float dis, float angle)
     {
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
-			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
-            {
+			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, dis, angle))
+			{
 				player.IsStealCalculate = false;
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
                 probability = Mathf.Clamp(probability, 10, 100);
@@ -2302,6 +2304,7 @@ public class GameController : KnightSingleton<GameController>
 						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 
+						player.GameRecord.Steal++;
 						CheckConditionText();
 						IsGameFinish ();
 						return true;
@@ -2312,7 +2315,6 @@ public class GameController : KnightSingleton<GameController>
                 if (Random.Range(0, 100) <= probability)
                 {
                     // 進入懲罰.
-//                    CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
                     CourtMgr.Get.ShowBallSFX(player.Attr.PunishTime);
 				}
 			}
@@ -2519,7 +2521,7 @@ public class GameController : KnightSingleton<GameController>
 					if(IsReboundTime)
 						return Rebound(Joysticker);
 					else
-					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
+						return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 

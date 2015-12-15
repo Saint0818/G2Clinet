@@ -5,7 +5,7 @@ public class UI3DGameResult : UIBase {
 	private static UI3DGameResult instance = null;
 	private const string UIName = "UI3DGameResult";
 
-	private Animator animatorShowBasket;
+//	private Animator animatorShowBasket;
 
 	private AwardBasket[] awardBasket;
 	private GameObject[] basket = new GameObject[3];
@@ -50,7 +50,7 @@ public class UI3DGameResult : UIBase {
 	}
 	
 	protected override void InitCom() {
-		animatorShowBasket = GameObject.Find(UIName + "/UI3DGameResultCamera/ShowAward").GetComponent<Animator>();
+//		animatorShowBasket = GameObject.Find(UIName + "/UI3DGameResultCamera/ShowAward").GetComponent<Animator>();
 		awardBasket = GetComponentsInChildren<AwardBasket>();
 
 		for (int i=0; i<basket.Length; i++) {

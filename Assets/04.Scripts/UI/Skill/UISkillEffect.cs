@@ -4,7 +4,7 @@ public class UISkillEffect : UIBase {
 	private static UISkillEffect instance = null;
 	private const string UIName = "UISkillEffect";
 
-	private GameObject uiMotion;
+//	private GameObject uiMotion;
 	private UISprite spriteCardFrame;
 	private UITexture textureCardInfo;
 	private UILabel labelCardName;
@@ -42,7 +42,7 @@ public class UISkillEffect : UIBase {
 	}
 
 	protected override void InitCom() {
-		uiMotion = GameObject.Find (UIName + "/Center/CardMotion");
+//		uiMotion = GameObject.Find (UIName + "/Center/CardMotion");
 		spriteCardFrame = GameObject.Find (UIName + "/Center/CardMotion/CardFrame").GetComponent<UISprite>();
 		textureCardInfo = GameObject.Find (UIName + "/Center/CardMotion/CardInfo").GetComponent<UITexture>();
 		labelCardName = GameObject.Find (UIName + "/Center/CardMotion/CardLabel").GetComponent<UILabel>();

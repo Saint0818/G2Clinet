@@ -66,6 +66,8 @@
     /// 抄截時, 抄截角度判定.(球員 +Z 軸的扇形區域)
     /// </summary>
 	public const float StealFanAngle = 30; 
+	public const float PushFanAngle = 30;
+	public const float ElbowFanAngle = 180;
 
 	public const float BlockDistance = 5;
 

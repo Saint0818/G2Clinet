@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Timeline Timer;
     public OnPlayerAction1 OnShooting = null;
     public OnPlayerAction OnPass = null;
-    public OnPlayerAction OnStealMoment = null;
+//    public OnPlayerAction OnStealMoment = null;
     public OnPlayerAction OnBlockJump = null;
     public OnPlayerAction OnBlocking = null;
     public OnPlayerAction OnBlockCatching = null;
@@ -517,6 +517,13 @@ public class PlayerBehaviour : MonoBehaviour
 		Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, Attribute.Defence);
 		Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, Attribute.Speed);
 		Attr.StaminaValue = GameData.BaseAttr [Attribute.AILevel].StaminaValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, Attribute.Stamina);
+
+		Attr.StealDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealDistance, Attribute.Steal);
+		Attr.StealExtraAngle =  GameConst.StealFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealExtraAngle, Attribute.Steal);
+		Attr.PushDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushDistance, Attribute.Defence);
+		Attr.PushExtraAngle = GameConst.PushFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushExtraAngle, Attribute.Defence);
+		Attr.ElbowDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowDistance, Attribute.Strength);
+		Attr.ElbowExtraAngle = GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
 		
 		Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
             
@@ -720,22 +727,13 @@ public class PlayerBehaviour : MonoBehaviour
         mManually.Update(Time.deltaTime);
 
 		if(IsPushCalculate)
-      		GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
+			GameController.Get.PushCalculate(this, Attr.PushDistance, Attr.PushExtraAngle);
 
 		if(IsElbowCalculate)
-			GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
+			GameController.Get.PushCalculate(this, Attr.ElbowDistance, Attr.ElbowExtraAngle);
 
-		if(IsStealCalculate) 
-		{
-			if (OnStealMoment != null)
-			{
-				if (OnStealMoment(this))
-				{
-					GameRecord.Steal++;
-					GameController.Get.IsGameFinish();
-				}
-			}
-		}
+		if(IsStealCalculate)
+			GameController.Get.OnStealMoment(this, Attr.StealDistance, Attr.StealExtraAngle);
 
 //        if(CoolDownElbow > 0 && Time.time >= CoolDownElbow)
 //            CoolDownElbow = 0;
@@ -3020,11 +3018,12 @@ public class PlayerBehaviour : MonoBehaviour
 			case "Stealing":
 				IsStealCalculate = true;
 				break;
+
 			case "StealingEnd":
 				IsStealCalculate = false;
 				break;
+
             case "PushCalculateStart":
-//                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
 				IsPushCalculate = true;
                 break;
 
@@ -3034,12 +3033,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "ElbowCalculateStart":
 				IsElbowCalculate = true;
-//                GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
                 break;
                 
 			case "ElbowCalculateEnd":
 				IsElbowCalculate = false;
-//                elbowTrigger.SetActive(false);
                 break;
 
             case "BlockCalculateStart":

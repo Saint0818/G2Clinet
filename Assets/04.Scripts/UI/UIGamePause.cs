@@ -25,7 +25,7 @@ public class UIGamePause : UIBase {
 
 	private GameObject uiSelect;
 
-	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
+//	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
 	private TGameRecord gameRecord;
 
 	private UIStageHint uiStageHint;

@@ -82,8 +82,8 @@ public class UIInGameMission : UIBase {
 			hintBits = stageData.HintBit;
 			hintIndex = 0;
 
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+//			int minute = (int) (GameController.Get.GameTime / 60f);
+//			int second = (int) (GameController.Get.GameTime % 60f);
 
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
@@ -147,8 +147,6 @@ public class UIInGameMission : UIBase {
 			
 			if(isFin)
 				missionDic[1].UpdateFin();
-
-
 		}
 
 		if(isFin)

@@ -311,6 +311,13 @@ namespace GameStruct
 		public float StaminaValue;
 		public float AutoFollowTime;
 
+		public float PushDistance;
+		public float PushExtraAngle;
+		public float StealDistance;
+		public float StealExtraAngle;
+		public float ElbowDistance;
+		public float ElbowExtraAngle;
+
         /// <summary>
         /// 懲罰時間, 單位:秒. 
         /// </summary>
@@ -339,7 +346,13 @@ namespace GameStruct
 		PushingRate,
 		StealRate,
 		PassRate,
-		AlleyOopPassRate
+		AlleyOopPassRate,
+		PushDistance,
+		PushExtraAngle,
+		ElbowDistance,
+		ElbowExtraAngle,
+		StealDistance,
+		StealExtraAngle
 	}
 
 	public struct TAvatar {	
