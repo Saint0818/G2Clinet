@@ -1323,26 +1323,29 @@ public class GameController : KnightSingleton<GameController>
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != newSituation && player &&
                (oldgs == EGameSituation.InboundsGamer || oldgs == EGameSituation.InboundsNPC))
             {
-                // 狀態是邊界發球變成任何其它狀態時, 會設定 npc 的戰術路徑.
-                // todo 這段程式碼應該要拿掉才對, 要放到 PlayerAI 內.
+                // 狀態是邊界發球變成任何其它狀態時, 會設定球員的戰術路徑.
+                // 但我認為這應該只是攻守轉換的第一次, 要指定 Fast 戰術.
+                // todo 這段程式碼應該要移動到 PlayerAI.
                 AITools.RandomTactical(ETacticalKind.Fast, player.Index, out attackTactical);
                 
-				if(attackTactical.FileName != string.Empty)
+				if(attackTactical.Name != string.Empty)
                 {
 					for (int i = 0; i < PlayerList.Count; i ++)
                     {
 						PlayerBehaviour npc = PlayerList[i];
-						if (npc.Team == player.Team)
+						if(npc.Team == player.Team)
                         {
 							tacticalActions = attackTactical.GetActions(npc.Index);
 							
-							if (tacticalActions != null) {
-								for (int j = 0; j < tacticalActions.Length; j++) {
+							if(tacticalActions != null)
+                            {
+								for (int j = 0; j < tacticalActions.Length; j++)
+                                {
 									moveData.Clear();
 									moveData.Speedup = tacticalActions [j].Speedup;
 									moveData.Catcher = tacticalActions [j].Catcher;
 									moveData.Shooting = tacticalActions [j].Shooting;
-									moveData.TacticalName = attackTactical.FileName;
+									moveData.TacticalName = attackTactical.Name;
 									if(npc.Team == ETeamKind.Self)
 										moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
 									else
@@ -2636,7 +2639,7 @@ public class GameController : KnightSingleton<GameController>
 	private void backToDef(PlayerBehaviour someone, ETeamKind team, ref TTacticalData tactical, 
                            bool watchBallOwner = false)
 	{
-	    if(tactical.FileName == string.Empty)
+	    if(tactical.Name == string.Empty)
             return;
 
 //        if(someone.CanMove && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0) // 是否之前設定的戰術跑完.
@@ -2672,7 +2675,7 @@ public class GameController : KnightSingleton<GameController>
                 if(!watchBallOwner)
                     moveData.Speedup = true;
 
-                moveData.TacticalName = tactical.FileName;
+                moveData.TacticalName = tactical.Name;
                 someone.TargetPos = moveData;
             }
         }
@@ -2718,12 +2721,12 @@ public class GameController : KnightSingleton<GameController>
 
                         // 這行就非常不合理, 我明明沒有用戰術的任何資料來指引持球者跑到某個位置,
                         // 那這樣 TacticalName 還做設定, 是一件非常不合裡的設定.
-                        moveData.TacticalName = data.FileName; 
+                        moveData.TacticalName = data.Name; 
 						moveData.SetTarget(someone.transform.position.x, targetZ);
 						someone.TargetPos = moveData;
 					}
 	            }
-                else if(data.FileName != string.Empty)
+                else if(data.Name != string.Empty)
                 {
                     // 沒有拿到球的人. 跑企劃編輯的位置.
 					tacticalActions = data.GetActions(someone.Index);
@@ -2743,7 +2746,7 @@ public class GameController : KnightSingleton<GameController>
 //								moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
 								moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
 
-							moveData.TacticalName = data.FileName;
+							moveData.TacticalName = data.Name;
 							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
 							someone.TargetPos = moveData;
 	                    }
@@ -2762,13 +2765,13 @@ public class GameController : KnightSingleton<GameController>
 						if (BallOwner)
 							StartCoroutine(AutoTee());
 					} else {
-						moveData.TacticalName = data.FileName;
+						moveData.TacticalName = data.Name;
 //						moveData.Target = v;
 						moveData.SetTarget(v.x, v.y);
 						someone.TargetPos = moveData;
 					}
 				}
-                else if (data.FileName != string.Empty)
+                else if (data.Name != string.Empty)
                 {
 					tacticalActions = data.GetActions(someone.Index);
 					
@@ -2783,7 +2786,7 @@ public class GameController : KnightSingleton<GameController>
 //							moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
 							moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
 							
-							moveData.TacticalName = data.FileName;
+							moveData.TacticalName = data.Name;
 							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
 							someone.TargetPos = moveData;
 						}

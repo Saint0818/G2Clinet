@@ -1,8 +1,6 @@
-﻿
-using System;
-using GamePlayStruct;
+﻿using System;
 
-public class AITools
+public static class AITools
 {
     /// <summary>
     /// 
@@ -38,7 +36,8 @@ public class AITools
     /// <param name="attData"></param>
     /// <param name="defData"></param>
     /// <returns></returns>
-    public static bool RandomCorrespondingTactical(ETacticalKind attTactical, ETacticalKind defTactical, EPlayerPostion posIndex,
+    public static bool RandomCorrespondingTactical(ETacticalKind attTactical, ETacticalKind defTactical, 
+                                                   EPlayerPostion posIndex,
                                                    out TTacticalData attData, out TTacticalData defData)
     {
         ETacticalKind convertAtt = convert(attTactical, posIndex);
@@ -66,51 +65,48 @@ public class AITools
         switch (tactical)
         {
             case ETacticalKind.Inbounds:
-//                if(posIndex == 0)
                 if(posIndex == EPlayerPostion.C)
-                    return ETacticalKind.InboundsCenter;
-//                if (posIndex == 1)
+                    return ETacticalKind.InboundsC;
                 if (posIndex == EPlayerPostion.F)
-                    return ETacticalKind.InboundsForward;
-//                if (posIndex == 2)
+                    return ETacticalKind.InboundsF;
                 if (posIndex == EPlayerPostion.G)
-                    return ETacticalKind.InboundsGuard;
+                    return ETacticalKind.InboundsG;
                 break;
     
             case ETacticalKind.InboundsDefence:
                 if (posIndex == EPlayerPostion.C)
-                    return ETacticalKind.InboundsDefenceCenter;
+                    return ETacticalKind.InboundsDefC;
                 if (posIndex == EPlayerPostion.F)
-                    return ETacticalKind.InboundsDefenceForward;
+                    return ETacticalKind.InboundsDefF;
                 if (posIndex == EPlayerPostion.G)
-                    return ETacticalKind.InboundsDefenceGuard;
+                    return ETacticalKind.InboundsDefG;
                 break;
     
             case ETacticalKind.HalfInbounds:
                 if (posIndex == EPlayerPostion.C)
-                    return ETacticalKind.HalfInboundsCenter;
+                    return ETacticalKind.HalfInboundsC;
                 if (posIndex == EPlayerPostion.F)
-                    return ETacticalKind.HalfInboundsForward;
+                    return ETacticalKind.HalfInboundsF;
                 if (posIndex == EPlayerPostion.G)
-                    return ETacticalKind.HalfInboundsGuard;
+                    return ETacticalKind.HalfInboundsG;
                 break;
     
             case ETacticalKind.HalfInboundsDefence:
                 if (posIndex == EPlayerPostion.C)
-                    return ETacticalKind.HalfInboundsDefenceCenter;
+                    return ETacticalKind.HalfInboundsDefC;
                 if (posIndex == EPlayerPostion.F)
-                    return ETacticalKind.HalfInboundsDefenceForward;
+                    return ETacticalKind.HalfInboundsDefF;
                 if (posIndex == EPlayerPostion.G)
-                    return ETacticalKind.HalfInboundsDefenceGuard;
+                    return ETacticalKind.HalfInboundsDefG;
                 break;
     
             case ETacticalKind.Fast:
                 if (posIndex == EPlayerPostion.C)
-                    return ETacticalKind.FastCenter;
+                    return ETacticalKind.MoveFrontCourtC;
                 if (posIndex == EPlayerPostion.F)
-                    return ETacticalKind.FastForward;
+                    return ETacticalKind.MoveFrontCourtF;
                 if (posIndex == EPlayerPostion.G)
-                    return ETacticalKind.FastGuard;
+                    return ETacticalKind.MoveFrontCourtG;
                 break;
     
             default:

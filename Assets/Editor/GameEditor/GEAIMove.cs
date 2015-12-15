@@ -112,7 +112,7 @@ public class GEAIMove : GEBase {
         if (OldIndex != EditIndex)
         {
             if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
-                tacticalName = TacticalData [EditIndex].FileName;
+                tacticalName = TacticalData [EditIndex].Name;
             else
                 tacticalName = "";
             OldIndex = EditIndex;
@@ -197,7 +197,7 @@ public class GEAIMove : GEBase {
         DataCount = TacticalData.Length;
         ArrayString = new string[TacticalData.Length];
         for(int i = 0; i < TacticalData.Length; i++)
-            ArrayString[i] = TacticalData[i].FileName;
+            ArrayString[i] = TacticalData[i].Name;
     }
 
     private void OnLoad()
@@ -238,7 +238,7 @@ public class GEAIMove : GEBase {
             if(tacticalName != string.Empty)
             {
                 int i = EditIndex;
-                TacticalData[i].FileName = tacticalName;
+                TacticalData[i].Name = tacticalName;
                 TacticalData[i].CActions = new TTacticalAction[PosAy1.Length];
                 Array.Copy(PosAy1, TacticalData[i].CActions, PosAy1.Length);
                 

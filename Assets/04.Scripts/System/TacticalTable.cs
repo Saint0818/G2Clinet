@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using GamePlayStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -17,7 +15,7 @@ using UnityEngine;
 /// 
 /// 新增戰術:
 /// <list type="number">
-/// <item> 修改 ETacticalKind, PrefixNameTacticalPairs. </item>
+/// <item> 修改 ETacticalKind, PrefixNames. </item>
 /// </list>
 /// 
 /// How to use:
@@ -29,7 +27,7 @@ using UnityEngine;
 /// 
 /// How to add tactical:
 /// <list type="number">
-/// <item> modify ETacticalKind and PrefixNameTacticalPairs. </item>
+/// <item> modify ETacticalKind and PrefixNames. </item>
 /// </list>
 /// 
 /// 程式碼的壞味道:
@@ -50,36 +48,37 @@ public class TacticalTable
 
     private readonly Dictionary<ETacticalKind, List<TTacticalData>> mTacticals = new Dictionary<ETacticalKind, List<TTacticalData>>();
 
-    public static readonly Dictionary<string, ETacticalKind> PrefixNameTacticalPairs = new Dictionary<string, ETacticalKind>
+    public static readonly Dictionary<string, ETacticalKind> PrefixNames = new Dictionary<string, ETacticalKind>
     {
-        {"jumpball0", ETacticalKind.None},
-        {"jumpball1", ETacticalKind.None},
+//        {"jumpball0", ETacticalKind.None},
+//        {"jumpball1", ETacticalKind.None},
 
-        {"normal", ETacticalKind.Attack},
+        {"AttackNormal", ETacticalKind.AttackNormal},
 
-        {"tee0", ETacticalKind.InboundsCenter},
-        {"tee1", ETacticalKind.InboundsForward},
-        {"tee2", ETacticalKind.InboundsGuard},
+        {"InboundsC", ETacticalKind.InboundsC},
+        {"InboundsF", ETacticalKind.InboundsF},
+        {"InboundsG", ETacticalKind.InboundsG},
 
-        {"teedefence0", ETacticalKind.InboundsDefenceCenter}, 
-        {"teedefence1", ETacticalKind.InboundsDefenceForward},
-        {"teedefence2", ETacticalKind.InboundsDefenceGuard}, 
+        {"InboundsDefC", ETacticalKind.InboundsDefC}, 
+        {"InboundsDefF", ETacticalKind.InboundsDefF},
+        {"InboundsDefG", ETacticalKind.InboundsDefG}, 
 
-        {"fast0", ETacticalKind.FastCenter}, 
-        {"fast1", ETacticalKind.FastForward}, 
-        {"fast2", ETacticalKind.FastGuard}, 
+        {"MoveFrontCourtC", ETacticalKind.MoveFrontCourtC}, 
+        {"MoveFrontCourtF", ETacticalKind.MoveFrontCourtF}, 
+        {"MoveFrontCourtG", ETacticalKind.MoveFrontCourtG}, 
 
-        {"center", ETacticalKind.Center}, 
-        {"forward", ETacticalKind.Forward}, 
-        {"guard", ETacticalKind.Guard}, 
+        {"AttackNormalC", ETacticalKind.AttackNormalC}, 
+        {"AttackNormalF", ETacticalKind.AttackNormalF}, 
+        {"AttackNormalG", ETacticalKind.AttackNormalG}, 
 
-        {"teehalf0", ETacticalKind.HalfInboundsCenter}, 
-        {"teehalf1", ETacticalKind.HalfInboundsForward},
-        {"teehalf2", ETacticalKind.HalfInboundsGuard}, 
+        {"HalfInboundsC", ETacticalKind.HalfInboundsC}, 
+        {"HalfInboundsF", ETacticalKind.HalfInboundsF},
+        {"HalfInboundsG", ETacticalKind.HalfInboundsG}, 
 
-        {"teedefencehalf0", ETacticalKind.HalfInboundsDefenceCenter}, 
-        {"teedefencehalf1", ETacticalKind.HalfInboundsDefenceForward},
-        {"teedefencehalf2", ETacticalKind.HalfInboundsDefenceGuard}, 
+        // Def: Defense.
+        {"HalfInboundsDefC", ETacticalKind.HalfInboundsDefC}, 
+        {"HalfInboundsDefF", ETacticalKind.HalfInboundsDefF},
+        {"HalfInboundsDefG", ETacticalKind.HalfInboundsDefG}
     };
 
     private TacticalTable()
@@ -90,7 +89,7 @@ public class TacticalTable
     {
         clear();
 
-        TTacticalData[] tacticals = (TTacticalData[])JsonConvert.DeserializeObject(jsonText, typeof(TTacticalData[]));
+        TTacticalData[] tacticals = JsonConvert.DeserializeObject<TTacticalData[]>(jsonText);
         foreach(TTacticalData data in tacticals)
         {
             mTacticals[data.Kind].Add(data);

@@ -5,38 +5,40 @@
 /// </summary>
 public enum ETacticalKind
 {
-    None,
-    Attack,
-    Center,
-    Forward,
-    Guard,
+    Unknown,
+    AttackNormal,
+    AttackNormalC,
+    AttackNormalF,
+    AttackNormalG,
 
     // 邊界傳球(進攻方).
     Inbounds, // 必須搭配 PlayerBehavior.Index 一起使用.
-    InboundsCenter, 
-    InboundsForward, 
-    InboundsGuard,
+    InboundsC, 
+    InboundsF, 
+    InboundsG,
 
     // 邊界傳球(防守方).
     InboundsDefence, // 必須搭配 PlayerBehavior.Index 一起使用.
-    InboundsDefenceCenter,
-    InboundsDefenceForward,
-    InboundsDefenceGuard,
+    InboundsDefC,
+    InboundsDefF,
+    InboundsDefG,
 
     // 半場邊界傳球(進攻方).
     HalfInbounds, // 必須搭配 PlayerBehavior.Index 一起使用.
-    HalfInboundsCenter, 
-    HalfInboundsForward, 
-    HalfInboundsGuard,
+    HalfInboundsC, 
+    HalfInboundsF, 
+    HalfInboundsG,
 
     // 半場邊界傳球(防守方).
     HalfInboundsDefence, // 必須搭配 PlayerBehavior.Index 一起使用.
-    HalfInboundsDefenceCenter,
-    HalfInboundsDefenceForward,
-    HalfInboundsDefenceGuard,
+    HalfInboundsDefC,
+    HalfInboundsDefF,
+    HalfInboundsDefG,
 
+    // 這用在剛切換到 EGameSituation.AttackGamer or EGameSituation.AttackNPC 狀態時,
+    // 要球員跑到前場的路線.
     Fast, // 必須搭配 PlayerBehavior.Index 一起使用.
-    FastCenter,
-    FastForward,
-    FastGuard
+    MoveFrontCourtC, // 中鋒持球路線.
+    MoveFrontCourtF, // 前鋒持球路線.
+    MoveFrontCourtG // 後衛持球路線.
 }

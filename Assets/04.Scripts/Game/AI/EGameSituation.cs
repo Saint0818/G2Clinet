@@ -1,4 +1,15 @@
 
+/// <summary>
+/// 狀態流程:
+/// <list type="number">
+/// <item> 剛進入遊戲: Presentation -> CameraMovement -> InitCourt -> Opening -> JumpBall. </item>
+/// <item> 玩家跳球得到球: AttackGamer. </item>
+/// <item> 玩家得分: SpecialAction -> NPCPickBall -> InboundsNPC -> AttackNPC. </item>
+/// <item> 玩家掉球, 對手撿到球: AttackNPC. </item>
+/// <item> 對手得分: SpecialAction -> GamerPickBall -> InboundsGamer -> AttackGamer. </item>
+/// <item> 對手掉球, 玩家撿到球: AttackGamer. </item>
+/// </list>
+/// </summary>
 public enum EGameSituation
 {
     Presentation   = -3, // 演出, 也就是雙方球員出場, 互相叫囂.
@@ -14,6 +25,6 @@ public enum EGameSituation
     NPCPickBall    = 7, // 對方得分後, 電腦球隊撿球.
     InboundsNPC    = 8, // 電腦球隊做邊界發球.
     End            = 9, // 比賽結束.
-    SpecialAction  = 10,// 球員特殊演出, 球員得分後會進到此狀態. 比如像 Jason Terry 雙手張開像飛機的動作.
-	GamePlayEvent  = 11 // 比賽中觸發事件
+    SpecialAction  = 10// 球員特殊演出, 球員得分後會進到此狀態. 比如像 Jason Terry 雙手張開像飛機的動作.
+//	GamePlayEvent  = 11 // 比賽中觸發事件
 }

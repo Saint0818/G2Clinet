@@ -33,21 +33,21 @@ namespace AI
                 switch(GameController.Get.BallOwner.Postion)
                 {
                     case EPlayerPostion.C:
-                        AITools.RandomTactical(ETacticalKind.Center, out tactical);
+                        AITools.RandomTactical(ETacticalKind.AttackNormalC, out tactical);
                         break;
                     case EPlayerPostion.F:
-                        AITools.RandomTactical(ETacticalKind.Forward, out tactical);
+                        AITools.RandomTactical(ETacticalKind.AttackNormalF, out tactical);
                         break;
                     case EPlayerPostion.G:
-                        AITools.RandomTactical(ETacticalKind.Guard, out tactical);
+                        AITools.RandomTactical(ETacticalKind.AttackNormalG, out tactical);
                         break;
                     default:
-                        AITools.RandomTactical(ETacticalKind.Attack, out tactical);
+                        AITools.RandomTactical(ETacticalKind.AttackNormal, out tactical);
                         break;
                 }
             }
             else
-                AITools.RandomTactical(ETacticalKind.Attack, out tactical);
+                AITools.RandomTactical(ETacticalKind.AttackNormal, out tactical);
 
             GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
         }

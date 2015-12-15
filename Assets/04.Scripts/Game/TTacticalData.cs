@@ -28,20 +28,20 @@ public struct TTacticalAction
 /// </summary>
 public struct TTacticalData
 {
-    public string FileName; // 戰術名稱.
+    public string Name; // 戰術名稱.
     public TTacticalAction[] CActions; // 中鋒的資料.
     public TTacticalAction[] FActions; // 前鋒的資料.
     public TTacticalAction[] GActions; // 後衛的資料.
 
     [JsonIgnore]
-    public bool IsValid { get { return !string.IsNullOrEmpty(FileName); } }
+    public bool IsValid { get { return !string.IsNullOrEmpty(Name); } }
 
     [JsonIgnore]
     public ETacticalKind Kind
     {
         get
         {
-            if(mKind == ETacticalKind.None)
+            if(mKind == ETacticalKind.Unknown)
                 convert();
 
             return mKind;
@@ -52,16 +52,16 @@ public struct TTacticalData
 
     private void convert()
     {
-        foreach(KeyValuePair<string, ETacticalKind> pair in TacticalTable.PrefixNameTacticalPairs)
+        foreach(KeyValuePair<string, ETacticalKind> pair in TacticalTable.PrefixNames)
         {
-            if(FileName.StartsWith(pair.Key))
+            if(Name.StartsWith(pair.Key))
                 mKind = pair.Value;
         }
     }
 		
     public override string ToString()
     {
-        return String.Format("Name:{0}", FileName);
+        return String.Format("Name:{0}", Name);
     }
 
     /// <summary>

@@ -337,7 +337,7 @@ namespace AI
                 if(GameController.Get.BallOwner != mPlayer)
                     moveData.LookTarget = GameController.Get.BallOwner.transform;
 
-                moveData.TacticalName = mTactical.FileName;
+                moveData.TacticalName = mTactical.Name;
                 moveData.MoveFinish = oneMoveDone;
                 mPlayer.TargetPos = moveData;
             }
