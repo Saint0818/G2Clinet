@@ -130,6 +130,11 @@
     public const float AIMinCloseDefPlayerTime = 1.0f;
     public const float AIMaxCloseDefPlayerTime = 3.0f;
 
+    /// <summary>
+    /// 進入快攻模式的判斷條件參數.
+    /// </summary>
+    public const float AIFastBreakOffset = 1;
+
     public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
 	public const int AddAnger_Steal = 20;

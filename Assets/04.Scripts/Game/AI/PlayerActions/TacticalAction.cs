@@ -23,7 +23,13 @@ namespace AI
 
         public override bool IsDone
         {
-            get { return IsValid() && Time.time >= mDoneTime; }
+            get
+            {
+                if(!IsValid())
+                    return true;
+
+                return Time.time >= mDoneTime;
+            }
         }
 
         public override bool IsValid()

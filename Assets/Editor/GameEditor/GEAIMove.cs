@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
@@ -99,8 +99,8 @@ public class GEAIMove : GEBase {
 			GameController.Get.ResetAll();
 			for(int i = 0; i < 3; i++)
 			{
-				aa.x = BornAy[i].x;
-				aa.z = BornAy[i].y;
+				aa.X = BornAy[i].x;
+				aa.Z = BornAy[i].y;
 				GameController.Get.SetPlayerMove(aa, i);
 			}
 		}
@@ -196,8 +196,8 @@ public class GEAIMove : GEBase {
     {
         DataCount = TacticalData.Length;
         ArrayString = new string[TacticalData.Length];
-        for (int i = 0; i < TacticalData.Length; i++)
-            ArrayString [i] = TacticalData [i].FileName;
+        for(int i = 0; i < TacticalData.Length; i++)
+            ArrayString[i] = TacticalData[i].FileName;
     }
 
     private void OnLoad()
@@ -213,17 +213,17 @@ public class GEAIMove : GEBase {
     {
         if (_oldIdx >= 0 && _oldIdx < ArrayString.Length)
         {
-            PositionCount1 = TacticalData [_oldIdx].PosAy1.Length;
+            PositionCount1 = TacticalData [_oldIdx].CActions.Length;
             PosAy1 = new TTacticalAction[PositionCount1];
-            Array.Copy(TacticalData [_oldIdx].PosAy1, PosAy1, PositionCount1);
+            Array.Copy(TacticalData [_oldIdx].CActions, PosAy1, PositionCount1);
             
-            PositionCount2 = TacticalData [_oldIdx].PosAy2.Length;
+            PositionCount2 = TacticalData [_oldIdx].FActions.Length;
             PosAy2 = new TTacticalAction[PositionCount2];
-            Array.Copy(TacticalData [_oldIdx].PosAy2, PosAy2, PositionCount2);
+            Array.Copy(TacticalData [_oldIdx].FActions, PosAy2, PositionCount2);
             
-            PositionCount3 = TacticalData [_oldIdx].PosAy3.Length;
+            PositionCount3 = TacticalData [_oldIdx].GActions.Length;
             PosAy3 = new TTacticalAction[PositionCount3];
-            Array.Copy(TacticalData [_oldIdx].PosAy3, PosAy3, PositionCount3);
+            Array.Copy(TacticalData [_oldIdx].GActions, PosAy3, PositionCount3);
             
             tacticalName = ArrayString [_oldIdx];
             EditIndex = _oldIdx;
@@ -233,37 +233,38 @@ public class GEAIMove : GEBase {
     
     private void OnSave()
     {
-        if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
+        if(TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
         {
-            if (tacticalName != string.Empty)
+            if(tacticalName != string.Empty)
             {
                 int i = EditIndex;
-                TacticalData [i].FileName = tacticalName;
-                TacticalData [i].PosAy1 = new TTacticalAction[PosAy1.Length];
-                Array.Copy(PosAy1, TacticalData [i].PosAy1, PosAy1.Length);
+                TacticalData[i].FileName = tacticalName;
+                TacticalData[i].CActions = new TTacticalAction[PosAy1.Length];
+                Array.Copy(PosAy1, TacticalData[i].CActions, PosAy1.Length);
                 
-                TacticalData [i].PosAy2 = new TTacticalAction[PosAy2.Length];
-                Array.Copy(PosAy2, TacticalData [i].PosAy2, PosAy2.Length);
+                TacticalData[i].FActions = new TTacticalAction[PosAy2.Length];
+                Array.Copy(PosAy2, TacticalData[i].FActions, PosAy2.Length);
                 
-                TacticalData [i].PosAy3 = new TTacticalAction[PosAy3.Length];
-                Array.Copy(PosAy3, TacticalData [i].PosAy3, PosAy3.Length);
+                TacticalData[i].GActions = new TTacticalAction[PosAy3.Length];
+                Array.Copy(PosAy3, TacticalData[i].GActions, PosAy3.Length);
                 
-                for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++)
+                for(int j = 0; j < TacticalData[i].CActions.Length; j++)
                 {
-                    TacticalData [i].PosAy1 [j].x = (float)System.Math.Round(TacticalData [i].PosAy1 [j].x, 2);
-                    TacticalData [i].PosAy1 [j].z = (float)System.Math.Round(TacticalData [i].PosAy1 [j].z, 2);
+                    // 四捨五入, 並取 2 位小數點.
+                    TacticalData[i].CActions[j].X = (float)Math.Round(TacticalData[i].CActions[j].X, 2);
+                    TacticalData[i].CActions[j].Z = (float)Math.Round(TacticalData[i].CActions[j].Z, 2);
                 }
                 
-                for (int j = 0; j < TacticalData[i].PosAy2.Length; j ++)
+                for(int j = 0; j < TacticalData[i].FActions.Length; j++)
                 {
-                    TacticalData [i].PosAy2 [j].x = (float)System.Math.Round(TacticalData [i].PosAy2 [j].x, 2);
-                    TacticalData [i].PosAy2 [j].z = (float)System.Math.Round(TacticalData [i].PosAy2 [j].z, 2);
+                    TacticalData[i].FActions[j].X = (float)Math.Round(TacticalData[i].FActions[j].X, 2);
+                    TacticalData[i].FActions[j].Z = (float)Math.Round(TacticalData[i].FActions[j].Z, 2);
                 }
                 
-                for (int j = 0; j < TacticalData[i].PosAy3.Length; j ++)
+                for(int j = 0; j < TacticalData[i].GActions.Length; j++)
                 {
-                    TacticalData [i].PosAy3 [j].x = (float)System.Math.Round(TacticalData [i].PosAy3 [j].x, 2);
-                    TacticalData [i].PosAy3 [j].z = (float)System.Math.Round(TacticalData [i].PosAy3 [j].z, 2);
+                    TacticalData[i].GActions[j].X = (float)Math.Round(TacticalData[i].GActions[j].X, 2);
+                    TacticalData[i].GActions[j].Z = (float)Math.Round(TacticalData[i].GActions[j].Z, 2);
                 }
                 
                 SaveFile(FileName, JsonConvert.SerializeObject(TacticalData, Formatting.Indented));
@@ -271,9 +272,11 @@ public class GEAIMove : GEBase {
                 FlashTacticalName();
                 Debug.Log(FileName);
 				Debug.Log(BackupFileName);
-            } else
+            }
+            else
                 Debug.LogError("FileName is empty");
-        } else
+        }
+        else
             Debug.LogError("EditIndex error");
     }
       
@@ -287,20 +290,20 @@ public class GEAIMove : GEBase {
             for (int i = 0; i < PosAy1.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy1 [i].x, 0, PosAy1 [i].z));
-                PosAy1 [i].x = v.x;
-                PosAy1 [i].z = v.z;
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy1 [i].X, 0, PosAy1 [i].Z));
+                PosAy1 [i].X = v.x;
+                PosAy1 [i].Z = v.z;
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.SetPlayerMove(new Vector2(PosAy1 [i].x, PosAy1 [i].z), 0);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy1 [i].X, PosAy1 [i].Z), 0);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(0);
-                    PosAy1 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-                    PosAy1 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                    PosAy1 [i].X = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy1 [i].Z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }                   
                 PosAy1 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy1 [i].Speedup);
 				PosAy1 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy1 [i].Catcher);
@@ -317,20 +320,20 @@ public class GEAIMove : GEBase {
             for (int i = 0; i < PosAy2.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy2 [i].x, 0, PosAy2 [i].z));
-                PosAy2 [i].x = v.x;
-                PosAy2 [i].z = v.z;
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy2 [i].X, 0, PosAy2 [i].Z));
+                PosAy2 [i].X = v.x;
+                PosAy2 [i].Z = v.z;
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.SetPlayerMove(new Vector2(PosAy2 [i].x, PosAy2 [i].z), 1);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy2 [i].X, PosAy2 [i].Z), 1);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(1);
-                    PosAy2 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-                    PosAy2 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                    PosAy2 [i].X = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy2 [i].Z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }                   
                 PosAy2 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy2 [i].Speedup);
 				PosAy2 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy2 [i].Catcher);
@@ -347,20 +350,20 @@ public class GEAIMove : GEBase {
             for (int i = 0; i < PosAy3.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy3 [i].x, 0, PosAy3 [i].z));
-                PosAy3 [i].x = v.x;
-                PosAy3 [i].z = v.z;
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy3 [i].X, 0, PosAy3 [i].Z));
+                PosAy3 [i].X = v.x;
+                PosAy3 [i].Z = v.z;
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.SetPlayerMove(new Vector2(PosAy3 [i].x, PosAy3 [i].z), 2);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy3 [i].X, PosAy3 [i].Z), 2);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(2);
-                    PosAy3 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-                    PosAy3 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                    PosAy3 [i].X = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy3 [i].Z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }       
                 PosAy3 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy3 [i].Speedup);
 				PosAy3 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy3 [i].Catcher);

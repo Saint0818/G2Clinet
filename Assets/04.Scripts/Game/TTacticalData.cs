@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public struct TTacticalAction
 {
     /// <summary>
     /// 球員要跑的位置.
     /// </summary>
-    public float x;
-    public float z;
+    public float X;
+    public float Z;
 
     public bool Speedup;
 
@@ -28,12 +29,14 @@ public struct TTacticalAction
 public struct TTacticalData
 {
     public string FileName; // 戰術名稱.
-    public TTacticalAction[] PosAy1; // 中鋒的資料.
-    public TTacticalAction[] PosAy2; // 前鋒的資料.
-    public TTacticalAction[] PosAy3; // 後衛的資料.
+    public TTacticalAction[] CActions; // 中鋒的資料.
+    public TTacticalAction[] FActions; // 前鋒的資料.
+    public TTacticalAction[] GActions; // 後衛的資料.
 
+    [JsonIgnore]
     public bool IsValid { get { return !string.IsNullOrEmpty(FileName); } }
 
+    [JsonIgnore]
     public ETacticalKind Kind
     {
         get
@@ -69,11 +72,11 @@ public struct TTacticalData
     public TTacticalAction[] GetActions(EPlayerPostion pos)
     {
         if(pos == EPlayerPostion.C)
-            return PosAy1;
+            return CActions;
         if(pos == EPlayerPostion.F)
-            return PosAy2;
+            return FActions;
         if(pos == EPlayerPostion.G)
-            return PosAy3;
+            return GActions;
 
         throw new NotImplementedException();
     }

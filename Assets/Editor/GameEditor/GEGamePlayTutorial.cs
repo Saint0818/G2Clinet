@@ -271,16 +271,16 @@ public class GEGamePlayTutorial : GEBase {
 				GUILayout.BeginHorizontal();
 
 				GUILabel(string.Format("{0}.{1}-{2}", j+1, events[i].Actions[j].Team, events[i].Actions[j].Index));
-				events[i].Actions[j].Action.x = GUIFloatEdit(events[i].Actions[j].Action.x, "X");
-				events[i].Actions[j].Action.z = GUIFloatEdit(events[i].Actions[j].Action.z, "Z");
+				events[i].Actions[j].Action.X = GUIFloatEdit(events[i].Actions[j].Action.X, "X");
+				events[i].Actions[j].Action.Z = GUIFloatEdit(events[i].Actions[j].Action.Z, "Z");
 				
 				if (GUIButton("Move To") && GameController.Visible)
 					GameController.Get.SetPlayerMove(events[i].Actions[j].Action, 0, false);
 				
 				if (GUIButton("Get Pos") && GameController.Visible) {
 					Vector3 Res = GameController.Get.EditGetPosition(0);
-					events[i].Actions[j].Action.x = Convert.ToSingle(Math.Round(Res.x, 2));
-					events[i].Actions[j].Action.z = Convert.ToSingle(Math.Round(Res.z, 2));
+					events[i].Actions[j].Action.X = Convert.ToSingle(Math.Round(Res.x, 2));
+					events[i].Actions[j].Action.Z = Convert.ToSingle(Math.Round(Res.z, 2));
 				}      
 
 				events[i].Actions[j].MoveKind = Convert.ToInt32(GUIToggle(Convert.ToBoolean(events[i].Actions[j].MoveKind), "Appear"));

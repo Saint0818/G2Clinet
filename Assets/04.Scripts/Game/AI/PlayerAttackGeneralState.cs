@@ -114,9 +114,9 @@ namespace AI
 
 //            mTimer.Update(Time.deltaTime);
 
-            // 魔術數字 1.8 的目的是希望球員可以盡可能的變成快攻狀態.
+            // 魔術數字 1.0 的目的是希望球員可以盡可能的變成快攻狀態.
             if(GameController.Get.BallOwner == mPlayer &&
-               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position, 1.8f))
+               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position, GameConst.AIFastBreakOffset))
             {
                 // 我是持球者, 而且我前方沒有任何人.
                 Parent.ChangeState(PlayerAttackState.EPlayerAttackState.FastBreak);
@@ -332,7 +332,7 @@ namespace AI
                 if(GameStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team == ETeamKind.Npc)
                     signZ = -1;
 
-                moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * signZ);
+                moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z * signZ);
 
                 if(GameController.Get.BallOwner != mPlayer)
                     moveData.LookTarget = GameController.Get.BallOwner.transform;
