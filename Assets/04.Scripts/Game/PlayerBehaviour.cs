@@ -279,7 +279,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Dunk
     private bool isDunk = false;
-//    private bool isDunkZmove = false;
     private float dunkCurveTime = 0;
     public AniCurve aniCurve;
     private TDunkCurve playerDunkCurve;
@@ -287,7 +286,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Layup
     private bool isLayup = false;
-//    private bool isLayupZmove = false;
     private float layupCurveTime = 0;
     private TLayupCurve playerLayupCurve;
         
@@ -341,6 +339,7 @@ public class PlayerBehaviour : MonoBehaviour
     private SkillController skillController;
     private ESkillKind skillKind; // For Shoot and Layup
     private bool isUsePass = false;
+	private AnimationEvent animatorEvent;
 
     //Active
     private bool isUseActiveSkill = false;
@@ -445,6 +444,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody.freezeRotation = true;
 
         ScoreRate = new TScoreRate(1);
+		animatorEvent = new UnityEngine.AnimationEvent();
         DashEffectEnable(false);
     }
 
@@ -454,9 +454,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
-
-//        if (SpeedUpView)
-//            SpeedUpView.enabled = false;
     }
 
     public void SetTimerKey(ETimerKind key)
@@ -701,9 +698,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-//      if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
-//          return;
-//      }
         if (GameController.Get.IsShowSituation)
         {
             return;
@@ -841,23 +835,23 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void SetSelectTexture(string name)
-    {
-        if (selectTexture)
-        {
-
-        } else
-        {
-            GameObject obj = Resources.Load("Prefab/Player/" + name) as GameObject;
-            if (obj)
-            {
-                selectTexture = Instantiate(obj) as GameObject;
-                selectTexture.name = "Select";
-                selectTexture.transform.parent = transform;
-                selectTexture.transform.localPosition = new Vector3(0, 0.05f, 0);
-            }
-        }
-    }
+//    public void SetSelectTexture(string name)
+//    {
+//        if (selectTexture)
+//        {
+//
+//        } else
+//        {
+//            GameObject obj = Resources.Load("Prefab/Player/" + name) as GameObject;
+//            if (obj)
+//            {
+//                selectTexture = Instantiate(obj) as GameObject;
+//                selectTexture.name = "Select";
+//                selectTexture.transform.parent = transform;
+//                selectTexture.transform.localPosition = new Vector3(0, 0.05f, 0);
+//            }
+//        }
+//    }
 
     public void DashEffectEnable(bool isEnable)
     {
@@ -899,9 +893,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (AIActiveHint)
             AIActiveHint.SetActive(false);
-
-//        if (SpeedUpView)
-//            SpeedUpView.enabled = true;
     }
 
     /// <summary>
@@ -921,18 +912,12 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (AIActiveHint)
                     AIActiveHint.SetActive(false);
-
-//                if (SpeedUpView)
-//                    SpeedUpView.enabled = true;
             } else
             {
 //              aiTime = 0;
                 mManually.Clear();
                 if (AIActiveHint)
                     AIActiveHint.SetActive(true);
-
-//                if (SpeedUpView)
-//                    SpeedUpView.enabled = false;
             }
         }
     }
@@ -1934,10 +1919,9 @@ public class PlayerBehaviour : MonoBehaviour
 		isPush = false;
 		isFall = false;
 		isSkillShow = false;
-		UnityEngine.AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
-		aniEvent.floatParameter = 1;
-		aniEvent.intParameter = 0;
-		TimeScale(aniEvent);
+		animatorEvent.floatParameter = 1;
+		animatorEvent.intParameter = 0;
+		TimeScale(animatorEvent);
     }
 
     private bool IsPassAirMoment = false;
@@ -3134,6 +3118,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "AnimationEnd":
                 OnUI(this);
+				if(isUseActiveSkill)
+					isUseActiveSkill = false;
 
                 if (!IsBallOwner)
                     AniState(EPlayerState.Idle);
@@ -3263,6 +3249,7 @@ public class PlayerBehaviour : MonoBehaviour
                                		GameController.Get.GamePlayers [i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
 								else
                                 	GameController.Get.GamePlayers [i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
+								
                             }
                         } 
                     }
@@ -3281,7 +3268,7 @@ public class PlayerBehaviour : MonoBehaviour
                     GameController.Get.Shooter = null;
                 break;
 			case "ActiveSkillEnd":
-				isUseActiveSkill = false;
+//				isUseActiveSkill = false;
                 if (isSkillShow)
                 {
                     if (OnUIJoystick != null)
@@ -3289,13 +3276,12 @@ public class PlayerBehaviour : MonoBehaviour
     				
                     isSkillShow = false;
                     UISkillEffect.UIShow(false);
-					aniEvent = new UnityEngine.AnimationEvent();
-					aniEvent.floatParameter = 1;
-					if(isShootJump)
-						aniEvent.intParameter = 4;
-					else
-						aniEvent.intParameter = 0;
-					TimeScale(aniEvent);
+//					if(isShootJump || GameController.Get.BallState == EBallState.CanBlock)
+//						animatorEvent.intParameter = 4;
+//					else
+					animatorEvent.intParameter = 0;
+					animatorEvent.floatParameter = 1;
+					TimeScale(animatorEvent);
 					
 
                     if (isBlock)
@@ -3344,14 +3330,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void StartSkillCamera(int no)
     {
-        if (no < 20)
+		if (no < 20 && GameController.Get.CheckOthersUseSkill)
             return;
 	
 		if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
             int skillEffectKind = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCameraTime;
-			AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
             if (this == GameController.Get.Joysticker)
             {
                 if (!isSkillShow)
@@ -3378,23 +3363,23 @@ public class PlayerBehaviour : MonoBehaviour
                         case 0://show self and rotate camera
                             Invoke("showActiveEffect", skillTime);
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-							aniEvent.floatParameter = 0;
-							aniEvent.intParameter = 0;
-							TimeScale(aniEvent);   
+							animatorEvent.floatParameter = 0;
+							animatorEvent.intParameter = 0;
+							TimeScale(animatorEvent);   
                             break;
                         case 1://show self
                             showActiveEffect();
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-							aniEvent.floatParameter = 0;
-							aniEvent.intParameter = 2;
-							TimeScale(aniEvent); 
+							animatorEvent.floatParameter = 0;
+							animatorEvent.intParameter = 2;
+							TimeScale(animatorEvent); 
                             break;
                         case 2://show all Player
                             showActiveEffect();
                             GameController.Get.SetAllPlayerLayer("SkillPlayer");
-							aniEvent.floatParameter = 0;
-							aniEvent.intParameter = 2;
-							TimeScale(aniEvent); 
+							animatorEvent.floatParameter = 0;
+							animatorEvent.intParameter = 2;
+							TimeScale(animatorEvent); 
                             break;
                     }
                 }
@@ -3411,9 +3396,9 @@ public class PlayerBehaviour : MonoBehaviour
                 
                     if (!isSkillShow)
                     {
-						aniEvent.floatParameter = 0;
-						aniEvent.intParameter = 2;
-						TimeScale(aniEvent); 
+						animatorEvent.floatParameter = 0;
+						animatorEvent.intParameter = 2;
+						TimeScale(animatorEvent); 
 
                         isSkillShow = true;
                     }
@@ -3428,11 +3413,10 @@ public class PlayerBehaviour : MonoBehaviour
     }
     
     public void StopSkill()
-    {
-		AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
-		aniEvent.floatParameter = 1;
-		aniEvent.intParameter = 1;
-		TimeScale(aniEvent); 
+	{
+		animatorEvent.floatParameter = 1;
+		animatorEvent.intParameter = 1;
+		TimeScale(animatorEvent); 
     }
 
     public void showActiveEffect()

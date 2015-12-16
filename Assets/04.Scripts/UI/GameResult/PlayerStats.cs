@@ -9,10 +9,14 @@ public class PlayerStats : MonoBehaviour {
 	public GameObject[] PlayerInGameBtn = new GameObject[6];
 	public UISprite[] PlayerIcon = new UISprite[6];
 
+	public GameObject ViewAttrBtn;
+
 	void Awake () {
 		for(int i=0; i<AddFriendBtn.Length; i++) {
 			AddFriendBtn[i].SetActive(false);
 		}
+
+		UIEventListener.Get(ViewAttrBtn).onClick = OnOpenAttrbute;
 	}
 
 	public void ShowAddFriendBtn (int index) {
@@ -28,5 +32,9 @@ public class PlayerStats : MonoBehaviour {
 	public void SetPlayerIcon (int index, string name) {
 		if(index >= 0 && index < 6)
 			PlayerIcon[index].spriteName = name;
+	}
+
+	public void OnOpenAttrbute (GameObject go) {
+		UIAttributeExplain.UIShow(true);
 	}
 }

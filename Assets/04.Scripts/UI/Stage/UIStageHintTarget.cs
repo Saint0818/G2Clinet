@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class UIStageHintTarget : MonoBehaviour
 {
-    public UILabel TargetLabel;
     public UILabel DescLabel;
-    public UILabel CurrentLabel;
     public UILabel GoalLabel;
 	public GameObject FinTarget;
 
@@ -19,18 +17,6 @@ public class UIStageHintTarget : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-	public void MoveCurrentLabel () {
-		if(DescLabel.localSize.x >= 170)
-			CurrentLabel.gameObject.transform.localPosition = new Vector3(70, -15, 0);
-		else
-			CurrentLabel.gameObject.transform.localPosition = new Vector3(40, -15, 0);
-
-	}
-
-	public void MoveGoalLabel () {
-		GoalLabel.gameObject.transform.localPosition = new Vector3(125, -15, 0);
-	}
-
     /// <summary>
     /// 常見都是用 current/max 的方式來顯示; 但這部份剛好相反, 主要的原因是排版會不好看.
     /// </summary>
@@ -41,13 +27,9 @@ public class UIStageHintTarget : MonoBehaviour
     /// <param name="isFinish"></param>
 	public void UpdateUI(string target, string desc, string current, string max, bool isFinish = false)
     {
-        TargetLabel.text = target;
         DescLabel.text = desc;
-        CurrentLabel.text = current;
-        GoalLabel.text = max;
+		GoalLabel.text = "[FFDD33FF]"+ current +"[-]" + max;
 		FinTarget.SetActive(isFinish);
-		CurrentLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
-		GoalLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
     }
 
 	public void UpdateFin (bool isFinish) {

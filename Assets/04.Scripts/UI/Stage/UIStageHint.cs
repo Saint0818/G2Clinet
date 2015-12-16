@@ -14,13 +14,6 @@ public class UIStageHint : MonoBehaviour
         mTargets = GetComponentsInChildren<UIStageHintTarget>();
     }
 
-	public void Init () {
-		for (int i=0 ;i<mTargets.Length; i++) {
-			mTargets[i].MoveCurrentLabel();
-			mTargets[i].MoveGoalLabel();
-		}
-	}
-
     /// <summary>
     /// 設定目標的間隔.
     /// </summary>

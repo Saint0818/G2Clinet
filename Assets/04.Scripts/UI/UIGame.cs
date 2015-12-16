@@ -541,8 +541,8 @@ public class UIGame : UIBase {
 					eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               PlayerMe.PlayerRefGameObject.transform, 
-					PlayerMe.Attr.PushExtraAngle, 
-					PlayerMe.Attr.PushDistance,
+											   PlayerMe.Attr.PushExtraAngle, 
+											   PlayerMe.Attr.PushDistance,
 				                               eulor); 
 				break;
 			case EUIRangeType.Steal:
@@ -556,8 +556,8 @@ public class UIGame : UIBase {
 					eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.PlayerRefGameObject.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               PlayerMe.PlayerRefGameObject.transform, 
-					PlayerMe.Attr.StealExtraAngle, 
-					PlayerMe.Attr.StealDistance,
+											   PlayerMe.Attr.StealExtraAngle, 
+										       PlayerMe.Attr.StealDistance,
 				                               eulor); 
 				break;
 			}
