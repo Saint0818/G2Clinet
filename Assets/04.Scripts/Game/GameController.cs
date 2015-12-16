@@ -187,12 +187,12 @@ public class GameController : KnightSingleton<GameController>
 	[HideInInspector]public int shootTimes = 0;
 	[HideInInspector]public int shootScoreTimes = 0;
 
-	public float randomrate = 0;
-	public float normalRate = 0;
-	public float uphandRate = 0;
-	public float downhandRate = 0;
-	public float layupRate = 0;
-	public float nearshotRate = 0;
+	[HideInInspector]public float randomrate = 0;
+	[HideInInspector]public float normalRate = 0;
+	[HideInInspector]public float uphandRate = 0;
+	[HideInInspector]public float downhandRate = 0;
+	[HideInInspector]public float layupRate = 0;
+	[HideInInspector]public float nearshotRate = 0;
 	
 	void OnDestroy() {
 		for (int i = 0; i < PlayerList.Count; i++) 

@@ -44,6 +44,9 @@ public class HintInlayView : MonoBehaviour {
 			ValueLabels[i].text = itemData.BonusValues[i].ToString();
 		}
 
+		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Kind)) {
+			ItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Kind];
+		}
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

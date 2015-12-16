@@ -34,6 +34,7 @@ public static class GameData {
 	public static Dictionary<string, int> DTutorialUI = new Dictionary<string, int>();
 	public static Dictionary<int, int> DTutorialStageStart = new Dictionary<int, int>();
 	public static Dictionary<int, int> DTutorialStageEnd = new Dictionary<int, int>();
+	public static Dictionary<string, UIAtlas> DItemAtlas = new Dictionary<string, UIAtlas>();
 
     // Key: Lv.
 	public static Dictionary<int, TExpData> DExpData = new Dictionary<int, TExpData>();
@@ -70,6 +71,16 @@ public static class GameData {
 
 			FileManager.Get.LoadFileResource ();
 			loadGameSetting();
+			initAtlas () ;
+		}
+	}
+
+	private static void initAtlas () {
+		UnityEngine.Object[] ats = Resources.LoadAll("UI/AtlasItem", typeof(UIAtlas));
+
+		for(int i=0; i<ats.Length; i++) {
+			UIAtlas at = ats[i] as UIAtlas;
+			DItemAtlas.Add(at.name, at);
 		}
 	}
 
