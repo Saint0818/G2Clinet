@@ -3276,10 +3276,11 @@ public class PlayerBehaviour : MonoBehaviour
     				
                     isSkillShow = false;
                     UISkillEffect.UIShow(false);
-//					if(isShootJump || GameController.Get.BallState == EBallState.CanBlock)
-//						animatorEvent.intParameter = 4;
-//					else
-					animatorEvent.intParameter = 0;
+					if(isShootJump)
+						animatorEvent.intParameter = 4;
+					else
+						animatorEvent.intParameter = 0;
+				
 					animatorEvent.floatParameter = 1;
 					TimeScale(animatorEvent);
 					
