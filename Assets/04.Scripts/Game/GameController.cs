@@ -1275,7 +1275,7 @@ public class GameController : KnightSingleton<GameController>
         }
     }
     
-    public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
+    public void ChangeSituation(EGameSituation newSituation)
     {
         // 不能切換狀態的條件是
         // 目前狀態是 End, 新狀態不是 None, 也不是 Opening.
@@ -1324,48 +1324,6 @@ public class GameController : KnightSingleton<GameController>
             }
 
             Situation = newSituation;
-
-            if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != newSituation && player &&
-               (oldgs == EGameSituation.InboundsGamer || oldgs == EGameSituation.InboundsNPC))
-            {
-                // 狀態是邊界發球變成任何其它狀態時, 會設定球員的戰術路徑.
-                // 但我認為這應該只是攻守轉換的第一次, 要指定 Fast 戰術.
-                // todo 這段程式碼應該要移動到 PlayerAI.
-                AITools.RandomTactical(ETacticalAuto.MoveFrontCourt, player.Index, out attackTactical);
-                
-				if(attackTactical.Name != string.Empty)
-                {
-					for (int i = 0; i < PlayerList.Count; i ++)
-                    {
-						PlayerBehaviour npc = PlayerList[i];
-						if(npc.Team == player.Team)
-                        {
-							tacticalActions = attackTactical.GetActions(npc.Index);
-							
-							if(tacticalActions != null)
-                            {
-								for (int j = 0; j < tacticalActions.Length; j++)
-                                {
-									moveData.Clear();
-									moveData.Speedup = tacticalActions [j].Speedup;
-									moveData.Catcher = tacticalActions [j].Catcher;
-									moveData.Shooting = tacticalActions [j].Shooting;
-									moveData.TacticalName = attackTactical.Name;
-									if(npc.Team == ETeamKind.Self)
-										moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
-									else
-										moveData.SetTarget(tacticalActions[j].X, -tacticalActions[j].Z);
-
-									if (BallOwner != null && BallOwner != npc)
-										moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;  
-									
-									npc.TargetPos = moveData;
-								}
-							}
-						}
-					}
-				}               
-			}
 
             // todo 這兩行應該要拉到 StateExit.(目前看到是邊界發球時, 會把牆壁關掉, 所以才會有這個重新開啟的行為)
 			CourtMgr.Get.Walls[0].SetActive(true);
@@ -1444,7 +1402,47 @@ public class GameController : KnightSingleton<GameController>
 				GamePlayTutorial.Get.CheckSituationEvent(newSituation.GetHashCode());
         }
     }
-    
+
+    private void setMoveFrontCourtTactical(PlayerBehaviour player)
+    {
+        // 狀態是邊界發球變成任何其它狀態時, 會設定球員的戰術路徑.
+        // 但我認為這應該只是攻守轉換的第一次, 要指定 Fast 戰術.
+        // todo 這段程式碼應該要移動到 PlayerAI.
+        AITools.RandomTactical(ETacticalAuto.MoveFrontCourt, player.Index, out attackTactical);
+
+        if(attackTactical.Name != string.Empty)
+        {
+            for(int i = 0; i < PlayerList.Count; i ++)
+            {
+                PlayerBehaviour sameTeamPlayer = PlayerList[i];
+                if(sameTeamPlayer.Team != player.Team)
+                    continue;
+
+                tacticalActions = attackTactical.GetActions(sameTeamPlayer.Index);
+                if(tacticalActions == null)
+                    continue;
+
+                for(int j = 0; j < tacticalActions.Length; j++)
+                {
+                    moveData.Clear();
+                    moveData.Speedup = tacticalActions[j].Speedup;
+                    moveData.Catcher = tacticalActions[j].Catcher;
+                    moveData.Shooting = tacticalActions[j].Shooting;
+                    moveData.TacticalName = attackTactical.Name;
+                    if(sameTeamPlayer.Team == ETeamKind.Self)
+                        moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
+                    else
+                        moveData.SetTarget(tacticalActions[j].X, -tacticalActions[j].Z);
+
+                    if(BallOwner != null && BallOwner != sameTeamPlayer)
+                        moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
+
+                    sameTeamPlayer.TargetPos = moveData;
+                }
+            }
+        }
+    }
+
     private void handleSituation()
     {
         if (PlayerList.Count > 0)
@@ -3086,17 +3084,17 @@ public class GameController : KnightSingleton<GameController>
     /// <summary>
     /// 這應該是設定參數的 PlayerBehaviour 是持球者.
     /// </summary>
-    /// <param name="p"> null 表示遊戲沒有持球者.(這樣設計不好, 應該是直接設定持球者為空才對) </param>
+    /// <param name="newBallOwner"> null 表示遊戲沒有持球者.(這樣設計不好, 應該是直接設定持球者為空才對) </param>
     /// <returns> true: p 變成持球者, false: 沒有持球者. </returns>
-    public bool SetBall(PlayerBehaviour p = null)
+    public bool SetBall(PlayerBehaviour newBallOwner = null)
     {
 		bool result = false;
 		IsPassing = false;
-		if(p != null && Situation != EGameSituation.End)
+		if(newBallOwner != null && Situation != EGameSituation.End)
         {
 //			p.IsChangeColor = true;
 			IsReboundTime = false;
-			if (!p.IsAlleyoopState) 
+			if (!newBallOwner.IsAlleyoopState) 
 			{
 				if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
 					BallState = EBallState.CanSteal;	
@@ -3104,118 +3102,10 @@ public class GameController : KnightSingleton<GameController>
 					BallState = EBallState.None;
 			}
 					
-            // 下面這一長串的 if else 是在做 GameController 的狀態切換.
-			if(BallOwner != null)
-            {
-				BallOwner.IsBallOwner = false;
-                if(BallOwner.Team != p.Team)
-                {
-                    // 之球的持球者和 p 是不同隊的球員.
-					if(GameStart.Get.CourtMode == ECourtMode.Full)
-                    {
-					    if(Situation == EGameSituation.AttackGamer)
-					    {
-					        ChangeSituation(EGameSituation.AttackNPC);
-                            AIController.Get.ChangeState(EGameSituation.AttackNPC);
-					    }
-	                    else if(Situation == EGameSituation.AttackNPC)
-	                    {
-	                        ChangeSituation(EGameSituation.AttackGamer);
-                            AIController.Get.ChangeState(EGameSituation.AttackGamer);
-	                    }
-					}
-                    else
-                    {
-                        // 半場處理... 這又是 copy and past 的傑作 ...
-					    if(p.Team == ETeamKind.Self)
-					    {
-					        ChangeSituation(EGameSituation.InboundsGamer);
-					        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
-					    }
-					    else
-					    {
-					        ChangeSituation(EGameSituation.InboundsNPC);
-                            AIController.Get.ChangeState(EGameSituation.InboundsNPC);
-					    }
-					}
-                }
-                else
-                {
-                    // 之前的持球者和 p 是同一隊的球員.
-                    if(Situation == EGameSituation.InboundsGamer)
-                    {
-                        ChangeSituation(EGameSituation.AttackGamer);
-                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
-                    }
-                    else if(Situation == EGameSituation.InboundsNPC)
-                    {
-                        ChangeSituation(EGameSituation.AttackNPC);
-                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
-                    }
-                    else
-                        BallOwner.ResetFlag(false);
-                }
-            }
-            else
-            {
-                // 沒有持球者.
-                if(Situation == EGameSituation.GamerPickBall)
-                {
-                    ChangeSituation(EGameSituation.InboundsGamer);
-                    AIController.Get.ChangeState(EGameSituation.InboundsGamer);
-                }
-                else if(Situation == EGameSituation.NPCPickBall)
-                {
-                    ChangeSituation(EGameSituation.InboundsNPC);
-                    AIController.Get.ChangeState(EGameSituation.InboundsNPC);
-                }
-				else if(Situation == EGameSituation.InboundsGamer)
-				{
-				    ChangeSituation(EGameSituation.AttackGamer);
-                    AIController.Get.ChangeState(EGameSituation.AttackGamer);
-				}
-				else if(Situation == EGameSituation.InboundsNPC)
-				{
-				    ChangeSituation(EGameSituation.AttackNPC);
-                    AIController.Get.ChangeState(EGameSituation.AttackNPC);
-				}
-                else
-                {
-                    // 我認為這是一個不好的判斷條件, 這是判斷是否為得分後的攻守轉換.
-                    if(GameStart.Get.CourtMode == ECourtMode.Full || 
-					   (p.Team == ETeamKind.Self && Situation == EGameSituation.AttackGamer) ||
-					   (p.Team == ETeamKind.Npc && Situation == EGameSituation.AttackNPC))
-                    {
-					    if(p.Team == ETeamKind.Self)
-					    {
-					        ChangeSituation(EGameSituation.AttackGamer, p);
-					        AIController.Get.ChangeState(EGameSituation.AttackGamer);
-					    }
-					    else
-					    {
-					        ChangeSituation(EGameSituation.AttackNPC, p);
-                            AIController.Get.ChangeState(EGameSituation.AttackNPC);
-					    }
-					}
-                    else
-                    {
-                        // 半場狀態切換...
-					    if(p.Team == ETeamKind.Self)
-					    {
-					        ChangeSituation(EGameSituation.InboundsGamer);
-					        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
-					    }
-					    else
-					    {
-					        ChangeSituation(EGameSituation.InboundsNPC);
-                            AIController.Get.ChangeState(EGameSituation.InboundsNPC);
-					    }
-					}
-                }
-            }
+            changeSituationForSetBall(newBallOwner);
 
             // 這部份才真正的是將 p 設定為持球者.
-        	BallOwner = p;
+        	BallOwner = newBallOwner;
 			BallOwner.CantMoveTimer.Clear();
 			BallOwner.IsBallOwner = true;
 			result = true;
@@ -3227,31 +3117,31 @@ public class GameController : KnightSingleton<GameController>
 			if(BallOwner && BallOwner.DefPlayer != null)
 				BallOwner.DefPlayer.SetAutoFollowTime();
 
-			UIGame.Get.ChangeControl(p.Team == ETeamKind.Self);
+			UIGame.Get.ChangeControl(newBallOwner.Team == ETeamKind.Self);
 			UIGame.Get.SetPassButton();
-			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, p);
+			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, newBallOwner);
 
 			AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
-			p.CantMoveTimer.Clear();
-			p.IsFirstDribble = true;
+			newBallOwner.CantMoveTimer.Clear();
+			newBallOwner.IsFirstDribble = true;
 			CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
 
 			for(int i = 0; i < PlayerList.Count; i++)
             {
-				if(PlayerList [i].Team != p.Team)
+				if(PlayerList [i].Team != newBallOwner.Team)
                 {
 					PlayerList [i].ResetMove();
 					break;
 				}
 			} 
 				 
-			if(p.IsIdle || p.IsDef)
-				p.AniState(EPlayerState.Dribble0);
-			else if(p.IsRun)
-				p.AniState(EPlayerState.Dribble1);
+			if(newBallOwner.IsIdle || newBallOwner.IsDef)
+				newBallOwner.AniState(EPlayerState.Dribble0);
+			else if(newBallOwner.IsRun)
+				newBallOwner.AniState(EPlayerState.Dribble1);
 
 			if (GamePlayTutorial.Visible)
-				GamePlayTutorial.Get.CheckSetBallEvent(p);
+				GamePlayTutorial.Get.CheckSetBallEvent(newBallOwner);
     	}
         else
         {
@@ -3261,7 +3151,123 @@ public class GameController : KnightSingleton<GameController>
 		return result;
     }
 
-	public PlayerBehaviour FindNearNpc(){
+    private void changeSituationForSetBall(PlayerBehaviour newBallOwner)
+    {
+        // 下面這一長串的 if else 是在做 GameController 的狀態切換.
+        if(BallOwner != null)
+        {
+            BallOwner.IsBallOwner = false;
+            if(BallOwner.Team != newBallOwner.Team)
+            {
+                // 之球的持球者和 p 是不同隊的球員.
+                if(GameStart.Get.CourtMode == ECourtMode.Full)
+                {
+                    if(Situation == EGameSituation.AttackGamer)
+                    {
+                        ChangeSituation(EGameSituation.AttackNPC);
+                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                    }
+                    else if(Situation == EGameSituation.AttackNPC)
+                    {
+                        ChangeSituation(EGameSituation.AttackGamer);
+                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                    }
+                }
+                else
+                {
+                    // 半場處理... 這又是 copy and past 的傑作 ...
+                    if(newBallOwner.Team == ETeamKind.Self)
+                    {
+                        ChangeSituation(EGameSituation.InboundsGamer);
+                        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+                    }
+                    else
+                    {
+                        ChangeSituation(EGameSituation.InboundsNPC);
+                        AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+                    }
+                }
+            }
+            else
+            {
+                // 之前的持球者和 p 是同一隊的球員.
+                if(Situation == EGameSituation.InboundsGamer)
+                {
+                    ChangeSituation(EGameSituation.AttackGamer);
+                    AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                }
+                else if(Situation == EGameSituation.InboundsNPC)
+                {
+                    ChangeSituation(EGameSituation.AttackNPC);
+                    AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                }
+                else
+                    BallOwner.ResetFlag(false);
+            }
+        }
+        else
+        {
+            // 目前沒有持球者.
+            if(Situation == EGameSituation.GamerPickBall)
+            {
+                ChangeSituation(EGameSituation.InboundsGamer);
+                AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+            }
+            else if(Situation == EGameSituation.NPCPickBall)
+            {
+                ChangeSituation(EGameSituation.InboundsNPC);
+                AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+            }
+            else if(Situation == EGameSituation.InboundsGamer)
+            {
+                ChangeSituation(EGameSituation.AttackGamer);
+                AIController.Get.ChangeState(EGameSituation.AttackGamer);
+            }
+            else if(Situation == EGameSituation.InboundsNPC)
+            {
+                ChangeSituation(EGameSituation.AttackNPC);
+                AIController.Get.ChangeState(EGameSituation.AttackNPC);
+            }
+            else
+            {
+                // 我認為這是一個不好的判斷條件, 這是判斷是否為得分後的攻守轉換.
+                if(GameStart.Get.CourtMode == ECourtMode.Full ||
+                   (newBallOwner.Team == ETeamKind.Self && Situation == EGameSituation.AttackGamer) ||
+                   (newBallOwner.Team == ETeamKind.Npc && Situation == EGameSituation.AttackNPC))
+                {
+                    if(Situation == EGameSituation.InboundsGamer || Situation == EGameSituation.InboundsNPC)
+                        setMoveFrontCourtTactical(newBallOwner);
+
+                    if(newBallOwner.Team == ETeamKind.Self)
+                    {
+                        ChangeSituation(EGameSituation.AttackGamer);
+                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                    }
+                    else
+                    {
+                        ChangeSituation(EGameSituation.AttackNPC);
+                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                    }
+                }
+                else
+                {
+                    // 半場狀態切換...
+                    if(newBallOwner.Team == ETeamKind.Self)
+                    {
+                        ChangeSituation(EGameSituation.InboundsGamer);
+                        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+                    }
+                    else
+                    {
+                        ChangeSituation(EGameSituation.InboundsNPC);
+                        AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+                    }
+                }
+            }
+        }
+    }
+
+    public PlayerBehaviour FindNearNpc(){
 		PlayerBehaviour p = null;
 		float dis = 0;
 		for (int i=0; i<PlayerList.Count; i++) {
