@@ -184,7 +184,10 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsJumpBallPlayer = false;
     public GameObject PlayerRefGameObject;
     public int ShowPos = -1;
-    public string MoveName = "";
+
+    [Tooltip("Just for Debug.")]
+    public string TacticalName = "";
+
 //    public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
 //    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
@@ -3912,7 +3915,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set
         {
-            MoveName = value.TacticalName;
+            TacticalName = value.TacticalName;
             if (moveQueue.Count == 0)
                 MoveTurn = 0;
 

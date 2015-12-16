@@ -206,6 +206,7 @@ public class GameController : KnightSingleton<GameController>
     {
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
+        AIController.Get.AttackTactical = GameData.Team.AttackTactical;
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		ModelManager.Get.PreloadAnimator();
@@ -1370,7 +1371,8 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.Walls[0].SetActive(true);
 			CourtMgr.Get.Walls[1].SetActive(true);
 
-			switch(newSituation) {
+			switch(newSituation)
+            {
 			case EGameSituation.Presentation:
 			case EGameSituation.InitCourt:
 				break;
@@ -1410,13 +1412,10 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.AttackNPC:
 				break;
 			case EGameSituation.GamerPickBall:
-				hideAllEnemySelect ();
-//				PickBallPlayer = null;
-//				for(int i = 0; i < PlayerList.Count; i++)
-//					PlayerList[i].IsCanCatchBall = true;
+				hideAllEnemySelect();
                 break;
             case EGameSituation.InboundsGamer:
-				hideAllEnemySelect ();
+				hideAllEnemySelect();
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				UITransition.Get.SelfAttack();
@@ -3184,20 +3183,21 @@ public class GameController : KnightSingleton<GameController>
 				}
                 else
                 {
-					if(GameStart.Get.CourtMode == ECourtMode.Full || 
+                    // 我認為這是一個不好的判斷條件, 這是判斷是否為得分後的攻守轉換.
+                    if(GameStart.Get.CourtMode == ECourtMode.Full || 
 					   (p.Team == ETeamKind.Self && Situation == EGameSituation.AttackGamer) ||
 					   (p.Team == ETeamKind.Npc && Situation == EGameSituation.AttackNPC))
                     {
-					       if(p.Team == ETeamKind.Self)
-					       {
-					           ChangeSituation(EGameSituation.AttackGamer, p);
-					           AIController.Get.ChangeState(EGameSituation.AttackGamer);
-					       }
-					       else
-					       {
-					           ChangeSituation(EGameSituation.AttackNPC, p);
-                                AIController.Get.ChangeState(EGameSituation.AttackNPC);
-					       }
+					    if(p.Team == ETeamKind.Self)
+					    {
+					        ChangeSituation(EGameSituation.AttackGamer, p);
+					        AIController.Get.ChangeState(EGameSituation.AttackGamer);
+					    }
+					    else
+					    {
+					        ChangeSituation(EGameSituation.AttackNPC, p);
+                            AIController.Get.ChangeState(EGameSituation.AttackNPC);
+					    }
 					}
                     else
                     {

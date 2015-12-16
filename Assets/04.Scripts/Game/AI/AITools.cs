@@ -64,12 +64,30 @@ public static class AITools
         switch(tactical)
         {
             case ETacticalAuto.AttackNormal:
-                if (pos == EPlayerPostion.C)
+                if(pos == EPlayerPostion.C)
                     return ETacticalKind.AttackNormalC;
-                if (pos == EPlayerPostion.F)
+                if(pos == EPlayerPostion.F)
                     return ETacticalKind.AttackNormalF;
-                if (pos == EPlayerPostion.G)
+                if(pos == EPlayerPostion.G)
                     return ETacticalKind.AttackNormalG;
+                break;
+
+            case ETacticalAuto.AttackShoot2:
+                if (pos == EPlayerPostion.C)
+                    return ETacticalKind.AttackShoot2C;
+                if (pos == EPlayerPostion.F)
+                    return ETacticalKind.AttackShoot2F;
+                if (pos == EPlayerPostion.G)
+                    return ETacticalKind.AttackShoot2G;
+                break;
+
+            case ETacticalAuto.AttackShoot3:
+                if(pos == EPlayerPostion.C)
+                    return ETacticalKind.AttackShoot3C;
+                if(pos == EPlayerPostion.F)
+                    return ETacticalKind.AttackShoot3F;
+                if(pos == EPlayerPostion.G)
+                    return ETacticalKind.AttackShoot3G;
                 break;
 
             case ETacticalAuto.Inbounds:

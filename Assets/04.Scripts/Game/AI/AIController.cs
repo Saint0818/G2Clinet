@@ -26,6 +26,11 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
     // todo 如果沒有這樣做, 就可能換場時, 球員就被 AI 控制, 然後就馬上發動主動技.
     public float AIRemainTime { get; set; }
 
+    /// <summary>
+    /// 玩家選擇的進攻戰術.
+    /// </summary>
+    public ETacticalAuto AttackTactical { get; set; }
+
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 
     /// <summary>

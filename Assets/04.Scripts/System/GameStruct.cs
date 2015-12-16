@@ -19,6 +19,11 @@ namespace GameStruct
 	    public int PlayerNum; // 玩家擁有幾位角色.
 		public int StageTutorial;
 
+        /// <summary>
+        /// 玩家選擇的戰術.
+        /// </summary>
+	    public ETacticalAuto AttackTactical;
+
 	    public event CommonDelegateMethods.Int1 OnMoneyChangeListener;
 	    public int Money
 	    {

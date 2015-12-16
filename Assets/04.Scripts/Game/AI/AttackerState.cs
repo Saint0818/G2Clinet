@@ -8,7 +8,7 @@ namespace AI
     /// 實作子類別:
     /// <list type="number">
     /// <item> 要指定 Players. 目前認為最好的時機點是在 State.Enter 設定. </item>
-    /// <item> Call sendTactical() 將戰術傳遞給進攻方球員. </item>
+    /// <item> Call randomTacticalToPlayer() 將戰術傳遞給進攻方球員. </item>
     /// </list>
     public abstract class AttackerState : State<EGameSituation, EGameMsg>
     {
@@ -25,34 +25,19 @@ namespace AI
             {EPlayerPostion.C, false}
         };
 
-        protected static void sendTactical()
+        protected static void randomTacticalToPlayer()
         {
-            TTacticalData tactical;
             if(GameController.Get.HasBallOwner)
             {
-                AITools.RandomTactical(ETacticalAuto.AttackNormal, 
+                TTacticalData tactical;
+                bool isFound = AITools.RandomTactical(AIController.Get.AttackTactical, 
                     GameController.Get.BallOwner.Index, out tactical);
 
-//                switch (GameController.Get.BallOwner.Postion)
-//                {
-//                    case EPlayerPostion.C:
-//                        AITools.RandomTactical(ETacticalKind.AttackNormalC, out tactical);
-//                        break;
-//                    case EPlayerPostion.F:
-//                        AITools.RandomTactical(ETacticalKind.AttackNormalF, out tactical);
-//                        break;
-//                    case EPlayerPostion.G:
-//                        AITools.RandomTactical(ETacticalKind.AttackNormalG, out tactical);
-//                        break;
-//                    default:
-//                        AITools.RandomTactical(ETacticalAuto.AttackNormal, out tactical);
-//                        break;
-//                }
+                if(isFound)
+                    GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
             }
-            else
-                AITools.RandomTactical(ETacticalAuto.AttackNormal, EPlayerPostion.G, out tactical);
-
-            GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
+//            else
+//                AITools.RandomTactical(ETacticalAuto.AttackNormal, EPlayerPostion.G, out tactical);
         }
 
         protected bool isAllPlayerTacticalDone()
@@ -102,7 +87,7 @@ namespace AI
                 if(isAllPlayerTacticalDone())
                 {
                     clearPlayerTacticals();
-                    sendTactical();
+                    randomTacticalToPlayer();
                 }
             }
         }
@@ -112,7 +97,7 @@ namespace AI
             if(GameController.Get.GamePlayers.Count <= 0)
                 return;
 
-            sendTactical();
+            randomTacticalToPlayer();
         }
     }
 }

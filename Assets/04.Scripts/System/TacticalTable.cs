@@ -38,22 +38,32 @@ using UnityEngine;
 /// </remarks>
 public class TacticalTable
 {
-    private static readonly TacticalTable INSTANCE = new TacticalTable();
+    private static TacticalTable INSTANCE;
     public static TacticalTable Ins
     {
-        get { return INSTANCE; }
+        get { return INSTANCE ?? (INSTANCE = new TacticalTable()); }
     }
 
     private static readonly TTacticalData EmptyData = new TTacticalData();
 
+    /// <summary>
+    /// 儲存了某一類戰術的全部戰術.  Value 的順序其實就是資料的順序.
+    /// </summary>
     private readonly Dictionary<ETacticalKind, List<TTacticalData>> mTacticals = new Dictionary<ETacticalKind, List<TTacticalData>>();
 
     public static readonly Dictionary<string, ETacticalKind> PrefixNames = new Dictionary<string, ETacticalKind>
     {
-//        {"jumpball0", ETacticalKind.None},
-//        {"jumpball1", ETacticalKind.None},
+        {"AttackNormalC", ETacticalKind.AttackNormalC},
+        {"AttackNormalF", ETacticalKind.AttackNormalF},
+        {"AttackNormalG", ETacticalKind.AttackNormalG},
 
-//        {"AttackNormal", ETacticalKind.AttackNormal},
+        {"AttackShoot2C", ETacticalKind.AttackShoot2C},
+        {"AttackShoot2F", ETacticalKind.AttackShoot2F},
+        {"AttackShoot2G", ETacticalKind.AttackShoot2G},
+
+        {"AttackShoot3C", ETacticalKind.AttackShoot3C},
+        {"AttackShoot3F", ETacticalKind.AttackShoot3F},
+        {"AttackShoot3G", ETacticalKind.AttackShoot3G},
 
         {"InboundsC", ETacticalKind.InboundsC},
         {"InboundsF", ETacticalKind.InboundsF},
@@ -66,10 +76,6 @@ public class TacticalTable
         {"MoveFrontCourtC", ETacticalKind.MoveFrontCourtC}, 
         {"MoveFrontCourtF", ETacticalKind.MoveFrontCourtF}, 
         {"MoveFrontCourtG", ETacticalKind.MoveFrontCourtG}, 
-
-        {"AttackNormalC", ETacticalKind.AttackNormalC}, 
-        {"AttackNormalF", ETacticalKind.AttackNormalF}, 
-        {"AttackNormalG", ETacticalKind.AttackNormalG}, 
 
         {"HalfInboundsC", ETacticalKind.HalfInboundsC}, 
         {"HalfInboundsF", ETacticalKind.HalfInboundsF},
