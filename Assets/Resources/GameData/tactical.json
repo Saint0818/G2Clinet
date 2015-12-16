@@ -4731,28 +4731,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "jumpball_101",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": -4.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": -4.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5021,28 +5022,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "jumpball1_111",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": 4.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": 4.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5311,28 +5313,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsC_121",
+    "CActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": -12.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": -13.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5340,28 +5343,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsC_122",
+    "CActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 5.85,
+        "Z": -7.59,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -8.24,
+        "Z": -10.62,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5369,28 +5373,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsC_123",
+    "CActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -5.37,
+        "Z": -2.54,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 3.18,
+        "Z": -9.38,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5398,28 +5403,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsC_124",
+    "CActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": -12.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": -13.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5601,28 +5607,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsF_131",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": -13.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": -12.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5630,28 +5637,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsF_132",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -3.36,
+        "Z": -1.79,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -0.48,
+        "Z": -9.98,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5659,28 +5667,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsF_133",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -3.89,
+        "Z": -10.36,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 0.08,
+        "Z": -1.69,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5891,28 +5900,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsG_141",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 3.13,
+        "Z": -12.02,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -3.45,
+        "Z": -11.92,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5920,28 +5930,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsG_142",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 3.17,
+        "Z": -7.65,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.62,
+        "Z": -1.11,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -5949,28 +5960,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsG_143",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -6.85,
+        "Z": -3.06,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 7.88,
+        "Z": -9.14,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": -17.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6181,9 +6193,8 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefC_151",
+    "CActions": [
       {
         "X": 0.0,
         "Z": 0.0,
@@ -6192,17 +6203,19 @@
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6210,28 +6223,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefC_152",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 1.19,
+        "Z": 6.22,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 3.4,
+        "Z": 0.97,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -5.96,
+        "Z": 2.98,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6239,28 +6253,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefC_153",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -0.89,
+        "Z": 9.41,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -6.12,
+        "Z": 2.93,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.36,
+        "Z": 1.52,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6268,28 +6283,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefC_154",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 7.58,
+        "Z": 4.94,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -0.01,
+        "Z": 3.8,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -6.68,
+        "Z": 7.63,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6471,28 +6487,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefF_161",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
         "X": 0.0,
         "Z": 0.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6500,28 +6517,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefF_162",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -0.55,
+        "Z": 9.42,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.9,
+        "Z": 1.66,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -7.91,
+        "Z": 7.74,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6529,28 +6547,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefF_163",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -3.66,
+        "Z": 1.84,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.39,
+        "Z": 1.31,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -0.33,
+        "Z": 6.25,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6761,25 +6780,26 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefG_171",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.0,
+        "Z": 2.0,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
         "X": 0.0,
         "Z": 0.0,
@@ -6790,28 +6810,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefG_172",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.42,
+        "Z": 8.03,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 6.25,
+        "Z": 0.27,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -2.45,
+        "Z": 1.46,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -6819,28 +6840,29 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "InboundsDefG_173",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.01,
+        "Z": 12.31,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.81,
+        "Z": 1.97,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
-      },
+      }
+    ],
+    "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -3.43,
+        "Z": 5.77,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -7602,12 +7624,48 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackNormalC1_200",
+    "CActions": [
+      {
+        "X": -3.85,
+        "Z": 13.66,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -0.94,
+        "Z": 5.05,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
       {
         "X": 0.0,
-        "Z": 0.0,
+        "Z": 15.66,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
+      }
+    ],
+    "FActions": [
+      {
+        "X": 6.43,
+        "Z": 5.34,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 10.19,
+        "Z": 15.38,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -0.35,
+        "Z": 5.73,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
@@ -7615,16 +7673,23 @@
     ],
     "GActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -1.18,
+        "Z": 2.71,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -8.35,
+        "Z": 7.5,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
-        "Speedup": false,
+        "X": -4.23,
+        "Z": 14.42,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
@@ -11544,29 +11609,93 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot2C1_330",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
-        "Speedup": false,
+        "X": -4.59,
+        "Z": 4.38,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
-      }
-    ],
-    "GActions": [
+      },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -5.01,
+        "Z": 15.11,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.63,
+        "Z": 9.41,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 0.39,
+        "Z": 15.24,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "FActions": [
+      {
+        "X": 10.2,
+        "Z": 12.55,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -2.49,
+        "Z": 10.64,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 4.33,
+        "Z": 12.0,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -3.79,
+        "Z": 8.98,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -2.18,
+        "Z": 3.02,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 7.53,
+        "Z": 8.68,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -3.56,
+        "Z": 8.3,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -4.84,
+        "Z": 15.82,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
@@ -12124,29 +12253,93 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot2C1_350",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
-        "Speedup": false,
-        "Catcher": false,
+        "X": -6.78,
+        "Z": 8.49,
+        "Speedup": true,
+        "Catcher": true,
         "Shooting": false
-      }
-    ],
-    "GActions": [
+      },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 1.5,
+        "Z": 8.68,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -2.85,
+        "Z": 15.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 0.39,
+        "Z": 15.24,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
+      }
+    ],
+    "FActions": [
+      {
+        "X": 6.85,
+        "Z": 6.22,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 10.2,
+        "Z": 15.22,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 4.24,
+        "Z": 9.09,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 4.62,
+        "Z": 16.51,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -2.07,
+        "Z": 4.32,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 2.31,
+        "Z": 11.31,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -6.77,
+        "Z": 14.89,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -2.61,
+        "Z": 8.71,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
@@ -12414,31 +12607,95 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot3C1_360",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.04,
+        "Z": 10.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -4.86,
+        "Z": 11.27,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -2.85,
+        "Z": 15.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -10.1,
+        "Z": 16.77,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.97,
+        "Z": 3.82,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -6.23,
+        "Z": 5.03,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.86,
+        "Z": 13.67,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
+      },
+      {
+        "X": -5.76,
+        "Z": 4.88,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -3.3,
+        "Z": 3.73,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 6.71,
+        "Z": 6.29,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 1.0,
+        "Z": 14.1,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 10.3,
+        "Z": 13.36,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
       }
     ]
   },
@@ -14587,29 +14844,93 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot2F1_430",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
-        "Speedup": false,
+        "X": -4.59,
+        "Z": 4.38,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
-      }
-    ],
-    "GActions": [
+      },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -5.01,
+        "Z": 15.11,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.63,
+        "Z": 9.41,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 4.91,
+        "Z": 10.93,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "FActions": [
+      {
+        "X": -4.46,
+        "Z": 4.33,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 4.53,
+        "Z": 9.66,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -5.75,
+        "Z": 12.64,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 1.17,
+        "Z": 16.07,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": 0.67,
+        "Z": 2.85,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 10.3,
+        "Z": 11.88,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 6.15,
+        "Z": 10.18,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -5.08,
+        "Z": 14.32,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
@@ -15457,31 +15778,95 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot3F1_460",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.04,
+        "Z": 10.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -4.86,
+        "Z": 11.27,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 8.99,
+        "Z": 8.24,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -10.1,
+        "Z": 16.77,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.97,
+        "Z": 3.82,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -6.23,
+        "Z": 5.03,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -10.2,
+        "Z": 15.11,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -7.15,
+        "Z": 5.07,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -3.3,
+        "Z": 3.73,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 6.71,
+        "Z": 6.29,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 1.0,
+        "Z": 14.1,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
+      },
+      {
+        "X": 10.3,
+        "Z": 14.21,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
       }
     ]
   },
@@ -17602,31 +17987,95 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot2G1_530",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
-        "Speedup": false,
-        "Catcher": false,
+        "X": 4.88,
+        "Z": 9.02,
+        "Speedup": true,
+        "Catcher": true,
         "Shooting": false
-      }
-    ],
-    "GActions": [
+      },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -5.01,
+        "Z": 15.11,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 4.63,
+        "Z": 9.41,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 3.25,
+        "Z": 7.69,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      }
+    ],
+    "FActions": [
+      {
+        "X": 2.35,
+        "Z": 3.77,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 3.92,
+        "Z": 13.64,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 0.15,
+        "Z": 8.16,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
+      },
+      {
+        "X": -6.79,
+        "Z": 9.59,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -7.02,
+        "Z": 5.36,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -6.15,
+        "Z": 14.98,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -3.56,
+        "Z": 8.3,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 1.12,
+        "Z": 15.65,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
       }
     ]
   },
@@ -18472,31 +18921,95 @@
     ]
   },
   {
-    "Name": "",
-    "CActions": [],
-    "FActions": [
+    "Name": "AttackShoot3G1_560",
+    "CActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.04,
+        "Z": 10.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -4.86,
+        "Z": 11.27,
         "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": -2.85,
+        "Z": 15.37,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -10.1,
+        "Z": 16.77,
+        "Speedup": true,
         "Catcher": false,
         "Shooting": false
       }
     ],
-    "GActions": [
+    "FActions": [
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": 2.97,
+        "Z": 3.82,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": -6.23,
+        "Z": 5.03,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
       },
       {
-        "X": 0.0,
-        "Z": 0.0,
+        "X": -4.86,
+        "Z": 13.67,
         "Speedup": false,
         "Catcher": false,
         "Shooting": false
+      },
+      {
+        "X": -5.76,
+        "Z": 4.88,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": true
+      }
+    ],
+    "GActions": [
+      {
+        "X": -3.3,
+        "Z": 3.73,
+        "Speedup": true,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 6.71,
+        "Z": 6.29,
+        "Speedup": false,
+        "Catcher": true,
+        "Shooting": false
+      },
+      {
+        "X": 1.0,
+        "Z": 14.1,
+        "Speedup": false,
+        "Catcher": false,
+        "Shooting": false
+      },
+      {
+        "X": 10.3,
+        "Z": 13.36,
+        "Speedup": true,
+        "Catcher": false,
+        "Shooting": true
       }
     ]
   },

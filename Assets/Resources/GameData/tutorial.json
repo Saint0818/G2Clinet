@@ -343,6 +343,138 @@
         "uipath": "UI2D/UIMainLobby/MainView/BottomLeft/BackBtn"
     },
     {
+        "id": 1000,
+        "line": 1,
+        "title": "新",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "籃球黑幫中，你只能控制移動你自己"
+    },
+    {
+        "id": 1000,
+        "line": 2,
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "現在先操作搖桿移動到指定的地方吧！"
+    },
+    {
+        "id": 1001,
+        "line": 1,
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "旁邊綠色藍色投射燈的是你的隊友，你無法控制他們的移動"
+    },
+    {
+        "id": 1001,
+        "line": 2,
+        "kind": 3,
+        "texttw": "既然敵方防守球員站那麼遠，那我們給他們一個驚喜吧"
+    },
+    {
+        "id": 1001,
+        "line": 3,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
+    },
+    {
+        "id": 1002,
+        "line": 1,
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "是時候可以發動"
+    },
+    {
+        "id": 1002,
+        "line": 2,
+        "kind": 3
+    },
+    {
+        "id": 1003,
+        "line": 1,
+        "kind": 3,
+        "texttw": "現在可以發動個抄截"
+    },
+    {
+        "id": 1003,
+        "line": 2,
+        "kind": 3,
+        "texttw": "首先移動到指定的位置！！"
+    },
+    {
+        "id": 1004,
+        "line": 1,
+        "kind": 3,
+        "texttw": "趁現在可以使用抄截了！！"
+    },
+    {
+        "id": 1004,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewDefance/ButtonSteal"
+    },
+    {
+        "id": 1005,
+        "line": 1,
+        "kind": 3,
+        "texttw": "瞧他們慌亂的，小心，有兩位敵對球員正朝你而來"
+    },
+    {
+        "id": 1005,
+        "line": 2,
+        "kind": 3,
+        "texttw": "可以使用肘擊，防止他們靠近。"
+    },
+    {
+        "id": 1005,
+        "line": 3,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
+    },
+    {
+        "id": 1006,
+        "line": 1,
+        "kind": 3,
+        "texttw": "趁現在空擋，可以傳給隊友"
+    },
+    {
+        "id": 1006,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
+    },
+    {
+        "id": 1006,
+        "line": 3,
+        "kind": 3,
+        "texttw": "也可以在指揮隊友回傳給你！！"
+    },
+    {
+        "id": 1006,
+        "line": 4,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
+    },
+    {
+        "id": 1007,
+        "line": 1,
+        "kind": 3,
+        "texttw": "不要玩了，該給他們一個再見絕殺了"
+    },
+    {
+        "id": 1007,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/TopRight/0"
+    },
+    {
         "id": 1011,
         "line": 1,
         "title": "第一關",
