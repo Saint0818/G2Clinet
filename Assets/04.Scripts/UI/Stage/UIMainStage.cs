@@ -177,6 +177,7 @@ public class UIMainStage : UIBase
         {
             var team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Power = team.Power;
+            GameData.Team.PowerCD = team.PowerCD;
 
             GameData.StageID = mCurrentStageID;
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
