@@ -82,6 +82,7 @@ public class PersonalView
 						TItemData data = GameData.DItemData[player.ValueItems[kind + i].ID];
 						ValueItems[i].Enable = true;
 						ValueItems[i].Name = data.Name;
+						ValueItems[i].Atlas = data.Atlas;
 						ValueItems[i].Pic = data.Icon;
 						ValueItems[i].Quality = data.Quality;
 						ValueItems[i].Starts = player.ValueItems[kind + i].InlayItemIDs.Length;
@@ -340,6 +341,11 @@ public class TValueAvater
 	{
 		if(Btn && btnFunc != null)
 			Btn.onClick.Add(btnFunc);
+	}
+
+	public int Atlas
+	{
+		set{pic.atlas = GameData.DItemAtlas["AtlasItem_"+value];}
 	}
 
 	public string Pic
