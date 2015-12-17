@@ -7,8 +7,6 @@ public class UIInGameMissionView : MonoBehaviour {
 	public bool IsFinish;
 	public Animator FinishAnimator;
 	public UILabel DescLabel;
-	public UILabel CurrentLabel;
-	public UILabel GoalLabel;
 
 	public void Show()
 	{
@@ -23,13 +21,9 @@ public class UIInGameMissionView : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	public void UpdateUI(string desc, string current, string max)
+	public void UpdateUI(string desc)
 	{
 		DescLabel.text = desc;
-		CurrentLabel.text = current;
-		GoalLabel.text = max;
-		CurrentLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
-		GoalLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
 	}
 
 	public void UpdateFin () {

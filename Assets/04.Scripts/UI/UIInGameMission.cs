@@ -9,6 +9,7 @@ public class UIInGameMission : UIBase {
 	private TStageData stageData;
 	private int[] hintBits;
 	private int hintIndex;
+	private string describe;
 	private Animator missionAnimator;
 	private UIInGameMissionView[] missionViews;
 	private Dictionary<int, UIInGameMissionView> missionDic = new Dictionary<int, UIInGameMissionView>();
@@ -82,9 +83,6 @@ public class UIInGameMission : UIBase {
 			hintBits = stageData.HintBit;
 			hintIndex = 0;
 
-//			int minute = (int) (GameController.Get.GameTime / 60f);
-//			int second = (int) (GameController.Get.GameTime % 60f);
-
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				missionViews[hintIndex].Show();
@@ -98,9 +96,9 @@ public class UIInGameMission : UIBase {
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				}
-				missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 7),
-												 score.ToString(), "/" + stageData.Bit1Num.ToString());
 
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
+				missionViews[hintIndex].UpdateUI(describe);
 				missionDic.Add(1, missionViews[hintIndex]);
 				hintIndex++;
 			}
@@ -108,8 +106,8 @@ public class UIInGameMission : UIBase {
 			if(hintBits.Length > 2 && hintBits[2] > 0)
 			{
 				missionViews[hintIndex].Show();
-				missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[2], 7),
-												 getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString());
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+				missionViews[hintIndex].UpdateUI(describe);
 				missionDic.Add(2, missionViews[hintIndex]);
 				hintIndex++;
 			}
@@ -117,8 +115,8 @@ public class UIInGameMission : UIBase {
 			if(hintBits.Length > 3 && hintBits[3] > 0)
 			{
 				missionViews[hintIndex].Show();
-				missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[3], 7),
-											  	 getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString());
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+				missionViews[hintIndex].UpdateUI(describe);
 				missionDic.Add(3, missionViews[hintIndex]);
 			}
 		}
@@ -139,8 +137,8 @@ public class UIInGameMission : UIBase {
 				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				isFin = (score >= stageData.Bit1Num);
 			}
-			missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(2, hintBits[1], 7),
-											 score.ToString(), "/" + stageData.Bit1Num.ToString());
+			describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
+			missionViews[hintIndex].UpdateUI(describe);
 			hintIndex ++;
 			if((hintBits[1] == 3 || hintBits[1] == 4))
 				isFin = false;
@@ -155,8 +153,8 @@ public class UIInGameMission : UIBase {
 		isFin = false;
 		if(missionDic.ContainsKey(2) && !missionDic[2].IsFinish) {
 			isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
-			missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[2], 7),
-									 getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString());
+			describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+			missionViews[hintIndex].UpdateUI(describe);
 			hintIndex ++;
 			if(isFin)
 				missionDic[2].UpdateFin();
@@ -168,8 +166,8 @@ public class UIInGameMission : UIBase {
 		isFin = false;
 		if(missionDic.ContainsKey(3) && !missionDic[3].IsFinish) {
 			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit2Num);
-			missionViews[hintIndex].UpdateUI(GameFunction.GetHintText(3, hintBits[3], 7),
-											 getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString());
+			describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+			missionViews[hintIndex].UpdateUI(describe);
 			if(isFin)
 				missionDic[3].UpdateFin();
 		}
