@@ -5,7 +5,6 @@ public class GameStageTargetLose : MonoBehaviour {
 	public bool IsComplete;
 
 	public UILabel DescLabel;
-	public UILabel GoalLabel;
 	public GameObject FinTarget;
 	public GameObject LoseTarget;
 	
@@ -19,10 +18,9 @@ public class GameStageTargetLose : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	public void UpdateUI(string target, string desc, string current, string max, bool isComplete, bool isFinish = false)
+	public void UpdateUI(string desc, bool isComplete, bool isFinish = false)
 	{
 		DescLabel.text = desc;
-		GoalLabel.text = "[FFDD33FF]"+ current +"[-]" + max;
 		IsComplete = isComplete;
 		FinTarget.SetActive(isFinish);
 		LoseTarget.SetActive(isFinish);

@@ -212,7 +212,7 @@ public class UILoading : UIBase
                 else
                     labelTip.text = TextConst.S(UnityEngine.Random.Range(301, 303));
             
-                UIStageHintManager.UpdateHint(GameData.StageID, ref stageTargets);
+                UIStageHintManager.UpdateHintNormal(GameData.StageID, ref stageTargets);
 
                 if (GameData.SkillRecommends != null && GameData.SkillRecommends.Length > 0) {
                     skillIDs.Clear();

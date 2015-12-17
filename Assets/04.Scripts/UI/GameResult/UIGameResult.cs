@@ -525,7 +525,7 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		hintCount = UIStageHintManager.UpdateHint(GameData.StageID, ref mTargets);
+		hintCount = UIStageHintManager.UpdateHintNormal(GameData.StageID, ref mTargets);
 		hintIndex = hintCount;
 		Invoke("showFinish", 4);
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
