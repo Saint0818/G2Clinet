@@ -25,7 +25,7 @@ public class UIGamePause : UIBase {
 
 	private GameObject uiSelect;
 
-//	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
+	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
 	private TGameRecord gameRecord;
 
 	private UIStageHint uiStageHint;
@@ -109,24 +109,30 @@ public class UIGamePause : UIBase {
 			basemax = 6;
 		}
 		string positionName = "";
+		string positionType = "";
 		for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 			if (i>=basemin && i<basemax) {
 				switch (i) {
 				case 0:
 				case 3:
 					positionName = "/Center/GameResult/PlayerMe/ButtonMe/PlayerFace/MyFace";
+					positionType = "/Center/GameResult/PlayerMe/ButtonMe/PlayerNameMe/SpriteTypeMe";
 					break;
 				case 1:
 				case 4:
 					positionName = "/Center/GameResult/PlayerA/ButtonA/PlayerFace/AFace";
+					positionType = "/Center/GameResult/PlayerA/ButtonA/PlayerNameA/SpriteTypeA";
 					break;
 				case 2:
 				case 5:
 					positionName = "/Center/GameResult/PlayerB/ButtonB/PlayerFace/BFace";
+					positionType = "/Center/GameResult/PlayerB/ButtonB/PlayerNameB/SpriteTypeB";
 					break;
 				}
-				if (GameController.Get.GamePlayers[i].Attribute.BodyType >= 0 && GameController.Get.GamePlayers[i].Attribute.BodyType < 3)
+				if (GameController.Get.GamePlayers[i].Attribute.BodyType >= 0 && GameController.Get.GamePlayers[i].Attribute.BodyType < 3) {
 					GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = GameController.Get.GamePlayers[i].Attribute.FacePicture;
+					GameObject.Find(UIName + positionType).GetComponent<UISprite>().spriteName = positionPicName[GameController.Get.GamePlayers[i].Attribute.BodyType];
+				}
 			}
 		}
 	}
