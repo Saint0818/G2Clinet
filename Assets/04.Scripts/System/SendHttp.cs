@@ -389,6 +389,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
 				}
 
+                if (GameData.Team.StageTutorial == 0)
+                    GameData.Team.StageTutorial = 3;
+
 				GameData.StageID = GameData.Team.StageTutorial + 1;
 				if (GameData.Team.Player.Lv == 0 && StageTable.Ins.HasByID(GameData.StageID)) {
 					int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;

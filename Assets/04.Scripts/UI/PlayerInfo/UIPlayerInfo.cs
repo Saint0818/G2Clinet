@@ -85,8 +85,11 @@ public class PersonalView
 						ValueItems[i].Atlas = data.Atlas;
 						ValueItems[i].Pic = data.Icon;
 						ValueItems[i].Quality = data.Quality;
-						ValueItems[i].Starts = player.ValueItems[kind + i].InlayItemIDs.Length;
-						ValueItems[i].ID = player.ValueItems[kind + i].ID;
+                        if (player.ValueItems != null && player.ValueItems.ContainsKey(kind + i) && 
+                            player.ValueItems[kind + i].InlayItemIDs != null) {
+						    ValueItems[i].Starts = player.ValueItems[kind + i].InlayItemIDs.Length;
+						    ValueItems[i].ID = player.ValueItems[kind + i].ID;
+                        }
 					}
 				}
 

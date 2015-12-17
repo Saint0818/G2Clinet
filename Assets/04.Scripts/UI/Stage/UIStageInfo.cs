@@ -78,7 +78,7 @@ public class UIStageInfo : MonoBehaviour
         hintObj.transform.parent = HintParent;
         hintObj.transform.localPosition = Vector3.zero;
         hintObj.transform.localRotation = Quaternion.identity;
-		hintObj.transform.localScale = new Vector3(0.9f, 0.9f, 1);
+        hintObj.transform.localScale = Vector3.one;//new Vector3(0.9f, 0.9f, 1);
         mHint = hintObj.GetComponent<UIStageHint>();
         mHint.UpdateInterval(490, 100);
 

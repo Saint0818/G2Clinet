@@ -27,7 +27,7 @@ public class UIStageHint : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             var localPos = mTargets[0].transform.localPosition;
-            localPos.y -= yInterval * i;
+            localPos.y = 100 - yInterval * i;
             mTargets[i].transform.localPosition = localPos;
         }
 
@@ -36,7 +36,7 @@ public class UIStageHint : MonoBehaviour
         {
             var localPos = mTargets[0].transform.localPosition;
             localPos.x += xInterval;
-            localPos.y -= yInterval * (i - 3);
+            localPos.y = 100 - yInterval * (i - 3);
             mTargets[i].transform.localPosition = localPos;
         }
 
