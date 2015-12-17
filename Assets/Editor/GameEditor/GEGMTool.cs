@@ -555,6 +555,7 @@ public class GEGMTool : GEBase
 				for(int i = 0; i < team.Items.Length; i++)
 					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
 						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
+		    GameData.Team.SkillCards = team.SkillCards;
 
 			if(UIAvatarFitted.Visible)
 				UIAvatarFitted.Get.UpdateAvatar(true);

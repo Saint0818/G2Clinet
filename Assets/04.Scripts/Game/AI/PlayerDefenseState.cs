@@ -1,5 +1,4 @@
-﻿using GameStruct;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace AI
 {
@@ -10,16 +9,10 @@ namespace AI
             get { return EPlayerAIState.Defense; }
         }
 
-//        private enum EAction
-//        {
-//            None, Push, Steal
-//        }
-
         private readonly PlayerBehaviour mPlayer;
-        private AISkillJudger mSkillJudger;
+//        private AISkillJudger mSkillJudger;
 
-//        private readonly WeightedRandomizer<EAction> mRandomizer = new WeightedRandomizer<EAction>();
-//        private readonly Dictionary<EAction, CommonDelegateMethods.Action> mActions = new Dictionary<EAction, CommonDelegateMethods.Action>();
+        private readonly StartSkillAction mStartSkillAction;
 
         private readonly ActionRandomizer mActions = new ActionRandomizer();
 
@@ -27,8 +20,7 @@ namespace AI
         {
             mPlayer = player;
 
-//            mActions.Add(EAction.Push, doPush);
-//            mActions.Add(EAction.Steal, doSteal);
+            mStartSkillAction = new StartSkillAction(mPlayer);
 
             mActions.Add(new CloseDefPlayerAction(playerAI, mPlayer));
             mActions.Add(new PushAction(playerAI, mPlayer));
@@ -37,19 +29,20 @@ namespace AI
 
         public void Init(PlayerBehaviour[] players)
         {
-            mSkillJudger = new AISkillJudger(mPlayer, players, false);
+//            mSkillJudger = new AISkillJudger(mPlayer, false, players);
+            mStartSkillAction.Init(players, false);
         }
 
         public override void Enter(object extraInfo)
         {
-			if (mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0)
-            {
-                if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
-                {
-                    TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
-                    mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
-                }
-            }
+//			if (mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0)
+//            {
+//                if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
+//                {
+//                    TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
+//                    mSkillJudger.SetNewCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
+//                }
+//            }
         }
 
         public override void Exit()
@@ -61,16 +54,18 @@ namespace AI
             if(!mPlayer.AIing)
                 return;
 
-            if(mPlayer.Attribute.ActiveSkills.Count > 0)
-            {
-				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
-                   mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
-				{
-				    if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]))
-                        return; // 真的有做主動技, 才真的結束 AI 的判斷.
-				    
-				}
-            }
+//            if(mPlayer.Attribute.ActiveSkills.Count > 0)
+//            {
+//				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
+//                   mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
+//				{
+//				    if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]))
+//                        return; // 真的有做主動技, 才真的結束 AI 的判斷.
+//				}
+//            }
+
+            if(mStartSkillAction.Do())
+                return; // 真的有做主動技, 會結束此次的 AI 判斷.
 
             doDefenseAction();
 
@@ -87,63 +82,7 @@ namespace AI
                 return;
 
             mActions.Do();
-
-//            var action = randomAction();
-//            if(action == EAction.None)
-//                return;
-
-//            Debug.LogFormat("Name:{0}, Action:{1}", mPlayerAI.name, action);
-//            mActions[action]();
         }
-
-//        private void doPush()
-//        {
-//            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
-//            if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, oppPlayerAI.transform.position))
-//            {
-//                mPlayer.PushCD.StartAgain();
-//            }
-//        }
-
-//        private void doSteal()
-//        {
-//            if(mPlayer.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
-//            {
-//                mPlayer.StealCD.StartAgain();
-//            }
-//        }
-
-//        private EAction randomAction()
-//        {
-//            mRandomizer.Clear();
-//
-//            // todo 這只是暫時的設定, 只是希望降低 Push, Steal 的發生機率.
-//            mRandomizer.AddOrUpdate(EAction.None, 30); 
-//
-//            var oppPlayerAI = mPlayerAI.FindNearestOpponentPlayer();
-//            if(oppPlayerAI != null)
-//            {
-//                var oppPlayer = mPlayerAI.GetComponent<PlayerBehaviour>();
-//                
-//                if(oppPlayer.PushCD.IsTimeUp() &&
-//                   MathUtils.Find2DDis(mPlayerAI.transform.position, oppPlayerAI.transform.position) <= GameConst.StealPushDistance)
-//                {
-//                    mRandomizer.AddOrUpdate(EAction.Push, mPlayer.Attr.PushingRate);
-//                }
-//            }
-//            
-//            if(GameController.Get.BallOwner != null &&
-//               mPlayer.StealCD.IsTimeUp() &&
-//               MathUtils.Find2DDis(mPlayerAI.transform.position, GameController.Get.BallOwner.transform.position) <= GameConst.StealPushDistance)
-//            {
-//                mRandomizer.AddOrUpdate(EAction.Steal, mPlayer.Attr.StealRate);
-//            }
-//
-//            if(mRandomizer.IsEmpty())
-//                return EAction.None;
-//
-//            return mRandomizer.GetNext();
-//        }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {

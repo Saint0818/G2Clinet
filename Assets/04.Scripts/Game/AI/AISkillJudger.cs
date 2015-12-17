@@ -4,13 +4,13 @@ using JetBrains.Annotations;
 namespace AI
 {
     /// <summary>
-    /// 用來判斷主動技是否可以施放的判斷類別.
+    /// 用來判斷某個主動技是否可以施放的判斷類別.
     /// </summary>
     /// <remarks>
     /// 使用方法:
     /// <list type="number">
     /// <item> new instance. </item>
-    /// <item> call SetCondition() 設定要判斷的條件. </item>
+    /// <item> call SetNewCondition() 設定新的判斷條件. </item>
     /// <item> call IsMatchCondition() 檢查條件是否符合. </item>
     /// </list>
     /// 
@@ -57,7 +57,13 @@ namespace AI
         }
         private readonly PlayerBehaviour mFocusPlayer;
 
-        public AISkillJudger(PlayerBehaviour focusPlayer, PlayerBehaviour[] players, bool isAttack)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="focusPlayer"> 誰會施放主動技. </param>
+        /// <param name="isAttack"> focusPlayer 是否為進攻狀態. </param>
+        /// <param name="players"> 因為技能施放會和全場的人息息相關(通常都是距離內才可以施放), 所以需要全場的人的資訊. </param>
+        public AISkillJudger(PlayerBehaviour focusPlayer, bool isAttack, PlayerBehaviour[] players)
         {
             mFocusPlayer = focusPlayer;
             mPlayers = players;
@@ -67,11 +73,11 @@ namespace AI
             mSkillLvFactory = new AISkillLvFactory(this);
         }
 
-        public void SetCondition([NotNull]string situation, int aiSkillLvID)
+        public void SetNewCondition([NotNull]string skillSituation, int aiSkillLvID)
         {
             mConditions.Clear();
 
-            compileSituation(situation);
+            compileSituation(skillSituation);
             compileAISkillLv(aiSkillLvID);
         }
 
