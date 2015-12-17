@@ -8,11 +8,16 @@ public class UIEquipUtility
         UIValueItemData equipItem = new UIValueItemData
         {
             Name = item.Name,
+            Atlas = GameData.DItemAtlas.ContainsKey("AtlasItem_" + item.Atlas) ? GameData.DItemAtlas["AtlasItem_" + item.Atlas] : null,
             Icon = string.Format("Item_{0}", item.Icon),
             Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain
         };
-        for(int i = 0; i < item.Bonus.Length; i++)
+
+//        if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + item.Atlas))
+//            equipItem.Atlas = GameData.DItemAtlas["AtlasItem_" + item.Atlas];
+
+        for (int i = 0; i < item.Bonus.Length; i++)
         {
             if (item.Bonus[i] == EBonus.None)
                 continue;

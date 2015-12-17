@@ -28,6 +28,8 @@ public class UIValueItemData
     }
     private string mName;
 
+    public UIAtlas Atlas { get; set; }
+
     public string Icon
     {
         set { mIcon = string.IsNullOrEmpty(value) ? string.Empty : value; }

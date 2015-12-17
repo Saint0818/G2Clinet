@@ -34,6 +34,7 @@ public class UIEquipListButton : MonoBehaviour
     public void Set(UIValueItemData item)
     {
         NameLabel.text = item.Name;
+        Icon.atlas = item.Atlas;
         Icon.spriteName = item.Icon;
         Frame.spriteName = item.Frame;
         AmountLabel.text = item.Num.ToString();

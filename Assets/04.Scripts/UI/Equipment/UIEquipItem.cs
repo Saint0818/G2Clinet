@@ -51,6 +51,8 @@ public class UIEquipItem : MonoBehaviour
     public void Set(UIValueItemData item, bool showRedPoint)
     {
         gameObject.SetActive(true);
+        
+        Picture.atlas = item.Atlas;
         Picture.spriteName = item.Icon;
 
         GetComponent<UISprite>().spriteName = item.Frame;
