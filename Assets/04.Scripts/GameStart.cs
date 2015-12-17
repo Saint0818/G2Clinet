@@ -1,3 +1,4 @@
+#define PUSHWOOSH
 using GameEnum;
 using GamePlayEnum;
 using UnityEngine;
@@ -39,5 +40,8 @@ public class GameStart : KnightSingleton<GameStart> {
 		TextConst.Init();
 		GameData.Init();
 		SendHttp.Get.CheckServerData(ConnectToServer);
+		#if PUSHWOOSH
+        gameObject.AddComponent<PushNotificator>();
+		#endif
 	}
 }

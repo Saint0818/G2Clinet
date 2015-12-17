@@ -1,91 +1,198 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-[RequireComponent (typeof (PushNotificationsAndroid))]
-[RequireComponent (typeof (PushNotificationsIOS))]
-public class Pushwoosh : SingletonBase<Pushwoosh> 
+#if UNITY_IPHONE && !UNITY_EDITOR
+using PushwooshInstanceType = PushNotificationsIOS;
+
+#elif UNITY_ANDROID && !UNITY_EDITOR
+using PushwooshInstanceType = PushNotificationsAndroid;
+
+#elif (UNITY_WP8 || UNITY_WP8_1) && !UNITY_EDITOR
+using PushwooshInstanceType = PushNotificationsWP8; 
+
+#else
+using PushwooshInstanceType = Pushwoosh;
+#endif
+
+public class Pushwoosh : MonoBehaviour
 {
-	public const string APP_CODE = "091A7-0264B";
+	public const string APP_CODE = "B184A-F7E8A";
+	public const string GCM_PROJECT_NUMBER = "854327390035";
+    public delegate void RegistrationSuccessHandler(string token);
 
-	public const string GCM_PROJECT_NUMBER = "basketball-gang-2";
+    public delegate void RegistrationErrorHandler(string error);
+
+    public delegate void NotificationHandler(string payload);
+
+    public delegate void InitializationHandler();
 
 
-	public delegate void RegistrationSuccessHandler(string payload);
+    public event RegistrationSuccessHandler OnRegisteredForPushNotifications = delegate {};
 	
-	public delegate void RegistrationErrorHandler(string error);
+    public event RegistrationErrorHandler OnFailedToRegisteredForPushNotifications = delegate {};
 	
-	public delegate void NotificationHandler(string payload);
+    public event NotificationHandler OnPushNotificationsReceived = delegate {};
+
+    public event InitializationHandler OnInitialized = delegate {};
 
 
-	public event RegistrationSuccessHandler OnRegisteredForPushNotifications = delegate {};
+    public virtual string HWID
+    {
+        get
+        {
+            UnsupportedPlatform();
+            return "Unsupported platform"; 
+        }
+    }
+
+    public virtual string PushToken
+    {
+        get
+        { 
+            UnsupportedPlatform();
+            return "Unsupported platform"; 
+        }
+    }
+
+    public virtual void StartTrackingGeoPushes()
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void StopTrackingGeoPushes()
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void SetIntTag(string tagName, int tagValue)
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void SetStringTag(string tagName, string tagValue)
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void SetListTag(string tagName, List<object> tagValues)
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void ClearNotificationCenter()
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void SetBadgeNumber(int number)
+    {
+        UnsupportedPlatform();
+    }
+
+    public virtual void AddBadgeNumber(int deltaBadge)
+    {
+        UnsupportedPlatform();
+    }
+
+    protected void RegisteredForPushNotifications(string token)
+    {
+        OnRegisteredForPushNotifications(token);
+    }
+
+    protected void FailedToRegisteredForPushNotifications(string error)
+    {
+        OnFailedToRegisteredForPushNotifications(error);
+    }
+
+    protected void PushNotificationsReceived(string payload)
+    {
+        OnPushNotificationsReceived(payload);
+    }
+
+    protected void Initialized()
+    {
+        OnInitialized();
+    }
+
+    private void UnsupportedPlatform()
+    {
+        var frame = new System.Diagnostics.StackFrame(1);
+        var method = frame.GetMethod();
+        string methodName = method.Name;
+        Debug.Log("[Pushwoosh] Error: " + methodName + " is not supported on this platform");
+    }
+
+    // Singleton
+    private static PushwooshInstanceType _instance;
 	
-	public event RegistrationErrorHandler OnFailedToRegisteredForPushNotifications = delegate {};
-	
-	public event NotificationHandler OnPushNotificationsReceived = delegate {};
+    private static object _lock = new object();
 
+    protected Pushwoosh()
+    {
+    }
 
-	// singleton
-	protected Pushwoosh() {}
+    public static PushwooshInstanceType Instance
+    {
+        get
+        {
+            if (applicationIsQuitting)
+            {
+                Debug.LogWarning("[Singleton] Instance '" + typeof(PushwooshInstanceType) +
+                    "' already destroyed on application quit." +
+                    " Won't create again - returning null.");
+                return null;
+            }
+			
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = (PushwooshInstanceType)FindObjectOfType(typeof(PushwooshInstanceType));
+					
+                    if (FindObjectsOfType(typeof(PushwooshInstanceType)).Length > 1)
+                    {
+                        Debug.LogError("[Singleton] Something went really wrong " +
+                            " - there should never be more than 1 singleton!" +
+                            " Reopening the scene might fix it.");
+                        return _instance;
+                    }
+					
+                    if (_instance == null)
+                    {
+                        GameObject singleton = new GameObject();
+                        _instance = singleton.AddComponent<PushwooshInstanceType>();
+                        singleton.name = "(singleton) " + typeof(PushwooshInstanceType).ToString();
+						
+                        DontDestroyOnLoad(singleton);
+						
+                        Debug.Log("[Singleton] An instance of " + typeof(PushwooshInstanceType) +
+                            " is needed in the scene, so '" + singleton +
+                            "' was created with DontDestroyOnLoad.");
+                    }
+                    else
+                    {
+                        Debug.Log("[Singleton] Using instance already created: " +
+                            _instance.gameObject.name);
+                    }
+                }
+				
+                return _instance;
+            }
+        }
+    }
 
-#if UNITY_IPHONE && !UNITY_EDITOR
-	public PushNotificationsIOS IOSPushNotificationsManager 
-	{
-		get { return gameObject.GetComponent<PushNotificationsIOS>(); } 
-	}
+    private static bool applicationIsQuitting = false;
 
-#elif UNITY_ANDROID && !UNITY_EDITOR
-	public PushNotificationsAndroid AndroidPushNotificationsManager {
-		get { return gameObject.GetComponent<PushNotificationsAndroid>(); } 
-	}
-
-#elif (UNITY_WP8 || UNITY_WP8_1) && !UNITY_EDITOR
-	public PushNotificationsWP8 WP8PushNotificationsManager {
-		get { return gameObject.GetComponent<PushNotificationsWP8>(); } 
-	}
-#endif
-
-	void Start () 
-	{
-#if UNITY_IPHONE && !UNITY_EDITOR
-		PushNotificationsIOS pushNotificationsIOS = IOSPushNotificationsManager;
-		pushNotificationsIOS.OnRegisteredForPushNotifications += onRegisteredForPushNotifications;
-		pushNotificationsIOS.OnFailedToRegisteredForPushNotifications += onFailedToRegisteredForPushNotifications;
-		pushNotificationsIOS.OnPushNotificationsReceived += onPushNotificationsReceived;
-#elif UNITY_ANDROID && !UNITY_EDITOR
-		PushNotificationsAndroid pushNotificationsAndroid = AndroidPushNotificationsManager;
-		pushNotificationsAndroid.OnRegisteredForPushNotifications += onRegisteredForPushNotifications;
-		pushNotificationsAndroid.OnFailedToRegisteredForPushNotifications += onFailedToRegisteredForPushNotifications;
-		pushNotificationsAndroid.OnPushNotificationsReceived += onPushNotificationsReceived;
-#elif (UNITY_WP8 || UNITY_WP8_1) && !UNITY_EDITOR
-		PushNotificationsWP8 pushNotificationsWP8 = WP8PushNotificationsManager;
-		pushNotificationsWP8.OnRegisteredForPushNotifications += onRegisteredForPushNotifications;
-		pushNotificationsWP8.OnFailedToRegisteredForPushNotifications += onFailedToRegisteredForPushNotifications;
-		pushNotificationsWP8.OnPushNotificationsReceived += onPushNotificationsReceived;
-#endif
-	}
-	
-	// propagate events
-	void onRegisteredForPushNotifications(string token)
-	{
-		OnRegisteredForPushNotifications (token);
-
-		// dispatch only once
-#if UNITY_IPHONE && !UNITY_EDITOR
-		IOSPushNotificationsManager.OnRegisteredForPushNotifications -= onRegisteredForPushNotifications;
-#elif UNITY_ANDROID && !UNITY_EDITOR
-		AndroidPushNotificationsManager.OnRegisteredForPushNotifications -= onRegisteredForPushNotifications;
-#elif (UNITY_WP8 || UNITY_WP8_1) && !UNITY_EDITOR
-		WP8PushNotificationsManager.OnRegisteredForPushNotifications -= onRegisteredForPushNotifications;
-#endif
-	}
-	
-	void onFailedToRegisteredForPushNotifications(string error)
-	{
-		OnFailedToRegisteredForPushNotifications (error);
-	}
-	
-	void onPushNotificationsReceived(string payload)
-	{
-		OnPushNotificationsReceived (payload);
-	}
+    /// <summary>
+    /// When Unity quits, it destroys objects in a random order.
+    /// In principle, a Singleton is only destroyed when application quits.
+    /// If any script calls Instance after it have been destroyed, 
+    ///   it will create a buggy ghost object that will stay on the Editor scene
+    ///   even after stopping playing the Application. Really bad!
+    /// So, this was made to be sure we're not creating that buggy ghost object.
+    /// </summary>
+    public void OnDestroy()
+    {
+        applicationIsQuitting = true;
+    }
 }

@@ -3,22 +3,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PushNotificationsAndroid : MonoBehaviour 
+public class PushNotificationsAndroid : Pushwoosh 
 {
 #if UNITY_ANDROID && !UNITY_EDITOR
-	public event Pushwoosh.RegistrationSuccessHandler OnRegisteredForPushNotifications = delegate {};
-	
-	public event Pushwoosh.RegistrationErrorHandler OnFailedToRegisteredForPushNotifications = delegate {};
-	
-	public event Pushwoosh.NotificationHandler OnPushNotificationsReceived = delegate {};
-
 	// Use this for initialization
 	void Start () {
 		InitPushwoosh();
-		registerForPushNotifications();
+		RegisterForPushNotifications();
 		
-		Debug.Log(this.gameObject.name);
-		Debug.Log(getPushToken());
+		Debug.Log("PushwooshStart " + this.gameObject.name);
+		Debug.Log("PushwooshStart " + PushToken);
+
+		Initialized ();
 	}
 
 	private static AndroidJavaObject pushwoosh = null;
@@ -27,7 +23,7 @@ public class PushNotificationsAndroid : MonoBehaviour
 		if(pushwoosh != null)
 			return;
 		
-		using(var pluginClass = new AndroidJavaClass("com.arellomobile.android.push.PushwooshProxy")) {
+		using(var pluginClass = new AndroidJavaClass("com.pushwoosh.PushwooshProxy")) {
 			pluginClass.CallStatic("initialize", Pushwoosh.APP_CODE, Pushwoosh.GCM_PROJECT_NUMBER);
 			pushwoosh = pluginClass.CallStatic<AndroidJavaObject>("instance");
 		}
@@ -35,29 +31,29 @@ public class PushNotificationsAndroid : MonoBehaviour
 		pushwoosh.Call("setListenerName", this.gameObject.name);
 	}
  
-	public void setIntTag(string tagName, int tagValue)
-	{
-		pushwoosh.Call("setIntTag", tagName, tagValue);
-	}
-
-	public void registerForPushNotifications()
+	public void RegisterForPushNotifications()
 	{
 		pushwoosh.Call("registerForPushNotifications");
 	}
 
-	public void unregisterForPushNotifications()
+	public void UnregisterForPushNotifications()
 	{
 		pushwoosh.Call("unregisterFromPushNotifications");
 	}
 
-	public void setStringTag(string tagName, string tagValue)
+	public override void SetIntTag(string tagName, int tagValue)
+	{
+		pushwoosh.Call("setIntTag", tagName, tagValue);
+	}
+
+	public override void SetStringTag(string tagName, string tagValue)
 	{
 		pushwoosh.Call("setStringTag", tagName, tagValue);
 	}
 
-	public void setListTag(string tagName, List<object> tagValues)
+	public override void SetListTag(string tagName, List<object> tagValues)
 	{
-		AndroidJavaObject tags = new AndroidJavaObject ("com.arellomobile.android.push.TagValues");
+		AndroidJavaObject tags = new AndroidJavaObject ("com.pushwoosh.TagValues");
 
 		foreach( var tagValue in tagValues )
 		{
@@ -67,7 +63,12 @@ public class PushNotificationsAndroid : MonoBehaviour
 		pushwoosh.Call ("setListTag", tagName, tags);
 	}
 
-	public String[] getPushHistory()
+	public string GetLaunchNotification()
+	{
+		return pushwoosh.Call<string>("getLaunchNotification");
+	}
+
+	public String[] GetPushHistory()
 	{
 		AndroidJavaObject history = pushwoosh.Call<AndroidJavaObject>("getPushHistory");
 		if (history.GetRawObject().ToInt32() == 0)
@@ -81,72 +82,67 @@ public class PushNotificationsAndroid : MonoBehaviour
 		return result;
 	}
 	
-	public void clearPushHistory()
+	public void ClearPushHistory()
 	{
 		pushwoosh.Call("clearPushHistory");
 	}
 
-	public void sendLocation(double lat, double lon)
-	{
-		pushwoosh.Call("sendLocation", lat, lon);
-	}
-
-	public void startTrackingGeoPushes()
+	public override void StartTrackingGeoPushes()
 	{
 		pushwoosh.Call("startTrackingGeoPushes");
 	}
 
-	public void stopTrackingGeoPushes()
+	public override void StopTrackingGeoPushes()
 	{
 		pushwoosh.Call("stopTrackingGeoPushes");
 	}
 	
-	public void startTrackingBeaconPushes()
+	public void StartTrackingBeaconPushes()
 	{
 		pushwoosh.Call("startTrackingBeaconPushes");
 	}
 
-	public void stopTrackingBeaconPushes()
+	public void StopTrackingBeaconPushes()
 	{
 		pushwoosh.Call("stopTrackingBeaconPushes");
 	}
 
-	public void setBeaconBackgroundMode(bool backgroundMode)
+	public void SetBeaconBackgroundMode(bool backgroundMode)
 	{
 		pushwoosh.Call("setBeaconBackgroundMode", backgroundMode);
 	}
 	
-	public void clearLocalNotifications()
+	public void ClearLocalNotifications()
 	{
 		pushwoosh.Call("clearLocalNotifications");
 	}
 
-	public void clearNotificationCenter()
+	public override void ClearNotificationCenter()
 	{
 		pushwoosh.Call("clearNotificationCenter");
 	}
 
-	public int scheduleLocalNotification(string message, int seconds)
+	public int ScheduleLocalNotification(string message, int seconds)
 	{
 		return pushwoosh.Call<int>("scheduleLocalNotification", message, seconds);
 	}
 
-	public int scheduleLocalNotification(string message, int seconds, string userdata)
+	public int ScheduleLocalNotification(string message, int seconds, string userdata)
 	{
 		return pushwoosh.Call<int>("scheduleLocalNotification", message, seconds, userdata);
 	}
 
-	public void clearLocalNotification(int id)
+	public void ClearLocalNotification(int id)
 	{
 		pushwoosh.Call("clearLocalNotification", id);
 	}
 	
-	public void setMultiNotificationMode()
+	public void SetMultiNotificationMode()
 	{
 		pushwoosh.Call("setMultiNotificationMode");
 	}
 
-	public void setSimpleNotificationMode()
+	public void SetSimpleNotificationMode()
 	{
 		pushwoosh.Call("setSimpleNotificationMode");
 	}
@@ -157,7 +153,7 @@ public class PushNotificationsAndroid : MonoBehaviour
 	 * 1 - no sound
 	 * 2 - always
 	 */
-	public void setSoundNotificationType(int soundNotificationType)
+	public void SetSoundNotificationType(int soundNotificationType)
 	{
 		pushwoosh.Call("setSoundNotificationType", soundNotificationType);
 	}
@@ -168,44 +164,54 @@ public class PushNotificationsAndroid : MonoBehaviour
 	 * 1 - no vibrate
 	 * 2 - always
 	 */
-	public void setVibrateNotificationType(int vibrateNotificationType)
+	public void SetVibrateNotificationType(int vibrateNotificationType)
 	{
 		pushwoosh.Call("setVibrateNotificationType", vibrateNotificationType);
 	}
 
-	public void setLightScreenOnNotification(bool lightsOn)
+	public void SetLightScreenOnNotification(bool lightsOn)
 	{
 		pushwoosh.Call("setLightScreenOnNotification", lightsOn);
 	}
 
-	public void setEnableLED(bool ledOn)
+	public void SetEnableLED(bool ledOn)
 	{
 		pushwoosh.Call("setEnableLED", ledOn);
 	}
-	
-	public string getPushToken()
+
+	public override void SetBadgeNumber(int number)
 	{
-		return pushwoosh.Call<string>("getPushToken");
+		pushwoosh.Call("setBadgeNumber", number);
+	}
+	
+	public override void AddBadgeNumber(int deltaBadge)
+	{
+		pushwoosh.Call("addBadgeNumber", deltaBadge);
 	}
 
-	public string getPushwooshHWID()
+	public override string HWID
 	{
-		return pushwoosh.Call<string>("getPushwooshHWID");
+		get { return pushwoosh.Call<string>("getPushwooshHWID"); }
+	}
+
+	public override string PushToken
+	{
+		get { return pushwoosh.Call<string>("getPushToken"); }
 	}
 
 	void onRegisteredForPushNotifications(string token)
 	{
-		OnRegisteredForPushNotifications (token);
+		RegisteredForPushNotifications (token);
 	}
 
 	void onFailedToRegisteredForPushNotifications(string error)
 	{
-		OnFailedToRegisteredForPushNotifications (error);
+		FailedToRegisteredForPushNotifications (error);
 	}
 
 	void onPushNotificationsReceived(string payload)
 	{
-		OnPushNotificationsReceived (payload);
+		PushNotificationsReceived (payload);
 	}
 
 	void OnApplicationPause(bool paused)
