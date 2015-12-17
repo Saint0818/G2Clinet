@@ -349,8 +349,8 @@
         "kind": 3,
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 4,
-        "texttw": "籃球黑幫中，你只能控制移動你自己"
+        "actionl": 6,
+        "texttw": "在籃球黑幫2中，[ff6666]紅色[-]投射燈的球員是你自己．你也只能移動你自己的角色。"
     },
     {
         "id": 1000,
@@ -358,8 +358,8 @@
         "kind": 3,
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 4,
-        "texttw": "現在先操作搖桿移動到指定的地方吧！"
+        "actionl": 6,
+        "texttw": "現在，先操作搖桿移動到指定的地方吧！"
     },
     {
         "id": 1001,
@@ -368,13 +368,16 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "旁邊綠色藍色投射燈的是你的隊友，你無法控制他們的移動"
+        "texttw": "旁邊[6666ff]藍色[-]、[66ff66]綠色[-]投射燈的球員是你的隊友，你無法控制他們的移動"
     },
     {
         "id": 1001,
         "line": 2,
         "kind": 3,
-        "texttw": "既然敵方防守球員站那麼遠，那我們給他們一個驚喜吧"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "既然敵方防守球員站那麼遠，我們給他們一個驚喜吧！！"
     },
     {
         "id": 1001,
@@ -389,90 +392,100 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "是時候可以發動"
+        "texttw": "趁他們不注意，我們可以來嘗試一下抄截。"
     },
     {
         "id": 1002,
         "line": 2,
-        "kind": 3
-    },
-    {
-        "id": 1003,
-        "line": 1,
         "kind": 3,
-        "texttw": "現在可以發動個抄截"
-    },
-    {
-        "id": 1003,
-        "line": 2,
-        "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
         "texttw": "首先移動到指定的位置！！"
     },
     {
-        "id": 1004,
+        "id": 1003,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
         "texttw": "趁現在可以使用抄截了！！"
     },
     {
-        "id": 1004,
+        "id": 1003,
         "line": 2,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewDefance/ButtonSteal"
     },
     {
-        "id": 1005,
+        "id": 1004,
         "line": 1,
         "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
         "texttw": "瞧他們慌亂的，小心，有兩位敵對球員正朝你而來"
     },
     {
-        "id": 1005,
+        "id": 1004,
         "line": 2,
         "kind": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
         "texttw": "可以使用肘擊，防止他們靠近。"
     },
     {
-        "id": 1005,
+        "id": 1004,
         "line": 3,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
     },
     {
-        "id": 1006,
+        "id": 1005,
         "line": 1,
         "kind": 3,
-        "texttw": "趁現在空擋，可以傳給隊友"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "趁現在有空擋了，可以試著傳給隊友，"
     },
     {
-        "id": 1006,
+        "id": 1005,
         "line": 2,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
     },
     {
-        "id": 1006,
+        "id": 1005,
         "line": 3,
         "kind": 3,
-        "texttw": "也可以在指揮隊友回傳給你！！"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "也可以再指揮隊友回傳給你！！"
     },
     {
-        "id": 1006,
+        "id": 1005,
         "line": 4,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
     },
     {
-        "id": 1007,
+        "id": 1006,
         "line": 1,
         "kind": 3,
-        "texttw": "不要玩了，該給他們一個再見絕殺了"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "好啦，不要玩了，該給他們一個再見絕殺了"
     },
     {
-        "id": 1007,
+        "id": 1006,
         "line": 2,
         "kind": 3,
-        "uipath": "UI2D/UIGame/TopRight/0"
+        "uipath": "UI2D/UIGame/TopRight/2"
     },
     {
         "id": 1011,
