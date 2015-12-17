@@ -24,6 +24,8 @@ namespace AI
                 }
             }
 
+            Tactical = AIController.Get.PlayerAttackTactical;
+
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Self);
 
             if(GameController.Get.Joysticker && GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)

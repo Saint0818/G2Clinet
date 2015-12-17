@@ -7,13 +7,18 @@ namespace AI
     /// </summary>
     /// 實作子類別:
     /// <list type="number">
-    /// <item> 要指定 Players. 目前認為最好的時機點是在 State.Enter 設定. </item>
-    /// <item> Call randomTacticalToPlayer() 將戰術傳遞給進攻方球員. </item>
+    /// <item> 要初始化 Players property. 目前認為最好的時機點是在 State.Enter 設定. </item>
+    /// <item> 要設定 Tactical property. </item>
     /// </list>
     public abstract class AttackerState : State<EGameSituation, EGameMsg>
     {
         protected List<PlayerBehaviour> Players { get {return mPlayers;} }
         private readonly List<PlayerBehaviour> mPlayers = new List<PlayerBehaviour>();
+
+        /// <summary>
+        /// 進攻要跑的戰術類型.
+        /// </summary>
+        public ETacticalAuto Tactical { get; set; }
 
         /// <summary>
         /// 哪位球員的戰術跑完.
@@ -25,22 +30,20 @@ namespace AI
             {EPlayerPostion.C, false}
         };
 
-        protected static void randomTacticalToPlayer()
+        private void randomTacticalToPlayer()
         {
             if(GameController.Get.HasBallOwner)
             {
                 TTacticalData tactical;
-                bool isFound = AITools.RandomTactical(AIController.Get.AttackTactical, 
+                bool isFound = AITools.RandomTactical(Tactical, 
                     GameController.Get.BallOwner.Index, out tactical);
 
                 if(isFound)
                     GameMsgDispatcher.Ins.SendMesssage(EGameMsg.CoachOrderAttackTactical, tactical);
             }
-//            else
-//                AITools.RandomTactical(ETacticalAuto.AttackNormal, EPlayerPostion.G, out tactical);
         }
 
-        protected bool isAllPlayerTacticalDone()
+        private bool isAllPlayerTacticalDone()
         {
             foreach(KeyValuePair<EPlayerPostion, bool> pair in mTacticalDones)
             {
@@ -51,7 +54,7 @@ namespace AI
             return true;
         }
 
-        protected void clearPlayerTacticals()
+        private void clearPlayerTacticals()
         {
             mTacticalDones[EPlayerPostion.G] = false;
             mTacticalDones[EPlayerPostion.F] = false;
@@ -61,12 +64,6 @@ namespace AI
             {
                 Players[i].ResetMove();
             }
-
-//            for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-//            {
-//                if(GameController.Get.GamePlayers[i].Team == ETeamKind.Self)
-//                    GameController.Get.GamePlayers[i].ResetMove();
-//            }
         }
 
         public override void Enter(object extraInfo)

@@ -29,7 +29,7 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
     /// <summary>
     /// 玩家選擇的進攻戰術.
     /// </summary>
-    public ETacticalAuto AttackTactical { get; set; }
+    public ETacticalAuto PlayerAttackTactical { get; set; }
 
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 

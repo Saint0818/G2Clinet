@@ -369,8 +369,6 @@ public class UISelectRole : UIBase {
 	}
 
 	private void UIState(EUIRoleSituation state) {
-		int id = 0;
-		
 		
 		switch (state) {
 		case EUIRoleSituation.SelectRole:

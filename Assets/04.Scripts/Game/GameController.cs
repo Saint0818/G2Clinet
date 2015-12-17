@@ -206,7 +206,7 @@ public class GameController : KnightSingleton<GameController>
     {
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
-        AIController.Get.AttackTactical = GameData.Team.AttackTactical;
+        AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		ModelManager.Get.PreloadAnimator();

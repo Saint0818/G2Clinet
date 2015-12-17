@@ -24,6 +24,9 @@ namespace AI
                 }
             }
 
+            // 電腦跑 Normal 戰術.
+            Tactical = ETacticalAuto.AttackNormal;
+
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc);
 
 			if (GameController.Get.Joysticker && GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
