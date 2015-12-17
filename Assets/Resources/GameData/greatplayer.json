@@ -186,7 +186,7 @@
         "rebound": 30,
         "block": 50,
         "defence": 30,
-        "steal": 999,
+        "steal": 99,
         "dribble": 30,
         "pass": 200,
         "bodytype": 1,
