@@ -274,6 +274,7 @@ public class UIGameResult : UIBase {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
 				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
+				playerStats.SetPositionIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
 				//				if(i == 1 || i == 2)//need get friend list
 				//					playerStats.ShowAddFriendBtn(i);
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
@@ -525,7 +526,7 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		hintCount = UIStageHintManager.UpdateHintNormal(GameData.StageID, ref mTargets);
+		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
 		hintIndex = hintCount;
 		Invoke("showFinish", 4);
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
