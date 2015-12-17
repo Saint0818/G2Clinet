@@ -284,6 +284,15 @@
         "en": "Your data is being sent to the cloud, unless the solar system erupts, we shall store your data for enternity."
     },
     {
+        "id": 801,
+        "explain": "推播"
+    },
+    {
+        "id": 802,
+        "explain": "體力補滿",
+        "tw": "您的體力已經全部恢復，快來打一場球吧。"
+    },
+    {
         "id": 1001,
         "explain": "主介面"
     },
