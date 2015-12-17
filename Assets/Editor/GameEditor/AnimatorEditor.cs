@@ -119,37 +119,41 @@ public class AnimatorEditor : EditorWindow {
 		}
 
 		if (GUI.Button (new Rect (400, 0, 200, 20), "Init All AnimationContorller")) {
+            string[] controls = {"AnimationControl", "AvatarControl", "ShowControl", "TalkControl"};
 
-			UnityEditor.Animations.AnimatorController[] aniAy = new UnityEditor.Animations.AnimatorController[2];
+            for (int a = 0; a < controls.Length; a++) {
+                UnityEditor.Animations.AnimatorController[] aniAy = new UnityEditor.Animations.AnimatorController[2];
 
-			for(int i = 0; i < aniAy.Length; i++)
-			{
-				allAnimationClip.Clear();
-				UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_"+i+"/Animation", typeof(AnimationClip));
-				for(int k=0; k<animationObjs.Length; k++) {
-					AnimationClip clip = animationObjs[k] as AnimationClip;
-					if(!allAnimationClip.Contains(clip))
-						allAnimationClip.Add(clip);
-				}
+    			for(int i = 0; i < aniAy.Length; i++)
+    			{
+    				allAnimationClip.Clear();
+    				UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_"+i+"/Animation", typeof(AnimationClip));
+    				for(int k=0; k<animationObjs.Length; k++) {
+    					AnimationClip clip = animationObjs[k] as AnimationClip;
+    					if(!allAnimationClip.Contains(clip))
+    						allAnimationClip.Add(clip);
+    				}
 
-				AssetDatabase.DeleteAsset("Assets/Resources/Character/PlayerModel_"+ i +"/AnimationControl.controller");
-				AssetDatabase.CopyAsset ("Assets/Resources/Character/PlayerModel_2/AnimationControl.controller", "Assets/Resources/Character/PlayerModel_"+ i +"/AnimationControl.controller");
+                    AssetDatabase.DeleteAsset("Assets/Resources/Character/PlayerModel_" + i + "/" + controls[a] + ".controller");
+                    AssetDatabase.CopyAsset ("Assets/Resources/Character/PlayerModel_2/" + controls[a] + ".controller", "Assets/Resources/Character/PlayerModel_"+ i +"/" + controls[a] + ".controller");
+    				AssetDatabase.Refresh();
+                    aniAy[i] = Resources.Load(string.Format("Character/PlayerModel_{0}/" + controls[a], i)) as UnityEditor.Animations.AnimatorController;
 
-				AssetDatabase.Refresh();
-				aniAy[i] = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", i)) as UnityEditor.Animations.AnimatorController;
+                    if(aniAy[i]) {
+    					for(int j=0; j<aniAy[i].layers.Length; j++){
+    						if(j < aniAy[i].layers.Length)
+    							EditorUtility.DisplayProgressBar("SwitchAnimationClip", "Animator", j / aniAy[i].layers.Length);
+                            
+    					    recurrenceSubState(aniAy[i].layers[j].stateMachine);
+    				    }
+                    } else
+    					Debug.LogError("Error");
+    			}
 
-				if(aniAy[i])
-					for(int j=0; j<aniAy[i].layers.Length; j++){
-						if(j < aniAy[i].layers.Length)
-							EditorUtility.DisplayProgressBar("SwitchAnimationClip", "Animator", j / aniAy[i].layers.Length);
-					recurrenceSubState(aniAy[i].layers[j].stateMachine);
-				}
-				else
-					Debug.LogError("Error");
-			}
+    			AssetDatabase.SaveAssets();
+            }
 
-			EditorUtility.ClearProgressBar();
-			AssetDatabase.SaveAssets();
+            EditorUtility.ClearProgressBar();
 			ShowHint("Done");
 		}
 

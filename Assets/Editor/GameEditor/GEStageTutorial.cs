@@ -86,7 +86,7 @@ public class GEStageTutorial : GEBase {
 			GameData.StageID = GameData.StageTutorial[index].ID;
 			TStageData stageData = StageTable.Ins.GetByID(GameData.StageID);
 			if (stageData.FriendKind == 4) {
-				SceneMgr.Get.ChangeLevel(ESceneName.Court + stageData.CourtNo);
+				SceneMgr.Get.ChangeLevel(stageData.CourtNo);
 			} else
 				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
