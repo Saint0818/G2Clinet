@@ -45,8 +45,8 @@ public class AwardAvatarView : MonoBehaviour {
 		Show ();
 		QualitySquare.spriteName = "Equipment_"+ Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
-		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Kind)) {
-			ItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Kind];
+		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Atlas)) {
+			ItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Atlas];
 		}
 
 		ItemPic.gameObject.SetActive(true);

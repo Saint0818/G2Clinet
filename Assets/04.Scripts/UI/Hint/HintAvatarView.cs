@@ -69,8 +69,8 @@ public class HintAvatarView : MonoBehaviour {
 			ItemKindLabel.text = TextConst.S(13000 + itemData.Kind);
 		} 
 
-		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Kind)) {
-			ItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Kind];
+		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Atlas)) {
+			ItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Atlas];
 		}
 
 		if(string.IsNullOrEmpty(itemData.Icon))

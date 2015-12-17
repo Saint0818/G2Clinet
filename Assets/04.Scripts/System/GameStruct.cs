@@ -861,6 +861,7 @@ namespace GameStruct
         // [19]:鑲嵌材料, [21]:技能卡牌
         public int Kind;
 		public int LV;
+		public int Atlas;
 
 		public int Position;
 		public int Avatar;

@@ -51,8 +51,8 @@ public class HintSkillView : MonoBehaviour {
 		
 		SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(itemData.LV, 1, 5).ToString();
 
-		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Kind)) {
-			SkillItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Kind];
+		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Atlas)) {
+			SkillItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Atlas];
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {

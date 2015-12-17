@@ -25,8 +25,8 @@ public class AwardSkillView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData){
-		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Kind)) {
-			SkillItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Kind];
+		if(GameData.DItemAtlas.ContainsKey("AtlasItem_" + itemData.Atlas)) {
+			SkillItemPic.atlas = GameData.DItemAtlas["AtlasItem_" + itemData.Atlas];
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
