@@ -20,12 +20,9 @@ public class UIGamePause : UIBase {
 	private const string UIName = "UIGamePause";
 
 	private GameObject uiGameResult;
-
 	private EPauseType pauseType = EPauseType.Target;
-
 	private GameObject uiSelect;
-
-	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
+	private string[] positionPicName = {"IconCenter", "IconForward", "IconGuard"};
 	private TGameRecord gameRecord;
 
 	private UIStageHint uiStageHint;
