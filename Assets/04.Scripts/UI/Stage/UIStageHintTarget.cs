@@ -29,7 +29,8 @@ public class UIStageHintTarget : MonoBehaviour
     {
         DescLabel.text = desc;
 		GoalLabel.text = "[FFDD33FF]"+ current +"[-]" + max;
-		FinTarget.SetActive(isFinish);
+        if (FinTarget)
+		    FinTarget.SetActive(isFinish);
     }
 
 	public void UpdateFin (bool isFinish) {

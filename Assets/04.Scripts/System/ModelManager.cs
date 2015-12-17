@@ -132,7 +132,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                 textureCache.Add(path, obj);
                 return obj;
             }
-            else
+            else 
             {
                 //download form server
                 return null;
@@ -300,7 +300,6 @@ public class ModelManager : KnightSingleton<ModelManager>
         if (Player)
         {
             string bodyNumber = bodyType.ToString();
-            ;
             string mainBody = "PlayerModel";
             string strPart = GetAvatarPartString(BodyPart);
 
@@ -320,10 +319,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                     if (obj)
                     {
                         string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, strPart, ModelPart, TexturePart);
-                        string namePath = string.Format("{0}_{1}_{2}_{3}", bodyNumber, strPart, ModelPart, TexturePart);
-                        Texture texture = loadTexture(namePath);
-                        if (!texture)
-                            texture = loadTexture(path);
+                        Texture texture = loadTexture(path);
 
                         Renderer renderers = obj.GetComponent<Renderer>();
                         Material[] materials = renderers.materials;
@@ -350,11 +346,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                     if (obj)
                     {
                         string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart, ModelPart, TexturePart);
-                        string namePath = string.Format("{0}_{1}_{2}_{3}", bodyNumber, strPart, ModelPart, TexturePart);
-                        Texture texture = loadTexture(namePath);
-                        if (!texture)
-                            texture = loadTexture(path);
-
+                        Texture texture = loadTexture(path);
                         Renderer renderers = obj.GetComponent<Renderer>();
                         Material[] materials = renderers.materials;
                         for (int i = 0; i < materials.Length; i++)
@@ -377,10 +369,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                 if (obj)
                 {
                     string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart, ModelPart, TexturePart);
-                    string namePath = string.Format("{0}_{1}_{2}_{3}", bodyNumber, strPart, ModelPart, TexturePart);
-                    Texture texture = loadTexture(namePath);
-                    if (!texture)
-                        texture = loadTexture(path);
+                    Texture texture = loadTexture(path);
 
                     Renderer renderers = obj.GetComponent<Renderer>();
                     Material[] materials = renderers.materials;
@@ -412,7 +401,7 @@ public class ModelManager : KnightSingleton<ModelManager>
         SetAvatar(ref result, attr, bodyType, animatorType, combine, Reset);
     }
 
-    public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false)
+    public GameObject SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false)
     {
         try
         {
@@ -617,6 +606,7 @@ public class ModelManager : KnightSingleton<ModelManager>
             resultSmr.receiveShadows = false;
             resultSmr.useLightProbes = false;
 
+            GameObject cobbineObject = null;
             if (!combine)
             {
                 clone.transform.parent = result.transform;
@@ -626,7 +616,7 @@ public class ModelManager : KnightSingleton<ModelManager>
             else
             {
                 MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
-                GameObject cobbineObject = materialCombiner.CombineMaterial(matObj);
+                cobbineObject = materialCombiner.CombineMaterial(matObj);
                 cobbineObject.transform.parent = result.transform;
                 LayerMgr.Get.SetLayer(cobbineObject, ELayer.Player);
                 cobbineObject.name = "PlayerModel";
@@ -640,11 +630,18 @@ public class ModelManager : KnightSingleton<ModelManager>
             result.transform.parent = parent;
             result.transform.localPosition = localposition;
 
+            if (!combine)
+                return clone;
+            else
+                return cobbineObject;
         }
         catch (UnityException e)
         {
             Debug.Log(e.ToString());
+            return null;
         }
+
+        return null;
     }
 
     private void InitCapsuleCollider(GameObject obj, int bodyType)

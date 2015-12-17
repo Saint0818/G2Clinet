@@ -30,9 +30,9 @@ public class TActiveSkillCard
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillStar =  go.transform.FindChild("SkillStar").gameObject.GetComponent<UISprite>();
 			btn = self.GetComponent<UIButton>();
-			isInit = SkillPic && SkillCard && SkillLevel && SkillName && SkillStar && btn;
+			isInit = SkillPic && SkillCard && SkillLevel && SkillName && SkillStar;
 			
-			if(isInit && btnFunc != null){
+            if(isInit && btnFunc != null && btn){
 				btn.onClick.Add(btnFunc);
 			}
 			
@@ -42,15 +42,18 @@ public class TActiveSkillCard
 	public void UpdateView(int index, TSkill skill)
 	{
 		if(isInit){
-			self.name = index.ToString();
-			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
-			SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
-			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
-			SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
-			
-			if(GameData.DSkillData.ContainsKey(skill.ID)){
-				SkillName.text = GameData.DSkillData[skill.ID].Name;
-			}
+            if (GameData.DSkillData.ContainsKey(skill.ID)) {
+    			self.name = index.ToString();
+    			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
+    			SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
+    			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+    			SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+    			
+    			if(GameData.DSkillData.ContainsKey(skill.ID)){
+    				SkillName.text = GameData.DSkillData[skill.ID].Name;
+    			}
+            } else
+                Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
 		else
 		{

@@ -1,6 +1,7 @@
 using System.Collections;
 using GameEnum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class ESceneName
 {
@@ -23,13 +24,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     public static event LevelWillBeLoaded OnLevelWillBeLoaded;
     public static event LevelWaitLoadNextScene OnLevelWaitLoadNext;
     public int CurrentSceneNo = 0;
-    
+
     IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
         if (OnLevelWillBeLoaded != null)
             OnLevelWillBeLoaded();
 
-        yield return Application.LoadLevelAsync(levelToLoad.ToString());
+        yield return SceneManager.LoadSceneAsync(levelToLoad.ToString());
         CurrentScene = levelToLoad;
 
         switch (levelToLoad)

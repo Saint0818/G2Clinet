@@ -80,7 +80,7 @@ public class TStageData
 
     [UsedImplicitly]
     [CanBeNull] public int[] RewardRates { get; private set; } // 獎勵機率.
-
+    public int[] Tips;
     public int WinValue;
     public int FriendNumber { get; private set; }
 

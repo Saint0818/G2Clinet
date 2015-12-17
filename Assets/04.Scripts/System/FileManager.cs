@@ -59,17 +59,17 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePath = URL + "gamedata/";
 	private const string ClientFilePath = "GameData/";
 
-	#if UNITY_ANDROID
-	private const string ServerFilePathAssetBundle =  URL + "assetbundle/android/";
-	#endif
-	#if UNITY_IPHONE
+    #if UNITY_IOS
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
-	#endif
+	#else
+    private const string ServerFilePathAssetBundle =  URL + "assetbundle/android/";
+    #endif
 
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
-        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst"
+        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
+        "skillrecommend"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -197,7 +197,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[13] = parseExpData;
 		downloadCallBack[14] = parseTeamname;
 		downloadCallBack[15] = ParseTextConst;
-
+        downloadCallBack[16] = ParseSkillRecommend;
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
@@ -692,4 +692,17 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.LogError ("Text const parsed error : " + ex.Message);
 		}
 	}
+
+    public void ParseSkillRecommend(string version, string text, bool isSaveVersion) {
+        try {
+            GameData.SkillRecommends = JsonConvert.DeserializeObject<TSkillRecommend[]>(text);
+
+            if (isSaveVersion)
+                SaveDataVersionAndJson(text, "textconst", version);
+
+            Debug.Log ("[SkillRecommend parsed finished.]");
+        } catch (System.Exception ex) {
+            Debug.LogError ("SkillRecommend parsed error : " + ex.Message);
+        }
+    }
 }

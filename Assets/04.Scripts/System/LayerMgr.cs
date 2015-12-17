@@ -17,6 +17,7 @@ public enum ELayer
 	UIPlayer,
 	UIPlayerInfo,
 	//for game play
+    Default,
 	Player,
 	Shooter,
 	BasketCollider,

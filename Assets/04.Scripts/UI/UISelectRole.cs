@@ -26,7 +26,6 @@ public class UISelectRole : UIBase {
 	private const float Z_Partner = 0.75f;
 	private const float Y_Player = 0;
 
-	private float axisX;
 	private float roleFallTime = 0;
 	private int selectRoleIndex = 0;
 	private float doubleClickTime = 3;
@@ -50,8 +49,6 @@ public class UISelectRole : UIBase {
 	private GameObject uiPartnerList;
 	private GameObject uiChangPlayerA;
 	private GameObject uiChangPlayerB;
-	private GameObject uiSelectA;
-	private GameObject uiSelectB;
 	private GameObject uiRedPoint;
 
 	private UILabel labelPlayerName;
@@ -173,28 +170,6 @@ public class UISelectRole : UIBase {
 				}
 			}
 		}
-		if(uiSelect.activeInHierarchy) {
-			if(Input.GetMouseButton(0)) {
-				axisX = 0;
-				
-				#if UNITY_EDITOR
-				axisX = -Input.GetAxis ("Mouse X");
-				#else
-				#if UNITY_IOS
-				if(Input.touchCount > 0)
-					axisX = -Input.touches[0].deltaPosition.x;
-				#endif
-
-				#if UNITY_ANDROID
-				if(Input.touchCount > 0)
-					axisX = -Input.touches[0].deltaPosition.x;
-				#endif
-					#if (!UNITY_IOS && !UNITY_ANDROID)
-					axisX = -Input.GetAxis ("Mouse X");
-					#endif
-				#endif
-			} 
-		}
 	}
 	
 	public static void InitPlayerList(ref int[] ids) {
@@ -281,8 +256,8 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
 		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
 		SetBtnFun (UIName + "/Right/GameStart", DoStart);
-		SetBtnFun (UIName + "/Bottom/ChangPlayerA", OnChangePlayer);
-		SetBtnFun (UIName + "/Bottom/ChangPlayerB", OnChangePlayer);
+		SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
+        SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
 		SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
 
 		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(false);
@@ -298,10 +273,10 @@ public class UISelectRole : UIBase {
 		uiInfoRange = GameObject.Find(UIName + "/Right/InfoRange");
 		labelPlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		spritePlayerBodyPic = GameObject.Find (UIName + "/Right/InfoRange/BodyType/SpriteType").GetComponent<UISprite>();
-		labelsSelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
-		spritesSelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/SpriteTypeA").GetComponent<UISprite>();
-		labelsSelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-		spritesSelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/SpriteTypeB").GetComponent<UISprite>();
+        labelsSelectABName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
+        spritesSelectABBody[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/SpriteType").GetComponent<UISprite>();
+        labelsSelectABName[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
+        spritesSelectABBody[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/SpriteType").GetComponent<UISprite>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/UIAttributeHexagon")).onClick = OnClickSixAttr;
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/ShowTimeCollider")).onClick = DoPlayerAnimator;
@@ -327,18 +302,14 @@ public class UISelectRole : UIBase {
         mUIAttributes.PlayScale(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
 
 		uiPartnerList = GameObject.Find(UIName + "/Center/ViewLoading/PartnerList");
-		uiChangPlayerA = GameObject.Find(UIName + "/Bottom/ChangPlayerA");
-		uiChangPlayerB = GameObject.Find(UIName + "/Bottom/ChangPlayerB");
-		uiSelectA = GameObject.Find(UIName + "/Center/ViewLoading/SelectA");
-		uiSelectB = GameObject.Find(UIName + "/Center/ViewLoading/SelectB");
+		uiChangPlayerA = GameObject.Find(UIName + "/Top/SelectA");
+		uiChangPlayerB = GameObject.Find(UIName + "/Top/SelectB");
 		uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
 
 		uiRedPoint.SetActive(false);
 		uiPartnerList.SetActive(false);
 		uiChangPlayerA.SetActive(false);
 		uiChangPlayerB.SetActive(false);
-		uiSelectA.SetActive(false);
-		uiSelectB.SetActive(false);
 	}
 
 	protected override void InitData() {
@@ -348,11 +319,9 @@ public class UISelectRole : UIBase {
 				arrayPlayer[i] = new GameObject();
 				arrayPlayer[i].name = i.ToString();
 				arrayPlayer[i].transform.parent = playerInfoModel.transform;
-				ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, arrayPlayerData[i].BodyType, EAnimatorType.AvatarControl, false);
+				GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, arrayPlayerData[i].BodyType, EAnimatorType.AvatarControl, false);
 				arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
-				arrayPlayer[i].GetComponent<CapsuleCollider>().enabled = false;
 				arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
-				arrayPlayer[i].AddComponent<SelectEvent>();
 
 				if(i == 0) {
 					arrayPlayer[i].transform.localPosition = new Vector3(0, 0, 0);
@@ -374,16 +343,10 @@ public class UISelectRole : UIBase {
 				else
 					arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
 				
-				changeLayersRecursively(arrayPlayer[i].transform, "Default");
-				for (int j = 0; j <arrayPlayer[i].transform.childCount; j++) 
-				{ 
-					if(arrayPlayer[i].transform.GetChild(j).name.Contains("PlayerMode")) 
-					{
-						arrayPlayer[i].transform.GetChild(j).localScale = Vector3.one;
-						arrayPlayer[i].transform.GetChild(j).localEulerAngles = Vector3.zero;
-						arrayPlayer[i].transform.GetChild(j).localPosition = Vector3.zero;
-					}
-				}
+                LayerMgr.Get.SetLayer(obj, ELayer.Default);
+                obj.transform.localScale = Vector3.one;
+                obj.transform.localEulerAngles = Vector3.zero;
+                obj.transform.localPosition = Vector3.zero;
 			}
 		}
 
@@ -397,7 +360,7 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
 
-		arrayPlayer[0].transform.localPosition = new Vector3(0, 2, 0);
+		arrayPlayer[0].transform.localPosition = new Vector3(0, 4, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);
 		Invoke("hideSelectRoleAnimator", 2.5f);
@@ -411,8 +374,6 @@ public class UISelectRole : UIBase {
 		
 		switch (state) {
 		case EUIRoleSituation.SelectRole:
-			uiSelectA.SetActive(false);
-			uiSelectB.SetActive(false);
 			uiPartnerList.SetActive(false);
 			uiChangPlayerA.SetActive(false);
 			uiChangPlayerB.SetActive(false);
@@ -440,17 +401,9 @@ public class UISelectRole : UIBase {
 			
 			break;
 		case EUIRoleSituation.ChooseRole:
-			uiSelectA.SetActive(true);
-			uiSelectB.SetActive(true);
 			uiPartnerList.SetActive(false);
-			uiChangPlayerA.SetActive(false);
-			uiChangPlayerB.SetActive(false);
-			
-			//if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
-				uiChangPlayerA.SetActive(true);
-				uiChangPlayerB.SetActive(true);
-			//} else
-			//	uiPartnerList.SetActive(true);
+			uiChangPlayerA.SetActive(true);
+			uiChangPlayerB.SetActive(true);
 			uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
 			uiSelect.SetActive(false);
 			arrayAnimator[0].SetTrigger("Idle");
@@ -577,15 +530,40 @@ public class UISelectRole : UIBase {
 		}
 	}
 
+    public void OnClickPlayer(GameObject go){
+        int index = 1;
+        int.TryParse(go.name, out index);
+        openChangePlayer(index);
+    }
+
 	public void OnChangePlayer(){
 		int index = 1;
-		if (UIButton.current.name == "ChangPlayerB")
+		if (UIButton.current.name == "PlayerNameB")
 			index = 2;
 
-		UISkillFormation.UIShow(false);
-		UISelectPartner.UIShow(true);
-		UISelectPartner.Get.InitMemberList(ref playerList, ref arrayPlayerData, index);
+        openChangePlayer(index);
 	}
+
+    private void openChangePlayer(int index) {
+        if (UISelectPartner.Visible)
+            return;
+
+        for (int i = 0; i < arrayPlayer.Length; i++)
+            if (arrayPlayer[i])
+                arrayPlayer[i].SetActive(false);
+        
+        if (index == 1) {
+            uiChangPlayerA.transform.localPosition = new Vector3(-400, -360, 0);
+            uiChangPlayerB.SetActive(false);
+        }
+
+        arrayPlayer[index].SetActive(true);
+        arrayPlayer[index].transform.localPosition = new Vector3(-X_Partner, 0, Z_Partner);
+        arrayPlayer[index].transform.localEulerAngles = new Vector3(0, 150, 0);
+        UISkillFormation.UIShow(false);
+        UISelectPartner.UIShow(true);
+        UISelectPartner.Get.InitMemberList(ref playerList, ref arrayPlayerData, index);
+    }
 
 	public void OnSkillCard() {
 		UISelectPartner.UIShow(false);
@@ -612,33 +590,24 @@ public class UISelectRole : UIBase {
 
 	public void SetPlayerAvatar(int roleIndex, int index) {
 		if (index >= 0 && index < playerList.Count) {
-			/*if (GameData.DPlayers.ContainsKey(arrayPlayerData[roleIndex].ID))
-				playerList.Add(arrayPlayerData[roleIndex]);
-
-			arrayPlayerData[roleIndex] = playerList[index];
-			playerList.RemoveAt(index);*/
 			arrayPlayerData[roleIndex] = playerList[index];
 			GameObject temp = arrayPlayer [roleIndex];
-			ModelManager.Get.SetAvatar(ref arrayPlayer[roleIndex], arrayPlayerData[roleIndex].Avatar, arrayPlayerData[roleIndex].BodyType, EAnimatorType.AvatarControl, false, true);
+			GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[roleIndex], arrayPlayerData[roleIndex].Avatar, arrayPlayerData[roleIndex].BodyType, EAnimatorType.AvatarControl, false, true);
 
 			arrayPlayer[roleIndex].name = roleIndex.ToString();
 			arrayPlayer[roleIndex].transform.parent = playerInfoModel.transform;
 			arrayPlayer[roleIndex].transform.localPosition = arrayPlayerPosition[roleIndex];
-			arrayPlayer[roleIndex].GetComponent<CapsuleCollider>().enabled = false;
-			arrayPlayer[roleIndex].AddComponent<SelectEvent>();
+            arrayPlayer[roleIndex].AddComponent<SelectEvent>();
+            arrayPlayer[roleIndex].AddComponent<SpinWithMouse>();
+            UIEventListener.Get (arrayPlayer[roleIndex]).onClick = OnClickPlayer;
 			arrayPlayer[roleIndex].transform.localPosition = temp.transform.localPosition;
 			arrayPlayer[roleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
 			arrayPlayer[roleIndex].transform.localScale = temp.transform.localScale;
-			for (int j = 0; j <arrayPlayer[roleIndex].transform.childCount; j++)  { 
-				if(arrayPlayer[roleIndex].transform.GetChild(j).name.Contains("PlayerMode")) {
-					arrayPlayer[roleIndex].transform.GetChild(j).localScale = Vector3.one;
-					arrayPlayer[roleIndex].transform.GetChild(j).localEulerAngles = Vector3.zero;
-					arrayPlayer[roleIndex].transform.GetChild(j).localPosition = Vector3.zero;
-				}
-			}
-
+            obj.transform.localScale = Vector3.one;
+            obj.transform.localEulerAngles = Vector3.zero;
+            obj.transform.localPosition = Vector3.zero;
+            LayerMgr.Get.SetLayer(obj, ELayer.Default);
 			arrayAnimator[roleIndex] = arrayPlayer[roleIndex].GetComponent<Animator>();
-			changeLayersRecursively(arrayPlayer[roleIndex].transform, "Default");
 
 			switch(roleIndex) {
 			case 0:
@@ -651,16 +620,6 @@ public class UISelectRole : UIBase {
 				SetBodyPic(ref spritesSelectABBody[roleIndex - 1], arrayPlayerData[roleIndex].BodyType);
 				break;
 			}
-
-			//if (UISelectPartner.Visible)
-			//	UISelectPartner.Get.InitMemberList(ref playerList, roleIndex);
-		}
-	}
-
-	private void changeLayersRecursively(Transform trans, string name) {
-		trans.gameObject.layer = LayerMask.NameToLayer(name);
-		foreach (Transform child in trans) {            
-			changeLayersRecursively(child, name);
 		}
 	}
 
@@ -793,6 +752,20 @@ public class UISelectRole : UIBase {
 		UIState(EUIRoleSituation.ChooseRole);
 	}
 
+    public void InitPlayer() {
+        uiChangPlayerB.SetActive(true);
+        uiChangPlayerA.transform.localPosition = new Vector3(400, -360, 0);
+        for (int i = 0; i < arrayPlayer.Length; i++)
+            if (arrayPlayer[i]) {
+                arrayPlayer[i].SetActive(true);
+            }
+        
+        if (arrayPlayer[1]) {
+            arrayPlayer[1].transform.localPosition = new Vector3(X_Partner, 0, Z_Partner);
+            arrayPlayer[1].transform.localEulerAngles = new Vector3(0, -150, 0);
+        }
+    }
+
 	public void InitFriend() {
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
@@ -815,7 +788,6 @@ public class UISelectRole : UIBase {
 	private void selectFriendMode() {
 		UILoading.UIShow(false);
 		UIShow(true);
-		CameraMgr.Get.SetSelectRoleCamera();
 		UI3DSelectRole.UIShow(true);
 
 		uiCharacterCheck.SetActive(false);
@@ -827,26 +799,21 @@ public class UISelectRole : UIBase {
 		arrayPlayerData[0] = GameData.Team.Player;
 		arrayPlayerData[0].RoleIndex = -1;
 		GameObject temp = arrayPlayer [0];
-		ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
+		GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
 
 		arrayPlayer[0].name = 0.ToString();
 		arrayPlayer[0].transform.parent = playerInfoModel.transform;
 		arrayPlayer[0].transform.localPosition = arrayPlayerPosition[0];
-		arrayPlayer[0].GetComponent<CapsuleCollider>().enabled = false;
-		arrayPlayer[0].AddComponent<SelectEvent>();
+        arrayPlayer[0].AddComponent<SelectEvent>();
+        arrayPlayer[0].AddComponent<SpinWithMouse>();
 		arrayPlayer[0].transform.localPosition = temp.transform.localPosition;
 		arrayPlayer[0].transform.localEulerAngles = temp.transform.localEulerAngles;
 		arrayPlayer[0].transform.localScale = temp.transform.localScale;
-		for (int j = 0; j <arrayPlayer[0].transform.childCount; j++)  { 
-			if(arrayPlayer[0].transform.GetChild(j).name.Contains("PlayerMode")) {
-				arrayPlayer[0].transform.GetChild(j).localScale = Vector3.one;
-				arrayPlayer[0].transform.GetChild(j).localEulerAngles = Vector3.zero;
-				arrayPlayer[0].transform.GetChild(j).localPosition = Vector3.zero;
-			}
-		}
-		
+        obj.transform.localScale = Vector3.one;
+        obj.transform.localEulerAngles = Vector3.zero;
+        obj.transform.localPosition = Vector3.zero;
+        LayerMgr.Get.SetLayer(obj, ELayer.Default);
 		arrayAnimator[0] = arrayPlayer[0].GetComponent<Animator>();
-		changeLayersRecursively(arrayPlayer[0].transform, "Default");
 
 		labelPlayerName.text = arrayPlayerData[0].Name;
 		SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[0].BodyType);

@@ -289,6 +289,11 @@ namespace GameStruct
 	    }
 	}
 
+    public struct TSkillRecommend {
+        public int Rate;
+        public int[] IDs;
+    }
+
 	public class TPlayerAttribute
     {
 		public float PointRate2;

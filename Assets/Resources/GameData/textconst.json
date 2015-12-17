@@ -241,7 +241,7 @@
     {
         "id": 533,
         "explain": "技能晶片裝備成功",
-        "tw": "技能晶片卡變更完成"
+        "tw": "技能晶片變更完成"
     },
     {
         "id": 601,
@@ -534,6 +534,11 @@
         "en": "Potential Distribution"
     },
     {
+        "id": 3019,
+        "tw": "戰鬥力",
+        "en": "POWER"
+    },
+    {
         "id": 3021,
         "explain": "屬性六角圖"
     },
@@ -723,8 +728,8 @@
     {
         "id": 3326,
         "explain": "AttrKind7/ExplainLabel",
-        "tw": "1.被敵對衝撞不會倒地的機率\n2.蓋火鍋時附加撞人機率\n3.AI模式時，發動肘擊的機率",
-        "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase chance to knock down opponent while blocking shots.\n3. Increase the chance of elbowing opponent in AI mode"
+        "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
+        "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase the chance of elbowing opponent in AI mode"
     },
     {
         "id": 3327,
@@ -741,13 +746,13 @@
     {
         "id": 3329,
         "explain": "AttrKind3/ExplainLabel",
-        "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率",
-        "en": "1. Increase the chance of blocking shots\n2. Increase the chance of blocking shots in AI mode.\n3. Increase the chance of faking out your opponent in AI mode."
+        "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
+        "en": "1. Increase the chance of blocking shots\n2. Increase the chance of blocking shots in AI mode.\n3. Increase the chance of faking out your opponent in AI mode.\n4. Increase chance to knock down opponent while blocking shots."
     },
     {
         "id": 3330,
         "explain": "AttrKind4/ExplainLabel",
-        "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率",
+        "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率\n3.增加抄截的距離與範圍",
         "en": "1. Increase the chance of steal\n2. Increase the chance of attempting a steal in AI mode."
     },
     {
@@ -765,8 +770,8 @@
     {
         "id": 3333,
         "explain": "AttrKind11/ExplainLabel",
-        "tw": "球員區域防守的範圍",
-        "en": "Size of player's defensive zone"
+        "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
+        "en": "1.Size of player's defensive zone\n2. Increase the chance of attempting a push in AI mode."
     },
     {
         "id": 3401,
@@ -1381,6 +1386,12 @@
         "en": "Click to start"
     },
     {
+        "id": 9404,
+        "explain": "秀卡組",
+        "tw": "推薦晶片",
+        "en": "Recommed Disk"
+    },
+    {
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
@@ -1439,9 +1450,7 @@
         "en": "Selected"
     },
     {
-        "id": 9511,
-        "tw": "技能晶片卡",
-        "en": "Ability Disk"
+        "id": 9511
     },
     {
         "id": 9512,

@@ -1,4 +1,4 @@
-#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_EDITOR
 //
 //	UniWebView.cs
 //  Created by Wang Wei(@onevcat) on 2013-10-20.

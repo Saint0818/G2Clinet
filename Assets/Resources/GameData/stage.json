@@ -122,6 +122,7 @@
         "friendnumber": 3,
         "friendid": [1100,1101,1102],
         "playerid": [1110,1111,1112],
+        "tips": [304, 305, 306],
         "namecn": "初试啼声",
         "nameen": "Fresh Start",
         "namejp": "デビューします",
