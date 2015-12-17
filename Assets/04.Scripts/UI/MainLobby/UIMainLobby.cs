@@ -21,11 +21,14 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
+    /// <summary>
+    /// key: BodyType.
+    /// </summary>
     private readonly Dictionary<int, string> mPlayerIcons = new Dictionary<int, string>
     {
-        {0, "Hank"}, // 中鋒.
-        {1, "Nick"}, // 前鋒.
-        {2, "Emma"}, // 後衛.
+        {0, "PlayerFace0"}, // 中鋒.
+        {1, "PlayerFace1"}, // 前鋒.
+        {2, "PlayerFace2"}, // 後衛.
     };
 
     public UIMainLobbyMain Main { get; private set; }
