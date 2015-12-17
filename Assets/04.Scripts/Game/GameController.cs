@@ -2046,8 +2046,16 @@ public class GameController : KnightSingleton<GameController>
         } else
             return false;
     }
-    
-    public bool Pass(PlayerBehaviour player, bool isTee = false, bool isBtn = false, bool movePass = false)
+
+    /// <summary>
+    /// 要求持球者將球傳給 catchPlayer.
+    /// </summary>
+    /// <param name="catchPlayer"></param>
+    /// <param name="isTee"></param>
+    /// <param name="isBtn"></param>
+    /// <param name="movePass"></param>
+    /// <returns></returns>
+    public bool Pass(PlayerBehaviour catchPlayer, bool isTee = false, bool isBtn = false, bool movePass = false)
     {
 		bool result = false;
 		bool canPass = true;
@@ -2057,7 +2065,7 @@ public class GameController : KnightSingleton<GameController>
 			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
-					float angle = MathUtils.FindAngle(BallOwner.PlayerRefGameObject.transform, player.PlayerRefGameObject.transform.position);
+					float angle = MathUtils.FindAngle(BallOwner.PlayerRefGameObject.transform, catchPlayer.PlayerRefGameObject.transform.position);
 					if (angle < 60f && angle > -60f){
 						UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
 						result = BallOwner.AniState(EPlayerState.Pass5);
@@ -2078,10 +2086,10 @@ public class GameController : KnightSingleton<GameController>
 							result = BallOwner.AniState(EPlayerState.Pass6);
 					}
 				} else 
-					result = BallOwner.AniState(EPlayerState.Pass0, player.PlayerRefGameObject.transform.position);
+					result = BallOwner.AniState(EPlayerState.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
 				
 				if(result){
-					Catcher = player;
+					Catcher = catchPlayer;
 					UIGame.Get.DoPassNone();
 				}
 				
@@ -2091,19 +2099,18 @@ public class GameController : KnightSingleton<GameController>
 
 			if(IsShooting)
 			{
-				if(player.Team == ETeamKind.Self)
+				if(catchPlayer.Team == ETeamKind.Self)
 				{
 					if(!isBtn)
 						canPass = false;
-					else 
-					if(!IsCanPassAir)
+					else if(!IsCanPassAir)
 						canPass = false;
 				}
-				else if(player.Team == ETeamKind.Npc && !IsCanPassAir)
+				else if(catchPlayer.Team == ETeamKind.Npc && !IsCanPassAir)
 					canPass = false;
 			}
 
-			if (!IsPassing && canPass && !IsDunk && player != BallOwner)
+			if (!IsPassing && canPass && !IsDunk && catchPlayer != BallOwner)
 			{
 //				if(!(isBtn || movePass) && CoolDownPass != 0)
 				if(!(isBtn || movePass) && !PassCD.IsTimeUp())
@@ -2114,93 +2121,96 @@ public class GameController : KnightSingleton<GameController>
 				
 				if(isTee)
 				{
-					if(BallOwner.AniState(EPlayerState.Pass50, player.PlayerRefGameObject.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass50, catchPlayer.PlayerRefGameObject.transform.position))
 					{
-						Catcher = player;
+						Catcher = catchPlayer;
 						result = true;
 					}												
-				}else if(IsCanPassAir && !isTee)
+				}
+                else if(IsCanPassAir && !isTee)
 				{
-					if(BallOwner.AniState(EPlayerState.Pass4, player.PlayerRefGameObject.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass4, catchPlayer.PlayerRefGameObject.transform.position))
 					{
-						Catcher = player;
+						Catcher = catchPlayer;
 						result = true;
 					}
 				}
 				else
 				{
-					float dis = Vector3.Distance(BallOwner.PlayerRefGameObject.transform.position, player.PlayerRefGameObject.transform.position);
-					int disKind = GetEnemyDis(ref player);
-					int rate = UnityEngine.Random.Range(0, 2);
-					if(player.crtState == EPlayerState.Alleyoop) {
+                    // 以下處理的是遊戲進行中的傳球.
+					float dis = Vector3.Distance(BallOwner.transform.position, catchPlayer.transform.position);
+					int disKind = getEnemyDis(catchPlayer); // 這控制選擇撥哪種傳球.
+                    int rate = Random.Range(0, 2); // 這控制選擇撥哪種傳球.
+					if(catchPlayer.crtState == EPlayerState.Alleyoop)
+                    {
 						IsCatcherAlleyoop = true;
-						result = BallOwner.AniState(EPlayerState.Pass0, player.PlayerRefGameObject.transform.position);
-					} else
-					if(dis <= GameConst.FastPassDistance)
+						result = BallOwner.AniState(EPlayerState.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+					}
+                    else if(dis <= GameConst.FastPassDistance)
 					{
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, player.PlayerRefGameObject.transform.position);
+						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, catchPlayer.PlayerRefGameObject.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
 					{
-						//Close
+						// 近距離傳球.
 						if(disKind == 1)
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
-							}else{ 
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
-						} else 
-						if(disKind == 2)
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
+							else 
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+						}
+                        else if(disKind == 2)
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
-							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+							else
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}						
 						else
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
-							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
+                            // 這其實是重複的程式碼 ....
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+							else
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
-					}else if(dis <= GameConst.MiddleDistance)
+					}
+                    else if(dis <= GameConst.MiddleDistance)
 					{
-						//Middle
+						// 中距離傳球.
 						if(disKind == 1)
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
-							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
-						} else 
-							if(disKind == 2)
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+							else
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+						}
+                        else if(disKind == 2)
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
-							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
+							else
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}						
 						else
 						{
-							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
-							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
-							}
+                            // 這也是重複的程式碼.
+							if(rate == 1)
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+							else
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
-					}else{
-						//Far
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
+					}
+                    else
+                    {
+						// 遠距離傳球.
+						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
 					}
 					
-					if(result){
-						Catcher = player;
+					if(result)
+                    {
+						Catcher = catchPlayer;
 //						if (BallOwner && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) 
 //							BallOwner.GameRecord.Pass++;
 						
@@ -2232,22 +2242,26 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
-	public int GetEnemyDis(ref PlayerBehaviour npc) {
-		float [] DisAy = new float[3];
-		int Index = 0;
-		for (int i = 0; i < PlayerList.Count; i++) {
-			if (PlayerList[i].Team != npc.Team) {
-				DisAy[Index] = Vector3.Distance(npc.PlayerRefGameObject.transform.position, PlayerList[i].PlayerRefGameObject.transform.position);
-				Index++;
+	private int getEnemyDis(PlayerBehaviour player)
+    {
+		float[] disAy = new float[3];
+		int index = 0;
+		for (int i = 0; i < PlayerList.Count; i++)
+        {
+			if (PlayerList[i].Team != player.Team)
+            {
+				disAy[index] = Vector3.Distance(player.transform.position, PlayerList[i].transform.position);
+				index++;
 			}		
 		}
 
-		for (int i = 0; i < DisAy.Length; i++) {
-			if (DisAy[i] > 0) {
-				if (DisAy[i] <= GameConst.StealPushDistance)
+		for (int i = 0; i < disAy.Length; i++)
+        {
+			if (disAy[i] > 0)
+            {
+				if (disAy[i] <= GameConst.StealPushDistance)
 					return 2;
-				else 
-				if (DisAy[i] <= GameConst.DefDistance)
+				if (disAy[i] <= GameConst.DefDistance)
 					return 1;
 			}
 		}
@@ -2739,10 +2753,8 @@ public class GameController : KnightSingleton<GameController>
 							moveData.Catcher = tacticalActions[i].Catcher;
 							moveData.Shooting = tacticalActions[i].Shooting;
 	                        if(team == ETeamKind.Self) 
-//								moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
 								moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z);
 	                        else
-//								moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
 								moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
 
 							moveData.TacticalName = data.Name;
