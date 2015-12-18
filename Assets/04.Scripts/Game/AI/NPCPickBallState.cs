@@ -12,7 +12,12 @@
             CourtMgr.Get.Walls[0].SetActive(false);
             UIGame.Get.ChangeControl(false);
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
-            //        pickBallPlayer = null;
+
+            GameController.Get.PickBallPlayer = null;
+            for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+                GameController.Get.GamePlayers[i].IsCanCatchBall = true;
+
+            GameController.Get.SetBall();
         }
 
         public override void UpdateAI()

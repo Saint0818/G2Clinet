@@ -20,6 +20,8 @@ namespace AI
             GameController.Get.PickBallPlayer = null;
             for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
                 GameController.Get.GamePlayers[i].IsCanCatchBall = true;
+
+            GameController.Get.SetBall();
         }
 
         public override void UpdateAI()
