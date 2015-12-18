@@ -48,7 +48,12 @@ namespace AI
         {
             if(mNextState == EGameSituation.GamerPickBall)
             {
-                foreach(PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
+                foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Self).Players)
+                {
+                    playerAI.ChangeState(EPlayerAIState.None);
+                }
+
+                foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
                 {
                     playerAI.ChangeState(EPlayerAIState.ReturnToHome);
                 }
@@ -58,6 +63,11 @@ namespace AI
                 foreach(PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Self).Players)
                 {
                     playerAI.ChangeState(EPlayerAIState.ReturnToHome);
+                }
+
+                foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
+                {
+                    playerAI.ChangeState(EPlayerAIState.None);
                 }
             }
             else

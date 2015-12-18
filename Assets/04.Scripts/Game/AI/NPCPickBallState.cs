@@ -14,8 +14,10 @@
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 
             GameController.Get.PickBallPlayer = null;
-            for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-                GameController.Get.GamePlayers[i].IsCanCatchBall = true;
+            foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
+            {
+                player.IsCanCatchBall = true;
+            }
 
             GameController.Get.SetBall();
         }
