@@ -7,11 +7,6 @@ public class PushNotificator : MonoBehaviour
     string notificationText = "Pushwoosh is not initialized";
     public PushNotificationsAndroid PushNotificationsAndroidMgr = null;
 
-	#if UNITY_ANDROID && !UNITY_EDITOR
-		private static AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-		private static AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity"); 
-	#endif
-
     // Use this for initialization
     void Start()
     {
@@ -80,39 +75,24 @@ public class PushNotificator : MonoBehaviour
 
     private Double GetFullPowerTime()
     {
-        TimeSpan checktime;
-        Double TotalSeconds = 0;
-        checktime = GameData.Team.PowerCD.ToUniversalTime().Subtract(DateTime.UtcNow);
-        if (checktime.TotalSeconds >= 0)
-            TotalSeconds = ((GameConst.Max_Power - GameData.Team.Power) - 1) * 10 * 60 + checktime.TotalSeconds;
-        return TotalSeconds;
+//        TimeSpan checktime;
+//        Double TotalSeconds = 0;
+//        checktime = GameData.Team.PowerCD.ToUniversalTime().Subtract(DateTime.UtcNow);
+//        if (checktime.TotalSeconds >= 0)
+//            TotalSeconds = ((GameConst.Max_Power - GameData.Team.Power) - 1) * 10 * 60 + checktime.TotalSeconds;
+        return (GameConst.Max_Power - GameData.Team.Power) * 10 * 1;
+    }
+    void Update () 
+	{  
+        if (Input.GetKeyDown (KeyCode.Escape))
+		{
+            UIMessage.Get.ShowMessage(TextConst.S(211), TextConst.S(235),OnYes);
+        }  
     }
 
-    private float mPressTimes = 0;
-    void Update () {  
-        if (Input.GetKeyDown (KeyCode.Escape)) {//KeyCode.Escape表示键盘ESC,手机的返回键
-            mPressTimes++;  
-            StartCoroutine ("ResetMPressTimes", 1.0f);//若过了1秒都没有按第2次则重置mPressTimes  
-            if (mPressTimes == 2) {  
-                Application.Quit();  
-            }  
-			else
-			{
-				AndroidShowToast("再按一次返回键退出程序");
-			}
-								
-        }  
-    }  
-
-    IEnumerator ResetMPressTimes (float sec) {  
-        yield return new WaitForSeconds(sec);  
-        mPressTimes = 0;  
-    } 
-
-	public void AndroidShowToast(string totas)
+	private void OnYes()
 	{
-		#if UNITY_ANDROID && !UNITY_EDITOR				
-		jo.Call("makeToast", totas);
-		#endif
+		CallPowerFull();
+		Application.Quit();  		
 	}
 }

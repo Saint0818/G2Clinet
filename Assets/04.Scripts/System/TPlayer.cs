@@ -92,7 +92,7 @@ namespace GameStruct
             AILevel = level;
             Name = "";
             RoleIndex = 0;
-            ID = 0;
+            ID = 1;
             Lv = 0;
             Point2 = 0;
             Point3 = 0;

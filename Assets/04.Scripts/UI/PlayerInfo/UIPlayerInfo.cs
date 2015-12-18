@@ -12,9 +12,9 @@ public class PersonalView
 	private UILabel name;
 	private UISlider expBar;
 	private UILabel expValue;
-	private UISprite powerBar;
+//	private UISprite powerBar;
 	private UILabel powerValue;
-	private UIButton group;
+//	private UIButton group;
 	private UIButton playerName;
 //	private UILabel groupHead;
 //	private UILabel groupBody;
@@ -32,9 +32,9 @@ public class PersonalView
 			name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
 			expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
 			expValue = self.transform.FindChild("EXPView/ExpLabel").gameObject.GetComponent<UILabel>();
-			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
+//			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
 			powerValue = self.transform.FindChild("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
-			group = self.transform.FindChild("PlayerLeague").gameObject.GetComponent<UIButton>();
+//			group = self.transform.FindChild("PlayerLeague").gameObject.GetComponent<UIButton>();
 //			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
 //			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
 			
@@ -52,7 +52,7 @@ public class PersonalView
 	public void InitBtttonFunction(EventDelegate changeHeadFunc, EventDelegate groupFunc, EventDelegate itemHint, EventDelegate changeName)
 	{
 		changeHeadBtn.onClick.Add (changeHeadFunc);
-		group.onClick.Add (groupFunc);
+//		group.onClick.Add (groupFunc);
 		playerName.onClick.Add(changeName);
 
 		for (int i = 0; i < ValueItems.Length; i++)
@@ -115,7 +115,7 @@ public class PersonalView
 		}
 
 		powerValue.text = player.Power().ToString();
-		powerBar.fillAmount = player.Power() / 100;
+//		powerBar.fillAmount = player.Power() / 100;
 	}
 
 	public bool Enable{set{self.SetActive(value);}}
