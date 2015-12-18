@@ -32,6 +32,11 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
         set { NameLabel.text = value; }
     }
 
+	public UIAtlas Atlas
+	{
+		set {IconSprite.atlas = value;}
+	}
+
     public int Icon
     {
         set { IconSprite.spriteName = string.Format("Item_{0}", value); }

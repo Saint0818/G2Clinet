@@ -70,6 +70,8 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
             var partBtn = btn.GetComponent<UICreateRoleStyleViewPartsWindowButton>();
             partBtn.Name = items[i].Name;
+			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(items[i].Atlas)))
+				partBtn.Atlas = GameData.DItemAtlas[GameData.AtlasName(items[i].Atlas)];
 
             int iconValue;
             if(!int.TryParse(items[i].Icon, out iconValue))

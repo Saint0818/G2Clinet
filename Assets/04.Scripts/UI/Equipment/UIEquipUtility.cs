@@ -8,7 +8,7 @@ public class UIEquipUtility
         UIValueItemData equipItem = new UIValueItemData
         {
             Name = item.Name,
-            Atlas = GameData.DItemAtlas.ContainsKey("AtlasItem_" + item.Atlas) ? GameData.DItemAtlas["AtlasItem_" + item.Atlas] : null,
+			Atlas = GameData.DItemAtlas.ContainsKey(GameData.AtlasName(item.Atlas)) ? GameData.DItemAtlas[GameData.AtlasName(item.Atlas)] : null,
             Icon = string.Format("Item_{0}", item.Icon),
             Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain

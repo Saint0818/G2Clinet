@@ -236,6 +236,8 @@ public class TItemAvatar
 			id = itemid;
 			Position = GameData.DItemData [id].Position;
 			name.text = GameData.DItemData [id].Name;
+			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData [id].Atlas)))
+				pic.atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData [id].Atlas)];
 			pic.spriteName = string.Format ("Item_{0}", GameData.DItemData [id].Icon);
 			OutLine.spriteName = string.Format ("Equipment_{0}", GameData.DItemData [id].Quality);
 			Kind = GameFunction.GetItemKind (id);

@@ -75,6 +75,10 @@ public static class GameData {
 		}
 	}
 
+	public static string AtlasName (int atlas) {
+		return "AtlasItem_" + atlas.ToString();
+	}
+
 	private static void initAtlas () {
 		UnityEngine.Object[] ats = Resources.LoadAll("UI/AtlasItem", typeof(UIAtlas));
 
