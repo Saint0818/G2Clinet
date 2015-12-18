@@ -315,7 +315,7 @@
         "id": 1004,
         "explain": "xx功能按鈕",
         "tw": "社 群",
-        "en": "SOCIAL NETWORKS"
+        "en": "SOCIAL"
     },
     {
         "id": 1005,
@@ -1270,19 +1270,19 @@
     {
         "id": 9102,
         "explain": "MainStageBtn/BtnLabel",
-        "tw": "生涯競賽",
+        "tw": "生 涯 競 賽",
         "en": "STORY"
     },
     {
         "id": 9103,
         "explain": "PvPStageBtn/BtnLabel",
-        "tw": "對 戰",
+        "tw": "對  戰",
         "en": "PVP"
     },
     {
         "id": 9104,
         "explain": "ChallengeBtn/BtnLabel",
-        "tw": "挑 戰",
+        "tw": "挑  戰",
         "en": "CHALLENGE"
     },
     {
