@@ -2407,7 +2407,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void BuffStateHandle(int stateNo)
     {
-        StartSkillCamera(stateNo);
+//        StartSkillCamera(stateNo);
         AddTrigger(EAnimatorState.Buff, stateNo);
     }
 

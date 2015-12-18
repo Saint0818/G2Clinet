@@ -376,14 +376,10 @@ public class UISkillFormation : UIBase {
 
 		isChangePage = false;
 		isLeave = false;
-		removeIndexs = new int[0];
-		addIndexs = new int[0];
-		orderSNs = new int[0];
-		sellIndexs = new int[0];
 	}
 	
 	private void hide() {
-		UIShow(false);
+		RemoveUI(UIName);
 		if(UISort.Visible)
 			UISort.UIShow(false);
 
@@ -433,6 +429,12 @@ public class UISkillFormation : UIBase {
 		itemPassiveField.SetActive(true);
 		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
+	}
+
+	public void RefreshAddCard () {
+		refresh();
+		initCards ();
+		UpdateSort();
 	}
 
 	private void refreshAfterInstall () {

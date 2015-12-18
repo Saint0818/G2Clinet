@@ -276,8 +276,8 @@ public class GameController : KnightSingleton<GameController>
 		PickBallPlayer  = null;
 //		ballHolder = null;
 
-		if (UIGame.Visible)
-			UIGame.Get.ClearLine();
+//		if (UIGame.Visible)
+//			UIGame.Get.ClearLine();
 
 		for (var i = 0; i < PlayerList.Count; i ++)
 			if (PlayerList[i].PlayerRefGameObject) 
@@ -1365,6 +1365,8 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.UIShow(true);
 				UIInGameMission.UIShow(true);
 
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].IsCanCatchBall = true;
 				break;
 			case EGameSituation.AttackGamer:
 			case EGameSituation.AttackNPC:
@@ -4548,7 +4550,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		for (int i = 0; i < PlayerList.Count; i++)
         {
-			if(PlayerList[i] && PlayerList[i].Team != player.Team)
+			if(PlayerList[i] && PlayerList[i].Team != player.Team && !PlayerList[i].IsUseActiveSkill)
             {
 				if(player.PlayerRefGameObject.transform.IsInFanArea(PlayerList[i].PlayerRefGameObject.transform.position, dis, angle))
                 {

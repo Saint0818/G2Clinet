@@ -126,7 +126,7 @@ public class UIGame : UIBase {
 	private float newForceValue;
 	private float timeForce;
 
-	private DrawLine drawLine;
+//	private DrawLine drawLine;
 	
 	private bool isShowSkillRange;
 	private bool isShowPushRange;
@@ -170,8 +170,8 @@ public class UIGame : UIBase {
 	}
 	
 	public static void UIShow(bool isShow) {
-		if(isShow)
-			Get.drawLine.IsShow = isShow;
+//		if(isShow)
+//			Get.drawLine.IsShow = isShow;
 
 		if(instance)
 			instance.Show(isShow);
@@ -326,7 +326,7 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onPress = DoSteal;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
 		
-		drawLine = gameObject.AddComponent<DrawLine>();
+//		drawLine = gameObject.AddComponent<DrawLine>();
 		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
@@ -381,7 +381,7 @@ public class UIGame : UIBase {
 		ShowSkillEnableUI(false);
 		uiJoystick.Joystick.isActivated = false;
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, UI2D.Get.RootHeight - 145);
-		drawLine.IsShow = false;
+//		drawLine.IsShow = false;
     }
 
 	public void InitTutorialUI() {
@@ -432,21 +432,21 @@ public class UIGame : UIBase {
 			}
 		}
 
-		initLine();
+//		initLine();
 	}
 
-	public void ClearLine() {
-		drawLine.ClearTarget();
-	}
+//	public void ClearLine() {
+//		drawLine.ClearTarget();
+//	}
 	
-	private void initLine() {
-		drawLine.ClearTarget();
-			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
-			if (obj)
-				drawLine.AddTarget(uiPassObjectGroup[0], obj);
-
-		drawLine.Show(true);
-	}
+//	private void initLine() {
+//		drawLine.ClearTarget();
+//			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
+//			if (obj)
+//				drawLine.AddTarget(uiPassObjectGroup[0], obj);
+//
+//		drawLine.Show(true);
+//	}
 
 	private GameObject getSkillRangeTarget (){
 		if(GameStart.Get.TestMode == EGameTest.AttackA) 
@@ -706,19 +706,21 @@ public class UIGame : UIBase {
 	}
 	
 	public void ShowAlleyoop(bool isShow, int teammate = 1) {
-		if(isShow && GameController.Get.Situation == EGameSituation.AttackGamer) {
-			if(teammate == 1) {
-				uiPassA.SetActive(!isShow);
-				uiAlleyoopA.SetActive(isShow);
-			} else if(teammate == 2) {
-				uiPassB.SetActive(!isShow);
-				uiAlleyoopB.SetActive(isShow);
+		if(!GameController.Get.StageData.IsTutorial) {
+			if(isShow && GameController.Get.Situation == EGameSituation.AttackGamer) {
+				if(teammate == 1) {
+					uiPassA.SetActive(!isShow);
+					uiAlleyoopA.SetActive(isShow);
+				} else if(teammate == 2) {
+					uiPassB.SetActive(!isShow);
+					uiAlleyoopB.SetActive(isShow);
+				}
+			} else {
+				uiPassA.SetActive(true);
+				uiAlleyoopA.SetActive(false);
+				uiPassB.SetActive(true);
+				uiAlleyoopB.SetActive(false);
 			}
-		} else {
-			uiPassA.SetActive(true);
-			uiAlleyoopA.SetActive(false);
-			uiPassB.SetActive(true);
-			uiAlleyoopB.SetActive(false);
 		}
 	}
 
@@ -1144,7 +1146,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
-			drawLine.IsShow = false;
+//			drawLine.IsShow = false;
 			break;
 		case EUISituation.Opening:
 			showUITime();
@@ -1155,7 +1157,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[0].SetActive(true);
 			controlButtonGroup[1].SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
-			drawLine.IsShow = true;
+//			drawLine.IsShow = true;
 			showViewForceBar(true);
 			if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
 				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
@@ -1183,7 +1185,7 @@ public class UIGame : UIBase {
             SetPassButton();
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
-			drawLine.IsShow = false;
+//			drawLine.IsShow = false;
 			break;
 		case EUISituation.Pause:
 			if (!viewStart.activeInHierarchy) {
@@ -1362,7 +1364,7 @@ public class UIGame : UIBase {
 	}
 		
 	public void CloseStartButton() {
-		drawLine.IsShow = false;
+//		drawLine.IsShow = false;
 		viewStart.SetActive(false);
 	}
 
@@ -1372,10 +1374,9 @@ public class UIGame : UIBase {
 				uiTutorial[i].SetActive(false);
 
 			viewTopRight.SetActive(false);
-			ClearLine();
+//			ClearLine();
 		} else {
 			int[] temp = AI.BitConverter.Convert(flag.ToString());
-
 			if (temp != null) {
 				for (int i = 0; i < uiTutorial.Length; i++) {
 					bool v = i < temp.Length && temp[i] > 0;
@@ -1389,8 +1390,8 @@ public class UIGame : UIBase {
 						uiTutorial2[i].SetActive(v);
 				}
 
-				if (!uiPassObjectGroup[0].activeInHierarchy)
-					ClearLine();
+//				if (!uiPassObjectGroup[0].activeInHierarchy)
+//					ClearLine();
 
 				if (uiTutorial[8].activeInHierarchy)
 					uiJoystick.Joystick.isActivated = true;
@@ -1401,6 +1402,8 @@ public class UIGame : UIBase {
 
 				viewTopRight.SetActive(false);
 			}
+			if(PlayerMe.IsElbow)
+				uiPassA.SetActive(true);
 		}
 	}
 
