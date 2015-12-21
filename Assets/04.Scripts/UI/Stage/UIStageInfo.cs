@@ -29,7 +29,13 @@ public class UIStageInfo : MonoBehaviour
         public readonly List<TItemData> RewardItems = new List<TItemData>();
 
         public int Money { get; set; }
+
+        /// <summary>
+        /// 要不要顯示經驗值.
+        /// </summary>
+        public bool ExpVisible; 
         public int Exp { get; set; }
+
         public int Stamina { set; get; }
 
         /// <summary>
@@ -59,6 +65,7 @@ public class UIStageInfo : MonoBehaviour
     public UIButton StartButton; // 右下角的開始按鈕.
     public Transform[] RewardParents; // 獎勵圖示的位置.
     public UILabel RewardMoney;
+    public GameObject ExpObj; // 控制經驗值要不要顯示.
     public UILabel RewardExp;
 
     // 按鈕旁邊圖示和數值.
@@ -68,7 +75,6 @@ public class UIStageInfo : MonoBehaviour
     private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
-//    private readonly Color32 mDisableColor = new Color32(69, 69, 69, 255);
 
     private int mStageID;
     private UIStageHint mHint;
@@ -118,6 +124,8 @@ public class UIStageInfo : MonoBehaviour
         StartButton.isEnabled = data.StartEnable;
 
         RewardMoney.text = string.Format("{0}", data.Money);
+
+        ExpObj.SetActive(data.ExpVisible);
         RewardExp.text = string.Format("{0}", data.Exp);
     }
 

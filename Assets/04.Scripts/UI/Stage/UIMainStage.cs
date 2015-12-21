@@ -264,6 +264,7 @@ public class UIMainStage : UIBase
             KindSpriteName = stageData.KindTextIndex.ToString(),
             KindName = TextConst.S(stageData.KindTextIndex),
             Money = stageData.Money,
+            ExpVisible = GameData.Team.Player.NextMainStageID <= stageData.ID,
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
