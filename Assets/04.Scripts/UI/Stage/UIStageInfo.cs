@@ -46,7 +46,7 @@ public class UIStageInfo : MonoBehaviour
         /// <summary>
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
-        public int DailyCount;
+        public string DailyCount;
 
         /// <summary>
         /// 開始按鈕可不可以點選.
@@ -67,6 +67,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel RewardMoney;
     public GameObject ExpObj; // 控制經驗值要不要顯示.
     public UILabel RewardExp;
+    public UILabel DailyCount; // 每日限制的數值.
 
     // 按鈕旁邊圖示和數值.
     public UISprite CostSprite;
@@ -127,6 +128,8 @@ public class UIStageInfo : MonoBehaviour
 
         ExpObj.SetActive(data.ExpVisible);
         RewardExp.text = string.Format("{0}", data.Exp);
+
+        DailyCount.text = data.DailyCount;
     }
 
     public void Hide()
