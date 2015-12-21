@@ -318,12 +318,23 @@ public class UISetting : UIBase {
 
 	public void OnEffect()
 	{
-		GameData.Setting.Effect = !GameData.Setting.Effect;
-		gameSetting.UpdateView ();
-		if(CourtMgr.Visible)
-			CourtMgr.Get.EffectEnable(GameData.Setting.Effect);
+        //TODO: wait UI come back
+        return;
 
-		PlayerPrefs.SetInt(ESave.EffectOn.ToString(), GameData.Setting.Effect == true? 1 : 0);
+        int index = -1;
+        if (int.TryParse(UIButton.current.name, out index))
+        {
+            if (GameData.Setting.Quality != index)
+            {
+                GameData.Setting.Quality = index;
+                gameSetting.UpdateView ();
+
+                if(CourtMgr.Visible)
+                    CourtMgr.Get.EffectEnable((QualityType)GameData.Setting.Quality);
+            }
+        }
+		
+        PlayerPrefs.SetInt(ESave.Quality.ToString(), GameData.Setting.Quality);
 		PlayerPrefs.Save ();
 	}
 
@@ -407,5 +418,40 @@ public class UISetting : UIBase {
 			Debug.LogError("Data Error!");
 
 		UIShow (false);
+	}
+
+	void OnGUI()
+	{
+        if(Input.GetKeyDown(KeyCode.Q))
+		{
+            SetEffectQuality(QualityType.Low);			
+		}
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SetEffectQuality(QualityType.Medium); 
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SetEffectQuality(QualityType.High); 
+        }
+	}
+	
+    private void SetEffectQuality(QualityType lv)
+	{
+        string setting = lv.ToString();
+        int foundIndex = -1;
+        string[] names = QualitySettings.names;
+
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (names[i] == setting)
+            {
+                foundIndex = i;
+                QualitySettings.SetQualityLevel(foundIndex);
+                continue;
+            }
+        }
 	}
 }

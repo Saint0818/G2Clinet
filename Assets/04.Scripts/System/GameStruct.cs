@@ -670,6 +670,7 @@ namespace GameStruct
 		public int AnnouncementDaily;
 		public int AIChangeTimeLv;
 		public ELanguage Language;
+        public int Quality;
 		public bool Effect;
 		public bool Music;
 		public bool Sound;

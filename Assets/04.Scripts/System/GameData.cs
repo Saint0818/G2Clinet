@@ -152,8 +152,8 @@ public static class GameData {
 					case ESave.SoundOn:
 						AudioMgr.Get.SoundOn(true);
 						break;
-					case ESave.EffectOn:
-						Setting.Effect = true;
+					case ESave.Quality:
+						Setting.Quality = 1;
 						break;
 					case ESave.AIChangeTimeLv:
 						Setting.AIChangeTimeLv = 0;
@@ -207,8 +207,8 @@ public static class GameData {
 					case ESave.SoundOn:
 						AudioMgr.Get.SoundOn (index == 1 ? true : false);
 						break;
-					case ESave.EffectOn:
-						Setting.Effect = (index == 1 ? true : false);
+					case ESave.Quality:
+                        Setting.Quality = index;
 						break;
 					case ESave.AIChangeTimeLv:
 						Setting.AIChangeTimeLv = index;

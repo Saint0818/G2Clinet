@@ -55,7 +55,6 @@ namespace GameEnum {
 		SkillCardFilter,
 		MusicOn,
 		SoundOn,
-		EffectOn,
 		AIChangeTimeLv,
 		UserLanguage,
         MoneyChange,
@@ -71,8 +70,16 @@ namespace GameEnum {
 		LevelUpFlag, // 1:LevelUp
 		NewCardFlag,  // 2:Get New Card
 		AnnouncementDate,
-		AnnouncementDaily
+		AnnouncementDaily,
+        Quality
 	}
+
+    public enum QualityType
+    {
+        Low = 0,
+        Medium = 1,
+        High = 2
+    }
 
 	public enum ETestActive {
 		Block20 = 11600,

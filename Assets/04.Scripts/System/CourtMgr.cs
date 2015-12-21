@@ -6,6 +6,7 @@ using DG.Tweening;
 using GamePlayEnum;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
@@ -52,7 +53,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Transform[] BasketHoop = new Transform[2];
 	public Transform[] BasketHoopDummy = new Transform[2];
 	public GameObject[] BasketRangeCenter = new GameObject[2];
-	public GameObject Effect;
+    public GameObject EffectHigh;
+    public GameObject EffectMedium;
 		
 	public CircularSectorMeshRenderer SkillRangeOfAction;
 	public GameObject SkillArrowOfAction;
@@ -248,16 +250,31 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		Scoreboards [0].enabled = isEnable;
 		Scoreboards [1].enabled = isEnable;
 
-		EffectEnable(GameData.Setting.Effect);
+        EffectEnable((QualityType)GameData.Setting.Quality);
 	}
 
-	public void EffectEnable(bool enable)
+    public void EffectEnable(QualityType type)
 	{
-		if (Effect == null)
-			Effect = GameObject.Find ("Effect");
+        switch (type)
+        {
+            case QualityType.High:
+                EffectHigh = GameObject.Find (string.Format("Effect/{0}", type.ToString()));
 
-		if (Effect)
-			Effect.SetActive (enable);
+                if (EffectHigh)
+                    EffectHigh.SetActive (true);
+
+                if(EffectMedium)
+                    EffectMedium.SetActive (true);
+                
+                break;
+
+            case QualityType.Medium:
+                break;
+
+            case QualityType.Low:
+                break;
+        }
+		
 	}
 
     [UsedImplicitly]
