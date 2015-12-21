@@ -41,6 +41,8 @@ public class UISkillInfo : UIBase {
 	private bool isOpen = false;
 	private float openCardSpeed = 0.1f;
 
+	private TUICard mUICard;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -59,68 +61,7 @@ public class UISkillInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, TSkill info, bool isEquip, bool isMaskOpen, bool isGetNewCard = false){
-		if(isShow) {
-			if(!isGetNewCard)
-				Get.btnEquip.SetActive(!isMaskOpen);
-			else
-				Get.btnEquip.SetActive(false);
-
-			Get.isAlreadyEquip = isEquip;
-			if(isEquip)
-				Get.labelEquip.text = "UNEQUIP";
-			else
-				Get.labelEquip.text = "EQUIP";
-
-			if(GameData.DSkillData.ContainsKey(info.ID)) {
-				TSkillData skillData = GameData.DSkillData[info.ID];
-				
-				//MediumCard
-				Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
-				Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
-				Get.labelSkillCardName.text = GameData.DSkillData[info.ID].Name;
-				Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv.ToString();
-				Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
-				if(info.ID >= GameConst.ID_LimitActive) {
-					Get.spriteSkillKind.spriteName = "ActiveIcon";
-					Get.labelSkillInfoKind4.text = TextConst.S(7207);
-				} else {
-					Get.spriteSkillKind.spriteName = "PasstiveIcon";
-					Get.labelSkillInfoKind4.text = TextConst.S(7206);
-				}
-				
-				//SkillInfo
-				Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
-				Get.spriteSkillLevel.spriteName = "Cardicon" + info.Lv.ToString();
-				Get.labelSkillSpace.text = skillData.Space(info.Lv).ToString();
-				Get.labelSkillExp.text = "0"; //=======
-				Get.sliderSkillExpBar.value = 0; //======
-				if(info.ID >= GameConst.ID_LimitActive)
-					Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
-				else 
-					Get.labelSkillDemandValue.text = skillData.Rate(info.Lv).ToString() + "%";
-				
-				//Buff Ability
-				int index = 0;
-				if(skillData.Distance(info.Lv) > 0) {
-					Get.buffViews[index].ShowDistance(skillData.Distance(info.Lv));
-					index ++;
-				}
-				
-				if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
-					Get.buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(info.Lv), skillData.Value(info.Lv));
-					index ++;
-				}
-
-				if(index == 0)
-				{
-					Get.labelSubhead.gameObject.SetActive(false);
-				}
-				
-				//Explain
-				Get.labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, info.ID, info.Lv);
-			}
-		}
+	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow)
 				RemoveUI(UIName);
@@ -177,6 +118,119 @@ public class UISkillInfo : UIBase {
 		
 	}
 
+	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
+		UIShow (true);
+		mUICard = uicard;
+		isAlreadyEquip = isEquip;
+
+		if(isEquip)
+			labelEquip.text = "UNEQUIP";
+		else
+			labelEquip.text = "EQUIP";
+
+		if(GameData.DSkillData.ContainsKey(uicard.CardID)) {
+			TSkillData skillData = GameData.DSkillData[uicard.CardID];
+
+			//MediumCard
+			spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
+			textureSkillPic.mainTexture = GameData.CardTexture(uicard.CardID);
+			labelSkillCardName.text = GameData.DSkillData[uicard.CardID].Name;
+			spriteSkillCardLevel.spriteName = "Cardicon" + uicard.CardLV.ToString();
+			spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
+			if(GameFunction.IsActiveSkill(uicard.CardID)) {
+				spriteSkillKind.spriteName = "ActiveIcon";
+				labelSkillInfoKind4.text = TextConst.S(7207);
+			} else {
+				spriteSkillKind.spriteName = "PasstiveIcon";
+				labelSkillInfoKind4.text = TextConst.S(7206);
+			}
+
+			//SkillInfo
+			spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
+			spriteSkillLevel.spriteName = "Cardicon" + uicard.CardLV.ToString();
+			labelSkillSpace.text = skillData.Space(uicard.CardLV).ToString();
+			labelSkillExp.text = "0"; //=======
+			sliderSkillExpBar.value = 0; //======
+			if(GameFunction.IsActiveSkill(uicard.CardID))
+				Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
+			else 
+				Get.labelSkillDemandValue.text = skillData.Rate(uicard.CardLV).ToString() + "%";
+
+			//Buff Ability
+			int index = 0;
+			if(skillData.Distance(uicard.CardLV) > 0) {
+				buffViews[index].ShowDistance(skillData.Distance(uicard.CardLV));
+				index ++;
+			}
+
+			if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
+				buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(uicard.CardLV), skillData.Value(uicard.CardLV));
+				index ++;
+			}
+
+			if(index == 0) {
+				labelSubhead.gameObject.SetActive(false);
+			}
+
+			//Explain
+			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, uicard.CardID, uicard.CardLV);
+		}
+	}
+
+	public void ShowFromNewCard (TSkill skill) {
+		UIShow (true);
+		btnEquip.SetActive(false);
+
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			TSkillData skillData = GameData.DSkillData[skill.ID];
+
+			//MediumCard
+			spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
+			textureSkillPic.mainTexture = GameData.CardTexture(skill.ID);
+			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
+			spriteSkillCardLevel.spriteName = "Cardicon" + skill.Lv.ToString();
+			spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
+			if(GameFunction.IsActiveSkill(skill.ID)) {
+				spriteSkillKind.spriteName = "ActiveIcon";
+				labelSkillInfoKind4.text = TextConst.S(7207);
+			} else {
+				spriteSkillKind.spriteName = "PasstiveIcon";
+				labelSkillInfoKind4.text = TextConst.S(7206);
+			}
+
+			//SkillInfo
+			spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
+			spriteSkillLevel.spriteName = "Cardicon" + skill.Lv.ToString();
+			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
+			labelSkillExp.text = "0"; //=======
+			sliderSkillExpBar.value = 0; //======
+			if(GameFunction.IsActiveSkill(skill.ID))
+				labelSkillDemandValue.text = skillData.MaxAnger.ToString();
+			else 
+				labelSkillDemandValue.text = skillData.Rate(skill.Lv).ToString() + "%";
+
+			//Buff Ability
+			int index = 0;
+			if(skillData.Distance(skill.Lv) > 0) {
+				buffViews[index].ShowDistance(skillData.Distance(skill.Lv));
+				index ++;
+			}
+
+			if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
+				buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(skill.Lv), skillData.Value(skill.Lv));
+				index ++;
+			}
+
+			if(index == 0)
+			{
+				labelSubhead.gameObject.SetActive(false);
+			}
+
+			//Explain
+			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, skill.ID, skill.Lv);
+		}
+	}
+
 	private void openCardTurn(bool isRight) {
 		isOpen = true;
 		btnMedium.transform.DOKill();
@@ -202,7 +256,7 @@ public class UISkillInfo : UIBase {
 
 	public void OnClose() {
 		TSkill info = new TSkill();
-		UIShow(false, info, false, false);
+		UIShow(false);
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) {
 			UIGameResult.Get.ShowBonusItem();
 		}
@@ -223,9 +277,9 @@ public class UISkillInfo : UIBase {
 
 	public void OnEquip() {
 		if(isAlreadyEquip)
-			UISkillFormation.Get.DoUnEquipCard();
+			UISkillFormation.Get.DoUnEquipCard(mUICard);
 		else
-			UISkillFormation.Get.DoEquipCard();
+			UISkillFormation.Get.DoEquipCard(mUICard);
 		OnClose();
 	}
 
