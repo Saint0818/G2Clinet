@@ -31,11 +31,16 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             OnLevelWillBeLoaded();
 
         yield return SceneManager.LoadSceneAsync(levelToLoad.ToString());
-        CurrentScene = levelToLoad;
+
+        if(levelToLoad != ESceneName.Null.ToString())
+         CurrentScene = levelToLoad;
 
         switch (levelToLoad)
         {
-			case ESceneName.Null:
+            case ESceneName.Null:
+                SceneManager.UnloadScene(CurrentScene);
+                System.GC.Collect();
+                CurrentScene = levelToLoad;
 			break;
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
