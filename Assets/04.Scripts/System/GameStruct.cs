@@ -169,12 +169,23 @@ namespace GameStruct
 			if(SkillCards == null)
 				SkillCards = new TSkill[0];
 
-			if(SkillCards.Length > 0) {
-				for (int i=0; i<SkillCards.Length; i++) {
+			if(SkillCards.Length > 0) 
+				for (int i=0; i<SkillCards.Length; i++) 
 					if(SkillCards[i].ID == id)
 						return false;
-				}
-			}
+
+			if(PlayerBank != null && PlayerBank.Length > 0) 
+				for (int i=0; i<PlayerBank.Length; i++) 
+					if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) 
+						for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) 
+							if(PlayerBank[i].SkillCards[j].ID == id)
+								return false;
+
+			if(Player.SkillCards != null && Player.SkillCards.Length > 0) 
+				for (int i=0; i<Player.SkillCards.Length; i++) 
+					if (Player.SkillCards[i].ID == id)
+						return false;
+			
 			return true;
 		}
 
@@ -248,6 +259,7 @@ namespace GameStruct
 		public int ID;
         public int Lv;
 		public string Name;
+		public TSkill[] SkillCards;
 		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
 		public Dictionary<EAttribute, int> Potential;

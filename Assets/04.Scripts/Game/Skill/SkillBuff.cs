@@ -27,6 +27,13 @@ namespace  SkillBuffSpace {
 			this.InfoIndex = 0;
 			this.isClose = true;
 		}
+
+		public void Clear () {
+			this.LifeTime = 0;
+			this.ID = 0;
+			this.InfoIndex = 0;
+			this.isClose = true;
+		}
 	}
 
 	public struct TBuffRefresh {
@@ -125,9 +132,7 @@ namespace  SkillBuffSpace {
 			int positionIndex = contains(skillIndex);
 			if(positionIndex != -1) {
 				buffInfo[positionIndex].Info.SetActive(false);
-				buffInfo[positionIndex].InfoIndex = -1;
-				buffInfo[positionIndex].LifeTime = 0;
-				buffInfo[positionIndex].isClose = true;
+				buffInfo[positionIndex].Clear();
 				removeRecord(positionIndex);
 				refreshBuff();
 			} 
@@ -168,10 +173,7 @@ namespace  SkillBuffSpace {
 			for (int i=0; i<buffInfo.Length; i++) {
 				buffInfo[i].Info.SetActive(false);
 				recordIndex[i] = -1;
-				buffInfo[i].isClose = true;
-				buffInfo[i].LifeTime = 0;
-				buffInfo[i].InfoIndex = -1;
-				buffInfo[i].ID = -1;
+				buffInfo[i].Clear();
 			}
 		}
 		
@@ -222,8 +224,7 @@ namespace  SkillBuffSpace {
 				if(OnFinishBuff != null) 
 					OnFinishBuff(buffInfo[positionIndex].InfoIndex);
 				buffInfo[positionIndex].Info.SetActive(false);
-				buffInfo[positionIndex].LifeTime = 0;
-				buffInfo[positionIndex].InfoIndex = -1;
+				buffInfo[positionIndex].Clear();
 				recordIndex[indexOf(positionIndex)] = -1;
 				refreshBuff ();
 			}

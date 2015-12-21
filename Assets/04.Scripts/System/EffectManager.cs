@@ -74,10 +74,10 @@ public class EffectManager : MonoBehaviour
             obj = Resources.Load("Effect/" + effectName) as GameObject;
 			if (obj) {
 				effectList.Add(effectName, obj);
-				#if UNITY_EDITOR
-				if (GameController.Visible && GameController.Get.IsStart) 
-					Debug.LogError("Load effect in game : " + effectName);
-				#endif
+//				#if UNITY_EDITOR
+//				if (GameController.Visible && GameController.Get.IsStart) 
+//					Debug.LogError("Load effect in game : " + effectName);
+//				#endif
 			}
 		}
 

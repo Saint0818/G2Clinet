@@ -97,6 +97,10 @@ public struct TUICard{
 		get {return (InListCard != null && InListCard.activeInHierarchy);}
 	}
 
+	public bool IsCanUse {
+		get {return (UnavailableMask != null && !UnavailableMask.activeSelf);}
+	}
+
 	public void Init (GameObject obj, int index, TSkill skill, bool isEquip) {
 		Card = obj;
 		CardIndex = index;
@@ -248,9 +252,6 @@ public class UISkillFormation : UIBase {
 
 	//Info
 	private TSkill skillInfo = new TSkill();
-	//for InfoEquip temp
-	private TUICard tempUICard;
-	private GameObject tempObj;
 
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
@@ -500,7 +501,7 @@ public class UISkillFormation : UIBase {
 				GameObject obj = null;
 				if(GameData.Team.SkillCards[i].ID > 100 && 
 				   GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && 
-				   !isSkillCardInPages(GameData.Team.SkillCards[i].SN)) {
+					!isSkillCardInOtherPlayer(GameData.Team.SkillCards[i].SN)) {
 					index ++;
 					obj = addUICards(i,
 					                 index, 
@@ -531,10 +532,7 @@ public class UISkillFormation : UIBase {
 		checkCostIfMask();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 
-		if(skillSortCards.Count <= 6)
-			scrollViewCardList.enabled = false;
-		else 
-			scrollViewCardList.enabled = true;
+		scrollViewCardList.enabled = !(skillSortCards.Count <= 6);
 	}
 
 	private int getActiveFieldNull{
@@ -617,7 +615,7 @@ public class UISkillFormation : UIBase {
 				UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
 				drag.cloneOnDrag = true;
 				drag.restriction = UIDragDropItem.Restriction.PressAndHold;
-				drag.pressAndHoldDelay = 0.5f;
+				drag.pressAndHoldDelay = 0.25f;
 				
 				TUICard uicard = new TUICard();
 				uicard.Init(obj, skillCardIndex, skill, isEquip);
@@ -906,7 +904,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	//For Sell
-	private bool isSkillCardInPages(int sn) {
+	private bool isSkillCardInOtherPlayer(int sn) {
 		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
 			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
 				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
@@ -923,17 +921,6 @@ public class UISkillFormation : UIBase {
 				}
 			}
 		}
-
-//		if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
-//			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
-//				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
-//				if (SNs.Length > 0) {
-//					for (int j=0; j<SNs.Length; j++)
-//						if (SNs[j] == sn)
-//							return true;
-//				}
-//			}
-//		}
 		return false;
 	}
 
@@ -991,7 +978,7 @@ public class UISkillFormation : UIBase {
 
 	private bool sortIsCanSell (GameObject card) {
 		if(uiCards.ContainsKey(card.name))
-			return (!isSkillCardInPages(uiCards[card.name].CardSN));
+			return (!isSkillCardInOtherPlayer(uiCards[card.name].CardSN));
 		return false;
 	}
 
@@ -1127,16 +1114,6 @@ public class UISkillFormation : UIBase {
 		gridCardList.transform.localPosition = Vector3.zero;
 	}
 
-	private void setInfo (GameObject go) {
-		if(GameData.DSkillData.ContainsKey(uiCards[go.name].CardID)) {
-			skillInfo.ID = uiCards[go.name].CardID;
-			skillInfo.Lv = uiCards[go.name].CardLV;
-			skillInfo.SN = uiCards[go.name].CardSN;
-//			skillInfo.Exp = 
-		} else 
-			Debug.LogWarning("cardId:"+uiCards[go.name].CardID);
-	}
-
 	public void CardDragStart() {
 		IsDragNow = true;
 	}
@@ -1163,23 +1140,23 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
-	public void DoUnEquipCard (){
+	public void DoUnEquipCard (TUICard uicard){
 		if(!IsBuyState) {
-			if(tempObj != null && uiCards.ContainsKey(tempObj.name))
-				removeItems(uiCards[tempObj.name].CardID, uiCards[tempObj.name].CardSN, tempObj);
+			if(uicard.Card != null && uiCards.ContainsKey(uicard.Card.name))
+				removeItems(uicard.CardID, uicard.CardSN, uicard.Card);
 			refreshCards();
 		}
 //		else 
 //			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
-	public void DoEquipCard (){
+	public void DoEquipCard (TUICard uicard){
 		if(!IsBuyState) {
-			if(GameFunction.IsActiveSkill(tempUICard.CardID)) {
-				if(getContainActiveSN(tempUICard.CardSN) == -1){
+			if(GameFunction.IsActiveSkill(uicard.CardID)) {
+				if(getContainActiveSN(uicard.CardSN) == -1){
 					if(getActiveFieldNull != -1) {
-						if(addItems(tempUICard, getActiveFieldNull)) 
-							tempUICard.InListCard.SetActive(true);
+						if(addItems(uicard, getActiveFieldNull)) 
+							uicard.InListCard.SetActive(true);
 					}
 //					else 
 //						UIHint.Get.ShowHint("Active is Full.", Color.red); 
@@ -1188,12 +1165,12 @@ public class UISkillFormation : UIBase {
 //					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
 				refreshActiveItems();
 			} else {
-				if(tempUICard.IsInstallIfDisapper) { //Selected to NoSelected
-					tempUICard.InListCard.SetActive(!tempUICard.InListCard.activeInHierarchy);
-					removeItems(tempUICard.CardID, tempUICard.CardSN, tempObj);
+				if(uicard.IsInstallIfDisapper) { //Selected to NoSelected
+					uicard.InListCard.SetActive(!uicard.InListCard.activeInHierarchy);
+					removeItems(uicard.CardID, uicard.CardSN, uicard.Card);
 				} else { //NoSelected to Selected
-					if(addItems(tempUICard))
-						tempUICard.InListCard.SetActive(!tempUICard.InListCard.activeInHierarchy);
+					if(addItems(uicard))
+						uicard.InListCard.SetActive(!uicard.InListCard.activeInHierarchy);
 					
 				}
 			}
@@ -1204,41 +1181,30 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void OnCardDetailInfo (GameObject go){
-		TUICard uicard = uiCards[go.name];
-		if(!IsBuyState) {
-			if(uicard.UnavailableMask != null) {
-				if(tempObj != null) {
-					if(tempObj != go) {
-						if(tempUICard.Selected != null)
-							tempUICard.Selected.SetActive(false);
-					}
-				}
-				tempObj = go;
-				tempUICard = uicard;
-				setInfo(go);
-				
+		if(uiCards.ContainsKey (go.name)) {
+			TUICard uicard = uiCards[go.name];
+			if(!IsBuyState) {
 				//Click Card
 				if(uicard.Selected != null && uicard.InListCard != null) {
 					uicard.Selected.SetActive(true);
-					UISkillInfo.UIShow(true, skillInfo, uicard.InListCard.gameObject.activeSelf, uicard.UnavailableMask.activeSelf);
+					UISkillInfo.Get.ShowFromSkill(uicard, uicard.IsInstallIfDisapper, uicard.IsCanUse);
 					if(UISort.Visible)
 						UISort.UIShow(false);
 				}
-			}
-		} else {
-			if(!uicard.IsInstall) {
-				if(!uicard.SellSelectCover.activeSelf)
-					addSellCards(go.name);
-				else
-					removeSellCards(go.name);
-				uicard.SellSelectCover.SetActive(!uicard.SellSelectCover.activeSelf);
+			} else {
+				if(!uicard.IsInstall) {
+					if(!uicard.SellSelectCover.activeSelf)
+						addSellCards(go.name);
+					else
+						removeSellCards(go.name);
+					uicard.SellSelectCover.SetActive(!uicard.SellSelectCover.activeSelf);
+				}
 			}
 		}
 	}
 
 	public void OnItemDetailInfo (GameObject go){
-		setInfo(go);
-		UISkillInfo.UIShow(true, skillInfo, true, false);
+		UISkillInfo.Get.ShowFromSkill(uiCards[go.name], true, false);
 		if(UISort.Visible)
 			UISort.UIShow(false);
 	}

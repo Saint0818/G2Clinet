@@ -484,7 +484,8 @@ public class UIGameResult : UIBase {
 		skill.Lv = GameData.DItemData[itemID].LV;
 //		skill.SN = 
 //		skill.Exp
-		UISkillInfo.UIShow(true, skill, false, false, true);
+//		UISkillInfo.UIShow(true, skill, false, false, true);
+		UISkillInfo.Get.ShowFromNewCard(skill);
 	}
 
 	private void moveBonusItem () {

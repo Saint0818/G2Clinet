@@ -260,7 +260,6 @@ public class UIGamePause : UIBase {
 
 	public bool isStage
     {
-//		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
 		get {return StageTable.Ins.HasByID(GameData.StageID); }
 	}
 }
