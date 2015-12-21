@@ -73,11 +73,12 @@ public class UIStageChapter : MonoBehaviour
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
     /// <param name="data"></param>
-    public void ShowStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
+    /// <param name="playAnim"></param>
+    public void ShowStage(int stageID, Vector3 localPos, UIStageInfo.Data data, bool playAnim)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(stageID, localPos));
-        mStages[stageID].Show(data);
+        mStages[stageID].Show(data, playAnim);
     }
 
     /// <summary>

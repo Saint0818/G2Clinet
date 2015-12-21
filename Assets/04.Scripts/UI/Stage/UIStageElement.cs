@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 小關卡, 也就是關卡介面上的小圓點, 點擊後, 玩家可以進入關卡.
@@ -10,46 +12,81 @@ public class UIStageElement : MonoBehaviour
 
     public UISprite KindSprite;
 
+    /// <summary>
+    /// 背景圖片.
+    /// </summary>
     private const string OpenSpriteName = "StageButton01";
-    private const string LockSpriteName = "StageButton02";
+//    private const string LockSpriteName = "StageButton02";
+
+    /// <summary>
+    /// 撥 Animation 時, 關卡經過幾秒後, 會變成可點選的狀態.
+    /// </summary>
+    private const float EnableTime = 1.8f;
 
     private UIStageInfo.Data mData;
 
+    private Animator mAnimator;
+    private UIButton mButton;
+
     private UIMainStageMain Main
     {
-        get
-        {
-            if(mMain == null)
-                mMain = GetComponentInParent<UIMainStageMain>();
-            return mMain;
-        }
+        get { return mMain ?? (mMain = GetComponentInParent<UIMainStageMain>()); }
     }
     private UIMainStageMain mMain;
 
-    public void Show(UIStageInfo.Data data)
+    [UsedImplicitly]
+    private void Awake()
+    {
+        mAnimator = GetComponent<Animator>();
+        mButton = GetComponent<UIButton>();
+    }
+
+    public void Show(UIStageInfo.Data data, bool playAnim)
     {
         mData = data;
-
-        GetComponent<UISprite>().spriteName = OpenSpriteName;
+        mButton.isEnabled = false;
+        
         KindSprite.spriteName = mData.KindSpriteName;
 
+        if(playAnim)
+            StartCoroutine(playAnimation(EnableTime));
+        else
+            changeEnable();
+    }
+
+    private IEnumerator playAnimation(float enableTime)
+    {
+        mAnimator.SetTrigger("Open");
+
+        yield return new WaitForSeconds(enableTime);
+
+        changeEnable();
+    }
+
+    private void changeEnable()
+    {
+        GetComponent<UISprite>().spriteName = OpenSpriteName;
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
-        GetComponent<UIButton>().normalSprite = OpenSpriteName; 
+        mButton.normalSprite = OpenSpriteName;
 
-        GetComponent<BoxCollider>().enabled = true;
+//        GetComponent<BoxCollider>().enabled = true;
+
+        mButton.isEnabled = true;
     }
 
     public void ShowLock(string kindSpriteName)
     {
-        GetComponent<UISprite>().spriteName = LockSpriteName;
+//        GetComponent<UISprite>().spriteName = LockSpriteName;
         KindSprite.spriteName = kindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
-        GetComponent<UIButton>().normalSprite = LockSpriteName;
+//        mButton.normalSprite = LockSpriteName;
 
-        GetComponent<BoxCollider>().enabled = false;
+//        GetComponent<BoxCollider>().enabled = false;
+
+        mButton.isEnabled = false;
     }
 
     public void NotifyClick()

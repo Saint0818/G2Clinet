@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -143,8 +144,8 @@ public class UIMainStage : UIBase
                 if(GameData.Team.Power < stageData.CostValue)
                     return false;
                 break;
-            case TStageData.ECostKind.Activity:
-            case TStageData.ECostKind.Challenger:
+//            case TStageData.ECostKind.Activity:
+//            case TStageData.ECostKind.Challenger:
             default:
                 throw new NotImplementedException();
         }
@@ -200,6 +201,7 @@ public class UIMainStage : UIBase
 
         // for debug.
 //        GameData.Team.Player.NextMainStageID = 0;
+//        PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
 
         // 2. 取出可顯示章節的全部關卡.
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
@@ -223,6 +225,12 @@ public class UIMainStage : UIBase
         addLastLockChapter();
 
         autoSelectChapter();
+
+        if(PlayerPrefs.HasKey(ESave.NewMainStage.ToString()))
+        {
+            PlayerPrefs.DeleteKey(ESave.NewMainStage.ToString());
+            PlayerPrefs.Save();
+        }
     }
 
     private void autoSelectChapter()
@@ -280,7 +288,10 @@ public class UIMainStage : UIBase
         }
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data); 
+
+        bool playAnim = PlayerPrefs.HasKey(ESave.NewMainStage.ToString()) &&
+                        GameData.Team.Player.NextMainStageID == stageData.ID;
+        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data, playAnim);
     }
 
     /// <summary>

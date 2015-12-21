@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AI;
 using DG.Tweening;
 using G2;
+using GameEnum;
 using GamePlayEnum;
 using GamePlayStruct;
 using GameStruct;
@@ -3739,6 +3740,10 @@ public class GameController : KnightSingleton<GameController>
 
             UIGameResult.UIShow(true);
             UIGameResult.Get.SetGameRecord(ref GameRecord);
+
+            // 魔術數字 1 其實沒有什麼意思, 其實給任意數值都可以.
+            PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
+            PlayerPrefs.Save();
         }
         else
             UIHint.Get.ShowHint("PVE End fail!", Color.red);

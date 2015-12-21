@@ -148,10 +148,11 @@ public class UIMainStageMain : MonoBehaviour
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
     /// <param name="data"></param>
-    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data)
+    /// <param name="playAnim"></param>
+    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data, bool playAnim)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].ShowStage(stageID, localPos, data);
+            mChapters[chapter].ShowStage(stageID, localPos, data, playAnim);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
