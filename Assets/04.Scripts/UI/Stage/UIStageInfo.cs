@@ -28,6 +28,8 @@ public class UIStageInfo : MonoBehaviour
         /// </summary>
         public readonly List<TItemData> RewardItems = new List<TItemData>();
 
+        public int Money { get; set; }
+        public int Exp { get; set; }
         public int Stamina { set; get; }
 
         /// <summary>
@@ -53,34 +55,28 @@ public class UIStageInfo : MonoBehaviour
     public UISprite KindSprite;
     public UILabel KindLabel;
     public UILabel StaminaLabel;
-    public Transform HintParent;
     public GameObject Completed; // 標示是否關卡打過的圖片.
     public UIButton StartButton; // 右下角的開始按鈕.
     public Transform[] RewardParents; // 獎勵圖示的位置.
+    public UILabel RewardMoney;
+    public UILabel RewardExp;
 
-    /// <summary>
-    /// 每日關卡限制的圖片. [0]:最左邊, [1]:中間, [2]:最右邊.
-    /// </summary>
-    public UISprite[] DailyLimits;
-    private UIStageHint mHint;
+    // 按鈕旁邊圖示和數值.
+    public UISprite CostSprite;
+    public UILabel CostValue;
 
     private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
-    private readonly Color32 mDisableColor = new Color32(69, 69, 69, 255);
+//    private readonly Color32 mDisableColor = new Color32(69, 69, 69, 255);
 
     private int mStageID;
+    private UIStageHint mHint;
 
     [UsedImplicitly]
 	void Awake()
     {
-        GameObject hintObj = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint"));
-        hintObj.transform.parent = HintParent;
-        hintObj.transform.localPosition = Vector3.zero;
-        hintObj.transform.localRotation = Quaternion.identity;
-        hintObj.transform.localScale = Vector3.one;//new Vector3(0.9f, 0.9f, 1);
-        mHint = hintObj.GetComponent<UIStageHint>();
-        mHint.UpdateInterval(490, 100);
+        mHint = GetComponent<UIStageHint>();
 
         for(var i = 0; i < RewardParents.Length; i++)
         {
@@ -119,15 +115,10 @@ public class UIStageInfo : MonoBehaviour
         StaminaLabel.text = string.Format("{0}", data.Stamina);
         Completed.SetActive(data.ShowCompleted);
 
-        for(int i = 0; i < DailyLimits.Length; i++)
-        {
-            if(data.DailyCount > i)
-                DailyLimits[i].color = Color.white;
-            else
-                DailyLimits[i].color = mDisableColor;
-        }
-
         StartButton.isEnabled = data.StartEnable;
+
+        RewardMoney.text = string.Format("{0}", data.Money);
+        RewardExp.text = string.Format("{0}", data.Exp);
     }
 
     public void Hide()

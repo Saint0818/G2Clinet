@@ -263,6 +263,8 @@ public class UIMainStage : UIBase
             Description = stageData.Explain,
             KindSpriteName = stageData.KindTextIndex.ToString(),
             KindName = TextConst.S(stageData.KindTextIndex),
+            Money = stageData.Money,
+            Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             DailyCount = findPlayerDailyCount(stageData),

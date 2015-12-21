@@ -72,6 +72,10 @@ public class TStageData
     /// </summary>
     public int LimitEvaluation { get; private set; }
 
+    public int Diamond { get; private set; }
+    public int Exp { get; private set; }
+    public int Money { get; private set; }
+
     /// <summary>
     /// 亂數獎勵.
     /// </summary>
