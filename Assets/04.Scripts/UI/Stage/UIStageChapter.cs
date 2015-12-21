@@ -39,13 +39,13 @@ public class UIStageChapter : MonoBehaviour
     public GameObject Lock;
     public GameObject Open;
 
-    private readonly string StagePath = "Prefab/UI/UIStageSmall";
+    private readonly string StagePath = "Prefab/UI/UIStageElement";
     private readonly string TexturePath = "Textures/Chapter/Chapter_{0}";
 
     /// <summary>
     /// key: StageID.
     /// </summary>
-    private readonly Dictionary<int, UIStageSmall> mStages = new Dictionary<int, UIStageSmall>();
+    private readonly Dictionary<int, UIStageElement> mStages = new Dictionary<int, UIStageElement>();
 
     [UsedImplicitly]
 	private void Awake()
@@ -93,7 +93,7 @@ public class UIStageChapter : MonoBehaviour
         mStages[stageID].ShowLock(kindSpriteName);
     }
 
-    private UIStageSmall createStage(int stageID, Vector3 localPos)
+    private UIStageElement createStage(int stageID, Vector3 localPos)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>(StagePath));
         obj.transform.parent = Open.transform;
@@ -102,7 +102,7 @@ public class UIStageChapter : MonoBehaviour
         obj.transform.localScale = mDefaultStageScale;
         obj.name = string.Format("Stage{0}", stageID);
 
-        var stage = obj.GetComponent<UIStageSmall>();
+        var stage = obj.GetComponent<UIStageElement>();
         stage.StageID = stageID;
         return stage;
     }

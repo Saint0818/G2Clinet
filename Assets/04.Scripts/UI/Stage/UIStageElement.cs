@@ -3,7 +3,7 @@
 /// <summary>
 /// 小關卡, 也就是關卡介面上的小圓點, 點擊後, 玩家可以進入關卡.
 /// </summary>
-public class UIStageSmall : MonoBehaviour
+public class UIStageElement : MonoBehaviour
 {
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
     public int StageID;
