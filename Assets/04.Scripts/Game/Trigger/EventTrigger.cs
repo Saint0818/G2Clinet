@@ -12,13 +12,13 @@ public class EventTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider c) {
-		if (c.tag == "Player") {
+		if (c.CompareTag("Player")) {
 			onTouch(c.gameObject);
 		}
 	}
 
 	void OnTriggerStay(Collider c) {
-		if (timer >= 1 && c.tag == "Player") {
+		if (timer >= 1 && c.CompareTag("Player")) {
 			onTouch(c.gameObject);
 		}
 	}

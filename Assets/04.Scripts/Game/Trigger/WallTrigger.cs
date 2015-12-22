@@ -22,7 +22,7 @@ public class WallTrigger : MonoBehaviour
 
 	void OnTriggerEnter(Collider collisionInfo) {
 
-		if((collisionInfo.gameObject.tag == "Player" && collisionInfo.gameObject.layer != LayerMask.NameToLayer("UI3D")) || collisionInfo.gameObject.tag == "RealBall") 
+		if((collisionInfo.CompareTag("Player") && collisionInfo.gameObject.layer != LayerMask.NameToLayer("UI3D")) || collisionInfo.CompareTag("RealBall"))
 		{
 			bool flag = collisionInfo.gameObject.GetComponent<Rigidbody>().isKinematic;
 			

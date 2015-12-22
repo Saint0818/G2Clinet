@@ -99,7 +99,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			for (int i = 0; i < followPlayers.Length; i ++) {
 				if (followPlayers[i] && followPlayers[i].gameObject == player) {
 					SetTeamMember(i, "");
-					EffectManager.Get.PlayEffect("TeamQuit", new Vector3(0, 1, 0), player);
+					EffectManager.Get.PlayEffect("TeamQuit", Vector3.up, player);
 					followPlayers[i].FollowObject = null;
 					followPlayers[i] = null;
 					return;
@@ -109,7 +109,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			for (int i = 0; i < followPlayers.Length; i ++) {
 				if (!followPlayers[i]) {
 					SetTeamMember(i, player.name);
-					EffectManager.Get.PlayEffect("TeamJoin", new Vector3(0, 1, 0), player);
+					EffectManager.Get.PlayEffect("TeamJoin", Vector3.up, player);
 					RPGMotor rpgMotor = player.GetComponent<RPGMotor>();
 					if (rpgMotor) {
 						rpgMotor.FollowObject = followPoints[i];
@@ -120,7 +120,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				}
 			}
 
-			EffectManager.Get.PlayEffect("TeamFull", new Vector3(0, 1, 0), player);
+			EffectManager.Get.PlayEffect("TeamFull", Vector3.up, player);
 		}
 	}
 

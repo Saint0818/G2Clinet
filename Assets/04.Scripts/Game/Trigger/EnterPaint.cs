@@ -6,14 +6,14 @@ public class EnterPaint : MonoBehaviour {
 	private float timer;
 
 	void OnTriggerEnter(Collider c) {
-		if (c.tag == "Player") {
+		if (c.CompareTag("Player")) {
 			timer = 0;
 			GameController.Get.PlayerEnterPaint(Team, c.gameObject);
 		}
 	}
 
 	void OnTriggerStay(Collider c) {
-		if (timer >= 2 && c.tag == "Player") {
+		if (timer >= 2 && c.CompareTag("Player")) {
 			timer = 0;
 			GameController.Get.PlayerEnterPaint(Team, c.gameObject);
 		}
