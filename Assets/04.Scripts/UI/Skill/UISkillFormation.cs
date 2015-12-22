@@ -296,16 +296,13 @@ public class UISkillFormation : UIBase {
 	//Sell
 	public bool IsBuyState = false;
 	private TSkillCardSell cardSell;
-//	private UILabel labelSell;
-//	private GameObject goSellCount;
-//	private UILabel labelTotalPrice;
-//	private int sellPrice;
 
 	//Desk(Page)
 	private UIToggle[] toggleDecks = new UIToggle[5];
 
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
+	private int cardCount = 0;
 	private int activeFieldLimit = 3;
 	private int eCondition;
 	private int eFilter;
@@ -764,16 +761,14 @@ public class UISkillFormation : UIBase {
 					}
 				}
 			}
-			if(obj != null) {
+			if(obj != null) 
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
-			} 
 
 			checkCostIfMask();
 			return true;
 		} 
-//		else 
-//			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+//		else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
 		return false;
 	}
@@ -800,8 +795,7 @@ public class UISkillFormation : UIBase {
 									activeStruct[index].ActiveClear();
 									addItems(uiCards[name], index);
 								}
-//								else 
-//									UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+//								else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 							}
 						} else {
 							removeItems(activeStruct[activeFieldLimit - 1].CardID, activeStruct[activeFieldLimit - 1].CardSN, activeStruct[activeFieldLimit - 1].ItemEquipActiveCard);
@@ -813,8 +807,7 @@ public class UISkillFormation : UIBase {
 							if(checkCost(uiCards[name].Cost)) {
 								addItems(uiCards[name], index);
 							} 
-//							else 
-//								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+//							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 						} else {
 							if(checkCost(uiCards[name].Cost)) {
 								for (int i=0; i<activeStruct.Length; i++) {
@@ -829,8 +822,7 @@ public class UISkillFormation : UIBase {
 								}
 								addItems(uiCards[name], index);
 							} 
-//							else 
-//								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+//							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
 						}
 						refreshActiveItems();
@@ -942,22 +934,42 @@ public class UISkillFormation : UIBase {
 			}
 		}
 			
-		for (int i=0; i<activeStruct.Length; i++) {
+		for (int i=0; i<activeStruct.Length; i++) 
 			if((i+1) > activeFieldLimit)
 				activeStruct[i].SpriteActiveFieldIcon.spriteName = "Icon_lock";
-		}
 	}
 
 	//page 0 1 2 3 4
 	private void changePage (int page) {
 		if(page != tempPage) {
-			for(int i=0; i<toggleDecks.Length; i++) {
+			for(int i=0; i<toggleDecks.Length; i++) 
 				toggleDecks[i].value = (i == page);
-			}
+
 			isChangePage = true;
 			tempPage = page;
 			DoFinish();
 		}
+	}
+
+	private int getSkillCardCount () {
+		int count = 0;
+		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0)
+			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) 
+				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) 
+					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) 
+						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) 
+							count ++;
+			
+
+		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) 
+			for (int i=0; i<GameData.Team.SkillCards.Length; i++) 
+				count ++;
+
+		if(GameData.Team.Player.SkillCards != null && GameData.Team.Player.SkillCards.Length > 0) 
+			for (int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
+				count ++;
+
+		return count;
 	}
 
 	//For Sell
