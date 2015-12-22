@@ -1599,31 +1599,31 @@ public class GameController : KnightSingleton<GameController>
 		bool isSwich = false;
 		bool isAirBall = false;
 		if(type == EScoreType.DownHand) {
-			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			isScore = (rate <= Mathf.Max(2, (originalRate + (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate))) ? true : false;
 			downhandRate = (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandSwishRate / 100f))) ? true : false;
+				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.DownHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.UpHand) {
-			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
 			uphandRate = (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandSwishRate / 100f))) ? true : false;
+				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.UpHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.Normal) {
-			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate)) ? true : false;
-			normalRate = (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate);
+			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			normalRate = (originalRate + (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NormalSwishRate / 100f))) ? true : false;
+				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.NormalSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
@@ -1633,7 +1633,7 @@ public class GameController : KnightSingleton<GameController>
 			nearshotRate = (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
+				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}

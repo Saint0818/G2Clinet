@@ -133,20 +133,20 @@ public struct TScoreRate
         TwoScoreRateDeviation = 0.8f;
         ThreeScoreRate = 50;
         ThreeScoreRateDeviation = 0.5f;
-        DownHandScoreRate = 40;
-        DownHandSwishRate = 50;
+        DownHandScoreRate = -60;
+        DownHandSwishRate = -50;
         DownHandAirBallRate = 35;
         UpHandScoreRate = 20;
-        UpHandSwishRate = 30;
+        UpHandSwishRate = -30;
         UpHandAirBallRate = 15;
         NormalScoreRate = 0;
         NormalSwishRate = 0;
         NormalAirBallRate = 8;
         NearShotScoreRate = 10;
-        NearShotSwishRate = 10;
+        NearShotSwishRate = -10;
         NearShotAirBallRate = 3;
         LayUpScoreRate = 20;
-        LayUpSwishRate = 20;
+        LayUpSwishRate = -20;
         LayUpAirBallRate = 2;
     }
 }
@@ -164,7 +164,6 @@ public class PlayerBehaviour : MonoBehaviour
     public Timeline Timer;
     public OnPlayerAction1 OnShooting = null;
     public OnPlayerAction OnPass = null;
-//    public OnPlayerAction OnStealMoment = null;
     public OnPlayerAction OnBlockJump = null;
     public OnPlayerAction OnBlocking = null;
     public OnPlayerAction OnBlockCatching = null;
@@ -188,7 +187,6 @@ public class PlayerBehaviour : MonoBehaviour
     [Tooltip("Just for Debug.")]
     public string TacticalName = "";
 
-//    public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
 //    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
@@ -682,19 +680,19 @@ public class PlayerBehaviour : MonoBehaviour
 		return DefPointAy[kind].position;
 	}
 
-	private void speedBarColor () {
-		if (this == GameController.Get.Joysticker) {
-			SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
-			SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
-			if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
-				isSpeedStay = false;
-				SpeedAnimator.SetTrigger("SelectMe");
-			} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
-				isSpeedStay = true;
-				SpeedAnimator.SetTrigger("SelectMeStay");
-			}
-		}
-	}
+//	private void speedBarColor () {
+//		if (this == GameController.Get.Joysticker) {
+//			SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+//			SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+//			if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
+//				isSpeedStay = false;
+//				SpeedAnimator.SetTrigger("SelectMe");
+//			} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
+//				isSpeedStay = true;
+//				SpeedAnimator.SetTrigger("SelectMeStay");
+//			}
+//		}
+//	}
 
     void FixedUpdate()
     {
@@ -770,36 +768,36 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         
-        if (Time.time >= mMovePowerTime)
-        {
-            mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
-			if (isSpeedup)
-            {
-				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
-                {
-                    mMovePower -= GameConst.MovePowerMoving;
-                    if (mMovePower < 0)
-                        mMovePower = 0;
-
-					speedBarColor ();
-
-                    if (mMovePower == 0)
-                        canSpeedup = false;
-                }
-			} else {
-				if (mMovePower <= mMaxMovePower)
-				{
-					mMovePower += GameConst.MovePowerRevive;
-					if (mMovePower > mMaxMovePower)
-						mMovePower = mMaxMovePower;
-					
-					speedBarColor ();
-					
-					if (mMovePower == mMaxMovePower)
-						canSpeedup = true;
-				}
-			}
-        }
+//        if (Time.time >= mMovePowerTime)
+//        {
+//            mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
+//			if (isSpeedup)
+//            {
+//				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
+//                {
+//                    mMovePower -= GameConst.MovePowerMoving;
+//                    if (mMovePower < 0)
+//                        mMovePower = 0;
+//
+//					speedBarColor ();
+//
+//                    if (mMovePower == 0)
+//                        canSpeedup = false;
+//                }
+//			} else {
+//				if (mMovePower <= mMaxMovePower)
+//				{
+//					mMovePower += GameConst.MovePowerRevive;
+//					if (mMovePower > mMaxMovePower)
+//						mMovePower = mMaxMovePower;
+//					
+//					speedBarColor ();
+//					
+//					if (mMovePower == mMaxMovePower)
+//						canSpeedup = true;
+//				}
+//			}
+//        }
 
         if (IsDefence)
         {
@@ -1754,15 +1752,15 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         setSpeed(1, 0);
                         transform.position = Vector3.MoveTowards(transform.position, 
-                                                new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                                                Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * Timer.timeScale);
+                                                				 new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                                               					 Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * Timer.timeScale);
                         isSpeedup = true;
                     }
                     else
                     {
                         transform.position = Vector3.MoveTowards(transform.position, 
-                            new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                            Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * Timer.timeScale);
+                          										 new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                            									 Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * Timer.timeScale);
                         isSpeedup = false;
                     }
                 }

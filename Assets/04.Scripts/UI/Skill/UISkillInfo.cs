@@ -255,7 +255,7 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnClose() {
-		TSkill info = new TSkill();
+//		TSkill info = new TSkill();
 		UIShow(false);
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) {
 			UIGameResult.Get.ShowBonusItem();

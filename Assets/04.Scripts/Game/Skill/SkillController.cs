@@ -37,7 +37,9 @@ public class SkillController : MonoBehaviour {
 	void FixedUpdate() {
 		if(skillBuff != null)
 			skillBuff.UpdateBuff();
+		
 		updateSkillAttribute();
+
 		if (GameController.Get.Situation == EGameSituation.JumpBall || 
 		    GameController.Get.Situation == EGameSituation.AttackGamer || 
 		    GameController.Get.Situation == EGameSituation.AttackNPC)
@@ -120,13 +122,15 @@ public class SkillController : MonoBehaviour {
 
 	//without Active, Acitve is run at the SkillBuff, SkillBuff have FinishBuff
 	private void updateSkillAttribute() {
-		for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID < GameConst.ID_LimitActive) {
-				skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
-				if (skillAttribute [i].CDTime <= 0) {
+		if(skillAttribute.Count > 0) {
+			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
+				if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID < GameConst.ID_LimitActive) {
+					skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
+					if (skillAttribute [i].CDTime <= 0) {
 						executePlayer.SetAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
-
-					skillAttribute.RemoveAt(i);
+						
+						skillAttribute.RemoveAt(i);
+					}
 				}
 			}
 		}

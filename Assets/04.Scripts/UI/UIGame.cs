@@ -52,17 +52,17 @@ public class UIGame : UIBase {
 	private PlayerBehaviour PlayerMe;
 	//Game const
 	public float ButtonBTime = 0.08f; //Fake to shoot time
-	private float showScoreBarInitTime = 3.15f;
+//	private float showScoreBarInitTime = 3.15f;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
 	private float shootBtnTime = 0;
-	private float showScoreBarTime = 0;
+//	private float showScoreBarTime = 0;
 
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
-	private bool isShowScoreBar = false;
+//	private bool isShowScoreBar = false;
 	private bool isShootAvailable = true;
 
 	// GoldFinger
@@ -102,11 +102,11 @@ public class UIGame : UIBase {
 	private GameObject uiPlayerLocation;
 
 	//Bottom
-	private GameObject uiScoreBar;
-	private GameObject uiLimitScore;
-	private UILabel labelLimiteScore;
-	private UILabel[] labelScores = new UILabel[2];
-	private TweenRotation[] rotate = new TweenRotation[2];
+//	private GameObject uiScoreBar;
+//	private GameObject uiLimitScore;
+//	private UILabel labelLimiteScore;
+//	private UILabel[] labelScores = new UILabel[2];
+//	private TweenRotation[] rotate = new TweenRotation[2];
 
 	//TopRight
 	private GameObject viewTopRight;
@@ -223,13 +223,13 @@ public class UIGame : UIBase {
 			}
 		}
         
-        if(isShowScoreBar && showScoreBarTime > 0) {
-            showScoreBarTime -= Time.deltaTime;
-            if(showScoreBarTime <= 0){
-                isShowScoreBar = false;
-                uiScoreBar.SetActive(false);
-            }
-        }
+//        if(isShowScoreBar && showScoreBarTime > 0) {
+//            showScoreBarTime -= Time.deltaTime;
+//            if(showScoreBarTime <= 0){
+//                isShowScoreBar = false;
+//                uiScoreBar.SetActive(false);
+//            }
+//        }
 
         judgePlayerScreenPosition();
 		setGameTime();
@@ -280,13 +280,13 @@ public class UIGame : UIBase {
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 		
 		//Bottom
-		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
-		uiLimitScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore");
-		labelLimiteScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore/TargetScore").GetComponent<UILabel>();
-		labelScores [0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<UILabel>();
-		rotate[0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<TweenRotation>();
-		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
-		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
+//		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
+//		uiLimitScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore");
+//		labelLimiteScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore/TargetScore").GetComponent<UILabel>();
+//		labelScores [0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<UILabel>();
+//		rotate[0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<TweenRotation>();
+//		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
+//		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
 		
 		//TopRight
 		viewTopRight = GameObject.Find(UIName + "/TopRight");
@@ -327,7 +327,7 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
 		
 //		drawLine = gameObject.AddComponent<DrawLine>();
-		uiScoreBar.SetActive(false);
+//		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
 		uiSpriteFull.SetActive(false);
@@ -349,24 +349,24 @@ public class UIGame : UIBase {
 	}
 
 	public void InitUI() {
-		isShowScoreBar = false;
+//		isShowScoreBar = false;
 		Scores [0] = 0;
 		Scores [1] = 0;
 		labelTopLeftScore[0].text = "0";
 		labelTopLeftScore[1].text = "0";
-		labelScores[0].text = "0";
-		labelScores[1].text = "0";
+//		labelScores[0].text = "0";
+//		labelScores[1].text = "0";
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
 		showUITime ();
 
-		if(GameController.Get.StageData.HintBit[1] == 2)
-			labelLimiteScore.text = GameController.Get.StageData.WinValue.ToString();
-		else
-			uiLimitScore.SetActive(false);
+//		if(GameController.Get.StageData.HintBit[1] == 2)
+//			labelLimiteScore.text = GameController.Get.StageData.WinValue.ToString();
+//		else
+//			uiLimitScore.SetActive(false);
 		
 		uiPlayerLocation.SetActive(false);
-		uiScoreBar.SetActive(false);
+//		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
 		viewTopLeft.SetActive(false);
@@ -690,7 +690,7 @@ public class UIGame : UIBase {
 
 	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
 		if(IsPlayerMe) {
-			if(PlayerMe.Attribute.ActiveSkills.Count > 0 && index < PlayerMe.Attribute.ActiveSkills.Count) {
+			if(PlayerMe.Attribute.ActiveSkills.Count > 0 && index < PlayerMe.Attribute.ActiveSkills.Count && isAngerFull && canUse) {
 				if (isShow) {
 					if(GameController.Get.IsStart)
 						uiSkillEnables[index].SetActive((canUse && isAngerFull));
@@ -757,13 +757,13 @@ public class UIGame : UIBase {
 		Scores [team] += score;
 		if(!GameController.Get.IsFinish)
 			CourtMgr.Get.SetScoreboards (team, Scores [team]);
-		showScoreBar(GameController.Get.IsStart);
-		resetScoreRotate();
-		TweenRotation rotateScore = TweenRotation.Begin(labelScores[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
-		rotateScore.delay = 0.2f / Time.timeScale;
-		rotateScore.from = Vector3.zero;
-		rotateScore.to = new Vector3(0,720,0);
-		labelScores[team].text = Scores [team].ToString ();
+//		showScoreBar(GameController.Get.IsStart);
+//		resetScoreRotate();
+//		TweenRotation rotateScore = TweenRotation.Begin(labelScores[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
+//		rotateScore.delay = 0.2f / Time.timeScale;
+//		rotateScore.from = Vector3.zero;
+//		rotateScore.to = new Vector3(0,720,0);
+//		labelScores[team].text = Scores [team].ToString ();
 
 		TweenRotation rotateTopScore = TweenRotation.Begin(labelTopLeftScore[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
 		rotateTopScore.delay = 1f / Time.timeScale;
@@ -1193,7 +1193,7 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(false);
 				showViewForceBar(false);
 
-				uiScoreBar.SetActive(false);
+//				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(false);
 				ShowSkillEnableUI(false);
 
@@ -1226,7 +1226,7 @@ public class UIGame : UIBase {
 			GameController.Get.RecordTimeScale = Time.timeScale;
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
-			uiScoreBar.SetActive(false);
+//			uiScoreBar.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
 			showViewForceBar(false);
@@ -1272,7 +1272,7 @@ public class UIGame : UIBase {
 	}
 	
 	private void runForceValue () {
-		if(IsPlayerMe) {
+		if(IsPlayerMe && spriteForce.fillAmount != newForceValue) {
 			timeForce += Time.fixedDeltaTime;
 			if(newForceValue > oldForceValue) 
 				spriteForceFirst.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
@@ -1304,58 +1304,56 @@ public class UIGame : UIBase {
 		}
 	}
 	
-	private void resetScoreRotate() {
-		for(int i=0; i<labelScores.Length; i++) {
-			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
-			rotate[i].enabled = false; 
-		}
-	}
+//	private void resetScoreRotate() {
+//		for(int i=0; i<labelScores.Length; i++) {
+//			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
+//			rotate[i].enabled = false; 
+//		}
+//	}
 
-	private void showScoreBar(bool isStart){
-		if(isStart)
-			showScoreBarTime = showScoreBarInitTime;
+//	private void showScoreBar(bool isStart){
+//		if(isStart)
+//			showScoreBarTime = showScoreBarInitTime;
 
-		isShowScoreBar = true;
-		uiScoreBar.SetActive(false);
-		uiScoreBar.SetActive(true);
-	}
+//		isShowScoreBar = true;
+//		uiScoreBar.SetActive(false);
+//		uiScoreBar.SetActive(true);
+//	}
 	
 	private void judgePlayerScreenPosition(){
 		if(GameController.Get.IsStart && IsPlayerMe && 
-		   (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC)){
+			(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC)){
+
 			playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(PlayerMe.PlayerRefGameObject.transform.position).x;
 			playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(PlayerMe.PlayerRefGameObject.transform.position).y;
-			
-			playerInBoardX = PlayerMe.PlayerRefGameObject.transform.position.z;
-			playerInBoardY = PlayerMe.PlayerRefGameObject.transform.position.x;
-			
-			playerX = 15 - playerInBoardX;
-			playerY = 11 - playerInBoardY;
-			
-			playerScreenPos = new Vector2((playerX * baseValueX) - 640 , (playerY * baseValueY) * (-1));
-			if (playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX < 0) playerScreenPos.x = -610;
-			else if (playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX >= Screen.width) playerScreenPos.x = 610;
-			else if (playerScreenPos.x > 610) playerScreenPos.x = 610;
-			else if (playerScreenPos.x < -610) playerScreenPos.x = -610;
-			
-			if (playerScreenPos.x > -610 && playerScreenPos.x < 610 && playerInCameraY < 0) playerScreenPos.y = -330;
-			else if (playerScreenPos.y < -330) playerScreenPos.y = -330;
-			
-			float angle = 0f;
-			
-			if (playerScreenPos.x == -610 && playerScreenPos.y == -330) angle = -135;
-			else if (playerScreenPos.x == 610 && playerScreenPos.y == -330) angle = -45;
-			else if (playerScreenPos.x == 610) angle = 0;
-			else if (playerScreenPos.x == -610) angle = 180;
-			else if (playerScreenPos.y == -330) angle = -90;
 
-			if(playerInCameraX > -50 &&
-			   playerInCameraX < Screen.width + 100 &&
-			   playerInCameraY > -90 &&
-			   playerInCameraY < Screen.height + 100) {
+			if(playerInCameraX > -50 && playerInCameraX < Screen.width + 100 &&
+				playerInCameraY > -90 && playerInCameraY < Screen.height + 100) {
 				uiPlayerLocation.SetActive(false);
 			} else {
 				uiPlayerLocation.SetActive(true);
+				playerInBoardX = PlayerMe.PlayerRefGameObject.transform.position.z;
+				playerInBoardY = PlayerMe.PlayerRefGameObject.transform.position.x;
+
+				playerX = 15 - playerInBoardX;
+				playerY = 11 - playerInBoardY;
+
+				playerScreenPos = new Vector2((playerX * baseValueX) - 640 , (playerY * baseValueY) * (-1));
+				if (playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX < 0) playerScreenPos.x = -610;
+				else if (playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX >= Screen.width) playerScreenPos.x = 610;
+				else if (playerScreenPos.x > 610) playerScreenPos.x = 610;
+				else if (playerScreenPos.x < -610) playerScreenPos.x = -610;
+
+				if (playerScreenPos.x > -610 && playerScreenPos.x < 610 && playerInCameraY < 0) playerScreenPos.y = -330;
+				else if (playerScreenPos.y < -330) playerScreenPos.y = -330;
+
+				float angle = 0f;
+
+				if (playerScreenPos.x == -610 && playerScreenPos.y == -330) angle = -135;
+				else if (playerScreenPos.x == 610 && playerScreenPos.y == -330) angle = -45;
+				else if (playerScreenPos.x == 610) angle = 0;
+				else if (playerScreenPos.x == -610) angle = 180;
+				else if (playerScreenPos.y == -330) angle = -90;
 				uiPlayerLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
 				uiPlayerLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 			}
@@ -1423,7 +1421,6 @@ public class UIGame : UIBase {
 
 	public bool isStage
     {
-//		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
 		get {return StageTable.Ins.HasByID(GameData.StageID); }
 	}
 }
