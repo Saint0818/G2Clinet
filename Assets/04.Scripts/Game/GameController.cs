@@ -1643,7 +1643,7 @@ public class GameController : KnightSingleton<GameController>
 			layupRate = (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
+				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}

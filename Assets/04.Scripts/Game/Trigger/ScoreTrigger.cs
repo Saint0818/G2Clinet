@@ -11,12 +11,6 @@ public class ScoreTrigger : MonoBehaviour
 	private Animator animator;
 	private Transform dummyHoop;
 
-	void FixedUpdate () {
-//		if(CourtMgr.Get.RealBall && Vector3.Distance(transform.position, CourtMgr.Get.RealBall.transform.position) < 0.5f) {
-//			shoot ();
-//		}
-	}
-
 	private void shoot (){
 		if(!dummyHoop)
 			dummyHoop = CourtMgr.Get.BasketHoopDummy[Team];

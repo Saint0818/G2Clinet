@@ -306,6 +306,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float shootJumpCurveTime = 0;
     private TShootCurve playerShootCurve;
     private bool isShootJump = false;
+	private bool isShootJumpActive = false;//For Active 
     private bool isFakeShoot = false;
 
     //Push
@@ -1308,8 +1309,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             }
 
-            //Debug.Log("H :: " + gameObject.transform.position);
-
             if (shootJumpCurveTime >= playerShootCurve.LifeTime)
             {
                 isShootJump = false;
@@ -1914,6 +1913,7 @@ public class PlayerBehaviour : MonoBehaviour
 		isCanBlock = false;
 		isRebound = false;
 		isShootJump = false;
+		isShootJumpActive = false;
 		isPush = false;
 		isFall = false;
 		isSkillShow = false;
@@ -2328,7 +2328,9 @@ public class PlayerBehaviour : MonoBehaviour
                 }
 				isFindCurve = playerShootCurve != null? true : false;
                 shootJumpCurveTime = 0;
-                isShootJump = true;
+				isShootJump = true;
+				if(stateNo >= 20)
+					isShootJumpActive = true;
             
                 break;
             case EAnimatorState.Layup:
@@ -3274,9 +3276,10 @@ public class PlayerBehaviour : MonoBehaviour
     				
                     isSkillShow = false;
                     UISkillEffect.UIShow(false);
-					if(isShootJump)
+					if(isShootJumpActive){
+						isShootJumpActive = false;
 						animatorEvent.intParameter = 4;
-					else
+					} else
 						animatorEvent.intParameter = 0;
 				
 					animatorEvent.floatParameter = 1;
