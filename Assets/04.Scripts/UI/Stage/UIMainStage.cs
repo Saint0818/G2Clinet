@@ -33,7 +33,10 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    private const string SelectChapterKey = "StageSelectChapter";
+    /// <summary>
+    /// 主要用來記錄玩家目前打哪一個章節. Value(int): 哪一章.
+    /// </summary>
+    private const string CurrentChapterKey = "MainStageSelectChapter";
 
     private int mCurrentStageID;
 
@@ -56,8 +59,8 @@ public class UIMainStage : UIBase
 
     public void ClearSelectChapter()
     {
-        if(PlayerPrefs.HasKey(SelectChapterKey))
-            PlayerPrefs.DeleteKey(SelectChapterKey);
+        if(PlayerPrefs.HasKey(CurrentChapterKey))
+            PlayerPrefs.DeleteKey(CurrentChapterKey);
     }
 
     /// <summary>
@@ -90,7 +93,7 @@ public class UIMainStage : UIBase
         string errMsg;
         if(verifyPlayer(stageData, out errMsg))
         {
-            PlayerPrefs.SetInt(SelectChapterKey, mMain.CurrentChapter);
+            PlayerPrefs.SetInt(CurrentChapterKey, mMain.CurrentChapter);
             pveStart(stageID);
         }
         else
@@ -183,8 +186,6 @@ public class UIMainStage : UIBase
             GameData.StageID = mCurrentStageID;
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
-//            pveEnd(mCurrentStageID);
-
             Hide();
         }
         else
@@ -196,14 +197,28 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildMainStages()
     {
-        // 1. 清空全部章節.
         mMain.RemoveAllChapters();
 
         // for debug.
 //        GameData.Team.Player.NextMainStageID = 0;
 //        PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
+        
+        buildChapters();
 
-        // 2. 取出可顯示章節的全部關卡.
+        autoSelectChapter();
+
+        if(PlayerPrefs.HasKey(ESave.NewMainStage.ToString()))
+        {
+            PlayerPrefs.DeleteKey(ESave.NewMainStage.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    /// <summary>
+    /// 取出可顯示章節的全部關卡.
+    /// </summary>
+    private void buildChapters()
+    {
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
             maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;
@@ -215,7 +230,7 @@ public class UIMainStage : UIBase
         foreach(TStageData data in allStageData)
         {
             addChapter(data.Chapter);
-            
+
             if(data.ID <= GameData.Team.Player.NextMainStageID)
                 addStage(data);
             else
@@ -223,27 +238,16 @@ public class UIMainStage : UIBase
         }
 
         addLastLockChapter();
-
-        autoSelectChapter();
-
-        if(PlayerPrefs.HasKey(ESave.NewMainStage.ToString()))
-        {
-            PlayerPrefs.DeleteKey(ESave.NewMainStage.ToString());
-            PlayerPrefs.Save();
-        }
     }
 
     private void autoSelectChapter()
     {
-        if(PlayerPrefs.HasKey(SelectChapterKey))
-            mMain.SelectChapter(PlayerPrefs.GetInt(SelectChapterKey));
+        if(PlayerPrefs.HasKey(CurrentChapterKey))
+            mMain.ShowChapter(PlayerPrefs.GetInt(CurrentChapterKey));
         else
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            if(stageData.IsValid())
-                mMain.SelectChapter(stageData.Chapter);
-            else
-                mMain.SelectChapter(mMain.ChapterCount);
+            mMain.ShowChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
         }
     }
 
@@ -322,12 +326,6 @@ public class UIMainStage : UIBase
             return false;
         }
 
-//        int textIndex = stageData.KindTextIndex;
-//        if(string.IsNullOrEmpty(TextConst.S(textIndex)))
-//        {
-//            Debug.LogErrorFormat("TextConst({0}) don't exist!", textIndex);
-//            return false;
-//        }
         return true;
     }
 
@@ -361,103 +359,6 @@ public class UIMainStage : UIBase
     {
         UIGameLobby.Get.Show();
         Hide();
-    }
-
-    private void waitPVEEnd(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
-
-        if(ok)
-        {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = team.Player;
-            GameData.Team.Player.Init();
-
-//            stageRewardStart(mCurrentStageID);
-        }
-        else
-            UIHint.Get.ShowHint("PVE End fail!", Color.red);
-    }
-
-    private void stageRewardStart(int stageID)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
-    }
-
-    private void waitStageRewardStart(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
-
-        if(ok)
-        {
-            TStageRewardStart reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
-
-            Debug.LogFormat("waitStageRewardStart:{0}", reward);
-
-            GameData.Team.Money = reward.Money;
-            GameData.Team.Diamond = reward.Diamond;
-            GameData.Team.Player = reward.Player;
-            GameData.Team.Player.Init();
-            GameData.Team.Items = reward.Items;
-
-//            stageRewardAgain(mCurrentStageID);
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
-    }
-
-    private void stageRewardAgain(int stageID)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain, form);
-    }
-
-    private void waitStageRewardAgain(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitStageRewardAgain, ok:{0}", ok);
-
-        if(ok)
-        {
-            var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
-            GameData.Team.Diamond = reward.Diamond;
-            GameData.Team.Items = reward.Items;
-
-            Debug.LogFormat("waitStageRewardAgain:{0}", reward);
-
-//            stageRewardAgain2(mCurrentStageID);
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
-    }
-
-    private void stageRewardAgain2(int stageID)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain2, form);
-    }
-
-    private void waitStageRewardAgain2(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitStageRewardAgain2, ok:{0}", ok);
-
-        if (ok)
-        {
-            var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
-
-            Debug.LogFormat("waitStageRewardAgain2:{0}", reward);
-
-            GameData.Team.Diamond = reward.Diamond;
-            GameData.Team.Items = reward.Items;
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
     }
 
     protected override void OnShow(bool isShow)

@@ -9,7 +9,7 @@ using UnityEngine;
 /// <list type="number">
 /// <item> Call RemoveAllChapters() 將整個關卡介面重置. </item>
 /// <item> Call AddXXX() 加入章節和關卡. </item>
-/// <item> Call SelectChapter() 控制預設顯示哪一個章節. </item>
+/// <item> Call ShowChapter() 控制預設顯示哪一個章節. </item>
 /// <item> 向 UIStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
@@ -104,7 +104,7 @@ public class UIMainStageMain : MonoBehaviour
     /// 控制介面顯示哪一個章節.
     /// </summary>
     /// <param name="chapter"></param>
-    public void SelectChapter(int chapter)
+    public void ShowChapter(int chapter)
     {
         if(chapter <= 0 || chapter > mChapters.Count)
             return;
