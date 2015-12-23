@@ -69,7 +69,7 @@ public struct TActiveStruct {
 	}
 }
 /// <summary>
-/// TUI card.
+/// TActiveSkillCard指的是左列卡牌 .
 /// </summary>
 public struct TUICard{
 	public GameObject Card;
@@ -562,7 +562,7 @@ public class UISkillFormation : UIBase {
 		}
 		return null;
 	}
-
+	//TPassiveSkillCard指的是右列安裝的卡牌 .
 	private GameObject addUIItems (TUICard uicard, GameObject parent, int positionIndex = 0) {
 		GameObject obj = Instantiate(itemCardEquipped, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = parent.transform;
@@ -574,46 +574,18 @@ public class UISkillFormation : UIBase {
 			drag.isDragItem = true;
 		} else 
 			obj.transform.localPosition = new Vector3(12, 110 - 70 * positionIndex, 0);
-		obj.transform.localScale = Vector3.one;
+		
+		TPassiveSkillCard skillCard = new TPassiveSkillCard();
+		skillCard.InitFormation(obj);
+		UIEventListener.Get(skillCard.BtnRemove).onPress = OnRemoveItem;
+		skillCard.UpdateViewFormation(uicard.CardID, uicard.CardLV);
+
+		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
 
 		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
 		uiEquipEffect.transform.parent = obj.transform;
 		uiEquipEffect.transform.localPosition = Vector3.zero;
 		uiEquipEffect.transform.localScale = Vector3.one;
-		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
-
-		if(obj.transform.FindChild("BtnRemove") != null) 
-			UIEventListener.Get(obj.transform.FindChild("BtnRemove").gameObject).onPress = OnRemoveItem;
-		
-		Transform t = obj.transform.FindChild("SkillLevel");
-		if(t != null)
-			t.gameObject.GetComponent<UISprite>().spriteName = "Cardicon" + Mathf.Clamp(uicard.CardLV, 1, GameData.DSkillData[uicard.CardID].MaxStar).ToString();
-		
-		t = obj.transform.FindChild("SkillName");
-		if(t != null)
-			if(GameData.DSkillData.ContainsKey(uicard.CardID))
-				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[uicard.CardID].Name;
-		
-		t = obj.transform.FindChild("SkillCost");
-		if(t != null)
-			if(GameData.DSkillData.ContainsKey(uicard.CardID))
-				t.gameObject.GetComponent<UILabel>().text = Mathf.Max(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV), 1).ToString();
-
-		t = obj.transform.FindChild("SkillCard");
-		if(t != null)
-			if(GameData.DSkillData.ContainsKey(uicard.CardID))
-				t.gameObject.GetComponent<UISprite>().spriteName = "cardlevel_" + Mathf.Clamp(uicard.CardLV, 1, GameData.DSkillData[uicard.CardID].MaxStar).ToString() + "s";
-
-		t = obj.transform.FindChild("SkillLevel/Levelball");
-		if(t != null) 
-			t.gameObject.GetComponent<UISprite>().spriteName = "Levelball" + Mathf.Clamp(uicard.CardLV, 1, GameData.DSkillData[uicard.CardID].MaxStar).ToString();
-
-		t = obj.transform.FindChild("SkillTexture");
-		if(t != null)
-			if(GameData.DSkillData.ContainsKey(uicard.CardID))
-				t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardItemTexture(uicard.CardID);
-
-
 		return obj;
 	}
 
@@ -651,7 +623,6 @@ public class UISkillFormation : UIBase {
 			return true;
 		} 
 //		else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
-
 		return false;
 	}
 
@@ -790,9 +761,8 @@ public class UISkillFormation : UIBase {
 	}
 	
 	private void refreshPassiveItems() {
-		for(int i=0 ;i<itemPassiveCards.Count; i++) {
-			itemPassiveCards[i].transform.localPosition = new Vector3(12, 110 - 70 * i, 0);
-		}
+		for(int i=0 ;i<itemPassiveCards.Count; i++) 
+			itemPassiveCards[i].transform.localPosition = new Vector3(12, 110 - 70 * i, 0); 
 	}
 
 	private void refreshActiveItems() {
@@ -1109,8 +1079,7 @@ public class UISkillFormation : UIBase {
 				removeItems(uicard.CardID, uicard.CardSN, uicard.Card);
 			refreshCards();
 		}
-//		else 
-//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+//		else UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void DoEquipCard (TUICard uicard){
@@ -1121,11 +1090,9 @@ public class UISkillFormation : UIBase {
 						if(addItems(uicard, getActiveFieldNull)) 
 							uicard.skillCard.IsInstall = true;
 					}
-//					else 
-//						UIHint.Get.ShowHint("Active is Full.", Color.red); 
+//					else UIHint.Get.ShowHint("Active is Full.", Color.red); 
 				} 
-//				else 
-//					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
+//				else  UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
 				refreshActiveItems();
 			} else {
 				if(uicard.skillCard.IsInstall) { //Selected to NoSelected

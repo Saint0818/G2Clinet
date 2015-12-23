@@ -6,31 +6,36 @@ public class TPassiveSkillCard
 {
 	public TSkill Skill;
 	private GameObject item;
-	private GameObject btnRemove;
-	private UISprite SkillCard;
-	private UISprite SkillLevel;
-	private UITexture SkillTexture;
 	private UILabel SkillName;
-	private UILabel SkillCost;
+	private UISprite SkillCard;
+	private UITexture SkillTexture;
+	private UISprite SkillKind;
+	private UISprite SkillKindBg;
+	private SkillCardStar[] SkillStars;
+	public GameObject BtnRemove;
 	private bool isInit = false;
 	private UIButton btn;
 	
-	public void Init(GameObject partent, GameObject go, EventDelegate btnFunc = null)
+	public void Init(GameObject partent, GameObject go, EventDelegate btnFunc = null, bool isFormation = false)
 	{
 		if (!isInit && go && partent) {
 			go.transform.parent = partent.transform;
 			go.transform.localPosition = Vector3.zero;
 			go.transform.localScale = Vector3.one;
 			item = go;
-			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
-			SkillLevel =  go.transform.FindChild("SkillLevel").gameObject.GetComponent<UISprite>();
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			SkillCost =  go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
-			btnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			SkillStars = new SkillCardStar[5];
+			for(int i=0; i<SkillStars.Length; i++) 
+				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+			
+			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			btn = item.GetComponent<UIButton>();
-			btnRemove.SetActive(false);
-			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn && SkillTexture;
+			BtnRemove.SetActive(isFormation);
+			isInit =  SkillCard  && SkillName  && btn && SkillTexture && SkillKind && SkillKindBg;
 			
 			if(isInit){
 				if (btnFunc != null)
@@ -47,14 +52,62 @@ public class TPassiveSkillCard
 			item.name = index.ToString();
 			
 			if(GameData.DSkillData.ContainsKey(skill.ID)){
-				SkillLevel.spriteName = "Levelball" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
-				SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString() + "s";
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
-				SkillCost.text = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1).ToString();;
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
+				if(GameFunction.IsActiveSkill(skill.ID))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
 			}
 
+
 			item.transform.localPosition = pos;
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
+	public void InitFormation(GameObject go)
+	{
+		if (!isInit && go) {
+			go.transform.localScale = Vector3.one;
+			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			SkillStars = new SkillCardStar[5];
+			for(int i=0; i<SkillStars.Length; i++) 
+				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+
+			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			BtnRemove.SetActive(true);
+			isInit =  SkillCard  && SkillName && SkillTexture && SkillKind && SkillKindBg;
+
+			if(!isInit)
+				Debug.LogError("Init Error : TPassiveSkillCard");
+		}
+	}
+
+	public void UpdateViewFormation(int id, int lv)
+	{
+		if(isInit){
+			if(GameData.DSkillData.ContainsKey(id)){
+				SkillName.text = GameData.DSkillData[id].Name;
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[id].Quality.ToString() + "s";
+				SkillTexture.mainTexture = GameData.CardItemTexture(id);
+				if(GameFunction.IsActiveSkill(id))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
+				ShowStar(lv, GameData.DSkillData[id].Quality);
+			}
 		}
 		else
 		{
@@ -65,5 +118,16 @@ public class TPassiveSkillCard
 	public bool Enable
 	{
 		set{item.gameObject.SetActive(value);}
+	}
+
+	public void ShowStar (int lv, int quality) {
+		for (int i=0; i<SkillStars.Length; i++) {
+			if(i < lv)
+				SkillStars[i].Show();
+			else 
+				SkillStars[i].Hide();
+
+			SkillStars[i].SetQuality(quality);
+		}
 	}
 }

@@ -6,7 +6,7 @@ public class AwardSkillView : MonoBehaviour {
 
 	public UISprite QualityCards;
 	public UISprite SkillItemPic;
-	public UISprite SkillStar;
+	public SkillCardStar[] SkillStars;
 	public UILabel AmountLabel;
 
 	private GameObject mGameObject;
@@ -30,10 +30,22 @@ public class AwardSkillView : MonoBehaviour {
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
-			QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Quality, 1, 3).ToString();
+			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
-			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Star , 1, 5).ToString();
 		}
+
+		ShowStar(itemData.LV, itemData.Quality);
 		AmountLabel.text = "";
+	}
+
+	public void ShowStar (int lv, int quality) {
+		for (int i=0; i<SkillStars.Length; i++) {
+			if(i < lv)
+				SkillStars[i].Show();
+			else 
+				SkillStars[i].Hide();
+
+			SkillStars[i].SetQuality(quality);
+		}
 	}
 }

@@ -52,17 +52,14 @@ public class UIGame : UIBase {
 	private PlayerBehaviour PlayerMe;
 	//Game const
 	public float ButtonBTime = 0.08f; //Fake to shoot time
-//	private float showScoreBarInitTime = 3.15f;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
 	private float shootBtnTime = 0;
-//	private float showScoreBarTime = 0;
 
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
-//	private bool isShowScoreBar = false;
 	private bool isShootAvailable = true;
 
 	// GoldFinger
@@ -100,13 +97,6 @@ public class UIGame : UIBase {
 
 	//Right
 	private GameObject uiPlayerLocation;
-
-	//Bottom
-//	private GameObject uiScoreBar;
-//	private GameObject uiLimitScore;
-//	private UILabel labelLimiteScore;
-//	private UILabel[] labelScores = new UILabel[2];
-//	private TweenRotation[] rotate = new TweenRotation[2];
 
 	//TopRight
 	private GameObject viewTopRight;
@@ -182,57 +172,51 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if(PlayerMe && !IsPlayerAttack) {
-			if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
-				if(isShowPushRange) {
-					nearP = GameController.Get.NpcSelectMe;
-					CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position));
-				} else if(isShowStealRange) {
-					if(GameController.Get.BallOwner != null)
-						CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.transform.position));
-				}
-				if(skillRangeTarget != null)
-					CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
-			}
-		}
-
-		if(skillHintTime > 0) {
-			skillHintTime -= Time.deltaTime;
-			if(skillHintTime <= 0) {
-				skillHint.Show();
-				skillHint.UpdateUI(skillHintIndex);
-			}
-		}
-
-		runForceValue ();
-		if (isPressShootBtn && shootBtnTime > 0) {
-			shootBtnTime -= Time.deltaTime;
-			if(shootBtnTime <= 0){
-				isPressShootBtn = false;
-				if (PlayerMe && GameController.Get.BallOwner == PlayerMe) {
-					if (GameController.Get.DoShoot(true)) {
-						PlayerMe.SetManually();
-						spriteAttack.gameObject.SetActive(false);
-						ShowSkillEnableUI(false);
+		if(GameController.Get.IsStart) {
+			if(PlayerMe && !IsPlayerAttack) {
+				if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
+					if(isShowPushRange) {
+						nearP = GameController.Get.NpcSelectMe;
+						CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position));
+					} else if(isShowStealRange) {
+						if(GameController.Get.BallOwner != null)
+							CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.transform.position));
 					}
-
-					if(GameController.Get.IsCanPassAir) {
-						SetPassButton();
-					}
+					if(skillRangeTarget != null)
+						CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
 				}
 			}
+			
+			if(skillHintTime > 0) {
+				skillHintTime -= Time.deltaTime;
+				if(skillHintTime <= 0) {
+					skillHint.Show();
+					skillHint.UpdateUI(skillHintIndex);
+				}
+			}
+			
+			runForceValue ();
+			if (isPressShootBtn && shootBtnTime > 0) {
+				shootBtnTime -= Time.deltaTime;
+				if(shootBtnTime <= 0){
+					isPressShootBtn = false;
+					if (PlayerMe && GameController.Get.BallOwner == PlayerMe) {
+						if (GameController.Get.DoShoot(true)) {
+							PlayerMe.SetManually();
+							spriteAttack.gameObject.SetActive(false);
+							ShowSkillEnableUI(false);
+						}
+						
+						if(GameController.Get.IsCanPassAir) {
+							SetPassButton();
+						}
+					}
+				}
+			}
+			
+			judgePlayerScreenPosition();
+			setGameTime();
 		}
-        
-//        if(isShowScoreBar && showScoreBarTime > 0) {
-//            showScoreBarTime -= Time.deltaTime;
-//            if(showScoreBarTime <= 0){
-//                isShowScoreBar = false;
-//                uiScoreBar.SetActive(false);
-//            }
-//        }
-
-        judgePlayerScreenPosition();
-		setGameTime();
 	}
 
 	protected override void InitCom() {
@@ -278,19 +262,10 @@ public class UIGame : UIBase {
 		
 		//Right
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
-		
-		//Bottom
-//		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
-//		uiLimitScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore");
-//		labelLimiteScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore/TargetScore").GetComponent<UILabel>();
-//		labelScores [0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<UILabel>();
-//		rotate[0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<TweenRotation>();
-//		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
-//		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
-		
+
 		//TopRight
 		viewTopRight = GameObject.Find(UIName + "/TopRight");
-		skillHint = Instantiate(Resources.Load<GameObject>(UIPrefabPath.ItemSkillHint)).GetComponent<ItemSkillHint>();
+		skillHint = GameObject.Find(UIName + "/TopRight/ItemSkillHint").GetComponent<ItemSkillHint>();
 		skillHint.transform.parent = viewTopRight.transform;
 		skillHint.transform.localPosition = new Vector3(-300, -185, 0);
 		skillHint.transform.localScale = Vector3.one;
@@ -354,19 +329,11 @@ public class UIGame : UIBase {
 		Scores [1] = 0;
 		labelTopLeftScore[0].text = "0";
 		labelTopLeftScore[1].text = "0";
-//		labelScores[0].text = "0";
-//		labelScores[1].text = "0";
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
 		showUITime ();
-
-//		if(GameController.Get.StageData.HintBit[1] == 2)
-//			labelLimiteScore.text = GameController.Get.StageData.WinValue.ToString();
-//		else
-//			uiLimitScore.SetActive(false);
 		
 		uiPlayerLocation.SetActive(false);
-//		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
 		viewTopLeft.SetActive(false);

@@ -15,7 +15,7 @@ public class TActiveSkillCard
 	private UITexture SkillPic;
 	private UISprite SkillCard;
 	private UILabel SkillName;
-	private SkillCardStar[] SkillStar;
+	private SkillCardStar[] SkillStars;
 	private UISprite SkillSuit;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
@@ -36,9 +36,9 @@ public class TActiveSkillCard
 			SkillPic = go.transform.FindChild("SkillPic").gameObject.GetComponent<UITexture>();
 			SkillCard = go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillName = go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			SkillStar = new SkillCardStar[5];
-			for(int i=0; i<SkillStar.Length; i++)
-				SkillStar[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+			SkillStars = new SkillCardStar[5];
+			for(int i=0; i<SkillStars.Length; i++)
+				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 			SkillSuit = go.transform.FindChild("SkillSuit").gameObject.GetComponent<UISprite>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
@@ -154,13 +154,13 @@ public class TActiveSkillCard
 	}
 
 	public void ShowStar (int lv, int quality) {
-		for (int i=0; i<SkillStar.Length; i++) {
+		for (int i=0; i<SkillStars.Length; i++) {
 			if(i < lv)
-				SkillStar[i].Show();
+				SkillStars[i].Show();
 			else 
-				SkillStar[i].Hide();
+				SkillStars[i].Hide();
 			
-			SkillStar[i].SetQuality(quality);
+			SkillStars[i].SetQuality(quality);
 		}
 	}
 }

@@ -43,7 +43,7 @@ public class AwardAvatarView : MonoBehaviour {
 	public void UpdateUI (TItemData itemData) {
 		hideAll ();
 		Show ();
-		QualitySquare.spriteName = "Equipment_"+ Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualitySquare.spriteName = "Equipment_" + itemData.Quality.ToString();
 
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
 			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];

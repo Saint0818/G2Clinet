@@ -21,8 +21,8 @@ public class ItemSkillHint : MonoBehaviour {
 
 	public void UpdateUI (int index) {
 		itemSkillHintView.UpdateUI(GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Name,
-		                           GameController.Get.Joysticker.Attribute.ActiveSkills[index].Lv.ToString(),
-		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Quality.ToString(),
+		                           GameController.Get.Joysticker.Attribute.ActiveSkills[index].Lv,
+		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Quality,
 		                           GameController.Get.Joysticker.AngerPower.ToString(),
 		                           "/" + GameController.Get.Joysticker.Attribute.MaxAngerOne(GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID).ToString(),
 		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].PictureNo);
