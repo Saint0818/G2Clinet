@@ -251,11 +251,10 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOLocalMoveX(255, openCardSpeed);
 		btnMedium.transform.DOLocalMoveY(-10, openCardSpeed);
 		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed);
-		btnMedium.transform.DOLocalRotate(new Vector3(0, 0, 0), openCardSpeed);
+		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 	}
 
 	public void OnClose() {
-//		TSkill info = new TSkill();
 		UIShow(false);
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) {
 			UIGameResult.Get.ShowBonusItem();

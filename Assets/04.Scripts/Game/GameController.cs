@@ -579,12 +579,12 @@ public class GameController : KnightSingleton<GameController>
 			SetPlayerAI(false);
         	break;
 		case EGameTest.AnimationUnit:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
     	case EGameTest.AttackB:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, Vector3.zero, new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
@@ -599,19 +599,19 @@ public class GameController : KnightSingleton<GameController>
 			TPlayer Self = new TPlayer(0);
 			Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
 
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), Self));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, Self));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
         	break;
 		case EGameTest.Alleyoop:
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (0, 0, 3), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
 			break;
 		case EGameTest.Pass:
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (-5, 0, -2), new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, ETeamKind.Self, new Vector3 (5, 0, -2), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
@@ -630,7 +630,7 @@ public class GameController : KnightSingleton<GameController>
 			Self = new TPlayer(0);
 			Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
 			
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), Self));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, Self));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
@@ -639,7 +639,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;
@@ -647,7 +647,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 			
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;

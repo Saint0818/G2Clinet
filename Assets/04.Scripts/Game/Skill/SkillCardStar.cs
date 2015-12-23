@@ -2,17 +2,25 @@
 using System.Collections;
 
 public class SkillCardStar : MonoBehaviour {
-	public GameObject Star;
+	public UISprite Star;
 	public void Awake () {
+		if(Star == null)
+			Star = transform.FindChild("Star").GetComponent<UISprite>();
 		Hide();
 	}
 
 	public void Show () {
-		Star.SetActive(true);
+		if(Star != null)
+			Star.gameObject.SetActive(true);
 	}
 
 	public void Hide () {
-		Star.SetActive(false);
+		if(Star != null)
+			Star.gameObject.SetActive(false);
 	}
 
+	public void SetQuality (int quality) {
+		if(Star != null)
+			Star.spriteName = "Staricon" + quality;
+	}
 }
