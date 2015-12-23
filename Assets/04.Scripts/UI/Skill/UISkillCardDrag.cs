@@ -20,6 +20,7 @@ public class UISkillCardDrag : UIDragDropItem {
 			OrigalPosition = gameObject.transform.localPosition;
 			originalIndes = getPositionIndex(gameObject.transform.position.x, gameObject.transform.position.y);
 			UISkillFormation.Get.ShowInstallLight(gameObject, true);
+			UISkillFormation.Get.SetMask(true, transform.name);
 			base.OnDragDropStart();
 		}
 	}
@@ -98,6 +99,7 @@ public class UISkillCardDrag : UIDragDropItem {
 		if(surface == null)
 			return ;
 		base.OnDragDropRelease(surface);
+		UISkillFormation.Get.SetMask(false, transform.name);
 		UISkillFormation.Get.ShowInstallLight(gameObject, false);
 		int index = getPositionIndex(surface.transform.position.x, surface.transform.position.y);
 

@@ -880,6 +880,10 @@ public class UISkillFormation : UIBase {
 				if(sortIsCanSell(skillSortCards[i])) {
 					uiCards[skillSortCards[i].name].skillCard.ShowSell = true;
 					uiCards[skillSortCards[i].name].skillCard.IsCanUse = false;
+					if(GameData.DSkillData.ContainsKey(uiCards[skillSortCards[i].name].CardID))
+						uiCards[skillSortCards[i].name].skillCard.SetCoin(GameData.DSkillData[uiCards[skillSortCards[i].name].CardID].Money);
+					else 
+						uiCards[skillSortCards[i].name].skillCard.SetCoin(100);
 					skillSortCards[i].transform.localPosition = new Vector3(-230 + 200 * (index / 2), 100 - 265 * (index % 2), 0);
 					skillSortCards[i].SetActive(true);
 					index++;
@@ -1054,6 +1058,12 @@ public class UISkillFormation : UIBase {
 	public void CardDragStart() {IsDragNow = true;}
 
 	public void CardDragEnd() {IsDragNow = false;}
+
+	public void SetMask (bool isShow, string name) {
+		for(int i=0; i<skillSortCards.Count; i++) 
+			if(!name.Contains(skillSortCards[i].name)) 
+				uiCards[skillSortCards[i].name].skillCard.DragCard = isShow;
+	} 
 
 	public void ItemDragFinish(){
 		if(itemPassiveCards.Count < 3){

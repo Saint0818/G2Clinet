@@ -20,6 +20,7 @@ public class TActiveSkillCard
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
 	public GameObject UnavailableMask;
+	public GameObject DragMask;
 	public GameObject InListCard;
 	public GameObject SellSelect;
 	public UILabel SellLabel;
@@ -43,6 +44,8 @@ public class TActiveSkillCard
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			UnavailableMask = go.transform.FindChild("UnavailableMask").gameObject;
+			if(go.transform.FindChild("DragMask") != null)
+				DragMask = go.transform.FindChild("DragMask").gameObject;
 			InListCard = go.transform.FindChild("InListCard").gameObject;
 			SellSelect = go.transform.FindChild("SellSelect").gameObject;
 			SellLabel = go.transform.FindChild("SellSelect/SellLabel").gameObject.GetComponent<UILabel>();
@@ -53,6 +56,8 @@ public class TActiveSkillCard
 			go.transform.FindChild ("SellSelect/SellCover/SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7114);
 
 			UnavailableMask.SetActive(isFormation);
+			if(DragMask != null)
+				DragMask.SetActive(false);
 			InListCard.SetActive(isFormation);
 			SellSelect.SetActive(isFormation);
 
@@ -107,6 +112,8 @@ public class TActiveSkillCard
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 
 				UnavailableMask.SetActive(false);
+				if(DragMask != null)
+					DragMask.SetActive(false);
 				InListCard.SetActive(isEquip);
 				SellSelect.SetActive(false);
 				SellSelectCover.SetActive(false);
@@ -128,6 +135,9 @@ public class TActiveSkillCard
 
 
 	//SkillFormation
+	public bool DragCard {
+		set {if(DragMask != null) DragMask.SetActive(value);}
+	}
 
 	public bool IsInstall {
 		get {return (InListCard != null && InListCard.activeSelf);}
