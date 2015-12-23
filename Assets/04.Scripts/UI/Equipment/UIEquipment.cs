@@ -201,10 +201,10 @@ public class UIEquipment : UIBase
             GameData.Team.Player.Init();
 //            GameData.SaveTeam();
             
-            UIHint.Get.ShowHint("Change Value Items Success!", Color.black);
+            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
         }
         else
-            UIHint.Get.ShowHint("Change Value Items fail!", Color.red);
+            UIHint.Get.ShowHint(TextConst.S(534), Color.red);
 
         goToMainLobby();
     }

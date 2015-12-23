@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using System.Collections;
 using JetBrains.Annotations;
+using UnityEngine;
 
 public class UIMainLobbyButton : MonoBehaviour
 {

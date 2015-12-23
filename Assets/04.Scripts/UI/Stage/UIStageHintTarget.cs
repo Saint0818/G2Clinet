@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIStageHintTarget : MonoBehaviour
 {
