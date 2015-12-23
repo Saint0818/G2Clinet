@@ -3734,16 +3734,12 @@ public class GameController : KnightSingleton<GameController>
 
         if(ok)
         {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = team.Player;
+            TTeam newTeam = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player = newTeam.Player;
             GameData.Team.Player.Init();
 
             UIGameResult.UIShow(true);
             UIGameResult.Get.SetGameRecord(ref GameRecord);
-
-            // 魔術數字 1 其實沒有什麼意思, 其實給任意數值都可以.
-            PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
-            PlayerPrefs.Save();
         }
         else
             UIHint.Get.ShowHint("PVE End fail!", Color.red);

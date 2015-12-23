@@ -69,7 +69,6 @@ namespace GameEnum {
 		NewAvatar7,
 		LevelUpFlag, // 1:LevelUp
 		NewCardFlag,  // 2:Get New Card
-        NewMainStage, // 玩家主線關卡過關.(目前是規劃要有新關卡提示效果)
 		AnnouncementDate,
 		AnnouncementDaily,
         Quality

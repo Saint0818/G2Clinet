@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -33,11 +32,6 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    /// <summary>
-    /// 主要用來記錄玩家目前打哪一個章節. Value(int): 哪一章.
-    /// </summary>
-    private const string CurrentChapterKey = "MainStageSelectChapter";
-
     private int mCurrentStageID;
 
     private UIMainStageMain mMain;
@@ -56,12 +50,6 @@ public class UIMainStage : UIBase
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
-
-    public void ClearSelectChapter()
-    {
-        if(PlayerPrefs.HasKey(CurrentChapterKey))
-            PlayerPrefs.DeleteKey(CurrentChapterKey);
-    }
 
     /// <summary>
     /// 預設顯示尚未過關關卡所在的章節.
@@ -93,7 +81,7 @@ public class UIMainStage : UIBase
         string errMsg;
         if(verifyPlayer(stageData, out errMsg))
         {
-            PlayerPrefs.SetInt(CurrentChapterKey, mMain.CurrentChapter);
+            UIMainStageTools.Record(stageData.Chapter);
             pveStart(stageID);
         }
         else
@@ -202,15 +190,23 @@ public class UIMainStage : UIBase
         // for debug.
 //        GameData.Team.Player.NextMainStageID = 0;
 //        PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
-        
+//        PlayerPrefs.SetInt(PlayChapterKey, 1);
+
         buildChapters();
+        selectChapter();
 
-        autoSelectChapter();
-
-        if(PlayerPrefs.HasKey(ESave.NewMainStage.ToString()))
+        if(UIMainStageTools.HasNewChapter())
         {
-            PlayerPrefs.DeleteKey(ESave.NewMainStage.ToString());
-            PlayerPrefs.Save();
+            TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+            if(data.IsValid())
+                mMain.PlayChapterUnlockAnimation(data.Chapter, data.ID);
+        }
+
+        if(UIMainStageTools.HasNewStage())
+        {
+            TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+            if(data.IsValid())
+                mMain.GetChapter(data.Chapter).GetStageByID(data.ID).PlayOpenAnimation();
         }
     }
 
@@ -240,14 +236,14 @@ public class UIMainStage : UIBase
         addLastLockChapter();
     }
 
-    private void autoSelectChapter()
+    private void selectChapter()
     {
-        if(PlayerPrefs.HasKey(CurrentChapterKey))
-            mMain.ShowChapter(PlayerPrefs.GetInt(CurrentChapterKey));
+        if(UIMainStageTools.HasSelectChapter())
+            mMain.ScrollToChapter(UIMainStageTools.GetSelectChapter());
         else
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            mMain.ShowChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
+            mMain.ScrollToChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
         }
     }
 
@@ -293,9 +289,7 @@ public class UIMainStage : UIBase
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
-        bool playAnim = PlayerPrefs.HasKey(ESave.NewMainStage.ToString()) &&
-                        GameData.Team.Player.NextMainStageID == stageData.ID;
-        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data, playAnim);
+        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data);
     }
 
     /// <summary>

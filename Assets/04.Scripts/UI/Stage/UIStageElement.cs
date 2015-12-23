@@ -16,7 +16,6 @@ public class UIStageElement : MonoBehaviour
     /// 背景圖片.
     /// </summary>
     private const string OpenSpriteName = "StageButton01";
-//    private const string LockSpriteName = "StageButton02";
 
     /// <summary>
     /// 撥 Animation 時, 關卡經過幾秒後, 會變成可點選的狀態.
@@ -41,17 +40,23 @@ public class UIStageElement : MonoBehaviour
         mButton = GetComponent<UIButton>();
     }
 
-    public void Show(UIStageInfo.Data data, bool playAnim)
+    public void Show(UIStageInfo.Data data)
     {
         mData = data;
         mButton.isEnabled = false;
         
         KindSprite.spriteName = mData.KindSpriteName;
 
-        if(playAnim)
-            StartCoroutine(playAnimation(EnableTime));
-        else
-            changeEnable();
+        changeEnable();
+    }
+
+    public void PlayOpenAnimation()
+    {
+        if(!gameObject.activeInHierarchy)
+            return;
+
+        mButton.isEnabled = false;
+        StartCoroutine(playAnimation(EnableTime));
     }
 
     private IEnumerator playAnimation(float enableTime)
@@ -70,14 +75,11 @@ public class UIStageElement : MonoBehaviour
         // 目前的解決辦法是以下程式碼.
         mButton.normalSprite = OpenSpriteName;
 
-//        GetComponent<BoxCollider>().enabled = true;
-
         mButton.isEnabled = true;
     }
 
     public void ShowLock(string kindSpriteName)
     {
-//        GetComponent<UISprite>().spriteName = LockSpriteName;
         KindSprite.spriteName = kindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 

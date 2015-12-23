@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -8,6 +9,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIStageChapter : MonoBehaviour
 {
+    /// <summary>
+    /// Unlock Animation 撥多久後, 才會顯示全部的關卡. 單位:秒.
+    /// </summary>
+    private const float UnlockTime = 1.5f;
+
     public UILabel LockNameLabel;
 
     /// <summary>
@@ -47,10 +53,13 @@ public class UIStageChapter : MonoBehaviour
     /// </summary>
     private readonly Dictionary<int, UIStageElement> mStages = new Dictionary<int, UIStageElement>();
 
+    private Animator mAnimator;
+
     [UsedImplicitly]
 	private void Awake()
     {
         LockNameLabel.text = TextConst.S(int.Parse(LockNameLabel.text));
+        mAnimator = GetComponentInChildren<Animator>();
     }
 
     public void Show()
@@ -73,12 +82,11 @@ public class UIStageChapter : MonoBehaviour
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
     /// <param name="data"></param>
-    /// <param name="playAnim"></param>
-    public void ShowStage(int stageID, Vector3 localPos, UIStageInfo.Data data, bool playAnim)
+    public void AddStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(stageID, localPos));
-        mStages[stageID].Show(data, playAnim);
+        mStages[stageID].Show(data);
     }
 
     /// <summary>
@@ -87,11 +95,37 @@ public class UIStageChapter : MonoBehaviour
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
     /// <param name="kindSpriteName"></param>
-    public void ShowStageLock(int stageID, Vector3 localPos, string kindSpriteName)
+    public void AddLockStage(int stageID, Vector3 localPos, string kindSpriteName)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(stageID, localPos));
         mStages[stageID].ShowLock(kindSpriteName);
+    }
+
+    public bool HasStage(int stageID)
+    {
+        return mStages.ContainsKey(stageID);
+    }
+
+    public UIStageElement GetStageByID(int stageID)
+    {
+        return mStages[stageID];
+    }
+
+    public void PlayUnlockAnimation(int stageID)
+    {
+        mAnimator.SetTrigger("Unlock");
+
+        StartCoroutine(show(stageID, UnlockTime));
+    }
+
+    private IEnumerator show(int stageID, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        Show();
+
+        mStages[stageID].PlayOpenAnimation();
     }
 
     private UIStageElement createStage(int stageID, Vector3 localPos)

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,7 +11,7 @@ using UnityEngine;
 /// <list type="number">
 /// <item> Call RemoveAllChapters() 將整個關卡介面重置. </item>
 /// <item> Call AddXXX() 加入章節和關卡. </item>
-/// <item> Call ShowChapter() 控制預設顯示哪一個章節. </item>
+/// <item> Call ScrollToChapter() 控制預設顯示哪一個章節. </item>
 /// <item> 向 UIStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
@@ -47,7 +49,7 @@ public class UIMainStageMain : MonoBehaviour
         get { return mChapters.Count; }
     }
     /// <summary>
-    /// key: Chapter.
+    /// key: Chapter. (注意: 0 的意思是第 0 章, 但以目前的設計來說, 沒有第 0 章)
     /// </summary>
     private readonly Dictionary<int, UIStageChapter> mChapters = new Dictionary<int, UIStageChapter>();
 
@@ -104,7 +106,7 @@ public class UIMainStageMain : MonoBehaviour
     /// 控制介面顯示哪一個章節.
     /// </summary>
     /// <param name="chapter"></param>
-    public void ShowChapter(int chapter)
+    public void ScrollToChapter(int chapter)
     {
         if(chapter <= 0 || chapter > mChapters.Count)
             return;
@@ -121,6 +123,34 @@ public class UIMainStageMain : MonoBehaviour
         // 當 NGUI 更新後, 可以嘗試刪除.(現在用的是 NGUI 3.9.4)
         ScrollView.enabled = false;
         ScrollView.enabled = true;
+    }
+
+    public void PlayChapterUnlockAnimation(int chapter, int stageID)
+    {
+        // 魔術數字 10, 是要保證會捲動到下一頁.
+        Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
+        ScrollView.MoveRelative(move);
+
+        // 1.1 是 try and error 的數值.
+        // 需要大約 1.1 秒的時間, 讓 ScrollView 捲動到新章節的頁面. 
+        // 因為這幾乎是固定的時間, 所以我沒有抽出成常數.
+        StartCoroutine(playChapterUnlockAnimation(chapter, stageID, 1.1f));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="chapter"></param>
+    /// <param name="stageID"></param>
+    /// <param name="delayTime"> 幾秒後開始撥章節解鎖 Animation. </param>
+    /// <returns></returns>
+    private IEnumerator playChapterUnlockAnimation(int chapter, int stageID, float delayTime)
+    {
+        mChapters[chapter].ShowLock();
+
+        yield return new WaitForSeconds(delayTime);
+
+        mChapters[chapter].PlayUnlockAnimation(stageID);
     }
 
     private UIStageChapter createChapter(int chapter, string title)
@@ -148,11 +178,10 @@ public class UIMainStageMain : MonoBehaviour
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
     /// <param name="data"></param>
-    /// <param name="playAnim"></param>
-    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data, bool playAnim)
+    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].ShowStage(stageID, localPos, data, playAnim);
+            mChapters[chapter].AddStage(stageID, localPos, data);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
@@ -167,9 +196,19 @@ public class UIMainStageMain : MonoBehaviour
     public void AddLockStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].ShowStageLock(stageID, localPos, kindSpriteName);
+            mChapters[chapter].AddLockStage(stageID, localPos, kindSpriteName);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
+    }
+
+    public bool HasChapter(int chapter)
+    {
+        return mChapters.ContainsKey(chapter);
+    }
+
+    public UIStageChapter GetChapter(int chapter)
+    {
+        return mChapters[chapter];
     }
 
     /// <summary>
