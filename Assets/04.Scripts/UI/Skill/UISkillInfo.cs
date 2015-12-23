@@ -26,10 +26,11 @@ public class UISkillInfo : UIBase {
 	private GameObject btnMediumTop;
 	private UISprite spriteSkillCard;
 	private UITexture textureSkillPic;
-	private UISprite spriteSkillCardLevel;
+	private UISprite spriteSkillSuit;
 	private UILabel labelSkillCardName;
-	private UISprite spriteSkillStar;
+	private SkillCardStar[] skillStars;
 	private UISprite spriteSkillKind;
+	private UISprite spriteSkillKindBg;
 	private UILabel labelSkillInfoKind4;
 
 	//TopRight
@@ -73,42 +74,45 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitCom() {
-		labelEquip = GameObject.Find (UIName + "/TopRight/EquipBtn/Label").GetComponent<UILabel>();
-		btnEquip = GameObject.Find (UIName + "/TopRight/EquipBtn");
-		btnMedium = GameObject.Find (UIName + "/Left/BtnMediumCard");
-		btnMediumTop = GameObject.Find (UIName + "/Left/BtnMediumCard/Top");
+		labelEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn/Label").GetComponent<UILabel>();
+		btnEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn");
+		btnMedium = GameObject.Find (UIName + "/Center/Left/BtnMediumCard");
+		btnMediumTop = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/Top");
 		btnMediumTop.SetActive(false);
 
 		//SkillInfo
-		spriteSkillQuality = GameObject.Find (UIName + "/Left/SkillInfo/SkillQuality").GetComponent<UISprite>();
-		spriteSkillLevel = GameObject.Find (UIName + "/Left/SkillInfo/SkillQuality/SkillLevel").GetComponent<UISprite>();
-		labelSkillSpace = GameObject.Find (UIName + "/Left/SkillInfo/SkillSpace ").GetComponent<UILabel>();
-		labelSkillExp = GameObject.Find (UIName + "/Left/SkillInfo/SkillExp").GetComponent<UILabel>();
-		labelSkillDemandValue = GameObject.Find (UIName + "/Left/SkillInfo/SkillDemandValue").GetComponent<UILabel>();
-		sliderSkillExpBar = GameObject.Find (UIName + "/Left/SkillInfo/SkillExpBar").GetComponent<UISlider>();
-		labelSkillInfoKind4  = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelKind4").GetComponent<UILabel>();
+		spriteSkillQuality = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillQuality").GetComponent<UISprite>();
+		spriteSkillLevel = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillQuality/SkillLevel").GetComponent<UISprite>();
+		labelSkillSpace = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillSpace ").GetComponent<UILabel>();
+		labelSkillExp = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillExp").GetComponent<UILabel>();
+		labelSkillDemandValue = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillDemandValue").GetComponent<UILabel>();
+		sliderSkillExpBar = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillExpBar").GetComponent<UISlider>();
+		labelSkillInfoKind4  = GameObject.Find (UIName + "/Center/Left/SkillInfo/Labels/LabelKind4").GetComponent<UILabel>();
 		
 		//Buff Ability
-		labelSubhead = GameObject.Find (UIName + "/Left/BuffAbility/LabelSubhead").GetComponent<UILabel>();
+		labelSubhead = GameObject.Find (UIName + "/Center/Left/BuffAbility/LabelSubhead").GetComponent<UILabel>();
 		buffViews = GetComponentsInChildren<BuffView>();
 		
 		//Explain
-		labelSkillExplain = GameObject.Find (UIName + "/Left/Explain/SkillArea/SkillExplain").GetComponent<UILabel>();
+		labelSkillExplain = GameObject.Find (UIName + "/Center/Left/Explain/SkillArea/SkillExplain").GetComponent<UILabel>();
 		
 		//Card
-		spriteSkillCard = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillCard").GetComponent<UISprite>();
-		textureSkillPic = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillPic").GetComponent<UITexture>();
-		spriteSkillCardLevel = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillLevel").GetComponent<UISprite>();
-		labelSkillCardName = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillName").GetComponent<UILabel>();
-		spriteSkillStar = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillStar").GetComponent<UISprite>();
-		spriteSkillKind = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillKind").GetComponent<UISprite>();
+		spriteSkillCard = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillCard").GetComponent<UISprite>();
+		textureSkillPic = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillPic").GetComponent<UITexture>();
+		spriteSkillSuit = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillSuit").GetComponent<UISprite>();
+		labelSkillCardName = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillName").GetComponent<UILabel>();
+		skillStars = new  SkillCardStar[5];
+		for(int i=0; i<skillStars.Length; i++) 
+			skillStars[i] = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillStar/StarBG" + i.ToString()).GetComponent<SkillCardStar>();
+		spriteSkillKind = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillKind").GetComponent<UISprite>();
+		spriteSkillKindBg  = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillKind/KindBg").GetComponent<UISprite>();
 
 		SetBtnFun(UIName + "/Center/BG", OnClose);
-		SetBtnFun(UIName + "/BottomRight/BackBtn", OnClose);
-		SetBtnFun(UIName + "/TopRight/EquipBtn", OnEquip);
-		SetBtnFun(UIName + "/TopRight/CraftingBtn", OnCrafting);
-		SetBtnFun(UIName + "/TopRight/UpgradeBtn", OnUpgrade);
-		SetBtnFun(UIName + "/Left/BtnMediumCard/ItemSkillCard", OpenCard);
+		SetBtnFun(UIName + "/Center/BottomRight/BackBtn", OnClose);
+		SetBtnFun(UIName + "/Center/TopRight/EquipBtn", OnEquip);
+		SetBtnFun(UIName + "/Center/TopRight/CraftingBtn", OnCrafting);
+		SetBtnFun(UIName + "/Center/TopRight/UpgradeBtn", OnUpgrade);
+		SetBtnFun(UIName + "/Center/Left/BtnMediumCard/ItemSkillCard", OpenCard);
 	}
 	
 	protected override void InitData() {
@@ -132,11 +136,11 @@ public class UISkillInfo : UIBase {
 			TSkillData skillData = GameData.DSkillData[uicard.CardID];
 
 			//MediumCard
-			spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
+			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[uicard.CardID].Quality.ToString();
+			spriteSkillSuit.spriteName = "Levelball" + GameData.DSkillData[uicard.CardID].Quality.ToString();
 			textureSkillPic.mainTexture = GameData.CardTexture(uicard.CardID);
 			labelSkillCardName.text = GameData.DSkillData[uicard.CardID].Name;
-			spriteSkillCardLevel.spriteName = "Cardicon" + uicard.CardLV.ToString();
-			spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
+			showStar(uicard.CardLV,  GameData.DSkillData[uicard.CardID].Quality);
 			if(GameFunction.IsActiveSkill(uicard.CardID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
@@ -144,10 +148,11 @@ public class UISkillInfo : UIBase {
 				spriteSkillKind.spriteName = "PasstiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7206);
 			}
+			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[uicard.CardID].Quality.ToString();
 
 			//SkillInfo
-			spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
-			spriteSkillLevel.spriteName = "Cardicon" + uicard.CardLV.ToString();
+			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[uicard.CardID].Quality.ToString();
+			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.CardLV, 0, GameData.DSkillData[uicard.CardID].MaxStar).ToString();
 			labelSkillSpace.text = skillData.Space(uicard.CardLV).ToString();
 			labelSkillExp.text = "0"; //=======
 			sliderSkillExpBar.value = 0; //======
@@ -185,11 +190,10 @@ public class UISkillInfo : UIBase {
 			TSkillData skillData = GameData.DSkillData[skill.ID];
 
 			//MediumCard
-			spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
+			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 			textureSkillPic.mainTexture = GameData.CardTexture(skill.ID);
 			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
-			spriteSkillCardLevel.spriteName = "Cardicon" + skill.Lv.ToString();
-			spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
+			showStar(skill.Lv,  GameData.DSkillData[skill.ID].Quality);
 			if(GameFunction.IsActiveSkill(skill.ID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
@@ -197,9 +201,10 @@ public class UISkillInfo : UIBase {
 				spriteSkillKind.spriteName = "PasstiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7206);
 			}
+			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 
 			//SkillInfo
-			spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
+			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
 			spriteSkillLevel.spriteName = "Cardicon" + skill.Lv.ToString();
 			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
 			labelSkillExp.text = "0"; //=======
@@ -228,6 +233,17 @@ public class UISkillInfo : UIBase {
 
 			//Explain
 			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, skill.ID, skill.Lv);
+		}
+	}
+
+	private void showStar (int lv, int quality) {
+		for (int i=0; i<skillStars.Length; i++) {
+			if(i < lv)
+				skillStars[i].Show();
+			else 
+				skillStars[i].Hide();
+
+			skillStars[i].SetQuality(quality);
 		}
 	}
 

@@ -15,7 +15,7 @@ public class TActiveSkillCard
 	private UITexture SkillPic;
 	private UISprite SkillCard;
 	private UILabel SkillName;
-	private SkillCardStar SkillStar;
+	private SkillCardStar[] SkillStar;
 	private UISprite SkillSuit;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
@@ -36,8 +36,9 @@ public class TActiveSkillCard
 			SkillPic = go.transform.FindChild("SkillPic").gameObject.GetComponent<UITexture>();
 			SkillCard = go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillName = go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			for(int i=0; i<5; i++)
-				SkillStar = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+			SkillStar = new SkillCardStar[5];
+			for(int i=0; i<SkillStar.Length; i++)
+				SkillStar[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 			SkillSuit = go.transform.FindChild("SkillSuit").gameObject.GetComponent<UISprite>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
@@ -56,7 +57,7 @@ public class TActiveSkillCard
 			SellSelect.SetActive(isFormation);
 
 			btn = self.GetComponent<UIButton>();
-			isInit = SkillPic && SkillCard && SkillName && SkillStar && SkillSuit && SkillKind;
+			isInit = SkillPic && SkillCard && SkillName  && SkillSuit && SkillKind;
 
 			if(!isInit)
 				Debug.LogError("TActive Init Fail!");
@@ -73,16 +74,46 @@ public class TActiveSkillCard
             if (GameData.DSkillData.ContainsKey(skill.ID)) {
     			self.name = index.ToString();
     			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
-				SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skill.Lv, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
-				SkillSuit.spriteName = "Levelball" + Mathf.Clamp(skill.Lv, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
 					SkillKind.spriteName = "PasstiveIcon";
-				SkillKindBg.spriteName = "APIcon" + Mathf.Clamp(skill.Lv, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
             } else
                 Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
+	public void UpdateViewFormation(TSkill skill, bool isEquip)
+	{
+		if(isInit){
+			if (GameData.DSkillData.ContainsKey(skill.ID)) {
+				SkillPic.mainTexture = GameData.CardTexture(skill.ID);
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+				SkillName.text = GameData.DSkillData[skill.ID].Name;
+				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
+				if(GameFunction.IsActiveSkill(skill.ID))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+
+				UnavailableMask.SetActive(false);
+				InListCard.SetActive(isEquip);
+				SellSelect.SetActive(false);
+				SellSelectCover.SetActive(false);
+				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+
+			} else
+				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
 		else
 		{
@@ -97,20 +128,39 @@ public class TActiveSkillCard
 
 
 	//SkillFormation
+
 	public bool IsInstall {
 		get {return (InListCard != null && InListCard.activeSelf);}
-	}
-
-	public bool IsInstallIfDisapper {
-		get {return (InListCard != null && InListCard.activeInHierarchy);}
+		set {InListCard.SetActive(value);}
 	}
 
 	public bool IsCanUse {
 		get {return (UnavailableMask != null && !UnavailableMask.activeSelf);}
+		set {UnavailableMask.SetActive(value);}
+	}
+
+	public bool IsSold {
+		get {return (SellSelectCover != null && SellSelectCover.activeSelf);}
+		set {SellSelectCover.SetActive(value);}
+	}
+
+	public bool ShowSell {
+		set {SellSelect.SetActive(value);}
 	}
 
 	public void SetCoin (int money) {
 		if(SellLabel != null)
 			SellLabel.text = money.ToString();
+	}
+
+	public void ShowStar (int lv, int quality) {
+		for (int i=0; i<SkillStar.Length; i++) {
+			if(i < lv)
+				SkillStar[i].Show();
+			else 
+				SkillStar[i].Hide();
+			
+			SkillStar[i].SetQuality(quality);
+		}
 	}
 }

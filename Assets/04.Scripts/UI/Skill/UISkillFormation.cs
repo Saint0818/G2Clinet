@@ -73,38 +73,12 @@ public struct TActiveStruct {
 /// </summary>
 public struct TUICard{
 	public GameObject Card;
-//	public UISprite SkillCard;
-//	public UITexture SkillPic;
-//	public UISprite SkillLevel;
-//	public UILabel SkillName;
-//	public SkillCardStar[] SkillStar;
-//	public UISprite SkillSuit;
-//	public GameObject UnavailableMask;
-//	public GameObject InListCard;
-//	public GameObject SellSelect;
-//	public UILabel SellLabel;
-//	public GameObject SellSelectCover;
-//	public UISpriteAnimation LightAnimation;
-//	public UISprite SkillKind;
-//	public UISprite SkillKindBg;
 	public TActiveSkillCard skillCard;
 	public int CardIndex;
 	public int CardID;
 	public int CardLV;
 	public int Cost;
 	public int CardSN;
-
-	public void ShowStar (TSkill skill) {
-//		if(SkillStar != null) {
-//			for(int i=0; i<SkillStar.Length; i++) {
-//				SkillStar[i].SetQuality(skill.Lv);
-//				if (i < skill.Lv)
-//					SkillStar[i].Show();
-//				else
-//					SkillStar[i].Hide();
-//			}
-//		}
-	}
 
 	public void SetCoin (int money) {
 		skillCard.SetCoin(money);
@@ -355,7 +329,7 @@ public class UISkillFormation : UIBase {
 		if(skillsRecord.Count > 0) 
 			for (int i=0; i<skillsRecord.Count; i++) 
 				if(uiCards.ContainsKey(skillsRecord[i])) 
-					if(uiCards[skillsRecord[i]].skillCard.IsInstallIfDisapper) 
+					if(uiCards[skillsRecord[i]].skillCard.IsInstall) 
 						uiCards[skillsRecord[i]].skillCard.LightAnimation.Play();
 	}
 
@@ -518,11 +492,11 @@ public class UISkillFormation : UIBase {
 	private void checkCostIfMask() {
 		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
 			if(skillsRecord.Contains(uicard.Value.Card.name)) {
-				uicard.Value.skillCard.InListCard.SetActive(true);
-				uicard.Value.skillCard.UnavailableMask.SetActive(false);
+				uicard.Value.skillCard.IsInstall = true;
+				uicard.Value.skillCard.IsCanUse = false;
 			} else {
-				uicard.Value.skillCard.InListCard.SetActive(false);
-				uicard.Value.skillCard.UnavailableMask.SetActive((uicard.Value.Cost > (costSpaceMax - costSpace)));
+				uicard.Value.skillCard.IsInstall = false;
+				uicard.Value.skillCard.IsCanUse = (uicard.Value.Cost > (costSpaceMax - costSpace));
 			}
 		}
 	}
@@ -530,7 +504,7 @@ public class UISkillFormation : UIBase {
 	public bool CheckCardUsed (string name) {
 		string nameSplit = name.Replace("(Clone)", "");
 		if (uiCards.ContainsKey(nameSplit))
-			return uiCards[nameSplit].skillCard.InListCard.activeSelf;
+			return uiCards[nameSplit].skillCard.IsInstall;
 		else
 			return false;
 	}
@@ -572,7 +546,6 @@ public class UISkillFormation : UIBase {
 				obj.transform.parent = parent.transform;
 				obj.transform.localPosition = new Vector3(-230 + 200 * (positionIndex / 2), 100 - 265 * (positionIndex % 2), 0);
 				obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-//				UIEventListener.Get(obj).onClick = OnCardDetailInfo;
 
 				UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
 				drag.cloneOnDrag = true;
@@ -581,6 +554,7 @@ public class UISkillFormation : UIBase {
 				
 				TUICard uicard = new TUICard();
 				uicard.Init(obj, skillCardIndex, skill, isEquip, new EventDelegate(OnCardDetailInfo));
+				uicard.skillCard.UpdateViewFormation(skill, isEquip);
 				uiCards.Add(obj.transform.name, uicard);
 				
 				return obj;
@@ -684,7 +658,7 @@ public class UISkillFormation : UIBase {
 	public void AddItem(GameObject go, int index) {
 		string name = go.name.Replace("(Clone)", "");
 		if(uiCards.ContainsKey(name)) {
-			if(!uiCards[name].skillCard.InListCard.activeSelf) {
+			if(!uiCards[name].skillCard.IsInstall) {
 				if(index < 4){
 					//Active
 					if(getActiveInstall == activeFieldLimit) {
@@ -812,7 +786,7 @@ public class UISkillFormation : UIBase {
 	
 	private void refreshCards() {
 		for(int i=0 ;i<skillSortCards.Count; i++) 
-			uiCards[skillSortCards[i].name].skillCard.InListCard.SetActive(skillsRecord.Contains(uiCards[skillSortCards[i].name].Card.name));
+			uiCards[skillSortCards[i].name].skillCard.IsInstall = skillsRecord.Contains(uiCards[skillSortCards[i].name].Card.name);
 	}
 	
 	private void refreshPassiveItems() {
@@ -934,8 +908,8 @@ public class UISkillFormation : UIBase {
 			int index = 0;
 			for(int i=0; i<skillSortCards.Count; i++) { 
 				if(sortIsCanSell(skillSortCards[i])) {
-					uiCards[skillSortCards[i].name].skillCard.SellSelect.SetActive(true);
-					uiCards[skillSortCards[i].name].skillCard.UnavailableMask.SetActive(false);
+					uiCards[skillSortCards[i].name].skillCard.ShowSell = true;
+					uiCards[skillSortCards[i].name].skillCard.IsCanUse = false;
 					skillSortCards[i].transform.localPosition = new Vector3(-230 + 200 * (index / 2), 100 - 265 * (index % 2), 0);
 					skillSortCards[i].SetActive(true);
 					index++;
@@ -946,7 +920,7 @@ public class UISkillFormation : UIBase {
 			for(int i=0; i<skillSortCards.Count; i++) {
 				if(uiCards.ContainsKey(skillSortCards[i].name)) {
 					skillSortCards[i].SetActive(true);
-					uiCards[skillSortCards[i].name].skillCard.SellSelect.SetActive(false); 
+					uiCards[skillSortCards[i].name].skillCard.ShowSell = false; 
 				}
 			}
 			refreshAfterInstall();
@@ -979,15 +953,13 @@ public class UISkillFormation : UIBase {
 
 	private bool sortIsAvailable(GameObject card) {
 		if(uiCards.ContainsKey(card.name))
-			if(uiCards[card.name].skillCard.InListCard != null)
-				return !uiCards[card.name].skillCard.InListCard.activeSelf;
+			return !uiCards[card.name].skillCard.IsInstall;
 		return false;
 	}
 
 	private bool sortIsSelected(GameObject card) {
 		if(uiCards.ContainsKey(card.name))
-			if(uiCards[card.name].skillCard.InListCard != null)
-				return uiCards[card.name].skillCard.InListCard.activeSelf;
+			return uiCards[card.name].skillCard.IsInstall;
 		return false;
 	}
 
@@ -1147,7 +1119,7 @@ public class UISkillFormation : UIBase {
 				if(getContainActiveSN(uicard.CardSN) == -1){
 					if(getActiveFieldNull != -1) {
 						if(addItems(uicard, getActiveFieldNull)) 
-							uicard.skillCard.InListCard.SetActive(true);
+							uicard.skillCard.IsInstall = true;
 					}
 //					else 
 //						UIHint.Get.ShowHint("Active is Full.", Color.red); 
@@ -1156,12 +1128,12 @@ public class UISkillFormation : UIBase {
 //					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
 				refreshActiveItems();
 			} else {
-				if(uicard.skillCard.IsInstallIfDisapper) { //Selected to NoSelected
-					uicard.skillCard.InListCard.SetActive(!uicard.skillCard.InListCard.activeInHierarchy);
+				if(uicard.skillCard.IsInstall) { //Selected to NoSelected
+					uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					removeItems(uicard.CardID, uicard.CardSN, uicard.Card);
 				} else { //NoSelected to Selected
 					if(addItems(uicard))
-						uicard.skillCard.InListCard.SetActive(!uicard.skillCard.InListCard.activeInHierarchy);
+						uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					
 				}
 			}
@@ -1175,16 +1147,16 @@ public class UISkillFormation : UIBase {
 			TUICard uicard = uiCards[UIButton.current.name];
 			if(!IsBuyState) {
 				//Click Card
-				UISkillInfo.Get.ShowFromSkill(uicard, uicard.skillCard.IsInstallIfDisapper, uicard.skillCard.IsCanUse);
+				UISkillInfo.Get.ShowFromSkill(uicard, uicard.skillCard.IsInstall, uicard.skillCard.IsCanUse);
 				if(UISort.Visible)
 					UISort.UIShow(false);
 			} else {
 				if(!uicard.skillCard.IsInstall) {
-					if(!uicard.skillCard.SellSelectCover.activeSelf)
+					if(!uicard.skillCard.IsSold)
 						addSellCards(UIButton.current.name);
 					else
 						removeSellCards(UIButton.current.name);
-					uicard.skillCard.SellSelectCover.SetActive(!uicard.skillCard.SellSelectCover.activeSelf);
+					uicard.skillCard.IsSold = !uicard.skillCard.IsSold;
 				}
 			}
 		}

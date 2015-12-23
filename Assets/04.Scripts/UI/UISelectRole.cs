@@ -324,7 +324,7 @@ public class UISelectRole : UIBase {
 				arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
 
 				if(i == 0) {
-					arrayPlayer[i].transform.localPosition = new Vector3(0, 0, 0);
+					arrayPlayer[i].transform.localPosition = Vector3.zero;
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 					labelPlayerName.text = arrayPlayerData[i].Name;
 					SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[i].BodyType);

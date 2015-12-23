@@ -7,8 +7,7 @@ public class HintSkillView : MonoBehaviour {
 	public UILabel SkillKindLabel;
 	public UISprite QualityCards;
 	public UISprite SkillItemPic;
-	public UISprite SkillStar;
-	public UISprite SkillLevel;
+	public SkillCardStar[] SkillStar;
 	public UILabel AmountLabel;
 	
 	private GameObject mGameObject;
@@ -28,6 +27,17 @@ public class HintSkillView : MonoBehaviour {
 		mGameObject.SetActive(false);
 	}
 
+	public void ShowStar (int lv, int quality) {
+		for (int i=0; i<SkillStar.Length; i++) {
+			if(i < lv)
+				SkillStar[i].Show();
+			else 
+				SkillStar[i].Hide();
+
+			SkillStar[i].SetQuality(quality);
+		}
+	}
+
 	public void UpdateUI(TSkill skill)
 	{
 		if(skill.ID >= GameConst.ID_LimitActive)
@@ -38,11 +48,12 @@ public class HintSkillView : MonoBehaviour {
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(21))) {
 			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(21)];
 		}
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
+			ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+		}
 
-		SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
-		QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
-		SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
-		SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star , 1, 5).ToString();
 		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();
 	}
 
@@ -52,8 +63,6 @@ public class HintSkillView : MonoBehaviour {
 			SkillKindLabel.text = TextConst.S(7111);
 		else 
 			SkillKindLabel.text = TextConst.S(7112);
-		
-		SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(itemData.LV, 1, 5).ToString();
 
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
 			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
@@ -61,8 +70,8 @@ public class HintSkillView : MonoBehaviour {
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
-			QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Quality, 1, 3).ToString();
-			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Star , 1, 5).ToString();
+			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+		
 		}
 		
 		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();
