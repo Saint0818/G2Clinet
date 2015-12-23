@@ -1,4 +1,3 @@
-using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -10,25 +9,7 @@ public class UIMainStageDebug
     {
         mStageID = stageID;
 
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
-    }
-
-    private void waitPVEEnd(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
-
-        if(ok)
-        {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = team.Player;
-            GameData.Team.Player.Init();
-
-            stageRewardStart();
-        }
-        else
-            UIHint.Get.ShowHint("PVE End fail!", Color.red);
+        stageRewardStart();
     }
 
     private void stageRewardStart()

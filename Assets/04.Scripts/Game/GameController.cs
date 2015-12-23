@@ -3711,8 +3711,11 @@ public class GameController : KnightSingleton<GameController>
 			WWWForm form = new WWWForm();
 			form.AddField("StageID", stageID);
 
-			if (!StageData.IsTutorial)
-				SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
+		    if(!StageData.IsTutorial)
+		    {
+                UIGameResult.UIShow(true);
+                UIGameResult.Get.SetGameRecord(ref GameRecord);
+            }
 			else {
 				form.AddField("Cause", 1);
 				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
@@ -3728,22 +3731,22 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-    private void waitPVEEnd(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
-
-        if(ok)
-        {
-            TTeam newTeam = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = newTeam.Player;
-            GameData.Team.Player.Init();
-
-            UIGameResult.UIShow(true);
-            UIGameResult.Get.SetGameRecord(ref GameRecord);
-        }
-        else
-            UIHint.Get.ShowHint("PVE End fail!", Color.red);
-    }
+//    private void waitPVEEnd(bool ok, WWW www)
+//    {
+//        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
+//
+//        if(ok)
+//        {
+//            TTeam newTeam = JsonConvert.DeserializeObject<TTeam>(www.text);
+//            GameData.Team.Player = newTeam.Player;
+//            GameData.Team.Player.Init();
+//
+//            UIGameResult.UIShow(true);
+//            UIGameResult.Get.SetGameRecord(ref GameRecord);
+//        }
+//        else
+//            UIHint.Get.ShowHint("PVE End fail!", Color.red);
+//    }
 
 //    private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
 //	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};

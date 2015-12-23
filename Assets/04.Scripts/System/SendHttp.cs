@@ -32,7 +32,6 @@ public static class URLConst {
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
 	public const string PVEStart = "pvestart";
-	public const string PVEEnd = "pveend";
 	public const string StageRewardStart = "stagerewardstart";
 	public const string StageRewardAgain = "stagerewardagain";
 	public const string AddStageTutorial = "addstagetutorial";

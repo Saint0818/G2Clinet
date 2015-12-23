@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using GameStruct;
 using GameEnum;
 using System;
+using JetBrains.Annotations;
 
 public struct TPlayerInfo
 {
@@ -324,7 +325,9 @@ public class GEGMTool : GEBase
 
     private class TAddExp
     {
+        [UsedImplicitly]
         public int Exp;
+        [UsedImplicitly]
         public int Lv;
     }
     private void waitGMAddExp(bool ok, WWW www)

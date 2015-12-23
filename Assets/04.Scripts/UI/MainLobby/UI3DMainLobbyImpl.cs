@@ -67,7 +67,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		}
 	}
 
-	private int selectIndex = -1;
+//	private int selectIndex = -1;
 	private float delay = 0;
 
     [UsedImplicitly]
@@ -80,33 +80,33 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	private void OnSelect()
 		{
 		//TODO: it's not open yet.
-		return;
-		if (delay >		 0)
-			return;
-
-		int index;
-
-		if (!UITutorial.Visible && int.TryParse (UIButton.current.name, out index)) {
-			if(selectIndex == index){
-				//back 
-				selectIndex = -1;
-				SetAnimator(index, false);
-				UpdateButtonCollider(index, true);
-//				UIMainLobby.Get.EnableImpl = true;
-                UIMainLobby.Get.Main.PlayEnterAnimation();
-				delay = 1;
-			}else{
-				//go
-				if(selectIndex == -1){
-					selectIndex = index;
-					SetAnimator(index, true);
-					UpdateButtonCollider(index, false);
-//					UIMainLobby.Get.EnableImpl = false;
-                    UIMainLobby.Get.Main.PlayExitAnimation();
-					delay = 1;
-				}
-			}
-		}
+//		return;
+//		if (delay >		 0)
+//			return;
+//
+//		int index;
+//
+//		if (!UITutorial.Visible && int.TryParse (UIButton.current.name, out index)) {
+//			if(selectIndex == index){
+//				//back 
+//				selectIndex = -1;
+//				SetAnimator(index, false);
+//				UpdateButtonCollider(index, true);
+////				UIMainLobby.Get.EnableImpl = true;
+//                UIMainLobby.Get.Main.PlayEnterAnimation();
+//				delay = 1;
+//			}else{
+//				//go
+//				if(selectIndex == -1){
+//					selectIndex = index;
+//					SetAnimator(index, true);
+//					UpdateButtonCollider(index, false);
+////					UIMainLobby.Get.EnableImpl = false;
+//                    UIMainLobby.Get.Main.PlayExitAnimation();
+//					delay = 1;
+//				}
+//			}
+//		}
 	}
 
 	private void UpdateButtonCollider(int index, bool isopen)
