@@ -185,12 +185,9 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildMainStages()
     {
-        mMain.RemoveAllChapters();
+//        UIMainStageTools.SetDebugParameters();
 
-        // for debug.
-//        GameData.Team.Player.NextMainStageID = 0;
-//        PlayerPrefs.SetInt(ESave.NewMainStage.ToString(), 1);
-//        PlayerPrefs.SetInt(PlayChapterKey, 1);
+        mMain.RemoveAllChapters();
 
         buildChapters();
         selectChapter();
@@ -208,6 +205,8 @@ public class UIMainStage : UIBase
             if(data.IsValid())
                 mMain.GetChapter(data.Chapter).GetStageByID(data.ID).PlayOpenAnimation();
         }
+
+        UIMainStageTools.ClearStageFlag();
     }
 
     /// <summary>

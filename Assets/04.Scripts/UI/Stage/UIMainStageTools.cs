@@ -61,10 +61,26 @@ public static class UIMainStageTools
         return PlayerPrefs.GetInt(PlayerNextStageIDKey) < GameData.Team.Player.NextMainStageID;
     }
 
+    public static void ClearStageFlag()
+    {
+        if(PlayerPrefs.HasKey(PlayerNextStageIDKey))
+        {
+            PlayerPrefs.DeleteKey(PlayerNextStageIDKey);
+            PlayerPrefs.Save();
+        }
+    }
+
     public static void Record(int chapter)
     {
         PlayerPrefs.SetInt(SelectChapterKey, chapter);
         PlayerPrefs.SetInt(PlayerNextStageIDKey, GameData.Team.Player.NextMainStageID);
         PlayerPrefs.Save();
+    }
+
+    public static void SetDebugParameters()
+    {
+        GameData.Team.Player.NextMainStageID = 109;
+        PlayerPrefs.SetInt(PlayerNextStageIDKey, 108);
+        PlayerPrefs.SetInt(SelectChapterKey, 2);
     }
 }

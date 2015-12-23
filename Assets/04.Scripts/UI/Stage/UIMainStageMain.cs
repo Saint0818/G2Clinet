@@ -17,6 +17,11 @@ using UnityEngine;
 public class UIMainStageMain : MonoBehaviour
 {
     /// <summary>
+    /// ScrollView 捲動幾秒後, 開始撥 Unlock Animation.
+    /// </summary>
+    private const float PlayUnlockTime = 0.5f;
+
+    /// <summary>
     /// 呼叫時機: 返回按鈕按下時.
     /// </summary>
     public event CommonDelegateMethods.Action BackListener;
@@ -130,10 +135,8 @@ public class UIMainStageMain : MonoBehaviour
         Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
         ScrollView.MoveRelative(move);
 
-        // 1.1 是 try and error 的數值.
-        // 需要大約 1.1 秒的時間, 讓 ScrollView 捲動到新章節的頁面. 
-        // 因為這幾乎是固定的時間, 所以我沒有抽出成常數.
-        StartCoroutine(playChapterUnlockAnimation(chapter, stageID, 1.1f));
+        // 需要一段很短的時間, 讓 ScrollView 捲動到新章節的頁面. 
+        StartCoroutine(playChapterUnlockAnimation(chapter, stageID, PlayUnlockTime));
     }
 
     /// <summary>

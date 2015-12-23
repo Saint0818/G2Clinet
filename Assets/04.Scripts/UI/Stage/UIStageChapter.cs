@@ -12,7 +12,7 @@ public class UIStageChapter : MonoBehaviour
     /// <summary>
     /// Unlock Animation 撥多久後, 才會顯示全部的關卡. 單位:秒.
     /// </summary>
-    private const float UnlockTime = 1.5f;
+    private const float ShowAllStagesTime = 1.5f;
 
     public UILabel LockNameLabel;
 
@@ -116,16 +116,27 @@ public class UIStageChapter : MonoBehaviour
     {
         mAnimator.SetTrigger("Unlock");
 
-        StartCoroutine(show(stageID, UnlockTime));
+        StartCoroutine(showAllStages(stageID, ShowAllStagesTime));
+
+        // 要經過比較久的時間, 才把 Lock GameObject 關掉. 因為整個流程是
+        // UnLock 要繼續撥, 撥的途中, 會出現關卡, 並撥關卡開啟的 Animation.
+        StartCoroutine(delayShow(10)); 
     }
 
-    private IEnumerator show(int stageID, float delayTime)
+    private IEnumerator showAllStages(int stageID, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        Open.SetActive(true);
+
+        mStages[stageID].PlayOpenAnimation();
+    }
+
+    private IEnumerator delayShow(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
         Show();
-
-        mStages[stageID].PlayOpenAnimation();
     }
 
     private UIStageElement createStage(int stageID, Vector3 localPos)
