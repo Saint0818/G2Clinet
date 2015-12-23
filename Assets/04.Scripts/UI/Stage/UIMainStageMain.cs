@@ -37,6 +37,8 @@ public class UIMainStageMain : MonoBehaviour
 
     public Transform ChapterParent;
     public UIScrollView ScrollView;
+    public GameObject FullScreenBlock;
+    public bool EnableFullScreenBlock { set { FullScreenBlock.SetActive(value);} }
 
     private readonly Vector3 mChapterStartPos = new Vector3(-70, 0, 0);
 
@@ -60,6 +62,7 @@ public class UIMainStageMain : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
+        EnableFullScreenBlock = false;
     }
 
     /// <summary>
@@ -135,8 +138,14 @@ public class UIMainStageMain : MonoBehaviour
         Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
         ScrollView.MoveRelative(move);
 
+        EnableFullScreenBlock = true;
+
         // 需要一段很短的時間, 讓 ScrollView 捲動到新章節的頁面. 
         StartCoroutine(playChapterUnlockAnimation(chapter, stageID, PlayUnlockTime));
+
+        // 4 是 try and error 的數值, 整個 Unlock 特效的時間大概是 4 秒左右撥完, 所以撥完時,
+        // 就可以點選了.
+        StartCoroutine(disableFullScreenBlock(4)); 
     }
 
     /// <summary>
@@ -153,6 +162,13 @@ public class UIMainStageMain : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
 
         mChapters[chapter].PlayUnlockAnimation(stageID);
+    }
+
+    private IEnumerator disableFullScreenBlock(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        EnableFullScreenBlock = false;
     }
 
     private UIStageChapter createChapter(int chapter, string title)

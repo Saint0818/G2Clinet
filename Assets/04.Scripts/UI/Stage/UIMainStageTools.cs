@@ -77,7 +77,7 @@ public static class UIMainStageTools
         PlayerPrefs.Save();
     }
 
-    public static void SetDebugParameters()
+    public static void SetDebugNewChapter()
     {
         GameData.Team.Player.NextMainStageID = 109;
         PlayerPrefs.SetInt(PlayerNextStageIDKey, 108);

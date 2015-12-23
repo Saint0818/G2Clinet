@@ -185,7 +185,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildMainStages()
     {
-//        UIMainStageTools.SetDebugParameters();
+//        UIMainStageTools.SetDebugNewChapter();
 
         mMain.RemoveAllChapters();
 
