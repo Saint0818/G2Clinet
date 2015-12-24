@@ -1,12 +1,11 @@
-using UnityEngine;
-using UnityEditor;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using GameStruct;
-using GameEnum;
 using System;
+using System.Collections.Generic;
+using GameEnum;
+using GameStruct;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
+using UnityEditor;
+using UnityEngine;
 
 public struct TPlayerInfo
 {
