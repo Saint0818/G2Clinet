@@ -3,7 +3,7 @@ guid: e3856df97ed46e0429f347fd91bedf46
 timeCreated: 1449653602
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Bip01
     100002: Bip01 Head
@@ -57,6 +57,9 @@ ModelImporter:
     100098: DummyHand_R
     100100: DummyHead
     100102: //RootNode
+    100104: 1_B_0
+    100106: Bip01 Footsteps
+    100108: HandBall01
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -109,8 +112,16 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
+    400104: 1_B_0
+    400106: Bip01 Footsteps
+    400108: HandBall01
+    2300000: HandBall01
+    3300000: HandBall01
+    4300000: HandBall01
+    4300002: 1_B_0
     7400000: Pass50
     9500000: //RootNode
+    13700000: 1_B_0
   materials:
     importMaterials: 0
     materialName: 0
@@ -118,6 +129,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -141,6 +153,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -154,7 +167,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .578206003
+      - time: 0.578206
         functionName: AnimationEvent
         data: Passing
         objectReferenceParameter: {instanceID: 0}
@@ -294,6 +307,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -314,7 +328,6 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 0
     normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
@@ -322,12 +335,12 @@ ModelImporter:
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
