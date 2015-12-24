@@ -162,24 +162,6 @@ public class TStageData
         return ID >= 1;
     }
 
-    /// <summary>
-    /// 驗證自己的資料是否正確.
-    /// </summary>
-    /// <returns> 空字串表示沒有問題. </returns>
-    public string verify()
-    {
-        if(ID <= 0)
-            return String.Format("ID:{0}, ID must be great than zero.", ID);
-
-        if(Rewards == null || Rewards.Length != 5)
-            return string.Format("ID:{0}, Rewards must be equal 5.", ID);
-
-        if(RewardRates == null || RewardRates.Length != 5)
-            return string.Format("ID:{0}, RewardRates must be equal 5.", ID);
-
-        return String.Empty;
-    }
-
 	public bool IsTutorial {
 		get {return Chapter == 0;}
 	}

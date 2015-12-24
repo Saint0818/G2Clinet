@@ -72,9 +72,9 @@ public class UIMainStage : UIBase
         }
 
         TStageData stageData = StageTable.Ins.GetByID(stageID);
-        if(!string.IsNullOrEmpty(stageData.verify()))
+        if(!stageData.IsValid())
         {
-            Debug.LogErrorFormat(stageData.verify());
+            Debug.LogErrorFormat("StageID:{0}, StageData Error.", stageID);
             return;
         }
 
