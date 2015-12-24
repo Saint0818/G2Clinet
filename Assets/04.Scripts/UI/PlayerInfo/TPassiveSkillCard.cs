@@ -11,6 +11,8 @@ public class TPassiveSkillCard
 	private UITexture SkillTexture;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
+	private GameObject ForReinforce;
+	private UILabel ForReinforceLabel;
 	private SkillCardStar[] SkillStars;
 	public GameObject BtnRemove;
 	private bool isInit = false;
@@ -28,13 +30,16 @@ public class TPassiveSkillCard
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++) 
 				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
-			
+
 			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			btn = item.GetComponent<UIButton>();
 			BtnRemove.SetActive(isFormation);
+			ForReinforce.SetActive(false);
 			isInit =  SkillCard  && SkillName  && btn && SkillTexture && SkillKind && SkillKindBg;
 			
 			if(isInit){
@@ -60,7 +65,7 @@ public class TPassiveSkillCard
 				else 
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
-				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+				GameFunction.ShowStar_Item(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			}
 
 
@@ -81,12 +86,15 @@ public class TPassiveSkillCard
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++) 
 				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 
 			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			BtnRemove.SetActive(true);
+			ForReinforce.SetActive(false);
 			isInit =  SkillCard  && SkillName && SkillTexture && SkillKind && SkillKindBg;
 
 			if(!isInit)
@@ -106,7 +114,7 @@ public class TPassiveSkillCard
 				else 
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
-				ShowStar(lv, GameData.DSkillData[id].Quality);
+				GameFunction.ShowStar_Item(ref SkillStars, lv, GameData.DSkillData[id].Quality, GameData.DSkillData[id].MaxStar);
 			}
 		}
 		else
@@ -118,16 +126,5 @@ public class TPassiveSkillCard
 	public bool Enable
 	{
 		set{item.gameObject.SetActive(value);}
-	}
-
-	public void ShowStar (int lv, int quality) {
-		for (int i=0; i<SkillStars.Length; i++) {
-			if(i < lv)
-				SkillStars[i].Show();
-			else 
-				SkillStars[i].Hide();
-
-			SkillStars[i].SetQuality(quality);
-		}
 	}
 }

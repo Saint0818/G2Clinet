@@ -3,18 +3,31 @@ using System.Collections;
 
 public class SkillCardStar : MonoBehaviour {
 	public UISprite Star;
+	public float XSize;
 	public void Awake () {
-		if(Star == null)
+		if(Star == null){
 			Star = transform.FindChild("Star").GetComponent<UISprite>();
-		Hide();
+		} 
+		if(Star != null) 
+			XSize = Star.width;
+
+		HideStar();
 	}
 
 	public void Show () {
+		gameObject.SetActive(true);
+	}
+
+	public void Hide () {
+		gameObject.SetActive(false);
+	}
+
+	public void ShowStar () {
 		if(Star != null)
 			Star.gameObject.SetActive(true);
 	}
 
-	public void Hide () {
+	public void HideStar () {
 		if(Star != null)
 			Star.gameObject.SetActive(false);
 	}

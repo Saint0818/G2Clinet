@@ -140,7 +140,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillSuit.spriteName = "Levelball" + GameData.DSkillData[uicard.CardID].Quality.ToString();
 			textureSkillPic.mainTexture = GameData.CardTexture(uicard.CardID);
 			labelSkillCardName.text = GameData.DSkillData[uicard.CardID].Name;
-			showStar(uicard.CardLV,  GameData.DSkillData[uicard.CardID].Quality);
+			GameFunction.ShowStar(ref skillStars, uicard.CardLV, GameData.DSkillData[uicard.CardID].Quality, GameData.DSkillData[uicard.CardID].MaxStar);
 			if(GameFunction.IsActiveSkill(uicard.CardID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
@@ -193,7 +193,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 			textureSkillPic.mainTexture = GameData.CardTexture(skill.ID);
 			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
-			showStar(skill.Lv,  GameData.DSkillData[skill.ID].Quality);
+			GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			if(GameFunction.IsActiveSkill(skill.ID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
@@ -233,17 +233,6 @@ public class UISkillInfo : UIBase {
 
 			//Explain
 			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, skill.ID, skill.Lv);
-		}
-	}
-
-	private void showStar (int lv, int quality) {
-		for (int i=0; i<skillStars.Length; i++) {
-			if(i < lv)
-				skillStars[i].Show();
-			else 
-				skillStars[i].Hide();
-
-			skillStars[i].SetQuality(quality);
 		}
 	}
 

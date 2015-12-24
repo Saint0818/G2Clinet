@@ -28,7 +28,7 @@ public class BlockTrigger : MonoBehaviour {
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team && faller.IsDunk) {
 							if(faller.IsCanBlock && !faller.IsTee) {
-								faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
+								faller.PlayerSkillController.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 								gameObject.SetActive (false);
 							
 								faller.SetAnger(GameConst.DelAnger_Blocked);

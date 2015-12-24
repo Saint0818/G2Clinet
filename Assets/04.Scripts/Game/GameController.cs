@@ -1764,7 +1764,7 @@ public class GameController : KnightSingleton<GameController>
 								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
 						}
 
-						BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 					}
                     else
                     {
@@ -1790,7 +1790,7 @@ public class GameController : KnightSingleton<GameController>
 								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
 						}
 						
-						BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 					}
 
 					return true;
@@ -1976,9 +1976,9 @@ public class GameController : KnightSingleton<GameController>
 		if(Joysticker)
         {
 			if(nearP)
-				return Joysticker.DoPassiveSkill (ESkillSituation.Push0, nearP.PlayerRefGameObject.transform.position);
+				return Joysticker.PlayerSkillController.DoPassiveSkill (ESkillSituation.Push0, nearP.PlayerRefGameObject.transform.position);
 
-            return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
+			return Joysticker.PlayerSkillController.DoPassiveSkill (ESkillSituation.Push0);
 		}
 
         return false;
@@ -1987,7 +1987,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoElbow()
 	{
 		if(Joysticker)
-			return Joysticker.DoPassiveSkill(ESkillSituation.Elbow0);
+			return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Elbow0);
 
         return false;
 	}
@@ -2152,7 +2152,7 @@ public class GameController : KnightSingleton<GameController>
 					}
                     else if(dis <= GameConst.FastPassDistance)
 					{
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, catchPlayer.PlayerRefGameObject.transform.position);
+						result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass5, catchPlayer.PlayerRefGameObject.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
 					{
@@ -2160,24 +2160,24 @@ public class GameController : KnightSingleton<GameController>
 						if(disKind == 1)
 						{
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
 							else 
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
                         else if(disKind == 2)
 						{
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
 							else
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}						
 						else
 						{
                             // 這其實是重複的程式碼 ....
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
 							else
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
 					}
                     else if(dis <= GameConst.MiddleDistance)
@@ -2186,30 +2186,30 @@ public class GameController : KnightSingleton<GameController>
 						if(disKind == 1)
 						{
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
 							else
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
                         else if(disKind == 2)
 						{
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
 							else
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}						
 						else
 						{
                             // 這也是重複的程式碼.
 							if(rate == 1)
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
 							else
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
 					}
                     else
                     {
 						// 遠距離傳球.
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
+						result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
 					}
 					
 					if(result)
@@ -2365,9 +2365,9 @@ public class GameController : KnightSingleton<GameController>
 			StealBtnLiftTime = 1f;
             if (BallOwner && BallOwner.Team != Joysticker.Team) {
 				Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
-				return Joysticker.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerRefGameObject.transform.position);
+				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerRefGameObject.transform.position);
             } else
-				return Joysticker.DoPassiveSkill(ESkillSituation.Steal0);
+				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0);
         } else
 			return false;
     }
@@ -2541,16 +2541,16 @@ public class GameController : KnightSingleton<GameController>
 					if(IsReboundTime)
 						return Rebound(Joysticker);
 					else
-						return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 
-					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
 				} else {
 					if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
 						return Rebound(Joysticker);
 					else
-						return Joysticker.DoPassiveSkill(ESkillSituation.Block0);
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
 				}
 			}
         }
@@ -2566,7 +2566,7 @@ public class GameController : KnightSingleton<GameController>
 
     private bool Rebound(PlayerBehaviour player)
     {
-		return player.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBall.transform.position);
+		return player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBall.transform.position);
 	}
 	
 	public bool OnRebound(PlayerBehaviour player)
@@ -2586,12 +2586,12 @@ public class GameController : KnightSingleton<GameController>
 		bool result = false;
 		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill) || GameStart.Get.TestMode == EGameTest.Skill)
         {
-			if ((player.CheckSkillDistance(tSkill) && player.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
+			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
 				UIGame.Get.ResetRange();
 				player.ActiveSkillUsed = tSkill;
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
 				if(result){
-					player.CheckSkillValueAdd(tSkill);
+					player.PlayerSkillController.CheckSkillValueAdd(tSkill);
 					player.IsUseActiveSkill = true;
 				}
 			}
@@ -2921,7 +2921,7 @@ public class GameController : KnightSingleton<GameController>
                         {
 							if(rate < blockRate)
                             {
-								if(npc2.DoPassiveSkill(ESkillSituation.Block0, npc.PlayerRefGameObject.transform.position)) {
+								if(npc2.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, npc.PlayerRefGameObject.transform.position)) {
 									if (kind == 1)
 										npc2.GameRecord.BeFake++;
 
@@ -3521,11 +3521,11 @@ public class GameController : KnightSingleton<GameController>
 
 	public void DefRangeTouchBall(PlayerBehaviour player)
 	{
-		if(player.IsHavePickBall2) {
+		if(player.PlayerSkillController.IsHavePickBall2) {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
 				int rate = Random.Range(0, 100);
-				if(rate < player.PickBall2Rate) {
-					player.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBall.transform.position);
+				if(rate < player.PlayerSkillController.PickBall2Rate) {
+					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBall.transform.position);
 				}
 			}
 		}
@@ -3560,7 +3560,7 @@ public class GameController : KnightSingleton<GameController>
 							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
-								if (BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position))
+								if (BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position))
 									Catcher = player;
 							} else
 								UIGame.Get.ShowAlleyoop(true, player.Index.GetHashCode());
@@ -3715,15 +3715,13 @@ public class GameController : KnightSingleton<GameController>
 			{
 				if(PlayerList[i] != PickBallPlayer && !PlayerList[i].IsDunk){
 					if(isIn)
-						PlayerList[i].DoPassiveSkill(ESkillSituation.ShowOwnIn);
-//						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
+						PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
 					else {
 					if(PlayerList[i].crtState == EPlayerState.Idle && 
 					   GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
 					                                     CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11
 					   )
-							PlayerList[i].DoPassiveSkill(ESkillSituation.ShowOwnOut);
-//							PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
+							PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnOut);
 					}
 				}
 			}

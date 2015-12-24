@@ -657,9 +657,8 @@ public class UISkillFormation : UIBase {
 
 					} else {
 						if(!activeStruct[index].CheckBeInstall) {
-							if(checkCost(uiCards[name].Cost)) {
+							if(checkCost(uiCards[name].Cost)) 
 								addItems(uiCards[name], index);
-							} 
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 						} else {
 							if(checkCost(uiCards[name].Cost)) {
@@ -674,7 +673,7 @@ public class UISkillFormation : UIBase {
 									}
 								}
 								addItems(uiCards[name], index);
-							} 
+							}
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
 						}
@@ -709,10 +708,10 @@ public class UISkillFormation : UIBase {
 		if(uiCards.ContainsKey (name)) {
 			if(GameFunction.IsActiveSkill(uiCards[name].CardID)) {
 				IsCardActive = true;
-				for(int i=0; i<activeStruct.Length; i++) {
+				for(int i=0; i<activeStruct.Length; i++) 
 					if((i+1) <= activeFieldLimit)
 						activeStruct[i].ItemActiveSelect.SetActive(isShow);
-				}
+				
 			} else {
 				IsCardActive = false;
 				itemPassiveSelected.SetActive(isShow);

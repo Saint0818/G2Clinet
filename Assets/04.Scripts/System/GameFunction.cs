@@ -715,4 +715,30 @@ public static class GameFunction
 			}
 		}
 	}
+
+	public static void ShowStar (ref SkillCardStar[] stars, int lv, int quality, int max) {
+		for (int i=0; i<stars.Length; i++) {
+			if(i < lv) stars[i].ShowStar();
+			else stars[i].HideStar();
+
+			if(i <= max) stars[i].Show();
+			else stars[i].Hide();
+
+			stars[i].SetQuality(quality);
+			stars[i].gameObject.transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1) + i * stars[i].XSize, 0, 0);
+		}
+	}
+
+	public static void ShowStar_Item (ref SkillCardStar[] stars, int lv, int quality, int max) {
+		for (int i=0; i<stars.Length; i++) {
+			if(i < lv) stars[i].ShowStar();
+			else stars[i].HideStar();
+
+			if(i <= max) stars[i].Show();
+			else stars[i].Hide();
+
+			stars[i].SetQuality(quality);
+			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * stars[i].XSize, 0, 0);
+		}
+	}
 }

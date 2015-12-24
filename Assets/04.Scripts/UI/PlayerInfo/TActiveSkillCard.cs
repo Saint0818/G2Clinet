@@ -87,7 +87,7 @@ public class TActiveSkillCard
 				else 
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
-				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
             } else
                 Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
@@ -117,7 +117,7 @@ public class TActiveSkillCard
 				InListCard.SetActive(isEquip);
 				SellSelect.SetActive(false);
 				SellSelectCover.SetActive(false);
-				ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
@@ -161,16 +161,5 @@ public class TActiveSkillCard
 	public void SetCoin (int money) {
 		if(SellLabel != null)
 			SellLabel.text = money.ToString();
-	}
-
-	public void ShowStar (int lv, int quality) {
-		for (int i=0; i<SkillStars.Length; i++) {
-			if(i < lv)
-				SkillStars[i].Show();
-			else 
-				SkillStars[i].Hide();
-			
-			SkillStars[i].SetQuality(quality);
-		}
 	}
 }

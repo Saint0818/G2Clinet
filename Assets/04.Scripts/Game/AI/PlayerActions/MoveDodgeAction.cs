@@ -8,7 +8,7 @@ namespace AI
 
         public override float Probability
         {
-            get { return Player.MoveDodgeRate; }
+			get { return Player.PlayerSkillController.MoveDodgeRate; }
         }
 
         public override bool IsDone

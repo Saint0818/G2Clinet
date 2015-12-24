@@ -559,6 +559,10 @@ namespace GameStruct
             }
         }
 
+		public bool IsHaveActiveSkill {
+			get {return (ActiveSkills.Count > 0);}
+		}
+
 		public string FacePicture {
 			get {
 				if (GameData.DPlayers.ContainsKey(ID))

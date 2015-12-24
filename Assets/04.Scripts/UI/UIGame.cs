@@ -733,13 +733,6 @@ public class UIGame : UIBase {
 		Scores [team] += score;
 		if(!GameController.Get.IsFinish)
 			CourtMgr.Get.SetScoreboards (team, Scores [team]);
-//		showScoreBar(GameController.Get.IsStart);
-//		resetScoreRotate();
-//		TweenRotation rotateScore = TweenRotation.Begin(labelScores[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
-//		rotateScore.delay = 0.2f / Time.timeScale;
-//		rotateScore.from = Vector3.zero;
-//		rotateScore.to = new Vector3(0,720,0);
-//		labelScores[team].text = Scores [team].ToString ();
 
 		TweenRotation rotateTopScore = TweenRotation.Begin(labelTopLeftScore[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
 		rotateTopScore.delay = 1f / Time.timeScale;

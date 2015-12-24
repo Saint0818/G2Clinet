@@ -27,17 +27,6 @@ public class HintSkillView : MonoBehaviour {
 		mGameObject.SetActive(false);
 	}
 
-	public void ShowStar (int lv, int quality) {
-		for (int i=0; i<SkillStar.Length; i++) {
-			if(i < lv)
-				SkillStar[i].Show();
-			else 
-				SkillStar[i].Hide();
-
-			SkillStar[i].SetQuality(quality);
-		}
-	}
-
 	public void UpdateUI(TSkill skill)
 	{
 		if(skill.ID >= GameConst.ID_LimitActive)
@@ -51,7 +40,7 @@ public class HintSkillView : MonoBehaviour {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
-			ShowStar(skill.Lv, GameData.DSkillData[skill.ID].Quality);
+			GameFunction.ShowStar(ref SkillStar, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 		}
 
 		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();

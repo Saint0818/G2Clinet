@@ -210,7 +210,6 @@ public class ModelManager : KnightSingleton<ModelManager>
 
             res.transform.parent = PlayerInfoModel.transform;
             res.transform.localPosition = bornPos;
-            res.AddComponent<SkillController>();
 
             PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
 

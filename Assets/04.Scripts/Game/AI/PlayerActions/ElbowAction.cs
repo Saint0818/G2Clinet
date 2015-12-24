@@ -36,7 +36,7 @@ namespace AI
 
         public override void Do()
         {
-            if(Player.DoPassiveSkill(ESkillSituation.Elbow0))
+			if(Player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Elbow0))
             {
                 Player.ElbowCD.StartAgain();
                 CourtMgr.Get.ShowBallSFX(Player.Attr.PunishTime);

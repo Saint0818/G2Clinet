@@ -36,7 +36,7 @@ namespace AI
 
         public override void Do()
         {
-            if(Player.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
+			if(Player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0, GameController.Get.BallOwner.transform.position))
                 Player.StealCD.StartAgain();
         }
     }

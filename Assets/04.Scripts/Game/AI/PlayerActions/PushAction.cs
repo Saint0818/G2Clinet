@@ -48,7 +48,7 @@ namespace AI
 
         public override void Do()
         {
-            if(Player.DoPassiveSkill(ESkillSituation.Push0, mNearPlayerPos))
+			if(Player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Push0, mNearPlayerPos))
                 Player.PushCD.StartAgain();
         }
     }

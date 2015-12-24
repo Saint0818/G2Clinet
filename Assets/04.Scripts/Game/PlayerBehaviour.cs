@@ -335,7 +335,7 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
     //Skill
-    private SkillController skillController;
+    public SkillController PlayerSkillController;
     private ESkillKind skillKind; // For Shoot and Layup
     private bool isUsePass = false;
 	private AnimationEvent animatorEvent;
@@ -432,8 +432,8 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRefGameObject = gameObject;
         LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
 
+		PlayerSkillController = new SkillController();
         AnimatorControl = PlayerRefGameObject.GetComponent<Animator>();
-        skillController = PlayerRefGameObject.GetComponent<SkillController>();
         PlayerRigidbody = PlayerRefGameObject.GetComponent<Rigidbody>();
         if (PlayerRigidbody == null)
             PlayerRigidbody = PlayerRefGameObject.AddComponent<Rigidbody>();
@@ -536,10 +536,10 @@ public class PlayerBehaviour : MonoBehaviour
     private void initSkill()
     {
 		isSkillShow = false;
-        skillController.initSkillController(Attribute, this, AnimatorControl);
+        PlayerSkillController.initSkillController(Attribute, this, AnimatorControl);
 
         if (Team == ETeamKind.Npc) 
-            skillController.HidePlayerName();
+            PlayerSkillController.HidePlayerName();
     }
 
     public void InitDoubleClick()
@@ -1417,7 +1417,7 @@ public class PlayerBehaviour : MonoBehaviour
                 #endif
 
                 if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && 
-                    DoPassiveSkill(ESkillSituation.MoveDodge)))
+					PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge)))
                 {
                     isMoving = true;
                     if (!isJoystick)
@@ -1917,7 +1917,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Reset()
     {
-        skillController.Reset();
+        PlayerSkillController.Reset();
 		angerValue = 0;
 		isDunk = false;
 		isBlock = false;
@@ -3461,16 +3461,11 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     //=====Skill=====
-    public bool DoPassiveSkill(ESkillSituation state, Vector3 v = default(Vector3), float shootDistance = 0)
-    {
-        return skillController.DoPassiveSkill(state, this, v, shootDistance);
-    }
-
     public bool DoActiveSkill(GameObject target = null)
     {
         if (CanUseActiveSkill(ActiveSkillUsed) || GameStart.Get.TestMode == EGameTest.Skill)
         {
-			if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && skillController.IsGetBuff(ActiveSkillUsed.ID))
+			if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && PlayerSkillController.IsGetBuff(ActiveSkillUsed.ID))
 				return false;
 
             GameRecord.Skill++;
@@ -3496,15 +3491,15 @@ public class PlayerBehaviour : MonoBehaviour
         return false;
     }
 
-    public void AddSkillAttribute(int skillID, int kind, float value, float lifetime)
-    {
-        skillController.AddSkillAttribute(skillID, kind, value, lifetime);
-    }
-
-    public void CheckSkillValueAdd(TSkill activeSkill)
-    {
-        skillController.CheckSkillValueAdd(this, activeSkill);
-    }
+//    public void AddSkillAttribute(int skillID, int kind, float value, float lifetime)
+//    {
+//        PlayerSkillController.AddSkillAttribute(skillID, kind, value, lifetime);
+//    }
+//
+//    public void CheckSkillValueAdd(TSkill activeSkill)
+//    {
+//        PlayerSkillController.CheckSkillValueAdd(this, activeSkill);
+//    }
 
     public void SetAttribute(int kind, float value)
     {
@@ -3515,57 +3510,23 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CheckSkillDistance(TSkill tSkill)
     {
         bool result = false;
-        if (skillController.GetActiveSkillTarget(this, tSkill) != null && skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
-            for (int i=0; i<skillController.GetActiveSkillTarget(this, tSkill).Count; i++)
-                if (skillController.CheckSkillDistance(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill) [i])) 
+        if (PlayerSkillController.GetActiveSkillTarget(tSkill) != null && PlayerSkillController.GetActiveSkillTarget(tSkill).Count > 0)
+            for (int i=0; i<PlayerSkillController.GetActiveSkillTarget(tSkill).Count; i++)
+                if (PlayerSkillController.CheckSkillDistance(tSkill, PlayerSkillController.GetActiveSkillTarget(tSkill) [i])) 
                     result = true;
         return result;
     }
 
-    public bool CheckSkillKind(TSkill tSkill)
-    {
-        return skillController.CheckSkillKind(tSkill);
-    }
-
     public TSkill ActiveSkillUsed
     {
-        get { return skillController.ActiveSkillUsed;}
-        set { skillController.ActiveSkillUsed = value;}
+        get { return PlayerSkillController.ActiveSkillUsed;}
+        set { PlayerSkillController.ActiveSkillUsed = value;}
     }
 
     public TSkill PassiveSkillUsed
     {
-        get { return skillController.PassiveSkillUsed;}
-        set { skillController.PassiveSkillUsed = value;}
-    }
-
-    public int MoveDodgeRate
-    {
-        get { return skillController.MoveDodgeRate;}
-        set { skillController.MoveDodgeRate = value;}
-    }
-
-    public int MoveDodgeLv
-    {
-        get { return skillController.MoveDodgeLv;}
-        set { skillController.MoveDodgeLv = value;}
-    }
-
-    public int PickBall2Rate
-    {
-        get { return skillController.PickBall2Rate;}
-        set { skillController.PickBall2Rate = value;}
-    }
-
-    public int PickBall2Lv
-    {
-        get { return skillController.PickBall2Lv;}
-        set { skillController.PickBall2Lv = value;}
-    }
-
-    public List<int> GetAllBuffs
-    {
-        get { return skillController.GetAllBuff();}
+        get { return PlayerSkillController.PassiveSkillUsed;}
+        set { PlayerSkillController.PassiveSkillUsed = value;}
     }
 
     public ESkillKind GetSkillKind
@@ -3575,26 +3536,16 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public int GetPassiveAniRate (int kind, float shootDistance, float baseDistance)
 	{
-		if(skillController.DExtraPassiveSkills.ContainsKey(kind)) {
+		if(PlayerSkillController.DExtraPassiveSkills.ContainsKey(kind)) {
 			int rate = 0;
-			for(int i=0; i<skillController.DExtraPassiveSkills[kind].Count; i++) {
-				if((GameData.DSkillData[skillController.DExtraPassiveSkills[kind][i].Tskill.ID].Distance(skillController.DExtraPassiveSkills[kind][i].Tskill.Lv) + baseDistance) >= shootDistance)
-					rate += GameData.DSkillData[skillController.DExtraPassiveSkills[kind][i].Tskill.ID].AniRate(skillController.DExtraPassiveSkills[kind][i].Tskill.Lv);
+			for(int i=0; i<PlayerSkillController.DExtraPassiveSkills[kind].Count; i++) {
+				if((GameData.DSkillData[PlayerSkillController.DExtraPassiveSkills[kind][i].Tskill.ID].Distance(PlayerSkillController.DExtraPassiveSkills[kind][i].Tskill.Lv) + baseDistance) >= shootDistance)
+					rate += GameData.DSkillData[PlayerSkillController.DExtraPassiveSkills[kind][i].Tskill.ID].AniRate(PlayerSkillController.DExtraPassiveSkills[kind][i].Tskill.Lv);
 			}
 			return rate;
 		} else 
 			return 0;
 	}
-	
-	public bool IsHaveMoveDodge
-    {
-        get { return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
-    }
-
-    public bool IsHavePickBall2
-    {
-        get { return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
-    }
 
     public bool CanPressButton
     {
