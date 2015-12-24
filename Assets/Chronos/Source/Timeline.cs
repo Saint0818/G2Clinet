@@ -39,6 +39,7 @@ namespace Chronos
 			handledOccurrences = new HashSet<Occurrence>();
 			previousDeltaTimes = new Queue<float>();
 			timeScale = lastTimeScale = 1;
+			activeComponents = new HashSet<IComponentTimeline>();
 
 			animation = new AnimationTimeline(this);
 			animator = new AnimatorTimeline(this);
@@ -58,7 +59,7 @@ namespace Chronos
 		protected virtual void Start()
 		{
 			timeScale = lastTimeScale = clock.timeScale;
-
+			
 			foreach (IComponentTimeline component in activeComponents)
 			{
 				component.AdjustProperties();
@@ -139,6 +140,7 @@ namespace Chronos
 		protected Occurrence nextForwardOccurrence;
 		protected Occurrence nextBackwardOccurrence;
 		protected internal HashSet<IAreaClock> areaClocks;
+		protected HashSet<IComponentTimeline> activeComponents;
 
 		#endregion
 
@@ -724,22 +726,6 @@ namespace Chronos
 		public new TransformTimeline transform { get; protected set; }
 		public WindZoneTimeline windZone { get; protected set; }
 
-		protected IEnumerable<IComponentTimeline> activeComponents
-		{
-			get
-			{
-				if (animation.component != null) yield return animation;
-				if (animator.component != null) yield return animator;
-				if (audioSource.component != null) yield return audioSource;
-				if (navMeshAgent.component != null) yield return navMeshAgent;
-				if (particleSystem.component != null) yield return particleSystem;
-				if (rigidbody.component != null) yield return rigidbody;
-				if (rigidbody2D.component != null) yield return rigidbody2D;
-				if (transform.component != null) yield return transform;
-				if (windZone.component != null) yield return windZone;
-			}
-		}
-
 		protected IEnumerable<IRecorder> activeRecorders
 		{
 			get
@@ -767,27 +753,55 @@ namespace Chronos
 				}
 			}
 
-			animator.Cache(GetComponent<Animator>());
-			animation.Cache(GetComponent<Animation>());
-			audioSource.Cache(GetComponent<AudioSource>());
-			navMeshAgent.Cache(GetComponent<NavMeshAgent>());
-			particleSystem.Cache(GetComponent<ParticleSystem>());
-			windZone.Cache(GetComponent<WindZone>());
+			activeComponents.Clear();
+
+			if (animator.Cache(GetComponent<Animator>()))
+			{
+				activeComponents.Add(animator);
+			}
+
+			if (animation.Cache(GetComponent<Animation>()))
+			{
+				activeComponents.Add(animation);
+			}
+
+			if (audioSource.Cache(GetComponent<AudioSource>()))
+			{
+				activeComponents.Add(audioSource);
+			}
+
+			if (navMeshAgent.Cache(GetComponent<NavMeshAgent>()))
+			{
+				activeComponents.Add(navMeshAgent);
+			}
+
+			if (particleSystem.Cache(GetComponent<ParticleSystem>()))
+			{
+				activeComponents.Add(particleSystem);
+			}
+
+			if (windZone.Cache(GetComponent<WindZone>()))
+			{
+				activeComponents.Add(windZone);
+			}
 
 			// Only activate one of Rigidbody / Rigidbody2D / Transform timelines at once
 
 			if (rigidbody.Cache(GetComponent<Rigidbody>()))
 			{
+				activeComponents.Add(rigidbody);
 				rigidbody2D.Cache(null);
 				transform.Cache(null);
 			}
 			else if (rigidbody2D.Cache(GetComponent<Rigidbody2D>()))
 			{
+				activeComponents.Add(rigidbody2D);
 				rigidbody.Cache(null);
 				transform.Cache(null);
 			}
 			else if (transform.Cache(GetComponent<Transform>()))
 			{
+				activeComponents.Add(transform);
 				rigidbody.Cache(null);
 				rigidbody2D.Cache(null);
 			}

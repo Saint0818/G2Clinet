@@ -18,18 +18,19 @@ public class JoystickController : MonoBehaviour {
 		Select =11
 	}
 
+    public PlayerBehaviour Joysticker;
 	private string currentButton;
 	private string currentAxis;
 	private Vector2 axisInput;
 
-	private bool x;
-	private bool y;
+    private float x;
+    private float y;
 	private bool isShowGUI = false;
 	private bool isPressShoot = false;
 	public bool IsUseControl = false;
 
 	private string[] BtnsName = new string[20];
-	private MovingJoystick move = new MovingJoystick();
+    private ETCJoystick move = new ETCJoystick();
 
 	void Start () {
 		for (int i = 0; i < BtnsName.Length; i++){
@@ -63,62 +64,25 @@ public class JoystickController : MonoBehaviour {
 		}
 
 		if (IsUseControl) {
-			x = Input.GetAxisRaw("X axis") > 0.1f || Input.GetAxisRaw("X axis") < -0.1f;
-			y = Input.GetAxisRaw("Y axis") > 0.1f || Input.GetAxisRaw("Y axis") < -0.1f;
-
-			if(!x && !y)
+            x = Input.GetAxisRaw("X axis");
+            y = Input.GetAxisRaw("Y axis");
+			if(x == 0 && y == 0)
 			{
-				move.joystickAxis.x = 0;
-				move.joystickAxis.y = 0;
-				
-				GameController.Get.OnJoystickMoveEnd(move);
+                move.axisX.axisValue = 0;
+                move.axisY.axisValue = 0;
 				IsUseControl = false;
+                if (Joysticker)
+                    Joysticker.OnJoystickMoveEnd();
 			}
 			else
 			{
-				move.joystickAxis.x = - 1 * axisInput.x;
-				move.joystickAxis.y = axisInput.y;
-				
-				GameController.Get.OnJoystickMove(move);
+                if (Joysticker)
+                    Joysticker.OnJoystickMove(new Vector2(-x, y));
 			}
 		}
 
-		currentAxis = "result : " + "IsUseControl : " + IsUseControl;
-//		if(Input.GetAxisRaw("3rd axis")> 0.3|| Input.GetAxisRaw("3rd axis") < -0.3)
-//		{
-//			currentAxis = "3rd axis";
-//			axisInput = Input.GetAxisRaw("3rd axis");
-//		}
-//		
-//		if(Input.GetAxisRaw("4th axis")> 0.3|| Input.GetAxisRaw("4th axis") < -0.3)
-//		{
-//			currentAxis = "4th axis";
-//			axisInput = Input.GetAxisRaw("4th axis");
-//		}
-//		
-//		if(Input.GetAxisRaw("5th axis")> 0.3|| Input.GetAxisRaw("5th axis") < -0.3)
-//		{
-//			currentAxis = "5th axis";
-//			axisInput = Input.GetAxisRaw("5th axis");
-//		}
-//		
-//		if(Input.GetAxisRaw("6th axis")> 0.3|| Input.GetAxisRaw("6th axis") < -0.3)
-//		{
-//			currentAxis = "6th axis";
-//			axisInput = Input.GetAxisRaw("6th axis");
-//		}
-//		
-//		if(Input.GetAxisRaw("7th axis")> 0.3|| Input.GetAxisRaw("7th axis") < -0.3)
-//		{
-//			currentAxis = "7th axis";
-//			axisInput = Input.GetAxisRaw("7th axis");
-//		}
-//		
-//		if(Input.GetAxisRaw("8th axis") > 0.3|| Input.GetAxisRaw("8th axis") < -0.3)
-//		{
-//			currentAxis = "8th axis";
-//			axisInput = Input.GetAxisRaw("8th axis");
-//		}
+        if (isShowGUI)
+		    currentAxis = "result : " + "IsUseControl : " + IsUseControl;
 	}
 
 	void getButton()

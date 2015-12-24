@@ -755,6 +755,7 @@ extern "C" {
     void _UniWebViewRemoveUrlScheme(const char *name, const char *scheme);
     int _UniWebViewScreenHeight();
     int _UniWebViewScreenWidth();
+    int _UniWebViewScreenScale();
     const char * _UniWebViewGetUserAgent(const char *name);
     void _UniWebViewSetUserAgent(const char *userAgent);
     float _UniWebViewGetAlpha(const char *name);
@@ -903,6 +904,10 @@ int _UniWebViewScreenWidth() {
     } else {
         return UnityGetGLViewController().view.frame.size.width;
     }
+}
+
+int _UniWebViewScreenScale() {
+    return (int)[[UIScreen mainScreen] scale];
 }
 
 const char * _UniWebViewGetUserAgent(const char *name) {

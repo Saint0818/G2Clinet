@@ -46,7 +46,7 @@ namespace Chronos
 				position = clock.transform.position;
 			}
 
-			Gizmos.DrawIcon(position, "AreaClock");
+			Gizmos.DrawIcon(position, "Chronos/AreaClock");
 
 			// Draw inset approximations for padding...
 

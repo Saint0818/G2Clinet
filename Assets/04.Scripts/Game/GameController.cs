@@ -657,6 +657,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 
         Joysticker = PlayerList[0];
+        UIGame.Get.SetJoystick(Joysticker);
 
 		playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
 		PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
@@ -2597,53 +2598,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 		return result;
 	}
-
-	public void OnJoystickMoveStart(MovingJoystick move) {
-		if (Joysticker)
-			Joysticker.OnJoystickStart(move);
-	}
-
-	public void OnJoystickMove(MovingJoystick move)
-    {
-		if (Joysticker && (CanMoveSituation || Joysticker.CanMoveFirstDribble))
-        {
-            if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
-            {
-				EPlayerState ps = Joysticker.crtState;
-
-				if(!Joysticker.IsFall)
-				{
-					if(BallOwner == Joysticker)
-						ps = EPlayerState.Dribble1;
-					else
-						ps = EPlayerState.Run0;
-				}
-                    
-                Joysticker.OnJoystickMove(move, ps);
-            }
-        }
-    }
-    
-    public void OnJoystickMoveEnd(MovingJoystick move)
-    {
-        if (Joysticker)
-        {
-			EPlayerState ps;
-
-			if (BallOwner == Joysticker)
-			{
-				if(Joysticker.crtState == EPlayerState.Elbow0)
-					ps = EPlayerState.Elbow0;
-				else if(Joysticker.crtState == EPlayerState.HoldBall)
-					ps = EPlayerState.HoldBall;
-				else
-					ps = EPlayerState.Dribble0;
-			} else
-				ps = EPlayerState.Idle;
-            
-            Joysticker.OnJoystickMoveEnd(move, ps);
-        }
-    }
 	
     /// <summary>
     /// 只有攻守交換的時候才會被呼叫. 叫球員照著戰術路線跑.
@@ -4767,20 +4721,6 @@ public class GameController : KnightSingleton<GameController>
 				return false;
 
 			return true;
-		}
-	}
-
-	private bool CanMoveSituation
-	{
-		get
-		{
-			if (Situation == EGameSituation.AttackGamer ||
-			    Situation == EGameSituation.AttackNPC ||
-			    Situation == EGameSituation.Opening || 
-			    Situation == EGameSituation.JumpBall)
-				return true;
-			else
-				return false;
 		}
 	}
 

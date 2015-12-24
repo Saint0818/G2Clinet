@@ -1,4 +1,4 @@
-#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_EDITOR
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
 //
 //	UniWebView.cs
 //  Created by Wang Wei(@onevcat) on 2013-10-20.
@@ -675,6 +675,12 @@ public class UniWebView : MonoBehaviour {
 			}
 		} else {
 			Debug.LogWarning("Web page load failed: " + gameObject.name + "; url: " + url + "; error:" + message);
+
+#if UNITY_EDITOR
+			if (message.Contains("App Transport Security")) {
+				Debug.LogWarning("It seems that you are enabled ATS in Editor. Please visit our help center for more information.");
+			}
+#endif
 			if (hasCompleteListener) {
 				OnLoadComplete(this, false, message);
 			}
@@ -682,7 +688,6 @@ public class UniWebView : MonoBehaviour {
 	}
 
 	private void LoadBegin(string url) {
-		Debug.Log("Begin to load: " + url);
 		if (OnLoadBegin != null) {
 			OnLoadBegin(this, url);
 		}
@@ -765,6 +770,7 @@ public class UniWebView : MonoBehaviour {
 		_lastScreenHeight = UniWebViewHelper.screenHeight;
 
 		#if UNITY_EDITOR
+		_screenScale = UniWebViewHelper.screenScale;
 		CreateTexture(this.insets.left,
 	    	          this.insets.bottom,
 	        	      Screen.width - this.insets.left - this.insets.right,
@@ -791,7 +797,6 @@ public class UniWebView : MonoBehaviour {
 	}
 
 	private void RemoveAllListeners() {
-		Debug.Log("Remove all!!!");
 		this.OnLoadBegin = null;
 		this.OnLoadComplete = null;
 		this.OnReceivedMessage = null;
@@ -834,16 +839,14 @@ public class UniWebView : MonoBehaviour {
 	private int _webViewId;
 	private bool _hidden;
 	private IntPtr _renderCallback;
+	private int _screenScale;
 
 	private void CreateTexture(int x, int y, int width, int height) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
-			int w = 1;
-			int h = 1;
-			while (w < width) { w <<= 1; }
-			while (h < height) { h <<= 1; }
 			_webViewRect = new Rect(x, y, width, height);
-			_texture = new Texture2D(w, h, TextureFormat.ARGB32, false);
-		}
+			_texture = new Texture2D(width * 2, height * 2, TextureFormat.ARGB32, false);
+			_texture = new Texture2D(width * _screenScale, height * _screenScale, TextureFormat.ARGB32, false);
+		}	
 	}
 
 	private void Clean() {

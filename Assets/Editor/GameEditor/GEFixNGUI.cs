@@ -44,8 +44,8 @@ public class GEFixNGUI
     {
         if (Selection.gameObjects.Length > 0)
         {
-            Material mat = Resources.Load<Material>("Font/NotoSansCJKtc-Black");
-            UIFont font = Resources.Load<UIFont>("Font/NotoSans");
+            Material mat = Resources.Load<Material>("Font/GenJyuuGothicX-P-Bold");
+            UIFont font = Resources.Load<UIFont>("Font/GenJyuuGothic");
             for (int i = 0; i < Selection.gameObjects.Length; i++)
             {
                 UILabel[] labs = Selection.gameObjects[i].GetComponentsInChildren<UILabel>();

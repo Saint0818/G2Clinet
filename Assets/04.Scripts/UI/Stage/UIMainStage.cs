@@ -82,7 +82,10 @@ public class UIMainStage : UIBase
         if(verifyPlayer(stageData, out errMsg))
         {
             UIMainStageTools.Record(stageData.Chapter);
-            pveStart(stageID);
+            GameData.StageID = stageID;
+            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+
+            Hide();
         }
         else
         {
@@ -151,33 +154,6 @@ public class UIMainStage : UIBase
     private static bool verifyPlayerLv(TStageData stageData)
     {
         return GameData.Team.Player.Lv >= stageData.LimitLevel;
-    }
-
-    private void pveStart(int stageID)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
-    }
-
-    private void waitPVEStart(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitPVEStart, ok:{0}", ok);
-
-        if(ok)
-        {
-            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Power = team.Power;
-            GameData.Team.PowerCD = team.PowerCD;
-
-            GameData.StageID = mCurrentStageID;
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
-
-            Hide();
-        }
-        else
-            UIHint.Get.ShowHint("Start PVE fail!", Color.red);
     }
 
     /// <summary>

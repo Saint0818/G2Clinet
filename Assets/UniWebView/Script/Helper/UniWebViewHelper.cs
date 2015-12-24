@@ -51,4 +51,18 @@ public class UniWebViewHelper{
 #endif
 		}
 	}
+
+	/// <summary>
+	/// Get the screen scale. In iOS or OS X Editor, it could be 1, 2 or 3 now, depending on the type of your screen.
+	/// </summary>
+	/// <value>The screen scale.</value>
+	public static int screenScale {
+		get {
+#if UNITY_IOS || UNITY_EDITOR
+			return UniWebViewPlugin.ScreenScale();
+#else
+			return 1;
+#endif
+		}
+	}
 }

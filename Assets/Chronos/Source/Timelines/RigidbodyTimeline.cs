@@ -30,6 +30,8 @@ namespace Chronos
 				{
 					zeroSnapshot = interpolatedSnapshot;
 				}
+
+				zeroTime = timeline.time;
 			}
 
 			if (lastTimeScale >= 0 && timeScale <= 0) // Started pause or rewind
@@ -47,7 +49,7 @@ namespace Chronos
 			else if (lastTimeScale <= 0 && timeScale > 0) // Stopped pause or rewind
 			{
 				bodyIsKinematic = isKinematic;
-
+				
 				if (lastTimeScale == 0) // Stopped pause
 				{
 					ApplySnapshot(zeroSnapshot);
@@ -97,6 +99,18 @@ namespace Chronos
 
 		protected float lastPositiveTimeScale = 1;
 		protected TSnapshot zeroSnapshot;
+		protected float zeroTime;
+
+		#endregion
+
+		#region Snapshots
+
+		public override void ModifySnapshots(SnapshotModifier modifier)
+		{
+			base.ModifySnapshots(modifier);
+
+			zeroSnapshot = modifier(zeroSnapshot, zeroTime);
+		}
 
 		#endregion
 
@@ -123,7 +137,7 @@ namespace Chronos
 		{
 			// This isn't getting used right now, but leave it here for forward-compatibility
 			get { return bodyMass; }
-			set { if (AssertForwardProperty("mass", Severity.Warn)) bodyMass = value; }
+			set { bodyMass = value; }
 		}
 
 		/// <summary>

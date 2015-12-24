@@ -65,6 +65,8 @@ public class UniWebViewPlugin {
 	[DllImport("__Internal")]
 	private static extern int _UniWebViewScreenWidth();
 	[DllImport("__Internal")]
+	private static extern int _UniWebViewScreenScale();
+	[DllImport("__Internal")]
 	private static extern void _UniWebViewSetUserAgent(string userAgent);
 	[DllImport("__Internal")]
 	private static extern string _UniWebViewGetUserAgent(string name);
@@ -254,6 +256,13 @@ public class UniWebViewPlugin {
 			return _UniWebViewScreenWidth();
 		}
 		return 0;
+	}
+
+	public static int ScreenScale() {
+		if (Application.platform == RuntimePlatform.IPhonePlayer) {
+			return _UniWebViewScreenScale();
+		}
+		return 1;
 	}
 
 	public static void SetUserAgent(string userAgent) {

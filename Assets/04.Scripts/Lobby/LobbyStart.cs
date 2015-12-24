@@ -12,7 +12,8 @@ public struct TPlayerObject {
 	public TScenePlayer ScenePlayer;
 }
 
-public class LobbyStart : KnightSingleton<LobbyStart> {
+public class LobbyStart : MonoBehaviour {
+    private static LobbyStart instance;
 	public bool RPGMove = false;
 
 	private int avatarID = 1;
@@ -33,11 +34,25 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private TPlayerObject[] scenePlayers = new TPlayerObject[5];
 	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
-	void Start ()
+    public static LobbyStart Get {
+        get {
+            return instance;
+        }
+    }
+
+    public static bool Visible {
+        get {
+            return instance && instance.gameObject.activeInHierarchy;
+        }
+    }
+
+	void Awake ()
     {
+        instance = gameObject.GetComponent<LobbyStart>();
+        DontDestroyOnLoad(gameObject);
 		Time.timeScale = 1;
 
-		RootScenePlayers = GameObject.Find("ScenePlayers");
+		/*RootScenePlayers = GameObject.Find("ScenePlayers");
 		if (!RootScenePlayers) {
 			RootScenePlayers = new GameObject();
 			RootScenePlayers.name = "ScenePlayers";
@@ -47,7 +62,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		if (!RootOnlinePlayers) {
 			RootOnlinePlayers = new GameObject();
 			RootOnlinePlayers.name = "OnlinePlayers";
-		}
+		}*/
     }
 
     private void sceneMove() {
@@ -89,10 +104,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			}
 		}
 	}
-    
+    /*
     void FixedUpdate() {
 		sceneMove();
-    }
+    }*/
     
     private void clickPlayer(GameObject player) {
 		if (player != myRPGMotor.gameObject) {

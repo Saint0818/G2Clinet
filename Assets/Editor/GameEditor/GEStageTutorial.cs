@@ -82,7 +82,7 @@ public class GEStageTutorial : GEBase {
 	}
 
 	private void onTestStage() {
-		if (GameStart.Visible) {
+        if (Application.isPlaying) {
 			GameData.StageID = GameData.StageTutorial[index].ID;
 			TStageData stageData = StageTable.Ins.GetByID(GameData.StageID);
 			if (stageData.FriendKind == 4) {

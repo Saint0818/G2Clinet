@@ -44,7 +44,7 @@ namespace Chronos.Example
 			}
 			else if (clock.parentBlend == ClockBlend.Multiplicative)
 			{
-				sign = "×";
+				sign = "x";
 			}
 			else // if (clock.parentBlend == ClockBlend.Additive)
 			{

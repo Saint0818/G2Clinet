@@ -174,17 +174,19 @@ public class UISelectRole : UIBase {
 	
 	public static void InitPlayerList(ref int[] ids) {
 		playerList.Clear();
-		for (int i = 0; i < ids.Length; i ++) {
-			if (GameData.DPlayers.ContainsKey(ids[i])) {
-				TPlayer player = new TPlayer();
-				player.SetID(ids[i]);
-				player.Name = GameData.DPlayers[ids[i]].Name;
-				player.RoleIndex = i;
-				playerList.Add(player);
-			}
-		}
-		randomPlayerList();
-		ModelManager.Get.LoadAllSelectPlayer(ref ids);
+        if (ids != null) {
+    		for (int i = 0; i < ids.Length; i ++) {
+    			if (GameData.DPlayers.ContainsKey(ids[i])) {
+    				TPlayer player = new TPlayer();
+    				player.SetID(ids[i]);
+    				player.Name = GameData.DPlayers[ids[i]].Name;
+    				player.RoleIndex = i;
+    				playerList.Add(player);
+    			}
+    		}
+    		randomPlayerList();
+    		ModelManager.Get.LoadAllSelectPlayer(ref ids);
+        }
 	}
 
 	public static void InitPlayerList(ref TFriend[] players) {
@@ -384,13 +386,6 @@ public class UISelectRole : UIBase {
 					for(int i = 0; i < spritesLine.Length; i++)
 						spritesLine[i].fillAmount = 0;
 					
-					/*int index = -1;
-					for (int i = 0; i < playerList.Count; i++)
-					if (playerList[i].RoleIndex == roleIndex) {
-						index = i;
-						break;
-					}*/
-					
 					SetPlayerAvatar(0, roleIndex);
 					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 					setTriangleData();
@@ -449,17 +444,11 @@ public class UISelectRole : UIBase {
 			
 			break;
 		case EUIRoleSituation.Start:
-			for (int i = 0; i < arrayPlayerData.Length; i++)
-				GameData.TeamMembers[i].Player = arrayPlayerData[i];
-			
-			SetEnemyMembers ();
-			
-			int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
-			if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
-				UILoading.UIShow(true, ELoading.Game);
-			else
-				SceneMgr.Get.ChangeLevel (courtNo);
-			
+            if (GameStart.Get.ConnectToServer)
+                pveStart(GameData.StageID);
+            else
+                enterGame();
+                
 			break;
 		case EUIRoleSituation.ListA: // 1
 		case EUIRoleSituation.ListB: // 2
@@ -846,6 +835,38 @@ public class UISelectRole : UIBase {
 	public void DisableRedPoint() {
 		uiRedPoint.SetActive(false);
 	}
+
+    private void pveStart(int stageID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("StageID", stageID);
+        SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
+    }
+
+    private void enterGame() {
+        for (int i = 0; i < arrayPlayerData.Length; i++)
+            GameData.TeamMembers[i].Player = arrayPlayerData[i];
+
+        SetEnemyMembers ();
+
+        int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+        if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
+            UILoading.UIShow(true, ELoading.Game);
+        else
+            SceneMgr.Get.ChangeLevel (courtNo);
+    }
+
+    private void waitPVEStart(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Power = team.Power;
+            GameData.Team.PowerCD = team.PowerCD;
+            enterGame();
+        } else
+            UIHint.Get.ShowHint(TextConst.S(9514), Color.red);
+    }
 
 	private bool isStage {
 		get {return StageTable.Ins.HasByID(GameData.StageID);}

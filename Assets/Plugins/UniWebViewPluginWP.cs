@@ -124,7 +124,6 @@ public class UniWebViewPlugin {
     }
 
 	public static void Init(string name, int top, int left, int bottom, int right) {
-		Debug.Log("Unity Init");
 		if (Application.platform == RuntimePlatform.WP8Player)
         {
             Setup();
@@ -259,7 +258,6 @@ public class UniWebViewPlugin {
     public static bool CanGoBack(string name) {
         if (Application.platform == RuntimePlatform.WP8Player)
         {
-            Debug.Log("Calling can go back of native");
             Setup();
             return UniWebViewWP.Interface._UniWebViewCanGoBack(name);
         }
@@ -269,7 +267,6 @@ public class UniWebViewPlugin {
     public static bool CanGoForward(string name) {
         if (Application.platform == RuntimePlatform.WP8Player)
         {
-            Debug.Log("Calling can go forward of native");
             Setup();
             return UniWebViewWP.Interface._UniWebViewCanGoForward(name);
         }

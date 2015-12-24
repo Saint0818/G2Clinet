@@ -188,6 +188,9 @@ namespace Chronos
 			return true;
 		}
 
+		/// <summary>
+		/// Resets the snapshots. 
+		/// </summary>
 		public virtual void Reset()
 		{
 			if (timeline.recordingDuration < timeline.recordingInterval)
@@ -213,6 +216,19 @@ namespace Chronos
 				Record();
 			}
 		}
+
+		/// <summary>
+		/// Modifies all snapshots via the specified modifier delegate.
+		/// </summary>
+		public virtual void ModifySnapshots(SnapshotModifier modifier)
+		{
+			for (int i = 0; i < snapshots.Count; i++)
+			{
+				snapshots[i] = modifier(snapshots[i], times[i]);
+			}
+		}
+
+		public delegate TSnapshot SnapshotModifier(TSnapshot snapshot, float time);
 
 		#endregion
 

@@ -1388,36 +1388,35 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    public void OnJoystickStart(MovingJoystick move)
+    public void OnJoystickStart()
     {
         yAxizOffset = CameraMgr.Get.CourtCamera.transform.eulerAngles.y - 90;
     }
 
-    public void OnJoystickMove(MovingJoystick move, EPlayerState ps)
+    public void OnJoystickMove(Vector2 v)
     {
-        if (Timer.timeScale == 0)
-            return;
-
-        int moveKind = 0;
-        float calculateSpeed = 1;
-		moveQueue.Clear();
-
-        if (CanMove || stop || HoldBallCanMove)
-        {
-			#if UNITY_EDITOR
-            if (IsFall && GameStart.Get.IsDebugAnimation)
-            {
-                LogMgr.Get.LogError("CanMove : " + CanMove);
-                LogMgr.Get.LogError("stop : " + stop);
-                LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
-            }
-			#endif
-
+        if (Timer.timeScale > 0 && (CanMove || HoldBallCanMove)) {
             if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC || 
                 GameStart.Get.TestMode != EGameTest.None)
             {
-                if ((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
-                    !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && 
+                EPlayerState ps = EPlayerState.Run0;
+                if (IsBallOwner)
+                    ps = EPlayerState.Dribble1;
+
+                int moveKind = 0;
+                float calculateSpeed = 1;
+                moveQueue.Clear();
+
+                #if UNITY_EDITOR
+                if (IsFall && GameStart.Get.IsDebugAnimation)
+                {
+                    LogMgr.Get.LogError("CanMove : " + CanMove);
+                    LogMgr.Get.LogError("stop : " + stop);
+                    LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
+                }
+                #endif
+
+                if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && 
                     DoPassiveSkill(ESkillSituation.MoveDodge)))
                 {
                     isMoving = true;
@@ -1425,10 +1424,10 @@ public class PlayerBehaviour : MonoBehaviour
                         moveStartTime = Time.time + GameConst.DefMoveTime;
 
                     SetManually();
-                    animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
+                    animationSpeed = Vector2.Distance(new Vector2(v.x, 0), new Vector2(0, v.y));
                     if (!IsPass)
                     {
-                        float angle = move.Axis2Angle(true);
+                        float angle = Mathf.Atan2(v.x, v.y) * Mathf.Rad2Deg;
                         float a = 90 + yAxizOffset;
                         Vector3 rotation = new Vector3(0, angle + a, 0);
                         transform.rotation = Quaternion.Euler(rotation);
@@ -1506,8 +1505,21 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void OnJoystickMoveEnd(MovingJoystick move, EPlayerState ps)
+    public void OnJoystickMoveEnd()
     {
+        EPlayerState ps;
+
+        if (IsBallOwner)
+        {
+            if(crtState == EPlayerState.Elbow0)
+                ps = EPlayerState.Elbow0;
+            else if(crtState == EPlayerState.HoldBall)
+                ps = EPlayerState.HoldBall;
+            else
+                ps = EPlayerState.Dribble0;
+        } else
+            ps = EPlayerState.Idle;
+
         if (CanMove && 
             situation != EGameSituation.InboundsGamer && situation != EGameSituation.GamerPickBall && 
             situation != EGameSituation.InboundsNPC && situation != EGameSituation.NPCPickBall)

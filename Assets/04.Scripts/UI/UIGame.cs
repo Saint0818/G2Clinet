@@ -66,7 +66,7 @@ public class UIGame : UIBase {
 	private bool isPressA = false;
 	 
 	//GameJoystick
-	private GameJoystick uiJoystick = null;
+    private GameJoystick gameJoystick = null;
 	private JoystickController joystickController;
 
 	//Center
@@ -224,11 +224,22 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
 		//GameJoystick
-		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
-		if (uiJoystick)
-			joystickController = uiJoystick.gameObject.AddComponent<JoystickController> ();
-		
-		uiJoystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
+        GameObject obj2 = GameObject.Find("GameJoystick");
+        if (!obj2) {
+            GameObject obj = Resources.Load("Prefab/GameJoystick") as GameObject;
+        
+            if (obj) {
+                obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
+                obj2.name = "GameJoystick";
+                //joystickController = obj.AddComponent<JoystickController> ();
+            }
+        }
+
+        if (obj2) {
+            gameJoystick = obj2.GetComponentInChildren<GameJoystick>();
+            if (gameJoystick)
+                gameJoystick.visible = false;
+        }
 
 		//Center
 		viewStart = GameObject.Find (UIName + "/Center/ViewStart");
@@ -320,7 +331,7 @@ public class UIGame : UIBase {
 		uiTutorial[5] = uiButtonSkill[0];
 		uiTutorial[6] = uiButtonSkill[1];
 		uiTutorial[7] = uiButtonSkill[2];
-		uiTutorial[8] = uiJoystick.gameObject;
+		uiTutorial[8] = gameJoystick.gameObject;
 	}
 
 	public void InitUI() {
@@ -346,8 +357,6 @@ public class UIGame : UIBase {
 		ChangeControl(true);
 		showViewForceBar(true);
 		ShowSkillEnableUI(false);
-		uiJoystick.Joystick.isActivated = false;
-		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, UI2D.Get.RootHeight - 145);
 //		drawLine.IsShow = false;
     }
 
@@ -870,7 +879,9 @@ public class UIGame : UIBase {
 	}
 
 	public void UIMaskState (EUIControl controllerState) {
-		joystickController.UIMaskState(controllerState);
+        if (joystickController)
+		    joystickController.UIMaskState(controllerState);
+        
 		switch (controllerState) {
 		case EUIControl.Skill:
 			spriteAttack.gameObject.SetActive(false);
@@ -1109,10 +1120,9 @@ public class UIGame : UIBase {
 			viewStart.SetActive (true);
 			viewTopLeft.SetActive(false);
 			viewBottomRight.SetActive(false);
-			uiJoystick.gameObject.SetActive(false);
+            gameJoystick.visible = false;
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
-			uiJoystick.Joystick.isActivated = false;
 //			drawLine.IsShow = false;
 			break;
 		case EUISituation.Opening:
@@ -1120,10 +1130,10 @@ public class UIGame : UIBase {
 			viewPass.SetActive(true);
 			viewTopLeft.SetActive(true);
 			viewBottomRight.SetActive(true);
-			uiJoystick.gameObject.SetActive(true);
 			controlButtonGroup[0].SetActive(true);
 			controlButtonGroup[1].SetActive(false);
-			uiJoystick.Joystick.isActivated = false;
+            gameJoystick.visible = true;
+			gameJoystick.activated = false;
 //			drawLine.IsShow = true;
 			showViewForceBar(true);
 			if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
@@ -1141,8 +1151,8 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(true);
 
 			if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer) {
-				uiJoystick.gameObject.SetActive(true);
-				uiJoystick.Joystick.isActivated = true;
+                gameJoystick.visible = true;
+				gameJoystick.activated = true;
 			}
 
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
@@ -1161,7 +1171,7 @@ public class UIGame : UIBase {
 				showViewForceBar(false);
 
 //				uiScoreBar.SetActive(false);
-				uiJoystick.gameObject.SetActive(false);
+                gameJoystick.visible = false;
 				ShowSkillEnableUI(false);
 
 				if(UIPassiveEffect.Visible)UIPassiveEffect.UIShow(false);
@@ -1181,7 +1191,7 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(true);
 				showViewForceBar(true);
 
-				uiJoystick.gameObject.SetActive(true);
+                gameJoystick.visible = true;
 				ShowSkillEnableUI(true);
 			
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
@@ -1194,8 +1204,7 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
 //			uiScoreBar.SetActive(false);
-			uiJoystick.Joystick.isActivated = false;
-			uiJoystick.gameObject.SetActive(false);
+            gameJoystick.visible = false;
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
 
@@ -1211,7 +1220,7 @@ public class UIGame : UIBase {
 			SetPassButton();
 			viewStart.SetActive (true);
 			viewBottomRight.SetActive(false);
-			uiJoystick.gameObject.SetActive(false);
+            gameJoystick.visible = false;
 
 			dcCount = 0;
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
@@ -1359,7 +1368,7 @@ public class UIGame : UIBase {
 //					ClearLine();
 
 				if (uiTutorial[8].activeInHierarchy)
-					uiJoystick.Joystick.isActivated = true;
+					gameJoystick.activated = true;
 
 				for (int i = 0; i < uiButtonSkill.Length; i++)
 					if (uiButtonSkill[i].activeInHierarchy)
@@ -1371,6 +1380,12 @@ public class UIGame : UIBase {
 				uiPassA.SetActive(true);
 		}
 	}
+
+    public void SetJoystick(PlayerBehaviour player) {
+        gameJoystick.AttachPlayer(player);
+        if (joystickController)
+            joystickController.Joysticker = player;
+    }
 
 	public bool IsPlayerMe {
 		get {return (PlayerMe != null);}

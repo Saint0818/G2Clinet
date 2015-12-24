@@ -1,5 +1,24 @@
 ## UniWebView - An easier solution for integrating WebView to your mobile games
 
+2.4.1
+
+Fix: Compatible with Unity 5.3.0's new OS X OpenGL Core for editor.
+Fix: Clean some debug log.
+Fix: Update default page in demo scene.
+Fix: Set default user agent of Editor version to an iPhone agent. So you could get the mobile version of web view in Editor.
+
+***
+
+Notice: Unity dropped Windows Phone 8 support officially from 5.3. UniWebView will not continue development for Windows Phone as well from this version.
+
+Reason: The ammount of our Windows Phone users is very few compared to iOS and Android (it is less than 1% share according to report). 
+However, if we want to to support Windows Store App with Windows Phone 8.1 SDK or Windows 10 SDK, it would take even more time than either of other platforms.
+
+Since the Windows Phone SDK itself is not backwards compatible, the transition from Windows 8 to 8.1 or 10 means we need to rewrite all code in the package.
+We have only limited resource. To make sure we could build the asset in a better quality for most of our users, we decided to focus back to iOS and Android only from next version.
+The current Windows Phone 8 support (UniWebViewWP.dll) will be kept in later versions of UniWebView for a while, but we are sorry that it doesn't seem to get updated anymore.
+
+------------------------
 2.4.0
 
 Add: Built-in show/hide transition. You could now show or hide the webview with a transition effect. Currently we support fade in/out and transition from/to one of screen edges. Please take a look at reference of Show() and Hide() for more.

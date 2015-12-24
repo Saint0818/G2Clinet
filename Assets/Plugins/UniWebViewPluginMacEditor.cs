@@ -75,11 +75,14 @@ public class UniWebViewPlugin {
 	private static extern void _UniWebViewSetAlpha(string name, float alpha);
 	[DllImport("UniWebView")]
 	private static extern IntPtr _UniWebViewGetRenderEventFunc();
+	[DllImport("UniWebView")]
+	private static extern int _UniWebViewScreenScale();
 
 	public static void Init(string name, int top, int left, int bottom, int right) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
 			if (!_connected) {
 				ConnectNativeBundle();
+				SetUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 9_0 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13A344 Safari/601.1");
 			}
 			_UniWebViewInit(name, top, left, bottom, right, Screen.width, Screen.height);
 		} else {
@@ -118,15 +121,23 @@ public class UniWebViewPlugin {
 		}
 	}
 
-	public static void Show(string name, bool animated, int direction, float duration) {
+	public static void Show(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
-			_UniWebViewShow(name, animated, direction, duration);
+			if (fade || direction != 0) {
+				Debug.Log("Transition with animation is not supported in Editor yet.");
+			}
+			
+			_UniWebViewShow(name, fade, direction, duration);
 		}
 	}
 
-	public static void Hide(string name, bool animated, int direction, float duration) {
+	public static void Hide(string name, bool fade, int direction, float duration) {
 		if (Application.platform == RuntimePlatform.OSXEditor) {
-			_UniWebViewHide(name, animated, direction, duration);
+			if (fade || direction != 0) {
+				Debug.Log("Transition with animation is not supported in Editor yet.");
+			}
+
+			_UniWebViewHide(name, fade, direction, duration);
 		}
 	}
 
@@ -286,6 +297,13 @@ public class UniWebViewPlugin {
 			return _UniWebViewGetRenderEventFunc();
 		}
 		return IntPtr.Zero;
+	}
+
+	public static int ScreenScale() {
+		if (Application.platform == RuntimePlatform.OSXEditor) {
+			return _UniWebViewScreenScale();
+		}
+		return 1;
 	}
 }
 #endif

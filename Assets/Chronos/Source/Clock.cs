@@ -47,6 +47,7 @@ namespace Chronos
 			if (parent != null)
 			{
 				parent.Register(this);
+				parent.ComputeTimeScale();
 			}
 
 			ComputeTimeScale();
