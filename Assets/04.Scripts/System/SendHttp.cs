@@ -31,9 +31,9 @@ public static class URLConst {
 	public const string SellSkillcard = "sellskillcard";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
-	public const string PVEStart = "pvestart";
-	public const string StageRewardStart = "stagerewardstart";
-	public const string StageRewardAgain = "stagerewardagain";
+	public const string MainStageStart = "mainstagestart";
+	public const string MainStageWin = "mainstagewin";
+	public const string MainStageRewardAgain = "mainstagerewardagain";
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
 	public const string BuyAvatarItem = "buyavataritem";

@@ -840,7 +840,7 @@ public class UISelectRole : UIBase {
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
-        SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
+        SendHttp.Get.Command(URLConst.MainStageStart, waitMainStageStart, form);
     }
 
     private void enterGame() {
@@ -856,7 +856,7 @@ public class UISelectRole : UIBase {
             SceneMgr.Get.ChangeLevel (courtNo);
     }
 
-    private void waitPVEStart(bool ok, WWW www)
+    private void waitMainStageStart(bool ok, WWW www)
     {
         if(ok)
         {

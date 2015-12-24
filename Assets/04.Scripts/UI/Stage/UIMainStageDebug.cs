@@ -16,7 +16,7 @@ public class UIMainStageDebug
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+        SendHttp.Get.Command(URLConst.MainStageWin, waitStageRewardStart, form);
     }
 
     private void waitStageRewardStart(bool ok, WWW www)
@@ -45,7 +45,7 @@ public class UIMainStageDebug
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain, form);
+        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitStageRewardAgain, form);
     }
 
     private void waitStageRewardAgain(bool ok, WWW www)
@@ -70,7 +70,7 @@ public class UIMainStageDebug
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain2, form);
+        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitStageRewardAgain2, form);
     }
 
     private void waitStageRewardAgain2(bool ok, WWW www)

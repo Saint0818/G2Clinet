@@ -536,14 +536,14 @@ public class UIGameResult : UIBase {
 			} else {
 				WWWForm form = new WWWForm();
 				form.AddField("StageID", stageID);
-				SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+				SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
 			}
 		}
 	}
 
-	private void waitStageRewardStart(bool ok, WWW www)
+	private void waitMainStageWin(bool ok, WWW www)
 	{
-		Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
+		Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
 		if(ok)
 		{
 			try {
@@ -570,6 +570,7 @@ public class UIGameResult : UIBase {
 					}
 				}
 
+				GameData.Team.Power = reward.Power;
 				GameData.Team.Money = reward.Money;
 				GameData.Team.Diamond = reward.Diamond;
 				GameData.Team.Player.Exp = reward.Player.Exp;
@@ -649,12 +650,12 @@ public class UIGameResult : UIBase {
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("StageID", stageID);
-		SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain, form);
+		SendHttp.Get.Command(URLConst.MainStageRewardAgain, WaitMainStageRewardAgain, form);
 	}
 	
-	private void waitStageRewardAgain(bool ok, WWW www)
+	private void WaitMainStageRewardAgain(bool ok, WWW www)
 	{
-		Debug.LogFormat("waitStageRewardAgain, ok:{0}", ok);
+		Debug.LogFormat("WaitMainStageRewardAgain, ok:{0}", ok);
 		
 		if (ok)
 		{

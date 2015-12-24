@@ -11,10 +11,15 @@ public class TStageRewardStart
     public int AddMoney;
 
     /// <summary>
+    /// 玩家帳號的體力.
+    /// </summary>
+    public int Power;
+
+    /// <summary>
     /// 玩家帳號的金錢.
     /// </summary>
     public int Money;
-
+    
     /// <summary>
     /// 獎勵給多少經驗值.
     /// </summary>
