@@ -234,6 +234,10 @@
         "en": "Send Again"
     },
     {
+        "id": 510,
+        "tw": "金幣不足"
+    },
+    {
         "id": 531,
         "explain": "數值裝備成功",
         "tw": "裝備變更完成"
@@ -867,6 +871,40 @@
         "tw": "變更頭像"
     },
     {
+        "id": 3701,
+        "explain": "成就與任務",
+        "tw": "成就與任務"
+    },
+    {
+        "id": 3702,
+        "explain": "Tab0",
+        "tw": "成 就"
+    },
+    {
+        "id": 3703,
+        "explain": "Tab1",
+        "tw": "任 務"
+    },
+    {
+        "id": 3704,
+        "tw": "獎 勵"
+    },
+    {
+        "id": 3705,
+        "explain": "GetBtn",
+        "tw": "前 往"
+    },
+    {
+        "id": 3706,
+        "explain": "GetBtn",
+        "tw": "領 取"
+    },
+    {
+        "id": 3707,
+        "tw": "完 成",
+        "en": "CLEAR"
+    },
+    {
         "id": 4001,
         "explain": "商店介面"
     },
@@ -1081,6 +1119,11 @@
         "tw": "出售中"
     },
     {
+        "id": 7115,
+        "explain": "UnavailableLabel",
+        "tw": "不可用"
+    },
+    {
         "id": 7201,
         "explain": "技能卡牌詳細介面"
     },
@@ -1121,8 +1164,8 @@
     {
         "id": 7207,
         "explain": "LabelKind4",
-        "tw": "所需怒氣",
-        "en": "Required Rage"
+        "tw": "士氣需求",
+        "en": "Required Energy"
     },
     {
         "id": 7208,
@@ -1180,6 +1223,11 @@
         "explain": "LabelMaxAnger",
         "tw": "士氣值",
         "en": "Energy Level"
+    },
+    {
+        "id": 7401,
+        "explain": "技能晶片強化合成",
+        "tw": "強化合成"
     },
     {
         "id": 8001,
@@ -1345,7 +1393,7 @@
     {
         "id": 9306,
         "explain": "Completed/FinLabel",
-        "tw": "COMPLETED",
+        "tw": "關卡完成",
         "cn": "COMPLETED",
         "en": "COMPLETED",
         "jp": "COMPLETED"
@@ -1365,31 +1413,33 @@
     {
         "id": 9309,
         "explain": "StageHint/TargetLabel",
-        "tw": "關卡目標"
+        "tw": "關卡目標",
+        "en": "Mission"
     },
     {
         "id": 9310,
         "explain": "AwardLabel1",
-        "tw": "首次獲得"
+        "tw": " [FFDD33]必定獲得[-]"
     },
     {
         "id": 9311,
         "explain": "StartButton/StartLabel",
-        "tw": "重 置",
+        "tw": "重置次數",
         "en": "RESET"
     },
     {
         "id": 9312,
         "explain": "StartButton/TimesLabel",
-        "tw": "({0})",
+        "tw": "挑戰次數：[33FFDD]{0}[-]",
         "cn": "({0})",
-        "en": "({0})",
+        "en": "Challenge：[33FFDD]{0}[-]",
         "jp": "({0})"
     },
     {
         "id": 9313,
         "explain": "AwardLabel2",
-        "tw": "必獲得"
+        "tw": "過關獎勵",
+        "en": "Award"
     },
     {
         "id": 9391,
@@ -1489,6 +1539,11 @@
         "id": 9513,
         "tw": "隊友B",
         "en": "Friend B"
+    },
+    {
+        "id": 9514,
+        "tw": "開始比賽失敗。",
+        "en": "Game Started fail."
     },
     {
         "id": 9601,
