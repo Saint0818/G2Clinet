@@ -50,14 +50,6 @@ public class UIInGameMission : UIBase {
 		SetBtnFun(UIName + "/TopLeft/ButtomMission", ShowView);
 	}
 
-	protected override void InitData() {
-
-	}
-
-	protected override void OnShow(bool isShow) {
-
-	}
-
 	private void initPosition () {
 		for (int i=0; i<missionViews.Length; i++) {
 			missionViews[i].gameObject.transform.localPosition = new Vector3(18, i * (-30), 0);

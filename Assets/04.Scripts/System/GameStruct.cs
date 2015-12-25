@@ -18,6 +18,19 @@ namespace GameStruct
 		public DateTime FreeLuckBox;
 	    public int PlayerNum; // 玩家擁有幾位角色.
 		public int StageTutorial;
+        public int AvatarPotential;
+
+
+        public int[] TutorialFlags;
+        public int[] Achievements;
+        public TTeamRecord LifetimeRecord;
+        public TPlayer Player;
+        public TItem[] Items;
+        public Dictionary<int, int> GotItem;
+        public TSkill[] SkillCards;
+        public TPlayerBank[] PlayerBank;
+        public TMail[] Mails;
+        public TFriend[] Friends;
 
         /// <summary>
         /// 玩家選擇的戰術.
@@ -80,17 +93,6 @@ namespace GameStruct
             }
         }
 	    private int mDiamond;
-
-        public int AvatarPotential;
-
-		public int[] TutorialFlags;
-		public int[] Achievements;
-		public TPlayer Player;
-		public TItem[] Items;
-		public TSkill[] SkillCards;
-		public TPlayerBank[] PlayerBank;
-		public TMail[] Mails;
-		public TFriend[] Friends;
 
 		public void Init() {
 			if (Identifier == null)
@@ -240,6 +242,31 @@ namespace GameStruct
 
 	        return maxTotalPoint;
 	    }
+    }
+
+    public struct TTeamRecord
+    {
+        public int TotalAddDiamond;
+        public int TotalDelDiamond;
+        public int BuyDiamond;
+        public int TotalAddMoney;
+        public int TotalDelMoney;
+        public int BuyMoney;
+        public int TotalAddPower;
+        public int TotalDelPower;
+        public int BuyPower;
+        public int GameTime;
+        public int AvatarCount;
+        public int SkillCount;
+        public int PVECount;
+        public int PVEWin;
+        public int PVEKeepWin;
+        public int PVPCount;
+        public int PVPWin;
+        public int PVPKeepWin;
+        public int SubTextCount;
+        public int SubTextWin;
+        public int SubTextKeepWin;
     }
 
     public struct TLookUpData
@@ -537,9 +564,7 @@ namespace GameStruct
 		public int Score1;
 		public int Score2;
 		public int DoubleClickLaunch;
-		public int DoubleClickLv1;
-		public int DoubleClickLv2;
-		public int DoubleClickLv3;
+        public int DoubleClickPerfact;
 		public string[] ButtonTrace;
 		public TGamePlayerRecord[] PlayerRecords;
 
@@ -554,9 +579,7 @@ namespace GameStruct
 			Score1 = 0;
 			Score2 = 0;
 			DoubleClickLaunch = 0;
-			DoubleClickLv1 = 0;
-			DoubleClickLv2 = 0;
-			DoubleClickLv3 = 0;
+            DoubleClickPerfact = 0;
 			ButtonTrace = new string[0];
 			PlayerRecords = new TGamePlayerRecord[playerNumber];
 			for (int i = 0; i < playerNumber; i ++)
@@ -604,6 +627,7 @@ namespace GameStruct
 		public int AngerAdd;
 		public int PassiveSkill;
 		public int Skill;
+
 		public TMoveRecord[] MoveRecords;
 		public TShotRecord[] ShotRecords;
 
@@ -1033,4 +1057,55 @@ namespace GameStruct
 			}
 		}
 	}
+
+    public struct TMission {
+        public int ID;
+        public int Kind;
+        public int Color;
+        public int Score;
+        public int TimeKind;
+        public int TimeValue;
+        public int[] Value;
+        public int[] Money;
+        public int[] Exp;
+        public int[] Diamond;
+        public int[] AwardID;
+        public int[] AwardNum;
+        private string nameTW;
+        private string nameCN;
+        private string nameEN;
+        private string nameJP;
+        private string explainTW;
+        private string explainCN;
+        private string explainEN;
+        private string explainJP;
+
+        public string Name
+        {
+            get
+            {
+                switch(GameData.Setting.Language)
+                {
+                    case ELanguage.TW: return nameTW;
+                    case ELanguage.CN: return nameCN;
+                    case ELanguage.JP: return nameJP;
+                    default : return nameEN;
+                }
+            }
+        }
+
+        public string Explain
+        {
+            get
+            {
+                switch(GameData.Setting.Language)
+                {
+                    case ELanguage.TW: return explainTW;
+                    case ELanguage.CN: return explainCN;
+                    case ELanguage.JP: return explainJP;
+                    default : return explainEN;
+                }
+            }
+        }
+    }
 }

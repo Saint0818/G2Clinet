@@ -32,7 +32,7 @@ public class UISimple : UIBase {
 		}
 	}
 
-	protected override void InitCom() {
+    protected override void InitCom() {
 
 	}
 
@@ -41,6 +41,17 @@ public class UISimple : UIBase {
 	}
 
 	protected override void OnShow(bool isShow) {
-		
-	}
+        base.OnShow(isShow);
+    }
+
+    public static void UIShow(bool isShow){
+        if(instance) {
+            if (!isShow) 
+                Get.Show(isShow);
+            else
+                instance.Show(isShow);
+        } else
+        if(isShow)
+            Get.Show(isShow);
+    }
 }

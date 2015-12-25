@@ -84,14 +84,6 @@ public class UIGameMode: UIBase {
 		scoreScrollBar.value = 13f / maxScore;
 	}
 
-	protected override void InitData() {
-		
-	}
-
-	protected override void OnShow(bool isShow) {
-		
-	}
-
 	public void OnCourtMode() {
 		if (UIButton.current.name == "FullCourtBt")
 			GameStart.Get.CourtMode = ECourtMode.Full;

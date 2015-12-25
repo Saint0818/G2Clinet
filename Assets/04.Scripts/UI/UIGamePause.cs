@@ -89,14 +89,6 @@ public class UIGamePause : UIBase {
 
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
 	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
 
 	private void initHomeAway (){
 		int basemin = 0;

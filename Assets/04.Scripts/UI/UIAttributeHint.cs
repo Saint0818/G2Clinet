@@ -44,14 +44,6 @@ public class UIAttributeHint  : UIBase {
 		spriteAttr = GameObject.Find(UIName + "/Window/AttributeView/AttrKind/AttrKind").GetComponent<UISprite>();
 	}
 
-	protected override void InitData() {
-
-	}
-
-	protected override void OnShow(bool isShow) {
-
-	}
-
 	public void UpdateView (int kind) {
 		UIShow (true);
 		labelKind.text = TextConst.S(3300 + (kind - 1));

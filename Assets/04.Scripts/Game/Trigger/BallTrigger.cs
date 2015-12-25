@@ -118,6 +118,7 @@ public class BallTrigger : MonoBehaviour
         {
 			IsAutoRotate = true;
 			GameController.Get.Passer = GameController.Get.BallOwner;
+            GameController.Get.Assistant = GameController.Get.BallOwner;
 			GameController.Get.SetBallOwnerNull();
 
 			Passing = true;

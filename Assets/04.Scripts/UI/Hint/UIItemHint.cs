@@ -52,14 +52,6 @@ public class UIItemHint : UIBase {
 		SetBtnFun (UIName + "/Window/Center/CoverBackground", OnClose);
 		SetBtnFun (UIName + "/Window/Center/HintView/NoBtn", OnClose);
 	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-
-	}
 
 	private void hideAll () {
 		hintAvatarView.Hide ();

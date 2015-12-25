@@ -59,6 +59,7 @@ public class UILevelUp : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
 		labelGetPotential.text = string.Format(labelGetPotential.text, GameConst.PreLvPotential);
 	}
 

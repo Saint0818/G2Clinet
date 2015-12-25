@@ -179,6 +179,7 @@ public class UILoading : UIBase
 
     protected override void OnShow(bool isShow)
     {
+        base.OnShow(isShow);
         if (isShow)
             StartCoroutine(doLoading(loadingKind));
         else

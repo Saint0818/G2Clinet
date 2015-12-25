@@ -3,7 +3,7 @@ using UnityEngine;
 public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 {
 	private static bool IsQuit = false;
-	private static T mInst = null;
+    private static T mInst = null;
 	
 	protected virtual void Init()
 	{
@@ -39,8 +39,8 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 			//if can't found, create GameObject
 			GameObject obj = new GameObject("TempName");
 			mInst = obj.AddComponent<T>();
-//			obj.name = mInst.ResName;
 			obj.name = typeof(T).ToString();
+            //Debug.Log("Singletion " + obj.name);
 			mInst.Init();
 			return mInst;
 		}
@@ -73,12 +73,12 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 
 	    mInst = null;
 	}
-	
+	/*
 	void OnApplicationQuit()
 	{
 		IsQuit = true;
 		
 		if(this.gameObject)
 			Destroy(this.gameObject);
-	}
+	}*/
 }

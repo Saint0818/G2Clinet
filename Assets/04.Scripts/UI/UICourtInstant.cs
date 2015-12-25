@@ -40,13 +40,4 @@ public class UICourtInstant : UIBase {
 	protected override void InitCom() {
 		labelInstant = GameObject.Find (UIName + "/Top/InstantLabel").GetComponent<UILabel>();
 	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
-
 }

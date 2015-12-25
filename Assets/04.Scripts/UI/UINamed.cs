@@ -118,6 +118,7 @@ public class UINamed : UIBase {
 	}
 
 	protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
 		if(isShow){
 			nameView.UpdateView ();
 		}

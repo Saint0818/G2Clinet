@@ -26,6 +26,8 @@ public static class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
     public static TSkillRecommend[] SkillRecommends;
+    public static TMission[] MissionData;
+
     /// <summary>
     /// Key: ID.
     /// </summary>

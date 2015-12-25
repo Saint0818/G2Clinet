@@ -62,14 +62,6 @@ public class UIGameLoseResult : UIBase {
 
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/StatsNextLabel")).onClick = OnReturn;
 	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-
-	}
 
 	public void Init () {
 		hintCount = UIStageHintManager.UpdateHintLose(GameData.StageID, ref mTargets);

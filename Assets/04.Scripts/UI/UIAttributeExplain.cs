@@ -37,14 +37,6 @@ public class UIAttributeExplain  : UIBase {
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/View/CoverCollider")).onClick = OnClose;
 	}
 
-	protected override void InitData() {
-
-	}
-
-	protected override void OnShow(bool isShow) {
-
-	}
-
 	public void OnClose (GameObject go) {
 		UIShow(false);
 	}

@@ -375,11 +375,9 @@ public class UIPlayerPotential : UIBase {
 		upgradeView.OnCancel ();
 		UpdateView ();
 	}
-
-	protected override void InitData() {
-	}
 	
 	protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
 		if (isShow) {
 			UpdateView ();
 			upgradeView.EnableHexagon(true);

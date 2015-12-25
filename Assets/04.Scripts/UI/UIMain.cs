@@ -70,31 +70,6 @@ public class UIMain : UIBase {
 		UIRoomInfo.SetActive(false);
 	}
 
-//	public void DoEffectSwitch(GameObject obj)
-//	{
-//		GameData.Setting.Effect = !GameData.Setting.Effect;
-//		EffectSwitch [0].SetActive (GameData.Setting.Effect);
-//		EffectSwitch [1].SetActive (!GameData.Setting.Effect);
-//
-//		int index = 0;
-//
-//		if (GameData.Setting.Effect)
-//			index = 1;
-//
-//		CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
-//
-//		PlayerPrefs.SetInt (SettingText.Effect, index);
-//		PlayerPrefs.Save ();
-//	}
-	
-	protected override void InitData() {
-		
-	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
-
 	public void OnCourt() {
 		SceneMgr.Get.ChangeLevel(0);
 	}

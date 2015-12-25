@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend"
+        "skillrecommend", "mission"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -198,6 +198,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[14] = parseTeamname;
 		downloadCallBack[15] = ParseTextConst;
         downloadCallBack[16] = ParseSkillRecommend;
+        downloadCallBack[17] = ParseMission;
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
@@ -703,6 +704,19 @@ public class FileManager : KnightSingleton<FileManager> {
             Debug.Log ("[SkillRecommend parsed finished.]");
         } catch (System.Exception ex) {
             Debug.LogError ("SkillRecommend parsed error : " + ex.Message);
+        }
+    }
+
+    public void ParseMission(string version, string text, bool isSaveVersion) {
+        try {
+            GameData.MissionData = JsonConvertWrapper.DeserializeObject<TMission[]>(text);
+
+            if (isSaveVersion)
+                SaveDataVersionAndJson(text, "textconst", version);
+
+            Debug.Log ("[Achievement parsed finished.]");
+        } catch (System.Exception ex) {
+            Debug.LogError ("Achievement parsed error : " + ex.Message);
         }
     }
 }

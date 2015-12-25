@@ -43,11 +43,6 @@ public class UISkip : UIBase {
 //		}
 	}
 
-	protected override void OnShow (bool isShow)
-	{
-
-	}
-
 	protected override void InitCom() {
 		cover = GameObject.Find (UIName + "/Window/Cover");
 

@@ -283,6 +283,7 @@ public class UISort : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
 		if (isShow) {
 			UpdateGroup(sortKind);	
 		}

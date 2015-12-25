@@ -564,6 +564,7 @@ public class UIPlayerInfo : UIBase {
 	}
 
 	protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
 		if(isShow)
 			UpdateHexagon (true);
 	}

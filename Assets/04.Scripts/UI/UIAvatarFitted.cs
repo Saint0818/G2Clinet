@@ -1149,11 +1149,4 @@ public class UIAvatarFitted : UIBase {
 			changeLayersRecursively(child, name);
 		}
 	}
-
-	protected override void OnShow(bool isShow) {
-		if(isShow)
-		{
-
-		}
-	}
 }

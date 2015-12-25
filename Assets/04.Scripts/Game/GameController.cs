@@ -101,6 +101,8 @@ public class GameController : KnightSingleton<GameController>
     /// 傳球的人.
     /// </summary>
 	public PlayerBehaviour Passer;
+    //助攻者
+    public PlayerBehaviour Assistant;
 
     /// <summary>
     /// 撿球的人.
@@ -1939,22 +1941,6 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoShoot(bool isshoot)
     {
 		if (IsStart && CandoBtn) {
-			int index = GetShootPlayerIndex();
-			if(index >= 0 && UIDoubleClick.Get.DoubleClicks[index].Enable){
-
-				UIDoubleClick.Get.ClickStop (index);
-				switch (UIDoubleClick.Get.Lv) {
-				case 0:
-					GameRecord.DoubleClickLv1++;
-					break;
-				case 1:
-					GameRecord.DoubleClickLv2++;
-					break;
-				case 2:
-					GameRecord.DoubleClickLv3++;
-					break;
-                }
-			} else
             if (Joysticker == BallOwner) {
 				if (isshoot)
 					return DoShoot ();
@@ -3061,7 +3047,6 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		if(newBallOwner != null && Situation != EGameSituation.End)
         {
-//			p.IsChangeColor = true;
 			IsReboundTime = false;
 			if (!newBallOwner.IsAlleyoopState) 
 			{
@@ -4051,9 +4036,8 @@ public class GameController : KnightSingleton<GameController>
 				if (IsShooting)
 					Shooter.GameRecord.ShotError--;
 
-				if (Passer && Passer.DribbleTime <= 2)
-					Passer.GameRecord.Assist++;
-
+                if (Assistant && Assistant.Team == Shooter.Team && Shooter.DribbleTime <= 2)
+                    Assistant.GameRecord.Assist++;
 			}
             
 			AudioMgr.Get.PlaySound(SoundType.SD_Net);
@@ -4562,14 +4546,18 @@ public class GameController : KnightSingleton<GameController>
 
 	public EDoubleType DoubleClickType {
 		get {return doubleType;}
-		set {doubleType = value;}
+		set {
+            doubleType = value;
+            if (doubleType == EDoubleType.Good || doubleType == EDoubleType.Perfect)
+                GameRecord.DoubleClickPerfact++;
+        }
 	}
 
 	public int GetBallOwner {
 		get {
 			for (int i = 0; i < PlayerList.Count; i++)            
 				if (PlayerList [i].IsBallOwner)
-					return i;            
+					return i;
 			
 			return 99;
 		}
@@ -4579,17 +4567,17 @@ public class GameController : KnightSingleton<GameController>
     {
         get
         {
-            for(int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList[i].CheckAnimatorSate(EPlayerState.Shoot0) || 
-				    PlayerList[i].CheckAnimatorSate(EPlayerState.Shoot1) || 
-				    PlayerList[i].CheckAnimatorSate(EPlayerState.Shoot2) || 
-				    PlayerList[i].CheckAnimatorSate(EPlayerState.Shoot3) ||
-				    PlayerList[i].CheckAnimatorSate(EPlayerState.Shoot6) ||
-				    PlayerList[i].CheckAnimatorSate(EPlayerState.TipIn) ||
-				    PlayerList[i].IsLayup)
-                    return true;
-
-            return false;
+            if (Shooter && (
+                Shooter.CheckAnimatorSate(EPlayerState.Shoot0) || 
+                Shooter.CheckAnimatorSate(EPlayerState.Shoot1) || 
+                Shooter.CheckAnimatorSate(EPlayerState.Shoot2) || 
+                Shooter.CheckAnimatorSate(EPlayerState.Shoot3) ||
+                Shooter.CheckAnimatorSate(EPlayerState.Shoot6) ||
+                Shooter.CheckAnimatorSate(EPlayerState.TipIn) ||
+                Shooter.IsLayup))
+                return true;
+            else
+                return false;
         }
     }
 

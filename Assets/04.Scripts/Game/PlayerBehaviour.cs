@@ -828,10 +828,10 @@ public class PlayerBehaviour : MonoBehaviour
                 AutoFollow = true;
                 CloseDef = 0;
             }
-
-            if (IsDribble)
-                DribbleTime += Time.deltaTime;
         }
+
+        if (isMoving)
+            DribbleTime += Time.deltaTime;
     }
 
 //    public void SetSelectTexture(string name)
@@ -2635,7 +2635,6 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody.mass = 0.1f;
         PlayerRigidbody.useGravity = true;
         IsKinematic = false;
-        DribbleTime = 0;
         isUseActiveSkill = false;
         if (!isUsePass)
             isCanCatchBall = true;
@@ -3440,6 +3439,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ResetMove()
     {
+        DribbleTime = 0;
 		if (AI.enabled) {
 	        moveQueue.Clear();
 	        CantMoveTimer.Clear();

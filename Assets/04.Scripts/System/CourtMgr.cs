@@ -643,7 +643,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(Vector3.right * 50, ForceMode.Impulse);
-				GameController.Get.Passer = null;
+                GameController.Get.IsPassing = false;
 				GameController.Get.BallState = EBallState.None;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
@@ -658,7 +658,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* (70 + GameController.Get.ShootDistance * 2),ForceMode.Impulse);
-				GameController.Get.Passer = null;
+                GameController.Get.IsPassing = false;
 				GameController.Get.BallState = EBallState.CanRebound;
 				break;
 			}
@@ -734,7 +734,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Steal0:
 			case EPlayerState.Steal1:
 			case EPlayerState.Steal2:
-				GameController.Get.Passer = null;
+                GameController.Get.IsPassing = false;
 				
 //				Vector3 v = RealBall.transform.forward * -1;
 //				if(player != null)					
@@ -752,7 +752,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				if(!GameController.Get.IsJumpBall)
 				{
 					GameController.Get.IsJumpBall = true;
-					GameController.Get.Passer = null;
+                    GameController.Get.IsPassing = false;
 
 				    Vector3 v1;
 				    if(player != null)
@@ -773,7 +773,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.KnockDown0: 
 			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;
-				GameController.Get.Passer = null;
+                GameController.Get.IsPassing = false;
 				
 				Vector3 v = RealBall.transform.forward * -1;
 				if(player != null)					

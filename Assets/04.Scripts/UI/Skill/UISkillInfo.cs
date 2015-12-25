@@ -115,13 +115,6 @@ public class UISkillInfo : UIBase {
 		SetBtnFun(UIName + "/Center/Left/BtnMediumCard/ItemSkillCard", OpenCard);
 	}
 	
-	protected override void InitData() {
-	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
-
 	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
 		UIShow (true);
 		mUICard = uicard;
