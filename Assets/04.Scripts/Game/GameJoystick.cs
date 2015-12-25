@@ -20,7 +20,25 @@ public class GameJoystick : ETCJoystick {
         onMoveStart.AddListener(player.OnJoystickStart);
         onMove.AddListener(player.OnJoystickMove);
         onMoveEnd.AddListener(player.OnJoystickMoveEnd);
+		onTouchUp.AddListener(ShowJoystick);
     }
+
+	public void SetJoystickType (JoystickType type) {
+		joystickType = type;
+	}
+
+	public void ShowJoystick () {
+		visible = true;
+		cachedRectTransform.anchoredPosition = new Vector3(-245, -102.8f, 0);
+	}
+
+	public Canvas GetCanvas {
+		get {return cachedRootCanvas;}
+	}
+
+	public RectTransform GetTranform {
+		get {return cachedRectTransform;}
+	}
 
     public float Speed {
         get {

@@ -136,6 +136,10 @@ public class UIGame : UIBase {
 	float playerX;
 	float playerY;
 	Vector2 playerScreenPos;
+
+	//JoySticker
+	private Vector2 mPosition = Vector2.zero;
+	private Vector2 screenPosition = Vector2.zero;
 	
 	private ItemSkillHint skillHint;
 	private float skillHintTime;
@@ -168,6 +172,14 @@ public class UIGame : UIBase {
 		else
 		if(isShow)
 			Get.Show(isShow);
+	}
+
+	void Update () {
+		if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < (Screen.width * 0.5f) && Input.mousePosition.y < (Screen.height * 0.55f)){
+			screenPosition = Input.mousePosition;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle( gameJoystick.GetCanvas.rectTransform(), screenPosition, gameJoystick.GetCanvas.worldCamera, out mPosition);
+			gameJoystick.GetTranform.anchoredPosition = mPosition;
+		}
 	}
 
 	void FixedUpdate()
@@ -239,7 +251,13 @@ public class UIGame : UIBase {
             gameJoystick = obj2.GetComponentInChildren<GameJoystick>();
             if (gameJoystick)
                 gameJoystick.visible = false;
-        }
+		}
+
+		gameJoystick.SetJoystickType(ETCJoystick.JoystickType.Dynamic);
+
+		gameJoystick.GetTranform.anchorMin = new Vector2(0.5f,0.5f);
+		gameJoystick.GetTranform.anchorMax = new Vector2(0.5f,0.5f);
+		gameJoystick.GetTranform.SetAsLastSibling();
 
 		//Center
 		viewStart = GameObject.Find (UIName + "/Center/ViewStart");
