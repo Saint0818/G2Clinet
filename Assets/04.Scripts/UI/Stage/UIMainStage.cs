@@ -264,7 +264,10 @@ public class UIMainStage : UIBase
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
-        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data);
+        if(stageData.Kind != 9)
+            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data);
+        else
+            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, data);
     }
 
     /// <summary>
@@ -284,7 +287,11 @@ public class UIMainStage : UIBase
             return;
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-        mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
+
+        if(stageData.Kind != 9)
+            mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
+        else
+            mMain.AddLockBossStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
     }
 
     private static bool verify(TStageData stageData)

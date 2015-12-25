@@ -12,10 +12,10 @@ public class UIStageElement : MonoBehaviour
 
     public UISprite KindSprite;
 
-    /// <summary>
-    /// 背景圖片.
-    /// </summary>
-    private const string OpenSpriteName = "StageButton01";
+//    /// <summary>
+//    /// 背景圖片.
+//    /// </summary>
+//    private const string OpenSpriteName = "StageButton01";
 
     /// <summary>
     /// 撥 Animation 時, 關卡經過幾秒後, 會變成可點選的狀態.
@@ -70,10 +70,10 @@ public class UIStageElement : MonoBehaviour
 
     private void changeEnable()
     {
-        GetComponent<UISprite>().spriteName = OpenSpriteName;
-        // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
-        // 目前的解決辦法是以下程式碼.
-        mButton.normalSprite = OpenSpriteName;
+//        GetComponent<UISprite>().spriteName = OpenSpriteName;
+//        // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
+//        // 目前的解決辦法是以下程式碼.
+//        mButton.normalSprite = OpenSpriteName;
 
         mButton.isEnabled = true;
     }
@@ -81,12 +81,6 @@ public class UIStageElement : MonoBehaviour
     public void ShowLock(string kindSpriteName)
     {
         KindSprite.spriteName = kindSpriteName;
-
-        // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
-        // 目前的解決辦法是以下程式碼.
-//        mButton.normalSprite = LockSpriteName;
-
-//        GetComponent<BoxCollider>().enabled = false;
 
         mButton.isEnabled = false;
     }

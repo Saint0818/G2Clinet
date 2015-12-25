@@ -45,7 +45,9 @@ public class UIStageChapter : MonoBehaviour
     public GameObject Lock;
     public GameObject Open;
 
-    private readonly string StagePath = "Prefab/UI/UIStageElement";
+    private readonly string PathStage = "Prefab/UI/UIStageElement";
+    // Kind = 9 的特殊關卡.
+    private readonly string PathBossStage = "Prefab/UI/UIStageElement9";
     private readonly string TexturePath = "Textures/Chapter/Chapter_{0}";
 
     /// <summary>
@@ -77,7 +79,6 @@ public class UIStageChapter : MonoBehaviour
     }
 
     /// <summary>
-    /// 顯示某個小關卡.
     /// </summary>
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
@@ -85,12 +86,23 @@ public class UIStageChapter : MonoBehaviour
     public void AddStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
     {
         if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(stageID, localPos));
+            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
         mStages[stageID].Show(data);
     }
 
     /// <summary>
-    /// 某個小關卡鎖定.
+    /// </summary>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="data"></param>
+    public void AddBossStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
+    {
+        if(!mStages.ContainsKey(stageID))
+            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
+        mStages[stageID].Show(data);
+    }
+
+    /// <summary>
     /// </summary>
     /// <param name="stageID"></param>
     /// <param name="localPos"></param>
@@ -98,7 +110,19 @@ public class UIStageChapter : MonoBehaviour
     public void AddLockStage(int stageID, Vector3 localPos, string kindSpriteName)
     {
         if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(stageID, localPos));
+            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
+        mStages[stageID].ShowLock(kindSpriteName);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="kindSpriteName"></param>
+    public void AddLockBossStage(int stageID, Vector3 localPos, string kindSpriteName)
+    {
+        if(!mStages.ContainsKey(stageID))
+            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
         mStages[stageID].ShowLock(kindSpriteName);
     }
 
@@ -139,9 +163,9 @@ public class UIStageChapter : MonoBehaviour
         Show();
     }
 
-    private UIStageElement createStage(int stageID, Vector3 localPos)
+    private UIStageElement createStage(string path, int stageID, Vector3 localPos)
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>(StagePath));
+        GameObject obj = Instantiate(Resources.Load<GameObject>(path));
         obj.transform.parent = Open.transform;
         obj.transform.localPosition = localPos;
         obj.transform.localRotation = Quaternion.identity;

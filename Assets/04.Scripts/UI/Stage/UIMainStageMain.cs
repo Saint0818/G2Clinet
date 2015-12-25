@@ -190,7 +190,6 @@ public class UIMainStageMain : MonoBehaviour
     }
 
     /// <summary>
-    /// 顯示某個小關卡.
     /// </summary>
     /// <param name="chapter"></param>
     /// <param name="stageID"></param>
@@ -205,7 +204,20 @@ public class UIMainStageMain : MonoBehaviour
     }
 
     /// <summary>
-    /// 某個小關卡鎖定.
+    /// </summary>
+    /// <param name="chapter"></param>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="data"></param>
+    public void AddBossStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data)
+    {
+        if(mChapters.ContainsKey(chapter))
+            mChapters[chapter].AddBossStage(stageID, localPos, data);
+        else
+            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
+    }
+
+    /// <summary>
     /// </summary>
     /// <param name="chapter"></param>
     /// <param name="stageID"></param>
@@ -215,6 +227,20 @@ public class UIMainStageMain : MonoBehaviour
     {
         if(mChapters.ContainsKey(chapter))
             mChapters[chapter].AddLockStage(stageID, localPos, kindSpriteName);
+        else
+            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="chapter"></param>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="kindSpriteName"></param>
+    public void AddLockBossStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
+    {
+        if (mChapters.ContainsKey(chapter))
+            mChapters[chapter].AddLockBossStage(stageID, localPos, kindSpriteName);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
