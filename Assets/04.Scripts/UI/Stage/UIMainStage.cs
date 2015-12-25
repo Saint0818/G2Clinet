@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -151,7 +150,7 @@ public class UIMainStage : UIBase
 
     private static bool verifyPlayerDailyCount(TStageData stageData)
     {
-        return findPlayerDailyCount(stageData) > 0;
+        return UIMainStageTools.FindPlayerRemainDailyCount(stageData) > 0;
     }
 
     private static bool verifyPlayerLv(TStageData stageData)
@@ -254,16 +253,12 @@ public class UIMainStage : UIBase
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
-            DailyCount = string.Format(TextConst.S(9312), findPlayerDailyCount(stageData)),
+            DailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData)),
             StartEnable = verifyPlayer(stageData)
         };
 
-        // 和企劃約定好, 僅顯示前 3 個.
-        for(int i = 0; i < 3; i++)
-        {
-			if(stageData.Rewards != null && stageData.Rewards.Length > i && GameData.DItemData.ContainsKey(stageData.Rewards[i]))
-                data.RewardItems.Add(GameData.DItemData[stageData.Rewards[i]]);
-        }
+        data.RewardTitle = UIMainStageTools.FindRewardTitle(stageData);
+        data.RewardItems.AddRange(UIMainStageTools.FindRewardItems(stageData));
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
@@ -271,17 +266,6 @@ public class UIMainStage : UIBase
             mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data);
         else
             mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, data);
-    }
-
-    /// <summary>
-    /// 找出玩家該關卡還可以打幾次.
-    /// </summary>
-    /// <param name="stageData"></param>
-    /// <returns></returns>
-    private static int findPlayerDailyCount(TStageData stageData)
-    {
-        int remainDailyCount = stageData.ChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
-        return Mathf.Max(0, remainDailyCount); // 強迫數值大於等於 0.
     }
 
     private void addLockStage(TStageData stageData)

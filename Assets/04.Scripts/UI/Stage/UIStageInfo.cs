@@ -22,8 +22,9 @@ public class UIStageInfo : MonoBehaviour
         public string KindSpriteName { set; get; }
         public string KindName { set; get; }
 
+        public string RewardTitle { set; get; }
         /// <summary>
-        /// <para> 顯示在右下角的獎勵. </para>
+        /// <para> 顯示該關卡會得到的獎勵. </para>
         /// todo 這邊暫時和遊戲資料耦合, 以後再改.
         /// </summary>
         public readonly List<TItemData> RewardItems = new List<TItemData>();
@@ -67,6 +68,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel RewardMoney;
     public GameObject ExpObj; // 控制經驗值要不要顯示.
     public UILabel RewardExp;
+    public UILabel RewardTitle;
     public UILabel DailyCount; // 每日限制的數值.
 
     // 按鈕旁邊圖示和數值.
@@ -111,6 +113,7 @@ public class UIStageInfo : MonoBehaviour
         KindSprite.spriteName = data.KindSpriteName;
         KindLabel.text = data.KindName;
 
+        RewardTitle.text = data.RewardTitle;
         for(int i = 0; i < mRewardIcons.Count; i++)
         {
             if(data.RewardItems.Count > i)

@@ -76,14 +76,57 @@ public class TStageData
     public int Exp { get; private set; }
     public int Money { get; private set; }
 
+    public bool HasSurelyRewards(EPlayerPostion pos)
+    {
+        switch(pos)
+        {
+            case EPlayerPostion.C:
+                return SurelyRewardsC != null && SurelyRewardsC.Length > 0;
+            case EPlayerPostion.F:
+                return SurelyRewardsF != null && SurelyRewardsF.Length > 0;
+            case EPlayerPostion.G:
+                return SurelyRewardsG != null && SurelyRewardsG.Length > 0;
+        }
+
+        throw new NotImplementedException(string.Format("Position:{0}", pos));
+    }
+
+    public int[] GetSurelyRewards(EPlayerPostion pos)
+    {
+        switch (pos)
+        {
+            case EPlayerPostion.C:
+                return SurelyRewardsC;
+            case EPlayerPostion.F:
+                return SurelyRewardsF;
+            case EPlayerPostion.G:
+                return SurelyRewardsG;
+        }
+
+        throw new NotImplementedException(string.Format("Position:{0}", pos));
+    }
+
+    /// <summary>
+    /// 必給獎勵.
+    /// </summary>
+    [UsedImplicitly, CanBeNull]
+    public int[] SurelyRewardsC { get; private set; } // 獎勵 ItemID.
+
+    [UsedImplicitly, CanBeNull]
+    public int[] SurelyRewardsF { get; private set; } // 獎勵 ItemID.
+
+    [UsedImplicitly, CanBeNull]
+    public int[] SurelyRewardsG { get; private set; } // 獎勵 ItemID.
+
     /// <summary>
     /// 亂數獎勵.
     /// </summary>
-    [UsedImplicitly]
-    [CanBeNull] public int[] Rewards { get; private set; } // 獎勵 ItemID.
+    [UsedImplicitly, CanBeNull]
+    public int[] Rewards { get; private set; } // 獎勵 ItemID.
 
-    [UsedImplicitly]
-    [CanBeNull] public int[] RewardRates { get; private set; } // 獎勵機率.
+    [UsedImplicitly, CanBeNull]
+    public int[] RewardRates { get; private set; } // 獎勵機率.
+
     public int[] Tips;
     public int WinValue;
     public int FriendNumber { get; private set; }
@@ -248,4 +291,6 @@ public class TStageData
         {4, 2000004},
         {9, 2000009}
     };
+
+    
 }
