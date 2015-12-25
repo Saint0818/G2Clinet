@@ -79,6 +79,7 @@ public struct TUICard{
 	public int CardLV;
 	public int Cost;
 	public int CardSN;
+	public int CardExp;
 
 	public void SetCoin (int money) {
 		skillCard.SetCoin(money);
@@ -90,6 +91,7 @@ public struct TUICard{
 		CardID = skill.ID;
 		CardLV = skill.Lv;
 		CardSN = skill.SN;
+		CardExp = skill.Exp;
 		if(GameData.DSkillData.ContainsKey(skill.ID))
 			Cost = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1);
 

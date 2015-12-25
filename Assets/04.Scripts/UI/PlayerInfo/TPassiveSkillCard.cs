@@ -9,6 +9,7 @@ public class TPassiveSkillCard
 	private UILabel SkillName;
 	private UISprite SkillCard;
 	private UITexture SkillTexture;
+	private UILabel SkillCost;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
 	private GameObject ForReinforce;
@@ -28,6 +29,7 @@ public class TPassiveSkillCard
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
@@ -39,6 +41,7 @@ public class TPassiveSkillCard
 			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			btn = item.GetComponent<UIButton>();
 			BtnRemove.SetActive(isFormation);
+			SkillCost.gameObject.SetActive(isFormation);
 			ForReinforce.SetActive(false);
 			isInit =  SkillCard  && SkillName  && btn && SkillTexture && SkillKind && SkillKindBg;
 			
@@ -84,6 +87,7 @@ public class TPassiveSkillCard
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
@@ -109,6 +113,55 @@ public class TPassiveSkillCard
 				SkillName.text = GameData.DSkillData[id].Name;
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[id].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(id);
+				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[id].Space(lv));
+				if(GameFunction.IsActiveSkill(id))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
+				GameFunction.ShowStar_Item(ref SkillStars, lv, GameData.DSkillData[id].Quality, GameData.DSkillData[id].MaxStar);
+			}
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
+	public void InitReinforce(GameObject go)
+	{
+		if (!isInit && go) {
+			go.transform.localScale = Vector3.one;
+			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
+			SkillStars = new SkillCardStar[5];
+			for(int i=0; i<SkillStars.Length; i++) 
+				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+
+			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			BtnRemove.SetActive(false);
+			ForReinforce.SetActive(false);
+			isInit =  SkillCard  && SkillName && SkillTexture && SkillKind && SkillKindBg;
+
+			if(!isInit)
+				Debug.LogError("Init Error : TPassiveSkillCard");
+		}
+	}
+
+	public void UpdateViewReinforce(int id, int lv)
+	{
+		if(isInit){
+			if(GameData.DSkillData.ContainsKey(id)){
+				SkillName.text = GameData.DSkillData[id].Name;
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[id].Quality.ToString() + "s";
+				SkillTexture.mainTexture = GameData.CardItemTexture(id);
+				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[id].Space(lv));
 				if(GameFunction.IsActiveSkill(id))
 					SkillKind.spriteName = "ActiveIcon";
 				else 

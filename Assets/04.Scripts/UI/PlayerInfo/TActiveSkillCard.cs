@@ -11,6 +11,7 @@ public class TActiveSkillCard
 	/// 使用方法:必須要有技能卡母物件，方法有二種：1.已存在ＵＩ裡使用find再使用Init() 2.Resource.load必須先實體化再Init()
 	/// 注意：必須先init()才能 initbuttonfunction()，不可再Init使用button.OnClick.Add, 否則會造成無窮迴圈
 	/// </remarks>
+	public TSkill Skill;
 	private GameObject self;
 	private UITexture SkillPic;
 	private UISprite SkillCard;
@@ -77,6 +78,7 @@ public class TActiveSkillCard
 	{
 		if(isInit){
             if (GameData.DSkillData.ContainsKey(skill.ID)) {
+				Skill = skill;
     			self.name = index.ToString();
     			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
@@ -101,6 +103,7 @@ public class TActiveSkillCard
 	{
 		if(isInit){
 			if (GameData.DSkillData.ContainsKey(skill.ID)) {
+				Skill = skill;
 				SkillPic.mainTexture = GameData.CardTexture(skill.ID);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
