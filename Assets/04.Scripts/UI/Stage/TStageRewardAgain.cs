@@ -2,15 +2,23 @@
 using System.Text;
 using GameStruct;
 
-/// <summary>
-/// 
-/// </summary>
 public class TStageRewardAgain
 {
     /// <summary>
-    /// 該帳號的鑽石.
+    /// 帳號的錢.
+    /// </summary>
+    public int Money;
+
+    /// <summary>
+    /// 帳號的鑽石.
     /// </summary>
     public int Diamond;
+
+    /// <summary>
+    /// 球員的等級和經驗值.
+    /// </summary>
+    public int PlayerLv;
+    public int PlayerExp;
 
     /// <summary>
     /// 得到的亂數獎勵.

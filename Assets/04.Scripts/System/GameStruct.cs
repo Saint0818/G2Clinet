@@ -990,7 +990,7 @@ namespace GameStruct
 	public struct TExpData
 	{
 		public int Lv;
-		public int LvExp;
+		public int LvUpExp;
 		public int OpenIndex;
 		public int UnlockHint;
 		public int UI;

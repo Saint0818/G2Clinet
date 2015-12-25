@@ -41,7 +41,7 @@ public class UIMainStage : UIBase
     {
         mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
-        mMain.Info.StartListener += enterGame;
+        mMain.Info.StartListener += enterSelectRole;
     }
 
     [UsedImplicitly]
@@ -61,9 +61,9 @@ public class UIMainStage : UIBase
         buildMainStages();
     }
 
-    private void enterGame(int stageID)
+    private void enterSelectRole(int stageID)
     {
-//        Debug.LogFormat("enterGame, StageID:{0}", stageID);
+//        Debug.LogFormat("enterSelectRole, StageID:{0}", stageID);
 
         if(!StageTable.Ins.HasByID(stageID))
         {
@@ -81,6 +81,9 @@ public class UIMainStage : UIBase
         string errMsg;
         if(verifyPlayer(stageData, out errMsg))
         {
+//            UIMainStageDebug debug = new UIMainStageDebug();
+//            debug.SendCommand(stageID);
+
             UIMainStageTools.Record(stageData.Chapter);
             GameData.StageID = stageID;
             SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);

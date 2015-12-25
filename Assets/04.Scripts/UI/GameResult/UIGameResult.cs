@@ -660,7 +660,10 @@ public class UIGameResult : UIBase {
 		if (ok)
 		{
 			var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
+			GameData.Team.Money = reward.Money;
 			GameData.Team.Diamond = reward.Diamond;
+			GameData.Team.Player.Lv = reward.PlayerLv;
+			GameData.Team.Player.Exp = reward.PlayerExp;
 			GameData.Team.Items = reward.Items;
 			GameData.Team.SkillCards = reward.SkillCards;
 			

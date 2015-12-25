@@ -9,26 +9,27 @@ public class UIMainStageDebug
     {
         mStageID = stageID;
 
-        stageRewardStart();
+        mainStageWin();
     }
 
-    private void stageRewardStart()
+    private void mainStageWin()
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.MainStageWin, waitStageRewardStart, form);
+        SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
     }
 
-    private void waitStageRewardStart(bool ok, WWW www)
+    private void waitMainStageWin(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
+        Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
 
         if(ok)
         {
             TStageRewardStart reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
 
-            Debug.LogFormat("waitStageRewardStart:{0}", reward);
+            Debug.LogFormat("waitMainStageWin:{0}", reward);
 
+            GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
             GameData.Team.Player = reward.Player;
@@ -45,20 +46,24 @@ public class UIMainStageDebug
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitStageRewardAgain, form);
+        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitMainStageRewardAgain, form);
     }
 
-    private void waitStageRewardAgain(bool ok, WWW www)
+    private void waitMainStageRewardAgain(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageRewardAgain, ok:{0}", ok);
+        Debug.LogFormat("waitMainStageRewardAgain, ok:{0}", ok);
 
         if(ok)
         {
             var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
+            GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
+            GameData.Team.Player.Lv = reward.PlayerLv;
+            GameData.Team.Player.Exp = reward.PlayerExp;
             GameData.Team.Items = reward.Items;
+            GameData.Team.SkillCards = reward.SkillCards;
 
-            Debug.LogFormat("waitStageRewardAgain:{0}", reward);
+            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
 
             stageRewardAgain2();
         }
@@ -70,21 +75,25 @@ public class UIMainStageDebug
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
-        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitStageRewardAgain2, form);
+        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitMainStageRewardAgain2, form);
     }
 
-    private void waitStageRewardAgain2(bool ok, WWW www)
+    private void waitMainStageRewardAgain2(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageRewardAgain2, ok:{0}", ok);
+        Debug.LogFormat("waitMainStageRewardAgain2, ok:{0}", ok);
 
         if (ok)
         {
             var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
 
-            Debug.LogFormat("waitStageRewardAgain2:{0}", reward);
+            Debug.LogFormat("waitMainStageRewardAgain2:{0}", reward);
 
+            GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
+            GameData.Team.Player.Lv = reward.PlayerLv;
+            GameData.Team.Player.Exp = reward.PlayerExp;
             GameData.Team.Items = reward.Items;
+            GameData.Team.SkillCards = reward.SkillCards;
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
