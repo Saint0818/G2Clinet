@@ -167,6 +167,10 @@ namespace GameStruct
 				Achievements[index] = -1;
 		}
 
+		public int MissionLv(TMission mission) {
+			return 0;
+		}
+
 		public bool CheckSkillCardisNew (int id) {
 			if(SkillCards == null)
 				SkillCards = new TSkill[0];
@@ -1063,6 +1067,8 @@ namespace GameStruct
         public int Kind;
         public int Color;
         public int Score;
+		public int PrivousID;
+		public int Final;
         public int TimeKind;
         public int TimeValue;
         public int[] Value;

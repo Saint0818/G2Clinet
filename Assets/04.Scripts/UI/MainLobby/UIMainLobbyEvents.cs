@@ -39,6 +39,6 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnMission() {
         UIMainLobby.Get.Hide();
-        UIMission.UIShow(true);
+		UIMission.Visible = true;
     }
 }

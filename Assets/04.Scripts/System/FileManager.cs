@@ -710,7 +710,12 @@ public class FileManager : KnightSingleton<FileManager> {
     public void ParseMission(string version, string text, bool isSaveVersion) {
         try {
             GameData.MissionData = JsonConvertWrapper.DeserializeObject<TMission[]>(text);
-
+			for (int i = 0; i < GameData.MissionData.Length; i++)
+				if (!GameData.DMissionData.ContainsKey(GameData.MissionData[i].ID))
+					GameData.DMissionData.Add(GameData.MissionData[i].ID, GameData.MissionData[i]);
+				else
+					Debug.Log("Mission id repeat " + GameData.MissionData[i].ID.ToString());
+			
             if (isSaveVersion)
                 SaveDataVersionAndJson(text, "textconst", version);
 

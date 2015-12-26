@@ -104,11 +104,6 @@ public class UISelectPartner : UIBase {
 	}
 
 	public void InitMemberList(ref List<TPlayer> playerList, ref TPlayer[] selectAy, int index) {
-		/*if (index == 1)
-			transform.localPosition = new Vector3(-220, 0, 0);
-		else
-			transform.localPosition = new Vector3(220, 0, 0);
-        */
 		selectIndex = index;
 		for (int i = 0; i < memberList.Count; i ++) {
             memberList[i].LabelSelected.text = "";
