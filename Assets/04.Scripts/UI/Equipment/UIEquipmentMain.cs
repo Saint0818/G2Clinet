@@ -147,4 +147,15 @@ public class UIEquipmentMain : MonoBehaviour
 
         return maxTotalPoints;
     }
+
+    public bool IsValueItemChanged()
+    {
+        for(var i = 0; i < ValueItems.Length; i++)
+        {
+            if(ValueItems[i].StorageIndex != -1)
+                return true;
+        }
+
+        return false;
+    }
 }

@@ -160,11 +160,13 @@ public class UIEquipment : UIBase
 
     private void changeValueItems()
     {
-        if(hasValueItemChanged())
+        if(mMain.IsValueItemChanged())
         {
-            WWWForm form = new WWWForm();
-            form.AddField("ValueItems", JsonConvert.SerializeObject(getServerChangeData()));
-            SendHttp.Get.Command(URLConst.ChangeValueItems, waitChangeValueItems, form);
+//            WWWForm form = new WWWForm();
+//            form.AddField("ValueItems", JsonConvert.SerializeObject(getServerChangeData()));
+//            SendHttp.Get.Command(URLConst.ChangeValueItems, waitChangeValueItems, form);
+            var protocol = new ChangeValueItemProtocol();
+            protocol.Send(getServerChangeData(), goToMainLobby);
         }
         else
             goToMainLobby();
@@ -180,34 +182,22 @@ public class UIEquipment : UIBase
         return changeValueItems;
     }
 
-    private bool hasValueItemChanged()
-    {
-        for(var i = 0; i < mMain.ValueItems.Length; i++)
-        {
-            if(mMain.ValueItems[i].StorageIndex != -1)
-                return true;
-        }
-
-        return false;
-    }
-
-    private void waitChangeValueItems(bool ok, WWW www)
-    {
-        if(ok)
-        {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = team.Player;
-            GameData.Team.Items = team.Items;
-            GameData.Team.Player.Init();
-//            GameData.SaveTeam();
-            
-            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
-        }
-        else
-            UIHint.Get.ShowHint(TextConst.S(534), Color.red);
-
-        goToMainLobby();
-    }
+//    private void waitChangeValueItems(bool ok, WWW www)
+//    {
+//        if(ok)
+//        {
+//            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+//            GameData.Team.Player = team.Player;
+//            GameData.Team.Items = team.Items;
+//            GameData.Team.Player.Init();
+//            
+//            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
+//        }
+//        else
+//            UIHint.Get.ShowHint(TextConst.S(534), Color.red);
+//
+//        goToMainLobby();
+//    }
 
     public void Hide()
     {
