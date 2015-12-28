@@ -55,6 +55,13 @@ public class ItemAwardGroup : MonoBehaviour
 		}
 	}
 
+	public void ShowSkill (TSkill skill) {
+		Window.SetActive(true);
+		hideAllGroup();
+		awardSkillView.Show();
+		awardSkillView.UpdateUI(skill);
+	}
+
     public void ShowMoney(int value)
     {
         hideAllGroup();

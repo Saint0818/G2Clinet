@@ -37,4 +37,17 @@ public class AwardSkillView : MonoBehaviour {
 
 		AmountLabel.text = "";
 	}
+
+	public void UpdateUI (TSkill skill) {
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(21))) {
+				SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(21)];
+			}
+
+			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
+			GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+		}
+		AmountLabel.text = "";
+	}
 }

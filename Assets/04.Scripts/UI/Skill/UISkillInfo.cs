@@ -281,11 +281,14 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnCrafting () {
-		UIHint.Get.ShowHint("Coming Soon.", Color.red);
+		//		UIHint.Get.ShowHint("Coming Soon.", Color.red);
+//		UIShow(false);
 	}
 
 	public void OnUpgrade() {
-		UIHint.Get.ShowHint("Coming Soon.", Color.red);
+//		UIHint.Get.ShowHint("Coming Soon.", Color.red);
+		UISkillReinforce.Get.Show(mUICard);
+		UIShow(false);
 	}
 
 }

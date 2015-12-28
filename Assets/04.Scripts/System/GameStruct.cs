@@ -717,7 +717,7 @@ namespace GameStruct
 		public int ID;
 		public int Kind; 
 		public int Quality; //Card Color
-		public int Star; // Space
+//		public int Star; // Space
 		public int MaxStar;
 		public int PictureNo;
 		public string NameTW;
@@ -727,8 +727,10 @@ namespace GameStruct
 		public int Money;
 		public int space;
 		public int spaceAdd;
-		public int UpgradeExp;
-		public int ExtraExp;
+		public int[] UpgradeMoney;
+		public int[] UpgradeExp;
+		public int Exp;
+		public int AddExp;
 		public float lifeTime;
 		public float lifeTimeAdd;
 		public int AttrKind;
@@ -798,7 +800,7 @@ namespace GameStruct
 		}
 
 		public int Space(int lv) {
-			return Mathf.Max(space + Star * spaceAdd, 1);
+			return Mathf.Max(space + lv * spaceAdd, 1);
 		}
 
 		public float LifeTime(int lv) {
@@ -820,6 +822,10 @@ namespace GameStruct
 		public int Angle(int lv) {
 			return angle + lv * angleAdd;
 		} 
+
+		public int ExpInlay (int lv) {
+			return Exp + lv * AddExp;
+		}
 	}
 
 	public struct TItem {

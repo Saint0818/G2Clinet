@@ -966,10 +966,10 @@ public class UISkillFormation : UIBase {
 					string cardIdjstr = uiCards[skillSortCards[j].name].Card.name;
 					
 					if(condition == ECondition.Rare.GetHashCode()) {
-						if(GameData.DSkillData.ContainsKey(cardIdi))
-							value1 = Mathf.Clamp(GameData.DSkillData[cardIdi].Star, 1, 5);
-						if(GameData.DSkillData.ContainsKey(cardIdj))
-							value2 =Mathf.Clamp(GameData.DSkillData[cardIdj].Star, 1, 5);
+						if(uiCards.ContainsKey(cardIdistr))
+							value1 = uiCards[cardIdistr].CardLV;
+						if(uiCards.ContainsKey(cardIdjstr))
+							value2 = uiCards[cardIdjstr].CardLV;
 					} else 
 					if(condition == ECondition.Kind.GetHashCode()){
 						if(GameData.DSkillData.ContainsKey(cardIdi))

@@ -5,7 +5,7 @@ using GameStruct;
 public class TPassiveSkillCard
 {
 	public TSkill Skill;
-	private GameObject item;
+	public GameObject item;
 	private UILabel SkillName;
 	private UISprite SkillCard;
 	private UITexture SkillTexture;
@@ -18,6 +18,8 @@ public class TPassiveSkillCard
 	public GameObject BtnRemove;
 	private bool isInit = false;
 	private UIButton btn;
+	//For Reinforce
+	public int CardIndex;
 	
 	public void Init(GameObject partent, GameObject go, EventDelegate btnFunc = null, bool isFormation = false)
 	{
@@ -128,9 +130,11 @@ public class TPassiveSkillCard
 		}
 	}
 
-	public void InitReinforce(GameObject go)
+	public void InitReinforce(GameObject go, int skillCardIndex)
 	{
 		if (!isInit && go) {
+			item = go;
+			CardIndex = skillCardIndex;
 			go.transform.localScale = Vector3.one;
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
@@ -154,20 +158,21 @@ public class TPassiveSkillCard
 		}
 	}
 
-	public void UpdateViewReinforce(int id, int lv)
+	public void UpdateViewReinforce(TSkill skill)
 	{
 		if(isInit){
-			if(GameData.DSkillData.ContainsKey(id)){
-				SkillName.text = GameData.DSkillData[id].Name;
-				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[id].Quality.ToString() + "s";
-				SkillTexture.mainTexture = GameData.CardItemTexture(id);
-				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[id].Space(lv));
-				if(GameFunction.IsActiveSkill(id))
+			if(GameData.DSkillData.ContainsKey(skill.ID)){
+				Skill = skill;
+				SkillName.text = GameData.DSkillData[skill.ID].Name;
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString() + "s";
+				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
+				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[skill.ID].Space(skill.Lv));
+				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
 					SkillKind.spriteName = "PasstiveIcon";
-				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
-				GameFunction.ShowStar_Item(ref SkillStars, lv, GameData.DSkillData[id].Quality, GameData.DSkillData[id].MaxStar);
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+				GameFunction.ShowStar_Item(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			}
 		}
 		else
@@ -175,7 +180,16 @@ public class TPassiveSkillCard
 			Debug.LogError("You needed to Init()");
 		}
 	}
-	
+
+	public void ChooseReinforce (bool isShow, int index = 0) {
+		ForReinforce.SetActive(isShow);
+		ForReinforceLabel.text = index.ToString();
+	}
+
+	public string Name {
+		get {return item.name;}
+	}
+
 	public bool Enable
 	{
 		set{item.gameObject.SetActive(value);}
