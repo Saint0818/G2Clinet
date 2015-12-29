@@ -823,6 +823,7 @@ namespace GameStruct
 		public string ExplainCN;
 		public string ExplainEN;
 		public string ExplainJP;
+		public int Open; //skillheaditem
 		
 		public string Name {
 			get {

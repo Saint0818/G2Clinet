@@ -420,6 +420,7 @@ public class GEGMTool : GEBase
 	}
 
 	List<int> itemIds2 = new List<int>();
+	int[] NumberOfItems2;
 
 	//每部位加Item
 	private void PrePartAddItem()
@@ -460,12 +461,13 @@ public class GEGMTool : GEBase
 					}
 				}
 			}
-			
-			if(itemIds2 != null && itemIds2.Count > 0){
-				WWWForm form = new WWWForm();
-				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds2));
-				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
-			}
+
+			NumberOfItems2 = new int[itemIds2.Count];
+			for (int i = 0; i < NumberOfItems2.Length; i++)
+				NumberOfItems2 [i] = 1;	
+						
+			if (itemIds2 != null && itemIds2.Count > 0)
+				SendGMAddItem (itemIds2, NumberOfItems2);
 			else
 				ShowHint("請設定Item數量");
 		}
@@ -478,6 +480,8 @@ public class GEGMTool : GEBase
 	private int limitcountprekind = 1;
 	private int limitItemkind = 0;
 	private int[] itemIds3;
+	private int [] NumberOfItems3;
+
 
 	private void LimitPartAddItem()
 	{
@@ -535,21 +539,29 @@ public class GEGMTool : GEBase
 				}
 			}
 
+			NumberOfItems3 = new int[itemIds3.Count];
+
 			for(int i = 0; i < itemIds3.Count; i++)
 			{
-				Debug.LogError("Find : " + itemIds3[i]);
+				NumberOfItems3 [i] = 1;
 			}
 
 			if(itemIds3 != null && itemIds3.Count > 0){
-				WWWForm form = new WWWForm();
-				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds3));
-				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
+				SendGMAddItem (itemIds3, NumberOfItems3);
 			}
 			else
 				ShowHint("請設定Item數量");
 		}
 		
 		EditorGUILayout.EndHorizontal();
+	}
+
+	private void SendGMAddItem(List<int> addindexs, int[] numberofitems)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("AddIndexs", JsonConvert.SerializeObject(addindexs));
+		form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(numberofitems));
+		SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
 	}
 
 	private void waitGMAddItem(bool ok, WWW www)

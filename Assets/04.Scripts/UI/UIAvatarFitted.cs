@@ -20,13 +20,14 @@ public class TItemAvatar
 	private UILabel name;
 	private UILabel usetime;
 	private UILabel getModeLabel;
-	private UILabel PriceLabel;
+    private UILabel PriceLabel;
 	private UILabel BuyInfoLabel;
 	private UILabel potentialLabel;
 	private UISprite pic;
 	private UISprite OutLine;
 	private UIButton equipBtn;
 	private UIButton sellBtn;
+    private UILabel sellPrice;
 	private UIButton buyBtn;
 	private UISprite TrimBottom;
 	private UISprite SellSelect;
@@ -157,7 +158,7 @@ public class TItemAvatar
 	{
 		set{
 			isEquip = value;
-			EquipedIcon.enabled = isEquip;
+            EquipedIcon.gameObject.SetActive(isEquip);
 		}
 		get{
 			return isEquip;
@@ -181,6 +182,7 @@ public class TItemAvatar
 			OutLine = self.transform.FindChild ("ItemPic/OutLine").gameObject.GetComponent<UISprite> ();
 			TrimBottom = self.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
 			sellBtn = self.transform.FindChild ("SellBtn").gameObject.GetComponent<UIButton> ();
+            sellPrice = sellBtn.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>();
 			SellSelect = self.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
 			Selected = false;
 			EquipedIcon = self.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
@@ -244,7 +246,7 @@ public class TItemAvatar
 			EndUseTime = usetime;
 			UseKind = usekind;
 			BackageSort = backageSort; //-1 : player.items else team.items
-
+            sellPrice.text = GameData.DItemData[id].Sell.ToString();
 			PriceLabel.text = GameData.DItemData[id].Buy.ToString();
 			BuyInfoLabel.text = TextConst.StringFormat(8005, GameData.DItemData[id].Potential);
 			getModeLabel.text = TextConst.StringFormat(8004, GameData.DItemData[id].Potential);
@@ -393,7 +395,7 @@ public class UIAvatarFitted : UIBase {
 			SetBtnFunReName (btnPaths [i], DoAvatarTab, i.ToString ());
 		}
 
-		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
+        SetBtnFun (UIName + "/BottomLeft/BackBtn", OnReturn);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
@@ -628,7 +630,7 @@ public class UIAvatarFitted : UIBase {
 		int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
 
 		if(PlayerPrefs.HasKey(ESave.AvatarFilter.ToString()))
-			filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
+            filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
 		else{
 			filter = 2;
 			PlayerPrefs.SetInt(ESave.AvatarFilter.ToString(), 2);

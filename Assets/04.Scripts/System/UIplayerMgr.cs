@@ -65,7 +65,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 				avatar.transform.localPosition = new Vector3 (2.62f, -2.16f, -3);
 				break;
 			case EUIPlayerMode.UIAvatarFitted:
-				avatar.transform.localPosition = new Vector3 (-3, -1.7f, -3);
+				avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);
 				break;
 		}
 		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
@@ -76,7 +76,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		ModelManager.Get.SetAvatar(ref avatar, equipAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
 		avatar.transform.parent = gameObject.transform;
 		avatar.transform.localScale = Vector3.one;
-		avatar.transform.localPosition = new Vector3 (-3, -1.7f, -1);
+		avatar.transform.localPosition = new Vector3 (3, -1.7f, -1);
 		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
 	}
 

@@ -571,7 +571,7 @@ public class UIPlayerInfo : UIBase {
 
 	public void OnChangehead()
 	{
-
+		UIHeadPortrait.UIShow (true);
 	}
 
 	public void OnGuild()
