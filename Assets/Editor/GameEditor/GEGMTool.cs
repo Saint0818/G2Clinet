@@ -53,6 +53,7 @@ public class GEGMTool : GEBase
 
 	private int addItemCount = 1;
 	private int[] itemIds;
+	private int[] NumberOfItems;
 	private string mArea = "---------------------------------------------------------------------------------------------";
 	private int countprekind = 1;
 	private int position = 0;
@@ -63,12 +64,15 @@ public class GEGMTool : GEBase
 
 		//Add Item
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("物品數量 : "); 
+		GUILayout.Label("物品陣列 : "); 
 		addItemCount = EditorGUILayout.IntField (addItemCount, GUILayout.Width(100));
 		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
 			itemIds = new int[addItemCount];
-			for(int i = 0; i < itemIds.Length; i++)
-				itemIds[i] = -1;
+			NumberOfItems = new int[addItemCount];
+			for (int i = 0; i < itemIds.Length; i++) {
+					itemIds [i] = -1;
+					NumberOfItems[i] = 1;
+			}
 		}
 		EditorGUILayout.EndHorizontal();
 
@@ -77,6 +81,8 @@ public class GEGMTool : GEBase
 				EditorGUILayout.BeginHorizontal ();
 				GUILayout.Label("物品編號 : "); 
 				itemIds[i] = EditorGUILayout.IntField (itemIds[i], GUILayout.Width(100));
+				GUILayout.Label("物品數量 : "); 
+				NumberOfItems[i] = EditorGUILayout.IntField (NumberOfItems[i], GUILayout.Width(100));
 				EditorGUILayout.EndHorizontal ();
 			}
 
@@ -87,6 +93,7 @@ public class GEGMTool : GEBase
 			if(itemIds != null && itemIds.Length > 0){
 				WWWForm form = new WWWForm();
 				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds));
+				form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(NumberOfItems));
 				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
 			}
 			else
