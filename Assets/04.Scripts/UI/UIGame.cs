@@ -387,6 +387,11 @@ public class UIGame : UIBase {
 
 	}
 
+	private void ShowGameJoystick (bool isShow) {
+		gameJoystick.visible = isShow;
+		gameJoystick.activated = isShow;
+	}
+
 	private void showUITime (){
 		if(GameController.Get.StageData.HintBit[0] == 0) 
 			uiLimitTime.SetActive(false);
@@ -1181,8 +1186,8 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(false);
 				showViewForceBar(false);
 
-//				uiScoreBar.SetActive(false);
-                gameJoystick.visible = false;
+//				gameJoystick.visible = false;
+				ShowGameJoystick(false);
 				ShowSkillEnableUI(false);
 
 				if(UIPassiveEffect.Visible)UIPassiveEffect.UIShow(false);
@@ -1202,7 +1207,8 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(true);
 				showViewForceBar(true);
 
-                gameJoystick.visible = true;
+//				gameJoystick.visible = true;
+				ShowGameJoystick(true);
 				ShowSkillEnableUI(true);
 			
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
@@ -1214,8 +1220,10 @@ public class UIGame : UIBase {
 			GameController.Get.RecordTimeScale = Time.timeScale;
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
-//			uiScoreBar.SetActive(false);
-            gameJoystick.visible = false;
+
+//            gameJoystick.visible = false;
+//			gameJoystick.activated = false;
+			ShowGameJoystick(false);
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
 
@@ -1231,7 +1239,8 @@ public class UIGame : UIBase {
 			SetPassButton();
 			viewStart.SetActive (true);
 			viewBottomRight.SetActive(false);
-            gameJoystick.visible = false;
+//			gameJoystick.visible = false;
+			ShowGameJoystick(false);
 
 			dcCount = 0;
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
@@ -1290,22 +1299,6 @@ public class UIGame : UIBase {
 				showViewForceBar(false);
 		}
 	}
-	
-//	private void resetScoreRotate() {
-//		for(int i=0; i<labelScores.Length; i++) {
-//			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
-//			rotate[i].enabled = false; 
-//		}
-//	}
-
-//	private void showScoreBar(bool isStart){
-//		if(isStart)
-//			showScoreBarTime = showScoreBarInitTime;
-
-//		isShowScoreBar = true;
-//		uiScoreBar.SetActive(false);
-//		uiScoreBar.SetActive(true);
-//	}
 	
 	private void judgePlayerScreenPosition(){
 		if(GameController.Get.IsStart && IsPlayerMe && 

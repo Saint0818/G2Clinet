@@ -39,6 +39,7 @@ namespace GameStruct
         public int MaxSkillSpace;
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
+		public int SkillCardMax;
         public int NowStageID;
 
         public int GetPotentialValue(EAttribute attr)
@@ -109,6 +110,7 @@ namespace GameStruct
             MaxSkillSpace = 0;
             AISkillLv = 0;
             SkillPage = 0;
+			SkillCardMax = 10;
             NowStageID = 0;
             Exp = 0;
 
@@ -339,7 +341,7 @@ namespace GameStruct
 						SkillCards = tempList.ToArray();
                         ActiveSkills.Clear();
                         for(int i=0; i<SkillCards.Length; i++) {
-                            if(SkillCards[i].ID > GameConst.ID_LimitActive && SkillCards[i].ID > 0){
+							if(GameFunction.IsActiveSkill(SkillCards[i].ID) && SkillCards[i].ID > 0){
                                 if(!ActiveSkills.Contains(SkillCards[i]))
                                     ActiveSkills.Add(SkillCards[i]);
                             }
@@ -353,7 +355,7 @@ namespace GameStruct
 
                     if(SkillCards.Length > 0) {
                         for(int i=0; i<SkillCards.Length; i++) {
-                            if(SkillCards[i].ID >= GameConst.ID_LimitActive){
+							if(GameFunction.IsActiveSkill(SkillCards[i].ID)){
                                 if(!ActiveSkills.Contains(SkillCards[i]))
                                     ActiveSkills.Add(SkillCards[i]);
                             }

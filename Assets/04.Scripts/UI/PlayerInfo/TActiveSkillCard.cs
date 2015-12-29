@@ -136,6 +136,24 @@ public class TActiveSkillCard
 		set{self.gameObject.SetActive(value);}
 	}
 
+	public void ShowStarForRein (int oriStar, int count) {
+		if((oriStar + count) >= SkillStars.Length) {
+			for (int i=0; i<SkillStars.Length; i++) {
+				if(i > (oriStar - 1) && i < SkillStars.Length) {
+					SkillStars[i].ShowStar();
+				}
+			}
+		} else {
+			for (int i=0; i<SkillStars.Length; i++) {
+				if(i > (oriStar - 1) && i <= (oriStar + count - 1)) {
+					SkillStars[i].ShowStar();
+				} else if(i > (oriStar + count - 1)){
+					SkillStars[i].HideStar();
+				}
+			}
+		}
+	}
+
 
 	//SkillFormation
 	public bool DragCard {

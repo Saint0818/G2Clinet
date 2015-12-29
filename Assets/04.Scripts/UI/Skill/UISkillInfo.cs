@@ -125,44 +125,44 @@ public class UISkillInfo : UIBase {
 		else
 			labelEquip.text = "EQUIP";
 
-		if(GameData.DSkillData.ContainsKey(uicard.CardID)) {
-			TSkillData skillData = GameData.DSkillData[uicard.CardID];
+		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
+			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 
 			//MediumCard
-			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[uicard.CardID].Quality.ToString();
-			spriteSkillSuit.spriteName = "Levelball" + GameData.DSkillData[uicard.CardID].Quality.ToString();
-			textureSkillPic.mainTexture = GameData.CardTexture(uicard.CardID);
-			labelSkillCardName.text = GameData.DSkillData[uicard.CardID].Name;
-			GameFunction.ShowStar(ref skillStars, uicard.CardLV, GameData.DSkillData[uicard.CardID].Quality, GameData.DSkillData[uicard.CardID].MaxStar);
-			if(GameFunction.IsActiveSkill(uicard.CardID)) {
+			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
+			spriteSkillSuit.spriteName = "Levelball" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
+			textureSkillPic.mainTexture = GameData.CardTexture(uicard.skillCard.Skill.ID);
+			labelSkillCardName.text = GameData.DSkillData[uicard.skillCard.Skill.ID].Name;
+			GameFunction.ShowStar(ref skillStars, uicard.skillCard.Skill.Lv, GameData.DSkillData[uicard.skillCard.Skill.ID].Quality, GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar);
+			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
 			} else {
 				spriteSkillKind.spriteName = "PasstiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7206);
 			}
-			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[uicard.CardID].Quality.ToString();
+			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
 
 			//SkillInfo
-			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[uicard.CardID].Quality.ToString();
-			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.CardLV, 0, GameData.DSkillData[uicard.CardID].MaxStar).ToString();
-			labelSkillSpace.text = skillData.Space(uicard.CardLV).ToString();
-			labelSkillExp.text = "0"; //=======
-			sliderSkillExpBar.value = 0; //======
-			if(GameFunction.IsActiveSkill(uicard.CardID))
+			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
+			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.skillCard.Skill.Lv, 0, GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar).ToString();
+			labelSkillSpace.text = skillData.Space(uicard.skillCard.Skill.Lv).ToString();
+			labelSkillExp.text = uicard.skillCard.Skill.Exp.ToString(); //=======
+			sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[uicard.skillCard.Skill.Lv]; //======
+			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID))
 				Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
 			else 
-				Get.labelSkillDemandValue.text = skillData.Rate(uicard.CardLV).ToString() + "%";
+				Get.labelSkillDemandValue.text = skillData.Rate(uicard.skillCard.Skill.Lv).ToString() + "%";
 
 			//Buff Ability
 			int index = 0;
-			if(skillData.Distance(uicard.CardLV) > 0) {
-				buffViews[index].ShowDistance(skillData.Distance(uicard.CardLV));
+			if(skillData.Distance(uicard.skillCard.Skill.Lv) > 0) {
+				buffViews[index].ShowDistance(skillData.Distance(uicard.skillCard.Skill.Lv));
 				index ++;
 			}
 
 			if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
-				buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(uicard.CardLV), skillData.Value(uicard.CardLV));
+				buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(uicard.skillCard.Skill.Lv), skillData.Value(uicard.skillCard.Skill.Lv));
 				index ++;
 			}
 
@@ -171,7 +171,7 @@ public class UISkillInfo : UIBase {
 			}
 
 			//Explain
-			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, uicard.CardID, uicard.CardLV);
+			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, uicard.skillCard.Skill.ID, uicard.skillCard.Skill.Lv);
 		}
 	}
 
@@ -287,7 +287,8 @@ public class UISkillInfo : UIBase {
 
 	public void OnUpgrade() {
 //		UIHint.Get.ShowHint("Coming Soon.", Color.red);
-		UISkillReinforce.Get.Show(mUICard);
+		UISkillReinforce.Get.Show(mUICard.skillCard.Skill, mUICard.CardIndex, isAlreadyEquip);
+		UISkillFormation.Get.DoFinish();
 		UIShow(false);
 	}
 

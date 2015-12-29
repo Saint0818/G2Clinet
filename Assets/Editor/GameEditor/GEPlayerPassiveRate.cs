@@ -100,7 +100,7 @@ public class GEPlayerPassiveRate : GEBase {
 			if(!isInstall && passives.Count == 0) {
 				if(GUILayout.Button("Install All Passive")) {
 					foreach(KeyValuePair<int, TSkillData> tskill in GameData.DSkillData) {
-						if (tskill.Key > 100 && tskill.Key < GameConst.ID_LimitActive) {
+						if (tskill.Key > 100 && !GameFunction.IsActiveSkill(tskill.Key)) {
 							
 							TPassiveType type = new TPassiveType();
 							TSkill skill = new TSkill();
@@ -116,7 +116,7 @@ public class GEPlayerPassiveRate : GEBase {
 								UpdatePassiveSkills.Add(tskill.Value.Kind, pss);
 							}
 
-							if(tskill.Value.ID < GameConst.ID_LimitActive && GameData.DSkillData[tskill.Value.ID].Distance(2) > 0) {
+							if(!GameFunction.IsActiveSkill(tskill.Value.ID) && GameData.DSkillData[tskill.Value.ID].Distance(2) > 0) {
 								if (UpdateDExtraPassiveSkills.ContainsKey(tskill.Value.Kind))
 									UpdateDExtraPassiveSkills [tskill.Value.Kind].Add(type);
 								else {

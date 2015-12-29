@@ -57,7 +57,7 @@ public class UIGameResult : UIBase {
 	private int tempExp;
 	private int tempDia;
 
-	private bool isHaveReward = false;
+	private bool isHaveBonus = false;
 	private bool isGetAward = false;
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
@@ -268,6 +268,7 @@ public class UIGameResult : UIBase {
 	 * 7. (Level Up) Show UILevelUp
 	 * 	  (No Level Up) Run backToLobby
 	 */
+
 	public void SetGameRecord(ref TGameRecord record) {
 		teamValue.SetValue(record);
 		if(record.Done) {
@@ -286,14 +287,16 @@ public class UIGameResult : UIBase {
 	}
 	
 	private void init () {
-		for (int i=0; i<itemAwardGroup.Length; i++) {
-			itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
-			if(i >= 0 && i < 3) {
-				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
-					itemAwardGroup[i].Show(GameData.DItemData[bonusItemIDs[i]]);
+		if(IsHaveBonus) {
+			for (int i=0; i<itemAwardGroup.Length; i++) {
+				itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
+				if(i >= 0 && i < 3) {
+					if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+						itemAwardGroup[i].Show(GameData.DItemData[bonusItemIDs[i]]);
+				}
 			}
+			hideThree();
 		}
-		hideThree();
 		
 		alreadyGetItems = new List<ItemAwardGroup>();
 		awardIndex = awardItemTempIDs.Count;
@@ -305,20 +308,6 @@ public class UIGameResult : UIBase {
 				alreadyGetItems.Add(addItemToAward(i, new TItemData(), true, true));	
 			}
 		}
-
-//		for(int i=0; i<bonusItemIDs.Length; i++) {
-//			if(!bonusAwardItems.ContainsKey(bonusItemIDs[i]) && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
-//				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
-//			else
-//				bonusAwardItems.Add(bonusItemIDs[i] + "_" + i.ToString() , addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
-//		}	
-//		if(isHaveReward) {
-//			for(int i=0; i<GetCardLists.Count; i++) {
-//				if(GameData.DItemData.ContainsKey(GetCardLists[i])) {
-//					bonusAwardItems.Add(alreadyGetItems.Count, addItemToAward(i, GameData.DItemData[GetCardLists[i]], false));
-//				}
-//			}
-//		}
 	}
 
 	private void showFinish () {
@@ -344,14 +333,18 @@ public class UIGameResult : UIBase {
 	}
 
 	private void showThree () {
-		for (int i=0; i<itemAwardGroup.Length; i++) {
-			itemAwardGroup[i].gameObject.SetActive(true);
+		if(IsHaveBonus) {
+			for (int i=0; i<itemAwardGroup.Length; i++) {
+				itemAwardGroup[i].gameObject.SetActive(true);
+			}
 		}
 	}
 
 	private void hideThree () {
-		for (int i=0; i<itemAwardGroup.Length; i++) {
-			itemAwardGroup[i].gameObject.SetActive(false);
+		if(IsHaveBonus) {
+			for (int i=0; i<itemAwardGroup.Length; i++) {
+				itemAwardGroup[i].gameObject.SetActive(false);
+			}
 		}
 	}
 
@@ -360,7 +353,6 @@ public class UIGameResult : UIBase {
 			chooseIndex = index;
 			if(chooseCount == 0) {
 				Invoke ("showReturnButton", 2);
-				isChooseLucky = true;
 				chooseItem (index);
 			} else {
 				PayChooseReward ();
@@ -469,11 +461,15 @@ public class UIGameResult : UIBase {
 	}
 
 	public void ShowBonusItem () {
+		
 		if(GetCardLists.Count > 0) {
-			showSkillInfo(GetCardLists[0]);
-			GetCardLists.RemoveAt(0);
+				showSkillInfo(GetCardLists[0]);
+				GetCardLists.RemoveAt(0);
 		} else {
-			moveBonusItem ();
+			if(isHaveBonus)
+				moveBonusItem ();
+			else 
+				showReturnButton();
 		}
 	}
 
@@ -491,7 +487,7 @@ public class UIGameResult : UIBase {
 	private void moveBonusItem () {
 		IsShowFirstCard = false;
 		animatorAward.SetTrigger ("AwardViewDown");
-		if(isHaveReward)
+		if(isHaveBonus)
 			Invoke("showLuckyThree", 0.5f);
 		else 
 			showReturnButton ();
@@ -514,6 +510,7 @@ public class UIGameResult : UIBase {
 	}
 
 	private void showReturnButton () {
+		isChooseLucky = true;
 		uiAwardSkip.SetActive(true);
 	}
 
@@ -570,17 +567,15 @@ public class UIGameResult : UIBase {
 					}
 				}
 
-				GameData.Team.Power = reward.Power;
 				GameData.Team.Money = reward.Money;
 				GameData.Team.Diamond = reward.Diamond;
-				GameData.Team.Player.Exp = reward.Player.Exp;
 				GameData.Team.Player.Lv = reward.Player.Lv;
+				GameData.Team.Player.Exp = reward.Player.Exp;
+				GameData.Team.Items = reward.Items;
 				GameData.Team.Player.NextMainStageID = reward.Player.NextMainStageID;
 				GameData.Team.Player.Potential = reward.Player.Potential;
 				GameData.Team.Player.Stamina = reward.Player.Stamina;
 				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
-//				GameData.Team.Player.Init();
-				GameData.Team.Items = reward.Items;
 				GameData.Team.SkillCards = reward.SkillCards;
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)
@@ -595,7 +590,7 @@ public class UIGameResult : UIBase {
 						}
 				}
 
-				if(GameData.DItemData.ContainsKey(reward.RandomItemID) && GameData.DItemData[reward.RandomItemID].Kind > 0 && GameData.DItemData[reward.RandomItemID].Kind < 8)
+				if(reward.RandomItemID != null && GameData.DItemData.ContainsKey(reward.RandomItemID) && GameData.DItemData[reward.RandomItemID].Kind > 0 && GameData.DItemData[reward.RandomItemID].Kind < 8)
 				{
 					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
 						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
@@ -607,10 +602,11 @@ public class UIGameResult : UIBase {
 					awardItemIDs = new int[0];
 				}else
 					awardItemIDs = reward.SurelyItemIDs;
+
+				// 玩家可能得到的亂數獎勵.
 				bonusItemIDs = reward.CandidateItemIDs;
-				if(bonusItemIDs != null && bonusItemIDs.Length > 0){
-					isHaveReward = true;
-				}
+				isHaveBonus = IsHaveBonus;
+
 				alreadGetBonusID = reward.RandomItemID;
 				
 				for (int i=0; i<awardItemIDs.Length; i++) {
@@ -672,6 +668,10 @@ public class UIGameResult : UIBase {
 		}
 		else
 			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+	}
+
+	public bool IsHaveBonus {
+		get {return (bonusItemIDs != null && bonusItemIDs.Length > 0);}
 	}
 
 	public bool isStage

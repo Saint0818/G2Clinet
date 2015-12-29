@@ -29,7 +29,7 @@ public class HintSkillView : MonoBehaviour {
 
 	public void UpdateUI(TSkill skill)
 	{
-		if(skill.ID >= GameConst.ID_LimitActive)
+		if(GameFunction.IsActiveSkill(skill.ID))
 			SkillKindLabel.text = TextConst.S(7111);
 		else 
 			SkillKindLabel.text = TextConst.S(7112);
@@ -48,7 +48,7 @@ public class HintSkillView : MonoBehaviour {
 
 	public void UpdateUI(TItemData itemData)
 	{
-		if(itemData.Avatar >= GameConst.ID_LimitActive)
+		if(GameFunction.IsActiveSkill(itemData.Avatar))
 			SkillKindLabel.text = TextConst.S(7111);
 		else 
 			SkillKindLabel.text = TextConst.S(7112);

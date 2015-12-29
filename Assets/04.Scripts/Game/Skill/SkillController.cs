@@ -76,7 +76,7 @@ public class SkillController : MonoBehaviour {
 			//Passive
 			if (attribute.SkillCards != null && attribute.SkillCards.Length > 0) {
 				for (int i = 0; i < attribute.SkillCards.Length; i++) {
-					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID) && attribute.SkillCards[i].ID < GameConst.ID_LimitActive) {
+					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID) && !GameFunction.IsActiveSkill(attribute.SkillCards[i].ID)) {
 						GameData.CardTexture(GameData.DSkillData[attribute.SkillCards[i].ID].PictureNo);
 						TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 						int key = skillData.Kind;
@@ -105,7 +105,7 @@ public class SkillController : MonoBehaviour {
 							DPassiveSkills.Add(key, pss);
 						}
 
-						if(attribute.SkillCards[i].ID < GameConst.ID_LimitActive && GameData.DSkillData[attribute.SkillCards[i].ID].Distance(attribute.SkillCards[i].Lv) > 0) {
+						if(!GameFunction.IsActiveSkill(attribute.SkillCards[i].ID)  && GameData.DSkillData[attribute.SkillCards[i].ID].Distance(attribute.SkillCards[i].Lv) > 0) {
 							if (DExtraPassiveSkills.ContainsKey(key))
 								DExtraPassiveSkills [key].Add(type);
 							else {
@@ -124,7 +124,7 @@ public class SkillController : MonoBehaviour {
 	private void updateSkillAttribute() {
 		if(skillAttribute.Count > 0) {
 			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-				if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID < GameConst.ID_LimitActive) {
+				if (skillAttribute [i].CDTime > 0 &&  !GameFunction.IsActiveSkill(skillAttribute [i].ID)) {
 					skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 					if (skillAttribute [i].CDTime <= 0) {
 						executePlayer.SetAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
@@ -208,7 +208,7 @@ public class SkillController : MonoBehaviour {
 	public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
 		if (value != 0) {
 			int index = findSkillAttribute(skillID);
-			if(skillID >= GameConst.ID_LimitActive)
+			if(GameFunction.IsActiveSkill(skillID))
 				skillBuff.AddBuff(skillID, kind, lifetime, value);
 			
 			if (index == -1) {
