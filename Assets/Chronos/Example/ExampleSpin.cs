@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Chronos.Example
 {
@@ -10,7 +10,7 @@ namespace Chronos.Example
 		// The speed at which to rotate
 		public float speed = 20;
 
-		private void Update()
+		void Update()
 		{
 			// Notice time.deltaTime (GetComponent<Timeline>().deltaTime)
 			// instead of Time.deltaTime! Lowercase t is important here.
@@ -18,4 +18,5 @@ namespace Chronos.Example
 			transform.Rotate(time.deltaTime * Vector3.one * speed);
 		}
 	}
+
 }

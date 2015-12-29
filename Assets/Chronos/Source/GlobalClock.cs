@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Chronos
@@ -28,7 +29,6 @@ namespace Chronos
 
 		[SerializeField]
 		private string _key;
-
 		/// <summary>
 		/// The unique key of the global clock. 
 		/// </summary>

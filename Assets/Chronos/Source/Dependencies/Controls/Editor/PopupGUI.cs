@@ -88,13 +88,17 @@ namespace Chronos.Controls
 
 				menu.DropDown(new Rect(menuPosition, Vector2.zero));
 			}
-			else if (selectedOption != null && !options.Select(o => o.value).Contains(selectedOption.value) && !allowOuterOption)
+			else if (selectedOption != null && !options.Select(o => o.value).Contains(selectedOption.value))
 			{
 				// Selected option isn't in range
 
 				if (hasMultipleDifferentValues)
 				{
 					// Do nothing
+				}
+				if (allowOuterOption)
+				{
+					callback(selectedOption.value);
 				}
 				else if (noneOption != null)
 				{

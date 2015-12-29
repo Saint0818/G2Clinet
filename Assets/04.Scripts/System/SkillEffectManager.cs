@@ -23,7 +23,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		if(skillEffects.Count > 0) {
 			for (int i=0; i<skillEffects.Count; i++) {
 				if (skillEffects [i].DelayTime > 0) {
-					skillEffects [i].DelayTime -= Time.deltaTime * skillEffects [i].SelfPlayer.Timer.timeScale;  
+					skillEffects [i].DelayTime -= Time.deltaTime * skillEffects [i].SelfPlayer.timeScale;  
 					if (skillEffects [i].DelayTime <= 0) 
 						playSkillEffect(i);
 				} else

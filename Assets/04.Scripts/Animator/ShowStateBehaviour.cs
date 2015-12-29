@@ -7,10 +7,10 @@ public class ShowStateBehaviour : StateMachineBehaviour
     private PlayerBehaviour player;
 	private AnimationEvent skillEvent = new AnimationEvent();
 
-    override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-    {
+//    override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
+//    {
 		//Debug.Log ("OnStateMachineEnter : " + State.ToString());
-    }
+//    }
 
 //  override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 //  {

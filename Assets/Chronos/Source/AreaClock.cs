@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -74,7 +75,6 @@ namespace Chronos
 
 		[SerializeField]
 		private AreaClockMode _mode;
-
 		/// <summary>
 		/// Determines how objects should behave when progressing within area clock. 
 		/// </summary>
@@ -86,7 +86,6 @@ namespace Chronos
 
 		[SerializeField]
 		private AnimationCurve _curve = AnimationCurve.EaseInOut(0, 1, 1, 0);
-
 		/// <summary>
 		/// The curve of the area clock. This value is only used for the PointToEdge and DistanceFromEntry modes. 
 		/// 
@@ -122,7 +121,6 @@ namespace Chronos
 
 		[SerializeField]
 		private TVector _center;
-
 		/// <summary>
 		/// The center of the area clock. This value is only used for the PointToEdge mode. 
 		/// </summary>
@@ -134,9 +132,9 @@ namespace Chronos
 
 		[SerializeField]
 		private float _padding = 0.5f;
-
 		/// <summary>
 		/// The padding of the area clock. This value is only used for the DistanceFromEntry mode. 
+		/// </para>
 		/// </summary>
 		public float padding
 		{
@@ -146,7 +144,6 @@ namespace Chronos
 
 		[SerializeField]
 		private ClockBlend _innerBlend = ClockBlend.Multiplicative;
-
 		/// <summary>
 		/// Determines how the clock combines its time scale with that of the timelines within.
 		/// </summary>
@@ -284,7 +281,10 @@ namespace Chronos
 
 		#region Components
 
-		public virtual void CacheComponents() { }
+		public virtual void CacheComponents()
+		{
+
+		}
 
 		#endregion
 	}

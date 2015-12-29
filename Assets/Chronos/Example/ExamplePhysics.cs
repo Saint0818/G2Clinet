@@ -1,6 +1,8 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Chronos.Example
 {
@@ -12,20 +14,20 @@ namespace Chronos.Example
 	{
 		// The delay between respawns
 		public float delay = 5;
-
+		
 		// The amount of boxes to spawn
 		public float amount = 10;
 
 		// The list of spawned boxes
-		private List<GameObject> spawned = new List<GameObject>();
+		List<GameObject> spawned = new List<GameObject>();
 
-		private void Start()
+		void Start()
 		{
 			// Start spawning
 			StartCoroutine(SpawnCoroutine());
 		}
 
-		private IEnumerator SpawnCoroutine()
+		IEnumerator SpawnCoroutine()
 		{
 			// Loop forever
 			while (true)
@@ -41,7 +43,7 @@ namespace Chronos.Example
 		}
 
 		// Spawn the boxes
-		private void Spawn()
+		void Spawn()
 		{
 			// Clear the previously spawned boxes
 			foreach (GameObject go in spawned)
@@ -73,7 +75,6 @@ namespace Chronos.Example
 				Timeline timeline = go.AddComponent<Timeline>();
 				timeline.mode = TimelineMode.Global;
 				timeline.globalClockKey = time.globalClockKey;
-				timeline.recordTransform = time.recordTransform;
 
 				// Add the time-color script for easy visualisation
 				go.AddComponent<ExampleTimeColor>();
@@ -83,4 +84,5 @@ namespace Chronos.Example
 			}
 		}
 	}
+
 }

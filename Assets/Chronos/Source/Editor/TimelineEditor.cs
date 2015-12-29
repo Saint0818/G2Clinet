@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
@@ -12,7 +12,6 @@ namespace Chronos
 		protected SerializedProperty recordTransform;
 		protected SerializedProperty recordingDuration;
 		protected SerializedProperty recordingInterval;
-		protected SerializedProperty rewindableParticleSystem;
 
 		public void OnEnable()
 		{
@@ -21,7 +20,6 @@ namespace Chronos
 			recordTransform = serializedObject.FindProperty("_recordTransform");
 			recordingDuration = serializedObject.FindProperty("_recordingDuration");
 			recordingInterval = serializedObject.FindProperty("_recordingInterval");
-			rewindableParticleSystem = serializedObject.FindProperty("_rewindableParticleSystem");
 		}
 
 		public override void OnInspectorGUI()
@@ -74,15 +72,6 @@ namespace Chronos
 
 			string summary;
 
-			if (!serializedObject.isEditingMultipleObjects && ((Timeline)serializedObject.targetObject).GetComponent<ParticleSystem>() != null)
-			{
-				EditorGUI.BeginDisabledGroup(Application.isPlaying);
-				{
-					EditorGUILayout.PropertyField(rewindableParticleSystem, new GUIContent("Rewindable Particles"));
-				}
-				EditorGUI.EndDisabledGroup();
-			}
-
 			if (!recordingDuration.hasMultipleDifferentValues &&
 				!recordingInterval.hasMultipleDifferentValues)
 			{
@@ -99,27 +88,6 @@ namespace Chronos
 			}
 
 			EditorGUILayout.HelpBox(summary, MessageType.Info);
-
-			if (!serializedObject.isEditingMultipleObjects)
-			{
-				Timeline timeline = ((Timeline)serializedObject.targetObject);
-				ParticleSystem particleSystem = timeline.GetComponent<ParticleSystem>();
-
-				if (particleSystem != null && timeline.rewindableParticleSystem)
-				{
-					if (particleSystem.simulationSpace == ParticleSystemSimulationSpace.World)
-					{
-						EditorGUILayout.HelpBox("World simulation is incompatible with rewindable particle systems.", MessageType.Warning);
-					}
-
-					bool sendCollisionMessage = false; // Unity API doesn't seem to provide a way to check this.
-
-					if (sendCollisionMessage)
-					{
-						EditorGUILayout.HelpBox("Collision messages are incompatible with rewindable particle systems.", MessageType.Warning);
-					}
-				}
-			}
 
 			if (!serializedObject.isEditingMultipleObjects &&
 				Application.isPlaying)

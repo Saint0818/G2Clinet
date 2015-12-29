@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Chronos
 {
@@ -12,12 +12,10 @@ namespace Chronos
 
 	public abstract class RigidbodyTimeline<TComponent, TSnapshot> : RecorderTimeline<TComponent, TSnapshot>, IRigidbodyTimeline where TComponent : Component
 	{
-		public RigidbodyTimeline(Timeline timeline) : base(timeline) {}
+		public RigidbodyTimeline(Timeline timeline) : base(timeline) { }
 
 		public override void Update()
 		{
-			enableRecording = timeline.recordTransform;
-
 			float timeScale = timeline.timeScale;
 
 			if (lastTimeScale != 0 && timeScale == 0) // Arrived at halt
@@ -26,12 +24,10 @@ namespace Chronos
 				{
 					zeroSnapshot = CopySnapshot();
 				}
-				else if (lastTimeScale < 0 && enableRecording)
+				else if (lastTimeScale < 0)
 				{
 					zeroSnapshot = interpolatedSnapshot;
 				}
-
-				zeroTime = timeline.time;
 			}
 
 			if (lastTimeScale >= 0 && timeScale <= 0) // Started pause or rewind
@@ -40,7 +36,6 @@ namespace Chronos
 				{
 					laterSnapshot = CopySnapshot();
 					laterTime = timeline.time;
-					interpolatedSnapshot = laterSnapshot;
 					canRewind = TryFindEarlierSnapshot(false);
 				}
 
@@ -49,12 +44,12 @@ namespace Chronos
 			else if (lastTimeScale <= 0 && timeScale > 0) // Stopped pause or rewind
 			{
 				bodyIsKinematic = isKinematic;
-				
+
 				if (lastTimeScale == 0) // Stopped pause
 				{
 					ApplySnapshot(zeroSnapshot);
 				}
-				else if (lastTimeScale < 0 && enableRecording) // Stopped rewind
+				else if (lastTimeScale < 0) // Stopped rewind
 				{
 					ApplySnapshot(interpolatedSnapshot);
 				}
@@ -99,18 +94,6 @@ namespace Chronos
 
 		protected float lastPositiveTimeScale = 1;
 		protected TSnapshot zeroSnapshot;
-		protected float zeroTime;
-
-		#endregion
-
-		#region Snapshots
-
-		public override void ModifySnapshots(SnapshotModifier modifier)
-		{
-			base.ModifySnapshots(modifier);
-
-			zeroSnapshot = modifier(zeroSnapshot, zeroTime);
-		}
 
 		#endregion
 
@@ -137,7 +120,7 @@ namespace Chronos
 		{
 			// This isn't getting used right now, but leave it here for forward-compatibility
 			get { return bodyMass; }
-			set { bodyMass = value; }
+			set { if (AssertForwardProperty("mass", Severity.Warn)) bodyMass = value; }
 		}
 
 		/// <summary>
@@ -171,6 +154,13 @@ namespace Chronos
 		protected virtual Vector3 AdjustForce(Vector3 force)
 		{
 			return force * timeline.timeScale;
+		}
+
+		protected enum Severity
+		{
+			Ignore,
+			Warn,
+			Error
 		}
 
 		protected bool AssertForwardProperty(string property, Severity severity)

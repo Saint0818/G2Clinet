@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Chronos
 {
@@ -47,13 +47,6 @@ namespace Chronos
 			component.position = snapshot.position;
 			component.rotation = snapshot.rotation;
 			//component.localScale = snapshot.scale;
-		}
-
-		public override void Update()
-		{
-			enableRecording = timeline.recordTransform;
-
-			base.Update();
 		}
 	}
 }

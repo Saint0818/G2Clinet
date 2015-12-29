@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Chronos
@@ -45,7 +45,7 @@ namespace Chronos
 				position = clock.transform.position;
 			}
 
-			Gizmos.DrawIcon(position, "Chronos/AreaClock");
+			Gizmos.DrawIcon(position, "AreaClock");
 
 			// Draw inset approximations for padding...
 

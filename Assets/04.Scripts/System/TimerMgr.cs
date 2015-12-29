@@ -2,36 +2,41 @@
 using Chronos;
 using DG.Tweening;
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum ETimerKind
 {
 	Default,
-	Player0,
-	Player1,
-	Player2,
-	Player3,
-	Player4,
-	Player5,
-	Ball
+	Self0,
+	Self1,
+	Self2,
+	Npc0,
+	Npc1,
+	Npc2
 }
 
 public class TimerMgr : KnightSingleton<TimerMgr>
 {
-	public Clock playerClock;
 	public ETimerKind SeleckKind = ETimerKind.Default;
 	public float CrtTime = 1f;
+    private Vector3 ballvelocity = Vector3.zero;
+    public bool IsPause = false;
 
 	void Start()
 	{
-		playerClock = Timekeeper.instance.Clock(SeleckKind.ToString());
 		CrtTime = 1f;
 	}
+
+    public float GetTime(ETimerKind key)
+    {
+        return Timekeeper.instance.Clock(key.ToString()).localTimeScale;
+    }
 
 	public void ChangeTime(ETimerKind key, float value)
 	{
 		CrtTime = value;
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
-		if(GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Player0) {
+		if(GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Self0) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[0].transform.DOPause();
@@ -41,7 +46,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[0].transform.DOPlay();
 			}
 		}
-		if(GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Player1) {
+        if(GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Self1) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[1].transform.DOPause();
@@ -51,7 +56,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[1].transform.DOPlay();
 			}
 		}
-		if(GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Player2) {
+        if(GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Self2) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[2].transform.DOPause();
@@ -61,7 +66,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[2].transform.DOPlay();
 			}
 		}
-		if(GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Player3) {
+		if(GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Npc0) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[3].transform.DOPause();
@@ -71,7 +76,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[3].transform.DOPlay();
 			}
 		}
-		if(GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Player4) {
+        if(GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Npc1) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[4].transform.DOPause();
@@ -81,7 +86,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[4].transform.DOPlay();
 			}
 		}
-		if(GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Player5) {
+        if(GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Npc2) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[5].transform.DOPause();
@@ -91,27 +96,28 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[5].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Ball){
-			Timekeeper.instance.Clock(key.ToString()).DOPause();
-
-			if(value == 0)
-			{
-				ballvelocity = CourtMgr.Get.RealBallVelocity;
-				CourtMgr.Get.RealBallRigidbody.isKinematic = true;
-				CourtMgr.Get.RealBall.transform.DOPause();
-			}
-			else
-			{
-				CourtMgr.Get.RealBallRigidbody.isKinematic = false;
-				CourtMgr.Get.RealBallVelocity = ballvelocity;
-				CourtMgr.Get.RealBall.transform.DOPlay();
-			}
-//			LogMgr.Get.Log("DOPause ball");
-		}
 	}
 
-	private Vector3 ballvelocity = Vector3.zero;
-	public bool IsPause = false;
+	public Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
+	
+    public void SetTimerKey(ETimerKind key, ref GameObject obj)
+    {
+        Timeline timer = obj.GetComponent<Timeline>();
+
+		if (timer == null)
+        {
+			timer = obj.AddComponent<Timeline>();
+        }
+
+		if (timer)
+        {
+			timer.mode = TimelineMode.Global;
+			timer.globalClockKey = key.ToString();
+			timer.SetRecording(34, 2);
+			timer.recordTransform = false;
+			timer.rigidbody.useGravity = true;
+        }
+    }
 
 	public void PauseTime(bool isPase)
 	{

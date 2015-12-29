@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,7 +31,6 @@ namespace Chronos
 
 		[SerializeField]
 		private bool _debug = false;
-
 		/// <summary>
 		/// Determines whether Chronos should display debug messages and gizmos in the editor. 
 		/// </summary>
@@ -43,7 +42,6 @@ namespace Chronos
 
 		[SerializeField]
 		private int _maxParticleLoops = DefaultMaxParticleLoops;
-
 		/// <summary>
 		/// The maximum loops during which particle systems should be allowed to run before resetting.
 		/// </summary>
@@ -58,13 +56,15 @@ namespace Chronos
 		#region Clocks
 
 		protected Dictionary<string, GlobalClock> _clocks;
-
 		/// <summary>
 		/// An enumeration of all the global clocks on the timekeeper.
 		/// </summary>
 		public IEnumerable<GlobalClock> clocks
 		{
-			get { return _clocks.Values; }
+			get
+			{
+				return _clocks.Values;
+			}
 		}
 
 		/// <summary>
@@ -106,7 +106,6 @@ namespace Chronos
 
 			GlobalClock clock = gameObject.AddComponent<GlobalClock>();
 			clock.key = key;
-			_clocks.Add(key, clock);
 			return clock;
 		}
 
@@ -148,24 +147,6 @@ namespace Chronos
 			else // if (timeScale > 1)
 			{
 				return TimeState.Accelerated;
-			}
-		}
-
-		// Unscaled delta time does not automatically behave like delta time.
-		// Hacky workaround for now, fixing 2 / 3 issues
-		// See: http://forum.unity3d.com/threads/138432/#post-2251561
-		internal static float unscaledDeltaTime
-		{
-			get
-			{
-				if (Time.frameCount <= 2)
-				{
-					return 0.02f;
-				}
-				else
-				{
-					return Mathf.Min(Time.unscaledDeltaTime, Time.maximumDeltaTime);
-				}
 			}
 		}
 	}

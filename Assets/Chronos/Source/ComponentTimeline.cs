@@ -1,26 +1,26 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 namespace Chronos
 {
 	public interface IComponentTimeline
 	{
+		Component component { get; }
 		void Start();
 		void Update();
 		void FixedUpdate();
-		void AdjustProperties();
+		void AdjustProperties(float timeScale);
 	}
 
-	public interface IComponentTimeline<T> : IComponentTimeline where T : Component
-	{
-		T component { get; }
-		bool Cache(T source);
-	}
-
-	public abstract class ComponentTimeline<T> : IComponentTimeline<T> where T : Component
+	public abstract class ComponentTimeline<T> : IComponentTimeline where T : Component
 	{
 		protected Timeline timeline { get; private set; }
 		public T component { get; protected set; }
-		public bool isDirty { get; protected set; }
+
+		Component IComponentTimeline.component
+		{
+			get { return component; }
+		}
 
 		public ComponentTimeline(Timeline timeline)
 		{
@@ -33,21 +33,14 @@ namespace Chronos
 		public virtual void CopyProperties(T source) { }
 		public virtual void AdjustProperties(float timeScale) { }
 
-		public void AdjustProperties()
-		{
-			AdjustProperties(timeline.timeScale);
-		}
-
 		public bool Cache(T source)
 		{
-			bool shouldCopy = component == null && source != null;
-
-			component = source;
-
-			if (shouldCopy)
+			if (component == null && source != null)
 			{
 				CopyProperties(source);
 			}
+
+			component = source;
 
 			return source != null;
 		}

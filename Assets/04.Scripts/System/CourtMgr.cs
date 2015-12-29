@@ -364,10 +364,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
-			Timeline tl = RefGameObject.AddComponent<Timeline>();
-			tl.mode = TimelineMode.Global;
-			tl.globalClockKey = ETimerKind.Ball.ToString();
-			tl.recordTransform = false;
 			
 			if(RealBallCurve == null || RealBallCurve.gameObject == null) {
 				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;

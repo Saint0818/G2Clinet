@@ -25,31 +25,20 @@ namespace Chronos
 	[HelpURL("http://ludiq.io/chronos/documentation#Clock")]
 	public abstract class Clock : MonoBehaviour
 	{
-		protected virtual void Awake() { }
+		protected virtual void Awake()
+		{
+
+		}
 
 		protected virtual void Start()
 		{
-			if (string.IsNullOrEmpty(_parentKey))
-			{
-				parent = null;
-			}
-			else if (Timekeeper.instance.HasClock(_parentKey))
-			{
-				parent = Timekeeper.instance.Clock(_parentKey);
-			}
-			else
-			{
-				throw new ChronosException(string.Format("Missing parent clock: '{0}'.", _parentKey));
-			}
-
 			startTime = Time.unscaledTime;
 
 			if (parent != null)
 			{
 				parent.Register(this);
-				parent.ComputeTimeScale();
 			}
-
+			
 			ComputeTimeScale();
 		}
 
@@ -65,17 +54,25 @@ namespace Chronos
 				}
 			}
 
+			if (_parentKey != lastParentKey)
+			{
+				parentDirty = true;
+			}
+
 			ComputeTimeScale();
 
-			float unscaledDeltaTime = Timekeeper.unscaledDeltaTime;
-			deltaTime = unscaledDeltaTime * timeScale;
+			unscaledTime += Time.unscaledDeltaTime;
+			deltaTime = Time.unscaledDeltaTime * timeScale;
 			fixedDeltaTime = Time.fixedDeltaTime * timeScale;
 			time += deltaTime;
-			unscaledTime += unscaledDeltaTime;
+
+			lastParentKey = _parentKey;
 		}
 
 		#region Fields
 
+		protected bool parentDirty = true;
+		protected string lastParentKey;
 		protected bool isLerping;
 		protected float lerpStart;
 		protected float lerpEnd;
@@ -88,14 +85,13 @@ namespace Chronos
 
 		[SerializeField]
 		private float _localTimeScale = 1;
-
 		/// <summary>
 		/// The scale at which the time is passing for the clock. This can be used for slow motion, acceleration, pause or even rewind effects. 
 		/// </summary>
 		public float localTimeScale
 		{
 			get { return _localTimeScale; }
-			set { _localTimeScale = value; }
+			set { _localTimeScale = value;  }
 		}
 
 		/// <summary>
@@ -132,7 +128,6 @@ namespace Chronos
 
 		[SerializeField]
 		private bool _paused;
-
 		/// <summary>
 		/// Determines whether the clock is paused. This toggle is especially useful if you want to pause a clock without having to worry about storing its previous time scale to restore it afterwards. 
 		/// </summary>
@@ -146,13 +141,33 @@ namespace Chronos
 		private string _parentKey;
 
 		private GlobalClock _parent;
-
 		/// <summary>
 		/// The parent global clock. The parent clock will multiply its time scale with all of its children, allowing for cascading time effects.
 		/// </summary>
 		public GlobalClock parent
 		{
-			get { return _parent; }
+			get
+			{
+				if (parentDirty)
+				{
+					if (string.IsNullOrEmpty(_parentKey))
+					{
+						parent = null;
+					}
+					else if (Timekeeper.instance.HasClock(_parentKey))
+					{
+						parent = Timekeeper.instance.Clock(_parentKey);
+					}
+					else
+					{
+						throw new ChronosException(string.Format("Missing parent clock: '{0}'.", _parentKey));
+					}
+
+					parentDirty = false;
+				}
+
+				return _parent;
+			}
 			set
 			{
 				if (_parent != null)
@@ -181,7 +196,6 @@ namespace Chronos
 
 		[SerializeField]
 		private ClockBlend _parentBlend = ClockBlend.Multiplicative;
-
 		/// <summary>
 		/// Determines how the clock combines its time scale with that of its parent.
 		/// </summary>
@@ -196,7 +210,10 @@ namespace Chronos
 		/// </summary>
 		public TimeState state
 		{
-			get { return Timekeeper.GetTimeState(timeScale); }
+			get
+			{
+				return Timekeeper.GetTimeState(timeScale);
+			}
 		}
 
 		#endregion

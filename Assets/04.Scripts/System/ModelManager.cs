@@ -207,6 +207,14 @@ public class ModelManager : KnightSingleton<ModelManager>
                 player.BodyType = (int)GameStart.Get.TestModel;
 
             SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.AnimationControl); //EAnimatorType.ShowControl); 
+			InitRigbody(res);
+			ETimerKind timeKey;
+			if (team == ETeamKind.Self)
+				timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Self{0}", teamIndex));
+			else
+				timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Npc{0}", teamIndex));
+						
+			TimerMgr.Get.SetTimerKey(timeKey, ref res);
 
             res.transform.parent = PlayerInfoModel.transform;
             res.transform.localPosition = bornPos;
@@ -217,11 +225,8 @@ public class ModelManager : KnightSingleton<ModelManager>
             playerBehaviour.MoveIndex = -1;
             playerBehaviour.Attribute = player;
             playerBehaviour.Index = (EPlayerPostion)teamIndex;
-            if (team == ETeamKind.Self)
-                playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
-            else
-                playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 + teamIndex)));
-
+			playerBehaviour.TimerKind = timeKey;
+           
             if ((EPlayerPostion)teamIndex == EPlayerPostion.C)
                 playerBehaviour.Postion = EPlayerPostion.C;
             else if ((EPlayerPostion)teamIndex == EPlayerPostion.F)
@@ -680,6 +685,14 @@ public class ModelManager : KnightSingleton<ModelManager>
         aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
         ChangeAnimator(ref aniControl, bodyNumber, animatorType);
     }
+
+	private void InitRigbody(GameObject obj)
+	{
+		Rigidbody rig = obj.AddComponent<Rigidbody>();
+		rig.mass = 0.1f;
+		rig.drag = 10f;
+		rig.freezeRotation = true;
+	}
 
     public void ChangeAnimator(ref Animator ani, int bodyNumber, EAnimatorType type)
     {
