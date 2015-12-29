@@ -6,7 +6,7 @@ using GameStruct;
 public class TStageRewardStart
 {
     /// <summary>
-    /// 獎勵給的金幣.
+    /// 關卡給的金幣.
     /// </summary>
     public int AddMoney;
 

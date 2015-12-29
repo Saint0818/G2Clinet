@@ -31,6 +31,7 @@ namespace GameStruct
         public TTeamRecord LifetimeRecord;
         public TPlayer Player;
         public TItem[] Items;
+        public int[] MaterialItems;
         public TSkill[] SkillCards;
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;

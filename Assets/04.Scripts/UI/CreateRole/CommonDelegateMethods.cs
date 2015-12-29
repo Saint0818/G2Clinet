@@ -4,6 +4,7 @@ using GameStruct;
 public class CommonDelegateMethods
 {
     public delegate void Action();
+    public delegate void Bool1(bool value);
     public delegate void Int1(int value);
     public delegate void Int2(int value1, int value2);
     public delegate void Object1(object obj);
