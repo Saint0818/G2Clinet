@@ -539,6 +539,7 @@ public class UISkillReinforce : UIBase {
 		foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
 			Destroy(obj.Value);
 		}
+		hideSlotRemoveBtn ();
 
 		reinforceCards.Clear();
 		reinforceItems.Clear();
