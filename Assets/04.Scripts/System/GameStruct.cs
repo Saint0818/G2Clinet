@@ -19,14 +19,18 @@ namespace GameStruct
 	    public int PlayerNum; // 玩家擁有幾位角色.
 		public int StageTutorial;
         public int AvatarPotential;
-
+        public int PVPLv;
+        public int OccupyLv; //佔領球館等級
+        public int StatiumLv; //經營球館等級
 
         public int[] TutorialFlags;
         public int[] Achievements;
+        public Dictionary<int, int> GotItemCount; //key: item id, value: got number
+        public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
+        public Dictionary<int, int> MissionLv; //key: mission id, value: lv
         public TTeamRecord LifetimeRecord;
         public TPlayer Player;
         public TItem[] Items;
-        public Dictionary<int, int> GotItem;
         public TSkill[] SkillCards;
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
@@ -167,9 +171,49 @@ namespace GameStruct
 				Achievements[index] = -1;
 		}
 
-		public int MissionLv(TMission mission) {
-			return 0;
+        public int FindMissionLv(int id) {
+            if (MissionLv != null && MissionLv.ContainsKey(id))
+                return MissionLv[id];
+            else
+                return 0;
 		}
+
+        public int GetMissionValue(int kind) {
+            switch (kind) {
+                case 1: return Player.Lv; //玩家等級
+                case 2: return PVPLv; //挑戰積分(PVP積分)
+                case 3: return StatiumLv; //球場等級
+                case 4: return OccupyLv; //踢館等級
+                case 5: return LifetimeRecord.AvatarCount; //Avatar number
+                case 6: return 0; //收集套裝
+                case 7: return LifetimeRecord.SkillCount; //Ability number
+                case 8: return 0; //收集套卡
+                case 11: return Player.NextMainStageID; //PVE通過某關
+                case 12: return LifetimeRecord.PVEWin; //PVE獲勝數
+                case 13: return LifetimeRecord.PVEKeepWin; //PVE連勝數
+                case 14: return 0; //副本通過某關
+                case 15: return LifetimeRecord.SubTextWin; //副本獲勝數
+                case 16: return LifetimeRecord.SubTextKeepWin; //副本連勝數
+                case 17: return LifetimeRecord.PVPWin; //PVP獲勝數
+                case 18: return LifetimeRecord.PVPKeepWin; //PVP連勝數 
+                case 19: return LifetimeRecord.OccupyWin; //踢館獲勝數
+                case 20: return LifetimeRecord.OccupyKeepWin; //踢館連勝數
+                case 31: return Player.LifetimeRecord.Score; //總得分
+                case 32: return Player.LifetimeRecord.FGIn; //兩分球
+                case 33: return Player.LifetimeRecord.FG3In; //三分球
+                case 34: return Player.LifetimeRecord.Dunk; 
+                case 35: return Player.LifetimeRecord.Rebound;
+                case 36: return Player.LifetimeRecord.Assist;
+                case 37: return Player.LifetimeRecord.Steal;
+                case 38: return Player.LifetimeRecord.Block;
+                case 39: return Player.LifetimeRecord.Push;
+                case 40: return Player.LifetimeRecord.Knock; //擊倒
+                case 41: return LifetimeRecord.DoubleClickPerfact; //Perfect數
+                case 42: return Player.LifetimeRecord.Alleyoop;
+            }
+
+            return 0;
+        }
 
 		public bool CheckSkillCardisNew (int id) {
 			if(SkillCards == null)
@@ -260,6 +304,8 @@ namespace GameStruct
         public int TotalDelPower;
         public int BuyPower;
         public int GameTime;
+        public int GamePlayTime;
+        public int DoubleClickPerfact;
         public int AvatarCount;
         public int SkillCount;
         public int PVECount;
@@ -271,6 +317,9 @@ namespace GameStruct
         public int SubTextCount;
         public int SubTextWin;
         public int SubTextKeepWin;
+        public int OccupyCount;
+        public int OccupyWin;
+        public int OccupyKeepWin;
     }
 
     public struct TLookUpData
@@ -597,6 +646,7 @@ namespace GameStruct
 		public int FGIn;
 		public int FG3;
 		public int FG3In;
+        public int Score;
 		public int ShotError;
 		public int Fake;
 		public int BeFake;
@@ -1083,6 +1133,7 @@ namespace GameStruct
         public int[] Diamond;
         public int[] AwardID;
         public int[] AwardNum;
+        public string OpenUI;
         private string nameTW;
         private string nameCN;
         private string nameEN;

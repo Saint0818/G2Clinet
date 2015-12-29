@@ -37,6 +37,7 @@ public static class URLConst {
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
 	public const string BuyAvatarItem = "buyavataritem";
+    public const string MissionFinish = "missionfinish";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";

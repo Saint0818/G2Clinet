@@ -132,4 +132,21 @@ public class UI2D : MonoBehaviour {
 				return 720;
         }
     }
+
+    public void OpenUI(string name) {
+        switch (name) {
+            case "UIGameLobby":
+                UIGameLobby.Get.Show();
+                UIMainLobby.Get.Hide();
+                break;
+            case  "UIAvatarFitted":
+                UIAvatarFitted.UIShow(true);
+                UIMainLobby.Get.Hide();
+                break;
+            case "UISkillFormation":
+                UISkillFormation.UIShow(true);
+                UIMainLobby.Get.Hide();
+                break;
+        }
+    }
 }
