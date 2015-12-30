@@ -532,10 +532,11 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	private void parseItemData (string version, string text, bool isSaveVersion){
-		try {
+		try
+        {
 			GameData.DItemData.Clear();
 
-			TItemData[] data = (TItemData[])JsonConvert.DeserializeObject (text, typeof(TItemData[]));
+			TItemData[] data = JsonConvertWrapper.DeserializeObject<TItemData[]>(text);
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DItemData.ContainsKey(data[i].ID))
 					GameData.DItemData.Add(data[i].ID, data[i]);

@@ -58,8 +58,7 @@ public class UIValueItemData
     public Dictionary<EAttribute, BonusData> Values = new Dictionary<EAttribute, BonusData>();
 
     // 鑲嵌物品.
-    [CanBeNull]
-    public UIValueItemInlayData[] Inlays;
+    public List<UIEquipMaterialItem.Data> Inlays = new List<UIEquipMaterialItem.Data>();
 
     public int Num; // 堆疊數量.
 
@@ -121,9 +120,4 @@ public class UIValueItemData
 
         return totalPoints;
     }
-
-//    public bool IsValid()
-//    {
-//        return !String.IsNullOrEmpty(Name);
-//    }
 }

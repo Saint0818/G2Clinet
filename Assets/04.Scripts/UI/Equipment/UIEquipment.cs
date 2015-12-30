@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -42,7 +41,23 @@ public class UIEquipment : UIBase
         Show(true);
 
         initUI();
+
+//        var addValueItemInlay = new AddValueItemInlayProtocol();
+//        addValueItemInlay.Send(13, 0, onAddValueItemInlay);
+
+//        var valueItemUpgrade = new ValueItemUpgradeProtocol();
+//        valueItemUpgrade.Send(11, onValueItemUpgrade);
     }
+
+//    private void onAddValueItemInlay(bool ok)
+//    {
+//        Debug.Log("onAddValueItemInlay");
+//    }
+//
+//    private void onValueItemUpgrade(bool ok)
+//    {
+//        Debug.Log("onValueItemUpgrade");
+//    }
 
     private void initUI()
     {
@@ -93,7 +108,7 @@ public class UIEquipment : UIBase
 
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
-                UIValueItemData uiItem = UIEquipUtility.Convert(GameData.DItemData[storageItem.ID]);
+                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], storageItem.InlayItemIDs);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
             }
@@ -125,7 +140,8 @@ public class UIEquipment : UIBase
            GameData.DItemData.ContainsKey(GameData.Team.Player.ValueItems[kind].ID))
         {
             TItemData item = GameData.DItemData[GameData.Team.Player.ValueItems[kind].ID];
-            return UIEquipUtility.Convert(item);
+            int[] inlayItemIDs = GameData.Team.Player.ValueItems[kind].InlayItemIDs;
+            return UIEquipUtility.Build(item, inlayItemIDs);
         }
             
         return new UIValueItemData();

@@ -9,7 +9,7 @@ using UnityEngine;
 /// <list type="number">
 /// <item> Call Show() or Hide(). </item>
 /// </list>
-public class UIEquipList : MonoBehaviour
+public class UIEquipItemList : MonoBehaviour
 {
     /// <summary>
     /// 呼叫時機: 列表上的按鈕點擊時. 

@@ -2,297 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameStruct
 {
-	public struct TTeam
-    {
-		public string Identifier;
-		public string sessionID;
-		public string FBName;
-		public string FBid;
-		public DateTime LoginTime;
-		public DateTime PowerCD;
-		public DateTime LookFriendTime;
-		public DateTime FreeLuckBox;
-	    public int PlayerNum; // 玩家擁有幾位角色.
-		public int StageTutorial;
-        public int AvatarPotential;
-        public int PVPLv;
-        public int OccupyLv; //佔領球館等級
-        public int StatiumLv; //經營球館等級
-
-        public int[] TutorialFlags;
-        public int[] Achievements;
-        public Dictionary<int, int> GotItemCount; //key: item id, value: got number
-        public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
-        public Dictionary<int, int> MissionLv; //key: mission id, value: lv
-        public TTeamRecord LifetimeRecord;
-        public TPlayer Player;
-        public TItem[] Items;
-        public int[] MaterialItems;
-        public TSkill[] SkillCards;
-        public TPlayerBank[] PlayerBank;
-        public TMail[] Mails;
-        public TFriend[] Friends;
-
-        /// <summary>
-        /// 玩家選擇的戰術.
-        /// </summary>
-	    public ETacticalAuto AttackTactical;
-
-	    public event CommonDelegateMethods.Int1 OnMoneyChangeListener;
-	    public int Money
-	    {
-	        get { return mMoney; }
-	        set
-	        {
-	            if(mMoney == value)
-                    return;
-
-	            mMoney = value;
-
-                PlayerPrefs.SetInt(ESave.MoneyChange.ToString(), 1);
-
-                if(OnMoneyChangeListener != null)
-	                OnMoneyChangeListener(mMoney);
-	        }
-	    }
-        private int mMoney;
-
-        public event CommonDelegateMethods.Int1 OnPowerChangeListener;
-        public int Power
-        {
-            get { return mPower; }
-            set
-            {
-                if(mPower == value)
-                    return;
-
-                mPower = value;
-
-                PlayerPrefs.SetInt(ESave.PowerChange.ToString(), 1);
-
-                if(OnPowerChangeListener != null)
-                    OnPowerChangeListener(mPower);
-            }
-        }
-
-	    private int mPower;
-
-        public event CommonDelegateMethods.Int1 OnDiamondChangeListener;
-        public int Diamond
-        {
-            get { return mDiamond; }
-            set
-            {
-                if(mDiamond == value)
-                    return;
-                mDiamond = value;
-
-                PlayerPrefs.SetInt(ESave.DiamondChange.ToString(), 1);
-
-                if(OnDiamondChangeListener != null)
-                    OnDiamondChangeListener(mDiamond);
-            }
-        }
-	    private int mDiamond;
-
-		public void Init() {
-			if (Identifier == null)
-				Identifier = "";
-
-			if (sessionID == null)
-				sessionID = "";
-
-			if (FBName == null)
-				FBName = "";
-
-			if (FBid == null)
-				FBid = "";
-
-			Player.Init();
-		}
-
-	    public override string ToString()
-	    {
-	        return string.Format("PlayerNum:{0}", PlayerNum);
-	    }
-
-		public bool HaveTutorialFlag(int id) {
-			if (TutorialFlags != null) {
-				for (int i = 0; i < TutorialFlags.Length; i++) 
-					if (TutorialFlags[i] == id)
-						return true;
-			}
-
-			return false;
-		}
-
-		public void AddTutorialFlag(int id) {
-			if (TutorialFlags == null) 
-				TutorialFlags = new int[0];
-
-			Array.Resize(ref TutorialFlags, TutorialFlags.Length+1);
-			TutorialFlags[TutorialFlags.Length-1] = id;
-		}
-
-		public void RemoveTutorialFlag(int index) {
-			if (TutorialFlags == null) 
-				TutorialFlags = new int[0];
-			
-			if (index >= 0 && index < TutorialFlags.Length)
-				TutorialFlags[index] = -1;
-		}
-
-		public bool HaveAchievement(int id) {
-			if (Achievements != null) {
-				for (int i = 0; i < Achievements.Length; i++) 
-					if (Achievements[i] == id)
-						return true;
-			}
-			
-			return false;
-		}
-		
-		public void AddAchievement(int id) {
-			if (Achievements == null) 
-				Achievements = new int[0];
-			
-			Array.Resize(ref Achievements, Achievements.Length+1);
-			Achievements[Achievements.Length-1] = id;
-		}
-		
-		public void RemoveAchievement(int index) {
-			if (Achievements == null) 
-				Achievements = new int[0];
-			
-			if (index >= 0 && index < Achievements.Length)
-				Achievements[index] = -1;
-		}
-
-        public int FindMissionLv(int id) {
-            if (MissionLv != null && MissionLv.ContainsKey(id))
-                return MissionLv[id];
-            else
-                return 0;
-		}
-
-        public int GetMissionValue(int kind) {
-            switch (kind) {
-                case 1: return Player.Lv; //玩家等級
-                case 2: return PVPLv; //挑戰積分(PVP積分)
-                case 3: return StatiumLv; //球場等級
-                case 4: return OccupyLv; //踢館等級
-                case 5: return LifetimeRecord.AvatarCount; //Avatar number
-                case 6: return 0; //收集套裝
-                case 7: return LifetimeRecord.SkillCount; //Ability number
-                case 8: return 0; //收集套卡
-                case 11: return Player.NextMainStageID; //PVE通過某關
-                case 12: return LifetimeRecord.PVEWin; //PVE獲勝數
-                case 13: return LifetimeRecord.PVEKeepWin; //PVE連勝數
-                case 14: return 0; //副本通過某關
-                case 15: return LifetimeRecord.SubTextWin; //副本獲勝數
-                case 16: return LifetimeRecord.SubTextKeepWin; //副本連勝數
-                case 17: return LifetimeRecord.PVPWin; //PVP獲勝數
-                case 18: return LifetimeRecord.PVPKeepWin; //PVP連勝數 
-                case 19: return LifetimeRecord.OccupyWin; //踢館獲勝數
-                case 20: return LifetimeRecord.OccupyKeepWin; //踢館連勝數
-                case 31: return Player.LifetimeRecord.Score; //總得分
-                case 32: return Player.LifetimeRecord.FGIn; //兩分球
-                case 33: return Player.LifetimeRecord.FG3In; //三分球
-                case 34: return Player.LifetimeRecord.Dunk; 
-                case 35: return Player.LifetimeRecord.Rebound;
-                case 36: return Player.LifetimeRecord.Assist;
-                case 37: return Player.LifetimeRecord.Steal;
-                case 38: return Player.LifetimeRecord.Block;
-                case 39: return Player.LifetimeRecord.Push;
-                case 40: return Player.LifetimeRecord.Knock; //擊倒
-                case 41: return LifetimeRecord.DoubleClickPerfact; //Perfect數
-                case 42: return Player.LifetimeRecord.Alleyoop;
-            }
-
-            return 0;
-        }
-
-		public bool CheckSkillCardisNew (int id) {
-			if(SkillCards == null)
-				SkillCards = new TSkill[0];
-
-			if(SkillCards.Length > 0) 
-				for (int i=0; i<SkillCards.Length; i++) 
-					if(SkillCards[i].ID == id)
-						return false;
-
-			if(PlayerBank != null && PlayerBank.Length > 0) 
-				for (int i=0; i<PlayerBank.Length; i++) 
-					if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) 
-						for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) 
-							if(PlayerBank[i].SkillCards[j].ID == id)
-								return false;
-
-			if(Player.SkillCards != null && Player.SkillCards.Length > 0) 
-				for (int i=0; i<Player.SkillCards.Length; i++) 
-					if (Player.SkillCards[i].ID == id)
-						return false;
-			
-			return true;
-		}
-
-        /// <summary>
-        /// 是否玩家身上的數值裝是最強的.
-        /// </summary>
-        /// <returns></returns>
-	    public bool IsPlayerAllBestValueItem()
-        {
-            for(int kind = 11; kind < 19; kind++)
-            {
-                if(IsPlayerBestValueItem(kind))
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 是否某個數值裝是最強的.
-        /// </summary>
-        /// <param name="kind"></param>
-        /// <returns></returns>
-	    public bool IsPlayerBestValueItem(int kind)
-        {
-            if(11 <= kind && kind <= 19)
-                return Player.GetValueItemTotalPoints(kind) < getBestValueItemTotalPointsFromStorage(kind);
-
-            return false;
-        }
-
-        /// <summary>
-        /// 從倉庫找出最強的數值裝數值總和.
-        /// </summary>
-        /// <param name="kind"></param>
-        /// <returns></returns>
-        public int getBestValueItemTotalPointsFromStorage(int kind)
-	    {
-            int maxTotalPoint = Int32.MinValue;
-	        for(var i = 0; i < Items.Length; i++)
-	        {
-	            if(!GameData.DItemData.ContainsKey(Items[i].ID))
-                    continue;
-
-	            TItemData item = GameData.DItemData[Items[i].ID];
-                if(item.Kind != kind)
-                    continue;
-
-                if(maxTotalPoint < item.BonusValues.Sum())
-	                maxTotalPoint = item.BonusValues.Sum();
-	        }
-
-	        return maxTotalPoint;
-	    }
-    }
-
     public struct TTeamRecord
     {
         public int TotalAddDiamond;
@@ -880,12 +594,18 @@ namespace GameStruct
 		}
 	}
 
-	public struct TItem {
+	public struct TItem
+    {
 		public int ID;
 		public int UseKind;
 		public DateTime UseTime;
 
-	    public override string ToString()
+        /// <summary>
+        /// 鑲嵌物品的 ItemID.
+        /// </summary>
+		public int[] InlayItemIDs;
+
+        public override string ToString()
 	    {
 	        return string.Format("ID: {0}, UseKind: {1}, UseTime: {2}", ID, UseKind, UseTime);
 	    }
@@ -904,6 +624,12 @@ namespace GameStruct
 	    {
 	        return string.Format("ID: {0}, InlayItemIDs: {1}", ID, InlayItemIDs);
 	    }
+    }
+
+    public struct TMaterialItem
+    {
+        public int ID;
+        public int Num;
     }
 
 	public enum EAttribute
@@ -990,6 +716,35 @@ namespace GameStruct
         public int AttrValue2;
         public EBonus AttrKind3;
         public int AttrValue3;
+
+        public int[] Materials
+        {
+            get { return mMaterials ?? (mMaterials = new []{Material1, Material2, Material3, Material4}); }
+        }
+
+        public int[] MaterialNums
+        {
+            get { return mMaterialNums ?? (mMaterialNums = new []{MaterialNum1, MaterialNum2, MaterialNum3, MaterialNum4}); }
+        }
+
+        private int[] mMaterials;
+        private int[] mMaterialNums;
+        [UsedImplicitly]
+        public int Material1 { get; private set; }
+        [UsedImplicitly]
+        public int MaterialNum1 { get; private set; }
+        [UsedImplicitly]
+        public int Material2 { get; private set; }
+        [UsedImplicitly]
+        public int MaterialNum2 { get; private set; }
+        [UsedImplicitly]
+        public int Material3 { get; private set; }
+        [UsedImplicitly]
+        public int MaterialNum3 { get; private set; }
+        [UsedImplicitly]
+        public int Material4 { get; private set; }
+        [UsedImplicitly]
+        public int MaterialNum4 { get; private set; }
 
         public int Buy;
         public int Sell;

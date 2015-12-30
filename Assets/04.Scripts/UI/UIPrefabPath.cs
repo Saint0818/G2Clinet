@@ -8,6 +8,7 @@ public class UIPrefabPath
     public static readonly string EquipPartSlot = "Prefab/UI/Items/EquipPartSlot";
     public static readonly string ItemEquipmentBtn = "Prefab/UI/Items/ItemEquipmentBtn";
     public static readonly string EquipListButton = "Prefab/UI/Items/ItemListEquipment";
+    public static readonly string EquipMaterialItem = "Prefab/UI/Items/MaterialItem";
 
 	public static readonly string ItemSkillHint = "Prefab/UI/Items/ItemSkillHint";
 	public static readonly string UIStageHint = "Prefab/UI/UIStageHint";

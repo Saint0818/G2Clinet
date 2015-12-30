@@ -16,7 +16,7 @@ public class UIEquipListButton : MonoBehaviour
     public UISprite[] Attrs;
     public UILabel[] AttrValues;
 
-    private UIEquipList mParent;
+    private UIEquipItemList mParent;
     private int mIndex;
 
     [UsedImplicitly]
@@ -25,7 +25,7 @@ public class UIEquipListButton : MonoBehaviour
 	    
     }
 
-    public void Init(UIEquipList parent, int index)
+    public void Init(UIEquipItemList parent, int index)
     {
         mParent = parent;
         mIndex = index;

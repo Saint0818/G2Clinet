@@ -45,7 +45,8 @@ public class UIEquipmentMain : MonoBehaviour
 
     private UIEquipPlayer mPlayerInfo;
     private UIEquipDetail mDetail;
-    private UIEquipList mEquipList;
+    private UIEquipItemList mEquipList;
+    private UIEquipMaterialList mMaterialList;
 
     [UsedImplicitly]
     private void Awake()
@@ -56,8 +57,10 @@ public class UIEquipmentMain : MonoBehaviour
         mDetail = GetComponent<UIEquipDetail>();
         mDetail.OnItemClickListener += onDetailItemClick;
 
-        mEquipList = GetComponent<UIEquipList>();
+        mEquipList = GetComponent<UIEquipItemList>();
         mEquipList.OnClickListener += onListItemClick;
+
+        mMaterialList = GetComponent<UIEquipMaterialList>();
     }
 
     /// <summary>
@@ -75,6 +78,7 @@ public class UIEquipmentMain : MonoBehaviour
 
         mPlayerInfo.UpdateUI();
         mDetail.Set(0, ValueItems[0]); // 預設顯示第一個群組的裝備.
+        mMaterialList.Set(ValueItems[0].Inlays);
         mEquipList.Hide();
     }
 
@@ -85,6 +89,7 @@ public class UIEquipmentMain : MonoBehaviour
     private void onSlotClick(int slotIndex)
     {
         mDetail.Set(slotIndex, ValueItems[slotIndex]);
+        mMaterialList.Set(ValueItems[slotIndex].Inlays);
         mEquipList.Hide();
     }
 
