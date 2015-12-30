@@ -483,6 +483,10 @@ public class UISkillReinforce : UIBase {
 	private void addUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			reinforceMoney += GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
+			if(IsEnoughMoney(reinforceMoney))
+				labelPrice.color = Color.white;
+			else
+				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
 			buttonReinforce.isEnabled = (reinforceMoney > 0);
 		}
@@ -491,6 +495,10 @@ public class UISkillReinforce : UIBase {
 	private void minusUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			reinforceMoney -= GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
+			if(IsEnoughMoney(reinforceMoney))
+				labelPrice.color = Color.white;
+			else
+				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
 			buttonReinforce.isEnabled = (reinforceMoney > 0);
 		}
@@ -509,8 +517,8 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void ChooseItem (GameObject go) {
-		if(reinforceCards.Count < 6) {
-			if(passiveSkillCards.ContainsKey(go.name)) {
+		if(passiveSkillCards.ContainsKey(go.name)) {
+			if(reinforceCards.Count < 6) {
 				if(reinforceItems.ContainsKey(go.name)) {
 					Destroy(reinforceItems[go.name]);
 					passiveSkillCards[go.name].ChooseReinforce(false);
@@ -525,8 +533,17 @@ public class UISkillReinforce : UIBase {
 					addUpgradeMoney(passiveSkillCards[go.name].Skill);
 					addUpgradeView(passiveSkillCards[go.name].Skill);
 				}
-				RefreshSlot ();
+			} else {
+				if(reinforceItems.ContainsKey(go.name)) {
+					Destroy(reinforceItems[go.name]);
+					passiveSkillCards[go.name].ChooseReinforce(false);
+					reinforceItems.Remove(go.name);
+					reinforceCards.Remove(passiveSkillCards[go.name]);
+					minusUpgradeMoney(passiveSkillCards[go.name].Skill);
+					minusUpgradeView(passiveSkillCards[go.name].Skill);
+				} 
 			}
+			RefreshSlot ();
 		}
 	}
 
@@ -589,29 +606,33 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		removeIndexs = new int[reinforceCards.Count];
-		for (int i=0; i<removeIndexs.Length; i++) {
-			removeIndexs[i] = reinforceCards[i].CardIndex;
-		}
-
-		//Bobble Sort
-		if(removeIndexs.Length > 1) {
-			for(int i=0; i<removeIndexs.Length; i++) {
-				for (int j=i+1; j<removeIndexs.Length; j++){
-					if (removeIndexs[i] >= removeIndexs[j]){
-						int temp = removeIndexs[i];
-						removeIndexs[i] = removeIndexs[j];
-						removeIndexs[j] = temp;
+		if(IsEnoughMoney(reinforceMoney)) {
+			removeIndexs = new int[reinforceCards.Count];
+			for (int i=0; i<removeIndexs.Length; i++) {
+				removeIndexs[i] = reinforceCards[i].CardIndex;
+			}
+			
+			//Bobble Sort
+			if(removeIndexs.Length > 1) {
+				for(int i=0; i<removeIndexs.Length; i++) {
+					for (int j=i+1; j<removeIndexs.Length; j++){
+						if (removeIndexs[i] >= removeIndexs[j]){
+							int temp = removeIndexs[i];
+							removeIndexs[i] = removeIndexs[j];
+							removeIndexs[j] = temp;
+						}
 					}
 				}
 			}
-		}
-
-		if(removeIndexs.Length > 0) {
-			if(isEquiped)
-				SendReinforcePlayer();
-			else
-				SendReinforce();
+			
+			if(removeIndexs.Length > 0) {
+				if(isEquiped)
+					SendReinforcePlayer();
+				else
+					SendReinforce();
+			}
+		} else {
+			UIHint.Get.ShowHint(TextConst.S(510), Color.white);
 		}
 	}
 
@@ -649,7 +670,6 @@ public class UISkillReinforce : UIBase {
 			mSkill = findNewSkillFromTeam(mSkill);
 			RefreshView(mSkill);
 			initRightCards ();
-			RefreshSlot ();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
@@ -679,7 +699,6 @@ public class UISkillReinforce : UIBase {
 			mSkill = findNewSkillFromPlayer(mSkill);
 			RefreshView(mSkill);
 			initRightCards ();
-			RefreshSlot ();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
@@ -694,6 +713,10 @@ public class UISkillReinforce : UIBase {
 		}
 
 		return skill;
+	}
+
+	private bool IsEnoughMoney (int money){
+		return (GameData.Team.Money >= money);
 	}
 }
 

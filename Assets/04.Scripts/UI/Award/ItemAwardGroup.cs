@@ -10,7 +10,7 @@ public class ItemAwardGroup : MonoBehaviour
 	private AwardInlayView awardInlayView;
 	private AwardSkillView awardSkillView;
 
-    private TItemData mItemData;
+	public  TItemData mItemData;
 
     [UsedImplicitly]
 	void Awake()
