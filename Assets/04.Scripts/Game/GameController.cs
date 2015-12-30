@@ -4581,6 +4581,21 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 
+	public bool IsCanUseShootDoubleClick()
+	{
+		if(BallOwner && BallOwner.Team == ETeamKind.Self && (
+			BallOwner.CheckAnimatorSate(EPlayerState.Shoot0) || 
+			BallOwner.CheckAnimatorSate(EPlayerState.Shoot1) || 
+			BallOwner.CheckAnimatorSate(EPlayerState.Shoot2) || 
+			BallOwner.CheckAnimatorSate(EPlayerState.Shoot3) ||
+			BallOwner.CheckAnimatorSate(EPlayerState.Shoot6) ||
+			BallOwner.CheckAnimatorSate(EPlayerState.TipIn) ||
+			BallOwner.IsLayup))
+			return true;
+		else
+			return false;
+	}
+
 	public bool IsShowSituation
 	{
 		get{

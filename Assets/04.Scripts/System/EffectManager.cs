@@ -128,7 +128,7 @@ public class EffectManager : MonoBehaviour
 
 	public GameObject PlayEffectFollowBallOwner(string effectName, Vector3 position)
 	{
-		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
+		if (GameData.Setting.Quality > 0 || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
@@ -147,7 +147,7 @@ public class EffectManager : MonoBehaviour
 	}
 
 	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0, bool isNeedPause = true, bool isNeedPool = true) {
-		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
+		if (GameData.Setting.Quality > 0 || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {

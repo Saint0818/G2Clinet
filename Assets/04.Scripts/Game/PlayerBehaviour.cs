@@ -363,7 +363,6 @@ public class PlayerBehaviour : MonoBehaviour
     private bool canSpeedup = true;
     private float SlowDownTime = 0;
     public float DribbleTime = 0;
-    public ETimerKind CrtTimeKey = ETimerKind.Default;
 
     //SkillEvent
     private bool isSkillShow = false;
@@ -3229,12 +3228,12 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case 1: //Set myself
                 foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-                    if (item == CrtTimeKey)
-                        TimerMgr.Get.ChangeTime(item, floatParam);
+					if (item == TimerKind)
+                       TimerMgr.Get.ChangeTime(item, floatParam);
                 break;
             case 2: //Set Other 
                 foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-                    if (item != CrtTimeKey && item != ETimerKind.Default)
+					if (item != TimerKind && item != ETimerKind.Default)
                         TimerMgr.Get.ChangeTime(item, floatParam);
                 break;
             case 3: //Set Default
@@ -3242,7 +3241,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case 4: //Set Other Without Ball
                 foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-                    if (item != CrtTimeKey && item != ETimerKind.Default)
+					if (item != TimerKind && item != ETimerKind.Default)
                         TimerMgr.Get.ChangeTime(item, floatParam);
                 break;
         }

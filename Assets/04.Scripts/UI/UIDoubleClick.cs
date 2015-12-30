@@ -91,6 +91,11 @@ public struct TDoubleClick
 	
 	public void CheckLv()
 	{
+		if (runSprite.transform.localPosition.y > 0 && runSprite.transform.localPosition.y < 35)
+			SetLv(2, Index);
+		else
+			SetLv(0, Index);
+		/*				
 		if(CheckValue < 150 || CheckValue> 400) {
 //			Debug.Log("week");
 			SetLv(0, Index);
@@ -103,6 +108,7 @@ public struct TDoubleClick
 //			Debug.Log("perfab");
 			SetLv(2, Index);
 		}
+		*/
 	}
 	
 	public void SetData(EDoubleClick type, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
@@ -146,8 +152,8 @@ public struct TDoubleClick
 	public void ClickStop()
 	{
 		if (Enable) {
-			CheckValue = CrtValue;
 			IsStart = false;
+			CheckValue = CrtValue;
 			CrtValue = 800;
 			CheckLv ();
 		}
