@@ -28,24 +28,34 @@ public struct TExpView {
 
 	public void UpdateView (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			currentExp = skill.Exp;
 			maxExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
-			ProgressBar.value = (float)currentExp / (float)maxExp;
-			ProgressBar2.value = (float)currentExp/ (float)maxExp;
-			NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv]);
-//			GetLevelLabel.gameObject.SetActive(false);
+			if(skill.Lv >= GameData.DSkillData[skill.ID].MaxStar) {
+				currentExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
+				ProgressBar.value = 0;
+				ProgressBar2.value = 1;
+				NextLevelLabel.text = string.Format(TextConst.S(7407), 0);
+			} else {
+				currentExp = skill.Exp;
+				ProgressBar.value = (float)currentExp / (float)maxExp;
+				ProgressBar2.value = (float)currentExp/ (float)maxExp;
+				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv]);
+			}
 			GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
 		}
 	}
 
 	public void SetUpgradeView (int id, int lv, int originalExp, int upgradeExp) {
-		ProgressBar2.value = (float)(originalExp + upgradeExp)/ (float)maxExp;
-		if((originalExp + upgradeExp) >= GameData.DSkillData[id].UpgradeExp[lv])
-			ProgressBar.value = 0;
-		else 
-			ProgressBar.value = (float)currentExp / (float)maxExp;
-		
-		GetLevelLabel.text = string.Format(TextConst.S(7408), upgradeExp);
+		if(GameData.DSkillData.ContainsKey(id)) {
+			if(lv < GameData.DSkillData[id].MaxStar) {
+				ProgressBar2.value = (float)(originalExp + upgradeExp)/ (float)maxExp;
+				if((originalExp + upgradeExp) >= GameData.DSkillData[id].UpgradeExp[lv])
+					ProgressBar.value = 0;
+				else 
+					ProgressBar.value = (float)currentExp / (float)maxExp;
+
+				GetLevelLabel.text = string.Format(TextConst.S(7408), upgradeExp);
+			}
+		}
 	}
 }
 
@@ -74,11 +84,13 @@ public struct TCostView {
 
 	public void UpgradeView (TSkill skill , int newLv) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			SecondLabel.text = GameData.DSkillData[skill.ID].Space(newLv).ToString();
-			if(GameData.DSkillData[skill.ID].Space(newLv) > GameData.DSkillData[skill.ID].Space(skill.Lv))
-				SecondLabel.color = Color.green;
-			else 
-				SecondLabel.color = Color.white;
+			if(skill.Lv < GameData.DSkillData[skill.ID].MaxStar && newLv <= GameData.DSkillData[skill.ID].MaxStar) {
+				SecondLabel.text = GameData.DSkillData[skill.ID].Space(newLv).ToString();
+				if(GameData.DSkillData[skill.ID].Space(newLv) > GameData.DSkillData[skill.ID].Space(skill.Lv))
+					SecondLabel.color = Color.green;
+				else 
+					SecondLabel.color = Color.white;
+			}
 		}
 	}
 }
@@ -117,14 +129,16 @@ public struct TEnergyView {
 
 	public void UpgradeView (TSkill skill , int newLv) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			if(GameFunction.IsActiveSkill(skill.ID)) {
-				SecondLabel.text = GameData.DSkillData[skill.ID].MaxAnger.ToString();
-			} else {
-				SecondLabel.text = GameData.DSkillData[skill.ID].Rate(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].Rate(newLv) > GameData.DSkillData[skill.ID].Rate(skill.Lv))
-					SecondLabel.color = Color.green;
-				else 
-					SecondLabel.color = Color.white;
+			if(skill.Lv < GameData.DSkillData[skill.ID].MaxStar && newLv <= GameData.DSkillData[skill.ID].MaxStar) {
+				if(GameFunction.IsActiveSkill(skill.ID)) {
+					SecondLabel.text = GameData.DSkillData[skill.ID].MaxAnger.ToString();
+				} else {
+					SecondLabel.text = GameData.DSkillData[skill.ID].Rate(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].Rate(newLv) > GameData.DSkillData[skill.ID].Rate(skill.Lv))
+						SecondLabel.color = Color.green;
+					else 
+						SecondLabel.color = Color.white;
+				}
 			}
 		}
 	}
@@ -202,41 +216,43 @@ public struct TReinforceInfo {
 	public void UpgradeView (TSkill skill, int newLv) {
 		int index = 0;
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			if(GameData.DSkillData[skill.ID].aniRate > 0) {
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].AniRate(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].AniRate(newLv) > GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
-					ValueLabel1[index].color = Color.green;
-				} else {
-					ValueLabel1[index].color = Color.white;
+			if(skill.Lv < GameData.DSkillData[skill.ID].MaxStar && newLv <= GameData.DSkillData[skill.ID].MaxStar) {
+				if(GameData.DSkillData[skill.ID].aniRate > 0) {
+					ValueLabel1[index].text = GameData.DSkillData[skill.ID].AniRate(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].AniRate(newLv) > GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
+						ValueLabel1[index].color = Color.green;
+					} else {
+						ValueLabel1[index].color = Color.white;
+					}
+					index ++;
 				}
-				index ++;
-			}
-			if(GameData.DSkillData[skill.ID].distance > 0) {
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Distance(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].Distance(newLv) > GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
-					ValueLabel1[index].color = Color.green;
-				} else {
-					ValueLabel1[index].color = Color.white;
+				if(GameData.DSkillData[skill.ID].distance > 0) {
+					ValueLabel1[index].text = GameData.DSkillData[skill.ID].Distance(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].Distance(newLv) > GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
+						ValueLabel1[index].color = Color.green;
+					} else {
+						ValueLabel1[index].color = Color.white;
+					}
+					index ++;
 				}
-				index ++;
-			}
-			if(GameData.DSkillData[skill.ID].valueBase > 0) {
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Value(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].Value(newLv) > GameData.DSkillData[skill.ID].Value(skill.Lv)) {
-					ValueLabel1[index].color = Color.green;
-				} else {
-					ValueLabel1[index].color = Color.white;
+				if(GameData.DSkillData[skill.ID].valueBase > 0) {
+					ValueLabel1[index].text = GameData.DSkillData[skill.ID].Value(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].Value(newLv) > GameData.DSkillData[skill.ID].Value(skill.Lv)) {
+						ValueLabel1[index].color = Color.green;
+					} else {
+						ValueLabel1[index].color = Color.white;
+					}
+					index ++;
 				}
-				index ++;
-			}
-			if(GameData.DSkillData[skill.ID].lifeTime > 0) {
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].LifeTime(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].LifeTime(newLv) > GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
-					ValueLabel1[index].color = Color.green;
-				} else {
-					ValueLabel1[index].color = Color.white;
+				if(GameData.DSkillData[skill.ID].lifeTime > 0) {
+					ValueLabel1[index].text = GameData.DSkillData[skill.ID].LifeTime(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].LifeTime(newLv) > GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
+						ValueLabel1[index].color = Color.green;
+					} else {
+						ValueLabel1[index].color = Color.white;
+					}
+					index ++;
 				}
-				index ++;
 			}
 		}
 	}
@@ -268,6 +284,7 @@ public class UISkillReinforce : UIBase {
 
 	//RightView
 	private GameObject scrollView;
+	private UIScrollView uiScrollView;
 	private UIButton buttonReinforce;
 	private UILabel labelPrice;
 
@@ -339,6 +356,7 @@ public class UISkillReinforce : UIBase {
 
 		//RightView
 		scrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView");
+		uiScrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView").GetComponent<UIScrollView>();
 		buttonReinforce = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn").GetComponent<UIButton>();
 		labelPrice = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn/PriceLabel").GetComponent<UILabel>();
 
@@ -366,6 +384,7 @@ public class UISkillReinforce : UIBase {
 				}
 			}
 		}
+		uiScrollView.ResetPosition();
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
@@ -661,7 +680,6 @@ public class UISkillReinforce : UIBase {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
-			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Money = result.Money;
 
 			if(UISkillFormation.Visible)

@@ -73,7 +73,6 @@ public class UIBuyStore : UIBase {
 		oneItem.Reset();
 		tenItem.Reset();
 		int ran = Random.Range(0,2);
-		Debug.Log("ran:"+ran);
 		if(ran == 1) {
 			showOne(GameData.DItemData[21100]);
 		}  else {
