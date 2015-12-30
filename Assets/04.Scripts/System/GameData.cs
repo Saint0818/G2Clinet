@@ -134,6 +134,23 @@ public static class GameData {
 			return null;
 	}
 
+    public static void SetGameQuality(QualityType lv)
+    {
+        string setting = lv.ToString();
+        int foundIndex = -1;
+        string[] names = QualitySettings.names;
+
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (names[i] == setting)
+            {
+                foundIndex = i;
+                QualitySettings.SetQualityLevel(foundIndex);
+                continue;
+            }
+        }
+    }
+
 	private static void loadGameSetting() {
 
 		Setting.NewAvatar = new Dictionary<int, int> ();
@@ -154,8 +171,9 @@ public static class GameData {
 					case ESave.SoundOn:
 						AudioMgr.Get.SoundOn(true);
 						break;
-					case ESave.Quality:
-						Setting.Quality = 1;
+                    case ESave.Quality:
+                        Setting.Quality = 1;
+                        SetGameQuality((QualityType)Setting.Quality);
 						break;
 					case ESave.AIChangeTimeLv:
 						Setting.AIChangeTimeLv = 0;
@@ -209,8 +227,9 @@ public static class GameData {
 					case ESave.SoundOn:
 						AudioMgr.Get.SoundOn (index == 1 ? true : false);
 						break;
-					case ESave.Quality:
+                    case ESave.Quality:
                         Setting.Quality = index;
+                        SetGameQuality((QualityType)Setting.Quality);
 						break;
 					case ESave.AIChangeTimeLv:
 						Setting.AIChangeTimeLv = index;

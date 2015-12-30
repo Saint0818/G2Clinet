@@ -10,12 +10,12 @@ public class GameSettingView
 	private GameObject self;
 	private UIButton musicBtn;
 	private UIButton soundBtn;
-	private UIButton effectBtn;
+    private UIButton[] effectBtn = new UIButton[3];
+    private UIToggle[] effectBtnToggle = new UIToggle[3];
 	private UIButton[] aiBtns = new UIButton[6];
 	private UIToggle[] aiBtnsToggle = new UIToggle[6];
 	private UISprite[] musicSp = new UISprite[2];
 	private UISprite[] soundSp = new UISprite[2];
-	private UISprite[] effectSp = new UISprite[2];
 	private UILabel warningLabel;
 	private ELanguage language;
 
@@ -25,7 +25,7 @@ public class GameSettingView
 			self = obj;
 			musicBtn = self.transform.FindChild("Music/0").gameObject.GetComponent<UIButton>();
 			soundBtn = self.transform.FindChild("Music/1").gameObject.GetComponent<UIButton>();
-			effectBtn = self.transform.FindChild("Effect/0").gameObject.GetComponent<UIButton>();
+			
 			warningLabel = self.transform.FindChild("GameAI/WarningLabel").gameObject.GetComponent<UILabel>();
 
 			for(int i = 0; i< aiBtns.Length;i++)
@@ -33,6 +33,12 @@ public class GameSettingView
 				aiBtns[i] = self.transform.FindChild(string.Format("GameAI/{0}", i)).gameObject.GetComponent<UIButton>();
 				aiBtnsToggle[i] = aiBtns[i].GetComponent<UIToggle>();
 			}
+
+            for (int i = 0; i < effectBtn.Length; i++)
+            {
+                effectBtn[i] = self.transform.FindChild("Effect/" + i).gameObject.GetComponent<UIButton>();
+                effectBtnToggle[i] = effectBtn[i].GetComponent<UIToggle>();
+            }
 
 			for(int i = 0; i < musicSp.Length; i++)
 			{
@@ -43,11 +49,6 @@ public class GameSettingView
 			{
 				soundSp[i] = soundBtn.transform.FindChild(string.Format("Switch{0}", i)).gameObject.GetComponent<UISprite>();
 			}
-
-			for(int i = 0; i < effectSp.Length; i++)
-			{
-				effectSp[i] = effectBtn.transform.FindChild(string.Format("Switch{0}", i)).gameObject.GetComponent<UISprite>();
-			}
 		}
 		language = GameData.Setting.Language;
 	}
@@ -56,9 +57,12 @@ public class GameSettingView
 	{
 		musicBtn.onClick.Add (musicFunc);
 		soundBtn.onClick.Add (soundFunc);
-		effectBtn.onClick.Add (effectFunc);
+       
 		for(int i = 0; i< aiBtns.Length;i++)
 			aiBtns[i].onClick.Add (ailvFunc);
+        
+        for(int i = 0; i< effectBtn.Length;i++)
+            effectBtn[i].onClick.Add (effectFunc);
 	}
 
 	public void UpdateView()
@@ -67,8 +71,9 @@ public class GameSettingView
 		musicSp [1].enabled = !GameData.Setting.Music;
 		soundSp [0].enabled = GameData.Setting.Sound;
 		soundSp [1].enabled = !GameData.Setting.Sound;
-		effectSp [0].enabled = GameData.Setting.Effect;
-		effectSp [1].enabled = !GameData.Setting.Effect;
+
+        for (int i = 0; i < effectBtnToggle.Length; i++)
+           effectBtnToggle[i].Set(i == GameData.Setting.Quality);
 
 		for (int i = 0; i< aiBtnsToggle.Length; i++) {
 			aiBtnsToggle[i].Set (i == GameData.Setting.AIChangeTimeLv);
@@ -318,9 +323,6 @@ public class UISetting : UIBase {
 
 	public void OnEffect()
 	{
-        //TODO: wait UI come back
-        return;
-
         int index = -1;
         if (int.TryParse(UIButton.current.name, out index))
         {
@@ -329,8 +331,12 @@ public class UISetting : UIBase {
                 GameData.Setting.Quality = index;
                 gameSetting.UpdateView ();
 
+                //Effect
                 if(CourtMgr.Visible)
                     CourtMgr.Get.EffectEnable((QualityType)GameData.Setting.Quality);
+
+                //Setting 
+                GameData.SetGameQuality((QualityType)GameData.Setting.Quality);
             }
         }
 		
@@ -418,40 +424,5 @@ public class UISetting : UIBase {
 			Debug.LogError("Data Error!");
 
 		UIShow (false);
-	}
-
-	void OnGUI()
-	{
-        if(Input.GetKeyDown(KeyCode.Q))
-		{
-            SetEffectQuality(QualityType.Low);			
-		}
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SetEffectQuality(QualityType.Medium); 
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SetEffectQuality(QualityType.High); 
-        }
-	}
-	
-    private void SetEffectQuality(QualityType lv)
-	{
-        string setting = lv.ToString();
-        int foundIndex = -1;
-        string[] names = QualitySettings.names;
-
-        for (int i = 0; i < names.Length; i++)
-        {
-            if (names[i] == setting)
-            {
-                foundIndex = i;
-                QualitySettings.SetQualityLevel(foundIndex);
-                continue;
-            }
-        }
 	}
 }
