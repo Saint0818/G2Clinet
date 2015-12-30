@@ -2,21 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using Newtonsoft.Json;
 
-public class SkillHeadBtn
+public struct TChangeHeadTextureResult {
+    public int HeadTextureNo;
+}
+
+public class ItemHeadBtn
 {
     private GameObject item;
-	private UISprite SkillIcon;
+    private UISprite SkillIcon;
     private UISprite Selected;
     private UISprite Cover;
     private UIButton btn;
     private bool isInit = false;
+    public int ID;
 
-    private void Init(GameObject obj, EventDelegate btnFunc)
+    public void Init(GameObject obj, GameObject parent,EventDelegate btnFunc)
     {
-        if (obj)
+        if (obj && parent)
         {
             item = obj;
+            item.transform.parent = parent.transform;
+            item.transform.localPosition = Vector3.zero;
             SkillIcon = item.transform.FindChild("SkillIcon").gameObject.GetComponent<UISprite>();
             Selected = item.transform.FindChild("Selected").gameObject.GetComponent<UISprite>();
             Cover = item.transform.FindChild("Cover").gameObject.GetComponent<UISprite>();
@@ -35,119 +43,85 @@ public class SkillHeadBtn
         }
     }
 
-    private void UpdateView(int id, bool hadItme, bool isEquip)
+    public void UpdateView(int id, bool hadItem, bool isEquip)
     {
+        ID = id;
         item.name = id.ToString();
-        Had = hadItme;
+        Had = hadItem;
         Equip = isEquip;
+		SkillIcon.spriteName = string.Format ("{0}s", id);
+    }
+
+    public void UpdatePos(int sort)
+    {
+        if (sort < 3)
+			item.transform.localPosition = new Vector3(-270 + (135 * sort), 120, 0); 
+        else
+			item.transform.localPosition = new Vector3(-270 + (135 * ((sort - 3) % 5)), -60 - 140 * (((sort-3) / 5)), 0);  
     }
 
     public bool Had
     {
-        set{ Cover.enabled = !value;} 
-        get{ return !Cover.enabled;}
+        set{ Cover.enabled = !value; } 
+        get{ return !Cover.enabled; }
     }
 
     public bool Equip
     {
-        set{ Selected.enabled = value;}
-        get{return Selected.enabled;}
+        set{ Selected.enabled = value; }
+        get{ return Selected.enabled; }
     }
-}
-
-public class BaseHeadBtn
-{
-    private GameObject item;
-    private UISprite icon;
-    private UISprite Selected;
-    private UISprite Cover;
-    private UIButton btn;
-    private bool isInit = false;
-
-    private void Init(GameObject obj, EventDelegate btnFunc)
-    {
-        if (obj)
-        {
-            item = obj;
-            icon = item.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
-            Selected = item.transform.FindChild("Selected").gameObject.GetComponent<UISprite>();
-            btn = item.GetComponent<UIButton>();
-
-            isInit = icon && Selected && Cover && btn;
-
-            if (isInit)
-            {
-                btn.onClick.Add(btnFunc);
-            }
-            else
-            {
-                Debug.LogError("InitError");
-            }
-        }
-    }
-
-    private void UpdateView(int id, bool isEquip)
-    {
-        item.name = id.ToString();
-        Equip = isEquip;
-    }
-        
-    public bool Equip
-    {
-        set{ Selected.enabled = value;}
-        get{return Selected.enabled;}
-    } 
 }
 
 public class UIHeadPortrait : UIBase
 {
-	private static UIHeadPortrait instance = null;
-	private const string UIName = "UIHeadPortrait";
-	private List<TSkillData> skill = new List<TSkillData>();
-    private SkillHeadBtn[] skillHeads;
+    private static UIHeadPortrait instance = null;
+    private const string UIName = "UIHeadPortrait";
+    public Dictionary<int, List<int>> DHeadTexture = new Dictionary<int, List<int>>();
+    private ItemHeadBtn[] headTexutres;
+    private int equipTextureNo = 0;
 
-	public static bool Visible
-	{
-		get
-		{
-			if(instance)
-				return instance.gameObject.activeInHierarchy;
+    public static bool Visible
+    {
+        get
+        {
+            if (instance)
+                return instance.gameObject.activeInHierarchy;
 
             return false;
-		}
-	}
-	
-	public static void UIShow(bool isShow){
-		if(instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		}
-		else
-		if(isShow)
-			Get.Show(isShow);
-	}
-
-	public static UIHeadPortrait Get
-	{
-		get {
-			if (!instance) 
-				instance = LoadUI(UIName) as UIHeadPortrait;
-			
-			return instance;
-		}
-	}
-
-	protected override void InitCom()
-    {
-				
+        }
     }
 
-	protected override void InitData()
-	{
-		InitSkillData ();
-	}
+    public static void UIShow(bool isShow)
+    {
+        if (instance)
+        {
+            if (!isShow)
+                RemoveUI(UIName);
+            else
+                instance.Show(isShow);
+        }
+        else if (isShow)
+            Get.Show(isShow);
+    }
+
+    public static UIHeadPortrait Get
+    {
+        get
+        {
+            if (!instance)
+                instance = LoadUI(UIName) as UIHeadPortrait;
+			
+            return instance;
+        }
+    }
+
+    protected override void InitCom()
+    {
+        InitHeadTextureData();
+        InitHeadBtnComponent();
+        SetBtnFun(UIName + "/Window/Center/MainView/NoBtn", OnReturn);
+    }
 
     public void Hide()
     {
@@ -159,20 +133,118 @@ public class UIHeadPortrait : UIBase
         base.OnShow(isShow);
     }
 
-	private void InitSkillData()
-	{
-		foreach (KeyValuePair<int, TSkillData> item in GameData.DSkillData) {
-			if (item.Value.Open > 0) {
-				skill.Add (item.Value);
-			}
-		}
-
-//        if(skill)
-//          skillHeads
-	}
-
-    void OnDestroy()
+    private void InitHeadTextureData()
     {
-        skill = null; 
+        //Basic
+        List<int> ids = new List<int>();
+        for (int i = 0; i < 3; i++)
+            if (!DHeadTexture.ContainsKey(i))
+                DHeadTexture.Add(i, ids);	
+		
+        //SkillHead
+        foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
+        {
+            if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar) && GameData.DSkillData[item.Value.Avatar].PictureNo > 0)
+            {
+                if (DHeadTexture.ContainsKey(GameData.DSkillData[item.Value.Avatar].PictureNo))
+                {
+                    DHeadTexture[GameData.DSkillData[item.Value.Avatar].PictureNo].Add(item.Value.ID);
+                }
+                else
+                {
+                    ids.Clear();
+                    ids.Add(item.Value.ID);
+                    DHeadTexture.Add(GameData.DSkillData[item.Value.Avatar].PictureNo, ids);
+                }
+                    
+            }
+        }
+    }
+
+    private void InitHeadBtnComponent()
+    {
+        //key : HeadTextureNo, value : item ids
+        GameObject go = Resources.Load("Prefab/UI/Items/SkillHeadBtn")as GameObject;
+        GameObject parent = GameObject.Find(UIName + "/Window/Center/MainView/ScrollView");
+        int sort = 0;
+        int index = GameData.Team.Player.HeadTextureNo == -1 ? GameData.Team.Player.BodyType : GameData.Team.Player.HeadTextureNo;
+        equipTextureNo = index;
+
+        if (go && parent)
+        {
+            headTexutres = new ItemHeadBtn[DHeadTexture.Count];
+            foreach (KeyValuePair<int, List<int>> item in DHeadTexture)
+            {
+                headTexutres[sort] = new ItemHeadBtn();
+                headTexutres[sort].Init(Instantiate(go), parent,new EventDelegate(OnSelected));
+				headTexutres[sort].UpdateView(item.Key, HasItem(item.Key), index == item.Key);
+                headTexutres[sort].UpdatePos(sort);
+                sort++;
+            }   
+        }	
+    }
+
+    private bool HasItem(int picNo)
+    {
+        if (picNo > 2)
+        {
+            foreach (KeyValuePair<int, int> item in GameData.Team.GotItemCount)
+            {
+                if (GameData.DItemData.ContainsKey(item.Value))
+                if (GameData.DItemData[item.Value].Kind == 21)
+                if (GameData.DSkillData.ContainsKey(GameData.DItemData[item.Value].Avatar))//企劃把avatar當作skill item的技能編號
+            if (GameData.DSkillData[GameData.DItemData[item.Value].Avatar].PictureNo == picNo)
+                    return true;
+            }
+            return false;   
+        }
+        else
+            return true;
+    }
+
+    private void OnSelected()
+    {
+        int index;
+        if (int.TryParse(UIButton.current.name, out index)){
+            if (index != equipTextureNo){
+                if(HasItem(index)){
+					for (int i = 0; i < headTexutres.Length; i++){
+                        if (headTexutres[i].ID == index)
+                        {
+                            headTexutres[i].Equip = true; 
+                            equipTextureNo = index;
+                        }
+    					else
+    						headTexutres[i].Equip = false; 
+					}
+				}
+                else{
+                    //ToDo: 等待嘉明的來源功能
+                }
+            }    
+        }     
+    }
+
+    public void OnReturn()
+    {
+        if (equipTextureNo != GameData.Team.Player.HeadTextureNo && DHeadTexture.ContainsKey(equipTextureNo))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("HeadTextureNo", equipTextureNo);
+            form.AddField("AddIndexs", JsonConvert.SerializeObject(DHeadTexture[equipTextureNo]));
+            SendHttp.Get.Command(URLConst.ChangeHeadTexture, waitChangeHeadTexture, form);
+        }
+        else
+            UIShow (false);
+    }
+        
+    public void waitChangeHeadTexture(bool ok, WWW www)
+    {
+        if (ok) {
+            TChangeHeadTextureResult result = JsonConvert.DeserializeObject<TChangeHeadTextureResult>(www.text);
+            GameData.Team.Player.HeadTextureNo = result.HeadTextureNo;
+            UIMainLobby.Get.UpdateUI();
+        }
+        UIShow (false);
     }
 }

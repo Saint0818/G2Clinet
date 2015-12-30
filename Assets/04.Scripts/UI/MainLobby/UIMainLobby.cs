@@ -144,7 +144,7 @@ public class UIMainLobby : UIBase
         Main.Diamond = GameData.Team.Diamond;
         Main.Power = GameData.Team.Power;
         Main.PlayerName = GameData.Team.Player.Name;
-        Main.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
+        Main.PlayerIcon = GameData.Team.Player.FacePicture;
     }
 
 	public void ResetText()

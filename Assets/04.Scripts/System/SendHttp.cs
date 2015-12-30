@@ -122,6 +122,7 @@ public static class URLConst {
 	public const string ChangeValueItems = "changevalueitems";
 	public const string AddValueItemInlay = "addvalueiteminlay";
 	public const string ValueItemUpgrade = "valueitemupgrade";
+    public const string ChangeHeadTexture = "changeheadtexture";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {

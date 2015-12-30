@@ -41,6 +41,7 @@ namespace GameStruct
         public int SkillPage;// 0 1 2 3 4
 		public int SkillCardMax;
         public int NowStageID;
+        public int HeadTextureNo;
 
         public int GetPotentialValue(EAttribute attr)
         {
@@ -113,6 +114,7 @@ namespace GameStruct
 			SkillCardMax = 10;
             NowStageID = 0;
             Exp = 0;
+            HeadTextureNo = -1;
 
             LifetimeRecord = new TGamePlayerRecord();
             Avatar = new TAvatar(1);
@@ -549,10 +551,17 @@ namespace GameStruct
 
 		public string FacePicture {
 			get {
-				if (GameData.DPlayers.ContainsKey(ID))
-					return "PlayerFace" + GameData.DPlayers[ID].BodyType.ToString();
-				else
-				    return "PlayerFace0";
+                if(HeadTextureNo== -1)
+                {
+                    if (GameData.DPlayers.ContainsKey(ID))
+                    {
+                        return string.Format("{0}s", GameData.DPlayers[ID].BodyType.ToString());
+                    }
+                    else
+                        return "0s";
+                }
+                else
+                    return string.Format("{0}s", HeadTextureNo);
 			}
 		}
 
