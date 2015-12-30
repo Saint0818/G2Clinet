@@ -871,6 +871,16 @@
         "tw": "變更頭像"
     },
     {
+        "id": 3602,
+        "explain": "頭圖分類1",
+        "tw": "基礎頭像"
+    },
+    {
+        "id": 3603,
+        "explain": "頭圖分類2",
+        "tw": "技能晶片"
+    },
+    {
         "id": 3701,
         "explain": "成就與任務",
         "tw": "成就與任務"
@@ -929,12 +939,105 @@
         "tw": "連 結"
     },
     {
+        "id": 3714,
+        "tw": "任務已完成"
+    },
+    {
+        "id": 3715,
+        "tw": "領取獎勵失敗，請確認任務完成條件。"
+    },
+    {
         "id": 4001,
         "explain": "商店介面"
     },
     {
         "id": 5001,
-        "explain": "xx介面"
+        "explain": "社交介面",
+        "tw": "社 交"
+    },
+    {
+        "id": 5002,
+        "explain": "頁籤1",
+        "tw": "好 友"
+    },
+    {
+        "id": 5003,
+        "explain": "頁籤2",
+        "tw": "審 核"
+    },
+    {
+        "id": 5004,
+        "explain": "頁籤3",
+        "tw": "新 增"
+    },
+    {
+        "id": 5005,
+        "explain": "頁籤4"
+    },
+    {
+        "id": 5006,
+        "explain": "頁籤5",
+        "tw": "社群連結"
+    },
+    {
+        "id": 5007,
+        "explain": "搜尋好友",
+        "tw": "請輸入玩家ID"
+    },
+    {
+        "id": 5008,
+        "explain": "OnlineTime",
+        "tw": "最近上線："
+    },
+    {
+        "id": 5009,
+        "explain": "TimeLabel",
+        "tw": "{0} 前"
+    },
+    {
+        "id": 5010,
+        "explain": "TimeLabel",
+        "tw": "很久以前"
+    },
+    {
+        "id": 5011,
+        "explain": "RequestGroup",
+        "tw": "是否接受請求？"
+    },
+    {
+        "id": 5012,
+        "explain": "InviteGroup",
+        "tw": "邀 請"
+    },
+    {
+        "id": 5013,
+        "explain": "ButtonListGroup",
+        "tw": "檢視資料"
+    },
+    {
+        "id": 5014,
+        "explain": "ButtonListGroup",
+        "tw": "檢視球館"
+    },
+    {
+        "id": 5015,
+        "explain": "ButtonListGroup",
+        "tw": "檢視球隊"
+    },
+    {
+        "id": 5016,
+        "explain": "ButtonListGroup",
+        "tw": "移 除"
+    },
+    {
+        "id": 5017,
+        "explain": "CountLabel",
+        "tw": "好友數"
+    },
+    {
+        "id": 5018,
+        "explain": "TextLabel",
+        "tw": "每日9:00刷新推薦名單，或即刻刷新。"
     },
     {
         "id": 6001,
@@ -955,6 +1058,17 @@
         "explain": "WarningLabel",
         "tw": "此物品無法合成",
         "en": "Unable To Combine These Items"
+    },
+    {
+        "id": 6004,
+        "explain": "材料未滿",
+        "tw": "前 往"
+    },
+    {
+        "id": 6005,
+        "explain": "已鑲嵌完成",
+        "tw": "完 成",
+        "en": "CLEAR"
     },
     {
         "id": 6101,
@@ -1289,6 +1403,12 @@
         "tw": "獲得EXP：[00FF00FF]{0}[-]"
     },
     {
+        "id": 7409,
+        "explain": "等級達上限",
+        "tw": "[FFFF00FF]等級已滿[-]",
+        "en": "[FFFF00FF]Max[-]"
+    },
+    {
         "id": 7501,
         "explain": "ItemCardEquipped ",
         "tw": "COST [ff0000]{0}[-]",
@@ -1410,6 +1530,19 @@
         "en": "CHALLENGE"
     },
     {
+        "id": 9152,
+        "explain": "主線關卡",
+        "tw": "生涯"
+    },
+    {
+        "id": 9153
+    },
+    {
+        "id": 9154,
+        "explain": "副本關卡",
+        "tw": "挑戰"
+    },
+    {
         "id": 9201,
         "explain": "章節選擇"
     },
@@ -1460,7 +1593,7 @@
     {
         "id": 9306,
         "explain": "Completed/FinLabel",
-        "tw": "關卡完成",
+        "tw": "完成挑戰",
         "cn": "COMPLETED",
         "en": "COMPLETED",
         "jp": "COMPLETED"
@@ -2414,43 +2547,43 @@
     {
         "id": 13001,
         "explain": "1頭髮",
-        "tw": "造型",
+        "tw": "頭髮造型",
         "en": "STYLE"
     },
     {
         "id": 13002,
         "explain": "2手飾",
-        "tw": "造型",
+        "tw": "配件造型",
         "en": "STYLE"
     },
     {
         "id": 13003,
         "explain": "3上身",
-        "tw": "造型",
+        "tw": "上半身造型",
         "en": "STYLE"
     },
     {
         "id": 13004,
         "explain": "4下身",
-        "tw": "造型",
+        "tw": "下半身造型",
         "en": "STYLE"
     },
     {
         "id": 13005,
         "explain": "5鞋",
-        "tw": "造型",
+        "tw": "鞋類造型",
         "en": "STYLE"
     },
     {
         "id": 13006,
         "explain": "6頭飾(共用）",
-        "tw": "造型",
+        "tw": "頭飾造型",
         "en": "STYLE"
     },
     {
         "id": 13007,
         "explain": "7背部(共用)",
-        "tw": "造型",
+        "tw": "背飾造型",
         "en": "STYLE"
     },
     {
@@ -2544,6 +2677,13 @@
         "en": "Challenge Gatekeeper"
     },
     {
+        "id": 2000010,
+        "explain": "給自己看的說明",
+        "tw": "33FFDD 淺藍（條件項目）  FF3355 桃紅 （玩家名）",
+        "cn": "FFDD33 黃色（玩家成績）",
+        "en": "FFFFFF 白色 （內文，單位） [BBFF33] 淺綠 （達成任務）"
+    },
+    {
         "id": 2000011,
         "tw": "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。",
         "cn": "赛进入下半场，请两队把握后半[FF3355]{0}秒[-]的时间。",
@@ -2551,120 +2691,120 @@
     },
     {
         "id": 2000012,
-        "tw": "競賽剩下倒數[FF3355]{0}秒[-]！！！",
+        "tw": "競賽剩下倒數[FF3355]{0}[-]秒！！！",
         "cn": "竞赛剩下倒数[FF3355]{0}秒[-]！",
-        "en": "Count Down [FF3355]{0} Seconds[-]！！！"
+        "en": "Count Down [FF3355]{0}s[-] Second！！！"
     },
     {
         "id": 2000017,
-        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}秒[-]",
-        "en": "[33FFDD]EndTime[-][FFDD33]{2}s[-]"
+        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-]秒",
+        "en": "[33FFDD]End Time[-][FFDD33]{2}[-]s"
     },
     {
         "id": 2000018,
-        "tw": "[FFDD33]時間[-][33FFDD]限制[-][FFDD33]{0}秒[-]",
+        "tw": "[33FFDD]時間[-]限制[FFDD33]{0}[-]秒",
         "cn": "[FFDD33]时间[-] [33FFDD]限制[-]",
-        "en": "[FFDD33]Time[-][33FFDD]Limitation[-][FFDD33]{0}s[-]"
+        "en": "[33FFDD]Time[-] Limitation[FFDD33]{0}[-]s"
     },
     {
         "id": 2000019,
-        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}秒[-]",
+        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-]秒",
         "cn": "[33FFDD]时间[-]",
-        "en": "[33FFDD]EndTime[-][FFDD33]{2}s[-]"
+        "en": "[33FFDD]End Time[-][FFDD33]{2}[-]s"
     },
     {
         "id": 2000107,
-        "tw": "[33FFDD]得分[-][FFDD33]高於對手[-]",
+        "tw": "[33FFDD]得分[-]高於對手",
         "cn": "[FFDD33]{1}[-][BBFF33]已达成得分目标！！！[-]",
-        "en": "[33FFDD]Obtain[-][FFDD33]Victory[-]"
+        "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000108,
-        "tw": "[FFDD33]得分[-][33FFDD]高於對手[-]",
+        "tw": "[33FFDD]得分[-]高於對手",
         "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
-        "en": "[FFDD33]Obtain[-][33FFDD]Victory[-]"
+        "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000109,
-        "tw": "[33FFDD]目前得分[-][FFDD33]高於對手[-]",
+        "tw": "[33FFDD]目前得分[-]高於對手",
         "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
-        "en": "[FFDD33]Obtain[-][33FFDD]Victory[-]"
+        "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000200,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成得分目標！！！[-]",
+        "tw": "[FF3355]{1}[-]已達成得分目標！！！",
         "cn": "[FFDD33]{1}[-][BBFF33]已达成得分目标！！！[-]",
-        "en": "[FFDD33]{1}[-][BBFF33]Achieved Scoring Objective！！！[-]"
+        "en": "[FF3355]{1}[-]Achieved Scoring Objective！！！"
     },
     {
         "id": 2000201,
-        "tw": "[FFDD33]{1}[-]已達成一半的得分目標。",
+        "tw": "[FF3355]{1}[-]已達成一半的[33FFDD]得分[-]目標。",
         "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
-        "en": " [FFDD33]{1}[-]Achieved 50% of scoring objective"
+        "en": "[FF3355]{1}[-]Achieved 50% of [33FFDD]scoring[-] objective"
     },
     {
         "id": 2000202,
-        "tw": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可獲得勝利！！！",
+        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}[-]分即可獲得勝利！！！",
         "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可获得胜利！！！",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0} More Points[-]To Win！！！"
+        "en": "[FF3355]{1}[-]Score [FFDD33]{0} More Points[-]To Win！！！"
     },
     {
         "id": 2000207,
         "tw": "[33FFDD]終場得分[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "en": "[33FFDD]End Score[-][FFDD33]{2}[-][FFFFFF]/{0}Points[-]"
+        "en": "[33FFDD]End Score[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000208,
-        "tw": "[FFDD33]得分[-][33FFDD]需達[-][FFDD33]{0}分[-]",
+        "tw": "[33FFDD]得分[-]需達[FFDD33]{0}[-]分",
         "cn": "[FFDD33]得分[-][33FFDD]须达到[-]",
-        "en": "[FFDD33]Score[-][33FFDD]Must Achieve[-][FFDD33]{0}Points[-]"
+        "en": "[33FFDD]Score[-] Must Achieve[FFDD33]{0}[-]Points"
     },
     {
         "id": 2000209,
         "tw": "[33FFDD]目前得分[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
         "cn": "[33FFDD]得分[-]",
-        "en": "[33FFDD]Score[-][FFDD33]{2}[-][FFFFFF]/{0}Points[-]"
+        "en": "[33FFDD]Score[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000301,
-        "tw": "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就會輸掉這場競賽。",
+        "tw": "[FF3355]{1}[-]只要再失[FFDD33]{0}分[-]就會輸掉這場競賽。",
         "cn": "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就会输掉这场竞赛。",
-        "en": " [FFDD33]{1}[-] Loose [FF3355]{0} More Points[-] Will Loose The Game"
+        "en": "[FF3355]{1}[-] Loose [FFDD33]{0} More Points[-] Will Loose The Game"
     },
     {
         "id": 2000302,
-        "tw": "[FFDD33]{1}[-]要守住最後的[FF3355]{0}分[-]啊！！！",
+        "tw": "[FF3355]{1}[-]要守住最後的[FFDD33]{0}[-]分啊！！！",
         "cn": "[FFDD33]{1}[-]要守住最后的[FF3355]{0}分[-]啊！！！",
-        "en": " [FFDD33]{1}[-] Must Stop The Last [FF3355]{0} Points[-]！！！"
+        "en": "[FF3355]{1}[-] Must Stop The Last[FFDD33]{0}[-]Points！！！"
     },
     {
         "id": 2000307,
         "tw": "[33FFDD]終場失分[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "en": "[33FFDD]End Opponent Score[-][FFDD33]{2}[-][FFFFFF]/{0}Points[-]"
+        "en": "[33FFDD]End Opponent Score[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000308,
-        "tw": "[FFDD33]失分[-][33FFDD]不超過[-][FFDD33]{0}分[-]",
+        "tw": "[33FFDD]失分[-]不超過[FFDD33]{0}[-]分",
         "cn": "[FFDD33]失分[-][33FFDD]不超过[-]",
-        "en": "[FFDD33]Gave Up[-] [33FFDD]Less Than[-][FFDD33]{0}Points[-]"
+        "en": "[33FFDD]Gave Up[-] Less Than[FFDD33]{0}[-]Points"
     },
     {
         "id": 2000309,
-        "tw": "[33FFDD]目前失分[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
+        "tw": "[33FFDD]失分[-]不超過[FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
         "cn": "[33FFDD]失分[-]",
         "en": "[33FFDD]Gave Up Points[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000401,
-        "tw": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}分[-]就可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
-        "en": "[FFDD33]{1}[-]Score[FF3355]{0}Points[-]To Obtain Victory"
+        "en": "[FF3355]{1}[-]Score[FFDD33]{0}Points[-]To Obtain Victory"
     },
     {
         "id": 2000402,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}[-]分！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！",
-        "en": "[FFDD33]{1}[-]Victory Is[FF3355]{0}Points[-] Away！！！"
+        "en": "[FF3355]{1}[-]Victory Is[FFDD33]{0}Points[-] Away！！！"
     },
     {
         "id": 2000407,
@@ -2673,33 +2813,33 @@
     },
     {
         "id": 2000408,
-        "tw": "[FFDD33]得分[-][33FFDD]需超過對手[-][FFDD33]{0}分[-]",
+        "tw": "[33FFDD]得分[-]需超過對手[FFDD33]{0}[-]分",
         "cn": "[33FFDD]需贏過對手[-]",
-        "en": "[FFDD33]Must Beat Opponent more than[-][FFDD33]{0}Points[-]"
+        "en": "[33FFDD]Must Beat Opponent more than[-][FFDD33]{0}[-]Points"
     },
     {
         "id": 2000409,
         "tw": "[33FFDD]目前得分超過對手[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
         "cn": "[33FFDD]分數[-]",
-        "en": "[FFDD33]Must Beat Opponent more than[-][FFDD33]{0}Points[-]"
+        "en": "[33FFDD]Must Beat Opponent more than[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2001000,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]",
+        "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]2分球[-][BBFF33]目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]",
-        "en": " [FFDD33]{1}[-] [BBFF33]Achieved 2 Point Objective！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]2 Point[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2001001,
-        "tw": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]2分球[-]即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。",
-        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 2 Point Shots For The Win"
+        "en": "[FF3355]{1}[-] Score [FFDD33]{0}[-] More [33FFDD]2 Point Shots[-] For The Win"
     },
     {
         "id": 2001002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}顆[-][33FFDD]2分球[-]！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！",
-        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 2 Point Shots For The Win"
+        "en": "[FFDD33]{1}[-] Score [FF3355]{0} More[-] [33FFDD]2 Point Shots[-] For The Win"
     },
     {
         "id": 2001007,
@@ -2709,33 +2849,33 @@
     },
     {
         "id": 2001008,
-        "tw": "[33FFDD]投進[-][FFDD33]{0}顆[-][FFDD33]2分球[-]",
+        "tw": "投進[-][FFDD33]{0}[-]顆[33FFDD]2分球[-]",
         "cn": "[FFDD33]2分球[-][33FFDD]數量[-]",
-        "en": "[FFDD33]{0}[-][FFDD33]2 Point[-] [33FFDD]Field Goals[-]"
+        "en": "[FFDD33]{0}[-][33FFDD]2 Point[-] Field Goals"
     },
     {
         "id": 2001009,
         "tw": "[33FFDD]目前2分球[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]顆[-]",
         "cn": "[FFDD33]2分球[-]",
-        "en": "[FFDD33]{0}[-][FFDD33]2 Point[-] [33FFDD]Field Goals[-]"
+        "en": "[FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]2 Point[-] Field Goals"
     },
     {
         "id": 2002000,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]",
+        "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]3分球[-][BBFF33]目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]",
-        "en": " [FFDD33]{1}[-] [BBFF33]Achieved 3 Point Objectives！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]3 Point[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2002001,
-        "tw": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]3分球[-]即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。",
-        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 3 Point Shots For The Win"
+        "en": "[FF3355]{1}[-] Score [FFDD33]{0}[-] More [33FFDD]3 Point Shots[-] For The Win"
     },
     {
         "id": 2002002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}顆[-][33FFDD]3分球[-]！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！",
-        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 3 Point Shots For The Win"
+        "en": "[FFDD33]{1}[-] Score [FF3355]{0} More[-] [33FFDD]3 Point Shots[-] For The Win"
     },
     {
         "id": 2002007,
@@ -2744,33 +2884,33 @@
     },
     {
         "id": 2002008,
-        "tw": "[33FFDD]投進[-][FFDD33]{0}顆[-][FFDD33]3分球[-]",
+        "tw": "投進[-][FFDD33]{0}[-]顆[33FFDD]3分球[-]",
         "cn": "[FFDD33]3分球[-][33FFDD]數量[-]",
-        "en": "[FFDD33]{0}[-][FFDD33]3 Point[-] [33FFDD]Field Goals[-]"
+        "en": "[FFDD33]{0}[-] [33FFDD]3 Point[-] Field Goals"
     },
     {
         "id": 2002009,
         "tw": "[33FFDD]目前3分球[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]顆[-]",
         "cn": "[FFDD33]3分球[-]",
-        "en": "[FFDD33]{0}[-][FFDD33]3 Point[-] [33FFDD]Field Goals[-]"
+        "en": "[FFDD33]{2}[-][FFFFFF]/{0}[-] [33FFDD]3 Point[-] Field Goals"
     },
     {
         "id": 2003000,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]",
+        "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]灌籃[-][BBFF33]目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]",
-        "en": "[FFDD33]{1}[-] [BBFF33]Achieved Dunking Objective！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Dunking[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2003001,
-        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]灌籃[-]即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
-        "en": "[FFDD33]{1}[-] More [FF3355]{0}[-] dunks to obtain victory"
+        "en": "[FF3355]{1}[-] More [FFDD33]{0}[-] [33FFDD]Dunks[-] to obtain victory"
     },
     {
         "id": 2003002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]灌籃[-]！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！",
-        "en": "[FFDD33]{1}[-] Get [FF3355]{0}[-] More Dunks For The Victory！！！"
+        "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-] More [33FFDD]Dunks[-] For The Victory！！！"
     },
     {
         "id": 2003007,
@@ -2779,33 +2919,33 @@
     },
     {
         "id": 2003008,
-        "tw": "[FFDD33]灌籃[-][33FFDD]成功[-][FFDD33]{0}次[-]",
+        "tw": "[33FFDD]灌籃[-]成功[FFDD33]{0}[-]次",
         "cn": "[FFDD33]灌籃[-][33FFDD]成功次數[-]",
-        "en": "[FFDD33]Dunks[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Dunks[-] Times Successful[FFDD33]{0}[-]"
     },
     {
         "id": 2003009,
         "tw": "[33FFDD]目前灌籃[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
         "cn": "[FFDD33]灌籃[-]",
-        "en": "[FFDD33]Dunks[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Dunks[-] Times Successful[FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2004000,
-        "tw": "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]",
+        "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]推倒[-][BBFF33]目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]",
-        "en": " [FFDD33]{1}[-] [BBFF33]Achieved Shoving Objective！！！[-]"
+        "en": "[FF3355]{1}[-] [BBFF33]Achieved[-] [33FFDD]Shoving[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2004001,
-        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]推倒[-]即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。",
-        "en": " [FFDD33]{1}[-] Shove [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": "[FF3355]{1}[-] [33FFDD]Shove[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2004002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]推倒！！！[-]",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！",
-        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Shoves[-] For The Victory！！！"
+        "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Shoves[-] For The Victory！！！"
     },
     {
         "id": 2004007,
@@ -2814,33 +2954,33 @@
     },
     {
         "id": 2004008,
-        "tw": "[FFDD33]推倒[-][33FFDD]成功[-][FFDD33]{0}次[-]",
+        "tw": "[33FFDD]推倒[-]成功[FFDD33]{0}[-]次",
         "cn": "[FFDD33]推倒[-][33FFDD]成功次數[-]",
-        "en": "[FFDD33]Shove[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Shove[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2004009,
         "tw": "[33FFDD]目前推倒[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
         "cn": "[FFDD33]推倒[-]",
-        "en": "[FFDD33]Shove[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Shove[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2005000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
-        "en": " [FFDD33]{1}[-] [BBFF33]Achieved Stealing Objective！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Stealing[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2005001,
-        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]抄截[-]即獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。",
-        "en": " [FFDD33]{1}[-] Steal [FF3355]{0} More Times[-] To Obtain Victory"
+        "en": "[FF3355]{1}[-] [33FFDD]Steal[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2005002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]抄截！！！[-]",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！",
-        "en": " [FFDD33]{1}[-] Get [FF3355]{0} More Steals[-]For The Victory！！！"
+        "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Steals[-] For The Victory！！！"
     },
     {
         "id": 2005007,
@@ -2849,33 +2989,33 @@
     },
     {
         "id": 2005008,
-        "tw": "[FFDD33]抄截[-][33FFDD]成功[-][FFDD33]{0}次[-]",
+        "tw": "[33FFDD]抄截[-]成功[FFDD33]{0}[-]次",
         "cn": "[FFDD33]抄截[-][33FFDD]成功次數[-]",
-        "en": "[FFDD33]Steal[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Steal[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2005009,
         "tw": "[33FFDD]目前抄截[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
         "cn": "[FFDD33]抄截[-]",
-        "en": "[FFDD33]Steal[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Steal[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2006000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
-        "en": "[FFDD33]{1}[-] [BBFF33]Achieved Blocking Objective！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Blocking[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2006001,
-        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]火鍋[-]即獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
-        "en": " [FFDD33]{1}[-] Block [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": "[FF3355]{1}[-] [33FFDD]Block[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2006002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]火鍋！！！[-]",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
-        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Blocks[-] For The Victory！！！"
+        "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Blocks[-] For The Victory！！！"
     },
     {
         "id": 2006007,
@@ -2884,15 +3024,15 @@
     },
     {
         "id": 2006008,
-        "tw": "[FFDD33]火鍋[-][33FFDD]成功[-][FFDD33]{0}次[-]",
+        "tw": "[33FFDD]火鍋[-]成功[FFDD33]{0}[-]次",
         "cn": "[FFDD33]火鍋[-][33FFDD]成功次數[-]",
-        "en": "[FFDD33]Block[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Block[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2006009,
         "tw": "[33FFDD]目前火鍋[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
         "cn": "[FFDD33]火鍋[-]",
-        "en": "[FFDD33]Block[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Block[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2007000,
@@ -2902,15 +3042,15 @@
     },
     {
         "id": 2007001,
-        "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]肘擊[-]即獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
-        "en": " [FFDD33]{1}[-] Elbow [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": "[FF3355]{1}[-] [33FFDD]Elbow[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2007002,
-        "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
+        "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]肘擊！！！[-]",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
-        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Elbow[-] For The Victory！！！"
+        "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Elbow[-] For The Victory！！！"
     },
     {
         "id": 2007007,
@@ -2919,14 +3059,14 @@
     },
     {
         "id": 2007008,
-        "tw": "[FFDD33]肘擊[-][33FFDD]成功[-][FFDD33]{0}次[-]",
+        "tw": "[33FFDD]肘擊[-]成功[FFDD33]{0}[-]次",
         "cn": "[FFDD33]肘擊[-][33FFDD]成功次數[-]",
-        "en": "[FFDD33]Elbow[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[33FFDD]Elbow[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2007009,
         "tw": "[33FFDD]目前肘擊[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
         "cn": "[FFDD33]肘擊[-]",
-        "en": "[FFDD33]Elbow[-][33FFDD]Times Successful[-][FFDD33]{0}[-]"
+        "en": "[FFDD33]Elbow[-][33FFDD]Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     }
 ]
