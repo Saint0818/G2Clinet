@@ -19,12 +19,6 @@ public class UIEquipMaterialItem : MonoBehaviour
         Enough, Lack, Inlayed
     }
 
-    public class BonusData
-    {
-        public string IconSpriteName;
-        public int Value;
-    }
-
     public class Data
     {
         public string Name;
@@ -43,7 +37,7 @@ public class UIEquipMaterialItem : MonoBehaviour
         public EStatus Status;
 
         // 道具會影響哪些屬性的數值.
-        public Dictionary<EAttribute, BonusData> Values = new Dictionary<EAttribute, BonusData>();
+        public Dictionary<EAttribute, UIValueItemData.BonusData> Values = new Dictionary<EAttribute, UIValueItemData.BonusData>();
 
         public int GetValue(EAttribute kind)
         {
@@ -91,23 +85,41 @@ public class UIEquipMaterialItem : MonoBehaviour
         Name.text = data.Name;
         Icon.spriteName = data.Icon;
 
-        int i = 0;
-        foreach(KeyValuePair<EAttribute, BonusData> pair in data.Values)
-        {
-            AttrSprites[i].spriteName = pair.Value.IconSpriteName;
-            AttrValues[i].text = string.Format("+{0}", pair.Value.Value);
-        }
+        updateBonus(data);
 
         updateAmount(data);
         updateStatusIcon(data.Status);
     }
 
+    private void updateBonus(Data data)
+    {
+        for(int i = 0; i < AttrSprites.Length; i++)
+        {
+            AttrSprites[i].gameObject.SetActive(false);
+            AttrValues[i].gameObject.SetActive(false);
+        }
+
+        int j = 0;
+        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in data.Values)
+        {
+            AttrSprites[j].gameObject.SetActive(true);
+            AttrValues[j].gameObject.SetActive(true);
+
+            AttrSprites[j].spriteName = pair.Value.Icon;
+            AttrValues[j].text = string.Format("+{0}", pair.Value.Value);
+
+            ++j;
+        }
+    }
+
     private void updateAmount(Data data)
     {
         if(data.Status == EStatus.Lack)
-            Amount.text = string.Format("[FF0000]{0}/[FFFFFF]{1}", data.RealValue, data.NeedValue);
+            // 前面的數字顯示紅色.
+            Amount.text = string.Format("[FF0000]{0}[FFFFFF]/{1}", data.RealValue, data.NeedValue);
         else if(data.Status == EStatus.Enough)
-            Amount.text = string.Format("[00FF00]{0}/[FFFFFF]{1}", data.RealValue, data.NeedValue);
+            // 前面的數字顯示綠色.
+            Amount.text = string.Format("[00FF00]{0}[FFFFFF]/{1}", data.RealValue, data.NeedValue);
         else if(data.Status == EStatus.Inlayed)
             Amount.text = string.Format("{0}/{1}", data.RealValue, data.NeedValue);
         else

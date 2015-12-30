@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameStruct;
-using JetBrains.Annotations;
 
 /// <summary>
 /// 裝備介面所使用的裝備資料.

@@ -73,13 +73,14 @@ public class UIEquipUtility
                 Debug.LogWarningFormat("Can't Find ItemData by ItemID({0})", item.Materials[i]);
                 continue;
             }
-            TItemData materialItemData = GameData.DItemData[item.Materials[i]];
+            TItemData materialItem = GameData.DItemData[item.Materials[i]];
 
             UIEquipMaterialItem.Data data = new UIEquipMaterialItem.Data
             {
-                Name = materialItemData.Name,
-                Icon = string.Format("Item_{0}", materialItemData.Icon),
+                Name = materialItem.Name,
+                Icon = string.Format("Item_{0}", materialItem.Icon),
                 NeedValue = item.MaterialNums[i],
+                Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
             valueItem.Inlays.Add(data);
 
@@ -116,8 +117,6 @@ public class UIEquipUtility
         }
         return values;
     }
-
-    
 
     private static EAttribute convert(EBonus bonus)
     {
