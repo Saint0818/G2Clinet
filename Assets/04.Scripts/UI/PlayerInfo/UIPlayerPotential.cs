@@ -52,7 +52,7 @@ public class TUpgradeBtn
 
 	public void SetValue(int curt, int add)
 	{
-		BaseValueLabel.text = string.Format("{0}[ABFF83FF]+{1}[-]", curt, add);
+        BaseValueLabel.text = string.Format("{0}", curt+add);
 	}
 
 //	public void DotSave()
@@ -215,12 +215,12 @@ public class PointView
 
 	public void SetLvPotential(int current, int use)
 	{
-		lvVaule.text = string.Format ("[3EBBBCFF][b]{0}[ff0000]-{1}[-]", current, use);
+        lvVaule.text = string.Format ("[3EBBBCFF]{0}[-]", current - use);
 	}
 
 	public void SetAvatarPotential(int current, int use)
 	{
-		avatarVaule.text = string.Format ("[3EBBBCFF][b]{0}[ff0000]-{1}[-]", current, use);
+        avatarVaule.text = string.Format ("[3EBBBCFF]{0}[-]", current - use);
 	}
 }
 
@@ -238,11 +238,6 @@ public class UIPlayerPotential : UIBase {
 	private UILabel lvPotentialLabel;
 	private UILabel avatarPotentialLabel;
 	private UILabel resetLabel;
-
-	private void Awake()
-	{
-
-	}
 	
 	public static bool Visible {
 		get {
