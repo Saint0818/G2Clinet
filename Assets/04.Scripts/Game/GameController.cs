@@ -4058,7 +4058,7 @@ public class GameController : KnightSingleton<GameController>
 
 				if (Assistant && Assistant.Team == Shooter.Team && Shooter.DribbleTime <= 2) {
                     Assistant.GameRecord.Assist++;
-					ShowWord(EShowWordType.Assistant, team, Assistant.PlayerRefGameObject);
+					ShowWord(EShowWordType.Assistant, team, Assistant.ShowWord);
 				}
 			}
             

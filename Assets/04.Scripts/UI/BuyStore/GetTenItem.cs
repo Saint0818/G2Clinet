@@ -74,8 +74,10 @@ public class GetTenItem : MonoBehaviour {
 				
 				itemAwardGroups[i].Show(itemData[i]);
 			}
-		} else 
+		} else  {
 			Debug.LogError("itemData Lengh is not 10." + itemData.Length);
+			UIBuyStore.Get.FinishDrawLottery();
+		}
 
 		showTime = showInterval;
 	}
