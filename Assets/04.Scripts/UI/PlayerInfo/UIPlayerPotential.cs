@@ -52,7 +52,7 @@ public class TUpgradeBtn
 
 	public void SetValue(int curt, int add)
 	{
-        BaseValueLabel.text = string.Format("{0}", curt+add);
+        BaseValueLabel.text = string.Format("{0}[ABFF83FF]+{1}[-]", curt, add);
 	}
 
 //	public void DotSave()
@@ -125,10 +125,52 @@ public class UpgradeView
 		if(player.Potential != null && player.Potential.Count == AddPotential.Length)
 		{
 			int index = 0;
+            float basic = 0;
 
 			foreach (var item in GameData.Team.Player.Potential) {
 				index = GameFunction.GetAttributeIndex(item.Key);
-				upgradeBtns[index].SetValue(item.Value, AddPotential [index]);
+
+                switch (item.Key)
+                {
+                    case EAttribute.Point2:
+                        basic = player.Point2;
+                        break;
+                    case EAttribute.Point3:
+                        basic = player.Point3;
+                        break;
+                    case EAttribute.Dunk:
+                        basic = player.Dunk;
+                        break;
+                    case EAttribute.Rebound:
+                        basic = player.Rebound;
+                        break;
+                    case EAttribute.Block:
+                        basic = player.Block;
+                        break;
+                    case EAttribute.Steal:
+                        basic = player.Steal;
+                        break;
+                    case EAttribute.Speed:
+                        basic = player.Speed;
+                        break;
+                    case EAttribute.Stamina:
+                        basic = player.Stamina;
+                        break;
+                    case EAttribute.Strength:
+                        basic = player.Strength;
+                        break;
+                    case EAttribute.Defence:
+                        basic = player.Defence;
+                        break;
+                    case EAttribute.Dribble:
+                        basic = player.Dribble;
+                        break;
+                    case EAttribute.Pass:
+                        basic = player.Pass;
+                        break; 
+                }
+                        
+                upgradeBtns[index].SetValue(item.Value + (int)basic, AddPotential [index]);
 			}
 		}
 	}

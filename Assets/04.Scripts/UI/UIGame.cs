@@ -1062,11 +1062,15 @@ public class UIGame : UIBase {
 				}
 				break;
 			case EUIControl.Shoot:
-				if(GameController.Get.IsCanUseShootDoubleClick()){				
-					int index = GameController.Get.GetShootPlayerIndex();
-					if (index != -1 && index < UIDoubleClick.Get.DoubleClicks.Length && UIDoubleClick.Get.DoubleClicks [index].Enable) {
-						UIDoubleClick.Get.ClickStop (index);
-					}
+				if(GameController.Get.IsCanUseShootDoubleClick()){
+                    if (state)
+                    {
+                        int index = GameController.Get.GetShootPlayerIndex();
+                        if (index != -1 && index < UIDoubleClick.Get.DoubleClicks.Length && UIDoubleClick.Get.DoubleClicks[index].Enable)
+                        {
+                            UIDoubleClick.Get.ClickStop(index);
+                        }
+                    }
 				} else {
 					if(PlayerMe.IsBallOwner &&
 					   GameController.Get.Situation == EGameSituation.AttackGamer && 

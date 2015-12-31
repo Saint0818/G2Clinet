@@ -165,11 +165,13 @@ public static class GameData {
 				//init
 				switch(item)
 				{
-					case ESave.MusicOn:
-						AudioMgr.Get.MusicOn(true);
+                    case ESave.MusicOn:
+                        AudioMgr.Get.MusicOn(true);
+                        Setting.Music = true;
 						break;
 					case ESave.SoundOn:
 						AudioMgr.Get.SoundOn(true);
+                        Setting.Sound = true;
 						break;
                     case ESave.Quality:
                         Setting.Quality = 1;

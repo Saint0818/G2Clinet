@@ -15,6 +15,8 @@ public class GameStart : MonoBehaviour {
     public bool IsAutoReplay = false;
     public bool IsShowPlayerInfo = false;
     public bool IsShowShootRate = false;
+    public bool IsOpenChronos = true;
+    public bool IsUseFpsLimiter = true;
     public int FriendNumber = 3;
     public int GameWinValue = 13;
     public int GameWinTimeValue = 0;

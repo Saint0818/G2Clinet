@@ -29,11 +29,17 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
     public float GetTime(ETimerKind key)
     {
-        return Timekeeper.instance.Clock(key.ToString()).localTimeScale;
+        if (GameStart.Get.IsOpenChronos)
+            return Timekeeper.instance.Clock(key.ToString()).localTimeScale;
+        else
+            return 1;
     }
 
 	public void ChangeTime(ETimerKind key, float value)
 	{
+        if (!GameStart.Get.IsOpenChronos)
+            return;
+        
 		CrtTime = value;
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
 		if(GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Self0) {
@@ -102,20 +108,23 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 	
     public void SetTimerKey(ETimerKind key, ref GameObject obj)
     {
-        Timeline timer = obj.GetComponent<Timeline>();
-
-		if (timer == null)
+        if (GameStart.Get.IsOpenChronos)
         {
-			timer = obj.AddComponent<Timeline>();
-        }
+            Timeline timer = obj.GetComponent<Timeline>();
 
-		if (timer)
-        {
-			timer.mode = TimelineMode.Global;
-			timer.globalClockKey = key.ToString();
-			timer.SetRecording(34, 2);
-			timer.recordTransform = false;
-			timer.rigidbody.useGravity = true;
+            if (timer == null)
+            {
+                timer = obj.AddComponent<Timeline>();
+            }
+
+            if (timer)
+            {
+                timer.mode = TimelineMode.Global;
+                timer.globalClockKey = key.ToString();
+                timer.SetRecording(34, 2);
+                timer.recordTransform = false;
+                timer.rigidbody.useGravity = true;
+            }  
         }
     }
 

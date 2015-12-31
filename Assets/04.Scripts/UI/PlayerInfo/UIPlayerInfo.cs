@@ -163,7 +163,7 @@ public class AbilityView
     {
 //		int index = 0;
         float basic = 0;
-//		int add = 0;
+		int add = 0;
 
         EAttribute kind;
         for (int i = 0; i < abilitys.Length; i++)
@@ -171,8 +171,8 @@ public class AbilityView
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
 
-//			if(team.Player.Potential.ContainsKey(kind))
-//				add = team.Player.Potential[kind];
+			if(team.Player.Potential.ContainsKey(kind))
+				add = team.Player.Potential[kind];
 
             switch (kind)
             {
@@ -213,7 +213,7 @@ public class AbilityView
                     basic = team.Player.Pass;
                     break; 
             }
-            abilitys[i].Value.text = basic.ToString();
+            abilitys[i].Value.text = (basic + add).ToString();
         }
 
         RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
