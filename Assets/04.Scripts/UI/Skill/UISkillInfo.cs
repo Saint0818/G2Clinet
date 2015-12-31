@@ -121,9 +121,9 @@ public class UISkillInfo : UIBase {
 		isAlreadyEquip = isEquip;
 
 		if(isEquip)
-			labelEquip.text = "UNEQUIP";
+			labelEquip.text = TextConst.S(7215);
 		else
-			labelEquip.text = "EQUIP";
+			labelEquip.text = TextConst.S(7214);
 
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
