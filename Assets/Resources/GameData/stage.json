@@ -763,7 +763,7 @@
         "diamond": 30,
         "exp": 20,
         "money": 100,
-        "rewards": [1901314102,13102,14002,13002],
+        "rewards": [19013,14102,13102,14002,13002],
         "rewardrates": [10,15,15,25,25],
         "searchkind": 1,
         "searchvalue": [1,20],
@@ -1420,7 +1420,7 @@
         "surelyrewardsc": [31602],
         "surelyrewardsf": [31602],
         "surelyrewardsg": [31602],
-        "rewards": [19054,,21612,20432,12003,16002],
+        "rewards": [19054,21612,20432,12003,16002],
         "rewardrates": [10,20,30,50,50],
         "searchkind": 1,
         "searchvalue": [1,20],
@@ -1805,10 +1805,5 @@
         "explainjp": "主な課題セクションオフ",
         "positionx": 426,
         "positiony": -84
-    },
-    {
-        "explaintw": "籃球比賽中，激情的灌籃不可或缺",
-        "explaincn": "籃球比賽中，激情的灌籃不可或缺",
-        "explainen": "Nothing as refreshing as a thunderous slam"
     }
 ]
