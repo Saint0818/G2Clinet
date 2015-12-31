@@ -37,6 +37,13 @@ public class UIMainLobbyEvents : MonoBehaviour
         UIPlayerInfo.UIShow(true, ref GameData.Team);
     }
 
+	public void ShowPalyerPotential()
+	{
+		UIMainLobby.Get.Hide();
+		UIPlayerInfo.UIShow(true, ref GameData.Team);
+		UIPlayerPotential.UIShow (true);	
+	}
+
     public void OnMission() {
         UIMainLobby.Get.Hide();
 		UIMission.Visible = true;
