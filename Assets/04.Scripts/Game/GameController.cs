@@ -4506,6 +4506,9 @@ public class GameController : KnightSingleton<GameController>
 		case EShowWordType.GetThree:
 			EffectManager.Get.PlayEffect("GetScoreThree", CourtMgr.Get.ShootPoint[team].transform.position, null, null, 1.5f);
 			break;
+		case EShowWordType.Assistant:
+			EffectManager.Get.PlayEffect("ShowWord_Assist", Vector3.zero, parent, null, 1.5f);
+			break;
 		}
 	}
 
