@@ -24,11 +24,11 @@ public class AwardInlayView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData) {
-		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
 			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
 		}
+		QualityOctagon.spriteName = "patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";
