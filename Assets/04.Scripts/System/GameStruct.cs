@@ -626,6 +626,16 @@ namespace GameStruct
         /// </summary>
 		public int[] InlayItemIDs;
 
+	    public bool HasInlay(int itemID)
+	    {
+	        for(var i = 0; i < InlayItemIDs.Length; i++)
+	        {
+	            if(InlayItemIDs[i] == itemID)
+	                return true;
+	        }
+	        return false;
+	    }
+
 	    public override string ToString()
 	    {
 	        return string.Format("ID: {0}, InlayItemIDs: {1}", ID, InlayItemIDs);
@@ -731,6 +741,27 @@ namespace GameStruct
         public int[] MaterialNums
         {
             get { return mMaterialNums ?? (mMaterialNums = new []{MaterialNum1, MaterialNum2, MaterialNum3, MaterialNum4}); }
+        }
+
+        public bool HasMaterial(int itemID)
+        {
+            for(var i = 0; i < Materials.Length; i++)
+            {
+                if(Materials[i] == itemID)
+                    return true;
+            }
+            return false;
+        }
+
+        public int FindMaterialNum(int itemID)
+        {
+            for(var i = 0; i < Materials.Length; i++)
+            {
+                if(Materials[i] == itemID)
+                    return MaterialNums[i];
+            }
+
+            return 0;
         }
 
         private int[] mMaterials;

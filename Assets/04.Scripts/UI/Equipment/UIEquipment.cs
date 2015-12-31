@@ -200,13 +200,20 @@ public class UIEquipment : UIBase
     {
         Debug.LogFormat("onMaterialClick, slotIndex:{0}, storageMaterialItemIndex:{1}", slotIndex, storageMaterialItemIndex);
 
+        if(storageMaterialItemIndex < 0)
+        {
+            // 材料不夠, 進入導引視窗.
+            Debug.Log("Show Navigation Window!");
+            return;
+        }
+
+        // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 已此類推.
         int valueItemKind = slotIndex + 11;
         if(!GameData.Team.Player.ValueItems.ContainsKey(valueItemKind))
         {
             Debug.LogErrorFormat("Can't find ValueItem, kind:{0}", valueItemKind);
             return;
         }
-
         TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
         if(!GameData.DItemData.ContainsKey(valueItem.ID))
         {
@@ -214,7 +221,48 @@ public class UIEquipment : UIBase
             return;
         }
 
+        if(storageMaterialItemIndex >= GameData.Team.MaterialItems.Length)
+        {
+            Debug.LogErrorFormat("Can't find MaterialItem. Index:{0}", storageMaterialItemIndex);
+            return;
+        }
+        TMaterialItem materialItem = GameData.Team.MaterialItems[storageMaterialItemIndex];
 
+        if(!GameData.DItemData.ContainsKey(valueItem.ID))
+        {
+            Debug.LogErrorFormat("Can't found ItemData, ID:{0}", valueItem.ID);
+            return;
+        }
+        TItemData itemData = GameData.DItemData[valueItem.ID];
+        if(!itemData.HasMaterial(materialItem.ID))
+        {
+            Debug.LogErrorFormat("Material is not the inlay. ItemID:{0}, MaterailItemID:{1}", itemData.ID, materialItem.ID);
+            return;
+        }
+
+        if(valueItem.HasInlay(materialItem.ID))
+        {
+            // 已鑲嵌, 點擊不做任何事情.
+            return;
+        }
+
+        if(materialItem.Num >= itemData.FindMaterialNum(materialItem.ID))
+        {
+            // 材料足夠.
+            var addInlay = new AddValueItemInlayProtocol();
+            addInlay.Send(valueItemKind, storageMaterialItemIndex, onAddInlay);
+        }
+        else
+        {
+            // 材料不夠.
+            Debug.Log("Show Navigation Window!");
+        }
+        
+    }
+
+    private void onAddInlay(bool ok)
+    {
+        Debug.LogFormat("onAddInlay, ok:{0}", ok);
     }
 
     public void Hide()

@@ -28,7 +28,7 @@ public class AddValueItemInlayProtocol
 
         if(ok)
         {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
             GameData.Team.MaterialItems = team.MaterialItems;
             GameData.Team.Player.Init();
