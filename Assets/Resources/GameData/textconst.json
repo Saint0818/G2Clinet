@@ -114,8 +114,8 @@
     },
     {
         "id": 305,
-        "tw": "物品的品質高低分別為白色<[07d200]綠色[-]<[00c2d2]藍色[-]<[b000d2]紫色[-]<[07d200]橘色[-]",
-        "en": "The quality of equipment range from White<[07d200]Green[-]<[00c2d2]Blue[-]<[b000d2]Purple[-]<[07d200]Orange[-]"
+        "tw": "物品的品質高低分別為 \"白色<[00b35a]綠色[-]<[33bbff]藍色[-]<[8000ff]紫色[-]<[ff8000]橘色[-]\"",
+        "en": "The quality of equipment range from \"White<[00b35a]Green[-]<[33bbff]Blue[-]<[8000ff]Purple[-]<[ff8000]Orange[-]\""
     },
     {
         "id": 306,
@@ -1239,9 +1239,9 @@
     {
         "id": 6103,
         "explain": "SkillKindLabel",
-        "tw": "[23A3A3FF]被動技[-]",
-        "cn": "[23A3A3FF]被动技[-]",
-        "en": "[23A3A3FF]Pasive Ability[-]"
+        "tw": "[3355ff]被動技[-]",
+        "cn": "[3355ff]被动技[-]",
+        "en": "[3355ff]Pasive Ability[-]"
     },
     {
         "id": 6201,
@@ -2875,18 +2875,18 @@
     },
     {
         "id": 2000017,
-        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-]秒",
+        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-][33FFDD]秒[-]",
         "en": "[33FFDD]End Time[-][FFDD33]{2}[-]s"
     },
     {
         "id": 2000018,
-        "tw": "[33FFDD]時間[-]限制[FFDD33]{0}[-]秒",
+        "tw": "[33FFDD]時間[-]限制[FFDD33]{0}[-][33FFDD]秒[-]",
         "cn": "[FFDD33]时间[-] [33FFDD]限制[-]",
         "en": "[33FFDD]Time[-] Limitation[FFDD33]{0}[-]s"
     },
     {
         "id": 2000019,
-        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-]秒",
+        "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-][33FFDD]秒[-]",
         "cn": "[33FFDD]时间[-]",
         "en": "[33FFDD]End Time[-][FFDD33]{2}[-]s"
     },
