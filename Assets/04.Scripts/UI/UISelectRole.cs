@@ -421,21 +421,15 @@ public class UISelectRole : UIBase {
 		case EUIRoleSituation.BackToSelectMe:
 			if (isStage) {
 				UIShow(false);
-				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-				else
+                if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
+                    UILoading.OpenUI = UILoading.OpenStageUI;
+				    SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                } else
 					LobbyStart.Get.EnterLobby();
 			} else {
 				Invoke("showUITriangle", 1.25f);
 				Invoke("leftRightShow", 0.5f);
 				animatorLoading.SetTrigger("Close");
-				/*
-				for (int i = arrayPlayerData.Length-1; i >= 1; i--)
-					if (GameData.DPlayers.ContainsKey(arrayPlayerData[i].ID)) {
-						playerList.Insert(0, arrayPlayerData[i]);
-						arrayPlayerData[i].ID = 0;
-					}*/
-				
 				for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
 					arrayPlayer[i].SetActive(false);
 				

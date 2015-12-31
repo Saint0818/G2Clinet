@@ -353,7 +353,7 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
-
+        /*
 		if (GameStart.Get.TestMode == EGameTest.None && SendHttp.Get.CheckNetwork(false)) {
 			string str = PlayerPrefs.GetString(SettingText.GameRecord);
 			if (str != "") {
@@ -361,9 +361,9 @@ public class GameController : KnightSingleton<GameController>
 				form.AddField("GameRecord", str);
 				form.AddField("Start", PlayerPrefs.GetString(SettingText.GameRecordStart));
 				form.AddField("End", PlayerPrefs.GetString(SettingText.GameRecordEnd));
-				SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
+                SendHttp.Get.Command(URLConst.GameRecord, waitGameRecord, form, false);
 			}
-		}
+		}*/
 
 		GameRecord.Init(PlayerList.Count);
 		for (var i = 0; i < PlayerList.Count; i ++)
@@ -782,8 +782,13 @@ public class GameController : KnightSingleton<GameController>
 			IsFinishShow = false;
 			CameraMgr.Get.FinishGame();
 			GameRecord.Done = true;
-			SetGameRecord(true);
-			StartCoroutine(playFinish());
+			SetGameRecord();
+            setEndShowScene ();
+            if(GameStart.Get.IsAutoReplay){
+                UIGamePause.Get.OnAgain();
+                Invoke("JumpBallForReplay", 2);
+            }
+			//StartCoroutine(playFinish());
 		}
 	}
 
@@ -909,11 +914,15 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[0].AniState(EPlayerState.Idle);
     }
 
-	public void SetGameRecord(bool upload) {
+	public void SetGameRecord() {
 		GameRecord.Identifier = SystemInfo.deviceUniqueIdentifier;
 		GameRecord.Version = BundleVersion.Version;
 		GameRecord.End = System.DateTime.UtcNow;
+
+        double dt = new System.TimeSpan(GameRecord.End.Ticks - GameRecord.Start.Ticks).TotalSeconds;
+        GameRecord.GamePlayTime = Mathf.Min(60*10, (int)dt);
 		GameRecord.PauseCount++;
+        GameRecord.StageID = StageData.ID;
 		GameRecord.Score1 = UIGame.Get.Scores [0];
 		GameRecord.Score2 = UIGame.Get.Scores [1];
 		for (int i = 0; i < PlayerList.Count; i ++) {
@@ -921,25 +930,37 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[i].GameRecord.ShotError = Mathf.Max(0, 
 			        PlayerList[i].GameRecord.ShotError - PlayerList[i].GameRecord.BeBlock);
 
+                PlayerList[i].GameRecord.GamePlayTime = GameRecord.GamePlayTime;
+                PlayerList[i].GameRecord.Score = PlayerList[i].GameRecord.FGIn * 2 + PlayerList[i].GameRecord.FG3In * 3;
                 GameRecord.PlayerRecords[i] = PlayerList[i].GameRecord;
 			}
 		}
-
-		if (upload && GameStart.Get.TestMode == EGameTest.None) {
-			string str = JsonConvert.SerializeObject(GameRecord);
-			if (SendHttp.Get.CheckNetwork(false)) {
-				WWWForm form = new WWWForm();
-				form.AddField("GameRecord", str);
-				form.AddField("Start", GameRecord.Start.ToString());
-				form.AddField("End", GameRecord.End.ToString());
-				SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
-			} else {
-				PlayerPrefs.SetString(SettingText.GameRecord, str);
-				PlayerPrefs.SetString(SettingText.GameRecordStart, GameRecord.Start.ToString());
-				PlayerPrefs.SetString(SettingText.GameRecordEnd, GameRecord.End.ToString());
-			}
-		}
 	}
+        
+    public void SendGameRecord() {
+        if (GameStart.Get.TestMode == EGameTest.None && !StageData.IsTutorial) {
+            string str = JsonConvert.SerializeObject(GameRecord);
+            if (SendHttp.Get.CheckNetwork(false)) {
+                WWWForm form = new WWWForm();
+                form.AddField("GameRecord", str);
+                form.AddField("Win", IsGameVictory().ToString());
+                form.AddField("Start", GameRecord.Start.ToString());
+                form.AddField("End", GameRecord.End.ToString());
+                SendHttp.Get.Command(URLConst.GameRecord, waitGameRecord, form, true);
+            } else {
+                //PlayerPrefs.SetString(SettingText.GameRecord, str);
+                //PlayerPrefs.SetString(SettingText.GameRecordStart, GameRecord.Start.ToString());
+                //PlayerPrefs.SetString(SettingText.GameRecordEnd, GameRecord.End.ToString());
+            }
+        }
+    }
+
+    private void waitGameRecord(bool ok, WWW www) {
+        if (ok) {
+            TGamePlayerRecord result = JsonConvert.DeserializeObject <TGamePlayerRecord>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.Player.LifetimeRecord = result;
+        }
+    }
 
     #if UNITY_EDITOR
 	private bool isOpen = true;
@@ -1454,11 +1475,8 @@ public class GameController : KnightSingleton<GameController>
         if (PlayerList.Count > 0)
         {
             //Action
-			if(GameStart.Get.TestMode == EGameTest.All || GameStart.Get.TestMode == EGameTest.None) {
-
-				if (Situation != EGameSituation.None && Situation != EGameSituation.Opening)
-					GameRecord.GameTime += Time.deltaTime;
-            
+			if(GameStart.Get.TestMode == EGameTest.All || GameStart.Get.TestMode == EGameTest.None) 
+            {
 	            switch(Situation)
 	            {
 					case EGameSituation.Presentation:
@@ -2386,8 +2404,9 @@ public class GameController : KnightSingleton<GameController>
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
 		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
-			GameRecord.DoubleClickLaunch++;
-			int playerindex = -1;
+            int playerindex = -1;
+            if (GameRecord.PlayerRecords != null && GameRecord.PlayerRecords.Length > 0)
+                GameRecord.PlayerRecords[0].DoubleClickLaunch++;
 
 			for(int i = 0;i < PlayerList.Count;i++)
 				if(PlayerList[i] == player)
@@ -3626,6 +3645,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 			UIGameLoseResult.UIShow(true);
 			UIGameLoseResult.Get.Init();
+            SendGameRecord();
 		}
 		CameraMgr.Get.SetEndShowSituation();
 	}
@@ -4548,8 +4568,10 @@ public class GameController : KnightSingleton<GameController>
 		get {return doubleType;}
 		set {
             doubleType = value;
-            if (doubleType == EDoubleType.Good || doubleType == EDoubleType.Perfect)
-                GameRecord.DoubleClickPerfact++;
+            if (doubleType == EDoubleType.Good || doubleType == EDoubleType.Perfect) {
+                if (GameRecord.PlayerRecords != null && GameRecord.PlayerRecords.Length > 0)
+                    GameRecord.PlayerRecords[0].DoubleClickPerfact++;
+            }
         }
 	}
 

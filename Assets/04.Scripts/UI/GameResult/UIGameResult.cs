@@ -540,7 +540,6 @@ public class UIGameResult : UIBase {
 
 	private void waitMainStageWin(bool ok, WWW www)
 	{
-		Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
 		if(ok)
 		{
 			try {
@@ -627,6 +626,8 @@ public class UIGameResult : UIBase {
 				}
 				
 				init ();
+                if (GameController.Visible)
+                    GameController.Get.SendGameRecord();
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 				isGetAward = false;

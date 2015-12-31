@@ -20,7 +20,6 @@ namespace GameStruct
         public int BuyPower;
         public int GameTime;
         public int GamePlayTime;
-        public int DoubleClickPerfact;
         public int AvatarCount;
         public int SkillCount;
         public int PVECount;
@@ -325,14 +324,14 @@ namespace GameStruct
 		public float Version;
 		public DateTime Start;
 		public DateTime End;
-		public float GameTime;
-		public float ExitCount;
-		public float PauseCount;
+		public int GamePlayTime;
+        public int ExitCount;
+        public int PauseCount;
 		public bool Done;
+        public int StageID;
 		public int Score1;
 		public int Score2;
-		public int DoubleClickLaunch;
-        public int DoubleClickPerfact;
+		
 		public string[] ButtonTrace;
 		public TGamePlayerRecord[] PlayerRecords;
 
@@ -340,14 +339,12 @@ namespace GameStruct
 			Identifier = "";
 			Version = 0;
 			Start = DateTime.UtcNow;
-			GameTime = 0;
+			GamePlayTime = 0;
 			ExitCount = 0;
 			PauseCount = 0;
 			Done = false;
 			Score1 = 0;
 			Score2 = 0;
-			DoubleClickLaunch = 0;
-            DoubleClickPerfact = 0;
 			ButtonTrace = new string[0];
 			PlayerRecords = new TGamePlayerRecord[playerNumber];
 			for (int i = 0; i < playerNumber; i ++)
@@ -357,6 +354,8 @@ namespace GameStruct
 
 	public struct TGamePlayerRecord {
 		public int ID;
+        public int GameCount;
+        public int GamePlayTime;
 		public int FG;
 		public int FGIn;
 		public int FG3;
@@ -396,6 +395,8 @@ namespace GameStruct
 		public int AngerAdd;
 		public int PassiveSkill;
 		public int Skill;
+        public int DoubleClickLaunch;
+        public int DoubleClickPerfact;
 
 		public TMoveRecord[] MoveRecords;
 		public TShotRecord[] ShotRecords;
@@ -439,6 +440,9 @@ namespace GameStruct
 			AngerAdd = 0;
 			PassiveSkill = 0;
 			Skill = 0;
+            DoubleClickLaunch = 0;
+            DoubleClickPerfact = 0;
+
 			MoveRecords = new TMoveRecord[0];
 			ShotRecords = new TShotRecord[0];
 		}

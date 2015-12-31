@@ -163,7 +163,7 @@ namespace GameStruct
         public void RemoveTutorialFlag(int index) {
             if (TutorialFlags == null) 
                 TutorialFlags = new int[0];
-			
+
             if (index >= 0 && index < TutorialFlags.Length)
                 TutorialFlags[index] = -1;
         }
@@ -174,22 +174,22 @@ namespace GameStruct
                     if (Achievements[i] == id)
                         return true;
             }
-			
+
             return false;
         }
-		
+
         public void AddAchievement(int id) {
             if (Achievements == null) 
                 Achievements = new int[0];
-			
+
             Array.Resize(ref Achievements, Achievements.Length+1);
             Achievements[Achievements.Length-1] = id;
         }
-		
+
         public void RemoveAchievement(int index) {
             if (Achievements == null) 
                 Achievements = new int[0];
-			
+
             if (index >= 0 && index < Achievements.Length)
                 Achievements[index] = -1;
         }
@@ -199,6 +199,27 @@ namespace GameStruct
                 return MissionLv[id];
             else
                 return 0;
+        }
+
+        public string StatsText {
+            get {
+                string str = TextConst.S(3741) + Player.LifetimeRecord.GamePlayTime + "\n" +
+                    TextConst.S(3742) + Player.LifetimeRecord.GameCount + "\n" +
+                    TextConst.S(3743) + Player.LifetimeRecord.Score + "\n" +
+                    TextConst.S(3744) + Player.LifetimeRecord.FGIn + "\n" +
+                    TextConst.S(3745) + Player.LifetimeRecord.FG3In + "\n" +
+                    TextConst.S(3746) + Player.LifetimeRecord.Dunk + "\n" +
+                    TextConst.S(3747) + Player.LifetimeRecord.Rebound + "\n" +
+                    TextConst.S(3748) + Player.LifetimeRecord.Assist + "\n" +
+                    TextConst.S(3749) + Player.LifetimeRecord.Steal + "\n" +
+                    TextConst.S(3750) + Player.LifetimeRecord.Block + "\n" +
+                    TextConst.S(3751) + Player.LifetimeRecord.Push + "\n" +
+                    TextConst.S(3752) + Player.LifetimeRecord.Knock + "\n" +
+                    TextConst.S(3753) + Player.LifetimeRecord.DoubleClickPerfact + "\n" +
+                    TextConst.S(3754) + Player.LifetimeRecord.Alleyoop + "\n";
+
+                return str;
+            }
         }
 
         public int GetMissionValue(int kind) {
@@ -231,11 +252,31 @@ namespace GameStruct
                 case 38: return Player.LifetimeRecord.Block;
                 case 39: return Player.LifetimeRecord.Push;
                 case 40: return Player.LifetimeRecord.Knock; //擊倒
-                case 41: return LifetimeRecord.DoubleClickPerfact; //Perfect數
+                case 41: return Player.LifetimeRecord.DoubleClickPerfact; //Perfect數
                 case 42: return Player.LifetimeRecord.Alleyoop;
             }
 
             return 0;
+        }
+
+        public bool MissionFinished(ref TMission mission) {
+            if (mission.Value != null && FindMissionLv(mission.ID) >= mission.Value.Length)
+                return true;
+            else
+                return false;
+        }
+
+        public bool HaveMissionAward(ref TMission mission) {
+            if (mission.Value != null) {
+                int mLv = FindMissionLv(mission.ID);
+                if (mLv < mission.Value.Length) {
+                    int mValue = GetMissionValue(mission.Kind);
+                    if (mValue >= mission.Value[mLv])
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         public bool CheckSkillCardisNew (int id) {
@@ -258,7 +299,7 @@ namespace GameStruct
                 for (int i=0; i<Player.SkillCards.Length; i++) 
                     if (Player.SkillCards[i].ID == id)
                         return false;
-			
+
             return true;
         }
 

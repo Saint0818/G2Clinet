@@ -44,8 +44,8 @@ public class GEFixNGUI
     {
         if (Selection.gameObjects.Length > 0)
         {
-            Material mat = Resources.Load<Material>("Font/GenJyuuGothicX-P-Bold");
-            UIFont font = Resources.Load<UIFont>("Font/GenJyuuGothic");
+            Material mat = Resources.Load<Material>("Font/hansans-sc-bold");
+            UIFont font = Resources.Load<UIFont>("Font/hansans");
             for (int i = 0; i < Selection.gameObjects.Length; i++)
             {
                 UILabel[] labs = Selection.gameObjects[i].GetComponentsInChildren<UILabel>();
@@ -58,7 +58,7 @@ public class GEFixNGUI
 
                         labs[j].material = mat;
                         //labs[j].depth = 100;
-                        labs[j].spacingX = 0;
+                        /*labs[j].spacingX = 0;
                         labs[j].spacingY = 0;
                         labs[j].effectDistance = new Vector2(1, 1);
                         if (true){//labs[j].effectStyle != UILabel.Effect.Outline8) {
@@ -83,7 +83,7 @@ public class GEFixNGUI
                         else if (labs[j].fontSize > 16)
                             labs[j].fontSize = 20;
                         else
-                            labs[j].fontSize = 16;
+                            labs[j].fontSize = 16;*/
                     }
                 }
             }

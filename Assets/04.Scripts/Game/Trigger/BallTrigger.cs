@@ -7,6 +7,7 @@ public class BallTrigger : MonoBehaviour
 {
 	private Rigidbody ParentRigidbody;
 	private GameObject followObject;
+    private GameObject ballObject;
 	private BoxCollider box;
 	private GameObject HintObject;
 	private Vector3 Parabolatarget;
@@ -21,6 +22,7 @@ public class BallTrigger : MonoBehaviour
 
 	void Awake()
 	{
+        ballObject = gameObject.transform.parent.gameObject;
 		ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
 	}
@@ -328,10 +330,12 @@ public class BallTrigger : MonoBehaviour
 	{
 		CalculationParabolaMove();
 		gameObject.transform.localPosition = Vector3.zero;
-
-		if (IsAutoRotate) {
+        if (IsAutoRotate) {
 			ParentRigidbody.gameObject.transform.Rotate (ParentRigidbody.gameObject.transform.forward * -10);
 		}
+
+        if (ballObject && ballObject.transform.position.y < 0) 
+            ballObject.transform.position = new Vector3(ballObject.transform.position.x, 0.3f, ballObject.transform.position.z);
 	}
 
 	public bool IsAutoRotate 
