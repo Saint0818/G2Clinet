@@ -30,6 +30,10 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
     public GameObject SkillNoticeObj;
+    public GameObject SocialNoticeObj;
+    public GameObject ShopNoticeObj;
+    public GameObject MissionNoticeObj;
+    public GameObject PlayerNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIMainLobbyButton AvatarButton;
@@ -109,6 +113,38 @@ public class UIMainLobbyMain : MonoBehaviour
     public bool SkillNotice
     {
         set { SkillNoticeObj.SetActive(value); }
+    }
+        
+    public bool SocialNotice
+    {
+        set { 
+            if (SocialNoticeObj)
+                SocialNoticeObj.SetActive(value); 
+        }
+    }
+
+    public bool ShopNotice
+    {
+        set { 
+            if (ShopNoticeObj)
+                ShopNoticeObj.SetActive(value); 
+        }
+    }
+
+    public bool MissionNotice
+    {
+        set { 
+            if (MissionNoticeObj)
+                MissionNoticeObj.SetActive(value); 
+        }
+    }
+
+    public bool PlayerNotice
+    {
+        set { 
+            if (PlayerNoticeObj)
+                PlayerNoticeObj.SetActive(value); 
+        }
     }
 
     /// <summary>

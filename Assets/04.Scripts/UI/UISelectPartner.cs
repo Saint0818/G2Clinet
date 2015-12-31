@@ -13,7 +13,9 @@ public class TMember{
     public UILabel LabelSelected;
 	public UILabel LabelTeamName;
 	public UILabel LabelPower;
+    public UILabel LabelLv;
 	public UISprite SpriteFace;
+    public UISprite SpritePosition;
 }
 
 public class UISelectPartner : UIBase {
@@ -139,7 +141,9 @@ public class UISelectPartner : UIBase {
 			team.Item.GetComponent<UIDragScrollView>().scrollView = partnerScrollView;
 			team.LabelTeamName = GameObject.Find(team.Item.name + "/PlayerName/NameLabel").GetComponent<UILabel>();
 			team.LabelPower = GameObject.Find(team.Item.name + "/CombatGroup/CombatValueLabel").GetComponent<UILabel>();
-			team.SpriteFace = GameObject.Find(team.Item.name + "/PlayerInGameBtn").GetComponent<UISprite>();
+            team.LabelLv = GameObject.Find(team.Item.name + "/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+            team.SpriteFace = GameObject.Find(team.Item.name + "/PlayerInGameBtn/PlayerPic").GetComponent<UISprite>();
+            team.SpritePosition = GameObject.Find(team.Item.name + "/PlayerInGameBtn/PlayerPic/PositionIcon").GetComponent<UISprite>();
             team.UISelected = GameObject.Find(team.Item.name + "/UISelected");
             team.LabelSelected = GameObject.Find(team.Item.name + "/UISelected/Label").GetComponent<UILabel>();
 			GameObject obj = GameObject.Find(team.Item.name + "/UISelected/Label");
@@ -164,7 +168,17 @@ public class UISelectPartner : UIBase {
         memberList[index].UISelected.SetActive(false);
 		memberList[index].LabelTeamName.text = player.Name;
 		memberList[index].LabelPower.text = string.Format(TextConst.S(9509), + player.Power());
-		memberList[index].SpriteFace.spriteName = player.FacePicture; 
+        memberList[index].LabelLv.text = player.Lv.ToString();
+		memberList[index].SpriteFace.spriteName = player.FacePicture;
+        if (GameData.DPlayers.ContainsKey(player.ID)) {
+            if (GameData.DPlayers[player.ID].Body == 0)
+                memberList[index].SpritePosition.spriteName = "IconCenter";
+            else
+            if (GameData.DPlayers[player.ID].Body == 1)
+                memberList[index].SpritePosition.spriteName = "IconForward";
+            else
+                memberList[index].SpritePosition.spriteName = "IconGuard";
+        }
 	}
 
 	public void OnSelectPartner() {

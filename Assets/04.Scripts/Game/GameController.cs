@@ -923,6 +923,7 @@ public class GameController : KnightSingleton<GameController>
         GameRecord.GamePlayTime = Mathf.Min(60*10, (int)dt);
 		GameRecord.PauseCount++;
         GameRecord.StageID = StageData.ID;
+        GameRecord.IsWin = IsGameVictory();
 		GameRecord.Score1 = UIGame.Get.Scores [0];
 		GameRecord.Score2 = UIGame.Get.Scores [1];
 		for (int i = 0; i < PlayerList.Count; i ++) {
@@ -943,7 +944,6 @@ public class GameController : KnightSingleton<GameController>
             if (SendHttp.Get.CheckNetwork(false)) {
                 WWWForm form = new WWWForm();
                 form.AddField("GameRecord", str);
-                form.AddField("Win", IsGameVictory().ToString());
                 form.AddField("Start", GameRecord.Start.ToString());
                 form.AddField("End", GameRecord.End.ToString());
                 SendHttp.Get.Command(URLConst.GameRecord, waitGameRecord, form, true);
@@ -957,8 +957,9 @@ public class GameController : KnightSingleton<GameController>
 
     private void waitGameRecord(bool ok, WWW www) {
         if (ok) {
-            TGamePlayerRecord result = JsonConvert.DeserializeObject <TGamePlayerRecord>(www.text, SendHttp.Get.JsonSetting);
-            GameData.Team.Player.LifetimeRecord = result;
+            TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.LifetimeRecord = result.LifetimeRecord;
+            GameData.Team.Player.LifetimeRecord = result.Player.LifetimeRecord;
         }
     }
 
@@ -4504,9 +4505,6 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case EShowWordType.GetThree:
 			EffectManager.Get.PlayEffect("GetScoreThree", CourtMgr.Get.ShootPoint[team].transform.position, null, null, 1.5f);
-			break;
-		case EShowWordType.Assistant:
-			EffectManager.Get.PlayEffect("ShowWord_Assist", Vector3.zero, parent, null, 1.5f);
 			break;
 		}
 	}

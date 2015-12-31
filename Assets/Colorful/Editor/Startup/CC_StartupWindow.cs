@@ -1,25 +1,34 @@
-﻿using UnityEngine;
+﻿// Colorful FX - Unity Asset
+// Copyright (c) 2015 - Thomas Hourdel
+// http://www.thomashourdel.com
+
+#if !(UNITY_4_5 || UNITY_4_6 || UNITY_5_0)
+#define UNITY_5_1_PLUS
+#endif
+ 
+using UnityEngine;
 using UnityEditor;
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
-     
-public class CC_StartupWindowProcessor : AssetPostprocessor
+
+public class Colorful_StartupWindowProcessor : AssetPostprocessor
 {
 	static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
-		string[] entries = System.Array.FindAll(importedAssets, name => name.Contains("CC_StartupWindow") && !name.EndsWith(".meta"));
+		string[] entries = Array.FindAll(importedAssets, name => name.Contains("ColorfulFX_StartupWindow") && !name.EndsWith(".meta"));
 
 		for (int i = 0; i < entries.Length; i++)
-			if (CC_StartupWindow.Init(false))
+			if (ColorfulFX_StartupWindow.Init(false))
 				break;
 	}
 }
-  
-public class CC_StartupWindow : EditorWindow
+
+public sealed class ColorfulFX_StartupWindow : EditorWindow
 {
-	public static string identifier = "TH_Colorful";
-	static string pathChangelog = "Assets/Colorful/Changelog.txt";
-	static string pathImages = "Assets/Colorful/Editor/Startup/Images/";
+	public static string identifier = "TH_Colorful_FX";
+	static string pathChangelog = "Assets/Colorful FX/Changelog.txt";
+	static string pathImages = "Assets/Colorful FX/Editor/Startup/Images/";
 
 	Texture2D headerPic;
 	string changelogText = "";
@@ -27,18 +36,18 @@ public class CC_StartupWindow : EditorWindow
 	GUIStyle richLabelStyle;
 	GUIStyle richButtonStyle;
 	GUIStyle iconButtonStyle;
-	Texture2D iconTypogenic;
 	Texture2D iconColorful;
 	Texture2D iconChromatica;
 	Texture2D iconSSAOPro;
+	Texture2D iconLutify;
 
-	[MenuItem("Help/About Colorful", false, 0)]
+	[MenuItem("Help/Colorful FX/About", false, 0)]
 	public static void MenuInit()
 	{
-		CC_StartupWindow.Init(true);
+		ColorfulFX_StartupWindow.Init(true);
 	}
 
-	[MenuItem("Help/Colorful Manual", false, 0)]
+	[MenuItem("Help/Colorful FX/User Manual", false, 0)]
 	public static void MenuManual()
 	{
 		Application.OpenURL("http://thomashourdel.com/colorful/doc/");
@@ -47,15 +56,25 @@ public class CC_StartupWindow : EditorWindow
 	public static void FindAssets()
 	{
 		// Get the relative data path
-		string[] results = AssetDatabase.FindAssets("CC_LookupFilter t:Script", null);
+		string[] results = AssetDatabase.FindAssets("ColorfulFX_StartupWindow t:Script", null);
 		if (results.Length > 0)
 		{
 			string p = AssetDatabase.GUIDToAssetPath(results[0]);
-			p = System.IO.Path.GetDirectoryName(p);
+			p = Path.GetDirectoryName(p);
+			p = p.Substring(0, p.LastIndexOf('/'));
 			p = p.Substring(0, p.LastIndexOf('/'));
 			pathChangelog = p + "/Changelog.txt";
 			pathImages = p + "/Editor/Startup/Images/";
 		}
+	}
+
+	public static T LoadAssetAt<T>(string path) where T : UnityEngine.Object
+	{ 
+#if UNITY_5_1_PLUS
+		return AssetDatabase.LoadAssetAtPath<T>(path);
+#else
+		return Resources.LoadAssetAtPath<T>(path);
+#endif
 	}
 
 	public static bool Init(bool forceOpen)
@@ -63,37 +82,59 @@ public class CC_StartupWindow : EditorWindow
 		FindAssets();
 
 		// First line in the changelog is the version string
-		string version = ((TextAsset)AssetDatabase.LoadAssetAtPath(pathChangelog, typeof(TextAsset))).text.Split('\n')[0];
+		TextAsset textAsset = LoadAssetAt<TextAsset>(pathChangelog);
 
-		if (forceOpen || EditorPrefs.GetString(identifier) != version)
+		if (textAsset == null && forceOpen == false)
+			forceOpen = true; // Changelog.txt hasn't been imported yet (???)
+		else if (textAsset == null)
+			return false; // Something's wrong, should never happen
+
+		if (forceOpen || EditorPrefs.GetString(identifier) != GetVersion())
 		{
-			CC_StartupWindow window;
-			window = EditorWindow.GetWindow<CC_StartupWindow>(true, "About Colorful", true);
-			window.minSize = new Vector2(530, 650);
-			window.maxSize = new Vector2(530, 650);
+			ColorfulFX_StartupWindow window;
+			window = EditorWindow.GetWindow<ColorfulFX_StartupWindow>(true, "About Colorful FX", true);
+			Vector2 size = new Vector2(530, 670);
+			window.minSize = size;
+			window.maxSize = size;
 			window.ShowUtility();
-
-			EditorPrefs.SetString(identifier, version);
-
 			return true;
 		}
-		else return false;
+		
+		return false;
+	}
+
+	static string GetVersion()
+	{
+		TextAsset textAsset = LoadAssetAt<TextAsset>(pathChangelog);
+		string version = textAsset.text.Split('\n')[0];
+		return version;
 	}
 
 	void OnEnable()
 	{
 		FindAssets();
-		
-		string versionColor = EditorGUIUtility.isProSkin ? "#ffffffee" : "#000000ee";
-		changelogText = ((TextAsset)AssetDatabase.LoadAssetAtPath(pathChangelog, typeof(TextAsset))).text;
-		changelogText = Regex.Replace(changelogText, @"^[0-9].*", "<color=" + versionColor + "><size=13><b>Version $0</b></size></color>", RegexOptions.Multiline);
-		changelogText = Regex.Replace(changelogText, @"^-.*", "  $0", RegexOptions.Multiline);
 
-		headerPic = (Texture2D)AssetDatabase.LoadAssetAtPath(pathImages + "header.jpg", typeof(Texture2D));
-		iconTypogenic = (Texture2D)AssetDatabase.LoadAssetAtPath(pathImages + "icon-typogenic.png", typeof(Texture2D));
-		iconColorful = (Texture2D)AssetDatabase.LoadAssetAtPath(pathImages + "icon-colorful.png", typeof(Texture2D));
-		iconChromatica = (Texture2D)AssetDatabase.LoadAssetAtPath(pathImages + "icon-chromatica.png", typeof(Texture2D));
-		iconSSAOPro = (Texture2D)AssetDatabase.LoadAssetAtPath(pathImages + "icon-ssaopro.png", typeof(Texture2D));
+		EditorPrefs.SetString(identifier, GetVersion());
+
+		string versionColor = EditorGUIUtility.isProSkin ? "#ffffffee" : "#000000ee";
+		changelogText = LoadAssetAt<TextAsset>(pathChangelog).text;
+		int maxLength = 10200;
+		bool tooLong = changelogText.Length > maxLength;
+
+		if (tooLong)
+		{
+			changelogText = changelogText.Substring(0, maxLength);
+			changelogText += "...\n\n<color=" + versionColor + ">[See the online changelog for more]</color>";
+		}
+
+		changelogText = Regex.Replace(changelogText, @"^[0-9].*", "<color=" + versionColor + "><size=13><b>Version $0</b></size></color>", RegexOptions.Multiline);
+		changelogText = Regex.Replace(changelogText, @"^- (\w+:)", "  <color=" + versionColor + ">$0</color>", RegexOptions.Multiline);
+
+		headerPic = LoadAssetAt<Texture2D>(pathImages + "header.jpg");
+		iconColorful = LoadAssetAt<Texture2D>(pathImages + "icon-colorful.png");
+		iconChromatica = LoadAssetAt<Texture2D>(pathImages + "icon-chromatica.png");
+		iconSSAOPro = LoadAssetAt<Texture2D>(pathImages + "icon-ssaopro.png");
+		iconLutify = LoadAssetAt<Texture2D>(pathImages + "icon-lutify.png");
 	}
 
 	void OnGUI()
@@ -108,46 +149,44 @@ public class CC_StartupWindow : EditorWindow
 			iconButtonStyle = new GUIStyle(GUI.skin.button);
 			iconButtonStyle.normal.background = null;
 			iconButtonStyle.imagePosition = ImagePosition.ImageOnly;
-			iconButtonStyle.fixedWidth = 80;
-			iconButtonStyle.fixedHeight = 80;
+			iconButtonStyle.fixedWidth = 96;
+			iconButtonStyle.fixedHeight = 96;
 		}
 
 		Rect headerRect = new Rect(0, 0, 530, 207);
 		GUI.DrawTexture(headerRect, headerPic, ScaleMode.ScaleAndCrop, false);
 
-#if (UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3)
-		GUILayout.Space(204);
-#else
 		GUILayout.Space(214);
-#endif
 
 		GUILayout.BeginVertical();
+		{
+			HR(0, 2);
 
 			// Doc
 			GUILayout.BeginHorizontal();
-
+			{
 				if (GUILayout.Button("<b>Documentation</b>\n<size=9>Complete manual, examples, tips & tricks</size>", richButtonStyle, GUILayout.MaxWidth(260), GUILayout.Height(36)))
 					Application.OpenURL("http://thomashourdel.com/colorful/doc/");
 
 				if (GUILayout.Button("<b>Rate it</b>\n<size=9>Leave a review on the Asset Store</size>", richButtonStyle, GUILayout.Height(36)))
-					Application.OpenURL("com.unity3d.kharma:content/3842");
-
+					Application.OpenURL("com.unity3d.kharma:content/44845");
+			}
 			GUILayout.EndHorizontal();
 
 			// Contact
 			HR(4, 2);
 
 			GUILayout.BeginHorizontal();
-
-				if (GUILayout.Button("<b>E-mail</b>\n<size=9>thomas.hourdel@gmail.com</size>", richButtonStyle, GUILayout.MaxWidth(172), GUILayout.Height(36)))
-					Application.OpenURL("mailto:thomas.hourdel@gmail.com");
+			{
+				if (GUILayout.Button("<b>E-mail</b>\n<size=9>thomas@hourdel.com</size>", richButtonStyle, GUILayout.MaxWidth(172), GUILayout.Height(36)))
+					Application.OpenURL("mailto:thomas@hourdel");
 
 				if (GUILayout.Button("<b>Twitter</b>\n<size=9>@Chman</size>", richButtonStyle, GUILayout.Height(36)))
 					Application.OpenURL("http://twitter.com/Chman");
 
 				if (GUILayout.Button("<b>Support Forum</b>\n<size=9>Unity Community</size>", richButtonStyle, GUILayout.MaxWidth(172), GUILayout.Height(36)))
 					Application.OpenURL("http://forum.unity3d.com/threads/colorful-post-fx-photoshop-like-color-correction-tools.143417/");
-
+			}
 			GUILayout.EndHorizontal();
 
 			// Changelog
@@ -161,23 +200,25 @@ public class CC_StartupWindow : EditorWindow
 			HR(0, 0);
 
 			GUILayout.BeginHorizontal();
+			{
 				GUILayout.FlexibleSpace();
 
-				if (GUILayout.Button(iconTypogenic, iconButtonStyle))
-					Application.OpenURL("com.unity3d.kharma:content/19182");
+				if (GUILayout.Button(iconColorful, iconButtonStyle))
+					Application.OpenURL("com.unity3d.kharma:content/44845");
 
 				if (GUILayout.Button(iconChromatica, iconButtonStyle))
 					Application.OpenURL("com.unity3d.kharma:content/20743");
 
-				if (GUILayout.Button(iconColorful, iconButtonStyle))
-					Application.OpenURL("com.unity3d.kharma:content/3842");
-
 				if (GUILayout.Button(iconSSAOPro, iconButtonStyle))
 					Application.OpenURL("com.unity3d.kharma:content/22369");
 
-				GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
+				if (GUILayout.Button(iconLutify, iconButtonStyle))
+					Application.OpenURL("com.unity3d.kharma:content/46012");
 
+				GUILayout.FlexibleSpace();
+			}
+			GUILayout.EndHorizontal();
+		}
 		GUILayout.EndVertical();
 	}
 

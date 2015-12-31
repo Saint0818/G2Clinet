@@ -37,6 +37,10 @@ public class UIMainStageDebug
             GameData.Team.Items = reward.Items;
 
             stageRewardAgain();
+            if (GameController.Visible) {
+                GameController.Get.SetGameRecord();
+                GameController.Get.SendGameRecord();
+            }
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);

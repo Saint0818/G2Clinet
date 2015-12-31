@@ -236,7 +236,22 @@ namespace GameStruct
                     TextConst.S(3751) + Player.LifetimeRecord.Push + "\n" +
                     TextConst.S(3752) + Player.LifetimeRecord.Knock + "\n" +
                     TextConst.S(3753) + Player.LifetimeRecord.DoubleClickPerfact + "\n" +
-                    TextConst.S(3754) + Player.LifetimeRecord.Alleyoop + "\n";
+                    TextConst.S(3761) + Player.Lv + "\n" + 
+                    TextConst.S(3762) + PVPLv + "\n" + 
+                    TextConst.S(3763) + StatiumLv + "\n" + 
+                    TextConst.S(3764) + OccupyLv + "\n" + 
+                    TextConst.S(3765) + LifetimeRecord.AvatarCount + "\n" + 
+                    TextConst.S(3766) + 0 + "\n" + 
+                    TextConst.S(3767) + LifetimeRecord.SkillCount + "\n" + 
+                    TextConst.S(3768) + 0 + "\n" + 
+                    TextConst.S(3771) + LifetimeRecord.PVEWin + "\n" + 
+                    TextConst.S(3772) + LifetimeRecord.PVEKeepWin + "\n" + 
+                    TextConst.S(3773) + LifetimeRecord.SubTextWin + "\n" + 
+                    TextConst.S(3774) + LifetimeRecord.SubTextKeepWin + "\n" + 
+                    TextConst.S(3775) + LifetimeRecord.PVPWin + "\n" + 
+                    TextConst.S(3776) + LifetimeRecord.PVPKeepWin + "\n" + 
+                    TextConst.S(3777) + LifetimeRecord.OccupyWin + "\n" +
+                    TextConst.S(3778) + LifetimeRecord.OccupyKeepWin + "\n";
 
                 return str;
             }

@@ -108,8 +108,11 @@ public class UIMission : UIBase {
 
     protected override void OnShow(bool isShow) {
         if (isShow) {
-			initMissionList(0);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < pageObjects.Length; i++)
+                pageObjects[i].SetActive(false);
+                
+            initMissionList(nowPage);
+            for (int i = 0; i < 0; i++)
                 if (!redPoints[i].activeInHierarchy)
                     for (int j = 0; j < GameData.MissionData.Length; j++)
                         if (GameData.MissionData[j].TimeKind == i && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
@@ -160,8 +163,12 @@ public class UIMission : UIBase {
 			}
 
             redPoints[page].SetActive(false);
+            if (page == 4)
+                initStats();
+            else {
 			for (int i = 0; i < missionList[page].Count; i++) 
 				checkMission(missionList[page][i]);
+            }
 		}
 
 		pageObjects[page].SetActive(true);

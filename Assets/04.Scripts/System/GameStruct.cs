@@ -324,10 +324,12 @@ namespace GameStruct
 		public float Version;
 		public DateTime Start;
 		public DateTime End;
+        public int GameKind; //0.pve
 		public int GamePlayTime;
         public int ExitCount;
         public int PauseCount;
 		public bool Done;
+        public bool IsWin;
         public int StageID;
 		public int Score1;
 		public int Score2;

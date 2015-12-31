@@ -28,11 +28,13 @@
     },
     {
         "lv": 4,
-        "lvupexp": 20
+        "lvupexp": 20,
+        "openindex": 6
     },
     {
         "lv": 5,
-        "lvupexp": 25
+        "lvupexp": 25,
+        "openindex": 4
     },
     {
         "lv": 6,

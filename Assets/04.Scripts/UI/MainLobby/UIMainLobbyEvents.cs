@@ -42,6 +42,11 @@ public class UIMainLobbyEvents : MonoBehaviour
 		UIMission.Visible = true;
     }
 
+    public void OnSocial() {
+        UIMainLobby.Get.Hide();
+        UISocial.Visible = true;
+    }
+
 	public void OnShaffle () {
 		if(GameData.Team.Diamond >= 30) {
 			UIMainLobby.Get.HideAll();

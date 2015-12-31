@@ -86,8 +86,11 @@ public class UIMainLobby : UIBase
         Main.EquipmentNotice = false;
         Main.AvatarNotice = false;
         Main.SkillNotice = false;
+        Main.SocialNotice = false;
+        Main.ShopNotice = false;
+        Main.MissionNotice = haveMissionAward;
+        Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
 
-//        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 1);
         foreach (KeyValuePair<int, TExpData> pair in GameData.DExpData)
         {
             bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
@@ -110,6 +113,9 @@ public class UIMainLobby : UIBase
                 case 5:
                     updateButton(Main.SkillButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
                     Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
+                    break;
+                case 6: //mission
+                    
                     break;
             }
         }
@@ -217,6 +223,17 @@ public class UIMainLobby : UIBase
             }
 			
             return instance;
+        }
+    }
+
+    private bool haveMissionAward {
+        get {
+            for (int j = 0; j < GameData.MissionData.Length; j++)
+                if (GameData.MissionData[j].TimeKind == 0 && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
+                    return true;
+                }
+
+            return false;
         }
     }
 }
