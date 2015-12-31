@@ -4056,8 +4056,10 @@ public class GameController : KnightSingleton<GameController>
 				if (IsShooting)
 					Shooter.GameRecord.ShotError--;
 
-                if (Assistant && Assistant.Team == Shooter.Team && Shooter.DribbleTime <= 2)
+				if (Assistant && Assistant.Team == Shooter.Team && Shooter.DribbleTime <= 2) {
                     Assistant.GameRecord.Assist++;
+					ShowWord(EShowWordType.Assistant, team, Assistant.PlayerRefGameObject);
+				}
 			}
             
 			AudioMgr.Get.PlaySound(SoundType.SD_Net);
@@ -4502,6 +4504,9 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case EShowWordType.GetThree:
 			EffectManager.Get.PlayEffect("GetScoreThree", CourtMgr.Get.ShootPoint[team].transform.position, null, null, 1.5f);
+			break;
+		case EShowWordType.Assistant:
+			EffectManager.Get.PlayEffect("ShowWord_Assist", Vector3.zero, parent, null, 1.5f);
 			break;
 		}
 	}

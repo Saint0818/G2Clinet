@@ -81,6 +81,9 @@
         "name": "ShowWord_Steal"
     },
     {
+        "name": "ShowWord_Assist"
+    },
+    {
         "name": "SkillArea_Arrow"
     },
     {

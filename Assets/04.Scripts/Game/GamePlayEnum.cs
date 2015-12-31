@@ -139,7 +139,8 @@ namespace GamePlayEnum {
 		Punch,
 		Steal,
 		GetTwo,
-		GetThree
+		GetThree,
+		Assistant
 	}
 	//For ActiveSkill 
 	public enum EBallState {
