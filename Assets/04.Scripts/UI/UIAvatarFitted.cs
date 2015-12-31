@@ -33,8 +33,6 @@ public class TItemAvatar
 	private UISprite SellSelect;
 	private UISprite EquipedIcon;
 	private TimeSpan currentTime;
-
-
 	public int BackageSort; //-1 : Player.Item 
 	public int Position;
 	public int Kind;
@@ -184,6 +182,8 @@ public class TItemAvatar
 			sellBtn = self.transform.FindChild ("SellBtn").gameObject.GetComponent<UIButton> ();
             sellPrice = sellBtn.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>();
 			SellSelect = self.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
+			SellSelect.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel> ().text = TextConst.S (8007);
+			self.transform.FindChild ("EquipedIcon/Label").gameObject.GetComponent<UILabel> ().text = TextConst.S (8107);
 			Selected = false;
 			EquipedIcon = self.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
 			equipBtn = self.transform.GetComponent<UIButton> ();
