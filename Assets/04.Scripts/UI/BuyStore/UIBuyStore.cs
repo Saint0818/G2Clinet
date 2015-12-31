@@ -146,6 +146,8 @@ public class UIBuyStore : UIBase {
 
 			if(GameData.DItemData.ContainsKey(result.ItemID))
 				showOne(GameData.DItemData[result.ItemID]);
+			else 
+				OnBack();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.PickOne);

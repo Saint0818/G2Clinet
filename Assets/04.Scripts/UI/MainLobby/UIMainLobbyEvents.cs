@@ -43,16 +43,22 @@ public class UIMainLobbyEvents : MonoBehaviour
     }
 
 	public void OnShaffle () {
-		UIMainLobby.Get.HideAll();
-		UI3DMainLobby.Get.Hide();
-		UIBuyStore.Get.ShowView(true);
-		UI3DBuyStore.Get.Show();
+		if(GameData.Team.Diamond >= 30) {
+			UIMainLobby.Get.HideAll();
+			UI3DMainLobby.Get.Hide();
+			UIBuyStore.Get.ShowView(true);
+			UI3DBuyStore.Get.Show();
+		} else
+			UIHint.Get.ShowHint(TextConst.S(233), Color.white);
 	}
 
 	public void OnShaffleTen () {
-		UIMainLobby.Get.HideAll();
-		UI3DMainLobby.Get.Hide();
-		UIBuyStore.Get.ShowView(false);
-		UI3DBuyStore.Get.Show();
-	}
+		if(GameData.Team.Diamond >= 250) {
+			UIMainLobby.Get.HideAll();
+			UI3DMainLobby.Get.Hide();
+			UIBuyStore.Get.ShowView(false);
+			UI3DBuyStore.Get.Show();
+		} else
+			UIHint.Get.ShowHint(TextConst.S(233), Color.white);
+		}
 }
