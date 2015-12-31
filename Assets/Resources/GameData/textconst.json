@@ -671,56 +671,56 @@
     {
         "id": 3304,
         "explain": "AttrKind5/KindLabel",
-        "tw": "灌 籃",
-        "en": "Dunk"
-    },
-    {
-        "id": 3305,
-        "explain": "AttrKind6/KindLabel",
-        "tw": "籃 板",
-        "en": "Rebound"
-    },
-    {
-        "id": 3306,
-        "explain": "AttrKind7/KindLabel",
-        "tw": "火 鍋",
-        "en": "Block"
-    },
-    {
-        "id": 3307,
-        "explain": "AttrKind9/KindLabel",
-        "tw": "抄 截",
-        "en": "Steal"
-    },
-    {
-        "id": 3308,
-        "explain": "AttrKind2/KindLabel",
         "tw": "速 度",
         "en": "Speed"
     },
     {
-        "id": 3309,
-        "explain": "AttrKind3/KindLabel",
+        "id": 3305,
+        "explain": "AttrKind6/KindLabel",
         "tw": "耐 力",
         "en": "Stamina"
     },
     {
+        "id": 3306,
+        "explain": "AttrKind7/KindLabel",
+        "tw": "力 量",
+        "en": "Strength"
+    },
+    {
+        "id": 3307,
+        "explain": "AttrKind9/KindLabel",
+        "tw": "灌 籃",
+        "en": "Dunk"
+    },
+    {
+        "id": 3308,
+        "explain": "AttrKind2/KindLabel",
+        "tw": "籃 板",
+        "en": "Rebound"
+    },
+    {
+        "id": 3309,
+        "explain": "AttrKind3/KindLabel",
+        "tw": "火 鍋",
+        "en": "Block"
+    },
+    {
         "id": 3310,
         "explain": "AttrKind4/KindLabel",
-        "tw": "力 量",
-        "en": "Power"
+        "tw": "防 守",
+        "en": "Defense"
     },
     {
         "id": 3311,
         "explain": "AttrKind8/KindLabel",
-        "tw": "防 守",
-        "en": "Defense"
+        "tw": "抄 截",
+        "en": "Steal"
     },
     {
         "id": 3312,
         "explain": "AttrKind10/KindLabel",
         "tw": "控 球",
-        "en": "Handle"
+        "en": "Dribble"
     },
     {
         "id": 3313,
@@ -940,7 +940,7 @@
     },
     {
         "id": 3713,
-        "tw": "連 結"
+        "tw": "社群連結"
     },
     {
         "id": 3714,
@@ -1009,6 +1009,97 @@
     {
         "id": 3754,
         "tw": "空中接力"
+    },
+    {
+        "id": 3755
+    },
+    {
+        "id": 3756
+    },
+    {
+        "id": 3757
+    },
+    {
+        "id": 3758
+    },
+    {
+        "id": 3759
+    },
+    {
+        "id": 3760
+    },
+    {
+        "id": 3761,
+        "tw": "球員等級"
+    },
+    {
+        "id": 3762,
+        "tw": "天梯等級"
+    },
+    {
+        "id": 3763,
+        "tw": "球場等級"
+    },
+    {
+        "id": 3764,
+        "tw": "踢館等級"
+    },
+    {
+        "id": 3765,
+        "tw": "造型收集數"
+    },
+    {
+        "id": 3766,
+        "tw": "套裝收集數"
+    },
+    {
+        "id": 3767,
+        "tw": "技能晶片收集數"
+    },
+    {
+        "id": 3768,
+        "tw": "技能晶片套卡收集數"
+    },
+    {
+        "id": 3769
+    },
+    {
+        "id": 3770
+    },
+    {
+        "id": 3771,
+        "tw": "關卡獲勝數"
+    },
+    {
+        "id": 3772,
+        "tw": "關卡獲勝數"
+    },
+    {
+        "id": 3773,
+        "tw": "副本獲勝數"
+    },
+    {
+        "id": 3774,
+        "tw": "副本連勝數"
+    },
+    {
+        "id": 3775,
+        "tw": "天梯獲勝數"
+    },
+    {
+        "id": 3776,
+        "tw": "天梯連勝數"
+    },
+    {
+        "id": 3777,
+        "tw": "踢館獲勝數"
+    },
+    {
+        "id": 3778,
+        "tw": "踢館連勝數"
+    },
+    {
+        "id": 3779
     },
     {
         "id": 4001,
@@ -1112,7 +1203,7 @@
     {
         "id": 6002,
         "explain": "UpgradeBtn/BtnLabel",
-        "tw": "UPGRADE",
+        "tw": "裝備升級",
         "cn": "UPGRADE",
         "en": "UPGRADE",
         "jp": "UPGRADE"
@@ -1126,7 +1217,7 @@
     {
         "id": 6004,
         "explain": "材料未滿",
-        "tw": "前 往"
+        "tw": "尋 找"
     },
     {
         "id": 6005,
@@ -1173,6 +1264,21 @@
         "explain": "引導開啟選單",
         "tw": "點擊開啟裝備選單",
         "en": "Click To Initiate Equipment Selections"
+    },
+    {
+        "id": 6401,
+        "explain": "UIGetItem 介面獲得物品"
+    },
+    {
+        "id": 6402,
+        "tw": "完成成就獎勵"
+    },
+    {
+        "id": 6403,
+        "tw": "每日任務獎勵"
+    },
+    {
+        "id": 6404
     },
     {
         "id": 7001,
@@ -1407,13 +1513,13 @@
     {
         "id": 7214,
         "explain": "EquipBtn/Label",
-        "tw": "裝備技能",
+        "tw": "裝備晶片",
         "en": "EQUIP"
     },
     {
         "id": 7215,
         "explain": "EquipBtn/Label",
-        "tw": "卸下技能",
+        "tw": "卸下晶片",
         "en": "UNEQUIP"
     },
     {
@@ -1596,7 +1702,7 @@
     {
         "id": 9152,
         "explain": "主線關卡",
-        "tw": "生涯"
+        "tw": "生  涯"
     },
     {
         "id": 9153
@@ -1604,7 +1710,7 @@
     {
         "id": 9154,
         "explain": "副本關卡",
-        "tw": "挑戰"
+        "tw": "挑  戰"
     },
     {
         "id": 9201,
