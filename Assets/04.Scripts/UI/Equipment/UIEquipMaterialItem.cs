@@ -10,7 +10,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> Call Init() 做初始化. </item>
-/// <item> Call UpdateUI() 更新顯示的資料. </item>
+/// <item> Call Set() 更新顯示的資料. </item>
 /// </list>
 public class UIEquipMaterialItem : MonoBehaviour
 {
@@ -35,6 +35,11 @@ public class UIEquipMaterialItem : MonoBehaviour
         public int RealValue;
 
         public EStatus Status;
+
+        /// <summary>
+        /// 這不是介面資料, 這是倉庫的索引.
+        /// </summary>
+        public int StorageIndex;
 
         // 道具會影響哪些屬性的數值.
         public Dictionary<EAttribute, UIValueItemData.BonusData> Values = new Dictionary<EAttribute, UIValueItemData.BonusData>();
@@ -71,27 +76,29 @@ public class UIEquipMaterialItem : MonoBehaviour
     public GameObject EnoughIcon;
     public GameObject InlayIcon;
 
-    public event CommonDelegateMethods.Int1 Listener;
+    public event CommonDelegateMethods.Int2 ClickListener;
 
     private int mIndex;
+    private int mStorageIndex;
 
     public void Init(int index)
     {
         mIndex = index;
     }
 
-    public void UpdateUI(Data data)
+    public void Set(Data data)
     {
         Name.text = data.Name;
         Icon.spriteName = data.Icon;
 
-        updateBonus(data);
+        setBonus(data);
+        setAmount(data);
+        setStatusIcon(data.Status);
 
-        updateAmount(data);
-        updateStatusIcon(data.Status);
+        mStorageIndex = data.StorageIndex;
     }
 
-    private void updateBonus(Data data)
+    private void setBonus(Data data)
     {
         for(int i = 0; i < AttrSprites.Length; i++)
         {
@@ -112,7 +119,7 @@ public class UIEquipMaterialItem : MonoBehaviour
         }
     }
 
-    private void updateAmount(Data data)
+    private void setAmount(Data data)
     {
         if(data.Status == EStatus.Lack)
             // 前面的數字顯示紅色.
@@ -126,7 +133,7 @@ public class UIEquipMaterialItem : MonoBehaviour
             throw new NotImplementedException(data.Status.ToString());
     }
 
-    private void updateStatusIcon(EStatus status)
+    private void setStatusIcon(EStatus status)
     {
         LackIcon.SetActive(false);
         EnoughIcon.SetActive(false);
@@ -142,9 +149,9 @@ public class UIEquipMaterialItem : MonoBehaviour
             throw new NotImplementedException(status.ToString());
     }
 
-    public void FireClickEvent()
+    public void NotifyClick()
     {
-        if(Listener != null)
-            Listener(mIndex);
+        if(ClickListener != null)
+            ClickListener(mIndex, mStorageIndex);
     }
 }

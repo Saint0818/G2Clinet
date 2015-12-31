@@ -21,16 +21,6 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
-    /// <summary>
-    /// key: BodyType.
-    /// </summary>
-    private readonly Dictionary<int, string> mPlayerIcons = new Dictionary<int, string>
-    {
-        {0, "PlayerFace0"}, // 中鋒.
-        {1, "PlayerFace1"}, // 前鋒.
-        {2, "PlayerFace2"}, // 後衛.
-    };
-
     public UIMainLobbyMain Main { get; private set; }
 
     // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
@@ -140,6 +130,7 @@ public class UIMainLobby : UIBase
 
     public void UpdateUI()
     {
+        Main.Level = GameData.Team.Player.Lv;
         Main.Money = GameData.Team.Money;
         Main.Diamond = GameData.Team.Diamond;
         Main.Power = GameData.Team.Power;

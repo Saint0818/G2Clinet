@@ -26,7 +26,8 @@ public class UIEquipment : UIBase
     private void Awake()
     {
         mMain = GetComponent<UIEquipmentMain>();
-        mMain.OnBackListener += changeValueItems;
+        mMain.OnBackListener += onBackClick;
+        mMain.OnMaterialListener += onMaterialClick;
     }
 
     [UsedImplicitly]
@@ -108,7 +109,7 @@ public class UIEquipment : UIBase
 
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
-                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], storageItem.InlayItemIDs);
+                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], storageItem.InlayItemIDs ?? new int[0]);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
             }
@@ -174,13 +175,10 @@ public class UIEquipment : UIBase
         };
     }
 
-    private void changeValueItems()
+    private void onBackClick()
     {
         if(mMain.IsValueItemChanged())
         {
-//            WWWForm form = new WWWForm();
-//            form.AddField("ValueItems", JsonConvert.SerializeObject(getServerChangeData()));
-//            SendHttp.Get.Command(URLConst.ChangeValueItems, waitChangeValueItems, form);
             var protocol = new ChangeValueItemProtocol();
             protocol.Send(getServerChangeData(), goToMainLobby);
         }
@@ -198,22 +196,26 @@ public class UIEquipment : UIBase
         return changeValueItems;
     }
 
-//    private void waitChangeValueItems(bool ok, WWW www)
-//    {
-//        if(ok)
-//        {
-//            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-//            GameData.Team.Player = team.Player;
-//            GameData.Team.Items = team.Items;
-//            GameData.Team.Player.Init();
-//            
-//            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
-//        }
-//        else
-//            UIHint.Get.ShowHint(TextConst.S(534), Color.red);
-//
-//        goToMainLobby();
-//    }
+    private void onMaterialClick(int slotIndex, int storageMaterialItemIndex)
+    {
+        Debug.LogFormat("onMaterialClick, slotIndex:{0}, storageMaterialItemIndex:{1}", slotIndex, storageMaterialItemIndex);
+
+        int valueItemKind = slotIndex + 11;
+        if(!GameData.Team.Player.ValueItems.ContainsKey(valueItemKind))
+        {
+            Debug.LogErrorFormat("Can't find ValueItem, kind:{0}", valueItemKind);
+            return;
+        }
+
+        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
+        if(!GameData.DItemData.ContainsKey(valueItem.ID))
+        {
+            Debug.LogErrorFormat("Can't find ItemData, ItemID:{0}", valueItem.ID);
+            return;
+        }
+
+
+    }
 
     public void Hide()
     {

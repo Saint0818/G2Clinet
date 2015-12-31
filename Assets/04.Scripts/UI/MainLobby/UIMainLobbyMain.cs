@@ -7,6 +7,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject FullScreenBlock;
 
     public GameObject MoneyObj;
+    public UILabel LevelLabel;
     public UILabel MoneyLabel;
     public GameObject DiamondObj;
     public UILabel DiamondLabel;
@@ -41,6 +42,11 @@ public class UIMainLobbyMain : MonoBehaviour
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
+    }
+
+    public int Level
+    {
+        set { LevelLabel.text = value.ToString(); }
     }
 
     public int Money

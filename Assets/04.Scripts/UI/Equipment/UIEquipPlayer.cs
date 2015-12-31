@@ -21,6 +21,11 @@ public class UIEquipPlayer : MonoBehaviour
     public Transform HexagonParent;
     public Transform[] SlotParents;
 
+    /// <summary>
+    /// 現在玩家選擇的數值裝.
+    /// </summary>
+    public int CurrentSlotIndex { get; private set; }
+
     private UIAttributes mAttributes;
     private readonly List<UIEquipPartSlot> mPartSlots = new List<UIEquipPartSlot>();
 
@@ -102,12 +107,14 @@ public class UIEquipPlayer : MonoBehaviour
         return sum;
     }
 
-    public void OnSlotClick(int index)
+    public void OnSlotClick(int slotIndex)
     {
 //        Debug.LogFormat("OnSlotClick, index:{0}", index);
 
+        CurrentSlotIndex = slotIndex;
+
         if(OnSlotClickListener != null)
-            OnSlotClickListener(index);
+            OnSlotClickListener(CurrentSlotIndex);
     }
 } 
 

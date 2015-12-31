@@ -1,4 +1,4 @@
-using GameStruct;
+﻿using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -6,13 +6,19 @@ public class AddValueItemInlayProtocol
 {
     private CommonDelegateMethods.Bool1 mCallback;
 
-    public void Send(int valueItemKind, int materialItemIndex, CommonDelegateMethods.Bool1 callback)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerValueItemKind"></param>
+    /// <param name="storageMaterialItemIndex"> 倉庫內的索引. </param>
+    /// <param name="callback"></param>
+    public void Send(int playerValueItemKind, int storageMaterialItemIndex, CommonDelegateMethods.Bool1 callback)
     {
         mCallback = callback;
 
         WWWForm form = new WWWForm();
-        form.AddField("ValueItemKind", valueItemKind);
-        form.AddField("MaterialItemIndex", materialItemIndex);
+        form.AddField("ValueItemKind", playerValueItemKind);
+        form.AddField("MaterialItemIndex", storageMaterialItemIndex);
         SendHttp.Get.Command(URLConst.AddValueItemInlay, waitAddValueItemInlay, form);
     }
 

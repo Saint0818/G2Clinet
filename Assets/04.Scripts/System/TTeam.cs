@@ -53,7 +53,7 @@ namespace GameStruct
             return false;
         }
 
-        public TMaterialItem FindMaterialItemByItemID(int itemID)
+        public TMaterialItem FindMaterialItem(int itemID)
         {
             for(var i = 0; i < MaterialItems.Length; i++)
             {
@@ -62,6 +62,17 @@ namespace GameStruct
             }
 
             return new TMaterialItem();
+        }
+
+        public int FindMaterialItemIndex(int itemID)
+        {
+            for(var i = 0; i < MaterialItems.Length; i++)
+            {
+                if(MaterialItems[i].ID == itemID)
+                    return i;
+            }
+
+            return -1;
         }
 
         public event CommonDelegateMethods.Int1 OnMoneyChangeListener;

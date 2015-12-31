@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameStruct;
 using UnityEngine;
 
-public class UIEquipUtility
+public static class UIEquipUtility
 {
     public static UIValueItemData Build(TItemData item, int[] inlayItemIDs)
     {
@@ -18,7 +18,7 @@ public class UIEquipUtility
         {
             if(GameData.Team.HasMaterialItemByItemID(item.Materials[i]))
             {
-                TMaterialItem materialItem = GameData.Team.FindMaterialItemByItemID(item.Materials[i]);
+                TMaterialItem materialItem = GameData.Team.FindMaterialItem(item.Materials[i]);
                 storageMaterialNums.Add(materialItem.Num);
             }
             else
@@ -28,6 +28,17 @@ public class UIEquipUtility
         }
 
         return storageMaterialNums.ToArray();
+    }
+
+    public static int FindMaterialNumFromStorage(int itemID)
+    {
+        for(var i = 0; i < GameData.Team.MaterialItems.Length; i++)
+        {
+            if(GameData.Team.MaterialItems[i].ID == itemID)
+                return GameData.Team.MaterialItems[i].Num;
+        }
+
+        return 0;
     }
 
     /// <summary>

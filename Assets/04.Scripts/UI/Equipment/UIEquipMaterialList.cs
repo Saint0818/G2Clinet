@@ -11,12 +11,6 @@ using UnityEngine;
 /// </list>
 public class UIEquipMaterialList : MonoBehaviour
 {
-    /// <summary>
-    /// 呼叫時機: 列表上的按鈕點擊時. 
-    /// 參數: int index, 哪一個被點擊.
-    /// </summary>
-    public event CommonDelegateMethods.Int1 OnClickListener;
-
     public Transform[] ItemParents;
     public GameObject WarningMsg;
 
@@ -30,6 +24,7 @@ public class UIEquipMaterialList : MonoBehaviour
             GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.EquipMaterialItem, ItemParents[i]);
             var materialItem = obj.GetComponent<UIEquipMaterialItem>();
             materialItem.Init(i);
+            materialItem.ClickListener += GetComponent<UIEquipmentMain>().NotifyMaterialClick;
             mMaterialItems.Add(materialItem);
         }
     }
@@ -46,7 +41,7 @@ public class UIEquipMaterialList : MonoBehaviour
             {
                 // 有資料.
                 mMaterialItems[i].gameObject.SetActive(true);
-                mMaterialItems[i].UpdateUI(data[i]);
+                mMaterialItems[i].Set(data[i]);
             }
             else
             {
@@ -56,15 +51,5 @@ public class UIEquipMaterialList : MonoBehaviour
         }
 
         WarningMsg.SetActive(data.Count == 0);
-    }
-
-    /// <summary>
-    /// 僅給 UIEquipListButton 使用.
-    /// </summary>
-    /// <param name="index"></param>
-    public void NotifyClick(int index)
-    {
-        if(OnClickListener != null)
-            OnClickListener(index);
     }
 }

@@ -21,7 +21,15 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIEquipmentMain : MonoBehaviour
 {
+    /// <summary>
+    /// 返回按鈕按下.
+    /// </summary>
     public event CommonDelegateMethods.Action OnBackListener;
+
+    /// <summary>
+    /// 材料按鈕按下.
+    /// </summary>
+    public event CommonDelegateMethods.Int2 OnMaterialListener;
 
     /// <summary>
     /// 玩家的基本能力數值.
@@ -46,6 +54,11 @@ public class UIEquipmentMain : MonoBehaviour
     private UIEquipPlayer mPlayerInfo;
     private UIEquipDetail mDetail;
     private UIEquipItemList mEquipList;
+
+    public UIEquipMaterialList MaterialList
+    {
+        get { return mMaterialList; }
+    }
     private UIEquipMaterialList mMaterialList;
 
     [UsedImplicitly]
@@ -162,5 +175,11 @@ public class UIEquipmentMain : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void NotifyMaterialClick(int materialIndex, int storageMaterialItemIndex)
+    {
+        if(OnMaterialListener != null)
+            OnMaterialListener(mPlayerInfo.CurrentSlotIndex, storageMaterialItemIndex);
     }
 }
