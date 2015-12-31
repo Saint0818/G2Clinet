@@ -658,6 +658,9 @@ public static class GameFunction
 		case EPlayerAttributeRate.AlleyOopPassRate:
 			return value * 0.6f;
 		case EPlayerAttributeRate.ReboundHeadDistance:
+		case EPlayerAttributeRate.StealDistance:
+		case EPlayerAttributeRate.PushDistance:
+		case EPlayerAttributeRate.ElbowDistance:
 			return value * 0.005f;
 		case EPlayerAttributeRate.ReboundHandDistance:
 			return value * 0.02f;
@@ -666,9 +669,6 @@ public static class GameFunction
 		case EPlayerAttributeRate.BlockDistance:
 		case EPlayerAttributeRate.StealRate:
 		case EPlayerAttributeRate.DefDistance:
-		case EPlayerAttributeRate.StealDistance:
-		case EPlayerAttributeRate.PushDistance:
-		case EPlayerAttributeRate.ElbowDistance:
 			return value * 0.1f;
 		case EPlayerAttributeRate.PassRate:
 			return value * 0.7f;
