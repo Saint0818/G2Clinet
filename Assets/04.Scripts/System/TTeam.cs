@@ -42,7 +42,7 @@ namespace GameStruct
         /// </summary>
         public ETacticalAuto AttackTactical;
 
-        public bool HasMaterialItemByItemID(int itemID)
+        public bool HasMaterialItem(int itemID)
         {
             for(var i = 0; i < MaterialItems.Length; i++)
             {
@@ -53,15 +53,24 @@ namespace GameStruct
             return false;
         }
 
-        public TMaterialItem FindMaterialItem(int itemID)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <param name="materialItem"></param>
+        /// <returns> 材料在第幾個 Index.. </returns>
+        public int FindMaterialItem(int itemID, ref TMaterialItem materialItem)
         {
             for(var i = 0; i < MaterialItems.Length; i++)
             {
                 if(MaterialItems[i].ID == itemID)
-                    return MaterialItems[i];
+                {
+                    materialItem = MaterialItems[i];
+                    return i;
+                }
             }
 
-            return new TMaterialItem();
+            return -1;
         }
 
         public int FindMaterialItemIndex(int itemID)

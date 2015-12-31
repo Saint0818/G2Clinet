@@ -1,56 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public static class UIEquipUtility
 {
-    public static UIValueItemData Build(TItemData item, int[] inlayItemIDs)
+    public static UIValueItemData Build(TItemData item, [NotNull]int[] playerInlayItemIDs)
     {
-        return build(item, inlayItemIDs, findStorageMaterialNums(item));
+        return build(item, playerInlayItemIDs, findStorageMaterials(item));
     }
 
-    private static int[] findStorageMaterialNums(TItemData item)
+    private class MaterialItemInfo
     {
-        List<int> storageMaterialNums = new List<int>();
+        public int Index = -1;
+        public int Num;
+    }
+
+    private static MaterialItemInfo[] findStorageMaterials(TItemData item)
+    {
+        List<MaterialItemInfo> infos = new List<MaterialItemInfo>();
 
         for(var i = 0; i < item.Materials.Length; i++)
         {
-            if(GameData.Team.HasMaterialItemByItemID(item.Materials[i]))
+            if(GameData.Team.HasMaterialItem(item.Materials[i]))
             {
-                TMaterialItem materialItem = GameData.Team.FindMaterialItem(item.Materials[i]);
-                storageMaterialNums.Add(materialItem.Num);
+                TMaterialItem materialItem = new TMaterialItem();
+                int materialItemIndex = GameData.Team.FindMaterialItem(item.Materials[i], ref materialItem);
+                MaterialItemInfo info = new MaterialItemInfo
+                {
+                    Index = materialItemIndex,
+                    Num = materialItem.Num
+                };
+                infos.Add(info);
             }
             else
             {
-                storageMaterialNums.Add(0);
+                infos.Add(new MaterialItemInfo());
             }
         }
 
-        return storageMaterialNums.ToArray();
-    }
-
-    public static int FindMaterialNumFromStorage(int itemID)
-    {
-        for(var i = 0; i < GameData.Team.MaterialItems.Length; i++)
-        {
-            if(GameData.Team.MaterialItems[i].ID == itemID)
-                return GameData.Team.MaterialItems[i].Num;
-        }
-
-        return 0;
+        return infos.ToArray();
     }
 
     /// <summary>
     /// 將玩家的某件數值裝資料轉換成介面使用的資料.
     /// </summary>
     /// <param name="item"> 數值裝的道具資料. </param>
-    /// <param name="inlayItemIDs"> 數值裝鑲嵌的狀態(4 個 element), [0]:Material1 鑲嵌材料; 
+    /// <param name="playerInlayItemIDs"> 數值裝鑲嵌的狀態(4 個 element), [0]:Material1 鑲嵌材料; 
     ///                             [1]:Material2 鑲嵌材料, 以此類推.</param>
-    /// <param name="storageMaterialNums"> 倉庫材料數目(4 個 element), [0]:Material1 擁有的數量, 
+    /// <param name="storageMaterials"> 倉庫材料數目(4 個 element), [0]:Material1 擁有的數量, 
     ///                                    [1]:Material2 擁有的數量, 以此類推. </param>
     /// <returns></returns>
-    private static UIValueItemData build(TItemData item, int[] inlayItemIDs, int[] storageMaterialNums)
+    private static UIValueItemData build(TItemData item, int[] playerInlayItemIDs, 
+                                         MaterialItemInfo[] storageMaterials)
     {
         UIValueItemData valueItem = new UIValueItemData
         {
@@ -64,12 +67,13 @@ public static class UIEquipUtility
             Values = convertBonus(item.Bonus, item.BonusValues)
         };
 
-        buildInlays(item, inlayItemIDs, storageMaterialNums, ref valueItem);
+        buildInlays(item, playerInlayItemIDs, storageMaterials, ref valueItem);
 
         return valueItem;
     }
     
-    private static void buildInlays(TItemData item, int[] inlayItemIDs, int[] storageMaterialNums,
+    private static void buildInlays(TItemData item, int[] playerInlayItemIDs, 
+                                    MaterialItemInfo[] storageMaterials,
                                     ref UIValueItemData valueItem)
     {
         valueItem.Inlays.Clear();
@@ -91,11 +95,12 @@ public static class UIEquipUtility
                 Name = materialItem.Name,
                 Icon = string.Format("Item_{0}", materialItem.Icon),
                 NeedValue = item.MaterialNums[i],
+                StorageIndex = storageMaterials[i].Index,
                 Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
             valueItem.Inlays.Add(data);
 
-            if(i < inlayItemIDs.Length && inlayItemIDs[i] > 0)
+            if(i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
                 // 有鑲嵌物.
                 data.Status = UIEquipMaterialItem.EStatus.Inlayed;
@@ -104,8 +109,8 @@ public static class UIEquipUtility
             else
             {
                 // 沒有鑲嵌.
-                data.Status = storageMaterialNums[i] >= item.MaterialNums[i] ? UIEquipMaterialItem.EStatus.Enough : UIEquipMaterialItem.EStatus.Lack;
-                data.RealValue = storageMaterialNums[i];
+                data.Status = storageMaterials[i].Num >= item.MaterialNums[i] ? UIEquipMaterialItem.EStatus.Enough : UIEquipMaterialItem.EStatus.Lack;
+                data.RealValue = storageMaterials[i].Num;
             }
         }
     }
