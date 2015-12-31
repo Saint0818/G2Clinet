@@ -43,7 +43,8 @@ public class HintSkillView : MonoBehaviour {
 			GameFunction.ShowStar(ref SkillStar, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 		}
 
-		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();
+//		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();
+		AmountLabel.text = "";
 	}
 
 	public void UpdateUI(TItemData itemData)
@@ -63,6 +64,7 @@ public class HintSkillView : MonoBehaviour {
 		
 		}
 		
-		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();
+//		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();
+		AmountLabel.text = "";
 	}
 }

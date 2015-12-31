@@ -46,7 +46,7 @@ public class UIAttributeHint  : UIBase {
 
 	public void UpdateView (int kind) {
 		UIShow (true);
-		labelKind.text = TextConst.S(3300 + (kind - 1));
+		labelKind.text = TextConst.S(3300 + kind);
 		labelExplain.text = TextConst.S(3320 + kind);
 		spriteAttr.spriteName = "AttrKind_" + kind;
 	}

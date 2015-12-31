@@ -31,6 +31,8 @@ public static class URLConst {
 	public const string SellSkillcard = "sellskillcard";
 	public const string ReinforceSkillcard = "reinforceskillcard";
 	public const string ReinforcePlayerSkillcard = "reinforceplayerskillcard";
+	public const string PickOne = "pickone";
+	public const string PickTen = "pickten";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
 	public const string MainStageStart = "mainstagestart";

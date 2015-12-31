@@ -45,7 +45,14 @@ public class UIMainLobbyEvents : MonoBehaviour
 	public void OnShaffle () {
 		UIMainLobby.Get.HideAll();
 		UI3DMainLobby.Get.Hide();
-		UIBuyStore.Get.Show();
+		UIBuyStore.Get.ShowView(true);
+		UI3DBuyStore.Get.Show();
+	}
+
+	public void OnShaffleTen () {
+		UIMainLobby.Get.HideAll();
+		UI3DMainLobby.Get.Hide();
+		UIBuyStore.Get.ShowView(false);
 		UI3DBuyStore.Get.Show();
 	}
 }
