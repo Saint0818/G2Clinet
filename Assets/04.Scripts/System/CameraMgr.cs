@@ -166,6 +166,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.gameObject.name = scene.ToString();
             cameraAnimator = cameraFx.GetComponent<Animator>();
 
+			if (!GameStart.Get.IsOpenColorfulFX && cameraFx) 
+			{
+				if (cameraFx.GetComponent<CC_Sharpen> ())
+					cameraFx.GetComponent<CC_Sharpen> ().enabled = false;
+
+				if (cameraFx.GetComponent<CC_Convolution3x3> ())
+					cameraFx.GetComponent<CC_Convolution3x3> ().enabled = false;
+
+				if (cameraFx.GetComponent<CC_RadialBlur> ())
+					cameraFx.GetComponent<CC_RadialBlur> ().enabled = false;
+			}
+
             cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
             cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
             cameraSkill.gameObject.transform.localPosition = Vector3.zero;

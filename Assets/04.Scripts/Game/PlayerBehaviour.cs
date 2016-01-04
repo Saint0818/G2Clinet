@@ -1384,10 +1384,10 @@ public class PlayerBehaviour : MonoBehaviour
             return;
 
         //LayerCheck
-        if (PlayerRefGameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Player))
-        {
-            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
-        }
+//        if (PlayerRefGameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Player))
+//        {
+//            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
+//        }
 
         //IdleAirCheck
 //      if (PlayerTransform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
@@ -2124,7 +2124,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
             case EPlayerState.Dribble3:
-                if (IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot)
+				if (IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot && !IsElbow && !IsFall)
                 if ((!CanMove && IsFirstDribble) || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
                 {
                     return true;
@@ -2137,7 +2137,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.RunningDefence:
             case EPlayerState.Defence0:
             case EPlayerState.Defence1:
-                if (crtState != state)
+				if (crtState != state && !IsAllShoot && !IsFall && !IsJump)
                     return true;
                 break;
             case EPlayerState.MoveDodge0:
@@ -2161,8 +2161,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Idle:
-                return true;
-//              break;
+				if(!IsJump)
+                	return true;
+              break;
 
             case EPlayerState.Show1:
             case EPlayerState.Show1001:
@@ -2742,12 +2743,13 @@ public class PlayerBehaviour : MonoBehaviour
                 isCanCatchBall = false;
                 Result = true;
                 break;
-            case EAnimatorState.Idle:
-                PlayerRigidbody.mass = 5;
-                setSpeed(0, -1);
-                AddTrigger(EAnimatorState.Idle, nextState.StateNo); 
-                isMoving = false;
-                Result = true;
+				case EAnimatorState.Idle:
+				PlayerRigidbody.mass = 5;
+				setSpeed (0, -1);
+				AddTrigger (EAnimatorState.Idle, nextState.StateNo); 
+				isMoving = false;
+				Result = true;
+				isCanCatchBall = true;
                 break;
             case EAnimatorState.Intercept:
                 AddTrigger(EAnimatorState.Intercept, nextState.StateNo);
@@ -3649,7 +3651,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return CheckAnimatorSate(EPlayerState.CatchFlat); }
     }
-
+				
+	/// <summary>
+	///動作期間是否可以接球.
+	/// </summary>
+	/// <value><c>true</c> if this instance is can catch ball; otherwise, <c>false</c>.</value>
     public bool IsCanCatchBall
     {
         get{ return isCanCatchBall; }
