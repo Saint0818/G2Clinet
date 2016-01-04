@@ -23,6 +23,7 @@ public class UIEquipMaterialItem : MonoBehaviour
     {
         public string Name;
         public string Icon;
+        public string Frame;
 
         /// <summary>
         /// 材料需要多少才可以鑲嵌.
@@ -68,6 +69,7 @@ public class UIEquipMaterialItem : MonoBehaviour
     }
 
     public UISprite Icon;
+    public UISprite Frame;
     public UILabel Name;
     public UISprite[] AttrSprites;
     public UILabel[] AttrValues;
@@ -90,6 +92,7 @@ public class UIEquipMaterialItem : MonoBehaviour
     {
         Name.text = data.Name;
         Icon.spriteName = data.Icon;
+        Frame.spriteName = data.Frame;
 
         setBonus(data);
         setAmount(data);

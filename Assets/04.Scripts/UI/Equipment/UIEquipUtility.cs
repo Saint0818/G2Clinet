@@ -95,6 +95,7 @@ public static class UIEquipUtility
             {
                 Name = materialItem.Name,
                 Icon = string.Format("Item_{0}", materialItem.Icon),
+                Frame = string.Format("Equipment_{0}", item.Quality),
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
                 Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
