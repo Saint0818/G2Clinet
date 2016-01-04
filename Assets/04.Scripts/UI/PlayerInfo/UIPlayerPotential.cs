@@ -3,6 +3,12 @@ using GameStruct;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
+public enum EPotential
+{
+	none,
+	adding,
+}
+
 public class TUpgradeBtn
 {
 	private GameObject self;
@@ -52,7 +58,12 @@ public class TUpgradeBtn
 
 	public void SetValue(int curt, int add)
 	{
-        BaseValueLabel.text = string.Format("{0}[ABFF83FF]+{1}[-]", curt, add);
+		if (add > 0)
+				BaseValueLabel.text = string.Format ("{0}[ABFF83FF]+{1}[-]", curt, add);
+		else {
+				BaseValueLabel.text = string.Format("{0}", curt);
+		}
+						
 	}
 
 //	public void DotSave()
@@ -182,6 +193,7 @@ public class UpgradeView
 			if(CanUsePotential(index)){
 				AddPotential[index]++;
 				UIPlayerPotential.Get.UpdateView();
+				UIPlayerPotential.Get.SetUseState (EPotential.adding);
 			}
 		}
 	}
@@ -280,6 +292,9 @@ public class UIPlayerPotential : UIBase {
 	private UILabel lvPotentialLabel;
 	private UILabel avatarPotentialLabel;
 	private UILabel resetLabel;
+	private UIButton resetBtn;
+	private UIButton saveBtn;
+	private UIButton cancelBtn;
 	
 	public static bool Visible {
 		get {
@@ -327,13 +342,35 @@ public class UIPlayerPotential : UIBase {
 		obj = GameObject.Find(UIName + "Window/Center/PointView");
 		pointView.Init (obj);
 
+		resetBtn = GameObject.Find(UIName + "/Window/Center/ResetBtn").gameObject.GetComponent<UIButton>();
+		saveBtn = GameObject.Find(UIName + "/Window/Center/CheckBtn").gameObject.GetComponent<UIButton>();
+		cancelBtn = GameObject.Find(UIName + "/Window/Center/CancelBtn").gameObject.GetComponent<UIButton>();
+
 		SetBtnFun (UIName + "/Window/Center/NoBtn", OnReturn);
-		SetBtnFun (UIName + "/Window/Center/ResetBtn", OnReset);
-		SetBtnFun (UIName + "/Window/Center/CheckBtn", OnCheck);
-		SetBtnFun (UIName + "/Window/Center/CancelBtn", OnCancel);
+		SetBtnFun (ref resetBtn, OnReset);
+		SetBtnFun (ref saveBtn, OnCheck);
+		SetBtnFun (ref cancelBtn, OnCancel);
+		SetUseState (EPotential.none);
 
 		resetLabel = GameObject.Find (UIName + "/Window/Center/ResetBtn/PriceLabel").GetComponent<UILabel> ();
 		ResetPrice = GameConst.PotentialResetPrice;
+	}
+
+	public void SetUseState(EPotential state)
+	{
+		switch(state)
+		{
+			case EPotential.none:
+				saveBtn.isEnabled = false;
+				cancelBtn.isEnabled = false;
+				resetBtn.isEnabled = CanUseReset();
+				break;
+			case EPotential.adding:
+				saveBtn.isEnabled = true;
+				cancelBtn.isEnabled = true;
+				resetBtn.isEnabled = false;
+				break;
+		}
 	}
 
 	public int ResetPrice
@@ -379,6 +416,7 @@ public class UIPlayerPotential : UIBase {
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 			upgradeView.OnCancel();
 			UpdateView();
+			SetUseState (EPotential.none);
 		}
 	}
 
@@ -392,6 +430,7 @@ public class UIPlayerPotential : UIBase {
 			upgradeView.OnCancel();
 			UpdateView();
 			UIMainLobby.Get.UpdateUI();
+			SetUseState (EPotential.none);
 		}
 	}
 
@@ -411,6 +450,7 @@ public class UIPlayerPotential : UIBase {
 		//cancel this time;
 		upgradeView.OnCancel ();
 		UpdateView ();
+		SetUseState (EPotential.none);
 	}
 	
 	protected override void OnShow(bool isShow) {
