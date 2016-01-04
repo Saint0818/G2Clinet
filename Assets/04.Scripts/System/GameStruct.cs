@@ -612,25 +612,28 @@ namespace GameStruct
         [CanBeNull]
         public int[] InlayItemIDs;
 
+        /// <summary>
+        /// todo 這是重複的程式碼, 等到 MongoDB 的資料結構改用 Team.ValueItems 來儲存數值裝時, 再整個拿掉.
+        /// </summary>
         [NotNull]
-        public int[] RealInlayItemIDs
+        public int[] RevisionInlayItemIDs
         {
             get
             {
-                if (InlayItemIDs == null || InlayItemIDs.Length == 0)
-                    InlayItemIDs = findInlaySlots();
+                if(!GameData.DItemData.ContainsKey(ID))
+                    return new int[0];
+                TItemData item = GameData.DItemData[ID];
+
+                if (InlayItemIDs == null)
+                    InlayItemIDs = new int[item.AvailableMaterialNum];
+                else if (InlayItemIDs.Length < item.AvailableMaterialNum)
+                {
+                    int[] revisionInlayItemIDs = new int[item.AvailableMaterialNum];
+                    Array.Copy(InlayItemIDs, revisionInlayItemIDs, InlayItemIDs.Length);
+                    InlayItemIDs = revisionInlayItemIDs;
+                }
                 return InlayItemIDs;
             }
-        }
-
-        [NotNull]
-        private int[] findInlaySlots()
-        {
-            if (!GameData.DItemData.ContainsKey(ID))
-                return new int[0];
-
-            TItemData item = GameData.DItemData[ID];
-            return new int[item.AvailableMaterialNum];
         }
 
         public override string ToString()
@@ -649,31 +652,32 @@ namespace GameStruct
         [CanBeNull]public int[] InlayItemIDs;
 
 	    [NotNull]
-	    public int[] RealInlayItemIDs
+	    public int[] RevisionInlayItemIDs
 	    {
 	        get
 	        {
-	            if(InlayItemIDs == null || InlayItemIDs.Length == 0)
-	                InlayItemIDs = findInlaySlots();
+                if(!GameData.DItemData.ContainsKey(ID))
+                    return new int[0];
+                TItemData item = GameData.DItemData[ID];
+
+                if(InlayItemIDs == null)
+	                InlayItemIDs = new int[item.AvailableMaterialNum];
+                else if(InlayItemIDs.Length < item.AvailableMaterialNum)
+                {
+                    // 不足的部份補上 0.
+                    int[] revisionInlayItemIDs = new int[item.AvailableMaterialNum];
+                    Array.Copy(InlayItemIDs, revisionInlayItemIDs, InlayItemIDs.Length);
+                    InlayItemIDs = revisionInlayItemIDs;
+                }
                 return InlayItemIDs;
 	        }
 	    }
 
-        [NotNull]
-	    private int[] findInlaySlots()
-	    {
-	        if(!GameData.DItemData.ContainsKey(ID))
-                return new int[0];
-
-	        TItemData item = GameData.DItemData[ID];
-            return new int[item.AvailableMaterialNum];
-	    }
-
 	    public bool HasInlay(int itemID)
 	    {
-	        for(var i = 0; i < RealInlayItemIDs.Length; i++)
+	        for(var i = 0; i < RevisionInlayItemIDs.Length; i++)
 	        {
-	            if(RealInlayItemIDs[i] == itemID)
+	            if(RevisionInlayItemIDs[i] == itemID)
 	                return true;
 	        }
 	        return false;
