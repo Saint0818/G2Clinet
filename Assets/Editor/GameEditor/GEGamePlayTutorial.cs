@@ -1,10 +1,7 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
-using System.IO;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using GamePlayStruct;
+using UnityEngine;
 
 public class GEGamePlayTutorial : GEBase {
 	private static GEGamePlayTutorial instance = null;
@@ -13,7 +10,7 @@ public class GEGamePlayTutorial : GEBase {
 	private int eventIndex = 0;
 	private int conditionKind = 0;
 	private int conditionValue = 0;
-	private int nextEventID = 0;
+//	private int nextEventID = 0;
 	private int stageIndex = -1;
 	private int actionTeam;
 	private int actionIndex;

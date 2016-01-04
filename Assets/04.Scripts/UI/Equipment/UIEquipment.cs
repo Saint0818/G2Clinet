@@ -257,7 +257,9 @@ public class UIEquipment : UIBase
 
     private void onAddInlay(bool ok)
     {
-        Debug.LogFormat("onAddInlay, ok:{0}", ok);
+//        Debug.LogFormat("onAddInlay, ok:{0}", ok);
+
+        initUI();
     }
 
     public void Hide()

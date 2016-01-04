@@ -1,5 +1,4 @@
 ﻿using GameStruct;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class AddValueItemInlayProtocol
@@ -12,7 +11,8 @@ public class AddValueItemInlayProtocol
     /// <param name="playerValueItemKind"></param>
     /// <param name="storageMaterialItemIndex"> 倉庫內的索引. </param>
     /// <param name="callback"></param>
-    public void Send(int playerValueItemKind, int storageMaterialItemIndex, CommonDelegateMethods.Bool1 callback)
+    public void Send(int playerValueItemKind, int storageMaterialItemIndex, 
+                     CommonDelegateMethods.Bool1 callback)
     {
         mCallback = callback;
 
