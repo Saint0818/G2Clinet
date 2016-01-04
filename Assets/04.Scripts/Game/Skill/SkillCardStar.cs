@@ -11,7 +11,6 @@ public class SkillCardStar : MonoBehaviour {
 		if(Star != null) 
 			XSize = Star.width;
 
-		HideStar();
 	}
 
 	public void Show () {

@@ -46,8 +46,10 @@ public class TActiveSkillCard
 			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			UnavailableMask = go.transform.FindChild("UnavailableMask").gameObject;
-			UnavailableMaskLabel = go.transform.FindChild("UnavailableMask/UnavailableLabel").GetComponent<UILabel>();
-			UnavailableMaskLabel.text = TextConst.S(7115);
+			if(go.transform.FindChild("UnavailableMask/UnavailableLabel") != null) {
+				UnavailableMaskLabel = go.transform.FindChild("UnavailableMask/UnavailableLabel").GetComponent<UILabel>();
+				UnavailableMaskLabel.text = TextConst.S(7115);
+			}
 			if(go.transform.FindChild("DragMask") != null)
 				DragMask = go.transform.FindChild("DragMask").gameObject;
 			InListCard = go.transform.FindChild("InListCard").gameObject;
