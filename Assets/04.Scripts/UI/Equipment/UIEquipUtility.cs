@@ -66,7 +66,8 @@ public static class UIEquipUtility
             Desc = item.Explain,
             Values = convertBonus(item.Bonus, item.BonusValues),
             Inlay = convertInlayStatus(playerInlayItemIDs),
-            InlayValues = convertInlayBonus(playerInlayItemIDs)
+            InlayValues = convertInlayBonus(playerInlayItemIDs),
+            IsUpgradeable = isUpgradeable(item, playerInlayItemIDs)
         };
 
         buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);
@@ -167,6 +168,27 @@ public static class UIEquipUtility
         }
         
         return bonusData;
+    }
+
+    private static bool isUpgradeable(TItemData item, int[] playerInlayItemIDs)
+    {
+        for(var i = 0; i < item.Materials.Length; i++)
+        {
+            bool found = false;
+            for(var j = 0; j < playerInlayItemIDs.Length; j++)
+            {
+                if(item.Materials[i] == playerInlayItemIDs[j])
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found)
+                return false;
+        }
+
+        return true;
     }
 
     private static EAttribute convert(EBonus bonus)

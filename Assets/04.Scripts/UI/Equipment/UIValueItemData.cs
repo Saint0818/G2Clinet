@@ -78,6 +78,8 @@ public class UIValueItemData
 
     public int Num; // 堆疊數量.
 
+    public bool IsUpgradeable;
+
     public override string ToString()
     {
         return String.Format("Name: {0}, Icon: {1}, Desc: {2}", Name, Icon, Desc);

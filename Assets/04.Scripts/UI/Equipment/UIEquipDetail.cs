@@ -58,6 +58,8 @@ public class UIEquipDetail : MonoBehaviour
 
         Desc.text = item.Desc;
 
+        UpgradeButton.isEnabled = item.IsUpgradeable;
+
         foreach(UIEquipDetailAttr attr in mAttrs)
         {
             attr.Clear();

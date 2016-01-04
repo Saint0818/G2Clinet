@@ -56,7 +56,7 @@ public class GEGMTool : GEBase
 	private int[] NumberOfItems;
 	private string mArea = "---------------------------------------------------------------------------------------------";
 	private int countprekind = 1;
-	private int position = 0;
+	private int playerPosition = 0;
 
 	private void ItemHandle()
 	{
@@ -428,7 +428,7 @@ public class GEGMTool : GEBase
 		EditorGUILayout.LabelField(mArea);
 		EditorGUILayout.BeginHorizontal();
 		GUILayout.Label("位置： : "); 
-		position = EditorGUILayout.IntField (position, GUILayout.Width(30));
+		playerPosition = EditorGUILayout.IntField (playerPosition, GUILayout.Width(30));
 		GUILayout.Label ("(中鋒: 0 、前鋒：1、後衛：２)");
 		
 		GUILayout.Label("各部位＋ : "); 
@@ -450,7 +450,7 @@ public class GEGMTool : GEBase
 					}
 					else{
 						if(findCount < countprekind){
-							if(item.Value.Kind < 6 && item.Value.Position == position){
+							if(item.Value.Kind < 6 && item.Value.Position == playerPosition){
 								itemIds2.Add(item.Value.ID);
 							}
 							else
