@@ -418,17 +418,28 @@ public class UISkillReinforce : UIBase {
 	private bool isCanReinForce(int sn) {
 		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
 			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
-				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
-					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
-						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
-							int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
-							if (SNs.Length > 0) {
-								for (int k=0; k<SNs.Length; k++)
-									if (SNs[k] == sn)
-										return false;
-							}
+//				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
+				if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
+					for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
+						int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
+						if (SNs.Length > 0) {
+							for (int k=0; k<SNs.Length; k++)
+								if (SNs[k] == sn)
+									return false;
 						}
 					}
+				}
+//				}
+			}
+		}
+
+		if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
+			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
+				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
+				if (SNs.Length > 0) {
+					for (int k=0; k<SNs.Length; k++)
+						if (SNs[k] == sn)
+							return false;
 				}
 			}
 		}

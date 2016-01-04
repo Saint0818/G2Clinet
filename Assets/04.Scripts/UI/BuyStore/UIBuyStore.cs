@@ -3,15 +3,15 @@ using System.Collections;
 using GameStruct;
 using Newtonsoft.Json;
 
-public struct TPickOneResult {
-	public int ItemID;
-	public TTeam Team;
-}
-
-public struct TPickTenResult {
+public struct TPickLotteryResult {
 	public int[] ItemIDs;
 	public TTeam Team;
 }
+
+//public struct TPickTenResult {
+//	public int[] ItemIDs;
+//	public TTeam Team;
+//}
 
 
 public class UIBuyStore : UIBase {
@@ -96,9 +96,9 @@ public class UIBuyStore : UIBase {
 		oneItem.Reset();
 		tenItem.Reset();
 		if(isOneAware) {
-			SendPickOne();
+			SendPickLottery(1);
 		}  else {
-			SendPickTen();
+			SendPickLottery(2);
 		}
 	}
 
@@ -129,54 +129,38 @@ public class UIBuyStore : UIBase {
 		UI3DMainLobby.Get.Show();
 	}
 
-	private void SendPickOne()
+	private void SendPickLottery(int kind)
 	{
 		WWWForm form = new WWWForm();
-		SendHttp.Get.Command(URLConst.PickOne, waitPickOne, form);
+		form.AddField("Kind", kind);
+		SendHttp.Get.Command(URLConst.PickLottery, waitPickLottery, form);
 	}
 
-	private void waitPickOne(bool ok, WWW www)
+	private void waitPickLottery(bool ok, WWW www)
 	{
 		if(ok)
 		{
-			TPickOneResult result = (TPickOneResult)JsonConvert.DeserializeObject(www.text, typeof(TPickOneResult));
+			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject(www.text, typeof(TPickLotteryResult));
 			GameData.Team.Items = result.Team.Items;
 			GameData.Team.SkillCards = result.Team.SkillCards;
 			GameData.Team.Diamond = result.Team.Diamond;
 
-			if(GameData.DItemData.ContainsKey(result.ItemID))
-				showOne(GameData.DItemData[result.ItemID]);
-			else 
-				OnBack();
-		}
-		else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.PickOne);
-	}
-
-	private void SendPickTen()
-	{
-		WWWForm form = new WWWForm();
-		SendHttp.Get.Command(URLConst.PickTen, waitPickTen, form);
-	}
-
-	private void waitPickTen(bool ok, WWW www)
-	{
-		if(ok)
-		{
-			TPickTenResult result = (TPickTenResult)JsonConvert.DeserializeObject(www.text, typeof(TPickTenResult));
-			GameData.Team.Items = result.Team.Items;
-			GameData.Team.SkillCards = result.Team.SkillCards;
-			GameData.Team.Diamond = result.Team.Diamond;
-
-			TItemData[] getItemIDs = new TItemData[result.ItemIDs.Length];
-			for(int i=0; i<result.ItemIDs.Length; i++) {
-				if(GameData.DItemData.ContainsKey(result.ItemIDs[i]))
-					getItemIDs[i] = GameData.DItemData[result.ItemIDs[i]];
+			if(result.ItemIDs.Length == 1) {
+				if(GameData.DItemData.ContainsKey(result.ItemIDs[0]))
+					showOne(GameData.DItemData[result.ItemIDs[0]]);
+				else 
+					OnBack();
+			} else if(result.ItemIDs.Length == 10) {
+				TItemData[] getItemIDs = new TItemData[result.ItemIDs.Length];
+				for(int i=0; i<result.ItemIDs.Length; i++) {
+					if(GameData.DItemData.ContainsKey(result.ItemIDs[i]))
+						getItemIDs[i] = GameData.DItemData[result.ItemIDs[i]];
+				}
+	
+				showTen(getItemIDs);
 			}
-
-			showTen(getItemIDs);
 		}
 		else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.PickOne);
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.PickLottery);
 	}
 }
