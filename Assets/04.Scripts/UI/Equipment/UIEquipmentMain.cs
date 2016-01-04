@@ -90,8 +90,8 @@ public class UIEquipmentMain : MonoBehaviour
         ListItems = listItems;
 
         mPlayerInfo.UpdateUI();
-        mDetail.Set(0, ValueItems[0]); // 預設顯示第一個群組的裝備.
-        mMaterialList.Set(ValueItems[0].Materials);
+        mDetail.Set(mDetail.SlotIndex, ValueItems[mDetail.SlotIndex]); // 預設顯示第一個群組的裝備.
+        mMaterialList.Set(ValueItems[mDetail.SlotIndex].Materials);
         mEquipList.Hide();
     }
 
