@@ -224,10 +224,12 @@ public static class GameData {
 				switch(item)
 				{
 					case ESave.MusicOn:
-						AudioMgr.Get.MusicOn (index == 1 ? true : false);
+						Setting.Music = index == 1 ? true : false;
+						AudioMgr.Get.MusicOn (Setting.Music);
 						break;
 					case ESave.SoundOn:
-						AudioMgr.Get.SoundOn (index == 1 ? true : false);
+						Setting.Sound = index == 1 ? true : false;
+						AudioMgr.Get.SoundOn (Setting.Sound);
 						break;
                     case ESave.Quality:
                         Setting.Quality = index;

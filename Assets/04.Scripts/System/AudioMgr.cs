@@ -29,6 +29,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixerSnapshot Paused;
 	public AudioMixerSnapshot StartST;
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
+	public bool init = false;
 
 	void Awake()
 	{
@@ -44,10 +45,12 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
 	public void StartGame()
 	{
-		AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{StartST};
-		float[] f = new float[1]{1};
-		MasterMix.TransitionToSnapshots (s, f, 1);
-		PlayMusic (EMusicType.MU_select);
+		if (GameData.Setting.Music) {
+			AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{ StartST };
+			float[] f = new float[1]{ 1 };
+			MasterMix.TransitionToSnapshots (s, f, 1);
+			PlayMusic (EMusicType.MU_select);
+		}
 	}
 
 	public void PlayMusic(EMusicType type)
@@ -60,6 +63,12 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
 			DAudios [name].Play ();
 			CurrentMusic = type;
+		}
+		
+		if (!init) {
+			MusicOn(GameData.Setting.Music);
+			SoundOn(GameData.Setting.Sound);
+			init = true;
 		}
 	}
 
@@ -89,24 +98,28 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public void MusicOn(bool flag)
 	{
 		GameData.Setting.Music = flag;
-		SetMute (AudioValuetype.musicVol, flag);
-		if (flag)
-			PlayerPrefs.SetInt (ESave.MusicOn.ToString(), 1);
-		else
-			PlayerPrefs.SetInt (ESave.MusicOn.ToString(), 0);
-
+		if (flag) {
+			SetVol(AudioValuetype.musicVol, -6);
+			PlayerPrefs.SetInt (ESave.MusicOn.ToString (), 1);
+		} else {
+			SetVol(AudioValuetype.musicVol, -80);
+			PlayerPrefs.SetInt (ESave.MusicOn.ToString (), 0);
+		}
 		PlayerPrefs.Save ();
 	}
 
 	public void SoundOn(bool flag)
 	{
 		GameData.Setting.Sound = flag;
-		SetMute (AudioValuetype.soundVol, flag);
-		
-		if (flag)
-			PlayerPrefs.SetInt (ESave.SoundOn.ToString(), 1);
-		else
+
+		if (flag) {
+			SetVol(AudioValuetype.soundVol, -6);
+			PlayerPrefs.SetInt (ESave.SoundOn.ToString (), 1);
+		}
+		else{
+			SetVol(AudioValuetype.soundVol, -80);
 			PlayerPrefs.SetInt (ESave.SoundOn.ToString(), 0);
+		}
 		
 		NGUITools.soundVolume = flag? 1 : 0;
 		PlayerPrefs.Save ();
@@ -118,14 +131,23 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		soundVol
 	}
 
-	private void SetMute(AudioValuetype type, bool isOn)
+	private void SetVol(AudioValuetype type, float value)
 	{
-		if (MasterMix) {
-			if(isOn)
-				MasterMix.ClearFloat(type.ToString());
-			else
-				MasterMix.SetFloat (type.ToString(), -80);
+		if (MasterMix) 
+		{
+			MasterMix.SetFloat (type.ToString(), value);			
 		}
 	}
+
+//	private void SetMute(AudioValuetype type, bool isOn)
+//	{
+//		string typeName = type.ToString();
+//		if (MasterMix) {
+//			if(isOn)
+//				MasterMix.ClearFloat(typeName);
+//			else
+//				MasterMix.SetFloat (typeName, -80);
+//		}
+//	}
 }
 
