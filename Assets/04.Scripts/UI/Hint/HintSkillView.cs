@@ -61,7 +61,7 @@ public class HintSkillView : MonoBehaviour {
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
 			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
-		
+			GameFunction.ShowStar(ref SkillStar, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
 		
 //		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();

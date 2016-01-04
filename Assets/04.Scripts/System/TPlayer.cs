@@ -546,7 +546,7 @@ namespace GameStruct
         }
 
 		public bool IsHaveActiveSkill {
-			get {return (ActiveSkills.Count > 0);}
+			get {return (ActiveSkills != null && ActiveSkills.Count > 0);}
 		}
 
 		public string FacePicture {

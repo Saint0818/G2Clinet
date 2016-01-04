@@ -367,7 +367,7 @@ public class UIGame : UIBase {
 		uiAlleyoopB.SetActive(false);
 		viewTopLeft.SetActive(false);
 		uiSpriteFull.SetActive(false);
-		if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+		if(PlayerMe &&  PlayerMe.Attribute.IsHaveActiveSkill) {
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 				uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
 			}
@@ -422,9 +422,9 @@ public class UIGame : UIBase {
 
 	public void InitPlayerSkillUI (PlayerBehaviour p) {
 		PlayerMe = p;
-		if(PlayerMe.Attribute.ActiveSkills != null) {
+		if(PlayerMe.Attribute.IsHaveActiveSkill) {
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-				if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
+				if(IsPlayerMe && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
 					if(spriteSkills[i] != null)
 						spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 				}
@@ -628,7 +628,7 @@ public class UIGame : UIBase {
 			ResetRange ();
 	}
 	public void DoSkill(GameObject go, bool state){
-		if(PlayerMe.Attribute.ActiveSkills.Count > 0 && go && IsPlayerMe) {
+		if(PlayerMe.Attribute.IsHaveActiveSkill && go && IsPlayerMe) {
 			int id = -1;
 			if(int.TryParse(go.name, out id) && id >= 0 && id < PlayerMe.Attribute.ActiveSkills.Count) {
 				PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
@@ -689,7 +689,7 @@ public class UIGame : UIBase {
 
 	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
 		if(IsPlayerMe) {
-			if(PlayerMe.Attribute.ActiveSkills.Count > 0 && index < PlayerMe.Attribute.ActiveSkills.Count && isAngerFull && canUse) {
+			if(PlayerMe.Attribute.IsHaveActiveSkill && index < PlayerMe.Attribute.ActiveSkills.Count && isAngerFull && canUse) {
 				if (isShow) {
 					if(GameController.Get.IsStart)
 						uiSkillEnables[index].SetActive((canUse && isAngerFull));
@@ -746,7 +746,7 @@ public class UIGame : UIBase {
 	}
 
 	private void runSkillValue () {
-		if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) 
+		if(IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill) 
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) 
 				if(uiButtonSkill[i].activeSelf)
 					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
@@ -1001,7 +1001,7 @@ public class UIGame : UIBase {
 			bool noAI = false;
 			switch(controllerState) {
 			case EUIControl.Skill:
-				if(PlayerMe.Attribute.ActiveSkills.Count > 0)
+				if(PlayerMe.Attribute.IsHaveActiveSkill)
 					noAI = GameController.Get.OnSkill(PlayerMe.ActiveSkillUsed);
 				if (noAI)
 					UIMaskState(EUIControl.Skill);
@@ -1155,7 +1155,7 @@ public class UIGame : UIBase {
 			gameJoystick.activated = false;
 //			drawLine.IsShow = true;
 			showViewForceBar(true);
-			if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+			if(PlayerMe && PlayerMe.Attribute.IsHaveActiveSkill) {
 				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
 				}
@@ -1189,7 +1189,6 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(false);
 				showViewForceBar(false);
 
-//				gameJoystick.visible = false;
 				ShowGameJoystick(false);
 				ShowSkillEnableUI(false);
 
@@ -1210,7 +1209,6 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(true);
 				showViewForceBar(true);
 
-//				gameJoystick.visible = true;
 				ShowGameJoystick(true);
 				ShowSkillEnableUI(true);
 			
@@ -1224,8 +1222,6 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
 
-//            gameJoystick.visible = false;
-//			gameJoystick.activated = false;
 			ShowGameJoystick(false);
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
@@ -1242,11 +1238,10 @@ public class UIGame : UIBase {
 			SetPassButton();
 			viewStart.SetActive (true);
 			viewBottomRight.SetActive(false);
-//			gameJoystick.visible = false;
 			ShowGameJoystick(false);
 
 			dcCount = 0;
-			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+			if(IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill) {
 				for (int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 					spriteEmptys[i].fillAmount = 0;
 					uiSkillEnables[i].SetActive(false);
@@ -1286,7 +1281,7 @@ public class UIGame : UIBase {
 		if(!IsPlayerMe) {
 			viewTopRight.SetActive(false);
 		} else {
-			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
+			if(PlayerMe.Attribute.IsHaveActiveSkill) {
 				viewTopRight.SetActive(isShow);
 			} else {
 				viewTopRight.SetActive(false);
@@ -1296,7 +1291,7 @@ public class UIGame : UIBase {
 	
 	private void showSkillRefUI (bool isShow) {
 		if(IsPlayerMe) {
-			if(PlayerMe.Attribute.ActiveSkills.Count > 0)
+			if(PlayerMe.Attribute.IsHaveActiveSkill)
 				showViewForceBar(isShow);
 			else 
 				showViewForceBar(false);
