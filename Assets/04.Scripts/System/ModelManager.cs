@@ -634,10 +634,9 @@ public class ModelManager : KnightSingleton<ModelManager>
             result.transform.parent = parent;
             result.transform.localPosition = localposition;
 
-            if (!combine)
+            if(!combine)
                 return clone;
-            else
-                return cobbineObject;
+            return cobbineObject;
         }
         catch (UnityException e)
         {

@@ -65,7 +65,8 @@ public static class UIEquipUtility
             Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain,
             Values = convertBonus(item.Bonus, item.BonusValues),
-            Inlay = convertInlayStatus(playerInlayItemIDs)
+            Inlay = convertInlayStatus(playerInlayItemIDs),
+            InlayValues = convertInlayBonus(playerInlayItemIDs)
         };
 
         buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);
@@ -117,23 +118,55 @@ public static class UIEquipUtility
         }
     }
 
-    private static Dictionary<EAttribute, UIValueItemData.BonusData> 
+    private static Dictionary<EAttribute, UIValueItemData.BonusData>
             convertBonus(EBonus[] bonus, int[] bonusValues)
     {
-        Dictionary<EAttribute, UIValueItemData.BonusData> values = new Dictionary<EAttribute, UIValueItemData.BonusData>();
+        Dictionary<EAttribute, UIValueItemData.BonusData> bonusData = new Dictionary<EAttribute, UIValueItemData.BonusData>();
+        convertBonus(bonus, bonusValues, ref bonusData);
+
+        return bonusData;
+    }
+
+    private static void convertBonus(EBonus[] bonus, int[] bonusValues, 
+            ref Dictionary<EAttribute, UIValueItemData.BonusData> boundsData)
+    {
         for(int i = 0; i < bonus.Length; i++)
         {
             if(bonus[i] == EBonus.None)
                 continue;
 
-            var data = new UIValueItemData.BonusData
+            EAttribute attribute = convert(bonus[i]);
+            if(boundsData.ContainsKey(attribute))
             {
-                Icon = string.Format("AttrKind_{0}", bonus[i].GetHashCode()),
-                Value = bonusValues[i]
-            };
-            values.Add(convert(bonus[i]), data);
+                boundsData[attribute].Value += bonusValues[i];
+            }
+            else
+            {
+                var data = new UIValueItemData.BonusData
+                {
+                    Icon = string.Format("AttrKind_{0}", bonus[i].GetHashCode()),
+                    Value = bonusValues[i]
+                };
+                boundsData.Add(attribute, data);
+            }
         }
-        return values;
+    }
+
+    private static Dictionary<EAttribute, UIValueItemData.BonusData>
+            convertInlayBonus(int[] playerInlayItemIDs)
+    {
+        Dictionary<EAttribute, UIValueItemData.BonusData> bonusData = new Dictionary<EAttribute, UIValueItemData.BonusData>();
+
+        foreach(int inlayItemID in playerInlayItemIDs)
+        {
+            if(!GameData.DItemData.ContainsKey(inlayItemID))
+                continue;
+
+            TItemData item = GameData.DItemData[inlayItemID];
+            convertBonus(item.Bonus, item.BonusValues, ref bonusData);
+        }
+        
+        return bonusData;
     }
 
     private static EAttribute convert(EBonus bonus)

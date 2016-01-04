@@ -61,6 +61,18 @@ public class UIValueItemData
     /// </summary>
     public bool[] Inlay;
 
+    /// <summary>
+    /// 鑲嵌物品會影響的數值.
+    /// </summary>
+    public Dictionary<EAttribute, BonusData> InlayValues = new Dictionary<EAttribute, BonusData>();
+
+    public int GetInlayValue(EAttribute attribute)
+    {
+        if(InlayValues.ContainsKey(attribute))
+            return InlayValues[attribute].Value;
+        return 0;
+    }
+
     // 數值裝的升級材料.
     public List<UIEquipMaterialItem.Data> Materials = new List<UIEquipMaterialItem.Data>();
 
