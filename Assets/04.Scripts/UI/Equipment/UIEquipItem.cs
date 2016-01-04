@@ -27,6 +27,11 @@ public class UIEquipItem : MonoBehaviour
         Amount.gameObject.SetActive(false);
         Text.gameObject.SetActive(false);
 
+        hideAllInlay();
+    }
+
+    private void hideAllInlay()
+    {
         foreach(GameObject inlay in Inlays)
         {
             inlay.SetActive(false);
@@ -48,20 +53,33 @@ public class UIEquipItem : MonoBehaviour
         set { RedPoint.SetActive(value); }
     }
 
-    public void Set(UIValueItemData item, bool showRedPoint)
+    public void Set(UIValueItemData data, bool showRedPoint)
     {
         gameObject.SetActive(true);
         
-        Picture.atlas = item.Atlas;
-        Picture.spriteName = item.Icon;
+        Picture.atlas = data.Atlas;
+        Picture.spriteName = data.Icon;
 
-        GetComponent<UISprite>().spriteName = item.Frame;
+        GetComponent<UISprite>().spriteName = data.Frame;
         // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
-        GetComponent<UIButton>().normalSprite = item.Frame;
+        GetComponent<UIButton>().normalSprite = data.Frame;
 
-        Text.text = item.Name;
+        Text.text = data.Name;
 
         RedPointVisible = showRedPoint;
+
+        updateInlay(data.Inlay);
+    }
+
+    private void updateInlay(bool[] inlayStatus)
+    {
+        hideAllInlay();
+
+        for(var i = 0; i < inlayStatus.Length; i++)
+        {
+            InlaySlots[i].SetActive(true);
+            Inlays[i].SetActive(inlayStatus[i]);
+        }
     }
 
     public void NotifyClick()

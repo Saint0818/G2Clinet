@@ -79,11 +79,6 @@ public class UIEquipment : UIBase
         for(int kind = 11; kind <= 18; kind++)
         {
             var equipItems = findStorageItemsByKind(kind);
-
-//            EquipItem equipItem = findPlayerValueItemByKind(kind);
-//            if(equipItem.IsValid())
-//                equipItems.Add(equipItem);
-
             sumItems.Add(equipItems.ToArray());
         }
 
@@ -109,7 +104,7 @@ public class UIEquipment : UIBase
 
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
-                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], storageItem.InlayItemIDs ?? new int[0]);
+                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], storageItem.RealInlayItemIDs);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
             }
@@ -141,7 +136,7 @@ public class UIEquipment : UIBase
            GameData.DItemData.ContainsKey(GameData.Team.Player.ValueItems[kind].ID))
         {
             TItemData item = GameData.DItemData[GameData.Team.Player.ValueItems[kind].ID];
-            int[] inlayItemIDs = GameData.Team.Player.ValueItems[kind].InlayItemIDs;
+            int[] inlayItemIDs = GameData.Team.Player.ValueItems[kind].RealInlayItemIDs;
             return UIEquipUtility.Build(item, inlayItemIDs);
         }
             

@@ -64,19 +64,20 @@ public static class UIEquipUtility
             Icon = string.Format("Item_{0}", item.Icon),
             Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain,
-            Values = convertBonus(item.Bonus, item.BonusValues)
+            Values = convertBonus(item.Bonus, item.BonusValues),
+            Inlay = convertInlayStatus(playerInlayItemIDs)
         };
 
-        buildInlays(item, playerInlayItemIDs, storageMaterials, ref valueItem);
+        buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);
 
         return valueItem;
     }
     
-    private static void buildInlays(TItemData item, int[] playerInlayItemIDs, 
+    private static void buildMaterials(TItemData item, int[] playerInlayItemIDs, 
                                     MaterialItemInfo[] storageMaterials,
                                     ref UIValueItemData valueItem)
     {
-        valueItem.Inlays.Clear();
+        valueItem.Materials.Clear();
 
         for(var i = 0; i < item.Materials.Length; i++)
         {
@@ -98,7 +99,7 @@ public static class UIEquipUtility
                 StorageIndex = storageMaterials[i].Index,
                 Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
-            valueItem.Inlays.Add(data);
+            valueItem.Materials.Add(data);
 
             if(i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
@@ -153,5 +154,17 @@ public static class UIEquipUtility
         }
 
         throw new NotImplementedException(string.Format("Bouns:{0}", bonus));
+    }
+
+    private static bool[] convertInlayStatus(int[] inlayItemIDs)
+    {
+        bool[] status = new bool[inlayItemIDs.Length];
+
+        for(var i = 0; i < inlayItemIDs.Length; i++)
+        {
+            status[i] = inlayItemIDs[i] > 0;
+        }
+
+        return status;
     }
 }

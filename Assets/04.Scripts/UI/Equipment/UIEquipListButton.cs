@@ -16,6 +16,9 @@ public class UIEquipListButton : MonoBehaviour
     public UISprite[] Attrs;
     public UILabel[] AttrValues;
 
+    public GameObject[] InlaySlots;
+    public GameObject[] Inlays;
+
     private UIEquipItemList mParent;
     private int mIndex;
 
@@ -40,6 +43,7 @@ public class UIEquipListButton : MonoBehaviour
         AmountLabel.text = item.Num.ToString();
 
         setValues(item.Values);
+        setInlays(item.Inlay);
     }
 
     private void setValues(Dictionary<EAttribute, UIValueItemData.BonusData> itemValues)
@@ -60,6 +64,21 @@ public class UIEquipListButton : MonoBehaviour
             Attrs[index].spriteName = pair.Value.Icon;
             AttrValues[index].text = pair.Value.Value.ToString();
             ++index;
+        }
+    }
+
+    private void setInlays(bool[] inlays)
+    {
+        for(int i = 0; i < Inlays.Length; i++)
+        {
+            Inlays[i].SetActive(false);
+            InlaySlots[i].SetActive(false);
+        }
+
+        for(var i = 0; i < inlays.Length; i++)
+        {
+            InlaySlots[i].SetActive(true);
+            Inlays[i].SetActive(inlays[i]);
         }
     }
 

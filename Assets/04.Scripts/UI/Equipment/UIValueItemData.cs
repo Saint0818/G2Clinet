@@ -56,8 +56,13 @@ public class UIValueItemData
     // 道具會影響哪些屬性的數值.
     public Dictionary<EAttribute, BonusData> Values = new Dictionary<EAttribute, BonusData>();
 
-    // 鑲嵌物品.
-    public List<UIEquipMaterialItem.Data> Inlays = new List<UIEquipMaterialItem.Data>();
+    /// <summary>
+    /// 鑲嵌孔狀態. true: 已鑲嵌, false: 未鑲嵌.
+    /// </summary>
+    public bool[] Inlay;
+
+    // 數值裝的升級材料.
+    public List<UIEquipMaterialItem.Data> Materials = new List<UIEquipMaterialItem.Data>();
 
     public int Num; // 堆疊數量.
 
@@ -77,12 +82,12 @@ public class UIValueItemData
         if(Values.ContainsKey(kind))
             sum += Values[kind].Value;
 
-        if(Inlays != null)
+        if(Materials != null)
         {
-            sum += Inlays.Sum(inlay => inlay.GetValue(kind));
+            sum += Materials.Sum(inlay => inlay.GetValue(kind));
 
             /*
-            foreach(UIValueItemInlayData inlay in Inlays)
+            foreach(UIValueItemInlayData inlay in Materials)
             {
                 sum += inlay.GetValue(kind);
             }
@@ -106,11 +111,11 @@ public class UIValueItemData
         }
         */
 
-        if (Inlays != null)
+        if (Materials != null)
         {
-            totalPoints += Inlays.Sum(inlay => inlay.GetTotalPoints());
+            totalPoints += Materials.Sum(inlay => inlay.GetTotalPoints());
             /*
-            foreach (UIValueItemInlayData inlay in Inlays)
+            foreach (UIValueItemInlayData inlay in Materials)
             {
                 totalPoints += inlay.GetTotalPoints();
             }

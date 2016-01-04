@@ -607,9 +607,31 @@ namespace GameStruct
 		public DateTime UseTime;
 
         /// <summary>
-        /// 鑲嵌物品的 ItemID.
+        /// 鑲嵌物品的 ItemID.(這個只是用在接 Json 讀出的資料, 不要使用, 改使用 RealInlayItemIDs)
         /// </summary>
-		public int[] InlayItemIDs;
+        [CanBeNull]
+        public int[] InlayItemIDs;
+
+        [NotNull]
+        public int[] RealInlayItemIDs
+        {
+            get
+            {
+                if (InlayItemIDs == null || InlayItemIDs.Length == 0)
+                    InlayItemIDs = findInlaySlots();
+                return InlayItemIDs;
+            }
+        }
+
+        [NotNull]
+        private int[] findInlaySlots()
+        {
+            if (!GameData.DItemData.ContainsKey(ID))
+                return new int[0];
+
+            TItemData item = GameData.DItemData[ID];
+            return new int[item.AvailableMaterialNum];
+        }
 
         public override string ToString()
 	    {
@@ -622,15 +644,36 @@ namespace GameStruct
 		public int ID;
 
         /// <summary>
-        /// 鑲嵌物品的 ItemID.
+        /// 鑲嵌物品的 ItemID.(這個只是用在接 Json 讀出的資料, 不要使用, 改使用 RealInlayItemIDs)
         /// </summary>
-		public int[] InlayItemIDs;
+        [CanBeNull]public int[] InlayItemIDs;
+
+	    [NotNull]
+	    public int[] RealInlayItemIDs
+	    {
+	        get
+	        {
+	            if(InlayItemIDs == null || InlayItemIDs.Length == 0)
+	                InlayItemIDs = findInlaySlots();
+                return InlayItemIDs;
+	        }
+	    }
+
+        [NotNull]
+	    private int[] findInlaySlots()
+	    {
+	        if(!GameData.DItemData.ContainsKey(ID))
+                return new int[0];
+
+	        TItemData item = GameData.DItemData[ID];
+            return new int[item.AvailableMaterialNum];
+	    }
 
 	    public bool HasInlay(int itemID)
 	    {
-	        for(var i = 0; i < InlayItemIDs.Length; i++)
+	        for(var i = 0; i < RealInlayItemIDs.Length; i++)
 	        {
-	            if(InlayItemIDs[i] == itemID)
+	            if(RealInlayItemIDs[i] == itemID)
 	                return true;
 	        }
 	        return false;
@@ -741,6 +784,21 @@ namespace GameStruct
         public int[] MaterialNums
         {
             get { return mMaterialNums ?? (mMaterialNums = new []{MaterialNum1, MaterialNum2, MaterialNum3, MaterialNum4}); }
+        }
+
+        public int AvailableMaterialNum
+        {
+            get
+            {
+                int num = 0;
+                for(var i = 0; i < Materials.Length; i++)
+                {
+                    if(Materials[i] > 0 && MaterialNums[i] > 0)
+                        ++num;
+                }
+
+                return num;
+            }
         }
 
         public bool HasMaterial(int itemID)
