@@ -128,6 +128,7 @@ public class UIEquipmentMain : MonoBehaviour
         mPlayerInfo.UpdateUI();
         mDetail.Set(mDetail.SlotIndex, ValueItems[mDetail.SlotIndex]);
         mEquipList.Show(ListItems[mDetail.SlotIndex], false);
+        mMaterialList.Set(ValueItems[mDetail.SlotIndex].Materials);
     }
 
     public void OnBackClick()
