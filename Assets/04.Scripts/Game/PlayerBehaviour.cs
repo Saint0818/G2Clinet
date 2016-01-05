@@ -373,6 +373,11 @@ public class PlayerBehaviour : MonoBehaviour
     //Select
     public GameObject SelectMe;
 
+    private bool IsPassAirMoment = false;
+
+    //ReadyToNextState : 強制動作使用，為下一個loop動作作緩衝
+    private bool ReadyToNextState = true;
+
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
         int v = (int)(Mathf.Abs(value) / 5);
@@ -1958,8 +1963,6 @@ public class PlayerBehaviour : MonoBehaviour
         TimeScale(animatorEvent);
     }
 
-    private bool IsPassAirMoment = false;
-
     public bool CanUseState(EPlayerState state)
     {
         switch (state)
@@ -2124,7 +2127,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
             case EPlayerState.Dribble3:
-				if (IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot && !IsElbow && !IsFall)
+                if (ReadyToNextState && IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot && !IsElbow && !IsFall)
                 if ((!CanMove && IsFirstDribble) || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
                 {
                     return true;
@@ -2137,7 +2140,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.RunningDefence:
             case EPlayerState.Defence0:
             case EPlayerState.Defence1:
-				if (crtState != state && !IsAllShoot && !IsFall && !IsJump)
+                if (ReadyToNextState && crtState != state && !IsAllShoot && !IsFall && !IsJump)
                     return true;
                 break;
             case EPlayerState.MoveDodge0:
@@ -2159,9 +2162,8 @@ public class PlayerBehaviour : MonoBehaviour
                 if (!IsBuff)
                     return true;
                 break;
-
             case EPlayerState.Idle:
-				if(!IsJump)
+                if(ReadyToNextState)
                 	return true;
               break;
 
@@ -2304,7 +2306,6 @@ public class PlayerBehaviour : MonoBehaviour
                 IsAnimatorMove = false;
                 isDunk = true;
                 dunkCurveTime = 0;
-
                 break;
 
             case EAnimatorState.Fall:
@@ -2650,7 +2651,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!CanUseState(state))
             return false;
 
-
+        ReadyToNextState = !AnimatorMgr.Get.IsForciblyStates(state);
         TAnimatorItem nextState = AnimatorMgr.Get.GetAnimatorStateType(state);
 
 //		if(nextState.Type != EAnimatorState.End && GameController.Get.Situation == EGameSituation.End)
@@ -2670,7 +2671,7 @@ public class PlayerBehaviour : MonoBehaviour
             LayerMgr.Get.SetLayer(PlayerRefGameObject, ELayer.Player);
 
         if (GameStart.Get.IsDebugAnimation)
-            Debug.LogWarning(PlayerRefGameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
+			Debug.LogWarning(PlayerRefGameObject.name + ", CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation + ", Time : " + Time.time);
 
         DashEffectEnable(false);
 
@@ -2743,7 +2744,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isCanCatchBall = false;
                 Result = true;
                 break;
-				case EAnimatorState.Idle:
+			case EAnimatorState.Idle:
 				PlayerRigidbody.mass = 5;
 				setSpeed (0, -1);
 				AddTrigger (EAnimatorState.Idle, nextState.StateNo); 
@@ -2940,6 +2941,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "BuffEnd":
+                ReadyToNextState = true;
                 if (IsBallOwner)
                 {
                     AniState(EPlayerState.HoldBall);
@@ -2954,6 +2956,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case "BlockCatchMomentEnd":
+                ReadyToNextState = true;
                 IsPerfectBlockCatch = false;
                 break;
 
@@ -2963,6 +2966,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "BlockCatchingEnd":
+                ReadyToNextState = true;
                 if (IsBallOwner)
                 {
                     IsFirstDribble = true;
@@ -2993,6 +2997,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "MoveDodgeEnd": 
+                ReadyToNextState = true;
                 OnUI(this);
                 if (IsBallOwner)
                     AniState(EPlayerState.Dribble0);
@@ -3018,6 +3023,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "PassEnd":
+                ReadyToNextState = true;
                 OnUI(this);
                 
                 if (!IsBallOwner && PlayerRefGameObject.transform.localPosition.y < 0.2f)
@@ -3025,6 +3031,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ShowEnd":
+                ReadyToNextState = true;
                 if (!IsBallOwner)
                     AniState(EPlayerState.Idle);
                 else
@@ -3038,6 +3045,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "PickEnd":
+                ReadyToNextState = true;
                 if (IsBallOwner)
                 {
                     IsFirstDribble = true;
@@ -3052,6 +3060,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "StealingEnd":
+                ReadyToNextState = true;
                 IsStealCalculate = false;
                 break;
 
@@ -3103,6 +3112,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ElbowEnd":
+                ReadyToNextState = true;
                 OnUI(this);
                 if (IsBallOwner)
                     AniState(EPlayerState.HoldBall);
@@ -3113,12 +3123,14 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "FallEnd":
+                ReadyToNextState = true;
                 OnUI(this);
                 InitFlag();
                 AniState(EPlayerState.Idle);
                 break;
 
             case "CatchEnd":
+                ReadyToNextState = true;
                 if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
                 {
                     if (IsBallOwner)
@@ -3145,6 +3157,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "FakeShootEnd":
+                ReadyToNextState = true;
                 isFakeShoot = false;
                 if (IsBallOwner)
                     AniState(EPlayerState.HoldBall);
@@ -3159,10 +3172,12 @@ public class PlayerBehaviour : MonoBehaviour
                 CanUseTipIn = true;
                 break;
             case "TipInEnd":
+                ReadyToNextState = true;
                 CanUseTipIn = false;
                 break;
 
             case "AnimationEnd":
+                ReadyToNextState = true;
                 OnUI(this);
                 if (isUseActiveSkill)
                     isUseActiveSkill = false;

@@ -331,35 +331,19 @@ public static class StateChecker {
 
 public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 {
-//	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
-
 	public static Dictionary<EAnimatorState, Dictionary<EPlayerState, int>> AnimtorStatesType = new Dictionary<EAnimatorState, Dictionary<EPlayerState, int>>();
-	public static Dictionary<EAnimatorState, bool> States = new Dictionary<EAnimatorState, bool>();
+    public static Dictionary<EAnimatorState, bool> States = new Dictionary<EAnimatorState, bool>();
+
+    //強制動作：必須等待強制動作做完之後，才能接下一個loop sate，避免loop state太快轉換下一個state,例如fall > Idle
+    //必須配合PlayerBehaviour.ReadyToNextState使用
+    public static Dictionary<EPlayerState, bool> ForciblyStates = new Dictionary<EPlayerState, bool>();
+
+	private TAnimatorItem ani = new TAnimatorItem();
 
 	void Awake()
 	{
 		InitAnimtorStatesType ();
-
-//		if(!LoopStates.ContainsKey(EAnimatorState.Idle))
-//			LoopStates.Add(EAnimatorState.Idle,true);
-//
-//		if(!LoopStates.ContainsKey(EAnimatorState.Run))
-//			LoopStates.Add(EAnimatorState.Run,true);
-//
-//		if(!LoopStates.ContainsKey(EAnimatorState.Defence))
-//			LoopStates.Add(EAnimatorState.Defence,true);
-//
-//		if(!LoopStates.ContainsKey(EAnimatorState.Dribble))
-//			LoopStates.Add(EAnimatorState.Dribble,true);
-//
-//		if(!LoopStates.ContainsKey(EAnimatorState.HoldBall))
-//			LoopStates.Add(EAnimatorState.HoldBall,true);
 	}
-
-//	public bool IsLoopState(EAnimatorState state)
-//	{
-//		return LoopStates.ContainsKey (state);
-//	}
 
 	private void InitAnimtorStatesType()
 	{
@@ -533,9 +517,52 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 				}
 			}
 		}
+
+        InitForciblyStates();
 	}
 
-	private TAnimatorItem ani = new TAnimatorItem();
+    private void InitForciblyStates()
+    {
+        foreach (EAnimatorState item in Enum.GetValues(typeof(EAnimatorState)))
+        {
+            switch (item)
+            {
+                case EAnimatorState.Push:
+                case EAnimatorState.Rebound:
+                case EAnimatorState.Block:
+                case EAnimatorState.Steal:
+                case EAnimatorState.Buff:
+                case EAnimatorState.MoveDodge:
+                case EAnimatorState.Elbow:
+                case EAnimatorState.Layup:
+                case EAnimatorState.TipIn:
+                case EAnimatorState.Shoot:
+                case EAnimatorState.Dunk:
+                case EAnimatorState.FakeShoot:
+                case EAnimatorState.Fall:
+                case EAnimatorState.GotSteal:
+                case EAnimatorState.KnockDown:
+                case EAnimatorState.Pass:
+                case EAnimatorState.JumpBall:
+                case EAnimatorState.Alleyoop:
+                    if(AnimtorStatesType.ContainsKey(item))
+                        foreach (KeyValuePair<EPlayerState, int> state in AnimtorStatesType[item])
+                        {
+                            if (!ForciblyStates.ContainsKey(state.Key))
+                            {
+                                ForciblyStates.Add(state.Key, true);
+                            }
+                        }
+                    break;
+            }
+        }
+    }
+        
+    public bool IsForciblyStates(EPlayerState state)
+    {
+        return ForciblyStates.ContainsKey(state);
+    }
+	
 	public TAnimatorItem GetAnimatorStateType(EPlayerState playerState)
 	{
 		try {
