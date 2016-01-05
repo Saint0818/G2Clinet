@@ -4,7 +4,7 @@ using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
-public static class UIEquipUtility
+public static class UIValueItemDataBuilder
 {
     public static UIValueItemData Build(TItemData item, [NotNull]int[] playerInlayItemIDs)
     {
@@ -67,7 +67,7 @@ public static class UIEquipUtility
             Values = convertBonus(item.Bonus, item.BonusValues),
             Inlay = convertInlayStatus(playerInlayItemIDs),
             InlayValues = convertInlayBonus(playerInlayItemIDs),
-            IsUpgradeable = isUpgradeable(item, playerInlayItemIDs)
+            IsUpgradeable = UIEquipChecker.IsUpgradeable(item, playerInlayItemIDs)
         };
 
         buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);
@@ -168,27 +168,6 @@ public static class UIEquipUtility
         }
         
         return bonusData;
-    }
-
-    private static bool isUpgradeable(TItemData item, int[] playerInlayItemIDs)
-    {
-        for(var i = 0; i < item.Materials.Length; i++)
-        {
-            bool found = false;
-            for(var j = 0; j < playerInlayItemIDs.Length; j++)
-            {
-                if(item.Materials[i] == playerInlayItemIDs[j])
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-            if(!found)
-                return false;
-        }
-
-        return true;
     }
 
     private static EAttribute convert(EBonus bonus)

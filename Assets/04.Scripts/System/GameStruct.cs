@@ -845,6 +845,9 @@ namespace GameStruct
         [UsedImplicitly]
         public int MaterialNum4 { get; private set; }
 
+        [UsedImplicitly]
+        public int UpgradeItem { get; private set; }
+
         public int Buy;
         public int Sell;
 		public int Quality;

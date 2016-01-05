@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -28,6 +29,9 @@ public class UIEquipment : UIBase
         mMain = GetComponent<UIEquipmentMain>();
         mMain.OnBackListener += onBackClick;
         mMain.OnMaterialListener += onMaterialClick;
+
+        var detail = GetComponent<UIEquipDetail>();
+        detail.OnUpgradeListener += onUpgradeClick;
     }
 
     [UsedImplicitly]
@@ -104,7 +108,7 @@ public class UIEquipment : UIBase
 
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
-                UIValueItemData uiItem = UIEquipUtility.Build(GameData.DItemData[storageItem.ID], 
+                UIValueItemData uiItem = UIValueItemDataBuilder.Build(GameData.DItemData[storageItem.ID], 
                                                               storageItem.RevisionInlayItemIDs);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
@@ -138,7 +142,7 @@ public class UIEquipment : UIBase
         {
             TItemData item = GameData.DItemData[GameData.Team.Player.ValueItems[kind].ID];
             int[] inlayItemIDs = GameData.Team.Player.ValueItems[kind].RevisionInlayItemIDs;
-            return UIEquipUtility.Build(item, inlayItemIDs);
+            return UIValueItemDataBuilder.Build(item, inlayItemIDs);
         }
             
         return new UIValueItemData();
@@ -259,6 +263,41 @@ public class UIEquipment : UIBase
     private void onAddInlay(bool ok)
     {
 //        Debug.LogFormat("onAddInlay, ok:{0}", ok);
+
+        initUI();
+    }
+
+    private void onUpgradeClick(int slotIndex)
+    {
+        Debug.LogFormat("onUpgradeClick, slotIndex:{0}", slotIndex);
+
+        int valueItemKind = slotIndex + 11;
+        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
+        TItemData item = GameData.DItemData[valueItem.ID];
+
+        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
+        {
+            var upgradeCommand = new ValueItemUpgradeProtocol();
+            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
+            upgradeCommand.Send(valueItemKind, onUpgrade);
+        }
+        else if(!UIEquipChecker.HasUpgradeItem(item))
+        {
+            // 是最高等級, 所以不能升級.
+            Debug.Log("Top Level Item.");
+        }
+        else if(!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
+        {
+            // 材料沒有鑲嵌完畢.
+            Debug.Log("Inlay not full.");
+        }
+        else
+            Debug.LogError("Not Implemented check...");
+    }
+
+    private void onUpgrade(bool ok)
+    {
+        Debug.LogFormat("onUpgrade, ok:{0}", ok);
 
         initUI();
     }

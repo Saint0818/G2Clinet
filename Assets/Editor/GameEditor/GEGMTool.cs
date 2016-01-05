@@ -581,6 +581,8 @@ public class GEGMTool : GEBase
 
 			if(UIAvatarFitted.Visible)
 				UIAvatarFitted.Get.UpdateAvatar(true);
+            if(UIEquipment.Get.Visible)
+                UIEquipment.Get.Show();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);

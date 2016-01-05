@@ -131,12 +131,6 @@ public class UIEquipmentMain : MonoBehaviour
         mMaterialList.Set(ValueItems[mDetail.SlotIndex].Materials);
     }
 
-    public void OnBackClick()
-    {
-        if(OnBackListener != null)
-            OnBackListener();
-    }
-
     /// <summary>
     /// slotIndex 上的數值裝備是最強的嗎?
     /// </summary>
@@ -176,6 +170,12 @@ public class UIEquipmentMain : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void OnBackClick()
+    {
+        if(OnBackListener != null)
+            OnBackListener();
     }
 
     public void NotifyMaterialClick(int materialIndex, int storageMaterialItemIndex)

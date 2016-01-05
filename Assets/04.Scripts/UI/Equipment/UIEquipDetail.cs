@@ -9,6 +9,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> Call Set() 設定顯示資訊. </item>
+/// <item> (Optional)對 XXXListener 註冊事件. </item>
 /// </list>
 public class UIEquipDetail : MonoBehaviour
 {
@@ -17,8 +18,15 @@ public class UIEquipDetail : MonoBehaviour
     /// </summary>
     public event CommonDelegateMethods.Int1 OnItemClickListener;
 
+    /// <summary>
+    /// 升級按鈕按下.
+    /// </summary>
+    public event CommonDelegateMethods.Int1 OnUpgradeListener;
+
     public Transform ItemParent;
     public UIButton UpgradeButton;
+    private const string UpgradeButtonNormal = "button_orange1";
+    private const string UpgradeButtonDisable = "button_gray";
     public UILabel Desc;
 
     private UIEquipItem mEquipItem;
@@ -47,7 +55,7 @@ public class UIEquipDetail : MonoBehaviour
         mAttrs = GetComponentsInChildren<UIEquipDetailAttr>();
         mMain = GetComponent<UIEquipmentMain>();
 
-        UpgradeButton.isEnabled = false;
+        UpgradeButton.onClick.Add(new EventDelegate(onUpgradeClick));
     }
 
     public void Set(int slotIndex, UIValueItemData item)
@@ -58,7 +66,9 @@ public class UIEquipDetail : MonoBehaviour
 
         Desc.text = item.Desc;
 
-        UpgradeButton.isEnabled = item.IsUpgradeable;
+        string upgradeSprite = item.IsUpgradeable ? UpgradeButtonNormal : UpgradeButtonDisable;
+        UpgradeButton.GetComponent<UISprite>().spriteName = upgradeSprite;
+        UpgradeButton.normalSprite = upgradeSprite;
 
         foreach(UIEquipDetailAttr attr in mAttrs)
         {
@@ -77,5 +87,11 @@ public class UIEquipDetail : MonoBehaviour
     {
         if(OnItemClickListener != null)
             OnItemClickListener(mSlotIndex);
+    }
+
+    private void onUpgradeClick()
+    {
+        if(OnUpgradeListener != null)
+            OnUpgradeListener(mSlotIndex);
     }
 }

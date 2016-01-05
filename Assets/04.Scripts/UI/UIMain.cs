@@ -14,7 +14,7 @@ public class UIMain : UIBase {
 	private const string UIName = "UIMain";
 	private List<TRoomObject> roomObjects = new List<TRoomObject>();
 
-    private GameObject[] EffectSwitch = new GameObject[2];
+//    private GameObject[] EffectSwitch = new GameObject[2];
 	private GameObject UIRoomInfo;
 	private GameObject ButtonJoinRoom;
 	private GameObject itemJoinRoom;
