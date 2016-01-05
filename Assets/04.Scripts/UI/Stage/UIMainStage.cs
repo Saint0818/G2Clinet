@@ -254,18 +254,20 @@ public class UIMainStage : UIBase
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             DailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData)),
-            StartEnable = verifyPlayer(stageData)
+            StartEnable = verifyPlayer(stageData),
+            RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
 
-        data.RewardTitle = UIMainStageTools.FindRewardTitle(stageData);
         data.RewardItems.AddRange(UIMainStageTools.FindRewardItems(stageData));
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
+        bool newestStage = stageData.ID == GameData.Team.Player.NextMainStageID;
+
         if(stageData.Kind != 9)
-            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data);
+            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, newestStage, data);
         else
-            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, data);
+            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, newestStage, data);
     }
 
     private void addLockStage(TStageData stageData)

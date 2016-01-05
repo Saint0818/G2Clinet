@@ -78,28 +78,18 @@ public class UIStageChapter : MonoBehaviour
         Open.SetActive(false);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="data"></param>
-    public void AddStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
+    public void AddStage(int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathStage, stageID, localPos));
-        mStages[stageID].Show(data);
+        mStages[stageID].Show(data, selected);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="data"></param>
-    public void AddBossStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
+    public void AddBossStage(int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
-        mStages[stageID].Show(data);
+        mStages[stageID].Show(data, selected);
     }
 
     /// <summary>

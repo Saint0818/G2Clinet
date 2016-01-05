@@ -11,11 +11,7 @@ public class UIStageElement : MonoBehaviour
     public int StageID;
 
     public UISprite KindSprite;
-
-//    /// <summary>
-//    /// 背景圖片.
-//    /// </summary>
-//    private const string OpenSpriteName = "StageButton01";
+    public GameObject SelectedMark;
 
     /// <summary>
     /// 撥 Animation 時, 關卡經過幾秒後, 會變成可點選的狀態.
@@ -40,12 +36,14 @@ public class UIStageElement : MonoBehaviour
         mButton = GetComponent<UIButton>();
     }
 
-    public void Show(UIStageInfo.Data data)
+    public void Show(UIStageInfo.Data data, bool selected)
     {
         mData = data;
         mButton.isEnabled = false;
         
         KindSprite.spriteName = mData.KindSpriteName;
+
+        SelectedMark.SetActive(selected);
 
         changeEnable();
     }
@@ -70,11 +68,6 @@ public class UIStageElement : MonoBehaviour
 
     private void changeEnable()
     {
-//        GetComponent<UISprite>().spriteName = OpenSpriteName;
-//        // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
-//        // 目前的解決辦法是以下程式碼.
-//        mButton.normalSprite = OpenSpriteName;
-
         mButton.isEnabled = true;
     }
 
@@ -83,6 +76,8 @@ public class UIStageElement : MonoBehaviour
         KindSprite.spriteName = kindSpriteName;
 
         mButton.isEnabled = false;
+
+        SelectedMark.SetActive(false);
     }
 
     public void NotifyClick()

@@ -189,40 +189,22 @@ public class UIMainStageMain : MonoBehaviour
         return localPos;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="chapter"></param>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="data"></param>
-    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data)
+    public void AddStage(int chapter, int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddStage(stageID, localPos, data);
+            mChapters[chapter].AddStage(stageID, localPos, selected, data);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="chapter"></param>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="data"></param>
-    public void AddBossStage(int chapter, int stageID, Vector3 localPos, UIStageInfo.Data data)
+    public void AddBossStage(int chapter, int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddBossStage(stageID, localPos, data);
+            mChapters[chapter].AddBossStage(stageID, localPos, selected, data);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="chapter"></param>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="kindSpriteName"></param>
     public void AddLockStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
     {
         if(mChapters.ContainsKey(chapter))
@@ -231,12 +213,6 @@ public class UIMainStageMain : MonoBehaviour
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="chapter"></param>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="kindSpriteName"></param>
     public void AddLockBossStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
     {
         if (mChapters.ContainsKey(chapter))
