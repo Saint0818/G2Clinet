@@ -291,6 +291,11 @@ public class UIEquipment : UIBase
             // 材料沒有鑲嵌完畢.
             Debug.Log("Inlay not full.");
         }
+        else if(!UIEquipChecker.HasUpgradeMoney(item))
+        {
+            // 沒錢.
+            Debug.Log("Money not enoguh.");
+        }
         else
             Debug.LogError("Not Implemented check...");
     }

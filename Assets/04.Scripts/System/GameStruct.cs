@@ -847,6 +847,8 @@ namespace GameStruct
 
         [UsedImplicitly]
         public int UpgradeItem { get; private set; }
+        [UsedImplicitly]
+        public int UpgradeMoney { get; private set; }
 
         public int Buy;
         public int Sell;

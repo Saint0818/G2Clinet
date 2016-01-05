@@ -4,12 +4,17 @@ public static class UIEquipChecker
 {
     public static bool IsUpgradeable(TItemData item, int[] playerInlayItemIDs)
     {
-        return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs);
+        return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs) && HasUpgradeMoney(item);
     }
 
     public static bool HasUpgradeItem(TItemData item)
     {
         return GameData.DItemData.ContainsKey(item.UpgradeItem);
+    }
+
+    public static bool HasUpgradeMoney(TItemData item)
+    {
+        return GameData.Team.Money >= item.UpgradeMoney;
     }
 
     /// <summary>

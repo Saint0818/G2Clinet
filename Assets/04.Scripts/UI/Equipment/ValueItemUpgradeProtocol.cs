@@ -23,7 +23,8 @@ public class ValueItemUpgradeProtocol
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player.ValueItems = team.Player.ValueItems;
-            
+            GameData.Team.Money = team.Money;
+
 //            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
         }
         else

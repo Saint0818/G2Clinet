@@ -6884,6 +6884,7 @@
         "material1": 19001,
         "materialnum1": 5,
         "upgradeitem": 11101,
+        "upgrademoney": 100,
         "nameen": "Headband α",
         "explaintw": "α級的舒適棉質頭帶。",
         "explainen": "Grade α Comfy Cotton Headband"
@@ -6905,6 +6906,7 @@
         "material1": 19001,
         "materialnum1": 5,
         "upgradeitem": 11102,
+        "upgrademoney": 110,
         "nameen": "Headband β",
         "explaintw": "β級的舒適棉質頭帶。",
         "explainen": "Grade β Comfy Cotton Headband"
@@ -6926,6 +6928,7 @@
         "material1": 19001,
         "materialnum1": 5,
         "upgradeitem": 11103,
+        "upgrademoney": 120,
         "nameen": "Headband γ",
         "explaintw": "γ級的舒適棉質頭帶。",
         "explainen": "Grade γ Comfy Cotton Headband"
@@ -6949,6 +6952,7 @@
         "material2": 19002,
         "materialnum2": 10,
         "upgradeitem": 11201,
+        "upgrademoney": 130,
         "nameen": "Bionic Headband α",
         "explaintw": "α級的特殊科技頭帶。",
         "explainen": "Grade α Bionic Performance Headband"
@@ -6972,6 +6976,7 @@
         "material2": 19002,
         "materialnum2": 10,
         "upgradeitem": 11202,
+        "upgrademoney": 140,
         "nameen": "Bionic Headband β",
         "explaintw": "β級的特殊科技頭帶。",
         "explainen": "Grade β Bionic Performance Headband"
@@ -6995,6 +7000,7 @@
         "material2": 19002,
         "materialnum2": 10,
         "upgradeitem": 11203,
+        "upgrademoney": 150,
         "nameen": "Bionic Headband γ",
         "explaintw": "γ級的特殊科技頭帶。",
         "explainen": "Grade γ Bionic Performance Headband"
@@ -7020,6 +7026,7 @@
         "material3": 19003,
         "materialnum3": 15,
         "upgradeitem": 11301,
+        "upgrademoney": 160,
         "nameen": "Space Headband α",
         "explaintw": "α級的實用未來頭帶。",
         "explainen": "Grade α Futuristic Space Headband"
@@ -7045,6 +7052,7 @@
         "material3": 19003,
         "materialnum3": 15,
         "upgradeitem": 11302,
+        "upgrademoney": 170,
         "nameen": "Space Headband β",
         "explaintw": "β級的實用未來頭帶。",
         "explainen": "Grade β Futuristic Space Headband"
@@ -7070,6 +7078,7 @@
         "material3": 19003,
         "materialnum3": 15,
         "upgradeitem": 11303,
+        "upgrademoney": 180,
         "nameen": "Space Headband γ",
         "explaintw": "γ級的實用未來頭帶。",
         "explainen": "Grade γ Futuristic Space Headband"
@@ -7096,7 +7105,8 @@
         "materialnum3": 20,
         "material4": 19004,
         "materialnum4": 20,
-        "upgradeitem": 11401
+        "upgradeitem": 11401,
+        "upgrademoney": 190
     },
     {
         "id": 11302,
@@ -7120,7 +7130,8 @@
         "materialnum3": 20,
         "material4": 19004,
         "materialnum4": 20,
-        "upgradeitem": 11402
+        "upgradeitem": 11402,
+        "upgrademoney": 200
     },
     {
         "id": 11303,
@@ -7144,7 +7155,8 @@
         "materialnum3": 20,
         "material4": 19004,
         "materialnum4": 20,
-        "upgradeitem": 11403
+        "upgradeitem": 11403,
+        "upgrademoney": 210
     },
     {
         "id": 11401,
@@ -7216,6 +7228,75 @@
         "materialnum4": 25
     },
     {
+        "id": 11501,
+        "nametw": "[ff8000]七彩石顱部插件α[-]",
+        "kind": 11,
+        "atlas": 11,
+        "icon": 11101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 1,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19002,
+        "materialnum1": 25,
+        "material2": 19003,
+        "materialnum2": 25,
+        "material3": 19004,
+        "materialnum3": 25,
+        "material4": 19005,
+        "materialnum4": 25
+    },
+    {
+        "id": 11502,
+        "nametw": "[ff8000]七彩石顱部插件β[-]",
+        "kind": 11,
+        "atlas": 11,
+        "icon": 11101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 1,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19002,
+        "materialnum1": 25,
+        "material2": 19003,
+        "materialnum2": 25,
+        "material3": 19004,
+        "materialnum3": 25,
+        "material4": 19005,
+        "materialnum4": 25
+    },
+    {
+        "id": 11503,
+        "nametw": "[ff8000]七彩石顱部插件γ[-]",
+        "kind": 11,
+        "atlas": 11,
+        "icon": 11101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 1,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19002,
+        "materialnum1": 25,
+        "material2": 19003,
+        "materialnum2": 25,
+        "material3": 19004,
+        "materialnum3": 25,
+        "material4": 19005,
+        "materialnum4": 25
+    },
+    {
         "id": 12001,
         "nametw": "[ffffff]白水晶左臂插件α[-]",
         "kind": 12,
@@ -7232,6 +7313,7 @@
         "material1": 19011,
         "materialnum1": 5,
         "upgradeitem": 12101,
+        "upgrademoney": 100,
         "nameen": "Cotton Sleeves α",
         "explaintw": "α級的舒適棉質護臂。",
         "explainen": "Grade α Comfy Cotton Sleeves"
@@ -7253,6 +7335,7 @@
         "material1": 19011,
         "materialnum1": 5,
         "upgradeitem": 12102,
+        "upgrademoney": 110,
         "nameen": "Cotton Sleeves β",
         "explaintw": "β級的舒適棉質護臂。",
         "explainen": "Grade β Comfy Cotton Sleeves"
@@ -7274,6 +7357,7 @@
         "material1": 19011,
         "materialnum1": 5,
         "upgradeitem": 12103,
+        "upgrademoney": 120,
         "nameen": "Cotton Sleeves γ",
         "explaintw": "γ級的舒適棉質護臂。",
         "explainen": "Grade γ Comfy Cotton Sleeves"
@@ -7297,6 +7381,7 @@
         "material2": 19012,
         "materialnum2": 10,
         "upgradeitem": 12201,
+        "upgrademoney": 130,
         "nameen": "Bionic Sleeves α",
         "explaintw": "α級的特殊科技護臂。",
         "explainen": "Grade α Bionic Performance Sleeves"
@@ -7320,6 +7405,7 @@
         "material2": 19012,
         "materialnum2": 10,
         "upgradeitem": 12202,
+        "upgrademoney": 140,
         "nameen": "Bionic Sleeves β",
         "explaintw": "β級的特殊科技護臂。",
         "explainen": "Grade β Bionic Performance Sleeves"
@@ -7343,6 +7429,7 @@
         "material2": 19012,
         "materialnum2": 10,
         "upgradeitem": 12203,
+        "upgrademoney": 150,
         "nameen": "Bionic Sleeves γ",
         "explaintw": "γ級的特殊科技護臂。",
         "explainen": "Grade γ Bionic Performance Sleeves"
@@ -7368,6 +7455,7 @@
         "material3": 19013,
         "materialnum3": 15,
         "upgradeitem": 12301,
+        "upgrademoney": 160,
         "nameen": "Space Sleeves α",
         "explaintw": "α級的實用未來護臂。",
         "explainen": "Grade α Futuristic Space Sleeves"
@@ -7393,6 +7481,7 @@
         "material3": 19013,
         "materialnum3": 15,
         "upgradeitem": 12302,
+        "upgrademoney": 170,
         "nameen": "Space Sleeves β",
         "explaintw": "β級的實用未來護臂。",
         "explainen": "Grade β Futuristic Space Sleeves"
@@ -7418,6 +7507,7 @@
         "material3": 19013,
         "materialnum3": 15,
         "upgradeitem": 12303,
+        "upgrademoney": 180,
         "nameen": "Space Sleeves γ",
         "explaintw": "γ級的實用未來護臂。",
         "explainen": "Grade γ Futuristic Space Sleeves"
@@ -7444,7 +7534,8 @@
         "materialnum3": 20,
         "material4": 19014,
         "materialnum4": 20,
-        "upgradeitem": 12401
+        "upgradeitem": 12401,
+        "upgrademoney": 190
     },
     {
         "id": 12302,
@@ -7468,7 +7559,8 @@
         "materialnum3": 20,
         "material4": 19014,
         "materialnum4": 20,
-        "upgradeitem": 12402
+        "upgradeitem": 12402,
+        "upgrademoney": 200
     },
     {
         "id": 12303,
@@ -7492,7 +7584,8 @@
         "materialnum3": 20,
         "material4": 19014,
         "materialnum4": 20,
-        "upgradeitem": 12403
+        "upgradeitem": 12403,
+        "upgrademoney": 210
     },
     {
         "id": 12401,
@@ -7564,6 +7657,75 @@
         "materialnum4": 25
     },
     {
+        "id": 12501,
+        "nametw": "[ff8000]七彩石左臂插件α[-]",
+        "kind": 12,
+        "atlas": 11,
+        "icon": 12101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 2,
+        "attrvalue1": 10,
+        "attrkind2": 11,
+        "attrvalue2": 20,
+        "attrkind3": 12,
+        "attrvalue3": 20,
+        "material1": 19012,
+        "materialnum1": 25,
+        "material2": 19013,
+        "materialnum2": 25,
+        "material3": 19014,
+        "materialnum3": 25,
+        "material4": 19015,
+        "materialnum4": 25
+    },
+    {
+        "id": 12502,
+        "nametw": "[ff8000]七彩石左臂插件β[-]",
+        "kind": 12,
+        "atlas": 11,
+        "icon": 12101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 2,
+        "attrvalue1": 10,
+        "attrkind2": 9,
+        "attrvalue2": 20,
+        "attrkind3": 5,
+        "attrvalue3": 20,
+        "material1": 19012,
+        "materialnum1": 25,
+        "material2": 19013,
+        "materialnum2": 25,
+        "material3": 19014,
+        "materialnum3": 25,
+        "material4": 19015,
+        "materialnum4": 25
+    },
+    {
+        "id": 12503,
+        "nametw": "[ff8000]七彩石左臂插件γ[-]",
+        "kind": 12,
+        "atlas": 11,
+        "icon": 12101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 2,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19012,
+        "materialnum1": 25,
+        "material2": 19013,
+        "materialnum2": 25,
+        "material3": 19014,
+        "materialnum3": 25,
+        "material4": 19015,
+        "materialnum4": 25
+    },
+    {
         "id": 13001,
         "nametw": "[ffffff]白水晶右臂插件α[-]",
         "kind": 13,
@@ -7580,6 +7742,7 @@
         "material1": 19021,
         "materialnum1": 5,
         "upgradeitem": 13101,
+        "upgrademoney": 100,
         "nameen": "Pants α",
         "explaintw": "α級的舒適棉質機能褲。",
         "explainen": "Grade α Comfy Cotton Pants"
@@ -7601,6 +7764,7 @@
         "material1": 19021,
         "materialnum1": 5,
         "upgradeitem": 13102,
+        "upgrademoney": 110,
         "nameen": "Pants β",
         "explaintw": "β級的舒適棉質機能褲。",
         "explainen": "Grade β Comfy Cotton Pants"
@@ -7622,6 +7786,7 @@
         "material1": 19021,
         "materialnum1": 5,
         "upgradeitem": 13103,
+        "upgrademoney": 120,
         "nameen": "Pants γ",
         "explaintw": "γ級的舒適棉質機能褲。",
         "explainen": "Grade γ Comfy Cotton Pants"
@@ -7645,6 +7810,7 @@
         "material2": 19022,
         "materialnum2": 10,
         "upgradeitem": 13201,
+        "upgrademoney": 130,
         "nameen": "Bionic Pants α",
         "explaintw": "α級的特殊科技機能褲。",
         "explainen": "Grade α Bionic Performance Pants"
@@ -7668,6 +7834,7 @@
         "material2": 19022,
         "materialnum2": 10,
         "upgradeitem": 13202,
+        "upgrademoney": 140,
         "nameen": "Bionic Pants β",
         "explaintw": "β級的特殊科技機能褲。",
         "explainen": "Grade β Bionic Performance Pants"
@@ -7691,6 +7858,7 @@
         "material2": 19022,
         "materialnum2": 10,
         "upgradeitem": 13203,
+        "upgrademoney": 150,
         "nameen": "Bionic Pants",
         "explaintw": "γ級的特殊科技機能褲。",
         "explainen": "Grade γ Bionic Performance Pants"
@@ -7716,6 +7884,7 @@
         "material3": 19023,
         "materialnum3": 15,
         "upgradeitem": 13301,
+        "upgrademoney": 160,
         "nameen": "Space Pants α",
         "explaintw": "α級的實用未來機能褲。",
         "explainen": "Grade α Futuristic Space Pants"
@@ -7741,6 +7910,7 @@
         "material3": 19023,
         "materialnum3": 15,
         "upgradeitem": 13302,
+        "upgrademoney": 170,
         "nameen": "Space Pants β",
         "explaintw": "β級的實用未來機能褲。",
         "explainen": "Grade β Futuristic Space Pants"
@@ -7766,6 +7936,7 @@
         "material3": 19023,
         "materialnum3": 15,
         "upgradeitem": 13303,
+        "upgrademoney": 180,
         "nameen": "Space Pants γ",
         "explaintw": "γ級的實用未來機能褲。",
         "explainen": "Grade γ Futuristic Space Pants"
@@ -7792,7 +7963,8 @@
         "materialnum3": 20,
         "material4": 19024,
         "materialnum4": 20,
-        "upgradeitem": 13401
+        "upgradeitem": 13401,
+        "upgrademoney": 190
     },
     {
         "id": 13302,
@@ -7816,7 +7988,8 @@
         "materialnum3": 20,
         "material4": 19024,
         "materialnum4": 20,
-        "upgradeitem": 13402
+        "upgradeitem": 13402,
+        "upgrademoney": 200
     },
     {
         "id": 13303,
@@ -7840,7 +8013,8 @@
         "materialnum3": 20,
         "material4": 19024,
         "materialnum4": 20,
-        "upgradeitem": 13403
+        "upgradeitem": 13403,
+        "upgrademoney": 210
     },
     {
         "id": 13401,
@@ -7912,6 +8086,75 @@
         "materialnum4": 25
     },
     {
+        "id": 13501,
+        "nametw": "[ff8000]七彩石右臂插件α[-]",
+        "kind": 13,
+        "atlas": 11,
+        "icon": 13101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 6,
+        "attrvalue1": 10,
+        "attrkind2": 11,
+        "attrvalue2": 20,
+        "attrkind3": 12,
+        "attrvalue3": 20,
+        "material1": 19022,
+        "materialnum1": 25,
+        "material2": 19023,
+        "materialnum2": 25,
+        "material3": 19024,
+        "materialnum3": 25,
+        "material4": 19025,
+        "materialnum4": 25
+    },
+    {
+        "id": 13502,
+        "nametw": "[ff8000]七彩石右臂插件β[-]",
+        "kind": 13,
+        "atlas": 11,
+        "icon": 13101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 6,
+        "attrvalue1": 10,
+        "attrkind2": 9,
+        "attrvalue2": 20,
+        "attrkind3": 5,
+        "attrvalue3": 20,
+        "material1": 19022,
+        "materialnum1": 25,
+        "material2": 19023,
+        "materialnum2": 25,
+        "material3": 19024,
+        "materialnum3": 25,
+        "material4": 19025,
+        "materialnum4": 25
+    },
+    {
+        "id": 13503,
+        "nametw": "[ff8000]七彩石右臂插件γ[-]",
+        "kind": 13,
+        "atlas": 11,
+        "icon": 13101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 6,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19022,
+        "materialnum1": 25,
+        "material2": 19023,
+        "materialnum2": 25,
+        "material3": 19024,
+        "materialnum3": 25,
+        "material4": 19025,
+        "materialnum4": 25
+    },
+    {
         "id": 14001,
         "nametw": "[ffffff]白水晶胸腔插件α[-]",
         "kind": 14,
@@ -7928,6 +8171,7 @@
         "material1": 19031,
         "materialnum1": 5,
         "upgradeitem": 14101,
+        "upgrademoney": 100,
         "nameen": "Performance Clothes α",
         "explaintw": "α級的舒適棉質機能衣。",
         "explainen": "Grade α Comfy Cotton Clothes"
@@ -7949,6 +8193,7 @@
         "material1": 19031,
         "materialnum1": 5,
         "upgradeitem": 14102,
+        "upgrademoney": 110,
         "nameen": "Performance Clothes β",
         "explaintw": "β級的舒適棉質機能衣。",
         "explainen": "Grade β Comfy Cotton Clothes"
@@ -7970,6 +8215,7 @@
         "material1": 19031,
         "materialnum1": 5,
         "upgradeitem": 14103,
+        "upgrademoney": 120,
         "nameen": "Performance Clothes γ",
         "explaintw": "γ級的舒適棉質機能衣。",
         "explainen": "Grade γ Comfy Cotton Clothes"
@@ -7993,6 +8239,7 @@
         "material2": 19032,
         "materialnum2": 10,
         "upgradeitem": 14201,
+        "upgrademoney": 130,
         "nameen": "Bionic Performance Clothes α",
         "explaintw": "α級的特殊科技機能衣。",
         "explainen": "Grade α Bionic Performance Suit"
@@ -8016,6 +8263,7 @@
         "material2": 19032,
         "materialnum2": 10,
         "upgradeitem": 14202,
+        "upgrademoney": 140,
         "nameen": "Bionic Performance Clothes β",
         "explaintw": "β級的特殊科技機能衣。",
         "explainen": "Grade β Bionic Performance Suit"
@@ -8039,6 +8287,7 @@
         "material2": 19032,
         "materialnum2": 10,
         "upgradeitem": 14203,
+        "upgrademoney": 150,
         "nameen": "Bionic Performance Clothes γ",
         "explaintw": "γ級的特殊科技機能衣。",
         "explainen": "Grade γ Bionic Performance Suit"
@@ -8064,6 +8313,7 @@
         "material3": 19033,
         "materialnum3": 15,
         "upgradeitem": 14301,
+        "upgrademoney": 160,
         "nameen": "Space Performance Clothes α",
         "explaintw": "α級的實用未來機能衣。",
         "explainen": "Grade α Futuristic Space Suit"
@@ -8089,6 +8339,7 @@
         "material3": 19033,
         "materialnum3": 15,
         "upgradeitem": 14302,
+        "upgrademoney": 170,
         "nameen": "Space Performance Clothes β",
         "explaintw": "β級的實用未來機能衣。",
         "explainen": "Grade β Futuristic Space Suit"
@@ -8114,6 +8365,7 @@
         "material3": 19033,
         "materialnum3": 15,
         "upgradeitem": 14303,
+        "upgrademoney": 180,
         "nameen": "Space Performance Clothes γ",
         "explaintw": "γ級的實用未來機能衣。",
         "explainen": "Grade γ Futuristic Space Suit"
@@ -8140,7 +8392,8 @@
         "materialnum3": 20,
         "material4": 19034,
         "materialnum4": 20,
-        "upgradeitem": 14401
+        "upgradeitem": 14401,
+        "upgrademoney": 190
     },
     {
         "id": 14302,
@@ -8164,7 +8417,8 @@
         "materialnum3": 20,
         "material4": 19034,
         "materialnum4": 20,
-        "upgradeitem": 14402
+        "upgradeitem": 14402,
+        "upgrademoney": 200
     },
     {
         "id": 14303,
@@ -8188,7 +8442,8 @@
         "materialnum3": 20,
         "material4": 19034,
         "materialnum4": 20,
-        "upgradeitem": 14403
+        "upgradeitem": 14403,
+        "upgrademoney": 210
     },
     {
         "id": 14401,
@@ -8260,6 +8515,75 @@
         "materialnum4": 25
     },
     {
+        "id": 14501,
+        "nametw": "[ff8000]七彩石胸腔插件α[-]",
+        "kind": 14,
+        "atlas": 11,
+        "icon": 14101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 7,
+        "attrvalue1": 10,
+        "attrkind2": 11,
+        "attrvalue2": 20,
+        "attrkind3": 12,
+        "attrvalue3": 20,
+        "material1": 19032,
+        "materialnum1": 25,
+        "material2": 19033,
+        "materialnum2": 25,
+        "material3": 19034,
+        "materialnum3": 25,
+        "material4": 19035,
+        "materialnum4": 25
+    },
+    {
+        "id": 14502,
+        "nametw": "[ff8000]七彩石胸腔插件β[-]",
+        "kind": 14,
+        "atlas": 11,
+        "icon": 14101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 7,
+        "attrvalue1": 10,
+        "attrkind2": 9,
+        "attrvalue2": 20,
+        "attrkind3": 5,
+        "attrvalue3": 20,
+        "material1": 19032,
+        "materialnum1": 25,
+        "material2": 19033,
+        "materialnum2": 25,
+        "material3": 19034,
+        "materialnum3": 25,
+        "material4": 19035,
+        "materialnum4": 25
+    },
+    {
+        "id": 14503,
+        "nametw": "[ff8000]七彩石胸腔插件γ[-]",
+        "kind": 14,
+        "atlas": 11,
+        "icon": 14101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 7,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19032,
+        "materialnum1": 25,
+        "material2": 19033,
+        "materialnum2": 25,
+        "material3": 19034,
+        "materialnum3": 25,
+        "material4": 19035,
+        "materialnum4": 25
+    },
+    {
         "id": 15001,
         "nametw": "[ffffff]白水晶左腿插件α[-]",
         "kind": 15,
@@ -8276,6 +8600,7 @@
         "material1": 19041,
         "materialnum1": 5,
         "upgradeitem": 15101,
+        "upgrademoney": 100,
         "nameen": "Knee Pads α",
         "explaintw": "α級的舒適棉質護膝。",
         "explainen": "Grade a Comfy Cotton Knee Bracelet"
@@ -8297,6 +8622,7 @@
         "material1": 19041,
         "materialnum1": 5,
         "upgradeitem": 15102,
+        "upgrademoney": 110,
         "nameen": "Knee Pads β",
         "explaintw": "β級的舒適棉質護膝。",
         "explainen": "Grade β Comfy Cotton Knee Bracelet"
@@ -8318,6 +8644,7 @@
         "material1": 19041,
         "materialnum1": 5,
         "upgradeitem": 15103,
+        "upgrademoney": 120,
         "nameen": "Knee Pads γ",
         "explaintw": "γ級的舒適棉質護膝。",
         "explainen": "Grade γ Comfy Cotton Knee Bracelet"
@@ -8341,6 +8668,7 @@
         "material2": 19042,
         "materialnum2": 10,
         "upgradeitem": 15201,
+        "upgrademoney": 130,
         "nameen": "Bionic Knee Pads α",
         "explaintw": "α級的特殊科技護膝。",
         "explainen": "Grade α Bionic Knee Bracelet"
@@ -8364,6 +8692,7 @@
         "material2": 19042,
         "materialnum2": 10,
         "upgradeitem": 15202,
+        "upgrademoney": 140,
         "nameen": "Bionic Knee Pads β",
         "explaintw": "β級的特殊科技護膝。",
         "explainen": "Grade β Bionic Knee Bracelet"
@@ -8387,6 +8716,7 @@
         "material2": 19042,
         "materialnum2": 10,
         "upgradeitem": 15203,
+        "upgrademoney": 150,
         "nameen": "Bionic Knee Pads γ",
         "explaintw": "γ級的特殊科技護膝。",
         "explainen": "Grade Y Bionic Knee Bracelet"
@@ -8412,6 +8742,7 @@
         "material3": 19043,
         "materialnum3": 15,
         "upgradeitem": 15301,
+        "upgrademoney": 160,
         "nameen": "Space Knee Pads α",
         "explaintw": "α級的實用未來護膝。",
         "explainen": "Grade α Futuristic Knee Bracelet"
@@ -8437,6 +8768,7 @@
         "material3": 19043,
         "materialnum3": 15,
         "upgradeitem": 15302,
+        "upgrademoney": 170,
         "nameen": "Space Knee Pads β",
         "explaintw": "β級的實用未來護膝。",
         "explainen": "Grade β Futuristic Knee Bracelet"
@@ -8462,6 +8794,7 @@
         "material3": 19043,
         "materialnum3": 15,
         "upgradeitem": 15303,
+        "upgrademoney": 180,
         "nameen": "Space Knee Pads γ",
         "explaintw": "γ級的實用未來護膝。",
         "explainen": "Grade Y Futuristic Knee Bracelet"
@@ -8488,7 +8821,8 @@
         "materialnum3": 20,
         "material4": 19044,
         "materialnum4": 20,
-        "upgradeitem": 15401
+        "upgradeitem": 15401,
+        "upgrademoney": 190
     },
     {
         "id": 15302,
@@ -8512,7 +8846,8 @@
         "materialnum3": 20,
         "material4": 19044,
         "materialnum4": 20,
-        "upgradeitem": 15402
+        "upgradeitem": 15402,
+        "upgrademoney": 200
     },
     {
         "id": 15303,
@@ -8536,7 +8871,8 @@
         "materialnum3": 20,
         "material4": 19044,
         "materialnum4": 20,
-        "upgradeitem": 15403
+        "upgradeitem": 15403,
+        "upgrademoney": 210
     },
     {
         "id": 15401,
@@ -8608,6 +8944,75 @@
         "materialnum4": 25
     },
     {
+        "id": 15501,
+        "nametw": "[ff8000]七彩石左腿插件α[-]",
+        "kind": 15,
+        "atlas": 11,
+        "icon": 15101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 8,
+        "attrvalue1": 10,
+        "attrkind2": 11,
+        "attrvalue2": 20,
+        "attrkind3": 12,
+        "attrvalue3": 20,
+        "material1": 19042,
+        "materialnum1": 25,
+        "material2": 19043,
+        "materialnum2": 25,
+        "material3": 19044,
+        "materialnum3": 25,
+        "material4": 19045,
+        "materialnum4": 25
+    },
+    {
+        "id": 15502,
+        "nametw": "[ff8000]七彩石左腿插件β[-]",
+        "kind": 15,
+        "atlas": 11,
+        "icon": 15101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 8,
+        "attrvalue1": 10,
+        "attrkind2": 9,
+        "attrvalue2": 20,
+        "attrkind3": 5,
+        "attrvalue3": 20,
+        "material1": 19042,
+        "materialnum1": 25,
+        "material2": 19043,
+        "materialnum2": 25,
+        "material3": 19044,
+        "materialnum3": 25,
+        "material4": 19045,
+        "materialnum4": 25
+    },
+    {
+        "id": 15503,
+        "nametw": "[ff8000]七彩石左腿插件γ[-]",
+        "kind": 15,
+        "atlas": 11,
+        "icon": 15101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 8,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19042,
+        "materialnum1": 25,
+        "material2": 19043,
+        "materialnum2": 25,
+        "material3": 19044,
+        "materialnum3": 25,
+        "material4": 19045,
+        "materialnum4": 25
+    },
+    {
         "id": 16001,
         "nametw": "[ffffff]白水晶右腿插件α[-]",
         "kind": 16,
@@ -8624,6 +9029,7 @@
         "material1": 19051,
         "materialnum1": 5,
         "upgradeitem": 16101,
+        "upgrademoney": 100,
         "nameen": " Wristband α",
         "explaintw": "α級的舒適棉質腕帶。",
         "explainen": "Grade α Comfy Wristband"
@@ -8645,6 +9051,7 @@
         "material1": 19051,
         "materialnum1": 5,
         "upgradeitem": 16102,
+        "upgrademoney": 110,
         "nameen": " Wristband β",
         "explaintw": "β級的舒適棉質腕帶。",
         "explainen": "Grade β Comfy Wristband"
@@ -8666,6 +9073,7 @@
         "material1": 19051,
         "materialnum1": 5,
         "upgradeitem": 16103,
+        "upgrademoney": 120,
         "nameen": " Wristband γ",
         "explaintw": "γ級的舒適棉質腕帶。",
         "explainen": "Grade Y Comfy Wristband"
@@ -8689,6 +9097,7 @@
         "material2": 19052,
         "materialnum2": 10,
         "upgradeitem": 16201,
+        "upgrademoney": 130,
         "nameen": "Bionic  Wristband α",
         "explaintw": "α級的特殊科技腕帶。",
         "explainen": "Grade α Bionic Wristband"
@@ -8712,6 +9121,7 @@
         "material2": 19052,
         "materialnum2": 10,
         "upgradeitem": 16202,
+        "upgrademoney": 140,
         "nameen": "Bionic  Wristband β",
         "explaintw": "β級的特殊科技腕帶。",
         "explainen": "Grade β Bionic Wristband"
@@ -8735,6 +9145,7 @@
         "material2": 19052,
         "materialnum2": 10,
         "upgradeitem": 16203,
+        "upgrademoney": 150,
         "nameen": "Bionic  Wristband γ",
         "explaintw": "γ級的特殊科技腕帶。",
         "explainen": "Grade Y Bionic Wristband"
@@ -8760,6 +9171,7 @@
         "material3": 19053,
         "materialnum3": 15,
         "upgradeitem": 16301,
+        "upgrademoney": 160,
         "nameen": "Space  Wristband α",
         "explaintw": "α級的實用未來腕帶。",
         "explainen": "Grade α Practical Futuristic Wristband"
@@ -8785,6 +9197,7 @@
         "material3": 19053,
         "materialnum3": 15,
         "upgradeitem": 16302,
+        "upgrademoney": 170,
         "nameen": "Space  Wristband β",
         "explaintw": "β級的實用未來腕帶。",
         "explainen": "Grade β Practical Futuristic Wristband"
@@ -8810,6 +9223,7 @@
         "material3": 19053,
         "materialnum3": 15,
         "upgradeitem": 16303,
+        "upgrademoney": 180,
         "nameen": "Space  Wristband γ",
         "explaintw": "γ級的實用未來腕帶。",
         "explainen": "Grade Y Practical Futuristic Wristband"
@@ -8836,7 +9250,8 @@
         "materialnum3": 20,
         "material4": 19054,
         "materialnum4": 20,
-        "upgradeitem": 16401
+        "upgradeitem": 16401,
+        "upgrademoney": 190
     },
     {
         "id": 16302,
@@ -8860,7 +9275,8 @@
         "materialnum3": 20,
         "material4": 19054,
         "materialnum4": 20,
-        "upgradeitem": 16402
+        "upgradeitem": 16402,
+        "upgrademoney": 200
     },
     {
         "id": 16303,
@@ -8884,7 +9300,8 @@
         "materialnum3": 20,
         "material4": 19054,
         "materialnum4": 20,
-        "upgradeitem": 16403
+        "upgradeitem": 16403,
+        "upgrademoney": 210
     },
     {
         "id": 16401,
@@ -8935,6 +9352,75 @@
     {
         "id": 16403,
         "nametw": "[ff8000]黃金右腿插件γ[-]",
+        "kind": 16,
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 10,
+        "attrvalue1": 10,
+        "attrkind2": 3,
+        "attrvalue2": 20,
+        "attrkind3": 4,
+        "attrvalue3": 20,
+        "material1": 19052,
+        "materialnum1": 25,
+        "material2": 19053,
+        "materialnum2": 25,
+        "material3": 19054,
+        "materialnum3": 25,
+        "material4": 19055,
+        "materialnum4": 25
+    },
+    {
+        "id": 16501,
+        "nametw": "[ff8000]七彩石右腿插件α[-]",
+        "kind": 16,
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 10,
+        "attrvalue1": 10,
+        "attrkind2": 11,
+        "attrvalue2": 20,
+        "attrkind3": 12,
+        "attrvalue3": 20,
+        "material1": 19052,
+        "materialnum1": 25,
+        "material2": 19053,
+        "materialnum2": 25,
+        "material3": 19054,
+        "materialnum3": 25,
+        "material4": 19055,
+        "materialnum4": 25
+    },
+    {
+        "id": 16502,
+        "nametw": "[ff8000]七彩石右腿插件β[-]",
+        "kind": 16,
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 5,
+        "maxstack": 1,
+        "attrkind1": 10,
+        "attrvalue1": 10,
+        "attrkind2": 9,
+        "attrvalue2": 20,
+        "attrkind3": 5,
+        "attrvalue3": 20,
+        "material1": 19052,
+        "materialnum1": 25,
+        "material2": 19053,
+        "materialnum2": 25,
+        "material3": 19054,
+        "materialnum3": 25,
+        "material4": 19055,
+        "materialnum4": 25
+    },
+    {
+        "id": 16503,
+        "nametw": "[ff8000]七彩石右腿插件γ[-]",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
