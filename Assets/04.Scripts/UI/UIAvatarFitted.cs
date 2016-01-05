@@ -1113,7 +1113,7 @@ public class UIAvatarFitted : UIBase {
 			GameData.Team.Player.Items = team.Player.Items;
 			GameData.Team.Diamond = team.Diamond;
 			GameData.Team.AvatarPotential = team.AvatarPotential;
-            GameData.Team.LifetimeRecord = team.LifetimeRecord;
+            GameData.Team.TeamRecord = team.TeamRecord;
             GameData.Team.GotAvatar = team.GotAvatar;
 			UIMainLobby.Get.UpdateUI();
 			ChangeMode(EAvatarMode.Normal);

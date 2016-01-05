@@ -958,8 +958,8 @@ public class GameController : KnightSingleton<GameController>
     private void waitGameRecord(bool ok, WWW www) {
         if (ok) {
             TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
-            GameData.Team.LifetimeRecord = result.LifetimeRecord;
-            GameData.Team.Player.LifetimeRecord = result.Player.LifetimeRecord;
+            GameData.Team.TeamRecord = result.TeamRecord;
+            GameData.Team.Player.PlayerRecord = result.Player.PlayerRecord;
         }
     }
 

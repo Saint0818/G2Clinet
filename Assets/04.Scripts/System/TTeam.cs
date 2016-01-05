@@ -28,7 +28,12 @@ namespace GameStruct
         public Dictionary<int, int> GotItemCount; //key: item id, value: got number
         public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
         public Dictionary<int, int> MissionLv; //key: mission id, value: lv
+        private bool needForSyncRecord;
         public TTeamRecord LifetimeRecord;
+        public TDailyRecord GroupRecord;
+        public TDailyRecord DailyRecord;
+        public TDailyRecord WeeklyRecord;
+        public TDailyRecord MonthlyRecord;
         public TPlayer Player;
         public TItem[] Items;
         public TMaterialItem[] MaterialItems;
@@ -214,88 +219,144 @@ namespace GameStruct
                 Achievements[index] = -1;
         }
 
-        public int FindMissionLv(int id) {
-            if (MissionLv != null && MissionLv.ContainsKey(id))
-                return MissionLv[id];
-            else
-                return 0;
+        public int FindMissionLv(int id, int timeKind) {
+            switch (timeKind) {
+                case 0:
+                    if (MissionLv != null && MissionLv.ContainsKey(id))
+                        return MissionLv[id];
+
+                    break;
+
+                case 1:
+                    if (DailyRecord.MissionLv != null && DailyRecord.MissionLv.ContainsKey(id))
+                        return DailyRecord.MissionLv[id];
+
+                    break;
+
+                case 2:
+                    if (WeeklyRecord.MissionLv != null && WeeklyRecord.MissionLv.ContainsKey(id))
+                        return WeeklyRecord.MissionLv[id];
+
+                    break;
+
+                case 3:
+                    if (MonthlyRecord.MissionLv != null && MonthlyRecord.MissionLv.ContainsKey(id))
+                        return MonthlyRecord.MissionLv[id];
+
+                    break;
+            }
+
+            return 0;
+        }
+
+        private string statsText(ref TDailyRecord record) {
+            string str  = TextConst.S(3741) + record.PlayerRecord.GamePlayTime + "\n" +
+            TextConst.S(3742) + record.PlayerRecord.GameCount + "\n" +
+            TextConst.S(3743) + record.PlayerRecord.Score + "\n" +
+            TextConst.S(3744) + record.PlayerRecord.FGIn + "\n" +
+            TextConst.S(3745) + record.PlayerRecord.FG3In + "\n" +
+            TextConst.S(3746) + record.PlayerRecord.Dunk + "\n" +
+            TextConst.S(3747) + record.PlayerRecord.Rebound + "\n" +
+            TextConst.S(3748) + record.PlayerRecord.Assist + "\n" +
+            TextConst.S(3749) + record.PlayerRecord.Steal + "\n" +
+            TextConst.S(3750) + record.PlayerRecord.Block + "\n" +
+            TextConst.S(3751) + record.PlayerRecord.Push + "\n" +
+            TextConst.S(3752) + record.PlayerRecord.Knock + "\n" +
+            TextConst.S(3753) + record.PlayerRecord.DoubleClickPerfact + "\n" +
+            TextConst.S(3761) + record.TeamRecord.Lv + "\n" + 
+            TextConst.S(3762) + record.TeamRecord.PVPLv + "\n" + 
+            TextConst.S(3763) + record.TeamRecord.StatiumLv + "\n" + 
+            TextConst.S(3764) + record.TeamRecord.OccupyLv + "\n" + 
+            TextConst.S(3765) + record.TeamRecord.AvatarCount + "\n" + 
+            TextConst.S(3766) + 0 + "\n" + 
+            TextConst.S(3767) + record.TeamRecord.SkillCount + "\n" + 
+            TextConst.S(3768) + 0 + "\n" + 
+            TextConst.S(3771) + record.TeamRecord.PVEWin + "\n" + 
+            TextConst.S(3772) + record.TeamRecord.PVEKeepWin + "\n" + 
+            TextConst.S(3773) + record.TeamRecord.SubTextWin + "\n" + 
+            TextConst.S(3774) + record.TeamRecord.SubTextKeepWin + "\n" + 
+            TextConst.S(3775) + record.TeamRecord.PVPWin + "\n" + 
+            TextConst.S(3776) + record.TeamRecord.PVPKeepWin + "\n" + 
+            TextConst.S(3777) + record.TeamRecord.OccupyWin + "\n" +
+            TextConst.S(3778) + record.TeamRecord.OccupyKeepWin + "\n";
+
+            return str;
         }
 
         public string StatsText {
             get {
-                string str = TextConst.S(3741) + Player.LifetimeRecord.GamePlayTime + "\n" +
-                    TextConst.S(3742) + Player.LifetimeRecord.GameCount + "\n" +
-                    TextConst.S(3743) + Player.LifetimeRecord.Score + "\n" +
-                    TextConst.S(3744) + Player.LifetimeRecord.FGIn + "\n" +
-                    TextConst.S(3745) + Player.LifetimeRecord.FG3In + "\n" +
-                    TextConst.S(3746) + Player.LifetimeRecord.Dunk + "\n" +
-                    TextConst.S(3747) + Player.LifetimeRecord.Rebound + "\n" +
-                    TextConst.S(3748) + Player.LifetimeRecord.Assist + "\n" +
-                    TextConst.S(3749) + Player.LifetimeRecord.Steal + "\n" +
-                    TextConst.S(3750) + Player.LifetimeRecord.Block + "\n" +
-                    TextConst.S(3751) + Player.LifetimeRecord.Push + "\n" +
-                    TextConst.S(3752) + Player.LifetimeRecord.Knock + "\n" +
-                    TextConst.S(3753) + Player.LifetimeRecord.DoubleClickPerfact + "\n" +
-                    TextConst.S(3761) + Player.Lv + "\n" + 
-                    TextConst.S(3762) + PVPLv + "\n" + 
-                    TextConst.S(3763) + StatiumLv + "\n" + 
-                    TextConst.S(3764) + OccupyLv + "\n" + 
-                    TextConst.S(3765) + LifetimeRecord.AvatarCount + "\n" + 
-                    TextConst.S(3766) + 0 + "\n" + 
-                    TextConst.S(3767) + LifetimeRecord.SkillCount + "\n" + 
-                    TextConst.S(3768) + 0 + "\n" + 
-                    TextConst.S(3771) + LifetimeRecord.PVEWin + "\n" + 
-                    TextConst.S(3772) + LifetimeRecord.PVEKeepWin + "\n" + 
-                    TextConst.S(3773) + LifetimeRecord.SubTextWin + "\n" + 
-                    TextConst.S(3774) + LifetimeRecord.SubTextKeepWin + "\n" + 
-                    TextConst.S(3775) + LifetimeRecord.PVPWin + "\n" + 
-                    TextConst.S(3776) + LifetimeRecord.PVPKeepWin + "\n" + 
-                    TextConst.S(3777) + LifetimeRecord.OccupyWin + "\n" +
-                    TextConst.S(3778) + LifetimeRecord.OccupyKeepWin + "\n";
-
+                GroupRecord.TeamRecord.PVPLv = PVPLv;
+                GroupRecord.TeamRecord.StatiumLv = StatiumLv;
+                GroupRecord.TeamRecord.OccupyLv = OccupyLv;
+                GroupRecord.TeamRecord = LifetimeRecord;
+                GroupRecord.TeamRecord.Lv = Player.Lv;
+                GroupRecord.PlayerRecord = Player.PlayerRecord;
+                string str = statsText(ref GroupRecord);
+                str += "\n" + "Daily Record\n" + statsText(ref DailyRecord);
+                str += "\n" + "Weekly Record\n" + statsText(ref WeeklyRecord);
+                str += "\n" + "Monthly Record\n" + statsText(ref MonthlyRecord);
                 return str;
             }
         }
 
-        public int GetMissionValue(int kind) {
+        private int getMissionValue(int kind, ref TDailyRecord record) {
             switch (kind) {
-                case 1: return Player.Lv; //玩家等級
-                case 2: return PVPLv; //挑戰積分(PVP積分)
-                case 3: return StatiumLv; //球場等級
-                case 4: return OccupyLv; //踢館等級
-                case 5: return LifetimeRecord.AvatarCount; //Avatar number
+                case 1: return record.TeamRecord.Lv; //玩家等級
+                case 2: return record.TeamRecord.PVPLv; //挑戰積分(PVP積分)
+                case 3: return record.TeamRecord.StatiumLv; //球場等級
+                case 4: return record.TeamRecord.OccupyLv; //踢館等級
+                case 5: return record.TeamRecord.AvatarCount; //Avatar number
                 case 6: return 0; //收集套裝
-                case 7: return LifetimeRecord.SkillCount; //Ability number
+                case 7: return record.TeamRecord.SkillCount; //Ability number
                 case 8: return 0; //收集套卡
                 case 11: return Player.NextMainStageID; //PVE通過某關
-                case 12: return LifetimeRecord.PVEWin; //PVE獲勝數
-                case 13: return LifetimeRecord.PVEKeepWin; //PVE連勝數
+                case 12: return record.TeamRecord.PVEWin; //PVE獲勝數
+                case 13: return record.TeamRecord.PVEKeepWin; //PVE連勝數
                 case 14: return 0; //副本通過某關
-                case 15: return LifetimeRecord.SubTextWin; //副本獲勝數
-                case 16: return LifetimeRecord.SubTextKeepWin; //副本連勝數
-                case 17: return LifetimeRecord.PVPWin; //PVP獲勝數
-                case 18: return LifetimeRecord.PVPKeepWin; //PVP連勝數 
-                case 19: return LifetimeRecord.OccupyWin; //踢館獲勝數
-                case 20: return LifetimeRecord.OccupyKeepWin; //踢館連勝數
-                case 31: return Player.LifetimeRecord.Score; //總得分
-                case 32: return Player.LifetimeRecord.FGIn; //兩分球
-                case 33: return Player.LifetimeRecord.FG3In; //三分球
-                case 34: return Player.LifetimeRecord.Dunk; 
-                case 35: return Player.LifetimeRecord.Rebound;
-                case 36: return Player.LifetimeRecord.Assist;
-                case 37: return Player.LifetimeRecord.Steal;
-                case 38: return Player.LifetimeRecord.Block;
-                case 39: return Player.LifetimeRecord.Push;
-                case 40: return Player.LifetimeRecord.Knock; //擊倒
-                case 41: return Player.LifetimeRecord.DoubleClickPerfact; //Perfect數
-                case 42: return Player.LifetimeRecord.Alleyoop;
+                case 15: return record.TeamRecord.SubTextWin; //副本獲勝數
+                case 16: return record.TeamRecord.SubTextKeepWin; //副本連勝數
+                case 17: return record.TeamRecord.PVPWin; //PVP獲勝數
+                case 18: return record.TeamRecord.PVPKeepWin; //PVP連勝數 
+                case 19: return record.TeamRecord.OccupyWin; //踢館獲勝數
+                case 20: return record.TeamRecord.OccupyKeepWin; //踢館連勝數
+                case 31: return record.PlayerRecord.Score; //總得分
+                case 32: return record.PlayerRecord.FGIn; //兩分球
+                case 33: return record.PlayerRecord.FG3In; //三分球
+                case 34: return record.PlayerRecord.Dunk; 
+                case 35: return record.PlayerRecord.Rebound;
+                case 36: return record.PlayerRecord.Assist;
+                case 37: return record.PlayerRecord.Steal;
+                case 38: return record.PlayerRecord.Block;
+                case 39: return record.PlayerRecord.Push;
+                case 40: return record.PlayerRecord.Knock; //擊倒
+                case 41: return record.PlayerRecord.DoubleClickPerfact; //Perfect數
+                case 42: return record.PlayerRecord.Alleyoop;
+            }
+
+            return 0;
+        }
+
+        public int GetMissionValue(int kind, int timeKind) {
+            switch (timeKind) {
+                case 0: 
+                    GroupRecord.TeamRecord.PVPLv = PVPLv;
+                    GroupRecord.TeamRecord.StatiumLv = StatiumLv;
+                    GroupRecord.TeamRecord.OccupyLv = OccupyLv;
+                    GroupRecord.TeamRecord = LifetimeRecord;
+                    GroupRecord.TeamRecord.Lv = Player.Lv;
+                    GroupRecord.PlayerRecord = Player.PlayerRecord;
+
+                    return getMissionValue(kind, ref GroupRecord);
+                case 1: return getMissionValue(kind, ref DailyRecord);
+                case 2: return getMissionValue(kind, ref WeeklyRecord);
+                case 3: return getMissionValue(kind, ref MonthlyRecord);
             }
 
             return 0;
         }
 
         public bool MissionFinished(ref TMission mission) {
-            if (mission.Value != null && FindMissionLv(mission.ID) >= mission.Value.Length)
+            if (mission.Value != null && FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length)
                 return true;
             else
                 return false;
@@ -303,9 +364,9 @@ namespace GameStruct
 
         public bool HaveMissionAward(ref TMission mission) {
             if (mission.Value != null) {
-                int mLv = FindMissionLv(mission.ID);
+                int mLv = FindMissionLv(mission.ID, mission.TimeKind);
                 if (mLv < mission.Value.Length) {
-                    int mValue = GetMissionValue(mission.Kind);
+                    int mValue = GetMissionValue(mission.Kind, mission.TimeKind);
                     if (mValue >= mission.Value[mLv])
                         return true;
                 }
@@ -388,6 +449,22 @@ namespace GameStruct
             }
 
             return maxTotalPoint;
+        }
+
+
+        public bool NeedForSyncRecord{
+            get {return needForSyncRecord || Player.NeedForSyncRecord;}
+            set {
+                needForSyncRecord = value;
+            }
+        }
+        //Setting LifetimeRecord have to use TeamRecor for sync data from server.
+        public TTeamRecord TeamRecord {
+            get {return LifetimeRecord;}
+            set {
+                needForSyncRecord = true;
+                LifetimeRecord = value;
+            }
         }
     }
 }

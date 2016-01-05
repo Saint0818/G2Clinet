@@ -7,35 +7,6 @@ using UnityEngine;
 
 namespace GameStruct
 {
-    public struct TTeamRecord
-    {
-        public int TotalAddDiamond;
-        public int TotalDelDiamond;
-        public int BuyDiamond;
-        public int TotalAddMoney;
-        public int TotalDelMoney;
-        public int BuyMoney;
-        public int TotalAddPower;
-        public int TotalDelPower;
-        public int BuyPower;
-        public int GameTime;
-        public int GamePlayTime;
-        public int AvatarCount;
-        public int SkillCount;
-        public int PVECount;
-        public int PVEWin;
-        public int PVEKeepWin;
-        public int PVPCount;
-        public int PVPWin;
-        public int PVPKeepWin;
-        public int SubTextCount;
-        public int SubTextWin;
-        public int SubTextKeepWin;
-        public int OccupyCount;
-        public int OccupyWin;
-        public int OccupyKeepWin;
-    }
-
     public struct TLookUpData
     {
         public int SelectedRoleIndex;
@@ -354,6 +325,78 @@ namespace GameStruct
 		}
 	}
 
+    public struct TDailyRecord {
+        public Dictionary<int, int> MissionLv; //key: mission id, value: lv
+        public TTeamRecord TeamRecord;
+        public TGamePlayerRecord PlayerRecord;
+    }
+
+    public struct TTeamRecord
+    {
+        public int TotalAddDiamond; //kind 1
+        public int TotalDelDiamond;
+        public int BuyDiamond;
+        public int TotalAddMoney; //kind 2   
+        public int TotalDelMoney;
+        public int BuyMoney;
+        public int TotalAddPower; //kind 3
+        public int TotalDelPower;
+        public int BuyPower;
+        public int GameTime;
+        public int GamePlayTime;
+        public int Lv;
+        public int Exp;
+        public int PVPLv; //挑戰積分(PVP積分) kind 5
+        public int StatiumLv; //球場等級 kind 6
+        public int OccupyLv; //踢館等級 kind 7
+        public int AvatarCount; //kind 8
+        public int SkillCount; //kind 9
+        public int PVECount;
+        public int PVEWin;
+        public int PVEKeepWin;
+        public int PVPCount;
+        public int PVPWin;
+        public int PVPKeepWin;
+        public int SubTextCount;
+        public int SubTextWin;
+        public int SubTextKeepWin;
+        public int OccupyCount;
+        public int OccupyWin;
+        public int OccupyKeepWin;
+
+        public bool NeedForSync(ref TTeamRecord newRecord) {
+            if (/*newRecord.TotalAddDiamond != TotalAddDiamond ||
+                newRecord.TotalDelDiamond != TotalDelDiamond ||
+                newRecord.BuyDiamond != BuyDiamond ||
+                newRecord.TotalAddMoney != TotalAddMoney ||
+                newRecord.TotalDelMoney != TotalDelMoney ||
+                newRecord.BuyMoney != BuyMoney ||
+                newRecord.GameTime != GameTime ||
+                newRecord.GamePlayTime != GamePlayTime ||*/
+                newRecord.Lv != Lv ||
+                newRecord.PVPLv != PVPLv ||
+                newRecord.StatiumLv != StatiumLv ||
+                newRecord.OccupyLv != OccupyLv ||
+                newRecord.AvatarCount != AvatarCount ||
+                newRecord.SkillCount != SkillCount ||
+                newRecord.PVECount != PVECount ||
+                newRecord.PVEWin != PVEWin ||
+                newRecord.PVEKeepWin != PVEKeepWin ||
+                newRecord.PVPCount != PVPCount ||
+                newRecord.PVPWin != PVPWin ||
+                newRecord.PVPKeepWin != PVPKeepWin ||
+                newRecord.SubTextCount != SubTextCount ||
+                newRecord.SubTextWin != SubTextWin ||
+                newRecord.SubTextKeepWin != SubTextKeepWin ||
+                newRecord.OccupyCount != OccupyCount ||
+                newRecord.OccupyWin != OccupyWin ||
+                newRecord.OccupyKeepWin != OccupyKeepWin)
+                return true;
+            else
+                return false;
+        }
+    }
+        
 	public struct TGamePlayerRecord {
 		public int ID;
         public int GameCount;

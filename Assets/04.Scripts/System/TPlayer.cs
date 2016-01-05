@@ -64,6 +64,7 @@ namespace GameStruct
         /// </summary>
         public Dictionary<int, int> StageChallengeNums;
 
+        public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
         public TAvatar Avatar;
         public List<TSkill> ActiveSkills;
@@ -115,7 +116,7 @@ namespace GameStruct
             NowStageID = 0;
             Exp = 0;
             HeadTextureNo = -1;
-
+            NeedForSyncRecord = false;
             LifetimeRecord = new TGamePlayerRecord();
             Avatar = new TAvatar(1);
             ActiveSkills = new List<TSkill>();
@@ -652,5 +653,12 @@ namespace GameStruct
 				return 0;
         }
 
+        public TGamePlayerRecord PlayerRecord {
+            get {return LifetimeRecord;}
+            set {
+                NeedForSyncRecord = true;
+                LifetimeRecord = value;
+            }
+        }
     } // end of the struct.
 } // end of the namespace.

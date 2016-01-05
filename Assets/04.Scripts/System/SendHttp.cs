@@ -9,6 +9,12 @@ public struct TSessionResult {
 	public string sessionID;
 }
 
+public struct TDailyRecordResult {
+    public TDailyRecord DailyRecord;
+    public TDailyRecord WeeklyRecord;
+    public TDailyRecord MonthlyRecord;
+}
+
 public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
@@ -40,6 +46,7 @@ public static class URLConst {
 	public const string MainStageRewardAgain = "mainstagerewardagain";
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
+    public const string SyncDailyRecord = "syncdailyrecord";
 	public const string BuyAvatarItem = "buyavataritem";
     public const string MissionFinish = "missionfinish";
 
@@ -163,6 +170,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
 		if (!GameStart.Get.ConnectToServer)
 			return;
+        
 		waitingURL = url;
 		waitingCallback = callback;
 		waitingForm = form;
@@ -383,9 +391,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		Command(URLConst.DeviceLogin, waitDeviceLogin, form);
 	}
 	
-	private void waitDeviceLogin(bool flag, WWW www)
-	{
-		if (flag) {
+    private void waitDeviceLogin(bool ok, WWW www) {
+		if (ok) {
 			try {
 				string text = GSocket.Get.OnHttpText(www.text);
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
@@ -407,6 +414,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				} else {
 					UILoading.OpenUI = UILoading.OpenAnnouncement;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                    SyncDailyRecord();
 				}
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
@@ -414,4 +422,19 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else
 			UIHint.Get.ShowHint("Login fail.", Color.red);
 	}
+
+    public void SyncDailyRecord() {
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        Command(URLConst.SyncDailyRecord, waitSyncDailyRecord, form, false);
+    }
+
+    private void waitSyncDailyRecord(bool ok, WWW www) {
+        if (ok) {
+            TDailyRecordResult result = JsonConvert.DeserializeObject<TDailyRecordResult>(www.text, JsonSetting);
+            GameData.Team.DailyRecord = result.DailyRecord;
+            GameData.Team.WeeklyRecord = result.WeeklyRecord;
+            GameData.Team.MonthlyRecord = result.MonthlyRecord;
+        }
+    }
 }

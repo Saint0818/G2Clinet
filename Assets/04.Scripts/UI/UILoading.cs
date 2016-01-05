@@ -240,6 +240,7 @@ public class UILoading : UIBase
                         if (GameData.DSkillData.ContainsKey(skillData.ID))
                         {
                             uiAbilityDisc.SetActive(true);
+                            skillData.Lv = GameData.DSkillData[skillData.ID].MaxStar;
                             skillCard.UpdateView(0, skillData);
                         }
                     }
