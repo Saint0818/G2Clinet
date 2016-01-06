@@ -67,6 +67,7 @@ public class ValueItemAddInlayAction : ActionQueue.IAction
             // 材料不夠.
             mIsDone = true;
             Debug.Log("Show Navigation Window!");
+            UIItemSource.Get.Show();
         }
     }
 

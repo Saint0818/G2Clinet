@@ -10,7 +10,7 @@ public class UIEquipListButton : MonoBehaviour
 {
     public UISprite Icon;
     public UISprite Frame;
-    public UILabel AmountLabel;
+//    public UILabel AmountLabel;
     public UILabel NameLabel;
 
     public UISprite[] Attrs;
@@ -40,7 +40,7 @@ public class UIEquipListButton : MonoBehaviour
         Icon.atlas = item.Atlas;
         Icon.spriteName = item.Icon;
         Frame.spriteName = item.Frame;
-        AmountLabel.text = item.Num.ToString();
+//        AmountLabel.text = item.Num.ToString();
 
         setValues(item.Values);
         setInlays(item.Inlay);

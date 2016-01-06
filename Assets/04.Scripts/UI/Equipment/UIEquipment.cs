@@ -210,11 +210,6 @@ public class UIEquipment : UIBase
 
         // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
         int valueItemKind = slotIndex + 11;
-//        if(!GameData.Team.Player.ValueItems.ContainsKey(valueItemKind))
-//        {
-//            Debug.LogErrorFormat("Can't find ValueItem, kind:{0}", valueItemKind);
-//            return;
-//        }
         mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
         mActionQueue.Execute(onAddInlay);
 
