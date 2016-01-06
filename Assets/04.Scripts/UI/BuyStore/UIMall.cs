@@ -89,6 +89,7 @@ public class UIMall : UIBase {
 
 	public void OnClose () {
 		UIShow(false);
+		UIMainLobby.Get.Show();
 	}
 
 	public void ShowSkillCardHint () {

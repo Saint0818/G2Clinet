@@ -70,6 +70,10 @@ public class UIMainLobby : UIBase
         ResetCommands.Get.Run();
     }
 
+	public void ShowForLottery (bool isShow) {
+		Main.ShowForLottery(isShow);
+	}
+
     /// <summary>
     /// 更新大廳下面按鈕的狀態.
     /// </summary>

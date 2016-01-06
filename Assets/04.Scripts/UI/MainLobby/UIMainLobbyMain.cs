@@ -163,6 +163,11 @@ public class UIMainLobbyMain : MonoBehaviour
         PowerObj.SetActive(true);
     }
 
+	public void ShowForLottery (bool isShow) {
+		MoneyObj.SetActive(isShow);
+		DiamondObj.SetActive(isShow);
+	}
+
     public void Hide()
     {
         PlayExitAnimation();

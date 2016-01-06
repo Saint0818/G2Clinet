@@ -103,10 +103,12 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void FinishDrawLottery () {
+		UIMainLobby.Get.ShowForLottery(true);
 		animationBuy.SetTrigger("Finish");
 	}
 
 	public void OnAgain() {
+		UIMainLobby.Get.ShowForLottery(false);
 		if(isOneAware) {
 			if(GameData.Team.Diamond <= 30) {
 				UIHint.Get.ShowHint(TextConst.S(233), Color.white);
