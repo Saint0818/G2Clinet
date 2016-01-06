@@ -1,5 +1,4 @@
-﻿
-namespace GameEnum {
+﻿namespace GameEnum {
 	public enum ELanguage {
 		EN = 0,
 		TW = 1,
@@ -94,4 +93,13 @@ namespace GameEnum {
 		Shooting20 = 10499,
 		Dunk21 = 10799
 	}
+
+    public enum EOpenUI {
+        Equipment = 1,
+        Avatar = 2,
+        Shop = 3,
+        Social = 4,
+        Ability = 5,
+        Mission = 6
+    }
 }

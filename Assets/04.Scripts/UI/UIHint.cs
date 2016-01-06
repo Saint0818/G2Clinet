@@ -8,7 +8,7 @@ public class UIHint : UIBase
 //	private float timer = -1;
 	private UILabel mLabel;
 
-    private const float AutoHideTime = 1.8f; // 單位: 秒.
+    private const float AutoHideTime = 3f; // 單位: 秒.
 
 	public static bool Visible
 	{

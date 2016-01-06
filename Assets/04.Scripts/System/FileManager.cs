@@ -559,9 +559,11 @@ public class FileManager : KnightSingleton<FileManager> {
 			
 			TExpData[] data = (TExpData[])JsonConvert.DeserializeObject (text, typeof(TExpData[]));
 			for (int i = 0; i < data.Length; i++) {
-				if(!GameData.DExpData.ContainsKey(data[i].Lv))
+                if(!GameData.DExpData.ContainsKey(data[i].Lv)) {
 					GameData.DExpData.Add(data[i].Lv, data[i]);
-				else 
+                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey(data[i].OpenIndex))
+                        GameData.DOpenUILv.Add(data[i].OpenIndex, data[i].Lv);
+                } else
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
 			}
 			

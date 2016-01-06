@@ -229,7 +229,7 @@ public class UIMainLobby : UIBase
     private bool haveMissionAward {
         get {
             for (int j = 0; j < GameData.MissionData.Length; j++)
-                if (GameData.MissionData[j].TimeKind == 0 && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
+                if (GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
                     return true;
                 }
 

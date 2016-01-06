@@ -116,7 +116,7 @@ public class UIMission : UIBase {
                 pageObjects[i].SetActive(false);
                 
             initMissionList(nowPage);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
                 if (!redPoints[i].activeInHierarchy)
                     for (int j = 0; j < GameData.MissionData.Length; j++)
                         if (GameData.MissionData[j].TimeKind == i && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {

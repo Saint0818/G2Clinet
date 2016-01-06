@@ -552,17 +552,19 @@ namespace GameStruct
 
 		public string FacePicture {
 			get {
-                if(HeadTextureNo== -1)
-                {
-                    if (GameData.DPlayers.ContainsKey(ID))
-                    {
+                //npc
+                if (GameData.DPlayers.ContainsKey(ID)) {
+                    if (ID > 3)
                         return string.Format("{0}s", GameData.DPlayers[ID].BodyType.ToString());
+                    else { //player
+                        if(HeadTextureNo <= 0)
+                            return string.Format("{0}s", GameData.DPlayers[ID].BodyType.ToString());
+                        else
+                            return string.Format("{0}s", HeadTextureNo);
                     }
-                    else
-                        return "0s";
                 }
-                else
-                    return string.Format("{0}s", HeadTextureNo);
+                    
+                return "0s";
 			}
 		}
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using GameEnum;
 
 public class UIMainLobbyEvents : MonoBehaviour
 {
@@ -9,8 +10,14 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowAvatarFitted()
     {
-        UIAvatarFitted.UIShow(true);
-        UIMainLobby.Get.Hide();
+        int index = EOpenUI.Avatar.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UIAvatarFitted.UIShow(true);
+            UIMainLobby.Get.Hide();
+        }
     }
 
     public void ShowStage()
@@ -21,14 +28,26 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowSkillFormation()
     {
-        UISkillFormation.UIShow(true);
-        UIMainLobby.Get.Hide();
+        int index = EOpenUI.Ability.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UISkillFormation.UIShow(true);
+            UIMainLobby.Get.Hide();
+        }
     }
 
     public void ShowEquipment()
     {
-        UIEquipment.Get.Show();
-        UIMainLobby.Get.Hide();
+        int index = EOpenUI.Equipment.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UIEquipment.Get.Show();
+            UIMainLobby.Get.Hide();
+        }
     }
 
     public void ShowPlayerInfo()
@@ -45,13 +64,25 @@ public class UIMainLobbyEvents : MonoBehaviour
 	}
 
     public void OnMission() {
-        UIMainLobby.Get.Hide();
-		UIMission.Visible = true;
+        int index = EOpenUI.Mission.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UIMainLobby.Get.Hide();
+    		UIMission.Visible = true;
+        }
     }
 
     public void OnSocial() {
-        UIMainLobby.Get.Hide();
-        UISocial.Visible = true;
+        int index = EOpenUI.Social.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UIMainLobby.Get.Hide();
+            UISocial.Visible = true;
+        }
     }
 
 	public void OnShaffle () {
