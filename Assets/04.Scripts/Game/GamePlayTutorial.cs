@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GamePlayStruct;
+using GameEnum;
 
 public class TEventTrigger {
 	public GameObject Item;

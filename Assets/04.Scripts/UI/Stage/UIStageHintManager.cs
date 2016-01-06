@@ -1,4 +1,5 @@
-﻿
+﻿using GameEnum;
+
 public class UIStageHintManager{
 	/*
 	0: 顯示kind條件的內容

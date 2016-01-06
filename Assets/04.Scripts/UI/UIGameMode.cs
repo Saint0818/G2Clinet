@@ -1,4 +1,4 @@
-using GamePlayEnum;
+using GameEnum;
 using UnityEngine;
 
 public class UIGameMode: UIBase {

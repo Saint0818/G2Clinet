@@ -1,4 +1,5 @@
 ﻿using System;
+using GameEnum;
 
 public static class AITools
 {

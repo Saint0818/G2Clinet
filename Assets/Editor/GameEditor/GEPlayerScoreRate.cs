@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using GameStruct;
 
 public class GEPlayerScoreRate : GEBase {
 	private bool isChoose = false;

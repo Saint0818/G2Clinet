@@ -4,6 +4,7 @@ using System.Text;
 using G2;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 namespace AI
 {

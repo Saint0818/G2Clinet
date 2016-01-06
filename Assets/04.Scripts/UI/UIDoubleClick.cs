@@ -127,15 +127,15 @@ public struct TDoubleClick
 	{
 		switch (index) {
 		case 0:
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
+			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Weak;
 			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		case 1:
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
+			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Good;
 			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		case 2:
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
+			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Perfect;
 			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		}

@@ -1,4 +1,5 @@
-﻿using GamePlayEnum;
+﻿using GameEnum;
+using GameStruct;
 using JetBrains.Annotations;
 
 namespace AI

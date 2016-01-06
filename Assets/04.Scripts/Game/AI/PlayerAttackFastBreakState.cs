@@ -1,6 +1,7 @@
 ﻿using G2;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameStruct;
 
 namespace AI
 {

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using GameEnum;
 
 namespace AI
 {

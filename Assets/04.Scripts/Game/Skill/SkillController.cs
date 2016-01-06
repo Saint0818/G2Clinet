@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using GamePlayEnum;
 using GameStruct;
 using SkillBuffSpace;
 using DG.Tweening;
 using G2;
+using GameEnum;
 
 public struct TPassiveType {
 	public TSkill Tskill;

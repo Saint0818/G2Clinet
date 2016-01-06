@@ -1,4 +1,5 @@
-﻿
+﻿using GameEnum;
+
 namespace AI
 {
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 /// <summary>
 /// 創角中的 3D 球員.

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using GamePlayEnum;
+using GameEnum;
 
 public class AirBallTrigger : MonoBehaviour {
 	public int Team;

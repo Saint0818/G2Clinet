@@ -28,7 +28,7 @@ public class BlockTrigger : MonoBehaviour {
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team && faller.IsDunk) {
 							if(faller.IsCanBlock && !faller.IsTee) {
-								faller.PlayerSkillController.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
+								faller.PlayerSkillController.DoPassiveSkill(GameEnum.ESkillSituation.KnockDown0);
 								gameObject.SetActive (false);
 							
 								faller.SetAnger(GameConst.DelAnger_Blocked);
@@ -37,7 +37,7 @@ public class BlockTrigger : MonoBehaviour {
 								GameController.Get.IsGameFinish();
 								GameController.Get.CheckConditionText();
 								if(blocker == GameController.Get.Joysticker)
-									GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
+								GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
 							} 
 //						else {
 //								if(faller.IsBallOwner)
@@ -53,7 +53,7 @@ public class BlockTrigger : MonoBehaviour {
 			}
 		} else 
 			if (GameController.Visible && other.gameObject.CompareTag ("RealBall") && !CourtMgr.Get.IsRealBallActive && 
-			   GameController.Get.BallState == GamePlayEnum.EBallState.CanBlock) {
+			   GameController.Get.BallState == GameEnum.EBallState.CanBlock) {
 			faller = GameController.Get.Shooter;
 
 			if (faller) {
@@ -81,7 +81,7 @@ public class BlockTrigger : MonoBehaviour {
 			GameController.Get.IsGameFinish();
 			GameController.Get.CheckConditionText();
 			if(blocker == GameController.Get.Joysticker)
-				GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
+				GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
 			if (faller)
 				faller.GameRecord.BeBlock++;
 		}

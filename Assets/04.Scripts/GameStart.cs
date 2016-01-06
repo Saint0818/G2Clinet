@@ -1,6 +1,5 @@
 #define PUSHWOOSH
 using GameEnum;
-using GamePlayEnum;
 using UnityEngine;
 
 public class GameStart : MonoBehaviour {

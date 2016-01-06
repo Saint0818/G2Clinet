@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 /// <summary>
 /// 創角主程式.

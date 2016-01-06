@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 /// <summary>
 /// 搭配 UICreateRolePositionView 一起使用的介面, 專門負責球員的互動操作.

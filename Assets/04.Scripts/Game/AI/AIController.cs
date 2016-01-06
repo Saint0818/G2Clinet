@@ -2,6 +2,7 @@
 using AI;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameEnum;
 
 /// <summary>
 /// <para> 這就像是一個神物件, 對遊戲中的全部球員下達命令. 比如要球員執行什麼戰術, 並根據情況命令球員要做什麼動作

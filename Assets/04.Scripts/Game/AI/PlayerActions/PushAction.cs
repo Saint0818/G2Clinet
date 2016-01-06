@@ -1,5 +1,5 @@
 ﻿using G2;
-using GamePlayEnum;
+using GameEnum;
 using UnityEngine;
 
 namespace AI

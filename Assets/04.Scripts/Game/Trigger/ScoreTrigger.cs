@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using GamePlayEnum;
+using GameEnum;
 
 public class ScoreTrigger : MonoBehaviour
 {
