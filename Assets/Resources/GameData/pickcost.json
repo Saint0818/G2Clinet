@@ -1,0 +1,44 @@
+[
+    {
+        "nametw": "Test1",
+        "kind": 1,
+        "spendkind": 1,
+        "onepick": 30,
+        "fivepick": 120,
+        "tenpick": 250,
+        "showcard": [20642,20642,20642,20642],
+        "showitem": [1201,1201,1201,1201,1201,1201,1201],
+        "prefab": "MallboxDiamond1",
+        "order": 0,
+        "finishtimeyear": 2016,
+        "finishtimemonth": 1,
+        "finishtimeday": 7,
+        "explaintw": "Test1Explain"
+    },
+    {
+        "nametw": "Test2",
+        "kind": 6,
+        "spendkind": 2,
+        "onepick": 100000,
+        "fivepick": 400000,
+        "tenpick": 800000,
+        "showcard": [20642,20642,20642,20642],
+        "showitem": [1201,1201,1201,1201,1201,1201,1201],
+        "prefab": "MallboxDiamond1",
+        "order": 1,
+        "explaintw": "Test2Explain"
+    },
+    {
+        "nametw": "Test3",
+        "kind": 10,
+        "spendkind": 3,
+        "onepick": 100,
+        "fivepick": 350,
+        "tenpick": 800,
+        "showcard": [20642,20642,20642,20642],
+        "showitem": [1201,1201,1201,1201,1201,1201,1201],
+        "prefab": "MallboxDiamond1",
+        "order": 2,
+        "explaintw": "Test3Explain"
+    }
+]

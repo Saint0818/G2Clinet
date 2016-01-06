@@ -104,6 +104,30 @@ public class TActiveSkillCard
 		}
 	}
 
+	public void UpdateViewItemData(TItemData itemData)
+	{
+		if(isInit){
+			if (GameData.DSkillData.ContainsKey(itemData.Avatar)) {
+				self.name = itemData.ID.ToString();
+				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
+				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
+				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				if(GameFunction.IsActiveSkill(itemData.Avatar))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+			} else
+				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
 	public void UpdateViewFormation(TSkill skill, bool isEquip)
 	{
 		if(isInit){
@@ -134,6 +158,10 @@ public class TActiveSkillCard
 		{
 			Debug.LogError("You needed to Init()");
 		}
+	}
+
+	public GameObject MySkillCard {
+		get { return self;}
 	}
 	
 	public bool Enable

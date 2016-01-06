@@ -1093,9 +1093,9 @@ public class UISkillFormation : UIBase {
 						if(addItems(uicard, getActiveFieldNull)) 
 							uicard.skillCard.IsInstall = true;
 					}
-//					else UIHint.Get.ShowHint("Active is Full.", Color.red); 
+					else Debug.LogWarning ("Active is Full.");
 				} 
-//				else  UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
+				else Debug.LogWarning ("Active SN is Same."+ uicard.skillCard.Skill.SN);
 				refreshActiveItems();
 			} else {
 				if(uicard.skillCard.IsInstall) { //Selected to NoSelected
@@ -1109,7 +1109,7 @@ public class UISkillFormation : UIBase {
 			}
 			refreshCards();
 		} 
-//		else UIHint.Get.ShowHint("It's Buy State.", Color.red);
+		else Debug.LogWarning ("It's Buy State.");
 	}
 
 	public void OnCardDetailInfo (){

@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission"
+        "skillrecommend", "mission", "pickcost"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -198,7 +198,8 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[14] = parseTeamname;
 		downloadCallBack[15] = ParseTextConst;
         downloadCallBack[16] = ParseSkillRecommend;
-        downloadCallBack[17] = ParseMission;
+		downloadCallBack[17] = ParseMission;
+		downloadCallBack[18] = ParsePickCost;
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
@@ -735,4 +736,23 @@ public class FileManager : KnightSingleton<FileManager> {
             Debug.LogError ("Achievement parsed error : " + ex.Message);
         }
     }
+
+	public void ParsePickCost(string version, string text, bool isSaveVersion) {
+		try {
+			TPickCost[] data = JsonConvertWrapper.DeserializeObject<TPickCost[]>(text);
+			GameData.DPickCost = new TPickCost[data.Length];
+			for (int i = 0; i < data.Length; i++)
+				if (data[i].Order == i) {
+					GameData.DPickCost[data[i].Order] = data[i];
+				} else
+					Debug.Log("PickCost order repeat " + data[i].Order.ToString());
+
+			if (isSaveVersion)
+				SaveDataVersionAndJson(text, "textconst", version);
+
+			Debug.Log ("[PickCost parsed finished.]");
+		} catch (System.Exception ex) {
+			Debug.LogError ("PickCost parsed error : " + ex.Message);
+		}
+	}
 }

@@ -287,9 +287,15 @@ public class UISkillInfo : UIBase {
 
 	public void OnUpgrade() {
 //		UIHint.Get.ShowHint("Coming Soon.", Color.red);
-		UISkillReinforce.Get.Show(mUICard.skillCard.Skill, mUICard.CardIndex, isAlreadyEquip);
-		UISkillFormation.Get.DoFinish();
-		UIShow(false);
+		if(GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
+			if(mUICard.skillCard.Skill.Lv >= GameData.DSkillData[mUICard.skillCard.Skill.ID].MaxStar ) {
+				UIHint.Get.ShowHint(TextConst.S(556), Color.red);
+			} else {
+				UISkillReinforce.Get.Show(mUICard.skillCard.Skill, mUICard.CardIndex, isAlreadyEquip);
+				UISkillFormation.Get.DoFinish();
+				UIShow(false);
+			}
+		}
 	}
 
 }

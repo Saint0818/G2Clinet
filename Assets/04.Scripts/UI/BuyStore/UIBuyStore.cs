@@ -81,7 +81,7 @@ public class UIBuyStore : UIBase {
 		oneItem.Show(itemData);
 		tenItem.ShowAni(false);
 		animationBuy.SetTrigger("One");
-		Invoke("FinishDrawLottery", 2.5f);
+		Invoke("FinishDrawLottery", 3.3f);
 		UI3DBuyStore.Get.StartRaffle();
 	}
 

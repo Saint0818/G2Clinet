@@ -1046,100 +1046,155 @@ namespace GameStruct
         }
     }
 
-		public struct TMoveData
+	public struct TMoveData
+	{
+			public Vector2 Target
+			{
+					get { return mTarget; }
+			}
+
+			private Vector2 mTarget;
+
+			/// <summary>
+			/// 當移動到定點的時候, 要往哪個方向看.
+			/// </summary>
+			[CanBeNull]
+			public Transform LookTarget;
+			public Transform FollowTarget;
+			public PlayerBehaviour DefPlayer;
+			public OnPlayerAction2 MoveFinish;
+			public bool Speedup;
+			public bool Catcher;
+			public bool Shooting;
+			public string TacticalName;
+			// for debug.
+
+			public void Clear()
+			{
+					mTarget = Vector2.zero;
+					LookTarget = null;
+					MoveFinish = null;
+					FollowTarget = null;
+					DefPlayer = null;
+					Speedup = false;
+					Catcher = false;
+					Shooting = false;
+					TacticalName = "";
+			}
+
+			public void SetTarget(float x, float y)
+			{
+					mTarget.Set(x, y);
+			}
+	}
+
+	[System.Serializable]
+	public struct TScoreRate
+	{
+			public int TwoScoreRate;
+			public float TwoScoreRateDeviation;
+			public int ThreeScoreRate;
+			public float ThreeScoreRateDeviation;
+			public int DownHandScoreRate;
+			public int DownHandSwishRate;
+			public int DownHandAirBallRate;
+			public int UpHandScoreRate;
+			public int UpHandSwishRate;
+			public int UpHandAirBallRate;
+			public int NormalScoreRate;
+			public int NormalSwishRate;
+			public int NormalAirBallRate;
+			public int NearShotScoreRate;
+			public int NearShotSwishRate;
+			public int NearShotAirBallRate;
+			public int LayUpScoreRate;
+			public int LayUpSwishRate;
+			public int LayUpAirBallRate;
+
+			public TScoreRate(int flag)
+			{
+					TwoScoreRate = 70;
+					TwoScoreRateDeviation = 0.8f;
+					ThreeScoreRate = 50;
+					ThreeScoreRateDeviation = 0.5f;
+					DownHandScoreRate = -60;
+					DownHandSwishRate = -50;
+					DownHandAirBallRate = 35;
+					UpHandScoreRate = 20;
+					UpHandSwishRate = -30;
+					UpHandAirBallRate = 15;
+					NormalScoreRate = 0;
+					NormalSwishRate = 0;
+					NormalAirBallRate = 8;
+					NearShotScoreRate = 10;
+					NearShotSwishRate = -10;
+					NearShotAirBallRate = 3;
+					LayUpScoreRate = 20;
+					LayUpSwishRate = -20;
+					LayUpAirBallRate = 2;
+			}
+	}
+
+	public class TSkillAttribute
+	{
+			public int ID;
+			public int Kind;
+			public float Value;
+			public float CDTime;
+	}
+
+	public struct TPickCost {
+		public int Order;
+		public int Kind;
+		public int SpendKind;
+		public int OnePick;
+		public int FivePick;
+		public int TenPick;
+		public int[] ShowCard;
+		public int[] ShowItem;
+		public string Prefab;
+		public int StartTimeYear;
+		public int StartTimeMonth;
+		public int StartTimeDay;
+		public int FinishTimeYear;
+		public int FinishTimeMonth;
+		public int FinishTimeDay;
+		public int FreeTime;
+		public string nameTW;
+		public string nameCN;
+		public string nameEN;
+		public string nameJP;
+		public string explainTW;
+		public string explainCN;
+		public string explainEN;
+		public string explainJP;
+
+		public string Name
 		{
-				public Vector2 Target
+			get
+			{
+				switch(GameData.Setting.Language)
 				{
-						get { return mTarget; }
+				case ELanguage.TW: return nameTW;
+				case ELanguage.CN: return nameCN;
+				case ELanguage.JP: return nameJP;
+				default : return nameEN;
 				}
-
-				private Vector2 mTarget;
-
-				/// <summary>
-				/// 當移動到定點的時候, 要往哪個方向看.
-				/// </summary>
-				[CanBeNull]
-				public Transform LookTarget;
-				public Transform FollowTarget;
-				public PlayerBehaviour DefPlayer;
-				public OnPlayerAction2 MoveFinish;
-				public bool Speedup;
-				public bool Catcher;
-				public bool Shooting;
-				public string TacticalName;
-				// for debug.
-
-				public void Clear()
-				{
-						mTarget = Vector2.zero;
-						LookTarget = null;
-						MoveFinish = null;
-						FollowTarget = null;
-						DefPlayer = null;
-						Speedup = false;
-						Catcher = false;
-						Shooting = false;
-						TacticalName = "";
-				}
-
-				public void SetTarget(float x, float y)
-				{
-						mTarget.Set(x, y);
-				}
+			}
 		}
 
-		[System.Serializable]
-		public struct TScoreRate
+		public string Explain
 		{
-				public int TwoScoreRate;
-				public float TwoScoreRateDeviation;
-				public int ThreeScoreRate;
-				public float ThreeScoreRateDeviation;
-				public int DownHandScoreRate;
-				public int DownHandSwishRate;
-				public int DownHandAirBallRate;
-				public int UpHandScoreRate;
-				public int UpHandSwishRate;
-				public int UpHandAirBallRate;
-				public int NormalScoreRate;
-				public int NormalSwishRate;
-				public int NormalAirBallRate;
-				public int NearShotScoreRate;
-				public int NearShotSwishRate;
-				public int NearShotAirBallRate;
-				public int LayUpScoreRate;
-				public int LayUpSwishRate;
-				public int LayUpAirBallRate;
-
-				public TScoreRate(int flag)
+			get
+			{
+				switch(GameData.Setting.Language)
 				{
-						TwoScoreRate = 70;
-						TwoScoreRateDeviation = 0.8f;
-						ThreeScoreRate = 50;
-						ThreeScoreRateDeviation = 0.5f;
-						DownHandScoreRate = -60;
-						DownHandSwishRate = -50;
-						DownHandAirBallRate = 35;
-						UpHandScoreRate = 20;
-						UpHandSwishRate = -30;
-						UpHandAirBallRate = 15;
-						NormalScoreRate = 0;
-						NormalSwishRate = 0;
-						NormalAirBallRate = 8;
-						NearShotScoreRate = 10;
-						NearShotSwishRate = -10;
-						NearShotAirBallRate = 3;
-						LayUpScoreRate = 20;
-						LayUpSwishRate = -20;
-						LayUpAirBallRate = 2;
+				case ELanguage.TW: return explainTW;
+				case ELanguage.CN: return explainCN;
+				case ELanguage.JP: return explainJP;
+				default : return explainEN;
 				}
+			}
 		}
-
-		public class TSkillAttribute
-		{
-				public int ID;
-				public int Kind;
-				public float Value;
-				public float CDTime;
-		}
+	}
 }
