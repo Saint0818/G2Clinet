@@ -82,6 +82,9 @@ public class ValueItemAddInlayAction : ActionQueue.IAction
 
     private void onAddInlay(bool ok)
     {
+        if (ok)
+            UIHint.Get.ShowHint(TextConst.S(554), Color.white);
+
         mDoneResult = ok;
         mIsDone = true;
     }

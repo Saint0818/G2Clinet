@@ -18,26 +18,29 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
 
         TValueItem valueItem = GameData.Team.Player.ValueItems[mPlayerValueItemKind];
         TItemData item = GameData.DItemData[valueItem.ID];
-        if (UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
+        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
         {
             var upgradeCommand = new ValueItemUpgradeProtocol();
             // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
             upgradeCommand.Send(mPlayerValueItemKind, onUpgrade);
         }
-        else if (!UIEquipChecker.HasUpgradeItem(item))
+        else if(!UIEquipChecker.HasUpgradeItem(item))
         {
             // 是最高等級, 所以不能升級.
             Debug.Log("Top Level Item.");
+            UIHint.Get.ShowHint(TextConst.S(553), Color.white);
         }
         else if (!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
         {
             // 材料沒有鑲嵌完畢.
             Debug.Log("Inlay not full.");
+            UIHint.Get.ShowHint(TextConst.S(551), Color.white);
         }
         else if (!UIEquipChecker.HasUpgradeMoney(item))
         {
             // 沒錢.
             Debug.Log("Money not enoguh.");
+            UIHint.Get.ShowHint(TextConst.S(552), Color.white);
         }
         else
             Debug.LogError("Not Implemented check...");
@@ -55,6 +58,9 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
 
     private void onUpgrade(bool ok)
     {
+        if (ok)
+            UIHint.Get.ShowHint(TextConst.S(555), Color.white);
+
         mDoneResult = ok;
         mIsDone = true;
     }
