@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ChangeValueItemProtocol
 {
-    private CommonDelegateMethods.Action mCallback;
+    private CommonDelegateMethods.Bool1 mCallback;
 
-    public void Send(int[] changeData, CommonDelegateMethods.Action callback)
+    public void Send(int[] changeData, CommonDelegateMethods.Bool1 callback)
     {
         mCallback = callback;
 
         WWWForm form = new WWWForm();
         form.AddField("ValueItems", JsonConvert.SerializeObject(changeData));
-        SendHttp.Get.Command(URLConst.ChangeValueItems, waitChangeValueItems, form);
+        SendHttp.Get.Command(URLConst.ValueItemChange, waitChangeValueItems, form);
     }
 
     private void waitChangeValueItems(bool ok, WWW www)
@@ -29,6 +29,6 @@ public class ChangeValueItemProtocol
         else
             UIHint.Get.ShowHint(TextConst.S(534), Color.red);
 
-        mCallback();
+        mCallback(ok);
     }
 }

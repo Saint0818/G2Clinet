@@ -128,8 +128,8 @@ public static class URLConst {
     public const string GMResetStage = "gmresetstage";
     public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
-	public const string ChangeValueItems = "changevalueitems";
-	public const string AddValueItemInlay = "addvalueiteminlay";
+	public const string ValueItemChange = "valueitemchange";
+	public const string ValueItemAddInlay = "valueitemaddinlay";
 	public const string ValueItemUpgrade = "valueitemupgrade";
     public const string ChangeHeadTexture = "changeheadtexture";
 }

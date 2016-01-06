@@ -1,7 +1,7 @@
 ﻿using GameStruct;
 using UnityEngine;
 
-public class AddValueItemInlayProtocol
+public class ValueItemAddInlayProtocol
 {
     private CommonDelegateMethods.Bool1 mCallback;
 
@@ -19,12 +19,12 @@ public class AddValueItemInlayProtocol
         WWWForm form = new WWWForm();
         form.AddField("ValueItemKind", playerValueItemKind);
         form.AddField("MaterialItemIndex", storageMaterialItemIndex);
-        SendHttp.Get.Command(URLConst.AddValueItemInlay, waitAddValueItemInlay, form);
+        SendHttp.Get.Command(URLConst.ValueItemAddInlay, waitAddValueItemInlay, form);
     }
 
     private void waitAddValueItemInlay(bool ok, WWW www)
     {
-        Debug.LogFormat("AddValueItemInlay, ok:{0}", ok);
+        Debug.LogFormat("ValueItemAddInlay, ok:{0}", ok);
 
         if(ok)
         {

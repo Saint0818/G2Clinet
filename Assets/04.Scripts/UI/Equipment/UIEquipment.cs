@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -22,6 +21,7 @@ public class UIEquipment : UIBase
     private const string UIName = "UIEquipment";
 
     private UIEquipmentMain mMain;
+    private ActionQueue mActionQueue;
 
     [UsedImplicitly]
     private void Awake()
@@ -32,6 +32,8 @@ public class UIEquipment : UIBase
 
         var detail = GetComponent<UIEquipDetail>();
         detail.OnUpgradeListener += onUpgradeClick;
+
+        mActionQueue = gameObject.AddComponent<ActionQueue>();
     }
 
     [UsedImplicitly]
@@ -45,26 +47,10 @@ public class UIEquipment : UIBase
     {
         Show(true);
 
-        initUI();
-
-//        var addValueItemInlay = new AddValueItemInlayProtocol();
-//        addValueItemInlay.Send(13, 0, onAddValueItemInlay);
-
-//        var valueItemUpgrade = new ValueItemUpgradeProtocol();
-//        valueItemUpgrade.Send(11, onValueItemUpgrade);
+        updateUI();
     }
 
-//    private void onAddValueItemInlay(bool ok)
-//    {
-//        Debug.Log("onAddValueItemInlay");
-//    }
-//
-//    private void onValueItemUpgrade(bool ok)
-//    {
-//        Debug.Log("onValueItemUpgrade");
-//    }
-
-    private void initUI()
+    private void updateUI()
     {
         Dictionary<EAttribute, float> basicAttr = findBasicAttr();
         if(basicAttr == null)
@@ -179,8 +165,12 @@ public class UIEquipment : UIBase
     {
         if(mMain.IsValueItemChanged())
         {
-            var protocol = new ChangeValueItemProtocol();
-            protocol.Send(getServerChangeData(), goToMainLobby);
+            mActionQueue.Clear();
+            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+            mActionQueue.Execute(onChangeValueItem);
+
+//            var protocol = new ChangeValueItemProtocol();
+//            protocol.Send(getServerChangeData(), onChangeValueItem);
         }
         else
             goToMainLobby();
@@ -196,9 +186,15 @@ public class UIEquipment : UIBase
         return changeValueItems;
     }
 
+    private void onChangeValueItem(bool ok)
+    {
+        goToMainLobby();
+    }
+
     private void onMaterialClick(int slotIndex, int storageMaterialItemIndex)
     {
-        Debug.LogFormat("onMaterialClick, slotIndex:{0}, storageMaterialItemIndex:{1}", slotIndex, storageMaterialItemIndex);
+        Debug.LogFormat("onMaterialClick, slotIndex:{0}, storageMaterialItemIndex:{1}", 
+                        slotIndex, storageMaterialItemIndex);
 
         if(storageMaterialItemIndex < 0)
         {
@@ -207,64 +203,74 @@ public class UIEquipment : UIBase
             return;
         }
 
-        // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 已此類推.
-        int valueItemKind = slotIndex + 11;
-        if(!GameData.Team.Player.ValueItems.ContainsKey(valueItemKind))
-        {
-            Debug.LogErrorFormat("Can't find ValueItem, kind:{0}", valueItemKind);
-            return;
-        }
-        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
-        if(!GameData.DItemData.ContainsKey(valueItem.ID))
-        {
-            Debug.LogErrorFormat("Can't find ItemData, ItemID:{0}", valueItem.ID);
-            return;
-        }
-
-        if(storageMaterialItemIndex >= GameData.Team.MaterialItems.Length)
-        {
-            Debug.LogErrorFormat("Can't find MaterialItem. Index:{0}", storageMaterialItemIndex);
-            return;
-        }
-        TMaterialItem materialItem = GameData.Team.MaterialItems[storageMaterialItemIndex];
-
-        if(!GameData.DItemData.ContainsKey(valueItem.ID))
-        {
-            Debug.LogErrorFormat("Can't found ItemData, ID:{0}", valueItem.ID);
-            return;
-        }
-        TItemData itemData = GameData.DItemData[valueItem.ID];
-        if(!itemData.HasMaterial(materialItem.ID))
-        {
-            Debug.LogErrorFormat("Material is not the inlay. ItemID:{0}, MaterailItemID:{1}", itemData.ID, materialItem.ID);
-            return;
-        }
-
-        if(valueItem.HasInlay(materialItem.ID))
-        {
-            // 已鑲嵌, 點擊不做任何事情.
-            return;
-        }
-
-        if(materialItem.Num >= itemData.FindMaterialNum(materialItem.ID))
-        {
-            // 材料足夠.
-            var addInlay = new AddValueItemInlayProtocol();
-            addInlay.Send(valueItemKind, storageMaterialItemIndex, onAddInlay);
-        }
-        else
-        {
-            // 材料不夠.
-            Debug.Log("Show Navigation Window!");
-        }
+        mActionQueue.Clear();
         
+        if(mMain.IsValueItemChanged())
+            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+
+        // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
+        int valueItemKind = slotIndex + 11;
+//        if(!GameData.Team.Player.ValueItems.ContainsKey(valueItemKind))
+//        {
+//            Debug.LogErrorFormat("Can't find ValueItem, kind:{0}", valueItemKind);
+//            return;
+//        }
+        mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
+        mActionQueue.Execute(onAddInlay);
+
+//        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
+//        if(!GameData.DItemData.ContainsKey(valueItem.ID))
+//        {
+//            Debug.LogErrorFormat("Can't find ItemData, ItemID:{0}", valueItem.ID);
+//            return;
+//        }
+//
+//        if(storageMaterialItemIndex >= GameData.Team.MaterialItems.Length)
+//        {
+//            Debug.LogErrorFormat("Can't find MaterialItem. Index:{0}", storageMaterialItemIndex);
+//            return;
+//        }
+//        TMaterialItem materialItem = GameData.Team.MaterialItems[storageMaterialItemIndex];
+//
+//        if(!GameData.DItemData.ContainsKey(valueItem.ID))
+//        {
+//            Debug.LogErrorFormat("Can't found ItemData, ID:{0}", valueItem.ID);
+//            return;
+//        }
+//        TItemData itemData = GameData.DItemData[valueItem.ID];
+//        if(!itemData.HasMaterial(materialItem.ID))
+//        {
+//            Debug.LogErrorFormat("Material is not the inlay. ItemID:{0}, MaterailItemID:{1}", itemData.ID, materialItem.ID);
+//            return;
+//        }
+//
+//        if(valueItem.HasInlay(materialItem.ID))
+//        {
+//            // 已鑲嵌, 點擊不做任何事情.
+//            Debug.Log("Alreay Inaly");
+//            return;
+//        }
+//
+//        if(materialItem.Num >= itemData.FindMaterialNum(materialItem.ID))
+//        {
+//            // 材料足夠.
+////            var addInlay = new ValueItemAddInlayProtocol();
+////            addInlay.Send(valueItemKind, storageMaterialItemIndex, onAddInlay);
+//
+//            mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
+//        }
+//        else
+//        {
+//            // 材料不夠.
+//            Debug.Log("Show Navigation Window!");
+//        }
     }
 
     private void onAddInlay(bool ok)
     {
-//        Debug.LogFormat("onAddInlay, ok:{0}", ok);
+        Debug.LogFormat("onAddInlay, ok:{0}", ok);
 
-        initUI();
+        updateUI();
     }
 
     private void onUpgradeClick(int slotIndex)
@@ -272,39 +278,46 @@ public class UIEquipment : UIBase
         Debug.LogFormat("onUpgradeClick, slotIndex:{0}", slotIndex);
 
         int valueItemKind = slotIndex + 11;
-        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
-        TItemData item = GameData.DItemData[valueItem.ID];
+//        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
+//        TItemData item = GameData.DItemData[valueItem.ID];
 
-        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
-        {
-            var upgradeCommand = new ValueItemUpgradeProtocol();
-            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
-            upgradeCommand.Send(valueItemKind, onUpgrade);
-        }
-        else if(!UIEquipChecker.HasUpgradeItem(item))
-        {
-            // 是最高等級, 所以不能升級.
-            Debug.Log("Top Level Item.");
-        }
-        else if(!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
-        {
-            // 材料沒有鑲嵌完畢.
-            Debug.Log("Inlay not full.");
-        }
-        else if(!UIEquipChecker.HasUpgradeMoney(item))
-        {
-            // 沒錢.
-            Debug.Log("Money not enoguh.");
-        }
-        else
-            Debug.LogError("Not Implemented check...");
+        mActionQueue.Clear();
+        if(mMain.IsValueItemChanged())
+            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+        mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
+
+        mActionQueue.Execute(onUpgrade);
+
+//        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
+//        {
+//            var upgradeCommand = new ValueItemUpgradeProtocol();
+//            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
+//            upgradeCommand.Send(valueItemKind, onUpgrade);
+//        }
+//        else if(!UIEquipChecker.HasUpgradeItem(item))
+//        {
+//            // 是最高等級, 所以不能升級.
+//            Debug.Log("Top Level Item.");
+//        }
+//        else if(!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
+//        {
+//            // 材料沒有鑲嵌完畢.
+//            Debug.Log("Inlay not full.");
+//        }
+//        else if(!UIEquipChecker.HasUpgradeMoney(item))
+//        {
+//            // 沒錢.
+//            Debug.Log("Money not enoguh.");
+//        }
+//        else
+//            Debug.LogError("Not Implemented check...");
     }
 
     private void onUpgrade(bool ok)
     {
         Debug.LogFormat("onUpgrade, ok:{0}", ok);
 
-        initUI();
+        updateUI();
     }
 
     public void Hide()

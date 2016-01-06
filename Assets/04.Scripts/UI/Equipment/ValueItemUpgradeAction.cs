@@ -1,0 +1,61 @@
+﻿using GameStruct;
+using UnityEngine;
+
+public class ValueItemUpgradeAction : ActionQueue.IAction
+{
+    private readonly int mPlayerValueItemKind;
+    private bool mIsDone;
+    private bool mDoneResult;
+
+    public ValueItemUpgradeAction(int playerValueItemKind)
+    {
+        mPlayerValueItemKind = playerValueItemKind;
+    }
+
+    public void Do()
+    {
+        mIsDone = false;
+
+        TValueItem valueItem = GameData.Team.Player.ValueItems[mPlayerValueItemKind];
+        TItemData item = GameData.DItemData[valueItem.ID];
+        if (UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
+        {
+            var upgradeCommand = new ValueItemUpgradeProtocol();
+            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
+            upgradeCommand.Send(mPlayerValueItemKind, onUpgrade);
+        }
+        else if (!UIEquipChecker.HasUpgradeItem(item))
+        {
+            // 是最高等級, 所以不能升級.
+            Debug.Log("Top Level Item.");
+        }
+        else if (!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
+        {
+            // 材料沒有鑲嵌完畢.
+            Debug.Log("Inlay not full.");
+        }
+        else if (!UIEquipChecker.HasUpgradeMoney(item))
+        {
+            // 沒錢.
+            Debug.Log("Money not enoguh.");
+        }
+        else
+            Debug.LogError("Not Implemented check...");
+    }
+
+    public bool IsDone()
+    {
+        return mIsDone;
+    }
+
+    public bool DoneResult()
+    {
+        return mDoneResult;
+    }
+
+    private void onUpgrade(bool ok)
+    {
+        mDoneResult = ok;
+        mIsDone = true;
+    }
+}
