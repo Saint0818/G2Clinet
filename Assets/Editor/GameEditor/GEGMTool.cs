@@ -9,234 +9,256 @@ using UnityEngine;
 
 public struct TPlayerInfo
 {
-	public int Kind;
-	public int Value;
+    public int Kind;
+    public int Value;
 }
 
 public class GEGMTool : GEBase
 {
-	private int options = 0;
-	private string[] optionsTitle = new string[5]{"物品", "關卡", "戰鬥", "人物資料","其它"};
-	
+    private int options = 0;
+    private string[] optionsTitle = new string[6]{ "物品", "關卡", "戰鬥", "場景", "人物資料", "其它" };
+
     void OnGUI()
     {
-		if (EditorApplication.isPlaying) {
-			options = GUILayout.Toolbar(options, optionsTitle);
-			switch (options) {
-				case 0:
-					ItemHandle();
-					break;
-				case 1:
-					StageHandle();
-					break;
-				case 2:
-					BattleHandle();
-					break;
-				case 3:
-					PlayerInfoHandle();
-					break;
-				case 4:
-					int i = 0;
-					saveOptions = new string[Enum.GetNames(typeof(ESave)).Length];
-					foreach (ESave item in Enum.GetValues(typeof(ESave)))
-					{
-						saveOptions[i] = item.ToString();
-						i++;
-					}
-					OtherHandle();
-					break;
-			}
-		}
-		else
-			GUILayout.Label("想用？先執行遊戲再說"); 
+        if (EditorApplication.isPlaying)
+        {
+            options = GUILayout.Toolbar(options, optionsTitle);
+            switch (options)
+            {
+                case 0:
+                    ItemHandle();
+                    break;
+                case 1:
+                    StageHandle();
+                    break;
+                case 2:
+                    BattleHandle();
+                    break;
+                case 3:
+                    SceneHandle();
+                    break;
+                case 4:
+                    PlayerInfoHandle();
+                    break;
+                case 5:
+                    int i = 0;
+                    saveOptions = new string[Enum.GetNames(typeof(ESave)).Length];
+                    foreach (ESave item in Enum.GetValues(typeof(ESave)))
+                    {
+                        saveOptions[i] = item.ToString();
+                        i++;
+                    }
+                    OtherHandle();
+                    break;
+            }
+        }
+        else
+            GUILayout.Label("想用？先執行遊戲再說"); 
     }
 
-	private int addItemCount = 1;
-	private int[] itemIds;
-	private int[] NumberOfItems;
-	private string mArea = "---------------------------------------------------------------------------------------------";
-	private int countprekind = 1;
-	private int playerPosition = 0;
+    private int addItemCount = 1;
+    private int[] itemIds;
+    private int[] NumberOfItems;
+    private string mArea = "---------------------------------------------------------------------------------------------";
+    private int countprekind = 1;
+    private int playerPosition = 0;
 
-	private void ItemHandle()
-	{
-		EditorGUILayout.LabelField(mArea);
+    private void ItemHandle()
+    {
+        EditorGUILayout.LabelField(mArea);
 
-		//Add Item
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("物品陣列 : "); 
-		addItemCount = EditorGUILayout.IntField (addItemCount, GUILayout.Width(100));
-		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
-			itemIds = new int[addItemCount];
-			NumberOfItems = new int[addItemCount];
-			for (int i = 0; i < itemIds.Length; i++) {
-					itemIds [i] = -1;
-					NumberOfItems[i] = 1;
-			}
-		}
-		EditorGUILayout.EndHorizontal();
+        //Add Item
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("物品陣列 : "); 
+        addItemCount = EditorGUILayout.IntField(addItemCount, GUILayout.Width(100));
+        if (GUILayout.Button("設定", GUILayout.Width(200)))
+        {
+            itemIds = new int[addItemCount];
+            NumberOfItems = new int[addItemCount];
+            for (int i = 0; i < itemIds.Length; i++)
+            {
+                itemIds[i] = -1;
+                NumberOfItems[i] = 1;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
 
-		if(itemIds != null && itemIds.Length > 0)
-			for (int i = 0; i < itemIds.Length; i++) {
-				EditorGUILayout.BeginHorizontal ();
-				GUILayout.Label("物品編號 : "); 
-				itemIds[i] = EditorGUILayout.IntField (itemIds[i], GUILayout.Width(100));
-				GUILayout.Label("物品數量 : "); 
-				NumberOfItems[i] = EditorGUILayout.IntField (NumberOfItems[i], GUILayout.Width(100));
-				EditorGUILayout.EndHorizontal ();
-			}
+        if (itemIds != null && itemIds.Length > 0)
+            for (int i = 0; i < itemIds.Length; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Label("物品編號 : "); 
+                itemIds[i] = EditorGUILayout.IntField(itemIds[i], GUILayout.Width(100));
+                GUILayout.Label("物品數量 : "); 
+                NumberOfItems[i] = EditorGUILayout.IntField(NumberOfItems[i], GUILayout.Width(100));
+                EditorGUILayout.EndHorizontal();
+            }
 
-		EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
 
-		if (GUILayout.Button("AddItem", GUILayout.Width(200)))
-		{
-			if(itemIds != null && itemIds.Length > 0){
-				WWWForm form = new WWWForm();
-				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds));
-				form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(NumberOfItems));
-				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
-			}
-			else
-				ShowHint("請設定Item數量");
-		}
+        if (GUILayout.Button("AddItem", GUILayout.Width(200)))
+        {
+            if (itemIds != null && itemIds.Length > 0)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds));
+                form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(NumberOfItems));
+                SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
+            }
+            else
+                ShowHint("請設定Item數量");
+        }
 
-		if (GUILayout.Button("Remove", GUILayout.Width(200)))
-		{
-			if(itemIds != null && itemIds.Length > 0){
-			WWWForm form = new WWWForm();
-			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(itemIds));
-			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
-			}
-			else
-				ShowHint("請設定Item數量");
-		}
+        if (GUILayout.Button("Remove", GUILayout.Width(200)))
+        {
+            if (itemIds != null && itemIds.Length > 0)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("RemoveIndexs", JsonConvert.SerializeObject(itemIds));
+                SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
+            }
+            else
+                ShowHint("請設定Item數量");
+        }
 
-		if(GUILayout.Button("刪除背包", GUILayout.Width(200)))
-		{
-			WWWForm form = new WWWForm();
-			form.AddField("RemoveAll", "true");
-			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
-		}
-		EditorGUILayout.EndHorizontal();
+        if (GUILayout.Button("刪除背包", GUILayout.Width(200)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("RemoveAll", "true");
+            SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
+        }
+        EditorGUILayout.EndHorizontal();
 
 
-		PrePartAddItem ();
-		LimitPartAddItem();
-	}
+        PrePartAddItem();
+        LimitPartAddItem();
+    }
 
-	private int AvatarPotential = 0;
-	private int CrtAvatarPotential = 0;
-	private int LvPotential = 0;
-	private int CrtLvPotential = 0;
+    private int AvatarPotential = 0;
+    private int CrtAvatarPotential = 0;
+    private int LvPotential = 0;
+    private int CrtLvPotential = 0;
 
-	private int playerlv = 0;
-	private int avatarPotential = 0;
-	private bool IsInitPlayerInfo = false;
-	private int useLvPotential = 0;
-	private int useAvatarPotential = 0;
-	private int[] addPotential = new int[GameConst.PotentialCount];
-	private Dictionary<EAttribute, int> Potential = new Dictionary<EAttribute, int> ();
-	
-	private void InitPotentialPoint()
-	{
-		AvatarPotential = GameData.Team.AvatarPotential;
-		avatarPotential = AvatarPotential;
-		LvPotential = GameFunction.GetLvPotential (GameData.Team.Player.Lv);
-		CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential();
-		CrtLvPotential = GameFunction.GetCurrentLvPotential(GameData.Team.Player);
-	}
+    private int playerlv = 0;
+    private int avatarPotential = 0;
+    private bool IsInitPlayerInfo = false;
+    private int useLvPotential = 0;
+    private int useAvatarPotential = 0;
+    private int[] addPotential = new int[GameConst.PotentialCount];
+    private Dictionary<EAttribute, int> Potential = new Dictionary<EAttribute, int>();
 
-	private void PlayerInfoHandle()
-	{
-		if (GUILayout.Button ("讀取資料", GUILayout.Width (200))) {
-			playerlv = GameData.Team.Player.Lv;
-			Potential = GameData.Team.Player.Potential;
-			InitPotentialPoint();
-			IsInitPlayerInfo = true; 
-		}
+    private void InitPotentialPoint()
+    {
+        AvatarPotential = GameData.Team.AvatarPotential;
+        avatarPotential = AvatarPotential;
+        LvPotential = GameFunction.GetLvPotential(GameData.Team.Player.Lv);
+        CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential();
+        CrtLvPotential = GameFunction.GetCurrentLvPotential(GameData.Team.Player);
+    }
 
-		if (!IsInitPlayerInfo)
-			return;
+    private void PlayerInfoHandle()
+    {
+        if (GUILayout.Button("讀取資料", GUILayout.Width(200)))
+        {
+            playerlv = GameData.Team.Player.Lv;
+            Potential = GameData.Team.Player.Potential;
+            InitPotentialPoint();
+            IsInitPlayerInfo = true; 
+        }
 
-		SetPlayeLv ();
-		AddAvatarPotential ();
+        if (!IsInitPlayerInfo)
+            return;
 
-		if (Potential.Count > 0) {
-			foreach(KeyValuePair<EAttribute, int> item in Potential)
-			{
-				EditorGUILayout.BeginHorizontal();
-				GUILayout.Label(string.Format("{0} : {1} + {2}/100", item.Key.ToString(), item.Value, addPotential[GameFunction.GetAttributeIndex(item.Key)])); 
-				if (GUILayout.Button ("+", GUILayout.Width (200))) {
-					if(CrtAvatarPotential > 0 &&  item.Value < 100)
-					{
-						if(CanUsePotential(GameFunction.GetAttributeIndex(item.Key))){
-							addPotential[GameFunction.GetAttributeIndex(item.Key)]++;
-							CalculateAddPotential();
-						}
-					}
-				}
-				EditorGUILayout.EndHorizontal();
-			}
-		}
+        SetPlayeLv();
+        AddAvatarPotential();
 
-		EditorGUILayout.BeginHorizontal();
-		if(GUILayout.Button("取消配點", GUILayout.Width(50))){
-			for(int i = 0;i < addPotential.Length; i++)
-				addPotential[i] = 0;
+        if (Potential.Count > 0)
+        {
+            foreach (KeyValuePair<EAttribute, int> item in Potential)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Label(string.Format("{0} : {1} + {2}/100", item.Key.ToString(), item.Value, addPotential[GameFunction.GetAttributeIndex(item.Key)])); 
+                if (GUILayout.Button("+", GUILayout.Width(200)))
+                {
+                    if (CrtAvatarPotential > 0 && item.Value < 100)
+                    {
+                        if (CanUsePotential(GameFunction.GetAttributeIndex(item.Key)))
+                        {
+                            addPotential[GameFunction.GetAttributeIndex(item.Key)]++;
+                            CalculateAddPotential();
+                        }
+                    }
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("取消配點", GUILayout.Width(50)))
+        {
+            for (int i = 0; i < addPotential.Length; i++)
+                addPotential[i] = 0;
 			
-			CalculateAddPotential();
-		}
+            CalculateAddPotential();
+        }
 
-		if(GUILayout.Button("重置", GUILayout.Width(50))){
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        {
 //			for(int i = 0;i < Potential.Length; i++)
 //				Potential[i] = 0;
 //
 //			InitPotentialPoint();
-		}
+        }
 
-		if (GUILayout.Button ("存檔", GUILayout.Width (200))) {
-			if(HaveChange()){
-				WWWForm form = new WWWForm();
-				Dictionary<EAttribute, int> save = new Dictionary<EAttribute, int>();
-				save = GameFunction.SumAttribute (GameData.Team.Player.Potential, addPotential);
+        if (GUILayout.Button("存檔", GUILayout.Width(200)))
+        {
+            if (HaveChange())
+            {
+                WWWForm form = new WWWForm();
+                Dictionary<EAttribute, int> save = new Dictionary<EAttribute, int>();
+                save = GameFunction.SumAttribute(GameData.Team.Player.Potential, addPotential);
 
-				form.AddField("Potential", JsonConvert.SerializeObject(save));
-				SendHttp.Get.Command(URLConst.GMSavePotential, waitSaveMasteries, form);
-			}
+                form.AddField("Potential", JsonConvert.SerializeObject(save));
+                SendHttp.Get.Command(URLConst.GMSavePotential, waitSaveMasteries, form);
+            }
 
 
-		}
-		EditorGUILayout.EndHorizontal();
-	}
-	
-	private int deleteSelected = 0;
-	private string[] saveOptions;
-	private void OtherHandle()
-	{
-		if (GUILayout.Button ("刪除玩家all存檔", GUILayout.Width (200))) {
-			PlayerPrefs.DeleteAll();
-		}
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
-		EditorGUILayout.BeginHorizontal();
-		deleteSelected = EditorGUILayout.Popup("刪除玩家single存檔",deleteSelected, saveOptions);
-		if (GUILayout.Button ("刪除", GUILayout.Width (200))) {
-			PlayerPrefs.DeleteKey(saveOptions[deleteSelected]);
-		}
-		EditorGUILayout.EndHorizontal();
+    private int deleteSelected = 0;
+    private string[] saveOptions;
+
+    private void OtherHandle()
+    {
+        if (GUILayout.Button("刪除玩家all存檔", GUILayout.Width(200)))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        deleteSelected = EditorGUILayout.Popup("刪除玩家single存檔", deleteSelected, saveOptions);
+        if (GUILayout.Button("刪除", GUILayout.Width(200)))
+        {
+            PlayerPrefs.DeleteKey(saveOptions[deleteSelected]);
+        }
+        EditorGUILayout.EndHorizontal();
 
         addMoney();
-	    addDiamond();
+        addDiamond();
         addPower();
         addExp();
-	}
+    }
 
     private int mAddMoney;
+
     private void addMoney()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Add Money");
         mAddMoney = EditorGUILayout.IntField(mAddMoney, GUILayout.Width(100));
-        if(GUILayout.Button("Add", GUILayout.Width(50)))
+        if (GUILayout.Button("Add", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("AddMoney", mAddMoney);
@@ -259,6 +281,7 @@ public class GEGMTool : GEBase
     }
 
     private int mAddDiamond;
+
     private void addDiamond()
     {
         EditorGUILayout.BeginHorizontal();
@@ -287,6 +310,7 @@ public class GEGMTool : GEBase
     }
 
     private int mAddPower;
+
     private void addPower()
     {
         EditorGUILayout.BeginHorizontal();
@@ -315,6 +339,7 @@ public class GEGMTool : GEBase
     }
 
     private int mAddExp;
+
     private void addExp()
     {
         EditorGUILayout.BeginHorizontal();
@@ -336,6 +361,7 @@ public class GEGMTool : GEBase
         [UsedImplicitly]
         public int Lv;
     }
+
     private void waitGMAddExp(bool ok, WWW www)
     {
         Debug.LogFormat("waitGMAddExp, ok:{0}", ok);
@@ -351,290 +377,312 @@ public class GEGMTool : GEBase
     }
 
     private bool HaveChange()
-	{
-		for (int i = 0; i< addPotential.Length; i++)
-			if (addPotential [i] > 0)
-				return true;
+    {
+        for (int i = 0; i < addPotential.Length; i++)
+            if (addPotential[i] > 0)
+                return true;
 
-		return false;
-	}
+        return false;
+    }
 
-	private bool CanUsePotential(int index)
-	{
-		return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential + GameConst.PotentialRule [index];
-	}
+    private bool CanUsePotential(int index)
+    {
+        return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential + GameConst.PotentialRule[index];
+    }
 
-	private void CalculateAddPotential()
-	{
-		int count = 0;
-		for (int i = 0; i < addPotential.Length; i++) {
-			count += addPotential[i] * GameConst.PotentialRule[i];
-		}
+    private void CalculateAddPotential()
+    {
+        int count = 0;
+        for (int i = 0; i < addPotential.Length; i++)
+        {
+            count += addPotential[i] * GameConst.PotentialRule[i];
+        }
 
-		if (CrtLvPotential >= count) {
-			useLvPotential = count;
-			useAvatarPotential = 0;
-		}
-		else {
-			useLvPotential = CrtLvPotential;
-			useAvatarPotential = count - CrtLvPotential;
-		}
-	}
+        if (CrtLvPotential >= count)
+        {
+            useLvPotential = count;
+            useAvatarPotential = 0;
+        }
+        else
+        {
+            useLvPotential = CrtLvPotential;
+            useAvatarPotential = count - CrtLvPotential;
+        }
+    }
 
-	private void SetPlayeLv()
-	{
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label(string.Format("等級潛能點 : {0} - {1} / {2}", CrtLvPotential, useLvPotential,LvPotential)); 
-		GUILayout.Label(", 設定人物等級 : "); 
-		playerlv = EditorGUILayout.IntField (playerlv, GUILayout.Width(100));
+    private void SetPlayeLv()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label(string.Format("等級潛能點 : {0} - {1} / {2}", CrtLvPotential, useLvPotential, LvPotential)); 
+        GUILayout.Label(", 設定人物等級 : "); 
+        playerlv = EditorGUILayout.IntField(playerlv, GUILayout.Width(100));
 		
-		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
-			if(playerlv != GameData.Team.Player.Lv){
-				WWWForm form = new WWWForm();
-				form.AddField("Lv", playerlv);
-				SendHttp.Get.Command(URLConst.GMSetLv, waitGMPlayerInfo, form);
-			}
-			else
-				ShowHint("請設定Player Lv");
-		}
-		EditorGUILayout.EndHorizontal();
-	}
+        if (GUILayout.Button("設定", GUILayout.Width(200)))
+        {
+            if (playerlv != GameData.Team.Player.Lv)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("Lv", playerlv);
+                SendHttp.Get.Command(URLConst.GMSetLv, waitGMPlayerInfo, form);
+            }
+            else
+                ShowHint("請設定Player Lv");
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
-	private void AddAvatarPotential()
-	{
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label(string.Format("裝備潛能點 : {0} - {1} / {2}", CrtAvatarPotential, useAvatarPotential, AvatarPotential)); 
-		GUILayout.Label(", 設定裝備潛能點 : "); 
-		avatarPotential = EditorGUILayout.IntField (avatarPotential, GUILayout.Width(100));
+    private void AddAvatarPotential()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label(string.Format("裝備潛能點 : {0} - {1} / {2}", CrtAvatarPotential, useAvatarPotential, AvatarPotential)); 
+        GUILayout.Label(", 設定裝備潛能點 : "); 
+        avatarPotential = EditorGUILayout.IntField(avatarPotential, GUILayout.Width(100));
 		
-		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
-			if(avatarPotential > 0){
-				WWWForm form = new WWWForm();
-				form.AddField("AvatarPotential", avatarPotential);
-				SendHttp.Get.Command(URLConst.GMAddAvatarPotential, waitGMAddAvatarPotential, form);
-			}
-			else
-				ShowHint("請設定AvatarPotential");
-		}
-		EditorGUILayout.EndHorizontal();
-	}
+        if (GUILayout.Button("設定", GUILayout.Width(200)))
+        {
+            if (avatarPotential > 0)
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("AvatarPotential", avatarPotential);
+                SendHttp.Get.Command(URLConst.GMAddAvatarPotential, waitGMAddAvatarPotential, form);
+            }
+            else
+                ShowHint("請設定AvatarPotential");
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
-	List<int> itemIds2 = new List<int>();
-	int[] NumberOfItems2;
+    List<int> itemIds2 = new List<int>();
+    int[] NumberOfItems2;
 
-	//每部位加Item
-	private void PrePartAddItem()
-	{
-		EditorGUILayout.LabelField(mArea);
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("位置： : "); 
-		playerPosition = EditorGUILayout.IntField (playerPosition, GUILayout.Width(30));
-		GUILayout.Label ("(中鋒: 0 、前鋒：1、後衛：２)");
+    //每部位加Item
+    private void PrePartAddItem()
+    {
+        EditorGUILayout.LabelField(mArea);
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("位置： : "); 
+        playerPosition = EditorGUILayout.IntField(playerPosition, GUILayout.Width(30));
+        GUILayout.Label("(中鋒: 0 、前鋒：1、後衛：２)");
 		
-		GUILayout.Label("各部位＋ : "); 
-		countprekind = EditorGUILayout.IntField (countprekind, GUILayout.Width(30));
-		GUILayout.Label("個"); 
+        GUILayout.Label("各部位＋ : "); 
+        countprekind = EditorGUILayout.IntField(countprekind, GUILayout.Width(30));
+        GUILayout.Label("個"); 
 		
-		if (GUILayout.Button("Add", GUILayout.Width(200)))
-		{
-			//note : Item data all kind 
-			int findCount = 0;
-			int currentkind = 0;
-			itemIds2.Clear();
+        if (GUILayout.Button("Add", GUILayout.Width(200)))
+        {
+            //note : Item data all kind 
+            int findCount = 0;
+            int currentkind = 0;
+            itemIds2.Clear();
 
-			foreach( KeyValuePair<int, TItemData> item in GameData.DItemData ){
-				if(item.Value.Kind > 0){
-					if(currentkind != item.Value.Kind){
-						findCount = 0;
-						currentkind = item.Value.Kind;
-					}
-					else{
-						if(findCount < countprekind){
-							if(item.Value.Kind < 6 && item.Value.Position == playerPosition){
-								itemIds2.Add(item.Value.ID);
-							}
-							else
-								itemIds2.Add(item.Value.ID);
+            foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
+            {
+                if (item.Value.Kind > 0)
+                {
+                    if (currentkind != item.Value.Kind)
+                    {
+                        findCount = 0;
+                        currentkind = item.Value.Kind;
+                    }
+                    else
+                    {
+                        if (findCount < countprekind)
+                        {
+                            if (item.Value.Kind < 6 && item.Value.Position == playerPosition)
+                            {
+                                itemIds2.Add(item.Value.ID);
+                            }
+                            else
+                                itemIds2.Add(item.Value.ID);
 
-							findCount++;
-						}
-					}
-				}
-			}
+                            findCount++;
+                        }
+                    }
+                }
+            }
 
-			NumberOfItems2 = new int[itemIds2.Count];
-			for (int i = 0; i < NumberOfItems2.Length; i++)
-				NumberOfItems2 [i] = 1;	
+            NumberOfItems2 = new int[itemIds2.Count];
+            for (int i = 0; i < NumberOfItems2.Length; i++)
+                NumberOfItems2[i] = 1;	
 						
-			if (itemIds2 != null && itemIds2.Count > 0)
-				SendGMAddItem (itemIds2, NumberOfItems2);
-			else
-				ShowHint("請設定Item數量");
-		}
+            if (itemIds2 != null && itemIds2.Count > 0)
+                SendGMAddItem(itemIds2, NumberOfItems2);
+            else
+                ShowHint("請設定Item數量");
+        }
 		
-		EditorGUILayout.EndHorizontal();
-	}
+        EditorGUILayout.EndHorizontal();
+    }
 	
-	//指定部位加Item
-	private int limitposition = 0;
-	private int limitcountprekind = 1;
-	private int limitItemkind = 0;
-	private int[] itemIds3;
-	private int [] NumberOfItems3;
+    //指定部位加Item
+    private int limitposition = 0;
+    private int limitcountprekind = 1;
+    private int limitItemkind = 0;
+    private int[] itemIds3;
+    private int[] NumberOfItems3;
 
 
-	private void LimitPartAddItem()
-	{
-		EditorGUILayout.LabelField(mArea);
-		EditorGUILayout.BeginHorizontal();
+    private void LimitPartAddItem()
+    {
+        EditorGUILayout.LabelField(mArea);
+        EditorGUILayout.BeginHorizontal();
 
-		GUILayout.Label("位置:"); 
-		limitposition = EditorGUILayout.IntField (limitposition, GUILayout.Width(30));
-		GUILayout.Label ("(中鋒: 0 、前鋒：1、後衛：２)");
+        GUILayout.Label("位置:"); 
+        limitposition = EditorGUILayout.IntField(limitposition, GUILayout.Width(30));
+        GUILayout.Label("(中鋒: 0 、前鋒：1、後衛：２)");
 
-		GUILayout.Label("部位:(Kind) "); 
-		limitItemkind = EditorGUILayout.IntField (limitItemkind, GUILayout.Width(30));
+        GUILayout.Label("部位:(Kind) "); 
+        limitItemkind = EditorGUILayout.IntField(limitItemkind, GUILayout.Width(30));
 
-		if (limitItemkind > 7)
-			ShowHint ("Error Kind : " + limitItemkind);
+        if (limitItemkind > 7)
+            ShowHint("Error Kind : " + limitItemkind);
 		
-		GUILayout.Label("各部位＋ : "); 
-		limitcountprekind = EditorGUILayout.IntField (limitcountprekind, GUILayout.Width(30));
-		GUILayout.Label("個"); 
+        GUILayout.Label("各部位＋ : "); 
+        limitcountprekind = EditorGUILayout.IntField(limitcountprekind, GUILayout.Width(30));
+        GUILayout.Label("個"); 
 		
-		if (GUILayout.Button("Add", GUILayout.Width(200)))
-		{
-			int findCount;
+        if (GUILayout.Button("Add", GUILayout.Width(200)))
+        {
+            int findCount;
 //			itemIds3 = new int[limitcountprekind];
-			findCount = 0;
-			List<int> itemIds3 = new List<int>();
+            findCount = 0;
+            List<int> itemIds3 = new List<int>();
 				
-			foreach( KeyValuePair<int, TItemData> item in GameData.DItemData )
-			{
-				if(limitItemkind < 6)
-				{
-					if(item.Value.Kind == limitItemkind && item.Value.Position == limitposition)
-					{
-						if(findCount < countprekind){
-							itemIds3.Add(item.Value.ID);
+            foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
+            {
+                if (limitItemkind < 6)
+                {
+                    if (item.Value.Kind == limitItemkind && item.Value.Position == limitposition)
+                    {
+                        if (findCount < countprekind)
+                        {
+                            itemIds3.Add(item.Value.ID);
 //							itemIds3[findCount] = item.Value.ID;
-							findCount++;
-						}
-						else
-							continue;
-					}
-				}
-				else
-				{
-					if(item.Value.Kind == limitItemkind)
-					{
-						if(findCount < limitcountprekind){
-							itemIds3.Add(item.Value.ID);
+                            findCount++;
+                        }
+                        else
+                            continue;
+                    }
+                }
+                else
+                {
+                    if (item.Value.Kind == limitItemkind)
+                    {
+                        if (findCount < limitcountprekind)
+                        {
+                            itemIds3.Add(item.Value.ID);
 //							itemIds3[findCount] = item.Value.ID;
-							findCount++;
-						}
-						else
-							continue;
-					}
-				}
-			}
+                            findCount++;
+                        }
+                        else
+                            continue;
+                    }
+                }
+            }
 
-			NumberOfItems3 = new int[itemIds3.Count];
+            NumberOfItems3 = new int[itemIds3.Count];
 
-			for(int i = 0; i < itemIds3.Count; i++)
-			{
-				NumberOfItems3 [i] = 1;
-			}
+            for (int i = 0; i < itemIds3.Count; i++)
+            {
+                NumberOfItems3[i] = 1;
+            }
 
-			if(itemIds3 != null && itemIds3.Count > 0){
-				SendGMAddItem (itemIds3, NumberOfItems3);
-			}
-			else
-				ShowHint("請設定Item數量");
-		}
+            if (itemIds3 != null && itemIds3.Count > 0)
+            {
+                SendGMAddItem(itemIds3, NumberOfItems3);
+            }
+            else
+                ShowHint("請設定Item數量");
+        }
 		
-		EditorGUILayout.EndHorizontal();
-	}
+        EditorGUILayout.EndHorizontal();
+    }
 
-	private void SendGMAddItem(List<int> addindexs, int[] numberofitems)
-	{
-		WWWForm form = new WWWForm();
-		form.AddField("AddIndexs", JsonConvert.SerializeObject(addindexs));
-		form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(numberofitems));
-		SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
-	}
+    private void SendGMAddItem(List<int> addindexs, int[] numberofitems)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("AddIndexs", JsonConvert.SerializeObject(addindexs));
+        form.AddField("AddNumberOfItems", JsonConvert.SerializeObject(numberofitems));
+        SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
+    }
 
-	private void waitGMAddItem(bool ok, WWW www)
-	{
-		if(ok)
-		{
+    private void waitGMAddItem(bool ok, WWW www)
+    {
+        if (ok)
+        {
 //			ShowHint("Server Return : " + www.text);
 
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Items = team.Items;
-			GameData.Team.MaterialItems = team.MaterialItems;
-			if(team.Items.Length > 0)
-				for(int i = 0; i < team.Items.Length; i++)
-					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
-						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
-		    GameData.Team.SkillCards = team.SkillCards;
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Items = team.Items;
+            GameData.Team.MaterialItems = team.MaterialItems;
+            if (team.Items.Length > 0)
+                for (int i = 0; i < team.Items.Length; i++)
+                    if (GameData.DItemData.ContainsKey(team.Items[i].ID))
+                        Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
+            GameData.Team.SkillCards = team.SkillCards;
 
-			if(UIAvatarFitted.Visible)
-				UIAvatarFitted.Get.UpdateAvatar(true);
-            if(UIEquipment.Get.Visible)
+            if (UIAvatarFitted.Visible)
+                UIAvatarFitted.Get.UpdateAvatar(true);
+            if (UIEquipment.Get.Visible)
                 UIEquipment.Get.Show();
-		}
-		else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
-	}
-	
-	private void waitGMPlayerInfo(bool ok, WWW www)
-	{
-		if(ok){
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
-			GameData.Team.Player.Lv = team.Player.Lv;
-			GameData.Team.Player.Exp = team.Player.Exp;
-			GameData.Team.AvatarPotential = team.AvatarPotential;
-			InitPotentialPoint();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
+    }
 
-            if(UIMainLobby.Get.IsVisible)
+    private void waitGMPlayerInfo(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
+            GameData.Team.Player.Lv = team.Player.Lv;
+            GameData.Team.Player.Exp = team.Player.Exp;
+            GameData.Team.AvatarPotential = team.AvatarPotential;
+            InitPotentialPoint();
+
+            if (UIMainLobby.Get.IsVisible)
                 UIMainLobby.Get.Show();
-		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
-	}
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
+    }
 
-	private void waitGMAddAvatarPotential(bool ok, WWW www)
-	{
-		if (ok) {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.AvatarPotential = team.AvatarPotential;
-			InitPotentialPoint();
-		}
-	}
+    private void waitGMAddAvatarPotential(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.AvatarPotential = team.AvatarPotential;
+            InitPotentialPoint();
+        }
+    }
 
-	private void waitSaveMasteries(bool ok, WWW www)
-	{
-		if(ok){
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Player.Potential = team.Player.Potential;
-		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
-	}
+    private void waitSaveMasteries(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Player.Potential = team.Player.Potential;
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
+    }
 
     private int mNextMainStageID = GameConst.Default_MainStageID;
-	private void StageHandle()
-	{
-	    nextMainStageIDLabel();
+
+    private void StageHandle()
+    {
+        nextMainStageIDLabel();
         resetStageChallengeNums();
-	}
+    }
 
     private void nextMainStageIDLabel()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("NextMainStageID: ");
         mNextMainStageID = EditorGUILayout.IntField(mNextMainStageID, GUILayout.Width(100));
-        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        if (GUILayout.Button("設定", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("NextMainStageID", mNextMainStageID);
@@ -647,7 +695,7 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitGMSetNextMainStageID, ok:{0}", ok);
 
-        if(ok)
+        if (ok)
         {
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
@@ -661,7 +709,7 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("每日關卡限制: ");
-        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             SendHttp.Get.Command(URLConst.GMResetStage, waitGMResetStage, form);
@@ -673,7 +721,7 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitGMResetStage, ok:{0}", ok);
 
-        if(ok)
+        if (ok)
         {
             GameData.Team.Player.StageChallengeNums.Clear();
             updateUIMainStage();
@@ -684,7 +732,7 @@ public class GEGMTool : GEBase
 
     private void updateUIMainStage()
     {
-        if(UIMainStage.Get.Visible)
+        if (UIMainStage.Get.Visible)
         {
             UIMainStage.Get.Hide();
             UIMainStage.Get.Show();
@@ -692,20 +740,35 @@ public class GEGMTool : GEBase
     }
 
     private void BattleHandle()
-	{
-		if(GameController.Visible && GameController.Get.IsStart) {
+    {
+        if (GameController.Visible && GameController.Get.IsStart)
+        {
 
-			if(GUILayout.Button("Self Victory", GUILayout.Width(150)))
-			{
-				GameController.Get.GMGameResult(true);
-			}
+            if (GUILayout.Button("Self Victory", GUILayout.Width(150)))
+            {
+                GameController.Get.GMGameResult(true);
+            }
 			
-			if(GUILayout.Button("Self Defeat", GUILayout.Width(150)))
-			{
-				GameController.Get.GMGameResult(false);
-			}
-		}
-	}
+            if (GUILayout.Button("Self Defeat", GUILayout.Width(150)))
+            {
+                GameController.Get.GMGameResult(false);
+            }
+        }
+    }
+
+    private int sceneNo = 0;
+
+    private void SceneHandle()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("場景編號: ");
+        sceneNo = EditorGUILayout.IntField(sceneNo, GUILayout.Width(30));
+        if (GUILayout.Button("切換", GUILayout.Width(50)))
+        {
+            SceneMgr.Get.ChangeLevel(sceneNo);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
     private void ShowHint(string str)
     {
