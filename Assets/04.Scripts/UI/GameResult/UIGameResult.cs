@@ -529,20 +529,24 @@ public class UIGameResult : UIBase {
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
 			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {
 
-			} else {
-				WWWForm form = new WWWForm();
-				form.AddField("StageID", stageID);
-				SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
+			}
+            else
+            {
+//				WWWForm form = new WWWForm();
+//				form.AddField("StageID", stageID);
+//				SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
+                MainStageWinProtocol winProtocol = new MainStageWinProtocol();
+                winProtocol.Send(stageID, waitMainStageWin);
 			}
 		}
 	}
 
-	private void waitMainStageWin(bool ok, WWW www)
+	private void waitMainStageWin(bool ok, TMainStageWin reward)
 	{
 		if(ok)
 		{
 			try {
-				var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
+//				var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
 					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
@@ -565,16 +569,16 @@ public class UIGameResult : UIBase {
 					}
 				}
 
-				GameData.Team.Money = reward.Money;
-				GameData.Team.Diamond = reward.Diamond;
-				GameData.Team.Player.Lv = reward.Player.Lv;
-				GameData.Team.Player.Exp = reward.Player.Exp;
-				GameData.Team.Items = reward.Items;
-				GameData.Team.Player.NextMainStageID = reward.Player.NextMainStageID;
-				GameData.Team.Player.Potential = reward.Player.Potential;
-				GameData.Team.Player.Stamina = reward.Player.Stamina;
-				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
-				GameData.Team.SkillCards = reward.SkillCards;
+//				GameData.Team.Money = reward.Money;
+//				GameData.Team.Diamond = reward.Diamond;
+//				GameData.Team.Player.Lv = reward.Player.Lv;
+//				GameData.Team.Player.Exp = reward.Player.Exp;
+//				GameData.Team.Items = reward.Items;
+//				GameData.Team.Player.NextMainStageID = reward.Player.NextMainStageID;
+//				GameData.Team.Player.Potential = reward.Player.Potential;
+//				GameData.Team.Player.Stamina = reward.Player.Stamina;
+//				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
+//				GameData.Team.SkillCards = reward.SkillCards;
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)
 				{
@@ -644,24 +648,27 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardAgain(int stageID)
 	{
-		WWWForm form = new WWWForm();
-		form.AddField("StageID", stageID);
-		SendHttp.Get.Command(URLConst.MainStageRewardAgain, WaitMainStageRewardAgain, form);
+//		WWWForm form = new WWWForm();
+//		form.AddField("StageID", stageID);
+//		SendHttp.Get.Command(URLConst.MainStageRewardAgain, WaitMainStageRewardAgain, form);
+
+	    var again = new MainStageRewardAgainProtocol();
+        again.Send(stageID, waitMainStageRewardAgain);
 	}
 	
-	private void WaitMainStageRewardAgain(bool ok, WWW www)
+	private void waitMainStageRewardAgain(bool ok, TMainStageRewardAgain reward)
 	{
 		Debug.LogFormat("WaitMainStageRewardAgain, ok:{0}", ok);
 		
 		if (ok)
 		{
-			var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
-			GameData.Team.Money = reward.Money;
-			GameData.Team.Diamond = reward.Diamond;
-			GameData.Team.Player.Lv = reward.PlayerLv;
-			GameData.Team.Player.Exp = reward.PlayerExp;
-			GameData.Team.Items = reward.Items;
-			GameData.Team.SkillCards = reward.SkillCards;
+//			var reward = JsonConvert.DeserializeObject<TMainStageRewardAgain>(www.text);
+//			GameData.Team.Money = reward.Money;
+//			GameData.Team.Diamond = reward.Diamond;
+//			GameData.Team.Player.Lv = reward.PlayerLv;
+//			GameData.Team.Player.Exp = reward.PlayerExp;
+//			GameData.Team.Items = reward.Items;
+//			GameData.Team.SkillCards = reward.SkillCards;
 			
 			alreadGetBonusID = reward.RandomItemID;
 			chooseItem(chooseIndex);

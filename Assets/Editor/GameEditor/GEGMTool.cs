@@ -614,6 +614,7 @@ public class GEGMTool : GEBase
 
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Items = team.Items;
+            GameData.Team.ValueItems = team.ValueItems;
             GameData.Team.MaterialItems = team.MaterialItems;
             if (team.Items.Length > 0)
                 for (int i = 0; i < team.Items.Length; i++)

@@ -649,36 +649,6 @@ namespace GameStruct
 		public int UseKind;
 		public DateTime UseTime;
 
-        /// <summary>
-        /// 鑲嵌物品的 ItemID.(這個只是用在接 Json 讀出的資料, 不要使用, 改使用 RealInlayItemIDs)
-        /// </summary>
-        [CanBeNull]
-        public int[] InlayItemIDs;
-
-        /// <summary>
-        /// todo 這是重複的程式碼, 等到 MongoDB 的資料結構改用 Team.ValueItems 來儲存數值裝時, 再整個拿掉.
-        /// </summary>
-        [NotNull]
-        public int[] RevisionInlayItemIDs
-        {
-            get
-            {
-                if(!GameData.DItemData.ContainsKey(ID))
-                    return new int[0];
-                TItemData item = GameData.DItemData[ID];
-
-                if (InlayItemIDs == null)
-                    InlayItemIDs = new int[item.AvailableMaterialNum];
-                else if (InlayItemIDs.Length < item.AvailableMaterialNum)
-                {
-                    int[] revisionInlayItemIDs = new int[item.AvailableMaterialNum];
-                    Array.Copy(InlayItemIDs, revisionInlayItemIDs, InlayItemIDs.Length);
-                    InlayItemIDs = revisionInlayItemIDs;
-                }
-                return InlayItemIDs;
-            }
-        }
-
         public override string ToString()
 	    {
 	        return string.Format("ID: {0}, UseKind: {1}, UseTime: {2}", ID, UseKind, UseTime);

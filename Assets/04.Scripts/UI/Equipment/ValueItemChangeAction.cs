@@ -13,7 +13,7 @@ public class ValueItemChangeAction : ActionQueue.IAction
     {
         mIsDone = false;
 
-        var protocol = new ChangeValueItemProtocol();
+        var protocol = new ValueItemExchangeProtocol();
         protocol.Send(mChange, onChangeValueItem);
     }
 

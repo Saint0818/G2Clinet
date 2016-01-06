@@ -2,7 +2,7 @@ using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class ChangeValueItemProtocol
+public class ValueItemExchangeProtocol
 {
     private CommonDelegateMethods.Bool1 mCallback;
 
@@ -12,7 +12,7 @@ public class ChangeValueItemProtocol
 
         WWWForm form = new WWWForm();
         form.AddField("ValueItems", JsonConvert.SerializeObject(changeData));
-        SendHttp.Get.Command(URLConst.ValueItemChange, waitChangeValueItems, form);
+        SendHttp.Get.Command(URLConst.ValueItemExchange, waitChangeValueItems, form);
     }
 
     private void waitChangeValueItems(bool ok, WWW www)
@@ -21,7 +21,7 @@ public class ChangeValueItemProtocol
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
-            GameData.Team.Items = team.Items;
+            GameData.Team.ValueItems = team.ValueItems;
             GameData.Team.Player.Init();
             
             UIHint.Get.ShowHint(TextConst.S(531), Color.black);

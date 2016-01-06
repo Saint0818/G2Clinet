@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameStruct
@@ -36,6 +37,7 @@ namespace GameStruct
         public TDailyRecord MonthlyRecord;
         public TPlayer Player;
         public TItem[] Items;
+        public TValueItem[] ValueItems;
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
         public TPlayerBank[] PlayerBank;
@@ -422,7 +424,7 @@ namespace GameStruct
         public bool IsPlayerBestValueItem(int kind)
         {
             if(11 <= kind && kind <= 19)
-                return Player.GetValueItemTotalPoints(kind) < getBestValueItemTotalPointsFromStorage(kind);
+                return Player.GetValueItemTotalPoints(kind) < getStorageBestValueItemTotalPoints(kind);
 
             return false;
         }
@@ -432,15 +434,15 @@ namespace GameStruct
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public int getBestValueItemTotalPointsFromStorage(int kind)
+        public int getStorageBestValueItemTotalPoints(int kind)
         {
             int maxTotalPoint = Int32.MinValue;
-            for(var i = 0; i < Items.Length; i++)
+            for(var i = 0; i < ValueItems.Length; i++)
             {
-                if(!GameData.DItemData.ContainsKey(Items[i].ID))
+                if(!GameData.DItemData.ContainsKey(ValueItems[i].ID))
                     continue;
 
-                TItemData item = GameData.DItemData[Items[i].ID];
+                TItemData item = GameData.DItemData[ValueItems[i].ID];
                 if(item.Kind != kind)
                     continue;
 

@@ -2,7 +2,7 @@
 using System.Text;
 using GameStruct;
 
-public class TStageRewardAgain
+public class TMainStageRewardAgain
 {
     /// <summary>
     /// 帳號的錢.
@@ -31,9 +31,19 @@ public class TStageRewardAgain
     public int[] CandidateItemIDs;
 
     /// <summary>
-    /// 玩家的倉庫資料.
+    /// 帳號的倉庫資料.
     /// </summary>
     public TItem[] Items;
+
+    /// <summary>
+    /// 帳號的數值裝.
+    /// </summary>
+    public TValueItem[] ValueItems;
+
+    /// <summary>
+    /// 帳號的材料.
+    /// </summary>
+    public TMaterialItem[] MaterialItems;
 
     /// <summary>
     /// 帳號的技能卡資料.
@@ -42,8 +52,8 @@ public class TStageRewardAgain
 
     public override string ToString()
     {
-        return string.Format("Diamond:{0}, RandomItemID:{1}, CandidateItem:{2}", 
-            Diamond, RandomItemID, convert(CandidateItemIDs));
+        return string.Format("Money:{3}, Diamond:{0}, RandomItemID:{1}, CandidateItem:{2}", 
+            Diamond, RandomItemID, convert(CandidateItemIDs), Money);
     }
 
     private readonly StringBuilder mBuilder = new StringBuilder();

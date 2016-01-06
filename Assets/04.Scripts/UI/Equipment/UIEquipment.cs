@@ -83,9 +83,9 @@ public class UIEquipment : UIBase
     private List<UIValueItemData> findStorageItemsByKind(int kind)
     {
         List<UIValueItemData> items = new List<UIValueItemData>();
-        for(int i = 0; i < GameData.Team.Items.Length; i++)
+        for(int i = 0; i < GameData.Team.ValueItems.Length; i++)
         {
-            TItem storageItem = GameData.Team.Items[i];
+            TValueItem storageItem = GameData.Team.ValueItems[i];
             if(!GameData.DItemData.ContainsKey(storageItem.ID))
             {
                 Debug.LogErrorFormat("Can't find ItemData, {0}", storageItem);
@@ -95,7 +95,7 @@ public class UIEquipment : UIBase
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
                 UIValueItemData uiItem = UIValueItemDataBuilder.Build(GameData.DItemData[storageItem.ID], 
-                                                              storageItem.RevisionInlayItemIDs);
+                                                                      storageItem.RevisionInlayItemIDs);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
             }
