@@ -192,12 +192,8 @@ public class UISelectRole : UIBase {
 	public static void InitPlayerList(ref TFriend[] players) {
 		playerList.Clear();
 		if (players != null) {
-			for (int i = 0; i < players.Length; i ++) {
-				players[i].Player.Init();
-				players[i].Player.RoleIndex = i;
-				GameFunction.ItemIdTranslateAvatar(ref players[i].Player.Avatar, players[i].Player.Items);
+			for (int i = 0; i < players.Length; i ++)
 				playerList.Add(players[i].Player);
-			}
 		}
 
 		if (playerList.Count < 5) {
@@ -717,18 +713,9 @@ public class UISelectRole : UIBase {
 		uiSelect.SetActive(true);
 	}
 
-	private void waitLookFriends(bool flag, WWW www) {
-		if (flag) {
-			string text = GSocket.Get.OnHttpText(www.text);
-			if (!string.IsNullOrEmpty(text)) {
-				TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
-				GameData.Team.Friends = team.Friends;
-				GameData.Team.LookFriendTime = team.LookFriendTime;
-
-				InitPlayerList(ref GameData.Team.Friends);
-			}
-		}
-
+	private void waitLookFriends() {
+        GameData.Team.InitFriends();
+	    InitPlayerList(ref GameData.Team.Friends);
 		selectFriendMode();
 		UIState(EUIRoleSituation.ChooseRole);
 	}
@@ -750,15 +737,11 @@ public class UISelectRole : UIBase {
 	public void InitFriend() {
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
-				WWWForm form = new WWWForm();
-				SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form);
+                SendHttp.Get.LookFriends(waitLookFriends, false);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
-			} else {
-				InitPlayerList(ref GameData.Team.Friends);
-				selectFriendMode();
-				UIState(EUIRoleSituation.ChooseRole);
-			}
+			} else 
+                waitLookFriends();
 		} else {
 			InitPlayerList(ref StageTable.Ins.GetByID(GameData.StageID).FriendID);
 			selectFriendMode();

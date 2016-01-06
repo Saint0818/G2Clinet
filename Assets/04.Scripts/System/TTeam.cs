@@ -222,6 +222,16 @@ namespace GameStruct
                 Achievements[index] = -1;
         }
 
+        public void InitFriends() {
+            if (Friends != null) {
+                for (int i = 0; i < Friends.Length; i ++) {
+                    Friends[i].Player.Init();
+                    Friends[i].Player.RoleIndex = i;
+                    GameFunction.ItemIdTranslateAvatar(ref Friends[i].Player.Avatar, Friends[i].Player.Items);
+                }
+            }
+        }
+
         public int FindMissionLv(int id, int timeKind) {
             switch (timeKind) {
                 case 0:

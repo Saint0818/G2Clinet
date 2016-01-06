@@ -50,15 +50,13 @@ public class UIMission : UIBase {
 	private int missionScore;
 	private int missionLine;
     private const int pageNum = 5;
-    private GameObject itemMission;
-
-    private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
 
     private UILabel totalLabel;
     private UILabel labelStats;
+    private GameObject itemMission;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
-    private UIPanel[] scrollViewPanels = new UIPanel[pageNum];
+    private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
 	private List<TMissionItem>[] missionList = new List<TMissionItem>[pageNum];
 
     public static bool Visible {
@@ -95,7 +93,6 @@ public class UIMission : UIBase {
         for (int i = 0; i < pageNum; i++) {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
-            scrollViewPanels[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
             pageScrollViews[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
             SetBtnFun(UIName + "/Window/Center/Tabs/" + i.ToString(), OnPage);
 
@@ -308,15 +305,6 @@ public class UIMission : UIBase {
 
                 missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
                 missionLine++;
-                if (missionLine == 0) {
-                    /*missionLine = 1;
-                    float y = missionItem.Item.transform.localPosition.y - 170;
-                    scrollViewPanels[nowPage].clipOffset = new Vector2(0, y);
-                    scrollViewPanels[nowPage].gameObject.transform.localPosition = new Vector3(
-                        scrollViewPanels[nowPage].gameObject.transform.localPosition.x,
-                        -y-60,
-                        scrollViewPanels[nowPage].gameObject.transform.localPosition.z);*/
-                }
             } else
                 missionItem.Item.SetActive(false);
 		} else

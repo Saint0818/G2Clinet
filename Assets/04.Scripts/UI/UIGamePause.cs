@@ -82,12 +82,12 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Center/HomeBtn", OnHomeResult);
 		SetBtnFun(UIName + "/Center/AwayBtn", OnAwayResult);
 		SetBtnFun(UIName + "/Center/TargetBtn", OnBackToTarget);
-		
 		SetBtnFun(UIName + "/Center/GameResult/PlayerMe/ButtonMe", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
-
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
+        SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
+        SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
 	}
 
 	private void initHomeAway (){
@@ -180,6 +180,14 @@ public class UIGamePause : UIBase {
 		return string.Format("{0}\n{1}%\n{2}%\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
 		                     pts, fg, fg3, player.Rebound, player.Assist, player.Steal, player.Block, player.BeIntercept, player.Push, player.Knock);
 	}
+
+    public void OnMakeFriend() {
+        
+    }
+
+    public void OnOpenInfo() {
+        
+    }
 	
 	public void OnPlayerInfo() {
 		if(pauseType == EPauseType.Home) {

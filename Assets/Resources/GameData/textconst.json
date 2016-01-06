@@ -60,7 +60,7 @@
     },
     {
         "id": 230,
-        "explain": "體力不足",
+        "explain": "體力不足/標題",
         "tw": "體力不足",
         "en": "Not enough stamina"
     },
@@ -78,7 +78,8 @@
     },
     {
         "id": 233,
-        "tw": "鑽石不足。",
+        "explain": "鑽石不足/標題",
+        "tw": "鑽石不足",
         "en": "Diamond is not enough."
     },
     {
@@ -90,6 +91,34 @@
         "id": 235,
         "explain": "離開遊戲",
         "tw": "確認離開遊戲？"
+    },
+    {
+        "id": 236,
+        "explain": "前往購買",
+        "tw": "前往購買"
+    },
+    {
+        "id": 237,
+        "explain": "金幣不足/標題",
+        "tw": "金幣不足"
+    },
+    {
+        "id": 238,
+        "explain": "鑽石不足/內文",
+        "tw": "你的[FF00FFFF]鑽 石[-]不夠囉，是否前往購買？"
+    },
+    {
+        "id": 239,
+        "explain": "金幣不足/內文",
+        "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？"
+    },
+    {
+        "id": 240,
+        "explain": "體力不足/內文",
+        "tw": "你的[00E1FFFF]體 力[-]不夠囉，下次體力回復在{0}後，是否前往購買？"
+    },
+    {
+        "id": 241
     },
     {
         "id": 301,
@@ -293,6 +322,11 @@
         "id": 555,
         "explain": "裝備升級成功",
         "tw": "插件升級成功"
+    },
+    {
+        "id": 556,
+        "explain": "晶片達到最高等",
+        "tw": "等級已滿，無法強化。"
     },
     {
         "id": 601,
@@ -1219,15 +1253,18 @@
     },
     {
         "id": 4902,
-        "explain": "體力"
+        "explain": "寶石",
+        "tw": "寶 石"
     },
     {
         "id": 4903,
-        "explain": "金幣"
+        "explain": "金幣",
+        "tw": "金 幣"
     },
     {
         "id": 4904,
-        "explain": "寶石"
+        "explain": "體力",
+        "tw": "體 力"
     },
     {
         "id": 4905
@@ -1248,31 +1285,70 @@
         "id": 4910
     },
     {
-        "id": 4911
+        "id": 4911,
+        "explain": "Pages0/SubheadLabel0",
+        "tw": "購買寶石"
     },
     {
-        "id": 4912
+        "id": 4912,
+        "explain": "Pages0/SubheadLabel1",
+        "tw": "購買寶石"
     },
     {
-        "id": 4913
+        "id": 4913,
+        "explain": "Pages0"
     },
     {
-        "id": 4914
+        "id": 4914,
+        "explain": "Pages0"
     },
     {
-        "id": 4915
+        "id": 4915,
+        "explain": "Pages0"
     },
     {
-        "id": 4916
+        "id": 4916,
+        "explain": "Pages1/SubheadLabel0",
+        "tw": "購買金幣"
     },
     {
-        "id": 4917
+        "id": 4917,
+        "explain": "Pages1/SubheadLabel1",
+        "tw": "購買金幣"
     },
     {
-        "id": 4918
+        "id": 4918,
+        "explain": "Pages1"
     },
     {
-        "id": 4919
+        "id": 4919,
+        "explain": "Pages1"
+    },
+    {
+        "id": 4920,
+        "explain": "Pages1"
+    },
+    {
+        "id": 4921,
+        "explain": "Pages2/SubheadLabel0",
+        "tw": "補充體力"
+    },
+    {
+        "id": 4922,
+        "explain": "Pages2/SubheadLabel1",
+        "tw": "補充體力"
+    },
+    {
+        "id": 4923,
+        "explain": "Pages2"
+    },
+    {
+        "id": 4924,
+        "explain": "Pages2"
+    },
+    {
+        "id": 4925,
+        "explain": "Pages2"
     },
     {
         "id": 5001,
@@ -1282,21 +1358,22 @@
     {
         "id": 5002,
         "explain": "頁籤1",
-        "tw": "好 友"
+        "tw": "動 態"
     },
     {
         "id": 5003,
         "explain": "頁籤2",
-        "tw": "審 核"
+        "tw": "交友邀請"
     },
     {
         "id": 5004,
         "explain": "頁籤3",
-        "tw": "新 增"
+        "tw": "推 薦"
     },
     {
         "id": 5005,
-        "explain": "頁籤4"
+        "explain": "頁籤4",
+        "tw": "好 友"
     },
     {
         "id": 5006,
@@ -1364,6 +1441,12 @@
         "tw": "每日9:00刷新推薦名單，或即刻刷新。"
     },
     {
+        "id": 5019,
+        "explain": "TextLabel",
+        "tw": "加朋友",
+        "en": "Make Friend"
+    },
+    {
         "id": 6001,
         "explain": "裝備介面",
         "tw": "裝 備",
@@ -1401,14 +1484,14 @@
     {
         "id": 6102,
         "explain": "SkillKindLabel",
-        "tw": "[ff0000]主動技[-]",
+        "tw": "[ff0000]主動技[-][ff0000]A[-][fffffff]bility[-]",
         "cn": "[ff0000]主动技[-]",
         "en": "[ff0000]Ability[-]"
     },
     {
         "id": 6103,
         "explain": "SkillKindLabel",
-        "tw": "[3355ff]被動技[-]",
+        "tw": "[3355ff]被動技[-][3355ff]P[-][fffffff]asive[-]",
         "cn": "[3355ff]被动技[-]",
         "en": "[3355ff]Pasive Ability[-]"
     },

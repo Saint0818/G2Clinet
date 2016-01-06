@@ -178,6 +178,11 @@ namespace GameStruct
 	    {
 	        return string.Format("Body:{0}, Hair:{1}, Cloth:{2}, Pants:{3}, Shoes:{4}", Body, Hair, Cloth, Pants, Shoes);
 	    }
+
+        public bool HaveAvatar {
+            get { return Body > 0 || Hair > 0 || AHeadDress > 0 || Cloth > 0 ||
+                         Pants > 0 || Shoes > 0 || MHandDress > 0 || ZBackEquip > 0; }
+        }
 	}
 
     /// <summary>

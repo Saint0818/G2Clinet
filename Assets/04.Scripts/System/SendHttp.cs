@@ -144,6 +144,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private TBooleanWWWObj waitingCallback = null;
 	private WWWForm waitingForm = null;
 
+    private EventDelegate.Callback LookFriendsEvent;
+
 	protected override void Init() {
 		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
 		DontDestroyOnLoad(gameObject);
@@ -435,6 +437,26 @@ public class SendHttp : KnightSingleton<SendHttp> {
             GameData.Team.DailyRecord = result.DailyRecord;
             GameData.Team.WeeklyRecord = result.WeeklyRecord;
             GameData.Team.MonthlyRecord = result.MonthlyRecord;
+        }
+    }
+
+    public void LookFriends(EventDelegate.Callback e, bool waiting) {
+        LookFriendsEvent = e;
+        WWWForm form = new WWWForm();
+        SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form, waiting);
+    }
+
+    private void waitLookFriends(bool flag, WWW www) {
+        if (flag) {
+            string text = GSocket.Get.OnHttpText(www.text);
+            if (!string.IsNullOrEmpty(text)) {
+                TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                GameData.Team.Friends = team.Friends;
+                GameData.Team.LookFriendTime = team.LookFriendTime;
+            }
+
+            if (LookFriendsEvent != null)
+                LookFriendsEvent();
         }
     }
 }
