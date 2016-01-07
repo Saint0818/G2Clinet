@@ -16,6 +16,7 @@ public class UIItemSourceElement : MonoBehaviour
     {
         public string KindName;
         public string Name;
+        public IAction Action;
     }
 
     public interface IAction
@@ -25,6 +26,7 @@ public class UIItemSourceElement : MonoBehaviour
 
     public UILabel KindLabel;
     public UILabel NameLabel;
+    public UILabel ButtonLabel;
     public UIButton StartButton;
 
     private IAction mAction;
@@ -35,12 +37,18 @@ public class UIItemSourceElement : MonoBehaviour
         StartButton.onClick.Add(new EventDelegate(onStartClick));
     }
 
-    public void Set(string kindTitle, string kindName, IAction action)
+    [UsedImplicitly]
+    private void Start()
     {
-        KindLabel.text = kindTitle;
-        NameLabel.text = kindName;
+        ButtonLabel.text = TextConst.S(int.Parse(ButtonLabel.text));
+    }
 
-        mAction = action;
+    public void Set(Data data)
+    {
+        KindLabel.text = data.KindName;
+        NameLabel.text = data.Name;
+
+        mAction = data.Action;
     }
 
     private void onStartClick()

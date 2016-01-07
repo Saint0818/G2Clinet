@@ -15,6 +15,8 @@ public class UIPrefabPath
 	public static readonly string ItemSkillCard = "Prefab/UI/Items/ItemSkillCard";
 	public static readonly string ItemCardEquipped = "Prefab/UI/Items/ItemCardEquipped";
 
+	public static readonly string ItemSourceElement = "Prefab/UI/Items/ItemSourceElement";
+
     public static readonly string StageChapter = "Prefab/UI/UIStageChapter";
 
 	public static readonly string ItemAwardGroup = "Prefab/UI/Items/ItemAwardGroup";

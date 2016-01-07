@@ -43,6 +43,7 @@ public class UIItemSource : UIBase
         bringToFront();
 
         mMain.SetMaterial(item);
+        mMain.AddSources(UIItemSourceBuilder.Build(item));
     }
 
     private void bringToFront()

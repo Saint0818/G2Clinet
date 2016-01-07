@@ -8,6 +8,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> Call SetMaterial() 設定道具資訊. </item>
+/// <item> Call AddSources() 加入出處來源. </item>
 /// </list>
 [DisallowMultipleComponent]
 public class UIItemSourceMain : MonoBehaviour
@@ -19,6 +20,7 @@ public class UIItemSourceMain : MonoBehaviour
 
     public UIButton CloseButton;
     public UILabel NameLabel;
+    public Transform ElementParent;
 
 //    private HintAvatarView mHintAvatar;
     private HintInlayView mHintInlay;
@@ -56,14 +58,28 @@ public class UIItemSourceMain : MonoBehaviour
         mHintInlay.UpdateUI(item);
     }
 
-    public void ClearSources()
+    private void clearSources()
     {
-        
+        UIItemSourceElement[] elements = GetComponentsInChildren<UIItemSourceElement>();
+        foreach(UIItemSourceElement element in elements)
+        {
+            Destroy(element.gameObject);
+        }
     }
 
-    public void AddSource(string kindTitle, string kindName, UIItemSourceElement.IAction action)
+    public void AddSources(UIItemSourceElement.Data[] data)
     {
-        
+        clearSources();
+
+        Vector3 localPos = Vector3.zero;
+        for(var i = 0; i < data.Length; i++)
+        {
+            var obj = UIPrefabPath.LoadUI(UIPrefabPath.ItemSourceElement, ElementParent, localPos);
+            var element = obj.GetComponent<UIItemSourceElement>();
+            element.Set(data[i]);
+
+            localPos.y -= obj.GetComponent<UISprite>().height;
+        }
     }
 
     private void onCloseClick()

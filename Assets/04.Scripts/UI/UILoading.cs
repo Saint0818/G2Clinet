@@ -33,7 +33,7 @@ public class UILoading : UIBase
     public static EventDelegate.Callback OpenUI = null;
     private ELoading loadingKind;
     private bool closeAfterFinished = false;
-    private int pageLoading = 0;
+//    private int pageLoading = 0;
     private static int AchievementTutorialID = -1;
     private float nowProgress;
     private float toProgress;
