@@ -363,11 +363,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
+            if(RealBallCurve == null)
+                RealBallCurve = RealBall.GetComponent<BallCurve> ();
 			
-			if(RealBallCurve == null || RealBallCurve.gameObject == null) {
-				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
-				RealBallCurve = obj.GetComponent<BallCurve> ();
-			}
+//			if(RealBallCurve == null || RealBallCurve.gameObject == null) {
+//				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
+//				RealBallCurve = obj.GetComponent<BallCurve> ();
+//			}
 		}
 
 		if (RealBall) {

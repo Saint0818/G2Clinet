@@ -50,6 +50,7 @@ public class GameStart : MonoBehaviour {
 		SceneMgr.Get.SetDontDestory (gameObject);
 		TextConst.Init();
 		GameData.Init();
+        AnimatorMgr.Get.InitAnimtorStatesType();
 		SendHttp.Get.CheckServerData(ConnectToServer);
 		#if PUSHWOOSH
         gameObject.AddComponent<PushNotificator>();

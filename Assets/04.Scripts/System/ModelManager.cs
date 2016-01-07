@@ -20,7 +20,7 @@ public class ModelManager : KnightSingleton<ModelManager>
 
     private GameObject DefPointObject = null;
     public GameObject PlayerInfoModel = null;
-    public GameObject AnimatorCurveManager;
+    public AniCurve AnimatorCurveManager;
 
     private Material materialSource;
     private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
@@ -34,7 +34,8 @@ public class ModelManager : KnightSingleton<ModelManager>
 
         materialSource = Resources.Load("Character/Materials/Material_0") as Material;
         DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
-        AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
+        GameObject cloneObj = Instantiate(Resources.Load("Character/Component/AnimatorCurve")) as GameObject;
+        AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
     }
 
     public void PreloadResource(TAvatar attr, int bodyType)
@@ -236,7 +237,6 @@ public class ModelManager : KnightSingleton<ModelManager>
 
 
             playerBehaviour.InitTrigger(DefPointObject);
-            playerBehaviour.InitCurve(AnimatorCurveManager);
             playerBehaviour.InitDoubleClick();
             playerBehaviour.InitAttr();
             res.name = team.ToString() + teamIndex.ToString();

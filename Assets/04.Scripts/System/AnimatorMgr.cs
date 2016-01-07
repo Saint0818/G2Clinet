@@ -340,12 +340,12 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 
 	private TAnimatorItem ani = new TAnimatorItem();
 
-	void Awake()
-	{
-		InitAnimtorStatesType ();
-	}
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
-	private void InitAnimtorStatesType()
+	public void InitAnimtorStatesType()
 	{
 		foreach (EAnimatorState item in Enum.GetValues(typeof(EAnimatorState)))
 		{
