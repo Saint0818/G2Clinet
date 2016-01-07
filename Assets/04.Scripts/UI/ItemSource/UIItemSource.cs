@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -34,11 +35,18 @@ public class UIItemSource : UIBase
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
-    public void Show()
+    public void ShowMaterial(TItemData item)
     {
         Show(true);
 
         // 如果不加上這段, 六角形的屬性值會在前面. 所以必須要整個 UI 往前移動, 讓六角形屬性值不會穿過介面.
+        bringToFront();
+
+        mMain.SetMaterial(item);
+    }
+
+    private void bringToFront()
+    {
         var pos = transform.localPosition;
         pos.z = -10;
         transform.localPosition = pos;

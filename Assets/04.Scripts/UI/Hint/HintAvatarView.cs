@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
 
 public class HintAvatarView : MonoBehaviour {
 
@@ -21,9 +20,15 @@ public class HintAvatarView : MonoBehaviour {
 	private void Awake()
 	{
 		mGameObject = gameObject;
-		Money.SetActive(false);
-		EXP.SetActive(false);
-		Gem.SetActive(false);
+
+        if(Money != null)
+		    Money.SetActive(false);
+
+        if(EXP != null)
+		    EXP.SetActive(false);
+
+        if(Gem != null)
+		    Gem.SetActive(false);
 		
 		for (int i=0; i<AttrKindsIcon.Length; i++){
 			AttrKindsIcon[i].gameObject.SetActive(false);

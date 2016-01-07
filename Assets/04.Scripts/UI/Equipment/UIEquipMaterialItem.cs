@@ -42,6 +42,11 @@ public class UIEquipMaterialItem : MonoBehaviour
         /// </summary>
         public int StorageIndex;
 
+        /// <summary>
+        /// 這不是介面資料, 這是材料的編號.
+        /// </summary>
+        public int ItemID;
+
         // 道具會影響哪些屬性的數值.
         public Dictionary<EAttribute, UIValueItemData.BonusData> Values = new Dictionary<EAttribute, UIValueItemData.BonusData>();
 
@@ -78,10 +83,17 @@ public class UIEquipMaterialItem : MonoBehaviour
     public GameObject EnoughIcon;
     public GameObject InlayIcon;
 
-    public event CommonDelegateMethods.Int2 ClickListener;
+    public delegate void Action(EStatus status, int materialIndex, int storageIndex, int materialItemID);
+    public event Action ClickListener;
 
+    /// <summary>
+    /// 這是第幾個材料.
+    /// </summary>
     private int mIndex;
+    private EStatus mStatus;
+
     private int mStorageIndex;
+    private int mMaterialItemID;
 
     public void Init(int index)
     {
@@ -93,12 +105,14 @@ public class UIEquipMaterialItem : MonoBehaviour
         Name.text = data.Name;
         Icon.spriteName = data.Icon;
         Frame.spriteName = data.Frame;
+        mStatus = data.Status;
 
         setBonus(data);
         setAmount(data);
         setStatusIcon(data.Status);
 
         mStorageIndex = data.StorageIndex;
+        mMaterialItemID = data.ItemID;
     }
 
     private void setBonus(Data data)
@@ -155,6 +169,6 @@ public class UIEquipMaterialItem : MonoBehaviour
     public void NotifyClick()
     {
         if(ClickListener != null)
-            ClickListener(mIndex, mStorageIndex);
+            ClickListener(mStatus, mIndex, mStorageIndex, mMaterialItemID);
     }
 }

@@ -13,7 +13,14 @@ public static class UIValueItemDataBuilder
 
     private class MaterialItemInfo
     {
+        /// <summary>
+        /// -1: 在倉庫找不到材料. >0: 在倉庫的索引.
+        /// </summary>
         public int Index = -1;
+
+        /// <summary>
+        /// 在倉庫有幾個材料.
+        /// </summary>
         public int Num;
     }
 
@@ -100,6 +107,7 @@ public static class UIValueItemDataBuilder
                 Frame = string.Format("Equipment_{0}", item.Quality),
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
+                ItemID = materialItem.ID,
                 Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
             valueItem.Materials.Add(data);

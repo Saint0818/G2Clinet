@@ -7,40 +7,44 @@ using UnityEngine;
 /// </summary>
 /// 使用方法:
 /// <list type="number">
-/// <item>  </item>
+/// <item> Call Set() 設定要顯示的資料. </item>
 /// </list>
 [DisallowMultipleComponent]
 public class UIItemSourceElement : MonoBehaviour
 {
-    public event CommonDelegateMethods.Action ClickListener;
-
     public class Data
     {
         public string KindName;
         public string Name;
     }
 
+    public interface IAction
+    {
+        void Do();
+    }
+
     public UILabel KindLabel;
     public UILabel NameLabel;
     public UIButton StartButton;
 
+    private IAction mAction;
+
     [UsedImplicitly]
     private void Awake()
     {
-        StartButton.onClick.Add(new EventDelegate(onButtonClick));
+        StartButton.onClick.Add(new EventDelegate(onStartClick));
     }
 
-    public void Set(Data data)
+    public void Set(string kindTitle, string kindName, IAction action)
     {
-        KindLabel.text = data.KindName;
-        NameLabel.text = data.Name;
+        KindLabel.text = kindTitle;
+        NameLabel.text = kindName;
+
+        mAction = action;
     }
 
-    private void onButtonClick()
+    private void onStartClick()
     {
-        Debug.Log("UIItemSourceElement.onButtonClick");
-
-        if(ClickListener != null)
-            ClickListener();
+        mAction.Do();
     }
 }

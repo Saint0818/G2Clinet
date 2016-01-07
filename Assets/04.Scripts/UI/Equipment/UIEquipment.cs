@@ -191,74 +191,34 @@ public class UIEquipment : UIBase
         goToMainLobby();
     }
 
-    private void onMaterialClick(int slotIndex, int storageMaterialItemIndex)
+    private void onMaterialClick(UIEquipMaterialItem.EStatus status, int slotIndex, 
+                                 int storageMaterialItemIndex, int materialItemID)
     {
-        Debug.LogFormat("onMaterialClick, slotIndex:{0}, storageMaterialItemIndex:{1}", 
-                        slotIndex, storageMaterialItemIndex);
+        Debug.LogFormat("onMaterialClick, Status:{0}, slotIndex:{1}, storageMaterialItemIndex:{2}, MaterialItemID:{3}", 
+                        status, slotIndex, storageMaterialItemIndex, materialItemID);
 
-        if(storageMaterialItemIndex < 0)
+        if(status == UIEquipMaterialItem.EStatus.Lack)
         {
-            // 材料不夠, 進入導引視窗.
-            Debug.Log("Show Navigation Window!");
-            return;
+            // 材料不足, 進入導引視窗.
+            UIItemSource.Get.ShowMaterial(GameData.DItemData[materialItemID]);
         }
+        else if(status == UIEquipMaterialItem.EStatus.Inlayed)
+        {
+            Debug.Log("Alreay Inaly");
+        }
+        else if(status == UIEquipMaterialItem.EStatus.Enough)
+        {
+            mActionQueue.Clear();
+            if (mMain.IsValueItemChanged())
+                mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
 
-        mActionQueue.Clear();
-        
-        if(mMain.IsValueItemChanged())
-            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
-
-        // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
-        int valueItemKind = slotIndex + 11;
-        mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
-        mActionQueue.Execute(onAddInlay);
-
-//        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
-//        if(!GameData.DItemData.ContainsKey(valueItem.ID))
-//        {
-//            Debug.LogErrorFormat("Can't find ItemData, ItemID:{0}", valueItem.ID);
-//            return;
-//        }
-//
-//        if(storageMaterialItemIndex >= GameData.Team.MaterialItems.Length)
-//        {
-//            Debug.LogErrorFormat("Can't find MaterialItem. Index:{0}", storageMaterialItemIndex);
-//            return;
-//        }
-//        TMaterialItem materialItem = GameData.Team.MaterialItems[storageMaterialItemIndex];
-//
-//        if(!GameData.DItemData.ContainsKey(valueItem.ID))
-//        {
-//            Debug.LogErrorFormat("Can't found ItemData, ID:{0}", valueItem.ID);
-//            return;
-//        }
-//        TItemData itemData = GameData.DItemData[valueItem.ID];
-//        if(!itemData.HasMaterial(materialItem.ID))
-//        {
-//            Debug.LogErrorFormat("Material is not the inlay. ItemID:{0}, MaterailItemID:{1}", itemData.ID, materialItem.ID);
-//            return;
-//        }
-//
-//        if(valueItem.HasInlay(materialItem.ID))
-//        {
-//            // 已鑲嵌, 點擊不做任何事情.
-//            Debug.Log("Alreay Inaly");
-//            return;
-//        }
-//
-//        if(materialItem.Num >= itemData.FindMaterialNum(materialItem.ID))
-//        {
-//            // 材料足夠.
-////            var addInlay = new ValueItemAddInlayProtocol();
-////            addInlay.Send(valueItemKind, storageMaterialItemIndex, onAddInlay);
-//
-//            mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
-//        }
-//        else
-//        {
-//            // 材料不夠.
-//            Debug.Log("Show Navigation Window!");
-//        }
+            // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
+            int valueItemKind = slotIndex + 11;
+            mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
+            mActionQueue.Execute(onAddInlay);
+        }
+        else
+            Debug.LogErrorFormat("Not Implemented. Status:{0}", status);
     }
 
     private void onAddInlay(bool ok)

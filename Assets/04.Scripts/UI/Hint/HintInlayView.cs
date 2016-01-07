@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
 
 public class HintInlayView : MonoBehaviour {
 	
@@ -11,11 +10,9 @@ public class HintInlayView : MonoBehaviour {
 	public UISprite ItemPic;
 	public UILabel AmountLabel;
 
-	private GameObject mGameObject;
-	private void Awake()
+    private void Awake()
 	{
-		mGameObject = gameObject;
-		for (int i=0; i<AttrKindsIcon.Length; i++){
+	    for (int i=0; i<AttrKindsIcon.Length; i++){
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
 		Hide();
@@ -23,19 +20,20 @@ public class HintInlayView : MonoBehaviour {
 	
 	public void Show()
 	{
-		mGameObject.SetActive(true);
+		gameObject.SetActive(true);
 	}
 	
 	public void Hide()
 	{
-		mGameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
 	
 	public void UpdateUI(TItemData itemData)
 	{
 		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 		
-		for (int i=0; i<itemData.Bonus.Length; i++) {
+		for(int i=0; i < itemData.Bonus.Length; i++)
+        {
 			AttrKindsIcon[i].gameObject.SetActive(true);
 			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
 		}

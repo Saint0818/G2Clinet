@@ -26,10 +26,12 @@ public class UIEquipmentMain : MonoBehaviour
     /// </summary>
     public event CommonDelegateMethods.Action OnBackListener;
 
+    public delegate void Action(UIEquipMaterialItem.EStatus status, int slotIndex, 
+                                int storageMaterialItemIndex, int materialItemID);
     /// <summary>
-    /// 材料按鈕按下.
+    /// 材料按鈕按下. 參數:[哪一個 Slot 的材料, 材料在倉庫的哪個 Index(-1 表示找不到), MaterialItemID]
     /// </summary>
-    public event CommonDelegateMethods.Int2 OnMaterialListener;
+    public event Action OnMaterialListener;
 
     /// <summary>
     /// 玩家的基本能力數值.
@@ -178,9 +180,17 @@ public class UIEquipmentMain : MonoBehaviour
             OnBackListener();
     }
 
-    public void NotifyMaterialClick(int materialIndex, int storageMaterialItemIndex)
+    /// <summary>
+    /// 內部使用...
+    /// </summary>
+    /// <param name="status"></param>
+    /// <param name="materialIndex"></param>
+    /// <param name="storageMaterialItemIndex"></param>
+    /// <param name="materialItemID"></param>
+    public void NotifyMaterialClick(UIEquipMaterialItem.EStatus status ,int materialIndex, 
+                                    int storageMaterialItemIndex, int materialItemID)
     {
         if(OnMaterialListener != null)
-            OnMaterialListener(mPlayerInfo.CurrentSlotIndex, storageMaterialItemIndex);
+            OnMaterialListener(status, mPlayerInfo.CurrentSlotIndex, storageMaterialItemIndex, materialItemID);
     }
 }
