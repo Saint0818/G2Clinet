@@ -560,6 +560,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void RealBallPath(int team, string animationName, int index) {
 		if(!GameController.Get.IsReset){
+			//ToDo:目前bug BasketNetPlay 跟 ActionNoScoreEnd 會同時呼叫
+			
 			switch(animationName) {
 			case "ActionEnd":
 				SetBasketState(EPlayerState.BasketActionEnd, BasketHoopDummy[team], team);

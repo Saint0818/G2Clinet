@@ -137,13 +137,6 @@ public class PlayerBehaviour : MonoBehaviour
     public bool AutoFollow = false;
     public bool NeedShooting = false;
     
-
-    //Dunk
-    private bool isDunk = false;
-    private float dunkCurveTime = 0;
-    private TDunkCurve playerDunkCurve;
-    private Vector3 recordPlayerPosition;
-
     //Layup
     private bool isLayup = false;
     private float layupCurveTime = 0;
@@ -152,8 +145,6 @@ public class PlayerBehaviour : MonoBehaviour
     //Block
     private bool isCanBlock = false;
     private bool isBlock = false;
-    private float blockCurveTime = 0;
-    private TBlockCurve playerBlockCurve;
     private Vector3 skillMoveTarget;
     private Vector3 skillFaceTarget;
     private bool isDunkBlock;
@@ -173,9 +164,6 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isFakeShoot = false;
 
     //Push
-    private bool isPush = false;
-    private float pushCurveTime = 0;
-    private TSharedCurve playerPushCurve;
     public bool IsPushCalculate = false;
 
     //Elbow
@@ -186,11 +174,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float stealCurveTime = 0;
     private TStealCurve playerStealCurve;
     public bool IsStealCalculate = false;
-
-    //Fall
-    private bool isFall = false;
-    private float fallCurveTime = 0;
-    private TSharedCurve playerFallCurve;
 
     //Pick
     private bool isPick = false;
@@ -549,19 +532,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         if (IsAllShoot || IsRebound || IsSteal || IsFall)
+        {
             timeScale = TimerMgr.Get.GetTime(TimerKind);
-//        changePlayerColor();
-//        CalculationPlayerHight();
-//        CalculationAnimatorSmoothSpeed();
-        CalculationBlock();
-        CalculationDunkMove();
-        CalculationShootJump();
-        CalculationRebound();
-        CalculationLayupMove();
-        CalculationPush();
-        CalculationFall();
-        CalculationPick();
-        CalculationSteal();
+            AnimatorControl.TimeScale = timeScale;
+        }
+				
         DebugTool();
         
         CantMoveTimer.Update(Time.deltaTime);
@@ -749,7 +724,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     public void SetManually()
     {
-        if (Team == ETeamKind.Self && Index == 0 && AI.enabled)
+        if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
             if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC ||
                 GameStart.Get.TestMode != EGameTest.None)
@@ -780,104 +755,7 @@ public class PlayerBehaviour : MonoBehaviour
             AIActiveHint.SetActive(true);
     }
 
-    private bool isAnimatorMove = false;
-
-    private bool IsAnimatorMove
-    {
-        get{ return isAnimatorMove; }
-        set{ isAnimatorMove = value; }
-    }
-
     public float timeScale = 1;
-
-    private void CalculationDunkMove()
-    {
-//      if (!isDunk || Timer.timeScale == 0)
-//            return;
-        if (!isDunk)
-            return;
-
-        if (playerDunkCurve != null)
-        {
-            timeScale = TimerMgr.Get.GetTime(TimerKind);
-            dunkCurveTime += Time.deltaTime * timeScale;
-            
-            Vector3 position = PlayerRefGameObject.transform.position;
-            if (timeScale != 0)
-            { 
-                position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
-                
-                if (position.y < 0)
-                    position.y = 0; 
-
-                if (dunkCurveTime >= playerDunkCurve.StartMoveTime)
-                {
-                    position.x = Mathf.Lerp(recordPlayerPosition.x, CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.x, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
-                    position.z = Mathf.Lerp(recordPlayerPosition.z, CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.z, (dunkCurveTime - playerDunkCurve.StartMoveTime) / (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime));
-                }
-
-                if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime)
-                { 
-                    IsAnimatorMove = true; 
-                    PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0 ? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0); 
-                } 
-            }
-            PlayerRefGameObject.transform.position = position;
-
-            if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
-                IsCanBlock = true;
-            else
-                IsCanBlock = false;
-
-            if (dunkCurveTime >= playerDunkCurve.LifeTime)
-            {
-                PlayerRefGameObject.transform.DOKill();
-                isDunk = false;
-                IsCanBlock = false;
-                IsAnimatorMove = false;
-            }
-        }
-        else
-        {
-            isDunk = false;
-            IsAnimatorMove = false;
-            LogMgr.Get.LogError("playCurve is null");
-        }
-    }
-
-    private void CalculationLayupMove()
-    {
-        if (!isLayup)
-            return;
-        
-        if (playerLayupCurve != null)
-        {
-            layupCurveTime += Time.deltaTime * timeScale;
-            
-            Vector3 position = PlayerRefGameObject.transform.position;
-            position.y = Mathf.Max(0, playerLayupCurve.aniCurve.Evaluate(layupCurveTime));
-            
-            if (position.y < 0)
-                position.y = 0;
-
-            if (layupCurveTime >= playerLayupCurve.StartMoveTime)
-            {
-                int add = (Team == 0 ? -1 : 1);
-                position.x = Mathf.Lerp(recordPlayerPosition.x, CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.x, (layupCurveTime - playerLayupCurve.StartMoveTime) / (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime));
-                position.z = Mathf.Lerp(recordPlayerPosition.z, CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.z + add, (layupCurveTime - playerLayupCurve.StartMoveTime) / (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime));
-            }
-
-            PlayerRefGameObject.transform.position = position;
-            
-            if (layupCurveTime >= playerLayupCurve.LifeTime)
-                isLayup = false;
-        }
-        else
-        {
-            isLayup = false;
-            LogMgr.Get.LogError("playCurve is null");
-        }
-    }
 
     public  bool InReboundDistance
     {
@@ -885,310 +763,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                 new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z)) <= 6;
-        }
-    }
-
-    private void CalculationRebound()
-    {
-        if (timeScale == 0)
-            return;
-
-        if (isRebound && playerReboundCurve != null)
-        {
-            reboundCurveTime += Time.deltaTime * timeScale;
-            if (situation != EGameSituation.JumpBall)
-            {
-                if (playerReboundCurve.isSkill)
-                {
-                    PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
-                    if (reboundCurveTime < 0.7f)
-                    {
-                        if (skillMoveTarget.y > BodyHeight.transform.localPosition.y)
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-                                Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
-                                Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-                        }
-                        else
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-                                PlayerRefGameObject.transform.position.y, 
-                                Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-                        }
-                    }
-                    else
-                    {
-                        if (skillMoveTarget.y > BodyHeight.transform.localPosition.y)
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                                Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * (skillMoveTarget.y / 3)), 
-                                PlayerRefGameObject.transform.position.z);
-                        } 
-                    }   
-                }
-                else
-                {
-                    if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
-                    {
-                        transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale, 
-                            Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
-                            transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
-                    }
-                    else
-                        transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
-                            Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
-                            transform.position.z + transform.forward.z * 0.05f);
-                }
-            }
-            else
-            {
-                if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
-                {
-                    transform.position = new Vector3(transform.position.x, 
-                        Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
-                        transform.position.z);
-                }
-                else
-                    transform.position = new Vector3(transform.position.x, 
-                        Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
-                        transform.position.z);
-            }
-            
-            if (reboundCurveTime >= playerReboundCurve.LifeTime)
-            {
-                isRebound = false;
-            }
-        }
-        else
-            isRebound = false;
-    }
-
-    private void CalculationPush()
-    {
-        if (!isPush || timeScale == 0)
-            return;
-
-        if (playerPushCurve != null)
-        {
-            pushCurveTime += Time.deltaTime * timeScale;
-
-            if (pushCurveTime >= playerPushCurve.StartTime && pushCurveTime <= playerPushCurve.EndTime)
-            {
-                switch (playerPushCurve.Dir)
-                {
-                    case AniCurveDirection.Forward:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPushCurve.DirVaule * timeScale), 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule) * timeScale);
-                        break;
-                    case AniCurveDirection.Back:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPushCurve.DirVaule * timeScale), 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule) * timeScale);
-                        break;
-                }
-            }
-            
-            if (pushCurveTime >= playerPushCurve.LifeTime)
-                isPush = false;
-        }
-        
-    }
-
-    private void CalculationSteal()
-    {
-        if (!isSteal)
-            return;
-        
-        if (playerStealCurve != null)
-        {
-            stealCurveTime += Time.deltaTime * timeScale;
-            
-            if (stealCurveTime >= playerStealCurve.StartTime)
-            {
-                if (GameController.Get.BallOwner != null)
-                {
-                    transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-                    PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.BallOwner.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.BallOwner.transform.position.z));
-                    GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-                }
-                else
-                {
-                    if (GameController.Get.Catcher != null)
-                    {
-                        transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-                        PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.Catcher.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.Catcher.transform.position.z));
-                        GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
-                    }
-                    else if (GameController.Get.Shooter != null)
-                    {
-                        transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-                        PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.Shooter.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.Shooter.transform.position.z));
-                        GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
-                    }
-                }
-                isSteal = false;
-            }
-        }
-        
-    }
-
-    private void CalculationFall()
-    {
-        if (!isFall || timeScale == 0)
-            return;
-        
-        if (playerFallCurve != null)
-        {
-            fallCurveTime += Time.deltaTime * timeScale;
-            
-            if (fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.EndTime)
-            {
-                switch (playerFallCurve.Dir)
-                {
-                    case AniCurveDirection.Forward:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerFallCurve.DirVaule) * timeScale, 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerFallCurve.DirVaule) * timeScale);
-                        break;
-                    case AniCurveDirection.Back:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerFallCurve.DirVaule) * timeScale, 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerFallCurve.DirVaule) * timeScale);
-                        break;
-                }
-            }
-            
-            if (fallCurveTime >= playerFallCurve.LifeTime)
-                isFall = false;
-        }
-        
-    }
-
-    private void CalculationPick()
-    {
-        if (!isPick)
-            return;
-        
-        if (playerPickCurve != null)
-        {
-            pickCurveTime += Time.deltaTime * timeScale;
-            
-            if (pickCurveTime >= playerPickCurve.StartTime && pickCurveTime <= playerPickCurve.EndTime)
-            {
-                switch (playerPickCurve.Dir)
-                {
-                    case AniCurveDirection.Forward:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPickCurve.DirVaule) * timeScale, 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPickCurve.DirVaule) * timeScale);
-                        break;
-                    case AniCurveDirection.Back:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPickCurve.DirVaule) * timeScale, 0, 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPickCurve.DirVaule) * timeScale);
-                        break;
-                }
-            }
-            
-            if (pickCurveTime >= playerPickCurve.LifeTime)
-                isPick = false;
-        }
-        
-    }
-
-    private void CalculationBlock()
-    {
-        if (!isBlock || timeScale == 0)
-            return;
-
-        if (playerBlockCurve != null)
-        {
-            blockCurveTime += Time.deltaTime * timeScale;
-
-            if (playerBlockCurve.isSkill)
-            {
-                PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
-
-                if (blockCurveTime < 1f)
-                {
-                    if (!isDunkBlock)
-                    {
-                        PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-                            Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
-                            Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
-                    }
-                    else
-                    {
-                        PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-                            Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3)), 
-                            Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
-                    }
-                }
-                else
-                {
-                    if (!isDunkBlock)
-                    {
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                            Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
-                            PlayerRefGameObject.transform.position.z);
-                    }
-                    else
-                    {
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                            Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3)), 
-                            PlayerRefGameObject.transform.position.z);
-                    }
-                }   
-            }
-            else
-            {
-                if (blockCurveTime < 1f)
-                    PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * 0.03f * timeScale), 
-                        Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime)), 
-                        PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * 0.03f * timeScale));
-                else
-                    PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                        Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime)), 
-                        PlayerRefGameObject.transform.position.z);
-            }
-
-            if (blockCurveTime >= playerBlockCurve.LifeTime)
-            {
-                isBlock = false;
-            }
-        }
-    }
-
-    private void CalculationShootJump()
-    {
-        if (isShootJump && playerShootCurve != null)
-        {
-            shootJumpCurveTime += Time.deltaTime * timeScale;
-            switch (playerShootCurve.Dir)
-            {
-                case AniCurveDirection.Forward:
-                    if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerShootCurve.DirVaule * timeScale), 
-                            Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerShootCurve.DirVaule * timeScale));
-                    else
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
-                    break;
-                case AniCurveDirection.Back:
-                    if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerShootCurve.DirVaule * timeScale), 
-                            Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), 
-                            PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerShootCurve.DirVaule * timeScale));
-                    else
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), PlayerRefGameObject.transform.position.z);
-                    break;
-
-                default : 
-                    PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), PlayerRefGameObject.transform.position.z);
-                    break;
-
-            }
-
-            if (shootJumpCurveTime >= playerShootCurve.LifeTime)
-            {
-                isShootJump = false;
-                shootJumpCurveTime = 0;
-            }
         }
     }
 
@@ -1740,15 +1314,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         PlayerSkillController.Reset();
         angerValue = 0;
-        isDunk = false;
+        AnimatorControl.Reset();
         isBlock = false;
         isLayup = false;
         isCanBlock = false;
         isRebound = false;
         isShootJump = false;
         isShootJumpActive = false;
-        isPush = false;
-        isFall = false;
         isSkillShow = false;
         animatorEvent.floatParameter = 1;
         animatorEvent.intParameter = 0;
@@ -2008,139 +1580,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
             return false;
     }
-
-    private void InitAnimatorCurve(EAnimatorState state, int stateNo)
-    {
-        bool isFindCurve = false;
-        string curveName = string.Format("{0}{1}", state.ToString(), stateNo);
-
-        switch (state)
-        {
-            case EAnimatorState.Block:
-                if (playerBlockCurve == null || (playerBlockCurve != null && playerBlockCurve.Name != curveName))
-                {
-                    
-                    playerBlockCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Block.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Block[i].Name == curveName)
-                            playerBlockCurve = ModelManager.Get.AnimatorCurveManager.Block[i];
-                }
-                isFindCurve = playerBlockCurve != null ? true : false;
-                blockCurveTime = 0;
-                isBlock = true;
-                break;
-            case EAnimatorState.Dunk:
-                if (playerDunkCurve == null || (playerDunkCurve != null && playerDunkCurve.Name != curveName))
-                {
-                    playerDunkCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Dunk.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Dunk[i].Name == curveName)
-                            playerDunkCurve = ModelManager.Get.AnimatorCurveManager.Dunk[i];
-                }
-                recordPlayerPosition = PlayerRefGameObject.transform.position;
-                isFindCurve = playerDunkCurve != null ? true : false;
-                IsAnimatorMove = false;
-                isDunk = true;
-                dunkCurveTime = 0;
-                break;
-
-            case EAnimatorState.Fall:
-                if (playerFallCurve == null || (playerFallCurve != null && playerFallCurve.Name != curveName))
-                {
-                    playerFallCurve = null;
-
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Fall.Length; i++)
-                        if (curveName == ModelManager.Get.AnimatorCurveManager.Fall[i].Name)
-                            playerFallCurve = ModelManager.Get.AnimatorCurveManager.Fall[i];
-                }
-                isFindCurve = playerFallCurve != null ? true : false;
-                fallCurveTime = 0;
-                isFall = true;
-                break;
-            case EAnimatorState.Push:
-                if (playerPushCurve == null || (playerPushCurve != null && playerPushCurve.Name != curveName))
-                {
-                    playerPushCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Push.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Push[i].Name == curveName)
-                            playerPushCurve = ModelManager.Get.AnimatorCurveManager.Push[i];
-                }
-                isFindCurve = playerPushCurve != null ? true : false;
-                pushCurveTime = 0;
-                isPush = true;
-                break;
-
-            case EAnimatorState.Pick:
-                if (playerPickCurve == null || (playerPickCurve != null && playerPickCurve.Name != curveName))
-                {
-                    playerPickCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.PickBall.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.PickBall[i].Name == curveName)
-                            playerPickCurve = ModelManager.Get.AnimatorCurveManager.PickBall[i];
-                }
-                isFindCurve = playerPickCurve != null ? true : false;
-                pickCurveTime = 0;
-                isPick = true;
-                break;
-            case EAnimatorState.Steal:
-                if (playerStealCurve == null || (playerStealCurve != null && playerStealCurve.Name != curveName))
-                {
-                    playerStealCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Steal.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Steal[i].Name == curveName)
-                            playerStealCurve = ModelManager.Get.AnimatorCurveManager.Steal[i];
-                }
-                isFindCurve = playerStealCurve != null ? true : false;
-                stealCurveTime = 0;
-                isSteal = true;
-                break;
-            case EAnimatorState.Shoot:
-                if (playerShootCurve == null || (playerShootCurve != null && playerShootCurve.Name != curveName))
-                {
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Shoot.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Shoot[i].Name == curveName)
-                            playerShootCurve = ModelManager.Get.AnimatorCurveManager.Shoot[i];
-                }
-                isFindCurve = playerShootCurve != null ? true : false;
-                shootJumpCurveTime = 0;
-                isShootJump = true;
-                if (stateNo >= 20)
-                    isShootJumpActive = true;
-            
-                break;
-            case EAnimatorState.Layup:
-                if (playerLayupCurve == null || (playerLayupCurve != null && playerLayupCurve.Name != curveName))
-                {
-                    playerLayupCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Layup.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Layup[i].Name == curveName)
-                            playerLayupCurve = ModelManager.Get.AnimatorCurveManager.Layup[i];
-                }
-                recordPlayerPosition = PlayerRefGameObject.transform.position;
-                isFindCurve = playerLayupCurve != null ? true : false;
-                layupCurveTime = 0;
-                isLayup = true;
-//                isLayupZmove = false;
-                break;
-
-            case EAnimatorState.Rebound:
-                if (playerLayupCurve == null || (playerLayupCurve != null && playerLayupCurve.Name != curveName))
-                {
-                    playerReboundCurve = null;
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Rebound.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Rebound[i].Name == curveName)
-                            playerReboundCurve = ModelManager.Get.AnimatorCurveManager.Rebound[i];
-                }
-                isFindCurve = playerReboundCurve != null ? true : false;
-                reboundCurveTime = 0;
-                isRebound = true;
-                break;
-        }
-
-        if (curveName != string.Empty && !isFindCurve)
-            DebugAnimationCurve(curveName);
-    }
-
+        
     private void BlockStateHandle(int stateNo)
     {
         switch (stateNo)
@@ -2151,21 +1591,23 @@ public class PlayerBehaviour : MonoBehaviour
                     isDunkBlock = true;
                 break;
         }
-        InitAnimatorCurve(EAnimatorState.Block, stateNo);
+		if (GameController.Get.BallOwner == null)
+		{
+			skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
+		}
+		else
+		{
+			skillMoveTarget = GameController.Get.BallOwner.FindNearBlockPoint(PlayerRefGameObject.transform.position);
+		}
+
+        AnimatorControl.InitBlockCurve(stateNo, skillMoveTarget, isDunkBlock);
         StartSkillCamera(stateNo);
         SetShooterLayer();
         
         UseGravity = false;
         IsKinematic = true;
         
-        if (GameController.Get.BallOwner == null)
-        {
-            skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
-        }
-        else
-        {
-            skillMoveTarget = GameController.Get.BallOwner.FindNearBlockPoint(PlayerRefGameObject.transform.position);
-        }
+       
             
         AnimatorControl.AddTrigger(EAnimatorState.Block, stateNo);
         isCanCatchBall = false;
@@ -2215,7 +1657,7 @@ public class PlayerBehaviour : MonoBehaviour
         IsKinematic = true;
         AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo);
         isCanCatchBall = true;
-        InitAnimatorCurve(EAnimatorState.Dunk, stateNo);
+		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
         SetShooterLayer();
         if (OnDunkJump != null)
             OnDunkJump(this);
@@ -2228,8 +1670,7 @@ public class PlayerBehaviour : MonoBehaviour
         IsKinematic = true;
         AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo);
         isCanCatchBall = false;
-
-        InitAnimatorCurve(EAnimatorState.Dunk, stateNo);
+		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
 
         SetShooterLayer();
         CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
@@ -2295,8 +1736,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (IsDunk)
         {
-            isDunk = false;
-            IsAnimatorMove = false;
+            AnimatorControl.Reset(EAnimatorState.Dunk);
+//            IsAnimatorMove = false;
             PlayerRefGameObject.transform.DOKill();
             PlayerRefGameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
         }
@@ -2310,9 +1751,9 @@ public class PlayerBehaviour : MonoBehaviour
     public void FallStateHandle(int stateNo)
     {
         SetShooterLayer();
-        InitAnimatorCurve(EAnimatorState.Fall, stateNo);
-        isDunk = false;
-        IsAnimatorMove = false;
+        AnimatorControl.InitFallCurve(stateNo);
+        AnimatorControl.Reset(EAnimatorState.Dunk);
+//        IsAnimatorMove = false;
         isShootJump = false;
         AnimatorControl.AddTrigger(EAnimatorState.Fall, stateNo);
         isCanCatchBall = false;
@@ -2351,7 +1792,7 @@ public class PlayerBehaviour : MonoBehaviour
             StartSkillCamera(stateNo);
             UseGravity = false;
             IsKinematic = true;
-            InitAnimatorCurve(EAnimatorState.Shoot, stateNo);
+            AnimatorControl.InitShootCurve(stateNo);
             SetShooterLayer();
             AnimatorControl.AddTrigger(EAnimatorState.Shoot, stateNo);
             isCanCatchBall = false;
@@ -2375,7 +1816,9 @@ public class PlayerBehaviour : MonoBehaviour
             }
             UseGravity = false;
             IsKinematic = true;
-            InitAnimatorCurve(EAnimatorState.Layup, stateNo);
+            Vector3 layupPoint = CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
+            layupPoint.z += (Team == 0 ? -1 : 1);
+            AnimatorControl.InitLayupCurve(stateNo, layupPoint);
             SetShooterLayer();
             AnimatorControl.AddTrigger(EAnimatorState.Layup, stateNo);
             isCanCatchBall = false;
@@ -2511,7 +1954,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EAnimatorState.Push:
                 if (nextState.StateNo == 20)
                     GameRecord.Push++;
-                InitAnimatorCurve(EAnimatorState.Push, nextState.StateNo);
+                AnimatorControl.InitPushCurve(nextState.StateNo);
                 StartSkillCamera(nextState.StateNo);
                 AnimatorControl.AddTrigger(EAnimatorState.Push, nextState.StateNo);
                 GameRecord.PushLaunch++;
@@ -2520,7 +1963,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EAnimatorState.Pick:
                 if (nextState.StateNo == 2)
                 {
-                    InitAnimatorCurve(EAnimatorState.Pick, nextState.StateNo);
+                    AnimatorControl.InitPickCurve(nextState.StateNo);
                     GameRecord.SaveBallLaunch++;
                 }
                 AnimatorControl.AddTrigger(EAnimatorState.Pick, nextState.StateNo);
@@ -2540,7 +1983,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (nextState.StateNo == 20)
                 {
                     GameRecord.Steal++;
-                    InitAnimatorCurve(EAnimatorState.Steal, nextState.StateNo);
+                    AnimatorControl.InitStealCurve(nextState.StateNo);
                 }
                 StartSkillCamera(nextState.StateNo);
                 PlayerRigidbody.mass = 5;
@@ -2585,7 +2028,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     reboundMove = Vector3.zero;
 
-                InitAnimatorCurve(EAnimatorState.Rebound, nextState.StateNo);
+                AnimatorControl.InitReboundCurve(nextState.StateNo, skillMoveTarget, reboundMove);
                 SetShooterLayer();
                 AnimatorControl.AddTrigger(EAnimatorState.Rebound, nextState.StateNo);
                 GameRecord.ReboundLaunch++;
@@ -2612,12 +2055,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         return Result;
-    }
-
-    private void DebugAnimationCurve(string curveName)
-    {
-        if (GameStart.Get.IsDebugAnimation)
-            LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 
     public void SetShooterLayer()
@@ -2807,8 +2244,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "CloneMesh":
                 if (!IsBallOwner)
-                    EffectManager.Get.CloneMesh(PlayerRefGameObject, playerDunkCurve.CloneMaterial, 
-                        playerDunkCurve.CloneDeltaTime, playerDunkCurve.CloneCount);
+                    AnimatorControl.PlayDunkCloneMesh();  
                 break;
 
             case "DunkBasketStart":
@@ -2923,7 +2359,6 @@ public class PlayerBehaviour : MonoBehaviour
         IsKinematic = false;
         IsPerfectBlockCatch = false;
         isRebound = false;
-        isPush = false; 
         isUseActiveSkill = false;
         blockCatchTrigger.enabled = false;
 		
@@ -3693,18 +3128,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         isTouchPalyer += index;
     }
-
-    //    public void ResetCurveFlag()
-    //    {
-    //        isDunk = false;
-    //        isBlock = false;
-    //        isLayup = false;
-    //        isCanBlock = false;
-    //        isRebound = false;
-    //        isShootJump = false;
-    //        isPush = false;
-    //        isFall = false;
-    //    }
 	
     public Vector2 GetStealPostion(Vector3 p1, Vector3 p2, EPlayerPostion index)
     {

@@ -85,4 +85,5 @@ public class AniCurve : MonoBehaviour {
 	public TSharedCurve[] Fall;
 	public TSharedCurve[] PickBall;
 	public TStealCurve[] Steal;
+	public TReboundCurve[] JumpBall; 
 }
