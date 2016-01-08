@@ -200,7 +200,7 @@ public class UIEquipment : UIBase
         if(status == UIEquipMaterialItem.EStatus.Lack)
         {
             // 材料不足, 進入導引視窗.
-            UIItemSource.Get.ShowMaterial(GameData.DItemData[materialItemID]);
+            UIItemSource.Get.ShowMaterial(GameData.DItemData[materialItemID], enable => {if(enable) Hide();});
         }
         else if(status == UIEquipMaterialItem.EStatus.Inlayed)
         {

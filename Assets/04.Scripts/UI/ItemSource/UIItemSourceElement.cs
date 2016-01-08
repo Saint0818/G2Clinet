@@ -16,7 +16,20 @@ public class UIItemSourceElement : MonoBehaviour
     {
         public string KindName;
         public string Name;
-        public IAction Action;
+
+        public bool EnableStartButton;
+
+        /// <summary>
+        /// Start 按鈕按下要做的事情.(通常都是只有開啟介面)
+        /// </summary>
+        [CanBeNull]
+        public IAction StartAction;
+
+        /// <summary>
+        /// 呼叫時機: Start 按鈕按下.
+        /// </summary>
+        [CanBeNull]
+        public Action<bool> StartCallback; 
     }
 
     public interface IAction
@@ -28,8 +41,18 @@ public class UIItemSourceElement : MonoBehaviour
     public UILabel NameLabel;
     public UILabel ButtonLabel;
     public UIButton StartButton;
+    public UISprite ButtonSprite;
 
-    private IAction mAction;
+    [CanBeNull]
+    private IAction mStartAction;
+
+    /// <summary>
+    /// bool: true 表示 Start 按鈕是 Enabled.
+    /// </summary>
+    [CanBeNull]
+    private Action<bool> mStartCallback;
+
+    private bool mStartEnabled;
 
     [UsedImplicitly]
     private void Awake()
@@ -48,11 +71,24 @@ public class UIItemSourceElement : MonoBehaviour
         KindLabel.text = data.KindName;
         NameLabel.text = data.Name;
 
-        mAction = data.Action;
+        mStartEnabled = data.EnableStartButton;
+        mStartAction = data.StartAction;
+        mStartCallback = data.StartCallback;
+
+        ButtonSprite.spriteName = UIBase.ButtonBG(mStartEnabled);
     }
 
     private void onStartClick()
     {
-        mAction.Do();
+        if(mStartEnabled)
+        {
+            if(mStartAction != null)
+                mStartAction.Do();
+
+            UIItemSource.Get.Hide();
+        }
+
+        if(mStartCallback != null)
+            mStartCallback(mStartEnabled);
     }
 }

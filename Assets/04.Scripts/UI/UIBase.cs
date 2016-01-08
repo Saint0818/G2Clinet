@@ -229,14 +229,14 @@ public class UIBase: MonoBehaviour
 
     }
 
-    public string ButtonBG(bool ok) {
+    public static string ButtonBG(bool ok) {
         if (ok) 
-            return "button_organe1";
+            return "button_orange1";
         else
             return "button_gray";
     }
 
-    public Color ButtonTextColor(bool ok) {
+    public static Color ButtonTextColor(bool ok) {
         if (ok) 
             return Color.white;
         else

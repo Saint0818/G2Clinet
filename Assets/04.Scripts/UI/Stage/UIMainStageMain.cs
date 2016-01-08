@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class UIMainStageMain : MonoBehaviour
     /// <summary>
     /// 呼叫時機: 返回按鈕按下時.
     /// </summary>
-    public event CommonDelegateMethods.Action BackListener;
+    public event Action BackListener;
 
     /// <summary>
     /// Index 0: 第一章, Index 2: 第二章.
@@ -242,6 +243,26 @@ public class UIMainStageMain : MonoBehaviour
         }
 
         mChapters.Clear();
+    }
+
+    public void ShowStageInfo(int chapter, int stageID)
+    {
+        if(!mChapters.ContainsKey(chapter))
+        {
+            Debug.LogErrorFormat("Can't find Chapter({0})", chapter);
+            return;
+        }
+
+        if(!mChapters[chapter].HasStage(stageID))
+        {
+            Debug.LogErrorFormat("Can't find StageID({0})", stageID);
+            return;
+        }
+
+        ScrollToChapter(chapter);
+
+        UIStageElement element = mChapters[chapter].GetStageByID(stageID);
+        Info.Show(stageID, element.Data);
     }
 
     public void OnBackClick()

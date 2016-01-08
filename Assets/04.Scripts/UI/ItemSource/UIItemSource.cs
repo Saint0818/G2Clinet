@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ public class UIItemSource : UIBase
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
-    public void ShowMaterial(TItemData item)
+    public void ShowMaterial(TItemData item, Action<bool> startCallback)
     {
         Show(true);
 
@@ -43,7 +44,7 @@ public class UIItemSource : UIBase
         bringToFront();
 
         mMain.SetMaterial(item);
-        mMain.AddSources(UIItemSourceBuilder.Build(item));
+        mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
     }
 
     private void bringToFront()

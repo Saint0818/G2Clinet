@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -31,8 +30,6 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    private int mCurrentStageID;
-
     private UIMainStageMain mMain;
 
     [UsedImplicitly]
@@ -57,7 +54,30 @@ public class UIMainStage : UIBase
     {
         Show(true);
 
-        buildMainStages();
+//        UIMainStageTools.SetDebugNewChapter();
+        buildChapters();
+        selectChapter();
+        tryPlayAnimation();
+    }
+
+    public void Show(int stageID)
+    {
+        Show(true);
+
+        buildChapters();
+        selectStage(stageID);
+    }
+
+    private void selectStage(int stageID)
+    {
+        if(!StageTable.Ins.HasByID(stageID))
+        {
+            Debug.LogErrorFormat("Can't find Stage({0})", stageID);
+            return;
+        }
+
+        TStageData stageData = StageTable.Ins.GetByID(stageID);
+        mMain.ShowStageInfo(stageData.Chapter, stageID);
     }
 
     private void enterSelectRole(int stageID)
@@ -158,18 +178,8 @@ public class UIMainStage : UIBase
         return GameData.Team.Player.Lv >= stageData.LimitLevel;
     }
 
-    /// <summary>
-    /// 顯示主線關卡.
-    /// </summary>
-    private void buildMainStages()
+    private void tryPlayAnimation()
     {
-//        UIMainStageTools.SetDebugNewChapter();
-
-        mMain.RemoveAllChapters();
-
-        buildChapters();
-        selectChapter();
-
         if(UIMainStageTools.HasNewChapter())
         {
             TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
@@ -192,6 +202,8 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildChapters()
     {
+        mMain.RemoveAllChapters();
+
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
             maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;

@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class UIItemSourceMain : MonoBehaviour
     /// <summary>
     /// 右上角的 X 按鈕按下.
     /// </summary>
-    public event CommonDelegateMethods.Action OnCloseListener;
+    public event Action OnCloseListener;
 
     public UIButton CloseButton;
     public UILabel NameLabel;

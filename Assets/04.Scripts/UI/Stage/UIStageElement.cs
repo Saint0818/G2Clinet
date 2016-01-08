@@ -18,6 +18,7 @@ public class UIStageElement : MonoBehaviour
     /// </summary>
     private const float EnableTime = 1.8f;
 
+    public UIStageInfo.Data Data { get { return mData; } }
     private UIStageInfo.Data mData;
 
     private Animator mAnimator;

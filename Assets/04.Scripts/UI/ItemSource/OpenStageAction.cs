@@ -12,5 +12,7 @@ public class OpenStageAction : UIItemSourceElement.IAction
     public void Do()
     {
         Debug.LogFormat("Show StageID({0})", mStageID);
+
+        UIMainStage.Get.Show(mStageID);
     }
 }
