@@ -17,7 +17,12 @@ public class UIItemSourceElement : MonoBehaviour
         public string KindName;
         public string Name;
 
-        public bool EnableStartButton;
+        public bool StartEnabled;
+
+        /// <summary>
+        /// 開始按鈕不能按, 但使用者按下時會出現的提示訊息.
+        /// </summary>
+        public string StartWarningMessage;
 
         /// <summary>
         /// Start 按鈕按下要做的事情.(通常都是只有開啟介面)
@@ -43,16 +48,7 @@ public class UIItemSourceElement : MonoBehaviour
     public UIButton StartButton;
     public UISprite ButtonSprite;
 
-    [CanBeNull]
-    private IAction mStartAction;
-
-    /// <summary>
-    /// bool: true 表示 Start 按鈕是 Enabled.
-    /// </summary>
-    [CanBeNull]
-    private Action<bool> mStartCallback;
-
-    private bool mStartEnabled;
+    private Data mData;
 
     [UsedImplicitly]
     private void Awake()
@@ -68,27 +64,27 @@ public class UIItemSourceElement : MonoBehaviour
 
     public void Set(Data data)
     {
-        KindLabel.text = data.KindName;
-        NameLabel.text = data.Name;
+        mData = data;
 
-        mStartEnabled = data.EnableStartButton;
-        mStartAction = data.StartAction;
-        mStartCallback = data.StartCallback;
+        KindLabel.text = mData.KindName;
+        NameLabel.text = mData.Name;
 
-        ButtonSprite.spriteName = UIBase.ButtonBG(mStartEnabled);
+        ButtonSprite.spriteName = UIBase.ButtonBG(mData.StartEnabled);
     }
 
     private void onStartClick()
     {
-        if(mStartEnabled)
+        if(mData.StartEnabled)
         {
-            if(mStartAction != null)
-                mStartAction.Do();
+            if(mData.StartAction != null)
+                mData.StartAction.Do();
 
             UIItemSource.Get.Hide();
         }
+        else
+            UIHint.Get.ShowHint(mData.StartWarningMessage, Color.white);
 
-        if(mStartCallback != null)
-            mStartCallback(mStartEnabled);
+        if(mData.StartCallback != null)
+            mData.StartCallback(mData.StartEnabled);
     }
 }

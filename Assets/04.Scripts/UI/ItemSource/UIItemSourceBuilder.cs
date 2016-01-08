@@ -9,6 +9,14 @@ public static class UIItemSourceBuilder
     public static UIItemSourceElement.Data[] Build(TItemData item, Action<bool> startCallback)
     {
         List<UIItemSourceElement.Data> elements = new List<UIItemSourceElement.Data>();
+        buildMainStage(item, startCallback, elements);
+
+        return elements.ToArray();
+    }
+
+    private static void buildMainStage(TItemData item, Action<bool> startCallback, 
+                                       List<UIItemSourceElement.Data> elements)
+    {
         foreach(int stageID in item.StageSource)
         {
             if(!StageTable.Ins.HasByID(stageID))
@@ -18,27 +26,18 @@ public static class UIItemSourceBuilder
             }
 
             if(StageTable.MinMainStageID <= stageID && stageID <= StageTable.MaxMainStageID)
-                elements.Add(createData(stageID, startCallback));
+            {
+                var data = new UIItemSourceElement.Data
+                {
+                    KindName = TextConst.S(9152),
+                    Name = StageTable.Ins.GetByID(stageID).Name,
+                    StartEnabled = GameData.Team.Player.NextMainStageID >= stageID,
+                    StartWarningMessage = TextConst.S(100009),
+                    StartAction = new OpenStageAction(stageID),
+                    StartCallback = startCallback
+                };
+                elements.Add(data);
+            }
         }
-
-        return elements.ToArray();
-    }
-
-    private static UIItemSourceElement.Data createData(int stageID, Action<bool> startCallback)
-    {
-        var data = new UIItemSourceElement.Data
-        {
-            KindName = TextConst.S(9152),
-            Name = StageTable.Ins.GetByID(stageID).Name,
-            EnableStartButton = GameData.Team.Player.NextMainStageID >= stageID
-        };
-
-        if(data.EnableStartButton)
-        {
-            data.StartAction = new OpenStageAction(stageID);
-            data.StartCallback = startCallback;
-        }
-
-        return data;
     }
 }

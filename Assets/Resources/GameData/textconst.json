@@ -143,8 +143,8 @@
     },
     {
         "id": 305,
-        "tw": "物品的品質高低分別為 \"白色<[00b35a]綠色[-]<[33bbff]藍色[-]<[8000ff]紫色[-]<[ff8000]橘色[-]\"",
-        "en": "The quality of equipment range from \"White<[00b35a]Green[-]<[33bbff]Blue[-]<[8000ff]Purple[-]<[ff8000]Orange[-]\""
+        "tw": "物品的品質高低分別為『白色<[00b35a]綠色[-]<[33bbff]藍色[-]<[8000ff]紫色[-]<[ff8000]橘色[-]』",
+        "en": "The quality of equipment range from『White<[00b35a]Green[-]<[33bbff]Blue[-]<[8000ff]Purple[-]<[ff8000]Orange[-]』"
     },
     {
         "id": 306,
@@ -329,6 +329,9 @@
         "tw": "等級已滿，無法強化。"
     },
     {
+        "id": 557
+    },
+    {
         "id": 601,
         "explain": "版本更新"
     },
@@ -400,13 +403,13 @@
     {
         "id": 1005,
         "explain": "裝備按鈕",
-        "tw": "裝 備",
+        "tw": "突觸強化",
         "en": "EQUIPMENT"
     },
     {
         "id": 1006,
         "explain": "技能按鈕",
-        "tw": "技 能",
+        "tw": "技能晶片",
         "en": "ABILITY"
     },
     {
@@ -420,6 +423,12 @@
         "explain": "競賽按鈕",
         "tw": "競 賽",
         "en": "GAME MODE"
+    },
+    {
+        "id": 1009,
+        "explain": "抽包按鈕",
+        "tw": "晶片取得",
+        "en": "MALL"
     },
     {
         "id": 1101,
@@ -1232,7 +1241,8 @@
     },
     {
         "id": 4106,
-        "explain": "FreeLabel"
+        "explain": "FreeLabel",
+        "tw": "免費倒數 {0} "
     },
     {
         "id": 4107,
@@ -1246,6 +1256,10 @@
     },
     {
         "id": 4110
+    },
+    {
+        "id": 4200,
+        "explain": "銷售語"
     },
     {
         "id": 4901,
@@ -1353,7 +1367,7 @@
     {
         "id": 5001,
         "explain": "社交介面",
-        "tw": "社 交"
+        "tw": "社 群"
     },
     {
         "id": 5002,
@@ -1363,7 +1377,7 @@
     {
         "id": 5003,
         "explain": "頁籤2",
-        "tw": "交友邀請"
+        "tw": "邀 請"
     },
     {
         "id": 5004,
@@ -1447,9 +1461,34 @@
         "en": "Make Friend"
     },
     {
+        "id": 5020,
+        "explain": "功能訊息",
+        "tw": "玩家名稱錯誤"
+    },
+    {
+        "id": 5021,
+        "tw": "無此玩家"
+    },
+    {
+        "id": 5022,
+        "tw": "朋友資料錯誤"
+    },
+    {
+        "id": 5023,
+        "tw": "關注"
+    },
+    {
+        "id": 5024,
+        "tw": "取消關注"
+    },
+    {
+        "id": 5025,
+        "tw": "解除朋友關係"
+    },
+    {
         "id": 6001,
         "explain": "裝備介面",
-        "tw": "裝 備",
+        "tw": "突觸強化",
         "en": "EQUIPMENT"
     },
     {
@@ -1496,6 +1535,12 @@
         "en": "[3355ff]Pasive Ability[-]"
     },
     {
+        "id": 6110,
+        "explain": "目前擁有數量",
+        "tw": "[33FFDD]擁有：[-][ffffff]{0}[-] [33FFDD]件[-]",
+        "en": "[33FFDD]Owned：[-][ffffff]{0}[-]"
+    },
+    {
         "id": 6201,
         "explain": "物品來源hint"
     },
@@ -1535,7 +1580,7 @@
     {
         "id": 7001,
         "explain": "技能介面",
-        "tw": "技 能",
+        "tw": "技能晶片",
         "en": "Ability"
     },
     {
@@ -1742,13 +1787,13 @@
     {
         "id": 7210,
         "explain": "LifeTimeLabel/Label",
-        "tw": "時間",
+        "tw": "持續時間",
         "en": "Time"
     },
     {
         "id": 7211,
         "explain": "TitleLabel",
-        "tw": "距離",
+        "tw": "發動距離",
         "en": "Distance"
     },
     {
@@ -1759,7 +1804,7 @@
     {
         "id": 7213,
         "explain": "UpgradeBtn/Label",
-        "tw": "合成升級",
+        "tw": "強化合成",
         "en": "Combine to Level"
     },
     {
@@ -1833,10 +1878,10 @@
     {
         "id": 7501,
         "explain": "ItemCardEquipped ",
-        "tw": "COST [ff0000]{0}[-]",
-        "cn": "COST [ff0000]{0}[-]",
-        "en": "COST [ff0000]{0}[-]",
-        "jp": "COST [ff0000]{0}[-]"
+        "tw": "COST [00FFFFFF]{0}[-]",
+        "cn": "COST [00FFFFFF]{0}[-]",
+        "en": "COST [00FFFFFF]{0}[-]",
+        "jp": "COST [00FFFFFF]{0}[-]"
     },
     {
         "id": 8001,
@@ -1971,6 +2016,9 @@
         "id": 9154,
         "explain": "副本關卡",
         "tw": "挑  戰"
+    },
+    {
+        "id": 9155
     },
     {
         "id": 9201,
@@ -2178,6 +2226,39 @@
     {
         "id": 9601,
         "explain": "戰術選擇"
+    },
+    {
+        "id": 9701,
+        "explain": "聯盟對戰",
+        "tw": "聯盟對戰"
+    },
+    {
+        "id": 9702,
+        "explain": "tabs/01",
+        "tw": "排行榜1"
+    },
+    {
+        "id": 9703,
+        "explain": "tabs/02",
+        "tw": "排行榜2"
+    },
+    {
+        "id": 9704,
+        "explain": "tabs/03",
+        "tw": "預留"
+    },
+    {
+        "id": 9705,
+        "explain": "tabs/04",
+        "tw": "預留"
+    },
+    {
+        "id": 9706,
+        "explain": "tabs/05",
+        "tw": "預留"
+    },
+    {
+        "id": 9707
     },
     {
         "id": 10001,
@@ -3028,32 +3109,38 @@
     {
         "id": 13011,
         "explain": "11.（左上）",
-        "tw": "11.（左上）"
+        "tw": "顱部插件",
+        "en": "Cranial plug"
     },
     {
         "id": 13012,
         "explain": "12.（左）",
-        "tw": "12.（左）"
+        "tw": "左臂插件",
+        "en": "Left arm plug"
     },
     {
         "id": 13013,
         "explain": "13.（左下）",
-        "tw": "13.（左下）"
+        "tw": "右臂插件",
+        "en": "Right arm plug"
     },
     {
         "id": 13014,
         "explain": "14.（右下）",
-        "tw": "14.（右下）"
+        "tw": "胸腔插件",
+        "en": "Pleural plug"
     },
     {
         "id": 13015,
         "explain": "15.（右）",
-        "tw": "15.（右）"
+        "tw": "左腿插件",
+        "en": "Left leg plug"
     },
     {
         "id": 13016,
         "explain": "16.（右上）",
-        "tw": "16.（右上）"
+        "tw": "右腿插件",
+        "en": "Right leg plug"
     },
     {
         "id": 13017,
@@ -3079,6 +3166,69 @@
         "explain": "21.技能卡牌",
         "tw": "技能晶片",
         "en": "Ability Disk"
+    },
+    {
+        "id": 100000,
+        "explain": "物品來源出處介面"
+    },
+    {
+        "id": 100009,
+        "explain": "未達關卡條件",
+        "tw": "尚未挑戰此關卡"
+    },
+    {
+        "id": 100010,
+        "explain": "抽包介面標題",
+        "tw": "晶片抽取",
+        "en": "Chip extraction"
+    },
+    {
+        "id": 100011,
+        "explain": "抽包說明",
+        "tw": "有機會抽取此技能晶片",
+        "en": "We have the opportunity to extract this skill wafer"
+    },
+    {
+        "id": 100019,
+        "explain": "抽包說明",
+        "tw": "有機會抽取此技能晶片",
+        "en": "We have the opportunity to extract this skill wafer"
+    },
+    {
+        "id": 100100,
+        "explain": "一般商店介面標題",
+        "tw": "一般商店",
+        "en": "General Store"
+    },
+    {
+        "id": 100101,
+        "explain": "一般商店說明",
+        "tw": "有機會在商店中購買此物",
+        "en": "Have the opportunity to buy this thing in the store"
+    },
+    {
+        "id": 100110,
+        "explain": "聯盟商店介面標題",
+        "tw": "聯盟商店",
+        "en": "Union Shop"
+    },
+    {
+        "id": 100111,
+        "explain": "聯盟商店說明",
+        "tw": "有機會在商店中購買此物",
+        "en": "Have the opportunity to buy this thing in the store"
+    },
+    {
+        "id": 100120,
+        "explain": "社群商店介面標題",
+        "tw": "社群商店",
+        "en": "Community Store"
+    },
+    {
+        "id": 100121,
+        "explain": "社群商店說明",
+        "tw": "有機會在商店中購買此物",
+        "en": "Have the opportunity to buy this thing in the store"
     },
     {
         "id": 2000001,
