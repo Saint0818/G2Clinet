@@ -194,8 +194,8 @@ public class UIEquipment : UIBase
     private void onMaterialClick(UIEquipMaterialItem.EStatus status, int slotIndex, 
                                  int storageMaterialItemIndex, int materialItemID)
     {
-        Debug.LogFormat("onMaterialClick, Status:{0}, slotIndex:{1}, storageMaterialItemIndex:{2}, MaterialItemID:{3}", 
-                        status, slotIndex, storageMaterialItemIndex, materialItemID);
+//        Debug.LogFormat("onMaterialClick, Status:{0}, slotIndex:{1}, storageMaterialItemIndex:{2}, MaterialItemID:{3}", 
+//                        status, slotIndex, storageMaterialItemIndex, materialItemID);
 
         if(status == UIEquipMaterialItem.EStatus.Lack)
         {

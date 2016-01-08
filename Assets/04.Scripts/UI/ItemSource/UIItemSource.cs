@@ -10,7 +10,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> 用 Get 取得 instance. </item>
-/// <item> Call Show(). </item>
+/// <item> Call ShowXXX() 顯示介面.. </item>
 /// <item> Call Hide(). </item>
 /// </list>
 /// </remarks>
@@ -44,6 +44,28 @@ public class UIItemSource : UIBase
         bringToFront();
 
         mMain.SetMaterial(item);
+        mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
+    }
+
+    public void ShowAvatar(TItemData item, Action<bool> startCallback)
+    {
+        Show(true);
+
+        // 如果不加上這段, 六角形的屬性值會在前面. 所以必須要整個 UI 往前移動, 讓六角形屬性值不會穿過介面.
+        bringToFront();
+
+        mMain.SetAvatar(item);
+        mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
+    }
+
+    public void ShowSkill(TItemData item, Action<bool> startCallback)
+    {
+        Show(true);
+
+        // 如果不加上這段, 六角形的屬性值會在前面. 所以必須要整個 UI 往前移動, 讓六角形屬性值不會穿過介面.
+        bringToFront();
+
+        mMain.SetSkill(item);
         mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
     }
 
