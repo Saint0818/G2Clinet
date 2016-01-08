@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using UnityEngine;
-using GameEnum;
 
 public static class UIMainStageTools
 {

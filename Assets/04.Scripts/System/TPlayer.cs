@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
 using UnityEngine;
@@ -611,7 +612,7 @@ namespace GameStruct
         /// <returns></returns>
 		public int GetSumValueItems(EBonus kind)
         {
-			CommonDelegateMethods.RInt1Int1Kind1 findSumValue = delegate(int itemID, EBonus bonus)
+			Func<int, EBonus, int> findSumValue = delegate(int itemID, EBonus bonus)
             {
                 if(!GameData.DItemData.ContainsKey(itemID))
                 {

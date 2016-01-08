@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UI3DBuyStore :  UIBase {
 	private static UI3DBuyStore instance = null;

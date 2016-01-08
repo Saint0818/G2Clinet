@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BuffView : MonoBehaviour {
 	public GameObject Distance;

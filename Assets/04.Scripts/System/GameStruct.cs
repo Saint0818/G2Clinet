@@ -870,9 +870,9 @@ namespace GameStruct
         [UsedImplicitly]
         public int UpgradeMoney { get; private set; }
 
-        [UsedImplicitly]
+        [UsedImplicitly, CanBeNull]
         public int[] StageSource { get; private set; }
-        [UsedImplicitly]
+        [UsedImplicitly, CanBeNull]
         public int[] UISource { get; private set; }
 
         public int Buy;

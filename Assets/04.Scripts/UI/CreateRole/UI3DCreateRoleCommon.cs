@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
-using GameEnum;
 
 /// <summary>
 /// 給 UI3DCreateRoleXXX 使用, 主要是放相同的東西.

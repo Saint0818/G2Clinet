@@ -1,12 +1,13 @@
+using System;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
 public class ValueItemUpgradeProtocol
 {
-    private CommonDelegateMethods.Bool1 mCallback;
+    private Action<bool> mCallback;
 
-    public void Send(int valueItemKind, CommonDelegateMethods.Bool1 callback)
+    public void Send(int valueItemKind, Action<bool> callback)
     {
         mCallback = callback;
 

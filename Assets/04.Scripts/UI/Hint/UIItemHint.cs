@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
 
 public class UIItemHint : UIBase {
 	private static UIItemHint instance = null;

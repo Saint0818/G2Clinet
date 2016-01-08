@@ -24,7 +24,7 @@ public class UIEquipmentMain : MonoBehaviour
     /// <summary>
     /// 返回按鈕按下.
     /// </summary>
-    public event CommonDelegateMethods.Action OnBackListener;
+    public event System.Action OnBackListener;
 
     public delegate void Action(UIEquipMaterialItem.EStatus status, int slotIndex, 
                                 int storageMaterialItemIndex, int materialItemID);

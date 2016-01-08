@@ -1,7 +1,7 @@
 ﻿using System.Collections;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
-using GameEnum;
 
 /// <summary>
 /// 創角介面:選擇位置介面.

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class ActionQueue : MonoBehaviour
         mActions.Clear();
     }
 
-    public void Execute(CommonDelegateMethods.Bool1 callback)
+    public void Execute(Action<bool> callback)
     {
         if(mActions.Count == 0)
         {
@@ -51,7 +52,7 @@ public class ActionQueue : MonoBehaviour
         StartCoroutine(execute(callback));
     }
 
-    private IEnumerator execute(CommonDelegateMethods.Bool1 callback)
+    private IEnumerator execute(Action<bool> callback)
     {
         var action = mQueue.Dequeue();
         action.Do();

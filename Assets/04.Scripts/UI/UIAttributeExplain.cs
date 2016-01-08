@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UIAttributeExplain  : UIBase {
 	private static UIAttributeExplain instance = null;

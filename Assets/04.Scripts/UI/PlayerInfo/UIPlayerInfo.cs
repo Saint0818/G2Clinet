@@ -1,7 +1,5 @@
-using UnityEngine;
 using GameStruct;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class PersonalView
 {

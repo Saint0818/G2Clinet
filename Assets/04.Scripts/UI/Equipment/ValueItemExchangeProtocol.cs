@@ -1,12 +1,13 @@
+using System;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
 public class ValueItemExchangeProtocol
 {
-    private CommonDelegateMethods.Bool1 mCallback;
+    private Action<bool> mCallback;
 
-    public void Send(int[] changeData, CommonDelegateMethods.Bool1 callback)
+    public void Send(int[] changeData, Action<bool> callback)
     {
         mCallback = callback;
 

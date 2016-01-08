@@ -1,7 +1,8 @@
 
 using System;
-using GameStruct;
 using System.Collections.Generic;
+using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public static class UIItemSourceBuilder
@@ -9,13 +10,15 @@ public static class UIItemSourceBuilder
     public static UIItemSourceElement.Data[] Build(TItemData item, Action<bool> startCallback)
     {
         List<UIItemSourceElement.Data> elements = new List<UIItemSourceElement.Data>();
-        buildMainStage(item.StageSource, startCallback, elements);
-        buildUISource(item.UISource, startCallback, elements);
+        if(item.StageSource != null)
+            buildMainStage(item.StageSource, startCallback, elements);
+        if(item.UISource != null)
+            buildUISource(item.UISource, startCallback, elements);
 
         return elements.ToArray();
     }
 
-    private static void buildMainStage(int[] stageSource, Action<bool> startCallback, 
+    private static void buildMainStage([NotNull]int[] stageSource, Action<bool> startCallback, 
                                        List<UIItemSourceElement.Data> elements)
     {
         foreach(int stageID in stageSource)
@@ -42,8 +45,8 @@ public static class UIItemSourceBuilder
         }
     }
 
-    private static void buildUISource(int[] uiSource, Action<bool> startCallback,
-                                       List<UIItemSourceElement.Data> elements)
+    private static void buildUISource([NotNull]int[] uiSource, Action<bool> startCallback,
+                                      List<UIItemSourceElement.Data> elements)
     {
 
         Func<string, string, string, UIItemSourceElement.Data> buildMall = 

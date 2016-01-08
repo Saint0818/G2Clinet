@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
-using GameEnum;
+
 /// <summary>
 /// UICreateRoleFrameView 會使用的元件, 專門用來顯示某位角色的相關資訊.
 /// </summary>

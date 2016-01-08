@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -49,7 +50,7 @@ public class UIChapterChangeListener : MonoBehaviour
     /// <para> 呼叫時機: 章節改變時. </para>
     /// <para> int ChapterID: 新章節. </para>
     /// </summary>
-    public event CommonDelegateMethods.Int1 OnChangeListener;
+    public event Action<int> OnChangeListener;
 
     private int mCurrentChapterID = -1;
 

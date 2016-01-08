@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using AnimationOrTween;
 
 public class MallBox : MonoBehaviour {
 

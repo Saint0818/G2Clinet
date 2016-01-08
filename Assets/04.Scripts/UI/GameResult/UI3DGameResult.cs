@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UI3DGameResult : UIBase {
 	private static UI3DGameResult instance = null;

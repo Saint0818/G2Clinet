@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class UIStageInfo : MonoBehaviour
     /// <para> 呼叫時機: 進入關卡按鈕按下時. </para>
     /// <para> 參數:(int StageID) </para>
     /// </summary>
-    public event CommonDelegateMethods.Int1 StartListener;
+    public event Action<int> StartListener;
 
     public class Data
     {

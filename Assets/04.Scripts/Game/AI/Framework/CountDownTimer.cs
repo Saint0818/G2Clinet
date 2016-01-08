@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using UnityEngine;
 
 namespace AI
@@ -18,7 +19,7 @@ namespace AI
     /// </list>
     public class CountDownTimer
     {
-        public event CommonDelegateMethods.Action TimeUpListener;
+        public event Action TimeUpListener;
 
         /// <summary>
         /// 倒數完畢時的數值.

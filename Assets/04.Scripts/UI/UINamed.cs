@@ -1,7 +1,5 @@
-using UnityEngine;
 using Newtonsoft.Json;
-using GameEnum;
-using GameStruct;
+using UnityEngine;
 
 public struct TRenameResult {
 	public string Name;

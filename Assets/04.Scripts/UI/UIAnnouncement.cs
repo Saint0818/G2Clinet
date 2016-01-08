@@ -1,7 +1,6 @@
-using UnityEngine;
 using System;
-using System.Collections;
 using GameEnum;
+using UnityEngine;
 
 public class UIAnnouncement : UIBase {
 	private static UIAnnouncement instance = null;

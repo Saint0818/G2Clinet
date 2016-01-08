@@ -3,8 +3,8 @@
 // Copyright © 2011-2015 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Very simple sprite animation. Attach to a sprite and specify a common prefix such as "idle" and it will cycle through them.

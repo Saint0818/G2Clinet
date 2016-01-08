@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
 
 public class PlayerStats : MonoBehaviour {
 	private string[] positionPicName = {"IconCenter", "IconForward", "IconGuard"};

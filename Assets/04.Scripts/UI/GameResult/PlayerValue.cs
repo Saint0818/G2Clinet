@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
 
 public class PlayerValue : MonoBehaviour {
 	public UILabel[] Value = new UILabel[7];

@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public struct TPickLotteryResult {
 	public int[] ItemIDs;

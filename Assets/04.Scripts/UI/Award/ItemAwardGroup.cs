@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using GameStruct;
+﻿using GameStruct;
 using JetBrains.Annotations;
+using UnityEngine;
 
 public class ItemAwardGroup : MonoBehaviour
 {

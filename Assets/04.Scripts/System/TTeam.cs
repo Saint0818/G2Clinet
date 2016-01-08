@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameStruct
@@ -92,7 +91,7 @@ namespace GameStruct
             return -1;
         }
 
-        public event CommonDelegateMethods.Int1 OnMoneyChangeListener;
+        public event Action<int> OnMoneyChangeListener;
         public int Money
         {
             get { return mMoney; }
@@ -111,7 +110,7 @@ namespace GameStruct
         }
         private int mMoney;
 
-        public event CommonDelegateMethods.Int1 OnPowerChangeListener;
+        public event Action<int> OnPowerChangeListener;
         public int Power
         {
             get { return mPower; }
@@ -131,7 +130,7 @@ namespace GameStruct
 
         private int mPower;
 
-        public event CommonDelegateMethods.Int1 OnDiamondChangeListener;
+        public event Action<int> OnDiamondChangeListener;
         public int Diamond
         {
             get { return mDiamond; }

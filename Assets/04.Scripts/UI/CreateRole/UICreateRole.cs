@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
-using GameEnum;
 
 /// <summary>
 /// 創角主程式.

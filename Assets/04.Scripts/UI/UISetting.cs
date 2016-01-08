@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using GameEnum;
+﻿using GameEnum;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;

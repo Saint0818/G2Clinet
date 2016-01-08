@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
+
 public class TMallBox 
 {
 	public TPickCost mPickCost;

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +11,7 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
     /// <summary>
     /// value1: Index, value2: ItemID.
     /// </summary>
-    public event CommonDelegateMethods.Int2 ClickListener;
+    public event Action<int, int> ClickListener;
 
     public UILabel NameLabel;
     public UISprite IconSprite;

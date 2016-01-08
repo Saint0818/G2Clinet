@@ -1,11 +1,12 @@
+using System;
 using JetBrains.Annotations;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class UIGameLobbyImpl : MonoBehaviour
 {
-    public event CommonDelegateMethods.Action BackListener;
-    public event CommonDelegateMethods.Action MainListener;
+    public event Action BackListener;
+    public event Action MainListener;
 
     [UsedImplicitly]
     private void Awake()

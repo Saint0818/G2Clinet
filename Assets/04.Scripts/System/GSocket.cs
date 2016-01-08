@@ -81,7 +81,7 @@ public class GSocket : KnightSingleton<GSocket> {
 	private static GSocket instance = null;
 	private SocketIOComponent WebSocket = null;
 	private TNetMessageProc[,] NetMsgProcs = new TNetMessageProc[10, 20];
-	private CommonDelegateMethods.Action onConnectFunc = null;
+	private Action onConnectFunc = null;
 
 	private List<TNetData> netCommands = new List<TNetData>();
 
@@ -110,7 +110,7 @@ public class GSocket : KnightSingleton<GSocket> {
 		NetMsgProcs[2, 1] = netmsg_2_1;
 	}
 
-	public void Connect(CommonDelegateMethods.Action callback)
+	public void Connect(Action callback)
 	{
 		onConnectFunc = callback;
 		if (!WebSocket) {
@@ -131,7 +131,7 @@ public class GSocket : KnightSingleton<GSocket> {
 			WebSocket.Connect();
     }
 
-	public void SendLoginRTS(CommonDelegateMethods.Action callback) {
+	public void SendLoginRTS(Action callback) {
 		onConnectFunc = callback;
 		TSend1_1 data = new TSend1_1();
 		data.Identifier = GameData.Team.Identifier;

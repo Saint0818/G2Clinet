@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class UIEquipPlayer : MonoBehaviour
     /// <summary>
     /// Slot 被點擊. 參數(int index).
     /// </summary>
-    public event CommonDelegateMethods.Int1 OnSlotClickListener;
+    public event Action<int> OnSlotClickListener;
 
     public Transform HexagonParent;
     public Transform[] SlotParents;

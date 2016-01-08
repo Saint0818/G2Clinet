@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using UnityEngine;
 
 public class TSocialEventItem{
     public int Index;

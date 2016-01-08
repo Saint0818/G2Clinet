@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameEnum;
+using UnityEngine;
 
 public class UIInGameMission : UIBase {
 	private static UIInGameMission instance = null;

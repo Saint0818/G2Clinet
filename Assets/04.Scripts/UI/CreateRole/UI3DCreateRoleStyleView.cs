@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
-using GameEnum;
+
 /// <summary>
 /// 搭配 UICreateRoleStyleView 一起使用的介面, 專門負責球員換裝.
 /// </summary>

@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameStruct;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public struct TChangeHeadTextureResult {
     public int HeadTextureNo;

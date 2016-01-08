@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class UIEquipItemList : MonoBehaviour
     /// 呼叫時機: 列表上的按鈕點擊時. 
     /// 參數: int index, 哪一個被點擊.
     /// </summary>
-    public event CommonDelegateMethods.Int1 OnClickListener;
+    public event Action<int> OnClickListener;
 
     public GameObject Window;
     public UIScrollView ScrollView;

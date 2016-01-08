@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using GameStruct;
+using UnityEngine;
 
 public class UILevelUp : UIBase {
 	private static UILevelUp instance = null;

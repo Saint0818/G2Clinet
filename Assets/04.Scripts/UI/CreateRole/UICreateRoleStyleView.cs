@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
-using GameEnum;
 
 /// <summary>
 /// 創角介面中的重要頁面, 設定角色外觀. 可以更換頭髮, 衣服, 鞋子, 褲子, 身體.
@@ -129,7 +130,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         GetComponent<UICreateRole>().ShowPositionView();
     }
 
-    private IEnumerator playExitAnimation(CommonDelegateMethods.Action action)
+    private IEnumerator playExitAnimation(Action action)
     {
         UICreateRole.Get.EnableBlock(true);
         UIAnimator.SetTrigger("Close");

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -11,7 +12,7 @@ using UnityEngine;
 /// </list>
 public class UIEquipItem : MonoBehaviour
 {
-    public event CommonDelegateMethods.Action OnClickListener;
+    public event Action OnClickListener;
 
     public UISprite Picture;
     public UILabel Text;

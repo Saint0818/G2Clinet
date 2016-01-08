@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using GameStruct;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using UnityEngine;
 
 public enum EPotential
 {

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using GameEnum;
+﻿using GameEnum;
+using UnityEngine;
 
 public class UIMainLobbyEvents : MonoBehaviour
 {

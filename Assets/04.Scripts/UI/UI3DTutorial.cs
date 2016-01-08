@@ -1,5 +1,4 @@
 using GameStruct;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class UI3DTutorial : UIBase {

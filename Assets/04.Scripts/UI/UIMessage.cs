@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIMessage : UIBase {
@@ -8,8 +9,8 @@ public class UIMessage : UIBase {
 	private UIButton YesBtn;
 	private UIButton NoBtn;
 
-	private CommonDelegateMethods.Object1 YesFunc;
-	private CommonDelegateMethods.Action NoFunc;
+	private Action<object> YesFunc;
+	private Action NoFunc;
     private object mExtraInfo;
 
 	public static void UIShow(bool isShow){
@@ -79,8 +80,8 @@ public class UIMessage : UIBase {
 		NoBtn.gameObject.SetActive(false);
 	}
 	
-	public void ShowMessage(string titleStr, string messageStr, CommonDelegateMethods.Object1 yes = null,
-                            CommonDelegateMethods.Action no = null, object extraInfo = null)
+	public void ShowMessage(string titleStr, string messageStr, Action<object> yes = null,
+                            Action no = null, object extraInfo = null)
 	{
 		UIShow (true);
 		NoBtn.gameObject.SetActive(true);

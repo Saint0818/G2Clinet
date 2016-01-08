@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -16,12 +17,12 @@ public class UIEquipDetail : MonoBehaviour
     /// <summary>
     /// 呼叫時機: 畫面上方的道具被點擊. 參數(int index)
     /// </summary>
-    public event CommonDelegateMethods.Int1 OnItemClickListener;
+    public event Action<int> OnItemClickListener;
 
     /// <summary>
     /// 升級按鈕按下.
     /// </summary>
-    public event CommonDelegateMethods.Int1 OnUpgradeListener;
+    public event Action<int> OnUpgradeListener;
 
     public Transform ItemParent;
     public UIButton UpgradeButton;

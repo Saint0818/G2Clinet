@@ -276,7 +276,7 @@ public class LobbyStart : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator initScenePlayers(CommonDelegateMethods.Action callback){
+	private IEnumerator initScenePlayers(Action callback){
 		for (int i = 0; i < scenePlayers.Length; i ++) {
 			yield return new WaitForEndOfFrame();
 

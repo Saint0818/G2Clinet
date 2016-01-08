@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UIGameLoseResult : UIBase {
 	private static UIGameLoseResult instance = null;

@@ -1,8 +1,6 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using GameEnum;
 using GameStruct;
+using UnityEngine;
 
 public class TMember{
 	public string TeamName;

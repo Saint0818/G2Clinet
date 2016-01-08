@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace AI
 {
     /// <summary>
@@ -17,7 +19,7 @@ namespace AI
         /// <summary>
         /// 呼叫時機: 倒數完畢時.
         /// </summary>
-        public event CommonDelegateMethods.Action TimeUpListener;
+        public event Action TimeUpListener;
 
         private readonly CountDownTimer mTimer = new CountDownTimer(1);
 
