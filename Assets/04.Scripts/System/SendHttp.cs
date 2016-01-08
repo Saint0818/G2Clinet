@@ -26,7 +26,6 @@ public static class URLConst {
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
 	public const string LookPlayerBank = "lookplayerbank";
-	public const string LookFriends = "lookfriends";
 	public const string CreateRole = "createrole";
 	public const string SelectRole = "selectrole";
 	public const string DeleteRole = "deleterole";
@@ -38,7 +37,6 @@ public static class URLConst {
 	public const string ReinforceSkillcard = "reinforceskillcard";
 	public const string ReinforcePlayerSkillcard = "reinforceplayerskillcard";
 	public const string PickLottery = "picklottery";
-//	public const string PickTen = "pickten";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
 	public const string MainStageStart = "mainstagestart";
@@ -49,6 +47,9 @@ public static class URLConst {
     public const string SyncDailyRecord = "syncdailyrecord";
 	public const string BuyAvatarItem = "buyavataritem";
     public const string MissionFinish = "missionfinish";
+    public const string LookFriends = "lookfriends";
+    public const string FreshFriends = "freshfriends";
+    public const string MakeFriend = "makefriend";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
@@ -145,6 +146,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private WWWForm waitingForm = null;
 
     private EventDelegate.Callback LookFriendsEvent;
+    private EventDelegate.Callback FreshFriendsEvent;
+    private EventDelegate.Callback MakeFriendEvent;
 
 	protected override void Init() {
 		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
@@ -416,8 +419,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				} else {
 					UILoading.OpenUI = UILoading.OpenAnnouncement;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                    SyncDailyRecord();
 				}
+
+                SyncDailyRecord();
+                LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -440,23 +445,84 @@ public class SendHttp : KnightSingleton<SendHttp> {
         }
     }
 
-    public void LookFriends(EventDelegate.Callback e, bool waiting) {
+    public void LookFriends(EventDelegate.Callback e, string id, bool waiting) {
         LookFriendsEvent = e;
         WWWForm form = new WWWForm();
+        form.AddField("Identifier", id);
         SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form, waiting);
     }
 
     private void waitLookFriends(bool flag, WWW www) {
-        if (flag) {
-            string text = GSocket.Get.OnHttpText(www.text);
-            if (!string.IsNullOrEmpty(text)) {
-                TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
-                GameData.Team.Friends = team.Friends;
-                GameData.Team.LookFriendTime = team.LookFriendTime;
-            }
+        if (flag && www.text != "") {
+            try {
+                string text = GSocket.Get.OnHttpText(www.text);
+                if (!string.IsNullOrEmpty(text)) {
+                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                    team.InitFriends();
+                    GameData.Team.Friends = team.Friends;
+                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                }
 
-            if (LookFriendsEvent != null)
-                LookFriendsEvent();
+                if (LookFriendsEvent != null)
+                    LookFriendsEvent();
+            } catch (Exception e) {
+                Debug.Log(e.ToString());
+            }
+        }
+    }
+
+    public void FreshFriends(EventDelegate.Callback e, bool waiting) {
+        FreshFriendsEvent = e;
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        SendHttp.Get.Command(URLConst.FreshFriends, waitFreshFriends, form, waiting);
+    }
+
+    private void waitFreshFriends(bool flag, WWW www) {
+        if (flag) {
+            try {
+                string text = GSocket.Get.OnHttpText(www.text);
+                if (!string.IsNullOrEmpty(text)) {
+                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                    team.InitFriends();
+                    GameData.Team.Friends = team.Friends;
+                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                }
+
+                if (FreshFriendsEvent != null)
+                    FreshFriendsEvent();
+            } catch (Exception e) {
+                Debug.Log(e.ToString());
+            }
+        }
+    }
+
+    public void MakeFriend(EventDelegate.Callback e, string friendID) {
+        MakeFriendEvent = e;
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Name", GameData.Team.Player.Name);
+        form.AddField("FriendID", friendID);
+        SendHttp.Get.Command(URLConst.MakeFriend, waitMakeFriend, form);
+    }
+
+    private void waitMakeFriend(bool flag, WWW www) {
+        if (flag) {
+            if (www.text.Length > 6) {
+                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                friend.Player.Init();
+                if (GameData.Team.Friends.ContainsKey(friend.Identifier))
+                    GameData.Team.Friends[friend.Identifier] = friend;
+                else
+                    GameData.Team.Friends.Add(friend.Identifier, friend);
+
+                if (MakeFriendEvent != null)
+                    MakeFriendEvent();
+            } else {
+                int index = -1;
+                if (int.TryParse(www.text, out index))
+                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
+            }
         }
     }
 }

@@ -14,7 +14,8 @@ namespace GameStruct
         public string FBid;
         public DateTime LoginTime;
         public DateTime PowerCD;
-        public DateTime LookFriendTime;
+        public DateTime FreshFriendTime;
+        public DateTime SocialEventTime;
         public DateTime FreeLuckBox;
 		public DateTime LotteryFreeTime;
         public int PlayerNum; // 玩家擁有幾位角色.
@@ -42,7 +43,7 @@ namespace GameStruct
         public TSkill[] SkillCards;
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
-        public TFriend[] Friends;
+        public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
 
         /// <summary>
         /// 玩家選擇的戰術.
@@ -223,10 +224,13 @@ namespace GameStruct
 
         public void InitFriends() {
             if (Friends != null) {
-                for (int i = 0; i < Friends.Length; i ++) {
-                    Friends[i].Player.Init();
-                    Friends[i].Player.RoleIndex = i;
-                    GameFunction.ItemIdTranslateAvatar(ref Friends[i].Player.Avatar, Friends[i].Player.Items);
+                int count = 0;
+                foreach (KeyValuePair<string, TFriend> item in Friends.ToList()) {
+                    TFriend friend = item.Value;
+                    friend.Player.Init();
+                    friend.Player.RoleIndex = count;
+                    Friends[item.Key] = friend;
+                    count++;
                 }
             }
         }

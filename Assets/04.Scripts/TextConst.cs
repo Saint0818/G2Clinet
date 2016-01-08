@@ -74,7 +74,7 @@ public static class TextConst
 		if(gameText.ContainsKey(index))
 			return gameText[index].Text;
 		else
-			return "";
+            return index.ToString();
 	}
 
 	public static string StringFormat(int stringId, params object[] arguments)

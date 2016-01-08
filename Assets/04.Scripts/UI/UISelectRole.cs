@@ -189,11 +189,12 @@ public class UISelectRole : UIBase {
         }
 	}
 
-	public static void InitPlayerList(ref TFriend[] players) {
+    public static void InitPlayerList(ref Dictionary<string, TFriend> players) {
 		playerList.Clear();
 		if (players != null) {
-			for (int i = 0; i < players.Length; i ++)
-				playerList.Add(players[i].Player);
+            foreach (KeyValuePair<string, TFriend> item in players) {
+                playerList.Add(item.Value.Player);
+            }
 		}
 
 		if (playerList.Count < 5) {
@@ -736,8 +737,8 @@ public class UISelectRole : UIBase {
 
 	public void InitFriend() {
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
-			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
-                SendHttp.Get.LookFriends(waitLookFriends, false);
+			if (DateTime.UtcNow > GameData.Team.FreshFriendTime) {
+                SendHttp.Get.FreshFriends(waitLookFriends, false);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
 			} else 
@@ -759,7 +760,6 @@ public class UISelectRole : UIBase {
 		uiSelect.SetActive(false);
 		doubleClickTime = 1;
 
-		GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 		arrayPlayerData[0] = GameData.Team.Player;
 		arrayPlayerData[0].RoleIndex = -1;
 		GameObject temp = arrayPlayer [0];
