@@ -1486,6 +1486,10 @@
         "tw": "解除朋友關係"
     },
     {
+        "id": 5025,
+        "tw": "解除朋友關係"
+    },
+    {
         "id": 6001,
         "explain": "裝備介面",
         "tw": "突觸強化",
@@ -3172,9 +3176,19 @@
         "explain": "物品來源出處介面"
     },
     {
+        "id": 100001,
+        "explain": "生涯關卡",
+        "tw": "生涯關卡"
+    },
+    {
+        "id": 100002,
+        "explain": "挑戰關卡",
+        "tw": "挑戰關卡"
+    },
+    {
         "id": 100009,
         "explain": "未達關卡條件",
-        "tw": "尚未挑戰此關卡"
+        "tw": "尚未符合挑戰此關卡的條件"
     },
     {
         "id": 100010,
@@ -3190,8 +3204,8 @@
     },
     {
         "id": 100019,
-        "explain": "抽包說明",
-        "tw": "有機會抽取此技能晶片",
+        "explain": "未達介面開放",
+        "tw": "知名度等級須達到LV3才開放",
         "en": "We have the opportunity to extract this skill wafer"
     },
     {
@@ -3207,6 +3221,11 @@
         "en": "Have the opportunity to buy this thing in the store"
     },
     {
+        "id": 100109,
+        "explain": "未達介面開放",
+        "tw": "知名度等級須達到LV5才開放"
+    },
+    {
         "id": 100110,
         "explain": "聯盟商店介面標題",
         "tw": "聯盟商店",
@@ -3219,6 +3238,12 @@
         "en": "Have the opportunity to buy this thing in the store"
     },
     {
+        "id": 100119,
+        "explain": "未達介面開放",
+        "tw": "知名度等級須達到LV10才開放",
+        "en": "Have the opportunity to buy this thing in the store"
+    },
+    {
         "id": 100120,
         "explain": "社群商店介面標題",
         "tw": "社群商店",
@@ -3228,6 +3253,12 @@
         "id": 100121,
         "explain": "社群商店說明",
         "tw": "有機會在商店中購買此物",
+        "en": "Have the opportunity to buy this thing in the store"
+    },
+    {
+        "id": 100129,
+        "explain": "未達介面開放等級",
+        "tw": "知名度等級須達到LV15才開放",
         "en": "Have the opportunity to buy this thing in the store"
     },
     {
