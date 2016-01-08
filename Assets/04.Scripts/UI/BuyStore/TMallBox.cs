@@ -2,6 +2,8 @@
 using GameStruct;
 public class TMallBox 
 {
+	public TPickCost mPickCost;
+
 	public GameObject mMallBox;
 	public UILabel FreeLabelTitle;
 
@@ -28,7 +30,13 @@ public class TMallBox
 	public UILabel Open10Price;
 	public UILabel SaleLabel;
 
-	public void Init(GameObject obj) {
+	public GameObject BtnOne;
+	public GameObject BtnFive;
+	public GameObject BtnTen;
+
+	private bool isHaveFree = false;
+
+	public void Init(GameObject obj, EventDelegate oneBtn, EventDelegate fiveBtn, EventDelegate tenBtn) {
 		mMallBox = obj;
 		FreeLabelTitle = obj.transform.FindChild("FreeLabel").GetComponent<UILabel>();
 		PriceIcon = obj.transform.FindChild("OpenBtn1/Icon").GetComponent<UISprite>();
@@ -51,12 +59,21 @@ public class TMallBox
 		Open10Price = obj.transform.FindChild("Tween/OpenBtn10/PriceLabel").GetComponent<UILabel>();
 		SaleLabel = obj.transform.FindChild("Tween/OpenBtn10/SaleLabel").GetComponent<UILabel>();
 
+		BtnOne = obj.transform.FindChild("OpenBtn1").gameObject;
+		BtnFive = obj.transform.FindChild("Tween/OpenBtn5").gameObject;
+		BtnTen = obj.transform.FindChild("Tween/OpenBtn10").gameObject;
+
 		if(FreeLabelTitle != null && PriceIcon != null && PriceLabel != null && FreeLabel1 != null && 
 			TitleLabel != null && ExplainLabel != null && Tween != null && SubheadLabelDisk != null && SubheadLabelItem != null && 
 			Open10Label != null && Open5Label != null && DiskScrollView != null && ItemScrollView != null && Open5Icon != null &&
-			Open5Price != null && Open10Icon != null && Open10Price != null && SaleLabel != null){}
+			Open5Price != null && Open10Icon != null && Open10Price != null && SaleLabel != null && 
+			BtnOne != null && BtnFive != null && BtnTen != null){}
 		else 
 			Debug.LogError("TMallBox Init Fail");
+
+		BtnOne.GetComponent<UIButton>().onClick.Add(oneBtn);
+		BtnFive.GetComponent<UIButton>().onClick.Add(fiveBtn);
+		BtnTen.GetComponent<UIButton>().onClick.Add(tenBtn);
 
 		SubheadLabelDisk.text = TextConst.S(4101);
 		SubheadLabelItem.text = TextConst.S(4102);
@@ -71,8 +88,12 @@ public class TMallBox
 	}
 
 	public void UpdateView(int index, TPickCost pickcost) {
+		mPickCost = pickcost;
+		BtnOne.name = index.ToString();
+		BtnFive.name = index.ToString();
+		BtnTen.name = index.ToString();
 		mMallBox.transform.localPosition = new Vector3(420 * index, 0, 0);
-		haveFree((pickcost.FreeTime != 0));
+		setHaveFree((pickcost.FreeTime != 0));
 		changeSpendKind(pickcost.SpendKind);
 		TitleLabel.text = pickcost.Name;
 		ExplainLabel.text = pickcost.Explain;
@@ -81,7 +102,7 @@ public class TMallBox
 		Open10Price.text = pickcost.TenPick.ToString();
 	}
 
-	public void UpdateFreeTime () {
+	public void UpdateFreeTimeCD () {
 		
 	}
 
@@ -95,7 +116,8 @@ public class TMallBox
 		obj.transform.localPosition = new Vector3(200 * index, 0, 0);
 	}
 
-	private void haveFree (bool isHave) {
+	private void setHaveFree (bool isHave) {
+		isHaveFree = isHave;
 		FreeLabelTitle.gameObject.SetActive(isHave);
 		FreeLabel1.gameObject.SetActive(isHave);
 		PriceIcon.gameObject.SetActive(!isHave);
@@ -104,15 +126,19 @@ public class TMallBox
 
 	private void changeSpendKind (int kind) {
 		if(kind == 1) {
-			PriceIcon.spriteName = "Icon_Gem";
-			Open5Icon.spriteName = "Icon_Gem";
-			Open10Icon.spriteName = "Icon_Gem";
+			PriceIcon.spriteName = "MallGem1";
+			Open5Icon.spriteName = "MallGem1";
+			Open10Icon.spriteName = "MallGem1";
 		} else if(kind == 2) {
-			PriceIcon.spriteName = "Icon_Coin";
-			Open5Icon.spriteName = "Icon_Coin";
-			Open10Icon.spriteName = "Icon_Coin";
+			PriceIcon.spriteName = "MallCoin1";
+			Open5Icon.spriteName = "MallCoin1";
+			Open10Icon.spriteName = "MallCoin1";
 		} else if(kind == 3) {
 			
 		}
+	}
+
+	public bool IsHaveFree {
+		get{return isHaveFree;}
 	}
 }

@@ -418,7 +418,6 @@ public class UISkillReinforce : UIBase {
 	private bool isCanReinForce(int sn) {
 		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
 			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
-//				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
 				if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
 					for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
 						int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
@@ -429,7 +428,6 @@ public class UISkillReinforce : UIBase {
 						}
 					}
 				}
-//				}
 			}
 		}
 
@@ -458,7 +456,6 @@ public class UISkillReinforce : UIBase {
 		int tempLv = mSkill.Lv;
 		int tempExp = mSkill.Exp;
 		if(addExp > 0 && GameData.DSkillData.ContainsKey(mSkill.ID)) {
-//			GameData.DSkillData[mSkill.ID].UpgradeExp[mSkill.Lv];
 
 			tempExp += addExp;
 
@@ -473,10 +470,6 @@ public class UISkillReinforce : UIBase {
 			}
 
 			return tempLv;
-//			// 限制等級不能超過企劃表上限.
-//			GameData.DSkillData[mSkill.ID].MaxStar
-//			if(team.Player.Lv >= maxLv)
-//				team.Player.Exp = 0;
 		}
 		return tempLv;
 	}
@@ -513,7 +506,7 @@ public class UISkillReinforce : UIBase {
 	private void addUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			reinforceMoney += GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
-			if(IsEnoughMoney(reinforceMoney))
+			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
 				labelPrice.color = Color.red;
@@ -525,7 +518,7 @@ public class UISkillReinforce : UIBase {
 	private void minusUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			reinforceMoney -= GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
-			if(IsEnoughMoney(reinforceMoney))
+			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
 				labelPrice.color = Color.red;
@@ -636,7 +629,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		if(IsEnoughMoney(reinforceMoney)) {
+		if(CheckMoney(reinforceMoney)) {
 			removeIndexs = new int[reinforceCards.Count];
 			for (int i=0; i<removeIndexs.Length; i++) {
 				removeIndexs[i] = reinforceCards[i].CardIndex;
@@ -691,7 +684,7 @@ public class UISkillReinforce : UIBase {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
-			GameData.Team.Money = result.Money;
+			SetMoney(result.Money);
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
@@ -720,7 +713,7 @@ public class UISkillReinforce : UIBase {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
-			GameData.Team.Money = result.Money;
+			SetMoney(result.Money);
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
@@ -742,10 +735,6 @@ public class UISkillReinforce : UIBase {
 		}
 
 		return skill;
-	}
-
-	private bool IsEnoughMoney (int money){
-		return (GameData.Team.Money >= money);
 	}
 }
 

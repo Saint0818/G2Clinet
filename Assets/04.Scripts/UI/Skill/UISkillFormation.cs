@@ -1166,27 +1166,35 @@ public class UISkillFormation : UIBase {
 			case (int)EFilter.All:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = true;
-				activeCheckShow(255);
-				passiveCheckShow(255);
+//				activeCheckShow(255);
+//				passiveCheckShow(255);
+				activeCheckShow(50);
+				passiveCheckShow(50);
 				break;
 			case (int)EFilter.Active:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = false;
-				activeCheckShow(255);
-				passiveCheckShow(50);
+//				activeCheckShow(255);
+//				passiveCheckShow(50);
+				activeCheckShow(50);
+				passiveCheckShow(255);
 				break;
 			case (int)EFilter.Passive:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = true;
-				activeCheckShow(50);
-				passiveCheckShow(255);
+//				activeCheckShow(50);
+//				passiveCheckShow(255);
+				activeCheckShow(255);
+				passiveCheckShow(50);
 				break;
 			case (int)EFilter.Available:
 			case (int)EFilter.Select:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = false;
-				activeCheckShow(50);
-				passiveCheckShow(50);
+//				activeCheckShow(50);
+//				passiveCheckShow(50);
+				activeCheckShow(255);
+				passiveCheckShow(255);
 				break;
 		}
 	}

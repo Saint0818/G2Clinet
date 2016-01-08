@@ -13,14 +13,6 @@ public class MallBox : MonoBehaviour {
 	private UIPlayTween uiplayTweenClose;
 
 	void Awake () {
-//		DateTime departure = new DateTime(2016, 1, 1, 18, 32, 0);
-//		DateTime arrival = new DateTime(2016, 1, 6, 22, 47, 0);
-//		TimeSpan travelTime = DateTime.Now - departure;  
-//		Debug.Log("travelTime Day: " + travelTime.Days);
-//		Debug.Log("travelTime Hours: " + travelTime.Hours);
-//		Debug.Log("travelTime Minutes: " + travelTime.Minutes);
-//		Debug.Log("travelTime Seconds: " + travelTime.Seconds);
-
 		close = transform.FindChild("Close");
 		closeArrow = transform.FindChild("Close/ArrowIcon");
 		closeArrow.transform.localScale = new Vector3(-1, 1, 1);

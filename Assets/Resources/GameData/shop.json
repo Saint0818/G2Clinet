@@ -1,0 +1,36 @@
+[
+    {
+        "kind": 0,
+        "spendkind": 0,
+        "price": 100,
+        "itemid": 93101,
+        "pic": 1,
+        "order": 0
+    },
+    {
+        "kind": 0,
+        "spendkind": 0,
+        "price": 200,
+        "sale": 1,
+        "itemid": 93102,
+        "pic": 2,
+        "order": 1
+    },
+    {
+        "kind": 1,
+        "spendkind": 1,
+        "price": 50,
+        "itemid": 93401,
+        "pic": 1,
+        "order": 0
+    },
+    {
+        "kind": 1,
+        "spendkind": 1,
+        "price": 100,
+        "sale": 1,
+        "itemid": 93402,
+        "pic": 2,
+        "order": 1
+    }
+]

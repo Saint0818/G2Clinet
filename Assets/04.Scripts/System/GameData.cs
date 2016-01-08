@@ -47,8 +47,9 @@ public static class GameData {
 	private static Dictionary<string, Texture2D> cardItemTextureCache = new Dictionary<string, Texture2D>();
 	public static TPreloadEffect[] PreloadEffect;
 
-	//Key: order
-	public static TPickCost[] DPickCost;
+	public static TPickCost[] DPickCost; // Order 排列順序
+	public static TShop[] DShops;
+	public static TMall[] DMalls;
 
 	public static float ServerVersion;
 	public static float SaveVersion;

@@ -769,6 +769,8 @@ namespace GameStruct
 		public int LV;
 		public int Atlas;
 
+		public int Value;
+
 		public int Position;
 		public int Avatar;
 		public int MaxStack;
@@ -1203,6 +1205,48 @@ namespace GameStruct
 				case ELanguage.CN: return explainCN;
 				case ELanguage.JP: return explainJP;
 				default : return explainEN;
+				}
+			}
+		}
+	}
+
+	public struct TShop {
+		public int Kind;
+		public int SpendKind;
+		public string Price;
+		public int Sale;//銷售語的種類
+		public int ItemID;
+		public int Pic;
+		public int Order;
+		public int StartTimeYear;
+		public int StartTimeMonth;
+		public int StartTimeDay;
+		public int FinishTimeYear;
+		public int FinishTimeMonth;
+		public int FinishTimeDay;
+	}
+
+	public struct TMall {
+		public int Diamonds;
+		public int Diamondcn;
+		public string Android;
+		public string Ios;
+		public int Order;
+		public int Sale;
+		public float pricetw;
+		public float priceen;
+		public float pricecn;
+		public float pricejp;
+
+		public string Price {
+			get
+			{
+				switch(GameData.Setting.Language)
+				{
+				case ELanguage.TW: return "NT " + pricetw.ToString();
+				case ELanguage.CN: return "RMB¥" + pricecn.ToString();
+				case ELanguage.JP: return "¥" + pricejp.ToString();
+				default : return "$" + priceen.ToString();
 				}
 			}
 		}

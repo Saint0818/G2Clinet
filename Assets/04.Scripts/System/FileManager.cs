@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost"
+        "skillrecommend", "mission", "pickcost", "shop", "mall"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -200,6 +200,8 @@ public class FileManager : KnightSingleton<FileManager> {
         downloadCallBack[16] = ParseSkillRecommend;
 		downloadCallBack[17] = ParseMission;
 		downloadCallBack[18] = ParsePickCost;
+		downloadCallBack[19] = ParseShop;
+		downloadCallBack[20] = ParseMall;
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
@@ -753,6 +755,32 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.Log ("[PickCost parsed finished.]");
 		} catch (System.Exception ex) {
 			Debug.LogError ("PickCost parsed error : " + ex.Message);
+		}
+	}
+
+	public void ParseShop(string version, string text, bool isSaveVersion) {
+		try {
+			GameData.DShops = JsonConvertWrapper.DeserializeObject<TShop[]>(text);
+
+			if (isSaveVersion)
+				SaveDataVersionAndJson(text, "textconst", version);
+
+			Debug.Log ("[Shop parsed finished.]");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Shop parsed error : " + ex.Message);
+		}
+	}
+
+	public void ParseMall(string version, string text, bool isSaveVersion) {
+		try {
+			GameData.DMalls = JsonConvertWrapper.DeserializeObject<TMall[]>(text);
+
+			if (isSaveVersion)
+				SaveDataVersionAndJson(text, "textconst", version);
+
+			Debug.Log ("[Mall parsed finished.]");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Mall parsed error : " + ex.Message);
 		}
 	}
 }

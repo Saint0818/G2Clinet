@@ -21,6 +21,10 @@ public class UIPrefabPath
 
 	public static readonly string ItemAwardGroup = "Prefab/UI/Items/ItemAwardGroup";
 
+	public static readonly string ItemRechargeGems = "Prefab/UI/Items/ItemRechargeGems";
+	public static readonly string ItemRechargeMoney = "Prefab/UI/Items/ItemRechargeMoney";
+	public static readonly string ItemRechargeStamina = "Prefab/UI/Items/ItemRechargeStamina";
+
     public static GameObject LoadUI(string path, Transform parent)
     {
         return LoadUI(path, parent, Vector3.zero);
