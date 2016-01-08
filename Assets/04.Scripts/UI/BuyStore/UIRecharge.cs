@@ -210,7 +210,6 @@ public class UIRecharge : UIBase {
 
 		kindBuyCoin = new TItemRecharge[BuyCoinLen];
 		kindBuyStamina = new TItemRecharge[BuyStaminaLen];
-		int index = 0;
 		for(int i=0; i<GameData.DShops.Length; i++) {
 			if(GameData.DShops[i].Kind == 0) {
 				if(GameData.DShops[i].Order >= BuyCoinLen) {
@@ -228,7 +227,7 @@ public class UIRecharge : UIBase {
 					Debug.LogError("Order is Wrong. Kind = " + GameData.DShops[i].Kind );
 					break;
 				}
-				kindBuyStamina[GameData.DShops[i].Order].init(Instantiate(prefabKind[1]), scrollviews[2]);
+				kindBuyStamina[GameData.DShops[i].Order].init(Instantiate(prefabKind[2]), scrollviews[2]);
 				kindBuyStamina[GameData.DShops[i].Order].UpdateView(GameData.DShops[i].Order ,GameData.DShops[i]);
 				if(GameData.DShops[i].SpendKind == 0)
 					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnSpendGem));

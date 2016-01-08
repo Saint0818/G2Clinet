@@ -232,28 +232,21 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Money is GameCoin
 	/// </summary>
-	public bool CheckMoney(int money)
+	public bool CheckMoney(int money, bool isShowMessage = false)
 	{
 		if(GameData.Team.Money >= money)
 			return true;
-		else
-			return false;
-	}
-
-	public void OnBuyMoney() {
-		UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
-		UIMessage.UIShow(false);
-	}
-
-	public bool AddMoney(int money)
-	{
-		if(GameData.Team.Money >= money) {
-			GameData.Team.Money += money;
-			return true;
-		} else {
-			UIMessage.Get.ShowMessage(TextConst.S(237), TextConst.S(239), OnBuyMoney);
+		else {
+			if(isShowMessage)
+				UIMessage.Get.ShowMessage(TextConst.S(237), TextConst.S(239), OnBuyMoney);
 			return false;
 		}
+	}
+
+	public void OnBuyMoney() 
+	{
+		UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
+		UIMessage.UIShow(false);
 	}
 
 	public void SetMoney(int money)
@@ -264,28 +257,20 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Diamond
 	/// </summary>
-	public bool CheckDiamond(int diamond) 
+	public bool CheckDiamond(int diamond, bool isShowMessage = false) 
 	{
 		if (GameData.Team.Diamond >= diamond) 
 			return true;
-		else 
+		else {
+			if(isShowMessage)
+				UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238), OnBuyDiamond);
 			return false;
+		}
 	}
 
 	public void OnBuyDiamond() {
 		UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
 		UIMessage.UIShow(false);
-	}
-
-	public bool AddDiamond(int diamond)
-	{
-		if(GameData.Team.Diamond >= diamond) {
-			GameData.Team.Diamond += diamond;
-			return true;
-		} else {
-			UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238), OnBuyDiamond);
-			return false;
-		}
 	}
 
 	public void SetDiamond(int diamond)
@@ -295,28 +280,20 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Power
 	/// </summary>
-	public bool CheckPower (int power) 
+	public bool CheckPower (int power, bool isShowMessage = false) 
 	{
 		if(GameData.Team.Power >= power)
 			return true;
-		else 
+		else {
+			if(isShowMessage)
+				UIMessage.Get.ShowMessage(TextConst.S(230), TextConst.S(240), OnBuyPower);
 			return false;
+		}
 	}
 
 	public void OnBuyPower() {
 		UIRecharge.Get.Show(ERechargeType.Power.GetHashCode());
 		UIMessage.UIShow(false);
-	}
-	 
-	public bool AddPower(int power)
-	{
-		if(GameData.Team.Power >= power) {
-			GameData.Team.Power += power;
-			return true;
-		} else {
-			UIMessage.Get.ShowMessage(TextConst.S(230), TextConst.S(240), OnBuyPower);
-			return false;
-		}
 	}
 
 	public void SetPower(int power)
