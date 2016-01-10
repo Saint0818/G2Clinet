@@ -25,16 +25,6 @@ public class UI3DMainLobby : UIBase
         mImpl = GetComponent<UI3DMainLobbyImpl>();
     }
 
-    [UsedImplicitly]
-    private void Start()
-    {
-        var obj = GameObject.Find("UI3D/3DCamera");
-        if(obj)
-            obj.SetActive(false);
-        else
-            Debug.LogWarning("Can't find UI3D.3DCamera.");
-    }
-
     public void Show()
     {
         Show(true);

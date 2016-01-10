@@ -1210,6 +1210,10 @@ namespace GameStruct
 		}
 	}
 
+	public struct TSocialEvent {
+		
+	}
+
 	public struct TShop {
 		public int Kind;
 		public int SpendKind;
