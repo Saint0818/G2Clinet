@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using Newtonsoft.Json;
 
 public class TSocialEventItem{
     public int Index;
@@ -39,6 +40,7 @@ public class UISocial : UIBase {
 
     private UILabel totalLabel;
     private UILabel labelStats;
+    private UILabel labelSearch;
     private GameObject itemSocialEvent;
     private GameObject uiOpation;
     private GameObject[] redPoints = new GameObject[pageNum];
@@ -79,6 +81,7 @@ public class UISocial : UIBase {
 
     protected override void InitCom() {
         SetBtnFun(UIName + "/Window/Center/Tabs/SocialNetworkBtn", OnLink);
+        SetBtnFun(UIName + "/Window/Center/Pages/2/SearchBtn", OnSearch);
         SetBtnFun(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn", OnFresh);
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
@@ -86,6 +89,7 @@ public class UISocial : UIBase {
         uiOpation = GameObject.Find(UIName + "/Window/Center/ButtonListGroup");
         uiOpation.SetActive(false);
         totalLabel = GameObject.Find(UIName + "/Window/Center/Total").GetComponent<UILabel>();
+        labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/SearchArea/TypeLabel").GetComponent<UILabel>();
         for (int i = 0; i < pageNum; i++) {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
@@ -138,7 +142,7 @@ public class UISocial : UIBase {
             case 2: //advice
                 if (GameData.Team.Friends != null) {
                     foreach (TFriend item in GameData.Team.Friends.Values) {
-                        if (item.Kind == 1) {
+                        if (item.Kind <= 1) {
                             addFriend(page, count, item);
                             count++;
                         }
@@ -245,13 +249,13 @@ public class UISocial : UIBase {
         }
 
         friendList[page][index].Friend = friend;
-        setGoodSprite(page, friendList[page][index]);
         friendList[page][index].Item.SetActive(true);
         friendList[page][index].UILv.SetActive(true);
         friendList[page][index].UIPower.SetActive(true);
         friendList[page][index].LabelName.text = friend.Player.Name;
         friendList[page][index].LabelPower.text = string.Format("{0:F0}",friend.Player.Power());
         friendList[page][index].LabelLv.text = friend.Player.Lv.ToString();
+        setGoodSprite(page, friendList[page][index]);
     }
 
     private void addEvent(int page, int index, TSocialEvent e) {
@@ -315,6 +319,32 @@ public class UISocial : UIBase {
         
     }
 
+    private void waitSearch(bool ok, WWW www) {
+        if (ok) {
+            if (www.text.Length > 6) {
+                if (nowPage == 2) {
+                    TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                    friend.Player.Init();
+
+                    if (!GameData.Team.Friends.ContainsKey(friend.Identifier)) {
+                        GameData.Team.Friends.Add(friend.Identifier, friend);
+                        initFriendList(nowPage);
+                    }
+                }
+            } else {
+                int index = -1;
+                if (int.TryParse(www.text, out index))
+                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
+            }
+        }
+    }
+
+    public void OnSearch() {
+        WWWForm form = new WWWForm();
+        form.AddField("Name", labelSearch.text);
+        SendHttp.Get.Command(URLConst.SearchFriend, waitSearch, form, true);
+    }
+
     public void OnFresh() {
         SendHttp.Get.FreshFriends(waitFreshFriends, true);
     }
@@ -338,7 +368,14 @@ public class UISocial : UIBase {
                 item.ButtonGood.gameObject.SetActive(false);
             }
         } else {
+            if (item.Friend.Kind == 0) {
+                item.LabelName.color = Color.yellow;
+                item.LabelName.text += "\n" + TextConst.S(5031);
+            } else
+                item.LabelName.color = Color.white;
+            
             switch (item.Friend.Kind) {
+                case 0:
                 case 1:
                 case 3:
                     item.LabelRelation.text = TextConst.S(5023);

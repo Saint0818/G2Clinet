@@ -47,6 +47,7 @@ public static class URLConst {
     public const string SyncDailyRecord = "syncdailyrecord";
 	public const string BuyAvatarItem = "buyavataritem";
     public const string MissionFinish = "missionfinish";
+    public const string SearchFriend = "searchfriend";
     public const string LookFriends = "lookfriends";
     public const string FreshFriends = "freshfriends";
     public const string MakeFriend = "makefriend";
