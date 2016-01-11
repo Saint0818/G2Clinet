@@ -340,8 +340,10 @@ public class UIMission : UIBase {
             if (GameData.Team.Diamond < result.Diamond)
                 GameData.Team.Diamond = result.Diamond;
 
-            if (result.SkillCards != null)
-                GameData.Team.SkillCards = result.SkillCards;
+			if (result.SkillCards != null) {
+				GameData.Team.SkillCards = result.SkillCards;
+				GameData.Team.InitSkillCardCount();
+			}
 
             if (result.Items != null) 
                 GameData.Team.Items = result.Items;

@@ -8,6 +8,7 @@ public class UIItemHint : UIBase {
 	private UILabel uiLabelName;
 	private UIScrollView scrollViewExplain;
 	private UILabel uiLabelExplain;
+	private UILabel uiLabelHave;
 
 	private HintAvatarView hintAvatarView;
 	private HintInlayView hintInlayView;
@@ -43,6 +44,7 @@ public class UIItemHint : UIBase {
 	protected override void InitCom() {
 		uiLabelName = GameObject.Find (UIName + "/Window/Center/HintView/NameLabel").GetComponent<UILabel>();
 		uiLabelExplain = GameObject.Find (UIName + "/Window/Center/HintView/Explain/ExplainLabel").GetComponent<UILabel>();
+		uiLabelHave = GameObject.Find (UIName + "/Window/Center/HintView/Have").GetComponent<UILabel>();
 		scrollViewExplain = GameObject.Find (UIName + "/Window/Center/HintView/Explain").GetComponent<UIScrollView>();
 		hintAvatarView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup0").GetComponent<HintAvatarView>();
 		hintInlayView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup1").GetComponent<HintInlayView>();
@@ -57,6 +59,11 @@ public class UIItemHint : UIBase {
 		hintInlayView.Hide ();
 		hintSkillView.Hide ();
 	}
+
+	private void setHaveCount (int value) {
+		uiLabelHave.text = string.Format(TextConst.S(6110), value);
+	}
+
 	//For First Get
 	public void OnShow(TItemData itemData) {
 		hideAll ();
@@ -67,14 +74,23 @@ public class UIItemHint : UIBase {
 			//For First Get
 			hintSkillView.Show();
 			hintSkillView.UpdateUI(itemData);
+			if(GameData.Team.SkillCardCounts == null)
+				GameData.Team.InitSkillCardCount();
+			if(GameData.Team.SkillCardCounts.ContainsKey(itemData.Avatar))
+				setHaveCount(GameData.Team.SkillCardCounts[itemData.Avatar]);
+			else
+				setHaveCount(0);
 			uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
 		} else if(itemData.Kind == 19) {
 			hintInlayView.Show();
 			hintInlayView.UpdateUI(itemData);
+			setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
 			uiLabelExplain.text = itemData.Explain;
 		} else {
 			hintAvatarView.Show();
 			hintAvatarView.UpdateUI(itemData);
+			//TODO : 等待嘉明的來源
+			setHaveCount(0);
 			uiLabelExplain.text = itemData.Explain;
 		}
 		uiLabelName.text = itemData.Name;
@@ -85,6 +101,10 @@ public class UIItemHint : UIBase {
 		scrollViewExplain.ResetPosition();
 		hintSkillView.Show();
 		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
+		if(GameData.Team.SkillCardCounts.ContainsKey(skill.ID))
+			setHaveCount(GameData.Team.SkillCardCounts[skill.ID]);
+		else
+			setHaveCount(0);
 		uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);
 		hintSkillView.UpdateUI(skill);
 	}

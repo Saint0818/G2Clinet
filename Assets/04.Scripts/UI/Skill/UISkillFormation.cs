@@ -162,8 +162,8 @@ public class UISkillFormation : UIBase {
 	private GameObject gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
 	private UIToggle[] toggleCheckBoxSkill = new UIToggle[2];
-	private UIButton PassiveCheck;
-	private UIButton ActiveCheck;
+	private UISprite PassiveCheck;
+	private UISprite ActiveCheck;
 
 	//Total Cost
 	private UILabel labelCostValue;
@@ -259,12 +259,10 @@ public class UISkillFormation : UIBase {
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
 		toggleCheckBoxSkill[1] = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
-		ActiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck").GetComponent<UIButton>();
-		ActiveCheck.UpdateColor(false);
-		PassiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck").GetComponent<UIButton>();
-		PassiveCheck.UpdateColor(false);
-		SetBtnFun (UIName + "/Center/MainView/Right/STitle/ActiveCheck", DoOpenActive);
-		SetBtnFun (UIName + "/Center/MainView/Right/STitle/PassiveCheck", DoOpenPassive);
+		ActiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck/Background").GetComponent<UISprite>();
+		PassiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck/Background").GetComponent<UISprite>();
+		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck")).onClick = DoOpenActive;
+		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck")).onClick = DoOpenPassive;
 
 		gridCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList");
 		scrollViewCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
@@ -1144,16 +1142,18 @@ public class UISkillFormation : UIBase {
 		refreshCards();
 	}
 
-	private void activeCheckShow (byte color){
-		ActiveCheck.defaultColor = new Color32(color, color, color, 255);
-		ActiveCheck.hover = new Color32(color, color, color, 255);
-		ActiveCheck.pressed = new Color32(color, color, color, 255);
+	private void activeCheckShow (bool isClick){
+		if(isClick)
+			ActiveCheck.spriteName = "button_orange2";
+		else
+			ActiveCheck.spriteName = "button_orange1";
 	}
 
-	private void passiveCheckShow (byte color){
-		PassiveCheck.defaultColor = new Color32(color, color, color, 255);
-		PassiveCheck.hover = new Color32(color, color, color, 255);
-		PassiveCheck.pressed = new Color32(color, color, color, 255);
+	private void passiveCheckShow (bool isClick){
+		if(isClick)
+			PassiveCheck.spriteName = "button_orange2";
+		else
+			PassiveCheck.spriteName = "button_orange1";
 	}
 	
 	public void UpdateSort () {
@@ -1166,40 +1166,32 @@ public class UISkillFormation : UIBase {
 			case (int)EFilter.All:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = true;
-//				activeCheckShow(255);
-//				passiveCheckShow(255);
-				activeCheckShow(50);
-				passiveCheckShow(50);
+				activeCheckShow(true);
+				passiveCheckShow(true);
 				break;
 			case (int)EFilter.Active:
 				toggleCheckBoxSkill[0].value = true;
 				toggleCheckBoxSkill[1].value = false;
-//				activeCheckShow(255);
-//				passiveCheckShow(50);
-				activeCheckShow(50);
-				passiveCheckShow(255);
+				activeCheckShow(true);
+				passiveCheckShow(false);
 				break;
 			case (int)EFilter.Passive:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = true;
-//				activeCheckShow(50);
-//				passiveCheckShow(255);
-				activeCheckShow(255);
-				passiveCheckShow(50);
+				activeCheckShow(false);
+				passiveCheckShow(true);
 				break;
 			case (int)EFilter.Available:
 			case (int)EFilter.Select:
 				toggleCheckBoxSkill[0].value = false;
 				toggleCheckBoxSkill[1].value = false;
-//				activeCheckShow(50);
-//				passiveCheckShow(50);
-				activeCheckShow(255);
-				passiveCheckShow(255);
+				activeCheckShow(false);
+				passiveCheckShow(false);
 				break;
 		}
 	}
 
-	public void DoOpenActive (){
+	public void DoOpenActive (GameObject go){
 		//Open Actvie Cards
 		if(UISort.Visible)
 			UISort.UIShow(false);
@@ -1226,7 +1218,7 @@ public class UISkillFormation : UIBase {
 
 	}
 
-	public void DoOpenPassive (){
+	public void DoOpenPassive (GameObject go){
 		//Open Passive Cards
 		if(UISort.Visible)
 			UISort.UIShow(false);
@@ -1429,6 +1421,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
+			GameData.Team.InitSkillCardCount();
 
 			if(!isLeave) {
 				if(!IsBuyState) {
@@ -1454,6 +1447,7 @@ public class UISkillFormation : UIBase {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.InitSkillCardCount();
 			isChangePage = false; 
 			GameData.Team.Player.SkillPage = tempPage;
 			refreshAfterInstall ();
@@ -1468,6 +1462,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Money = result.Money;
 			GameData.Team.Player.SkillPage = tempPage;
+			GameData.Team.InitSkillCardCount();
 			setEditState(false);
 			UIMainLobby.Get.UpdateUI();
 		} else {

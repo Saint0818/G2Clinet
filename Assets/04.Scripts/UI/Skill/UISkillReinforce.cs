@@ -368,7 +368,9 @@ public class UISkillReinforce : UIBase {
 	}
 
 	protected override void InitData() {
-		buttonReinforce.isEnabled = false;
+//		buttonReinforce.isEnabled = false;
+		buttonReinforce.normalSprite = ButtonBG(false);
+		buttonReinforce.hoverSprite = ButtonBG(false);
 	}
 
 	private void initRightCards () {
@@ -510,7 +512,10 @@ public class UISkillReinforce : UIBase {
 			else
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
-			buttonReinforce.isEnabled = (reinforceMoney > 0);
+//			buttonReinforce.isEnabled = (reinforceMoney > 0);
+			buttonReinforce.normalSprite = ButtonBG((reinforceMoney > 0));
+			buttonReinforce.hoverSprite = ButtonBG((reinforceMoney > 0));
+
 		}
 	}
 
@@ -522,7 +527,9 @@ public class UISkillReinforce : UIBase {
 			else
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
-			buttonReinforce.isEnabled = (reinforceMoney > 0);
+//			buttonReinforce.isEnabled = (reinforceMoney > 0);
+			buttonReinforce.normalSprite = ButtonBG((reinforceMoney > 0));
+			buttonReinforce.hoverSprite = ButtonBG((reinforceMoney > 0));
 		}
 	}
 
@@ -585,7 +592,9 @@ public class UISkillReinforce : UIBase {
 		passiveSkillCards.Clear();
 		reinforceMoney = 0;
 		labelPrice.text = reinforceMoney.ToString();
-		buttonReinforce.isEnabled = false;
+//		buttonReinforce.isEnabled = false;
+		buttonReinforce.normalSprite = ButtonBG(false);
+		buttonReinforce.hoverSprite = ButtonBG(false);
 
 		originalExp = skill.Exp;
 		reinforceExp = 0;
@@ -628,34 +637,38 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		if(CheckMoney(reinforceMoney)) {
-			removeIndexs = new int[reinforceCards.Count];
-			for (int i=0; i<removeIndexs.Length; i++) {
-				removeIndexs[i] = reinforceCards[i].CardIndex;
-			}
+		if(reinforceCards.Count > 0) {
 			
-			//Bobble Sort
-			if(removeIndexs.Length > 1) {
-				for(int i=0; i<removeIndexs.Length; i++) {
-					for (int j=i+1; j<removeIndexs.Length; j++){
-						if (removeIndexs[i] >= removeIndexs[j]){
-							int temp = removeIndexs[i];
-							removeIndexs[i] = removeIndexs[j];
-							removeIndexs[j] = temp;
+			if(CheckMoney(reinforceMoney)) {
+				removeIndexs = new int[reinforceCards.Count];
+				for (int i=0; i<removeIndexs.Length; i++) {
+					removeIndexs[i] = reinforceCards[i].CardIndex;
+				}
+				
+				//Bobble Sort
+				if(removeIndexs.Length > 1) {
+					for(int i=0; i<removeIndexs.Length; i++) {
+						for (int j=i+1; j<removeIndexs.Length; j++){
+							if (removeIndexs[i] >= removeIndexs[j]){
+								int temp = removeIndexs[i];
+								removeIndexs[i] = removeIndexs[j];
+								removeIndexs[j] = temp;
+							}
 						}
 					}
 				}
+				
+				if(removeIndexs.Length > 0) {
+					if(isEquiped)
+						SendReinforcePlayer();
+					else
+						SendReinforce();
+				}
+			} else {
+				UIHint.Get.ShowHint(TextConst.S(510), Color.white);
 			}
-			
-			if(removeIndexs.Length > 0) {
-				if(isEquiped)
-					SendReinforcePlayer();
-				else
-					SendReinforce();
-			}
-		} else {
-			UIHint.Get.ShowHint(TextConst.S(510), Color.white);
-		}
+		} else 
+			UIHint.Get.ShowHint(TextConst.S(557), Color.white);
 	}
 
 	public void OnClose () {
@@ -683,6 +696,7 @@ public class UISkillReinforce : UIBase {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 
 			if(UISkillFormation.Visible)
@@ -712,6 +726,7 @@ public class UISkillReinforce : UIBase {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 
 			if(UISkillFormation.Visible)

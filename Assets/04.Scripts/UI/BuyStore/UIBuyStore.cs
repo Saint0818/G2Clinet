@@ -231,6 +231,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.Items = result.Team.Items;
 			GameData.Team.SkillCards = result.Team.SkillCards;
 			GameData.Team.Diamond = result.Team.Diamond;
+			GameData.Team.InitSkillCardCount();
 
 			if(result.ItemIDs != null) {
 				mItemDatas = new TItemData[result.ItemIDs.Length];
