@@ -568,6 +568,22 @@ namespace GameStruct
                 return "0s";
 			}
 		}
+		
+		public string RankLvPicture
+		{
+			get{ return string.Format("IconRank{0}", HeadTextureNo);}		
+		}
+
+        public string PositionPicture{
+            get {
+                if (BodyType == 0)
+                    return "IconCenter";
+                else if(BodyType == 1)
+                    return "IconForward";
+                else
+                    return "IconGuard";
+            }
+        }
 
         public bool CheckIfMaxAnger (int activeID, int value) {
             if(ActiveSkills.Count > 0) 
