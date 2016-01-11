@@ -49,7 +49,8 @@ namespace GameStruct
     public struct TSocialEvent {
         public string _id;
         public string TargetID;
-        public string Name; 
+        public string Name;
+        public TPlayer Player;
         public DateTime Time;
         public Dictionary<string, int> Good;
         public int GoodCount;

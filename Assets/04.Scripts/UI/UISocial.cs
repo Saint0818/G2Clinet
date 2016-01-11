@@ -11,6 +11,8 @@ public class TSocialEventItem{
     public GameObject Item;
     public GameObject ModelAnchor;
     public GameObject PlayerModel;
+    public GameObject UILv;
+    public GameObject UIPower;
     public GameObject UIStage;
     public GameObject UIAward;
     public GameObject UISkill;
@@ -114,6 +116,14 @@ public class UISocial : UIBase {
 
         int count = 0;
         switch (page) {
+            case 0: //event
+                for (int i = 0; i < GameData.SocialEvents.Count; i++)
+                    if (GameData.SocialEvents[i].Kind == 1 || GameData.Team.Friends.ContainsKey(GameData.SocialEvents[i].TargetID)) {
+                        addEvent(page, count, GameData.SocialEvents[i]);
+                        count++;
+                    }
+                
+                break;
             case 1: //follow
                 if (GameData.Team.Friends != null) {
                     foreach (TFriend item in GameData.Team.Friends.Values) {
@@ -172,13 +182,15 @@ public class UISocial : UIBase {
             StartCoroutine(loadModel(modelLoader.Dequeue()));
     }
 
-    private void addFriend(int page, int index, TFriend friend) {
+    private void addItem(int page, int index) {
         if (index >= friendList[page].Count) {
             TSocialEventItem team = new TSocialEventItem();
             team.Item = Instantiate(itemSocialEvent, Vector3.zero, Quaternion.identity) as GameObject;
             string name = page.ToString() + "-" + index.ToString();
             team.Item.name = name;
             team.ModelAnchor = GameObject.Find(name + "/Slot/Anchor");
+            team.UILv = GameObject.Find(name + "/Window/Lv");
+            team.UIPower = GameObject.Find(name + "/Window/Power");
             team.UIStage = GameObject.Find(name + "/Window/Stage");
             team.UIAward = GameObject.Find(name + "/Window/Item");
             team.UISkill = GameObject.Find(name + "/Window/Skill");
@@ -199,6 +211,8 @@ public class UISocial : UIBase {
                 SetBtnFun(ref team.ButtonGood, OnGood);
             }
 
+            team.UILv.SetActive(false);
+            team.UIPower.SetActive(false);
             team.UIStage.SetActive(false);
             team.UIAward.SetActive(false);
             team.UISkill.SetActive(false);
@@ -211,7 +225,10 @@ public class UISocial : UIBase {
             friendList[page].Add(team);
             index = friendList[page].Count-1;
         }
+    }
 
+    private void addFriend(int page, int index, TFriend friend) {
+        addItem(page, index);
         friendList[page][index].Index = index;
 
         if (friend.Player.Avatar.HaveAvatar && friendList[page][index].Friend.Identifier != friend.Identifier) {
@@ -230,9 +247,58 @@ public class UISocial : UIBase {
         friendList[page][index].Friend = friend;
         setGoodSprite(page, friendList[page][index]);
         friendList[page][index].Item.SetActive(true);
+        friendList[page][index].UILv.SetActive(true);
+        friendList[page][index].UIPower.SetActive(true);
         friendList[page][index].LabelName.text = friend.Player.Name;
         friendList[page][index].LabelPower.text = string.Format("{0:F0}",friend.Player.Power());
         friendList[page][index].LabelLv.text = friend.Player.Lv.ToString();
+    }
+
+    private void addEvent(int page, int index, TSocialEvent e) {
+        addItem(page, index);
+        friendList[page][index].Index = index;
+
+        if (e.Player.Avatar.HaveAvatar && friendList[page][index].Event.TargetID != e.TargetID) {
+            if (friendList[page][index].PlayerModel)
+                Destroy(friendList[page][index].PlayerModel);
+
+            friendList[page][index].PlayerModel = new GameObject("PlayerModel");
+            friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
+            friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
+            friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
+            friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
+            modelLoader.Enqueue(friendList[page][index]);
+        }
+
+        friendList[page][index].Event = e;
+        friendList[page][index].Item.SetActive(true);
+        friendList[page][index].UILv.SetActive(true);
+        friendList[page][index].UIPower.SetActive(true);
+        setGoodSprite(page, friendList[page][index]);
+        setEventText(page, index);
+    }
+
+    private void setEventText(int page, int index) {
+        friendList[page][index].LabelName.text = "";
+        TSocialEvent e = friendList[page][index].Event;
+        if (page == 0) {
+            friendList[page][index].LabelName.text = e.Name;
+            switch (e.Kind) {
+                case 1: //friend
+                    switch (e.Value) {
+                        case 2:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5029);
+                            break;
+                        case 3:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5024);
+                            break;
+                        case 4:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5030);
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 
     private IEnumerator loadModel(TSocialEventItem item) {
@@ -266,27 +332,35 @@ public class UISocial : UIBase {
     }
 
     private void setGoodSprite(int page, TSocialEventItem item) {
-        switch (item.Friend.Kind) {
-            case 1:
-            case 3:
-                item.LabelRelation.text = TextConst.S(5023);
-                break;
-            case 2:
-                item.LabelRelation.text = TextConst.S(5024);
-                break;
-            case 4:
-                item.LabelRelation.text = TextConst.S(5025);
-                break;
-        }
-
-        if (item.Friend.Kind == 2 || item.Friend.Kind == 4) {
-            item.ButtonGood.defaultColor = Color.white;
-            item.ButtonGood.hover = Color.white;
-            item.ButtonGood.pressed = Color.white;
+        if (page == 0) {
+            if (item.Event.Kind == 1) {
+                item.LabelRelation.text = "";
+                item.ButtonGood.gameObject.SetActive(false);
+            }
         } else {
-            item.ButtonGood.defaultColor = new Color32(150, 150, 150, 255);
-            item.ButtonGood.hover = new Color32(150, 150, 150, 255);
-            item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
+            switch (item.Friend.Kind) {
+                case 1:
+                case 3:
+                    item.LabelRelation.text = TextConst.S(5023);
+                    break;
+                case 2:
+                    item.LabelRelation.text = TextConst.S(5024);
+                    break;
+                case 4:
+                    item.LabelRelation.text = TextConst.S(5025);
+                    break;
+            }
+
+            item.ButtonGood.gameObject.SetActive(true);
+            if (item.Friend.Kind == 2 || item.Friend.Kind == 4) {
+                item.ButtonGood.defaultColor = Color.white;
+                item.ButtonGood.hover = Color.white;
+                item.ButtonGood.pressed = Color.white;
+            } else {
+                item.ButtonGood.defaultColor = new Color32(150, 150, 150, 255);
+                item.ButtonGood.hover = new Color32(150, 150, 150, 255);
+                item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
+            }
         }
     }
 
@@ -321,5 +395,9 @@ public class UISocial : UIBase {
 
     public void OnInfo() {
 
+    }
+
+    public void FreshSocialEvent() {
+        
     }
 }

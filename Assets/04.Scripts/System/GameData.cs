@@ -63,6 +63,8 @@ public static class GameData {
 	public static TTeam[] EnemyMembers = new TTeam[Max_GamePlayer];
 	public static TGameSetting Setting;
 
+    public static List<TSocialEvent> SocialEvents = new List<TSocialEvent>();
+
     /// <summary>
     /// 記錄玩家目前打的關卡.
     /// </summary>

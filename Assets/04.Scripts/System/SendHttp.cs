@@ -50,6 +50,7 @@ public static class URLConst {
     public const string LookFriends = "lookfriends";
     public const string FreshFriends = "freshfriends";
     public const string MakeFriend = "makefriend";
+    public const string LookSocialEvent = "looksocialevent";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
@@ -423,6 +424,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                 SyncDailyRecord();
                 LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
+                StartCoroutine(longPollingSocialEvent());
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -524,5 +526,32 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     UIHint.Get.ShowHint(TextConst.S(index), Color.white);
             }
         }
+    }
+
+    private IEnumerator longPollingSocialEvent() {
+        yield return new WaitForSeconds(10); //every 10 seconds request once
+
+        lookSocialEvent();
+    }
+
+    private void lookSocialEvent() {
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
+    }
+
+    private void waitLookSocialEvent(bool flag, WWW www) {
+        if (flag) {
+            if (!string.IsNullOrEmpty(www.text)) {
+                TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
+                for (int i = 0; i < events.Length; i++)
+                    GameData.SocialEvents.Add(events[i]);
+
+                if (UISocial.Visible)
+                    UISocial.Get.FreshSocialEvent();
+            }
+        }
+
+        StartCoroutine(longPollingSocialEvent());
     }
 }
