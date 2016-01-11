@@ -424,7 +424,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                 SyncDailyRecord();
                 LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
-                StartCoroutine(longPollingSocialEvent());
+                StartCoroutine(longPollingSocialEvent(0));
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -528,15 +528,20 @@ public class SendHttp : KnightSingleton<SendHttp> {
         }
     }
 
-    private IEnumerator longPollingSocialEvent() {
+    private IEnumerator longPollingSocialEvent(int kind) {
         yield return new WaitForSeconds(10); //every 10 seconds request once
 
-        lookSocialEvent();
+        lookSocialEvent(kind);
     }
 
-    private void lookSocialEvent() {
+    private void lookSocialEvent(int kind) {
         WWWForm form = new WWWForm();
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+
+        GameData.Team.SocialEventTime = DateTime.UtcNow;
+        if (kind > 0)
+            form.AddField("Time", GameData.Team.SocialEventTime.ToString());
+
         SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
     }
 
@@ -552,6 +557,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
             }
         }
 
-        StartCoroutine(longPollingSocialEvent());
+        StartCoroutine(longPollingSocialEvent(1));
     }
 }
