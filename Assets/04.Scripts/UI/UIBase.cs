@@ -238,7 +238,7 @@ public class UIBase: MonoBehaviour
 			return true;
 		else {
 			if(isShowMessage)
-				UIMessage.Get.ShowMessage(TextConst.S(237), TextConst.S(239), OnBuyMoney);
+				UIMessage.Get.ShowMessageForBuy(TextConst.S(237), TextConst.S(239), OnBuyMoney);
 			return false;
 		}
 	}
@@ -263,7 +263,7 @@ public class UIBase: MonoBehaviour
 			return true;
 		else {
 			if(isShowMessage)
-				UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238), OnBuyDiamond);
+				UIMessage.Get.ShowMessageForBuy(TextConst.S(233), TextConst.S(238), OnBuyDiamond);
 			return false;
 		}
 	}
@@ -286,7 +286,7 @@ public class UIBase: MonoBehaviour
 			return true;
 		else {
 			if(isShowMessage)
-				UIMessage.Get.ShowMessage(TextConst.S(230), TextConst.S(240), OnBuyPower);
+				UIMessage.Get.ShowMessageForBuy(TextConst.S(230), TextConst.S(240), OnBuyPower);
 			return false;
 		}
 	}

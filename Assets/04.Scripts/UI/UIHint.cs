@@ -1,5 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+
+public struct THint {
+	public string Text;
+	public Color TextColor;
+}
 
 public class UIHint : UIBase
 {
@@ -7,6 +13,7 @@ public class UIHint : UIBase
 	private const string UIName = "UIHint";
 //	private float timer = -1;
 	private UILabel mLabel;
+	private List<THint> textList = new List<THint>();
 
     private const float AutoHideTime = 3f; // 單位: 秒.
 
@@ -60,23 +67,38 @@ public class UIHint : UIBase
     {
         base.OnShow(isShow);
 
-        StartCoroutine(autoHide());
+		StartCoroutine(autoHide());
     }
 
     private IEnumerator autoHide()
     {
         yield return new WaitForSeconds(AutoHideTime);
-
-        Hide();
+		textList.RemoveAt(0);
+		if(textList.Count <= 0)
+        	Hide();
+		else {
+			mLabel.text = textList[0].Text;
+			mLabel.effectColor = textList[0].TextColor;
+			StartCoroutine(autoHide());
+		}
     }
+
+	private void addText (string text, Color color) {
+		THint hint = new THint();
+		hint.Text = text;
+		hint.TextColor = color;
+		textList.Add(hint);
+	}
 
     public void ShowHint(string text, Color color)
     {
-		if(!Visible)
+		if(!Visible){
 			Show(true);
+			mLabel.text = text;
+			mLabel.effectColor = color;
+		}
 
-	    mLabel.text = text;
-	    mLabel.effectColor = color;
+		addText(text, color);
 
 //		for (int i = LabelHints.Length-1; i >= 0; i --) 
 //			if (LabelHints[i].gameObject.activeInHierarchy && LabelHints[i].text == text) 

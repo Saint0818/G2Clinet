@@ -376,8 +376,8 @@ public class UISkillReinforce : UIBase {
 			int index = 0;
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				TPassiveSkillCard obj = null;
+				obj = addItem(i, index, GameData.Team.SkillCards[i]);
 				if(!passiveSkillCards.ContainsKey(obj.Name) && GameData.Team.SkillCards[i].ID > 100 && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
-					obj = addItem(i, index, GameData.Team.SkillCards[i]);
 					passiveSkillCards.Add(obj.Name, obj);
 					index ++ ;
 				}

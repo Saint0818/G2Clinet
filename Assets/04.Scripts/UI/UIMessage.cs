@@ -8,6 +8,7 @@ public class UIMessage : UIBase {
 	private UILabel LabelMessage;
 	private UIButton YesBtn;
 	private UIButton NoBtn;
+	private UIButton RechargeBtn;
 
 	private Action<object> YesFunc;
 	private Action NoFunc;
@@ -50,8 +51,10 @@ public class UIMessage : UIBase {
 
 		YesBtn = GameObject.Find("UIMessage/Window/CheckBtn").GetComponent<UIButton>();
 		NoBtn = GameObject.Find("UIMessage/Window/NoBtn").GetComponent<UIButton>();
+		RechargeBtn = GameObject.Find("UIMessage/Window/GoRechargeBtn").GetComponent<UIButton>();
 
 		SetBtnFun(ref YesBtn, OnYes);
+		SetBtnFun(ref RechargeBtn, OnYes);
 		SetBtnFun(ref NoBtn, OnNo);
 	}
 
@@ -60,8 +63,8 @@ public class UIMessage : UIBase {
 		if(YesFunc != null)
 			YesFunc(mExtraInfo);
 
-		if (YesBtn.onClick.Count > 1)
-			YesBtn.onClick.RemoveAt(0);
+		if (RechargeBtn.onClick.Count > 1)
+			RechargeBtn.onClick.RemoveAt(0);
 
 		UIShow(false);
 	}
@@ -74,17 +77,39 @@ public class UIMessage : UIBase {
 	}
 
 	public void ShowMessage(string titleStr, string messageStr, EventDelegate.Callback yesEvent) {
-		ShowMessage(titleStr, messageStr);
+		UIShow (true);
+		YesBtn.gameObject.SetActive(true);
+		RechargeBtn.gameObject.SetActive(false);
+
+		if (LabelTitle != null)
+			LabelTitle.text = titleStr;
+
+		if (LabelMessage != null)
+			LabelMessage.text = messageStr;
 
 		YesBtn.onClick.Insert(0, new EventDelegate(yesEvent));
-		NoBtn.gameObject.SetActive(false);
+	}
+
+	public void ShowMessageForBuy (string titleStr, string messageStr, EventDelegate.Callback yesEvent) {
+		UIShow (true);
+		YesBtn.gameObject.SetActive(false);
+		RechargeBtn.gameObject.SetActive(true);
+
+		if (LabelTitle != null)
+			LabelTitle.text = titleStr;
+
+		if (LabelMessage != null)
+			LabelMessage.text = messageStr;
+
+		RechargeBtn.onClick.Insert(0, new EventDelegate(yesEvent));
 	}
 	
 	public void ShowMessage(string titleStr, string messageStr, Action<object> yes = null,
                             Action no = null, object extraInfo = null)
 	{
 		UIShow (true);
-		NoBtn.gameObject.SetActive(true);
+		YesBtn.gameObject.SetActive(true);
+		RechargeBtn.gameObject.SetActive(false);
 
 		YesFunc = yes;
 		NoFunc = no;

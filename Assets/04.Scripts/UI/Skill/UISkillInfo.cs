@@ -36,6 +36,8 @@ public class UISkillInfo : UIBase {
 	//TopRight
 	private UILabel labelEquip;
 	private GameObject btnEquip;
+	private GameObject btnCrafting;
+	private GameObject btnUpgrade;
 
 	private bool isAlreadyEquip;
 
@@ -76,6 +78,8 @@ public class UISkillInfo : UIBase {
 	protected override void InitCom() {
 		labelEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn/Label").GetComponent<UILabel>();
 		btnEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn");
+		btnCrafting = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn");
+		btnUpgrade = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn");
 		btnMedium = GameObject.Find (UIName + "/Center/Left/BtnMediumCard");
 		btnMediumTop = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/Top");
 		btnMediumTop.SetActive(false);
@@ -119,6 +123,9 @@ public class UISkillInfo : UIBase {
 		UIShow (true);
 		mUICard = uicard;
 		isAlreadyEquip = isEquip;
+		btnEquip.SetActive(true);
+		btnUpgrade.SetActive(true);
+		btnCrafting.SetActive(false);
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -178,6 +185,8 @@ public class UISkillInfo : UIBase {
 	public void ShowFromNewCard (TSkill skill) {
 		UIShow (true);
 		btnEquip.SetActive(false);
+		btnUpgrade.SetActive(false);
+		btnCrafting.SetActive(false);
 
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[skill.ID];

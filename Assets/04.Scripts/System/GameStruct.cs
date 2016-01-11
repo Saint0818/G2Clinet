@@ -1227,7 +1227,7 @@ namespace GameStruct
 	public struct TShop {
 		public int Kind;
 		public int SpendKind;
-		public string Price;
+		public int Price;
 		public int Sale;//銷售語的種類
 		public int ItemID;
 		public int Pic;
