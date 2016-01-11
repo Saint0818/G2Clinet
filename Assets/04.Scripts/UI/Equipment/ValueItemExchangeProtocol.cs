@@ -12,7 +12,7 @@ public class ValueItemExchangeProtocol
         mCallback = callback;
 
         WWWForm form = new WWWForm();
-        form.AddField("ValueItems", JsonConvert.SerializeObject(changeData));
+        form.AddField("ClientValueItemIndices", JsonConvert.SerializeObject(changeData));
         SendHttp.Get.Command(URLConst.ValueItemExchange, waitChangeValueItems, form);
     }
 
