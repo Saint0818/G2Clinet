@@ -6,6 +6,16 @@ using UnityEngine;
 
 public static class UIValueItemDataBuilder
 {
+    public static UIValueItemData BuildEmpty()
+    {
+        return new UIValueItemData
+        {
+            Atlas = Resources.Load<UIAtlas>("UI/UIGame"),
+            Icon = "Icon_Create",
+            Frame = "Equipment_1"
+        };
+    }
+
     public static UIValueItemData Build(TItemData item, [NotNull]int[] playerInlayItemIDs)
     {
         return build(item, playerInlayItemIDs, findStorageMaterials(item));
@@ -81,7 +91,7 @@ public static class UIValueItemDataBuilder
 
         return valueItem;
     }
-    
+
     private static void buildMaterials(TItemData item, int[] playerInlayItemIDs, 
                                     MaterialItemInfo[] storageMaterials,
                                     ref UIValueItemData valueItem)

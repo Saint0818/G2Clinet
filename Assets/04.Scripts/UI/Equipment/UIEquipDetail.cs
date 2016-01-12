@@ -50,7 +50,6 @@ public class UIEquipDetail : MonoBehaviour
 	private void Awake()
     {
         mEquipItem = UIPrefabPath.LoadUI(UIPrefabPath.ItemEquipmentBtn, ItemParent).GetComponent<UIEquipItem>();
-        mEquipItem.Clear();
         mEquipItem.OnClickListener += onItemClick;
 
         mAttrs = GetComponentsInChildren<UIEquipDetailAttr>();

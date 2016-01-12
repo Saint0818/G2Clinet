@@ -48,6 +48,7 @@ public class UIEquipPlayer : MonoBehaviour
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
             obj.transform.localScale = Vector3.one;
+            obj.name = string.Format("{0}({1})", obj.name, i);
             var slot = obj.GetComponent<UIEquipPartSlot>();
             mPartSlots.Add(slot);
             slot.Index = i;
@@ -67,8 +68,6 @@ public class UIEquipPlayer : MonoBehaviour
         {
             if(mMain.ValueItems.Length > slotIndex)
                 mPartSlots[slotIndex].Set(mMain.ValueItems[slotIndex], !mMain.IsBestValueItem(slotIndex));
-            else
-                mPartSlots[slotIndex].Clear();
         }
     }
 

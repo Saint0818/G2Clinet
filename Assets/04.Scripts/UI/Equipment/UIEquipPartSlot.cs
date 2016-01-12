@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 /// 使用方法:
 /// <list type="number">
-/// <item> Call Clear() or Set() 設定 Slot 顯示的資訊. </item>
+/// <item> Call Set() 設定 Slot 顯示的資訊. </item>
 /// </list>
 public class UIEquipPartSlot : MonoBehaviour
 {
@@ -27,11 +27,6 @@ public class UIEquipPartSlot : MonoBehaviour
         obj.transform.localScale = Vector3.one;
         mItem = obj.GetComponent<UIEquipItem>();
         mItem.OnClickListener += onItemClick;
-    }
-
-    public void Clear()
-    {
-        mItem.Clear();
     }
 
     public void Set(UIValueItemData item, bool showRedPoint)

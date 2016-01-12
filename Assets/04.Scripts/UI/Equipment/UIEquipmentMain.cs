@@ -82,13 +82,13 @@ public class UIEquipmentMain : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="basicAttr"> 球員的基本數值. </param>
-    /// <param name="valueItems"> 球員身上的裝備. </param>
+    /// <param name="playerValueItems"> 球員身上的裝備. </param>
     /// <param name="listItems"> 顯示在替換清單的裝備. </param>
-    public void Init(Dictionary<EAttribute, float> basicAttr, UIValueItemData[] valueItems, 
-                     List<UIValueItemData[]> listItems)
+    public void SetData(Dictionary<EAttribute, float> basicAttr, UIValueItemData[] playerValueItems, 
+                        List<UIValueItemData[]> listItems)
     {
         mBasicAttr = new Dictionary<EAttribute, float>(basicAttr);
-        ValueItems = valueItems;
+        ValueItems = playerValueItems;
         ListItems = listItems;
 
         mPlayerInfo.UpdateUI();
@@ -167,7 +167,7 @@ public class UIEquipmentMain : MonoBehaviour
     {
         for(var i = 0; i < ValueItems.Length; i++)
         {
-            if(ValueItems[i].StorageIndex != -1)
+            if(ValueItems[i].StorageIndex != UIValueItemData.StorageIndexNone)
                 return true;
         }
 

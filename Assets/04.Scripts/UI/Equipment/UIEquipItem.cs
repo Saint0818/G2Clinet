@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 /// 使用方法:
 /// <list type="number">
-/// <item> Call Set() or Clear() 設定道具資訊. </item>
+/// <item> Call Set() 設定道具資訊. </item>
 /// <item> OnClickListener 註冊點擊事件. </item>
 /// </list>
 public class UIEquipItem : MonoBehaviour
@@ -44,16 +44,6 @@ public class UIEquipItem : MonoBehaviour
         }
     }
 
-    public void Clear()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private bool RedPointVisible
-    {
-        set { RedPoint.SetActive(value); }
-    }
-
     public void Set(UIValueItemData data, bool showRedPoint)
     {
         gameObject.SetActive(true);
@@ -67,7 +57,7 @@ public class UIEquipItem : MonoBehaviour
 
         Text.text = data.Name;
 
-        RedPointVisible = showRedPoint;
+        RedPoint.SetActive(showRedPoint);
 
         updateInlay(data.Inlay);
     }

@@ -14,11 +14,13 @@ public class UIValueItemData
         public int Value; // 數值裝某個屬性的數值.
     }
 
+    public const int StorageIndexNone = -2;
+    public const int StorageIndexDemount = -1;
     /// <summary>
     /// UI 並不會使用這個數值, 這個只是給 UIEquipment 用來得知哪個道具被替換了, 而且也知道替換了
     /// 倉庫中的哪一個.
     /// </summary>
-    public int StorageIndex { set; get; }
+    public int StorageIndex = StorageIndexNone;
 
     public string Name
     {
@@ -37,7 +39,7 @@ public class UIValueItemData
     private string mIcon;
 
     /// <summary>
-    /// 道具的背景圖片.
+    /// 道具的外框圖片.(會根據道具的 Quality 而顯示不同的外框)
     /// </summary>
     public string Frame
     {
@@ -59,7 +61,7 @@ public class UIValueItemData
     /// <summary>
     /// 鑲嵌孔狀態. true: 已鑲嵌, false: 未鑲嵌.
     /// </summary>
-    public bool[] Inlay;
+    public bool[] Inlay = new bool[0];
 
     /// <summary>
     /// 鑲嵌物品會影響的數值.
