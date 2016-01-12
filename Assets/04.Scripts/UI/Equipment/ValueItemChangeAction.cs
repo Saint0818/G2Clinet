@@ -14,7 +14,7 @@ public class ValueItemChangeAction : ActionQueue.IAction
         mIsDone = false;
 
         var protocol = new ValueItemExchangeProtocol();
-        protocol.Send(mChange, onChangeValueItem);
+        protocol.Send(mChange, new []{-1, -1}, onChangeValueItem);
     }
 
     public bool IsDone()
