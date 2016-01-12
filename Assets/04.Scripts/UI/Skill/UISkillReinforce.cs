@@ -157,7 +157,7 @@ public struct TReinforceInfo {
 		ValueLabel1 = new UILabel[4];
 
 		for(int i=0; i<AttrView.Length; i++) {
-			AttrView[i] = t.FindChild("Window/Center/CenterView/ReinforceInfo/AttrView" + i.ToString()).gameObject;
+			AttrView[i] = t.FindChild("AttrView" + i.ToString()).gameObject;
 			GroupLabel[i] = AttrView[i].transform.FindChild("GroupLabel").GetComponent<UILabel>();
 			ValueLabel0[i] = AttrView[i].transform.FindChild("ValueLabel0").GetComponent<UILabel>();
 			ValueLabel1[i] = AttrView[i].transform.FindChild("ValueLabel1").GetComponent<UILabel>();
@@ -255,6 +255,58 @@ public struct TReinforceInfo {
 			}
 		}
 	}
+
+	public void UpgradeViewForLevelUp (TSkill skill, int newLv) {
+		int index = 0;
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+				AttrView[index].SetActive(true);	
+				GroupLabel[index].text = TextConst.S(7404);
+				ValueLabel0[index].text = GameData.DSkillData[skill.ID].AniRate(skill.Lv).ToString();
+				ValueLabel1[index].text = GameData.DSkillData[skill.ID].AniRate(newLv).ToString();
+				if(GameData.DSkillData[skill.ID].AniRate(newLv) > GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
+					ValueLabel1[index].gameObject.SetActive(true);
+					ValueLabel1[index].color = Color.green;
+				} else {
+					ValueLabel1[index].gameObject.SetActive(false);
+				}
+				index ++;
+
+				AttrView[index].SetActive(true);	
+				GroupLabel[index].text = TextConst.S(7405);
+				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Distance(skill.Lv).ToString();
+				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Distance(newLv).ToString();
+				if(GameData.DSkillData[skill.ID].Distance(newLv) > GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
+					ValueLabel1[index].gameObject.SetActive(true);
+					ValueLabel1[index].color = Color.green;
+				} else {
+					ValueLabel1[index].gameObject.SetActive(false);
+				}
+				index ++;
+
+				AttrView[index].SetActive(true);	
+				GroupLabel[index].text = TextConst.S(10500 + GameData.DSkillData[skill.ID].AttrKind);
+				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Value(skill.Lv).ToString();
+				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Value(newLv).ToString();
+				if(GameData.DSkillData[skill.ID].Value(newLv) > GameData.DSkillData[skill.ID].Value(skill.Lv)) {
+					ValueLabel1[index].gameObject.SetActive(true);
+					ValueLabel1[index].color = Color.green;
+				} else {
+					ValueLabel1[index].gameObject.SetActive(false);
+				}
+				index ++;
+
+				AttrView[index].SetActive(true);	
+				GroupLabel[index].text = TextConst.S(7406);
+				ValueLabel0[index].text = GameData.DSkillData[skill.ID].LifeTime(skill.Lv).ToString();
+				ValueLabel1[index].text = GameData.DSkillData[skill.ID].LifeTime(newLv).ToString();
+				if(GameData.DSkillData[skill.ID].LifeTime(newLv) > GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
+					ValueLabel1[index].gameObject.SetActive(true);
+					ValueLabel1[index].color = Color.green;
+				} else {
+					ValueLabel1[index].gameObject.SetActive(false);
+				}
+		}
+	}
 }
 
 public class UISkillReinforce : UIBase {
@@ -297,6 +349,8 @@ public class UISkillReinforce : UIBase {
 	//item Center
 	private Dictionary<string, GameObject> reinforceItems;
 
+	private Animator reinforceAnimator;
+
 	private bool isEquiped = false;
 
 	public static bool Visible {
@@ -329,6 +383,7 @@ public class UISkillReinforce : UIBase {
 	protected override void InitCom() {
 		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
 		itemCardReinforce = Resources.Load(UIPrefabPath.ItemAwardGroup) as GameObject;
+		reinforceAnimator = GetComponent<Animator>();
 
 		//Left View
 		skillCard = new TActiveSkillCard();
@@ -351,7 +406,7 @@ public class UISkillReinforce : UIBase {
 			MaterialRemoveBtns[i].SetActive(false);
 		}
 		reinForceInfo = new TReinforceInfo();
-		reinForceInfo.Init(transform);
+		reinForceInfo.Init(GameObject.Find(UIName + "/Window/Center/CenterView/ReinforceInfo").transform);
 
 		//RightView
 		scrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView");

@@ -13,7 +13,7 @@ public class UIHint : UIBase
 	private const string UIName = "UIHint";
 //	private float timer = -1;
 	private UILabel mLabel;
-	private List<THint> textList = new List<THint>();
+	private Queue<THint> textList = new Queue<THint>();
 
     private const float AutoHideTime = 3f; // 單位: 秒.
 
@@ -73,21 +73,24 @@ public class UIHint : UIBase
     private IEnumerator autoHide()
     {
         yield return new WaitForSeconds(AutoHideTime);
-		textList.RemoveAt(0);
 		if(textList.Count <= 0)
         	Hide();
 		else {
-			mLabel.text = textList[0].Text;
-			mLabel.effectColor = textList[0].TextColor;
+			showText(textList.Dequeue());
 			StartCoroutine(autoHide());
 		}
     }
+
+	private void showText (THint hint) {
+		mLabel.text = hint.Text;
+		mLabel.effectColor = hint.TextColor;
+	}
 
 	private void addText (string text, Color color) {
 		THint hint = new THint();
 		hint.Text = text;
 		hint.TextColor = color;
-		textList.Add(hint);
+		textList.Enqueue(hint);
 	}
 
     public void ShowHint(string text, Color color)
@@ -96,9 +99,8 @@ public class UIHint : UIBase
 			Show(true);
 			mLabel.text = text;
 			mLabel.effectColor = color;
-		}
-
-		addText(text, color);
+		} else 
+			addText(text, color);
 
 //		for (int i = LabelHints.Length-1; i >= 0; i --) 
 //			if (LabelHints[i].gameObject.activeInHierarchy && LabelHints[i].text == text) 

@@ -55,7 +55,9 @@ public static class URLConst {
     public const string RemoveFriend = "removefriend";
     public const string LookSocialEvent = "looksocialevent";
     public const string LookWatchFriend = "lookwatchfriend";
-    public const string LookAvatar = "lookavatar";
+	public const string LookAvatar = "lookavatar";
+	public const string BuyDiamond = "buydiamond";
+	public const string BuyFromShop = "buyfromshop";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
@@ -80,8 +82,6 @@ public static class URLConst {
 	public const string FBRank = "fbrank";
 	public const string UseItem = "useitem";
 	public const string BuyMoney = "buymoney";
-	public const string BuyDiamond = "buydiamond";
-	public const string BuyFromShop = "buyfromshop";
 	public const string Polling = "polling";
 	public const string ItemUp = "itemup";
 	public const string SellItem = "sellitem";
