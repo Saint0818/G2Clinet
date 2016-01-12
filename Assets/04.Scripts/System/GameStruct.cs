@@ -1266,4 +1266,25 @@ namespace GameStruct
 			}
 		}
 	}
+        
+	public struct TPVPData
+	{
+        public int Lv;
+		public string Name;
+		public int LowScore;
+		public int HighScore;
+		public int BasicScore;
+		public int Calculate;
+	}
+
+    public struct TTeamRank
+    {  
+        public TPlayer Player;
+        public int PVPIntegral;
+        public string LeagueName;
+        public int LeagueIcon;
+        public int PVPWin;
+        public int PVPCount;
+        public int PVPKeepWin;
+    }
 }

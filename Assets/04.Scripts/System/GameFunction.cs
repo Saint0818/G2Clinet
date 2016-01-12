@@ -741,4 +741,22 @@ public static class GameFunction
 			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * stars[i].XSize, 0, 0);
 		}
 	}
+
+    public static int GetPVPLv(int integral)
+    {
+        if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && integral < GameData.DPVPData[GameConst.PVPMinLv].LowScore)
+            return GameConst.PVPMinLv;
+        else if (GameData.DPVPData.ContainsKey(GameConst.PVPMaxLv) && integral > GameData.DPVPData[GameConst.PVPMaxLv].HighScore)
+            return GameConst.PVPMaxLv;
+        else
+        {
+            int lv = 1;
+        
+            foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData)
+                if (integral >= item.Value.LowScore && integral <= item.Value.HighScore)
+                    lv = item.Value.Lv;
+            
+            return lv;
+        }
+    }
 }

@@ -10,66 +10,71 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 public delegate void DownloadFinsh();
-public delegate void DownloadFileText(string ver, string text, bool saveVersion);
-public delegate void DownloadFileWWW(string ver, string fileName, WWW www);
+public delegate void DownloadFileText(string ver,string text,bool saveVersion);
+public delegate void DownloadFileWWW(string ver,string fileName,WWW www);
 
 public struct TDownloadData
 {
-	public string fileName;
-	public string version;
+    public string fileName;
+    public string version;
 
-	public TDownloadData(string FileName, string Version)
-	{
-		fileName = FileName;
-		version = Version;
-	}
+    public TDownloadData(string FileName, string Version)
+    {
+        fileName = FileName;
+        version = Version;
+    }
 }
 
 public enum VersionMode
 {
-	Debug = 1,
-	Release = 2
+    Debug = 1,
+    Release = 2
 }
 
-public struct TDownloadTimeRecord{
-	public string FileName;
-	public float StarTime;
+public struct TDownloadTimeRecord
+{
+    public string FileName;
+    public float StarTime;
 
-	public TDownloadTimeRecord(int Value){
-		FileName = "";
-		StarTime = 0;
-	}
+    public TDownloadTimeRecord(int Value)
+    {
+        FileName = "";
+        StarTime = 0;
+    }
 }
 
-public struct TStartCoroutine{
-	public WWW www;
-	public string Version;
+public struct TStartCoroutine
+{
+    public WWW www;
+    public string Version;
 }
 
-public class FileManager : KnightSingleton<FileManager> {
-	#if Release
-	public const string URL = "http://g2.nicemarket.com.tw/";
-	public const VersionMode NowMode = VersionMode.Release;
-	#else
+public class FileManager : KnightSingleton<FileManager>
+{
+    #if Release
+    public const string URL = "http://g2.nicemarket.com.tw/";
+    public const VersionMode NowMode = VersionMode.Release;
+    #else
 	public const string URL = "http://localhost:3600/";
 	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 
-	private const int FileDownloadLimitTime = 30;
-	private const string ServerFilePath = URL + "gamedata/";
-	private const string ClientFilePath = "GameData/";
+    private const int FileDownloadLimitTime = 30;
+    private const string ServerFilePath = URL + "gamedata/";
+    private const string ClientFilePath = "GameData/";
 
     #if UNITY_IOS
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
-	#else
-    private const string ServerFilePathAssetBundle =  URL + "assetbundle/android/";
+	
+#else
+    private const string ServerFilePathAssetBundle = URL + "assetbundle/android/";
     #endif
 
-	private static string[] downloadFiles =
-	{
+    private static string[] downloadFiles =
+        {
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost", "shop", "mall"
+        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -202,6 +207,8 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[18] = ParsePickCost;
 		downloadCallBack[19] = ParseShop;
 		downloadCallBack[20] = ParseMall;
+        downloadCallBack[21] = ParsePVP;
+
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
 			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
@@ -782,5 +789,28 @@ public class FileManager : KnightSingleton<FileManager> {
 		} catch (System.Exception ex) {
 			Debug.LogError ("Mall parsed error : " + ex.Message);
 		}
+	}
+
+	public void ParsePVP(string version, string text, bool isSaveVersion) 
+	{
+        try
+        {
+            GameData.DPVPData.Clear();
+            TPVPData[] data = JsonConvertWrapper.DeserializeObject<TPVPData[]>(text);
+
+            for (int i = 0; i < data.Length; i++) {
+                if(!GameData.DPVPData.ContainsKey(data[i].Lv))
+                    GameData.DPVPData.Add(data[i].Lv, data[i]);
+                else 
+                    Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
+            }
+
+            if(isSaveVersion)
+                SaveDataVersionAndJson(text, "item", version);
+
+            Debug.Log ("[item parsed finished.] ");
+        } catch (System.Exception ex) {
+            Debug.LogError ("[item parsed error] " + ex.Message);
+        }
 	}
 }

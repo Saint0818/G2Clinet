@@ -294,7 +294,7 @@ namespace GameStruct
 				}
 		}
 
-		public float Power()
+		public float CombatPower()
 		{
 			return (Point2 + Point3 + Speed + Stamina + Strength + Dunk + Rebound + Block + Defence + Steal + Dribble + Pass) / GameConst.AttributeCount;
 		}

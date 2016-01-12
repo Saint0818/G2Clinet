@@ -192,4 +192,7 @@
     /// </summary>
     public const float AttributeMax = 100;
     public const float AttributeCount = 12;
+
+    public const int PVPMinLv = 1;
+    public const int PVPMaxLv = 22;
 }

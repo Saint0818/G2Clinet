@@ -1,0 +1,178 @@
+[
+    {
+        "lv": 1,
+        "name": "街頭聯盟I",
+        "lowscore": 0,
+        "highscore": 99,
+        "basicscore": 15,
+        "calculate": 10
+    },
+    {
+        "lv": 2,
+        "name": "街頭聯盟II",
+        "lowscore": 100,
+        "highscore": 199,
+        "basicscore": 15,
+        "calculate": 10
+    },
+    {
+        "lv": 3,
+        "name": "街頭聯盟III",
+        "lowscore": 200,
+        "highscore": 399,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 4,
+        "name": "鄉鎮聯盟I",
+        "lowscore": 400,
+        "highscore": 599,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 5,
+        "name": "鄉鎮聯盟II",
+        "lowscore": 600,
+        "highscore": 799,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 6,
+        "name": "鄉鎮聯盟III",
+        "lowscore": 800,
+        "highscore": 999,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 7,
+        "name": "地區聯盟I",
+        "lowscore": 1000,
+        "highscore": 1199,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 8,
+        "name": "地區聯盟II",
+        "lowscore": 1200,
+        "highscore": 1399,
+        "basicscore": 20,
+        "calculate": 15
+    },
+    {
+        "lv": 9,
+        "name": "地區聯盟III",
+        "lowscore": 1400,
+        "highscore": 1699,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 10,
+        "name": "國家聯盟I",
+        "lowscore": 1700,
+        "highscore": 1999,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 11,
+        "name": "國家聯盟II",
+        "lowscore": 2000,
+        "highscore": 2299,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 12,
+        "name": "國家聯盟III",
+        "lowscore": 2300,
+        "highscore": 2599,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 13,
+        "name": "世界聯盟I",
+        "lowscore": 2600,
+        "highscore": 2899,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 14,
+        "name": "世界聯盟II",
+        "lowscore": 2900,
+        "highscore": 3199,
+        "basicscore": 25,
+        "calculate": 20
+    },
+    {
+        "lv": 15,
+        "name": "世界聯盟III",
+        "lowscore": 3200,
+        "highscore": 3599,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 16,
+        "name": "星際聯盟I",
+        "lowscore": 3600,
+        "highscore": 3999,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 17,
+        "name": "星際聯盟II",
+        "lowscore": 4000,
+        "highscore": 4399,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 18,
+        "name": "星際聯盟III",
+        "lowscore": 4400,
+        "highscore": 4799,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 19,
+        "name": "銀河聯盟I",
+        "lowscore": 4800,
+        "highscore": 5199,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 20,
+        "name": "銀河聯盟II",
+        "lowscore": 5200,
+        "highscore": 5599,
+        "basicscore": 30,
+        "calculate": 25
+    },
+    {
+        "lv": 21,
+        "name": "銀河聯盟III",
+        "lowscore": 5600,
+        "highscore": 6099,
+        "basicscore": 35,
+        "calculate": 30
+    },
+    {
+        "lv": 22,
+        "name": "宇宙聯盟",
+        "lowscore": 6100,
+        "highscore": 6599,
+        "basicscore": 35,
+        "calculate": 30
+    }
+]

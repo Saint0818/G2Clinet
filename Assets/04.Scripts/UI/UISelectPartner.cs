@@ -165,7 +165,7 @@ public class UISelectPartner : UIBase {
         memberList[index].LabelSelected.text = "";
         memberList[index].UISelected.SetActive(false);
 		memberList[index].LabelTeamName.text = player.Name;
-		memberList[index].LabelPower.text = string.Format(TextConst.S(9509), + player.Power());
+		memberList[index].LabelPower.text = string.Format(TextConst.S(9509), + player.CombatPower());
         memberList[index].LabelLv.text = player.Lv.ToString();
 		memberList[index].SpriteFace.spriteName = player.FacePicture;
         if (GameData.DPlayers.ContainsKey(player.ID)) {

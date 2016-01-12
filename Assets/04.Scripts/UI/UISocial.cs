@@ -295,7 +295,7 @@ public class UISocial : UIBase {
         friendList[page][index].Item.SetActive(true);
         friendList[page][index].UILv.SetActive(true);
         friendList[page][index].UIPower.SetActive(true);
-        friendList[page][index].LabelPower.text = string.Format("{0:F0}",friend.Player.Power());
+        friendList[page][index].LabelPower.text = string.Format("{0:F0}",friend.Player.CombatPower());
         friendList[page][index].LabelLv.text = friend.Player.Lv.ToString();
         setGoodSprite(page, friendList[page][index]);
     }

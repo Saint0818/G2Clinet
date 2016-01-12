@@ -38,6 +38,8 @@ public static class GameData {
 	public static Dictionary<int, int> DTutorialStageEnd = new Dictionary<int, int>();
 	public static Dictionary<string, UIAtlas> DItemAtlas = new Dictionary<string, UIAtlas>();
 
+	public static Dictionary<int, TPVPData> DPVPData = new Dictionary<int, TPVPData>();
+
     // Key: Lv.
 	public static Dictionary<int, TExpData> DExpData = new Dictionary<int, TExpData>();
     public static Dictionary<int, int> DOpenUILv = new Dictionary<int, int>();

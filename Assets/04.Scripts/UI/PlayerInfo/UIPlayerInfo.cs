@@ -118,7 +118,7 @@ public class PersonalView
             expBar.value = 1;
         }
 
-        powerValue.text = player.Power().ToString();
+        powerValue.text = player.CombatPower().ToString();
 //		powerBar.fillAmount = player.Power() / 100;
     }
 
