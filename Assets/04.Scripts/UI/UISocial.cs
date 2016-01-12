@@ -474,10 +474,8 @@ public class UISocial : UIBase {
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                     GameData.Team.Friends.Remove(friend.Identifier);
 
-                if (friendList[nowPage][nowIndex].Friend.Identifier == friend.Identifier) {
-                    friendList[nowPage].RemoveAt(nowIndex);
+                if (friendList[nowPage][nowIndex].Friend.Identifier == friend.Identifier) 
                     initFriendList(nowPage);
-                }
             }
         }
     }
@@ -488,8 +486,7 @@ public class UISocial : UIBase {
                 string id = friendList[nowPage][nowIndex].Friend.Identifier;
                 if (GameData.Team.Friends.ContainsKey(id))
                     GameData.Team.Friends.Remove(id);
-
-                friendList[nowPage].RemoveAt(nowIndex);
+                
                 initFriendList(nowPage);
             } else
                 SendHttp.Get.CheckServerMessage(www.text);
