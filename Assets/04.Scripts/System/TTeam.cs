@@ -41,6 +41,7 @@ namespace GameStruct
         public TValueItem[] ValueItems;
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
+		public Dictionary<int, int> SkillCardCounts; //key: ID , value:num
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
         public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
@@ -391,6 +392,55 @@ namespace GameStruct
             return false;
         }
 
+		public void InitSkillCardCount () {
+			if(SkillCardCounts == null)
+				SkillCardCounts = new Dictionary<int, int>();
+			
+			SkillCardCounts.Clear();
+
+			if(SkillCards == null)
+				SkillCards = new TSkill[0];
+
+			if(SkillCards.Length > 0) {
+				for (int i=0; i<SkillCards.Length; i++) {
+					if(SkillCardCounts.ContainsKey(SkillCards[i].ID)) {
+						SkillCardCounts[SkillCards[i].ID] += 1;
+					} else {
+						SkillCardCounts.Add(SkillCards[i].ID, 1);
+					}
+				}
+			}
+
+			if(PlayerBank != null && PlayerBank.Length > 0) {
+				for (int i=0; i<PlayerBank.Length; i++) {
+					if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) {
+						for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) {
+							if(SkillCardCounts.ContainsKey(PlayerBank[i].SkillCards[j].ID)) {
+								SkillCardCounts[PlayerBank[i].SkillCards[j].ID] += 1;
+							} else {
+								SkillCardCounts.Add(PlayerBank[i].SkillCards[j].ID, 1);
+							}
+						}
+					}
+				}
+			}
+
+			if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
+				for (int i=0; i<Player.SkillCards.Length; i++) {
+					if(SkillCardCounts.ContainsKey(Player.SkillCards[i].ID )) {
+						SkillCardCounts[Player.SkillCards[i].ID] += 1;
+					} else {
+						SkillCardCounts.Add(Player.SkillCards[i].ID , 1);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// 檢查卡片是否有得到過
+		/// </summary>
+		/// <returns><c>true</c>, if skill cardis new was checked, <c>false</c> otherwise.</returns>
+		/// <param name="id">Identifier.</param>
         public bool CheckSkillCardisNew (int id) {
             if(SkillCards == null)
                 SkillCards = new TSkill[0];

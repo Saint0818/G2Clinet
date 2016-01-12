@@ -369,8 +369,8 @@ public class UISkillReinforce : UIBase {
 
 	protected override void InitData() {
 //		buttonReinforce.isEnabled = false;
-		buttonReinforce.normalSprite = ButtonBG(false);
-		buttonReinforce.hoverSprite = ButtonBG(false);
+		buttonReinforce.normalSprite = "button_gray";
+		buttonReinforce.pressedSprite = "button_gray2";
 	}
 
 	private void initRightCards () {
@@ -513,8 +513,13 @@ public class UISkillReinforce : UIBase {
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
 //			buttonReinforce.isEnabled = (reinforceMoney > 0);
-			buttonReinforce.normalSprite = ButtonBG((reinforceMoney > 0));
-			buttonReinforce.hoverSprite = ButtonBG((reinforceMoney > 0));
+			if(reinforceMoney > 0) {
+				buttonReinforce.normalSprite = "button_orange";
+				buttonReinforce.pressedSprite = "button_orange2";
+			} else {
+				buttonReinforce.normalSprite = "button_gray";
+				buttonReinforce.pressedSprite = "button_gray2";
+			}
 
 		}
 	}
@@ -527,9 +532,14 @@ public class UISkillReinforce : UIBase {
 			else
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
-//			buttonReinforce.isEnabled = (reinforceMoney > 0);
-			buttonReinforce.normalSprite = ButtonBG((reinforceMoney > 0));
-			buttonReinforce.hoverSprite = ButtonBG((reinforceMoney > 0));
+			//			buttonReinforce.isEnabled = (reinforceMoney > 0);
+			if(reinforceMoney > 0) {
+				buttonReinforce.normalSprite = "button_orange";
+				buttonReinforce.pressedSprite = "button_orange2";
+			} else {
+				buttonReinforce.normalSprite = "button_gray";
+				buttonReinforce.pressedSprite = "button_gray2";
+			}
 		}
 	}
 
@@ -593,8 +603,8 @@ public class UISkillReinforce : UIBase {
 		reinforceMoney = 0;
 		labelPrice.text = reinforceMoney.ToString();
 //		buttonReinforce.isEnabled = false;
-		buttonReinforce.normalSprite = ButtonBG(false);
-		buttonReinforce.hoverSprite = ButtonBG(false);
+		buttonReinforce.normalSprite = "button_gray";
+		buttonReinforce.pressedSprite = "button_gray2";
 
 		originalExp = skill.Exp;
 		reinforceExp = 0;
