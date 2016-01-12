@@ -42,12 +42,13 @@ namespace GameStruct
 
 	public struct TFriend {
 		public string Identifier;
-		public int Kind;
+		public int Kind; //1.auto deploy 2.follow 3.waiting answer 4.be friend 5.ask follow
 		public TPlayer Player;
 	}
 
     public struct TSocialEvent {
         public string _id;
+        public string Identifier;
         public string TargetID;
         public string Name;
         public TPlayer Player;

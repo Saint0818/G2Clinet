@@ -16,6 +16,7 @@ namespace GameStruct
         public DateTime PowerCD;
         public DateTime FreshFriendTime;
         public DateTime SocialEventTime;
+        public DateTime WatchFriendsTime;
         public DateTime FreeLuckBox;
 		public DateTime LotteryFreeTime;
         public int PlayerNum; // 玩家擁有幾位角色.

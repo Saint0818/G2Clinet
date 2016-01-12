@@ -5,13 +5,23 @@ using System.Collections.Generic;
 using GameStruct;
 using Newtonsoft.Json;
 
-public class TSocialEventItem{
+public class EFriendKind {
+    public const int Search = 0;
+    public const int Advice = 1;
+    public const int Follow = 2;
+    public const int Waiting = 3;
+    public const int Friend = 4;
+    public const int Ask = 5;
+}
+
+public class TSocialEventItem {
     public int Index;
     public TFriend Friend;
     public TSocialEvent Event;
     public GameObject Item;
     public GameObject ModelAnchor;
     public GameObject PlayerModel;
+    public GameObject UICancel;
     public GameObject UILv;
     public GameObject UIPower;
     public GameObject UIStage;
@@ -48,6 +58,8 @@ public class UISocial : UIBase {
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TSocialEventItem>[] friendList = new List<TSocialEventItem>[pageNum];
     private Queue<TSocialEventItem> modelLoader = new Queue<TSocialEventItem>();
+    private Queue<TSocialEventItem> avatarDownloader = new Queue<TSocialEventItem>();
+    private TSocialEventItem waitDownloadItem;
 
     public static bool Visible {
         get {
@@ -131,11 +143,21 @@ public class UISocial : UIBase {
             case 1: //follow
                 if (GameData.Team.Friends != null) {
                     foreach (TFriend item in GameData.Team.Friends.Values) {
-                        if (item.Kind == 2 || item.Kind == 3) {
+                        if (item.Kind == EFriendKind.Ask) {
                             addFriend(page, count, item);
                             count++;
                         }
                     }
+
+                    foreach (TFriend item in GameData.Team.Friends.Values) {
+                        if (item.Kind == EFriendKind.Follow) {
+                            addFriend(page, count, item);
+                            count++;
+                        }
+                    }
+
+                    if (avatarDownloader.Count > 0)
+                        StartCoroutine(downloadModel(avatarDownloader.Dequeue()));
                 }
 
                 break;
@@ -153,7 +175,7 @@ public class UISocial : UIBase {
             case 3:
                 if (GameData.Team.Friends != null) {
                     foreach (TFriend item in GameData.Team.Friends.Values) {
-                        if (item.Kind == 4) {
+                        if (item.Kind == EFriendKind.Friend) {
                             addFriend(page, count, item);
                             count++;
                         }
@@ -193,6 +215,7 @@ public class UISocial : UIBase {
             string name = page.ToString() + "-" + index.ToString();
             team.Item.name = name;
             team.ModelAnchor = GameObject.Find(name + "/Slot/Anchor");
+            team.UICancel = GameObject.Find(name + "/Window/Cancel");
             team.UILv = GameObject.Find(name + "/Window/Lv");
             team.UIPower = GameObject.Find(name + "/Window/Power");
             team.UIStage = GameObject.Find(name + "/Window/Stage");
@@ -207,6 +230,8 @@ public class UISocial : UIBase {
             team.LabelRelation = GameObject.Find(name + "/Window/Good/Label").GetComponent<UILabel>();
             SetLabel(name + "/Window/Power/Label", TextConst.S(3019));
             SetLabel(name + "/Window/Lv/Label", TextConst.S(3761));
+            SetLabel(name + "/Window/Cancel/Label", TextConst.S(5033));
+            SetBtnFun(name + "/Window/Cancel", OnCancelWatch);
             SetBtnFun(name + "/Window/Info", OnInfo);
 
             GameObject obj = GameObject.Find(name + "/Window/Good");
@@ -215,6 +240,7 @@ public class UISocial : UIBase {
                 SetBtnFun(ref team.ButtonGood, OnGood);
             }
 
+            team.UICancel.SetActive(false);
             team.UILv.SetActive(false);
             team.UIPower.SetActive(false);
             team.UIStage.SetActive(false);
@@ -246,6 +272,19 @@ public class UISocial : UIBase {
             friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
             friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
             modelLoader.Enqueue(friendList[page][index]);
+        } else {
+            if (friend.Kind == EFriendKind.Ask) {
+                friendList[page][index].Friend = friend;
+                if (friendList[page][index].PlayerModel)
+                    Destroy(friendList[page][index].PlayerModel);
+
+                friendList[page][index].PlayerModel = new GameObject("PlayerModel");
+                friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
+                friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
+                friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
+                friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
+                avatarDownloader.Enqueue(friendList[page][index]);
+            }
         }
 
         friendList[page][index].Friend = friend;
@@ -310,18 +349,85 @@ public class UISocial : UIBase {
         ModelManager.Get.SetAvatar(ref item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl);
         LayerMgr.Get.SetLayerAllChildren(item.PlayerModel, ELayer.UI.ToString());
     }
+        
+    private IEnumerator downloadModel(TSocialEventItem item) {
+        yield return new WaitForSeconds(0.2f);
+
+        if (!string.IsNullOrEmpty(item.Friend.Identifier)) {
+            waitDownloadItem = item;
+            WWWForm form = new WWWForm();
+            form.AddField("Identifier", item.Friend.Identifier);
+            SendHttp.Get.Command(URLConst.LookAvatar, waitLookAvatar, form, false);
+        } else
+            item = null;
+    }
+        
+    private void setGoodSprite(int page, TSocialEventItem item) {
+        item.LabelName.color = Color.white;
+        if (page == 0) {
+            if (item.Event.Kind == 1) {
+                item.LabelRelation.text = "";
+                item.ButtonGood.gameObject.SetActive(false);
+            }
+        } else {
+            switch (item.Friend.Kind) {
+                case EFriendKind.Search:
+                    item.LabelName.color = Color.yellow;
+                    item.LabelName.text += "\n" + TextConst.S(5031);
+                    break;
+                case EFriendKind.Advice:
+                    item.LabelRelation.text = TextConst.S(5023);
+                    break;
+                case EFriendKind.Follow:
+                    item.LabelRelation.text = TextConst.S(5024);
+                    break;
+                case EFriendKind.Ask:
+                    item.LabelRelation.text = TextConst.S(5023);
+                    item.LabelName.text += "\n" + TextConst.S(5032);
+                    item.UICancel.SetActive(true);
+                    break;
+                case EFriendKind.Friend:
+                    item.LabelRelation.text = TextConst.S(5025);
+                    break;
+            }
+
+            item.ButtonGood.gameObject.SetActive(true);
+            if (item.Friend.Kind == EFriendKind.Follow || item.Friend.Kind == EFriendKind.Friend) {
+                item.ButtonGood.defaultColor = Color.white;
+                item.ButtonGood.hover = Color.white;
+                item.ButtonGood.pressed = Color.white;
+            } else {
+                item.ButtonGood.defaultColor = new Color32(150, 150, 150, 255);
+                item.ButtonGood.hover = new Color32(150, 150, 150, 255);
+                item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
+            }
+        }
+    }
 
     private void waitFreshFriends() {
         initFriendList(nowPage);
     }
 
-    public void OnLink() {
-        
+    private void waitLookAvatar(bool ok, WWW www) {
+        if (ok) {
+            TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+            friend.Player.Init();
+            if (GameData.Team.Friends.ContainsKey(friend.Identifier)) {
+                GameData.Team.Friends[friend.Identifier] = friend;
+                if (waitDownloadItem != null && waitDownloadItem.Friend.Identifier == friend.Identifier) {
+                    ModelManager.Get.SetAvatar(ref waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl);
+                    LayerMgr.Get.SetLayerAllChildren(waitDownloadItem.PlayerModel, ELayer.UI.ToString());
+                }
+            }
+        }
+
+        if (avatarDownloader.Count > 0)
+            StartCoroutine(downloadModel(avatarDownloader.Dequeue()));
     }
 
     private void waitSearch(bool ok, WWW www) {
         if (ok) {
-            if (www.text.Length > 6) {
+            if (SendHttp.Get.CheckServerMessage(www.text)) {
                 if (nowPage == 2) {
                     TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
                     friend.Player.Init();
@@ -331,12 +437,63 @@ public class UISocial : UIBase {
                         initFriendList(nowPage);
                     }
                 }
-            } else {
-                int index = -1;
-                if (int.TryParse(www.text, out index))
-                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
             }
         }
+    }
+
+    private void waitMakeFriend() {
+        string id = friendList[nowPage][nowIndex].Friend.Identifier;
+        if (GameData.Team.Friends.ContainsKey(id)) {
+            friendList[nowPage][nowIndex].Friend = GameData.Team.Friends[id];
+            setGoodSprite(nowPage, friendList[nowPage][nowIndex]);
+            if (GameData.Team.Friends[id].Kind == 2) {
+                UIHint.Get.ShowHint(string.Format(TextConst.S(5027), GameData.Team.Friends[id].Player.Name), Color.white);
+                UIHint.Get.ShowHint(TextConst.S(5028), Color.white);
+            }
+        }
+    }
+
+    private void waitConfirm(bool ok, WWW www) {
+        if (ok) {
+            if (SendHttp.Get.CheckServerMessage(www.text)) {
+                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+
+                if (friend.Kind == EFriendKind.Friend) {
+                    friend.Player.Init();
+                    if (GameData.Team.Friends.ContainsKey(friend.Identifier))
+                        GameData.Team.Friends[friend.Identifier] = friend;
+                    else
+                        GameData.Team.Friends.Add(friend.Identifier, friend);
+
+                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.white);
+                } else 
+                if (GameData.Team.Friends.ContainsKey(friend.Identifier))
+                    GameData.Team.Friends.Remove(friend.Identifier);
+
+                if (friendList[nowPage][nowIndex].Friend.Identifier == friend.Identifier) {
+                    friendList[nowPage].RemoveAt(nowIndex);
+                    initFriendList(nowPage);
+                }
+            }
+        }
+    }
+
+    private void waitRemoveFriend(bool ok, WWW www) {
+        if (ok) {
+            if (www.text == "1") {
+                string id = friendList[nowPage][nowIndex].Friend.Identifier;
+                if (GameData.Team.Friends.ContainsKey(id))
+                    GameData.Team.Friends.Remove(id);
+
+                friendList[nowPage].RemoveAt(nowIndex);
+                initFriendList(nowPage);
+            } else
+                SendHttp.Get.CheckServerMessage(www.text);
+        }
+    }
+
+    public void OnLink() {
+
     }
 
     public void OnSearch() {
@@ -361,58 +518,6 @@ public class UISocial : UIBase {
         }
     }
 
-    private void setGoodSprite(int page, TSocialEventItem item) {
-        if (page == 0) {
-            if (item.Event.Kind == 1) {
-                item.LabelRelation.text = "";
-                item.ButtonGood.gameObject.SetActive(false);
-            }
-        } else {
-            if (item.Friend.Kind == 0) {
-                item.LabelName.color = Color.yellow;
-                item.LabelName.text += "\n" + TextConst.S(5031);
-            } else
-                item.LabelName.color = Color.white;
-            
-            switch (item.Friend.Kind) {
-                case 0:
-                case 1:
-                case 3:
-                    item.LabelRelation.text = TextConst.S(5023);
-                    break;
-                case 2:
-                    item.LabelRelation.text = TextConst.S(5024);
-                    break;
-                case 4:
-                    item.LabelRelation.text = TextConst.S(5025);
-                    break;
-            }
-
-            item.ButtonGood.gameObject.SetActive(true);
-            if (item.Friend.Kind == 2 || item.Friend.Kind == 4) {
-                item.ButtonGood.defaultColor = Color.white;
-                item.ButtonGood.hover = Color.white;
-                item.ButtonGood.pressed = Color.white;
-            } else {
-                item.ButtonGood.defaultColor = new Color32(150, 150, 150, 255);
-                item.ButtonGood.hover = new Color32(150, 150, 150, 255);
-                item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
-            }
-        }
-    }
-
-    private void waitMakeFriend() {
-        string id = friendList[nowPage][nowIndex].Friend.Identifier;
-        if (GameData.Team.Friends.ContainsKey(id)) {
-            friendList[nowPage][nowIndex].Friend = GameData.Team.Friends[id];
-            setGoodSprite(nowPage, friendList[nowPage][nowIndex]);
-            if (GameData.Team.Friends[id].Kind == 2) {
-                UIHint.Get.ShowHint(string.Format(TextConst.S(5027), GameData.Team.Friends[id].Player.Name), Color.white);
-                UIHint.Get.ShowHint(TextConst.S(5028), Color.white);
-            }
-        }
-    }
-
     public void OnGood() {
         Transform obj = UIButton.current.gameObject.transform.parent;
         if (obj && obj.parent) {
@@ -422,8 +527,47 @@ public class UISocial : UIBase {
                 nowPage = -1;
                 nowIndex = -1;
                 if (int.TryParse(s[0], out nowPage) && int.TryParse(s[1], out nowIndex)) {
-                    if (nowPage == 1 || nowPage == 2) {
-                        SendHttp.Get.MakeFriend(waitMakeFriend, friendList[nowPage][nowIndex].Friend.Identifier);
+                    WWWForm form = new WWWForm();
+                    switch (nowPage) {
+                        case 1:
+                        case 2:
+                            if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
+                                form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                                form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+                                form.AddField("Name", GameData.Team.Player.Name);
+                                form.AddField("Ask", "1");
+                                SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
+                            } else
+                                SendHttp.Get.MakeFriend(waitMakeFriend, friendList[nowPage][nowIndex].Friend.Identifier);
+                            
+                            break;
+                        case 3:
+                            form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                            form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+                            SendHttp.Get.Command(URLConst.RemoveFriend, waitRemoveFriend, form);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void OnCancelWatch() {
+        Transform obj = UIButton.current.gameObject.transform.parent;
+        if (obj && obj.parent) {
+            char[] c = {'-'};
+            string[] s = obj.parent.name.Split(c, 2);
+            if (s.Length == 2) {
+                nowPage = -1;
+                nowIndex = -1;
+                if (int.TryParse(s[0], out nowPage) && int.TryParse(s[1], out nowIndex)) {
+                    if (nowPage == 1 && friendList[nowPage][nowIndex].Friend.Kind == 5) {
+                        WWWForm form = new WWWForm();
+                        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                        form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+                        form.AddField("Name", GameData.Team.Player.Name);
+                        form.AddField("Ask", "0");
+                        SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
                     }
                 }
             }

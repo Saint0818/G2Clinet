@@ -51,7 +51,11 @@ public static class URLConst {
     public const string LookFriends = "lookfriends";
     public const string FreshFriends = "freshfriends";
     public const string MakeFriend = "makefriend";
+    public const string ConfirmMakeFriend = "confirmmakefriend";
+    public const string RemoveFriend = "removefriend";
     public const string LookSocialEvent = "looksocialevent";
+    public const string LookWatchFriend = "lookwatchfriend";
+    public const string LookAvatar = "lookavatar";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
@@ -147,6 +151,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private string waitingURL;
 	private TBooleanWWWObj waitingCallback = null;
 	private WWWForm waitingForm = null;
+    private Queue<string> confirmFriends = new Queue<string>();
 
     private EventDelegate.Callback LookFriendsEvent;
     private EventDelegate.Callback FreshFriendsEvent;
@@ -379,6 +384,19 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		else 
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
+
+    public bool CheckServerMessage(string text) {
+        if (!string.IsNullOrEmpty(text)) {
+            if (text.Length <= 6) {
+                int index = -1;
+                if (int.TryParse(text, out index))
+                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
+            } else
+                return true;
+        }
+
+        return false;
+    }
 	
 	private void waitVersion(bool ok, WWW www) {
 		if (ok) {
@@ -427,6 +445,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 SyncDailyRecord();
                 LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
                 StartCoroutine(longPollingSocialEvent(0));
+                StartCoroutine(longPollingWatchFriends(0));
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -512,7 +531,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void waitMakeFriend(bool flag, WWW www) {
         if (flag) {
-            if (www.text.Length > 6) {
+            if (CheckServerMessage(www.text)) {
                 TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
                 friend.Player.Init();
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
@@ -522,16 +541,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                 if (MakeFriendEvent != null)
                     MakeFriendEvent();
-            } else {
-                int index = -1;
-                if (int.TryParse(www.text, out index))
-                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
             }
         }
     }
 
     private IEnumerator longPollingSocialEvent(int kind) {
-        yield return new WaitForSeconds(10); //every 10 seconds request once
+        yield return new WaitForSeconds(20); //every 20 seconds request once
 
         lookSocialEvent(kind);
     }
@@ -540,10 +555,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
         WWWForm form = new WWWForm();
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
 
-        GameData.Team.SocialEventTime = DateTime.UtcNow;
         if (kind > 0)
             form.AddField("Time", GameData.Team.SocialEventTime.ToString());
 
+        GameData.Team.SocialEventTime = DateTime.UtcNow;
         SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
     }
 
@@ -560,5 +575,88 @@ public class SendHttp : KnightSingleton<SendHttp> {
         }
 
         StartCoroutine(longPollingSocialEvent(1));
+    }
+
+    private IEnumerator longPollingWatchFriends(int kind) {
+        yield return new WaitForSeconds(23); //every 23 seconds request once
+
+        lookWatchFriends(kind);
+    }
+
+    private void lookWatchFriends(int kind) {
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+
+        if (kind > 0)
+            form.AddField("Time", GameData.Team.WatchFriendsTime.ToString());
+
+        GameData.Team.WatchFriendsTime = DateTime.UtcNow;
+        SendHttp.Get.Command(URLConst.LookWatchFriend, waitLookWatchFriends, form, false);
+    }
+
+    private void waitLookWatchFriends(bool flag, WWW www) {
+        if (flag) {
+            if (!string.IsNullOrEmpty(www.text)) {
+                TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
+
+                if (events.Length > 0) {
+                    for (int i = 0; i < events.Length; i++) {
+                        if (!string.IsNullOrEmpty(events[i].TargetID)) {
+                            TFriend friend = new TFriend();
+                            friend.Identifier = events[i].TargetID;
+                            friend.Player.Name = events[i].Name;
+
+                            if (events[i].Kind == EFriendKind.Waiting) {
+                                friend.Kind = EFriendKind.Ask;//events[i].Value;
+
+                                if (GameData.Team.Friends.ContainsKey(events[i].Identifier))
+                                    GameData.Team.Friends.Add(events[i].Identifier, friend);
+                                else
+                                    GameData.Team.Friends[events[i].Identifier] = friend;
+
+                                UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
+                            } else 
+                            if (events[i].Kind == EFriendKind.Friend) {
+                                confirmFriends.Enqueue(events[i].TargetID);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        StartCoroutine(longPollingWatchFriends(1));
+    }
+
+    private void waitConfirm(bool ok, WWW www) {
+        if (ok) {
+            if (SendHttp.Get.CheckServerMessage(www.text)) {
+                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+
+                if (friend.Kind == EFriendKind.Friend) {
+                    friend.Player.Init();
+                    if (GameData.Team.Friends.ContainsKey(friend.Identifier))
+                        GameData.Team.Friends[friend.Identifier] = friend;
+                    else
+                        GameData.Team.Friends.Add(friend.Identifier, friend);
+
+                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.white);
+                } else 
+                    if (GameData.Team.Friends.ContainsKey(friend.Identifier))
+                        GameData.Team.Friends.Remove(friend.Identifier);
+
+                if (confirmFriends.Count > 0)
+                    confirmFriend(confirmFriends.Dequeue());
+            }
+        }
+    }
+
+    private void confirmFriend(string id) {
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("FriendID", id);
+        form.AddField("Name", GameData.Team.Player.Name);
+        form.AddField("Ask", "1");
+        Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
     }
 }
