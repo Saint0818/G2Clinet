@@ -31,6 +31,7 @@ public class TSocialEventItem {
     public GameObject UIAwardName;
     public GameObject UIMessage;
     public ItemAwardGroup AwardGroup;
+    public TActiveSkillCard SkillCard;
     public UILabel LabelName;
     public UILabel LabelLv;
     public UILabel LabelPower;
@@ -47,6 +48,7 @@ public class UISocial : UIBase {
     private int nowPage = 0;
     private int nowIndex = 0;
     private const int pageNum = 4;
+    private TSkill skillData = new TSkill();
 
     private UILabel totalLabel;
     private UILabel labelStats;
@@ -123,7 +125,7 @@ public class UISocial : UIBase {
         totalLabel.text = count.ToString() + " / 300"; 
     }
 
-    private void initFriendList(int page) {
+    private void initList(int page) {
         if (friendList[page] == null)
             friendList[page] = new List<TSocialEventItem>();
 
@@ -133,8 +135,7 @@ public class UISocial : UIBase {
         int count = 0;
         switch (page) {
             case 0: //event
-                for (int i = 0; i < GameData.SocialEvents.Count; i++)
-                    if (GameData.SocialEvents[i].Kind == 1 || GameData.Team.Friends.ContainsKey(GameData.SocialEvents[i].TargetID)) {
+                for (int i = 0; i < GameData.SocialEvents.Count; i++) {
                         addEvent(page, count, GameData.SocialEvents[i]);
                         count++;
                     }
@@ -219,11 +220,14 @@ public class UISocial : UIBase {
             team.UILv = GameObject.Find(name + "/Window/Lv");
             team.UIPower = GameObject.Find(name + "/Window/Power");
             team.UIStage = GameObject.Find(name + "/Window/Stage");
-            team.UIAward = GameObject.Find(name + "/Window/Item");
             team.UISkill = GameObject.Find(name + "/Window/Skill");
             team.UIAchievement = GameObject.Find(name + "/Window/Achievement");
             team.UIAwardName = GameObject.Find(name + "/Window/AwardName");
             team.UIMessage = GameObject.Find(name + "/Window/Message");
+            team.UIAward = GameObject.Find(name + "/Window/Item");
+            team.AwardGroup = team.UIAward.GetComponent<ItemAwardGroup>();
+            team.SkillCard = new TActiveSkillCard();
+            team.SkillCard.Init(team.UISkill, null, true);
             team.LabelName = GameObject.Find(name + "/Window/Name").GetComponent<UILabel>();
             team.LabelPower = GameObject.Find(name + "/Window/Power").GetComponent<UILabel>();
             team.LabelLv = GameObject.Find(name + "/Window/Lv").GetComponent<UILabel>();
@@ -291,7 +295,6 @@ public class UISocial : UIBase {
         friendList[page][index].Item.SetActive(true);
         friendList[page][index].UILv.SetActive(true);
         friendList[page][index].UIPower.SetActive(true);
-        friendList[page][index].LabelName.text = friend.Player.Name;
         friendList[page][index].LabelPower.text = string.Format("{0:F0}",friend.Player.Power());
         friendList[page][index].LabelLv.text = friend.Player.Lv.ToString();
         setGoodSprite(page, friendList[page][index]);
@@ -315,61 +318,27 @@ public class UISocial : UIBase {
 
         friendList[page][index].Event = e;
         friendList[page][index].Item.SetActive(true);
-        friendList[page][index].UILv.SetActive(true);
-        friendList[page][index].UIPower.SetActive(true);
         setGoodSprite(page, friendList[page][index]);
-        setEventText(page, index);
+        setEventContent(page, index);
     }
 
-    private void setEventText(int page, int index) {
-        friendList[page][index].LabelName.text = "";
-        TSocialEvent e = friendList[page][index].Event;
-        if (page == 0) {
-            friendList[page][index].LabelName.text = e.Name;
-            switch (e.Kind) {
-                case 1: //friend
-                    switch (e.Value) {
-                        case 2:
-                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5029);
-                            break;
-                        case 3:
-                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5024);
-                            break;
-                        case 4:
-                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5030);
-                            break;
-                    }
-                    break;
-            }
-        }
-    }
-
-    private IEnumerator loadModel(TSocialEventItem item) {
-        yield return new WaitForSeconds(0.2f);
-        ModelManager.Get.SetAvatar(ref item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl);
-        LayerMgr.Get.SetLayerAllChildren(item.PlayerModel, ELayer.UI.ToString());
-    }
-        
-    private IEnumerator downloadModel(TSocialEventItem item) {
-        yield return new WaitForSeconds(0.2f);
-
-        if (!string.IsNullOrEmpty(item.Friend.Identifier)) {
-            waitDownloadItem = item;
-            WWWForm form = new WWWForm();
-            form.AddField("Identifier", item.Friend.Identifier);
-            SendHttp.Get.Command(URLConst.LookAvatar, waitLookAvatar, form, false);
-        } else
-            item = null;
-    }
-        
     private void setGoodSprite(int page, TSocialEventItem item) {
+        item.UICancel.SetActive(false);
+        item.LabelName.text = "";
         item.LabelName.color = Color.white;
         if (page == 0) {
-            if (item.Event.Kind == 1) {
-                item.LabelRelation.text = "";
-                item.ButtonGood.gameObject.SetActive(false);
+            if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier)) {
+                item.ButtonGood.defaultColor = Color.white;
+                item.ButtonGood.hover = Color.white;
+                item.ButtonGood.pressed = Color.white;
+            } else {
+                item.ButtonGood.defaultColor = new Color32(150, 150, 150, 255);
+                item.ButtonGood.hover = new Color32(150, 150, 150, 255);
+                item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
             }
         } else {
+            item.LabelName.text = item.Friend.Player.Name;
+           
             switch (item.Friend.Kind) {
                 case EFriendKind.Search:
                     item.LabelName.color = Color.yellow;
@@ -404,8 +373,67 @@ public class UISocial : UIBase {
         }
     }
 
+    private void setEventContent(int page, int index) {
+        friendList[page][index].LabelName.text = "";
+        TSocialEvent e = friendList[page][index].Event;
+        if (page == 0) {
+            friendList[page][index].LabelName.text = e.Name;
+            switch (e.Kind) {
+                case 1: //friend
+                    switch (e.Value) {
+                        case 2:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5029);
+                            break;
+                        case 3:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5024);
+                            break;
+                        case 4:
+                            friendList[page][index].LabelName.text += "\n" + TextConst.S(5030);
+                            break;
+                    }
+                    break;
+                case 4: //item
+                    if (GameData.DItemData.ContainsKey(e.Value)) {
+                        if (GameData.DItemData[e.Value].Kind == 21 && GameData.DSkillData.ContainsKey(GameData.DItemData[e.Value].Avatar)) {
+                            skillData.ID = GameData.DItemData[e.Value].Avatar;
+                            skillData.Lv = GameData.DSkillData[GameData.DItemData[e.Value].Avatar].MaxStar;
+                            friendList[page][index].SkillCard.UpdateView(0, skillData);
+                        } else
+                            friendList[page][index].AwardGroup.Show(GameData.DItemData[e.Value]);
+
+                        int no = 3717;
+                        if (e.Cause > 100)
+                            no = 5034;
+                            
+                        friendList[page][index].LabelName.text += "\n" + 
+                            string.Format(TextConst.S(no), GameData.DItemData[e.Value].Name, e.Num);
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator loadModel(TSocialEventItem item) {
+        yield return new WaitForSeconds(0.2f);
+        ModelManager.Get.SetAvatar(ref item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl);
+        LayerMgr.Get.SetLayerAllChildren(item.PlayerModel, ELayer.UI.ToString());
+    }
+        
+    private IEnumerator downloadModel(TSocialEventItem item) {
+        yield return new WaitForSeconds(0.2f);
+
+        if (!string.IsNullOrEmpty(item.Friend.Identifier)) {
+            waitDownloadItem = item;
+            WWWForm form = new WWWForm();
+            form.AddField("Identifier", item.Friend.Identifier);
+            SendHttp.Get.Command(URLConst.LookAvatar, waitLookAvatar, form, false);
+        } else
+            item = null;
+    }
+        
     private void waitFreshFriends() {
-        initFriendList(nowPage);
+        initList(nowPage);
     }
 
     private void waitLookAvatar(bool ok, WWW www) {
@@ -438,7 +466,7 @@ public class UISocial : UIBase {
 
                     if (!GameData.Team.Friends.ContainsKey(friend.Identifier)) {
                         GameData.Team.Friends.Add(friend.Identifier, friend);
-                        initFriendList(nowPage);
+                        initList(nowPage);
                     }
                 }
             }
@@ -475,7 +503,13 @@ public class UISocial : UIBase {
                     GameData.Team.Friends.Remove(friend.Identifier);
 
                 if (friendList[nowPage][nowIndex].Friend.Identifier == friend.Identifier) 
-                    initFriendList(nowPage);
+                    initList(nowPage);
+            } else {
+                if (GameData.Team.Friends.ContainsKey(friendList[nowPage][nowIndex].Friend.Identifier))
+                    GameData.Team.Friends.Remove(friendList[nowPage][nowIndex].Friend.Identifier);
+
+                if (nowPage == 1) 
+                    initList(nowPage);
             }
         }
     }
@@ -487,7 +521,7 @@ public class UISocial : UIBase {
                 if (GameData.Team.Friends.ContainsKey(id))
                     GameData.Team.Friends.Remove(id);
                 
-                initFriendList(nowPage);
+                initList(nowPage);
             } else
                 SendHttp.Get.CheckServerMessage(www.text);
         }
@@ -515,7 +549,7 @@ public class UISocial : UIBase {
         if (int.TryParse(UIButton.current.name, out index)) {
             pageObjects[index].SetActive(true);
             nowPage = index;
-            initFriendList(index);
+            initList(index);
         }
     }
 
@@ -581,5 +615,10 @@ public class UISocial : UIBase {
 
     public void FreshSocialEvent() {
         
+    }
+
+    public void FreshFriend(int page) {
+        if (nowPage == page)
+            initList(page);
     }
 }

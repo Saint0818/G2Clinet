@@ -37,7 +37,7 @@
     },
     {
         "id": 208,
-        "tw": "確認花費 [33FFDD]{0}[-] 鑽石購買 [33FFDD]{1}[-] ？",
+        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石購買 [33FFDD]{1}[-] ？",
         "en": "Confirm Purchase [33FFDD]{0}[-] Number of Diamonds Purchased [33FFDD]{1}[-]？"
     },
     {
@@ -1211,8 +1211,8 @@
     },
     {
         "id": 4001,
-        "explain": "商店介面",
-        "tw": "商 城"
+        "explain": "晶片收集",
+        "tw": "晶片收集"
     },
     {
         "id": 4002
@@ -1283,6 +1283,64 @@
         "id": 4200,
         "explain": "銷售語",
         "tw": "最划算"
+    },
+    {
+        "id": 4501,
+        "explain": "隨機商品商店",
+        "tw": "商 店"
+    },
+    {
+        "id": 4502,
+        "explain": "Tabs/0/雜貨商店",
+        "tw": "雜 貨"
+    },
+    {
+        "id": 4503,
+        "explain": "Tabs/1/聯盟商店（天梯）",
+        "tw": "聯盟幣"
+    },
+    {
+        "id": 4504,
+        "explain": "Tabs/2/社群商店",
+        "tw": "社群幣"
+    },
+    {
+        "id": 4505,
+        "explain": "Tabs/3",
+        "tw": "保留"
+    },
+    {
+        "id": 4506,
+        "explain": "ResetBtn",
+        "tw": "刷 新"
+    },
+    {
+        "id": 4507,
+        "explain": "WarningsLabel",
+        "tw": "每隔 [0000ff]{0}[-] 小時刷新商店"
+    },
+    {
+        "id": 4508,
+        "explain": "ItemShopBtn/FittingIcon",
+        "tw": "試穿中"
+    },
+    {
+        "id": 4509,
+        "explain": "ItemShopBtn/SoldOutIcon",
+        "tw": "售 完",
+        "en": "SOLD OUT"
+    },
+    {
+        "id": 4510
+    },
+    {
+        "id": 4511
+    },
+    {
+        "id": 4512
+    },
+    {
+        "id": 4513
     },
     {
         "id": 4901,
@@ -1542,11 +1600,15 @@
     },
     {
         "id": 5034,
-        "tw": "已確認"
+        "tw": "對方取消關注"
     },
     {
         "id": 5035,
         "tw": "與{0}成為朋友"
+    },
+    {
+        "id": 5034,
+        "tw": "抽中{0} X {1} "
     },
     {
         "id": 6001,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define ShowHttpLog
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
@@ -268,8 +269,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (string.IsNullOrEmpty(www.error)) {
 			if (www.text.Contains("{err:")) {
 				string e = www.text.Substring(6, www.text.Length - 7);
+                #if ShowHttpLog
 				Debug.Log(www.url);
 				Debug.Log(e);
+                #endif
 				
 				if (UILoading.Visible) {
 					if (!versionChecked)
@@ -298,7 +301,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				} else
 				if (e == "Fight end." || e == "Receipt error.") {
 					UIWaitingHttp.UIShow(false);
-					Debug.Log(e);
 				} else {
 					UIWaitingHttp.UIShow(false);
 				}
@@ -306,7 +308,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				return true;
 		} else
 		{
+            #if ShowHttpLog
 			Debug.Log(www.url + " : " + www.error);
+            #endif
 			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host")) {
 				UIWaitingHttp.UIShow(false);
 				UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion);
@@ -558,11 +562,11 @@ public class SendHttp : KnightSingleton<SendHttp> {
         if (kind > 0)
             form.AddField("Time", GameData.Team.SocialEventTime.ToString());
 
-        GameData.Team.SocialEventTime = DateTime.UtcNow;
         SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
     }
 
     private void waitLookSocialEvent(bool flag, WWW www) {
+        GameData.Team.SocialEventTime = DateTime.UtcNow;
         if (flag) {
             if (!string.IsNullOrEmpty(www.text)) {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
@@ -587,19 +591,20 @@ public class SendHttp : KnightSingleton<SendHttp> {
         WWWForm form = new WWWForm();
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
 
-        if (kind > 0)
+        if (kind > 0) 
             form.AddField("Time", GameData.Team.WatchFriendsTime.ToString());
 
-        GameData.Team.WatchFriendsTime = DateTime.UtcNow;
         SendHttp.Get.Command(URLConst.LookWatchFriend, waitLookWatchFriends, form, false);
     }
 
-    private void waitLookWatchFriends(bool flag, WWW www) {
-        if (flag) {
+    private void waitLookWatchFriends(bool ok, WWW www) {
+        GameData.Team.WatchFriendsTime = DateTime.UtcNow;
+        if (ok) {
             if (!string.IsNullOrEmpty(www.text)) {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
 
                 if (events.Length > 0) {
+                    bool flag = false;
                     for (int i = 0; i < events.Length; i++) {
                         if (!string.IsNullOrEmpty(events[i].TargetID)) {
                             TFriend friend = new TFriend();
@@ -609,18 +614,25 @@ public class SendHttp : KnightSingleton<SendHttp> {
                             if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
                                 friend.Kind = EFriendKind.Ask;//events[i].Value;
 
-                                if (GameData.Team.Friends.ContainsKey(events[i].Identifier))
-                                    GameData.Team.Friends.Add(events[i].Identifier, friend);
+                                if (GameData.Team.Friends.ContainsKey(events[i].TargetID))
+                                    GameData.Team.Friends.Add(events[i].TargetID, friend);
                                 else
-                                    GameData.Team.Friends[events[i].Identifier] = friend;
+                                    GameData.Team.Friends[events[i].TargetID] = friend;
 
                                 UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
+                                flag = true;
                             } else 
                             if (events[i].Value == EFriendKind.Friend) {
                                 confirmFriends.Enqueue(events[i].TargetID);
                             }
                         }
                     }
+
+                    if (confirmFriends.Count > 0)
+                        confirmFriend(confirmFriends.Dequeue());
+
+                    if (flag && UISocial.Visible)
+                        UISocial.Get.FreshFriend(1);
                 }
             }
         }
