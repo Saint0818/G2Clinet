@@ -48,6 +48,9 @@ public class UIEquipment : UIBase
         Show(true);
 
         updateUI();
+
+//        var protocol = new ValueItemExchangeProtocol();
+//        protocol.Send(new [] {-2, -2, -2, -2, -2, -2, -1, -1}, new [] {-1, -1}, onChangeValueItem);
     }
 
     private void updateUI()
@@ -115,7 +118,7 @@ public class UIEquipment : UIBase
         for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
         {
             UIValueItemData item = findPlayerValueItemByKind(kind);
-            item.StorageIndex = -1; // -1 表示這個裝備目前裝在球員身上, 不在倉庫內.
+            item.StorageIndex = -2; // -2 表示這個裝備目前裝在球員身上, 不在倉庫內.
             items.Add(item);
         }
         return items.ToArray();
