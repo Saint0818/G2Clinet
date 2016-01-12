@@ -368,7 +368,6 @@ public class UISkillReinforce : UIBase {
 	}
 
 	protected override void InitData() {
-//		buttonReinforce.isEnabled = false;
 		buttonReinforce.normalSprite = "button_gray";
 		buttonReinforce.pressedSprite = "button_gray2";
 	}
@@ -512,9 +511,8 @@ public class UISkillReinforce : UIBase {
 			else
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
-//			buttonReinforce.isEnabled = (reinforceMoney > 0);
 			if(reinforceMoney > 0) {
-				buttonReinforce.normalSprite = "button_orange";
+				buttonReinforce.normalSprite = "button_orange1";
 				buttonReinforce.pressedSprite = "button_orange2";
 			} else {
 				buttonReinforce.normalSprite = "button_gray";
@@ -532,9 +530,8 @@ public class UISkillReinforce : UIBase {
 			else
 				labelPrice.color = Color.red;
 			labelPrice.text = reinforceMoney.ToString();
-			//			buttonReinforce.isEnabled = (reinforceMoney > 0);
 			if(reinforceMoney > 0) {
-				buttonReinforce.normalSprite = "button_orange";
+				buttonReinforce.normalSprite = "button_orange1";
 				buttonReinforce.pressedSprite = "button_orange2";
 			} else {
 				buttonReinforce.normalSprite = "button_gray";
@@ -602,7 +599,6 @@ public class UISkillReinforce : UIBase {
 		passiveSkillCards.Clear();
 		reinforceMoney = 0;
 		labelPrice.text = reinforceMoney.ToString();
-//		buttonReinforce.isEnabled = false;
 		buttonReinforce.normalSprite = "button_gray";
 		buttonReinforce.pressedSprite = "button_gray2";
 
