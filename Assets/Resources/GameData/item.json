@@ -9443,97 +9443,164 @@
     },
     {
         "id": 17001,
-        "nametw": "左耳耐力試管",
+        "nametw": "左耳2分試管",
         "kind": 17,
         "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 1
+        "attrkind1": 1,
+        "attrvalue1": 10
     },
     {
         "id": 17002,
-        "nametw": "左耳士氣試管",
+        "nametw": "左耳3分試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 2,
+        "attrvalue1": 10
     },
     {
         "id": 17003,
-        "nametw": "左耳耐力試管",
+        "nametw": "左耳速度試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 3,
+        "attrvalue1": 10
     },
     {
         "id": 17004,
-        "nametw": "左耳士氣試管",
+        "nametw": "左耳耐力試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 10
     },
     {
         "id": 17005,
-        "nametw": "左耳耐力試管",
+        "nametw": "左耳力量試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 5,
+        "attrvalue1": 10
     },
     {
         "id": 17006,
-        "nametw": "左耳士氣試管",
+        "nametw": "左耳灌籃試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 6,
+        "attrvalue1": 10
     },
     {
         "id": 17007,
-        "nametw": "左耳耐力試管",
+        "nametw": "左耳籃板試管",
         "kind": 17,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16201,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 7,
+        "attrvalue1": 10
     },
     {
         "id": 18001,
-        "nametw": "右耳耐力注射劑",
+        "nametw": "右耳火鍋注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16201,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 8,
+        "attrvalue1": 10
     },
     {
         "id": 18002,
-        "nametw": "右耳士氣注射劑",
+        "nametw": "右耳防守注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16201,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 9,
+        "attrvalue1": 10
     },
     {
         "id": 18003,
-        "nametw": "右耳耐力注射劑",
+        "nametw": "右耳抄截注射劑",
         "kind": 18,
         "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 2
+        "attrkind1": 10,
+        "attrvalue1": 10
     },
     {
         "id": 18004,
-        "nametw": "右耳士氣注射劑",
+        "nametw": "右耳控球注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 11,
+        "attrvalue1": 10
     },
     {
         "id": 18005,
-        "nametw": "右耳耐力注射劑",
+        "nametw": "右耳傳球注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16001,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 12,
+        "attrvalue1": 10
     },
     {
         "id": 18006,
-        "nametw": "右耳耐力注射劑",
+        "nametw": "右耳2分注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 1,
+        "attrvalue1": 10
     },
     {
         "id": 18007,
-        "nametw": "右耳耐力注射劑",
+        "nametw": "右耳3分注射劑",
         "kind": 18,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101,
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 2,
+        "attrvalue1": 10
     },
     {
         "id": 19000,
         "nametw": "材料",
         "kind": 19,
-        "atlas": 11
+        "atlas": 11,
+        "icon": 16101
     },
     {
         "id": 19001,
@@ -9545,7 +9612,8 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 2,
-        "stagesource": [101,102]
+        "stagesource": [101,102],
+        "uisource": [1]
     },
     {
         "id": 19002,
@@ -9557,7 +9625,8 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 4,
-        "stagesource": [109,110]
+        "stagesource": [109,110],
+        "uisource": [1,10]
     },
     {
         "id": 19003,
@@ -9569,7 +9638,8 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 6,
-        "stagesource": [117,118]
+        "stagesource": [117,118],
+        "uisource": [1,10,11]
     },
     {
         "id": 19004,
@@ -9581,7 +9651,8 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 8,
-        "stagesource": [135,136]
+        "stagesource": [135,136],
+        "uisource": [1,10,11,12]
     },
     {
         "id": 19005,
@@ -9593,7 +9664,8 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 10,
-        "stagesource": [143,144]
+        "stagesource": [143,144],
+        "uisource": [10,12]
     },
     {
         "id": 19006,
