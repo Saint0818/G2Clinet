@@ -606,7 +606,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                             friend.Identifier = events[i].TargetID;
                             friend.Player.Name = events[i].Name;
 
-                            if (events[i].Kind == EFriendKind.Waiting) {
+                            if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
                                 friend.Kind = EFriendKind.Ask;//events[i].Value;
 
                                 if (GameData.Team.Friends.ContainsKey(events[i].Identifier))
@@ -616,7 +616,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                                 UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
                             } else 
-                            if (events[i].Kind == EFriendKind.Friend) {
+                            if (events[i].Value == EFriendKind.Friend) {
                                 confirmFriends.Enqueue(events[i].TargetID);
                             }
                         }

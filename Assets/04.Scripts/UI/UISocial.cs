@@ -413,11 +413,15 @@ public class UISocial : UIBase {
             TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
             friend.Player.Init();
             if (GameData.Team.Friends.ContainsKey(friend.Identifier)) {
+                friend.Kind = GameData.Team.Friends[friend.Identifier].Kind;
                 GameData.Team.Friends[friend.Identifier] = friend;
-                if (waitDownloadItem != null && waitDownloadItem.Friend.Identifier == friend.Identifier) {
-                    ModelManager.Get.SetAvatar(ref waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl);
-                    LayerMgr.Get.SetLayerAllChildren(waitDownloadItem.PlayerModel, ELayer.UI.ToString());
-                }
+            }
+
+            if (waitDownloadItem != null && waitDownloadItem.Friend.Identifier == friend.Identifier) {
+                friend.Kind = waitDownloadItem.Friend.Kind;
+                waitDownloadItem.Friend = friend;
+                ModelManager.Get.SetAvatar(ref waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl);
+                LayerMgr.Get.SetLayerAllChildren(waitDownloadItem.PlayerModel, ELayer.UI.ToString());
             }
         }
 
