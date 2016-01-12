@@ -270,7 +270,6 @@ public class UIRecharge : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
-				Debug.Log("kindBuyDiamond[result].mIndex:"+ kindBuyDiamond[result].mIndex);
 				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
 			}
 		}
@@ -280,7 +279,6 @@ public class UIRecharge : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyCoin.Length) {
-				Debug.Log("kindBuyCoin[result].mIndex:"+ kindBuyCoin[result].mIndex);
 				showText = 535;
 				if(CheckDiamond(kindBuyCoin[result].mShop.Price, true))
 					SendBuyFromShop(kindBuyCoin[result].mIndex);
@@ -292,7 +290,6 @@ public class UIRecharge : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyStamina.Length) {
-				Debug.Log("kindBuyStamina[result].mIndex:"+ kindBuyStamina[result].mIndex);
 				if(GameData.Team.Power < GameConst.Max_Power){
 					showText = 537;
 					if(CheckMoney(kindBuyStamina[result].mShop.Price, true))

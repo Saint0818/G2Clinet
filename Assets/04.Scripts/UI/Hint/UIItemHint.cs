@@ -101,6 +101,8 @@ public class UIItemHint : UIBase {
 		scrollViewExplain.ResetPosition();
 		hintSkillView.Show();
 		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
+		if(GameData.Team.SkillCardCounts == null)
+			GameData.Team.InitSkillCardCount();
 		if(GameData.Team.SkillCardCounts.ContainsKey(skill.ID))
 			setHaveCount(GameData.Team.SkillCardCounts[skill.ID]);
 		else
