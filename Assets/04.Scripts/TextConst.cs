@@ -158,6 +158,7 @@ public static class TextConst
     }
 
     public static string GetSocialText(GameStruct.TSocialEvent e) {
+        int textNo = 0;
         switch (e.Kind) {
             case 1: //friend
                 switch (e.Value) {
@@ -169,17 +170,23 @@ public static class TextConst
                 break;
             case 3: //mission
                 if (GameData.DMissionData.ContainsKey(e.Value)) {
-                    return GameData.DMissionData[e.Value].Name;
+                    switch (GameData.DMissionData[e.Value].TimeKind) {
+                        case 1: textNo = 5039; break;
+                        case 2: textNo = 5040; break;
+                        case 3: textNo = 5041; break;
+                        default : textNo = 5038; break;
+                    }
+                    return S(textNo) + "\n" + GameData.DMissionData[e.Value].Name;
                 }
 
                 break;
             case 4: //item
                 if (GameData.DItemData.ContainsKey(e.Value)) {
-                    int no = 3717;
+                    textNo = 3717;
                     if (e.Cause == 11)
-                        no = 5034;
+                        textNo = 5036;
 
-                    return "\n" + string.Format(TextConst.S(no), GameData.DItemData[e.Value].Name, e.Num);
+                    return TextConst.S(textNo) + "\n" + GameData.DItemData[e.Value].Name + " X " + e.Num.ToString();
                 }
 
                 break;
@@ -227,21 +234,21 @@ public static class TextConst
     }
 
     public static string AfterTimeString(DateTime time) {
-        double dt = new System.TimeSpan(DateTime.UtcNow.Ticks - time.Ticks).TotalSeconds / 60;
+        int dt = (int)(new System.TimeSpan(DateTime.UtcNow.Ticks - time.Ticks).TotalSeconds / 60);
         if (dt <= 0)
             dt = 1;
         
-        double t = 0;
+        int t = 0;
         if (dt < 60)
-            return string.Format(S(246), dt);
+            return dt.ToString()+S(246);
         else //after hour
         if (dt < 1440) {
             t = dt / 60;
-            return string.Format(S(247), t);
+            return t.ToString() + S(247);
         } else //after 7 days
         if (dt < 10080) {
             t = dt / 1440;
-            return string.Format(S(248), t);
+            return t.ToString() + S(248);
         } else
             return time.ToString();
     }

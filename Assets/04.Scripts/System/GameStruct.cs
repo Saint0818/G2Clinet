@@ -538,6 +538,7 @@ namespace GameStruct
 		public bool Sound;
 		public Dictionary<int, int> NewAvatar;
         public bool ShowEvent;
+        public bool ShowWatchFriend;
         public DateTime SocialEventTime;
         public DateTime WatchFriendTime;
 	}

@@ -72,6 +72,7 @@
 		AnnouncementDaily,
         Quality,
         ShowEvent,
+        ShowWatchFriend,
         SocialEventTime,
         WatchFriendTime
 	}

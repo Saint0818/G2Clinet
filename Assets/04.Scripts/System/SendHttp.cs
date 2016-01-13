@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -575,10 +576,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         events[i].Player.Name = GameData.Team.Friends[events[i].Identifier].Player.Name;
                         GameData.SocialEvents.Add(events[i]);
 
-                        if (GameData.Setting.SocialEventTime.CompareTo(events[i].Time) < 0) {
+                        if (GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
                             UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
                             if (UIMainLobby.Get.IsVisible)
                                 UIMainLobby.Get.Main.SocialNotice = true;
+
+                            GameData.Setting.ShowEvent = true;
+                            PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
+                            PlayerPrefs.Save();
                         }
                     }
                 }
@@ -629,10 +634,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
                                 else
                                     GameData.Team.Friends[events[i].TargetID] = friend;
 
-                                if (GameData.Setting.WatchFriendTime.CompareTo(events[i].Time) < 0) {
+                                if (GameData.Setting.WatchFriendTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
                                     UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
                                     if (UIMainLobby.Get.IsVisible)
                                         UIMainLobby.Get.Main.SocialNotice = true;
+
+                                    GameData.Setting.ShowWatchFriend = true;
+                                    PlayerPrefs.SetInt(ESave.ShowWatchFriend.ToString(), 1);
+                                    PlayerPrefs.Save();
                                 }
 
                                 flag = true;

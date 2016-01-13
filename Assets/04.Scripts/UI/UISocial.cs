@@ -36,6 +36,7 @@ public class TSocialEventItem {
     public UILabel LabelPower;
     public UILabel LabelRelation;
     public UILabel LabelTime;
+    public UILabel LabelGoodCount;
     public UIButton ButtonGood;
 }
 
@@ -43,7 +44,7 @@ public class UISocial : UIBase {
     private static UISocial instance = null;
     private const string UIName = "UISocial";
 
-    private int nowPage = -1;
+    private int nowPage = 0;
     private int nowIndex = -1;
     private const int pageNum = 4;
     private TSkill skillData = new TSkill();
@@ -190,7 +191,10 @@ public class UISocial : UIBase {
             if (DateTime.UtcNow > GameData.Team.FreshFriendTime)
                 SendHttp.Get.FreshFriends(waitFreshFriends, false);
 
-            openPage(0);
+            redPoints[0].SetActive(GameData.Setting.ShowEvent);
+            redPoints[1].SetActive(GameData.Setting.ShowWatchFriend);
+
+            openPage(nowPage);
         }
 
         base.OnShow(isShow);
@@ -227,6 +231,7 @@ public class UISocial : UIBase {
             team.LabelPower = GameObject.Find(name + "/Window/Power").GetComponent<UILabel>();
             team.LabelLv = GameObject.Find(name + "/Window/Lv").GetComponent<UILabel>();
             team.LabelRelation = GameObject.Find(name + "/Window/Good/Label").GetComponent<UILabel>();
+            team.LabelGoodCount = GameObject.Find(name + "/Window/Good/Count").GetComponent<UILabel>();
             team.LabelTime = GameObject.Find(name + "/Window/TimeLabel").GetComponent<UILabel>();
 
             SetLabel(name + "/Window/Power/Label", TextConst.S(3019));
@@ -321,10 +326,11 @@ public class UISocial : UIBase {
         item.UICancel.SetActive(false);
         item.LabelTime.text = "";
         item.LabelRelation.text = "";
+        item.LabelGoodCount.text = "";
         item.LabelName.text = item.Friend.Player.Name;
         item.LabelName.color = Color.white;
         if (page == 0) {
-            item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time);
+            item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time.ToUniversalTime());
 
             if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier)) {
                 item.ButtonGood.defaultColor = Color.white;
@@ -348,7 +354,7 @@ public class UISocial : UIBase {
                     item.LabelRelation.text = TextConst.S(5024);
                     break;
                 case EFriendKind.Ask:
-                    item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time);
+                    item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time.ToUniversalTime());
                     item.LabelRelation.text = TextConst.S(5023);
                     item.LabelName.text += "\n" + TextConst.S(5032);
                     item.UICancel.SetActive(true);
@@ -391,7 +397,7 @@ public class UISocial : UIBase {
                         
                         if (GameData.DItemData.ContainsKey(itemID)) {
                             friendList[page][index].UIAward.SetActive(true);
-                            friendList[page][index].AwardGroup.Show(GameData.DItemData[e.Value]);
+                            friendList[page][index].AwardGroup.Show(GameData.DItemData[itemID]);
                         }
                     }
 
@@ -546,23 +552,33 @@ public class UISocial : UIBase {
             pageObjects[i].SetActive(false);
 
         pageObjects[page].SetActive(true);
+        redPoints[page].SetActive(false);
         nowPage = page;
         initList(page);
 
         if (page == 0 || page == 1) {
+            int flag = 0;
             if (page == 0) {
                 GameData.Setting.SocialEventTime = DateTime.UtcNow;
                 PlayerPrefs.SetString(ESave.SocialEventTime.ToString(), DateTime.UtcNow.ToString());
+                if (GameData.Setting.ShowEvent) {
+                    GameData.Setting.ShowEvent = false;
+                    flag = GameData.Setting.ShowEvent == true ? 1 : 0;
+                    PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), flag);
+                }
+
+                PlayerPrefs.Save();
             } else {
                 GameData.Setting.WatchFriendTime = DateTime.UtcNow;
                 PlayerPrefs.SetString(ESave.WatchFriendTime.ToString(), DateTime.UtcNow.ToString());
-            }
+                if (GameData.Setting.ShowWatchFriend) {
+                    GameData.Setting.ShowWatchFriend = false;
+                    flag = GameData.Setting.ShowWatchFriend == true ? 1 : 0;
+                    PlayerPrefs.SetInt(ESave.ShowWatchFriend.ToString(), flag);
+                }
 
-            GameData.Setting.ShowEvent = GameData.Setting.SocialEventTime.CompareTo(DateTime.UtcNow) >= 0 &&
-                                         GameData.Setting.WatchFriendTime.CompareTo(DateTime.UtcNow) >= 0;
-            int flag = GameData.Setting.ShowEvent == true ? 1 : 0;
-            PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), flag);
-            PlayerPrefs.Save();
+                PlayerPrefs.Save();
+            }
         }
     }
 

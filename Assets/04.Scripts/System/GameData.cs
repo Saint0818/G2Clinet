@@ -226,6 +226,9 @@ public static class GameData {
                     case ESave.ShowEvent:
                         Setting.ShowEvent = false;
                         break;
+                    case ESave.ShowWatchFriend:
+                        Setting.ShowWatchFriend = false;
+                        break;
                     case ESave.SocialEventTime:
                         Setting.SocialEventTime = DateTime.UtcNow;
                         break;
@@ -289,6 +292,9 @@ public static class GameData {
 						break;
                     case ESave.ShowEvent:
                         Setting.ShowEvent = index > 0 ? true : false;
+                        break;
+                    case ESave.ShowWatchFriend:
+                        Setting.ShowWatchFriend = index > 0 ? true : false;
                         break;
                     case ESave.SocialEventTime:
                         str = PlayerPrefs.GetString(item.ToString());
