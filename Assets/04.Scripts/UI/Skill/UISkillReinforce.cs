@@ -30,9 +30,7 @@ public struct TExpView {
 			maxExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
 			if(skill.Lv >= GameData.DSkillData[skill.ID].MaxStar) {
 				currentExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
-				ProgressBar.value = 0;
-				ProgressBar2.value = 1;
-				NextLevelLabel.text = string.Format(TextConst.S(7407), 0);
+				SetTopProgressView ();
 			} else {
 				currentExp = skill.Exp;
 				ProgressBar.value = (float)currentExp / (float)maxExp;
@@ -47,14 +45,32 @@ public struct TExpView {
 		if(GameData.DSkillData.ContainsKey(id)) {
 			if(lv < GameData.DSkillData[id].MaxStar) {
 				ProgressBar2.value = (float)(originalExp + upgradeExp)/ (float)maxExp;
-				if((originalExp + upgradeExp) >= GameData.DSkillData[id].UpgradeExp[lv])
-					ProgressBar.value = 0;
-				else 
-					ProgressBar.value = (float)currentExp / (float)maxExp;
+//				if((originalExp + upgradeExp) >= GameData.DSkillData[id].UpgradeExp[lv])
+//					ProgressBar.value = 0;
+//				else 
+//					ProgressBar.value = (float)currentExp / (float)maxExp;
 
 				GetLevelLabel.text = string.Format(TextConst.S(7408), upgradeExp);
 			}
 		}
+	}
+
+	public void SetProgressView (int id, int lv, int yellowExpValue, int greenExpValue, int getLevelExpValue) {
+		if(GameData.DSkillData.ContainsKey(id)) {
+			maxExp = GameData.DSkillData[id].UpgradeExp[lv];
+			NextLevelLabel.text = string.Format(TextConst.S(7407), maxExp);
+			ProgressBar.value = (float)yellowExpValue / (float)maxExp;
+			ProgressBar2.value = (float)greenExpValue / (float)maxExp;
+			GetLevelLabel.text = string.Format(TextConst.S(7408), getLevelExpValue);
+		}
+	}
+
+	public void SetTopProgressView () {
+		ProgressBar.value = 0;
+		ProgressBar2.value = 1;
+		NextLevelLabel.text = TextConst.S(7409);
+		GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
+
 	}
 }
 
@@ -257,8 +273,10 @@ public struct TReinforceInfo {
 	}
 
 	public void UpgradeViewForLevelUp (TSkill skill, int newLv) {
+		hideAll ();
 		int index = 0;
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			if(GameData.DSkillData[skill.ID].aniRate > 0) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7404);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].AniRate(skill.Lv).ToString();
@@ -270,7 +288,9 @@ public struct TReinforceInfo {
 					ValueLabel1[index].gameObject.SetActive(false);
 				}
 				index ++;
+			}
 
+			if(GameData.DSkillData[skill.ID].distance > 0) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7405);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Distance(skill.Lv).ToString();
@@ -282,7 +302,9 @@ public struct TReinforceInfo {
 					ValueLabel1[index].gameObject.SetActive(false);
 				}
 				index ++;
+			}
 
+			if(GameData.DSkillData[skill.ID].valueBase > 0) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(10500 + GameData.DSkillData[skill.ID].AttrKind);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Value(skill.Lv).ToString();
@@ -294,7 +316,9 @@ public struct TReinforceInfo {
 					ValueLabel1[index].gameObject.SetActive(false);
 				}
 				index ++;
+			}
 
+			if(GameData.DSkillData[skill.ID].lifeTime > 0) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7406);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].LifeTime(skill.Lv).ToString();
@@ -305,6 +329,7 @@ public struct TReinforceInfo {
 				} else {
 					ValueLabel1[index].gameObject.SetActive(false);
 				}
+			}
 		}
 	}
 }
@@ -317,6 +342,7 @@ public class UISkillReinforce : UIBase {
 	private int targetIndex;
 	private int[] removeIndexs;
 
+	private TSkill mOldSkill;
 	private TSkill mSkill;
 
 	private GameObject itemCardEquipped;
@@ -329,8 +355,9 @@ public class UISkillReinforce : UIBase {
 	private TEnergyView energyView;
 
 	//CenterView
-	private GameObject[] MaterialSlots;
-	private GameObject[] MaterialRemoveBtns;
+	private MaterialSlot[] materialSlots;
+//	private GameObject[] MaterialSlots;
+//	private GameObject[] MaterialRemoveBtns;
 	private TReinforceInfo reinForceInfo;
 
 	//RightView
@@ -342,6 +369,13 @@ public class UISkillReinforce : UIBase {
 	private int reinforceMoney;
 	private int originalExp;
 	private int reinforceExp;
+
+	private int oldCardLv;
+	private int newCardLv;
+	private int recordGreenExp;
+	private bool isRunExp = false;
+	private bool isNeedShowLevelUp = false;
+	private int addInterVal = 5;
 
 	private Dictionary<string, TPassiveSkillCard> passiveSkillCards;
 	//card Right
@@ -380,6 +414,10 @@ public class UISkillReinforce : UIBase {
 		}
 	}
 
+	void FixedUpdate () {
+		runExp ();
+	}
+
 	protected override void InitCom() {
 		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
 		itemCardReinforce = Resources.Load(UIPrefabPath.ItemAwardGroup) as GameObject;
@@ -396,15 +434,13 @@ public class UISkillReinforce : UIBase {
 		energyView.Init(transform);
 
 		//CenterView
-		MaterialSlots = new GameObject[6];
-		MaterialRemoveBtns = new GameObject[6];
-		for(int i=0; i<MaterialSlots.Length; i++) {
-			MaterialSlots[i] = GameObject.Find(UIName + "/Window/Center/CenterView/SlotGroup/MaterialSlot"+i.ToString()+"/View");
-			MaterialRemoveBtns[i] =  GameObject.Find(UIName + "/Window/Center/CenterView/SlotGroup/MaterialSlot"+i.ToString()+"/RemoveBtn");
-			SetBtnFun(UIName + "/Window/Center/CenterView/SlotGroup/MaterialSlot"+i.ToString()+"/RemoveBtn", RemoveChooseItem);
-			MaterialRemoveBtns[i].name = i.ToString();
-			MaterialRemoveBtns[i].SetActive(false);
+		materialSlots = new MaterialSlot[6];
+		for (int i=0; i<materialSlots.Length; i++) {
+			materialSlots[i] =  GameObject.Find(UIName + "/Window/Center/CenterView/SlotGroup/MaterialSlot"+i.ToString()).GetComponent<MaterialSlot>();
+			SetBtnFun(ref materialSlots[i].RemoveBtn, RemoveChooseItem);
+			materialSlots[i].RemoveBtn.name = i.ToString();
 		}
+
 		reinForceInfo = new TReinforceInfo();
 		reinForceInfo.Init(GameObject.Find(UIName + "/Window/Center/CenterView/ReinforceInfo").transform);
 
@@ -433,13 +469,15 @@ public class UISkillReinforce : UIBase {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				TPassiveSkillCard obj = null;
 				obj = addItem(i, index, GameData.Team.SkillCards[i]);
-				if(!passiveSkillCards.ContainsKey(obj.Name) && GameData.Team.SkillCards[i].ID > 100 && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
+				if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.Team.SkillCards[i].ID > 100 && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
 					passiveSkillCards.Add(obj.Name, obj);
 					index ++ ;
-				}
+				} else
+					Destroy(obj.item);
 			}
 		}
-		uiScrollView.ResetPosition();
+//		uiScrollView.ResetPosition();
+		uiScrollView.MoveRelative(new Vector3(0, -33, 0));
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
@@ -449,13 +487,13 @@ public class UISkillReinforce : UIBase {
 		obj.transform.localPosition = new Vector3(0, 200 - 80 * positionIndex, 0);
 		LayerMgr.Get.SetLayerAllChildren(obj, "TopUI");
 
-		TPassiveSkillCard skillCard = new TPassiveSkillCard();
-		skillCard.InitReinforce(obj, skillCardIndex);
-		skillCard.UpdateViewReinforce(skill);
+		TPassiveSkillCard passiveSkillCard = new TPassiveSkillCard();
+		passiveSkillCard.InitReinforce(obj, skillCardIndex);
+		passiveSkillCard.UpdateViewReinforce(skill);
 
 		UIEventListener.Get(obj).onClick = ChooseItem;
 
-		return skillCard;
+		return passiveSkillCard;
 	}
 
 	private GameObject addReinforceCard (Transform parent, TSkill skill) {
@@ -534,8 +572,11 @@ public class UISkillReinforce : UIBase {
 			reinforceExp += GameData.DSkillData[skill.ID].ExpInlay(skill.Lv);
 			expView.SetUpgradeView(mSkill.ID, mSkill.Lv, originalExp, reinforceExp);
 			int newLv = checkLvUp(reinforceExp);
-			if((newLv - mSkill.Lv) > 0) {
+			if(newLv > newCardLv)
 				skillCard.ShowStarForRein(mSkill.Lv, (newLv - mSkill.Lv));
+			
+			if((newLv - mSkill.Lv) > 0) {
+				newCardLv = newLv;
 
 				costView.UpgradeView(mSkill, newLv);
 				energyView.UpgradeView(mSkill, newLv);
@@ -549,6 +590,7 @@ public class UISkillReinforce : UIBase {
 			reinforceExp -= GameData.DSkillData[skill.ID].ExpInlay(skill.Lv);
 
 			int newLv = checkLvUp(reinforceExp);
+			newCardLv = newLv;
 			expView.SetUpgradeView(mSkill.ID, mSkill.Lv, originalExp, reinforceExp);
 			skillCard.ShowStarForRein(mSkill.Lv, (newLv - mSkill.Lv));
 
@@ -596,8 +638,8 @@ public class UISkillReinforce : UIBase {
 	}
 
 	private void hideSlotRemoveBtn () {
-		for (int i=0; i<MaterialRemoveBtns.Length; i++)
-			MaterialRemoveBtns[i].SetActive(false);
+		for (int i=0; i<materialSlots.Length; i++)
+			materialSlots[i].RemoveBtn.gameObject.SetActive(false);
 	}
 
 	public void RemoveChooseItem () {
@@ -618,7 +660,8 @@ public class UISkillReinforce : UIBase {
 					minusUpgradeMoney(passiveSkillCards[go.name].Skill);
 					minusUpgradeView(passiveSkillCards[go.name].Skill);
 				} else {
-					reinforceItems.Add(go.name, addReinforceCard(MaterialSlots[reinforceItems.Count].transform, passiveSkillCards[go.name].Skill));
+					materialSlots[reinforceItems.Count].ShowInput();
+					reinforceItems.Add(go.name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[go.name].Skill));
 					reinforceCards.Add(passiveSkillCards[go.name]);
 					passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
 					addUpgradeMoney(passiveSkillCards[go.name].Skill);
@@ -643,10 +686,20 @@ public class UISkillReinforce : UIBase {
 		foreach(Transform child in scrollView.transform) {
 			Destroy(child.gameObject);
 		}
-
-		foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
-			Destroy(obj.Value);
+		if(reinforceItems.Count > 0) {
+			foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
+				Destroy(obj.Value);
+			}
 		}
+
+		mOldSkill = mSkill;
+		isRunExp = false;
+		isNeedShowLevelUp = false;
+		addInterVal = 5;
+		skillCard.HideAllGetStar();
+		skillCard.HideAllPreviewStar();
+		oldCardLv = skill.Lv;
+		newCardLv = skill.Lv;
 		hideSlotRemoveBtn ();
 
 		reinforceCards.Clear();
@@ -671,9 +724,9 @@ public class UISkillReinforce : UIBase {
 		if(reinforceCards.Count > 0) {
 			for(int i=0; i<reinforceCards.Count; i++) {
 				reinforceCards[i].ChooseReinforce(true, i + 1);
-				if(i >= 0 && i < MaterialSlots.Length) {
-					MaterialRemoveBtns[i].SetActive(true);
-					reinforceItems[reinforceCards[i].Name].transform.parent = MaterialSlots[i].transform;
+				if(i >= 0 && i < materialSlots.Length) {
+					materialSlots[i].RemoveBtn.gameObject.SetActive(true);
+					reinforceItems[reinforceCards[i].Name].transform.parent = materialSlots[i].View;
 					reinforceItems[reinforceCards[i].Name].transform.localPosition = Vector3.zero;
 				}
 			}
@@ -698,42 +751,119 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		if(reinforceCards.Count > 0) {
-			
-			if(CheckMoney(reinforceMoney)) {
-				removeIndexs = new int[reinforceCards.Count];
-				for (int i=0; i<removeIndexs.Length; i++) {
-					removeIndexs[i] = reinforceCards[i].CardIndex;
-				}
-				
-				//Bobble Sort
-				if(removeIndexs.Length > 1) {
-					for(int i=0; i<removeIndexs.Length; i++) {
-						for (int j=i+1; j<removeIndexs.Length; j++){
-							if (removeIndexs[i] >= removeIndexs[j]){
-								int temp = removeIndexs[i];
-								removeIndexs[i] = removeIndexs[j];
-								removeIndexs[j] = temp;
+		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
+			if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
+				UIHint.Get.ShowHint(TextConst.S(556), Color.red);
+			} else {
+				if(reinforceCards.Count > 0) {
+					if(CheckMoney(reinforceMoney)) {
+						removeIndexs = new int[reinforceCards.Count];
+						for (int i=0; i<removeIndexs.Length; i++) {
+							removeIndexs[i] = reinforceCards[i].CardIndex;
+						}
+						
+						//Bobble Sort
+						if(removeIndexs.Length > 1) {
+							for(int i=0; i<removeIndexs.Length; i++) {
+								for (int j=i+1; j<removeIndexs.Length; j++){
+									if (removeIndexs[i] >= removeIndexs[j]){
+										int temp = removeIndexs[i];
+										removeIndexs[i] = removeIndexs[j];
+										removeIndexs[j] = temp;
+									}
+								}
 							}
 						}
+						
+						if(removeIndexs.Length > 0) {
+							if(isEquiped)
+								SendReinforcePlayer();
+							else
+								SendReinforce();
+						}
+					} else {
+						UIHint.Get.ShowHint(TextConst.S(510), Color.white);
 					}
-				}
-				
-				if(removeIndexs.Length > 0) {
-					if(isEquiped)
-						SendReinforcePlayer();
-					else
-						SendReinforce();
-				}
-			} else {
-				UIHint.Get.ShowHint(TextConst.S(510), Color.white);
+				} else 
+					UIHint.Get.ShowHint(TextConst.S(557), Color.white);
 			}
-		} else 
-			UIHint.Get.ShowHint(TextConst.S(557), Color.white);
+		}
 	}
 
 	public void OnClose () {
 		UIShow(false);
+	}
+
+	private void runExp () {
+		if(isRunExp && GameData.DSkillData.ContainsKey(mSkill.ID) && newCardLv >= oldCardLv && reinforceExp > 0) {
+			if( oldCardLv < GameData.DSkillData[mSkill.ID].MaxStar) {
+				expView.SetProgressView(mSkill.ID, 
+					oldCardLv, 
+					originalExp, 
+					recordGreenExp,
+					reinforceExp);
+
+
+				if(reinforceExp >= addInterVal)
+					reinforceExp -= addInterVal;
+				else 
+					addInterVal = reinforceExp;
+
+				originalExp += addInterVal;
+
+				if(originalExp > GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv]) {
+					originalExp -= GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv];
+					oldCardLv ++;
+					skillCard.ShowGetStar(oldCardLv - 1);
+					recordGreenExp = reinforceExp;
+				}
+
+				if(reinforceExp <= 0) {
+					expView.SetProgressView(mSkill.ID, 
+						oldCardLv, 
+						recordGreenExp, 
+						recordGreenExp,
+						GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv]);
+					stopRunExp ();
+				}
+			} else {
+				skillCard.ShowGetStar(4); // 5 - 1
+				expView.SetTopProgressView();
+			}
+		}
+	}
+
+	private void awakeRunExp () {
+		recordGreenExp = reinforceExp + originalExp;
+		addInterVal = reinforceExp / 10;
+		Invoke("delayRunExp", 2);
+		reinforceAnimator.SetTrigger("Go");
+		skillCard.HideAllPreviewStar();
+		for(int i=0 ; i < materialSlots.Length; i++) 
+			if(i < reinforceCards.Count)
+				materialSlots[i].ShowEatFX();
+		
+	}
+
+	private void stopRunExp () {
+		reinforceExp = 0;
+		isRunExp = false;
+		finishExp ();
+	}
+
+	private void delayRunExp () {
+		foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
+			Destroy(obj.Value);
+		}
+		isRunExp = true;
+		isNeedShowLevelUp = (oldCardLv != newCardLv);
+	}
+
+	private void finishExp () {
+		if(isNeedShowLevelUp) 
+			UILevelUp.Get.ShowSkill(mOldSkill, mSkill);
+		RefreshView(mSkill);
+		initRightCards ();
 	}
 
 	/// <summary>
@@ -759,13 +889,14 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
+			UIMainLobby.Get.UpdateUI();
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
 
 			mSkill = findNewSkillFromTeam(mSkill);
-			RefreshView(mSkill);
-			initRightCards ();
+			awakeRunExp();
+
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
@@ -789,13 +920,14 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
+			UIMainLobby.Get.UpdateUI();
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
 
 			mSkill = findNewSkillFromPlayer(mSkill);
-			RefreshView(mSkill);
-			initRightCards ();
+			awakeRunExp();
+
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 

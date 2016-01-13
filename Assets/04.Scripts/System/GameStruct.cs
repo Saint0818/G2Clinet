@@ -1254,20 +1254,20 @@ namespace GameStruct
 		public string Ios;
 		public int Order;
 		public int Sale;
-		public float pricetw;
-		public float priceen;
-		public float pricecn;
-		public float pricejp;
+		public string pricetw;
+		public string priceen;
+		public string pricecn;
+		public string pricejp;
 
 		public string Price {
 			get
 			{
 				switch(GameData.Setting.Language)
 				{
-				case ELanguage.TW: return "NT " + pricetw.ToString();
-				case ELanguage.CN: return "RMB¥" + pricecn.ToString();
-				case ELanguage.JP: return "¥" + pricejp.ToString();
-				default : return "$" + priceen.ToString();
+				case ELanguage.TW: return pricetw;
+				case ELanguage.CN: return pricecn;
+				case ELanguage.JP: return pricejp;
+				default : return priceen;
 				}
 			}
 		}

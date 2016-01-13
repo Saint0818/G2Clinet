@@ -168,22 +168,41 @@ public class TActiveSkillCard
 		set{self.gameObject.SetActive(value);}
 	}
 
+	//For reniforce
 	public void ShowStarForRein (int oriStar, int count) {
 		if((oriStar + count) >= SkillStars.Length) {
 			for (int i=0; i<SkillStars.Length; i++) {
 				if(i > (oriStar - 1) && i < SkillStars.Length) {
-					SkillStars[i].ShowStar();
+					SkillStars[i].ShowStarPreview();
 				}
 			}
 		} else {
 			for (int i=0; i<SkillStars.Length; i++) {
 				if(i > (oriStar - 1) && i <= (oriStar + count - 1)) {
-					SkillStars[i].ShowStar();
+					SkillStars[i].HideStarPreview();
+					SkillStars[i].ShowStarPreview();
 				} else if(i > (oriStar + count - 1)){
-					SkillStars[i].HideStar();
+					SkillStars[i].HideStarPreview();
 				}
 			}
 		}
+	}
+
+	public void HideAllPreviewStar () {
+		for (int i=0; i<SkillStars.Length; i++) 
+			SkillStars[i].HideStarPreview();
+	}
+
+	public void ShowGetStar (int index) {
+		if(index >=0 && index < SkillStars.Length) {
+			SkillStars[index].ShowGetStar();
+			SkillStars[index].ShowStar();
+		}
+	}
+
+	public void HideAllGetStar () {
+		for (int i=0; i<SkillStars.Length; i++) 
+			SkillStars[i].HideGetStar();
 	}
 
 

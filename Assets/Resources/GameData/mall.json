@@ -6,13 +6,13 @@
         "ios": "com.nicemarket.nbaa.diamonds100",
         "mygamez": "buy_more_diamond_100",
         "order": 0,
-        "pricetw": 30,
-        "priceen": 1,
-        "pricecn": 6,
-        "pricejp": 6,
-        "mygamezpricetw": 20,
-        "mygamezpriceen": 0.7,
-        "mygamezpricecn": 4
+        "pricetw": "NT.30",
+        "priceen": "$1",
+        "pricecn": "¥6",
+        "pricejp": "¥6",
+        "mygamezpricetw": "NT.20",
+        "mygamezpriceen": "$0.7",
+        "mygamezpricecn": "¥4"
     },
     {
         "diamonds": 600,
@@ -21,13 +21,13 @@
         "ios": "com.nicemarket.nbaa.diamonds600",
         "mygamez": "buy_more_diamond_600",
         "order": 1,
-        "pricetw": 150,
-        "priceen": 5,
-        "pricecn": 30,
-        "pricejp": 30,
-        "mygamezpricetw": 50,
-        "mygamezpriceen": 1.7,
-        "mygamezpricecn": 10
+        "pricetw": "NT.150",
+        "priceen": "$5",
+        "pricecn": "¥30",
+        "pricejp": "¥30",
+        "mygamezpricetw": "NT.50",
+        "mygamezpriceen": "$1.7",
+        "mygamezpricecn": "¥10"
     },
     {
         "diamonds": 1300,
@@ -36,13 +36,13 @@
         "ios": "com.nicemarket.nbaa.diamonds1300",
         "mygamez": "buy_more_diamond_1300",
         "order": 2,
-        "pricetw": 300,
-        "priceen": 10,
-        "pricecn": 60,
-        "pricejp": 60,
-        "mygamezpricetw": 100,
-        "mygamezpriceen": 3.3,
-        "mygamezpricecn": 20
+        "pricetw": "NT.300",
+        "priceen": "$10",
+        "pricecn": "¥60",
+        "pricejp": "¥60",
+        "mygamezpricetw": "NT.100",
+        "mygamezpriceen": "$3.3",
+        "mygamezpricecn": "¥20"
     },
     {
         "diamonds": 2850,
@@ -51,13 +51,13 @@
         "ios": "com.nicemarket.nbaa.diamonds2850",
         "mygamez": "buy_more_diamond_2850",
         "order": 3,
-        "pricetw": 600,
-        "priceen": 20,
-        "pricecn": 120,
-        "pricejp": 120,
-        "mygamezpricetw": 150,
-        "mygamezpriceen": 5,
-        "mygamezpricecn": 30
+        "pricetw": "NT.600",
+        "priceen": "$20",
+        "pricecn": "¥120",
+        "pricejp": "¥120",
+        "mygamezpricetw": "NT.150",
+        "mygamezpriceen": "$5",
+        "mygamezpricecn": "¥30"
     },
     {
         "diamonds": 8000,
@@ -66,13 +66,13 @@
         "ios": "com.nicemarket.nbaa.diamonds8000",
         "mygamez": "buy_more_diamond_8000",
         "order": 4,
-        "pricetw": 1500,
-        "priceen": 50,
-        "pricecn": 300,
-        "pricejp": 300,
-        "mygamezpricetw": 250,
-        "mygamezpriceen": 8.3,
-        "mygamezpricecn": 50
+        "pricetw": "NT.1500",
+        "priceen": "$50",
+        "pricecn": "¥300",
+        "pricejp": "¥300",
+        "mygamezpricetw": "NT.250",
+        "mygamezpriceen": "$8.3",
+        "mygamezpricecn": "¥50"
     },
     {
         "diamonds": 1000,
@@ -81,13 +81,13 @@
         "ios": "com.nicemarket.nbaa.diamonds800",
         "mygamez": "buy_monthly_vip",
         "order": 5,
-        "pricetw": 180,
-        "priceen": 6,
-        "pricecn": 36,
-        "pricejp": 36,
-        "mygamezpricetw": 150,
-        "mygamezpriceen": 5,
-        "mygamezpricecn": 30
+        "pricetw": "NT.180",
+        "priceen": "$6",
+        "pricecn": "¥36",
+        "pricejp": "¥36",
+        "mygamezpricetw": "NT.150",
+        "mygamezpriceen": "$5",
+        "mygamezpricecn": "¥30"
     },
     {
         "diamonds": 999,
@@ -96,12 +96,12 @@
         "ios": "com.nicemarket.nbaa.diamonds1999",
         "mygamez": "buy_more_diamond_1999",
         "order": 6,
-        "pricetw": 30,
-        "priceen": 1,
-        "pricecn": 6,
-        "pricejp": 6,
-        "mygamezpricetw": 30,
-        "mygamezpriceen": 1,
-        "mygamezpricecn": 6
+        "pricetw": "NT.30",
+        "priceen": "$1",
+        "pricecn": "¥6",
+        "pricejp": "¥6",
+        "mygamezpricetw": "NT.30",
+        "mygamezpriceen": "$1",
+        "mygamezpricecn": "¥6"
     }
 ]

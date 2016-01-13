@@ -643,8 +643,6 @@ public class ModelManager : KnightSingleton<ModelManager>
             Debug.Log(e.ToString());
             return null;
         }
-
-        return null;
     }
 
     private void InitCapsuleCollider(GameObject obj, int bodyType)

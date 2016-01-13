@@ -25,7 +25,6 @@ public class UITableExtension : UITable {
 	protected void RepositionVariableSizeNew (List<Transform> children)
 	{
 		float xOffset = 0;
-		float yOffset = 0;
 
 		int cols = columns > 0 ? children.Count / columns + 1 : 1; // 4
 		int rows = columns > 0 ? columns : children.Count; // 1
@@ -67,7 +66,6 @@ public class UITableExtension : UITable {
 			Transform t = children[i];
 			Bounds b = bounds[y, x];
 			Bounds br = boundsRows[x];
-			Bounds bc = boundsCols[y];
 
 			Vector3 pos = t.localPosition;
 			pos.x = xOffset + b.extents.x - b.center.x;
@@ -82,7 +80,6 @@ public class UITableExtension : UITable {
 				y = 0;
 				++x;
 
-				yOffset = 0f;
 			}
 		}
 	}

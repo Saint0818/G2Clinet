@@ -181,7 +181,6 @@ public class UISkillFormation : UIBase {
 
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
-	private int cardCount = 0;
 	private int activeFieldLimit = 3;
 	private int eCondition;
 	private int eFilter;
@@ -387,7 +386,6 @@ public class UISkillFormation : UIBase {
 	private void initCards () {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
 		runShine = runShineInternal;
-		cardCount = getSkillCardCount();
 		int index = -1;
 		int actvieIndex = -1;
 		//Already Equiped
@@ -792,27 +790,6 @@ public class UISkillFormation : UIBase {
 			tempPage = page;
 			DoFinish();
 		}
-	}
-
-	private int getSkillCardCount () {
-		int count = 0;
-		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0)
-			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) 
-				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) 
-					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) 
-						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) 
-							count ++;
-			
-
-		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) 
-			for (int i=0; i<GameData.Team.SkillCards.Length; i++) 
-				count ++;
-
-		if(GameData.Team.Player.SkillCards != null && GameData.Team.Player.SkillCards.Length > 0) 
-			for (int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
-				count ++;
-
-		return count;
 	}
 
 	//For Sell
