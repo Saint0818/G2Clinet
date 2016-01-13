@@ -14,13 +14,22 @@ public class UIValueItemData
         public int Value; // 數值裝某個屬性的數值.
     }
 
+    public enum EStatus
+    {
+        CannotUpgrade, Upgradeable, Demount, CannotDemount
+    }
+
     public const int StorageIndexNone = -2;
     public const int StorageIndexDemount = -1;
     /// <summary>
-    /// UI 並不會使用這個數值, 這個只是給 UIEquipment 用來得知哪個道具被替換了, 而且也知道替換了
+    /// UI 並不會使用這個數值, 這個只是給 UIEquipment 得知哪個道具被替換了, 而且也知道替換了
     /// 倉庫中的哪一個.
     /// </summary>
     public int StorageIndex = StorageIndexNone;
+    /// <summary>
+    /// UI 並不會使用這個數值, 這個只是給 UIEquipment 得知這是哪一個道具.
+    /// </summary>
+    public int ItemID;
 
     public string Name
     {
@@ -80,11 +89,16 @@ public class UIValueItemData
 
     public int Num; // 堆疊數量.
 
-    public bool IsUpgradeable;
+    public EStatus Status;
 
     public override string ToString()
     {
         return String.Format("Name: {0}, Icon: {1}, Desc: {2}", Name, Icon, Desc);
+    }
+
+    public bool IsEmpty()
+    {
+        return string.IsNullOrEmpty(Name);
     }
 
     /// <summary>

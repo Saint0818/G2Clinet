@@ -98,7 +98,7 @@ public class UIEquipment : UIBase
             if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
                 UIValueItemData uiItem = UIValueItemDataBuilder.Build(GameData.DItemData[storageItem.ID], 
-                                                                      storageItem.RevisionInlayItemIDs);
+                                                  storageItem.RevisionInlayItemIDs, storageItem.Num);
                 uiItem.StorageIndex = i;
                 items.Add(uiItem);
             }
@@ -118,7 +118,6 @@ public class UIEquipment : UIBase
         for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
         {
             UIValueItemData item = findPlayerValueItemByKind(kind);
-//            item.StorageIndex = -2; // -2 表示這個裝備目前裝在球員身上, 不在倉庫內.
             items.Add(item);
         }
         return items.ToArray();
@@ -131,7 +130,7 @@ public class UIEquipment : UIBase
         {
             TItemData item = GameData.DItemData[GameData.Team.Player.ValueItems[kind].ID];
             int[] inlayItemIDs = GameData.Team.Player.ValueItems[kind].RevisionInlayItemIDs;
-            return UIValueItemDataBuilder.Build(item, inlayItemIDs);
+            return UIValueItemDataBuilder.Build(item, inlayItemIDs, GameData.Team.Player.ValueItems[kind].Num);
         }
 
         return UIValueItemDataBuilder.BuildEmpty();
@@ -236,8 +235,6 @@ public class UIEquipment : UIBase
         Debug.LogFormat("onUpgradeClick, slotIndex:{0}", slotIndex);
 
         int valueItemKind = slotIndex + 11;
-//        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
-//        TItemData item = GameData.DItemData[valueItem.ID];
 
         mActionQueue.Clear();
         if(mMain.IsValueItemChanged())
@@ -245,30 +242,6 @@ public class UIEquipment : UIBase
         mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
 
         mActionQueue.Execute(onUpgrade);
-
-//        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
-//        {
-//            var upgradeCommand = new ValueItemUpgradeProtocol();
-//            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
-//            upgradeCommand.Send(valueItemKind, onUpgrade);
-//        }
-//        else if(!UIEquipChecker.HasUpgradeItem(item))
-//        {
-//            // 是最高等級, 所以不能升級.
-//            Debug.Log("Top Level Item.");
-//        }
-//        else if(!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
-//        {
-//            // 材料沒有鑲嵌完畢.
-//            Debug.Log("Inlay not full.");
-//        }
-//        else if(!UIEquipChecker.HasUpgradeMoney(item))
-//        {
-//            // 沒錢.
-//            Debug.Log("Money not enoguh.");
-//        }
-//        else
-//            Debug.LogError("Not Implemented check...");
     }
 
     private void onUpgrade(bool ok)

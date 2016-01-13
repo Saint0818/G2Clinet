@@ -18,7 +18,7 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
 
         TValueItem valueItem = GameData.Team.Player.ValueItems[mPlayerValueItemKind];
         TItemData item = GameData.DItemData[valueItem.ID];
-        if(UIEquipChecker.IsUpgradeable(item, valueItem.RevisionInlayItemIDs))
+        if(UIEquipChecker.FindStatus(item, valueItem.RevisionInlayItemIDs) == UIValueItemData.EStatus.Upgradeable)
         {
             var upgradeCommand = new ValueItemUpgradeProtocol();
             // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.

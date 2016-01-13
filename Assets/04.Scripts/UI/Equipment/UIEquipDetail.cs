@@ -15,19 +15,25 @@ using UnityEngine;
 public class UIEquipDetail : MonoBehaviour
 {
     /// <summary>
-    /// 呼叫時機: 畫面上方的道具被點擊. 參數(int index)
+    /// 呼叫時機: 畫面上方的道具被點擊. 參數(int slotIndex)
     /// </summary>
     public event Action<int> OnItemClickListener;
 
     /// <summary>
-    /// 升級按鈕按下.
+    /// 升級按鈕按下. 參數(int slotIndex)
     /// </summary>
     public event Action<int> OnUpgradeListener;
 
+    /// <summary>
+    /// 卸下按鈕按下. 參數(int slotIndex)
+    /// </summary>
+    public event Action<int> OnDemountListener;
+
     public Transform ItemParent;
     public UIButton UpgradeButton;
-    private const string UpgradeButtonNormal = "button_orange1";
-    private const string UpgradeButtonDisable = "button_gray";
+    public UIButton DemountButton;
+    private const string ButtonNormal = "button_orange1";
+    private const string ButtonDisable = "button_gray";
     public UILabel Desc;
 
     private UIEquipItem mEquipItem;
@@ -49,13 +55,14 @@ public class UIEquipDetail : MonoBehaviour
     [UsedImplicitly]
 	private void Awake()
     {
-        mEquipItem = UIPrefabPath.LoadUI(UIPrefabPath.ItemEquipmentBtn, ItemParent).GetComponent<UIEquipItem>();
+        mEquipItem = UIPrefabPath.LoadUI(UIPrefabPath.UIEquipItem, ItemParent).GetComponent<UIEquipItem>();
         mEquipItem.OnClickListener += onItemClick;
 
         mAttrs = GetComponentsInChildren<UIEquipDetailAttr>();
         mMain = GetComponent<UIEquipmentMain>();
 
         UpgradeButton.onClick.Add(new EventDelegate(onUpgradeClick));
+        DemountButton.onClick.Add(new EventDelegate(onDemountClick));
     }
 
     public void Set(int slotIndex, UIValueItemData item)
@@ -66,9 +73,7 @@ public class UIEquipDetail : MonoBehaviour
 
         Desc.text = item.Desc;
 
-        string upgradeSprite = item.IsUpgradeable ? UpgradeButtonNormal : UpgradeButtonDisable;
-        UpgradeButton.GetComponent<UISprite>().spriteName = upgradeSprite;
-        UpgradeButton.normalSprite = upgradeSprite;
+        updateButton(item);
 
         foreach(UIEquipDetailAttr attr in mAttrs)
         {
@@ -83,6 +88,39 @@ public class UIEquipDetail : MonoBehaviour
         }
     }
 
+    private void updateButton(UIValueItemData item)
+    {
+        UpgradeButton.gameObject.SetActive(false);
+        DemountButton.gameObject.SetActive(false);
+
+        if(item.Status == UIValueItemData.EStatus.CannotUpgrade)
+        {
+            UpgradeButton.gameObject.SetActive(true);
+            UpgradeButton.GetComponent<UISprite>().spriteName = ButtonDisable;
+            UpgradeButton.normalSprite = ButtonDisable;
+        }
+        else if(item.Status == UIValueItemData.EStatus.Upgradeable)
+        {
+            UpgradeButton.gameObject.SetActive(true);
+            UpgradeButton.GetComponent<UISprite>().spriteName = ButtonNormal;
+            UpgradeButton.normalSprite = ButtonNormal;
+        }
+        else if(item.Status == UIValueItemData.EStatus.CannotDemount)
+        {
+            DemountButton.gameObject.SetActive(true);
+            DemountButton.GetComponent<UISprite>().spriteName = ButtonDisable;
+            DemountButton.normalSprite = ButtonDisable;
+        }
+        else if(item.Status == UIValueItemData.EStatus.Demount)
+        {
+            DemountButton.gameObject.SetActive(true);
+            DemountButton.GetComponent<UISprite>().spriteName = ButtonNormal;
+            DemountButton.normalSprite = ButtonNormal;
+        }
+        else
+            Debug.LogErrorFormat("NotImplemented, Operation:{0}", item.Status);
+    }
+
     private void onItemClick()
     {
         if(OnItemClickListener != null)
@@ -93,5 +131,11 @@ public class UIEquipDetail : MonoBehaviour
     {
         if(OnUpgradeListener != null)
             OnUpgradeListener(mSlotIndex);
+    }
+
+    private void onDemountClick()
+    {
+        if(OnDemountListener != null)
+            OnDemountListener(mSlotIndex);
     }
 }

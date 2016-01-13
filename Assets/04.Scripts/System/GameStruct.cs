@@ -684,6 +684,11 @@ namespace GameStruct
         /// </summary>
         [CanBeNull]public int[] InlayItemIDs;
 
+        /// <summary>
+        /// 堆疊數量.
+        /// </summary>
+	    public int Num;
+
 	    [NotNull]
 	    public int[] RevisionInlayItemIDs
 	    {

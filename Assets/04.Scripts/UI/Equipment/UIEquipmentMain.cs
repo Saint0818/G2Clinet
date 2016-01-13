@@ -71,6 +71,7 @@ public class UIEquipmentMain : MonoBehaviour
 
         mDetail = GetComponent<UIEquipDetail>();
         mDetail.OnItemClickListener += onDetailItemClick;
+        mDetail.OnDemountListener += onDemountClick;
 
         mEquipList = GetComponent<UIEquipItemList>();
         mEquipList.OnClickListener += onListItemClick;
@@ -115,6 +116,11 @@ public class UIEquipmentMain : MonoBehaviour
     private void onDetailItemClick(int slotIndex)
     {
         mEquipList.Show(ListItems[slotIndex], true);
+    }
+
+    private void onDemountClick(int slotIndex)
+    {
+        Debug.LogFormat("onDemountClick, SlotIndex:{0}", slotIndex);
     }
 
     private void onListItemClick(int listIndex)

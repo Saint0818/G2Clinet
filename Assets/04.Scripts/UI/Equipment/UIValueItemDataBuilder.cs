@@ -12,13 +12,14 @@ public static class UIValueItemDataBuilder
         {
             Atlas = Resources.Load<UIAtlas>("UI/UIGame"),
             Icon = "Icon_Create",
-            Frame = "Equipment_1"
+            Frame = "Equipment_1",
+            Status = UIValueItemData.EStatus.CannotDemount
         };
     }
 
-    public static UIValueItemData Build(TItemData item, [NotNull]int[] playerInlayItemIDs)
+    public static UIValueItemData Build(TItemData item, [NotNull] int[] playerInlayItemIDs, int num)
     {
-        return build(item, playerInlayItemIDs, findStorageMaterials(item));
+        return build(item, playerInlayItemIDs, findStorageMaterials(item), num);
     }
 
     private class MaterialItemInfo
@@ -65,12 +66,13 @@ public static class UIValueItemDataBuilder
     /// </summary>
     /// <param name="item"> 數值裝的道具資料. </param>
     /// <param name="playerInlayItemIDs"> 數值裝鑲嵌的狀態(4 個 element), [0]:Material1 鑲嵌材料; 
-    ///                             [1]:Material2 鑲嵌材料, 以此類推.</param>
+    /// [1]:Material2 鑲嵌材料, 以此類推.</param>
     /// <param name="storageMaterials"> 倉庫材料數目(4 個 element), [0]:Material1 擁有的數量, 
-    ///                                    [1]:Material2 擁有的數量, 以此類推. </param>
+    /// [1]:Material2 擁有的數量, 以此類推. </param>
+    /// <param name="num"></param>
     /// <returns></returns>
     private static UIValueItemData build(TItemData item, int[] playerInlayItemIDs, 
-                                         MaterialItemInfo[] storageMaterials)
+                                         MaterialItemInfo[] storageMaterials, int num)
     {
         UIValueItemData valueItem = new UIValueItemData
         {
@@ -84,7 +86,8 @@ public static class UIValueItemDataBuilder
             Values = convertBonus(item.Bonus, item.BonusValues),
             Inlay = convertInlayStatus(playerInlayItemIDs),
             InlayValues = convertInlayBonus(playerInlayItemIDs),
-            IsUpgradeable = UIEquipChecker.IsUpgradeable(item, playerInlayItemIDs)
+            Status = UIEquipChecker.FindStatus(item, playerInlayItemIDs),
+            Num = num
         };
 
         buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);

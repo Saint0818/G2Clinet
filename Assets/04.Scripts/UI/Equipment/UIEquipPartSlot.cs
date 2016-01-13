@@ -20,7 +20,7 @@ public class UIEquipPartSlot : MonoBehaviour
     [UsedImplicitly]
 	private void Awake()
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.ItemEquipmentBtn));
+        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.UIEquipItem));
         obj.transform.parent = UIParent;
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;

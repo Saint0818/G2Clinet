@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 這是一個裝備道具. 會顯示裝備的圖示, 名稱, 數量, 鑲嵌資訊.(會用在裝備介面的左邊和中間)
@@ -14,7 +15,10 @@ public class UIEquipItem : MonoBehaviour
 {
     public event Action OnClickListener;
 
-    public UISprite Picture;
+    [FormerlySerializedAs("Picture")]
+    public UISprite Icon;
+    public GameObject EmptyIcon;
+
     public UILabel Text;
     public UILabel Amount;
     public GameObject RedPoint;
@@ -25,7 +29,6 @@ public class UIEquipItem : MonoBehaviour
     private void Awake()
     {
         // 暫時關閉.
-        Amount.gameObject.SetActive(false);
         Text.gameObject.SetActive(false);
 
         hideAllInlay();
@@ -48,8 +51,7 @@ public class UIEquipItem : MonoBehaviour
     {
         gameObject.SetActive(true);
         
-        Picture.atlas = data.Atlas;
-        Picture.spriteName = data.Icon;
+        updateIcon(data);
 
         GetComponent<UISprite>().spriteName = data.Frame;
         // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
@@ -59,7 +61,26 @@ public class UIEquipItem : MonoBehaviour
 
         RedPoint.SetActive(showRedPoint);
 
+        Amount.gameObject.SetActive(data.Num >= 2);
+        Amount.text = data.Num.ToString();
+
         updateInlay(data.Inlay);
+    }
+
+    private void updateIcon(UIValueItemData data)
+    {
+        if(data.IsEmpty())
+        {
+            EmptyIcon.SetActive(true);
+            Icon.gameObject.SetActive(false);
+        }
+        else
+        {
+            EmptyIcon.SetActive(false);
+            Icon.gameObject.SetActive(true);
+            Icon.atlas = data.Atlas;
+            Icon.spriteName = data.Icon;
+        }
     }
 
     private void updateInlay(bool[] inlayStatus)

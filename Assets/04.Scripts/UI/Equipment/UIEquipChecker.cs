@@ -1,10 +1,20 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 
 public static class UIEquipChecker
 {
-    public static bool IsUpgradeable(TItemData item, int[] playerInlayItemIDs)
+    public static UIValueItemData.EStatus FindStatus(TItemData item, int[] playerInlayItemIDs)
     {
-        return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs) && HasUpgradeMoney(item);
+        if(11 <= item.Kind && item.Kind <= 16)
+            return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs) && HasUpgradeMoney(item) 
+                   ? UIValueItemData.EStatus.Upgradeable 
+                   : UIValueItemData.EStatus.CannotUpgrade;
+        if(item.Kind == 17 || item.Kind == 18)
+            return GameData.Team.Player.ValueItems.ContainsKey(item.Kind)
+                ? UIValueItemData.EStatus.Demount 
+                : UIValueItemData.EStatus.CannotDemount;
+
+        throw new NotImplementedException(string.Format("ItemID:{0}, Kind:{1}", item.ID, item.Kind));
     }
 
     public static bool HasUpgradeItem(TItemData item)

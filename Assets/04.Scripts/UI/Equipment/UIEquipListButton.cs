@@ -10,7 +10,7 @@ public class UIEquipListButton : MonoBehaviour
 {
     public UISprite Icon;
     public UISprite Frame;
-//    public UILabel AmountLabel;
+    public UILabel AmountLabel;
     public UILabel NameLabel;
 
     public UISprite[] Attrs;
@@ -34,16 +34,18 @@ public class UIEquipListButton : MonoBehaviour
         mIndex = index;
     }
 
-    public void Set(UIValueItemData item)
+    public void Set(UIValueItemData data)
     {
-        NameLabel.text = item.Name;
-        Icon.atlas = item.Atlas;
-        Icon.spriteName = item.Icon;
-        Frame.spriteName = item.Frame;
-//        AmountLabel.text = item.Num.ToString();
+        NameLabel.text = data.Name;
+        Icon.atlas = data.Atlas;
+        Icon.spriteName = data.Icon;
+        Frame.spriteName = data.Frame;
 
-        setValues(item.Values);
-        setInlays(item.Inlay);
+        AmountLabel.gameObject.SetActive(data.Num >= 2);
+        AmountLabel.text = data.Num.ToString();
+
+        setValues(data.Values);
+        setInlays(data.Inlay);
     }
 
     private void setValues(Dictionary<EAttribute, UIValueItemData.BonusData> itemValues)
