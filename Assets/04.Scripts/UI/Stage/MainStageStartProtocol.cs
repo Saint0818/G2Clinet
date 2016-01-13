@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
@@ -19,6 +19,11 @@ public class MainStageStartProtocol
         public int[] ConsumeValueItems;
         [UsedImplicitly]
         public Dictionary<int, TValueItem> PlayerValueItems;
+
+        public bool IsPlayerValueItemChanged()
+        {
+            return ConsumeValueItems.Length > 0;
+        }
 
         public override string ToString()
         {
@@ -62,8 +67,7 @@ public class MainStageStartProtocol
             GameData.Team.PowerCD = data.PowerCD;
             GameData.Team.Player.ConsumeValueItems = data.ConsumeValueItems;
 
-            // 數值裝是否改變?
-            if(data.ConsumeValueItems.Length > 0)
+            if(data.IsPlayerValueItemChanged())
                 GameData.Team.Player.ValueItems = data.PlayerValueItems;
         }
 

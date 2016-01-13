@@ -49,6 +49,12 @@ public class UIEquipmentMain : MonoBehaviour
     public UIValueItemData[] PlayerValueItems { get; private set; }
 
     /// <summary>
+    /// <para> 記錄數值裝剛開始的狀態. 這個變數只要是防止脫下次數型數值裝的問題. </para>
+    /// <para> true: 表示剛開始數值裝有東西. </para>
+    /// </summary>
+    private bool[] mIsInitPlayerValueItemValid;
+
+    /// <summary>
     /// 顯示在列表的裝備. [SlotIndex][ListIndex].
     /// </summary>
     public List<List<UIValueItemData>> ListItems { get; private set; }
@@ -91,11 +97,21 @@ public class UIEquipmentMain : MonoBehaviour
         mBasicAttr = new Dictionary<EAttribute, float>(basicAttr);
         PlayerValueItems = playerValueItems;
         ListItems = listItems;
+        buildInitData();
 
         mPlayerInfo.UpdateUI();
         mDetail.Set(mDetail.SlotIndex, PlayerValueItems[mDetail.SlotIndex]); // 更新目前正在顯示的欄位.
         mMaterialList.Set(PlayerValueItems[mDetail.SlotIndex].Materials);
         mEquipList.Hide();
+    }
+
+    private void buildInitData()
+    {
+        mIsInitPlayerValueItemValid = new bool[PlayerValueItems.Length];
+        for(var i = 0; i < PlayerValueItems.Length; i++)
+        {
+            mIsInitPlayerValueItemValid[i] = PlayerValueItems[i].IsValid();
+        }
     }
 
     /// <summary>
@@ -120,12 +136,14 @@ public class UIEquipmentMain : MonoBehaviour
 
     private void onDemountClick(int slotIndex)
     {
-        Debug.LogFormat("onDemountClick, SlotIndex:{0}", slotIndex);
+//        Debug.LogFormat("onDemountClick, SlotIndex:{0}", slotIndex);
 
         if(PlayerValueItems[slotIndex].IsValid())
         {
             ListItems[slotIndex].Add(PlayerValueItems[slotIndex]);
-            PlayerValueItems[slotIndex] = UIValueItemDataBuilder.BuildDemount();
+
+            PlayerValueItems[slotIndex] = mIsInitPlayerValueItemValid[slotIndex] 
+                ? UIValueItemDataBuilder.BuildDemount() : UIValueItemDataBuilder.BuildEmpty();
 
             mPlayerInfo.UpdateUI();
             mDetail.Set(slotIndex, PlayerValueItems[slotIndex]);
@@ -189,8 +207,17 @@ public class UIEquipmentMain : MonoBehaviour
             if(PlayerValueItems[i].StorageIndex != UIValueItemData.StorageIndexNone)
                 return true;
         }
-
         return false;
+    }
+
+    public int[] GetExchangeData()
+    {
+        int[] exchange = new int[8];
+        for(int i = 0; i < exchange.Length; i++)
+        {
+            exchange[i] = PlayerValueItems[i].StorageIndex;
+        }
+        return exchange;
     }
 
     public void OnBackClick()

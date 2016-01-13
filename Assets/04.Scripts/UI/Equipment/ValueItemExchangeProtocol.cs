@@ -9,8 +9,7 @@ public class ValueItemExchangeProtocol
 
     public void Send(int[] exchangeIndices, int[] stackIndices, Action<bool> callback)
     {
-//        Debug.LogFormat("Exchange:{0}, Stack:{1}", DebugerString.Convert(exchangeIndices),
-//            DebugerString.Convert(stackIndices));
+        Debug.LogFormat("Exchange:{0}, Stack:{1}", DebugerString.Convert(exchangeIndices), DebugerString.Convert(stackIndices));
 
         mCallback = callback;
 

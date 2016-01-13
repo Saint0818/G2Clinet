@@ -169,21 +169,11 @@ public class UIEquipment : UIBase
         if(mMain.IsValueItemChanged())
         {
             mActionQueue.Clear();
-            mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
+            mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
             mActionQueue.Execute(onChangeValueItem);
         }
         else
             goToMainLobby();
-    }
-
-    private int[] getExchangeData()
-    {
-        int[] changeValueItems = new int[8];
-        for(int i = 0; i < changeValueItems.Length; i++)
-        {
-            changeValueItems[i] = mMain.PlayerValueItems[i].StorageIndex;
-        }
-        return changeValueItems;
     }
 
     private int[] getStackData()
@@ -230,7 +220,7 @@ public class UIEquipment : UIBase
         {
             mActionQueue.Clear();
             if (mMain.IsValueItemChanged())
-                mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
+                mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
 
             // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
             int valueItemKind = slotIndex + 11;
@@ -256,7 +246,7 @@ public class UIEquipment : UIBase
 
         mActionQueue.Clear();
         if(mMain.IsValueItemChanged())
-            mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
+            mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
         mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
 
         mActionQueue.Execute(onUpgrade);
