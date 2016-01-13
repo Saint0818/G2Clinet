@@ -195,9 +195,12 @@ public class UIMall : UIBase {
 		if(ok)
 		{
 			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject(www.text, typeof(TPickLotteryResult));
-			GameData.Team.Items = result.Team.Items;
-			GameData.Team.SkillCards = result.Team.SkillCards;
-			GameData.Team.Diamond = result.Team.Diamond;
+			GameData.Team.Items = result.Items;
+			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.Money = result.Money;
+			UIMainLobby.Get.UpdateUI();
+			GameData.Team.InitSkillCardCount();
 
 			if(result.ItemIDs != null) {
 				TItemData[] getItemIDs = new TItemData[result.ItemIDs.Length];

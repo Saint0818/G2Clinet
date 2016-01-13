@@ -4,7 +4,10 @@ using UnityEngine;
 
 public struct TPickLotteryResult {
 	public int[] ItemIDs;
-	public TTeam Team;
+	public TItem[] Items;
+	public TSkill[] SkillCards;
+	public int Diamond;
+	public int Money;
 }
 
 public enum EPickSpendType {
@@ -227,10 +230,12 @@ public class UIBuyStore : UIBase {
 	{
 		if(ok)
 		{
-			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject(www.text, typeof(TPickLotteryResult));
-			GameData.Team.Items = result.Team.Items;
-			GameData.Team.SkillCards = result.Team.SkillCards;
-			GameData.Team.Diamond = result.Team.Diamond;
+			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject<TPickLotteryResult>(www.text, SendHttp.Get.JsonSetting);
+			GameData.Team.Items = result.Items;
+			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.Money = result.Money;
+			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 
 			if(result.ItemIDs != null) {
