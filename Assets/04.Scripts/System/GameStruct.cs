@@ -1022,6 +1022,7 @@ namespace GameStruct
     public struct TMission {
         public int ID;
         public int Kind;
+        public int Lv;
         public int Color;
         public int Score;
 		public int PrivousID;

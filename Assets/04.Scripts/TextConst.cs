@@ -155,4 +155,29 @@ public static class TextConst
 			AddString (9000005, "字元長度請介於1-12個字", "");
 		}
     }
+
+    public static string GetSocialText(GameStruct.TSocialEvent e) {
+        switch (e.Kind) {
+            case 1: //friend
+                switch (e.Value) {
+                    case 2: return "\n" + TextConst.S(5029);
+                    case 3: return "\n" + TextConst.S(5024);
+                    case 4: return "\n" + TextConst.S(5030);
+                }
+
+                break;
+            case 4: //item
+                if (GameData.DItemData.ContainsKey(e.Value)) {
+                    int no = 3717;
+                    if (e.Cause == 11)
+                        no = 5034;
+
+                    return "\n" + string.Format(TextConst.S(no), GameData.DItemData[e.Value].Name, e.Num);
+                }
+
+                break;
+        }
+
+        return "";
+    }
 }

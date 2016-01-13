@@ -100,7 +100,7 @@ public class UISelectPartner : UIBase {
 	public void OnSkillHint() {
 		int index = -1;
 		if (int.TryParse(UIButton.current.name, out index) && index >= -1 && index < skillList.Count)
-			UIItemHint.Get.OnShowSkill(skillList[index].Skill);
+            UISkillInfo.Get.ShowFromNewCard(skillList[index].Skill);
 	}
 
 	public void InitMemberList(ref List<TPlayer> playerList, ref TPlayer[] selectAy, int index) {

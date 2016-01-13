@@ -570,8 +570,13 @@ public class SendHttp : KnightSingleton<SendHttp> {
         if (flag) {
             if (!string.IsNullOrEmpty(www.text)) {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
-                for (int i = 0; i < events.Length; i++)
-                    GameData.SocialEvents.Add(events[i]);
+                for (int i = 0; i < events.Length; i++) {
+                    if (!string.IsNullOrEmpty(events[i].Identifier) && GameData.Team.Friends.ContainsKey(events[i].Identifier)) {
+                        events[i].Player.Name = GameData.Team.Friends[events[i].Identifier].Player.Name;
+                        GameData.SocialEvents.Add(events[i]);
+                        UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
+                    }
+                }
 
                 if (UISocial.Visible)
                     UISocial.Get.FreshSocialEvent();

@@ -32,6 +32,7 @@ public class TMissionItem{
 	public UILabel LabelAward2;
     public UILabel LabelExp;
     public UILabel LabelGot;
+    public UILabel LabelScore;
     public UISprite SpriteGot;
 	public UISprite SpriteAward1;
 	public UISprite SpriteAward2;
@@ -44,11 +45,11 @@ public class UIMission : UIBase {
     private static UIMission instance = null;
     private const string UIName = "UIMission";
 
-    private int nowPage = 0;
+    private int nowPage = 1;
 	private int totalScore;
 	private int missionScore;
 	private int missionLine;
-    private const int pageNum = 5;
+    private const int pageNum = 4;
 
     private UILabel totalLabel;
     private UILabel labelStats;
@@ -182,7 +183,6 @@ public class UIMission : UIBase {
 		initDefaultText(mi.Item);
         string name = data.ID.ToString();
 		mi.Item.name = name;
-		mi.Item.GetComponent<UIDragScrollView>().scrollView = pageScrollViews[page];	
 		mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
         mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
 		mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
@@ -194,6 +194,7 @@ public class UIMission : UIBase {
 		mi.LabelAward1 = GameObject.Find(name + "/Window/AwardGroup/Award0").GetComponent<UILabel>();
 		mi.LabelAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1").GetComponent<UILabel>();
         mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
+        mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
         mi.SpriteGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UISprite>();
 		mi.SpriteAward1 = GameObject.Find(name + "/Window/AwardGroup/Award0/Icon").GetComponent<UISprite>();
 		mi.SpriteAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1/Icon").GetComponent<UISprite>();
@@ -227,87 +228,94 @@ public class UIMission : UIBase {
 	private void checkMission(TMissionItem missionItem) {
 		totalScore += missionItem.Mission.Score;
 
-        if (!GameData.DMissionData.ContainsKey(missionItem.Mission.PrivousID) || 
-            GameData.Team.FindMissionLv(missionItem.Mission.PrivousID, missionItem.Mission.TimeKind) >= 
-            GameData.DMissionData[missionItem.Mission.PrivousID].Value.Length) {
-            int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionItem.Mission.ID, missionItem.Mission.TimeKind), missionItem.Mission.Value.Length);
-            if (mLv >= missionItem.Mission.Value.Length)
-                missionScore += missionItem.Mission.Score;
-            
-            if (missionItem.Mission.Final >= 1 || mLv < missionItem.Mission.Value.Length) {
-    			missionItem.Item.SetActive(true);
-    			missionItem.LabelName.text = missionItem.Mission.Name;
-    			missionItem.LabelExplain.text = missionItem.Mission.Explain;
+        if (missionItem.Mission.Lv == 0 || GameData.Team.Player.Lv >= missionItem.Mission.Lv) {
+            if (!GameData.DMissionData.ContainsKey(missionItem.Mission.PrivousID) || 
+                GameData.Team.FindMissionLv(missionItem.Mission.PrivousID, missionItem.Mission.TimeKind) >= 
+                GameData.DMissionData[missionItem.Mission.PrivousID].Value.Length) {
+                int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionItem.Mission.ID, missionItem.Mission.TimeKind), missionItem.Mission.Value.Length);
+                if (mLv >= missionItem.Mission.Value.Length)
+                    missionScore += missionItem.Mission.Score;
+                
+                if (missionItem.Mission.Final >= 1 || mLv < missionItem.Mission.Value.Length) {
+        			missionItem.Item.SetActive(true);
+        			missionItem.LabelName.text = missionItem.Mission.Name;
+        			missionItem.LabelExplain.text = missionItem.Mission.Explain;
+                    if (missionItem.Mission.Score > 0)
+                        missionItem.LabelScore.text = TextConst.S(3718) + " " + missionItem.Mission.Score.ToString();
+                    else
+                        missionItem.LabelScore.text = "";
+                    
+        			if (missionItem.Mission.Final > 0) {
+                        if (mLv >= missionItem.Mission.Value.Length) {
+        					missionItem.UIFinished.SetActive(true);
+        					missionItem.UIGetAwardBtn.gameObject.SetActive(false);
+        				} else
+        					missionItem.UIFinished.SetActive(false);
+        			} else
+        				missionItem.UIFinished.SetActive(false);
 
-    			if (missionItem.Mission.Final > 0) {
-                    if (mLv >= missionItem.Mission.Value.Length) {
-    					missionItem.UIFinished.SetActive(true);
-    					missionItem.UIGetAwardBtn.gameObject.SetActive(false);
-    				} else
-    					missionItem.UIFinished.SetActive(false);
-    			} else
-    				missionItem.UIFinished.SetActive(false);
-
-                int lv = Mathf.Min(mLv, missionItem.Mission.AwardID.Length-1);
-                missionItem.UIExp.SetActive(false);
-                if (GameData.DItemData.ContainsKey(missionItem.Mission.AwardID[lv]))
-                    missionItem.AwardGroup.Show(GameData.DItemData[missionItem.Mission.AwardID[lv]]);
-                else
-                if (missionItem.Mission.Exp[lv] > 0)
-                    missionItem.UIExp.SetActive(true);
-    			
-                if (missionItem.Mission.Diamond[lv] > 0) {
-                    missionItem.LabelAward1.text = missionItem.Mission.Diamond[lv].ToString();
-                    missionItem.SpriteAward1.spriteName = "Icon_Gem";
-                } else
-                if (missionItem.Mission.Money[mLv] > 0) {
-                    missionItem.LabelAward1.text = missionItem.Mission.Money[lv].ToString();
-                    missionItem.SpriteAward1.spriteName = "Icon_Coin";
-                }
-
-                missionItem.LabelAward2.text = missionItem.Mission.Exp[lv].ToString();
-                int mValue = GameData.Team.GetMissionValue(missionItem.Mission.Kind, missionItem.Mission.TimeKind);
-                if (mValue >= missionItem.Mission.Value[lv]) {
-                    missionItem.LabelGot.text = TextConst.S(3706);
-                    missionItem.SpriteGot.spriteName = "button_orange1";
-                    if (!redPoints[nowPage].activeInHierarchy &&mLv == lv)
-                        redPoints[nowPage].SetActive(true);
-                } else {
-                    missionItem.LabelGot.text = TextConst.S(3705);
-                    missionItem.SpriteGot.spriteName = "button_blue2";
-                }
-
-                if (missionItem.Mission.Value[lv] > 0) {
-                    missionItem.LabelExp.text = mValue + " / " + missionItem.Mission.Value[lv];
-                    float r =  (float)mValue / (float)missionItem.Mission.Value[lv];
-                    missionItem.SliderExp.value = r;
-                    if (r > 1) {
-                        r = 1;
-                        missionItem.LabelExp.color = Color.green;
+                    int lv = Mathf.Min(mLv, missionItem.Mission.AwardID.Length-1);
+                    missionItem.UIExp.SetActive(false);
+                    if (GameData.DItemData.ContainsKey(missionItem.Mission.AwardID[lv]))
+                        missionItem.AwardGroup.Show(GameData.DItemData[missionItem.Mission.AwardID[lv]]);
+                    else
+                    if (missionItem.Mission.Exp[lv] > 0)
+                        missionItem.UIExp.SetActive(true);
+        			
+                    if (missionItem.Mission.Diamond[lv] > 0) {
+                        missionItem.LabelAward1.text = missionItem.Mission.Diamond[lv].ToString();
+                        missionItem.SpriteAward1.spriteName = "Icon_Gem";
                     } else
-                        missionItem.LabelExp.color = Color.white;
-                } else
-                    missionItem.LabelExp.text = mValue.ToString();
+                    if (missionItem.Mission.Money[mLv] > 0) {
+                        missionItem.LabelAward1.text = missionItem.Mission.Money[lv].ToString();
+                        missionItem.SpriteAward1.spriteName = "Icon_Coin";
+                    }
 
-    			missionItem.SpriteColor.spriteName = "MissionLv" + missionItem.Mission.Color.ToString();
-                for (int i = 0; i < missionItem.SpriteLvs.Length; i++) {
-                    if (i < missionItem.Mission.Value.Length) {
-                        if (mLv > i) {
-                            missionItem.SpriteLvs[i].gameObject.SetActive(true);
-        				    missionItem.SpriteLvs[i].spriteName = "MissionBall" + missionItem.Mission.Color.ToString();
+                    missionItem.LabelAward2.text = missionItem.Mission.Exp[lv].ToString();
+                    int mValue = GameData.Team.GetMissionValue(missionItem.Mission.Kind, missionItem.Mission.TimeKind, missionItem.Mission.TimeValue);
+                    if (mValue >= missionItem.Mission.Value[lv]) {
+                        missionItem.LabelGot.text = TextConst.S(3706);
+                        missionItem.SpriteGot.spriteName = "button_orange1";
+                        if (!redPoints[nowPage].activeInHierarchy &&mLv == lv)
+                            redPoints[nowPage].SetActive(true);
+                    } else {
+                        missionItem.LabelGot.text = TextConst.S(3705);
+                        missionItem.SpriteGot.spriteName = "button_blue2";
+                    }
+
+                    if (missionItem.Mission.Value[lv] > 0) {
+                        missionItem.LabelExp.text = mValue + " / " + missionItem.Mission.Value[lv];
+                        float r =  (float)mValue / (float)missionItem.Mission.Value[lv];
+                        missionItem.SliderExp.value = r;
+                        if (r > 1) {
+                            r = 1;
+                            missionItem.LabelExp.color = Color.green;
                         } else
-                            missionItem.SpriteLvs[i].gameObject.SetActive(false);
+                            missionItem.LabelExp.color = Color.white;
                     } else
-                    if (missionItem.SpriteLvs[i].transform.parent)
-                       missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(false);
-                }
+                        missionItem.LabelExp.text = mValue.ToString();
 
-                missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
-                missionLine++;
-            } else
-                missionItem.Item.SetActive(false);
-		} else
-			missionItem.Item.SetActive(false);
+        			missionItem.SpriteColor.spriteName = "MissionLv" + missionItem.Mission.Color.ToString();
+                    for (int i = 0; i < missionItem.SpriteLvs.Length; i++) {
+                        if (i < missionItem.Mission.Value.Length) {
+                            if (mLv > i) {
+                                missionItem.SpriteLvs[i].gameObject.SetActive(true);
+            				    missionItem.SpriteLvs[i].spriteName = "MissionBall" + missionItem.Mission.Color.ToString();
+                            } else
+                                missionItem.SpriteLvs[i].gameObject.SetActive(false);
+                        } else
+                        if (missionItem.SpriteLvs[i].transform.parent)
+                           missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(false);
+                    }
+
+                    missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                    missionLine++;
+                } else
+                    missionItem.Item.SetActive(false);
+    		} else
+    			missionItem.Item.SetActive(false);
+        } else
+            missionItem.Item.SetActive(false);
 	}
 
     private void waitMissionFinish(bool ok, WWW www) {
@@ -368,7 +376,7 @@ public class UIMission : UIBase {
             TMission mission = GameData.DMissionData[index];
             int mLv = GameData.Team.FindMissionLv(mission.ID, mission.TimeKind);
             if (mLv < mission.Value.Length) {
-                int mValue = GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind);
+                int mValue = GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
                 if (mValue >= mission.Value[mLv]) {
                     WWWForm form = new WWWForm();
                     form.AddField("MissionID", mission.ID);

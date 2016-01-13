@@ -354,18 +354,26 @@ namespace GameStruct
             return 0;
         }
 
-        public int GetMissionValue(int kind, int timeKind) {
-            switch (timeKind) {
-                case 0: 
-                    GroupRecord.TeamRecord.PVPLv = PVPLv;
-                    GroupRecord.TeamRecord.StatiumLv = StatiumLv;
-                    GroupRecord.TeamRecord.OccupyLv = OccupyLv;
-                    GroupRecord.TeamRecord = LifetimeRecord;
-                    GroupRecord.TeamRecord.Lv = Player.Lv;
-                    GroupRecord.PlayerRecord = Player.PlayerRecord;
+        private int getLifetimeMissionValue(int kind) {
+            GroupRecord.TeamRecord.PVPLv = PVPLv;
+            GroupRecord.TeamRecord.StatiumLv = StatiumLv;
+            GroupRecord.TeamRecord.OccupyLv = OccupyLv;
+            GroupRecord.TeamRecord = LifetimeRecord;
+            GroupRecord.TeamRecord.Lv = Player.Lv;
+            GroupRecord.PlayerRecord = Player.PlayerRecord;
 
-                    return getMissionValue(kind, ref GroupRecord);
-                case 1: return getMissionValue(kind, ref DailyRecord);
+            return getMissionValue(kind, ref GroupRecord);
+        }
+
+        public int GetMissionValue(int kind, int timeKind, int timeValue) {
+            switch (timeKind) {
+                case 0: return getLifetimeMissionValue(kind);
+                case 1: 
+                    if (timeValue == -1) 
+                        return getLifetimeMissionValue(kind);
+                    else
+                        return getMissionValue(kind, ref DailyRecord);
+                    
                 case 2: return getMissionValue(kind, ref WeeklyRecord);
                 case 3: return getMissionValue(kind, ref MonthlyRecord);
             }
@@ -374,17 +382,18 @@ namespace GameStruct
         }
 
         public bool MissionFinished(ref TMission mission) {
-            if (mission.Value != null && FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length)
+            if (mission.Value != null && Player.Lv >= mission.Lv && 
+                FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length)
                 return true;
             else
                 return false;
         }
 
         public bool HaveMissionAward(ref TMission mission) {
-            if (mission.Value != null) {
+            if (mission.Value != null && Player.Lv >= mission.Lv) {
                 int mLv = FindMissionLv(mission.ID, mission.TimeKind);
                 if (mLv < mission.Value.Length) {
-                    int mValue = GetMissionValue(mission.Kind, mission.TimeKind);
+                    int mValue = GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
                     if (mValue >= mission.Value[mLv])
                         return true;
                 }
