@@ -436,7 +436,7 @@ public class UISelectRole : UIBase {
 			break;
 		case EUIRoleSituation.Start:
             if (GameStart.Get.ConnectToServer)
-                pveStart(GameData.StageID);
+                mainStageStart(GameData.StageID);
             else
                 enterGame();
                 
@@ -813,11 +813,10 @@ public class UISelectRole : UIBase {
 		uiRedPoint.SetActive(false);
 	}
 
-    private void pveStart(int stageID)
+    private void mainStageStart(int stageID)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        SendHttp.Get.Command(URLConst.MainStageStart, waitMainStageStart, form);
+        var protocol = new MainStageStartProtocol();
+        protocol.Send(stageID, waitMainStageStart);
     }
 
     private void enterGame() {
@@ -833,15 +832,11 @@ public class UISelectRole : UIBase {
             SceneMgr.Get.ChangeLevel (courtNo);
     }
 
-    private void waitMainStageStart(bool ok, WWW www)
+    private void waitMainStageStart(bool ok)
     {
         if(ok)
-        {
-            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Power = team.Power;
-            GameData.Team.PowerCD = team.PowerCD;
             enterGame();
-        } else
+        else
             UIHint.Get.ShowHint(TextConst.S(9514), Color.red);
     }
 

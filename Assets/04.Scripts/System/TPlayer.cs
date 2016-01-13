@@ -7,9 +7,9 @@ using UnityEngine;
 namespace GameStruct
 {
     /// <summary>
-    /// 這是對應到 Server 端 Team.Player 的資料結構. 但也用在 NPC 的資料.
-    /// 如果是 Team.Player, 必須要呼叫 Init() 做資料初始化.
-    /// 如果是 NPC, 要呼叫 SetID() 做資料初始化.
+    /// <para> 這是對應到 Server 端 Team.Player 的資料結構. 但也用在 NPC 的資料. </para>
+    /// <para> 如果是 Team.Player, 必須要呼叫 Init() 做資料初始化. </para>
+    /// <para> 如果是 NPC, 要呼叫 SetID() 做資料初始化. </para>
     /// </summary>
     public struct TPlayer {
         public int RoleIndex;
@@ -90,6 +90,11 @@ namespace GameStruct
         /// </summary>
         public int NextMainStageID;
 
+        /// <summary>
+        /// 比賽中正在使用的加成道具.
+        /// </summary>
+        public int[] ConsumeValueItems;
+
         public TPlayer(int level)
         {
             AILevel = level;
@@ -129,6 +134,7 @@ namespace GameStruct
 			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
+            ConsumeValueItems = new int[0];
         }
 
         public override string ToString()
