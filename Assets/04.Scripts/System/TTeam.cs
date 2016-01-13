@@ -47,6 +47,11 @@ namespace GameStruct
         public TMail[] Mails;
         public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
 
+        //PVP
+        public int PVPIntegral;
+        public string LeagueName;
+        public int LeagueIcon;
+
         /// <summary>
         /// 玩家選擇的戰術.
         /// </summary>

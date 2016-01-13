@@ -52,8 +52,8 @@ namespace GameItem
             if(go){
                 self = go;
                 btn = self.GetComponent<UIButton>();
-                playerName = self.transform.FindChild("Window/PlayerName").GetComponent<UILabel>();
-                combatLabel = self.transform.FindChild("Window/CombatLabel").GetComponent<UILabel>();
+                playerName = self.transform.FindChild("Window/PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
+                combatLabel = self.transform.FindChild("Window/CombatLabel").gameObject.GetComponent<UILabel>();
                 GameObject obj = self.transform.FindChild("Window/PlayerInGameBtn").gameObject;
                 PvPRankIcon = self.transform.FindChild("Window/PvPRankIcon").gameObject.GetComponent<UISprite>();
                 LeagueIcon = self.transform.FindChild("Window/LeagueView/LeagueIcon").gameObject.GetComponent<UISprite>();
@@ -111,6 +111,18 @@ namespace GameItem
                 WinRateLabel.text = string.Format("{0:0%}", (float)rankData.PVPWin / (float)rankData.PVPCount);
                 PVPIntegral.text = rankData.PVPIntegral.ToString();
             }
+        }
+
+        public void SetParent(GameObject go)
+        {
+            if(isInit)
+                self.transform.parent = go.transform;
+        }
+
+        public void UpdateLocalPosititon(Vector3 pos)
+        {
+            if(isInit)
+                self.transform.localPosition = pos;
         }
     }
 }

@@ -195,4 +195,5 @@
 
     public const int PVPMinLv = 1;
     public const int PVPMaxLv = 22;
+    public const int PVPMaxSort = 100;
 }

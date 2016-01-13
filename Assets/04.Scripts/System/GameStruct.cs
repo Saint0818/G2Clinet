@@ -1285,6 +1285,8 @@ namespace GameStruct
 		public int HighScore;
 		public int BasicScore;
 		public int Calculate;
+        public int Money;
+        public int PVPCoin;
 	}
 
     public struct TTeamRank

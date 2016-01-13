@@ -759,4 +759,17 @@ public static class GameFunction
             return lv;
         }
     }
+
+    public static TTeamRank TTeamCoverTTeamRank(TTeam team)
+    {
+        TTeamRank result = new TTeamRank();
+        result.Player = team.Player;
+        result.PVPIntegral = team.PVPIntegral;
+        result.LeagueName = team.LeagueName;
+        result.LeagueIcon= team.LeagueIcon;
+        result.PVPWin = team.LifetimeRecord.PVPWin;
+        result.PVPCount = team.LifetimeRecord.PVPCount;
+        result.PVPKeepWin = team.LifetimeRecord.PVPKeepWin;
+        return result;
+    }
 }
