@@ -1391,6 +1391,64 @@
         "id": 4513
     },
     {
+        "id": 4501,
+        "explain": "隨機商品商店",
+        "tw": "商 店"
+    },
+    {
+        "id": 4502,
+        "explain": "Tabs/0/雜貨商店",
+        "tw": "雜 貨"
+    },
+    {
+        "id": 4503,
+        "explain": "Tabs/1/聯盟商店（天梯）",
+        "tw": "聯盟幣"
+    },
+    {
+        "id": 4504,
+        "explain": "Tabs/2/社群商店",
+        "tw": "社群幣"
+    },
+    {
+        "id": 4505,
+        "explain": "Tabs/3",
+        "tw": "保留"
+    },
+    {
+        "id": 4506,
+        "explain": "ResetBtn",
+        "tw": "刷 新"
+    },
+    {
+        "id": 4507,
+        "explain": "WarningsLabel",
+        "tw": "每隔 [0000ff]{0}[-] 小時刷新商店"
+    },
+    {
+        "id": 4508,
+        "explain": "ItemShopBtn/FittingIcon",
+        "tw": "試穿中"
+    },
+    {
+        "id": 4509,
+        "explain": "ItemShopBtn/SoldOutIcon",
+        "tw": "售 完",
+        "en": "SOLD OUT"
+    },
+    {
+        "id": 4510
+    },
+    {
+        "id": 4511
+    },
+    {
+        "id": 4512
+    },
+    {
+        "id": 4513
+    },
+    {
         "id": 4901,
         "explain": "體力金幣鑽石儲值"
     },
