@@ -658,34 +658,36 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void ChooseItem (GameObject go) {
-		if(passiveSkillCards.ContainsKey(go.name)) {
-			if(reinforceCards.Count < 6) {
-				if(reinforceItems.ContainsKey(go.name)) {
-					Destroy(reinforceItems[go.name]);
-					passiveSkillCards[go.name].ChooseReinforce(false);
-					reinforceItems.Remove(go.name);
-					reinforceCards.Remove(passiveSkillCards[go.name]);
-					minusUpgradeMoney(passiveSkillCards[go.name].Skill);
-					minusUpgradeView(passiveSkillCards[go.name].Skill);
+		if(!isRunExp) {
+			if(passiveSkillCards.ContainsKey(go.name)) {
+				if(reinforceCards.Count < 6) {
+					if(reinforceItems.ContainsKey(go.name)) {
+						Destroy(reinforceItems[go.name]);
+						passiveSkillCards[go.name].ChooseReinforce(false);
+						reinforceItems.Remove(go.name);
+						reinforceCards.Remove(passiveSkillCards[go.name]);
+						minusUpgradeMoney(passiveSkillCards[go.name].Skill);
+						minusUpgradeView(passiveSkillCards[go.name].Skill);
+					} else {
+						materialSlots[reinforceItems.Count].ShowInput();
+						reinforceItems.Add(go.name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[go.name].Skill));
+						reinforceCards.Add(passiveSkillCards[go.name]);
+						passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
+						addUpgradeMoney(passiveSkillCards[go.name].Skill);
+						addUpgradeView(passiveSkillCards[go.name].Skill);
+					}
 				} else {
-					materialSlots[reinforceItems.Count].ShowInput();
-					reinforceItems.Add(go.name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[go.name].Skill));
-					reinforceCards.Add(passiveSkillCards[go.name]);
-					passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
-					addUpgradeMoney(passiveSkillCards[go.name].Skill);
-					addUpgradeView(passiveSkillCards[go.name].Skill);
+					if(reinforceItems.ContainsKey(go.name)) {
+						Destroy(reinforceItems[go.name]);
+						passiveSkillCards[go.name].ChooseReinforce(false);
+						reinforceItems.Remove(go.name);
+						reinforceCards.Remove(passiveSkillCards[go.name]);
+						minusUpgradeMoney(passiveSkillCards[go.name].Skill);
+						minusUpgradeView(passiveSkillCards[go.name].Skill);
+					} 
 				}
-			} else {
-				if(reinforceItems.ContainsKey(go.name)) {
-					Destroy(reinforceItems[go.name]);
-					passiveSkillCards[go.name].ChooseReinforce(false);
-					reinforceItems.Remove(go.name);
-					reinforceCards.Remove(passiveSkillCards[go.name]);
-					minusUpgradeMoney(passiveSkillCards[go.name].Skill);
-					minusUpgradeView(passiveSkillCards[go.name].Skill);
-				} 
+				RefreshSlot ();
 			}
-			RefreshSlot ();
 		}
 	}
 
@@ -759,41 +761,43 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
-			if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
-				UIHint.Get.ShowHint(TextConst.S(556), Color.red);
-			} else {
-				if(reinforceCards.Count > 0) {
-					if(CheckMoney(reinforceMoney)) {
-						removeIndexs = new int[reinforceCards.Count];
-						for (int i=0; i<removeIndexs.Length; i++) {
-							removeIndexs[i] = reinforceCards[i].CardIndex;
-						}
-						
-						//Bobble Sort
-						if(removeIndexs.Length > 1) {
-							for(int i=0; i<removeIndexs.Length; i++) {
-								for (int j=i+1; j<removeIndexs.Length; j++){
-									if (removeIndexs[i] >= removeIndexs[j]){
-										int temp = removeIndexs[i];
-										removeIndexs[i] = removeIndexs[j];
-										removeIndexs[j] = temp;
+		if(!isRunExp) {
+			if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
+				if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
+					UIHint.Get.ShowHint(TextConst.S(556), Color.red);
+				} else {
+					if(reinforceCards.Count > 0) {
+						if(CheckMoney(reinforceMoney)) {
+							removeIndexs = new int[reinforceCards.Count];
+							for (int i=0; i<removeIndexs.Length; i++) {
+								removeIndexs[i] = reinforceCards[i].CardIndex;
+							}
+							
+							//Bobble Sort
+							if(removeIndexs.Length > 1) {
+								for(int i=0; i<removeIndexs.Length; i++) {
+									for (int j=i+1; j<removeIndexs.Length; j++){
+										if (removeIndexs[i] >= removeIndexs[j]){
+											int temp = removeIndexs[i];
+											removeIndexs[i] = removeIndexs[j];
+											removeIndexs[j] = temp;
+										}
 									}
 								}
 							}
+							
+							if(removeIndexs.Length > 0) {
+								if(isEquiped)
+									SendReinforcePlayer();
+								else
+									SendReinforce();
+							}
+						} else {
+							UIHint.Get.ShowHint(TextConst.S(510), Color.white);
 						}
-						
-						if(removeIndexs.Length > 0) {
-							if(isEquiped)
-								SendReinforcePlayer();
-							else
-								SendReinforce();
-						}
-					} else {
-						UIHint.Get.ShowHint(TextConst.S(510), Color.white);
-					}
-				} else 
-					UIHint.Get.ShowHint(TextConst.S(557), Color.white);
+					} else 
+						UIHint.Get.ShowHint(TextConst.S(557), Color.white);
+				}
 			}
 		}
 	}
