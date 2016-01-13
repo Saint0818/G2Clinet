@@ -574,12 +574,17 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     if (!string.IsNullOrEmpty(events[i].Identifier) && GameData.Team.Friends.ContainsKey(events[i].Identifier)) {
                         events[i].Player.Name = GameData.Team.Friends[events[i].Identifier].Player.Name;
                         GameData.SocialEvents.Add(events[i]);
-                        UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
+
+                        if (GameData.Setting.SocialEventTime.CompareTo(events[i].Time) < 0) {
+                            UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
+                            if (UIMainLobby.Get.IsVisible)
+                                UIMainLobby.Get.Main.SocialNotice = true;
+                        }
                     }
                 }
 
                 if (UISocial.Visible)
-                    UISocial.Get.FreshSocialEvent();
+                    UISocial.Get.FreshSocialEvent(0);
             }
         }
 
@@ -624,7 +629,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
                                 else
                                     GameData.Team.Friends[events[i].TargetID] = friend;
 
-                                UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
+                                if (GameData.Setting.WatchFriendTime.CompareTo(events[i].Time) < 0) {
+                                    UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
+                                    if (UIMainLobby.Get.IsVisible)
+                                        UIMainLobby.Get.Main.SocialNotice = true;
+                                }
+
                                 flag = true;
                             } else 
                             if (events[i].Value == EFriendKind.Friend) {

@@ -70,7 +70,10 @@
 		NewCardFlag,  // 2:Get New Card
 		AnnouncementDate,
 		AnnouncementDaily,
-        Quality
+        Quality,
+        ShowEvent,
+        SocialEventTime,
+        WatchFriendTime
 	}
 
     public enum QualityType

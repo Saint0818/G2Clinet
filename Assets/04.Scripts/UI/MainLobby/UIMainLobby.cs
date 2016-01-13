@@ -90,7 +90,7 @@ public class UIMainLobby : UIBase
         Main.EquipmentNotice = false;
         Main.AvatarNotice = false;
         Main.SkillNotice = false;
-        Main.SocialNotice = false;
+        Main.SocialNotice = GameData.Setting.ShowEvent;
         Main.ShopNotice = false;
         Main.MissionNotice = haveMissionAward;
         Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);

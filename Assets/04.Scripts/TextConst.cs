@@ -1,5 +1,6 @@
 //#define OutFile
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using GameEnum;
 
@@ -166,6 +167,12 @@ public static class TextConst
                 }
 
                 break;
+            case 3: //mission
+                if (GameData.DMissionData.ContainsKey(e.Value)) {
+                    return GameData.DMissionData[e.Value].Name;
+                }
+
+                break;
             case 4: //item
                 if (GameData.DItemData.ContainsKey(e.Value)) {
                     int no = 3717;
@@ -179,5 +186,63 @@ public static class TextConst
         }
 
         return "";
+    }
+
+    public static string SecondString(int sec) {
+        int d = 0;
+        int s = 0; 
+        int m = 0; 
+        int h = 0; 
+        string sResult = "";
+
+        try {
+            s = sec % 60; 
+
+            if (sec >= 60) {
+                m = sec / 60; 
+                if (m >= 60) {
+                    h = m / 60;
+                    m = m % 60;  
+
+                    if (h >= 24) {
+                        d = (h) / 24; 
+                        h = h % 24;
+                    }
+                }
+            }
+
+            if (d > 0)
+                sResult = string.Format(TextConst.S(245), d, h);
+            else 
+            if (h > 0)
+                sResult = string.Format(TextConst.S(244), h, m);
+             else
+                sResult = string.Format(TextConst.S(243), m, s);
+
+        } catch {
+            sResult = string.Format("{0}s", sec.ToString());    
+        }
+
+        return sResult;
+    }
+
+    public static string AfterTimeString(DateTime time) {
+        double dt = new System.TimeSpan(DateTime.UtcNow.Ticks - time.Ticks).TotalSeconds / 60;
+        if (dt <= 0)
+            dt = 1;
+        
+        double t = 0;
+        if (dt < 60)
+            return string.Format(S(246), dt);
+        else //after hour
+        if (dt < 1440) {
+            t = dt / 60;
+            return string.Format(S(247), t);
+        } else //after 7 days
+        if (dt < 10080) {
+            t = dt / 1440;
+            return string.Format(S(248), t);
+        } else
+            return time.ToString();
     }
 }

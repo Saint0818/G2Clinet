@@ -128,6 +128,30 @@
         "tw": " {0} 不足"
     },
     {
+        "id": 243,
+        "tw": " {0:00}天{1:00}時"
+    },
+    {
+        "id": 244,
+        "tw": " {0:00}時{1:00}分"
+    },
+    {
+        "id": 245,
+        "tw": " {0:00}分{1:00}秒"
+    },
+    {
+        "id": 246,
+        "tw": " {0:00}分鐘前"
+    },
+    {
+        "id": 247,
+        "tw": " {0:00}小時前"
+    },
+    {
+        "id": 248,
+        "tw": " {0:00}天前"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。",
@@ -561,7 +585,7 @@
     {
         "id": 3006,
         "explain": "AttrKind0/KindLabel",
-        "tw": "2PT",
+        "tw": "2分",
         "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
@@ -569,7 +593,7 @@
     {
         "id": 3007,
         "explain": "AttrKind1/KindLabel",
-        "tw": "3PT",
+        "tw": "3分",
         "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
@@ -577,7 +601,7 @@
     {
         "id": 3008,
         "explain": "AttrKind2/KindLabel",
-        "tw": "SPD",
+        "tw": "速度",
         "cn": "SPD",
         "en": "SPD",
         "jp": "SPD"
@@ -585,7 +609,7 @@
     {
         "id": 3009,
         "explain": "AttrKind3/KindLabel",
-        "tw": "STA",
+        "tw": "耐力",
         "cn": "STA",
         "en": "STA",
         "jp": "STA"
@@ -593,7 +617,7 @@
     {
         "id": 3010,
         "explain": "AttrKind4/KindLabel",
-        "tw": "STR",
+        "tw": "力量",
         "cn": "STR",
         "en": "STR",
         "jp": "STR"
@@ -601,7 +625,7 @@
     {
         "id": 3011,
         "explain": "AttrKind5/KindLabel",
-        "tw": "DNK",
+        "tw": "灌籃",
         "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
@@ -609,7 +633,7 @@
     {
         "id": 3012,
         "explain": "AttrKind6/KindLabel",
-        "tw": "REB",
+        "tw": "籃板",
         "cn": "REB",
         "en": "REB",
         "jp": "REB"
@@ -617,7 +641,7 @@
     {
         "id": 3013,
         "explain": "AttrKind7/KindLabel",
-        "tw": "BLK",
+        "tw": "火鍋",
         "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
@@ -625,7 +649,7 @@
     {
         "id": 3014,
         "explain": "AttrKind8/KindLabel",
-        "tw": "DEF",
+        "tw": "防守",
         "cn": "DEF",
         "en": "DEF",
         "jp": "DEF"
@@ -633,7 +657,7 @@
     {
         "id": 3015,
         "explain": "AttrKind9/KindLabel",
-        "tw": "STL",
+        "tw": "抄截",
         "cn": "STL",
         "en": "STL",
         "jp": "STL"
@@ -641,7 +665,7 @@
     {
         "id": 3016,
         "explain": "AttrKind10/KindLabel",
-        "tw": "DRB",
+        "tw": "控球",
         "cn": "DRB",
         "en": "DRB",
         "jp": "DRB"
@@ -649,7 +673,7 @@
     {
         "id": 3017,
         "explain": "AttrKind11/KindLabel",
-        "tw": "PAS",
+        "tw": "傳球",
         "cn": "PAS",
         "en": "PAS",
         "jp": "PAS"
@@ -676,42 +700,42 @@
     {
         "id": 3022,
         "explain": "Attribute1/Label",
-        "tw": "BLK",
+        "tw": "火鍋",
         "cn": "BLK",
         "en": "BLK"
     },
     {
         "id": 3023,
         "explain": "Attribute2/Label",
-        "tw": "REB",
+        "tw": "籃板",
         "cn": "REB",
         "en": "REB"
     },
     {
         "id": 3024,
         "explain": "Attribute3/Label",
-        "tw": "DNK",
+        "tw": "灌籃",
         "cn": "DNK",
         "en": "DNK"
     },
     {
         "id": 3025,
         "explain": "Attribute4/Label",
-        "tw": "3PT",
+        "tw": "3分",
         "cn": "3PT",
         "en": "3PT"
     },
     {
         "id": 3026,
         "explain": "Attribute5/Label",
-        "tw": "2PT",
+        "tw": "2分",
         "cn": "2PT",
         "en": "2PT"
     },
     {
         "id": 3027,
         "explain": "Attribute6/Label",
-        "tw": "STL",
+        "tw": "抄截",
         "cn": "STL",
         "en": "STL"
     },
@@ -1293,7 +1317,20 @@
     {
         "id": 4200,
         "explain": "銷售語",
-        "tw": "最划算"
+        "tw": "特賣",
+        "en": "Sale"
+    },
+    {
+        "id": 4201,
+        "explain": "銷售語",
+        "tw": "熱門",
+        "en": "Hot"
+    },
+    {
+        "id": 4202,
+        "explain": "銷售語",
+        "tw": "限時",
+        "en": "Sale"
     },
     {
         "id": 4501,
@@ -2566,7 +2603,7 @@
     {
         "id": 10305,
         "explain": "PTS/LabelTitle",
-        "tw": "PTS",
+        "tw": "總得分",
         "cn": "PTS",
         "en": "PTS",
         "jp": "PTS"
@@ -2574,7 +2611,7 @@
     {
         "id": 10306,
         "explain": "FG/LabelTitle",
-        "tw": "FG",
+        "tw": "2分",
         "cn": "FG",
         "en": "FG",
         "jp": "FG"
@@ -2582,7 +2619,7 @@
     {
         "id": 10307,
         "explain": "3FG/LabelTitle",
-        "tw": "3FG",
+        "tw": "3分",
         "cn": "3FG",
         "en": "3FG",
         "jp": "3FG"
@@ -2590,7 +2627,7 @@
     {
         "id": 10308,
         "explain": "REB/LabelTitle",
-        "tw": "REB",
+        "tw": "籃板",
         "cn": "REB",
         "en": "REB",
         "jp": "REB"
@@ -2598,7 +2635,7 @@
     {
         "id": 10309,
         "explain": "AST/LabelTitle",
-        "tw": "AST",
+        "tw": "助攻",
         "cn": "AST",
         "en": "AST",
         "jp": "AST"
@@ -2606,7 +2643,7 @@
     {
         "id": 10310,
         "explain": "STL/LabelTitle",
-        "tw": "STL",
+        "tw": "抄截",
         "cn": "STL",
         "en": "STL",
         "jp": "STL"
@@ -2614,7 +2651,7 @@
     {
         "id": 10311,
         "explain": "BLK/LabelTitle",
-        "tw": "BLK",
+        "tw": "火鍋",
         "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
@@ -2622,7 +2659,7 @@
     {
         "id": 10312,
         "explain": "TOV/LabelTitle",
-        "tw": "TOV",
+        "tw": "失誤",
         "cn": "TOV",
         "en": "TOV",
         "jp": "TOV"
@@ -2630,7 +2667,7 @@
     {
         "id": 10313,
         "explain": "PUSH/LabelTitle",
-        "tw": "PUSH",
+        "tw": "推人",
         "cn": "PUSH",
         "en": "PUSH",
         "jp": "PUSH"
@@ -2638,7 +2675,7 @@
     {
         "id": 10314,
         "explain": "KNOCK/LabelTitle",
-        "tw": "KNOCK",
+        "tw": "擊倒",
         "cn": "KNOCK",
         "en": "KNOCK",
         "jp": "KNOCK"
@@ -2799,7 +2836,7 @@
     {
         "id": 10408,
         "explain": "TeamStats/HomeLabel",
-        "tw": "HOME",
+        "tw": "我方進攻",
         "cn": "HOME",
         "en": "HOME",
         "jp": "HOME"
@@ -2807,7 +2844,7 @@
     {
         "id": 10409,
         "explain": "TeamStats/AwayLabel",
-        "tw": "AWAY",
+        "tw": "敵隊進攻",
         "cn": "AWAY",
         "en": "AWAY",
         "jp": "AWAY"
@@ -2815,7 +2852,7 @@
     {
         "id": 10410,
         "explain": "2PTLabel",
-        "tw": "2PT",
+        "tw": "2分球",
         "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
@@ -2823,7 +2860,7 @@
     {
         "id": 10411,
         "explain": "3PTLabel",
-        "tw": "3PT",
+        "tw": "3分球",
         "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
@@ -2831,7 +2868,7 @@
     {
         "id": 10412,
         "explain": "DNKLabel",
-        "tw": "DNK",
+        "tw": "灌籃",
         "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
@@ -2839,7 +2876,7 @@
     {
         "id": 10413,
         "explain": "REBLabel",
-        "tw": "REB",
+        "tw": "籃板",
         "cn": "REB",
         "en": "REB",
         "jp": "REB"
@@ -2847,7 +2884,7 @@
     {
         "id": 10414,
         "explain": "STLLabel",
-        "tw": "STL",
+        "tw": "抄截",
         "cn": "STL",
         "en": "STL",
         "jp": "STL"
@@ -2855,7 +2892,7 @@
     {
         "id": 10415,
         "explain": "ASTLabel",
-        "tw": "AST",
+        "tw": "助攻",
         "cn": "AST",
         "en": "AST",
         "jp": "AST"
@@ -2863,7 +2900,7 @@
     {
         "id": 10416,
         "explain": "BLKLabel",
-        "tw": "BLK",
+        "tw": "火鍋",
         "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
@@ -2875,7 +2912,7 @@
     {
         "id": 10501,
         "explain": "1.2分 2-Point（2PT）",
-        "tw": "2PT",
+        "tw": "2分",
         "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
@@ -2883,7 +2920,7 @@
     {
         "id": 10502,
         "explain": "2.3分 3-Point（3PT）",
-        "tw": "3PT",
+        "tw": "3分",
         "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
@@ -2891,7 +2928,7 @@
     {
         "id": 10503,
         "explain": "3.速度 Speed（SPD)  撲球",
-        "tw": "SPD",
+        "tw": "速度",
         "cn": "SPD",
         "en": "SPD",
         "jp": "SPD"
@@ -2899,7 +2936,7 @@
     {
         "id": 10504,
         "explain": "4.耐力 Stamina（STA) 跌倒起身",
-        "tw": "STA",
+        "tw": "耐力",
         "cn": "STA",
         "en": "STA",
         "jp": "STA"
@@ -2907,7 +2944,7 @@
     {
         "id": 10505,
         "explain": "5.力量 Strength（STR）肘擊",
-        "tw": "STR",
+        "tw": "力量",
         "cn": "STR",
         "en": "STR",
         "jp": "STR"
@@ -2915,7 +2952,7 @@
     {
         "id": 10506,
         "explain": "6.灌籃 Dunk（DNK）灌籃",
-        "tw": "DNK",
+        "tw": "灌籃",
         "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
@@ -2923,7 +2960,7 @@
     {
         "id": 10507,
         "explain": "7.籃板 Rebound（REB)搶籃板",
-        "tw": "REB",
+        "tw": "籃板",
         "cn": "REB",
         "en": "REB",
         "jp": "REB"
@@ -2931,7 +2968,7 @@
     {
         "id": 10508,
         "explain": "8.火鍋 Block（BLK）火鍋",
-        "tw": "BLK",
+        "tw": "火鍋",
         "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
@@ -2939,7 +2976,7 @@
     {
         "id": 10509,
         "explain": "9.防守 Defence（DEF)  推人",
-        "tw": "DEF",
+        "tw": "防守",
         "cn": "DEF",
         "en": "DEF",
         "jp": "DEF"
@@ -2947,7 +2984,7 @@
     {
         "id": 10510,
         "explain": "10.抄截 Steal（STL）抄截",
-        "tw": "STL",
+        "tw": "抄截",
         "cn": "STL",
         "en": "STL",
         "jp": "STL"
@@ -2955,7 +2992,7 @@
     {
         "id": 10511,
         "explain": "11.控球 Dribble（DRB)  運球過人",
-        "tw": "DRB",
+        "tw": "控球",
         "cn": "DRB",
         "en": "DRB",
         "jp": "DRB"
@@ -2963,7 +3000,7 @@
     {
         "id": 10512,
         "explain": "12.傳球 Pass（PAS）傳球",
-        "tw": "PAS",
+        "tw": "傳球",
         "cn": "PAS",
         "en": "PAS",
         "jp": "PAS"

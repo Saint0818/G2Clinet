@@ -223,13 +223,21 @@ public static class GameData {
 							}
 						#endif
 						break;
-
+                    case ESave.ShowEvent:
+                        Setting.ShowEvent = false;
+                        break;
+                    case ESave.SocialEventTime:
+                        Setting.SocialEventTime = DateTime.UtcNow;
+                        break;
+                    case ESave.WatchFriendTime:
+                        Setting.WatchFriendTime = DateTime.UtcNow;
+                        break;
 				}
 			}
 			else
 			{
 				int index = PlayerPrefs.GetInt (item.ToString());
-
+                string str = "";
 				switch(item)
 				{
 					case ESave.MusicOn:
@@ -279,6 +287,35 @@ public static class GameData {
 					case ESave.NewAvatar7:
 						Setting.NewAvatar[7] = index;
 						break;
+                    case ESave.ShowEvent:
+                        Setting.ShowEvent = index > 0 ? true : false;
+                        break;
+                    case ESave.SocialEventTime:
+                        str = PlayerPrefs.GetString(item.ToString());
+                        if (!string.IsNullOrEmpty(str)) {
+                            try {
+                                Setting.SocialEventTime = Convert.ToDateTime(str);
+                            } catch (Exception e) {
+                                Setting.SocialEventTime = DateTime.UtcNow;
+                                Debug.Log(e.ToString());
+                            }
+                        } else
+                            Setting.SocialEventTime = DateTime.UtcNow;
+
+                        break;
+                    case ESave.WatchFriendTime:
+                        str = PlayerPrefs.GetString(item.ToString());
+                        if (!string.IsNullOrEmpty(str)) {
+                            try {
+                                Setting.WatchFriendTime = Convert.ToDateTime(str);
+                            } catch (Exception e) {
+                                Setting.WatchFriendTime = DateTime.UtcNow;
+                                Debug.Log(e.ToString());
+                            }
+                        } else
+                            Setting.WatchFriendTime = DateTime.UtcNow;
+                        
+                        break;
 				}
 			}
 		}

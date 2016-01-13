@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using GameEnum;
 using Newtonsoft.Json;
 
 public class EFriendKind {
@@ -27,17 +28,14 @@ public class TSocialEventItem {
     public GameObject UIStage;
     public GameObject UIAward;
     public GameObject UISkill;
-    public GameObject UIAchievement;
-    public GameObject UIAwardName;
-    public GameObject UIMessage;
+    public GameObject UIMission;
     public ItemAwardGroup AwardGroup;
     public TActiveSkillCard SkillCard;
     public UILabel LabelName;
     public UILabel LabelLv;
     public UILabel LabelPower;
     public UILabel LabelRelation;
-    public UILabel LabelAward;
-    public UILabel LabelMessage;
+    public UILabel LabelTime;
     public UIButton ButtonGood;
 }
 
@@ -220,9 +218,7 @@ public class UISocial : UIBase {
             team.UIPower = GameObject.Find(name + "/Window/Power");
             team.UIStage = GameObject.Find(name + "/Window/Stage");
             team.UISkill = GameObject.Find(name + "/Window/Skill");
-            team.UIAchievement = GameObject.Find(name + "/Window/Achievement");
-            team.UIAwardName = GameObject.Find(name + "/Window/AwardName");
-            team.UIMessage = GameObject.Find(name + "/Window/Message");
+            team.UIMission = GameObject.Find(name + "/Window/Mission");
             team.UIAward = GameObject.Find(name + "/Window/Item");
             team.AwardGroup = team.UIAward.GetComponent<ItemAwardGroup>();
             team.SkillCard = new TActiveSkillCard();
@@ -231,6 +227,8 @@ public class UISocial : UIBase {
             team.LabelPower = GameObject.Find(name + "/Window/Power").GetComponent<UILabel>();
             team.LabelLv = GameObject.Find(name + "/Window/Lv").GetComponent<UILabel>();
             team.LabelRelation = GameObject.Find(name + "/Window/Good/Label").GetComponent<UILabel>();
+            team.LabelTime = GameObject.Find(name + "/Window/TimeLabel").GetComponent<UILabel>();
+
             SetLabel(name + "/Window/Power/Label", TextConst.S(3019));
             SetLabel(name + "/Window/Lv/Label", TextConst.S(3761));
             SetLabel(name + "/Window/Cancel/Label", TextConst.S(5033));
@@ -249,9 +247,7 @@ public class UISocial : UIBase {
             team.UIStage.SetActive(false);
             team.UIAward.SetActive(false);
             team.UISkill.SetActive(false);
-            team.UIAchievement.SetActive(false);
-            team.UIAwardName.SetActive(false);
-            team.UIMessage.SetActive(false);
+            team.UIMission.SetActive(false);
             team.Item.transform.parent = pageScrollViews[page].gameObject.transform;
             team.Item.transform.localPosition = new Vector3(-370 + index * 330, 77, 0);
             team.Item.transform.localScale = Vector3.one;
@@ -323,10 +319,13 @@ public class UISocial : UIBase {
 
     private void setGoodSprite(int page, TSocialEventItem item) {
         item.UICancel.SetActive(false);
+        item.LabelTime.text = "";
         item.LabelRelation.text = "";
         item.LabelName.text = item.Friend.Player.Name;
         item.LabelName.color = Color.white;
         if (page == 0) {
+            item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time);
+
             if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier)) {
                 item.ButtonGood.defaultColor = Color.white;
                 item.ButtonGood.hover = Color.white;
@@ -349,6 +348,7 @@ public class UISocial : UIBase {
                     item.LabelRelation.text = TextConst.S(5024);
                     break;
                 case EFriendKind.Ask:
+                    item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time);
                     item.LabelRelation.text = TextConst.S(5023);
                     item.LabelName.text += "\n" + TextConst.S(5032);
                     item.UICancel.SetActive(true);
@@ -372,17 +372,30 @@ public class UISocial : UIBase {
     }
 
     private void setEventContent(int page, int index) {
-        friendList[page][index].LabelName.text = "";
-        friendList[page][index].LabelRelation.text = "";
         friendList[page][index].UIStage.SetActive(false);
         friendList[page][index].UIAward.SetActive(false);
         friendList[page][index].UISkill.SetActive(false);
-        friendList[page][index].UIAchievement.SetActive(false);
+        friendList[page][index].UIMission.SetActive(false);
+        friendList[page][index].LabelName.text = "";
+        friendList[page][index].LabelRelation.text = "";
 
         TSocialEvent e = friendList[page][index].Event;
         if (page == 0) {
             friendList[page][index].LabelName.text = e.Player.Name + TextConst.GetSocialText(e);
             switch (e.Kind) {
+                case 3: //mission
+                    if (GameData.DMissionData.ContainsKey(e.Value)) {
+                        int itemID = 0;
+                        if (GameData.DMissionData[e.Value].AwardID != null && GameData.DMissionData[e.Value].AwardID.Length > 0)
+                            itemID = GameData.DMissionData[e.Value].AwardID[GameData.DMissionData[e.Value].AwardID.Length-1];
+                        
+                        if (GameData.DItemData.ContainsKey(itemID)) {
+                            friendList[page][index].UIAward.SetActive(true);
+                            friendList[page][index].AwardGroup.Show(GameData.DItemData[e.Value]);
+                        }
+                    }
+
+                    break;
                 case 4: //item
                     if (GameData.DItemData.ContainsKey(e.Value)) {
                         if (GameData.DItemData[e.Value].Kind == 21 && GameData.DSkillData.ContainsKey(GameData.DItemData[e.Value].Avatar)) {
@@ -535,6 +548,22 @@ public class UISocial : UIBase {
         pageObjects[page].SetActive(true);
         nowPage = page;
         initList(page);
+
+        if (page == 0 || page == 1) {
+            if (page == 0) {
+                GameData.Setting.SocialEventTime = DateTime.UtcNow;
+                PlayerPrefs.SetString(ESave.SocialEventTime.ToString(), DateTime.UtcNow.ToString());
+            } else {
+                GameData.Setting.WatchFriendTime = DateTime.UtcNow;
+                PlayerPrefs.SetString(ESave.WatchFriendTime.ToString(), DateTime.UtcNow.ToString());
+            }
+
+            GameData.Setting.ShowEvent = GameData.Setting.SocialEventTime.CompareTo(DateTime.UtcNow) >= 0 &&
+                                         GameData.Setting.WatchFriendTime.CompareTo(DateTime.UtcNow) >= 0;
+            int flag = GameData.Setting.ShowEvent == true ? 1 : 0;
+            PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), flag);
+            PlayerPrefs.Save();
+        }
     }
 
     public void OnPage() {
@@ -610,8 +639,9 @@ public class UISocial : UIBase {
 
     }
 
-    public void FreshSocialEvent() {
-        
+    public void FreshSocialEvent(int page) {
+        if (nowPage == page)
+            initList(page);
     }
 
     public void FreshFriend(int page) {

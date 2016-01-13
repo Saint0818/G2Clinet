@@ -55,7 +55,7 @@ namespace GameStruct
         public DateTime Time;
         public Dictionary<string, int> Good;
         public int GoodCount;
-        public int Kind; //1.friend 2.stage 3.archivement 4.item 5.pvp
+        public int Kind; //1.friend 2.stage 3.mission 4.item 5.pvp
         public int Cause;
         public int Value;
         public int Num;
@@ -537,6 +537,9 @@ namespace GameStruct
 		public bool Music;
 		public bool Sound;
 		public Dictionary<int, int> NewAvatar;
+        public bool ShowEvent;
+        public DateTime SocialEventTime;
+        public DateTime WatchFriendTime;
 	}
 
 	public struct TPlayerPackage {
