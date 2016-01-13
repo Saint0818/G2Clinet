@@ -96,11 +96,6 @@ public class UIValueItemData
         return String.Format("Name: {0}, Icon: {1}, Desc: {2}", Name, Icon, Desc);
     }
 
-    public bool IsEmpty()
-    {
-        return string.IsNullOrEmpty(Name);
-    }
-
     public bool IsValid()
     {
         return !string.IsNullOrEmpty(Name);

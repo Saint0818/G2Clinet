@@ -53,10 +53,6 @@ public class UIEquipItem : MonoBehaviour
         
         updateIcon(data);
 
-        GetComponent<UISprite>().spriteName = data.Frame;
-        // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
-        GetComponent<UIButton>().normalSprite = data.Frame;
-
         Text.text = data.Name;
 
         RedPoint.SetActive(showRedPoint);
@@ -69,17 +65,25 @@ public class UIEquipItem : MonoBehaviour
 
     private void updateIcon(UIValueItemData data)
     {
-        if(data.IsEmpty())
-        {
-            EmptyIcon.SetActive(true);
-            Icon.gameObject.SetActive(false);
-        }
-        else
+        if(data.IsValid())
         {
             EmptyIcon.SetActive(false);
             Icon.gameObject.SetActive(true);
             Icon.atlas = data.Atlas;
             Icon.spriteName = data.Icon;
+
+            GetComponent<UISprite>().spriteName = data.Frame;
+            // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
+            GetComponent<UIButton>().normalSprite = data.Frame;
+        }
+        else
+        {
+            EmptyIcon.SetActive(true);
+            Icon.gameObject.SetActive(false);
+
+            GetComponent<UISprite>().spriteName = string.Empty;
+            // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
+            GetComponent<UIButton>().normalSprite = string.Empty;
         }
     }
 
