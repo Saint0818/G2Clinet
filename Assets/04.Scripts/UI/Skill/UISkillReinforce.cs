@@ -10,6 +10,7 @@ public struct TExpView {
 	public UISlider ProgressBar2;
 	public UILabel NextLevelLabel;
 	public UILabel GetLevelLabel;
+	public GameObject BarFullFX;
 
 	private int currentExp;
 	private int maxExp;
@@ -20,9 +21,12 @@ public struct TExpView {
 		ProgressBar2 = ExpView.transform.FindChild("ProgressBar2").GetComponent<UISlider>();
 		NextLevelLabel = ExpView.transform.FindChild("NextLevelLabel").GetComponent<UILabel>();
 		GetLevelLabel = ExpView.transform.FindChild("GetLevelLabel").GetComponent<UILabel>();
+		BarFullFX = ExpView.transform.FindChild("BarFullFX").gameObject;
 
-		if(ExpView == null || ProgressBar == null || ProgressBar2 == null)
+		if(ExpView == null || ProgressBar == null || ProgressBar2 == null || BarFullFX == null)
 			Debug.LogError("TExpStruct not init");
+		if(BarFullFX != null)
+			BarFullFX.SetActive(false);
 	}
 
 	public void UpdateView (TSkill skill) {
@@ -70,7 +74,11 @@ public struct TExpView {
 		ProgressBar2.value = 1;
 		NextLevelLabel.text = TextConst.S(7409);
 		GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
+	}
 
+	public void ShowFull () {
+		BarFullFX.SetActive(false);
+		BarFullFX.SetActive(true);
 	}
 }
 
@@ -375,7 +383,7 @@ public class UISkillReinforce : UIBase {
 	private int recordGreenExp;
 	private bool isRunExp = false;
 	private bool isNeedShowLevelUp = false;
-	private int addInterVal = 5;
+	private int addInterVal = 10;
 
 	private Dictionary<string, TPassiveSkillCard> passiveSkillCards;
 	//card Right
@@ -476,8 +484,8 @@ public class UISkillReinforce : UIBase {
 					Destroy(obj.item);
 			}
 		}
-//		uiScrollView.ResetPosition();
-		uiScrollView.MoveRelative(new Vector3(0, -33, 0));
+		uiScrollView.ResetPosition();
+//		uiScrollView.MoveRelative(new Vector3(0, -33, 0));
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
@@ -816,6 +824,7 @@ public class UISkillReinforce : UIBase {
 					oldCardLv ++;
 					skillCard.ShowGetStar(oldCardLv - 1);
 					recordGreenExp = reinforceExp;
+					expView.ShowFull();
 				}
 
 				if(reinforceExp <= 0) {
@@ -829,13 +838,13 @@ public class UISkillReinforce : UIBase {
 			} else {
 				skillCard.ShowGetStar(4); // 5 - 1
 				expView.SetTopProgressView();
+				stopRunExp ();
 			}
 		}
 	}
 
 	private void awakeRunExp () {
 		recordGreenExp = reinforceExp + originalExp;
-		addInterVal = reinforceExp / 10;
 		Invoke("delayRunExp", 2);
 		reinforceAnimator.SetTrigger("Go");
 		skillCard.HideAllPreviewStar();
