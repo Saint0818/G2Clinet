@@ -1,12 +1,14 @@
 public class ValueItemChangeAction : ActionQueue.IAction
 {
-    private readonly int[] mChange;
+    private readonly int[] mExChange;
+    private readonly int[] mStackIndices;
     private bool mIsDone;
     private bool mDoneResult;
 
-    public ValueItemChangeAction(int[] change)
+    public ValueItemChangeAction(int[] change, int[] stackIndices)
     {
-        mChange = change;
+        mExChange = change;
+        mStackIndices = stackIndices;
     }
 
     public void Do()
@@ -14,7 +16,7 @@ public class ValueItemChangeAction : ActionQueue.IAction
         mIsDone = false;
 
         var protocol = new ValueItemExchangeProtocol();
-        protocol.Send(mChange, new []{-1, -1}, onChangeValueItem);
+        protocol.Send(mExChange, mStackIndices, onChangeValueItem);
     }
 
     public bool IsDone()

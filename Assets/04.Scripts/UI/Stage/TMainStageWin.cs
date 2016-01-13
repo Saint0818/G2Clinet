@@ -1,6 +1,4 @@
 ﻿
-using System;
-using System.Text;
 using GameStruct;
 
 public class TMainStageWin
@@ -79,24 +77,7 @@ public class TMainStageWin
     {
         return string.Format("Power:{7}, Money:{8}, Diamond: {3}, AddMoney: {0}, AddExp: {1}, AddDiamond: {2}, RandomItemID: {4}, " +
                              "SurelyItemIDs:{5}, CandidateItemIDs:{6}", AddMoney, AddExp, AddDiamond, 
-                             Diamond, RandomItemID, convert(SurelyItemIDs), convert(CandidateItemIDs), Power, Money);
-    }
-
-    private readonly StringBuilder mBuilder = new StringBuilder();
-    private string convert(int[] data)
-    {
-        if(data == null)
-            return String.Empty;
-
-        mBuilder.Length = 0;
-
-        for(var i = 0; i < data.Length; i++)
-        {
-            mBuilder.Append(data[i]);
-            if(i + 1 < data.Length) // 不是最後一個
-                mBuilder.Append(",");
-        }
-
-        return mBuilder.ToString();
+                             Diamond, RandomItemID, DebugerString.Convert(SurelyItemIDs), 
+                             DebugerString.Convert(CandidateItemIDs), Power, Money);
     }
 }

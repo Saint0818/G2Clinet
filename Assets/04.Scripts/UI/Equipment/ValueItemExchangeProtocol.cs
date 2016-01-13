@@ -7,13 +7,16 @@ public class ValueItemExchangeProtocol
 {
     private Action<bool> mCallback;
 
-    public void Send(int[] changeData, int[] teamStackIndices, Action<bool> callback)
+    public void Send(int[] exchangeIndices, int[] stackIndices, Action<bool> callback)
     {
+//        Debug.LogFormat("Exchange:{0}, Stack:{1}", DebugerString.Convert(exchangeIndices),
+//            DebugerString.Convert(stackIndices));
+
         mCallback = callback;
 
         WWWForm form = new WWWForm();
-        form.AddField("TeamValueItemIndices", JsonConvert.SerializeObject(changeData));
-        form.AddField("TeamStackValueItemIndices", JsonConvert.SerializeObject(teamStackIndices));
+        form.AddField("TeamValueItemIndices", JsonConvert.SerializeObject(exchangeIndices));
+        form.AddField("TeamStackValueItemIndices", JsonConvert.SerializeObject(stackIndices));
         SendHttp.Get.Command(URLConst.ValueItemExchange, waitChangeValueItems, form);
     }
 

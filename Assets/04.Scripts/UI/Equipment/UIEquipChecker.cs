@@ -10,9 +10,7 @@ public static class UIEquipChecker
                    ? UIValueItemData.EStatus.Upgradeable 
                    : UIValueItemData.EStatus.CannotUpgrade;
         if(item.Kind == 17 || item.Kind == 18)
-            return GameData.Team.Player.ValueItems.ContainsKey(item.Kind)
-                ? UIValueItemData.EStatus.Demount 
-                : UIValueItemData.EStatus.CannotDemount;
+            return UIValueItemData.EStatus.Demount;
 
         throw new NotImplementedException(string.Format("ItemID:{0}, Kind:{1}", item.ID, item.Kind));
     }

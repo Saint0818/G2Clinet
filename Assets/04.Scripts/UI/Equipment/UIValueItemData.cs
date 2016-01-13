@@ -101,6 +101,11 @@ public class UIValueItemData
         return string.IsNullOrEmpty(Name);
     }
 
+    public bool IsValid()
+    {
+        return !string.IsNullOrEmpty(Name);
+    }
+
     /// <summary>
     /// 某個屬性的總和數值.
     /// </summary>

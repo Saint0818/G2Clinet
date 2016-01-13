@@ -66,8 +66,8 @@ public class UIEquipPlayer : MonoBehaviour
     {
         for(int slotIndex = 0; slotIndex < mPartSlots.Count; slotIndex++)
         {
-            if(mMain.ValueItems.Length > slotIndex)
-                mPartSlots[slotIndex].Set(mMain.ValueItems[slotIndex], !mMain.IsBestValueItem(slotIndex));
+            if(mMain.PlayerValueItems.Length > slotIndex)
+                mPartSlots[slotIndex].Set(mMain.PlayerValueItems[slotIndex], !mMain.IsBestValueItem(slotIndex));
         }
     }
 
@@ -97,9 +97,9 @@ public class UIEquipPlayer : MonoBehaviour
     private int getSumValue(EAttribute kind)
     {
         int sum = 0;
-        for (int i = 0; i < mMain.ValueItems.Length; i++)
+        for (int i = 0; i < mMain.PlayerValueItems.Length; i++)
         {
-            sum += mMain.ValueItems[i].GetSumValue(kind);
+            sum += mMain.PlayerValueItems[i].GetSumValue(kind);
         }
 
 //            Debug.LogFormat("{0}:{1}", kind, sum);

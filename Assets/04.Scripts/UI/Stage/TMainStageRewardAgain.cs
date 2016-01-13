@@ -53,24 +53,6 @@ public class TMainStageRewardAgain
     public override string ToString()
     {
         return string.Format("Money:{3}, Diamond:{0}, RandomItemID:{1}, CandidateItem:{2}", 
-            Diamond, RandomItemID, convert(CandidateItemIDs), Money);
-    }
-
-    private readonly StringBuilder mBuilder = new StringBuilder();
-    private string convert(int[] data)
-    {
-        if (data == null)
-            return String.Empty;
-
-        mBuilder.Length = 0;
-
-        for (var i = 0; i < data.Length; i++)
-        {
-            mBuilder.Append(data[i]);
-            if (i + 1 < data.Length) // 不是最後一個
-                mBuilder.Append(",");
-        }
-
-        return mBuilder.ToString();
+            Diamond, RandomItemID, DebugerString.Convert(CandidateItemIDs), Money);
     }
 }

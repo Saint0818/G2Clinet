@@ -17,6 +17,18 @@ public static class UIValueItemDataBuilder
         };
     }
 
+    public static UIValueItemData BuildDemount()
+    {
+        return new UIValueItemData
+        {
+            Atlas = Resources.Load<UIAtlas>("UI/UIGame"),
+            Icon = "Icon_Create",
+            Frame = "Equipment_1",
+            Status = UIValueItemData.EStatus.CannotDemount,
+            StorageIndex = UIValueItemData.StorageIndexDemount
+        };
+    }
+
     public static UIValueItemData Build(TItemData item, [NotNull] int[] playerInlayItemIDs, int num)
     {
         return build(item, playerInlayItemIDs, findStorageMaterials(item), num);

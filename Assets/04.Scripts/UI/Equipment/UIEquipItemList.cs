@@ -9,6 +9,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> Call Show() or Hide(). </item>
+/// <item> (Optional) Visible 得知是否顯示中. </item>
 /// </list>
 public class UIEquipItemList : MonoBehaviour
 {
@@ -39,12 +40,14 @@ public class UIEquipItemList : MonoBehaviour
         mButtons.Clear();
     }
 
+    public bool Visible { get { return Window.activeSelf; } }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="items"> 列表要顯示的數值裝. </param>
     /// <param name="resetPos"> true: 會將 ScrollView 底下的元件位置重置. </param>
-    public void Show(UIValueItemData[] items, bool resetPos)
+    public void Show(List<UIValueItemData> items, bool resetPos)
     {
         Window.SetActive(true);
 
@@ -52,7 +55,7 @@ public class UIEquipItemList : MonoBehaviour
 
         var localPos = mStartPos;
 
-        for(var i = 0; i < items.Length; i++)
+        for(var i = 0; i < items.Count; i++)
         {
             GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.EquipListButton, ScrollView.transform, localPos);
             var button = obj.GetComponent<UIEquipListButton>();

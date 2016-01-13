@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -66,13 +67,13 @@ public class UIEquipment : UIBase
     /// 找出倉庫的全部數值裝備.
     /// </summary>
     /// <returns></returns>
-    private List<UIValueItemData[]> findAllStorageValueItems()
+    private List<List<UIValueItemData>> findAllStorageValueItems()
     {
-        List<UIValueItemData[]> sumItems = new List<UIValueItemData[]>();
+        List<List<UIValueItemData>> sumItems = new List<List<UIValueItemData>>();
         for(int kind = 11; kind <= 18; kind++)
         {
-            var equipItems = findStorageItemsByKind(kind);
-            sumItems.Add(equipItems.ToArray());
+            List<UIValueItemData> equipItems = findStorageItemsByKind(kind);
+            sumItems.Add(equipItems);
         }
 
         return sumItems;
@@ -168,24 +169,41 @@ public class UIEquipment : UIBase
         if(mMain.IsValueItemChanged())
         {
             mActionQueue.Clear();
-            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+            mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
             mActionQueue.Execute(onChangeValueItem);
-
-//            var protocol = new ChangeValueItemProtocol();
-//            protocol.Send(getServerChangeData(), onChangeValueItem);
         }
         else
             goToMainLobby();
     }
 
-    private int[] getServerChangeData()
+    private int[] getExchangeData()
     {
         int[] changeValueItems = new int[8];
         for(int i = 0; i < changeValueItems.Length; i++)
         {
-            changeValueItems[i] = mMain.ValueItems[i].StorageIndex;
+            changeValueItems[i] = mMain.PlayerValueItems[i].StorageIndex;
         }
         return changeValueItems;
+    }
+
+    private int[] getStackData()
+    {
+        Func<int, int> findStackIndex = kind =>
+        {
+            if(!GameData.Team.Player.ValueItems.ContainsKey(kind))
+                return -1;
+
+            var itemID = GameData.Team.Player.ValueItems[kind].ID;
+            for(int i = 0; i < GameData.Team.ValueItems.Length; i++)
+            {
+                TValueItem valueItem = GameData.Team.ValueItems[i];
+                if(itemID == valueItem.ID)
+                    return i;
+            }
+            return -1;
+        };
+
+        return new[] {findStackIndex(17), findStackIndex(18)};
     }
 
     private void onChangeValueItem(bool ok)
@@ -212,7 +230,7 @@ public class UIEquipment : UIBase
         {
             mActionQueue.Clear();
             if (mMain.IsValueItemChanged())
-                mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+                mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
 
             // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
             int valueItemKind = slotIndex + 11;
@@ -238,7 +256,7 @@ public class UIEquipment : UIBase
 
         mActionQueue.Clear();
         if(mMain.IsValueItemChanged())
-            mActionQueue.AddAction(new ValueItemChangeAction(getServerChangeData()));
+            mActionQueue.AddAction(new ValueItemChangeAction(getExchangeData(), getStackData()));
         mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
 
         mActionQueue.Execute(onUpgrade);

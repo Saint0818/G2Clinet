@@ -43,15 +43,15 @@ public class UIEquipmentMain : MonoBehaviour
     private Dictionary<EAttribute, float> mBasicAttr = new Dictionary<EAttribute, float>();
 
     /// <summary>
-    /// 顯示在左邊的裝備. Index 和 ListItems 互相對應, 也就是 EquipItems[0] 和 ListItems[0]
+    /// 顯示在左邊的裝備. Index 和 ListItems 互相對應, 也就是 PlayerValueItems[0] 和 ListItems[0]
     /// 是同一個群組的裝備. [SlotIndex].
     /// </summary>
-    public UIValueItemData[] ValueItems { get; private set; }
+    public UIValueItemData[] PlayerValueItems { get; private set; }
 
     /// <summary>
     /// 顯示在列表的裝備. [SlotIndex][ListIndex].
     /// </summary>
-    public List<UIValueItemData[]> ListItems { get; private set; }
+    public List<List<UIValueItemData>> ListItems { get; private set; }
 
     private UIEquipPlayer mPlayerInfo;
     private UIEquipDetail mDetail;
@@ -74,7 +74,7 @@ public class UIEquipmentMain : MonoBehaviour
         mDetail.OnDemountListener += onDemountClick;
 
         mEquipList = GetComponent<UIEquipItemList>();
-        mEquipList.OnClickListener += onListItemClick;
+        mEquipList.OnClickListener += onItemExchange;
 
         mMaterialList = GetComponent<UIEquipMaterialList>();
     }
@@ -86,15 +86,15 @@ public class UIEquipmentMain : MonoBehaviour
     /// <param name="playerValueItems"> 球員身上的裝備. </param>
     /// <param name="listItems"> 顯示在替換清單的裝備. </param>
     public void SetData(Dictionary<EAttribute, float> basicAttr, UIValueItemData[] playerValueItems, 
-                        List<UIValueItemData[]> listItems)
+                        List<List<UIValueItemData>> listItems)
     {
         mBasicAttr = new Dictionary<EAttribute, float>(basicAttr);
-        ValueItems = playerValueItems;
+        PlayerValueItems = playerValueItems;
         ListItems = listItems;
 
         mPlayerInfo.UpdateUI();
-        mDetail.Set(mDetail.SlotIndex, ValueItems[mDetail.SlotIndex]); // 更新目前正在顯示的欄位.
-        mMaterialList.Set(ValueItems[mDetail.SlotIndex].Materials);
+        mDetail.Set(mDetail.SlotIndex, PlayerValueItems[mDetail.SlotIndex]); // 更新目前正在顯示的欄位.
+        mMaterialList.Set(PlayerValueItems[mDetail.SlotIndex].Materials);
         mEquipList.Hide();
     }
 
@@ -104,8 +104,8 @@ public class UIEquipmentMain : MonoBehaviour
     /// <param name="slotIndex"> 群組編號. </param>
     private void onSlotClick(int slotIndex)
     {
-        mDetail.Set(slotIndex, ValueItems[slotIndex]);
-        mMaterialList.Set(ValueItems[slotIndex].Materials);
+        mDetail.Set(slotIndex, PlayerValueItems[slotIndex]);
+        mMaterialList.Set(PlayerValueItems[slotIndex].Materials);
         mEquipList.Hide();
     }
 
@@ -121,22 +121,35 @@ public class UIEquipmentMain : MonoBehaviour
     private void onDemountClick(int slotIndex)
     {
         Debug.LogFormat("onDemountClick, SlotIndex:{0}", slotIndex);
+
+        if(PlayerValueItems[slotIndex].IsValid())
+        {
+            ListItems[slotIndex].Add(PlayerValueItems[slotIndex]);
+            PlayerValueItems[slotIndex] = UIValueItemDataBuilder.BuildDemount();
+
+            mPlayerInfo.UpdateUI();
+            mDetail.Set(slotIndex, PlayerValueItems[slotIndex]);
+            if(mEquipList.Visible)
+                mEquipList.Show(ListItems[slotIndex], true);
+        }
     }
 
-    private void onListItemClick(int listIndex)
+    private void onItemExchange(int listIndex)
     {
-//        Debug.LogFormat("onListItemClick, index:{0}", index);
+//        Debug.LogFormat("onItemExchange, index:{0}", index);
 
-        // 道具交換.
-        UIValueItemData item = ValueItems[mDetail.SlotIndex];
-        ValueItems[mDetail.SlotIndex] = ListItems[mDetail.SlotIndex][listIndex];
-        ListItems[mDetail.SlotIndex][listIndex] = item;
+        UIValueItemData item = PlayerValueItems[mDetail.SlotIndex];
+        PlayerValueItems[mDetail.SlotIndex] = ListItems[mDetail.SlotIndex][listIndex];
+        if(item.IsValid())
+            ListItems[mDetail.SlotIndex][listIndex] = item;
+        else
+            ListItems[mDetail.SlotIndex].RemoveAt(listIndex);
 
         // 介面刷新.
         mPlayerInfo.UpdateUI();
-        mDetail.Set(mDetail.SlotIndex, ValueItems[mDetail.SlotIndex]);
+        mDetail.Set(mDetail.SlotIndex, PlayerValueItems[mDetail.SlotIndex]);
         mEquipList.Show(ListItems[mDetail.SlotIndex], false);
-        mMaterialList.Set(ValueItems[mDetail.SlotIndex].Materials);
+        mMaterialList.Set(PlayerValueItems[mDetail.SlotIndex].Materials);
     }
 
     /// <summary>
@@ -146,10 +159,10 @@ public class UIEquipmentMain : MonoBehaviour
     /// <returns></returns>
     public bool IsBestValueItem(int slotIndex)
     {
-        if(slotIndex < 0 || slotIndex >= ValueItems.Length)
+        if(slotIndex < 0 || slotIndex >= PlayerValueItems.Length)
             return false;
 
-        return ValueItems[slotIndex].GetTotalPoints() >= getBestTotalPointsFromListItems(slotIndex);
+        return PlayerValueItems[slotIndex].GetTotalPoints() >= getBestTotalPointsFromListItems(slotIndex);
     }
 
     /// <summary>
@@ -171,9 +184,9 @@ public class UIEquipmentMain : MonoBehaviour
 
     public bool IsValueItemChanged()
     {
-        for(var i = 0; i < ValueItems.Length; i++)
+        for(var i = 0; i < PlayerValueItems.Length; i++)
         {
-            if(ValueItems[i].StorageIndex != UIValueItemData.StorageIndexNone)
+            if(PlayerValueItems[i].StorageIndex != UIValueItemData.StorageIndexNone)
                 return true;
         }
 
