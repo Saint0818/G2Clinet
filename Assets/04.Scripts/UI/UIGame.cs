@@ -107,6 +107,7 @@ public class UIGame : UIBase {
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
 	private GameObject uiSpriteFull;
+	private UILabel uiForceNum;
 
 	//DC
 	private int dcCount = 0;
@@ -297,6 +298,7 @@ public class UIGame : UIBase {
 		skillHint.transform.parent = viewTopRight.transform;
 		skillHint.transform.localPosition = new Vector3(-300, -185, 0);
 		skillHint.transform.localScale = Vector3.one;
+		uiForceNum = GameObject.Find(UIName + "/TopRight/ViewForceBar/ForceNum").GetComponent<UILabel>();
 
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
@@ -357,6 +359,7 @@ public class UIGame : UIBase {
 		Scores [1] = 0;
 		labelTopLeftScore[0].text = "0";
 		labelTopLeftScore[1].text = "0";
+		uiForceNum.text = "0/[13CECEFF]"+GameData.Team.Player.MaxAnger+"[-]";
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
 		showUITime ();
@@ -728,6 +731,7 @@ public class UIGame : UIBase {
 		showViewForceBar(GameController.Get.IsStart);
 
 		if (max > 0) {
+			uiForceNum.text = anger+"/[13CECEFF]"+max+"[-]";
 			oldForceValue = spriteForce.fillAmount;
 			newForceValue = anger / max;
 			dcCount += count;
