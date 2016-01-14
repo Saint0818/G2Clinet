@@ -1001,7 +1001,7 @@
         "namecn": "黑色硬汉编发",
         "nameen": "Black braided hair",
         "namejp": "黒編みこみヘアヒーロー",
-        "explaintw": "黑色編髮，硬漢風格。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "黑色編髮，硬漢風格。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Tough guy style, black braided hair"
     },
     {
@@ -1020,7 +1020,7 @@
         "namecn": "金色帅气编发",
         "nameen": "Blonde braided hair",
         "namejp": "ハンサムな金色の編組髪",
-        "explaintw": "柔軟金色編髮，更添帥氣。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "柔軟金色編髮，更添帥氣。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Handsome guy style, blonde braided hair"
     },
     {
@@ -1039,7 +1039,7 @@
         "namecn": "白银老爹编发",
         "nameen": "Silver braided hair",
         "namejp": "シルバーパパが髪を編組",
-        "explaintw": "成熟男人的魅力。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "成熟男人的魅力。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Handsome mature daddy style, silver braided hair"
     },
     {
@@ -1058,7 +1058,7 @@
         "namecn": "棕色卷毛",
         "nameen": "Curly brown hair",
         "namejp": "カーリーブラウン",
-        "explaintw": "自然捲散發溫柔氣息。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "自然捲散發溫柔氣息。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Natural curly hairstyle, brown hair"
     },
     {
@@ -1178,7 +1178,7 @@
         "namecn": "Dangerous Braids",
         "nameen": "Hair center 11",
         "namejp": "髪センター11",
-        "explaintw": "方便武鬥家施展的髮型。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "方便武鬥家施展的髮型。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "A dangerous look for those who have a very physical game."
     },
     {
@@ -1198,7 +1198,7 @@
         "namecn": "中锋头发12",
         "nameen": "Hair center 12",
         "namejp": "髪のセンター12",
-        "explaintw": "銳利殺氣的西裝頭。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "銳利殺氣的西裝頭。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 1013,
@@ -1351,7 +1351,7 @@
         "namecn": "红色热血发型",
         "nameen": "Cherry red hair",
         "namejp": "赤血球のヘアスタイル",
-        "explaintw": "有如火焰一般。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "有如火焰一般。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Strong flame-like red hair color"
     },
     {
@@ -1370,7 +1370,7 @@
         "namecn": "黑色神秘发型",
         "nameen": "Raven black hair",
         "namejp": "謎の黒髪",
-        "explaintw": "讓人感到猜不透的黑色。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "讓人感到猜不透的黑色。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Pitch black hair color for cool people"
     },
     {
@@ -1389,7 +1389,7 @@
         "namecn": "金色酷炫发型",
         "nameen": "Blonde hair",
         "namejp": "ゴールドクールなヘアスタイル",
-        "explaintw": "亮眼的金色，人群中的焦點。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "亮眼的金色，人群中的焦點。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "A gold tone for attention seekers"
     },
     {
@@ -1408,7 +1408,7 @@
         "namecn": "山本头",
         "nameen": "Low fade hair",
         "namejp": "山本ヘッド",
-        "explaintw": "成熟中帶點復古風情。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "成熟中帶點復古風情。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "SOmething a little retro fro tough guys"
     },
     {
@@ -1427,7 +1427,7 @@
         "namecn": "前锋头发5",
         "nameen": "Flame blue hair",
         "namejp": "ストライカーの毛5",
-        "explaintw": "俐落的帥勁髮型。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "俐落的帥勁髮型。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Blue hair color for those who want to shine"
     },
     {
@@ -1512,7 +1512,7 @@
         "namecn": "紫色复仇发型",
         "nameen": "Velvet purple hair",
         "namejp": "リベンジ紫髪",
-        "explaintw": "難見的紫色，不一般的氣息。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "難見的紫色，不一般的氣息。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Purpule hair color for those who stand above "
     },
     {
@@ -1531,7 +1531,7 @@
         "buy": 700,
         "namecn": "前锋头发12",
         "nameen": "Rocker Hairstyle",
-        "explaintw": "明星氣質的帥氣的西裝頭。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "明星氣質的帥氣的西裝頭。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "A cool style inside and outside the court."
     },
     {
@@ -1551,7 +1551,7 @@
         "namecn": "前锋头发5",
         "nameen": "Flame blue hair",
         "namejp": "ストライカーの毛5",
-        "explaintw": "俐落的帥勁髮型。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "俐落的帥勁髮型。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Blue hair color for those who want to shine"
     },
     {
@@ -1703,7 +1703,7 @@
         "namecn": "金色柔软马尾",
         "nameen": "Blonde ponytail",
         "namejp": "ゴールデンソフトポニーテール",
-        "explaintw": "有如啦啦隊長般耀眼。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "有如啦啦隊長般耀眼。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Bright as a cheerleader"
     },
     {
@@ -1722,7 +1722,7 @@
         "namecn": "紫色冷艳马尾",
         "nameen": "Velvet purple ponytail",
         "namejp": "パープルアイスつくし",
-        "explaintw": "成熟嫵媚的女人專屬。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "成熟嫵媚的女人專屬。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A mature killer style"
     },
     {
@@ -1741,7 +1741,7 @@
         "namecn": "亮蓝前卫马尾",
         "nameen": "Flame blue ponytail",
         "namejp": "明るい青前衛スギナ",
-        "explaintw": "前衛的亮眼藍髮。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "前衛的亮眼藍髮。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A dazzling style that will make everyone turn"
     },
     {
@@ -1760,7 +1760,7 @@
         "namecn": "后卫头发4",
         "nameen": "Golden blonde hair",
         "namejp": "4ガード髪",
-        "explaintw": "金髮辣妹專屬。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "金髮辣妹專屬。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Exclusive for stunning woman"
     },
     {
@@ -1779,7 +1779,7 @@
         "namecn": "后卫头发5",
         "nameen": "5 guard hair",
         "namejp": "5ガード髪",
-        "explaintw": "古典氣質女性專屬。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "古典氣質女性專屬。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1206,
@@ -1797,7 +1797,7 @@
         "namecn": "后卫头发6",
         "nameen": "6 guard hair",
         "namejp": "6ガード髪",
-        "explaintw": "有如來自深海的美人魚。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "有如來自深海的美人魚。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1207,
@@ -1864,7 +1864,7 @@
         "namecn": "调酒师红发",
         "nameen": "Scarlett red hair",
         "namejp": "バーテンダー赤毛",
-        "explaintw": "像血腥瑪莉一樣的強烈。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "像血腥瑪莉一樣的強烈。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "As red  as a Bloody Mary."
     },
     {
@@ -1884,7 +1884,7 @@
         "namecn": "后卫头发13",
         "nameen": "Hip-Hop Hairstyle",
         "namejp": "ガード毛13",
-        "explaintw": "帶有女饒舌歌手的氣質。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "帶有女饒舌歌手的氣質。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Don't mess with gils from the hood."
     },
     {
@@ -1904,7 +1904,7 @@
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
         "namejp": "ガード毛13",
-        "explaintw": "鄰家女孩般的活潑俏麗。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "鄰家女孩般的活潑俏麗。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1213,
@@ -2200,7 +2200,7 @@
         "namecn": "闪电手指虎",
         "nameen": "Knuckle dusters",
         "namejp": "雷ブラスナックル",
-        "explaintw": "衝鋒用，威嚇性大於實用性。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "衝鋒用，威嚇性大於實用性。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Assault with, intimidating than practical."
     },
     {
@@ -2220,7 +2220,7 @@
         "namecn": "中锋手饰11",
         "nameen": "Combat Gloves",
         "namejp": "ジュエリーセンター11",
-        "explaintw": "具有效的防護功能。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "具有效的防護功能。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Improves protection"
     },
     {
@@ -2240,7 +2240,7 @@
         "namecn": "中锋手饰12",
         "nameen": "Jewelry center 12",
         "namejp": "ジュエリーセンター12",
-        "explaintw": "東方黑社會的藝術風格。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "東方黑社會的藝術風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 2013,
@@ -2538,7 +2538,7 @@
         "namecn": "人造人手套",
         "nameen": "Cyborg gloves",
         "namejp": "サイボーグ手袋",
-        "explaintw": "避免內部電路外露。",
+        "explaintw": "避免內部電路外露。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "The ultimate grip for your game"
     },
     {
@@ -2558,7 +2558,7 @@
         "namecn": "前锋手饰11",
         "nameen": "Rock Star Gloves",
         "namejp": "フォワードジュエリー11",
-        "explaintw": "巨星專用的皮質手套。",
+        "explaintw": "巨星專用的皮質手套。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Fancy leather gloves for an ultimate control of the ball."
     },
     {
@@ -2578,7 +2578,7 @@
         "namecn": "前锋手饰5",
         "nameen": "Gloves",
         "namejp": "フォワードジュエリー5",
-        "explaintw": "手套內部充滿流動能量。",
+        "explaintw": "手套內部充滿流動能量。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Get some extra grip"
     },
     {
@@ -2875,7 +2875,7 @@
         "namecn": "后卫手饰10",
         "nameen": "Bartender gloves",
         "namejp": "ディフェンダーの宝石10",
-        "explaintw": "可愛又便於調酒師工作的手套。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "可愛又便於調酒師工作的手套。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Gloves for those who like to play with style"
     },
     {
@@ -2895,7 +2895,7 @@
         "namecn": "后卫手饰11",
         "nameen": "Hip-Hop gloves",
         "namejp": "ディフェンダーの宝石11",
-        "explaintw": "不敗款，四季皆流行。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "不敗款，四季皆流行。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
@@ -2915,7 +2915,7 @@
         "namecn": "后卫手饰12",
         "nameen": "Defender jewelry 12",
         "namejp": "ディフェンダーの宝石12",
-        "explaintw": "甜美清純的鄰家女孩風格。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "甜美清純的鄰家女孩風格。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 2213,
@@ -3066,7 +3066,7 @@
         "namecn": "黑色摇滚夹克",
         "nameen": "Black rider jacket",
         "namejp": "ブラックロックジャケット",
-        "explaintw": "搖滾皮衣，個人風格。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "搖滾皮衣，個人風格。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "A personal style for a tough guy"
     },
     {
@@ -3085,7 +3085,7 @@
         "namecn": "水洗牛仔夹克",
         "nameen": "Denim jacket",
         "namejp": "デニムのジャケット",
-        "explaintw": "百搭牛仔，久洗不爛。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "百搭牛仔，久洗不爛。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "If you're feeling like a cowboy, this is the right one for you"
     },
     {
@@ -3104,7 +3104,7 @@
         "namecn": "石绿刚硬夹克",
         "nameen": "All Purpose Jacket",
         "namejp": "ダンLvgangハードジャケット",
-        "explaintw": "帶點西部風情的夾克。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "帶點西部風情的夾克。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "This jacket will fit any kind of situations"
     },
     {
@@ -3123,7 +3123,7 @@
         "namecn": "红色排汗衣",
         "nameen": "Red training shirt",
         "namejp": "レッド汗服",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
@@ -3142,7 +3142,7 @@
         "namecn": "綠色排汗衣",
         "nameen": "Green training shirt",
         "namejp": "5中央服",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
@@ -3161,7 +3161,7 @@
         "namecn": "紫色排汗衣",
         "nameen": "Purple training shirt",
         "namejp": "服センター6",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
@@ -3229,7 +3229,7 @@
         "namecn": "神秘图腾刺青",
         "nameen": "Tribal tatto",
         "namejp": "謎のトーテムタトゥー",
-        "explaintw": "來自印地安部落的勇者刺青。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "來自印地安部落的勇者刺青。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For brave man that are ready for battle"
     },
     {
@@ -3249,7 +3249,7 @@
         "namecn": "中锋衣服11",
         "nameen": "Combat Beads",
         "namejp": "服センター11",
-        "explaintw": "銅牆鐵壁，金剛不壞。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "銅牆鐵壁，金剛不壞。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Massive beads hault negative energy"
     },
     {
@@ -3269,7 +3269,7 @@
         "namecn": "中锋衣服12",
         "nameen": "Clothes center 12",
         "namejp": "服センタ12",
-        "explaintw": "東方風格的黑道夾克。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "東方風格的黑道夾克。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 3013,
@@ -3422,7 +3422,7 @@
         "namecn": "深蓝夜幕风衣",
         "nameen": "Dark Ble Fleece",
         "namejp": "ダークブルーウインドブレーカーの夜",
-        "explaintw": "讓人隱身於夜色當中。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "讓人隱身於夜色當中。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For those who want to be out of the spotlight."
     },
     {
@@ -3441,7 +3441,7 @@
         "namecn": "深红火焰风衣",
         "nameen": "Crimson Flame Fleece",
         "namejp": "クリムゾンフレイムウインドブレーカー",
-        "explaintw": "敵人看到你就畏懼。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "敵人看到你就畏懼。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "It will implant fear into your enemies heart."
     },
     {
@@ -3460,7 +3460,7 @@
         "namecn": "白紫亮眼风衣",
         "nameen": "Electric Purple Fleece",
         "namejp": "Baizi梁の目のウインドブレーカー",
-        "explaintw": "高貴神秘的紫色。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "高貴神秘的紫色。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "A color suited for those who give it all."
     },
     {
@@ -3479,7 +3479,7 @@
         "namecn": "全套运动服",
         "nameen": "Sport Suit ",
         "namejp": "完全なスポーツ",
-        "explaintw": "舒適的運動服。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "舒適的運動服。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For maximum comfort during a game."
     },
     {
@@ -3498,7 +3498,7 @@
         "namecn": "前锋衣服5",
         "nameen": "Elastic Clothes",
         "namejp": "ストライカー服5",
-        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Special design to maximize energy."
     },
     {
@@ -3583,7 +3583,7 @@
         "namecn": "生化人铠甲",
         "nameen": "Cyborg armor",
         "namejp": "サイボーグの鎧",
-        "explaintw": "用以保護柔軟的軀幹。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "用以保護柔軟的軀幹。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Extra protection for the body."
     },
     {
@@ -3603,7 +3603,7 @@
         "namecn": "前锋衣服12",
         "nameen": "Rocker Tights",
         "namejp": "12ストライカー服",
-        "explaintw": "可以有效顯露精壯身材。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "可以有效顯露精壯身材。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "High performance clothes with a lot of personality."
     },
     {
@@ -3623,7 +3623,7 @@
         "namecn": "前锋衣服5",
         "nameen": "Elastic Clothes",
         "namejp": "ストライカー服5",
-        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Special design to maximize energy."
     },
     {
@@ -3775,7 +3775,7 @@
         "namecn": "摇滚骑士夹克",
         "nameen": "Rocker Jacket",
         "namejp": "ロック騎士ジャケット",
-        "explaintw": "短擺皮夾克，微涼適穿。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "短擺皮夾克，微涼適穿。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A comfortable and stylish jacket."
     },
     {
@@ -3794,7 +3794,7 @@
         "namecn": "桃粉骑士夹克",
         "nameen": "Pink Leather Jacket",
         "namejp": "ナイトピーチピンクのジャケット",
-        "explaintw": "甜心桃粉色，亮眼登場。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "甜心桃粉色，亮眼登場。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A comfortable and stylish jacket for her."
     },
     {
@@ -3813,7 +3813,7 @@
         "namecn": "雪白骑士夹克",
         "nameen": "White Leather Jacket",
         "namejp": "白騎士ジャケット",
-        "explaintw": "宛如仙女般的白色。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "宛如仙女般的白色。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A comfortable and stylish faily-like jacket for her."
     },
     {
@@ -3832,7 +3832,7 @@
         "namecn": "后卫衣服4",
         "nameen": "Purple Leather Vest",
         "namejp": "服ガード4",
-        "explaintw": "清涼又帶有神秘的性感。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "清涼又帶有神秘的性感。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Cool and mysterious."
     },
     {
@@ -3851,7 +3851,7 @@
         "namecn": "后卫衣服5",
         "nameen": "Blue Leather Vest",
         "namejp": "服ガード5",
-        "explaintw": "青春無敵的水藍。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "青春無敵的水藍。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Cool and mysterious."
     },
     {
@@ -3870,7 +3870,7 @@
         "namecn": "后卫衣服6",
         "nameen": "Blue Leather Vest",
         "namejp": "6ガード服",
-        "explaintw": "專業的機能運動風。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "專業的機能運動風。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Cool and mysterious."
     },
     {
@@ -3938,7 +3938,7 @@
         "namecn": "调酒师衬衫",
         "nameen": "Bartender Shirt",
         "namejp": "バーテンダーシャツ",
-        "explaintw": "酒吧制服。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "酒吧制服。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Comfortable and cool"
     },
     {
@@ -3958,7 +3958,7 @@
         "namecn": "后卫衣服11",
         "nameen": "Street Bikini",
         "namejp": "Guardは11服",
-        "explaintw": "宛如來到南島，清涼夏天。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "宛如來到南島，清涼夏天。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "For those who take sexiness seriously all the time."
     },
     {
@@ -3978,7 +3978,7 @@
         "namecn": "后卫衣服11",
         "nameen": "Guard clothes 11",
         "namejp": "Guardは11服",
-        "explaintw": "天真無邪的少女裝扮。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "天真無邪的少女裝扮。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 3213,
@@ -4129,7 +4129,7 @@
         "namecn": "黑色摇滚短裤",
         "nameen": "Black Rocker Shorts",
         "namejp": "ブラックロックショーツ",
-        "explaintw": "搖滾皮褲，個人風格。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "搖滾皮褲，個人風格。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Rock your personal style."
     },
     {
@@ -4148,7 +4148,7 @@
         "namecn": "水洗牛仔短裤",
         "nameen": "Denim Shorts",
         "namejp": "デニムショートパンツ",
-        "explaintw": "百搭牛仔，久洗不爛。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "百搭牛仔，久洗不爛。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "A wild cowboy style."
     },
     {
@@ -4167,7 +4167,7 @@
         "namecn": "石绿刚硬短裤",
         "nameen": "Rider Shorts",
         "namejp": "ダンLvgangハードショーツ",
-        "explaintw": "帶點西部風情的短褲。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "帶點西部風情的短褲。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Very stylish shorts."
     },
     {
@@ -4186,7 +4186,7 @@
         "namecn": "藍色緊身褲",
         "nameen": "Blue Leggings",
         "namejp": "ブリーフ",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For maximum comfort on the game."
     },
     {
@@ -4205,7 +4205,7 @@
         "namecn": "紫色緊身褲",
         "nameen": "Purple Leggings",
         "namejp": "5中央パンツ",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For maximum comfort on the game."
     },
     {
@@ -4224,7 +4224,7 @@
         "namecn": "綠色緊身褲",
         "nameen": "Green Leggings",
         "namejp": "パンツ・センター6",
-        "explaintw": "運動時加速排汗。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "運動時加速排汗。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For maximum comfort on the game."
     },
     {
@@ -4292,7 +4292,7 @@
         "namecn": "摔角冠军腰带",
         "nameen": "Wrestling Belt",
         "namejp": "レスリングのタイトルベルト",
-        "explaintw": "貨真價實，非裝飾品。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "貨真價實，非裝飾品。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "No decorations needed for the champ"
     },
     {
@@ -4312,7 +4312,7 @@
         "namecn": "中锋裤子11",
         "nameen": "Swag Pants",
         "namejp": "パンツセンター11",
-        "explaintw": "武道家的禪意風格。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "武道家的禪意風格。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "This is your street, show your style."
     },
     {
@@ -4332,7 +4332,7 @@
         "namecn": "中锋裤子12",
         "nameen": "Pants center 12",
         "namejp": "パンツ・センター12",
-        "explaintw": "以氣勢取勝的極道風格。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "以氣勢取勝的極道風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 4013,
@@ -4485,7 +4485,7 @@
         "namecn": "深蓝热身长裤",
         "nameen": "Dark Blue Sportpants",
         "namejp": "ダークブルーウォームアップパンツ",
-        "explaintw": "讓人隱身於夜色當中。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "讓人隱身於夜色當中。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For those who want to be out of the spotlight"
     },
     {
@@ -4504,7 +4504,7 @@
         "namecn": "黑色热身长裤",
         "nameen": "Black Sportpants",
         "namejp": "ブラックウォームアップパンツ",
-        "explaintw": "敵人看到你就畏懼。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "敵人看到你就畏懼。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "It will implant fear into your enemies heart."
     },
     {
@@ -4523,7 +4523,7 @@
         "namecn": "紫色热身长裤",
         "nameen": "Purple Sportpants",
         "namejp": "パープルウォームアップパンツ",
-        "explaintw": "高貴神秘的紫色。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "高貴神秘的紫色。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "A color suited for those who give it all."
     },
     {
@@ -4542,7 +4542,7 @@
         "namecn": "前锋裤子4",
         "nameen": "Track Suit",
         "namejp": "フォワード4パンツ",
-        "explaintw": "舒服的運動褲。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "舒服的運動褲。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For maximum comfort during a game."
     },
     {
@@ -4561,7 +4561,7 @@
         "namecn": "前锋裤子5",
         "nameen": "Forward pants 5",
         "namejp": "フォワードパンツ5",
-        "explaintw": "帶有流動能量，且包覆性極佳。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "With boosting energy flow and excellent protections."
     },
     {
@@ -4646,7 +4646,7 @@
         "namecn": "生化人紧身裤",
         "nameen": "Cyborg Tights",
         "namejp": "サイボーグタイツ",
-        "explaintw": "高科技纖維，極強保護力。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "高科技纖維，極強保護力。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "High-tech fiber and strong protection."
     },
     {
@@ -4666,7 +4666,7 @@
         "namecn": "Rock Trousers",
         "nameen": "Forward pants 12",
         "namejp": "フォワードパンツ12",
-        "explaintw": "流行又不失帥氣。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "流行又不失帥氣。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Stylish yet functional."
     },
     {
@@ -4686,7 +4686,7 @@
         "namecn": "前锋裤子5",
         "nameen": "Forward pants 5",
         "namejp": "フォワードパンツ5",
-        "explaintw": "帶有流動能量，且包覆性極佳。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "With boosting energy flow and excellent protections."
     },
     {
@@ -4838,7 +4838,7 @@
         "namecn": "珊瑚红色热裤",
         "nameen": "Crimson Red Shorts",
         "namejp": "コーラルレッドホットパンツ",
-        "explaintw": "屬於珊瑚的浪漫淡粉紅色。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "屬於珊瑚的浪漫淡粉紅色。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "For those who like to stand out."
     },
     {
@@ -4857,7 +4857,7 @@
         "namecn": "黄色明亮热裤",
         "nameen": "Bright Yellow Shorts",
         "namejp": "明るい黄色のショートパンツ",
-        "explaintw": "撞色搭配，今夏流行。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "撞色搭配，今夏流行。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Your team will never loose sight of you."
     },
     {
@@ -4876,7 +4876,7 @@
         "namecn": "红色火焰热裤",
         "nameen": "Rubty Red Shorts",
         "namejp": "レッド炎ホットパンツ",
-        "explaintw": "熱情的紅色。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "熱情的紅色。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A lot of style for the court."
     },
     {
@@ -4895,7 +4895,7 @@
         "namecn": "后卫裤子4",
         "nameen": "Velvet Purple Shorts",
         "namejp": "ディフェンダーパンツ4",
-        "explaintw": "這個配色讓人聯想到某支球隊。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "這個配色讓人聯想到某支球隊。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Reminiscent of you team."
     },
     {
@@ -4914,7 +4914,7 @@
         "namecn": "后卫裤子5",
         "nameen": "5 guard pants",
         "namejp": "5ガードパンツ",
-        "explaintw": "活潑有勁的清涼藍色。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "活潑有勁的清涼藍色。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4206,
@@ -4932,7 +4932,7 @@
         "namecn": "后卫裤子6",
         "nameen": "Defender pants 6",
         "namejp": "ディフェンダーパンツ6",
-        "explaintw": "熱情可愛的甜美桃紅。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "熱情可愛的甜美桃紅。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4207,
@@ -4999,7 +4999,7 @@
         "namecn": "调酒师百褶裙",
         "nameen": "Silver Skirt",
         "namejp": "バーテンダープリーツスカート",
-        "explaintw": "酒吧制服。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "酒吧制服。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Stylish and comfy."
     },
     {
@@ -5019,7 +5019,7 @@
         "namecn": "后卫裤子11",
         "nameen": "Hip-Hop Tights",
         "namejp": "ディフェンダーパンツ11",
-        "explaintw": "富有個人特色的搶眼配色。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "富有個人特色的搶眼配色。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "High performance full of character."
     },
     {
@@ -5039,7 +5039,7 @@
         "namecn": "后卫裤子13",
         "nameen": "Defender pants 13",
         "namejp": "ディフェンダーパンツ13",
-        "explaintw": "鄰家少女嬌俏可人。\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "鄰家少女嬌俏可人。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4213,
@@ -5190,7 +5190,7 @@
         "namecn": "摇滚高筒靴",
         "nameen": "Rocker High Boots",
         "namejp": "5中央シューズ",
-        "explaintw": "搖滾風情的高筒靴。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "搖滾風情的高筒靴。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Rock style high boots."
     },
     {
@@ -5209,7 +5209,7 @@
         "namecn": "牛仔高筒靴",
         "nameen": "Cowboy Boots",
         "namejp": "5中央シューズ",
-        "explaintw": "自由自在的高筒靴。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "自由自在的高筒靴。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "High cut leather boots."
     },
     {
@@ -5228,7 +5228,7 @@
         "namecn": "刚硬高筒靴",
         "nameen": "Long High Heels Boots",
         "namejp": "5中央シューズ",
-        "explaintw": "西部風情的高筒靴。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "西部風情的高筒靴。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For those who seek style above anything."
     },
     {
@@ -5247,7 +5247,7 @@
         "namecn": "中锋鞋子4",
         "nameen": "Gray Sneakers",
         "namejp": "5中央シューズ",
-        "explaintw": "耐磨耐髒的絕佳配色。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "耐磨耐髒的絕佳配色。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Simple and comfy."
     },
     {
@@ -5266,7 +5266,7 @@
         "namecn": "中锋鞋子5",
         "nameen": "5 center Shoes",
         "namejp": "5中央シューズ",
-        "explaintw": "專業運動風格。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "專業運動風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5006,
@@ -5284,7 +5284,7 @@
         "namecn": "中锋鞋子6",
         "nameen": "6 center Shoes",
         "namejp": "6中央シューズ",
-        "explaintw": "品味不凡。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "品味不凡。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5007,
@@ -5351,7 +5351,7 @@
         "namecn": "印第安摔角靴",
         "nameen": "Wrestling Boots",
         "namejp": "インドのレスリングブーツ",
-        "explaintw": "來自鷹神的祝福。\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "來自鷹神的祝福。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "For those who have a very physical game."
     },
     {
@@ -5371,7 +5371,7 @@
         "namecn": "中锋鞋子11",
         "nameen": "Army Boots",
         "namejp": "シューズセンター11",
-        "explaintw": "厚重的材質具有保護效果\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "厚重的材質具有保護效果\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Heavy duty material, for those who take the game to its MAX."
     },
     {
@@ -5391,7 +5391,7 @@
         "namecn": "中锋鞋子12",
         "nameen": "Shoes center 12",
         "namejp": "靴・センター12",
-        "explaintw": "街頭黑幫專用機能跑鞋。\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "街頭黑幫專用機能跑鞋。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5013,
@@ -5544,7 +5544,7 @@
         "namecn": "火炬红球鞋",
         "nameen": "Crimson Red Sneakers",
         "namejp": "トーチ赤い靴",
-        "explaintw": "火紅的戰神球鞋。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "火紅的戰神球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "This shoes looke life if they were taken out of hell's flames."
     },
     {
@@ -5563,7 +5563,7 @@
         "namecn": "钢铁灰球鞋",
         "nameen": "Steal Grey Sneakers",
         "namejp": "スチールグレーのスニーカー",
-        "explaintw": "鋼鐵意志球鞋。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "鋼鐵意志球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For players with an iron will."
     },
     {
@@ -5582,7 +5582,7 @@
         "namecn": "极速白球鞋",
         "nameen": "Pearl White Sneakers",
         "namejp": "スピードホワイトスニーカー",
-        "explaintw": "閃電極速球鞋。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "閃電極速球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Classy and elegant."
     },
     {
@@ -5601,7 +5601,7 @@
         "namecn": "前锋鞋子4",
         "nameen": "White Sneakers",
         "namejp": "フォワードシューズ4",
-        "explaintw": "簡單又大方的鞋款。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "簡單又大方的鞋款。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Maximum comfort for the game."
     },
     {
@@ -5619,7 +5619,7 @@
         "buy": 700,
         "namecn": "前锋鞋子5",
         "nameen": "Red Sneakers",
-        "explaintw": "簡單又大方的鞋款。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "簡單又大方的鞋款。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "This shoes looke life if they were taken out of hell's flames."
     },
     {
@@ -5638,7 +5638,7 @@
         "namecn": "前锋鞋子6",
         "nameen": "Grey Sneakers",
         "namejp": "6前方シューズ",
-        "explaintw": "簡單又大方的鞋款。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "簡單又大方的鞋款。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For players with an iron will."
     },
     {
@@ -5706,7 +5706,7 @@
         "namecn": "生化人结构靴",
         "nameen": "Worker Boots",
         "namejp": "生化学的構造のブーツ",
-        "explaintw": "有增加腳部能力的功能。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "有增加腳部能力的功能。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "For the tough ones who like the game."
     },
     {
@@ -5726,7 +5726,7 @@
         "namecn": "前锋鞋子12",
         "nameen": "Forward Shoes 12",
         "namejp": "フォワードシューズ12",
-        "explaintw": "引領潮流五十年，歷久不衰。\n限定[3960CEFF]前鋒[-]裝備。"
+        "explaintw": "引領潮流五十年，歷久不衰。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 5112,
@@ -5745,7 +5745,7 @@
         "namecn": "前锋鞋子12",
         "nameen": "Flashy Sneakers",
         "namejp": "フォワードシューズ5",
-        "explaintw": "特殊材質製成，提供更佳的機動性。\n限定[3960CEFF]前鋒[-]裝備。",
+        "explaintw": "特殊材質製成，提供更佳的機動性。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "The shoes for those who like to stand out."
     },
     {
@@ -5897,7 +5897,7 @@
         "namecn": "摇滚骑士长靴",
         "nameen": "Rocker Boots",
         "namejp": "ロックナイトブーツ",
-        "explaintw": "搖滾版的過膝長靴。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "搖滾版的過膝長靴。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Bring your style to the game."
     },
     {
@@ -5916,7 +5916,7 @@
         "namecn": "桃红骑士长靴",
         "nameen": "Pink Rocker Boots",
         "namejp": "ピンクナイトブーツ",
-        "explaintw": "甜心戰士長靴。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "甜心戰士長靴。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Bring your style to the game."
     },
     {
@@ -5935,7 +5935,7 @@
         "namecn": "冰蓝骑士长靴",
         "nameen": "Ice Blue Rocker Boots",
         "namejp": "アイスブルーナイトブーツ",
-        "explaintw": "冰藍色帥氣長靴。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "冰藍色帥氣長靴。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "A freezing style."
     },
     {
@@ -5954,7 +5954,7 @@
         "namecn": "后卫鞋子4",
         "nameen": "Pink Sneakers",
         "namejp": "ディフェンダーシューズ4",
-        "explaintw": "亮眼的配色容易成為眾人的焦點。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "亮眼的配色容易成為眾人的焦點。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Dazzling but comfy."
     },
     {
@@ -6056,7 +6056,7 @@
         "namecn": "调酒师冰刀",
         "nameen": "Ice Skates",
         "namejp": "バーテンダースケート",
-        "explaintw": "增加酒吧的服務速度。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "增加酒吧的服務速度。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Glide trough the court."
     },
     {
@@ -6076,7 +6076,7 @@
         "namecn": "后卫鞋子11",
         "nameen": "Hip-Hop Sneakers",
         "namejp": "ディフェンダーシューズ11",
-        "explaintw": "特殊配色的慢跑鞋。\n限定[00BA7BFF]後衛[-]裝備。",
+        "explaintw": "特殊配色的慢跑鞋。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Comfy, cool, effective."
     },
     {
@@ -6933,12 +6933,14 @@
         "attrkind3": 12,
         "attrvalue3": 1,
         "material1": 19001,
-        "materialnum1": 5,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
         "upgradeitem": 11101,
         "upgrademoney": 100,
-        "nameen": "Headband α",
-        "explaintw": "α級的舒適棉質頭帶。",
-        "explainen": "Grade α Comfy Cotton Headband"
+        "nameen": "White crystal cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11002,
@@ -6955,12 +6957,14 @@
         "attrkind3": 5,
         "attrvalue3": 1,
         "material1": 19001,
-        "materialnum1": 5,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
         "upgradeitem": 11102,
         "upgrademoney": 110,
-        "nameen": "Headband β",
-        "explaintw": "β級的舒適棉質頭帶。",
-        "explainen": "Grade β Comfy Cotton Headband"
+        "nameen": "White crystal cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11003,
@@ -6977,12 +6981,14 @@
         "attrkind3": 4,
         "attrvalue3": 1,
         "material1": 19001,
-        "materialnum1": 5,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
         "upgradeitem": 11103,
         "upgrademoney": 120,
-        "nameen": "Headband γ",
-        "explaintw": "γ級的舒適棉質頭帶。",
-        "explainen": "Grade γ Comfy Cotton Headband"
+        "nameen": "White crystal cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11101,
@@ -6998,15 +7004,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19001,
-        "materialnum1": 10,
-        "material2": 19002,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
+        "material3": 19021,
+        "materialnum3": 1,
         "upgradeitem": 11201,
         "upgrademoney": 130,
-        "nameen": "Bionic Headband α",
-        "explaintw": "α級的特殊科技頭帶。",
-        "explainen": "Grade α Bionic Performance Headband"
+        "nameen": "Emerald cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11102,
@@ -7022,15 +7030,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19001,
-        "materialnum1": 10,
-        "material2": 19002,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
+        "material3": 19022,
+        "materialnum3": 1,
         "upgradeitem": 11202,
         "upgrademoney": 140,
-        "nameen": "Bionic Headband β",
-        "explaintw": "β級的特殊科技頭帶。",
-        "explainen": "Grade β Bionic Performance Headband"
+        "nameen": "Emerald cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11103,
@@ -7046,15 +7056,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19001,
-        "materialnum1": 10,
-        "material2": 19002,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19011,
+        "materialnum2": 1,
+        "material3": 19023,
+        "materialnum3": 1,
         "upgradeitem": 11203,
         "upgrademoney": 150,
-        "nameen": "Bionic Headband γ",
-        "explaintw": "γ級的特殊科技頭帶。",
-        "explainen": "Grade γ Bionic Performance Headband"
+        "nameen": "Emerald cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11201,
@@ -7070,17 +7082,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19001,
-        "materialnum1": 15,
-        "material2": 19002,
-        "materialnum2": 15,
-        "material3": 19003,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19031,
+        "materialnum3": 2,
         "upgradeitem": 11301,
         "upgrademoney": 160,
-        "nameen": "Space Headband α",
-        "explaintw": "α級的實用未來頭帶。",
-        "explainen": "Grade α Futuristic Space Headband"
+        "nameen": "Sapphire Plug-cranial",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11202,
@@ -7096,17 +7108,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19001,
-        "materialnum1": 15,
-        "material2": 19002,
-        "materialnum2": 15,
-        "material3": 19003,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19032,
+        "materialnum3": 2,
         "upgradeitem": 11302,
         "upgrademoney": 170,
-        "nameen": "Space Headband β",
-        "explaintw": "β級的實用未來頭帶。",
-        "explainen": "Grade β Futuristic Space Headband"
+        "nameen": "Sapphire Plug-cranial",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11203,
@@ -7122,17 +7134,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19001,
-        "materialnum1": 15,
-        "material2": 19002,
-        "materialnum2": 15,
-        "material3": 19003,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19033,
+        "materialnum3": 2,
         "upgradeitem": 11303,
         "upgrademoney": 180,
-        "nameen": "Space Headband γ",
-        "explaintw": "γ級的實用未來頭帶。",
-        "explainen": "Grade γ Futuristic Space Headband"
+        "nameen": "Sapphire Plug-cranial",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11301,
@@ -7148,16 +7160,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19001,
-        "materialnum1": 20,
-        "material2": 19002,
-        "materialnum2": 20,
-        "material3": 19003,
-        "materialnum3": 20,
-        "material4": 19004,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19041,
+        "materialnum3": 3,
         "upgradeitem": 11401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple diamond cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11302,
@@ -7173,16 +7186,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19001,
-        "materialnum1": 20,
-        "material2": 19002,
-        "materialnum2": 20,
-        "material3": 19003,
-        "materialnum3": 20,
-        "material4": 19004,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19042,
+        "materialnum3": 3,
         "upgradeitem": 11402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple diamond cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11303,
@@ -7198,16 +7212,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19001,
-        "materialnum1": 20,
-        "material2": 19002,
-        "materialnum2": 20,
-        "material3": 19003,
-        "materialnum3": 20,
-        "material4": 19004,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19011,
+        "materialnum2": 2,
+        "material3": 19043,
+        "materialnum3": 3,
         "upgradeitem": 11403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple diamond cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11401,
@@ -7223,15 +7238,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25,
-        "upgradeitem": 11501
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19051,
+        "materialnum3": 4,
+        "upgradeitem": 11501,
+        "nameen": "Gold cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11402,
@@ -7247,15 +7263,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25,
-        "upgradeitem": 11502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19052,
+        "materialnum3": 4,
+        "upgradeitem": 11502,
+        "nameen": "Gold cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11403,
@@ -7271,15 +7288,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25,
-        "upgradeitem": 11503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19053,
+        "materialnum3": 4,
+        "upgradeitem": 11503,
+        "nameen": "Gold cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11501,
@@ -7295,14 +7313,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19061,
+        "materialnum3": 5,
+        "nameen": "Colorful cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11502,
@@ -7318,14 +7337,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19062,
+        "materialnum3": 5,
+        "nameen": "Colorful cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 11503,
@@ -7341,14 +7361,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19002,
-        "materialnum1": 25,
-        "material2": 19003,
-        "materialnum2": 25,
-        "material3": 19004,
-        "materialnum3": 25,
-        "material4": 19005,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19011,
+        "materialnum2": 3,
+        "material3": 19063,
+        "materialnum3": 5,
+        "nameen": "Colorful cranial plug",
+        "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12001,
@@ -7364,13 +7385,15 @@
         "attrvalue2": 1,
         "attrkind3": 12,
         "attrvalue3": 1,
-        "material1": 19011,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19012,
+        "materialnum2": 1,
         "upgradeitem": 12101,
         "upgrademoney": 100,
-        "nameen": "Cotton Sleeves α",
-        "explaintw": "α級的舒適棉質護臂。",
-        "explainen": "Grade α Comfy Cotton Sleeves"
+        "nameen": "White crystal left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12002,
@@ -7386,13 +7409,15 @@
         "attrvalue2": 1,
         "attrkind3": 5,
         "attrvalue3": 1,
-        "material1": 19011,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19012,
+        "materialnum2": 1,
         "upgradeitem": 12102,
         "upgrademoney": 110,
-        "nameen": "Cotton Sleeves β",
-        "explaintw": "β級的舒適棉質護臂。",
-        "explainen": "Grade β Comfy Cotton Sleeves"
+        "nameen": "White crystal left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12003,
@@ -7408,13 +7433,15 @@
         "attrvalue2": 1,
         "attrkind3": 4,
         "attrvalue3": 1,
-        "material1": 19011,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19012,
+        "materialnum2": 1,
         "upgradeitem": 12103,
         "upgrademoney": 120,
-        "nameen": "Cotton Sleeves γ",
-        "explaintw": "γ級的舒適棉質護臂。",
-        "explainen": "Grade γ Comfy Cotton Sleeves"
+        "nameen": "White crystal left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12101,
@@ -7430,15 +7457,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19011,
-        "materialnum1": 10,
+        "material1": 19002,
+        "materialnum1": 1,
         "material2": 19012,
-        "materialnum2": 10,
+        "materialnum2": 1,
+        "material3": 19024,
+        "materialnum3": 1,
         "upgradeitem": 12201,
         "upgrademoney": 130,
-        "nameen": "Bionic Sleeves α",
-        "explaintw": "α級的特殊科技護臂。",
-        "explainen": "Grade α Bionic Performance Sleeves"
+        "nameen": "Emerald left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12102,
@@ -7454,15 +7483,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19011,
-        "materialnum1": 10,
+        "material1": 19002,
+        "materialnum1": 1,
         "material2": 19012,
-        "materialnum2": 10,
+        "materialnum2": 1,
+        "material3": 19025,
+        "materialnum3": 1,
         "upgradeitem": 12202,
         "upgrademoney": 140,
-        "nameen": "Bionic Sleeves β",
-        "explaintw": "β級的特殊科技護臂。",
-        "explainen": "Grade β Bionic Performance Sleeves"
+        "nameen": "Emerald left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12103,
@@ -7478,15 +7509,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19011,
-        "materialnum1": 10,
+        "material1": 19002,
+        "materialnum1": 1,
         "material2": 19012,
-        "materialnum2": 10,
+        "materialnum2": 1,
+        "material3": 19026,
+        "materialnum3": 1,
         "upgradeitem": 12203,
         "upgrademoney": 150,
-        "nameen": "Bionic Sleeves γ",
-        "explaintw": "γ級的特殊科技護臂。",
-        "explainen": "Grade γ Bionic Performance Sleeves"
+        "nameen": "Emerald left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12201,
@@ -7502,17 +7535,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19011,
-        "materialnum1": 15,
+        "material1": 19003,
+        "materialnum1": 2,
         "material2": 19012,
-        "materialnum2": 15,
-        "material3": 19013,
-        "materialnum3": 15,
+        "materialnum2": 2,
+        "material3": 19034,
+        "materialnum3": 2,
         "upgradeitem": 12301,
         "upgrademoney": 160,
-        "nameen": "Space Sleeves α",
-        "explaintw": "α級的實用未來護臂。",
-        "explainen": "Grade α Futuristic Space Sleeves"
+        "nameen": "Sapphire Plug-left arm",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12202,
@@ -7528,17 +7561,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19011,
-        "materialnum1": 15,
+        "material1": 19003,
+        "materialnum1": 2,
         "material2": 19012,
-        "materialnum2": 15,
-        "material3": 19013,
-        "materialnum3": 15,
+        "materialnum2": 2,
+        "material3": 19035,
+        "materialnum3": 2,
         "upgradeitem": 12302,
         "upgrademoney": 170,
-        "nameen": "Space Sleeves β",
-        "explaintw": "β級的實用未來護臂。",
-        "explainen": "Grade β Futuristic Space Sleeves"
+        "nameen": "Sapphire Plug-left arm",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12203,
@@ -7554,17 +7587,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19011,
-        "materialnum1": 15,
+        "material1": 19003,
+        "materialnum1": 2,
         "material2": 19012,
-        "materialnum2": 15,
-        "material3": 19013,
-        "materialnum3": 15,
+        "materialnum2": 2,
+        "material3": 19036,
+        "materialnum3": 2,
         "upgradeitem": 12303,
         "upgrademoney": 180,
-        "nameen": "Space Sleeves γ",
-        "explaintw": "γ級的實用未來護臂。",
-        "explainen": "Grade γ Futuristic Space Sleeves"
+        "nameen": "Sapphire Plug-left arm",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12301,
@@ -7580,16 +7613,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19011,
-        "materialnum1": 20,
+        "material1": 19004,
+        "materialnum1": 3,
         "material2": 19012,
-        "materialnum2": 20,
-        "material3": 19013,
-        "materialnum3": 20,
-        "material4": 19014,
-        "materialnum4": 20,
+        "materialnum2": 2,
+        "material3": 19044,
+        "materialnum3": 3,
         "upgradeitem": 12401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple Diamond left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12302,
@@ -7605,16 +7639,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19011,
-        "materialnum1": 20,
+        "material1": 19004,
+        "materialnum1": 3,
         "material2": 19012,
-        "materialnum2": 20,
-        "material3": 19013,
-        "materialnum3": 20,
-        "material4": 19014,
-        "materialnum4": 20,
+        "materialnum2": 2,
+        "material3": 19045,
+        "materialnum3": 3,
         "upgradeitem": 12402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple Diamond left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12303,
@@ -7630,16 +7665,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19011,
-        "materialnum1": 20,
+        "material1": 19004,
+        "materialnum1": 3,
         "material2": 19012,
-        "materialnum2": 20,
-        "material3": 19013,
-        "materialnum3": 20,
-        "material4": 19014,
-        "materialnum4": 20,
+        "materialnum2": 2,
+        "material3": 19046,
+        "materialnum3": 3,
         "upgradeitem": 12403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple Diamond left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12401,
@@ -7655,15 +7691,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25,
-        "upgradeitem": 12501
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19054,
+        "materialnum3": 4,
+        "upgradeitem": 12501,
+        "nameen": "Gold left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12402,
@@ -7679,15 +7716,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25,
-        "upgradeitem": 12502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19055,
+        "materialnum3": 4,
+        "upgradeitem": 12502,
+        "nameen": "Gold left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12403,
@@ -7703,15 +7741,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25,
-        "upgradeitem": 12503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19056,
+        "materialnum3": 4,
+        "upgradeitem": 12503,
+        "nameen": "Gold left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12501,
@@ -7727,14 +7766,15 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19064,
+        "materialnum3": 5,
+        "nameen": "Colorful left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12502,
@@ -7750,14 +7790,15 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19065,
+        "materialnum3": 5,
+        "nameen": "Colorful left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 12503,
@@ -7773,14 +7814,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19012,
-        "materialnum1": 25,
-        "material2": 19013,
-        "materialnum2": 25,
-        "material3": 19014,
-        "materialnum3": 25,
-        "material4": 19015,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19012,
+        "materialnum2": 3,
+        "material3": 19066,
+        "materialnum3": 5,
+        "nameen": "Colorful left arm plug",
+        "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
     },
     {
         "id": 13001,
@@ -7796,13 +7838,15 @@
         "attrvalue2": 1,
         "attrkind3": 12,
         "attrvalue3": 1,
-        "material1": 19021,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
         "upgradeitem": 13101,
         "upgrademoney": 100,
-        "nameen": "Pants α",
-        "explaintw": "α級的舒適棉質機能褲。",
-        "explainen": "Grade α Comfy Cotton Pants"
+        "nameen": "White crystal right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13002,
@@ -7818,13 +7862,15 @@
         "attrvalue2": 1,
         "attrkind3": 5,
         "attrvalue3": 1,
-        "material1": 19021,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
         "upgradeitem": 13102,
         "upgrademoney": 110,
-        "nameen": "Pants β",
-        "explaintw": "β級的舒適棉質機能褲。",
-        "explainen": "Grade β Comfy Cotton Pants"
+        "nameen": "White crystal right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13003,
@@ -7840,13 +7886,15 @@
         "attrvalue2": 1,
         "attrkind3": 4,
         "attrvalue3": 1,
-        "material1": 19021,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
         "upgradeitem": 13103,
         "upgrademoney": 120,
-        "nameen": "Pants γ",
-        "explaintw": "γ級的舒適棉質機能褲。",
-        "explainen": "Grade γ Comfy Cotton Pants"
+        "nameen": "White crystal right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13101,
@@ -7862,15 +7910,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19021,
-        "materialnum1": 10,
-        "material2": 19022,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
+        "material3": 19021,
+        "materialnum3": 1,
         "upgradeitem": 13201,
         "upgrademoney": 130,
-        "nameen": "Bionic Pants α",
-        "explaintw": "α級的特殊科技機能褲。",
-        "explainen": "Grade α Bionic Performance Pants"
+        "nameen": "Emerald right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13102,
@@ -7886,15 +7936,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19021,
-        "materialnum1": 10,
-        "material2": 19022,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
+        "material3": 19022,
+        "materialnum3": 1,
         "upgradeitem": 13202,
         "upgrademoney": 140,
-        "nameen": "Bionic Pants β",
-        "explaintw": "β級的特殊科技機能褲。",
-        "explainen": "Grade β Bionic Performance Pants"
+        "nameen": "Emerald right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13103,
@@ -7910,15 +7962,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19021,
-        "materialnum1": 10,
-        "material2": 19022,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19013,
+        "materialnum2": 1,
+        "material3": 19023,
+        "materialnum3": 1,
         "upgradeitem": 13203,
         "upgrademoney": 150,
-        "nameen": "Bionic Pants",
-        "explaintw": "γ級的特殊科技機能褲。",
-        "explainen": "Grade γ Bionic Performance Pants"
+        "nameen": "Emerald right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13201,
@@ -7934,17 +7988,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19021,
-        "materialnum1": 15,
-        "material2": 19022,
-        "materialnum2": 15,
-        "material3": 19023,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19031,
+        "materialnum3": 2,
         "upgradeitem": 13301,
         "upgrademoney": 160,
-        "nameen": "Space Pants α",
-        "explaintw": "α級的實用未來機能褲。",
-        "explainen": "Grade α Futuristic Space Pants"
+        "nameen": "Sapphire plug right arm",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13202,
@@ -7960,17 +8014,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19021,
-        "materialnum1": 15,
-        "material2": 19022,
-        "materialnum2": 15,
-        "material3": 19023,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19032,
+        "materialnum3": 2,
         "upgradeitem": 13302,
         "upgrademoney": 170,
-        "nameen": "Space Pants β",
-        "explaintw": "β級的實用未來機能褲。",
-        "explainen": "Grade β Futuristic Space Pants"
+        "nameen": "Sapphire plug right arm",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13203,
@@ -7986,17 +8040,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19021,
-        "materialnum1": 15,
-        "material2": 19022,
-        "materialnum2": 15,
-        "material3": 19023,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19033,
+        "materialnum3": 2,
         "upgradeitem": 13303,
         "upgrademoney": 180,
-        "nameen": "Space Pants γ",
-        "explaintw": "γ級的實用未來機能褲。",
-        "explainen": "Grade γ Futuristic Space Pants"
+        "nameen": "Sapphire plug right arm",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13301,
@@ -8012,16 +8066,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19021,
-        "materialnum1": 20,
-        "material2": 19022,
-        "materialnum2": 20,
-        "material3": 19023,
-        "materialnum3": 20,
-        "material4": 19024,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19041,
+        "materialnum3": 3,
         "upgradeitem": 13401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple diamond right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13302,
@@ -8037,16 +8092,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19021,
-        "materialnum1": 20,
-        "material2": 19022,
-        "materialnum2": 20,
-        "material3": 19023,
-        "materialnum3": 20,
-        "material4": 19024,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19042,
+        "materialnum3": 3,
         "upgradeitem": 13402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple diamond right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13303,
@@ -8062,16 +8118,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19021,
-        "materialnum1": 20,
-        "material2": 19022,
-        "materialnum2": 20,
-        "material3": 19023,
-        "materialnum3": 20,
-        "material4": 19024,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19013,
+        "materialnum2": 2,
+        "material3": 19043,
+        "materialnum3": 3,
         "upgradeitem": 13403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple diamond right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13401,
@@ -8087,15 +8144,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25,
-        "upgradeitem": 13501
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19051,
+        "materialnum3": 4,
+        "upgradeitem": 13501,
+        "nameen": "Gold right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13402,
@@ -8111,15 +8169,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25,
-        "upgradeitem": 13502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19052,
+        "materialnum3": 4,
+        "upgradeitem": 13502,
+        "nameen": "Gold right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13403,
@@ -8135,15 +8194,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25,
-        "upgradeitem": 13503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19053,
+        "materialnum3": 4,
+        "upgradeitem": 13503,
+        "nameen": "Gold right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13501,
@@ -8159,14 +8219,15 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19061,
+        "materialnum3": 5,
+        "nameen": "Colorful right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13502,
@@ -8182,14 +8243,15 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19062,
+        "materialnum3": 5,
+        "nameen": "Colorful right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 13503,
@@ -8205,14 +8267,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19022,
-        "materialnum1": 25,
-        "material2": 19023,
-        "materialnum2": 25,
-        "material3": 19024,
-        "materialnum3": 25,
-        "material4": 19025,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19013,
+        "materialnum2": 3,
+        "material3": 19063,
+        "materialnum3": 5,
+        "nameen": "Colorful right arm plug",
+        "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
     },
     {
         "id": 14001,
@@ -8228,13 +8291,15 @@
         "attrvalue2": 1,
         "attrkind3": 12,
         "attrvalue3": 1,
-        "material1": 19031,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
         "upgradeitem": 14101,
         "upgrademoney": 100,
-        "nameen": "Performance Clothes α",
-        "explaintw": "α級的舒適棉質機能衣。",
-        "explainen": "Grade α Comfy Cotton Clothes"
+        "nameen": "White crystal Pleural widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14002,
@@ -8250,13 +8315,15 @@
         "attrvalue2": 1,
         "attrkind3": 5,
         "attrvalue3": 1,
-        "material1": 19031,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
         "upgradeitem": 14102,
         "upgrademoney": 110,
-        "nameen": "Performance Clothes β",
-        "explaintw": "β級的舒適棉質機能衣。",
-        "explainen": "Grade β Comfy Cotton Clothes"
+        "nameen": "White crystal Pleural widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14003,
@@ -8272,13 +8339,15 @@
         "attrvalue2": 1,
         "attrkind3": 4,
         "attrvalue3": 1,
-        "material1": 19031,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
         "upgradeitem": 14103,
         "upgrademoney": 120,
-        "nameen": "Performance Clothes γ",
-        "explaintw": "γ級的舒適棉質機能衣。",
-        "explainen": "Grade γ Comfy Cotton Clothes"
+        "nameen": "White crystal Pleural widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14101,
@@ -8294,15 +8363,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19031,
-        "materialnum1": 10,
-        "material2": 19032,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
+        "material3": 19024,
+        "materialnum3": 1,
         "upgradeitem": 14201,
         "upgrademoney": 130,
-        "nameen": "Bionic Performance Clothes α",
-        "explaintw": "α級的特殊科技機能衣。",
-        "explainen": "Grade α Bionic Performance Suit"
+        "nameen": "Emerald chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14102,
@@ -8318,15 +8389,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19031,
-        "materialnum1": 10,
-        "material2": 19032,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
+        "material3": 19025,
+        "materialnum3": 1,
         "upgradeitem": 14202,
         "upgrademoney": 140,
-        "nameen": "Bionic Performance Clothes β",
-        "explaintw": "β級的特殊科技機能衣。",
-        "explainen": "Grade β Bionic Performance Suit"
+        "nameen": "Emerald chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14103,
@@ -8342,15 +8415,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19031,
-        "materialnum1": 10,
-        "material2": 19032,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19014,
+        "materialnum2": 1,
+        "material3": 19026,
+        "materialnum3": 1,
         "upgradeitem": 14203,
         "upgrademoney": 150,
-        "nameen": "Bionic Performance Clothes γ",
-        "explaintw": "γ級的特殊科技機能衣。",
-        "explainen": "Grade γ Bionic Performance Suit"
+        "nameen": "Emerald chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14201,
@@ -8366,17 +8441,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19031,
-        "materialnum1": 15,
-        "material2": 19032,
-        "materialnum2": 15,
-        "material3": 19033,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19034,
+        "materialnum3": 2,
         "upgradeitem": 14301,
         "upgrademoney": 160,
-        "nameen": "Space Performance Clothes α",
-        "explaintw": "α級的實用未來機能衣。",
-        "explainen": "Grade α Futuristic Space Suit"
+        "nameen": "Sapphire Plug-chest",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14202,
@@ -8392,17 +8467,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19031,
-        "materialnum1": 15,
-        "material2": 19032,
-        "materialnum2": 15,
-        "material3": 19033,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19035,
+        "materialnum3": 2,
         "upgradeitem": 14302,
         "upgrademoney": 170,
-        "nameen": "Space Performance Clothes β",
-        "explaintw": "β級的實用未來機能衣。",
-        "explainen": "Grade β Futuristic Space Suit"
+        "nameen": "Sapphire Plug-chest",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14203,
@@ -8418,17 +8493,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19031,
-        "materialnum1": 15,
-        "material2": 19032,
-        "materialnum2": 15,
-        "material3": 19033,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19036,
+        "materialnum3": 2,
         "upgradeitem": 14303,
         "upgrademoney": 180,
-        "nameen": "Space Performance Clothes γ",
-        "explaintw": "γ級的實用未來機能衣。",
-        "explainen": "Grade γ Futuristic Space Suit"
+        "nameen": "Sapphire Plug-chest",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14301,
@@ -8444,16 +8519,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19031,
-        "materialnum1": 20,
-        "material2": 19032,
-        "materialnum2": 20,
-        "material3": 19033,
-        "materialnum3": 20,
-        "material4": 19034,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19044,
+        "materialnum3": 3,
         "upgradeitem": 14401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple diamond chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14302,
@@ -8469,16 +8545,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19031,
-        "materialnum1": 20,
-        "material2": 19032,
-        "materialnum2": 20,
-        "material3": 19033,
-        "materialnum3": 20,
-        "material4": 19034,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19045,
+        "materialnum3": 3,
         "upgradeitem": 14402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple diamond chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14303,
@@ -8494,16 +8571,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19031,
-        "materialnum1": 20,
-        "material2": 19032,
-        "materialnum2": 20,
-        "material3": 19033,
-        "materialnum3": 20,
-        "material4": 19034,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19014,
+        "materialnum2": 2,
+        "material3": 19046,
+        "materialnum3": 3,
         "upgradeitem": 14403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple diamond chest widget",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14401,
@@ -8519,15 +8597,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25,
-        "upgradeitem": 14501
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19054,
+        "materialnum3": 4,
+        "upgradeitem": 14501,
+        "nameen": "Gold chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14402,
@@ -8543,15 +8622,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25,
-        "upgradeitem": 14502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19055,
+        "materialnum3": 4,
+        "upgradeitem": 14502,
+        "nameen": "Gold chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14403,
@@ -8567,15 +8647,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25,
-        "upgradeitem": 14503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19056,
+        "materialnum3": 4,
+        "upgradeitem": 14503,
+        "nameen": "Gold chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14501,
@@ -8591,14 +8672,15 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19064,
+        "materialnum3": 5,
+        "nameen": "Colorful chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14502,
@@ -8614,14 +8696,15 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19065,
+        "materialnum3": 5,
+        "nameen": "Colorful chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 14503,
@@ -8637,14 +8720,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19032,
-        "materialnum1": 25,
-        "material2": 19033,
-        "materialnum2": 25,
-        "material3": 19034,
-        "materialnum3": 25,
-        "material4": 19035,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19014,
+        "materialnum2": 3,
+        "material3": 19066,
+        "materialnum3": 5,
+        "nameen": "Colorful chest plug",
+        "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
     },
     {
         "id": 15001,
@@ -8660,13 +8744,15 @@
         "attrvalue2": 1,
         "attrkind3": 12,
         "attrvalue3": 1,
-        "material1": 19041,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
         "upgradeitem": 15101,
         "upgrademoney": 100,
-        "nameen": "Knee Pads α",
-        "explaintw": "α級的舒適棉質護膝。",
-        "explainen": "Grade a Comfy Cotton Knee Bracelet"
+        "nameen": "White crystal leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15002,
@@ -8682,13 +8768,15 @@
         "attrvalue2": 1,
         "attrkind3": 5,
         "attrvalue3": 1,
-        "material1": 19041,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
         "upgradeitem": 15102,
         "upgrademoney": 110,
-        "nameen": "Knee Pads β",
-        "explaintw": "β級的舒適棉質護膝。",
-        "explainen": "Grade β Comfy Cotton Knee Bracelet"
+        "nameen": "White crystal leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15003,
@@ -8704,13 +8792,15 @@
         "attrvalue2": 1,
         "attrkind3": 4,
         "attrvalue3": 1,
-        "material1": 19041,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
         "upgradeitem": 15103,
         "upgrademoney": 120,
-        "nameen": "Knee Pads γ",
-        "explaintw": "γ級的舒適棉質護膝。",
-        "explainen": "Grade γ Comfy Cotton Knee Bracelet"
+        "nameen": "White crystal leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15101,
@@ -8726,15 +8816,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19041,
-        "materialnum1": 10,
-        "material2": 19042,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
+        "material3": 19021,
+        "materialnum3": 1,
         "upgradeitem": 15201,
         "upgrademoney": 130,
-        "nameen": "Bionic Knee Pads α",
-        "explaintw": "α級的特殊科技護膝。",
-        "explainen": "Grade α Bionic Knee Bracelet"
+        "nameen": "Emerald leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15102,
@@ -8750,15 +8842,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19041,
-        "materialnum1": 10,
-        "material2": 19042,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
+        "material3": 19022,
+        "materialnum3": 1,
         "upgradeitem": 15202,
         "upgrademoney": 140,
-        "nameen": "Bionic Knee Pads β",
-        "explaintw": "β級的特殊科技護膝。",
-        "explainen": "Grade β Bionic Knee Bracelet"
+        "nameen": "Emerald leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15103,
@@ -8774,15 +8868,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19041,
-        "materialnum1": 10,
-        "material2": 19042,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19015,
+        "materialnum2": 1,
+        "material3": 19023,
+        "materialnum3": 1,
         "upgradeitem": 15203,
         "upgrademoney": 150,
-        "nameen": "Bionic Knee Pads γ",
-        "explaintw": "γ級的特殊科技護膝。",
-        "explainen": "Grade Y Bionic Knee Bracelet"
+        "nameen": "Emerald leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15201,
@@ -8798,17 +8894,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19041,
-        "materialnum1": 15,
-        "material2": 19042,
-        "materialnum2": 15,
-        "material3": 19043,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19015,
+        "materialnum2": 2,
+        "material3": 19031,
+        "materialnum3": 2,
         "upgradeitem": 15301,
         "upgrademoney": 160,
-        "nameen": "Space Knee Pads α",
-        "explaintw": "α級的實用未來護膝。",
-        "explainen": "Grade α Futuristic Knee Bracelet"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15202,
@@ -8824,17 +8920,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19041,
-        "materialnum1": 15,
-        "material2": 19042,
-        "materialnum2": 15,
-        "material3": 19043,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19015,
+        "materialnum2": 2,
+        "material3": 19032,
+        "materialnum3": 2,
         "upgradeitem": 15302,
         "upgrademoney": 170,
-        "nameen": "Space Knee Pads β",
-        "explaintw": "β級的實用未來護膝。",
-        "explainen": "Grade β Futuristic Knee Bracelet"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15203,
@@ -8850,17 +8946,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19041,
-        "materialnum1": 15,
-        "material2": 19042,
-        "materialnum2": 15,
-        "material3": 19043,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19015,
+        "materialnum2": 2,
+        "material3": 19033,
+        "materialnum3": 2,
         "upgradeitem": 15303,
         "upgrademoney": 180,
-        "nameen": "Space Knee Pads γ",
-        "explaintw": "γ級的實用未來護膝。",
-        "explainen": "Grade Y Futuristic Knee Bracelet"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15301,
@@ -8876,16 +8972,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19041,
-        "materialnum1": 20,
-        "material2": 19042,
-        "materialnum2": 20,
-        "material3": 19043,
-        "materialnum3": 20,
-        "material4": 19044,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19015,
+        "materialnum2": 2,
+        "material3": 19041,
+        "materialnum3": 3,
         "upgradeitem": 15401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple Diamond left leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15302,
@@ -8901,16 +8998,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19041,
-        "materialnum1": 20,
-        "material2": 19042,
-        "materialnum2": 20,
-        "material3": 19043,
-        "materialnum3": 20,
-        "material4": 19044,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19015,
+        "materialnum2": 2,
+        "material3": 19042,
+        "materialnum3": 3,
         "upgradeitem": 15402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple Diamond left leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15303,
@@ -8926,16 +9024,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19041,
-        "materialnum1": 20,
-        "material2": 19042,
-        "materialnum2": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19015,
+        "materialnum2": 2,
         "material3": 19043,
-        "materialnum3": 20,
-        "material4": 19044,
-        "materialnum4": 20,
+        "materialnum3": 3,
         "upgradeitem": 15403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple Diamond left leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15401,
@@ -8951,15 +9050,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25,
-        "upgradeitem": 15501
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19051,
+        "materialnum3": 4,
+        "upgradeitem": 15501,
+        "nameen": "Gold leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15402,
@@ -8975,15 +9075,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25,
-        "upgradeitem": 15502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19052,
+        "materialnum3": 4,
+        "upgradeitem": 15502,
+        "nameen": "Gold leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15403,
@@ -8999,15 +9100,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25,
-        "upgradeitem": 15503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19053,
+        "materialnum3": 4,
+        "upgradeitem": 15503,
+        "nameen": "Gold leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15501,
@@ -9023,14 +9125,15 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19061,
+        "materialnum3": 5,
+        "nameen": "Colorful leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15502,
@@ -9046,14 +9149,15 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19062,
+        "materialnum3": 5,
+        "nameen": "Colorful leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 15503,
@@ -9069,14 +9173,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19042,
-        "materialnum1": 25,
-        "material2": 19043,
-        "materialnum2": 25,
-        "material3": 19044,
-        "materialnum3": 25,
-        "material4": 19045,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19015,
+        "materialnum2": 3,
+        "material3": 19063,
+        "materialnum3": 5,
+        "nameen": "Colorful leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16001,
@@ -9092,13 +9197,15 @@
         "attrvalue2": 1,
         "attrkind3": 12,
         "attrvalue3": 1,
-        "material1": 19051,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
         "upgradeitem": 16101,
         "upgrademoney": 100,
-        "nameen": "Wristband α",
-        "explaintw": "α級的舒適棉質腕帶。",
-        "explainen": "Grade α Comfy Wristband"
+        "nameen": "White crystal right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16002,
@@ -9114,13 +9221,15 @@
         "attrvalue2": 1,
         "attrkind3": 5,
         "attrvalue3": 1,
-        "material1": 19051,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
         "upgradeitem": 16102,
         "upgrademoney": 110,
-        "nameen": "Wristband β",
-        "explaintw": "β級的舒適棉質腕帶。",
-        "explainen": "Grade β Comfy Wristband"
+        "nameen": "White crystal right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16003,
@@ -9136,13 +9245,15 @@
         "attrvalue2": 1,
         "attrkind3": 4,
         "attrvalue3": 1,
-        "material1": 19051,
-        "materialnum1": 5,
+        "material1": 19001,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
         "upgradeitem": 16103,
         "upgrademoney": 120,
-        "nameen": "Wristband γ",
-        "explaintw": "γ級的舒適棉質腕帶。",
-        "explainen": "Grade Y Comfy Wristband"
+        "nameen": "White crystal right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16101,
@@ -9158,15 +9269,17 @@
         "attrvalue2": 5,
         "attrkind3": 12,
         "attrvalue3": 5,
-        "material1": 19051,
-        "materialnum1": 10,
-        "material2": 19052,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
+        "material3": 19024,
+        "materialnum3": 1,
         "upgradeitem": 16201,
         "upgrademoney": 130,
-        "nameen": "Bionic  Wristband α",
-        "explaintw": "α級的特殊科技腕帶。",
-        "explainen": "Grade α Bionic Wristband"
+        "nameen": "Emerald right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16102,
@@ -9182,15 +9295,17 @@
         "attrvalue2": 5,
         "attrkind3": 5,
         "attrvalue3": 5,
-        "material1": 19051,
-        "materialnum1": 10,
-        "material2": 19052,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
+        "material3": 19025,
+        "materialnum3": 1,
         "upgradeitem": 16202,
         "upgrademoney": 140,
-        "nameen": "Bionic  Wristband β",
-        "explaintw": "β級的特殊科技腕帶。",
-        "explainen": "Grade β Bionic Wristband"
+        "nameen": "Emerald right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16103,
@@ -9206,15 +9321,17 @@
         "attrvalue2": 5,
         "attrkind3": 4,
         "attrvalue3": 5,
-        "material1": 19051,
-        "materialnum1": 10,
-        "material2": 19052,
-        "materialnum2": 10,
+        "material1": 19002,
+        "materialnum1": 1,
+        "material2": 19016,
+        "materialnum2": 1,
+        "material3": 19026,
+        "materialnum3": 1,
         "upgradeitem": 16203,
         "upgrademoney": 150,
-        "nameen": "Bionic  Wristband γ",
-        "explaintw": "γ級的特殊科技腕帶。",
-        "explainen": "Grade Y Bionic Wristband"
+        "nameen": "Emerald right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16201,
@@ -9230,17 +9347,17 @@
         "attrvalue2": 10,
         "attrkind3": 12,
         "attrvalue3": 10,
-        "material1": 19051,
-        "materialnum1": 15,
-        "material2": 19052,
-        "materialnum2": 15,
-        "material3": 19053,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19034,
+        "materialnum3": 2,
         "upgradeitem": 16301,
         "upgrademoney": 160,
-        "nameen": "Space  Wristband α",
-        "explaintw": "α級的實用未來腕帶。",
-        "explainen": "Grade α Practical Futuristic Wristband"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16202,
@@ -9256,17 +9373,17 @@
         "attrvalue2": 10,
         "attrkind3": 5,
         "attrvalue3": 10,
-        "material1": 19051,
-        "materialnum1": 15,
-        "material2": 19052,
-        "materialnum2": 15,
-        "material3": 19053,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19035,
+        "materialnum3": 2,
         "upgradeitem": 16302,
         "upgrademoney": 170,
-        "nameen": "Space  Wristband β",
-        "explaintw": "β級的實用未來腕帶。",
-        "explainen": "Grade β Practical Futuristic Wristband"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16203,
@@ -9282,17 +9399,17 @@
         "attrvalue2": 10,
         "attrkind3": 4,
         "attrvalue3": 10,
-        "material1": 19051,
-        "materialnum1": 15,
-        "material2": 19052,
-        "materialnum2": 15,
-        "material3": 19053,
-        "materialnum3": 15,
+        "material1": 19003,
+        "materialnum1": 2,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19036,
+        "materialnum3": 2,
         "upgradeitem": 16303,
         "upgrademoney": 180,
-        "nameen": "Space  Wristband γ",
-        "explaintw": "γ級的實用未來腕帶。",
-        "explainen": "Grade Y Practical Futuristic Wristband"
+        "nameen": "Sapphire Plug-leg",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16301,
@@ -9308,16 +9425,17 @@
         "attrvalue2": 15,
         "attrkind3": 12,
         "attrvalue3": 15,
-        "material1": 19051,
-        "materialnum1": 20,
-        "material2": 19052,
-        "materialnum2": 20,
-        "material3": 19053,
-        "materialnum3": 20,
-        "material4": 19054,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19044,
+        "materialnum3": 3,
         "upgradeitem": 16401,
-        "upgrademoney": 190
+        "upgrademoney": 190,
+        "nameen": "Purple diamond right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16302,
@@ -9333,16 +9451,17 @@
         "attrvalue2": 15,
         "attrkind3": 5,
         "attrvalue3": 15,
-        "material1": 19051,
-        "materialnum1": 20,
-        "material2": 19052,
-        "materialnum2": 20,
-        "material3": 19053,
-        "materialnum3": 20,
-        "material4": 19054,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19045,
+        "materialnum3": 3,
         "upgradeitem": 16402,
-        "upgrademoney": 200
+        "upgrademoney": 200,
+        "nameen": "Purple diamond right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16303,
@@ -9358,16 +9477,17 @@
         "attrvalue2": 15,
         "attrkind3": 4,
         "attrvalue3": 15,
-        "material1": 19051,
-        "materialnum1": 20,
-        "material2": 19052,
-        "materialnum2": 20,
-        "material3": 19053,
-        "materialnum3": 20,
-        "material4": 19054,
-        "materialnum4": 20,
+        "material1": 19004,
+        "materialnum1": 3,
+        "material2": 19016,
+        "materialnum2": 2,
+        "material3": 19046,
+        "materialnum3": 3,
         "upgradeitem": 16403,
-        "upgrademoney": 210
+        "upgrademoney": 210,
+        "nameen": "Purple diamond right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16401,
@@ -9383,15 +9503,16 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19016,
+        "materialnum2": 3,
         "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25,
-        "upgradeitem": 16501
+        "materialnum3": 4,
+        "upgradeitem": 16501,
+        "nameen": "Gold right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16402,
@@ -9407,15 +9528,16 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
-        "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25,
-        "upgradeitem": 16502
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19016,
+        "materialnum2": 3,
+        "material3": 19055,
+        "materialnum3": 4,
+        "upgradeitem": 16502,
+        "nameen": "Gold right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16403,
@@ -9431,15 +9553,16 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
-        "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25,
-        "upgradeitem": 16503
+        "material1": 19005,
+        "materialnum1": 4,
+        "material2": 19016,
+        "materialnum2": 3,
+        "material3": 19056,
+        "materialnum3": 4,
+        "upgradeitem": 16503,
+        "nameen": "Gold right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16501,
@@ -9455,14 +9578,15 @@
         "attrvalue2": 20,
         "attrkind3": 12,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
-        "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19016,
+        "materialnum2": 3,
+        "material3": 19064,
+        "materialnum3": 5,
+        "nameen": "Colorful right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16502,
@@ -9478,14 +9602,15 @@
         "attrvalue2": 20,
         "attrkind3": 5,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
-        "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19016,
+        "materialnum2": 3,
+        "material3": 19065,
+        "materialnum3": 5,
+        "nameen": "Colorful right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 16503,
@@ -9501,14 +9626,15 @@
         "attrvalue2": 20,
         "attrkind3": 4,
         "attrvalue3": 20,
-        "material1": 19052,
-        "materialnum1": 25,
-        "material2": 19053,
-        "materialnum2": 25,
-        "material3": 19054,
-        "materialnum3": 25,
-        "material4": 19055,
-        "materialnum4": 25
+        "material1": 19006,
+        "materialnum1": 5,
+        "material2": 19016,
+        "materialnum2": 3,
+        "material3": 19066,
+        "materialnum3": 5,
+        "nameen": "Colorful right leg plug",
+        "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
+        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
     },
     {
         "id": 17001,
@@ -9520,7 +9646,7 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "2 points left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9535,7 +9661,7 @@
         "maxstack": 999,
         "attrkind1": 2,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "3 points left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9550,7 +9676,7 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Speed left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9565,7 +9691,7 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Left ear endurance test tube",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9580,7 +9706,7 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Strength left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9595,7 +9721,7 @@
         "maxstack": 999,
         "attrkind1": 6,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "DEAR left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9610,7 +9736,7 @@
         "maxstack": 999,
         "attrkind1": 7,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Left ear tubes rebounds",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9625,7 +9751,7 @@
         "maxstack": 999,
         "attrkind1": 8,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Ear injection pot",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9640,7 +9766,7 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Defensive ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9655,7 +9781,7 @@
         "maxstack": 999,
         "attrkind1": 10,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Ear steals injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9670,7 +9796,7 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Right ear had injections",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9685,7 +9811,7 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "Pass right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9700,7 +9826,7 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "2 points right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9715,7 +9841,7 @@
         "maxstack": 999,
         "attrkind1": 2,
         "attrvalue1": 10,
-        "uisource": [10],
+        "uisource": [10,11,12],
         "nameen": "3 points right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9735,8 +9861,11 @@
         "icon": 11001,
         "quality": 1,
         "maxstack": 999,
-        "stagesource": [101,102],
-        "uisource": [1]
+        "stagesource": [103,124,141],
+        "uisource": [10,11,12],
+        "nameen": "White crystal stone",
+        "explaintw": "突觸強化合成材料。可協助所有 白色 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. All white quality can help to strengthen plugins."
     },
     {
         "id": 19002,
@@ -9746,8 +9875,11 @@
         "icon": 11101,
         "quality": 2,
         "maxstack": 999,
-        "stagesource": [109,110],
-        "uisource": [1,10]
+        "stagesource": [103,124,141],
+        "uisource": [10,11,12],
+        "nameen": "Emerald stone",
+        "explaintw": "突觸強化合成材料。可協助所有 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19003,
@@ -9757,8 +9889,11 @@
         "icon": 11201,
         "quality": 3,
         "maxstack": 999,
-        "stagesource": [117,118],
-        "uisource": [1,10,11]
+        "stagesource": [103,124,141],
+        "uisource": [10,11,12],
+        "nameen": "Sapphire stone",
+        "explaintw": "突觸強化合成材料。可協助所有 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19004,
@@ -9769,7 +9904,10 @@
         "quality": 4,
         "maxstack": 999,
         "stagesource": [135,136],
-        "uisource": [1,10,11,12]
+        "uisource": [10,11,12],
+        "nameen": "Purple rough diamonds",
+        "explaintw": "突觸強化合成材料。可協助所有 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19005,
@@ -9780,7 +9918,10 @@
         "quality": 5,
         "maxstack": 999,
         "stagesource": [143,144],
-        "uisource": [10,12]
+        "uisource": [10,11,12],
+        "nameen": "Gold stone",
+        "explaintw": "突觸強化合成材料。可協助所有 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19006,
@@ -9789,7 +9930,10 @@
         "atlas": 11,
         "icon": 11201,
         "quality": 5,
-        "maxstack": 999
+        "maxstack": 999,
+        "nameen": "Colorful original stone",
+        "explaintw": "突觸強化合成材料。可協助所有 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19007,
@@ -9819,9 +9963,13 @@
         "icon": 12001,
         "quality": 1,
         "maxstack": 999,
-        "attrkind1": 2,
+        "attrkind1": 1,
         "attrvalue1": 2,
-        "stagesource": [103,104]
+        "stagesource": [107,126,144],
+        "uisource": [10,11,12],
+        "nameen": "Square columns crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]顱部插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] cranial plug [-] to strengthen."
     },
     {
         "id": 19012,
@@ -9829,11 +9977,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 12101,
-        "quality": 2,
+        "quality": 1,
         "maxstack": 999,
         "attrkind1": 2,
-        "attrvalue1": 4,
-        "stagesource": [111,112]
+        "attrvalue1": 2,
+        "stagesource": [107,126,144],
+        "uisource": [10,11,12],
+        "nameen": "Distorted crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]左臂插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] left arm plug [-] to strengthen."
     },
     {
         "id": 19013,
@@ -9841,11 +9993,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 12201,
-        "quality": 3,
+        "quality": 1,
         "maxstack": 999,
-        "attrkind1": 2,
-        "attrvalue1": 6,
-        "stagesource": [119,120]
+        "attrkind1": 6,
+        "attrvalue1": 2,
+        "stagesource": [107,126,144],
+        "uisource": [10,11,12],
+        "nameen": "Nested crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]右臂插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] right arm plug [-] to strengthen."
     },
     {
         "id": 19014,
@@ -9853,11 +10009,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 12001,
-        "quality": 4,
+        "quality": 1,
         "maxstack": 999,
-        "attrkind1": 2,
-        "attrvalue1": 8,
-        "stagesource": [128,129]
+        "attrkind1": 7,
+        "attrvalue1": 2,
+        "stagesource": [111,129,146],
+        "uisource": [10,11,12],
+        "nameen": "Flawless crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]胸腔插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] chest plug [-] to strengthen."
     },
     {
         "id": 19015,
@@ -9865,11 +10025,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 12101,
-        "quality": 5,
+        "quality": 1,
         "maxstack": 999,
-        "attrkind1": 2,
-        "attrvalue1": 10,
-        "stagesource": [138,139]
+        "attrkind1": 8,
+        "attrvalue1": 2,
+        "stagesource": [111,129,146],
+        "uisource": [10,11,12],
+        "nameen": "Isometric crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]左腿插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] leg plug [-] to strengthen."
     },
     {
         "id": 19016,
@@ -9877,8 +10041,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 12201,
-        "quality": 5,
-        "maxstack": 999
+        "quality": 1,
+        "maxstack": 999,
+        "attrkind1": 10,
+        "attrvalue1": 2,
+        "stagesource": [111,129,146],
+        "uisource": [10,11,12],
+        "nameen": "Ion crystal",
+        "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]右腿插件[-] 進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] right leg plug [-] to strengthen."
     },
     {
         "id": 19017,
@@ -9906,11 +10077,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 13001,
-        "quality": 1,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 6,
+        "attrkind1": 11,
         "attrvalue1": 2,
-        "stagesource": [105,106]
+        "stagesource": [114,131],
+        "uisource": [10,11,12],
+        "nameen": "Oxygen",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19022,
@@ -9920,9 +10095,13 @@
         "icon": 13101,
         "quality": 2,
         "maxstack": 999,
-        "attrkind1": 6,
-        "attrvalue1": 4,
-        "stagesource": [113,114]
+        "attrkind1": 9,
+        "attrvalue1": 2,
+        "stagesource": [114,131],
+        "uisource": [10,11,12],
+        "nameen": "Carbon element",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19023,
@@ -9930,11 +10109,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 13201,
-        "quality": 3,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 6,
-        "attrvalue1": 6,
-        "stagesource": [121,122]
+        "attrkind1": 3,
+        "attrvalue1": 2,
+        "stagesource": [114,131],
+        "uisource": [10,11,12],
+        "nameen": "Hydrogen",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19024,
@@ -9942,11 +10125,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 13001,
-        "quality": 4,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 6,
-        "attrvalue1": 8,
-        "stagesource": [130,131]
+        "attrkind1": 12,
+        "attrvalue1": 2,
+        "stagesource": [119,136],
+        "uisource": [10,11,12],
+        "nameen": "Nitrogen",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19025,
@@ -9954,11 +10141,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 13101,
-        "quality": 5,
+        "quality": 2,
         "maxstack": 999,
-        "attrkind1": 6,
-        "attrvalue1": 10,
-        "stagesource": [140,141]
+        "attrkind1": 5,
+        "attrvalue1": 2,
+        "stagesource": [119,136],
+        "uisource": [10,11,12],
+        "nameen": "Calcium",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19026,
@@ -9966,8 +10157,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 13201,
-        "quality": 5,
-        "maxstack": 999
+        "quality": 2,
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 2,
+        "stagesource": [119,136],
+        "uisource": [10,11,12],
+        "nameen": "Phosphorus",
+        "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [00b35a] Green [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19027,
@@ -9995,11 +10193,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 14001,
-        "quality": 1,
+        "quality": 3,
         "maxstack": 999,
-        "attrkind1": 7,
+        "attrkind1": 11,
         "attrvalue1": 2,
-        "stagesource": [107,108]
+        "stagesource": [116,134],
+        "uisource": [10,11,12],
+        "nameen": "T cells",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19032,
@@ -10007,11 +10209,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 14101,
-        "quality": 2,
+        "quality": 3,
         "maxstack": 999,
-        "attrkind1": 7,
-        "attrvalue1": 4,
-        "stagesource": [115,116]
+        "attrkind1": 9,
+        "attrvalue1": 2,
+        "stagesource": [116,134],
+        "uisource": [10,11,12],
+        "nameen": "B cells",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19033,
@@ -10021,9 +10227,13 @@
         "icon": 14201,
         "quality": 3,
         "maxstack": 999,
-        "attrkind1": 7,
-        "attrvalue1": 6,
-        "stagesource": [123,124]
+        "attrkind1": 3,
+        "attrvalue1": 2,
+        "stagesource": [116,134],
+        "uisource": [10,11,12],
+        "nameen": "K cells",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19034,
@@ -10031,11 +10241,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 14001,
-        "quality": 4,
+        "quality": 3,
         "maxstack": 999,
-        "attrkind1": 7,
-        "attrvalue1": 8,
-        "stagesource": [132,133]
+        "attrkind1": 12,
+        "attrvalue1": 2,
+        "stagesource": [121,139],
+        "uisource": [10,11,12],
+        "nameen": "NK cells",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19035,
@@ -10043,11 +10257,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 14101,
-        "quality": 5,
+        "quality": 3,
         "maxstack": 999,
-        "attrkind1": 7,
-        "attrvalue1": 10,
-        "stagesource": [142,143]
+        "attrkind1": 5,
+        "attrvalue1": 2,
+        "stagesource": [121,139],
+        "uisource": [10,11,12],
+        "nameen": "X Cell",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19036,
@@ -10055,8 +10273,15 @@
         "kind": 19,
         "atlas": 11,
         "icon": 14201,
-        "quality": 5,
-        "maxstack": 999
+        "quality": 3,
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 2,
+        "stagesource": [121,139],
+        "uisource": [10,11,12],
+        "nameen": "Z cell",
+        "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [33bbff] Blue [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19037,
@@ -10084,11 +10309,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 15001,
-        "quality": 1,
+        "quality": 4,
         "maxstack": 999,
-        "attrkind1": 8,
+        "attrkind1": 11,
         "attrvalue1": 2,
-        "stagesource": [101,102]
+        "nameen": "Thermal particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19042,
@@ -10096,11 +10323,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 15101,
-        "quality": 2,
+        "quality": 4,
         "maxstack": 999,
-        "attrkind1": 8,
-        "attrvalue1": 4,
-        "stagesource": [109,110]
+        "attrkind1": 9,
+        "attrvalue1": 2,
+        "nameen": "Strange particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19043,
@@ -10108,11 +10337,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 15201,
-        "quality": 3,
+        "quality": 4,
         "maxstack": 999,
-        "attrkind1": 8,
-        "attrvalue1": 6,
-        "stagesource": [125,126]
+        "attrkind1": 3,
+        "attrvalue1": 2,
+        "nameen": "Charged particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19044,
@@ -10122,9 +10353,11 @@
         "icon": 15001,
         "quality": 4,
         "maxstack": 999,
-        "attrkind1": 8,
-        "attrvalue1": 8,
-        "stagesource": [134,135]
+        "attrkind1": 12,
+        "attrvalue1": 2,
+        "nameen": "Superfluid particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19045,
@@ -10132,11 +10365,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 15101,
-        "quality": 5,
+        "quality": 4,
         "maxstack": 999,
-        "attrkind1": 8,
-        "attrvalue1": 10,
-        "stagesource": [144,145]
+        "attrkind1": 5,
+        "attrvalue1": 2,
+        "nameen": "Light-sensitive particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19046,
@@ -10144,8 +10379,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 15201,
-        "quality": 5,
-        "maxstack": 999
+        "quality": 4,
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 2,
+        "nameen": "Liquid titanium particles",
+        "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19047,
@@ -10173,11 +10413,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 16001,
-        "quality": 1,
+        "quality": 5,
         "maxstack": 999,
-        "attrkind1": 10,
+        "attrkind1": 11,
         "attrvalue1": 2,
-        "stagesource": [103,104]
+        "nameen": "A-DNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19052,
@@ -10185,11 +10427,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 16101,
-        "quality": 2,
+        "quality": 5,
         "maxstack": 999,
-        "attrkind1": 10,
-        "attrvalue1": 4,
-        "stagesource": [111,112]
+        "attrkind1": 9,
+        "attrvalue1": 2,
+        "nameen": "B-DNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19053,
@@ -10197,11 +10441,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 16201,
-        "quality": 3,
+        "quality": 5,
         "maxstack": 999,
-        "attrkind1": 10,
-        "attrvalue1": 6,
-        "stagesource": [127,118]
+        "attrkind1": 3,
+        "attrvalue1": 2,
+        "nameen": "Z-DNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19054,
@@ -10209,11 +10455,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 16001,
-        "quality": 4,
+        "quality": 5,
         "maxstack": 999,
-        "attrkind1": 10,
-        "attrvalue1": 8,
-        "stagesource": [136,137]
+        "attrkind1": 12,
+        "attrvalue1": 2,
+        "nameen": "mRNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19055,
@@ -10223,9 +10471,11 @@
         "icon": 16101,
         "quality": 5,
         "maxstack": 999,
-        "attrkind1": 10,
-        "attrvalue1": 10,
-        "stagesource": [146,147]
+        "attrkind1": 5,
+        "attrvalue1": 2,
+        "nameen": "tRNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19056,
@@ -10234,7 +10484,12 @@
         "atlas": 11,
         "icon": 16201,
         "quality": 5,
-        "maxstack": 999
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 2,
+        "nameen": "rRNA",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19057,
@@ -10262,8 +10517,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 11001,
-        "quality": 1,
-        "maxstack": 999
+        "quality": 5,
+        "maxstack": 999,
+        "attrkind1": 11,
+        "attrvalue1": 2,
+        "nameen": "Alpha atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19062,
@@ -10271,8 +10531,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 11101,
-        "quality": 2,
-        "maxstack": 999
+        "quality": 5,
+        "maxstack": 999,
+        "attrkind1": 9,
+        "attrvalue1": 2,
+        "nameen": "Beta atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19063,
@@ -10280,8 +10545,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 11201,
-        "quality": 3,
-        "maxstack": 999
+        "quality": 5,
+        "maxstack": 999,
+        "attrkind1": 3,
+        "attrvalue1": 2,
+        "nameen": "Gamma atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19064,
@@ -10289,8 +10559,13 @@
         "kind": 19,
         "atlas": 11,
         "icon": 11001,
-        "quality": 4,
-        "maxstack": 999
+        "quality": 5,
+        "maxstack": 999,
+        "attrkind1": 12,
+        "attrvalue1": 2,
+        "nameen": "Glick atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19065,
@@ -10299,7 +10574,12 @@
         "atlas": 11,
         "icon": 11101,
         "quality": 5,
-        "maxstack": 999
+        "maxstack": 999,
+        "attrkind1": 5,
+        "attrvalue1": 2,
+        "nameen": "Omega atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19066,
@@ -10308,7 +10588,12 @@
         "atlas": 11,
         "icon": 11201,
         "quality": 5,
-        "maxstack": 999
+        "maxstack": 999,
+        "attrkind1": 4,
+        "attrvalue1": 2,
+        "nameen": "Delta atom",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
         "id": 19067
@@ -12897,11 +13182,22 @@
         "explainen": "Get 1,200,000 gold"
     },
     {
+        "id": 93110,
+        "nametw": "200金幣",
+        "kind": 31,
+        "atlas": 12,
+        "quality": 1,
+        "value": 200,
+        "nameen": "200 coins",
+        "explaintw": "獲得200金幣",
+        "explainen": "Get 200 coins"
+    },
+    {
         "id": 93201,
         "nametw": "50鑽石",
         "kind": 32,
         "atlas": 12,
-        "value": 10,
+        "value": 50,
         "nameen": "50 diamonds",
         "explaintw": "獲得50鑽石",
         "explainen": "Get 50 diamonds"
@@ -12911,17 +13207,17 @@
         "nametw": "100鑽石",
         "kind": 32,
         "atlas": 12,
-        "value": 80,
+        "value": 100,
         "nameen": "100 Diamond",
         "explaintw": "獲得100鑽石",
         "explainen": "Get 100 diamonds"
     },
     {
         "id": 93203,
-        "nametw": "150鑽石",
+        "nametw": "125鑽石",
         "kind": 32,
         "atlas": 12,
-        "value": 320,
+        "value": 125,
         "nameen": "150 Diamond",
         "explaintw": "獲得150鑽石",
         "explainen": "Get 150 diamonds"
