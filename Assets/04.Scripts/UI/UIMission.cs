@@ -239,6 +239,7 @@ public class UIMission : UIBase {
                 if (missionItem.Mission.Final >= 1 || mLv < missionItem.Mission.Value.Length) {
         			missionItem.Item.SetActive(true);
         			missionItem.LabelName.text = missionItem.Mission.Name;
+                    missionItem.LabelName.color = TextConst.Color(missionItem.Mission.Color);
         			missionItem.LabelExplain.text = missionItem.Mission.Explain;
                     if (missionItem.Mission.Score > 0)
                         missionItem.LabelScore.text = TextConst.S(3718) + " " + missionItem.Mission.Score.ToString();

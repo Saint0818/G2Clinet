@@ -6,8 +6,8 @@
         "highscore": 99,
         "basicscore": 15,
         "calculate": 10,
-        "money": 100,
-        "pvpcoin": 10
+        "pvpcoin": 10,
+        "pvpcoindaily": 100
     },
     {
         "lv": 2,
@@ -16,8 +16,8 @@
         "highscore": 199,
         "basicscore": 15,
         "calculate": 10,
-        "money": 200,
-        "pvpcoin": 20
+        "pvpcoin": 15,
+        "pvpcoindaily": 100
     },
     {
         "lv": 3,
@@ -26,8 +26,8 @@
         "highscore": 399,
         "basicscore": 20,
         "calculate": 15,
-        "money": 300,
-        "pvpcoin": 30
+        "pvpcoin": 20,
+        "pvpcoindaily": 100
     },
     {
         "lv": 4,
@@ -36,8 +36,8 @@
         "highscore": 599,
         "basicscore": 20,
         "calculate": 15,
-        "money": 500,
-        "pvpcoin": 50
+        "pvpcoin": 25,
+        "pvpcoindaily": 200
     },
     {
         "lv": 5,
@@ -46,8 +46,8 @@
         "highscore": 799,
         "basicscore": 20,
         "calculate": 15,
-        "money": 600,
-        "pvpcoin": 60
+        "pvpcoin": 30,
+        "pvpcoindaily": 200
     },
     {
         "lv": 6,
@@ -56,8 +56,8 @@
         "highscore": 999,
         "basicscore": 20,
         "calculate": 15,
-        "money": 700,
-        "pvpcoin": 70
+        "pvpcoin": 35,
+        "pvpcoindaily": 200
     },
     {
         "lv": 7,
@@ -66,8 +66,8 @@
         "highscore": 1199,
         "basicscore": 20,
         "calculate": 15,
-        "money": 1000,
-        "pvpcoin": 100
+        "pvpcoin": 40,
+        "pvpcoindaily": 300
     },
     {
         "lv": 8,
@@ -76,8 +76,8 @@
         "highscore": 1399,
         "basicscore": 20,
         "calculate": 15,
-        "money": 1100,
-        "pvpcoin": 110
+        "pvpcoin": 45,
+        "pvpcoindaily": 300
     },
     {
         "lv": 9,
@@ -86,8 +86,8 @@
         "highscore": 1699,
         "basicscore": 25,
         "calculate": 20,
-        "money": 1200,
-        "pvpcoin": 120
+        "pvpcoin": 50,
+        "pvpcoindaily": 300
     },
     {
         "lv": 10,
@@ -96,8 +96,8 @@
         "highscore": 1999,
         "basicscore": 25,
         "calculate": 20,
-        "money": 1500,
-        "pvpcoin": 150
+        "pvpcoin": 55,
+        "pvpcoindaily": 400
     },
     {
         "lv": 11,
@@ -106,8 +106,8 @@
         "highscore": 2299,
         "basicscore": 25,
         "calculate": 20,
-        "money": 1600,
-        "pvpcoin": 160
+        "pvpcoin": 60,
+        "pvpcoindaily": 400
     },
     {
         "lv": 12,
@@ -116,8 +116,8 @@
         "highscore": 2599,
         "basicscore": 25,
         "calculate": 20,
-        "money": 1700,
-        "pvpcoin": 170
+        "pvpcoin": 65,
+        "pvpcoindaily": 400
     },
     {
         "lv": 13,
@@ -126,8 +126,8 @@
         "highscore": 2899,
         "basicscore": 25,
         "calculate": 20,
-        "money": 2000,
-        "pvpcoin": 200
+        "pvpcoin": 70,
+        "pvpcoindaily": 500
     },
     {
         "lv": 14,
@@ -136,8 +136,8 @@
         "highscore": 3199,
         "basicscore": 25,
         "calculate": 20,
-        "money": 2100,
-        "pvpcoin": 210
+        "pvpcoin": 75,
+        "pvpcoindaily": 500
     },
     {
         "lv": 15,
@@ -146,8 +146,8 @@
         "highscore": 3599,
         "basicscore": 30,
         "calculate": 25,
-        "money": 2200,
-        "pvpcoin": 220
+        "pvpcoin": 80,
+        "pvpcoindaily": 500
     },
     {
         "lv": 16,
@@ -156,8 +156,8 @@
         "highscore": 3999,
         "basicscore": 30,
         "calculate": 25,
-        "money": 2500,
-        "pvpcoin": 250
+        "pvpcoin": 85,
+        "pvpcoindaily": 600
     },
     {
         "lv": 17,
@@ -166,8 +166,8 @@
         "highscore": 4399,
         "basicscore": 30,
         "calculate": 25,
-        "money": 2600,
-        "pvpcoin": 260
+        "pvpcoin": 90,
+        "pvpcoindaily": 600
     },
     {
         "lv": 18,
@@ -176,8 +176,8 @@
         "highscore": 4799,
         "basicscore": 30,
         "calculate": 25,
-        "money": 2700,
-        "pvpcoin": 270
+        "pvpcoin": 95,
+        "pvpcoindaily": 600
     },
     {
         "lv": 19,
@@ -186,8 +186,8 @@
         "highscore": 5199,
         "basicscore": 30,
         "calculate": 25,
-        "money": 3000,
-        "pvpcoin": 300
+        "pvpcoin": 100,
+        "pvpcoindaily": 700
     },
     {
         "lv": 20,
@@ -196,8 +196,8 @@
         "highscore": 5599,
         "basicscore": 30,
         "calculate": 25,
-        "money": 3100,
-        "pvpcoin": 310
+        "pvpcoin": 105,
+        "pvpcoindaily": 700
     },
     {
         "lv": 21,
@@ -206,8 +206,8 @@
         "highscore": 6099,
         "basicscore": 35,
         "calculate": 30,
-        "money": 3200,
-        "pvpcoin": 320
+        "pvpcoin": 110,
+        "pvpcoindaily": 700
     },
     {
         "lv": 22,
@@ -216,7 +216,7 @@
         "highscore": 6599,
         "basicscore": 35,
         "calculate": 30,
-        "money": 3500,
-        "pvpcoin": 350
+        "pvpcoin": 115,
+        "pvpcoindaily": 800
     }
 ]

@@ -5,7 +5,8 @@ using GameStruct;
 public enum EUIPlayerMode
 {
 	UIPlayerInfo,
-	UIAvatarFitted
+	UIAvatarFitted,
+    UIShop
 }
 
 public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
@@ -53,11 +54,11 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		}
 	}
 
-	public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
+    public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
 	{
 		gameObject.SetActive (true);
 		ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.AvatarControl, false);
-		avatar.transform.parent = gameObject.transform;
+        avatar.transform.parent = gameObject.transform;
 		avatar.transform.localScale = Vector3.one;
 
 		switch (mode) {
@@ -67,7 +68,11 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 			case EUIPlayerMode.UIAvatarFitted:
 				avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);
 				break;
+            case EUIPlayerMode.UIShop:
+                avatar.transform.localPosition = new Vector3 (2.92f, -1.8f, -3);
+                break;
 		}
+
 		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
 	}
 

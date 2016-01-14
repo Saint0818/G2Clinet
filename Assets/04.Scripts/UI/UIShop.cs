@@ -5,20 +5,6 @@ using System.Collections.Generic;
 using GameStruct;
 using Newtonsoft.Json;
 
-public struct TBuyItemResult {
-    public int Kind;
-    public int Index;
-    public int Diamond;
-    public int Money;
-    public TItem[] Items;
-    public TValueItem[] ValueItems;
-    public TMaterialItem[] MaterialItems;
-    public TSkill[] SkillCards;
-    public Dictionary<int, int> GotItemCount; //key: item id, value: got number
-    public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
-    public Dictionary<int, int> SkillCardCounts; //key: ID , value:num
-}
-
 public struct TFreshShopResult {
     public int Kind;
     public int Diamond;
@@ -47,8 +33,11 @@ public class UIShop : UIBase {
 
     private const int pageNum = 3;
     private int nowPage = 0;
+    private int nowIndex = -1;
+    private TAvatar equipAvatar = new TAvatar();
 
     private GameObject itemSellItem;
+    private GameObject manAnchor;
     private UILabel labelPVPCoin;
     private UILabel labelSocialCoin;
     private UILabel labelFreshTime;
@@ -103,6 +92,7 @@ public class UIShop : UIBase {
             pageObjects[i].SetActive(false);
         }
 
+        manAnchor = GameObject.Find(UIName + "/Center/Left/ManAnchor");
         labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
         labelSocialCoin = GameObject.Find(UIName + "/TopRight/SocialCoin/Label").GetComponent<UILabel>();
         labelFreshTime = GameObject.Find(UIName + "/Center/BottomRight/WarningsLabel").GetComponent<UILabel>();
@@ -157,14 +147,22 @@ public class UIShop : UIBase {
             SetLabel(name + "/FittingIcon/Label", TextConst.S(4508));
             SetLabel(name + "/SoldOutIcon/Label", TextConst.S(4509));
             SetBtnFun(name + "/BuyBtn", OnBuy);
-            SetBtnFun(name, OnInfo);
 
             item.UISuit = GameObject.Find(name + "/FittingIcon");
             item.UISoldout = GameObject.Find(name + "/SoldOutIcon");
             GameObject obj = GameObject.Find(name + "/ItemAwardGroup");
-            if (obj)
+            if (obj) {
                 item.AwardGroup = obj.GetComponent<ItemAwardGroup>();
-            
+                UIButton btn = obj.GetComponent<UIButton>();
+                if (btn) {
+                    btn.onClick.Clear();
+                    if (GameData.DItemData[data.ID].Kind <= 7)
+                        SetBtnFun(ref btn, OnSuit);
+                    else
+                        SetBtnFun(ref btn, OnBuy);
+                }
+            }
+
             item.LabelName = GameObject.Find(name + "/ItemName").GetComponent<UILabel>();
             item.LabelPrice = GameObject.Find(name + "/BuyBtn/PriceLabel").GetComponent<UILabel>();
             item.SpriteSpendKind = GameObject.Find(name + "/BuyBtn/Icon").GetComponent<UISprite>();
@@ -184,6 +182,9 @@ public class UIShop : UIBase {
         shopItemList[page][index].Index = index;
         shopItemList[page][index].Data = data;
         shopItemList[page][index].LabelName.text = GameData.DItemData[data.ID].Name;
+        if (data.Num > 1)
+            shopItemList[page][index].LabelName.text += "X" + data.Num.ToString();
+        
         shopItemList[page][index].UISoldout.SetActive(data.Num <= 0);
         shopItemList[page][index].UISuit.SetActive(false);
         shopItemList[page][index].LabelPrice.text = data.Price.ToString();
@@ -218,20 +219,23 @@ public class UIShop : UIBase {
         base.OnShow(isShow);
 
         if (isShow) {
+            equipAvatar = GameData.Team.Player.Avatar;
+            UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIShop, ref GameData.Team);
             if (GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
                 refreshShop(0);
 
             openPage(nowPage);
-        }
 
-        labelPVPCoin.text = "0";
-        labelSocialCoin.text = "0";
-        labelFreshTime.text = "";
-        labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
+            labelPVPCoin.text = "0";
+            labelSocialCoin.text = "0";
+            labelFreshTime.text = "";
+            labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
+        }
     }
 
     public void OnClose() {
         Visible = false;
+        UIPlayerMgr.Visible = false;
         UIMainLobby.Get.Show();
     }
 
@@ -251,15 +255,59 @@ public class UIShop : UIBase {
     }
 
     public void OnBuy() {
-        int index = -1;
         if (UIButton.current.transform.parent.gameObject && 
-            int.TryParse(UIButton.current.transform.parent.gameObject.name, out index)) {
-            sendBuyItem(nowPage, index);
+            int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
+            shopItemList[nowPage][nowIndex].Data.Num > 0) {
+            bool flag = false;
+            if (shopItemList[nowPage][nowIndex].Data.SpendKind == 0 && CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true))
+                flag = true;
+            else
+            if (shopItemList[nowPage][nowIndex].Data.SpendKind == 1 && CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true))
+                flag = true;
+            
+            if (flag)
+                UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+            else
+                UIHint.Get.ShowHint(TextConst.S(4509), Color.white);
         }
     }
 
-    public void OnInfo() {
-        
+    public void OnSuit() {
+        if (UIButton.current.transform.parent.gameObject && 
+            int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex)) {
+            int id = shopItemList[nowPage][nowIndex].Data.ID;
+            if (GameData.DItemData[id].Kind < GameData.Team.Player.Items.Length) {
+                if (GameData.DItemData[id].Position == 3 || GameData.DItemData[id].Position == GameData.Team.Player.BodyType) {
+                    shopItemList[nowPage][nowIndex].UISuit.SetActive(!shopItemList[nowPage][nowIndex].UISuit.activeInHierarchy);
+                    if (shopItemList[nowPage][nowIndex].UISuit.activeInHierarchy) {
+                        switch(GameData.DItemData[id].Kind) {
+                            case 0: equipAvatar.Body = GameData.DItemData[id].Avatar; break;
+                            case 1: equipAvatar.Hair = GameData.DItemData[id].Avatar; break;
+                            case 2: equipAvatar.MHandDress = GameData.DItemData[id].Avatar; break;
+                            case 3: equipAvatar.Cloth = GameData.DItemData[id].Avatar; break;
+                            case 4: equipAvatar.Pants = GameData.DItemData[id].Avatar; break;
+                            case 5: equipAvatar.Shoes = GameData.DItemData[id].Avatar; break;
+                            case 6: equipAvatar.AHeadDress = GameData.DItemData[id].Avatar; break;
+                            case 7: equipAvatar.ZBackEquip = GameData.DItemData[id].Avatar; break;
+                        } 
+                    } else {
+                        switch(GameData.DItemData[id].Kind) {
+                            case 0: equipAvatar.Body = GameData.Team.Player.Avatar.Body; break;
+                            case 1: equipAvatar.Hair = GameData.Team.Player.Avatar.Hair; break;
+                            case 2: equipAvatar.MHandDress = GameData.Team.Player.Avatar.MHandDress; break;
+                            case 3: equipAvatar.Cloth = GameData.Team.Player.Avatar.Cloth; break;
+                            case 4: equipAvatar.Pants = GameData.Team.Player.Avatar.Pants; break;
+                            case 5: equipAvatar.Shoes = GameData.Team.Player.Avatar.Shoes; break;
+                            case 6: equipAvatar.AHeadDress = GameData.Team.Player.Avatar.AHeadDress; break;
+                            case 7: equipAvatar.ZBackEquip = GameData.Team.Player.Avatar.ZBackEquip; break;
+                        }  
+                    }
+
+                    UIPlayerMgr.Get.ChangeAvatar(equipAvatar);
+                } else
+                    UIHint.Get.ShowHint(TextConst.S(4514), Color.white);
+            }
+        }
     }
 
     public void OnFreshShop() {
@@ -274,11 +322,12 @@ public class UIShop : UIBase {
         refreshShop(nowPage + 1);
     }
 
-    private void sendBuyItem(int kind, int index) {
+    private void sendBuyItem() {
+        UIItemHint.UIShow(false);
         WWWForm form = new WWWForm();
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-        form.AddField("Kind", kind.ToString());
-        form.AddField("Index", index.ToString());
+        form.AddField("Kind", nowPage.ToString());
+        form.AddField("Index", nowIndex.ToString());
         SendHttp.Get.Command(URLConst.BuyMyShop, waitBuy, form);
     }
 

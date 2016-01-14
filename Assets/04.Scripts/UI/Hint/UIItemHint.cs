@@ -5,6 +5,12 @@ public class UIItemHint : UIBase {
 	private static UIItemHint instance = null;
 	private const string UIName = "UIItemHint";
 	
+    private EventDelegate.Callback callbackBuy;
+    private GameObject uiBuy;
+    private UISprite spriteCoin;
+    private UILabel labelPrice;
+    private UILabel labelCount;
+
 	private UILabel uiLabelName;
 	private UIScrollView scrollViewExplain;
 	private UILabel uiLabelExplain;
@@ -37,11 +43,34 @@ public class UIItemHint : UIBase {
 		if (instance) {
 			instance.Show(isShow);
 		} else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
-	
+
+    public void OpenBuyUI(TSellItem data, EventDelegate.Callback callback) {
+        if (GameData.DItemData.ContainsKey(data.ID)) {
+            UIShow(true);
+            OnShow(GameData.DItemData[data.ID]);
+            uiBuy.SetActive(true);
+            callbackBuy = callback;
+            labelPrice.text = data.Price.ToString();
+            labelCount.text = string.Format(TextConst.S(4513), data.Num);
+            if (data.SpendKind == 0) {
+                spriteCoin.spriteName = "Icon_Gem";
+                labelPrice.color = new Color(255, 0, 255, 255);
+            } else {
+                spriteCoin.spriteName = "Icon_Coin";
+                labelPrice.color = Color.white;
+            }
+        }
+    }
+
 	protected override void InitCom() {
+        uiBuy = GameObject.Find (UIName + "/Window/Center/BuyItem");
+        spriteCoin = GameObject.Find (UIName + "/Window/Center/BuyItem/SpendKind").GetComponent<UISprite>();
+        labelPrice = GameObject.Find (UIName + "/Window/Center/BuyItem/Price").GetComponent<UILabel>();
+        labelCount = GameObject.Find (UIName + "/Window/Center/BuyItem/Count").GetComponent<UILabel>();
+
 		uiLabelName = GameObject.Find (UIName + "/Window/Center/HintView/NameLabel").GetComponent<UILabel>();
 		uiLabelExplain = GameObject.Find (UIName + "/Window/Center/HintView/Explain/ExplainLabel").GetComponent<UILabel>();
 		uiLabelHave = GameObject.Find (UIName + "/Window/Center/HintView/Have").GetComponent<UILabel>();
@@ -52,6 +81,7 @@ public class UIItemHint : UIBase {
 
 		SetBtnFun (UIName + "/Window/Center/CoverBackground", OnClose);
 		SetBtnFun (UIName + "/Window/Center/HintView/NoBtn", OnClose);
+        SetBtnFun (UIName + "/Window/Center/BuyItem/Buy", OnBuy);
 	}
 
 	private void hideAll () {
@@ -66,6 +96,7 @@ public class UIItemHint : UIBase {
 
 	//For First Get
 	public void OnShow(TItemData itemData) {
+        uiBuy.SetActive(false);
 		hideAll ();
 		scrollViewExplain.ResetPosition();
 		UIShow(true);
@@ -125,4 +156,9 @@ public class UIItemHint : UIBase {
 		hideAll ();
 		UIShow(false);
 	}
+
+    public void OnBuy() {
+        if (callbackBuy != null)
+            callbackBuy();
+    }
 }

@@ -1257,7 +1257,7 @@ namespace GameStruct
     public struct TSellItem {
         public int ID;
         public int Num;
-        public int SpendKind;
+        public int SpendKind; //0.diamond 1.money
         public int Price;
     }
 

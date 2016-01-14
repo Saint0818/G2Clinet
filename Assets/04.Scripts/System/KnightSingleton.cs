@@ -52,6 +52,10 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 		{
 			return (mInst != null && mInst.gameObject.activeInHierarchy);
 		}
+        set {
+            if (mInst)
+                mInst.gameObject.SetActive(value);
+        }
 	}
 
 	public static bool IsExist

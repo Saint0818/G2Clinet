@@ -98,6 +98,8 @@
         "courtmode": 0,
         "challengenum": 0,
         "courtno": 99,
+        "offlineplayer": 1,
+        "friendid": [12,11,13],
         "nameen": "Union contest",
         "explaintw": "爭取自己在聯盟生涯的最高榮耀",
         "explainen": "The highest honor for myself to league career"
