@@ -1340,22 +1340,22 @@
     {
         "id": 4502,
         "explain": "Tabs/0/雜貨商店",
-        "tw": "雜 貨"
+        "tw": "聯盟幣"
     },
     {
         "id": 4503,
         "explain": "Tabs/1/聯盟商店（天梯）",
-        "tw": "聯盟幣"
+        "tw": "社群幣"
     },
     {
         "id": 4504,
         "explain": "Tabs/2/社群商店",
-        "tw": "社群幣"
+        "tw": "雜 貨"
     },
     {
         "id": 4505,
         "explain": "Tabs/3",
-        "tw": "保留"
+        "tw": "好友限定"
     },
     {
         "id": 4506,
@@ -1365,7 +1365,7 @@
     {
         "id": 4507,
         "explain": "WarningsLabel",
-        "tw": "[B7B7B7FF]距離下次商品刷新尚餘：[33FFDD]{0}[-] / {1} 小時[-]"
+        "tw": "下次商品刷新尚餘：[33FFDD]{1}[-]"
     },
     {
         "id": 4508,
@@ -1376,64 +1376,6 @@
         "id": 4509,
         "explain": "ItemShopBtn/SoldOutIcon",
         "tw": "完 售",
-        "en": "SOLD OUT"
-    },
-    {
-        "id": 4510
-    },
-    {
-        "id": 4511
-    },
-    {
-        "id": 4512
-    },
-    {
-        "id": 4513
-    },
-    {
-        "id": 4501,
-        "explain": "隨機商品商店",
-        "tw": "商 店"
-    },
-    {
-        "id": 4502,
-        "explain": "Tabs/0/雜貨商店",
-        "tw": "雜 貨"
-    },
-    {
-        "id": 4503,
-        "explain": "Tabs/1/聯盟商店（天梯）",
-        "tw": "聯盟幣"
-    },
-    {
-        "id": 4504,
-        "explain": "Tabs/2/社群商店",
-        "tw": "社群幣"
-    },
-    {
-        "id": 4505,
-        "explain": "Tabs/3",
-        "tw": "保留"
-    },
-    {
-        "id": 4506,
-        "explain": "ResetBtn",
-        "tw": "刷 新"
-    },
-    {
-        "id": 4507,
-        "explain": "WarningsLabel",
-        "tw": "每隔 [0000ff]{0}[-] 小時刷新商店"
-    },
-    {
-        "id": 4508,
-        "explain": "ItemShopBtn/FittingIcon",
-        "tw": "試穿中"
-    },
-    {
-        "id": 4509,
-        "explain": "ItemShopBtn/SoldOutIcon",
-        "tw": "售 完",
         "en": "SOLD OUT"
     },
     {
@@ -1717,8 +1659,7 @@
         "tw": "抽中大獎"
     },
     {
-        "id": 5037,
-        "tw": "抽中大獎"
+        "id": 5037
     },
     {
         "id": 5038,
@@ -2629,10 +2570,29 @@
         "tw": "敗北"
     },
     {
-        "id": 9727
+        "id": 9727,
+        "tw": "刷新對手"
     },
     {
         "id": 9728
+    },
+    {
+        "id": 9741,
+        "explain": "RankSlider/Thumb",
+        "tw": "積分區間 {0}-{1}"
+    },
+    {
+        "id": 9742,
+        "explain": "RankSlider/NowRank",
+        "tw": "YOU"
+    },
+    {
+        "id": 9743,
+        "tw": "下一步"
+    },
+    {
+        "id": 9744,
+        "tw": "每日獎勵"
     },
     {
         "id": 10001,

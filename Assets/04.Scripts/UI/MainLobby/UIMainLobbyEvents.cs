@@ -85,6 +85,17 @@ public class UIMainLobbyEvents : MonoBehaviour
         }
     }
 
+    public void OnShop() {
+        int index = EOpenUI.Shop.GetHashCode();
+        if (GameData.DOpenUILv.ContainsKey(index) && 
+            GameData.Team.Player.Lv < GameData.DOpenUILv[index])
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[index]), Color.white);
+        else {
+            UIMainLobby.Get.Hide(2);
+            UIShop.Visible = true;
+        }
+    }
+
 	public void OnMall () {
 		UIMainLobby.Get.Hide();
 		UIMall.Get.Show();

@@ -199,12 +199,7 @@ public class UISocial : UIBase {
 
         base.OnShow(isShow);
     }
-
-    public void OnClose() {
-        Visible = false;
-        UIMainLobby.Get.Show();
-    }
-
+        
     void FixedUpdate() {
         if (modelLoader.Count > 0)
             StartCoroutine(loadModel(modelLoader.Dequeue()));
@@ -354,7 +349,7 @@ public class UISocial : UIBase {
                     item.LabelRelation.text = TextConst.S(5024);
                     break;
                 case EFriendKind.Ask:
-                    item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time.ToUniversalTime());
+                    item.LabelTime.text = TextConst.AfterTimeString(item.Friend.Time.ToUniversalTime());
                     item.LabelRelation.text = TextConst.S(5023);
                     item.LabelName.text += "\n" + TextConst.S(5032);
                     item.UICancel.SetActive(true);
@@ -392,30 +387,31 @@ public class UISocial : UIBase {
                 case 3: //mission
                     if (GameData.DMissionData.ContainsKey(e.Value)) {
                         int itemID = 0;
-                        if (GameData.DMissionData[e.Value].AwardID != null && GameData.DMissionData[e.Value].AwardID.Length > 0)
+                        if (GameData.DMissionData[e.Value].AwardID != null && GameData.DMissionData[e.Value].AwardID.Length > 0) {
                             itemID = GameData.DMissionData[e.Value].AwardID[GameData.DMissionData[e.Value].AwardID.Length-1];
-                        
-                        if (GameData.DItemData.ContainsKey(itemID)) {
-                            friendList[page][index].UIAward.SetActive(true);
-                            friendList[page][index].AwardGroup.Show(GameData.DItemData[itemID]);
+                            setItemPic(itemID, friendList[page][index]);
                         }
                     }
 
                     break;
                 case 4: //item
-                    if (GameData.DItemData.ContainsKey(e.Value)) {
-                        if (GameData.DItemData[e.Value].Kind == 21 && GameData.DSkillData.ContainsKey(GameData.DItemData[e.Value].Avatar)) {
-                            skillData.ID = GameData.DItemData[e.Value].Avatar;
-                            skillData.Lv = GameData.DItemData[e.Value].LV;
-                            friendList[page][index].UISkill.SetActive(true);
-                            friendList[page][index].SkillCard.UpdateView(index, skillData);
-                        } else {
-                            friendList[page][index].UIAward.SetActive(true);
-                            friendList[page][index].AwardGroup.Show(GameData.DItemData[e.Value]);
-                        }
-                    }
+                    setItemPic(e.Value, friendList[page][index]);
 
                     break;
+            }
+        }
+    }
+
+    private void setItemPic(int id, TSocialEventItem itemObj) {
+        if (GameData.DItemData.ContainsKey(id)) {
+            if (GameData.DItemData[id].Kind == 21 && GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
+                skillData.ID = GameData.DItemData[id].Avatar;
+                skillData.Lv = GameData.DItemData[id].LV;
+                itemObj.UISkill.SetActive(true);
+                itemObj.SkillCard.UpdateView(itemObj.Index, skillData);
+            } else {
+                itemObj.UIAward.SetActive(true);
+                itemObj.AwardGroup.Show(GameData.DItemData[id]);
             }
         }
     }
@@ -531,6 +527,11 @@ public class UISocial : UIBase {
             } else
                 SendHttp.Get.CheckServerMessage(www.text);
         }
+    }
+
+    public void OnClose() {
+        Visible = false;
+        UIMainLobby.Get.Show();
     }
 
     public void OnLink() {

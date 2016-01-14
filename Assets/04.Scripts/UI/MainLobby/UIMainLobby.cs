@@ -153,10 +153,10 @@ public class UIMainLobby : UIBase
 		initDefaultText (Main.MainMenu);
 	}
 
-    public void Hide()
+    public void Hide(int kind = 3)
     {
         UI3DMainLobby.Get.Hide();
-        Main.Hide();
+        Main.Hide(kind);
         ResetCommands.Get.Stop();
 //        RemoveUI(UIName);
     }

@@ -566,25 +566,32 @@ public class SendHttp : KnightSingleton<SendHttp> {
         SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
     }
 
-    private void waitLookSocialEvent(bool flag, WWW www) {
+    private void waitLookSocialEvent(bool ok, WWW www) {
         GameData.Team.SocialEventTime = DateTime.UtcNow;
-        if (flag) {
+        if (ok) {
             if (!string.IsNullOrEmpty(www.text)) {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
                 for (int i = 0; i < events.Length; i++) {
+                    bool flag = false;
                     if (!string.IsNullOrEmpty(events[i].Identifier) && GameData.Team.Friends.ContainsKey(events[i].Identifier)) {
                         events[i].Player.Name = GameData.Team.Friends[events[i].Identifier].Player.Name;
                         GameData.SocialEvents.Add(events[i]);
+                        flag = true;
+                    } else
+                    if (events[i].Identifier == GameData.Team.Identifier) {
+                        events[i].Player.Name = GameData.Team.Player.Name;
+                        GameData.SocialEvents.Add(events[i]);
+                        flag = true;
+                    }
 
-                        if (GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
-                            UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
-                            if (UIMainLobby.Get.IsVisible)
-                                UIMainLobby.Get.Main.SocialNotice = true;
+                    if (flag && GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
+                        UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
+                        if (UIMainLobby.Get.IsVisible)
+                            UIMainLobby.Get.Main.SocialNotice = true;
 
-                            GameData.Setting.ShowEvent = true;
-                            PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
-                            PlayerPrefs.Save();
-                        }
+                        GameData.Setting.ShowEvent = true;
+                        PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
+                        PlayerPrefs.Save();
                     }
                 }
 
@@ -625,7 +632,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                             TFriend friend = new TFriend();
                             friend.Identifier = events[i].TargetID;
                             friend.Player.Name = events[i].Name;
-
+                            friend.Time = events[i].Time;
                             if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
                                 friend.Kind = EFriendKind.Ask;//events[i].Value;
 

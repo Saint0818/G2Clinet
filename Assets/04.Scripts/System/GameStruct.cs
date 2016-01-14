@@ -43,6 +43,7 @@ namespace GameStruct
 	public struct TFriend {
 		public string Identifier;
 		public int Kind; //1.auto deploy 2.follow 3.waiting answer 4.be friend 5.ask follow
+        public DateTime Time;
 		public TPlayer Player;
 	}
 
@@ -1237,6 +1238,7 @@ namespace GameStruct
 
 	public struct TShop {
 		public int Kind;
+        public int Kind2;
 		public int SpendKind;
 		public int Price;
 		public int Sale;//銷售語的種類

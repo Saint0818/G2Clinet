@@ -168,14 +168,14 @@ public class UIMainLobbyMain : MonoBehaviour
 		DiamondObj.SetActive(isShow);
 	}
 
-    public void Hide()
+    public void Hide(int kind = 3)
     {
         PlayExitAnimation();
         Settings.SetActive(false);
 
-        MoneyObj.SetActive(true);
-        DiamondObj.SetActive(true);
-        PowerObj.SetActive(true);
+        DiamondObj.SetActive(kind >= 1);
+        MoneyObj.SetActive(kind >= 2);
+        PowerObj.SetActive(kind >= 3);
     }
 
     public void HideAll()

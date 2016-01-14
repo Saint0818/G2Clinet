@@ -182,7 +182,7 @@ public static class TextConst
                 break;
             case 4: //item
                 if (GameData.DItemData.ContainsKey(e.Value)) {
-                    textNo = 3717;
+                    textNo = 10327;
                     if (e.Cause == 11)
                         textNo = 5036;
 
