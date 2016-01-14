@@ -279,6 +279,8 @@ public class UISkillFormation : UIBase {
 		cardSell.LabelTotalPrice = GameObject.Find (UIName + "/Center/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
 		cardSell.Init();
 
+		GameObject.Find(UIName + "/Center/SortBtn").SetActive(false);
+
 		SetBtnFun (UIName + "/Center/SortBtn", DoSort);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
