@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameStruct
@@ -93,6 +94,7 @@ namespace GameStruct
         /// <summary>
         /// 比賽中正在使用的加成道具.
         /// </summary>
+        [CanBeNull]
         public int[] ConsumeValueItems;
 
         public TPlayer(int level)

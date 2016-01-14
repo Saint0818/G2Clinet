@@ -730,6 +730,9 @@ public class GameController : KnightSingleton<GameController>
             }
         };
 
+        if(GameData.Team.Player.ConsumeValueItems == null)
+            return;
+
         foreach(int itemID in GameData.Team.Player.ConsumeValueItems)
         {
             if(!GameData.DItemData.ContainsKey(itemID))
