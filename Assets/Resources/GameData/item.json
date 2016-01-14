@@ -12747,7 +12747,7 @@
     {
         "id": 40000,
         "nametw": "技能卡升級材料",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
         "quality": 1,
         "maxstack": 999,
@@ -12756,10 +12756,12 @@
     {
         "id": 40001,
         "nametw": "初級晶片設計圖",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40001,
         "quality": 2,
         "maxstack": 999,
+        "uisource": [10],
         "nameen": "Primary chip design",
         "explaintw": "可將技能晶片進化成[76231a]銅製外框[-]的特殊材料",
         "explainen": "Skills can be evolved into a chip [76231a] brass frame [-] of special materials"
@@ -12767,10 +12769,12 @@
     {
         "id": 40002,
         "nametw": "中級晶片設計圖",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40002,
         "quality": 3,
         "maxstack": 999,
+        "uisource": [10],
         "nameen": "Intermediate chip design",
         "explaintw": "可將技能晶片進化成[f6f6f6]銀製外框[-]的特殊材料",
         "explainen": "Skills can be evolved into a chip [f6f6f6] silver frame [-] of special materials"
@@ -12778,10 +12782,12 @@
     {
         "id": 40003,
         "nametw": "高級晶片設計圖",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40003,
         "quality": 4,
         "maxstack": 999,
+        "uisource": [10],
         "nameen": "Advanced chip design",
         "explaintw": "可將技能晶片進化成[ffe700]金製外框[-]的特殊材料",
         "explainen": "The skills of the wafer can evolve into [ffe700] gold frame [-] of special materials"
@@ -12789,10 +12795,12 @@
     {
         "id": 40004,
         "nametw": "頂級晶片設計圖",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40004,
         "quality": 5,
         "maxstack": 999,
+        "uisource": [10],
         "nameen": "Top chip design",
         "explaintw": "可將技能晶片進化成[ff00db]七彩外框[-]的特殊材料",
         "explainen": "The skills of the wafer can evolve into [ff00db] colorful frame [-] of special materials"
@@ -12800,8 +12808,9 @@
     {
         "id": 40100,
         "nametw": "進攻 IC 設計晶片",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40100,
         "quality": 5,
         "maxstack": 999,
         "uisource": [10],
@@ -12812,8 +12821,9 @@
     {
         "id": 40101,
         "nametw": "防守 IC 設計晶片",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40101,
         "quality": 5,
         "maxstack": 999,
         "uisource": [10],
@@ -12824,8 +12834,9 @@
     {
         "id": 40102,
         "nametw": "智慧 IC 設計晶片",
-        "kind": 40,
+        "kind": 19,
         "atlas": 12,
+        "icon": 40102,
         "quality": 5,
         "maxstack": 999,
         "uisource": [10],
@@ -13007,6 +13018,7 @@
         "nametw": "聯盟賽入場券x5",
         "kind": 35,
         "atlas": 12,
+        "icon": 93501,
         "value": 5,
         "nameen": "X5 league match tickets",
         "explaintw": "可獲得額外參加聯盟賽的機會",
