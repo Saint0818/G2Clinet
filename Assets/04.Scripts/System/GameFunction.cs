@@ -734,7 +734,7 @@ public static class GameFunction
 			if(i < lv) stars[i].ShowStar();
 			else stars[i].HideStar();
 
-			if(i <= max) stars[i].Show();
+			if(i <= (max -1)) stars[i].Show();
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);

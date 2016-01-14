@@ -769,6 +769,13 @@ public class UISkillReinforce : UIBase {
 		isEquiped = isAlreadyEquip;
 	}
 
+	public void RefreshID () {
+		if(isEquiped)
+			mSkill = findNewSkillFromPlayer(mSkill);
+		else
+			mSkill = findNewSkillFromTeam(mSkill);
+	}
+
 	public void OnReinforce () {
 		if(!isRunExp) {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) {

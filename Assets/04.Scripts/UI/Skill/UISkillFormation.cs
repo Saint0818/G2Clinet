@@ -1400,6 +1400,9 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.Init();
 			GameData.Team.InitSkillCardCount();
 
+			if(UISkillReinforce.Visible)
+				UISkillReinforce.Get.RefreshID();
+
 			if(!isLeave) {
 				if(!IsBuyState) {
 					if(isChangePage) {
