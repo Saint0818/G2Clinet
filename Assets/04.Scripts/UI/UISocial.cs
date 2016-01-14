@@ -188,7 +188,7 @@ public class UISocial : UIBase {
         
     protected override void OnShow(bool isShow) {
         if (isShow) {
-            if (DateTime.UtcNow > GameData.Team.FreshFriendTime)
+            if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime())
                 SendHttp.Get.FreshFriends(waitFreshFriends, false);
 
             redPoints[0].SetActive(GameData.Setting.ShowEvent);
@@ -585,9 +585,8 @@ public class UISocial : UIBase {
 
     public void OnPage() {
         int index = -1;
-        if (int.TryParse(UIButton.current.name, out index)) {
+        if (int.TryParse(UIButton.current.name, out index))
             openPage(index);
-        }
     }
 
     public void OnGood() {

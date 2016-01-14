@@ -252,4 +252,46 @@ public static class TextConst
         } else
             return time.ToString();
     }
+
+    public static string DeadlineString(DateTime time) {
+        int sec = (int)(new System.TimeSpan(time.Ticks - DateTime.UtcNow.Ticks).TotalSeconds);
+        int d = 0;
+        int s = 0; 
+        int m = 0; 
+        int h = 0; 
+        string sResult = "";
+
+        try {
+            s = sec % 60; 
+
+            if (sec >= 60) {
+                m = sec / 60; 
+                if (m >= 60) {
+                    h = m / 60;
+                    m = m % 60;  
+
+                    if (h >= 24) {
+                        d = (h) / 24; 
+                        h = h % 24;
+                    }
+                }
+            }
+
+            if (d > 0)
+                sResult = string.Format("{0}:{1}:{2}", d, h, m);
+            else 
+            if (h > 0)
+                sResult = string.Format("{0}:{1}:{2}", h, m, s);
+            else
+            if (m > 0)
+                sResult = string.Format("{0}:{1}", m, s);
+            else
+            if (s > 0)
+                sResult = s.ToString();
+        } catch {
+            sResult = string.Format("{0}s", sec.ToString());    
+        }
+
+        return sResult;
+    }
 }

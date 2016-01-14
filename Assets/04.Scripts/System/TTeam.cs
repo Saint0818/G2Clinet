@@ -14,6 +14,7 @@ namespace GameStruct
         public string FBid;
         public DateTime LoginTime;
         public DateTime PowerCD;
+        public DateTime FreshShopTime;
         public DateTime FreshFriendTime;
         public DateTime SocialEventTime;
         public DateTime WatchFriendsTime;
@@ -33,12 +34,16 @@ namespace GameStruct
         public Dictionary<int, int> MissionLv; //key: mission id, value: lv
         private bool needForSyncRecord;
         public TTeamRecord LifetimeRecord;
+        public TDailyCount DailyCount;
         public TDailyRecord GroupRecord;
         public TDailyRecord DailyRecord;
         public TDailyRecord WeeklyRecord;
         public TDailyRecord MonthlyRecord;
         public TPlayer Player;
         public TItem[] Items;
+        public TSellItem[] ShopItems1;
+        public TSellItem[] ShopItems2;
+        public TSellItem[] ShopItems3;
         public TValueItem[] ValueItems;
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
@@ -47,6 +52,7 @@ namespace GameStruct
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
         public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
+        public string[] EnemyIDs;
 
         //PVP
         public int PVPIntegral;

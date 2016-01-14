@@ -528,6 +528,10 @@ namespace GameStruct
 		}
 	}
 
+    public struct TDailyCount {
+        public int FreshShop;
+    }
+
 	public struct TGameSetting {
 		public int AnnouncementDate;
 		public int AnnouncementDaily;
@@ -1249,6 +1253,13 @@ namespace GameStruct
 			}
 		}
 	}
+
+    public struct TSellItem {
+        public int ID;
+        public int Num;
+        public int SpendKind;
+        public int Price;
+    }
 
 	public struct TShop {
 		public int Kind;

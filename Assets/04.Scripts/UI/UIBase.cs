@@ -257,13 +257,17 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Diamond
 	/// </summary>
-	public bool CheckDiamond(int diamond, bool isShowMessage = false) 
+    public bool CheckDiamond(int diamond, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null) 
 	{
-		if (GameData.Team.Diamond >= diamond) 
+        if (GameData.Team.Diamond >= diamond) {
+            if (message != null && callback != null)  
+                UIMessage.Get.ShowMessage(TextConst.S(212), message, callback);
+            
 			return true;
-		else {
+        } else {
 			if(isShowMessage)
 				UIMessage.Get.ShowMessageForBuy(TextConst.S(233), TextConst.S(238), OnBuyDiamond);
+            
 			return false;
 		}
 	}

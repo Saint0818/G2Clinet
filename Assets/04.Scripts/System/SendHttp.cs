@@ -60,6 +60,8 @@ public static class URLConst {
 	public const string LookAvatar = "lookavatar";
 	public const string BuyDiamond = "buydiamond";
 	public const string BuyFromShop = "buyfromshop";
+    public const string RefreshShop = "refreshshop";
+    public const string BuyMyShop = "buymyshop";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
