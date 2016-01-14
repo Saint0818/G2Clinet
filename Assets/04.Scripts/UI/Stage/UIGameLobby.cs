@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -25,7 +26,8 @@ public class UIGameLobby : UIBase
     {
         mImpl = GetComponent<UIGameLobbyImpl>();
         mImpl.BackListener += goToMainLobby;
-        mImpl.MainListener += goToMainStage;
+        mImpl.MainStageListener += goToMainStage;
+        mImpl.PvpListener += goToPvp;
     }
 
     public void Show()
@@ -49,6 +51,11 @@ public class UIGameLobby : UIBase
         UIMainStageTools.ClearSelectChapter();
         UIMainStage.Get.Show();
         Hide();
+    }
+
+    private void goToPvp()
+    {
+        Debug.Log("Go To Pvp");
     }
 
     public static UIGameLobby Get
