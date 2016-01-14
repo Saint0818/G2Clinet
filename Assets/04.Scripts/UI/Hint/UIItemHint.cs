@@ -84,7 +84,10 @@ public class UIItemHint : UIBase {
 		} else if(itemData.Kind == 19) {
 			hintInlayView.Show();
 			hintInlayView.UpdateUI(itemData);
-			setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
+			if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(itemData.ID)))
+				setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
+			else
+				setHaveCount(0);
 			uiLabelExplain.text = itemData.Explain;
 		} else {
 			hintAvatarView.Show();

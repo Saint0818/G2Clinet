@@ -102,10 +102,13 @@ namespace GameStruct
 
 		public bool HasMaterialSkillCard(int itemID)
 		{
-			for(var i = 0; i < MaterialSkillCards.Length; i++)
+			if(MaterialSkillCards != null) 
 			{
-				if (MaterialSkillCards[i].ID == itemID)
-					return true;
+				for(var i = 0; i < MaterialSkillCards.Length; i++)
+				{
+					if (MaterialSkillCards[i].ID == itemID)
+						return true;
+				}	
 			}
 
 			return false;
@@ -113,12 +116,15 @@ namespace GameStruct
 
 		public int FindMaterialSkillCard(int itemID, ref TMaterialSkillCard materialSkillCard)
 		{
-			for(var i = 0; i < MaterialSkillCards.Length; i++)
+			if(MaterialSkillCards != null) 
 			{
-				if(MaterialSkillCards[i].ID == itemID)
+				for(var i = 0; i < MaterialSkillCards.Length; i++)
 				{
-					materialSkillCard = MaterialSkillCards[i];
-					return i;
+					if(MaterialSkillCards[i].ID == itemID)
+					{
+						materialSkillCard = MaterialSkillCards[i];
+						return i;
+					}
 				}
 			}
 

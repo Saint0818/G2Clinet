@@ -40,6 +40,8 @@ public class HintInlayView : MonoBehaviour {
 		
 		for (int i=0; i<itemData.BonusValues.Length; i++) {
 			ValueLabels[i].text = itemData.BonusValues[i].ToString();
+			if(itemData.BonusValues[i] == 0 && i < AttrKindsIcon.Length)
+				AttrKindsIcon[i].gameObject.SetActive(false);
 		}
 
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {

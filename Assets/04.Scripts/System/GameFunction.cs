@@ -721,11 +721,11 @@ public static class GameFunction
 			if(i < lv) stars[i].ShowStar();
 			else stars[i].HideStar();
 
-			if(i <= max) stars[i].Show();
+			if(i <= (max -1)) stars[i].Show();
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1) * 1.5f + i * stars[i].XSize, 0, 0);
+			stars[i].transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1)+ i * stars[i].XSize, 0, 0);
 		}
 	}
 

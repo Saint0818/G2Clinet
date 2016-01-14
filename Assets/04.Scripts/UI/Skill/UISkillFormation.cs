@@ -934,9 +934,9 @@ public class UISkillFormation : UIBase {
 					
 					if(condition == ECondition.Rare.GetHashCode()) {
 						if(uiCards.ContainsKey(cardIdistr))
-							value1 = uiCards[cardIdistr].skillCard.Skill.Lv;
+							value1 = GameData.DSkillData[cardIdi].Quality;
 						if(uiCards.ContainsKey(cardIdjstr))
-							value2 = uiCards[cardIdjstr].skillCard.Skill.Lv;
+							value2 = GameData.DSkillData[cardIdj].Quality;
 					} else 
 					if(condition == ECondition.Kind.GetHashCode()){
 						if(GameData.DSkillData.ContainsKey(cardIdi))
