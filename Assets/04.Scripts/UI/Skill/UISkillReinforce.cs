@@ -3,6 +3,12 @@ using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
+public struct TReinforceCallBack {
+	public TSkill[] SkillCards;
+	public TSkill[] PlayerCards;
+	public int Money;
+}
+
 //LeftView
 public struct TExpView {
 	public GameObject ExpView;
@@ -31,15 +37,15 @@ public struct TExpView {
 
 	public void UpdateView (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			maxExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
+			maxExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv - 1];
 			if(skill.Lv >= GameData.DSkillData[skill.ID].MaxStar) {
-				currentExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv];
+				currentExp = GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv - 1];
 				SetTopProgressView ();
 			} else {
 				currentExp = skill.Exp;
 				ProgressBar.value = (float)currentExp / (float)maxExp;
 				ProgressBar2.value = (float)currentExp/ (float)maxExp;
-				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv]);
+				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv - 1]);
 			}
 			GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
 		}
@@ -61,7 +67,7 @@ public struct TExpView {
 
 	public void SetProgressView (int id, int lv, int yellowExpValue, int greenExpValue, int getLevelExpValue) {
 		if(GameData.DSkillData.ContainsKey(id)) {
-			maxExp = GameData.DSkillData[id].UpgradeExp[lv];
+			maxExp = GameData.DSkillData[id].UpgradeExp[lv - 1];
 			NextLevelLabel.text = string.Format(TextConst.S(7407), maxExp);
 			ProgressBar.value = (float)yellowExpValue / (float)maxExp;
 			ProgressBar2.value = (float)greenExpValue / (float)maxExp;
@@ -564,13 +570,13 @@ public class UISkillReinforce : UIBase {
 			tempExp += addExp;
 
 			// 更新等級.
-			int lvUpExp = GameData.DSkillData[mSkill.ID].UpgradeExp[mSkill.Lv];
+			int lvUpExp = GameData.DSkillData[mSkill.ID].UpgradeExp[mSkill.Lv - 1];
 			while(lvUpExp > 0 && tempExp >= lvUpExp)
 			{
 				tempLv++;
 				tempExp -= lvUpExp;
 
-				lvUpExp = GameData.DSkillData[mSkill.ID].UpgradeExp[tempLv];
+				lvUpExp = GameData.DSkillData[mSkill.ID].UpgradeExp[tempLv - 1];
 			}
 
 			return tempLv;
@@ -613,7 +619,7 @@ public class UISkillReinforce : UIBase {
 
 	private void addUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			reinforceMoney += GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
+			reinforceMoney += GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv - 1];
 			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
@@ -632,7 +638,7 @@ public class UISkillReinforce : UIBase {
 
 	private void minusUpgradeMoney (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			reinforceMoney -= GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv];
+			reinforceMoney -= GameData.DSkillData[skill.ID].UpgradeMoney[skill.Lv - 1];
 			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
@@ -826,8 +832,8 @@ public class UISkillReinforce : UIBase {
 
 				originalExp += addInterVal;
 
-				if(originalExp > GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv]) {
-					originalExp -= GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv];
+				if(originalExp > GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv - 1]) {
+					originalExp -= GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv - 1];
 					oldCardLv ++;
 					skillCard.ShowGetStar(oldCardLv - 1);
 					recordGreenExp = reinforceExp;
@@ -839,7 +845,7 @@ public class UISkillReinforce : UIBase {
 						oldCardLv, 
 						recordGreenExp, 
 						recordGreenExp,
-						GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv]);
+						GameData.DSkillData[mSkill.ID].UpgradeExp[oldCardLv - 1]);
 					stopRunExp ();
 				}
 			} else {
@@ -901,7 +907,7 @@ public class UISkillReinforce : UIBase {
 
 	private void waitReinforce(bool ok, WWW www) {
 		if (ok) {
-			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			TReinforceCallBack result = JsonConvert.DeserializeObject <TReinforceCallBack>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
@@ -931,7 +937,7 @@ public class UISkillReinforce : UIBase {
 
 	private void waitReinforcePlayer(bool ok, WWW www) {
 		if (ok) {
-			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			TReinforceCallBack result = JsonConvert.DeserializeObject <TReinforceCallBack>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.InitSkillCardCount();
