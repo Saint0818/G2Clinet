@@ -1282,11 +1282,13 @@
     },
     {
         "id": 4101,
-        "explain": "SubheadLabelDisk"
+        "explain": "SubheadLabelDisk",
+        "tw": "可能獲得晶片"
     },
     {
         "id": 4102,
-        "explain": "SubheadLabelItem"
+        "explain": "SubheadLabelItem",
+        "tw": "可能獲得物品"
     },
     {
         "id": 4103,
@@ -2101,6 +2103,24 @@
         "explain": "等級達上限",
         "tw": "[FFFF00FF]等級已滿[-]",
         "en": "[FFFF00FF]Max[-]"
+    },
+    {
+        "id": 7410,
+        "explain": "SubheadLabel",
+        "tw": "強化材料"
+    },
+    {
+        "id": 7411,
+        "explain": "SubheadLabel",
+        "tw": "選擇強化材料"
+    },
+    {
+        "id": 7412,
+        "explain": "EmptyLabel",
+        "tw": "未選擇"
+    },
+    {
+        "id": 7413
     },
     {
         "id": 7501,
@@ -3529,6 +3549,48 @@
         "explain": "21.技能卡牌",
         "tw": "技能晶片",
         "en": "Ability Disk"
+    },
+    {
+        "id": 15000,
+        "explain": "戰術名稱與解釋"
+    },
+    {
+        "id": 15001,
+        "explain": "戰術名稱"
+    },
+    {
+        "id": 15002,
+        "explain": "戰術1",
+        "tw": "戰術1"
+    },
+    {
+        "id": 15003,
+        "explain": "戰術2",
+        "tw": "戰術2"
+    },
+    {
+        "id": 15004,
+        "explain": "戰術3",
+        "tw": "戰術3"
+    },
+    {
+        "id": 15101,
+        "explain": "戰術說明"
+    },
+    {
+        "id": 15102,
+        "explain": "說明1",
+        "tw": "說明1"
+    },
+    {
+        "id": 15103,
+        "explain": "說明2",
+        "tw": "說明2"
+    },
+    {
+        "id": 15104,
+        "explain": "說明3",
+        "tw": "說明3"
     },
     {
         "id": 100000,
