@@ -143,8 +143,11 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			spendType = EPickSpendType.ONE.GetHashCode();
-			SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			if(CheckDiamond(choosePickCost.OnePick, true)) {
+				spendType = EPickSpendType.ONE.GetHashCode();
+				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			}else 
+				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
 		}
 	}
 
@@ -152,8 +155,11 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			spendType = EPickSpendType.FIVE.GetHashCode();
-			SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			if(CheckDiamond(choosePickCost.FivePick, true)) {
+				spendType = EPickSpendType.FIVE.GetHashCode();
+				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			}else 
+				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
 		}
 	}
 
@@ -161,8 +167,11 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			spendType = EPickSpendType.TEN.GetHashCode();
-			SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			if(CheckDiamond(choosePickCost.TenPick, true)) {
+				spendType = EPickSpendType.TEN.GetHashCode();
+				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+			}else 
+				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
 		}
 	}
 
@@ -214,13 +223,10 @@ public class UIMall : UIBase {
 	}
 
 	public void OpenLottery (TItemData[] itemDatas) {
-		if(checkCost(choosePickCost, spendType)) {
-			UIMainLobby.Get.HideAll();
-			UI3DMainLobby.Get.Hide();
-			Hide ();
-			UIBuyStore.Get.ShowView(choosePickCost, spendType, itemDatas);
-			UI3DBuyStore.Get.Show();
-		} else 
-			UIHint.Get.ShowHint(TextConst.S(233), Color.red);
+		UIMainLobby.Get.HideAll();
+		UI3DMainLobby.Get.Hide();
+		Hide ();
+		UIBuyStore.Get.ShowView(choosePickCost, spendType, itemDatas);
+		UI3DBuyStore.Get.Show();
 	}
 }

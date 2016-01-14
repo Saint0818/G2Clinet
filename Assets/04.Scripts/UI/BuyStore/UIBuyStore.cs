@@ -180,7 +180,8 @@ public class UIBuyStore : UIBase {
 	public void OnAgain() {
 		if(checkCost(mPickCost, mSpendType) ) {
 			SendPickLottery(mPickCost.Order, mPickCost.Kind, mSpendType);
-		}
+		} else 
+			UIHint.Get.ShowHint(TextConst.S(233), Color.red);
 	}
 
 
