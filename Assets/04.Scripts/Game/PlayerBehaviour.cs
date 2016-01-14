@@ -395,17 +395,20 @@ public class PlayerBehaviour : MonoBehaviour
         SkinnedMeshRenderer render = PlayerRefGameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         if (render && render.material)
             BodyMaterial = render.material;
+				
+		DummyBall = null;
+		Transform find = transform.FindChild ("DummyBall");
 
-        DummyBall = transform.FindChild("DummyBall").gameObject;
-        
-        if (DummyBall != null)
-        {
-            blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
-            if (blockCatchTrigger == null)
-                blockCatchTrigger = DummyBall.AddComponent<BlockCatchTrigger>();
-            
-            blockCatchTrigger.SetEnable(false);
-        }
+		if (find)
+        	DummyBall = find.gameObject;
+				
+		if(DummyBall != null){
+			blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
+			if (blockCatchTrigger == null)
+					blockCatchTrigger = DummyBall.AddComponent<BlockCatchTrigger>();
+
+			blockCatchTrigger.SetEnable(false);	
+		} 
 
         GameObject obj = null;
         switch (Attribute.BodyType)

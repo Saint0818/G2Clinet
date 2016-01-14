@@ -765,8 +765,8 @@ public static class GameFunction
         TTeamRank result = new TTeamRank();
         result.Player = team.Player;
         result.PVPIntegral = team.PVPIntegral;
-        result.LeagueName = team.LeagueName;
-        result.LeagueIcon= team.LeagueIcon;
+        result.GuildIName = team.LeagueName;
+        result.GuildIIcon= team.LeagueIcon;
         result.PVPWin = team.LifetimeRecord.PVPWin;
         result.PVPCount = team.LifetimeRecord.PVPCount;
         result.PVPKeepWin = team.LifetimeRecord.PVPKeepWin;

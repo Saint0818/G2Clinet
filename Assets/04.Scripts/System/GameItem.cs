@@ -37,8 +37,8 @@ namespace GameItem
         private UILabel playerName;
         private UISprite PvPRankIcon;
         private UILabel combatLabel;
-        private UISprite LeagueIcon;
-        private UILabel LeagueIDLabel;
+		private UISprite GuildIcon;
+		private UILabel GuildIDLabel;
         private UILabel WinLabel;
         private UILabel WinRateLabel;
         private UILabel PVPIntegral;
@@ -47,7 +47,7 @@ namespace GameItem
         private UIButton optionsBtn;
         private bool isInit = false;
 
-        public void Init(GameObject go, EventDelegate holdbtn = null, EventDelegate optionsFunc = null)
+        public void Init(ref GameObject go, EventDelegate holdbtn = null, EventDelegate optionsFunc = null)
         {
             if(go){
                 self = go;
@@ -56,16 +56,16 @@ namespace GameItem
                 combatLabel = self.transform.FindChild("Window/CombatLabel").gameObject.GetComponent<UILabel>();
                 GameObject obj = self.transform.FindChild("Window/PlayerInGameBtn").gameObject;
                 PvPRankIcon = self.transform.FindChild("Window/PvPRankIcon").gameObject.GetComponent<UISprite>();
-                LeagueIcon = self.transform.FindChild("Window/LeagueView/LeagueIcon").gameObject.GetComponent<UISprite>();
-                LeagueIDLabel = self.transform.FindChild("Window/LeagueView/LeagueIDLabel").gameObject.GetComponent<UILabel>();
+				GuildIcon = self.transform.FindChild("Window/GuildView/GuildIcon").gameObject.GetComponent<UISprite>();
+				GuildIDLabel = self.transform.FindChild("Window/GuildView/GuildIDLabel").gameObject.GetComponent<UILabel>();
                 WinLabel = self.transform.FindChild("Window/DetailGroup/WinLabel").gameObject.GetComponent<UILabel>();
                 WinRateLabel = self.transform.FindChild("Window/DetailGroup/WinRateLabel").gameObject.GetComponent<UILabel>();
                 PVPIntegral = self.transform.FindChild("Window/DetailGroup/ScoreIcon/ScoreLabel").gameObject.GetComponent<UILabel>();
                 optionsBtnGroup = self.transform.FindChild("Window/ButtonListGroup").gameObject;
                 optionsBtn =  optionsBtnGroup.transform.FindChild("View/ProfileBtn").gameObject.GetComponent<UIButton>();
 
-                isInit = self && btn && playerName && obj && combatLabel && PvPRankIcon && LeagueIcon 
-                    && LeagueIDLabel && WinLabel && WinRateLabel && PVPIntegral && optionsBtnGroup && optionsBtn;
+				isInit = self && btn && playerName && obj && combatLabel && PvPRankIcon && GuildIcon 
+                    && GuildIDLabel && WinLabel && WinRateLabel && PVPIntegral && optionsBtnGroup && optionsBtn;
 
                 if (isInit)
                 {
@@ -105,8 +105,8 @@ namespace GameItem
                 playeHeadBtn.UpdateView(rankData.Player);
                 combatLabel.text = rankData.Player.CombatPower().ToString ();
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", GameFunction.GetPVPLv(rankData.PVPIntegral));
-                LeagueIcon.spriteName = string.Format("LeagueIcon{0}", rankData.LeagueIcon);
-                LeagueIDLabel.text = rankData.LeagueName;
+				GuildIcon.spriteName = string.Format("LeagueIcon{0}", rankData.GuildIIcon);
+                GuildIDLabel.text = rankData.GuildIName;
                 WinLabel.text = rankData.PVPWin.ToString();
                 WinRateLabel.text = string.Format("{0:0%}", (float)rankData.PVPWin / (float)rankData.PVPCount);
                 PVPIntegral.text = rankData.PVPIntegral.ToString();
@@ -119,10 +119,60 @@ namespace GameItem
                 self.transform.parent = go.transform;
         }
 
-        public void UpdateLocalPosititon(Vector3 pos)
+        public Vector3 LocalPosititon
         {
-            if(isInit)
-                self.transform.localPosition = pos;
+            set{ self.transform.localPosition = value;}
+        }
+    }
+
+    public class TPvPLeagueGroup
+    {
+        public GameObject self;
+        private UISprite PvPRankIcon;
+        private UILabel RangeNameLabel;
+        private bool isInit = false;
+
+        public void Init(ref GameObject go, GameObject parent)
+        {
+            if (go)
+            {
+                self = go;
+                self.transform.parent = parent.transform;
+                PvPRankIcon = self.transform.FindChild("PvPRankIcon").GetComponent<UISprite>();
+                RangeNameLabel = self.transform.FindChild("RangeNameLabel").GetComponent<UILabel>();
+
+                isInit = PvPRankIcon && RangeNameLabel;
+
+                if (!isInit)
+                    Debug.LogError("Init Error");
+            }
+        }
+
+        public bool Enable
+        {
+            set{ self.SetActive(value);}
+            get{ return self.activeSelf;} 
+        }
+            
+        public void UpdateView(int lv = 1)
+        {
+            if (isInit && GameData.DPVPData.ContainsKey(lv))
+            {
+                PvPRankIcon.spriteName = string.Format("IconRank{0}", lv);
+                RangeNameLabel.text = GameData.DPVPData[lv].Name;
+            }
+        }
+
+        public Vector3 LoacalScale
+        {
+            set{ self.transform.localScale = value;}
+            get{ return self.transform.localScale;}
+        }
+
+        public Vector3 LoaclPosition
+        {
+			set{ self.transform.localPosition = value;}
+			get{ return self.transform.localPosition;}
         }
     }
 }

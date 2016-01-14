@@ -1312,18 +1312,23 @@ namespace GameStruct
 		public int HighScore;
 		public int BasicScore;
 		public int Calculate;
-        public int Money;
         public int PVPCoin;
+        public int PVPCoinDaily;
 	}
 
     public struct TTeamRank
     {  
         public TPlayer Player;
         public int PVPIntegral;
-        public string LeagueName;
-        public int LeagueIcon;
+        public string GuildIName;
+        public int GuildIIcon;
         public int PVPWin;
         public int PVPCount;
         public int PVPKeepWin;
+    }
+
+    public struct TPVPStart
+    {
+        public bool CanBattle;
     }
 }

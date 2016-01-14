@@ -434,12 +434,18 @@ public class UISelectRole : UIBase {
 			}
 			
 			break;
-		case EUIRoleSituation.Start:
-            if (GameStart.Get.ConnectToServer)
-                mainStageStart(GameData.StageID);
-            else
-                enterGame();
-                
+            case EUIRoleSituation.Start:
+                if (GameData.StageID == 10)
+                {
+                    enterPVP();
+                }
+                else
+                {
+                    if (GameStart.Get.ConnectToServer)
+                        mainStageStart(GameData.StageID);
+                    else
+                        enterGame();
+                }
 			break;
 		case EUIRoleSituation.ListA: // 1
 		case EUIRoleSituation.ListB: // 2
@@ -826,6 +832,19 @@ public class UISelectRole : UIBase {
         SetEnemyMembers ();
 
         int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+        if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
+            UILoading.UIShow(true, ELoading.Game);
+        else
+            SceneMgr.Get.ChangeLevel (courtNo);
+    }
+
+    private void enterPVP()
+    {
+        for (int i = 0; i < arrayPlayerData.Length; i++)
+            GameData.TeamMembers[i].Player = arrayPlayerData[i];
+        
+        int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+
         if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
             UILoading.UIShow(true, ELoading.Game);
         else

@@ -4791,6 +4791,11 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
+    public bool IsPVP
+    {
+        get{ return StageData.ID == 10;}
+    }
+
 	public List<PlayerBehaviour> GamePlayers {
 		get {
 			return PlayerList;

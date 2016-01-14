@@ -55,7 +55,8 @@ public class UIGameLobby : UIBase
 
     private void goToPvp()
     {
-        Debug.Log("Go To Pvp");
+        UIMainLobby.Get.Hide ();
+        UIPVP.UIShow (true);
     }
 
     public static UIGameLobby Get
