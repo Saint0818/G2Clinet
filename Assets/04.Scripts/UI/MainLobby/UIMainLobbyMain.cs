@@ -32,7 +32,8 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject SocialNoticeObj;
     public GameObject ShopNoticeObj;
     public GameObject MissionNoticeObj;
-    public GameObject PlayerNoticeObj;
+	public GameObject PlayerNoticeObj;
+	public GameObject MallNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIMainLobbyButton AvatarButton;
@@ -45,6 +46,7 @@ public class UIMainLobbyMain : MonoBehaviour
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
+		MallNotice = false;
     }
 
     public int Level
@@ -141,6 +143,11 @@ public class UIMainLobbyMain : MonoBehaviour
                 PlayerNoticeObj.SetActive(value); 
         }
     }
+
+	public bool MallNotice
+	{
+		set { MallNoticeObj.SetActive(value); }
+	}
 
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
