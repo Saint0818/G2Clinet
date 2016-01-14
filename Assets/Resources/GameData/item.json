@@ -6920,7 +6920,7 @@
     },
     {
         "id": 11001,
-        "nametw": "[ffffff]白水晶顱部插件α[-]",
+        "nametw": "白水晶顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -6942,7 +6942,7 @@
     },
     {
         "id": 11002,
-        "nametw": "[ffffff]白水晶顱部插件β[-]",
+        "nametw": "白水晶顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -6964,7 +6964,7 @@
     },
     {
         "id": 11003,
-        "nametw": "[ffffff]白水晶顱部插件γ[-]",
+        "nametw": "白水晶顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -6986,7 +6986,7 @@
     },
     {
         "id": 11101,
-        "nametw": "[00b35a]綠寶石顱部插件α[-]",
+        "nametw": "綠寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7010,7 +7010,7 @@
     },
     {
         "id": 11102,
-        "nametw": "[00b35a]綠寶石顱部插件β[-]",
+        "nametw": "綠寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7034,7 +7034,7 @@
     },
     {
         "id": 11103,
-        "nametw": "[00b35a]綠寶石顱部插件γ[-]",
+        "nametw": "綠寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7058,7 +7058,7 @@
     },
     {
         "id": 11201,
-        "nametw": "[33bbff]藍寶石顱部插件α[-]",
+        "nametw": "藍寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11201,
@@ -7084,7 +7084,7 @@
     },
     {
         "id": 11202,
-        "nametw": "[33bbff]藍寶石顱部插件β[-]",
+        "nametw": "藍寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11201,
@@ -7110,7 +7110,7 @@
     },
     {
         "id": 11203,
-        "nametw": "[33bbff]藍寶石顱部插件γ[-]",
+        "nametw": "藍寶石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11201,
@@ -7136,7 +7136,7 @@
     },
     {
         "id": 11301,
-        "nametw": "[8000ff]紫鑽石顱部插件α[-]",
+        "nametw": "紫鑽石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -7161,7 +7161,7 @@
     },
     {
         "id": 11302,
-        "nametw": "[8000ff]紫鑽石顱部插件β[-]",
+        "nametw": "紫鑽石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -7186,7 +7186,7 @@
     },
     {
         "id": 11303,
-        "nametw": "[8000ff]紫鑽石顱部插件γ[-]",
+        "nametw": "紫鑽石顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11001,
@@ -7211,7 +7211,7 @@
     },
     {
         "id": 11401,
-        "nametw": "[ff8000]黃金顱部插件α[-]",
+        "nametw": "黃金顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7230,11 +7230,12 @@
         "material3": 19004,
         "materialnum3": 25,
         "material4": 19005,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 11501
     },
     {
         "id": 11402,
-        "nametw": "[ff8000]黃金顱部插件β[-]",
+        "nametw": "黃金顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7253,11 +7254,12 @@
         "material3": 19004,
         "materialnum3": 25,
         "material4": 19005,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 11502
     },
     {
         "id": 11403,
-        "nametw": "[ff8000]黃金顱部插件γ[-]",
+        "nametw": "黃金顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7276,11 +7278,12 @@
         "material3": 19004,
         "materialnum3": 25,
         "material4": 19005,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 11503
     },
     {
         "id": 11501,
-        "nametw": "[ff8000]七彩石顱部插件α[-]",
+        "nametw": "七彩顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7303,7 +7306,7 @@
     },
     {
         "id": 11502,
-        "nametw": "[ff8000]七彩石顱部插件β[-]",
+        "nametw": "七彩顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7326,7 +7329,7 @@
     },
     {
         "id": 11503,
-        "nametw": "[ff8000]七彩石顱部插件γ[-]",
+        "nametw": "七彩顱部插件",
         "kind": 11,
         "atlas": 11,
         "icon": 11101,
@@ -7349,7 +7352,7 @@
     },
     {
         "id": 12001,
-        "nametw": "[ffffff]白水晶左臂插件α[-]",
+        "nametw": "白水晶左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7371,7 +7374,7 @@
     },
     {
         "id": 12002,
-        "nametw": "[ffffff]白水晶左臂插件β[-]",
+        "nametw": "白水晶左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7393,7 +7396,7 @@
     },
     {
         "id": 12003,
-        "nametw": "[ffffff]白水晶左臂插件γ[-]",
+        "nametw": "白水晶左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7415,7 +7418,7 @@
     },
     {
         "id": 12101,
-        "nametw": "[00b35a]綠寶石左臂插件α[-]",
+        "nametw": "綠寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7439,7 +7442,7 @@
     },
     {
         "id": 12102,
-        "nametw": "[00b35a]綠寶石左臂插件β[-]",
+        "nametw": "綠寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7463,7 +7466,7 @@
     },
     {
         "id": 12103,
-        "nametw": "[00b35a]綠寶石左臂插件γ[-]",
+        "nametw": "綠寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7487,7 +7490,7 @@
     },
     {
         "id": 12201,
-        "nametw": "[33bbff]藍寶石左臂插件α[-]",
+        "nametw": "藍寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12201,
@@ -7513,7 +7516,7 @@
     },
     {
         "id": 12202,
-        "nametw": "[33bbff]藍寶石左臂插件β[-]",
+        "nametw": "藍寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12201,
@@ -7539,7 +7542,7 @@
     },
     {
         "id": 12203,
-        "nametw": "[33bbff]藍寶石左臂插件γ[-]",
+        "nametw": "藍寶石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12201,
@@ -7565,7 +7568,7 @@
     },
     {
         "id": 12301,
-        "nametw": "[8000ff]紫鑽石左臂插件α[-]",
+        "nametw": "紫鑽石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7590,7 +7593,7 @@
     },
     {
         "id": 12302,
-        "nametw": "[8000ff]紫鑽石左臂插件β[-]",
+        "nametw": "紫鑽石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7615,7 +7618,7 @@
     },
     {
         "id": 12303,
-        "nametw": "[8000ff]紫鑽石左臂插件γ[-]",
+        "nametw": "紫鑽石左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12001,
@@ -7640,7 +7643,7 @@
     },
     {
         "id": 12401,
-        "nametw": "[ff8000]黃金左臂插件α[-]",
+        "nametw": "黃金左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7659,11 +7662,12 @@
         "material3": 19014,
         "materialnum3": 25,
         "material4": 19015,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 12501
     },
     {
         "id": 12402,
-        "nametw": "[ff8000]黃金左臂插件β[-]",
+        "nametw": "黃金左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7682,11 +7686,12 @@
         "material3": 19014,
         "materialnum3": 25,
         "material4": 19015,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 12502
     },
     {
         "id": 12403,
-        "nametw": "[ff8000]黃金左臂插件γ[-]",
+        "nametw": "黃金左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7705,11 +7710,12 @@
         "material3": 19014,
         "materialnum3": 25,
         "material4": 19015,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 12503
     },
     {
         "id": 12501,
-        "nametw": "[ff8000]七彩石左臂插件α[-]",
+        "nametw": "七彩左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7732,7 +7738,7 @@
     },
     {
         "id": 12502,
-        "nametw": "[ff8000]七彩石左臂插件β[-]",
+        "nametw": "七彩左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7755,7 +7761,7 @@
     },
     {
         "id": 12503,
-        "nametw": "[ff8000]七彩石左臂插件γ[-]",
+        "nametw": "七彩左臂插件",
         "kind": 12,
         "atlas": 11,
         "icon": 12101,
@@ -7778,7 +7784,7 @@
     },
     {
         "id": 13001,
-        "nametw": "[ffffff]白水晶右臂插件α[-]",
+        "nametw": "白水晶右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -7800,7 +7806,7 @@
     },
     {
         "id": 13002,
-        "nametw": "[ffffff]白水晶右臂插件β[-]",
+        "nametw": "白水晶右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -7822,7 +7828,7 @@
     },
     {
         "id": 13003,
-        "nametw": "[ffffff]白水晶右臂插件γ[-]",
+        "nametw": "白水晶右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -7844,7 +7850,7 @@
     },
     {
         "id": 13101,
-        "nametw": "[00b35a]綠寶石右臂插件α[-]",
+        "nametw": "綠寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -7868,7 +7874,7 @@
     },
     {
         "id": 13102,
-        "nametw": "[00b35a]綠寶石右臂插件β[-]",
+        "nametw": "綠寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -7892,7 +7898,7 @@
     },
     {
         "id": 13103,
-        "nametw": "[00b35a]綠寶石右臂插件γ[-]",
+        "nametw": "綠寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -7916,7 +7922,7 @@
     },
     {
         "id": 13201,
-        "nametw": "[33bbff]藍寶石右臂插件α[-]",
+        "nametw": "藍寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13201,
@@ -7942,7 +7948,7 @@
     },
     {
         "id": 13202,
-        "nametw": "[33bbff]藍寶石右臂插件β[-]",
+        "nametw": "藍寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13201,
@@ -7968,7 +7974,7 @@
     },
     {
         "id": 13203,
-        "nametw": "[33bbff]藍寶石右臂插件γ[-]",
+        "nametw": "藍寶石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13201,
@@ -7994,7 +8000,7 @@
     },
     {
         "id": 13301,
-        "nametw": "[8000ff]紫鑽石右臂插件α[-]",
+        "nametw": "紫鑽石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -8019,7 +8025,7 @@
     },
     {
         "id": 13302,
-        "nametw": "[8000ff]紫鑽石右臂插件β[-]",
+        "nametw": "紫鑽石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -8044,7 +8050,7 @@
     },
     {
         "id": 13303,
-        "nametw": "[8000ff]紫鑽石右臂插件γ[-]",
+        "nametw": "紫鑽石右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13001,
@@ -8069,7 +8075,7 @@
     },
     {
         "id": 13401,
-        "nametw": "[ff8000]黃金右臂插件α[-]",
+        "nametw": "黃金右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8088,11 +8094,12 @@
         "material3": 19024,
         "materialnum3": 25,
         "material4": 19025,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 13501
     },
     {
         "id": 13402,
-        "nametw": "[ff8000]黃金右臂插件β[-]",
+        "nametw": "黃金右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8111,11 +8118,12 @@
         "material3": 19024,
         "materialnum3": 25,
         "material4": 19025,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 13502
     },
     {
         "id": 13403,
-        "nametw": "[ff8000]黃金右臂插件γ[-]",
+        "nametw": "黃金右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8134,11 +8142,12 @@
         "material3": 19024,
         "materialnum3": 25,
         "material4": 19025,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 13503
     },
     {
         "id": 13501,
-        "nametw": "[ff8000]七彩石右臂插件α[-]",
+        "nametw": "七彩右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8161,7 +8170,7 @@
     },
     {
         "id": 13502,
-        "nametw": "[ff8000]七彩石右臂插件β[-]",
+        "nametw": "七彩右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8184,7 +8193,7 @@
     },
     {
         "id": 13503,
-        "nametw": "[ff8000]七彩石右臂插件γ[-]",
+        "nametw": "七彩右臂插件",
         "kind": 13,
         "atlas": 11,
         "icon": 13101,
@@ -8207,7 +8216,7 @@
     },
     {
         "id": 14001,
-        "nametw": "[ffffff]白水晶胸腔插件α[-]",
+        "nametw": "白水晶胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8229,7 +8238,7 @@
     },
     {
         "id": 14002,
-        "nametw": "[ffffff]白水晶胸腔插件β[-]",
+        "nametw": "白水晶胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8251,7 +8260,7 @@
     },
     {
         "id": 14003,
-        "nametw": "[ffffff]白水晶胸腔插件γ[-]",
+        "nametw": "白水晶胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8273,7 +8282,7 @@
     },
     {
         "id": 14101,
-        "nametw": "[00b35a]綠寶石胸腔插件α[-]",
+        "nametw": "綠寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8297,7 +8306,7 @@
     },
     {
         "id": 14102,
-        "nametw": "[00b35a]綠寶石胸腔插件β[-]",
+        "nametw": "綠寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8321,7 +8330,7 @@
     },
     {
         "id": 14103,
-        "nametw": "[00b35a]綠寶石胸腔插件γ[-]",
+        "nametw": "綠寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8345,7 +8354,7 @@
     },
     {
         "id": 14201,
-        "nametw": "[33bbff]藍寶石胸腔插件α[-]",
+        "nametw": "藍寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14201,
@@ -8371,7 +8380,7 @@
     },
     {
         "id": 14202,
-        "nametw": "[33bbff]藍寶石胸腔插件β[-]",
+        "nametw": "藍寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14201,
@@ -8397,7 +8406,7 @@
     },
     {
         "id": 14203,
-        "nametw": "[33bbff]藍寶石胸腔插件γ[-]",
+        "nametw": "藍寶石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14201,
@@ -8423,7 +8432,7 @@
     },
     {
         "id": 14301,
-        "nametw": "[8000ff]紫鑽石胸腔插件α[-]",
+        "nametw": "紫鑽石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8448,7 +8457,7 @@
     },
     {
         "id": 14302,
-        "nametw": "[8000ff]紫鑽石胸腔插件β[-]",
+        "nametw": "紫鑽石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8473,7 +8482,7 @@
     },
     {
         "id": 14303,
-        "nametw": "[8000ff]紫鑽石胸腔插件γ[-]",
+        "nametw": "紫鑽石胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14001,
@@ -8498,7 +8507,7 @@
     },
     {
         "id": 14401,
-        "nametw": "[ff8000]黃金胸腔插件α[-]",
+        "nametw": "黃金胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8517,11 +8526,12 @@
         "material3": 19034,
         "materialnum3": 25,
         "material4": 19035,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 14501
     },
     {
         "id": 14402,
-        "nametw": "[ff8000]黃金胸腔插件β[-]",
+        "nametw": "黃金胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8540,11 +8550,12 @@
         "material3": 19034,
         "materialnum3": 25,
         "material4": 19035,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 14502
     },
     {
         "id": 14403,
-        "nametw": "[ff8000]黃金胸腔插件γ[-]",
+        "nametw": "黃金胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8563,11 +8574,12 @@
         "material3": 19034,
         "materialnum3": 25,
         "material4": 19035,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 14503
     },
     {
         "id": 14501,
-        "nametw": "[ff8000]七彩石胸腔插件α[-]",
+        "nametw": "七彩胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8590,7 +8602,7 @@
     },
     {
         "id": 14502,
-        "nametw": "[ff8000]七彩石胸腔插件β[-]",
+        "nametw": "七彩胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8613,7 +8625,7 @@
     },
     {
         "id": 14503,
-        "nametw": "[ff8000]七彩石胸腔插件γ[-]",
+        "nametw": "七彩胸腔插件",
         "kind": 14,
         "atlas": 11,
         "icon": 14101,
@@ -8636,7 +8648,7 @@
     },
     {
         "id": 15001,
-        "nametw": "[ffffff]白水晶左腿插件α[-]",
+        "nametw": "白水晶左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8658,7 +8670,7 @@
     },
     {
         "id": 15002,
-        "nametw": "[ffffff]白水晶左腿插件β[-]",
+        "nametw": "白水晶左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8680,7 +8692,7 @@
     },
     {
         "id": 15003,
-        "nametw": "[ffffff]白水晶左腿插件γ[-]",
+        "nametw": "白水晶左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8702,7 +8714,7 @@
     },
     {
         "id": 15101,
-        "nametw": "[00b35a]綠寶石左腿插件α[-]",
+        "nametw": "綠寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8726,7 +8738,7 @@
     },
     {
         "id": 15102,
-        "nametw": "[00b35a]綠寶石左腿插件β[-]",
+        "nametw": "綠寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8750,7 +8762,7 @@
     },
     {
         "id": 15103,
-        "nametw": "[00b35a]綠寶石左腿插件γ[-]",
+        "nametw": "綠寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8774,7 +8786,7 @@
     },
     {
         "id": 15201,
-        "nametw": "[33bbff]藍寶石左腿插件α[-]",
+        "nametw": "藍寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15201,
@@ -8800,7 +8812,7 @@
     },
     {
         "id": 15202,
-        "nametw": "[33bbff]藍寶石左腿插件β[-]",
+        "nametw": "藍寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15201,
@@ -8826,7 +8838,7 @@
     },
     {
         "id": 15203,
-        "nametw": "[33bbff]藍寶石左腿插件γ[-]",
+        "nametw": "藍寶石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15201,
@@ -8852,7 +8864,7 @@
     },
     {
         "id": 15301,
-        "nametw": "[8000ff]紫鑽石左腿插件α[-]",
+        "nametw": "紫鑽石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8877,7 +8889,7 @@
     },
     {
         "id": 15302,
-        "nametw": "[8000ff]紫鑽石左腿插件β[-]",
+        "nametw": "紫鑽石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8902,7 +8914,7 @@
     },
     {
         "id": 15303,
-        "nametw": "[8000ff]紫鑽石左腿插件γ[-]",
+        "nametw": "紫鑽石左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15001,
@@ -8927,7 +8939,7 @@
     },
     {
         "id": 15401,
-        "nametw": "[ff8000]黃金左腿插件α[-]",
+        "nametw": "黃金左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8946,11 +8958,12 @@
         "material3": 19044,
         "materialnum3": 25,
         "material4": 19045,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 15501
     },
     {
         "id": 15402,
-        "nametw": "[ff8000]黃金左腿插件β[-]",
+        "nametw": "黃金左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8969,11 +8982,12 @@
         "material3": 19044,
         "materialnum3": 25,
         "material4": 19045,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 15502
     },
     {
         "id": 15403,
-        "nametw": "[ff8000]黃金左腿插件γ[-]",
+        "nametw": "黃金左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -8992,11 +9006,12 @@
         "material3": 19044,
         "materialnum3": 25,
         "material4": 19045,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 15503
     },
     {
         "id": 15501,
-        "nametw": "[ff8000]七彩石左腿插件α[-]",
+        "nametw": "七彩左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -9019,7 +9034,7 @@
     },
     {
         "id": 15502,
-        "nametw": "[ff8000]七彩石左腿插件β[-]",
+        "nametw": "七彩左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -9042,7 +9057,7 @@
     },
     {
         "id": 15503,
-        "nametw": "[ff8000]七彩石左腿插件γ[-]",
+        "nametw": "七彩左腿插件",
         "kind": 15,
         "atlas": 11,
         "icon": 15101,
@@ -9065,7 +9080,7 @@
     },
     {
         "id": 16001,
-        "nametw": "[ffffff]白水晶右腿插件α[-]",
+        "nametw": "白水晶右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9087,7 +9102,7 @@
     },
     {
         "id": 16002,
-        "nametw": "[ffffff]白水晶右腿插件β[-]",
+        "nametw": "白水晶右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9109,7 +9124,7 @@
     },
     {
         "id": 16003,
-        "nametw": "[ffffff]白水晶右腿插件γ[-]",
+        "nametw": "白水晶右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9131,7 +9146,7 @@
     },
     {
         "id": 16101,
-        "nametw": "[00b35a]綠寶石右腿插件α[-]",
+        "nametw": "綠寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9155,7 +9170,7 @@
     },
     {
         "id": 16102,
-        "nametw": "[00b35a]綠寶石右腿插件β[-]",
+        "nametw": "綠寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9179,7 +9194,7 @@
     },
     {
         "id": 16103,
-        "nametw": "[00b35a]綠寶石右腿插件γ[-]",
+        "nametw": "綠寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9203,7 +9218,7 @@
     },
     {
         "id": 16201,
-        "nametw": "[33bbff]藍寶石右腿插件α[-]",
+        "nametw": "藍寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16201,
@@ -9229,7 +9244,7 @@
     },
     {
         "id": 16202,
-        "nametw": "[33bbff]藍寶石右腿插件β[-]",
+        "nametw": "藍寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16201,
@@ -9255,7 +9270,7 @@
     },
     {
         "id": 16203,
-        "nametw": "[33bbff]藍寶石右腿插件γ[-]",
+        "nametw": "藍寶石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16201,
@@ -9281,7 +9296,7 @@
     },
     {
         "id": 16301,
-        "nametw": "[8000ff]紫鑽石右腿插件α[-]",
+        "nametw": "紫鑽石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9306,7 +9321,7 @@
     },
     {
         "id": 16302,
-        "nametw": "[8000ff]紫鑽石右腿插件β[-]",
+        "nametw": "紫鑽石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9331,7 +9346,7 @@
     },
     {
         "id": 16303,
-        "nametw": "[8000ff]紫鑽石右腿插件γ[-]",
+        "nametw": "紫鑽石右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16001,
@@ -9356,7 +9371,7 @@
     },
     {
         "id": 16401,
-        "nametw": "[ff8000]黃金右腿插件α[-]",
+        "nametw": "黃金右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9375,11 +9390,12 @@
         "material3": 19054,
         "materialnum3": 25,
         "material4": 19055,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 16501
     },
     {
         "id": 16402,
-        "nametw": "[ff8000]黃金右腿插件β[-]",
+        "nametw": "黃金右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9398,11 +9414,12 @@
         "material3": 19054,
         "materialnum3": 25,
         "material4": 19055,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 16502
     },
     {
         "id": 16403,
-        "nametw": "[ff8000]黃金右腿插件γ[-]",
+        "nametw": "黃金右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9421,11 +9438,12 @@
         "material3": 19054,
         "materialnum3": 25,
         "material4": 19055,
-        "materialnum4": 25
+        "materialnum4": 25,
+        "upgradeitem": 16503
     },
     {
         "id": 16501,
-        "nametw": "[ff8000]七彩石右腿插件α[-]",
+        "nametw": "七彩右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9448,7 +9466,7 @@
     },
     {
         "id": 16502,
-        "nametw": "[ff8000]七彩石右腿插件β[-]",
+        "nametw": "七彩右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9471,7 +9489,7 @@
     },
     {
         "id": 16503,
-        "nametw": "[ff8000]七彩石右腿插件γ[-]",
+        "nametw": "七彩右腿插件",
         "kind": 16,
         "atlas": 11,
         "icon": 16101,
@@ -9711,105 +9729,91 @@
     },
     {
         "id": 19001,
-        "nametw": "[ffffff]白水晶原石[-]",
+        "nametw": "白水晶原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11001,
         "quality": 1,
         "maxstack": 999,
-        "attrkind1": 1,
-        "attrvalue1": 2,
         "stagesource": [101,102],
         "uisource": [1]
     },
     {
         "id": 19002,
-        "nametw": "[00b35a]綠寶石原石[-]",
+        "nametw": "綠寶石原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11101,
         "quality": 2,
         "maxstack": 999,
-        "attrkind1": 1,
-        "attrvalue1": 4,
         "stagesource": [109,110],
         "uisource": [1,10]
     },
     {
         "id": 19003,
-        "nametw": "[33bbff]藍寶石原石[-]",
+        "nametw": "藍寶石原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11201,
         "quality": 3,
         "maxstack": 999,
-        "attrkind1": 1,
-        "attrvalue1": 6,
         "stagesource": [117,118],
         "uisource": [1,10,11]
     },
     {
         "id": 19004,
-        "nametw": "[8000ff]紫鑽石原石[-]",
+        "nametw": "紫鑽石原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11001,
         "quality": 4,
         "maxstack": 999,
-        "attrkind1": 1,
-        "attrvalue1": 8,
         "stagesource": [135,136],
         "uisource": [1,10,11,12]
     },
     {
         "id": 19005,
-        "nametw": "[ff8000]黃金原石[-]",
+        "nametw": "黃金原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11101,
         "quality": 5,
         "maxstack": 999,
-        "attrkind1": 1,
-        "attrvalue1": 10,
         "stagesource": [143,144],
         "uisource": [10,12]
     },
     {
         "id": 19006,
-        "nametw": "[ff8000]七彩原石[-]",
+        "nametw": "七彩原石",
         "kind": 19,
         "atlas": 11,
         "icon": 11201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19007,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19008,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19009,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19010,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19011,
-        "nametw": "[ffffff]方柱結晶 [-]",
+        "nametw": "方柱結晶 ",
         "kind": 19,
         "atlas": 11,
         "icon": 12001,
@@ -9821,7 +9825,7 @@
     },
     {
         "id": 19012,
-        "nametw": "[00b35a]扭曲結晶[-]",
+        "nametw": "扭曲結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 12101,
@@ -9833,7 +9837,7 @@
     },
     {
         "id": 19013,
-        "nametw": "[33bbff]巢狀結晶[-]",
+        "nametw": "巢狀結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 12201,
@@ -9845,7 +9849,7 @@
     },
     {
         "id": 19014,
-        "nametw": "[8000ff]無暇結晶[-]",
+        "nametw": "無暇結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 12001,
@@ -9857,7 +9861,7 @@
     },
     {
         "id": 19015,
-        "nametw": "[ff8000]結晶[-]",
+        "nametw": "等軸結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 12101,
@@ -9869,40 +9873,36 @@
     },
     {
         "id": 19016,
-        "nametw": "[ff8000]結晶[-]",
+        "nametw": "離子結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 12201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19017,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19018,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19019,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19020,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19021,
-        "nametw": "[ffffff]氧元素[-]",
+        "nametw": "氧元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13001,
@@ -9914,7 +9914,7 @@
     },
     {
         "id": 19022,
-        "nametw": "[00b35a]碳元素[-]",
+        "nametw": "碳元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13101,
@@ -9926,7 +9926,7 @@
     },
     {
         "id": 19023,
-        "nametw": "[33bbff]氫元素[-]",
+        "nametw": "氫元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13201,
@@ -9938,7 +9938,7 @@
     },
     {
         "id": 19024,
-        "nametw": "[8000ff]氮元素[-]",
+        "nametw": "氮元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13001,
@@ -9950,7 +9950,7 @@
     },
     {
         "id": 19025,
-        "nametw": "[ff8000]鈣元素[-]",
+        "nametw": "鈣元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13101,
@@ -9962,40 +9962,36 @@
     },
     {
         "id": 19026,
-        "nametw": "[]磷元素[-]",
+        "nametw": "磷元素",
         "kind": 19,
         "atlas": 11,
         "icon": 13201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19027,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19028,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19029,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19030,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19031,
-        "nametw": "[ffffff]T細胞[-]",
+        "nametw": "T細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14001,
@@ -10007,7 +10003,7 @@
     },
     {
         "id": 19032,
-        "nametw": "[00b35a]B細胞[-]",
+        "nametw": "B細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14101,
@@ -10019,7 +10015,7 @@
     },
     {
         "id": 19033,
-        "nametw": "[33bbff]K細胞[-]",
+        "nametw": "K細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14201,
@@ -10031,7 +10027,7 @@
     },
     {
         "id": 19034,
-        "nametw": "[8000ff]NK細胞[-]",
+        "nametw": "NK細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14001,
@@ -10043,7 +10039,7 @@
     },
     {
         "id": 19035,
-        "nametw": "[ff8000]細胞[-]",
+        "nametw": "X細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14101,
@@ -10055,40 +10051,36 @@
     },
     {
         "id": 19036,
-        "nametw": "[ff8000]細胞[-]",
+        "nametw": "Z細胞",
         "kind": 19,
         "atlas": 11,
         "icon": 14201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19037,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19038,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19039,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19040,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19041,
-        "nametw": "[ffffff]熱力粒子[-]",
+        "nametw": "熱力粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15001,
@@ -10100,7 +10092,7 @@
     },
     {
         "id": 19042,
-        "nametw": "[00b35a]奇異粒子[-]",
+        "nametw": "奇異粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15101,
@@ -10112,7 +10104,7 @@
     },
     {
         "id": 19043,
-        "nametw": "[33bbff]電荷粒子[-]",
+        "nametw": "電荷粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15201,
@@ -10124,7 +10116,7 @@
     },
     {
         "id": 19044,
-        "nametw": "[8000ff]超流粒子[-]",
+        "nametw": "超流粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15001,
@@ -10136,7 +10128,7 @@
     },
     {
         "id": 19045,
-        "nametw": "[ff8000]粒子[-]",
+        "nametw": "光感粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15101,
@@ -10148,40 +10140,36 @@
     },
     {
         "id": 19046,
-        "nametw": "[ff8000]粒子[-]",
+        "nametw": "液鈦粒子",
         "kind": 19,
         "atlas": 11,
         "icon": 15201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19047,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19048,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19049,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19050,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19051,
-        "nametw": "[ffffff]A-DNA[-]",
+        "nametw": "A-DNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16001,
@@ -10193,7 +10181,7 @@
     },
     {
         "id": 19052,
-        "nametw": "[00b35a]B-DNA[-]",
+        "nametw": "B-DNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16101,
@@ -10205,7 +10193,7 @@
     },
     {
         "id": 19053,
-        "nametw": "[33bbff]Z-DNA[-]",
+        "nametw": "Z-DNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16201,
@@ -10217,7 +10205,7 @@
     },
     {
         "id": 19054,
-        "nametw": "[8000ff]RNA[-]",
+        "nametw": "mRNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16001,
@@ -10229,7 +10217,7 @@
     },
     {
         "id": 19055,
-        "nametw": "[ff8000]RNA[-]",
+        "nametw": "tRNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16101,
@@ -10241,100 +10229,98 @@
     },
     {
         "id": 19056,
-        "nametw": "[ff8000]RNA[-]",
+        "nametw": "rRNA",
         "kind": 19,
         "atlas": 11,
         "icon": 16201,
-        "quality": 6,
+        "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19057,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19058,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19059,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19060,
-        "nametw": "[][-]",
         "kind": 19,
         "atlas": 11
     },
     {
         "id": 19061,
-        "nametw": "[ffffff]阿爾法子[-]",
+        "nametw": "阿爾法原子",
         "kind": 19,
         "atlas": 11,
+        "icon": 11001,
         "quality": 1,
         "maxstack": 999
     },
     {
         "id": 19062,
-        "nametw": "[00b35a]貝塔子[-]",
+        "nametw": "貝塔原子",
         "kind": 19,
         "atlas": 11,
+        "icon": 11101,
         "quality": 2,
         "maxstack": 999
     },
     {
         "id": 19063,
-        "nametw": "[33bbff]格里克子[-]",
+        "nametw": "伽瑪原子",
         "kind": 19,
         "atlas": 11,
+        "icon": 11201,
         "quality": 3,
         "maxstack": 999
     },
     {
         "id": 19064,
-        "nametw": "[8000ff]歐米伽子[-]",
+        "nametw": "格里克原子",
         "kind": 19,
         "atlas": 11,
+        "icon": 11001,
         "quality": 4,
         "maxstack": 999
     },
     {
         "id": 19065,
-        "nametw": "[ff8000]子[-]",
+        "nametw": "歐米伽原子",
         "kind": 19,
         "atlas": 11,
+        "icon": 11101,
         "quality": 5,
         "maxstack": 999
     },
     {
         "id": 19066,
-        "nametw": "[ff8000]子[-]",
+        "nametw": "德爾塔原子",
         "kind": 19,
         "atlas": 11,
-        "quality": 6,
+        "icon": 11201,
+        "quality": 5,
         "maxstack": 999
     },
     {
-        "id": 19067,
-        "nametw": "[][-]"
+        "id": 19067
     },
     {
-        "id": 19068,
-        "nametw": "[][-]"
+        "id": 19068
     },
     {
-        "id": 19069,
-        "nametw": "[][-]"
+        "id": 19069
     },
     {
-        "id": 19070,
-        "nametw": "[][-]"
+        "id": 19070
     },
     {
         "id": 20001,
