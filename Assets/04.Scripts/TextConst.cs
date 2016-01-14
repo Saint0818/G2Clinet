@@ -294,4 +294,20 @@ public static class TextConst
 
         return sResult;
     }
+
+    public static Color32 Color(int quality) {
+        if (quality < 2)
+            return new Color32(255, 255, 255, 255);
+        else
+        if (quality < 3)
+            return new Color32(0, 179, 90, 255);
+        else
+        if (quality < 4)
+            return new Color32(51, 187, 255, 255);
+        else
+        if (quality < 5)
+            return new Color32(150, 101, 255, 255);
+        else
+            return new Color32(255, 128, 0, 255);
+    }
 }
