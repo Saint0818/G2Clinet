@@ -369,7 +369,7 @@ public class TValueAvater
             self.transform.localScale = Vector3.one;
             BG = self.GetComponent<UISprite>();
 
-            pic = self.transform.FindChild("EquipmentPic").gameObject.GetComponent<UISprite>();
+            pic = self.transform.FindChild("Icon").gameObject.GetComponent<UISprite>();
             redPoint = self.transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
             redPoint.enabled = false;
             name = self.transform.FindChild("NameLabel").gameObject.GetComponent<UILabel>();
@@ -536,7 +536,7 @@ public class UIPlayerInfo : UIBase
         GameObject[] itemEquipmentBtns = new GameObject[8];
         for (int i = 0; i < itemEquipmentBtns.Length; i++)
         {
-            itemEquipmentBtns[i] = Instantiate(Resources.Load("Prefab/UI/Items/ItemEquipmentBtn")) as GameObject;	
+            itemEquipmentBtns[i] = UIPrefabPath.LoadUI(UIPrefabPath.UIEquipItem);
         }
 
         obj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
