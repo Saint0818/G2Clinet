@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -8,7 +9,8 @@ using UnityEngine;
 /// </summary>
 /// 使用方法:
 /// <list type="number">
-/// <item> Call Init() 做整個介面的初始化. </item>
+/// <item> Call SetData() 做整個介面的初始化. </item>
+/// <item> IsDataChanged() and GetExchangeData() 可以得知資料改變的狀態. </item>
 /// </list>
 /// 
 /// 實作細節:
@@ -26,12 +28,14 @@ public class UIEquipmentMain : MonoBehaviour
     /// </summary>
     public event System.Action OnBackListener;
 
-    public delegate void Action(UIEquipMaterialItem.EStatus status, int slotIndex, 
-                                int storageMaterialItemIndex, int materialItemID);
+    public delegate void MaterialAction(UIEquipMaterialItem.EStatus status, int slotIndex, 
+                                        int materialIndex, int storageIndex, int materialID);
+
     /// <summary>
-    /// 材料按鈕按下. 參數:[哪一個 Slot 的材料, 材料在倉庫的哪個 Index(-1 表示找不到), MaterialItemID]
+    /// 材料按鈕按下. 參數: 
+    /// [材料狀態, SlotIndex, MaterialIndex(第幾個材料 0 ~ 3), 材料在倉庫的哪個 Index(-1 表示找不到), MaterialItemID]
     /// </summary>
-    public event Action OnMaterialListener;
+    public event MaterialAction OnMaterialListener;
 
     /// <summary>
     /// 玩家的基本能力數值.
@@ -171,7 +175,7 @@ public class UIEquipmentMain : MonoBehaviour
     }
 
     /// <summary>
-    /// slotIndex 上的數值裝備是最強的嗎?
+    /// (內部使用) slotIndex 上的數值裝備是最強的嗎?
     /// </summary>
     /// <param name="slotIndex"></param>
     /// <returns></returns>
@@ -200,7 +204,7 @@ public class UIEquipmentMain : MonoBehaviour
         return maxTotalPoints;
     }
 
-    public bool IsValueItemChanged()
+    public bool IsDataChanged()
     {
         for(var i = 0; i < PlayerValueItems.Length; i++)
         {
@@ -220,6 +224,23 @@ public class UIEquipmentMain : MonoBehaviour
         return exchange;
     }
 
+    public void PlayInlayAnimation(int materialIndex, TweenCallback onComplete)
+    {
+        var startPos = mMaterialList.GetPosition(materialIndex);
+        var destPos = mDetail.GetInlayPosition(materialIndex);
+
+//        Debug.LogFormat("MaterialIndex:{0}, {1} -> {2}", materialIndex, startPos, destPos);
+
+        var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIFXAddValueItemInlay, transform);
+
+        obj.transform.position = destPos;
+        var localDestPos = obj.transform.localPosition;
+        obj.transform.position = startPos;
+
+        obj.AddComponent<DelayDestory>().AliveTimeInSeconds = 0.5f;
+        obj.transform.DOLocalMove(localDestPos, 0.25f).OnComplete(onComplete);
+    }
+
     public void OnBackClick()
     {
         if(OnBackListener != null)
@@ -237,6 +258,7 @@ public class UIEquipmentMain : MonoBehaviour
                                     int storageMaterialItemIndex, int materialItemID)
     {
         if(OnMaterialListener != null)
-            OnMaterialListener(status, mPlayerInfo.CurrentSlotIndex, storageMaterialItemIndex, materialItemID);
+            OnMaterialListener(status, mPlayerInfo.CurrentSlotIndex, materialIndex, 
+                               storageMaterialItemIndex, materialItemID);
     }
 }

@@ -9,8 +9,9 @@ public class UIPrefabPath
     public static readonly string UIEquipItem = "Prefab/UI/Items/UIEquipItem";
     public static readonly string EquipListButton = "Prefab/UI/Items/ItemListEquipment";
     public static readonly string EquipMaterialItem = "Prefab/UI/Items/MaterialItem";
+    public static readonly string UIFXAddValueItemInlay = "Effect/UIFXAddValueItemInlay";
 
-	public static readonly string ItemSkillHint = "Prefab/UI/Items/ItemSkillHint";
+    public static readonly string ItemSkillHint = "Prefab/UI/Items/ItemSkillHint";
 	public static readonly string UIStageHint = "Prefab/UI/UIStageHint";
 	public static readonly string ItemSkillCard = "Prefab/UI/Items/ItemSkillCard";
 	public static readonly string ItemCardEquipped = "Prefab/UI/Items/ItemCardEquipped";

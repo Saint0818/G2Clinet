@@ -88,6 +88,11 @@ public class UIEquipDetail : MonoBehaviour
         }
     }
 
+    public Vector3 GetInlayPosition(int index)
+    {
+        return mEquipItem.GetInlayPosition(index);
+    }
+
     private void updateButton(UIValueItemData item)
     {
         UpgradeButton.gameObject.SetActive(false);

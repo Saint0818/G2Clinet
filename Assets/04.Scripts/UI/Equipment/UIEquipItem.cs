@@ -63,6 +63,11 @@ public class UIEquipItem : MonoBehaviour
         updateInlay(data.Inlay);
     }
 
+    public Vector3 GetInlayPosition(int index)
+    {
+        return index < Inlays.Length ? Inlays[index].transform.position : Vector3.zero;
+    }
+
     private void updateIcon(UIValueItemData data)
     {
         if(data.IsValid())
@@ -98,6 +103,9 @@ public class UIEquipItem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 內部使用.
+    /// </summary>
     public void NotifyClick()
     {
         if(OnClickListener != null)

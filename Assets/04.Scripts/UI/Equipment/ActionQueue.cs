@@ -36,11 +36,11 @@ public class ActionQueue : MonoBehaviour
         mActions.Clear();
     }
 
-    public void Execute(Action<bool> callback)
+    public void Execute(Action<bool> onComplete)
     {
         if(mActions.Count == 0)
         {
-            callback(true);
+            onComplete(true);
             return;
         }
 
@@ -49,10 +49,10 @@ public class ActionQueue : MonoBehaviour
         {
             mQueue.Enqueue(mActions[i]);
         }
-        StartCoroutine(execute(callback));
+        StartCoroutine(execute(onComplete));
     }
 
-    private IEnumerator execute(Action<bool> callback)
+    private IEnumerator execute(Action<bool> onComplete)
     {
         var action = mQueue.Dequeue();
         action.Do();
@@ -66,13 +66,13 @@ public class ActionQueue : MonoBehaviour
 
             if(!action.DoneResult())
             {
-                callback(false);
+                onComplete(false);
                 break;
             }
 
             if(mQueue.Count == 0)
             {
-                callback(true);
+                onComplete(true);
                 break;
             }
 

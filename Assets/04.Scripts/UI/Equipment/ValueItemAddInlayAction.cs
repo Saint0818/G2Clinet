@@ -19,58 +19,6 @@ public class ValueItemAddInlayAction : ActionQueue.IAction
 
         var protocol = new ValueItemAddInlayProtocol();
         protocol.Send(mPlayerValueItemKind, mStorageMaterialItemIndex, onAddInlay);
-
-//        TValueItem valueItem = GameData.Team.Player.ValueItems[mPlayerValueItemKind];
-//        if (!GameData.DItemData.ContainsKey(valueItem.ID))
-//        {
-//            Debug.LogErrorFormat("Can't find ItemData, ItemID:{0}", valueItem.ID);
-//            mIsDone = true;
-//            return;
-//        }
-//
-//        if(mStorageMaterialItemIndex >= GameData.Team.MaterialItems.Length)
-//        {
-//            Debug.LogErrorFormat("Can't find MaterialItem. Index:{0}", mStorageMaterialItemIndex);
-//            mIsDone = true;
-//            return;
-//        }
-//        TMaterialItem materialItem = GameData.Team.MaterialItems[mStorageMaterialItemIndex];
-//
-//        if(!GameData.DItemData.ContainsKey(valueItem.ID))
-//        {
-//            Debug.LogErrorFormat("Can't found ItemData, ID:{0}", valueItem.ID);
-//            mIsDone = true;
-//            return;
-//        }
-//        TItemData itemData = GameData.DItemData[valueItem.ID];
-//        if (!itemData.HasMaterial(materialItem.ID))
-//        {
-//            Debug.LogErrorFormat("Material is not the inlay. ItemID:{0}, MaterailItemID:{1}", itemData.ID, materialItem.ID);
-//            mIsDone = true;
-//            return;
-//        }
-//
-//        if (valueItem.HasInlay(materialItem.ID))
-//        {
-//            // 已鑲嵌, 點擊不做任何事情.
-//            Debug.Log("Alreay Inaly");
-//            mIsDone = true;
-//            return;
-//        }
-//
-//        if (materialItem.Num >= itemData.FindMaterialNum(materialItem.ID))
-//        {
-//            // 材料足夠.
-//            var protocol = new ValueItemAddInlayProtocol();
-//            protocol.Send(mPlayerValueItemKind, mStorageMaterialItemIndex, onAddInlay);
-//        }
-//        else
-//        {
-//            // 材料不夠.
-//            mIsDone = true;
-//            Debug.Log("Show Navigation Window!");
-//            UIItemSource.Get.ShowMaterial();
-//        }
     }
 
     public bool IsDone()
@@ -85,7 +33,7 @@ public class ValueItemAddInlayAction : ActionQueue.IAction
 
     private void onAddInlay(bool ok)
     {
-        if (ok)
+        if(ok)
             UIHint.Get.ShowHint(TextConst.S(554), Color.white);
 
         mDoneResult = ok;

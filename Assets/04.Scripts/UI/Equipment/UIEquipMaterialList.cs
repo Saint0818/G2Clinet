@@ -52,4 +52,9 @@ public class UIEquipMaterialList : MonoBehaviour
 
         WarningMsg.SetActive(data.Count == 0);
     }
+
+    public Vector3 GetPosition(int index)
+    {
+        return index < ItemParents.Length ? ItemParents[index].transform.position : Vector3.zero;
+    }
 }

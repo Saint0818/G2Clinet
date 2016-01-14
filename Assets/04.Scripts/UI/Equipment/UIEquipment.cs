@@ -166,11 +166,11 @@ public class UIEquipment : UIBase
 
     private void onBackClick()
     {
-        if(mMain.IsValueItemChanged())
+        if(mMain.IsDataChanged())
         {
             mActionQueue.Clear();
             mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
-            mActionQueue.Execute(onChangeValueItem);
+            mActionQueue.Execute(ok => goToMainLobby() );
         }
         else
             goToMainLobby();
@@ -196,12 +196,7 @@ public class UIEquipment : UIBase
         return new[] {findStackIndex(17), findStackIndex(18)};
     }
 
-    private void onChangeValueItem(bool ok)
-    {
-        goToMainLobby();
-    }
-
-    private void onMaterialClick(UIEquipMaterialItem.EStatus status, int slotIndex, 
+    private void onMaterialClick(UIEquipMaterialItem.EStatus status, int slotIndex, int materialIndex,
                                  int storageMaterialItemIndex, int materialItemID)
     {
 //        Debug.LogFormat("onMaterialClick, Status:{0}, slotIndex:{1}, storageMaterialItemIndex:{2}, MaterialItemID:{3}", 
@@ -219,23 +214,17 @@ public class UIEquipment : UIBase
         else if(status == UIEquipMaterialItem.EStatus.Enough)
         {
             mActionQueue.Clear();
-            if (mMain.IsValueItemChanged())
+            if (mMain.IsDataChanged())
                 mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
 
             // slot 0 對應到 kind 11, slot 1 對應到 kind 12, 以此類推.
             int valueItemKind = slotIndex + 11;
             mActionQueue.AddAction(new ValueItemAddInlayAction(valueItemKind, storageMaterialItemIndex));
-            mActionQueue.Execute(onAddInlay);
+            mActionQueue.AddAction(new PlayAddInlayAnimation(mMain, materialIndex));
+            mActionQueue.Execute(ok => updateUI());
         }
         else
             Debug.LogErrorFormat("Not Implemented. Status:{0}", status);
-    }
-
-    private void onAddInlay(bool ok)
-    {
-        Debug.LogFormat("onAddInlay, ok:{0}", ok);
-
-        updateUI();
     }
 
     private void onUpgradeClick(int slotIndex)
@@ -245,18 +234,10 @@ public class UIEquipment : UIBase
         int valueItemKind = slotIndex + 11;
 
         mActionQueue.Clear();
-        if(mMain.IsValueItemChanged())
+        if(mMain.IsDataChanged())
             mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
         mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
-
-        mActionQueue.Execute(onUpgrade);
-    }
-
-    private void onUpgrade(bool ok)
-    {
-        Debug.LogFormat("onUpgrade, ok:{0}", ok);
-
-        updateUI();
+        mActionQueue.Execute(ok => updateUI());
     }
 
     public void Hide()
