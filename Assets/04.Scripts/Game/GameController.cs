@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using AI;
 using DG.Tweening;
@@ -9,6 +10,7 @@ using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum EGameTest {
 	None,
@@ -660,6 +662,8 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
         UIGame.Get.SetJoystick(Joysticker);
 
+	    AddValueItemAttributes();
+
 		playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
 		PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
 		#if UNITY_EDITOR
@@ -715,7 +719,28 @@ public class GameController : KnightSingleton<GameController>
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
 
-	private void preLoadSkillEffect() {
+    private void AddValueItemAttributes()
+    {
+        Action<TItemData> addAttributes = item =>
+        {
+            for(var i = 0; i < item.Bonus.Length; i++)
+            {
+                if(item.Bonus[i] != EBonus.None)
+                    Joysticker.SetAttribute((int)item.Bonus[i], item.BonusValues[i]);
+            }
+        };
+
+        foreach(int itemID in GameData.Team.Player.ConsumeValueItems)
+        {
+            if(!GameData.DItemData.ContainsKey(itemID))
+                continue;
+
+            var item = GameData.DItemData[itemID];
+            addAttributes(item);
+        }
+    }
+
+    private void preLoadSkillEffect() {
 		for (int i = 0; i < PlayerList.Count; i++)
 			for (int j = 0; j < PlayerList[i].Attribute.SkillCards.Length; j++)
 				EffectManager.Get.PreLoadSkillEffect(PlayerList[i].Attribute.SkillCards[j].ID);
