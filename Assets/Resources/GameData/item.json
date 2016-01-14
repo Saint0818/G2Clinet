@@ -9475,7 +9475,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 1,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "2 minutes left ear tubes",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9489,7 +9490,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 2,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "3 minutes left ear tubes",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9503,7 +9505,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 3,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Speed left ear tubes",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9517,7 +9520,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 4,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Left ear endurance test tube",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9531,7 +9535,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 5,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Strength left ear tubes",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9545,7 +9550,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 6,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "DEAR left ear tubes",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9559,7 +9565,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 7,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Left ear tubes rebounds",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9573,7 +9580,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 8,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Ear injection pot",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9587,7 +9595,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 9,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Defensive ear injection",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9601,7 +9610,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 10,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Ear steals injection",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9615,7 +9625,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 11,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Right ear had injections",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9629,7 +9640,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 12,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "Pass right ear injection",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9643,7 +9655,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 1,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "2 points right ear injection",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -9657,7 +9670,8 @@
         "quality": 2,
         "maxstack": 999,
         "attrkind1": 2,
-        "attrvalue1": 20,
+        "attrvalue1": 10,
+        "uisource": [10],
         "nameen": "3 points right ear injection",
         "explaintw": "可裝備於《突觸強化》欄位中，將可短暫大幅提升自身能力。\n[ff0000]注意：裝備此物品進入競賽中，每次競賽即會扣除[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
@@ -12764,7 +12778,7 @@
         "atlas": 12,
         "quality": 5,
         "maxstack": 999,
-        "uisource": 10,
+        "uisource": [10],
         "nameen": "Offensive IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。"
     },
@@ -12775,7 +12789,7 @@
         "atlas": 12,
         "quality": 5,
         "maxstack": 999,
-        "uisource": 10,
+        "uisource": [10],
         "nameen": "Defensive IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。"
     },
@@ -12786,72 +12800,114 @@
         "atlas": 12,
         "quality": 5,
         "maxstack": 999,
-        "uisource": 10,
+        "uisource": [10],
         "nameen": "Wisdom IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。"
     },
     {
         "id": 93101,
-        "nametw": "100元",
+        "nametw": "12000金幣",
         "kind": 31,
         "atlas": 12,
-        "value": 100
+        "quality": 1,
+        "value": 12000,
+        "nameen": "12,000 gold",
+        "explaintw": "獲得12000金幣"
     },
     {
         "id": 93102,
-        "nametw": "500元",
+        "nametw": "36000金幣",
         "kind": 31,
         "atlas": 12,
-        "value": 500
+        "quality": 1,
+        "value": 36000,
+        "nameen": "36,000 gold",
+        "explaintw": "獲得36000金幣"
     },
     {
         "id": 93103,
-        "nametw": "1000元",
+        "nametw": "62000金幣",
         "kind": 31,
         "atlas": 12,
-        "value": 1000
+        "quality": 2,
+        "value": 62000,
+        "nameen": "62000 gold",
+        "explaintw": "獲得62000金幣"
+    },
+    {
+        "id": 93104,
+        "nametw": "150000金幣",
+        "kind": 31,
+        "atlas": 12,
+        "quality": 3,
+        "value": 150000,
+        "nameen": "150,000 coins",
+        "explaintw": "獲得150000金幣"
+    },
+    {
+        "id": 93105,
+        "nametw": "450000金幣",
+        "kind": 31,
+        "atlas": 12,
+        "quality": 4,
+        "value": 450000,
+        "nameen": "450,000 coins",
+        "explaintw": "獲得450000金幣"
+    },
+    {
+        "id": 93106,
+        "nametw": "1200000金幣",
+        "kind": 31,
+        "atlas": 12,
+        "quality": 5,
+        "value": 1200000,
+        "nameen": "1.2 million coins",
+        "explaintw": "獲得1200000金幣"
     },
     {
         "id": 93201,
-        "nametw": "10鑽石",
+        "nametw": "50鑽石",
         "kind": 32,
         "atlas": 12,
         "value": 10
     },
     {
         "id": 93202,
-        "nametw": "80鑽石",
+        "nametw": "100鑽石",
         "kind": 32,
         "atlas": 12,
         "value": 80
     },
     {
         "id": 93203,
-        "nametw": "320鑽石",
+        "nametw": "150鑽石",
         "kind": 32,
         "atlas": 12,
         "value": 320
     },
     {
         "id": 93301,
-        "nametw": "8經驗值",
+        "nametw": "10經驗值",
         "kind": 33,
         "atlas": 12,
-        "value": 8
+        "quality": 1,
+        "value": 10
     },
     {
         "id": 93302,
-        "nametw": "60經驗值",
+        "nametw": "30經驗值",
         "kind": 33,
         "atlas": 12,
-        "value": 60
+        "quality": 2,
+        "value": 30
     },
     {
         "id": 93303,
-        "nametw": "21經驗值",
+        "nametw": "60經驗值",
         "kind": 33,
         "atlas": 12,
-        "value": 21
+        "quality": 3,
+        "value": 60
     },
     {
         "id": 93401,
@@ -12875,10 +12931,19 @@
         "value": 15
     },
     {
-        "id": 93403,
+        "id": 93404,
         "nametw": "20體力",
         "kind": 34,
         "atlas": 12,
         "value": 20
+    },
+    {
+        "id": 93501,
+        "nametw": "聯盟賽入場券x5",
+        "kind": 35,
+        "atlas": 12,
+        "value": 5,
+        "nameen": "X5 league match tickets",
+        "explaintw": "可獲得額外參加聯盟賽的機會"
     }
 ]
