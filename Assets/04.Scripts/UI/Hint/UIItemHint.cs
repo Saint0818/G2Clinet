@@ -97,6 +97,7 @@ public class UIItemHint : UIBase {
 			uiLabelExplain.text = itemData.Explain;
 		}
 		uiLabelName.text = itemData.Name;
+		uiLabelName.color = TextConst.Color(itemData.Quality);
 	}
 	
 	public void OnShowSkill(TSkill skill) {
@@ -105,6 +106,7 @@ public class UIItemHint : UIBase {
 		hintSkillView.Show();
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
+			uiLabelName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 			if(GameData.Team.SkillCardCounts == null)
 				GameData.Team.InitSkillCardCount();
 			if(GameData.Team.SkillCardCounts.ContainsKey(skill.ID))

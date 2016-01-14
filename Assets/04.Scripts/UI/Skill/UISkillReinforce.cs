@@ -762,6 +762,7 @@ public class UISkillReinforce : UIBase {
 
 	public void Show (TSkill skill, int index, bool isAlreadyEquip) {
 		mSkill = skill;
+		mOldSkill = mSkill;
 		UIShow (true);
 		RefreshView(skill);
 		initRightCards ();
@@ -774,6 +775,7 @@ public class UISkillReinforce : UIBase {
 			mSkill = findNewSkillFromPlayer(mSkill);
 		else
 			mSkill = findNewSkillFromTeam(mSkill);
+		mOldSkill = mSkill;
 	}
 
 	public void OnReinforce () {

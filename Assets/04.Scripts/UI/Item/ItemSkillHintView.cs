@@ -15,6 +15,7 @@ public class ItemSkillHintView : MonoBehaviour {
 	public void UpdateUI (string name, int level, int quality, string anger, string maxAnger, int id) {
 
 		SkillName.text = name;
+		SkillName.color = TextConst.Color(GameData.DSkillData[id].Quality);
 		SkillMaxAnger.text = anger + "[13CECEFF]" + maxAnger + "[-]";
 		SkillTexture.mainTexture = GameData.CardItemTexture(id);
 		SkillCard.spriteName = "cardlevel_" + quality + "s";
