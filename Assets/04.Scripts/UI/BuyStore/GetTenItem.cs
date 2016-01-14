@@ -18,6 +18,7 @@ public class GetTenItem : MonoBehaviour {
 //	}
 
 	public void Reset () {
+		isShow = false;
 		isShowFin = false;
 		isShowPause = false;
 		showTime = 0;

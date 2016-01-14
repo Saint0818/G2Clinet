@@ -27,6 +27,13 @@ public class UIGamePause : UIBase {
 
 	private UIStageHint uiStageHint;
 
+
+	private GameObject goMakeFriend;
+	private UILabel labelMakeFriend;
+	private string playerID;
+	private int playerIndex;
+	private bool isFriend;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -75,6 +82,8 @@ public class UIGamePause : UIBase {
 
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
+		goMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend");
+		labelMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Label").GetComponent<UILabel>();
 
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
@@ -88,6 +97,8 @@ public class UIGamePause : UIBase {
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
         SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
         SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
+
+
 	}
 
 	private void initHomeAway (){
@@ -99,6 +110,7 @@ public class UIGamePause : UIBase {
 		}
 		string positionName = "";
 		string positionType = "";
+		string spriteMe = "";
 		for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 			if (i>=basemin && i<basemax) {
 				switch (i) {
@@ -106,21 +118,25 @@ public class UIGamePause : UIBase {
 				case 3:
 					positionName = "/Center/GameResult/PlayerMe/ButtonMe/PlayerFace/MyFace";
 					positionType = "/Center/GameResult/PlayerMe/ButtonMe/PlayerNameMe/SpriteTypeMe";
+					spriteMe = "/Center/GameResult/PlayerMe/ButtonMe/LabelValue";
 					break;
 				case 1:
 				case 4:
 					positionName = "/Center/GameResult/PlayerA/ButtonA/PlayerFace/AFace";
 					positionType = "/Center/GameResult/PlayerA/ButtonA/PlayerNameA/SpriteTypeA";
+					spriteMe = "/Center/GameResult/PlayerA/ButtonA/LabelValue";
 					break;
 				case 2:
 				case 5:
 					positionName = "/Center/GameResult/PlayerB/ButtonB/PlayerFace/BFace";
 					positionType = "/Center/GameResult/PlayerB/ButtonB/PlayerNameB/SpriteTypeB";
+					spriteMe = "/Center/GameResult/PlayerB/ButtonB/LabelValue";
 					break;
 				}
 				if (GameController.Get.GamePlayers[i].Attribute.BodyType >= 0 && GameController.Get.GamePlayers[i].Attribute.BodyType < 3) {
 					GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = GameController.Get.GamePlayers[i].Attribute.FacePicture;
 					GameObject.Find(UIName + positionType).GetComponent<UISprite>().spriteName = positionPicName[GameController.Get.GamePlayers[i].Attribute.BodyType];
+					GameObject.Find(UIName + spriteMe).GetComponent<UILabel>().text = GameController.Get.GamePlayers[i].Attribute.Name;
 				}
 			}
 		}
@@ -132,7 +148,8 @@ public class UIGamePause : UIBase {
 		uiStageHint.UpdateValue(GameController.Get.StageData.ID);
 		UIShow(true);
 		uiGameResult.SetActive(false);
-	}
+		goMakeFriend.SetActive(false);
+	}	
 
 	private void setInfo(int index, ref TGameRecord record) {
 		if (index >= 0 && index < record.PlayerRecords.Length) {
@@ -142,16 +159,51 @@ public class UIGamePause : UIBase {
 			switch (index) {
 			case 0:
 			case 3:
+				playerIndex = 0;
 				uiSelect.transform.localPosition = new Vector3(0, 105, 0);
 				break;
 			case 1:
 			case 4:
+				playerIndex = 1;
 				uiSelect.transform.localPosition = new Vector3(270, 105, 0);
 				break;
 			case 2:
 			case 5:
+				playerIndex = 2;
 				uiSelect.transform.localPosition = new Vector3(-270, 105, 0);
 				break;
+			}
+
+			if(pauseType == EPauseType.Home) {
+				if(playerIndex < GameData.TeamMembers.Length) {
+					if( GameData.Team.Friends != null && !string.IsNullOrEmpty(GameData.TeamMembers[playerIndex].Identifier)) {
+						if(GameData.Team.Friends.ContainsKey(GameData.TeamMembers[playerIndex].Identifier)) {
+							isFriend = true;
+							labelMakeFriend.text = TextConst.S(5024);
+						} else {
+							isFriend = false;
+							labelMakeFriend.text = TextConst.S(5023);
+						}
+						playerID = GameData.TeamMembers[playerIndex].Identifier;
+						goMakeFriend.SetActive(true);
+					} else
+						goMakeFriend.SetActive(false);
+				}
+			} else {
+				if(playerIndex < GameData.EnemyMembers.Length) {
+					if( GameData.Team.Friends != null && !string.IsNullOrEmpty(GameData.EnemyMembers[playerIndex].Identifier)) {
+						if(GameData.Team.Friends.ContainsKey(GameData.EnemyMembers[playerIndex].Identifier)) {
+							isFriend = true;
+							labelMakeFriend.text = TextConst.S(5024);
+						} else {
+							isFriend = false;
+							labelMakeFriend.text = TextConst.S(5023);
+						}
+						playerID = GameData.EnemyMembers[playerIndex].Identifier;
+						goMakeFriend.SetActive(true);
+					} else
+						goMakeFriend.SetActive(false);
+				}
 			}
 		}
 	} 
@@ -182,7 +234,18 @@ public class UIGamePause : UIBase {
 	}
 
     public void OnMakeFriend() {
-        
+		if(!string.IsNullOrEmpty(playerID)) {
+			goMakeFriend.SetActive(true);
+			if(isFriend) {
+				isFriend = false;
+				SendHttp.Get.MakeFriend(null, playerID);
+				labelMakeFriend.text = TextConst.S(5024);
+			} else {
+				isFriend = true;
+				labelMakeFriend.text = TextConst.S(5023);
+			}
+		} else 
+			goMakeFriend.SetActive(false);
     }
 
     public void OnOpenInfo() {

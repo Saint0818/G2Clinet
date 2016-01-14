@@ -125,7 +125,7 @@ public class UISkillInfo : UIBase {
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
 		btnUpgrade.SetActive(true);
-		btnCrafting.SetActive(false);
+		btnCrafting.SetActive(true);
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -154,8 +154,11 @@ public class UISkillInfo : UIBase {
 			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
 			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.skillCard.Skill.Lv, 0, GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar).ToString();
 			labelSkillSpace.text = skillData.Space(uicard.skillCard.Skill.Lv).ToString();
-			labelSkillExp.text = uicard.skillCard.Skill.Exp.ToString(); //=======
-			sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[uicard.skillCard.Skill.Lv]; //======
+			labelSkillExp.text = uicard.skillCard.Skill.Exp.ToString(); 
+			if(uicard.skillCard.Skill.Lv < GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp.Length)
+				sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[uicard.skillCard.Skill.Lv]; 
+			else 
+				sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar - 1]; 
 			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID))
 				Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
 			else 
@@ -209,8 +212,10 @@ public class UISkillInfo : UIBase {
 			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
 			spriteSkillLevel.spriteName = "Cardicon" + skill.Lv.ToString();
 			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
-			labelSkillExp.text = "0"; //=======
-			sliderSkillExpBar.value = 0; //======
+//			labelSkillExp.text = "0"; //=======
+//			sliderSkillExpBar.value = 0; //======
+			labelSkillExp.text = skill.Exp.ToString(); 
+			sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv]; 
 			if(GameFunction.IsActiveSkill(skill.ID))
 				labelSkillDemandValue.text = skillData.MaxAnger.ToString();
 			else 
@@ -290,15 +295,25 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnCrafting () {
-		//		UIHint.Get.ShowHint("Coming Soon.", Color.red);
-//		UIShow(false);
+		if(GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
+			if(GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill == 0) {
+				UIHint.Get.ShowHint(TextConst.S(556), Color.red);
+			} else {
+				UISkillFormation.Get.DoFinish();
+				TSkill nextSkill = new TSkill();
+				nextSkill.ID = GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill;
+				nextSkill.Lv = 0;
+				nextSkill.Exp = 0;
+				UISkillEvolution.Get.Show(mUICard.skillCard.Skill, nextSkill);
+				UIShow(false);
+			}
+		}
 	}
 
 	public void OnUpgrade() {
-//		UIHint.Get.ShowHint("Coming Soon.", Color.red);
 		if(GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
 			if(mUICard.skillCard.Skill.Lv >= GameData.DSkillData[mUICard.skillCard.Skill.ID].MaxStar ) {
-				UIHint.Get.ShowHint(TextConst.S(556), Color.red);
+				UIHint.Get.ShowHint(TextConst.S(553), Color.red);
 			} else {
 				UISkillReinforce.Get.Show(mUICard.skillCard.Skill, mUICard.CardIndex, isAlreadyEquip);
 				UISkillFormation.Get.DoFinish();
@@ -306,6 +321,5 @@ public class UISkillInfo : UIBase {
 			}
 		}
 	}
-
 }
 

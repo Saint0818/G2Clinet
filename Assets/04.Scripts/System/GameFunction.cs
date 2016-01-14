@@ -725,7 +725,7 @@ public static class GameFunction
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].gameObject.transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1) + i * stars[i].XSize, 0, 0);
+			stars[i].transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1) * 1.5f + i * stars[i].XSize, 0, 0);
 		}
 	}
 

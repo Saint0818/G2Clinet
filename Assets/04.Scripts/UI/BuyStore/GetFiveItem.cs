@@ -15,6 +15,7 @@ public class GetFiveItem : MonoBehaviour {
 	public ItemAwardGroup[] itemAwardGroups;
 
 	public void Reset () {
+		isShow = false;
 		isShowFin = false;
 		isShowPause = false;
 		showTime = 0;

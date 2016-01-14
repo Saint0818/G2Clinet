@@ -406,7 +406,10 @@ public class UISkillReinforce : UIBase {
 
 	public static void UIShow(bool isShow){
 		if (instance)
-			instance.Show(isShow);
+			if (!isShow)
+				RemoveUI(UIName);
+			else
+				instance.Show(isShow);
 		else
 			if (isShow)
 				Get.Show(isShow);

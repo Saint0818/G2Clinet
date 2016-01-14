@@ -100,15 +100,20 @@ public class UIItemHint : UIBase {
 		UIShow(true);
 		scrollViewExplain.ResetPosition();
 		hintSkillView.Show();
-		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
-		if(GameData.Team.SkillCardCounts == null)
-			GameData.Team.InitSkillCardCount();
-		if(GameData.Team.SkillCardCounts.ContainsKey(skill.ID))
-			setHaveCount(GameData.Team.SkillCardCounts[skill.ID]);
-		else
-			setHaveCount(0);
-		uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);
-		hintSkillView.UpdateUI(skill);
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
+			if(GameData.Team.SkillCardCounts == null)
+				GameData.Team.InitSkillCardCount();
+			if(GameData.Team.SkillCardCounts.ContainsKey(skill.ID))
+				setHaveCount(GameData.Team.SkillCardCounts[skill.ID]);
+			else
+				setHaveCount(0);
+			uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);
+			hintSkillView.UpdateUI(skill);
+		} else {
+			Debug.LogError("no id:"+ skill.ID);
+			UIShow(false);
+		}
 	}
 
 	public void OnClose () {

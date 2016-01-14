@@ -285,7 +285,8 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRefGameObject = gameObject;
         LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
 
-        PlayerSkillController = new SkillController();
+//        PlayerSkillController = new SkillController();
+		PlayerSkillController = gameObject.AddComponent<SkillController>();
 
         AnimatorControl = PlayerRefGameObject.AddComponent<AnimatorBehavior>();
         AnimatorControl.Init(PlayerRefGameObject.GetComponent<Animator>());

@@ -551,6 +551,12 @@ namespace GameStruct
 	public struct TPlayerSkill {
 
 	}
+
+	public struct TMaterialSkillCard
+	{
+		public int ID;
+		public int Num;
+	}
 	
 	public struct TSkillData {
 		public int ID;
@@ -570,6 +576,14 @@ namespace GameStruct
 		public int[] UpgradeExp;
 		public int Exp;
 		public int AddExp;
+		public int EvolutionSkill;
+		public int EvolutionMoney;
+		public int Material1;
+		public int MaterialNum1;
+		public int Material2;
+		public int MaterialNum2;
+		public int Material3;
+		public int MaterialNum3;
 		public float lifeTime;
 		public float lifeTimeAdd;
 		public int AttrKind;

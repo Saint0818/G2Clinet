@@ -275,14 +275,24 @@ public class UIGameResult : UIBase {
 				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
 				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
 				playerStats.SetPositionIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
-				//				if(i == 1 || i == 2)//need get friend list
-				//					playerStats.ShowAddFriendBtn(i);
+				if(!string.IsNullOrEmpty(record.Identifier) && GameData.Team.Friends != null && GameData.Team.Friends.ContainsKey(record.Identifier)) {//need get friend list 
+					playerStats.ShowAddFriendBtn(i, record.Identifier);
+					SetBtnFun(ref playerStats.AddFriendBtn[i], OnMakeFriend);
+				}
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
 			}
 		}
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 		stageRewardStart(GameData.StageID);
+	}
+
+	public void OnMakeFriend () {
+		int result = -1;
+		if(int.TryParse(UIButton.current.name, out result)) {
+			playerStats.HideAddFriendBtn(result);
+			SendHttp.Get.MakeFriend(null, playerStats.tempID[result]);
+		}
 	}
 	
 	private void init () {
@@ -360,7 +370,7 @@ public class UIGameResult : UIBase {
 	}
 
 	public void PayChooseReward () {
-		if (GameData.Team.Diamond >= chooseCount * 20)
+		if (GameData.Team.Diamond >= chooseCount * 50)
 			stageRewardAgain(GameData.StageID);
 		else
 			UIHint.Get.ShowHint(TextConst.S (233), Color.red);

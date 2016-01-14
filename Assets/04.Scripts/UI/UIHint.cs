@@ -63,13 +63,6 @@ public class UIHint : UIBase
         UIShow(false);
     }
 
-    protected override void OnShow(bool isShow)
-    {
-        base.OnShow(isShow);
-
-		StartCoroutine(autoHide());
-    }
-
     private IEnumerator autoHide()
     {
         yield return new WaitForSeconds(AutoHideTime);
@@ -99,6 +92,7 @@ public class UIHint : UIBase
 			Show(true);
 			mLabel.text = text;
 			mLabel.effectColor = color;
+			StartCoroutine(autoHide());
 		} else 
 			addText(text, color);
 

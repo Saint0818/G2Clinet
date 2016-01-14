@@ -42,6 +42,7 @@ namespace GameStruct
         public TValueItem[] ValueItems;
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
+		public TMaterialSkillCard[] MaterialSkillCards;
 		public Dictionary<int, int> SkillCardCounts; //key: ID , value:num
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
@@ -98,6 +99,32 @@ namespace GameStruct
 
             return -1;
         }
+
+		public bool HasMaterialSkillCard(int itemID)
+		{
+			for(var i = 0; i < MaterialSkillCards.Length; i++)
+			{
+				if (MaterialSkillCards[i].ID == itemID)
+					return true;
+			}
+
+			return false;
+		}
+
+		public int FindMaterialSkillCard(int itemID, ref TMaterialSkillCard materialSkillCard)
+		{
+			for(var i = 0; i < MaterialSkillCards.Length; i++)
+			{
+				if(MaterialSkillCards[i].ID == itemID)
+				{
+					materialSkillCard = MaterialSkillCards[i];
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
 
         public event Action<int> OnMoneyChangeListener;
         public int Money
