@@ -59,6 +59,10 @@
         "en": "Setting"
     },
     {
+        "id": 212,
+        "tw": "使用鑽石"
+    },
+    {
         "id": 230,
         "explain": "體力不足/標題",
         "tw": "體力不足",
@@ -1340,17 +1344,17 @@
     {
         "id": 4502,
         "explain": "Tabs/0/雜貨商店",
-        "tw": "聯盟幣"
+        "tw": "雜 貨"
     },
     {
         "id": 4503,
         "explain": "Tabs/1/聯盟商店（天梯）",
-        "tw": "社群幣"
+        "tw": "聯盟幣"
     },
     {
         "id": 4504,
         "explain": "Tabs/2/社群商店",
-        "tw": "雜 貨"
+        "tw": "社群幣"
     },
     {
         "id": 4505,
@@ -1365,7 +1369,7 @@
     {
         "id": 4507,
         "explain": "WarningsLabel",
-        "tw": "下次商品刷新尚餘：[33FFDD]{1}[-]"
+        "tw": "下次商品刷新尚餘：[33FFDD]{0}[-]"
     },
     {
         "id": 4508,
@@ -1379,10 +1383,12 @@
         "en": "SOLD OUT"
     },
     {
-        "id": 4510
+        "id": 4510,
+        "tw": "立刻刷新"
     },
     {
-        "id": 4511
+        "id": 4511,
+        "tw": "立刻刷新商店需花費鑽石"
     },
     {
         "id": 4512
@@ -1945,6 +1951,11 @@
         "tw": "不可用"
     },
     {
+        "id": 7104,
+        "explain": "LabelFilter/變換字串",
+        "tw": "篩選中"
+    },
+    {
         "id": 7201,
         "explain": "技能卡牌詳細介面"
     },
@@ -2107,20 +2118,25 @@
     {
         "id": 7651,
         "explain": "技能卡星等未滿",
-        "tw": "晶片尚未達到最高等級",
+        "tw": "技能晶片等級未滿。",
         "en": "Wafers not yet reached the highest level"
     },
     {
         "id": 7652,
         "explain": "進化材料不足",
-        "tw": "進化材料不足",
+        "tw": "進化材料不足。",
         "en": "Evolutionary material shortage"
     },
     {
         "id": 7653,
         "explain": "進化金額不足",
-        "tw": "進化金幣不足",
+        "tw": "進化金幣不足。",
         "en": "Evolutionary gold shortage"
+    },
+    {
+        "id": 7654,
+        "explain": "達到最高等",
+        "tw": "技能晶片已達最高級。"
     },
     {
         "id": 8001,
@@ -2445,7 +2461,9 @@
         "en": "Selected"
     },
     {
-        "id": 9511
+        "id": 9511,
+        "explain": "SkillCard",
+        "tw": "技能晶片"
     },
     {
         "id": 9512,
@@ -2463,8 +2481,19 @@
         "en": "Game Started fail."
     },
     {
+        "id": 9515,
+        "explain": "StrategyBtn",
+        "tw": "戰 術"
+    },
+    {
         "id": 9601,
-        "explain": "戰術選擇"
+        "explain": "戰術選擇/SubheadLabel",
+        "tw": "請選擇戰術"
+    },
+    {
+        "id": 9602,
+        "explain": "StrategyBtn/StrategyLabel",
+        "tw": " {0} 使用中"
     },
     {
         "id": 9701,
