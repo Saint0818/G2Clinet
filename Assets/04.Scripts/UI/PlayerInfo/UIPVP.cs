@@ -208,7 +208,7 @@ public class PVPMainView
 
         if (GameData.DPVPData.ContainsKey(currentIndex))
         {
-            award0.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
+            award0.text = GameData.DPVPData[currentIndex].PVPCoin.ToString();
             award1.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
         }
     }
@@ -645,7 +645,7 @@ public class UIPVP : UIBase
     public void OnReturn()
     {
         UIShow(false);
-        UIMainLobby.Get.Show();
+//        UIMainLobby.Get.Show();
     }
 
     protected override void OnShow(bool isShow)

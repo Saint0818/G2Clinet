@@ -521,18 +521,35 @@ namespace GameStruct
 
 		public int GetAvatarCount (int id) {
 			int count = 0;
-			if(Items != null) 
-				for(int i=0; i<Items.Length; i++) 
-					if(Items[i].ID == id)
-						count ++;
-				
-			
+			int kind = 0;
+			if (GameData.DItemData.ContainsKey (id)) 
+            {
+				kind = GameData.DItemData [id].Kind;
+                if (kind < 8)
+                {
+                    if (Player.Items != null)
+                        for (int i = 0; i < Player.Items.Length; i++)
+                            if (Player.Items[i].ID == id)
+                                count++; 
 
-			if(Player.Items != null) 
-				for (int i=0; i<Player.Items.Length; i++)
-					if(Player.Items[i].ID == id)
-						count ++;
-			
+                    if (GameData.Team.Items != null)
+                        for (int i = 0; i < GameData.Team.Items.Length; i++)
+                            if (GameData.Team.Items[i].ID == id)
+                                count++;
+                    
+                }else if (kind >= 11 && kind <= 17)
+                {
+                    if (Player.ValueItems != null)
+                        foreach (KeyValuePair<int, TValueItem> item in Player.ValueItems)
+                            if(item.Value.ID == id)
+                                count++;  
+
+                    if (GameData.Team.ValueItems != null)
+                        for (int i = 0; i < GameData.Team.ValueItems.Length; i++)
+                            if(GameData.Team.ValueItems[i].ID == id)
+                                count++; 
+				}
+			}			
 			return count;
 		}
 
@@ -587,8 +604,7 @@ namespace GameStruct
 
             return maxTotalPoint;
         }
-
-
+            
         public bool NeedForSyncRecord{
             get {return needForSyncRecord || Player.NeedForSyncRecord;}
             set {
