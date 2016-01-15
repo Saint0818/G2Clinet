@@ -3,78 +3,85 @@
         "diamonds": 125,
         "diamondcn": 125,
         "android": "com.nicemarket.g2.1",
-        "order": 0,
+        "order": 5,
         "pricetw": "NT.60",
         "priceen": "$2",
         "pricecn": "¥6",
         "pricejp": "¥6",
         "mygamezpricetw": "NT.60",
         "mygamezpriceen": "$2",
-        "mygamezpricecn": "¥6"
+        "mygamezpricecn": "¥6",
+        "nametw": "一小堆寶石"
     },
     {
         "diamonds": 350,
         "diamondcn": 350,
         "android": "com.nicemarket.g2.2",
-        "order": 1,
+        "order": 2,
+        "sale": 2,
         "pricetw": "NT.150",
         "priceen": "$5",
         "pricecn": "¥30",
         "pricejp": "¥30",
         "mygamezpricetw": "NT.150",
         "mygamezpriceen": "$5",
-        "mygamezpricecn": "¥30"
+        "mygamezpricecn": "¥30",
+        "nametw": "一小袋寶石"
     },
     {
         "diamonds": 700,
         "diamondcn": 700,
         "android": "com.nicemarket.g2.3",
-        "order": 2,
+        "order": 1,
         "pricetw": "NT.300",
         "priceen": "$10",
         "pricecn": "¥60",
         "pricejp": "¥60",
         "mygamezpricetw": "NT.300",
         "mygamezpriceen": "$10",
-        "mygamezpricecn": "¥60"
+        "mygamezpricecn": "¥60",
+        "nametw": "一大袋寶石"
     },
     {
         "diamonds": 1500,
         "diamondcn": 1500,
         "android": "com.nicemarket.g2.4",
-        "order": 3,
+        "order": 0,
         "pricetw": "NT.590",
         "priceen": "$20",
         "pricecn": "¥120",
         "pricejp": "¥120",
         "mygamezpricetw": "NT.590",
         "mygamezpriceen": "$20",
-        "mygamezpricecn": "¥120"
+        "mygamezpricecn": "¥120",
+        "nametw": "一小箱寶石"
     },
     {
         "diamonds": 4100,
         "diamondcn": 4100,
         "android": "com.nicemarket.g2.5",
-        "order": 4,
+        "order": 3,
         "pricetw": "NT.1490",
         "priceen": "$50",
         "pricecn": "¥300",
         "pricejp": "¥300",
         "mygamezpricetw": "NT.1490",
         "mygamezpriceen": "$50",
-        "mygamezpricecn": "¥300"
+        "mygamezpricecn": "¥300",
+        "nametw": "一大箱寶石"
     },
     {
         "diamonds": 9500,
         "diamondcn": 9500,
         "android": "com.nicemarket.g2.6",
-        "order": 5,
+        "order": 4,
         "pricetw": "NT.2990",
         "priceen": "$100",
         "pricecn": "¥500",
         "pricejp": "¥500",
         "mygamezpricetw": "NT.2990",
         "mygamezpriceen": "$100",
-        "mygamezpricecn": "¥500"
+        "mygamezpricecn": "¥500",
+        "nametw": "一倉庫寶石"
     }
 ]

@@ -4,7 +4,7 @@
         "spendkind": 0,
         "price": 100,
         "itemid": 93101,
-        "pic": 1,
+        "pic": 5,
         "order": 0
     },
     {
@@ -12,7 +12,7 @@
         "spendkind": 0,
         "price": 300,
         "itemid": 93102,
-        "pic": 2,
+        "pic": 6,
         "order": 1
     },
     {
@@ -21,7 +21,7 @@
         "price": 500,
         "sale": 2,
         "itemid": 93103,
-        "pic": 3,
+        "pic": 1,
         "order": 2
     },
     {
@@ -29,7 +29,7 @@
         "spendkind": 0,
         "price": 1200,
         "itemid": 93104,
-        "pic": 4,
+        "pic": 2,
         "order": 3
     },
     {
@@ -37,7 +37,7 @@
         "spendkind": 0,
         "price": 3500,
         "itemid": 93105,
-        "pic": 5,
+        "pic": 3,
         "order": 4
     },
     {
@@ -46,7 +46,7 @@
         "price": 8000,
         "sale": 1,
         "itemid": 93106,
-        "pic": 6,
+        "pic": 4,
         "order": 5
     },
     {
