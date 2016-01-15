@@ -767,9 +767,7 @@ public static class GameFunction
         result.PVPIntegral = team.PVPIntegral;
         result.GuildIName = team.LeagueName;
         result.GuildIIcon= team.LeagueIcon;
-        result.PVPWin = team.LifetimeRecord.PVPWin;
-        result.PVPCount = team.LifetimeRecord.PVPCount;
-        result.PVPKeepWin = team.LifetimeRecord.PVPKeepWin;
+		result.LifetimeRecord = team.LifetimeRecord;
         return result;
     }
 }

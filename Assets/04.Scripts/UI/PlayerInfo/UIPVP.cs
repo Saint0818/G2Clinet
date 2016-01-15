@@ -114,13 +114,14 @@ public class PVPPage1ListView
 
         for (int i = 0; i < ranks.Length; i++)
         {
-            if (i < ranks.Length)
-            {
-                ranks[i].UpdateView(data[i]);
-                ranks[i].LocalPosititon = new Vector3(0, -130 * i, 0);
-            }
-            else
-                ranks[i].Enable = false;
+			if (i < ranks.Length) { //防止Data大於實體物件
+				if (i < data.Length) {
+					ranks [i].Enable = true;
+					ranks [i].UpdateView (data [i]);
+					ranks [i].LocalPosititon = new Vector3 (0, -130 * i, 0);
+				} else
+					ranks [i].Enable = false;
+			}
         }
     }
 }
@@ -147,7 +148,7 @@ public class PVPMainView
 			Rbtn = self.transform.FindChild("ButtonGroup/RButton").gameObject.GetComponent<UIButton>();
 			Sort = self.transform.FindChild("PvPLeagueBoard/ScrollView/Sort").gameObject;
             award0 = self.transform.FindChild("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
-//            award1 = self.transform.FindChild("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
+            award1 = self.transform.FindChild("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
             pvplvs = new TPvPLeagueGroup[lvs.Length];
             for (int i = 0; i < pvplvs.Length; i++)
             {
@@ -208,7 +209,7 @@ public class PVPMainView
         if (GameData.DPVPData.ContainsKey(currentIndex))
         {
             award0.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
-//            award1.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
+            award1.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
         }
     }
 }
@@ -582,10 +583,10 @@ public class UIPVP : UIBase
             //TODO: 塞敵方player
 			if (teams != null) {
 			int num = Mathf.Min(teams.Length, GameData.EnemyMembers.Length);
-					for (int i = 0; i < num; i++) {
-							teams [i].Init ();
-							GameData.EnemyMembers [i] = teams [i];
-					}
+				for (int i = 0; i < num; i++) {
+						teams [i].Init ();
+						GameData.EnemyMembers [i] = teams [i];
+				}
 			}
         }
         else
@@ -614,10 +615,9 @@ public class UIPVP : UIBase
         TTeamRank[] data = (TTeamRank[])JsonConvert.DeserializeObject(www.text, typeof(TTeamRank[]));
 
         //TODO:更新Rank資料：
-
+		TTeamRank myrank = GameFunction.TTeamCoverTTeamRank(GameData.Team);
+		page1.UpdateView(myrank,data);
     }
-
-
 
     private void DoPage(int index)
     {

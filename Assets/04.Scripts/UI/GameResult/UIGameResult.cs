@@ -210,7 +210,10 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnNext (GameObject go) {
-		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
+		if (GameController.Visible && GameController.Get.IsPVP) {
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+		}
+		else if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
 			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
 				UIShow(false);
 				GameData.StageID = GameController.Get.StageData.ID + 1;
@@ -294,8 +297,35 @@ public class UIGameResult : UIBase {
 		}
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
-		stageRewardStart(GameData.StageID);
+
+		if (GameController.Get.IsPVP) {
+			SendPVPEnd (record.Score1, record.Score2);			
+		} else {
+			stageRewardStart(GameData.StageID);
+		}
 	}
+
+	private void SendPVPEnd(int score1, int score2)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("Score1", score1);
+		form.AddField("Score2", score2);
+		SendHttp.Get.Command(URLConst.PVPEnd, WaitPVPEnd, form, false);
+	}
+
+	public void WaitPVPEnd(bool ok, WWW www)
+	{
+		if (ok) {
+			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting);		
+			GameData.Team.PVPIntegral = reslut.PVPIntegral;
+			GameData.Team.Money = reslut.Money;
+			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+		} else {
+		}
+
+		uiStatsNext.SetActive (true);
+	}
+	
 
 	public void OnMakeFriend () {
 		int result = -1;

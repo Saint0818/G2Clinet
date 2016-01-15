@@ -1332,13 +1332,18 @@ namespace GameStruct
         public int PVPIntegral;
         public string GuildIName;
         public int GuildIIcon;
-        public int PVPWin;
-        public int PVPCount;
-        public int PVPKeepWin;
+		public TTeamRecord LifetimeRecord;
     }
 
     public struct TPVPStart
     {
         public bool CanBattle;
     }
+
+	public struct TPVPResult
+	{
+		public int PVPIntegral;
+		public int Money;
+		public TTeamRecord LifetimeRecord;
+	}
 }

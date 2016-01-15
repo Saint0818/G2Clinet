@@ -107,8 +107,8 @@ namespace GameItem
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", GameFunction.GetPVPLv(rankData.PVPIntegral));
 				GuildIcon.spriteName = string.Format("LeagueIcon{0}", rankData.GuildIIcon);
                 GuildIDLabel.text = rankData.GuildIName;
-                WinLabel.text = rankData.PVPWin.ToString();
-                WinRateLabel.text = string.Format("{0:0%}", (float)rankData.PVPWin / (float)rankData.PVPCount);
+                WinLabel.text = rankData.LifetimeRecord.PVPWin.ToString();
+                WinRateLabel.text = string.Format("{0:0%}", (float)rankData.LifetimeRecord.PVPWin / (float)rankData.LifetimeRecord.PVPCount);
                 PVPIntegral.text = rankData.PVPIntegral.ToString();
             }
         }
