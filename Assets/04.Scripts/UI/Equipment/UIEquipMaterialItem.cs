@@ -22,6 +22,7 @@ public class UIEquipMaterialItem : MonoBehaviour
     public class Data
     {
         public string Name;
+        public Color32 NameColor;
         public string Icon;
         public string Frame;
 
@@ -103,6 +104,8 @@ public class UIEquipMaterialItem : MonoBehaviour
     public void Set(Data data)
     {
         Name.text = data.Name;
+        Name.color = data.NameColor;
+
         Icon.spriteName = data.Icon;
         Frame.spriteName = data.Frame;
         mStatus = data.Status;

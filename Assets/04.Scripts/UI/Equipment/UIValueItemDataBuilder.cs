@@ -89,6 +89,7 @@ public static class UIValueItemDataBuilder
         UIValueItemData valueItem = new UIValueItemData
         {
             Name = item.Name,
+            NameColor = TextConst.Color(item.Quality),
             Atlas = GameData.DItemAtlas.ContainsKey(GameData.AtlasName(item.Atlas))
                     ? GameData.DItemAtlas[GameData.AtlasName(item.Atlas)]
                     : null,
@@ -129,6 +130,7 @@ public static class UIValueItemDataBuilder
             UIEquipMaterialItem.Data data = new UIEquipMaterialItem.Data
             {
                 Name = materialItem.Name,
+                NameColor = TextConst.Color(materialItem.Quality),
                 Icon = string.Format("Item_{0}", materialItem.Icon),
                 Frame = string.Format("Equipment_{0}", item.Quality),
                 NeedValue = item.MaterialNums[i],

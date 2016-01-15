@@ -37,6 +37,8 @@ public class UIEquipListButton : MonoBehaviour
     public void Set(UIValueItemData data)
     {
         NameLabel.text = data.Name;
+        NameLabel.color = data.NameColor;
+
         Icon.atlas = data.Atlas;
         Icon.spriteName = data.Icon;
         Frame.spriteName = data.Frame;
