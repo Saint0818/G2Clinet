@@ -55,7 +55,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = false,
+                StartEnabled = true,
                 StartAction = new OpenMallAction(),
                 StartCallback = startCallback
             };
@@ -65,7 +65,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = false,
+                StartEnabled = true,
                 StartAction = new OpenShopGeneralAction(),
                 StartCallback = startCallback
             };
@@ -75,7 +75,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = false,
+                StartEnabled = true,
                 StartAction = new OpenShopLeagueAction(),
                 StartCallback = startCallback
             };
@@ -85,7 +85,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = false,
+                StartEnabled = true,
                 StartAction = new OpenShopSocialAction(),
                 StartCallback = startCallback
             };
