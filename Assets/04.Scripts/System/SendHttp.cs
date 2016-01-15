@@ -451,6 +451,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 				}
 
+                if (GameData.Team.Friends == null)
+                    GameData.Team.Friends = new Dictionary<string, TFriend>();
+
                 SyncDailyRecord();
                 LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
                 StartCoroutine(longPollingSocialEvent(0));
@@ -541,6 +544,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private void waitMakeFriend(bool flag, WWW www) {
         if (flag) {
             if (CheckServerMessage(www.text)) {
+                if (GameData.Team.Friends == null)
+                    GameData.Team.Friends = new Dictionary<string, TFriend>();
+                
                 TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
                 friend.Player.Init();
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
@@ -629,6 +635,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
 
                 if (events.Length > 0) {
+                    if (GameData.Team.Friends == null)
+                        GameData.Team.Friends = new Dictionary<string, TFriend>();
+                    
                     bool flag = false;
                     for (int i = 0; i < events.Length; i++) {
                         if (!string.IsNullOrEmpty(events[i].TargetID)) {
@@ -639,7 +648,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                             if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
                                 friend.Kind = EFriendKind.Ask;//events[i].Value;
 
-                                if (GameData.Team.Friends.ContainsKey(events[i].TargetID))
+                                if (!GameData.Team.Friends.ContainsKey(events[i].TargetID))
                                     GameData.Team.Friends.Add(events[i].TargetID, friend);
                                 else
                                     GameData.Team.Friends[events[i].TargetID] = friend;

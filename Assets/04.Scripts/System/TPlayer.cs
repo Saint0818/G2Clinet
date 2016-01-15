@@ -19,6 +19,7 @@ namespace GameStruct
         public int Lv;
         public int Exp;
         public int AILevel;
+        public int Strategy;
 
         /// <summary>
         /// 球員的能力值(目前主要是表格的數值 + 數值裝的數值)
@@ -101,6 +102,7 @@ namespace GameStruct
         public TPlayer(int level)
         {
             AILevel = level;
+            Strategy = 0;
             Name = "";
             RoleIndex = 0;
             ID = 1;
