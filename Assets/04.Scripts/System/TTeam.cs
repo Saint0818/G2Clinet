@@ -519,6 +519,23 @@ namespace GameStruct
             return true;
         }
 
+		public int GetAvatarCount (int id) {
+			int count = 0;
+			if(Items != null) 
+				for(int i=0; i<Items.Length; i++) 
+					if(Items[i].ID == id)
+						count ++;
+				
+			
+
+			if(Player.Items != null) 
+				for (int i=0; i<Player.Items.Length; i++)
+					if(Player.Items[i].ID == id)
+						count ++;
+			
+			return count;
+		}
+
         /// <summary>
         /// 是否玩家身上的數值裝是最強的.
         /// </summary>

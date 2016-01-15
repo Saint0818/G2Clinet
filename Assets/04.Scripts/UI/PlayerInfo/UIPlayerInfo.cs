@@ -360,6 +360,8 @@ public class TValueAvater
     private UISprite[] stars = new UISprite[4];
     public GameObject Parent;
     public bool IsInit = false;
+	public GameObject plusIcon;
+	public UILabel amountLabel;
 
     public void Init(GameObject obj, GameObject parent, int index)
     {
@@ -376,6 +378,10 @@ public class TValueAvater
             redPoint = self.transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
             redPoint.enabled = false;
             name = self.transform.FindChild("NameLabel").gameObject.GetComponent<UILabel>();
+			plusIcon =  self.transform.FindChild("PlustIcon").gameObject;
+			amountLabel = self.transform.FindChild("AmountLabel").gameObject.GetComponent<UILabel>();
+			plusIcon.SetActive(false);
+			amountLabel.gameObject.SetActive(false);
             Btn = self.GetComponent<UIButton>();
 
             self.name = Index.ToString();

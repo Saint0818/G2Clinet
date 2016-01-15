@@ -125,7 +125,7 @@ public class UIItemHint : UIBase {
 				hintAvatarView.Show();
 				hintAvatarView.UpdateUI(itemData);
 				//TODO : 等待來源
-				setHaveCount(0);
+				setHaveCount(GameData.Team.GetAvatarCount(itemData.ID));
 				if(GameData.DItemData[itemData.ID].Potential > 0)
 					uiLabelExplain.text = itemData.Explain + "\n\n" + TextConst.S(3202) + "+" + GameData.DItemData[itemData.ID].Potential.ToString();
 				else 

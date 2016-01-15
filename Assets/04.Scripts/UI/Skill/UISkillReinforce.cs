@@ -826,7 +826,7 @@ public class UISkillReinforce : UIBase {
 
 	private void runExp () {
 		if(isRunExp && GameData.DSkillData.ContainsKey(mSkill.ID) && newCardLv >= oldCardLv && reinforceExp > 0) {
-			if( oldCardLv < GameData.DSkillData[mSkill.ID].MaxStar) {
+			if( oldCardLv <= GameData.DSkillData[mSkill.ID].MaxStar) {
 				expView.SetProgressView(mSkill.ID, 
 					oldCardLv, 
 					originalExp, 
