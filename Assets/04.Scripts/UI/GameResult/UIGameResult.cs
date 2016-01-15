@@ -285,7 +285,9 @@ public class UIGameResult : UIBase {
 				playerStats.SetPositionIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
 				if(!string.IsNullOrEmpty(record.Identifier) && GameData.Team.Friends != null && GameData.Team.Friends.ContainsKey(record.Identifier)) {//need get friend list 
 					playerStats.ShowAddFriendBtn(i, record.Identifier);
-					SetBtnFun(ref playerStats.AddFriendBtn[i], OnMakeFriend);
+
+                    if (i < playerStats.AddFriendBtn.Length)
+					    SetBtnFun(ref playerStats.AddFriendBtn[i], OnMakeFriend);
 				}
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
 			}
