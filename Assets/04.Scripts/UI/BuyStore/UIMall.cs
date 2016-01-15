@@ -143,23 +143,21 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			if(CheckDiamond(choosePickCost.OnePick, true)) {
-				spendType = EPickSpendType.ONE.GetHashCode();
-				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
-			}else 
-				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
+			spendType = EPickSpendType.ONE.GetHashCode();
+			CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse);
 		}
+	}
+
+	public void ConfirmUse () {
+		SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
 	}
 
 	public void OnFiveBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			if(CheckDiamond(choosePickCost.FivePick, true)) {
-				spendType = EPickSpendType.FIVE.GetHashCode();
-				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
-			}else 
-				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
+			spendType = EPickSpendType.FIVE.GetHashCode();
+			CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse);
 		}
 	}
 
@@ -167,11 +165,8 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
-			if(CheckDiamond(choosePickCost.TenPick, true)) {
-				spendType = EPickSpendType.TEN.GetHashCode();
-				SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
-			}else 
-				UIHint.Get.ShowHint(TextConst.S(233), Color.red);
+			spendType = EPickSpendType.TEN.GetHashCode();
+			CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse);
 		}
 	}
 

@@ -232,11 +232,13 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Money is GameCoin
 	/// </summary>
-	public bool CheckMoney(int money, bool isShowMessage = false)
+	public bool CheckMoney(int money, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null)
 	{
-		if(GameData.Team.Money >= money)
+		if(GameData.Team.Money >= money) {
+			if (message != null && callback != null)  
+				UIMessage.Get.ShowMessage(TextConst.S(249), message, callback);
 			return true;
-		else {
+		} else {
 			if(isShowMessage)
 				UIMessage.Get.ShowMessageForBuy(TextConst.S(237), TextConst.S(239), OnBuyMoney);
 			return false;
