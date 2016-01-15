@@ -31,7 +31,7 @@ public class AwardSkillView : MonoBehaviour {
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
-			GameFunction.ShowStar(ref SkillStars, itemData.LV, itemData.Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+			GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
 
 		AmountLabel.text = "";
