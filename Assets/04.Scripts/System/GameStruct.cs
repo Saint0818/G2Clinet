@@ -1359,8 +1359,7 @@ namespace GameStruct
     {  
         public TPlayer Player;
         public int PVPIntegral;
-        public string GuildIName;
-        public int GuildIIcon;
+        public int GuildId;
 		public TTeamRecord LifetimeRecord;
     }
 

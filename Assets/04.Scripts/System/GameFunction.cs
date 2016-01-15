@@ -765,8 +765,9 @@ public static class GameFunction
         TTeamRank result = new TTeamRank();
         result.Player = team.Player;
         result.PVPIntegral = team.PVPIntegral;
-        result.GuildIName = team.LeagueName;
-        result.GuildIIcon= team.LeagueIcon;
+        //TODO : Guild
+//        result.GuildIName = team.LeagueName;
+//        result.GuildIIcon= team.LeagueIcon;
 		result.LifetimeRecord = team.LifetimeRecord;
         return result;
     }
