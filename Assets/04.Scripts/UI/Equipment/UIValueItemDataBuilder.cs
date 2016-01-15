@@ -99,7 +99,8 @@ public static class UIValueItemDataBuilder
             Inlay = convertInlayStatus(playerInlayItemIDs),
             InlayValues = convertInlayBonus(playerInlayItemIDs),
             Status = UIEquipChecker.FindStatus(item, playerInlayItemIDs),
-            Num = num
+            Num = num,
+            UpgradeMoney = item.UpgradeMoney
         };
 
         buildMaterials(item, playerInlayItemIDs, storageMaterials, ref valueItem);

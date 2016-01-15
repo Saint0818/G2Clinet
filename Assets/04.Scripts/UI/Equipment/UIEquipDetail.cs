@@ -31,6 +31,7 @@ public class UIEquipDetail : MonoBehaviour
 
     public Transform ItemParent;
     public UIButton UpgradeButton;
+    public UILabel UpgradeMoneyLabel;
     public UIButton DemountButton;
     private const string ButtonNormal = "button_orange1";
     private const string ButtonDisable = "button_gray";
@@ -65,15 +66,16 @@ public class UIEquipDetail : MonoBehaviour
         DemountButton.onClick.Add(new EventDelegate(onDemountClick));
     }
 
-    public void Set(int slotIndex, UIValueItemData item)
+    public void Set(int slotIndex, UIValueItemData data)
     {
         mSlotIndex = slotIndex;
 
-        mEquipItem.Set(item, !mMain.IsBestValueItem(mSlotIndex));
+        mEquipItem.Set(data, !mMain.IsBestValueItem(mSlotIndex));
 
-        Desc.text = item.Desc;
+        Desc.text = data.Desc;
+        UpgradeMoneyLabel.text = data.UpgradeMoney.ToString();
 
-        updateButton(item);
+        updateButton(data);
 
         foreach(UIEquipDetailAttr attr in mAttrs)
         {
@@ -81,9 +83,9 @@ public class UIEquipDetail : MonoBehaviour
         }
 
         int i = 0;
-        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in item.Values)
+        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in data.Values)
         {
-            mAttrs[i].Set(pair.Value.Icon, pair.Value.Value, item.GetInlayValue(pair.Key));
+            mAttrs[i].Set(pair.Value.Icon, pair.Value.Value, data.GetInlayValue(pair.Key));
             ++i;
         }
     }

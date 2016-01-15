@@ -88,6 +88,7 @@ public class UIValueItemData
     public List<UIEquipMaterialItem.Data> Materials = new List<UIEquipMaterialItem.Data>();
 
     public int Num; // 堆疊數量.
+    public int UpgradeMoney;
 
     public EStatus Status;
 
