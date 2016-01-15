@@ -4568,12 +4568,12 @@ public class GameController : KnightSingleton<GameController>
 					if (pusher.IsElbow) {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
-						pusher.IsElbowCalculate = false;
 					} else {
 						pusher.GameRecord.Push++;
 						faller.GameRecord.BePush++;
-						pusher.IsPushCalculate = false;
 					}
+					pusher.IsElbowCalculate = false;
+					pusher.IsPushCalculate = false;
 
 					IsGameFinish();
 					CheckConditionText();
