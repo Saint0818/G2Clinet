@@ -5,7 +5,7 @@ using UnityEngine;
 
 public struct TReinforceCallBack {
 	public TSkill[] SkillCards;
-	public TSkill[] PlayerCards;
+	public TSkill[] PlayerSkillCards;
 	public int Money;
 }
 
@@ -913,6 +913,7 @@ public class UISkillReinforce : UIBase {
 		if (ok) {
 			TReinforceCallBack result = JsonConvert.DeserializeObject <TReinforceCallBack>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();

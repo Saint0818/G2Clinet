@@ -96,46 +96,52 @@ public class UIItemHint : UIBase {
 
 	//For First Get
 	public void OnShow(TItemData itemData) {
-        uiBuy.SetActive(false);
-		hideAll ();
-		scrollViewExplain.ResetPosition();
-		UIShow(true);
-		gameObject.transform.localPosition = new Vector3(0, 0, -10);
-		if(itemData.Kind == 21) {
-			//For First Get
-			hintSkillView.Show();
-			hintSkillView.UpdateUI(itemData);
-			if(GameData.Team.SkillCardCounts == null)
-				GameData.Team.InitSkillCardCount();
-			if(GameData.Team.SkillCardCounts.ContainsKey(itemData.Avatar))
-				setHaveCount(GameData.Team.SkillCardCounts[itemData.Avatar]);
-			else
+		if(GameData.DItemData.ContainsKey (itemData.ID)) {
+			uiBuy.SetActive(false);
+			hideAll ();
+			scrollViewExplain.ResetPosition();
+			UIShow(true);
+			gameObject.transform.localPosition = new Vector3(0, 0, -10);
+			if(itemData.Kind == 21) {
+				//For First Get
+				hintSkillView.Show();
+				hintSkillView.UpdateUI(itemData);
+				if(GameData.Team.SkillCardCounts == null)
+					GameData.Team.InitSkillCardCount();
+				if(GameData.Team.SkillCardCounts.ContainsKey(itemData.Avatar))
+					setHaveCount(GameData.Team.SkillCardCounts[itemData.Avatar]);
+				else
+					setHaveCount(0);
+				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
+			} else if(itemData.Kind == 19) {
+				hintInlayView.Show();
+				hintInlayView.UpdateUI(itemData);
+				if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(itemData.ID)))
+					setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
+				else
+					setHaveCount(0);
+				uiLabelExplain.text = itemData.Explain;
+			} else {
+				hintAvatarView.Show();
+				hintAvatarView.UpdateUI(itemData);
+				//TODO : 等待來源
 				setHaveCount(0);
-			uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
-		} else if(itemData.Kind == 19) {
-			hintInlayView.Show();
-			hintInlayView.UpdateUI(itemData);
-			if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(itemData.ID)))
-				setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
-			else
-				setHaveCount(0);
-			uiLabelExplain.text = itemData.Explain;
-		} else {
-			hintAvatarView.Show();
-			hintAvatarView.UpdateUI(itemData);
-			//TODO : 等待嘉明的來源
-			setHaveCount(0);
-			uiLabelExplain.text = itemData.Explain;
+				if(GameData.DItemData[itemData.ID].Potential > 0)
+					uiLabelExplain.text = itemData.Explain + "\n\n" + TextConst.S(3202) + "+" + GameData.DItemData[itemData.ID].Potential.ToString();
+				else 
+					uiLabelExplain.text = itemData.Explain;
+			}
+			uiLabelName.text = itemData.Name;
+			uiLabelName.color = TextConst.Color(itemData.Quality);
 		}
-		uiLabelName.text = itemData.Name;
-		uiLabelName.color = TextConst.Color(itemData.Quality);
 	}
 	
 	public void OnShowSkill(TSkill skill) {
-		UIShow(true);
-		scrollViewExplain.ResetPosition();
-		hintSkillView.Show();
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			uiBuy.SetActive(false);
+			UIShow(true);
+			scrollViewExplain.ResetPosition();
+			hintSkillView.Show();
 			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
 			uiLabelName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 			if(GameData.Team.SkillCardCounts == null)
@@ -148,7 +154,6 @@ public class UIItemHint : UIBase {
 			hintSkillView.UpdateUI(skill);
 		} else {
 			Debug.LogError("no id:"+ skill.ID);
-			UIShow(false);
 		}
 	}
 

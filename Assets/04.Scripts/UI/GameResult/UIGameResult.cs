@@ -225,8 +225,16 @@ public class UIGameResult : UIBase {
 				uiStatsNext.SetActive(false);
 				animatorAward.SetTrigger("AwardViewStart");
 				Invoke("showAward", 1);
-			} else 
-				backToLobby ();
+			} else  {
+				if(isLevelUp) {
+					UIShow(false);
+					UI3DGameResult.UIShow(false);
+					UILevelUp.Get.Show(beforePlayer, afterPlayer);
+				} else {
+					backToLobby ();
+				}
+				
+			}
 		}
 	}
 
@@ -536,15 +544,13 @@ public class UIGameResult : UIBase {
 		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
 		hintIndex = hintCount;
 		Invoke("showFinish", 4);
+		beforePlayer = GameData.Team.Player;
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
 			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {
 
 			}
             else
             {
-//				WWWForm form = new WWWForm();
-//				form.AddField("StageID", stageID);
-//				SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
                 MainStageWinProtocol winProtocol = new MainStageWinProtocol();
                 winProtocol.Send(stageID, waitMainStageWin);
 			}
@@ -569,26 +575,14 @@ public class UIGameResult : UIBase {
 					}
 				}
 				
-				if(GameData.Team.Player.Lv != reward.Player.Lv) {
+				if(beforePlayer.Lv != reward.Player.Lv) {
 					isLevelUp = true;
-					beforePlayer = GameData.Team.Player;
 					afterPlayer = reward.Player;
 					if(GameData.DExpData.ContainsKey(reward.Player.Lv) && GameData.DExpData[reward.Player.Lv].OpenIndex > 0) {
 						PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[reward.Player.Lv].UI);
 						isExpUnlock = true;
 					}
 				}
-
-//				GameData.Team.Money = reward.Money;
-//				GameData.Team.Diamond = reward.Diamond;
-//				GameData.Team.Player.Lv = reward.Player.Lv;
-//				GameData.Team.Player.Exp = reward.Player.Exp;
-//				GameData.Team.Items = reward.Items;
-//				GameData.Team.Player.NextMainStageID = reward.Player.NextMainStageID;
-//				GameData.Team.Player.Potential = reward.Player.Potential;
-//				GameData.Team.Player.Stamina = reward.Player.Stamina;
-//				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
-//				GameData.Team.SkillCards = reward.SkillCards;
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)
 				{
@@ -607,6 +601,8 @@ public class UIGameResult : UIBase {
 					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
 						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
 				}
+
+				GameData.Team.SkillCards = reward.SkillCards;
 
 				isGetAward = true;
 				awardItemTempIDs = new List<int>();

@@ -22,6 +22,7 @@ public struct TPlayerLevelUp {
 	}
 
 	public void UpdateView (TPlayer beforePlayer, TPlayer afterPlayer) {
+		afterPlayer.BodyType = beforePlayer.BodyType;
 		playerIcon[0].UpdateView(beforePlayer);
 		playerIcon[1].UpdateView(afterPlayer);
 		labelLevelUp.text = afterPlayer.Lv.ToString();

@@ -15,6 +15,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public UILabel PowerLabel; // 體力.
 
     public UISprite PlayerIconSprite;
+	public UISprite PlayerPositionSprite; 
 
     public TweenScale MoneyTweenScale;
     public TweenScale DiamondTweenScale;
@@ -96,6 +97,11 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         set { PlayerIconSprite.spriteName = value; }
     }
+
+	public string PlayerPosition
+	{
+		set {PlayerPositionSprite.spriteName = value;}
+	}
 
     public bool EquipmentNotice
     {

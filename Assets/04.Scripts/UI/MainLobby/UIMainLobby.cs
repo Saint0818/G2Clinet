@@ -146,6 +146,7 @@ public class UIMainLobby : UIBase
         Main.Power = GameData.Team.Power;
         Main.PlayerName = GameData.Team.Player.Name;
         Main.PlayerIcon = GameData.Team.Player.FacePicture;
+		Main.PlayerPosition = GameData.Team.Player.PositionPicture;
     }
 
 	public void ResetText()
