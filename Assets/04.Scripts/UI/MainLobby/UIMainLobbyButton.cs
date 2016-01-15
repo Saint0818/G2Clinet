@@ -15,12 +15,11 @@ public class UIMainLobbyButton : MonoBehaviour
     {
         set
         {
-            var uiButton = GetComponent<UIButton>();
-            if(uiButton)
-                uiButton.isEnabled = value;
-
-            if(Icon)
-                Icon.color = value ? Color.white : mGrayColor;
+            var button = GetComponent<UIButton>();
+            Color color = value ? Color.white : mGrayColor;
+            button.defaultColor = color;
+            button.hover = color;
+            Icon.color = color;
         }
     }
 
