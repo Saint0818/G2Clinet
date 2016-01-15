@@ -112,11 +112,17 @@ public struct TItemRecharge {
 		}
 		return "";
 	}
-
+	//1.4200 特賣
+	//2.4201 熱門
+	//3.4202 限時
 	private string getSaleText (int sale) {
 		switch (sale) {
 		case 1:
 			return TextConst.S(4200);
+		case 2:
+			return TextConst.S(4201);
+		case 3:
+			return TextConst.S(4202);
 		}
 		return "";
 	}
