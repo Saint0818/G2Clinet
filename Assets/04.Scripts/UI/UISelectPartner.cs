@@ -20,13 +20,19 @@ public class UISelectPartner : UIBase {
 	private static UISelectPartner instance = null;
 	private const string UIName = "UISelectPartner";
 
+    private List<TPlayer> tempPlayerList;
+    private TPlayer[] tempSelectAy;
+    private int tempIndex;
+
 	private List<TMember> memberList = new List<TMember>();
 	private List<TPassiveSkillCard> skillList = new List<TPassiveSkillCard>();
 	private GameObject itemMember;
 	private GameObject itemSkill;
+    private UIPanel partnerPanel;
 	private UIScrollView partnerScrollView;
 	private UIScrollView skillScrollView;
 	private int selectIndex;
+    private int nowPage = 0;
 
 	public static bool Visible
 	{
@@ -62,8 +68,12 @@ public class UISelectPartner : UIBase {
 	
 	protected override void InitCom() {
         SetBtnFun (UIName + "/Right/Window/Close", OnClose);
+        for (int i = 0; i < 2; i++)
+            SetBtnFun (UIName + "/Right/Window/Tabs/" + i.ToString(), OnPage);
+
 		itemMember = Resources.Load("Prefab/UI/Items/ItemSelectPartner") as GameObject;
 		itemSkill = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
+        partnerPanel = GameObject.Find(UIName + "/Right/Window/Partner/ScrollView").GetComponent<UIPanel>();
 		partnerScrollView = GameObject.Find(UIName + "/Right/Window/Partner/ScrollView").GetComponent<UIScrollView>();
         skillScrollView = GameObject.Find(UIName + "/Right/Window/Skill/ScrollView").GetComponent<UIScrollView>();
 	}
@@ -72,6 +82,16 @@ public class UISelectPartner : UIBase {
         UISelectRole.Get.InitPlayer();
 		UIShow(false);
 	}
+
+    public void OnPage() {
+        int i = -1;
+        if (int.TryParse(UIButton.current.name, out i)) {
+            nowPage = i;
+            InitMemberList(ref tempPlayerList, ref tempSelectAy, tempIndex);
+            partnerScrollView.transform.localPosition = Vector3.zero;
+            partnerPanel.clipOffset = Vector2.zero;
+        }
+    }
 
 	private void initSkillList(int index) {
 		for (int i = 0; i < skillList.Count; i++)
@@ -103,30 +123,51 @@ public class UISelectPartner : UIBase {
             UISkillInfo.Get.ShowFromNewCard(skillList[index].Skill);
 	}
 
+    private void checkSelected(ref TPlayer[] selectAy) {
+        for (int i = 0; i < memberList.Count; i ++) {
+            memberList[i].LabelSelected.text = "";
+            memberList[i].UISelected.SetActive(false);
+        }
+
+        for (int i = 0; i < memberList.Count; i++)
+            for (int j = 0; j < selectAy.Length; j++) 
+                if (memberList[i].Player.RoleIndex == selectAy[j].RoleIndex) {
+                    memberList[i].UISelected.SetActive(true);
+                    memberList[i].LabelSelected.text = TextConst.S(9511+j);
+                }
+    }
+
 	public void InitMemberList(ref List<TPlayer> playerList, ref TPlayer[] selectAy, int index) {
+        tempPlayerList = playerList;
+        tempSelectAy = selectAy;
+        tempIndex = index;
+
 		selectIndex = index;
 		for (int i = 0; i < memberList.Count; i ++) {
             memberList[i].LabelSelected.text = "";
             memberList[i].UISelected.SetActive(false);
 			memberList[i].Item.SetActive(false);
 		}
-		
-		for (int i = 0; i < playerList.Count; i++)
-			addMember(i, playerList[i]);
-		
-        for (int i = 0; i < memberList.Count; i ++) {
-            memberList[i].LabelSelected.text = "";
-            memberList[i].UISelected.SetActive(false);
-        }
 
-		for (int j = 0; j < selectAy.Length; j++) 
-            if (selectAy[j].RoleIndex >= 0 && selectAy[j].RoleIndex < memberList.Count) {
-                memberList[selectAy[j].RoleIndex].UISelected.SetActive(true);
-                memberList[selectAy[j].RoleIndex].LabelSelected.text = TextConst.S(9511+j);
+        int count = 0;
+        for (int i = 0; i < playerList.Count; i++) {
+            if (nowPage == 1) { //friend
+                if (playerList[i].FriendKind == EFriendKind.Friend) {
+    			    addMember(count, playerList[i]);
+                    count++;
+                }
+            } else {
+                if (playerList[i].FriendKind != EFriendKind.Friend) {
+                    addMember(count, playerList[i]);
+                    count++;
+                }
             }
+        }
+		
+        checkSelected(ref selectAy);
         
-		if (index >= 0 && index < selectAy.Length)
-			initSkillList(selectAy[index].RoleIndex);
+		//if (index >= 0 && index < selectAy.Length)
+		//	initSkillList(selectAy[index].RoleIndex);
 	}
 
 	private void addMember(int index, TPlayer player) {
@@ -136,6 +177,7 @@ public class UISelectPartner : UIBase {
 			team.Item.name = index.ToString();
 			UIButton btn = team.Item.GetComponent<UIButton>();
 			SetBtnFun(ref btn, OnSelectPartner);
+            SetLabel(team.Item.name + "/CombatGroup/Label", TextConst.S(3019));
 			team.Item.GetComponent<UIDragScrollView>().scrollView = partnerScrollView;
 			team.LabelTeamName = GameObject.Find(team.Item.name + "/PlayerName/NameLabel").GetComponent<UILabel>();
 			team.LabelPower = GameObject.Find(team.Item.name + "/CombatGroup/CombatValueLabel").GetComponent<UILabel>();
@@ -152,7 +194,6 @@ public class UISelectPartner : UIBase {
 			}
 
 			team.Item.transform.parent = partnerScrollView.gameObject.transform;
-			team.Item.transform.localPosition = new Vector3(0, 120 - index * 130, 0);
 			team.Item.transform.localScale = Vector3.one;
 			memberList.Add(team);
 			index = memberList.Count-1;
@@ -165,9 +206,10 @@ public class UISelectPartner : UIBase {
         memberList[index].LabelSelected.text = "";
         memberList[index].UISelected.SetActive(false);
 		memberList[index].LabelTeamName.text = player.Name;
-		memberList[index].LabelPower.text = string.Format(TextConst.S(9509), + player.CombatPower());
+        memberList[index].LabelPower.text = ((int) player.CombatPower()).ToString();
         memberList[index].LabelLv.text = player.Lv.ToString();
 		memberList[index].SpriteFace.spriteName = player.FacePicture;
+        memberList[index].Item.transform.localPosition = new Vector3(0, 120 - index * 130, 0);
         if (GameData.DPlayers.ContainsKey(player.ID)) {
             if (GameData.DPlayers[player.ID].Body == 0)
                 memberList[index].SpritePosition.spriteName = "IconCenter";
@@ -190,18 +232,10 @@ public class UISelectPartner : UIBase {
 				else
 					j = UISelectRole.Get.GetSelectedListIndex(1);
 
-				if (i != index && j != index) {
-                    if (i >= 0 && i < memberList.Count) {
-                        memberList[i].LabelSelected.text = "";
-                        memberList[i].UISelected.SetActive(false);
-                    }
-
-                    if (index >= 0 && index < memberList.Count) {
-                        memberList[index].UISelected.SetActive(true);
-                        memberList[index].LabelSelected.text = TextConst.S(9511+selectIndex);
-                    }
-
-					UISelectRole.Get.SetPlayerAvatar(selectIndex, index);
+                if (i != memberList[index].Player.RoleIndex && j != memberList[index].Player.RoleIndex) {
+                    tempSelectAy[selectIndex].RoleIndex = memberList[index].Player.RoleIndex;
+                    checkSelected(ref tempSelectAy);
+                    UISelectRole.Get.SetPlayerAvatar(selectIndex, memberList[index].Player.RoleIndex);
 				}
 				
 				initSkillList(index);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using GameEnum;
 using GameStruct;
@@ -192,9 +193,16 @@ public class UISelectRole : UIBase {
     public static void InitPlayerList(ref Dictionary<string, TFriend> players) {
 		playerList.Clear();
 		if (players != null) {
-            foreach (KeyValuePair<string, TFriend> item in players) {
-                playerList.Add(item.Value.Player);
+            foreach (KeyValuePair<string, TFriend> item in players.ToList()) {
+                TFriend friend = item.Value;
+                friend.Player.FriendKind = item.Value.Kind;
+                playerList.Add(friend.Player);
             }
+
+            /*foreach (KeyValuePair<string, TFriend> item in players) {
+                item.Value.Player.FriendKind = item.Value.Kind;
+                playerList.Add(item.Value.Player);
+            }*/
 		}
 
 		if (playerList.Count < 5) {

@@ -585,7 +585,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     if (events[i].Identifier == GameData.Team.Identifier) {
                         events[i].Player.Name = GameData.Team.Player.Name;
                         GameData.SocialEvents.Add(events[i]);
-                        flag = true;
                     }
 
                     if (flag && GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {

@@ -1144,6 +1144,7 @@ public class UIAvatarFitted : UIBase {
 	protected override void InitData() {
 		UpdateAvatar(true);
 		UIPlayerMgr.Get.ShowUIPlayer (EUIPlayerMode.UIAvatarFitted, ref GameData.Team);
+        UIPlayerMgr.Get.ChangeAvatar(GameData.Team.Player.Avatar);
 	}
 
 	private void changeLayersRecursively(Transform trans, string name){

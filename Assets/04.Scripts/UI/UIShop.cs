@@ -221,6 +221,7 @@ public class UIShop : UIBase {
         if (isShow) {
             equipAvatar = GameData.Team.Player.Avatar;
             UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIShop, ref GameData.Team);
+            UIPlayerMgr.Get.ChangeAvatar(equipAvatar);
             if (GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
                 refreshShop(0);
 
@@ -272,6 +273,22 @@ public class UIShop : UIBase {
         }
     }
 
+    private void checkOtherSuit(int kind, int page, int index) {
+        for (int j = 0; j < shopItemList.Length; j ++) {
+            if (shopItemList[j] != null) {
+                for (int i = 0; i < shopItemList[j].Count; i++) {
+                    if ((j != nowPage || i != index) && shopItemList[j][i].UISuit.activeInHierarchy) {
+                        int id = shopItemList[j][i].Data.ID;
+                        if (GameData.DItemData[id].Kind == kind) {
+                            shopItemList[j][i].UISuit.SetActive(false);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void OnSuit() {
         if (UIButton.current.transform.parent.gameObject && 
             int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex)) {
@@ -279,7 +296,10 @@ public class UIShop : UIBase {
             if (GameData.DItemData[id].Kind < GameData.Team.Player.Items.Length) {
                 if (GameData.DItemData[id].Position == 3 || GameData.DItemData[id].Position == GameData.Team.Player.BodyType) {
                     shopItemList[nowPage][nowIndex].UISuit.SetActive(!shopItemList[nowPage][nowIndex].UISuit.activeInHierarchy);
+
                     if (shopItemList[nowPage][nowIndex].UISuit.activeInHierarchy) {
+                        shopItemList[nowPage][nowIndex].UISoldout.SetActive(false);
+                        checkOtherSuit(GameData.DItemData[id].Kind, nowPage, nowIndex);
                         switch(GameData.DItemData[id].Kind) {
                             case 0: equipAvatar.Body = GameData.DItemData[id].Avatar; break;
                             case 1: equipAvatar.Hair = GameData.DItemData[id].Avatar; break;
@@ -291,6 +311,7 @@ public class UIShop : UIBase {
                             case 7: equipAvatar.ZBackEquip = GameData.DItemData[id].Avatar; break;
                         } 
                     } else {
+                        shopItemList[nowPage][nowIndex].UISoldout.SetActive(shopItemList[nowPage][nowIndex].Data.Num == 0);
                         switch(GameData.DItemData[id].Kind) {
                             case 0: equipAvatar.Body = GameData.Team.Player.Avatar.Body; break;
                             case 1: equipAvatar.Hair = GameData.Team.Player.Avatar.Hair; break;

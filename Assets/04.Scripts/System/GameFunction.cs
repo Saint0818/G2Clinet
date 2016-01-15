@@ -693,7 +693,7 @@ public static class GameFunction
 
 	public static bool CheckItemIsExpired(DateTime usetime)
 	{
-		return DateTime.Compare (usetime, DateTime.UtcNow) < 0;
+        return usetime.CompareTo(DateTime.UtcNow) < 0;
 	}
 
 	public static void FindTalkManID(int tutorialID, ref int[] manay) {

@@ -11,6 +11,7 @@ public enum EUIPlayerMode
 
 public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 {
+    private EUIPlayerMode uiMode;
 	private Camera camera3d;
 	private GameObject avatar;
 
@@ -54,35 +55,37 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		}
 	}
 
+    private void setManLocation(EUIPlayerMode mode) {
+        avatar.transform.parent = gameObject.transform;
+        avatar.transform.localScale = Vector3.one;
+        switch (mode) {
+            case EUIPlayerMode.UIPlayerInfo:
+                avatar.transform.localPosition = new Vector3 (2.62f, -2.16f, -3);
+                break;
+            case EUIPlayerMode.UIAvatarFitted:
+                avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);
+                break;
+            case EUIPlayerMode.UIShop:
+                avatar.transform.localPosition = new Vector3 (2.92f, -1.8f, -3);
+                break;
+        }
+
+        LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
+    }
+
     public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
 	{
 		gameObject.SetActive (true);
 		ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.AvatarControl, false);
-        avatar.transform.parent = gameObject.transform;
-		avatar.transform.localScale = Vector3.one;
 
-		switch (mode) {
-			case EUIPlayerMode.UIPlayerInfo:
-				avatar.transform.localPosition = new Vector3 (2.62f, -2.16f, -3);
-				break;
-			case EUIPlayerMode.UIAvatarFitted:
-				avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);
-				break;
-            case EUIPlayerMode.UIShop:
-                avatar.transform.localPosition = new Vector3 (2.92f, -1.8f, -3);
-                break;
-		}
-
-		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
+        uiMode = mode;
+        setManLocation(mode);
 	}
 
 	public void ChangeAvatar(TAvatar equipAvatar)
 	{
 		ModelManager.Get.SetAvatar(ref avatar, equipAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-		avatar.transform.parent = gameObject.transform;
-		avatar.transform.localScale = Vector3.one;
-		avatar.transform.localPosition = new Vector3 (3, -1.7f, -1);
-		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
+        setManLocation(uiMode);
 	}
 
 	public bool Enable

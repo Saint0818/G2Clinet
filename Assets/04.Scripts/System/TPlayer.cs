@@ -44,6 +44,7 @@ namespace GameStruct
 		public int SkillCardMax;
         public int NowStageID;
         public int HeadTextureNo;
+        public int FriendKind;
 
         public int GetPotentialValue(EAttribute attr)
         {
@@ -124,6 +125,7 @@ namespace GameStruct
             NowStageID = 0;
             Exp = 0;
             HeadTextureNo = -1;
+            FriendKind = 0;
             NeedForSyncRecord = false;
             LifetimeRecord = new TGamePlayerRecord();
             Avatar = new TAvatar(1);
@@ -398,25 +400,25 @@ namespace GameStruct
 									Avatar.Body = item.Avatar;
                                     break;
                                 case 1:
-									Avatar.Hair = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 99001 : item.Avatar;
+                                    Avatar.Hair = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 99001 : item.Avatar;
                                     break;
                                 case 2:
-									Avatar.MHandDress = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+                                    Avatar.MHandDress = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 0 : item.Avatar;
                                     break;
                                 case 3:
-                                    Avatar.Cloth = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 99001 : item.Avatar;
+                                    Avatar.Cloth = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 99001 : item.Avatar;
                                     break;
                                 case 4:
-                                    Avatar.Pants = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 99001 : item.Avatar;
+                                    Avatar.Pants = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 99001 : item.Avatar;
                                     break;
                                 case 5:
-                                    Avatar.Shoes = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 99001 : item.Avatar;
+                                    Avatar.Shoes = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 99001 : item.Avatar;
                                     break;
                                 case 6:
-									Avatar.AHeadDress = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+                                    Avatar.AHeadDress = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 0 : item.Avatar;
                                     break;
                                 case 7:
-									Avatar.ZBackEquip = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+                                    Avatar.ZBackEquip = Items[i].UseKind > 0 && GameFunction.CheckItemIsExpired(Items[i].UseTime.ToUniversalTime()) ? 0 : item.Avatar;
                                     break;
                             }
                         }

@@ -810,12 +810,7 @@ public class GameController : KnightSingleton<GameController>
 			CameraMgr.Get.FinishGame();
 			GameRecord.Done = true;
 			SetGameRecord();
-            setEndShowScene ();
-            if(GameStart.Get.IsAutoReplay){
-                UIGamePause.Get.OnAgain();
-                Invoke("JumpBallForReplay", 2);
-            }
-			//StartCoroutine(playFinish());
+			StartCoroutine(playFinish());
 		}
 	}
 
