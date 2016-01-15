@@ -155,10 +155,8 @@ public class UISkillInfo : UIBase {
 			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.skillCard.Skill.Lv, 0, GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar).ToString();
 			labelSkillSpace.text = skillData.Space(uicard.skillCard.Skill.Lv).ToString();
 			labelSkillExp.text = uicard.skillCard.Skill.Exp.ToString(); 
-			if(uicard.skillCard.Skill.Lv < GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp.Length)
-				sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[uicard.skillCard.Skill.Lv - 1]; 
-			else 
-				sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].UpgradeExp[GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar - 1]; 
+			sliderSkillExpBar.value = (float)uicard.skillCard.Skill.Exp / (float)GameData.DSkillData[uicard.skillCard.Skill.ID].GetUpgradeExp(uicard.skillCard.Skill.Lv); 
+			
 			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID))
 				Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
 			else 
@@ -213,7 +211,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillLevel.spriteName = "Cardicon" + skill.Lv.ToString();
 			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
 			labelSkillExp.text = skill.Exp.ToString(); 
-			sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].UpgradeExp[skill.Lv - 1]; 
+			sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv);
 			if(GameFunction.IsActiveSkill(skill.ID))
 				labelSkillDemandValue.text = skillData.MaxAnger.ToString();
 			else 

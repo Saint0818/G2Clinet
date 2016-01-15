@@ -630,7 +630,17 @@ namespace GameStruct
 		public string ExplainEN;
 		public string ExplainJP;
 		public int Open; //skillheaditem
-		
+
+		public int GetUpgradeExp(int lv) {
+			lv = Mathf.Clamp(lv, 1,UpgradeExp.Length);
+			return UpgradeExp[lv - 1];
+		}
+
+		public int GetUpgradeMoney(int lv) {
+			lv = Mathf.Clamp(lv, 1,UpgradeMoney.Length);
+			return UpgradeMoney[lv - 1];
+		}
+
 		public string Name {
 			get {
 				switch(GameData.Setting.Language) {
