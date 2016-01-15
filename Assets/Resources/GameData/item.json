@@ -1077,6 +1077,7 @@
         "namecn": "中锋头发5",
         "nameen": "Curly white hair",
         "namejp": "5中央髪",
+        "explaintw": "沈穩的銀白色捲髮。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Natural curly hairstyle, white hair"
     },
     {
@@ -1095,6 +1096,7 @@
         "namecn": "中锋头发6",
         "nameen": "Curly black hair",
         "namejp": "髪のセンター6",
+        "explaintw": "來自東方的神秘黑色。\n\n限定[ff0000]中鋒[-]裝備。",
         "explainen": "Natural curly hairstyle, black hair"
     },
     {
@@ -1216,7 +1218,8 @@
         "buy": 700,
         "namecn": "中锋头发13",
         "nameen": "Hair center 13",
-        "namejp": "毛髪センター13"
+        "namejp": "毛髪センター13",
+        "explaintw": "屬於戰士的俐落髮型。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 1014,
@@ -1445,7 +1448,8 @@
         "buy": 700,
         "namecn": "前锋头发6",
         "nameen": "6 forward hair",
-        "namejp": "6前方髪"
+        "namejp": "6前方髪",
+        "explaintw": "俐落的帥勁髮型。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 1107,
@@ -2258,7 +2262,8 @@
         "buy": 700,
         "namecn": "中锋手饰13",
         "nameen": "Jewelry center 13",
-        "namejp": "ジュエリーセンター13"
+        "namejp": "ジュエリーセンター13",
+        "explaintw": "極限戰士專屬。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 2014,
@@ -3287,7 +3292,8 @@
         "buy": 700,
         "namecn": "中锋衣服13",
         "nameen": "Clothes center 13",
-        "namejp": "服センタ13"
+        "namejp": "服センタ13",
+        "explaintw": "攀上巔峰，極限戰士。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 3014,
@@ -3516,7 +3522,8 @@
         "buy": 700,
         "namecn": "前锋衣服6",
         "nameen": "6 forward clothes",
-        "namejp": "6前方服"
+        "namejp": "6前方服",
+        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 3107,
@@ -4350,7 +4357,8 @@
         "buy": 700,
         "namecn": "中锋裤子13",
         "nameen": "Pants center 13",
-        "namejp": "パンツ・センター13"
+        "namejp": "パンツ・センター13",
+        "explaintw": "極限戰士的極限裝束。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 4014,
@@ -4579,7 +4587,8 @@
         "buy": 700,
         "namecn": "前锋裤子6",
         "nameen": "Forward pants 6",
-        "namejp": "フォワードパンツ6"
+        "namejp": "フォワードパンツ6",
+        "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 4107,
@@ -5409,7 +5418,8 @@
         "buy": 700,
         "namecn": "中锋鞋子13",
         "nameen": "Shoes center 13",
-        "namejp": "靴・センター13"
+        "namejp": "靴・センター13",
+        "explaintw": "勇者無懼的戰靴。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5014,
@@ -5972,7 +5982,8 @@
         "buy": 700,
         "namecn": "后卫鞋子5",
         "nameen": "5 guard shoes",
-        "namejp": "5ガード靴"
+        "namejp": "5ガード靴",
+        "explaintw": "亮眼的配色容易成為眾人的焦點。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 5206,
@@ -6095,7 +6106,8 @@
         "buy": 700,
         "namecn": "后卫鞋子11",
         "nameen": "Defender Shoes 11",
-        "namejp": "ディフェンダーシューズ11"
+        "namejp": "ディフェンダーシューズ11",
+        "explaintw": "甜美中不失性感，增添嬌俏氣質。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 5213,
@@ -6397,7 +6409,8 @@
         "buy": 700,
         "namecn": "头饰9",
         "nameen": "Headwear 9",
-        "namejp": "ヘッドウェア9"
+        "namejp": "ヘッドウェア9",
+        "explaintw": "戰士的重要裝備，保護勇者的頭部。"
     },
     {
         "id": 6010,
@@ -6739,7 +6752,8 @@
         "buy": 700,
         "namecn": "背饰9",
         "nameen": "Back ornaments 9",
-        "namejp": "戻る装飾品9"
+        "namejp": "戻る装飾品9",
+        "explaintw": "極限戰士的氣勢展現。"
     },
     {
         "id": 7010,
@@ -13205,6 +13219,7 @@
         "kind": 32,
         "atlas": 12,
         "icon": 93201,
+        "quality": 1,
         "value": 50,
         "nameen": "50 diamonds",
         "explaintw": "獲得50鑽石",
@@ -13216,6 +13231,7 @@
         "kind": 32,
         "atlas": 12,
         "icon": 93202,
+        "quality": 2,
         "value": 100,
         "nameen": "100 Diamond",
         "explaintw": "獲得100鑽石",
@@ -13227,10 +13243,35 @@
         "kind": 32,
         "atlas": 12,
         "icon": 93203,
+        "quality": 3,
         "value": 125,
         "nameen": "150 Diamond",
-        "explaintw": "獲得150鑽石",
+        "explaintw": "獲得125鑽石",
         "explainen": "Get 150 diamonds"
+    },
+    {
+        "id": 93204,
+        "nametw": "5鑽石",
+        "kind": 32,
+        "atlas": 12,
+        "icon": 93201,
+        "quality": 1,
+        "value": 5,
+        "nameen": "50 diamonds",
+        "explaintw": "獲得5鑽石",
+        "explainen": "Get 50 diamonds"
+    },
+    {
+        "id": 93205,
+        "nametw": "10鑽石",
+        "kind": 32,
+        "atlas": 12,
+        "icon": 93201,
+        "quality": 1,
+        "value": 10,
+        "nameen": "50 diamonds",
+        "explaintw": "獲得10鑽石",
+        "explainen": "Get 50 diamonds"
     },
     {
         "id": 93301,
@@ -13274,6 +13315,7 @@
         "kind": 34,
         "atlas": 12,
         "icon": 93401,
+        "quality": 1,
         "value": 5,
         "nameen": "5 strength",
         "explaintw": "獲得5體力",
@@ -13285,6 +13327,7 @@
         "kind": 34,
         "atlas": 12,
         "icon": 93402,
+        "quality": 2,
         "value": 10,
         "nameen": "10 physical",
         "explaintw": "獲得10體力",
@@ -13296,6 +13339,7 @@
         "kind": 34,
         "atlas": 12,
         "icon": 93403,
+        "quality": 3,
         "value": 15,
         "nameen": "15 physical",
         "explaintw": "獲得15體力",
@@ -13307,6 +13351,7 @@
         "kind": 34,
         "atlas": 12,
         "icon": 93404,
+        "quality": 4,
         "value": 20,
         "nameen": "20 physical",
         "explaintw": "獲得20體力",
@@ -13318,6 +13363,7 @@
         "kind": 35,
         "atlas": 12,
         "icon": 93501,
+        "quality": 3,
         "value": 5,
         "nameen": "X5 league match tickets",
         "explaintw": "可獲得額外參加聯盟賽的機會",

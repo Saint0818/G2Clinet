@@ -157,7 +157,7 @@
     },
     {
         "id": 249,
-        "tw": "使用金幣"
+        "tw": "確認使用金幣"
     },
     {
         "id": 250,
@@ -169,7 +169,7 @@
     },
     {
         "id": 252,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石抽卡 ？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石抽卡？"
     },
     {
         "id": 301,
@@ -1986,7 +1986,7 @@
     {
         "id": 7202,
         "explain": "SkillInfo/LabelSubhead",
-        "tw": "SKILL INFO.",
+        "tw": "晶片資訊",
         "cn": "SKILL INFO.",
         "en": "Ability Info",
         "jp": "SKILL INFO."
@@ -2050,7 +2050,8 @@
     {
         "id": 7212,
         "explain": "EvolutionBtn/Label",
-        "tw": "晶片進化"
+        "tw": "晶片進化",
+        "en": "Evolution"
     },
     {
         "id": 7213,
@@ -2083,63 +2084,74 @@
     {
         "id": 7401,
         "explain": "技能晶片強化合成",
-        "tw": "晶片合成"
+        "tw": "晶片合成",
+        "en": "Wafer synthesis"
     },
     {
         "id": 7402,
         "explain": "EXP",
-        "tw": "EXP"
+        "tw": "EXP",
+        "en": "EXP"
     },
     {
         "id": 7403,
         "explain": "Cost",
-        "tw": "Cost"
+        "tw": "Cost",
+        "en": "Cost"
     },
     {
         "id": 7404,
         "explain": "動作機率",
-        "tw": "動作機率"
+        "tw": "動作機率",
+        "en": "Action chances"
     },
     {
         "id": 7405,
         "explain": "發動距離",
-        "tw": "發動距離"
+        "tw": "發動距離",
+        "en": "Launch distance"
     },
     {
         "id": 7406,
         "explain": "持續時間",
-        "tw": "持續時間"
+        "tw": "持續時間",
+        "en": "duration"
     },
     {
         "id": 7407,
         "explain": "升級所需",
-        "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]"
+        "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]",
+        "en": "[B7B7B7FF] required EXP: [FFFF00FF] {0} [-]"
     },
     {
         "id": 7408,
         "explain": "材料獲得",
-        "tw": "獲得EXP：[00FF00FF]{0}[-]"
+        "tw": "總獲得EXP：[00FF00FF]{0}[-]",
+        "en": "Total obtain EXP: [00FF00FF] {0} [-]"
     },
     {
         "id": 7409,
         "explain": "等級達上限",
-        "tw": "[FFFF00FF]等級已滿[-]",
-        "en": "[FFFF00FF]Max[-]"
+        "tw": "[FFFF00FF]等級已達上限[-]",
+        "en": "[FFFF00FF] LV Max [-]"
     },
     {
         "id": 7410,
         "explain": "SubheadLabel",
-        "tw": "強化材料"
+        "tw": "強化材料",
+        "en": "Reinforcing material"
     },
     {
         "id": 7411,
         "explain": "SubheadLabel",
-        "tw": "選擇強化材料"
+        "tw": "選擇強化材料",
+        "en": "Select the reinforcing material"
     },
     {
         "id": 7412,
         "explain": "EmptyLabel",
-        "tw": "未選擇"
+        "tw": "未選擇",
+        "en": "Not selected"
     },
     {
         "id": 7413
@@ -2221,11 +2233,13 @@
     },
     {
         "id": 8007,
-        "tw": "出售中"
+        "tw": "出售中",
+        "en": "On Sale"
     },
     {
         "id": 8008,
-        "tw": "不可用"
+        "tw": "不可用",
+        "en": "Not available"
     },
     {
         "id": 8101,
@@ -2292,19 +2306,19 @@
     {
         "id": 9103,
         "explain": "PvPStageBtn/BtnLabel",
-        "tw": "對  戰",
+        "tw": "聯 盟 對 戰",
         "en": "PVP"
     },
     {
         "id": 9104,
         "explain": "ChallengeBtn/BtnLabel",
-        "tw": "挑  戰",
+        "tw": "關 主 挑 戰",
         "en": "CHALLENGE"
     },
     {
         "id": 9152,
         "explain": "主線關卡",
-        "tw": " [FFDD33]生  涯[-]"
+        "tw": " [FFDD33]生涯競賽[-]"
     },
     {
         "id": 9153
@@ -2312,7 +2326,7 @@
     {
         "id": 9154,
         "explain": "副本關卡",
-        "tw": " [ff8000]挑  戰[-]"
+        "tw": " [ff8000]聯盟挑戰[-]"
     },
     {
         "id": 9155
@@ -2550,7 +2564,7 @@
     {
         "id": 9703,
         "explain": "tabs/02",
-        "tw": "排行榜1"
+        "tw": "聯盟排行"
     },
     {
         "id": 9704,
@@ -2575,7 +2589,7 @@
     {
         "id": 9708,
         "explain": "RangeNameLabel",
-        "tw": "下一階段 /n {0} "
+        "tw": "下一階段\n {0} "
     },
     {
         "id": 9709
