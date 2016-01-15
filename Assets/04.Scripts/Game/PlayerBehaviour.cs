@@ -80,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject DummyBall;
     public UISprite SpeedUpView = null;
     public Animator SpeedAnimator = null;
-//    private bool isSpeedStay = true;
+    private bool isSpeedStay = true;
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
     public Material BodyMaterial;
@@ -514,19 +514,19 @@ public class PlayerBehaviour : MonoBehaviour
         return DefPointAy[kind].position;
     }
 
-    //	private void speedBarColor () {
-    //		if (this == GameController.Get.Joysticker) {
-    //			SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
-    //			SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
-    //			if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
-    //				isSpeedStay = false;
-    //				SpeedAnimator.SetTrigger("SelectMe");
-    //			} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
-    //				isSpeedStay = true;
-    //				SpeedAnimator.SetTrigger("SelectMeStay");
-    //			}
-    //		}
-    //	}
+	private void speedBarColor () {
+		if (this == GameController.Get.Joysticker) {
+			SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+			SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+			if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
+				isSpeedStay = false;
+				SpeedAnimator.SetTrigger("SelectMe");
+			} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
+				isSpeedStay = true;
+				SpeedAnimator.SetTrigger("SelectMeStay");
+			}
+		}
+	}
 
     void FixedUpdate()
     {
@@ -597,36 +597,36 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         
-//        if (Time.time >= mMovePowerTime)
-//        {
-//            mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
-//			if (isSpeedup)
-//            {
-//				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
-//                {
-//                    mMovePower -= GameConst.MovePowerMoving;
-//                    if (mMovePower < 0)
-//                        mMovePower = 0;
-//
-//					speedBarColor ();
-//
-//                    if (mMovePower == 0)
-//                        canSpeedup = false;
-//                }
-//			} else {
-//				if (mMovePower <= mMaxMovePower)
-//				{
-//					mMovePower += GameConst.MovePowerRevive;
-//					if (mMovePower > mMaxMovePower)
-//						mMovePower = mMaxMovePower;
-//					
-//					speedBarColor ();
-//					
-//					if (mMovePower == mMaxMovePower)
-//						canSpeedup = true;
-//				}
-//			}
-//        }
+        if (Time.time >= mMovePowerTime)
+        {
+            mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
+			if (isSpeedup)
+            {
+				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
+                {
+                    mMovePower -= GameConst.MovePowerMoving;
+                    if (mMovePower < 0)
+                        mMovePower = 0;
+
+					speedBarColor ();
+
+                    if (mMovePower == 0)
+                        canSpeedup = false;
+                }
+			} else {
+				if (mMovePower <= mMaxMovePower)
+				{
+					mMovePower += GameConst.MovePowerRevive;
+					if (mMovePower > mMaxMovePower)
+						mMovePower = mMaxMovePower;
+					
+					speedBarColor ();
+					
+					if (mMovePower == mMaxMovePower)
+						canSpeedup = true;
+				}
+			}
+        }
 
         if (IsDefence)
         {
@@ -846,7 +846,7 @@ public class PlayerBehaviour : MonoBehaviour
                     else
                     {
                         if (mMovePower == 0)
-                            moveKind = 2;
+                            moveKind = 0;
                         else
                             moveKind = 1;
                     }

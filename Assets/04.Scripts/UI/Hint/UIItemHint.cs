@@ -102,7 +102,7 @@ public class UIItemHint : UIBase {
 			scrollViewExplain.ResetPosition();
 			UIShow(true);
 			gameObject.transform.localPosition = new Vector3(0, 0, -10);
-			if(itemData.Kind == 21) {
+			if(itemData.Kind == 21) { //技能卡
 				//For First Get
 				hintSkillView.Show();
 				hintSkillView.UpdateUI(itemData);
@@ -113,7 +113,7 @@ public class UIItemHint : UIBase {
 				else
 					setHaveCount(0);
 				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
-			} else if(itemData.Kind == 19) {
+			} else if(itemData.Kind == 19) {//材料
 				hintInlayView.Show();
 				hintInlayView.UpdateUI(itemData);
 				if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(itemData.ID)))
@@ -121,7 +121,7 @@ public class UIItemHint : UIBase {
 				else
 					setHaveCount(0);
 				uiLabelExplain.text = itemData.Explain;
-			} else {
+			} else {// Avatar
 				hintAvatarView.Show();
 				hintAvatarView.UpdateUI(itemData);
 				//TODO : 等待來源
