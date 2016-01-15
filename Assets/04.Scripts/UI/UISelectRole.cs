@@ -53,8 +53,8 @@ public class UISelectRole : UIBase {
 	private GameObject uiRedPoint;
 
 	private UILabel labelPlayerName;
+    private UILabel labelStrategy;
 	private UISprite spritePlayerBodyPic;
-
 
 	private UILabel [] labelsSelectABName = new UILabel[2];
 	private GameObject [] uiSelectAList = new GameObject[3];
@@ -266,6 +266,7 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
         SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
 		SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
+        SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 
 		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(false);
 
@@ -278,6 +279,7 @@ public class UISelectRole : UIBase {
 		uiShowTime = GameObject.Find(UIName + "/Center/ShowTimeCollider");
 		uiCharacterCheck = GameObject.Find(UIName + "/Right/CharacterCheck");
 		uiInfoRange = GameObject.Find(UIName + "/Right/InfoRange");
+        labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
 		labelPlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		spritePlayerBodyPic = GameObject.Find (UIName + "/Right/InfoRange/BodyType/SpriteType").GetComponent<UISprite>();
         labelsSelectABName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
@@ -367,6 +369,7 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
 
+        labelStrategy.text = TextConst.S(15002 + GameData.Team.Player.Strategy);
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 4, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);
@@ -521,6 +524,11 @@ public class UISelectRole : UIBase {
 			UIState(EUIRoleSituation.ChooseRole);
 		}
 	}
+
+    public void OnStrategy() {
+        UIStrategy.Visible = true;
+        UIStrategy.Get.LabelStrategy = labelStrategy;
+    }
 
     public void OnClickPlayer(GameObject go){
         int index = 1;
