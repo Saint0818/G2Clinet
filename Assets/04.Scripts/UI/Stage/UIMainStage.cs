@@ -38,6 +38,14 @@ public class UIMainStage : UIBase
         mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
         mMain.Info.StartListener += enterSelectRole;
+
+        GameData.Team.OnPowerChangeListener += OnPowerChange;
+    }
+
+    private void OnPowerChange(int power)
+    {
+        if(mMain.Info.Visible)
+            Show(mMain.Info.StageID);
     }
 
     [UsedImplicitly]
@@ -94,6 +102,13 @@ public class UIMainStage : UIBase
         if(!stageData.IsValid())
         {
             Debug.LogErrorFormat("StageID:{0}, StageData Error.", stageID);
+            return;
+        }
+
+        // todo 購買體力流程, 暫時寫在這, 以後再改流程.
+        if(!CheckPower(stageData.CostValue, true))
+        {
+            OnBuyPower();
             return;
         }
 
@@ -329,6 +344,8 @@ public class UIMainStage : UIBase
 
     public void Hide()
     {
+        GameData.Team.OnPowerChangeListener -= OnPowerChange;
+
         RemoveUI(UIName);
     }
 

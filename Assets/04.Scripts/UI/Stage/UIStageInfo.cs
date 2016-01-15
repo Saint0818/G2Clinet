@@ -80,7 +80,9 @@ public class UIStageInfo : MonoBehaviour
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
 
+    public int StageID { get { return mStageID; } }
     private int mStageID;
+
     private UIStageHint mHint;
 
     [UsedImplicitly]
@@ -94,6 +96,8 @@ public class UIStageInfo : MonoBehaviour
             mRewardIcons.Add(obj.GetComponent<ItemAwardGroup>());
         }
     }
+
+    public bool Visible { get { return gameObject.activeSelf; } }
 
     public void Show(int stageID, Data data)
     {
@@ -126,7 +130,9 @@ public class UIStageInfo : MonoBehaviour
         StaminaLabel.text = string.Format("{0}", data.Stamina);
         Completed.SetActive(data.ShowCompleted);
 
-        StartButton.isEnabled = data.StartEnable;
+//        StartButton.isEnabled = data.StartEnable;
+        StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
+        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
 
         RewardMoney.text = string.Format("{0}", data.Money);
 
