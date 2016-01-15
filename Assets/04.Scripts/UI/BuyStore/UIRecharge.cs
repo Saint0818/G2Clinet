@@ -92,9 +92,9 @@ public struct TItemRecharge {
 			SaleLabel.gameObject.SetActive(false);
 		
 		ItemIcon.spriteName = "MallGem1";
-		ItemNameLabel.text = mall.Diamonds.ToString();
-		ValueLabel.text = mall.Price;
-		ValueIcon.gameObject.SetActive(false);
+		ItemNameLabel.text = mall.Name;
+		ValueLabel.text = mall.Diamond.ToString();
+//		ValueIcon.gameObject.SetActive(false);
 	}
 
 	//31.錢

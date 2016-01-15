@@ -1292,13 +1292,29 @@ namespace GameStruct
 		public int Diamonds;
 		public int Diamondcn;
 		public string Android;
-		public string Ios;
 		public int Order;
 		public int Sale;
 		public string pricetw;
 		public string priceen;
 		public string pricecn;
 		public string pricejp;
+		public string Nametw;
+		public string Nameen;
+		public string Namecn;
+		public string Namejp;
+
+		public int Diamond {
+			get
+			{
+				switch(GameData.Setting.Language)
+				{
+				case ELanguage.TW: return Diamonds;
+				case ELanguage.CN: return Diamondcn;
+				case ELanguage.JP: return Diamonds;
+				default : return Diamonds;
+				}
+			}
+		}
 
 		public string Price {
 			get
@@ -1309,6 +1325,19 @@ namespace GameStruct
 				case ELanguage.CN: return pricecn;
 				case ELanguage.JP: return pricejp;
 				default : return priceen;
+				}
+			}
+		}
+
+		public string Name {
+			get
+			{
+				switch(GameData.Setting.Language)
+				{
+				case ELanguage.TW: return Nametw;
+				case ELanguage.CN: return Namecn;
+				case ELanguage.JP: return Namejp;
+				default : return Nameen;
 				}
 			}
 		}
