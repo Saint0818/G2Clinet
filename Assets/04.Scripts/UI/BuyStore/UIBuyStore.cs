@@ -104,19 +104,19 @@ public class UIBuyStore : UIBase {
 		spritePay.spriteName = getCostName(type);
 	}
 
-	private bool checkCost (TPickCost pickCost, int spendType) {
-		if(pickCost.Kind == 0)
-			return false;
-		else if(pickCost.Kind == 1)
-			return (GameData.Team.Diamond >= howMuch(pickCost, spendType));
-		else if(pickCost.Kind == 2)
-			return (GameData.Team.Money >= howMuch(pickCost, spendType));
-		else if(pickCost.Kind == 3)
-			return false;
-		else if(pickCost.Kind == 4) 
-			return false;
-		return false;
-	}
+//	private bool checkCost (TPickCost pickCost, int spendType) {
+//		if(pickCost.Kind == 0)
+//			return false;
+//		else if(pickCost.Kind == 1)
+//			return (GameData.Team.Diamond >= howMuch(pickCost, spendType));
+//		else if(pickCost.Kind == 2)
+//			return (GameData.Team.Money >= howMuch(pickCost, spendType));
+//		else if(pickCost.Kind == 3)
+//			return false;
+//		else if(pickCost.Kind == 4) 
+//			return false;
+//		return false;
+//	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {
 		if(spendType == EPickSpendType.ONE.GetHashCode())
@@ -178,10 +178,15 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void OnAgain() {
-		if(checkCost(mPickCost, mSpendType) ) {
-			SendPickLottery(mPickCost.Order, mPickCost.Kind, mSpendType);
-		} else 
-			UIHint.Get.ShowHint(TextConst.S(233), Color.red);
+		if(mPickCost.SpendKind == 1) { // Diamond
+			CheckDiamond(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(252), howMuch(mPickCost, mSpendType)), ConfirmUse);
+		} else if (mPickCost.SpendKind == 0) { // Money
+			CheckMoney(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(253), howMuch(mPickCost, mSpendType)), ConfirmUse);
+		}
+	}
+
+	public void ConfirmUse () {
+		SendPickLottery(mPickCost.Order, mPickCost.Kind, mSpendType);
 	}
 
 
