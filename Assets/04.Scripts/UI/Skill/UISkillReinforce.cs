@@ -55,11 +55,6 @@ public struct TExpView {
 		if(GameData.DSkillData.ContainsKey(id)) {
 			if(lv < GameData.DSkillData[id].MaxStar) {
 				ProgressBar2.value = (float)(originalExp + upgradeExp)/ (float)maxExp;
-//				if((originalExp + upgradeExp) >= GameData.DSkillData[id].UpgradeExp[lv])
-//					ProgressBar.value = 0;
-//				else 
-//					ProgressBar.value = (float)currentExp / (float)maxExp;
-
 				GetLevelLabel.text = string.Format(TextConst.S(7408), upgradeExp);
 			}
 		}
@@ -711,6 +706,13 @@ public class UISkillReinforce : UIBase {
 			}
 		}
 
+		for(int i=0 ; i < materialSlots.Length; i++) {
+			if(i < reinforceCards.Count) {
+				materialSlots[i].HideEatFX();
+				materialSlots[i].HideInput();
+			}
+		}
+
 		mOldSkill = mSkill;
 		isRunExp = false;
 		isNeedShowLevelUp = false;
@@ -750,6 +752,11 @@ public class UISkillReinforce : UIBase {
 				}
 			}
 		}
+		for(int i=0 ; i < materialSlots.Length; i++) {
+			if(i >= reinforceCards.Count) {
+				materialSlots[i].HideInput();
+			}
+		}
 	}
 
 	private bool checkEquiped (int sn) {
@@ -768,14 +775,6 @@ public class UISkillReinforce : UIBase {
 		initRightCards ();
 		targetIndex = index;
 		isEquiped = isAlreadyEquip;
-	}
-
-	public void RefreshID () {
-		if(isEquiped)
-			mSkill = findNewSkillFromPlayer(mSkill);
-		else
-			mSkill = findNewSkillFromTeam(mSkill);
-		mOldSkill = mSkill;
 	}
 
 	public void OnReinforce () {

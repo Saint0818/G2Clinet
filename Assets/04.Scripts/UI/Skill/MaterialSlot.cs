@@ -7,8 +7,8 @@ public class MaterialSlot : MonoBehaviour {
 	public Transform View;
 	public GameObject EatFX;
 
-	private float inputTime;
-	private float eatTime;
+//	private float inputTime;
+//	private float eatTime;
 
 	void Awake () {
 		InputFX.SetActive(false);
@@ -16,31 +16,40 @@ public class MaterialSlot : MonoBehaviour {
 		EatFX.SetActive(false);
 	}
 
-	void FixedUpdate () {
-		if(inputTime > 0) {
-			inputTime -= Time.deltaTime;
-			if(inputTime <= 0) {
-				inputTime = 0;
-				InputFX.SetActive(false);
-			}
-		}
-
-		if(eatTime > 0) {
-			eatTime -= Time.deltaTime;
-			if(eatTime <= 0) {
-				eatTime = 0;
-				EatFX.SetActive(false);
-			}
-		}
-	}
+//	void FixedUpdate () {
+//		if(inputTime > 0) {
+//			inputTime -= Time.deltaTime;
+//			if(inputTime <= 0) {
+//				inputTime = 0;
+//				InputFX.SetActive(false);
+//			}
+//		}
+//
+//		if(eatTime > 0) {
+//			eatTime -= Time.deltaTime;
+//			if(eatTime <= 0) {
+//				eatTime = 0;
+//				EatFX.SetActive(false);
+//			}
+//		}
+//	}
 
 	public void ShowInput () {
-		inputTime = 0.3f;
+//		inputTime = 0.3f;
 		InputFX.SetActive(true);
 	}
 
+	public void HideInput () {
+		InputFX.SetActive(false);
+	}
+
 	public void ShowEatFX () {
-		eatTime = 0.8f;
+//		eatTime = 0.8f;
 		EatFX.SetActive(true);
 	}
+
+	public void HideEatFX () {
+		EatFX.SetActive(false);
+	}
+
 }

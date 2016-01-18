@@ -809,9 +809,9 @@ public class FileManager : KnightSingleton<FileManager>
             if(isSaveVersion)
                 SaveDataVersionAndJson(text, "item", version);
 
-            Debug.Log ("[item parsed finished.] ");
+			Debug.Log ("[PVP parsed finished.] ");
         } catch (System.Exception ex) {
-            Debug.LogError ("[item parsed error] " + ex.Message);
+			Debug.LogError ("[PVP parsed error] " + ex.Message);
         }
 	}
 }

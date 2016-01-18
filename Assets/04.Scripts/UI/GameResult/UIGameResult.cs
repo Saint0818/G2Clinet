@@ -453,10 +453,10 @@ public class UIGameResult : UIBase {
 		Invoke("MoveItem",1);
 		if(chooseCount == 0) {
 			showPayDiamond(index);
-			setPayDiamond(20);
+			setPayDiamond(50);
 		} else if (chooseCount == 1) {
 			diamondPay[index].gameObject.SetActive(false);
-			setPayDiamond(40);
+			setPayDiamond(100);
 		}else {
 			diamondPay[index].gameObject.SetActive(false);
 		}

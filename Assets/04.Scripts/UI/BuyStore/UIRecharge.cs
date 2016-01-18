@@ -94,7 +94,6 @@ public struct TItemRecharge {
 		ItemIcon.spriteName = "MallGem1";
 		ItemNameLabel.text = mall.Name;
 		ValueLabel.text = mall.Diamond.ToString();
-//		ValueIcon.gameObject.SetActive(false);
 	}
 
 	//31.錢
@@ -123,6 +122,8 @@ public struct TItemRecharge {
 			return TextConst.S(4201);
 		case 3:
 			return TextConst.S(4202);
+		case 4:
+			return "Sold Out(Temp).";
 		}
 		return "";
 	}
@@ -278,12 +279,14 @@ public class UIRecharge : UIBase {
 	}
 
 	public void OnBuyDiamond () {
-		int result = -1;
-		if(int.TryParse(UIButton.current.name, out result)) {
-			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
-				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
-			}
-		}
+
+		UIHint.Get.ShowHint(TextConst.S(502), Color.red);
+//		int result = -1;
+//		if(int.TryParse(UIButton.current.name, out result)) {
+//			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
+//				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
+//			}
+//		}
 	}
 
 	public void OnBuyCoin () {

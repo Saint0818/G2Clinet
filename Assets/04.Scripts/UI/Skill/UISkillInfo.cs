@@ -39,12 +39,12 @@ public class UISkillInfo : UIBase {
 	private GameObject btnCrafting;
 	private GameObject btnUpgrade;
 
-	private bool isAlreadyEquip;
 
 	private bool isOpen = false;
 	private float openCardSpeed = 0.1f;
 
 	private TUICard mUICard;
+	private bool isAlreadyEquip;
 
 	public static bool Visible {
 		get {
@@ -314,11 +314,14 @@ public class UISkillInfo : UIBase {
 			if(mUICard.skillCard.Skill.Lv >= GameData.DSkillData[mUICard.skillCard.Skill.ID].MaxStar ) {
 				UIHint.Get.ShowHint(TextConst.S(553), Color.red);
 			} else {
-				UISkillReinforce.Get.Show(mUICard.skillCard.Skill, mUICard.CardIndex, isAlreadyEquip);
+				UISkillFormation.Get.IsReinforce = true;
 				UISkillFormation.Get.DoFinish();
-				UIShow(false);
 			}
 		}
+	}
+
+	public TUICard MyUICard{
+		get{return mUICard;}
 	}
 }
 

@@ -53,6 +53,7 @@
         "kind": 1,
         "spendkind": 0,
         "price": 125,
+        "limit": [125, 250, 500],
         "itemid": 93402,
         "pic": 1,
         "order": 0
@@ -61,6 +62,7 @@
         "kind": 1,
         "spendkind": 0,
         "price": 240,
+        "limit": [240],
         "sale": 1,
         "itemid": 93404,
         "pic": 2,
