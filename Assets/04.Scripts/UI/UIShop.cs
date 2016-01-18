@@ -325,8 +325,10 @@ public class UIShop : UIBase {
                     }
 
                     UIPlayerMgr.Get.ChangeAvatar(equipAvatar);
-                } else
+                } else {
+                    UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
                     UIHint.Get.ShowHint(TextConst.S(4514), Color.white);
+                }
             }
         }
     }
@@ -387,6 +389,21 @@ public class UIShop : UIBase {
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.Money = result.Money;
 
+            if (result.AvatarPotential > GameData.Team.AvatarPotential)
+                GameData.Team.AvatarPotential = result.AvatarPotential;
+
+            if (result.LifetimeRecord.AvatarCount > result.LifetimeRecord.AvatarCount)
+                GameData.Team.LifetimeRecord.AvatarCount = result.LifetimeRecord.AvatarCount;
+
+            if (result.LifetimeRecord.SkillCount > result.LifetimeRecord.SkillCount)
+                GameData.Team.LifetimeRecord.SkillCount = result.LifetimeRecord.SkillCount;
+
+            if (result.GotAvatar != null)
+                GameData.Team.GotAvatar = result.GotAvatar;
+
+            if (result.GotItemCount != null)
+                GameData.Team.GotItemCount = result.GotItemCount;
+            
             if (result.Items != null)
                 GameData.Team.Items = result.Items;
 
@@ -416,6 +433,7 @@ public class UIShop : UIBase {
 
             if (result.ShopItems3 != null)
                 GameData.Team.ShopItems3 = result.ShopItems3;
+
 
             initList(nowPage);
         }

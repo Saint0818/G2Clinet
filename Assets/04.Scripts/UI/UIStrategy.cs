@@ -4,8 +4,10 @@ using System.Collections;
 public class UIStrategy : UIBase {
     private static UIStrategy instance = null;
     private const string UIName = "UIStrategy";
+    private const int strantegyNum = 3;
 
     public UILabel LabelStrategy;
+    private UIToggle[] toggleStrantegy = new UIToggle[strantegyNum];
 
     public static bool Visible {
         get {
@@ -37,11 +39,26 @@ public class UIStrategy : UIBase {
         }
     }
 
+    protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
+
+        if (isShow) {
+            for (int i = 0; i < toggleStrantegy.Length; i++)
+                if (i == GameData.Team.Player.Strategy)
+                    toggleStrantegy[i].value = true;
+                else
+                    toggleStrantegy[i].value = false;
+        }
+    }
+
     protected override void InitCom() {
         SetBtnFun(UIName + "/Window/Center/NoBtn", OnClose);
 
         for (int i = 0; i < 3; i++)
             SetBtnFun(UIName + "/Window/Center/MainView/" + i.ToString(), OnSelect);
+
+        for (int i = 0; i < toggleStrantegy.Length; i++)
+            toggleStrantegy[i] = GameObject.Find(UIName + "/Window/Center/MainView/" + i.ToString()).GetComponent<UIToggle>();
     }
 
     protected override void InitData() {

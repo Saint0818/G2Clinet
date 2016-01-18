@@ -126,10 +126,9 @@ public class UIItemHint : UIBase {
 				hintAvatarView.UpdateUI(itemData);
 				//TODO : 等待來源
 				setHaveCount(GameData.Team.GetAvatarCount(itemData.ID));
-				if(GameData.DItemData[itemData.ID].Potential > 0)
-					uiLabelExplain.text = itemData.Explain + "\n\n" + TextConst.S(3202) + "+" + GameData.DItemData[itemData.ID].Potential.ToString();
-				else 
-					uiLabelExplain.text = itemData.Explain;
+                uiLabelExplain.text = itemData.Explain;
+                if(GameData.DItemData[itemData.ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(itemData.ID))
+                    uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[itemData.ID].Potential.ToString();
 			}
 			uiLabelName.text = itemData.Name;
 			uiLabelName.color = TextConst.Color(itemData.Quality);
