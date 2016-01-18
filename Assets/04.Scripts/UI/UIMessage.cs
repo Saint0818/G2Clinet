@@ -9,6 +9,7 @@ public class UIMessage : UIBase {
 	private UIButton YesBtn;
 	private UIButton NoBtn;
 	private UIButton RechargeBtn;
+	private int rechargeType;
 
 	private Action<object> YesFunc;
 	private Action NoFunc;
@@ -54,7 +55,6 @@ public class UIMessage : UIBase {
 		RechargeBtn = GameObject.Find("UIMessage/Window/GoRechargeBtn").GetComponent<UIButton>();
 
 		SetBtnFun(ref YesBtn, OnYes);
-		SetBtnFun(ref RechargeBtn, OnYes);
 		SetBtnFun(ref NoBtn, OnNo);
 	}
 
@@ -90,7 +90,7 @@ public class UIMessage : UIBase {
 		YesBtn.onClick.Insert(0, new EventDelegate(yesEvent));
 	}
 
-	public void ShowMessageForBuy (string titleStr, string messageStr, EventDelegate.Callback yesEvent) {
+	public void ShowMessageForBuy (string titleStr, string messageStr, ERechargeType type) {
 		UIShow (true);
 		YesBtn.gameObject.SetActive(false);
 		RechargeBtn.gameObject.SetActive(true);
@@ -101,7 +101,8 @@ public class UIMessage : UIBase {
 		if (LabelMessage != null)
 			LabelMessage.text = messageStr;
 
-		RechargeBtn.onClick.Insert(0, new EventDelegate(yesEvent));
+		rechargeType = type.GetHashCode();
+		SetBtnFun(ref RechargeBtn, OnGoRecharge);
 	}
 	
 	public void ShowMessage(string titleStr, string messageStr, Action<object> yes = null,
@@ -119,5 +120,10 @@ public class UIMessage : UIBase {
 
 		if (LabelMessage != null)
 			LabelMessage.text = messageStr;
+	}
+
+	public void OnGoRecharge() {
+		UIRecharge.Get.Show(rechargeType);
+		UIShow(false);
 	}
 }
