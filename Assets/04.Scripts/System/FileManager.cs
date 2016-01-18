@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using GameEnum;
 using GamePlayStruct;
 using GameStruct;
 using Newtonsoft.Json;
@@ -571,8 +572,8 @@ public class FileManager : KnightSingleton<FileManager>
 			for (int i = 0; i < data.Length; i++) {
                 if(!GameData.DExpData.ContainsKey(data[i].Lv)) {
 					GameData.DExpData.Add(data[i].Lv, data[i]);
-                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey(data[i].OpenIndex))
-                        GameData.DOpenUILv.Add(data[i].OpenIndex, data[i].Lv);
+                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey((EOpenUI)data[i].OpenIndex))
+                        GameData.DOpenUILv.Add((EOpenUI)data[i].OpenIndex, data[i].Lv);
                 } else
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
 			}

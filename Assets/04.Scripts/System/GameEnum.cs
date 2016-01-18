@@ -98,20 +98,22 @@
 		Dunk21 = 10799
 	}
 
-    public enum EOpenUI {
+    public enum EOpenUI
+    {
         Equipment = 1,
         Avatar = 2,
         Shop = 3,
         Social = 4,
         Ability = 5,
-        Mission = 6
+        Mission = 6,
+        Mall = 7
     }
 					
 	public enum EPlayerPostion
 	{
-			C = 0,
-			F = 1,
-			G = 2
+		C = 0,
+		F = 1,
+		G = 2
 	}
 
 	public enum ETeamKind

@@ -15,14 +15,14 @@ public class UIMainLobbyMain : MonoBehaviour
     public UILabel PowerLabel; // 體力.
 
     public UISprite PlayerIconSprite;
-	public UISprite PlayerPositionSprite; 
+    public UISprite PlayerPositionSprite;
 
     public TweenScale MoneyTweenScale;
     public TweenScale DiamondTweenScale;
     public TweenScale PowerTweenScale;
 
     public GameObject Settings;
-	public GameObject MainMenu;
+    public GameObject MainMenu;
 
     public UILabel NameLabel;
 
@@ -33,8 +33,8 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject SocialNoticeObj;
     public GameObject ShopNoticeObj;
     public GameObject MissionNoticeObj;
-	public GameObject PlayerNoticeObj;
-	public GameObject MallNoticeObj;
+    public GameObject PlayerNoticeObj;
+    public GameObject MallNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIMainLobbyButton AvatarButton;
@@ -42,12 +42,14 @@ public class UIMainLobbyMain : MonoBehaviour
     public UIMainLobbyButton SkillButton;
     public UIMainLobbyButton ShopButton;
     public UIMainLobbyButton SocialButton;
+    public UIMainLobbyButton MissionButton;
+    public UIMainLobbyButton MallButton;
 
     [UsedImplicitly]
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
-		MallNotice = false;
+        MallNotice = false;
     }
 
     public int Level
@@ -98,62 +100,50 @@ public class UIMainLobbyMain : MonoBehaviour
         set { PlayerIconSprite.spriteName = value; }
     }
 
-	public string PlayerPosition
-	{
-		set {PlayerPositionSprite.spriteName = value;}
-	}
+    public string PlayerPosition
+    {
+        set { PlayerPositionSprite.spriteName = value; }
+    }
 
     public bool EquipmentNotice
     {
         set { EquipmentNoticeObj.SetActive(value); }
     }
 
-	public bool AvatarNotice
-	{
-		set{ AvatarNoticeObj.SetActive(value); }
-	}
+    public bool AvatarNotice
+    {
+        set { AvatarNoticeObj.SetActive(value); }
+    }
 
     public bool SkillNotice
     {
         set { SkillNoticeObj.SetActive(value); }
     }
-        
+
     public bool SocialNotice
     {
-        set { 
-            if (SocialNoticeObj)
-                SocialNoticeObj.SetActive(value); 
-        }
+        set { SocialNoticeObj.SetActive(value); }
     }
 
     public bool ShopNotice
     {
-        set { 
-            if (ShopNoticeObj)
-                ShopNoticeObj.SetActive(value); 
-        }
+        set { ShopNoticeObj.SetActive(value); }
     }
 
     public bool MissionNotice
     {
-        set { 
-            if (MissionNoticeObj)
-                MissionNoticeObj.SetActive(value); 
-        }
+        set { MissionNoticeObj.SetActive(value); }
     }
 
     public bool PlayerNotice
     {
-        set { 
-            if (PlayerNoticeObj)
-                PlayerNoticeObj.SetActive(value); 
-        }
+        set { PlayerNoticeObj.SetActive(value); }
     }
 
-	public bool MallNotice
-	{
-		set { MallNoticeObj.SetActive(value); }
-	}
+    public bool MallNotice
+    {
+        set { MallNoticeObj.SetActive(value); }
+    }
 
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
@@ -164,7 +154,10 @@ public class UIMainLobbyMain : MonoBehaviour
         FullScreenBlock.SetActive(enable);
     }
 
-    public bool IsShow { get { return Settings.activeSelf; } }
+    public bool IsShow
+    {
+        get { return Settings.activeSelf; }
+    }
 
     public void Show()
     {
@@ -176,10 +169,11 @@ public class UIMainLobbyMain : MonoBehaviour
         PowerObj.SetActive(true);
     }
 
-	public void ShowForLottery (bool isShow) {
-		MoneyObj.SetActive(isShow);
-		DiamondObj.SetActive(isShow);
-	}
+    public void ShowForLottery(bool isShow)
+    {
+        MoneyObj.SetActive(isShow);
+        DiamondObj.SetActive(isShow);
+    }
 
     public void Hide(int kind = 3)
     {

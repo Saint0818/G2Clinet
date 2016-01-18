@@ -42,7 +42,9 @@ public static class GameData {
 
     // Key: Lv.
 	public static Dictionary<int, TExpData> DExpData = new Dictionary<int, TExpData>();
-    public static Dictionary<int, int> DOpenUILv = new Dictionary<int, int>();
+
+    // Key: TExpData.OpenIndex, Value: TExpData.Lv
+    public static Dictionary<EOpenUI, int> DOpenUILv = new Dictionary<EOpenUI, int>();
 	public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
 	public static TStageToturial[] StageTutorial = new TStageToturial[0];
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();

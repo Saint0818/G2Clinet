@@ -19,6 +19,7 @@ public class UIMainLobbyButton : MonoBehaviour
             Color color = value ? Color.white : mGrayColor;
             button.defaultColor = color;
             button.hover = color;
+            button.pressed = color;
             Icon.color = color;
         }
     }

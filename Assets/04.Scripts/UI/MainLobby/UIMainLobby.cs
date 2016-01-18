@@ -82,9 +82,11 @@ public class UIMainLobby : UIBase
         /*
         1.解鎖數值裝
         2.解鎖Avatar
-        3.解鎖大廳左一按鈕(Shop)
-        4.解鎖大廳左二按鈕(Social)
+        3.商店按鈕
+        4.社群按鈕
         5.解鎖技能介面
+        6.任務
+        7.抽卡牌
         */
 
         Main.EquipmentNotice = false;
@@ -92,34 +94,41 @@ public class UIMainLobby : UIBase
         Main.SkillNotice = false;
         Main.SocialNotice = GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend;
         Main.ShopNotice = false;
-        Main.MissionNotice = haveMissionAward;
+        Main.MissionNotice = false;
         Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
 
-        foreach (KeyValuePair<int, TExpData> pair in GameData.DExpData)
+//        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 0);
+
+        foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
         {
             bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
+            bool isPlaySFX = GameData.Team.Player.Lv == pair.Value.Lv;
             switch(pair.Value.OpenIndex)
             {
                 case 1:
-                    updateButton(Main.EquipButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    updateButton(Main.EquipButton, isEnable, isPlaySFX);
                     Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
                     break;
                 case 2:
-                    updateButton(Main.AvatarButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    updateButton(Main.AvatarButton, isEnable, isPlaySFX);
                     Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
                     break;
                 case 3:
-                    updateButton(Main.ShopButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    updateButton(Main.ShopButton, isEnable, isPlaySFX);
                     break;
                 case 4:
-                    updateButton(Main.SocialButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    updateButton(Main.SocialButton, isEnable, isPlaySFX);
                     break;
                 case 5:
-                    updateButton(Main.SkillButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    updateButton(Main.SkillButton, isEnable, isPlaySFX);
                     Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
                     break;
-                case 6: //mission
-                    
+                case 6: 
+                    updateButton(Main.MissionButton, isEnable, isPlaySFX);
+                    Main.MissionNotice = isEnable && hasMissionAward;
+                    break;
+                case 7:
+                    updateButton(Main.MallButton, isEnable, isPlaySFX);
                     break;
             }
         }
@@ -231,13 +240,15 @@ public class UIMainLobby : UIBase
         }
     }
 
-    private bool haveMissionAward {
-        get {
-            for (int j = 0; j < GameData.MissionData.Length; j++)
-                if (GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
+    private bool hasMissionAward
+    {
+        get
+        {
+            for(int j = 0; j < GameData.MissionData.Length; j++)
+            {
+                if(GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) 
                     return true;
-                }
-
+            }
             return false;
         }
     }
