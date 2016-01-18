@@ -184,6 +184,7 @@ public class UISetting : UIBase {
 	private GameSettingView gameSetting = new GameSettingView();
 	private LanguageView languageSetting = new LanguageView();
 	private AccountView accountSetting = new AccountView();
+    private int currentLanguage = 0;
 
 	private UILabel version;
 	private bool isMusicOn;
@@ -258,6 +259,7 @@ public class UISetting : UIBase {
 
 	protected override void InitData() {
 		OnPage ();
+        currentLanguage = GameData.Setting.Language.GetHashCode();
 	}
 
 	public void OnPage()
@@ -296,8 +298,18 @@ public class UISetting : UIBase {
 
 	public void OnReturn()
 	{
+        if (currentLanguage != GameData.Setting.Language.GetHashCode())
+            SendChangeLanguage();
+        
 		UIShow (false);
 	}
+
+    private void SendChangeLanguage()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Language", GameData.Setting.Language.GetHashCode());
+        SendHttp.Get.Command(URLConst.ChangeLanguage, null, form, false);
+    }
 
 	public void OnMusic()
 	{
@@ -358,29 +370,25 @@ public class UISetting : UIBase {
 			GameController.Get.Joysticker.SetManually();
 	}
 
-	private int languageIndex = 0;
-
 	public void OnLanguage()
 	{
-		languageIndex = 0;
-		if (int.TryParse (UIButton.current.name, out languageIndex)) {
-			UIMessage.Get.ShowMessage(TextConst.S(211), TextConst.S(209), DoLanguage);
-		}
+        int index = 0;
 
+        //順序 EN = 0,TW = 1, CN = 2, JP = 3
+
+        if (int.TryParse (UIButton.current.name, out index)) {
+            if (GameData.Setting.Language != (ELanguage)index) 
+			{
+                GameData.Setting.Language = (ELanguage)index;
+                DoLanguage ();				
+			}
+		}
 	}
 
-	public void DoLanguage(object obj)
+	public void DoLanguage()
 	{
-		PlayerPrefs.SetInt (ESave.UserLanguage.ToString(), languageIndex);
-		switch (languageIndex) {
-			case 0:
-				GameData.Setting.Language = ELanguage.TW;
-				
-				break;
-			case 1:
-				GameData.Setting.Language = ELanguage.EN;
-				break;
-		}
+        int index = GameData.Setting.Language.GetHashCode();
+        PlayerPrefs.SetInt (ESave.UserLanguage.ToString(), index);
 		PlayerPrefs.Save ();
 
 		if (UISetting.Visible)

@@ -146,6 +146,7 @@ public static class URLConst {
 	public const string ValueItemAddInlay = "valueitemaddinlay";
 	public const string ValueItemUpgrade = "valueitemupgrade";
     public const string ChangeHeadTexture = "changeheadtexture";
+    public const string ChangeLanguage = "changelanguage";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {
