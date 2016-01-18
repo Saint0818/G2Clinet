@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayAddInlayAnimation : ActionQueue.IAction
 {
     private bool mIsDone;

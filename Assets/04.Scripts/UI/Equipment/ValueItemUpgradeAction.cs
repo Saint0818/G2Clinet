@@ -30,20 +30,20 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
             Debug.Log("Top Level Item.");
             UIHint.Get.ShowHint(TextConst.S(553), Color.white);
         }
-        else if (!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
+        else if(!UIEquipChecker.IsInlayFull(item, valueItem.RevisionInlayItemIDs))
         {
             // 材料沒有鑲嵌完畢.
             Debug.Log("Inlay not full.");
             UIHint.Get.ShowHint(TextConst.S(551), Color.white);
         }
-        else if (!UIEquipChecker.HasUpgradeMoney(item))
+        else if(!UIEquipChecker.HasUpgradeMoney(item))
         {
             // 沒錢.
             Debug.Log("Money not enoguh.");
             UIHint.Get.ShowHint(TextConst.S(552), Color.white);
         }
         else
-            Debug.LogError("Not Implemented check...");
+            Debug.LogError("Not Implemented...");
     }
 
     public bool IsDone()

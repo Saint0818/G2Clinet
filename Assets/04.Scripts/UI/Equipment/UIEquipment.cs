@@ -237,6 +237,12 @@ public class UIEquipment : UIBase
         if(mMain.IsDataChanged())
             mActionQueue.AddAction(new ValueItemChangeAction(mMain.GetExchangeData(), getStackData()));
         mActionQueue.AddAction(new ValueItemUpgradeAction(valueItemKind));
+
+        TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
+        TItemData item = GameData.DItemData[valueItem.ID];
+        TItemData newItem = GameData.DItemData[item.UpgradeItem];
+        mActionQueue.AddAction(new ShowLevelUp(item, newItem));
+
         mActionQueue.Execute(ok => updateUI());
     }
 
