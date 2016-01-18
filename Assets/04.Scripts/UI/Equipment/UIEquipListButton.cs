@@ -15,6 +15,7 @@ public class UIEquipListButton : MonoBehaviour
 
     public UISprite[] Attrs;
     public UILabel[] AttrValues;
+    public GameObject RedPoint;
 
     public GameObject[] InlaySlots;
     public GameObject[] Inlays;
@@ -25,13 +26,14 @@ public class UIEquipListButton : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-	    
     }
 
     public void Init(UIEquipItemList parent, int index)
     {
         mParent = parent;
         mIndex = index;
+
+        RedPointVisible = false;
     }
 
     public void Set(UIValueItemData data)
@@ -49,6 +51,8 @@ public class UIEquipListButton : MonoBehaviour
         setValues(data.Values);
         setInlays(data.Inlay);
     }
+
+    public bool RedPointVisible {set { RedPoint.SetActive(value); }}
 
     private void setValues(Dictionary<EAttribute, UIValueItemData.BonusData> itemValues)
     {

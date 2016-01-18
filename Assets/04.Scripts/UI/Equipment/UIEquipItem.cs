@@ -1,7 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// 這是一個裝備道具. 會顯示裝備的圖示, 名稱, 數量, 鑲嵌資訊.(會用在裝備介面的左邊和中間)
@@ -15,7 +14,6 @@ public class UIEquipItem : MonoBehaviour
 {
     public event Action OnClickListener;
 
-    [FormerlySerializedAs("Picture")]
     public UISprite Icon;
     public GameObject EmptyIcon;
 

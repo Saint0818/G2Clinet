@@ -135,7 +135,7 @@ public class UIEquipmentMain : MonoBehaviour
     /// <param name="slotIndex"> 群組編號. </param>
     private void onDetailItemClick(int slotIndex)
     {
-        mEquipList.Show(ListItems[slotIndex], true);
+        mEquipList.Show(PlayerValueItems[slotIndex], ListItems[slotIndex], true);
     }
 
     private void onDemountClick(int slotIndex)
@@ -152,7 +152,7 @@ public class UIEquipmentMain : MonoBehaviour
             mPlayerInfo.UpdateUI();
             mDetail.Set(slotIndex, PlayerValueItems[slotIndex]);
             if(mEquipList.Visible)
-                mEquipList.Show(ListItems[slotIndex], true);
+                mEquipList.Show(PlayerValueItems[slotIndex], ListItems[slotIndex], true);
         }
     }
 
@@ -170,7 +170,7 @@ public class UIEquipmentMain : MonoBehaviour
         // 介面刷新.
         mPlayerInfo.UpdateUI();
         mDetail.Set(mDetail.SlotIndex, PlayerValueItems[mDetail.SlotIndex]);
-        mEquipList.Show(ListItems[mDetail.SlotIndex], false);
+        mEquipList.Show(PlayerValueItems[mDetail.SlotIndex], ListItems[mDetail.SlotIndex], false);
         mMaterialList.Set(PlayerValueItems[mDetail.SlotIndex].Materials);
     }
 
