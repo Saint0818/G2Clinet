@@ -1212,6 +1212,13 @@ namespace GameStruct
 	public struct TPickCost {
 		public int Order;
 		public int Kind;
+		/// <summary>
+		/// 0.台幣
+		/// 1.鑽石
+		/// 2.遊戲幣
+		/// 3.聯盟幣
+		/// 4.社群幣
+		/// </summary>
 		public int SpendKind;
 		public int OnePick;
 		public int FivePick;
@@ -1267,13 +1274,23 @@ namespace GameStruct
     public struct TSellItem {
         public int ID;
         public int Num;
-        public int SpendKind; //0.diamond 1.money
+		/// <summary>
+		/// 0.鑽石
+		/// 1.遊戲幣
+		/// </summary>
+        public int SpendKind;
         public int Price;
     }
 
 	public struct TShop {
 		public int Kind;
         public int Kind2;
+		/// <summary>
+		/// 0.鑽石
+		/// 1.遊戲幣
+		/// 2.聯盟幣
+		/// 3.社群幣
+		/// </summary>
 		public int SpendKind;
 		public int Price;
 		public int Sale;//銷售語的種類

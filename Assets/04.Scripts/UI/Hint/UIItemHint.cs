@@ -138,6 +138,7 @@ public class UIItemHint : UIBase {
 	public void OnShowSkill(TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			uiBuy.SetActive(false);
+			hideAll ();
 			UIShow(true);
 			scrollViewExplain.ResetPosition();
 			hintSkillView.Show();

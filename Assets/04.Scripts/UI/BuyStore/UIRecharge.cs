@@ -136,9 +136,13 @@ public struct TItemRecharge {
 	private string iconName (int kind, int pic) {
 		switch(kind) {
 		case 0:
-			return "MallGem"+pic;
+			if(pic <= 2)
+				return "MallGem"+pic;
+			return "MallGem1";
 		case 1:
-			return "MallCoin"+pic;
+			if(pic <= 2)
+				return "MallCoin"+pic;
+			return "MallCoin1";
 		}
 		return "";
 	}
@@ -286,12 +290,11 @@ public class UIRecharge : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyCoin.Length && GameData.DItemData.ContainsKey(kindBuyCoin[result].mShop.ItemID)) {
-//				showText = 535;
 				buyIndex = kindBuyCoin[result].mIndex;
 				if(kindBuyCoin[result].mShop.SpendKind == 0 ) {
 					CheckDiamond(kindBuyCoin[result].mShop.Price, true, string.Format(TextConst.S(250), kindBuyCoin[result].mShop.Price, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
 				}else {
-					CheckDiamond(kindBuyCoin[result].mShop.Price, true, string.Format(TextConst.S(251), kindBuyCoin[result].mShop.Price, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
+					CheckMoney(kindBuyCoin[result].mShop.Price, true, string.Format(TextConst.S(251), kindBuyCoin[result].mShop.Price, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
 				}
 			}
 		}
@@ -302,10 +305,9 @@ public class UIRecharge : UIBase {
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyStamina.Length) {
 				if(GameData.Team.Power < GameConst.Max_Power){
-//					showText = 537;
 					buyIndex = kindBuyStamina[result].mIndex;
 					if(kindBuyStamina[result].mShop.SpendKind == 0) {
-						CheckMoney(kindBuyStamina[result].mShop.Price, true, string.Format(TextConst.S(250), kindBuyStamina[result].mShop.Price, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
+						CheckDiamond(kindBuyStamina[result].mShop.Price, true, string.Format(TextConst.S(250), kindBuyStamina[result].mShop.Price, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
 					} else if(kindBuyStamina[result].mShop.SpendKind == 1) {
 						CheckMoney(kindBuyStamina[result].mShop.Price, true, string.Format(TextConst.S(251), kindBuyStamina[result].mShop.Price, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
 					}
@@ -358,7 +360,6 @@ public class UIRecharge : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 
 			UIMainLobby.Get.UpdateUI();
-//			UIHint.Get.ShowHint(TextConst.S(535), Color.blue);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);

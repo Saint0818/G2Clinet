@@ -92,31 +92,10 @@ public class UIBuyStore : UIBase {
 		mItemDatas = itemDatas;
 	}
 
-	/*
-	0.台幣
-	1.鑽石
-	2.遊戲幣
-	3.聯盟幣
-	4.社群幣
-	*/
 	private void updateView (int type) {
 		labelPay.text = getLabelPay(type);
 		spritePay.spriteName = getCostName(type);
 	}
-
-//	private bool checkCost (TPickCost pickCost, int spendType) {
-//		if(pickCost.Kind == 0)
-//			return false;
-//		else if(pickCost.Kind == 1)
-//			return (GameData.Team.Diamond >= howMuch(pickCost, spendType));
-//		else if(pickCost.Kind == 2)
-//			return (GameData.Team.Money >= howMuch(pickCost, spendType));
-//		else if(pickCost.Kind == 3)
-//			return false;
-//		else if(pickCost.Kind == 4) 
-//			return false;
-//		return false;
-//	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {
 		if(spendType == EPickSpendType.ONE.GetHashCode())
@@ -202,15 +181,15 @@ public class UIBuyStore : UIBase {
 
 	private string getCostName (int spendkind) {
 		if(mPickCost.SpendKind == 0) 
-			return "MallCoin";
+			return "Icon_Coin";
 		else if(mPickCost.SpendKind == 1) 
-			return "MallGem";
+			return "Icon_Gem";
 		else if(mPickCost.SpendKind == 2) 
-			return "MallCoin";
+			return "Icon_Coin";
 		else if(mPickCost.SpendKind == 3) 
-			return "MallCoin";
+			return "Icon_Coin";
 		else if(mPickCost.SpendKind == 4) 
-			return "MallCoin";
+			return "Icon_Coin";
 		return "";
 	}
 
