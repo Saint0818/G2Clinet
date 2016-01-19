@@ -1393,6 +1393,7 @@ namespace GameStruct
 		public int Calculate;
         public int PVPCoin;
         public int PVPCoinDaily;
+        public int Stage;
 	}
 
     public struct TTeamRank

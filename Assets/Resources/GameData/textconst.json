@@ -37,7 +37,7 @@
     },
     {
         "id": 208,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石購買 [33FFDD]{1}[-] ？",
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？",
         "en": "Confirm Purchase [33FFDD]{0}[-] Number of Diamonds Purchased [33FFDD]{1}[-]？"
     },
     {
@@ -54,13 +54,13 @@
     },
     {
         "id": 211,
-        "explain": "UIMessage/TitleLabel",
+        "uipeth": "UIMessage/TitleLabel",
         "tw": "設 定",
         "en": "Setting"
     },
     {
         "id": 212,
-        "tw": "使用鑽石"
+        "tw": "使用寶石"
     },
     {
         "id": 230,
@@ -83,13 +83,13 @@
     {
         "id": 233,
         "explain": "鑽石不足/標題",
-        "tw": "鑽石不足",
+        "tw": "寶石不足",
         "en": "Diamond is not enough."
     },
     {
         "id": 234,
         "explain": "重置關卡次數",
-        "tw": "確認花費 [33FFDD]{0}[-] 鑽石重置本關卡？"
+        "tw": "確認花費 [33FFDD]{0}[-] 寶石重置本關卡？"
     },
     {
         "id": 235,
@@ -109,7 +109,7 @@
     {
         "id": 238,
         "explain": "鑽石不足/內文",
-        "tw": "你的[FF00FFFF]鑽 石[-]不夠囉，是否前往購買？"
+        "tw": "你的[FF00FFFF]寶 石[-]不夠囉，是否前往購買？"
     },
     {
         "id": 239,
@@ -161,7 +161,7 @@
     },
     {
         "id": 250,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石購買 [33FFDD]{1}[-] ？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？"
     },
     {
         "id": 251,
@@ -169,11 +169,11 @@
     },
     {
         "id": 252,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 鑽石抽卡？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石抽取晶片？"
     },
     {
         "id": 253,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽卡？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？"
     },
     {
         "id": 301,
@@ -343,7 +343,7 @@
     },
     {
         "id": 511,
-        "tw": "鑽石不足。"
+        "tw": "寶石不足。"
     },
     {
         "id": 512,
@@ -552,7 +552,6 @@
         "id": 2102,
         "explain": "中鋒",
         "tw": "中 鋒",
-        "cn": "CENTER",
         "en": "CENTER",
         "jp": "CENTER"
     },
@@ -560,7 +559,6 @@
         "id": 2103,
         "explain": "前鋒",
         "tw": "前 鋒",
-        "cn": "FORWARD",
         "en": "FORWARD",
         "jp": "FORWARD"
     },
@@ -568,25 +566,27 @@
         "id": 2104,
         "explain": "後衛",
         "tw": "後 衛",
-        "cn": "GUARD",
         "en": "GUARD",
         "jp": "GUARD"
     },
     {
         "id": 2105,
-        "explain": "中鋒\nSpriteCharacterInfo/Description",
+        "explain": "中鋒",
+        "uipeth": "中鋒\nSpriteCharacterInfo/Description",
         "tw": "星際摔角界難見的奇才，卻因下級居民的身份只能打假比賽賺取收入。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。[33FFDD]擁有強壯的體格[-]",
         "en": "A talented wrestler in the galaxy but is unable to achieve stardom because he is born in the lower class.  Forced to play in set-up matches for a living he ended up with a huge debt when he accidentally defeated his opponent.[33FFDD]Has a strong and tough built[-]"
     },
     {
         "id": 2106,
-        "explain": "前鋒\nSpriteCharacterInfo/Description",
+        "explain": "前鋒",
+        "uipeth": "前鋒\nSpriteCharacterInfo/Description",
         "tw": "原為前途光明的高階星際軍官，意外失去右臂並接受改造卻失敗了，而後淪為政治犧牲品，同時人生盡毀。[33FFDD]擁有高超的命中率[-]",
         "en": "He was a high ranked officer in the military.  Lost his right arm in an accident and the robotic arm transplant has also failed him.  His life and career have derailed after his party lost the political wrangling. [33FFDD]Has exceptional range and accuracy[-]"
     },
     {
         "id": 2107,
-        "explain": "後衛\nSpriteCharacterInfo/Description",
+        "explain": "後衛",
+        "uipeth": "後衛\nSpriteCharacterInfo/Description",
         "tw": "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在星際酒吧練出敏捷的身手。[33FFDD]擁有靈敏的身手[-]",
         "en": "Grown up in the ghetto, worked multiple jobs to feed her younger siblings.  Earned great handle and dynamic visual ability while working in the galaxy bar. [33FFDD]Possess excellent agility[-]"
     },
@@ -602,129 +602,116 @@
     },
     {
         "id": 3002,
-        "explain": "0/BtnLabel",
+        "uipeth": "0/BtnLabel",
         "tw": "角 色",
         "en": "Player"
     },
     {
         "id": 3003,
-        "explain": "1/BtnLabel",
+        "uipeth": "1/BtnLabel",
         "tw": "技 能",
         "en": "Ability"
     },
     {
         "id": 3004,
-        "explain": "PlayerLeague/Label",
+        "uipeth": "PlayerLeague/Label",
         "tw": "所屬球團",
         "en": "Team"
     },
     {
         "id": 3005,
-        "explain": "ExpLabel/Label",
+        "uipeth": "ExpLabel/Label",
         "tw": "EXP",
-        "cn": "EXP",
         "en": "EXP",
         "jp": "EXP"
     },
     {
         "id": 3006,
-        "explain": "AttrKind0/KindLabel",
+        "uipeth": "AttrKind0/KindLabel",
         "tw": "2分",
-        "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
     },
     {
         "id": 3007,
-        "explain": "AttrKind1/KindLabel",
+        "uipeth": "AttrKind1/KindLabel",
         "tw": "3分",
-        "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
     },
     {
         "id": 3008,
-        "explain": "AttrKind2/KindLabel",
+        "uipeth": "AttrKind2/KindLabel",
         "tw": "速度",
-        "cn": "SPD",
         "en": "SPD",
         "jp": "SPD"
     },
     {
         "id": 3009,
-        "explain": "AttrKind3/KindLabel",
+        "uipeth": "AttrKind3/KindLabel",
         "tw": "耐力",
-        "cn": "STA",
         "en": "STA",
         "jp": "STA"
     },
     {
         "id": 3010,
-        "explain": "AttrKind4/KindLabel",
+        "uipeth": "AttrKind4/KindLabel",
         "tw": "力量",
-        "cn": "STR",
         "en": "STR",
         "jp": "STR"
     },
     {
         "id": 3011,
-        "explain": "AttrKind5/KindLabel",
+        "uipeth": "AttrKind5/KindLabel",
         "tw": "灌籃",
-        "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
     },
     {
         "id": 3012,
-        "explain": "AttrKind6/KindLabel",
+        "uipeth": "AttrKind6/KindLabel",
         "tw": "籃板",
-        "cn": "REB",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 3013,
-        "explain": "AttrKind7/KindLabel",
+        "uipeth": "AttrKind7/KindLabel",
         "tw": "火鍋",
-        "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
     },
     {
         "id": 3014,
-        "explain": "AttrKind8/KindLabel",
+        "uipeth": "AttrKind8/KindLabel",
         "tw": "防守",
-        "cn": "DEF",
         "en": "DEF",
         "jp": "DEF"
     },
     {
         "id": 3015,
-        "explain": "AttrKind9/KindLabel",
+        "uipeth": "AttrKind9/KindLabel",
         "tw": "抄截",
-        "cn": "STL",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 3016,
-        "explain": "AttrKind10/KindLabel",
+        "uipeth": "AttrKind10/KindLabel",
         "tw": "控球",
-        "cn": "DRB",
         "en": "DRB",
         "jp": "DRB"
     },
     {
         "id": 3017,
-        "explain": "AttrKind11/KindLabel",
+        "uipeth": "AttrKind11/KindLabel",
         "tw": "傳球",
-        "cn": "PAS",
         "en": "PAS",
         "jp": "PAS"
     },
     {
         "id": 3018,
-        "explain": "SkillPointBtn/Icon",
+        "uipeth": "SkillPointBtn/Icon",
         "tw": "潛能分配",
         "en": "Potential Distribution"
     },
@@ -743,49 +730,43 @@
     },
     {
         "id": 3022,
-        "explain": "Attribute1/Label",
+        "uipeth": "Attribute1/Label",
         "tw": "火鍋",
-        "cn": "BLK",
         "en": "BLK"
     },
     {
         "id": 3023,
-        "explain": "Attribute2/Label",
+        "uipeth": "Attribute2/Label",
         "tw": "籃板",
-        "cn": "REB",
         "en": "REB"
     },
     {
         "id": 3024,
-        "explain": "Attribute3/Label",
+        "uipeth": "Attribute3/Label",
         "tw": "灌籃",
-        "cn": "DNK",
         "en": "DNK"
     },
     {
         "id": 3025,
-        "explain": "Attribute4/Label",
+        "uipeth": "Attribute4/Label",
         "tw": "3分",
-        "cn": "3PT",
         "en": "3PT"
     },
     {
         "id": 3026,
-        "explain": "Attribute5/Label",
+        "uipeth": "Attribute5/Label",
         "tw": "2分",
-        "cn": "2PT",
         "en": "2PT"
     },
     {
         "id": 3027,
-        "explain": "Attribute6/Label",
+        "uipeth": "Attribute6/Label",
         "tw": "抄截",
-        "cn": "STL",
         "en": "STL"
     },
     {
         "id": 3101,
-        "explain": "HeadingLabel",
+        "uipeth": "HeadingLabel",
         "tw": "[ff0000]主動技[-]",
         "en": "[ff0000]Ability[-]"
     },
@@ -797,29 +778,29 @@
     },
     {
         "id": 3202,
-        "explain": "PointView/HeadingLabel",
+        "uipeth": "PointView/HeadingLabel",
         "tw": "潛能點",
         "en": "Potential Points"
     },
     {
         "id": 3203,
-        "explain": "SubheadLabel1",
+        "uipeth": "SubheadLabel1",
         "tw": "升級點數",
         "en": "Level Potential"
     },
     {
         "id": 3204,
-        "explain": "SubheadLabel2",
+        "uipeth": "SubheadLabel2",
         "tw": "造型點數",
         "en": "Style Potential"
     },
     {
         "id": 3205,
-        "explain": "WarningLabel"
+        "uipeth": "WarningLabel"
     },
     {
         "id": 3206,
-        "explain": "ResetBtn/BtnLabel",
+        "uipeth": "ResetBtn/BtnLabel",
         "tw": "重置點數",
         "en": "Reset Potentials"
     },
@@ -834,145 +815,145 @@
     },
     {
         "id": 3302,
-        "explain": "AttrKind0/KindLabel",
+        "uipeth": "AttrKind0/KindLabel",
         "tw": "2分球",
         "en": "2 Points"
     },
     {
         "id": 3303,
-        "explain": "AttrKind1/KindLabel",
+        "uipeth": "AttrKind1/KindLabel",
         "tw": "3分球",
         "en": "3 Points"
     },
     {
         "id": 3304,
-        "explain": "AttrKind5/KindLabel",
+        "uipeth": "AttrKind5/KindLabel",
         "tw": "速 度",
         "en": "Speed"
     },
     {
         "id": 3305,
-        "explain": "AttrKind6/KindLabel",
+        "uipeth": "AttrKind6/KindLabel",
         "tw": "耐 力",
         "en": "Stamina"
     },
     {
         "id": 3306,
-        "explain": "AttrKind7/KindLabel",
+        "uipeth": "AttrKind7/KindLabel",
         "tw": "力 量",
         "en": "Strength"
     },
     {
         "id": 3307,
-        "explain": "AttrKind9/KindLabel",
+        "uipeth": "AttrKind9/KindLabel",
         "tw": "灌 籃",
         "en": "Dunk"
     },
     {
         "id": 3308,
-        "explain": "AttrKind2/KindLabel",
+        "uipeth": "AttrKind2/KindLabel",
         "tw": "籃 板",
         "en": "Rebound"
     },
     {
         "id": 3309,
-        "explain": "AttrKind3/KindLabel",
+        "uipeth": "AttrKind3/KindLabel",
         "tw": "火 鍋",
         "en": "Block"
     },
     {
         "id": 3310,
-        "explain": "AttrKind4/KindLabel",
+        "uipeth": "AttrKind4/KindLabel",
         "tw": "防 守",
         "en": "Defense"
     },
     {
         "id": 3311,
-        "explain": "AttrKind8/KindLabel",
+        "uipeth": "AttrKind8/KindLabel",
         "tw": "抄 截",
         "en": "Steal"
     },
     {
         "id": 3312,
-        "explain": "AttrKind10/KindLabel",
+        "uipeth": "AttrKind10/KindLabel",
         "tw": "控 球",
         "en": "Dribble"
     },
     {
         "id": 3313,
-        "explain": "AttrKind11/KindLabel",
+        "uipeth": "AttrKind11/KindLabel",
         "tw": "傳 球",
         "en": "Pass"
     },
     {
         "id": 3322,
-        "explain": "AttrKind0/ExplainLabel",
+        "uipeth": "AttrKind0/ExplainLabel",
         "tw": "2分球命中機率",
         "en": "2 Points Field Goal Percentage"
     },
     {
         "id": 3323,
-        "explain": "AttrKind1/ExplainLabel",
+        "uipeth": "AttrKind1/ExplainLabel",
         "tw": "3分球命中機率",
         "en": "3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
-        "explain": "AttrKind5/ExplainLabel",
+        "uipeth": "AttrKind5/ExplainLabel",
         "tw": "提高不被抄球的機率",
         "en": "Lower Turnover Percentage"
     },
     {
         "id": 3325,
-        "explain": "AttrKind6/ExplainLabel",
+        "uipeth": "AttrKind6/ExplainLabel",
         "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
         "en": "1. Affect Successful Passing Rate \n2. Automatic alley-oops percentage in AI mode."
     },
     {
         "id": 3326,
-        "explain": "AttrKind7/ExplainLabel",
+        "uipeth": "AttrKind7/ExplainLabel",
         "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
         "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase the chance of elbowing opponent in AI mode"
     },
     {
         "id": 3327,
-        "explain": "AttrKind9/ExplainLabel",
+        "uipeth": "AttrKind9/ExplainLabel",
         "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率",
         "en": "1. Higher percentage to activate dunking ability in the restricted area.\n2. Higher percentage to activate tip-in."
     },
     {
         "id": 3328,
-        "explain": "AttrKind2/ExplainLabel",
+        "uipeth": "AttrKind2/ExplainLabel",
         "tw": "1.發動籃板的距離\n2.提高抓到籃板的機會",
         "en": "1. Increase the rebounding zone\n2. Increase the chance of getting the rebound"
     },
     {
         "id": 3329,
-        "explain": "AttrKind3/ExplainLabel",
+        "uipeth": "AttrKind3/ExplainLabel",
         "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
         "en": "1. Increase the chance of blocking shots\n2. Increase the chance of blocking shots in AI mode.\n3. Increase the chance of faking out your opponent in AI mode.\n4. Increase chance to knock down opponent while blocking shots."
     },
     {
         "id": 3330,
-        "explain": "AttrKind4/ExplainLabel",
+        "uipeth": "AttrKind4/ExplainLabel",
         "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率\n3.增加抄截的距離與範圍",
         "en": "1. Increase the chance of steal\n2. Increase the chance of attempting a steal in AI mode."
     },
     {
         "id": 3331,
-        "explain": "AttrKind8/ExplainLabel",
+        "uipeth": "AttrKind8/ExplainLabel",
         "tw": "可加速衝刺的總時間",
         "en": "Increase the duratioin while running at max speed."
     },
     {
         "id": 3332,
-        "explain": "AttrKind10/ExplainLabel",
+        "uipeth": "AttrKind10/ExplainLabel",
         "tw": "球員基本跑動速度",
         "en": "Player's normal running speed"
     },
     {
         "id": 3333,
-        "explain": "AttrKind11/ExplainLabel",
+        "uipeth": "AttrKind11/ExplainLabel",
         "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
         "en": "1.Size of player's defensive zone\n2. Increase the chance of attempting a push in AI mode."
     },
@@ -984,15 +965,17 @@
     },
     {
         "id": 3402,
-        "explain": "WarningLabel",
+        "explain": "修改名稱會消費的寶石金額",
+        "uipeth": "WarningLabel",
         "tw": "本次修改需花費",
         "en": "The Cost For The Changes Made"
     },
     {
         "id": 3403,
-        "explain": "NameLabel",
-        "tw": "字元長度1-12個字",
-        "en": "From 1-12 Characters"
+        "explain": "最多可使用的字數",
+        "uipeth": "NameLabel",
+        "tw": "字元長度1-8個字",
+        "en": "From 1-16 Characters"
     },
     {
         "id": 3404,
@@ -1005,43 +988,43 @@
     },
     {
         "id": 3502,
-        "explain": "TitleLabel",
+        "uipeth": "TitleLabel",
         "tw": "LEVEL UP",
         "en": "LEVEL UP"
     },
     {
         "id": 3503,
-        "explain": "GetPotentialLabel",
+        "uipeth": "GetPotentialLabel",
         "tw": "獲得 {0} 潛能點",
         "en": "Received {0} Attribution Points"
     },
     {
         "id": 3504,
-        "explain": "Label0",
+        "uipeth": "Label0",
         "tw": "等 級",
         "en": "Level"
     },
     {
         "id": 3505,
-        "explain": "Label1",
+        "uipeth": "Label1",
         "tw": "COST",
         "en": "Cost"
     },
     {
         "id": 3506,
-        "explain": "Label2",
+        "uipeth": "Label2",
         "tw": "體 力",
         "en": "Stamina"
     },
     {
         "id": 3507,
-        "explain": "AddValueLabel",
+        "uipeth": "AddValueLabel",
         "tw": "+{0} ",
         "en": "+{0} "
     },
     {
         "id": 3508,
-        "explain": "AddValueLabel",
+        "uipeth": "AddValueLabel",
         "tw": "[00ffff]體力[-]補滿",
         "en": "[00ffff]Stamina[-] Fill Up"
     },
@@ -1052,17 +1035,19 @@
     },
     {
         "id": 3601,
-        "explain": "換頭圖",
+        "explain": "變更角色顯示用的大頭圖片",
         "tw": "變更頭像"
     },
     {
         "id": 3602,
-        "explain": "頭圖分類1",
+        "explain": "玩家一開始就能取得的",
+        "uipeth": "頭圖分類1",
         "tw": "基礎頭像"
     },
     {
         "id": 3603,
-        "explain": "頭圖分類2",
+        "explain": "必須得到技能晶片後才會取得",
+        "uipeth": "頭圖分類2",
         "tw": "技能晶片"
     },
     {
@@ -1072,12 +1057,12 @@
     },
     {
         "id": 3702,
-        "explain": "Tab0",
+        "uipeth": "Tab0",
         "tw": "成 就"
     },
     {
         "id": 3703,
-        "explain": "Tab1",
+        "uipeth": "Tab1",
         "tw": "任 務"
     },
     {
@@ -1086,12 +1071,12 @@
     },
     {
         "id": 3705,
-        "explain": "GetBtn",
+        "uipeth": "GetBtn",
         "tw": "前 往"
     },
     {
         "id": 3706,
-        "explain": "GetBtn",
+        "uipeth": "GetBtn",
         "tw": "領 取"
     },
     {
@@ -1138,7 +1123,6 @@
     {
         "id": 3717,
         "tw": "獲得[0000ff]{0}[-] X {1} ",
-        "cn": "获得[0000ff]{0}[-] X {1} ",
         "en": "Got [0000ff]{0}[-] X {1} "
     },
     {
@@ -1326,67 +1310,61 @@
     },
     {
         "id": 4101,
-        "explain": "SubheadLabelDisk",
+        "uipeth": "SubheadLabelDisk",
         "tw": "可能獲得晶片"
     },
     {
         "id": 4102,
-        "explain": "SubheadLabelItem",
+        "uipeth": "SubheadLabelItem",
         "tw": "可能獲得物品"
     },
     {
         "id": 4103,
-        "explain": "Open10Label"
+        "uipeth": "Open10Label",
+        "tw": "X10"
     },
     {
         "id": 4104,
-        "explain": "Open5Label"
+        "uipeth": "Open5Label",
+        "tw": "X5"
     },
     {
         "id": 4105,
-        "explain": "OpenBtn10/SaleLabel"
+        "uipeth": "OpenBtn10/SaleLabel",
+        "tw": "最划算"
     },
     {
         "id": 4106,
-        "explain": "FreeLabel",
+        "uipeth": "FreeLabel",
         "tw": "免費倒數 {0} "
     },
     {
         "id": 4107,
-        "explain": "FreeLabel1"
-    },
-    {
-        "id": 4108
-    },
-    {
-        "id": 4109
-    },
-    {
-        "id": 4110
+        "uipeth": "FreeLabel1",
+        "tw": "免費抽卡"
     },
     {
         "id": 4200,
         "explain": "銷售語",
-        "tw": "特賣",
-        "en": "Sale"
+        "tw": "特 賣",
+        "en": "SALE"
     },
     {
         "id": 4201,
         "explain": "銷售語",
-        "tw": "熱門",
-        "en": "Hot"
+        "tw": "熱 門",
+        "en": "HOT"
     },
     {
         "id": 4202,
         "explain": "銷售語",
-        "tw": "限時",
-        "en": "Sale"
+        "tw": "限 時",
+        "en": "BUY NOW"
     },
     {
         "id": 4203,
-        "explain": "銷售語",
         "tw": "已售完",
-        "en": "Sold Out"
+        "en": "SOLD OUT"
     },
     {
         "id": 4501,
@@ -1395,42 +1373,46 @@
     },
     {
         "id": 4502,
-        "explain": "Tabs/0/雜貨商店",
-        "tw": "雜 貨"
+        "explain": "無限定使用的貨幣",
+        "uipeth": "Tabs/0/雜貨商店",
+        "tw": "雜物商店"
     },
     {
         "id": 4503,
-        "explain": "Tabs/1/聯盟商店（天梯）",
-        "tw": "聯盟幣"
+        "explain": "限定使用聯盟對戰貨幣",
+        "uipeth": "Tabs/1/聯盟商店（天梯）",
+        "tw": "聯盟商店"
     },
     {
         "id": 4504,
-        "explain": "Tabs/2/社群商店",
-        "tw": "社群幣"
+        "explain": "限定使用社群取得的貨幣",
+        "uipeth": "Tabs/2/社群商店",
+        "tw": "社群商店"
     },
     {
         "id": 4505,
-        "explain": "Tabs/3",
+        "uipeth": "Tabs/3",
         "tw": "好友限定"
     },
     {
         "id": 4506,
-        "explain": "ResetBtn",
+        "uipeth": "ResetBtn",
         "tw": "商品刷新"
     },
     {
         "id": 4507,
-        "explain": "WarningsLabel",
-        "tw": "下次商品刷新尚餘：[33FFDD]{0}[-]"
+        "explain": "每隔幾小時後商店盤面就會刷新",
+        "uipeth": "WarningsLabel",
+        "tw": "下次刷新尚餘：[33FFDD]{0}[-]"
     },
     {
         "id": 4508,
-        "explain": "ItemShopBtn/FittingIcon",
+        "uipeth": "ItemShopBtn/FittingIcon",
         "tw": "試穿中"
     },
     {
         "id": 4509,
-        "explain": "ItemShopBtn/SoldOutIcon",
+        "uipeth": "ItemShopBtn/SoldOutIcon",
         "tw": "完 售",
         "en": "SOLD OUT"
     },
@@ -1440,7 +1422,8 @@
     },
     {
         "id": 4511,
-        "tw": "立刻刷新商店需花費鑽石"
+        "explain": "立刻刷新商店的盤面需要花費寶石",
+        "tw": "立刻刷新商店需花費寶石"
     },
     {
         "id": 4512,
@@ -1493,69 +1476,72 @@
     },
     {
         "id": 4911,
-        "explain": "Pages0/SubheadLabel0",
+        "uipeth": "Pages0/SubheadLabel0",
         "tw": "購買寶石"
     },
     {
         "id": 4912,
-        "explain": "Pages0/SubheadLabel1",
-        "tw": "寶石不是無所不能，但沒有寶石是萬萬不能"
+        "explain": "介面上的銷售標語",
+        "uipeth": "Pages0/SubheadLabel1",
+        "tw": "寶石並非萬能，但沒有寶石萬萬不能。"
     },
     {
         "id": 4913,
-        "explain": "Pages0"
+        "uipeth": "Pages0"
     },
     {
         "id": 4914,
-        "explain": "Pages0"
+        "uipeth": "Pages0"
     },
     {
         "id": 4915,
-        "explain": "Pages0"
+        "uipeth": "Pages0"
     },
     {
         "id": 4916,
-        "explain": "Pages1/SubheadLabel0",
+        "uipeth": "Pages1/SubheadLabel0",
         "tw": "購買金幣"
     },
     {
         "id": 4917,
-        "explain": "Pages1/SubheadLabel1",
-        "tw": "讓你快速變成有錢人"
+        "explain": "介面上的銷售標語",
+        "uipeth": "Pages1/SubheadLabel1",
+        "tw": "換夠金幣籌碼，才能繼續前進！"
     },
     {
         "id": 4918,
-        "explain": "Pages1"
+        "uipeth": "Pages1"
     },
     {
         "id": 4919,
-        "explain": "Pages1"
+        "uipeth": "Pages1"
     },
     {
         "id": 4920,
-        "explain": "Pages1"
+        "uipeth": "Pages1"
     },
     {
         "id": 4921,
-        "explain": "Pages2/SubheadLabel0",
+        "uipeth": "Pages2/SubheadLabel0",
         "tw": "補充體力"
     },
     {
         "id": 4922,
-        "explain": "Pages2/SubheadLabel1",
-        "tw": "讓你快速補充體力"
+        "explain": "介面上的銷售標語",
+        "uipeth": "Pages2/SubheadLabel1",
+        "tw": "消除疲勞，恢復體力也快！真的！"
     },
     {
         "id": 4923,
-        "explain": "Pages2"
+        "uipeth": "Pages2"
     },
     {
         "id": 4924,
-        "explain": "Pages2"
+        "uipeth": "Pages2"
     },
     {
         "id": 4925,
-        "explain": "Pages2"
+        "uipeth": "Pages2"
     },
     {
         "id": 5001,
@@ -1564,98 +1550,98 @@
     },
     {
         "id": 5002,
-        "explain": "頁籤1",
+        "uipeth": "頁籤1",
         "tw": "動 態"
     },
     {
         "id": 5003,
-        "explain": "頁籤2",
+        "uipeth": "頁籤2",
         "tw": "邀 請"
     },
     {
         "id": 5004,
-        "explain": "頁籤3",
+        "uipeth": "頁籤3",
         "tw": "推 薦"
     },
     {
         "id": 5005,
-        "explain": "頁籤4",
+        "uipeth": "頁籤4",
         "tw": "好 友"
     },
     {
         "id": 5006,
-        "explain": "頁籤5",
+        "uipeth": "頁籤5",
         "tw": "社群連結"
     },
     {
         "id": 5007,
-        "explain": "搜尋好友",
+        "uipeth": "搜尋好友",
         "tw": "請輸入玩家名稱"
     },
     {
         "id": 5008,
-        "explain": "OnlineTime",
+        "uipeth": "OnlineTime",
         "tw": "最近上線："
     },
     {
         "id": 5009,
-        "explain": "TimeLabel",
+        "uipeth": "TimeLabel",
         "tw": " {0} 前"
     },
     {
         "id": 5010,
-        "explain": "TimeLabel",
+        "uipeth": "TimeLabel",
         "tw": "很久以前"
     },
     {
         "id": 5011,
-        "explain": "RequestGroup",
+        "uipeth": "RequestGroup",
         "tw": "是否接受請求？"
     },
     {
         "id": 5012,
-        "explain": "InviteGroup",
+        "uipeth": "InviteGroup",
         "tw": "邀 請"
     },
     {
         "id": 5013,
-        "explain": "ButtonListGroup",
+        "uipeth": "ButtonListGroup",
         "tw": "檢視資料"
     },
     {
         "id": 5014,
-        "explain": "ButtonListGroup",
+        "uipeth": "ButtonListGroup",
         "tw": "檢視球館"
     },
     {
         "id": 5015,
-        "explain": "ButtonListGroup",
+        "uipeth": "ButtonListGroup",
         "tw": "檢視球隊"
     },
     {
         "id": 5016,
-        "explain": "ButtonListGroup",
+        "uipeth": "ButtonListGroup",
         "tw": "移 除"
     },
     {
         "id": 5017,
-        "explain": "CountLabel",
+        "uipeth": "CountLabel",
         "tw": "好友數"
     },
     {
         "id": 5018,
-        "explain": "TextLabel",
+        "uipeth": "TextLabel",
         "tw": "每日9:00刷新推薦名單，或即刻刷新。"
     },
     {
         "id": 5019,
-        "explain": "TextLabel",
+        "uipeth": "TextLabel",
         "tw": "加朋友",
         "en": "Make Friend"
     },
     {
         "id": 5020,
-        "explain": "功能訊息",
+        "uipeth": "功能訊息",
         "tw": "玩家名稱錯誤"
     },
     {
@@ -1749,51 +1735,50 @@
     },
     {
         "id": 6002,
-        "explain": "UpgradeBtn/BtnLabel",
+        "uipeth": "UpgradeBtn/BtnLabel",
         "tw": "升 級",
-        "cn": "UPGRADE",
         "en": "UPGRADE",
         "jp": "UPGRADE"
     },
     {
         "id": 6003,
-        "explain": "WarningLabel",
+        "uipeth": "WarningLabel",
         "tw": "此物品無法合成",
         "en": "Unable To Combine These Items"
     },
     {
         "id": 6004,
-        "explain": "材料未滿",
+        "uipeth": "材料未滿",
         "tw": "尋 找",
         "en": "Search"
     },
     {
         "id": 6005,
-        "explain": "已鑲嵌完成",
+        "uipeth": "已鑲嵌完成",
         "tw": "完 成",
         "en": "CLEAR"
     },
     {
         "id": 6006,
-        "explain": "卸下次數型裝備",
+        "uipeth": "卸下次數型裝備",
         "tw": "卸下此物品",
         "en": "Unload"
     },
     {
         "id": 6007,
-        "explain": "嵌入材料",
+        "uipeth": "嵌入材料",
         "tw": "嵌入材料",
         "en": "Inload"
     },
     {
         "id": 6008,
-        "explain": "合成數值裝",
+        "uipeth": "合成數值裝",
         "tw": "進化合成",
         "en": "UPGRADE"
     },
     {
         "id": 6009,
-        "explain": "PartSlot",
+        "uipeth": "PartSlot",
         "tw": "未裝備"
     },
     {
@@ -1802,16 +1787,14 @@
     },
     {
         "id": 6102,
-        "explain": "SkillKindLabel",
+        "uipeth": "SkillKindLabel",
         "tw": "[ff0000]主動技[-][ff0000]A[-][fffffff]bility[-]",
-        "cn": "[ff0000]主动技[-]",
         "en": "[ff0000]Ability[-]"
     },
     {
         "id": 6103,
-        "explain": "SkillKindLabel",
+        "uipeth": "SkillKindLabel",
         "tw": "[3355ff]被動技[-][3355ff]P[-][fffffff]asive[-]",
-        "cn": "[3355ff]被动技[-]",
         "en": "[3355ff]Pasive Ability[-]"
     },
     {
@@ -1826,7 +1809,7 @@
     },
     {
         "id": 6202,
-        "explain": "StartBtn/BtnLabel",
+        "uipeth": "StartBtn/BtnLabel",
         "tw": "前往",
         "en": "Head To"
     },
@@ -1865,61 +1848,55 @@
     },
     {
         "id": 7002,
-        "explain": "ActiveCheck/ActiveLabel",
+        "uipeth": "ActiveCheck/ActiveLabel",
         "tw": "[ff0000]主動技[-]",
         "en": "[ff0000]Ability[-]"
     },
     {
         "id": 7003,
-        "explain": "PassiveCheck/PassiveLabel",
+        "uipeth": "PassiveCheck/PassiveLabel",
         "tw": "[23A3A3FF]被動技[-]",
         "en": "[23A3A3FF]Pasive Ability[-]"
     },
     {
         "id": 7004,
-        "explain": "DecksBtn0/Label",
+        "uipeth": "DecksBtn0/Label",
         "tw": 1,
-        "cn": 1,
         "en": 1,
         "jp": 1
     },
     {
         "id": 7005,
-        "explain": "DecksBtn1",
+        "uipeth": "DecksBtn1",
         "tw": 2,
-        "cn": 2,
         "en": 2,
         "jp": 2
     },
     {
         "id": 7006,
-        "explain": "DecksBtn2",
+        "uipeth": "DecksBtn2",
         "tw": 3,
-        "cn": 3,
         "en": 3,
         "jp": 3
     },
     {
         "id": 7007,
-        "explain": "DecksBtn3",
+        "uipeth": "DecksBtn3",
         "tw": 4,
-        "cn": 4,
         "en": 4,
         "jp": 4
     },
     {
         "id": 7008,
-        "explain": "DecksBtn4",
+        "uipeth": "DecksBtn4",
         "tw": 5,
-        "cn": 5,
         "en": 5,
         "jp": 5
     },
     {
         "id": 7009,
-        "explain": "LabelCost",
+        "uipeth": "LabelCost",
         "tw": "COST",
-        "cn": "COST",
         "en": "COST",
         "jp": "COST"
     },
@@ -1929,88 +1906,90 @@
     },
     {
         "id": 7102,
-        "explain": "LabelCondition",
+        "uipeth": "LabelCondition",
         "tw": "排 列",
         "en": "Arrange"
     },
     {
         "id": 7103,
-        "explain": "LabelFilter",
+        "uipeth": "LabelFilter",
         "tw": "篩 選",
         "en": "Filter"
     },
     {
         "id": 7104,
-        "explain": "RarityCheck/Label",
+        "uipeth": "RarityCheck/Label",
         "tw": "稀有度",
         "en": "Quality"
     },
     {
         "id": 7105,
-        "explain": "CostCheck",
+        "uipeth": "CostCheck",
         "tw": "COST",
         "en": "Cost"
     },
     {
         "id": 7106,
-        "explain": "LevelCheck",
+        "uipeth": "LevelCheck",
         "tw": "等 級",
         "en": "Level"
     },
     {
         "id": 7107,
-        "explain": "KindCheck",
+        "uipeth": "KindCheck",
         "tw": "種 類",
         "en": "Category"
     },
     {
         "id": 7108,
-        "explain": "AttributeCheck",
+        "uipeth": "AttributeCheck",
         "tw": "屬 性",
         "en": "Distribution"
     },
     {
         "id": 7109,
-        "explain": "AvailableCheck",
+        "uipeth": "AvailableCheck",
         "tw": "未裝備",
         "en": "Unequipped"
     },
     {
         "id": 7110,
-        "explain": "SelectedCheck",
+        "uipeth": "SelectedCheck",
         "tw": "裝備中",
         "en": "Equip"
     },
     {
         "id": 7111,
-        "explain": "ActiveCheck",
+        "uipeth": "ActiveCheck",
         "tw": "主動技",
         "en": "Ability"
     },
     {
         "id": 7112,
-        "explain": "PassiveCheck",
+        "uipeth": "PassiveCheck",
         "tw": "被動技",
         "en": "Passive Ability"
     },
     {
         "id": 7113,
-        "explain": "AllCheck",
+        "uipeth": "AllCheck",
         "tw": "全 部",
         "en": "All"
     },
     {
         "id": 7114,
+        "explain": "選擇預備出售狀態",
         "tw": "出售中"
     },
     {
         "id": 7115,
-        "explain": "UnavailableLabel",
+        "explain": "不可以裝備或是出售",
+        "uipeth": "UnavailableLabel",
         "tw": "不可用"
     },
     {
         "id": 7116,
-        "explain": "LabelFilter/變換字串",
+        "uipeth": "LabelFilter/變換字串",
         "tw": "篩選中"
     },
     {
@@ -2019,89 +1998,87 @@
     },
     {
         "id": 7202,
-        "explain": "SkillInfo/LabelSubhead",
+        "uipeth": "SkillInfo/LabelSubhead",
         "tw": "晶片資訊",
-        "cn": "SKILL INFO.",
         "en": "Ability Info",
         "jp": "SKILL INFO."
     },
     {
         "id": 7203,
-        "explain": "LabelKind1",
+        "uipeth": "LabelKind1",
         "tw": "LEVEL",
-        "cn": "LEVEL",
         "en": "Level",
         "jp": "LEVEL"
     },
     {
         "id": 7204,
-        "explain": "LabelKind2",
+        "uipeth": "LabelKind2",
         "tw": "COST",
         "en": "Cost"
     },
     {
         "id": 7205,
-        "explain": "LabelKind3",
+        "uipeth": "LabelKind3",
         "tw": "EXP",
         "en": "EXP"
     },
     {
         "id": 7206,
-        "explain": "LabelKind4",
+        "uipeth": "LabelKind4",
         "tw": "發動機率",
         "en": "Percentage of activating Ability"
     },
     {
         "id": 7207,
-        "explain": "LabelKind4",
+        "uipeth": "LabelKind4",
         "tw": "士氣需求",
         "en": "Required Energy"
     },
     {
         "id": 7208,
-        "explain": "LabelSubhead",
+        "uipeth": "LabelSubhead",
         "tw": "說明",
         "en": "Additional Information"
     },
     {
         "id": 7209,
-        "explain": "LabelSubhead",
+        "uipeth": "LabelSubhead",
         "tw": "附加效果",
         "en": "Bonus Effects"
     },
     {
         "id": 7210,
-        "explain": "LifeTimeLabel/Label",
+        "uipeth": "LifeTimeLabel/Label",
         "tw": "持續時間",
         "en": "Time"
     },
     {
         "id": 7211,
-        "explain": "TitleLabel",
+        "uipeth": "TitleLabel",
         "tw": "發動距離",
         "en": "Distance"
     },
     {
         "id": 7212,
-        "explain": "EvolutionBtn/Label",
+        "uipeth": "EvolutionBtn/Label",
         "tw": "晶片進化",
         "en": "Evolution"
     },
     {
         "id": 7213,
-        "explain": "UpgradeBtn/Label",
+        "uipeth": "UpgradeBtn/Label",
         "tw": "晶片合成",
         "en": "Combine to Level"
     },
     {
         "id": 7214,
-        "explain": "EquipBtn/Label",
+        "uipeth": "EquipBtn/Label",
         "tw": "裝備晶片",
         "en": "EQUIP"
     },
     {
         "id": 7215,
-        "explain": "EquipBtn/Label",
+        "uipeth": "EquipBtn/Label",
         "tw": "卸下晶片",
         "en": "UNEQUIP"
     },
@@ -2111,7 +2088,7 @@
     },
     {
         "id": 7302,
-        "explain": "LabelMaxAnger",
+        "uipeth": "LabelMaxAnger",
         "tw": "士氣值",
         "en": "Energy Level"
     },
@@ -2123,78 +2100,75 @@
     },
     {
         "id": 7402,
-        "explain": "EXP",
+        "uipeth": "EXP",
         "tw": "EXP",
         "en": "EXP"
     },
     {
         "id": 7403,
-        "explain": "Cost",
+        "uipeth": "Cost",
         "tw": "Cost",
         "en": "Cost"
     },
     {
         "id": 7404,
-        "explain": "動作機率",
+        "uipeth": "動作機率",
         "tw": "動作機率",
-        "en": "Action chances"
+        "en": "Percentage of activating Ability"
     },
     {
         "id": 7405,
-        "explain": "發動距離",
+        "uipeth": "發動距離",
         "tw": "發動距離",
         "en": "Launch distance"
     },
     {
         "id": 7406,
-        "explain": "持續時間",
+        "uipeth": "持續時間",
         "tw": "持續時間",
         "en": "duration"
     },
     {
         "id": 7407,
-        "explain": "升級所需",
+        "uipeth": "升級所需",
         "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]",
         "en": "[B7B7B7FF] required EXP: [FFFF00FF] {0} [-]"
     },
     {
         "id": 7408,
-        "explain": "材料獲得",
+        "uipeth": "材料獲得",
         "tw": "總獲得EXP：[00FF00FF]{0}[-]",
         "en": "Total obtain EXP: [00FF00FF] {0} [-]"
     },
     {
         "id": 7409,
-        "explain": "等級達上限",
+        "uipeth": "等級達上限",
         "tw": "[FFFF00FF]等級已達上限[-]",
         "en": "[FFFF00FF] LV Max [-]"
     },
     {
         "id": 7410,
-        "explain": "SubheadLabel",
+        "uipeth": "SubheadLabel",
         "tw": "強化材料",
         "en": "Reinforcing material"
     },
     {
         "id": 7411,
-        "explain": "SubheadLabel",
+        "uipeth": "SubheadLabel",
         "tw": "選擇強化材料",
         "en": "Select the reinforcing material"
     },
     {
         "id": 7412,
-        "explain": "EmptyLabel",
+        "uipeth": "EmptyLabel",
         "tw": "未選擇",
         "en": "Not selected"
     },
     {
-        "id": 7413
-    },
-    {
         "id": 7501,
-        "explain": "ItemCardEquipped ",
+        "explain": "技能晶片安裝後的狀態",
+        "uipeth": "ItemCardEquipped ",
         "tw": "COST [00FFFFFF]{0}[-]",
-        "cn": "COST [00FFFFFF]{0}[-]",
         "en": "COST [00FFFFFF]{0}[-]",
         "jp": "COST [00FFFFFF]{0}[-]"
     },
@@ -2234,23 +2208,21 @@
     },
     {
         "id": 8002,
-        "explain": "Prefab/Items/SortBtn",
+        "uipeth": "Prefab/Items/SortBtn",
         "tw": "篩 選",
-        "cn": "SORT",
         "en": "FILTER",
         "jp": "SORT"
     },
     {
         "id": 8003,
-        "explain": "SellBtn",
+        "uipeth": "SellBtn",
         "tw": "販 賣",
-        "cn": "SELL",
         "en": "SELL",
         "jp": "SELL"
     },
     {
         "id": 8004,
-        "explain": "GetModeLabel",
+        "uipeth": "GetModeLabel",
         "tw": "已取得{0}潛能點",
         "en": "Received {0} Attribution Points"
     },
@@ -2267,11 +2239,13 @@
     },
     {
         "id": 8007,
+        "explain": "選擇預備出售狀態",
         "tw": "出售中",
         "en": "On Sale"
     },
     {
         "id": 8008,
+        "explain": "不可以裝備或是出售",
         "tw": "不可用",
         "en": "Not available"
     },
@@ -2281,43 +2255,43 @@
     },
     {
         "id": 8102,
-        "explain": "LabelCondition",
+        "uipeth": "LabelCondition",
         "tw": "排 列",
         "en": "Arrange"
     },
     {
         "id": 8103,
-        "explain": "LabelFilter",
+        "uipeth": "LabelFilter",
         "tw": "篩 選",
         "en": "Filter"
     },
     {
         "id": 8104,
-        "explain": "TimelimitCheck",
+        "uipeth": "TimelimitCheck",
         "tw": "時間最久",
         "en": "Longest Time"
     },
     {
         "id": 8105,
-        "explain": "TimelessCheck",
+        "uipeth": "TimelessCheck",
         "tw": "即將到期",
         "en": "Closest to Expiration"
     },
     {
         "id": 8106,
-        "explain": "AvailableCheck",
+        "uipeth": "AvailableCheck",
         "tw": "未裝備",
         "en": "Unequipped"
     },
     {
         "id": 8107,
-        "explain": "SelectedCheck",
+        "uipeth": "SelectedCheck",
         "tw": "裝備中",
         "en": "Euip"
     },
     {
         "id": 8108,
-        "explain": "AllCheck",
+        "uipeth": "AllCheck",
         "tw": "全 部",
         "en": "All"
     },
@@ -2333,34 +2307,36 @@
     },
     {
         "id": 9102,
-        "explain": "MainStageBtn/BtnLabel",
+        "uipeth": "MainStageBtn/BtnLabel",
         "tw": "生 涯 競 賽",
         "en": "STORY"
     },
     {
         "id": 9103,
-        "explain": "PvPStageBtn/BtnLabel",
+        "uipeth": "PvPStageBtn/BtnLabel",
         "tw": "聯 盟 對 戰",
         "en": "PVP"
     },
     {
         "id": 9104,
-        "explain": "ChallengeBtn/BtnLabel",
+        "uipeth": "ChallengeBtn/BtnLabel",
         "tw": "關 主 挑 戰",
         "en": "CHALLENGE"
     },
     {
         "id": 9152,
         "explain": "主線關卡",
-        "tw": " [FFDD33]生涯競賽[-]"
+        "tw": "[FFDD33]生涯競賽[-]"
     },
     {
-        "id": 9153
+        "id": 9153,
+        "explain": "PVP關卡",
+        "tw": "[ff0074]聯盟挑戰[-]"
     },
     {
         "id": 9154,
         "explain": "副本關卡",
-        "tw": " [ff8000]聯盟挑戰[-]"
+        "tw": "[06b225]關主挑戰[-]"
     },
     {
         "id": 9155
@@ -2371,15 +2347,14 @@
     },
     {
         "id": 9202,
-        "explain": "LabelTitle",
+        "uipeth": "LabelTitle",
         "tw": "MAIN STAGE",
-        "cn": "MAIN STAGE",
         "en": "MAIN STAGE",
         "jp": "MAIN STAGE"
     },
     {
         "id": 9203,
-        "explain": "Label",
+        "uipeth": "Label",
         "tw": "請先通過前一章節",
         "en": "Please Complete The Previous Chapter"
     },
@@ -2389,84 +2364,81 @@
     },
     {
         "id": 9302,
-        "explain": "DailyTimes/TimesLabel",
+        "uipeth": "DailyTimes/TimesLabel",
         "tw": "限制次數",
         "en": "Limited Times"
     },
     {
         "id": 9303,
-        "explain": "ConditionTitle/TitleLabel",
+        "uipeth": "ConditionTitle/TitleLabel",
         "tw": "限制條件",
         "en": "Condition Criteria"
     },
     {
         "id": 9304,
-        "explain": "Awards/AwardLabel",
+        "uipeth": "Awards/AwardLabel",
         "tw": "有機率獲得",
         "en": "Chance To Receive"
     },
     {
         "id": 9305,
-        "explain": "StartButton/StartLabel",
+        "uipeth": "StartButton/StartLabel",
         "tw": "競賽開始",
-        "cn": "START",
         "en": "START",
         "jp": "START"
     },
     {
         "id": 9306,
-        "explain": "Completed/FinLabel",
+        "uipeth": "Completed/FinLabel",
         "tw": "完成挑戰",
-        "cn": "COMPLETED",
         "en": "COMPLETED",
         "jp": "COMPLETED"
     },
     {
         "id": 9307,
-        "explain": "ConditionLabel1",
+        "uipeth": "ConditionLabel1",
         "tw": "條件{0}未滿",
         "en": "TEST"
     },
     {
         "id": 9308,
-        "explain": "ConditionLabel2",
+        "uipeth": "ConditionLabel2",
         "tw": "條件{1}未滿",
         "en": "TEST"
     },
     {
         "id": 9309,
-        "explain": "StageHint/TargetLabel",
+        "uipeth": "StageHint/TargetLabel",
         "tw": "關卡目標",
         "en": "Mission"
     },
     {
         "id": 9310,
-        "explain": "AwardLabel1",
+        "uipeth": "AwardLabel1",
         "tw": " [FFDD33]必定獲得[-]"
     },
     {
         "id": 9311,
-        "explain": "StartButton/StartLabel",
+        "uipeth": "StartButton/StartLabel",
         "tw": "重置次數",
         "en": "RESET"
     },
     {
         "id": 9312,
-        "explain": "StartButton/TimesLabel",
+        "uipeth": "StartButton/TimesLabel",
         "tw": "挑戰次數：[33FFDD]{0}[-]",
-        "cn": "({0})",
         "en": "Challenge：[33FFDD]{0}[-]",
         "jp": "({0})"
     },
     {
         "id": 9313,
-        "explain": "AwardLabel2",
+        "uipeth": "AwardLabel2",
         "tw": "過關獎勵",
         "en": "Award"
     },
     {
         "id": 9391,
-        "explain": "Title",
+        "uipeth": "Title",
         "tw": "生涯競賽",
         "en": "STORY"
     },
@@ -2476,19 +2448,20 @@
     },
     {
         "id": 9402,
-        "explain": "SkipButton/Icon",
+        "uipeth": "SkipButton/Icon",
         "tw": "SKIP",
         "en": "SKIP"
     },
     {
         "id": 9403,
-        "explain": "ButtonStart",
+        "uipeth": "ButtonStart",
         "tw": "點擊開始",
         "en": "Click to start"
     },
     {
         "id": 9404,
-        "explain": "秀卡組",
+        "explain": "在Loading的畫面中為玩家推薦的技能晶片",
+        "uipeth": "UILoading/ShowAbilityDisc/TitleLabel",
         "tw": "推薦晶片",
         "en": "Recommed Disk"
     },
@@ -2500,43 +2473,43 @@
     },
     {
         "id": 9502,
-        "explain": 0,
+        "uipeth": 0,
         "tw": "其他玩家",
         "en": "Other Players"
     },
     {
         "id": 9503,
-        "explain": 1,
+        "uipeth": 1,
         "tw": "好 友",
         "en": "Friends"
     },
     {
         "id": 9504,
-        "explain": 2,
+        "uipeth": 2,
         "tw": "球 隊",
         "en": "Team"
     },
     {
         "id": 9505,
-        "explain": "PositionLabel",
+        "uipeth": "PositionLabel",
         "tw": "C",
         "en": "C"
     },
     {
         "id": 9506,
-        "explain": "PositionLabel",
+        "uipeth": "PositionLabel",
         "tw": "F",
         "en": "F"
     },
     {
         "id": 9507,
-        "explain": "PositionLabel",
+        "uipeth": "PositionLabel",
         "tw": "G",
         "en": "G"
     },
     {
         "id": 9508,
-        "explain": "GameStart/Label",
+        "uipeth": "GameStart/Label",
         "tw": "競賽開始",
         "en": "Start Game"
     },
@@ -2552,128 +2525,110 @@
     },
     {
         "id": 9511,
-        "explain": "SkillCard",
         "tw": "技能晶片"
     },
     {
         "id": 9512,
+        "explain": "與你搭擋的另一個玩家A",
         "tw": "隊友A",
         "en": "Friend A"
     },
     {
         "id": 9513,
+        "explain": "與你搭擋的另一個玩家B",
         "tw": "隊友B",
         "en": "Friend B"
     },
     {
         "id": 9514,
-        "tw": "開始比賽失敗。",
+        "tw": "比賽初始失敗。",
         "en": "Game Started fail."
     },
     {
         "id": 9515,
-        "explain": "StrategyBtn",
+        "explain": "戰術",
+        "uipeth": "StrategyBtn",
         "tw": "戰 術"
     },
     {
+        "id": 9516,
+        "tw": "可出戰次數",
+        "en": "Fight Count"
+    },
+    {
         "id": 9601,
-        "explain": "戰術選擇/SubheadLabel",
+        "uipeth": "戰術選擇/SubheadLabel",
         "tw": "請選擇戰術"
     },
     {
         "id": 9602,
-        "explain": "StrategyBtn/StrategyLabel",
+        "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中"
     },
     {
         "id": 9701,
         "explain": "聯盟對戰",
-        "tw": "聯盟對戰"
+        "tw": "聯盟對戰",
+        "en": "PVP"
     },
     {
         "id": 9702,
-        "explain": "tabs/01",
+        "uipeth": "tabs/01",
         "tw": "搜尋對戰"
     },
     {
         "id": 9703,
-        "explain": "tabs/02",
+        "uipeth": "tabs/02",
         "tw": "聯盟排行"
     },
     {
         "id": 9704,
-        "explain": "tabs/03",
+        "uipeth": "tabs/03",
         "tw": "排行榜2"
     },
     {
         "id": 9705,
-        "explain": "tabs/04",
+        "uipeth": "tabs/04",
         "tw": "預留"
     },
     {
         "id": 9706,
-        "explain": "tabs/05",
+        "uipeth": "tabs/05",
         "tw": "預留"
     },
     {
         "id": 9707,
-        "explain": "AwardGroup/TitleLabel",
+        "uipeth": "AwardGroup/TitleLabel",
         "tw": "積分獎勵"
     },
     {
         "id": 9708,
-        "explain": "RangeNameLabel",
+        "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} "
     },
     {
-        "id": 9709
+        "id": 9709,
+        "uipeth": "NextRankGroup/TitleLabel/each",
+        "tw": "每場"
     },
     {
-        "id": 9710
-    },
-    {
-        "id": 9711
-    },
-    {
-        "id": 9712
-    },
-    {
-        "id": 9713
-    },
-    {
-        "id": 9714
-    },
-    {
-        "id": 9715
-    },
-    {
-        "id": 9716
-    },
-    {
-        "id": 9717
-    },
-    {
-        "id": 9718
-    },
-    {
-        "id": 9719
-    },
-    {
-        "id": 9720
+        "id": 9710,
+        "uipeth": "NextRankGroup/TitleLabel/daily",
+        "tw": "每日"
     },
     {
         "id": 9721,
-        "explain": "StartBtn",
+        "uipeth": "StartBtn",
         "tw": "開始戰鬥"
     },
     {
         "id": 9722,
-        "explain": "CombatLabel0/Label",
+        "uipeth": "CombatLabel0/Label",
         "tw": "對手戰力值"
     },
     {
         "id": 9723,
-        "explain": "CombatLabel1/Label",
+        "uipeth": "CombatLabel1/Label",
         "tw": "玩家戰力值"
     },
     {
@@ -2693,16 +2648,14 @@
         "tw": "刷新對手"
     },
     {
-        "id": 9728
-    },
-    {
         "id": 9741,
-        "explain": "RankSlider/Thumb",
+        "explain": "每個聯盟都有積分範圍",
+        "uipeth": "RankSlider/Thumb",
         "tw": "積分區間 {0}-{1} "
     },
     {
         "id": 9742,
-        "explain": "RankSlider/NowRank",
+        "uipeth": "RankSlider/NowRank",
         "tw": "YOU"
     },
     {
@@ -2711,7 +2664,21 @@
     },
     {
         "id": 9744,
-        "tw": "每日獎勵"
+        "explain": "獎勵，每場勝利後得到",
+        "tw": "每場獲勝"
+    },
+    {
+        "id": 9745,
+        "explain": "獎勵，依照玩家打進的聯盟每日得到",
+        "tw": "每日取得"
+    },
+    {
+        "id": 9800,
+        "explain": "副本介面用字串"
+    },
+    {
+        "id": 9801,
+        "explain": "標題使用"
     },
     {
         "id": 10001,
@@ -2723,41 +2690,36 @@
     },
     {
         "id": 10102,
-        "explain": "P1Button/Label",
+        "uipeth": "P1Button/Label",
         "tw": 1,
-        "cn": 1,
         "en": 1,
         "jp": 1
     },
     {
         "id": 10103,
-        "explain": "P2Button/Label",
+        "uipeth": "P2Button/Label",
         "tw": 2,
-        "cn": 2,
         "en": 2,
         "jp": 2
     },
     {
         "id": 10104,
-        "explain": "P3Button/Label",
+        "uipeth": "P3Button/Label",
         "tw": 3,
-        "cn": 3,
         "en": 3,
         "jp": 3
     },
     {
         "id": 10105,
-        "explain": "Next/Icon",
+        "uipeth": "Next/Icon",
         "tw": "NEXT",
-        "cn": "NEXT",
         "en": "NEXT",
         "jp": "NEXT"
     },
     {
         "id": 10106,
-        "explain": "LoadingPic/UIWord",
+        "uipeth": "LoadingPic/UIWord",
         "tw": "LOADING",
-        "cn": "LOADING",
         "en": "LOADING",
         "jp": "LOADING"
     },
@@ -2767,33 +2729,29 @@
     },
     {
         "id": 10202,
-        "explain": "SpriteAway",
+        "uipeth": "SpriteAway",
         "tw": "AWAY",
-        "cn": "AWAY",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10203,
-        "explain": "SpriteHome",
+        "uipeth": "SpriteHome",
         "tw": "HOME",
-        "cn": "HOME",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10204,
-        "explain": "SpriteVS",
+        "uipeth": "SpriteVS",
         "tw": "VS.",
-        "cn": "VS.",
         "en": "VS.",
         "jp": "VS."
     },
     {
         "id": 10205,
-        "explain": "TargetLabel",
+        "uipeth": "TargetLabel",
         "tw": "TARGET \nSCORE",
-        "cn": "TARGET \nSCORE",
         "en": "TARGET \nSCORE",
         "jp": "TARGET \nSCORE"
     },
@@ -2803,214 +2761,192 @@
     },
     {
         "id": 10302,
-        "explain": "HomeBtn/SpriteHome",
+        "uipeth": "HomeBtn/SpriteHome",
         "tw": "HOME",
-        "cn": "HOME",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10303,
-        "explain": "AwayBtn/SpriteAway",
+        "uipeth": "AwayBtn/SpriteAway",
         "tw": "AWAY",
-        "cn": "AWAY",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10304,
-        "explain": "TargetBtn/LabelTitle",
+        "uipeth": "TargetBtn/LabelTitle",
         "tw": "GAME TARGET",
-        "cn": "GAME TARGET",
         "en": "OBJECTIVE",
         "jp": "GAME TARGET"
     },
     {
         "id": 10305,
-        "explain": "PTS/LabelTitle",
+        "uipeth": "PTS/LabelTitle",
         "tw": "總得分",
-        "cn": "PTS",
         "en": "PTS",
         "jp": "PTS"
     },
     {
         "id": 10306,
-        "explain": "FG/LabelTitle",
+        "uipeth": "FG/LabelTitle",
         "tw": "2分",
-        "cn": "FG",
         "en": "FG",
         "jp": "FG"
     },
     {
         "id": 10307,
-        "explain": "3FG/LabelTitle",
+        "uipeth": "3FG/LabelTitle",
         "tw": "3分",
-        "cn": "3FG",
         "en": "3FG",
         "jp": "3FG"
     },
     {
         "id": 10308,
-        "explain": "REB/LabelTitle",
+        "uipeth": "REB/LabelTitle",
         "tw": "籃板",
-        "cn": "REB",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 10309,
-        "explain": "AST/LabelTitle",
+        "uipeth": "AST/LabelTitle",
         "tw": "助攻",
-        "cn": "AST",
         "en": "AST",
         "jp": "AST"
     },
     {
         "id": 10310,
-        "explain": "STL/LabelTitle",
+        "uipeth": "STL/LabelTitle",
         "tw": "抄截",
-        "cn": "STL",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 10311,
-        "explain": "BLK/LabelTitle",
+        "uipeth": "BLK/LabelTitle",
         "tw": "火鍋",
-        "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
     },
     {
         "id": 10312,
-        "explain": "TOV/LabelTitle",
+        "uipeth": "TOV/LabelTitle",
         "tw": "失誤",
-        "cn": "TOV",
         "en": "TOV",
         "jp": "TOV"
     },
     {
         "id": 10313,
-        "explain": "PUSH/LabelTitle",
+        "uipeth": "PUSH/LabelTitle",
         "tw": "推人",
-        "cn": "PUSH",
         "en": "PUSH",
         "jp": "PUSH"
     },
     {
         "id": 10314,
-        "explain": "KNOCK/LabelTitle",
+        "uipeth": "KNOCK/LabelTitle",
         "tw": "擊倒",
-        "cn": "KNOCK",
         "en": "KNOCK",
         "jp": "KNOCK"
     },
     {
         "id": 10315,
-        "explain": "PlayerInfoBtn/Label",
+        "uipeth": "PlayerInfoBtn/Label",
         "tw": "玩家\n資訊",
         "en": "PLAYER\nINFO",
         "jp": "PLAYER\nINFO"
     },
     {
         "id": 10316,
-        "explain": "ButtonAgain/Label",
+        "uipeth": "ButtonAgain/Label",
         "tw": "AGAIN",
-        "cn": "AGAIN",
         "en": "RESTART",
         "jp": "AGAIN"
     },
     {
         "id": 10317,
-        "explain": "ButtonReturnSelect/Label",
+        "uipeth": "ButtonReturnSelect/Label",
         "tw": "EXIT",
-        "cn": "EXIT",
         "en": "EXIT",
         "jp": "EXIT"
     },
     {
         "id": 10318,
-        "explain": "ButtonResume/Label",
+        "uipeth": "ButtonResume/Label",
         "tw": "RESUME",
-        "cn": "RESUME",
         "en": "RESUME",
         "jp": "RESUME"
     },
     {
         "id": 10319,
-        "explain": "AIControlScrollBar/Label0",
+        "uipeth": "AIControlScrollBar/Label0",
         "tw": "1s",
-        "cn": "1s",
         "en": "1s",
         "jp": "1s"
     },
     {
         "id": 10320,
-        "explain": "AIControlScrollBar/Label1",
+        "uipeth": "AIControlScrollBar/Label1",
         "tw": "3s",
-        "cn": "3s",
         "en": "3s",
         "jp": "3s"
     },
     {
         "id": 10321,
-        "explain": "AIControlScrollBar/Label2",
+        "uipeth": "AIControlScrollBar/Label2",
         "tw": "5s",
-        "cn": "5s",
         "en": "5s",
         "jp": "5s"
     },
     {
         "id": 10322,
-        "explain": "AIControlScrollBar/Label3",
+        "uipeth": "AIControlScrollBar/Label3",
         "tw": "15s",
-        "cn": "15s",
         "en": "15s",
         "jp": "15s"
     },
     {
         "id": 10323,
-        "explain": "AIControlScrollBar/Label4",
+        "uipeth": "AIControlScrollBar/Label4",
         "tw": "30s",
-        "cn": "30s",
         "en": "30s",
         "jp": "30s"
     },
     {
         "id": 10324,
-        "explain": "AIControlScrollBar/Label5",
+        "uipeth": "AIControlScrollBar/Label5",
         "tw": "∞",
-        "cn": "∞",
         "en": "∞",
         "jp": "∞"
     },
     {
         "id": 10325,
-        "explain": "AISecLabel",
+        "uipeth": "AISecLabel",
         "tw": "AI Mode",
         "en": "AI Mode"
     },
     {
         "id": 10326,
-        "explain": "球隊數據-戰果 TitleLabel",
+        "uipeth": "球隊數據-戰果 TitleLabel",
         "tw": "球隊數據",
         "en": "Team Data"
     },
     {
         "id": 10327,
-        "explain": "獲得物品-戰果",
+        "uipeth": "獲得物品-戰果",
         "tw": "獲得物品",
         "en": "Items Rewarded"
     },
     {
         "id": 10328,
-        "explain": "解鎖成就-戰果",
+        "uipeth": "解鎖成就-戰果",
         "tw": "解鎖成就",
         "en": "Achievement Unlocked"
     },
     {
         "id": 10329,
-        "explain": "暫停/SpriteTitle",
+        "uipeth": "暫停/SpriteTitle",
         "tw": "數值統計",
         "en": "Player Stats"
     },
@@ -3020,113 +2956,102 @@
     },
     {
         "id": 10402,
-        "explain": "BottomRight/StatsNextLabel",
+        "uipeth": "BottomRight/StatsNextLabel",
         "tw": "NEXT",
-        "cn": "NEXT",
         "en": "NEXT",
         "jp": "NEXT"
     },
     {
         "id": 10403,
-        "explain": "BottomRight/AwardSkipLabel",
+        "uipeth": "BottomRight/AwardSkipLabel",
         "tw": "SKIP",
-        "cn": "SKIP",
         "en": "SKIP",
         "jp": "SKIP"
     },
     {
         "id": 10404,
-        "explain": "TitleLabel\n(StageTargetView)",
+        "uipeth": "TitleLabel\n(StageTargetView)",
         "tw": "條件達成",
         "en": "Objective Achieved"
     },
     {
         "id": 10405,
-        "explain": "TitleLabel\n(StatsView/TeamStats)",
+        "uipeth": "TitleLabel\n(StatsView/TeamStats)",
         "tw": "球隊數據",
         "en": "Team Stats"
     },
     {
         "id": 10406,
-        "explain": "TitleLabel\n(StatsView/PlayerStats)",
+        "uipeth": "TitleLabel\n(StatsView/PlayerStats)",
         "tw": "玩家數據",
         "en": "Player Stats"
     },
     {
         "id": 10407,
-        "explain": "AwardsView",
+        "uipeth": "AwardsView",
         "tw": "獲得物品",
         "en": "Rewards"
     },
     {
         "id": 10408,
-        "explain": "TeamStats/HomeLabel",
+        "uipeth": "TeamStats/HomeLabel",
         "tw": "我方進攻",
-        "cn": "HOME",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10409,
-        "explain": "TeamStats/AwayLabel",
+        "uipeth": "TeamStats/AwayLabel",
         "tw": "敵隊進攻",
-        "cn": "AWAY",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10410,
-        "explain": "2PTLabel",
+        "uipeth": "2PTLabel",
         "tw": "2分球",
-        "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
     },
     {
         "id": 10411,
-        "explain": "3PTLabel",
+        "uipeth": "3PTLabel",
         "tw": "3分球",
-        "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
     },
     {
         "id": 10412,
-        "explain": "DNKLabel",
+        "uipeth": "DNKLabel",
         "tw": "灌籃",
-        "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
     },
     {
         "id": 10413,
-        "explain": "REBLabel",
+        "uipeth": "REBLabel",
         "tw": "籃板",
-        "cn": "REB",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 10414,
-        "explain": "STLLabel",
+        "uipeth": "STLLabel",
         "tw": "抄截",
-        "cn": "STL",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 10415,
-        "explain": "ASTLabel",
+        "uipeth": "ASTLabel",
         "tw": "助攻",
-        "cn": "AST",
         "en": "AST",
         "jp": "AST"
     },
     {
         "id": 10416,
-        "explain": "BLKLabel",
+        "uipeth": "BLKLabel",
         "tw": "火鍋",
-        "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
     },
@@ -3138,7 +3063,6 @@
         "id": 10501,
         "explain": "1.2分 2-Point（2PT）",
         "tw": "2分",
-        "cn": "2PT",
         "en": "2PT",
         "jp": "2PT"
     },
@@ -3146,7 +3070,6 @@
         "id": 10502,
         "explain": "2.3分 3-Point（3PT）",
         "tw": "3分",
-        "cn": "3PT",
         "en": "3PT",
         "jp": "3PT"
     },
@@ -3154,7 +3077,6 @@
         "id": 10503,
         "explain": "3.速度 Speed（SPD)  撲球",
         "tw": "速度",
-        "cn": "SPD",
         "en": "SPD",
         "jp": "SPD"
     },
@@ -3162,7 +3084,6 @@
         "id": 10504,
         "explain": "4.耐力 Stamina（STA) 跌倒起身",
         "tw": "耐力",
-        "cn": "STA",
         "en": "STA",
         "jp": "STA"
     },
@@ -3170,7 +3091,6 @@
         "id": 10505,
         "explain": "5.力量 Strength（STR）肘擊",
         "tw": "力量",
-        "cn": "STR",
         "en": "STR",
         "jp": "STR"
     },
@@ -3178,7 +3098,6 @@
         "id": 10506,
         "explain": "6.灌籃 Dunk（DNK）灌籃",
         "tw": "灌籃",
-        "cn": "DNK",
         "en": "DNK",
         "jp": "DNK"
     },
@@ -3186,7 +3105,6 @@
         "id": 10507,
         "explain": "7.籃板 Rebound（REB)搶籃板",
         "tw": "籃板",
-        "cn": "REB",
         "en": "REB",
         "jp": "REB"
     },
@@ -3194,7 +3112,6 @@
         "id": 10508,
         "explain": "8.火鍋 Block（BLK）火鍋",
         "tw": "火鍋",
-        "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
     },
@@ -3202,7 +3119,6 @@
         "id": 10509,
         "explain": "9.防守 Defence（DEF)  推人",
         "tw": "防守",
-        "cn": "DEF",
         "en": "DEF",
         "jp": "DEF"
     },
@@ -3210,7 +3126,6 @@
         "id": 10510,
         "explain": "10.抄截 Steal（STL）抄截",
         "tw": "抄截",
-        "cn": "STL",
         "en": "STL",
         "jp": "STL"
     },
@@ -3218,7 +3133,6 @@
         "id": 10511,
         "explain": "11.控球 Dribble（DRB)  運球過人",
         "tw": "控球",
-        "cn": "DRB",
         "en": "DRB",
         "jp": "DRB"
     },
@@ -3226,7 +3140,6 @@
         "id": 10512,
         "explain": "12.傳球 Pass（PAS）傳球",
         "tw": "傳球",
-        "cn": "PAS",
         "en": "PAS",
         "jp": "PAS"
     },
@@ -3236,17 +3149,15 @@
     },
     {
         "id": 10601,
-        "explain": "HomeOffense/HomeOffenseLabel",
+        "uipeth": "HomeOffense/HomeOffenseLabel",
         "tw": "AWAY OFFENSIVE",
-        "cn": "AWAY OFFENSIVE",
         "en": "AWAY OFFENSIVE",
         "jp": "AWAY OFFENSIVE"
     },
     {
         "id": 10602,
-        "explain": "AwayOffense/AwayOffenseLabel",
+        "uipeth": "AwayOffense/AwayOffenseLabel",
         "tw": "HOME OFFENSIVE",
-        "cn": "HOME OFFENSIVE",
         "en": "HOME OFFENSIVE",
         "jp": "HOME OFFENSIVE"
     },
@@ -3296,143 +3207,137 @@
     },
     {
         "id": 12002,
-        "explain": "0/TabLabel",
+        "uipeth": "0/TabLabel",
         "tw": "遊 戲",
         "en": "Game"
     },
     {
         "id": 12003,
-        "explain": "1/TabLabel",
+        "uipeth": "1/TabLabel",
         "tw": "語 言",
         "en": "Languages"
     },
     {
         "id": 12004,
-        "explain": "2/TabLabel",
+        "uipeth": "2/TabLabel",
         "tw": "帳 號",
         "en": "Account"
     },
     {
         "id": 12005,
-        "explain": "3/TabLabel",
+        "uipeth": "3/TabLabel",
         "tw": "關 於",
         "en": "Info"
     },
     {
         "id": 12006,
-        "explain": "VersionLabel",
+        "uipeth": "VersionLabel",
         "tw": "Version {0} ",
         "en": "VER{0} "
     },
     {
         "id": 12007,
-        "explain": "SubheadLabel0",
+        "uipeth": "SubheadLabel0",
         "tw": "音 效",
         "en": "Sound"
     },
     {
         "id": 12008,
-        "explain": "SubheadLabel1",
+        "explain": "畫面的品質",
+        "uipeth": "SubheadLabel1",
         "tw": "畫面顯示",
         "en": "Effects"
     },
     {
         "id": 12009,
-        "explain": "SubheadLabel2",
+        "uipeth": "SubheadLabel2",
         "tw": "AI 設定",
         "en": "AI Setting"
     },
     {
         "id": 12010,
-        "explain": "0/BtnLabel",
+        "uipeth": "0/BtnLabel",
         "tw": "音 樂",
         "en": "Music"
     },
     {
         "id": 12011,
-        "explain": "1/BtnLabel",
+        "uipeth": "1/BtnLabel",
         "tw": "音 效",
         "en": "Sound"
     },
     {
         "id": 12012,
-        "explain": "0/BtnLabel",
+        "explain": "較差的畫面品質",
+        "uipeth": "0/BtnLabel",
         "tw": "低",
         "en": "LOW"
     },
     {
         "id": 12013,
-        "explain": "WarningLabel",
+        "uipeth": "WarningLabel",
         "tw": "目前AI接管時間為：[ff0000]{0}[-]秒",
         "en": "After [ff0000]{0}[-] seconds, the system will take over your operations characters."
     },
     {
         "id": 12014,
-        "explain": "0/BtnLabel",
+        "uipeth": "0/BtnLabel",
         "tw": "1s",
-        "cn": "1s",
         "en": "1s",
         "jp": "1s"
     },
     {
         "id": 12015,
-        "explain": "1/BtnLabel",
+        "uipeth": "1/BtnLabel",
         "tw": "3s",
-        "cn": "3s",
         "en": "3s",
         "jp": "3s"
     },
     {
         "id": 12016,
-        "explain": "2/BtnLabel",
+        "uipeth": "2/BtnLabel",
         "tw": "5s",
-        "cn": "5s",
         "en": "5s",
         "jp": "5s"
     },
     {
         "id": 12017,
-        "explain": "3/BtnLabel",
+        "uipeth": "3/BtnLabel",
         "tw": "15s",
-        "cn": "15s",
         "en": "15s",
         "jp": "15s"
     },
     {
         "id": 12018,
-        "explain": "4/BtnLabel",
+        "uipeth": "4/BtnLabel",
         "tw": "30s",
-        "cn": "30s",
         "en": "30s",
         "jp": "30s"
     },
     {
         "id": 12019,
-        "explain": "5/BtnLabel",
+        "uipeth": "5/BtnLabel",
         "tw": "∞",
-        "cn": "∞",
         "en": "∞",
         "jp": "∞"
     },
     {
         "id": 12020,
-        "explain": "SubheadLabel0",
+        "uipeth": "SubheadLabel0",
         "tw": "設定語言",
         "en": "Language Setting"
     },
     {
         "id": 12021,
-        "explain": "0/BtnLabel",
+        "uipeth": "0/BtnLabel",
         "tw": "繁體中文",
-        "cn": "繁體中文",
         "en": "繁體中文",
         "jp": "繁體中文"
     },
     {
         "id": 12022,
-        "explain": "1/BtnLabel",
+        "uipeth": "1/BtnLabel",
         "tw": "ENGLISH",
-        "cn": "ENGLISH",
         "en": "ENGLISH",
         "jp": "ENGLISH"
     },
@@ -3470,13 +3375,13 @@
     },
     {
         "id": 12031,
-        "explain": "SubheadLabel0",
+        "uipeth": "SubheadLabel0",
         "tw": "切換角色",
         "en": "Switch Character"
     },
     {
         "id": 12032,
-        "explain": "0/BtnLabel",
+        "uipeth": "0/BtnLabel",
         "tw": "選擇其他角色",
         "en": "Select Other Character"
     },
@@ -3492,13 +3397,13 @@
     },
     {
         "id": 12035,
-        "explain": "畫面顯示用1",
+        "explain": "一般的畫面品質",
         "tw": "中",
         "en": "MEDIUM"
     },
     {
         "id": 12036,
-        "explain": "畫面顯示用2",
+        "explain": "較好的畫面品質",
         "tw": "高",
         "en": "HIGH"
     },
@@ -3561,53 +3466,56 @@
     },
     {
         "id": 13011,
-        "explain": "11.（左上）",
+        "explain": "生化科技的概念，在以下部位能夠裝備物品增加能力",
+        "uipeth": "11.（左上）",
         "tw": "顱部插件",
         "en": "Cranial plug"
     },
     {
         "id": 13012,
-        "explain": "12.（左）",
+        "uipeth": "12.（左）",
         "tw": "左臂插件",
         "en": "Left arm plug"
     },
     {
         "id": 13013,
-        "explain": "13.（左下）",
+        "uipeth": "13.（左下）",
         "tw": "右臂插件",
         "en": "Right arm plug"
     },
     {
         "id": 13014,
-        "explain": "14.（右下）",
+        "uipeth": "14.（右下）",
         "tw": "胸腔插件",
         "en": "Pleural plug"
     },
     {
         "id": 13015,
-        "explain": "15.（右）",
+        "uipeth": "15.（右）",
         "tw": "左腿插件",
         "en": "Left leg plug"
     },
     {
         "id": 13016,
-        "explain": "16.（右上）",
+        "uipeth": "16.（右上）",
         "tw": "右腿插件",
         "en": "Right leg plug"
     },
     {
         "id": 13017,
-        "explain": "17.可消耗的數值裝備1（上）",
-        "tw": "17.可消耗的數值裝備1（上）"
+        "explain": "消耗型的增加能力物品",
+        "uipeth": "17.可消耗的數值裝備1（上）",
+        "tw": "左耳注射器"
     },
     {
         "id": 13018,
-        "explain": "18.可消耗的數值裝備2（下）",
-        "tw": "18.可消耗的數值裝備2（下）"
+        "uipeth": "18.可消耗的數值裝備2（下）",
+        "tw": "右耳注射器"
     },
     {
         "id": 13019,
-        "explain": "19.鑲嵌材料",
+        "explain": "加強物品的消耗材料",
+        "uipeth": "19.鑲嵌材料",
         "tw": "鑲嵌材料",
         "en": "Meterial"
     },
@@ -3616,7 +3524,7 @@
     },
     {
         "id": 13021,
-        "explain": "21.技能卡牌",
+        "uipeth": "21.技能卡牌",
         "tw": "技能晶片",
         "en": "Ability Disk"
     },
@@ -3783,19 +3691,16 @@
         "id": 2000010,
         "explain": "給自己看的說明",
         "tw": "33FFDD 淺藍（條件項目）  FF3355 桃紅 （玩家名）",
-        "cn": "FFDD33 黃色（玩家成績）",
         "en": "FFFFFF 白色 （內文，單位） [BBFF33] 淺綠 （達成任務）"
     },
     {
         "id": 2000011,
         "tw": "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。",
-        "cn": "赛进入下半场，请两队把握后半[FF3355]{0}秒[-]的时间。",
         "en": "Game enteres second half, seize your opportunity [FF3355]{0} Seconds[-] left."
     },
     {
         "id": 2000012,
         "tw": "競賽剩下倒數[FF3355]{0}[-]秒！！！",
-        "cn": "竞赛剩下倒数[FF3355]{0}秒[-]！",
         "en": "Count Down [FF3355]{0}s[-] Second！！！"
     },
     {
@@ -3806,49 +3711,41 @@
     {
         "id": 2000018,
         "tw": "[33FFDD]時間[-]限制[FFDD33]{0}[-][33FFDD]秒[-]",
-        "cn": "[FFDD33]时间[-] [33FFDD]限制[-]",
         "en": "[33FFDD]Time[-] Limitation[FFDD33]{0}[-]s"
     },
     {
         "id": 2000019,
         "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-][33FFDD]秒[-]",
-        "cn": "[33FFDD]时间[-]",
         "en": "[33FFDD]End Time[-][FFDD33]{2}[-]s"
     },
     {
         "id": 2000107,
         "tw": "[33FFDD]得分[-]高於對手",
-        "cn": "[FFDD33]{1}[-][BBFF33]已达成得分目标！！！[-]",
         "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000108,
         "tw": "[33FFDD]得分[-]高於對手",
-        "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
         "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000109,
         "tw": "[33FFDD]目前得分[-]高於對手",
-        "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
         "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000200,
         "tw": "[FF3355]{1}[-]已達成得分目標！！！",
-        "cn": "[FFDD33]{1}[-][BBFF33]已达成得分目标！！！[-]",
         "en": "[FF3355]{1}[-]Achieved Scoring Objective！！！"
     },
     {
         "id": 2000201,
         "tw": "[FF3355]{1}[-]已達成一半的[33FFDD]得分[-]目標。",
-        "cn": "[FFDD33]{1}[-]已达成一半的得分目标。",
         "en": "[FF3355]{1}[-]Achieved 50% of [33FFDD]scoring[-] objective"
     },
     {
         "id": 2000202,
         "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}[-]分即可獲得勝利！！！",
-        "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可获得胜利！！！",
         "en": "[FF3355]{1}[-]Score [FFDD33]{0} More Points[-]To Win！！！"
     },
     {
@@ -3859,25 +3756,21 @@
     {
         "id": 2000208,
         "tw": "[33FFDD]得分[-]需達[FFDD33]{0}[-]分",
-        "cn": "[FFDD33]得分[-][33FFDD]须达到[-]",
         "en": "[33FFDD]Score[-] Must Achieve[FFDD33]{0}[-]Points"
     },
     {
         "id": 2000209,
         "tw": "[33FFDD]目前得分[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "cn": "[33FFDD]得分[-]",
         "en": "[33FFDD]Score[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000301,
         "tw": "[FF3355]{1}[-]只要再失[FFDD33]{0}分[-]就會輸掉這場競賽。",
-        "cn": "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就会输掉这场竞赛。",
         "en": "[FF3355]{1}[-] Loose [FFDD33]{0} More Points[-] Will Loose The Game"
     },
     {
         "id": 2000302,
         "tw": "[FF3355]{1}[-]要守住最後的[FFDD33]{0}[-]分啊！！！",
-        "cn": "[FFDD33]{1}[-]要守住最后的[FF3355]{0}分[-]啊！！！",
         "en": "[FF3355]{1}[-] Must Stop The Last[FFDD33]{0}[-]Points！！！"
     },
     {
@@ -3888,25 +3781,21 @@
     {
         "id": 2000308,
         "tw": "[33FFDD]失分[-]不超過[FFDD33]{0}[-]分",
-        "cn": "[FFDD33]失分[-][33FFDD]不超过[-]",
         "en": "[33FFDD]Gave Up[-] Less Than[FFDD33]{0}[-]Points"
     },
     {
         "id": 2000309,
         "tw": "[33FFDD]失分[-]不超過[FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "cn": "[33FFDD]失分[-]",
         "en": "[33FFDD]Gave Up Points[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2000401,
         "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}分[-]就可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
         "en": "[FF3355]{1}[-]Score[FFDD33]{0}Points[-]To Obtain Victory"
     },
     {
         "id": 2000402,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}[-]分！！！",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！",
         "en": "[FF3355]{1}[-]Victory Is[FFDD33]{0}Points[-] Away！！！"
     },
     {
@@ -3917,67 +3806,56 @@
     {
         "id": 2000408,
         "tw": "[33FFDD]得分[-]需超過對手[FFDD33]{0}[-]分",
-        "cn": "[33FFDD]需贏過對手[-]",
         "en": "[33FFDD]Must Beat Opponent more than[-][FFDD33]{0}[-]Points"
     },
     {
         "id": 2000409,
         "tw": "[33FFDD]目前得分超過對手[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "cn": "[33FFDD]分數[-]",
         "en": "[33FFDD]Must Beat Opponent more than[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]Points[-]"
     },
     {
         "id": 2001000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]2分球[-][BBFF33]目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]2 Point[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2001001,
         "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]2分球[-]即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。",
         "en": "[FF3355]{1}[-] Score [FFDD33]{0}[-] More [33FFDD]2 Point Shots[-] For The Win"
     },
     {
         "id": 2001002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}顆[-][33FFDD]2分球[-]！！！",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！",
         "en": "[FFDD33]{1}[-] Score [FF3355]{0} More[-] [33FFDD]2 Point Shots[-] For The Win"
     },
     {
         "id": 2001007,
         "tw": "[33FFDD]終場2分球[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]顆[-]",
-        "cn": "[33FFDD]終場[-][FFDD33]2分球[-]",
         "en": "[33FFDD]End 2Point Total[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2001008,
         "tw": "投進[-][FFDD33]{0}[-]顆[33FFDD]2分球[-]",
-        "cn": "[FFDD33]2分球[-][33FFDD]數量[-]",
         "en": "[FFDD33]{0}[-][33FFDD]2 Point[-] Field Goals"
     },
     {
         "id": 2001009,
         "tw": "[33FFDD]目前2分球[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]顆[-]",
-        "cn": "[FFDD33]2分球[-]",
         "en": "[FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]2 Point[-] Field Goals"
     },
     {
         "id": 2002000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]3分球[-][BBFF33]目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]3 Point[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2002001,
         "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]3分球[-]即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。",
         "en": "[FF3355]{1}[-] Score [FFDD33]{0}[-] More [33FFDD]3 Point Shots[-] For The Win"
     },
     {
         "id": 2002002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}顆[-][33FFDD]3分球[-]！！！",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！",
         "en": "[FFDD33]{1}[-] Score [FF3355]{0} More[-] [33FFDD]3 Point Shots[-] For The Win"
     },
     {
@@ -3988,31 +3866,26 @@
     {
         "id": 2002008,
         "tw": "投進[-][FFDD33]{0}[-]顆[33FFDD]3分球[-]",
-        "cn": "[FFDD33]3分球[-][33FFDD]數量[-]",
         "en": "[FFDD33]{0}[-] [33FFDD]3 Point[-] Field Goals"
     },
     {
         "id": 2002009,
         "tw": "[33FFDD]目前3分球[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]顆[-]",
-        "cn": "[FFDD33]3分球[-]",
         "en": "[FFDD33]{2}[-][FFFFFF]/{0}[-] [33FFDD]3 Point[-] Field Goals"
     },
     {
         "id": 2003000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]灌籃[-][BBFF33]目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Dunking[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2003001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]灌籃[-]即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
         "en": "[FF3355]{1}[-] More [FFDD33]{0}[-] [33FFDD]Dunks[-] to obtain victory"
     },
     {
         "id": 2003002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]灌籃[-]！！！",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！",
         "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-] More [33FFDD]Dunks[-] For The Victory！！！"
     },
     {
@@ -4023,31 +3896,26 @@
     {
         "id": 2003008,
         "tw": "[33FFDD]灌籃[-]成功[FFDD33]{0}[-]次",
-        "cn": "[FFDD33]灌籃[-][33FFDD]成功次數[-]",
         "en": "[33FFDD]Dunks[-] Times Successful[FFDD33]{0}[-]"
     },
     {
         "id": 2003009,
         "tw": "[33FFDD]目前灌籃[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
-        "cn": "[FFDD33]灌籃[-]",
         "en": "[33FFDD]Dunks[-] Times Successful[FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2004000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]推倒[-][BBFF33]目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]",
         "en": "[FF3355]{1}[-] [BBFF33]Achieved[-] [33FFDD]Shoving[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2004001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]推倒[-]即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。",
         "en": "[FF3355]{1}[-] [33FFDD]Shove[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2004002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]推倒！！！[-]",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！",
         "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Shoves[-] For The Victory！！！"
     },
     {
@@ -4058,31 +3926,26 @@
     {
         "id": 2004008,
         "tw": "[33FFDD]推倒[-]成功[FFDD33]{0}[-]次",
-        "cn": "[FFDD33]推倒[-][33FFDD]成功次數[-]",
         "en": "[33FFDD]Shove[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2004009,
         "tw": "[33FFDD]目前推倒[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
-        "cn": "[FFDD33]推倒[-]",
         "en": "[33FFDD]Shove[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2005000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Stealing[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2005001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]抄截[-]即獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。",
         "en": "[FF3355]{1}[-] [33FFDD]Steal[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2005002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]抄截！！！[-]",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！",
         "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Steals[-] For The Victory！！！"
     },
     {
@@ -4093,31 +3956,26 @@
     {
         "id": 2005008,
         "tw": "[33FFDD]抄截[-]成功[FFDD33]{0}[-]次",
-        "cn": "[FFDD33]抄截[-][33FFDD]成功次數[-]",
         "en": "[33FFDD]Steal[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2005009,
         "tw": "[33FFDD]目前抄截[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
-        "cn": "[FFDD33]抄截[-]",
         "en": "[33FFDD]Steal[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2006000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved[-] [33FFDD]Blocking[-] [BBFF33]Objective！！！[-]"
     },
     {
         "id": 2006001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]火鍋[-]即獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
         "en": "[FF3355]{1}[-] [33FFDD]Block[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2006002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]火鍋！！！[-]",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
         "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Blocks[-] For The Victory！！！"
     },
     {
@@ -4128,31 +3986,26 @@
     {
         "id": 2006008,
         "tw": "[33FFDD]火鍋[-]成功[FFDD33]{0}[-]次",
-        "cn": "[FFDD33]火鍋[-][33FFDD]成功次數[-]",
         "en": "[33FFDD]Block[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2006009,
         "tw": "[33FFDD]目前火鍋[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
-        "cn": "[FFDD33]火鍋[-]",
         "en": "[33FFDD]Block[-] Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     },
     {
         "id": 2007000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成肘擊目標！！！[-]",
-        "cn": "[FFDD33]{1}[-][BBFF33]已達成肘擊目標！！！[-]",
         "en": "[FFDD33]{1}[-] [BBFF33]Achieved Elbow Objective！！！[-]"
     },
     {
         "id": 2007001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]肘擊[-]即獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]肘擊即可獲得勝利。",
         "en": "[FF3355]{1}[-] [33FFDD]Elbow[-] [FFDD33]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2007002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]肘擊！！！[-]",
-        "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]肘擊！！！",
         "en": "[FF3355]{1}[-] Get [FFDD33]{0}[-][33FFDD]More Elbow[-] For The Victory！！！"
     },
     {
@@ -4163,13 +4016,11 @@
     {
         "id": 2007008,
         "tw": "[33FFDD]肘擊[-]成功[FFDD33]{0}[-]次",
-        "cn": "[FFDD33]肘擊[-][33FFDD]成功次數[-]",
         "en": "[33FFDD]Elbow[-] Times Successful[-][FFDD33]{0}[-]"
     },
     {
         "id": 2007009,
         "tw": "[33FFDD]目前肘擊[-][FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]次[-]",
-        "cn": "[FFDD33]肘擊[-]",
         "en": "[FFDD33]Elbow[-][33FFDD]Times Successful[-][FFDD33]{2}[-][FFFFFF]/{0}[-]"
     }
 ]

@@ -622,6 +622,7 @@ public class GEGMTool : GEBase
                         Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
 			GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.InitSkillCardCount();
+			GameData.Team.GotItemCount = team.GotItemCount;
 
             if (UIAvatarFitted.Visible)
                 UIAvatarFitted.Get.UpdateAvatar(true);
