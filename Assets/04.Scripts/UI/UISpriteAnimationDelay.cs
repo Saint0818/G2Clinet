@@ -66,7 +66,17 @@ public class UISpriteAnimationDelay : MonoBehaviour
 	/// </summary>
 	
 	protected virtual void Start () { RebuildSpriteList(); }
-	
+
+	private TweenColor tweenColor;
+	void OnEnable () {
+		tweenColor = gameObject.GetComponent<TweenColor>();
+		if(tweenColor != null) {
+			tweenColor.enabled = true;
+			tweenColor.ResetToBeginning();
+		}
+		ResetToBeginning ();
+	}
+
 	/// <summary>
 	/// Advance the sprite animation process.
 	/// </summary>

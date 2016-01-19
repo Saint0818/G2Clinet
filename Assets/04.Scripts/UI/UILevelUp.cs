@@ -186,7 +186,7 @@ public class UILevelUp : UIBase {
 
 	public void OnReturn (GameObject go) {
 		if(GameController.Visible) {
-			if(UIGameResult.Get.IsExpUnlock) {
+			if(GameData.DExpData[lv].OpenIndex > 0) {
 				UIShow(false);
 				UIAchievement.Get.Show(lv);
 			} else {
@@ -201,7 +201,6 @@ public class UILevelUp : UIBase {
 	}
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer) {
-		PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[afterPlayer.Lv].UI);
 		UIShow(true);
 		page[0].SetActive(true);
 		page[1].SetActive(false);

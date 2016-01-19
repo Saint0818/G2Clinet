@@ -62,7 +62,6 @@ public class UIGameResult : UIBase {
 	private bool isLevelUp = false;
 	private TPlayer beforePlayer;
 	private TPlayer afterPlayer;
-	private bool isExpUnlock = false;
 	public List<int> GetCardLists = new List<int>();
 	public bool IsShowFirstCard = true;
 
@@ -563,10 +562,6 @@ public class UIGameResult : UIBase {
 		uiAwardSkip.SetActive(true);
 	}
 
-	public bool IsExpUnlock {
-		get{return isExpUnlock;}
-	}
-
 	/// <summary>
 	/// Stages the reward start.
 	/// </summary>
@@ -611,7 +606,7 @@ public class UIGameResult : UIBase {
 					isLevelUp = true;
 					afterPlayer = reward.Player;
 					if(GameData.DExpData.ContainsKey(reward.Player.Lv) && GameData.DExpData[reward.Player.Lv].OpenIndex > 0) {
-						isExpUnlock = true;
+						PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[afterPlayer.Lv].UI);
 					}
 				}
 
