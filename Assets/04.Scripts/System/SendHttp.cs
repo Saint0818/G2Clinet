@@ -41,9 +41,9 @@ public static class URLConst {
 	public const string PickLottery = "picklottery";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
-	public const string StageStart = "stagestart";
-	public const string StageWin = "stagewin";
-	public const string StageRewardAgain = "stagerewardagain";
+	public const string StageStart = "mainstagestart";
+	public const string StageWin = "mainstagewin";
+	public const string StageRewardAgain = "mainstagerewardagain";
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
     public const string SyncDailyRecord = "syncdailyrecord";
