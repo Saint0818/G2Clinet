@@ -125,7 +125,7 @@ public class UISkillInfo : UIBase {
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
 		btnUpgrade.SetActive(true);
-		btnCrafting.SetActive(false);
+		btnCrafting.SetActive(true);
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -298,13 +298,8 @@ public class UISkillInfo : UIBase {
 			if(GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill == 0) {
 				UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
 			} else {
-				TSkill nextSkill = new TSkill();
-				nextSkill.ID = GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill;
-				nextSkill.Lv = 0;
-				nextSkill.Exp = 0;
-				UISkillEvolution.Get.Show(mUICard.CardIndex, mUICard.skillCard.Skill, nextSkill, isAlreadyEquip);
+				UISkillFormation.Get.IsEvolution = true;
 				UISkillFormation.Get.DoFinish();
-				UIShow(false);
 			}
 		}
 	}

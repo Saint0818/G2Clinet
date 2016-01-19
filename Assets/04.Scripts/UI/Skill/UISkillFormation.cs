@@ -198,6 +198,7 @@ public class UISkillFormation : UIBase {
 
 	//ForReinforce
 	private bool isReinforce = false;
+	private bool isEvolution = false;
 	private int infoIndex = -1;
 	private bool isAlreadyEquip = false;
 
@@ -1295,6 +1296,11 @@ public class UISkillFormation : UIBase {
 		set{ isReinforce = value;}
 	} 
 
+	public bool IsEvolution {
+		get{return isEvolution;}
+		set{isEvolution = value;}
+	}
+
 	public void DoFinish() {
 		List<string> tempNoUpdate = new List<string>();
 		List<string> tempRemoveIndex = new List<string>();
@@ -1371,20 +1377,30 @@ public class UISkillFormation : UIBase {
 			} else
 				SendEquipSkillCard(null);
 		} else{
-			if(!isReinforce) {
-				if(!isLeave) {
-					if(isChangePage) {
-						SendChangeSkillPage();
-					} else {
-						if(IsBuyState)
-							setEditState(IsBuyState);
+			if(!isEvolution) {
+				if(!isReinforce) {
+					if(!isLeave) {
+						if(isChangePage) {
+							SendChangeSkillPage();
+						} else {
+							if(IsBuyState)
+								setEditState(IsBuyState);
+						}
+					} else 
+						hide();
+				} else {
+					isReinforce = false;
+					if(UISkillInfo.Visible) {
+						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+						UISkillReinforce.Get.Show( skill,  infoIndex, isAlreadyEquip);
+						UISkillInfo.UIShow(false);
 					}
-				} else 
-					hide();
+				}
 			} else {
-				isReinforce = false;
+				isEvolution = false;
 				if(UISkillInfo.Visible) {
-					UISkillReinforce.Get.Show( findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill), infoIndex, isAlreadyEquip);
+					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+					UISkillEvolution.Get.Show( infoIndex, skill, isAlreadyEquip);
 					UISkillInfo.UIShow(false);
 				}
 			}
@@ -1419,28 +1435,39 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 			GameData.Team.InitSkillCardCount();
-			
-			if(!isReinforce) {
-				if(!isLeave) {
-					if(!IsBuyState) {
-						if(isChangePage) {
-							SendChangeSkillPage();
-						}
+
+			if(!isEvolution) {
+				if(!isReinforce) {
+					if(!isLeave) {
+						if(!IsBuyState) {
+							if(isChangePage) {
+								SendChangeSkillPage();
+							}
+							refreshAfterInstall ();
+						} else 
+							refreshBeforeSell();
+					} else {
 						refreshAfterInstall ();
-					} else 
-						refreshBeforeSell();
+						hide();
+						UIHint.Get.ShowHint(TextConst.S(533), Color.black);
+					}
 				} else {
 					refreshAfterInstall ();
-					hide();
-					UIHint.Get.ShowHint(TextConst.S(533), Color.black);
+					isReinforce = false;
+					if(UISkillInfo.Visible) {
+						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+						UISkillReinforce.Get.Show( skill, infoIndex, isAlreadyEquip);
+						UISkillInfo.UIShow(false);
+					}
 				}
 			} else {
-				isReinforce = false;
+				refreshAfterInstall ();
+				isEvolution = false;
 				if(UISkillInfo.Visible) {
-					UISkillReinforce.Get.Show( findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill), infoIndex, isAlreadyEquip);
+					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+					UISkillEvolution.Get.Show(infoIndex, skill, isAlreadyEquip);
 					UISkillInfo.UIShow(false);
 				}
-				
 			}
 
 		} else {

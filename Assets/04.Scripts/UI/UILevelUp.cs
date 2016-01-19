@@ -186,7 +186,7 @@ public class UILevelUp : UIBase {
 
 	public void OnReturn (GameObject go) {
 		if(GameController.Visible) {
-			if(GameData.DExpData[lv].OpenIndex > 0) {
+			if(GameData.DExpData.ContainsKey(lv) && GameData.DExpData[lv].OpenIndex > 0) {
 				UIShow(false);
 				UIAchievement.Get.Show(lv);
 			} else {

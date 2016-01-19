@@ -557,12 +557,6 @@ namespace GameStruct
 	public struct TPlayerSkill {
 
 	}
-
-	public struct TMaterialSkillCard
-	{
-		public int ID;
-		public int Num;
-	}
 	
 	public struct TSkillData {
 		public int ID;
