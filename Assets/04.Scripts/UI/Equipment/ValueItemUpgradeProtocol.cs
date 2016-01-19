@@ -18,7 +18,7 @@ public class ValueItemUpgradeProtocol
 
     private void waitValueItemUpgrade(bool ok, WWW www)
     {
-        Debug.LogFormat("waitValueItemUpgrade, ok:{0}", ok);
+//        Debug.LogFormat("waitValueItemUpgrade, ok:{0}", ok);
 
         if(ok)
         {

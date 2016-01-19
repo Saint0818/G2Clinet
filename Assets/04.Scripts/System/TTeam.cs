@@ -559,7 +559,7 @@ namespace GameStruct
         /// <returns></returns>
         public bool IsPlayerAllBestValueItem()
         {
-            for(int kind = 11; kind < 19; kind++)
+            for(int kind = 11; kind <= 18; kind++)
             {
                 if(IsPlayerBestValueItem(kind))
                     return false;
@@ -575,7 +575,7 @@ namespace GameStruct
         /// <returns></returns>
         public bool IsPlayerBestValueItem(int kind)
         {
-            if(11 <= kind && kind <= 19)
+            if(11 <= kind && kind <= 18)
                 return Player.GetValueItemTotalPoints(kind) < getStorageBestValueItemTotalPoints(kind);
 
             return false;
@@ -589,17 +589,17 @@ namespace GameStruct
         public int getStorageBestValueItemTotalPoints(int kind)
         {
             int maxTotalPoint = Int32.MinValue;
-            for(var i = 0; i < ValueItems.Length; i++)
+            foreach(TValueItem valueItem in ValueItems)
             {
-                if(!GameData.DItemData.ContainsKey(ValueItems[i].ID))
+                if(!GameData.DItemData.ContainsKey(valueItem.ID))
                     continue;
 
-                TItemData item = GameData.DItemData[ValueItems[i].ID];
-                if(item.Kind != kind)
+                TItemData item = GameData.DItemData[valueItem.ID];
+                if (item.Kind != kind)
                     continue;
 
-                if(maxTotalPoint < item.BonusValues.Sum())
-                    maxTotalPoint = item.BonusValues.Sum();
+                if(maxTotalPoint < valueItem.GetTotalPoint())
+                    maxTotalPoint = valueItem.GetTotalPoint();
             }
 
             return maxTotalPoint;

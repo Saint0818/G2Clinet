@@ -60,17 +60,15 @@ public class UIEquipMaterialItem : MonoBehaviour
 
         public int GetTotalPoints()
         {
-            return Values.Sum(pair => pair.Value.Value);
+//            return Values.Sum(pair => pair.Value.Value);
 
-            /*
             int totalPoints = 0;
-            foreach(KeyValuePair<EAttribute, int> pair in Values)
+            foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in Values)
             {
-                totalPoints += pair.Value;
+                totalPoints += pair.Value.Value;
             }
 
             return totalPoints;
-            */
         }
     }
 

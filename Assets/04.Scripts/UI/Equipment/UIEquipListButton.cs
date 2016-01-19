@@ -48,13 +48,13 @@ public class UIEquipListButton : MonoBehaviour
         AmountLabel.gameObject.SetActive(data.Num >= 2);
         AmountLabel.text = data.Num.ToString();
 
-        setValues(data.Values);
+        setValues(data.AllValues);
         setInlays(data.Inlay);
     }
 
     public bool RedPointVisible {set { RedPoint.SetActive(value); }}
 
-    private void setValues(Dictionary<EAttribute, UIValueItemData.BonusData> itemValues)
+    private void setValues(Dictionary<EAttribute, UIValueItemData.BonusData> allValues)
     {
         // clear.
         for(var i = 0; i < Attrs.Length; i++)
@@ -64,7 +64,7 @@ public class UIEquipListButton : MonoBehaviour
         }
 
         int index = 0;
-        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in itemValues)
+        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in allValues)
         {
             Attrs[index].gameObject.SetActive(true);
             AttrValues[index].gameObject.SetActive(true);

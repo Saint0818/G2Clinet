@@ -756,7 +756,29 @@ namespace GameStruct
 	        return false;
 	    }
 
-	    public override string ToString()
+	    public int GetTotalPoint()
+	    {
+	        int totalPoints = getSumAttriValues(ID);
+
+	        if(InlayItemIDs != null)
+	        {
+                foreach(int inlayItemID in InlayItemIDs)
+                {
+                    totalPoints += getSumAttriValues(inlayItemID);
+                }
+	        }
+
+	        return totalPoints;
+	    }
+
+        private int getSumAttriValues(int itemID)
+        {
+            if(GameData.DItemData.ContainsKey(itemID))
+                return GameData.DItemData[itemID].BonusValues.Sum();
+            return 0;
+        }
+
+        public override string ToString()
 	    {
 	        return string.Format("ID: {0}, InlayItemIDs: {1}", ID, InlayItemIDs);
 	    }

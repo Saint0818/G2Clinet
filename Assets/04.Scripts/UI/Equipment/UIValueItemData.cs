@@ -67,7 +67,33 @@ public class UIValueItemData
     }
     private string mDesc;
 
-    // 道具會影響哪些屬性的數值.
+    public Dictionary<EAttribute, BonusData> AllValues
+    {
+        get
+        {
+            Action<Dictionary<EAttribute, BonusData>, Dictionary<EAttribute, BonusData>> copy =
+                (source, dest) =>
+                {
+                    foreach(KeyValuePair<EAttribute, BonusData> pair in source)
+                    {
+                        if(!dest.ContainsKey(pair.Key))
+                            dest.Add(pair.Key, new BonusData());
+
+                        dest[pair.Key].Icon = pair.Value.Icon;
+                        dest[pair.Key].Value += pair.Value.Value;
+                    }
+                };
+
+            Dictionary<EAttribute, BonusData> allValues = new Dictionary<EAttribute, BonusData>();
+
+            copy(Values, allValues);
+            copy(InlayValues, allValues);
+
+            return allValues;
+        }
+    }
+
+    // 數值裝會影響哪些屬性的數值.(不包含鑲嵌的數值)
     public Dictionary<EAttribute, BonusData> Values = new Dictionary<EAttribute, BonusData>();
 
     /// <summary>
@@ -137,23 +163,21 @@ public class UIValueItemData
     /// <returns></returns>
     public int GetTotalPoints()
     {
-        int totalPoints = Values.Sum(pair => pair.Value.Value);
-        /*
+//        int totalPoints = Values.Sum(pair => pair.Value.Value);
+        int totalPoints = 0;
         foreach(KeyValuePair<EAttribute, BonusData> pair in Values)
         {
             totalPoints += pair.Value.Value;
         }
-        */
 
-        if (Materials != null)
+        if(Materials != null)
         {
-            totalPoints += Materials.Sum(inlay => inlay.GetTotalPoints());
-            /*
-            foreach (UIValueItemInlayData inlay in Materials)
+//            totalPoints += Materials.Sum(materialData => materialData.GetTotalPoints());
+
+            foreach(UIEquipMaterialItem.Data material in Materials)
             {
-                totalPoints += inlay.GetTotalPoints();
+                totalPoints += material.GetTotalPoints();
             }
-            */
         }
 
         return totalPoints;

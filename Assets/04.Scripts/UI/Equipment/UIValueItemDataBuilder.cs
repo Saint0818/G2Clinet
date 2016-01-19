@@ -136,7 +136,6 @@ public static class UIValueItemDataBuilder
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
                 ItemID = materialItem.ID,
-                Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
             valueItem.Materials.Add(data);
 
@@ -145,6 +144,7 @@ public static class UIValueItemDataBuilder
                 // 有鑲嵌物.
                 data.Status = UIEquipMaterialItem.EStatus.Inlayed;
                 data.RealValue = data.NeedValue;
+                data.Values = convertBonus(materialItem.Bonus, materialItem.BonusValues);
             }
             else
             {

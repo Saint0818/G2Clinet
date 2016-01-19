@@ -25,7 +25,7 @@ public class ValueItemAddInlayProtocol
 
     private void waitAddValueItemInlay(bool ok, WWW www)
     {
-        Debug.LogFormat("ValueItemAddInlay, ok:{0}", ok);
+//        Debug.LogFormat("ValueItemAddInlay, ok:{0}", ok);
 
         if(ok)
         {

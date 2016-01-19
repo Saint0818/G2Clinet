@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -676,10 +675,10 @@ namespace GameStruct
         /// <returns></returns>
         public int GetValueItemTotalPoints(int kind)
         {
-			if(ValueItems != null && ValueItems.ContainsKey(kind) && GameData.DItemData.ContainsKey(ValueItems[kind].ID))
-				return GameData.DItemData[ValueItems[kind].ID].BonusValues.Sum();
-			else
-				return 0;
+            if(ValueItems == null || !ValueItems.ContainsKey(kind))
+                return 0;
+
+            return ValueItems[kind].GetTotalPoint();
         }
 
         public TGamePlayerRecord PlayerRecord {
