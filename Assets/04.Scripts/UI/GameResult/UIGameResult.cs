@@ -611,7 +611,6 @@ public class UIGameResult : UIBase {
 					isLevelUp = true;
 					afterPlayer = reward.Player;
 					if(GameData.DExpData.ContainsKey(reward.Player.Lv) && GameData.DExpData[reward.Player.Lv].OpenIndex > 0) {
-						PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[reward.Player.Lv].UI);
 						isExpUnlock = true;
 					}
 				}

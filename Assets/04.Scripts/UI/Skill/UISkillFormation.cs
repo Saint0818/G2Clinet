@@ -136,7 +136,7 @@ public class UISkillFormation : UIBase {
 	//Instantiate Object
 	private GameObject itemSkillCard;
 	private GameObject itemCardEquipped;
-	private GameObject equipEffect;
+//	private GameObject equipEffect;
 	
 	//Original for compare DoFinish
 	private List<int> activeOriginalSN = new List<int>();
@@ -240,7 +240,7 @@ public class UISkillFormation : UIBase {
 	protected override void InitCom() {
 		itemSkillCard = Resources.Load(UIPrefabPath.ItemSkillCard) as GameObject;
 		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
-		equipEffect = Resources.Load("Effect/UIEquipSkill") as GameObject;
+//		equipEffect = Resources.Load("Effect/UIEquipSkill") as GameObject;
 
 		tempPage = GameData.Team.Player.SkillPage;
 
@@ -579,10 +579,10 @@ public class UISkillFormation : UIBase {
 
 		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
 
-		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
-		uiEquipEffect.transform.parent = obj.transform;
-		uiEquipEffect.transform.localPosition = Vector3.zero;
-		uiEquipEffect.transform.localScale = Vector3.one;
+//		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
+//		uiEquipEffect.transform.parent = obj.transform;
+//		uiEquipEffect.transform.localPosition = Vector3.zero;
+//		uiEquipEffect.transform.localScale = Vector3.one;
 		return obj;
 	}
 

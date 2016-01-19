@@ -530,6 +530,8 @@ namespace GameStruct
 
     public struct TDailyCount {
         public int FreshShop;
+		public int BuyPowerOne;
+		public int BuyPowerTwo;
     }
 
 	public struct TGameSetting {
@@ -1293,6 +1295,11 @@ namespace GameStruct
 		/// </summary>
 		public int SpendKind;
 		public int Price;
+		/// <summary>
+		/// length次數限制
+		/// []代表價格
+		/// </summary>
+		public int[] Limit;
 		public int Sale;//銷售語的種類
 		public int ItemID;
 		public int Pic;

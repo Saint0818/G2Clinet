@@ -39,7 +39,6 @@ namespace GameStruct
 
         public int BodyType; // 2:後衛, 1:前鋒, 0:中鋒.
 
-        public int MaxSkillSpace;
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
 		public int SkillCardMax;
@@ -120,7 +119,6 @@ namespace GameStruct
             Defence = 0;
             Pass = 0;
             BodyType = 0;
-            MaxSkillSpace = 0;
             AISkillLv = 0;
             SkillPage = 0;
 			SkillCardMax = 10;

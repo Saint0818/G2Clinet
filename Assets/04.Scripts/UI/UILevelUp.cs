@@ -1,6 +1,7 @@
 using GameStruct;
 using UnityEngine;
 using GameItem;
+using GameEnum;
 
 public struct TPlayerLevelUp {
 	private TPlayerInGameBtn[] playerIcon;
@@ -200,6 +201,7 @@ public class UILevelUp : UIBase {
 	}
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer) {
+		PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[afterPlayer.Lv].UI);
 		UIShow(true);
 		page[0].SetActive(true);
 		page[1].SetActive(false);

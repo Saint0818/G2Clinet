@@ -17,12 +17,14 @@ public struct TBuyFromShop {
 	public int Diamond;
 	public int Money;
 	public int Power;
+	public TDailyCount DailyCount;
 }
 
 public struct TItemRecharge {
 	public GameObject mSelf;
 	public int mIndex;
 	public TShop mShop;
+	public int mPrice;
 
 	public UIButton PriceButton;
 	public UILabel PriceLabel;
@@ -63,14 +65,15 @@ public struct TItemRecharge {
 		mShop = shop;
 		PriceButton.name = shop.Order.ToString();
 		mSelf.transform.localPosition = new Vector3(-250 + order * 250, 0, 0);
-		PriceLabel.text = shop.Price.ToString();
+
 		if(PriceIcon != null)
 			PriceIcon.spriteName = iconName(shop.SpendKind, shop.Pic);
 
-		if(shop.Sale > 0)
-			SaleLabel.text = getSaleText(shop.Sale);
+		if(mShop.Sale > 0)
+			SaleLabel.text = getSaleText(mShop.Sale);
 		else
 			SaleLabel.gameObject.SetActive(false);
+
 		
 		if(shop.ItemID > 0 && GameData.DItemData.ContainsKey(shop.ItemID)) {
 			ItemIcon.spriteName = itemiconName(GameData.DItemData[shop.ItemID].Kind);
@@ -78,6 +81,33 @@ public struct TItemRecharge {
 			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
 			ValueIcon.spriteName = itemiconName(GameData.DItemData[shop.ItemID].Kind);
 		}
+		RefreshPrice();
+	}
+
+	public void RefreshPrice() {
+		if(mShop.Limit != null) {
+			if(mShop.Order == 0 && GameData.Team.DailyCount.BuyPowerOne >=0) { 
+				if(GameData.Team.DailyCount.BuyPowerOne >= mShop.Limit.Length) {
+					mPrice = mShop.Limit[mShop.Limit.Length - 1];
+					showSoldOut ();
+				} else
+					mPrice = mShop.Limit[GameData.Team.DailyCount.BuyPowerOne];
+			} else if (mShop.Order == 1 && GameData.Team.DailyCount.BuyPowerTwo >=0) {
+				if(GameData.Team.DailyCount.BuyPowerTwo >= mShop.Limit.Length) {
+					mPrice =  mShop.Limit[mShop.Limit.Length - 1];
+					showSoldOut ();
+				} else 
+					mPrice =  mShop.Limit[GameData.Team.DailyCount.BuyPowerTwo];
+			}
+		} else 
+			mPrice = mShop.Price;
+
+		PriceLabel.text = mPrice.ToString();
+	}
+
+	private void showSoldOut () {
+		SaleLabel.gameObject.SetActive(true);
+		SaleLabel.text = getSaleText(4);
 	}
 
 	public  void UpdateViewForMall (int index, int order, TMall mall) {
@@ -115,17 +145,18 @@ public struct TItemRecharge {
 	//2.4201 熱門
 	//3.4202 限時
 	private string getSaleText (int sale) {
-		switch (sale) {
-		case 1:
-			return TextConst.S(4200);
-		case 2:
-			return TextConst.S(4201);
-		case 3:
-			return TextConst.S(4202);
-		case 4:
-			return "Sold Out(Temp).";
-		}
-		return "";
+		return TextConst.S(4200 + (sale - 1));
+//		switch (sale) {
+//		case 1:
+//			return TextConst.S(4200);
+//		case 2:
+//			return TextConst.S(4201);
+//		case 3:
+//			return TextConst.S(4202);
+//		case 4:
+//			return TextConst.S(4203);
+//		}
+//		return "";
 	}
 
 	/*
@@ -295,9 +326,9 @@ public class UIRecharge : UIBase {
 			if(result >= 0 && result < kindBuyCoin.Length && GameData.DItemData.ContainsKey(kindBuyCoin[result].mShop.ItemID)) {
 				buyIndex = kindBuyCoin[result].mIndex;
 				if(kindBuyCoin[result].mShop.SpendKind == 0 ) {
-					CheckDiamond(kindBuyCoin[result].mShop.Price, true, string.Format(TextConst.S(250), kindBuyCoin[result].mShop.Price, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
+					CheckDiamond(kindBuyCoin[result].mPrice, true, string.Format(TextConst.S(250), kindBuyCoin[result].mPrice, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
 				}else {
-					CheckMoney(kindBuyCoin[result].mShop.Price, true, string.Format(TextConst.S(251), kindBuyCoin[result].mShop.Price, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
+					CheckMoney(kindBuyCoin[result].mPrice, true, string.Format(TextConst.S(251), kindBuyCoin[result].mPrice, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
 				}
 			}
 		}
@@ -307,12 +338,25 @@ public class UIRecharge : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyStamina.Length) {
+				
+				if(kindBuyStamina[result].mShop.Order == 0) {
+					if (GameData.Team.DailyCount.BuyPowerOne >= kindBuyStamina[result].mShop.Limit.Length ) {
+						UIHint.Get.ShowHint("over BuyPowerOne limit:"+ GameData.Team.DailyCount.BuyPowerOne, Color.red);
+						return;
+					}
+				} else if(kindBuyStamina[result].mShop.Order == 1) {
+					if (GameData.Team.DailyCount.BuyPowerTwo >= kindBuyStamina[result].mShop.Limit.Length ) {
+						UIHint.Get.ShowHint("over BuyPowerTwo limit:"+ GameData.Team.DailyCount.BuyPowerTwo, Color.red);
+						return;
+					}
+				}
+
 				if(GameData.Team.Power < GameConst.Max_Power){
 					buyIndex = kindBuyStamina[result].mIndex;
 					if(kindBuyStamina[result].mShop.SpendKind == 0) {
-						CheckDiamond(kindBuyStamina[result].mShop.Price, true, string.Format(TextConst.S(250), kindBuyStamina[result].mShop.Price, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
+						CheckDiamond(kindBuyStamina[result].mPrice, true, string.Format(TextConst.S(250), kindBuyStamina[result].mPrice, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
 					} else if(kindBuyStamina[result].mShop.SpendKind == 1) {
-						CheckMoney(kindBuyStamina[result].mShop.Price, true, string.Format(TextConst.S(251), kindBuyStamina[result].mShop.Price, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
+						CheckMoney(kindBuyStamina[result].mPrice, true, string.Format(TextConst.S(251), kindBuyStamina[result].mPrice, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
 					}
 
 				} else
@@ -323,6 +367,16 @@ public class UIRecharge : UIBase {
 
 	public void ConfirmBuy () {
 		SendBuyFromShop(buyIndex);
+	}
+
+	private void refreshPriceUI () {
+		for(int i=0; i<GameData.DShops.Length; i++) {
+			if(GameData.DShops[i].Kind == 0) {
+				kindBuyCoin[GameData.DShops[i].Order].RefreshPrice();
+			} else if(GameData.DShops[i].Kind == 1) {
+				kindBuyStamina[GameData.DShops[i].Order].RefreshPrice();
+			}
+		}
 	}
 
 
@@ -363,6 +417,7 @@ public class UIRecharge : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 
 			UIMainLobby.Get.UpdateUI();
+			refreshPriceUI ();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);
@@ -386,8 +441,11 @@ public class UIRecharge : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.Power = result.Power;
+			GameData.Team.DailyCount = result.DailyCount;
+
 
 			UIMainLobby.Get.UpdateUI();
+			refreshPriceUI ();
 //			UIHint.Get.ShowHint(TextConst.S(showText), Color.blue);
 		}
 		else
