@@ -2,7 +2,7 @@
 using System.Text;
 using GameStruct;
 
-public class TMainStageRewardAgain
+public class TStageRewardAgain
 {
     /// <summary>
     /// 帳號的錢.

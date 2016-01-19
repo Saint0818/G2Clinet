@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MainStageRewardAgainProtocol
 {
-    public delegate void Action(bool ok, TMainStageRewardAgain reward);
+    public delegate void Action(bool ok, TStageRewardAgain reward);
     private Action mCallback;
 
     public void Send(int stageID, Action callback)
@@ -12,18 +12,18 @@ public class MainStageRewardAgainProtocol
 
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
-        SendHttp.Get.Command(URLConst.MainStageRewardAgain, waitMainStageRewardAgain, form);
+        SendHttp.Get.Command(URLConst.StageRewardAgain, waitMainStageRewardAgain, form);
     }
 
     private void waitMainStageRewardAgain(bool ok, WWW www)
     {
-        Debug.LogFormat("waitMainStageRewardAgain, ok:{0}", ok);
+//        Debug.LogFormat("waitMainStageRewardAgain, ok:{0}", ok);
 
         if(ok)
         {
-            var reward = JsonConvert.DeserializeObject<TMainStageRewardAgain>(www.text);
+            var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
 
-            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
+//            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
 
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
@@ -40,7 +40,7 @@ public class MainStageRewardAgainProtocol
         else
         {
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
-            mCallback(false, new TMainStageRewardAgain());
+            mCallback(false, new TStageRewardAgain());
         }
     }
 }

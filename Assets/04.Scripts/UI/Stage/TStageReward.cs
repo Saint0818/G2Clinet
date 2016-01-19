@@ -1,7 +1,10 @@
 ﻿
 using GameStruct;
 
-public class TMainStageWin
+/// <summary>
+/// 關卡獲勝的獎勵.
+/// </summary>
+public class TStageReward
 {
     /// <summary>
     /// 關卡給的金幣.

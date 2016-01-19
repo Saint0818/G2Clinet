@@ -1,4 +1,4 @@
-using GameStruct;
+﻿using GameStruct;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -584,7 +584,7 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private void waitMainStageWin(bool ok, TMainStageWin reward)
+	private void waitMainStageWin(bool ok, TStageReward reward)
 	{
 		if(ok)
 		{
@@ -688,7 +688,7 @@ public class UIGameResult : UIBase {
         again.Send(stageID, waitMainStageRewardAgain);
 	}
 	
-	private void waitMainStageRewardAgain(bool ok, TMainStageRewardAgain reward)
+	private void waitMainStageRewardAgain(bool ok, TStageRewardAgain reward)
 	{
 		Debug.LogFormat("WaitMainStageRewardAgain, ok:{0}", ok);
 		

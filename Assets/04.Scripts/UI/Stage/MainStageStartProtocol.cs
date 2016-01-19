@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class MainStageStartProtocol
 {
-    private Action<bool> mCallback;
+    private Action<bool, Data> mCallback;
 
-    private class Data
+    public class Data
     {
         [UsedImplicitly]
         public int Power;
@@ -46,22 +46,23 @@ public class MainStageStartProtocol
         }
     }
 
-    public void Send(int stageID, Action<bool> callback)
+    public void Send(int stageID, Action<bool, Data> callback)
     {
         mCallback = callback;
 
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
-        SendHttp.Get.Command(URLConst.MainStageStart, waitMainStageStart, form);
+        SendHttp.Get.Command(URLConst.StageStart, waitMainStageStart, form);
     }
 
     private void waitMainStageStart(bool ok, WWW www)
     {
+        var data = new Data();
         if(ok)
         {
-            var data = JsonConvert.DeserializeObject<Data>(www.text);
+            data = JsonConvert.DeserializeObject<Data>(www.text);
 
-            Debug.Log(data);
+//            Debug.Log(data);
 
             GameData.Team.Power = data.Power;
             GameData.Team.PowerCD = data.PowerCD;
@@ -71,6 +72,6 @@ public class MainStageStartProtocol
                 GameData.Team.Player.ValueItems = data.PlayerValueItems;
         }
 
-        mCallback(ok);
+        mCallback(ok, data);
     }
 }

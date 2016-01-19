@@ -224,7 +224,7 @@ public class UIMainStage : UIBase
             maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;
         List<TStageData> allStageData = new List<TStageData>();
         // 主線關卡是從第一章開始顯示.
-        StageTable.Ins.GetByChapterRange(1, maxChapter, ref allStageData);
+        StageTable.Ins.GetMainStageByChapterRange(1, maxChapter, ref allStageData);
 
         // 3. 設定每一個小關卡.
         foreach(TStageData data in allStageData)

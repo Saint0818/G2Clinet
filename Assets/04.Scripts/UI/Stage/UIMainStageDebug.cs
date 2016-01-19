@@ -4,79 +4,44 @@ public class UIMainStageDebug
 {
     private int mStageID;
 
-    public void SendCommand(int stageID)
+    public void Send(int stageID)
     {
         mStageID = stageID;
+
+        var start = new MainStageStartProtocol();
+        start.Send(stageID, waitStart);
+    }
+
+    private void waitStart(bool ok, MainStageStartProtocol.Data data)
+    {
+        Debug.LogFormat("waitStart, ok:{0}", ok);
+        Debug.Log(data);
 
         var win = new MainStageWinProtocol();
         win.Send(mStageID, waitMainStageWin);
     }
 
-    private void waitMainStageWin(bool ok, TMainStageWin reward)
+    private void waitMainStageWin(bool ok, TStageReward reward)
     {
         Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
+        Debug.Log(reward);
 
-        if(ok)
-        {
-//            TStageRewardStart reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
-
-//            Debug.LogFormat("waitMainStageWin:{0}", reward);
-
-//            GameData.Team.Power = reward.Power;
-//            GameData.Team.Money = reward.Money;
-//            GameData.Team.Diamond = reward.Diamond;
-//            GameData.Team.Player = reward.Player;
-//            GameData.Team.Player.Init();
-//            GameData.Team.Items = reward.Items;
-
-            var again = new MainStageRewardAgainProtocol();
-            again.Send(mStageID, waitMainStageRewardAgain);
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+        var again = new MainStageRewardAgainProtocol();
+        again.Send(mStageID, waitMainStageRewardAgain);
     }
 
-    private void waitMainStageRewardAgain(bool ok, TMainStageRewardAgain reward)
+    private void waitMainStageRewardAgain(bool ok, TStageRewardAgain reward)
     {
         Debug.LogFormat("waitMainStageRewardAgain, ok:{0}", ok);
+        Debug.Log(reward);
 
-        if(ok)
-        {
-//            var reward = JsonConvert.DeserializeObject<TMainStageRewardAgain>(www.text);
-//            GameData.Team.Money = reward.Money;
-//            GameData.Team.Diamond = reward.Diamond;
-//            GameData.Team.Player.Lv = reward.PlayerLv;
-//            GameData.Team.Player.Exp = reward.PlayerExp;
-//            GameData.Team.Items = reward.Items;
-//            GameData.Team.SkillCards = reward.SkillCards;
-
-//            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
-
-            var again = new MainStageRewardAgainProtocol();
-            again.Send(mStageID, waitMainStageRewardAgain2);
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+        var again = new MainStageRewardAgainProtocol();
+        again.Send(mStageID, waitMainStageRewardAgain2);
     }
 
-    private void waitMainStageRewardAgain2(bool ok, TMainStageRewardAgain reward)
+    private void waitMainStageRewardAgain2(bool ok, TStageRewardAgain reward)
     {
         Debug.LogFormat("waitMainStageRewardAgain2, ok:{0}", ok);
-
-        if (ok)
-        {
-//            var reward = JsonConvert.DeserializeObject<TMainStageRewardAgain>(www.text);
-
-//            Debug.LogFormat("waitMainStageRewardAgain2:{0}", reward);
-
-//            GameData.Team.Money = reward.Money;
-//            GameData.Team.Diamond = reward.Diamond;
-//            GameData.Team.Player.Lv = reward.PlayerLv;
-//            GameData.Team.Player.Exp = reward.PlayerExp;
-//            GameData.Team.Items = reward.Items;
-//            GameData.Team.SkillCards = reward.SkillCards;
-        }
-        else
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+        Debug.Log(reward);
     }
 }

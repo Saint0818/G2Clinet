@@ -867,7 +867,7 @@ public class UISelectRole : UIBase {
             SceneMgr.Get.ChangeLevel (courtNo);
     }
 
-    private void waitMainStageStart(bool ok)
+    private void waitMainStageStart(bool ok, MainStageStartProtocol.Data data)
     {
         if(ok)
             enterGame();

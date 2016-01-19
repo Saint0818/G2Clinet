@@ -1,29 +1,33 @@
+﻿using System;
 using Newtonsoft.Json;
 using UnityEngine;
 
 public class MainStageWinProtocol
 {
-    public delegate void Action(bool ok, TMainStageWin reward);
-    private Action mCallback;
+    /// <summary>
+    /// <para>[bool]: true 為 server command 成功.</para>
+    /// <para>[TStageReward]: 關卡獲得的獎勵. </para>
+    /// </summary>
+    private Action<bool, TStageReward> mCallback;
 
-    public void Send(int stageID, Action callback)
+    public void Send(int stageID, Action<bool, TStageReward> callback)
     {
         mCallback = callback;
 
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
-        SendHttp.Get.Command(URLConst.MainStageWin, waitMainStageWin, form);
+        SendHttp.Get.Command(URLConst.StageWin, waitMainStageWin, form);
     }
 
     private void waitMainStageWin(bool ok, WWW www)
     {
-        Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
+//        Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
 
         if(ok)
         {
-            TMainStageWin reward = JsonConvert.DeserializeObject<TMainStageWin>(www.text);
+            TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text);
 
-            Debug.LogFormat("waitMainStageWin:{0}", reward);
+//            Debug.LogFormat("waitMainStageWin:{0}", reward);
 
             GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
@@ -39,7 +43,7 @@ public class MainStageWinProtocol
         else
         {
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
-            mCallback(false, new TMainStageWin());
+            mCallback(false, new TStageReward());
         }
     }
 }

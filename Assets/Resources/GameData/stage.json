@@ -91,8 +91,8 @@
         "id": 10,
         "chapter": 0,
         "order": 5,
-        "nametw": "聯盟競賽",
-        "kind": 1,
+        "nametw": "街頭聯盟I",
+        "kind": 9,
         "hint": "0012",
         "bit0num": 120,
         "courtmode": 0,
@@ -103,6 +103,111 @@
         "nameen": "Union contest",
         "explaintw": "爭取自己在聯盟生涯的最高榮耀",
         "explainen": "The highest honor for myself to league career"
+    },
+    {
+        "id": 11,
+        "nametw": "街頭聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 12,
+        "nametw": "街頭聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 13,
+        "nametw": "鄉鎮聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 14,
+        "nametw": "鄉鎮聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 15,
+        "nametw": "鄉鎮聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 16,
+        "nametw": "地區聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 17,
+        "nametw": "地區聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 18,
+        "nametw": "地區聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 19,
+        "nametw": "國家聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 20,
+        "nametw": "國家聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 21,
+        "nametw": "國家聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 22,
+        "nametw": "世界聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 23,
+        "nametw": "世界聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 24,
+        "nametw": "世界聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 25,
+        "nametw": "星際聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 26,
+        "nametw": "星際聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 27,
+        "nametw": "星際聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 28,
+        "nametw": "銀河聯盟I",
+        "kind": 9
+    },
+    {
+        "id": 29,
+        "nametw": "銀河聯盟II",
+        "kind": 9
+    },
+    {
+        "id": 30,
+        "nametw": "銀河聯盟III",
+        "kind": 9
+    },
+    {
+        "id": 31,
+        "nametw": "宇宙聯盟",
+        "kind": 9
     },
     {
         "id": 101,
@@ -1759,5 +1864,90 @@
         "explainjp": "主な課題セクションオフ",
         "positionx": 426,
         "positiony": -84
+    },
+    {
+        "id": 2101,
+        "chapter": 1,
+        "order": 1,
+        "nametw": "副本關卡1",
+        "costkind": 0,
+        "costvalue": 2,
+        "challengenum": 10,
+        "diamond": 200,
+        "exp": 50,
+        "money": 2500,
+        "surelyrewardsc": [93203],
+        "surelyrewardsf": [93203],
+        "surelyrewardsg": [93203],
+        "rewards": [19014,19015,19016,93110],
+        "rewardrates": [20,20,20,20]
+    },
+    {
+        "id": 2102,
+        "chapter": 1,
+        "order": 2,
+        "nametw": "副本關卡2",
+        "costkind": 0,
+        "costvalue": 2,
+        "challengenum": 10,
+        "diamond": 200,
+        "exp": 50,
+        "money": 2500,
+        "surelyrewardsc": [93203],
+        "surelyrewardsf": [93203],
+        "surelyrewardsg": [93203],
+        "rewards": [19014,19015,19016,93110],
+        "rewardrates": [20,20,20,20]
+    },
+    {
+        "id": 2103,
+        "chapter": 1,
+        "order": 3,
+        "nametw": "副本關卡3",
+        "costkind": 0,
+        "costvalue": 2,
+        "challengenum": 10,
+        "diamond": 200,
+        "exp": 50,
+        "money": 2500,
+        "surelyrewardsc": [93203],
+        "surelyrewardsf": [93203],
+        "surelyrewardsg": [93203],
+        "rewards": [19014,19015,19016,93110],
+        "rewardrates": [20,20,20,20]
+    },
+    {
+        "id": 2104,
+        "chapter": 1,
+        "order": 4,
+        "nametw": "副本關卡4",
+        "costkind": 0,
+        "costvalue": 2,
+        "challengenum": 10,
+        "diamond": 200,
+        "exp": 50,
+        "money": 2500,
+        "surelyrewardsc": [93203],
+        "surelyrewardsf": [93203],
+        "surelyrewardsg": [93203],
+        "rewards": [19014,19015,19016,93110],
+        "rewardrates": [20,20,20,20]
+    },
+    {
+        "id": 2105,
+        "chapter": 1,
+        "order": 5,
+        "nametw": "副本關卡5",
+        "costkind": 0,
+        "costvalue": 2,
+        "challengenum": 10,
+        "diamond": 200,
+        "exp": 50,
+        "money": 2500,
+        "surelyrewardsc": [93203],
+        "surelyrewardsf": [93203],
+        "surelyrewardsg": [93203],
+        "rewards": [19014,19015,19016,93110],
+        "rewardrates": [20,20,20,20]
     }
 ]
