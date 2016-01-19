@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
+using GameEnum;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -44,12 +45,12 @@ public class TMissionItem{
 public class UIMission : UIBase {
     private static UIMission instance = null;
     private const string UIName = "UIMission";
-
+    private const int pageNum = 4;
     private int nowPage = 1;
 	private int totalScore;
 	private int missionScore;
 	private int missionLine;
-    private const int pageNum = 4;
+    private int missionExp;
 
     private UILabel totalLabel;
     private UILabel labelStats;
@@ -323,8 +324,18 @@ public class UIMission : UIBase {
         if (ok) {
             TMissionFinishResult result = JsonConvert.DeserializeObject <TMissionFinishResult>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.TeamRecord = result.LifetimeRecord;
-            GameData.Team.Player.Exp = result.Exp;
+
+            bool flag = false;
+            TPlayer player = GameData.Team.Player;
+            if (result.Lv > GameData.Team.Player.Lv)
+                flag = true;
+
             GameData.Team.Player.Lv = result.Lv;
+            if (flag) {
+                UILevelUp.Get.Show(player, GameData.Team.Player);
+                if (GameData.DExpData.ContainsKey(result.Lv) && GameData.DExpData[result.Lv].OpenIndex > 0)
+                    PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[result.Lv].UI);
+            }
 
             if (GameData.DMissionData.ContainsKey(result.MissionID)) {
                 switch (GameData.DMissionData[result.MissionID].TimeKind) {
@@ -343,12 +354,6 @@ public class UIMission : UIBase {
                 }
             }
 
-            if (GameData.Team.Money < result.Money)
-                GameData.Team.Money = result.Money;
-
-            if (GameData.Team.Diamond < result.Diamond)
-                GameData.Team.Diamond = result.Diamond;
-
 			if (result.SkillCards != null) {
 				GameData.Team.SkillCards = result.SkillCards;
 				GameData.Team.InitSkillCardCount();
@@ -357,13 +362,27 @@ public class UIMission : UIBase {
             if (result.Items != null) 
                 GameData.Team.Items = result.Items;
             
-            if (result.GotItemCount != null) {
+            if (result.GotItemCount != null)
                 GameData.Team.GotItemCount = result.GotItemCount;
-                if (GameData.DItemData.ContainsKey(result.ItemID)) {
-                    UIItemHint.Get.OnShow(GameData.DItemData[result.ItemID]);
-                    UIHint.Get.ShowHint(string.Format(TextConst.S(3717), GameData.DItemData[result.ItemID].Name, result.ItemNum), Color.white);
-                }
+
+            if (GameData.DItemData.ContainsKey(result.ItemID))
+                UIGetItem.Get.AddItem(result.ItemID);
+
+            if (GameData.Team.Diamond < result.Diamond) {
+                int m = result.Diamond - GameData.Team.Diamond;
+                GameData.Team.Diamond = result.Diamond;
+                UIGetItem.Get.AddExp(0, m);
             }
+
+            if (GameData.Team.Money < result.Money) {
+                int m = result.Money - GameData.Team.Money;
+                GameData.Team.Money = result.Money;
+                UIGetItem.Get.AddExp(1, m);
+            }
+
+            GameData.Team.Player.Exp = result.Exp;
+            if (missionExp > 0)
+                UIGetItem.Get.AddExp(4, missionExp);
 
             initMissionList(nowPage);
         } else
@@ -372,6 +391,7 @@ public class UIMission : UIBase {
 
 	public void OnGetAward() {
         int index = -1;
+        missionExp = 0;
         if (UIButton.current.transform.parent != null && UIButton.current.transform.parent.parent != null &&
             int.TryParse(UIButton.current.transform.parent.parent.name, out index) && GameData.DMissionData.ContainsKey(index)) {
             TMission mission = GameData.DMissionData[index];
@@ -379,6 +399,7 @@ public class UIMission : UIBase {
             if (mLv < mission.Value.Length) {
                 int mValue = GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
                 if (mValue >= mission.Value[mLv]) {
+                    missionExp = mission.Exp[mLv];
                     WWWForm form = new WWWForm();
                     form.AddField("MissionID", mission.ID);
                     SendHttp.Get.Command(URLConst.MissionFinish, waitMissionFinish, form, true);
