@@ -3,7 +3,8 @@ using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public struct TChangeHeadTextureResult {
+public struct TChangeHeadTextureResult
+{
     public int HeadTextureNo;
 }
 
@@ -17,7 +18,7 @@ public class ItemHeadBtn
     private bool isInit = false;
     public int ID;
 
-    public void Init(GameObject obj, GameObject parent,EventDelegate btnFunc)
+    public void Init(GameObject obj, GameObject parent, EventDelegate btnFunc)
     {
         if (obj && parent)
         {
@@ -48,15 +49,15 @@ public class ItemHeadBtn
         item.name = id.ToString();
         Had = hadItem;
         Equip = isEquip;
-		SkillIcon.spriteName = string.Format ("{0}s", id);
+        SkillIcon.spriteName = string.Format("{0}s", id);
     }
 
     public void UpdatePos(int sort)
     {
         if (sort < 3)
-			item.transform.localPosition = new Vector3(-270 + (135 * sort), 120, 0); 
+            item.transform.localPosition = new Vector3(-270 + (135 * sort), 120, 0);
         else
-			item.transform.localPosition = new Vector3(-270 + (135 * ((sort - 3) % 5)), -60 - 140 * (((sort-3) / 5)), 0);  
+            item.transform.localPosition = new Vector3(-270 + (135 * ((sort - 3) % 5)), -60 - 140 * (((sort - 3) / 5)), 0);  
     }
 
     public bool Had
@@ -134,28 +135,26 @@ public class UIHeadPortrait : UIBase
 
     private void InitHeadTextureData()
     {
-        //Basic
-        List<int> ids = new List<int>();
         for (int i = 0; i < 3; i++)
             if (!DHeadTexture.ContainsKey(i))
-                DHeadTexture.Add(i, ids);	
+                DHeadTexture.Add(i, new List<int>());
+			
+        int picno = 0;
 		
         //SkillHead
         foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
         {
-            if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar) && GameData.DSkillData[item.Value.Avatar].PictureNo > 0)
+            if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar))
             {
-                if (DHeadTexture.ContainsKey(GameData.DSkillData[item.Value.Avatar].PictureNo))
+                picno = GameData.DSkillData[item.Value.Avatar].PictureNo;
+
+                if (picno > 3)
                 {
-                    DHeadTexture[GameData.DSkillData[item.Value.Avatar].PictureNo].Add(item.Value.ID);
-                }
-                else
-                {
-                    ids.Clear();
-                    ids.Add(item.Value.ID);
-                    DHeadTexture.Add(GameData.DSkillData[item.Value.Avatar].PictureNo, ids);
-                }
+                    if(!DHeadTexture.ContainsKey(picno))
+                        DHeadTexture.Add(picno,  new List<int>());
                     
+                    DHeadTexture[picno].Add(item.Value.ID);
+                }
             }
         }
     }
@@ -175,8 +174,8 @@ public class UIHeadPortrait : UIBase
             foreach (KeyValuePair<int, List<int>> item in DHeadTexture)
             {
                 headTexutres[sort] = new ItemHeadBtn();
-                headTexutres[sort].Init(Instantiate(go), parent,new EventDelegate(OnSelected));
-				headTexutres[sort].UpdateView(item.Key, HasItem(item.Key), index == item.Key);
+                headTexutres[sort].Init(Instantiate(go), parent, new EventDelegate(OnSelected));
+                headTexutres[sort].UpdateView(item.Key, HasItem(item.Key), index == item.Key);
                 headTexutres[sort].UpdatePos(sort);
                 sort++;
             }   
@@ -189,10 +188,10 @@ public class UIHeadPortrait : UIBase
         {
             foreach (KeyValuePair<int, int> item in GameData.Team.GotItemCount)
             {
-                if (GameData.DItemData.ContainsKey(item.Value))
-                if (GameData.DItemData[item.Value].Kind == 21)
-                if (GameData.DSkillData.ContainsKey(GameData.DItemData[item.Value].Avatar))//企劃把avatar當作skill item的技能編號
-            if (GameData.DSkillData[GameData.DItemData[item.Value].Avatar].PictureNo == picNo)
+                if (GameData.DItemData.ContainsKey(item.Key))
+                if (GameData.DItemData[item.Key].Kind == 21)
+                if (GameData.DSkillData.ContainsKey(GameData.DItemData[item.Key].Avatar))//企劃把avatar當作skill item的技能編號
+				if (GameData.DSkillData[GameData.DItemData[item.Key].Avatar].PictureNo == picNo)
                     return true;
             }
             return false;   
@@ -204,20 +203,25 @@ public class UIHeadPortrait : UIBase
     private void OnSelected()
     {
         int index;
-        if (int.TryParse(UIButton.current.name, out index)){
-            if (index != equipTextureNo){
-                if(HasItem(index)){
-					for (int i = 0; i < headTexutres.Length; i++){
+        if (int.TryParse(UIButton.current.name, out index))
+        {
+            if (index != equipTextureNo)
+            {
+                if (HasItem(index))
+                {
+                    for (int i = 0; i < headTexutres.Length; i++)
+                    {
                         if (headTexutres[i].ID == index)
                         {
                             headTexutres[i].Equip = true; 
                             equipTextureNo = index;
                         }
-    					else
-    						headTexutres[i].Equip = false; 
-					}
-				}
-                else{
+                        else
+                            headTexutres[i].Equip = false; 
+                    }
+                }
+                else
+                {
                     //ToDo: 等待嘉明的來源功能
                 }
             }    
@@ -234,18 +238,19 @@ public class UIHeadPortrait : UIBase
             SendHttp.Get.Command(URLConst.ChangeHeadTexture, waitChangeHeadTexture, form);
         }
         else
-            UIShow (false);
+            UIShow(false);
     }
-        
+
     public void waitChangeHeadTexture(bool ok, WWW www)
     {
-        if (ok) {
+        if (ok)
+        {
             TChangeHeadTextureResult result = JsonConvert.DeserializeObject<TChangeHeadTextureResult>(www.text);
             GameData.Team.Player.HeadTextureNo = result.HeadTextureNo;
             UIMainLobby.Get.UpdateUI();
             UIPlayerInfo.teamdata = GameData.Team;
             UIPlayerInfo.Get.UpdatePage(0);
         }
-        UIShow (false);
+        UIShow(false);
     }
 }
