@@ -771,4 +771,13 @@ public static class GameFunction
 		result.LifetimeRecord = team.LifetimeRecord;
         return result;
     }
+
+	public static Transform FindQualityBG (Transform obj) {
+		Transform t = obj.FindChild("ItemView/QualitySquare/QualityBG");
+		
+		if(t == null)
+			t = obj.FindChild("ItemView/QualityOctagon/QualityBG");
+
+		return t;
+	}
 }

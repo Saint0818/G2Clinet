@@ -41,7 +41,8 @@ public class UIAchievement : UIBase {
 	public void Show (int lv){
 		UIShow(true);
 		playerLv = lv;
-		descLabel.text = TextConst.S(GameData.DExpData[lv].UnlockName);
+		if(GameData.DExpData.ContainsKey(lv))
+			descLabel.text = TextConst.S(GameData.DExpData[lv].UnlockName);
 	}
 
 	public void OnReturn (GameObject go) {

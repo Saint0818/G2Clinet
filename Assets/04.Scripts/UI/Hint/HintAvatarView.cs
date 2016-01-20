@@ -15,10 +15,17 @@ public class HintAvatarView : MonoBehaviour {
 	public GameObject EXP;
 	public GameObject Gem;
 
+	private Transform goQuality;
+	public UISprite QualityBG;
 	private GameObject mGameObject;
 	private bool isHaveValue = false;
 	private void Awake()
 	{
+		if(QualityBG == null)
+			goQuality = GameFunction.FindQualityBG(transform);
+		if(goQuality != null)
+			QualityBG = goQuality.GetComponent<UISprite>();
+		
 		mGameObject = gameObject;
 
         if(Money != null)
@@ -85,6 +92,9 @@ public class HintAvatarView : MonoBehaviour {
 			ItemPic.spriteName = "Item_999999";
 		else
 			ItemPic.spriteName = "Item_" + itemData.Icon;
+		
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(itemData.Quality);
 
 		AmountLabel.text = "";
 	}

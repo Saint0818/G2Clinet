@@ -565,13 +565,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			switch(animationName) {
 			case "ActionEnd":
 				SetBasketState(EPlayerState.BasketActionEnd, BasketHoopDummy[team], team);
+				SetBallOwnerNull();
 				break;
 			case "ActionNoScoreShot":
 //				PlayShootNoScore(team);
 				break;
 			case "ActionNoScoreEnd":
 				SetBasketState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
-				SetBallState(EPlayerState.Rebound0);
+				SetBallOwnerNull();
 				break;
 			case "BasketNetPlay":
 				PlayShoot(team, index);
@@ -635,10 +636,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				isBallOffensive = false;
 				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
-				RealBallRigidbody.useGravity = true;
-				RealBallRigidbody.isKinematic = false;
-				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBall.transform.parent = null;
+				SetBallOwnerNull();
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(Vector3.right * 50, ForceMode.Impulse);
@@ -650,10 +648,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					Debug.LogWarning("RealBall NoScore Out:"+ GameController.Get.BasketAnimationName);
 				isBallOffensive = false;
 				GameController.Get.ShowShootSate(false, team);
-				RealBallRigidbody.useGravity = true;
-				RealBallRigidbody.isKinematic = false;
-				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBall.transform.parent = null;
+				SetBallOwnerNull();
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* (70 + GameController.Get.ShootDistance * 2),ForceMode.Impulse);

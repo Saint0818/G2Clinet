@@ -30,9 +30,9 @@ public class UIHint : UIBase
 	
 	public static void UIShow(bool isShow){
 		if(instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
+//			if (!isShow)
+//				RemoveUI(UIName);
+//			else
 				instance.Show(isShow);
 		}
 		else
@@ -56,11 +56,13 @@ public class UIHint : UIBase
 	    mLabel.text = string.Empty;
 
         SetBtnFun(UIName + "/Background", Hide);
+
     }
 
     public void Hide()
     {
         UIShow(false);
+		textList.Clear();
     }
 
     private IEnumerator autoHide()

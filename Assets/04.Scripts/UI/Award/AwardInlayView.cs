@@ -6,10 +6,17 @@ public class AwardInlayView : MonoBehaviour {
 	public UISprite QualityOctagon;
 	public UISprite ItemPic;
 	public UILabel AmountLabel;
+	private Transform goQuality;
+	public UISprite QualityBG;
 
 	private GameObject mGameObject;
 	private void Awake()
 	{
+		if(QualityBG == null)
+			goQuality = GameFunction.FindQualityBG(transform);
+		if(goQuality != null)
+			QualityBG = goQuality.GetComponent<UISprite>();
+		
 		mGameObject = gameObject;
 		Hide();
 	}
@@ -34,6 +41,8 @@ public class AwardInlayView : MonoBehaviour {
 		else
 			ItemPic.spriteName = "Item_" + itemData.Icon;
 
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(itemData.Quality);
 		AmountLabel.text = "";
 	}
 }

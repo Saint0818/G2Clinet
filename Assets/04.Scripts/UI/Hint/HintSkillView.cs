@@ -8,10 +8,18 @@ public class HintSkillView : MonoBehaviour {
 	public UISprite SkillItemPic;
 	public SkillCardStar[] SkillStar;
 	public UILabel AmountLabel;
+
+	private Transform goQuality;
+	public UISprite QualityBG;
 	
 	private GameObject mGameObject;
 	private void Awake()
 	{
+		if(QualityBG == null)
+			goQuality = GameFunction.FindQualityBG(transform);
+		if(goQuality != null)
+			QualityBG = goQuality.GetComponent<UISprite>();
+
 		mGameObject = gameObject;
 		Hide();
 	}
@@ -40,6 +48,8 @@ public class HintSkillView : MonoBehaviour {
 			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
 			GameFunction.ShowStar(ref SkillStar, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+			if(QualityBG != null)
+				QualityBG.color = TextConst.ColorBG(GameData.DSkillData[skill.ID].Quality);
 		}
 
 //		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();

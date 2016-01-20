@@ -11,8 +11,15 @@ public class HintInlayView : MonoBehaviour {
 	public UILabel AmountLabel;
 	public UILabel[] KindLabels;
 
+	private Transform goQuality;
+	public UISprite QualityBG;
     private void Awake()
 	{
+		if(QualityBG == null)
+			goQuality = GameFunction.FindQualityBG(transform);
+		if(goQuality != null)
+			QualityBG = goQuality.GetComponent<UISprite>();
+
 	    for (int i=0; i<AttrKindsIcon.Length; i++){
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
@@ -61,6 +68,9 @@ public class HintInlayView : MonoBehaviour {
 			ItemPic.spriteName = "Item_999999";
 		else
 			ItemPic.spriteName = "Item_" + itemData.Icon;
+
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(itemData.Quality);
 		
 		AmountLabel.text = "";
 	}

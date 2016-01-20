@@ -62,6 +62,7 @@ public class TPassiveSkillCard
 			
 			if(GameData.DSkillData.ContainsKey(skill.ID)){
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
+				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
 				if(GameFunction.IsActiveSkill(skill.ID))
@@ -112,6 +113,7 @@ public class TPassiveSkillCard
 		if(isInit){
 			if(GameData.DSkillData.ContainsKey(id)){
 				SkillName.text = GameData.DSkillData[id].Name;
+				SkillName.color = TextConst.Color(GameData.DSkillData[id].Quality);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[id].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(id);
 				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[id].Space(lv));
@@ -163,6 +165,7 @@ public class TPassiveSkillCard
 			if(GameData.DSkillData.ContainsKey(skill.ID)){
 				Skill = skill;
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
+				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
 				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[skill.ID].Space(skill.Lv));

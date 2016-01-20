@@ -4,6 +4,7 @@ using UnityEngine;
 public class TMallBox 
 {
 	public TPickCost mPickCost;
+	public int mIndex;
 
 	public GameObject mMallBox;
 	public UILabel FreeLabelTitle;
@@ -90,6 +91,7 @@ public class TMallBox
 
 	public void UpdateView(int index, TPickCost pickcost) {
 		mPickCost = pickcost;
+		mIndex = index;
 		BtnOne.name = index.ToString();
 		BtnFive.name = index.ToString();
 		BtnTen.name = index.ToString();
@@ -104,7 +106,11 @@ public class TMallBox
 	}
 
 	public void UpdateFreeTimeCD () {
-		
+		if(mPickCost.FreeTime > 0) {
+			FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.DeadlineString(GameData.Team.LotteryFreeTime.ToUniversalTime()));
+		} else {
+			FreeLabelTitle.gameObject.SetActive(false);
+		}
 	}
 
 	public void UpdataCards (int index, GameObject obj) {
@@ -123,6 +129,7 @@ public class TMallBox
 		FreeLabel1.gameObject.SetActive(isHave);
 		PriceIcon.gameObject.SetActive(!isHave);
 		PriceLabel.gameObject.SetActive(!isHave);
+			
 	}
 
 	private void changeSpendKind (int kind) {
