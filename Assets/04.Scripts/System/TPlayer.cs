@@ -588,12 +588,22 @@ namespace GameStruct
 
         public string PositionPicture{
             get {
-                if (BodyType == 0)
-                    return "IconCenter";
-                else if(BodyType == 1)
-                    return "IconForward";
+                if (GameData.DPlayers.ContainsKey(ID))
+                {
+                    switch (GameData.DPlayers[ID].BodyType)
+                    {
+                        case 1: 
+                            return "IconForward";
+                            break;
+                        case 2:
+                            return "IconGuard";
+                            break;
+                        default:
+                            return "IconCenter";  
+                    }
+                }
                 else
-                    return "IconGuard";
+                    return "IconCenter";
             }
         }
 

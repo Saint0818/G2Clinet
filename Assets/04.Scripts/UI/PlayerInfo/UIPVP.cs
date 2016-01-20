@@ -155,6 +155,12 @@ public class PVPPage1ListView
             }
         }
     }
+
+    public void UpdateViewMyrank(TTeamRank data)
+    {
+        MyRankEnable = true;
+        myRankInfo.UpdateView(data);
+    }
 }
 
 public class PVPMainView
@@ -278,6 +284,7 @@ public class EnterView
     private UIButton NoBtn;
     private UIButton StartBtn;
     private UIButton ResetBtn;
+    private UILabel ResearchPrice;
     private GameObject parent;
     private UILabel Combat1;
     private UILabel Combat2;
@@ -286,7 +293,7 @@ public class EnterView
 
     private TItemRankGroup[] EnemyItems;
 
-    public void Init(GameObject go, GameObject[] enemys, EventDelegate close, EventDelegate resetFunc, EventDelegate startFunc)
+    public void Init(GameObject go, GameObject[] enemys,EventDelegate close, EventDelegate resetFunc, EventDelegate startFunc)
     {
         if (go)
         {
@@ -303,11 +310,13 @@ public class EnterView
             
             NoBtn = self.transform.FindChild("NoBtn").gameObject.GetComponent<UIButton>();
             StartBtn = self.transform.FindChild("StartBtn").gameObject.GetComponent<UIButton>();
-            ResetBtn = self.transform.FindChild("StartBtn").gameObject.GetComponent<UIButton>();
+            ResetBtn = self.transform.FindChild("ResetBtn").gameObject.GetComponent<UIButton>();
             Combat1 = self.transform.FindChild("CombatGroup/CombatLabel0/Label").gameObject.GetComponent<UILabel>();
             Combat2 = self.transform.FindChild("CombatGroup/CombatLabel1/Label").gameObject.GetComponent<UILabel>();
             WinValueLabel = self.transform.FindChild("ScoreGroup/WinValueLabel").gameObject.GetComponent<UILabel>();
             LoseValueLabel = self.transform.FindChild("ScoreGroup/LoseValueLabel").gameObject.GetComponent<UILabel>();
+
+            ResearchPrice = ResetBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
 			
             ResetBtn.onClick.Add(resetFunc);
             StartBtn.onClick.Add(startFunc);
@@ -315,8 +324,9 @@ public class EnterView
         }
     }
 
-    public void UpdateView(ref TTeam[] teams)
+    public void UpdateView(ref TTeam[] teams, int researchPrice)
     {
+        ResearchPrice.text = researchPrice.ToString();
         if (teams.Length != EnemyItems.Length)
         {
             Debug.LogError("Data Erro");
@@ -374,7 +384,7 @@ public class PVPPage0
 
             EnableEnterView = false;
 
-			
+
             mainview.UpdateView();
         }
     }
@@ -389,9 +399,9 @@ public class PVPPage0
         EnableEnterView = false;
     }
 
-    public void UpdateEnterView(ref TTeam[] team)
+    public void UpdateEnterView(ref TTeam[] team, int researchPrice)
     {
-        enterView.UpdateView(ref team);
+        enterView.UpdateView(ref team, researchPrice);
     }
 
     public bool EnableEnterView
@@ -434,12 +444,29 @@ public class PVPPage1
 
     private void myRankInfo()
     {
-        listView.MyRankEnable = true;
+        SendMyRank();
     }
 
     public void UpdateView(TTeamRank myRank, TTeamRank[] otherRank)
     {
         listView.UpdateView(myRank, otherRank);
+    }
+
+    private void SendMyRank()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Language", GameData.Setting.Language.GetHashCode());
+        form.AddField("PVPIntegral", GameData.Team.PVPIntegral);
+        SendHttp.Get.Command(URLConst.PVPMyRank, WaitMyRank, form, false);
+    }
+
+    private void WaitMyRank(bool ok ,WWW www)
+    {
+        if (ok)
+        {
+            TTeamRank data = (TTeamRank)JsonConvert.DeserializeObject(www.text, typeof(TTeamRank));
+            listView.UpdateViewMyrank(data); 
+        }
     }
 }
 
@@ -531,7 +558,8 @@ public class UIPVP : UIBase
                     {
                         itemRankgroups[j] = Instantiate(itemRankgroupObj) as GameObject;
                     }
-                    page0.Init(pages[i], ref pvplvBtns, itemRankgroups, 
+
+                    page0.Init(pages[i], ref pvplvBtns, itemRankgroups,
                         new EventDelegate(OnGetEnemy),
                         new EventDelegate(OnReset),
                         new EventDelegate(OnPVPStart),
@@ -648,9 +676,16 @@ public class UIPVP : UIBase
         {
             TTeam[] teams = JsonConvert.DeserializeObject <TTeam[]>(www.text, SendHttp.Get.JsonSetting);
             page0.EnableEnterView = true;
-            page0.UpdateEnterView(ref teams);
 
-            //TODO: 塞敵方player
+            int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+
+            if (GameData.DPVPData.ContainsKey(lv))
+            {
+                page0.UpdateEnterView(ref teams, GameData.DPVPData[lv].SearchCost); 
+            }
+            else
+                Debug.LogError("Error : not Found PVPData " + lv);
+   
             if (teams != null)
             {
                 int num = Mathf.Min(teams.Length, GameData.EnemyMembers.Length);

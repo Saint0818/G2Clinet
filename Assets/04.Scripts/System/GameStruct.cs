@@ -1396,10 +1396,12 @@ namespace GameStruct
         public int PVPCoin;
         public int PVPCoinDaily;
         public int Stage;
+        public int SearchCost;
 	}
 
     public struct TTeamRank
     {  
+        public int Index;
         public TPlayer Player;
         public int PVPIntegral;
         public int GuildId;

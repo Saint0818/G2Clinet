@@ -8,7 +8,8 @@
         "calculate": 10,
         "pvpcoin": 10,
         "pvpcoindaily": 100,
-        "stage": 10
+        "stage": 10,
+        "searchcost": 300
     },
     {
         "lv": 2,
@@ -19,7 +20,8 @@
         "calculate": 10,
         "pvpcoin": 15,
         "pvpcoindaily": 100,
-        "stage": 11
+        "stage": 11,
+        "searchcost": 330
     },
     {
         "lv": 3,
@@ -30,7 +32,8 @@
         "calculate": 15,
         "pvpcoin": 20,
         "pvpcoindaily": 100,
-        "stage": 12
+        "stage": 12,
+        "searchcost": 360
     },
     {
         "lv": 4,
@@ -41,7 +44,8 @@
         "calculate": 15,
         "pvpcoin": 25,
         "pvpcoindaily": 200,
-        "stage": 13
+        "stage": 13,
+        "searchcost": 390
     },
     {
         "lv": 5,
@@ -52,7 +56,8 @@
         "calculate": 15,
         "pvpcoin": 30,
         "pvpcoindaily": 200,
-        "stage": 14
+        "stage": 14,
+        "searchcost": 420
     },
     {
         "lv": 6,
@@ -63,7 +68,8 @@
         "calculate": 15,
         "pvpcoin": 35,
         "pvpcoindaily": 200,
-        "stage": 15
+        "stage": 15,
+        "searchcost": 450
     },
     {
         "lv": 7,
@@ -74,7 +80,8 @@
         "calculate": 15,
         "pvpcoin": 40,
         "pvpcoindaily": 300,
-        "stage": 16
+        "stage": 16,
+        "searchcost": 480
     },
     {
         "lv": 8,
@@ -85,7 +92,8 @@
         "calculate": 15,
         "pvpcoin": 45,
         "pvpcoindaily": 300,
-        "stage": 17
+        "stage": 17,
+        "searchcost": 510
     },
     {
         "lv": 9,
@@ -96,7 +104,8 @@
         "calculate": 20,
         "pvpcoin": 50,
         "pvpcoindaily": 300,
-        "stage": 18
+        "stage": 18,
+        "searchcost": 540
     },
     {
         "lv": 10,
@@ -107,7 +116,8 @@
         "calculate": 20,
         "pvpcoin": 55,
         "pvpcoindaily": 400,
-        "stage": 19
+        "stage": 19,
+        "searchcost": 570
     },
     {
         "lv": 11,
@@ -118,7 +128,8 @@
         "calculate": 20,
         "pvpcoin": 60,
         "pvpcoindaily": 400,
-        "stage": 20
+        "stage": 20,
+        "searchcost": 600
     },
     {
         "lv": 12,
@@ -129,7 +140,8 @@
         "calculate": 20,
         "pvpcoin": 65,
         "pvpcoindaily": 400,
-        "stage": 21
+        "stage": 21,
+        "searchcost": 630
     },
     {
         "lv": 13,
@@ -140,7 +152,8 @@
         "calculate": 20,
         "pvpcoin": 70,
         "pvpcoindaily": 500,
-        "stage": 22
+        "stage": 22,
+        "searchcost": 660
     },
     {
         "lv": 14,
@@ -151,7 +164,8 @@
         "calculate": 20,
         "pvpcoin": 75,
         "pvpcoindaily": 500,
-        "stage": 23
+        "stage": 23,
+        "searchcost": 690
     },
     {
         "lv": 15,
@@ -162,7 +176,8 @@
         "calculate": 25,
         "pvpcoin": 80,
         "pvpcoindaily": 500,
-        "stage": 24
+        "stage": 24,
+        "searchcost": 720
     },
     {
         "lv": 16,
@@ -173,7 +188,8 @@
         "calculate": 25,
         "pvpcoin": 85,
         "pvpcoindaily": 600,
-        "stage": 25
+        "stage": 25,
+        "searchcost": 750
     },
     {
         "lv": 17,
@@ -184,7 +200,8 @@
         "calculate": 25,
         "pvpcoin": 90,
         "pvpcoindaily": 600,
-        "stage": 26
+        "stage": 26,
+        "searchcost": 780
     },
     {
         "lv": 18,
@@ -195,7 +212,8 @@
         "calculate": 25,
         "pvpcoin": 95,
         "pvpcoindaily": 600,
-        "stage": 27
+        "stage": 27,
+        "searchcost": 810
     },
     {
         "lv": 19,
@@ -206,7 +224,8 @@
         "calculate": 25,
         "pvpcoin": 100,
         "pvpcoindaily": 700,
-        "stage": 28
+        "stage": 28,
+        "searchcost": 840
     },
     {
         "lv": 20,
@@ -217,7 +236,8 @@
         "calculate": 25,
         "pvpcoin": 105,
         "pvpcoindaily": 700,
-        "stage": 29
+        "stage": 29,
+        "searchcost": 870
     },
     {
         "lv": 21,
@@ -228,7 +248,8 @@
         "calculate": 30,
         "pvpcoin": 110,
         "pvpcoindaily": 700,
-        "stage": 30
+        "stage": 30,
+        "searchcost": 900
     },
     {
         "lv": 22,
@@ -239,6 +260,7 @@
         "calculate": 30,
         "pvpcoin": 115,
         "pvpcoindaily": 800,
-        "stage": 31
+        "stage": 31,
+        "searchcost": 930
     }
 ]

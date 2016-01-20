@@ -34,6 +34,7 @@ namespace GameItem
     {
         private GameObject self;
         private TPlayerInGameBtn playeHeadBtn;
+        private UILabel playerIndex;
         private UILabel playerName;
         private UISprite PvPRankIcon;
         private UILabel combatLabel;
@@ -63,9 +64,10 @@ namespace GameItem
                 PVPIntegral = self.transform.FindChild("Window/DetailGroup/ScoreIcon/ScoreLabel").gameObject.GetComponent<UILabel>();
                 optionsBtnGroup = self.transform.FindChild("Window/ButtonListGroup").gameObject;
                 optionsBtn =  optionsBtnGroup.transform.FindChild("View/ProfileBtn").gameObject.GetComponent<UIButton>();
+                playerIndex = self.transform.FindChild("Window/PVPPlaceLabel").gameObject.GetComponent<UILabel>();
 
 				isInit = self && btn && playerName && obj && combatLabel && PvPRankIcon && GuildIcon 
-                    && GuildIDLabel && WinLabel && WinRateLabel && PVPIntegral && optionsBtnGroup && optionsBtn;
+                    && GuildIDLabel && WinLabel && WinRateLabel && PVPIntegral && optionsBtnGroup && optionsBtn && playerIndex;
 
                 if (isInit)
                 {
@@ -101,6 +103,7 @@ namespace GameItem
         {
             if (isInit)
             {
+                playerIndex.text = rankData.Index.ToString();
                 playerName.text = rankData.Player.Name;
                 playeHeadBtn.UpdateView(rankData.Player);
                 combatLabel.text = rankData.Player.CombatPower().ToString ();
@@ -108,7 +111,12 @@ namespace GameItem
 //				GuildIcon.spriteName = string.Format("LeagueIcon{0}", rankData.GuildIIcon);
 //                GuildIDLabel.text = rankData.GuildIName;
                 WinLabel.text = rankData.LifetimeRecord.PVPWin.ToString();
-                WinRateLabel.text = string.Format("{0:0%}", (float)rankData.LifetimeRecord.PVPWin / (float)rankData.LifetimeRecord.PVPCount);
+                if (rankData.LifetimeRecord.PVPWin == 0 && rankData.LifetimeRecord.PVPCount == 0)
+                {
+                    WinRateLabel.text = "100%";
+                }
+                else
+                    WinRateLabel.text = string.Format("{0:0%}", (float)rankData.LifetimeRecord.PVPWin / (float)rankData.LifetimeRecord.PVPCount);
                 PVPIntegral.text = rankData.PVPIntegral.ToString();
             }
         }
