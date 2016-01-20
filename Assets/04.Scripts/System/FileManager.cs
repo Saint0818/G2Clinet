@@ -751,11 +751,12 @@ public class FileManager : KnightSingleton<FileManager>
 		try {
 			TPickCost[] data = JsonConvertWrapper.DeserializeObject<TPickCost[]>(text);
 			GameData.DPickCost = new TPickCost[data.Length];
-			for (int i = 0; i < data.Length; i++)
-				if (data[i].Order == i) {
-					GameData.DPickCost[data[i].Order] = data[i];
-				} else
-					Debug.Log("PickCost order repeat " + data[i].Order.ToString());
+			for (int i = 0; i < data.Length; i++) {
+				GameData.DPickCost[i] = data[i];
+				if (data[i].Order > data.Length) {
+					Debug.Log("PickCost order bigger " + data[i].Order.ToString());
+				}
+			}
 
 			if (isSaveVersion)
 				SaveDataVersionAndJson(text, "textconst", version);

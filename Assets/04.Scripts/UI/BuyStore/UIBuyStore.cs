@@ -1,6 +1,7 @@
 ﻿using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
+using System;
 
 public struct TPickLotteryResult {
 	public int[] ItemIDs;
@@ -8,6 +9,7 @@ public struct TPickLotteryResult {
 	public TSkill[] SkillCards;
 	public int Diamond;
 	public int Money;
+	public DateTime[] LotteryFreeTime;
 }
 
 public enum EPickSpendType {
@@ -24,6 +26,7 @@ public class UIBuyStore : UIBase {
 	private TPickCost mPickCost;
 	private int mSpendType;
 	private TItemData[] mItemDatas;
+	private int mIndex;
 
 	private Animator animationBuy;
 	private GetOneItem oneItem;
@@ -84,8 +87,9 @@ public class UIBuyStore : UIBase {
 		SetBtnFun(UIName + "/Center/ItemGet/EnterBt", OnBack);
 	}
 
-	public void ShowView (TPickCost pick, int type, TItemData[] itemDatas) {
+	public void ShowView (TPickCost pick, int index, int type, TItemData[] itemDatas) {
 		UIShow(true);
+		mIndex = index;
 		mPickCost = pick;
 		mSpendType = type;
 		updateView(type);
@@ -165,7 +169,7 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void ConfirmUse () {
-		SendPickLottery(mPickCost.Order, mPickCost.Kind, mSpendType);
+		SendPickLottery(mPickCost.Order, mPickCost.ID, mSpendType);
 	}
 
 
@@ -205,8 +209,8 @@ public class UIBuyStore : UIBase {
 		if(order == 0) {
 			WWWForm form = new WWWForm();
 			form.AddField("Order", order);
-			form.AddField("Kind", kind);
 			form.AddField("Type", type);
+			form.AddField("Index", mIndex);
 			SendHttp.Get.Command(URLConst.PickLottery, waitPickLottery, form);
 		}
 	}
@@ -220,6 +224,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
+			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 

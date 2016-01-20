@@ -1230,8 +1230,8 @@ namespace GameStruct
 	}
 
 	public struct TPickCost {
+		public int ID;
 		public int Order;
-		public int Kind;
 		/// <summary>
 		/// 0.台幣
 		/// 1.鑽石

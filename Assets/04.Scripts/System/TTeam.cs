@@ -19,7 +19,7 @@ namespace GameStruct
         public DateTime SocialEventTime;
         public DateTime WatchFriendsTime;
         public DateTime FreeLuckBox;
-		public DateTime LotteryFreeTime;
+		public DateTime[] LotteryFreeTime;
         public int PlayerNum; // 玩家擁有幾位角色.
         public int StageTutorial;
         public int AvatarPotential;
@@ -175,6 +175,13 @@ namespace GameStruct
 
             if (FBid == null)
                 FBid = "";
+
+			if(LotteryFreeTime == null) {
+				LotteryFreeTime = new DateTime[GameConst.MaxLotteryFreeTime];
+				for(int i=0; i<GameConst.MaxLotteryFreeTime; i++){
+					LotteryFreeTime[i] = DateTime.UtcNow;
+				}
+			}
 
             Player.Init();
         }

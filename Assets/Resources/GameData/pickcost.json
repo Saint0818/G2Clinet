@@ -1,7 +1,7 @@
 [
     {
+        "id": 1,
         "nametw": "進攻的奧義！！",
-        "kind": 1,
         "spendkind": 1,
         "onepick": 350,
         "fivepick": 1500,
@@ -14,8 +14,8 @@
         "explaintw": "最強的進攻絕技都在這裡，可以幫助你快速達成進攻的過關條件。"
     },
     {
+        "id": 2,
         "nametw": "堅實的護盾！！",
-        "kind": 2,
         "spendkind": 1,
         "onepick": 300,
         "fivepick": 1450,
@@ -27,8 +27,8 @@
         "explaintw": "堅實的防守可以讓你有效的阻斷對手的進攻。"
     },
     {
+        "id": 3,
         "nametw": "掌控賽局的舵手！！",
-        "kind": 3,
         "spendkind": 1,
         "onepick": 250,
         "fivepick": 1400,

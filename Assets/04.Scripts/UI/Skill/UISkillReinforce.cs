@@ -574,6 +574,9 @@ public class UISkillReinforce : UIBase {
 				lvUpExp = GameData.DSkillData[mSkill.ID].GetUpgradeExp(tempLv);
 			}
 
+			if(tempLv >= GameData.DSkillData[mSkill.ID].MaxStar) {
+				tempLv = GameData.DSkillData[mSkill.ID].MaxStar;
+			}
 			return tempLv;
 		}
 		return tempLv;

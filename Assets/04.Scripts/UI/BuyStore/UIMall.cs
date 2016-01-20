@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 using GameStruct;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ public class UIMall : UIBase {
 
 	private TPickCost choosePickCost;
 	private int spendType;
+	private int chooseIndex;
 
 	private GameObject table;
 	private GameObject skillCard;
@@ -54,7 +56,9 @@ public class UIMall : UIBase {
 	}
 
 	void FixedUpdate () {
-//		if()
+		for(int i=0; i<mallBoxs.Count; i++) {
+			mallBoxs[i].UpdateFreeTimeCD();
+		}
 	}
 
 	protected override void InitCom() {
@@ -68,37 +72,39 @@ public class UIMall : UIBase {
 		UIShow(true);
 		mallBoxs = new List<TMallBox>();
 		for (int i=0; i<GameData.DPickCost.Length; i++) {
-			TMallBox mallBox = new TMallBox();
-			GameObject prefab = Instantiate(Resources.Load("Prefab/UI/Items/" + GameData.DPickCost[i].Prefab)) as GameObject;
-			setParentInit(prefab, table);
-			mallBox.Init(prefab, new EventDelegate(OnOneBtn), new EventDelegate(OnFiveBtn), new EventDelegate(OnTenBtn));
-			mallBox.UpdateView(i, GameData.DPickCost[i]);
-			if(GameData.DPickCost[i].ShowCard != null && GameData.DPickCost[i].ShowCard.Length > 0) {
-				for(int j=0; j<GameData.DPickCost[i].ShowCard.Length; j++) {
-					if(GameData.DItemData.ContainsKey(GameData.DPickCost[i].ShowCard[j])) {
-						TActiveSkillCard activeSkillCard = new TActiveSkillCard();
-						GameObject obj = Instantiate(skillCard) as GameObject;
-						setParentInit(obj, mallBox.DiskScrollView);
-						obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-						activeSkillCard.Init(obj,new EventDelegate(ShowSkillCardHint), false);
-						activeSkillCard.UpdateViewItemData(GameData.DItemData[GameData.DPickCost[i].ShowCard[j]]);
-						mallBox.UpdataCards(j, activeSkillCard.MySkillCard);
+			if(IsStart(GameData.DPickCost[i]) && !IsExpired(GameData.DPickCost[i])) {
+				TMallBox mallBox = new TMallBox();
+				GameObject prefab = Instantiate(Resources.Load("Prefab/UI/Items/" + GameData.DPickCost[i].Prefab)) as GameObject;
+				setParentInit(prefab, table);
+				mallBox.Init(prefab, new EventDelegate(OnOneBtn), new EventDelegate(OnFiveBtn), new EventDelegate(OnTenBtn));
+				mallBox.UpdateView(GameData.DPickCost[i].Order, GameData.DPickCost[i]);
+				if(GameData.DPickCost[i].ShowCard != null && GameData.DPickCost[i].ShowCard.Length > 0) {
+					for(int j=0; j<GameData.DPickCost[i].ShowCard.Length; j++) {
+						if(GameData.DItemData.ContainsKey(GameData.DPickCost[i].ShowCard[j])) {
+							TActiveSkillCard activeSkillCard = new TActiveSkillCard();
+							GameObject obj = Instantiate(skillCard) as GameObject;
+							setParentInit(obj, mallBox.DiskScrollView);
+							obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+							activeSkillCard.Init(obj,new EventDelegate(ShowSkillCardHint), false);
+							activeSkillCard.UpdateViewItemData(GameData.DItemData[GameData.DPickCost[i].ShowCard[j]]);
+							mallBox.UpdataCards(j, activeSkillCard.MySkillCard);
+						}
 					}
 				}
-			}
-			if(GameData.DPickCost[i].ShowItem != null && GameData.DPickCost[i].ShowItem.Length > 0) {
-				for(int j=0; j<GameData.DPickCost[i].ShowItem.Length; j++) {
-					if(GameData.DItemData.ContainsKey(GameData.DPickCost[i].ShowItem[j])) {
-						ItemAwardGroup item = (Instantiate(itemIcon) as GameObject ).GetComponent<ItemAwardGroup>();
-						setParentInit(item.gameObject, mallBox.ItemScrollView);
-						item.gameObject.transform.localScale = new Vector3(0.6f, 0.6f, 1);
-						item.gameObject.transform.localPosition = new Vector3(150 * j, 0, 0);
-						item.Show(GameData.DItemData[GameData.DPickCost[i].ShowItem[j]]);
+				if(GameData.DPickCost[i].ShowItem != null && GameData.DPickCost[i].ShowItem.Length > 0) {
+					for(int j=0; j<GameData.DPickCost[i].ShowItem.Length; j++) {
+						if(GameData.DItemData.ContainsKey(GameData.DPickCost[i].ShowItem[j])) {
+							ItemAwardGroup item = (Instantiate(itemIcon) as GameObject ).GetComponent<ItemAwardGroup>();
+							setParentInit(item.gameObject, mallBox.ItemScrollView);
+							item.gameObject.transform.localScale = new Vector3(0.6f, 0.6f, 1);
+							item.gameObject.transform.localPosition = new Vector3(150 * j, 0, 0);
+							item.Show(GameData.DItemData[GameData.DPickCost[i].ShowItem[j]]);
+						}
 					}
 				}
+				mallBox.SetIndex(i);
+				mallBoxs.Add(mallBox);
 			}
-
-			mallBoxs.Add(mallBox);
 		}
 	}
 
@@ -108,24 +114,26 @@ public class UIMall : UIBase {
 		obj.transform.localScale = Vector3.one;
 	}
 
-	/*
-	0.台幣
-	1.鑽石
-	2.遊戲幣
-	3.聯盟幣
-	4.社群幣
-	*/
-	private bool checkCost (TPickCost pickCost, int spendType) {
-		if(pickCost.Kind == 0)
+	private bool IsStart (TPickCost pickCost) {
+		if(pickCost.StartTimeYear == 0 || pickCost.StartTimeMonth == 0 || pickCost.StartTimeDay == 0)
+			return true;
+		
+		DateTime startTime = new DateTime(pickCost.StartTimeYear, pickCost.StartTimeMonth, pickCost.StartTimeDay);
+		if(DateTime.UtcNow > startTime)
+			return true;
+		
+		return false;
+	}
+
+	private bool IsExpired (TPickCost pickCost) {
+		if(pickCost.FinishTimeYear == 0 || pickCost.FinishTimeMonth == 0 || pickCost.FinishTimeDay == 0) {
 			return false;
-		else if(pickCost.Kind == 1)
-			return (GameData.Team.Diamond >= howMuch(pickCost, spendType));
-		else if(pickCost.Kind == 2)
-			return (GameData.Team.Money >= howMuch(pickCost, spendType));
-		else if(pickCost.Kind == 3)
-			return false;
-		else if(pickCost.Kind == 4) 
-			return false;
+		}
+
+		DateTime finishTime = new DateTime(pickCost.FinishTimeYear, pickCost.FinishTimeMonth, pickCost.FinishTimeDay);
+		if(DateTime.UtcNow > finishTime)
+			return true;
+		
 		return false;
 	}
 
@@ -143,13 +151,17 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
+			chooseIndex = mallBoxs[result].mIndex;
 			spendType = EPickSpendType.ONE.GetHashCode();
-			CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse);
+			if(mallBoxs[result].IsPickFree)
+				CheckDiamond(choosePickCost.OnePick, true, TextConst.S(4108), ConfirmUse);
+			else 
+				CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse);
 		}
 	}
 
 	public void ConfirmUse () {
-		SendPickLottery(choosePickCost.Order, choosePickCost.Kind, spendType);
+		SendPickLottery(choosePickCost.Order, spendType);
 	}
 
 	public void OnFiveBtn () {
@@ -183,12 +195,12 @@ public class UIMall : UIBase {
 		}
 	}
 	//order = 0 can used
-	private void SendPickLottery(int order, int kind, int type)
+	private void SendPickLottery(int order, int type)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("Order", order);
-		form.AddField("Kind", kind);
 		form.AddField("Type", type);
+		form.AddField("Index", chooseIndex);
 		SendHttp.Get.Command(URLConst.PickLottery, waitPickLottery, form);
 	}
 
@@ -201,6 +213,7 @@ public class UIMall : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
+			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 
@@ -211,6 +224,9 @@ public class UIMall : UIBase {
 						getItemIDs[i] = GameData.DItemData[result.ItemIDs[i]];
 				}
 				OpenLottery(getItemIDs);
+				for(int i=0; i<mallBoxs.Count; i++) {
+					mallBoxs[i].Refresh();
+				}
 			}
 		}
 		else
@@ -221,7 +237,7 @@ public class UIMall : UIBase {
 		UIMainLobby.Get.HideAll();
 		UI3DMainLobby.Get.Hide();
 		Hide ();
-		UIBuyStore.Get.ShowView(choosePickCost, spendType, itemDatas);
+		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, spendType, itemDatas);
 		UI3DBuyStore.Get.Show();
 	}
 }

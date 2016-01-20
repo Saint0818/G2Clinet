@@ -364,6 +364,7 @@ public class UISkillFormation : UIBase {
 		itemPassiveField.SetActive(true);
 		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
+		resetScrollPostion ();
 	}
 
 	public void RefreshAddCard () {
@@ -846,6 +847,11 @@ public class UISkillFormation : UIBase {
 		return false;
 	}
 
+	private void resetScrollPostion () {
+		gridCardList.transform.localPosition = Vector3.zero;
+		scrollViewCardList.panel.clipOffset = new Vector2(0, 10);
+	}
+
 	private void setEditState (bool isEditState) {
 		cardSell.Refresh(isEditState);
 		IsBuyState = isEditState;
@@ -866,6 +872,7 @@ public class UISkillFormation : UIBase {
 				} else
 					skillSortCards[i].SetActive(false);
 			}
+			resetScrollPostion ();
 		} else {
 			for(int i=0; i<skillSortCards.Count; i++) {
 				if(uiCards.ContainsKey(skillSortCards[i].name)) {
@@ -1026,9 +1033,7 @@ public class UISkillFormation : UIBase {
 			}
 			skillSortCards[i].SetActive(result);
 		}
-		scrollViewCardList.ResetPosition();
-		scrollViewCardList.panel.clipOffset = new Vector2(0, scrollViewCardList.panel.clipOffset.y);
-		gridCardList.transform.localPosition = Vector3.zero;
+		resetScrollPostion ();
 	}
 
 	public void CardDragStart() {IsDragNow = true;}

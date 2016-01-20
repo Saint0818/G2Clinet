@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 using UnityEngine;
 
 public class TMallBox 
@@ -35,8 +36,6 @@ public class TMallBox
 	public GameObject BtnOne;
 	public GameObject BtnFive;
 	public GameObject BtnTen;
-
-	private bool isHaveFree = false;
 
 	public void Init(GameObject obj, EventDelegate oneBtn, EventDelegate fiveBtn, EventDelegate tenBtn) {
 		mMallBox = obj;
@@ -89,14 +88,21 @@ public class TMallBox
 		Tween.transform.localScale = new Vector3(0.01f, 1, 1);
 	}
 
-	public void UpdateView(int index, TPickCost pickcost) {
-		mPickCost = pickcost;
+	public void Refresh () {
+		setHaveFree ();
+	}
+
+	public void SetIndex (int index) {
 		mIndex = index;
-		BtnOne.name = index.ToString();
-		BtnFive.name = index.ToString();
-		BtnTen.name = index.ToString();
-		mMallBox.transform.localPosition = new Vector3(420 * index, 0, 0);
-		setHaveFree((pickcost.FreeTime != 0));
+	}
+
+	public void UpdateView(int posIndex, TPickCost pickcost) {
+		mPickCost = pickcost;
+		BtnOne.name = posIndex.ToString();
+		BtnFive.name = posIndex.ToString();
+		BtnTen.name = posIndex.ToString();
+		mMallBox.transform.localPosition = new Vector3(420 * posIndex, 0, 0);
+		setHaveFree();
 		changeSpendKind(pickcost.SpendKind);
 		TitleLabel.text = pickcost.Name;
 		ExplainLabel.text = pickcost.Explain;
@@ -106,10 +112,10 @@ public class TMallBox
 	}
 
 	public void UpdateFreeTimeCD () {
-		if(mPickCost.FreeTime > 0) {
-			FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.DeadlineString(GameData.Team.LotteryFreeTime.ToUniversalTime()));
-		} else {
-			FreeLabelTitle.gameObject.SetActive(false);
+		if(IsHaveFree) {
+			FreeLabelTitle.gameObject.SetActive(!IsPickFree);
+			if(!IsPickFree) 
+				FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.DeadlineString(GameData.Team.LotteryFreeTime[mIndex].ToUniversalTime()));  
 		}
 	}
 
@@ -123,13 +129,25 @@ public class TMallBox
 		obj.transform.localPosition = new Vector3(200 * index, 0, 0);
 	}
 
-	private void setHaveFree (bool isHave) {
-		isHaveFree = isHave;
-		FreeLabelTitle.gameObject.SetActive(isHave);
-		FreeLabel1.gameObject.SetActive(isHave);
-		PriceIcon.gameObject.SetActive(!isHave);
-		PriceLabel.gameObject.SetActive(!isHave);
-			
+	private void setHaveFree () {
+		if(IsHaveFree) {
+			if(IsPickFree) {
+				FreeLabelTitle.gameObject.SetActive(false);
+				FreeLabel1.gameObject.SetActive(true);
+				PriceIcon.gameObject.SetActive(false);
+				PriceLabel.gameObject.SetActive(false);
+			} else {
+				FreeLabelTitle.gameObject.SetActive(true);
+				FreeLabel1.gameObject.SetActive(false);
+				PriceIcon.gameObject.SetActive(true);
+				PriceLabel.gameObject.SetActive(true);
+			}
+		} else {
+			FreeLabelTitle.gameObject.SetActive(false);
+			FreeLabel1.gameObject.SetActive(false);
+			PriceIcon.gameObject.SetActive(true);
+			PriceLabel.gameObject.SetActive(true);
+		}
 	}
 
 	private void changeSpendKind (int kind) {
@@ -147,6 +165,18 @@ public class TMallBox
 	}
 
 	public bool IsHaveFree {
-		get{return isHaveFree;}
+		get{return (mPickCost.FreeTime > 0);}
+	}
+
+	public bool IsPickFree {
+		get{
+			if(mPickCost.FreeTime == 0)
+				return false;
+
+			if(mPickCost.FreeTime > 0 &&  DateTime.UtcNow > GameData.Team.LotteryFreeTime[mIndex].ToUniversalTime())
+				return true;
+			else
+				return false;
+		}
 	}
 }
