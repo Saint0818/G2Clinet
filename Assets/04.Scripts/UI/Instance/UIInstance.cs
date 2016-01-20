@@ -42,9 +42,11 @@ public class UIInstance : UIBase
     private void buildChapters()
     {
         List<ChapterData> allData = ChapterTable.Ins.GetAllInstance();
-        foreach(ChapterData data in allData)
+        foreach(ChapterData chapterData in allData)
         {
-            UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(data);
+            List<TStageData> oneChapterStages = StageTable.Ins.GetInstanceByChapter(chapterData.Chapter);
+            TStageData lastStage = StageTable.Ins.GetInstanceLastStage(chapterData.Chapter);
+            UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, oneChapterStages, lastStage.PlayerID[0]);
             mMain.AddChapter(uiData);
         }
     }

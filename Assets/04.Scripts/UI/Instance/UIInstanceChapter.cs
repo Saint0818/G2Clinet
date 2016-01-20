@@ -31,9 +31,9 @@ public class UIInstanceChapter : MonoBehaviour
         Title.text = data.Title;
         Desc.text = data.Desc;
 
-//        data.Model.transform.parent = ModelParent;
-//        data.Model.transform.localPosition = Vector3.zero;
-//        data.Model.transform.localRotation = Quaternion.identity;
-//        data.Model.transform.localScale = Vector3.one;
+        data.Model.transform.parent = ModelParent;
+        data.Model.transform.localPosition = Vector3.zero;
+        data.Model.transform.localRotation = Quaternion.identity;
+        data.Model.transform.localScale = Vector3.one;
     }
 }

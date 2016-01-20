@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Assertions;
-using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// 記錄關卡的相關資訊.
@@ -142,16 +138,35 @@ public class StageTable
         }
     }
 
-    public void GetInstanceByChapterRange(int minChapter, int maxChapter, ref List<TStageData> data)
+    public List<TStageData> GetInstanceByChapter(int chapter)
     {
-        Assert.IsTrue(maxChapter >= minChapter, string.Format("range error:[{0}, {1}]", minChapter, maxChapter));
-
-        data.Clear();
-        for(int chapter = minChapter; chapter <= maxChapter; chapter++)
+        if(mInstanceByChapter.ContainsKey(chapter))
         {
-            if(mInstanceByChapter.ContainsKey(chapter))
-                data.AddRange(mInstanceByChapter[chapter]);
+            var list = new List<TStageData>();
+            list.AddRange(mInstanceByChapter[chapter]);
+            return new List<TStageData>();
         }
+
+        return new List<TStageData>();
+    }
+
+    public TStageData GetInstanceLastStage(int chapter)
+    {
+        if(!mInstanceByChapter.ContainsKey(chapter))
+            return mEmptyStage;
+
+        TStageData lastStage = mEmptyStage;
+        int maxOrder = int.MinValue;
+        foreach(TStageData stageData in mInstanceByChapter[chapter])
+        {
+            if(stageData.Order <= maxOrder)
+                continue;
+
+            maxOrder = stageData.Order;
+            lastStage = stageData;
+        }
+
+        return lastStage;
     }
 
     public bool HasByID(int id)
