@@ -516,16 +516,23 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private void waitFreshFriends(bool flag, WWW www) {
         if (flag) {
             try {
-                string text = GSocket.Get.OnHttpText(www.text);
-                if (!string.IsNullOrEmpty(text)) {
-                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
-                    team.InitFriends();
-                    GameData.Team.Friends = team.Friends;
-                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
-                }
+                if (CheckServerMessage(www.text)) {
+                    string text = GSocket.Get.OnHttpText(www.text);
+                    if (!string.IsNullOrEmpty(text)) {
+                        TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                        team.InitFriends();
 
-                if (FreshFriendsEvent != null)
-                    FreshFriendsEvent();
+                        GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                        GameData.Team.DailyCount.FreshFriend = team.DailyCount.FreshFriend;
+                        GameData.Team.Friends = team.Friends;
+                        GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                        if (GameData.Team.Diamond != team.Diamond)
+                            GameData.Team.Diamond = team.Diamond;
+                    }
+
+                    if (FreshFriendsEvent != null)
+                        FreshFriendsEvent();
+                }
             } catch (Exception e) {
                 Debug.Log(e.ToString());
             }
@@ -583,14 +590,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
                 for (int i = 0; i < events.Length; i++) {
                     bool flag = false;
+                    if (events[i].Identifier == GameData.Team.Identifier) {
+                        events[i].Player.Name = GameData.Team.Player.Name;
+                        GameData.SocialEvents.Add(events[i]);
+                    } else
                     if (!string.IsNullOrEmpty(events[i].Identifier) && GameData.Team.Friends.ContainsKey(events[i].Identifier)) {
                         events[i].Player.Name = GameData.Team.Friends[events[i].Identifier].Player.Name;
                         GameData.SocialEvents.Add(events[i]);
                         flag = true;
-                    } else
-                    if (events[i].Identifier == GameData.Team.Identifier) {
-                        events[i].Player.Name = GameData.Team.Player.Name;
-                        GameData.SocialEvents.Add(events[i]);
                     }
 
                     if (flag && GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {

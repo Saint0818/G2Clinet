@@ -43,6 +43,7 @@ namespace GameStruct
 	public struct TFriend {
 		public string Identifier;
 		public int Kind; //1.auto deploy 2.follow 3.waiting answer 4.be friend 5.ask follow
+        public int FightCount;
         public DateTime Time;
 		public TPlayer Player;
 	}
@@ -530,6 +531,7 @@ namespace GameStruct
 
     public struct TDailyCount {
         public int FreshShop;
+        public int FreshFriend;
 		public int BuyPowerOne;
 		public int BuyPowerTwo;
     }

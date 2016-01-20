@@ -44,11 +44,13 @@ namespace GameStruct
         public int NowStageID;
         public int HeadTextureNo;
         public int FriendKind;
+        public int FightCount;
 
         public int GetPotentialValue(EAttribute attr)
         {
             return Potential.ContainsKey(attr) ? Potential[attr] : 0;
         }
+
 		public Dictionary<EAttribute, int> Potential;
 
         public int GetStageChallengeNum(int stageID)
@@ -125,6 +127,7 @@ namespace GameStruct
             Exp = 0;
             HeadTextureNo = -1;
             FriendKind = 0;
+            FightCount = 0;
             NeedForSyncRecord = false;
             LifetimeRecord = new TGamePlayerRecord();
             Avatar = new TAvatar(1);

@@ -1,5 +1,5 @@
-//#define Debug
-#define Release
+#define Debug
+//#define Release
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ public class FileManager : KnightSingleton<FileManager>
     public const string URL = "http://g2.nicemarket.com.tw/";
     public const VersionMode NowMode = VersionMode.Release;
     #else
-	public const string URL = "http://localhost:3600/";
+    public const string URL = "http://52.68.61.220:3500/";
 	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 

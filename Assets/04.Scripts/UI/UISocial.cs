@@ -52,6 +52,8 @@ public class UISocial : UIBase {
     private UILabel totalLabel;
     private UILabel labelStats;
     private UILabel labelSearch;
+    private UILabel labelFreshTime;
+    private UILabel labelFreshDiamond;
     private GameObject itemSocialEvent;
     private GameObject uiOpation;
     private GameObject[] redPoints = new GameObject[pageNum];
@@ -103,6 +105,8 @@ public class UISocial : UIBase {
         uiOpation.SetActive(false);
         totalLabel = GameObject.Find(UIName + "/Window/Center/Total").GetComponent<UILabel>();
         labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/SearchArea/TypeLabel").GetComponent<UILabel>();
+        labelFreshTime = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/TextLabel").GetComponent<UILabel>();
+        labelFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn/Label").GetComponent<UILabel>();
         for (int i = 0; i < pageNum; i++) {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
@@ -193,7 +197,8 @@ public class UISocial : UIBase {
 
             redPoints[0].SetActive(GameData.Setting.ShowEvent);
             redPoints[1].SetActive(GameData.Setting.ShowWatchFriend);
-
+            labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshFriend +1)).ToString();
+                
             openPage(nowPage);
         }
 
@@ -203,6 +208,15 @@ public class UISocial : UIBase {
     void FixedUpdate() {
         if (modelLoader.Count > 0)
             StartCoroutine(loadModel(modelLoader.Dequeue()));
+
+        if (nowPage == 2) {
+            if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
+                labelFreshTime.text = string.Format(TextConst.S(4507), TextConst.DeadlineString(GameData.Team.FreshFriendTime.ToUniversalTime()));
+            else {
+                labelFreshTime.text = TextConst.S(4510);
+                labelFreshDiamond.text = "0";
+            }
+        }
     }
 
     private void addItem(int page, int index) {
@@ -435,6 +449,7 @@ public class UISocial : UIBase {
     }
         
     private void waitFreshFriends() {
+        labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshFriend +1)).ToString();
         initList(nowPage);
     }
 
@@ -544,8 +559,16 @@ public class UISocial : UIBase {
         SendHttp.Get.Command(URLConst.SearchFriend, waitSearch, form, true);
     }
 
-    public void OnFresh() {
+    private void doFreshFriend() {
         SendHttp.Get.FreshFriends(waitFreshFriends, true);
+    }
+
+    public void OnFresh() {
+        int diamond = 0;
+        if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
+            diamond = 50 * (GameData.Team.DailyCount.FreshFriend +1);
+
+        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend);
     }
 
     private void openPage(int page) {

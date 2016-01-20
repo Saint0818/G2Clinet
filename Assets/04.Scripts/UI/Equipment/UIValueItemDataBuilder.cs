@@ -140,7 +140,7 @@ public static class UIValueItemDataBuilder
             };
             valueItem.Materials.Add(data);
 
-            if(i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
+            if(playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
                 // 有鑲嵌物.
                 data.Status = UIEquipMaterialItem.EStatus.Inlayed;
@@ -195,13 +195,15 @@ public static class UIValueItemDataBuilder
     {
         Dictionary<EAttribute, UIValueItemData.BonusData> bonusData = new Dictionary<EAttribute, UIValueItemData.BonusData>();
 
-        foreach(int inlayItemID in playerInlayItemIDs)
-        {
-            if(!GameData.DItemData.ContainsKey(inlayItemID))
-                continue;
+        if (playerInlayItemIDs != null) {
+            foreach(int inlayItemID in playerInlayItemIDs)
+            {
+                if(!GameData.DItemData.ContainsKey(inlayItemID))
+                    continue;
 
-            TItemData item = GameData.DItemData[inlayItemID];
-            convertBonus(item.Bonus, item.BonusValues, ref bonusData);
+                TItemData item = GameData.DItemData[inlayItemID];
+                convertBonus(item.Bonus, item.BonusValues, ref bonusData);
+            }
         }
         
         return bonusData;
@@ -230,13 +232,16 @@ public static class UIValueItemDataBuilder
 
     private static bool[] convertInlayStatus(int[] inlayItemIDs)
     {
-        bool[] status = new bool[inlayItemIDs.Length];
+        if (inlayItemIDs != null) {
+            bool[] status = new bool[inlayItemIDs.Length];
 
-        for(var i = 0; i < inlayItemIDs.Length; i++)
-        {
-            status[i] = inlayItemIDs[i] > 0;
-        }
+            for(var i = 0; i < inlayItemIDs.Length; i++)
+            {
+                status[i] = inlayItemIDs[i] > 0;
+            }
 
-        return status;
+            return status;
+        } else
+            return new bool[0];
     }
 }

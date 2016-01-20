@@ -33,11 +33,11 @@ public class UISelectRole : UIBase {
 	private UIAttributes mUIAttributes;
 
 	public GameObject playerInfoModel = null;
-	private TPlayer [] arrayPlayerData = new TPlayer[3];
+	public TPlayer [] arrayPlayerData = new TPlayer[3];
 	private Vector3 [] arrayPlayerPosition = new Vector3[3];
 	private GameObject [] arrayPlayer = new GameObject[3];
 	private GameObject [] buttonSelectRole = new GameObject[6];
-	private static List<TPlayer> playerList = new List<TPlayer>();
+	private List<TPlayer> playerList = new List<TPlayer>();
 
 	private Animator animatorLeft;
 	private Animator animatorRight;
@@ -86,7 +86,6 @@ public class UISelectRole : UIBase {
 	public static UISelectRole Get {
 		get {
 			if (!instance) {
-				InitPlayerList(ref selectRoleID);
 				instance = LoadUI(UIName) as UISelectRole;
 			}
 
@@ -173,7 +172,7 @@ public class UISelectRole : UIBase {
 		}
 	}
 	
-	public static void InitPlayerList(ref int[] ids) {
+	public void InitPlayerList(ref int[] ids) {
 		playerList.Clear();
         if (ids != null) {
     		for (int i = 0; i < ids.Length; i ++) {
@@ -190,38 +189,48 @@ public class UISelectRole : UIBase {
         }
 	}
 
-    public static void InitPlayerList(ref Dictionary<string, TFriend> players) {
+    public void InitPlayerList(ref Dictionary<string, TFriend> players) {
 		playerList.Clear();
 		if (players != null) {
             foreach (KeyValuePair<string, TFriend> item in players.ToList()) {
-                TFriend friend = item.Value;
-                friend.Player.FriendKind = item.Value.Kind;
-                playerList.Add(friend.Player);
+                if (item.Value.FightCount > 0 && item.Value.Identifier != GameData.Team.Identifier) {
+                    if (item.Value.Kind == EFriendKind.Advice || item.Value.Kind == EFriendKind.Friend) {
+                        TFriend friend = item.Value;
+                        friend.Player.FriendKind = item.Value.Kind;
+                        friend.Player.FightCount = item.Value.FightCount;
+                        playerList.Add(friend.Player);
+                    }
+                }
             }
-
-            /*foreach (KeyValuePair<string, TFriend> item in players) {
-                item.Value.Player.FriendKind = item.Value.Kind;
-                playerList.Add(item.Value.Player);
-            }*/
 		}
 
-		if (playerList.Count < 5) {
-			for (int i = 0; i < selectRoleID.Length; i ++) {
+        const int pNum = 3;
+        if (playerList.Count < pNum) {
+            int num = Mathf.Min(pNum, selectRoleID.Length);
+
+			for (int i = 0; i < num; i ++) {
 				if (GameData.DPlayers.ContainsKey(selectRoleID[i])) {
 					TPlayer player = new TPlayer();
 					player.SetID(selectRoleID[i]);
 					player.Name = GameData.DPlayers[selectRoleID[i]].Name;
 					playerList.Add(player);
-					if (playerList.Count >= 5)
+                    if (playerList.Count >= pNum)
 						break;
 				}
 			}
 		}
 
-		randomPlayerList();
+
+        playerList = playerList.OrderBy(x => x.CombatPower()).ToList();
+        for (int i = 0; i < playerList.Count; i++) {
+            TPlayer player = playerList[i];
+            player.RoleIndex = i;
+            playerList[i] = player;
+        }
+		//randomPlayerList();
 	}
 
-	private static void randomPlayerList() {
+	private void randomPlayerList() {
 		if (playerList.Count > 1) {
 			for (int i = 0; i < playerList.Count; i++) {
 				int j = UnityEngine.Random.Range(0, playerList.Count-1);
@@ -322,6 +331,7 @@ public class UISelectRole : UIBase {
 	}
 
 	protected override void InitData() {
+        InitPlayerList(ref selectRoleID);
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
 			if (i < playerList.Count) {
 				arrayPlayerData[i] = playerList[i];

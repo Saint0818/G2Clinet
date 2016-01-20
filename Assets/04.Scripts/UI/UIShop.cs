@@ -37,13 +37,13 @@ public class UIShop : UIBase {
     private TAvatar equipAvatar = new TAvatar();
 
     private GameObject itemSellItem;
-    private GameObject manAnchor;
     private UILabel labelPVPCoin;
     private UILabel labelSocialCoin;
     private UILabel labelFreshTime;
     private UILabel labelFreshDiamond;
     private GameObject[] uiSuits = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
+    private UIToggle[] pageToggle = new UIToggle[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TShopItemObj>[] shopItemList = new List<TShopItemObj>[pageNum];
 
@@ -83,32 +83,25 @@ public class UIShop : UIBase {
         SetBtnFun(UIName + "/Center/BottomRight/ResetBtn", OnFreshShop);
 
         for (int i = 0; i < pageNum; i++) {
+            SetBtnFun(UIName + "/Center/Right/Tabs/" + i.ToString(), OnPage);
             uiSuits[i] = GameObject.Find(UIName + "/Center/Right/Tabs/" + i.ToString() + "/FittingIcon");
             pageObjects[i] = GameObject.Find(UIName + "/Center/Right/Pages/" + i.ToString());
             pageScrollViews[i] = GameObject.Find(UIName + "/Center/Right/Pages/" + i.ToString() + "/ItemList").GetComponent<UIScrollView>();
-            SetBtnFun(UIName + "/Center/Right/Tabs/" + i.ToString(), OnPage);
+            pageToggle[i] = GameObject.Find(UIName + "/Center/Right/Tabs/" + i.ToString()).GetComponent<UIToggle>();
 
             uiSuits[i].SetActive(false);
             pageObjects[i].SetActive(false);
         }
 
-        manAnchor = GameObject.Find(UIName + "/Center/Left/ManAnchor");
         labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
         labelSocialCoin = GameObject.Find(UIName + "/TopRight/SocialCoin/Label").GetComponent<UILabel>();
         labelFreshTime = GameObject.Find(UIName + "/Center/BottomRight/WarningsLabel").GetComponent<UILabel>();
         labelFreshDiamond = GameObject.Find(UIName + "/Center/BottomRight/ResetBtn/PriceLabel").GetComponent<UILabel>();
     }
 
-    protected override void InitData() {
-
-    }
-
     private void initList(int page) {
         if (shopItemList[page] == null)
             shopItemList[page] = new List<TShopItemObj>();
-
-        for (int i = 0; i < shopItemList[page].Count; i++)
-            shopItemList[page][i].Item.SetActive(false);
 
         switch (page) {
             case 0:
@@ -116,6 +109,10 @@ public class UIShop : UIBase {
                     for (int i = 0; i < GameData.Team.ShopItems1.Length; i++)
                         if (GameData.DItemData.ContainsKey(GameData.Team.ShopItems1[i].ID))
                             addItem(page, i, GameData.Team.ShopItems1[i]);
+
+                    if (GameData.Team.ShopItems1.Length < shopItemList[page].Count) 
+                        for (int i = GameData.Team.ShopItems1.Length; i < shopItemList[page].Count; i++)
+                            shopItemList[page][i].Item.SetActive(false);
                 }
 
                 break;
@@ -123,6 +120,10 @@ public class UIShop : UIBase {
                 if (GameData.Team.ShopItems2 != null) {
                     for (int i = 0; i < GameData.Team.ShopItems2.Length; i++)
                         addItem(page, i, GameData.Team.ShopItems2[i]);
+
+                    if (GameData.Team.ShopItems2.Length < shopItemList[page].Count) 
+                        for (int i = GameData.Team.ShopItems2.Length; i < shopItemList[page].Count; i++)
+                            shopItemList[page][i].Item.SetActive(false);
                 }
 
                 break;
@@ -130,6 +131,10 @@ public class UIShop : UIBase {
                 if (GameData.Team.ShopItems3 != null) {
                     for (int i = 0; i < GameData.Team.ShopItems3.Length; i++)
                         addItem(page, i, GameData.Team.ShopItems3[i]);
+
+                    if (GameData.Team.ShopItems3.Length < shopItemList[page].Count) 
+                        for (int i = GameData.Team.ShopItems3.Length; i < shopItemList[page].Count; i++)
+                            shopItemList[page][i].Item.SetActive(false);
                 }
 
                 break;
@@ -241,9 +246,12 @@ public class UIShop : UIBase {
     }
 
     public void openPage(int page) {
-        for (int i = 0; i < pageObjects.Length; i++)
+        for (int i = 0; i < pageObjects.Length; i++) {
             pageObjects[i].SetActive(false);
+            pageToggle[i].value = false;
+        }
 
+        pageToggle[page].value = true;
         pageObjects[page].SetActive(true);
         nowPage = page;
         initList(page);
@@ -433,7 +441,6 @@ public class UIShop : UIBase {
 
             if (result.ShopItems3 != null)
                 GameData.Team.ShopItems3 = result.ShopItems3;
-
 
             initList(nowPage);
         }

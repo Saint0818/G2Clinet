@@ -39,12 +39,14 @@ public static class UIEquipChecker
                 continue;
 
             bool found = false;
-            for(var j = 0; j < playerInlayItemIDs.Length; j++)
-            {
-                if(item.Materials[i] == playerInlayItemIDs[j])
+            if (playerInlayItemIDs != null) {
+                for(var j = 0; j < playerInlayItemIDs.Length; j++)
                 {
-                    found = true;
-                    break;
+                    if(item.Materials[i] == playerInlayItemIDs[j])
+                    {
+                        found = true;
+                        break;
+                    }
                 }
             }
 
