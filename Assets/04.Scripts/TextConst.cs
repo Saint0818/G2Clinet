@@ -294,7 +294,10 @@ public static class TextConst
 
         return sResult;
     }
-
+	/// <summary>
+	/// Color the specified quality.
+	/// </summary>
+	/// <param name="quality">Quality.</param>
     public static Color32 Color(int quality) {
         if (quality < 2)
             return new Color32(255, 255, 255, 255);
@@ -309,5 +312,25 @@ public static class TextConst
             return new Color32(150, 101, 255, 255);
         else
             return new Color32(255, 128, 0, 255);
-    }
+	}
+	/// <summary>
+	/// Colors the B.
+	/// </summary>
+	/// <returns>The B.</returns>
+	/// <param name="quality">Quality.</param>
+	public static Color32 ColorBG(int quality) {
+		if (quality < 2)
+			return new Color32(150, 150, 150, 255);
+		else
+			if (quality < 3)
+				return new Color32(20, 125, 35, 255);
+			else
+				if (quality < 4)
+					return new Color32(20, 100, 150, 255);
+				else
+					if (quality < 5)
+						return new Color32(175, 40, 200, 255);
+					else
+						return new Color32(255, 145, 0, 255);
+	}
 }
