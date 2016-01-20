@@ -11,6 +11,8 @@ public class UIPrefabPath
     public static readonly string EquipMaterialItem = "Prefab/UI/Items/MaterialItem";
     public static readonly string UIFXAddValueItemInlay = "Effect/UIFXAddValueItemInlay";
 
+    public static readonly string UIInstanceChapter = "Prefab/UI/UIInstanceChapter";
+
     public static readonly string ItemSkillHint = "Prefab/UI/Items/ItemSkillHint";
 	public static readonly string UIStageHint = "Prefab/UI/UIStageHint";
 	public static readonly string ItemSkillCard = "Prefab/UI/Items/ItemSkillCard";

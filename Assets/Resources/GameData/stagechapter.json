@@ -90,5 +90,29 @@
         "nameen": "Chapter 10",
         "explaintw": 1,
         "explainen": 1
+    },
+    {
+        "id": 2001,
+        "chapter": 1,
+        "nametw": "副本第 1 章",
+        "explaintw": "副本第 1 章說明"
+    },
+    {
+        "id": 2002,
+        "chapter": 2,
+        "nametw": "副本第 2 章",
+        "explaintw": "副本第 2 章說明"
+    },
+    {
+        "id": 2003,
+        "chapter": 3,
+        "nametw": "副本第 3 章",
+        "explaintw": "副本第 3 章說明"
+    },
+    {
+        "id": 2004,
+        "chapter": 4,
+        "nametw": "副本第 4 章",
+        "explaintw": "副本第 4 章說明"
     }
 ]

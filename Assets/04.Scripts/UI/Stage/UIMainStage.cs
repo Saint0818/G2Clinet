@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -222,12 +222,12 @@ public class UIMainStage : UIBase
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
             maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;
-        List<TStageData> allStageData = new List<TStageData>();
+        List<TStageData> allMainStage = new List<TStageData>();
         // 主線關卡是從第一章開始顯示.
-        StageTable.Ins.GetMainStageByChapterRange(1, maxChapter, ref allStageData);
+        StageTable.Ins.GetMainStageByChapterRange(1, maxChapter, ref allMainStage);
 
         // 3. 設定每一個小關卡.
-        foreach(TStageData data in allStageData)
+        foreach(TStageData data in allMainStage)
         {
             addChapter(data.Chapter);
 
@@ -253,13 +253,13 @@ public class UIMainStage : UIBase
 
     private void addChapter(int chapter)
     {
-        if(!ChapterTable.Ins.Has(chapter))
+        if(!ChapterTable.Ins.HasMain(chapter))
         {
             Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter);
             return;
         }
 
-        ChapterData data = ChapterTable.Ins.Get(chapter);
+        ChapterData data = ChapterTable.Ins.GetMain(chapter);
         mMain.AddChapter(chapter, data.Name);
     }
 
@@ -332,9 +332,9 @@ public class UIMainStage : UIBase
 
         int nextChapter = stageData.Chapter + 1;
         string nextChapterTitle = "";
-        if(ChapterTable.Ins.Has(nextChapter))
+        if(ChapterTable.Ins.HasMain(nextChapter))
         {
-            ChapterData chapterData = ChapterTable.Ins.Get(nextChapter);
+            ChapterData chapterData = ChapterTable.Ins.GetMain(nextChapter);
             nextChapterTitle = chapterData.Name;
         }
 

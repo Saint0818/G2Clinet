@@ -19,15 +19,16 @@ public class UIGameLobby : UIBase
     private static UIGameLobby instance;
     private const string UIName = "UIGameLobby";
 
-    private UIGameLobbyImpl mImpl;
+    private UIGameLobbyMain mMain;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mImpl = GetComponent<UIGameLobbyImpl>();
-        mImpl.BackListener += goToMainLobby;
-        mImpl.MainStageListener += goToMainStage;
-        mImpl.PvpListener += goToPvp;
+        mMain = GetComponent<UIGameLobbyMain>();
+        mMain.BackListener += goToMainLobby;
+        mMain.MainStageListener += goToMainStage;
+        mMain.PvpListener += goToPvp;
+        mMain.InstanceListener += goToInstance;
     }
 
     public void Show()
@@ -55,8 +56,14 @@ public class UIGameLobby : UIBase
 
     private void goToPvp()
     {
-        UIMainLobby.Get.Hide ();
-        UIPVP.UIShow (true);
+        UIPVP.UIShow(true);
+        Hide();
+    }
+
+    private void goToInstance()
+    {
+        UIInstance.Get.Show();
+        Hide();
     }
 
     public static UIGameLobby Get

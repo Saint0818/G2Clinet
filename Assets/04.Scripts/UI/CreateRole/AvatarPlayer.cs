@@ -95,10 +95,6 @@ public class AvatarPlayer
             {UICreateRole.EEquip.Pants, CreateRoleTable.Ins.GetPants(pos)[0]},
             {UICreateRole.EEquip.Shoes, CreateRoleTable.Ins.GetShoes(pos)[0]}
         };
-//        int hairItemID = CreateRoleDataMgr.Ins.GetHairs(pos)[0];
-//        int clothItemID = CreateRoleDataMgr.Ins.GetCloths(pos)[0];
-//        int pantsItemID = CreateRoleDataMgr.Ins.GetPants(pos)[0];
-//        int shoesItemID = CreateRoleDataMgr.Ins.GetShoes(pos)[0];
         ChangeParts(itemIDs);
     }
 
@@ -154,28 +150,6 @@ public class AvatarPlayer
             mDummy = null;
         }
     }
-
-    //    public bool UpdatePart(UICreateRole.EEquip equip, int itemID)
-    //    {
-    //        var bodyItemID = mItemIDs[UICreateRole.EEquip.Body];
-    //        var hairItemID = mItemIDs[UICreateRole.EEquip.Hair];
-    //        var clothItemID = mItemIDs[UICreateRole.EEquip.Cloth];
-    //        var pantsItemID = mItemIDs[UICreateRole.EEquip.Pants];
-    //        var shoesItemID = mItemIDs[UICreateRole.EEquip.Shoes];
-    //
-    //        if(equip == UICreateRole.EEquip.Body)
-    //            bodyItemID = itemID;
-    //        else if(equip == UICreateRole.EEquip.Hair)
-    //            hairItemID = itemID;
-    //        else if(equip == UICreateRole.EEquip.Cloth)
-    //            clothItemID = itemID;
-    //        else if(equip == UICreateRole.EEquip.Pants)
-    //            pantsItemID = itemID;
-    //        else if(equip == UICreateRole.EEquip.Shoes)
-    //            shoesItemID = itemID;
-    //
-    //        return UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
-    //    }
 
     public bool ChangePart(UICreateRole.EEquip equip, int itemID)
     {

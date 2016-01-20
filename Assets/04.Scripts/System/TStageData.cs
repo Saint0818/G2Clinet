@@ -137,6 +137,7 @@ public class TStageData
     public float PositionX { get; private set; }
     public float PositionY { get; private set; }
 
+    [CanBeNull]
     public int[] PlayerID;
     public int[] FriendID;
 
