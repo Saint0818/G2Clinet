@@ -8,7 +8,7 @@ public class UIInstanceMain : MonoBehaviour
     /// <summary>
     /// 單位: Pixel.
     /// </summary>
-    private const float ChapterInterval = 1200;
+    private const float ChapterInterval = 900;
 
     private readonly List<UIInstanceChapter> mChapters = new List<UIInstanceChapter>();
 
