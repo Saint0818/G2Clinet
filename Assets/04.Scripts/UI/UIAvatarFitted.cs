@@ -24,6 +24,7 @@ public class TItemAvatar
 	private UILabel BuyInfoLabel;
 	private UILabel potentialLabel;
 	private UISprite pic;
+	private UISprite qualityBG;
 	private UISprite OutLine;
 	private UIButton equipBtn;
 	private UIButton sellBtn;
@@ -177,6 +178,7 @@ public class TItemAvatar
 			usetime = self.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
 			getModeLabel = self.transform.FindChild ("GetModeLabel").gameObject.GetComponent<UILabel> ();
 			pic = self.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
+			qualityBG = self.transform.FindChild ("ItemPic/QualityBG").gameObject.GetComponent<UISprite> ();
 			OutLine = self.transform.FindChild ("ItemPic/OutLine").gameObject.GetComponent<UISprite> ();
 			TrimBottom = self.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
 			sellBtn = self.transform.FindChild ("SellBtn").gameObject.GetComponent<UIButton> ();
@@ -241,6 +243,7 @@ public class TItemAvatar
 			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData [id].Atlas)))
 				pic.atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData [id].Atlas)];
 			pic.spriteName = string.Format ("Item_{0}", GameData.DItemData [id].Icon);
+			qualityBG.color = TextConst.ColorBG(GameData.DItemData [id].Quality);
 			OutLine.spriteName = string.Format ("Equipment_{0}", GameData.DItemData [id].Quality);
 			Kind = GameFunction.GetItemKind (id);
 			EndUseTime = usetime;

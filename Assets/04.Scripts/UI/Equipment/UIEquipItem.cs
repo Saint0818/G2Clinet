@@ -23,12 +23,18 @@ public class UIEquipItem : MonoBehaviour
     public GameObject[] InlaySlots;
     public GameObject[] Inlays;
 
+	private Transform tQuality;
+	private UISprite qualityBG;
+
     [UsedImplicitly]
     private void Awake()
     {
+		if(tQuality == null)
+			tQuality = GameFunction.FindQualityBG(transform);
+		if(tQuality != null)
+			qualityBG = tQuality.GetComponent<UISprite>();
         // 暫時關閉.
         Text.gameObject.SetActive(false);
-
         hideAllInlay();
     }
 
@@ -57,6 +63,10 @@ public class UIEquipItem : MonoBehaviour
 
         Amount.gameObject.SetActive(data.Num >= 2);
         Amount.text = data.Num.ToString();
+
+		if(qualityBG != null) {
+			qualityBG.color = TextConst.ColorBG(data.Quality);
+		}
 
         updateInlay(data.Inlay);
     }

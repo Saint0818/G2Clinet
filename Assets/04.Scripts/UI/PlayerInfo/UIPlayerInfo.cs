@@ -353,6 +353,7 @@ public class TValueAvater
     public int ID;
     private GameObject self;
     public UISprite BG;
+	public UISprite qualityBG;
     private UISprite pic;
     private UISprite redPoint;
     private UILabel name;
@@ -375,6 +376,7 @@ public class TValueAvater
             BG = self.GetComponent<UISprite>();
 
             pic = self.transform.FindChild("Icon").gameObject.GetComponent<UISprite>();
+			qualityBG = self.transform.FindChild("QualityBG").gameObject.GetComponent<UISprite>();
             redPoint = self.transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
             redPoint.enabled = false;
             name = self.transform.FindChild("NameLabel").gameObject.GetComponent<UILabel>();
@@ -418,7 +420,9 @@ public class TValueAvater
     public int Quality
     {
 
-        set{ BG.spriteName = string.Format("Equipment_{0}", value); }
+        set{
+			qualityBG.color = TextConst.ColorBG(value);
+			BG.spriteName = string.Format("Equipment_{0}", value); }
     }
 
     public int Starts

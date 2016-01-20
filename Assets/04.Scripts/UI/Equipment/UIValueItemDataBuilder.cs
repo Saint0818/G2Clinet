@@ -95,6 +95,7 @@ public static class UIValueItemDataBuilder
                     : null,
             Icon = string.Format("Item_{0}", item.Icon),
             Frame = string.Format("Equipment_{0}", item.Quality),
+			Quality = item.Quality,
             Desc = item.Explain,
             Values = convertBonus(item.Bonus, item.BonusValues),
             Inlay = convertInlayStatus(playerInlayItemIDs),

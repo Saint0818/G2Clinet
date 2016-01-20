@@ -773,8 +773,10 @@ public static class GameFunction
     }
 
 	public static Transform FindQualityBG (Transform obj) {
-		Transform t = obj.FindChild("ItemView/QualitySquare/QualityBG");
-		
+		Transform t = obj.FindChild("QualityBG");
+		if(t == null)
+			t = obj.FindChild("ItemView/QualitySquare/QualityBG");
+
 		if(t == null)
 			t = obj.FindChild("ItemView/QualityOctagon/QualityBG");
 

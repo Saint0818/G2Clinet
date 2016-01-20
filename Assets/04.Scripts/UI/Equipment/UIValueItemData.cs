@@ -41,7 +41,9 @@ public class UIValueItemData
 
     public Color32 NameColor { get; set; }
 
-    public UIAtlas Atlas { get; set; }
+	public UIAtlas Atlas { get; set; }
+
+	public int Quality { get; set; }
 
     public string Icon
     {

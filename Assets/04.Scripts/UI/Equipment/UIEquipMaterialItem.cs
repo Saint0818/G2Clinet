@@ -82,6 +82,9 @@ public class UIEquipMaterialItem : MonoBehaviour
     public GameObject EnoughIcon;
     public GameObject InlayIcon;
 
+	private Transform tQuality;
+	private UISprite qualityBG;
+
     public delegate void Action(EStatus status, int materialIndex, int storageIndex, int materialItemID);
     public event Action ClickListener;
 
@@ -97,6 +100,10 @@ public class UIEquipMaterialItem : MonoBehaviour
     public void Init(int index)
     {
         mIndex = index;
+		if(tQuality == null)
+			tQuality = GameFunction.FindQualityBG(transform);
+		if(tQuality != null)
+			qualityBG = tQuality.GetComponent<UISprite>();
     }
 
     public void Set(Data data)
@@ -114,6 +121,11 @@ public class UIEquipMaterialItem : MonoBehaviour
 
         mStorageIndex = data.StorageIndex;
         mMaterialItemID = data.ItemID;
+
+		if(qualityBG != null) {
+			if(GameData.DItemData.ContainsKey(data.ItemID))
+				qualityBG.color = TextConst.ColorBG(GameData.DItemData[data.ItemID].Quality);
+		}
     }
 
     private void setBonus(Data data)
