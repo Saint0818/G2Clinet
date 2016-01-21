@@ -61,7 +61,7 @@ public class HintAvatarView : MonoBehaviour {
 	{
 		isHaveValue = false;
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
-
+		GameFunction.ShowInlay(ref AvatarStars, GameData.Team.Player, itemData.Kind);
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			AttrKindsIcon[i].gameObject.SetActive(true);
 			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();

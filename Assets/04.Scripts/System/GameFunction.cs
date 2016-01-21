@@ -716,6 +716,17 @@ public static class GameFunction
 		}
 	}
 
+	public static void ShowInlay (ref  GameObject[] inlays, TPlayer player, int itemDataKind) {
+		foreach (KeyValuePair<int, TValueItem> pair in player.ValueItems) {
+			if (GameData.DItemData.ContainsKey(pair.Value.ID) && pair.Key == itemDataKind) {
+				UIValueItemData vd = UIValueItemDataBuilder.Build(GameData.DItemData[pair.Value.ID], pair.Value.InlayItemIDs, pair.Value.Num);
+				if(vd.Inlay.Length <= inlays.Length) 
+					for(int i=0; i<inlays.Length; i++) 
+						inlays[i].SetActive((i < vd.Inlay.Length));
+			}
+		}
+	}
+
 	public static void ShowStar (ref SkillCardStar[] stars, int lv, int quality, int max) {
 		for (int i=0; i<stars.Length; i++) {
 			if(i < lv) stars[i].ShowStar();
