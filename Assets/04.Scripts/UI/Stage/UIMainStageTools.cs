@@ -87,17 +87,6 @@ public static class UIMainStageTools
         PlayerPrefs.SetInt(SelectChapterKey, 2);
     }
 
-    /// <summary>
-    /// 找出玩家該關卡還可以打幾次.
-    /// </summary>
-    /// <param name="stageData"></param>
-    /// <returns></returns>
-    public static int FindPlayerRemainDailyCount(TStageData stageData)
-    {
-        int remainDailyCount = stageData.ChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
-        return Mathf.Max(0, remainDailyCount); // 強迫數值大於等於 0.
-    }
-
     public static string FindRewardTitle(TStageData stageData)
     {
         if (!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))

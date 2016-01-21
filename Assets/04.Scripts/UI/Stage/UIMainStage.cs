@@ -113,7 +113,7 @@ public class UIMainStage : UIBase
         }
 
         string errMsg;
-        if(verifyPlayer(stageData, out errMsg))
+        if(UIStageTools.VerifyPlayer(stageData, out errMsg))
         {
 //            UIMainStageDebug debug = new UIMainStageDebug();
 //            debug.SendCommand(stageID);
@@ -129,68 +129,6 @@ public class UIMainStage : UIBase
             Debug.LogWarning(errMsg);
             UIHint.Get.ShowHint(errMsg, Color.green);
         }
-    }
-
-    private bool verifyPlayer(TStageData stageData)
-    {
-        string errMsg;
-        return verifyPlayer(stageData, out errMsg);
-    }
-
-    /// <summary>
-    /// 檢查玩家是否可以進入遊戲.
-    /// </summary>
-    /// <param name="stageData"></param>
-    /// <param name="errMsg"></param>
-    /// <returns></returns>
-    private bool verifyPlayer(TStageData stageData, out string errMsg)
-    {
-        if(!verifyPlayerCost(stageData))
-        {
-            errMsg = TextConst.S(230);
-            return false;
-        }
-
-        if(!verifyPlayerDailyCount(stageData))
-        {
-            errMsg = TextConst.S(231);
-            return false;
-        }
-
-        if (!verifyPlayerLv(stageData))
-        {
-            errMsg = TextConst.S(232);
-            return false;
-        }
-
-        errMsg = String.Empty;
-        return true;
-    }
-
-    private static bool verifyPlayerCost(TStageData stageData)
-    {
-        switch(stageData.CostKind)
-        {
-            case TStageData.ECostKind.Stamina:
-                if(GameData.Team.Power < stageData.CostValue)
-                    return false;
-                break;
-//            case TStageData.ECostKind.Activity:
-//            case TStageData.ECostKind.Challenger:
-            default:
-                throw new NotImplementedException();
-        }
-        return true;
-    }
-
-    private static bool verifyPlayerDailyCount(TStageData stageData)
-    {
-        return UIMainStageTools.FindPlayerRemainDailyCount(stageData) > 0;
-    }
-
-    private static bool verifyPlayerLv(TStageData stageData)
-    {
-        return GameData.Team.Player.Lv >= stageData.LimitLevel;
     }
 
     private void tryPlayAnimation()
@@ -280,8 +218,8 @@ public class UIMainStage : UIBase
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
-            RemainDailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData)),
-            StartEnable = verifyPlayer(stageData),
+            RemainDailyCount = String.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData)),
+            StartEnable = UIStageTools.VerifyPlayer(stageData),
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
 
@@ -308,17 +246,6 @@ public class UIMainStage : UIBase
             mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
         else
             mMain.AddLockBossStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
-    }
-
-    private static bool verify(TStageData stageData)
-    {
-        if(!stageData.IsValid())
-        {
-            Debug.LogWarningFormat("Stage({0}) don't exist!", stageData.ID);
-            return false;
-        }
-
-        return true;
     }
 
     /// <summary>
@@ -374,5 +301,16 @@ public class UIMainStage : UIBase
 			
             return instance;
         }
+    }
+
+    public static bool verify(TStageData stageData)
+    {
+        if(!stageData.IsValid())
+        {
+            Debug.LogWarningFormat("Stage({0}) don't exist!", stageData.ID);
+            return false;
+        }
+
+        return true;
     }
 }

@@ -12,6 +12,7 @@ public class UIInstanceStage : MonoBehaviour
     public UILabel ExpLabel;
     public UILabel StaminaLabel; // 體力.
     public UILabel RemainDailyLabel; // 關卡剩餘挑戰次數.
+    public UIButton StartButton;
 
     public Transform[] RewardParents; // 獎勵圖示的位置.
 
@@ -31,6 +32,11 @@ public class UIInstanceStage : MonoBehaviour
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
         public string RemainDailyCount;
+
+        /// <summary>
+        /// 是否可以進入關卡.
+        /// </summary>
+        public bool StartEnable;
 
         /// <summary>
         /// <para> 顯示該關卡會得到的獎勵. </para>
@@ -62,7 +68,10 @@ public class UIInstanceStage : MonoBehaviour
         StaminaLabel.text = data.Stamina.ToString();
         RemainDailyLabel.text = data.RemainDailyCount;
 
-        for(int i = 0; i < mRewardIcons.Count; i++)
+        StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
+        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
+
+        for (int i = 0; i < mRewardIcons.Count; i++)
         {
             if (data.RewardItems.Count > i)
                 mRewardIcons[i].Show(data.RewardItems[i]);

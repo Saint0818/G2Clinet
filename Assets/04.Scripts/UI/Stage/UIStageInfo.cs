@@ -130,7 +130,6 @@ public class UIStageInfo : MonoBehaviour
         StaminaLabel.text = string.Format("{0}", data.Stamina);
         Completed.SetActive(data.ShowCompleted);
 
-//        StartButton.isEnabled = data.StartEnable;
         StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
         StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
 
