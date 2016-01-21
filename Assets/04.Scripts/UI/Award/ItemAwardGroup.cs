@@ -95,6 +95,6 @@ public class ItemAwardGroup : MonoBehaviour
     public void NotifyClick()
     {
 		if(mItemData.ID > 0 && !UILevelUp.Visible)
-            UIItemHint.Get.OnShow(mItemData);
+			UIItemHint.Get.OnShow(mItemData.ID);
     }
 }

@@ -88,6 +88,9 @@ public struct TSkillCardMaterial {
 	public UILabel[] AmountLabel; // 99/99
 
 	public TSkill mSkill;
+	public int material1index;
+	public int material2index;
+	public int material3index;
 	public int material1count;
 	public int material2count;
 	public int material3count;
@@ -110,6 +113,9 @@ public struct TSkillCardMaterial {
 
 	public void UpdateView (TSkill skill) {
 		HideAllMaterial ();
+		material1index = -1;
+		material2index = -1;
+		material3index = -1;
 		mSkill = skill;
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			if(GameData.DSkillData[skill.ID].Material1 != 0 && GameData.DSkillData[skill.ID].MaterialNum1 != 0) {
@@ -122,9 +128,9 @@ public struct TSkillCardMaterial {
 					NameLabel[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
 					
 					TMaterialItem materialSkillCard = new TMaterialItem();
-					material1count = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
+					material1index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
 					
-					if(material1count != -1)
+					if(material1index != -1)
 						AmountLabel[0].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 					else 
 						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
@@ -143,9 +149,9 @@ public struct TSkillCardMaterial {
 					NameLabel[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
 
 					TMaterialItem materialSkillCard = new TMaterialItem();
-					material2count = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
+					material2index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
 
-					if(material2count != -1)
+					if(material2index != -1)
 						AmountLabel[1].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
 					else 
 						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
@@ -164,9 +170,9 @@ public struct TSkillCardMaterial {
 					NameLabel[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
 
 					TMaterialItem materialSkillCard = new TMaterialItem();
-					material3count = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+					material3index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
 
-					if(material3count != -1)
+					if(material3index != -1)
 						AmountLabel[2].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 					else 
 						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
@@ -232,6 +238,7 @@ public class UISkillEvolution : UIBase {
 	private const string UIName = "UISkillEvolution";
 
 	private int skillIndex;
+	private int[] materialIndexs;
 
 	private TActiveSkillCard[] skillCards = new TActiveSkillCard[2];
 	private TSkillCardValue[] skillCardValues = new TSkillCardValue[2];
@@ -291,6 +298,7 @@ public class UISkillEvolution : UIBase {
 
 		skillCardMaterial = new TSkillCardMaterial();
 		skillCardMaterial.Init(GameObject.Find(UIName + "/Window/Center/View/RightPart/Evolution"));
+		materialIndexs = new int[3];//目前訂三種
 
 		SetBtnFun(UIName + "/Window/Center/View/RightPart/Evolution/ElementSlot0/View/MaterialItem", OnSearchMaterial1);
 		SetBtnFun(UIName + "/Window/Center/View/RightPart/Evolution/ElementSlot1/View/MaterialItem", OnSearchMaterial2);
@@ -303,7 +311,6 @@ public class UISkillEvolution : UIBase {
 
 	public void OnSearchMaterial1 () {
 		TMaterialItem materialSkillCard = new TMaterialItem();
-		int index = GameData.Team.FindMaterialItem(GameData.DSkillData[mSkill.ID].Material1, ref materialSkillCard);
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) {
@@ -315,7 +322,6 @@ public class UISkillEvolution : UIBase {
 
 	public void OnSearchMaterial2 () {
 		TMaterialItem materialSkillCard = new TMaterialItem();
-		int index = GameData.Team.FindMaterialItem(GameData.DSkillData[mSkill.ID].Material2, ref materialSkillCard);
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) {
@@ -327,7 +333,6 @@ public class UISkillEvolution : UIBase {
 
 	public void OnSearchMaterial3 () {
 		TMaterialItem materialSkillCard = new TMaterialItem();
-		int index = GameData.Team.FindMaterialItem(GameData.DSkillData[mSkill.ID].Material3, ref materialSkillCard);
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) {
@@ -378,6 +383,9 @@ public class UISkillEvolution : UIBase {
 			if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
 				//材料判斷
 				if(skillCardMaterial.IsEnoughMaterial) {
+					materialIndexs[0] = skillCardMaterial.material1index;
+					materialIndexs[1] = skillCardMaterial.material2index;
+					materialIndexs[2] = skillCardMaterial.material3index;
 					//金額判斷
 					if(CheckMoney(evolutionPrice, true)) {
 						if(isEquiped) {
@@ -404,6 +412,7 @@ public class UISkillEvolution : UIBase {
 		WWWForm form = new WWWForm();
 		form.AddField("RemoveIndex", skillIndex);
 		form.AddField("Kind", kind);
+		form.AddField("MaterialIndexs", JsonConvert.SerializeObject(materialIndexs));
 		SendHttp.Get.Command(URLConst.EvolutionSkillcard, waitEvolutionSkillcard, form);
 	}
 

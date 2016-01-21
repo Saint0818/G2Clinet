@@ -159,7 +159,7 @@ public class UISelectPartner : UIBase {
                         if (memberList[page][index].Player.ValueItems != null && 
                             memberList[page][index].Player.ValueItems.ContainsKey(kind)) {
                             UIItemHint.UIShow(true);
-                            UIItemHint.Get.OnShow(GameData.DItemData[id]);
+                            UIItemHint.Get.OnShow(id);
                         }
                     }
                 }

@@ -184,7 +184,7 @@ public class UIGameResult : UIBase {
 		int index = -1;
 		if(int.TryParse(go.name, out index)) {
 			if(GameData.DItemData.ContainsKey(index))
-				UIItemHint.Get.OnShow(GameData.DItemData[index]);
+				UIItemHint.Get.OnShow(GameData.DItemData[index].ID);
 		}
 	}
 

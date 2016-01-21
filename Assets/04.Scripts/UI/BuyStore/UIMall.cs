@@ -191,7 +191,7 @@ public class UIMall : UIBase {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name,out result)) {
 			if(GameData.DItemData.ContainsKey(result))
-				UIItemHint.Get.OnShow(GameData.DItemData[result]);
+				UIItemHint.Get.OnShow(GameData.DItemData[result].ID);
 		}
 	}
 	//order = 0 can used

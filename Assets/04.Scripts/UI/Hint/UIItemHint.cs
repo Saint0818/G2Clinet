@@ -50,7 +50,7 @@ public class UIItemHint : UIBase {
     public void OpenBuyUI(TSellItem data, EventDelegate.Callback callback) {
         if (GameData.DItemData.ContainsKey(data.ID)) {
             UIShow(true);
-            OnShow(GameData.DItemData[data.ID]);
+            OnShow(data.ID);
             uiBuy.SetActive(true);
             callbackBuy = callback;
             labelPrice.text = data.Price.ToString();
@@ -95,43 +95,43 @@ public class UIItemHint : UIBase {
 	}
 
 	//For First Get
-	public void OnShow(TItemData itemData) {
-		if(GameData.DItemData.ContainsKey (itemData.ID)) {
+	public void OnShow(int itemID) {
+		if(GameData.DItemData.ContainsKey (itemID)) {
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
 			UIShow(true);
 			gameObject.transform.localPosition = new Vector3(0, 0, -10);
-			if(itemData.Kind == 21) { //技能卡
+			if(GameData.DItemData[itemID].Kind == 21) { //技能卡
 				//For First Get
 				hintSkillView.Show();
-				hintSkillView.UpdateUI(itemData);
+				hintSkillView.UpdateUI(GameData.DItemData[itemID]);
 				if(GameData.Team.SkillCardCounts == null)
 					GameData.Team.InitSkillCardCount();
-				if(GameData.Team.SkillCardCounts.ContainsKey(itemData.Avatar))
-					setHaveCount(GameData.Team.SkillCardCounts[itemData.Avatar]);
+				if(GameData.Team.SkillCardCounts.ContainsKey(GameData.DItemData[itemID].Avatar))
+					setHaveCount(GameData.Team.SkillCardCounts[GameData.DItemData[itemID].Avatar]);
 				else
 					setHaveCount(0);
-				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
-			} else if(itemData.Kind == 19) {//材料
+				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+			} else if(GameData.DItemData[itemID].Kind == 19) {//材料
 				hintInlayView.Show();
-				hintInlayView.UpdateUI(itemData);
-				if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(itemData.ID)))
-					setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(itemData.ID)].Num);
+				hintInlayView.UpdateUI(GameData.DItemData[itemID]);
+				if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(GameData.DItemData[itemID].ID)))
+					setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(GameData.DItemData[itemID].ID)].Num);
 				else
 					setHaveCount(0);
-				uiLabelExplain.text = itemData.Explain;
+				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
 			} else {// Avatar
 				hintAvatarView.Show();
-				hintAvatarView.UpdateUI(itemData);
+				hintAvatarView.UpdateUI(GameData.DItemData[itemID]);
 				//TODO : 等待來源
-				setHaveCount(GameData.Team.GetAvatarCount(itemData.ID));
-                uiLabelExplain.text = itemData.Explain;
-                if(GameData.DItemData[itemData.ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(itemData.ID))
-                    uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[itemData.ID].Potential.ToString();
+				setHaveCount(GameData.Team.GetAvatarCount(GameData.DItemData[itemID].ID));
+				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+				if(GameData.DItemData[GameData.DItemData[itemID].ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(GameData.DItemData[itemID].ID))
+					uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[GameData.DItemData[itemID].ID].Potential.ToString();
 			}
-			uiLabelName.text = itemData.Name;
-			uiLabelName.color = TextConst.Color(itemData.Quality);
+			uiLabelName.text = GameData.DItemData[itemID].Name;
+			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
 		}
 	}
 	
