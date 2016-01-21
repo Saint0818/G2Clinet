@@ -138,35 +138,40 @@ public class StageTable
         }
     }
 
-    public List<TStageData> GetInstanceByChapter(int chapter)
+    public List<TStageData> GetInstanceStagesByChapter(int chapter)
     {
+        var oneChapterStages = new List<TStageData>();
         if(mInstanceByChapter.ContainsKey(chapter))
-        {
-            var list = new List<TStageData>();
-            list.AddRange(mInstanceByChapter[chapter]);
-            return new List<TStageData>();
-        }
+            oneChapterStages.AddRange(mInstanceByChapter[chapter]);
 
-        return new List<TStageData>();
+        oneChapterStages.Sort((stage1, stage2) => // sort by order.(由低到高)
+        {
+            if (stage1.Order == stage2.Order)
+                return 0;
+            if (stage1.Order > stage2.Order)
+                return 1;
+            return -1;
+        });
+
+        return oneChapterStages;
     }
 
-    public TStageData GetInstanceLastStage(int chapter)
+    public List<TStageData> GetInstanceNormalStagesByChapter(int chapter)
     {
-        if(!mInstanceByChapter.ContainsKey(chapter))
+        List<TStageData> normalStages = GetInstanceStagesByChapter(chapter);
+
+        if(normalStages.Count >= 1)
+            normalStages.RemoveAt(normalStages.Count - 1); // 刪除最後 1 個.
+
+        return normalStages;
+    }
+
+    public TStageData GetInstanceBossStage(int chapter)
+    {
+        List<TStageData> stages = GetInstanceStagesByChapter(chapter);
+        if(stages.Count == 0)
             return mEmptyStage;
-
-        TStageData lastStage = mEmptyStage;
-        int maxOrder = int.MinValue;
-        foreach(TStageData stageData in mInstanceByChapter[chapter])
-        {
-            if(stageData.Order <= maxOrder)
-                continue;
-
-            maxOrder = stageData.Order;
-            lastStage = stageData;
-        }
-
-        return lastStage;
+        return stages[stages.Count - 1]; // 最後一個關卡就是 order 最大的關卡.
     }
 
     public bool HasByID(int id)

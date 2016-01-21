@@ -19,6 +19,7 @@ public class UIInstance : UIBase
     private static UIInstance instance;
     private const string UIName = "UIInstance";
 
+    public UIInstanceMain Main { get { return mMain; } }
     private UIInstanceMain mMain;
 
     [UsedImplicitly]
@@ -44,9 +45,9 @@ public class UIInstance : UIBase
         List<ChapterData> allData = ChapterTable.Ins.GetAllInstance();
         foreach(ChapterData chapterData in allData)
         {
-            List<TStageData> oneChapterStages = StageTable.Ins.GetInstanceByChapter(chapterData.Chapter);
-            TStageData lastStage = StageTable.Ins.GetInstanceLastStage(chapterData.Chapter);
-            UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, oneChapterStages, lastStage.PlayerID[0]);
+            List<TStageData> normalStages = StageTable.Ins.GetInstanceNormalStagesByChapter(chapterData.Chapter);
+            TStageData bossStage = StageTable.Ins.GetInstanceBossStage(chapterData.Chapter);
+            UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
             mMain.AddChapter(uiData);
         }
     }

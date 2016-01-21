@@ -5,14 +5,37 @@ using UnityEngine;
 
 public static class UIInstanceBuilder
 {
-    public static UIInstanceChapter.Data Build(ChapterData data, List<TStageData> oneChapterStages, 
-                                               int bossPlayerID)
+    public static UIInstanceChapter.Data Build(ChapterData data, List<TStageData> normalStages, 
+                                               TStageData bossStage)
     {
         return new UIInstanceChapter.Data
         {
             Title = data.Name,
             Desc = data.Explain,
-            Model = buildModel(bossPlayerID)
+            Model = buildModel(bossStage.PlayerID[0]),
+            NormalStages = buildNormalStages(normalStages),
+            BossStage = buildStage(bossStage)
+        };
+    }
+
+    private static UIInstanceStage.Data[] buildNormalStages(List<TStageData> normalStages)
+    {
+        List<UIInstanceStage.Data> uiNormalStages = new List<UIInstanceStage.Data>();
+
+        foreach(TStageData stage in normalStages)
+        {
+            uiNormalStages.Add(buildStage(stage));
+        }
+
+        return uiNormalStages.ToArray();
+    }
+
+    private static UIInstanceStage.Data buildStage(TStageData stage)
+    {
+        return new UIInstanceStage.Data
+        {
+            ID = stage.ID,
+            Title = stage.Name
         };
     }
 

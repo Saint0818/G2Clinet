@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 副本章節. 這對應到 UIInstanceChapter.prefab.
+/// </summary>
 public class UIInstanceChapter : MonoBehaviour
 {
     public UILabel Title;
@@ -13,6 +16,9 @@ public class UIInstanceChapter : MonoBehaviour
         public string Desc;
 
         public GameObject Model;
+
+        public UIInstanceStage.Data[] NormalStages;
+        public UIInstanceStage.Data BossStage;
     }
 
     public bool FocusVisible
@@ -26,8 +32,17 @@ public class UIInstanceChapter : MonoBehaviour
         }
     }
 
+    private Data mData;
+
+    private void Awake()
+    {
+        GetComponent<UIButton>().onClick.Add(new EventDelegate(OnClick));
+    }
+
     public void SetData(Data data)
     {
+        mData = data;
+
         Title.text = data.Title;
         Desc.text = data.Desc;
 
@@ -35,5 +50,10 @@ public class UIInstanceChapter : MonoBehaviour
         data.Model.transform.localPosition = Vector3.zero;
         data.Model.transform.localRotation = Quaternion.identity;
         data.Model.transform.localScale = Vector3.one;
+    }
+
+    private void OnClick()
+    {
+        UIInstance.Get.Main.ShowStages(mData.NormalStages, mData.BossStage);
     }
 }
