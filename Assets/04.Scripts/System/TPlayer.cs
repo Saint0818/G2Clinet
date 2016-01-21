@@ -594,10 +594,8 @@ namespace GameStruct
                     {
                         case 1: 
                             return "IconForward";
-                            break;
                         case 2:
                             return "IconGuard";
-                            break;
                         default:
                             return "IconCenter";  
                     }

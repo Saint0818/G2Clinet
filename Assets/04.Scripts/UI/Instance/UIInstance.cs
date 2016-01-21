@@ -31,6 +31,11 @@ public class UIInstance : UIBase
                 UIGameLobby.Get.Show();
                 Hide();
             }));
+
+        mMain.StageStartListener += stageID =>
+        {
+            Debug.LogFormat("UIInstance, start stage:{0}", stageID);
+        };
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }

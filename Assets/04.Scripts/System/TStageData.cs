@@ -62,16 +62,6 @@ public class TStageData
     /// </summary>
     public int ChallengeNum { get; private set; }
 
-    /// <summary>
-    /// 進入關卡的等級限制.
-    /// </summary>
-    public int LimitLevel { get; private set; }
-    /// <summary>
-    /// 進入關卡的戰鬥力限制. 因為戰鬥力是根據屬性算出總和數值, 其實非常像 2K 的總評分數, 所以才
-    /// 取名為 Evaluation.
-    /// </summary>
-    public int LimitEvaluation { get; private set; }
-
     public int Diamond { get; private set; }
     public int Exp { get; private set; }
     public int Money { get; private set; }
@@ -164,8 +154,6 @@ public class TStageData
 		Bit3Num = 0;
 		CostValue = 0;
 		ChallengeNum = 0;
-		LimitLevel = 0;
-		LimitEvaluation = 0;
 		WinValue = 0;
 		FriendNumber = 0;
 		PositionX = 0;

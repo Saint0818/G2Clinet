@@ -775,22 +775,16 @@ public static class GameFunction
 		switch(quality) {
 		case 1:
 			return TextConst.S(7216);
-			break;
 		case 2:
 			return TextConst.S(7217);
-			break;
 		case 3:
 			return TextConst.S(7218);
-			break;
 		case 4:
 			return TextConst.S(7219);
-			break;
 		case 5:
 			return TextConst.S(7220);
-			break;
 		default:
 			return TextConst.S(7216);
-			break;
 		}
 	}
 
@@ -798,22 +792,16 @@ public static class GameFunction
 		switch(quality) {
 		case 1:
 			return TextConst.S(4601);
-			break;
 		case 2:
 			return TextConst.S(4602);
-			break;
 		case 3:
 			return TextConst.S(4603);
-			break;
 		case 4:
 			return TextConst.S(4604);
-			break;
 		case 5:
 			return TextConst.S(4605);
-			break;
 		default:
 			return TextConst.S(4601);
-			break;
 		}
 	}
 

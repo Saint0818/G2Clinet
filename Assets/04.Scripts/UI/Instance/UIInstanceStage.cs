@@ -39,6 +39,11 @@ public class UIInstanceStage : MonoBehaviour
         public bool StartEnable;
 
         /// <summary>
+        /// 不可進入關卡的錯誤訊息.
+        /// </summary>
+        public string ErrorMsg;
+
+        /// <summary>
         /// <para> 顯示該關卡會得到的獎勵. </para>
         /// todo 這邊暫時和遊戲資料耦合, 以後再改.
         /// </summary>
@@ -47,6 +52,8 @@ public class UIInstanceStage : MonoBehaviour
 
     private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
     private UIStageHint mHint;
+    private Data mData;
+
     private void Awake()
     {
         mHint = GetComponent<UIStageHint>();
@@ -56,10 +63,23 @@ public class UIInstanceStage : MonoBehaviour
             var obj = UIPrefabPath.LoadUI(UIPrefabPath.ItemAwardGroup, RewardParents[i]);
             mRewardIcons.Add(obj.GetComponent<ItemAwardGroup>());
         }
+
+        StartButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(mData.StartEnable)
+                UIInstance.Get.Main.NotifyStageStartClick(mData.ID);
+            else
+            {
+                Debug.LogWarning(mData.ErrorMsg);
+                UIHint.Get.ShowHint(mData.ErrorMsg, Color.green);
+            }
+        }));
     }
 
     public void SetData(Data data)
     {
+        mData = data;
+
         mHint.UpdateUI(data.ID);
 
         TitleLabel.text = data.Title;

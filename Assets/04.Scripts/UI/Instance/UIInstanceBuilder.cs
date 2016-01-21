@@ -40,9 +40,12 @@ public static class UIInstanceBuilder
             Money = stageData.Money,
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
-            RemainDailyCount = string.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData)),
-            StartEnable = UIStageTools.VerifyPlayer(stageData)
+            RemainDailyCount = string.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData))
         };
+
+        string errMsg;
+        data.StartEnable = UIStageTools.VerifyPlayer(stageData, out errMsg);
+        data.ErrorMsg = errMsg;
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
 

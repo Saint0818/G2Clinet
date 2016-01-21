@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIInstanceMain : MonoBehaviour
@@ -10,6 +11,12 @@ public class UIInstanceMain : MonoBehaviour
     public Transform StageParent;
     public GameObject StageView;
     public UIButton StageBackButton;
+
+    /// <summary>
+    /// <para> 呼叫時機: 關卡的 Start 按鈕按下. </para>
+    /// <para>[int stageID]: 進入哪一個關卡. </para>
+    /// </summary>
+    public event Action<int> StageStartListener;
 
     /// <summary>
     /// 單位: Pixel.
@@ -84,5 +91,11 @@ public class UIInstanceMain : MonoBehaviour
             Destroy(stage.gameObject);
         }
         mStages.Clear();
+    }
+
+    public void NotifyStageStartClick(int stageID)
+    {
+        if(StageStartListener != null)
+            StageStartListener(stageID);
     }
 }

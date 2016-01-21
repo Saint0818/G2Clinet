@@ -40,11 +40,11 @@ public static class UIStageTools
             return false;
         }
 
-        if(!verifyPlayerLv(stageData))
-        {
-            errMsg = TextConst.S(232);
-            return false;
-        }
+//        if(!verifyPlayerLv(stageData))
+//        {
+//            errMsg = TextConst.S(232);
+//            return false;
+//        }
 
         errMsg = String.Empty;
         return true;
@@ -71,8 +71,8 @@ public static class UIStageTools
         return FindPlayerRemainDailyCount(stageData) > 0;
     }
 
-    private static bool verifyPlayerLv(TStageData stageData)
-    {
-        return GameData.Team.Player.Lv >= stageData.LimitLevel;
-    }
+//    private static bool verifyPlayerLv(TStageData stageData)
+//    {
+//        return GameData.Team.Player.Lv >= stageData.LimitLevel;
+//    }
 }
