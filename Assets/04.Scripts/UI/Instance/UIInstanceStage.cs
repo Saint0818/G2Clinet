@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// 副本章節內的關卡. 這對應到 UIInstanceStage.prefab.
@@ -11,6 +10,7 @@ public class UIInstanceStage : MonoBehaviour
     public UILabel TitleLabel;
     public UILabel MoneyLabel;
     public UILabel ExpLabel;
+    public UILabel StaminaLabel; // 體力.
 
     public Transform[] RewardParents; // 獎勵圖示的位置.
 
@@ -20,6 +20,11 @@ public class UIInstanceStage : MonoBehaviour
         public string Title;
         public int Money;
         public int Exp;
+
+        /// <summary>
+        /// 進入關卡所需的體力.
+        /// </summary>
+        public int Stamina;
 
         /// <summary>
         /// <para> 顯示該關卡會得到的獎勵. </para>
@@ -48,6 +53,7 @@ public class UIInstanceStage : MonoBehaviour
         TitleLabel.text = data.Title;
         MoneyLabel.text = data.Money.ToString();
         ExpLabel.text = data.Exp.ToString();
+        StaminaLabel.text = data.Stamina.ToString();
 
         for(int i = 0; i < mRewardIcons.Count; i++)
         {

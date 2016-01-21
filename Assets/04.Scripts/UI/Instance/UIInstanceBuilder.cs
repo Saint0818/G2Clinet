@@ -38,7 +38,8 @@ public static class UIInstanceBuilder
             ID = stageData.ID,
             Title = stageData.Name,
             Money = stageData.Money,
-            Exp = stageData.Exp
+            Exp = stageData.Exp,
+            Stamina = stageData.CostValue
         };
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
