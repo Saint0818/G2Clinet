@@ -5,8 +5,11 @@ public class UIInstanceMain : MonoBehaviour
 {
     public Transform ChapterParent;
     public GameObject ChapterView;
+    public UIButton ChapterBackButton;
+
     public Transform StageParent;
     public GameObject StageView;
+    public UIButton StageBackButton;
 
     /// <summary>
     /// 單位: Pixel.
@@ -16,6 +19,11 @@ public class UIInstanceMain : MonoBehaviour
 
     private readonly List<UIInstanceChapter> mChapters = new List<UIInstanceChapter>();
     private readonly List<UIInstanceStage> mStages = new List<UIInstanceStage>();
+
+    private void Start()
+    {
+        StageBackButton.onClick.Add(new EventDelegate(ShowChapters));
+    }
 
     public void AddChapter(UIInstanceChapter.Data data)
     {
@@ -31,13 +39,19 @@ public class UIInstanceMain : MonoBehaviour
     public void ShowChapters()
     {
         StageView.SetActive(false);
+        StageBackButton.gameObject.SetActive(false);
+
         ChapterView.SetActive(true);
+        ChapterBackButton.gameObject.SetActive(true);
     }
 
     public void ShowStages(UIInstanceStage.Data[] oneChapterNormalStages, UIInstanceStage.Data bossStage)
     {
         ChapterView.SetActive(false);
+        ChapterBackButton.gameObject.SetActive(false);
+
         StageView.SetActive(true);
+        StageBackButton.gameObject.SetActive(true);
 
         clearStages();
         addStages(oneChapterNormalStages, bossStage);

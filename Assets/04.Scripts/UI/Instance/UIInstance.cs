@@ -26,6 +26,11 @@ public class UIInstance : UIBase
     private void Awake()
     {
         mMain = GetComponent<UIInstanceMain>();
+        mMain.ChapterBackButton.onClick.Add(new EventDelegate(() =>
+            {
+                UIGameLobby.Get.Show();
+                Hide();
+            }));
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -50,6 +55,8 @@ public class UIInstance : UIBase
             UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
             mMain.AddChapter(uiData);
         }
+
+        mMain.ShowChapters();
     }
 
     public void Hide()
