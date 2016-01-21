@@ -58,9 +58,14 @@ public class TStageData
     public int CostValue { get; private set; }
 
     /// <summary>
-    /// 每日關卡挑戰次數.
+    /// 球員每日關卡挑戰次數.
     /// </summary>
-    public int ChallengeNum { get; private set; }
+    public int DailyChallengeNum { get; private set; }
+
+    /// <summary>
+    /// 球員生崖關卡最多的挑戰次數.(球員一輩子可以打幾次), 小於等於 0 表示生崖可以打無限次.
+    /// </summary>
+    public int MaxChallengeNum { get; private set; }
 
     public int Diamond { get; private set; }
     public int Exp { get; private set; }
@@ -153,11 +158,16 @@ public class TStageData
 		Bit2Num = 0;
 		Bit3Num = 0;
 		CostValue = 0;
-		ChallengeNum = 0;
+		DailyChallengeNum = 0;
+		MaxChallengeNum = 0;
 		WinValue = 0;
 		FriendNumber = 0;
 		PositionX = 0;
 		PositionY = 0;
+
+        Diamond = 0;
+        Exp = 0;
+        Money = 0;
 		
 		Hint = "";
 		nameTW = "";

@@ -10,7 +10,7 @@ public static class UIStageTools
     /// <returns></returns>
     public static int FindPlayerRemainDailyCount(TStageData stageData)
     {
-        int remainDailyCount = stageData.ChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
+        int remainDailyCount = stageData.DailyChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
         return Mathf.Max(0, remainDailyCount); // 強迫數值大於等於 0.
     }
 

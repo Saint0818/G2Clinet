@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using GameEnum;
 using GameStruct;
@@ -726,7 +726,7 @@ public class GEGMTool : GEBase
 
         if (ok)
         {
-            GameData.Team.Player.StageChallengeNums.Clear();
+            GameData.Team.Player.DailyStageChallengeNums.Clear();
             updateUIMainStage();
         }
         else

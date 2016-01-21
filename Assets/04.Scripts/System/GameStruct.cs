@@ -317,7 +317,7 @@ namespace GameStruct
 		public float Version;
 		public DateTime Start;
 		public DateTime End;
-        public int GameKind; //0.pve
+        public int GameKind; //0.pve, 1:instance
 		public int GamePlayTime;
         public int ExitCount;
         public int PauseCount;

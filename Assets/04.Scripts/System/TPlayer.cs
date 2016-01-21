@@ -55,18 +55,18 @@ namespace GameStruct
 
         public int GetStageChallengeNum(int stageID)
         {
-            if(StageChallengeNums == null)
-                StageChallengeNums = new Dictionary<int, int>();
+            if(DailyStageChallengeNums == null)
+                DailyStageChallengeNums = new Dictionary<int, int>();
 
-            if(!StageChallengeNums.ContainsKey(stageID))
-                StageChallengeNums.Add(stageID, 0);
+            if(!DailyStageChallengeNums.ContainsKey(stageID))
+                DailyStageChallengeNums.Add(stageID, 0);
 
-            return StageChallengeNums[stageID];
+            return DailyStageChallengeNums[stageID];
         }
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 已經打過的次數.
         /// </summary>
-        public Dictionary<int, int> StageChallengeNums;
+        public Dictionary<int, int> DailyStageChallengeNums;
 
         public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
@@ -139,7 +139,7 @@ namespace GameStruct
             ValueItems = new Dictionary<int, TValueItem>();
 			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = StageTable.MinMainStageID;
-            StageChallengeNums = new Dictionary<int, int>();
+            DailyStageChallengeNums = new Dictionary<int, int>();
             ConsumeValueItems = new int[0];
         }
 
