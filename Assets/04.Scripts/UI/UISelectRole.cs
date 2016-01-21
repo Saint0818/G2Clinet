@@ -196,6 +196,7 @@ public class UISelectRole : UIBase {
                 if (item.Value.FightCount > 0 && item.Value.Identifier != GameData.Team.Identifier) {
                     if (item.Value.Kind == EFriendKind.Advice || item.Value.Kind == EFriendKind.Friend) {
                         TFriend friend = item.Value;
+                        friend.Player.Identifier = item.Value.Identifier;
                         friend.Player.FriendKind = item.Value.Kind;
                         friend.Player.FightCount = item.Value.FightCount;
                         playerList.Add(friend.Player);
@@ -221,7 +222,7 @@ public class UISelectRole : UIBase {
 		}
 
 
-        playerList = playerList.OrderBy(x => x.CombatPower()).ToList();
+        playerList = playerList.OrderBy(x => -x.CombatPower()).ToList();
         for (int i = 0; i < playerList.Count; i++) {
             TPlayer player = playerList[i];
             player.RoleIndex = i;
@@ -389,7 +390,6 @@ public class UISelectRole : UIBase {
 	}
 
 	private void UIState(EUIRoleSituation state) {
-		
 		switch (state) {
 		case EUIRoleSituation.SelectRole:
 			uiPartnerList.SetActive(false);
@@ -769,7 +769,7 @@ public class UISelectRole : UIBase {
 
 	public void InitFriend() {
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
-			if (DateTime.UtcNow > GameData.Team.FreshFriendTime) {
+            if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime()) {
                 SendHttp.Get.FreshFriends(waitLookFriends, false);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;

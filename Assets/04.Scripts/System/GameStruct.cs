@@ -55,12 +55,30 @@ namespace GameStruct
         public string Name;
         public TPlayer Player;
         public DateTime Time;
-        public Dictionary<string, int> Good;
-        public int GoodCount;
+        public Dictionary<string, string> Good;
         public int Kind; //1.friend 2.stage 3.mission 4.item 5.pvp
         public int Cause;
         public int Value;
         public int Num;
+
+        private int mGoodCount;
+        public int GoodCount {
+            get {
+                mGoodCount = 0;
+                if (Good != null) {
+                    foreach (KeyValuePair<string, string> item in Good) {
+                        if (!string.IsNullOrEmpty(item.Value))
+                            mGoodCount++;
+                    }
+                }
+                    
+                return mGoodCount;
+            }
+
+            set {
+                mGoodCount = value;
+            }
+        }
     }
 
 	public struct TSkillCardPage {
@@ -321,6 +339,7 @@ namespace GameStruct
 		public int GamePlayTime;
         public int ExitCount;
         public int PauseCount;
+        public bool HaveFriend;
 		public bool Done;
         public bool IsWin;
         public int StageID;
@@ -337,7 +356,9 @@ namespace GameStruct
 			GamePlayTime = 0;
 			ExitCount = 0;
 			PauseCount = 0;
+            HaveFriend = false;
 			Done = false;
+            IsWin = false;
 			Score1 = 0;
 			Score2 = 0;
 			ButtonTrace = new string[0];
@@ -373,6 +394,8 @@ namespace GameStruct
         public int OccupyLv; //踢館等級 kind 7
         public int AvatarCount; //kind 8
         public int SkillCount; //kind 9
+        public int FriendCount;
+        public int GoodCount;
         public int PVECount;
         public int PVEWin;
         public int PVEKeepWin;
@@ -420,6 +443,7 @@ namespace GameStruct
     }
         
 	public struct TGamePlayerRecord {
+        public string Identifier;
 		public int ID;
         public int GameCount;
         public int GamePlayTime;
@@ -469,6 +493,7 @@ namespace GameStruct
 		public TShotRecord[] ShotRecords;
 
 		public void Init() {
+            Identifier = "";
 			FG = 0;
 			FGIn = 0;
 			FG3 = 0;
@@ -1087,6 +1112,7 @@ namespace GameStruct
 		public int Final;
         public int TimeKind;
         public int TimeValue;
+        public int SpendKind;
         public int[] Value;
         public int[] Money;
         public int[] Exp;
@@ -1232,13 +1258,6 @@ namespace GameStruct
 	public struct TPickCost {
 		public int ID;
 		public int Order;
-		/// <summary>
-		/// 0.台幣
-		/// 1.鑽石
-		/// 2.遊戲幣
-		/// 3.聯盟幣
-		/// 4.社群幣
-		/// </summary>
 		public int SpendKind;
 		public int OnePick;
 		public int FivePick;
@@ -1291,13 +1310,17 @@ namespace GameStruct
 		}
 	}
 
+    /// <summary>
+    /// SpendKind
+    /// 0.鑽石
+    /// 1.遊戲幣
+    /// 2.聯盟幣
+    /// 3.社群幣
+    /// </summary>
+
     public struct TSellItem {
         public int ID;
         public int Num;
-		/// <summary>
-		/// 0.鑽石
-		/// 1.遊戲幣
-		/// </summary>
         public int SpendKind;
         public int Price;
     }
@@ -1305,12 +1328,6 @@ namespace GameStruct
 	public struct TShop {
 		public int Kind;
         public int Kind2;
-		/// <summary>
-		/// 0.鑽石
-		/// 1.遊戲幣
-		/// 2.聯盟幣
-		/// 3.社群幣
-		/// </summary>
 		public int SpendKind;
 		public int Price;
 		/// <summary>

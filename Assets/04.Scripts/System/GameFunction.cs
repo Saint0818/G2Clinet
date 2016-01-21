@@ -828,4 +828,14 @@ public static class GameFunction
 
 		return t;
 	}
+
+    public static string SpendKindTexture(int kind) {
+        switch (kind) {
+            case 0: return "Icon_Gem";
+            case 1: return "Icon_Coin";
+            case 2: return "Icon_PVPSocial";
+            case 3: return "Icon_TokenSocial";
+            default: return "Icon_EXP";
+        }
+    }
 }

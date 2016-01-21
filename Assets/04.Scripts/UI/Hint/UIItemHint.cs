@@ -55,13 +55,11 @@ public class UIItemHint : UIBase {
             callbackBuy = callback;
             labelPrice.text = data.Price.ToString();
             labelCount.text = string.Format(TextConst.S(4513), data.Num);
-            if (data.SpendKind == 0) {
-                spriteCoin.spriteName = "Icon_Gem";
+            spriteCoin.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
+            if (data.SpendKind == 0)
                 labelPrice.color = new Color(255, 0, 255, 255);
-            } else {
-                spriteCoin.spriteName = "Icon_Coin";
+            else
                 labelPrice.color = Color.white;
-            }
         }
     }
 

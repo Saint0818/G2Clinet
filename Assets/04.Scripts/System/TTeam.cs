@@ -12,6 +12,7 @@ namespace GameStruct
         public string sessionID;
         public string FBName;
         public string FBid;
+
         public DateTime LoginTime;
         public DateTime PowerCD;
         public DateTime FreshShopTime;
@@ -20,12 +21,13 @@ namespace GameStruct
         public DateTime WatchFriendsTime;
         public DateTime FreeLuckBox;
 		public DateTime[] LotteryFreeTime;
+
         public int PlayerNum; // 玩家擁有幾位角色.
         public int StageTutorial;
         public int AvatarPotential;
-        public int PVPLv;
         public int OccupyLv; //佔領球館等級
         public int StatiumLv; //經營球館等級
+        public int SocialCoin; //社群幣
 
         public int[] TutorialFlags;
         public int[] Achievements;
@@ -54,6 +56,8 @@ namespace GameStruct
         public string[] EnemyIDs;
 
         //PVP
+        public int PVPCoin; //聯盟幣
+        public int PVPLv;
         public int PVPIntegral;
         public string LeagueName;
         public int LeagueIcon;

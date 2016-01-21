@@ -276,9 +276,9 @@ public class UISelectPartner : UIBase {
         item.LabelSelected.text = "";
         item.UISelected.SetActive(false);
         item.LabelTeamName.text = player.Name;
-
         item.LabelPower.text = ((int) player.CombatPower()).ToString();
         item.SpriteFace.spriteName = player.FacePicture;
+        item.SpritePosition.spriteName = GameData.Team.Player.PositionPicture;
 
         if (player.Lv > 0) {
             item.LabelLv.text = player.Lv.ToString();
@@ -286,16 +286,6 @@ public class UISelectPartner : UIBase {
         } else {
             item.LabelLv.text = GameData.Team.Player.Lv.ToString();
             item.LabelFightCount.text = TextConst.S(9516) + "∞";
-        }
-
-        if (GameData.DPlayers.ContainsKey(player.ID)) {
-            if (GameData.DPlayers[player.ID].BodyType == 0)
-                item.SpritePosition.spriteName = "IconCenter";
-            else
-                if (GameData.DPlayers[player.ID].BodyType == 1)
-                    item.SpritePosition.spriteName = "IconForward";
-                else
-                    item.SpritePosition.spriteName = "IconGuard";
         }
 
         item.Item.transform.parent = partnerScrollView[page].gameObject.transform;

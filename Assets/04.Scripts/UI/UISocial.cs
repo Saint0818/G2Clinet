@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GameStruct;
 using GameEnum;
 using Newtonsoft.Json;
@@ -119,13 +120,10 @@ public class UISocial : UIBase {
     }
 
     protected override void InitData() {
-        int count = 0;
-        if (GameData.Team.Friends != null) {
+        if (GameData.Team.Friends != null)
             GameData.Team.InitFriends();
-            count = GameData.Team.Friends.Count;
-        }
 
-        totalLabel.text = count.ToString() + " / 300"; 
+        totalLabel.text = GameData.Team.LifetimeRecord.FriendCount.ToString() + " / 300"; 
     }
 
     private void initList(int page) {
@@ -138,7 +136,9 @@ public class UISocial : UIBase {
         int count = 0;
         switch (page) {
             case 0: //event
-                for (int i = 0; i < GameData.SocialEvents.Count; i++) {
+                GameData.SocialEvents = GameData.SocialEvents.OrderBy(x => -x.Time.Ticks).ToList();
+                int num = Mathf.Min(20, GameData.SocialEvents.Count);
+                for (int i = 0; i < num; i++) {
                         addEvent(page, count, GameData.SocialEvents[i]);
                         count++;
                     }
@@ -146,15 +146,9 @@ public class UISocial : UIBase {
                 break;
             case 1: //follow
                 if (GameData.Team.Friends != null) {
+                    GameData.Team.Friends.OrderBy(x => -x.Value.Kind);
                     foreach (TFriend item in GameData.Team.Friends.Values) {
-                        if (item.Kind == EFriendKind.Ask) {
-                            addFriend(page, count, item);
-                            count++;
-                        }
-                    }
-
-                    foreach (TFriend item in GameData.Team.Friends.Values) {
-                        if (item.Kind == EFriendKind.Follow) {
+                        if (item.Kind == EFriendKind.Ask || item.Kind == EFriendKind.Follow) {
                             addFriend(page, count, item);
                             count++;
                         }
@@ -336,12 +330,14 @@ public class UISocial : UIBase {
         item.LabelTime.text = "";
         item.LabelRelation.text = "";
         item.LabelGoodCount.text = "";
-        item.LabelName.text = item.Friend.Player.Name;
         item.LabelName.color = Color.white;
         if (page == 0) {
             item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time.ToUniversalTime());
+            if (item.Event.Good != null)
+                item.LabelRelation.text = item.Event.GoodCount.ToString();
 
-            if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier)) {
+            if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier) && 
+                item.Event.Good[GameData.Team.Identifier] != "") {
                 item.ButtonGood.defaultColor = Color.white;
                 item.ButtonGood.hover = Color.white;
                 item.ButtonGood.pressed = Color.white;
@@ -351,6 +347,8 @@ public class UISocial : UIBase {
                 item.ButtonGood.pressed = new Color32(150, 150, 150, 255);
             }
         } else {
+            item.LabelName.text = item.Friend.Player.Name;
+
             switch (item.Friend.Kind) {
                 case EFriendKind.Search:
                     item.LabelName.color = Color.yellow;
@@ -508,6 +506,7 @@ public class UISocial : UIBase {
                 TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
 
                 if (friend.Kind == EFriendKind.Friend) {
+                    GameData.Team.LifetimeRecord.FriendCount++;
                     friend.Player.Init();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;
@@ -534,6 +533,7 @@ public class UISocial : UIBase {
     private void waitRemoveFriend(bool ok, WWW www) {
         if (ok) {
             if (www.text == "1") {
+                GameData.Team.LifetimeRecord.FriendCount--;
                 string id = friendList[nowPage][nowIndex].Friend.Identifier;
                 if (GameData.Team.Friends.ContainsKey(id))
                     GameData.Team.Friends.Remove(id);
@@ -541,6 +541,21 @@ public class UISocial : UIBase {
                 initList(nowPage);
             } else
                 SendHttp.Get.CheckServerMessage(www.text);
+        }
+    }
+
+    private void waitGood(bool ok, WWW www) {
+        if (ok) {
+            TSocialEvent result = JsonConvert.DeserializeObject<TSocialEvent>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.LifetimeRecord.GoodCount = result.GoodCount;
+            if (result.Good != null) {
+                friendList[nowPage][nowIndex].Event.Good = result.Good;
+                for (int i = 0; i < GameData.SocialEvents.Count; i++)
+                    if (GameData.SocialEvents[i]._id == friendList[nowPage][nowIndex].Event._id)
+                        GameData.SocialEvents[i] = friendList[nowPage][nowIndex].Event;
+
+                setGoodSprite(nowPage, friendList[nowPage][nowIndex]);
+            }
         }
     }
 
@@ -623,6 +638,13 @@ public class UISocial : UIBase {
                 if (int.TryParse(s[0], out nowPage) && int.TryParse(s[1], out nowIndex)) {
                     WWWForm form = new WWWForm();
                     switch (nowPage) {
+                        case 0:
+                            form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                            form.AddField("Name", GameData.Team.Player.Name);
+                            form.AddField("_id", friendList[nowPage][nowIndex].Event._id);
+                            SendHttp.Get.Command(URLConst.Good, waitGood, form);
+
+                            break;
                         case 1:
                         case 2:
                             if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {

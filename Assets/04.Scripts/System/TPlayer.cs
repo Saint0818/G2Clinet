@@ -12,6 +12,7 @@ namespace GameStruct
     /// <para> 如果是 NPC, 要呼叫 SetID() 做資料初始化. </para>
     /// </summary>
     public struct TPlayer {
+        public string Identifier;
         public int RoleIndex;
         public int ID;
         public string Name;
@@ -101,9 +102,10 @@ namespace GameStruct
 
         public TPlayer(int level)
         {
+            Identifier = "";
+            Name = "";
             AILevel = level;
             Strategy = 0;
-            Name = "";
             RoleIndex = 0;
             ID = 1;
             Lv = 0;

@@ -68,15 +68,7 @@ public class UIGetItem : UIBase {
         GameObject obj = Instantiate(itemExp, Vector3.zero, Quaternion.identity) as GameObject;
         string name = itemList.Count.ToString();
         obj.name = name;
-        UISprite spi = GameObject.Find(name + "/Icon").GetComponent<UISprite>();
-        if (spi) {
-            switch (kind) {
-                case 0: spi.spriteName = "Icon_Gem"; break;
-                case 1: spi.spriteName = "Icon_Coin"; break;
-                default: spi.spriteName = "Icon_EXP"; break;
-            }
-        }
-
+        GameObject.Find(name + "/Icon").GetComponent<UISprite>().spriteName = GameFunction.SpendKindTexture(kind);
         UILabel lab = GameObject.Find(name + "/ValueLabel").GetComponent<UILabel>();
         if (lab) 
             lab.text = value.ToString();

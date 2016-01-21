@@ -193,13 +193,11 @@ public class UIShop : UIBase {
         shopItemList[page][index].UISoldout.SetActive(data.Num <= 0);
         shopItemList[page][index].UISuit.SetActive(false);
         shopItemList[page][index].LabelPrice.text = data.Price.ToString();
-        if (data.SpendKind == 0) {
-            shopItemList[page][index].SpriteSpendKind.spriteName = "Icon_Gem";
+        shopItemList[page][index].SpriteSpendKind.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
+        if (data.SpendKind == 0)
             shopItemList[page][index].LabelPrice.color = new Color(255, 0, 255, 255);
-        } else {
-            shopItemList[page][index].SpriteSpendKind.spriteName = "Icon_Coin";
+        else
             shopItemList[page][index].LabelPrice.color = Color.white;
-        }
 
         if (GameData.DItemData.ContainsKey(data.ID))
             shopItemList[page][index].AwardGroup.Show(GameData.DItemData[data.ID]);
@@ -267,17 +265,28 @@ public class UIShop : UIBase {
         if (UIButton.current.transform.parent.gameObject && 
             int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
             shopItemList[nowPage][nowIndex].Data.Num > 0) {
-            bool flag = false;
-            if (shopItemList[nowPage][nowIndex].Data.SpendKind == 0 && CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true))
-                flag = true;
-            else
-            if (shopItemList[nowPage][nowIndex].Data.SpendKind == 1 && CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true))
-                flag = true;
-            
-            if (flag)
-                UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-            else
-                UIHint.Get.ShowHint(TextConst.S(4509), Color.white);
+            switch (shopItemList[nowPage][nowIndex].Data.SpendKind) {
+                case 0:
+                    if (CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true))
+                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+                    
+                    break;
+                case 1:
+                    if (CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true))
+                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+
+                    break;
+                case 2:
+                    if (GameData.Team.PVPCoin >= shopItemList[nowPage][nowIndex].Data.Price)
+                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+
+                    break;
+                case 3:
+                    if (GameData.Team.SocialCoin >= shopItemList[nowPage][nowIndex].Data.Price)
+                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+
+                    break;
+            }
         }
     }
 

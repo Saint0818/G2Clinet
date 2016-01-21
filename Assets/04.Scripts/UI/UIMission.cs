@@ -266,7 +266,7 @@ public class UIMission : UIBase {
         			
                     if (missionItem.Mission.Diamond[lv] > 0) {
                         missionItem.LabelAward1.text = missionItem.Mission.Diamond[lv].ToString();
-                        missionItem.SpriteAward1.spriteName = "Icon_Gem";
+                        missionItem.SpriteAward1.spriteName = GameFunction.SpendKindTexture(missionItem.Mission.SpendKind);
                     } else
                     if (missionItem.Mission.Money[mLv] > 0) {
                         missionItem.LabelAward1.text = missionItem.Mission.Money[lv].ToString();

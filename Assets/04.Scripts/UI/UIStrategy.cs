@@ -84,6 +84,10 @@ public class UIStrategy : UIBase {
             
             if (LabelStrategy != null)
                 LabelStrategy.text = TextConst.S(15002 + GameData.Team.Player.Strategy);
+
+            WWWForm form = new WWWForm();
+            form.AddField("Strategy", index.ToString());
+            SendHttp.Get.Command(URLConst.ChangeStrategy, null, form, false);
         }
     }
 
