@@ -808,12 +808,13 @@ public static class GameFunction
     public static TTeamRank TTeamCoverTTeamRank(TTeam team)
     {
         TTeamRank result = new TTeamRank();
-        result.Player = team.Player;
-        result.PVPIntegral = team.PVPIntegral;
+        result.Team = team;
+//        result.Player = team.Player;
+//        result.PVPIntegral = team.PVPIntegral;
         //TODO : Guild
 //        result.GuildIName = team.LeagueName;
 //        result.GuildIIcon= team.LeagueIcon;
-		result.LifetimeRecord = team.LifetimeRecord;
+//		result.LifetimeRecord = team.LifetimeRecord;
         return result;
     }
 

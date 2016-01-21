@@ -669,7 +669,7 @@ public class UIPlayerInfo : UIBase
         if (int.TryParse(UIButton.current.name, out index))
         if (index < GameData.Team.Player.Items.Length && index < personalView.ValueItems.Length)
         if (personalView.ValueItems[index].ID > 0 && GameData.DItemData.ContainsKey(personalView.ValueItems[index].ID))
-            UIItemHint.Get.OnShow(personalView.ValueItems[index].ID);
+            UIItemHint.Get.OnShow(GameData.DItemData[personalView.ValueItems[index].ID]);
     }
 
     public void OnChangePlayerName()

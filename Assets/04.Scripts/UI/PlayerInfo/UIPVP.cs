@@ -311,8 +311,8 @@ public class EnterView
             NoBtn = self.transform.FindChild("NoBtn").gameObject.GetComponent<UIButton>();
             StartBtn = self.transform.FindChild("StartBtn").gameObject.GetComponent<UIButton>();
             ResetBtn = self.transform.FindChild("ResetBtn").gameObject.GetComponent<UIButton>();
-            Combat1 = self.transform.FindChild("CombatGroup/CombatLabel0/Label").gameObject.GetComponent<UILabel>();
-            Combat2 = self.transform.FindChild("CombatGroup/CombatLabel1/Label").gameObject.GetComponent<UILabel>();
+            Combat1 = self.transform.FindChild("CombatGroup/CombatLabel0").gameObject.GetComponent<UILabel>();
+            Combat2 = self.transform.FindChild("CombatGroup/CombatLabel1").gameObject.GetComponent<UILabel>();
             WinValueLabel = self.transform.FindChild("ScoreGroup/WinValueLabel").gameObject.GetComponent<UILabel>();
             LoseValueLabel = self.transform.FindChild("ScoreGroup/LoseValueLabel").gameObject.GetComponent<UILabel>();
 
@@ -334,24 +334,27 @@ public class EnterView
         }
             
         TTeamRank[] datas = new TTeamRank[teams.Length]; 
+        float enemyCombatPowerTotal = 0;
+        int PVPEnemyIntegralTotal = 0;
 
         for (int i = 0; i < datas.Length; i++)
         {
+            teams[i].Init();
             datas[i] = GameFunction.TTeamCoverTTeamRank(teams[i]);
             EnemyItems[i].UpdateView(datas[i]);
             EnemyItems[i].LocalPosititon = new Vector3(0, -130 * i, 0);
+            enemyCombatPowerTotal += teams[i].Player.CombatPower();
+            PVPEnemyIntegralTotal += teams[i].PVPIntegral;
         }
        
         //TODO: 計算積分
         int winpoint = 0;
         int lostpoint = 0;
-        int enemyCombatPower = 0;
-        int myCombatPowe = 0;
 
         WinValueLabel.text = string.Format("+{0}", winpoint);
         LoseValueLabel.text = string.Format("-{0}", lostpoint);
-        Combat1.text = enemyCombatPower.ToString();
-        Combat2.text = myCombatPowe.ToString();
+        Combat1.text = (enemyCombatPowerTotal / 3).ToString();
+        Combat2.text = GameData.Team.Player.CombatPower().ToString();
     }
 
     public bool Enable
@@ -536,7 +539,6 @@ public class UIPVP : UIBase
 
             UnityEngine.Object go;
             UnityEngine.Object itemRankgroupObj = Resources.Load("Prefab/UI/Items/ItemRankGroup");
-
             GameObject parent;
             GameObject[] gos;
             GameObject[] itemRankgroups;
@@ -561,7 +563,7 @@ public class UIPVP : UIBase
 
                     page0.Init(pages[i], ref pvplvBtns, itemRankgroups,
                         new EventDelegate(OnGetEnemy),
-                        new EventDelegate(OnReset),
+                        new EventDelegate(OnSearch),
                         new EventDelegate(OnPVPStart),
                         new EventDelegate(OnLeft),
                         new EventDelegate(OnRight),
@@ -599,13 +601,58 @@ public class UIPVP : UIBase
 
     public void OnGetEnemy()
     {
-        WWWForm form = new WWWForm();
-        SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, false);
+        bool isalreadyFind = true;
+
+        for(var i = 0;i < GameData.PVPEnemyMembers.Length;i++)      
+        {
+            if (GameData.PVPEnemyMembers[i].Identifier == null || GameData.PVPEnemyMembers[i].Identifier ==string.Empty)
+            {
+                isalreadyFind = false;
+                continue;
+            }
+        }
+
+        if (isalreadyFind)
+        {
+            page0.EnableEnterView = true;
+            int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+
+            if (GameData.DPVPData.ContainsKey(lv))
+            {
+                page0.UpdateEnterView(ref GameData.PVPEnemyMembers, GameData.DPVPData[lv].SearchCost); 
+            }
+            else
+                Debug.LogError("Error : not Found PVPData " + lv); 
+        }
+        else
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Kind", 0);
+            SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, false); 
+        }
     }
 
-    public void OnReset()
+    public void OnSearch()
     {
-			
+        int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+
+        if (GameData.DPVPData.ContainsKey(lv))
+        {
+            if (CheckMoney(GameData.DPVPData[lv].SearchCost))
+            {
+                WWWForm form = new WWWForm();
+                form.AddField("Kind", 1);
+                SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, true);
+            }
+        }			
+    }
+
+    private void WaitPVPSrarch(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            
+        }
     }
 
     private void OnPVPStart()
@@ -674,40 +721,38 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-            TTeam[] teams = JsonConvert.DeserializeObject <TTeam[]>(www.text, SendHttp.Get.JsonSetting);
+            TPVPEnemyTeams data = JsonConvert.DeserializeObject <TPVPEnemyTeams>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.Money = data.Money;
+            UIMainLobby.Get.UpdateUI();
+
             page0.EnableEnterView = true;
 
             int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
 
             if (GameData.DPVPData.ContainsKey(lv))
             {
-                page0.UpdateEnterView(ref teams, GameData.DPVPData[lv].SearchCost); 
+                page0.UpdateEnterView(ref data.Teams, GameData.DPVPData[lv].SearchCost); 
             }
             else
                 Debug.LogError("Error : not Found PVPData " + lv);
    
-            if (teams != null)
+            if (data.Teams != null)
             {
-                int num = Mathf.Min(teams.Length, GameData.EnemyMembers.Length);
+                int num = Mathf.Min(data.Teams.Length, GameData.EnemyMembers.Length);
                 for (int i = 0; i < num; i++)
                 {
-                    teams[i].Init();
-                    GameData.EnemyMembers[i] = teams[i];
+                    data.Teams[i].Init();
+					GameData.PVPEnemyMembers[i] = data.Teams[i];
+                    GameData.EnemyMembers[i] = data.Teams[i];
                 }
             }
         }
         else
-        {
-
+        {	
         }
     }
 
-    private void SendPVPGetEnemy()
-    {
-        //TODO:Check count
-        WWWForm form = new WWWForm();
-        SendHttp.Get.Command(URLConst.PVPRank, WaitPVPGetEnemy, form, false);
-    }
+
 
     private void SendPVPRank()
     {
@@ -719,11 +764,13 @@ public class UIPVP : UIBase
 
     public void WaitSendPVPRank(bool ok, WWW www)
     {
-        TTeamRank[] data = (TTeamRank[])JsonConvert.DeserializeObject(www.text, typeof(TTeamRank[]));
-
-        //TODO:更新Rank資料：
-        TTeamRank myrank = GameFunction.TTeamCoverTTeamRank(GameData.Team);
-        page1.UpdateView(myrank, data);
+        if (ok)
+        {
+            TTeamRank[] data = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
+            //TODO:更新Rank資料：
+            TTeamRank myrank = GameFunction.TTeamCoverTTeamRank(GameData.Team);
+            page1.UpdateView(myrank, data);
+        }
     }
 
     private void DoPage(int index)
@@ -752,6 +799,7 @@ public class UIPVP : UIBase
     public void OnReturn()
     {
         UIShow(false);
+		UIGameLobby.Get.Show();
     }
 
     protected override void OnShow(bool isShow)

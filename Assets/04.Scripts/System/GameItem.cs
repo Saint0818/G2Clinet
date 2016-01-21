@@ -103,21 +103,25 @@ namespace GameItem
         {
             if (isInit)
             {
-                playerIndex.text = rankData.Index.ToString();
-                playerName.text = rankData.Player.Name;
-                playeHeadBtn.UpdateView(rankData.Player);
-                combatLabel.text = rankData.Player.CombatPower().ToString ();
-                PvPRankIcon.spriteName = string.Format("IconRank{0}", GameFunction.GetPVPLv(rankData.PVPIntegral));
+                rankData.Team.Init();
+				if (rankData.Index == 0)
+					playerIndex.text = "";
+				else
+                	playerIndex.text = rankData.Index.ToString();
+                playerName.text = rankData.Team.Player.Name;
+                playeHeadBtn.UpdateView(rankData.Team.Player);
+                combatLabel.text = rankData.Team.Player.CombatPower().ToString ();
+                PvPRankIcon.spriteName = string.Format("IconRank{0}", GameFunction.GetPVPLv(rankData.Team.PVPIntegral));
 //				GuildIcon.spriteName = string.Format("LeagueIcon{0}", rankData.GuildIIcon);
 //                GuildIDLabel.text = rankData.GuildIName;
-                WinLabel.text = rankData.LifetimeRecord.PVPWin.ToString();
-                if (rankData.LifetimeRecord.PVPWin == 0 && rankData.LifetimeRecord.PVPCount == 0)
+                WinLabel.text = rankData.Team.LifetimeRecord.PVPWin.ToString();
+                if (rankData.Team.LifetimeRecord.PVPWin == 0 && rankData.Team.LifetimeRecord.PVPCount == 0)
                 {
                     WinRateLabel.text = "100%";
                 }
                 else
-                    WinRateLabel.text = string.Format("{0:0%}", (float)rankData.LifetimeRecord.PVPWin / (float)rankData.LifetimeRecord.PVPCount);
-                PVPIntegral.text = rankData.PVPIntegral.ToString();
+                    WinRateLabel.text = string.Format("{0:0%}", (float)rankData.Team.LifetimeRecord.PVPWin / (float)rankData.Team.LifetimeRecord.PVPCount);
+                PVPIntegral.text = rankData.Team.PVPIntegral.ToString();
             }
         }
 

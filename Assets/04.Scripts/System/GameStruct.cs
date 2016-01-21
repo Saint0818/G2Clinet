@@ -1402,10 +1402,11 @@ namespace GameStruct
     public struct TTeamRank
     {  
         public int Index;
-        public TPlayer Player;
-        public int PVPIntegral;
-        public int GuildId;
-		public TTeamRecord LifetimeRecord;
+        public TTeam Team;
+//        public TPlayer Player;
+//        public int PVPIntegral;
+//        public int GuildId;
+//		public TTeamRecord LifetimeRecord;
     }
 
     public struct TPVPStart
@@ -1419,4 +1420,11 @@ namespace GameStruct
 		public int Money;
 		public TTeamRecord LifetimeRecord;
 	}
+
+    public struct TPVPEnemyTeams
+    {
+        public int Money;
+        public TTeam[] Teams;
+        public int PVPEnemyIntegral;
+    }
 }
