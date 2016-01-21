@@ -280,7 +280,7 @@ public class UIMainStage : UIBase
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
-            DailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData)),
+            RemainDailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData)),
             StartEnable = verifyPlayer(stageData),
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };

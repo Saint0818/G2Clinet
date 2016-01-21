@@ -64,7 +64,7 @@ namespace GameStruct
             return StageChallengeNums[stageID];
         }
         /// <summary>
-        /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
+        /// 玩家當日的挑戰次數. key: stageID, value: 已經打過的次數.
         /// </summary>
         public Dictionary<int, int> StageChallengeNums;
 

@@ -48,7 +48,7 @@ public class UIStageInfo : MonoBehaviour
         /// <summary>
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
-        public string DailyCount;
+        public string RemainDailyCount;
 
         /// <summary>
         /// 開始按鈕可不可以點選.
@@ -139,7 +139,7 @@ public class UIStageInfo : MonoBehaviour
         ExpObj.SetActive(data.ExpVisible);
         RewardExp.text = string.Format("{0}", data.Exp);
 
-        DailyCount.text = data.DailyCount;
+        DailyCount.text = data.RemainDailyCount;
     }
 
     public void Hide()

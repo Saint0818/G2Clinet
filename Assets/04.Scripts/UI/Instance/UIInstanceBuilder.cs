@@ -39,7 +39,8 @@ public static class UIInstanceBuilder
             Title = stageData.Name,
             Money = stageData.Money,
             Exp = stageData.Exp,
-            Stamina = stageData.CostValue
+            Stamina = stageData.CostValue,
+            RemainDailyCount = string.Format(TextConst.S(9312), UIMainStageTools.FindPlayerRemainDailyCount(stageData))
         };
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
