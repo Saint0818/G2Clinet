@@ -42,27 +42,7 @@ struct TPlayerDisData {
 	public float Distance;
 }
 
-public struct TCourtInstant {
-	public bool[] TimeInstant;
-	public bool[] ScoreInstant;
-	public bool[] Condition1Instant;
-	public bool[] Condition2Instant;
-	public TCourtInstant(int i) {
-		TimeInstant = new bool[3];
-		ScoreInstant = new bool[3];
-		Condition1Instant = new bool[3];
-		Condition2Instant = new bool[3];
-	}
 
-	public void ResetValue () {
-		for (int i=0; i<TimeInstant.Length; i++) {
-			TimeInstant[i] = false;
-			ScoreInstant[i] = false;
-			Condition1Instant[i] = false;
-			Condition2Instant[i] = false;
-		}
-	}
-}
 
 public class GameController : KnightSingleton<GameController>
 {
@@ -79,7 +59,7 @@ public class GameController : KnightSingleton<GameController>
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
 
-	private float maxGameTime = 0;
+//	private float maxGameTime = 0;
 	public float GameTime = 0;
 
 	private float passingStealBallTime = 0;
@@ -177,7 +157,6 @@ public class GameController : KnightSingleton<GameController>
 	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
 
 	//Instant
-	public TCourtInstant CourtInstant;
 	public TStageData StageData = new TStageData();
 
 	public float RecordTimeScale = 1;
@@ -214,7 +193,6 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		ModelManager.Get.PreloadAnimator();
-		CourtInstant = new TCourtInstant(1);
 		StageData.Clear();
 		InitAniState();
     }
@@ -292,17 +270,18 @@ public class GameController : KnightSingleton<GameController>
 		StateChecker.InitState();
         CreateTeam();
 		SetBallOwnerNull (); 
+		MissionChecker.Get.SetPlayer(Joysticker);
     }
 
 	public void LoadStage(int id) {
 		if (StageTable.Ins.HasByID(id)) {
             StageData = StageTable.Ins.GetByID(id);
-			maxGameTime = StageData.BitNum[0];
 			GameTime = StageData.BitNum[0];
 			StageData.WinValue = StageData.BitNum[1];
 			UIGame.Get.MaxScores[0] = StageData.WinValue;
 			UIGame.Get.MaxScores[1] = StageData.WinValue;
 			CourtMgr.Get.ChangeBasket(StageData.CourtNo);
+			MissionChecker.Get.Init(StageData);
 
 			if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
 				GameData.Team.StageTutorial = StageData.ID + 1;
@@ -319,11 +298,11 @@ public class GameController : KnightSingleton<GameController>
 			StageData.Bit0Num = GameStart.Get.GameWinTimeValue;
 			StageData.Bit1Num = GameStart.Get.GameWinValue;
 			StageData.WinValue = GameStart.Get.GameWinValue;
-			maxGameTime = GameStart.Get.GameWinTimeValue;
 			GameTime = GameStart.Get.GameWinTimeValue;
 			UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
 			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
 			CourtMgr.Get.ChangeBasket(0);
+			MissionChecker.Get.Init(StageData);
 		}
 
 		UIGame.Get.InitUI();
@@ -945,7 +924,7 @@ public class GameController : KnightSingleton<GameController>
         GameRecord.GamePlayTime = Mathf.Min(60*10, (int)dt);
 		GameRecord.PauseCount++;
         GameRecord.StageID = StageData.ID;
-        GameRecord.IsWin = IsGameVictory();
+        GameRecord.IsWin = IsWinner;
 		GameRecord.Score1 = UIGame.Get.Scores [0];
 		GameRecord.Score2 = UIGame.Get.Scores [1];
 		for (int i = 0; i < PlayerList.Count; i ++) {
@@ -3647,7 +3626,7 @@ public class GameController : KnightSingleton<GameController>
 		SetBallOwnerNull();
 		CourtMgr.Get.RealBall.transform.position = Vector3.zero;
 
-		if (IsGameVictory()) {
+		if (IsWinner) {
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {
 				if (PlayerList [i].Team == ETeamKind.Self)
@@ -3768,281 +3747,34 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 	}
 
-	public void CheckConditionText ()
-    {
-		if(StageTable.Ins.HasByID(StageData.ID))
-        {
-			if(StageData.HintBit[1] > 1) {
-				if(StageData.HintBit[1] == 2) { //Player get score
-					if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1]) ){
-						ShowCourtInstant(2, StageData.HintBit[1], 0, UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]);
-						CourtInstant.ScoreInstant[0] = true;
-					}
-					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageData.HintBit[1], 1, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
-						CourtInstant.ScoreInstant[1] = true;
-					}
-					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1] * 0.9f)) {
-						if((StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageData.HintBit[1], 2, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
-							CourtInstant.ScoreInstant[2] = true;
-						}
-					}
-				} else if(StageData.HintBit[1] == 3) { //Enemy get score
-					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.BitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageData.HintBit[1], 1, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-						CourtInstant.ScoreInstant[1] = true;
-					}
-					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.BitNum[1] * 0.9f)) {
-						if((StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageData.HintBit[1], 2, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-							CourtInstant.ScoreInstant[2] = true;
-						}
-					}
-				} else if(StageData.HintBit[1] == 4) { //Player Score - Enemy Score
-					if(!CourtInstant.ScoreInstant[1] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageData.BitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageData.HintBit[1], 1, StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-						CourtInstant.ScoreInstant[1] = true;
-					}
-					if(!CourtInstant.ScoreInstant[2] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageData.BitNum[1] * 0.9f)) {
-						if(StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageData.HintBit[1], 2, StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-							CourtInstant.ScoreInstant[2] = true;
-						}
-					}
-				}
-			}
-			if(StageData.HintBit[2] > 0) {
-				if(checkCountEnough(Joysticker, StageData.HintBit[2], StageData.BitNum[2])) {
-					if(!CourtInstant.Condition1Instant[0]) {
-						if(StageData.BitNum[2] >= 0){
-							ShowCourtInstant(3, StageData.HintBit[2], 0, StageData.BitNum[2]);
-							CourtInstant.Condition1Instant[0] = true;
-						} 
-					}
-				}
-				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.5f))) {
-					if(!CourtInstant.Condition1Instant[1]) {
-						if(StageData.BitNum[2] * 0.5f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[2], 1, StageData.BitNum[2] - GetSelfTeamCondition(StageData.HintBit[2]));
-							CourtInstant.Condition1Instant[1] = true;
-						} 
-					}
-				}
-				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.1f))) {
-					if(!CourtInstant.Condition1Instant[2]) {
-						if(StageData.BitNum[2] * 0.1f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[2], 2, StageData.BitNum[2] - GetSelfTeamCondition(StageData.HintBit[2]));
-							CourtInstant.Condition1Instant[2] = true;
-						}
-					}
-				}
-			}
-
-			if(StageData.HintBit[3] > 0) {
-				if(checkCountEnough(Joysticker, StageData.HintBit[3], StageData.BitNum[3])) {
-					if(!CourtInstant.Condition2Instant[0]) {
-						if(StageData.BitNum[3] >= 0){
-							ShowCourtInstant(3, StageData.HintBit[3], 0,  StageData.BitNum[3]);
-							CourtInstant.Condition2Instant[0] = true;
-						}
-					}
-				}
-				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.5f))) {
-					if(!CourtInstant.Condition2Instant[1]) {
-						if(StageData.BitNum[3] * 0.5f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[3], 1,  StageData.BitNum[3] - GetSelfTeamCondition(StageData.HintBit[3]));
-							CourtInstant.Condition2Instant[1] = true;
-						}
-					}
-				}
-				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.1f))) {
-					if(!CourtInstant.Condition2Instant[2]) {
-						if(StageData.BitNum[3] * 0.1f >= 0){
-							ShowCourtInstant(3, StageData.HintBit[3], 2, StageData.BitNum[3] - GetSelfTeamCondition(StageData.HintBit[3]));
-							CourtInstant.Condition2Instant[2] = true;
-						}
-					}
-				}
-			}
-		}
-	}
 
 	public bool IsTimePass() {
-		if (GameStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) {
-			GameTime -= Time.deltaTime;
-			if(!CourtInstant.TimeInstant[1] && (GameTime <= maxGameTime * 0.5f)){
-				ShowCourtInstant(1, 1, 1, (int)(maxGameTime * 0.5f));
-				CourtInstant.TimeInstant[1] = true;
-			}
-
-			if(!CourtInstant.TimeInstant[2] && (GameTime <= maxGameTime * 0.1f)) {
-				ShowCourtInstant(1, 1, 2, (int)(maxGameTime * 0.1f));
-				CourtInstant.TimeInstant[2] = true;
-			}
-
-			if (GameTime <= 0) {
-				GameTime = 0;
-				return true;
-			}
-		}
-
+		if (GameStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) 
+			return MissionChecker.Get.IsTimePass(ref GameTime);
 		return false;
 	}
-
-	//0: no check  1:self > enemy 2:self score 3:enemy score  4:self - enemy
-	public bool IsScorePass(int team)
-    {
-		int self = team;
-		int enemy = 0;
-		if(self == (int) ETeamKind.Self)
-			enemy = 1;
-		if(StageTable.Ins.HasByID(StageData.ID))
-        {
-
-			if (StageData.HintBit[1] == 0)
-				return true;
-			else{ 
-				if      (StageData.HintBit[1] == 1 && (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy])) return true;
-				else if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[self] >= StageData.WinValue)) return true;
-				else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[enemy] < StageData.WinValue)) return true;
-				else if (StageData.HintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= StageData.WinValue) return true;
-			}
-		} else if(!GameStart.Get.ConnectToServer)
-		{
-			if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[team] >= StageData.WinValue)) return true;
-		}
-		return false;
-	}
-
-	public bool IsScoreFinish
-	{
-		get {
-			if(StageTable.Ins.HasByID(StageData.ID))
-			{
-				if (StageData.HintBit[1] == 0)
-					return true;
-				else{ 
-					if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.WinValue)) return true;
-					else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] > StageData.WinValue)) return true;
-				}
-			} else if(!GameStart.Get.ConnectToServer)
-			{
-				if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.WinValue)) return true;
-			}
-			return false;
-		}
-	}
-
-	public bool IsConditionPass (PlayerBehaviour player)
-    {
-		if(StageTable.Ins.HasByID(StageData.ID))
-        {
-			if(StageData.HintBit[2] > 0) 
-				if(!checkCountEnough(player, StageData.HintBit[2], StageData.BitNum[2]))
-					return false;
-			
-			if(StageData.HintBit[3] > 0) 
-				if(!checkCountEnough(player, StageData.HintBit[3], StageData.BitNum[3]))
-					return false;
-			return true;
-		} else if(!GameStart.Get.ConnectToServer)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	private bool checkCountEnough (PlayerBehaviour player, int type, int count) {
-		if(count > 0) {
-			return (GetSelfTeamCondition(type) >= count);
-		}
-		return false;
-	}
-
-	public int GetSelfTeamCondition (int type) {
-		int count = 0;
-		for(int i=0 ;i<PlayerList.Count; i++) {
-			if(PlayerList[i].Team == ETeamKind.Self) {
-				switch (type){
-				case 1://two score
-					count += PlayerList[i].GameRecord.FGIn;
-					break;
-				case 2://three score
-					count += PlayerList[i].GameRecord.FG3In;
-					break;
-				case 3://dunk
-					count += PlayerList[i].GameRecord.Dunk;
-					break;
-				case 4://push
-					count += PlayerList[i].GameRecord.Push;
-					break;
-				case 5://steal
-					count += PlayerList[i].GameRecord.Steal;
-					break;
-				case 6://block
-					count += PlayerList[i].GameRecord.Block;
-					break;
-				case 7://elbow
-					count += PlayerList[i].GameRecord.Elbow;
-					break;
-				}
-			}
-		}
-		return count;
-	}
-	
-	public bool IsGameVictory () {
-		if(StageData.HintBit[0] == 0 || StageData.HintBit[0] == 1) {
-			if(IsScorePass(Joysticker.Team.GetHashCode()))
-				if(IsConditionPass(Joysticker))
-					return true;
-		} else {
-			if(GameTime <=0 && IsScorePass(Joysticker.Team.GetHashCode()))
-				if(IsConditionPass(Joysticker))
-					return true;
-		}
-		return false;
-	}
+	public void CheckConditionText () {MissionChecker.Get.CheckConditionText(StageData.ID);}
+	public bool IsScorePass(int team) {return MissionChecker.Get.IsScorePass(team);}
+	public bool IsConditionPass  {get {return MissionChecker.Get.IsConditionPass;}}
+	public bool IsWinner {get {return MissionChecker.Get.IsWinner(GameTime);}}
 
 	public bool IsGameFinish (){
 		UIInGameMission.Get.CheckMisstion();
 		bool flag = false;
 
 		if(StageData.HintBit[1] == 3) 
-			if (IsScoreFinish)
+		if (MissionChecker.Get.IsScoreFinish)
 				flag = true;
 		
 		if (StageData.HintBit[0] == 0 || StageData.HintBit[0] == 1 ) 
-			if (IsScoreFinish)
-				if(IsConditionPass(Joysticker)) 
+			if (MissionChecker.Get.IsScoreFinish)
+				if(IsConditionPass) 
 					flag = true;
 
 		if(flag)
 			gameResult();
 
 		return flag;
-	}
-	
-	/// <summary>
-	/// Index 			1:Time 2:Score 3:condition1 4:condition2//////
-	/// Value 			now getValue //////
-	/// Id 			    complete:0  1/2:1  1/10:2 //////
-	/// VisibleValue	PlayerName
-	/// </summary>
-	/// <param name="index">Index.</param>
-	/// <param name="value">Value.</param>
-	/// <param name="id">Identifier.</param>
-	/// <param name="visibleValue">Visible value.</param>
-	public void ShowCourtInstant (int index, int value, int id, int visibleValue){
-		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
-		string text = "";
-		if(TextConst.S(baseValue).Contains("{1}"))
-			text = string.Format(TextConst.S(baseValue), visibleValue, Joysticker.Attribute.Name);
-		else 
-			text = string.Format(TextConst.S(baseValue), visibleValue);
-		UICourtInstant.UIShow(false);
-		UICourtInstant.UIShow(true, text);
 	}
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
@@ -4420,8 +4152,8 @@ public class GameController : KnightSingleton<GameController>
 		IsFinishShow = true;
 		SetPlayerAI(true);
 		SetBallOwnerNull();
-		GameTime = maxGameTime;
-		CourtInstant.ResetValue();
+		GameTime = MissionChecker.Get.MaxGameTime;
+		MissionChecker.Get.Reset();
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 		CameraMgr.Get.ShowEnd();

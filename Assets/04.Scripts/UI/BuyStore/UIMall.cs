@@ -18,6 +18,8 @@ public class UIMall : UIBase {
 	private GameObject skillCard;
 	private GameObject itemIcon;
 
+	private TSkill[] newSkillCard;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -210,7 +212,7 @@ public class UIMall : UIBase {
 		{
 			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject(www.text, typeof(TPickLotteryResult));
 			GameData.Team.Items = result.Items;
-			GameData.Team.SkillCards = result.SkillCards;
+			newSkillCard = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
@@ -238,6 +240,7 @@ public class UIMall : UIBase {
 		UI3DMainLobby.Get.Hide();
 		Hide ();
 		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, spendType, itemDatas);
+		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
 		UI3DBuyStore.Get.Show();
 	}
 }

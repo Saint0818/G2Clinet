@@ -12,6 +12,7 @@ public class UIHint : UIBase
 	private static UIHint instance = null;
 	private const string UIName = "UIHint";
 //	private float timer = -1;
+	private Animator animator;
 	private UILabel mLabel;
 	private Queue<THint> textList = new Queue<THint>();
 
@@ -30,10 +31,7 @@ public class UIHint : UIBase
 	
 	public static void UIShow(bool isShow){
 		if(instance) {
-//			if (!isShow)
-//				RemoveUI(UIName);
-//			else
-				instance.Show(isShow);
+			instance.Show(isShow);
 		}
 		else
 		if(isShow)
@@ -51,18 +49,16 @@ public class UIHint : UIBase
 	}
 
 	protected override void InitCom()
-    {
+	{
+		animator = gameObject.GetComponent<Animator>();
         mLabel = GameObject.Find(UIName + "/Center/ContentView/UIHintLabel").GetComponent<UILabel>();
 	    mLabel.text = string.Empty;
-
-        SetBtnFun(UIName + "/Background", Hide);
 
     }
 
     public void Hide()
     {
         UIShow(false);
-		textList.Clear();
     }
 
     private IEnumerator autoHide()
@@ -79,6 +75,13 @@ public class UIHint : UIBase
 	private void showText (THint hint) {
 		mLabel.text = hint.Text;
 		mLabel.effectColor = hint.TextColor;
+		animator.SetTrigger("Restart");
+	}
+
+	private void showText (string text, Color color) {
+		mLabel.text = text;
+		mLabel.effectColor = color;
+		animator.SetTrigger("Restart");
 	}
 
 	private void addText (string text, Color color) {
@@ -100,8 +103,7 @@ public class UIHint : UIBase
     {
 		if(!Visible){
 			Show(true);
-			mLabel.text = text;
-			mLabel.effectColor = color;
+			showText(text, color);
 			StartCoroutine(autoHide());
 		} else 
 			if(!haveText(text))

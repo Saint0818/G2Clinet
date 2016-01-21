@@ -32,30 +32,30 @@ public class GetTenItem : MonoBehaviour {
 	void FixedUpdate () {
 		if(isShow) {
 			if(!isShowFin) {
-				if(!isShowPause && index < 10) {
-					showTime -= Time.deltaTime;
-					if(showTime <=0) {
-						showTime = showInterval;
-						itemAwardGroups[index].gameObject.SetActive(true);
-						//				if(isNeedPause[index]){
-						//					isShowPause = true;
-						//					TSkill skill = new TSkill();
-						//					skill.ID = itemAwardGroups[index].mItemData.Avatar;
-						//					skill.Lv = itemAwardGroups[index].mItemData.LV;
-						//					UISkillInfo.Get.ShowFromNewCard(skill);
-						//				}
-						index ++;
+				if(!isShowPause) {
+					if(index < 10) {
+						showTime -= Time.deltaTime;
+						if(showTime <=0) {
+							showTime = showInterval;
+							itemAwardGroups[index].gameObject.SetActive(true);
+							if(isNeedPause[index]){
+								isNeedPause[index] = false;
+								isShowPause = true;
+								UIGetSkillCard.Get.Show(itemAwardGroups[index].mItemData.ID);
+							}
+							index ++;
+						} 
+					}else {
+						isShowFin = true;
+						UIBuyStore.Get.FinishDrawLottery();
 					}
-				} else {
-					isShowFin = true;
-					UIBuyStore.Get.FinishDrawLottery();
 				}
 			}
 		}
 	}
 
 	public void GoAhead () {
-		isShowPause = true;
+		isShowPause = false;
 	}
 
 	public void ShowAni(bool isshow) {

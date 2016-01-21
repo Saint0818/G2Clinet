@@ -36,6 +36,7 @@ public class UIBuyStore : UIBase {
 	private UILabel labelPay;
 	private UISprite spritePay;
 
+	public TSkill[] newSkillCard;
 //	private bool isOneAware = true; 
 
 	public static bool Visible {
@@ -96,6 +97,10 @@ public class UIBuyStore : UIBase {
 		mItemDatas = itemDatas;
 	}
 
+	public void SetNewSkillCard (TSkill[] skill) {
+		newSkillCard = skill;
+	}
+
 	private void updateView (int type) {
 		labelPay.text = getLabelPay(type);
 		spritePay.spriteName = getCostName(type);
@@ -117,6 +122,7 @@ public class UIBuyStore : UIBase {
 		tenItem.ShowAni(false);
 		animationBuy.SetTrigger("One");
 		Invoke("FinishDrawLottery", 3.3f);
+		Invoke("ShowOneNew", 3.3f);
 		UI3DBuyStore.Get.StartRaffle();
 	}
 
@@ -136,6 +142,11 @@ public class UIBuyStore : UIBase {
 		UI3DBuyStore.Get.StartRaffle();
 	}
 
+	public void Gohead () {
+		fiveItem.GoAhead();
+		tenItem.GoAhead();
+	}
+
 	public void StartDrawLottery(GameObject go) {
 		if(mItemDatas.Length == 1) {
 			showOne(mItemDatas[0]);
@@ -146,9 +157,14 @@ public class UIBuyStore : UIBase {
 		}
 	}
 
+	public void ShowOneNew () {
+		oneItem.ShowNew();
+	}
+
 	public void FinishDrawLottery () {
 		UIMainLobby.Get.ShowForLottery(true);
 		animationBuy.SetTrigger("Finish");
+		GameData.Team.SkillCards = newSkillCard;
 	}
 
 	private void reset() {
@@ -221,7 +237,7 @@ public class UIBuyStore : UIBase {
 		{
 			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject<TPickLotteryResult>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.Items = result.Items;
-			GameData.Team.SkillCards = result.SkillCards;
+			newSkillCard = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;

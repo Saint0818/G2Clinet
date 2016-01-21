@@ -426,7 +426,7 @@ public class UIStageHintManager{
 
 	private static int getConditionCount(int type) {
 		if(GameController.Visible)
-			return GameController.Get.GetSelfTeamCondition(type);
+			return MissionChecker.Get.GetSelfTeamCondition(type);
 		else 
 			return 0;
 	}

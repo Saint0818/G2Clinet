@@ -116,6 +116,7 @@ public class TMallBox
 			FreeLabelTitle.gameObject.SetActive(!IsPickFree);
 			if(!IsPickFree) 
 				FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.DeadlineString(GameData.Team.LotteryFreeTime[mIndex].ToUniversalTime()));  
+			setHaveFree();
 		}
 	}
 

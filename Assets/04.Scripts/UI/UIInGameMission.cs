@@ -63,7 +63,7 @@ public class UIInGameMission : UIBase {
 	}
 
 	private int getConditionCount(int type) {
-		return GameController.Get.GetSelfTeamCondition(type);
+		return MissionChecker.Get.GetSelfTeamCondition(type);
 	}
 
 	public void InitView (int stageID) {

@@ -509,7 +509,6 @@ public class UIGameResult : UIBase {
 	}
 
 	public void ShowBonusItem () {
-		
 		if(GetCardLists.Count > 0) {
 				showSkillInfo(GetCardLists[0]);
 				GetCardLists.RemoveAt(0);
@@ -523,13 +522,14 @@ public class UIGameResult : UIBase {
 
 	private void showSkillInfo (int itemID) {
 		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
-		TSkill skill = new TSkill();
-		skill.ID = GameData.DItemData[itemID].Avatar;
-		skill.Lv = GameData.DItemData[itemID].LV;
+		UIGetSkillCard.Get.Show(itemID);
+//		TSkill skill = new TSkill();
+//		skill.ID = GameData.DItemData[itemID].Avatar;
+//		skill.Lv = GameData.DItemData[itemID].LV;
 //		skill.SN = 
 //		skill.Exp
 //		UISkillInfo.UIShow(true, skill, false, false, true);
-		UISkillInfo.Get.ShowFromNewCard(skill);
+//		UISkillInfo.Get.ShowFromNewCard(skill);
 	}
 
 	private void moveBonusItem () {
