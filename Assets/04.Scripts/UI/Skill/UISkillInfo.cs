@@ -7,8 +7,7 @@ public class UISkillInfo : UIBase {
 	private const string UIName = "UISkillInfo";
 
 	//Left/SkillInfo
-	private UISprite spriteSkillQuality;
-	private UISprite spriteSkillLevel;
+	private UILabel labelSkillQuality;
 	private UILabel labelSkillSpace;
 	private UILabel labelSkillExp;
 	private UILabel labelSkillDemandValue;
@@ -85,8 +84,7 @@ public class UISkillInfo : UIBase {
 		btnMediumTop.SetActive(false);
 
 		//SkillInfo
-		spriteSkillQuality = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillQuality").GetComponent<UISprite>();
-		spriteSkillLevel = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillQuality/SkillLevel").GetComponent<UISprite>();
+		labelSkillQuality = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillQuality").GetComponent<UILabel>();
 		labelSkillSpace = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillSpace ").GetComponent<UILabel>();
 		labelSkillExp = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillExp").GetComponent<UILabel>();
 		labelSkillDemandValue = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillDemandValue").GetComponent<UILabel>();
@@ -151,8 +149,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
 
 			//SkillInfo
-			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();
-			spriteSkillLevel.spriteName = "Cardicon" + Mathf.Clamp(uicard.skillCard.Skill.Lv, 0, GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar).ToString();
+			labelSkillQuality.text = GameFunction.QualityName(GameData.DSkillData[uicard.skillCard.Skill.ID].Quality);
 			labelSkillSpace.text = skillData.Space(uicard.skillCard.Skill.Lv).ToString();
 			labelSkillExp.text = uicard.skillCard.Skill.Exp.ToString(); 
 			if(uicard.skillCard.Skill.Lv == GameData.DSkillData[uicard.skillCard.Skill.ID].MaxStar)
@@ -210,8 +207,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 
 			//SkillInfo
-			spriteSkillQuality.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
-			spriteSkillLevel.spriteName = "Cardicon" + skill.Lv.ToString();
+			labelSkillQuality.text =GameFunction.QualityName(GameData.DSkillData[skill.ID].Quality);
 			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
 			labelSkillExp.text = skill.Exp.ToString(); 
 			sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv);
