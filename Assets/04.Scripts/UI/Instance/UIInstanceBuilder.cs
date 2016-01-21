@@ -35,7 +35,9 @@ public static class UIInstanceBuilder
         return new UIInstanceStage.Data
         {
             ID = stage.ID,
-            Title = stage.Name
+            Title = stage.Name,
+            Money = stage.Money,
+            Exp = stage.Exp
         };
     }
 
