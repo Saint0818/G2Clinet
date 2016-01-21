@@ -119,7 +119,7 @@ public static class UIMainStageTools
     {
         List<TItemData> foundRewardItems = new List<TItemData>();
 
-        if (!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
+        if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
             return foundRewardItems;
 
         EPlayerPostion pos = (EPlayerPostion)GameData.DPlayers[GameData.Team.Player.ID].BodyType;

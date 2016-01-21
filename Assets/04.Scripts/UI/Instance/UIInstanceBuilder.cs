@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using UnityEngine;
 
@@ -30,15 +31,51 @@ public static class UIInstanceBuilder
         return uiNormalStages.ToArray();
     }
 
-    private static UIInstanceStage.Data buildStage(TStageData stage)
+    private static UIInstanceStage.Data buildStage(TStageData stageData)
     {
-        return new UIInstanceStage.Data
+        var data = new UIInstanceStage.Data
         {
-            ID = stage.ID,
-            Title = stage.Name,
-            Money = stage.Money,
-            Exp = stage.Exp
+            ID = stageData.ID,
+            Title = stageData.Name,
+            Money = stageData.Money,
+            Exp = stageData.Exp
         };
+
+        data.RewardItems.AddRange(FindRewardItems(stageData));
+
+        return data;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <returns></returns>
+    public static List<TItemData> FindRewardItems(TStageData stageData)
+    {
+        List<TItemData> foundRewardItems = new List<TItemData>();
+
+        if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
+            return foundRewardItems;
+
+        var pos = (EPlayerPostion)GameData.DPlayers[GameData.Team.Player.ID].BodyType;
+
+        int[] items;
+        if(stageData.HasSurelyRewards(pos))
+        {
+            // 打最新進度的關卡, 並且有必給獎勵, 那就要顯示必給獎勵.
+            items = stageData.GetSurelyRewards(pos);
+        }
+        else
+            // 不是打最新進度, 顯示亂數獎勵.
+            items = stageData.Rewards;
+
+        for(int i = 0; i < 3; i++) // 和企劃約定好, 僅顯示前 3 個.
+        {
+            if(items != null && items.Length > i && GameData.DItemData.ContainsKey(items[i]))
+                foundRewardItems.Add(GameData.DItemData[items[i]]);
+        }
+        return foundRewardItems;
     }
 
     private static GameObject buildModel(int playerID)
