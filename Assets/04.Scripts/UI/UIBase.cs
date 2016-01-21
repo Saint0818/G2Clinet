@@ -286,15 +286,15 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Power
 	/// </summary>
-	public bool CheckPower (int power, bool isShowMessage = false) 
+	public static bool CheckPower(int power, bool isShowMessage = false) 
 	{
 		if(GameData.Team.Power >= power)
 			return true;
-		else {
-			if(isShowMessage)
-				UIMessage.Get.ShowMessageForBuy(TextConst.S(230), TextConst.S(240), ERechargeType.Power);
-			return false;
-		}
+
+        if(isShowMessage)
+		    UIMessage.Get.ShowMessageForBuy(TextConst.S(230), TextConst.S(240), ERechargeType.Power);
+
+        return false;
 	}
 
 	public void OnBuyPower() {

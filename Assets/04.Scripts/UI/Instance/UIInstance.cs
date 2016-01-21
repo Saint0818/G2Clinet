@@ -32,10 +32,7 @@ public class UIInstance : UIBase
                 Hide();
             }));
 
-        mMain.StageStartListener += stageID =>
-        {
-            Debug.LogFormat("UIInstance, start stage:{0}", stageID);
-        };
+        mMain.StageStartListener += enterSelectRole;
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -62,6 +59,13 @@ public class UIInstance : UIBase
         }
 
         mMain.ShowChapters();
+    }
+
+    private void enterSelectRole(int stageID)
+    {
+        GameData.StageID = stageID;
+        SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+        Hide();
     }
 
     public void Hide()
