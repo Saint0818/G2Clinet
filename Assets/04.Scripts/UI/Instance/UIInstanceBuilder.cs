@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using GameEnum;
 using GameStruct;
@@ -33,6 +34,18 @@ public static class UIInstanceBuilder
 
     private static UIInstanceStage.Data buildStage(TStageData stageData)
     {
+        Func<bool> showMask = () =>
+        {
+            int playerStageID;
+            if(GameData.Team.Player.NextInstanceIDs == null ||
+               !GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter))
+                playerStageID = 2100 + stageData.Chapter * 10 + 1; // 這是初始關卡.
+            else
+                playerStageID = GameData.Team.Player.NextInstanceIDs[stageData.Chapter];
+
+            return playerStageID < stageData.ID;
+        };
+
         var data = new UIInstanceStage.Data
         {
             ID = stageData.ID,
@@ -40,7 +53,11 @@ public static class UIInstanceBuilder
             Money = stageData.Money,
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
-            RemainDailyCount = string.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData))
+            RemainDailyCount = string.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData)),
+            ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
+                        GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
+                        GameData.Team.Player.NextInstanceIDs[stageData.Chapter] > stageData.ID,
+            ShowMask = showMask()
         };
 
         string errMsg;

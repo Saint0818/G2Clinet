@@ -13,6 +13,8 @@ public class UIInstanceStage : MonoBehaviour
     public UILabel StaminaLabel; // 體力.
     public UILabel RemainDailyLabel; // 關卡剩餘挑戰次數.
     public UIButton StartButton;
+    public GameObject ClearIcon;
+    public GameObject Mask;
 
     public Transform[] RewardParents; // 獎勵圖示的位置.
 
@@ -42,6 +44,16 @@ public class UIInstanceStage : MonoBehaviour
         /// 不可進入關卡的錯誤訊息.
         /// </summary>
         public string ErrorMsg;
+
+        /// <summary>
+        /// true: 顯示半透明的遮照.(用在不能打的關卡上)
+        /// </summary>
+        public bool ShowMask;
+
+        /// <summary>
+        /// true: 右上角顯示 Clear 圖示.(表示關卡已通過)
+        /// </summary>
+        public bool ShowClear;
 
         /// <summary>
         /// <para> 顯示該關卡會得到的獎勵. </para>
@@ -90,6 +102,9 @@ public class UIInstanceStage : MonoBehaviour
 
         StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
         StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
+
+        ClearIcon.SetActive(data.ShowClear);
+        Mask.SetActive(data.ShowMask);
 
         for (int i = 0; i < mRewardIcons.Count; i++)
         {
