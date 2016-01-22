@@ -14,6 +14,7 @@ public static class UIInstanceBuilder
         {
             Title = data.Name,
             Desc = data.Explain,
+            BossName = GameData.DPlayers[bossStage.PlayerID[0]].Name,
             Model = buildModel(bossStage.PlayerID[0]),
             NormalStages = buildNormalStages(normalStages),
             BossStage = buildStage(bossStage)

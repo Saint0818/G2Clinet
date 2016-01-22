@@ -7,6 +7,7 @@ public class UIInstanceChapter : MonoBehaviour
 {
     public UILabel Title;
     public UILabel Desc;
+    public UILabel BossName;
     public GameObject[] FocusObjects;
     public Transform ModelParent;
 
@@ -14,6 +15,7 @@ public class UIInstanceChapter : MonoBehaviour
     {
         public string Title;
         public string Desc;
+        public string BossName;
 
         public GameObject Model;
 
@@ -45,6 +47,7 @@ public class UIInstanceChapter : MonoBehaviour
 
         Title.text = data.Title;
         Desc.text = data.Desc;
+        BossName.text = data.BossName;
 
         data.Model.transform.parent = ModelParent;
         data.Model.transform.localPosition = Vector3.zero;
