@@ -95,6 +95,14 @@ namespace GameStruct
         public int NextMainStageID;
 
         /// <summary>
+        /// 副本關卡進度. 
+        /// key: 副本章節, 1 第一章, 2 第二章, 已此類推.
+        /// value: 副本關卡進度. 概念和 NextMainStageID 一樣.
+        /// </summary>
+        [CanBeNull]
+        public Dictionary<int, int> NextInstanceIDs;
+
+        /// <summary>
         /// 比賽中正在使用的加成道具.
         /// </summary>
         [CanBeNull]
@@ -141,6 +149,7 @@ namespace GameStruct
             ValueItems = new Dictionary<int, TValueItem>();
 			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = StageTable.MinMainStageID;
+            NextInstanceIDs = new Dictionary<int, int>();
             DailyStageChallengeNums = new Dictionary<int, int>();
             ConsumeValueItems = new int[0];
         }
