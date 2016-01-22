@@ -64,7 +64,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] CameraHood = new GameObject[2];
 	public Material BasketMaterial;
 	public BallCurve RealBallCurve;
-	public UILabel[] Scoreboards = new UILabel[2];
+//	public UILabel[] Scoreboards = new UILabel[2];
 
 	public Dictionary<string, Vector3> DBasketShootWorldPosition = new Dictionary<string, Vector3>();
 	public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>(); 
@@ -233,21 +233,22 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void InitScoreboard(bool isEnable = false)
 	{
 		CourtMgr.Get.InitBallShadow();
-		if (Scoreboards [1] == null) {
-			Scoreboards [1] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel> ();
-		}
 
-		if (Scoreboards [1])
-			Scoreboards [1].text = "0";
-
-		if(Scoreboards [0] == null)
-			Scoreboards [0] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
-
-		if(Scoreboards [0])
-			Scoreboards [0].text = "0";
-
-		Scoreboards [0].enabled = isEnable;
-		Scoreboards [1].enabled = isEnable;
+//		if (Scoreboards [1] == null) {
+//            Scoreboards[1] = RefGameObject.transform.FindChild("Scoreboard/Left").gameObject.GetComponent<UILabel>();
+//		}
+//
+//		if (Scoreboards [1])
+//			Scoreboards [1].text = "0";
+//
+//		if(Scoreboards [0] == null)
+//            Scoreboards [0] = GameObject.Find ("Scoreboard/Right").gameObject.GetComponent<UILabel>();
+//
+//		if(Scoreboards [0])
+//			Scoreboards [0].text = "0";
+//
+//		Scoreboards [0].enabled = isEnable;
+//		Scoreboards [1].enabled = isEnable;
 
         EffectEnable((QualityType)GameData.Setting.Quality);
 	}
@@ -865,12 +866,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void SetScoreboards(int team, int score)
 	{
-		if (Scoreboards [team] == null) {
-			InitScoreboard(true);		
-		}
-
-		if(Scoreboards [team])
-			Scoreboards [team].text = score.ToString();
+//		if (Scoreboards [team] == null) {
+//			InitScoreboard(true);		
+//		}
+//
+//		if(Scoreboards [team])
+//			Scoreboards [team].text = score.ToString();
 	}
 
 	public void SetRealBallPosition(Vector3 pos) {
