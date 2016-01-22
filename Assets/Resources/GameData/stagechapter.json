@@ -8,111 +8,344 @@
         "namejp": "発端",
         "explaintw": "故事的開端",
         "explaincn": "故事的开端",
-        "explainen": 0.1,
+        "explainen": 0.05,
         "explainjp": "物語が始まります"
     },
     {
         "id": 2,
         "chapter": 2,
         "nametw": "小試身手",
-        "namecn": "小试身手",
+        "namecn": "小試身手",
         "nameen": "Chapter 2",
         "namejp": "小テストのスキル",
         "explaintw": "驚豔眾人的開始",
         "explaincn": "惊艳众人的开始",
-        "explainen": 0.2,
+        "explainen": 0.1,
         "explainjp": "みんなの見事なスタート"
     },
     {
         "id": 3,
         "chapter": 3,
         "nametw": "漸入佳境",
-        "namecn": "渐入佳境",
+        "namecn": "漸入佳境",
         "nameen": "Chapter 3",
         "namejp": "良くなります",
         "explaintw": "立足籃壇的表現",
         "explaincn": "立足篮坛的表现",
-        "explainen": 0.3,
+        "explainen": 0.15,
         "explainjp": "バスケットボールのパフォーマンスに基づいて、"
     },
     {
         "id": 4,
         "chapter": 4,
-        "nametw": "第四章",
+        "nametw": "第4章",
+        "namecn": "第4章",
         "nameen": "Chapter 4",
-        "explaintw": 0.4,
-        "explainen": 0.4
+        "explaintw": 0.2,
+        "explainen": 0.2
     },
     {
         "id": 5,
         "chapter": 5,
-        "nametw": "第五章",
+        "nametw": "第5章",
+        "namecn": "第5章",
         "nameen": "Chapter 5",
-        "explaintw": 0.5,
-        "explainen": 0.5
+        "explaintw": 0.25,
+        "explainen": 0.25
     },
     {
         "id": 6,
         "chapter": 6,
-        "nametw": "第六章",
+        "nametw": "第6章",
+        "namecn": "第6章",
         "nameen": "Chapter 6",
-        "explaintw": 0.6,
-        "explainen": 0.6
+        "explaintw": 0.3,
+        "explainen": 0.3
     },
     {
         "id": 7,
         "chapter": 7,
-        "nametw": "第七章",
+        "nametw": "第7章",
+        "namecn": "第7章",
         "nameen": "Chapter 7",
-        "explaintw": 0.7,
-        "explainen": 0.7
+        "explaintw": 0.35,
+        "explainen": 0.35
     },
     {
         "id": 8,
         "chapter": 8,
-        "nametw": "第八章",
+        "nametw": "第8章",
+        "namecn": "第8章",
         "nameen": "Chapter 8",
-        "explaintw": 0.8,
-        "explainen": 0.8
+        "explaintw": 0.4,
+        "explainen": 0.4
     },
     {
         "id": 9,
         "chapter": 9,
-        "nametw": "第九章",
+        "nametw": "第9章",
+        "namecn": "第9章",
         "nameen": "Chapter 9",
-        "explaintw": 0.9,
-        "explainen": 0.9
+        "explaintw": 0.45,
+        "explainen": 0.45
     },
     {
         "id": 10,
         "chapter": 10,
-        "nametw": "第十章",
+        "nametw": "第10章",
+        "namecn": "第10章",
         "nameen": "Chapter 10",
+        "explaintw": 0.5,
+        "explainen": 0.5
+    },
+    {
+        "id": 11,
+        "chapter": 11,
+        "nametw": "第11章",
+        "namecn": "第11章",
+        "nameen": "Chapter 11",
+        "explaintw": 0.55,
+        "explainen": 0.55
+    },
+    {
+        "id": 12,
+        "chapter": 12,
+        "nametw": "第12章",
+        "namecn": "第12章",
+        "nameen": "Chapter 12",
+        "explaintw": 0.6,
+        "explainen": 0.6
+    },
+    {
+        "id": 13,
+        "chapter": 13,
+        "nametw": "第13章",
+        "namecn": "第13章",
+        "nameen": "Chapter 13",
+        "explaintw": 0.65,
+        "explainen": 0.65
+    },
+    {
+        "id": 14,
+        "chapter": 14,
+        "nametw": "第14章",
+        "namecn": "第14章",
+        "nameen": "Chapter 14",
+        "explaintw": 0.7,
+        "explainen": 0.7
+    },
+    {
+        "id": 15,
+        "chapter": 15,
+        "nametw": "第15章",
+        "namecn": "第15章",
+        "nameen": "Chapter 15",
+        "explaintw": 0.75,
+        "explainen": 0.75
+    },
+    {
+        "id": 16,
+        "chapter": 16,
+        "nametw": "第16章",
+        "namecn": "第16章",
+        "nameen": "Chapter 16",
+        "explaintw": 0.8,
+        "explainen": 0.8
+    },
+    {
+        "id": 17,
+        "chapter": 17,
+        "nametw": "第17章",
+        "namecn": "第17章",
+        "nameen": "Chapter 17",
+        "explaintw": 0.85,
+        "explainen": 0.85
+    },
+    {
+        "id": 18,
+        "chapter": 18,
+        "nametw": "第18章",
+        "namecn": "第18章",
+        "nameen": "Chapter 18",
+        "explaintw": 0.9,
+        "explainen": 0.9
+    },
+    {
+        "id": 19,
+        "chapter": 19,
+        "nametw": "第19章",
+        "namecn": "第19章",
+        "nameen": "Chapter 19",
+        "explaintw": 0.95,
+        "explainen": 0.95
+    },
+    {
+        "id": 20,
+        "chapter": 20,
+        "nametw": "第20章",
+        "namecn": "第20章",
+        "nameen": "Chapter 20",
         "explaintw": 1,
         "explainen": 1
     },
     {
         "id": 2001,
         "chapter": 1,
-        "nametw": "副本第 1 章",
-        "explaintw": "副本第 1 章說明"
+        "nametw": "關主 1",
+        "nameen": "BOSS 1",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
     },
     {
         "id": 2002,
         "chapter": 2,
-        "nametw": "副本第 2 章",
-        "explaintw": "副本第 2 章說明"
+        "nametw": "關主 2",
+        "nameen": "BOSS 2",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
     },
     {
         "id": 2003,
         "chapter": 3,
-        "nametw": "副本第 3 章",
-        "explaintw": "副本第 3 章說明"
+        "nametw": "關主 3",
+        "nameen": "BOSS 3",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
     },
     {
         "id": 2004,
         "chapter": 4,
-        "nametw": "副本第 4 章",
-        "explaintw": "副本第 4 章說明"
+        "nametw": "關主 4",
+        "nameen": "BOSS 4",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2005,
+        "chapter": 5,
+        "nametw": "關主 5",
+        "nameen": "BOSS 5",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2006,
+        "chapter": 6,
+        "nametw": "關主 6",
+        "nameen": "BOSS 6",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2007,
+        "chapter": 7,
+        "nametw": "關主 7",
+        "nameen": "BOSS 7",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2008,
+        "chapter": 8,
+        "nametw": "關主 8",
+        "nameen": "BOSS 8",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2009,
+        "chapter": 9,
+        "nametw": "關主 9",
+        "nameen": "BOSS 9",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2010,
+        "chapter": 10,
+        "nametw": "關主 10",
+        "nameen": "BOSS 10",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2011,
+        "chapter": 11,
+        "nametw": "關主 11",
+        "nameen": "BOSS 11",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2012,
+        "chapter": 12,
+        "nametw": "關主 12",
+        "nameen": "BOSS 12",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2013,
+        "chapter": 13,
+        "nametw": "關主 13",
+        "nameen": "BOSS 13",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2014,
+        "chapter": 14,
+        "nametw": "關主 14",
+        "nameen": "BOSS 14",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2015,
+        "chapter": 15,
+        "nametw": "關主 15",
+        "nameen": "BOSS 15",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2016,
+        "chapter": 16,
+        "nametw": "關主 16",
+        "nameen": "BOSS 16",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2017,
+        "chapter": 17,
+        "nametw": "關主 17",
+        "nameen": "BOSS 17",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2018,
+        "chapter": 18,
+        "nametw": "關主 18",
+        "nameen": "BOSS 18",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2019,
+        "chapter": 19,
+        "nametw": "關主 19",
+        "nameen": "BOSS 19",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
+    },
+    {
+        "id": 2020,
+        "chapter": 20,
+        "nametw": "關主 20",
+        "nameen": "BOSS 20",
+        "explaintw": "擊敗關主獲得技能晶片進化材料及關主服飾",
+        "explainen": "Beat off the main access to skills wafer evolution of materials and turn off the main clothing"
     }
 ]
