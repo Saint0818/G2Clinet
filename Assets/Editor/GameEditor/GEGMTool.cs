@@ -728,6 +728,7 @@ public class GEGMTool : GEBase
         {
             GameData.Team.Player.DailyStageChallengeNums.Clear();
             updateUIMainStage();
+            updateUIInstance();
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
@@ -735,10 +736,19 @@ public class GEGMTool : GEBase
 
     private void updateUIMainStage()
     {
-        if (UIMainStage.Get.Visible)
+        if(UIMainStage.Get.Visible)
         {
             UIMainStage.Get.Hide();
             UIMainStage.Get.Show();
+        }
+    }
+
+    private void updateUIInstance()
+    {
+        if(UIInstance.Get.Visible)
+        {
+            UIInstance.Get.Hide();
+            UIInstance.Get.Show();
         }
     }
 

@@ -148,7 +148,7 @@ namespace GameStruct
             //			EquipItems = new TEquipItem[0];
             ValueItems = new Dictionary<int, TValueItem>();
 			Potential = new Dictionary<EAttribute, int> ();
-            NextMainStageID = StageTable.MinMainStageID;
+            NextMainStageID = TStageData.MinMainStageID;
             NextInstanceIDs = new Dictionary<int, int>();
             DailyStageChallengeNums = new Dictionary<int, int>();
             ConsumeValueItems = new int[0];

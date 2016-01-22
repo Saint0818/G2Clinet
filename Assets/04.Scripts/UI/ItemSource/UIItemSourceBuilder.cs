@@ -29,7 +29,7 @@ public static class UIItemSourceBuilder
                 continue;
             }
 
-            if(StageTable.MinMainStageID <= stageID && stageID <= StageTable.MaxMainStageID)
+            if(TStageData.MinMainStageID <= stageID && stageID <= TStageData.MaxMainStageID)
             {
                 var data = new UIItemSourceElement.Data
                 {

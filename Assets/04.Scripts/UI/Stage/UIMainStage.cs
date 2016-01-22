@@ -32,14 +32,11 @@ public class UIMainStage : UIBase
 
     private UIMainStageMain mMain;
 
-    [UsedImplicitly]
     private void Awake()
     {
         mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
         mMain.Info.StartListener += enterSelectRole;
-
-        GameData.Team.OnPowerChangeListener += OnPowerChange;
     }
 
     private void OnPowerChange(int power)
@@ -51,6 +48,7 @@ public class UIMainStage : UIBase
     [UsedImplicitly]
     private void Start()
     {
+        GameData.Team.OnPowerChangeListener += OnPowerChange;
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }

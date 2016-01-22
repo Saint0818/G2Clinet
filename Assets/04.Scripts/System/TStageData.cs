@@ -8,7 +8,39 @@ using JetBrains.Annotations;
 /// </summary>
 public class TStageData
 {
+    /// <summary>
+    /// 主線關卡 ID 的範圍.
+    /// </summary>
+    public const int MinMainStageID = 101;
+    public const int MaxMainStageID = 2000;
+
+    /// <summary>
+    /// 副本的 ID 範圍.
+    /// </summary>
+    public const int MinInstanceID = 2001;
+    public const int MaxInstanceID = 4000;
+
+    public enum EKind
+    {
+        Undefined,
+        MainStage, // 主線關卡.
+        Instance // 副本.
+    }
+
     public int ID { get; private set; }
+
+    public EKind IDKind
+    {
+        get
+        {
+            if(MinMainStageID <= ID && ID <= MaxMainStageID)
+                return EKind.MainStage;
+            if(MinInstanceID <= ID && ID <= MaxInstanceID)
+                return EKind.Instance;
+            return EKind.Undefined;
+        }
+    }
+
     public int Chapter { get; private set; }
     public int Order { get; private set; }
 	public int CourtNo { get; private set; }
@@ -63,9 +95,9 @@ public class TStageData
     public int DailyChallengeNum { get; private set; }
 
     /// <summary>
-    /// 球員生崖關卡最多的挑戰次數.(球員一輩子可以打幾次), 小於等於 0 表示生崖可以打無限次.
+    /// true: 關卡只可以挑戰 1 次. false: 關卡可以挑戰無限次.
     /// </summary>
-    public int MaxChallengeNum { get; private set; }
+    public bool ChallengeOnlyOnce { get; private set; }
 
     public int Diamond { get; private set; }
     public int Exp { get; private set; }
@@ -159,7 +191,7 @@ public class TStageData
 		Bit3Num = 0;
 		CostValue = 0;
 		DailyChallengeNum = 0;
-		MaxChallengeNum = 0;
+        ChallengeOnlyOnce = false;
 		WinValue = 0;
 		FriendNumber = 0;
 		PositionX = 0;
@@ -290,6 +322,4 @@ public class TStageData
         {4, 2000004},
         {9, 2000009}
     };
-
-    
 }

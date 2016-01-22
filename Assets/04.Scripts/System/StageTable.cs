@@ -12,18 +12,6 @@ using UnityEngine.Assertions;
 /// </list>
 public class StageTable
 {
-    /// <summary>
-    /// 主線關卡 ID 的範圍.
-    /// </summary>
-    public const int MinMainStageID = 101;
-    public const int MaxMainStageID = 2000;
-
-    /// <summary>
-    /// 副本的 ID 範圍.
-    /// </summary>
-    public const int MinInstanceID = 2001;
-    public const int MaxInstanceID = 4000;
-
     private static readonly StageTable INSTANCE = new StageTable();
     public static StageTable Ins
     {
@@ -82,9 +70,9 @@ public class StageTable
             }
             mAllStagesByID.Add(stage.ID, stage);
 
-            if(MinMainStageID <= stage.ID && stage.ID <= MaxMainStageID)
+            if(TStageData.MinMainStageID <= stage.ID && stage.ID <= TStageData.MaxMainStageID)
                 addMainStage(stage);
-            else if(MinInstanceID <= stage.ID && stage.ID <= MaxInstanceID)
+            else if(TStageData.MinInstanceID <= stage.ID && stage.ID <= TStageData.MaxInstanceID)
                 addInstance(stage);
         }
 
