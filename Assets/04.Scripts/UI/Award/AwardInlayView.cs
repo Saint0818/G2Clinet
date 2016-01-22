@@ -8,6 +8,7 @@ public class AwardInlayView : MonoBehaviour {
 	public UILabel AmountLabel;
 	private Transform goQuality;
 	public UISprite QualityBG;
+	private Transform specialEffect;
 
 	private GameObject mGameObject;
 	private void Awake()
@@ -16,6 +17,8 @@ public class AwardInlayView : MonoBehaviour {
 			goQuality = GameFunction.FindQualityBG(transform);
 		if(goQuality != null)
 			QualityBG = goQuality.GetComponent<UISprite>();
+		if(specialEffect == null)
+			specialEffect = transform.FindChild("ItemView/SpecialEffect");
 		
 		mGameObject = gameObject;
 		Hide();
@@ -43,6 +46,10 @@ public class AwardInlayView : MonoBehaviour {
 
 		if(QualityBG != null)
 			QualityBG.color = TextConst.ColorBG(itemData.Quality);
+		
+		if(specialEffect != null)
+			specialEffect.gameObject.SetActive((itemData.Flag == 1));
+
 		AmountLabel.text = "";
 	}
 }

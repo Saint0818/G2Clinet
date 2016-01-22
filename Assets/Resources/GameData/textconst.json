@@ -2263,6 +2263,14 @@
         "jp": "COST [00FFFFFF]{0}[-]"
     },
     {
+        "id": 7502,
+        "explain": "技能晶片安裝後的狀態",
+        "uipeth": "ItemCardEquipped ",
+        "tw": "EXP [00FFFFFF]{0}[-]",
+        "en": "EXP [00FFFFFF]{0}[-]",
+        "jp": "EXP [00FFFFFF]{0}[-]"
+    },
+    {
         "id": 7601,
         "explain": "技能卡進化",
         "tw": "晶片進化"

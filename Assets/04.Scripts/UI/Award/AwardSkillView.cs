@@ -9,6 +9,7 @@ public class AwardSkillView : MonoBehaviour {
 	public UILabel AmountLabel;
 
 	private Transform goQuality;
+	private Transform specialEffect;
 	public UISprite QualityBG;
 	private GameObject mGameObject;
 	private void Awake()
@@ -17,6 +18,8 @@ public class AwardSkillView : MonoBehaviour {
 			goQuality = GameFunction.FindQualityBG(transform);
 		if(goQuality != null)
 			QualityBG = goQuality.GetComponent<UISprite>();
+		if(specialEffect == null)
+			specialEffect = transform.FindChild("ItemView/SpecialEffect");
 
 
 		mGameObject = gameObject;
@@ -43,6 +46,9 @@ public class AwardSkillView : MonoBehaviour {
 		}
 		if(QualityBG != null)
 			QualityBG.color = TextConst.ColorBG(itemData.Quality);
+
+		if(specialEffect != null)
+			specialEffect.gameObject.SetActive((itemData.Flag == 1));
 		
 		AmountLabel.text = "";
 	}

@@ -975,6 +975,10 @@ namespace GameStruct
         [UsedImplicitly, CanBeNull]
         public int[] UISource { get; private set; }
 
+		/// <summary>
+		/// 主要是開關特效 1是打開
+		/// </summary>
+		public int Flag;
         public int Buy;
         public int Sell;
 		public int Quality;

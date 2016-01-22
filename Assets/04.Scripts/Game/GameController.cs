@@ -59,7 +59,6 @@ public class GameController : KnightSingleton<GameController>
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
 
-//	private float maxGameTime = 0;
 	public float GameTime = 0;
 
 	private float passingStealBallTime = 0;
@@ -900,13 +899,13 @@ public class GameController : KnightSingleton<GameController>
 		if(Input.GetKeyDown(KeyCode.L)) {
 			for (int i = 0; i < PlayerList.Count; i ++){
 				PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
-				UIGame.Get.AddAllForce();
+				UIGame.Get.RefreshSkillUI();
 			}
 		}
 		
 		if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
 			Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
-			UIGame.Get.AddAllForce();
+			UIGame.Get.RefreshSkillUI();
 		}
 	}
 	
@@ -1730,7 +1729,8 @@ public class GameController : KnightSingleton<GameController>
 	}
 
     /// <summary>
-    /// 做真正的投籃行為.
+	/// 做真正的投籃行為.
+	//Call From UIGame
     /// </summary>
     /// <returns></returns>
 	public bool DoShoot()
@@ -1843,6 +1843,8 @@ public class GameController : KnightSingleton<GameController>
         
     /// <summary>
     /// 呼叫時機: 撥投籃動作時, 由 Event 觸發.(通常會是投籃動作的中後段才會發出這個 event)
+	/// Delegate
+	/// Acitve = ActiveSkill
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
@@ -1961,6 +1963,7 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 
+	//Call From UIGame
 	public int GetShootPlayerIndex()
 	{
 		int result = -1;
@@ -1976,6 +1979,7 @@ public class GameController : KnightSingleton<GameController>
 		return result;
 	}
 
+	//Call From UIGame
 	public bool DoShoot(bool isshoot)
     {
 		if (IsStart && CandoBtn) {
@@ -1995,6 +1999,7 @@ public class GameController : KnightSingleton<GameController>
 		return false;
     }
 
+	//Call From UIGame
 	public bool DoPush(PlayerBehaviour nearP)
 	{
 		if(Joysticker)
@@ -2008,6 +2013,7 @@ public class GameController : KnightSingleton<GameController>
         return false;
 	}
 
+	//Call From UIGame
 	public bool DoElbow()
 	{
 		if(Joysticker)
@@ -2016,6 +2022,88 @@ public class GameController : KnightSingleton<GameController>
         return false;
 	}
 
+	//Call Form UIGame
+	public bool DoPass(int playerid) {
+		if (IsStart && BallOwner && Joysticker && BallOwner.Team == 0 && CandoBtn && 
+			playerid < PlayerList.Count && (!Shooter || IsCanPassAir)) {
+			return Pass(PlayerList [playerid], false, true);
+		}
+
+		return false;
+	}
+
+	//Call From UIGame
+	public bool DoSteal()
+	{
+		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn) {
+			StealBtnLiftTime = 1f;
+			if (BallOwner && BallOwner.Team != Joysticker.Team) {
+				Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
+				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerRefGameObject.transform.position);
+			} else
+				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0);
+		} else
+			return false;
+	}
+
+	//Call From UIGame
+	public bool DoBlock() {
+		if (IsStart && CandoBtn && Joysticker) {
+			if(Joysticker.IsBlock && Joysticker.IsPerfectBlockCatch) {
+				Joysticker.AniState(EPlayerState.BlockCatch);
+				if(UIDoubleClick.Get.DoubleClicks[0].Enable)
+					UIDoubleClick.Get.ClickStop(0);
+
+				return true;
+			} else {
+				if (Shooter)
+				if(IsReboundTime)
+					return Rebound(Joysticker);
+				else
+					return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
+				else
+					if (BallOwner) {
+						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
+					} else {
+						if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
+							return Rebound(Joysticker);
+						else
+							return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
+					}
+			}
+		}
+
+		return false;
+	}
+
+	//Call From UIGame
+	public bool OnSkill(TSkill tSkill) {
+		if (CandoBtn && DoSkill(Joysticker, tSkill)) {			
+			UIGame.Get.ResetRange();
+			return true;
+		} else
+			return false;
+	}
+
+	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
+	{
+		bool result = false;
+		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill(player.TimerKind.GetHashCode())) || GameStart.Get.TestMode == EGameTest.Skill)
+		{
+			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
+				player.ActiveSkillUsed = tSkill;
+				result = player.DoActiveSkill(player.PlayerRefGameObject);
+				if(result){
+					player.PlayerSkillController.CheckSkillValueAdd(tSkill);
+					UIGame.Get.RefreshSkillUI();
+				}
+			}
+		}
+		return result;
+	}
+
+	//Call From Delegate
 	public bool OnOnlyScore(PlayerBehaviour player) {
 		if (player == BallOwner)
 		{
@@ -2033,6 +2121,7 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 	}
 
+	//Call From Delegate
     public bool OnDunkBasket(PlayerBehaviour player)
     {
         if (player == BallOwner)
@@ -2043,8 +2132,6 @@ public class GameController : KnightSingleton<GameController>
 				ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
-			if(GameStart.Get.TestMode == EGameTest.Alleyoop) 
-				UIHint.Get.ShowHint("Alleyoop Score.", Color.yellow);
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
@@ -2062,6 +2149,7 @@ public class GameController : KnightSingleton<GameController>
             return false;
     }
 
+	//Call From Delegate
     public bool OnDunkJump(PlayerBehaviour player)
     {
         if (player == BallOwner)
@@ -2251,6 +2339,33 @@ public class GameController : KnightSingleton<GameController>
 		return result;
     }
 
+	private int getEnemyDis(PlayerBehaviour player)
+	{
+		float[] disAy = new float[3];
+		int index = 0;
+		for (int i = 0; i < PlayerList.Count; i++)
+		{
+			if (PlayerList[i].Team != player.Team)
+			{
+				disAy[index] = Vector3.Distance(player.transform.position, PlayerList[i].transform.position);
+				index++;
+			}		
+		}
+
+		for (int i = 0; i < disAy.Length; i++)
+		{
+			if (disAy[i] > 0)
+			{
+				if (disAy[i] <= GameConst.StealPushDistance)
+					return 2;
+				if (disAy[i] <= GameConst.DefDistance)
+					return 1;
+			}
+		}
+
+		return 0;
+	}
+
 	public void PlayShowAni(int playIndex, string aniName)
 	{
 		for (int i = 0; i < PlayerList.Count; i++) {
@@ -2259,6 +2374,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
+	//Call From Delegate
 	public bool OnFall(PlayerBehaviour faller)
 	{
 		UIGame.Get.UICantUse(faller);
@@ -2270,44 +2386,9 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
-	private int getEnemyDis(PlayerBehaviour player)
-    {
-		float[] disAy = new float[3];
-		int index = 0;
-		for (int i = 0; i < PlayerList.Count; i++)
-        {
-			if (PlayerList[i].Team != player.Team)
-            {
-				disAy[index] = Vector3.Distance(player.transform.position, PlayerList[i].transform.position);
-				index++;
-			}		
-		}
-
-		for (int i = 0; i < disAy.Length; i++)
-        {
-			if (disAy[i] > 0)
-            {
-				if (disAy[i] <= GameConst.StealPushDistance)
-					return 2;
-				if (disAy[i] <= GameConst.DefDistance)
-					return 1;
-			}
-		}
-
-		return 0;
-	}
-    
-    public bool DoPass(int playerid) {
-		if (IsStart && BallOwner && Joysticker && BallOwner.Team == 0 && CandoBtn && 
-		    playerid < PlayerList.Count && (!Shooter || IsCanPassAir)) {
-        	return Pass(PlayerList [playerid], false, true);
-        }
-
-		return false;
-    }
-
     /// <summary>
     /// 呼叫時機: 球員撥抄截動作, 在動作撥大概 40% 左右時, 會發出的 event.
+	/// Call From Delegate
     /// </summary>
     /// <param name="player"> 執行抄截的球員. </param>
     /// <returns> true: 抄截成功; false:抄截失敗. </returns>
@@ -2368,7 +2449,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
     /// <summary>
-    /// 
+	/// Call From Delegate
     /// </summary>
     /// <param name="player"></param>
     /// <returns> true:被抄截. </returns>
@@ -2383,24 +2464,7 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
-    public bool DoSteal()
-    {
-		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn) {
-			StealBtnLiftTime = 1f;
-            if (BallOwner && BallOwner.Team != Joysticker.Team) {
-				Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
-				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerRefGameObject.transform.position);
-            } else
-				return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Steal0);
-        } else
-			return false;
-    }
-
-    private void Block(PlayerBehaviour player)
-    {
-        
-    }
-
+	//Call From Delegate
 	public bool OnFakeShootBlockMoment(PlayerBehaviour player)
 	{
 		if (player)
@@ -2411,6 +2475,7 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 	}
 
+	//Call From Delegate
     public bool OnBlockMoment(PlayerBehaviour player)
     {
         if (player)
@@ -2421,6 +2486,7 @@ public class GameController : KnightSingleton<GameController>
             return false;
     }
 
+	//Call From Delegate
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
 		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
@@ -2522,7 +2588,8 @@ public class GameController : KnightSingleton<GameController>
 		}
 		
 	}
-	
+
+	//Call From Delegate
 	public bool OnBlockJump(PlayerBehaviour player)
     {
         if (player.PlayerRigidbody != null)
@@ -2553,35 +2620,6 @@ public class GameController : KnightSingleton<GameController>
         return false;
     }
 
-    public bool DoBlock() {
-		if (IsStart && CandoBtn && Joysticker) {
-			if(Joysticker.IsBlock && Joysticker.IsPerfectBlockCatch) {
-				Joysticker.AniState(EPlayerState.BlockCatch);
-				if(UIDoubleClick.Get.DoubleClicks[0].Enable)
-					UIDoubleClick.Get.ClickStop(0);
-
-				return true;
-			} else {
-				if (Shooter)
-					if(IsReboundTime)
-						return Rebound(Joysticker);
-					else
-						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
-	            else
-	            if (BallOwner) {
-					Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 
-						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
-				} else {
-					if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
-						return Rebound(Joysticker);
-					else
-						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
-				}
-			}
-        }
-
-		return false;
-    }
 
 	private bool inTipinDistance(PlayerBehaviour player) {
 		return Vector2.Distance(new Vector2(player.PlayerRefGameObject.transform.position.x, player.PlayerRefGameObject.transform.position.z), 
@@ -2594,35 +2632,11 @@ public class GameController : KnightSingleton<GameController>
 		return player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBall.transform.position);
 	}
 	
-	public bool OnRebound(PlayerBehaviour player)
-    {
-        return true;
-    }
+//	public bool OnRebound(PlayerBehaviour player)
+//    {
+//        return true;
+//    }
     
-	public bool OnSkill(TSkill tSkill) {
-		if (CandoBtn && DoSkill(Joysticker, tSkill)) {
-			return true;
-		} else
-			return false;
-    }
-
-	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
-    {
-		bool result = false;
-		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill) || GameStart.Get.TestMode == EGameTest.Skill)
-        {
-			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
-				UIGame.Get.ResetRange();
-				player.ActiveSkillUsed = tSkill;
-				result = player.DoActiveSkill(player.PlayerRefGameObject);
-				if(result){
-					player.PlayerSkillController.CheckSkillValueAdd(tSkill);
-					player.IsUseActiveSkill = true;
-				}
-			}
-		}
-		return result;
-	}
 	
     /// <summary>
     /// 只有攻守交換的時候才會被呼叫. 叫球員照著戰術路線跑.
@@ -3605,6 +3619,46 @@ public class GameController : KnightSingleton<GameController>
 			Invoke("JumpBallForReplay", 2);
 		}
 	}
+
+	public void JumpBallForReplay () {
+		UIGame.Get.UIState(EUISituation.Start);
+	}
+
+	private void gameResult()
+	{
+		UITutorial.UIShow(false);
+		UIInGameMission.UIShow(false);
+		if(Situation != EGameSituation.End) {
+			ChangeSituation(EGameSituation.End);
+			AIController.Get.ChangeState(EGameSituation.End);
+		}
+	}
+
+	private void pveEnd(int stageID)
+	{
+		if(GameStart.Get.ConnectToServer) {
+			WWWForm form = new WWWForm();
+			form.AddField("StageID", stageID);
+
+			if(!StageData.IsTutorial)
+			{
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetGameRecord(ref GameRecord);
+			}
+			else {
+				form.AddField("Cause", 1);
+				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
+
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetGameRecord(ref GameRecord);
+			}
+		} else {
+			if(!GameStart.Get.IsAutoReplay){
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetGameRecord(ref GameRecord);
+			}
+		}
+	}
 	//GM Tools
 	public void GMGameResult (bool isSelfWin) {
 		GameTime = 0;
@@ -3669,46 +3723,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 		CameraMgr.Get.SetEndShowSituation();
 	}
-	
-	public void JumpBallForReplay () {
-		UIGame.Get.UIState(EUISituation.Start);
-	}
-
-	private void gameResult()
-    {
-		UITutorial.UIShow(false);
-		UIInGameMission.UIShow(false);
-		if(Situation != EGameSituation.End) {
-			ChangeSituation(EGameSituation.End);
-			AIController.Get.ChangeState(EGameSituation.End);
-		}
-    }
-
-    private void pveEnd(int stageID)
-    {
-		if(GameStart.Get.ConnectToServer) {
-			WWWForm form = new WWWForm();
-			form.AddField("StageID", stageID);
-
-		    if(!StageData.IsTutorial)
-		    {
-                UIGameResult.UIShow(true);
-                UIGameResult.Get.SetGameRecord(ref GameRecord);
-            }
-			else {
-				form.AddField("Cause", 1);
-				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
-
-				UIGameResult.UIShow(true);
-				UIGameResult.Get.SetGameRecord(ref GameRecord);
-			}
-		} else {
-			if(!GameStart.Get.IsAutoReplay){
-				UIGameResult.UIShow(true);
-				UIGameResult.Get.SetGameRecord(ref GameRecord);
-			}
-		}
-    }
 
 //    private void waitPVEEnd(bool ok, WWW www)
 //    {
@@ -4503,14 +4517,13 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public bool CheckOthersUseSkill {
-		get {
-			for (int i=0; i<PlayerList.Count; i++) {
+	public bool CheckOthersUseSkill (int myTimerKind) {
+		for (int i=0; i<PlayerList.Count; i++) 
+			if(PlayerList[i].TimerKind.GetHashCode() != myTimerKind)
 				if(PlayerList[i].IsUseActiveSkill)
 					return false;
-			}
-			return true;
-		}
+		
+		return true;
 	}
 
 	public bool CanUseStealSkill {

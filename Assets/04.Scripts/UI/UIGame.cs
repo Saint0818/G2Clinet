@@ -629,6 +629,7 @@ public class UIGame : UIBase {
 		if(isShowSkillRange) 
 			ResetRange ();
 	}
+
 	public void DoSkill(GameObject go, bool state){
 		if(PlayerMe.Attribute.IsHaveActiveSkill && go && IsPlayerMe) {
 			int id = -1;
@@ -674,7 +675,6 @@ public class UIGame : UIBase {
 	public void DoPassTeammateB(GameObject obj, bool state) {
 		if(IsPlayerMe && isPressA) {
 			PlayerMe.SetAnger(PlayerMe.Attribute.MaxAnger);
-			AddAllForce();
 		}
 		UIControllerState(EUIControl.PassB, obj, state);
 	}
@@ -689,9 +689,15 @@ public class UIGame : UIBase {
 
 	public void GameOver(){UIState(EUISituation.Finish);}
 
+	public void RefreshSkillUI (){
+		ShowSkillEnableUI(true);
+		SetAngerUI(PlayerMe.Attribute.MaxAnger, PlayerMe.AngerPower, 0);
+		runSkillValue ();
+	}
+
 	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
 		if(IsPlayerMe) {
-			if(PlayerMe.Attribute.IsHaveActiveSkill && index < PlayerMe.Attribute.ActiveSkills.Count && isAngerFull && canUse) {
+			if(PlayerMe.Attribute.IsHaveActiveSkill && index < PlayerMe.Attribute.ActiveSkills.Count) {
 				if (isShow) {
 					if(GameController.Get.IsStart)
 						uiSkillEnables[index].SetActive((canUse && isAngerFull));
@@ -734,8 +740,10 @@ public class UIGame : UIBase {
 			uiForceNum.text = anger+"/[13CECEFF]"+max+"[-]";
 			oldForceValue = spriteForce.fillAmount;
 			newForceValue = anger / max;
-			dcCount += count;
-			baseForceValue = (newForceValue - oldForceValue) / dcCount;
+			if(count != 0) {
+				dcCount += count;
+				baseForceValue = (newForceValue - oldForceValue) / dcCount;
+			}
 			if (newForceValue >= 1) {
 				uiSpriteFull.SetActive (true);
 			} else if (newForceValue <=0 ) {
@@ -752,7 +760,7 @@ public class UIGame : UIBase {
 		if(IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill) 
 			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) 
 				if(uiButtonSkill[i].activeSelf)
-					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
+					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, newForceValue * PlayerMe.Attribute.MaxAnger);
 	}
 	
 	public void PlusScore(int team, int score) {
@@ -773,19 +781,10 @@ public class UIGame : UIBase {
 		else 
 			UIMaskState(EUIControl.AttackB);
 	}
-	/// <summary>
-	/// For GoldFinger
-	/// </summary>
-	public void AddAllForce (){
-		spriteForce.fillAmount = 1;
-		spriteForceFirst.fillAmount = 1;
-		runSkillValue ();
-	}
 
 	public bool SetUIJoystick(PlayerBehaviour p = null, bool isShow = false){
 		if(IsPlayerMe && p == PlayerMe) {
 			if (GameController.Get.IsStart) {
-				//uiJoystick.gameObject.SetActive(isShow);
 				return true;
 			}
 		}
@@ -793,7 +792,6 @@ public class UIGame : UIBase {
 	}
 	
 	public bool AddForceValue(){
-//		dcLifeTime = 0.1f;
 		AudioMgr.Get.PlaySound(SoundType.SD_CatchMorale);
 
 		oldForceValue += baseForceValue;
@@ -1173,8 +1171,9 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(true);
 
 			if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer) {
-                gameJoystick.visible = true;
-				gameJoystick.activated = true;
+//                gameJoystick.visible = true;
+//				gameJoystick.activated = true;
+				ShowGameJoystick(true);
 			}
 
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
