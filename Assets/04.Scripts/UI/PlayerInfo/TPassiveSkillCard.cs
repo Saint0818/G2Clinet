@@ -168,7 +168,7 @@ public class TPassiveSkillCard
 //				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString() + "s";
 				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
-				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[skill.ID].Space(skill.Lv));
+				SkillCost.text = string.Format(TextConst.S(7502), GameData.DSkillData[skill.ID].ExpInlay(skill.Lv));
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
