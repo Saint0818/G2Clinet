@@ -321,9 +321,10 @@ public class UIGameResult : UIBase {
 	public void WaitPVPEnd(bool ok, WWW www)
 	{
 		if (ok) {
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting);		
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.Money = reslut.Money;
+			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting);	
+            GameData.Team.PVPLv = reslut.PVPLv;
+            GameData.Team.PVPIntegral = reslut.PVPIntegral;
+            GameData.Team.PVPCoin = reslut.PVPCoin;
 			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
 			showMissionBoard ();
 		} else {

@@ -59,6 +59,8 @@ namespace GameStruct
         public int PVPCoin; //聯盟幣
         public int PVPLv;
         public int PVPIntegral;
+		public int PVPDailyReaward;
+        public int PVPEnemyIntegral;
         public string LeagueName;
         public int LeagueIcon;
 

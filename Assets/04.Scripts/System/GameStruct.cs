@@ -1439,8 +1439,9 @@ namespace GameStruct
 
 	public struct TPVPResult
 	{
+        public int PVPLv;
 		public int PVPIntegral;
-		public int Money;
+        public int PVPCoin;
 		public TTeamRecord LifetimeRecord;
 	}
 

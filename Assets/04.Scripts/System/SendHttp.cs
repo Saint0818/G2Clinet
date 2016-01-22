@@ -64,22 +64,24 @@ public static class URLConst {
     public const string RefreshShop = "refreshshop";
     public const string BuyMyShop = "buymyshop";
     public const string ChangeStrategy = "changestrategy";
-
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
-	public const string PVPAward = "pvpaward";
 	public const string IsSeePVPList = "isseepvplist";
 	public const string Revenge = "revenge";
-	public const string PVPStart = "pvpstart";
-	public const string PVPEnd = "pvpend";
 	public const string Tutorial = "tutorial";
 	public const string PlayerKind = "playerkind";
 	public const string AutoPower = "autopower";
 	public const string Rank = "rank";
+
+    //pvp
+    public const string PVPStart = "pvpstart";
+    public const string PVPEnd = "pvpend";
     public const string PVPRank = "pvprank";
     public const string PVPSearch = "pvpsearch";
     public const string PVPGetEnemy = "pvpgetenemy";
     public const string PVPMyRank = "pvpmyrank";
+    public const string PVPAward = "pvpaward";
+
 	public const string MatchRank = "matchrank";
 	public const string MatchAward = "matchaward";
 	public const string MatchExchange = "matchexchange";
