@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b3020ffd673f21746b5f57a591fa9eeb
-timeCreated: 1426147407
+guid: 149097976ff793848b69cbdcd2f6ca77
+timeCreated: 1432190051
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -35,10 +35,10 @@ ModelImporter:
     400024: DummyBasketRoot
     400026: DummyHoop
     400028: DummyNet
-    4300000: BasketSupport
-    4300002: Backboard
+    4300000: BasketGlassA
+    4300002: BasketSupport
     4300004: BasketHoop
-    4300006: BasketGlassA
+    4300006: Backboard
     4300008: BasketGlassB
     9500000: //RootNode
     11100000: //RootNode
