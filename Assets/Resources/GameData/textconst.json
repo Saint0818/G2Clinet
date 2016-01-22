@@ -2264,11 +2264,11 @@
     },
     {
         "id": 7502,
-        "explain": "技能晶片安裝後的狀態",
+        "explain": "技能合成界面顯示該卡EXP",
         "uipeth": "ItemCardEquipped ",
-        "tw": "EXP [00FFFFFF]{0}[-]",
-        "en": "EXP [00FFFFFF]{0}[-]",
-        "jp": "EXP [00FFFFFF]{0}[-]"
+        "tw": "EXP [00FF00FF]{0}[-]",
+        "en": "EXP [00FF00FF]{0}[-]",
+        "jp": "EXP [00FF00FF]{0}[-]"
     },
     {
         "id": 7601,
