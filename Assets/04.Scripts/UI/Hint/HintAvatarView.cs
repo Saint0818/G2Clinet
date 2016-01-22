@@ -4,6 +4,7 @@ using UnityEngine;
 public class HintAvatarView : MonoBehaviour {
 
 	public UISprite[] AttrKindsIcon;
+	private UILabel[] attrKindsLabel;
 	public UILabel[] ValueLabels;
 	public UISprite QualitySquare;
 	public UISprite ItemPic;
@@ -36,14 +37,23 @@ public class HintAvatarView : MonoBehaviour {
 
         if(Gem != null)
 		    Gem.SetActive(false);
-		
+
+		attrKindsLabel = new UILabel[AttrKindsIcon.Length];
 		for (int i=0; i<AttrKindsIcon.Length; i++){
+			attrKindsLabel[i] = AttrKindsIcon[i].transform.FindChild("KindLabel").GetComponent<UILabel>();
+			UIEventListener.Get(AttrKindsIcon[i].gameObject).onClick = OnClickAttr;
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
 
 		for (int i=0; i<AvatarStars.Length; i++)
 			AvatarStars[i].SetActive(false);
-		Hide();
+	}
+
+	public void OnClickAttr (GameObject go) {
+		int result = -1;
+		if(int.TryParse(go.name, out result)) {
+			UIAttributeHint.Get.UpdateView(result);
+		}
 	}
 	
 	public void Show()
@@ -63,19 +73,23 @@ public class HintAvatarView : MonoBehaviour {
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 		GameFunction.ShowInlay(ref AvatarStars, GameData.Team.Player, itemData.Kind);
 		for (int i=0; i<itemData.Bonus.Length; i++) {
-			AttrKindsIcon[i].gameObject.SetActive(true);
-			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
-			if(itemData.BonusValues[i] == 0)
-				ValueLabels[i].text = "";
-			else
-				ValueLabels[i].text = itemData.BonusValues[i].ToString();
-			if(itemData.Kind >=0 && itemData.Kind <= 7){
-				AttrKindsIcon[i].gameObject.SetActive(false);
-				ValueLabels[i].gameObject.SetActive(false);
-			} else {
+			if(itemData.Bonus[i] != EBonus.None) {
 				AttrKindsIcon[i].gameObject.SetActive(true);
-				ValueLabels[i].gameObject.SetActive(true);
-				isHaveValue = true;
+				AttrKindsIcon[i].name = itemData.Bonus[i].GetHashCode().ToString();
+				AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
+				attrKindsLabel[i].text = TextConst.S(10500 + itemData.Bonus[i].GetHashCode());
+				if(itemData.BonusValues[i] == 0)
+					ValueLabels[i].text = "";
+				else
+					ValueLabels[i].text = itemData.BonusValues[i].ToString();
+				if(itemData.Kind >=0 && itemData.Kind <= 7){
+					AttrKindsIcon[i].gameObject.SetActive(false);
+					ValueLabels[i].gameObject.SetActive(false);
+				} else {
+					AttrKindsIcon[i].gameObject.SetActive(true);
+					ValueLabels[i].gameObject.SetActive(true);
+					isHaveValue = true;
+				}
 			}
 		}
 

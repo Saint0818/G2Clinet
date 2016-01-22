@@ -35,7 +35,6 @@ public class UIGameResult : UIBase {
 	private int[] bonusItemIDs;
 
 	private List<ItemAwardGroup> alreadyGetItems;
-//	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
 	private GameObject uiItem;
@@ -267,6 +266,12 @@ public class UIGameResult : UIBase {
 			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 	}
 
+	private void showMissionBoard () {
+		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
+		hintIndex = hintCount;
+		Invoke("showFinish", 4);
+	}
+
 	/*
 	 * 1. SetGameRecord is called form GameController
 	 * 2. StartReward(Server) -> (Server Success)Run init
@@ -320,6 +325,7 @@ public class UIGameResult : UIBase {
 			GameData.Team.PVPIntegral = reslut.PVPIntegral;
 			GameData.Team.Money = reslut.Money;
 			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+			showMissionBoard ();
 		} else {
 		}
 
@@ -524,13 +530,6 @@ public class UIGameResult : UIBase {
 	private void showSkillInfo (int itemID) {
 		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
 		UIGetSkillCard.Get.Show(itemID);
-//		TSkill skill = new TSkill();
-//		skill.ID = GameData.DItemData[itemID].Avatar;
-//		skill.Lv = GameData.DItemData[itemID].LV;
-//		skill.SN = 
-//		skill.Exp
-//		UISkillInfo.UIShow(true, skill, false, false, true);
-//		UISkillInfo.Get.ShowFromNewCard(skill);
 	}
 
 	private void moveBonusItem () {
@@ -569,9 +568,7 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
-		hintIndex = hintCount;
-		Invoke("showFinish", 4);
+		showMissionBoard ();
 		beforePlayer = GameData.Team.Player;
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
 			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {

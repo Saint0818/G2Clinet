@@ -887,75 +887,87 @@
     },
     {
         "id": 3322,
+        "explain": "2分球",
         "uipeth": "AttrKind0/ExplainLabel",
         "tw": "2分球命中機率",
         "en": "2 Points Field Goal Percentage"
     },
     {
         "id": 3323,
+        "explain": "3分球",
         "uipeth": "AttrKind1/ExplainLabel",
         "tw": "3分球命中機率",
         "en": "3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
+        "explain": "速 度",
         "uipeth": "AttrKind5/ExplainLabel",
-        "tw": "提高不被抄球的機率",
-        "en": "Lower Turnover Percentage"
+        "tw": "球員基本跑動速度",
+        "en": "Player's normal running speed"
     },
     {
         "id": 3325,
+        "explain": "耐 力",
         "uipeth": "AttrKind6/ExplainLabel",
-        "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
-        "en": "1. Affect Successful Passing Rate \n2. Automatic alley-oops percentage in AI mode."
+        "tw": "可加速衝刺的總時間",
+        "en": "Increase the duratioin while running at max speed."
     },
     {
         "id": 3326,
+        "explain": "力 量",
         "uipeth": "AttrKind7/ExplainLabel",
         "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
         "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase the chance of elbowing opponent in AI mode"
     },
     {
         "id": 3327,
+        "explain": "灌 籃",
         "uipeth": "AttrKind9/ExplainLabel",
         "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率",
         "en": "1. Higher percentage to activate dunking ability in the restricted area.\n2. Higher percentage to activate tip-in."
     },
     {
         "id": 3328,
+        "explain": "籃 板",
         "uipeth": "AttrKind2/ExplainLabel",
         "tw": "1.發動籃板的距離\n2.提高抓到籃板的機會",
         "en": "1. Increase the rebounding zone\n2. Increase the chance of getting the rebound"
     },
     {
         "id": 3329,
+        "explain": "火 鍋",
         "uipeth": "AttrKind3/ExplainLabel",
         "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
         "en": "1. Increase the chance of blocking shots\n2. Increase the chance of blocking shots in AI mode.\n3. Increase the chance of faking out your opponent in AI mode.\n4. Increase chance to knock down opponent while blocking shots."
     },
     {
         "id": 3330,
+        "explain": "防 守",
         "uipeth": "AttrKind4/ExplainLabel",
+        "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
+        "en": "1.Size of player's defensive zone\n2. Increase the chance of attempting a push in AI mode."
+    },
+    {
+        "id": 3331,
+        "explain": "抄 截",
+        "uipeth": "AttrKind8/ExplainLabel",
         "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率\n3.增加抄截的距離與範圍",
         "en": "1. Increase the chance of steal\n2. Increase the chance of attempting a steal in AI mode."
     },
     {
-        "id": 3331,
-        "uipeth": "AttrKind8/ExplainLabel",
-        "tw": "可加速衝刺的總時間",
-        "en": "Increase the duratioin while running at max speed."
-    },
-    {
         "id": 3332,
+        "explain": "控 球",
         "uipeth": "AttrKind10/ExplainLabel",
-        "tw": "球員基本跑動速度",
-        "en": "Player's normal running speed"
+        "tw": "提高不被抄球的機率",
+        "en": "Lower Turnover Percentage"
     },
     {
         "id": 3333,
+        "explain": "傳 球",
         "uipeth": "AttrKind11/ExplainLabel",
-        "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
-        "en": "1.Size of player's defensive zone\n2. Increase the chance of attempting a push in AI mode."
+        "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
+        "en": "1. Affect Successful Passing Rate \n2. Automatic alley-oops percentage in AI mode."
     },
     {
         "id": 3401,
@@ -1443,6 +1455,49 @@
         "tw": "位置不同無法試穿，但您仍可購買給其他球員穿。"
     },
     {
+        "id": 4600,
+        "explain": "獲得卡牌介面"
+    },
+    {
+        "id": 4601,
+        "explain": "晶片的品質等第(獲得時的標語",
+        "tw": " [B3B3B3FF]銅質晶片[-]"
+    },
+    {
+        "id": 4602,
+        "explain": "晶片的品質等第(獲得時的標語",
+        "tw": " [C17269FF]鐵質晶片[-]"
+    },
+    {
+        "id": 4603,
+        "explain": "晶片的品質等第(獲得時的標語",
+        "tw": " [99B3D4FF]銀質晶片[-]"
+    },
+    {
+        "id": 4604,
+        "explain": "晶片的品質等第(獲得時的標語",
+        "tw": "金質晶片"
+    },
+    {
+        "id": 4605,
+        "explain": "晶片的品質等第(獲得時的標語",
+        "tw": "鑽石晶片"
+    },
+    {
+        "id": 4606,
+        "explain": "介面上的大標題",
+        "tw": "獲得技能晶片"
+    },
+    {
+        "id": 4607
+    },
+    {
+        "id": 4608
+    },
+    {
+        "id": 4609
+    },
+    {
         "id": 4901,
         "explain": "體力金幣鑽石儲值"
     },
@@ -1714,7 +1769,8 @@
         "tw": "抽中大獎"
     },
     {
-        "id": 5037
+        "id": 5037,
+        "tw": "目前無適合推薦球員，請稍後再試。"
     },
     {
         "id": 5038,
@@ -2011,9 +2067,7 @@
     {
         "id": 7203,
         "uipeth": "LabelKind1",
-        "tw": "LEVEL",
-        "en": "Level",
-        "jp": "LEVEL"
+        "tw": "晶片品質"
     },
     {
         "id": 7204,
@@ -2086,6 +2140,31 @@
         "uipeth": "EquipBtn/Label",
         "tw": "卸下晶片",
         "en": "UNEQUIP"
+    },
+    {
+        "id": 7216,
+        "explain": "技能晶片的品質等第(秀在SKillInfo",
+        "tw": " [B3B3B3FF]銅質[-]"
+    },
+    {
+        "id": 7217,
+        "explain": "技能晶片的品質等第(秀在SKillInfo",
+        "tw": " [C17269FF]鐵質[-]"
+    },
+    {
+        "id": 7218,
+        "explain": "技能晶片的品質等第(秀在SKillInfo",
+        "tw": " [99B3D4FF]銀質[-]"
+    },
+    {
+        "id": 7219,
+        "explain": "技能晶片的品質等第(秀在SKillInfo",
+        "tw": " [EFC653FF]金質[-]"
+    },
+    {
+        "id": 7220,
+        "explain": "技能晶片的品質等第(秀在SKillInfo",
+        "tw": " [11F5F1FF]鑽石[-]"
     },
     {
         "id": 7301,
@@ -2362,6 +2441,12 @@
         "uipeth": "Label",
         "tw": "請先通過前一章節",
         "en": "Please Complete The Previous Chapter"
+    },
+    {
+        "id": 9250,
+        "explain": "關卡已達生涯最多次數限制",
+        "tw": "已通過此關卡",
+        "en": "You have passed this stage."
     },
     {
         "id": 9301,
@@ -2683,7 +2768,58 @@
     },
     {
         "id": 9801,
-        "explain": "標題使用"
+        "explain": "標題使用",
+        "tw": "關主挑戰"
+    },
+    {
+        "id": 9802,
+        "explain": "完成用的字標",
+        "tw": "完 成"
+    },
+    {
+        "id": 9803,
+        "explain": "目標文字",
+        "tw": "擊敗關主以蒐集高級裝備"
+    },
+    {
+        "id": 9811,
+        "explain": "關主副本條件文字9811~9860-1",
+        "tw": "完成第一章後開啟"
+    },
+    {
+        "id": 9812,
+        "explain": "關主副本條件文字9811~9860-2",
+        "tw": "完成第二章後開啟"
+    },
+    {
+        "id": 9813,
+        "explain": "關主副本條件文字9811~9860-3",
+        "tw": "完成第三章後開啟"
+    },
+    {
+        "id": 9814,
+        "explain": "關主副本條件文字9811~9860-4"
+    },
+    {
+        "id": 9815,
+        "explain": "關主副本條件文字9811~9860-5"
+    },
+    {
+        "id": 9816,
+        "explain": "關主副本條件文字9811~9860-6"
+    },
+    {
+        "id": 9817,
+        "explain": "關主副本條件文字9811~9860-7"
+    },
+    {
+        "id": 9818,
+        "explain": "關主副本條件文字9811~9860-8"
+    },
+    {
+        "id": 9861,
+        "explain": "物件標題名稱",
+        "tw": "STAGE"
     },
     {
         "id": 10001,
@@ -3519,7 +3655,7 @@
     },
     {
         "id": 13019,
-        "explain": "加強物品的消耗材料",
+        "explain": "加強物品的消耗材料(突觸",
         "uipeth": "19.鑲嵌材料",
         "tw": "鑲嵌材料",
         "en": "Meterial"
@@ -3532,6 +3668,36 @@
         "uipeth": "21.技能卡牌",
         "tw": "技能晶片",
         "en": "Ability Disk"
+    },
+    {
+        "id": 13031,
+        "explain": "包裝成物品的金幣",
+        "uipeth": "31.錢",
+        "tw": "金 幣"
+    },
+    {
+        "id": 13032,
+        "explain": "包裝成物品的寶石(商城幣",
+        "uipeth": "32.鑽石",
+        "tw": "寶 石"
+    },
+    {
+        "id": 13033,
+        "explain": "經驗值物品",
+        "uipeth": "33.經驗值",
+        "tw": "經驗值"
+    },
+    {
+        "id": 13034,
+        "explain": "體力物品",
+        "uipeth": "34.體力",
+        "tw": "體 力"
+    },
+    {
+        "id": 13040,
+        "explain": "強化卡牌用的材料",
+        "uipeth": "40.卡片材料",
+        "tw": "進化材料"
     },
     {
         "id": 15000,

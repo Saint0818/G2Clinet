@@ -21,7 +21,6 @@ public class HintSkillView : MonoBehaviour {
 			QualityBG = goQuality.GetComponent<UISprite>();
 
 		mGameObject = gameObject;
-		Hide();
 	}
 	
 	public void Show()
