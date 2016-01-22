@@ -230,8 +230,8 @@ public class UIShop : UIBase {
 
             openPage(nowPage);
 
-            labelPVPCoin.text = "0";
-            labelSocialCoin.text = "0";
+            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
+            labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
             labelFreshTime.text = "";
             labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
         }
@@ -405,14 +405,18 @@ public class UIShop : UIBase {
             TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.Money = result.Money;
+            GameData.Team.PVPCoin = result.PVPCoin;
+            GameData.Team.SocialCoin = result.SocialCoin;
+            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
+            labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
 
             if (result.AvatarPotential > GameData.Team.AvatarPotential)
                 GameData.Team.AvatarPotential = result.AvatarPotential;
 
-            if (result.LifetimeRecord.AvatarCount > result.LifetimeRecord.AvatarCount)
+            if (result.LifetimeRecord.AvatarCount > GameData.Team.LifetimeRecord.AvatarCount)
                 GameData.Team.LifetimeRecord.AvatarCount = result.LifetimeRecord.AvatarCount;
 
-            if (result.LifetimeRecord.SkillCount > result.LifetimeRecord.SkillCount)
+            if (result.LifetimeRecord.SkillCount > GameData.Team.LifetimeRecord.SkillCount)
                 GameData.Team.LifetimeRecord.SkillCount = result.LifetimeRecord.SkillCount;
 
             if (result.GotAvatar != null)

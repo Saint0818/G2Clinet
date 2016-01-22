@@ -147,6 +147,14 @@ public class UI2D : MonoBehaviour {
                 UISkillFormation.UIShow(true);
                 UIMainLobby.Get.Hide();
                 break;
+            case "UIEquipment":
+                UIEquipment.Get.Show();
+                UIMainLobby.Get.Hide();
+                break;
+            case "UISocial":
+                UISocial.Visible = true;
+                UIMainLobby.Get.Hide();
+                break;
         }
     }
 }

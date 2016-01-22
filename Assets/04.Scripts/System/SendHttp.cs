@@ -699,6 +699,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
 
                 if (friend.Kind == EFriendKind.Friend) {
+                    GameData.Team.LifetimeRecord.FriendCount++;
                     friend.Player.Init();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;

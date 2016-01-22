@@ -122,8 +122,6 @@ public class UISocial : UIBase {
     protected override void InitData() {
         if (GameData.Team.Friends != null)
             GameData.Team.InitFriends();
-
-        totalLabel.text = GameData.Team.LifetimeRecord.FriendCount.ToString() + " / 300"; 
     }
 
     private void initList(int page) {
@@ -590,6 +588,7 @@ public class UISocial : UIBase {
         for (int i = 0; i < pageObjects.Length; i++)
             pageObjects[i].SetActive(false);
 
+        totalLabel.text = GameData.Team.LifetimeRecord.FriendCount.ToString() + " / 300"; 
         pageObjects[page].SetActive(true);
         redPoints[page].SetActive(false);
         nowPage = page;

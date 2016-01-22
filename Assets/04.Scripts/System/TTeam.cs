@@ -350,6 +350,8 @@ namespace GameStruct
                 case 6: return 0; //收集套裝
                 case 7: return record.TeamRecord.SkillCount; //Ability number
                 case 8: return 0; //收集套卡
+                case 9: return record.TeamRecord.FriendCount; //好友數
+                case 10: return record.TeamRecord.GoodCount; //按讚數
                 case 11: return Player.NextMainStageID; //PVE通過某關
                 case 12: return record.TeamRecord.PVEWin; //PVE獲勝數
                 case 13: return record.TeamRecord.PVEKeepWin; //PVE連勝數

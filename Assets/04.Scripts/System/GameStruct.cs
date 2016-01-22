@@ -424,6 +424,8 @@ namespace GameStruct
                 newRecord.OccupyLv != OccupyLv ||
                 newRecord.AvatarCount != AvatarCount ||
                 newRecord.SkillCount != SkillCount ||
+                newRecord.FriendCount != FriendCount ||
+                newRecord.GoodCount != GoodCount ||
                 newRecord.PVECount != PVECount ||
                 newRecord.PVEWin != PVEWin ||
                 newRecord.PVEKeepWin != PVEKeepWin ||

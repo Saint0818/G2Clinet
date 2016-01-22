@@ -8,6 +8,8 @@ public struct TMissionFinishResult {
     public int MissionID;
     public int Money;
     public int Diamond;
+    public int PVPCoin;
+    public int SocialCoin;
     public int Exp;
     public int Lv;
     public int ItemID;
@@ -378,6 +380,18 @@ public class UIMission : UIBase {
                 int m = result.Money - GameData.Team.Money;
                 GameData.Team.Money = result.Money;
                 UIGetItem.Get.AddExp(1, m);
+            }
+
+            if (GameData.Team.PVPCoin < result.PVPCoin) {
+                int m = result.PVPCoin - GameData.Team.PVPCoin;
+                GameData.Team.PVPCoin = result.PVPCoin;
+                UIGetItem.Get.AddExp(2, m);
+            }
+
+            if (GameData.Team.SocialCoin < result.SocialCoin) {
+                int m = result.SocialCoin - GameData.Team.SocialCoin;
+                GameData.Team.SocialCoin = result.SocialCoin;
+                UIGetItem.Get.AddExp(3, m);
             }
 
             GameData.Team.Player.Exp = result.Exp;
