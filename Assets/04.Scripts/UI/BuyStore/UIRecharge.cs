@@ -67,7 +67,7 @@ public struct TItemRecharge {
 		mSelf.transform.localPosition = new Vector3(-250 + order * 250, 0, 0);
 
 		if(PriceIcon != null)
-			PriceIcon.spriteName = iconName(shop.SpendKind, shop.Pic);
+			PriceIcon.spriteName = GameFunction.SpendKindTexture(shop.SpendKind);
 
 		if(mShop.Sale > 0)
 			SaleLabel.text = getSaleText(mShop.Sale);
@@ -76,10 +76,10 @@ public struct TItemRecharge {
 
 		
 		if(shop.ItemID > 0 && GameData.DItemData.ContainsKey(shop.ItemID)) {
-			ItemIcon.spriteName = itemiconName(GameData.DItemData[shop.ItemID].Kind);
+			ItemIcon.spriteName = itemKindIconName(shop.Kind, shop.Order);
 			ItemNameLabel.text = GameData.DItemData[shop.ItemID].Name;
 			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
-			ValueIcon.spriteName = itemiconName(GameData.DItemData[shop.ItemID].Kind);
+			ValueIcon.spriteName = itemKindIconValueName(GameData.DItemData[shop.ItemID].Kind);
 		}
 		RefreshPrice();
 	}
@@ -121,7 +121,7 @@ public struct TItemRecharge {
 		else
 			SaleLabel.gameObject.SetActive(false);
 		
-		ItemIcon.spriteName = "MallGem1";
+		ItemIcon.spriteName = itemKindIconName(-1, mall.Order);
 		ItemNameLabel.text = mall.Name;
 		ValueLabel.text = mall.Diamond.ToString();
 	}
@@ -129,14 +129,14 @@ public struct TItemRecharge {
 	//31.錢
 	//32.鑽石
 	//34.體力
-	private string itemiconName (int kind) {
+	private string itemKindIconValueName (int kind) {
 		switch(kind) {
 		case 31:
-			return "MallCoin1";
+			return "Icon_Coin";
 		case 32:
-			return "MallGem1";
+			return "Icon_Gem";
 		case 34:
-			return "MallStamina1";
+			return "Icon_Stamina";
 			
 		}
 		return "";
@@ -146,17 +146,6 @@ public struct TItemRecharge {
 	//3.4202 限時
 	private string getSaleText (int sale) {
 		return TextConst.S(4200 + (sale - 1));
-//		switch (sale) {
-//		case 1:
-//			return TextConst.S(4200);
-//		case 2:
-//			return TextConst.S(4201);
-//		case 3:
-//			return TextConst.S(4202);
-//		case 4:
-//			return TextConst.S(4203);
-//		}
-//		return "";
 	}
 
 	/*
@@ -165,16 +154,20 @@ public struct TItemRecharge {
 	2.聯盟幣
 	3.社群幣
 	*/
-	private string iconName (int kind, int pic) {
+	private string itemKindIconName (int kind, int pic) {
 		switch(kind) {
-		case 0:
-			if(pic <= 2)
+		case -1:
+			if(pic > 0 && pic <= 2)
 				return "MallGem"+pic;
 			return "MallGem1";
-		case 1:
-			if(pic <= 2)
+		case 0:
+			if(pic > 0 && pic <= 2)
 				return "MallCoin"+pic;
 			return "MallCoin1";
+		case 1:
+			if(pic > 0 && pic <= 2)
+				return "MallStamina"+pic;
+			return "MallStamina1";
 		}
 		return "";
 	}

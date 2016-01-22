@@ -2,7 +2,7 @@
     {
         "id": 1,
         "nametw": "進攻的奧義！！",
-        "spendkind": 1,
+        "spendkind": 0,
         "onepick": 350,
         "fivepick": 1500,
         "tenpick": 2850,
@@ -16,7 +16,7 @@
     {
         "id": 2,
         "nametw": "堅實的護盾！！",
-        "spendkind": 1,
+        "spendkind": 0,
         "onepick": 300,
         "fivepick": 1450,
         "tenpick": 2800,
@@ -29,7 +29,7 @@
     {
         "id": 3,
         "nametw": "掌控賽局的舵手！！",
-        "spendkind": 1,
+        "spendkind": 0,
         "onepick": 250,
         "fivepick": 1400,
         "tenpick": 2750,

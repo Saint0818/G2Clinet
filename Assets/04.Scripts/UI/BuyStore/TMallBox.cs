@@ -152,17 +152,9 @@ public class TMallBox
 	}
 
 	private void changeSpendKind (int kind) {
-		if(kind == 1) {
-			PriceIcon.spriteName = "MallGem1";
-			Open5Icon.spriteName = "MallGem1";
-			Open10Icon.spriteName = "MallGem1";
-		} else if(kind == 2) {
-			PriceIcon.spriteName = "MallCoin1";
-			Open5Icon.spriteName = "MallCoin1";
-			Open10Icon.spriteName = "MallCoin1";
-		} else if(kind == 3) {
-			
-		}
+		PriceIcon.spriteName = GameFunction.SpendKindTexture(kind);
+		Open5Icon.spriteName = GameFunction.SpendKindTexture(kind);
+		Open10Icon.spriteName = GameFunction.SpendKindTexture(kind);
 	}
 
 	public bool IsHaveFree {
