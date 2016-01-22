@@ -1,52 +1,76 @@
 fileFormatVersion: 2
-guid: 149097976ff793848b69cbdcd2f6ca77
-timeCreated: 1432190051
+guid: fb2e5148466442f4e8cddf6400ddb914
+timeCreated: 1453444740
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Backboard
-    100002: //RootNode
-    100004: BasketGlassA
-    100006: BasketGlassB
-    100008: BasketHoop
-    100010: BasketSupport
-    100012: Bone01
-    100014: Bone02
-    100016: Bone03
-    100018: Bone04
-    100020: DummyBackBoard
-    100022: DummyBasketIK
-    100024: DummyBasketRoot
-    100026: DummyHoop
-    100028: DummyNet
-    400000: Backboard
-    400002: //RootNode
-    400004: BasketGlassA
-    400006: BasketGlassB
-    400008: BasketHoop
-    400010: BasketSupport
-    400012: Bone01
-    400014: Bone02
-    400016: Bone03
-    400018: Bone04
-    400020: DummyBackBoard
-    400022: DummyBasketIK
-    400024: DummyBasketRoot
-    400026: DummyHoop
-    400028: DummyNet
-    4300000: BasketGlassA
-    4300002: BasketSupport
-    4300004: BasketHoop
-    4300006: Backboard
-    4300008: BasketGlassB
+    100000: //RootNode
+    100002: Box001
+    100004: Box002
+    100006: Box003
+    100008: Box004
+    100010: Box005
+    100012: Plane001
+    100014: Torus001
+    100016: Torus002
+    100018: Backboard
+    100020: BasketHoop
+    100022: Bone01
+    100024: Bone02
+    100026: Bone03
+    100028: Bone04
+    100030: DummyBackBoard
+    100032: DummyBasketIK
+    100034: DummyBasketRoot
+    100036: DummyHoop
+    100038: DummyNet
+    400000: //RootNode
+    400002: Box001
+    400004: Box002
+    400006: Box003
+    400008: Box004
+    400010: Box005
+    400012: Plane001
+    400014: Torus001
+    400016: Torus002
+    400018: Backboard
+    400020: BasketHoop
+    400022: Bone01
+    400024: Bone02
+    400026: Bone03
+    400028: Bone04
+    400030: DummyBackBoard
+    400032: DummyBasketIK
+    400034: DummyBasketRoot
+    400036: DummyHoop
+    400038: DummyNet
+    2300000: Box001
+    2300002: Box002
+    2300004: Box003
+    2300006: Box004
+    2300008: Box005
+    2300010: Plane001
+    2300012: Torus001
+    3300000: Box001
+    3300002: Box002
+    3300004: Box003
+    3300006: Box004
+    3300008: Box005
+    3300010: Plane001
+    3300012: Torus001
+    4300000: Plane001
+    4300002: Box001
+    4300004: Box002
+    4300006: Torus001
+    4300008: Box003
+    4300010: Box004
+    4300012: Box005
+    4300014: BasketHoop
+    4300016: Backboard
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Backboard
-    13700002: BasketGlassA
-    13700004: BasketGlassB
-    13700006: BasketHoop
-    13700008: BasketSupport
+    13700002: BasketHoop
   materials:
     importMaterials: 0
     materialName: 0
@@ -61,7 +85,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
