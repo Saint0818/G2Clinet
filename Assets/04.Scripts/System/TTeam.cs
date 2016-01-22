@@ -374,6 +374,24 @@ namespace GameStruct
                 case 40: return record.PlayerRecord.Knock; //擊倒
                 case 41: return record.PlayerRecord.DoubleClickPerfact; //Perfect數
                 case 42: return record.PlayerRecord.Alleyoop;
+
+                case 111: return DailyCount.FreshFriend;
+                case 112: return DailyCount.FreshShop;
+                case 120: return record.TeamRecord.TotalDelMoney;
+                case 121: return record.TeamRecord.TotalDelDiamond;
+                case 122: return record.TeamRecord.TotalDelPower;
+                /*
+                81 技能卡升級合成
+                82 技能卡進階
+                83 數值裝鑲嵌
+                84 數值裝合成
+
+                101 購買體力次數
+                102 購買鑽石次數
+                103 購買遊戲幣次數
+                104 購買挑戰券(PVP)
+                110 重置關卡次數
+                */
             }
 
             return 0;

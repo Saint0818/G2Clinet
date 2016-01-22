@@ -407,23 +407,26 @@ public class UIMission : UIBase {
         int index = -1;
         missionExp = 0;
         if (UIButton.current.transform.parent != null && UIButton.current.transform.parent.parent != null &&
-            int.TryParse(UIButton.current.transform.parent.parent.name, out index) && GameData.DMissionData.ContainsKey(index)) {
-            TMission mission = GameData.DMissionData[index];
-            int mLv = GameData.Team.FindMissionLv(mission.ID, mission.TimeKind);
-            if (mLv < mission.Value.Length) {
-                int mValue = GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
-                if (mValue >= mission.Value[mLv]) {
-                    missionExp = mission.Exp[mLv];
-                    WWWForm form = new WWWForm();
-                    form.AddField("MissionID", mission.ID);
-                    SendHttp.Get.Command(URLConst.MissionFinish, waitMissionFinish, form, true);
+            int.TryParse(UIButton.current.transform.parent.parent.name, out index)) {
+            if (GameData.DMissionData.ContainsKey(index)) {
+                TMission mission = GameData.DMissionData[index];
+                int mLv = GameData.Team.FindMissionLv(mission.ID, mission.TimeKind);
+                if (mLv < mission.Value.Length) {
+                    int mValue = GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
+                    if (mValue >= mission.Value[mLv]) {
+                        missionExp = mission.Exp[mLv];
+                        WWWForm form = new WWWForm();
+                        form.AddField("MissionID", mission.ID);
+                        SendHttp.Get.Command(URLConst.MissionFinish, waitMissionFinish, form, true);
+                    } else
+                    if (mission.OpenUI != "") {
+                        Visible = false;
+                        UI2D.Get.OpenUI(mission.OpenUI);
+                    }   
                 } else
-                if (mission.OpenUI != "") {
-                    Visible = false;
-                    UI2D.Get.OpenUI(mission.OpenUI);
-                }   
+                    UIHint.Get.ShowHint(TextConst.S(3714), Color.red);
             } else
-                UIHint.Get.ShowHint(TextConst.S(3714), Color.red);
+                Debug.Log("No mission id " + index.ToString());
         }
 	}
 }

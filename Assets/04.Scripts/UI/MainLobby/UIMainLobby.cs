@@ -68,6 +68,9 @@ public class UIMainLobby : UIBase
         updateButtons();
 
         ResetCommands.Get.Run();
+
+        if (GameData.Team.NeedForSyncRecord)
+            SendHttp.Get.SyncDailyRecord();
     }
 
 	public void ShowForLottery (bool isShow) {

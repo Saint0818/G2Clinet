@@ -2425,8 +2425,8 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
             int playerindex = -1;
-            if (GameRecord.PlayerRecords != null && GameRecord.PlayerRecords.Length > 0)
-                GameRecord.PlayerRecords[0].DoubleClickLaunch++;
+            if (Joysticker)
+                Joysticker.GameRecord.DoubleClickLaunch++;
 
 			for(int i = 0;i < PlayerList.Count;i++)
 				if(PlayerList[i] == player)
@@ -4347,8 +4347,8 @@ public class GameController : KnightSingleton<GameController>
 		set {
             doubleType = value;
             if (doubleType == EDoubleType.Good || doubleType == EDoubleType.Perfect) {
-                if (GameRecord.PlayerRecords != null && GameRecord.PlayerRecords.Length > 0)
-                    GameRecord.PlayerRecords[0].DoubleClickPerfact++;
+                if (Joysticker)
+                    Joysticker.GameRecord.DoubleClickPerfact++;
             }
         }
 	}

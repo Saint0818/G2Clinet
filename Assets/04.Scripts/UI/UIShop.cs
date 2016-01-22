@@ -409,15 +409,10 @@ public class UIShop : UIBase {
             GameData.Team.SocialCoin = result.SocialCoin;
             labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
             labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
+            GameData.Team.LifetimeRecord = result.LifetimeRecord;
 
             if (result.AvatarPotential > GameData.Team.AvatarPotential)
                 GameData.Team.AvatarPotential = result.AvatarPotential;
-
-            if (result.LifetimeRecord.AvatarCount > GameData.Team.LifetimeRecord.AvatarCount)
-                GameData.Team.LifetimeRecord.AvatarCount = result.LifetimeRecord.AvatarCount;
-
-            if (result.LifetimeRecord.SkillCount > GameData.Team.LifetimeRecord.SkillCount)
-                GameData.Team.LifetimeRecord.SkillCount = result.LifetimeRecord.SkillCount;
 
             if (result.GotAvatar != null)
                 GameData.Team.GotAvatar = result.GotAvatar;

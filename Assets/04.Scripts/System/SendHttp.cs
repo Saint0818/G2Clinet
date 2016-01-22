@@ -700,6 +700,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;
+                    GameData.Team.NeedForSyncRecord = true;
                     friend.Player.Init();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;

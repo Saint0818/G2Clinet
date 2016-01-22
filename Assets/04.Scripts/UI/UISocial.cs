@@ -505,6 +505,7 @@ public class UISocial : UIBase {
 
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;
+                    GameData.Team.NeedForSyncRecord = true;
                     friend.Player.Init();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;
@@ -532,6 +533,7 @@ public class UISocial : UIBase {
         if (ok) {
             if (www.text == "1") {
                 GameData.Team.LifetimeRecord.FriendCount--;
+                GameData.Team.NeedForSyncRecord = true;
                 string id = friendList[nowPage][nowIndex].Friend.Identifier;
                 if (GameData.Team.Friends.ContainsKey(id))
                     GameData.Team.Friends.Remove(id);
@@ -546,6 +548,7 @@ public class UISocial : UIBase {
         if (ok) {
             TSocialEvent result = JsonConvert.DeserializeObject<TSocialEvent>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.LifetimeRecord.GoodCount = result.GoodCount;
+            GameData.Team.NeedForSyncRecord = true;
             if (result.Good != null) {
                 friendList[nowPage][nowIndex].Event.Good = result.Good;
                 for (int i = 0; i < GameData.SocialEvents.Count; i++)
