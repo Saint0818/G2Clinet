@@ -35,6 +35,7 @@ public class UIBuyStore : UIBase {
 
 	private UILabel labelPay;
 	private UISprite spritePay;
+	private bool isClickTouch = false;
 
 	public TSkill[] newSkillCard;
 //	private bool isOneAware = true; 
@@ -70,6 +71,12 @@ public class UIBuyStore : UIBase {
 		}
 	}
 
+	void FixedUpdate () {
+		if(Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase == TouchPhase.Began) {
+			StartDrawLottery(null);
+		}
+	}
+
 	protected override void InitCom() {
 		animationBuy = GetComponent<Animator>();
 		oneItem = transform.FindChild("Center/ItemGet/GetItem_One").GetComponent<GetOneItem>();
@@ -83,6 +90,7 @@ public class UIBuyStore : UIBase {
 		labelPay = GameObject.Find(UIName + "/Center/ItemGet/AgainBt/PayLabel").GetComponent<UILabel>();
 		spritePay = GameObject.Find(UIName + "/Center/ItemGet/AgainBt/PayIcon").GetComponent<UISprite>();
 
+		isClickTouch = false;
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/Touch")).onClick = StartDrawLottery;
 		SetBtnFun(UIName + "/Center/ItemGet/AgainBt", OnAgain);
 		SetBtnFun(UIName + "/Center/ItemGet/EnterBt", OnBack);
@@ -95,6 +103,7 @@ public class UIBuyStore : UIBase {
 		mSpendType = type;
 		updateView(type);
 		mItemDatas = itemDatas;
+		spritePay.spriteName = GameFunction.SpendKindTexture(pick.SpendKind);
 	}
 
 	public void SetNewSkillCard (TSkill[] skill) {
@@ -103,7 +112,6 @@ public class UIBuyStore : UIBase {
 
 	private void updateView (int type) {
 		labelPay.text = getLabelPay(type);
-		spritePay.spriteName = getCostName(type);
 	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {
@@ -148,12 +156,15 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void StartDrawLottery(GameObject go) {
-		if(mItemDatas.Length == 1) {
-			showOne(mItemDatas[0]);
-		} else if(mItemDatas.Length == 5) {
-			showFive(mItemDatas);
-		} else if(mItemDatas.Length == 10) {
-			showTen(mItemDatas);
+		if(!isClickTouch) {
+			if(mItemDatas.Length == 1) {
+				showOne(mItemDatas[0]);
+			} else if(mItemDatas.Length == 5) {
+				showFive(mItemDatas);
+			} else if(mItemDatas.Length == 10) {
+				showTen(mItemDatas);
+			}
+			isClickTouch = true;
 		}
 	}
 
@@ -174,6 +185,7 @@ public class UIBuyStore : UIBase {
 		UIMainLobby.Get.ShowForLottery(false);
 		animationBuy.SetTrigger("Again");	
 		UI3DBuyStore.Get.AgainRaffle();
+		isClickTouch = false;
 	}
 
 	public void OnAgain() {
@@ -197,20 +209,6 @@ public class UIBuyStore : UIBase {
 		else if(spendType == EPickSpendType.TEN.GetHashCode()) 
 			return mPickCost.TenPick.ToString();
 		return "0";
-	}
-
-	private string getCostName (int spendkind) {
-		if(mPickCost.SpendKind == 0) 
-			return "Icon_Coin";
-		else if(mPickCost.SpendKind == 1) 
-			return "Icon_Gem";
-		else if(mPickCost.SpendKind == 2) 
-			return "Icon_Coin";
-		else if(mPickCost.SpendKind == 3) 
-			return "Icon_Coin";
-		else if(mPickCost.SpendKind == 4) 
-			return "Icon_Coin";
-		return "";
 	}
 
 	public void OnBack () {
