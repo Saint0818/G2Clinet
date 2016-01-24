@@ -299,21 +299,19 @@ public class UIRecharge : UIBase {
 			}
 			kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
 			kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
-			kindBuyDiamond[GameData.DMalls[i].Order].UpdateBtn(new EventDelegate(OnDiamond));
+			kindBuyDiamond[GameData.DMalls[i].Order].UpdateBtn(new EventDelegate(OnBuyDiamond));
 		}
 	}
 
-	public void OnDiamond () {
-		if (FileManager.NowMode == VersionMode.Release)
-			UIHint.Get.ShowHint(TextConst.S(502), Color.red);
-		else {
-			int result = -1;
-			if(int.TryParse(UIButton.current.name, out result)) {
-				if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
-					SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
-				}
-			}
-		}
+	public void OnBuyDiamond () {
+
+		UIHint.Get.ShowHint(TextConst.S(502), Color.red);
+//		int result = -1;
+//		if(int.TryParse(UIButton.current.name, out result)) {
+//			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
+//				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
+//			}
+//		}
 	}
 
 	public void OnBuyCoin () {

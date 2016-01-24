@@ -1015,7 +1015,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // 蓋火鍋測試場景不希望球員移動, 所以才會有 GameStart.Get.TestMode != EGameTest.Block 
         // 這樣的判斷式. 這要改為蓋火鍋測試場景在初始化的時候, 叫 AI 不要指定戰術跑位.
-        if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() &&
+		if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End &&
            GameStart.Get.TestMode != EGameTest.Block)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
@@ -1870,6 +1870,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case EAnimatorState.Buff:   
                 BuffStateHandle(nextState.StateNo);
+				showActiveEffect(nextState.StateNo);
                 Result = true;
                 break;
 
@@ -2641,9 +2642,10 @@ public class PlayerBehaviour : MonoBehaviour
         TimeScale(animatorEvent); 
     }
 
-    public void showActiveEffect()
+	public void showActiveEffect(int no=20)
     {
-        SkillEffectManager.Get.OnShowEffect(this, false);
+		if(no >= 20)
+        	SkillEffectManager.Get.OnShowEffect(this, false);
     }
 
     public void ResetMove()

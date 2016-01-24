@@ -7,9 +7,9 @@ public class GameJoystick : ETCJoystick {
     protected override void SetActivated (){
         base.SetActivated();
 
-        if (activated) {
-            GetComponent<Image>().color = Color.white;
-            thumb.GetComponent<Image>().color = Color.white;
+		if (activated) {
+			GetComponent<Image>().color = new Color32(255, 255, 255, 150);
+			thumb.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
         } else {
             GetComponent<Image>().color = new Color32(255, 255, 255, 150);
             thumb.GetComponent<Image>().color = new Color32(255, 255, 255, 150);

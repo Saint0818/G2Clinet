@@ -794,11 +794,15 @@ public class GameController : KnightSingleton<GameController>
 			gameResult();
 
 		if(IsFinish && IsFinishShow && !CourtMgr.Get.IsBallOffensive) {
-			IsFinishShow = false;
 			CameraMgr.Get.FinishGame();
 			GameRecord.Done = true;
 			SetGameRecord();
-			StartCoroutine(playFinish());
+			SetBallOwnerNull();
+			CourtMgr.Get.RealBall.transform.position = Vector3.zero;
+			if(CheckAllPlayerIdle) {
+				IsFinishShow = false;
+				StartCoroutine(playFinish());
+			}
 		}
 	}
 
@@ -3695,8 +3699,6 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
 			}
 		}
-		SetBallOwnerNull();
-		CourtMgr.Get.RealBall.transform.position = Vector3.zero;
 
 		if (IsWinner) {
 			SelfWin ++;
@@ -4524,6 +4526,17 @@ public class GameController : KnightSingleton<GameController>
 					return false;
 		
 		return true;
+	}
+
+	public bool CheckAllPlayerIdle {
+		get {
+			bool isFlag = true;
+			for (int i=0; i<PlayerList.Count; i++)
+				if(!PlayerList[i].IsIdle)
+					isFlag = false;
+
+			return isFlag;
+		}
 	}
 
 	public bool CanUseStealSkill {

@@ -43,66 +43,37 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 		CrtTime = value;
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
 
-		if(GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Self0 && !GameController.Get.GamePlayers[0].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[0].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[0].transform.DOPlay();
-			}
+		checkPlayerIsUseActive(key);
+	}
+
+	private void checkPlayerIsUseActive (ETimerKind key) {
+		bool isNeedRecover = false;
+		if (GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Self0 && GameController.Get.GamePlayers[0].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
-		if(GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Self1 && !GameController.Get.GamePlayers[1].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[1].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[1].transform.DOPlay();
-			}
+
+		if (GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Self1 && GameController.Get.GamePlayers[1].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
-		if(GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Self2 && !GameController.Get.GamePlayers[2].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[2].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[2].transform.DOPlay();
-			}
+
+		if(GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Self2 && GameController.Get.GamePlayers[2].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
-		if(GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Npc0 && !GameController.Get.GamePlayers[3].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[3].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[3].transform.DOPlay();
-			}
+
+		if(GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Npc0 && GameController.Get.GamePlayers[3].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
-		if(GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Npc1 && !GameController.Get.GamePlayers[4].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[4].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[4].transform.DOPlay();
-			}
+
+		if(GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Npc1 && GameController.Get.GamePlayers[4].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
-		if(GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Npc2 && !GameController.Get.GamePlayers[5].IsUseActiveSkill) {
-			if(value == 0)
-			{
-				GameController.Get.GamePlayers[5].transform.DOPause();
-			}
-			else
-			{
-				GameController.Get.GamePlayers[5].transform.DOPlay();
-			}
+
+		if(GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Npc2 && GameController.Get.GamePlayers[5].IsUseActiveSkill) {
+			isNeedRecover = true;
 		}
+
+		if(isNeedRecover)
+			Timekeeper.instance.Clock(key.ToString()).localTimeScale = 1;
 	}
 
 	public Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();

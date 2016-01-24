@@ -375,7 +375,14 @@ namespace GameStruct
                 case 39: return record.PlayerRecord.Push;
                 case 40: return record.PlayerRecord.Knock; //擊倒
                 case 41: return record.PlayerRecord.DoubleClickPerfact; //Perfect數
-                case 42: return record.PlayerRecord.Alleyoop;
+				case 42: return record.PlayerRecord.Alleyoop;
+
+				case 81: return record.TeamRecord.SkillEvolution;;//技能卡升級每日合成次數
+				case 82: return record.TeamRecord.SkillReinforce;//技能卡進階每日進階次數
+
+				case 101: return record.TeamRecord.BuyStaminaQuantity;//每日購買體力次數
+				case 102: return record.TeamRecord.BuyDiamondQuantity;//每日購買鑽石次數
+				case 103: return record.TeamRecord.BuyCoinQuantity;//每日購買遊戲幣次數
 
                 case 111: return DailyCount.FreshFriend;
                 case 112: return DailyCount.FreshShop;

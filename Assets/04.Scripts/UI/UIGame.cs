@@ -389,7 +389,11 @@ public class UIGame : UIBase {
 
 	}
 
-	private void ShowGameJoystick (bool isShow) {
+	private void initJoystickPos () {
+		gameJoystick.transform.localPosition = new Vector3(-245, -102.5f);
+	}
+
+	private void showGameJoystick (bool isShow) {
 		gameJoystick.visible = isShow;
 		gameJoystick.activated = isShow;
 	}
@@ -1173,7 +1177,7 @@ public class UIGame : UIBase {
 			if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer) {
 //                gameJoystick.visible = true;
 //				gameJoystick.activated = true;
-				ShowGameJoystick(true);
+				showGameJoystick(true);
 			}
 
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
@@ -1183,6 +1187,7 @@ public class UIGame : UIBase {
             SetPassButton();
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
+			initJoystickPos ();
 //			drawLine.IsShow = false;
 			break;
 		case EUISituation.Pause:
@@ -1191,7 +1196,7 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(false);
 				showViewForceBar(false);
 
-				ShowGameJoystick(false);
+				showGameJoystick(false);
 				ShowSkillEnableUI(false);
 
 				if(UIPassiveEffect.Visible)UIPassiveEffect.UIShow(false);
@@ -1211,7 +1216,7 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(true);
 				showViewForceBar(true);
 
-				ShowGameJoystick(true);
+				showGameJoystick(true);
 				ShowSkillEnableUI(true);
 			
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
@@ -1224,7 +1229,7 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
 
-			ShowGameJoystick(false);
+			showGameJoystick(false);
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
 
@@ -1240,7 +1245,7 @@ public class UIGame : UIBase {
 			SetPassButton();
 			viewStart.SetActive (true);
 			viewBottomRight.SetActive(false);
-			ShowGameJoystick(false);
+			showGameJoystick(false);
 
 			dcCount = 0;
 			if(IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill) {
@@ -1256,7 +1261,8 @@ public class UIGame : UIBase {
 			
 			if (GameData.DStageTutorial.ContainsKey(GameController.Get.StageData.ID))
 				GamePlayTutorial.Get.SetTutorialData(GameController.Get.StageData.ID);
-
+			
+			initJoystickPos ();
 			break;
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;
