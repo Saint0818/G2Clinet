@@ -534,10 +534,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         if (GameData.Team.Diamond != team.Diamond)
                             GameData.Team.Diamond = team.Diamond;
                     }
-
-                    if (FreshFriendsEvent != null)
-                        FreshFriendsEvent();
                 }
+
+				if (FreshFriendsEvent != null) {
+					FreshFriendsEvent();
+					FreshFriendsEvent = null;
+				}
             } catch (Exception e) {
                 Debug.Log(e.ToString());
             }

@@ -274,7 +274,7 @@ public class UIBase: MonoBehaviour
 		}
 	}
 
-	public void OnBuyDiamond() {
+	public void OnDiamond() {
 		UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
 		UIMessage.UIShow(false);
 	}

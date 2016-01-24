@@ -36,6 +36,7 @@ public class TSocialEventItem {
     public UILabel LabelLv;
     public UILabel LabelPower;
     public UILabel LabelRelation;
+	public UILabel LabelCancel;
     public UILabel LabelTime;
     public UILabel LabelGoodCount;
     public UIButton ButtonGood;
@@ -56,7 +57,6 @@ public class UISocial : UIBase {
     private UILabel labelFreshTime;
     private UILabel labelFreshDiamond;
     private GameObject itemSocialEvent;
-    private GameObject uiOpation;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
@@ -96,15 +96,13 @@ public class UISocial : UIBase {
     }
 
     protected override void InitCom() {
-        SetBtnFun(UIName + "/Window/Center/Tabs/SocialNetworkBtn", OnLink);
+        SetBtnFun(UIName + "/Window/Center/Pages/3/SocialNetworkBtn", OnLink);
         SetBtnFun(UIName + "/Window/Center/Pages/2/SearchBtn", OnSearch);
         SetBtnFun(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn", OnFresh);
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
         itemSocialEvent = Resources.Load("Prefab/UI/Items/ItemSocialEvent") as GameObject;
-        uiOpation = GameObject.Find(UIName + "/Window/Center/ButtonListGroup");
-        uiOpation.SetActive(false);
-        totalLabel = GameObject.Find(UIName + "/Window/Center/Total").GetComponent<UILabel>();
+        totalLabel = GameObject.Find(UIName + "/Window/Center/Pages/3/Total").GetComponent<UILabel>();
         labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/SearchArea/TypeLabel").GetComponent<UILabel>();
         labelFreshTime = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/TextLabel").GetComponent<UILabel>();
         labelFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn/Label").GetComponent<UILabel>();
@@ -203,7 +201,7 @@ public class UISocial : UIBase {
 
         if (nowPage == 2) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
-                labelFreshTime.text = string.Format(TextConst.S(4507), TextConst.DeadlineString(GameData.Team.FreshFriendTime.ToUniversalTime()));
+                labelFreshTime.text = TextConst.DeadlineString(GameData.Team.FreshFriendTime.ToUniversalTime());
             else {
                 labelFreshTime.text = TextConst.S(4510);
                 labelFreshDiamond.text = "0";
@@ -225,18 +223,17 @@ public class UISocial : UIBase {
             team.UISkill = GameObject.Find(name + "/Window/Skill");
             team.UIMission = GameObject.Find(name + "/Window/Mission");
             team.UIAward = GameObject.Find(name + "/Window/Item");
-            team.AwardGroup = team.UIAward.GetComponent<ItemAwardGroup>();
+			team.AwardGroup = team.UIAward.GetComponent<ItemAwardGroup>();
             team.SkillCard = new TActiveSkillCard();
             team.SkillCard.Init(team.UISkill, new EventDelegate(OnSkillInfo));
             team.LabelName = GameObject.Find(name + "/Window/Name").GetComponent<UILabel>();
             team.LabelPower = GameObject.Find(name + "/Window/Power").GetComponent<UILabel>();
             team.LabelLv = GameObject.Find(name + "/Window/Lv").GetComponent<UILabel>();
             team.LabelRelation = GameObject.Find(name + "/Window/Good/Label").GetComponent<UILabel>();
+			team.LabelCancel = GameObject.Find(name + "/Window/Cancel/Label").GetComponent<UILabel>();
             team.LabelGoodCount = GameObject.Find(name + "/Window/Good/Count").GetComponent<UILabel>();
             team.LabelTime = GameObject.Find(name + "/Window/TimeLabel").GetComponent<UILabel>();
 
-            SetLabel(name + "/Window/Power/Label", TextConst.S(3019));
-            SetLabel(name + "/Window/Lv/Label", TextConst.S(3761));
             SetLabel(name + "/Window/Cancel/Label", TextConst.S(5033));
             SetBtnFun(name + "/Window/Cancel", OnCancelWatch);
             SetBtnFun(name + "/Window/Info", OnInfo);
@@ -255,7 +252,7 @@ public class UISocial : UIBase {
             team.UISkill.SetActive(false);
             team.UIMission.SetActive(false);
             team.Item.transform.parent = pageScrollViews[page].gameObject.transform;
-            team.Item.transform.localPosition = new Vector3(-370 + index * 330, 77, 0);
+            team.Item.transform.localPosition = new Vector3(-370 + index * 390, 80, 0);
             team.Item.transform.localScale = Vector3.one;
             friendList[page].Add(team);
             index = friendList[page].Count-1;
@@ -332,7 +329,7 @@ public class UISocial : UIBase {
         if (page == 0) {
             item.LabelTime.text = TextConst.AfterTimeString(item.Event.Time.ToUniversalTime());
             if (item.Event.Good != null)
-                item.LabelRelation.text = item.Event.GoodCount.ToString();
+				item.LabelGoodCount.text = item.Event.GoodCount.ToString();
 
             if (item.Event.Good != null && item.Event.Good.ContainsKey(GameData.Team.Identifier) && 
                 item.Event.Good[GameData.Team.Identifier] != "") {
@@ -365,11 +362,14 @@ public class UISocial : UIBase {
                     item.UICancel.SetActive(true);
                     break;
                 case EFriendKind.Friend:
-                    item.LabelRelation.text = TextConst.S(5025);
+					item.ButtonGood.gameObject.SetActive(false);
+					item.UICancel.SetActive(true);
+					item.LabelCancel.text = TextConst.S(5025);
+					//item.SpriteGood.spriteName = "IconLink";
+                    //item.LabelRelation.text = TextConst.S(5025);
                     break;
             }
-
-            item.ButtonGood.gameObject.SetActive(true);
+            
             if (item.Friend.Kind == EFriendKind.Follow || item.Friend.Kind == EFriendKind.Friend) {
                 item.ButtonGood.defaultColor = Color.white;
                 item.ButtonGood.hover = Color.white;
@@ -584,7 +584,10 @@ public class UISocial : UIBase {
         if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
             diamond = 50 * (GameData.Team.DailyCount.FreshFriend +1);
 
-        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend);
+		if (diamond > 0)
+        	CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend);
+		else
+			doFreshFriend();
     }
 
     private void openPage(int page) {
@@ -660,15 +663,20 @@ public class UISocial : UIBase {
                             
                             break;
                         case 3:
-                            form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-                            form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
-                            SendHttp.Get.Command(URLConst.RemoveFriend, waitRemoveFriend, form);
+							//UIMessage.Get.ShowMessage(TextConst.S(5025), TextConst.S(5042), onRemoveFriend);
                             break;
                     }
                 }
             }
         }
     }
+
+	private void onRemoveFriend() {
+		WWWForm form = new WWWForm();
+		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+		SendHttp.Get.Command(URLConst.RemoveFriend, waitRemoveFriend, form);
+	}
 
     public void OnCancelWatch() {
         Transform obj = UIButton.current.gameObject.transform.parent;
@@ -679,14 +687,26 @@ public class UISocial : UIBase {
                 nowPage = -1;
                 nowIndex = -1;
                 if (int.TryParse(s[0], out nowPage) && int.TryParse(s[1], out nowIndex)) {
-                    if (nowPage == 1 && friendList[nowPage][nowIndex].Friend.Kind == 5) {
-                        WWWForm form = new WWWForm();
-                        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-                        form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
-                        form.AddField("Name", GameData.Team.Player.Name);
-                        form.AddField("Ask", "0");
-                        SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
-                    }
+					switch (nowPage) {
+					case 1:
+						if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
+							WWWForm form = new WWWForm();
+							form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+							form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+							form.AddField("Name", GameData.Team.Player.Name);
+							form.AddField("Ask", "0");
+							SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
+						}
+
+						break;
+
+					case 3:
+						if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Friend) 
+						 	UIMessage.Get.ShowMessage(TextConst.S(5025), string.Format(TextConst.S(5042), friendList[nowPage][nowIndex].Friend.Player.Name), onRemoveFriend);
+
+						break;
+					}
+                    
                 }
             }
         }

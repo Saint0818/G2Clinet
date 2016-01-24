@@ -186,7 +186,7 @@ public static class TextConst
                     if (e.Cause == 11)
                         textNo = 5036;
 
-                    return TextConst.S(textNo) + "\n" + GameData.DItemData[e.Value].Name + " X " + e.Num.ToString();
+					return TextConst.S(textNo) + "\n" + GameData.DItemData[e.Value].Name; // + " X " + e.Num.ToString();
                 }
 
                 break;

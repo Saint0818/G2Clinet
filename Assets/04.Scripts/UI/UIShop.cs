@@ -80,7 +80,7 @@ public class UIShop : UIBase {
     protected override void InitCom() {
         itemSellItem = Resources.Load("Prefab/UI/Items/ItemShop") as GameObject;
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
-        SetBtnFun(UIName + "/Center/BottomRight/ResetBtn", OnFreshShop);
+		SetBtnFun(UIName + "/BottomLeft/ResetBtn", OnFreshShop);
 
         for (int i = 0; i < pageNum; i++) {
             SetBtnFun(UIName + "/Center/Right/Tabs/" + i.ToString(), OnPage);
@@ -95,8 +95,8 @@ public class UIShop : UIBase {
 
         labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
         labelSocialCoin = GameObject.Find(UIName + "/TopRight/SocialCoin/Label").GetComponent<UILabel>();
-        labelFreshTime = GameObject.Find(UIName + "/Center/BottomRight/WarningsLabel").GetComponent<UILabel>();
-        labelFreshDiamond = GameObject.Find(UIName + "/Center/BottomRight/ResetBtn/PriceLabel").GetComponent<UILabel>();
+		labelFreshTime = GameObject.Find(UIName + "/BottomLeft/WarningsLabel").GetComponent<UILabel>();
+		labelFreshDiamond = GameObject.Find(UIName + "/BottomLeft/ResetBtn/PriceLabel").GetComponent<UILabel>();
     }
 
     private void initList(int page) {
@@ -177,7 +177,7 @@ public class UIShop : UIBase {
             int x = index / 2;
             int y = index % 2;
 
-            item.Item.transform.localPosition = new Vector3(-300 + x * 220, 110 - y * 230, 0);
+            item.Item.transform.localPosition = new Vector3(-310 + x * 220, 146 - y * 260, 0);
             item.Item.transform.localScale = Vector3.one;
             shopItemList[page].Add(item);
             index = shopItemList[page].Count-1;
@@ -205,7 +205,7 @@ public class UIShop : UIBase {
 
     void FixedUpdate() {
         if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
-            labelFreshTime.text = string.Format(TextConst.S(4507), TextConst.DeadlineString(GameData.Team.FreshShopTime.ToUniversalTime()));
+            labelFreshTime.text = TextConst.DeadlineString(GameData.Team.FreshShopTime.ToUniversalTime());
         else {
             labelFreshTime.text = TextConst.S(4510);
             labelFreshDiamond.text = "0";

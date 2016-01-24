@@ -229,7 +229,7 @@ public class UISelectPartner : UIBase {
         item.Item.name = name;
 		UIButton btn = item.Item.GetComponent<UIButton>();
 		SetBtnFun(ref btn, OnSelectPartner);
-        SetLabel(name + "/CombatGroup/Label", TextConst.S(3019));
+        //SetLabel(name + "/CombatGroup/Label", TextConst.S(3019));
 		item.Item.GetComponent<UIDragScrollView>().scrollView = partnerScrollView[page];
 		item.LabelTeamName = GameObject.Find(name + "/PlayerName/NameLabel").GetComponent<UILabel>();
         item.LabelFightCount = GameObject.Find(name + "/FightCount").GetComponent<UILabel>();

@@ -189,8 +189,8 @@
     },
     {
         "id": 302,
-        "tw": "投籃時的節奏點擊點到Perfect，可增加投籃命中率，Combo越高增加越多。",
-        "en": "When you hit the sweet spot on the shooting bar it increaes your field goal percentage and accumulates with combos."
+        "tw": "投籃時的節奏點擊點到[FFDD33]Perfect[-]，可增加投籃命中率，Combo越高增加越多。",
+        "en": "When you hit the [FFDD33]sweet spot[-] on the shooting bar it increaes your field goal percentage and accumulates with combos."
     },
     {
         "id": 303,
@@ -1728,7 +1728,7 @@
     },
     {
         "id": 5025,
-        "tw": "解除朋友關係"
+        "tw": "刪除好友"
     },
     {
         "id": 5026,
@@ -1793,6 +1793,10 @@
     {
         "id": 5041,
         "tw": "完成每月任務"
+    },
+    {
+        "id": 5042,
+        "tw": "是否與{0}斷交？"
     },
     {
         "id": 6001,

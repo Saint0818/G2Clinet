@@ -770,7 +770,7 @@ public class UISelectRole : UIBase {
 	public void InitFriend() {
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
             if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime()) {
-                SendHttp.Get.FreshFriends(waitLookFriends, false);
+                SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
 			} else 

@@ -50,10 +50,11 @@ public class UIHint : UIBase
 
 	protected override void InitCom()
 	{
+		try {
 		animator = gameObject.GetComponent<Animator>();
         mLabel = GameObject.Find(UIName + "/Center/ContentView/UIHintLabel").GetComponent<UILabel>();
 	    mLabel.text = string.Empty;
-
+		} catch {}
     }
 
     public void Hide()
