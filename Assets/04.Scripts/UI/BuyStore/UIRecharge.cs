@@ -18,6 +18,7 @@ public struct TBuyFromShop {
 	public int Money;
 	public int Power;
 	public TDailyCount DailyCount;
+	public TTeamRecord LifetimeRecord;
 }
 
 public struct TItemRecharge {
@@ -437,6 +438,7 @@ public class UIRecharge : UIBase {
 			GameData.Team.Money = result.Money;
 			GameData.Team.Power = result.Power;
 			GameData.Team.DailyCount = result.DailyCount;
+			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 
 
 			UIMainLobby.Get.UpdateUI();

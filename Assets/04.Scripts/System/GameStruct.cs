@@ -409,6 +409,13 @@ namespace GameStruct
         public int OccupyWin;
         public int OccupyKeepWin;
 
+		public int SkillEvolution;
+		public int SkillReinforce;
+
+		public int BuyStaminaQuantity;
+		public int BuyDiamondQuantity;
+		public int BuyCoinQuantity;
+
         public bool NeedForSync(ref TTeamRecord newRecord) {
             if (/*newRecord.TotalAddDiamond != TotalAddDiamond ||
                 newRecord.TotalDelDiamond != TotalDelDiamond ||
@@ -437,7 +444,12 @@ namespace GameStruct
                 newRecord.SubTextKeepWin != SubTextKeepWin ||
                 newRecord.OccupyCount != OccupyCount ||
                 newRecord.OccupyWin != OccupyWin ||
-                newRecord.OccupyKeepWin != OccupyKeepWin)
+                newRecord.OccupyKeepWin != OccupyKeepWin ||
+				newRecord.SkillEvolution != SkillEvolution ||
+				newRecord.SkillReinforce != SkillReinforce ||
+				newRecord.BuyCoinQuantity != BuyCoinQuantity ||
+				newRecord.BuyDiamondQuantity != BuyDiamondQuantity ||
+				newRecord.BuyDiamondQuantity != BuyDiamondQuantity)
                 return true;
             else
                 return false;

@@ -7,6 +7,7 @@ public struct TReinforceCallBack {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerSkillCards;
 	public int Money;
+	public TTeamRecord LifetimeRecord;
 }
 
 //LeftView
@@ -917,6 +918,7 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.InitSkillCardCount();
+			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
 

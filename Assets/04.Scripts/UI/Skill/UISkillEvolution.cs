@@ -8,6 +8,7 @@ public struct TEvolution {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerSkillCards;
 	public TMaterialItem[] MaterialItems;
+	public TTeamRecord LifetimeRecord;
 }
 
 public struct TSkillCardValue {
@@ -422,6 +423,7 @@ public class UISkillEvolution : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;
+			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
