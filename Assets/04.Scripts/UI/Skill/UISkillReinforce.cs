@@ -482,7 +482,7 @@ public class UISkillReinforce : UIBase {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				TPassiveSkillCard obj = null;
 				obj = addItem(i, index, GameData.Team.SkillCards[i]);
-				if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.Team.SkillCards[i].ID > 100 && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
+				if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
 					passiveSkillCards.Add(obj.Name, obj);
 					index ++ ;
 				} else
@@ -616,9 +616,9 @@ public class UISkillReinforce : UIBase {
 		}
 	}
 
-	private void addUpgradeMoney (TSkill skill) {
-		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			reinforceMoney += GameData.DSkillData[skill.ID].GetUpgradeMoney(skill.Lv);
+	private void addUpgradeMoney () {
+		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
+			reinforceMoney += GameData.DSkillData[mSkill.ID].GetUpgradeMoney(mSkill.Lv);
 			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
@@ -635,9 +635,9 @@ public class UISkillReinforce : UIBase {
 		}
 	}
 
-	private void minusUpgradeMoney (TSkill skill) {
-		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			reinforceMoney -= GameData.DSkillData[skill.ID].GetUpgradeMoney(skill.Lv);
+	private void minusUpgradeMoney () {
+		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
+			reinforceMoney -= GameData.DSkillData[mSkill.ID].GetUpgradeMoney(mSkill.Lv);
 			if(CheckMoney(reinforceMoney))
 				labelPrice.color = Color.white;
 			else
@@ -674,14 +674,14 @@ public class UISkillReinforce : UIBase {
 						passiveSkillCards[go.name].ChooseReinforce(false);
 						reinforceItems.Remove(go.name);
 						reinforceCards.Remove(passiveSkillCards[go.name]);
-						minusUpgradeMoney(passiveSkillCards[go.name].Skill);
+						minusUpgradeMoney();
 						minusUpgradeView(passiveSkillCards[go.name].Skill);
 					} else {
 						materialSlots[reinforceItems.Count].ShowInput();
 						reinforceItems.Add(go.name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[go.name].Skill));
 						reinforceCards.Add(passiveSkillCards[go.name]);
 						passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
-						addUpgradeMoney(passiveSkillCards[go.name].Skill);
+						addUpgradeMoney();
 						addUpgradeView(passiveSkillCards[go.name].Skill);
 					}
 				} else {
@@ -690,7 +690,7 @@ public class UISkillReinforce : UIBase {
 						passiveSkillCards[go.name].ChooseReinforce(false);
 						reinforceItems.Remove(go.name);
 						reinforceCards.Remove(passiveSkillCards[go.name]);
-						minusUpgradeMoney(passiveSkillCards[go.name].Skill);
+						minusUpgradeMoney();
 						minusUpgradeView(passiveSkillCards[go.name].Skill);
 					} 
 				}

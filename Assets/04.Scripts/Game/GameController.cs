@@ -2029,7 +2029,8 @@ public class GameController : KnightSingleton<GameController>
 	//Call Form UIGame
 	public bool DoPass(int playerid) {
 		if (IsStart && BallOwner && Joysticker && BallOwner.Team == 0 && CandoBtn && 
-			playerid < PlayerList.Count && (!Shooter || IsCanPassAir)) {
+			playerid < PlayerList.Count && (!Shooter || IsCanPassAir) && 
+			!BallOwner.IsElbow && !BallOwner.IsPass) {
 			return Pass(PlayerList [playerid], false, true);
 		}
 

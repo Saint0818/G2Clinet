@@ -314,5 +314,9 @@ public class UISkillInfo : UIBase {
 	public TUICard MyUICard{
 		get{return mUICard;}
 	}
+
+	public bool IsEquip {
+		get {return isAlreadyEquip;}
+	}
 }
 

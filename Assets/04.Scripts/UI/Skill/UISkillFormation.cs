@@ -434,8 +434,7 @@ public class UISkillFormation : UIBase {
 		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				GameObject obj = null;
-				if(GameData.Team.SkillCards[i].ID > 100 && 
-				   GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && 
+				if(GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && 
 					!isSkillCardInOtherPlayer(GameData.Team.SkillCards[i].SN)) {
 					index ++;
 					obj = addUICards(i,
@@ -1396,16 +1395,16 @@ public class UISkillFormation : UIBase {
 				} else {
 					isReinforce = false;
 					if(UISkillInfo.Visible) {
-						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-						UISkillReinforce.Get.Show( skill,  infoIndex, isAlreadyEquip);
+//						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+						UISkillReinforce.Get.Show( UISkillInfo.Get.MyUICard.skillCard.Skill,  UISkillInfo.Get.MyUICard.CardIndex,  UISkillInfo.Get.IsEquip);
 						UISkillInfo.UIShow(false);
 					}
 				}
 			} else {
 				isEvolution = false;
 				if(UISkillInfo.Visible) {
-					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-					UISkillEvolution.Get.Show( infoIndex, skill, isAlreadyEquip);
+//					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
+					UISkillEvolution.Get.Show( UISkillInfo.Get.MyUICard.CardIndex, UISkillInfo.Get.MyUICard.skillCard.Skill, UISkillInfo.Get.IsEquip);
 					UISkillInfo.UIShow(false);
 				}
 			}
