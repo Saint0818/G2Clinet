@@ -57,6 +57,7 @@ public class FileManager : KnightSingleton<FileManager>
     public const VersionMode NowMode = VersionMode.Release;
     #else
     public const string URL = "http://52.68.61.220:3500/";
+    //public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 
