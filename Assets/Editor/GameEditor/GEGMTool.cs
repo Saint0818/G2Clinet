@@ -678,6 +678,7 @@ public class GEGMTool : GEBase
     {
         nextMainStageIDLabel();
         resetStageChallengeNums();
+        resetInstanceIDs();
     }
 
     private void nextMainStageIDLabel()
@@ -728,6 +729,32 @@ public class GEGMTool : GEBase
         {
             GameData.Team.Player.DailyStageChallengeNums.Clear();
             updateUIMainStage();
+            updateUIInstance();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+    }
+
+    private void resetInstanceIDs()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("副本進度: ");
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            SendHttp.Get.Command(URLConst.GMResetInstanceIDs, waitGMResetStage, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMResetInstanceIDs(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMResetStage, ok:{0}", ok);
+
+        if(ok)
+        {
+            if(GameData.Team.Player.NextInstanceIDs != null)
+                GameData.Team.Player.NextInstanceIDs.Clear();
             updateUIInstance();
         }
         else
