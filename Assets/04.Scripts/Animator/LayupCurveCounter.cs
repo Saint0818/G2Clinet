@@ -24,7 +24,7 @@ public class LayupCurveCounter
     }
 
     private EAnimatorState state = EAnimatorState.Layup;
-    private bool isShootJumpActive = false;
+//    private bool isShootJumpActive = false;
     private Vector3 layupPoint;
 
     public void Init(int index, GameObject player, Vector3 layuppoint)

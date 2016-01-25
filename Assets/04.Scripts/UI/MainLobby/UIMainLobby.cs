@@ -94,7 +94,7 @@ public class UIMainLobby : UIBase
 
         Main.EquipmentNotice = false;
         Main.AvatarNotice = false;
-        Main.SkillNotice = false;
+		Main.SkillNotice = GameData.Team.IsSurplusCost;
         Main.SocialNotice = GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend;
         Main.ShopNotice = false;
         Main.MissionNotice = false;
@@ -124,7 +124,7 @@ public class UIMainLobby : UIBase
                     break;
                 case 5:
                     updateButton(Main.SkillButton, isEnable, isPlaySFX);
-                    Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
+//                    Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
                     break;
                 case 6: 
                     updateButton(Main.MissionButton, isEnable, isPlaySFX);

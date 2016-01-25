@@ -23,7 +23,7 @@ public class SharedCurveCounter
         set{ isplaying = value;}
     }
 
-    private EAnimatorState state = EAnimatorState.Pick;
+//    private EAnimatorState state = EAnimatorState.Pick;
 
 	public void Init(EAnimatorState state, int index,GameObject player)
     {

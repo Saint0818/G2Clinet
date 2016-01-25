@@ -59,7 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
     private int MoveTurn = 0;
     private float moveStartTime = 0;
     private float ProactiveTime = 0;
-    private int smoothDirection = 0;
+//    private int smoothDirection = 0;
     private float animationSpeed = 0;
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
@@ -138,8 +138,8 @@ public class PlayerBehaviour : MonoBehaviour
     public bool NeedShooting = false;
     
     //Layup
-    private bool isLayup = false;
-    private float layupCurveTime = 0;
+//    private bool isLayup = false;
+//    private float layupCurveTime = 0;
     private TLayupCurve playerLayupCurve;
         
     //Block
@@ -150,15 +150,15 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isDunkBlock;
 
     //Rebound
-    private bool isRebound = false;
-    private float reboundCurveTime = 0;
+//    private bool isRebound = false;
+//    private float reboundCurveTime = 0;
     private Vector3 reboundMove;
     private TReboundCurve playerReboundCurve;
 
     //Shooting
-    private float shootJumpCurveTime = 0;
+//    private float shootJumpCurveTime = 0;
     private TShootCurve playerShootCurve;
-    private bool isShootJump = false;
+//    private bool isShootJump = false;
     private bool isShootJumpActive = false;
 //For Active
     private bool isFakeShoot = false;
@@ -171,13 +171,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Steal
     private bool isSteal = false;
-    private float stealCurveTime = 0;
+//    private float stealCurveTime = 0;
     private TStealCurve playerStealCurve;
     public bool IsStealCalculate = false;
 
     //Pick
-    private bool isPick = false;
-    private float pickCurveTime = 0;
+//    private bool isPick = false;
+//    private float pickCurveTime = 0;
     private TSharedCurve playerPickCurve;
 
     //Skill
@@ -535,7 +535,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         }
 
-        if (IsAllShoot || IsRebound || IsSteal || IsFall)
+		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock)
         {
             timeScale = TimerMgr.Get.GetTime(TimerKind);
             AnimatorControl.TimeScale = timeScale;
@@ -1320,10 +1320,10 @@ public class PlayerBehaviour : MonoBehaviour
         angerValue = 0;
         AnimatorControl.Reset();
         isBlock = false;
-        isLayup = false;
+//        isLayup = false;
         isCanBlock = false;
-        isRebound = false;
-        isShootJump = false;
+//        isRebound = false;
+//        isShootJump = false;
         isShootJumpActive = false;
         isSkillShow = false;
         animatorEvent.floatParameter = 1;
@@ -1611,10 +1611,10 @@ public class PlayerBehaviour : MonoBehaviour
         UseGravity = false;
         IsKinematic = true;
         
-       
-            
         AnimatorControl.AddTrigger(EAnimatorState.Block, stateNo);
-        isCanCatchBall = false;
+		isCanCatchBall = false;
+		if(stateNo >= 20)
+			isBlock = true;
         GameRecord.BlockLaunch++;
     }
 
@@ -1747,7 +1747,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         SetShooterLayer();
         
-        isShootJump = false;
+//        isShootJump = false;
         AnimatorControl.AddTrigger(EAnimatorState.KnockDown, stateNo);
         isCanCatchBall = false;
     }
@@ -1758,7 +1758,7 @@ public class PlayerBehaviour : MonoBehaviour
         AnimatorControl.InitFallCurve(stateNo);
         AnimatorControl.Reset(EAnimatorState.Dunk);
 //        IsAnimatorMove = false;
-        isShootJump = false;
+//        isShootJump = false;
         AnimatorControl.AddTrigger(EAnimatorState.Fall, stateNo);
         isCanCatchBall = false;
         PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
@@ -2360,7 +2360,7 @@ public class PlayerBehaviour : MonoBehaviour
         UseGravity = true;
         IsKinematic = false;
         IsPerfectBlockCatch = false;
-        isRebound = false;
+//        isRebound = false;
         blockCatchTrigger.enabled = false;
 		
         if (NeedResetFlag)
@@ -2583,7 +2583,7 @@ public class PlayerBehaviour : MonoBehaviour
                     switch (skillEffectKind)
                     {
                         case 0://show self and rotate camera
-                            Invoke("showActiveEffect", skillTime);
+							Invoke("showEffect", skillTime);
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
                             animatorEvent.floatParameter = 0;
                             animatorEvent.intParameter = 0;
@@ -2641,6 +2641,10 @@ public class PlayerBehaviour : MonoBehaviour
         animatorEvent.intParameter = 1;
         TimeScale(animatorEvent); 
     }
+
+	public void showEffect() {
+		SkillEffectManager.Get.OnShowEffect(this, false);
+	}
 
 	public void showActiveEffect(int no=20)
     {

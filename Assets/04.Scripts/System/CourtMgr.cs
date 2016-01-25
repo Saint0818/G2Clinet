@@ -885,7 +885,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void BlockRealBall (Vector3 vec){
 		RealBallRigidbody.velocity = Vector3.zero;
-		RealBallRigidbody.AddForce(vec * 100, ForceMode.Impulse);
+		RealBallRigidbody.AddForce(vec * 40, ForceMode.Impulse);
 	}
 
 	public void ResetBasketEntra() {

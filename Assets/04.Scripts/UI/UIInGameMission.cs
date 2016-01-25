@@ -119,12 +119,14 @@ public class UIInGameMission : UIBase {
 		hintIndex = 0;
 		if(missionDic.ContainsKey(1) && !missionDic[1].IsFinish) {
 			int score = UIGame.Get.Scores[ETeamKind.Self.GetHashCode()];
-			isFin = (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] > UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]);
+//			isFin = (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] > UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]);
+			isFin = false;
 			if(hintBits[1] == 2){
 				isFin = (score >= stageData.Bit1Num);
 			} else if(hintBits[1] == 3){
-				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
-				isFin = (score < stageData.Bit1Num);
+//				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
+//				isFin = (score < stageData.Bit1Num);
+				isFin = false;
 			} else if(hintBits[1] == 4){
 				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				isFin = (score >= stageData.Bit1Num);

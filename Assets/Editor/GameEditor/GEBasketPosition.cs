@@ -132,10 +132,10 @@ public class GEBasketPosition : GEBase {
 			basketShootPositionSaveData[index].ShootPositionZ = btsp.Value.z;
 		}
 		isSave = true;
-		SaveFile(FileName, JsonConvert.SerializeObject(basketShootPositionSaveData));
+		SaveBasketFile(FileName, JsonConvert.SerializeObject(basketShootPositionSaveData));
 	}
 
-	public void SaveFile(string fileName, string Data){
+	public void SaveBasketFile(string fileName, string Data){
 		if (File.Exists(fileName))
 			File.WriteAllText(fileName, string.Empty);
 		

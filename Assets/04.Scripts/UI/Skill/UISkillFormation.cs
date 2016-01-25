@@ -180,7 +180,7 @@ public class UISkillFormation : UIBase {
 	private UIToggle[] toggleDecks = new UIToggle[5];
 
 	private int costSpace = 0;
-	private int costSpaceMax = 20;
+	private int costSpaceMax = GameConst.Max_CostSpace;
 	private int activeFieldLimit = 3;
 	private int eCondition;
 	private int eFilter;

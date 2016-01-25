@@ -1175,8 +1175,6 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(true);
 
 			if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer) {
-//                gameJoystick.visible = true;
-//				gameJoystick.activated = true;
 				showGameJoystick(true);
 			}
 
@@ -1221,6 +1219,7 @@ public class UIGame : UIBase {
 			
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
 				UIGamePause.UIShow(false);
+				initJoystickPos ();
 			}
 			break;
 		case EUISituation.Finish:
@@ -1229,7 +1228,8 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(false);
 			viewTopLeft.SetActive(false);
 
-			showGameJoystick(false);
+//			showGameJoystick(false);
+			gameJoystick.gameObject.SetActive(false);
 			showViewForceBar(false);
 			GameController.Get.IsStart = false;
 

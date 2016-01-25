@@ -24,7 +24,7 @@ public class JumpBallCurveCounter
 
     private EAnimatorState state = EAnimatorState.JumpBall;
     private Vector3 reboundMove;
-    private bool isJumpBall = false;
+//    private bool isJumpBall = false;
 
     public void Init(GameObject player, int index, Vector3 reboundmove)
     {

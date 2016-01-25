@@ -456,6 +456,21 @@ namespace GameStruct
             return false;
         }
 
+		public bool IsSurplusCost {
+			get {
+				int surplus = GameConst.Max_CostSpace - Player.GetSkillCost;
+				if(SkillCards != null) {
+					for(int i=0; i<SkillCards.Length; i++) {
+						if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
+							if(GameData.DSkillData[SkillCards[i].ID].Space(SkillCards[i].Lv) <= surplus)	
+								return true;
+						}
+					}
+				}
+				return false;
+			}
+		}
+
 		public void InitSkillCardCount () {
 			if(SkillCardCounts == null)
 				SkillCardCounts = new Dictionary<int, int>();

@@ -42,6 +42,7 @@ namespace GameStruct
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
 		public int SkillCardMax;
+		public int SkillCost;
         public int NowStageID;
         public int HeadTextureNo;
         public int FriendKind;
@@ -133,6 +134,7 @@ namespace GameStruct
             AISkillLv = 0;
             SkillPage = 0;
 			SkillCardMax = 10;
+			SkillCost = 0;
             NowStageID = 0;
             Exp = 0;
             HeadTextureNo = -1;
@@ -439,6 +441,22 @@ namespace GameStruct
                 }
             }
         }
+
+		public int GetSkillCost {
+			get {
+				int cost = 0;
+				if(SkillCards != null) {
+					for (int i=0; i<SkillCards.Length; i++) {
+						if(GameData.DSkillData.ContainsKey(SkillCards[i].ID))
+							cost += GameData.DSkillData[SkillCards[i].ID].Space(SkillCards[i].Lv);
+					}
+				}
+				return cost;
+			}
+			set {SkillCost = value;}
+		}
+
+
 
         public int GetSkillCount (int skillID) {
             int count = 0;

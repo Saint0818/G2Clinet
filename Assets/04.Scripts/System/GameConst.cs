@@ -10,6 +10,7 @@
 	public const int Max_Power = 20;
 	public const int Default_MainStageID = 101;
 	public const int Max_ActiveSkill = 3;
+	public const int Max_CostSpace = 20;
 
 	public static int PotentialCount = 6;
 	public static int PreLvPotential = 10;

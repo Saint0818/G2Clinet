@@ -273,7 +273,7 @@ public class UIRecharge : UIBase {
 				if(GameData.DShops[i].Kind == 0)
 					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
 				else if(GameData.DShops[i].Kind == 1) 
-					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyPower));
+					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
 			} else if(GameData.DShops[i].Kind == 1) {
 				if(GameData.DShops[i].Order >= BuyStaminaLen) {
 					Debug.LogError("Order is Wrong. Kind = " + GameData.DShops[i].Kind );
@@ -284,7 +284,7 @@ public class UIRecharge : UIBase {
 				if(GameData.DShops[i].Kind == 0)
 					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
 				else if(GameData.DShops[i].Kind == 1) 
-					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyPower));
+					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
 			}
 
 		}
@@ -330,7 +330,7 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public void OnBuyPower () {
+	public void OnPower () {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			if(result >= 0 && result < kindBuyStamina.Length) {

@@ -556,7 +556,7 @@ public class UIGameResult : UIBase {
 
 	private void showLuckyThree () {
 		showThree ();
-		Invoke("show3DBasket", 0.5f);
+		Invoke("show3DBasket", 1.5f);
 	}
 
 	private void show3DBasket () {

@@ -18,7 +18,7 @@ public struct TDoubleClick
 	private UISprite runSprite;
 //	private UISprite targetSprite;
 	public float CrtValue;
-	private float CheckValue;
+//	private float CheckValue;
 	private bool isInit;
 	
 	private IntDelegate finsh;
@@ -153,7 +153,7 @@ public struct TDoubleClick
 	{
 		if (Enable) {
 			IsStart = false;
-			CheckValue = CrtValue;
+//			CheckValue = CrtValue;
 			CrtValue = 800;
 			CheckLv ();
 		}

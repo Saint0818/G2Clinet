@@ -26,7 +26,7 @@ public class ReboundCurveCounter
     private Vector3 skillMoveTarget;
     private float BodyHeight;
     private Vector3 reboundMove;
-    private bool isJumpBall = false;
+//    private bool isJumpBall = false;
 
     public void Init(GameObject player, int index, Vector3 skillmovetarget, float bodyHeight, Vector3 reboundmove)
     {

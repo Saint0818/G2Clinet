@@ -70,7 +70,8 @@ using System.Reflection;
 
         public void StateMachineUpdate()
         {
-            int stateId = _animator.GetCurrentAnimatorStateInfo(0).nameHash;
+//            int stateId = _animator.GetCurrentAnimatorStateInfo(0).nameHash;
+			int stateId = _animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
             if (_lastState != stateId)
             {
                 if (stateHashToExitMethod.Contains(_lastState))
