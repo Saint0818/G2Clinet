@@ -62,11 +62,18 @@
         "kind": 1,
         "spendkind": 0,
         "price": 240,
-        "limit": [240],
+        "limit": [200],
         "sale": 1,
         "itemid": 93404,
         "pic": 2,
         "order": 1
+    },
+    {
+        "kind": 2,
+        "spendkind": 0,
+        "price": 100,
+        "limit": [100,150,200,300,400,550,700,900,1100,1350,1600,1900,2200,2350,2700],
+        "itemid": 93501
     },
     {
         "kind": 10,
@@ -96,7 +103,8 @@
         "sale": 1,
         "itemid": 6004,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 10
     },
     {
         "kind": 10,
@@ -106,7 +114,8 @@
         "sale": 2,
         "itemid": 6005,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 15
     },
     {
         "kind": 10,
@@ -116,7 +125,8 @@
         "sale": 2,
         "itemid": 6006,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 20
     },
     {
         "kind": 10,
@@ -126,7 +136,8 @@
         "sale": 2,
         "itemid": 6007,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 30
     },
     {
         "kind": 10,
@@ -136,7 +147,8 @@
         "sale": 2,
         "itemid": 6009,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 40
     },
     {
         "kind": 10,
@@ -146,7 +158,8 @@
         "sale": 2,
         "itemid": 7004,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 55
     },
     {
         "kind": 10,
@@ -156,7 +169,8 @@
         "sale": 2,
         "itemid": 7005,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 70
     },
     {
         "kind": 10,
@@ -166,7 +180,8 @@
         "sale": 2,
         "itemid": 7006,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 90
     },
     {
         "kind": 10,
@@ -176,7 +191,8 @@
         "sale": 2,
         "itemid": 7007,
         "num": 1,
-        "rate": 8
+        "rate": 8,
+        "pic": 110
     },
     {
         "kind": 10,
