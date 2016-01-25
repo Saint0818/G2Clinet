@@ -120,8 +120,10 @@ public class UIGetSkillCard : UIBase {
 	}
 
 	public void OnClose (GameObject go) {
-		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
+		if(UIGameResult.Visible) { 
 			UIGameResult.Get.ShowBonusItem();
+			UIGameResult.Get.ShowReturnButton();
+		}
 		
 		if(UIBuyStore.Visible)
 			UIBuyStore.Get.Gohead();

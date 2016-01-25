@@ -524,7 +524,7 @@ public class UIGameResult : UIBase {
 			if(isHaveBonus)
 				moveBonusItem ();
 			else 
-				showReturnButton();
+				ShowReturnButton();
 		}
 	}
 
@@ -539,7 +539,7 @@ public class UIGameResult : UIBase {
 		if(isHaveBonus)
 			Invoke("showLuckyThree", 0.5f);
 		else 
-			showReturnButton ();
+			ShowReturnButton ();
 	}
 
 	private void showLuckyThree () {
@@ -558,7 +558,7 @@ public class UIGameResult : UIBase {
 		isCanChooseLucky = true;
 	}
 
-	private void showReturnButton () {
+	public void ShowReturnButton () {
 		isChooseLucky = true;
 		uiAwardSkip.SetActive(true);
 	}
