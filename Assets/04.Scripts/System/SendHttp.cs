@@ -81,6 +81,7 @@ public static class URLConst {
     public const string PVPGetEnemy = "pvpgetenemy";
     public const string PVPMyRank = "pvpmyrank";
     public const string PVPAward = "pvpaward";
+    public const string PVPBuyTicket = "pvpbuyticket";
 
 	public const string MatchRank = "matchrank";
 	public const string MatchAward = "matchaward";

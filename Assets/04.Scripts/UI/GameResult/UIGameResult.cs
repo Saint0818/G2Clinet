@@ -208,7 +208,7 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnNext (GameObject go) {
-		if (GameController.Visible && GameController.Get.IsPVP) {
+		if (GameController.Visible && GameData.IsPVP) {
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             GameData.PVPEnemyMembers[0].Identifier = string.Empty;
 		}
@@ -315,7 +315,7 @@ public class UIGameResult : UIBase {
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 
-		if (GameController.Get.IsPVP) {
+		if (GameData.IsPVP) {
 			SendPVPEnd (record.Score1, record.Score2);			
 		} else {
 			stageRewardStart(GameData.StageID);

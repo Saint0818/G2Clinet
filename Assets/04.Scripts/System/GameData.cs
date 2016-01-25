@@ -526,4 +526,18 @@ public static class GameData
                 return "http://nicemarket.com.tw/g2announcement";
         }
     }
+
+	public static bool IsPVP
+	{
+		get{ 
+			foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData) 
+			{
+				if (StageID == item.Value.Stage) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 }

@@ -1447,7 +1447,8 @@ namespace GameStruct
 
     public struct TPVPStart
     {
-        public bool CanBattle;
+		public int PVPTicket;
+		public DateTime PVPCD;
     }
 
 	public struct TPVPResult

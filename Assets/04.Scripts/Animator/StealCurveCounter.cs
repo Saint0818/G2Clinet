@@ -22,7 +22,7 @@ public class StealCurveCounter
         get{ return isplaying; }
     }
 
-    private EAnimatorState state = EAnimatorState.Pick;
+    private EAnimatorState state = EAnimatorState.Steal;
 
     public void Init(int index, GameObject player)
     {

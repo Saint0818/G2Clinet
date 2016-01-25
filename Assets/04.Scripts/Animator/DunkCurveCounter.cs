@@ -2,7 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 
-public class DunkCurveCounter : MonoBehaviour
+public class DunkCurveCounter
 {
     private EAnimatorState state = EAnimatorState.Dunk;
     private string curveName;
@@ -60,7 +60,7 @@ public class DunkCurveCounter : MonoBehaviour
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         CalculationDunkMove();
     }

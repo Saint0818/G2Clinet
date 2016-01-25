@@ -8,7 +8,7 @@ public class AnimatorBehavior : MonoBehaviour
     public int StateNo = -1;
 
     private BlockCurveCounter blockCurveCounter = new BlockCurveCounter();
-	private DunkCurveCounter dunkCurveCounter;
+	private DunkCurveCounter dunkCurveCounter = new DunkCurveCounter();
     private SharedCurveCounter fallCurveCounter = new SharedCurveCounter();
     private SharedCurveCounter pushCurveCounter = new SharedCurveCounter();
     private SharedCurveCounter pickCurveCounter = new SharedCurveCounter();
@@ -22,8 +22,8 @@ public class AnimatorBehavior : MonoBehaviour
     public void Init(Animator ani)
     {
         Controler = ani;
-		if (dunkCurveCounter == null) 
-			dunkCurveCounter = gameObject.AddComponent<DunkCurveCounter> ();
+//		if (dunkCurveCounter == null) 
+//			dunkCurveCounter = gameObject.AddComponent<DunkCurveCounter> ();
     }
 
     public void AddTrigger(EAnimatorState state, int stateNo)
@@ -245,6 +245,7 @@ public class AnimatorBehavior : MonoBehaviour
         fallCurveCounter.FixedUpdate();
         pickCurveCounter.FixedUpdate();
         stealCurveCounter.FixedUpdate();
+		dunkCurveCounter.FixedUpdate ();
     }
 
     private float timescale = 1;
@@ -254,10 +255,7 @@ public class AnimatorBehavior : MonoBehaviour
         set{
             timescale = value;
             blockCurveCounter.Timer = timescale; 
-
-			if(dunkCurveCounter)
-           		dunkCurveCounter.Timer = timescale; 
-						
+           	dunkCurveCounter.Timer = timescale; 		
             shootCurveCounter.Timer = timescale;   
             reboundCurveCounter.Timer = timescale;   
             layupCurveCounter.Timer = timescale;   

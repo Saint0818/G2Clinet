@@ -20,6 +20,7 @@ namespace GameStruct
         public DateTime SocialEventTime;
         public DateTime WatchFriendsTime;
         public DateTime FreeLuckBox;
+		public DateTime PVPCD;
 		public DateTime[] LotteryFreeTime;
 
         public int PlayerNum; // 玩家擁有幾位角色.
@@ -61,6 +62,7 @@ namespace GameStruct
         public int PVPIntegral;
 		public int PVPDailyReaward;
         public int PVPEnemyIntegral;
+		public int PVPTicket;
         public string LeagueName;
         public int LeagueIcon;
 
