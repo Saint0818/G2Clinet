@@ -23,7 +23,6 @@ public class UI3DBuyStore :  UIBase {
 				instance.Show(isShow);
 		} else
 			if (isShow) {
-				UI3D.UIShow(true);
 				Get.Show(isShow);
 			}
 	}

@@ -22,8 +22,7 @@ public class UILoading : UIBase
     private UILabel labelStageTitle;
     private UILabel labelStageExplain;
     private UILabel labelTip;
-    private GameObject[] pageOn = new GameObject[3];
-    private GameObject[] viewLoading = new GameObject[3];
+
     private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
     private UIStageHintTarget[] stageTargets;
     private TActiveSkillCard skillCard = new TActiveSkillCard();
@@ -125,6 +124,12 @@ public class UILoading : UIBase
                     UIAnnouncement.UIShow(true);
             }
         }
+    }
+
+    public void OnStageStart() {
+        UIShow(false);
+        if (GameController.Visible)
+            GameController.Get.StageStart();
     }
 
     public static void UIShow(bool isShow, ELoading kind = ELoading.SelectRole)
@@ -261,6 +266,7 @@ public class UILoading : UIBase
 
     protected override void InitCom()
     {
+        SetBtnFun(UIName + "/StageInfo/Right/Next", OnStageStart);
         uiAbilityDisc = GameObject.Find(UIName + "/ShowAbilityDisc");
         uiSkillDisk = GameObject.Find(UIName + "/ShowAbilityDisc/SkillCard");
         loadingPic = GameObject.Find(UIName + "/LoadingPic");
@@ -316,8 +322,8 @@ public class UILoading : UIBase
                 UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                 ProgressValue = 0.7f;
 
-                waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
-                yield return new WaitForSeconds(waitTime);
+                //waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
+                yield return new WaitForSeconds(3);
 
                 UIShow(false);
 
@@ -325,10 +331,6 @@ public class UILoading : UIBase
             case ELoading.Lobby:
                 ProgressValue = 1;
                 UIMainLobby.Get.Show();
-
-                if (UI3D.Visible)
-                    UI3D.Get.ShowCamera(false);
-
                 AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 			
                 if (UITutorial.Visible)
@@ -376,16 +378,16 @@ public class UILoading : UIBase
                     CameraMgr.Get.ShowPlayerInfoCamera(true);
                 }
 
-                yield return new WaitForSeconds(0.2f);
+                //yield return new WaitForSeconds(0.2f);
 
-                UIShow(false);
-			//buttonNext.SetActive(true);
-			//loadingPic.SetActive(false);
+                //UIShow(false);
+			    buttonNext.SetActive(true);
+			    loadingPic.SetActive(false);
 
                 break;
             case ELoading.Stage:
                 ProgressValue = 1;
-                loadStage();
+                UISelectRole.Get.LoadStage(GameData.StageID);
                 break;
         }
 
@@ -423,27 +425,10 @@ public class UILoading : UIBase
 
     private void loadSelectRole()
     {
-        CameraMgr.Get.SetSelectRoleCamera();
         UISelectRole.UIShow(true);
         UI3DSelectRole.UIShow(true);
 
         UIShow(false);
-    }
-
-    private void loadStage()
-    {
-        UISelectRole.Get.InitFriend();
-    }
-
-    private void showPage(int page)
-    {
-        uiBG.mainTexture = loadTexture("Textures/LoadingPic/Loading" + (page + 1).ToString());
-        for (int i = 0; i < viewLoading.Length; i++)
-        {
-            bool show = (i == page) ? true : false;
-            viewLoading[i].SetActive(show); 
-            pageOn[i].SetActive(show);
-        }
     }
 
     public float ProgressValue

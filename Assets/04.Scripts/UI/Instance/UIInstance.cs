@@ -63,8 +63,9 @@ public class UIInstance : UIBase
 
     private void enterSelectRole(int stageID)
     {
-        GameData.StageID = stageID;
-        SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+        //GameData.StageID = stageID;
+        //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+        UISelectRole.Get.LoadStage(stageID);
         Hide();
     }
 

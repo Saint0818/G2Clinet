@@ -290,7 +290,7 @@ public class UISelectPartner : UIBase {
 
         item.Item.transform.parent = partnerScrollView[page].gameObject.transform;
         item.Item.transform.localScale = Vector3.one;
-        item.Item.transform.localPosition = new Vector3(0, 110 - index * 160, 0);
+        item.Item.transform.localPosition = new Vector3(0, index * -160, 0);
 
         memberList[page].Add(item);
 	}

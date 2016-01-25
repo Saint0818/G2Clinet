@@ -319,14 +319,16 @@ public class GameController : KnightSingleton<GameController>
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
 		CameraMgr.Get.SetCourtCamera (ESceneName.Court + StageData.CourtNo.ToString());
-		InitGame();
-		
-		if (GameStart.Get.TestMode == EGameTest.None && GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(id)) 
-			GamePlayTutorial.Get.SetTutorialData(id);
-
-		if (Situation == EGameSituation.None)
-			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+		InitGame();	
 	}
+
+    public void StageStart() {
+        if (GameStart.Get.TestMode == EGameTest.None && GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
+            GamePlayTutorial.Get.SetTutorialData(StageData.ID);
+
+        if (Situation == EGameSituation.None)
+            CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+    }
 
 	public void StartGame(bool jumpBall=true) {
 		IsReset = false;

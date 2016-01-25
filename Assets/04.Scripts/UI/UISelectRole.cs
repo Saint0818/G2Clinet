@@ -12,8 +12,7 @@ public enum EUIRoleSituation {
 	SelectRole = 3,
 	ChooseRole = 5,
 	BackToSelectMe = 6,
-	Start = 7,
-	BackToMode = 8
+	Start = 7
 }
 
 public class UISelectRole : UIBase {
@@ -141,6 +140,9 @@ public class UISelectRole : UIBase {
 		} else
 		if (isShow)
 			Get.Show(isShow);
+
+        if (!isShow)
+            UI3DSelectRole.UIShow(false);
 	}
 	
 	void FixedUpdate(){
@@ -442,8 +444,10 @@ public class UISelectRole : UIBase {
                 if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
                     UILoading.OpenUI = UILoading.OpenStageUI;
 				    SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                } else
+                } else {
+                    UIShow(false);
 					LobbyStart.Get.EnterLobby();
+                }
 			} else {
 				Invoke("showUITriangle", 1.25f);
 				Invoke("leftRightShow", 0.5f);
@@ -476,12 +480,6 @@ public class UISelectRole : UIBase {
 				changeRoleInfo ();
 			}
 			
-			break;
-		case EUIRoleSituation.BackToMode:
-			Destroy(playerInfoModel);
-			UIShow(false);
-			UI3D.Get.ShowCamera(false);
-			UIGameMode.UIShow (true);
 			break;
 		}
 	}
@@ -522,10 +520,6 @@ public class UISelectRole : UIBase {
 
 	public void DoListB(){
 		UIState(EUIRoleSituation.ListB);
-	}
-
-	public void DoBackToMode(){
-		UIState(EUIRoleSituation.BackToMode);
 	}
 
 	public void DoChooseRole() {
@@ -767,7 +761,12 @@ public class UISelectRole : UIBase {
         }
     }
 
-	public void InitFriend() {
+    public void LoadStage(int stageID) {
+        GameData.StageID = stageID;
+        UIMainLobby.Get.HideAll();
+        UI3DSelectRole.UIShow(true);
+        UIShow(true);
+
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
             if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime()) {
                 SendHttp.Get.FreshFriends(waitLookFriends, true);
@@ -783,9 +782,9 @@ public class UISelectRole : UIBase {
 	}
 
 	private void selectFriendMode() {
-		UILoading.UIShow(false);
-		UIShow(true);
-		UI3DSelectRole.UIShow(true);
+		//UILoading.UIShow(false);
+		//UIShow(true);
+		//UI3DSelectRole.UIShow(true);
 
 		uiCharacterCheck.SetActive(false);
 		uiInfoRange.SetActive(false);

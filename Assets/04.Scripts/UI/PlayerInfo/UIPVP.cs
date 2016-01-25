@@ -682,9 +682,10 @@ public class UIPVP : UIBase
        
         if (GameData.DPVPData.ContainsKey(lv))
         {
-            GameData.StageID = GameData.DPVPData[lv].Stage;
+            //GameData.StageID = GameData.DPVPData[lv].Stage;
+            UISelectRole.Get.LoadStage(GameData.DPVPData[lv].Stage);
         }
-        SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+        //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
     }
 
     //    public void WaitPVPStart(bool ok, WWW www)

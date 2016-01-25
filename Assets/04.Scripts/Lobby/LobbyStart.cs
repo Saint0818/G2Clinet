@@ -423,9 +423,6 @@ public class LobbyStart : MonoBehaviour {
         {
 			UILoading.UIShow(false);
 			UIMainLobby.Get.Show();
-
-			if (UI3D.Visible)
-				UI3D.Get.ShowCamera(false);
 		}
 		catch (Exception e)
 		{

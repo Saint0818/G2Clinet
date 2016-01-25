@@ -117,8 +117,8 @@ public class UIMainStage : UIBase
 //            debug.SendCommand(stageID);
 
             UIMainStageTools.Record(stageData.Chapter);
-            GameData.StageID = stageID;
-            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+            UISelectRole.Get.LoadStage(stageID);
+            //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
             Hide();
         }

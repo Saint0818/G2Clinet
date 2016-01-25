@@ -32,7 +32,6 @@ public class UI3DGameResult : UIBase {
 			instance.Show(isShow);
 		else {
 			if (isShow){
-				UI3D.UIShow(true);
 				Get.Show(isShow);
 			}
 		}

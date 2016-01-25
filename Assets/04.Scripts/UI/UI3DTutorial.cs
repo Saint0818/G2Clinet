@@ -30,8 +30,6 @@ public class UI3DTutorial : UIBase {
 	{
 		get {
 			if (!instance) {
-				UI3D.UIShow(true);
-				UI3D.Get.ShowCamera(false);
 				instance = Load3DUI(UIName) as UI3DTutorial;
 			}
 
