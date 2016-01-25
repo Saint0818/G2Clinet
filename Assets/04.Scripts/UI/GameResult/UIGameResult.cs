@@ -408,7 +408,7 @@ public class UIGameResult : UIBase {
 		if(isCanChooseLucky) {
 			chooseIndex = index;
 			if(chooseCount == 0) {
-				Invoke ("showReturnButton", 2);
+				Invoke ("ShowReturnButton", 2);
 				chooseItem (index);
 			} else {
 				PayChooseReward ();
