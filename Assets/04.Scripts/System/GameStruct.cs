@@ -1102,7 +1102,8 @@ namespace GameStruct
 		public int TalkR;
 		public int ActionL;
 		public int ActionR;
-		public string UIpath;
+		public string UIPath;
+        public string HintPath;
 		public string TextTW;
 		public string TextCN;
 		public string TextJP;

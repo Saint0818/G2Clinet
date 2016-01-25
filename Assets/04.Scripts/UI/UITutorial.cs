@@ -12,7 +12,7 @@ public class UITutorial : UIBase {
 	private int clickLayer;
 	private bool textFinish = false;
 
-	//private GameObject clickObject;
+    private GameObject uiHint;
 	private GameObject uiClick;
 	private GameObject uiCenter;
 	private GameObject uiBackground;
@@ -70,6 +70,7 @@ public class UITutorial : UIBase {
 		uiBackground = GameObject.Find(UIName + "/CenterBg");
 		uiCenter = GameObject.Find(UIName + "/Center");
 		uiClick = GameObject.Find(UIName + "/Hint/Click");
+        uiHint = GameObject.Find(UIName + "/Hint/Hint");
 		buttonClick = uiClick.GetComponent<UIButton>();
 		for (int i = 0; i < manNum; i++) {
 			uiTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString());
@@ -153,18 +154,23 @@ public class UITutorial : UIBase {
 				if (!Visible) {
 					UIShow(true);
 					GameFunction.FindTalkManID(id, ref talkManID);
-					//if (GameData.DTutorial[NowMessageIndex].Kind == 0) {
 					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
 						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
 						WWWForm form = new WWWForm();
 						form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
 						SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
 					}
-					//}
 				}
-				
+
+                uiHint.SetActive(false);
+
 				TTutorial tu = GameData.DTutorial[NowMessageIndex];
-				if (string.IsNullOrEmpty(tu.UIpath)) {
+                if (!string.IsNullOrEmpty(tu.UIPath))
+                    ShowNextStep(tu.UIPath, tu.Offsetx, tu.Offsety);
+                else
+                if (!string.IsNullOrEmpty(tu.HintPath))
+                    ShowHint(tu.HintPath, tu.Offsetx, tu.Offsety);
+                else {
 					uiCenter.SetActive(true);
 					uiBackground.SetActive(true);
 					uiClick.SetActive(false);
@@ -190,8 +196,7 @@ public class UITutorial : UIBase {
 					}
 					
 					StartCoroutine(showPlayer(tu));
-				} else
-					ShowHint(tu.UIpath, tu.Offsetx, tu.Offsety);
+				}
 			} else {
 				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
 				UIShow(false);
@@ -202,69 +207,82 @@ public class UITutorial : UIBase {
 		}
 	}
 
- 	public void ShowHint(string path, int offsetx, int offsety) {
+ 	public void ShowNextStep(string path, int offsetx, int offsety) {
 		try {
-		bool found = false;
-		GameObject obj = GameObject.Find(path);
-		if(obj) {
-			UI3DTutorial.UIShow(false);
-			uiCenter.SetActive(false);
-			uiBackground.SetActive(false);
-			uiClick.SetActive(true);
+    		bool found = false;
+    		GameObject obj = GameObject.Find(path);
+    		if(obj) {
+                UIScrollView sv = obj.GetComponent<UIScrollView>();
+                if (sv != null) {
+                    UIButton[] objs = obj.GetComponentsInChildren<UIButton>();
+                    if (objs != null && objs.Length > 0)
+                        obj = objs[0].gameObject;
+                }
 
-		    buttonClick.onClick.Clear();
-			UIButton btn = obj.GetComponent<UIButton>();
-			if (btn && btn.onClick.Count > 0) {
-				buttonClick.onClick.Add(btn.onClick[0]);
-				found = true;
-			} else {
-				UIEventListener el = obj.GetComponent<UIEventListener>();
-				if (el) {
-					if (el.onPress != null) {
-						UIEventListener.Get(buttonClick.gameObject).onPress = el.onPress;
-						found = true;
-					}
+                UI3DTutorial.UIShow(false);
+                uiCenter.SetActive(false);
+                uiBackground.SetActive(false);
+    			uiClick.SetActive(true);
 
-					if (el.onClick != null) {
-						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
-						found = true;
-					}
-				}
-			}
-		}
+    		    buttonClick.onClick.Clear();
+    			UIButton btn = obj.GetComponent<UIButton>();
+    			if (btn && btn.onClick.Count > 0) {
+    				buttonClick.onClick.Add(btn.onClick[0]);
+    				found = true;
+    			} else {
+    				UIEventListener el = obj.GetComponent<UIEventListener>();
+    				if (el) {
+    					if (el.onPress != null) {
+    						UIEventListener.Get(buttonClick.gameObject).onPress = el.onPress;
+    						found = true;
+    					}
 
-		if (found) {
-			buttonClick.onClick.Add(new EventDelegate(OnClickHint));
-			buttonClick.name = obj.name;
-			Vector3 v = obj.transform.position;
-			v.x += offsetx;
-			v.y += offsety;
-			uiClick.transform.position = v;
-		} else {
-			Debug.Log("Tutorial click event not found " + path);
-			UIShow(false);
-		}
+    					if (el.onClick != null) {
+    						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
+    						found = true;
+    					}
+    				}
+    			}
+    		}
+
+    		if (found) {
+    			buttonClick.onClick.Add(new EventDelegate(OnClickHint));
+    			buttonClick.name = obj.name;
+    			Vector3 v = obj.transform.position;
+    			v.x += offsetx;
+    			v.y += offsety;
+    			uiClick.transform.position = v;
+    		} else {
+    			Debug.Log("Tutorial click event not found " + path);
+    			UIShow(false);
+    		}
 		} catch (UnityException e) {
 			Debug.Log("Tutorial click error " + e.ToString());
 			UIShow(false);
 		}
-
-		//UIEventListener.Get(obj).onClick = ButtonClickClose;
-
-		//if (clickObject) {
-		//	clickObject.layer = clickLayer;
-		//}
-
-		//clickObject = obj;
-		//clickLayer = obj.layer;
-
-		//LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
-		//UIPanel Panel = obj.GetComponent<UIPanel>();
-		//if(Panel == null)
-		//	Panel = obj.AddComponent<UIPanel>();
-		
-		//Panel.depth = EUIDepth.TutorialButton.GetHashCode();
-		//obj.SetActive(false);
-		//obj.SetActive(true);
 	}
+
+    public void ShowHint(string path, int offsetx, int offsety) {
+        try {
+            bool found = false;
+            GameObject obj = GameObject.Find(path);
+            UIScrollView sv = obj.GetComponent<UIScrollView>();
+            if (sv != null) {
+                GameObject[] objs = obj.GetComponents<GameObject>();
+                if (objs != null && objs.Length > 0)
+                    obj = objs[0];
+            }
+
+            if(obj) {
+                Vector3 v = obj.transform.position;
+                v.x += offsetx;
+                v.y += offsety;
+                uiHint.SetActive(true);
+                uiHint.transform.position = v;
+            }
+        } catch (UnityException e) {
+            Debug.Log("Tutorial click error " + e.ToString());
+            UIShow(false);
+        }
+    }
 }

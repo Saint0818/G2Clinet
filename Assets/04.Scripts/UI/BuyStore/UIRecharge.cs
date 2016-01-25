@@ -304,14 +304,16 @@ public class UIRecharge : UIBase {
 	}
 
 	public void OnBuyDiamond () {
-
-		UIHint.Get.ShowHint(TextConst.S(502), Color.red);
-//		int result = -1;
-//		if(int.TryParse(UIButton.current.name, out result)) {
-//			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
-//				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
-//			}
-//		}
+        if (FileManager.NowMode == VersionMode.Release)
+		    UIHint.Get.ShowHint(TextConst.S(502), Color.red);
+        else {
+    		int result = -1;
+    		if(int.TryParse(UIButton.current.name, out result)) {
+    			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
+    				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
+    			}
+    		}
+        }
 	}
 
 	public void OnBuyCoin () {
