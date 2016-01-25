@@ -49,6 +49,8 @@ public class UIInstance : UIBase
 
     private void buildChapters()
     {
+        mMain.ClearAllChapters();
+
         List<ChapterData> allData = ChapterTable.Ins.GetAllInstance();
         foreach(ChapterData chapterData in allData)
         {

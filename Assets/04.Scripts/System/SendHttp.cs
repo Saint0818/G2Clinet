@@ -144,7 +144,8 @@ public static class URLConst {
     public const string GMSavePotential = "gmsavepotential";
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";
     public const string GMResetStage = "gmresetstage";
-    public const string GMResetInstanceIDs = "gmresetnextinstanceids";
+    public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
+    public const string GMSetNextInstanceID = "gmsetnextinstanceid";
     public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
 	public const string ValueItemExchange = "valueitemexchange";

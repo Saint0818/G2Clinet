@@ -676,12 +676,13 @@ public class GEGMTool : GEBase
 
     private void StageHandle()
     {
-        nextMainStageIDLabel();
+        setNextMainStageID();
         resetStageChallengeNums();
         resetInstanceIDs();
+        setNextInstanceID();
     }
 
-    private void nextMainStageIDLabel()
+    private void setNextMainStageID()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("NextMainStageID: ");
@@ -739,17 +740,17 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("副本進度: ");
-        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
-            SendHttp.Get.Command(URLConst.GMResetInstanceIDs, waitGMResetStage, form);
+            SendHttp.Get.Command(URLConst.GMResetNextInstanceIDs, waitGMResetNextInstanceIDs, form);
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void waitGMResetInstanceIDs(bool ok, WWW www)
+    private void waitGMResetNextInstanceIDs(bool ok, WWW www)
     {
-        Debug.LogFormat("waitGMResetStage, ok:{0}", ok);
+        Debug.LogFormat("waitGMResetNextInstanceIDs, ok:{0}", ok);
 
         if(ok)
         {
@@ -758,7 +759,38 @@ public class GEGMTool : GEBase
             updateUIInstance();
         }
         else
-            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMResetNextInstanceIDs);
+    }
+
+    private int mNextInstanceChapter = 1;
+    private int mNextInstanceID = 2111;
+    private void setNextInstanceID()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Chapter: ");
+        mNextInstanceChapter = EditorGUILayout.IntField(mNextInstanceChapter, GUILayout.Width(60));
+        GUILayout.Label("NextInstanceID: ");
+        mNextInstanceID = EditorGUILayout.IntField(mNextInstanceID, GUILayout.Width(60));
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Chapter", mNextInstanceChapter);
+            form.AddField("InstanceID", mNextInstanceID);
+            SendHttp.Get.Command(URLConst.GMSetNextInstanceID, waitSetNextInstanceIDs, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitSetNextInstanceIDs(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitSetNextInstanceIDs, ok:{0}", ok);
+
+        if(ok)
+        {
+            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player.NextInstanceIDs = team.Player.NextInstanceIDs;
+            updateUIInstance();
+        }
     }
 
     private void updateUIMainStage()

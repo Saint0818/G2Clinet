@@ -32,6 +32,15 @@ public class UIInstanceMain : MonoBehaviour
         StageBackButton.onClick.Add(new EventDelegate(ShowChapters));
     }
 
+    public void ClearAllChapters()
+    {
+        clearAllStages();
+
+        foreach(UIInstanceChapter chapter in mChapters)
+            Destroy(chapter.gameObject);
+        mChapters.Clear();
+    }
+
     public void AddChapter(UIInstanceChapter.Data data)
     {
         var localPos = new Vector3(mChapters.Count * ChapterInterval, 0, 0);
@@ -60,7 +69,7 @@ public class UIInstanceMain : MonoBehaviour
         StageView.SetActive(true);
         StageBackButton.gameObject.SetActive(true);
 
-        clearStages();
+        clearAllStages();
         addStages(oneChapterNormalStages, bossStage);
     }
 
@@ -84,12 +93,10 @@ public class UIInstanceMain : MonoBehaviour
         return uiStage;
     }
 
-    private void clearStages()
+    private void clearAllStages()
     {
         foreach(UIInstanceStage stage in mStages)
-        {
             Destroy(stage.gameObject);
-        }
         mStages.Clear();
     }
 
