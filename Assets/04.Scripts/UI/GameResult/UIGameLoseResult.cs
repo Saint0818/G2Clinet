@@ -85,17 +85,24 @@ public class UIGameLoseResult : UIBase {
 			} else {
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			}
-		} else {
-			UILoading.OpenUI = UILoading.OpenStageUI;
-			if (isStage)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			else
-				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 		}
-	}
-
-	public bool isStage
-	{
-		get {return StageTable.Ins.HasByID(GameData.StageID); }
+        else 
+        {
+            if(GameData.IsMainStage)
+            {
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                UILoading.OpenUI = UILoading.OpenStageUI;
+            }
+            else if(GameData.IsInstance)
+            {
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                UILoading.OpenUI = UILoading.OpenInstanceUI;
+            }
+            else
+            {
+                SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+                UILoading.OpenUI = UILoading.OpenStageUI;
+            }
+		}
 	}
 }

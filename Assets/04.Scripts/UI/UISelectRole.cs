@@ -438,27 +438,41 @@ public class UISelectRole : UIBase {
 			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			
 			break;
-		case EUIRoleSituation.BackToSelectMe:
-			if (isStage) {
-				UIShow(false);
-                if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
-                    UILoading.OpenUI = UILoading.OpenStageUI;
-				    SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                } else {
+		    case EUIRoleSituation.BackToSelectMe:
+			    if(GameData.IsMainStage)
+                {
+				    UIShow(false);
+                    if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+                    {
+                        UILoading.OpenUI = UILoading.OpenStageUI;
+				        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                    }
+                    else
+					    UIMainStage.Get.Show(GameData.StageID);
+			    }
+                else if(GameData.IsInstance)
+                {
                     UIShow(false);
-					LobbyStart.Get.EnterLobby();
+                    if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+                    {
+                        UILoading.OpenUI = UILoading.OpenInstanceUI;
+                        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                    }
+                    else
+                        UIInstance.Get.Show();
                 }
-			} else {
-				Invoke("showUITriangle", 1.25f);
-				Invoke("leftRightShow", 0.5f);
-				animatorLoading.SetTrigger("Close");
-				for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
-					arrayPlayer[i].SetActive(false);
+                else
+                {
+				    Invoke("showUITriangle", 1.25f);
+				    Invoke("leftRightShow", 0.5f);
+				    animatorLoading.SetTrigger("Close");
+				    for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
+					    arrayPlayer[i].SetActive(false);
 				
-				uiShowTime.SetActive(true);
-			}
+				    uiShowTime.SetActive(true);
+			    }
 			
-			break;
+			    break;
             case EUIRoleSituation.Start:
                 if (GameData.StageID == 10)
                 {
@@ -628,7 +642,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void SetEnemyMembers() {
-		if (isStage) {
+		if (GameData.IsMainStage) {
 			int[] ids = StageTable.Ins.GetByID(GameData.StageID).PlayerID;
 			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
 			for (int i = 0; i < num; i ++) {
@@ -692,7 +706,7 @@ public class UISelectRole : UIBase {
 	}
 	
 	private void hideSelectRoleAnimator(){
-		if (!isStage) {
+		if (!GameData.IsMainStage) {
 			changeBigHead(selectRoleIndex);
 			uiSelect.SetActive(true);
 			this.GetComponent<Animator>().enabled = false;
@@ -883,8 +897,4 @@ public class UISelectRole : UIBase {
         else
             UIHint.Get.ShowHint(TextConst.S(9514), Color.red);
     }
-
-	private bool isStage {
-		get {return StageTable.Ins.HasByID(GameData.StageID);}
-	}
 }

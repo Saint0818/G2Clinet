@@ -75,6 +75,23 @@ public static class GameData
     /// 記錄玩家目前打的關卡.
     /// </summary>
     public static int StageID = -1;
+    public static bool IsMainStage
+    {
+        get
+        {
+            return StageTable.Ins.HasByID(StageID) &&
+                   StageTable.Ins.GetByID(StageID).IDKind == TStageData.EKind.MainStage;
+        }
+    }
+
+    public static bool IsInstance
+    {
+        get
+        {
+            return StageTable.Ins.HasByID(StageID) &&
+                   StageTable.Ins.GetByID(StageID).IDKind == TStageData.EKind.Instance;
+        }
+    }
     public static float ExtraGreatRate = 5;
     public static float ExtraPerfectRate = 10;
 

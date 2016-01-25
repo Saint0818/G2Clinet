@@ -256,14 +256,26 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private void backToLobby () {
+	private void backToLobby()
+    {
 		Time.timeScale = 1;
 		UIShow(false);
-		UILoading.OpenUI = UILoading.OpenStageUI;
-		if (isStage)
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+		
+	    if(GameData.IsMainStage)
+	    {
+	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            UILoading.OpenUI = UILoading.OpenStageUI;
+        }
+        else if(GameData.IsInstance)
+        {
+            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            UILoading.OpenUI = UILoading.OpenInstanceUI;
+        }
+        else
+        {
+            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+            UILoading.OpenUI = UILoading.OpenStageUI;
+        }
 	}
 
 	private void showMissionBoard () {
@@ -710,10 +722,5 @@ public class UIGameResult : UIBase {
 
 	public bool IsHaveBonus {
 		get {return (bonusItemIDs != null && bonusItemIDs.Length > 0);}
-	}
-
-	public bool isStage
-    {
-		get {return StageTable.Ins.HasByID(GameData.StageID); }
 	}
 }

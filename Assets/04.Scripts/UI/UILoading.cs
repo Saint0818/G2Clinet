@@ -108,6 +108,12 @@ public class UILoading : UIBase
         checkTutorialUI(AchievementTutorialID);
     }
 
+    public static void OpenInstanceUI()
+    {
+        UIInstance.Get.Show();
+        UIMainLobby.Get.Hide();
+    }
+
     public static void OpenAnnouncement()
     {
         if (GameData.Team.Player.Lv > 0)
