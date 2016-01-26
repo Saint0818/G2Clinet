@@ -402,9 +402,9 @@ namespace GameStruct
         public int PVPCount;
         public int PVPWin;
         public int PVPKeepWin;
-        public int SubTextCount;
-        public int SubTextWin;
-        public int SubTextKeepWin;
+        public int InstanceCount;
+        public int InstanceWin;
+        public int InstanceKeepWin;
         public int OccupyCount;
         public int OccupyWin;
         public int OccupyKeepWin;
@@ -439,9 +439,9 @@ namespace GameStruct
                 newRecord.PVPCount != PVPCount ||
                 newRecord.PVPWin != PVPWin ||
                 newRecord.PVPKeepWin != PVPKeepWin ||
-                newRecord.SubTextCount != SubTextCount ||
-                newRecord.SubTextWin != SubTextWin ||
-                newRecord.SubTextKeepWin != SubTextKeepWin ||
+                newRecord.InstanceCount != InstanceCount ||
+                newRecord.InstanceWin != InstanceWin ||
+                newRecord.InstanceKeepWin != InstanceKeepWin ||
                 newRecord.OccupyCount != OccupyCount ||
                 newRecord.OccupyWin != OccupyWin ||
                 newRecord.OccupyKeepWin != OccupyKeepWin ||

@@ -318,8 +318,8 @@ namespace GameStruct
             TextConst.S(3768) + 0 + "\n" + 
             TextConst.S(3771) + record.TeamRecord.PVEWin + "\n" + 
             TextConst.S(3772) + record.TeamRecord.PVEKeepWin + "\n" + 
-            TextConst.S(3773) + record.TeamRecord.SubTextWin + "\n" + 
-            TextConst.S(3774) + record.TeamRecord.SubTextKeepWin + "\n" + 
+            TextConst.S(3773) + record.TeamRecord.InstanceWin + "\n" + 
+            TextConst.S(3774) + record.TeamRecord.InstanceKeepWin + "\n" + 
             TextConst.S(3775) + record.TeamRecord.PVPWin + "\n" + 
             TextConst.S(3776) + record.TeamRecord.PVPKeepWin + "\n" + 
             TextConst.S(3777) + record.TeamRecord.OccupyWin + "\n" +
@@ -360,8 +360,8 @@ namespace GameStruct
                 case 12: return record.TeamRecord.PVEWin; //PVE獲勝數
                 case 13: return record.TeamRecord.PVEKeepWin; //PVE連勝數
                 case 14: return 0; //副本通過某關
-                case 15: return record.TeamRecord.SubTextWin; //副本獲勝數
-                case 16: return record.TeamRecord.SubTextKeepWin; //副本連勝數
+                case 15: return record.TeamRecord.InstanceWin; //副本獲勝數
+                case 16: return record.TeamRecord.InstanceKeepWin; //副本連勝數
                 case 17: return record.TeamRecord.PVPWin; //PVP獲勝數
                 case 18: return record.TeamRecord.PVPKeepWin; //PVP連勝數 
                 case 19: return record.TeamRecord.OccupyWin; //踢館獲勝數
