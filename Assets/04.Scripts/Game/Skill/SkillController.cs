@@ -561,7 +561,7 @@ public class SkillController : MonoBehaviour {
 				if(GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID)) {
 					CheckSkillValueAdd(PassiveSkillUsed);
 					if(!executePlayer.IsUseActiveSkill)
-						UIPassiveEffect.Get.ShowCard(executePlayer, PassiveSkillUsed.ID, PassiveSkillUsed.Lv);
+						UIPassiveEffect.Get.Show(PassiveSkillUsed, executePlayer);
 					SkillEffectManager.Get.OnShowEffect(executePlayer, true);
 					executePlayer.GameRecord.PassiveSkill++;
 				}
@@ -577,31 +577,33 @@ public class SkillController : MonoBehaviour {
 	private bool checkSkillBaseSituation(TSkill tSkill) {
 		if(executePlayer.Attribute.IsHaveActiveSkill && GameData.DSkillData.ContainsKey(tSkill.ID)) {
 			int kind = GameData.DSkillData[tSkill.ID].Kind;
+
+			if( kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210 || kind == 220 || kind == 230)
+				return  true;
+			
 			switch (GameController.Get.Situation) {
 			case EGameSituation.AttackGamer:
 				if(executePlayer.Team == ETeamKind.Self) {
 					if (kind >= 10 && kind <= 70 && executePlayer.IsBallOwner) return true;
 					if ((kind == 110 || kind == 180) && executePlayer.IsBallOwner) return true;
-					if (kind == 170 && !executePlayer.IsBallOwner) return true;
-					if (kind == 120 || kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210) return true;
+					if ((kind == 170 || kind == 171) && !executePlayer.IsBallOwner) return true;
+					if (kind == 120 ) return true;
 				} else {
-					if (kind == 160) return true;
+					if (kind == 160 || kind == 161) return true;
 					if (kind == 150 && !executePlayer.IsBallOwner && GameController.Get.CanUseStealSkill) return true;
 					if (kind == 170 && !executePlayer.IsBallOwner) return true;
-					if (kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210) return true;
 				}
 				break;
 			case EGameSituation.AttackNPC:
 				if(executePlayer.Team == ETeamKind.Self){
-					if (kind == 160) return true;
+					if (kind == 160 || kind == 161) return true;
 					if (kind == 150 && !executePlayer.IsBallOwner && GameController.Get.CanUseStealSkill) return true;
-					if (kind == 170 && !executePlayer.IsBallOwner) return true;
-					if (kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210) return true;
+					if ((kind == 170 || kind == 171) && !executePlayer.IsBallOwner) return true;
 				} else  {
 					if (kind >= 10 && kind <= 70 && executePlayer.IsBallOwner) return true;
 					if ((kind == 110 || kind == 180) && executePlayer.IsBallOwner) return true;
 					if (kind == 170 && !executePlayer.IsBallOwner) return true;
-					if (kind == 120 || kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210) return true;
+					if (kind == 120) return true;
 				}
 				break;
 			}

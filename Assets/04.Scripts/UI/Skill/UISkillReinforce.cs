@@ -282,16 +282,16 @@ public struct TReinforceInfo {
 		}
 	}
 
-	public void UpgradeViewForLevelUp (TSkill skill, int newLv) {
+	public void UpgradeViewForLevelUp (TSkill skill, TSkill newSkill) {
 		hideAll ();
 		int index = 0;
-		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+		if(GameData.DSkillData.ContainsKey(skill.ID) && GameData.DSkillData.ContainsKey(newSkill.ID)) {
 			if(GameData.DSkillData[skill.ID].aniRate > 0) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7404);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].AniRate(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].AniRate(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].AniRate(newLv) > GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
+				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].AniRate(newSkill.Lv).ToString();
+				if(GameData.DSkillData[newSkill.ID].AniRate(newSkill.Lv) > GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
 					ValueLabel1[index].gameObject.SetActive(true);
 					ValueLabel1[index].color = Color.green;
 				} else {
@@ -304,8 +304,8 @@ public struct TReinforceInfo {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7405);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Distance(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Distance(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].Distance(newLv) > GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
+				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Distance(newSkill.Lv).ToString();
+				if(GameData.DSkillData[newSkill.ID].Distance(newSkill.Lv) > GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
 					ValueLabel1[index].gameObject.SetActive(true);
 					ValueLabel1[index].color = Color.green;
 				} else {
@@ -318,8 +318,8 @@ public struct TReinforceInfo {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(10500 + GameData.DSkillData[skill.ID].AttrKind);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Value(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].Value(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].Value(newLv) > GameData.DSkillData[skill.ID].Value(skill.Lv)) {
+				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Value(newSkill.Lv).ToString();
+				if(GameData.DSkillData[newSkill.ID].Value(newSkill.Lv) > GameData.DSkillData[skill.ID].Value(skill.Lv)) {
 					ValueLabel1[index].gameObject.SetActive(true);
 					ValueLabel1[index].color = Color.green;
 				} else {
@@ -332,8 +332,8 @@ public struct TReinforceInfo {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7406);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].LifeTime(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[skill.ID].LifeTime(newLv).ToString();
-				if(GameData.DSkillData[skill.ID].LifeTime(newLv) > GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
+				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].LifeTime(newSkill.Lv).ToString();
+				if(GameData.DSkillData[newSkill.ID].LifeTime(newSkill.Lv) > GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
 					ValueLabel1[index].gameObject.SetActive(true);
 					ValueLabel1[index].color = Color.green;
 				} else {

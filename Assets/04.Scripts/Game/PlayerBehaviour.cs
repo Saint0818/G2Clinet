@@ -2579,8 +2579,7 @@ public class PlayerBehaviour : MonoBehaviour
                         LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer", "RealBall");
                     
                     CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
-                    if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
-                        UISkillEffect.UIShow(true, 0, GameData.DSkillData[ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData[ActiveSkillUsed.ID].Name);
+					UISkillEffect.Get.Show(ActiveSkillUsed);
                     
                     switch (skillEffectKind)
                     {
@@ -2629,8 +2628,8 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
 
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseActiveSkill)
-                    UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
+                if (!IsUseActiveSkill)
+					UIPassiveEffect.Get.Show(ActiveSkillUsed, this);
                 showActiveEffect();
             }
 

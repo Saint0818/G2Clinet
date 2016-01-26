@@ -36,20 +36,25 @@ public struct TPlayerLevelUp {
 public struct TEquipmentGroup {
 	public GameObject[] AttrView;
 	public UISprite[] AttrKind;
+	public UILabel[] AttrKindLabel;
 	public UILabel[] ValueLabel0;
 	public UILabel[] ValueLabel1;
 
-	public void Init (Transform t) {
+	public void Init (Transform t, UIEventListener.VoidDelegate listener) {
 		AttrView = new GameObject[3];
 		AttrKind = new UISprite[3];
+		AttrKindLabel = new UILabel[3];
 		ValueLabel0 = new UILabel[3];
 		ValueLabel1 = new UILabel[3];
 
 		for(int i=0; i<AttrView.Length; i++) {
 			AttrView[i] = t.FindChild("AttrValue" + i.ToString()).gameObject;
 			AttrKind[i] = AttrView[i].transform.FindChild("AttrKind").GetComponent<UISprite>();
+			AttrKindLabel[i] = AttrView[i].transform.FindChild("AttrKind/KindLabel").GetComponent<UILabel>();
 			ValueLabel0[i] = AttrView[i].transform.FindChild("ValueLabel0").GetComponent<UILabel>();
 			ValueLabel1[i] = AttrView[i].transform.FindChild("ValueLabel1").GetComponent<UILabel>();
+
+			UIEventListener.Get(AttrView[i]).onClick = listener;
 		}
 	}
 
@@ -58,6 +63,8 @@ public struct TEquipmentGroup {
 		int value2 = 0;
 		if(GameData.DItemData.ContainsKey(beforeItemData.ID) && GameData.DItemData.ContainsKey(afterItemData.ID)) {
 			AttrKind[0].spriteName = "AttrKind_" + beforeItemData.AttrKind1.GetHashCode();
+			AttrKindLabel[0].text = TextConst.S(10500 + beforeItemData.AttrKind1.GetHashCode());
+			AttrView[0].name = beforeItemData.AttrKind1.GetHashCode().ToString();
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue1;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue1;
 			ValueLabel0[0].text = value1.ToString();
@@ -69,6 +76,8 @@ public struct TEquipmentGroup {
 			}
 
 			AttrKind[1].spriteName = "AttrKind_" + beforeItemData.AttrKind2.GetHashCode();
+			AttrKindLabel[1].text = TextConst.S(10500 + beforeItemData.AttrKind2.GetHashCode());
+			AttrView[1].name = beforeItemData.AttrKind2.GetHashCode().ToString();
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue2;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue2;
 			ValueLabel0[1].text = value1.ToString();
@@ -80,6 +89,8 @@ public struct TEquipmentGroup {
 			}
 
 			AttrKind[2].spriteName = "AttrKind_" + beforeItemData.AttrKind3.GetHashCode();
+			AttrKindLabel[2].text = TextConst.S(10500 + beforeItemData.AttrKind3.GetHashCode());
+			AttrView[2].name = beforeItemData.AttrKind3.GetHashCode().ToString();
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue3;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue3;
 			ValueLabel0[2].text = value1.ToString();
@@ -100,7 +111,7 @@ public struct TItemLevelUp {
 	private GameObject goEquipmentGroup;
 	private TEquipmentGroup equipmentGroup; 
 
-	public void Init (GameObject obj) {
+	public void Init (GameObject obj, UIEventListener.VoidDelegate listener) {
 		itemAwardGroup = new ItemAwardGroup[2];
 		itemAwardGroup[0] = obj.transform.FindChild("LevelGroup/BeforeLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
 		itemAwardGroup[1] = obj.transform.FindChild("LevelGroup/AfterLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
@@ -109,7 +120,7 @@ public struct TItemLevelUp {
 		reinForceInfo.Init(obj.transform.FindChild("ReinforceInfo"));
 		goEquipmentGroup = obj.transform.FindChild("EquipmentGroup").gameObject;
 		equipmentGroup = new TEquipmentGroup();
-		equipmentGroup.Init(obj.transform.FindChild("EquipmentGroup"));
+		equipmentGroup.Init(obj.transform.FindChild("EquipmentGroup"), listener);
 	}
 
 	public void UpdateForReinforce (TSkill beforeSkill, TSkill afterSkill) {
@@ -117,7 +128,7 @@ public struct TItemLevelUp {
 		itemAwardGroup[1].ShowSkill(afterSkill);
 		goReinforceInfo.SetActive(true);
 		goEquipmentGroup.SetActive(false);
-		reinForceInfo.UpgradeViewForLevelUp(beforeSkill, afterSkill.Lv);
+		reinForceInfo.UpgradeViewForLevelUp(beforeSkill, afterSkill);
 	}
 
 	public void UpdateForEquipment (TItemData beforeItemData, TItemData afterItemData) {
@@ -179,9 +190,16 @@ public class UILevelUp : UIBase {
 		playerLevelUp = new TPlayerLevelUp();
 		playerLevelUp.Init(GameObject.Find(UIName + "/Window/Center/BottomView/Page0"));
 		itemLevelUp = new TItemLevelUp();
-		itemLevelUp.Init(GameObject.Find(UIName + "/Window/Center/BottomView/Page1"));
+		itemLevelUp.Init(GameObject.Find(UIName + "/Window/Center/BottomView/Page1"), OnClickAttr);
 
 		UIEventListener.Get(GameObject.Find(UIName + "/Window/BottomRight/NextLabel")).onClick = OnReturn;
+	}
+
+	public void OnClickAttr (GameObject go) {
+		int result = -1;
+		if(int.TryParse(go.name, out result)){
+			UIAttributeHint.Get.UpdateView(result);
+		}	
 	}
 
 	public void OnReturn (GameObject go) {

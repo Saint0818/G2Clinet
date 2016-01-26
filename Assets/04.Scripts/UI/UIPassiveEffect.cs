@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using GameStruct;
 
 public struct TPassiveValue {
 	public float Timer;
@@ -73,29 +74,32 @@ public class UIPassiveEffect : UIBase {
 		}
 	}
 	
-	public void ShowCard (PlayerBehaviour player = null, int id = 0, int lv = 0){
-		if(!Visible)
-			Show(true);
+	public void Show (TSkill skill, PlayerBehaviour player){
+//		if(!Visible)
+//			Show(true);
 
 		string name = "";
-		if (GameData.DSkillData.ContainsKey(id))
-			name = GameData.DSkillData[id].Name;
-		
-		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.PlayerRefGameObject, null, 0.5f);
-		
-		for (int i=0; i<recordIndex.Length; i++) {
-			if(!contains(i)) {
-				addValue(i);
-				initCard(i, id, lv, name);
-				break;
-			} else {
-				if(recordIndex[recordIndex.Length - 1] == i) {
+		if (GameData.DSkillData.ContainsKey(skill.ID)) {
+			UIShow(true);
+			name = GameData.DSkillData[skill.ID].Name;
+			EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.PlayerRefGameObject, null, 0.5f);
+			
+			for (int i=0; i<recordIndex.Length; i++) {
+				if(!contains(i)) {
 					addValue(i);
-					initCard(i, id, lv, name);
+					initCard(i, skill.ID, skill.Lv, name);
 					break;
+				} else {
+					if(recordIndex[recordIndex.Length - 1] == i) {
+						addValue(i);
+						initCard(i, skill.ID, skill.Lv, name);
+						break;
+					}
 				}
 			}
 		}
+		
+		
 	}
 
 	public void Reset(){

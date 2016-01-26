@@ -247,6 +247,7 @@ public class UISkillEvolution : UIBase {
 
 	private UILabel labelPrice;
 
+	private TSkill nextSkill;
 	private TSkill mSkill;
 	private int evolutionPrice;
 	private bool isEquiped;
@@ -315,7 +316,7 @@ public class UISkillEvolution : UIBase {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) {
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) UIShow(false);});
+					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) UIShow(false); UISkillFormation.UIShow(false);});
 				}
 			}
 		}
@@ -326,7 +327,7 @@ public class UISkillEvolution : UIBase {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) {
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) UIShow(false);});
+					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) UIShow(false);UISkillFormation.UIShow(false);});
 				}
 			}
 		}
@@ -337,7 +338,7 @@ public class UISkillEvolution : UIBase {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) {
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) {
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) UIShow(false);});
+					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) UIShow(false);UISkillFormation.UIShow(false);});
 				}
 			}
 		}
@@ -345,7 +346,7 @@ public class UISkillEvolution : UIBase {
 
 	private void refresh () {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
-			TSkill nextSkill = new TSkill();
+			nextSkill = new TSkill();
 			if(GameData.DSkillData[mSkill.ID].EvolutionSkill != 0) {
 				nextSkill.ID = GameData.DSkillData[mSkill.ID].EvolutionSkill;
 				nextSkill.Lv = 1;
@@ -427,10 +428,11 @@ public class UISkillEvolution : UIBase {
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
+			UILevelUp.Get.ShowSkill(mSkill, nextSkill);
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
-
+		
 			mSkill = findNewSkill(mSkill);
 			refresh ();
 
