@@ -60,7 +60,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
         avatar.transform.localScale = Vector3.one;
         switch (mode) {
             case EUIPlayerMode.UIPlayerInfo:
-                avatar.transform.localPosition = new Vector3 (2.62f, -2.16f, -3);
+                avatar.transform.localPosition = new Vector3 (2.92f, -1.78f, -3);
                 break;
             case EUIPlayerMode.UIAvatarFitted:
                 avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);

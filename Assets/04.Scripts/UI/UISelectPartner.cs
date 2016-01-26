@@ -58,17 +58,6 @@ public class UISelectPartner : UIBase {
         }
     }
 	
-	public static void UIShow(bool isShow){
-		if(instance) {
-			if (!isShow) 
-                Get.Show(isShow);
-			else
-				instance.Show(isShow);
-		} else
-		if(isShow)
-			Get.Show(isShow);
-	}
-	
 	public static UISelectPartner Get
 	{
 		get {

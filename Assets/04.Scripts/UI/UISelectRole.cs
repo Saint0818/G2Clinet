@@ -80,6 +80,23 @@ public class UISelectRole : UIBase {
 			else
 				return false;
 		}
+
+        set {
+            if (instance) {
+                if (!value)
+                    RemoveUI(UIName);
+                else
+                    instance.Show(value);
+            } else
+            if (value)
+                Get.Show(value);
+
+            UI3DSelectRole.UIShow(value);
+            if (!value) {
+                UISelectPartner.Visible = false;
+                UISkillFormation.Visible = false;
+            }
+        }
 	}
 	
 	public static UISelectRole Get {
@@ -128,18 +145,6 @@ public class UISelectRole : UIBase {
 		}
 
 		arrayPlayer = new GameObject[0];
-	}
-	
-	public static void UIShow(bool isShow){
-        UI3DSelectRole.UIShow(isShow);
-		if (instance) {
-            if (!isShow)
-				RemoveUI(UIName);
-            else
-				instance.Show(isShow);
-		} else
-		if (isShow)
-			Get.Show(isShow);
 	}
 	
 	void FixedUpdate(){
@@ -443,7 +448,7 @@ public class UISelectRole : UIBase {
             case EUIRoleSituation.BackToSelectMe:
                 if(GameData.IsMainStage)
                 {
-                    UIShow(false);
+                    Visible = false;
                     if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
                     {
                         UILoading.OpenUI = UILoading.OpenStageUI;
@@ -454,7 +459,7 @@ public class UISelectRole : UIBase {
 			    }
                 else if(GameData.IsInstance)
                 {
-                    UIShow(false);
+                    Visible = false;
                     if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
                     {
                         UILoading.OpenUI = UILoading.OpenInstanceUI;
@@ -476,7 +481,8 @@ public class UISelectRole : UIBase {
 			
 			    break;
             case EUIRoleSituation.Start:
-                UIShow(false);
+                Visible = false;
+
                 if (GameData.StageID == 10)
                     enterPVP();
                 else
@@ -579,14 +585,14 @@ public class UISelectRole : UIBase {
         arrayPlayer[index].SetActive(true);
         arrayPlayer[index].transform.localPosition = new Vector3(-X_Partner, 0, Z_Partner);
         arrayPlayer[index].transform.localEulerAngles = new Vector3(0, 150, 0);
-        UISkillFormation.UIShow(false);
-        UISelectPartner.UIShow(true);
+        UISkillFormation.Visible = false;
+        UISelectPartner.Visible = true;
         UISelectPartner.Get.InitMemberList(ref playerList, ref arrayPlayerData, index);
     }
 
 	public void OnSkillCard() {
-		UISelectPartner.UIShow(false);
-		UISkillFormation.UIShow(true);
+        UISelectPartner.Visible = false;
+        UISkillFormation.Visible = true;
 	}
 
 	public void SelectRole() {
@@ -779,7 +785,7 @@ public class UISelectRole : UIBase {
     public void LoadStage(int stageID) {
         GameData.StageID = stageID;
         UIMainLobby.Get.HideAll();
-        UIShow(true);
+        Visible = true;
         mUIAttributes.gameObject.SetActive(false);
 
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {

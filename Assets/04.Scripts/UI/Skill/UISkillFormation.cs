@@ -209,6 +209,17 @@ public class UISkillFormation : UIBase {
 			else
 				return false;
 		}
+
+        set {
+            if (instance) {
+                if (!value)
+                    RemoveUI(UIName);
+                else
+                    instance.Show(value);
+            } else
+            if (value)
+                Get.Show(value);
+        }
 	}
 	
 	public static UISkillFormation Get {
@@ -222,10 +233,10 @@ public class UISkillFormation : UIBase {
 
 	public static void UIShow(bool isShow){
 		if (instance) {
-				instance.Show(isShow);
+			instance.Show(isShow);
 		} else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 
 	void FixedUpdate () {
