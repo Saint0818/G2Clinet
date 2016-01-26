@@ -199,5 +199,6 @@
     public const int PVPMaxLv = 22;
     public const int PVPMaxSort = 20;
     public const int PVPMaxTickket = 5;
+    public const int PVPCD_Price = 50;
 	public const int MaxLotteryFreeTime = 10;
 }
