@@ -476,9 +476,19 @@ public class UISelectRole : UIBase {
 			
 			    break;
             case EUIRoleSituation.Start:
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                if (GameData.IsPVP)
+                {
+                    SendPVPStart();
+                }
+=======
+>>>>>>> Stashed changes
                 UIShow(false);
                 if (GameData.StageID == 10)
                     enterPVP();
+>>>>>>> origin/master
                 else
                 {
                     if (GameStart.Get.ConnectToServer)
@@ -872,6 +882,23 @@ public class UISelectRole : UIBase {
             UILoading.UIShow(true, ELoading.Game);
         else
             SceneMgr.Get.ChangeLevel (courtNo);
+    }
+
+    private void SendPVPStart()
+    {
+        WWWForm form = new WWWForm();
+        SendHttp.Get.Command(URLConst.PVPStart, WaitPVPStart, form, true);  
+    }
+   
+    private void WaitPVPStart(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TPVPStart data = JsonConvert.DeserializeObject <TPVPStart>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.PVPTicket = data.PVPTicket;
+            GameData.Team.PVPCD = data.PVPCD;
+            enterPVP();
+        }
     }
 
     private void enterPVP()

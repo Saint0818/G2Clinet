@@ -736,8 +736,6 @@ public class UIPVP : UIBase
         }			
     }
 
-    private int price = 100;
-
     private void OnPVPStart()
     {
         if (page0.EnterPage.IsInit)
@@ -745,15 +743,48 @@ public class UIPVP : UIBase
             switch (page0.EnterPage.PVPSituation)
             {
                 case EPVPSituation.CDIng:
-                    //詢問清除時間
-                    price = 100;
-                    UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9732), price), SendBuyPVPCD);
+                    if (CheckDiamond(GameConst.PVPCD_Price))
+                    {
+                        UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9732), GameConst.PVPCD_Price), SendBuyPVPCD);
+                    }
                     break;
                 case EPVPSituation.NoCountOrBuy:
-                    //詢問購買次數, itemid 
-                    price = 100;
-                    string name = "PVP卷";
-                    UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9731), price, name), SendBuyPVPTicket);
+                    //詢問購買次數, itemid
+                    if (shopIndex != -1)
+                    {
+                        if (shopIndex < GameData.DShops.Length)
+                        {
+                            if (GameData.DShops[shopIndex].Limit != null)
+                            {
+                                if(GameData.Team.DailyCount.BuyPVPTicketCount < GameData.DShops[shopIndex].Limit.Length)
+                                {
+                                    int price = GameData.DShops[shopIndex].Limit[GameData.Team.DailyCount.BuyPVPTicketCount];
+                                    if (CheckMoney(price))
+                                    {
+                                        int id = GameData.DShops[shopIndex].ItemID;
+                                        if (GameData.DItemData.ContainsKey(id))
+                                            UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9731), price, GameData.DItemData[id].Name), SendBuyPVPTicket);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("超出使用次數"); 
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("Shop Limit Error");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("shopIndex Error");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Shop Json Error");
+                    }
                     break;
                 case EPVPSituation.CDEnd:
                     //先設定PVP關卡，等到UISelectRole.DoStart按下之後，開啟PVP戰鬥
@@ -761,9 +792,9 @@ public class UIPVP : UIBase
 
                     if (GameData.DPVPData.ContainsKey(lv))
                     {
-                        GameData.StageID = GameData.DPVPData[lv].Stage;
+                        UISelectRole.Get.LoadStage(GameData.DPVPData[lv].Stage);
+                        UIShow(false);
                     }
-                    SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
                     break;
             } 
         }
@@ -983,6 +1014,10 @@ public class UIPVP : UIBase
                     if (sec < 0)
                     {
                         page0.EnterPage.PVPSituation = EPVPSituation.CDEnd;
+                    }
+                    else
+                    {
+                        page0.EnterPage.PVPSituation = EPVPSituation.CDIng; 
                     }
                 }
             }
