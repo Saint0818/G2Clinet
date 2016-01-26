@@ -132,6 +132,28 @@ public class UIItemHint : UIBase {
 			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
 		}
 	}
+
+	public void OnShowPartnerItem (int itemID, TPlayer player) {
+		if(GameData.DItemData.ContainsKey (itemID)) {
+			uiBuy.SetActive(false);
+			hideAll ();
+			scrollViewExplain.ResetPosition();
+			UIShow(true);
+			gameObject.transform.localPosition = new Vector3(0, 0, -10);
+
+			hintAvatarView.Show();
+			hintAvatarView.UpdateUI(GameData.DItemData[itemID], player);
+			//TODO : 等待來源
+			setHaveCount(GameData.Team.GetAvatarCount(GameData.DItemData[itemID].ID));
+			uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+			if(GameData.DItemData[GameData.DItemData[itemID].ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(GameData.DItemData[itemID].ID))
+				uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[GameData.DItemData[itemID].ID].Potential.ToString();
+
+
+			uiLabelName.text = GameData.DItemData[itemID].Name;
+			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
+		}
+	}
 	
 	public void OnShowSkill(TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {

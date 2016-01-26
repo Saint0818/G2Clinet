@@ -116,4 +116,50 @@ public class HintAvatarView : MonoBehaviour {
 
 		AmountLabel.text = "";
 	}
+
+	public void UpdateUI(TItemData itemData, TPlayer player)
+	{
+		isHaveValue = false;
+		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, player, itemData.Kind);
+		for (int i=0; i<itemData.Bonus.Length; i++) {
+			if(itemData.Bonus[i] != EBonus.None) {
+				AttrKindsIcon[i].gameObject.SetActive(true);
+				AttrKindsIcon[i].name = itemData.Bonus[i].GetHashCode().ToString();
+				AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
+				attrKindsLabel[i].text = TextConst.S(10500 + itemData.Bonus[i].GetHashCode());
+				if(itemData.BonusValues[i] == 0)
+					ValueLabels[i].text = "";
+				else
+					ValueLabels[i].text = itemData.BonusValues[i].ToString();
+				if(itemData.Kind >=0 && itemData.Kind <= 7){
+					AttrKindsIcon[i].gameObject.SetActive(false);
+					ValueLabels[i].gameObject.SetActive(false);
+				} else {
+					AttrKindsIcon[i].gameObject.SetActive(true);
+					ValueLabels[i].gameObject.SetActive(true);
+					isHaveValue = true;
+				}
+			}
+		}
+
+		ItemKindLabel.gameObject.SetActive(!isHaveValue);
+		if(!isHaveValue) {
+			ItemKindLabel.text = TextConst.S(13000 + itemData.Kind);
+		} 
+
+		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
+			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
+		}
+
+		if(string.IsNullOrEmpty(itemData.Icon))
+			ItemPic.spriteName = "Item_999999";
+		else
+			ItemPic.spriteName = "Item_" + itemData.Icon;
+
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(itemData.Quality);
+
+		AmountLabel.text = "";
+	}
 }
