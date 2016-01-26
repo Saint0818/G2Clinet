@@ -2390,6 +2390,8 @@ public class PlayerBehaviour : MonoBehaviour
         float floatParam = aniEvent.floatParameter;
         int intParam = aniEvent.intParameter;
 
+		if(floatParam <= GameConst.Min_TimePause)
+			floatParam = GameConst.Min_TimePause;
 
         switch (intParam)
         {
@@ -2397,7 +2399,7 @@ public class PlayerBehaviour : MonoBehaviour
                 foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
                     TimerMgr.Get.ChangeTime(item, floatParam);
 
-				TimerMgr.Get.PauseBall((floatParam == 0));
+				TimerMgr.Get.PauseBall(IsTimePause);
                 break;
             case 1: //Set myself
                 foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
@@ -2409,7 +2411,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if (item != TimerKind && item != ETimerKind.Default)
                         TimerMgr.Get.ChangeTime(item, floatParam);
 
-				TimerMgr.Get.PauseBall((floatParam == 0));
+				TimerMgr.Get.PauseBall(IsTimePause);
                 break;
             case 3: //Set Default
                 TimerMgr.Get.ChangeTime(ETimerKind.Default, floatParam);
@@ -2585,21 +2587,21 @@ public class PlayerBehaviour : MonoBehaviour
                         case 0://show self and rotate camera
 							Invoke("showEffect", skillTime);
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                            animatorEvent.floatParameter = 0;
+							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 0;
                             TimeScale(animatorEvent);   
                             break;
                         case 1://show self
                             showActiveEffect();
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                            animatorEvent.floatParameter = 0;
+							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 2;
                             TimeScale(animatorEvent); 
                             break;
                         case 2://show all Player
                             showActiveEffect();
                             GameController.Get.SetAllPlayerLayer("SkillPlayer");
-                            animatorEvent.floatParameter = 0;
+							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 2;
                             TimeScale(animatorEvent); 
                             break;
@@ -2619,7 +2621,7 @@ public class PlayerBehaviour : MonoBehaviour
                 
                     if (!isSkillShow)
                     {
-                        animatorEvent.floatParameter = 0;
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 2;
                         TimeScale(animatorEvent); 
 
@@ -3131,6 +3133,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         isTouchPalyer += index;
     }
+
+	public bool IsTimePause{
+		get {
+			return (TimerMgr.Get.CrtTime <= GameConst.Min_TimePause);
+		}
+	}
 	
     public Vector2 GetStealPostion(Vector3 p1, Vector3 p2, EPlayerPostion index)
     {

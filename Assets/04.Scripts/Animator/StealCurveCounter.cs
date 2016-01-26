@@ -45,7 +45,7 @@ public class StealCurveCounter
 
     private void Calculation()
     {
-        if (!isplaying)
+		if (!isplaying || timeScale <= GameConst.Min_TimePause)
             return;
 
         if (Curve != null)

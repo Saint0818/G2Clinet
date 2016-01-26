@@ -52,7 +52,7 @@ public class ReboundCurveCounter
 
     private void Calculation()
     {	
-        if (timeScale == 0)
+		if (timeScale <= GameConst.Min_TimePause)
             return;
 
         if (isplaying && Curve != null)

@@ -52,7 +52,7 @@ public class BlockCurveCounter
         
     private void CalculationBlock()
     {
-        if (!isplaying || timeScale == 0)
+		if (!isplaying || timeScale <= GameConst.Min_TimePause)
             return;
 
         if (playerBlockCurve != null)

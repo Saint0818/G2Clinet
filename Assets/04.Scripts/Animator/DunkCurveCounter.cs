@@ -71,7 +71,7 @@ public class DunkCurveCounter
 
     private void CalculationDunkMove()
     {
-        if (!isplaying)
+		if (!isplaying || timeScale <= GameConst.Min_TimePause)
             return;
 
         if (Curve != null)

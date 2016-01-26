@@ -48,7 +48,7 @@ public class ShootCurveCounter
 
     private void Calculation()
     {	
-        if (isplaying && Curve != null)
+        if (isplaying && Curve != null )
         {
             curveTime += Time.deltaTime * timeScale;
             switch (Curve.Dir)

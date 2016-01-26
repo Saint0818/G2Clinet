@@ -66,7 +66,7 @@ public class SharedCurveCounter
 
     private void Calculation()
     {
-        if (!isplaying || timeScale == 0)
+		if (!isplaying || timeScale <= GameConst.Min_TimePause)
             return;
 
         if (Curve != null)
