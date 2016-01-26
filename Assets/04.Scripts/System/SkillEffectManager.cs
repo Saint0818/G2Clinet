@@ -15,7 +15,7 @@ public class TSkillEffect {
 public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private Dictionary<string, List<GameObject>> skillEffectPositions = new Dictionary<string, List<GameObject>>();
-	private PlayerBehaviour executePlayer;
+//	private PlayerBehaviour executePlayer;
 
 	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
 
@@ -44,13 +44,13 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		}
 	}
 
-	private bool isInRange (GameObject obj) {
+	private bool isInRange (GameObject obj, PlayerBehaviour player) {
 		return Vector2.Distance(new Vector2(GameController.Get.Joysticker.PlayerRefGameObject.transform.position.x, GameController.Get.Joysticker.PlayerRefGameObject.transform.position.z), 
-		                        new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
+			new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[player.ActiveSkillUsed.ID].Distance(player.ActiveSkillUsed.Lv);
 	}
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
-		executePlayer = player;
+//		executePlayer = player;
 		int skillID = 0;
 		List<GameObject> objs1 = null;
 		List<GameObject> objs2 = null;
@@ -58,11 +58,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		if(isPassiveID) {
 			if (GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
 				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1 != 0) 
-					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1, isPassiveID);
+					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1, isPassiveID);
 				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2, isPassiveID);
+					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2, isPassiveID);
 				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
+					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 			
 			if(player.PassiveSkillUsed.ID != -1) 
@@ -70,11 +70,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		} else {
 			if (GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID)) {
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1 != 0)
-					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1, isPassiveID);
+					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1, isPassiveID);
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2, isPassiveID);
+					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2, isPassiveID);
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
+					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 			
 			if(player.ActiveSkillUsed.ID != 0)
@@ -93,9 +93,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 			if(objs1 != null && objs1.Count != 0){
 				for (int i=0; i<objs1.Count; i++) {
-					if((isJudgeDistance && isInRange(objs1[i])) || !isJudgeDistance) {
+					if((isJudgeDistance && isInRange(objs1[i], player)) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = executePlayer;
+						skillEffect.SelfPlayer = player;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent1 == 1) {
@@ -122,9 +122,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			
 			if(objs2 != null && objs2.Count != 0) {
 				for (int i=0; i<objs2.Count; i++) {
-					if((isJudgeDistance && isInRange(objs2[i])) || !isJudgeDistance) {
+					if((isJudgeDistance && isInRange(objs2[i], player)) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = executePlayer;
+						skillEffect.SelfPlayer = player;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent2 == 1) {
@@ -151,9 +151,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			
 			if(objs3 != null && objs3.Count != 0) {
 				for (int i=0; i<objs3.Count; i++) {
-					if((isJudgeDistance && isInRange(objs3[i])) || !isJudgeDistance) {
+					if((isJudgeDistance && isInRange(objs3[i], player)) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = executePlayer;
+						skillEffect.SelfPlayer = player;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent3 == 1) {
@@ -200,12 +200,12 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 //		}
 	}
 
-	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {
+	private List<GameObject> getSkillEffectPosition (PlayerBehaviour player, int index, int effectkind, bool isPassive) {
 		string key = string.Empty;
 		if(isPassive) 
-			key = executePlayer.PassiveSkillUsed.ID + "_"+ index + "_" + effectkind;
+			key = player.TimerKind.GetHashCode() + "_"+ player.PassiveSkillUsed.ID + "_"+ index + "_" + effectkind;
 		else 
-			key = executePlayer.ActiveSkillUsed.ID + "_"  + index + "_" + effectkind;
+			key = player.TimerKind.GetHashCode() + "_"+ player.ActiveSkillUsed.ID + "_"  + index + "_" + effectkind;
 		
 		if(skillEffectPositions.ContainsKey (key)) 
 			return skillEffectPositions[key];
@@ -214,75 +214,75 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			List<GameObject> objs = new List<GameObject>();
 			switch(effectkind) {
 			case 1://Self Body (Chest)
-				objs.Add(getPlayerChest(executePlayer));
+				objs.Add(getPlayerChest(player));
 				break;
 			case 2://Self Head
-				objs.Add(executePlayer.BodyHeight);
+				objs.Add(player.BodyHeight);
 				break;
 			case 3://Self Hand
-				objs.Add(getPlayerHand(executePlayer));				
+				objs.Add(getPlayerHand(player));				
 				break;
 			case 4://Self Feet
-				objs.Add(executePlayer.PlayerRefGameObject);
+				objs.Add(player.PlayerRefGameObject);
 				break;
 			case 5://Teammate Body (Chest)
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+					if(GameController.Get.GamePlayers[i].Team == player.Team && GameController.Get.GamePlayers[i].Index != player.Index)
 						objs.Add(getPlayerChest(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 6://Teammate Head
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+					if(GameController.Get.GamePlayers[i].Team == player.Team && GameController.Get.GamePlayers[i].Index != player.Index)
 						objs.Add(GameController.Get.GamePlayers[i].BodyHeight);
 				} 
 				break;
 			case 7://Teammate Hand
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+					if(GameController.Get.GamePlayers[i].Team == player.Team && GameController.Get.GamePlayers[i].Index != player.Index)
 						objs.Add(getPlayerHand(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 8://Teammate Feet
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+					if(GameController.Get.GamePlayers[i].Team == player.Team && GameController.Get.GamePlayers[i].Index != player.Index)
 						objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 				} 
 				break;
 			case 9://Emeny Body (Chest)
 			case 16:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+					if(GameController.Get.GamePlayers[i].Team != player.Team)
 						objs.Add(getPlayerChest(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 10://Emeny Head
 			case 17:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+					if(GameController.Get.GamePlayers[i].Team != player.Team)
 						objs.Add(GameController.Get.GamePlayers[i].BodyHeight);
 				} 
 				break;
 			case 11://Emeny Hand
 			case 18:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+					if(GameController.Get.GamePlayers[i].Team != player.Team)
 						objs.Add(getPlayerHand(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 12://Emeny Feet
 			case 19:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+					if(GameController.Get.GamePlayers[i].Team != player.Team)
 						objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 				} 
 				break;
 			case 13:
-				objs.Add(CourtMgr.Get.ShootPoint[executePlayer.Team.GetHashCode()]);
+				objs.Add(CourtMgr.Get.ShootPoint[player.Team.GetHashCode()]);
 				break;
 			case 14:
 				int team = 0;
-				if(executePlayer.Team.GetHashCode() != team)
+				if(player.Team.GetHashCode() != team)
 					team = 1;
 				objs.Add(CourtMgr.Get.ShootPoint[team]);
 				break;

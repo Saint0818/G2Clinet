@@ -1015,7 +1015,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // 蓋火鍋測試場景不希望球員移動, 所以才會有 GameStart.Get.TestMode != EGameTest.Block 
         // 這樣的判斷式. 這要改為蓋火鍋測試場景在初始化的時候, 叫 AI 不要指定戰術跑位.
-		if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End &&
+		if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End && !IsTimePause &&
            GameStart.Get.TestMode != EGameTest.Block)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
