@@ -2,332 +2,60 @@
     {
         "id": 1,
         "line": 1,
-        "title": "主介面",
-        "uiname": "UIMainLobby",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
-        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
-        "texten": "Yo~~ The game is about to start, what are you doing here?"
-    },
-    {
-        "id": 1,
-        "line": 2,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
-        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
-        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
-    },
-    {
-        "id": 1,
-        "line": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
-        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
-        "texten": "Can't help it! That classical match is deeply imprinted in our brain."
-    },
-    {
-        "id": 1,
-        "line": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
-        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
-        "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
-    },
-    {
-        "id": 1,
-        "line": 5,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "好啦，走吧！！",
-        "textcn": "好啦好啦！！",
-        "texten": "Fine fine, let's go!"
-    },
-    {
-        "id": 1,
-        "line": 6,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
-    },
-    {
-        "id": 1,
-        "line": 7,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "先進入[ff6060]生涯競賽[-]",
-        "texten": "Please enter [ff6060]Career Mode[-]."
-    },
-    {
-        "id": 1,
-        "line": 8,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
-    },
-    {
-        "id": 1,
-        "line": 9,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "再來選擇第一場競賽。",
-        "texten": "Select the first competition."
-    },
-    {
-        "id": 1,
-        "line": 10,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
-    },
-    {
-        "id": 1,
-        "line": 11,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
-        "texten": "Make sure you know the winning criteria before moving to the next step."
-    },
-    {
-        "id": 1,
-        "line": 12,
-        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
-    },
-    {
-        "id": 1,
-        "line": 13,
-        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
-        "texten": "Here are your teammates for this game, press confirm to begin game."
-    },
-    {
-        "id": 1,
-        "line": 14,
-        "uipath": "UI2D/UISelectRole/Right/GameStart"
-    },
-    {
-        "id": 3,
-        "line": 1,
-        "title": "Skill",
-        "kind": 4,
-        "value": 2,
-        "uiname": "UISkillFormation",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "剛剛獲得到一張[ff6060]技能卡片[-]，這是幹嘛的呀？",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
-    },
-    {
-        "id": 3,
-        "line": 2,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "[ff6060]技能卡片[-]是運用科技，讓我們能夠獲得超乎常人的能力，",
-        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance."
-    },
-    {
-        "id": 3,
-        "line": 3,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "如果這個卡片運用得當，將對比賽的結果造成決定性的影響。",
-        "texten": "If you can utilize this well, it can change the outcome of the game."
-    },
-    {
-        "id": 3,
-        "line": 4,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "我來教你怎麼安裝它。",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Let me teach you how to install it."
-    },
-    {
-        "id": 3,
-        "line": 5,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
-    },
-    {
-        "id": 3,
-        "line": 6,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "技能卡片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，",
-        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
-    },
-    {
-        "id": 3,
-        "line": 7,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "只要將擁有的技能卡片[ff6060]拖曳[-]到對應的[ff6060]右側欄位[-]中即可完成安裝，",
-        "texten": "Use the chip [ff6060]and drag it[-] to the matching [ff6060]right column[-] to complete the install，"
-    },
-    {
-        "id": 3,
-        "line": 8,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "[f6f6f6]找出最適合的搭配[-]將對你的旅程有絕佳的幫助喔。",
-        "texten": "[f6f6f6]Finding the best combo will provide great benefit to your journey!"
-    },
-    {
-        "id": 4,
-        "line": 1,
-        "title": "Avatar",
-        "kind": 4,
-        "value": 4,
-        "uiname": "UIAvatarFitted",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
-    },
-    {
-        "id": 4,
-        "line": 2,
-        "kind": 4,
-        "value": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt"
-    },
-    {
-        "id": 4,
-        "line": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "選擇衣服種類。",
-        "texten": "Click the clothes button."
-    },
-    {
-        "id": 4,
-        "line": 4,
-        "kind": 4,
-        "value": 4,
-        "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/2"
-    },
-    {
-        "id": 4,
-        "line": 5,
-        "kind": 4,
-        "value": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。",
-        "texten": "These styles and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time."
-    },
-    {
-        "id": 4,
-        "line": 6,
-        "kind": 4,
-        "value": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！",
-        "texten": "Purchasing new stle will increase [ff6060]Attribution points[-]！！"
-    },
-    {
-        "id": 4,
-        "line": 7,
-        "kind": 4,
-        "value": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "點擊[ff6060]衣服圖示[-]就可以把它穿起來了！！",
-        "texten": "Tap [ff6060]icon[-] to equip it！！"
-    },
-    {
-        "id": 5,
-        "line": 1,
         "title": "裝備",
         "kind": 4,
         "value": 3,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "良好的配件有助於我們取得更好的成績，",
+        "texttw": "良好的配件有助於我們取得更好的成績，我們可以利用[ff6060]突觸強化[-]來增加自身的能力！！",
         "texten": "Great gear will give us a great boost "
     },
     {
-        "id": 5,
+        "id": 1,
         "line": 2,
-        "kind": 4,
-        "value": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "快把我們剛剛獲得的配件給穿起來吧！！",
-        "texten": "Let's put on the gear we just got！！"
-    },
-    {
-        "id": 5,
-        "line": 3,
         "kind": 4,
         "value": 3,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/EquipmentBt"
     },
     {
-        "id": 5,
-        "line": 4,
+        "id": 1,
+        "line": 3,
         "kind": 4,
         "value": 3,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "有更強的裝備可以替換。",
+        "texttw": "我們先來強化可以有效提升[ff6060]射籃命中率[-]的[ff6060]顱部插件[-]吧！！",
         "texten": "Let's change better equiptment."
     },
     {
-        "id": 5,
+        "id": 1,
+        "line": 4,
+        "kind": 4,
+        "value": 3,
+        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0"
+    },
+    {
+        "id": 1,
         "line": 5,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UsePartSlot/View/ItemEquipmentBtn(Clone)"
+        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot1"
     },
     {
-        "id": 5,
+        "id": 1,
         "line": 6,
         "kind": 4,
         "value": 3,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "接下來選擇剛剛獲得的服裝即可穿上！！",
+        "texttw": "當插件已經鑲嵌滿星星後，即可進行[ff6060]進化合成[-]了，進化後可大幅提升自身能力值喔。",
         "texten": "Select the gear you got to equip it!"
     },
     {
-        "id": 5,
+        "id": 1,
         "line": 7,
         "kind": 4,
         "value": 3,
@@ -338,14 +66,274 @@
         "texten": "Can feel the difference can't ya?"
     },
     {
-        "id": 5,
+        "id": 1,
         "line": 8,
+        "kind": 4,
+        "value": 3,
         "uipath": "UI2D/UIMainLobby/MainView/BottomLeft/BackBtn"
     },
     {
-        "id": 1000,
+        "id": 2,
         "line": 1,
-        "title": "新",
+        "title": "Avatar",
+        "kind": 4,
+        "value": 4,
+        "uiname": "UIAvatarFitted",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "剛剛的勝利有獲得到很酷的造型服裝喔，[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
+    },
+    {
+        "id": 2,
+        "line": 2,
+        "kind": 4,
+        "value": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt"
+    },
+    {
+        "id": 2,
+        "line": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "選擇背部飾品種類。",
+        "texten": "Click the clothes button."
+    },
+    {
+        "id": 2,
+        "line": 4,
+        "kind": 4,
+        "value": 4,
+        "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/6"
+    },
+    {
+        "id": 2,
+        "line": 5,
+        "kind": 4,
+        "value": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。",
+        "texten": "These styles and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time."
+    },
+    {
+        "id": 2,
+        "line": 6,
+        "kind": 4,
+        "value": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！",
+        "texten": "Purchasing new stle will increase [ff6060]Attribution points[-]！！"
+    },
+    {
+        "id": 2,
+        "line": 7,
+        "kind": 4,
+        "value": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "點擊[ff6060]物品圖示[-]就可以把它穿起來了！！",
+        "texten": "Tap [ff6060]icon[-] to equip it！！"
+    },
+    {
+        "id": 5,
+        "line": 1,
+        "title": "Skill",
+        "kind": 4,
+        "value": 2,
+        "uiname": "UISkillFormation",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
+    },
+    {
+        "id": 5,
+        "line": 2,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成決定性的影響。",
+        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
+    },
+    {
+        "id": 5,
+        "line": 3,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "我來教你怎麼安裝它。",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "Let me teach you how to install it."
+    },
+    {
+        "id": 5,
+        "line": 4,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+    },
+    {
+        "id": 5,
+        "line": 5,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，",
+        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
+    },
+    {
+        "id": 5,
+        "line": 6,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "首先[ff6060]點擊[-]剛剛獲得的卡片"
+    },
+    {
+        "id": 30,
+        "line": 1,
+        "title": "主介面",
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
+        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
+        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
+        "texten": "Yo~~ The game is about to start, what are you doing here?"
+    },
+    {
+        "id": 30,
+        "line": 2,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
+        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
+        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
+    },
+    {
+        "id": 30,
+        "line": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
+        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
+        "texten": "Can't help it! That classical match is deeply imprinted in our brain."
+    },
+    {
+        "id": 30,
+        "line": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
+        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
+        "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
+    },
+    {
+        "id": 30,
+        "line": 5,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "好啦，走吧！！",
+        "textcn": "好啦好啦！！",
+        "texten": "Fine fine, let's go!"
+    },
+    {
+        "id": 30,
+        "line": 6,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "id": 30,
+        "line": 7,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "先進入[ff6060]生涯競賽[-]",
+        "texten": "Please enter [ff6060]Career Mode[-]."
+    },
+    {
+        "id": 30,
+        "line": 8,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+    },
+    {
+        "id": 30,
+        "line": 9,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "再來選擇第一場競賽。",
+        "texten": "Select the first competition."
+    },
+    {
+        "id": 30,
+        "line": 10,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
+    },
+    {
+        "id": 30,
+        "line": 11,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
+        "texten": "Make sure you know the winning criteria before moving to the next step."
+    },
+    {
+        "id": 30,
+        "line": 12,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "id": 30,
+        "line": 13,
+        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
+        "texten": "Here are your teammates for this game, press confirm to begin game."
+    },
+    {
+        "id": 30,
+        "line": 14,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 30,
+        "line": 15,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
+        "texttw": "在開賽前可以選擇另外兩位 [ff6060]隊友[-]，亦可以直接開始進行比賽。"
+    },
+    {
+        "id": 30,
+        "line": 16,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 40,
+        "line": 1,
+        "title": "新教學",
         "kind": 3,
         "talkindex": 0,
         "talkl": 11,
@@ -353,7 +341,7 @@
         "texttw": "在籃球黑幫2中，[ff6666]紅色[-]投射燈的球員是你自己．你也只能移動你自己的角色。"
     },
     {
-        "id": 1000,
+        "id": 40,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -362,7 +350,7 @@
         "texttw": "現在，先操作搖桿移動到指定的地方吧！"
     },
     {
-        "id": 1001,
+        "id": 41,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -371,7 +359,7 @@
         "texttw": "旁邊[6666ff]藍色[-]、[66ff66]綠色[-]投射燈的球員是你的隊友，你無法控制他們的移動"
     },
     {
-        "id": 1001,
+        "id": 41,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -380,13 +368,13 @@
         "texttw": "既然敵方防守球員站那麼遠，我們給他們一個驚喜吧！！"
     },
     {
-        "id": 1001,
+        "id": 41,
         "line": 3,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
     },
     {
-        "id": 1002,
+        "id": 42,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -395,7 +383,7 @@
         "texttw": "趁他們不注意，我們可以來嘗試一下抄截。"
     },
     {
-        "id": 1002,
+        "id": 42,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -404,7 +392,7 @@
         "texttw": "首先移動到指定的位置！！"
     },
     {
-        "id": 1003,
+        "id": 43,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -413,13 +401,13 @@
         "texttw": "趁現在可以使用抄截了！！"
     },
     {
-        "id": 1003,
+        "id": 43,
         "line": 2,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewDefance/ButtonSteal"
     },
     {
-        "id": 1004,
+        "id": 44,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -428,7 +416,7 @@
         "texttw": "瞧他們慌亂的，小心，有兩位敵對球員正朝你而來"
     },
     {
-        "id": 1004,
+        "id": 44,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -437,13 +425,13 @@
         "texttw": "可以使用肘擊，防止他們靠近。"
     },
     {
-        "id": 1004,
+        "id": 44,
         "line": 3,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
     },
     {
-        "id": 1005,
+        "id": 45,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -452,13 +440,13 @@
         "texttw": "趁現在有空擋了，可以試著傳給隊友，"
     },
     {
-        "id": 1005,
+        "id": 45,
         "line": 2,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
     },
     {
-        "id": 1005,
+        "id": 45,
         "line": 3,
         "kind": 3,
         "talkindex": 0,
@@ -467,13 +455,13 @@
         "texttw": "也可以再指揮隊友回傳給你！！"
     },
     {
-        "id": 1005,
+        "id": 45,
         "line": 4,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
     },
     {
-        "id": 1006,
+        "id": 46,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -482,466 +470,13 @@
         "texttw": "好啦，不要玩了，該給他們一個再見絕殺了"
     },
     {
-        "id": 1006,
+        "id": 46,
         "line": 2,
         "kind": 3,
         "uipath": "UI2D/UIGame/TopRight/2"
     },
     {
-        "id": 1011,
-        "line": 1,
-        "title": "第一關",
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 3,
-        "texttw": "只剩下最後的10秒鐘了，我們還落後7分，必須要好好把握這次發球的機會才行。",
-        "texten": "10 seconds left and we are still behind by 7, we must seize this possession"
-    },
-    {
-        "id": 1011,
-        "line": 2,
-        "kind": 3,
-        "value": 101,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "現在只能靠你的得分能力才有機會扭轉戰局了！！！",
-        "texten": "we have to count on your scoring bility now in order to turn the tide!"
-    },
-    {
-        "id": 1011,
-        "line": 3,
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 5,
-        "texttw": "好！只能這樣做了...來吧！！！",
-        "texten": "Aite! Just got to get down to business now!"
-    },
-    {
-        "id": 1012,
-        "line": 1,
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 2,
-        "texttw": "先來顆神準三分球！！",
-        "texten": "Hit a clutch 3 point shot!"
-    },
-    {
-        "id": 1012,
-        "line": 2,
-        "kind": 3,
-        "value": 101,
-        "uipath": "UI2D/UIGame/TopRight/0",
-        "talkindex": 1
-    },
-    {
-        "id": 1013,
-        "line": 1,
-        "title": "第一關",
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "剛剛的三分球讓我增加滿滿的能量，現在可以使用絕技了！！",
-        "texten": "That 3 gave me full energy and confidence, I can use the ability chip now!!"
-    },
-    {
-        "id": 1013,
-        "line": 2,
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 5,
-        "texttw": "時間來不及了，看來只能使用[fff400]瞬間抄球[-]技能。",
-        "texten": "We are running out of time, must use [fff400]the blink steal[-] ability."
-    },
-    {
-        "id": 1013,
-        "line": 3,
-        "kind": 3,
-        "value": 101,
-        "uipath": "UI2D/UIGame/TopRight/1"
-    },
-    {
-        "id": 1014,
-        "line": 1,
-        "title": "第一關",
-        "kind": 3,
-        "value": 101,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "快！！！把握機會！！",
-        "texten": "Hurry! Now is the time!"
-    },
-    {
-        "id": 1014,
-        "line": 2,
-        "kind": 3,
-        "value": 101,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "發動[fff400]終極灌籃[-]絕招來結束這場比賽吧。",
-        "texten": "Activate [fff400]ultimate slam[-] to end this game for good!"
-    },
-    {
-        "id": 1014,
-        "line": 3,
-        "kind": 3,
-        "value": 101,
-        "uipath": "UI2D/UIGame/TopRight/2"
-    },
-    {
         "id": 1021,
-        "line": 1,
-        "title": "第二關",
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺灌籃。",
-        "texten": "Damn, that was a crazy game!  Thanks to your clutch moves!"
-    },
-    {
-        "id": 1021,
-        "line": 2,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "妳客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。",
-        "texten": "Nah, basketball is a team sport, it was a team victory."
-    },
-    {
-        "id": 1021,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "說到團結合作，在混亂的競賽中為了能夠便於分辨敵我，所以我們用了[ff6666]紅[-]、[6666ff]藍[-]、[66ff66]綠[-]三色的投射燈來代表我方球員。",
-        "texten": "Speaking of teamwork, in order to distinquish teammates and opponents, we use [ff6666]red[-]、[6666ff]blue[-]、[66ff66]green[-] colours to represent our players."
-    },
-    {
-        "id": 1021,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "[ff6666]紅[-]投射燈的球員即代表是[fff400]你自己[-]。",
-        "texten": "[ff6666]Red[-] player represents [fff400]you[-]。"
-    },
-    {
-        "id": 1021,
-        "line": 5,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "[ff6666]紅[-][6666ff]藍[-][66ff66]綠[-]三種投射燈也分別對應[fff400]傳球[-]的三顆按鈕，點擊該顏色的按鈕即可將球傳到該為球員手中。",
-        "texten": "[ff6666]Red[-] [6666ff]Blue[-] [66ff66]Green[-] buttons are also used fo r[fff400]passing[-] to each respective players。"
-    },
-    {
-        "id": 1021,
-        "line": 6,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "靈活運用[fff400]傳球按鈕[-]來製造最佳的團隊配合吧！",
-        "texten": "Utilize [fff400]passing[-] going from good shot to great shot！"
-    },
-    {
-        "id": 1021,
-        "line": 7,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "原來如此，我們立即來試試吧！！",
-        "texten": "I see! Let's give it a shot！！"
-    },
-    {
-        "id": 1021,
-        "line": 8,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/Center/ViewStart/ButtonStart"
-    },
-    {
-        "id": 1022,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "現在是一個發動[fff400]快攻[-]的大好機會，快叫你的隊友把球傳給你。",
-        "texten": "It is a grea time to initiate [fff400]fast break[-] get ready to catch the pass from your teammate。"
-    },
-    {
-        "id": 1022,
-        "line": 2,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
-    },
-    {
-        "id": 1023,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "趕快把握空檔機會[fff400]灌籃[-]！！！！！",
-        "texten": "Shoot the gap for the [fff400]slam[-]！！！！！"
-    },
-    {
-        "id": 1023,
-        "line": 2,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
-    },
-    {
-        "id": 1024,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "爽！！",
-        "texten": "Yes!!!"
-    },
-    {
-        "id": 1024,
-        "line": 2,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "幹得好！！只要在靠近籃下的地方投籃，都會有[fff400]機率[-]發動[fff400]灌籃[-]喔。",
-        "texten": "Great job! Anytime you shoot near the basket there is a [fff400]percentage to[-] initiate [fff400]dunk attempt[-]."
-    },
-    {
-        "id": 1024,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "接下來我們來個漂亮的[fff400]抄截[-]嚇嚇他們吧！！",
-        "texten": "Let's aim for a great [fff400]steal[-] and surprise them！"
-    },
-    {
-        "id": 1024,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "你先偷偷靠近他們的持球者吧！！",
-        "texten": "Get close to the ball handler！！"
-    },
-    {
-        "id": 1025,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "趁他還在發呆，直接[fff400]抄球[-]吧，不用客氣了。",
-        "texten": "The player isn't looking [fff400]steal it now[-] don't feel sorry about it."
-    },
-    {
-        "id": 1025,
-        "line": 2,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewDefance/ButtonSteal"
-    },
-    {
-        "id": 1026,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "哈哈，太容易了，再順便送他們一個[fff400]絕殺灌籃[-]吧！！！",
-        "texten": "That was easy!  Here, take this [fff400] ultimate dunk[-]！！！"
-    },
-    {
-        "id": 1026,
-        "line": 2,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/TopRight/1"
-    },
-    {
-        "id": 1031,
-        "line": 1,
-        "title": "第三關",
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "經過了兩場的激戰，對手已經被你優秀的得分能力給震懾。",
-        "texten": "After two great battles your scoring ability has shocked the world"
-    },
-    {
-        "id": 1031,
-        "line": 2,
-        "title": "第三關",
-        "kind": 3,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "哈哈哈！！其實是他們太弱了！！",
-        "texten": "It wan't all me, the opponent is simply not at the same level!"
-    },
-    {
-        "id": 1031,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "所以接下來要找[fff400]強勁[-]一點的對手來挑戰看看了。",
-        "texten": "Time to find a better [fff400]opponent[-] for some serious challenge."
-    },
-    {
-        "id": 1031,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 2,
-        "texttw": "好啊，放馬過來！！",
-        "texten": "Come on! Show me what you got!"
-    },
-    {
-        "id": 1031,
-        "line": 5,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/Center/ViewStart/ButtonStart"
-    },
-    {
-        "id": 1032,
-        "line": 1,
-        "kind": 3,
-        "talkr": 12,
-        "actionr": 3,
-        "texttw": "糟糕，被騙了，被敵對球員包夾！！！",
-        "texten": "Damn, got tricked into a trap！！！"
-    },
-    {
-        "id": 1032,
-        "line": 2,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "別怕，在競賽中常常會遇到被對手包夾的狀況",
-        "texten": "Don't worry, this happens all the time"
-    },
-    {
-        "id": 1032,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 4,
-        "texttw": "這時候，可以使出[fff400]肘擊[-]來保護自己的球，防止對方靠近！！",
-        "texten": "This is a great time to use [fff400]elbow[-] to prevent your opponent from getting too close and protect your basketball！！"
-    },
-    {
-        "id": 1032,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 5,
-        "texttw": "好，我來試試！！",
-        "texten": "Ok! I'll give it a try!"
-    },
-    {
-        "id": 1032,
-        "line": 5,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
-    },
-    {
-        "id": 1033,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "這樣是不是少了很多[fff400]阻礙[-]，",
-        "texten": "See? now there is much less [fff400]resistance[-]！？"
-    },
-    {
-        "id": 1033,
-        "line": 2,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "快把球傳給我，我來給他們致命一擊！！！",
-        "texten": "Pass me the ball, I'll give them the fatal blow!!"
-    },
-    {
-        "id": 1033,
-        "line": 3,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectA"
-    },
-    {
-        "id": 1033,
-        "line": 4,
-        "talkindex": 1,
-        "talkr": 12,
-        "actionr": 1,
-        "texttw": "看妳的了！",
-        "texten": "All yours!"
-    },
-    {
-        "id": 1033,
-        "line": 5,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
-    },
-    {
-        "id": 1034,
-        "line": 1,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "禁區已沒有敵對防守球員，此時可以[fff400]指揮隊友[-]進行射籃了！",
-        "texten": "There isn't anyone near the basket, command[fff400]teamate[-]to take the shot！"
-    },
-    {
-        "id": 1034,
-        "line": 2,
-        "kind": 3,
-        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
-    },
-    {
-        "id": 1034,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "切記，適時的指揮隊友進攻，將可以創造更有效率地得分。",
-        "texten": "Remember, directing your teammates to the right direction can help the team score efficiently."
-    },
-    {
-        "id": 10101,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -951,7 +486,7 @@
         "texten": "In this level we have to reach [fff400]duncks[-] to beat this level"
     },
     {
-        "id": 10101,
+        "id": 1021,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -961,7 +496,7 @@
         "texten": "This criteria seems a little challenging, remember to use the ability chip！！"
     },
     {
-        "id": 10102,
+        "id": 1022,
         "line": 1,
         "kind": 3,
         "talkindex": 1,
@@ -971,7 +506,7 @@
         "texten": "The score has been tight, we must execute better on every possession!"
     },
     {
-        "id": 10102,
+        "id": 1022,
         "line": 2,
         "kind": 3,
         "talkindex": 0,
@@ -981,7 +516,7 @@
         "texten": "The score has been tight, we must execute better on every possession!"
     },
     {
-        "id": 10401,
+        "id": 1041,
         "line": 1,
         "kind": 3,
         "talkindex": 0,
@@ -991,7 +526,7 @@
         "texten": "This level will require [fff400]3 Point Shots[-] which is more than last game"
     },
     {
-        "id": 10401,
+        "id": 1041,
         "line": 2,
         "kind": 3,
         "talkindex": 1,
@@ -1000,7 +535,7 @@
         "texten": "Last level was tough one and you are raising the bar?..."
     },
     {
-        "id": 10401,
+        "id": 1041,
         "line": 3,
         "kind": 3,
         "talkindex": 0,
@@ -1010,7 +545,7 @@
         "texten": "Don't worry, this time your teammate will be a well known 3 Point shooter"
     },
     {
-        "id": 10401,
+        "id": 1041,
         "line": 4,
         "kind": 3,
         "talkindex": 0,
@@ -1020,12 +555,1186 @@
         "texten": "Let's set up the shots for him!"
     },
     {
-        "id": 10401,
+        "id": 1041,
         "line": 5,
         "kind": 3,
         "talkindex": 1,
         "actionl": 5,
         "texttw": "好！！就這麼辦！！",
         "texten": "Great!  Let's do this!"
+    },
+    {
+        "id": "1010",
+        "line": 1,
+        "title": "1-1全新的開始",
+        "kind": 1
+    },
+    {
+        "id": "1010",
+        "line": 2,
+        "kind": 1
+    },
+    {
+        "id": "1010",
+        "line": 3,
+        "kind": 1
+    },
+    {
+        "id": "1020",
+        "line": 0,
+        "title": "1-2得分能力的展現",
+        "kind": 1
+    },
+    {
+        "id": "1030",
+        "line": 0,
+        "title": "1-3叫我神射手",
+        "kind": 1
+    },
+    {
+        "id": "1040",
+        "line": 0,
+        "title": "1-4神一般的隊友",
+        "kind": 1
+    },
+    {
+        "id": "1050",
+        "line": 0,
+        "title": "2-1不一樣的策略",
+        "kind": 1
+    },
+    {
+        "id": "1060",
+        "line": 0,
+        "title": "2-2防守也是一種藝術",
+        "kind": 1
+    },
+    {
+        "id": "1070",
+        "line": 0,
+        "title": "2-3火鍋的防守價值",
+        "kind": 1
+    },
+    {
+        "id": "1080",
+        "line": 0,
+        "title": "2-4防守！！",
+        "kind": 1
+    },
+    {
+        "id": "1090",
+        "line": 0,
+        "title": "3-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1100",
+        "line": 0,
+        "title": "3-2抄截的運用",
+        "kind": 1
+    },
+    {
+        "id": "1110",
+        "line": 0,
+        "title": "3-3身體的對抗性",
+        "kind": 1
+    },
+    {
+        "id": "1120",
+        "line": 0,
+        "title": "3-4取得勝利",
+        "kind": 1
+    },
+    {
+        "id": "1130",
+        "line": 0,
+        "title": "4-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1140",
+        "line": 0,
+        "title": "4-2得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1150",
+        "line": 0,
+        "title": "4-3三分球",
+        "kind": 1
+    },
+    {
+        "id": "1160",
+        "line": 0,
+        "title": "4-4鬼之切入",
+        "kind": 1
+    },
+    {
+        "id": "1170",
+        "line": 0,
+        "title": "4-5對抗",
+        "kind": 1
+    },
+    {
+        "id": "1180",
+        "line": 0,
+        "title": "5-1體質的重要",
+        "kind": 1
+    },
+    {
+        "id": "1190",
+        "line": 0,
+        "title": "5-2防守再防守",
+        "kind": 1
+    },
+    {
+        "id": "1200",
+        "line": 0,
+        "title": "5-3銅牆鐵壁",
+        "kind": 1
+    },
+    {
+        "id": "1210",
+        "line": 0,
+        "title": "5-4分數",
+        "kind": 1
+    },
+    {
+        "id": "1220",
+        "line": 0,
+        "title": "5-5碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1230",
+        "line": 0,
+        "title": "6-1妙手",
+        "kind": 1
+    },
+    {
+        "id": "1240",
+        "line": 0,
+        "title": "6-2得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1250",
+        "line": 0,
+        "title": "6-3搶分",
+        "kind": 1
+    },
+    {
+        "id": "1260",
+        "line": 0,
+        "title": "6-4追分",
+        "kind": 1
+    },
+    {
+        "id": "1270",
+        "line": 0,
+        "title": "6-5神射手",
+        "kind": 1
+    },
+    {
+        "id": "1280",
+        "line": 0,
+        "title": "7-1內線",
+        "kind": 1
+    },
+    {
+        "id": "1290",
+        "line": 0,
+        "title": "7-2抄截大賽",
+        "kind": 1
+    },
+    {
+        "id": "1300",
+        "line": 0,
+        "title": "7-3碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1310",
+        "line": 0,
+        "title": "7-4死守",
+        "kind": 1
+    },
+    {
+        "id": "1320",
+        "line": 0,
+        "title": "7-5防守再防守",
+        "kind": 1
+    },
+    {
+        "id": "1330",
+        "line": 0,
+        "title": "8-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1340",
+        "line": 0,
+        "title": "8-2推人大賽",
+        "kind": 1
+    },
+    {
+        "id": "1350",
+        "line": 0,
+        "title": "8-3抄截大賽",
+        "kind": 1
+    },
+    {
+        "id": "1360",
+        "line": 0,
+        "title": "8-4得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1370",
+        "line": 0,
+        "title": "8-5得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1380",
+        "line": 0,
+        "title": "9-1灌籃大賽",
+        "kind": 1
+    },
+    {
+        "id": "1390",
+        "line": 0,
+        "title": "9-2冷箭",
+        "kind": 1
+    },
+    {
+        "id": "1400",
+        "line": 0,
+        "title": "9-3得分王",
+        "kind": 1
+    },
+    {
+        "id": "1410",
+        "line": 0,
+        "title": "9-4碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1420",
+        "line": 0,
+        "title": "9-5肢體接觸",
+        "kind": 1
+    },
+    {
+        "id": "1430",
+        "line": 0,
+        "title": "10-1鐵桶陣",
+        "kind": 1
+    },
+    {
+        "id": "1440",
+        "line": 0,
+        "title": "10-2防守至上",
+        "kind": 1
+    },
+    {
+        "id": "1450",
+        "line": 0,
+        "title": "10-3得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1460",
+        "line": 0,
+        "title": "10-4不一樣的策略",
+        "kind": 1
+    },
+    {
+        "id": "1470",
+        "line": 0,
+        "title": "10-5艱難挑戰",
+        "kind": 1
+    },
+    {
+        "id": "1480",
+        "line": 0,
+        "title": "11-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1490",
+        "line": 0,
+        "title": "11-2得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1500",
+        "line": 0,
+        "title": "11-3三分球",
+        "kind": 1
+    },
+    {
+        "id": "1510",
+        "line": 0,
+        "title": "11-4鬼之切入",
+        "kind": 1
+    },
+    {
+        "id": "1520",
+        "line": 0,
+        "title": "11-5對抗",
+        "kind": 1
+    },
+    {
+        "id": "1530",
+        "line": 0,
+        "title": "12-1體質的重要",
+        "kind": 1
+    },
+    {
+        "id": "1540",
+        "line": 0,
+        "title": "12-2防守再防守",
+        "kind": 1
+    },
+    {
+        "id": "1550",
+        "line": 0,
+        "title": "12-3銅牆鐵壁",
+        "kind": 1
+    },
+    {
+        "id": "1560",
+        "line": 0,
+        "title": "12-4分數",
+        "kind": 1
+    },
+    {
+        "id": "1570",
+        "line": 0,
+        "title": "12-5碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1580",
+        "line": 0,
+        "title": "13-1妙手",
+        "kind": 1
+    },
+    {
+        "id": "1590",
+        "line": 0,
+        "title": "13-2得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1600",
+        "line": 0,
+        "title": "13-3搶分",
+        "kind": 1
+    },
+    {
+        "id": "1610",
+        "line": 0,
+        "title": "13-4追分",
+        "kind": 1
+    },
+    {
+        "id": "1620",
+        "line": 0,
+        "title": "13-5神射手",
+        "kind": 1
+    },
+    {
+        "id": "1630",
+        "line": 0,
+        "title": "14-1內線",
+        "kind": 1
+    },
+    {
+        "id": "1640",
+        "line": 0,
+        "title": "14-2抄截大賽",
+        "kind": 1
+    },
+    {
+        "id": "1650",
+        "line": 0,
+        "title": "14-3碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1660",
+        "line": 0,
+        "title": "14-4死守",
+        "kind": 1
+    },
+    {
+        "id": "1670",
+        "line": 0,
+        "title": "14-5防守再防守",
+        "kind": 1
+    },
+    {
+        "id": "1680",
+        "line": 0,
+        "title": "15-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1690",
+        "line": 0,
+        "title": "15-2推人大賽",
+        "kind": 1
+    },
+    {
+        "id": "1700",
+        "line": 0,
+        "title": "15-3抄截大賽",
+        "kind": 1
+    },
+    {
+        "id": "1710",
+        "line": 0,
+        "title": "15-4得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1720",
+        "line": 0,
+        "title": "15-5得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1730",
+        "line": 0,
+        "title": "16-1灌籃大賽",
+        "kind": 1
+    },
+    {
+        "id": "1740",
+        "line": 0,
+        "title": "16-2冷箭",
+        "kind": 1
+    },
+    {
+        "id": "1750",
+        "line": 0,
+        "title": "16-3得分王",
+        "kind": 1
+    },
+    {
+        "id": "1760",
+        "line": 0,
+        "title": "16-4碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1770",
+        "line": 0,
+        "title": "16-5肢體接觸",
+        "kind": 1
+    },
+    {
+        "id": "1780",
+        "line": 0,
+        "title": "17-1鐵桶陣",
+        "kind": 1
+    },
+    {
+        "id": "1790",
+        "line": 0,
+        "title": "17-2防守至上",
+        "kind": 1
+    },
+    {
+        "id": "1800",
+        "line": 0,
+        "title": "17-3得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1810",
+        "line": 0,
+        "title": "17-4不一樣的策略",
+        "kind": 1
+    },
+    {
+        "id": "1820",
+        "line": 0,
+        "title": "17-5艱難挑戰",
+        "kind": 1
+    },
+    {
+        "id": "1830",
+        "line": 0,
+        "title": "18-1得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1840",
+        "line": 0,
+        "title": "18-2推人大賽",
+        "kind": 1
+    },
+    {
+        "id": "1850",
+        "line": 0,
+        "title": "18-3抄截大賽",
+        "kind": 1
+    },
+    {
+        "id": "1860",
+        "line": 0,
+        "title": "18-4得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1870",
+        "line": 0,
+        "title": "18-5得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1880",
+        "line": 0,
+        "title": "19-1灌籃大賽",
+        "kind": 1
+    },
+    {
+        "id": "1890",
+        "line": 0,
+        "title": "19-2冷箭",
+        "kind": 1
+    },
+    {
+        "id": "1900",
+        "line": 0,
+        "title": "19-3得分王",
+        "kind": 1
+    },
+    {
+        "id": "1910",
+        "line": 0,
+        "title": "19-4碰撞",
+        "kind": 1
+    },
+    {
+        "id": "1920",
+        "line": 0,
+        "title": "19-5肢體接觸",
+        "kind": 1
+    },
+    {
+        "id": "1930",
+        "line": 0,
+        "title": "20-1鐵桶陣",
+        "kind": 1
+    },
+    {
+        "id": "1940",
+        "line": 0,
+        "title": "20-2防守至上",
+        "kind": 1
+    },
+    {
+        "id": "1950",
+        "line": 0,
+        "title": "20-3得分競賽",
+        "kind": 1
+    },
+    {
+        "id": "1960",
+        "line": 0,
+        "title": "20-4不一樣的策略",
+        "kind": 1
+    },
+    {
+        "id": "1970",
+        "line": 0,
+        "title": "20-5艱難挑戰",
+        "kind": 1
+    },
+    {
+        "id": "21110",
+        "line": 0,
+        "title": "1-1",
+        "kind": 1
+    },
+    {
+        "id": "21120",
+        "line": 0,
+        "title": "1-2",
+        "kind": 1
+    },
+    {
+        "id": "21130",
+        "line": 0,
+        "title": "1-3",
+        "kind": 1
+    },
+    {
+        "id": "21140",
+        "line": 0,
+        "title": "1-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21210",
+        "line": 0,
+        "title": "2-1",
+        "kind": 1
+    },
+    {
+        "id": "21220",
+        "line": 0,
+        "title": "2-2",
+        "kind": 1
+    },
+    {
+        "id": "21230",
+        "line": 0,
+        "title": "2-3",
+        "kind": 1
+    },
+    {
+        "id": "21240",
+        "line": 0,
+        "title": "2-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21310",
+        "line": 0,
+        "title": "3-1",
+        "kind": 1
+    },
+    {
+        "id": "21320",
+        "line": 0,
+        "title": "3-2",
+        "kind": 1
+    },
+    {
+        "id": "21330",
+        "line": 0,
+        "title": "3-3",
+        "kind": 1
+    },
+    {
+        "id": "21340",
+        "line": 0,
+        "title": "3-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21410",
+        "line": 0,
+        "title": "4-1",
+        "kind": 1
+    },
+    {
+        "id": "21420",
+        "line": 0,
+        "title": "4-2",
+        "kind": 1
+    },
+    {
+        "id": "21430",
+        "line": 0,
+        "title": "4-3",
+        "kind": 1
+    },
+    {
+        "id": "21440",
+        "line": 0,
+        "title": "4-4",
+        "kind": 1
+    },
+    {
+        "id": "21450",
+        "line": 0,
+        "title": "4-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21510",
+        "line": 0,
+        "title": "5-1",
+        "kind": 1
+    },
+    {
+        "id": "21520",
+        "line": 0,
+        "title": "5-2",
+        "kind": 1
+    },
+    {
+        "id": "21530",
+        "line": 0,
+        "title": "5-3",
+        "kind": 1
+    },
+    {
+        "id": "21540",
+        "line": 0,
+        "title": "5-4",
+        "kind": 1
+    },
+    {
+        "id": "21550",
+        "line": 0,
+        "title": "5-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21610",
+        "line": 0,
+        "title": "6-1",
+        "kind": 1
+    },
+    {
+        "id": "21620",
+        "line": 0,
+        "title": "6-2",
+        "kind": 1
+    },
+    {
+        "id": "21630",
+        "line": 0,
+        "title": "6-3",
+        "kind": 1
+    },
+    {
+        "id": "21640",
+        "line": 0,
+        "title": "6-4",
+        "kind": 1
+    },
+    {
+        "id": "21650",
+        "line": 0,
+        "title": "6-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21710",
+        "line": 0,
+        "title": "7-1",
+        "kind": 1
+    },
+    {
+        "id": "21720",
+        "line": 0,
+        "title": "7-2",
+        "kind": 1
+    },
+    {
+        "id": "21730",
+        "line": 0,
+        "title": "7-3",
+        "kind": 1
+    },
+    {
+        "id": "21740",
+        "line": 0,
+        "title": "7-4",
+        "kind": 1
+    },
+    {
+        "id": "21750",
+        "line": 0,
+        "title": "7-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21810",
+        "line": 0,
+        "title": "8-1",
+        "kind": 1
+    },
+    {
+        "id": "21820",
+        "line": 0,
+        "title": "8-2",
+        "kind": 1
+    },
+    {
+        "id": "21830",
+        "line": 0,
+        "title": "8-3",
+        "kind": 1
+    },
+    {
+        "id": "21840",
+        "line": 0,
+        "title": "8-4",
+        "kind": 1
+    },
+    {
+        "id": "21850",
+        "line": 0,
+        "title": "8-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "21910",
+        "line": 0,
+        "title": "9-1",
+        "kind": 1
+    },
+    {
+        "id": "21920",
+        "line": 0,
+        "title": "9-2",
+        "kind": 1
+    },
+    {
+        "id": "21930",
+        "line": 0,
+        "title": "9-3",
+        "kind": 1
+    },
+    {
+        "id": "21940",
+        "line": 0,
+        "title": "9-4",
+        "kind": 1
+    },
+    {
+        "id": "21950",
+        "line": 0,
+        "title": "9-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22010",
+        "line": 0,
+        "title": "10-1",
+        "kind": 1
+    },
+    {
+        "id": "22020",
+        "line": 0,
+        "title": "10-2",
+        "kind": 1
+    },
+    {
+        "id": "22030",
+        "line": 0,
+        "title": "10-3",
+        "kind": 1
+    },
+    {
+        "id": "22040",
+        "line": 0,
+        "title": "10-4",
+        "kind": 1
+    },
+    {
+        "id": "22050",
+        "line": 0,
+        "title": "10-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22110",
+        "line": 0,
+        "title": "11-1",
+        "kind": 1
+    },
+    {
+        "id": "22120",
+        "line": 0,
+        "title": "11-2",
+        "kind": 1
+    },
+    {
+        "id": "22130",
+        "line": 0,
+        "title": "11-3",
+        "kind": 1
+    },
+    {
+        "id": "22140",
+        "line": 0,
+        "title": "11-4",
+        "kind": 1
+    },
+    {
+        "id": "22150",
+        "line": 0,
+        "title": "11-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22210",
+        "line": 0,
+        "title": "12-1",
+        "kind": 1
+    },
+    {
+        "id": "22220",
+        "line": 0,
+        "title": "12-2",
+        "kind": 1
+    },
+    {
+        "id": "22230",
+        "line": 0,
+        "title": "12-3",
+        "kind": 1
+    },
+    {
+        "id": "22240",
+        "line": 0,
+        "title": "12-4",
+        "kind": 1
+    },
+    {
+        "id": "22250",
+        "line": 0,
+        "title": "12-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22310",
+        "line": 0,
+        "title": "13-1",
+        "kind": 1
+    },
+    {
+        "id": "22320",
+        "line": 0,
+        "title": "13-2",
+        "kind": 1
+    },
+    {
+        "id": "22330",
+        "line": 0,
+        "title": "13-3",
+        "kind": 1
+    },
+    {
+        "id": "22340",
+        "line": 0,
+        "title": "13-4",
+        "kind": 1
+    },
+    {
+        "id": "22350",
+        "line": 0,
+        "title": "13-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22410",
+        "line": 0,
+        "title": "14-1",
+        "kind": 1
+    },
+    {
+        "id": "22420",
+        "line": 0,
+        "title": "14-2",
+        "kind": 1
+    },
+    {
+        "id": "22430",
+        "line": 0,
+        "title": "14-3",
+        "kind": 1
+    },
+    {
+        "id": "22440",
+        "line": 0,
+        "title": "14-4",
+        "kind": 1
+    },
+    {
+        "id": "22450",
+        "line": 0,
+        "title": "14-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22510",
+        "line": 0,
+        "title": "15-1",
+        "kind": 1
+    },
+    {
+        "id": "22520",
+        "line": 0,
+        "title": "15-2",
+        "kind": 1
+    },
+    {
+        "id": "22530",
+        "line": 0,
+        "title": "15-3",
+        "kind": 1
+    },
+    {
+        "id": "22540",
+        "line": 0,
+        "title": "15-4",
+        "kind": 1
+    },
+    {
+        "id": "22550",
+        "line": 0,
+        "title": "15-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22610",
+        "line": 0,
+        "title": "16-1",
+        "kind": 1
+    },
+    {
+        "id": "22620",
+        "line": 0,
+        "title": "16-2",
+        "kind": 1
+    },
+    {
+        "id": "22630",
+        "line": 0,
+        "title": "16-3",
+        "kind": 1
+    },
+    {
+        "id": "22640",
+        "line": 0,
+        "title": "16-4",
+        "kind": 1
+    },
+    {
+        "id": "22650",
+        "line": 0,
+        "title": "16-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22710",
+        "line": 0,
+        "title": "17-1",
+        "kind": 1
+    },
+    {
+        "id": "22720",
+        "line": 0,
+        "title": "17-2",
+        "kind": 1
+    },
+    {
+        "id": "22730",
+        "line": 0,
+        "title": "17-3",
+        "kind": 1
+    },
+    {
+        "id": "22740",
+        "line": 0,
+        "title": "17-4",
+        "kind": 1
+    },
+    {
+        "id": "22750",
+        "line": 0,
+        "title": "17-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22810",
+        "line": 0,
+        "title": "18-1",
+        "kind": 1
+    },
+    {
+        "id": "22820",
+        "line": 0,
+        "title": "18-2",
+        "kind": 1
+    },
+    {
+        "id": "22830",
+        "line": 0,
+        "title": "18-3",
+        "kind": 1
+    },
+    {
+        "id": "22840",
+        "line": 0,
+        "title": "18-4",
+        "kind": 1
+    },
+    {
+        "id": "22850",
+        "line": 0,
+        "title": "18-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "22910",
+        "line": 0,
+        "title": "19-1",
+        "kind": 1
+    },
+    {
+        "id": "22920",
+        "line": 0,
+        "title": "19-2",
+        "kind": 1
+    },
+    {
+        "id": "22930",
+        "line": 0,
+        "title": "19-3",
+        "kind": 1
+    },
+    {
+        "id": "22940",
+        "line": 0,
+        "title": "19-4",
+        "kind": 1
+    },
+    {
+        "id": "22950",
+        "line": 0,
+        "title": "19-BOSS",
+        "kind": 1
+    },
+    {
+        "id": "23010",
+        "line": 0,
+        "title": "20-1",
+        "kind": 1
+    },
+    {
+        "id": "23020",
+        "line": 0,
+        "title": "20-2",
+        "kind": 1
+    },
+    {
+        "id": "23030",
+        "line": 0,
+        "title": "20-3",
+        "kind": 1
+    },
+    {
+        "id": "23040",
+        "line": 0,
+        "title": "20-4",
+        "kind": 1
+    },
+    {
+        "id": "23050",
+        "line": 0,
+        "title": "20-BOSS",
+        "kind": 1
     }
 ]
