@@ -358,7 +358,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	private void addLoginInfo(ref WWWForm form) {
-		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
 		form.AddField("Language", GameData.Setting.Language.GetHashCode());
 		form.AddField("OS", GameData.OS);
 		form.AddField("Company", GameData.Company);
@@ -463,7 +463,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     GameData.Team.Friends = new Dictionary<string, TFriend>();
 
                 SyncDailyRecord();
-                LookFriends(null, SystemInfo.deviceUniqueIdentifier, false);
+                LookFriends(null, GameData.Team.Identifier, false);
                 StartCoroutine(longPollingSocialEvent(0));
                 StartCoroutine(longPollingWatchFriends(0));
 			} catch (Exception e) {
@@ -475,7 +475,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     public void SyncDailyRecord() {
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
         Command(URLConst.SyncDailyRecord, waitSyncDailyRecord, form, false);
     }
 
@@ -517,7 +517,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
     public void FreshFriends(EventDelegate.Callback e, bool waiting) {
         FreshFriendsEvent = e;
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
         SendHttp.Get.Command(URLConst.FreshFriends, waitFreshFriends, form, waiting);
     }
 
@@ -552,7 +552,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
     public void MakeFriend(EventDelegate.Callback e, string friendID) {
         MakeFriendEvent = e;
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
         form.AddField("Name", GameData.Team.Player.Name);
         form.AddField("FriendID", friendID);
         SendHttp.Get.Command(URLConst.MakeFriend, waitMakeFriend, form);
@@ -585,7 +585,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void lookSocialEvent(int kind) {
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
 
         if (kind > 0)
             form.AddField("Time", GameData.Team.SocialEventTime.ToString());
@@ -637,7 +637,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void lookWatchFriends(int kind) {
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
 
         if (kind > 0) 
             form.AddField("Time", GameData.Team.WatchFriendsTime.ToString());
@@ -719,7 +719,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         UISocial.Get.FreshFriend(3);
                     
                     WWWForm form = new WWWForm();
-                    form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                    form.AddField("Identifier", GameData.Team.Identifier);
                     form.AddField("FriendID", friend.Identifier);
 
                     SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
@@ -735,7 +735,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void confirmFriend(string id) {
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
         form.AddField("FriendID", id);
         form.AddField("Name", GameData.Team.Player.Name);
         form.AddField("Ask", "1");

@@ -365,7 +365,7 @@ public class UIShop : UIBase {
     private void sendBuyItem() {
         UIItemHint.UIShow(false);
         WWWForm form = new WWWForm();
-        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
         form.AddField("Kind", nowPage.ToString());
         form.AddField("Index", nowIndex.ToString());
         SendHttp.Get.Command(URLConst.BuyMyShop, waitBuy, form);

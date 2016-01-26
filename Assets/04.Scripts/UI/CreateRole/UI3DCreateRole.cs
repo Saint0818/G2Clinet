@@ -80,10 +80,7 @@ public class UI3DCreateRole : UIBase
         get
         {
             if(!instance)
-            {
-                UI3D.UIShow(true);
                 instance = Load3DUI(UIName) as UI3DCreateRole;
-            }
 
             return instance;
         }

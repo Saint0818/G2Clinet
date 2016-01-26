@@ -165,8 +165,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
-//        form.AddField("Name", GameData.Team.Player.Name);
-        form.AddField("Name", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Name",GameData.Team.Identifier);
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
 
 		if(SceneMgr.Get.CurrentScene != "Lobby")

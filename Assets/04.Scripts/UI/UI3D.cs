@@ -1,32 +1,38 @@
 ﻿using UnityEngine;
 
-public enum UIKind
-{
-	CreateRole,
-	PlayerShow,
-	GameResult,
-}
-
-public class UI3D : UIBase {
+public class UI3D : MonoBehaviour {
 	private static UI3D instance = null;
-	private const string UIName = "UI3D";
-	public static void UIShow(bool isShow){
-		if(instance)
-			instance.Show(isShow);
-		else
-		if(isShow)
-			Get.Show(isShow);
-	}
+    private const string UIName = "UI3D";
 
-	public static UI3D Get
-	{
-		get {
-			if (!instance) 
-				instance = Load3DUI(UIName) as UI3D;
-			
-			return instance;
-		}
-	}
+    public static UI3D Get
+    {
+        get {
+            if (!instance) {
+                GameObject obj = GameObject.Find(UIName);
+                if (!obj) {
+                    GameObject obj2 = Resources.Load<GameObject>("Prefab/UI/" + UIName);
+                    if (obj2) {
+                        GameObject obj3 = Instantiate(obj2) as GameObject;
+                        obj3.name = UIName;
+                        instance = obj3.GetComponent<UI3D>();
+                        if(!instance) 
+                            instance = obj3.AddComponent<UI3D>();
+                    } else {
+                        obj2 = new GameObject();
+                        obj2.name = UIName;
+                        instance = obj2.AddComponent<UI3D>();
+                    }
+                } else
+                    instance = obj.GetComponent<UI3D>();
+            }
+
+            return instance;
+        }
+    }
+
+    private void Show(bool isShow) {
+        gameObject.SetActive(isShow);
+    }
 
 	public static bool Visible
 	{
@@ -36,5 +42,13 @@ public class UI3D : UIBase {
 			else
 				return false;
 		}
+
+        set {
+            if (instance) 
+                instance.Show(value);
+            else
+            if (value)
+                Get.Show(value);
+        }
 	}
 }
