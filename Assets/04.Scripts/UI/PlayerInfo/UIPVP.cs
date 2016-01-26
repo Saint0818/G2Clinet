@@ -773,7 +773,7 @@ public class UIPVP : UIBase
     {
         WWWForm form = new WWWForm();
         form.AddField("ShopIndex", -1);
-        SendHttp.Get.Command(URLConst.PVPBuyCD, WaitPVPBuyPVPCD, form, true);  
+        SendHttp.Get.Command(URLConst.PVPBuyTicket, WaitPVPBuyPVPCD, form, true);  
     }
 
     private void WaitPVPBuyPVPCD(bool ok, WWW www)
