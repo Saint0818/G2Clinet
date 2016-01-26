@@ -182,6 +182,18 @@
         "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)"
     },
     {
+        "id": 255,
+        "explain": "PVP撮合不到對手內文",
+        "uipeth": "請用UIMessage",
+        "tw": "目前搓合不到對手，請稍候再試。"
+    },
+    {
+        "id": 256,
+        "explain": "PVP撮合不到對手標題",
+        "uipeth": "請用UIMessage",
+        "tw": "聯盟對戰"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。",
@@ -227,43 +239,54 @@
         "tw": "在禁區使用投籃時，如果[FFDD33]灌籃值[-]越高，越容易發動[FFDD33]灌籃[-]唷！！"
     },
     {
+        "id": 310,
+        "tw": "Icon_Gem=此圖是表示鑽石，在遊戲中經常會用到，盡量收集它吧！"
+    },
+    {
         "id": 400,
         "explain": "解鎖相關功能"
     },
     {
         "id": 401,
         "explain": "1.解鎖數值裝",
-        "tw": "知名度達到等級2時解鎖",
-        "en": "Will unlock when publicity reaches level 2"
-    },
-    {
-        "id": 402,
-        "explain": "2.解鎖Avatar",
         "tw": "知名度達到等級3時解鎖",
         "en": "Will unlock when publicity reaches level 3"
     },
     {
+        "id": 402,
+        "explain": "2.解鎖Avatar",
+        "tw": "知名度達到等級2時解鎖",
+        "en": "Will unlock when publicity reaches level 2"
+    },
+    {
         "id": 403,
-        "explain": "3.解鎖大廳左一按鈕(Shop)",
-        "tw": "功能尚未開放",
-        "en": "Function has yet to be unlocked"
+        "explain": "3.商店按鈕",
+        "tw": "知名度達到等級8時解鎖",
+        "en": "Will unlock when publicity reaches level 8"
     },
     {
         "id": 404,
-        "explain": "4.解鎖大廳左二按鈕(Social)",
-        "tw": "功能尚未開放",
-        "en": "Function has yet to be unlocked"
+        "explain": "4.社群按鈕",
+        "tw": "知名度達到等級5時解鎖",
+        "en": "Will unlock when publicity reaches level 5"
     },
     {
         "id": 405,
         "explain": "解鎖技能功能",
         "tw": "知名度達到等級1時解鎖",
-        "en": "Function will unlock at level 1"
+        "en": "Will unlock when publicity reaches level 1"
     },
     {
         "id": 406,
         "explain": "解鎖任務功能",
-        "tw": "知名度達到等級5時解鎖"
+        "tw": "知名度達到等級4時解鎖",
+        "en": "Will unlock when publicity reaches level 4"
+    },
+    {
+        "id": 407,
+        "explain": "解鎖7.抽卡牌功能",
+        "tw": "知名度達到等級6時解鎖",
+        "en": "Will unlock when publicity reaches level 6"
     },
     {
         "id": 451,
@@ -280,23 +303,32 @@
     {
         "id": 453,
         "explain": "解鎖商店功能",
-        "tw": "成功解鎖商店功能"
+        "tw": "成功解鎖商店功能",
+        "en": "Shop function successfully unlocked"
     },
     {
         "id": 454,
         "explain": "解鎖社交功能",
-        "tw": "成功解鎖社交功能"
+        "tw": "成功解鎖社群功能",
+        "en": "Successfully unlocked community features"
     },
     {
         "id": 455,
         "explain": "解鎖技能功能",
-        "tw": "成功解鎖技能功能",
+        "tw": "成功解鎖技能晶片功能",
         "en": "Unlocked Ability Function"
     },
     {
         "id": 456,
         "explain": "解鎖任務功能",
-        "tw": "成功解鎖成就任務功能"
+        "tw": "成功解鎖成就任務功能",
+        "en": "Tasks function successfully unlock achievements"
+    },
+    {
+        "id": 457,
+        "explain": "解鎖晶片抽取功能",
+        "tw": "成功解鎖晶片抽取功能",
+        "en": "Chip extraction function successfully unlocked"
     },
     {
         "id": 501,
@@ -520,7 +552,7 @@
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "競 賽",
-        "en": "GAME MODE"
+        "en": "RACE"
     },
     {
         "id": 1009,
@@ -812,7 +844,7 @@
     },
     {
         "id": 3207,
-        "tw": "首次取得"
+        "tw": "首次購買"
     },
     {
         "id": 3301,
@@ -1796,7 +1828,7 @@
     },
     {
         "id": 5042,
-        "tw": "是否與{0}斷交？"
+        "tw": "不能關注自己"
     },
     {
         "id": 6001,
@@ -2791,6 +2823,31 @@
         "tw": "刷新對手"
     },
     {
+        "id": 9728,
+        "explain": "對戰按鈕狀態 計算次數",
+        "tw": "挑戰次數 {0}/{1} "
+    },
+    {
+        "id": 9729,
+        "explain": "對戰按鈕狀態 冷卻時",
+        "tw": "冷卻中 {0} "
+    },
+    {
+        "id": 9730,
+        "explain": "對戰按鈕狀態 次數使用完畢",
+        "tw": "購買票券"
+    },
+    {
+        "id": 9731,
+        "explain": "次數分子等於0",
+        "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[00E1FFFF] {1} [-]？"
+    },
+    {
+        "id": 9732,
+        "explain": "次數分子不等於0且在冷卻中",
+        "tw": "挑戰次數冷卻中，是否使用 [FF00FFFF]{0}寶石[-] 消除冷卻時間？"
+    },
+    {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipeth": "RankSlider/Thumb",
@@ -3409,7 +3466,7 @@
         "id": 12003,
         "uipeth": "1/TabLabel",
         "tw": "語 言",
-        "en": "Languages"
+        "en": "Language"
     },
     {
         "id": 12004,
