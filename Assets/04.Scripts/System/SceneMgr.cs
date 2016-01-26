@@ -51,10 +51,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 if (GameData.StageID >= 0)
                     UILoading.UIShow(true, ELoading.Stage);
                 else
-                {
-                    GameData.StageID = -1;
                     UILoading.UIShow(true, ELoading.SelectRole);
-                }
+                
                 break;
             default:
                 //Court:

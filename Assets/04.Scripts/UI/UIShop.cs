@@ -177,7 +177,7 @@ public class UIShop : UIBase {
             int x = index / 2;
             int y = index % 2;
 
-            item.Item.transform.localPosition = new Vector3(-310 + x * 220, 146 - y * 260, 0);
+            item.Item.transform.localPosition = new Vector3(-310 + x * 220, 135 - y * 270, 0);
             item.Item.transform.localScale = Vector3.one;
             shopItemList[page].Add(item);
             index = shopItemList[page].Count-1;

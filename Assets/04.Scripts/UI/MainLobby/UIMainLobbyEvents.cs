@@ -73,6 +73,9 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnSocial()
     {
+        if (string.IsNullOrEmpty(GameData.Team.Player.Name)) 
+            UIHint.Get.ShowHint(TextConst.S(5026), Color.white);
+        else
         if(isLevelArrive(EOpenUI.Social))
             UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Social]), Color.white);
         else

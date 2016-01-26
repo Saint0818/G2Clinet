@@ -104,7 +104,7 @@ public class UIBase: MonoBehaviour
 						ui.InitCom();
 						ui.InitData();   
 
-						if (!root3D)
+                        if (!root3D) 
 							root3D = GameObject.Find("UI3D");
 
 						if (root3D) {
@@ -186,7 +186,7 @@ public class UIBase: MonoBehaviour
     protected virtual void OnShow(bool isShow)
     {
 		if (isShow) {
-			if (GameStart.Get.OpenTutorial && GameData.Team.Player.Lv > 0 && GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
+			if (GameData.Team.Player.Lv > 0 && GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
 				UITutorial.Get.ShowTutorial(GameData.DTutorialUI[this.name], 1);
 
 			if (this.uiLanguage != GameData.Setting.Language) {

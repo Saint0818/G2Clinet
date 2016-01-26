@@ -30,6 +30,7 @@ public class UI3DTutorial : UIBase {
 	{
 		get {
 			if (!instance) {
+                UI3D.UIShow(true);
 				instance = Load3DUI(UIName) as UI3DTutorial;
 			}
 

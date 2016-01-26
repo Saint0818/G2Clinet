@@ -147,6 +147,11 @@ public class UITutorial : UIBase {
 				UIShow(false);
 				return;
 			}*/
+
+            if (!GameStart.Get.OpenTutorial) {
+                UIShow(false);
+                return;
+            }
 			
 			NowMessageIndex  = id * 100 + line;
 			
@@ -219,30 +224,33 @@ public class UITutorial : UIBase {
                         obj = objs[0].gameObject;
                 }
 
-                UI3DTutorial.UIShow(false);
-                uiCenter.SetActive(false);
-                uiBackground.SetActive(false);
-    			uiClick.SetActive(true);
+                Vector3 v = UI2D.Get.Camera2D.WorldToScreenPoint(obj.transform.position);
+                if (v.x > 0 && v.x < Screen.width && v.y > 0 && v.y < Screen.height) {
+                    UI3DTutorial.UIShow(false);
+                    uiCenter.SetActive(false);
+                    uiBackground.SetActive(false);
+        			uiClick.SetActive(true);
 
-    		    buttonClick.onClick.Clear();
-    			UIButton btn = obj.GetComponent<UIButton>();
-    			if (btn && btn.onClick.Count > 0) {
-    				buttonClick.onClick.Add(btn.onClick[0]);
-    				found = true;
-    			} else {
-    				UIEventListener el = obj.GetComponent<UIEventListener>();
-    				if (el) {
-    					if (el.onPress != null) {
-    						UIEventListener.Get(buttonClick.gameObject).onPress = el.onPress;
-    						found = true;
-    					}
+        		    buttonClick.onClick.Clear();
+        			UIButton btn = obj.GetComponent<UIButton>();
+        			if (btn && btn.onClick.Count > 0) {
+        				buttonClick.onClick.Add(btn.onClick[0]);
+        				found = true;
+        			} else {
+        				UIEventListener el = obj.GetComponent<UIEventListener>();
+        				if (el) {
+        					if (el.onPress != null) {
+        						UIEventListener.Get(buttonClick.gameObject).onPress = el.onPress;
+        						found = true;
+        					}
 
-    					if (el.onClick != null) {
-    						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
-    						found = true;
-    					}
-    				}
-    			}
+        					if (el.onClick != null) {
+        						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
+        						found = true;
+        					}
+        				}
+        			}
+                }
     		}
 
     		if (found) {

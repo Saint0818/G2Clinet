@@ -18,6 +18,7 @@ public class UILoading : UIBase
     private GameObject uiSkillDisk;
     private UITexture uiBG;
     private UITexture uiLoadingProgress;
+    private UISprite spriteTip;
     private UILabel labelLoading;
     private UILabel labelStageTitle;
     private UILabel labelStageExplain;
@@ -32,8 +33,8 @@ public class UILoading : UIBase
     public static EventDelegate.Callback OpenUI = null;
     private ELoading loadingKind;
     private bool closeAfterFinished = false;
-//    private int pageLoading = 0;
-    private static int AchievementTutorialID = -1;
+    public static int StageID = -1;
+    private static int achievementTutorialID = -1;
     private float nowProgress;
     private float toProgress;
     private float startTimer = 0;
@@ -67,7 +68,7 @@ public class UILoading : UIBase
     {
         if (GameData.DExpData.ContainsKey(lv))
         {
-            AchievementTutorialID = GameData.DExpData[lv].TutorialID;
+            achievementTutorialID = GameData.DExpData[lv].TutorialID;
             switch (GameData.DExpData[lv].UI)
             {
                 case 0:
@@ -85,19 +86,24 @@ public class UILoading : UIBase
             OpenUI = OpenStageUI;
     }
 
-    private static void checkTutorialUI(int id)
+    private static bool checkTutorialUI(int id)
     {
         OpenUI = null;
         if (GameData.DTutorial.ContainsKey(id * 100 + 1))
         {
-            UITutorial.Get.ShowTutorial(id, 1);
-            AchievementTutorialID = -1;
+            if (FileManager.NowMode == VersionMode.Debug || !GameData.Team.HaveTutorialFlag(id)) {
+                UITutorial.Get.ShowTutorial(id, 1);
+                achievementTutorialID = -1;
+                return true;
+            }
         }
+
+        return false;
     }
 
     public static void OpenMainUI()
     {
-        checkTutorialUI(AchievementTutorialID);
+        checkTutorialUI(achievementTutorialID);
     }
 
     //Open stage after battle
@@ -105,9 +111,11 @@ public class UILoading : UIBase
     {
         UIMainStage.Get.Show();
         UIMainLobby.Get.Hide();
-        checkTutorialUI(AchievementTutorialID);
-    }
 
+        if (!checkTutorialUI(achievementTutorialID))
+            if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
+                StageID = -1;
+    }
     public static void OpenInstanceUI()
     {
         UIInstance.Get.Show();
@@ -216,14 +224,23 @@ public class UILoading : UIBase
                 TStageData data = StageTable.Ins.GetByID(GameData.StageID);
                 labelStageTitle.text = data.Name;
                 labelStageExplain.text = data.Explain;
+                string tipText = "";
                 if (data.Tips != null && data.Tips.Length > 0)
                 {
                     int index = UnityEngine.Random.Range(0, data.Tips.Length);
-                    labelTip.text = TextConst.S(data.Tips[index]);
+                    tipText = TextConst.S(data.Tips[index]);
                 }
                 else
-                    labelTip.text = TextConst.S(UnityEngine.Random.Range(301, 303));
+                    tipText = TextConst.S(UnityEngine.Random.Range(301, 303));
             
+                char[] c = {'='};
+                string[] s = tipText.Split(c, 2);
+                if (s.Length == 2) {
+                    spriteTip.spriteName = s[0];
+                    labelTip.text = s[1];
+                } else 
+                    labelTip.text = tipText;
+
                 UIStageHintManager.UpdateHintNormal(GameData.StageID, ref stageTargets);
 
                 if (GameData.SkillRecommends != null && GameData.SkillRecommends.Length > 0) {
@@ -281,6 +298,7 @@ public class UILoading : UIBase
         windowLoading = GameObject.Find(UIName + "/WindowLoading");
         windowStage = GameObject.Find(UIName + "/StageInfo");
         labelTip = GameObject.Find(UIName + "/StageInfo/Bottom/Tip").GetComponent<UILabel>();
+        spriteTip = GameObject.Find(UIName + "/StageInfo/Bottom/Tip/Tip_Icon").GetComponent<UISprite>();
         labelStageTitle = GameObject.Find(UIName + "/StageInfo/Center/SingalStage/StageNameLabel").GetComponent<UILabel>();
         labelStageExplain = GameObject.Find(UIName + "/StageInfo/Center/SingalStage/StageExplainLabel").GetComponent<UILabel>();
         uiBG = GameObject.Find(UIName + "/StageInfo/Center/StageKindTexture").GetComponent<UITexture>();

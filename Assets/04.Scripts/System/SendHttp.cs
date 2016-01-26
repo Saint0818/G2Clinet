@@ -658,11 +658,11 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     bool flag = false;
                     for (int i = 0; i < events.Length; i++) {
                         if (!string.IsNullOrEmpty(events[i].TargetID)) {
-                            TFriend friend = new TFriend();
-                            friend.Identifier = events[i].TargetID;
-                            friend.Player.Name = events[i].Name;
-                            friend.Time = events[i].Time;
                             if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
+                                TFriend friend = new TFriend();
+                                friend.Identifier = events[i].TargetID;
+                                friend.Player.Name = events[i].Name;
+                                friend.Time = events[i].Time;
                                 friend.Kind = EFriendKind.Ask;//events[i].Value;
 
                                 if (!GameData.Team.Friends.ContainsKey(events[i].TargetID))
@@ -715,6 +715,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         GameData.Team.Friends.Add(friend.Identifier, friend);
 
                     UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.white);
+                    if (UISocial.Visible)
+                        UISocial.Get.FreshFriend(3);
+                    
+                    WWWForm form = new WWWForm();
+                    form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                    form.AddField("FriendID", friend.Identifier);
+
+                    SendHttp.Get.Command(URLConst.LookSocialEvent, waitLookSocialEvent, form, false);
                 } else 
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends.Remove(friend.Identifier);

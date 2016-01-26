@@ -376,14 +376,12 @@ public class UISelectRole : UIBase {
 		arrayPlayerData[2] = new TPlayer();
 		arrayPlayerData[1].RoleIndex = -1;
 		arrayPlayerData[2].RoleIndex = -1;
-		//if (playerList.Count > 0)
-		//	playerList.RemoveAt(0);
 
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
 
         labelStrategy.text = TextConst.S(15002 + GameData.Team.Player.Strategy);
-		arrayPlayer[0].transform.localPosition = new Vector3(0, 4, 0);
+		arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);
 		Invoke("hideSelectRoleAnimator", 2.5f);
@@ -475,9 +473,7 @@ public class UISelectRole : UIBase {
 			    break;
             case EUIRoleSituation.Start:
                 if (GameData.StageID == 10)
-                {
                     enterPVP();
-                }
                 else
                 {
                     if (GameStart.Get.ConnectToServer)

@@ -45,7 +45,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		bool hasUIToturial = false;
 		talkManList.Clear();
 		eventList.Clear();
-		if (true) {//GameData.ServerVersion == BundleVersion.Version) {
+        if (GameStart.Get.OpenTutorial) {//GameData.ServerVersion == BundleVersion.Version) {
 			TGamePlayEvent[] temp = GameData.DStageTutorial[id].Events;
 			for (int i = temp.Length-1; i >= 0; i--) {
 				temp[i].ID = i;

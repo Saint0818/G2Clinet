@@ -260,7 +260,7 @@ public class UIGameResult : UIBase {
     {
 		Time.timeScale = 1;
 		UIShow(false);
-		
+        UILoading.StageID = GameData.StageID;
 	    if(GameData.IsMainStage)
 	    {
 	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);

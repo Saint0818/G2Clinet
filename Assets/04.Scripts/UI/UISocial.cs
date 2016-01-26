@@ -8,7 +8,7 @@ using GameEnum;
 using Newtonsoft.Json;
 
 public class EFriendKind {
-    public const int Search = 0;
+    public const int Search = 6;
     public const int Advice = 1;
     public const int Follow = 2;
     public const int Waiting = 3;
@@ -59,6 +59,7 @@ public class UISocial : UIBase {
     private GameObject itemSocialEvent;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
+    private UIPanel[] pagePanels = new UIPanel[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TSocialEventItem>[] friendList = new List<TSocialEventItem>[pageNum];
     private Queue<TSocialEventItem> modelLoader = new Queue<TSocialEventItem>();
@@ -110,6 +111,7 @@ public class UISocial : UIBase {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
             pageScrollViews[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
+            pagePanels[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
             SetBtnFun(UIName + "/Window/Center/Tabs/" + i.ToString(), OnPage);
 
             redPoints[i].SetActive(false);
@@ -274,11 +276,10 @@ public class UISocial : UIBase {
             friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
             friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
             modelLoader.Enqueue(friendList[page][index]);
-        } else {
-            if (friend.Kind == EFriendKind.Ask) {
+        } else 
+        if (friend.Kind == EFriendKind.Ask) {
+            if (!friendList[page][index].PlayerModel) {
                 friendList[page][index].Friend = friend;
-                if (friendList[page][index].PlayerModel)
-                    Destroy(friendList[page][index].PlayerModel);
 
                 friendList[page][index].PlayerModel = new GameObject("PlayerModel");
                 friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
@@ -362,11 +363,10 @@ public class UISocial : UIBase {
                     item.UICancel.SetActive(true);
                     break;
                 case EFriendKind.Friend:
+                    item.LabelTime.text = TextConst.AfterTimeString(item.Friend.Time.ToUniversalTime());
 					item.ButtonGood.gameObject.SetActive(false);
 					item.UICancel.SetActive(true);
-					item.LabelCancel.text = TextConst.S(5025);
-					//item.SpriteGood.spriteName = "IconLink";
-                    //item.LabelRelation.text = TextConst.S(5025);
+					item.LabelCancel.text = TextConst.S(5025);                    
                     break;
             }
             
@@ -455,12 +455,15 @@ public class UISocial : UIBase {
             friend.Player.Init();
             if (GameData.Team.Friends.ContainsKey(friend.Identifier)) {
                 friend.Kind = GameData.Team.Friends[friend.Identifier].Kind;
+                friend.Time = GameData.Team.Friends[friend.Identifier].Time;
                 GameData.Team.Friends[friend.Identifier] = friend;
             }
 
             if (waitDownloadItem != null && waitDownloadItem.Friend.Identifier == friend.Identifier) {
                 friend.Kind = waitDownloadItem.Friend.Kind;
                 waitDownloadItem.Friend = friend;
+                waitDownloadItem.LabelLv.text = friend.Player.Lv.ToString();
+                waitDownloadItem.LabelPower.text = string.Format("{0:F0}",friend.Player.CombatPower());
                 ModelManager.Get.SetAvatar(ref waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl);
                 LayerMgr.Get.SetLayerAllChildren(waitDownloadItem.PlayerModel, ELayer.UI.ToString());
             }
@@ -477,10 +480,12 @@ public class UISocial : UIBase {
                     TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
                     friend.Player.Init();
 
-                    if (!GameData.Team.Friends.ContainsKey(friend.Identifier)) {
+                    if (!GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends.Add(friend.Identifier, friend);
-                        initList(nowPage);
-                    }
+
+                    initList(nowPage);
+                    pagePanels[nowPage].clipOffset = Vector2.zero;
+                    pagePanels[nowPage].transform.localPosition = new Vector3(0, 10, 0);
                 }
             }
         }
@@ -537,7 +542,12 @@ public class UISocial : UIBase {
                 string id = friendList[nowPage][nowIndex].Friend.Identifier;
                 if (GameData.Team.Friends.ContainsKey(id))
                     GameData.Team.Friends.Remove(id);
-                
+
+                for (int i = GameData.SocialEvents.Count-1; i >= 0; i--) {
+                    if (GameData.SocialEvents[i].Identifier == id)
+                        GameData.SocialEvents.RemoveAt(i);
+                }
+
                 initList(nowPage);
             } else
                 SendHttp.Get.CheckServerMessage(www.text);
@@ -652,18 +662,18 @@ public class UISocial : UIBase {
                             break;
                         case 1:
                         case 2:
-                            if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
-                                form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-                                form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
-                                form.AddField("Name", GameData.Team.Player.Name);
-                                form.AddField("Ask", "1");
-                                SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
+                            if (friendList[nowPage][nowIndex].Friend.Identifier != GameData.Team.Identifier) {
+                                if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
+                                    form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                                    form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
+                                    form.AddField("Name", GameData.Team.Player.Name);
+                                    form.AddField("Ask", "1");
+                                    SendHttp.Get.Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
+                                } else
+                                    SendHttp.Get.MakeFriend(waitMakeFriend, friendList[nowPage][nowIndex].Friend.Identifier);
                             } else
-                                SendHttp.Get.MakeFriend(waitMakeFriend, friendList[nowPage][nowIndex].Friend.Identifier);
-                            
-                            break;
-                        case 3:
-							//UIMessage.Get.ShowMessage(TextConst.S(5025), TextConst.S(5042), onRemoveFriend);
+                                UIHint.Get.ShowHint(TextConst.S(5042), Color.white);
+
                             break;
                     }
                 }
@@ -702,7 +712,7 @@ public class UISocial : UIBase {
 
 					case 3:
 						if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Friend) 
-						 	UIMessage.Get.ShowMessage(TextConst.S(5025), string.Format(TextConst.S(5042), friendList[nowPage][nowIndex].Friend.Player.Name), onRemoveFriend);
+						 	UIMessage.Get.ShowMessage(TextConst.S(5025), string.Format(TextConst.S(254), friendList[nowPage][nowIndex].Friend.Player.Name), onRemoveFriend);
 
 						break;
 					}

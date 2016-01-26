@@ -10,10 +10,6 @@ public enum UIKind
 public class UI3D : UIBase {
 	private static UI3D instance = null;
 	private const string UIName = "UI3D";
-	private bool following = false;
-	private float followTime = 2f;
-	private GameObject followPos = null;
-
 	public static void UIShow(bool isShow){
 		if(instance)
 			instance.Show(isShow);
