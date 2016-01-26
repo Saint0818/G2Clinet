@@ -112,14 +112,16 @@ public class TItemAvatar
 
 	public TimeSpan UseTime
 	{
+        
 		set{
 			currentTime = value;
-			if(currentTime.TotalDays > 1)
-				usetime.text = string.Format("{0} Day", currentTime.Days);
-			else if(currentTime.TotalHours > 1 && currentTime.TotalDays < 1)
-				usetime.text = string.Format("{0}H {1}M", currentTime.Hours, currentTime.Minutes);
-			else
-				usetime.text = string.Format("{0}M {1}S", currentTime.Minutes, currentTime.Seconds);
+            usetime.text = GameFunction.GetTimeString(currentTime);
+//			if(currentTime.TotalDays > 1)
+//				usetime.text = string.Format("{0} Day", currentTime.Days);
+//			else if(currentTime.TotalHours > 1 && currentTime.TotalDays < 1)
+//				usetime.text = string.Format("{0}H {1}M", currentTime.Hours, currentTime.Minutes);
+//			else
+//				usetime.text = string.Format("{0}M {1}S", currentTime.Minutes, currentTime.Seconds);
 		}
 
 		get{return currentTime;}

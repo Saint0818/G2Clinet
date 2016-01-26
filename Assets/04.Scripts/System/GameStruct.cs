@@ -573,6 +573,8 @@ namespace GameStruct
         public int FreshFriend;
 		public int BuyPowerOne;
 		public int BuyPowerTwo;
+        public int BuyPVPCDCount;
+        public int BuyPVPTicketCount;
     }
 
 	public struct TGameSetting {
@@ -1465,4 +1467,13 @@ namespace GameStruct
         public TTeam[] Teams;
         public int PVPEnemyIntegral;
     }
+
+    public struct TPVPBuyResult
+    {
+        public int Diamond;
+        public int PVPTicket;
+        public DateTime PVPCD;
+        public TDailyCount DailyCount;
+    }
+
 }

@@ -838,4 +838,14 @@ public static class GameFunction
             default: return "Icon_EXP";
         }
     }
+
+    public static string GetTimeString(TimeSpan time)
+    {
+        if(time.TotalDays > 1)
+            return string.Format("{0} Day", time.Days);
+        else if(time.TotalHours > 1 && time.TotalDays < 1)
+            return string.Format("{0}H {1}M", time.Hours, time.Minutes);
+        else
+            return string.Format("{0}M {1}S", time.Minutes, time.Seconds);
+    }
 }

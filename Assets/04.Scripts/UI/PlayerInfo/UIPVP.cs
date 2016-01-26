@@ -3,6 +3,7 @@ using GameStruct;
 using GameItem;
 using Newtonsoft.Json;
 using DG.Tweening;
+using System;
 
 public class PVPPage1TopView
 {
@@ -163,6 +164,13 @@ public class PVPPage1ListView
     }
 }
 
+public enum EPVPSituation
+{
+    CDIng = 0,
+    CDEnd = 1,
+    NoCountOrBuy = 2
+}
+
 public class PVPMainView
 {
     private GameObject self;
@@ -182,7 +190,7 @@ public class PVPMainView
     private bool isInit = false;
 
     public void Init(GameObject go, ref GameObject[] lvs, EventDelegate getEnemyFunc, EventDelegate lFunc, 
-                   EventDelegate rFunc, EventDelegate nowRankFunc, EventDelegate getRewardFunc)
+                     EventDelegate rFunc, EventDelegate nowRankFunc, EventDelegate getRewardFunc)
     {
         if (go)
         {
@@ -198,6 +206,7 @@ public class PVPMainView
             NowRankOffset = self.transform.FindChild("PvPLeagueSlider/NowRank/Offset").gameObject;
             nowRankBtn = NowRankOffset.GetComponent<UIButton>();
             getRewardBtn = self.transform.FindChild("DailyAwardBtn").gameObject.GetComponent<UIButton>();
+
 
             pvplvs = new TPvPLeagueGroup[lvs.Length];
             for (int i = 0; i < pvplvs.Length; i++)
@@ -280,6 +289,11 @@ public class PVPMainView
             award1.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
         }
     }
+
+    public bool IsInit
+    {
+        get{ return isInit; }
+    }
 }
 
 public class EnterView
@@ -294,6 +308,11 @@ public class EnterView
     private UILabel Combat2;
     private UILabel WinValueLabel;
     private UILabel LoseValueLabel;
+    private UILabel StatusLabel;
+    private UILabel TimesLabel;
+    private EPVPSituation situation = EPVPSituation.CDIng;
+    private bool isInit = false;
+    private  TimeSpan checktime;
 
     private TItemRankGroup[] EnemyItems;
 
@@ -314,13 +333,17 @@ public class EnterView
             
             NoBtn = self.transform.FindChild("NoBtn").gameObject.GetComponent<UIButton>();
             StartBtn = self.transform.FindChild("StartBtn").gameObject.GetComponent<UIButton>();
+            TimesLabel = StartBtn.transform.FindChild("Icon/TimesLabel").gameObject.GetComponent<UILabel>();
+            StatusLabel = StartBtn.transform.FindChild("Icon/StatusLabel").gameObject.GetComponent<UILabel>();
+
             ResetBtn = self.transform.FindChild("ResetBtn").gameObject.GetComponent<UIButton>();
             Combat1 = self.transform.FindChild("CombatGroup/CombatLabel0").gameObject.GetComponent<UILabel>();
             Combat2 = self.transform.FindChild("CombatGroup/CombatLabel1").gameObject.GetComponent<UILabel>();
             WinValueLabel = self.transform.FindChild("ScoreGroup/WinValueLabel").gameObject.GetComponent<UILabel>();
             LoseValueLabel = self.transform.FindChild("ScoreGroup/LoseValueLabel").gameObject.GetComponent<UILabel>();
-
             ResearchPrice = ResetBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
+
+            isInit = NoBtn && StartBtn && ResetBtn && Combat1 && Combat2 && WinValueLabel && LoseValueLabel && TimesLabel && ResearchPrice;
 			
             ResetBtn.onClick.Add(resetFunc);
             StartBtn.onClick.Add(startFunc);
@@ -354,13 +377,13 @@ public class EnterView
         //計算積分
         int winpoint = 0;
         int lostpoint = 0;
-        int calculate = (int)(Mathf.Abs(GameData.Team.PVPIntegral - GameData.Team.PVPEnemyIntegral)/ GameData.DPVPData[GameData.Team.PVPLv].Calculate);
+        int calculate = (int)(Mathf.Abs(GameData.Team.PVPIntegral - GameData.Team.PVPEnemyIntegral) / GameData.DPVPData[GameData.Team.PVPLv].Calculate);
         if (GameData.Team.PVPIntegral > GameData.Team.PVPEnemyIntegral)
         {
             winpoint = (GameData.DPVPData[GameData.Team.PVPLv].BasicScore - calculate);
             lostpoint = (GameData.DPVPData[GameData.Team.PVPLv].BasicScore + calculate);
         }
-        else if(GameData.Team.PVPIntegral < GameData.Team.PVPEnemyIntegral)
+        else if (GameData.Team.PVPIntegral < GameData.Team.PVPEnemyIntegral)
         {
             winpoint = GameData.DPVPData[GameData.Team.PVPLv].BasicScore + calculate;
             lostpoint = GameData.DPVPData[GameData.Team.PVPLv].BasicScore - calculate;
@@ -377,6 +400,11 @@ public class EnterView
         Combat2.text = GameData.Team.Player.CombatPower().ToString();
     }
 
+    public bool IsInit
+    {
+        get{ return isInit;}
+    }
+
     public bool Enable
     {
         set
@@ -385,13 +413,40 @@ public class EnterView
         }
         get{ return self.activeSelf; } 
     }
+        
+    public EPVPSituation PVPSituation
+    {
+        set
+        {  
+            if (situation != value || situation == EPVPSituation.CDIng)
+            {
+                situation = value;
+                switch (situation)
+                {
+                    case EPVPSituation.CDIng:
+                        checktime = GameData.Team.PVPCD.ToUniversalTime().Subtract(DateTime.UtcNow);
+                        StatusLabel.text = string.Format(TextConst.S(9729), GameFunction.GetTimeString(checktime));
+                        break;
+                    case EPVPSituation.CDEnd:
+                        StatusLabel.text = TextConst.S(9721);
+                        break;
+                    case EPVPSituation.NoCountOrBuy:
+                        StatusLabel.text = TextConst.S(9730);
+                        break;
+                }
+                TimesLabel.text = string.Format(TextConst.S(9728), GameData.Team.PVPTicket, GameConst.PVPMaxTickket);
+            }
+        }
+
+        get{ return situation;}
+    }
 }
 
 public class PVPPage0
 {
     private GameObject self;
     public PVPMainView mainview = new PVPMainView();
-    private EnterView enterView = new EnterView();
+    public EnterView EnterPage = new EnterView();
 
     public void Init(GameObject go, ref GameObject[] pvplvBtns, GameObject[] itemRankGroups, EventDelegate getEnemyFunc,  
                      EventDelegate resetFunc, EventDelegate startFunc, EventDelegate lFunc, EventDelegate rFunc, EventDelegate nowFunc, EventDelegate getRewardFunc)
@@ -400,7 +455,7 @@ public class PVPPage0
         {
             self = go;
             mainview.Init(self.transform.FindChild("MainView").gameObject, ref pvplvBtns, getEnemyFunc, lFunc, rFunc, nowFunc, getRewardFunc);
-            enterView.Init(self.transform.FindChild("EnterView").gameObject, itemRankGroups, 
+            EnterPage.Init(self.transform.FindChild("EnterView").gameObject, itemRankGroups, 
                 new EventDelegate(CloseEnterView),
                 resetFunc,
                 startFunc);
@@ -424,7 +479,7 @@ public class PVPPage0
 
     public void UpdateEnterView(ref TTeam[] team, int researchPrice)
     {
-        enterView.UpdateView(ref team, researchPrice);
+        EnterPage.UpdateView(ref team, researchPrice);
     }
 
     public bool EnableEnterView
@@ -432,7 +487,7 @@ public class PVPPage0
         set
         { 
             mainview.Enable = !value;
-            enterView.Enable = value;
+            EnterPage.Enable = value;
         }
     }
 
@@ -502,6 +557,9 @@ public class UIPVP : UIBase
     private GameObject[] pages;
     private PVPPage0 page0;
     private PVPPage1 page1;
+    public int currentLv = 1;
+    private int currecntPage = 0;
+    private int shopIndex = -1;
 
     public static bool Visible
     {
@@ -563,6 +621,8 @@ public class UIPVP : UIBase
             GameObject[] gos;
             GameObject[] itemRankgroups;
 
+            shopIndex = GetShopIndex();
+
             switch (i)
             {
                 case 0:
@@ -591,7 +651,6 @@ public class UIPVP : UIBase
                         new EventDelegate(OnAward));
                     break;
                 case 1:
-                    
                     parent = pages[i].transform.FindChild("ListView/ScrollView").gameObject;
                     if (itemRankgroupObj)
                     {
@@ -610,6 +669,15 @@ public class UIPVP : UIBase
             }
         }
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
+    }
+
+    private int GetShopIndex()
+    {
+        for(int i = 0; i < GameData.DShops.Length; i++)
+            if (GameData.DShops[i].Kind == 2)
+                return i;
+
+        return -1;
     }
 
     public void OnPage()
@@ -668,44 +736,87 @@ public class UIPVP : UIBase
         }			
     }
 
-    private void WaitPVPSrarch(bool ok, WWW www)
-    {
-        if (ok)
-        {
-            
-        }
-    }
+    private int price = 100;
 
     private void OnPVPStart()
     {
-        int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-       
-        if (GameData.DPVPData.ContainsKey(lv))
+        if (page0.EnterPage.IsInit)
         {
-            //GameData.StageID = GameData.DPVPData[lv].Stage;
-            UISelectRole.Get.LoadStage(GameData.DPVPData[lv].Stage);
+            switch (page0.EnterPage.PVPSituation)
+            {
+                case EPVPSituation.CDIng:
+                    //詢問清除時間
+                    price = 100;
+                    UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9732), price), SendBuyPVPCD);
+                    break;
+                case EPVPSituation.NoCountOrBuy:
+                    //詢問購買次數, itemid 
+                    price = 100;
+                    string name = "PVP卷";
+                    UIMessage.Get.ShowMessage(TextConst.S(256), string.Format(TextConst.S(9731), price, name), SendBuyPVPTicket);
+                    break;
+                case EPVPSituation.CDEnd:
+                    //先設定PVP關卡，等到UISelectRole.DoStart按下之後，開啟PVP戰鬥
+                    int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+
+                    if (GameData.DPVPData.ContainsKey(lv))
+                    {
+                        GameData.StageID = GameData.DPVPData[lv].Stage;
+                    }
+                    SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+                    break;
+            } 
         }
-        //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
     }
 
-    //    public void WaitPVPStart(bool ok, WWW www)
-    //    {
-    //        if (ok)
-    //        {
-    //            TPVPStart data = (TPVPStart)JsonConvert.DeserializeObject(www.text, typeof(TPVPStart));
-    //
-    //            if (data.CanBattle)
-    //            {
-    //                //TODO:戰鬥
-    //            }
-    //        }
-    //        else
-    //        {
-    //
-    //        }
-    //    }
+    private void SendBuyPVPCD()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("ShopIndex", -1);
+        SendHttp.Get.Command(URLConst.PVPBuyCD, WaitPVPBuyPVPCD, form, true);  
+    }
 
-    public int currentLv = 1;
+    private void WaitPVPBuyPVPCD(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TPVPBuyResult data = JsonConvert.DeserializeObject <TPVPBuyResult>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.Diamond = data.Diamond;
+            GameData.Team.PVPTicket = data.PVPTicket;
+            GameData.Team.PVPCD = data.PVPCD;
+            GameData.Team.DailyCount = data.DailyCount;
+        }
+        else
+        {
+            UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238)); 
+        }
+    }
+
+    private void SendBuyPVPTicket()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("ShopIndex", shopIndex);
+        SendHttp.Get.Command(URLConst.PVPBuyTicket, WaitPVPBuyTicket, form, true);	
+    }
+
+    private void WaitPVPBuyTicket(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TPVPBuyResult data = JsonConvert.DeserializeObject <TPVPBuyResult>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.Diamond = data.Diamond;
+            GameData.Team.PVPTicket = data.PVPTicket;
+            GameData.Team.PVPCD = data.PVPCD;
+            GameData.Team.DailyCount = data.DailyCount;
+
+//            TTeam data = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
+//            page0.mainview.UpdateView(ref data);
+        }
+        else
+        {
+           UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238));
+        }
+    }
 
     private void OnLeft()
     {
@@ -789,6 +900,7 @@ public class UIPVP : UIBase
         }
         else
         {	
+            UIMessage.Get.ShowMessage(TextConst.S(256), TextConst.S(255));
         }
     }
 
@@ -823,6 +935,8 @@ public class UIPVP : UIBase
                 pages[i].SetActive(false);
         }
 
+        currecntPage = index;
+
         switch (index)
         {
             case 0:
@@ -848,6 +962,34 @@ public class UIPVP : UIBase
         if (isShow)
         {
             DoPage(0);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (currecntPage == 0)
+            ComputingCD();
+    }
+
+    private void ComputingCD()
+    {
+        if (currecntPage == 0 && page0.mainview.IsInit)
+        {
+            if (GameData.Team.PVPTicket > 0)
+            {
+                if (page0.EnterPage.PVPSituation == EPVPSituation.CDIng)
+                {
+                    int sec = (int)GameData.Team.PVPCD.ToUniversalTime().Subtract(DateTime.UtcNow).TotalSeconds;
+                    if (sec < 0)
+                    {
+                        page0.EnterPage.PVPSituation = EPVPSituation.CDEnd;
+                    }
+                }
+            }
+            else
+            {
+                page0.EnterPage.PVPSituation = EPVPSituation.NoCountOrBuy;
+            }
         }
     }
 }
