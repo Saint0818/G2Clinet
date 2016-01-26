@@ -29,10 +29,8 @@ public class UI3DBuyStore :  UIBase {
 
 	public static UI3DBuyStore Get {
 		get {
-            if (!instance) {
-                UI3D.UIShow(true);
+            if (!instance) 
 				instance = Load3DUI(UIName) as UI3DBuyStore;
-            }
 
 			return instance;
 		}

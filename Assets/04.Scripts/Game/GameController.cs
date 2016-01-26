@@ -931,7 +931,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void SetGameRecord() {
-		GameRecord.Identifier = SystemInfo.deviceUniqueIdentifier;
+        GameRecord.Identifier = GameData.Team.Identifier;
 		GameRecord.Version = BundleVersion.Version;
 		GameRecord.End = System.DateTime.UtcNow;
 

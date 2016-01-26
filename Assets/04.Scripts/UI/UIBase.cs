@@ -16,35 +16,13 @@ using UnityEngine;
 public class UIBase: MonoBehaviour
 {  
 	protected const string UIPrefab = "Prefab/UI/";
-	
-	private static GameObject root3D = null;
-	private static Dictionary<string, GameObject> UIResources = new Dictionary<string, GameObject>();
-	private static Dictionary<string, GameObject> UIDictionary = new Dictionary<string, GameObject>();
+	private static GameObject Root3D = null;
 
 	private GameEnum.ELanguage uiLanguage;
 	private Dictionary<UILabel, int> labelTextID = new Dictionary<UILabel, int>();
 
-	public static GameObject LoadPrefab(string uiname) {
-		if (UIResources.ContainsKey(uiname))
-			return UIResources[uiname];
-		else {
-			GameObject obj = Resources.Load<GameObject>(uiname);
-			UIResources.Add(uiname, obj);
-			return obj;
-		}
-	}
-	
-	public static void AddUI(string uiname, ref GameObject ui) {
-		if (!UIDictionary.ContainsKey(uiname))
-			UIDictionary.Add(uiname, ui);
-	}
-	
 	public static void RemoveUI(string uiname) {
-		if (UIDictionary.ContainsKey(uiname)) {
-			NGUIDebug.DestroyImmediate(UIDictionary[uiname], true);
-			UIDictionary.Remove(uiname);
-			Resources.UnloadUnusedAssets();
-		}
+        UIManager.RemoveUI(uiname);
 	}
 
 	protected static UIBase LoadUI(string path)
@@ -52,11 +30,11 @@ public class UIBase: MonoBehaviour
 		if(!string.IsNullOrEmpty(path))
         {
 			UI2D.UIShow(true);
-			GameObject obj = LoadPrefab(UIPrefab + path);
+			GameObject obj = UIManager.LoadPrefab(UIPrefab + path);
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
 				if(obj2) {
-					AddUI(path, ref obj2);
+                    UIManager.AddUI(path, ref obj2);
 					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
@@ -88,11 +66,11 @@ public class UIBase: MonoBehaviour
 	protected static UIBase Load3DUI(string path)
 	{
 		if(!string.IsNullOrEmpty(path)){
-			GameObject obj = LoadPrefab(UIPrefab + path);
+			GameObject obj = UIManager.LoadPrefab(UIPrefab + path);
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
 				if(obj2) {
-					AddUI(path, ref obj2);
+                    UIManager.AddUI(path, ref obj2);
 					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
@@ -102,19 +80,15 @@ public class UIBase: MonoBehaviour
 						ui.initDefaultText(ui.gameObject);
 						ui.InitText();
 						ui.InitCom();
-						ui.InitData();   
+						ui.InitData();
 
-                        if (!root3D) 
-							root3D = GameObject.Find("UI3D");
+                        UI3D.Visible = true;
+                        obj2.transform.parent = UI3D.Get.transform;
+						obj2.transform.localEulerAngles = Vector3.zero;
+						obj2.transform.localPosition = Vector3.zero;
+						obj2.transform.localScale = Vector3.one;
+						obj2.SetActive(false);
 
-						if (root3D) {
-							obj2.transform.parent = root3D.transform;
-							obj2.transform.localEulerAngles = Vector3.zero;
-							obj2.transform.localPosition = Vector3.zero;
-							obj2.transform.localScale = Vector3.one;
-							obj2.SetActive(false);
-						} else
-							Debug.Log("Can not find root UI3D.");
 						return ui;
 					} else
 						Debug.LogError("Split path fail: " + path);

@@ -40,10 +40,8 @@ public class UI3DGameResult : UIBase {
 	public static UI3DGameResult Get
 	{
 		get {
-            if (!instance) {
-                UI3D.UIShow(true);
+            if (!instance)
 				instance = Load3DUI(UIName) as UI3DGameResult;
-            }
 
 			return instance;
 		}

@@ -654,7 +654,7 @@ public class UISocial : UIBase {
                     WWWForm form = new WWWForm();
                     switch (nowPage) {
                         case 0:
-                            form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                            form.AddField("Identifier", GameData.Team.Identifier);
                             form.AddField("Name", GameData.Team.Player.Name);
                             form.AddField("_id", friendList[nowPage][nowIndex].Event._id);
                             SendHttp.Get.Command(URLConst.Good, waitGood, form);
@@ -664,7 +664,7 @@ public class UISocial : UIBase {
                         case 2:
                             if (friendList[nowPage][nowIndex].Friend.Identifier != GameData.Team.Identifier) {
                                 if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
-                                    form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                                    form.AddField("Identifier", GameData.Team.Identifier);
                                     form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
                                     form.AddField("Name", GameData.Team.Player.Name);
                                     form.AddField("Ask", "1");
@@ -683,7 +683,7 @@ public class UISocial : UIBase {
 
 	private void onRemoveFriend() {
 		WWWForm form = new WWWForm();
-		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("Identifier", GameData.Team.Identifier);
 		form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
 		SendHttp.Get.Command(URLConst.RemoveFriend, waitRemoveFriend, form);
 	}
@@ -701,7 +701,7 @@ public class UISocial : UIBase {
 					case 1:
 						if (friendList[nowPage][nowIndex].Friend.Kind == EFriendKind.Ask) {
 							WWWForm form = new WWWForm();
-							form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+                                form.AddField("Identifier", GameData.Team.Identifier);
 							form.AddField("FriendID", friendList[nowPage][nowIndex].Friend.Identifier);
 							form.AddField("Name", GameData.Team.Player.Name);
 							form.AddField("Ask", "0");

@@ -151,11 +151,13 @@ public class UISelectRole : UIBase {
 			if(doubleClickTime <= 0)
 				doubleClickTime = 0;
 		}
+
 		if(roleFallTime > 0) {
 			roleFallTime -= Time.deltaTime;
 			if(roleFallTime <= 0) 
 				roleFallTime = 0;
 		}
+
 		if (selectRoleIndex >= 0 && selectRoleIndex < spritesLine.Length) {
 			if(spritesLine[selectRoleIndex].fillAmount < 1)
 				spritesLine[selectRoleIndex].fillAmount += 0.1f;		
@@ -253,8 +255,13 @@ public class UISelectRole : UIBase {
 	}
 
 	protected override void InitCom() {
-		playerInfoModel = new GameObject();
-		playerInfoModel.name = "PlayerInfoModel";
+        GameObject obj = GameObject.Find("PlayerModel");
+        if (!obj) {
+		    playerInfoModel = new GameObject();
+            playerInfoModel.name = "PlayerModel";
+        } else
+            playerInfoModel = obj;
+
 		arrayPlayerPosition [0] = new Vector3 (0, 0, 0);
 		arrayPlayerPosition [1] = new Vector3 (3, 0, 0);
 		arrayPlayerPosition [2] = new Vector3 (-3, 0, 0);
@@ -318,7 +325,7 @@ public class UISelectRole : UIBase {
 			SetBtnFun(UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString(), DoListB);
 		}
 
-        GameObject obj = GameObject.Find("UISelectRole/Right/InfoRange/UIAttributeHexagon");
+        obj = GameObject.Find("UISelectRole/Right/InfoRange/UIAttributeHexagon");
         mUIAttributes = obj.GetComponent<UIAttributes>();
         mUIAttributes.PlayScale(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
 
@@ -776,6 +783,7 @@ public class UISelectRole : UIBase {
         UIMainLobby.Get.HideAll();
         UI3DSelectRole.UIShow(true);
         UIShow(true);
+        mUIAttributes.gameObject.SetActive(false);
 
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
             if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime()) {
@@ -792,10 +800,6 @@ public class UISelectRole : UIBase {
 	}
 
 	private void selectFriendMode() {
-		//UILoading.UIShow(false);
-		//UIShow(true);
-		//UI3DSelectRole.UIShow(true);
-
 		uiCharacterCheck.SetActive(false);
 		uiInfoRange.SetActive(false);
 		uiSelect.SetActive(false);

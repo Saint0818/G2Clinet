@@ -1,10 +1,10 @@
 using UnityEngine;
+using GameStruct;
 
 public class UISkillEffect : UIBase {
 	private static UISkillEffect instance = null;
 	private const string UIName = "UISkillEffect";
 
-//	private GameObject uiMotion;
 	private UISprite spriteCardFrame;
 	private UITexture textureCardInfo;
 	private UILabel labelCardName;
@@ -28,17 +28,12 @@ public class UISkillEffect : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow, int kind = 0, int picNo = 0, int lv = 0, string name = ""){
-		if(isShow) {
-			Get.Show(isShow);
-			if(picNo != 0 && lv != 0) {
-				Get.spriteCardFrame.spriteName = "cardlevel_" + Mathf.Clamp(lv, 1, 3).ToString();
-				Get.textureCardInfo.mainTexture = GameData.CardTexture(picNo);
-				Get.labelCardName.text = name;
-			}
-		} else 
-		if(instance)
+	public static void UIShow(bool isShow){
+		if (instance) {
 			instance.Show(isShow);
+		} else
+			if (isShow)
+				Get.Show(isShow);
 	}
 
 	protected override void InitCom() {
@@ -46,5 +41,14 @@ public class UISkillEffect : UIBase {
 		spriteCardFrame = GameObject.Find (UIName + "/Center/CardMotion/CardFrame").GetComponent<UISprite>();
 		textureCardInfo = GameObject.Find (UIName + "/Center/CardMotion/CardInfo").GetComponent<UITexture>();
 		labelCardName = GameObject.Find (UIName + "/Center/CardMotion/CardLabel").GetComponent<UILabel>();
+	}
+
+	public void Show (TSkill skill) {
+		if(GameData.DSkillData.ContainsKey (skill.ID)) {
+			UIShow(true);
+			spriteCardFrame.spriteName = "cardlevel_" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+			textureCardInfo.mainTexture = GameData.CardTexture(GameData.DSkillData[skill.ID].PictureNo);
+			labelCardName.text = GameData.DSkillData[skill.ID].Name;
+		}
 	}
 }

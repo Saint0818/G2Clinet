@@ -36,7 +36,9 @@ public class UI3DMainLobby : UIBase
     {
         mImpl.Hide();
 
-        RemoveUI(UIName);
+        if (instance)
+            instance.gameObject.SetActive(false);
+        //RemoveUI(UIName);
     }
 
     public static UI3DMainLobby Get
@@ -44,10 +46,7 @@ public class UI3DMainLobby : UIBase
         get
         {
             if(!instance)
-            {
-                UI3D.UIShow(true);
                 instance = Load3DUI(UIName) as UI3DMainLobby;
-            }
 
             return instance;
         }

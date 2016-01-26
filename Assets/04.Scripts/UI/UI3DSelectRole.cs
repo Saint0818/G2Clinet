@@ -25,10 +25,8 @@
 	
 	public static UI3DSelectRole Get {
 		get {
-            if (!instance) {
-                UI3D.UIShow(true);
+            if (!instance)
 				instance = Load3DUI(UIName) as UI3DSelectRole;
-            }
 
 			return instance;
 		}
