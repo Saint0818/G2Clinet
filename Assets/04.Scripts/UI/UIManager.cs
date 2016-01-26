@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class UIManager : KnightSingleton<SendHttp> {
+public class UIManager : KnightSingleton<UIManager> {
     private static Dictionary<string, GameObject> UIResources = new Dictionary<string, GameObject>();
     private static Dictionary<string, GameObject> UIDictionary = new Dictionary<string, GameObject>();
 
@@ -18,6 +18,13 @@ public class UIManager : KnightSingleton<SendHttp> {
             UIResources.Add(uiname, obj);
             return obj;
         }
+    }
+
+    public static GameObject FindUIObject(string uiname) {
+        if (UIDictionary.ContainsKey(uiname))
+            return UIDictionary[uiname];
+        else
+            return null;
     }
 
     public static void AddUI(string uiname, ref GameObject ui) {

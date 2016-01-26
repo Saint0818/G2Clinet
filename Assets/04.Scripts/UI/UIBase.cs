@@ -16,8 +16,6 @@ using UnityEngine;
 public class UIBase: MonoBehaviour
 {  
 	protected const string UIPrefab = "Prefab/UI/";
-	private static GameObject Root3D = null;
-
 	private GameEnum.ELanguage uiLanguage;
 	private Dictionary<UILabel, int> labelTextID = new Dictionary<UILabel, int>();
 
@@ -32,7 +30,10 @@ public class UIBase: MonoBehaviour
 			UI2D.UIShow(true);
 			GameObject obj = UIManager.LoadPrefab(UIPrefab + path);
 			if(obj) {
-				GameObject obj2 = Instantiate(obj) as GameObject;
+                GameObject obj2 = UIManager.FindUIObject(path);
+                if (!obj2)
+                    obj2 = Instantiate(obj) as GameObject;
+                
 				if(obj2) {
                     UIManager.AddUI(path, ref obj2);
 					string[] strChars = path.Split('/'); 

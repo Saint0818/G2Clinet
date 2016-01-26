@@ -13,14 +13,13 @@
 	
 	public static void UIShow(bool isShow) {
 		if (instance) {
-			if (!isShow)
+            if (!isShow)
 				RemoveUI(UIName);
-			else
+            else
 				instance.Show(isShow);
 		} else
-		if (isShow) {
+		if (isShow) 
 			Get.Show(isShow);
-		}
 	}
 	
 	public static UI3DSelectRole Get {

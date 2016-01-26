@@ -84,9 +84,8 @@ public class UISelectRole : UIBase {
 	
 	public static UISelectRole Get {
 		get {
-			if (!instance) {
+			if (!instance)
 				instance = LoadUI(UIName) as UISelectRole;
-			}
 
 			return instance;
 		}
@@ -132,17 +131,15 @@ public class UISelectRole : UIBase {
 	}
 	
 	public static void UIShow(bool isShow){
+        UI3DSelectRole.UIShow(isShow);
 		if (instance) {
-			if (!isShow)
+            if (!isShow)
 				RemoveUI(UIName);
-			else
+            else
 				instance.Show(isShow);
 		} else
 		if (isShow)
 			Get.Show(isShow);
-
-        if (!isShow)
-            UI3DSelectRole.UIShow(false);
 	}
 	
 	void FixedUpdate(){
@@ -391,9 +388,9 @@ public class UISelectRole : UIBase {
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);
-		Invoke("hideSelectRoleAnimator", 2.5f);
+		//Invoke("hideSelectRoleAnimator", 2.5f);
 
-		setTriangleData();
+		//setTriangleData();
 	}
 
 	private void UIState(EUIRoleSituation state) {
@@ -443,10 +440,10 @@ public class UISelectRole : UIBase {
 			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			
 			break;
-		    case EUIRoleSituation.BackToSelectMe:
-			    if(GameData.IsMainStage)
+            case EUIRoleSituation.BackToSelectMe:
+                if(GameData.IsMainStage)
                 {
-				    UIShow(false);
+                    UIShow(false);
                     if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
                     {
                         UILoading.OpenUI = UILoading.OpenStageUI;
@@ -479,6 +476,7 @@ public class UISelectRole : UIBase {
 			
 			    break;
             case EUIRoleSituation.Start:
+                UIShow(false);
                 if (GameData.StageID == 10)
                     enterPVP();
                 else
@@ -781,7 +779,6 @@ public class UISelectRole : UIBase {
     public void LoadStage(int stageID) {
         GameData.StageID = stageID;
         UIMainLobby.Get.HideAll();
-        UI3DSelectRole.UIShow(true);
         UIShow(true);
         mUIAttributes.gameObject.SetActive(false);
 

@@ -49,7 +49,7 @@ public class LobbyStart : MonoBehaviour {
 	void Awake ()
     {
         instance = gameObject.GetComponent<LobbyStart>();
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 		Time.timeScale = 1;
 
 		/*RootScenePlayers = GameObject.Find("ScenePlayers");
