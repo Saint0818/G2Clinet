@@ -1,4 +1,5 @@
 ﻿using System;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ public class UIGameLobby : UIBase
         mMain = GetComponent<UIGameLobbyMain>();
         mMain.BackListener += goToMainLobby;
         mMain.MainStageListener += goToMainStage;
-        mMain.PvpListener += goToPvp;
+        mMain.PVPListener += goToPvp;
         mMain.InstanceListener += goToInstance;
     }
 
@@ -56,8 +57,13 @@ public class UIGameLobby : UIBase
 
     private void goToPvp()
     {
-        UIPVP.UIShow(true);
-        Hide();
+        if(GameData.IsOpenUIEnable(EOpenUI.PVP))
+        {
+            UIPVP.UIShow(true);
+            Hide();
+        }
+        else
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.PVP]), Color.white);
     }
 
     private void goToInstance()

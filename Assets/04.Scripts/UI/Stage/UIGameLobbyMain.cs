@@ -7,7 +7,7 @@ public class UIGameLobbyMain : MonoBehaviour
 {
     public event Action BackListener;
     public event Action MainStageListener;
-    public event Action PvpListener;
+    public event Action PVPListener;
     public event Action InstanceListener;
 
     public UIButton BackButton;
@@ -38,8 +38,8 @@ public class UIGameLobbyMain : MonoBehaviour
 
     public void OnPvpClick()
     {
-        if(PvpListener != null)
-            PvpListener();
+        if(PVPListener != null)
+            PVPListener();
     }
 
     public void OnInstanceClick()

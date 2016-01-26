@@ -1,66 +1,82 @@
 [
     {
         "lv": 1,
-        "lvupexp": 5,
+        "lvupexp": 4,
         "openindex": 5,
-        "unlockhint": 405,
+        "unlockhint": 404,
         "ui": 1,
         "unlockname": 455,
-        "tutorialid": 3
-    },
-    {
-        "lv": 2,
-        "lvupexp": 10,
-        "openindex": 1,
-        "unlockhint": 401,
-        "ui": 1,
-        "unlockname": 451,
         "tutorialid": 5
     },
     {
-        "lv": 3,
-        "lvupexp": 15,
+        "lv": 2,
+        "lvupexp": 8,
         "openindex": 2,
         "unlockhint": 402,
         "ui": 1,
         "unlockname": 452,
-        "tutorialid": 4
+        "tutorialid": 2
+    },
+    {
+        "lv": 3,
+        "lvupexp": 8,
+        "openindex": 1,
+        "unlockhint": 401,
+        "ui": 1,
+        "unlockname": 451,
+        "tutorialid": 1
     },
     {
         "lv": 4,
-        "lvupexp": 20,
-        "openindex": 3
+        "lvupexp": 8,
+        "openindex": 6,
+        "unlockhint": 406,
+        "ui": 1,
+        "unlockname": 456,
+        "tutorialid": 6
     },
     {
         "lv": 5,
-        "lvupexp": 25,
-        "openindex": 4
+        "lvupexp": 10,
+        "openindex": 4,
+        "ui": 1,
+        "unlockname": 454,
+        "tutorialid": 4
     },
     {
         "lv": 6,
-        "lvupexp": 30,
-        "openindex": 6
+        "lvupexp": 12,
+        "openindex": 7,
+        "unlockhint": 407,
+        "ui": 1,
+        "unlockname": 457,
+        "tutorialid": 7
     },
     {
         "lv": 7,
-        "lvupexp": 35,
-        "openindex": 7
+        "lvupexp": 12
     },
     {
         "lv": 8,
-        "lvupexp": 40
+        "lvupexp": 12,
+        "openindex": 3,
+        "unlockhint": 403,
+        "ui": 1,
+        "unlockname": 453,
+        "tutorialid": 3
     },
     {
         "lv": 9,
-        "lvupexp": 45
+        "lvupexp": 13
     },
     {
         "lv": 10,
-        "lvupexp": 50
+        "lvupexp": 14,
+        "openindex": 8
     },
     {
         "lv": 11,
-        "lvupexp": 55
+        "lvupexp": 20
     },
     {
         "lv": 12,

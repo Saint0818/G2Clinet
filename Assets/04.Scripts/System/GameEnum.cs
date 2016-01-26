@@ -106,7 +106,8 @@
         Social = 4,
         Ability = 5,
         Mission = 6,
-        Mall = 7
+        Mall = 7,
+        PVP = 8
     }
 					
 	public enum EPlayerPostion

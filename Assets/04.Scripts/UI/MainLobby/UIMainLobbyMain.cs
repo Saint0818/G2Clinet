@@ -37,13 +37,13 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject MallNoticeObj;
 
     // 畫面下方的主要功能按鈕.
-    public UIMainLobbyButton AvatarButton;
-    public UIMainLobbyButton EquipButton;
-    public UIMainLobbyButton SkillButton;
-    public UIMainLobbyButton ShopButton;
-    public UIMainLobbyButton SocialButton;
-    public UIMainLobbyButton MissionButton;
-    public UIMainLobbyButton MallButton;
+    public UIUnlockButton AvatarButton;
+    public UIUnlockButton EquipButton;
+    public UIUnlockButton SkillButton;
+    public UIUnlockButton ShopButton;
+    public UIUnlockButton SocialButton;
+    public UIUnlockButton MissionButton;
+    public UIUnlockButton MallButton;
 
     [UsedImplicitly]
     private void Awake()

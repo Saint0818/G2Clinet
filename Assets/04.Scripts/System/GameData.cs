@@ -540,4 +540,12 @@ public static class GameData
 			return false;
 		}
 	}
+
+    public static bool IsOpenUIEnable(EOpenUI openUI)
+    {
+        if (!DOpenUILv.ContainsKey(openUI))
+            return true;
+
+        return Team.Player.Lv >= DOpenUILv[openUI];
+    }
 }

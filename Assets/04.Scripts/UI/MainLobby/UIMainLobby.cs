@@ -105,50 +105,56 @@ public class UIMainLobby : UIBase
         foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
         {
             bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
-            bool isPlaySFX = GameData.Team.Player.Lv == pair.Value.Lv;
+//            bool isPlaySFX = GameData.Team.Player.Lv == pair.Value.Lv;
             switch(pair.Value.OpenIndex)
             {
                 case 1:
-                    updateButton(Main.EquipButton, isEnable, isPlaySFX);
+//                    updateButton(Main.EquipButton, isEnable, isPlaySFX);
+                    Main.EquipButton.CheckEnable();
                     Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
                     break;
                 case 2:
-                    updateButton(Main.AvatarButton, isEnable, isPlaySFX);
+//                    updateButton(Main.AvatarButton, isEnable, isPlaySFX);
+                    Main.AvatarButton.CheckEnable();
                     Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
                     break;
                 case 3:
-                    updateButton(Main.ShopButton, isEnable, isPlaySFX);
+//                    updateButton(Main.ShopButton, isEnable, isPlaySFX);
+                    Main.ShopButton.CheckEnable();
                     break;
                 case 4:
-                    updateButton(Main.SocialButton, isEnable, isPlaySFX);
+//                    updateButton(Main.SocialButton, isEnable, isPlaySFX);
+                    Main.ShopButton.CheckEnable();
                     break;
                 case 5:
-                    updateButton(Main.SkillButton, isEnable, isPlaySFX);
-//                    Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
+//                    updateButton(Main.SkillButton, isEnable, isPlaySFX);
+                    Main.SocialButton.CheckEnable();
                     break;
                 case 6: 
-                    updateButton(Main.MissionButton, isEnable, isPlaySFX);
+//                    updateButton(Main.MissionButton, isEnable, isPlaySFX);
+                    Main.MissionButton.CheckEnable();
                     Main.MissionNotice = isEnable && hasMissionAward;
                     break;
                 case 7:
-                    updateButton(Main.MallButton, isEnable, isPlaySFX);
+//                    updateButton(Main.MallButton, isEnable, isPlaySFX);
+                    Main.MallButton.CheckEnable();
                     break;
             }
         }
 
-        if(PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
-        {
-            PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
-            PlayerPrefs.Save();
-        }
+//        if(PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
+//        {
+//            PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
+//            PlayerPrefs.Save();
+//        }
     }
 
-    private void updateButton(UIMainLobbyButton button, bool isEnable, bool playSFX)
-    {
-        button.IsEnable = isEnable;
-        if(playSFX && PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
-            button.PlaySFX();
-    }
+//    private void updateButton(UIUnlockButton button, bool isEnable, bool playSFX)
+//    {
+//        button.IsEnable = isEnable;
+//        if(playSFX && PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
+//            button.PlaySFX();
+//    }
 
     public void UpdateUI()
     {
