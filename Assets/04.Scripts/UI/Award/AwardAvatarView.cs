@@ -10,6 +10,7 @@ public class AwardAvatarView : MonoBehaviour {
 
 	public UISprite QualitySquare;
 	public UISprite ItemPic;
+	public GameObject[] EmptyStars;
 	public GameObject[] AvatarStars;
 	public UILabel AmountLabel;
 	private Transform goQuality;
@@ -40,6 +41,10 @@ public class AwardAvatarView : MonoBehaviour {
 		
 		for (int i=0; i<AvatarStars.Length; i++)
 			AvatarStars[i].SetActive(false);
+
+		if(EmptyStars != null)
+			for (int i=0; i<EmptyStars.Length; i++) 
+				EmptyStars[i].SetActive(false);
 	}
 
 	public void Show () {
@@ -54,7 +59,10 @@ public class AwardAvatarView : MonoBehaviour {
 		hideAll ();
 		Show ();
 		QualitySquare.spriteName = "Equipment_" + itemData.Quality.ToString();
-		GameFunction.ShowInlay(ref AvatarStars, GameData.Team.Player, itemData.Kind);
+		if(EmptyStars != null)
+			GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, GameData.Team.Player, itemData.Kind);
+		else 
+			Debug.LogError("EmptyStars not setting");
 		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
 			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
 		}

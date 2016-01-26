@@ -716,13 +716,19 @@ public static class GameFunction
 		}
 	}
 
-	public static void ShowInlay (ref  GameObject[] inlays, TPlayer player, int itemDataKind) {
+	public static void ShowInlay (ref GameObject[] emptyStars, ref  GameObject[] inlays, TPlayer player, int itemDataKind) {
 		foreach (KeyValuePair<int, TValueItem> pair in player.ValueItems) {
 			if (GameData.DItemData.ContainsKey(pair.Value.ID) && pair.Key == itemDataKind) {
-				UIValueItemData vd = UIValueItemDataBuilder.Build(GameData.DItemData[pair.Value.ID], pair.Value.InlayItemIDs, pair.Value.Num);
-				if(vd.Inlay.Length <= inlays.Length) 
-					for(int i=0; i<inlays.Length; i++) 
-						inlays[i].SetActive((i < vd.Inlay.Length));
+//				UIValueItemData vd = UIValueItemDataBuilder.Build(GameData.DItemData[pair.Value.ID], pair.Value.InlayItemIDs, pair.Value.Num);
+				for(int i=0; i<inlays.Length; i++) {
+					if(i < pair.Value.RevisionInlayItemIDs.Length) {
+						inlays[i].SetActive((pair.Value.RevisionInlayItemIDs[i] != 0));
+						emptyStars[i].SetActive(true);
+					} else {
+						inlays[i].SetActive(false);
+						emptyStars[i].SetActive(false);
+					}
+				}
 			}
 		}
 	}

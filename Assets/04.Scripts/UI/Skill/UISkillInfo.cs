@@ -38,6 +38,8 @@ public class UISkillInfo : UIBase {
 	private GameObject btnCrafting;
 	private GameObject btnUpgrade;
 
+	private GameObject goCraftUnuse;
+	private GameObject goUpgradeUnuse;
 
 	private bool isOpen = false;
 	private float openCardSpeed = 0.1f;
@@ -79,6 +81,9 @@ public class UISkillInfo : UIBase {
 		btnEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn");
 		btnCrafting = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn");
 		btnUpgrade = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn");
+		goCraftUnuse = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/UnUseLabel");
+		goUpgradeUnuse = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/UnUseLabel");
+
 		btnMedium = GameObject.Find (UIName + "/Center/Left/BtnMediumCard");
 		btnMediumTop = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/Top");
 		btnMediumTop.SetActive(false);
@@ -132,6 +137,9 @@ public class UISkillInfo : UIBase {
 
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
+
+			goUpgradeUnuse.SetActive((uicard.skillCard.Skill.Lv == skillData.MaxStar));
+			goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
 
 			//MediumCard
 			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[uicard.skillCard.Skill.ID].Quality.ToString();

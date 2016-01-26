@@ -490,7 +490,6 @@ public class UISkillReinforce : UIBase {
 			}
 		}
 		uiScrollView.ResetPosition();
-//		uiScrollView.MoveRelative(new Vector3(0, -33, 0));
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
@@ -742,6 +741,7 @@ public class UISkillReinforce : UIBase {
 		costView.UpdateView(skill);
 		energyView.UpdateView(skill);
 		reinForceInfo.UpdateView(skill);
+		RefreshSlot ();
 	}
 
 	public void RefreshSlot () {

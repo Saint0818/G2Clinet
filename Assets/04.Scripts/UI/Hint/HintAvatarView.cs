@@ -8,6 +8,7 @@ public class HintAvatarView : MonoBehaviour {
 	public UILabel[] ValueLabels;
 	public UISprite QualitySquare;
 	public UISprite ItemPic;
+	public GameObject[] EmptyStars;
 	public GameObject[] AvatarStars;
 	public UILabel AmountLabel;
 	public UILabel ItemKindLabel;
@@ -45,8 +46,11 @@ public class HintAvatarView : MonoBehaviour {
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
 
-		for (int i=0; i<AvatarStars.Length; i++)
+		for (int i=0; i<AvatarStars.Length; i++) 
 			AvatarStars[i].SetActive(false);
+
+		for (int i=0; i<EmptyStars.Length; i++) 
+			EmptyStars[i].SetActive(false);
 	}
 
 	public void OnClickAttr (GameObject go) {
@@ -71,7 +75,7 @@ public class HintAvatarView : MonoBehaviour {
 	{
 		isHaveValue = false;
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
-		GameFunction.ShowInlay(ref AvatarStars, GameData.Team.Player, itemData.Kind);
+		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, GameData.Team.Player, itemData.Kind);
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			if(itemData.Bonus[i] != EBonus.None) {
 				AttrKindsIcon[i].gameObject.SetActive(true);
