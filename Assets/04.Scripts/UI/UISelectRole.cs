@@ -466,7 +466,7 @@ public class UISelectRole : UIBase {
                         SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
                     }
                     else
-                        UIInstance.Get.Show();
+                        UIInstance.Get.ShowByStageID(GameData.StageID);
                 }
                 else
                 {
