@@ -156,7 +156,7 @@ public class UIMall : UIBase {
 			chooseIndex = mallBoxs[result].mIndex;
 			spendType = EPickSpendType.ONE.GetHashCode();
 			if(mallBoxs[result].IsPickFree)
-				CheckDiamond(choosePickCost.OnePick, true, TextConst.S(4108), ConfirmUse);
+				CheckDiamond(0, true, TextConst.S(4108), ConfirmUse);
 			else 
 				CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse);
 		}

@@ -85,35 +85,64 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	public void OnReturn (GameObject go) {
+		UIGame.Visible = false;
+		UIGameResult.Visible = false;
+		UIGameLoseResult.Visible = false;
+		UIGamePause.Visible = false;
+		UIDoubleClick.Visible = false;
+		UIPassiveEffect.Visible = false;
+		UITransition.Visible = false;
+		UICourtInstant.Visible = false;
+		UIInGameMission.Visible = false;
+
+
 		Time.timeScale = 1;
 		UIShow(false);
-		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
-			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
-				GameData.StageID = GameController.Get.StageData.ID + 1;
-				int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
-				SceneMgr.Get.CurrentScene = "";
-				SceneMgr.Get.ChangeLevel (courtNo);
-			} else {
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			}
+		UILoading.StageID = GameData.StageID;
+		if(GameData.IsMainStage)
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenStageUI;
 		}
-        else 
-        {
-            if(GameData.IsMainStage)
-            {
-                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                UILoading.OpenUI = UILoading.OpenStageUI;
-            }
-            else if(GameData.IsInstance)
-            {
-                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                UILoading.OpenUI = UILoading.OpenInstanceUI;
-            }
-            else
-            {
-                SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
-                UILoading.OpenUI = UILoading.OpenStageUI;
-            }
+		else if(GameData.IsInstance)
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenInstanceUI;
 		}
+		else
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			UILoading.OpenUI = UILoading.OpenStageUI;
+		}
+
+
+//		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
+//			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
+//				GameData.StageID = GameController.Get.StageData.ID + 1;
+//				int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+//				SceneMgr.Get.CurrentScene = "";
+//				SceneMgr.Get.ChangeLevel (courtNo);
+//			} else {
+//				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//			}
+//		}
+//        else 
+//        {
+//            if(GameData.IsMainStage)
+//            {
+//                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//                UILoading.OpenUI = UILoading.OpenStageUI;
+//            }
+//            else if(GameData.IsInstance)
+//            {
+//                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//                UILoading.OpenUI = UILoading.OpenInstanceUI;
+//            }
+//            else
+//            {
+//                SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+//                UILoading.OpenUI = UILoading.OpenStageUI;
+//            }
+//		}
 	}
 }

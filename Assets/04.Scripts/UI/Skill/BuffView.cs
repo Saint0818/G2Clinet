@@ -23,7 +23,7 @@ public class BuffView : MonoBehaviour {
 
 	public void ShowDistance (float distance) {
 		Distance.SetActive(true);
-		LabelDistance.text = distance.ToString();
+		LabelDistance.text = distance.ToString() + TextConst.S(7225);
 	}
 
 	public void ShowTime (int kind, float lifetime, float value) {
@@ -31,8 +31,11 @@ public class BuffView : MonoBehaviour {
 		myKind = kind;
 		KindLabel.text = TextConst.S(3005 + kind);
 		AttrKind.spriteName = "AttrKind_" + kind.ToString();
-		LabelTimeValue.text = lifetime.ToString();
-		LabelAttrKind.text = value.ToString();
+		LabelTimeValue.text = lifetime.ToString() + TextConst.S(7224);
+		if(value >= 0)
+			LabelAttrKind.text = "+" + value.ToString();
+		else 
+			LabelAttrKind.text = value.ToString();
 	}
 
 	public void OnOpenHint (GameObject go) {
