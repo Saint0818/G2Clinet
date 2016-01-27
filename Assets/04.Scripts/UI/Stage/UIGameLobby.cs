@@ -68,8 +68,13 @@ public class UIGameLobby : UIBase
 
     private void goToInstance()
     {
-        UIInstance.Get.Show();
-        Hide();
+        if(GameData.IsOpenUIEnable(EOpenUI.Instance))
+        {
+            UIInstance.Get.Show();
+            Hide();
+        }
+        else
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Instance]), Color.white);
     }
 
     public static UIGameLobby Get

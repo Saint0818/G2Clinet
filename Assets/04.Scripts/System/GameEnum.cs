@@ -107,7 +107,8 @@
         Ability = 5,
         Mission = 6,
         Mall = 7,
-        PVP = 8
+        PVP = 8,
+        Instance = 9
     }
 					
 	public enum EPlayerPostion
