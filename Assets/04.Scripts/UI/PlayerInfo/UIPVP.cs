@@ -116,6 +116,7 @@ public class PVPPage1ListView
                     ranks[i] = new TItemRankGroup();
                     ranks[i].Init(ref rank100[i]);
                     ranks[i].SetParent(parent);
+					ranks[i].Enable = false;
                 }
         }
     }
@@ -949,14 +950,12 @@ public class UIPVP : UIBase
         }
     }
 
-
-
     private void SendPVPRank()
     {
         WWWForm form = new WWWForm();
-        form.AddField("PVPRankLv", GameFunction.GetPVPLv(GameData.Team.PVPIntegral));
+		form.AddField("PVPLv", GameFunction.GetPVPLv(GameData.Team.PVPIntegral));
         form.AddField("Language", GameData.Setting.Language.GetHashCode());
-        SendHttp.Get.Command(URLConst.PVPRank, WaitSendPVPRank, form, false);
+        SendHttp.Get.Command(URLConst.PVPRank, WaitSendPVPRank, form, true);
     }
 
     public void WaitSendPVPRank(bool ok, WWW www)
