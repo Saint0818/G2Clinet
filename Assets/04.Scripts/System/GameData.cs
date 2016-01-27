@@ -92,6 +92,15 @@ public static class GameData
                    StageTable.Ins.GetByID(StageID).IDKind == TStageData.EKind.Instance;
         }
     }
+
+	public static bool IsPVP
+	{
+		get
+		{
+			return StageTable.Ins.HasByID(StageID) && 
+				   StageTable.Ins.GetByID(StageID).IDKind == TStageData.EKind.PVP;
+		}			
+	}
     public static float ExtraGreatRate = 5;
     public static float ExtraPerfectRate = 10;
 
@@ -526,20 +535,6 @@ public static class GameData
                 return "http://nicemarket.com.tw/g2announcement";
         }
     }
-
-	public static bool IsPVP
-	{
-		get{ 
-			foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData) 
-			{
-				if (StageID == item.Value.Stage) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-	}
 
     public static bool IsOpenUIEnable(EOpenUI openUI)
     {

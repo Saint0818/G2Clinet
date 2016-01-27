@@ -402,6 +402,8 @@ namespace GameStruct
         public int PVPCount;
         public int PVPWin;
         public int PVPKeepWin;
+		public int PVPIntegral;
+		public int PVPTicket;
         public int InstanceCount;
         public int InstanceWin;
         public int InstanceKeepWin;

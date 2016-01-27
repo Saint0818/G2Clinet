@@ -8,6 +8,12 @@ using JetBrains.Annotations;
 /// </summary>
 public class TStageData
 {
+	/// <summary>
+	/// PVP ID 的範圍.
+	/// </summary>
+	public const int MinPVPStageID = 10;
+	public const int MaxPVPStageID = 100;
+
     /// <summary>
     /// 主線關卡 ID 的範圍.
     /// </summary>
@@ -24,7 +30,8 @@ public class TStageData
     {
         Undefined,
         MainStage, // 主線關卡.
-        Instance // 副本.
+        Instance, // 副本.
+		PVP
     }
 
     public int ID { get; private set; }
@@ -33,6 +40,8 @@ public class TStageData
     {
         get
         {
+			if (MinPVPStageID <= ID && ID <= MaxPVPStageID)
+				return EKind.PVP;				
             if(MinMainStageID <= ID && ID <= MaxMainStageID)
                 return EKind.MainStage;
             if(MinInstanceID <= ID && ID <= MaxInstanceID)
