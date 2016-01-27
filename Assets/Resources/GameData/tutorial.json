@@ -143,7 +143,284 @@
         "texten": "Tap [ff6060]icon[-] to equip it！！"
     },
     {
+        "id": 2,
+        "line": 8,
+        "kind": 4,
+        "value": 4,
+        "uipath": "UI2D/UIAvatarFitted/MainView/Left/ItemList/",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texten": "Tap [ff6060]icon[-] to equip it！！"
+    },
+    {
+        "id": 2,
+        "line": 9,
+        "kind": 4,
+        "value": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "哇，好看極了！！可以穿出去嚇嚇對手囉！！",
+        "texten": "Tap [ff6060]icon[-] to equip it！！"
+    },
+    {
+        "id": 2,
+        "line": 10,
+        "kind": 4,
+        "value": 4,
+        "uipath": "UI2D/UIAvatarFitted/BottomLeft/BackBtn/",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texten": "Tap [ff6060]icon[-] to equip it！！"
+    },
+    {
+        "id": 4,
+        "line": 1,
+        "title": "社群",
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "由於你前幾場競賽搶眼的表現，我們發現有其他球員開始在[ff6060]關注[-]你的動態唷！！"
+    },
+    {
+        "id": 4,
+        "line": 2,
+        "kind": 4,
+        "talkindex": 1,
+        "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "這麼酷，快帶我瞧瞧是誰在關注我！！"
+    },
+    {
+        "id": 4,
+        "line": 3,
+        "kind": 4,
+        "uipath": "主畫面按鈕"
+    },
+    {
+        "id": 4,
+        "line": 4,
+        "kind": 4,
+        "uipath": "關注頁籤"
+    },
+    {
+        "id": 4,
+        "line": 5,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "你已經有小粉絲了呢，只要你也[ff6060]關注[-]他，你們就會成為[ff6060]朋友[-]，以後就可以一同組隊出去比賽囉！！"
+    },
+    {
+        "id": 4,
+        "line": 6,
+        "kind": 4,
+        "uipath": "關注按鈕"
+    },
+    {
+        "id": 4,
+        "line": 7,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "恭喜你認識了第一位朋友，你可以在動態牆上看到你所有朋友的動態消息喔！！"
+    },
+    {
+        "id": 4,
+        "line": 8,
+        "kind": 4,
+        "uipath": "動態頁籤"
+    },
+    {
+        "id": 4,
+        "line": 9,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。"
+    },
+    {
+        "id": 4,
+        "line": 10,
+        "kind": 4,
+        "uipath": "讚按鈕"
+    },
+    {
         "id": 5,
+        "line": 1,
+        "title": "Skill",
+        "kind": 2,
+        "value": 101,
+        "uiname": "UISkillFormation",
+        "talkindex": 1,
+        "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
+    },
+    {
+        "id": 5,
+        "line": 2,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成決定性的影響。",
+        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
+    },
+    {
+        "id": 5,
+        "line": 3,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "我來教你怎麼安裝它。",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "Let me teach you how to install it."
+    },
+    {
+        "id": 5,
+        "line": 4,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage102"
+    },
+    {
+        "id": 5,
+        "line": 5,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "id": 5,
+        "line": 6,
+        "uipath": "UI2D/UISelectRole/Bottom/SkillCard/"
+    },
+    {
+        "id": 5,
+        "line": 7,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，我們先把剛剛獲得的[ff6060]主動技[-]安裝起來吧。",
+        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
+    },
+    {
+        "id": 5,
+        "line": 8,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISkillInfo/TopRight/EquipBtn"
+    },
+    {
+        "id": 5,
+        "line": 9,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn"
+    },
+    {
+        "id": 5,
+        "line": 10,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 6,
+        "line": 1,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "經歷了幾場競賽，你已經累積了屬於自己的成績，聯盟這邊有幫你準備一個[ff6060]任務成就[-]區，可以讓你檢視自己辛苦的成果。"
+    },
+    {
+        "id": 6,
+        "line": 2,
+        "kind": 4,
+        "uipath": "主畫面按鈕"
+    },
+    {
+        "id": 6,
+        "line": 3,
+        "kind": 4,
+        "uipath": "成就頁籤"
+    },
+    {
+        "id": 6,
+        "line": 4,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "目前你已經達成球員生涯的第一項成就，往後還有更多的挑戰等你來達成喔。"
+    },
+    {
+        "id": 6,
+        "line": 5,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "可以領取你剛剛達成的成就獎勵！！"
+    },
+    {
+        "id": 6,
+        "line": 6,
+        "kind": 4,
+        "uipath": "領取按鈕",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6
+    },
+    {
+        "id": 7,
+        "line": 1,
+        "title": "晶片抽取",
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "[ff6060]技能抽取[-]可以快速增加你的戰力，每天都有[ff6060]免費[-]的次數可以進行抽取！！"
+    },
+    {
+        "id": 7,
+        "line": 2,
+        "kind": 4,
+        "uipath": "主畫面按鈕"
+    },
+    {
+        "id": 7,
+        "line": 3,
+        "kind": 4,
+        "uipath": "免費抽按鈕"
+    },
+    {
+        "id": 7,
+        "line": 4,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "記得在倒數時間結束後再回來抽喔．"
+    },
+    {
         "line": 1,
         "title": "Skill",
         "kind": 4,
@@ -157,7 +434,6 @@
         "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
     },
     {
-        "id": 5,
         "line": 2,
         "kind": 4,
         "value": 2,
@@ -168,7 +444,6 @@
         "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
     },
     {
-        "id": 5,
         "line": 3,
         "kind": 4,
         "value": 2,
@@ -180,14 +455,12 @@
         "texten": "Let me teach you how to install it."
     },
     {
-        "id": 5,
         "line": 4,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
     },
     {
-        "id": 5,
         "line": 5,
         "kind": 4,
         "value": 2,
@@ -198,14 +471,89 @@
         "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
     },
     {
-        "id": 5,
         "line": 6,
         "kind": 4,
         "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "首先[ff6060]點擊[-]剛剛獲得的卡片"
+        "texttw": "首先[ff6060]點擊[-]剛剛獲得的晶片"
+    },
+    {
+        "line": 7,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6
+    },
+    {
+        "line": 8,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UISkillInfo/Center/TopRight/EquipBtn/",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "接下來選擇[ff6060]裝備晶片[-]，將剛剛獲得的晶片安裝在身上即可獲得特殊的能力。"
+    },
+    {
+        "line": 9,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "我們可以馬上來試試看技能晶片的威力。"
+    },
+    {
+        "line": 10,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UISkillInfo/Center/BottomRight/BackBtn/",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6
+    },
+    {
+        "line": 11,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn/",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6
+    },
+    {
+        "line": 12,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "line": 13,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+    },
+    {
+        "line": 14,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
+    },
+    {
+        "line": 15,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "line": 16,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
         "id": 30,
@@ -564,1175 +912,1175 @@
         "texten": "Great!  Let's do this!"
     },
     {
-        "id": "1010",
+        "id": 1010,
         "line": 1,
         "title": "1-1全新的開始",
         "kind": 1
     },
     {
-        "id": "1010",
+        "id": 1010,
         "line": 2,
         "kind": 1
     },
     {
-        "id": "1010",
+        "id": 1010,
         "line": 3,
         "kind": 1
     },
     {
-        "id": "1020",
+        "id": 1020,
         "line": 0,
         "title": "1-2得分能力的展現",
         "kind": 1
     },
     {
-        "id": "1030",
+        "id": 1030,
         "line": 0,
         "title": "1-3叫我神射手",
         "kind": 1
     },
     {
-        "id": "1040",
+        "id": 1040,
         "line": 0,
         "title": "1-4神一般的隊友",
         "kind": 1
     },
     {
-        "id": "1050",
+        "id": 1050,
         "line": 0,
         "title": "2-1不一樣的策略",
         "kind": 1
     },
     {
-        "id": "1060",
+        "id": 1060,
         "line": 0,
         "title": "2-2防守也是一種藝術",
         "kind": 1
     },
     {
-        "id": "1070",
+        "id": 1070,
         "line": 0,
         "title": "2-3火鍋的防守價值",
         "kind": 1
     },
     {
-        "id": "1080",
+        "id": 1080,
         "line": 0,
         "title": "2-4防守！！",
         "kind": 1
     },
     {
-        "id": "1090",
+        "id": 1090,
         "line": 0,
         "title": "3-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1100",
+        "id": 1100,
         "line": 0,
         "title": "3-2抄截的運用",
         "kind": 1
     },
     {
-        "id": "1110",
+        "id": 1110,
         "line": 0,
         "title": "3-3身體的對抗性",
         "kind": 1
     },
     {
-        "id": "1120",
+        "id": 1120,
         "line": 0,
         "title": "3-4取得勝利",
         "kind": 1
     },
     {
-        "id": "1130",
+        "id": 1130,
         "line": 0,
         "title": "4-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1140",
+        "id": 1140,
         "line": 0,
         "title": "4-2得分競賽",
         "kind": 1
     },
     {
-        "id": "1150",
+        "id": 1150,
         "line": 0,
         "title": "4-3三分球",
         "kind": 1
     },
     {
-        "id": "1160",
+        "id": 1160,
         "line": 0,
         "title": "4-4鬼之切入",
         "kind": 1
     },
     {
-        "id": "1170",
+        "id": 1170,
         "line": 0,
         "title": "4-5對抗",
         "kind": 1
     },
     {
-        "id": "1180",
+        "id": 1180,
         "line": 0,
         "title": "5-1體質的重要",
         "kind": 1
     },
     {
-        "id": "1190",
+        "id": 1190,
         "line": 0,
         "title": "5-2防守再防守",
         "kind": 1
     },
     {
-        "id": "1200",
+        "id": 1200,
         "line": 0,
         "title": "5-3銅牆鐵壁",
         "kind": 1
     },
     {
-        "id": "1210",
+        "id": 1210,
         "line": 0,
         "title": "5-4分數",
         "kind": 1
     },
     {
-        "id": "1220",
+        "id": 1220,
         "line": 0,
         "title": "5-5碰撞",
         "kind": 1
     },
     {
-        "id": "1230",
+        "id": 1230,
         "line": 0,
         "title": "6-1妙手",
         "kind": 1
     },
     {
-        "id": "1240",
+        "id": 1240,
         "line": 0,
         "title": "6-2得分競賽",
         "kind": 1
     },
     {
-        "id": "1250",
+        "id": 1250,
         "line": 0,
         "title": "6-3搶分",
         "kind": 1
     },
     {
-        "id": "1260",
+        "id": 1260,
         "line": 0,
         "title": "6-4追分",
         "kind": 1
     },
     {
-        "id": "1270",
+        "id": 1270,
         "line": 0,
         "title": "6-5神射手",
         "kind": 1
     },
     {
-        "id": "1280",
+        "id": 1280,
         "line": 0,
         "title": "7-1內線",
         "kind": 1
     },
     {
-        "id": "1290",
+        "id": 1290,
         "line": 0,
         "title": "7-2抄截大賽",
         "kind": 1
     },
     {
-        "id": "1300",
+        "id": 1300,
         "line": 0,
         "title": "7-3碰撞",
         "kind": 1
     },
     {
-        "id": "1310",
+        "id": 1310,
         "line": 0,
         "title": "7-4死守",
         "kind": 1
     },
     {
-        "id": "1320",
+        "id": 1320,
         "line": 0,
         "title": "7-5防守再防守",
         "kind": 1
     },
     {
-        "id": "1330",
+        "id": 1330,
         "line": 0,
         "title": "8-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1340",
+        "id": 1340,
         "line": 0,
         "title": "8-2推人大賽",
         "kind": 1
     },
     {
-        "id": "1350",
+        "id": 1350,
         "line": 0,
         "title": "8-3抄截大賽",
         "kind": 1
     },
     {
-        "id": "1360",
+        "id": 1360,
         "line": 0,
         "title": "8-4得分競賽",
         "kind": 1
     },
     {
-        "id": "1370",
+        "id": 1370,
         "line": 0,
         "title": "8-5得分競賽",
         "kind": 1
     },
     {
-        "id": "1380",
+        "id": 1380,
         "line": 0,
         "title": "9-1灌籃大賽",
         "kind": 1
     },
     {
-        "id": "1390",
+        "id": 1390,
         "line": 0,
         "title": "9-2冷箭",
         "kind": 1
     },
     {
-        "id": "1400",
+        "id": 1400,
         "line": 0,
         "title": "9-3得分王",
         "kind": 1
     },
     {
-        "id": "1410",
+        "id": 1410,
         "line": 0,
         "title": "9-4碰撞",
         "kind": 1
     },
     {
-        "id": "1420",
+        "id": 1420,
         "line": 0,
         "title": "9-5肢體接觸",
         "kind": 1
     },
     {
-        "id": "1430",
+        "id": 1430,
         "line": 0,
         "title": "10-1鐵桶陣",
         "kind": 1
     },
     {
-        "id": "1440",
+        "id": 1440,
         "line": 0,
         "title": "10-2防守至上",
         "kind": 1
     },
     {
-        "id": "1450",
+        "id": 1450,
         "line": 0,
         "title": "10-3得分競賽",
         "kind": 1
     },
     {
-        "id": "1460",
+        "id": 1460,
         "line": 0,
         "title": "10-4不一樣的策略",
         "kind": 1
     },
     {
-        "id": "1470",
+        "id": 1470,
         "line": 0,
         "title": "10-5艱難挑戰",
         "kind": 1
     },
     {
-        "id": "1480",
+        "id": 1480,
         "line": 0,
         "title": "11-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1490",
+        "id": 1490,
         "line": 0,
         "title": "11-2得分競賽",
         "kind": 1
     },
     {
-        "id": "1500",
+        "id": 1500,
         "line": 0,
         "title": "11-3三分球",
         "kind": 1
     },
     {
-        "id": "1510",
+        "id": 1510,
         "line": 0,
         "title": "11-4鬼之切入",
         "kind": 1
     },
     {
-        "id": "1520",
+        "id": 1520,
         "line": 0,
         "title": "11-5對抗",
         "kind": 1
     },
     {
-        "id": "1530",
+        "id": 1530,
         "line": 0,
         "title": "12-1體質的重要",
         "kind": 1
     },
     {
-        "id": "1540",
+        "id": 1540,
         "line": 0,
         "title": "12-2防守再防守",
         "kind": 1
     },
     {
-        "id": "1550",
+        "id": 1550,
         "line": 0,
         "title": "12-3銅牆鐵壁",
         "kind": 1
     },
     {
-        "id": "1560",
+        "id": 1560,
         "line": 0,
         "title": "12-4分數",
         "kind": 1
     },
     {
-        "id": "1570",
+        "id": 1570,
         "line": 0,
         "title": "12-5碰撞",
         "kind": 1
     },
     {
-        "id": "1580",
+        "id": 1580,
         "line": 0,
         "title": "13-1妙手",
         "kind": 1
     },
     {
-        "id": "1590",
+        "id": 1590,
         "line": 0,
         "title": "13-2得分競賽",
         "kind": 1
     },
     {
-        "id": "1600",
+        "id": 1600,
         "line": 0,
         "title": "13-3搶分",
         "kind": 1
     },
     {
-        "id": "1610",
+        "id": 1610,
         "line": 0,
         "title": "13-4追分",
         "kind": 1
     },
     {
-        "id": "1620",
+        "id": 1620,
         "line": 0,
         "title": "13-5神射手",
         "kind": 1
     },
     {
-        "id": "1630",
+        "id": 1630,
         "line": 0,
         "title": "14-1內線",
         "kind": 1
     },
     {
-        "id": "1640",
+        "id": 1640,
         "line": 0,
         "title": "14-2抄截大賽",
         "kind": 1
     },
     {
-        "id": "1650",
+        "id": 1650,
         "line": 0,
         "title": "14-3碰撞",
         "kind": 1
     },
     {
-        "id": "1660",
+        "id": 1660,
         "line": 0,
         "title": "14-4死守",
         "kind": 1
     },
     {
-        "id": "1670",
+        "id": 1670,
         "line": 0,
         "title": "14-5防守再防守",
         "kind": 1
     },
     {
-        "id": "1680",
+        "id": 1680,
         "line": 0,
         "title": "15-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1690",
+        "id": 1690,
         "line": 0,
         "title": "15-2推人大賽",
         "kind": 1
     },
     {
-        "id": "1700",
+        "id": 1700,
         "line": 0,
         "title": "15-3抄截大賽",
         "kind": 1
     },
     {
-        "id": "1710",
+        "id": 1710,
         "line": 0,
         "title": "15-4得分競賽",
         "kind": 1
     },
     {
-        "id": "1720",
+        "id": 1720,
         "line": 0,
         "title": "15-5得分競賽",
         "kind": 1
     },
     {
-        "id": "1730",
+        "id": 1730,
         "line": 0,
         "title": "16-1灌籃大賽",
         "kind": 1
     },
     {
-        "id": "1740",
+        "id": 1740,
         "line": 0,
         "title": "16-2冷箭",
         "kind": 1
     },
     {
-        "id": "1750",
+        "id": 1750,
         "line": 0,
         "title": "16-3得分王",
         "kind": 1
     },
     {
-        "id": "1760",
+        "id": 1760,
         "line": 0,
         "title": "16-4碰撞",
         "kind": 1
     },
     {
-        "id": "1770",
+        "id": 1770,
         "line": 0,
         "title": "16-5肢體接觸",
         "kind": 1
     },
     {
-        "id": "1780",
+        "id": 1780,
         "line": 0,
         "title": "17-1鐵桶陣",
         "kind": 1
     },
     {
-        "id": "1790",
+        "id": 1790,
         "line": 0,
         "title": "17-2防守至上",
         "kind": 1
     },
     {
-        "id": "1800",
+        "id": 1800,
         "line": 0,
         "title": "17-3得分競賽",
         "kind": 1
     },
     {
-        "id": "1810",
+        "id": 1810,
         "line": 0,
         "title": "17-4不一樣的策略",
         "kind": 1
     },
     {
-        "id": "1820",
+        "id": 1820,
         "line": 0,
         "title": "17-5艱難挑戰",
         "kind": 1
     },
     {
-        "id": "1830",
+        "id": 1830,
         "line": 0,
         "title": "18-1得分競賽",
         "kind": 1
     },
     {
-        "id": "1840",
+        "id": 1840,
         "line": 0,
         "title": "18-2推人大賽",
         "kind": 1
     },
     {
-        "id": "1850",
+        "id": 1850,
         "line": 0,
         "title": "18-3抄截大賽",
         "kind": 1
     },
     {
-        "id": "1860",
+        "id": 1860,
         "line": 0,
         "title": "18-4得分競賽",
         "kind": 1
     },
     {
-        "id": "1870",
+        "id": 1870,
         "line": 0,
         "title": "18-5得分競賽",
         "kind": 1
     },
     {
-        "id": "1880",
+        "id": 1880,
         "line": 0,
         "title": "19-1灌籃大賽",
         "kind": 1
     },
     {
-        "id": "1890",
+        "id": 1890,
         "line": 0,
         "title": "19-2冷箭",
         "kind": 1
     },
     {
-        "id": "1900",
+        "id": 1900,
         "line": 0,
         "title": "19-3得分王",
         "kind": 1
     },
     {
-        "id": "1910",
+        "id": 1910,
         "line": 0,
         "title": "19-4碰撞",
         "kind": 1
     },
     {
-        "id": "1920",
+        "id": 1920,
         "line": 0,
         "title": "19-5肢體接觸",
         "kind": 1
     },
     {
-        "id": "1930",
+        "id": 1930,
         "line": 0,
         "title": "20-1鐵桶陣",
         "kind": 1
     },
     {
-        "id": "1940",
+        "id": 1940,
         "line": 0,
         "title": "20-2防守至上",
         "kind": 1
     },
     {
-        "id": "1950",
+        "id": 1950,
         "line": 0,
         "title": "20-3得分競賽",
         "kind": 1
     },
     {
-        "id": "1960",
+        "id": 1960,
         "line": 0,
         "title": "20-4不一樣的策略",
         "kind": 1
     },
     {
-        "id": "1970",
+        "id": 1970,
         "line": 0,
         "title": "20-5艱難挑戰",
         "kind": 1
     },
     {
-        "id": "21110",
+        "id": 21110,
         "line": 0,
         "title": "1-1",
         "kind": 1
     },
     {
-        "id": "21120",
+        "id": 21120,
         "line": 0,
         "title": "1-2",
         "kind": 1
     },
     {
-        "id": "21130",
+        "id": 21130,
         "line": 0,
         "title": "1-3",
         "kind": 1
     },
     {
-        "id": "21140",
+        "id": 21140,
         "line": 0,
         "title": "1-BOSS",
         "kind": 1
     },
     {
-        "id": "21210",
+        "id": 21210,
         "line": 0,
         "title": "2-1",
         "kind": 1
     },
     {
-        "id": "21220",
+        "id": 21220,
         "line": 0,
         "title": "2-2",
         "kind": 1
     },
     {
-        "id": "21230",
+        "id": 21230,
         "line": 0,
         "title": "2-3",
         "kind": 1
     },
     {
-        "id": "21240",
+        "id": 21240,
         "line": 0,
         "title": "2-BOSS",
         "kind": 1
     },
     {
-        "id": "21310",
+        "id": 21310,
         "line": 0,
         "title": "3-1",
         "kind": 1
     },
     {
-        "id": "21320",
+        "id": 21320,
         "line": 0,
         "title": "3-2",
         "kind": 1
     },
     {
-        "id": "21330",
+        "id": 21330,
         "line": 0,
         "title": "3-3",
         "kind": 1
     },
     {
-        "id": "21340",
+        "id": 21340,
         "line": 0,
         "title": "3-BOSS",
         "kind": 1
     },
     {
-        "id": "21410",
+        "id": 21410,
         "line": 0,
         "title": "4-1",
         "kind": 1
     },
     {
-        "id": "21420",
+        "id": 21420,
         "line": 0,
         "title": "4-2",
         "kind": 1
     },
     {
-        "id": "21430",
+        "id": 21430,
         "line": 0,
         "title": "4-3",
         "kind": 1
     },
     {
-        "id": "21440",
+        "id": 21440,
         "line": 0,
         "title": "4-4",
         "kind": 1
     },
     {
-        "id": "21450",
+        "id": 21450,
         "line": 0,
         "title": "4-BOSS",
         "kind": 1
     },
     {
-        "id": "21510",
+        "id": 21510,
         "line": 0,
         "title": "5-1",
         "kind": 1
     },
     {
-        "id": "21520",
+        "id": 21520,
         "line": 0,
         "title": "5-2",
         "kind": 1
     },
     {
-        "id": "21530",
+        "id": 21530,
         "line": 0,
         "title": "5-3",
         "kind": 1
     },
     {
-        "id": "21540",
+        "id": 21540,
         "line": 0,
         "title": "5-4",
         "kind": 1
     },
     {
-        "id": "21550",
+        "id": 21550,
         "line": 0,
         "title": "5-BOSS",
         "kind": 1
     },
     {
-        "id": "21610",
+        "id": 21610,
         "line": 0,
         "title": "6-1",
         "kind": 1
     },
     {
-        "id": "21620",
+        "id": 21620,
         "line": 0,
         "title": "6-2",
         "kind": 1
     },
     {
-        "id": "21630",
+        "id": 21630,
         "line": 0,
         "title": "6-3",
         "kind": 1
     },
     {
-        "id": "21640",
+        "id": 21640,
         "line": 0,
         "title": "6-4",
         "kind": 1
     },
     {
-        "id": "21650",
+        "id": 21650,
         "line": 0,
         "title": "6-BOSS",
         "kind": 1
     },
     {
-        "id": "21710",
+        "id": 21710,
         "line": 0,
         "title": "7-1",
         "kind": 1
     },
     {
-        "id": "21720",
+        "id": 21720,
         "line": 0,
         "title": "7-2",
         "kind": 1
     },
     {
-        "id": "21730",
+        "id": 21730,
         "line": 0,
         "title": "7-3",
         "kind": 1
     },
     {
-        "id": "21740",
+        "id": 21740,
         "line": 0,
         "title": "7-4",
         "kind": 1
     },
     {
-        "id": "21750",
+        "id": 21750,
         "line": 0,
         "title": "7-BOSS",
         "kind": 1
     },
     {
-        "id": "21810",
+        "id": 21810,
         "line": 0,
         "title": "8-1",
         "kind": 1
     },
     {
-        "id": "21820",
+        "id": 21820,
         "line": 0,
         "title": "8-2",
         "kind": 1
     },
     {
-        "id": "21830",
+        "id": 21830,
         "line": 0,
         "title": "8-3",
         "kind": 1
     },
     {
-        "id": "21840",
+        "id": 21840,
         "line": 0,
         "title": "8-4",
         "kind": 1
     },
     {
-        "id": "21850",
+        "id": 21850,
         "line": 0,
         "title": "8-BOSS",
         "kind": 1
     },
     {
-        "id": "21910",
+        "id": 21910,
         "line": 0,
         "title": "9-1",
         "kind": 1
     },
     {
-        "id": "21920",
+        "id": 21920,
         "line": 0,
         "title": "9-2",
         "kind": 1
     },
     {
-        "id": "21930",
+        "id": 21930,
         "line": 0,
         "title": "9-3",
         "kind": 1
     },
     {
-        "id": "21940",
+        "id": 21940,
         "line": 0,
         "title": "9-4",
         "kind": 1
     },
     {
-        "id": "21950",
+        "id": 21950,
         "line": 0,
         "title": "9-BOSS",
         "kind": 1
     },
     {
-        "id": "22010",
+        "id": 22010,
         "line": 0,
         "title": "10-1",
         "kind": 1
     },
     {
-        "id": "22020",
+        "id": 22020,
         "line": 0,
         "title": "10-2",
         "kind": 1
     },
     {
-        "id": "22030",
+        "id": 22030,
         "line": 0,
         "title": "10-3",
         "kind": 1
     },
     {
-        "id": "22040",
+        "id": 22040,
         "line": 0,
         "title": "10-4",
         "kind": 1
     },
     {
-        "id": "22050",
+        "id": 22050,
         "line": 0,
         "title": "10-BOSS",
         "kind": 1
     },
     {
-        "id": "22110",
+        "id": 22110,
         "line": 0,
         "title": "11-1",
         "kind": 1
     },
     {
-        "id": "22120",
+        "id": 22120,
         "line": 0,
         "title": "11-2",
         "kind": 1
     },
     {
-        "id": "22130",
+        "id": 22130,
         "line": 0,
         "title": "11-3",
         "kind": 1
     },
     {
-        "id": "22140",
+        "id": 22140,
         "line": 0,
         "title": "11-4",
         "kind": 1
     },
     {
-        "id": "22150",
+        "id": 22150,
         "line": 0,
         "title": "11-BOSS",
         "kind": 1
     },
     {
-        "id": "22210",
+        "id": 22210,
         "line": 0,
         "title": "12-1",
         "kind": 1
     },
     {
-        "id": "22220",
+        "id": 22220,
         "line": 0,
         "title": "12-2",
         "kind": 1
     },
     {
-        "id": "22230",
+        "id": 22230,
         "line": 0,
         "title": "12-3",
         "kind": 1
     },
     {
-        "id": "22240",
+        "id": 22240,
         "line": 0,
         "title": "12-4",
         "kind": 1
     },
     {
-        "id": "22250",
+        "id": 22250,
         "line": 0,
         "title": "12-BOSS",
         "kind": 1
     },
     {
-        "id": "22310",
+        "id": 22310,
         "line": 0,
         "title": "13-1",
         "kind": 1
     },
     {
-        "id": "22320",
+        "id": 22320,
         "line": 0,
         "title": "13-2",
         "kind": 1
     },
     {
-        "id": "22330",
+        "id": 22330,
         "line": 0,
         "title": "13-3",
         "kind": 1
     },
     {
-        "id": "22340",
+        "id": 22340,
         "line": 0,
         "title": "13-4",
         "kind": 1
     },
     {
-        "id": "22350",
+        "id": 22350,
         "line": 0,
         "title": "13-BOSS",
         "kind": 1
     },
     {
-        "id": "22410",
+        "id": 22410,
         "line": 0,
         "title": "14-1",
         "kind": 1
     },
     {
-        "id": "22420",
+        "id": 22420,
         "line": 0,
         "title": "14-2",
         "kind": 1
     },
     {
-        "id": "22430",
+        "id": 22430,
         "line": 0,
         "title": "14-3",
         "kind": 1
     },
     {
-        "id": "22440",
+        "id": 22440,
         "line": 0,
         "title": "14-4",
         "kind": 1
     },
     {
-        "id": "22450",
+        "id": 22450,
         "line": 0,
         "title": "14-BOSS",
         "kind": 1
     },
     {
-        "id": "22510",
+        "id": 22510,
         "line": 0,
         "title": "15-1",
         "kind": 1
     },
     {
-        "id": "22520",
+        "id": 22520,
         "line": 0,
         "title": "15-2",
         "kind": 1
     },
     {
-        "id": "22530",
+        "id": 22530,
         "line": 0,
         "title": "15-3",
         "kind": 1
     },
     {
-        "id": "22540",
+        "id": 22540,
         "line": 0,
         "title": "15-4",
         "kind": 1
     },
     {
-        "id": "22550",
+        "id": 22550,
         "line": 0,
         "title": "15-BOSS",
         "kind": 1
     },
     {
-        "id": "22610",
+        "id": 22610,
         "line": 0,
         "title": "16-1",
         "kind": 1
     },
     {
-        "id": "22620",
+        "id": 22620,
         "line": 0,
         "title": "16-2",
         "kind": 1
     },
     {
-        "id": "22630",
+        "id": 22630,
         "line": 0,
         "title": "16-3",
         "kind": 1
     },
     {
-        "id": "22640",
+        "id": 22640,
         "line": 0,
         "title": "16-4",
         "kind": 1
     },
     {
-        "id": "22650",
+        "id": 22650,
         "line": 0,
         "title": "16-BOSS",
         "kind": 1
     },
     {
-        "id": "22710",
+        "id": 22710,
         "line": 0,
         "title": "17-1",
         "kind": 1
     },
     {
-        "id": "22720",
+        "id": 22720,
         "line": 0,
         "title": "17-2",
         "kind": 1
     },
     {
-        "id": "22730",
+        "id": 22730,
         "line": 0,
         "title": "17-3",
         "kind": 1
     },
     {
-        "id": "22740",
+        "id": 22740,
         "line": 0,
         "title": "17-4",
         "kind": 1
     },
     {
-        "id": "22750",
+        "id": 22750,
         "line": 0,
         "title": "17-BOSS",
         "kind": 1
     },
     {
-        "id": "22810",
+        "id": 22810,
         "line": 0,
         "title": "18-1",
         "kind": 1
     },
     {
-        "id": "22820",
+        "id": 22820,
         "line": 0,
         "title": "18-2",
         "kind": 1
     },
     {
-        "id": "22830",
+        "id": 22830,
         "line": 0,
         "title": "18-3",
         "kind": 1
     },
     {
-        "id": "22840",
+        "id": 22840,
         "line": 0,
         "title": "18-4",
         "kind": 1
     },
     {
-        "id": "22850",
+        "id": 22850,
         "line": 0,
         "title": "18-BOSS",
         "kind": 1
     },
     {
-        "id": "22910",
+        "id": 22910,
         "line": 0,
         "title": "19-1",
         "kind": 1
     },
     {
-        "id": "22920",
+        "id": 22920,
         "line": 0,
         "title": "19-2",
         "kind": 1
     },
     {
-        "id": "22930",
+        "id": 22930,
         "line": 0,
         "title": "19-3",
         "kind": 1
     },
     {
-        "id": "22940",
+        "id": 22940,
         "line": 0,
         "title": "19-4",
         "kind": 1
     },
     {
-        "id": "22950",
+        "id": 22950,
         "line": 0,
         "title": "19-BOSS",
         "kind": 1
     },
     {
-        "id": "23010",
+        "id": 23010,
         "line": 0,
         "title": "20-1",
         "kind": 1
     },
     {
-        "id": "23020",
+        "id": 23020,
         "line": 0,
         "title": "20-2",
         "kind": 1
     },
     {
-        "id": "23030",
+        "id": 23030,
         "line": 0,
         "title": "20-3",
         "kind": 1
     },
     {
-        "id": "23040",
+        "id": 23040,
         "line": 0,
         "title": "20-4",
         "kind": 1
     },
     {
-        "id": "23050",
+        "id": 23050,
         "line": 0,
         "title": "20-BOSS",
         "kind": 1
