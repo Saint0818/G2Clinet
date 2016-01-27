@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -42,6 +43,7 @@ public class UIInstance : UIBase
         Show(true);
 
         buildChapters();
+        mMain.ShowChapters();
     }
 
     public void ShowByChapter(int chapter)
@@ -49,7 +51,35 @@ public class UIInstance : UIBase
         Show(true);
 
         buildChapters();
+        mMain.ShowChapters();
         mMain.SelectChapter(chapter);
+    }
+
+    public void ShowByStageID(int stageID)
+    {
+        Show(true);
+
+        buildChapters();
+
+        Func<int, int> findUIStageIndex = chapter =>
+        {
+            var stages = StageTable.Ins.GetInstanceStagesByChapter(chapter);
+            for(var i = 0; i < stages.Count; i++)
+            {
+                if(stages[i].ID == stageID)
+                    return i;
+            }
+            return 0;
+        };
+
+        if(StageTable.Ins.HasByID(stageID) && 
+           StageTable.Ins.GetByID(stageID).IDKind == TStageData.EKind.Instance)
+        {
+            TStageData stageData = StageTable.Ins.GetByID(stageID);
+            mMain.SelectChapter(stageData.Chapter);
+            mMain.ShowStages(stageData.Chapter);
+            mMain.SelectStage(findUIStageIndex(stageData.Chapter));
+        }
     }
 
     private void buildChapters()
@@ -65,10 +95,8 @@ public class UIInstance : UIBase
             List<TStageData> normalStages = StageTable.Ins.GetInstanceNormalStagesByChapter(chapterData.Chapter);
             TStageData bossStage = StageTable.Ins.GetInstanceBossStage(chapterData.Chapter);
             UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
-            mMain.AddChapter(uiData);
+            mMain.AddChapter(chapterData.Chapter, uiData);
         }
-
-        mMain.ShowChapters();
     }
 
     private bool isMainStagePass(int chapter)

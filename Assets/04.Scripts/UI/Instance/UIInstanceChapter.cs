@@ -34,6 +34,8 @@ public class UIInstanceChapter : MonoBehaviour
         }
     }
 
+    public UIInstanceStage.Data[] NormalStages { get { return mData.NormalStages; } }
+    public UIInstanceStage.Data BossStages { get { return mData.BossStage; } }
     private Data mData;
 
     private void Awake()

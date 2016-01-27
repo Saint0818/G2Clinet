@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 副本主介面行為.
+/// </summary>
+/// 使用方法:
+/// <list type="number">
+/// <item> 用 ClearAllChapters, AddChapter, SelectChapter 控制章節. </item>
+/// <item> ShowChapters or ShowStages 控制要顯示章節 or 關卡. </item>
+/// <item> Call SelectStage 控制 ScrollView 捲動到哪個關卡. </item>
+/// </list>
 public class UIInstanceMain : MonoBehaviour
 {
     public Transform ChapterParent;
@@ -12,7 +21,8 @@ public class UIInstanceMain : MonoBehaviour
     public GameObject StageView;
     public UIButton StageBackButton;
 
-    public UIScrollView ScrollView;
+    public UIScrollView ChapterScrollView;
+    public UIScrollView StageScrollView;
 
     /// <summary>
     /// <para> 呼叫時機: 關卡的 Start 按鈕按下. </para>
@@ -26,7 +36,7 @@ public class UIInstanceMain : MonoBehaviour
     private const float ChapterInterval = 900;
     private const float StageInterval = 230;
 
-    private readonly List<UIInstanceChapter> mChapters = new List<UIInstanceChapter>();
+    private readonly Dictionary<int, UIInstanceChapter> mChapters = new Dictionary<int, UIInstanceChapter>();
     private readonly List<UIInstanceStage> mStages = new List<UIInstanceStage>();
 
     private void Start()
@@ -38,20 +48,20 @@ public class UIInstanceMain : MonoBehaviour
     {
         clearAllStages();
 
-        foreach(UIInstanceChapter chapter in mChapters)
-            Destroy(chapter.gameObject);
+        foreach(KeyValuePair<int, UIInstanceChapter> pair in mChapters)
+            Destroy(pair.Value.gameObject);
         mChapters.Clear();
     }
 
-    public void AddChapter(UIInstanceChapter.Data data)
+    public void AddChapter(int chapter, UIInstanceChapter.Data data)
     {
         var localPos = new Vector3(mChapters.Count * ChapterInterval, 0, 0);
         var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIInstanceChapter, ChapterParent, localPos);
         obj.name = string.Format("{0}({1})", obj.name, data.Title);
-        UIInstanceChapter chapter = obj.GetComponent<UIInstanceChapter>();
-        chapter.SetData(data);
+        UIInstanceChapter uiChapter = obj.GetComponent<UIInstanceChapter>();
+        uiChapter.SetData(data);
 
-        mChapters.Add(chapter);
+        mChapters.Add(chapter, uiChapter);
     }
 
     public void SelectChapter(int chapter)
@@ -65,10 +75,10 @@ public class UIInstanceMain : MonoBehaviour
         // 其實顯示某個章節, 只是移動一整個章節的寬度. 第1章的位置是 (0),
         // 第 2 章的位置是 (-900), 所以這邊才會這樣計算.
         Vector3 targetPos = new Vector3((reviseChapter - 1) * -ChapterInterval, 0, 0);
-        Vector3 moveAmount = targetPos - ScrollView.transform.localPosition;
+        Vector3 moveAmount = targetPos - ChapterScrollView.transform.localPosition;
         
         // 從目前 ScrollView 的位置, 移動多少可以到達目標位置.
-        ScrollView.MoveRelative(moveAmount);
+        ChapterScrollView.MoveRelative(moveAmount);
 
 //        Debug.LogFormat("ScrollView TargetPos:{0}, MoveAmount:{1}, Pos:{2}", 
 //            targetPos, moveAmount, ScrollView.transform.localPosition);
@@ -83,6 +93,15 @@ public class UIInstanceMain : MonoBehaviour
         ChapterBackButton.gameObject.SetActive(true);
     }
 
+    public void ShowStages(int chapter)
+    {
+        if(!mChapters.ContainsKey(chapter))
+            return;
+
+        var uiChapter = mChapters[chapter];
+        ShowStages(uiChapter.NormalStages, uiChapter.BossStages);
+    }
+
     public void ShowStages(UIInstanceStage.Data[] oneChapterNormalStages, UIInstanceStage.Data bossStage)
     {
         ChapterView.SetActive(false);
@@ -93,6 +112,28 @@ public class UIInstanceMain : MonoBehaviour
 
         clearAllStages();
         addStages(oneChapterNormalStages, bossStage);
+    }
+
+    public void SelectStage(int index)
+    {
+        var reviseIndex = index;
+        if(index < 0)
+            reviseIndex = 0;
+        if(index >= mStages.Count)
+            reviseIndex = mStages.Count - 1;
+
+        // 其實顯示某個關卡, 只是移動一個關卡的高度. 第1個關卡的位置是 (-21.5, 150, 0),
+        // 第 2 個關卡是 (-21.5, 380, 0), 所以這邊才會這樣計算.
+        Vector3 targetPos = new Vector3(-21.5f, 150 + reviseIndex * StageInterval, 0);
+        Vector3 moveAmount = targetPos - StageScrollView.transform.localPosition;
+
+//        Debug.LogFormat("ScrollView Pos:{0}", StageScrollView.transform.localPosition);
+
+        // 從目前 ScrollView 的位置, 移動多少可以到達目標位置.
+        StageScrollView.MoveRelative(moveAmount);
+
+//        Debug.LogFormat("ScrollView TargetPos:{0}, MoveAmount:{1}, Pos:{2}", 
+//                    targetPos, moveAmount, StageScrollView.transform.localPosition);
     }
 
     private void addStages(UIInstanceStage.Data[] oneChapterNormalStages, UIInstanceStage.Data bossStage)
@@ -122,6 +163,10 @@ public class UIInstanceMain : MonoBehaviour
         mStages.Clear();
     }
 
+    /// <summary>
+    /// 內部使用...
+    /// </summary>
+    /// <param name="stageID"></param>
     public void NotifyStageStartClick(int stageID)
     {
         if(StageStartListener != null)
