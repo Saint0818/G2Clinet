@@ -2,7 +2,7 @@
     {
         "lv": 1,
         "name": "街頭聯盟I",
-        "lowscore": 0,
+        "lowscore": 5,
         "highscore": 99,
         "basicscore": 15,
         "calculate": 10,

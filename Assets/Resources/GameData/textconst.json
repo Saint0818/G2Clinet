@@ -194,24 +194,34 @@
         "tw": "聯盟對戰"
     },
     {
+        "id": 257,
+        "explain": "PVP次數達到上限",
+        "tw": "每日可購買的次數已達到上限，無法進行挑戰。"
+    },
+    {
+        "id": 258,
+        "explain": "PVP次數使用完畢",
+        "tw": "已無挑戰次數，請明日再來。"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
-        "tw": "競賽中只能控制自己角色的移動。",
+        "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",
         "en": "One can only control your own character during game mode"
     },
     {
         "id": 302,
-        "tw": "投籃時的節奏點擊點到[FFDD33]Perfect[-]，可增加投籃命中率，Combo越高增加越多。",
+        "tw": "投籃時的節奏點擊點到[FFDD33]Perfect[-]，可增加投籃命中率，[FFDD33]Combo[-]越高增加越多。",
         "en": "When you hit the [FFDD33]sweet spot[-] on the shooting bar it increaes your field goal percentage and accumulates with combos."
     },
     {
         "id": 303,
-        "tw": "越接近籃下投籃命中率有越多額外加成。",
+        "tw": "越接近[FFDD33]籃下[-]，投籃命中率有越多額外加成。",
         "en": "The closer you are to the basket the higher the field goal percentage."
     },
     {
         "id": 304,
-        "tw": "拖曳移動搖桿到極限，即可開啟加速，可加速至耐力用完為止。",
+        "tw": "拖曳移動搖桿到極限，即可開啟[FFDD33]加速[-]，可加速至耐力用完為止。",
         "en": "When you push the control stick to the max it activates turbo untill energy is depleted."
     },
     {
@@ -221,17 +231,17 @@
     },
     {
         "id": 306,
-        "tw": "三種體型的人物角色有自己的屬性特色喔！！",
+        "tw": "三種體型的人物角色有自己的能力特色喔！！",
         "en": "Each character has their own unique talents!!"
     },
     {
         "id": 307,
-        "tw": "未來的籃球場，三分線與籃筐的距離是11公尺喔！！",
+        "tw": "未來的籃球場，三分線與籃筐的距離是[FFDD33]11公尺[-]喔！！",
         "en": "In the future, the three point line is 11 meters away formt he basket!"
     },
     {
         "id": 308,
-        "tw": "未來的籃球場，罰球線與籃筐的距離是7公尺喔！！",
+        "tw": "未來的籃球場，罰球線與籃筐的距離是[FFDD33]7公尺[-]喔！！",
         "en": "In the future, the free throw line is 7 meters away from the basket!"
     },
     {
@@ -240,7 +250,7 @@
     },
     {
         "id": 310,
-        "tw": "Icon_Gem=此圖是表示鑽石，在遊戲中經常會用到，盡量收集它吧！"
+        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，只要有它將可以無往不利，趕快想辦法得到它吧！"
     },
     {
         "id": 400,
@@ -291,43 +301,43 @@
     {
         "id": 451,
         "explain": "解鎖數值裝功能",
-        "tw": "成功解鎖裝備功能",
+        "tw": "成功解鎖[FFDD33]突觸強化[-]功能",
         "en": "Unlcoked Equipment Function"
     },
     {
         "id": 452,
         "explain": "解鎖造型功能",
-        "tw": "成功解鎖造型功能",
+        "tw": "成功解鎖[FFDD33]造型時裝[-]功能",
         "en": "Unlocked Style Function"
     },
     {
         "id": 453,
         "explain": "解鎖商店功能",
-        "tw": "成功解鎖商店功能",
+        "tw": "成功解鎖[FFDD33]驚喜商店[-]功能",
         "en": "Shop function successfully unlocked"
     },
     {
         "id": 454,
         "explain": "解鎖社交功能",
-        "tw": "成功解鎖社群功能",
+        "tw": "成功解鎖[FFDD33]社群好友[-]功能",
         "en": "Successfully unlocked community features"
     },
     {
         "id": 455,
         "explain": "解鎖技能功能",
-        "tw": "成功解鎖技能晶片功能",
+        "tw": "成功解鎖[FFDD33]技能晶片[-]功能",
         "en": "Unlocked Ability Function"
     },
     {
         "id": 456,
         "explain": "解鎖任務功能",
-        "tw": "成功解鎖成就任務功能",
+        "tw": "成功解鎖[FFDD33]成就任務[-]功能",
         "en": "Tasks function successfully unlock achievements"
     },
     {
         "id": 457,
         "explain": "解鎖晶片抽取功能",
-        "tw": "成功解鎖晶片抽取功能",
+        "tw": "成功解鎖[FFDD33]晶片抽取[-]功能",
         "en": "Chip extraction function successfully unlocked"
     },
     {
@@ -421,6 +431,24 @@
         "id": 537,
         "explain": "體力已滿2，購買完後顯示",
         "tw": "體力補充完畢。"
+    },
+    {
+        "id": 538,
+        "explain": "BUG1",
+        "tw": "錯誤：使用次數上限值有誤。",
+        "en": "Shop limit null"
+    },
+    {
+        "id": 539,
+        "explain": "BUG2",
+        "tw": "錯誤：物品種類有誤。",
+        "en": "Shop Kind Error"
+    },
+    {
+        "id": 540,
+        "explain": "BUG3",
+        "tw": "錯誤：無法消除時間。",
+        "en": "Can not Reset CD"
     },
     {
         "id": 550,
@@ -527,19 +555,19 @@
     {
         "id": 1004,
         "explain": "xx功能按鈕",
-        "tw": "社 群",
+        "tw": "社 群 ",
         "en": "SOCIAL"
     },
     {
         "id": 1005,
         "explain": "裝備按鈕",
-        "tw": "突觸強化",
+        "tw": "裝 備",
         "en": "EQUIPMENT"
     },
     {
         "id": 1006,
         "explain": "技能按鈕",
-        "tw": "技能晶片",
+        "tw": "技 能",
         "en": "ABILITY"
     },
     {
@@ -557,8 +585,18 @@
     {
         "id": 1009,
         "explain": "抽包按鈕",
-        "tw": "晶片抽取",
+        "tw": "抽 卡",
         "en": "MALL"
+    },
+    {
+        "id": 1010,
+        "explain": "任務按鈕",
+        "tw": "任 務"
+    },
+    {
+        "id": 1011,
+        "explain": "潛能按鈕",
+        "tw": "潛 能"
     },
     {
         "id": 1101,
@@ -653,7 +691,7 @@
     {
         "id": 3004,
         "uipeth": "PlayerLeague/Label",
-        "tw": "所屬球團",
+        "tw": "球 隊",
         "en": "Team"
     },
     {
@@ -755,7 +793,7 @@
     },
     {
         "id": 3019,
-        "tw": "戰鬥力",
+        "tw": "戰力值",
         "en": "POWER"
     },
     {
@@ -807,6 +845,20 @@
         "uipeth": "HeadingLabel",
         "tw": "[ff0000]主動技[-]",
         "en": "[ff0000]Ability[-]"
+    },
+    {
+        "id": 3102,
+        "tw": "等級",
+        "en": "LEVEL"
+    },
+    {
+        "id": 3103,
+        "tw": "位置",
+        "en": "POSITION"
+    },
+    {
+        "id": 3104,
+        "tw": "更換圖像"
     },
     {
         "id": 3201,
@@ -927,21 +979,21 @@
         "id": 3322,
         "explain": "2分球",
         "uipeth": "AttrKind0/ExplainLabel",
-        "tw": "2分球命中機率",
+        "tw": "影響2分球命中機率",
         "en": "2 Points Field Goal Percentage"
     },
     {
         "id": 3323,
         "explain": "3分球",
         "uipeth": "AttrKind1/ExplainLabel",
-        "tw": "3分球命中機率",
+        "tw": "影響3分球命中機率",
         "en": "3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
         "explain": "速 度",
         "uipeth": "AttrKind5/ExplainLabel",
-        "tw": "球員基本跑動速度",
+        "tw": "影響球員基本跑動速度",
         "en": "Player's normal running speed"
     },
     {
@@ -1537,7 +1589,8 @@
     },
     {
         "id": 4901,
-        "explain": "體力金幣鑽石儲值"
+        "explain": "體力金幣鑽石儲值",
+        "tw": "儲值商城"
     },
     {
         "id": 4902,
@@ -1752,7 +1805,7 @@
     },
     {
         "id": 5023,
-        "tw": "關注"
+        "tw": "關 注"
     },
     {
         "id": 5024,
@@ -1885,6 +1938,12 @@
         "tw": "未裝備"
     },
     {
+        "id": 6010,
+        "explain": "未達等級需求無法合成",
+        "tw": "球員等級需達到{0} ",
+        "en": "Players need to reach Level {0} "
+    },
+    {
         "id": 6101,
         "explain": "物品說明hint"
     },
@@ -1941,7 +2000,8 @@
         "tw": "每日任務獎勵"
     },
     {
-        "id": 6404
+        "id": 6404,
+        "tw": "請點擊畫面繼續"
     },
     {
         "id": 7001,
@@ -2186,37 +2246,74 @@
     {
         "id": 7216,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
-        "tw": " [B3B3B3FF]鐵質[-]"
+        "tw": " [B3B3B3FF]鐵質[-]",
+        "en": "[B3B3B3FF] Iron [-]"
     },
     {
         "id": 7217,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
-        "tw": " [C17269FF]銅質[-]"
+        "tw": " [C17269FF]銅質[-]",
+        "en": "[C17269FF] Copper [-]"
     },
     {
         "id": 7218,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
-        "tw": " [99B3D4FF]銀質[-]"
+        "tw": " [99B3D4FF]銀質[-]",
+        "en": "[99B3D4FF] Silver [-]"
     },
     {
         "id": 7219,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
-        "tw": " [EFC653FF]金質[-]"
+        "tw": " [EFC653FF]金質[-]",
+        "en": "[EFC653FF] Gold [-]"
     },
     {
         "id": 7220,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
-        "tw": " [11F5F1FF]鑽石[-]"
+        "tw": " [11F5F1FF]鑽石[-]",
+        "en": "[11F5F1FF] Diamond [-]"
+    },
+    {
+        "id": 7221,
+        "explain": "晶片類型",
+        "uipeth": "LabelKind5",
+        "tw": "晶片類型"
+    },
+    {
+        "id": 7222,
+        "explain": "晶片類型 主動技",
+        "tw": "[AA0000]主動技[-]",
+        "en": "[ff0000]A[-][fffffff]bility[-]"
+    },
+    {
+        "id": 7223,
+        "explain": "晶片類型 被動技",
+        "tw": "[007799]被動技[-]",
+        "en": "[3355ff]P[-][fffffff]asive[-]"
+    },
+    {
+        "id": 7224,
+        "explain": "技能buff時間單位",
+        "tw": "秒",
+        "en": "s"
+    },
+    {
+        "id": 7225,
+        "explain": "技能發動距離單位",
+        "tw": "公尺",
+        "en": "m"
     },
     {
         "id": 7250,
         "explain": "技能星等達上限",
-        "tw": "Max"
+        "tw": "Max",
+        "en": "Max"
     },
     {
         "id": 7251,
         "explain": "技能品質達上限",
-        "tw": "Max"
+        "tw": "Max",
+        "en": "Max"
     },
     {
         "id": 7301,
@@ -2231,7 +2328,7 @@
     {
         "id": 7401,
         "explain": "技能晶片強化合成",
-        "tw": "晶片合成",
+        "tw": "強化與合成",
         "en": "Wafer synthesis"
     },
     {
@@ -2299,6 +2396,16 @@
         "uipeth": "EmptyLabel",
         "tw": "未選擇",
         "en": "Not selected"
+    },
+    {
+        "id": 7413,
+        "explain": "頁籤1",
+        "tw": "晶片合成"
+    },
+    {
+        "id": 7414,
+        "explain": "頁籤2",
+        "tw": "晶片進化"
     },
     {
         "id": 7501,

@@ -307,6 +307,8 @@
     {
         "id": 5,
         "line": 6,
+        "kind": 2,
+        "value": 101,
         "uipath": "UI2D/UISelectRole/Bottom/SkillCard/"
     },
     {
@@ -421,6 +423,7 @@
         "texttw": "記得在倒數時間結束後再回來抽喔．"
     },
     {
+        "id": 99,
         "line": 1,
         "title": "Skill",
         "kind": 4,
@@ -434,6 +437,7 @@
         "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
     },
     {
+        "id": 99,
         "line": 2,
         "kind": 4,
         "value": 2,
@@ -444,6 +448,7 @@
         "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
     },
     {
+        "id": 99,
         "line": 3,
         "kind": 4,
         "value": 2,
@@ -455,12 +460,14 @@
         "texten": "Let me teach you how to install it."
     },
     {
+        "id": 99,
         "line": 4,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
     },
     {
+        "id": 99,
         "line": 5,
         "kind": 4,
         "value": 2,
@@ -471,6 +478,7 @@
         "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
     },
     {
+        "id": 99,
         "line": 6,
         "kind": 4,
         "value": 2,
@@ -480,6 +488,7 @@
         "texttw": "首先[ff6060]點擊[-]剛剛獲得的晶片"
     },
     {
+        "id": 99,
         "line": 7,
         "kind": 4,
         "value": 2,
@@ -489,6 +498,7 @@
         "actionl": 6
     },
     {
+        "id": 99,
         "line": 8,
         "kind": 4,
         "value": 2,
@@ -499,6 +509,7 @@
         "texttw": "接下來選擇[ff6060]裝備晶片[-]，將剛剛獲得的晶片安裝在身上即可獲得特殊的能力。"
     },
     {
+        "id": 99,
         "line": 9,
         "kind": 4,
         "value": 2,
@@ -508,6 +519,7 @@
         "texttw": "我們可以馬上來試試看技能晶片的威力。"
     },
     {
+        "id": 99,
         "line": 10,
         "kind": 4,
         "value": 2,
@@ -517,6 +529,7 @@
         "actionl": 6
     },
     {
+        "id": 99,
         "line": 11,
         "kind": 4,
         "value": 2,
@@ -526,30 +539,35 @@
         "actionl": 6
     },
     {
+        "id": 99,
         "line": 12,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
+        "id": 99,
         "line": 13,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
     },
     {
+        "id": 99,
         "line": 14,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
     },
     {
+        "id": 99,
         "line": 15,
         "kind": 4,
         "value": 2,
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
+        "id": 99,
         "line": 16,
         "kind": 4,
         "value": 2,
