@@ -24,18 +24,17 @@ public class UIGetSkillCard : UIBase {
 			else
 				return false;
 		}
-	}
 
-	public static void UIShow(bool isShow){
-		if(instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
 		}
-		else
-			if(isShow)
-				Get.Show(isShow);
 	}
 
 	public static UIGetSkillCard Get
@@ -101,7 +100,7 @@ public class UIGetSkillCard : UIBase {
 	public void Show(int id) {
 		if(GameData.DItemData.ContainsKey(id)){
 			if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
-				UIShow(true);
+				Visible = true;
 				skillCard.UpdateViewItemData(GameData.DItemData[id]);
 				labelSkillExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[id].Avatar].Explain, GameData.DItemData[id].Avatar, GameData.DItemData[id].LV);
 				sloganView[getQuality(GameData.DSkillData[GameData.DItemData[id].Avatar].Quality)].SetActive(true);
@@ -127,6 +126,6 @@ public class UIGetSkillCard : UIBase {
 		
 		if(UIBuyStore.Visible)
 			UIBuyStore.Get.Gohead();
-		UIShow(false);
+		Visible = false;
 	}
 }

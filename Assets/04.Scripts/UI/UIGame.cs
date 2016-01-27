@@ -161,12 +161,20 @@ public class UIGame : UIBase {
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
 	
 	public static void UIShow(bool isShow) {
-//		if(isShow)
-//			Get.drawLine.IsShow = isShow;
-
 		if(instance)
 			instance.Show(isShow);
 		else
@@ -1200,8 +1208,10 @@ public class UIGame : UIBase {
 				if(UIPassiveEffect.Visible)UIPassiveEffect.UIShow(false);
 
 				for (int i = 0; i < GameController.Get.GamePlayers.Count; i ++) {
-					if (i < GameController.Get.GameRecord.PlayerRecords.Length) {
-						GameController.Get.GameRecord.PlayerRecords[i] = GameController.Get.GamePlayers[i].GameRecord;
+					if(GameController.Get.GameRecord.PlayerRecords != null) {
+						if (i < GameController.Get.GameRecord.PlayerRecords.Length) {
+							GameController.Get.GameRecord.PlayerRecords[i] = GameController.Get.GamePlayers[i].GameRecord;
+						}
 					}
 				}
 				UIGamePause.Get.SetGameRecord(ref GameController.Get.GameRecord);

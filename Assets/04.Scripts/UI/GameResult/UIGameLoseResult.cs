@@ -18,6 +18,17 @@ public class UIGameLoseResult : UIBase {
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
 
 	public static void UIShow(bool isShow){

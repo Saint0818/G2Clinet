@@ -73,6 +73,17 @@ public class UIGameResult : UIBase {
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
 
 	public static UIGameResult Get
@@ -258,6 +269,17 @@ public class UIGameResult : UIBase {
 
 	private void backToLobby()
     {
+		UIGame.Visible = false;
+		UIGameResult.Visible = false;
+		UIGameLoseResult.Visible = false;
+		UIGamePause.Visible = false;
+		UIDoubleClick.Visible = false;
+		UIPassiveEffect.Visible = false;
+		UITransition.Visible = false;
+		UICourtInstant.Visible = false;
+		UIInGameMission.Visible = false;
+
+
 		Time.timeScale = 1;
 		UIShow(false);
         UILoading.StageID = GameData.StageID;

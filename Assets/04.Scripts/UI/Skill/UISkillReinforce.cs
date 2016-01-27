@@ -404,17 +404,17 @@ public class UISkillReinforce : UIBase {
 			else
 				return false;
 		}
-	}
 
-	public static void UIShow(bool isShow){
-		if (instance)
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		else
-			if (isShow)
-				Get.Show(isShow);
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
 
 	public static UISkillReinforce Get
@@ -774,7 +774,7 @@ public class UISkillReinforce : UIBase {
 	public void Show (TSkill skill, int index, bool isAlreadyEquip) {
 		mSkill = skill;
 		mOldSkill = mSkill;
-		UIShow (true);
+		Visible = true;
 		RefreshView(skill);
 		initRightCards ();
 		targetIndex = index;
@@ -824,8 +824,8 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnClose () {
-		UIShow(false);
-	}
+		Visible = false;
+	} 
 
 	private void runExp () {
 		if(isRunExp && GameData.DSkillData.ContainsKey(mSkill.ID) && newCardLv >= oldCardLv && reinforceExp > 0) {

@@ -54,6 +54,17 @@ public class UISkillInfo : UIBase {
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
 	
 	public static UISkillInfo Get {
@@ -63,17 +74,6 @@ public class UISkillInfo : UIBase {
 			
 			return instance;
 		}
-	}
-	
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		} else
-			if (isShow)
-				Get.Show(isShow);
 	}
 	
 	protected override void InitCom() {
@@ -123,7 +123,7 @@ public class UISkillInfo : UIBase {
 	}
 	
 	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
-		UIShow (true);
+		Visible = true;
 		mUICard = uicard;
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
@@ -192,7 +192,7 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void ShowFromNewCard (TSkill skill) {
-		UIShow (true);
+		Visible = true;
 		btnEquip.SetActive(false);
 		btnUpgrade.SetActive(false);
 		btnCrafting.SetActive(false);
@@ -270,7 +270,7 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnClose() {
-		UIShow(false);
+		Visible = false;
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) {
 			UIGameResult.Get.ShowBonusItem();
 		}
