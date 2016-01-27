@@ -481,6 +481,16 @@ public class UISelectRole : UIBase {
 			
 			    break;
             case EUIRoleSituation.Start:
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+				UIShow(false);
+                if (GameData.IsPVP)
+                {
+                    SendPVPStart();
+                }
+=======
+>>>>>>> Stashed changes
                 Visible = false;
 
                 if (GameData.StageID == 10)
