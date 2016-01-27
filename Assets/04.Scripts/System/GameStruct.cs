@@ -575,6 +575,7 @@ namespace GameStruct
 		public int BuyPowerTwo;
         public int BuyPVPCDCount;
         public int BuyPVPTicketCount;
+		public int PVPReaward;
     }
 
 	public struct TGameSetting {
@@ -1476,4 +1477,9 @@ namespace GameStruct
         public TDailyCount DailyCount;
     }
 
+	public struct TPVPReward
+	{
+		public int PVPCoin;
+		public TDailyCount DailyCount;		
+	}
 }

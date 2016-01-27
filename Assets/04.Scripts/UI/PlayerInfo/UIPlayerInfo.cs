@@ -156,6 +156,7 @@ public class AbilityView
             hexagon = hexgonObj.GetComponent<UIAttributes>();
             hexagon.transform.parent = hexagonCenter.transform;
             hexagon.transform.localPosition = Vector3.zero;
+			hexagon.transform.localScale = Vector3.one;
             GameFunction.InitDefaultText(hexagon.gameObject);
         }
     }

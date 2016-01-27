@@ -385,7 +385,7 @@ namespace GameStruct
 				case 101: return record.TeamRecord.BuyStaminaQuantity;//每日購買體力次數
 				case 102: return record.TeamRecord.BuyDiamondQuantity;//每日購買鑽石次數
 				case 103: return record.TeamRecord.BuyCoinQuantity;//每日購買遊戲幣次數
-
+				case 104: return DailyCount.BuyPVPTicketCount; //每日購買挑戰券(PVP)
                 case 111: return DailyCount.FreshFriend;
                 case 112: return DailyCount.FreshShop;
                 case 120: return record.TeamRecord.TotalDelMoney;

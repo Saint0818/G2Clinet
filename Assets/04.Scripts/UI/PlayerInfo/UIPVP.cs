@@ -186,6 +186,7 @@ public class PVPMainView
     private UILabel ThumbOffsetLabel;
     private UIButton nowRankBtn;
     private UIButton getRewardBtn;
+    private UISprite readPoint;
 	
     private bool isInit = false;
 
@@ -249,7 +250,7 @@ public class PVPMainView
 
     public void UpdateView(ref TTeam team)
     {
-        getRewardBtn.enabled = team.PVPDailyReaward == 0;
+		getRewardBtn.isEnabled = team.DailyCount.PVPReaward == 0;
     }
 
     public bool Enable
@@ -434,11 +435,16 @@ public class EnterView
                         StatusLabel.text = TextConst.S(9730);
                         break;
                 }
-                TimesLabel.text = string.Format(TextConst.S(9728), GameData.Team.PVPTicket, GameConst.PVPMaxTickket);
+                UpdatePVPTicket();
             }
         }
 
         get{ return situation;}
+    }
+
+    public void UpdatePVPTicket()
+    {
+        TimesLabel.text = string.Format(TextConst.S(9728), GameData.Team.PVPTicket, GameConst.PVPMaxTickket);
     }
 }
 
@@ -461,15 +467,7 @@ public class PVPPage0
                 startFunc);
 
             EnableEnterView = false;
-
-
-//            mainview.UpdateView();
         }
-    }
-
-    public void UpdateMainView(ref TTeam team)
-    {
-        mainview.UpdateView(ref team);
     }
 
     private void CloseEnterView()
@@ -560,6 +558,7 @@ public class UIPVP : UIBase
     public int currentLv = 1;
     private int currecntPage = 0;
     private int shopIndex = -1;
+    private UISprite readPoint;
 
     public static bool Visible
     {
@@ -612,6 +611,10 @@ public class UIPVP : UIBase
         for (int i = 0; i < pageCount; i++)
         {
             tabs[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Tabs/{0}", i)).GetComponent<UIButton>(); 
+
+            if(i == 0)
+                readPoint = tabs[0].transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
+            
             tabs[i].onClick.Add(new EventDelegate(OnPage));
             pages[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Pages/{0}", i));
 
@@ -669,6 +672,14 @@ public class UIPVP : UIBase
             }
         }
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
+    }
+
+    public void UpdateRedPoint()
+    {
+        if(readPoint)
+            readPoint.enabled = GameData.Team.DailyCount.PVPReaward == 0;
+        
+        page0.mainview.UpdateView (ref GameData.Team);
     }
 
     private int GetShopIndex()
@@ -839,14 +850,13 @@ public class UIPVP : UIBase
             GameData.Team.PVPTicket = data.PVPTicket;
             GameData.Team.PVPCD = data.PVPCD;
             GameData.Team.DailyCount = data.DailyCount;
+            page0.EnterPage.UpdatePVPTicket();
+        }
+    }
 
-//            TTeam data = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
-//            page0.mainview.UpdateView(ref data);
-        }
-        else
-        {
-           UIMessage.Get.ShowMessage(TextConst.S(233), TextConst.S(238));
-        }
+    private void openRecharge()
+    {
+        UIRecharge.UIShow(true);
     }
 
     private void OnLeft()
@@ -877,7 +887,7 @@ public class UIPVP : UIBase
 
     private void OnAward()
     {
-        if (GameData.Team.PVPDailyReaward == 0)
+		if (GameData.Team.DailyCount.PVPReaward == 0)
         {
             WWWForm form = new WWWForm();
             SendHttp.Get.Command(URLConst.PVPAward, WaitPVPAward, form, false); 
@@ -888,7 +898,11 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-            //Update pvpcoin
+			TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
+			GameData.Team.DailyCount = data.DailyCount;
+			GameData.Team.PVPCoin = data.PVPCoin;
+			
+            UpdateRedPoint();
         }
     }
 
@@ -971,7 +985,7 @@ public class UIPVP : UIBase
         switch (index)
         {
             case 0:
-                page0.UpdateMainView(ref GameData.Team);
+                UpdateRedPoint();
                 OnNowRank();
                 break;
             case 1:
@@ -1004,11 +1018,11 @@ public class UIPVP : UIBase
 
     private void ComputingCD()
     {
-        if (currecntPage == 0 && page0.mainview.IsInit)
+        if (currecntPage == 0 && page0.EnterPage.IsInit)
         {
             if (GameData.Team.PVPTicket > 0)
             {
-                if (page0.EnterPage.PVPSituation == EPVPSituation.CDIng)
+                if (page0.EnterPage.PVPSituation == EPVPSituation.CDIng || page0.EnterPage.PVPSituation == EPVPSituation.NoCountOrBuy)
                 {
                     int sec = (int)GameData.Team.PVPCD.ToUniversalTime().Subtract(DateTime.UtcNow).TotalSeconds;
                     if (sec < 0)
