@@ -38,6 +38,7 @@ public class UIGameResult : UIBase {
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
 	private GameObject uiItem;
+	private GameObject uiItemEffect;
 	private int awardIndex;
 	private int awardMax;
 	private bool isShowAward = false;
@@ -153,6 +154,7 @@ public class UIGameResult : UIBase {
 	
 	protected override void InitCom() {
 		uiItem = Resources.Load(UIPrefabPath.ItemAwardGroup) as GameObject;
+		uiItemEffect = Resources.Load(UIPrefabPath.UIFXAwardGetItem) as GameObject;
 		uiStatsNext = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
 		uiAwardSkip = GameObject.Find(UIName + "/BottomRight/AwardSkipLabel");
 		
@@ -519,22 +521,30 @@ public class UIGameResult : UIBase {
 	//isOther:  Because Money,Diamond,Exp are not Item, it will be deleted in the future.
 	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true, bool isOther = false) {
 		GameObject obj = Instantiate(uiItem) as GameObject;
-
+		GameObject fx = Instantiate(uiItemEffect) as GameObject;
 		if(!isOther) {
 			obj.name = itemData.ID.ToString();
 		} else {
 			obj.name = "-1";
 		}
+		ItemAwardGroup itemAward = obj.GetComponent<ItemAwardGroup>();
+		if(itemAward != null) {
+			fx.transform.parent = itemAward.Window.transform;
+			fx.transform.localScale = Vector3.one;
+			fx.transform.localPosition = Vector3.zero;
 
-		if(isNeedAdd) {
-			obj.transform.parent = awardScaleView.transform;
-			obj.transform.localPosition = new Vector3(-450 + (150 * index), 0, 0);
-			obj.transform.localScale = Vector3.one;
+			itemAward.Hide();
+
+			if(isNeedAdd) {
+				obj.transform.parent = awardScaleView.transform;
+				obj.transform.localPosition = new Vector3(-450 + (150 * index), 0, 0);
+				obj.transform.localScale = Vector3.one;
+			}
+			obj.SetActive(isNeedAdd);
+			
+			UIEventListener.Get(obj).onClick = OnShowAwardInfo;
 		}
-		obj.SetActive(isNeedAdd);
-
-		UIEventListener.Get(obj).onClick = OnShowAwardInfo;
-		return obj.GetComponent<ItemAwardGroup>();
+		return itemAward;
 	}
 
 	private void addItemToBack (int id) {

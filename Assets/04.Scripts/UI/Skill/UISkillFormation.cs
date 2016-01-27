@@ -325,14 +325,14 @@ public class UISkillFormation : UIBase {
 	}
 	
 	private void hide() {
-		RemoveUI(UIName);
 		if(UISort.Visible)
 			UISort.UIShow(false);
 
 		if (!UISelectRole.Visible)
 			UIMainLobby.Get.Show();
         else
-            UISelectRole.Get.InitPlayer();
+			UISelectRole.Get.InitPlayer();
+		Visible = false;  
 	}
 
 	private void runShineCard () {
@@ -1408,7 +1408,7 @@ public class UISkillFormation : UIBase {
 					if(UISkillInfo.Visible) {
 //						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
 						UISkillReinforce.Get.Show( UISkillInfo.Get.MyUICard.skillCard.Skill,  UISkillInfo.Get.MyUICard.CardIndex,  UISkillInfo.Get.IsEquip);
-						UISkillInfo.UIShow(false);
+						UISkillInfo.Visible = false; 
 					}
 				}
 			} else {
@@ -1416,7 +1416,7 @@ public class UISkillFormation : UIBase {
 				if(UISkillInfo.Visible) {
 //					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
 					UISkillEvolution.Get.Show( UISkillInfo.Get.MyUICard.CardIndex, UISkillInfo.Get.MyUICard.skillCard.Skill, UISkillInfo.Get.IsEquip);
-					UISkillInfo.UIShow(false);
+					UISkillInfo.Visible = false;
 				}
 			}
 		}
@@ -1472,7 +1472,7 @@ public class UISkillFormation : UIBase {
 					if(UISkillInfo.Visible) {
 						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
 						UISkillReinforce.Get.Show( skill, infoIndex, isAlreadyEquip);
-						UISkillInfo.UIShow(false);
+						UISkillInfo.Visible = false;
 					}
 				}
 			} else {
@@ -1481,7 +1481,7 @@ public class UISkillFormation : UIBase {
 				if(UISkillInfo.Visible) {
 					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
 					UISkillEvolution.Get.Show(infoIndex, skill, isAlreadyEquip);
-					UISkillInfo.UIShow(false);
+					UISkillInfo.Visible = false;
 				}
 			}
 

@@ -9,7 +9,8 @@ public class UIPrefabPath
     public static readonly string UIEquipItem = "Prefab/UI/Items/UIEquipItem";
     public static readonly string UIEquipListButton = "Prefab/UI/Items/UIEquipListButton";
     public static readonly string EquipMaterialItem = "Prefab/UI/Items/MaterialItem";
-    public static readonly string UIFXAddValueItemInlay = "Effect/UIFXAddValueItemInlay";
+	public static readonly string UIFXAddValueItemInlay = "Effect/UIFXAddValueItemInlay";
+	public static readonly string UIFXAwardGetItem = "Effect/UIFXAwardGetItem";
 
     public static readonly string UIInstanceChapter = "Prefab/UI/UIInstanceChapter";
     public static readonly string UIInstanceStage0 = "Prefab/UI/Items/UIInstanceStage0";

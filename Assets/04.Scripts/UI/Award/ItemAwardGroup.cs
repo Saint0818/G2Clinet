@@ -63,7 +63,8 @@ public class ItemAwardGroup : MonoBehaviour
 	}
 
     public void ShowMoney(int value)
-    {
+	{
+		Window.SetActive(true);
         hideAllGroup();
 
         awardAvatarView.Show();
@@ -73,7 +74,8 @@ public class ItemAwardGroup : MonoBehaviour
     }
 
     public void ShowExp(int value)
-    {
+	{
+		Window.SetActive(true);
         hideAllGroup();
 
         awardAvatarView.Show();
@@ -83,7 +85,8 @@ public class ItemAwardGroup : MonoBehaviour
     }
 
     public void ShowGem(int value)
-    {
+	{
+		Window.SetActive(true);
         hideAllGroup();
 
         awardAvatarView.Show();
