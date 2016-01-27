@@ -12,6 +12,8 @@ public class UIInstanceMain : MonoBehaviour
     public GameObject StageView;
     public UIButton StageBackButton;
 
+    public UIScrollView ScrollView;
+
     /// <summary>
     /// <para> 呼叫時機: 關卡的 Start 按鈕按下. </para>
     /// <para>[int stageID]: 進入哪一個關卡. </para>
@@ -50,6 +52,26 @@ public class UIInstanceMain : MonoBehaviour
         chapter.SetData(data);
 
         mChapters.Add(chapter);
+    }
+
+    public void SelectChapter(int chapter)
+    {
+        var reviseChapter = chapter;
+        if(chapter < 1)
+            reviseChapter = 1;
+        else if(chapter > mChapters.Count)
+            reviseChapter = mChapters.Count;
+
+        // 其實顯示某個章節, 只是移動一整個章節的寬度. 第1章的位置是 (0),
+        // 第 2 章的位置是 (-900), 所以這邊才會這樣計算.
+        Vector3 targetPos = new Vector3((reviseChapter - 1) * -ChapterInterval, 0, 0);
+        Vector3 moveAmount = targetPos - ScrollView.transform.localPosition;
+        
+        // 從目前 ScrollView 的位置, 移動多少可以到達目標位置.
+        ScrollView.MoveRelative(moveAmount);
+
+//        Debug.LogFormat("ScrollView TargetPos:{0}, MoveAmount:{1}, Pos:{2}", 
+//            targetPos, moveAmount, ScrollView.transform.localPosition);
     }
 
     public void ShowChapters()

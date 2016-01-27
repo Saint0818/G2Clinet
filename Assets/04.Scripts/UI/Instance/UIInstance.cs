@@ -37,14 +37,19 @@ public class UIInstance : UIBase
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
-    /// <summary>
-    /// 預設顯示尚未過關關卡所在的章節.
-    /// </summary>
     public void Show()
     {
         Show(true);
 
         buildChapters();
+    }
+
+    public void ShowByChapter(int chapter)
+    {
+        Show(true);
+
+        buildChapters();
+        mMain.SelectChapter(chapter);
     }
 
     private void buildChapters()
