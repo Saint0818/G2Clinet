@@ -189,13 +189,13 @@ public class UIMainStage : UIBase
 
     private void addChapter(int chapter)
     {
-        if(!ChapterTable.Ins.HasMain(chapter))
+        if(!StageChapterTable.Ins.HasMain(chapter))
         {
             Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter);
             return;
         }
 
-        ChapterData data = ChapterTable.Ins.GetMain(chapter);
+        ChapterData data = StageChapterTable.Ins.GetMain(chapter);
         mMain.AddChapter(chapter, data.Name);
     }
 
@@ -257,13 +257,13 @@ public class UIMainStage : UIBase
 
         int nextChapter = stageData.Chapter + 1;
         string nextChapterTitle = "";
-        if(ChapterTable.Ins.HasMain(nextChapter))
+        if(StageChapterTable.Ins.HasMain(nextChapter))
         {
-            ChapterData chapterData = ChapterTable.Ins.GetMain(nextChapter);
+            ChapterData chapterData = StageChapterTable.Ins.GetMain(nextChapter);
             nextChapterTitle = chapterData.Name;
         }
 
-        if(StageTable.Ins.HasByChapter(nextChapter))
+        if(StageTable.Ins.HasMainStageByChapter(nextChapter))
             mMain.AddLockChapter(nextChapter, nextChapterTitle);
     }
 

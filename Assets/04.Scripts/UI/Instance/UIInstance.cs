@@ -51,9 +51,12 @@ public class UIInstance : UIBase
     {
         mMain.ClearAllChapters();
 
-        List<ChapterData> allData = ChapterTable.Ins.GetAllInstance();
+        List<ChapterData> allData = StageChapterTable.Ins.GetAllInstance();
         foreach(ChapterData chapterData in allData)
         {
+            if(!isMainStagePass(chapterData.Chapter))
+                continue;
+
             List<TStageData> normalStages = StageTable.Ins.GetInstanceNormalStagesByChapter(chapterData.Chapter);
             TStageData bossStage = StageTable.Ins.GetInstanceBossStage(chapterData.Chapter);
             UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
@@ -63,10 +66,17 @@ public class UIInstance : UIBase
         mMain.ShowChapters();
     }
 
+    private bool isMainStagePass(int chapter)
+    {
+        if(!StageTable.Ins.HasMainStageByChapter(chapter))
+            return false;
+
+        TStageData lastStage = StageTable.Ins.GetLastMainStageByChapter(chapter);
+        return GameData.Team.Player.NextMainStageID > lastStage.ID;
+    }
+
     private void enterSelectRole(int stageID)
     {
-        //GameData.StageID = stageID;
-        //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
         UISelectRole.Get.LoadStage(stageID);
         Hide();
     }

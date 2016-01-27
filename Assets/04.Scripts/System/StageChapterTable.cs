@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ using UnityEngine;
 /// <item> 用 Ins 取得 instance. </item>
 /// <item> Call GetXXX 取得章節資料; Call HasXXX 檢查章節資料. </item>
 /// </list>
-public class ChapterTable
+public class StageChapterTable
 {
     /// <summary>
     /// 主線關卡章節 ID 範圍.
@@ -25,8 +24,8 @@ public class ChapterTable
     public const int MinInstanceID = 2001;
     public const int MaxInstanceID = 2100;
 
-    private static readonly ChapterTable INSTANCE = new ChapterTable();
-    public static ChapterTable Ins
+    private static readonly StageChapterTable INSTANCE = new StageChapterTable();
+    public static StageChapterTable Ins
     {
         get { return INSTANCE; }
     }
@@ -41,7 +40,7 @@ public class ChapterTable
     /// </summary>
     private readonly Dictionary<int, ChapterData> mInstanceChapters = new Dictionary<int, ChapterData>();
 
-    private ChapterTable() {}
+    private StageChapterTable() {}
 
     public void Load(string jsonText)
     {

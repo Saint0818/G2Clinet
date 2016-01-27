@@ -705,6 +705,7 @@ public class GEGMTool : GEBase
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
             updateUIMainStage();
+            updateUIInstance();
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);

@@ -10,7 +10,7 @@ using UnityEngine.Assertions;
 /// <item> 用 Ins 取得 instance. </item>
 /// <item> Call GetXXX 取得關卡資料; Call HasXXX 檢查關卡資料. </item>
 /// </list>
-public class StageTable
+public class StageTable : IComparer<TStageData>
 {
     private static readonly StageTable INSTANCE = new StageTable();
     public static StageTable Ins
@@ -34,7 +34,9 @@ public class StageTable
     private readonly Dictionary<int, TStageData> mMainStagesByID = new Dictionary<int, TStageData>();
 
     /// <summary>
-    /// key: 章節, 1: 第一章, 2 第二章. 主線某個章節的小關卡.
+    /// 主線關卡.
+    /// key: 章節, 1: 第一章, 2 第二章. 
+    /// value: 章節的全部小關卡.
     /// </summary>
     private readonly Dictionary<int, List<TStageData>> mMainStagesByChapter = new Dictionary<int, List<TStageData>>();
 
@@ -86,6 +88,7 @@ public class StageTable
         if(!mMainStagesByChapter.ContainsKey(stage.Chapter))
             mMainStagesByChapter.Add(stage.Chapter, new List<TStageData>());
         mMainStagesByChapter[stage.Chapter].Add(stage);
+        mMainStagesByChapter[stage.Chapter].Sort(Compare);
 
         if(MainStageMaxChapter < stage.Chapter)
             MainStageMaxChapter = stage.Chapter;
@@ -98,6 +101,7 @@ public class StageTable
         if(!mInstanceByChapter.ContainsKey(stage.Chapter))
             mInstanceByChapter.Add(stage.Chapter, new List<TStageData>());
         mInstanceByChapter[stage.Chapter].Add(stage);
+        mInstanceByChapter[stage.Chapter].Sort(Compare);
     }
 
     private void clear()
@@ -109,7 +113,7 @@ public class StageTable
 
     private readonly TStageData mEmptyStage = new TStageData();
 
-    public bool HasByChapter(int chapter)
+    public bool HasMainStageByChapter(int chapter)
     {
         return mMainStagesByChapter.ContainsKey(chapter);
     }
@@ -126,22 +130,42 @@ public class StageTable
         }
     }
 
+    /// <summary>
+    /// 取得主線關卡中, 某個章節的最後一關.
+    /// </summary>
+    /// <param name="chapter"></param>
+    /// <returns></returns>
+    public TStageData GetLastMainStageByChapter(int chapter)
+    {
+        if(!mMainStagesByChapter.ContainsKey(chapter))
+            return mEmptyStage;
+
+        List<TStageData> stages = mMainStagesByChapter[chapter];
+        return stages[stages.Count - 1];
+    }
+
     public List<TStageData> GetInstanceStagesByChapter(int chapter)
     {
         var oneChapterStages = new List<TStageData>();
         if(mInstanceByChapter.ContainsKey(chapter))
             oneChapterStages.AddRange(mInstanceByChapter[chapter]);
 
-        oneChapterStages.Sort((stage1, stage2) => // sort by order.(由低到高)
-        {
-            if (stage1.Order == stage2.Order)
-                return 0;
-            if (stage1.Order > stage2.Order)
-                return 1;
-            return -1;
-        });
-
         return oneChapterStages;
+    }
+
+    /// <summary>
+    /// sort by order.(由低到高)
+    /// </summary>
+    /// <param name="stage1"></param>
+    /// <param name="stage2"></param>
+    /// <returns></returns>
+    public int Compare(TStageData stage1, TStageData stage2)
+    {
+        if(stage1.Order == stage2.Order)
+            return 0;
+        if(stage1.Order > stage2.Order)
+            return 1;
+        return -1;
     }
 
     public List<TStageData> GetInstanceNormalStagesByChapter(int chapter)

@@ -610,7 +610,7 @@ public class FileManager : KnightSingleton<FileManager>
 
     private void parseStageChapterData(string version, string text, bool isSaveVersion)
     {
-        ChapterTable.Ins.Load(text);
+        StageChapterTable.Ins.Load(text);
 
         if(isSaveVersion)
             SaveDataVersionAndJson(text, "chapter", version);
