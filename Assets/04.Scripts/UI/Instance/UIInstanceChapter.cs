@@ -8,6 +8,7 @@ public class UIInstanceChapter : MonoBehaviour
     public UILabel Title;
     public UILabel Desc;
     public UILabel BossName;
+    public GameObject Focus;
     public GameObject[] FocusObjects;
     public Transform ModelParent;
 

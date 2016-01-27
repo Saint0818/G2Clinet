@@ -61,6 +61,9 @@ public class UIInstanceMain : MonoBehaviour
         UIInstanceChapter uiChapter = obj.GetComponent<UIInstanceChapter>();
         uiChapter.SetData(data);
 
+        var focus = obj.AddComponent<UIInstanceChapterFocus>();
+        focus.Init(uiChapter.Focus, ChapterScrollView.transform, getChapterTargetPos(chapter));
+
         mChapters.Add(chapter, uiChapter);
     }
 
@@ -74,7 +77,8 @@ public class UIInstanceMain : MonoBehaviour
 
         // 其實顯示某個章節, 只是移動一整個章節的寬度. 第1章的位置是 (0),
         // 第 2 章的位置是 (-900), 所以這邊才會這樣計算.
-        Vector3 targetPos = new Vector3((reviseChapter - 1) * -ChapterInterval, 0, 0);
+//        Vector3 targetPos = new Vector3((reviseChapter - 1) * -ChapterInterval, 0, 0);
+        Vector3 targetPos = getChapterTargetPos(reviseChapter);
         Vector3 moveAmount = targetPos - ChapterScrollView.transform.localPosition;
         
         // 從目前 ScrollView 的位置, 移動多少可以到達目標位置.
@@ -82,6 +86,11 @@ public class UIInstanceMain : MonoBehaviour
 
 //        Debug.LogFormat("ScrollView TargetPos:{0}, MoveAmount:{1}, Pos:{2}", 
 //            targetPos, moveAmount, ScrollView.transform.localPosition);
+    }
+
+    private Vector3 getChapterTargetPos(int chapter)
+    {
+        return new Vector3((chapter - 1) * -ChapterInterval, 0, 0);
     }
 
     public void ShowChapters()
