@@ -312,12 +312,6 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.InitTutorialUI();
 		#endif
 
-		int rate = UnityEngine.Random.Range(0, 2);
-		if(rate == 0)
-			AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
-		else
-			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
-
 		CameraMgr.Get.SetCourtCamera (ESceneName.Court + StageData.CourtNo.ToString());
 		InitGame();	
 	}
@@ -961,7 +955,7 @@ public class GameController : KnightSingleton<GameController>
 	}
         
     public void SendGameRecord() {
-        if (GameStart.Get.TestMode == EGameTest.None && !StageData.IsTutorial) {
+		if (GameStart.Get.TestMode == EGameTest.None && (!StageData.IsTutorial || GameData.IsPVP)) {
             string str = JsonConvert.SerializeObject(GameRecord);
             if (SendHttp.Get.CheckNetwork(false)) {
                 WWWForm form = new WWWForm();
@@ -3135,7 +3129,7 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.SetPassButton();
 			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, newBallOwner);
 
-			AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
+			AudioMgr.Get.PlaySound(SoundType.SD_Catch);
 			newBallOwner.CantMoveTimer.Clear();
 			newBallOwner.IsFirstDribble = true;
 			CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
@@ -3724,8 +3718,8 @@ public class GameController : KnightSingleton<GameController>
 			}
 			UIGameLoseResult.UIShow(true);
 			UIGameLoseResult.Get.Init();
-            SendGameRecord();
 		}
+		SendGameRecord();
 		CameraMgr.Get.SetEndShowSituation();
 	}
 
@@ -3854,7 +3848,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
             
-			AudioMgr.Get.PlaySound(SoundType.SD_Net);
+			AudioMgr.Get.PlaySound(SoundType.SD_ShootNormal);
 			UIGame.Get.PlusScore(team, score);
 			CheckConditionText();
 

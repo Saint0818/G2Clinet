@@ -14,6 +14,7 @@ public class UIGameLobbyMain : MonoBehaviour
     public UIButton MainStageButton;
     public UIButton PvpButton;
     public UIButton InstanceButton;
+	public UISprite Reddot;
 
     [UsedImplicitly]
     private void Awake()
@@ -47,4 +48,9 @@ public class UIGameLobbyMain : MonoBehaviour
         if(InstanceListener != null)
             InstanceListener();
     }
+
+	public bool ReddotEnable
+	{
+		set{ Reddot.enabled = value;}
+	}
 }

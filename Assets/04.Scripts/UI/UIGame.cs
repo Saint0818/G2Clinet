@@ -804,8 +804,6 @@ public class UIGame : UIBase {
 	}
 	
 	public bool AddForceValue(){
-		AudioMgr.Get.PlaySound(SoundType.SD_CatchMorale);
-
 		oldForceValue += baseForceValue;
 		if(dcCount >= 0)
 			dcCount --;

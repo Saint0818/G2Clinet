@@ -172,6 +172,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
                 LobbyStart.Get.EnterLobby();
+
+            AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
         }
         else
         {
@@ -215,6 +217,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
                 LobbyStart.Get.EnterLobby();
+
+            AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
         }
     }
 

@@ -129,6 +129,7 @@ public struct TDoubleClick
 		case 0:
 			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Weak;
 			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
+            AudioMgr.Get.PlaySound(SoundType.SD_DCWeak);
 			break;
 		case 1:
 			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Good;
@@ -137,6 +138,7 @@ public struct TDoubleClick
 		case 2:
 			GameController.Get.DoubleClickType = GameEnum.EDoubleType.Perfect;
 			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
+            AudioMgr.Get.PlaySound(SoundType.SD_DCPerfect);
 			break;
 		}
 		if (index != -1) {
@@ -223,6 +225,9 @@ public class UIDoubleClick : UIBase {
 		else 
 		if (isShow)
 			Get.Show (isShow);
+
+		if(isShow)
+			AudioMgr.Get.PlaySound(SoundType.SD_DoubleClick);
 	}
 
 	public void DoBtn(GameObject go, bool state)

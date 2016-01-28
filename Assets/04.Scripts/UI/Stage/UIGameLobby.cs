@@ -35,6 +35,7 @@ public class UIGameLobby : UIBase
     public void Show()
     {
         Show(true);
+		mMain.ReddotEnable = GameData.Team.DailyCount.PVPReaward == 0;
     }
 
     public void Hide()

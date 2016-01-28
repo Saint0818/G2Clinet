@@ -132,7 +132,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     public void PlayShake()
     {
         mShake.Play();
-        AudioMgr.Get.PlaySound(SoundType.SD_Dunk);
+				AudioMgr.Get.PlaySound(SoundType.SD_DunkNormal);
     }
 
     private void setHalfCourtCamera()

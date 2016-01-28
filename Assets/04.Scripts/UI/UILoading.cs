@@ -330,13 +330,12 @@ public class UILoading : UIBase
         switch (kind)
         {
             case ELoading.SelectRole:
-                AudioMgr.Get.StartGame();
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
                 loadSelectRole();
                 waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
                 yield return new WaitForSeconds(waitTime);
-
+				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
                 break;
             case ELoading.Login:
                 ProgressValue = 1;
@@ -348,14 +347,12 @@ public class UILoading : UIBase
 
                 //waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
                 yield return new WaitForSeconds(3);
-
                 UIShow(false);
-
+				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
                 break;
             case ELoading.Lobby:
                 ProgressValue = 1;
-                UIMainLobby.Get.Show();
-                AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+                UIMainLobby.Get.Show();				
 			
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
@@ -375,7 +372,7 @@ public class UILoading : UIBase
                 }
 
                 UIShow(false);
-
+				AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
                 break;
             case ELoading.Game:
                 GameController.Get.ChangeSituation(EGameSituation.None);
@@ -407,7 +404,10 @@ public class UILoading : UIBase
                 //UIShow(false);
 			    buttonNext.SetActive(true);
 			    loadingPic.SetActive(false);
-
+				if(GameData.IsPVP)
+					AudioMgr.Get.PlayMusic(EMusicType.MU_BattlePVP);
+				else
+					AudioMgr.Get.PlayMusic(EMusicType.MU_BattleNormal);		
                 break;
             case ELoading.Stage:
                 ProgressValue = 1;

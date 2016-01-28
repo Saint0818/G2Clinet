@@ -94,7 +94,7 @@ public class BallTrigger : MonoBehaviour
 		}
         else if(other.gameObject.CompareTag("Floor")) 
 		{
-			AudioMgr.Get.PlaySound (SoundType.SD_dribble);
+			AudioMgr.Get.PlaySound (SoundType.SD_Dribble);
 			GameController.Get.BallOnFloor();
 			IsAutoRotate = false;
 		} 

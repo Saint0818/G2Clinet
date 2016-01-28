@@ -428,7 +428,8 @@ public class UISetting : UIBase {
 		}
 		else
 			Debug.LogError("Data Error!");
-
+		
 		UIShow (false);
+		AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
 	}
 }

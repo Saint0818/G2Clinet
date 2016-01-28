@@ -102,6 +102,7 @@ public class UIGameResult : UIBase {
 			instance.Show(isShow);
 		else
 		if (isShow) {
+			AudioMgr.Get.PlaySound (SoundType.SD_ResultWin);								
 			Get.Show(isShow);
 			UITutorial.UIShow(false);
 		}

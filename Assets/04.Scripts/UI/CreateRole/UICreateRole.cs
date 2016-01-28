@@ -110,7 +110,6 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
 
         UILoading.UIShow(false);
-        AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
     }
 
     /// <summary>

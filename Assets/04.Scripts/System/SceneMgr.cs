@@ -45,6 +45,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
                 UILoading.UIShow(true, ELoading.Lobby);
+				AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
                 break;
 
 			case ESceneName.SelectRole:
@@ -52,7 +53,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                     UILoading.UIShow(true, ELoading.Stage);
                 else
                     UILoading.UIShow(true, ELoading.SelectRole);
-                
+				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
                 break;
             default:
                 //Court:
