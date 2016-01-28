@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GameStruct;
 using UnityEngine;
 
@@ -24,6 +23,7 @@ public class UIEquipMaterialItem : MonoBehaviour
         public string Name;
         public Color32 NameColor;
         public string Icon;
+        public Color32 IconBGColor;
         public string Frame;
 
         /// <summary>
@@ -73,6 +73,7 @@ public class UIEquipMaterialItem : MonoBehaviour
     }
 
     public UISprite Icon;
+    public UISprite IconBG;
     public UISprite Frame;
     public UILabel Name;
     public UISprite[] AttrSprites;
@@ -81,9 +82,6 @@ public class UIEquipMaterialItem : MonoBehaviour
     public GameObject LackIcon;
     public GameObject EnoughIcon;
     public GameObject InlayIcon;
-
-	private Transform tQuality;
-	private UISprite qualityBG;
 
     public delegate void Action(EStatus status, int materialIndex, int storageIndex, int materialItemID);
     public event Action ClickListener;
@@ -96,14 +94,16 @@ public class UIEquipMaterialItem : MonoBehaviour
 
     private int mStorageIndex;
     private int mMaterialItemID;
+    private UIButton mButton;
+
+    private void Awake()
+    {
+        mButton = GetComponent<UIButton>();
+    }
 
     public void Init(int index)
     {
         mIndex = index;
-		if(tQuality == null)
-			tQuality = GameFunction.FindQualityBG(transform);
-		if(tQuality != null)
-			qualityBG = tQuality.GetComponent<UISprite>();
     }
 
     public void Set(Data data)
@@ -112,8 +112,13 @@ public class UIEquipMaterialItem : MonoBehaviour
         Name.color = data.NameColor;
 
         Icon.spriteName = data.Icon;
+        IconBG.color = data.IconBGColor;
         Frame.spriteName = data.Frame;
         mStatus = data.Status;
+
+        mButton.normalSprite = data.Frame;
+        mButton.hoverSprite = data.Frame;
+        mButton.pressedSprite = data.Frame;
 
         setBonus(data);
         setAmount(data);
@@ -121,11 +126,6 @@ public class UIEquipMaterialItem : MonoBehaviour
 
         mStorageIndex = data.StorageIndex;
         mMaterialItemID = data.ItemID;
-
-		if(qualityBG != null) {
-			if(GameData.DItemData.ContainsKey(data.ItemID))
-				qualityBG.color = TextConst.ColorBG(GameData.DItemData[data.ItemID].Quality);
-		}
     }
 
     private void setBonus(Data data)

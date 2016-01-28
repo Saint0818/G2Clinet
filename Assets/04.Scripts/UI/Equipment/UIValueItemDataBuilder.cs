@@ -133,14 +133,15 @@ public static class UIValueItemDataBuilder
                 Name = materialItem.Name,
                 NameColor = TextConst.Color(materialItem.Quality),
                 Icon = string.Format("Item_{0}", materialItem.Icon),
+                IconBGColor = TextConst.ColorBG(materialItem.Quality),
                 Frame = string.Format("Equipment_{0}", item.Quality),
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
                 ItemID = materialItem.ID,
             };
             valueItem.Materials.Add(data);
-
-            if(playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
+            
+            if (playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
                 // 有鑲嵌物.
                 data.Status = UIEquipMaterialItem.EStatus.Inlayed;
