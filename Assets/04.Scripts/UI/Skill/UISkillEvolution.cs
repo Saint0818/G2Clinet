@@ -59,7 +59,7 @@ public class UISkillEvolution {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnClose(); UISkillFormation.UIShow(false);});
+			UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnClose(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		
 	}
 
@@ -68,7 +68,7 @@ public class UISkillEvolution {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) 
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) 
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnClose();UISkillFormation.UIShow(false);});
+			UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 
 	}
 
@@ -77,7 +77,7 @@ public class UISkillEvolution {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) 
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) 
-					UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnClose();UISkillFormation.UIShow(false);});
+			UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		
 	}
 

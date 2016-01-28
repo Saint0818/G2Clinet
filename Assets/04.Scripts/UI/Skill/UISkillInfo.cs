@@ -38,6 +38,7 @@ public class UISkillInfo : UIBase {
 	private GameObject btnCrafting;
 	private GameObject btnUpgrade;
 
+	private GameObject goEquipUnuse;
 	private GameObject goCraftUnuse;
 	private GameObject goUpgradeUnuse;
 
@@ -81,6 +82,7 @@ public class UISkillInfo : UIBase {
 		btnEquip = GameObject.Find (UIName + "/Center/TopRight/EquipBtn");
 		btnCrafting = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn");
 		btnUpgrade = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn");
+		goEquipUnuse = GameObject.Find (UIName + "/Center/TopRight/EquipBtn/UnUseLabel");
 		goCraftUnuse = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/UnUseLabel");
 		goUpgradeUnuse = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/UnUseLabel");
 
@@ -146,7 +148,7 @@ public class UISkillInfo : UIBase {
 		btnEquip.SetActive(false);
 		btnUpgrade.SetActive(false);
 		btnCrafting.SetActive(false);
-		Refresh(skill, 0);
+		Refresh(skill, -1);
 
 	}
 
@@ -155,10 +157,14 @@ public class UISkillInfo : UIBase {
 			if(mUICard.skillCard != null) {
 				mUICard.skillCard.Skill = skill;
 				mUICard.CardIndex = cardIndex;
+				mUICard.Cost = GameData.DSkillData[skill.ID].Space(skill.Lv);
 			}
 			TSkillData skillData = GameData.DSkillData[skill.ID];
-			goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
-			goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
+			if(cardIndex != -1) {
+				goEquipUnuse.SetActive((mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && !isAlreadyEquip);
+				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
+				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
+			}
 
 			//MediumCard
 			spriteSkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
@@ -256,11 +262,16 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnEquip() {
-		if(isAlreadyEquip)
+		if(isAlreadyEquip) {
 			UISkillFormation.Get.DoUnEquipCard(mUICard);
-		else
-			UISkillFormation.Get.DoEquipCard(mUICard);
-		OnClose();
+			OnClose();
+		} else {
+			if(mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) {
+				UISkillFormation.Get.DoEquipCard(mUICard);
+				OnClose();
+			} else
+				UIHint.Get.ShowHint(TextConst.S(588), Color.red);
+		}
 	}
 
 	public void OnCrafting () {

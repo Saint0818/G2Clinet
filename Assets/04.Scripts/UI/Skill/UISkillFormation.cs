@@ -1537,4 +1537,12 @@ public class UISkillFormation : UIBase {
 
 		return skill;
 	}
+
+	public int CostSpace {
+		get {return costSpace;}
+	}
+
+	public int ExtraCostSpace {
+		get {return GameConst.Max_CostSpace - costSpace;}
+	}
 }

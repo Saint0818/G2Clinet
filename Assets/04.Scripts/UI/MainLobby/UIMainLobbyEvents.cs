@@ -109,19 +109,19 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnBuyCoin()
     {
-        UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
-		UIMainLobby.Get.Hide();
+		if(!UIRecharge.Visible)
+        	UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
     }
 
     public void OnBuyDiamond()
     {
-        UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
-		UIMainLobby.Get.Hide();
+		if(!UIRecharge.Visible)
+			UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
     }
 
     public void OnBuyPower()
     {
-        UIRecharge.Get.Show(ERechargeType.Power.GetHashCode());
-		UIMainLobby.Get.Hide();
+		if(!UIRecharge.Visible)
+			UIRecharge.Get.Show(ERechargeType.Power.GetHashCode());
     }
 }

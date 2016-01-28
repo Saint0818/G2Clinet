@@ -241,6 +241,10 @@ public class UIRecharge : UIBase {
 	}
 
 	public void Show (int type) {
+		if(IsNeedShowLobbyMenu)
+			UIMainLobby.Get.Hide();
+		if(IsNeedShowPlayer)
+			UIPlayerMgr.Get.Enable = false;
 		UIShow(true);
 		showTab(type);
 		if(!isInit) {
@@ -392,7 +396,10 @@ public class UIRecharge : UIBase {
 
 	public void OnClose () {
 		UIShow(false);
-		UIMainLobby.Get.Show();
+		if(IsNeedShowLobbyMenu)
+			UIMainLobby.Get.Show();
+		if(IsNeedShowPlayer)
+			UIPlayerMgr.Get.Enable = true;
 	}
 
 	private void SendBuyDiamond(int index, string receipt)
@@ -448,5 +455,19 @@ public class UIRecharge : UIBase {
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);
+	}
+
+	public bool IsNeedShowPlayer{
+		get {
+			return (UIPlayerInfo.Visible || UIShop.Visible || UIAvatarFitted.Visible);
+		}
+	}
+
+	public bool IsNeedShowLobbyMenu {
+		get {
+			return !(UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
+				UISkillFormation.Visible || UISkillReinforce.Visible || UIPlayerInfo.Visible || UIMission.Visible || UIAvatarFitted.Visible ||
+				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible);
+		}
 	}
 }
