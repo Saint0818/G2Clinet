@@ -65,7 +65,7 @@ public struct TItemRecharge {
 		mSelf.name = shop.Order.ToString();
 		mShop = shop;
 		PriceButton.name = shop.Order.ToString();
-		mSelf.transform.localPosition = new Vector3(-250 + order * 250, 0, 0);
+		mSelf.transform.localPosition = new Vector3(-400 + order * 275, 0, 0);
 
 		if(PriceIcon != null)
 			PriceIcon.spriteName = GameFunction.SpendKindTexture(shop.SpendKind);
@@ -114,7 +114,7 @@ public struct TItemRecharge {
 	public  void UpdateViewForMall (int index, int order, TMall mall) {
 		mIndex = index;
 		PriceButton.name = mall.Order.ToString();
-		mSelf.transform.localPosition = new Vector3(-250 + order * 250, 0, 0);
+		mSelf.transform.localPosition = new Vector3(-400 + order * 275, 0, 0);
 		PriceLabel.text = mall.Price;
 
 		if(mall.Sale > 0)
@@ -237,7 +237,7 @@ public class UIRecharge : UIBase {
 			scrollviews[i] = pages[i].transform.FindChild("Vertical/ScrollView").gameObject;
 		}
 
-		SetBtnFun(UIName + "/Center/Window/NoBtn", OnClose);
+		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 	}
 
 	public void Show (int type) {
@@ -392,6 +392,7 @@ public class UIRecharge : UIBase {
 
 	public void OnClose () {
 		UIShow(false);
+		UIMainLobby.Get.Show();
 	}
 
 	private void SendBuyDiamond(int index, string receipt)
