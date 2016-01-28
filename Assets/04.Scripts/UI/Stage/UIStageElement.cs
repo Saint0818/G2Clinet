@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -7,6 +8,17 @@ using UnityEngine;
 /// </summary>
 public class UIStageElement : MonoBehaviour
 {
+    public class Data
+    {
+        public string NormalIcon;
+        public string PressIcon;
+
+        public bool IsEnable;
+        public string ErrMsg;
+
+        public bool IsSelected;
+    }
+
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
     public int StageID;
 
@@ -18,8 +30,10 @@ public class UIStageElement : MonoBehaviour
     /// </summary>
     private const float EnableTime = 1.8f;
 
-    public UIStageInfo.Data Data { get { return mData; } }
-    private UIStageInfo.Data mData;
+    public UIStageInfo.Data InfoData { get { return mInfoData; } }
+    private UIStageInfo.Data mInfoData;
+
+    private Data mData;
 
     private Animator mAnimator;
     private UIButton mButton;
@@ -35,54 +49,53 @@ public class UIStageElement : MonoBehaviour
     {
         mAnimator = GetComponent<Animator>();
         mButton = GetComponent<UIButton>();
+
+        mButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(mData.IsEnable)
+                Main.Info.Show(StageID, mInfoData);
+            else
+                UIHint.Get.ShowHint(mData.ErrMsg, Color.white);
+        }));
     }
 
-    public void Show(UIStageInfo.Data data, bool selected)
+    public void Set(Data data, UIStageInfo.Data infoData)
     {
         mData = data;
-        mButton.isEnabled = false;
-        
-        KindSprite.spriteName = mData.KindSpriteName;
+        mInfoData = infoData;
 
-        SelectedMark.SetActive(selected);
+        mButton.normalSprite = mData.NormalIcon;
+        mButton.hoverSprite = mData.NormalIcon;
+        mButton.pressedSprite = mData.PressIcon;
 
-        changeEnable();
+//        KindSprite.spriteName = mInfoData.KindSpriteName;
+
+        SelectedMark.SetActive(data.IsSelected);
     }
 
-    public void PlayOpenAnimation()
+    public void PlayUnlockAnimation()
     {
         if(!gameObject.activeInHierarchy)
             return;
 
-        mButton.isEnabled = false;
-        StartCoroutine(playAnimation(EnableTime));
+        StartCoroutine(playUnlockAnimation(EnableTime));
     }
 
-    private IEnumerator playAnimation(float enableTime)
+    private IEnumerator playUnlockAnimation(float enableTime)
     {
+        mButton.isEnabled = false;
+
         mAnimator.SetTrigger("Open");
 
         yield return new WaitForSeconds(enableTime);
 
-        changeEnable();
-    }
-
-    private void changeEnable()
-    {
         mButton.isEnabled = true;
     }
 
-    public void ShowLock(string kindSpriteName)
-    {
-        KindSprite.spriteName = kindSpriteName;
-
-        mButton.isEnabled = false;
-
-        SelectedMark.SetActive(false);
-    }
-
-    public void NotifyClick()
-    {
-        Main.Info.Show(StageID, mData);
-    }
+//    public void ShowLock(string kindSpriteName)
+//    {
+//        KindSprite.spriteName = kindSpriteName;
+//
+//        SelectedMark.SetActive(false);
+//    }
 }

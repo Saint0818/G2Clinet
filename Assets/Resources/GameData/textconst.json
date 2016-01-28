@@ -301,43 +301,43 @@
     {
         "id": 451,
         "explain": "解鎖數值裝功能",
-        "tw": "成功解鎖[FFDD33]突觸強化[-]功能",
+        "tw": "成功解鎖[FFDD33]裝備[-]功能",
         "en": "Unlcoked Equipment Function"
     },
     {
         "id": 452,
         "explain": "解鎖造型功能",
-        "tw": "成功解鎖[FFDD33]造型時裝[-]功能",
+        "tw": "成功解鎖[FFDD33]造型[-]功能",
         "en": "Unlocked Style Function"
     },
     {
         "id": 453,
         "explain": "解鎖商店功能",
-        "tw": "成功解鎖[FFDD33]驚喜商店[-]功能",
+        "tw": "成功解鎖[FFDD33]商店[-]功能",
         "en": "Shop function successfully unlocked"
     },
     {
         "id": 454,
         "explain": "解鎖社交功能",
-        "tw": "成功解鎖[FFDD33]社群好友[-]功能",
+        "tw": "成功解鎖[FFDD33]社群[-]功能",
         "en": "Successfully unlocked community features"
     },
     {
         "id": 455,
         "explain": "解鎖技能功能",
-        "tw": "成功解鎖[FFDD33]技能晶片[-]功能",
+        "tw": "成功解鎖[FFDD33]技能[-]功能",
         "en": "Unlocked Ability Function"
     },
     {
         "id": 456,
         "explain": "解鎖任務功能",
-        "tw": "成功解鎖[FFDD33]成就任務[-]功能",
+        "tw": "成功解鎖[FFDD33]任務[-]功能",
         "en": "Tasks function successfully unlock achievements"
     },
     {
         "id": 457,
         "explain": "解鎖晶片抽取功能",
-        "tw": "成功解鎖[FFDD33]晶片抽取[-]功能",
+        "tw": "成功解鎖[FFDD33]抽卡[-]功能",
         "en": "Chip extraction function successfully unlocked"
     },
     {
@@ -488,6 +488,11 @@
         "id": 557,
         "explain": "晶片卡強化不可",
         "tw": "未選擇強化材料。"
+    },
+    {
+        "id": 558,
+        "explain": "COST值滿",
+        "tw": "你的COST值不足以安裝此技能晶片。"
     },
     {
         "id": 601,
@@ -1590,7 +1595,7 @@
     {
         "id": 4901,
         "explain": "體力金幣鑽石儲值",
-        "tw": "儲值商城"
+        "tw": "補充貨幣"
     },
     {
         "id": 4902,
@@ -2408,6 +2413,21 @@
         "tw": "晶片進化"
     },
     {
+        "id": 7415,
+        "explain": "合成按鈕",
+        "tw": "－選擇好材料後進行合成－"
+    },
+    {
+        "id": 7416,
+        "explain": "進化按鈕",
+        "tw": "－蒐集完材料後進化晶片－"
+    },
+    {
+        "id": 7417,
+        "explain": "進化材料",
+        "tw": "需求材料"
+    },
+    {
         "id": 7501,
         "explain": "技能晶片安裝後的狀態",
         "uipeth": "ItemCardEquipped ",
@@ -2614,6 +2634,11 @@
         "explain": "關卡已達生涯最多次數限制",
         "tw": "已通過此關卡",
         "en": "You have passed this stage."
+    },
+    {
+        "id": 9251,
+        "explain": "尚未通過前一關卡",
+        "tw": "請先通過前一關卡"
     },
     {
         "id": 9301,
@@ -2825,7 +2850,7 @@
     {
         "id": 9701,
         "explain": "聯盟對戰",
-        "tw": "聯盟對戰",
+        "tw": "聯 盟 對 戰",
         "en": "PVP"
     },
     {

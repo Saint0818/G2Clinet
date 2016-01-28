@@ -790,7 +790,7 @@ public class GEGMTool : GEBase
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player.NextInstanceIDs = team.Player.NextInstanceIDs;
-            updateUIInstance();
+            updateUIInstance(mNextInstanceChapter);
         }
     }
 
@@ -803,12 +803,12 @@ public class GEGMTool : GEBase
         }
     }
 
-    private void updateUIInstance()
+    private void updateUIInstance(int chapter = 1)
     {
         if(UIInstance.Get.Visible)
         {
             UIInstance.Get.Hide();
-            UIInstance.Get.Show();
+            UIInstance.Get.ShowByChapter(chapter);
         }
     }
 

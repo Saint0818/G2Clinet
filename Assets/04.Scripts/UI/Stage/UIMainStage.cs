@@ -142,7 +142,7 @@ public class UIMainStage : UIBase
         {
             TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
             if(data.IsValid())
-                mMain.GetChapter(data.Chapter).GetStageByID(data.ID).PlayOpenAnimation();
+                mMain.GetChapter(data.Chapter).GetStageByID(data.ID).PlayUnlockAnimation();
         }
 
         UIMainStageTools.ClearStageFlag();
@@ -167,10 +167,10 @@ public class UIMainStage : UIBase
         {
             addChapter(data.Chapter);
 
-            if(data.ID <= GameData.Team.Player.NextMainStageID)
+//            if(data.ID <= GameData.Team.Player.NextMainStageID)
                 addStage(data);
-            else
-                addLockStage(data);
+//            else
+//                addLockStage(data);
         }
 
         addLastLockChapter();
@@ -204,7 +204,7 @@ public class UIMainStage : UIBase
         if(!verify(stageData))
             return;
 
-        UIStageInfo.Data data = new UIStageInfo.Data
+        UIStageInfo.Data infoData = new UIStageInfo.Data
         {
             Name = stageData.Name,
             BgTextureName = stageData.KindTextIndex.ToString(),
@@ -221,30 +221,44 @@ public class UIMainStage : UIBase
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
 
-        data.RewardItems.AddRange(UIMainStageTools.FindRewardItems(stageData));
+        infoData.RewardItems.AddRange(UIMainStageTools.FindRewardItems(stageData));
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
-        bool newestStage = stageData.ID == GameData.Team.Player.NextMainStageID;
+        UIStageElement.Data elementData = new UIStageElement.Data
+        {
+            IsSelected = stageData.ID == GameData.Team.Player.NextMainStageID
+        };
+        elementData.IsEnable = UIStageTools.VerifyPlayerProgress(stageData, out elementData.ErrMsg);
+        if(elementData.IsEnable)
+            elementData.IsEnable = UIStageTools.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
 
         if(stageData.Kind != 9)
-            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, newestStage, data);
+        {
+            elementData.NormalIcon = elementData.IsEnable ? "StageButton01" : "StageButton03";
+            elementData.PressIcon = elementData.IsEnable ? "StageButton02" : "StageButton03";
+            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+        }
         else
-            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, newestStage, data);
+        {
+            elementData.NormalIcon = elementData.IsEnable ? "2000009" : "StageButton09";
+            elementData.PressIcon = elementData.IsEnable ? "StageButton08" : "StageButton09";
+            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+        }
     }
 
-    private void addLockStage(TStageData stageData)
-    {
-        if(!verify(stageData))
-            return;
-
-        Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-
-        if(stageData.Kind != 9)
-            mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
-        else
-            mMain.AddLockBossStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
-    }
+//    private void addLockStage(TStageData stageData)
+//    {
+//        if(!verify(stageData))
+//            return;
+//
+//        Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
+//
+//        if(stageData.Kind != 9)
+//            mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
+//        else
+//            mMain.AddLockBossStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
+//    }
 
     /// <summary>
     /// 根據玩家的進度, 設定下一個章節為 lock 狀態.

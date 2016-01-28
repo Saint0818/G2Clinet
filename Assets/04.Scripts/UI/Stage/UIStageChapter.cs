@@ -78,43 +78,35 @@ public class UIStageChapter : MonoBehaviour
         Open.SetActive(false);
     }
 
-    public void AddStage(int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
+    public void AddStage(int stageID, Vector3 localPos, UIStageElement.Data elementData, 
+                         UIStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathStage, stageID, localPos));
-        mStages[stageID].Show(data, selected);
+        mStages[stageID].Set(elementData, infoData);
     }
 
-    public void AddBossStage(int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
+    public void AddBossStage(int stageID, Vector3 localPos, UIStageElement.Data elementData, 
+                             UIStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
-        mStages[stageID].Show(data, selected);
+        mStages[stageID].Set(elementData, infoData);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="kindSpriteName"></param>
-    public void AddLockStage(int stageID, Vector3 localPos, string kindSpriteName)
-    {
-        if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
-        mStages[stageID].ShowLock(kindSpriteName);
-    }
+//    public void AddLockStage(int stageID, Vector3 localPos, string kindSpriteName)
+//    {
+//        if(!mStages.ContainsKey(stageID))
+//            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
+//        mStages[stageID].ShowLock(kindSpriteName);
+//    }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="stageID"></param>
-    /// <param name="localPos"></param>
-    /// <param name="kindSpriteName"></param>
-    public void AddLockBossStage(int stageID, Vector3 localPos, string kindSpriteName)
-    {
-        if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
-        mStages[stageID].ShowLock(kindSpriteName);
-    }
+//    public void AddLockBossStage(int stageID, Vector3 localPos, string kindSpriteName)
+//    {
+//        if(!mStages.ContainsKey(stageID))
+//            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
+//        mStages[stageID].ShowLock(kindSpriteName);
+//    }
 
     public bool HasStage(int stageID)
     {
@@ -143,7 +135,7 @@ public class UIStageChapter : MonoBehaviour
 
         Open.SetActive(true);
 
-        mStages[stageID].PlayOpenAnimation();
+        mStages[stageID].PlayUnlockAnimation();
     }
 
     private IEnumerator delayShow(float delayTime)
@@ -160,7 +152,7 @@ public class UIStageChapter : MonoBehaviour
         obj.transform.localPosition = localPos;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = mDefaultStageScale;
-        obj.name = string.Format("Stage{0}", stageID);
+        obj.name = string.Format("StageElement{0}", stageID);
 
         var stage = obj.GetComponent<UIStageElement>();
         stage.StageID = stageID;

@@ -35,18 +35,6 @@ public static class UIInstanceBuilder
 
     private static UIInstanceStage.Data buildStage(TStageData stageData)
     {
-        Func<bool> showMask = () =>
-        {
-            int playerStageID;
-            if(GameData.Team.Player.NextInstanceIDs == null ||
-               !GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter))
-                playerStageID = 2100 + stageData.Chapter * 10 + 1; // 這是初始關卡.
-            else
-                playerStageID = GameData.Team.Player.NextInstanceIDs[stageData.Chapter];
-
-            return playerStageID < stageData.ID;
-        };
-
         var data = new UIInstanceStage.Data
         {
             ID = stageData.ID,
@@ -58,7 +46,8 @@ public static class UIInstanceBuilder
             ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
                         GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
                         GameData.Team.Player.NextInstanceIDs[stageData.Chapter] > stageData.ID,
-            ShowMask = showMask()
+//            ShowMask = GameData.Team.Player.GetNextInstanceID(stageData.Chapter) < stageData.ID
+            ShowMask = UIStageTools.VerifyPlayerProgress(stageData)
         };
 
         string errMsg;

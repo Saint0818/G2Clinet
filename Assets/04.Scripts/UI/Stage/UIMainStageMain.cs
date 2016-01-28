@@ -190,37 +190,39 @@ public class UIMainStageMain : MonoBehaviour
         return localPos;
     }
 
-    public void AddStage(int chapter, int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
+    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageElement.Data elementData, 
+                         UIStageInfo.Data infoData)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddStage(stageID, localPos, selected, data);
+            mChapters[chapter].AddStage(stageID, localPos, elementData, infoData);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    public void AddBossStage(int chapter, int stageID, Vector3 localPos, bool selected, UIStageInfo.Data data)
+    public void AddBossStage(int chapter, int stageID, Vector3 localPos, UIStageElement.Data elementData, 
+                             UIStageInfo.Data data)
     {
         if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddBossStage(stageID, localPos, selected, data);
+            mChapters[chapter].AddBossStage(stageID, localPos, elementData, data);
         else
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    public void AddLockStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
-    {
-        if(mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddLockStage(stageID, localPos, kindSpriteName);
-        else
-            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
-    }
+//    public void AddLockStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
+//    {
+//        if(mChapters.ContainsKey(chapter))
+//            mChapters[chapter].AddLockStage(stageID, localPos, kindSpriteName);
+//        else
+//            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
+//    }
 
-    public void AddLockBossStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
-    {
-        if (mChapters.ContainsKey(chapter))
-            mChapters[chapter].AddLockBossStage(stageID, localPos, kindSpriteName);
-        else
-            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
-    }
+//    public void AddLockBossStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
+//    {
+//        if (mChapters.ContainsKey(chapter))
+//            mChapters[chapter].AddLockBossStage(stageID, localPos, kindSpriteName);
+//        else
+//            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
+//    }
 
     public bool HasChapter(int chapter)
     {
@@ -262,7 +264,7 @@ public class UIMainStageMain : MonoBehaviour
         ScrollToChapter(chapter);
 
         UIStageElement element = mChapters[chapter].GetStageByID(stageID);
-        Info.Show(stageID, element.Data);
+        Info.Show(stageID, element.InfoData);
     }
 
     public void OnBackClick()

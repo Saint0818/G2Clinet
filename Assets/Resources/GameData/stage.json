@@ -299,7 +299,7 @@
         "courtmode": 0,
         "costkind": 0,
         "costvalue": 2,
-        "challengeonlyonce": 0,
+        "challengeonlyonce": 1,
         "dailychallengenum": 1,
         "exp": 4,
         "money": 250,

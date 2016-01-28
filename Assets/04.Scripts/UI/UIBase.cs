@@ -282,17 +282,13 @@ public class UIBase: MonoBehaviour
 		GameData.Team.Power = power;
 	}
 
-    public static string ButtonBG(bool ok) {
-        if (ok) 
-            return "button_orange1";
-        else
-            return "button_gray";
+    public static string ButtonBG(bool ok)
+    {
+        return ok ? "button_orange1" : "button_gray";
     }
 
-    public static Color ButtonTextColor(bool ok) {
-        if (ok) 
-            return Color.white;
-        else
-            return Color.red;
+    public static Color ButtonTextColor(bool ok)
+    {
+        return ok ? Color.white : Color.red;
     }
 }
