@@ -241,10 +241,14 @@ public class UIRecharge : UIBase {
 	}
 
 	public void Show (int type) {
-		if(IsNeedShowLobbyMenu)
-			UIMainLobby.Get.Hide();
-		if(IsNeedShowPlayer)
-			UIPlayerMgr.Get.Enable = false;
+		if(!UISkillReinforce.Visible) {
+			if(IsNeedShowLobbyMenu)
+				UIMainLobby.Get.Hide();
+			if(IsNeedShowPlayer)
+				UIPlayerMgr.Get.Enable = false;
+			if(UIShop.Visible)
+				UIMainLobby.Get.Hide(4);
+		}
 		UIShow(true);
 		showTab(type);
 		if(!isInit) {
@@ -396,10 +400,14 @@ public class UIRecharge : UIBase {
 
 	public void OnClose () {
 		UIShow(false);
-		if(IsNeedShowLobbyMenu)
-			UIMainLobby.Get.Show();
-		if(IsNeedShowPlayer)
-			UIPlayerMgr.Get.Enable = true;
+		if(!UISkillReinforce.Visible) {
+			if(IsNeedShowLobbyMenu)
+				UIMainLobby.Get.Show();
+			if(IsNeedShowPlayer)
+				UIPlayerMgr.Get.Enable = true;
+			if(UIShop.Visible)
+				UIMainLobby.Get.Hide(2);
+		}
 	}
 
 	private void SendBuyDiamond(int index, string receipt)
@@ -422,6 +430,8 @@ public class UIRecharge : UIBase {
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
+			if(UISkillReinforce.Visible)
+				UISkillReinforce.Get.UpdateUI();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);
@@ -451,6 +461,8 @@ public class UIRecharge : UIBase {
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
+			if(UISkillReinforce.Visible)
+				UISkillReinforce.Get.UpdateUI();
 //			UIHint.Get.ShowHint(TextConst.S(showText), Color.blue);
 		}
 		else

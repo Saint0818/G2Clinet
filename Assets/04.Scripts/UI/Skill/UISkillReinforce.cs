@@ -82,6 +82,9 @@ public class UISkillReinforce : UIBase {
 
 	private UISkillEvolution skillEvolution;
 
+	private UILabel labelDiamond;
+	private UILabel labelCoin;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -162,8 +165,13 @@ public class UISkillReinforce : UIBase {
 		reinforceItems = new Dictionary<string, GameObject>();
 		passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
 
+		labelDiamond = GameObject.Find(UIName + "/Window3/Center/DiamondBt/DiamondLabel").GetComponent<UILabel>();
+		labelCoin = GameObject.Find(UIName + "/Window3/Center/CostBt/CostLabel").GetComponent<UILabel>();
+
 		SetBtnFun(UIName + "/Window/Center/RightView/ReinforceBtn", OnReinforce);
 		SetBtnFun(UIName + "/Window3/BottomLeft/BackBtn", OnClose);
+		SetBtnFun(UIName + "/Window3/Center/DiamondBt", OnDiamond);
+		SetBtnFun(UIName + "/Window3/Center/CostBt", OnCoin);
 	}
 
 	protected override void InitData() {
@@ -173,6 +181,14 @@ public class UISkillReinforce : UIBase {
 
 	public void SetBtn (string path, EventDelegate.Callback callback) {
 		SetBtnFun(path, callback);
+	}
+
+	public void OnDiamond () {
+		UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
+	}
+
+	public void OnCoin () {
+		UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
 	}
 	/// <summary>
 	/// Show the specified skill, index, isAlreadyEquip and showType.
@@ -184,6 +200,7 @@ public class UISkillReinforce : UIBase {
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
 		Visible = true;
+		UpdateUI () ;
 		mSkill = skill;
 		mOldSkill = mSkill;
 		RefreshView(skill);
@@ -193,6 +210,11 @@ public class UISkillReinforce : UIBase {
 		skillEvolution.Show(index, skill, isAlreadyEquip);
 
 		showWindows(showType);
+	}
+
+	public void UpdateUI () {
+		labelDiamond.text = GameData.Team.Diamond.ToString();
+		labelCoin.text = GameData.Team.Money.ToString();
 	}
 
 	private void showWindows (int showType) {
