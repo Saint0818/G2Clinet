@@ -135,7 +135,7 @@ public class UIInGameMission : UIBase {
 			if(hintBits[1] == 2){
 				isFin = (score >= stageData.Bit1Num);
 			} else if(hintBits[1] == 3){
-//				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
+				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
 //				isFin = (score < stageData.Bit1Num);
 				isFin = false;
 			} else if(hintBits[1] == 4){
