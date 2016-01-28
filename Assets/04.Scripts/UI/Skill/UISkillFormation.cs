@@ -4,6 +4,7 @@ using GameEnum;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Collections;
 
 public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
@@ -302,8 +303,7 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
 		SetBtnFun (UIName + "/Center/SellBtn/SellCount/CancelBtn", DoCloseSell);
-		initCards ();
-		UpdateSort();
+		StartCoroutine(loadCard());
 	}
 
 	protected override void InitData() {
@@ -322,6 +322,12 @@ public class UISkillFormation : UIBase {
 
 		isChangePage = false;
 		isLeave = false;
+	}
+		
+	IEnumerator loadCard () {
+		initCards ();
+		yield return new WaitForSeconds(0.3f);
+		UpdateSort();
 	}
 	
 	private void hide() {
@@ -1406,17 +1412,13 @@ public class UISkillFormation : UIBase {
 				} else {
 					isReinforce = false;
 					if(UISkillInfo.Visible) {
-//						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-						UISkillReinforce.Get.Show( UISkillInfo.Get.MyUICard.skillCard.Skill,  UISkillInfo.Get.MyUICard.CardIndex,  UISkillInfo.Get.IsEquip);
-						UISkillInfo.Visible = false; 
+						UISkillReinforce.Get.Show( UISkillInfo.Get.MyUICard.skillCard.Skill,  UISkillInfo.Get.MyUICard.CardIndex,  UISkillInfo.Get.IsEquip, 0);
 					}
 				}
 			} else {
 				isEvolution = false;
 				if(UISkillInfo.Visible) {
-//					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-					UISkillEvolution.Get.Show( UISkillInfo.Get.MyUICard.CardIndex, UISkillInfo.Get.MyUICard.skillCard.Skill, UISkillInfo.Get.IsEquip);
-					UISkillInfo.Visible = false;
+					UISkillReinforce.Get.Show( UISkillInfo.Get.MyUICard.skillCard.Skill,  UISkillInfo.Get.MyUICard.CardIndex,  UISkillInfo.Get.IsEquip, 1);
 				}
 			}
 		}
@@ -1471,8 +1473,7 @@ public class UISkillFormation : UIBase {
 					isReinforce = false;
 					if(UISkillInfo.Visible) {
 						TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-						UISkillReinforce.Get.Show( skill, infoIndex, isAlreadyEquip);
-						UISkillInfo.Visible = false;
+						UISkillReinforce.Get.Show( skill, infoIndex, isAlreadyEquip, 0);
 					}
 				}
 			} else {
@@ -1480,8 +1481,7 @@ public class UISkillFormation : UIBase {
 				isEvolution = false;
 				if(UISkillInfo.Visible) {
 					TSkill skill = findSkill(UISkillInfo.Get.MyUICard.skillCard.Skill);
-					UISkillEvolution.Get.Show(infoIndex, skill, isAlreadyEquip);
-					UISkillInfo.Visible = false;
+					UISkillReinforce.Get.Show( skill, infoIndex, isAlreadyEquip, 1);
 				}
 			}
 

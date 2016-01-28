@@ -198,8 +198,8 @@ public class TActiveSkillCard
 
 	public void ShowGetStar (int index) {
 		if(index >=0 && index < SkillStars.Length) {
-			SkillStars[index].ShowGetStar();
-			SkillStars[index].ShowStar();
+			SkillStars[index -1].ShowGetStar();
+			SkillStars[index -1].ShowStar();
 		}
 	}
 
