@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -55,7 +56,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = true,
+                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Mall],
                 StartAction = new OpenMallAction(),
                 StartCallback = startCallback
             };
@@ -65,7 +66,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = true,
+                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
                 StartAction = new OpenShopGeneralAction(),
                 StartCallback = startCallback
             };
@@ -75,7 +76,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = true,
+                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
                 StartAction = new OpenShopLeagueAction(),
                 StartCallback = startCallback
             };
@@ -85,10 +86,11 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = true,
+                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
                 StartAction = new OpenShopSocialAction(),
                 StartCallback = startCallback
             };
+
         Dictionary<int, Func< string, string, string, UIItemSourceElement.Data>> uiBuilder = new Dictionary<int, Func<string, string, string, UIItemSourceElement.Data>>
         {
             {1, buildMall},
