@@ -92,6 +92,9 @@ public class UISkillReinforce : UIBase {
 	private UILabel labelDiamond;
 	private UILabel labelCoin;
 
+	private bool isInReinforce = false;
+	private bool isInEvolution = false;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -177,7 +180,7 @@ public class UISkillReinforce : UIBase {
 
 		SetBtnFun(UIName + "/Window/Center/RightView/ReinforceBtn", OnReinforce);
 		SetBtnFun(UIName + "/Window3/BottomLeft/BackBtn", OnClose);
-		SetBtnFun(UIName + "/Window3/Center/DiamondBt", OnDiamond);
+		SetBtnFun(UIName + "/Window3/Center/DiamondBt", OnShowDiamond);
 		SetBtnFun(UIName + "/Window3/Center/CostBt", OnCoin);
 	}
 
@@ -190,12 +193,14 @@ public class UISkillReinforce : UIBase {
 		SetBtnFun(path, callback);
 	}
 
-	public void OnDiamond () {
-		UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
+	public void OnShowDiamond () {
+		if(IsCanClick)
+			UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
 	}
 
 	public void OnCoin () {
-		UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
+		if(IsCanClick)
+			UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
 	}
 	/// <summary>
 	/// Show the specified skill, index, isAlreadyEquip and showType.
@@ -244,19 +249,21 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnTab (GameObject go) {
-		int result = -1;
-		if(int.TryParse(go.name, out result)) {
-			if(result == 0) {
-				if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar)
-					UIHint.Get.ShowHint(TextConst.S(553), Color.red);
-				else 
-					showWindows(result);
-
-			} else if(result == 1) {
-				if(GameData.DSkillData[mSkill.ID].EvolutionSkill == 0) 
-					UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
-				else 
-					showWindows(result);
+		if(IsCanClick) {
+			int result = -1;
+			if(int.TryParse(go.name, out result)) {
+				if(result == 0) {
+					if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar)
+						UIHint.Get.ShowHint(TextConst.S(553), Color.red);
+					else 
+						showWindows(result);
+					
+				} else if(result == 1) {
+					if(GameData.DSkillData[mSkill.ID].EvolutionSkill == 0) 
+						UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
+					else 
+						showWindows(result);
+				}
 			}
 		}
 	}
@@ -450,7 +457,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void ChooseItem (GameObject go) {
-		if(!isRunExp) {
+		if(!isRunExp && IsCanClick) {
 			if(passiveSkillCards.ContainsKey(go.name)) {
 				if(reinforceCards.Count < 6) {
 					if(reinforceItems.ContainsKey(go.name)) {
@@ -552,7 +559,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnReinforce () {
-		if(!isRunExp) {
+		if(!isRunExp && IsCanClick) {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 				if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
 					UIHint.Get.ShowHint(TextConst.S(556), Color.red);
@@ -594,9 +601,10 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void OnClose () {
-		Visible = false;
-		UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
-
+		if(IsCanClick) {
+			Visible = false;
+			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
+		}
 	} 
 
 	private void runExp () {
@@ -648,6 +656,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	private void awakeRunExp () {
+		isInReinforce = true;
 		recordGreenExp = reinforceExp + originalExp;
 		Invoke("delayRunExp", 2);
 		reinforceAnimator.SetTrigger("Go");
@@ -677,6 +686,7 @@ public class UISkillReinforce : UIBase {
 			UILevelUp.Get.ShowSkill(mOldSkill, mSkill);
 		RefreshView(mSkill);
 		initRightCards ();
+		isInReinforce = false;
 	}
 
 	/// <summary>
@@ -716,6 +726,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	public void SendEvolution(int kind) {
+		isInEvolution = true;
 		WWWForm form = new WWWForm();
 		form.AddField("RemoveIndex", skillEvolution.SkillIndex);
 		form.AddField("Kind", kind);
@@ -733,19 +744,11 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
-			UILevelUp.Get.ShowSkill(skillEvolution.MySkill, skillEvolution.NextSkill);
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
+			startEvolutionAni ();
 
-			if(isEquiped)
-				mSkill = findNewSkillFromPlayer(mSkill);
-			else
-				mSkill = findNewSkillFromTeam(mSkill);
-			
-			skillEvolution.Refresh (mSkill);
-			RefreshView(mSkill);
-			initRightCards ();
 
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -773,6 +776,29 @@ public class UISkillReinforce : UIBase {
 		}
 
 		return skill;
+	}
+
+	private void startEvolutionAni () {
+		reinforceAnimator.SetTrigger("Evolution");
+		Invoke("finishEvolution", 2.6f);
+	}
+
+	private void finishEvolution () {
+		isInEvolution = false;
+		UILevelUp.Get.ShowSkill(skillEvolution.MySkill, skillEvolution.NextSkill);
+
+		if(isEquiped)
+			mSkill = findNewSkillFromPlayer(mSkill);
+		else
+			mSkill = findNewSkillFromTeam(mSkill);
+
+		skillEvolution.Refresh (mSkill);
+		RefreshView(mSkill);
+		initRightCards ();
+	}
+
+	public bool IsCanClick {
+		get {return !(isInReinforce || isInEvolution);}
 	}
 }
 

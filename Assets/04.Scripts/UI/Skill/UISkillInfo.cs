@@ -25,11 +25,11 @@ public class UISkillInfo : UIBase {
 	private GameObject btnMediumTop;
 	private UISprite spriteSkillCard;
 	private UITexture textureSkillPic;
-	private UISprite spriteSkillSuit;
 	private UILabel labelSkillCardName;
 	private SkillCardStar[] skillStars;
 	private UISprite spriteSkillKind;
 	private UISprite spriteSkillKindBg;
+	private UILabel labelSkillKind;
 	private UILabel labelSkillInfoKind4;
 
 	//TopRight
@@ -103,6 +103,7 @@ public class UISkillInfo : UIBase {
 		labelSkillDemandValue = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillDemandValue").GetComponent<UILabel>();
 		sliderSkillExpBar = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillExpBar").GetComponent<UISlider>();
 		labelSkillInfoKind4  = GameObject.Find (UIName + "/Center/Left/SkillInfo/Labels/LabelKind4").GetComponent<UILabel>();
+		labelSkillKind = GameObject.Find (UIName + "/Center/Left/SkillInfo/SkillKind").GetComponent<UILabel>();
 		
 		//Buff Ability
 		labelSubhead = GameObject.Find (UIName + "/Center/Left/BuffAbility/LabelSubhead").GetComponent<UILabel>();
@@ -114,7 +115,6 @@ public class UISkillInfo : UIBase {
 		//Card
 		spriteSkillCard = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillCard").GetComponent<UISprite>();
 		textureSkillPic = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillPic").GetComponent<UITexture>();
-		spriteSkillSuit = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillSuit").GetComponent<UISprite>();
 		labelSkillCardName = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillName").GetComponent<UILabel>();
 		skillStars = new  SkillCardStar[5];
 		for(int i=0; i<skillStars.Length; i++) 
@@ -187,9 +187,11 @@ public class UISkillInfo : UIBase {
 			if(GameFunction.IsActiveSkill(skill.ID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);
+				labelSkillKind.text = TextConst.S(7002);
 			} else {
 				spriteSkillKind.spriteName = "PasstiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7206);
+				labelSkillKind.text = TextConst.S(7003);
 			}
 			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 
