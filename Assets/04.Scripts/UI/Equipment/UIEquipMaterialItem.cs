@@ -76,8 +76,11 @@ public class UIEquipMaterialItem : MonoBehaviour
     public UISprite IconBG;
     public UISprite Frame;
     public UILabel Name;
+
+    public UIButton[] AttrButtons;
     public UISprite[] AttrSprites;
     public UILabel[] AttrValues;
+
     public UILabel Amount;
     public GameObject LackIcon;
     public GameObject EnoughIcon;
@@ -96,9 +99,15 @@ public class UIEquipMaterialItem : MonoBehaviour
     private int mMaterialItemID;
     private UIButton mButton;
 
+    private readonly EBonus[] mBonus = new EBonus[3];
+
     private void Awake()
     {
         mButton = GetComponent<UIButton>();
+
+        AttrButtons[0].onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus[0])));
+        AttrButtons[1].onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus[1])));
+        AttrButtons[2].onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus[2])));
     }
 
     public void Init(int index)
@@ -144,6 +153,8 @@ public class UIEquipMaterialItem : MonoBehaviour
 
             AttrSprites[j].spriteName = pair.Value.Icon;
             AttrValues[j].text = string.Format("+{0}", pair.Value.Value);
+
+            mBonus[j] = pair.Value.Bonus;
 
             ++j;
         }

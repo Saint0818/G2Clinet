@@ -184,7 +184,8 @@ public static class UIValueItemDataBuilder
                 var data = new UIValueItemData.BonusData
                 {
                     Icon = string.Format("AttrKind_{0}", bonus[i].GetHashCode()),
-                    Value = bonusValues[i]
+                    Value = bonusValues[i],
+                    Bonus = bonus[i]
                 };
                 boundsData.Add(attribute, data);
             }

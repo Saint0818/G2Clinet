@@ -85,7 +85,7 @@ public class UIEquipDetail : MonoBehaviour
         int i = 0;
         foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in data.Values)
         {
-            mAttrs[i].Set(pair.Value.Icon, pair.Value.Value, data.GetInlayValue(pair.Key));
+            mAttrs[i].Set(pair.Value, data.GetInlayValue(pair.Key));
             ++i;
         }
     }

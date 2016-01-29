@@ -13,6 +13,7 @@ public class UIValueItemData
     {
         public string Icon; // 數值裝某個屬性的圖片.
         public int Value; // 數值裝某個屬性的數值.
+        public EBonus Bonus;
     }
 
     public enum EStatus

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using GameStruct;
 using UnityEngine;
 
 /// <summary>
@@ -9,20 +9,24 @@ public class UIEquipDetailAttr : MonoBehaviour
     public UISprite Icon;
     public UILabel ValueLabel;
 
-    [UsedImplicitly]
-    private void Awake()
+    private EBonus mBonus;
+
+    private void Start()
     {
+        GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus)));
     }
 
-    public void Set(string icon, int basicValue, int inlayValue)
+    public void Set(UIValueItemData.BonusData data, int inlayValue)
     {
         gameObject.SetActive(true);
 
-        Icon.spriteName = icon;
+        mBonus = data.Bonus;
+
+        Icon.spriteName = data.Icon;
 
         ValueLabel.text = inlayValue > 0 
-            ? string.Format("{0}[ABFF83FF]+{1}[-]", basicValue, inlayValue) 
-            : string.Format("{0}", basicValue);
+            ? string.Format("{0}[ABFF83FF]+{1}[-]", data.Value, inlayValue) 
+            : string.Format("{0}", data.Value);
     }
 
     public void Clear()
