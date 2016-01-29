@@ -8,11 +8,21 @@ using UnityEngine;
 public class UISound : MonoBehaviour
 {
     public SoundType type = SoundType.None;
+    public SoundPlayMode mode = SoundPlayMode.OnClick;
+
+    void OnEnable()
+    {
+        if (mode == SoundPlayMode.OnEnable)
+        {
+           Play();    
+        }
+    }
 
     void OnPress(bool isPressed)
     {
-        if(isPressed){
-            Play();
+        if (mode == SoundPlayMode.OnClick && isPressed)
+        {
+           Play(); 
         }
     }
 				

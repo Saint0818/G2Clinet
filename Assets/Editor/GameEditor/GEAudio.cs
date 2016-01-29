@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class GEAudio : GEBase
 {
-    private void ShowHint(string str)
-    {
-        this.ShowNotification(new GUIContent(str));
-    }
-
     [MenuItem("GameEditor/Audio/Change NGUIBtn Sound")]
     public static void ChangeNGUISound()
     {
@@ -54,5 +49,20 @@ public class GEAudio : GEBase
                 ReplacePrefabOptions.ConnectToPrefab
             );
         }
+    }
+
+    [MenuItem("GameEditor/Audio/Add UISound")]
+    public static void AddUISound()
+    {
+        GameObject[] objs = Selection.gameObjects;
+        if (objs.Length == 1)
+        {
+            if (objs[0].GetComponent<UISound>())
+                Debug.LogError("已有UISound Component");
+            else
+                objs[0].AddComponent<UISound>();
+        }
+        else
+            Debug.LogError("請選擇GameObject");
     }
 }

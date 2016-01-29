@@ -758,6 +758,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 60);
 					mRealBallSFX.SetActive(true);
 					spotlight.SetActive(false);
+					AudioMgr.Get.PlaySound (SoundType.SD_Rebound);
 				}
 				break;
 			

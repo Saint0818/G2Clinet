@@ -1963,6 +1963,7 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.AddTrigger(EAnimatorState.Push, nextState.StateNo);
                 GameRecord.PushLaunch++;
                 Result = true;
+				AudioMgr.Get.PlaySound (SoundType.SD_Punch);
                 break;
             case EAnimatorState.Pick:
                 if (nextState.StateNo == 2)
@@ -1994,6 +1995,7 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.AddTrigger(EAnimatorState.Steal, nextState.StateNo);
                 isCanCatchBall = false;
                 GameRecord.StealLaunch++;
+				AudioMgr.Get.PlaySound (SoundType.SD_Steal);
                 Result = true;
                 break;
             case EAnimatorState.GotSteal:
@@ -2371,8 +2373,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (effectName)
         {
-            case "FallDownFX":
-                EffectManager.Get.PlayEffect(effectName, PlayerRefGameObject.transform.position, null, null, 3);
+			case "FallDownFX":
+				EffectManager.Get.PlayEffect (effectName, PlayerRefGameObject.transform.position, null, null, 3);
+				AudioMgr.Get.PlaySound (SoundType.SD_Fall);
                 break;
             case "ShakeFX_0":
                 EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 1.5f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
@@ -2580,6 +2583,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
 					UISkillEffect.Get.Show(ActiveSkillUsed);
+					AudioMgr.Get.PlaySound (SoundType.SD_ActiveLaunch);
                     
                     switch (skillEffectKind)
                     {
@@ -2632,7 +2636,6 @@ public class PlayerBehaviour : MonoBehaviour
 					UIPassiveEffect.Get.Show(ActiveSkillUsed, this);
                 showActiveEffect();
             }
-
         }
     }
 

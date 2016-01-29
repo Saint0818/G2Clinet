@@ -38,6 +38,7 @@ public class BlockTrigger : MonoBehaviour {
 								GameController.Get.CheckConditionText();
 								if(blocker == GameController.Get.Joysticker)
 								GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
+								AudioMgr.Get.PlaySound (SoundType.SD_Block);
 							} 
 //						else {
 //								if(faller.IsBallOwner)
@@ -70,11 +71,13 @@ public class BlockTrigger : MonoBehaviour {
 						CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
 						faller.AniState(EPlayerState.Fall1);
 						gameObject.SetActive (false);
+						AudioMgr.Get.PlaySound (SoundType.SD_Block);
 					}
 				}
 			} else {
 				blocker.IsPerfectBlockCatch = true;
 				CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+				AudioMgr.Get.PlaySound (SoundType.SD_Block);
 			}
 
 			blocker.GameRecord.Block++;

@@ -3,6 +3,12 @@ using UnityEngine;
 using UnityEngine.Audio;
 using GameEnum;
 
+public enum SoundPlayMode
+{
+    OnEnable,
+    OnClick
+}
+
 public enum SoundType
 {
     None,

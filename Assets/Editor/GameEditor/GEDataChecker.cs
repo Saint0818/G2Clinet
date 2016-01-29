@@ -105,11 +105,16 @@ public class GEDataChecker : GEBase
                             }
                             else if (animationClip[j].events[k].functionName == EanimationEventFunction.TimeScale.ToString())
                             {
-                               // skilleventerror = true;
+                                // skilleventerror = true;
                                 //Debug.LogError(string.Format("Type : TimeScale Event , Player : {0}, animationClip : {1} , stringParameter : {2}", 
-                                 //   i, animationClip[j].name, animationClip[j].events[k].stringParameter));
+                                //   i, animationClip[j].name, animationClip[j].events[k].stringParameter));
                                 //TODO:Other Event Work
                                 //Debug.LogError("Other Work : " + animationClip[j].events[k].functionName);
+                            }
+                            else if (animationClip[j].events[k].functionName == EanimationEventFunction.PlaySound.ToString())
+                            {
+                                Debug.LogError(string.Format("Type : PlaySound Event , Player : {0}, animationClip : {1} , stringParameter : {2}", 
+                                    i, animationClip[j].name, animationClip[j].events[k].stringParameter));
                             }
                         }
                         else
