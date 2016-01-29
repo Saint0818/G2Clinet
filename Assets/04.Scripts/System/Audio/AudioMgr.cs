@@ -146,8 +146,8 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     {
         if (DAudios.ContainsKey(name))
             DAudios[name].Play();
-//        else
-//            Debug.LogError("Name : " + name);			
+        else
+            Debug.LogError("Name : " + name);			
     }
 
     public void MusicOn(bool flag)
