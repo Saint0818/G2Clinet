@@ -13,7 +13,7 @@ public static class UIMainStageTools
     /// <summary>
     /// 記錄玩家上次打關卡時, 玩家的關卡進度. Value(int): GameData.Team.Player.NextMainStageID.
     /// </summary>
-    private const string PlayerNextStageIDKey = "MainStagePlayerNextStageID";
+    private const string PlayerNextMainStageIDKey = "MainStagePlayerNextStageID";
 
     public static bool HasSelectChapter()
     {
@@ -39,13 +39,13 @@ public static class UIMainStageTools
 
     public static bool HasNewChapter()
     {
-        if(!PlayerPrefs.HasKey(PlayerNextStageIDKey))
+        if(!PlayerPrefs.HasKey(PlayerNextMainStageIDKey))
             return false;
 
-        if(GameData.Team.Player.NextMainStageID <= PlayerPrefs.GetInt(PlayerNextStageIDKey))
+        if(GameData.Team.Player.NextMainStageID <= PlayerPrefs.GetInt(PlayerNextMainStageIDKey))
             return false;
 
-        TStageData beforeData = StageTable.Ins.GetByID(PlayerPrefs.GetInt(PlayerNextStageIDKey));
+        TStageData beforeData = StageTable.Ins.GetByID(PlayerPrefs.GetInt(PlayerNextMainStageIDKey));
         if(!beforeData.IsValid())
             return false;
 
@@ -58,17 +58,17 @@ public static class UIMainStageTools
 
     public static bool HasNewStage()
     {
-        if(!PlayerPrefs.HasKey(PlayerNextStageIDKey))
+        if(!PlayerPrefs.HasKey(PlayerNextMainStageIDKey))
             return false;
 
-        return PlayerPrefs.GetInt(PlayerNextStageIDKey) < GameData.Team.Player.NextMainStageID;
+        return PlayerPrefs.GetInt(PlayerNextMainStageIDKey) < GameData.Team.Player.NextMainStageID;
     }
 
     public static void ClearStageFlag()
     {
-        if(PlayerPrefs.HasKey(PlayerNextStageIDKey))
+        if(PlayerPrefs.HasKey(PlayerNextMainStageIDKey))
         {
-            PlayerPrefs.DeleteKey(PlayerNextStageIDKey);
+            PlayerPrefs.DeleteKey(PlayerNextMainStageIDKey);
             PlayerPrefs.Save();
         }
     }
@@ -76,14 +76,20 @@ public static class UIMainStageTools
     public static void Record(int chapter)
     {
         PlayerPrefs.SetInt(SelectChapterKey, chapter);
-        PlayerPrefs.SetInt(PlayerNextStageIDKey, GameData.Team.Player.NextMainStageID);
+        PlayerPrefs.SetInt(PlayerNextMainStageIDKey, GameData.Team.Player.NextMainStageID);
         PlayerPrefs.Save();
     }
 
     public static void SetDebugNewChapter()
     {
-        GameData.Team.Player.NextMainStageID = 109;
-        PlayerPrefs.SetInt(PlayerNextStageIDKey, 108);
+        // 第一章通關, 第二張解鎖.
+//        GameData.Team.Player.NextMainStageID = 105;
+//        PlayerPrefs.SetInt(PlayerNextMainStageIDKey, 104);
+//        PlayerPrefs.SetInt(SelectChapterKey, 1);
+
+        // 主線關卡 106 過關.
+        GameData.Team.Player.NextMainStageID = 107;
+        PlayerPrefs.SetInt(PlayerNextMainStageIDKey, 106);
         PlayerPrefs.SetInt(SelectChapterKey, 2);
     }
 

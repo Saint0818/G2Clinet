@@ -94,20 +94,6 @@ public class UIStageChapter : MonoBehaviour
         mStages[stageID].Set(elementData, infoData);
     }
 
-//    public void AddLockStage(int stageID, Vector3 localPos, string kindSpriteName)
-//    {
-//        if(!mStages.ContainsKey(stageID))
-//            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
-//        mStages[stageID].ShowLock(kindSpriteName);
-//    }
-
-//    public void AddLockBossStage(int stageID, Vector3 localPos, string kindSpriteName)
-//    {
-//        if(!mStages.ContainsKey(stageID))
-//            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
-//        mStages[stageID].ShowLock(kindSpriteName);
-//    }
-
     public bool HasStage(int stageID)
     {
         return mStages.ContainsKey(stageID);

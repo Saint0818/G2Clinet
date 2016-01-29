@@ -62,8 +62,11 @@ public class UIMainStage : UIBase
 
 //        UIMainStageTools.SetDebugNewChapter();
         buildChapters();
-        selectChapter();
-        tryPlayAnimation();
+
+        if(isNeedPlayUnlockAnimation())
+            playUnlokAnimation();
+        else
+            selectChapter();
     }
 
     public void Show(int stageID)
@@ -118,7 +121,6 @@ public class UIMainStage : UIBase
 
             UIMainStageTools.Record(stageData.Chapter);
             UISelectRole.Get.LoadStage(stageID);
-            //SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
             Hide();
         }
@@ -129,20 +131,27 @@ public class UIMainStage : UIBase
         }
     }
 
-    private void tryPlayAnimation()
+    private bool isNeedPlayUnlockAnimation()
+    {
+        return UIMainStageTools.HasNewChapter() || UIMainStageTools.HasNewStage();
+    }
+
+    private void playUnlokAnimation()
     {
         if(UIMainStageTools.HasNewChapter())
         {
-            TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            if(data.IsValid())
-                mMain.PlayChapterUnlockAnimation(data.Chapter, data.ID);
+            TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+            if(stageData.IsValid())
+                mMain.PlayUnlockChapterAnimation(stageData.Chapter, stageData.ID);
         }
-
-        if(UIMainStageTools.HasNewStage())
+        else if(UIMainStageTools.HasNewStage())
         {
-            TStageData data = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            if(data.IsValid())
-                mMain.GetChapter(data.Chapter).GetStageByID(data.ID).PlayUnlockAnimation();
+            TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+            if(stageData.IsValid())
+            {
+                mMain.SelectChapter(stageData.Chapter);
+                mMain.GetChapter(stageData.Chapter).GetStageByID(stageData.ID).PlayUnlockAnimation();
+            }
         }
 
         UIMainStageTools.ClearStageFlag();
@@ -166,11 +175,7 @@ public class UIMainStage : UIBase
         foreach(TStageData data in allMainStage)
         {
             addChapter(data.Chapter);
-
-//            if(data.ID <= GameData.Team.Player.NextMainStageID)
-                addStage(data);
-//            else
-//                addLockStage(data);
+            addStage(data);
         }
 
         addLastLockChapter();
@@ -179,11 +184,12 @@ public class UIMainStage : UIBase
     private void selectChapter()
     {
         if(UIMainStageTools.HasSelectChapter())
-            mMain.ScrollToChapter(UIMainStageTools.GetSelectChapter());
+            mMain.SelectChapter(UIMainStageTools.GetSelectChapter());
         else
         {
+            // 切換到最新章節.
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            mMain.ScrollToChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
+            mMain.SelectChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
         }
     }
 

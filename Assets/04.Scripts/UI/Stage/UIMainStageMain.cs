@@ -11,7 +11,7 @@ using UnityEngine;
 /// <list type="number">
 /// <item> Call RemoveAllChapters() 將整個關卡介面重置. </item>
 /// <item> Call AddXXX() 加入章節和關卡. </item>
-/// <item> Call ScrollToChapter() 控制預設顯示哪一個章節. </item>
+/// <item> Call SelectChapter() 控制預設顯示哪一個章節. </item>
 /// <item> 向 UIStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
@@ -114,27 +114,29 @@ public class UIMainStageMain : MonoBehaviour
     /// 控制介面顯示哪一個章節.
     /// </summary>
     /// <param name="chapter"></param>
-    public void ScrollToChapter(int chapter)
+    public void SelectChapter(int chapter)
     {
-        if(chapter <= 0 || chapter > mChapters.Count)
-            return;
+        int reviseChapter = Math.Max(1, chapter); // >= 1
+        reviseChapter = Math.Min(reviseChapter, mChapters.Count); // <= mChapters.Count
 
-        ScrollView.ResetPosition();
+//        ScrollView.ResetPosition();
 
-        // 其實顯示某個章節, 只是移動一整個章節的寬度. 而第1章的位置是 (69.999),
-        // 第 2 章的位置是 (-1210), 所以這邊才會這樣麼魔術數字去計算.
-        Vector3 chapterPos = new Vector3(-(chapter - 1) * mChapterWidth, 0, 0);
-        ScrollView.MoveRelative(chapterPos);
+        // 其實顯示某個章節, 只是移動一整個章節的寬度. 而第1章的位置是 (70, 3, 0),
+        // 第 2 章的位置是 (-1210, 3, 0), 所以這邊才會這樣麼魔術數字去計算.
+        Vector3 targetPos = new Vector3(70 -(reviseChapter - 1) * mChapterWidth, 3, 0);
+        Vector3 moveAmount = targetPos - ScrollView.transform.localPosition;
+        ScrollView.MoveRelative(moveAmount);
 
         // 這兩行只是 ScrollView 的行為我無法掌握(沒辦法正確更新).
         // 這樣設定, 就可以確保 ScrollView 的行為會有效(之前是設定後, 完全沒效果).
         // 當 NGUI 更新後, 可以嘗試刪除.(現在用的是 NGUI 3.9.4)
-        ScrollView.enabled = false;
-        ScrollView.enabled = true;
+//        ScrollView.enabled = false;
+//        ScrollView.enabled = true;
     }
 
-    public void PlayChapterUnlockAnimation(int chapter, int stageID)
+    public void PlayUnlockChapterAnimation(int unlockChapter, int stageID)
     {
+        SelectChapter(unlockChapter - 1);
         // 魔術數字 10, 是要保證會捲動到下一頁.
         Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
         ScrollView.MoveRelative(move);
@@ -142,7 +144,7 @@ public class UIMainStageMain : MonoBehaviour
         EnableFullScreenBlock = true;
 
         // 需要一段很短的時間, 讓 ScrollView 捲動到新章節的頁面. 
-        StartCoroutine(playChapterUnlockAnimation(chapter, stageID, PlayUnlockTime));
+        StartCoroutine(playUnlockChapterAnimation(unlockChapter, stageID, PlayUnlockTime));
 
         // 4 是 try and error 的數值, 整個 Unlock 特效的時間大概是 4 秒左右撥完, 所以撥完時,
         // 就可以點選了.
@@ -152,17 +154,17 @@ public class UIMainStageMain : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="chapter"></param>
+    /// <param name="unlockChapter"></param>
     /// <param name="stageID"></param>
     /// <param name="delayTime"> 幾秒後開始撥章節解鎖 Animation. </param>
     /// <returns></returns>
-    private IEnumerator playChapterUnlockAnimation(int chapter, int stageID, float delayTime)
+    private IEnumerator playUnlockChapterAnimation(int unlockChapter, int stageID, float delayTime)
     {
-        mChapters[chapter].ShowLock();
+        mChapters[unlockChapter].ShowLock();
 
         yield return new WaitForSeconds(delayTime);
 
-        mChapters[chapter].PlayUnlockAnimation(stageID);
+        mChapters[unlockChapter].PlayUnlockAnimation(stageID);
     }
 
     private IEnumerator disableFullScreenBlock(float delayTime)
@@ -261,7 +263,7 @@ public class UIMainStageMain : MonoBehaviour
             return;
         }
 
-        ScrollToChapter(chapter);
+        SelectChapter(chapter);
 
         UIStageElement element = mChapters[chapter].GetStageByID(stageID);
         Info.Show(stageID, element.InfoData);
