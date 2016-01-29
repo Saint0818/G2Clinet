@@ -270,7 +270,7 @@ public class UISkillInfo : UIBase {
 				UISkillFormation.Get.DoEquipCard(mUICard);
 				OnClose();
 			} else
-				UIHint.Get.ShowHint(TextConst.S(588), Color.red);
+				UIHint.Get.ShowHint(TextConst.S(558), Color.red);
 		}
 	}
 
