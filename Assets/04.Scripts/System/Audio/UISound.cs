@@ -23,6 +23,6 @@ public class UISound : MonoBehaviour
             AudioMgr.Get.PlaySound(SoundType.SD_Click_Btn);
         }
         else
-            AudioMgr.Get.PlaySound(SoundType.SD_Click_Btn);
+			AudioMgr.Get.PlaySound(type);
     }
 }
