@@ -138,15 +138,15 @@ public static class UIValueItemDataBuilder
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
                 ItemID = materialItem.ID,
+                Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
             valueItem.Materials.Add(data);
             
-            if (playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
+            if(playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
                 // 有鑲嵌物.
                 data.Status = UIEquipMaterialItem.EStatus.Inlayed;
                 data.RealValue = data.NeedValue;
-                data.Values = convertBonus(materialItem.Bonus, materialItem.BonusValues);
             }
             else
             {
