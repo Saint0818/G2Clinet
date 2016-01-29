@@ -31,6 +31,8 @@ public class PlayAddInlayAnimation : ActionQueue.IAction
 
     private void onComplete()
     {
+        AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
+
         mDoneResult = true;
         mIsDone = true;
     }
