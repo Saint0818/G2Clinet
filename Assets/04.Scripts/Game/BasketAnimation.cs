@@ -21,4 +21,8 @@ public class BasketAnimation : MonoBehaviour {
 	public void PlayShake (string name) {
 		CameraMgr.Get.PlayShake ();
 	}
+
+	public void PlayActionSound (AnimationEvent aniEvent) {
+		AudioMgr.Get.PlaySound(aniEvent.stringParameter);
+	}
 }

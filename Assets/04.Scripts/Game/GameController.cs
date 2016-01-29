@@ -1715,6 +1715,11 @@ public class GameController : KnightSingleton<GameController>
 		}
 		
 		judgeBasketAnimationName (basketDistanceAngleType);
+		
+		if(GameStart.Get.TestMode == EGameTest.PassiveSkill) {
+			BasketSituation = EBasketSituation.Score;
+			BasketAnimationName = GameStart.Get.SelectBasketState.ToString();	
+		}
 
 		if (ShootDistance >= GameConst.Point3Distance)
 			player.GameRecord.FG3++;

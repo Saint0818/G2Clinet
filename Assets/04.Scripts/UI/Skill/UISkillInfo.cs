@@ -248,8 +248,8 @@ public class UISkillInfo : UIBase {
 		isOpen = false;
 		btnMedium.transform.DOKill();
 		btnMediumTop.SetActive(false);
-		btnMedium.transform.DOLocalMoveX(255, openCardSpeed);
-		btnMedium.transform.DOLocalMoveY(-10, openCardSpeed);
+		btnMedium.transform.DOLocalMoveX(325, openCardSpeed);
+		btnMedium.transform.DOLocalMoveY(0, openCardSpeed);
 		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed);
 		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 	}

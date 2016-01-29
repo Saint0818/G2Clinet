@@ -21,7 +21,7 @@ public class GameStart : MonoBehaviour {
     public int GameWinValue = 13;
     public int GameWinTimeValue = 0;
     public EPlayerState SelectAniState = EPlayerState.Dunk6;
-    public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
+	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.BasketballAction_0;
     public ETestActive TestID = ETestActive.Dunk20;
     public int TestLv = 2;
 
