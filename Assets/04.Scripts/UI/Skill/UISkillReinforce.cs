@@ -7,10 +7,12 @@ public struct ReinEvoTab {
 
 	private GameObject selected;
 	private GameObject redPoint;
+	private GameObject unUse;
 
 	public void Init (GameObject obj, UIEventListener.VoidDelegate delegateCall) {
 		selected = obj.transform.FindChild("Selected").gameObject;
 		redPoint = obj.transform.FindChild("RedPoint").gameObject;
+		unUse = obj.transform.FindChild("UnUseLabel").gameObject;
 
 		UIEventListener.Get(obj).onClick = delegateCall;
 	}
@@ -23,6 +25,11 @@ public struct ReinEvoTab {
 	public bool CheckSelected {
 		get {return selected.activeSelf;}
 		set {selected.SetActive(value);}
+	}
+
+	public bool CheckUnUse {
+		get {return unUse.activeSelf;}
+		set {unUse.SetActive(value);}
 	}
 }
 
@@ -227,12 +234,12 @@ public class UISkillReinforce : UIBase {
 	private void refreshTabRed () {
 		//Reinforce
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
+			//Reinforce
 			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar);
-
-		}
-		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
-			reinEvoTabs[1].CheckRedPoint = (GameData.DSkillData[mSkill.ID].EvolutionSkill != 0);
-
+			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
+			//Evolution
+			reinEvoTabs[1].CheckRedPoint = (GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar));
+			reinEvoTabs[1].CheckUnUse = (GameData.DSkillData[mSkill.ID].EvolutionSkill == 0);
 		}
 	}
 
