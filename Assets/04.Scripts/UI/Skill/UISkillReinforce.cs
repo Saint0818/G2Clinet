@@ -595,7 +595,8 @@ public class UISkillReinforce : UIBase {
 
 	public void OnClose () {
 		Visible = false;
-		UISkillInfo.Get.Refresh(mSkill, targetIndex);
+		UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
+
 	} 
 
 	private void runExp () {

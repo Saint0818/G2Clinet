@@ -132,7 +132,6 @@ public class UISkillInfo : UIBase {
 	
 	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
 		Visible = true;
-		mUICard = uicard;
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
 		btnUpgrade.SetActive(true);
@@ -145,7 +144,7 @@ public class UISkillInfo : UIBase {
 
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
-			Refresh(uicard.skillCard.Skill, uicard.CardIndex);
+			RefreshUICard(uicard);
 		}
 	}
 
@@ -156,6 +155,11 @@ public class UISkillInfo : UIBase {
 		btnCrafting.SetActive(false);
 		Refresh(skill, -1);
 
+	}
+
+	public void RefreshUICard (TUICard uicard) {
+		mUICard = uicard;
+		Refresh(uicard.skillCard.Skill, uicard.CardIndex);
 	}
 
 	public void Refresh (TSkill skill, int cardIndex) {

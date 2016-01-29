@@ -1142,6 +1142,15 @@ public class UISkillFormation : UIBase {
 			UISort.UIShow(false);
 	}
 
+	public void RefreshFromReinEvo (int sn) {
+		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+			if(uicard.Value.skillCard.Skill.SN == sn) {
+				UISkillInfo.Get.RefreshUICard(uicard.Value);
+				return ;
+			}
+		}
+	}
+
 	//From Item RemoveButton
 	public void OnRemoveItem(GameObject go, bool state){
 		removeItems(uiCards[go.transform.parent.name].skillCard.Skill.ID, uiCards[go.transform.parent.name].skillCard.Skill.SN, go.transform.parent.gameObject);
