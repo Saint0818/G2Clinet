@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -21,13 +22,14 @@ public enum EBildsType
 public class UI3DMainLobbyImpl : MonoBehaviour
 {
     public Transform PlayerPos;
-    private AvatarPlayer mAvatar;
 	private const int BuildCount = 10;
 	public GameObject[] BuildPos = new GameObject[BuildCount];
 	public GameObject[] Builds = new GameObject[BuildCount];
 	public Animator animator;
 	private UIButton[] Btns = new UIButton[BuildCount];
 	private GameObject advertisementPic;
+
+    private GameObject mAvatarPlayer;
 
     [UsedImplicitly]
     private void Awake()
@@ -219,23 +221,17 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        var player = GameData.Team.Player;
-        Dictionary<UICreateRole.EEquip, int> itemIDs = new Dictionary<UICreateRole.EEquip, int>
-            {
-                {UICreateRole.EEquip.Body, player.GetBodyItemID()},
-                {UICreateRole.EEquip.Hair, player.GetHairItemID()},
-                {UICreateRole.EEquip.Cloth, player.GetClothItemID()},
-                {UICreateRole.EEquip.Pants, player.GetPantsItemID()},
-                {UICreateRole.EEquip.Shoes, player.GetShoesItemID()},
-                {UICreateRole.EEquip.Head, player.GetHeadItemID()},
-                {UICreateRole.EEquip.Hand, player.GetHandItemID()},
-                {UICreateRole.EEquip.Back, player.GetBackItemID()}
-            };
+        if(mAvatarPlayer)
+            Destroy(mAvatarPlayer);
 
-        if (mAvatar == null)
-			mAvatar = new AvatarPlayer(BuildPos[0].transform, null, "LobbyAvatarPlayer", player.ID, itemIDs);
-        else
-            mAvatar.ChangeParts(itemIDs);
-        
+        mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
+        ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
+                                   GameData.Team.Player.BodyType,
+                                   EAnimatorType.AvatarControl, false);
+
+        mAvatarPlayer.transform.parent = BuildPos[0].transform;
+        mAvatarPlayer.transform.localPosition = Vector3.zero;
+        mAvatarPlayer.transform.localScale = Vector3.one;
+        mAvatarPlayer.transform.localRotation = Quaternion.identity;
     }
 }

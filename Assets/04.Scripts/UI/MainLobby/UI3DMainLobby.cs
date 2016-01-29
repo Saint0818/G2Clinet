@@ -14,7 +14,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UI3DMainLobby : UIBase
 {
-    private static UI3DMainLobby instance = null;
+    private static UI3DMainLobby instance;
     private const string UIName = "UI3DMainLobby";
 
     private UI3DMainLobbyImpl mImpl;
