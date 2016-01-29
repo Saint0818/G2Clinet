@@ -85,7 +85,7 @@ public class HintAvatarView : MonoBehaviour {
 				if(itemData.BonusValues[i] == 0)
 					ValueLabels[i].text = "";
 				else
-					ValueLabels[i].text = itemData.BonusValues[i].ToString();
+					ValueLabels[i].text = string.Format("+{0}", itemData.BonusValues[i]);
 				if(itemData.Kind >=0 && itemData.Kind <= 7){
 					AttrKindsIcon[i].gameObject.SetActive(false);
 					ValueLabels[i].gameObject.SetActive(false);
@@ -131,7 +131,7 @@ public class HintAvatarView : MonoBehaviour {
 				if(itemData.BonusValues[i] == 0)
 					ValueLabels[i].text = "";
 				else
-					ValueLabels[i].text = itemData.BonusValues[i].ToString();
+					ValueLabels[i].text = string.Format("+{0}", itemData.BonusValues[i]);
 				if(itemData.Kind >=0 && itemData.Kind <= 7){
 					AttrKindsIcon[i].gameObject.SetActive(false);
 					ValueLabels[i].gameObject.SetActive(false);

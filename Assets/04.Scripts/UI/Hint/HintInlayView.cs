@@ -57,7 +57,7 @@ public class HintInlayView : MonoBehaviour {
 		}
 		
 		for (int i=0; i<itemData.BonusValues.Length; i++) {
-			ValueLabels[i].text = itemData.BonusValues[i].ToString();
+			ValueLabels[i].text = string.Format("+{0}", itemData.BonusValues[i]);
 			if(itemData.BonusValues[i] == 0 && i < AttrKindsIcon.Length)
 				AttrKindsIcon[i].gameObject.SetActive(false);
 		}
