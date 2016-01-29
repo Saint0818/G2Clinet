@@ -172,18 +172,18 @@ public class UIMainLobby : UIBase
 		initDefaultText (Main.MainMenu);
 	}
 
-    public void Hide(int kind = 3)
+    public void Hide(int kind = 3, bool playAnimation = true)
     {
         UI3DMainLobby.Get.Hide();
-        Main.Hide(kind);
+        Main.Hide(kind, playAnimation);
         ResetCommands.Get.Stop();
 //        RemoveUI(UIName);
     }
 
-    public void HideAll()
+    public void HideAll(bool playAnimation = true)
     {
         UI3DMainLobby.Get.Hide();
-        Main.HideAll();
+        Main.HideAll(playAnimation);
         ResetCommands.Get.Stop();
     }
 

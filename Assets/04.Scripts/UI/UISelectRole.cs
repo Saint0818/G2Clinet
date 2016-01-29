@@ -785,7 +785,7 @@ public class UISelectRole : UIBase {
 
     public void LoadStage(int stageID) {
         GameData.StageID = stageID;
-        UIMainLobby.Get.HideAll();
+        UIMainLobby.Get.HideAll(false);
         Visible = true;
         mUIAttributes.gameObject.SetActive(false);
 

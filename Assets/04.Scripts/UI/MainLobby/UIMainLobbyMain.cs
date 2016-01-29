@@ -175,9 +175,11 @@ public class UIMainLobbyMain : MonoBehaviour
         DiamondObj.SetActive(isShow);
     }
 
-    public void Hide(int kind = 3)
+    public void Hide(int kind = 3, bool playAnimation = true)
     {
-        PlayExitAnimation();
+        if(playAnimation)
+            PlayExitAnimation();
+
         Settings.SetActive(false);
 
         DiamondObj.SetActive(kind >= 1);
@@ -185,9 +187,10 @@ public class UIMainLobbyMain : MonoBehaviour
         PowerObj.SetActive(kind >= 3);
     }
 
-    public void HideAll()
+    public void HideAll(bool playAnimation = true)
     {
-        PlayExitAnimation();
+        if(playAnimation)
+            PlayExitAnimation();
         Settings.SetActive(false);
 
         MoneyObj.SetActive(false);
