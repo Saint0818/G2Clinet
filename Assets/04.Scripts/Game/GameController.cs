@@ -794,7 +794,7 @@ public class GameController : KnightSingleton<GameController>
 			GameRecord.Done = true;
 			SetGameRecord();
 			SetBallOwnerNull();
-			CourtMgr.Get.RealBall.transform.position = Vector3.zero;
+			CourtMgr.Get.RealBall.transform.position = Vector3.down * 100;
 			if(CheckAllPlayerIdle) {
 				IsFinishShow = false;
 				StartCoroutine(playFinish());

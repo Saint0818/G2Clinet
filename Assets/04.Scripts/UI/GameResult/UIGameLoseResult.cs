@@ -109,6 +109,11 @@ public class UIGameLoseResult : UIBase {
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			UILoading.OpenUI = UILoading.OpenInstanceUI;
 		}
+		else if (GameData.IsPVP)
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenStageUI;
+		}
 		else
 		{
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
