@@ -14,6 +14,7 @@ public class GEDataChecker : GEBase
     //	private string[] checkSubject = new string[3]{"Wait", "Wait", "Wait"};
     private bool[] states = new bool[4];
     private Color[] statesColor = new Color[4];
+    private string pathStr = "複製路徑";
     //	private StringBuilder ErrorData = new StringBuilder();
 	
     private Dictionary<string, string> AnimationEventFunctionData = new Dictionary<string, string>();
@@ -37,10 +38,33 @@ public class GEDataChecker : GEBase
             TestAnimationVsSkillData();
 
         }
+
         GUILayout.Toggle(states[0], "AnimationEvent");
         GUILayout.Toggle(states[1], "Skill Animation");
         GUILayout.Toggle(states[2], "Skill Effect");
         GUILayout.Toggle(states[3], "SkillEvent");
+
+        if (GUILayout.Button("GetPath", GUILayout.Width(200))){
+            if (Selection.gameObjects.Length == 1) 
+              pathStr = GetFullPath(Selection.gameObjects[0].transform);
+            else
+              pathStr = "請選擇物件";
+
+            GUIUtility.systemCopyBuffer = pathStr;
+        }
+        pathStr = EditorGUILayout.TextField("路徑 : ", pathStr);
+    }
+    
+    private string GetFullPath(Transform transform)
+    {
+        string path = transform.name;
+
+        while (transform.parent != null)
+        {
+            transform = transform.parent;
+            path = transform.name + "/" + path;
+        }
+        return path;
     }
 
     public void TestAnimationEvent()

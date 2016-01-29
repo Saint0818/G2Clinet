@@ -92,13 +92,6 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
     public void PlayMusic(EMusicType type)
     {
-        if (CurrentMusic == EMusicType.MU_BattleNormal.ToString() || CurrentMusic == EMusicType.MU_BattlePVP.ToString())
-        {
-            AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{ StartST };
-            float[] f = new float[1]{ 1 };
-            MasterMix.TransitionToSnapshots(s, f, 1);		
-        }
-		
         string name = type.ToString();
         PlayMusic(name);
     }
@@ -119,6 +112,13 @@ public class AudioMgr : KnightSingleton<AudioMgr>
             {
                 DAudios[CurrentMusic].Stop();
             }
+
+			if (CurrentMusic == EMusicType.MU_BattleNormal.ToString() || CurrentMusic == EMusicType.MU_BattlePVP.ToString())
+			{
+				AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{ StartST };
+				float[] f = new float[1]{ 1 };
+				MasterMix.TransitionToSnapshots(s, f, 1);		
+			}
 			
             DAudios[name].Play();
             CurrentMusic = name;
