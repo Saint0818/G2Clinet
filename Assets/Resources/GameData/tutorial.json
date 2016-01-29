@@ -82,7 +82,7 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "剛剛的勝利有獲得到很酷的造型服裝喔，[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
+        "texttw": "剛剛的勝利有獲得到很酷的[f6f6f6]造型服裝[-]喔，快來搭配屬於自己的造型特色吧。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
     },
@@ -264,7 +264,6 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
     },
     {
@@ -275,20 +274,16 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成決定性的影響。",
-        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
+        "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成[ff6060]決定性的影響[-]。我來教你怎麼安裝它。",
+        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game.Let me teach you how to install it."
     },
     {
         "id": 5,
         "line": 3,
-        "kind": 2,
-        "value": 101,
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 1,
-        "texttw": "我來教你怎麼安裝它。",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Let me teach you how to install it."
+        "actionl": 6,
+        "texttw": "首先我們可以先往下一場競賽邁進。"
     },
     {
         "id": 5,
@@ -300,45 +295,98 @@
     {
         "id": 5,
         "line": 5,
-        "kind": 2,
-        "value": 101,
-        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "繼續點擊[ff6060]競賽開始[-]。"
     },
     {
         "id": 5,
         "line": 6,
         "kind": 2,
         "value": 101,
-        "uipath": "UI2D/UISelectRole/Bottom/SkillCard/"
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
         "id": 5,
         "line": 7,
-        "kind": 2,
-        "value": 101,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，我們先把剛剛獲得的[ff6060]主動技[-]安裝起來吧。",
-        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
+        "texttw": "在每次開始競賽前，都可以重新設置你的[ff6060]技能晶片[-]，以應付競賽的要求，我們快把剛剛獲得的晶片裝上吧！！"
     },
     {
         "id": 5,
         "line": 8,
         "kind": 2,
         "value": 101,
-        "uipath": "UI2D/UISkillInfo/TopRight/EquipBtn"
+        "uipath": "UI2D/UISelectRole/Bottom/SkillCard/"
     },
     {
         "id": 5,
         "line": 9,
         "kind": 2,
         "value": 101,
-        "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，只要[ff6060]點擊[-]技能晶片，即可開啟對應的功能。",
+        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
     },
     {
         "id": 5,
         "line": 10,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList"
+    },
+    {
+        "id": 5,
+        "line": 11,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "接下來點擊[ff6060]裝備晶片[-]即可將晶片安裝到自己身上。"
+    },
+    {
+        "id": 5,
+        "line": 12,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISkillInfo/Center/TopRight/EquipBtn"
+    },
+    {
+        "id": 5,
+        "line": 13,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "這樣就完成了，他已經出現[ff6060]右側[-]的已安裝區，我們可以按[ff6060]上一步[-]回到剛剛的賽前準備區了。"
+    },
+    {
+        "id": 5,
+        "line": 14,
+        "kind": 2,
+        "value": 101,
+        "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn"
+    },
+    {
+        "id": 5,
+        "line": 15,
+        "kind": 2,
+        "value": 101,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "接下來就是去競賽中大展身手囉！！"
+    },
+    {
+        "id": 5,
+        "line": 16,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
@@ -350,28 +398,26 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "經歷了幾場競賽，你已經累積了屬於自己的成績，聯盟這邊有幫你準備一個[ff6060]任務成就[-]區，可以讓你檢視自己辛苦的成果。"
+        "texttw": "經歷了幾場競賽，你已經累積了屬於自己的成績，聯盟這邊有幫你準備[ff6060]任務成就[-]的統計，可以讓你檢視自己辛苦的成果。"
     },
     {
         "id": 6,
         "line": 2,
         "kind": 4,
-        "uipath": "主畫面按鈕"
+        "uipath": "UI2D/UIMainLobby/TopLeft/MissionBtn"
     },
     {
         "id": 6,
         "line": 3,
-        "kind": 4,
-        "uipath": "成就頁籤"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6
     },
     {
         "id": 6,
         "line": 4,
         "kind": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "目前你已經達成球員生涯的第一項成就，往後還有更多的挑戰等你來達成喔。"
+        "uipath": "UI2D/UIMission/Window/Center/Tabs/0"
     },
     {
         "id": 6,
@@ -380,13 +426,22 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "可以領取你剛剛達成的成就獎勵！！"
+        "texttw": "目前你已經達成球員生涯的第一項任務，往後還有更多的挑戰等你來達成喔。"
     },
     {
         "id": 6,
         "line": 6,
         "kind": 4,
-        "uipath": "領取按鈕",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "可以領取你剛剛達成的任務獎勵！！"
+    },
+    {
+        "id": 6,
+        "line": 7,
+        "kind": 4,
+        "uipath": "UI2D/UIMission/Window/Center/Pages/0/ScrollView",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6
@@ -897,6 +952,8 @@
         "kind": 3,
         "talkindex": 1,
         "actionl": 3,
+        "talkr": -1,
+        "actionr": 4,
         "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛...",
         "texten": "Last level was tough one and you are raising the bar?..."
     },
@@ -926,6 +983,8 @@
         "kind": 3,
         "talkindex": 1,
         "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
         "texttw": "好！！就這麼辦！！",
         "texten": "Great!  Let's do this!"
     },
