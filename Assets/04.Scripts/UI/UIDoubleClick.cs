@@ -224,10 +224,7 @@ public class UIDoubleClick : UIBase {
 			instance.Show (isShow);
 		else 
 		if (isShow)
-			Get.Show (isShow);
-
-		if(isShow)
-			AudioMgr.Get.PlaySound(SoundType.SD_DoubleClick);
+			Get.Show (isShow);	
 	}
 
 	public void DoBtn(GameObject go, bool state)
@@ -251,6 +248,8 @@ public class UIDoubleClick : UIBase {
 			DoubleClicks[playerIndex].SetData(type, value, intFunction, playerFunction, player);
 			if(BottomRight)
 				BottomRight.SetActive(true);
+
+            AudioMgr.Get.PlaySound(SoundType.SD_DoubleClick);
 		}
 	}
 

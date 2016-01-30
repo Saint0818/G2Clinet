@@ -81,17 +81,26 @@ public class UIHeadPortrait : UIBase
     private ItemHeadBtn[] headTexutres;
     private int equipTextureNo = 0;
 
-    public static bool Visible
-    {
-        get
-        {
-            if (instance)
+    public static bool Visible {
+        get {
+            if(instance)
                 return instance.gameObject.activeInHierarchy;
+            else
+                return false;
+        }
 
-            return false;
+        set {
+            if (instance) {
+                if (!value)
+                    RemoveUI(UIName);
+                else
+                    instance.Show(value);
+            } else
+                if (value)
+                    Get.Show(value);
         }
     }
-
+       
     public static void UIShow(bool isShow)
     {
         if (instance)
@@ -222,7 +231,18 @@ public class UIHeadPortrait : UIBase
                 }
                 else
                 {
-                    //ToDo: 等待嘉明的來源功能
+                    if (DHeadTexture.ContainsKey(index))
+                    {
+                        if (DHeadTexture[index].Count > 0)
+                        {
+                            //TODO : 目前家明來源只能顯示單個Data的來源，並無法顯示多個Data來源
+                            if (GameData.DItemData.ContainsKey(DHeadTexture[index][0]))
+                            {
+                                TItemData data = GameData.DItemData[DHeadTexture[index][0]];
+                                UIItemSource.Get.ShowMaterial(data, enable => {if(enable) UIShow(false);UIHeadPortrait.Visible = false;UIHeadPortrait.Visible = false;});
+                            }
+                        }
+                    }
                 }
             }    
         }     

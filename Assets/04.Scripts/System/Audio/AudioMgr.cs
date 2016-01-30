@@ -67,14 +67,23 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 {
     public string CurrentMusic = string.Empty;
     public AudioMixer MasterMix;
-    public AudioMixerSnapshot Nomal;
-    public AudioMixerSnapshot Paused;
-    public AudioMixerSnapshot StartST;
+    public AudioMixerSnapshot SplashSnapshot;
+    public AudioMixerSnapshot PausedSnapshot;
+    public AudioMixerSnapshot LobbySnapshot;
+    public AudioMixerSnapshot CreateSnapshot;
+    public AudioMixerSnapshot InGameSnapshot;
+
+	private AudioMixerSnapshot currentSnapshot;
+    private float snapshotTransitionTime = 2f;
+
     private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource>();
     public bool init = false;
 
     void Awake()
     {
+        if(SplashSnapshot != null)
+            ChangeSnapshot(ref SplashSnapshot);
+        
         AudioSource[] loads = gameObject.transform.GetComponentsInChildren<AudioSource>();
         if (loads.Length > 0)
         {
@@ -99,6 +108,27 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     public void PlayMusic(EMusicType type)
     {
         string name = type.ToString();
+
+        if (CurrentMusic != name)
+        {
+            switch (type)
+            {
+                case EMusicType.MU_Create:
+                    ChangeSnapshot(ref CreateSnapshot);
+                        break;
+
+                case EMusicType.MU_ThemeSong:
+                    ChangeSnapshot(ref LobbySnapshot);
+                    break;
+
+                case EMusicType.MU_BattleNormal:
+                case EMusicType.MU_BattlePVP:
+                    ChangeSnapshot(ref InGameSnapshot);
+                    break;
+
+            }
+        }
+       
         PlayMusic(name);
     }
 
@@ -113,21 +143,15 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
         if (CurrentMusic != name && DAudios.ContainsKey(name))
         {
-
-            if (CurrentMusic != string.Empty && DAudios.ContainsKey(CurrentMusic))
-            {
-                DAudios[CurrentMusic].Stop();
-            }
-
-			if (CurrentMusic == EMusicType.MU_BattleNormal.ToString() || CurrentMusic == EMusicType.MU_BattlePVP.ToString())
-			{
-				AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{ StartST };
-				float[] f = new float[1]{ 1 };
-				MasterMix.TransitionToSnapshots(s, f, 1);		
-			}
-			
             DAudios[name].Play();
             CurrentMusic = name;
+        }
+    }
+
+    private void ChangeSnapshot(ref AudioMixerSnapshot next)
+    {
+        if (next != null){
+            next.TransitionTo(snapshotTransitionTime);
         }
     }
 
@@ -135,11 +159,14 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     {
         if (Time.timeScale == 0)
         {
-            if (Paused)
-                Paused.TransitionTo(.01f);	
+            if (PausedSnapshot)
+                PausedSnapshot.TransitionTo(snapshotTransitionTime);	
         }
-        else if (StartST)
-            StartST.TransitionTo(.01f);
+        else
+        {
+            if (InGameSnapshot)
+                InGameSnapshot.TransitionTo(snapshotTransitionTime);
+        }
     }
 
     public void PlaySound(SoundType type)
@@ -204,21 +231,5 @@ public class AudioMgr : KnightSingleton<AudioMgr>
             MasterMix.SetFloat(type.ToString(), value);			
         }
     }
-
-    void OnDestory()
-    {
-        Debug.LogError("Fuck you ");
-    }
-
-    //	private void SetMute(AudioValuetype type, bool isOn)
-    //	{
-    //		string typeName = type.ToString();
-    //		if (MasterMix) {
-    //			if(isOn)
-    //				MasterMix.ClearFloat(typeName);
-    //			else
-    //				MasterMix.SetFloat (typeName, -80);
-    //		}
-    //	}
 }
 
