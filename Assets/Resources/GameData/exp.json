@@ -3,37 +3,37 @@
         "lv": 1,
         "lvupexp": 4,
         "openindex": 5,
-        "unlockhint": 404,
         "ui": 1,
         "unlockname": 455,
-        "tutorialid": 5
+        "tutorialid": 5,
+        "unlockhint": 404
     },
     {
         "lv": 2,
         "lvupexp": 8,
         "openindex": 2,
-        "unlockhint": 402,
         "ui": 1,
         "unlockname": 452,
-        "tutorialid": 2
+        "tutorialid": 2,
+        "unlockhint": 402
     },
     {
         "lv": 3,
         "lvupexp": 8,
         "openindex": 1,
-        "unlockhint": 401,
         "ui": 1,
         "unlockname": 451,
-        "tutorialid": 1
+        "tutorialid": 1,
+        "unlockhint": 401
     },
     {
         "lv": 4,
         "lvupexp": 8,
         "openindex": 6,
-        "unlockhint": 406,
         "ui": 1,
         "unlockname": 456,
-        "tutorialid": 6
+        "tutorialid": 6,
+        "unlockhint": 406
     },
     {
         "lv": 5,
@@ -47,10 +47,10 @@
         "lv": 6,
         "lvupexp": 12,
         "openindex": 7,
-        "unlockhint": 407,
         "ui": 1,
         "unlockname": 457,
-        "tutorialid": 7
+        "tutorialid": 7,
+        "unlockhint": 407
     },
     {
         "lv": 7,
@@ -60,10 +60,10 @@
         "lv": 8,
         "lvupexp": 12,
         "openindex": 3,
-        "unlockhint": 403,
         "ui": 1,
         "unlockname": 453,
-        "tutorialid": 3
+        "tutorialid": 3,
+        "unlockhint": 403
     },
     {
         "lv": 9,

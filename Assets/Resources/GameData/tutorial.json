@@ -441,7 +441,7 @@
         "id": 6,
         "line": 7,
         "kind": 4,
-        "uipath": "UI2D/UIMission/Window/Center/Pages/0/ScrollView",
+        "uipath": "UI2D/UIMission/Window/Center/Pages/0/ScrollView/10/Window/GetBtn",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6
@@ -460,17 +460,22 @@
         "id": 7,
         "line": 2,
         "kind": 4,
-        "uipath": "主畫面按鈕"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/MallBt"
     },
     {
         "id": 7,
         "line": 3,
-        "kind": 4,
-        "uipath": "免費抽按鈕"
+        "kind": 4
     },
     {
         "id": 7,
         "line": 4,
+        "kind": 4,
+        "uipath": "UI2D/UIMall/Center/Window/ScrollView"
+    },
+    {
+        "id": 7,
+        "line": 5,
         "kind": 4,
         "talkindex": 0,
         "talkl": 11,
