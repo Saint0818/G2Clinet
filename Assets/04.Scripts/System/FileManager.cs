@@ -638,7 +638,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 					switch (data[i].Kind) {
 					case 1:
-						if (data[i].Value > 0) {
+                        if (data[i].Value > 0 && data[i].Line == 1) {
 							if (!GameData.DTutorialStageStart.ContainsKey(data[i].Value)) {
 								GameData.DTutorialStageStart.Add(data[i].Value, data[i].ID);
 							} else
@@ -647,7 +647,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 						break;
 					case 2:
-						if (data[i].Value > 0) {
+                        if (data[i].Value > 0 && data[i].Line == 1) {
 							if (!GameData.DTutorialStageEnd.ContainsKey(data[i].Value)) {
 								GameData.DTutorialStageEnd.Add(data[i].Value, data[i].ID);
 							} else

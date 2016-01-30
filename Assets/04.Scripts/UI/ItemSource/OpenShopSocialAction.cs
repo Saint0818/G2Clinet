@@ -7,6 +7,6 @@ public class OpenShopSocialAction : UIItemSourceElement.IAction
 //        Debug.Log("Open Shop Social.");
 
         UIShop.Visible = true;
-        UIShop.Get.openPage(2);
+        UIShop.Get.OpenPage(2);
     }
 }

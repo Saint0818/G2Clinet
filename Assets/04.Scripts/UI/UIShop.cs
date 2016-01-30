@@ -25,6 +25,7 @@ public class TShopItemObj {
     public UILabel LabelName;
     public UILabel LabelPrice;
     public UISprite SpriteSpendKind;
+    public UIButton ButtonBuy;
 }
 
 public class UIShop : UIBase {
@@ -41,6 +42,7 @@ public class UIShop : UIBase {
     private UILabel labelSocialCoin;
     private UILabel labelFreshTime;
     private UILabel labelFreshDiamond;
+    private UIButton buttonFreshDiamond;
     private GameObject[] uiSuits = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
     private UIToggle[] pageToggle = new UIToggle[pageNum];
@@ -97,9 +99,18 @@ public class UIShop : UIBase {
         labelSocialCoin = GameObject.Find(UIName + "/TopRight/SocialCoin/Label").GetComponent<UILabel>();
 		labelFreshTime = GameObject.Find(UIName + "/BottomLeft/WarningsLabel").GetComponent<UILabel>();
 		labelFreshDiamond = GameObject.Find(UIName + "/BottomLeft/ResetBtn/PriceLabel").GetComponent<UILabel>();
+        buttonFreshDiamond = GameObject.Find(UIName + "/BottomLeft/ResetBtn").GetComponent<UIButton>();
     }
 
     private void initList(int page) {
+        int diamond = 0;
+        if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
+            diamond = 50 * (GameData.Team.DailyCount.FreshShop +1);
+
+        bool flag = GameData.Team.CoinEnough(0, diamond);
+        labelFreshDiamond.color = GameData.CoinEnoughTextColor(flag);
+        buttonFreshDiamond.normalSprite = GameData.CoinEnoughSprite(flag, 1);
+
         if (shopItemList[page] == null)
             shopItemList[page] = new List<TShopItemObj>();
 
@@ -151,7 +162,10 @@ public class UIShop : UIBase {
 
             SetLabel(name + "/FittingIcon/Label", TextConst.S(4508));
             SetLabel(name + "/SoldOutIcon/Label", TextConst.S(4509));
-            SetBtnFun(name + "/BuyBtn", OnBuy);
+
+            item.ButtonBuy = GameObject.Find(name + "/BuyBtn").GetComponent<UIButton>();
+            if (item.ButtonBuy)
+                SetBtnFun(ref item.ButtonBuy, OnBuy);
 
             item.UISuit = GameObject.Find(name + "/FittingIcon");
             item.UISoldout = GameObject.Find(name + "/SoldOutIcon");
@@ -194,10 +208,11 @@ public class UIShop : UIBase {
         shopItemList[page][index].UISuit.SetActive(false);
         shopItemList[page][index].LabelPrice.text = data.Price.ToString();
         shopItemList[page][index].SpriteSpendKind.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
-        if (data.SpendKind == 0)
-            shopItemList[page][index].LabelPrice.color = new Color(255, 0, 255, 255);
-        else
-            shopItemList[page][index].LabelPrice.color = Color.white;
+
+        bool flag = GameData.Team.CoinEnough(shopItemList[page][index].Data.SpendKind, shopItemList[page][index].Data.Price);
+        shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag);
+        shopItemList[page][index].LabelPrice.color = GameData.CoinEnoughTextColor(flag, shopItemList[page][index].Data.SpendKind);
+
 
         if (GameData.DItemData.ContainsKey(data.ID))
             shopItemList[page][index].AwardGroup.Show(GameData.DItemData[data.ID]);
@@ -211,7 +226,7 @@ public class UIShop : UIBase {
             labelFreshDiamond.text = "0";
         }
     }
-
+   
     private void refreshShop(int kind) {
         WWWForm form = new WWWForm();
         form.AddField("Kind", kind.ToString());
@@ -228,7 +243,7 @@ public class UIShop : UIBase {
             if (GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
                 refreshShop(0);
 
-            openPage(nowPage);
+            OpenPage(nowPage);
 
             labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
             labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
@@ -243,7 +258,7 @@ public class UIShop : UIBase {
         UIMainLobby.Get.Show();
     }
 
-    public void openPage(int page) {
+    public void OpenPage(int page) {
         for (int i = 0; i < pageObjects.Length; i++) {
             pageObjects[i].SetActive(false);
             pageToggle[i].value = false;
@@ -258,36 +273,14 @@ public class UIShop : UIBase {
     public void OnPage() {
         int index = -1;
         if (int.TryParse(UIButton.current.name, out index))
-            openPage(index);
+            OpenPage(index);
     }
 
     public void OnBuy() {
         if (UIButton.current.transform.parent.gameObject && 
             int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
-            shopItemList[nowPage][nowIndex].Data.Num > 0) {
-            switch (shopItemList[nowPage][nowIndex].Data.SpendKind) {
-                case 0:
-                    if (CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true))
-                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-                    
-                    break;
-                case 1:
-                    if (CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true))
-                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-
-                    break;
-                case 2:
-                    if (GameData.Team.PVPCoin >= shopItemList[nowPage][nowIndex].Data.Price)
-                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-
-                    break;
-                case 3:
-                    if (GameData.Team.SocialCoin >= shopItemList[nowPage][nowIndex].Data.Price)
-                        UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-
-                    break;
-            }
-        }
+            shopItemList[nowPage][nowIndex].Data.Num > 0)
+            UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
     }
 
     private void checkOtherSuit(int kind, int page, int index) {
@@ -355,7 +348,7 @@ public class UIShop : UIBase {
         if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
             diamond = 50 * (GameData.Team.DailyCount.FreshShop +1);
         
-        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshShop);
+        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshShop, doFreshShop);
     }
 
     private void doFreshShop() {
@@ -363,6 +356,33 @@ public class UIShop : UIBase {
     }
 
     private void sendBuyItem() {
+        switch (shopItemList[nowPage][nowIndex].Data.SpendKind) {
+            case 0:
+                if (!CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true, "", null, doFreshShop))
+                    return;
+
+                break;
+            case 1:
+                if (!CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true, null, doFreshShop))
+                    return;
+
+                break;
+            case 2:
+                if (GameData.Team.PVPCoin < shopItemList[nowPage][nowIndex].Data.Price) {
+                    UIHint.Get.ShowHint(TextConst.S(4515), Color.white);
+                    return;
+                }
+
+                break;
+            case 3:
+                if (GameData.Team.SocialCoin < shopItemList[nowPage][nowIndex].Data.Price) {
+                    UIHint.Get.ShowHint(TextConst.S(4516), Color.white);
+                    return;
+                }
+
+                break;
+        }
+
         UIItemHint.UIShow(false);
         WWWForm form = new WWWForm();
         form.AddField("Identifier", GameData.Team.Identifier);

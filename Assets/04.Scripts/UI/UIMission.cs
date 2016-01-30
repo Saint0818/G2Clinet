@@ -36,7 +36,7 @@ public class TMissionItem{
     public UILabel LabelExp;
     public UILabel LabelGot;
     public UILabel LabelScore;
-    public UISprite SpriteGot;
+    public UIButton ButtonGot;
 	public UISprite SpriteAward1;
 	public UISprite SpriteAward2;
 	public UISprite SpriteColor;
@@ -198,7 +198,7 @@ public class UIMission : UIBase {
 		mi.LabelAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1").GetComponent<UILabel>();
         mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
         mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
-        mi.SpriteGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UISprite>();
+        mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
 		mi.SpriteAward1 = GameObject.Find(name + "/Window/AwardGroup/Award0/Icon").GetComponent<UISprite>();
 		mi.SpriteAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1/Icon").GetComponent<UISprite>();
 		mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
@@ -270,7 +270,7 @@ public class UIMission : UIBase {
                         missionItem.LabelAward1.text = missionItem.Mission.Diamond[lv].ToString();
                         missionItem.SpriteAward1.spriteName = GameFunction.SpendKindTexture(missionItem.Mission.SpendKind);
                     } else
-                    if (missionItem.Mission.Money[mLv] > 0) {
+                    if (missionItem.Mission.Money[lv] > 0) {
                         missionItem.LabelAward1.text = missionItem.Mission.Money[lv].ToString();
                         missionItem.SpriteAward1.spriteName = "Icon_Coin";
                     }
@@ -279,12 +279,14 @@ public class UIMission : UIBase {
                     int mValue = GameData.Team.GetMissionValue(missionItem.Mission.Kind, missionItem.Mission.TimeKind, missionItem.Mission.TimeValue);
                     if (mValue >= missionItem.Mission.Value[lv]) {
                         missionItem.LabelGot.text = TextConst.S(3706);
-                        missionItem.SpriteGot.spriteName = "button_orange1";
+                        missionItem.ButtonGot.normalSprite = "button_orange1";
+                        missionItem.ButtonGot.hoverSprite = "button_orange1";
                         if (!redPoints[nowPage].activeInHierarchy &&mLv == lv)
                             redPoints[nowPage].SetActive(true);
                     } else {
                         missionItem.LabelGot.text = TextConst.S(3705);
-                        missionItem.SpriteGot.spriteName = "button_blue2";
+                        missionItem.ButtonGot.normalSprite = "button_blue2";
+                        missionItem.ButtonGot.hoverSprite = "button_blue2";
                     }
 
                     if (missionItem.Mission.Value[lv] > 0) {

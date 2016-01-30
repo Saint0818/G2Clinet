@@ -194,6 +194,33 @@ namespace GameStruct
             Player.Init();
         }
 
+        public bool CoinEnough(int kind, int number) {
+            switch (kind) {
+                case 0:
+                    if (GameData.Team.Diamond < number)
+                        return false;
+
+                    break;
+                case 1:
+                    if (GameData.Team.Money < number)
+                        return false;
+
+                    break;
+                case 2:
+                    if (GameData.Team.PVPCoin < number)
+                        return false;
+
+                    break;
+                case 3:
+                    if (GameData.Team.SocialCoin < number)
+                        return false;
+
+                    break;
+            }
+
+            return true;
+        }
+
         public override string ToString()
         {
             return string.Format("PlayerNum:{0}", PlayerNum);

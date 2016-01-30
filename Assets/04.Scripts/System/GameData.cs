@@ -134,6 +134,28 @@ public static class GameData
         }
     }
 
+    //0.orajge 1.green
+    public static string CoinEnoughSprite(bool enough, int kind=0) {
+        if (enough) {
+            switch (kind) {
+                case 1: return "button_green"; //buy
+                default: return "button_orange1";
+            }
+        } else
+            return "button_gray";
+    }
+
+    //kind 0.diamond
+    public static Color CoinEnoughTextColor(bool enough, int kind=0) {
+        if (enough) {
+            if (kind == 0)
+                return new Color(255, 0, 255, 255);
+            else
+                return Color.white;
+        } else
+            return Color.red;
+    }
+
     public static Texture2D CardTexture(int id)
     {
         if (GameData.DSkillData.ContainsKey(id))

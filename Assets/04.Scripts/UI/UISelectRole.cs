@@ -446,28 +446,24 @@ public class UISelectRole : UIBase {
 			
 			break;
             case EUIRoleSituation.BackToSelectMe:
-                if(GameData.IsMainStage)
-                {
+                if(GameData.IsInstance) {
                     Visible = false;
-                    if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-                    {
-                        UILoading.OpenUI = UILoading.OpenStageUI;
-				        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                    }
-                    else
-					    UIMainStage.Get.Show(GameData.StageID);
-			    }
-                else if(GameData.IsInstance)
-                {
-                    Visible = false;
-                    if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-                    {
+                    if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
                         UILoading.OpenUI = UILoading.OpenInstanceUI;
                         SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                    }
-                    else
+                    } else
                         UIInstance.Get.ShowByStageID(GameData.StageID);
+                } else {
+                    Visible = false;
+                    if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
+                        UILoading.OpenUI = UILoading.OpenStageUI;
+                        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                    } else
+                        UIMainStage.Get.Show(GameData.StageID);
                 }
+
+                /*
+                 * 
                 else
                 {
 				    Invoke("showUITriangle", 1.25f);
@@ -478,6 +474,7 @@ public class UISelectRole : UIBase {
 				
 				    uiShowTime.SetActive(true);
 			    }
+                */
 			
 			    break;
             case EUIRoleSituation.Start:
@@ -809,6 +806,7 @@ public class UISelectRole : UIBase {
 		uiSelect.SetActive(false);
 		doubleClickTime = 1;
 
+        GameData.Team.Player.Init();
 		arrayPlayerData[0] = GameData.Team.Player;
 		arrayPlayerData[0].RoleIndex = -1;
 		GameObject temp = arrayPlayer [0];

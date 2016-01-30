@@ -56,6 +56,7 @@ public class UISocial : UIBase {
     private UILabel labelSearch;
     private UILabel labelFreshTime;
     private UILabel labelFreshDiamond;
+    private UIButton buttonFreshDiamond;
     private GameObject itemSocialEvent;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
@@ -107,6 +108,7 @@ public class UISocial : UIBase {
         labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/SearchArea/TypeLabel").GetComponent<UILabel>();
         labelFreshTime = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/TextLabel").GetComponent<UILabel>();
         labelFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn/Label").GetComponent<UILabel>();
+        buttonFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn").GetComponent<UIButton>();
         for (int i = 0; i < pageNum; i++) {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
@@ -445,7 +447,7 @@ public class UISocial : UIBase {
     }
         
     private void waitFreshFriends() {
-        labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshFriend +1)).ToString();
+        freshDiamond();
         initList(nowPage);
     }
 
@@ -595,7 +597,7 @@ public class UISocial : UIBase {
             diamond = 50 * (GameData.Team.DailyCount.FreshFriend +1);
 
 		if (diamond > 0)
-        	CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend);
+            CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend, freshDiamond);
 		else
 			doFreshFriend();
     }
@@ -634,6 +636,9 @@ public class UISocial : UIBase {
                 PlayerPrefs.Save();
             }
         }
+
+        if (page == 2)
+            freshDiamond();
     }
 
     public void OnPage() {
@@ -740,5 +745,17 @@ public class UISocial : UIBase {
     public void FreshFriend(int page) {
         if (nowPage == page)
             initList(page);
+    }
+
+    private void freshDiamond() {
+        int diamond = 0;
+        if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
+            diamond = 50 * (GameData.Team.DailyCount.FreshFriend +1);
+
+        labelFreshDiamond.text = diamond.ToString();
+
+        bool flag = GameData.Team.CoinEnough(0, diamond);
+        buttonFreshDiamond.normalSprite = GameData.CoinEnoughSprite(flag, 1);
+        labelFreshDiamond.color = GameData.CoinEnoughTextColor(flag);
     }
 }

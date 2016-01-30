@@ -152,7 +152,7 @@ public class UIBase: MonoBehaviour
 
 	protected virtual void Show(bool isShow)
 	{		    
-	    if(gameObject) {
+	    if (gameObject) {
     	  gameObject.SetActive(isShow);
     	  OnShow(isShow);
 		}
@@ -206,16 +206,23 @@ public class UIBase: MonoBehaviour
 
 	/// <summary>
 	/// Money is GameCoin
+    /// message for buy money
+    /// callback for 
 	/// </summary>
-	public bool CheckMoney(int money, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null)
+    public bool CheckMoney(int money, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null, EventDelegate.Callback uiUpdate = null)
 	{
-		if(GameData.Team.Money >= money) {
+		if (GameData.Team.Money >= money) {
 			if (message != null && callback != null)  
 				UIMessage.Get.ShowMessage(TextConst.S(249), message, callback);
+            
 			return true;
 		} else {
-			if(isShowMessage)
-				UIMessage.Get.ShowMessageForBuy(TextConst.S(237), TextConst.S(239), ERechargeType.Coin);
+            if (isShowMessage) {
+                UIMessage.Get.ShowMessageForBuy(TextConst.S(237), TextConst.S(239), ERechargeType.Coin);
+                if (uiUpdate != null)
+                    UIRecharge.FreshUICallback = uiUpdate;
+            }
+
 			return false;
 		}
 	}
@@ -234,7 +241,7 @@ public class UIBase: MonoBehaviour
 	/// <summary>
 	/// Diamond
 	/// </summary>
-    public bool CheckDiamond(int diamond, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null) 
+    public bool CheckDiamond(int diamond, bool isShowMessage = false, string message = "", EventDelegate.Callback callback = null, EventDelegate.Callback uiUpdate = null) 
 	{
         if (GameData.Team.Diamond >= diamond) {
             if (message != null && callback != null)  
@@ -242,9 +249,12 @@ public class UIBase: MonoBehaviour
             
 			return true;
         } else {
-			if(isShowMessage)
+            if(isShowMessage) {
 				UIMessage.Get.ShowMessageForBuy(TextConst.S(233), TextConst.S(238), ERechargeType.Diamond);
-            
+                if (uiUpdate != null)
+                    UIRecharge.FreshUICallback = uiUpdate;
+            }
+
 			return false;
 		}
 	}

@@ -7,6 +7,6 @@ public class OpenShopLeagueAction : UIItemSourceElement.IAction
 //        Debug.Log("Open Shop League.");
 
         UIShop.Visible = true;
-        UIShop.Get.openPage(1);
+        UIShop.Get.OpenPage(1);
     }
 }

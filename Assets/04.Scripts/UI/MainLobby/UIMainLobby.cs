@@ -95,7 +95,7 @@ public class UIMainLobby : UIBase
         Main.EquipmentNotice = false;
         Main.AvatarNotice = false;
 		Main.SkillNotice = GameData.Team.IsSurplusCost;
-        Main.SocialNotice = GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend;
+        Main.SocialNotice = GameData.IsOpenUIEnable(EOpenUI.Social) && (GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend);
         Main.ShopNotice = false;
         Main.MissionNotice = false;
         Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);

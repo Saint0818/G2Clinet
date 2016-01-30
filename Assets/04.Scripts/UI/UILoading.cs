@@ -327,8 +327,7 @@ public class UILoading : UIBase
 
         yield return new WaitForSeconds(1);
 
-        switch (kind)
-        {
+        switch (kind) {
             case ELoading.SelectRole:
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
@@ -345,7 +344,6 @@ public class UILoading : UIBase
                 UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                 ProgressValue = 0.7f;
 
-                //waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
                 yield return new WaitForSeconds(3);
                 UIShow(false);
 				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
@@ -357,14 +355,12 @@ public class UILoading : UIBase
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
 
-                if (GameData.Team.Player.Lv == 0)
-                {
+                if (GameData.Team.Player.Lv == 0) {
                     UICreateRole.Get.ShowPositionView();
                     UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                     UIMainLobby.Get.HideAll();
-                }
-                else if (OpenUI != null)
-                {
+                } else 
+                if (OpenUI != null) {
                     yield return new WaitForSeconds(2);
 
                     OpenUI();
@@ -385,11 +381,8 @@ public class UILoading : UIBase
                 yield return new WaitForSeconds(waitTime);
 
                 if (GameStart.Get.TestMode == EGameTest.None)
-                {
                     GameController.Get.LoadStage(GameData.StageID);
-                }
-                else
-                {
+                else {
                     CourtMgr.Get.ShowEnd();
                     GameController.Get.LoadStage(101);
                     GameController.Get.InitIngameAnimator();
@@ -399,9 +392,6 @@ public class UILoading : UIBase
                     CameraMgr.Get.ShowPlayerInfoCamera(true);
                 }
 
-                //yield return new WaitForSeconds(0.2f);
-
-                //UIShow(false);
 			    buttonNext.SetActive(true);
 			    loadingPic.SetActive(false);
 				if(GameData.IsPVP)
@@ -412,6 +402,8 @@ public class UILoading : UIBase
             case ELoading.Stage:
                 ProgressValue = 1;
                 UISelectRole.Get.LoadStage(GameData.StageID);
+                UIShow(false);
+
                 break;
         }
 

@@ -177,6 +177,7 @@ public struct TItemRecharge {
 public class UIRecharge : UIBase {
 	private static UIRecharge instance = null;
 	private const string UIName = "UIRecharge";
+    public static EventDelegate.Callback FreshUICallback = null;
 
 	private GameObject[] prefabKind = new GameObject[3];
 
@@ -204,14 +205,15 @@ public class UIRecharge : UIBase {
 	}
 
 	public static void UIShow(bool isShow){
-		if (instance)
-			if (!isShow)
+        if (instance) {
+            if (!isShow) {
+                FreshUICallback = null;
 				RemoveUI(UIName);
-			else
+            } else
 				instance.Show(isShow);
-		else
-			if (isShow) 
-				Get.Show(isShow);
+        } else
+		if (isShow) 
+			Get.Show(isShow);
 	}
 
 	public static UIRecharge Get
@@ -430,8 +432,15 @@ public class UIRecharge : UIBase {
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
+
+            if (FreshUICallback != null)
+                FreshUICallback();
+
 			if(UISkillReinforce.Visible)
 				UISkillReinforce.Get.UpdateUI();
+
+            if (UIItemHint.Visible)
+                UIItemHint.Get.FreshUI();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);
@@ -461,9 +470,15 @@ public class UIRecharge : UIBase {
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
+
+            if (FreshUICallback != null)
+                FreshUICallback();
+            
 			if(UISkillReinforce.Visible)
 				UISkillReinforce.Get.UpdateUI();
-//			UIHint.Get.ShowHint(TextConst.S(showText), Color.blue);
+
+            if (UIItemHint.Visible)
+                UIItemHint.Get.FreshUI();
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);

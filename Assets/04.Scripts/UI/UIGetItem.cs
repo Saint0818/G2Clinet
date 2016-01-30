@@ -74,7 +74,7 @@ public class UIGetItem : UIBase {
             lab.text = value.ToString();
 
         obj.transform.parent = itemAnchor.transform;
-        obj.transform.localPosition = new Vector3(-170 + itemList.Count * 150, 0, 0);
+        obj.transform.localPosition = new Vector3(-230 + itemList.Count * 150, 0, 0);
         obj.transform.localScale = Vector3.one;
         itemList.Add(obj);
     }
@@ -91,7 +91,7 @@ public class UIGetItem : UIBase {
 
             LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
             obj.transform.parent = itemAnchor.transform;
-            obj.transform.localPosition = new Vector3(-170 + itemList.Count * 150, 0, 0);
+            obj.transform.localPosition = new Vector3(-230 + itemList.Count * 150, 0, 0);
             obj.transform.localScale = Vector3.one;
             itemList.Add(obj);
         }

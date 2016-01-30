@@ -7,6 +7,6 @@ public class OpenShopGeneralAction : UIItemSourceElement.IAction
 //        Debug.Log("Open Shop General.");
 
         UIShop.Visible = true;
-        UIShop.Get.openPage(0);
+        UIShop.Get.OpenPage(0);
     }
 }
