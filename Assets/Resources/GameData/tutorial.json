@@ -485,12 +485,12 @@
     {
         "id": 8,
         "line": 1,
-        "title": "天梯",
+        "title": "PVP",
         "kind": 4,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "請問您是{0}嗎？"
+        "texttw": "嗨，明日之星您好！！"
     },
     {
         "id": 8,
@@ -499,7 +499,7 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "對啊，我是，你找我有事嗎？"
+        "texttw": "哈哈，你這樣稱呼我會讓我受寵若驚！！"
     },
     {
         "id": 8,
@@ -535,7 +535,22 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "太好了，讓我來告訴您如何加入！！"
+        "texttw": "太好了，讓我來告訴您該如何加入！！"
+    },
+    {
+        "id": 8,
+        "line": 7,
+        "kind": 4,
+        "uipath": "UI2D/UIMainStage/MainView/BottomLeft/BackBtn"
+    },
+    {
+        "id": 8,
+        "line": 8,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "在這裡選擇進入[ff6060]聯盟挑戰[-]。"
     },
     {
         "id": 8,
@@ -547,11 +562,142 @@
         "id": 8,
         "line": 8,
         "kind": 4,
-        "talkpath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/DailyAwardBtn",
+        "hintpath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/DailyAwardBtn",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "一開始您會從[ff6060]街頭聯盟[-]開始打起，隨著積分的改變，將會決定您聯盟等級的升降，越高級的聯盟可以獲得越高的報酬喔！！"
+    },
+    {
+        "id": 8,
+        "line": 9,
+        "kind": 4,
+        "texttw": "現在來開始您的第一次挑戰吧！！"
+    },
+    {
+        "id": 8,
+        "line": 10,
+        "kind": 4,
+        "uipath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/NextBtn"
+    },
+    {
+        "id": 8,
+        "line": 11,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "這邊會顯示您這場競賽的對手，如果沒有問題就可以直接開始了！！"
+    },
+    {
+        "id": 8,
+        "line": 12,
+        "kind": 4,
+        "uipath": "UI2D/UIPVP/Center/Window/Pages/0/EnterView/StartBtn"
+    },
+    {
+        "id": 9,
+        "line": 1,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "生涯競賽中的每個關主都有屬於他們的籃球故事，快來挑戰他們體驗他們的故事，打贏他們甚至有機會獲得他們身上的[ff6060]寶物[-]或珍貴的[ff6060]技能晶片[-]喔！！"
+    },
+    {
+        "id": 9,
+        "line": 2,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "我早就想要再次跟他們多多學習，快跟我說怎樣找到他們！"
+    },
+    {
+        "id": 9,
+        "line": 3,
+        "kind": 4,
+        "uipath": "UI2D/UIMainStage/MainView/BottomLeft/BackBtn"
+    },
+    {
+        "id": 9,
+        "line": 4,
+        "kind": 4
+    },
+    {
+        "id": 9,
+        "line": 5,
+        "kind": 4,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
+    },
+    {
+        "id": 9,
+        "line": 6,
+        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)/ShowAwardLabel",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。"
+    },
+    {
+        "id": 9,
+        "line": 7,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView"
+    },
+    {
+        "id": 9,
+        "line": 8,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "這邊開始有一些前置關卡，當你挑戰完這些關卡後，就可以正式挑戰關主了，加油！！"
+    },
+    {
+        "id": 9,
+        "line": 9,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
+    },
+    {
+        "id": 9,
+        "line": 10,
+        "kind": 4
+    },
+    {
+        "id": 9,
+        "line": 11,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
+    },
+    {
+        "id": 38,
+        "line": 1,
+        "title": "PVP結束後",
+        "kind": 2,
+        "value": 10,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "恭喜您獲得聯盟賽首場勝利，正式加入宇宙聯盟賽的體系！！這是您加入的報酬！！"
+    },
+    {
+        "id": 38,
+        "line": 2,
+        "kind": 2,
+        "value": 10,
+        "uipath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/DailyAwardBtn"
+    },
+    {
+        "id": 38,
+        "line": 3,
+        "kind": 2,
+        "value": 10,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "今後您可以每天回來這裏領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！"
     },
     {
         "id": 99,
