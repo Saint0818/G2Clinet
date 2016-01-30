@@ -673,6 +673,7 @@ public class UISkillReinforce : UIBase {
 		RefreshView(mSkill);
 		initRightCards ();
 		isInReinforce = false;
+		skillEvolution.Refresh(mSkill);
 	}
 
 	/// <summary>
