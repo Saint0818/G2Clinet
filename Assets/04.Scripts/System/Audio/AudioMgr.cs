@@ -155,17 +155,17 @@ public class AudioMgr : KnightSingleton<AudioMgr>
         }
     }
 
-    public void PauseGame()
+    public void PauseGame(bool isparused)
     {
-        if (Time.timeScale == 0)
+        if (isparused)
         {
             if (PausedSnapshot)
-                PausedSnapshot.TransitionTo(snapshotTransitionTime);	
+                PausedSnapshot.TransitionTo(0.01f);     
         }
         else
         {
             if (InGameSnapshot)
-                InGameSnapshot.TransitionTo(snapshotTransitionTime);
+                InGameSnapshot.TransitionTo(0.01f);
         }
     }
 

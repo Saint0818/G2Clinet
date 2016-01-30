@@ -1213,6 +1213,7 @@ public class UIGame : UIBase {
 					}
 				}
 				UIGamePause.Get.SetGameRecord(ref GameController.Get.GameRecord);
+                AudioMgr.Get.PauseGame(true);
 			}
 			break;
 		case EUISituation.Continue:
@@ -1228,6 +1229,7 @@ public class UIGame : UIBase {
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
 				UIGamePause.UIShow(false);
 				initJoystickPos ();
+                AudioMgr.Get.PauseGame(false);
 			}
 			break;
 		case EUISituation.Finish:
@@ -1278,7 +1280,6 @@ public class UIGame : UIBase {
 			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 			break;
 		}
-		AudioMgr.Get.PauseGame();
 	}
 	
 	private void runForceValue () {
