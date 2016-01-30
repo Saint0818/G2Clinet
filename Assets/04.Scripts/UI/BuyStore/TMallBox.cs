@@ -122,12 +122,12 @@ public class TMallBox
 
 	public void UpdataCards (int index, GameObject obj) {
 		obj.transform.parent = DiskScrollView.transform;
-		obj.transform.localPosition = new Vector3(200 * index, 0, 0);
+		obj.transform.localPosition = new Vector3((-175 + 200 * index), 0, 0);
 	}
 
 	public void UpdataItems (int index, GameObject obj) {
 		obj.transform.parent = ItemScrollView.transform;
-		obj.transform.localPosition = new Vector3(200 * index, 0, 0);
+		obj.transform.localPosition = new Vector3(90 * index, 0, 0);
 	}
 
 	private void setHaveFree () {

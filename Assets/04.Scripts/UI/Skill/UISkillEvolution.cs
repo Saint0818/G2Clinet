@@ -63,7 +63,7 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnClose(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnSearch(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 		
 	}
@@ -74,7 +74,7 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnSearch();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 	}
 
@@ -84,13 +84,18 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnSearch();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 	}
 
 	public void RefreshReinForce (TSkill skill, int index) {
 		mSkill = skill;
 		skillIndex = index;
+	}
+
+	public void RefreshPriceUI () {
+		labelPrice.text = evolutionPrice.ToString();
+		labelPrice.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(1,evolutionPrice),1);
 	}
 
 	public void Refresh (TSkill skill) {
@@ -111,7 +116,7 @@ public class UISkillEvolution {
 			}
 
 			goEvolution.SetActive(!labelWarning.activeInHierarchy);
-			labelPrice.text = evolutionPrice.ToString();
+			RefreshPriceUI ();
 
 			skillCards[0].UpdateViewFormation(mSkill, false);
 			skillCards[1].UpdateViewFormation(nextSkill, false);

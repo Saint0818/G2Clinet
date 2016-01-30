@@ -194,6 +194,12 @@ namespace GameStruct
             Player.Init();
         }
 
+		/// <summary>
+		/// Kind 0.Diamond 1.Money 2.PVPCoin 3.SocialCoin
+		/// </summary>
+		/// <returns><c>true</c>, if enough was coined, <c>false</c> otherwise.</returns>
+		/// <param name="kind">Kind.</param>
+		/// <param name="number">Number.</param>
         public bool CoinEnough(int kind, int number) {
             switch (kind) {
                 case 0:

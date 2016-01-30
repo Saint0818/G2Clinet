@@ -89,9 +89,6 @@ public class UISkillReinforce : UIBase {
 
 	private UISkillEvolution skillEvolution;
 
-	private UILabel labelDiamond;
-	private UILabel labelCoin;
-
 	private bool isInReinforce = false;
 	private bool isInEvolution = false;
 
@@ -175,13 +172,8 @@ public class UISkillReinforce : UIBase {
 		reinforceItems = new Dictionary<string, GameObject>();
 		passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
 
-		labelDiamond = GameObject.Find(UIName + "/Window3/Center/DiamondBt/DiamondLabel").GetComponent<UILabel>();
-		labelCoin = GameObject.Find(UIName + "/Window3/Center/CostBt/CostLabel").GetComponent<UILabel>();
-
 		SetBtnFun(UIName + "/Window/Center/RightView/ReinforceBtn", OnReinforce);
 		SetBtnFun(UIName + "/Window3/BottomLeft/BackBtn", OnClose);
-		SetBtnFun(UIName + "/Window3/Center/DiamondBt", OnShowDiamond);
-		SetBtnFun(UIName + "/Window3/Center/CostBt", OnCoin);
 	}
 
 	protected override void InitData() {
@@ -195,12 +187,12 @@ public class UISkillReinforce : UIBase {
 
 	public void OnShowDiamond () {
 		if(IsCanClick)
-			UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode());
+			UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), RefreshPriceUI);
 	}
 
 	public void OnCoin () {
 		if(IsCanClick)
-			UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode());
+			UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode(), RefreshPriceUI);
 	}
 	/// <summary>
 	/// Show the specified skill, index, isAlreadyEquip and showType.
@@ -212,7 +204,7 @@ public class UISkillReinforce : UIBase {
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
 		Visible = true;
-		UpdateUI () ;
+		UIMainLobby.Get.Hide(3, false);
 		mSkill = skill;
 		mOldSkill = mSkill;
 		RefreshView(skill);
@@ -222,11 +214,6 @@ public class UISkillReinforce : UIBase {
 		skillEvolution.ShowView(index, skill, isAlreadyEquip);
 
 		showWindows(showType);
-	}
-
-	public void UpdateUI () {
-		labelDiamond.text = GameData.Team.Diamond.ToString();
-		labelCoin.text = GameData.Team.Money.ToString();
 	}
 
 	private void showWindows (int showType) {
@@ -410,37 +397,27 @@ public class UISkillReinforce : UIBase {
 	private void addUpgradeMoney () {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			reinforceMoney += GameData.DSkillData[mSkill.ID].GetUpgradeMoney(mSkill.Lv);
-			if(CheckMoney(reinforceMoney))
-				labelPrice.color = Color.white;
-			else
-				labelPrice.color = Color.red;
-			labelPrice.text = reinforceMoney.ToString();
-			if(reinforceMoney > 0) {
-				buttonReinforce.normalSprite = "button_orange1";
-				buttonReinforce.pressedSprite = "button_orange2";
-			} else {
-				buttonReinforce.normalSprite = "button_gray";
-				buttonReinforce.pressedSprite = "button_gray2";
-			}
-
+			RefreshPriceUI ();
 		}
 	}
 
 	private void minusUpgradeMoney () {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			reinforceMoney -= GameData.DSkillData[mSkill.ID].GetUpgradeMoney(mSkill.Lv);
-			if(CheckMoney(reinforceMoney))
-				labelPrice.color = Color.white;
-			else
-				labelPrice.color = Color.red;
-			labelPrice.text = reinforceMoney.ToString();
-			if(reinforceMoney > 0) {
-				buttonReinforce.normalSprite = "button_orange1";
-				buttonReinforce.pressedSprite = "button_orange2";
-			} else {
-				buttonReinforce.normalSprite = "button_gray";
-				buttonReinforce.pressedSprite = "button_gray2";
-			}
+			RefreshPriceUI ();
+		}
+	}
+
+	public void RefreshPriceUI () {
+		labelPrice.color = GameData.CoinEnoughTextColor(CheckMoney(reinforceMoney), 1);
+		skillEvolution.RefreshPriceUI();
+		labelPrice.text = reinforceMoney.ToString();
+		if(reinforceMoney > 0) {
+			buttonReinforce.normalSprite = "button_orange1";
+			buttonReinforce.pressedSprite = "button_orange2";
+		} else {
+			buttonReinforce.normalSprite = "button_gray";
+			buttonReinforce.pressedSprite = "button_gray2";
 		}
 	}
 
@@ -565,7 +542,7 @@ public class UISkillReinforce : UIBase {
 					UIHint.Get.ShowHint(TextConst.S(556), Color.red);
 				} else {
 					if(reinforceCards.Count > 0) {
-						if(CheckMoney(reinforceMoney)) {
+						if(CheckMoney(reinforceMoney, true, "", null, RefreshPriceUI)) {
 							removeIndexs = new int[reinforceCards.Count];
 							for (int i=0; i<removeIndexs.Length; i++) {
 								removeIndexs[i] = reinforceCards[i].CardIndex;
@@ -605,8 +582,16 @@ public class UISkillReinforce : UIBase {
 		if(IsCanClick) {
 			Visible = false;
 			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
+			UIMainLobby.Get.HideAll(false);
 		}
 	} 
+
+	public void OnSearch () {
+		if(IsCanClick) {
+			Visible = false;
+			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
+		}
+	}
 
 	private void runExp () {
 		if(isRunExp) {
@@ -688,6 +673,7 @@ public class UISkillReinforce : UIBase {
 		RefreshView(mSkill);
 		initRightCards ();
 		isInReinforce = false;
+		skillEvolution.Refresh(mSkill);
 	}
 
 	/// <summary>

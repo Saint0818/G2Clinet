@@ -101,7 +101,7 @@ public class UIMainLobbyEvents : MonoBehaviour
         if(GameData.IsOpenUIEnable(EOpenUI.Mall))
         {
             UIMainLobby.Get.Hide();
-            UIMall.Get.Show();
+			UIMall.Get.ShowView();
         }
         else
             UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Mall]), Color.white);

@@ -3713,6 +3713,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		if (IsWinner) {
+            AudioMgr.Get.PlaySound (SoundType.SD_ResultWin);
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {
 				if (PlayerList [i].Team == ETeamKind.Self)
@@ -3724,6 +3725,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 		else
 		{
+            AudioMgr.Get.PlaySound (SoundType.SD_ResultLose);
 			NpcWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {
 				if (PlayerList [i].Team == ETeamKind.Self)

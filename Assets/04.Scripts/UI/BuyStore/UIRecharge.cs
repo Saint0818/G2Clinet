@@ -85,6 +85,9 @@ public struct TItemRecharge {
 		RefreshPrice();
 	}
 
+	/// <summary>
+	/// 主要重整有限制次數的UI
+	/// </summary>
 	public void RefreshPrice() {
 		if(mShop.Limit != null) {
 			if(mShop.Order == 0 && GameData.Team.DailyCount.BuyPowerOne >=0) { 
@@ -192,8 +195,8 @@ public class UIRecharge : UIBase {
 	private TItemRecharge[] kindBuyDiamond;
 
 	private bool isInit = false;
-//	private int showText = 0;
 	private int buyIndex = -1;
+	private int recordType = 0;
 
 	public static bool Visible {
 		get {
@@ -242,7 +245,7 @@ public class UIRecharge : UIBase {
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 	}
 
-	public void ShowView (int type) {
+	public void ShowView (int type, EventDelegate.Callback uiUpdate = null) {
 		if(!UISkillReinforce.Visible) {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();
@@ -252,6 +255,10 @@ public class UIRecharge : UIBase {
 				UIMainLobby.Get.Hide(4);
 		}
 		UIShow(true);
+		if (uiUpdate != null)
+			UIRecharge.FreshUICallback = uiUpdate;
+
+		recordType = type;
 		showTab(type);
 		if(!isInit) {
 			initMall ();
@@ -433,11 +440,10 @@ public class UIRecharge : UIBase {
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
 
+			showTab(recordType);
+
             if (FreshUICallback != null)
                 FreshUICallback();
-
-			if(UISkillReinforce.Visible)
-				UISkillReinforce.Get.UpdateUI();
 
             if (UIItemHint.Visible)
                 UIItemHint.Get.FreshUI();
@@ -469,13 +475,11 @@ public class UIRecharge : UIBase {
 
 
 			UIMainLobby.Get.UpdateUI();
+			showTab(recordType);
 			refreshPriceUI ();
 
             if (FreshUICallback != null)
                 FreshUICallback();
-            
-			if(UISkillReinforce.Visible)
-				UISkillReinforce.Get.UpdateUI();
 
             if (UIItemHint.Visible)
                 UIItemHint.Get.FreshUI();

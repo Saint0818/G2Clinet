@@ -134,7 +134,12 @@ public static class GameData
         }
     }
 
-    //0.orajge 1.green
+	/// <summary>
+	/// kind 0.orange1 1.green
+	/// </summary>
+	/// <returns>The enough sprite.</returns>
+	/// <param name="enough">If set to <c>true</c> enough.</param>
+	/// <param name="kind">Kind.</param>
     public static string CoinEnoughSprite(bool enough, int kind=0) {
         if (enough) {
             switch (kind) {
@@ -144,8 +149,12 @@ public static class GameData
         } else
             return "button_gray";
     }
-
-    //kind 0.diamond
+	/// <summary>
+	/// kind 0.diamond
+	/// </summary>
+	/// <returns>The enough text color.</returns>
+	/// <param name="enough">If set to <c>true</c> enough.</param>
+	/// <param name="kind">Kind.</param>
     public static Color CoinEnoughTextColor(bool enough, int kind=0) {
         if (enough) {
             if (kind == 0)
