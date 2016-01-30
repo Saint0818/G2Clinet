@@ -226,6 +226,10 @@ public class UIShop : UIBase {
             labelFreshDiamond.text = "0";
         }
     }
+
+    private void updateUI() {
+        OpenPage(nowPage);
+    }
    
     private void refreshShop(int kind) {
         WWWForm form = new WWWForm();
@@ -348,7 +352,7 @@ public class UIShop : UIBase {
         if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
             diamond = 50 * (GameData.Team.DailyCount.FreshShop +1);
         
-        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshShop, doFreshShop);
+        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshShop, updateUI);
     }
 
     private void doFreshShop() {
@@ -358,12 +362,12 @@ public class UIShop : UIBase {
     private void sendBuyItem() {
         switch (shopItemList[nowPage][nowIndex].Data.SpendKind) {
             case 0:
-                if (!CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true, "", null, doFreshShop))
+                if (!CheckDiamond(shopItemList[nowPage][nowIndex].Data.Price, true, "", null, updateUI))
                     return;
 
                 break;
             case 1:
-                if (!CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true, null, doFreshShop))
+                if (!CheckMoney(shopItemList[nowPage][nowIndex].Data.Price, true, null, updateUI))
                     return;
 
                 break;
