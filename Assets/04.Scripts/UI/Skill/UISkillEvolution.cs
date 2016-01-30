@@ -51,7 +51,7 @@ public class UISkillEvolution {
 		labelWarning.SetActive(false);
 	}
 
-	public void Show (int index, TSkill currentSkill, bool isAlreadyEquip) {
+	public void ShowView (int index, TSkill currentSkill, bool isAlreadyEquip) {
 		skillIndex = index;
 		isEquiped = isAlreadyEquip;
 		Refresh (currentSkill);

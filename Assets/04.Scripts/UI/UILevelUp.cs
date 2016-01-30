@@ -206,7 +206,7 @@ public class UILevelUp : UIBase {
 		if(GameController.Visible) {
 			if(GameData.DExpData.ContainsKey(lv) && GameData.DExpData[lv].OpenIndex > 0) {
 				UIShow(false);
-				UIAchievement.Get.Show(lv);
+				UIAchievement.Get.ShowView(lv);
 			} else {
 				UILoading.OpenUI = UILoading.OpenStageUI;
 				if (isStage)

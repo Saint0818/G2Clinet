@@ -580,7 +580,7 @@ public class UIGameResult : UIBase {
 
 	private void showSkillInfo (int itemID) {
 		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
-		UIGetSkillCard.Get.Show(itemID);
+		UIGetSkillCard.Get.ShowView(itemID);
 	}
 
 	private void moveBonusItem () {

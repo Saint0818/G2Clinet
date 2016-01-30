@@ -219,7 +219,7 @@ public class UISkillReinforce : UIBase {
 		initRightCards ();
 		targetIndex = index;
 		isEquiped = isAlreadyEquip;
-		skillEvolution.Show(index, skill, isAlreadyEquip);
+		skillEvolution.ShowView(index, skill, isAlreadyEquip);
 
 		showWindows(showType);
 	}

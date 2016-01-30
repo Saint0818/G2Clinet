@@ -2582,7 +2582,7 @@ public class PlayerBehaviour : MonoBehaviour
                         LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer", "RealBall");
                     
                     CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
-					UISkillEffect.Get.Show(ActiveSkillUsed);
+					UISkillEffect.Get.ShowView(ActiveSkillUsed);
 					AudioMgr.Get.PlaySound (SoundType.SD_ActiveLaunch);
                     
                     switch (skillEffectKind)
@@ -2633,7 +2633,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
 
                 if (!IsUseActiveSkill)
-					UIPassiveEffect.Get.Show(ActiveSkillUsed, this);
+					UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
                 showActiveEffect();
             }
         }

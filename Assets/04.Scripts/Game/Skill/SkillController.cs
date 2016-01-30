@@ -561,7 +561,7 @@ public class SkillController : MonoBehaviour {
 				if(GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID)) {
 					CheckSkillValueAdd(PassiveSkillUsed);
 					if(!executePlayer.IsUseActiveSkill)
-						UIPassiveEffect.Get.Show(PassiveSkillUsed, executePlayer);
+						UIPassiveEffect.Get.ShowView(PassiveSkillUsed, executePlayer);
 					SkillEffectManager.Get.OnShowEffect(executePlayer, true);
 					executePlayer.GameRecord.PassiveSkill++;
 				}

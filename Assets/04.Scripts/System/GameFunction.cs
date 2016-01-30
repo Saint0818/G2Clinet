@@ -854,4 +854,11 @@ public static class GameFunction
         else
             return string.Format("{0}M {1}S", time.Minutes, time.Seconds);
     }
+
+	public static int GetSkillLevel (TSkill skill) {
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			return Mathf.Clamp(skill.Lv, 0, GameData.DSkillData[skill.ID].MaxStar);
+		}
+		return 0;
+	}
 }

@@ -41,7 +41,7 @@ public class GetTenItem : MonoBehaviour {
 							if(isNeedPause[index]){
 								isNeedPause[index] = false;
 								isShowPause = true;
-								UIGetSkillCard.Get.Show(itemAwardGroups[index].mItemData.ID);
+								UIGetSkillCard.Get.ShowView(itemAwardGroups[index].mItemData.ID);
 							}
 							index ++;
 						} 

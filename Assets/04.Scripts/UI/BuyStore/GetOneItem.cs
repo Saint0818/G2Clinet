@@ -22,6 +22,6 @@ public class GetOneItem : MonoBehaviour {
 
 	public void ShowNew () {
 		if(GameData.Team.CheckSkillCardisNew(mItemData.Avatar))
-			UIGetSkillCard.Get.Show(mItemData.ID);
+			UIGetSkillCard.Get.ShowView(mItemData.ID);
 	}
 }

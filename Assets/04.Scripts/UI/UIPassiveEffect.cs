@@ -3,6 +3,7 @@ using UnityEngine;
 using GameStruct;
 
 public struct TPassiveValue {
+	public TSkill Skill;
 	public float Timer;
 	public float DelayCloseTimers;
 	public int CardPicNos;
@@ -10,6 +11,7 @@ public struct TPassiveValue {
 	public string CardNames;
 
 	public TPassiveValue (int i) {
+		Skill = new TSkill();
 		Timer = 0;
 		DelayCloseTimers = 0;
 		CardPicNos = 0;
@@ -85,9 +87,7 @@ public class UIPassiveEffect : UIBase {
 		}
 	}
 	
-	public void Show (TSkill skill, PlayerBehaviour player){
-//		if(!Visible)
-//			Show(true);
+	public void ShowView (TSkill skill, PlayerBehaviour player){
 
 		string name = "";
 		if (GameData.DSkillData.ContainsKey(skill.ID)) {
@@ -98,12 +98,12 @@ public class UIPassiveEffect : UIBase {
 			for (int i=0; i<recordIndex.Length; i++) {
 				if(!contains(i)) {
 					addValue(i);
-					initCard(i, skill.ID, skill.Lv, name);
+					initCard(skill, i, skill.ID, skill.Lv, name);
 					break;
 				} else {
 					if(recordIndex[recordIndex.Length - 1] == i) {
 						addValue(i);
-						initCard(i, skill.ID, skill.Lv, name);
+						initCard(skill, i, skill.ID, skill.Lv, name);
 						break;
 					}
 				}
@@ -180,8 +180,9 @@ public class UIPassiveEffect : UIBase {
 		recordIndex[0] = index;
 	}
 
-	private void initCard (int index, int picNo = 0, int lv = 0, string name = "") {
+	private void initCard (TSkill skill, int index, int picNo = 0, int lv = 0, string name = "") {
 		passiveValue[index].Timer = 2;
+		passiveValue[index].Skill = skill;
 		passiveValue[index].DelayCloseTimers = 999;
 		passiveValue[index].CardPicNos = picNo;
 		passiveValue[index].CardLVs = lv;
@@ -204,7 +205,7 @@ public class UIPassiveEffect : UIBase {
 			uiCardMotion[recordIndex[2]].transform.DOLocalMoveX(20, 0.2f);
 			hideCard(recordIndex[2]);
 		}
-		spriteCardFrame[recordIndex[0]].spriteName = "cardlevel_" + Mathf.Clamp(passiveValue[recordIndex[0]].CardLVs, 1, 3).ToString();
+		spriteCardFrame[recordIndex[0]].spriteName = "cardlevel_" + GameFunction.GetSkillLevel(passiveValue[recordIndex[0]].Skill).ToString();
 		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTexture(passiveValue[recordIndex[0]].CardPicNos);
 		labelCardLabel[recordIndex[0]].text = passiveValue[recordIndex[0]].CardNames;
 		passiveValue[recordIndex[0]].Timer = 2;

@@ -38,7 +38,7 @@ public class UIAchievement : UIBase {
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/Mask")).onClick = OnReturn;
 	}
 
-	public void Show (int lv){
+	public void ShowView (int lv){
 		UIShow(true);
 		playerLv = lv;
 		if(GameData.DExpData.ContainsKey(lv))

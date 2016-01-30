@@ -97,7 +97,7 @@ public class UIGetSkillCard : UIBase {
 //		}
 //	}
 
-	public void Show(int id) {
+	public void ShowView(int id) {
 		if(GameData.DItemData.ContainsKey(id)){
 			if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
 				Visible = true;
