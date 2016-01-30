@@ -172,10 +172,10 @@ public class UITutorial : UIBase {
 				TTutorial tu = GameData.DTutorial[NowMessageIndex];
                 if (!string.IsNullOrEmpty(tu.UIPath))
                     ShowNextStep(tu.UIPath, tu.Offsetx, tu.Offsety);
-                else
-                if (!string.IsNullOrEmpty(tu.HintPath))
-                    ShowHint(tu.HintPath, tu.Offsetx, tu.Offsety);
                 else {
+                    if (!string.IsNullOrEmpty(tu.HintPath))
+                        ShowHint(tu.HintPath, tu.Offsetx, tu.Offsety);
+                    
 					uiCenter.SetActive(true);
 					uiBackground.SetActive(true);
 					uiClick.SetActive(false);
@@ -272,7 +272,6 @@ public class UITutorial : UIBase {
 
     public void ShowHint(string path, int offsetx, int offsety) {
         try {
-            bool found = false;
             GameObject obj = GameObject.Find(path);
             UIScrollView sv = obj.GetComponent<UIScrollView>();
             if (sv != null) {

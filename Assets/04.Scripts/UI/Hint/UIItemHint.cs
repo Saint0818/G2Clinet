@@ -12,7 +12,6 @@ public class UIItemHint : UIBase {
     private UISprite spriteCoin;
     private UILabel labelPrice;
     private UILabel labelCount;
-    private UILabel labelBuy;
 
 	private UILabel uiLabelName;
 	private UIScrollView scrollViewExplain;
@@ -59,20 +58,14 @@ public class UIItemHint : UIBase {
             sellItemData = data;
             labelPrice.text = data.Price.ToString();
             labelCount.text = string.Format(TextConst.S(4513), data.Num);
-            FreshUI();
-
             spriteCoin.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
-            if (data.SpendKind == 0)
-                labelPrice.color = new Color(255, 0, 255, 255);
-            else
-                labelPrice.color = Color.white;
+            FreshUI();
         }
     }
 
 	protected override void InitCom() {
         uiBuy = GameObject.Find (UIName + "/Window/Center/BuyItem");
         buttonBuy = GameObject.Find (UIName + "/Window/Center/BuyItem/Buy").GetComponent<UIButton>();
-        labelBuy = GameObject.Find (UIName + "/Window/Center/BuyItem/Buy/Label").GetComponent<UILabel>();
         spriteCoin = GameObject.Find (UIName + "/Window/Center/BuyItem/SpendKind").GetComponent<UISprite>();
         labelPrice = GameObject.Find (UIName + "/Window/Center/BuyItem/Price").GetComponent<UILabel>();
         labelCount = GameObject.Find (UIName + "/Window/Center/BuyItem/Count").GetComponent<UILabel>();
@@ -197,7 +190,7 @@ public class UIItemHint : UIBase {
 
     public void FreshUI() {
         bool flag = GameData.Team.CoinEnough(sellItemData.SpendKind, sellItemData.Price);
-        labelBuy.color = GameData.CoinEnoughTextColor(flag, sellItemData.SpendKind);
-        buttonBuy.normalSprite = GameData.CoinEnoughSprite(flag);
+        labelPrice.color = GameData.CoinEnoughTextColor(flag, sellItemData.SpendKind);
+        buttonBuy.normalSprite = GameData.CoinEnoughSprite(flag, 1);
     }
 }

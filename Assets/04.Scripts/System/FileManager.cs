@@ -727,12 +727,12 @@ public class FileManager : KnightSingleton<FileManager>
             GameData.MissionData = JsonConvertWrapper.DeserializeObject<TMission[]>(text);
 			for (int i = 0; i < GameData.MissionData.Length; i++)
                 if (!GameData.DMissionData.ContainsKey(GameData.MissionData[i].ID)) {
-                    if (GameData.MissionData[i].Value.Length > 0 &&
-                        GameData.MissionData[i].Value.Length == GameData.MissionData[i].AwardID.Length &&
-                        GameData.MissionData[i].Value.Length == GameData.MissionData[i].AwardNum.Length &&
-                        GameData.MissionData[i].Value.Length == GameData.MissionData[i].Diamond.Length &&
-                        GameData.MissionData[i].Value.Length == GameData.MissionData[i].Money.Length &&
-                        GameData.MissionData[i].Value.Length == GameData.MissionData[i].Exp.Length)
+                    if (GameData.MissionData[i].Value != null && GameData.MissionData[i].Value.Length > 0 &&
+                        (GameData.MissionData[i].AwardID == null || GameData.MissionData[i].Value.Length == GameData.MissionData[i].AwardID.Length) &&
+                        (GameData.MissionData[i].AwardNum == null || GameData.MissionData[i].Value.Length == GameData.MissionData[i].AwardNum.Length) &&
+                        (GameData.MissionData[i].Diamond == null || GameData.MissionData[i].Value.Length == GameData.MissionData[i].Diamond.Length) &&
+                        (GameData.MissionData[i].Money == null || GameData.MissionData[i].Value.Length == GameData.MissionData[i].Money.Length) &&
+                        (GameData.MissionData[i].Exp == null || GameData.MissionData[i].Value.Length == GameData.MissionData[i].Exp.Length))
 					    GameData.DMissionData.Add(GameData.MissionData[i].ID, GameData.MissionData[i]);
                     else
                         Debug.Log("Mission value length not the same " + GameData.MissionData[i].ID.ToString());

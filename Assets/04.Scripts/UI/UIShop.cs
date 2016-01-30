@@ -210,7 +210,7 @@ public class UIShop : UIBase {
         shopItemList[page][index].SpriteSpendKind.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
 
         bool flag = GameData.Team.CoinEnough(shopItemList[page][index].Data.SpendKind, shopItemList[page][index].Data.Price);
-        shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag);
+        shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag, 1);
         shopItemList[page][index].LabelPrice.color = GameData.CoinEnoughTextColor(flag, shopItemList[page][index].Data.SpendKind);
 
 
