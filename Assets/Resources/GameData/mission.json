@@ -11,6 +11,8 @@
         "money": [100],
         "exp": [10],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "5 Wins",
         "explaintw": "取得生涯競賽5場勝利",
         "explainen": "Enhance the visibility rating"
@@ -1265,6 +1267,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "PVE number of wins",
         "explaintw": "取得生涯競賽的勝利",
         "explainen": "Career victory won three games daily"
@@ -1284,6 +1288,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "A copy of the winning number",
         "explaintw": "取得魔王挑戰的勝利"
     },
@@ -1302,6 +1308,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "PVP winning number",
         "explaintw": "取得聯盟對戰的勝利"
     },
@@ -1320,6 +1328,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Perfect Number",
         "explaintw": "成功掌握投籃的Perfect時機次數"
     },
@@ -1338,6 +1348,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Skills Upgrading synthesis card",
         "explaintw": "技能晶片升級合成次數"
     },
@@ -1356,6 +1368,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Advanced Skills Card",
         "explaintw": "技能晶片進化次數"
     },
@@ -1374,6 +1388,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Numerical mounted mosaic",
         "explaintw": "突觸強化鑲嵌次數"
     },
@@ -1392,6 +1408,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Numerical loaded synthesis",
         "explaintw": "突觸強化合成次數"
     },
@@ -1410,6 +1428,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Consumer physical",
         "explaintw": "消費體力數量"
     },
@@ -1428,6 +1448,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Consumer medal",
         "explaintw": "消費金幣數量",
         "explainen": "Daily scored 10 points"
@@ -1447,6 +1469,8 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
+        "awardid": [0],
+        "awardnum": [0],
         "nameen": "Consumer diamonds",
         "explaintw": "消費寶石數量",
         "explainen": "Get 5 Perfect day"
