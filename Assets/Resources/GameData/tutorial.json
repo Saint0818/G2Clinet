@@ -479,8 +479,79 @@
         "kind": 4,
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 6,
+        "actionl": 1,
         "texttw": "記得在倒數時間結束後再回來抽喔．"
+    },
+    {
+        "id": 8,
+        "line": 1,
+        "title": "天梯",
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 4,
+        "texttw": "請問您是{0}嗎？"
+    },
+    {
+        "id": 8,
+        "line": 2,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "對啊，我是，你找我有事嗎？"
+    },
+    {
+        "id": 8,
+        "line": 3,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "是這樣的，由於您優異的表現，獲得了[ff6060]宇宙聯盟總會[-]的關注，因此總會想要邀請您加入宇宙聯盟的聯賽，讓您有機會與宇宙中的強者有[ff6060]一較高下[-]的機會。"
+    },
+    {
+        "id": 8,
+        "line": 4,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "加入聯盟之後會有豐厚的報酬等著您喔。"
+    },
+    {
+        "id": 8,
+        "line": 5,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "這麼酷，那我當然要加入。"
+    },
+    {
+        "id": 8,
+        "line": 6,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "太好了，讓我來告訴您如何加入！！"
+    },
+    {
+        "id": 8,
+        "line": 7,
+        "kind": 4,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/PvPStageBtn"
+    },
+    {
+        "id": 8,
+        "line": 8,
+        "kind": 4,
+        "talkpath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/DailyAwardBtn",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "一開始您會從[ff6060]街頭聯盟[-]開始打起，隨著積分的改變，將會決定您聯盟等級的升降，越高級的聯盟可以獲得越高的報酬喔！！"
     },
     {
         "id": 99,
