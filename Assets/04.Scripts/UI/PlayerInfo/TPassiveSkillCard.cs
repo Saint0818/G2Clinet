@@ -27,19 +27,19 @@ public class TPassiveSkillCard
 			go.transform.localPosition = Vector3.zero;
 			go.transform.localScale = Vector3.one;
 			item = go;
-			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
-			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
-			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
-			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
-			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
-			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
-			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
+			SkillName =  go.transform.Find("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.Find("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillTexture = go.transform.Find("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.Find("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.Find("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.Find("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++) 
-				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 
-			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			BtnRemove = go.transform.Find("BtnRemove").gameObject;
 			btn = item.GetComponent<UIButton>();
 			BtnRemove.SetActive(isFormation);
 			SkillCost.gameObject.SetActive(isFormation);
@@ -86,19 +86,19 @@ public class TPassiveSkillCard
 	{
 		if (!isInit && go) {
 			go.transform.localScale = Vector3.one;
-			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
-			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
-			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
-			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
-			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
-			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
-			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
+			SkillName =  go.transform.Find("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.Find("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillTexture = go.transform.Find("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.Find("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.Find("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.Find("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++) 
-				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 
-			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			BtnRemove = go.transform.Find("BtnRemove").gameObject;
 			BtnRemove.SetActive(true);
 			ForReinforce.SetActive(false);
 			isInit =  SkillCard  && SkillName && SkillTexture && SkillKind && SkillKindBg;
@@ -137,19 +137,19 @@ public class TPassiveSkillCard
 			item = go;
 			CardIndex = skillCardIndex;
 			go.transform.localScale = Vector3.one;
-			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
-			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
-			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
-			SkillCost = go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
-			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
-			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
-			ForReinforce = go.transform.FindChild("ForReinforce").gameObject;
-			ForReinforceLabel = go.transform.FindChild("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
+			SkillName =  go.transform.Find("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCard =  go.transform.Find("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillTexture = go.transform.Find("SkillTexture").gameObject.GetComponent<UITexture>();
+			SkillCost = go.transform.Find("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			ForReinforce = go.transform.Find("ForReinforce").gameObject;
+			ForReinforceLabel = go.transform.Find("ForReinforce/SelectLabel").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++) 
-				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 
-			BtnRemove = go.transform.FindChild("BtnRemove").gameObject;
+			BtnRemove = go.transform.Find("BtnRemove").gameObject;
 			BtnRemove.SetActive(false);
 			ForReinforce.SetActive(false);
 			isInit =  SkillCard  && SkillName && SkillTexture && SkillKind && SkillKindBg;

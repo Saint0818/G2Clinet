@@ -90,6 +90,11 @@ public struct TUICard{
 
 		skillCard = new TActiveSkillCard();
 		skillCard.Init(obj, btnFunc, true);
+		skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
+			((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.CheckNoInstallCard(skill.SN)) ||
+			GameData.Team.CheckCardCost(skill)
+		);
+			
 	}
 }
 
@@ -304,10 +309,6 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
 		SetBtnFun (UIName + "/Center/SellBtn/SellCount/CancelBtn", DoCloseSell);
 		StartCoroutine(loadCard());
-	}
-
-	protected override void InitData() {
-		
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -1522,6 +1523,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.InitSkillCardCount();
 			setEditState(false);
 			UIMainLobby.Get.UpdateUI();
+			AudioMgr.Get.PlaySound (SoundType.SD_Sell);
 		} else {
 			Debug.LogError("text:"+www.text);
 		}

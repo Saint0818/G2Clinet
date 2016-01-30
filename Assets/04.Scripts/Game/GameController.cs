@@ -160,6 +160,8 @@ public class GameController : KnightSingleton<GameController>
 
 	public float RecordTimeScale = 1;
 
+	private float finishWaitTime = 2;
+
 	//debug value
 	[HideInInspector]public int PlayCount = 0;
 	[HideInInspector]public int SelfWin = 0;
@@ -798,6 +800,16 @@ public class GameController : KnightSingleton<GameController>
 			if(CheckAllPlayerIdle) {
 				IsFinishShow = false;
 				StartCoroutine(playFinish());
+			} else {
+				if(IsFinishShow){
+					finishWaitTime -= Time.deltaTime;
+					if(finishWaitTime <= 0) {
+						SetBallOwnerNull();
+						CourtMgr.Get.RealBall.transform.position = Vector3.down * 100;
+						for(int i = 0; i < PlayerList.Count; i++)
+							PlayerList[i].AniState(EPlayerState.Idle);
+					}
+				}
 			}
 		}
 	}
@@ -1438,8 +1450,6 @@ public class GameController : KnightSingleton<GameController>
 				SetPlayerAI(false);
 				IsFinish = true;
 				UIGame.Get.GameOver();
-//				for(int i = 0; i < PlayerList.Count; i++)
-//					PlayerList[i].AniState(EPlayerState.Idle);
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }

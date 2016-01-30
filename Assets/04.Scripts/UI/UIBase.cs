@@ -229,7 +229,7 @@ public class UIBase: MonoBehaviour
 
 	public void OnBuyMoney() 
 	{
-		UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
+		UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode());
 		UIMessage.UIShow(false);
 	}
 
@@ -260,7 +260,7 @@ public class UIBase: MonoBehaviour
 	}
 
 	public void OnDiamond() {
-		UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
+		UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode());
 		UIMessage.UIShow(false);
 	}
 
@@ -283,7 +283,7 @@ public class UIBase: MonoBehaviour
 	}
 
 	public void OnBuyPower() {
-		UIRecharge.Get.Show(ERechargeType.Power.GetHashCode());
+		UIRecharge.Get.ShowView(ERechargeType.Power.GetHashCode());
 		UIMessage.UIShow(false);
 	}
 

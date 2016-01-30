@@ -482,7 +482,7 @@ namespace GameStruct
 
             return false;
         }
-
+		//檢查空間是否有卡牌可以安裝
 		public bool IsSurplusCost {
 			get {
 				int surplus = GameConst.Max_CostSpace - Player.GetSkillCost;
@@ -496,6 +496,132 @@ namespace GameStruct
 				}
 				return false;
 			}
+		}
+		public bool CheckCardCost (TSkill skill) {
+			if(GameData.DSkillData.ContainsKey(skill.ID)) {
+				int surplus = GameConst.Max_CostSpace - Player.GetSkillCost;
+				if(GameData.DSkillData[skill.ID].Space(skill.Lv) <= surplus)
+					return true;
+			}
+			return false;
+		}
+
+		//檢查所有卡片是否有可以進化或合成(For GameLobby Skill RedPoint)
+		public bool IsAnyCardReinEvo {
+			get {
+				if(SkillCards != null && SkillCards.Length > 0) {
+					for(int i=0; i<SkillCards.Length; i++) {
+						if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
+							if(IsEnoughMaterial(SkillCards[i])){
+									return true;
+							}
+						}
+					}
+				}
+				
+				if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
+					for (int i=0; i<Player.SkillCards.Length; i++) {
+						if(GameData.DSkillData.ContainsKey(Player.SkillCards[i].ID )) {
+							if(IsEnoughMaterial(Player.SkillCards[i])) {
+								return true; 
+							}
+						}
+					}
+				}
+					
+				return false;
+			}
+		}
+
+		//檢查是否有未安裝的卡
+		public bool IsExtraCard {
+			get {
+				if(SkillCards != null && SkillCards.Length > 0) 
+					for (int i=0; i<SkillCards.Length; i++) 
+						if(CheckNoInstallCard(SkillCards[i].SN))
+							return true;
+				
+				return false;
+			}	
+		}
+		//true : no Install
+		public bool CheckNoInstallCard (int sn) {
+			if(PlayerBank != null && PlayerBank.Length > 0) {
+				for (int i=0; i<PlayerBank.Length; i++) {
+					if(PlayerBank[i].SkillCardPages != null && PlayerBank[i].SkillCardPages.Length > 0) {
+						for (int j=0; j<PlayerBank[i].SkillCardPages.Length; j++) {
+							int[] SNs = PlayerBank[i].SkillCardPages[j].SNs;
+							if (SNs.Length > 0) {
+								for (int k=0; k<SNs.Length; k++)
+									if (SNs[k] == sn)
+										return false;
+							}
+						}
+					}
+				}
+			}
+
+			if(Player.SkillCardPages != null && Player.SkillCardPages.Length > 0) {
+				for (int i=0; i<Player.SkillCardPages.Length; i++) {
+					int[] SNs = Player.SkillCardPages[i].SNs;
+					if (SNs.Length > 0) {
+						for (int k=0; k<SNs.Length; k++)
+							if (SNs[k] == sn)
+								return false;
+					}
+				}
+			}
+
+			for(int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
+				if(GameData.Team.Player.SkillCards[i].SN == sn)
+					return false;
+
+			return true;
+		}
+
+		//檢查該卡片是否有足夠材料
+		public bool IsEnoughMaterial (TSkill skill) {
+			TMaterialItem materialSkillCard = new TMaterialItem();
+			bool flag1 = true;
+			bool flag2 = true;
+			bool flag3 = true;
+			if(GameData.DSkillData.ContainsKey(skill.ID) || GameData.DSkillData[skill.ID].EvolutionSkill != 0) {
+				if(!GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1) && 
+					!GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2) &&
+					!GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3))
+					return false;
+
+				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
+				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1)) {
+					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1)
+						flag1 = true;
+					else 
+						flag1 = false;
+				}
+
+				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
+				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2)) {
+					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2)
+						flag2 = true;
+					else
+						flag2 = false;
+				} 
+
+				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3)) {
+					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3)
+						flag3 = true;
+					else
+						flag3 = false;
+				} 
+
+				if(flag1 && flag2 && flag3)
+					return true;
+				else
+					return false;
+			} else 
+				return false;
+
 		}
 
 		public void InitSkillCardCount () {

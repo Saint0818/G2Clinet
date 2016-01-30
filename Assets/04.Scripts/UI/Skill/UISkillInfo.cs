@@ -42,6 +42,7 @@ public class UISkillInfo : UIBase {
 	private GameObject goCraftUnuse;
 	private GameObject goUpgradeUnuse;
 
+	private GameObject goEquipRedPoint;
 	private GameObject goCraftRedPoint;
 	private GameObject goUpgradeRedPoint;
 
@@ -89,6 +90,7 @@ public class UISkillInfo : UIBase {
 		goCraftUnuse = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/UnUseLabel");
 		goUpgradeUnuse = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/UnUseLabel");
 
+		goEquipRedPoint = GameObject.Find (UIName + "/Center/TopRight/EquipBtn/RedPoint");
 		goCraftRedPoint = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/RedPoint");
 		goUpgradeRedPoint = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/RedPoint");
 
@@ -175,8 +177,9 @@ public class UISkillInfo : UIBase {
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar));
 
+				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && !isAlreadyEquip);
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
-				goCraftRedPoint.SetActive((skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar));
+				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar));
 			}
 
 			//MediumCard

@@ -123,7 +123,7 @@ public class UIMessage : UIBase {
 	}
 
 	public void OnGoRecharge() {
-		UIRecharge.Get.Show(rechargeType);
+		UIRecharge.Get.ShowView(rechargeType);
 		UIShow(false);
 	}
 }

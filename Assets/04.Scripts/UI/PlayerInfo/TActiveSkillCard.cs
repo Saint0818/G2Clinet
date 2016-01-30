@@ -27,6 +27,7 @@ public class TActiveSkillCard
 	public UILabel SellLabel;
 	public GameObject SellSelectCover;
 	public UISpriteAnimation LightAnimation;
+	public GameObject RedPoint;
 
 	private bool isInit = false;
 	private UIButton btn;
@@ -35,31 +36,35 @@ public class TActiveSkillCard
 	{
 		if (!isInit && go) {
 			self = go;
-			SkillPic = go.transform.FindChild("SkillPic").gameObject.GetComponent<UITexture>();
-			SkillCard = go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
-			SkillName = go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
+			SkillPic = go.transform.Find("SkillPic").gameObject.GetComponent<UITexture>();
+			SkillCard = go.transform.Find("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillName = go.transform.Find("SkillName").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++)
-				SkillStars[i] = go.transform.FindChild("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
-			SkillSuit = go.transform.FindChild("SkillSuit").gameObject.GetComponent<UISprite>();
-			SkillKind = go.transform.FindChild("SkillKind").gameObject.GetComponent<UISprite>();
-			SkillKindBg = go.transform.FindChild("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
-			UnavailableMask = go.transform.FindChild("UnavailableMask").gameObject;
-			if(go.transform.FindChild("UnavailableMask/UnavailableLabel") != null) {
-				UnavailableMaskLabel = go.transform.FindChild("UnavailableMask/UnavailableLabel").GetComponent<UILabel>();
+				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+			SkillSuit = go.transform.Find("SkillSuit").gameObject.GetComponent<UISprite>();
+			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
+			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			UnavailableMask = go.transform.Find("UnavailableMask").gameObject;
+			if(go.transform.Find("UnavailableMask/UnavailableLabel") != null) {
+				UnavailableMaskLabel = go.transform.Find("UnavailableMask/UnavailableLabel").GetComponent<UILabel>();
 				UnavailableMaskLabel.text = TextConst.S(7115);
 			}
-			if(go.transform.FindChild("DragMask") != null)
-				DragMask = go.transform.FindChild("DragMask").gameObject;
-			InListCard = go.transform.FindChild("InListCard").gameObject;
-			SellSelect = go.transform.FindChild("SellSelect").gameObject;
-			SellLabel = go.transform.FindChild("SellSelect/SellLabel").gameObject.GetComponent<UILabel>();
-			SellSelectCover = go.transform.FindChild("SellSelect/SellCover").gameObject;
-			LightAnimation = go.transform.FindChild("InListCard/SpriteAnim/Shine").gameObject.GetComponent<UISpriteAnimation>();
+			if(go.transform.Find("DragMask") != null)
+				DragMask = go.transform.Find("DragMask").gameObject;
+			InListCard = go.transform.Find("InListCard").gameObject;
+			SellSelect = go.transform.Find("SellSelect").gameObject;
+			SellLabel = go.transform.Find("SellSelect/SellLabel").gameObject.GetComponent<UILabel>();
+			SellSelectCover = go.transform.Find("SellSelect/SellCover").gameObject;
+			LightAnimation = go.transform.Find("InListCard/SpriteAnim/Shine").gameObject.GetComponent<UISpriteAnimation>();
+			if(go.transform.Find("RedPoint"))
+				RedPoint = go.transform.Find("RedPoint").gameObject;
 
-			go.transform.FindChild ("InListCard/InlistLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7110);
-			go.transform.FindChild ("SellSelect/SellCover/SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7114);
+			go.transform.Find ("InListCard/InlistLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7110);
+			go.transform.Find ("SellSelect/SellCover/SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7114);
 
+			if(RedPoint != null)
+				RedPoint.SetActive(false);
 			UnavailableMask.SetActive(isFormation);
 			if(DragMask != null)
 				DragMask.SetActive(false);
@@ -236,5 +241,14 @@ public class TActiveSkillCard
 	public void SetCoin (int money) {
 		if(SellLabel != null)
 			SellLabel.text = money.ToString();
+	}
+
+	public bool CheckRedPoint {
+		get {if(RedPoint != null)
+				return RedPoint.activeSelf;
+			else 
+				return false;}
+		set {if(RedPoint != null)
+				RedPoint.SetActive(value);}
 	}
 }

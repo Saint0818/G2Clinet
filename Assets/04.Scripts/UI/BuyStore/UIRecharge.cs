@@ -242,7 +242,7 @@ public class UIRecharge : UIBase {
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 	}
 
-	public void Show (int type) {
+	public void ShowView (int type) {
 		if(!UISkillReinforce.Visible) {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();

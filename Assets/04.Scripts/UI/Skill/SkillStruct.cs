@@ -85,6 +85,7 @@ public struct TSkillCardMaterial {
 	public UISprite[] ElementPic;
 	public UILabel[] NameLabel;
 	public UILabel[] AmountLabel; // 99/99
+	public GameObject[] RedPoint;
 
 	public TSkill mSkill;
 	public int material1index;
@@ -100,6 +101,7 @@ public struct TSkillCardMaterial {
 		ElementPic = new UISprite[3];
 		NameLabel = new UILabel[3];
 		AmountLabel = new UILabel[3];
+		RedPoint = new GameObject[3];
 
 		for (int i=0; i<3; i++) {
 			mMaterial[i] = obj.transform.FindChild("ElementSlot" + i.ToString()).gameObject;
@@ -107,6 +109,7 @@ public struct TSkillCardMaterial {
 			ElementPic[i] = obj.transform.FindChild("ElementSlot" + i.ToString() + "/View/MaterialItem/ElementPic").GetComponent<UISprite>();
 			NameLabel[i] = obj.transform.FindChild("ElementSlot" + i.ToString() + "/View/MaterialItem/NameLabel").GetComponent<UILabel>();
 			AmountLabel[i] = obj.transform.FindChild("ElementSlot" + i.ToString() + "/View/MaterialItem/AmountLabel").GetComponent<UILabel>();
+			RedPoint[i] =  obj.transform.FindChild("ElementSlot" + i.ToString() + "/View/MaterialItem/RedPoint").gameObject;
 		}
 	}
 
@@ -134,6 +137,8 @@ public struct TSkillCardMaterial {
 					else 
 						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 
+					RedPoint[0].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1));
+
 					material1count = materialSkillCard.Num;
 				}
 			}
@@ -153,7 +158,9 @@ public struct TSkillCardMaterial {
 					if(material2index != -1)
 						AmountLabel[1].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
 					else 
-						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+						AmountLabel[1].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+					
+					RedPoint[1].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2));
 
 					material2count = materialSkillCard.Num;
 				}
@@ -174,7 +181,9 @@ public struct TSkillCardMaterial {
 					if(material3index != -1)
 						AmountLabel[2].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 					else 
-						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+						AmountLabel[2].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+
+					RedPoint[2].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3));
 
 					material3count = materialSkillCard.Num;
 				}

@@ -10,9 +10,9 @@ public struct ReinEvoTab {
 	private GameObject unUse;
 
 	public void Init (GameObject obj, UIEventListener.VoidDelegate delegateCall) {
-		selected = obj.transform.FindChild("Selected").gameObject;
-		redPoint = obj.transform.FindChild("RedPoint").gameObject;
-		unUse = obj.transform.FindChild("UnUseLabel").gameObject;
+		selected = obj.transform.Find("Selected").gameObject;
+		redPoint = obj.transform.Find("RedPoint").gameObject;
+		unUse = obj.transform.Find("UnUseLabel").gameObject;
 
 		UIEventListener.Get(obj).onClick = delegateCall;
 	}
@@ -195,12 +195,12 @@ public class UISkillReinforce : UIBase {
 
 	public void OnShowDiamond () {
 		if(IsCanClick)
-			UIRecharge.Get.Show(ERechargeType.Diamond.GetHashCode());
+			UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode());
 	}
 
 	public void OnCoin () {
 		if(IsCanClick)
-			UIRecharge.Get.Show(ERechargeType.Coin.GetHashCode());
+			UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode());
 	}
 	/// <summary>
 	/// Show the specified skill, index, isAlreadyEquip and showType.
@@ -243,7 +243,7 @@ public class UISkillReinforce : UIBase {
 			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar);
 			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
 			//Evolution
-			reinEvoTabs[1].CheckRedPoint = (GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar));
+			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar));
 			reinEvoTabs[1].CheckUnUse = (GameData.DSkillData[mSkill.ID].EvolutionSkill == 0);
 		}
 	}
@@ -591,6 +591,7 @@ public class UISkillReinforce : UIBase {
 									SendReinforce(1);
 							}
 						} else {
+							AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 							UIHint.Get.ShowHint(TextConst.S(510), Color.white);
 						}
 					} else 

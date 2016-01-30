@@ -119,35 +119,5 @@ public class UIGameLoseResult : UIBase {
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 			UILoading.OpenUI = UILoading.OpenStageUI;
 		}
-
-
-//		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
-//			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
-//				GameData.StageID = GameController.Get.StageData.ID + 1;
-//				int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
-//				SceneMgr.Get.CurrentScene = "";
-//				SceneMgr.Get.ChangeLevel (courtNo);
-//			} else {
-//				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//			}
-//		}
-//        else 
-//        {
-//            if(GameData.IsMainStage)
-//            {
-//                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//                UILoading.OpenUI = UILoading.OpenStageUI;
-//            }
-//            else if(GameData.IsInstance)
-//            {
-//                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//                UILoading.OpenUI = UILoading.OpenInstanceUI;
-//            }
-//            else
-//            {
-//                SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
-//                UILoading.OpenUI = UILoading.OpenStageUI;
-//            }
-//		}
 	}
 }

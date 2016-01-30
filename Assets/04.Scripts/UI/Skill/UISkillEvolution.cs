@@ -12,6 +12,7 @@ public class UISkillEvolution {
 	private TActiveSkillCard[] skillCards = new TActiveSkillCard[2];
 	private TSkillCardValue[] skillCardValues = new TSkillCardValue[2];
 	private TSkillCardMaterial skillCardMaterial;
+	private GameObject skillCanEvolution;
 
 	private UILabel labelPrice;
 
@@ -36,6 +37,8 @@ public class UISkillEvolution {
 			skillCardValues[i].Init(GameObject.Find(UIName + "/Window2/Center/View/LeftPart/ReinforceInfo"+i.ToString()).transform);
 		}
 
+		skillCanEvolution = GameObject.Find(UIName + "/Window2/Center/View/LeftPart/CanEvolution");
+
 		skillCardMaterial = new TSkillCardMaterial();
 		skillCardMaterial.Init(GameObject.Find(UIName + "/Window2/Center/View/RightPart/Evolution"));
 		materialIndexs = new int[3];//目前訂三種
@@ -58,9 +61,9 @@ public class UISkillEvolution {
 		if(mSelf.IsCanClick) {
 			TMaterialItem materialSkillCard = new TMaterialItem();
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
-			if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
-			if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnClose(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
+					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnClose(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 		
 	}
@@ -71,7 +74,7 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 	}
 
@@ -81,7 +84,7 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnClose();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
 		}
 	}
 
@@ -92,6 +95,7 @@ public class UISkillEvolution {
 
 	public void Refresh (TSkill skill) {
 		mSkill = skill;
+		skillCanEvolution.SetActive(GameData.Team.IsEnoughMaterial(skill));
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			nextSkill = new TSkill();
 			if(GameData.DSkillData[mSkill.ID].EvolutionSkill != 0) {
@@ -124,7 +128,7 @@ public class UISkillEvolution {
 				//星等判斷
 				if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
 					//材料判斷
-					if(skillCardMaterial.IsEnoughMaterial) {
+					if(GameData.Team.IsEnoughMaterial(mSkill)) {
 						materialIndexs[0] = skillCardMaterial.material1index;
 						materialIndexs[1] = skillCardMaterial.material2index;
 						materialIndexs[2] = skillCardMaterial.material3index;
@@ -135,8 +139,10 @@ public class UISkillEvolution {
 							} else {
 								mSelf.SendEvolution(1);
 							}
-						} else
+						} else {
+							AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 							UIHint.Get.ShowHint(TextConst.S(7653), Color.red);
+						}
 					} else
 						UIHint.Get.ShowHint(TextConst.S(7652), Color.red);
 				} else
