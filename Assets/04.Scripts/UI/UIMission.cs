@@ -137,6 +137,9 @@ public class UIMission : UIBase {
     }
 
     public void OnPage() {
+        if (waitForAnimator)
+            return;
+
         for (int i = 0; i < pageObjects.Length; i++)
             pageObjects[i].SetActive(false);
 
@@ -388,7 +391,7 @@ public class UIMission : UIBase {
         checkMission(item, mission, false);
     }
 
-    IEnumerator waitUpdateMission(TMissionFinishResult result, float sec) {//int itemID, int exp, int diamond, int money, int pvpCoin, int socialCoin) {
+    IEnumerator waitUpdateMission(TMissionFinishResult result, float sec) {
         yield return new WaitForSeconds(sec);
         waitForAnimator = false;
         GameData.Team.TeamRecord = result.LifetimeRecord;
@@ -469,25 +472,6 @@ public class UIMission : UIBase {
             UIGetItem.Get.AddExp(4, missionExp);
 
         initMissionList(nowPage);
-
-
-        /*if (GameData.DItemData.ContainsKey(itemID))
-            UIGetItem.Get.AddItem(itemID);
-
-        if (diamond > 0)
-            UIGetItem.Get.AddExp(0, diamond);
-
-        if (money > 0)
-            UIGetItem.Get.AddExp(1, money);
-
-        if (pvpCoin > 0)
-            UIGetItem.Get.AddExp(2, pvpCoin);
-
-        if (socialCoin > 0)
-            UIGetItem.Get.AddExp(3, socialCoin);
-
-        if (exp > 0)
-            UIGetItem.Get.AddExp(4, exp);*/
     }
 
     private void waitMissionFinish(bool ok, WWW www) {
