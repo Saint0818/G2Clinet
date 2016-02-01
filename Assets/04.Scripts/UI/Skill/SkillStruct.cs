@@ -132,10 +132,13 @@ public struct TSkillCardMaterial {
 					TMaterialItem materialSkillCard = new TMaterialItem();
 					material1index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
 
-					if(material1index != -1)
-						AmountLabel[0].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
-					else 
-						AmountLabel[0].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+					if(material1index != -1) {
+						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum1)
+							AmountLabel[0].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+						else
+							AmountLabel[0].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+					} else 
+						AmountLabel[0].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 
 					RedPoint[0].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1));
 
@@ -155,10 +158,16 @@ public struct TSkillCardMaterial {
 					TMaterialItem materialSkillCard = new TMaterialItem();
 					material2index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
 
-					if(material2index != -1)
-						AmountLabel[1].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
-					else 
-						AmountLabel[1].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+					if(material2index != -1) {
+						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum2)
+							AmountLabel[1].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+						else
+							AmountLabel[1].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+					} else {
+						AmountLabel[1].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+					}
+
+
 					
 					RedPoint[1].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2));
 
@@ -178,10 +187,13 @@ public struct TSkillCardMaterial {
 					TMaterialItem materialSkillCard = new TMaterialItem();
 					material3index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
 
-					if(material3index != -1)
-						AmountLabel[2].text = materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
-					else 
-						AmountLabel[2].text = "0/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+					if(material3index != -1) {
+						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum3)
+							AmountLabel[2].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+						else
+							AmountLabel[2].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+					} else 
+						AmountLabel[2].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 
 					RedPoint[2].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3));
 

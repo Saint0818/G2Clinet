@@ -1434,6 +1434,7 @@ public class GameController : KnightSingleton<GameController>
 				hideAllEnemySelect();
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
+				AudioMgr.Get.PlaySound(SoundType.SD_Line);
 				UITransition.Get.SelfAttack();
                 break;
             case EGameSituation.NPCPickBall:
@@ -1444,6 +1445,7 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.InboundsNPC:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
+				AudioMgr.Get.PlaySound(SoundType.SD_Line);
 				UITransition.Get.SelfOffense();
 				break;
 			case EGameSituation.End:

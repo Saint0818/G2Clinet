@@ -38,14 +38,14 @@ public struct TActiveStruct {
 	}
 
 	public void SetData (TActiveStruct active, Vector3 pos, Transform parent = null){
+		if(parent != null)
+			this.ItemEquipActiveCard.transform.SetParent(parent);
+		this.ItemEquipActiveCard.transform.localPosition = pos;
 		this.ItemEquipActiveCard = active.ItemEquipActiveCard;
 		this.CardIndex = active.CardIndex;
 		this.CardID = active.CardID;
 		this.CardSN = active.CardSN;
 		this.CardLV = active.CardLV;
-		if(parent != null)
-			this.ItemEquipActiveCard.transform.SetParent(parent);
-		this.ItemEquipActiveCard.transform.localPosition = pos;
 	}
 
 	public void SetData (TUICard uiCard, GameObject obj) {
@@ -90,10 +90,14 @@ public struct TUICard{
 
 		skillCard = new TActiveSkillCard();
 		skillCard.Init(obj, btnFunc, true);
-		skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
-			((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.CheckNoInstallCard(skill.SN)) ||
-			GameData.Team.CheckCardCost(skill)
-		);
+		if(!isEquip) {
+			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
+				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard) ||
+				GameData.Team.CheckCardCost(skill));
+		} else {
+			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
+				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard));
+		}
 			
 	}
 }
@@ -629,7 +633,7 @@ public class UISkillFormation : UIBase {
 			if(obj != null) 
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
-
+			
 			checkCostIfMask();
 			return true;
 		} 
@@ -657,19 +661,22 @@ public class UISkillFormation : UIBase {
 										skillsRecord.Remove(activeStruct[index].GetSelfName);
 									Destroy(activeStruct[index].ItemEquipActiveCard);
 									activeStruct[index].ActiveClear();
-									addItems(uiCards[name], index);
+									if(addItems(uiCards[name], index))
+										AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 								}
 //								else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 							}
 						} else {
 							removeItems(activeStruct[activeFieldLimit - 1].CardID, activeStruct[activeFieldLimit - 1].CardSN, activeStruct[activeFieldLimit - 1].ItemEquipActiveCard);
-							addItems(uiCards[name], activeFieldLimit - 1);
+							if(addItems(uiCards[name], activeFieldLimit - 1))
+								AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 						}
 
 					} else {
 						if(!activeStruct[index].CheckBeInstall) {
 							if(checkCost(uiCards[name].Cost)) 
-								addItems(uiCards[name], index);
+								if(addItems(uiCards[name], index))
+									AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 						} else {
 							if(checkCost(uiCards[name].Cost)) {
@@ -683,7 +690,8 @@ public class UISkillFormation : UIBase {
 										break;
 									}
 								}
-								addItems(uiCards[name], index);
+								if(addItems(uiCards[name], index))
+									AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 							}
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
@@ -693,7 +701,9 @@ public class UISkillFormation : UIBase {
 					refreshCards();
 				} else {
 					//Passive
-					addItems(uiCards[name]);
+					if(addItems(uiCards[name]))
+						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+						
 				}
 			}
 		}
@@ -1095,7 +1105,7 @@ public class UISkillFormation : UIBase {
 							uicard.skillCard.IsInstall = true;
 						}
 					}
-					else Debug.LogWarning ("Active is Full.");
+					else UIHint.Get.ShowHint(TextConst.S(559), Color.red);
 				} 
 				else Debug.LogWarning ("Active SN is Same."+ uicard.skillCard.Skill.SN);
 				refreshActiveItems();
@@ -1108,7 +1118,6 @@ public class UISkillFormation : UIBase {
 						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 						uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					}
-					
 				}
 			}
 			refreshCards();

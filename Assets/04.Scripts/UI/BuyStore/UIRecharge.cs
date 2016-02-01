@@ -197,6 +197,7 @@ public class UIRecharge : UIBase {
 	private bool isInit = false;
 	private int buyIndex = -1;
 	private int recordType = 0;
+	private bool isRecord = false;
 
 	public static bool Visible {
 		get {
@@ -245,7 +246,7 @@ public class UIRecharge : UIBase {
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 	}
 
-	public void ShowView (int type, EventDelegate.Callback uiUpdate = null) {
+	public void ShowView (int type, EventDelegate.Callback uiUpdate = null ,bool isNeedRecord = true) {
 		if(!UISkillReinforce.Visible) {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();
@@ -254,11 +255,14 @@ public class UIRecharge : UIBase {
 			if(UIShop.Visible)
 				UIMainLobby.Get.Hide(4);
 		}
+		isRecord = isNeedRecord;
+		if(!UIRecharge.Visible)
+			recordType = type;
+		
 		UIShow(true);
 		if (uiUpdate != null)
 			UIRecharge.FreshUICallback = uiUpdate;
 
-		recordType = type;
 		showTab(type);
 		if(!isInit) {
 			initMall ();
@@ -441,7 +445,8 @@ public class UIRecharge : UIBase {
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
 
-			showTab(recordType);
+			if(isRecord)
+				showTab(recordType);
 
             if (FreshUICallback != null)
                 FreshUICallback();
@@ -477,7 +482,8 @@ public class UIRecharge : UIBase {
 
 
 			UIMainLobby.Get.UpdateUI();
-			showTab(recordType);
+			if(isRecord)
+				showTab(recordType);
 			refreshPriceUI ();
 
             if (FreshUICallback != null)
