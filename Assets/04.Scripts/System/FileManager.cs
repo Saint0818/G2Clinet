@@ -57,7 +57,7 @@ public class FileManager : KnightSingleton<FileManager>
     public const VersionMode NowMode = VersionMode.Release;
     #else
     public const string URL = "http://52.68.61.220:3500/";
-    //public const string URL = "http://localhost:3500/";
+//    public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 
@@ -76,7 +76,7 @@ public class FileManager : KnightSingleton<FileManager>
         {
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp"
+        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -210,6 +210,7 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[19] = ParseShop;
 		downloadCallBack[20] = ParseMall;
         downloadCallBack[21] = ParsePVP;
+        downloadCallBack[22] = parseLimitData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -600,7 +601,16 @@ public class FileManager : KnightSingleton<FileManager>
 			Debug.LogError ("[Teamname parsed error] " + ex.Message);
 		}
 	}
-	private void parseStageData(string version, string text, bool isSaveVersion)
+
+    private void parseLimitData(string version, string text, bool isSaveVersion)
+    {
+        LimitTable.Ins.Load(text);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(text, "limit", version);
+    }
+
+    private void parseStageData(string version, string text, bool isSaveVersion)
     {
         StageTable.Ins.Load(text);
 
