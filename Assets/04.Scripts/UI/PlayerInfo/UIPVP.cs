@@ -28,19 +28,19 @@ public class PVPPage1TopView
         if (go)
         {
             self = go;
-            PvPRankIcon = self.transform.FindChild("NowRankGroup/PvPRankIcon").gameObject.GetComponent<UISprite>();
-            RangeNameLabel = self.transform.FindChild("NowRankGroup/RangeNameLabel").gameObject.GetComponent<UILabel>();
-            NowRangeLabel = self.transform.FindChild("NowRankGroup/NowRangeLabel").gameObject.GetComponent<UILabel>();
+            PvPRankIcon = self.transform.Find("NowRankGroup/PvPRankIcon").gameObject.GetComponent<UISprite>();
+            RangeNameLabel = self.transform.Find("NowRankGroup/RangeNameLabel").gameObject.GetComponent<UILabel>();
+            NowRangeLabel = self.transform.Find("NowRankGroup/NowRangeLabel").gameObject.GetComponent<UILabel>();
 
-            NextRankGroup = self.transform.FindChild("NextRankGroup").gameObject;
-            NextRangeNameLabel = NextRankGroup.transform.FindChild("RangeNameLabel").GetComponent<UILabel>();
-            NextAward0 = NextRankGroup.transform.FindChild("Award0/ValueLabel").GetComponent<UILabel>();
-            NextAward1 = NextRankGroup.transform.FindChild("Award1/ValueLabel").GetComponent<UILabel>();
-            NextRankIcon = NextRankGroup.transform.FindChild("PvPRankIcon").gameObject.GetComponent<UISprite>();
+            NextRankGroup = self.transform.Find("NextRankGroup").gameObject;
+            NextRangeNameLabel = NextRankGroup.transform.Find("RangeNameLabel").GetComponent<UILabel>();
+            NextAward0 = NextRankGroup.transform.Find("Award0/ValueLabel").GetComponent<UILabel>();
+            NextAward1 = NextRankGroup.transform.Find("Award1/ValueLabel").GetComponent<UILabel>();
+            NextRankIcon = NextRankGroup.transform.Find("PvPRankIcon").gameObject.GetComponent<UISprite>();
 
-            MyRankBtn = self.transform.FindChild("MyRankBtn").gameObject.GetComponent<UIButton>();
-            NowAward0 = self.transform.FindChild("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
-            NowAward1 = self.transform.FindChild("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
+            MyRankBtn = self.transform.Find("MyRankBtn").gameObject.GetComponent<UIButton>();
+            NowAward0 = self.transform.Find("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
+            NowAward1 = self.transform.Find("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
             isInit = self && PvPRankIcon && RangeNameLabel && NowRangeLabel && MyRankBtn && NowAward0 && NowAward1;
             MyRankBtn.onClick.Add(myRankFunc);
         }
@@ -101,7 +101,7 @@ public class PVPPage1ListView
         {
             self = go;
             myRankInfo = new TItemRankGroup();
-            GameObject myrank = self.transform.FindChild("ItemRankGroup").gameObject;
+            GameObject myrank = self.transform.Find("ItemRankGroup").gameObject;
 
             myRankInfo.Init(ref myrank, new EventDelegate(CloseMyRank));
             myRankInfo.Enable = false;
@@ -182,12 +182,11 @@ public class PVPMainView
     private UILabel award0;
     private UILabel award1;
     private GameObject Sort;
-    private GameObject ThumbOffset;
-    private GameObject NowRankOffset;
-    private UILabel ThumbOffsetLabel;
-    private UIButton nowRankBtn;
+
+   
     private UIButton getRewardBtn;
     private UISprite readPoint;
+    private PVPLvRangeItem lvRange;
 	
     private bool isInit = false;
 
@@ -197,18 +196,16 @@ public class PVPMainView
         if (go)
         {
             self = go;
-            nextBtn = self.transform.FindChild("NextBtn").gameObject.GetComponent<UIButton>();
-            Lbtn = self.transform.FindChild("ButtonGroup/LButton").gameObject.GetComponent<UIButton>();
-            Rbtn = self.transform.FindChild("ButtonGroup/RButton").gameObject.GetComponent<UIButton>();
-            Sort = self.transform.FindChild("PvPLeagueBoard/ScrollView/Sort").gameObject;
-            award0 = self.transform.FindChild("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
-            award1 = self.transform.FindChild("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
-            ThumbOffset = self.transform.FindChild("PvPLeagueSlider/Thumb/Offset").gameObject;
-            ThumbOffsetLabel = ThumbOffset.transform.FindChild("ScoreLabel").gameObject.GetComponent<UILabel>();
-            NowRankOffset = self.transform.FindChild("PvPLeagueSlider/NowRank/Offset").gameObject;
-            nowRankBtn = NowRankOffset.GetComponent<UIButton>();
-            getRewardBtn = self.transform.FindChild("DailyAwardBtn").gameObject.GetComponent<UIButton>();
-
+            nextBtn = self.transform.Find("NextBtn").gameObject.GetComponent<UIButton>();
+            Lbtn = self.transform.Find("ButtonGroup/LButton").gameObject.GetComponent<UIButton>();
+            Rbtn = self.transform.Find("ButtonGroup/RButton").gameObject.GetComponent<UIButton>();
+            Sort = self.transform.Find("PvPLeagueBoard/ScrollView/Sort").gameObject;
+            award0 = self.transform.Find("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
+            award1 = self.transform.Find("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
+           
+           
+            getRewardBtn = self.transform.Find("DailyAwardBtn").gameObject.GetComponent<UIButton>();
+            lvRange = self.transform.Find("PvPLeagueSlider/PVPLvRangeItem").gameObject.GetComponent<PVPLvRangeItem>();
 
             pvplvs = new TPvPLeagueGroup[lvs.Length];
             for (int i = 0; i < pvplvs.Length; i++)
@@ -221,33 +218,31 @@ public class PVPMainView
                 pvplvs[i].LoacalScale = Vector3.one * 0.6f;
             }
 
-            isInit = self && nextBtn && Sort && Lbtn && Rbtn && nowRankBtn && ThumbOffset && NowRankOffset && ThumbOffsetLabel;
+            isInit = self && nextBtn && Sort && Lbtn && Rbtn;
 
             if (isInit)
             {
                 nextBtn.onClick.Add(getEnemyFunc);
                 Lbtn.onClick.Add(lFunc);
                 Rbtn.onClick.Add(rFunc);
-                nowRankBtn.onClick.Add(nowRankFunc);
+
                 getRewardBtn.onClick.Add(getRewardFunc);
+
+                if(GameData.DPVPData.Count > 0 && lvRange != null)
+//                    lvRange.InitData(GameData.DPVPData.Count);
+                    lvRange.InitData(7, nowRankFunc);
             }
         }
     }
 
     public void OnNowRank(int lv)
     {
-        NowRankOffset.transform.localPosition = new Vector3((lv - 1) * 40, 0, 0);
+        lvRange.SetNowRankOffset(lv);
+       
 //        SetOffset(lv);
     }
 
-    public void SetOffset(int lv)
-    {
-        ThumbOffset.transform.DOLocalMoveX((lv - 1) * 40, tweenSpeed);
-        if (GameData.DPVPData.ContainsKey(lv))
-        {
-            ThumbOffsetLabel.text = string.Format(TextConst.S(9741), GameData.DPVPData[lv].LowScore, GameData.DPVPData[lv].HighScore);
-        }
-    }
+
 
     public void UpdateView(ref TTeam team)
     {
@@ -267,18 +262,18 @@ public class PVPMainView
 
     public void DoTrun(int currentIndex)
     {
-        SetOffset(currentIndex);
+        lvRange.SetOffset(currentIndex);
         Sort.transform.DOLocalMoveX((260 - (260 * (currentIndex - 1))), tweenSpeed);
 
         int ex = currentIndex - 1;
         int next = currentIndex + 1;
 
-        if (ex >= 1 && ex <= GameConst.PVPMaxLv)
+        if (ex >= 1 && ex < GameData.DPVPData.Count)
         {
             pvplvs[ex - 1].self.transform.DOScale(0.6f, tweenSpeed);
         }
 
-        if (next >= 1 && next <= GameConst.PVPMaxLv)
+        if (next >= 1 && next < GameData.DPVPData.Count)
         {
             pvplvs[next - 1].self.transform.DOScale(0.6f, tweenSpeed);
         }
@@ -323,7 +318,7 @@ public class EnterView
         if (go)
         {
             self = go;
-            GameObject parent = self.transform.FindChild("EnemyList/ScrollView").gameObject;
+            GameObject parent = self.transform.Find("EnemyList/ScrollView").gameObject;
             EnemyItems = new TItemRankGroup[enemys.Length];
 
             for (int i = 0; i < enemys.Length; i++)
@@ -333,17 +328,17 @@ public class EnterView
                 EnemyItems[i].Init(ref enemys[i]);
             }
             
-            NoBtn = self.transform.FindChild("NoBtn").gameObject.GetComponent<UIButton>();
-            StartBtn = self.transform.FindChild("StartBtn").gameObject.GetComponent<UIButton>();
-            TimesLabel = StartBtn.transform.FindChild("Icon/TimesLabel").gameObject.GetComponent<UILabel>();
-            StatusLabel = StartBtn.transform.FindChild("Icon/StatusLabel").gameObject.GetComponent<UILabel>();
+            NoBtn = self.transform.Find("NoBtn").gameObject.GetComponent<UIButton>();
+            StartBtn = self.transform.Find("StartBtn").gameObject.GetComponent<UIButton>();
+            TimesLabel = StartBtn.transform.Find("Icon/TimesLabel").gameObject.GetComponent<UILabel>();
+            StatusLabel = StartBtn.transform.Find("Icon/StatusLabel").gameObject.GetComponent<UILabel>();
 
-            ResetBtn = self.transform.FindChild("ResetBtn").gameObject.GetComponent<UIButton>();
-            Combat1 = self.transform.FindChild("CombatGroup/CombatLabel0").gameObject.GetComponent<UILabel>();
-            Combat2 = self.transform.FindChild("CombatGroup/CombatLabel1").gameObject.GetComponent<UILabel>();
-            WinValueLabel = self.transform.FindChild("ScoreGroup/WinValueLabel").gameObject.GetComponent<UILabel>();
-            LoseValueLabel = self.transform.FindChild("ScoreGroup/LoseValueLabel").gameObject.GetComponent<UILabel>();
-            ResearchPrice = ResetBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
+            ResetBtn = self.transform.Find("ResetBtn").gameObject.GetComponent<UIButton>();
+            Combat1 = self.transform.Find("CombatGroup/CombatLabel0").gameObject.GetComponent<UILabel>();
+            Combat2 = self.transform.Find("CombatGroup/CombatLabel1").gameObject.GetComponent<UILabel>();
+            WinValueLabel = self.transform.Find("ScoreGroup/WinValueLabel").gameObject.GetComponent<UILabel>();
+            LoseValueLabel = self.transform.Find("ScoreGroup/LoseValueLabel").gameObject.GetComponent<UILabel>();
+            ResearchPrice = ResetBtn.transform.Find("PriceLabel").gameObject.GetComponent<UILabel>();
 
             isInit = NoBtn && StartBtn && ResetBtn && Combat1 && Combat2 && WinValueLabel && LoseValueLabel && TimesLabel && ResearchPrice;
 			
@@ -461,12 +456,12 @@ public class PVPPage0
         if (go)
         {
             self = go;
-            mainview.Init(self.transform.FindChild("MainView").gameObject, ref pvplvBtns, getEnemyFunc, lFunc, rFunc, nowFunc, getRewardFunc);
-            EnterPage.Init(self.transform.FindChild("EnterView").gameObject, itemRankGroups, 
+            mainview.Init(self.transform.Find("MainView").gameObject, ref pvplvBtns, getEnemyFunc, lFunc, rFunc, nowFunc, getRewardFunc);
+            EnterPage.Init(self.transform.Find("EnterView").gameObject, itemRankGroups, 
                 new EventDelegate(CloseEnterView),
                 resetFunc,
                 startFunc);
-
+           
             EnableEnterView = false;
         }
     }
@@ -561,6 +556,7 @@ public class UIPVP : UIBase
     private int shopIndex = -1;
     private UISprite readPoint;
 
+
     public static bool Visible
     {
         get
@@ -609,68 +605,77 @@ public class UIPVP : UIBase
         page0 = new PVPPage0();
         page1 = new PVPPage1();
         currentLv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-        for (int i = 0; i < pageCount; i++)
+       
+        if (GameData.DPVPData.Count > 0)
         {
-            tabs[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Tabs/{0}", i)).GetComponent<UIButton>(); 
-
-            if(i == 0)
-                readPoint = tabs[0].transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
-            
-            tabs[i].onClick.Add(new EventDelegate(OnPage));
-            pages[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Pages/{0}", i));
-
-            UnityEngine.Object go;
-            UnityEngine.Object itemRankgroupObj = Resources.Load("Prefab/UI/Items/ItemRankGroup");
-            GameObject parent;
-            GameObject[] gos;
-            GameObject[] itemRankgroups;
-
-            shopIndex = GetShopIndex();
-
-            switch (i)
+            for (int i = 0; i < pageCount; i++)
             {
-                case 0:
-                    go = Resources.Load("Prefab/UI/Items/PvPLeagueGroup");
-                    GameObject[] pvplvBtns = new GameObject[GameConst.PVPMaxLv];
+                tabs[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Tabs/{0}", i)).GetComponent<UIButton>(); 
 
-                    for (int j = 0; j < pvplvBtns.Length; j++)
-                    {
-                        pvplvBtns[j] = Instantiate(go) as GameObject;
-                        pvplvBtns[j].name = (j + 1).ToString();
-                    }
+                if (i == 0)
+                    readPoint = tabs[0].transform.Find("RedPoint").gameObject.GetComponent<UISprite>();
+            
+                tabs[i].onClick.Add(new EventDelegate(OnPage));
+                pages[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Pages/{0}", i));
 
-                    itemRankgroups = new GameObject[3];
-                    for (int j = 0; j < itemRankgroups.Length; j++)
-                    {
-                        itemRankgroups[j] = Instantiate(itemRankgroupObj) as GameObject;
-                    }
+                UnityEngine.Object go;
+                UnityEngine.Object itemRankgroupObj = Resources.Load("Prefab/UI/Items/ItemRankGroup");
+                GameObject parent;
+                GameObject[] gos;
+                GameObject[] itemRankgroups;
 
-                    page0.Init(pages[i], ref pvplvBtns, itemRankgroups,
-                        new EventDelegate(OnGetEnemy),
-                        new EventDelegate(OnSearch),
-                        new EventDelegate(OnPVPStart),
-                        new EventDelegate(OnLeft),
-                        new EventDelegate(OnRight),
-                        new EventDelegate(OnNowRank),
-                        new EventDelegate(OnAward));
-                    break;
-                case 1:
-                    parent = pages[i].transform.FindChild("ListView/ScrollView").gameObject;
-                    if (itemRankgroupObj)
-                    {
-                        gos = new GameObject[GameConst.PVPMaxSort];
+                shopIndex = GetShopIndex();
 
-                        for (int j = 0; j < gos.Length; j++)
-                            gos[j] = Instantiate(itemRankgroupObj) as GameObject;
+                switch (i)
+                {
+                    case 0:
+                        go = Resources.Load("Prefab/UI/Items/PvPLeagueGroup");
+
+                        GameObject[] pvplvBtns = new GameObject[GameData.DPVPData.Count];
+
+                        for (int j = 0; j < pvplvBtns.Length; j++)
+                        {
+                            pvplvBtns[j] = Instantiate(go) as GameObject;
+                            pvplvBtns[j].name = (j + 1).ToString();
+                        }
+
+                        itemRankgroups = new GameObject[3];
+                        for (int j = 0; j < itemRankgroups.Length; j++)
+                        {
+                            itemRankgroups[j] = Instantiate(itemRankgroupObj) as GameObject;
+                        }
+
+                        page0.Init(pages[i], ref pvplvBtns, itemRankgroups,
+                            new EventDelegate(OnGetEnemy),
+                            new EventDelegate(OnSearch),
+                            new EventDelegate(OnPVPStart),
+                            new EventDelegate(OnLeft),
+                            new EventDelegate(OnRight),
+                            new EventDelegate(OnNowRank),
+                            new EventDelegate(OnAward));
+                        break;
+                    case 1:
+                        parent = pages[i].transform.Find("ListView/ScrollView").gameObject;
+                        if (itemRankgroupObj)
+                        {
+                            gos = new GameObject[GameConst.PVPMaxSort];
+
+                            for (int j = 0; j < gos.Length; j++)
+                                gos[j] = Instantiate(itemRankgroupObj) as GameObject;
                         
-                        page1.Init(pages[i], ref gos, parent);
-                    }
-                    else
-                    {
-                        Debug.LogError("Resources.load error : ItemRankGroup");
-                    }
-                    break;
+                            page1.Init(pages[i], ref gos, parent);
+                        }
+                        else
+                        {
+                            Debug.LogError("Resources.load error : ItemRankGroup");
+                        }
+                        break;
+                }
             }
+        }
+        else
+        {
+            Debug.LogError("PVPData Error"); 
         }
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
     }
@@ -871,7 +876,7 @@ public class UIPVP : UIBase
 
     private void OnRight()
     {
-        if (currentLv < GameConst.PVPMaxLv)
+        if (currentLv < GameData.DPVPData.Count)
         {
             currentLv++;
             TurnLv(currentLv);
@@ -901,8 +906,8 @@ public class UIPVP : UIBase
         {
 			TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.DailyCount = data.DailyCount;
+            UIGetItem.Get.AddExp(2, data.PVPCoin - GameData.Team.PVPCoin);
 			GameData.Team.PVPCoin = data.PVPCoin;
-			
             UpdateRedPoint();
         }
     }
