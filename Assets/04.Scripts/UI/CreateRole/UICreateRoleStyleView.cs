@@ -21,6 +21,8 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRolePartButton PantsBtn;
     public UICreateRolePartButton ShoesBtn;
 
+    public UIButton RandomStyleButton;
+
     public Animator UIAnimator;
 
     private int mPlayerID;
@@ -28,7 +30,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     /// <summary>
     /// 目前球員穿搭的配件. Value: ItemID.
     /// </summary>
-    private readonly Dictionary<UICreateRole.EEquip, int> mEquips = new Dictionary<UICreateRole.EEquip, int>();
+    private readonly Dictionary<UICreateRole.EPart, int> mCurrentPlayerParts = new Dictionary<UICreateRole.EPart, int>();
 
     /// <summary>
     /// 撥頁面隱藏時的時間, 單位: 秒.
@@ -50,6 +52,8 @@ public class UICreateRoleStyleView : MonoBehaviour
         ClothBtn.SelectedListener += onPartSelected;
         PantsBtn.SelectedListener += onPartSelected;
         ShoesBtn.SelectedListener += onPartSelected;
+
+        RandomStyleButton.onClick.Add(new EventDelegate(onRandomStyle));
     }
 
     public void Show(EPlayerPostion pos, int playerID)
@@ -64,26 +68,26 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         mPlayerID = playerID;
 
-        mEquips.Clear();
+        mCurrentPlayerParts.Clear();
 
         TItemData[] items = findItems(CreateRoleTable.Ins.GetHairs(pos));
-        mEquips.Add(UICreateRole.EEquip.Hair, items[0].ID);
+        mCurrentPlayerParts.Add(UICreateRole.EPart.Hair, items[0].ID);
         HairBtn.SetData(items);
 
         items = findItems(CreateRoleTable.Ins.GetCloths(pos));
-        mEquips.Add(UICreateRole.EEquip.Cloth, items[0].ID);
+        mCurrentPlayerParts.Add(UICreateRole.EPart.Cloth, items[0].ID);
         ClothBtn.SetData(items);
 
         items = findItems(CreateRoleTable.Ins.GetPants(pos));
-        mEquips.Add(UICreateRole.EEquip.Pants, items[0].ID);
+        mCurrentPlayerParts.Add(UICreateRole.EPart.Pants, items[0].ID);
         PantsBtn.SetData(items);
 
         items = findItems(CreateRoleTable.Ins.GetShoes(pos));
-        mEquips.Add(UICreateRole.EEquip.Shoes, items[0].ID);
+        mCurrentPlayerParts.Add(UICreateRole.EPart.Shoes, items[0].ID);
         ShoesBtn.SetData(items);
 
         items = findItems(CreateRoleTable.Ins.GetBody(pos));
-        mEquips.Add(UICreateRole.EEquip.Body, items[0].ID);
+        mCurrentPlayerParts.Add(UICreateRole.EPart.Body, items[0].ID);
         BodyBtn.SetData(items);
         BodyBtn.SetSelected(); // 強制每次進入時, 都是 Body 按鈕被選擇.
     }
@@ -101,18 +105,47 @@ public class UICreateRoleStyleView : MonoBehaviour
         return data.ToArray();
     }
 
-    private void onPartSelected(UICreateRole.EEquip equip)
+    private void onPartSelected(UICreateRole.EPart part)
     {
-        UI3DCreateRole.Get.StyleView.SetCamera(equip);
+        UI3DCreateRole.Get.StyleView.SetCamera(part);
     }
 
-    private void onPartItemSelected(UICreateRole.EEquip equip, int index, int itemID)
+    private void onPartItemSelected(UICreateRole.EPart part, int index, int itemID)
     {
-//        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
+        Debug.LogFormat("Part:{0}, Index:{1}, ItemID:{2}", part, index, itemID);
 
-        UI3DCreateRole.Get.StyleView.UpdateModel(equip, itemID);
-        mEquips[equip] = itemID;
-//        UI3DCreateRole.Get.StyleView.PlayIdleAnimation();
+        UI3DCreateRole.Get.StyleView.UpdateModel(part, itemID);
+        mCurrentPlayerParts[part] = itemID;
+    }
+
+    private void onRandomStyle()
+    {
+        Debug.Log("onRandomStyle");
+
+        UICreateRole.EPart[] parts = new UICreateRole.EPart[5];
+        int[] itemIDs = new int[5];
+
+        parts[0] = UICreateRole.EPart.Body;
+        itemIDs[0] = BodyBtn.RandomItemData().ID;
+        mCurrentPlayerParts[UICreateRole.EPart.Body] = itemIDs[0];
+
+        parts[1] = UICreateRole.EPart.Hair;
+        itemIDs[1] = HairBtn.RandomItemData().ID;
+        mCurrentPlayerParts[UICreateRole.EPart.Hair] = itemIDs[1];
+
+        parts[2] = UICreateRole.EPart.Cloth;
+        itemIDs[2] = ClothBtn.RandomItemData().ID;
+        mCurrentPlayerParts[UICreateRole.EPart.Cloth] = itemIDs[2];
+
+        parts[3] = UICreateRole.EPart.Pants;
+        itemIDs[3] = PantsBtn.RandomItemData().ID;
+        mCurrentPlayerParts[UICreateRole.EPart.Pants] = itemIDs[3];
+
+        parts[4] = UICreateRole.EPart.Shoes;
+        itemIDs[4] = ShoesBtn.RandomItemData().ID;
+        mCurrentPlayerParts[UICreateRole.EPart.Shoes] = itemIDs[4];
+
+        UI3DCreateRole.Get.StyleView.UpdateModels(parts, itemIDs);
     }
 
     public void Hide()
@@ -151,11 +184,11 @@ public class UICreateRoleStyleView : MonoBehaviour
     private void sendDataToServer()
     {
         int[] equipmentItemIDs = new int[8];
-        equipmentItemIDs[0] = mEquips[UICreateRole.EEquip.Body]; // 陣列的魔術數字其實是對應到 TItemData.Kind.
-        equipmentItemIDs[1] = mEquips[UICreateRole.EEquip.Hair];
-        equipmentItemIDs[3] = mEquips[UICreateRole.EEquip.Cloth];
-        equipmentItemIDs[4] = mEquips[UICreateRole.EEquip.Pants];
-        equipmentItemIDs[5] = mEquips[UICreateRole.EEquip.Shoes];
+        equipmentItemIDs[0] = mCurrentPlayerParts[UICreateRole.EPart.Body]; // 陣列的魔術數字其實是對應到 TItemData.Kind.
+        equipmentItemIDs[1] = mCurrentPlayerParts[UICreateRole.EPart.Hair];
+        equipmentItemIDs[3] = mCurrentPlayerParts[UICreateRole.EPart.Cloth];
+        equipmentItemIDs[4] = mCurrentPlayerParts[UICreateRole.EPart.Pants];
+        equipmentItemIDs[5] = mCurrentPlayerParts[UICreateRole.EPart.Shoes];
 
         GameData.Team.Player.ID = mPlayerID;
         GameData.Team.Player.Items = new TItem[equipmentItemIDs.Length];

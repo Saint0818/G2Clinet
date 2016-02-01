@@ -100,25 +100,24 @@ public class UIMain : UIBase {
 
 	public void OnLookPlayerBank()
     {
-		WWWForm form = new WWWForm();
-		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+//		WWWForm form = new WWWForm();
+//		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+        LookupPlayerBanksProtocol protocol = new LookupPlayerBanksProtocol();
+        protocol.Send(waitLookPlayerBank);
 	}
 
-	private void waitLookPlayerBank(bool ok, WWW www)
+	private void waitLookPlayerBank(bool ok, LookupPlayerBanksProtocol.TPlayerBanks bank)
 	{
 		if(ok)
         {
-			TLookUpData lookUpData = JsonConvert.DeserializeObject<TLookUpData>(www.text);
-            Debug.LogFormat("LookUpData:{0}", lookUpData);
-
             Visible = false;
 
             // 因為現在創角 UI 並沒有擋住後面的介面, 所以我暫時需要將模型關閉.
             ModelManager.Get.PlayerInfoModel.SetActive(false);
 
-            var data = UICreateRole.Convert(lookUpData.PlayerBanks);
+            var data = UICreateRole.Convert(bank.PlayerBanks);
             if(data != null)
-                UICreateRole.Get.ShowFrameView(data, lookUpData.SelectedRoleIndex, GameData.Team.PlayerNum);
+                UICreateRole.Get.ShowFrameView(data, bank.SelectedRoleIndex, GameData.Team.PlayerNum);
             else
                 Debug.LogError("Data Error!");
 		}

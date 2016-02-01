@@ -32,7 +32,7 @@
     },
     {
         "id": 207,
-        "tw": "確定購買角色欄位？",
+        "tw": "確定花費 [FF00FFFF]{0}[-] 寶石購買角色欄位？",
         "en": "Purchase Character Slot?"
     },
     {
@@ -60,7 +60,8 @@
     },
     {
         "id": 212,
-        "tw": "使用寶石"
+        "tw": "使用寶石",
+        "en": "Use gems"
     },
     {
         "id": 230,
@@ -89,119 +90,144 @@
     {
         "id": 234,
         "explain": "重置關卡次數",
-        "tw": "確認花費 [33FFDD]{0}[-] 寶石重置本關卡？"
+        "tw": "確認花費 [33FFDD]{0}[-] 寶石重置本關卡？",
+        "en": "Confirm spend [33FFDD] {0} [-] Gem reset this level?"
     },
     {
         "id": 235,
         "explain": "離開遊戲",
-        "tw": "確認離開遊戲？"
+        "tw": "確認離開遊戲？",
+        "en": "Confirm to leave the game?"
     },
     {
         "id": 236,
         "explain": "前往購買",
-        "tw": "前往購買"
+        "tw": "前往購買",
+        "en": "Go buy"
     },
     {
         "id": 237,
         "explain": "金幣不足/標題",
-        "tw": "金幣不足"
+        "tw": "金幣不足",
+        "en": "Gold inadequate"
     },
     {
         "id": 238,
         "explain": "鑽石不足/內文",
-        "tw": "你的[FF00FFFF]寶 石[-]不夠囉，是否前往購買？"
+        "tw": "你的[FF00FFFF]寶 石[-]不夠囉，是否前往購買？",
+        "en": "Your [FF00FFFF] precious stones [-] not enough Hello, whether to the purchase?"
     },
     {
         "id": 239,
         "explain": "金幣不足/內文",
-        "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？"
+        "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？",
+        "en": "Your [FFCC00FF] gold coins [-] not enough Hello, whether to the purchase?"
     },
     {
         "id": 240,
         "explain": "體力不足/內文",
-        "tw": "你的[00E1FFFF]體 力[-]不夠囉，下次體力回復在{0}後，是否前往購買？"
+        "tw": "你的[00E1FFFF]體 力[-]不夠囉，下次體力回復在{0}後，是否前往購買？",
+        "en": "Your [00E1FFFF] body force [-] not enough Hello, physical reply in the next {0}, does it go to buy?"
     },
     {
         "id": 241,
         "explain": "其他貨幣不足/內文",
-        "tw": "你的[33FFDD] {0} [-]不夠囉，是否前往購買？"
+        "tw": "你的[33FFDD] {0} [-]不夠囉，是否前往購買？",
+        "en": "Your [33FFDD] {0} [-] not enough Hello, whether to the purchase?"
     },
     {
         "id": 242,
         "explain": "其他貨幣不足/標題",
-        "tw": " {0} 不足"
+        "tw": " {0} 不足",
+        "en": "  {0} Out"
     },
     {
         "id": 243,
-        "tw": " {0:00}天{1:00}時"
+        "tw": " {0:00}天{1:00}時",
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
-        "tw": " {0:00}時{1:00}分"
+        "tw": " {0:00}時{1:00}分",
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
-        "tw": " {0:00}分{1:00}秒"
+        "tw": " {0:00}分{1:00}秒",
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
-        "tw": "分鐘前"
+        "tw": "分鐘前",
+        "en": "minutes ago"
     },
     {
         "id": 247,
-        "tw": "小時前"
+        "tw": "小時前",
+        "en": "An hour ago"
     },
     {
         "id": 248,
-        "tw": "天前"
+        "tw": "天前",
+        "en": "Days ago"
     },
     {
         "id": 249,
-        "tw": "確認使用金幣"
+        "tw": "確認使用金幣",
+        "en": "Be sure to use gold"
     },
     {
         "id": 250,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？",
+        "en": "Confirm spend [FF00FFFF] {0} [-] Gem later [33FFDD] {1} [-]?"
     },
     {
         "id": 251,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣購買 [33FFDD]{1}[-] ？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣購買 [33FFDD]{1}[-] ？",
+        "en": "Confirm spend [FF00FFFF] {0} [-] to buy gold coins [33FFDD] {1} [-]?"
     },
     {
         "id": 252,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石抽取晶片？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石抽取晶片？",
+        "en": "Confirm spend [FF00FFFF] {0} [-] Gem extracted wafer?"
     },
     {
         "id": 253,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？",
+        "en": "Confirm spend [FF00FFFF] {0} [-] to extract gold wafer?"
     },
     {
         "id": 254,
         "explain": "社群-解除好友關係",
         "uipeth": "請用UIMessage",
-        "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)"
+        "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)",
+        "en": "OK lifting and [00E1FFFF] {0} [-] the relationship between friends?\n(Once released, we can not see each other in a dynamic on La.) "
     },
     {
         "id": 255,
         "explain": "PVP撮合不到對手內文",
         "uipeth": "請用UIMessage",
-        "tw": "目前搓合不到對手，請稍候再試。"
+        "tw": "目前搓合不到對手，請稍候再試。",
+        "en": "Currently less than rubbing opponents, please try again later."
     },
     {
         "id": 256,
         "explain": "PVP撮合不到對手標題",
         "uipeth": "請用UIMessage",
-        "tw": "聯盟對戰"
+        "tw": "聯盟對戰",
+        "en": "Union Battle"
     },
     {
         "id": 257,
         "explain": "PVP次數達到上限",
-        "tw": "每日可購買的次數已達到上限，無法進行挑戰。"
+        "tw": "每日可購買的次數已達到上限，無法進行挑戰。",
+        "en": "The number of daily purchase limit has been reached, can not be challenged."
     },
     {
         "id": 258,
         "explain": "PVP次數使用完畢",
-        "tw": "已無挑戰次數，請明日再來。"
+        "tw": "已無挑戰次數，請明日再來。",
+        "en": "The challenge is no longer the number, please come back tomorrow."
     },
     {
         "id": 301,
@@ -246,11 +272,13 @@
     },
     {
         "id": 309,
-        "tw": "在禁區使用投籃時，如果[FFDD33]灌籃值[-]越高，越容易發動[FFDD33]灌籃[-]唷！！"
+        "tw": "在禁區使用投籃時，如果[FFDD33]灌籃值[-]越高，越容易發動[FFDD33]灌籃[-]唷！！",
+        "en": "When using the restricted area shooting, if the [FFDD33] DEAR value [-] higher, the more easy to launch [FFDD33] DEAR [-] yo! !"
     },
     {
         "id": 310,
-        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，只要有它將可以無往不利，趕快想辦法得到它吧！"
+        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，只要有它將可以無往不利，趕快想辦法得到它吧！",
+        "en": "Icon_Gem = This is the world of basketball gang highest value [c900ff] Gem [-] money, as long as it can almost always, quickly find a way to get it right!"
     },
     {
         "id": 400,
@@ -341,6 +369,18 @@
         "en": "Chip extraction function successfully unlocked"
     },
     {
+        "id": 458,
+        "explain": "解鎖PVP",
+        "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
+        "en": "Successfully unlocked [VDD33] Battle League [-] function"
+    },
+    {
+        "id": 459,
+        "explain": "解鎖副本",
+        "tw": "成功解鎖[FFDD33]關主挑戰[-]功能",
+        "en": "Successfully unlocked [FFDD33] Off the main challenge [-] function"
+    },
+    {
         "id": 501,
         "explain": "警告訊息"
     },
@@ -387,50 +427,60 @@
     },
     {
         "id": 510,
-        "tw": "金幣不足。"
+        "tw": "金幣不足。",
+        "en": "Gold shortage."
     },
     {
         "id": 511,
-        "tw": "寶石不足。"
+        "tw": "寶石不足。",
+        "en": "Gem inadequate."
     },
     {
         "id": 512,
-        "tw": "球員等級達到{0}級，才能使用此功能。"
+        "tw": "球員等級達到{0}級，才能使用此功能。",
+        "en": "Players reach level {0} level, in order to use this feature."
     },
     {
         "id": 531,
         "explain": "數值裝備成功",
-        "tw": "裝備變更完成。"
+        "tw": "裝備變更完成。",
+        "en": "Equipment change is complete."
     },
     {
         "id": 532,
         "explain": "造型裝備成功",
-        "tw": "造型變更完成。"
+        "tw": "造型變更完成。",
+        "en": "Change modeling completed."
     },
     {
         "id": 533,
         "explain": "技能晶片裝備成功",
-        "tw": "技能晶片變更完成。"
+        "tw": "技能晶片變更完成。",
+        "en": "Skills wafer change completion."
     },
     {
         "id": 534,
         "explain": "傳送失敗",
-        "tw": "網路傳輸失敗，請再傳送一次。"
+        "tw": "網路傳輸失敗，請再傳送一次。",
+        "en": "Network transmission fails, then transmitted once."
     },
     {
         "id": 535,
         "explain": "購買成功",
-        "tw": "購買成功。"
+        "tw": "購買成功。",
+        "en": "Buy success."
     },
     {
         "id": 536,
         "explain": "體力已滿1，滿體狀態下點擊購買",
-        "tw": "體力已滿，先消耗一點吧。"
+        "tw": "體力已滿，先消耗一點吧。",
+        "en": "Full strength, first consume little bar."
     },
     {
         "id": 537,
         "explain": "體力已滿2，購買完後顯示",
-        "tw": "體力補充完畢。"
+        "tw": "體力補充完畢。",
+        "en": "Physical supplement is completed."
     },
     {
         "id": 538,
@@ -457,42 +507,56 @@
     {
         "id": 551,
         "explain": "材料尚未鑲嵌完畢",
-        "tw": "材料尚未鑲嵌完畢。"
+        "tw": "材料尚未鑲嵌完畢。",
+        "en": "Material mosaic finished yet."
     },
     {
         "id": 552,
         "explain": "需求金幣不足",
-        "tw": "需求金幣不足。"
+        "tw": "需求金幣不足。",
+        "en": "Insufficient demand for gold."
     },
     {
         "id": 553,
         "explain": "等級已達上限",
-        "tw": "等級已達上限。"
+        "tw": "等級已達上限。",
+        "en": "Level has been reached."
     },
     {
         "id": 554,
         "explain": "材料鑲嵌成功",
-        "tw": "材料鑲嵌成功。"
+        "tw": "材料鑲嵌成功。",
+        "en": "Mosaic material success."
     },
     {
         "id": 555,
         "explain": "裝備升級成功",
-        "tw": "插件升級成功。"
+        "tw": "插件升級成功。",
+        "en": "Plug-in upgrade was successful."
     },
     {
         "id": 556,
         "explain": "晶片達到最高等",
-        "tw": "等級已滿，無法強化。"
+        "tw": "等級已滿，無法強化。",
+        "en": "Grade full and can not strengthen."
     },
     {
         "id": 557,
         "explain": "晶片卡強化不可",
-        "tw": "未選擇強化材料。"
+        "tw": "未選擇強化材料。",
+        "en": "Not selected reinforcing material."
     },
     {
         "id": 558,
         "explain": "COST值滿",
-        "tw": "你的COST值不足以安裝此技能晶片。"
+        "tw": "你的COST值不足以安裝此技能晶片。",
+        "en": "Your COST value is not sufficient to install this skill wafer."
+    },
+    {
+        "id": 559,
+        "explain": "卡牌插滿",
+        "tw": "技能晶片插槽已滿。",
+        "en": "FULL"
     },
     {
         "id": 601,
@@ -541,7 +605,8 @@
     {
         "id": 802,
         "explain": "體力補滿",
-        "tw": "您的體力已全部恢復，快來打一場球吧。"
+        "tw": "您的體力已全部恢復，快來打一場球吧。",
+        "en": "Your strength has been fully restored, come play a round bar."
     },
     {
         "id": 1001,
@@ -596,12 +661,14 @@
     {
         "id": 1010,
         "explain": "任務按鈕",
-        "tw": "任 務"
+        "tw": "任 務",
+        "en": "Mission"
     },
     {
         "id": 1011,
         "explain": "潛能按鈕",
-        "tw": "潛 能"
+        "tw": "潛 能",
+        "en": "Potential"
     },
     {
         "id": 1101,
@@ -674,6 +741,12 @@
     {
         "id": 2201,
         "explain": "選擇造型"
+    },
+    {
+        "id": 2202,
+        "explain": "隨機選擇造型按鈕",
+        "tw": "隨機搭配",
+        "en": "Random"
     },
     {
         "id": 3001,
@@ -863,7 +936,8 @@
     },
     {
         "id": 3104,
-        "tw": "更換圖像"
+        "tw": "更換圖像",
+        "en": "Change"
     },
     {
         "id": 3201,
@@ -891,7 +965,9 @@
     },
     {
         "id": 3205,
-        "uipeth": "WarningLabel"
+        "uipeth": "WarningLabel",
+        "tw": "淺能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
+        "en": "Potential to obtain:\n[33F FDD] to enhance the level [-], [33F FDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
     },
     {
         "id": 3206,
@@ -901,7 +977,8 @@
     },
     {
         "id": 3207,
-        "tw": "首次購買"
+        "tw": "首次購買",
+        "en": "First Purchase"
     },
     {
         "id": 3301,
@@ -1143,154 +1220,187 @@
     {
         "id": 3601,
         "explain": "變更角色顯示用的大頭圖片",
-        "tw": "變更頭像"
+        "tw": "變更頭像",
+        "en": "Change Avatar"
     },
     {
         "id": 3602,
         "explain": "玩家一開始就能取得的",
         "uipeth": "頭圖分類1",
-        "tw": "基礎頭像"
+        "tw": "基礎頭像",
+        "en": "Foundation Avatar"
     },
     {
         "id": 3603,
         "explain": "必須得到技能晶片後才會取得",
         "uipeth": "頭圖分類2",
-        "tw": "技能晶片"
+        "tw": "技能晶片",
+        "en": "Skills wafer"
     },
     {
         "id": 3701,
         "explain": "成就與任務",
-        "tw": "任務成就"
+        "tw": "任務成就",
+        "en": "Tasks Achievements"
     },
     {
         "id": 3702,
         "uipeth": "Tab0",
-        "tw": "成 就"
+        "tw": "成 就",
+        "en": "achievement"
     },
     {
         "id": 3703,
         "uipeth": "Tab1",
-        "tw": "任 務"
+        "tw": "任 務",
+        "en": "Task"
     },
     {
         "id": 3704,
-        "tw": "獎 勵"
+        "tw": "獎 勵",
+        "en": "reward"
     },
     {
         "id": 3705,
         "uipeth": "GetBtn",
-        "tw": "前 往"
+        "tw": "前 往",
+        "en": "Ago to"
     },
     {
         "id": 3706,
         "uipeth": "GetBtn",
-        "tw": "領 取"
+        "tw": "領 取",
+        "en": "Take lead"
     },
     {
         "id": 3707,
         "tw": "完 成",
-        "en": "CLEAR"
+        "en": "carry out"
     },
     {
         "id": 3708,
-        "tw": "每日任務"
+        "tw": "每日任務",
+        "en": "Daily Tasks"
     },
     {
         "id": 3709,
-        "tw": "每週任務"
+        "tw": "每週任務",
+        "en": "Weekly Tasks"
     },
     {
         "id": 3710,
-        "tw": "每月任務"
+        "tw": "每月任務",
+        "en": "Monthly Tasks"
     },
     {
         "id": 3711,
-        "tw": "在Google Play上顯示"
+        "tw": "在Google Play上顯示",
+        "en": "Displayed on Google Play"
     },
     {
         "id": 3712,
-        "tw": "在Game Center上顯示"
+        "tw": "在Game Center上顯示",
+        "en": "Displayed on the Game Center"
     },
     {
         "id": 3713,
-        "tw": "社群連結"
+        "tw": "社群連結",
+        "en": "Community Links"
     },
     {
         "id": 3714,
-        "tw": "任務已完成"
+        "tw": "任務已完成",
+        "en": "Task completed"
     },
     {
         "id": 3715,
-        "tw": "領取獎勵失敗，請確認任務完成條件。"
+        "tw": "領取獎勵失敗，請確認任務完成條件。",
+        "en": "Receive the reward failure, make sure to complete the task condition."
     },
     {
         "id": 3716,
-        "tw": "數 據"
+        "tw": "數 據",
+        "en": "data"
     },
     {
         "id": 3717,
         "tw": "獲得[0000ff]{0}[-] X {1} ",
-        "en": "Got [0000ff]{0}[-] X {1} "
+        "en": "Get [0000ff] {0} [-] X {1} "
     },
     {
         "id": 3718,
-        "tw": "成就積分"
+        "tw": "成就積分",
+        "en": "Achievement Points"
     },
     {
         "id": 3741,
-        "tw": "比賽時間"
+        "tw": "比賽時間",
+        "en": "Fixtures"
     },
     {
         "id": 3742,
-        "tw": "比賽場次"
+        "tw": "比賽場次",
+        "en": "Games played"
     },
     {
         "id": 3743,
-        "tw": "總得分"
+        "tw": "總得分",
+        "en": "Total Score"
     },
     {
         "id": 3744,
-        "tw": "兩分進球"
+        "tw": "兩分進球",
+        "en": "Scoring two points"
     },
     {
         "id": 3745,
-        "tw": "三分進球"
+        "tw": "三分進球",
+        "en": "Thirds Goals"
     },
     {
         "id": 3746,
-        "tw": "灌籃\t"
+        "tw": "灌籃\t",
+        "en": "Jam"
     },
     {
         "id": 3747,
-        "tw": "籃板"
+        "tw": "籃板",
+        "en": "Backboard"
     },
     {
         "id": 3748,
-        "tw": "助攻"
+        "tw": "助攻",
+        "en": "Assists"
     },
     {
         "id": 3749,
-        "tw": "抄截"
+        "tw": "抄截",
+        "en": "Steals"
     },
     {
         "id": 3750,
-        "tw": "火鍋"
+        "tw": "火鍋",
+        "en": "Chafing dish"
     },
     {
         "id": 3751,
-        "tw": "推人"
+        "tw": "推人",
+        "en": "Pushing people"
     },
     {
         "id": 3752,
-        "tw": "擊倒"
+        "tw": "擊倒",
+        "en": "knock down"
     },
     {
         "id": 3753,
-        "tw": "完美點擊"
+        "tw": "完美點擊",
+        "en": "Click perfect"
     },
     {
         "id": 3754,
-        "tw": "空中接力"
+        "tw": "空中接力",
+        "en": "Oop"
     },
     {
         "id": 3755
@@ -1312,35 +1422,43 @@
     },
     {
         "id": 3761,
-        "tw": "球員等級"
+        "tw": "球員等級",
+        "en": "Player Ratings"
     },
     {
         "id": 3762,
-        "tw": "天梯等級"
+        "tw": "天梯等級",
+        "en": "Ladder Level"
     },
     {
         "id": 3763,
-        "tw": "球場等級"
+        "tw": "球場等級",
+        "en": "Stadium Ratings"
     },
     {
         "id": 3764,
-        "tw": "踢館等級"
+        "tw": "踢館等級",
+        "en": "BACK OFF Level"
     },
     {
         "id": 3765,
-        "tw": "造型收集數"
+        "tw": "造型收集數",
+        "en": "Collect data modeling"
     },
     {
         "id": 3766,
-        "tw": "套裝收集數"
+        "tw": "套裝收集數",
+        "en": "Set the number of collection"
     },
     {
         "id": 3767,
-        "tw": "技能晶片收集數"
+        "tw": "技能晶片收集數",
+        "en": "Skills wafer collect data"
     },
     {
         "id": 3768,
-        "tw": "技能晶片套卡收集數"
+        "tw": "技能晶片套卡收集數",
+        "en": "Skills wafer Taoka collect data"
     },
     {
         "id": 3769
@@ -1350,35 +1468,43 @@
     },
     {
         "id": 3771,
-        "tw": "關卡獲勝數"
+        "tw": "關卡獲勝數",
+        "en": "Level number of wins"
     },
     {
         "id": 3772,
-        "tw": "關卡獲勝數"
+        "tw": "關卡獲勝數",
+        "en": "Level number of wins"
     },
     {
         "id": 3773,
-        "tw": "副本獲勝數"
+        "tw": "副本獲勝數",
+        "en": "A copy of the winning number"
     },
     {
         "id": 3774,
-        "tw": "副本連勝數"
+        "tw": "副本連勝數",
+        "en": "Number of copies in a row"
     },
     {
         "id": 3775,
-        "tw": "天梯獲勝數"
+        "tw": "天梯獲勝數",
+        "en": "Ladder number of wins"
     },
     {
         "id": 3776,
-        "tw": "天梯連勝數"
+        "tw": "天梯連勝數",
+        "en": "Number of straight ladder"
     },
     {
         "id": 3777,
-        "tw": "踢館獲勝數"
+        "tw": "踢館獲勝數",
+        "en": "Tiguan number of wins"
     },
     {
         "id": 3778,
-        "tw": "踢館連勝數"
+        "tw": "踢館連勝數",
+        "en": "Number Tiguan streak"
     },
     {
         "id": 3779
@@ -1386,7 +1512,7 @@
     {
         "id": 4001,
         "explain": "晶片收集",
-        "tw": "晶片收集"
+        "tw": "晶片抽取"
     },
     {
         "id": 4002
@@ -1418,42 +1544,50 @@
     {
         "id": 4101,
         "uipeth": "SubheadLabelDisk",
-        "tw": "可能獲得晶片"
+        "tw": "可能獲得晶片",
+        "en": "Possible to obtain a wafer"
     },
     {
         "id": 4102,
         "uipeth": "SubheadLabelItem",
-        "tw": "可能獲得物品"
+        "tw": "可能獲得物品",
+        "en": "May acquire items"
     },
     {
         "id": 4103,
         "uipeth": "Open10Label",
-        "tw": "X10"
+        "tw": "X10",
+        "en": "X10"
     },
     {
         "id": 4104,
         "uipeth": "Open5Label",
-        "tw": "X5"
+        "tw": "X5",
+        "en": "X5"
     },
     {
         "id": 4105,
         "uipeth": "OpenBtn10/SaleLabel",
-        "tw": "最划算"
+        "tw": "最划算",
+        "en": "The most cost-effective"
     },
     {
         "id": 4106,
         "uipeth": "FreeLabel",
-        "tw": "免費倒數 {0} "
+        "tw": "免費倒數 {0} ",
+        "en": "Free countdown {0} "
     },
     {
         "id": 4107,
         "uipeth": "FreeLabel1",
-        "tw": "免費抽卡"
+        "tw": "免費抽卡",
+        "en": "Free draw card"
     },
     {
         "id": 4108,
         "uipeth": "FreeQA",
-        "tw": "確認免費抽取晶片？"
+        "tw": "確認免費抽取晶片？",
+        "en": "Claim your free extract wafer?"
     },
     {
         "id": 4200,
@@ -1481,81 +1615,96 @@
     {
         "id": 4501,
         "explain": "隨機商品商店",
-        "tw": "商 店"
+        "tw": "商 店",
+        "en": "Shops"
     },
     {
         "id": 4502,
         "explain": "無限定使用的貨幣",
         "uipeth": "Tabs/0/雜貨商店",
-        "tw": "雜物商店"
+        "tw": "雜物商店",
+        "en": "Sundries shop"
     },
     {
         "id": 4503,
         "explain": "限定使用聯盟對戰貨幣",
         "uipeth": "Tabs/1/聯盟商店（天梯）",
-        "tw": "聯盟商店"
+        "tw": "聯盟商店",
+        "en": "Union Shop"
     },
     {
         "id": 4504,
         "explain": "限定使用社群取得的貨幣",
         "uipeth": "Tabs/2/社群商店",
-        "tw": "社群商店"
+        "tw": "社群商店",
+        "en": "Community Store"
     },
     {
         "id": 4505,
         "uipeth": "Tabs/3",
-        "tw": "好友限定"
+        "tw": "好友限定",
+        "en": "Friends Limited"
     },
     {
         "id": 4506,
         "uipeth": "ResetBtn",
-        "tw": "商品刷新"
+        "tw": "商品刷新",
+        "en": "Product Refresh"
     },
     {
         "id": 4507,
         "explain": "每隔幾小時後商店盤面就會刷新",
         "uipeth": "WarningsLabel",
-        "tw": "下次刷新尚餘：[33FFDD]{0}[-]"
+        "tw": "下次刷新尚餘：[33FFDD]{0}[-]",
+        "en": "Remaining next refresh: [33FFDD] {0} [-]"
     },
     {
         "id": 4508,
         "uipeth": "ItemShopBtn/FittingIcon",
-        "tw": "試穿中"
+        "tw": "試穿中",
+        "en": "Try the"
     },
     {
         "id": 4509,
         "uipeth": "ItemShopBtn/SoldOutIcon",
-        "tw": "完 售",
-        "en": "SOLD OUT"
+        "tw": "售 完",
+        "en": "Sold Out"
     },
     {
         "id": 4510,
-        "tw": "立刻刷新"
+        "tw": "立刻刷新",
+        "en": "Refresh immediately"
     },
     {
         "id": 4511,
         "explain": "立刻刷新商店的盤面需要花費寶石",
-        "tw": "立刻刷新商店需花費寶石"
+        "tw": "立刻刷新商店需花費寶石",
+        "en": "Shops immediately refresh takes gem"
     },
     {
         "id": 4512,
-        "tw": "購買"
+        "tw": "購買",
+        "en": "buy"
     },
     {
         "id": 4513,
-        "tw": "購買{0}個花費"
+        "tw": "購買{0}個花費",
+        "en": "Buy {0} spend"
     },
     {
         "id": 4514,
-        "tw": "位置不同無法試穿，但您仍可購買給其他球員穿。"
+        "tw": "位置不同無法試穿，但您仍可購買給其他球員穿。",
+        "en": "Unable to try different positions, but you can still buy other players to wear."
     },
     {
         "id": 4515,
-        "tw": "聯盟幣不足"
+        "tw": "聯盟幣不足",
+        "en": "Union currency shortage"
     },
     {
         "id": 4516,
-        "tw": "社群幣不足"
+        "tw": "社群幣不足",
+        "en": "Community currency shortage"
     },
     {
         "id": 4600,
@@ -1564,32 +1713,38 @@
     {
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": " [B3B3B3FF]銅質晶片[-]"
+        "tw": " [B3B3B3FF]銅質晶片[-]",
+        "en": "[B3B3B3FF] copper wafer [-]"
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": " [C17269FF]鐵質晶片[-]"
+        "tw": " [C17269FF]鐵質晶片[-]",
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": " [99B3D4FF]銀質晶片[-]"
+        "tw": " [99B3D4FF]銀質晶片[-]",
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": "金質晶片"
+        "tw": "金質晶片",
+        "en": "Gold wafer"
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": "鑽石晶片"
+        "tw": "鑽石晶片",
+        "en": "Diamond wafer"
     },
     {
         "id": 4606,
         "explain": "介面上的大標題",
-        "tw": "獲得技能晶片"
+        "tw": "獲得技能晶片",
+        "en": "Acquire skills wafer"
     },
     {
         "id": 4607
@@ -1603,22 +1758,26 @@
     {
         "id": 4901,
         "explain": "體力金幣鑽石儲值",
-        "tw": "補充貨幣"
+        "tw": "補充貨幣",
+        "en": "Supplementary currency"
     },
     {
         "id": 4902,
         "explain": "寶石",
-        "tw": "寶 石"
+        "tw": "寶 石",
+        "en": "Precious stones"
     },
     {
         "id": 4903,
         "explain": "金幣",
-        "tw": "金 幣"
+        "tw": "金 幣",
+        "en": "Gold coins"
     },
     {
         "id": 4904,
         "explain": "體力",
-        "tw": "體 力"
+        "tw": "體 力",
+        "en": "Body force"
     },
     {
         "id": 4905
@@ -1641,13 +1800,15 @@
     {
         "id": 4911,
         "uipeth": "Pages0/SubheadLabel0",
-        "tw": "購買寶石"
+        "tw": "購買寶石",
+        "en": "Buy gems"
     },
     {
         "id": 4912,
         "explain": "介面上的銷售標語",
         "uipeth": "Pages0/SubheadLabel1",
-        "tw": "寶石並非萬能，但沒有寶石萬萬不能。"
+        "tw": "寶石並非萬能，但沒有寶石萬萬不能。",
+        "en": "Gem is not a panacea, but no gem totally unacceptable."
     },
     {
         "id": 4913,
@@ -1664,13 +1825,15 @@
     {
         "id": 4916,
         "uipeth": "Pages1/SubheadLabel0",
-        "tw": "購買金幣"
+        "tw": "購買金幣",
+        "en": "Buy Gold Coins"
     },
     {
         "id": 4917,
         "explain": "介面上的銷售標語",
         "uipeth": "Pages1/SubheadLabel1",
-        "tw": "換夠金幣籌碼，才能繼續前進！"
+        "tw": "換夠金幣籌碼，才能繼續前進！",
+        "en": "Change enough gold chips to move forward!"
     },
     {
         "id": 4918,
@@ -1687,13 +1850,15 @@
     {
         "id": 4921,
         "uipeth": "Pages2/SubheadLabel0",
-        "tw": "補充體力"
+        "tw": "補充體力",
+        "en": "Add strength"
     },
     {
         "id": 4922,
         "explain": "介面上的銷售標語",
         "uipeth": "Pages2/SubheadLabel1",
-        "tw": "消除疲勞，恢復體力也快！真的！"
+        "tw": "消除疲勞，恢復體力也快！真的！",
+        "en": "Eliminate fatigue and resume physical strength is also fast! Really!"
     },
     {
         "id": 4923,
@@ -1710,191 +1875,232 @@
     {
         "id": 5001,
         "explain": "社交介面",
-        "tw": "社 群"
+        "tw": "社 群",
+        "en": "Social Groups"
     },
     {
         "id": 5002,
         "uipeth": "頁籤1",
-        "tw": "動 態"
+        "tw": "動 態",
+        "en": "Dynamic"
     },
     {
         "id": 5003,
         "uipeth": "頁籤2",
-        "tw": "邀 請"
+        "tw": "邀 請",
+        "en": "Invited"
     },
     {
         "id": 5004,
         "uipeth": "頁籤3",
-        "tw": "推 薦"
+        "tw": "推 薦",
+        "en": "Recommended"
     },
     {
         "id": 5005,
         "uipeth": "頁籤4",
-        "tw": "好 友"
+        "tw": "好 友",
+        "en": "Good Friends"
     },
     {
         "id": 5006,
         "uipeth": "頁籤5",
-        "tw": "社群連結"
+        "tw": "社群連結",
+        "en": "Community Links"
     },
     {
         "id": 5007,
         "uipeth": "搜尋好友",
-        "tw": "請輸入玩家名稱"
+        "tw": "請輸入玩家名稱",
+        "en": "Please enter the name of the player"
     },
     {
         "id": 5008,
         "uipeth": "OnlineTime",
-        "tw": "最近上線："
+        "tw": "最近上線：",
+        "en": "Recent on-line:"
     },
     {
         "id": 5009,
         "uipeth": "TimeLabel",
-        "tw": " {0} 前"
+        "tw": " {0} 前",
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
         "uipeth": "TimeLabel",
-        "tw": "很久以前"
+        "tw": "很久以前",
+        "en": "long time ago"
     },
     {
         "id": 5011,
         "uipeth": "RequestGroup",
-        "tw": "是否接受請求？"
+        "tw": "是否接受請求？",
+        "en": "Whether to accept the request?"
     },
     {
         "id": 5012,
         "uipeth": "InviteGroup",
-        "tw": "邀 請"
+        "tw": "邀 請",
+        "en": "Invited"
     },
     {
         "id": 5013,
         "uipeth": "ButtonListGroup",
-        "tw": "檢視資料"
+        "tw": "檢視資料",
+        "en": "View Profile"
     },
     {
         "id": 5014,
         "uipeth": "ButtonListGroup",
-        "tw": "檢視球館"
+        "tw": "檢視球館",
+        "en": "View Arena"
     },
     {
         "id": 5015,
         "uipeth": "ButtonListGroup",
-        "tw": "檢視球隊"
+        "tw": "檢視球隊",
+        "en": "View Team"
     },
     {
         "id": 5016,
         "uipeth": "ButtonListGroup",
-        "tw": "移 除"
+        "tw": "移 除",
+        "en": "Removed"
     },
     {
         "id": 5017,
         "uipeth": "CountLabel",
-        "tw": "好友數"
+        "tw": "好友數",
+        "en": "Friends"
     },
     {
         "id": 5018,
         "uipeth": "TextLabel",
-        "tw": "每日9:00刷新推薦名單，或即刻刷新。"
+        "tw": "每日9:00刷新推薦名單，或即刻刷新。",
+        "en": "Daily 9:00 to refresh the list of recommendations, or instantly refreshed."
     },
     {
         "id": 5019,
         "uipeth": "TextLabel",
         "tw": "加朋友",
-        "en": "Make Friend"
+        "en": "add friend"
     },
     {
         "id": 5020,
         "uipeth": "功能訊息",
-        "tw": "玩家名稱錯誤"
+        "tw": "玩家名稱錯誤",
+        "en": "Player Name Error"
     },
     {
         "id": 5021,
-        "tw": "無此玩家"
+        "tw": "無此玩家",
+        "en": "No such players"
     },
     {
         "id": 5022,
-        "tw": "朋友資料錯誤"
+        "tw": "朋友資料錯誤",
+        "en": "Friends error Profile"
     },
     {
         "id": 5023,
-        "tw": "關 注"
+        "tw": "關 注",
+        "en": "Off Note"
     },
     {
         "id": 5024,
-        "tw": "取消關注"
+        "tw": "取消關注",
+        "en": "unsubscribe"
     },
     {
         "id": 5025,
-        "tw": "刪除好友"
+        "tw": "刪除好友",
+        "en": "Remove Friend"
     },
     {
         "id": 5026,
-        "tw": "請先取名字，讓朋友認識你。"
+        "tw": "請先取名字，讓朋友認識你。",
+        "en": "Please take the name, let a friend know you."
     },
     {
         "id": 5027,
-        "tw": "開始關注{0} "
+        "tw": "開始關注{0} ",
+        "en": "Concerned about {0} "
     },
     {
         "id": 5028,
-        "tw": "若對方也關注你，即為朋友。"
+        "tw": "若對方也關注你，即為朋友。",
+        "en": "If the other party is also concerned about your Friends."
     },
     {
         "id": 5029,
-        "tw": "開始關注你"
+        "tw": "開始關注你",
+        "en": "You started to pay attention"
     },
     {
         "id": 5030,
-        "tw": "成為朋友"
+        "tw": "成為朋友",
+        "en": "become friends"
     },
     {
         "id": 5031,
-        "tw": " [969696FF]搜尋符合[-]"
+        "tw": " [969696FF]搜尋符合[-]",
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
-        "tw": "關注成為朋友"
+        "tw": "關注成為朋友",
+        "en": "Follow become friends"
     },
     {
         "id": 5033,
-        "tw": "刪除邀請"
+        "tw": "刪除邀請",
+        "en": "Delete the invitation"
     },
     {
         "id": 5034,
-        "tw": "對方取消關注"
+        "tw": "對方取消關注",
+        "en": "Other Unfollow"
     },
     {
         "id": 5035,
-        "tw": "與{0}成為朋友"
+        "tw": "與{0}成為朋友",
+        "en": "Become friends with {0} "
     },
     {
         "id": 5036,
-        "tw": "抽中大獎"
+        "tw": "抽中大獎",
+        "en": "Drawn Awards"
     },
     {
         "id": 5037,
-        "tw": "目前無適合推薦球員，請稍後再試。"
+        "tw": "目前無適合推薦球員，請稍後再試。",
+        "en": "Currently no recommendation for the player, please try again later."
     },
     {
         "id": 5038,
-        "tw": "達成成就"
+        "tw": "達成成就",
+        "en": "Achieve achievement"
     },
     {
         "id": 5039,
-        "tw": "完成每日任務"
+        "tw": "完成每日任務",
+        "en": "Complete daily tasks"
     },
     {
         "id": 5040,
-        "tw": "完成每週任務"
+        "tw": "完成每週任務",
+        "en": "Complete weekly task"
     },
     {
         "id": 5041,
-        "tw": "完成每月任務"
+        "tw": "完成每月任務",
+        "en": "Meeting monthly task"
     },
     {
         "id": 5042,
-        "tw": "不能關注自己"
+        "tw": "不能關注自己",
+        "en": "Not concerned about their"
     },
     {
         "id": 6001,
@@ -1948,7 +2154,8 @@
     {
         "id": 6009,
         "uipeth": "PartSlot",
-        "tw": "未裝備"
+        "tw": "未裝備",
+        "en": "Unequipped"
     },
     {
         "id": 6010,
@@ -1964,19 +2171,19 @@
         "id": 6102,
         "uipeth": "SkillKindLabel",
         "tw": "[ff0000]主動技[-][ff0000]A[-][fffffff]bility[-]",
-        "en": "[ff0000]Ability[-]"
+        "en": "[ff0000]Ability[-] "
     },
     {
         "id": 6103,
         "uipeth": "SkillKindLabel",
         "tw": "[3355ff]被動技[-][3355ff]P[-][fffffff]asive[-]",
-        "en": "[3355ff]Pasive Ability[-]"
+        "en": "[3355ff]Pasive Ability[-] "
     },
     {
         "id": 6110,
         "explain": "目前擁有數量",
         "tw": "[33FFDD]擁有：[-][ffffff]{0}[-] [33FFDD]件[-]",
-        "en": "[33FFDD]Owned：[-][ffffff]{0}[-]"
+        "en": "[33FFDD]Owned：[-][ffffff]{0}[-] "
     },
     {
         "id": 6201,
@@ -2006,15 +2213,18 @@
     },
     {
         "id": 6402,
-        "tw": "完成成就獎勵"
+        "tw": "完成成就獎勵",
+        "en": "Earned the achievement award"
     },
     {
         "id": 6403,
-        "tw": "每日任務獎勵"
+        "tw": "每日任務獎勵",
+        "en": "Daily quest"
     },
     {
         "id": 6404,
-        "tw": "請點擊畫面繼續"
+        "tw": "請點擊畫面繼續",
+        "en": "Click on the picture to continue"
     },
     {
         "id": 7001,
@@ -2026,13 +2236,13 @@
         "id": 7002,
         "uipeth": "ActiveCheck/ActiveLabel",
         "tw": "[ff0000]主動技[-]",
-        "en": "[ff0000]Ability[-]"
+        "en": "[ff0000]Ability[-] "
     },
     {
         "id": 7003,
         "uipeth": "PassiveCheck/PassiveLabel",
         "tw": "[23A3A3FF]被動技[-]",
-        "en": "[23A3A3FF]Pasive Ability[-]"
+        "en": "[23A3A3FF]Pasive Ability[-] "
     },
     {
         "id": 7004,
@@ -2155,18 +2365,21 @@
     {
         "id": 7114,
         "explain": "選擇預備出售狀態",
-        "tw": "出售中"
+        "tw": "出售中",
+        "en": "Sale"
     },
     {
         "id": 7115,
         "explain": "不可以裝備或是出售",
         "uipeth": "UnavailableLabel",
-        "tw": "不可用"
+        "tw": "不可裝備",
+        "en": "Equipment can not be"
     },
     {
         "id": 7116,
         "uipeth": "LabelFilter/變換字串",
-        "tw": "篩選中"
+        "tw": "篩選中",
+        "en": "Screening"
     },
     {
         "id": 7201,
@@ -2260,25 +2473,25 @@
         "id": 7216,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [B3B3B3FF]鐵質[-]",
-        "en": "[B3B3B3FF] Iron [-]"
+        "en": "[B3B3B3FF] Iron [-] "
     },
     {
         "id": 7217,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [C17269FF]銅質[-]",
-        "en": "[C17269FF] Copper [-]"
+        "en": "[C17269FF] Copper [-] "
     },
     {
         "id": 7218,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [99B3D4FF]銀質[-]",
-        "en": "[99B3D4FF] Silver [-]"
+        "en": "[99B3D4FF] Silver [-] "
     },
     {
         "id": 7219,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [EFC653FF]金質[-]",
-        "en": "[EFC653FF] Gold [-]"
+        "en": "[EFC653FF] Gold [-] "
     },
     {
         "id": 7220,
@@ -2378,19 +2591,19 @@
         "id": 7407,
         "uipeth": "升級所需",
         "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]",
-        "en": "[B7B7B7FF] required EXP: [FFFF00FF] {0} [-]"
+        "en": "[B7B7B7FF] required EXP: [FFFF00FF] {0} [-] "
     },
     {
         "id": 7408,
         "uipeth": "材料獲得",
         "tw": "總獲得EXP：[00FF00FF]{0}[-]",
-        "en": "Total obtain EXP: [00FF00FF] {0} [-]"
+        "en": "Total obtain EXP: [00FF00FF] {0} [-] "
     },
     {
         "id": 7409,
         "uipeth": "等級達上限",
         "tw": "[FFFF00FF]等級已達上限[-]",
-        "en": "[FFFF00FF] LV Max [-]"
+        "en": "[FFFF00FF] LV Max [-] "
     },
     {
         "id": 7410,
@@ -2413,34 +2626,39 @@
     {
         "id": 7413,
         "explain": "頁籤1",
-        "tw": "晶片合成"
+        "tw": "晶片合成",
+        "en": "Wafer synthesis"
     },
     {
         "id": 7414,
         "explain": "頁籤2",
-        "tw": "晶片進化"
+        "tw": "晶片進化",
+        "en": "Wafer evolution"
     },
     {
         "id": 7415,
         "explain": "合成按鈕",
-        "tw": "－選擇好材料後進行合成－"
+        "tw": "－選擇好材料後進行合成－",
+        "en": "- After selecting the material synthesis -"
     },
     {
         "id": 7416,
         "explain": "進化按鈕",
-        "tw": "－蒐集完材料後進化晶片－"
+        "tw": "－蒐集完材料後進化晶片－",
+        "en": "- After collecting material evolution wafer -"
     },
     {
         "id": 7417,
         "explain": "進化材料",
-        "tw": "需求材料"
+        "tw": "需求材料",
+        "en": "Material needs"
     },
     {
         "id": 7501,
         "explain": "技能晶片安裝後的狀態",
         "uipeth": "ItemCardEquipped ",
         "tw": "COST [00FFFFFF]{0}[-]",
-        "en": "COST [00FFFFFF]{0}[-]",
+        "en": "COST [00FFFFFF]{0}[-] ",
         "jp": "COST [00FFFFFF]{0}[-]"
     },
     {
@@ -2448,7 +2666,7 @@
         "explain": "技能合成界面顯示該卡EXP",
         "uipeth": "ItemCardEquipped ",
         "tw": "EXP [00FF00FF]{0}[-]",
-        "en": "EXP [00FF00FF]{0}[-]",
+        "en": "EXP [00FF00FF]{0}[-] ",
         "jp": "EXP [00FF00FF]{0}[-]"
     },
     {
@@ -2605,17 +2823,20 @@
     {
         "id": 9152,
         "explain": "主線關卡",
-        "tw": "[FFDD33]生涯競賽[-]"
+        "tw": "[FFDD33]生涯競賽[-]",
+        "en": "[FFFD 33] Career Competition [-] "
     },
     {
         "id": 9153,
         "explain": "PVP關卡",
-        "tw": "[ff0074]聯盟挑戰[-]"
+        "tw": "[ff0074]聯盟挑戰[-]",
+        "en": "[Ff0074] Challenge League [-] "
     },
     {
         "id": 9154,
         "explain": "副本關卡",
-        "tw": "[06b225]關主挑戰[-]"
+        "tw": "[06b225]關主挑戰[-]",
+        "en": "[06b225] Off the main challenge [-] "
     },
     {
         "id": 9155
@@ -2717,7 +2938,7 @@
         "id": 9312,
         "uipeth": "StartButton/TimesLabel",
         "tw": "挑戰次數：[33FFDD]{0}[-]",
-        "en": "Challenge：[33FFDD]{0}[-]",
+        "en": "Challenge：[33FFDD]{0}[-] ",
         "jp": "({0})"
     },
     {
@@ -2806,7 +3027,7 @@
     {
         "id": 9509,
         "tw": "戰鬥力 {0:F1} ",
-        "en": "Power {0:F1} "
+        "en": "Power {0:F1}  "
     },
     {
         "id": 9510,
@@ -2848,179 +3069,213 @@
     {
         "id": 9601,
         "uipeth": "戰術選擇/SubheadLabel",
-        "tw": "請選擇戰術"
+        "tw": "請選擇戰術",
+        "en": "Please choose tactics"
     },
     {
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
-        "tw": " {0} 使用中"
+        "tw": " {0} 使用中",
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
         "explain": "聯盟對戰",
         "tw": "聯 盟 對 戰",
-        "en": "PVP"
+        "en": "Union of war"
     },
     {
         "id": 9702,
         "uipeth": "tabs/01",
-        "tw": "搜尋對戰"
+        "tw": "搜尋對戰",
+        "en": "Search Battle"
     },
     {
         "id": 9703,
         "uipeth": "tabs/02",
-        "tw": "聯盟排行"
+        "tw": "聯盟排行",
+        "en": "League Ranking"
     },
     {
         "id": 9704,
         "uipeth": "tabs/03",
-        "tw": "排行榜2"
+        "tw": "排行榜2",
+        "en": "Charting 2"
     },
     {
         "id": 9705,
         "uipeth": "tabs/04",
-        "tw": "預留"
+        "tw": "預留",
+        "en": "Reserved"
     },
     {
         "id": 9706,
         "uipeth": "tabs/05",
-        "tw": "預留"
+        "tw": "預留",
+        "en": "Reserved"
     },
     {
         "id": 9707,
         "uipeth": "AwardGroup/TitleLabel",
-        "tw": "積分獎勵"
+        "tw": "積分獎勵",
+        "en": "Reward"
     },
     {
         "id": 9708,
         "uipeth": "RangeNameLabel",
-        "tw": "下一階段\n {0} "
+        "tw": "下一階段\n {0} ",
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,
         "uipeth": "NextRankGroup/TitleLabel/each",
-        "tw": "每場"
+        "tw": "每場",
+        "en": "Every"
     },
     {
         "id": 9710,
         "uipeth": "NextRankGroup/TitleLabel/daily",
-        "tw": "每日"
+        "tw": "每日",
+        "en": "daily"
     },
     {
         "id": 9711,
         "explain": "點擊後秀出玩家的Rank",
-        "tw": "我的排名"
+        "tw": "我的排名",
+        "en": "My Rank"
     },
     {
         "id": 9712,
         "explain": "每日獎勵按鈕 未領",
         "uipeth": "DailyAwardBtn",
-        "tw": "可領取"
+        "tw": "可領取",
+        "en": "Can receive"
     },
     {
         "id": 9713,
         "explain": "每日獎勵按鈕 已領",
         "uipeth": "DailyAwardBtn",
-        "tw": "本日已領取"
+        "tw": "本日已領取",
+        "en": "The date has already received"
     },
     {
         "id": 9714,
         "explain": "說明",
         "uipeth": "TitleLabel",
-        "tw": "每日聯盟排名獎勵"
+        "tw": "每日聯盟排名獎勵",
+        "en": "Daily league award"
     },
     {
         "id": 9715,
         "explain": "Hint顯示：領取完畢",
         "uipeth": "UIHint",
-        "tw": "每日聯盟排名獎勵領取完畢。"
+        "tw": "每日聯盟排名獎勵領取完畢。",
+        "en": "Daily league award receive completed."
     },
     {
         "id": 9716,
         "explain": "Hint顯示：領過了",
         "uipeth": "UIHint/按鈕換button_gray",
-        "tw": "今天領過囉，請明天再來。"
+        "tw": "今天領過囉，請明天再來。",
+        "en": "Today over collar Hello, please come back tomorrow."
     },
     {
         "id": 9721,
         "uipeth": "StartBtn",
-        "tw": "開始戰鬥"
+        "tw": "開始戰鬥",
+        "en": "Started fighting"
     },
     {
         "id": 9722,
         "uipeth": "CombatLabel0/Label",
-        "tw": "對手戰力值"
+        "tw": "對手戰力值",
+        "en": "Opponents combat power value"
     },
     {
         "id": 9723,
         "uipeth": "CombatLabel1/Label",
-        "tw": "玩家戰力值"
+        "tw": "玩家戰力值",
+        "en": "Players combat power value"
     },
     {
         "id": 9724,
-        "tw": "積分計算"
+        "tw": "積分計算",
+        "en": "Integral Calculus"
     },
     {
         "id": 9725,
-        "tw": "勝利"
+        "tw": "勝利",
+        "en": "victory"
     },
     {
         "id": 9726,
-        "tw": "敗北"
+        "tw": "敗北",
+        "en": "Defeat"
     },
     {
         "id": 9727,
-        "tw": "刷新對手"
+        "tw": "刷新對手",
+        "en": "Refresh opponents"
     },
     {
         "id": 9728,
         "explain": "對戰按鈕狀態 計算次數",
-        "tw": "挑戰次數 {0}/{1} "
+        "tw": "挑戰次數 {0}/{1} ",
+        "en": "Challenge number {0} / {1} "
     },
     {
         "id": 9729,
         "explain": "對戰按鈕狀態 冷卻時",
-        "tw": "冷卻中 {0} "
+        "tw": "冷卻中 {0} ",
+        "en": "Cooling {0} "
     },
     {
         "id": 9730,
         "explain": "對戰按鈕狀態 次數使用完畢",
-        "tw": "購買票券"
+        "tw": "購買票券",
+        "en": "Buy tickets"
     },
     {
         "id": 9731,
         "explain": "次數分子等於0",
-        "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[00E1FFFF] {1} [-]？"
+        "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[00E1FFFF] {1} [-]？",
+        "en": "Number of challenges has been exhausted, whether [FF00FFFF] {0} gem [-] later [00E1FFFF] {1} [-]?"
     },
     {
         "id": 9732,
         "explain": "次數分子不等於0且在冷卻中",
-        "tw": "挑戰次數冷卻中，是否使用 [FF00FFFF]{0}寶石[-] 消除冷卻時間？"
+        "tw": "挑戰次數冷卻中，是否使用 [FF00FFFF]{0}寶石[-] 消除冷卻時間？",
+        "en": "Challenges cooling times, whether [FF00FFFF] {0} gem [-] to eliminate the cooling time?"
     },
     {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipeth": "RankSlider/Thumb",
-        "tw": "積分區間 {0}-{1} "
+        "tw": "積分區間 {0}-{1} ",
+        "en": "Integration interval {0} - {1} "
     },
     {
         "id": 9742,
         "uipeth": "RankSlider/NowRank",
-        "tw": "YOU"
+        "tw": "YOU",
+        "en": "YOU"
     },
     {
         "id": 9743,
-        "tw": "下一步"
+        "tw": "下一步",
+        "en": "Next"
     },
     {
         "id": 9744,
         "explain": "獎勵，每場勝利後得到",
-        "tw": "每場獲勝"
+        "tw": "每場獲勝",
+        "en": "Every win"
     },
     {
         "id": 9745,
         "explain": "獎勵，依照玩家打進的聯盟每日得到",
-        "tw": "每日取得"
+        "tw": "每日取得",
+        "en": "Daily made"
     },
     {
         "id": 9800,
@@ -3029,32 +3284,38 @@
     {
         "id": 9801,
         "explain": "標題使用",
-        "tw": "關主挑戰"
+        "tw": "關主挑戰",
+        "en": "Off the main challenge"
     },
     {
         "id": 9802,
         "explain": "完成用的字標",
-        "tw": "完 成"
+        "tw": "完 成",
+        "en": "carry out"
     },
     {
         "id": 9803,
         "explain": "目標文字",
-        "tw": "擊敗關主以蒐集高級裝備"
+        "tw": "擊敗關主機率獲得\n[33FFDD]技能晶片進化材料[-]及[33FFDD]關主服飾[-] ",
+        "en": "Beat off the main access to skills [33F FDD] evolution wafer material [-] and [33F FDD] Off Main Clothing [-] "
     },
     {
         "id": 9811,
         "explain": "關主副本條件文字9811~9860-1",
-        "tw": "完成第一章後開啟"
+        "tw": "完成第一章後開啟",
+        "en": "After the completion of the first chapter open"
     },
     {
         "id": 9812,
         "explain": "關主副本條件文字9811~9860-2",
-        "tw": "完成第二章後開啟"
+        "tw": "完成第二章後開啟",
+        "en": "After completing the second chapter Open"
     },
     {
         "id": 9813,
         "explain": "關主副本條件文字9811~9860-3",
-        "tw": "完成第三章後開啟"
+        "tw": "完成第三章後開啟",
+        "en": "Upon completion of Chapter III Open"
     },
     {
         "id": 9814,
@@ -3079,7 +3340,8 @@
     {
         "id": 9861,
         "explain": "物件標題名稱",
-        "tw": "STAGE"
+        "tw": "STAGE",
+        "en": "STAGE"
     },
     {
         "id": 10001,
@@ -3254,7 +3516,7 @@
     {
         "id": 10315,
         "uipeth": "PlayerInfoBtn/Label",
-        "tw": "玩家\n資訊",
+        "tw": "玩家資訊",
         "en": "PLAYER\nINFO",
         "jp": "PLAYER\nINFO"
     },
@@ -3809,6 +4071,11 @@
         "en": "HIGH"
     },
     {
+        "id": 12037,
+        "tw": "帳號登入",
+        "en": "Login"
+    },
+    {
         "id": 13000,
         "explain": "物品Hint 的物品Kind說明  0身體",
         "tw": "造型",
@@ -3971,7 +4238,7 @@
     {
         "id": 15002,
         "explain": "戰術1",
-        "tw": "內外交錯攻擊"
+        "tw": "綜合進攻"
     },
     {
         "id": 15003,
@@ -3990,17 +4257,17 @@
     {
         "id": 15102,
         "explain": "說明1",
-        "tw": "融合內外線進攻，適合\n [33FFDD]“得分高於對手”[-] \n的關卡條件選擇"
+        "tw": "融合內外線進攻，適合 [33FFDD]“得分高於對手”[-] 的關卡條件選擇"
     },
     {
         "id": 15103,
         "explain": "說明2",
-        "tw": "主打內線投籃，適合\n [33FFDD]“2分球數量“[-]、[33FFDD]”灌籃數量“[-] \n等關卡條件選擇"
+        "tw": "主打內線投籃，適合 [33FFDD]“2分球數量“[-]、[33FFDD]”灌籃數量“[-] 等關卡條件選擇"
     },
     {
         "id": 15104,
         "explain": "說明3",
-        "tw": "主打外線投籃，適合\n [33FFDD]“3分球數量“[-]、[33FFDD]”得分限制“[-] \n等關卡條件需求選擇"
+        "tw": "主打外線投籃，適合 [33FFDD]“3分球數量“[-]、[33FFDD]”得分限制“[-] 等關卡條件需求選擇"
     },
     {
         "id": 100000,

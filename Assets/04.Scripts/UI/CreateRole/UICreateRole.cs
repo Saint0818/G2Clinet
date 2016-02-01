@@ -121,7 +121,7 @@ public class UICreateRole : UIBase
     /// <param name="itemIDs"></param>
     /// <returns></returns>
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
-                                         Dictionary<EEquip, int> itemIDs)
+                                         Dictionary<EPart, int> itemIDs)
     {
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
@@ -131,31 +131,31 @@ public class UICreateRole : UIBase
         return CreateModel(name, playerID, player.Avatar, parent);
     }
 
-    private static void extractAvatarData(ref TAvatar avatar, Dictionary<EEquip, int> itemIDs)
+    private static void extractAvatarData(ref TAvatar avatar, Dictionary<EPart, int> itemIDs)
     {
-        if(itemIDs.ContainsKey(EEquip.Body) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Body]))
-            avatar.Body = GameData.DItemData[itemIDs[EEquip.Body]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Body) && GameData.DItemData.ContainsKey(itemIDs[EPart.Body]))
+            avatar.Body = GameData.DItemData[itemIDs[EPart.Body]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Hair) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Hair]))
-            avatar.Hair = GameData.DItemData[itemIDs[EEquip.Hair]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Hair) && GameData.DItemData.ContainsKey(itemIDs[EPart.Hair]))
+            avatar.Hair = GameData.DItemData[itemIDs[EPart.Hair]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Cloth) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Cloth]))
-            avatar.Cloth = GameData.DItemData[itemIDs[EEquip.Cloth]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Cloth) && GameData.DItemData.ContainsKey(itemIDs[EPart.Cloth]))
+            avatar.Cloth = GameData.DItemData[itemIDs[EPart.Cloth]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Pants) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Pants]))
-            avatar.Pants = GameData.DItemData[itemIDs[EEquip.Pants]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Pants) && GameData.DItemData.ContainsKey(itemIDs[EPart.Pants]))
+            avatar.Pants = GameData.DItemData[itemIDs[EPart.Pants]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Shoes) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Shoes]))
-            avatar.Shoes = GameData.DItemData[itemIDs[EEquip.Shoes]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Shoes) && GameData.DItemData.ContainsKey(itemIDs[EPart.Shoes]))
+            avatar.Shoes = GameData.DItemData[itemIDs[EPart.Shoes]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Head) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Head]))
-            avatar.AHeadDress = GameData.DItemData[itemIDs[EEquip.Head]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Head) && GameData.DItemData.ContainsKey(itemIDs[EPart.Head]))
+            avatar.AHeadDress = GameData.DItemData[itemIDs[EPart.Head]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Hand) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Hand]))
-            avatar.MHandDress = GameData.DItemData[itemIDs[EEquip.Hand]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Hand) && GameData.DItemData.ContainsKey(itemIDs[EPart.Hand]))
+            avatar.MHandDress = GameData.DItemData[itemIDs[EPart.Hand]].Avatar;
 
-        if(itemIDs.ContainsKey(EEquip.Back) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Back]))
-            avatar.ZBackEquip = GameData.DItemData[itemIDs[EEquip.Back]].Avatar;
+        if(itemIDs.ContainsKey(EPart.Back) && GameData.DItemData.ContainsKey(itemIDs[EPart.Back]))
+            avatar.ZBackEquip = GameData.DItemData[itemIDs[EPart.Back]].Avatar;
     }
 
     /// <summary>
@@ -189,7 +189,7 @@ public class UICreateRole : UIBase
     /// <param name="playerID"></param>
     /// <param name="itemIDs"></param>
     /// <returns></returns>
-    public static void UpdateModel(GameObject model, int playerID, Dictionary<EEquip, int> itemIDs)
+    public static void UpdateModel(GameObject model, int playerID, Dictionary<EPart, int> itemIDs)
     {
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
@@ -236,7 +236,7 @@ public class UICreateRole : UIBase
         return data;
     }
 
-    public enum EEquip
+    public enum EPart
     {
         Body,
         Hair,

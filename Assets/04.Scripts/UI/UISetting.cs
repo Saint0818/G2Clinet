@@ -402,8 +402,11 @@ public class UISetting : UIBase {
 
 	public void DoOtherCharacter(object obj)
 	{
-		WWWForm form = new WWWForm();
-		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+//		WWWForm form = new WWWForm();
+//		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+
+        LookupPlayerBanksProtocol protocol = new LookupPlayerBanksProtocol();
+        protocol.Send(waitLookupPlayerBanks);
 	}
 
 	public void OnOtherCharacter()
@@ -411,19 +414,18 @@ public class UISetting : UIBase {
 		UIMessage.Get.ShowMessage(TextConst.S(211), TextConst.S(210), DoOtherCharacter);
 	}
 
-	private void waitLookPlayerBank(bool isSuccess, WWW www)
+	private void waitLookupPlayerBanks(bool isSuccess, LookupPlayerBanksProtocol.TPlayerBanks banks)
 	{
-		if (!isSuccess)
+		if(!isSuccess)
 		{
 			Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
 			return;
 		}
 		
-		TLookUpData lookUpData = JsonConvert.DeserializeObject<TLookUpData>(www.text);
-		var data = UICreateRole.Convert(lookUpData.PlayerBanks);
-		if (data != null)
+		var data = UICreateRole.Convert(banks.PlayerBanks);
+		if(data != null)
 		{
-			UICreateRole.Get.ShowFrameView(data, lookUpData.SelectedRoleIndex, GameData.Team.PlayerNum);
+			UICreateRole.Get.ShowFrameView(data, banks.SelectedRoleIndex, GameData.Team.PlayerNum);
 			UIMainLobby.Get.HideAll();
 		}
 		else

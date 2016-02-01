@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
@@ -11,17 +12,15 @@ using UnityEngine;
 public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// <para>呼叫時機: 視窗內某個裝備被點擊時.</para>
+    /// 參數:
+    /// <list type="number">
+    /// <item> part </item>
+    /// <item> index: 視窗中, 由上往下數, 哪一個被點選.(從 0 開始) </item>
+    /// <item> itemID </item>
+    /// </list>
     /// </summary>
-    /// <param name="equip"></param>
-    /// <param name="index"> 視窗中, 又上往下數, 哪一個被點選.(從 0 開始) </param>
-    /// <param name="itemID"></param>
-    public delegate void Action(UICreateRole.EEquip equip, int index, int itemID);
-
-    /// <summary>
-    /// 呼叫時機: 視窗內某個裝備被點擊時.
-    /// </summary>
-    public event Action SelectListener;
+    public event Action<UICreateRole.EPart, int, int> SelectListener;
 
     public GameObject ScrollView;
 
@@ -39,7 +38,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// </summary>
     private const int UIHeightInterval = 120;
 
-    private UICreateRole.EEquip mEquip;
+    private UICreateRole.EPart mPart;
 
     private readonly List<GameObject> mButtons = new List<GameObject>();
 
@@ -52,12 +51,12 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="equip"></param>
+    /// <param name="part"></param>
     /// <param name="items"></param>
     /// <param name="selectedIndex"> 預設哪一個要被選擇. </param>
-    public void UpdateData(UICreateRole.EEquip equip, TItemData[] items, int selectedIndex)
+    public void UpdateData(UICreateRole.EPart part, TItemData[] items, int selectedIndex)
     {
-        mEquip = equip;
+        mPart = part;
 
         clear();
 
@@ -132,6 +131,6 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 //        Debug.LogFormat("Index:{0}, ItemID:{1}", index, itemID);
 
         if(SelectListener != null)
-            SelectListener(mEquip, index, itemID);
+            SelectListener(mPart, index, itemID);
     }
 }

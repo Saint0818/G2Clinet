@@ -56,17 +56,17 @@ public class AvatarPlayer
     /// <summary>
     /// 目前角色裝備的物品.
     /// </summary>
-    private readonly Dictionary<UICreateRole.EEquip, int> mItemIDs = 
-        new Dictionary<UICreateRole.EEquip, int>
+    private readonly Dictionary<UICreateRole.EPart, int> mItemIDs = 
+        new Dictionary<UICreateRole.EPart, int>
         {
-            {UICreateRole.EEquip.Body, -1},
-            {UICreateRole.EEquip.Hair, -1},
-            {UICreateRole.EEquip.Cloth, -1},
-            {UICreateRole.EEquip.Pants, -1},
-            {UICreateRole.EEquip.Shoes, -1},
-            {UICreateRole.EEquip.Head, -1},
-            {UICreateRole.EEquip.Hand, -1},
-            {UICreateRole.EEquip.Back, -1}
+            {UICreateRole.EPart.Body, -1},
+            {UICreateRole.EPart.Hair, -1},
+            {UICreateRole.EPart.Cloth, -1},
+            {UICreateRole.EPart.Pants, -1},
+            {UICreateRole.EPart.Shoes, -1},
+            {UICreateRole.EPart.Head, -1},
+            {UICreateRole.EPart.Hand, -1},
+            {UICreateRole.EPart.Back, -1}
         };
 
     /// <summary>
@@ -87,13 +87,13 @@ public class AvatarPlayer
         if(mShadow != null)
             mShadow.SetActive(true);
 
-        Dictionary<UICreateRole.EEquip, int> itemIDs = new Dictionary<UICreateRole.EEquip, int>
+        Dictionary<UICreateRole.EPart, int> itemIDs = new Dictionary<UICreateRole.EPart, int>
         {
-            {UICreateRole.EEquip.Body, CreateRoleTable.Ins.GetBody(pos)[0]},
-            {UICreateRole.EEquip.Hair, CreateRoleTable.Ins.GetHairs(pos)[0]},
-            {UICreateRole.EEquip.Cloth, CreateRoleTable.Ins.GetCloths(pos)[0]},
-            {UICreateRole.EEquip.Pants, CreateRoleTable.Ins.GetPants(pos)[0]},
-            {UICreateRole.EEquip.Shoes, CreateRoleTable.Ins.GetShoes(pos)[0]}
+            {UICreateRole.EPart.Body, CreateRoleTable.Ins.GetBody(pos)[0]},
+            {UICreateRole.EPart.Hair, CreateRoleTable.Ins.GetHairs(pos)[0]},
+            {UICreateRole.EPart.Cloth, CreateRoleTable.Ins.GetCloths(pos)[0]},
+            {UICreateRole.EPart.Pants, CreateRoleTable.Ins.GetPants(pos)[0]},
+            {UICreateRole.EPart.Shoes, CreateRoleTable.Ins.GetShoes(pos)[0]}
         };
         ChangeParts(itemIDs);
     }
@@ -107,7 +107,7 @@ public class AvatarPlayer
     /// <param name="playerID"></param>
     /// <param name="itemIDs"></param>
     public AvatarPlayer(Transform parent, [CanBeNull]GameObject shadow, string name, int playerID, 
-                        Dictionary<UICreateRole.EEquip, int> itemIDs)
+                        Dictionary<UICreateRole.EPart, int> itemIDs)
     {
         mParent = parent;
         mName = name;
@@ -151,11 +151,11 @@ public class AvatarPlayer
         }
     }
 
-    public bool ChangePart(UICreateRole.EEquip equip, int itemID)
+    public bool ChangePart(UICreateRole.EPart part, int itemID)
     {
-        Dictionary<UICreateRole.EEquip, int> itemIDs = new Dictionary<UICreateRole.EEquip, int>
+        Dictionary<UICreateRole.EPart, int> itemIDs = new Dictionary<UICreateRole.EPart, int>
         {
-            {equip, itemID}
+            {part, itemID}
         };
 
         return ChangeParts(itemIDs);
@@ -166,12 +166,12 @@ public class AvatarPlayer
     /// </summary>
     /// <param name="itemIDs"></param>
     /// <returns> true:真的有做更新; false:資料都一樣, 所以沒有真的更新. </returns>
-    public bool ChangeParts(Dictionary<UICreateRole.EEquip, int> itemIDs)
+    public bool ChangeParts(Dictionary<UICreateRole.EPart, int> itemIDs)
     {
         if(!isNeedUpdate(itemIDs))
             return false; // 沒有任何部件需要更新.
 
-        foreach(KeyValuePair<UICreateRole.EEquip, int> pair in itemIDs)
+        foreach(KeyValuePair<UICreateRole.EPart, int> pair in itemIDs)
         {
             mItemIDs[pair.Key] = pair.Value;
         }
@@ -189,9 +189,9 @@ public class AvatarPlayer
         return true;
     }
 
-    private bool isNeedUpdate(Dictionary<UICreateRole.EEquip, int> itemIDs)
+    private bool isNeedUpdate(Dictionary<UICreateRole.EPart, int> itemIDs)
     {
-        foreach(KeyValuePair<UICreateRole.EEquip, int> pair in itemIDs)
+        foreach(KeyValuePair<UICreateRole.EPart, int> pair in itemIDs)
         {
             if(mItemIDs[pair.Key] != pair.Value)
                 return true;
