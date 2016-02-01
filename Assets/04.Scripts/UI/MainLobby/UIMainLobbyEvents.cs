@@ -10,13 +10,13 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowAvatarFitted()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Avatar))
+        if(GameData.IsOpenUIEnable(EOpenID.Avatar))
         {
             UIAvatarFitted.UIShow(true);
             UIMainLobby.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Avatar]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Avatar)), Color.white);
     }
 
     public void ShowStage()
@@ -27,24 +27,24 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowSkillFormation()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Ability))
+        if(GameData.IsOpenUIEnable(EOpenID.Ability))
         {
             UISkillFormation.UIShow(true);
             UIMainLobby.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Ability]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Ability)), Color.white);
     }
 
     public void ShowEquipment()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Equipment))
+        if(GameData.IsOpenUIEnable(EOpenID.Equipment))
         {
             UIEquipment.Get.Show();
             UIMainLobby.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Equipment]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Equipment)), Color.white);
     }
 
     public void ShowPlayerInfo()
@@ -62,49 +62,49 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnMission()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Mission))
+        if(GameData.IsOpenUIEnable(EOpenID.Mission))
         {
             UIMainLobby.Get.Hide();
             UIMission.Visible = true;
             
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Mission]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Mission)), Color.white);
     }
 
     public void OnSocial()
     {
         if(string.IsNullOrEmpty(GameData.Team.Player.Name)) 
             UIHint.Get.ShowHint(TextConst.S(5026), Color.white);
-        else if(GameData.IsOpenUIEnable(EOpenUI.Social))
+        else if(GameData.IsOpenUIEnable(EOpenID.Social))
         {
             UIMainLobby.Get.Hide();
             UISocial.Visible = true;
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Social]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Social)), Color.white);
     }
 
     public void OnShop()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Shop))
+        if(GameData.IsOpenUIEnable(EOpenID.Shop))
         {
             UIMainLobby.Get.Hide(2);
             UIShop.Visible = true;
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Shop]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.white);
     }
 
     public void OnMall()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Mall))
+        if(GameData.IsOpenUIEnable(EOpenID.Mall))
         {
             UIMainLobby.Get.Hide();
 			UIMall.Get.ShowView();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Mall]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Mall)), Color.white);
     }
 
     public void OnBuyCoin()

@@ -204,7 +204,7 @@ public class UILevelUp : UIBase {
 
 	public void OnReturn (GameObject go) {
 		if(GameController.Visible) {
-			if(GameData.DExpData.ContainsKey(lv) && GameData.DExpData[lv].OpenIndex > 0) {
+			if(GameData.DExpData.ContainsKey(lv) && LimitTable.Ins.HasOpenIDByLv(lv)) {
 				UIShow(false);
 				UIAchievement.Get.ShowView(lv);
 			} else {

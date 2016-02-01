@@ -1071,7 +1071,6 @@ namespace GameStruct
 	{
 		public int Lv;
 		public int LvUpExp;
-		public int OpenIndex;
 		public int UnlockHint;
 		public int UI;
 		public int UnlockName;

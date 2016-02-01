@@ -56,7 +56,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Mall],
+                StartEnabled = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mall),
                 StartAction = new OpenMallAction(),
                 StartCallback = startCallback
             };
@@ -66,7 +66,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
+                StartEnabled = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Shop),
                 StartAction = new OpenShopGeneralAction(),
                 StartCallback = startCallback
             };
@@ -76,7 +76,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
+                StartEnabled = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Shop),
                 StartAction = new OpenShopLeagueAction(),
                 StartCallback = startCallback
             };
@@ -86,7 +86,7 @@ public static class UIItemSourceBuilder
                 KindName = title,
                 Name = desc,
                 StartWarningMessage = warningMsg,
-                StartEnabled = GameData.Team.Player.Lv >= GameData.DOpenUILv[EOpenUI.Shop],
+                StartEnabled = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Shop),
                 StartAction = new OpenShopSocialAction(),
                 StartCallback = startCallback
             };

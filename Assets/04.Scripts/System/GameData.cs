@@ -45,7 +45,7 @@ public static class GameData
     // Key: Lv.
     public static Dictionary<int, TExpData> DExpData = new Dictionary<int, TExpData>();
     // Key: TExpData.OpenIndex, Value: TExpData.Lv
-    public static Dictionary<EOpenUI, int> DOpenUILv = new Dictionary<EOpenUI, int>();
+//    public static Dictionary<EOpenUI, int> DOpenUILv = new Dictionary<EOpenUI, int>();
     public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
     public static TStageToturial[] StageTutorial = new TStageToturial[0];
     private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
@@ -567,11 +567,11 @@ public static class GameData
         }
     }
 
-    public static bool IsOpenUIEnable(EOpenUI openUI)
+    public static bool IsOpenUIEnable(EOpenID openID)
     {
-        if (!DOpenUILv.ContainsKey(openUI))
+        if(!LimitTable.Ins.HasByID(openID))
             return true;
 
-        return Team.Player.Lv >= DOpenUILv[openUI];
+        return Team.Player.Lv >= LimitTable.Ins.GetByID(openID).Lv;
     }
 }

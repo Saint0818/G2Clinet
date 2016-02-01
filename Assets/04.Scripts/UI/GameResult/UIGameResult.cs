@@ -654,9 +654,7 @@ public class UIGameResult : UIBase {
 				if(beforePlayer.Lv != reward.Player.Lv) {
 					isLevelUp = true;
 					afterPlayer = reward.Player;
-					if(GameData.DExpData.ContainsKey(reward.Player.Lv) && GameData.DExpData[reward.Player.Lv].OpenIndex > 0) {
-						PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[afterPlayer.Lv].UI);
-					}
+					PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), GameData.DExpData[afterPlayer.Lv].UI);
 				}
 
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)

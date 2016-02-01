@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using GameEnum;
-using GameStruct;
 using UnityEngine;
 
 [RequireComponent(typeof(UIButton))]
@@ -10,7 +8,7 @@ public class UIUnlockButton : MonoBehaviour
     public UISprite Icon;
 
     [Tooltip("Exp 企劃表格的 OpenIndex 欄位")]
-    public int OpenIndex;
+    public EOpenID OpenID;
 
     private const float EffectDelayTime = 3f;
     private readonly Color mGrayColor = new Color(50/255f, 50/255f, 50/255f, 1);
@@ -26,13 +24,11 @@ public class UIUnlockButton : MonoBehaviour
     {
 //        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 0);
 
-        foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
+        TLimitData limit = LimitTable.Ins.GetByID(OpenID);
+        if(limit != null)
         {
-            if(pair.Value.OpenIndex != OpenIndex)
-                continue;
-
-            IsEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
-            if(GameData.Team.Player.Lv == pair.Value.Lv && hasFlag())
+            IsEnable = GameData.Team.Player.Lv >= limit.Lv;
+            if(GameData.Team.Player.Lv == limit.Lv && hasFlag())
             {
                 PlaySFX();
                 deleteFlag();

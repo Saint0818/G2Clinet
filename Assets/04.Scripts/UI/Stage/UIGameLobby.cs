@@ -1,5 +1,4 @@
-﻿using System;
-using GameEnum;
+﻿using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -58,24 +57,24 @@ public class UIGameLobby : UIBase
 
     private void goToPvp()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.PVP))
+        if(GameData.IsOpenUIEnable(EOpenID.PVP))
         {
             UIPVP.UIShow(true);
             Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.PVP]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.PVP)), Color.white);
     }
 
     private void goToInstance()
     {
-        if(GameData.IsOpenUIEnable(EOpenUI.Instance))
+        if(GameData.IsOpenUIEnable(EOpenID.Instance))
         {
             UIInstance.Get.Show();
             Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), GameData.DOpenUILv[EOpenUI.Instance]), Color.white);
+            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Instance)), Color.white);
     }
 
     public static UIGameLobby Get

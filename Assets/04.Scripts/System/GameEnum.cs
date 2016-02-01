@@ -98,7 +98,7 @@
 		Dunk21 = 10799
 	}
 
-    public enum EOpenUI
+    public enum EOpenID
     {
         Equipment = 1,
         Avatar = 2,

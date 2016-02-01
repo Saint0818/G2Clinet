@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using GameEnum;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +9,7 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> 用 Ins 取得 instance. </item>
-/// <item> Call GetXXX 取得關卡資料; Call HasXXX 檢查關卡資料. </item>
+/// <item> Call GetXXX 取得資料; Call HasXXX 檢查資料. </item>
 /// </list>
 public class LimitTable
 {
@@ -17,7 +19,9 @@ public class LimitTable
         get { return INSTANCE; }
     }
 
-    private readonly Dictionary<int, TLimitData> mLimits = new Dictionary<int, TLimitData>();
+    private readonly Dictionary<EOpenID, TLimitData> mLimitsByOpenID = new Dictionary<EOpenID, TLimitData>();
+
+    private readonly Dictionary<int, TLimitData> mLimitsByLv = new Dictionary<int, TLimitData>();
 
     private LimitTable() {}
 
@@ -34,7 +38,8 @@ public class LimitTable
         var limits = JsonConvertWrapper.DeserializeObject<TLimitData[]>(jsonText);
         foreach(TLimitData limit in limits)
         {
-            mLimits.Add(limit.OpenID, limit);
+            mLimitsByOpenID.Add(limit.OpenID, limit);
+            mLimitsByLv.Add(limit.Lv, limit);
         }
 
         Debug.Log("[limit parsed finished.] ");
@@ -42,6 +47,31 @@ public class LimitTable
 
     private void clear()
     {
-        mLimits.Clear();
+        mLimitsByOpenID.Clear();
+    }
+
+    public bool HasByID(EOpenID id)
+    {
+        return mLimitsByOpenID.ContainsKey(id);
+    }
+
+    [CanBeNull]
+    public TLimitData GetByID(EOpenID id)
+    {
+        if(mLimitsByOpenID.ContainsKey(id))
+            return mLimitsByOpenID[id];
+        return null;
+    }
+
+    public bool HasOpenIDByLv(int lv)
+    {
+        return mLimitsByLv.ContainsKey(lv);
+    }
+
+    public int GetLv(EOpenID id)
+    {
+        if(mLimitsByOpenID.ContainsKey(id))
+            return mLimitsByOpenID[id].Lv;
+        return 0;
     }
 }

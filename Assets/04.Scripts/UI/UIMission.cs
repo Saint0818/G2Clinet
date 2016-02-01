@@ -404,7 +404,7 @@ public class UIMission : UIBase {
         GameData.Team.Player.Lv = result.Lv;
         if (flag) {
             UILevelUp.Get.Show(player, GameData.Team.Player);
-            if (GameData.DExpData.ContainsKey(result.Lv) && GameData.DExpData[result.Lv].OpenIndex > 0)
+            if (GameData.DExpData.ContainsKey(result.Lv) && LimitTable.Ins.HasOpenIDByLv(result.Lv))
                 PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[result.Lv].UI);
         }
 

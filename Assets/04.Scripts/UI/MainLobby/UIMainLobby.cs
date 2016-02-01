@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using GameEnum;
-using GameStruct;
+﻿using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -92,69 +90,63 @@ public class UIMainLobby : UIBase
         7.抽卡牌
         */
 
-        Main.EquipmentNotice = false;
-        Main.AvatarNotice = false;
-		Main.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard);
-        Main.SocialNotice = GameData.IsOpenUIEnable(EOpenUI.Social) && (GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend);
-        Main.ShopNotice = false;
-        Main.MissionNotice = false;
+        updateEquipmentButton();
+        updateAvatarButton();
+        updateShopButton();
+        updateSocialButton();
+        updateSkillButton();
+        updateMissionButton();
+        updateMallButton();
+        
         Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
-
-//        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 0);
-
-        foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
-        {
-            bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
-//            bool isPlaySFX = GameData.Team.Player.Lv == pair.Value.Lv;
-            switch(pair.Value.OpenIndex)
-            {
-                case 1:
-//                    updateButton(Main.EquipButton, isEnable, isPlaySFX);
-                    Main.EquipButton.CheckEnable();
-                    Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
-                    break;
-                case 2:
-//                    updateButton(Main.AvatarButton, isEnable, isPlaySFX);
-                    Main.AvatarButton.CheckEnable();
-                    Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
-                    break;
-                case 3:
-//                    updateButton(Main.ShopButton, isEnable, isPlaySFX);
-                    Main.ShopButton.CheckEnable();
-                    break;
-                case 4:
-//                    updateButton(Main.SocialButton, isEnable, isPlaySFX);
-                    Main.ShopButton.CheckEnable();
-                    break;
-                case 5:
-//                    updateButton(Main.SkillButton, isEnable, isPlaySFX);
-                    Main.SocialButton.CheckEnable();
-                    break;
-                case 6: 
-//                    updateButton(Main.MissionButton, isEnable, isPlaySFX);
-                    Main.MissionButton.CheckEnable();
-                    Main.MissionNotice = isEnable && hasMissionAward;
-                    break;
-                case 7:
-//                    updateButton(Main.MallButton, isEnable, isPlaySFX);
-                    Main.MallButton.CheckEnable();
-                    break;
-            }
-        }
-
-//        if(PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
-//        {
-//            PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
-//            PlayerPrefs.Save();
-//        }
     }
 
-//    private void updateButton(UIUnlockButton button, bool isEnable, bool playSFX)
-//    {
-//        button.IsEnable = isEnable;
-//        if(playSFX && PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
-//            button.PlaySFX();
-//    }
+    private void updateMallButton()
+    {
+        Main.MallButton.CheckEnable();
+    }
+
+    private void updateMissionButton()
+    {
+        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mission);
+        Main.MissionNotice = false;
+        Main.MissionButton.CheckEnable();
+        Main.MissionNotice = isEnable && hasMissionAward;
+    }
+
+    private void updateSkillButton()
+    {
+        Main.SkillNotice = GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard;
+        Main.SkillButton.CheckEnable();
+    }
+
+    private void updateSocialButton()
+    {
+        Main.SocialNotice = GameData.IsOpenUIEnable(EOpenID.Social) && (GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend);
+        Main.SocialButton.CheckEnable();
+    }
+
+    private void updateShopButton()
+    {
+        Main.ShopNotice = false;
+        Main.ShopButton.CheckEnable();
+    }
+
+    private void updateAvatarButton()
+    {
+        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Avatar);
+        Main.AvatarNotice = false;
+        Main.AvatarButton.CheckEnable();
+        Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
+    }
+
+    private void updateEquipmentButton()
+    {
+        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
+        Main.EquipmentNotice = false;
+        Main.EquipButton.CheckEnable();
+        Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
+    }
 
     public void UpdateUI()
     {

@@ -574,8 +574,8 @@ public class FileManager : KnightSingleton<FileManager>
 			for (int i = 0; i < data.Length; i++) {
                 if(!GameData.DExpData.ContainsKey(data[i].Lv)) {
 					GameData.DExpData.Add(data[i].Lv, data[i]);
-                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey((EOpenUI)data[i].OpenIndex))
-                        GameData.DOpenUILv.Add((EOpenUI)data[i].OpenIndex, data[i].Lv);
+//                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey((EOpenUI)data[i].OpenIndex))
+//                        GameData.DOpenUILv.Add((EOpenUI)data[i].OpenIndex, data[i].Lv);
                 } else
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
 			}
@@ -584,7 +584,7 @@ public class FileManager : KnightSingleton<FileManager>
 				SaveDataVersionAndJson(text, "item", version);
 			
 			Debug.Log ("[item parsed finished.] ");
-		} catch (System.Exception ex) {
+		} catch (Exception ex) {
 			Debug.LogError ("[item parsed error] " + ex.Message);
 		}
 	}

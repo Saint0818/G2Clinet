@@ -1,4 +1,5 @@
 ﻿
+using GameEnum;
 using JetBrains.Annotations;
 
 /// <summary>
@@ -7,7 +8,7 @@ using JetBrains.Annotations;
 public class TLimitData
 {
     [UsedImplicitly]
-    public int OpenID { get; private set; }
+    public EOpenID OpenID { get; private set; }
 
     [UsedImplicitly]
     public int Lv { get; private set; }
