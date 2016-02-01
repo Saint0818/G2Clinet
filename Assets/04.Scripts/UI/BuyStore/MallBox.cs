@@ -10,12 +10,12 @@ public class MallBox : MonoBehaviour {
 	private UIPlayTween uiplayTweenClose;
 
 	void Awake () {
-		close = transform.FindChild("Close");
-		closeArrow = transform.FindChild("Close/ArrowIcon");
+		close = transform.Find("Close");
+		closeArrow = transform.Find("Close/ArrowIcon");
 		closeArrow.transform.localScale = new Vector3(-1, 1, 1);
-		tween = transform.FindChild("Tween");
-		uiplayTween = transform.FindChild("MainBtn").GetComponent<UIPlayTween>();
-		uiplayTweenClose = transform.FindChild("Close").GetComponent<UIPlayTween>();
+		tween = transform.Find("Tween");
+		uiplayTween = transform.Find("MainBtn").GetComponent<UIPlayTween>();
+		uiplayTweenClose = transform.Find("Close").GetComponent<UIPlayTween>();
 		EventDelegate.Add(uiplayTween.onFinished, OnFinish, false);
 		EventDelegate.Add(uiplayTweenClose.onFinished, OnFinish, false);
 	}

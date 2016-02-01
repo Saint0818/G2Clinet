@@ -55,9 +55,9 @@ public class UIGetSkillCard : UIBase {
 
 		for(int i=0; i < 3; i++) {
 			sloganView[i] = GameObject.Find(UIName + "/Center/Window/DownBoard/MainView/" + i.ToString());
-			labelSlogan[i] = sloganView[i].transform.FindChild("SloganLabel").GetComponent<UILabel>();
-			labelKind[i] = sloganView[i].transform.FindChild("KindLabel").GetComponent<UILabel>();
-			spriteSkillKind[i]= sloganView[i].transform.FindChild("SKillKind").GetComponent<UISprite>();
+			labelSlogan[i] = sloganView[i].transform.Find("SloganLabel").GetComponent<UILabel>();
+			labelKind[i] = sloganView[i].transform.Find("KindLabel").GetComponent<UILabel>();
+			spriteSkillKind[i]= sloganView[i].transform.Find("SKillKind").GetComponent<UISprite>();
 			sloganView[i].SetActive(false);
 		}
 		labelSkillExplain = GameObject.Find(UIName + "/Center/Window/DownBoard/MainView/SkillArea/SkillExplain").GetComponent<UILabel>();

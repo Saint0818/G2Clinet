@@ -40,15 +40,15 @@ public struct TItemRecharge {
 		mSelf = obj;
 		obj.transform.parent = parent.transform;
 		obj.transform.localScale = Vector3.one;
-		PriceButton = obj.transform.FindChild("BuyBtn").GetComponent<UIButton>();
-		PriceLabel = obj.transform.FindChild("BuyBtn/PriceLabel").GetComponent<UILabel>();
-		if(obj.transform.FindChild("BuyBtn/Icon") != null)
-			PriceIcon = obj.transform.FindChild("BuyBtn/Icon").GetComponent<UISprite>();
-		ItemIcon = obj.transform.FindChild("ItemIcon").GetComponent<UISprite>();
-		ItemNameLabel = obj.transform.FindChild("ItemNameLabel").GetComponent<UILabel>();
-		SaleLabel = obj.transform.FindChild("SaleLabel").GetComponent<UILabel>();
-		ValueLabel = obj.transform.FindChild("GetLabel").GetComponent<UILabel>();
-		ValueIcon = obj.transform.FindChild("GetLabel/Icon").GetComponent<UISprite>();
+		PriceButton = obj.transform.Find("BuyBtn").GetComponent<UIButton>();
+		PriceLabel = obj.transform.Find("BuyBtn/PriceLabel").GetComponent<UILabel>();
+		if(obj.transform.Find("BuyBtn/Icon") != null)
+			PriceIcon = obj.transform.Find("BuyBtn/Icon").GetComponent<UISprite>();
+		ItemIcon = obj.transform.Find("ItemIcon").GetComponent<UISprite>();
+		ItemNameLabel = obj.transform.Find("ItemNameLabel").GetComponent<UILabel>();
+		SaleLabel = obj.transform.Find("SaleLabel").GetComponent<UILabel>();
+		ValueLabel = obj.transform.Find("GetLabel").GetComponent<UILabel>();
+		ValueIcon = obj.transform.Find("GetLabel/Icon").GetComponent<UISprite>();
 
 		if(PriceLabel == null || ItemIcon == null || ItemNameLabel == null || 
 			SaleLabel == null || ValueLabel == null || ValueIcon == null)
@@ -236,10 +236,10 @@ public class UIRecharge : UIBase {
 		prefabKind[2] = Resources.Load(UIPrefabPath.ItemRechargeStamina) as GameObject;
 		for(int i=0; i<3; i++) {
 			tabGos[i] = GameObject.Find(UIName + "/Center/Window/Tabs/" + i.ToString());
-			tabSelects[i] = tabGos[i].transform.FindChild("Selected").gameObject;
+			tabSelects[i] = tabGos[i].transform.Find("Selected").gameObject;
 			UIEventListener.Get(tabGos[i]).onClick = OnClickTab;
 			pages[i] = GameObject.Find(UIName + "/Center/Window/Pages/" + i.ToString());
-			scrollviews[i] = pages[i].transform.FindChild("Vertical/ScrollView").gameObject;
+			scrollviews[i] = pages[i].transform.Find("Vertical/ScrollView").gameObject;
 		}
 
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);

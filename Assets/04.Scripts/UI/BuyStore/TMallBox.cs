@@ -39,30 +39,30 @@ public class TMallBox
 
 	public void Init(GameObject obj, EventDelegate oneBtn, EventDelegate fiveBtn, EventDelegate tenBtn) {
 		mMallBox = obj;
-		FreeLabelTitle = obj.transform.FindChild("FreeLabel").GetComponent<UILabel>();
-		PriceIcon = obj.transform.FindChild("OpenBtn1/Icon").GetComponent<UISprite>();
-		PriceLabel = obj.transform.FindChild("OpenBtn1/PriceLabel").GetComponent<UILabel>();
-		FreeLabel1 = obj.transform.FindChild("OpenBtn1/FreeLabel1").GetComponent<UILabel>();
+		FreeLabelTitle = obj.transform.Find("FreeLabel").GetComponent<UILabel>();
+		PriceIcon = obj.transform.Find("OpenBtn1/Icon").GetComponent<UISprite>();
+		PriceLabel = obj.transform.Find("OpenBtn1/PriceLabel").GetComponent<UILabel>();
+		FreeLabel1 = obj.transform.Find("OpenBtn1/FreeLabel1").GetComponent<UILabel>();
 
-		TitleLabel = obj.transform.FindChild("MainBtn/TitleLabel").GetComponent<UILabel>();
-		ExplainLabel = obj.transform.FindChild("MainBtn/ExplainLabel").GetComponent<UILabel>();
+		TitleLabel = obj.transform.Find("MainBtn/MallBoxTextureShow/TitleLabel").GetComponent<UILabel>();
+		ExplainLabel = obj.transform.Find("MainBtn/ExplainLabel").GetComponent<UILabel>();
 
-		Tween = obj.transform.FindChild("Tween");
-		SubheadLabelDisk = obj.transform.FindChild("Tween/SubheadLabelDisk").GetComponent<UILabel>();
-		SubheadLabelItem = obj.transform.FindChild("Tween/SubheadLabelItem").GetComponent<UILabel>();
-		Open10Label = obj.transform.FindChild("Tween/Open10Label").GetComponent<UILabel>();
-		Open5Label = obj.transform.FindChild("Tween/Open5Label").GetComponent<UILabel>();
-		DiskScrollView = obj.transform.FindChild("Tween/VerticalDisk/ScrollView1/UIWrapContent").gameObject;
-		ItemScrollView = obj.transform.FindChild("Tween/VerticalItem/ScrollView2/UIWrapContent").gameObject;
-		Open5Icon = obj.transform.FindChild("Tween/OpenBtn5/Icon").GetComponent<UISprite>();
-		Open5Price = obj.transform.FindChild("Tween/OpenBtn5/PriceLabel").GetComponent<UILabel>();
-		Open10Icon = obj.transform.FindChild("Tween/OpenBtn10/Icon").GetComponent<UISprite>();
-		Open10Price = obj.transform.FindChild("Tween/OpenBtn10/PriceLabel").GetComponent<UILabel>();
-		SaleLabel = obj.transform.FindChild("Tween/OpenBtn10/SaleLabel").GetComponent<UILabel>();
+		Tween = obj.transform.Find("Tween");
+		SubheadLabelDisk = obj.transform.Find("Tween/SubheadLabelDisk").GetComponent<UILabel>();
+		SubheadLabelItem = obj.transform.Find("Tween/SubheadLabelItem").GetComponent<UILabel>();
+		Open10Label = obj.transform.Find("Tween/Open10Label").GetComponent<UILabel>();
+		Open5Label = obj.transform.Find("Tween/Open5Label").GetComponent<UILabel>();
+		DiskScrollView = obj.transform.Find("Tween/VerticalDisk/ScrollView1/UIWrapContent").gameObject;
+		ItemScrollView = obj.transform.Find("Tween/VerticalItem/ScrollView2/UIWrapContent").gameObject;
+		Open5Icon = obj.transform.Find("Tween/OpenBtn5/Icon").GetComponent<UISprite>();
+		Open5Price = obj.transform.Find("Tween/OpenBtn5/PriceLabel").GetComponent<UILabel>();
+		Open10Icon = obj.transform.Find("Tween/OpenBtn10/Icon").GetComponent<UISprite>();
+		Open10Price = obj.transform.Find("Tween/OpenBtn10/PriceLabel").GetComponent<UILabel>();
+		SaleLabel = obj.transform.Find("Tween/OpenBtn10/SaleLabel").GetComponent<UILabel>();
 
-		BtnOne = obj.transform.FindChild("OpenBtn1").gameObject;
-		BtnFive = obj.transform.FindChild("Tween/OpenBtn5").gameObject;
-		BtnTen = obj.transform.FindChild("Tween/OpenBtn10").gameObject;
+		BtnOne = obj.transform.Find("OpenBtn1").gameObject;
+		BtnFive = obj.transform.Find("Tween/OpenBtn5").gameObject;
+		BtnTen = obj.transform.Find("Tween/OpenBtn10").gameObject;
 
 		if(FreeLabelTitle != null && PriceIcon != null && PriceLabel != null && FreeLabel1 != null && 
 			TitleLabel != null && ExplainLabel != null && Tween != null && SubheadLabelDisk != null && SubheadLabelItem != null && 

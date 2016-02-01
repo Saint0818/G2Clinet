@@ -99,7 +99,7 @@ public class UIMall : UIBase {
 							ItemAwardGroup item = (Instantiate(itemIcon) as GameObject ).GetComponent<ItemAwardGroup>();
 							setParentInit(item.gameObject, mallBox.ItemScrollView);
 							item.gameObject.transform.localScale = new Vector3(0.6f, 0.6f, 1);
-							item.gameObject.transform.localPosition = new Vector3((-220 + 90 * j), 0, 0);
+							item.gameObject.transform.localPosition = new Vector3((-4 + 90 * j), 0, 0);
 							item.Show(GameData.DItemData[GameData.DPickCost[i].ShowItem[j]]);
 						}
 					}
