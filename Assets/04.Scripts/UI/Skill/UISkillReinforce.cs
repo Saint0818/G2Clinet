@@ -451,6 +451,7 @@ public class UISkillReinforce : UIBase {
 						passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
 						addUpgradeMoney();
 						addUpgradeView(passiveSkillCards[go.name].Skill);
+						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 					}
 				} else {
 					if(reinforceItems.ContainsKey(go.name)) {
@@ -617,6 +618,7 @@ public class UISkillReinforce : UIBase {
 						skillCard.ShowGetStar(oldCardLv);
 						recordGreenExp = reinforceExp;
 						expView.ShowFull();
+						AudioMgr.Get.PlaySound(SoundType.SD_Warning0);
 					}
 					
 					if(reinforceExp <= 0) {

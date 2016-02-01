@@ -37,6 +37,7 @@ public class MissionChecker {
 	private PlayerBehaviour mPlayer;
 	private TStageData mStageData;
 	private float maxGameTime ;
+	private bool[] isTimeCount = new bool[3];
 
 	public void Init (TStageData stageData) {
 		CourtInstant = new TCourtInstant(1);
@@ -167,7 +168,21 @@ public class MissionChecker {
 			CourtInstant.TimeInstant[2] = true;
 		}
 
+		if(!isTimeCount[0] && gameTime <= 4){
+			AudioMgr.Get.PlaySound(SoundType.SD_Warning0);
+			isTimeCount[0] = true;
+		}
+		if(!isTimeCount[1] && gameTime <= 3){
+			AudioMgr.Get.PlaySound(SoundType.SD_Warning0);
+			isTimeCount[1] = true;
+		}
+		if(!isTimeCount[2] && gameTime <= 2){
+			AudioMgr.Get.PlaySound(SoundType.SD_Warning0);
+			isTimeCount[2] = true;
+		}
+
 		if (gameTime <= 0) {
+			AudioMgr.Get.PlaySound(SoundType.SD_Warning1);
 			gameTime = 0;
 			return true;
 		}
@@ -273,6 +288,7 @@ public class MissionChecker {
 			text = string.Format(TextConst.S(baseValue), visibleValue);
 		UICourtInstant.UIShow(false);
 		UICourtInstant.UIShow(true, text);
+		AudioMgr.Get.PlaySound(SoundType.SD_Instant);
 	}
 
 	private bool checkCountEnough (int type, int count) {

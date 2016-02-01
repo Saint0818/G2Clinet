@@ -152,8 +152,10 @@ public class UIInGameMission : UIBase {
 				missionDic[1].UpdateFin();
 		}
 
-		if(isFin)
+		if(isFin) {
 			Invoke("refresh", 1);
+			AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+		}
 		
 		isFin = false;
 		if(missionDic.ContainsKey(2) && !missionDic[2].IsFinish) {
@@ -165,16 +167,20 @@ public class UIInGameMission : UIBase {
 				missionDic[2].UpdateFin();
 		}
 
-		if(isFin)
+		if(isFin){
 			Invoke("refresh", 1);
+			AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+		}
 
 		isFin = false;
 		if(missionDic.ContainsKey(3) && !missionDic[3].IsFinish) {
 			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit2Num);
 			describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 			missionViews[hintIndex].UpdateUI(describe);
-			if(isFin)
+			if(isFin) {
 				missionDic[3].UpdateFin();
+				AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+			}
 		}
 	}
 

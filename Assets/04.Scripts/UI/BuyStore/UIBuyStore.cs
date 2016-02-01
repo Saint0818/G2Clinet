@@ -190,9 +190,11 @@ public class UIBuyStore : UIBase {
 
 	public void OnAgain() {
 		if(mPickCost.SpendKind == 0) { // Diamond
-			CheckDiamond(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(252), howMuch(mPickCost, mSpendType)), ConfirmUse);
+			if(!CheckDiamond(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(252), howMuch(mPickCost, mSpendType)), ConfirmUse))
+				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		} else if (mPickCost.SpendKind == 1) { // Money
-			CheckMoney(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(253), howMuch(mPickCost, mSpendType)), ConfirmUse);
+			if(!CheckMoney(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(253), howMuch(mPickCost, mSpendType)), ConfirmUse))
+				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		}
 	}
 

@@ -436,6 +436,7 @@ public class UIRecharge : UIBase {
 		{
 			TBuyDiamond result = (TBuyDiamond)JsonConvert.DeserializeObject(www.text, typeof(TBuyDiamond));
 			GameData.Team.Diamond = result.Diamond;
+			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
@@ -472,6 +473,7 @@ public class UIRecharge : UIBase {
 			GameData.Team.Power = result.Power;
 			GameData.Team.DailyCount = result.DailyCount;
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
+			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
 
 
 			UIMainLobby.Get.UpdateUI();

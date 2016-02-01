@@ -57,8 +57,11 @@ public class UIGameLoseResult : UIBase {
 				if(hintIndex == -1) {
 					isShowFinish = false;
 				} else {
-					if(hintIndex > 0 && hintIndex < mTargets.Length)
+					if(hintIndex > 0 && hintIndex < mTargets.Length) {
+						if(mTargets[hintCount - hintIndex].IsComplete)
+							AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
 						mTargets[hintCount - hintIndex].UpdateFin(mTargets[hintCount - hintIndex].IsComplete);
+					}
 
 					finishTime = finishInterval;
 					hintIndex --;
@@ -116,7 +119,7 @@ public class UIGameLoseResult : UIBase {
 		}
 		else
 		{
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			UILoading.OpenUI = UILoading.OpenStageUI;
 		}
 	}

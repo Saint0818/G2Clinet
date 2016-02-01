@@ -597,11 +597,6 @@ public class UISkillFormation : UIBase {
 		skillCard.UpdateViewFormation(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.Lv);
 
 		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
-
-//		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
-//		uiEquipEffect.transform.parent = obj.transform;
-//		uiEquipEffect.transform.localPosition = Vector3.zero;
-//		uiEquipEffect.transform.localScale = Vector3.one;
 		return obj;
 	}
 
@@ -1095,8 +1090,10 @@ public class UISkillFormation : UIBase {
 			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID)) {
 				if(getContainActiveSN(uicard.skillCard.Skill.SN) == -1){
 					if(getActiveFieldNull != -1) {
-						if(addItems(uicard, getActiveFieldNull)) 
+						if(addItems(uicard, getActiveFieldNull)) {
+							AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 							uicard.skillCard.IsInstall = true;
+						}
 					}
 					else Debug.LogWarning ("Active is Full.");
 				} 
@@ -1107,8 +1104,10 @@ public class UISkillFormation : UIBase {
 					uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					removeItems(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.SN, uicard.Card);
 				} else { //NoSelected to Selected
-					if(addItems(uicard))
+					if(addItems(uicard)){
+						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 						uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
+					}
 					
 				}
 			}
@@ -1477,6 +1476,7 @@ public class UISkillFormation : UIBase {
 						refreshAfterInstall ();
 						hide();
 						UIHint.Get.ShowHint(TextConst.S(533), Color.black);
+						AudioMgr.Get.PlaySound(SoundType.SD_Check_Btn);
 					}
 				} else {
 					refreshAfterInstall ();

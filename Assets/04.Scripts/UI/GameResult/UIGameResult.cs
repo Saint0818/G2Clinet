@@ -120,6 +120,7 @@ public class UIGameResult : UIBase {
 					if(hintIndex > 0 && hintIndex < mTargets.Length)
 						mTargets[hintCount - hintIndex].UpdateFin(true);
 
+					AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
 					finishTime = finishInterval;
 					hintIndex --;
 				}
@@ -302,7 +303,7 @@ public class UIGameResult : UIBase {
 		}
         else
         {
-            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             UILoading.OpenUI = UILoading.OpenStageUI;
         }
 	}

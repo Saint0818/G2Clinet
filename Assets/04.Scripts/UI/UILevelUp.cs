@@ -219,6 +219,7 @@ public class UILevelUp : UIBase {
 	}
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer) {
+		AudioMgr.Get.PlaySound(SoundType.SD_UpgradePlayer);
 		UIShow(true);
 		page[0].SetActive(true);
 		page[1].SetActive(false);
@@ -227,6 +228,7 @@ public class UILevelUp : UIBase {
 	}
 
 	public void ShowEquip (TItemData beforeItemData, TItemData afterItemData) {
+		AudioMgr.Get.PlaySound(SoundType.SD_UpgradeItems);
 		UIShow(true);
 		page[0].SetActive(false);
 		page[1].SetActive(true);
@@ -234,6 +236,7 @@ public class UILevelUp : UIBase {
 	}
 
 	public void ShowSkill (TSkill beforeSkill, TSkill afterSkill) {
+		AudioMgr.Get.PlaySound(SoundType.SD_UpgradeItems);
 		UIShow(true);
 		page[0].SetActive(false);
 		page[1].SetActive(true);

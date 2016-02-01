@@ -1173,6 +1173,7 @@ public class UIGame : UIBase {
 			}
 			break;
 		case EUISituation.Start:
+			AudioMgr.Get.PlaySound (SoundType.SD_BattleStart_Btn);
 			GameController.Get.PlayCount ++;
 			InitUI();
 
