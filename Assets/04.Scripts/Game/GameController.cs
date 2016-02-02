@@ -988,6 +988,7 @@ public class GameController : KnightSingleton<GameController>
             TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.TeamRecord = result.TeamRecord;
             GameData.Team.Player.PlayerRecord = result.Player.PlayerRecord;
+			GameData.Team.LifetimeRecord = result.LifetimeRecord;
             if (result.Friends != null)
                 GameData.Team.Friends = result.Friends;
         }

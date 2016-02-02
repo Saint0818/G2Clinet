@@ -1432,10 +1432,6 @@ namespace GameStruct
     {  
         public int Index;
         public TTeam Team;
-//        public TPlayer Player;
-//        public int PVPIntegral;
-//        public int GuildId;
-//		public TTeamRecord LifetimeRecord;
     }
 
     public struct TPVPStart

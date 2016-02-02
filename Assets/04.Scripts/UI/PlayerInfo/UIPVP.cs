@@ -536,7 +536,7 @@ public class PVPPage1
     {
         if (ok)
         {
-            TTeamRank data = (TTeamRank)JsonConvert.DeserializeObject(www.text, typeof(TTeamRank));
+			TTeamRank data = JsonConvert.DeserializeObject <TTeamRank>(www.text, SendHttp.Get.JsonSetting);
             listView.UpdateViewMyrank(data); 
         }
     }
