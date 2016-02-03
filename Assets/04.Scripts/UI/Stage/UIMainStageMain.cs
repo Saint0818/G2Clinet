@@ -178,6 +178,7 @@ public class UIMainStageMain : MonoBehaviour
     {
         GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.StageChapter, ChapterParent);
         obj.transform.localPosition = findChapterPos(chapter, obj.GetComponent<UITexture>().width);
+        obj.name = string.Format("Chapter{0}", chapter);
 
         var stageChapter = obj.GetComponent<UIStageChapter>();
         stageChapter.Chapter = chapter;
