@@ -171,6 +171,8 @@ namespace GameStruct
         }
         private int mDiamond;
 
+        public int MaxPlayerBank;
+
         public void Init() {
             if (Identifier == null)
                 Identifier = "";
