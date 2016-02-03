@@ -81,26 +81,32 @@ public class UIHeadPortrait : UIBase
     private ItemHeadBtn[] headTexutres;
     private int equipTextureNo = 0;
 
-    public static bool Visible {
-        get {
-            if(instance)
+    public static bool Visible
+    {
+        get
+        {
+            if (instance)
                 return instance.gameObject.activeInHierarchy;
             else
                 return false;
         }
 
-        set {
-            if (instance) {
+        set
+        {
+            if (instance)
+            {
                 if (!value)
+                {
                     RemoveUI(UIName);
+                }
                 else
                     instance.Show(value);
-            } else
-                if (value)
-                    Get.Show(value);
+            }
+            else if (value)
+                Get.Show(value);
         }
     }
-       
+
     public static void UIShow(bool isShow)
     {
         if (instance)
@@ -159,8 +165,8 @@ public class UIHeadPortrait : UIBase
 
                 if (picno > 3)
                 {
-                    if(!DHeadTexture.ContainsKey(picno))
-                        DHeadTexture.Add(picno,  new List<int>());
+                    if (!DHeadTexture.ContainsKey(picno))
+                        DHeadTexture.Add(picno, new List<int>());
                     
                     DHeadTexture[picno].Add(item.Value.ID);
                 }
@@ -239,7 +245,15 @@ public class UIHeadPortrait : UIBase
                             if (GameData.DItemData.ContainsKey(DHeadTexture[index][0]))
                             {
                                 TItemData data = GameData.DItemData[DHeadTexture[index][0]];
-                                UIItemSource.Get.ShowMaterial(data, enable => {if(enable) UIShow(false);UIHeadPortrait.Visible = false;UIHeadPortrait.Visible = false;});
+                                UIItemSource.Get.ShowMaterial(data, enable =>
+                                    {
+                                        if (enable)
+                                        {
+                                            UIShow(false);
+                                            UIHeadPortrait.Visible = false;
+                                            UIPlayerInfo.UIShow(false, ref GameData.Team);
+                                        }
+                                    });
                             }
                         }
                     }

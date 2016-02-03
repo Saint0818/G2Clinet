@@ -233,48 +233,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void InitScoreboard(bool isEnable = false)
 	{
 		CourtMgr.Get.InitBallShadow();
-
-//		if (Scoreboards [1] == null) {
-//            Scoreboards[1] = RefGameObject.transform.FindChild("Scoreboard/Left").gameObject.GetComponent<UILabel>();
-//		}
-//
-//		if (Scoreboards [1])
-//			Scoreboards [1].text = "0";
-//
-//		if(Scoreboards [0] == null)
-//            Scoreboards [0] = GameObject.Find ("Scoreboard/Right").gameObject.GetComponent<UILabel>();
-//
-//		if(Scoreboards [0])
-//			Scoreboards [0].text = "0";
-//
-//		Scoreboards [0].enabled = isEnable;
-//		Scoreboards [1].enabled = isEnable;
-
         EffectEnable((QualityType)GameData.Setting.Quality);
 	}
-
+				
     public void EffectEnable(QualityType type)
 	{
-        switch (type)
-        {
-            case QualityType.High:
-                EffectHigh = GameObject.Find (string.Format("Effect/{0}", type.ToString()));
-
-                if (EffectHigh)
-                    EffectHigh.SetActive (true);
-
-                if(EffectMedium)
-                    EffectMedium.SetActive (true);
-                
-                break;
-
-            case QualityType.Medium:
-                break;
-
-            case QualityType.Low:
-                break;
-        }
+		if (EffectHigh)
+			EffectHigh.SetActive (type == QualityType.High);
 		
+		if (EffectMedium)
+			EffectMedium.SetActive (type >= QualityType.Medium);
 	}
 
     [UsedImplicitly]
@@ -291,6 +259,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     {
         mRealBallSFXTimer.Update(Time.deltaTime);
     }
+	
+	public void InitEffect()
+	{
+		EffectMedium = GameObject.Find ("Effect/Medium");
+		EffectHigh = GameObject.Find ("Effect/High");		
+	}
 
 	public void InitCourtScene()
 	{
@@ -298,6 +272,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CheckCollider();
 		//ChangeBasket(2);
 		InitScoreboard ();
+		InitEffect ();
 
 		if (!SkillRangeOfAction)
 			SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
