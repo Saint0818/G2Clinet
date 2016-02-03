@@ -142,7 +142,6 @@ public class TActiveSkillCard
 				SkillPic.mainTexture = GameData.CardTexture(skill.ID);
 				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
-//				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";

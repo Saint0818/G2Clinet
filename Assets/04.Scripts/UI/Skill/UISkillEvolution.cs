@@ -63,7 +63,12 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable) mSelf.OnSearch(); UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable){ 
+						mSelf.OnSearch(); 
+						UISkillFormation.Visible = false;
+						UISkillInfo.Visible = false;
+					}
+				});
 		}
 		
 	}
@@ -74,7 +79,12 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) mSelf.OnSearch();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) {
+						mSelf.OnSearch();
+						UISkillFormation.Visible = false;
+						UISkillInfo.Visible = false;
+					}
+				});
 		}
 	}
 
@@ -84,7 +94,12 @@ public class UISkillEvolution {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) 
 					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) 
-						UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable) mSelf.OnSearch();UISkillFormation.Visible = false;UISkillInfo.Visible = false;});
+				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable){ 
+						mSelf.OnSearch();
+						UISkillFormation.Visible = false;
+						UISkillInfo.Visible = false;
+					}
+				});
 		}
 	}
 
@@ -105,7 +120,7 @@ public class UISkillEvolution {
 			nextSkill = new TSkill();
 			if(GameData.DSkillData[mSkill.ID].EvolutionSkill != 0) {
 				nextSkill.ID = GameData.DSkillData[mSkill.ID].EvolutionSkill;
-				nextSkill.Lv = 1;
+				nextSkill.Lv = 0;
 				nextSkill.Exp = 0;
 				labelWarning.SetActive(false);
 				evolutionPrice = GameData.DSkillData[mSkill.ID].EvolutionMoney;
@@ -120,8 +135,8 @@ public class UISkillEvolution {
 
 			skillCards[0].UpdateViewFormation(mSkill, false);
 			skillCards[1].UpdateViewFormation(nextSkill, false);
-			skillCardValues[0].UpdateView(mSkill);
-			skillCardValues[1].UpdateView(nextSkill);
+			skillCardValues[0].UpdateView(mSkill, mSkill);
+			skillCardValues[1].UpdateView(mSkill, nextSkill);
 			skillCardMaterial.UpdateView(mSkill);
 		}
 	}

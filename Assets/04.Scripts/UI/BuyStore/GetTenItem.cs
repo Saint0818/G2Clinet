@@ -6,7 +6,7 @@ public class GetTenItem : MonoBehaviour {
 	private bool isShowPause = false;
 	private bool isShowFin = false;
 	private float showTime = 0;
-	private float showInterval = 0.5f;
+	private float showInterval = 0.2f;
 	private int index = 0;
 	private bool[] isNeedPause;
 
@@ -67,7 +67,7 @@ public class GetTenItem : MonoBehaviour {
 		isNeedPause = new bool[itemData.Length];
 		if(itemData.Length > 0 && itemData.Length == 10 && itemAwardGroups.Length == 10) {
 			for(int i=0; i<itemData.Length; i++) {
-				if(itemData[i].Kind == 21)
+				if(itemData[i].Kind == 21 && itemData[i].Flag == 1)
 					isNeedPause[i] = GameData.Team.CheckSkillCardisNew(itemData[i].Avatar);
 				else 
 					isNeedPause[i] = false;

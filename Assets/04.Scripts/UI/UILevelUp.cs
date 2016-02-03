@@ -14,12 +14,12 @@ public struct TPlayerLevelUp {
 		playerIcon = new TPlayerInGameBtn[2];
 		playerIcon[0] = new TPlayerInGameBtn();
 		playerIcon[1] = new TPlayerInGameBtn();
-		playerIcon[0].Init(obj.transform.FindChild("LevelGroup/BeforeLevel/PlayerInGameBtn").gameObject);
-		playerIcon[1].Init(obj.transform.FindChild("LevelGroup/AfterLevel/PlayerInGameBtn").gameObject);
-		labelLevelUp = obj.transform.FindChild("LevelUpLabel").GetComponent<UILabel>();
-		labelBeforeLevel = obj.transform.FindChild("LevelGroup/BeforeLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
-		labelAfterLevel = obj.transform.FindChild("LevelGroup/AfterLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
-		labelGetPotential = obj.transform.FindChild("GetPotentialLabel").GetComponent<UILabel>();
+		playerIcon[0].Init(obj.transform.Find("LevelGroup/BeforeLevel/PlayerInGameBtn").gameObject);
+		playerIcon[1].Init(obj.transform.Find("LevelGroup/AfterLevel/PlayerInGameBtn").gameObject);
+		labelLevelUp = obj.transform.Find("LevelUpLabel").GetComponent<UILabel>();
+		labelBeforeLevel = obj.transform.Find("LevelGroup/BeforeLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+		labelAfterLevel = obj.transform.Find("LevelGroup/AfterLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+		labelGetPotential = obj.transform.Find("GetPotentialLabel").GetComponent<UILabel>();
 	}
 
 	public void UpdateView (TPlayer beforePlayer, TPlayer afterPlayer) {
@@ -48,11 +48,11 @@ public struct TEquipmentGroup {
 		ValueLabel1 = new UILabel[3];
 
 		for(int i=0; i<AttrView.Length; i++) {
-			AttrView[i] = t.FindChild("AttrValue" + i.ToString()).gameObject;
-			AttrKind[i] = AttrView[i].transform.FindChild("AttrKind").GetComponent<UISprite>();
-			AttrKindLabel[i] = AttrView[i].transform.FindChild("AttrKind/KindLabel").GetComponent<UILabel>();
-			ValueLabel0[i] = AttrView[i].transform.FindChild("ValueLabel0").GetComponent<UILabel>();
-			ValueLabel1[i] = AttrView[i].transform.FindChild("ValueLabel1").GetComponent<UILabel>();
+			AttrView[i] = t.Find("AttrValue" + i.ToString()).gameObject;
+			AttrKind[i] = AttrView[i].transform.Find("AttrKind").GetComponent<UISprite>();
+			AttrKindLabel[i] = AttrView[i].transform.Find("AttrKind/KindLabel").GetComponent<UILabel>();
+			ValueLabel0[i] = AttrView[i].transform.Find("ValueLabel0").GetComponent<UILabel>();
+			ValueLabel1[i] = AttrView[i].transform.Find("ValueLabel1").GetComponent<UILabel>();
 
 			UIEventListener.Get(AttrView[i]).onClick = listener;
 		}
@@ -69,7 +69,7 @@ public struct TEquipmentGroup {
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue1;
 			ValueLabel0[0].text = value1.ToString();
 			ValueLabel1[0].text = value2.ToString();
-			if(value2 > value1) {
+			if(value2 != value1) {
 				ValueLabel1[0].gameObject.SetActive(true);
 			} else {
 				ValueLabel1[0].gameObject.SetActive(false);
@@ -82,7 +82,7 @@ public struct TEquipmentGroup {
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue2;
 			ValueLabel0[1].text = value1.ToString();
 			ValueLabel1[1].text = value2.ToString();
-			if(value2 > value1) {
+			if(value2 != value1) {
 				ValueLabel1[1].gameObject.SetActive(true);
 			} else {
 				ValueLabel1[1].gameObject.SetActive(false);
@@ -95,7 +95,7 @@ public struct TEquipmentGroup {
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue3;
 			ValueLabel0[2].text = value1.ToString();
 			ValueLabel1[2].text = value2.ToString();
-			if(value2 > value1) {
+			if(value2 != value1) {
 				ValueLabel1[2].gameObject.SetActive(true);
 			} else {
 				ValueLabel1[2].gameObject.SetActive(false);
@@ -113,14 +113,14 @@ public struct TItemLevelUp {
 
 	public void Init (GameObject obj, UIEventListener.VoidDelegate listener) {
 		itemAwardGroup = new ItemAwardGroup[2];
-		itemAwardGroup[0] = obj.transform.FindChild("LevelGroup/BeforeLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
-		itemAwardGroup[1] = obj.transform.FindChild("LevelGroup/AfterLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
-		goReinforceInfo = obj.transform.FindChild("ReinforceInfo").gameObject;
+		itemAwardGroup[0] = obj.transform.Find("LevelGroup/BeforeLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
+		itemAwardGroup[1] = obj.transform.Find("LevelGroup/AfterLevel/ItemAwardGroup").GetComponent<ItemAwardGroup>();
+		goReinforceInfo = obj.transform.Find("ReinforceInfo").gameObject;
 		reinForceInfo = new TReinforceInfo();
-		reinForceInfo.Init(obj.transform.FindChild("ReinforceInfo"));
-		goEquipmentGroup = obj.transform.FindChild("EquipmentGroup").gameObject;
+		reinForceInfo.Init(obj.transform.Find("ReinforceInfo"));
+		goEquipmentGroup = obj.transform.Find("EquipmentGroup").gameObject;
 		equipmentGroup = new TEquipmentGroup();
-		equipmentGroup.Init(obj.transform.FindChild("EquipmentGroup"), listener);
+		equipmentGroup.Init(obj.transform.Find("EquipmentGroup"), listener);
 	}
 
 	public void UpdateForReinforce (TSkill beforeSkill, TSkill afterSkill) {

@@ -100,14 +100,21 @@ public class UIHint : UIBase
 		return false;
 	}
 
-    public void ShowHint(string text, Color color)
+	public void ShowHint(string text, Color color, bool isForce = false)
     {
-		if(!Visible){
-			Show(true);
+		if(!isForce) {
+			if(!Visible){
+				Show(true);
+				showText(text, color);
+				StartCoroutine(autoHide());
+			} else 
+				if(!haveText(text))
+					addText(text, color);
+		} else {
+			if(!Visible)
+				Show(true);
+			textList.Clear();
 			showText(text, color);
-			StartCoroutine(autoHide());
-		} else 
-			if(!haveText(text))
-				addText(text, color);
+		}
 	}
 }
