@@ -807,7 +807,7 @@
         "nametw": "白皙膚色",
         "kind": 0,
         "atlas": 0,
-        "icon": 210,
+        "icon": 212,
         "avatar": 12,
         "quality": 3,
         "position": 2,
@@ -1347,6 +1347,7 @@
     {
         "id": 1100,
         "nametw": "前鋒頭髮",
+        "avatar": 99001,
         "potential": 25
     },
     {
@@ -1715,6 +1716,7 @@
     {
         "id": 1200,
         "nametw": "後衛頭髮",
+        "avatar": 99001,
         "potential": 25
     },
     {
@@ -5223,7 +5225,7 @@
     },
     {
         "id": 4214,
-        "nametw": "後衛褲子14",
+        "nametw": "寒冰女皇短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4214,
@@ -6324,7 +6326,7 @@
     },
     {
         "id": 5214,
-        "nametw": "後衛鞋子14",
+        "nametw": "寒冰女皇戰靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5214,
