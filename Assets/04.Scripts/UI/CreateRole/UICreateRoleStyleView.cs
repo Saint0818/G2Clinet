@@ -183,26 +183,26 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void sendDataToServer()
     {
-        int[] equipmentItemIDs = new int[8];
-        equipmentItemIDs[0] = mCurrentPlayerParts[UICreateRole.EPart.Body]; // 陣列的魔術數字其實是對應到 TItemData.Kind.
-        equipmentItemIDs[1] = mCurrentPlayerParts[UICreateRole.EPart.Hair];
-        equipmentItemIDs[3] = mCurrentPlayerParts[UICreateRole.EPart.Cloth];
-        equipmentItemIDs[4] = mCurrentPlayerParts[UICreateRole.EPart.Pants];
-        equipmentItemIDs[5] = mCurrentPlayerParts[UICreateRole.EPart.Shoes];
+        int[] partItemIDs = new int[8];
+        partItemIDs[0] = mCurrentPlayerParts[UICreateRole.EPart.Body]; // 陣列的魔術數字其實是對應到 TItemData.Kind.
+        partItemIDs[1] = mCurrentPlayerParts[UICreateRole.EPart.Hair];
+        partItemIDs[3] = mCurrentPlayerParts[UICreateRole.EPart.Cloth];
+        partItemIDs[4] = mCurrentPlayerParts[UICreateRole.EPart.Pants];
+        partItemIDs[5] = mCurrentPlayerParts[UICreateRole.EPart.Shoes];
 
         GameData.Team.Player.ID = mPlayerID;
-        GameData.Team.Player.Items = new TItem[equipmentItemIDs.Length];
-        for (int i = 0; i < equipmentItemIDs.Length; i++)
-            GameData.Team.Player.Items[i].ID = equipmentItemIDs[i];
+        GameData.Team.Player.Items = new TItem[partItemIDs.Length];
+        for (int i = 0; i < partItemIDs.Length; i++)
+            GameData.Team.Player.Items[i].ID = partItemIDs[i];
         GameData.Team.Player.Init();
 
         WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
-        form.AddField("Name",GameData.Team.Identifier);
-        form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
+//        form.AddField("Name", GameData.Team.Identifier);
+        form.AddField("AvatarItems", JsonConvert.SerializeObject(partItemIDs));
 
 		if(SceneMgr.Get.CurrentScene != "Lobby")
-			UILoading.UIShow(true, GameEnum.ELoading.Login);
+			UILoading.UIShow(true, ELoading.Login);
 
         SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
     }
@@ -212,14 +212,11 @@ public class UICreateRoleStyleView : MonoBehaviour
         if(ok)
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-//            GameData.Team.Money = team.Money;
-//            GameData.Team.Diamond = team.Diamond;
             GameData.Team.Player = team.Player;
+            GameData.Team.Player.Init();
             GameData.Team.SkillCards = team.SkillCards;
-			GameData.Team.Items = team.Items;
-			GameData.Team.Player.Init();
-			GameData.Team.InitSkillCardCount();
-//            GameData.SaveTeam();
+            GameData.Team.Items = team.Items;
+            GameData.Team.InitSkillCardCount();
 
 			UICreateRole.Get.Hide();
 			UI3DCreateRole.Get.Hide();
