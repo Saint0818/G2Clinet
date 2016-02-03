@@ -6,34 +6,18 @@ public class ShowStateBehaviour : StateMachineBehaviour
     public EAnimatorState State;
     private PlayerBehaviour player;
     private AnimationEvent skillEvent = new AnimationEvent();
-
-    //    override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
-    //    {
-    //Debug.Log ("OnStateMachineEnter : " + State.ToString());
-    //    }
-
-    //  override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //  {
-    //  }
-
-    //  override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //  {
-    //  }
     
     override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
     {
-        if (player == null)
-            player = animator.gameObject.GetComponent<PlayerBehaviour>();
-
-        if (player)
+        if (animator.gameObject)
         {
             switch (State)
             {
                 case EAnimatorState.Elbow:
-                    player.AnimationEvent("ElbowEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "ElbowEnd");
                     break;
                 case EAnimatorState.Fall:
-                    player.AnimationEvent("FallEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "FallEnd");
                     break;
                 case EAnimatorState.Show:
                     if (player.IsBallOwner)
@@ -42,7 +26,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
                         player.AniState(EPlayerState.Idle);
                     break;
                 case EAnimatorState.Pass:
-                    player.AnimationEvent("PassEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "PassEnd");
                     break;
                 case EAnimatorState.Dunk:
                 case EAnimatorState.Shoot:
@@ -52,41 +36,31 @@ public class ShowStateBehaviour : StateMachineBehaviour
                 case EAnimatorState.Push:
                 case EAnimatorState.GotSteal:
                 case EAnimatorState.JumpBall:
-                    player.AnimationEvent("AnimationEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "AnimationEnd");
                     break;
                 case EAnimatorState.Intercept:
                 case EAnimatorState.Catch:
                 case EAnimatorState.Rebound:
                 case EAnimatorState.Block:
-                    player.AnimationEvent("CatchEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "CatchEnd");
                     break;
                 case EAnimatorState.Pick:
-                    player.AnimationEvent("PickEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "PickEnd");
                     break;
                 case EAnimatorState.Buff:
-                    player.AnimationEvent("BuffEnd");
-                    skillEvent.stringParameter = "ActiveSkillEnd";
-                    player.SkillEvent(skillEvent);
+                    animator.gameObject.SendMessage("AnimationEvent", "PickEnd");
+                    animator.gameObject.SendMessage("SkillEvent", skillEvent);
                     break;
                 case EAnimatorState.MoveDodge:
-                    player.AnimationEvent("MoveDodgeEnd");
+                    animator.gameObject.SendMessage("AnimationEvent", "MoveDodgeEnd");
                     break;
             }
         }
-        else
-        {
-            Debug.LogError("player == null");
-        }
+//        else
+//        {
+//            Debug.LogError("player == null");
+//        }
 
         //Debug.Log (animator.gameObject.name + " .OnStateMachineExit : " + State.ToString());
     }
-
-    //  override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo ,int stateMachinePathHash)
-    //  {
-    //
-    //  }
-
-    //  override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //  {
-    //  }
 }

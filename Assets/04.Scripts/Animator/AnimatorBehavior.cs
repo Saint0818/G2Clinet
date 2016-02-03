@@ -22,14 +22,75 @@ public class AnimatorBehavior : MonoBehaviour
     public void Init(Animator ani)
     {
         Controler = ani;
-//		if (dunkCurveCounter == null) 
-//			dunkCurveCounter = gameObject.AddComponent<DunkCurveCounter> ();
     }
 
-    public void AddTrigger(EAnimatorState state, int stateNo)
+    public void AddTrigger(EAnimatorState state, int stateNo, int team)
+    {
+        addTrigger(state, stateNo, team);
+    }
+
+    public void AddTrigger(EPlayerState state, int team)
+    {
+        TAnimatorItem findType = AnimatorMgr.Get.GetAnimatorStateType(state);
+        AddTrigger(findType.Type, findType.StateNo, team);
+    }
+
+    public void AddTrigger(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget)
+    {
+        addTrigger(state, stateNo, team, false ,skillMoveTarget);
+    }
+
+    public void AddTrigger(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget, Vector3 reboundMove)
+    {
+        addTrigger(state, stateNo, team, false, skillMoveTarget, reboundMove);
+    }
+
+    public void AddTrigger(EAnimatorState state,int stateNo, int team, bool isDunkBlock, Vector3 skillMoveTarget)
+    {
+        addTrigger(state, stateNo, team, isDunkBlock, skillMoveTarget);
+    }
+
+    private void InitCurve(EAnimatorState state, int stateNo, int team, bool isDunkBlock = false ,
+        Vector3 skillMoveTarget = default(Vector3) , Vector3 reboundMove = default(Vector3))
+    {
+        switch (state)
+        {
+            case EAnimatorState.Shoot:
+                InitShootCurve(stateNo);
+                break;
+            case EAnimatorState.Layup:
+                Vector3 layupPoint = CourtMgr.Get.DunkPoint[team].transform.position;
+                layupPoint.z += (team == 0 ? -1 : 1);
+                InitLayupCurve(stateNo, layupPoint);
+                break;
+            case EAnimatorState.Dunk:
+                int angle;
+                if (SceneMgr.Get.IsCourt)
+                    angle = team == 0 ? 0 : 180;
+                else
+                    angle = 90;
+                InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [team].transform.position, angle);
+                break;
+            case EAnimatorState.Fall:
+                InitFallCurve(stateNo);
+                break;
+            case EAnimatorState.Rebound:
+                InitReboundCurve(stateNo, skillMoveTarget, reboundMove);
+                break;
+
+            case EAnimatorState.Block:
+                InitBlockCurve(stateNo, skillMoveTarget, isDunkBlock);
+                break;
+        }
+    }
+
+    private void addTrigger(EAnimatorState state, int stateNo,int team, bool isDunkBlock = false,
+        Vector3 skillMoveTarget = default(Vector3), Vector3 reboundMove = default(Vector3))
     {
         Controler.SetInteger("StateNo", stateNo);
         StateNo = stateNo;
+
+        InitCurve(state, stateNo, team, isDunkBlock, skillMoveTarget, reboundMove);
 
         switch (state)
         {
@@ -250,7 +311,7 @@ public class AnimatorBehavior : MonoBehaviour
 
     private float timescale = 1;
 
-    public float TimeScale
+    public float TimeScaleTime
     {
         set{
             timescale = value;
@@ -290,6 +351,46 @@ public class AnimatorBehavior : MonoBehaviour
     public void PlayDunkCloneMesh()
     {
         dunkCurveCounter.CloneMesh();
+    }
+
+    public void AnimationEvent(string animationName)
+    {
+        if(SceneMgr.Get.IsCourt)
+            gameObject.SendMessage("AnimationEventCallBack", animationName);
+    }
+
+    public void TimeScale(AnimationEvent aniEvent)
+    {
+        if (SceneMgr.Get.IsCourt)
+        {
+            gameObject.SendMessage("TimeScaleCallBack", aniEvent); 
+        }
+    }
+
+    public void ZoomIn(float t)
+    {
+        if (SceneMgr.Get.IsCourt)
+        {
+            CameraMgr.Get.SkillShow(gameObject); 
+            CameraMgr.Get.SetRoomMode(EZoomType.In, t); 
+        }
+    }
+
+    public void ZoomOut(float t)
+    {
+        if (SceneMgr.Get.IsCourt)
+        {
+            CameraMgr.Get.SkillShow(gameObject);
+            CameraMgr.Get.SetRoomMode(EZoomType.Out, t); 
+        }
+    }
+
+    public void SkillEvent(AnimationEvent aniEvent)
+    {
+        if (SceneMgr.Get.IsCourt)
+        {
+            gameObject.SendMessage("SkillEventCallBack", aniEvent); 
+        }
     }
 
 }

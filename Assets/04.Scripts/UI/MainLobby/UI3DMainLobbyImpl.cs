@@ -25,11 +25,16 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	private const int BuildCount = 10;
 	public GameObject[] BuildPos = new GameObject[BuildCount];
 	public GameObject[] Builds = new GameObject[BuildCount];
-	public Animator animator;
+	private Animator animator;
 	private UIButton[] Btns = new UIButton[BuildCount];
 	private GameObject advertisementPic;
-
     private GameObject mAvatarPlayer;
+	private AnimatorBehavior aniBehavior;
+    private EPlayerState crtState;
+    private int selectIndex = -1;
+    private float delay = 0;
+
+	private List<EPlayerState> showstate = new List<EPlayerState>();
 
     [UsedImplicitly]
     private void Awake()
@@ -69,8 +74,6 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		}
 	}
 
-//	private int selectIndex = -1;
-	private float delay = 0;
 
     [UsedImplicitly]
 	private void Update()
@@ -81,35 +84,51 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
 	private void OnSelect()
 		{
-		//TODO: it's not open yet.
+//		//TODO: it's not open yet.
 //		return;
-//		if (delay >		 0)
-//			return;
-//
-//		int index;
-//
-//		if (!UITutorial.Visible && int.TryParse (UIButton.current.name, out index)) {
-//			if(selectIndex == index){
-//				//back 
-//				selectIndex = -1;
-//				SetAnimator(index, false);
-//				UpdateButtonCollider(index, true);
-////				UIMainLobby.Get.EnableImpl = true;
-//                UIMainLobby.Get.Main.PlayEnterAnimation();
-//				delay = 1;
-//			}else{
-//				//go
-//				if(selectIndex == -1){
-//					selectIndex = index;
-//					SetAnimator(index, true);
-//					UpdateButtonCollider(index, false);
-////					UIMainLobby.Get.EnableImpl = false;
-//                    UIMainLobby.Get.Main.PlayExitAnimation();
-//					delay = 1;
-//				}
-//			}
-//		}
+		if (delay > 0)
+			return;
+
+		int index;
+
+		if (!UITutorial.Visible && int.TryParse (UIButton.current.name, out index)) {
+			if(selectIndex == index){
+				//back 
+				selectIndex = -1;
+				SetAnimator(index, false);
+				UpdateButtonCollider(index, true);
+                UIMainLobby.Get.Main.PlayEnterAnimation();
+				delay = 1;
+			}else{
+				//go
+				if(selectIndex == -1){
+                    if (index == 0)
+                    {
+                        DoAni();
+                    }
+                    else
+                    {
+                        selectIndex = index;
+                        SetAnimator(index, true);
+                        UpdateButtonCollider(index, false);
+                        UIMainLobby.Get.Main.PlayExitAnimation();
+                        delay = 1;
+                    }
+				}
+			}
+            AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
+		}
 	}
+
+    private void DoAni()
+    {
+        if (GameData.Team.Player.SkillCards.Length > 0)
+        {
+            crtState = GetRandomState();
+            aniBehavior.AddTrigger(crtState, 0); 
+
+        }
+    }
 
 	private void UpdateButtonCollider(int index, bool isopen)
 	{
@@ -121,7 +140,6 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					BuildPos[i].transform.parent.transform.GetComponent<BoxCollider>().enabled = false;
 			}
 		}
-
 	}
 
 	private string GetEBildsTypeString(int index)
@@ -213,11 +231,10 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     public void Show()
     {
         UpdateAvatar();
+        InitSkillstate();
     }
 
-    public void Hide()
-    {
-    }
+    public void Hide(){}
 
     public void UpdateAvatar()
     {
@@ -227,11 +244,48 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
         ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
                                    GameData.Team.Player.BodyType,
-                                   EAnimatorType.AvatarControl, false);
+                                   EAnimatorType.AnimationControl, false);
 
         mAvatarPlayer.transform.parent = BuildPos[0].transform;
         mAvatarPlayer.transform.localPosition = Vector3.zero;
         mAvatarPlayer.transform.localScale = Vector3.one;
         mAvatarPlayer.transform.localRotation = Quaternion.identity;
+
+        animator = mAvatarPlayer.gameObject.GetComponent<Animator>();
+
+		aniBehavior = mAvatarPlayer.GetComponent<AnimatorBehavior> ();
+        if (aniBehavior == null)
+        {
+            aniBehavior = mAvatarPlayer.AddComponent<AnimatorBehavior>();
+           
+        }
+        CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
+        aniBehavior.Init(animator);
     }
+	
+	void InitSkillstate()
+    {
+        showstate.Clear();
+        for (int i = 0; i < GameData.Team.Player.SkillCards.Length; i++)
+            if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID))
+            {
+                EPlayerState State = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Animation);
+                showstate.Add(State);
+            }
+    }
+
+    private EPlayerState GetRandomState()
+    {
+        int random = UnityEngine.Random.Range(0, showstate.Count - 1);
+        return showstate[random];
+    }
+
+//    private OnShooting()
+//    {
+//        CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+//            CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle, 1f);
+//
+//
+//        animator.SetTrigger(animationName);
+//    }
 }

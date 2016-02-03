@@ -78,6 +78,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		ChangeLevel(scene, isNeedLoading);
         CurrentSceneNo = courtNo;
     }
+        
+    public bool IsCourt
+    {
+        get{  return CurrentScene == string.Format("{0}{1}", ESceneName.Court, CurrentSceneNo);}
+    }
 
     public void ChangeLevel(string scene, bool isNeedLoading = true)
     {

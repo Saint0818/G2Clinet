@@ -538,7 +538,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock)
         {
             timeScale = TimerMgr.Get.GetTime(TimerKind);
-            AnimatorControl.TimeScale = timeScale;
+            AnimatorControl.TimeScaleTime = timeScale;
         }
 				
         DebugTool();
@@ -1328,7 +1328,7 @@ public class PlayerBehaviour : MonoBehaviour
         isSkillShow = false;
         animatorEvent.floatParameter = 1;
         animatorEvent.intParameter = 0;
-		TimeScale(animatorEvent);
+		TimeScaleCallBack(animatorEvent);
     }
 
     public bool CanUseState(EPlayerState state)
@@ -1604,14 +1604,14 @@ public class PlayerBehaviour : MonoBehaviour
 			skillMoveTarget = GameController.Get.BallOwner.FindNearBlockPoint(PlayerRefGameObject.transform.position);
 		}
 
-        AnimatorControl.InitBlockCurve(stateNo, skillMoveTarget, isDunkBlock);
+//        AnimatorControl.InitBlockCurve(stateNo, skillMoveTarget, isDunkBlock);
         StartSkillCamera(stateNo);
         SetShooterLayer();
         
         UseGravity = false;
         IsKinematic = true;
         
-        AnimatorControl.AddTrigger(EAnimatorState.Block, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Block, stateNo, Team.GetHashCode(), isDunkBlock, skillMoveTarget);
 		isCanCatchBall = false;
 		if(stateNo >= 20)
 			isBlock = true;
@@ -1622,7 +1622,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         UseGravity = false;
         IsKinematic = true;
-        AnimatorControl.AddTrigger(EAnimatorState.BlockCatch, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.BlockCatch, stateNo, Team.GetHashCode());
         IsPerfectBlockCatch = false;
         isCanCatchBall = false;
     }
@@ -1630,13 +1630,13 @@ public class PlayerBehaviour : MonoBehaviour
     public void BuffStateHandle(int stateNo)
     {
 //        StartSkillCamera(stateNo);
-        AnimatorControl.AddTrigger(EAnimatorState.Buff, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Buff, stateNo, Team.GetHashCode());
     }
 
     public void CatchStateHandle(int stateNo)
     {
         setSpeed(0, -1);
-        AnimatorControl.AddTrigger(EAnimatorState.Catch, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Catch, stateNo, Team.GetHashCode());
     }
 
     public void DefenceStateHandle(int stateNo)
@@ -1652,14 +1652,14 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
     
-        AnimatorControl.AddTrigger(EAnimatorState.Defence, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Defence, stateNo, Team.GetHashCode());
     }
 
     public void AlleyoopStateHandle(int stateNo)
     {
         UseGravity = false;
         IsKinematic = true;
-        AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo, Team.GetHashCode());
         isCanCatchBall = true;
 		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
         SetShooterLayer();
@@ -1672,9 +1672,9 @@ public class PlayerBehaviour : MonoBehaviour
         StartSkillCamera(stateNo);
         UseGravity = false;
         IsKinematic = true;
-        AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Dunk, stateNo, Team.GetHashCode());
         isCanCatchBall = false;
-		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
+//		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
 
         SetShooterLayer();
         CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
@@ -1697,7 +1697,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
             
-        AnimatorControl.AddTrigger(EAnimatorState.Dribble, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Dribble, stateNo, Team.GetHashCode());
         CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
         isCanCatchBall = false;
         IsFirstDribble = false;
@@ -1714,7 +1714,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         StartSkillCamera(stateNo);
         PlayerRigidbody.mass = 5;
-        AnimatorControl.AddTrigger(EAnimatorState.Elbow, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Elbow, stateNo, Team.GetHashCode());
         isCanCatchBall = false;
         GameRecord.ElbowLaunch++;
     }
@@ -1724,7 +1724,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsBallOwner)
         {
             PlayerRigidbody.mass = 5;
-            AnimatorControl.AddTrigger(EAnimatorState.FakeShoot, stateNo);
+            AnimatorControl.AddTrigger(EAnimatorState.FakeShoot, stateNo, Team.GetHashCode());
             isCanCatchBall = false;
             isFakeShoot = true;
             GameRecord.Fake++;
@@ -1748,18 +1748,18 @@ public class PlayerBehaviour : MonoBehaviour
         SetShooterLayer();
         
 //        isShootJump = false;
-        AnimatorControl.AddTrigger(EAnimatorState.KnockDown, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.KnockDown, stateNo, Team.GetHashCode());
         isCanCatchBall = false;
     }
 
     public void FallStateHandle(int stateNo)
     {
         SetShooterLayer();
-        AnimatorControl.InitFallCurve(stateNo);
+//        AnimatorControl.InitFallCurve(stateNo);
         AnimatorControl.Reset(EAnimatorState.Dunk);
 //        IsAnimatorMove = false;
 //        isShootJump = false;
-        AnimatorControl.AddTrigger(EAnimatorState.Fall, stateNo);
+        AnimatorControl.AddTrigger(EAnimatorState.Fall, stateNo, Team.GetHashCode());
         isCanCatchBall = false;
         PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
         if (OnFall != null)
@@ -1796,9 +1796,9 @@ public class PlayerBehaviour : MonoBehaviour
             StartSkillCamera(stateNo);
             UseGravity = false;
             IsKinematic = true;
-            AnimatorControl.InitShootCurve(stateNo);
+//            AnimatorControl.InitShootCurve(stateNo);
             SetShooterLayer();
-            AnimatorControl.AddTrigger(EAnimatorState.Shoot, stateNo);
+            AnimatorControl.AddTrigger(EAnimatorState.Shoot, stateNo, Team.GetHashCode());
             isCanCatchBall = false;
         }
     }
@@ -1820,11 +1820,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
             UseGravity = false;
             IsKinematic = true;
-            Vector3 layupPoint = CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
-            layupPoint.z += (Team == 0 ? -1 : 1);
-            AnimatorControl.InitLayupCurve(stateNo, layupPoint);
+//            Vector3 layupPoint = CourtMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
+//            layupPoint.z += (Team == 0 ? -1 : 1);
+//            AnimatorControl.InitLayupCurve(stateNo, layupPoint);
             SetShooterLayer();
-            AnimatorControl.AddTrigger(EAnimatorState.Layup, stateNo);
+            AnimatorControl.AddTrigger(EAnimatorState.Layup, stateNo, Team.GetHashCode());
             isCanCatchBall = false;
         }
     }
@@ -1900,7 +1900,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EAnimatorState.End:
-                AnimatorControl.AddTrigger(EAnimatorState.End, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.End, nextState.StateNo, Team.GetHashCode());
                 Result = true;
                 break;
             case EAnimatorState.Elbow:
@@ -1923,24 +1923,24 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EAnimatorState.HoldBall:
                 PlayerRigidbody.mass = 5;
-                AnimatorControl.AddTrigger(EAnimatorState.HoldBall, nextState.StateNo); 
+                AnimatorControl.AddTrigger(EAnimatorState.HoldBall, nextState.StateNo, Team.GetHashCode()); 
                 isCanCatchBall = false;
                 Result = true;
                 break;
 			case EAnimatorState.Idle:
 				PlayerRigidbody.mass = 5;
 				setSpeed (0, -1);
-                AnimatorControl.AddTrigger (EAnimatorState.Idle, nextState.StateNo); 
+                AnimatorControl.AddTrigger (EAnimatorState.Idle, nextState.StateNo, Team.GetHashCode()); 
 				isMoving = false;
 				Result = true;
 				isCanCatchBall = true;
                 break;
             case EAnimatorState.Intercept:
-                AnimatorControl.AddTrigger(EAnimatorState.Intercept, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Intercept, nextState.StateNo, Team.GetHashCode());
                 Result = true;
                 break;
             case EAnimatorState.MoveDodge:
-                AnimatorControl.AddTrigger(EAnimatorState.MoveDodge, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.MoveDodge, nextState.StateNo, Team.GetHashCode());
                 OnUICantUse(this);
                 if (moveQueue.Count > 0)
                     moveQueue.Dequeue();
@@ -1948,7 +1948,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case EAnimatorState.Pass:
                 isCanCatchBall = false;
-                AnimatorControl.AddTrigger(EAnimatorState.Pass, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Pass, nextState.StateNo, Team.GetHashCode());
                 if (nextState.StateNo == 5 || nextState.StateNo == 6 || nextState.StateNo == 7 || nextState.StateNo == 8 || nextState.StateNo == 9)
                     isUsePass = true;
                 PlayerRigidbody.mass = 5;
@@ -1960,7 +1960,7 @@ public class PlayerBehaviour : MonoBehaviour
                     GameRecord.Push++;
                 AnimatorControl.InitPushCurve(nextState.StateNo);
                 StartSkillCamera(nextState.StateNo);
-                AnimatorControl.AddTrigger(EAnimatorState.Push, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Push, nextState.StateNo, Team.GetHashCode());
                 GameRecord.PushLaunch++;
                 Result = true;
 				AudioMgr.Get.PlaySound (SoundType.SD_Punch);
@@ -1971,7 +1971,7 @@ public class PlayerBehaviour : MonoBehaviour
                     AnimatorControl.InitPickCurve(nextState.StateNo);
                     GameRecord.SaveBallLaunch++;
                 }
-                AnimatorControl.AddTrigger(EAnimatorState.Pick, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Pick, nextState.StateNo, Team.GetHashCode());
                 Result = true;
                 break;
             case EAnimatorState.Run:
@@ -1981,7 +1981,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     DashEffectEnable(true);
                 }
-                AnimatorControl.AddTrigger(EAnimatorState.Run, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Run, nextState.StateNo, Team.GetHashCode());
                 Result = true;
                 break;
             case EAnimatorState.Steal:
@@ -1992,14 +1992,14 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 StartSkillCamera(nextState.StateNo);
                 PlayerRigidbody.mass = 5;
-                AnimatorControl.AddTrigger(EAnimatorState.Steal, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Steal, nextState.StateNo, Team.GetHashCode());
                 isCanCatchBall = false;
                 GameRecord.StealLaunch++;
 				AudioMgr.Get.PlaySound (SoundType.SD_Steal);
                 Result = true;
                 break;
             case EAnimatorState.GotSteal:
-                AnimatorControl.AddTrigger(EAnimatorState.GotSteal, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.GotSteal, nextState.StateNo, Team.GetHashCode());
                 isCanCatchBall = false;
                 Result = true;
                 break;
@@ -2008,7 +2008,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
             case EAnimatorState.Show:
-                AnimatorControl.AddTrigger(EAnimatorState.Show, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Show, nextState.StateNo, Team.GetHashCode());
                 Result = true;
                 break;
 
@@ -2034,19 +2034,19 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     reboundMove = Vector3.zero;
 
-                AnimatorControl.InitReboundCurve(nextState.StateNo, skillMoveTarget, reboundMove);
+//                AnimatorControl.InitReboundCurve(nextState.StateNo, skillMoveTarget, reboundMove);
                 SetShooterLayer();
-                AnimatorControl.AddTrigger(EAnimatorState.Rebound, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.Rebound, nextState.StateNo, Team.GetHashCode(), skillMoveTarget, reboundMove);
                 GameRecord.ReboundLaunch++;
                 Result = true;
                 break;
             case EAnimatorState.JumpBall:
-                AnimatorControl.AddTrigger(EAnimatorState.JumpBall, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.JumpBall, nextState.StateNo, Team.GetHashCode());
                 SetShooterLayer();
                 Result = true;
                 break;
             case EAnimatorState.TipIn:
-                AnimatorControl.AddTrigger(EAnimatorState.TipIn, nextState.StateNo);
+                AnimatorControl.AddTrigger(EAnimatorState.TipIn, nextState.StateNo, Team.GetHashCode());
                 SetShooterLayer();
                 Result = true;
                 break;
@@ -2068,7 +2068,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRefGameObject.layer = LayerMask.NameToLayer("Shooter");
     }
         
-    public void AnimationEvent(string animationName)
+    public void AnimationEventCallBack(string animationName)
     {
         if (GameController.Get.IsShowSituation)
             return;
@@ -2388,7 +2388,7 @@ public class PlayerBehaviour : MonoBehaviour
         AudioMgr.Get.PlaySound(soundName);
     }
 
-    public void TimeScale(AnimationEvent aniEvent)
+    public void TimeScaleCallBack(AnimationEvent aniEvent)
     {
         float floatParam = aniEvent.floatParameter;
         int intParam = aniEvent.intParameter;
@@ -2426,21 +2426,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
     }
-
-    public void ZoomIn(float t)
-    {
-        CameraMgr.Get.SkillShow(PlayerRefGameObject); 
-        CameraMgr.Get.SetRoomMode(EZoomType.In, t); 
-    }
-
-    public void ZoomOut(float t)
-    {
-        CameraMgr.Get.SkillShow(PlayerRefGameObject);
-        CameraMgr.Get.SetRoomMode(EZoomType.Out, t); 
-    }
-
+       
     //All Skill Event From this Function
-    public void SkillEvent(AnimationEvent aniEvent)
+    public void SkillEventCallBack(AnimationEvent aniEvent)
     {
         string skillString = aniEvent.stringParameter;
         int skillInt = aniEvent.intParameter;
@@ -2508,7 +2496,7 @@ public class PlayerBehaviour : MonoBehaviour
                         animatorEvent.intParameter = 0;
 				
                     animatorEvent.floatParameter = 1;
-                    TimeScale(animatorEvent);
+                    TimeScaleCallBack(animatorEvent);
 
                     if (isBlock)
                     {
@@ -2592,21 +2580,21 @@ public class PlayerBehaviour : MonoBehaviour
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 0;
-                            TimeScale(animatorEvent);   
+                            TimeScaleCallBack(animatorEvent);   
                             break;
                         case 1://show self
                             showActiveEffect();
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 2;
-                            TimeScale(animatorEvent); 
+                            TimeScaleCallBack(animatorEvent); 
                             break;
                         case 2://show all Player
                             showActiveEffect();
                             GameController.Get.SetAllPlayerLayer("SkillPlayer");
 							animatorEvent.floatParameter = GameConst.Min_TimePause;
                             animatorEvent.intParameter = 2;
-                            TimeScale(animatorEvent); 
+                            TimeScaleCallBack(animatorEvent); 
                             break;
                     }
                 }
@@ -2626,7 +2614,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
 						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 2;
-                        TimeScale(animatorEvent); 
+                        TimeScaleCallBack(animatorEvent); 
 
                         isSkillShow = true;
                     }
@@ -2643,7 +2631,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         animatorEvent.floatParameter = 1;
         animatorEvent.intParameter = 1;
-        TimeScale(animatorEvent); 
+        TimeScaleCallBack(animatorEvent); 
     }
 
 	public void showEffect() {

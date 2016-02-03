@@ -72,6 +72,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     public AudioMixerSnapshot LobbySnapshot;
     public AudioMixerSnapshot CreateSnapshot;
     public AudioMixerSnapshot InGameSnapshot;
+    public AudioMixerSnapshot GameResultSnapshot;
 
 	private AudioMixerSnapshot currentSnapshot;
     private float snapshotTransitionTime = 2f;
@@ -172,6 +173,10 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     public void PlaySound(SoundType type)
     {
         string soundName = type.ToString();
+
+        if(type == SoundType.SD_ResultWin || type == SoundType.SD_ResultLose)
+            GameResultSnapshot.TransitionTo(0.01f); 
+        
         PlaySound(soundName);
     }
 

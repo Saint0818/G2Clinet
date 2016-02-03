@@ -23,7 +23,7 @@ public class ShootCurveCounter
     }
 
     private EAnimatorState state = EAnimatorState.Shoot;
-    private bool isShootJumpActive = false;
+//    private bool isShootJumpActive = false;
 
     public void Init(int index, GameObject player)
     {
@@ -39,8 +39,8 @@ public class ShootCurveCounter
         isFindCurve = Curve != null ? true : false;
         curveTime = 0;
         isplaying = true;
-        if (index >= 20)
-            isShootJumpActive = true;
+//        if (index >= 20)
+//            isShootJumpActive = true;
 
         if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
