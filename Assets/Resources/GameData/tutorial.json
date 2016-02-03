@@ -199,58 +199,68 @@
         "id": 4,
         "line": 3,
         "kind": 4,
-        "uipath": "主畫面按鈕"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SocialBt"
     },
     {
         "id": 4,
-        "line": 4,
-        "kind": 4,
-        "uipath": "關注頁籤"
+        "line": 4
     },
     {
         "id": 4,
         "line": 5,
         "kind": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "你已經有小粉絲了呢，只要你也[ff6060]關注[-]他，你們就會成為[ff6060]朋友[-]，以後就可以一同組隊出去比賽囉！！"
+        "uipath": "UI2D/UISocial/Window/Center/Tabs/2"
     },
     {
         "id": 4,
         "line": 6,
         "kind": 4,
-        "uipath": "關注按鈕"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "這邊有許多來自各地的優秀球員，你可以選擇其中一位球員進行[ff6060]關注[-]！！"
     },
     {
         "id": 4,
         "line": 7,
         "kind": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "恭喜你認識了第一位朋友，你可以在動態牆上看到你所有朋友的動態消息喔！！"
+        "uipath": "UI2D/UISocial/Window/Center/Pages/2/ScrollView/2-0/Window/Good"
     },
     {
         "id": 4,
         "line": 8,
         "kind": 4,
-        "uipath": "動態頁籤"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "你已經成功關注他了，現在你可以在[ff6060]動態牆[-]上看到你所有關注朋友的動態消息喔！！"
     },
     {
         "id": 4,
         "line": 9,
         "kind": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。"
+        "uipath": "UI2D/UISocial/Window/Center/Tabs/0"
     },
     {
         "id": 4,
         "line": 10,
         "kind": 4,
-        "uipath": "讚按鈕"
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "接下我們來幫被你關注的朋友點個[ff6060]讚[-]吧！！"
+    },
+    {
+        "id": 4,
+        "line": 11,
+        "kind": 4,
+        "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView"
+    },
+    {
+        "id": 4,
+        "line": 12,
+        "kind": 4,
+        "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。"
     },
     {
         "id": 5,
@@ -672,6 +682,45 @@
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
     {
+        "id": 34,
+        "line": 1,
+        "title": "取名",
+        "kind": 0,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "對了，我只知道您高超的球技，還不知道您叫什麼名字呢！！"
+    },
+    {
+        "id": 34,
+        "line": 2,
+        "kind": 0,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "喔，我叫..."
+    },
+    {
+        "id": 34,
+        "line": 3,
+        "kind": 0,
+        "uipath": "UI2D/UIMainLobby/TopLeft/PlayerInGameBtn",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4
+    },
+    {
+        "id": 34,
+        "line": 4,
+        "kind": 0
+    },
+    {
+        "id": 34,
+        "line": 5,
+        "kind": 0,
+        "uipath": "UI2D/UIPlayerInfo/Window/Center/View/PersonalView/PlayerName"
+    },
+    {
         "id": 38,
         "line": 1,
         "title": "PVP結束後",
@@ -933,7 +982,7 @@
     {
         "id": 30,
         "line": 10,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/StageElement101"
     },
     {
         "id": 30,
