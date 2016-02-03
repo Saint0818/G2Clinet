@@ -33,7 +33,7 @@ public class UISkillCardDrag : UIDragDropItem {
 			if (cloneOnDrag)
 			{
 				mPressed = false;
-				GameObject clone = NGUITools.AddChild(transform.parent.parent.Find("DragSpace").gameObject, gameObject);
+				GameObject clone = NGUITools.AddChild(transform.parent.parent.parent.Find("DragSpace").gameObject, gameObject);
 				clone.transform.localPosition = transform.localPosition;
 				clone.transform.localRotation = transform.localRotation;
 				clone.transform.localScale = transform.localScale;

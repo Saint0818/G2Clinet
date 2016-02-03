@@ -181,6 +181,7 @@ public class UISkillFormation : UIBase {
 	//Left CardView
 	private GameObject gridCardList;
 	private UIScrollView scrollViewCardList;
+	private UIBetterGrid betterGrid;
 
 	//Sell
 	public bool IsBuyState = false;
@@ -290,7 +291,8 @@ public class UISkillFormation : UIBase {
 		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck")).onClick = DoOpenActive;
 		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck")).onClick = DoOpenPassive;
 
-		gridCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList");
+		gridCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList/Grid");
+		betterGrid = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList/Grid").GetComponent<UIBetterGrid>();
 		scrollViewCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
 		scrollViewCardList.onDragStarted = CardDragStart;
 		scrollViewCardList.onStoppedMoving = CardDragEnd;
@@ -356,9 +358,10 @@ public class UISkillFormation : UIBase {
 
 	private void refresh(){
 		costSpace = 0;
-		for(int i=0; i<skillSortCards.Count; i++) {
-			Destroy(skillSortCards[i]);
-		}
+//		for(int i=0; i<skillSortCards.Count; i++) {
+//			Destroy(skillSortCards[i]);
+//		}
+		betterGrid.mTrans.DestroyChildren();
 		removeIndexs = new int[0];
 		addIndexs = new int[0];
 		orderSNs = new int[0];
@@ -386,24 +389,21 @@ public class UISkillFormation : UIBase {
 		itemPassiveField.SetActive(true);
 		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
-		resetScrollPostion ();
 	}
 
 	public void RefreshAddCard () {
 		refresh();
 		initCards ();
-		UpdateSort();
 	}
 
 	private void refreshAfterInstall () {
 		refresh();
 		initCards ();
-		UpdateSort();
 	}
 
 	private void refreshBeforeSell () {
 		refresh();
-		initCards ();
+		initCards (true);
 		setEditState(true);
 	}
 	
@@ -411,10 +411,9 @@ public class UISkillFormation : UIBase {
 		refresh();
 		DoCloseSell();
 		initCards ();
-		UpdateSort();
 	}
 
-	private void initCards () {
+	private void initCards (bool isCheckBuy = false) {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
 		runShine = runShineInternal;
 		int index = -1;
@@ -456,6 +455,7 @@ public class UISkillFormation : UIBase {
 		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				GameObject obj = null;
+				
 				if(GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && 
 					!isSkillCardInOtherPlayer(GameData.Team.SkillCards[i].SN)) {
 					index ++;
@@ -489,6 +489,9 @@ public class UISkillFormation : UIBase {
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 
 		scrollViewCardList.enabled = !(skillSortCards.Count <= 6);
+		betterGrid.init();
+		betterGrid.mChildren = skillSortCards;
+		resetScrollPostion ();
 	}
 
 	private int getActiveFieldNull{
@@ -870,16 +873,19 @@ public class UISkillFormation : UIBase {
 	}
 
 	private void resetScrollPostion () {
-		gridCardList.transform.localPosition = Vector3.zero;
-		scrollViewCardList.panel.clipOffset = new Vector2(0, 10);
+//		gridCardList.transform.localPosition = Vector3.zero;
+//		scrollViewCardList.panel.clipOffset = new Vector2(0, 10);
+		scrollViewCardList.ResetPosition();
 	}
 
 	private void setEditState (bool isEditState) {
+		int index = 0;
 		cardSell.Refresh(isEditState);
 		IsBuyState = isEditState;
+		betterGrid.IsBuy = isEditState;
 		if(isEditState) {
 			sellNames.Clear();
-			int index = 0;
+			index = 0;
 			for(int i=0; i<skillSortCards.Count; i++) { 
 				if(sortIsCanSell(skillSortCards[i])) {
 					uiCards[skillSortCards[i].name].skillCard.ShowSell = true;
@@ -894,10 +900,13 @@ public class UISkillFormation : UIBase {
 				} else
 					skillSortCards[i].SetActive(false);
 			}
-			resetScrollPostion ();
 		} else {
+			index = 0;
 			for(int i=0; i<skillSortCards.Count; i++) {
 				if(uiCards.ContainsKey(skillSortCards[i].name)) {
+					if(i % 2 == 0)
+						index++;
+					skillSortCards[i].transform.localPosition = new Vector3(-230 + 200 * (index / 2), 100 - 265 * (index % 2), 0);
 					skillSortCards[i].SetActive(true);
 					uiCards[skillSortCards[i].name].skillCard.ShowSell = false; 
 				}
@@ -1055,7 +1064,6 @@ public class UISkillFormation : UIBase {
 			}
 			skillSortCards[i].SetActive(result);
 		}
-		resetScrollPostion ();
 	}
 
 	public void CardDragStart() {IsDragNow = true;}

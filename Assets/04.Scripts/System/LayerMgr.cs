@@ -49,7 +49,7 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 		if (obj == null) return;
 
 		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
-			if(trans.name.Contains(containName1) || trans.name.Contains(containName2))
+			if((trans.name.Contains(containName1) || trans.name.Contains(containName2)) && !trans.name.Contains("RangeOfAction"))
 				trans.gameObject.layer = LayerMask.NameToLayer(layer);
 		}
 	}
