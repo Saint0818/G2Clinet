@@ -142,6 +142,7 @@ public static class URLConst {
 	public const string GMAddPower = "gmaddpower";
     public const string GMAddExp = "gmaddexp";
     public const string GMSetLv = "gmsetlv";
+    public const string GMSetMaxPlayerBank = "gmsetmaxplayerbank";
     public const string GMAddAvatarPotential = "gmaddavatarpotential";
     public const string GMSavePotential = "gmsavepotential";
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";

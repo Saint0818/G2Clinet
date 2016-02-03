@@ -249,10 +249,24 @@ public class GEGMTool : GEBase
         addDiamond();
         addPower();
         addExp();
+        setMaxPlayerBank();
+    }
+
+    private int mMaxPlayerBank = 2;
+    private void setMaxPlayerBank()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Set MaxPlayerBank:");
+        mMaxPlayerBank = EditorGUILayout.IntField(mMaxPlayerBank, GUILayout.Width(100));
+        if(GUILayout.Button("Set", GUILayout.Width(50)))
+        {
+            var protocol = new GMSetMaxPlayerBankProtocol();
+            protocol.Send(mMaxPlayerBank, ok => {});
+        }
+        EditorGUILayout.EndHorizontal();
     }
 
     private int mAddMoney;
-
     private void addMoney()
     {
         EditorGUILayout.BeginHorizontal();
