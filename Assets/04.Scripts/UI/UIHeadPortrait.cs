@@ -111,13 +111,16 @@ public class UIHeadPortrait : UIBase
     {
         if (instance)
         {
-            if (!isShow)
-                RemoveUI(UIName);
-            else
-                instance.Show(isShow);
+			if (!isShow)
+					RemoveUI (UIName);
+			else {
+				instance.Show (isShow);
+				Vector3 pos = instance.gameObject.transform.localPosition;
+				instance.gameObject.transform.localPosition = new Vector3 (pos.x, pos.y, -10);
+			}
         }
         else if (isShow)
-            Get.Show(isShow);
+            Get.Show(isShow);		
     }
 
     public static UIHeadPortrait Get

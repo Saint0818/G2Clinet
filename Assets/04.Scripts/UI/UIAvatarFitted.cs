@@ -673,7 +673,7 @@ public class UIAvatarFitted : UIBase
 
     private Vector3 GetItemPos(int count)
     {
-        return new Vector3(210 * (int)(count / 2), (count % 2 == 0 ? 115 : -120), 0);
+		return new Vector3(210 * (int)(count / 2), (count % 2 == 0 ? 135 : -135), 0);
     }
 
     public void UpdateView()
