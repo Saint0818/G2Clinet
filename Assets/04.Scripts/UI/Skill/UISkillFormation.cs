@@ -38,8 +38,12 @@ public struct TActiveStruct {
 	}
 
 	public void SetData (TActiveStruct active, Vector3 pos, Transform parent = null){
-		if(parent != null)
+		if(ItemEquipActiveCard == null)
+			this.ItemEquipActiveCard = active.ItemEquipActiveCard;
+
+		if(parent != null) {
 			this.ItemEquipActiveCard.transform.SetParent(parent);
+		}
 		this.ItemEquipActiveCard.transform.localPosition = pos;
 		this.ItemEquipActiveCard = active.ItemEquipActiveCard;
 		this.CardIndex = active.CardIndex;
@@ -90,6 +94,11 @@ public struct TUICard{
 
 		skillCard = new TActiveSkillCard();
 		skillCard.Init(obj, btnFunc, true);
+		UpdateRedPoint(isEquip, skill);
+	}
+
+	public void UpdateRedPoint (bool isEquip, TSkill skill) {
+
 		if(!isEquip) {
 			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard) ||
@@ -98,7 +107,6 @@ public struct TUICard{
 			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard));
 		}
-			
 	}
 }
 
@@ -169,7 +177,7 @@ public class UISkillFormation : UIBase {
 	private GameObject itemPassiveSelected;
 
 	//Right(itemCardEquipped Parent)
-	private GameObject gridPassiveCardBase;
+	private UIGrid gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
 	private UIToggle[] toggleCheckBoxSkill = new UIToggle[2];
 	private UISprite PassiveCheck;
@@ -277,17 +285,17 @@ public class UISkillFormation : UIBase {
 		for(int i=0; i<activeStruct.Length; i++) {
 			activeStruct[i].Init(UIName, i);
 		}
-		gridPassiveCardBase = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList");
+		gridPassiveCardBase = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList/UIGrid").GetComponent<UIGrid>();
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
 		scrollViewItemList = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
-		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
-		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
+//		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
+//		scrollViewItemList.panel.clipOffset = new Vector2(12, 110);
 		scrollViewItemList.onDragFinished = ItemDragFinish;
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
 		toggleCheckBoxSkill[1] = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
-		ActiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck/Background").GetComponent<UISprite>();
-		PassiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck/Background").GetComponent<UISprite>();
+		ActiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck/Background/Btn").GetComponent<UISprite>();
+		PassiveCheck = GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck/Background/Btn").GetComponent<UISprite>();
 		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck")).onClick = DoOpenActive;
 		UIEventListener.Get( GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck")).onClick = DoOpenPassive;
 
@@ -387,8 +395,8 @@ public class UISkillFormation : UIBase {
 		}
 		itemPassiveCards.Clear();
 		itemPassiveField.SetActive(true);
-		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
-		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
+//		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
+//		scrollViewItemList.panel.clipOffset = new Vector2(12, 110);
 	}
 
 	public void RefreshAddCard () {
@@ -483,8 +491,6 @@ public class UISkillFormation : UIBase {
 				}
 			}
 		}
-		refreshActiveItems ();
-		refreshPassiveItems();
 		checkCostIfMask();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 
@@ -492,6 +498,8 @@ public class UISkillFormation : UIBase {
 		betterGrid.init();
 		betterGrid.mChildren = skillSortCards;
 		resetScrollPostion ();
+		refreshActiveItems ();
+		refreshPassiveItems();
 	}
 
 	private int getActiveFieldNull{
@@ -596,7 +604,7 @@ public class UISkillFormation : UIBase {
 			drag.restriction = UIDragDropItem.Restriction.Vertical;
 			drag.isDragItem = true;
 		} else 
-			obj.transform.localPosition = new Vector3(12, 110 - 70 * positionIndex, 0);
+			obj.transform.localPosition = new Vector3(0, 110 - 70 * positionIndex, 0);
 		
 		TPassiveSkillCard skillCard = new TPassiveSkillCard();
 		skillCard.InitFormation(obj);
@@ -619,7 +627,7 @@ public class UISkillFormation : UIBase {
 		if(setCost(Mathf.Max(GameData.DSkillData[uicard.skillCard.Skill.ID].Space(uicard.skillCard.Skill.Lv), 1))) {
 			GameObject obj = null;
 			if(!GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID)) {
-				obj = addUIItems(uicard, gridPassiveCardBase, itemPassiveCards.Count);
+				obj = addUIItems(uicard, gridPassiveCardBase.gameObject, itemPassiveCards.Count);
 				if(obj != null) {
 					itemPassiveCards.Add(obj);
 					itemPassiveField.SetActive(false);
@@ -638,6 +646,7 @@ public class UISkillFormation : UIBase {
 					skillsRecord.Add(obj.name);
 			
 			checkCostIfMask();
+			uicard.UpdateRedPoint(true, uicard.skillCard.Skill);
 			return true;
 		} 
 //		else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
@@ -671,10 +680,9 @@ public class UISkillFormation : UIBase {
 							}
 						} else {
 							removeItems(activeStruct[activeFieldLimit - 1].CardID, activeStruct[activeFieldLimit - 1].CardSN, activeStruct[activeFieldLimit - 1].ItemEquipActiveCard);
-							if(addItems(uiCards[name], activeFieldLimit - 1))
+							if(addItems(uiCards[name], activeFieldLimit - 1)) 
 								AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 						}
-
 					} else {
 						if(!activeStruct[index].CheckBeInstall) {
 							if(checkCost(uiCards[name].Cost)) 
@@ -701,11 +709,12 @@ public class UISkillFormation : UIBase {
 						}
 						refreshActiveItems();
 					}
-					refreshCards();
 				} else {
 					//Passive
-					if(addItems(uiCards[name]))
+					if(addItems(uiCards[name])) {
 						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+						refreshPassiveItems();
+					}
 						
 				}
 			}
@@ -749,7 +758,6 @@ public class UISkillFormation : UIBase {
 				if(skillsRecord.Contains(go.name))
 					skillsRecord.Remove(go.name);
 				if(!GameFunction.IsActiveSkill(id)) {
-					ItemMoveOne();
 					for(int i=0 ;i<itemPassiveCards.Count; i++) {
 						if(itemPassiveCards[i].name.Equals(go.name)){
 							Destroy(itemPassiveCards[i]);
@@ -775,6 +783,7 @@ public class UISkillFormation : UIBase {
 				}
 				checkCostIfMask();
 			}
+			uiCards[go.name].UpdateRedPoint(false, uiCards[go.name].skillCard.Skill);
 		}
 	}
 	
@@ -784,8 +793,12 @@ public class UISkillFormation : UIBase {
 	}
 	
 	private void refreshPassiveItems() {
-		for(int i=0 ;i<itemPassiveCards.Count; i++) 
-			itemPassiveCards[i].transform.localPosition = new Vector3(12, 110 - 70 * i, 0); 
+//		for(int i=0 ;i<itemPassiveCards.Count; i++) 
+//			itemPassiveCards[i].transform.localPosition = new Vector3(12, 110 - 70 * i, 0); 
+		gridPassiveCardBase.Reposition();
+		gridPassiveCardBase.repositionNow = true;
+		scrollViewItemList.restrictWithinPanel = false;
+		scrollViewItemList.restrictWithinPanel = true;
 	}
 
 	private void refreshActiveItems() {
@@ -1078,26 +1091,29 @@ public class UISkillFormation : UIBase {
 
 	public void ItemDragFinish(){
 		if(itemPassiveCards.Count < 3){
-			scrollViewItemList.transform.DOLocalMoveY(0, 0.2f).OnUpdate(UpdateClipOffset);
+			refreshPassiveItems();
 		}
 	}
+//
+//	public void UpdateClipOffset(){
+//		scrollViewItemList.DisableSpring();
+//		scrollViewItemList.panel.clipOffset = new Vector2(0, - scrollViewItemList.transform.localPosition.y + 110);
+//	}
 
-	public void UpdateClipOffset(){
-		scrollViewItemList.DisableSpring();
-		scrollViewItemList.panel.clipOffset = new Vector2(12, - scrollViewItemList.transform.localPosition.y + 10);
-	}
-
-	public void ItemMoveOne(){ 
-		if(itemPassiveCards.Count > 2){
-			scrollViewItemList.transform.DOLocalMoveY(scrollViewItemList.transform.localPosition.y - 5 , 0.2f);
-			scrollViewItemList.panel.clipOffset = new Vector2(12, scrollViewItemList.panel.clipOffset.y);
-		}
-	}
+//	public void ItemMoveOne(){ 
+//			scrollViewItemList.transform.DOLocalMoveY(scrollViewItemList.transform.localPosition.y - 5 , 0.2f);
+//			scrollViewItemList.panel.clipOffset = new Vector2(12, scrollViewItemList.panel.clipOffset.y);
+//			scrollViewItemList.ResetPosition();
+//		gridPassiveCardBase.Reposition();
+//		gridPassiveCardBase.repositionNow = true;
+//	}
 
 	public void DoUnEquipCard (TUICard uicard){
 		if(!IsBuyState) {
-			if(uicard.Card != null && uiCards.ContainsKey(uicard.Card.name))
+			if(uicard.Card != null && uiCards.ContainsKey(uicard.Card.name)) {
 				removeItems(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.SN, uicard.Card);
+				uicard.UpdateRedPoint(false, uicard.skillCard.Skill);
+			}
 			refreshCards();
 		}
 //		else UIHint.Get.ShowHint("It's Buy State.", Color.red);
@@ -1110,7 +1126,6 @@ public class UISkillFormation : UIBase {
 					if(getActiveFieldNull != -1) {
 						if(addItems(uicard, getActiveFieldNull)) {
 							AudioMgr.Get.PlaySound(SoundType.SD_Compose);
-							uicard.skillCard.IsInstall = true;
 						}
 					}
 					else UIHint.Get.ShowHint(TextConst.S(559), Color.red);
@@ -1120,6 +1135,7 @@ public class UISkillFormation : UIBase {
 			} else {
 				if(uicard.skillCard.IsInstall) { //Selected to NoSelected
 					uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
+					uicard.UpdateRedPoint(false, uicard.skillCard.Skill);
 					removeItems(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.SN, uicard.Card);
 				} else { //NoSelected to Selected
 					if(addItems(uicard)){
@@ -1127,6 +1143,7 @@ public class UISkillFormation : UIBase {
 						uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					}
 				}
+				refreshPassiveItems();
 			}
 			refreshCards();
 		} 
@@ -1176,19 +1193,20 @@ public class UISkillFormation : UIBase {
 
 	private void activeCheckShow (bool isClick){
 		if(isClick)
-			ActiveCheck.spriteName = "button_orange2";
-		else
 			ActiveCheck.spriteName = "button_orange1";
+		else
+			ActiveCheck.spriteName = "button_gray";
 	}
 
 	private void passiveCheckShow (bool isClick){
 		if(isClick)
-			PassiveCheck.spriteName = "button_orange2";
-		else
 			PassiveCheck.spriteName = "button_orange1";
+		else
+			PassiveCheck.spriteName = "button_gray";
 	}
 	
 	public void UpdateSort () {
+		resetScrollPostion ();
 		eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
 		sortSkillCondition(eCondition);
 
@@ -1247,7 +1265,7 @@ public class UISkillFormation : UIBase {
 		} else {
 			toggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
 		}
-
+		refreshCards();
 	}
 
 	public void DoOpenPassive (GameObject go){

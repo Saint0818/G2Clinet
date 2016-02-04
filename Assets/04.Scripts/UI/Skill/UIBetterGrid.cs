@@ -27,7 +27,7 @@ public class UIBetterGrid : MonoBehaviour
 
 	private bool cullContent = true;
 
-	private bool hideInactive = false;
+//	private bool hideInactive = false;
 
 	public Transform mTrans;
 	protected UIPanel mPanel;
@@ -82,7 +82,7 @@ public class UIBetterGrid : MonoBehaviour
 					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
 					{
 						Transform t = mChildren[i].transform;
-						if(t != null) {
+						if(t != null && mChildren[i].activeSelf) {
 							if(isSkillCardCanSell(getSN(mChildren[i].name))) {
 								float distance = t.localPosition.x - center.x;
 								
@@ -108,7 +108,7 @@ public class UIBetterGrid : MonoBehaviour
 					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
 					{
 						Transform t = mChildren[i].transform;
-						if(t != null) {
+						if(t != null && mChildren[i].activeSelf) {
 							float distance = t.localPosition.x - center.x;
 
 							if (cullContent)
