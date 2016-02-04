@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e545311a936634372b09f8bd923c9848
-timeCreated: 1452762973
+timeCreated: 1454572642
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -27,7 +27,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: 12
-  maxTextureSize: 1024
+  maxTextureSize: 4096
   textureSettings:
     filterMode: 2
     aniso: 4
@@ -50,7 +50,7 @@ TextureImporter:
   buildTargetSettings:
   - buildTarget: Android
     maxTextureSize: 1024
-    textureFormat: 29
+    textureFormat: 4
     compressionQuality: 50
     allowsAlphaSplitting: 0
   spriteSheet:
