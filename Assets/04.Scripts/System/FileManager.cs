@@ -1,5 +1,7 @@
 #define Debug
 //#define Release
+//#define PUBGAME
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,9 +69,14 @@ public class FileManager : KnightSingleton<FileManager>
 
     #if UNITY_IOS
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
-	
-#else
+    #else
     private const string ServerFilePathAssetBundle = URL + "assetbundle/android/";
+    #endif
+
+    #if PUBGAME
+    public const string Company = ECompany.PubGame;
+    #else
+    public const string Company = ECompany.NiceMarket;
     #endif
 
     private static string[] downloadFiles =

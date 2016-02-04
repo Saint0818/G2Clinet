@@ -163,7 +163,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 				eventTrigger.sphereCollider = eventTrigger.Item.AddComponent<SphereCollider>();
 				eventTrigger.rigidbody = eventTrigger.Item.AddComponent<Rigidbody>();
 				eventTrigger.tweenScale = eventTrigger.Item.AddComponent<TweenScale>();
-				eventTrigger.circularSectorMeshRenderer = eventTrigger.Item.GetComponent<CircularSectorMeshRenderer>();
+				//eventTrigger.circularSectorMeshRenderer = eventTrigger.Item.GetComponent<CircularSectorMeshRenderer>();
 			} else
 				eventTrigger.Item.gameObject.SetActive(true);
 
@@ -177,8 +177,8 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			eventTrigger.tweenScale.to = new Vector3(1.2f, 1.2f, 1.2f);
 			eventTrigger.tweenScale.duration = 0.2f;
 
-			eventTrigger.circularSectorMeshRenderer.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
-			eventTrigger.circularSectorMeshRenderer.ChangeValue(360, eventList[i].Value3);
+			//eventTrigger.circularSectorMeshRenderer.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
+			//eventTrigger.circularSectorMeshRenderer.ChangeValue(360, eventList[i].Value3);
 			EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			break;
 		case 9:

@@ -266,12 +266,14 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	void InitSkillstate()
     {
         showstate.Clear();
-        for (int i = 0; i < GameData.Team.Player.SkillCards.Length; i++)
-            if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID))
-            {
-                EPlayerState State = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Animation);
-                showstate.Add(State);
-            }
+        if (GameData.Team.Player.SkillCards != null) {
+            for (int i = 0; i < GameData.Team.Player.SkillCards.Length; i++)
+                if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID))
+                {
+                    EPlayerState State = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Animation);
+                    showstate.Add(State);
+                }
+        }
     }
 
     private EPlayerState GetRandomState()
