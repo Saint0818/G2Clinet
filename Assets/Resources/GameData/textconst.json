@@ -441,6 +441,11 @@
         "en": "Players reach level {0} level, in order to use this feature."
     },
     {
+        "id": 513,
+        "explain": "第三個角色欄位",
+        "tw": "購買角色欄位需花費 [FF00FFFF]{0}[-] 寶石。"
+    },
+    {
         "id": 531,
         "explain": "數值裝備成功",
         "tw": "裝備變更完成。",
@@ -966,7 +971,7 @@
     {
         "id": 3205,
         "uipeth": "WarningLabel",
-        "tw": "淺能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
+        "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
         "en": "Potential to obtain:\n[33F FDD] to enhance the level [-], [33F FDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
     },
     {
@@ -1758,7 +1763,7 @@
     {
         "id": 4901,
         "explain": "體力金幣鑽石儲值",
-        "tw": "補充貨幣",
+        "tw": "補給站",
         "en": "Supplementary currency"
     },
     {
@@ -2206,6 +2211,12 @@
         "explain": "引導開啟選單",
         "tw": "點擊開啟裝備選單",
         "en": "Click To Initiate Equipment Selections"
+    },
+    {
+        "id": 6303,
+        "explain": "沒有備選裝備時",
+        "tw": "無符合條件裝備",
+        "en": "XX"
     },
     {
         "id": 6401,

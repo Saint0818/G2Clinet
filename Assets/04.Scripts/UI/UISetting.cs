@@ -422,14 +422,9 @@ public class UISetting : UIBase {
 			return;
 		}
 		
-		var data = UICreateRole.Convert(banks.PlayerBanks);
-		if(data != null)
-		{
-			UICreateRole.Get.ShowFrameView(data, banks.SelectedRoleIndex, GameData.Team.PlayerNum);
-			UIMainLobby.Get.HideAll();
-		}
-		else
-			Debug.LogError("Data Error!");
+		var data = UICreateRoleBuilder.Build(banks.PlayerBanks);
+		UICreateRole.Get.ShowFrameView(data, banks.SelectedRoleIndex);
+		UIMainLobby.Get.HideAll();
 		
 		UIShow (false);
 		AudioMgr.Get.PlayMusic(EMusicType.MU_Create);

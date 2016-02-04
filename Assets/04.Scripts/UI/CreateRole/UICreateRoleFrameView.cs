@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -48,35 +50,35 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         FullScreenBlock.SetActive(false);
 
-        ShowNum = DefaultShowNum;
+//        ShowNum = DefaultShowNum;
     }
 
-    /// <summary>
-    /// 最多顯示幾位球員. 超過的部分會用 lock 來顯示.
-    /// </summary>
-    private int ShowNum
-    {
-        get { return mShowNum; }
+//    /// <summary>
+//    /// 最多顯示幾位球員. 超過的部分會用 lock 來顯示.
+//    /// </summary>
+//    private int ShowNum
+//    {
+//        get { return mShowNum; }
+//
+//        set
+//        {
+//            if(value < 0)
+//                return;
+//
+//            mShowNum = value;
+//            updateLockUI(mShowNum);
+//        }
+//    }
 
-        set
-        {
-            if(value < 0)
-                return;
+//    private void updateLockUI(int showNum)
+//    {
+//        for(int i = showNum; i < Slots.Length; i++)
+//        {
+//            Slots[i].SetLock();
+//        }
+//    }
 
-            mShowNum = value;
-            updateLockUI(mShowNum);
-        }
-    }
-
-    private void updateLockUI(int showNum)
-    {
-        for(int i = showNum; i < Slots.Length; i++)
-        {
-            Slots[i].SetLock();
-        }
-    }
-
-    private int mShowNum;
+//    private int mShowNum;
 
     public void Show()
     {
@@ -90,33 +92,34 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// </summary>
     /// <param name="data"></param>
     /// <param name="selectedIndex"> 哪一個 Slot 是玩家正在使用的球員. </param>
-    /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
-    public void Show([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex, int showNum)
+    public void Show([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex)
     {
         Window.SetActive(true);
         UI3DCreateRole.Get.Hide();
 
-        setData(data, selectedIndex);
+        setData(data);
+        setSelected(selectedIndex);
         playEnterAnimations();
 
-        ShowNum = showNum;
+//        ShowNum = showNum;
     }
 
-    private void setData(UICreateRolePlayerSlot.Data[] data, int selectedIndex)
+    private void setSelected(int selectedIndex)
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            Slots[i].Clear();
+            Slots[i].Selected = i == selectedIndex;
+        }
+    }
 
-            if(i >= data.Length)
-                continue;
-
+    private void setData(UICreateRolePlayerSlot.Data[] data)
+    {
+        for(int i = 0; i < Slots.Length; i++)
+        {
             Slots[i].SetData(data[i]);
-            if(selectedIndex == i)
-                Slots[i].SetSelected();
         }
 
-        updateLockUI(ShowNum);
+//        updateLockUI(ShowNum);
     }
 
     private void playEnterAnimations()
@@ -138,16 +141,30 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// </summary>
     /// <param name="index"> 哪一個 slot 被點擊. </param>
     /// <param name="data"> 該 Slot 的角色資訊. </param>
-    /// <param name="isLock"> 該 Slot 是否是鎖住的狀態. </param>
-    private void onSlotClick(int index, UICreateRolePlayerSlot.Data data, bool isLock)
+    private void onSlotClick(int index, UICreateRolePlayerSlot.Data data)
     {
 //        Debug.LogFormat("onSlotClick, index:{0}, isLock:{1}, data:{2}", index, isLock, data);
 
-        if(isLock)
-            return;
-
-        StartCoroutine(runNexAction(index, data));
+        if(data.Status == UICreateRolePlayerSlot.Data.EStatus.Valid || data.Status == UICreateRolePlayerSlot.Data.EStatus.Empty)
+            StartCoroutine(runNexAction(index, data));
+        else if(data.Status == UICreateRolePlayerSlot.Data.EStatus.LockLv)
+            UIHint.Get.ShowHint(data.Message, Color.red);
+        else if(data.Status == UICreateRolePlayerSlot.Data.EStatus.LockDiamond)
+        {
+            UIMessage.Get.ShowMessage(TextConst.S(205), string.Format(TextConst.S(207), LimitTable.Ins.GetLv(EOpenID.CreateRole)),
+                () =>
+                {
+                    var protocol = new AddMaxPlayerBankProtocol();
+                    protocol.Send(ok =>
+                    {
+                        // todo
+                    });
+                });
+        }
+        else
+            throw new NotImplementedException(data.Status.ToString());
     }
+
 
     private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
@@ -158,7 +175,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         UICreateRole.Get.EnableBlock(false);
 
-        if(!data.IsValid())
+        if(data.Status == UICreateRolePlayerSlot.Data.EStatus.Empty)
         {
             // 沒有資料, 所以進入創角流程.
             GetComponent<UICreateRole>().ShowPositionView();
@@ -234,15 +251,12 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeletePlayer(int index, UICreateRolePlayerSlot.Data data, bool isLock)
+    private void onDeletePlayer(int index, UICreateRolePlayerSlot.Data data)
     {
-        Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
+//        Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
 
-        if(isLock)
-            return;
-
-//        ConfirmDialog.Show(data);
-        UIMessage.Get.ShowMessage(TextConst.S(205), TextConst.S(206), onConfirmDelete, null, data);
+        if(data.Status == UICreateRolePlayerSlot.Data.EStatus.Valid || data.Status == UICreateRolePlayerSlot.Data.EStatus.Empty)
+            UIMessage.Get.ShowMessage(TextConst.S(205), TextConst.S(206), onConfirmDelete, null, data);
     }
 
     private void onConfirmDelete(object extraInfo)
@@ -267,9 +281,9 @@ public class UICreateRoleFrameView : MonoBehaviour
 			GameData.Team.Player = team.Player;
             GameData.Team.Player.Init();
 
-            var data = UICreateRole.Convert(team.PlayerBank);
+            var data = UICreateRoleBuilder.Build(team.PlayerBank);
             if (data != null)
-                setData(data, GameData.Team.Player.RoleIndex);
+                setData(data);
             else
                 Debug.LogError("Data Error!");
         }

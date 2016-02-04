@@ -108,7 +108,8 @@
         Mission = 6,
         Mall = 7,
         PVP = 8,
-        Instance = 9
+        Instance = 9,
+        CreateRole = 10
     }
 					
 	public enum EPlayerPostion

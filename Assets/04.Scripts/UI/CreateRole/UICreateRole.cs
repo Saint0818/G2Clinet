@@ -22,7 +22,9 @@ public class UICreateRole : UIBase
 	private static UICreateRole instance;
 	private const string UIName = "UICreateRole";
 
+    public UICreateRoleFrameView FrameView { get { return mFrameView; } }
     private UICreateRoleFrameView mFrameView;
+
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
 
@@ -35,11 +37,11 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-    public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex, int showNum)
+    public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex)
     {
         Show(true);
 
-        mFrameView.Show(data, selectedIndex, showNum);
+        mFrameView.Show(data, selectedIndex);
         mPositionView.Hide();
         mStyleView.Hide();
     }
@@ -210,30 +212,6 @@ public class UICreateRole : UIBase
     {
         ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType,
                                    EAnimatorType.AvatarControl, false);
-    }
-
-    [CanBeNull]
-    public static UICreateRolePlayerSlot.Data[] Convert(TPlayerBank[] playerBanks)
-    {
-        UICreateRolePlayerSlot.Data[] data = new UICreateRolePlayerSlot.Data[playerBanks.Length];
-        for (int i = 0; i < playerBanks.Length; i++)
-        {
-            if (!GameData.DPlayers.ContainsKey(playerBanks[i].ID))
-            {
-                Debug.LogErrorFormat("Can't find Player by ID:{0}", playerBanks[i].ID);
-                return null;
-            }
-
-            data[i].PlayerID = playerBanks[i].ID;
-            data[i].RoleIndex = playerBanks[i].RoleIndex;
-            data[i].Position = (EPlayerPostion)GameData.DPlayers[playerBanks[i].ID].BodyType;
-            data[i].Name = playerBanks[i].Name;
-            if(data[i].Name == null)
-                data[i].Name = String.Empty;
-            data[i].Level = playerBanks[i].Lv;
-        }
-
-        return data;
     }
 
     public enum EPart

@@ -23,7 +23,6 @@ namespace GameStruct
 		public DateTime PVPCD;
 		public DateTime[] LotteryFreeTime;
 
-        public int PlayerNum; // 玩家擁有幾位角色.
         public int StageTutorial;
         public int AvatarPotential;
         public int OccupyLv; //佔領球館等級
@@ -227,11 +226,6 @@ namespace GameStruct
             }
 
             return true;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("PlayerNum:{0}", PlayerNum);
         }
 
         public bool HaveTutorialFlag(int id) {
