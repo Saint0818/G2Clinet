@@ -26,12 +26,10 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
     private UIScrollView mScrollView;
 
-    private const string PartPath = "Prefab/UI/Items/ItemEquipBtn";
-
     /// <summary>
     /// 換裝物品的起點位置, 單位: Pixel.
     /// </summary>
-    private readonly Vector3 mUIStartPos = new Vector3(8, 255, 0);
+    private readonly Vector3 mUIStartPos = new Vector3(3, 200, 0);
 
     /// <summary>
     /// 每個項目的高度間隔, 單位: Pixel.
@@ -64,7 +62,8 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
         {
             var localPos = mUIStartPos;
             localPos.y -= UIHeightInterval * i;
-            var btn = createBtn(localPos);
+//            var btn = createBtn(localPos);
+            var btn = UIPrefabPath.LoadUI(UIPrefabPath.UICreateRoleStyleViewPartsWindowButton, ScrollView.transform, localPos);
             mButtons.Add(btn);
 
             var partBtn = btn.GetComponent<UICreateRoleStyleViewPartsWindowButton>();
@@ -94,7 +93,6 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     private IEnumerator reActive()
     {
         ScrollView.SetActive(false);
-//        yield return new WaitForEndOfFrame();
         // try and error, 我發現要等久一點, UI 才可以正常顯示.
         yield return new WaitForSeconds(0.01f); 
         ScrollView.SetActive(true);
@@ -102,11 +100,6 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
     private void clear()
     {
-//        foreach(Transform child in ScrollView.transform)
-//        {
-//            Destroy(child.gameObject);
-//        }
-
         foreach(var obj in mButtons)
         {
             Destroy(obj);
@@ -114,17 +107,17 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
         mButtons.Clear();
     }
 
-    private GameObject createBtn(Vector3 localPos)
-    {
-        GameObject partObj = Instantiate(Resources.Load<GameObject>(PartPath));
-        partObj.transform.parent = ScrollView.transform;
-        partObj.GetComponent<UIDragScrollView>().scrollView = mScrollView;
-
-        partObj.transform.localPosition = localPos;
-        partObj.transform.localRotation = Quaternion.identity;
-        partObj.transform.localScale = Vector3.one;
-        return partObj;
-    }
+//    private GameObject createBtn(Vector3 localPos)
+//    {
+//        GameObject partObj = Instantiate(Resources.Load<GameObject>(PartPath));
+//        partObj.transform.parent = ScrollView.transform;
+//        partObj.GetComponent<UIDragScrollView>().scrollView = mScrollView;
+//
+//        partObj.transform.localPosition = localPos;
+//        partObj.transform.localRotation = Quaternion.identity;
+//        partObj.transform.localScale = Vector3.one;
+//        return partObj;
+//    }
 
     private void onPartSelected(int index, int itemID)
     {
