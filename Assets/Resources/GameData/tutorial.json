@@ -682,10 +682,165 @@
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
     {
+        "id": 30,
+        "line": 1,
+        "title": "主介面",
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
+        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
+        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
+        "texten": "Yo~~ The game is about to start, what are you doing here?"
+    },
+    {
+        "id": 30,
+        "line": 2,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
+        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
+        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
+    },
+    {
+        "id": 30,
+        "line": 3,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
+        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
+        "texten": "Can't help it! That classical match is deeply imprinted in our brain."
+    },
+    {
+        "id": 30,
+        "line": 4,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
+        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
+        "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
+    },
+    {
+        "id": 30,
+        "line": 5,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "好啦，走吧！！",
+        "textcn": "好啦好啦！！",
+        "texten": "Fine fine, let's go!"
+    },
+    {
+        "id": 30,
+        "line": 6,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "id": 30,
+        "line": 7,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "先進入[ff6060]生涯競賽[-]",
+        "texten": "Please enter [ff6060]Career Mode[-]."
+    },
+    {
+        "id": 30,
+        "line": 8,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+    },
+    {
+        "id": 30,
+        "line": 9,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 6,
+        "texttw": "再來選擇第一場競賽。",
+        "texten": "Select the first competition."
+    },
+    {
+        "id": 30,
+        "line": 10,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement101"
+    },
+    {
+        "id": 30,
+        "line": 11,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
+        "texten": "Make sure you know the winning criteria before moving to the next step."
+    },
+    {
+        "id": 30,
+        "line": 12,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "id": 30,
+        "line": 13,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
+        "texten": "Here are your teammates for this game, press confirm to begin game."
+    },
+    {
+        "id": 30,
+        "line": 14,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 30,
+        "line": 15,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
+        "texttw": "在開賽前可以選擇另外兩位 [ff6060]隊友[-]，亦可以直接開始進行比賽。"
+    },
+    {
+        "id": 30,
+        "line": 16,
+        "kind": 0,
+        "uiname": "UIMainLobby",
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
         "id": 34,
         "line": 1,
         "title": "取名",
         "kind": 0,
+        "uiname": "UIPlayerInfo",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
@@ -695,6 +850,7 @@
         "id": 34,
         "line": 2,
         "kind": 0,
+        "uiname": "UIPlayerInfo",
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
@@ -704,6 +860,7 @@
         "id": 34,
         "line": 3,
         "kind": 0,
+        "uiname": "UIPlayerInfo",
         "uipath": "UI2D/UIMainLobby/TopLeft/PlayerInGameBtn",
         "talkindex": 1,
         "talkr": -1,
@@ -712,12 +869,14 @@
     {
         "id": 34,
         "line": 4,
-        "kind": 0
+        "kind": 0,
+        "uiname": "UIPlayerInfo"
     },
     {
         "id": 34,
         "line": 5,
         "kind": 0,
+        "uiname": "UIPlayerInfo",
         "uipath": "UI2D/UIPlayerInfo/Window/Center/View/PersonalView/PlayerName"
     },
     {
@@ -897,129 +1056,6 @@
         "line": 16,
         "kind": 4,
         "value": 2,
-        "uipath": "UI2D/UISelectRole/Right/GameStart"
-    },
-    {
-        "id": 30,
-        "line": 1,
-        "title": "主介面",
-        "uiname": "UIMainLobby",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
-        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
-        "texten": "Yo~~ The game is about to start, what are you doing here?"
-    },
-    {
-        "id": 30,
-        "line": 2,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
-        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
-        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
-    },
-    {
-        "id": 30,
-        "line": 3,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
-        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
-        "texten": "Can't help it! That classical match is deeply imprinted in our brain."
-    },
-    {
-        "id": 30,
-        "line": 4,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
-        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
-        "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
-    },
-    {
-        "id": 30,
-        "line": 5,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "好啦，走吧！！",
-        "textcn": "好啦好啦！！",
-        "texten": "Fine fine, let's go!"
-    },
-    {
-        "id": 30,
-        "line": 6,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
-    },
-    {
-        "id": 30,
-        "line": 7,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "先進入[ff6060]生涯競賽[-]",
-        "texten": "Please enter [ff6060]Career Mode[-]."
-    },
-    {
-        "id": 30,
-        "line": 8,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
-    },
-    {
-        "id": 30,
-        "line": 9,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "再來選擇第一場競賽。",
-        "texten": "Select the first competition."
-    },
-    {
-        "id": 30,
-        "line": 10,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/StageElement101"
-    },
-    {
-        "id": 30,
-        "line": 11,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
-        "texten": "Make sure you know the winning criteria before moving to the next step."
-    },
-    {
-        "id": 30,
-        "line": 12,
-        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
-    },
-    {
-        "id": 30,
-        "line": 13,
-        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
-        "texten": "Here are your teammates for this game, press confirm to begin game."
-    },
-    {
-        "id": 30,
-        "line": 14,
-        "uipath": "UI2D/UISelectRole/Right/GameStart"
-    },
-    {
-        "id": 30,
-        "line": 15,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 5,
-        "texttw": "在開賽前可以選擇另外兩位 [ff6060]隊友[-]，亦可以直接開始進行比賽。"
-    },
-    {
-        "id": 30,
-        "line": 16,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
