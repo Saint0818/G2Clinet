@@ -176,6 +176,45 @@
         "texten": "Tap [ff6060]icon[-] to equip it！！"
     },
     {
+        "id": 3,
+        "line": 1,
+        "title": "商店",
+        "kind": 0,
+        "uiname": "UIShop",
+        "talkindex": 1,
+        "talkr": 11,
+        "actionr": 6,
+        "texttw": "隨著競賽的進行，可能會有些資源上的不足，聯盟這邊有一個[ff6060]購物商店[-]可以讓您補充自己想要的東西。"
+    },
+    {
+        "id": 3,
+        "line": 2,
+        "kind": 0,
+        "talkindex": 1,
+        "talkr": 11,
+        "actionr": 6,
+        "texttw": "這邊有眾多豐富的商品，分別可以使用 [ff00eb]寶石[-]、[fff300]金幣[-]、[a200ff]聯盟幣[-]、[00ff6b]社群幣[-] 來進行購買。"
+    },
+    {
+        "id": 3,
+        "line": 3,
+        "kind": 0,
+        "talkindex": 1,
+        "talkr": 11,
+        "actionr": 6,
+        "texttw": "各商店的商品每隔一段時間會進行[ff6060]更換[-]，記得要常常回來逛逛是否有[ff6060]新商品上架[-]唷。"
+    },
+    {
+        "id": 3,
+        "line": 4,
+        "kind": 0,
+        "hintpath": "UI2D/UIShop/BottomLeft/ResetBtn",
+        "talkindex": 1,
+        "talkr": 11,
+        "actionr": 6,
+        "texttw": "如果等不及想要快點看看有什麼新商品，可以點擊下方的[ff6060]刷新按鈕[-]，就可以立即的更換新的商品喔！！！"
+    },
+    {
         "id": 4,
         "line": 1,
         "title": "社群",
@@ -300,7 +339,7 @@
         "line": 4,
         "kind": 2,
         "value": 101,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage102"
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement102"
     },
     {
         "id": 5,
@@ -404,6 +443,7 @@
     {
         "id": 6,
         "line": 1,
+        "title": "任務",
         "kind": 4,
         "talkindex": 0,
         "talkl": 11,
@@ -679,7 +719,61 @@
         "id": 9,
         "line": 11,
         "kind": 4,
-        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
+        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。"
+    },
+    {
+        "id": 11,
+        "line": 1,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "隨著您的成長，聯盟這邊有準備一些[ff6060]每日考驗[-]給您，只要您完成考驗，就可以獲得到獎勵喔！！"
+    },
+    {
+        "id": 11,
+        "line": 2,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/TopLeft/MissionBtn"
+    },
+    {
+        "id": 11,
+        "line": 3,
+        "kind": 4
+    },
+    {
+        "id": 11,
+        "line": 4,
+        "kind": 4,
+        "uipath": "UI2D/UIMission/Window/Center/Tabs/1"
+    },
+    {
+        "id": 11,
+        "line": 5,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "這邊的考驗都是[ff6060]每天計算[-]一次喔，所以要把握時間完成他們喔！！"
+    },
+    {
+        "id": 11,
+        "line": 6,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "我現在來帶你完成"
+    },
+    {
+        "id": 11,
+        "line": 7,
+        "kind": 4,
+        "uipath": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/GetBtn"
     },
     {
         "id": 30,
@@ -1072,6 +1166,8 @@
         "id": 40,
         "line": 2,
         "kind": 3,
+        "hintpath": "GameJoystick/Joystick",
+        "hinttexttw": "拖曳搖桿",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,

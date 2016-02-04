@@ -40,7 +40,7 @@
     },
     {
         "lv": 6,
-        "lvupexp": 12,
+        "lvupexp": 10,
         "ui": 1,
         "unlockname": 457,
         "tutorialid": 7,
@@ -48,24 +48,24 @@
     },
     {
         "lv": 7,
-        "lvupexp": 12
+        "lvupexp": 12,
+        "ui": 1,
+        "unlockname": 461
     },
     {
         "lv": 8,
-        "lvupexp": 12,
+        "lvupexp": 15,
         "ui": 1,
         "unlockname": 453,
         "unlockhint": 403
     },
     {
         "lv": 9,
-        "lvupexp": 13
+        "lvupexp": 20
     },
     {
         "lv": 10,
-        "lvupexp": 14,
-        "ui": 2,
-        "unlockname": 458
+        "lvupexp": 20
     },
     {
         "lv": 11,
@@ -83,7 +83,9 @@
     },
     {
         "lv": 14,
-        "lvupexp": 70
+        "lvupexp": 70,
+        "ui": 2,
+        "unlockname": 458
     },
     {
         "lv": 15,
