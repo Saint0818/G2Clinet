@@ -2563,7 +2563,8 @@ public class PlayerBehaviour : MonoBehaviour
                         UIPassiveEffect.UIShow(false);
                     
                     isSkillShow = true;
-                    string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
+//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
+					string effectName = string.Format("UseSkillEffect_{0}", 0);
                     EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
                     
                     if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
