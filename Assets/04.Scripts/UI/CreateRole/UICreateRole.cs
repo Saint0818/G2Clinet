@@ -123,9 +123,24 @@ public class UICreateRole : UIBase
             else
                 UIHint.Get.ShowHint(TextConst.S(233), Color.red);
         };
+
+        mFrameView.DeleteRoleListener += roleIndex =>
+        {
+            var protocol = new DeleteRoleProtocol();
+            protocol.Send(roleIndex, onDeleteRole);
+        };
     }
 
     private void onUnlockPlayer(bool ok)
+    {
+        if(ok)
+        {
+            var uiData = UICreateRoleBuilder.Build(GameData.Team.PlayerBank);
+            ShowFrameView(uiData, GameData.Team.Player.RoleIndex);
+        }
+    }
+
+    private void onDeleteRole(bool ok)
     {
         if(ok)
         {

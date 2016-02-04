@@ -34,7 +34,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <para>呼叫時機: 刪除球員.</para>
     /// <para> [int]:RoleIndex </para>
     /// </summary>
-    public event Action<int> DeletePlayerListener; 
+    public event Action<int> DeleteRoleListener; 
 
     /// <summary>
     /// 離開 FrameView, 進入 PositionView 的等待時間. 這個等待時間是要等 Slot 撥完離開的 Animation.
@@ -231,30 +231,11 @@ public class UICreateRoleFrameView : MonoBehaviour
     private void onConfirmDelete(object extraInfo)
     {
 //        Debug.Log("onConfirmDelete");
-        
-        // 做刪除角色流程.
-        WWWForm form = new WWWForm();
-        UICreateRolePlayerSlot.Data data = (UICreateRolePlayerSlot.Data)extraInfo;
-        form.AddField("RoleIndex", data.RoleIndex);
 
-        SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form);
-    }
-
-    private void waitDeletePlayer(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitDeletePlayer, ok:{0}", ok);
-
-        if(ok)
+        if(DeleteRoleListener != null)
         {
-			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-			GameData.Team.Player = team.Player;
-            GameData.Team.Player.Init();
-
-            var data = UICreateRoleBuilder.Build(team.PlayerBank);
-            if (data != null)
-                setData(data);
-            else
-                Debug.LogError("Data Error!");
+            UICreateRolePlayerSlot.Data data = (UICreateRolePlayerSlot.Data)extraInfo;
+            DeleteRoleListener(data.RoleIndex);
         }
     }
 }
