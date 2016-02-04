@@ -135,6 +135,11 @@ public class UITutorial : UIBase {
 		}
 	}
 
+    IEnumerator waitNextTutorial() {
+        yield return new WaitForEndOfFrame();
+        OnTutorial();
+    }
+
 	IEnumerator showPlayer(TTutorial tu) {
 		yield return new WaitForEndOfFrame();
 
@@ -175,32 +180,37 @@ public class UITutorial : UIBase {
                 else {
                     if (!string.IsNullOrEmpty(tu.HintPath))
                         ShowHint(tu.HintPath, tu.Offsetx, tu.Offsety);
-                    
-					uiCenter.SetActive(true);
-					uiBackground.SetActive(true);
-					uiClick.SetActive(false);
-					tutorialMessage.text = tu.Text;
-					string temp = tutorialMessage.processedText;
-					writeEffect.ResetToBeginning();
-					textFinish = false;
-					manID[0] = tu.TalkL;
-					manID[1] = tu.TalkR;
-					for (int i = 0; i < manNum; i++) {
-						if (GameData.DPlayers.ContainsKey(manID[i])) {
-							uiTalk[i].SetActive(true);
-							labelTalk[i].text = GameData.DPlayers[manID[i]].Name;
-						} else 
-						if (manID[i] == -1) {
-							uiTalk[i].SetActive(true);
-							if (string.IsNullOrEmpty(GameData.Team.Player.Name))
-								labelTalk[i].text = TextConst.S (3404);
-							else
-								labelTalk[i].text = GameData.Team.Player.Name;
-						} else
-							uiTalk[i].SetActive(false);
-					}
-					
-					StartCoroutine(showPlayer(tu));
+
+                    if (!string.IsNullOrEmpty(tu.Text)) {
+    					uiCenter.SetActive(true);
+    					uiBackground.SetActive(true);
+    					uiClick.SetActive(false);
+    					tutorialMessage.text = tu.Text;
+    					string temp = tutorialMessage.processedText;
+    					writeEffect.ResetToBeginning();
+    					textFinish = false;
+    					manID[0] = tu.TalkL;
+    					manID[1] = tu.TalkR;
+    					for (int i = 0; i < manNum; i++) {
+    						if (GameData.DPlayers.ContainsKey(manID[i])) {
+    							uiTalk[i].SetActive(true);
+    							labelTalk[i].text = GameData.DPlayers[manID[i]].Name;
+    						} else 
+    						if (manID[i] == -1) {
+    							uiTalk[i].SetActive(true);
+    							if (string.IsNullOrEmpty(GameData.Team.Player.Name))
+    								labelTalk[i].text = TextConst.S (3404);
+    							else
+    								labelTalk[i].text = GameData.Team.Player.Name;
+    						} else
+    							uiTalk[i].SetActive(false);
+    					}
+    					
+    					StartCoroutine(showPlayer(tu));
+                    } else {
+                        textFinish = true;
+                        StartCoroutine(waitNextTutorial());
+                    }
 				}
 			} else {
 				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
@@ -233,6 +243,8 @@ public class UITutorial : UIBase {
 
         		    buttonClick.onClick.Clear();
         			UIButton btn = obj.GetComponent<UIButton>();
+
+
         			if (btn && btn.onClick.Count > 0) {
         				buttonClick.onClick.Add(btn.onClick[0]);
         				found = true;

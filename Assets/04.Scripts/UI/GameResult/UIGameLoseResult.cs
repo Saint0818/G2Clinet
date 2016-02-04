@@ -101,7 +101,7 @@ public class UIGameLoseResult : UIBase {
 
 		Time.timeScale = 1;
 		UIShow(false);
-		UILoading.StageID = GameData.StageID;
+		UILoading.StageID = -1;
 		if(GameData.IsMainStage)
 		{
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);

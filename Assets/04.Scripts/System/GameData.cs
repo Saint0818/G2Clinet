@@ -552,7 +552,7 @@ public static class GameData
     {
         get
         {
-            return "NiceMarket";
+            return FileManager.Company;
         }
     }
 

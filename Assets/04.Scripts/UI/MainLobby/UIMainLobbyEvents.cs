@@ -74,12 +74,14 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnSocial()
     {
-        if(string.IsNullOrEmpty(GameData.Team.Player.Name)) 
-            UIHint.Get.ShowHint(TextConst.S(5026), Color.white);
-        else if(GameData.IsOpenUIEnable(EOpenID.Social))
+        if(GameData.IsOpenUIEnable(EOpenID.Social))
         {
-            UIMainLobby.Get.Hide();
-            UISocial.Visible = true;
+            if(string.IsNullOrEmpty(GameData.Team.Player.Name)) 
+                UITutorial.Get.ShowTutorial(34, 1);
+            else {
+                UIMainLobby.Get.Hide();
+                UISocial.Visible = true;
+            }
         }
         else
             UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Social)), Color.white);

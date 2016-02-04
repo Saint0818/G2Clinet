@@ -202,8 +202,6 @@ public class UIMission : UIBase {
 		mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
         mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
         mi.FXGetAward = GameObject.Find(name + "/Window/GetBtn/FXGet");
-		mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
-		SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
 		mi.SliderExp = GameObject.Find(name + "/Window/EXPView/ProgressBar").GetComponent<UISlider>();
 		mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
 		mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
@@ -227,6 +225,10 @@ public class UIMission : UIBase {
 		GameObject obj = GameObject.Find(name + "/Window/ItemAwardGroup");
 		if (obj)
 			mi.AwardGroup = obj.GetComponent<ItemAwardGroup>();
+
+        mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+        mi.UIGetAwardBtn.name = name;
+        SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
 
 		mi.Index = missionList[page].Count;
 		mi.Mission = data;
@@ -367,10 +369,10 @@ public class UIMission : UIBase {
                         mission = missionList[nowPage][i+1].Mission;
 
                     StartCoroutine(waitFinish(item, mission));
-                    return 3;
+                    return 1.5f;
                 }
 
-                return 1;
+                return 0.8f;
             }
         }
 
@@ -378,7 +380,7 @@ public class UIMission : UIBase {
     }
 
     IEnumerator waitFinish(TMissionItem item, TMission mission) {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         item.AniFinish.SetTrigger("Next");
         StartCoroutine(waitNextMission(item, mission));
@@ -491,8 +493,7 @@ public class UIMission : UIBase {
         finishID = -1;
         finishLv = -1;
         missionExp = 0;
-        if (UIButton.current.transform.parent != null && UIButton.current.transform.parent.parent != null &&
-            int.TryParse(UIButton.current.transform.parent.parent.name, out finishID)) {
+        if (int.TryParse(UIButton.current.transform.name, out finishID)) {
             if (GameData.DMissionData.ContainsKey(finishID)) {
                 TMission mission = GameData.DMissionData[finishID];
                 finishLv = GameData.Team.FindMissionLv(mission.ID, mission.TimeKind);

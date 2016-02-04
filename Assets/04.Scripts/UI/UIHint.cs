@@ -102,6 +102,9 @@ public class UIHint : UIBase
 
 	public void ShowHint(string text, Color color, bool isForce = false)
     {
+        if (GameData.Team.Player.Lv == 0)
+            return;
+
 		if(!isForce) {
 			if(!Visible){
 				Show(true);

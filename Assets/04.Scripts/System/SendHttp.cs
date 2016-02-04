@@ -420,9 +420,13 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private void waitVersion(bool ok, WWW www) {
 		if (ok) {
 			versionChecked = true;
-			if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion)
-				SendLogin();
-			else {
+            if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion) {
+                if (GameData.Company == ECompany.PubGame) {
+                    UIPubgame.Visible = true;
+                    UILoading.UIShow(false);
+                } else
+				    SendLogin();
+            } else {
 				UILoading.UIShow(false);
 				UIUpdateVersion.UIShow(true);
 			}
@@ -448,6 +452,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
 				}
 
+                if (GameData.Team.Friends == null)
+                    GameData.Team.Friends = new Dictionary<string, TFriend>();
+
                 if (GameData.Team.StageTutorial == 0)
                     GameData.Team.StageTutorial = 3;
 
@@ -457,17 +464,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SceneMgr.Get.CurrentScene = "";
 					SceneMgr.Get.ChangeLevel (courtNo);
 				} else {
+                    SyncDailyRecord();
+                    LookFriends(null, GameData.Team.Identifier, false);
+                    StartCoroutine(longPollingSocialEvent(0));
+                    StartCoroutine(longPollingWatchFriends(0));
+
 					UILoading.OpenUI = UILoading.OpenAnnouncement;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 				}
-
-                if (GameData.Team.Friends == null)
-                    GameData.Team.Friends = new Dictionary<string, TFriend>();
-
-                SyncDailyRecord();
-                LookFriends(null, GameData.Team.Identifier, false);
-                StartCoroutine(longPollingSocialEvent(0));
-                StartCoroutine(longPollingWatchFriends(0));
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}

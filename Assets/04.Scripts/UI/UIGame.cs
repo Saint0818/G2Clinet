@@ -1387,8 +1387,10 @@ public class UIGame : UIBase {
 //				if (!uiPassObjectGroup[0].activeInHierarchy)
 //					ClearLine();
 
-				if (uiTutorial[8].activeInHierarchy)
-					gameJoystick.activated = true;
+                if (uiTutorial[8].activeInHierarchy) {
+                    gameJoystick.visible = true;
+                    gameJoystick.activated = true;
+                }
 
 				for (int i = 0; i < uiButtonSkill.Length; i++)
 					if (uiButtonSkill[i].activeInHierarchy)

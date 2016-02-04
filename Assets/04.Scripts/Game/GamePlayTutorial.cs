@@ -155,7 +155,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			break;
 		case 8:
 			if (eventTrigger.Item == null) {
-				eventTrigger.Item = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject);
+				eventTrigger.Item = Instantiate(Resources.Load("Effect/MoveTo") as GameObject);
 				eventTrigger.Item.name = "HintArea";
 				eventTrigger.Item.transform.parent = gameObject.transform;
 
