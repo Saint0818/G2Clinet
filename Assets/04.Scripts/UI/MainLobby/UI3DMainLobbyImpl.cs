@@ -125,7 +125,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         if (GameData.Team.Player.SkillCards.Length > 0)
         {
             crtState = GetRandomState();
-            aniBehavior.AddTrigger(crtState, 0); 
+            aniBehavior.Play(crtState, 0); 
 
         }
     }

@@ -264,6 +264,39 @@ public static class GameFunction
         return count;
     }
 
+    public static int GetEBounsIndexByAttribute(EAttribute att)
+    {
+        switch (att)
+        {
+            case EAttribute.Point2:
+                return 1;
+            case EAttribute.Point3:
+                return 2;
+            case EAttribute.Speed:
+                return 3;
+            case EAttribute.Stamina:
+                return 4;
+            case EAttribute.Strength:
+                return 5;
+            case EAttribute.Dunk:
+                return 6;
+            case EAttribute.Rebound:
+                return 7;
+            case EAttribute.Block:
+                return 8;
+            case EAttribute.Defence:
+                return 9;
+            case EAttribute.Steal:
+                return 10;
+            case EAttribute.Dribble:
+                return 11;
+            case EAttribute.Pass:
+                return 12;
+            default:
+                return 0;
+        }
+    }
+
     public static int GetAttributeIndex(EAttribute att)
     {
         int index = -1;

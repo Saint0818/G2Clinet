@@ -2,6 +2,21 @@
 using System.Collections;
 using GameEnum;
 
+
+public delegate void AnimationDelegate();
+public delegate void TimeScaleDelegate(AnimationEvent aniEvent);
+public delegate void ZoomDelegate(float speed);
+public delegate void SkillDelegate(AnimationEvent aniEvent);
+//TimeScale
+
+/// <summary>
+/// 用法：
+/// 1.addComponent<AnimatorBehavior>到一個角色身上 
+/// 2.先Init(Animator)
+/// 3.再塞各自動作委託(可省略)
+/// 4.播動作 AddTrigger
+/// </summary>
+
 public class AnimatorBehavior : MonoBehaviour
 {
     public Animator Controler;
@@ -19,33 +34,75 @@ public class AnimatorBehavior : MonoBehaviour
 //    private JumpBallCurveCounter jumpBallCurveCounter = new JumpBallCurveCounter();
     private float headHeight;
 
+    public AnimationDelegate GotStealingDel = null;
+    public AnimationDelegate FakeShootBlockMomentDel = null;
+    public AnimationDelegate BlockMomentDel = null;
+    public AnimationDelegate AirPassMomentDel = null;
+    public AnimationDelegate DoubleClickMomentDel = null;
+    public AnimationDelegate BuffEndDel = null;
+    public AnimationDelegate BlockCatchMomentStartDel = null;
+    public AnimationDelegate BlockCatchMomentEndDel = null;
+    public AnimationDelegate BlockJumpDel = null;
+    public AnimationDelegate BlockCatchingEndDel = null;
+    public AnimationDelegate ShootingDel = null;
+    public AnimationDelegate MoveDodgeEndDel = null;
+    public AnimationDelegate PassingDel = null;
+    public AnimationDelegate PassEndDel = null;
+    public AnimationDelegate ShowEndDel = null;
+    public AnimationDelegate PickUpDel = null;
+    public AnimationDelegate PickEndDel = null;
+    public AnimationDelegate StealingDel = null;
+    public AnimationDelegate StealingEndDel = null;
+    public AnimationDelegate PushCalculateStartDel = null;
+    public AnimationDelegate PushCalculateEndDel = null;
+    public AnimationDelegate ElbowCalculateStartDel = null;
+    public AnimationDelegate ElbowCalculateEndDel = null;
+    public AnimationDelegate BlockCalculateStartDel = null;
+    public AnimationDelegate BlockCalculateEndDel = null;
+    public AnimationDelegate CloneMeshDel = null;
+    public AnimationDelegate DunkBasketStartDel = null;
+    public AnimationDelegate OnlyScoreDel = null;
+    public AnimationDelegate DunkFallBallDel = null;
+    public AnimationDelegate ElbowEndDel = null;
+    public AnimationDelegate FallEndDel = null;
+    public AnimationDelegate FakeShootEndDel = null;
+    public AnimationDelegate TipInStartDel = null;
+    public AnimationDelegate TipInEndDel = null;
+    public AnimationDelegate AnimationEndDel = null;
+    public AnimationDelegate ShowDel = null;
+
+    public TimeScaleDelegate TimeScaleCallBack = null;
+    public ZoomDelegate ZoomInDel = null;
+    public ZoomDelegate ZoomOutDel = null;
+    public SkillDelegate SkillDel = null;
+
     public void Init(Animator ani)
     {
         Controler = ani;
     }
 
-    public void AddTrigger(EAnimatorState state, int stateNo, int team)
+    public void Play(EAnimatorState state, int stateNo, int team)
     {
         addTrigger(state, stateNo, team);
     }
 
-    public void AddTrigger(EPlayerState state, int team)
+    public void Play(EPlayerState state, int team)
     {
         TAnimatorItem findType = AnimatorMgr.Get.GetAnimatorStateType(state);
-        AddTrigger(findType.Type, findType.StateNo, team);
+        Play(findType.Type, findType.StateNo, team);
     }
 
-    public void AddTrigger(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget)
+    public void Play(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget)
     {
         addTrigger(state, stateNo, team, false ,skillMoveTarget);
     }
 
-    public void AddTrigger(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget, Vector3 reboundMove)
+    public void Play(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget, Vector3 reboundMove)
     {
         addTrigger(state, stateNo, team, false, skillMoveTarget, reboundMove);
     }
 
-    public void AddTrigger(EAnimatorState state,int stateNo, int team, bool isDunkBlock, Vector3 skillMoveTarget)
+    public void Play(EAnimatorState state,int stateNo, int team, bool isDunkBlock, Vector3 skillMoveTarget)
     {
         addTrigger(state, stateNo, team, isDunkBlock, skillMoveTarget);
     }
@@ -260,37 +317,6 @@ public class AnimatorBehavior : MonoBehaviour
         reboundCurveCounter.Init(gameObject, stateNo, skillmovetarget, headHeight,reboundMove);
     }
 
-    /*
-    public void InitAnimatorCurve(EAnimatorState state, int stateNo, ETeamKind team, Vector3 skillmovetarget, bool isdunkblock = false)
-    {
-        headHeight = new Vector3(0, gameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f, 0);
-
-        switch (state)
-        {
-            case EAnimatorState.Steal:
-                stealCurveCounter.Init(stateNo, gameObject);
-                break;
-			case EAnimatorState.Shoot:
-                shootCurveCounter.Init (stateNo, gameObject);
-                break;
-            case EAnimatorState.Layup:
-                layupCurveCounter.Init(stateNo, gameObject);
-                break;
-
-            case EAnimatorState.Rebound:
-                //ToDO:Test
-                Vector3 reboundMove = Vector3.zero;
-                reboundCurveCounter.Init(gameObject, stateNo, skillmovetarget, headHeight,reboundMove);
-                break;
-            case EAnimatorState.JumpBall:
-				//reboundMove??
-				reboundMove = Vector3.zero;
-				jumpBallCurveCounter.Init(gameObject, stateNo, reboundMove);
-                break;
-        }
-    }
-    */
-
     public bool IsCanBlock
     {
         get{ return dunkCurveCounter.IsCanBlock;}
@@ -355,42 +381,177 @@ public class AnimatorBehavior : MonoBehaviour
 
     public void AnimationEvent(string animationName)
     {
-        if(SceneMgr.Get.IsCourt)
-            gameObject.SendMessage("AnimationEventCallBack", animationName);
+        switch (animationName)
+        {
+            case "GotStealing":
+                if (GotStealingDel != null)
+                    GotStealingDel();
+                break;
+            case "FakeShootBlockMoment":
+                if (FakeShootBlockMomentDel != null)
+                    FakeShootBlockMomentDel();
+                break;
+            case "BlockMoment":
+                if (BlockMomentDel != null)
+                    BlockMomentDel();
+                break;
+            case "AirPassMoment":
+                if (AirPassMomentDel != null)
+                    AirPassMomentDel();
+                break;
+            case "DoubleClickMoment":
+                if (DoubleClickMomentDel != null)
+                    DoubleClickMomentDel();
+                break;
+            case "BuffEnd":
+                if (BuffEndDel != null)
+                    BuffEndDel();
+                break;
+            case "BlockCatchMomentStart":
+                if (BlockCatchMomentStartDel != null)
+                    BlockCatchMomentStartDel();
+                break;
+            case "BlockCatchMomentEnd":
+                if (BlockCatchMomentEndDel != null)
+                    BlockCatchMomentEndDel();
+                break;
+            case "BlockJump":
+                if (BlockJumpDel != null)
+                    BlockJumpDel();
+                break;
+            case "BlockCatchingEnd":
+                if (BlockCatchingEndDel != null)
+                    BlockCatchingEndDel();
+                break;
+            case "Shooting":
+                if (ShootingDel != null)
+                    ShootingDel();
+                break;
+            case "MoveDodgeEnd":
+                if (MoveDodgeEndDel != null)
+                    MoveDodgeEndDel();
+                break;
+            case "Passing":
+                if (PassingDel != null)
+                    PassingDel();
+                break;
+            case "PassEnd":
+                if (PassEndDel != null)
+                    PassEndDel();
+                break;
+            case "ShowEnd":
+                if (ShowEndDel != null)
+                    ShowEndDel();
+                break;
+            case "PickUp":
+                if (PickUpDel != null)
+                    PickUpDel();
+                break;
+            case "PickEnd":
+                if (PickEndDel != null)
+                    PickEndDel();
+                break;
+            case "Stealing":
+                if (StealingDel != null)
+                    StealingDel();
+                break;
+            case "StealingEnd":
+                if (StealingEndDel != null)
+                    StealingEndDel();
+                break;
+            case "PushCalculateStart":
+                if (PushCalculateStartDel != null)
+                    PushCalculateStartDel();
+                break;
+            case "PushCalculateEnd":
+                if (PushCalculateEndDel != null)
+                    PushCalculateEndDel();
+                break;
+            case "ElbowCalculateStart":
+                if (ElbowCalculateStartDel != null)
+                    ElbowCalculateStartDel();
+                break;
+            case "ElbowCalculateEnd":
+                if (ElbowCalculateEndDel != null)
+                    ElbowCalculateEndDel();
+                break;
+            case "BlockCalculateStart":
+                if (BlockCalculateStartDel != null)
+                    BlockCalculateStartDel();
+                break;
+            case "BlockCalculateEnd":
+                if (BlockCalculateEndDel != null)
+                    BlockCalculateEndDel();
+                break;
+            case "CloneMesh":
+                if (CloneMeshDel != null)
+                    CloneMeshDel();
+                break;
+            case "DunkBasketStart":
+                if (DunkBasketStartDel != null)
+                    DunkBasketStartDel();
+                break;
+            case "OnlyScore":
+                if (OnlyScoreDel != null)
+                    OnlyScoreDel();
+                break;
+            case "DunkFallBall":
+                if (DunkFallBallDel != null)
+                    DunkFallBallDel();
+                break;
+            case "ElbowEnd":
+                if (ElbowEndDel != null)
+                    ElbowEndDel();
+                break;
+            case "FallEnd":
+                if (FallEndDel != null)
+                    FallEndDel();
+                break;
+            case "FakeShootEnd":
+                if (FakeShootEndDel != null)
+                    FakeShootEndDel();
+                break;
+            case "TipInStart":
+                if (TipInStartDel != null)
+                    TipInStartDel();
+                break;
+            case "TipInEnd":
+                if (TipInEndDel != null)
+                    TipInEndDel();
+                break;
+            case "AnimationEnd":
+                if (AnimationEndDel != null)
+                    AnimationEndDel();
+                break;
+            case "Show": 
+                if (ShowDel != null)
+                    ShowDel();
+                break;
+        }
     }
 
     public void TimeScale(AnimationEvent aniEvent)
     {
-        if (SceneMgr.Get.IsCourt)
-        {
-            gameObject.SendMessage("TimeScaleCallBack", aniEvent); 
-        }
+        if(TimeScaleCallBack != null)
+            TimeScaleCallBack(aniEvent);
     }
 
     public void ZoomIn(float t)
     {
-        if (SceneMgr.Get.IsCourt)
-        {
-            CameraMgr.Get.SkillShow(gameObject); 
-            CameraMgr.Get.SetRoomMode(EZoomType.In, t); 
-        }
+        if (ZoomInDel != null)
+            ZoomInDel(t);
     }
 
     public void ZoomOut(float t)
     {
-        if (SceneMgr.Get.IsCourt)
-        {
-            CameraMgr.Get.SkillShow(gameObject);
-            CameraMgr.Get.SetRoomMode(EZoomType.Out, t); 
-        }
+        if (ZoomOutDel != null)
+            ZoomOutDel(t);
     }
 
     public void SkillEvent(AnimationEvent aniEvent)
     {
-        if (SceneMgr.Get.IsCourt)
-        {
-            gameObject.SendMessage("SkillEventCallBack", aniEvent); 
-        }
+        if (SkillDel != null)
+            SkillDel(aniEvent);
     }
 
 }

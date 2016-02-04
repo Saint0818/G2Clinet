@@ -136,7 +136,7 @@ public class AbilityView
     private UIAttributes hexagon;
     private GameObject RedPoint;
 
-    public void Init(GameObject obj, GameObject hexgonObj)
+    public void Init(GameObject obj, GameObject hexgonObj, EventDelegate hitFunc)
     {
         self = obj;
         if (self)
@@ -146,7 +146,7 @@ public class AbilityView
             {
                 abilitys[i] = new TAbilityItem();
                 go = self.transform.FindChild(string.Format("AttrGroup/{0}", i)).gameObject;
-                abilitys[i].Init(go, i);
+                abilitys[i].Init(go, i, hitFunc);
             }
 
             skillPointBtn = self.transform.FindChild("SkillPointBtn").gameObject.GetComponent<UIButton>();
@@ -444,13 +444,12 @@ public class TValueAvater
 public class TAbilityItem
 {
     private GameObject go;
-    //	private UISprite pic;
-
+    private UIButton btn;
     public int index;
     public UILabel Value;
     public bool IsInit = false;
 
-    public void Init(GameObject obj, int index)
+    public void Init(GameObject obj, int index, EventDelegate hitFunc)
     {
         if (obj)
         {
@@ -458,8 +457,13 @@ public class TAbilityItem
 //			pic = go.GetComponent<UISprite> ();
 //			pic.spriteName = string.Format ("AttrKind_{0}", index + 1);
             Value = go.transform.FindChild("ValueBaseLabel").gameObject.GetComponent<UILabel>();
+            btn = go.GetComponent<UIButton>();
+            IsInit = go && Value;
 
-            IsInit = go || Value;
+            if (IsInit)
+            {
+                btn.onClick.Add(hitFunc);
+            }
         }
     }
 }
@@ -558,7 +562,7 @@ public class UIPlayerInfo : UIBase
         personalView.InitBtttonFunction(new EventDelegate(OnChangehead), new EventDelegate(OnGuild), new EventDelegate(OnAvatarItemHint), new EventDelegate(OnChangePlayerName));
 
         obj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
-        abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
+        abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject, new EventDelegate(OnAttributeHint));
         abilityView.InitBtttonFunction(new EventDelegate(OnUpgradingMasteries));
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnReturn);
         for (int i = 0; i < 3; i++)
@@ -586,6 +590,57 @@ public class UIPlayerInfo : UIBase
         //StatePage
         obj = GameObject.Find(UIName + string.Format("/Window/Center/View/StateView"));
         stateView.Init(obj);
+    }
+
+    private void OnAttributeHint()
+    {
+        int index;
+        EAttribute att = EAttribute.Point2;
+            
+        if (int.TryParse(UIButton.current.name, out index))
+        {
+            switch (index)
+            {
+                case 0:
+                    att = EAttribute.Point2;
+                    break;
+                case 1:
+                    att = EAttribute.Point3;
+                    break;
+                case 2:
+                    att = EAttribute.Dunk;
+                    break;
+                case 3:
+                    att = EAttribute.Rebound;
+                    break;
+                case 4:
+                    att = EAttribute.Block;
+                    break;
+                case 5:
+                    att = EAttribute.Steal;
+                    break;
+                case 6:
+                    att = EAttribute.Speed;
+                    break;
+                case 7:
+                    att = EAttribute.Stamina;
+                    break;
+                case 8:
+                    att = EAttribute.Strength;
+                    break;
+                case 9:
+                    att = EAttribute.Defence;
+                    break;
+                case 10:
+                    att = EAttribute.Dribble;
+                    break;
+                case 11:
+                    att = EAttribute.Pass;
+                    break;
+            }
+            int kind = GameFunction.GetEBounsIndexByAttribute(att);
+            UIAttributeHint.Get.UpdateView(kind);
+        }
     }
 
     public void OnReturn()

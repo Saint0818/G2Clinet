@@ -4,29 +4,26 @@ using System.Collections;
 public class ShowStateBehaviour : StateMachineBehaviour
 {
     public EAnimatorState State;
-    private PlayerBehaviour player;
     private AnimationEvent skillEvent = new AnimationEvent();
     
     override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
     {
-        if (animator.gameObject)
+        AnimatorBehavior ani = animator.gameObject.GetComponent<AnimatorBehavior>();
+        if (ani)
         {
             switch (State)
             {
                 case EAnimatorState.Elbow:
-                    animator.gameObject.SendMessage("AnimationEvent", "ElbowEnd");
+                    ani.AnimationEvent("ElbowEnd");
                     break;
                 case EAnimatorState.Fall:
-                    animator.gameObject.SendMessage("AnimationEvent", "FallEnd");
+                    ani.AnimationEvent("FallEnd");
                     break;
                 case EAnimatorState.Show:
-                    if (player.IsBallOwner)
-                        player.AniState(EPlayerState.HoldBall);
-                    else
-                        player.AniState(EPlayerState.Idle);
+                    ani.AnimationEvent("Show");
                     break;
                 case EAnimatorState.Pass:
-                    animator.gameObject.SendMessage("AnimationEvent", "PassEnd");
+                    ani.AnimationEvent("PassEnd");
                     break;
                 case EAnimatorState.Dunk:
                 case EAnimatorState.Shoot:
@@ -36,23 +33,23 @@ public class ShowStateBehaviour : StateMachineBehaviour
                 case EAnimatorState.Push:
                 case EAnimatorState.GotSteal:
                 case EAnimatorState.JumpBall:
-                    animator.gameObject.SendMessage("AnimationEvent", "AnimationEnd");
+                    ani.AnimationEvent("AnimationEnd");
                     break;
                 case EAnimatorState.Intercept:
                 case EAnimatorState.Catch:
                 case EAnimatorState.Rebound:
                 case EAnimatorState.Block:
-                    animator.gameObject.SendMessage("AnimationEvent", "CatchEnd");
+                    ani.AnimationEvent("CatchEnd");
                     break;
                 case EAnimatorState.Pick:
-                    animator.gameObject.SendMessage("AnimationEvent", "PickEnd");
+                    ani.AnimationEvent("PickEnd");
                     break;
                 case EAnimatorState.Buff:
-                    animator.gameObject.SendMessage("AnimationEvent", "PickEnd");
-                    animator.gameObject.SendMessage("SkillEvent", skillEvent);
+                    ani.AnimationEvent("PickEnd");
+                    ani.SkillEvent(skillEvent);
                     break;
                 case EAnimatorState.MoveDodge:
-                    animator.gameObject.SendMessage("AnimationEvent", "MoveDodgeEnd");
+                    ani.AnimationEvent("MoveDodgeEnd");
                     break;
             }
         }
