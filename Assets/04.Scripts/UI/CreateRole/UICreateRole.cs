@@ -113,10 +113,15 @@ public class UICreateRole : UIBase
 
         UILoading.UIShow(false);
 
-        mFrameView.UnlockPlayerListener += () =>
+        mFrameView.UnlockPlayerListener += unlockDiamond =>
         {
-            var protocol = new AddMaxPlayerBankProtocol();
-            protocol.Send(onUnlockPlayer);
+            if(GameData.Team.Diamond >= unlockDiamond)
+            {
+                var protocol = new AddMaxPlayerBankProtocol();
+                protocol.Send(onUnlockPlayer);
+            }
+            else
+                UIHint.Get.ShowHint(TextConst.S(233), Color.red);
         };
     }
 

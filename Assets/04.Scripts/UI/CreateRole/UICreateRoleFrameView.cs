@@ -25,9 +25,16 @@ public class UICreateRoleFrameView : MonoBehaviour
     public GameObject FullScreenBlock;
 
     /// <summary>
-    /// 呼叫時機: 解鎖球員 Slot.
+    /// <para>呼叫時機: 解鎖球員 Slot.</para>
+    /// <para> [int]: 解鎖所需的鑽石. </para>
     /// </summary>
-    public event Action UnlockPlayerListener;
+    public event Action<int> UnlockPlayerListener;
+
+    /// <summary>
+    /// <para>呼叫時機: 刪除球員.</para>
+    /// <para> [int]:RoleIndex </para>
+    /// </summary>
+    public event Action<int> DeletePlayerListener; 
 
     /// <summary>
     /// 離開 FrameView, 進入 PositionView 的等待時間. 這個等待時間是要等 Slot 撥完離開的 Animation.
@@ -122,13 +129,12 @@ public class UICreateRoleFrameView : MonoBehaviour
                 () =>
                 {
                     if(UnlockPlayerListener != null)
-                        UnlockPlayerListener();
+                        UnlockPlayerListener(LimitTable.Ins.GetDiamond(EOpenID.CreateRole));
                 });
         }
         else
             throw new NotImplementedException(data.Status.ToString());
     }
-
 
     private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
