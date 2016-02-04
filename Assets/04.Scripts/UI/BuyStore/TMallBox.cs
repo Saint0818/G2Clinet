@@ -45,7 +45,7 @@ public class TMallBox
 		FreeLabel1 = obj.transform.Find("OpenBtn1/FreeLabel1").GetComponent<UILabel>();
 
 		TitleLabel = obj.transform.Find("MainBtn/MallBoxTextureShow/TitleLabel").GetComponent<UILabel>();
-		ExplainLabel = obj.transform.Find("MainBtn/ExplainLabel").GetComponent<UILabel>();
+		ExplainLabel = obj.transform.Find("MainBtn/ExplainPanel/ExplainLabel").GetComponent<UILabel>();
 
 		Tween = obj.transform.Find("Tween");
 		SubheadLabelDisk = obj.transform.Find("Tween/SubheadLabelDisk").GetComponent<UILabel>();

@@ -45,7 +45,10 @@ public class HintAvatarView : MonoBehaviour {
 			UIEventListener.Get(AttrKindsIcon[i].gameObject).onClick = OnClickAttr;
 			AttrKindsIcon[i].gameObject.SetActive(false);
 		}
+		hideAllStart ();
+	}
 
+	private void hideAllStart () {
 		for (int i=0; i<AvatarStars.Length; i++) 
 			AvatarStars[i].SetActive(false);
 
@@ -73,6 +76,7 @@ public class HintAvatarView : MonoBehaviour {
 
 	public void UpdateUI(TItemData itemData)
 	{
+		hideAllStart ();
 		isHaveValue = false;
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, GameData.Team.Player, itemData.Kind);
@@ -119,6 +123,7 @@ public class HintAvatarView : MonoBehaviour {
 
 	public void UpdateUI(TItemData itemData, TPlayer player)
 	{
+		hideAllStart ();
 		isHaveValue = false;
 		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
 		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, player, itemData.Kind);

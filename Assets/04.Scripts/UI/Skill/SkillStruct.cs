@@ -324,7 +324,7 @@ public struct TExpView {
 				currentExp = skill.Exp;
 				ProgressBar.value = (float)currentExp / (float)maxExp;
 				ProgressBar2.value = (float)currentExp/ (float)maxExp;
-				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv));
+				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv) - currentExp);
 			}
 			GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
 		}

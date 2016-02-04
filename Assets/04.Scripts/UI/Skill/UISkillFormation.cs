@@ -44,6 +44,7 @@ public struct TActiveStruct {
 		if(parent != null) {
 			this.ItemEquipActiveCard.transform.SetParent(parent);
 		}
+		active.ItemEquipActiveCard.transform.localPosition = pos;
 		this.ItemEquipActiveCard.transform.localPosition = pos;
 		this.ItemEquipActiveCard = active.ItemEquipActiveCard;
 		this.CardIndex = active.CardIndex;

@@ -87,6 +87,10 @@ public class AwardAvatarView : MonoBehaviour {
 		Show ();
 		EXP.SetActive(true);
 		AmountLabel.text = value.ToString();
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(1);
+		if(specialEffect != null)
+			specialEffect.gameObject.SetActive(false);
 	}
 	
 	public void UpdateMoney (int value) {
@@ -94,6 +98,10 @@ public class AwardAvatarView : MonoBehaviour {
 		Show ();
 		Money.SetActive(true);
 		AmountLabel.text = value.ToString();
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(1);
+		if(specialEffect != null)
+			specialEffect.gameObject.SetActive(false);
 	}
 	
 	public void UpdateGem (int value) {
@@ -101,5 +109,9 @@ public class AwardAvatarView : MonoBehaviour {
 		Show ();
 		Gem.SetActive(true);
 		AmountLabel.text = value.ToString();
+		if(QualityBG != null)
+			QualityBG.color = TextConst.ColorBG(1);
+		if(specialEffect != null)
+			specialEffect.gameObject.SetActive(false);
 	}
 }
