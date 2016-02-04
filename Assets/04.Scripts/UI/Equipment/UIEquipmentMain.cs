@@ -126,7 +126,21 @@ public class UIEquipmentMain : MonoBehaviour
     {
         mDetail.Set(slotIndex, PlayerValueItems[slotIndex]);
         mMaterialList.Set(PlayerValueItems[slotIndex].Materials);
-        mEquipList.Hide();
+
+        if(isNumberEquip(slotIndex))
+            mEquipList.Show(PlayerValueItems[slotIndex], ListItems[slotIndex], true);
+        else
+            mEquipList.Hide();
+    }
+
+    /// <summary>
+    /// 是否為次數型數值裝.
+    /// </summary>
+    /// <param name="slotIndex"></param>
+    /// <returns></returns>
+    private static bool isNumberEquip(int slotIndex)
+    {
+        return slotIndex == 6 || slotIndex == 7;
     }
 
     /// <summary>
