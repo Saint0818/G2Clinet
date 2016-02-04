@@ -36,6 +36,11 @@ public class UIItemSource : UIBase
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="startCallback"> [bool]:true 是前往按鈕按下, 呼叫此介面的介面, 要自己負責將自己關閉. </param>
     public void ShowMaterial(TItemData item, Action<bool> startCallback)
     {
         Show(true);
@@ -47,6 +52,11 @@ public class UIItemSource : UIBase
         mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="startCallback"> [bool]:true 是前往按鈕按下, 呼叫此介面的介面, 要自己負責將自己關閉. </param>
     public void ShowAvatar(TItemData item, Action<bool> startCallback)
     {
         Show(true);
@@ -58,6 +68,11 @@ public class UIItemSource : UIBase
         mMain.AddSources(UIItemSourceBuilder.Build(item, startCallback));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="startCallback"> [bool]:true 是前往按鈕按下, 呼叫此介面的介面, 要自己負責將自己關閉. </param>
     public void ShowSkill(TItemData item, Action<bool> startCallback)
     {
         Show(true);
