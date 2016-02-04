@@ -69,7 +69,8 @@ public class AnimatorBehavior : MonoBehaviour
     public AnimationDelegate TipInStartDel = null;
     public AnimationDelegate TipInEndDel = null;
     public AnimationDelegate AnimationEndDel = null;
-    public AnimationDelegate ShowDel = null;
+	public AnimationDelegate ShowDel = null;
+    public AnimationDelegate CatchDel = null;
 
     public TimeScaleDelegate TimeScaleCallBack = null;
     public ZoomDelegate ZoomInDel = null;
@@ -527,6 +528,10 @@ public class AnimatorBehavior : MonoBehaviour
                 if (ShowDel != null)
                     ShowDel();
                 break;
+			case "CatchEnd":
+				if (CatchDel != null)
+					CatchDel ();
+				break;
         }
     }
 

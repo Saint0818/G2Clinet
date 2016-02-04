@@ -72,7 +72,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	private int scoreTeam = 0;
 
-	private void InitBasket(RuntimeAnimatorController controller){
+    public void ChangeBasketByLobby(GameObject obj)
+    {
+        pveBasketAy[0] = obj;
+    }
+
+	public void InitBasket(RuntimeAnimatorController controller){
 		AnimationClip[] clip = controller.animationClips;
 		List<string> scoreName = new List<string>();
 		List<string> noScoreName = new List<string>();
@@ -882,7 +887,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if (team == 0)
         {
 			animator = pveBasketAy[0].GetComponent<Animator>();
-			Hood[0].gameObject.SetActive(true);
+
+            if(Hood[0])
+			    Hood[0].gameObject.SetActive(true);
         } else
         {
 			if(isPve)

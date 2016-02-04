@@ -2082,6 +2082,7 @@ public class PlayerBehaviour : MonoBehaviour
         AnimatorControl.SkillDel = SkillEventCallBack;
         AnimatorControl.ZoomInDel = OnZoomIn;
         AnimatorControl.ZoomOutDel = OnZoomOut;
+		AnimatorControl.CatchDel = CatchEnd;
     }
 
     private void OnShowCallBack()
