@@ -112,6 +112,21 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
 
         UILoading.UIShow(false);
+
+        mFrameView.UnlockPlayerListener += () =>
+        {
+            var protocol = new AddMaxPlayerBankProtocol();
+            protocol.Send(onUnlockPlayer);
+        };
+    }
+
+    private void onUnlockPlayer(bool ok)
+    {
+        if(ok)
+        {
+            var uiData = UICreateRoleBuilder.Build(GameData.Team.PlayerBank);
+            ShowFrameView(uiData, GameData.Team.Player.RoleIndex);
+        }
     }
 
     /// <summary>

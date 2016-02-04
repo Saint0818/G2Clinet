@@ -94,8 +94,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     private const string LockSpriteName = "Icon_lock";
     private const string LockBGSpriteName = "BtnLocked";
 
-    private bool mIsLock;
-
     private const string AddSpriteName = "Icon_Create";
     private const string AddBGSpriteName = "BtnEmpty";
 
@@ -172,8 +170,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         NameLabel.text = mData.Name;
         LevelLabel.text = mData.Lv.ToString();
 
-        mIsLock = false;
-
         MessageLabel.gameObject.SetActive(false);
     }
 
@@ -193,8 +189,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
-
-        mIsLock = false;
 
         GetComponent<Animator>().enabled = false;
 
@@ -217,8 +211,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
-
-        mIsLock = true;
 
         MessageLabel.gameObject.SetActive(true);
         MessageLabel.text = mData.Message;

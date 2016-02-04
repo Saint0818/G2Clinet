@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 /// <remarks>
 /// <list type="number">
-/// <item> Call Show() or Hide() 控制 UI 的顯示邏輯. </item>
+/// <item> Call ShowXXX() or Hide() 控制 UI 的顯示邏輯. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -25,14 +25,14 @@ public class UICreateRoleFrameView : MonoBehaviour
     public GameObject FullScreenBlock;
 
     /// <summary>
+    /// 呼叫時機: 解鎖球員 Slot.
+    /// </summary>
+    public event Action UnlockPlayerListener;
+
+    /// <summary>
     /// 離開 FrameView, 進入 PositionView 的等待時間. 這個等待時間是要等 Slot 撥完離開的 Animation.
     /// </summary>
     private const float ExitAnimationTime = 0.9f;
-
-    /// <summary>
-    /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
-    /// </summary>
-    private const int DefaultShowNum = 2;
 
     /// <summary>
     /// 剛顯示頁面時, Slot 延遲幾秒才進入畫面的時間.
@@ -49,36 +49,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
 
         FullScreenBlock.SetActive(false);
-
-//        ShowNum = DefaultShowNum;
     }
-
-//    /// <summary>
-//    /// 最多顯示幾位球員. 超過的部分會用 lock 來顯示.
-//    /// </summary>
-//    private int ShowNum
-//    {
-//        get { return mShowNum; }
-//
-//        set
-//        {
-//            if(value < 0)
-//                return;
-//
-//            mShowNum = value;
-//            updateLockUI(mShowNum);
-//        }
-//    }
-
-//    private void updateLockUI(int showNum)
-//    {
-//        for(int i = showNum; i < Slots.Length; i++)
-//        {
-//            Slots[i].SetLock();
-//        }
-//    }
-
-//    private int mShowNum;
 
     public void Show()
     {
@@ -100,8 +71,6 @@ public class UICreateRoleFrameView : MonoBehaviour
         setData(data);
         setSelected(selectedIndex);
         playEnterAnimations();
-
-//        ShowNum = showNum;
     }
 
     private void setSelected(int selectedIndex)
@@ -118,8 +87,6 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             Slots[i].SetData(data[i]);
         }
-
-//        updateLockUI(ShowNum);
     }
 
     private void playEnterAnimations()
@@ -151,14 +118,11 @@ public class UICreateRoleFrameView : MonoBehaviour
             UIHint.Get.ShowHint(data.Message, Color.red);
         else if(data.Status == UICreateRolePlayerSlot.Data.EStatus.LockDiamond)
         {
-            UIMessage.Get.ShowMessage(TextConst.S(205), string.Format(TextConst.S(207), LimitTable.Ins.GetLv(EOpenID.CreateRole)),
+            UIMessage.Get.ShowMessage(TextConst.S(205), string.Format(TextConst.S(207), LimitTable.Ins.GetDiamond(EOpenID.CreateRole)),
                 () =>
                 {
-                    var protocol = new AddMaxPlayerBankProtocol();
-                    protocol.Send(ok =>
-                    {
-                        // todo
-                    });
+                    if(UnlockPlayerListener != null)
+                        UnlockPlayerListener();
                 });
         }
         else
@@ -227,7 +191,6 @@ public class UICreateRoleFrameView : MonoBehaviour
             var team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
             GameData.Team.Player.Init();
-//            GameData.SaveTeam();
 
             UICreateRole.Get.Hide();
 			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)

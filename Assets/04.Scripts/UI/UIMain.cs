@@ -100,13 +100,11 @@ public class UIMain : UIBase {
 
 	public void OnLookPlayerBank()
     {
-//		WWWForm form = new WWWForm();
-//		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
-        LookupPlayerBanksProtocol protocol = new LookupPlayerBanksProtocol();
+        var protocol = new LookupPlayerBanksProtocol();
         protocol.Send(waitLookPlayerBank);
 	}
 
-	private void waitLookPlayerBank(bool ok, LookupPlayerBanksProtocol.TPlayerBanks bank)
+	private void waitLookPlayerBank(bool ok, LookupPlayerBanksProtocol.Data bank)
 	{
 		if(ok)
         {
@@ -115,11 +113,9 @@ public class UIMain : UIBase {
             // 因為現在創角 UI 並沒有擋住後面的介面, 所以我暫時需要將模型關閉.
             ModelManager.Get.PlayerInfoModel.SetActive(false);
 
-            var data = UICreateRoleBuilder.Build(bank.PlayerBanks);
+            var data = UICreateRoleBuilder.Build(bank.PlayerBank);
             UICreateRole.Get.ShowFrameView(data, bank.SelectedRoleIndex);
 		}
-        else
-		    Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
 	}
 
 	public void OnStage() {

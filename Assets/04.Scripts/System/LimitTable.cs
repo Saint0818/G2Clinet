@@ -74,4 +74,11 @@ public class LimitTable
             return mLimitsByOpenID[id].Lv;
         return 0;
     }
+
+    public int GetDiamond(EOpenID id)
+    {
+        if(mLimitsByOpenID.ContainsKey(id))
+            return mLimitsByOpenID[id].Diamond;
+        return 0;
+    }
 }

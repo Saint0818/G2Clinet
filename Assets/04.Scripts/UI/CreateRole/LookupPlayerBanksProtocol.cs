@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class LookupPlayerBanksProtocol
 {
-    public class TPlayerBanks
+    public class Data
     {
         public int SelectedRoleIndex;
-        public TPlayerBank[] PlayerBanks;
+        public TPlayerBank[] PlayerBank;
 
         public override string ToString()
         {
@@ -19,9 +19,9 @@ public class LookupPlayerBanksProtocol
     /// <summary>
     /// <para>[bool]: true 為 server command 成功.</para>
     /// </summary>
-    private Action<bool, TPlayerBanks> mCallback;
+    private Action<bool, Data> mCallback;
 
-    public void Send(Action<bool, TPlayerBanks> callback)
+    public void Send(Action<bool, Data> callback)
     {
         mCallback = callback;
 
@@ -31,12 +31,15 @@ public class LookupPlayerBanksProtocol
 
     private void waitLookPlayerBank(bool isSuccess, WWW www)
     {
-        TPlayerBanks playerBanks = null;
+        Data data = null;
         if(isSuccess)
-            playerBanks = JsonConvert.DeserializeObject<TPlayerBanks>(www.text);
+        {
+            data = JsonConvert.DeserializeObject<Data>(www.text);
+            GameData.Team.PlayerBank = data.PlayerBank;
+        }
         else
             Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
 
-        mCallback(isSuccess, playerBanks);
+        mCallback(isSuccess, data);
     }
 }

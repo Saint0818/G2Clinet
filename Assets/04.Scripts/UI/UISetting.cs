@@ -414,19 +414,17 @@ public class UISetting : UIBase {
 		UIMessage.Get.ShowMessage(TextConst.S(211), TextConst.S(210), DoOtherCharacter);
 	}
 
-	private void waitLookupPlayerBanks(bool isSuccess, LookupPlayerBanksProtocol.TPlayerBanks banks)
+	private void waitLookupPlayerBanks(bool isSuccess, LookupPlayerBanksProtocol.Data data)
 	{
-		if(!isSuccess)
-		{
-			Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
-			return;
-		}
-		
-		var data = UICreateRoleBuilder.Build(banks.PlayerBanks);
-		UICreateRole.Get.ShowFrameView(data, banks.SelectedRoleIndex);
-		UIMainLobby.Get.HideAll();
-		
-		UIShow (false);
-		AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
+	    if(isSuccess)
+	    {
+            var uiData = UICreateRoleBuilder.Build(data.PlayerBank);
+            UICreateRole.Get.ShowFrameView(uiData, data.SelectedRoleIndex);
+//            UIMainLobby.Get.HideAll();
+            UIMainLobby.Get.Hide(1);
+
+            UIShow(false);
+            AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
+        }
 	}
 }
