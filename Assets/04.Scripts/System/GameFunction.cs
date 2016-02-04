@@ -619,7 +619,7 @@ public static class GameFunction
 				             GameData.DSkillData[id].MaxAnger,//0
 				             GameData.DSkillData[id].Rate(lv),//1
 				             GameData.DSkillData[id].Distance(lv),//2
-				             GameData.DSkillData[id].AttrKind,//3
+							 TextConst.S( 3301 + GameData.DSkillData[id].AttrKind),//3
 				             GameData.DSkillData[id].Value(lv),//4
 				             GameData.DSkillData[id].LifeTime(lv),//5
 		                     six,//6

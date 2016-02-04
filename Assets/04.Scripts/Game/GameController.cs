@@ -2034,7 +2034,7 @@ public class GameController : KnightSingleton<GameController>
 	//Call From UIGame
 	public bool DoElbow()
 	{
-		if(Joysticker)
+		if(Joysticker && !Joysticker.IsPass && Joysticker.IsBallOwner)
 			return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Elbow0);
 
         return false;
@@ -2134,6 +2134,7 @@ public class GameController : KnightSingleton<GameController>
 			
 			PlusScore(player.Team.GetHashCode(), true, false);
 			ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
+			UIInGameMission.Get.CheckMisstion();
 
 			return true;
 		} else

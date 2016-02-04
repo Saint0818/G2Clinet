@@ -331,15 +331,11 @@ public class UIGameResult : UIBase {
 		teamValue.SetValue(record);
 		if(record.Done) {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+				playerStats.SetID(i, GameController.Get.GamePlayers[i].Attribute.Identifier);
 				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
 				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
 				playerStats.SetPositionIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
-				if(!string.IsNullOrEmpty(record.Identifier) && GameData.Team.Friends != null && GameData.Team.Friends.ContainsKey(record.Identifier)) {//need get friend list 
-					playerStats.ShowAddFriendBtn(i, record.Identifier);
-
-                    if (i < playerStats.AddFriendBtn.Length)
-					    SetBtnFun(ref playerStats.AddFriendBtn[i], OnMakeFriend);
-				}
+				playerStats.ShowAddFriendBtn(i);
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
 			}
 		}
@@ -374,15 +370,6 @@ public class UIGameResult : UIBase {
 		}
 
 		uiStatsNext.SetActive (true);
-	}
-	
-
-	public void OnMakeFriend () {
-		int result = -1;
-		if(int.TryParse(UIButton.current.name, out result)) {
-			playerStats.HideAddFriendBtn(result);
-			SendHttp.Get.MakeFriend(null, playerStats.tempID[result]);
-		}
 	}
 	
 	private void init () {

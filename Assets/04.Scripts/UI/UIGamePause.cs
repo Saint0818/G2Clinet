@@ -27,8 +27,11 @@ public class UIGamePause : UIBase {
 
 	private UIStageHint uiStageHint;
 
-
+	private UIButton buttonPlayerInfo;
 	private GameObject goMakeFriend;
+	private UISprite spriteMakeFriend;
+
+
 	private UILabel labelMakeFriend;
 	private string playerID;
 	private int playerIndex;
@@ -96,6 +99,9 @@ public class UIGamePause : UIBase {
 		goMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend");
 		labelMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Label").GetComponent<UILabel>();
 
+		buttonPlayerInfo = GameObject.Find(UIName + "/Center/GameResult/PlayerInfoBtn").GetComponent<UIButton>();
+		spriteMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Btn").GetComponent<UISprite>();
+
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
@@ -109,7 +115,7 @@ public class UIGamePause : UIBase {
         SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
         SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
 
-
+		buttonPlayerInfo.gameObject.SetActive(false);
 	}
 
 	private void initHomeAway (){
@@ -159,7 +165,6 @@ public class UIGamePause : UIBase {
 		uiStageHint.UpdateValue(GameController.Get.StageData.ID);
 		UIShow(true);
 		uiGameResult.SetActive(false);
-		goMakeFriend.SetActive(false);
 	}	
 
 	private void setInfo(int index, ref TGameRecord record) {
@@ -185,37 +190,19 @@ public class UIGamePause : UIBase {
 				break;
 			}
 
-			if(pauseType == EPauseType.Home) {
-				if(playerIndex < GameData.TeamMembers.Length) {
-					if( GameData.Team.Friends != null && !string.IsNullOrEmpty(GameData.TeamMembers[playerIndex].Identifier)) {
-						if(GameData.Team.Friends.ContainsKey(GameData.TeamMembers[playerIndex].Identifier)) {
-							isFriend = true;
-							labelMakeFriend.text = TextConst.S(5024);
-						} else {
-							isFriend = false;
-							labelMakeFriend.text = TextConst.S(5023);
-						}
-						playerID = GameData.TeamMembers[playerIndex].Identifier;
-						goMakeFriend.SetActive(true);
-					} else
-						goMakeFriend.SetActive(false);
-				}
-			} else {
-				if(playerIndex < GameData.EnemyMembers.Length) {
-					if( GameData.Team.Friends != null && !string.IsNullOrEmpty(GameData.EnemyMembers[playerIndex].Identifier)) {
-						if(GameData.Team.Friends.ContainsKey(GameData.EnemyMembers[playerIndex].Identifier)) {
-							isFriend = true;
-							labelMakeFriend.text = TextConst.S(5024);
-						} else {
-							isFriend = false;
-							labelMakeFriend.text = TextConst.S(5023);
-						}
-						playerID = GameData.EnemyMembers[playerIndex].Identifier;
-						goMakeFriend.SetActive(true);
-					} else
-						goMakeFriend.SetActive(false);
-				}
-			}
+
+			if(playerIndex < GameData.TeamMembers.Length) {
+				if(GameData.Team.CheckFriend(GameData.TeamMembers[playerIndex].Identifier)) 
+					isFriend = true;
+				else 
+					isFriend = false;
+				
+				playerID = GameData.TeamMembers[playerIndex].Identifier;
+				goMakeFriend.SetActive(!string.IsNullOrEmpty(GameData.TeamMembers[playerIndex].Identifier));//如果是AI就是空值
+			} else 
+				goMakeFriend.SetActive(false);
+				
+			CheckFriendLike();
 		}
 	} 
 
@@ -246,18 +233,22 @@ public class UIGamePause : UIBase {
 
     public void OnMakeFriend() {
 		if(!string.IsNullOrEmpty(playerID)) {
-			goMakeFriend.SetActive(true);
 			if(isFriend) {
 				isFriend = false;
-				SendHttp.Get.MakeFriend(null, playerID);
-				labelMakeFriend.text = TextConst.S(5024);
 			} else {
 				isFriend = true;
-				labelMakeFriend.text = TextConst.S(5023);
+				SendHttp.Get.MakeFriend(CheckFriendLike, playerID);
 			}
-		} else 
-			goMakeFriend.SetActive(false);
+		} 
     }
+
+	public void CheckFriendLike () {
+		if(isFriend)
+			labelMakeFriend.text = TextConst.S(5023);
+		else
+			labelMakeFriend.text = TextConst.S(5024);
+		spriteMakeFriend.spriteName = ButtonBG(isFriend);
+	}
 
     public void OnOpenInfo() {
         

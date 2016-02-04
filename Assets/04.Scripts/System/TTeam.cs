@@ -65,6 +65,16 @@ namespace GameStruct
         public string LeagueName;
         public int LeagueIcon;
 
+		public bool CheckFriend (string id) {
+			if(Friends != null) {
+				if(string.IsNullOrEmpty(id))
+					return false;
+				else 
+					return Friends.ContainsKey(id); 
+			} else 
+				return false;
+		}
+
         /// <summary>
         /// 玩家選擇的戰術.
         /// </summary>
