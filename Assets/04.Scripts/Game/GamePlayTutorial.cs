@@ -162,22 +162,23 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 				eventTrigger.eventTrigger = eventTrigger.Item.AddComponent<EventTrigger>();
 				eventTrigger.sphereCollider = eventTrigger.Item.AddComponent<SphereCollider>();
 				eventTrigger.rigidbody = eventTrigger.Item.AddComponent<Rigidbody>();
-				eventTrigger.tweenScale = eventTrigger.Item.AddComponent<TweenScale>();
+				//eventTrigger.tweenScale = eventTrigger.Item.AddComponent<TweenScale>();
 				//eventTrigger.circularSectorMeshRenderer = eventTrigger.Item.GetComponent<CircularSectorMeshRenderer>();
 			} else
 				eventTrigger.Item.gameObject.SetActive(true);
 
 			eventTrigger.eventTrigger.NextEventID = eventList[i].NextEventID;
-			eventTrigger.sphereCollider.radius = eventList[i].Value3;
+			eventTrigger.sphereCollider.radius = 1;
 			eventTrigger.sphereCollider.isTrigger = true;
 			eventTrigger.rigidbody.isKinematic = true;
 			eventTrigger.rigidbody.useGravity = false;
-			eventTrigger.tweenScale.style = UITweener.Style.PingPong;
-			eventTrigger.tweenScale.from = Vector3.one;
-			eventTrigger.tweenScale.to = new Vector3(1.2f, 1.2f, 1.2f);
-			eventTrigger.tweenScale.duration = 0.2f;
+			//eventTrigger.tweenScale.style = UITweener.Style.PingPong;
+			//eventTrigger.tweenScale.from = Vector3.one;
+			//eventTrigger.tweenScale.to = new Vector3(1.2f, 1.2f, 1.2f);
+			//eventTrigger.tweenScale.duration = 0.2f;
 
-			//eventTrigger.circularSectorMeshRenderer.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
+            eventTrigger.Item.transform.localScale = new Vector3(eventList[i].Value3, eventList[i].Value3, eventList[i].Value3);
+            eventTrigger.Item.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
 			//eventTrigger.circularSectorMeshRenderer.ChangeValue(360, eventList[i].Value3);
 			EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			break;
