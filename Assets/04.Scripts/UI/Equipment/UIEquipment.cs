@@ -49,9 +49,6 @@ public class UIEquipment : UIBase
         Show(true);
 
         updateUI();
-
-//        var protocol = new ValueItemExchangeProtocol();
-//        protocol.Send(new [] {-2, -2, -2, -2, -2, -2, -1, -1}, new [] {-1, -1}, onChangeValueItem);
     }
 
     private void updateUI()

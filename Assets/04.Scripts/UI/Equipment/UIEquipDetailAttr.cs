@@ -13,7 +13,9 @@ public class UIEquipDetailAttr : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus)));
+        var button = GetComponent<UIButton>();
+        if(button != null)
+            button.onClick.Add(new EventDelegate(() => UIAttributeHint.Get.UpdateView((int)mBonus)));
     }
 
     public void Set(UIValueItemData.BonusData data, int inlayValue)

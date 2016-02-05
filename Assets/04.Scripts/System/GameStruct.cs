@@ -867,10 +867,11 @@ namespace GameStruct
     {
 		public int ID;
 
-        // [0]:Body, [1]:Hair, [2]:AHandDress, [3]:Cloth, [4]:Pants
-        // [5]:Shoes, [6]:MHeadDress, [7]:ZBackEquip.
-        // [11] ~ [18] 數值裝備(企劃尚未定義).
-        // [19]:鑲嵌材料, [21]:技能卡牌
+        // 0:Body, 1:Hair, 2:AHandDress, 3:Cloth, 4:Pants, 5:Shoes, 6:MHeadDress, 7:ZBackEquip.
+        // 11 ~ 16: 數值裝.
+        // 17,18: 次數型數值裝.
+        // 19:鑲嵌材料.
+        // 21:技能卡牌
         public int Kind;
 		public int LV;
 		public int Atlas;
@@ -975,6 +976,8 @@ namespace GameStruct
         public int UpgradeItem { get; private set; }
         [UsedImplicitly]
         public int UpgradeMoney { get; private set; }
+        [UsedImplicitly]
+        public int UpgradeLv { get; private set; }
 
         [UsedImplicitly, CanBeNull]
         public int[] StageSource { get; private set; }

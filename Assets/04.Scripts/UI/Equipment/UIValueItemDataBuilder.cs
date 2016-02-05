@@ -101,6 +101,11 @@ public static class UIValueItemDataBuilder
             Inlay = convertInlayStatus(playerInlayItemIDs),
             InlayValues = convertInlayBonus(playerInlayItemIDs),
             Status = UIEquipChecker.FindStatus(item, playerInlayItemIDs),
+            LevelNotEnoughText = UIEquipChecker.IsInlayFull(item, playerInlayItemIDs) && 
+                                 UIEquipChecker.HasUpgradeMoney(item) &&
+                                 !UIEquipChecker.IsLevelEnough(item) 
+                                 ? String.Format(TextConst.S(6010), item.UpgradeLv)
+                                 : String.Empty,
             Num = num,
             UpgradeMoney = item.UpgradeMoney
         };

@@ -6,9 +6,11 @@ public static class UIEquipChecker
     public static UIValueItemData.EStatus FindStatus(TItemData item, int[] playerInlayItemIDs)
     {
         if(11 <= item.Kind && item.Kind <= 16)
-            return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs) && HasUpgradeMoney(item) 
+            return HasUpgradeItem(item) && IsInlayFull(item, playerInlayItemIDs) && 
+                   HasUpgradeMoney(item) && IsLevelEnough(item)
                    ? UIValueItemData.EStatus.Upgradeable 
                    : UIValueItemData.EStatus.CannotUpgrade;
+
         if(item.Kind == 17 || item.Kind == 18)
             return UIValueItemData.EStatus.Demount;
 
@@ -23,6 +25,11 @@ public static class UIEquipChecker
     public static bool HasUpgradeMoney(TItemData item)
     {
         return GameData.Team.Money >= item.UpgradeMoney;
+    }
+
+    public static bool IsLevelEnough(TItemData item)
+    {
+        return GameData.Team.Player.Lv >= item.UpgradeLv;
     }
 
     /// <summary>

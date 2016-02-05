@@ -20,6 +20,11 @@ public class UIValueItemData
     {
         CannotUpgrade, Upgradeable, Demount, CannotDemount
     }
+    public EStatus Status;
+    /// <summary>
+    /// 道具的升級等級不足時要顯示的訊息.
+    /// </summary>
+    public string LevelNotEnoughText = String.Empty;
 
     public const int StorageIndexNone = -2;
     public const int StorageIndexDemount = -1;
@@ -121,8 +126,6 @@ public class UIValueItemData
 
     public int Num; // 堆疊數量.
     public int UpgradeMoney;
-
-    public EStatus Status;
 
     public override string ToString()
     {

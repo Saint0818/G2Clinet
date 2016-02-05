@@ -36,6 +36,7 @@ public class UIEquipDetail : MonoBehaviour
     private const string ButtonNormal = "button_orange1";
     private const string ButtonDisable = "button_gray";
     public UILabel Desc;
+    public UILabel LevelNotEnoughLabel;
 
     private UIEquipItem mEquipItem;
 
@@ -88,6 +89,9 @@ public class UIEquipDetail : MonoBehaviour
             mAttrs[i].Set(pair.Value, data.GetInlayValue(pair.Key));
             ++i;
         }
+
+        LevelNotEnoughLabel.gameObject.SetActive(!string.IsNullOrEmpty(data.LevelNotEnoughText));
+        LevelNotEnoughLabel.text = data.LevelNotEnoughText;
     }
 
     public Vector3 GetInlayPosition(int index)

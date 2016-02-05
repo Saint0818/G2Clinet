@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 using UnityEngine;
 
 public class ValueItemUpgradeAction : ActionQueue.IAction
@@ -21,7 +22,6 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
         if(UIEquipChecker.FindStatus(item, valueItem.RevisionInlayItemIDs) == UIValueItemData.EStatus.Upgradeable)
         {
             var upgradeCommand = new ValueItemUpgradeProtocol();
-            // 數值裝是從 11 開始. 所以只要加上 11, 就是對應的 kind.
             upgradeCommand.Send(mPlayerValueItemKind, onUpgrade);
         }
         else if(!UIEquipChecker.HasUpgradeItem(item))
@@ -41,6 +41,12 @@ public class ValueItemUpgradeAction : ActionQueue.IAction
             // 沒錢.
             Debug.Log("Money not enoguh.");
             UIHint.Get.ShowHint(TextConst.S(552), Color.white);
+        }
+        else if(!UIEquipChecker.IsLevelEnough(item))
+        {
+            // 等級不足.
+            Debug.Log("Level not enough.");
+            UIHint.Get.ShowHint(String.Format(TextConst.S(6010), item.UpgradeLv), Color.white);
         }
         else
             Debug.LogError("Not Implemented...");
