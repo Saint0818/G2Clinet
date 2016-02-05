@@ -83,6 +83,15 @@ public struct TUICard{
 	public int CardIndex;
 	public int Cost;
 
+	private bool recordIsEquip;
+	public bool RecordIsEquip {
+		get {return recordIsEquip;}
+	}
+
+	public void SetIsEquip (bool isEquip) {
+		recordIsEquip = isEquip;
+	}
+
 	public void SetCoin (int money) {
 		skillCard.SetCoin(money);
 	}
@@ -99,7 +108,7 @@ public struct TUICard{
 	}
 
 	public void UpdateRedPoint (bool isEquip, TSkill skill) {
-
+		recordIsEquip = isEquip;
 		if(!isEquip) {
 			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard) ||
@@ -108,6 +117,11 @@ public struct TUICard{
 			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) ||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard));
 		}
+	}
+
+	public void RefreshRedPoint (bool isExtraCard ) { // For All
+		skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skillCard.Skill) ||
+			((skillCard.Skill.Lv < GameData.DSkillData[skillCard.Skill.ID].MaxStar) && isExtraCard));
 	}
 }
 
@@ -495,7 +509,7 @@ public class UISkillFormation : UIBase {
 		checkCostIfMask();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 
-		scrollViewCardList.enabled = !(skillSortCards.Count <= 6);
+//		scrollViewCardList.enabled = !(skillSortCards.Count <= 6);
 		betterGrid.init();
 		betterGrid.mChildren = skillSortCards;
 		resetScrollPostion ();
@@ -588,7 +602,6 @@ public class UISkillFormation : UIBase {
 				uicard.Init(obj, skillCardIndex, skill, isEquip, new EventDelegate(OnCardDetailInfo));
 				uicard.skillCard.UpdateViewFormation(skill, isEquip);
 				uiCards.Add(obj.transform.name, uicard);
-				
 				return obj;
 			}
 		}
@@ -648,6 +661,7 @@ public class UISkillFormation : UIBase {
 			
 			checkCostIfMask();
 			uicard.UpdateRedPoint(true, uicard.skillCard.Skill);
+			uicard.SetIsEquip(true);
 			return true;
 		} 
 //		else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
@@ -674,21 +688,24 @@ public class UISkillFormation : UIBase {
 										skillsRecord.Remove(activeStruct[index].GetSelfName);
 									Destroy(activeStruct[index].ItemEquipActiveCard);
 									activeStruct[index].ActiveClear();
-									if(addItems(uiCards[name], index))
+									if(addItems(uiCards[name], index)){
 										AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+									}
 								}
 //								else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 							}
 						} else {
 							removeItems(activeStruct[activeFieldLimit - 1].CardID, activeStruct[activeFieldLimit - 1].CardSN, activeStruct[activeFieldLimit - 1].ItemEquipActiveCard);
-							if(addItems(uiCards[name], activeFieldLimit - 1)) 
+							if(addItems(uiCards[name], activeFieldLimit - 1)) {
 								AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+							}
 						}
 					} else {
 						if(!activeStruct[index].CheckBeInstall) {
 							if(checkCost(uiCards[name].Cost)) 
-								if(addItems(uiCards[name], index))
-									AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+							if(addItems(uiCards[name], index)){
+								AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+							}
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 						} else {
 							if(checkCost(uiCards[name].Cost)) {
@@ -702,8 +719,9 @@ public class UISkillFormation : UIBase {
 										break;
 									}
 								}
-								if(addItems(uiCards[name], index))
+								if(addItems(uiCards[name], index)) {
 									AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+								}
 							}
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
@@ -719,6 +737,7 @@ public class UISkillFormation : UIBase {
 						
 				}
 			}
+			refreshRedPoint();
 		}
 	}
 
@@ -785,6 +804,7 @@ public class UISkillFormation : UIBase {
 				checkCostIfMask();
 			}
 			uiCards[go.name].UpdateRedPoint(false, uiCards[go.name].skillCard.Skill);
+			uiCards[go.name].SetIsEquip(false);
 		}
 	}
 	
@@ -1109,13 +1129,42 @@ public class UISkillFormation : UIBase {
 //		gridPassiveCardBase.repositionNow = true;
 //	}
 
+	public bool CheckCardnoInstall{
+		get {
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+				if (!skillsRecord.Contains(uicard.Value.Card.name))
+					return true;
+			}
+			return false;
+		}
+	}
+
+	public bool CheckCardnoInstallIgnoreSelf (string ignoreName){
+		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+			if(!ignoreName.Equals(uicard.Value.Card.name) ){
+				if (!skillsRecord.Contains(uicard.Value.Card.name))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private void refreshRedPoint () {
+		bool anyNotInstallCard = CheckCardnoInstall;
+		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+			uicard.Value.RefreshRedPoint(anyNotInstallCard);
+		}
+	}
+
 	public void DoUnEquipCard (TUICard uicard){
 		if(!IsBuyState) {
 			if(uicard.Card != null && uiCards.ContainsKey(uicard.Card.name)) {
 				removeItems(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.SN, uicard.Card);
 				uicard.UpdateRedPoint(false, uicard.skillCard.Skill);
+				uicard.SetIsEquip(false);
 			}
 			refreshCards();
+			refreshRedPoint ();
 		}
 //		else UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
@@ -1137,6 +1186,7 @@ public class UISkillFormation : UIBase {
 				if(uicard.skillCard.IsInstall) { //Selected to NoSelected
 					uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
 					uicard.UpdateRedPoint(false, uicard.skillCard.Skill);
+					uicard.SetIsEquip(false);
 					removeItems(uicard.skillCard.Skill.ID, uicard.skillCard.Skill.SN, uicard.Card);
 				} else { //NoSelected to Selected
 					if(addItems(uicard)){
@@ -1147,6 +1197,7 @@ public class UISkillFormation : UIBase {
 				refreshPassiveItems();
 			}
 			refreshCards();
+			refreshRedPoint();
 		} 
 		else Debug.LogWarning ("It's Buy State.");
 	}
@@ -1190,6 +1241,7 @@ public class UISkillFormation : UIBase {
 	public void OnRemoveItem(GameObject go, bool state){
 		removeItems(uiCards[go.transform.parent.name].skillCard.Skill.ID, uiCards[go.transform.parent.name].skillCard.Skill.SN, go.transform.parent.gameObject);
 		refreshCards();
+		refreshRedPoint ();
 	}
 
 	private void activeCheckShow (bool isClick){

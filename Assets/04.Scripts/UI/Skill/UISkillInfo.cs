@@ -174,13 +174,13 @@ public class UISkillInfo : UIBase {
 			}
 			TSkillData skillData = GameData.DSkillData[skill.ID];
 			if(cardIndex != -1) {
-				goEquipUnuse.SetActive((mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && !isAlreadyEquip);
-				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
-				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar));
-
-				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && !isAlreadyEquip);
+				goEquipUnuse.SetActive((mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
+				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
+
+				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && !UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar));
+				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 			}
 
 			//MediumCard

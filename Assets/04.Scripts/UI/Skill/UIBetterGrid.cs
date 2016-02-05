@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using GameEnum;
 
 /// <summary>
 /// This script makes it possible for a scroll view to wrap its content, creating endless scroll views.
@@ -61,6 +62,27 @@ public class UIBetterGrid : MonoBehaviour
 		return int.Parse(sn[2]);
 	}
 
+	private int getID (string name){
+		string[] sn = name.Split("_"[0]);
+		return int.Parse(sn[1]);
+	}
+
+	private int getSort{
+		get {return PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());}
+	}
+
+	private bool isNeedShow (string name) {
+		int id = getID(name);
+		if(getSort == (int)EFilter.All) 
+			return true;
+		else if(getSort == (int)EFilter.Active) 
+			return GameFunction.IsActiveSkill(id);
+		else if(getSort == (int)EFilter.Passive) 
+			return !GameFunction.IsActiveSkill(id);
+		
+		return true;
+	}
+
 	public virtual void WrapContent ()
 	{
 		Vector3[] corners = mPanel.worldCorners;
@@ -82,8 +104,8 @@ public class UIBetterGrid : MonoBehaviour
 					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
 					{
 						Transform t = mChildren[i].transform;
-						if(t != null && mChildren[i].activeSelf) {
-							if(isSkillCardCanSell(getSN(mChildren[i].name))) {
+						if(t != null) {
+							if(isSkillCardCanSell(getSN(mChildren[i].name)) && isNeedShow(mChildren[i].name)) {
 								float distance = t.localPosition.x - center.x;
 								
 								if (cullContent)
@@ -108,14 +130,16 @@ public class UIBetterGrid : MonoBehaviour
 					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
 					{
 						Transform t = mChildren[i].transform;
-						if(t != null && mChildren[i].activeSelf) {
-							float distance = t.localPosition.x - center.x;
-
-							if (cullContent)
-							{
-								distance += mPanel.clipOffset.x - mTrans.localPosition.x;
-								if (!UICamera.IsPressed(t.gameObject))
-									NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+						if(t != null) {
+							if(isNeedShow(mChildren[i].name)) {
+								float distance = t.localPosition.x - center.x;
+								
+								if (cullContent)
+								{
+									distance += mPanel.clipOffset.x - mTrans.localPosition.x;
+									if (!UICamera.IsPressed(t.gameObject))
+										NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+								}
 							}
 						}
 					}
