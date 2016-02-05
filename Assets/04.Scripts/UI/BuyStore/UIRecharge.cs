@@ -116,6 +116,7 @@ public struct TItemRecharge {
 
 	public  void UpdateViewForMall (int index, int order, TMall mall) {
 		mIndex = index;
+		mSelf.name = order.ToString();
 		PriceButton.name = mall.Order.ToString();
 		mSelf.transform.localPosition = new Vector3(-400 + order * 275, 0, 0);
 		PriceLabel.text = mall.Price;
@@ -239,7 +240,7 @@ public class UIRecharge : UIBase {
 			tabGos[i] = GameObject.Find(UIName + "/Center/Window/Tabs/" + i.ToString());
 			tabSelects[i] = tabGos[i].transform.Find("Selected").gameObject;
 			UIEventListener.Get(tabGos[i]).onClick = OnClickTab;
-			pages[i] = GameObject.Find(UIName + "/Center/Window/Pages/" + i.ToString());
+			pages[i] = GameObject.Find(UIName + "/Center/Window/Pages/" + i.ToString()); 
 			scrollviews[i] = pages[i].transform.Find("Vertical/ScrollView").gameObject;
 		}
 
@@ -292,9 +293,11 @@ public class UIRecharge : UIBase {
 				kindBuyCoin[GameData.DShops[i].Order].init(Instantiate(prefabKind[1]), scrollviews[1]);
 				kindBuyCoin[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
 				if(GameData.DShops[i].Kind == 0)
-					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
+//					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
+					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
+//					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
+					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnPower;
 			} else if(GameData.DShops[i].Kind == 1) {
 				if(GameData.DShops[i].Order >= BuyStaminaLen) {
 					Debug.LogError("Order is Wrong. Kind = " + GameData.DShops[i].Kind );
@@ -303,9 +306,11 @@ public class UIRecharge : UIBase {
 				kindBuyStamina[GameData.DShops[i].Order].init(Instantiate(prefabKind[2]), scrollviews[2]);
 				kindBuyStamina[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
 				if(GameData.DShops[i].Kind == 0)
-					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
+//					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
+					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
+//					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
+					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnPower;
 			}
 
 		}
@@ -320,16 +325,17 @@ public class UIRecharge : UIBase {
 			}
 			kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
 			kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
-			kindBuyDiamond[GameData.DMalls[i].Order].UpdateBtn(new EventDelegate(OnBuyDiamond));
+//			kindBuyDiamond[GameData.DMalls[i].Order].UpdateBtn(new EventDelegate(OnBuyDiamond));
+			UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].mSelf).onClick = OnBuyDiamond;
 		}
 	}
 
-	public void OnBuyDiamond () {
+	public void OnBuyDiamond (GameObject go) {
         if (FileManager.NowMode == VersionMode.Release)
 		    UIHint.Get.ShowHint(TextConst.S(502), Color.red);
         else {
     		int result = -1;
-    		if(int.TryParse(UIButton.current.name, out result)) {
+    		if(int.TryParse(go.name, out result)) {
     			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
     				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
     			}
@@ -337,9 +343,9 @@ public class UIRecharge : UIBase {
         }
 	}
 
-	public void OnBuyCoin () {
+	public void OnBuyCoin (GameObject go) {
 		int result = -1;
-		if(int.TryParse(UIButton.current.name, out result)) {
+		if(int.TryParse(go.name, out result)) {
 			if(result >= 0 && result < kindBuyCoin.Length && GameData.DItemData.ContainsKey(kindBuyCoin[result].mShop.ItemID)) {
 				buyIndex = kindBuyCoin[result].mIndex;
 				if(kindBuyCoin[result].mShop.SpendKind == 0 ) {
@@ -351,9 +357,9 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public void OnPower () {
+	public void OnPower (GameObject go) {
 		int result = -1;
-		if(int.TryParse(UIButton.current.name, out result)) {
+		if(int.TryParse(go.name, out result)) {
 			if(result >= 0 && result < kindBuyStamina.Length) {
 				
 				if(kindBuyStamina[result].mShop.Order == 0) {
