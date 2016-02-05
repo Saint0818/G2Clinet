@@ -86,7 +86,9 @@ public class UIHeadPortrait : UIBase
         get
         {
             if (instance)
+            {
                 return instance.gameObject.activeInHierarchy;
+            }
             else
                 return false;
         }
@@ -115,12 +117,16 @@ public class UIHeadPortrait : UIBase
 					RemoveUI (UIName);
 			else {
 				instance.Show (isShow);
-				Vector3 pos = instance.gameObject.transform.localPosition;
-				instance.gameObject.transform.localPosition = new Vector3 (pos.x, pos.y, -10);
 			}
         }
         else if (isShow)
-            Get.Show(isShow);		
+            Get.Show(isShow);	
+
+        if (isShow)
+        {
+            Vector3 pos = instance.gameObject.transform.localPosition;
+            instance.gameObject.transform.localPosition = new Vector3 (pos.x, pos.y, -10);  
+        }
     }
 
     public static UIHeadPortrait Get
