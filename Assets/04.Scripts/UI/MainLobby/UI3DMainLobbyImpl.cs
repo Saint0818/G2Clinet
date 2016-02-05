@@ -31,7 +31,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private UIButton[] Btns = new UIButton[BuildCount];
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
-    private Transform DummyBall;
+//    private Transform DummyBall;
     private AnimatorBehavior playerControl;
     private EPlayerState crtState;
     private int stateNo = 0;
@@ -88,7 +88,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         if (delay > 0)
             delay -= Time.deltaTime;
 
-        Move();
+//        Move();
     }
 
     private void OnSelect()
@@ -281,8 +281,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     public void Show()
     {
         UpdateAvatar();
-        InitSkillstate();
-        InitAnmator();
+//        InitSkillstate();
+//        InitAnmator();
     }
 
     public void Hide()
@@ -308,7 +308,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
         playerCenterPos = mAvatarPlayer.transform.position;
         CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
-        DummyBall = mAvatarPlayer.transform.Find("DummyBall").gameObject.transform;
+        //TODO: 因新帳號無人物資料造成find null，所以先關掉
+//        DummyBall = mAvatarPlayer.transform.Find("DummyBall").gameObject.transform;
     }
 
     void InitSkillstate()
@@ -344,134 +345,145 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         return showstate[random];
     }
 
-    private void InitAnmator()
-    {
-        playerControl = mAvatarPlayer.GetComponent<AnimatorBehavior>();
-        if (playerControl == null)
-            playerControl = mAvatarPlayer.AddComponent<AnimatorBehavior>();
-        playerControl.Init(mAvatarPlayer.gameObject.GetComponent<Animator>());
-        playerControl.Play(EPlayerState.Dribble0, 0);
-        CourtMgr.Get.CloneReallBall();
-        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall);
+//    private void InitAnmator()
+//    {
+//        playerControl = mAvatarPlayer.GetComponent<AnimatorBehavior>();
+//        if (playerControl == null)
+//            playerControl = mAvatarPlayer.AddComponent<AnimatorBehavior>();
+//        playerControl.Init(mAvatarPlayer.gameObject.GetComponent<Animator>());
+//        playerControl.Play(EPlayerState.Dribble0, 0);
+//        CourtMgr.Get.CloneReallBall();
+//        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall);
+//
+//        if (basket)
+//        {
+//            if (basket.GetComponent<BasketAnimation>() == null)
+//                basket.AddComponent<BasketAnimation>();
+//            CourtMgr.Get.ChangeBasketByLobby(basket);
+//            CourtMgr.Get.ShootPoint[0] = basket.transform.Find("DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop").gameObject;
+//        }
+//
+//        playerControl.DunkBasketStartDel = DunkBasketStart;
+//        playerControl.AnimationEndDel = AnimatorEnd;
+//        playerControl.ShootingDel = OnShooting;
+//        playerControl.SkillDel = SkillEventCallBack;
+//    }
 
-        if (basket)
-        {
-            if (basket.GetComponent<BasketAnimation>() == null)
-                basket.AddComponent<BasketAnimation>();
-            CourtMgr.Get.ChangeBasketByLobby(basket);
-            CourtMgr.Get.ShootPoint[0] = basket.transform.Find("DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop").gameObject;
-        }
+//    private void DunkBasketStart()
+//    {
+//        CourtMgr.Get.PlayDunk(0, stateNo);
+//    }
 
-        playerControl.DunkBasketStartDel = DunkBasketStart;
-        playerControl.AnimationEndDel = AnimatorEnd;
-        playerControl.ShootingDel = OnShooting;
-        playerControl.SkillDel = SkillEventCallBack;
-    }
+//    private void AnimatorEnd()
+//    {
+//        isReturn = true;
+//    }
 
-    private void DunkBasketStart()
-    {
-        CourtMgr.Get.PlayDunk(0, stateNo);
-    }
+//    private bool isReturn = false;
+//    private bool isRotate = false;
+//    private bool isfloor = true;
 
-    private void AnimatorEnd()
-    {
-        isReturn = true;
-    }
+//    private void Move()
+//    {
+//        if (isReturn)
+//        {
+//            mAvatarPlayer.transform.position = Vector3.MoveTowards(mAvatarPlayer.transform.position, 
+//                playerCenterPos, 
+//                Time.deltaTime * GameConst.DefSpeedup * GameData.Team.Player.Speed * 0.08f);
+//
+//            if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 3f && isRotate == false)
+//            {
+//                isRotate = true;
+//                mAvatarPlayer.transform.DOLocalRotate(Vector3.zero, 0.4f);
+//            }
+//
+//            if (!isfloor)
+//            {
+//                if (CourtMgr.Get.RealBall.transform.position.y <= 0)
+//                {
+//                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
+//                    {
+//                        Debug.Log("1");
+//                        PlayDribble(EPlayerState.Dribble0);
+//                        Finish();
+//                    }
+//                    else
+//                    {
+//                        Debug.Log("2");
+//                        PlayDribble(EPlayerState.Dribble2);
+//                    }
+//                }
+//                else
+//                {
+//                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 0.5f)
+//                    {
+//                        Debug.Log("3");
+//                        PlayDribble(EPlayerState.Dribble0);
+//                    }
+//                    else
+//                    {
+//                        Debug.Log("4");
+//                        PlayDribble(EPlayerState.Dribble2);
+//                    }
+//                }  
+//            }
+//            else
+//            {
+//                if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
+//                {
+//                    Debug.Log("5");
+//                    PlayDribble(EPlayerState.Dribble0);
+//                    Finish();
+//                }
+//                else
+//                {
+//                    Debug.Log("6");
+//                    PlayDribble(EPlayerState.Dribble2);
+//                }
+//            }
+//        }
+//        else
+//        {
+//            mAvatarPlayer.transform.LookAt(new Vector3(playerCenterPos.x, mAvatarPlayer.transform.position.y, playerCenterPos.z));
+//        }
+//    }
 
-    private bool isReturn = false;
-    private bool isRotate = false;
-    private bool isfloor = true;
+//    private void Finish()
+//    {
+//        isRotate = false;
+//        isReturn = false;
+//        isfloor = true;
+//    }
 
+//    private void PlayDribble(EPlayerState state)
+//    {
+//        if (crtState != state)
+//        {
+//            crtState = state;
+//            playerControl.Play(crtState, 0);
+//            if (state == EPlayerState.Dribble0 || state == EPlayerState.Dribble1 || state == EPlayerState.Dribble2 || state == EPlayerState.Dribble3)
+//            {
+//                CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall);
+//            }
+//        }	
+//    }
 
-    private void Move()
-    {
-        if (isReturn)
-        {
-            mAvatarPlayer.transform.position = Vector3.MoveTowards(mAvatarPlayer.transform.position, 
-                playerCenterPos, 
-                Time.deltaTime * GameConst.DefSpeedup * GameData.Team.Player.Speed * 0.08f);
+//    private void OnShooting()
+//    {
+//        isfloor = false;
+//        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Shooting, DummyBall);
+//
+//        CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+//            CourtMgr.Get.ShootPoint[0].transform.position, 60);  
+//    }
 
-            if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 3f && isRotate == false)
-            {
-                isRotate = true;
-                mAvatarPlayer.transform.DOLocalRotate(Vector3.zero, 0.4f);
-            }
-            else
-                mAvatarPlayer.transform.LookAt(new Vector3(playerCenterPos.x, mAvatarPlayer.transform.position.y, playerCenterPos.z));
-
-
-            if (!isfloor)
-            {
-                if (CourtMgr.Get.RealBall.transform.position.y <= 0)
-                {
-                    CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall); 
-                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
-                    {
-                        PlayDribble(EPlayerState.Dribble0);
-                        Finish();
-                    }
-                    else
-                    {
-                        PlayDribble(EPlayerState.Dribble2);
-                    }
-                }
-                else
-                {
-                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 0.5f)
-                    {
-                        PlayDribble(EPlayerState.Idle);
-                    }
-                    else
-                    {
-                        PlayDribble(EPlayerState.Run2);
-                    }
-                }  
-            }
-            else
-            {
-                if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
-                {
-                    PlayDribble(EPlayerState.Dribble0);
-                    Finish();
-                }
-                else
-                    PlayDribble(EPlayerState.Dribble2);
-            }
-        }
-    }
-
-    private void Finish()
-    {
-        isRotate = false;
-        isReturn = false;
-        isfloor = true;
-    }
-
-    private void PlayDribble(EPlayerState state)
-    {
-        if (crtState != state)
-        {
-            crtState = state;
-            playerControl.Play(crtState, 0);
-        }	
-    }
-
-    private void OnShooting()
-    {
-        isfloor = false;
-        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Shooting, DummyBall);
-
-        CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-            CourtMgr.Get.ShootPoint[0].transform.position, 60);  
-    }
-
-    public void SkillEventCallBack(AnimationEvent aniEvent)
-    {
-        switch (aniEvent.stringParameter)
-        {
-            case "Shooting":
-                OnShooting();
-                break;
-        }
-    }
+//    public void SkillEventCallBack(AnimationEvent aniEvent)
+//    {
+//        switch (aniEvent.stringParameter)
+//        {
+//            case "Shooting":
+//                OnShooting();
+//                break;
+//        }
+//    }
 }
