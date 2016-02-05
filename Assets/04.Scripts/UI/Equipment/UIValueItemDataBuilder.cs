@@ -103,6 +103,7 @@ public static class UIValueItemDataBuilder
             Status = UIEquipChecker.FindStatus(item, playerInlayItemIDs),
             LevelNotEnoughText = UIEquipChecker.IsInlayFull(item, playerInlayItemIDs) && 
                                  UIEquipChecker.HasUpgradeMoney(item) &&
+                                 UIEquipChecker.HasUpgradeItem(item) &&
                                  !UIEquipChecker.IsLevelEnough(item) 
                                  ? String.Format(TextConst.S(6010), item.UpgradeLv)
                                  : String.Empty,

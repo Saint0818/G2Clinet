@@ -237,8 +237,11 @@ public class UIEquipment : UIBase
 
         TValueItem valueItem = GameData.Team.Player.ValueItems[valueItemKind];
         TItemData item = GameData.DItemData[valueItem.ID];
-        TItemData newItem = GameData.DItemData[item.UpgradeItem];
-        mActionQueue.AddAction(new ShowLevelUp(item, newItem));
+        if(GameData.DItemData.ContainsKey(item.UpgradeItem))
+        {
+            TItemData newItem = GameData.DItemData[item.UpgradeItem];
+            mActionQueue.AddAction(new ShowLevelUp(item, newItem));
+        }
 
         mActionQueue.Execute(ok => updateUI());
     }
