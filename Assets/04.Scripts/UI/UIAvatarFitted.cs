@@ -524,7 +524,7 @@ public class UIAvatarFitted : UIBase
         //檢查是否有裝備背包Item
         foreach (KeyValuePair<int, TEquip> item in Equips)
         {
-            if (item.Value.BackageSort > 0)
+            if (item.Value.BackageSort >= 0)
                 return false;
         }
 
@@ -1173,7 +1173,7 @@ public class UIAvatarFitted : UIBase
 
             foreach (KeyValuePair<int, TEquip> item in Equips)
             {
-                if (item.Value.ID > 0 && item.Value.BackageSort > 0)
+                if (item.Value.ID > 0 && item.Value.BackageSort >= 0)
                 {
                     add.Add(item.Value.BackageSort);
                 }
@@ -1251,6 +1251,7 @@ public class UIAvatarFitted : UIBase
             GameData.Team.Player.Items = team.Player.Items;
             GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
             UpdateAvatar(true);
+            GameData.Team.Player.Init();
             UIHint.Get.ShowHint(TextConst.S(532), Color.black);
         }
         else
