@@ -41,11 +41,12 @@
     },
     {
         "openid": 9,
-        "lv": 20,
-        "diamond": 200
+        "lv": 20
     },
     {
-        "openid": 10
+        "openid": 10,
+        "lv": 20,
+        "diamond": 200
     },
     {
         "openid": 8,
