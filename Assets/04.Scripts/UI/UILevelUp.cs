@@ -203,7 +203,7 @@ public class UILevelUp : UIBase {
 	}
 
 	public void OnReturn (GameObject go) {
-		if(GameController.Visible) {
+		if(SceneMgr.Get.IsCourt) {
 			if(GameData.DExpData.ContainsKey(lv) && LimitTable.Ins.HasOpenIDByLv(lv)) {
 				UIShow(false);
 				UIAchievement.Get.ShowView(lv);
