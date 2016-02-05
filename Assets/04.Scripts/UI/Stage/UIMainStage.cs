@@ -63,9 +63,10 @@ public class UIMainStage : UIBase
 //        UIMainStageTools.SetDebugNewChapter();
         buildChapters();
 
-        if(isNeedPlayUnlockAnimation())
-            playUnlokAnimation();
-        else
+        // todo 因為在 Android 上, 目前撥會發生無法看見關卡的問題. 所以暫時先不要撥 Animation.
+//        if(isNeedPlayUnlockAnimation())
+//            playUnlokAnimation();
+//        else
             selectChapter();
     }
 
