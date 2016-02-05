@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": 10,
         "kind": 12,
         "lv": 5,
         "color": 1,
@@ -17,7 +17,7 @@
         "explainen": "Enhance the visibility rating"
     },
     {
-        "id": 10,
+        "id": 11,
         "kind": 1,
         "lv": 10,
         "color": 1,
@@ -35,11 +35,11 @@
         "explainen": "Enhance the visibility rating"
     },
     {
-        "id": 11,
+        "id": 12,
         "kind": 1,
         "lv": 10,
         "color": 2,
-        "privousid": 11,
+        "privousid": 12,
         "score": 2,
         "nametw": "業餘球員",
         "openui": "UIGameLobby",
@@ -54,11 +54,11 @@
         "explainen": "Enhance the visibility rating"
     },
     {
-        "id": 12,
+        "id": 13,
         "kind": 1,
         "lv": 10,
         "color": 3,
-        "privousid": 12,
+        "privousid": 13,
         "score": 3,
         "nametw": "職業球員",
         "openui": "UIGameLobby",
@@ -73,11 +73,11 @@
         "explainen": "Enhance the visibility rating"
     },
     {
-        "id": 13,
+        "id": 14,
         "kind": 1,
         "lv": 10,
         "color": 4,
-        "privousid": 13,
+        "privousid": 14,
         "score": 4,
         "nametw": "知名球星",
         "openui": "UIGameLobby",
@@ -92,11 +92,11 @@
         "explainen": "Enhance the visibility rating"
     },
     {
-        "id": 14,
+        "id": 15,
         "kind": 1,
         "lv": 10,
         "color": 5,
-        "privousid": 14,
+        "privousid": 15,
         "final": 1,
         "score": 5,
         "nametw": "世界球星",
