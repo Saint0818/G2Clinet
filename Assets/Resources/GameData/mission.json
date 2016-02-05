@@ -124,7 +124,8 @@
         "exp": [10,10,10],
         "diamond": [150,150,150],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 21,
@@ -140,7 +141,8 @@
         "exp": [10,10,10],
         "diamond": [190,190,190],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 22,
@@ -156,7 +158,8 @@
         "exp": [10,10,10],
         "diamond": [950,950,950],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 23,
@@ -172,7 +175,8 @@
         "exp": [10,10,10],
         "diamond": [1150,1150,1150],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 24,
@@ -188,7 +192,8 @@
         "exp": [10,10,10],
         "diamond": [1350,1350,1350],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 25,
@@ -204,7 +209,8 @@
         "exp": [10,10,10],
         "diamond": [3000,3000,3000],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 26,
@@ -220,7 +226,8 @@
         "exp": [10,10,10],
         "diamond": [3200,3200,3200],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 27,
@@ -237,7 +244,8 @@
         "exp": [10],
         "diamond": [3400],
         "spendkind": 2,
-        "explaintw": "提升聯盟對戰積分，提高聯盟等級"
+        "explaintw": "提升聯盟對戰積分，提高聯盟等級",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 50,
@@ -251,7 +259,8 @@
         "money": [400],
         "exp": [10],
         "diamond": [50],
-        "explaintw": "購買造型物件，提升自己時尚品味"
+        "explaintw": "購買造型物件，提升自己時尚品味",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 51,
@@ -266,7 +275,8 @@
         "money": [500,600],
         "exp": [10,10],
         "diamond": [50,100],
-        "explaintw": "購買造型物件，提升自己時尚品味"
+        "explaintw": "購買造型物件，提升自己時尚品味",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 52,
@@ -281,7 +291,8 @@
         "money": [2500,2700,2900],
         "exp": [10,10,10],
         "diamond": [200,200,250],
-        "explaintw": "購買造型物件，提升自己時尚品味"
+        "explaintw": "購買造型物件，提升自己時尚品味",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 53,
@@ -296,7 +307,8 @@
         "money": [2900,3100,3300,3500],
         "exp": [10,10,10,10],
         "diamond": [250,250,300,300],
-        "explaintw": "購買造型物件，提升自己時尚品味"
+        "explaintw": "購買造型物件，提升自己時尚品味",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 54,
@@ -312,7 +324,8 @@
         "money": [7000,7600,8200,8800,9400],
         "exp": [10,10,10,10,10],
         "diamond": [500,600,700,800,900],
-        "explaintw": "購買造型物件，提升自己時尚品味"
+        "explaintw": "購買造型物件，提升自己時尚品味",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 70,
@@ -326,7 +339,8 @@
         "money": [400],
         "exp": [10],
         "diamond": [50],
-        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。"
+        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 71,
@@ -341,7 +355,8 @@
         "money": [500,600],
         "exp": [10,10],
         "diamond": [50,100],
-        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。"
+        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 72,
@@ -356,7 +371,8 @@
         "money": [2500,2700,2900],
         "exp": [10,10,10],
         "diamond": [200,200,250],
-        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。"
+        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 73,
@@ -371,7 +387,8 @@
         "money": [2900,3100,3300,3500],
         "exp": [10,10,10,10],
         "diamond": [250,250,300,300],
-        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。"
+        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 74,
@@ -387,7 +404,8 @@
         "money": [7000,7600,8200,8800,9400],
         "exp": [10,10,10,10,10],
         "diamond": [500,600,700,800,900],
-        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。"
+        "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 90,
@@ -397,11 +415,13 @@
         "final": 1,
         "score": 1,
         "nametw": "結交球友",
+        "openui": "UISocial",
         "value": [1],
         "money": [100],
         "exp": [15],
         "diamond": [5],
-        "explaintw": "認識球友"
+        "explaintw": "認識球友",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 170,
@@ -415,7 +435,8 @@
         "money": [400],
         "exp": [10],
         "diamond": [5],
-        "explaintw": "提升聯盟對戰勝場數"
+        "explaintw": "提升聯盟對戰勝場數",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 171,
@@ -430,7 +451,8 @@
         "money": [500,600],
         "exp": [10,10],
         "diamond": [5,10],
-        "explaintw": "提升聯盟對戰勝場數"
+        "explaintw": "提升聯盟對戰勝場數",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 172,
@@ -445,7 +467,8 @@
         "money": [2500,2700,2900],
         "exp": [10,10,10],
         "diamond": [20,20,25],
-        "explaintw": "提升聯盟對戰勝場數"
+        "explaintw": "提升聯盟對戰勝場數",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 173,
@@ -460,7 +483,8 @@
         "money": [2900,3100,3300,3500],
         "exp": [10,10,10,10],
         "diamond": [25,25,30,30],
-        "explaintw": "提升聯盟對戰勝場數"
+        "explaintw": "提升聯盟對戰勝場數",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 174,
@@ -476,7 +500,8 @@
         "money": [7000,7600,8200,8800,9400],
         "exp": [10,10,10,10,10],
         "diamond": [50,60,70,80,90],
-        "explaintw": "提升聯盟對戰勝場數"
+        "explaintw": "提升聯盟對戰勝場數",
+        "explainen": "Enhance the visibility rating"
     },
     {
         "id": 310,
@@ -1668,6 +1693,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "挑戰魔王",
+        "openui": "UIGameLobby",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1675,7 +1701,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "A copy of the winning number",
-        "explaintw": "取得魔王挑戰的勝利"
+        "explaintw": "取得魔王挑戰的勝利",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2170,
@@ -1687,6 +1714,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "聯盟勝利",
+        "openui": "UIGameLobby",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1694,7 +1722,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "PVP winning number",
-        "explaintw": "取得聯盟對戰的勝利"
+        "explaintw": "取得聯盟對戰的勝利",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2410,
@@ -1706,6 +1735,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "時機掌握",
+        "openui": "UIGameLobby",
         "value": [5],
         "money": [100],
         "exp": [30],
@@ -1713,7 +1743,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Perfect Number",
-        "explaintw": "成功掌握投籃的Perfect時機次數"
+        "explaintw": "成功掌握投籃的Perfect時機次數",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2810,
@@ -1725,6 +1756,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "技能成長",
+        "openui": "UISkillFormation",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1732,7 +1764,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Skills Upgrading synthesis card",
-        "explaintw": "技能晶片升級合成次數"
+        "explaintw": "技能晶片升級合成次數",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2820,
@@ -1744,6 +1777,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "技能突破",
+        "openui": "UISkillFormation",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1751,7 +1785,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Advanced Skills Card",
-        "explaintw": "技能晶片進化次數"
+        "explaintw": "技能晶片進化次數",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2830,
@@ -1763,6 +1798,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "突觸強化",
+        "openui": "UIEquipment",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1770,7 +1806,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Numerical mounted mosaic",
-        "explaintw": "突觸強化鑲嵌次數"
+        "explaintw": "突觸強化鑲嵌次數",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 2840,
@@ -1782,6 +1819,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "突觸進化",
+        "openui": "UIEquipment",
         "value": [1],
         "money": [100],
         "exp": [30],
@@ -1789,7 +1827,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Numerical loaded synthesis",
-        "explaintw": "突觸強化合成次數"
+        "explaintw": "突觸強化合成次數",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 3220,
@@ -1801,6 +1840,7 @@
         "timevalue": 0,
         "score": 1,
         "nametw": "體力達人",
+        "openui": "UIGameLobby",
         "value": [10],
         "money": [100],
         "exp": [30],
@@ -1808,7 +1848,8 @@
         "awardid": [0],
         "awardnum": [0],
         "nameen": "Consumer physical",
-        "explaintw": "消費體力數量"
+        "explaintw": "消費體力數量",
+        "explainen": "Career victory won three games daily"
     },
     {
         "id": 3200,

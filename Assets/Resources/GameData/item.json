@@ -1590,7 +1590,9 @@
         "flag": 1,
         "namecn": "前锋头发13",
         "nameen": "13 striker hair",
-        "namejp": "13ストライカーの毛"
+        "namejp": "13ストライカーの毛",
+        "explaintw": "冰霜鬥士，心中燃著熊熊火焰。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Blue hair color for those who want to shine"
     },
     {
         "id": 1114,
@@ -1609,7 +1611,9 @@
         "flag": 1,
         "namecn": "前锋头发14",
         "nameen": "Hair striker 14",
-        "namejp": "髪のストライカー14"
+        "namejp": "髪のストライカー14",
+        "explaintw": "白髮才能顯出球技高強。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Blue hair color for those who want to shine"
     },
     {
         "id": 1115,
@@ -1939,7 +1943,8 @@
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
         "namejp": "ガード毛13",
-        "explaintw": "鄰家女孩般的活潑俏麗。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "鄰家女孩般的活潑俏麗。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Don't mess with gils from the hood."
     },
     {
         "id": 1213,
@@ -1958,7 +1963,9 @@
         "flag": 1,
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
-        "namejp": "ガード毛13"
+        "namejp": "ガード毛13",
+        "explaintw": "帥氣俐落、敢愛敢恨。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Don't mess with gils from the hood."
     },
     {
         "id": 1214,
@@ -2660,7 +2667,9 @@
         "flag": 1,
         "namecn": "前锋手饰13",
         "nameen": "Forward jewelry 13",
-        "namejp": "フォワードジュエリー13"
+        "namejp": "フォワードジュエリー13",
+        "explaintw": "能夠增強手腕迴轉角度。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Get some extra grip"
     },
     {
         "id": 2114,
@@ -2679,7 +2688,9 @@
         "flag": 1,
         "namecn": "前锋手饰14",
         "nameen": "Forward jewelry 14",
-        "namejp": "フォワードジュエリー14"
+        "namejp": "フォワードジュエリー14",
+        "explaintw": "戴上後氣勢非凡。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Get some extra grip"
     },
     {
         "id": 2115,
@@ -2992,7 +3003,8 @@
         "namecn": "后卫手饰12",
         "nameen": "Defender jewelry 12",
         "namejp": "ディフェンダーの宝石12",
-        "explaintw": "甜美清純的鄰家女孩風格。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "甜美清純的鄰家女孩風格。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
         "id": 2213,
@@ -3011,7 +3023,9 @@
         "flag": 1,
         "namecn": "后卫手饰13",
         "nameen": "Defender jewelry 13",
-        "namejp": "ディフェンダーの宝石13"
+        "namejp": "ディフェンダーの宝石13",
+        "explaintw": "地下社會中流傳已久的護身紋路。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
         "id": 2214,
@@ -3361,7 +3375,8 @@
         "namecn": "中锋衣服12",
         "nameen": "Clothes center 12",
         "namejp": "服センタ12",
-        "explaintw": "東方風格的黑道夾克。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "東方風格的黑道夾克。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Massive beads hault negative energy"
     },
     {
         "id": 3013,
@@ -3381,7 +3396,8 @@
         "namecn": "中锋衣服13",
         "nameen": "Clothes center 13",
         "namejp": "服センタ13",
-        "explaintw": "攀上巔峰，極限戰士。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "攀上巔峰，極限戰士。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Massive beads hault negative energy"
     },
     {
         "id": 3014,
@@ -3618,7 +3634,8 @@
         "namecn": "前锋衣服6",
         "nameen": "6 forward clothes",
         "namejp": "6前方服",
-        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。"
+        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Special design to maximize energy."
     },
     {
         "id": 3107,
@@ -3748,7 +3765,9 @@
         "flag": 1,
         "namecn": "前锋衣服13",
         "nameen": "13 striker clothes",
-        "namejp": "13ストライカー服"
+        "namejp": "13ストライカー服",
+        "explaintw": "激發如珠穆朗瑪峰般的高昂鬥志。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Special design to maximize energy."
     },
     {
         "id": 3114,
@@ -3767,7 +3786,9 @@
         "flag": 1,
         "namecn": "前锋衣服14",
         "nameen": "14 striker clothes",
-        "namejp": "14ストライカー服"
+        "namejp": "14ストライカー服",
+        "explaintw": "高聳領口可以遮住半張臉。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Special design to maximize energy."
     },
     {
         "id": 3115,
@@ -4098,7 +4119,8 @@
         "namecn": "后卫衣服11",
         "nameen": "Guard clothes 11",
         "namejp": "Guardは11服",
-        "explaintw": "天真無邪的少女裝扮。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "天真無邪的少女裝扮。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "For those who take sexiness seriously all the time."
     },
     {
         "id": 3213,
@@ -4117,7 +4139,9 @@
         "flag": 1,
         "namecn": "后卫衣服13",
         "nameen": "Guard clothes 13",
-        "namejp": "Guardは13服"
+        "namejp": "Guardは13服",
+        "explaintw": "天真無邪的少女裝扮。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "For those who take sexiness seriously all the time."
     },
     {
         "id": 3214,
@@ -4467,7 +4491,8 @@
         "namecn": "中锋裤子12",
         "nameen": "Pants center 12",
         "namejp": "パンツ・センター12",
-        "explaintw": "以氣勢取勝的極道風格。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "以氣勢取勝的極道風格。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "This is your street, show your style."
     },
     {
         "id": 4013,
@@ -4487,7 +4512,8 @@
         "namecn": "中锋裤子13",
         "nameen": "Pants center 13",
         "namejp": "パンツ・センター13",
-        "explaintw": "極限戰士的極限裝束。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "極限戰士的極限裝束。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "This is your street, show your style."
     },
     {
         "id": 4014,
@@ -4724,7 +4750,8 @@
         "namecn": "前锋裤子6",
         "nameen": "Forward pants 6",
         "namejp": "フォワードパンツ6",
-        "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。"
+        "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "With boosting energy flow and excellent protections."
     },
     {
         "id": 4107,
@@ -4854,7 +4881,9 @@
         "flag": 1,
         "namecn": "前锋裤子13",
         "nameen": "Forward pants 13",
-        "namejp": "フォワードパンツ13"
+        "namejp": "フォワードパンツ13",
+        "explaintw": "極地氣候仍要展現熱血。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "With boosting energy flow and excellent protections."
     },
     {
         "id": 4114,
@@ -4873,7 +4902,9 @@
         "flag": 1,
         "namecn": "前锋裤子14",
         "nameen": "Forward pants 14",
-        "namejp": "フォワードパンツ14"
+        "namejp": "フォワードパンツ14",
+        "explaintw": "地下社會鍾愛，絲綢質感，高伸縮性。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "With boosting energy flow and excellent protections."
     },
     {
         "id": 4115,
@@ -5074,7 +5105,8 @@
         "namecn": "后卫裤子5",
         "nameen": "5 guard pants",
         "namejp": "5ガードパンツ",
-        "explaintw": "活潑有勁的清涼藍色。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "活潑有勁的清涼藍色。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Reminiscent of you team."
     },
     {
         "id": 4206,
@@ -5092,7 +5124,8 @@
         "namecn": "后卫裤子6",
         "nameen": "Defender pants 6",
         "namejp": "ディフェンダーパンツ6",
-        "explaintw": "熱情可愛的甜美桃紅。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "熱情可愛的甜美桃紅。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Reminiscent of you team."
     },
     {
         "id": 4207,
@@ -5202,7 +5235,8 @@
         "namecn": "后卫裤子13",
         "nameen": "Defender pants 13",
         "namejp": "ディフェンダーパンツ13",
-        "explaintw": "鄰家少女嬌俏可人。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "鄰家少女嬌俏可人。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "High performance full of character."
     },
     {
         "id": 4213,
@@ -5441,7 +5475,8 @@
         "namecn": "中锋鞋子5",
         "nameen": "5 center Shoes",
         "namejp": "5中央シューズ",
-        "explaintw": "專業運動風格。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "專業運動風格。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Simple and comfy."
     },
     {
         "id": 5006,
@@ -5459,7 +5494,8 @@
         "namecn": "中锋鞋子6",
         "nameen": "6 center Shoes",
         "namejp": "6中央シューズ",
-        "explaintw": "品味不凡。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "品味不凡。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Simple and comfy."
     },
     {
         "id": 5007,
@@ -5569,7 +5605,8 @@
         "namecn": "中锋鞋子12",
         "nameen": "Shoes center 12",
         "namejp": "靴・センター12",
-        "explaintw": "街頭黑幫專用機能跑鞋。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "街頭黑幫專用機能跑鞋。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Heavy duty material, for those who take the game to its MAX."
     },
     {
         "id": 5013,
@@ -5589,7 +5626,8 @@
         "namecn": "中锋鞋子13",
         "nameen": "Shoes center 13",
         "namejp": "靴・センター13",
-        "explaintw": "勇者無懼的戰靴。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "勇者無懼的戰靴。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Heavy duty material, for those who take the game to its MAX."
     },
     {
         "id": 5014,
@@ -5915,7 +5953,8 @@
         "namecn": "前锋鞋子12",
         "nameen": "Forward Shoes 12",
         "namejp": "フォワードシューズ12",
-        "explaintw": "引領潮流五十年，歷久不衰。\n\n限定[3960CEFF]前鋒[-]裝備。"
+        "explaintw": "引領潮流五十年，歷久不衰。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "For the tough ones who like the game."
     },
     {
         "id": 5112,
@@ -5955,7 +5994,9 @@
         "flag": 1,
         "namecn": "前锋鞋子13",
         "nameen": "Forward Shoes 13",
-        "namejp": "フォワードシューズ13"
+        "namejp": "フォワードシューズ13",
+        "explaintw": "冰雪包裹的雄心壯志。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "The shoes for those who like to stand out."
     },
     {
         "id": 5114,
@@ -5974,7 +6015,9 @@
         "flag": 1,
         "namecn": "前锋鞋子14",
         "nameen": "Forward Shoes 14",
-        "namejp": "フォワードシューズ14"
+        "namejp": "フォワードシューズ14",
+        "explaintw": "輕量化、更符合雙腳。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "The shoes for those who like to stand out."
     },
     {
         "id": 5115,
@@ -6175,7 +6218,8 @@
         "namecn": "后卫鞋子5",
         "nameen": "5 guard shoes",
         "namejp": "5ガード靴",
-        "explaintw": "亮眼的配色容易成為眾人的焦點。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "亮眼的配色容易成為眾人的焦點。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Dazzling but comfy."
     },
     {
         "id": 5206,
@@ -6193,7 +6237,8 @@
         "namecn": "后卫鞋子6",
         "nameen": "Defender shoes 6",
         "namejp": "ディフェンダーの靴6",
-        "explaintw": "甜美的配色適合甜美的女生。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "甜美的配色適合甜美的女生。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Dazzling but comfy."
     },
     {
         "id": 5207,
@@ -6303,7 +6348,8 @@
         "namecn": "后卫鞋子11",
         "nameen": "Defender Shoes 11",
         "namejp": "ディフェンダーシューズ11",
-        "explaintw": "甜美中不失性感，增添嬌俏氣質。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "甜美中不失性感，增添嬌俏氣質。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Comfy, cool, effective."
     },
     {
         "id": 5213,
@@ -6590,7 +6636,8 @@
         "namecn": "头饰7",
         "nameen": "Headdress 7",
         "namejp": "ヘッドドレス7",
-        "explaintw": "必勝！必勝！"
+        "explaintw": "必勝！必勝！",
+        "explainen": "Street style sunglasess"
     },
     {
         "id": 6008,
@@ -6954,7 +7001,8 @@
         "namecn": "背饰7",
         "nameen": "Back ornaments 7",
         "namejp": "戻る装飾品7",
-        "explaintw": "最能代表神秘東方的武器。"
+        "explaintw": "最能代表神秘東方的武器。",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7008,
@@ -6973,7 +7021,9 @@
         "flag": 1,
         "namecn": "背饰8",
         "nameen": "Back ornaments 8",
-        "namejp": "戻るオーナメント8"
+        "namejp": "戻るオーナメント8",
+        "explaintw": "加倍的神秘、加倍的俠氣。",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7009,
@@ -6993,7 +7043,8 @@
         "namecn": "背饰9",
         "nameen": "Back ornaments 9",
         "namejp": "戻る装飾品9",
-        "explaintw": "極限戰士的氣勢展現。"
+        "explaintw": "極限戰士的氣勢展現。",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7010,
@@ -7012,7 +7063,9 @@
         "flag": 1,
         "namecn": "背饰10",
         "nameen": "Back decorated 10",
-        "namejp": "戻る10装飾"
+        "namejp": "戻る10装飾",
+        "explaintw": "鬥士之羽，壯闊、強悍。",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7011,
@@ -13887,7 +13940,7 @@
         "maxstack": 999,
         "uisource": [10],
         "nameen": "Primary chip design",
-        "explaintw": "可將技能晶片進化成[76231a]銅製外框[-]的特殊材料",
+        "explaintw": "可將技能晶片進化成[C17269FF]銅質外框[-]的特殊材料",
         "explainen": "Skills can be evolved into a chip [76231a] brass frame [-] of special materials"
     },
     {
@@ -13900,7 +13953,7 @@
         "maxstack": 999,
         "uisource": [10],
         "nameen": "Intermediate chip design",
-        "explaintw": "可將技能晶片進化成[f6f6f6]銀製外框[-]的特殊材料",
+        "explaintw": "可將技能晶片進化成[99B3D4FF]銀質外框[-]的特殊材料",
         "explainen": "Skills can be evolved into a chip [f6f6f6] silver frame [-] of special materials"
     },
     {
@@ -13913,7 +13966,7 @@
         "maxstack": 999,
         "uisource": [10],
         "nameen": "Advanced chip design",
-        "explaintw": "可將技能晶片進化成[ffe700]金製外框[-]的特殊材料",
+        "explaintw": "可將技能晶片進化成[EFC653FF]金質外框[-]的特殊材料",
         "explainen": "The skills of the wafer can evolve into [ffe700] gold frame [-] of special materials"
     },
     {
@@ -13926,7 +13979,7 @@
         "maxstack": 999,
         "uisource": [10],
         "nameen": "Top chip design",
-        "explaintw": "可將技能晶片進化成[ff00db]七彩外框[-]的特殊材料",
+        "explaintw": "可將技能晶片進化成[11F5F1FF]鑽石外框[-]的特殊材料",
         "explainen": "The skills of the wafer can evolve into [ff00db] colorful frame [-] of special materials"
     },
     {
