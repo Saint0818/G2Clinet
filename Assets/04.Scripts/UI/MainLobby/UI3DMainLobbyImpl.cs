@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
+using DG.Tweening;
 
 public enum EBildsType
 {
@@ -22,15 +23,18 @@ public enum EBildsType
 public class UI3DMainLobbyImpl : MonoBehaviour
 {
     public Transform PlayerPos;
+	public Animator cameraControl;
+    private GameObject basket;
 	private const int BuildCount = 10;
 	public GameObject[] BuildPos = new GameObject[BuildCount];
 	public GameObject[] Builds = new GameObject[BuildCount];
-	private Animator animator;
 	private UIButton[] Btns = new UIButton[BuildCount];
 	private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
-	private AnimatorBehavior aniBehavior;
+	private Transform DummyBall;
+	private AnimatorBehavior playerControl;
     private EPlayerState crtState;
+	private int stateNo = 0;
     private int selectIndex = -1;
     private float delay = 0;
 
@@ -58,7 +62,6 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				advertisementPic.transform.localScale = Vector3.one;
 				advertisementPic.transform.localEulerAngles = Vector3.zero;
 			}
-
 		}
 		else
 			Debug.LogError ("Setting Prefab Error");
@@ -80,6 +83,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	{
 		if(delay > 0)
 			delay -= Time.deltaTime;
+
+        Move();
 	}
 
 	private void OnSelect()
@@ -95,7 +100,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 			if(selectIndex == index){
 				//back 
 				selectIndex = -1;
-				SetAnimator(index, false);
+				SetCameraAnimator(index, false);
 				UpdateButtonCollider(index, true);
                 UIMainLobby.Get.Main.PlayEnterAnimation();
 				delay = 1;
@@ -104,12 +109,12 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				if(selectIndex == -1){
                     if (index == 0)
                     {
-                        DoAni();
+                        Play();
                     }
                     else
                     {
                         selectIndex = index;
-                        SetAnimator(index, true);
+                        SetCameraAnimator(index, true);
                         UpdateButtonCollider(index, false);
                         UIMainLobby.Get.Main.PlayExitAnimation();
                         delay = 1;
@@ -120,13 +125,31 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		}
 	}
 
+    private void Play()
+    {
+        Vector3 pos = CourtMgr.Get.ShootPoint[0].transform.position;
+        mAvatarPlayer.transform.DOLookAt(new Vector3(pos.x, 0, pos.z), 0.4f).OnComplete(DoAni);
+    }
+
     private void DoAni()
     {
         if (GameData.Team.Player.SkillCards.Length > 0)
         {
             crtState = GetRandomState();
-            aniBehavior.Play(crtState, 0); 
+			TAnimatorItem next = AnimatorMgr.Get.GetAnimatorStateType (crtState);
 
+            if (next.Type == EAnimatorState.Pass)
+            {
+                next.Type = EAnimatorState.Shoot;
+                stateNo = 0; 
+                crtState = EPlayerState.Shoot0;
+            }
+            else
+            {
+                stateNo = next.StateNo;
+            }
+            Debug.LogError("LogError : " + crtState.ToString());
+			playerControl.Play(crtState, 0); 
         }
     }
 
@@ -152,13 +175,13 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		return Enum.GetNames (typeof(EBildsType)).Length;
 	}
 
-	private void SetAnimator(int index, bool isgo)
+	private void SetCameraAnimator(int index, bool isgo)
 	{
-		if (index >= 0 && index < GetEBildsTypeCount())
+		if (index >= 0 && index < GetEBildsTypeCount() && cameraControl)
 		{
 			string state = (isgo == true ? "Go" : "Back");
 			string eventName = string.Format("Event{0}_{1}", GetEBildsTypeString(index), state);
-			animator.SetTrigger(eventName);
+			cameraControl.SetTrigger(eventName);
 		}
 		else
 			Debug.LogError("Animator Index Error");
@@ -202,6 +225,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				clone.transform.localScale = Vector3.one;
 				clone.transform.localEulerAngles = Vector3.zero;
 				clone.name = name;
+
+				if (index == 1) {
+                    basket = clone;
+				}
+										
 			}
 		}else{
 			if(clone)
@@ -232,9 +260,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     {
         UpdateAvatar();
         InitSkillstate();
+		InitAnmator ();
     }
 
     public void Hide(){}
+    private Vector3 playerCenterPos;
 
     public void UpdateAvatar()
     {
@@ -251,28 +281,35 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         mAvatarPlayer.transform.localScale = Vector3.one;
         mAvatarPlayer.transform.localRotation = Quaternion.identity;
 
-        animator = mAvatarPlayer.gameObject.GetComponent<Animator>();
-
-		aniBehavior = mAvatarPlayer.GetComponent<AnimatorBehavior> ();
-        if (aniBehavior == null)
-        {
-            aniBehavior = mAvatarPlayer.AddComponent<AnimatorBehavior>();
-           
-        }
+        playerCenterPos = mAvatarPlayer.transform.position;
         CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
-        aniBehavior.Init(animator);
+		DummyBall = mAvatarPlayer.transform.Find("DummyBall").gameObject.transform;
     }
 	
 	void InitSkillstate()
     {
         showstate.Clear();
-        if (GameData.Team.Player.SkillCards != null) {
-            for (int i = 0; i < GameData.Team.Player.SkillCards.Length; i++)
-                if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID))
+//        for (int i = 0; i < GameData.Team.Player.SkillCards.Length; i++)
+//            if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID))
+//            {
+//                EPlayerState State = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Animation);
+//                showstate.Add(State);
+//            }
+
+        //Test
+        foreach (KeyValuePair<int, TSkillData> item in GameData.DSkillData)
+        {
+            if (item.Value.Kind < 70 || item.Value.Kind == 180)
+//            if (item.Value.Kind == 40)
+            {
+                foreach (EPlayerState val in Enum.GetValues(typeof(EPlayerState)))
                 {
-                    EPlayerState State = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Animation);
-                    showstate.Add(State);
+                    if(val.ToString() == item.Value.Animation)
+                    {
+                        showstate.Add(val);
+                    }
                 }
+            }
         }
     }
 
@@ -282,12 +319,123 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         return showstate[random];
     }
 
-//    private OnShooting()
-//    {
-//        CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-//            CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle, 1f);
-//
-//
-//        animator.SetTrigger(animationName);
-//    }
+	private void InitAnmator()
+	{
+		playerControl = mAvatarPlayer.GetComponent<AnimatorBehavior> ();
+		if(playerControl == null)
+			playerControl = mAvatarPlayer.AddComponent<AnimatorBehavior> ();
+		playerControl.Init(mAvatarPlayer.gameObject.GetComponent<Animator>());
+        playerControl.Play(EPlayerState.Dribble0, 0);
+		CourtMgr.Get.CloneReallBall ();
+        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall);
+
+        if (basket)
+        {
+            if(basket.GetComponent<BasketAnimation>() == null)
+                basket.AddComponent<BasketAnimation>();
+            CourtMgr.Get.ChangeBasketByLobby(basket);
+            CourtMgr.Get.ShootPoint[0] = basket.transform.Find("DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop").gameObject;
+        }
+
+        playerControl.DunkBasketStartDel = DunkBasketStart;
+		playerControl.AnimationEndDel = AnimatorEnd;
+        playerControl.ShootingDel = OnShooting;
+        playerControl.SkillDel = SkillEventCallBack;
+	}
+	
+	private void DunkBasketStart()
+	{
+		CourtMgr.Get.PlayDunk (0, stateNo);
+	}
+
+    private void AnimatorEnd()
+    {
+//        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall);
+//        playerControl.Play(EPlayerState.Dribble2, 0);
+        isReturn = true;
+    }
+
+    private bool isReturn = false;
+    private bool isRotate = false;
+    private bool isfloor = true;
+
+
+    private void Move()
+    {
+        if (isReturn)
+        {
+            mAvatarPlayer.transform.position = Vector3.MoveTowards(mAvatarPlayer.transform.position, 
+                playerCenterPos, 
+                Time.deltaTime * GameConst.DefSpeedup * GameData.Team.Player.Speed * 0.08f);
+
+            if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 3f && isRotate == false)
+            {
+                isRotate = true;
+                mAvatarPlayer.transform.DOLocalRotate(Vector3.zero, 0.4f);
+            }
+            else
+                mAvatarPlayer.transform.LookAt(new Vector3(playerCenterPos.x, mAvatarPlayer.transform.position.y, playerCenterPos.z));
+
+
+            if (!isfloor)
+            {
+                if (CourtMgr.Get.RealBall.transform.position.y <= 0)
+                {
+                    CourtMgr.Get.SetBallStateByLobby(EPlayerState.Dribble0, DummyBall); 
+                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
+                    {
+                        Debug.Log("1");
+                        playerControl.Play(EPlayerState.Dribble0, 0);
+                        isRotate = false;
+                        isReturn = false;
+                        isfloor = true;
+                    }
+                    else
+                    {
+                        Debug.Log("2");
+                        playerControl.Play(EPlayerState.Dribble2, 0);
+                    }
+                }
+                else
+                {
+                    if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
+                    {
+                        Debug.Log("3");
+                        playerControl.Play(EPlayerState.Dribble0, 0);
+                    }
+                    else
+                    {
+                        Debug.Log("4");
+                        playerControl.Play(EPlayerState.Dribble2, 0);
+                    }
+                }  
+            }
+            else
+            {
+                if (Vector3.Distance(mAvatarPlayer.transform.position, playerCenterPos) < 1f)
+                    playerControl.Play(EPlayerState.Dribble0, 0);
+                else
+                    playerControl.Play(EPlayerState.Dribble2, 0);
+            }
+        }
+    }
+
+	private void OnShooting()
+    {
+        isfloor = false;
+        CourtMgr.Get.SetBallStateByLobby(EPlayerState.Shooting, DummyBall);
+
+        CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+            CourtMgr.Get.ShootPoint [0].transform.position , 60);  
+    }
+
+    public void SkillEventCallBack(AnimationEvent aniEvent)
+    {
+        switch (aniEvent.stringParameter)
+        {
+            case "Shooting":
+                OnShooting();
+                break;
+        }
+    }
 }
