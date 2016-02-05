@@ -909,7 +909,8 @@ public class UISkillFormation : UIBase {
 	private void resetScrollPostion () {
 //		gridCardList.transform.localPosition = Vector3.zero;
 //		scrollViewCardList.panel.clipOffset = new Vector2(0, 10);
-		scrollViewCardList.ResetPosition();
+//		scrollViewCardList.ResetPosition();
+		scrollViewCardList.Scroll(-0.01f);
 	}
 
 	private void setEditState (bool isEditState) {
