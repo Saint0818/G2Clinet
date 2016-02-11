@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -6,10 +6,20 @@ namespace Chronos
 	{
 		public AnimationTimeline(Timeline timeline) : base(timeline) { }
 
+		private float _speed;
+
 		/// <summary>
 		/// The speed that is applied to the animation before time effects. Use this property instead of AnimationState.speed, which will be overwritten by the timeline at runtime. 
 		/// </summary>
-		public float speed { get; set; }
+		public float speed
+		{
+			get { return _speed; }
+			set
+			{
+				_speed = value;
+				AdjustProperties();
+			}
+		}
 
 		public override void CopyProperties(Animation source)
 		{
@@ -27,7 +37,7 @@ namespace Chronos
 				found = true;
 			}
 
-			speed = firstAnimationStateSpeed;
+			_speed = firstAnimationStateSpeed;
 		}
 
 		public override void AdjustProperties(float timeScale)

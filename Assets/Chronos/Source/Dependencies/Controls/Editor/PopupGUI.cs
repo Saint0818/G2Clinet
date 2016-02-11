@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Chronos.Controls
+namespace Chronos.Controls.Editor
 {
 	/// <summary>
 	/// Utility class to display complex editor popups.
@@ -88,17 +88,13 @@ namespace Chronos.Controls
 
 				menu.DropDown(new Rect(menuPosition, Vector2.zero));
 			}
-			else if (selectedOption != null && !options.Select(o => o.value).Contains(selectedOption.value))
+			else if (selectedOption != null && !options.Select(o => o.value).Contains(selectedOption.value) && !allowOuterOption)
 			{
 				// Selected option isn't in range
 
 				if (hasMultipleDifferentValues)
 				{
 					// Do nothing
-				}
-				if (allowOuterOption)
-				{
-					callback(selectedOption.value);
 				}
 				else if (noneOption != null)
 				{

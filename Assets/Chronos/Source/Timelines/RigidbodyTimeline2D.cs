@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -10,9 +10,9 @@ namespace Chronos
 
 		public struct Snapshot
 		{
-			public Vector2 position;
+			public Vector3 position;
 			public Quaternion rotation;
-			// public Vector2 scale;
+			// public Vector3 scale;
 			public Vector2 velocity;
 			public float angularVelocity;
 			public float lastPositiveTimeScale;
@@ -21,9 +21,9 @@ namespace Chronos
 			{
 				return new Snapshot()
 				{
-					position = Vector2.Lerp(from.position, to.position, t),
+					position = Vector3.Lerp(from.position, to.position, t),
 					rotation = Quaternion.Lerp(from.rotation, to.rotation, t),
-					// scale = Vector2.Lerp(from.scale, to.scale, t),
+					// scale = Vector3.Lerp(from.scale, to.scale, t),
 					velocity = Vector2.Lerp(from.velocity, to.velocity, t),
 					angularVelocity = Mathf.Lerp(from.angularVelocity, to.angularVelocity, t),
 					lastPositiveTimeScale = Mathf.Lerp(from.lastPositiveTimeScale, to.lastPositiveTimeScale, t),
@@ -159,7 +159,11 @@ namespace Chronos
 		public float angularVelocity
 		{
 			get { return bodyAngularVelocity.x / timeline.timeScale; }
-			set { if (AssertForwardProperty("angularVelocity", Severity.Ignore)) bodyAngularVelocity = value * Vector3.one * timeline.timeScale; }
+			set
+			{
+				if (AssertForwardProperty("angularVelocity", Severity.Ignore))
+					bodyAngularVelocity = value * Vector3.one * timeline.timeScale;
+			}
 		}
 
 		/// <summary>
@@ -177,7 +181,7 @@ namespace Chronos
 		public void AddRelativeForce(Vector2 force, ForceMode2D mode = ForceMode2D.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddRelativeForce(AdjustForce(force), mode);
+				component.AddRelativeForce(AdjustForce(force), mode);
 		}
 
 		/// <summary>
@@ -186,7 +190,7 @@ namespace Chronos
 		public void AddForceAtPosition(Vector2 force, Vector2 position, ForceMode2D mode = ForceMode2D.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddForceAtPosition(AdjustForce(force), position, mode);
+				component.AddForceAtPosition(AdjustForce(force), position, mode);
 		}
 
 		/// <summary>
@@ -195,7 +199,7 @@ namespace Chronos
 		public void AddTorque(float torque, ForceMode2D mode = ForceMode2D.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddTorque(AdjustForce(torque), mode);
+				component.AddTorque(AdjustForce(torque), mode);
 		}
 
 		#endregion

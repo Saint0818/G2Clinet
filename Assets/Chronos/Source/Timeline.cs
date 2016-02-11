@@ -1,7 +1,9 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Chronos
 {
@@ -39,12 +41,12 @@ namespace Chronos
 			handledOccurrences = new HashSet<Occurrence>();
 			previousDeltaTimes = new Queue<float>();
 			timeScale = lastTimeScale = 1;
-			
+			activeComponents = new HashSet<IComponentTimeline>();
+
 			animation = new AnimationTimeline(this);
 			animator = new AnimatorTimeline(this);
 			audioSource = new AudioSourceTimeline(this);
 			navMeshAgent = new NavMeshAgentTimeline(this);
-			particleSystem = new ParticleSystemTimeline(this);
 			rigidbody = new RigidbodyTimeline3D(this);
 			rigidbody2D = new RigidbodyTimeline2D(this);
 			transform = new TransformTimeline(this);
@@ -53,30 +55,33 @@ namespace Chronos
 
 		protected virtual void Awake()
 		{
-			CacheComponents();
+			// Moved CacheComponents() out of here to allow ProtectRewindable()
 		}
 
 		protected virtual void Start()
 		{
 			timeScale = lastTimeScale = clock.timeScale;
 
+			CacheComponents();
+
 			foreach (IComponentTimeline component in activeComponents)
 			{
+				component.AdjustProperties();
 				component.Start();
 			}
 		}
 
 		protected virtual void Update()
 		{
-			lastTimeScale = timeScale;
-
 			TriggerEvents();
+
+			lastTimeScale = timeScale;
 
 			timeScale = clock.timeScale; // Start with the time scale from local / global clock
 
 			foreach (IAreaClock areaClock in areaClocks) // Blend it with the time scale of each area clock
 			{
-				if (areaClock != null && areaClock.ContainsPoint(base.transform.position))
+				if (areaClock != null)
 				{
 					float areaClockTimeScale = areaClock.TimeScale(this);
 
@@ -91,18 +96,24 @@ namespace Chronos
 				}
 			}
 
+			if (!rewindable) // Cap to 0 for non-rewindable timelines
+			{
+				timeScale = Mathf.Max(0, timeScale);
+			}
+
 			if (timeScale != lastTimeScale)
 			{
 				foreach (IComponentTimeline component in activeComponents)
 				{
-					component.AdjustProperties(timeScale);
+					component.AdjustProperties();
 				}
 			}
 
-			deltaTime = Time.unscaledDeltaTime * timeScale;
+			float unscaledDeltaTime = Timekeeper.unscaledDeltaTime;
+			deltaTime = unscaledDeltaTime * timeScale;
 			fixedDeltaTime = Time.fixedDeltaTime * timeScale;
 			time += deltaTime;
-			unscaledTime += Time.unscaledDeltaTime;
+			unscaledTime += unscaledDeltaTime;
 
 			RecordSmoothing();
 
@@ -138,6 +149,7 @@ namespace Chronos
 		protected Occurrence nextForwardOccurrence;
 		protected Occurrence nextBackwardOccurrence;
 		protected internal HashSet<IAreaClock> areaClocks;
+		protected HashSet<IComponentTimeline> activeComponents;
 
 		#endregion
 
@@ -145,27 +157,38 @@ namespace Chronos
 
 		[SerializeField]
 		private TimelineMode _mode;
+
 		/// <summary>
 		/// Determines what type of clock the timeline observes. 
 		/// </summary>
 		public TimelineMode mode
 		{
 			get { return _mode; }
-			set { _mode = value; _clock = null; }
+			set
+			{
+				_mode = value;
+				_clock = null;
+			}
 		}
 
 		[SerializeField, GlobalClock]
 		private string _globalClockKey;
+
 		/// <summary>
 		/// The key of the GlobalClock that is observed by the timeline. This value is only used for the Global mode. 
 		/// </summary>
 		public string globalClockKey
 		{
 			get { return _globalClockKey; }
-			set { _globalClockKey = value; _clock = null; }
+			set
+			{
+				_globalClockKey = value;
+				_clock = null;
+			}
 		}
 
 		private Clock _clock;
+
 		/// <summary>
 		/// The clock observed by the timeline. 
 		/// </summary>
@@ -202,10 +225,7 @@ namespace Chronos
 		/// </summary>
 		public float smoothDeltaTime
 		{
-			get
-			{
-				return (deltaTime + previousDeltaTimes.Sum()) / (previousDeltaTimes.Count + 1);
-			}
+			get { return (deltaTime + previousDeltaTimes.Sum()) / (previousDeltaTimes.Count + 1); }
 		}
 
 		/// <summary>
@@ -228,45 +248,51 @@ namespace Chronos
 		/// </summary>
 		public TimeState state
 		{
-			get
-			{
-				return Timekeeper.GetTimeState(timeScale);
-			}
+			get { return Timekeeper.GetTimeState(timeScale); }
+		}
+
+		[SerializeField, FormerlySerializedAs("_recordTransform")]
+		private bool _rewindable = true;
+
+		/// <summary>
+		/// Determines whether the timeline should record support rewind.
+		/// </summary>
+		public bool rewindable
+		{
+			get { return _rewindable; }
+			set { ProtectRewindable(); _rewindable = value; }
 		}
 
 		[SerializeField]
 		private float _recordingDuration = DefaultRecordingDuration;
+
 		/// <summary>
 		/// The maximum duration in seconds during which snapshots will be recorded. Higher values offer more rewind time but require more memory. 
 		/// </summary>
 		public float recordingDuration
 		{
 			get { return _recordingDuration; }
-			set { _recordingDuration = value; }
-//			protected set { _recordingDuration = value; }
+			set { ProtectRewindable(); _recordingDuration = value; }
 		}
 
 		[SerializeField]
 		private float _recordingInterval = DefaultRecordingInterval;
+
 		/// <summary>
 		/// The interval in seconds at which snapshots will be recorder. Lower values offer more rewind precision but require more memory. 
 		/// </summary>
 		public float recordingInterval
 		{
 			get { return _recordingInterval; }
-			set { _recordingInterval = value; }
-//			protected set { _recordingInterval = value; }
+			set { ProtectRewindable(); _recordingInterval = value; }
 		}
 
-		[SerializeField]
-		private bool _recordTransform = true;
-		/// <summary>
-		/// Determines whether the timeline should record the transform (and physics, if the GameObject has a rigidbody).
-		/// </summary>
-		public bool recordTransform
+		private void ProtectRewindable()
 		{
-			get { return _recordTransform; }
-			set { _recordTransform = value; CacheComponents(); }
+			if (activeRecorder != null)
+			{
+				throw new ChronosException("Cannot change rewind properties after the timeline has started.");
+			}
 		}
 
 		#endregion
@@ -355,12 +381,12 @@ namespace Chronos
 				SendMessage("OnStopRewind", SendMessageOptions.DontRequireReceiver);
 			}
 
-			if (lastTimeScale <= 0 && lastTimeScale >= 1 && timeScale > 0 && timeScale < 1)
+			if ((lastTimeScale <= 0 || lastTimeScale >= 1) && (timeScale > 0 && timeScale < 1))
 			{
 				SendMessage("OnStartSlowDown", SendMessageOptions.DontRequireReceiver);
 			}
 
-			if (lastTimeScale > 0 && lastTimeScale < 1 && timeScale <= 0 && timeScale >= 1)
+			if ((lastTimeScale > 0 && lastTimeScale < 1) && (timeScale <= 0 || timeScale >= 1))
 			{
 				SendMessage("OnStopSlowDown", SendMessageOptions.DontRequireReceiver);
 			}
@@ -434,7 +460,7 @@ namespace Chronos
 
 		protected Occurrence OccurrenceAfter(float time, params Occurrence[] ignored)
 		{
-			return OccurrenceAfter(time, (IEnumerable<Occurrence>)ignored);
+			return OccurrenceAfter(time, (IEnumerable<Occurrence>) ignored);
 		}
 
 		protected Occurrence OccurrenceAfter(float time, IEnumerable<Occurrence> ignored)
@@ -444,8 +470,8 @@ namespace Chronos
 			foreach (Occurrence occurrence in occurrences)
 			{
 				if (occurrence.time >= time &&
-					!ignored.Contains(occurrence) &&
-					(after == null || occurrence.time < after.time))
+				    !ignored.Contains(occurrence) &&
+				    (after == null || occurrence.time < after.time))
 				{
 					after = occurrence;
 				}
@@ -456,7 +482,7 @@ namespace Chronos
 
 		protected Occurrence OccurrenceBefore(float time, params Occurrence[] ignored)
 		{
-			return OccurrenceBefore(time, (IEnumerable<Occurrence>)ignored);
+			return OccurrenceBefore(time, (IEnumerable<Occurrence>) ignored);
 		}
 
 		protected Occurrence OccurrenceBefore(float time, IEnumerable<Occurrence> ignored)
@@ -466,8 +492,8 @@ namespace Chronos
 			foreach (Occurrence occurrence in occurrences)
 			{
 				if (occurrence.time <= time &&
-					!ignored.Contains(occurrence) &&
-					(before == null || occurrence.time > before.time))
+				    !ignored.Contains(occurrence) &&
+				    (before == null || occurrence.time > before.time))
 				{
 					before = occurrence;
 				}
@@ -494,7 +520,7 @@ namespace Chronos
 			else if (time > this.time)
 			{
 				if (nextForwardOccurrence == null ||
-					nextForwardOccurrence.time > time)
+				    nextForwardOccurrence.time > time)
 				{
 					nextForwardOccurrence = occurrence;
 				}
@@ -502,7 +528,7 @@ namespace Chronos
 			else if (time < this.time)
 			{
 				if (nextBackwardOccurrence == null ||
-					nextBackwardOccurrence.time < time)
+				    nextBackwardOccurrence.time < time)
 				{
 					nextBackwardOccurrence = occurrence;
 				}
@@ -555,24 +581,24 @@ namespace Chronos
 			return Schedule(time - delay, repeatable, occurrence);
 		}
 
-		public Occurrence Schedule(float time, bool repeatable, ForwardAction forward, BackwardAction backward)
+		public Occurrence Schedule<T>(float time, bool repeatable, ForwardAction<T> forward, BackwardAction<T> backward)
 		{
-			return Schedule(time, repeatable, new DelegateOccurrence(forward, backward));
+			return Schedule(time, repeatable, new DelegateOccurrence<T>(forward, backward));
 		}
 
-		public Occurrence Do(bool repeatable, ForwardAction forward, BackwardAction backward)
+		public Occurrence Do<T>(bool repeatable, ForwardAction<T> forward, BackwardAction<T> backward)
 		{
-			return Do(repeatable, new DelegateOccurrence(forward, backward));
+			return Do(repeatable, new DelegateOccurrence<T>(forward, backward));
 		}
 
-		public Occurrence Plan(float delay, bool repeatable, ForwardAction forward, BackwardAction backward)
+		public Occurrence Plan<T>(float delay, bool repeatable, ForwardAction<T> forward, BackwardAction<T> backward)
 		{
-			return Plan(delay, repeatable, new DelegateOccurrence(forward, backward));
+			return Plan(delay, repeatable, new DelegateOccurrence<T>(forward, backward));
 		}
 
-		public Occurrence Memory(float delay, bool repeatable, ForwardAction forward, BackwardAction backward)
+		public Occurrence Memory<T>(float delay, bool repeatable, ForwardAction<T> forward, BackwardAction<T> backward)
 		{
-			return Memory(delay, repeatable, new DelegateOccurrence(forward, backward));
+			return Memory(delay, repeatable, new DelegateOccurrence<T>(forward, backward));
 		}
 
 		public Occurrence Schedule(float time, ForwardOnlyAction forward)
@@ -686,35 +712,20 @@ namespace Chronos
 		public AnimatorTimeline animator { get; protected set; }
 		public AudioSourceTimeline audioSource { get; protected set; }
 		public NavMeshAgentTimeline navMeshAgent { get; protected set; }
-		public new ParticleSystemTimeline particleSystem { get; protected set; }
+		public new IParticleSystemTimeline particleSystem { get; protected set; }
 		public new RigidbodyTimeline3D rigidbody { get; protected set; }
 		public new RigidbodyTimeline2D rigidbody2D { get; protected set; }
 		public new TransformTimeline transform { get; protected set; }
 		public WindZoneTimeline windZone { get; protected set; }
 
-		protected IEnumerable<IComponentTimeline> activeComponents
+		protected IRecorder activeRecorder
 		{
 			get
 			{
-				if (animation.component != null) yield return animation;
-				if (animator.component != null) yield return animator;
-				if (audioSource.component != null) yield return audioSource;
-				if (navMeshAgent.component != null) yield return navMeshAgent;
-				if (particleSystem.component != null) yield return particleSystem;
-				if (rigidbody.component != null) yield return rigidbody;
-				if (rigidbody2D.component != null) yield return rigidbody2D;
-				if (transform.component != null) yield return transform;
-				if (windZone.component != null) yield return windZone;
-			}
-		}
-
-		protected IEnumerable<IRecorder> activeRecorders
-		{
-			get
-			{
-				if (rigidbody.component != null) yield return rigidbody;
-				if (rigidbody2D.component != null) yield return rigidbody2D;
-				if (transform.component != null) yield return transform;
+				if (rigidbody.component != null) return rigidbody;
+				if (rigidbody2D.component != null) return rigidbody2D;
+				if (transform.component != null) return transform;
+				return null;
 			}
 		}
 
@@ -723,38 +734,69 @@ namespace Chronos
 		/// </summary>
 		public virtual void CacheComponents()
 		{
-			animator.Cache(GetComponent<Animator>());
-			animation.Cache(GetComponent<Animation>());
-			audioSource.Cache(GetComponent<AudioSource>());
-			navMeshAgent.Cache(GetComponent<NavMeshAgent>());
-			particleSystem.Cache(GetComponent<ParticleSystem>());
-			windZone.Cache(GetComponent<WindZone>());
-
-			if (recordTransform)
+			if (particleSystem == null)
 			{
-				// Only activate one of rigidbody (2D) / transform timelines at once
-
-				if (rigidbody.Cache(GetComponent<Rigidbody>()))
+				if (rewindable)
 				{
-					rigidbody2D.Cache(null);
-					transform.Cache(null);
+					particleSystem = new RewindableParticleSystemTimeline(this);
 				}
-				else if (rigidbody2D.Cache(GetComponent<Rigidbody2D>()))
+				else
 				{
-					rigidbody.Cache(null);
-					transform.Cache(null);
-				}
-				else if (transform.Cache(GetComponent<Transform>()))
-				{
-					rigidbody.Cache(null);
-					rigidbody2D.Cache(null);
+					particleSystem = new NonRewindableParticleSystemTimeline(this);
 				}
 			}
-			else
+
+			activeComponents.Clear();
+
+			if (animator.Cache(GetComponent<Animator>()))
 			{
-				rigidbody.Cache(null);
+				activeComponents.Add(animator);
+			}
+
+			if (animation.Cache(GetComponent<Animation>()))
+			{
+				activeComponents.Add(animation);
+			}
+
+			if (audioSource.Cache(GetComponent<AudioSource>()))
+			{
+				activeComponents.Add(audioSource);
+			}
+
+			if (navMeshAgent.Cache(GetComponent<NavMeshAgent>()))
+			{
+				activeComponents.Add(navMeshAgent);
+			}
+
+			if (particleSystem.Cache(GetComponent<ParticleSystem>()))
+			{
+				activeComponents.Add(particleSystem);
+			}
+
+			if (windZone.Cache(GetComponent<WindZone>()))
+			{
+				activeComponents.Add(windZone);
+			}
+
+			// Only activate one of Rigidbody / Rigidbody2D / Transform timelines at once
+
+			if (rigidbody.Cache(GetComponent<Rigidbody>()))
+			{
+				activeComponents.Add(rigidbody);
 				rigidbody2D.Cache(null);
 				transform.Cache(null);
+			}
+			else if (rigidbody2D.Cache(GetComponent<Rigidbody2D>()))
+			{
+				activeComponents.Add(rigidbody2D);
+				rigidbody.Cache(null);
+				transform.Cache(null);
+			}
+			else if (transform.Cache(GetComponent<Transform>()))
+			{
+				activeComponents.Add(transform);
+				rigidbody.Cache(null);
+				rigidbody2D.Cache(null);
 			}
 		}
 
@@ -774,10 +816,7 @@ namespace Chronos
 		/// </summary>
 		public void ResetRecording()
 		{
-			foreach (IRecorder recorder in activeRecorders)
-			{
-				recorder.Reset();
-			}
+			activeRecorder.Reset();
 		}
 
 		/// <summary>
@@ -785,13 +824,13 @@ namespace Chronos
 		/// </summary>
 		public int EstimateMemoryUsage()
 		{
-			if (Application.isPlaying)
+			if (Application.isPlaying && activeRecorder != null)
 			{
-				return activeRecorders.Sum(r => r.EstimateMemoryUsage());
+				return activeRecorder.EstimateMemoryUsage();
 			}
 			else
 			{
-				if (!recordTransform)
+				if (!rewindable)
 				{
 					return 0;
 				}

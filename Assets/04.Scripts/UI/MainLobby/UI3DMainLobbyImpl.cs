@@ -307,7 +307,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         mAvatarPlayer.transform.localRotation = Quaternion.identity;
 
         playerCenterPos = mAvatarPlayer.transform.position;
-        CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
+        //CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
         //TODO: 因新帳號無人物資料造成find null，所以先關掉
 //        DummyBall = mAvatarPlayer.transform.Find("DummyBall").gameObject.transform;
     }

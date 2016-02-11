@@ -1,4 +1,4 @@
-namespace Chronos.Controls
+namespace Chronos.Controls.Editor
 {
 	/// <summary>
 	/// An option in an editor popup field.

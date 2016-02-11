@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace Chronos
 	{
 		protected SerializedProperty mode;
 		protected SerializedProperty globalClockKey;
-		protected SerializedProperty recordTransform;
+		protected SerializedProperty rewindable;
 		protected SerializedProperty recordingDuration;
 		protected SerializedProperty recordingInterval;
 
@@ -17,7 +17,7 @@ namespace Chronos
 		{
 			mode = serializedObject.FindProperty("_mode");
 			globalClockKey = serializedObject.FindProperty("_globalClockKey");
-			recordTransform = serializedObject.FindProperty("_recordTransform");
+			rewindable = serializedObject.FindProperty("_rewindable");
 			recordingDuration = serializedObject.FindProperty("_recordingDuration");
 			recordingInterval = serializedObject.FindProperty("_recordingInterval");
 		}
@@ -60,34 +60,64 @@ namespace Chronos
 				}
 			}
 
+			bool anyRewindable = serializedObject.targetObjects.OfType<Timeline>().Any(t => t.rewindable);
+
 			EditorGUI.BeginDisabledGroup(Application.isPlaying);
 			{
-				EditorGUILayout.PropertyField(recordTransform, new GUIContent("Record Transform"));
-				EditorGUILayout.PropertyField(recordingDuration, new GUIContent("Recording Duration"));
-				EditorGUILayout.PropertyField(recordingInterval, new GUIContent("Recording Interval"));
+				EditorGUILayout.PropertyField(rewindable, new GUIContent("Rewindable"));
+
+				if (anyRewindable)
+				{
+					EditorGUILayout.PropertyField(recordingDuration, new GUIContent("Recording Duration"));
+					EditorGUILayout.PropertyField(recordingInterval, new GUIContent("Recording Interval"));
+				}
 			}
 			EditorGUI.EndDisabledGroup();
 
-			float estimate = serializedObject.targetObjects.OfType<Timeline>().Select(t => t.EstimateMemoryUsage()).Sum() / 1024;
-
-			string summary;
-
-			if (!recordingDuration.hasMultipleDifferentValues &&
-				!recordingInterval.hasMultipleDifferentValues)
+			if (anyRewindable)
 			{
-				summary = string.Format("Rewind for up to {0:0.#} {1} at a {2:0.#} {3} per second precision.\n\nEstimated memory: {4} KiB.",
-										recordingDuration.floatValue,
-										recordingDuration.floatValue >= 2 ? "seconds" : "second",
-										(1 / recordingInterval.floatValue),
-										(1 / recordingInterval.floatValue) >= 2 ? "snapshots" : "snapshot",
-										estimate);
-			}
-			else
-			{
-				summary = string.Format("Estimated memory: {0} KiB.", estimate);
+				float estimate = serializedObject.targetObjects.OfType<Timeline>().Select(t => t.EstimateMemoryUsage()).Sum() / 1024;
+
+				string summary;
+
+				if (!recordingDuration.hasMultipleDifferentValues &&
+					!recordingInterval.hasMultipleDifferentValues)
+				{
+					summary = string.Format("Rewind for up to {0:0.#} {1} at a {2:0.#} {3} per second precision.\n\nEstimated memory: {4} KiB.",
+											recordingDuration.floatValue,
+											recordingDuration.floatValue >= 2 ? "seconds" : "second",
+											(1 / recordingInterval.floatValue),
+											(1 / recordingInterval.floatValue) >= 2 ? "snapshots" : "snapshot",
+											estimate);
+				}
+				else
+				{
+					summary = string.Format("Estimated memory: {0} KiB.", estimate);
+				}
+
+				EditorGUILayout.HelpBox(summary, MessageType.Info);
 			}
 
-			EditorGUILayout.HelpBox(summary, MessageType.Info);
+			if (!serializedObject.isEditingMultipleObjects)
+			{
+				Timeline timeline = ((Timeline)serializedObject.targetObject);
+				ParticleSystem particleSystem = timeline.GetComponent<ParticleSystem>();
+
+				if (particleSystem != null && timeline.rewindable)
+				{
+					if (particleSystem.simulationSpace == ParticleSystemSimulationSpace.World)
+					{
+						EditorGUILayout.HelpBox("World simulation is incompatible with rewindable particle systems.", MessageType.Warning);
+					}
+
+					bool sendCollisionMessage = false; // Unity API doesn't seem to provide a way to check this.
+
+					if (sendCollisionMessage)
+					{
+						EditorGUILayout.HelpBox("Collision messages are incompatible with rewindable particle systems.", MessageType.Warning);
+					}
+				}
+			}
 
 			if (!serializedObject.isEditingMultipleObjects &&
 				Application.isPlaying)

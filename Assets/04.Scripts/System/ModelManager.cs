@@ -685,7 +685,10 @@ public class ModelManager : KnightSingleton<ModelManager>
 
 	private void InitRigbody(GameObject obj)
 	{
-		Rigidbody rig = obj.AddComponent<Rigidbody>();
+		Rigidbody rig = obj.GetComponent<Rigidbody> ();
+		if (rig == null)
+			rig = obj.AddComponent<Rigidbody>();
+		
 		rig.mass = 0.1f;
 		rig.drag = 10f;
 		rig.freezeRotation = true;

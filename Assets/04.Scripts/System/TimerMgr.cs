@@ -93,8 +93,9 @@ public class TimerMgr : KnightSingleton<TimerMgr>
             {
                 timer.mode = TimelineMode.Global;
                 timer.globalClockKey = key.ToString();
-                timer.SetRecording(34, 2);
-                timer.recordTransform = false;
+
+                //timer.SetRecording(34, 2);
+                //timer.recordTransform = false;
                 timer.rigidbody.useGravity = true;
             }  
         }

@@ -23,8 +23,8 @@ public class UISelectRole : UIBase {
 	private const int MaxValue = 100;
 	private const float X_Partner = 2.6f;
 	private const float Y_Partner = 0;
-	private const float Z_Partner = 0.75f;
-	private const float Y_Player = 0;
+	private const float Z_Partner = 0.1f;
+	private const float Y_Player = 0.25f;
 
 	private float roleFallTime = 0;
 	private int selectRoleIndex = 0;
@@ -351,21 +351,22 @@ public class UISelectRole : UIBase {
 				arrayPlayer[i].name = i.ToString();
 				arrayPlayer[i].transform.parent = playerInfoModel.transform;
 				GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, arrayPlayerData[i].BodyType, EAnimatorType.AvatarControl, false);
+
 				arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
 				arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
 
 				if(i == 0) {
-					arrayPlayer[i].transform.localPosition = Vector3.zero;
+					arrayPlayer [i].transform.localPosition = new Vector3 (0, 0.25f, 0);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 					labelPlayerName.text = arrayPlayerData[i].Name;
 					SetBodyPic(ref spritePlayerBodyPic, arrayPlayerData[i].BodyType);
 				}else 
 				if(i == 1) {
-					arrayPlayer[i].transform.localPosition = new Vector3(2.6f, 0, 0.75f);
+					arrayPlayer[i].transform.localPosition = new Vector3(2.6f, 0, Z_Partner);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 				}else 
 				if(i == 2) {
-					arrayPlayer[i].transform.localPosition = new Vector3(-2.6f, 0, 0.75f);
+					arrayPlayer[i].transform.localPosition = new Vector3(-2.6f, 0, Z_Partner);
 					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 				}
 				
@@ -582,7 +583,7 @@ public class UISelectRole : UIBase {
 
         arrayPlayer[index].SetActive(true);
         arrayPlayer[index].transform.localPosition = new Vector3(-X_Partner, 0, Z_Partner);
-        arrayPlayer[index].transform.localEulerAngles = new Vector3(0, 150, 0);
+        //arrayPlayer[index].transform.localEulerAngles = new Vector3(0, 150, 0);
         UISkillFormation.Visible = false;
         UISelectPartner.Visible = true;
         UISelectPartner.Get.InitMemberList(ref playerList, ref arrayPlayerData, index);
@@ -629,7 +630,7 @@ public class UISelectRole : UIBase {
             obj.transform.localScale = Vector3.one;
             obj.transform.localEulerAngles = Vector3.zero;
             obj.transform.localPosition = Vector3.zero;
-            LayerMgr.Get.SetLayer(obj, ELayer.Default);
+			LayerMgr.Get.SetLayer(obj, ELayer.Default);
 			arrayAnimator[roleIndex] = arrayPlayer[roleIndex].GetComponent<Animator>();
 
 			switch(roleIndex) {
@@ -776,7 +777,7 @@ public class UISelectRole : UIBase {
         
         if (arrayPlayer[1]) {
             arrayPlayer[1].transform.localPosition = new Vector3(X_Partner, 0, Z_Partner);
-            arrayPlayer[1].transform.localEulerAngles = new Vector3(0, -150, 0);
+            //arrayPlayer[1].transform.localEulerAngles = new Vector3(0, -150, 0);
         }
     }
 
@@ -823,7 +824,7 @@ public class UISelectRole : UIBase {
         obj.transform.localScale = Vector3.one;
         obj.transform.localEulerAngles = Vector3.zero;
         obj.transform.localPosition = Vector3.zero;
-        LayerMgr.Get.SetLayer(obj, ELayer.Default);
+		LayerMgr.Get.SetLayer(obj, ELayer.Default);
 		arrayAnimator[0] = arrayPlayer[0].GetComponent<Animator>();
 
 		labelPlayerName.text = arrayPlayerData[0].Name;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos.Example
 {
@@ -7,25 +7,35 @@ namespace Chronos.Example
 	public class ExampleTimeColor : MonoBehaviour
 	{
 		// The state colors
-		Color rewind = Color.magenta;
-		Color pause = Color.red;
-		Color slow = Color.yellow;
-		Color play = Color.green;
-		Color accelerate = Color.blue;
+		private Color rewind = Color.magenta;
+		private Color pause = Color.red;
+		private Color slow = Color.yellow;
+		private Color play = Color.green;
+		private Color accelerate = Color.blue;
 
 		// The time scales at which to apply colors
-		float slowTimeScale = 0.5f;
-		float rewindTimeScale = -1f;
-		float accelerateTimeScale = 2f;
+		private float slowTimeScale = 0.5f;
+		private float rewindTimeScale = -1f;
+		private float accelerateTimeScale = 2f;
 
 		public GlobalClock test;
 
-		void Update()
+		private Timeline time;
+		private new Renderer renderer;
+		private new ParticleSystem particleSystem;
+
+		private void Awake()
+		{
+			time = GetComponentInParent<Timeline>();
+			renderer = GetComponent<Renderer>();
+			particleSystem = GetComponent<ParticleSystem>();
+		}
+
+		private void Update()
 		{
 			Color color = Color.white;
 
 			// Get the timeline in the ancestors
-			Timeline time = GetComponentInParent<Timeline>();
 
 			if (time != null)
 			{
@@ -51,9 +61,6 @@ namespace Chronos.Example
 				}
 			}
 
-			Renderer renderer = GetComponent<Renderer>();
-			ParticleSystem particles = GetComponent<ParticleSystem>();
-
 			// Apply the color to the renderer (if any)
 			if (renderer != null)
 			{
@@ -64,9 +71,11 @@ namespace Chronos.Example
 			}
 
 			// Apply the color to the particle system (if any)
-			if (particles != null)
+			if (particleSystem != null)
 			{
-				particles.startColor = color;
+				particleSystem.startColor = color;
+				var colorModule = particleSystem.colorOverLifetime;
+				colorModule.color = new ParticleSystem.MinMaxGradient(color);
 			}
 		}
 	}

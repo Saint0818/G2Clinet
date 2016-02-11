@@ -548,7 +548,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 Timeline timer = pveBasketAy[i].AddComponent<Timeline>();
                 timer.mode = TimelineMode.Global;
                 timer.globalClockKey = ETimerKind.Default.ToString();
-                timer.recordTransform = false;
+                //timer.recordTransform = false;
             }
         }
 		

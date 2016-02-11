@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -37,7 +36,6 @@ namespace Chronos
 		protected virtual void Awake()
 		{
 			CacheComponents();
-			recorder.Reset();
 		}
 
 		protected virtual void Start()
@@ -49,9 +47,17 @@ namespace Chronos
 		{
 			recorder.Update();
 		}
-		
-		protected Timeline timeline;
-		protected RecorderTimeline<Component, TSnapshot> recorder;
+
+		/// <summary>
+		/// Modifies all snapshots via the specified modifier delegate.
+		/// </summary>
+		public virtual void ModifySnapshots(RecorderTimeline<Component, TSnapshot>.SnapshotModifier modifier)
+		{
+			recorder.ModifySnapshots(modifier);
+		}
+
+		private Timeline timeline;
+		private RecorderTimeline<Component, TSnapshot> recorder;
 
 		protected abstract void ApplySnapshot(TSnapshot snapshot);
 		protected abstract TSnapshot CopySnapshot();

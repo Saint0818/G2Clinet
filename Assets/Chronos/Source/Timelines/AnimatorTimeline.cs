@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -6,26 +6,34 @@ namespace Chronos
 	{
 		public AnimatorTimeline(Timeline timeline) : base(timeline) { }
 
-		protected internal const int DefaultRecordedFrames = 0;
+		private float _speed;
 
 		/// <summary>
 		/// The speed that is applied to the animator before time effects. Use this property instead of Animator.speed, which will be overwritten by the timeline at runtime. 
 		/// </summary>
-		public float speed { get; set; }
-
-		private int _recordedFrames = DefaultRecordedFrames;
-		/// <summary>
-		/// The maximum amount of frames (updates) that will be recorded. Higher values offer more rewind time but require more memory. A value of zero indicates an indefinite amount of frames.
-		/// </summary>
-		public int recordedFrames
+		public float speed
 		{
-			get { return _recordedFrames; }
-			set { _recordedFrames = Mathf.Clamp(value, 0, 10000); }
+			get { return _speed; }
+			set
+			{
+				_speed = value;
+				AdjustProperties();
+			}
+		}
+
+		private int recordedFrames
+		{
+			get
+			{
+				// TODO: Proper FPS anticipation, with Application.targetFrameRate and v-sync
+				// http://docs.unity3d.com/ScriptReference/Application-targetFrameRate.html
+				return Mathf.Clamp((int)(timeline.recordingDuration * 60), 1, 10000);
+			}
 		}
 
 		public override void CopyProperties(Animator source)
 		{
-			speed = source.speed;
+			_speed = source.speed;
 		}
 
 		public override void AdjustProperties(float timeScale)
@@ -42,43 +50,49 @@ namespace Chronos
 
 		public override void Start()
 		{
-			component.StartRecording(recordedFrames);
+			if (timeline.rewindable)
+			{
+				component.StartRecording(recordedFrames);
+			}
 		}
 
 		public override void Update()
 		{
-			float timeScale = timeline.timeScale;
-			float lastTimeScale = timeline.lastTimeScale;
-
-			if (lastTimeScale >= 0 && timeScale < 0) // Started rewind
+			if (timeline.rewindable)
 			{
-				component.StopRecording();
+				float timeScale = timeline.timeScale;
+				float lastTimeScale = timeline.lastTimeScale;
 
-				// There seems to be a bug in some cases in which no data is recorded
-				// and recorder start and stop time are at -1. Can't seem to figure
-				// when or why it happens, though. Temporary hotfix to disable playback
-				// in that case.
-				if (component.recorderStartTime >= 0)
+				if (lastTimeScale >= 0 && timeScale < 0) // Started rewind
 				{
-					component.StartPlayback();
-					component.playbackTime = component.recorderStopTime;
+					component.StopRecording();
+
+					// There seems to be a bug in some cases in which no data is recorded
+					// and recorder start and stop time are at -1. Can't seem to figure
+					// when or why it happens, though. Temporary hotfix to disable playback
+					// in that case.
+					if (component.recorderStartTime >= 0)
+					{
+						component.StartPlayback();
+						component.playbackTime = component.recorderStopTime;
+					}
+					else
+					{
+						Debug.LogWarning("Animator timeline failed to record for unknown reasons.\nSee: http://forum.unity3d.com/threads/341203/", component);
+					}
 				}
-				else
+				else if (lastTimeScale <= 0 && timeScale > 0) // Stopped pause or rewind
 				{
-					Debug.LogWarning("Animator timeline failed to record for unknown reasons.\nSee: http://forum.unity3d.com/threads/341203/", component);
+					component.StopPlayback();
+					component.StartRecording(recordedFrames);
 				}
-			}
-			else if (lastTimeScale <= 0 && timeScale > 0) // Stopped pause or rewind
-			{
-				component.StopPlayback();
-				component.StartRecording(recordedFrames);
-			}
 
-			if (timeScale < 0 && component.recorderMode == AnimatorRecorderMode.Playback)
-			{
-				float playbackTime = Mathf.Max(component.recorderStartTime, component.playbackTime + timeline.deltaTime);
+				if (timeScale < 0 && component.recorderMode == AnimatorRecorderMode.Playback)
+				{
+					float playbackTime = Mathf.Max(component.recorderStartTime, component.playbackTime + timeline.deltaTime);
 
-				component.playbackTime = playbackTime;
+					component.playbackTime = playbackTime;
+				}
 			}
 		}
 	}

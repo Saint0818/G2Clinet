@@ -1,5 +1,24 @@
 ## UniWebView - An easier solution for integrating WebView to your mobile games
 
+2.5.2
+
+Fix: Use UnityPlayerActivity instead. This makes UniWebView compatible with Unity 5.4 (current in beta).
+
+------------------------
+2.5.1
+
+Fix: A crash issue in editor when you use AddUrlScheme.
+
+------------------------
+2.5.0
+
+Add: Support for adding customize header field.
+Add: A helper method to generate streaming asset url for local pages.
+Add: Add AppFlyer jar file.
+Fix: Hide transition callback will work correctly for Android now.
+Fix: Improve performance for OS X Editor version.
+
+------------------------
 2.4.1
 
 Fix: Compatible with Unity 5.3.0's new OS X OpenGL Core for editor.

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -57,14 +57,30 @@ namespace Chronos
 			return Snapshot.Lerp(from, to, t);
 		}
 
+		// NavMeshAgents don't function correctly with manually updated transforms.
+		// http://forum.unity3d.com/threads/317688/page-8#post-2454841
+		private NavMeshAgent GetNavMeshAgentOverride()
+		{
+			if (timeline.navMeshAgent == null ||
+				timeline.navMeshAgent.component == null ||
+				!timeline.navMeshAgent.component.enabled)
+			{
+				return null;
+			}
+
+			return timeline.navMeshAgent.component;
+		}
+
 		protected override Snapshot CopySnapshot()
 		{
+			var navMeshAgent = GetNavMeshAgentOverride();
+			
 			return new Snapshot()
 			{
 				position = component.transform.position,
 				rotation = component.transform.rotation,
 				// scale = component.transform.localScale,
-				velocity = component.velocity,
+				velocity = navMeshAgent == null ? component.velocity : navMeshAgent.velocity,
 				angularVelocity = component.angularVelocity,
 				lastPositiveTimeScale = lastPositiveTimeScale
 			};
@@ -72,13 +88,31 @@ namespace Chronos
 
 		protected override void ApplySnapshot(Snapshot snapshot)
 		{
-			component.transform.position = snapshot.position;
+			var navMeshAgent = GetNavMeshAgentOverride();
+			
+			if (navMeshAgent == null)
+			{
+				component.transform.position = snapshot.position;
+			}
+			else
+			{
+				navMeshAgent.Warp(snapshot.position);
+			}
+
 			component.transform.rotation = snapshot.rotation;
 			// component.transform.localScale = snapshot.scale;
 
 			if (timeline.timeScale > 0)
 			{
-				component.velocity = snapshot.velocity;
+				if (navMeshAgent == null)
+				{
+					component.velocity = snapshot.velocity;
+				}
+				else
+				{
+					navMeshAgent.velocity = snapshot.velocity;
+				}
+
 				component.angularVelocity = snapshot.angularVelocity;
 			}
 
@@ -170,7 +204,7 @@ namespace Chronos
 		public void AddForce(Vector3 force, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddForce(AdjustForce(force), mode);
+				component.AddForce(AdjustForce(force), mode);
 		}
 
 		/// <summary>
@@ -179,7 +213,7 @@ namespace Chronos
 		public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddRelativeForce(AdjustForce(force), mode);
+				component.AddRelativeForce(AdjustForce(force), mode);
 		}
 
 		/// <summary>
@@ -188,16 +222,17 @@ namespace Chronos
 		public void AddForceAtPosition(Vector3 force, Vector3 position, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddForceAtPosition(AdjustForce(force), position, mode);
+				component.AddForceAtPosition(AdjustForce(force), position, mode);
 		}
 
 		/// <summary>
 		/// The equivalent of Rigidbody.AddRelativeForce adjusted for time effects.
 		/// </summary>
-		public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius, float upwardsModifier = 0, ForceMode mode = ForceMode.Force)
+		public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius,
+			float upwardsModifier = 0, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddExplosionForce(AdjustForce(explosionForce), explosionPosition, explosionRadius, upwardsModifier, mode);
+				component.AddExplosionForce(AdjustForce(explosionForce), explosionPosition, explosionRadius, upwardsModifier, mode);
 		}
 
 		/// <summary>
@@ -206,7 +241,7 @@ namespace Chronos
 		public void AddTorque(Vector3 torque, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddTorque(AdjustForce(torque), mode);
+				component.AddTorque(AdjustForce(torque), mode);
 		}
 
 		/// <summary>
@@ -215,7 +250,7 @@ namespace Chronos
 		public void AddRelativeTorque(Vector3 torque, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddRelativeTorque(AdjustForce(torque), mode);
+				component.AddRelativeTorque(AdjustForce(torque), mode);
 		}
 
 		#endregion

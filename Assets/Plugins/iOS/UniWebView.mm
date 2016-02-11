@@ -109,6 +109,7 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
 @property (nonatomic, copy) NSString *currentUrl;
 
 @property (nonatomic, retain) NSMutableArray *schemes;
+@property (nonatomic, retain) NSMutableDictionary *headers;
 
 @property (nonatomic, assign) BOOL viewAnimating;
 
@@ -169,6 +170,7 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
         });
 
         _schemes = [[NSMutableArray alloc] initWithObjects:@"uniwebview", nil];
+        _headers = [NSMutableDictionary dictionary];
 
         _showSpinnerWhenLoading = YES;
 
@@ -321,7 +323,11 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
 -(void) webviewName:(NSString *)name beginLoadURL:(NSString *)urlString {
     UniWebView *webView = [_webViewDic objectForKey:name];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    for (NSString *key in webView.headers.allKeys) {
+        [request setValue:webView.headers[key] forHTTPHeaderField:key];
+    }
 
     [webView loadRequest:request];
 }
@@ -645,6 +651,7 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
     } else {
         UnitySendMessage([webViewName UTF8String], "LoadBegin", [request.URL.absoluteString UTF8String]);
     }
+    
     return YES;
 }
 
@@ -700,6 +707,15 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
 -(void) webViewName:(NSString *)name setAlpha:(float)alpha {
     UniWebView *webView = [_webViewDic objectForKey:name];
     webView.alpha = alpha;
+}
+
+-(void) webViewName:(NSString *)name setValue:(NSString *)value forHeaderField:(NSString *)key {
+    UniWebView *webView = [_webViewDic objectForKey:name];
+    if (value.length == 0) {
+        [webView.headers removeObjectForKey:key];
+    } else if (key.length != 0) {
+        webView.headers[key] = value;
+    }
 }
 
 @end
@@ -760,6 +776,7 @@ extern "C" {
     void _UniWebViewSetUserAgent(const char *userAgent);
     float _UniWebViewGetAlpha(const char *name);
     void _UniWebViewSetAlpha(const char *name, float alpha);
+    void _UniWebViewSetHeaderField(const char *name, const char *key, const char *value);
 }
 
 void _UniWebViewInit(const char *name, int top, int left, int bottom, int right) {
@@ -926,3 +943,11 @@ void _UniWebViewSetAlpha(const char *name, float alpha) {
     [[UniWebViewManager sharedManager] webViewName:UniWebViewMakeNSString(name)
                                           setAlpha:alpha];
 }
+
+void _UniWebViewSetHeaderField(const char *name, const char *key, const char *value) {
+    [[UniWebViewManager sharedManager] webViewName:UniWebViewMakeNSString(name)
+                                          setValue:UniWebViewMakeNSString(value)
+                                    forHeaderField:UniWebViewMakeNSString(key)
+     ];
+}
+

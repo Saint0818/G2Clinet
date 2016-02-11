@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos.Example
 {
@@ -10,13 +10,20 @@ namespace Chronos.Example
 		// The speed at which to rotate
 		public float speed = 20;
 
-		void Update()
+		private void Update()
 		{
 			// Notice time.deltaTime (GetComponent<Timeline>().deltaTime)
 			// instead of Time.deltaTime! Lowercase t is important here.
 			// Remember "time" is defined in ExampleBaseBehaviour.
-			transform.Rotate(time.deltaTime * Vector3.one * speed);
+
+			if (time.timeScale > 0)
+			{
+				transform.Rotate(time.deltaTime * Vector3.one * speed);
+			}
+
+			// We don't need to take care of negative time scales,
+			// as the transform recorder will kick in for us because
+			// we enabled Timeline.rewindable.
 		}
 	}
-
 }

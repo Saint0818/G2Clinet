@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 
 namespace Chronos.Example
@@ -12,11 +11,11 @@ namespace Chronos.Example
 	public class ExampleOccurrences : ExampleBaseBehaviour
 	{
 		// Subclass the occurrence class (see documentation)
-		class ChangeColorOccurrence : Occurrence
+		private class ChangeColorOccurrence : Occurrence
 		{
-			Material material;
-			Color newColor;
-			Color previousColor;
+			private Material material;
+			private Color newColor;
+			private Color previousColor;
 
 			public ChangeColorOccurrence(Material material, Color newColor)
 			{
@@ -38,7 +37,7 @@ namespace Chronos.Example
 			}
 		}
 
-		void Start()
+		private void Start()
 		{
 			// Get the renderer's material
 			Material material = GetComponent<Renderer>().material;
@@ -60,5 +59,4 @@ namespace Chronos.Example
 			time.Cancel(changeToMagenta);
 		}
 	}
-
 }
