@@ -34,14 +34,14 @@
         "line": 4,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0"
+        "texttw": "只要點擊右邊的[ff6060]鑲嵌材料[-]，即可進行第一階段的強化囉。"
     },
     {
         "id": 1,
         "line": 5,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot1"
+        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0"
     },
     {
         "id": 1,
@@ -77,12 +77,11 @@
         "line": 1,
         "title": "Avatar",
         "kind": 4,
-        "value": 4,
-        "uiname": "UIAvatarFitted",
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "剛剛的勝利有獲得到很酷的[f6f6f6]造型服裝[-]喔，快來搭配屬於自己的造型特色吧。",
+        "texttw": "剛剛的勝利獲得了很酷的[ff6060]造型服裝[-]喔，快來搭配屬於自己的造型吧。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
     },
@@ -90,30 +89,32 @@
         "id": 2,
         "line": 2,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt"
     },
     {
         "id": 2,
         "line": 3,
+        "kind": 4,
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "選擇背部飾品種類。",
+        "texttw": "選擇[ff6060]背部飾品[-]種類。",
         "texten": "Click the clothes button."
     },
     {
         "id": 2,
         "line": 4,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/6"
     },
     {
         "id": 2,
         "line": 5,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
@@ -124,7 +125,7 @@
         "id": 2,
         "line": 6,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
@@ -135,7 +136,7 @@
         "id": 2,
         "line": 7,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
@@ -146,7 +147,7 @@
         "id": 2,
         "line": 8,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "uipath": "UI2D/UIAvatarFitted/MainView/Left/ItemList/",
         "talkindex": 0,
         "talkl": 11,
@@ -157,7 +158,7 @@
         "id": 2,
         "line": 9,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
@@ -168,7 +169,7 @@
         "id": 2,
         "line": 10,
         "kind": 4,
-        "value": 4,
+        "value": 2,
         "uipath": "UI2D/UIAvatarFitted/BottomLeft/BackBtn/",
         "talkindex": 0,
         "talkl": 11,
@@ -307,7 +308,6 @@
         "title": "Skill",
         "kind": 2,
         "value": 101,
-        "uiname": "UISkillFormation",
         "talkindex": 1,
         "actionl": 5,
         "talkr": -1,
@@ -362,7 +362,7 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "在每次開始競賽前，都可以重新設置你的[ff6060]技能晶片[-]，以應付競賽的要求，我們快把剛剛獲得的晶片裝上吧！！"
+        "texttw": "在開始競賽前，我們快把剛剛獲得的[ff6060]技能晶片[-]裝上吧！！"
     },
     {
         "id": 5,
@@ -776,6 +776,42 @@
         "uipath": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/GetBtn"
     },
     {
+        "id": 12,
+        "line": 1,
+        "title": "投點教學",
+        "kind": 0,
+        "uiname": "UIPlayerPotential",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 5,
+        "texttw": "嗨，這裡是[ff6060]潛能成長[-]區，在這裏可以激發自己的潛能，讓自己的能力更上一層樓喔！！"
+    },
+    {
+        "id": 12,
+        "line": 2,
+        "talkindex": 1,
+        "actionl": 6,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "哇，是喔，那該怎麼提升自己的能力啊！！"
+    },
+    {
+        "id": 12,
+        "line": 3,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "只要你每次[ff6060]提升等級[-]，或者藉由購買造型外觀都可以獲得[ff6060]潛能點數[-]"
+    },
+    {
+        "id": 12,
+        "line": 4,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "當有技能點數後，只要點擊各數值的[ff6060]＋[-]按鈕，即可增加對應的數值唷，快來試試吧！！"
+    },
+    {
         "id": 30,
         "line": 1,
         "title": "主介面",
@@ -887,7 +923,7 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "確認這場比賽的獲勝條件之後，就可以繼續進入下一步了。",
+        "texttw": "確認這場比賽的[ff6060]獲勝條件[-]之後，就可以繼續進入下一步了。",
         "texten": "Make sure you know the winning criteria before moving to the next step."
     },
     {
@@ -902,7 +938,10 @@
         "line": 13,
         "kind": 0,
         "uiname": "UIMainLobby",
-        "texttw": "這裡是你這場比賽的隊友，確認完畢就可以開始競賽了",
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "這裡是你這場比賽的[ff6060]隊友[-]，確認完畢就可以開始競賽了",
         "texten": "Here are your teammates for this game, press confirm to begin game."
     },
     {
@@ -913,21 +952,72 @@
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
-        "id": 30,
-        "line": 15,
-        "kind": 0,
-        "uiname": "UIMainLobby",
+        "id": 31,
+        "line": 1,
+        "title": "第二關打完",
+        "kind": 2,
+        "value": 102,
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 5,
-        "texttw": "在開賽前可以選擇另外兩位 [ff6060]隊友[-]，亦可以直接開始進行比賽。"
+        "actionl": 1,
+        "texttw": "哇，連續取得獲勝耶，我們繼續挑戰下一組對手吧！！"
     },
     {
-        "id": 30,
-        "line": 16,
-        "kind": 0,
-        "uiname": "UIMainLobby",
+        "id": 31,
+        "line": 2,
+        "kind": 2,
+        "value": 102,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement103"
+    },
+    {
+        "id": 31,
+        "line": 3,
+        "kind": 2,
+        "value": 102,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1
+    },
+    {
+        "id": 31,
+        "line": 4,
+        "kind": 2,
+        "value": 102,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "id": 31,
+        "line": 5,
+        "kind": 2,
+        "value": 102,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1
+    },
+    {
+        "id": 31,
+        "line": 6,
+        "kind": 2,
+        "value": 102,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 32,
+        "line": 1,
+        "title": "通過第一章",
+        "kind": 2,
+        "value": 104,
+        "talkindex": 0,
+        "talkl": 11,
+        "actionl": 1,
+        "texttw": "哇，您已經成功挑戰了第一章節的關主，我們可以離開貧民窟，往下一章邁進囉。"
+    },
+    {
+        "id": 32,
+        "line": 2,
+        "kind": 2,
+        "value": 104,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter2/Open/StageElement105"
     },
     {
         "id": 34,
@@ -1000,157 +1090,6 @@
         "talkl": 11,
         "actionl": 1,
         "texttw": "今後您可以每天回來這裏領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！"
-    },
-    {
-        "id": 99,
-        "line": 1,
-        "title": "Skill",
-        "kind": 4,
-        "value": 2,
-        "uiname": "UISkillFormation",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
-    },
-    {
-        "id": 99,
-        "line": 2,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成決定性的影響。",
-        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game."
-    },
-    {
-        "id": 99,
-        "line": 3,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 1,
-        "texttw": "我來教你怎麼安裝它。",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "Let me teach you how to install it."
-    },
-    {
-        "id": 99,
-        "line": 4,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
-    },
-    {
-        "id": 99,
-        "line": 5,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，",
-        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
-    },
-    {
-        "id": 99,
-        "line": 6,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "首先[ff6060]點擊[-]剛剛獲得的晶片"
-    },
-    {
-        "id": 99,
-        "line": 7,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6
-    },
-    {
-        "id": 99,
-        "line": 8,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UISkillInfo/Center/TopRight/EquipBtn/",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "接下來選擇[ff6060]裝備晶片[-]，將剛剛獲得的晶片安裝在身上即可獲得特殊的能力。"
-    },
-    {
-        "id": 99,
-        "line": 9,
-        "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6,
-        "texttw": "我們可以馬上來試試看技能晶片的威力。"
-    },
-    {
-        "id": 99,
-        "line": 10,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UISkillInfo/Center/BottomRight/BackBtn/",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6
-    },
-    {
-        "id": 99,
-        "line": 11,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn/",
-        "talkindex": 0,
-        "talkl": 11,
-        "actionl": 6
-    },
-    {
-        "id": 99,
-        "line": 12,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
-    },
-    {
-        "id": 99,
-        "line": 13,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
-    },
-    {
-        "id": 99,
-        "line": 14,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/UIStageChapter(Clone)/Open/Stage101"
-    },
-    {
-        "id": 99,
-        "line": 15,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
-    },
-    {
-        "id": 99,
-        "line": 16,
-        "kind": 4,
-        "value": 2,
-        "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
         "id": 40,

@@ -1,14 +1,17 @@
 [
     {
         "lv": 1,
-        "lvupexp": 4,
-        "ui": 1,
+        "lvupexp": 4
+    },
+    {
+        "lv": 2,
+        "lvupexp": 8,
         "unlockname": 455,
         "tutorialid": 5,
         "unlockhint": 404
     },
     {
-        "lv": 2,
+        "lv": 3,
         "lvupexp": 8,
         "ui": 1,
         "unlockname": 452,
@@ -16,7 +19,7 @@
         "unlockhint": 402
     },
     {
-        "lv": 3,
+        "lv": 4,
         "lvupexp": 8,
         "ui": 1,
         "unlockname": 451,
@@ -24,44 +27,39 @@
         "unlockhint": 401
     },
     {
-        "lv": 4,
-        "lvupexp": 8,
+        "lv": 5,
+        "lvupexp": 10,
         "ui": 1,
         "unlockname": 456,
         "tutorialid": 6,
         "unlockhint": 406
     },
     {
-        "lv": 5,
+        "lv": 6,
         "lvupexp": 10,
         "ui": 1,
         "unlockname": 454,
         "tutorialid": 4
     },
     {
-        "lv": 6,
-        "lvupexp": 10,
+        "lv": 7,
+        "lvupexp": 12,
         "ui": 1,
         "unlockname": 457,
         "tutorialid": 7,
         "unlockhint": 407
     },
     {
-        "lv": 7,
-        "lvupexp": 12,
+        "lv": 8,
+        "lvupexp": 15,
         "ui": 1,
         "unlockname": 461
     },
     {
-        "lv": 8,
-        "lvupexp": 15,
-        "ui": 1,
+        "lv": 9,
+        "lvupexp": 20,
         "unlockname": 453,
         "unlockhint": 403
-    },
-    {
-        "lv": 9,
-        "lvupexp": 20
     },
     {
         "lv": 10,
@@ -70,12 +68,12 @@
     {
         "lv": 11,
         "lvupexp": 20,
-        "ui": 2,
-        "unlockname": 459
+        "ui": 2
     },
     {
         "lv": 12,
-        "lvupexp": 60
+        "lvupexp": 60,
+        "unlockname": 459
     },
     {
         "lv": 13,
@@ -84,12 +82,12 @@
     {
         "lv": 14,
         "lvupexp": 70,
-        "ui": 2,
-        "unlockname": 458
+        "ui": 2
     },
     {
         "lv": 15,
-        "lvupexp": 75
+        "lvupexp": 75,
+        "unlockname": 458
     },
     {
         "lv": 16,
