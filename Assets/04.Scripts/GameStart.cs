@@ -53,7 +53,9 @@ public class GameStart : MonoBehaviour {
         AnimatorMgr.Get.InitAnimtorStatesType();
 		SendHttp.Get.CheckServerData(ConnectToServer);
 		#if PUSHWOOSH
+		#if UNITY_ANDROID
         gameObject.AddComponent<PushNotificator>();
+		#endif
 		#endif
 	}
 }
