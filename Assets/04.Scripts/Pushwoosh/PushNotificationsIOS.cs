@@ -3,7 +3,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 
-public class PushNotificationsIOS : MonoBehaviour 
+public class PushNotificationsIOS : Pushwoosh 
 {
 #if UNITY_IPHONE && !UNITY_EDITOR
 	//
@@ -16,6 +16,9 @@ public class PushNotificationsIOS : MonoBehaviour
 	//
 	//public
 	//
+
+	[System.Runtime.InteropServices.DllImport("__Internal")]
+	extern static public void initializePushManager(string appCode, string appName);
 
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void registerForRemoteNotifications();
@@ -53,69 +56,96 @@ public class PushNotificationsIOS : MonoBehaviour
 	[System.Runtime.InteropServices.DllImport("__Internal")]
 	extern static public void addBadgeNumber(int deltaBadge);
 
-	public event Pushwoosh.RegistrationSuccessHandler OnRegisteredForPushNotifications = delegate {};
-	
-	public event Pushwoosh.RegistrationErrorHandler OnFailedToRegisteredForPushNotifications = delegate {};
-	
-	public event Pushwoosh.NotificationHandler OnPushNotificationsReceived = delegate {};
+	protected override void Initialize () 
+	{
+		initializePushManager(Pushwoosh.ApplicationCode, Application.productName);
+		setListenerName(this.gameObject.name);
+	}
 
-	static public void setListTag(string tagName, List<object> tagValues)
+	public override void RegisterForPushNotifications()
+	{
+		registerForRemoteNotifications();
+	}
+
+	public override void UnregisterForPushNotifications()
+	{
+		unregisterForRemoteNotifications();
+	}
+
+	public override string HWID
+	{
+		get { return Marshal.PtrToStringAnsi(_getPushwooshHWID()); }
+	}
+
+	public override string PushToken
+	{
+		get { return Marshal.PtrToStringAnsi(_getPushToken()); }
+	}
+
+	public override void StartTrackingGeoPushes()
+	{
+		startLocationTracking();
+	}
+
+	public override void StopTrackingGeoPushes()
+	{
+		stopLocationTracking();
+	}
+
+	public override void SetListTag(string tagName, List<object> tagValues)
 	{
 		List <string> stringTags = new List<string>();
-
+		
 		foreach (object tagValue in tagValues) {
 			string stringTag = tagValue.ToString();
-
+			
 			if (stringTag != null)
 				stringTags.Add(stringTag);
 		}
-
+		
 		string[] array = stringTags.ToArray();
-
+		
 		internalSendStringTags (tagName, array);
 	}
 
-	// Use this for initialization
-	void Start () {
-		registerForRemoteNotifications();
-		setListenerName(this.gameObject.name);
-		Debug.Log(getPushToken());
+	public override void SetIntTag(string tagName, int tagValue)
+	{
+		setIntTag(tagName, tagValue);
 	}
-
 	
-	static public string getPushToken()
+	public override void SetStringTag(string tagName, string tagValue)
 	{
-		return Marshal.PtrToStringAnsi(_getPushToken());
+		setStringTag(tagName, tagValue);
 	}
 
-	static public string getPushwooshHWID()
+	public override void ClearNotificationCenter()
 	{
-		return Marshal.PtrToStringAnsi(_getPushwooshHWID());
+		clearNotificationCenter ();
 	}
 
-	static public void setBadge(int number)
+	public override void SetBadgeNumber(int number)
 	{
 		setBadgeNumber (number);
 	}
 
-	static public void addBadge(int deltaBadge)
+	public override void AddBadgeNumber(int deltaBadge)
 	{
 		addBadgeNumber (deltaBadge);
 	}
 
 	void onRegisteredForPushNotifications(string token)
 	{
-		OnRegisteredForPushNotifications (token);
+		RegisteredForPushNotifications (token);
 	}
 
 	void onFailedToRegisteredForPushNotifications(string error)
 	{
-		OnFailedToRegisteredForPushNotifications (error);
+		FailedToRegisteredForPushNotifications (error);
 	}
 
 	void onPushNotificationsReceived(string payload)
 	{
-		OnPushNotificationsReceived (payload);
+		PushNotificationsReceived (payload);
 	}
 #endif
 }
