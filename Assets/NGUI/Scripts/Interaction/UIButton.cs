@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -242,7 +242,7 @@ public class UIButton : UIButtonColor
 
 	protected virtual void OnClick ()
 	{
-		if (current == null && isEnabled)
+		if (current == null && isEnabled && UICamera.currentTouchID != -2 && UICamera.currentTouchID != -3)
 		{
 			current = this;
 			EventDelegate.Execute(onClick);

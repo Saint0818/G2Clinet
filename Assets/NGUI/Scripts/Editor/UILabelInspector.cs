@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 #if !UNITY_FLASH
@@ -224,6 +224,14 @@ public class UILabelInspector : UIWidgetInspector
 			NGUISettings.overflowStyle = (UILabel.Overflow)ov.intValue;
 			if (NGUISettings.overflowStyle == UILabel.Overflow.ClampContent)
 				NGUIEditorTools.DrawProperty("Use Ellipsis", serializedObject, "mOverflowEllipsis", GUILayout.Width(110f));
+
+			if (NGUISettings.overflowStyle == UILabel.Overflow.ResizeFreely)
+			{
+				GUILayout.BeginHorizontal();
+				SerializedProperty s = NGUIEditorTools.DrawPaddedProperty("Max Width", serializedObject, "mOverflowWidth");
+				if (s != null && s.intValue < 1) GUILayout.Label("unlimited");
+				GUILayout.EndHorizontal();
+			}
 
 			NGUIEditorTools.DrawPaddedProperty("Alignment", serializedObject, "mAlignment");
 

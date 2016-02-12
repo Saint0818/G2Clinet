@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -91,6 +91,19 @@ public class NGUIDebug : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Add a new log entry.
+	/// </summary>
+
+	static public void Log (string s)
+	{
+		if (!string.IsNullOrEmpty(s))
+		{
+			string[] lines = s.Split('\n');
+			foreach (string st in lines) LogString(st);
+		}
+	}
+
+	/// <summary>
 	/// Clear the logged text.
 	/// </summary>
 
@@ -160,6 +173,7 @@ public class NGUIDebug : MonoBehaviour
 
 			text = "Active events: " + UICamera.CountInputSources();
 			if (UICamera.disableController) text += ", disabled controller";
+			if (UICamera.ignoreControllerInput) text += ", ignore controller";
 			if (UICamera.inputHasFocus) text += ", input focus";
 			GUI.color = Color.black;
 			GUI.Label(rect, text);

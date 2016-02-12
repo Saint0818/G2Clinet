@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -909,14 +909,6 @@ public class UIWidget : UIRect
 		{
 			base.OnValidate();
 
-			// Prior to NGUI 2.7.0 width and height was specified as transform's local scale
-			if ((mWidth == 100 || mWidth == minWidth) &&
-				(mHeight == 100 || mHeight == minHeight) && cachedTransform.localScale.magnitude > 8f)
-			{
-				UpgradeFrom265();
-				cachedTransform.localScale = Vector3.one;
-			}
-
 			if (mWidth < minWidth) mWidth = minWidth;
 			if (mHeight < minHeight) mHeight = minHeight;
 			if (autoResizeBoxCollider) ResizeCollider();
@@ -1057,16 +1049,6 @@ public class UIWidget : UIRect
 		base.OnInit();
 		RemoveFromPanel();
 		mMoved = true;
-
-		// Prior to NGUI 2.7.0 width and height was specified as transform's local scale
-		if (mWidth == 100 && mHeight == 100 && cachedTransform.localScale.magnitude > 8f)
-		{
-			UpgradeFrom265();
-			cachedTransform.localScale = Vector3.one;
-#if UNITY_EDITOR
-			NGUITools.SetDirty(this);
-#endif
-		}
 		Update();
 	}
 
@@ -1351,7 +1333,7 @@ public class UIWidget : UIRect
 
 			// Draw the gizmo
 			Gizmos.matrix = cachedTransform.localToWorldMatrix;
-			Gizmos.color = (UnityEditor.Selection.activeGameObject == cachedTransform) ? Color.white : outline;
+			Gizmos.color = (UnityEditor.Selection.activeGameObject == gameObject) ? Color.white : outline;
 			Gizmos.DrawWireCube(center, size);
 
 			// Make the widget selectable

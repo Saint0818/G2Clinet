@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -229,7 +229,8 @@ public class UIDragDropItem : MonoBehaviour
 	{
 		if (!interactable) return;
 		if (!mDragging || !enabled || mTouch != UICamera.currentTouch) return;
-		OnDragDropMove(delta * mRoot.pixelSizeAdjustment);
+		if (mRoot != null) OnDragDropMove(delta * mRoot.pixelSizeAdjustment);
+		else OnDragDropMove(delta);
 	}
 
 	/// <summary>

@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -133,25 +133,41 @@ public class UICamera : MonoBehaviour
 	/// GetKeyDown function -- return whether the specified key was pressed this Update().
 	/// </summary>
 
-	static public GetKeyStateFunc GetKeyDown = Input.GetKeyDown;
+	static public GetKeyStateFunc GetKeyDown = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKeyDown(key);
+	};
 
 	/// <summary>
 	/// GetKeyDown function -- return whether the specified key was released this Update().
 	/// </summary>
 
-	static public GetKeyStateFunc GetKeyUp = Input.GetKeyUp;
+	static public GetKeyStateFunc GetKeyUp = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKeyUp(key);
+	};
 
 	/// <summary>
 	/// GetKey function -- return whether the specified key is currently held.
 	/// </summary>
 
-	static public GetKeyStateFunc GetKey = Input.GetKey;
+	static public GetKeyStateFunc GetKey = delegate(KeyCode key)
+	{
+		if (key >= KeyCode.JoystickButton0 && ignoreControllerInput) return false;
+		return Input.GetKey(key);
+	};
 
 	/// <summary>
 	/// GetAxis function -- return the state of the specified axis.
 	/// </summary>
 
-	static public GetAxisFunc GetAxis = Input.GetAxis;
+	static public GetAxisFunc GetAxis = delegate(string axis)
+	{
+		if (ignoreControllerInput) return 0f;
+		return Input.GetAxis(axis);
+	};
 
 	/// <summary>
 	/// User-settable Input.anyKeyDown
@@ -187,6 +203,18 @@ public class UICamera : MonoBehaviour
 	/// </summary>
 
 	public LayerMask eventReceiverMask = -1;
+
+	public enum ProcessEventsIn
+	{
+		Update,
+		LateUpdate,
+	}
+
+	/// <summary>
+	/// When events will be processed.
+	/// </summary>
+
+	public ProcessEventsIn processEventsIn = ProcessEventsIn.Update;
 
 	/// <summary>
 	/// If 'true', currently hovered object will be shown in the top left corner.
@@ -357,6 +385,12 @@ public class UICamera : MonoBehaviour
 			mDisableController = value;
 		}
 	}
+
+	/// <summary>
+	/// If set to 'true', controller input will be flat-out ignored. Permanently, for all cameras.
+	/// </summary>
+
+	static public bool ignoreControllerInput = false;
 
 	static bool mDisableController = false;
 	static Vector2 mLastPos = Vector2.zero;
@@ -574,11 +608,7 @@ public class UICamera : MonoBehaviour
 	{
 		get
 		{
-			if (mInputFocus)
-			{
-				if (mSelected && mSelected.activeInHierarchy) return true;
-				mInputFocus = false;
-			}
+			if (mInputFocus && mSelected && mSelected.activeInHierarchy) return true;
 			return false;
 		}
 	}
@@ -811,7 +841,7 @@ public class UICamera : MonoBehaviour
 
 			// Automatically update the object chosen by the controller
 			if (currentScheme == ControlScheme.Controller &&
-				UICamera.current != null && UICamera.current.useController &&
+				UICamera.current != null && (UICamera.current.useController && !ignoreControllerInput) &&
 				UIKeyNavigation.list.size > 0)
 			{
 				for (int i = 0; i < UIKeyNavigation.list.size; ++i)
@@ -1179,7 +1209,7 @@ public class UICamera : MonoBehaviour
 					lastWorldPosition = lastHit.point;
 					mRayHitObject = lastHit.collider.gameObject;
 
-					if (!list[0].eventsGoToColliders)
+					if (!cam.eventsGoToColliders)
 					{
 						Rigidbody rb = FindRootRigidbody(mRayHitObject.transform);
 						if (rb != null) mRayHitObject = rb.gameObject;
@@ -1598,8 +1628,8 @@ public class UICamera : MonoBehaviour
 				string s = args[i];
 				if (s == "-noMouse") useMouse = false;
 				else if (s == "-noTouch") useTouch = false;
-				else if (s == "-noController") useController = false;
-				else if (s == "-noJoystick") useController = false;
+				else if (s == "-noController") { useController = false; ignoreControllerInput = true; }
+				else if (s == "-noJoystick") { useController = false; ignoreControllerInput = true; }
 				else if (s == "-useMouse") useMouse = true;
 				else if (s == "-useTouch") useTouch = true;
 				else if (s == "-useController") useController = true;
@@ -1644,29 +1674,20 @@ public class UICamera : MonoBehaviour
 			if (fallThrough == null)
 			{
 				UIRoot root = NGUITools.FindInParents<UIRoot>(gameObject);
-
-				if (root != null)
-				{
-					fallThrough = root.gameObject;
-				}
-				else
-				{
-					Transform t = transform;
-					fallThrough = (t.parent != null) ? t.parent.gameObject : gameObject;
-				}
+				fallThrough = (root != null) ? root.gameObject : gameObject;
 			}
 			cachedCamera.eventMask = 0;
 
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
 			// Automatically disable controller-based input if the game starts with a non-zero controller input.
 			// This most commonly happens with Thrustmaster and other similar joystick types.
-			if (disableControllerCheck && useController && handlesEvents)
+			if (!ignoreControllerInput && disableControllerCheck && useController && handlesEvents)
 			{
 				disableControllerCheck = false;
-				if (!string.IsNullOrEmpty(horizontalAxisName) && Mathf.Abs(GetAxis(horizontalAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(verticalAxisName) && Mathf.Abs(GetAxis(verticalAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(horizontalPanAxisName) && Mathf.Abs(GetAxis(horizontalPanAxisName)) > 0.1f) useController = false;
-				else if (!string.IsNullOrEmpty(verticalPanAxisName) && Mathf.Abs(GetAxis(verticalPanAxisName)) > 0.1f) useController = false;
+				if (!string.IsNullOrEmpty(horizontalAxisName) && Mathf.Abs(GetAxis(horizontalAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(verticalAxisName) && Mathf.Abs(GetAxis(verticalAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(horizontalPanAxisName) && Mathf.Abs(GetAxis(horizontalPanAxisName)) > 0.1f) ignoreControllerInput = true;
+				else if (!string.IsNullOrEmpty(verticalPanAxisName) && Mathf.Abs(GetAxis(verticalPanAxisName)) > 0.1f) ignoreControllerInput = true;
 			}
 #endif
 		}
@@ -1686,23 +1707,60 @@ public class UICamera : MonoBehaviour
 #if UNITY_EDITOR
 		if (!Application.isPlaying || !handlesEvents) return;
 #else
+        if (!handlesEvents) return;
+#endif
+		if (processEventsIn == ProcessEventsIn.Update) ProcessEvents();
+	}
+
+	/// <summary>
+	/// Keep an eye on screen size changes.
+	/// </summary>
+
+	void LateUpdate ()
+	{
+#if UNITY_EDITOR
+		if (!Application.isPlaying || !handlesEvents) return;
+#else
 		if (!handlesEvents) return;
 #endif
+		if (processEventsIn == ProcessEventsIn.LateUpdate) ProcessEvents();
+
+		int w = Screen.width;
+		int h = Screen.height;
+
+		if (w != mWidth || h != mHeight)
+		{
+			mWidth = w;
+			mHeight = h;
+
+			UIRoot.Broadcast("UpdateAnchors");
+
+			if (onScreenResize != null)
+				onScreenResize();
+		}
+	}
+
+	/// <summary>
+	/// Process all events.
+	/// </summary>
+
+	void ProcessEvents ()
+	{
 		current = this;
 		NGUIDebug.debugRaycast = debug;
 
 		// Process touch events first
-		if (useTouch) ProcessTouches ();
+		if (useTouch) ProcessTouches();
 		else if (useMouse) ProcessMouse();
 
 		// Custom input processing
 		if (onCustomInput != null) onCustomInput();
 
 		// Update the keyboard and joystick events
-		if ((useKeyboard || useController) && !disableController) ProcessOthers();
+		if ((useKeyboard || useController) && !disableController && !ignoreControllerInput) ProcessOthers();
 
 		// If it's time to show a tooltip, inform the object we're hovering over
-		if (useMouse && mHover != null)
+		if (useMouse && mHover != null && currentScheme == ControlScheme.Mouse)
 		{
 			float scroll = !string.IsNullOrEmpty(scrollAxisName) ? GetAxis(scrollAxisName) : 0f;
 
@@ -1726,32 +1784,6 @@ public class UICamera : MonoBehaviour
 
 		current = null;
 		currentTouchID = -100;
-	}
-
-	/// <summary>
-	/// Keep an eye on screen size changes.
-	/// </summary>
-
-	void LateUpdate ()
-	{
-#if UNITY_EDITOR
-		if (!Application.isPlaying || !handlesEvents) return;
-#else
-		if (!handlesEvents) return;
-#endif
-		int w = Screen.width;
-		int h = Screen.height;
-
-		if (w != mWidth || h != mHeight)
-		{
-			mWidth = w;
-			mHeight = h;
-
-			UIRoot.Broadcast("UpdateAnchors");
-
-			if (onScreenResize != null)
-				onScreenResize();
-		}
 	}
 
 	/// <summary>
@@ -1898,7 +1930,7 @@ public class UICamera : MonoBehaviour
 		if (!isPressed && highlightChanged)
 		{
 			currentTouch = mMouse[0];
-			mTooltipTime = RealTime.time + tooltipDelay;
+			mTooltipTime = Time.unscaledTime + tooltipDelay;
 			currentTouchID = -1;
 			currentKey = KeyCode.Mouse0;
 			hoveredObject = currentTouch.current;
@@ -2114,7 +2146,7 @@ public class UICamera : MonoBehaviour
 		KeyCode lastKey = KeyCode.None;
 
 		// Handle controller events
-		if (useController)
+		if (useController && !ignoreControllerInput)
 		{
 			// Automatically choose the first available selection object
 			if (!disableController && currentScheme == ControlScheme.Controller && (currentTouch.current == null || !currentTouch.current.activeInHierarchy))
@@ -2187,7 +2219,7 @@ public class UICamera : MonoBehaviour
 				if (!GetKeyDown(key)) continue;
 
 				if (!useKeyboard && key < KeyCode.Mouse0) continue;
-				if (!useController && key >= KeyCode.JoystickButton0) continue;
+				if ((!useController || ignoreControllerInput) && key >= KeyCode.JoystickButton0) continue;
 				if (!useMouse && (key >= KeyCode.Mouse0 || key <= KeyCode.Mouse6)) continue;
 
 				currentKey = key;
@@ -2209,6 +2241,7 @@ public class UICamera : MonoBehaviour
 		if (pressed)
 		{
 			if (mTooltip != null) ShowTooltip(null);
+			mTooltipTime = Time.unscaledTime + tooltipDelay;
 			currentTouch.pressStarted = true;
 			if (onPress != null && currentTouch.pressed)
 				onPress(currentTouch.pressed, false);
@@ -2228,8 +2261,6 @@ public class UICamera : MonoBehaviour
 				onPress(currentTouch.pressed, true);
 
 			Notify(currentTouch.pressed, "OnPress", true);
-
-			if (mTooltip != null) ShowTooltip(null);
 
 			// Change the selection
 			if (mSelected != currentTouch.pressed)
@@ -2427,7 +2458,7 @@ public class UICamera : MonoBehaviour
 
 	public void ProcessTouch (bool pressed, bool released)
 	{
-		if (pressed) mTooltipTime = Time.unscaledTime + tooltipDelay;
+		if (released) mTooltipTime = 0f;
 
 		// Whether we're using the mouse
 		bool isMouse = (currentScheme == ControlScheme.Mouse);
@@ -2444,14 +2475,15 @@ public class UICamera : MonoBehaviour
 			ProcessPress(pressed, click, drag);
 
 			// Hold event = show tooltip
-			if (currentTouch.pressed == currentTouch.current && mTooltipTime != 0f &&
-				currentTouch.clickNotification != ClickNotification.None &&
-				!currentTouch.dragStarted && currentTouch.deltaTime > tooltipDelay)
+			if (currentTouch.deltaTime > tooltipDelay)
 			{
-				mTooltipTime = 0f;
-				currentTouch.clickNotification = ClickNotification.None;
-				if (longPressTooltip) ShowTooltip(currentTouch.pressed);
-				Notify(currentTouch.current, "OnLongPress", null);
+				if (currentTouch.pressed == currentTouch.current && mTooltipTime != 0f && !currentTouch.dragStarted)
+				{
+					mTooltipTime = 0f;
+					currentTouch.clickNotification = ClickNotification.None;
+					if (longPressTooltip) ShowTooltip(currentTouch.pressed);
+					Notify(currentTouch.current, "OnLongPress", null);
+				}
 			}
 		}
 		else if (isMouse || pressed || released)
@@ -2460,6 +2492,13 @@ public class UICamera : MonoBehaviour
 			if (released) ProcessRelease(isMouse, drag);
 		}
 	}
+
+	/// <summary>
+	/// Cancel the next tooltip, preventing it from being shown.
+	/// Moving the mouse again will reset this counter.
+	/// </summary>
+
+	static public void CancelNextTooltip () { mTooltipTime = 0f; }
 
 	/// <summary>
 	/// Show or hide the tooltip.

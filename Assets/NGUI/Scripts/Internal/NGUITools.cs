@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright Â© 2011-2015 Tasharen Entertainment
+// Copyright © 2011-2016 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -1391,6 +1391,80 @@ static public class NGUITools
 		// Recurse into children
 		for (int i = 0, imax = t.childCount; i < imax; ++i)
 			MakePixelPerfect(t.GetChild(i));
+	}
+
+	/// <summary>
+	/// Fit the specified NGUI hierarchy on the screen.
+	/// Example: uiCamera.FitOnScreen(contentObjectTransform, UICamera.lastEventPosition);
+	/// </summary>
+
+	static public void FitOnScreen (this Camera cam, Transform transform, Vector3 pos)
+	{
+		cam.FitOnScreen(transform, transform, pos);
+	}
+
+	/// <summary>
+	/// Fit the specified NGUI hierarchy on the screen.
+	/// Example: uiCamera.FitOnScreen(rootObjectTransform, contentObjectTransform, UICamera.lastEventPosition);
+	/// </summary>
+
+	static public void FitOnScreen (this Camera cam, Transform transform, Transform content, Vector3 pos)
+	{
+		Bounds b;
+		cam.FitOnScreen(transform, content, pos, out b);
+	}
+
+	/// <summary>
+	/// Fit the specified NGUI hierarchy on the screen.
+	/// Example: uiCamera.FitOnScreen(rootObjectTransform, contentObjectTransform, UICamera.lastEventPosition);
+	/// </summary>
+
+	static public void FitOnScreen (this Camera cam, Transform transform, Transform content, Vector3 pos, out Bounds bounds)
+	{
+		bounds = NGUIMath.CalculateRelativeWidgetBounds(transform, content);
+
+		Vector3 min = bounds.min;
+		Vector3 max = bounds.max;
+		Vector3 size = bounds.size;
+
+		size.x += min.x;
+		size.y -= max.y;
+
+		if (cam != null)
+		{
+			// Since the screen can be of different than expected size, we want to convert
+			// mouse coordinates to view space, then convert that to world position.
+			pos.x = Mathf.Clamp01(pos.x / Screen.width);
+			pos.y = Mathf.Clamp01(pos.y / Screen.height);
+
+			// Calculate the ratio of the camera's target orthographic size to current screen size
+			float activeSize = cam.orthographicSize / transform.parent.lossyScale.y;
+			float ratio = (Screen.height * 0.5f) / activeSize;
+
+			// Calculate the maximum on-screen size of the tooltip window
+			max = new Vector2(ratio * size.x / Screen.width, ratio * size.y / Screen.height);
+
+			// Limit the tooltip to always be visible
+			pos.x = Mathf.Min(pos.x, 1f - max.x);
+			pos.y = Mathf.Max(pos.y, max.y);
+
+			// Update the absolute position and save the local one
+			transform.position = cam.ViewportToWorldPoint(pos);
+			pos = transform.localPosition;
+			pos.x = Mathf.Round(pos.x);
+			pos.y = Mathf.Round(pos.y);
+		}
+		else
+		{
+			// Don't let the tooltip leave the screen area
+			if (pos.x + size.x > Screen.width) pos.x = Screen.width - size.x;
+			if (pos.y - size.y < 0f) pos.y = size.y;
+
+			// Simple calculation that assumes that the camera is of fixed size
+			pos.x -= Screen.width * 0.5f;
+			pos.y -= Screen.height * 0.5f;
+		}
+		transform.localPosition = pos;
 	}
 
 	/// <summary>
