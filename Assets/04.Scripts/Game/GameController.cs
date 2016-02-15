@@ -126,7 +126,6 @@ public class GameController : KnightSingleton<GameController>
 	private TTacticalAction[] tacticalActions;
 
 	//Shoot
-	public bool IsSwishIn = false;
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;

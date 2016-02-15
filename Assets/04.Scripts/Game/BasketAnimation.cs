@@ -1,28 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public delegate void BasketDelegate(int Team, AnimationEvent aniEvent);
 public class BasketAnimation : MonoBehaviour {
 	public int Team;
+	public BasketDelegate AnimationEventDel = null;
+	public BasketDelegate PlayEffectDel = null;
+	public BasketDelegate PlayShakeDel = null;
+	public BasketDelegate PlayActionSoundDel = null;
 
 	public void AnimationEvent(AnimationEvent aniEvent) {
-		string animationName = aniEvent.stringParameter;
-		int index = aniEvent.intParameter;
-		CourtMgr.Get.RealBallPath(Team, animationName, index);
+		if(AnimationEventDel != null)
+			AnimationEventDel(Team, aniEvent);
 	}
 
-	public void PlayEffect(AnimationEvent aniEvent) 
-	{
-		float duration = aniEvent.floatParameter;
-		int eventKind = aniEvent.intParameter;
-		string effectName = aniEvent.stringParameter;
-		CourtMgr.Get.PlayBasketEffect(Team, effectName, eventKind, duration);
+	public void PlayEffect(AnimationEvent aniEvent) {
+		if(PlayEffectDel != null)
+			PlayEffectDel(Team, aniEvent);
 	}
 
-	public void PlayShake (string name) {
-		CameraMgr.Get.PlayShake ();
+	public void PlayShake (AnimationEvent aniEvent) {
+		if(PlayShakeDel != null)
+			PlayShakeDel(Team, aniEvent);
 	}
 
 	public void PlayActionSound (AnimationEvent aniEvent) {
-		AudioMgr.Get.PlaySound(aniEvent.stringParameter);
+		if(PlayActionSoundDel != null)
+			PlayActionSoundDel(Team, aniEvent);
 	}
 }

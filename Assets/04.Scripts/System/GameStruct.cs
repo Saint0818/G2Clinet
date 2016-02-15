@@ -663,12 +663,18 @@ namespace GameStruct
 		public int Open; //skillheaditem
 
 		public int GetUpgradeExp(int lv) {
-			lv = Mathf.Clamp(lv, 0,UpgradeExp.Length);
+			if(lv < 0)
+				lv = 0;
+			if(lv > UpgradeExp.Length)
+				lv = UpgradeExp.Length;
 			return UpgradeExp[lv];
 		}
 
 		public int GetUpgradeMoney(int lv) {
-			lv = Mathf.Clamp(lv, 0,UpgradeMoney.Length);
+			if(lv < 0)
+				lv = 0;
+			if(lv > UpgradeExp.Length)
+				lv = UpgradeExp.Length;
 			return UpgradeMoney[lv];
 		}
 
