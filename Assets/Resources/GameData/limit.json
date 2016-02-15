@@ -24,7 +24,7 @@
         "lv": 8
     },
     {
-        "openid": 11,
+        "openid": 9,
         "lv": 9
     },
     {
@@ -40,16 +40,12 @@
         "lv": 12
     },
     {
-        "openid": 9,
-        "lv": 20
+        "openid": 8,
+        "lv": 15
     },
     {
         "openid": 10,
         "lv": 22,
         "diamond": 200
-    },
-    {
-        "openid": 8,
-        "lv": 15
     }
 ]
