@@ -138,7 +138,6 @@ public class GameController : KnightSingleton<GameController>
 
 	//Basket
 	public EBasketSituation BasketSituation;
-	public string BasketAnimationName = "BasketballAction_1";
    
 	//Effect
 	public GameObject[] passIcon = new GameObject[3];
@@ -1604,30 +1603,7 @@ public class GameController : KnightSingleton<GameController>
 		return (int)EBasketDistanceAngle.ShortCenter;
 	}
 
-	private void judgeBasketAnimationName (int basketDistanceAngleType) {
-		int random = 0;
-		if(BasketSituation == EBasketSituation.Score){
-			if(CourtMgr.Get.DBasketAnimationName.Count > 0 && basketDistanceAngleType < CourtMgr.Get.DBasketAnimationName.Count){
-				random = Random.Range(0, CourtMgr.Get.DBasketAnimationName[basketDistanceAngleType].Count);
-				if(CourtMgr.Get.DBasketAnimationName.Count > 0 && random < CourtMgr.Get.DBasketAnimationName.Count)
-					BasketAnimationName = CourtMgr.Get.DBasketAnimationName[basketDistanceAngleType][random];
-			}
-		} else 
-		if(BasketSituation == EBasketSituation.NoScore){
-			if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.DBasketAnimationNoneState.Count) {
-				random = Random.Range(0, CourtMgr.Get.DBasketAnimationNoneState[basketDistanceAngleType].Count);
-				if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && random < CourtMgr.Get.DBasketAnimationNoneState.Count)
-					BasketAnimationName = CourtMgr.Get.DBasketAnimationNoneState[basketDistanceAngleType][random];
-			}
-		}
-
-		if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore) 
-			if(string.IsNullOrEmpty(BasketAnimationName))
-				judgeBasketAnimationName(basketDistanceAngleType);
-		
-	}
-
-	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, int basketDistanceAngleType, bool isActive = false) {
+	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, bool isActive = false) {
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDistance >= GameConst.Point3Distance) {
@@ -1726,11 +1702,11 @@ public class GameController : KnightSingleton<GameController>
 			BasketSituation = EBasketSituation.Swish;
 		}
 		
-		judgeBasketAnimationName (basketDistanceAngleType);
+		CourtMgr.Get.JudgeBasketAnimationName (judgeShootAngle(player));
 		
 		if(GameStart.Get.TestMode == EGameTest.PassiveSkill) {
 			BasketSituation = EBasketSituation.Score;
-			BasketAnimationName = GameStart.Get.SelectBasketState.ToString();	
+			CourtMgr.Get.BasketAnimationName = GameStart.Get.SelectBasketState.ToString();	
 		}
 
 		if (ShootDistance >= GameConst.Point3Distance)
@@ -1872,7 +1848,7 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.RealBallTrigger.IsAutoRotate = true;
 			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
-			SetBallOwnerNull();
+//			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
 			if(!isActive)
 				BallState = EBallState.CanBlock;
@@ -1911,66 +1887,13 @@ public class GameController : KnightSingleton<GameController>
 				scoreType = EScoreType.LayUp;
 			}
 
-			calculationScoreRate(player, scoreType, judgeShootAngle(player), isActive);
+			calculationScoreRate(player, scoreType, isActive);
+			//確實把球放在手上
 			SetBall();
+			//再把球的持有者設成null
 			CourtMgr.Get.SetBallState(player.crtState);
+			CourtMgr.Get.RealBallShoot(player, shootAngle, ShootDistance);
 
-			if(BasketSituation == EBasketSituation.AirBall) {
-				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
-				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-				                                                         CourtMgr.Get.BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
-			} else
-			if(player.crtState == EPlayerState.TipIn) {
-				if(BasketSituation == EBasketSituation.Swish) {
-					if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
-						
-						CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-						                                        CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
-						                                        CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime * 0.5f);
-					} else {
-						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
-					}
-				} else {
-					if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].y + 0.2f)) {
-						
-						CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x,
-						                                        CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].y + 0.5f,
-						                                        CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z), 1 / TimerMgr.Get.CrtTime * 0.5f);
-					} else
-						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName], 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
-				}
-			}else 
-			if(BasketSituation == EBasketSituation.Swish) {
-				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
-				} else if(player.Attribute.BodyType == 0 && ShootDistance < 5) {
-					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                                                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle, 1f);
-				} else 
-					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-				    	                                                     CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
-			} else {
-				if(CourtMgr.Get.DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
-					if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
-					} else if(player.Attribute.BodyType == 0 && ShootDistance < 5) {
-						CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-						                                                         CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName] , shootAngle, 1f);
-					}  else {
-						float dis = GetDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
-						                   new Vector2(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
-						if(dis>10)
-							dis = 10;
-						CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-						                                                         CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
-						                                                         shootAngle,
-						                                                         dis * 0.05f);
-					}
-
-				} else 
-					Debug.LogError("No key:"+player.Team.GetHashCode().ToString() + "_" + BasketAnimationName);
-			}
 
             for (int i = 0; i < PlayerList.Count; i++)
 				if(Shooter != null) {

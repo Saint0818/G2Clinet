@@ -238,8 +238,8 @@ public static class GameData
             if (names[i] == setting)
             {
                 foundIndex = i;
-                QualitySettings.SetQualityLevel(foundIndex);
-                continue;
+                QualitySettings.SetQualityLevel(foundIndex, true);
+                return;
             }
         }
     }
