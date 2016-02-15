@@ -420,8 +420,6 @@ public class UISetting : UIBase {
 	    {
             var uiData = UICreateRoleBuilder.Build(data.PlayerBank);
             UICreateRole.Get.ShowFrameView(uiData, data.SelectedRoleIndex);
-//            UIMainLobby.Get.HideAll();
-            UIMainLobby.Get.Hide(1);
 
             UIShow(false);
             AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
