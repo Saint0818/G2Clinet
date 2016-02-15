@@ -506,7 +506,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         }
 
-		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock)
+		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock || IsBuff || IsPush)
         {
             timeScale = TimerMgr.Get.GetTime(TimerKind);
             AnimatorControl.TimeScaleTime = timeScale;
@@ -2763,6 +2763,9 @@ public class PlayerBehaviour : MonoBehaviour
         animatorEvent.floatParameter = 1;
         animatorEvent.intParameter = 1;
         TimeScaleCallBack(animatorEvent); 
+		animatorEvent.floatParameter = 1;
+		animatorEvent.intParameter = 3;
+		TimeScaleCallBack(animatorEvent); 
     }
 
 	public void showEffect() {
