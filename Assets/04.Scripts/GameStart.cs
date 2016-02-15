@@ -54,7 +54,7 @@ public class GameStart : MonoBehaviour {
 		SendHttp.Get.CheckServerData(ConnectToServer);
 		#if PUSHWOOSH
 		#if UNITY_ANDROID
-        gameObject.AddComponent<PushNotificator>();
+        gameObject.AddComponent<Pushwoosh>();
 		#endif
 		#endif
 	}
