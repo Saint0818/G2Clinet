@@ -1,4 +1,4 @@
-Shader "Toon/Basic" {
+Shader "Toon/BasicTransparentAdd" {
 	Properties {
 		_Color ("Main Color", Color) = (.5,.5,.5,1)
 		_MainTex ("Base (RGB)", 2D) = "white" {}
@@ -7,11 +7,10 @@ Shader "Toon/Basic" {
 
 
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		Pass {
 			Name "BASE"
-			Cull Off
-			
+			Blend One One
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

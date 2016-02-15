@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -709,7 +710,7 @@ public class ReportGenerator
 			}
 			else
 			{
-				// no assets found. this only happens when we tried to move to next batch but it turns out to be  the last
+				// no assets found. this only happens when we tried to move to next batch but it turns out to be the last
 				// so we move back
 				buildInfo.MoveUnusedAssetsBatchNumToPrev();
 			}
@@ -810,8 +811,18 @@ public class ReportGenerator
 			// Unity .meta files are not considered part of the assets
 			// Unity .mask (Avatar masks): whether a .mask file is used or not currently cannot be reliably found out, so they are skipped
 			// anything in a /Resources/ folder will always be in the build, so don't bother checking for it
-			if (Util.IsFileOfType(currentAsset, ".meta") || Util.IsFileOfType(currentAsset, ".mask") || Util.IsFileInAPath(currentAsset, "/resources/"))
+			if (Util.IsFileOfType(currentAsset, ".meta") || Util.IsFileOfType(currentAsset, ".mask"))
 			{
+				continue;
+			}
+
+			if (Util.IsFileInAPath(currentAsset, "/resources/"))
+			{
+				// ensure this Resources asset is in the used assets list
+				if (inOutAllUsedAssets.All(part => part.Name != currentAsset))
+				{
+					inOutAllUsedAssets.Add(BuildReportTool.Util.CreateSizePartFromFile(currentAsset, fullAssetPath));
+				}
 				continue;
 			}
 
@@ -1044,10 +1055,10 @@ public class ReportGenerator
 				continue;
 			}
 
-			// if asset not in used assets list
+			// add asset only if not in list yet
 			if (!usedAssetsDict.ContainsKey(currentAsset))
 			{
-				// then that simply means this asset is unused
+				// when all other checks pass through, then that simply means this asset is unused
 				unusedAssets.Add(BuildReportTool.Util.CreateSizePartFromFile(currentAsset, fullAssetPath));
 			}
 
@@ -1532,20 +1543,7 @@ public class ReportGenerator
 		//Debug.Log("ParseSizePartsFromString sta");
 
 		buildInfo.BuildSizes = ParseSizePartsFromString(_lastEditorLogPath);
-
-
-		Array.Sort(buildInfo.BuildSizes, delegate(BuildReportTool.SizePart b1, BuildReportTool.SizePart b2) {
-			if (b1.Percentage > b2.Percentage) return -1;
-			else if (b1.Percentage < b2.Percentage) return 1;
-			// if percentages are equal, check actual file size (approximate values)
-			else if (b1.DerivedSize > b2.DerivedSize) return -1;
-			else if (b1.DerivedSize < b2.DerivedSize) return 1;
-			return 0;
-		});
-
-
-
-
+		
 
 
 
@@ -1768,6 +1766,9 @@ public class ReportGenerator
 			buildInfo.UsedAssets = new AssetList();
 			buildInfo.UsedAssets.Init(allUsedArray, perCategoryUsed, buildInfo.FileFilters);
 		}
+		
+
+		buildInfo.SortSizes();
 
 
 		//foreach (string d in EditorUserBuildSettings.activeScriptCompilationDefines)
@@ -1857,6 +1858,8 @@ public class ReportGenerator
 		{
 			buildInfo.UnusedAssets.PopulateImportedSizes();
 		}
+
+		buildInfo.FixSizes();
 
 		// ShouldReload is true to indicate
 		// the project was just built and we need

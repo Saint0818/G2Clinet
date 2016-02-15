@@ -562,6 +562,56 @@ public static class Util
 	}
 
 
+
+	public static bool IsFileAUnityTexture(string file)
+	{
+		return IsFileOfType(file, ".psd") ||
+		       IsFileOfType(file, ".jpg") ||
+		       IsFileOfType(file, ".jpeg") ||
+		       IsFileOfType(file, ".gif") ||
+		       IsFileOfType(file, ".png") ||
+		       IsFileOfType(file, ".tiff") ||
+		       IsFileOfType(file, ".tif") ||
+		       IsFileOfType(file, ".tga") ||
+		       IsFileOfType(file, ".bmp") ||
+		       IsFileOfType(file, ".dds") ||
+		       IsFileOfType(file, ".exr") ||
+		       IsFileOfType(file, ".iff") ||
+		       IsFileOfType(file, ".pict");
+	}
+	
+	public static bool IsFileAUnityMesh(string file)
+	{
+		return IsFileOfType(file, ".fbx") ||
+		       IsFileOfType(file, ".dae") ||
+		       IsFileOfType(file, ".mb") ||
+		       IsFileOfType(file, ".ma") ||
+		       IsFileOfType(file, ".max") ||
+		       IsFileOfType(file, ".blend") ||
+		       IsFileOfType(file, ".obj") ||
+		       IsFileOfType(file, ".3ds") ||
+		       IsFileOfType(file, ".dxf");
+	}
+	
+	public static bool IsFileAUnitySound(string file)
+	{
+		return IsFileOfType(file, ".wav") ||
+		       IsFileOfType(file, ".mp3") ||
+		       IsFileOfType(file, ".ogg") ||
+		       IsFileOfType(file, ".aif") ||
+		       IsFileOfType(file, ".xm") ||
+		       IsFileOfType(file, ".mod") ||
+		       IsFileOfType(file, ".it") ||
+		       IsFileOfType(file, ".s3m");
+	}
+	
+	public static bool IsFileAUnityAnimation(string file)
+	{
+		return IsFileOfType(file, ".anim") ||
+		       IsFileOfType(file, ".controller") ||
+		       IsFileOfType(file, ".mask");
+	}
+
 	// high-level filename checks
 
 	public static bool IsFileInBuildReportFolder(string filepath)
@@ -1226,7 +1276,6 @@ public static class Util
 
 
 			long importedSizeBytes = -1;
-			//importedSizeBytes = BRT_LibCacheUtil.GetImportedFileSize(filename);
 
 			outPart.ImportedSizeBytes = importedSizeBytes;
 			outPart.ImportedSize = BuildReportTool.Util.GetBytesReadable(importedSizeBytes);

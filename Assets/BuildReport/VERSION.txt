@@ -1,4 +1,8 @@
-﻿Version 3.0.14
+﻿Version 3.0.15
+- FIX: Fixed bug where assets in Resources folder are not taken into account in the Used Assets list and the Size Assets table.
+
+
+Version 3.0.14
 - FIX: Added compatibility for Unity 5.3
 - FIX: Fixed compatibility with Unity 4.6.5
 - FIX: Fixed bug where report generation could not determine the build type.

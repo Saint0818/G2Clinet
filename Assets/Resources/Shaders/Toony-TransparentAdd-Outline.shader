@@ -1,4 +1,4 @@
-Shader "Toon/Lit Outline" {
+Shader "Toon/Add Outline Transparent" {
 	Properties {
 		_Color ("Main Color", Color) = (0.5,0.5,0.5,1)
 		_OutlineColor ("Outline Color", Color) = (0,0,0,1)
@@ -9,7 +9,7 @@ Shader "Toon/Lit Outline" {
 
 	SubShader {
 		Tags { "RenderType"="Opaque" }
-		UsePass "Toon/Lit/FORWARD"
+		UsePass "Toon/BasicTransparentAdd/BASE"
 		UsePass "Toon/Basic Outline/OUTLINE"
 	} 
 	
