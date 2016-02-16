@@ -59,7 +59,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public int Money
     {
-        set { MoneyLabel.text = value.ToString(); }
+        set { MoneyLabel.text = NumFormater.Convert(value); }
     }
 
     public void PlayMoneyAnimation(float delay = 0)
@@ -70,7 +70,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public int Diamond
     {
-        set { DiamondLabel.text = value.ToString(); }
+        set { DiamondLabel.text = NumFormater.Convert(value); }
     }
 
     public void PlayDiamondAnimation(float delay = 0)
@@ -81,7 +81,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public int Power
     {
-        set { PowerLabel.text = value.ToString(); }
+        set { PowerLabel.text = NumFormater.Convert(value); }
     }
 
     public void PlayPowerAnimation(float delay = 0)
