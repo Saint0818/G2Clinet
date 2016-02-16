@@ -157,6 +157,7 @@ public static class URLConst {
 	public const string ValueItemUpgrade = "valueitemupgrade";
     public const string ChangeHeadTexture = "changeheadtexture";
     public const string ChangeLanguage = "changelanguage";
+    public const string RequireComputeTeamPower = "requirecomputeteampower";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {

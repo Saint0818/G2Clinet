@@ -67,7 +67,7 @@ public class UIMainLobby : UIBase
 
         ResetCommands.Get.Run();
 
-        if (GameData.Team.NeedForSyncRecord)
+        if(GameData.Team.NeedForSyncRecord)
             SendHttp.Get.SyncDailyRecord();
     }
 
