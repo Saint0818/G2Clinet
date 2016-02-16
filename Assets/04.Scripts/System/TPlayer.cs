@@ -582,7 +582,7 @@ namespace GameStruct
             }
         }
 
-        public int MaxAnger{
+		public int MaxAnger{
             get{
                 //				if(ActiveSkills.Count > 0) {
                 //					int maxAnger = 0;
@@ -643,7 +643,7 @@ namespace GameStruct
             }
         }
 
-        public bool CheckIfMaxAnger (int activeID, int value) {
+        public bool CheckIfMaxAnger (int activeID, float value) {
             if(ActiveSkills.Count > 0) 
                 return (value >= MaxAngerOne(activeID));
 	

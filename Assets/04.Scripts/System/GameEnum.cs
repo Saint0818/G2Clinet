@@ -292,7 +292,13 @@
 			Steal,
 			GetTwo,
 			GetThree,
-			Assistant
+			Assistant,
+		 	DC5,
+			DC10,
+			DC15,
+			DC20,
+			TipShot,
+			Catch
 	}
 	//For ActiveSkill 
 	public enum EBallState {

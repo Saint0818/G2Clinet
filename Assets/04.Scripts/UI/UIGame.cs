@@ -802,6 +802,14 @@ public class UIGame : UIBase {
 		}
 		return false;
 	}
+
+	public void AddForceReviveValue (float max,float anger,int count) {
+		oldForceValue = (anger / max);
+		newForceValue = oldForceValue;
+		spriteForce.fillAmount = oldForceValue;
+		uiForceNum.text = anger+"/[13CECEFF]"+max+"[-]";
+		runSkillValue ();
+	}
 	
 	public bool AddForceValue(){
 		oldForceValue += baseForceValue;

@@ -36,7 +36,7 @@ public class BlockTrigger : MonoBehaviour {
 								blocker.GameRecord.Block++;
 								GameController.Get.IsGameFinish();
 								GameController.Get.CheckConditionText();
-								if(blocker == GameController.Get.Joysticker)
+//								if(blocker == GameController.Get.Joysticker)
 								GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
 								AudioMgr.Get.PlaySound (SoundType.SD_Block);
 							} 
@@ -83,8 +83,8 @@ public class BlockTrigger : MonoBehaviour {
 			blocker.GameRecord.Block++;
 			GameController.Get.IsGameFinish();
 			GameController.Get.CheckConditionText();
-			if(blocker == GameController.Get.Joysticker)
-				GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
+//			if(blocker == GameController.Get.Joysticker)
+			GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
 			if (faller)
 				faller.GameRecord.BeBlock++;
 		}

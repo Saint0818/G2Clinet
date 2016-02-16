@@ -42,6 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnUI = null;
     public OnPlayerAction OnUICantUse = null;
     public OnPlayerAction5 OnUIAnger = null;
+	public OnPlayerAction5 OnReviveAnger = null;
     public OnPlayerAction4 OnDoubleClickMoment = null;
     public OnPlayerAction3 OnUIJoystick = null;
     public bool IsJumpBallPlayer = false;
@@ -161,8 +162,7 @@ public class PlayerBehaviour : MonoBehaviour
     private AnimationEvent animatorEvent;
 
     //Active
-//    private bool isUseActiveSkill = false;
-    private int angerValue = 0;
+	private float angerValue = 0;
 
     //ShowWord
     public GameObject ShowWord;
@@ -197,7 +197,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool ReadyToNextState = true;
     public AnimatorBehavior AnimatorControl;
 
-    public void SetAnger(int value, GameObject target = null, GameObject parent = null)
+	public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
         int v = (int)(Mathf.Abs(value) / 5);
         if (v <= 0)
@@ -221,11 +221,22 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (Team == ETeamKind.Self && Index == 0)
         {
-            OnUIAnger(Attribute.MaxAnger, angerValue, v);
+			if(OnUIAnger != null)
+            	OnUIAnger(Attribute.MaxAnger, angerValue, v);
             if (value > 0)
                 GameRecord.AngerAdd += value;
         }
     }
+
+	public void ReviveAnger (float value) {
+		angerValue += value;
+		if (angerValue > Attribute.MaxAnger)
+		{
+			angerValue = Attribute.MaxAnger;
+		}
+		if(OnReviveAnger != null)
+			OnReviveAnger(Attribute.MaxAnger, angerValue, 0);
+	}
 
     public void SetSlowDown(float Value)
     {
@@ -2682,79 +2693,82 @@ public class PlayerBehaviour : MonoBehaviour
         {
             int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
-            if (this == GameController.Get.Joysticker)
+//            if (this == GameController.Get.Joysticker)
+//            {
+            if (!isSkillShow)
             {
-                if (!isSkillShow)
-                {
-                    if (OnUIJoystick != null)
-                        OnUIJoystick(this, false);
-                    
-                    if (UIPassiveEffect.Visible)
-                        UIPassiveEffect.UIShow(false);
-                    
-                    isSkillShow = true;
-//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
-					string effectName = string.Format("UseSkillEffect_{0}", 0);
-                    EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
-                    
-                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
-                        LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer", "RealBall");
-                    
-                    CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
-					UISkillEffect.Get.ShowView(ActiveSkillUsed);
-					AudioMgr.Get.PlaySound (SoundType.SD_ActiveLaunch);
-                    
-                    switch (skillEffectKind)
-                    {
-                        case 0://show self and rotate camera
-							Invoke("showEffect", skillTime);
-                            LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-							animatorEvent.floatParameter = GameConst.Min_TimePause;
-                            animatorEvent.intParameter = 0;
-                            TimeScaleCallBack(animatorEvent);   
-                            break;
-                        case 1://show self
-                            showActiveEffect();
-                            LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-							animatorEvent.floatParameter = GameConst.Min_TimePause;
-                            animatorEvent.intParameter = 2;
-                            TimeScaleCallBack(animatorEvent); 
-                            break;
-                        case 2://show all Player
-                            showActiveEffect();
-                            GameController.Get.SetAllPlayerLayer("SkillPlayer");
-							animatorEvent.floatParameter = GameConst.Min_TimePause;
-                            animatorEvent.intParameter = 2;
-                            TimeScaleCallBack(animatorEvent); 
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 140 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 150 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 160 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 161 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 170 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171 ||
-                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 180)
-                {
+                if (OnUIJoystick != null)
+                    OnUIJoystick(this, false);
                 
-                    if (!isSkillShow)
-                    {
+                if (UIPassiveEffect.Visible)
+                    UIPassiveEffect.UIShow(false);
+                
+                isSkillShow = true;
+//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
+				string effectName = string.Format("UseSkillEffect_{0}", 0);
+                EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
+                
+//                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
+				if (GameController.Get.BallOwner != null)
+                    LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer", "RealBall");
+                
+                CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
+				UISkillEffect.Get.ShowView(ActiveSkillUsed);
+				AudioMgr.Get.PlaySound (SoundType.SD_ActiveLaunch);
+                
+                switch (skillEffectKind)
+                {
+                    case 0://show self and rotate camera
+						Invoke("showEffect", skillTime);
+//					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
+                        animatorEvent.intParameter = 0;
+                        TimeScaleCallBack(animatorEvent);   
+                        break;
+                    case 1://show self
+                        showActiveEffect();
+//					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 2;
                         TimeScaleCallBack(animatorEvent); 
-
-                        isSkillShow = true;
-                    }
+                        break;
+                    case 2://show all Player
+                        showActiveEffect();
+                        GameController.Get.SetAllPlayerLayer("SkillPlayer");
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
+                        animatorEvent.intParameter = 2;
+                        TimeScaleCallBack(animatorEvent); 
+                        break;
                 }
-
-                if (!IsUseActiveSkill)
-					UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
-                showActiveEffect();
             }
+//            }
+//            else
+//            {
+//                if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 140 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 150 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 160 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 161 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 170 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171 ||
+//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 180)
+//                {
+//                
+//                    if (!isSkillShow)
+//                    {
+//						animatorEvent.floatParameter = GameConst.Min_TimePause;
+//                        animatorEvent.intParameter = 2;
+//                        TimeScaleCallBack(animatorEvent); 
+//
+//                        isSkillShow = true;
+//                    }
+//                }
+//
+//                if (!IsUseActiveSkill)
+//					UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
+//                showActiveEffect();
+//            }
         }
     }
 
@@ -3173,7 +3187,7 @@ public class PlayerBehaviour : MonoBehaviour
         set{ firstDribble = value; }
     }
 
-    public int AngerPower
+	public float AngerPower
     {
         get{ return angerValue; }
     }

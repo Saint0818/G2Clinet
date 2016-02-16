@@ -22,6 +22,8 @@
 	
 	public const int ID_LimitActive = 10000;
 
+	public const int AngerReviveTime = 1;
+
 	//Game play move speed
 	public const float DefSpeedup = 7.5f;
 	public const float DefSpeedNormal = 6.2f;

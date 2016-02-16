@@ -57,6 +57,9 @@
         "name": "SelectMe"
     },
     {
+        "name": "SelectTarget"
+    },
+    {
         "name": "Shadow01"
     },
     {
@@ -82,6 +85,24 @@
     },
     {
         "name": "ShowWord_Assist"
+    },
+    {
+        "name": "ShowWord_DC5"
+    },
+    {
+        "name": "ShowWord_DC10"
+    },
+    {
+        "name": "ShowWord_DC15"
+    },
+    {
+        "name": "ShowWord_DC20"
+    },
+    {
+        "name": "ShowWord_TipShot"
+    },
+    {
+        "name": "ShowWord_Catch"
     },
     {
         "name": "SkillArea_Arrow"
@@ -114,21 +135,6 @@
         "name": "UnlockEffect"
     },
     {
-        "name": "UseSkillEffect_40"
-    },
-    {
-        "name": "UseSkillEffect_60"
-    },
-    {
-        "name": "UseSkillEffect_70"
-    },
-    {
-        "name": "UseSkillEffect_150"
-    },
-    {
-        "name": "UseSkillEffect_180"
-    },
-    {
-        "name": "UseSkillEffect_210"
+        "name": "UseSkillEffect_0"
     }
 ]

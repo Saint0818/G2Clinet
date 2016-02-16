@@ -142,6 +142,10 @@ public class GameController : KnightSingleton<GameController>
 	//Effect
 	public GameObject[] passIcon = new GameObject[3];
 
+	//Player Anger 每秒回復的士氣值（浮動值會依據套卡而變化）
+	private float recoverTime = 1;
+	private int recoverAngerBase = 1;
+
 	//SelectMe
 	private GameObject playerSelectMe;
 	private Transform PlayerSelectArrow;
@@ -695,6 +699,7 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].OnUI = UIGame.Get.OpenUIMask;
             PlayerList[i].OnUICantUse = UIGame.Get.UICantUse;
             PlayerList[i].OnUIAnger = UIGame.Get.SetAngerUI;
+			PlayerList[i].OnReviveAnger = UIGame.Get.AddForceReviveValue;
             PlayerList[i].PlayerRefGameObject.SetActive(false); //hide player for smooth 
         }
 
@@ -771,6 +776,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 		#endif
 		selectMeEvent();
+		angerRecoveryUpdate ();
 //		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
 //            CoolDownPass = 0;
         PassCD.Update(Time.deltaTime);
@@ -810,6 +816,21 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
+	}
+
+	private void angerRecoveryUpdate () {
+		if(IsStart) {
+			if(Joysticker != null && Joysticker.Attribute.IsHaveActiveSkill && Joysticker.AngerPower < Joysticker.Attribute.MaxAnger) {
+				if(recoverTime > 0) {
+					recoverTime -= Time.deltaTime;	
+					if(recoverTime <= 0) {
+						recoverTime = GameConst.AngerReviveTime;
+						Joysticker.ReviveAnger(recoverAngerBase);
+					}
+				}
+			}
+		}
+			
 	}
 
 	private void selectMeEvent() {
@@ -2368,8 +2389,10 @@ public class GameController : KnightSingleton<GameController>
                     {
                         // 抄截成功.
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
-						if(player == Joysticker || BallOwner == Joysticker)
-							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
+						//抄截成功直接嗆到手上（20160215）
+						SetBall(player);
+//						if(player == Joysticker || BallOwner == Joysticker)
+						ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 
 						player.GameRecord.Steal++;
 						CheckConditionText();
@@ -2488,14 +2511,35 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case 1: 
 				AddExtraScoreRate(GameData.ExtraGreatRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
+				doubleClickWord(UIDoubleClick.Get.Combo);
 				break;
 			case 2: 
 				AddExtraScoreRate(GameData.ExtraPerfectRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
+				doubleClickWord(UIDoubleClick.Get.Combo);
 				Joysticker.SetAnger(GameConst.AddAnger_Perfect, CameraMgr.Get.DoubleClickDCBorn, CameraMgr.Get.DoubleClickDCBorn);				
 				break;
 		}
 
 	}
+
+	private void doubleClickWord (int combo) {
+		if (combo < 2)
+			ShowWord(EShowWordType.DC5, 0, Joysticker.ShowWord);
+		else
+			if (combo < 3)
+				ShowWord(EShowWordType.DC10, 0, Joysticker.ShowWord);
+			else
+				if (combo < 4)
+					ShowWord(EShowWordType.DC15, 0, Joysticker.ShowWord);
+				else
+					if (combo < 5)
+						ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
+					else
+						ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
+		
+	}
+
+			
 
 	public void DoubleBlock(int lv, PlayerBehaviour player){
 		switch (lv) {
@@ -2509,6 +2553,7 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case 2: 
 			SetBall(player);
+			ShowWord(EShowWordType.Catch, 0, player.ShowWord);
 			break;
 		}
 	}
@@ -3779,8 +3824,11 @@ public class GameController : KnightSingleton<GameController>
 					ShowWord(EShowWordType.GetTwo, team);
 				}
 
-				if (Shooter.crtState == EPlayerState.TipIn)
+				if (Shooter.crtState == EPlayerState.TipIn) {
 					Shooter.GameRecord.Tipin++;
+					if(Shooter != null)
+						ShowWord(EShowWordType.TipShot, 0, Shooter.ShowWord);
+				}
 
 				if (IsShooting)
 					Shooter.GameRecord.ShotError--;
@@ -4237,6 +4285,24 @@ public class GameController : KnightSingleton<GameController>
 		case EShowWordType.Assistant:
 			EffectManager.Get.PlayEffect("ShowWord_Assist", Vector3.zero, parent, null, 1.5f);
 			break;
+		case EShowWordType.DC5:
+			EffectManager.Get.PlayEffect("ShowWord_DC5", Vector3.zero, parent, null, 1.5f);
+			break;
+		case EShowWordType.DC10:
+			EffectManager.Get.PlayEffect("ShowWord_DC10", Vector3.zero, parent, null, 1.5f);
+			break;
+		case EShowWordType.DC15:
+			EffectManager.Get.PlayEffect("ShowWord_DC15", Vector3.zero, parent, null, 1.5f);
+			break;
+		case EShowWordType.DC20:
+			EffectManager.Get.PlayEffect("ShowWord_DC20", Vector3.zero, parent, null, 1.5f);
+			break;
+		case EShowWordType.Catch:
+			EffectManager.Get.PlayEffect("ShowWord_Catch", Vector3.zero, parent, null, 1.5f);
+			break;
+		case EShowWordType.TipShot:
+			EffectManager.Get.PlayEffect("ShowWord_TipShot", Vector3.zero, parent, null, 1.5f);
+			break;
 		}
 	}
 
@@ -4266,8 +4332,8 @@ public class GameController : KnightSingleton<GameController>
                         {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
-							if(faller == Joysticker || pusher == Joysticker)
-								ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
+//							if(faller == Joysticker || pusher == Joysticker)
+							ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
 					}
 
