@@ -323,17 +323,18 @@ public class GEGMTool : GEBase
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddDiamond);
     }
 
-    private int mAddPower;
+    private int mAddPowerValue;
 
     private void addPower()
     {
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Add Power");
-        mAddPower = EditorGUILayout.IntField(mAddPower, GUILayout.Width(100));
-        if (GUILayout.Button("Add", GUILayout.Width(50)))
+        
+        GUILayout.Label("Power");
+        mAddPowerValue = EditorGUILayout.IntField(mAddPowerValue, GUILayout.Width(100));
+        if(GUILayout.Button("Add", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
-            form.AddField("AddPower", mAddPower);
+            form.AddField("Value", mAddPowerValue);
             SendHttp.Get.Command(URLConst.GMAddPower, waitGMAddPower, form);
         }
         EditorGUILayout.EndHorizontal();
