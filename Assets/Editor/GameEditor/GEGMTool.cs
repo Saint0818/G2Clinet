@@ -4,6 +4,7 @@ using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,7 +17,9 @@ public struct TPlayerInfo
 public class GEGMTool : GEBase
 {
     private int options = 0;
+    private int itemOptions = 0;
     private string[] optionsTitle = new string[6]{ "物品", "關卡", "戰鬥", "場景", "人物資料", "其它" };
+    private string[] itemOptionsTitle = new string[4]{ "Add Item單件物品", "Add Item每一個部位", "Add Item指定部位", "人物裝備時限" };
 
     void OnGUI()
     {
@@ -59,14 +62,31 @@ public class GEGMTool : GEBase
     private int addItemCount = 1;
     private int[] itemIds;
     private int[] NumberOfItems;
-    private string mArea = "---------------------------------------------------------------------------------------------";
     private int countprekind = 1;
     private int playerPosition = 0;
 
     private void ItemHandle()
     {
-        EditorGUILayout.LabelField(mArea);
+        itemOptions = GUILayout.Toolbar(itemOptions, itemOptionsTitle);
+        switch (itemOptions)
+        {
+            case 0:
+                AddItemBySingle();
+                break;
+            case 1:
+                AddItemByEveryPart();
+                break;
+            case 2:
+                AddItemByLimitPart();
+                break;
+            case 3:
+                PlayerItemsSetting();
+                break;   
+        }
+    }
 
+    private void AddItemBySingle()
+    {
         //Add Item
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("物品陣列 : "); 
@@ -128,10 +148,6 @@ public class GEGMTool : GEBase
             SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
         }
         EditorGUILayout.EndHorizontal();
-
-
-        PrePartAddItem();
-        LimitPartAddItem();
     }
 
     private int AvatarPotential = 0;
@@ -470,10 +486,8 @@ public class GEGMTool : GEBase
     List<int> itemIds2 = new List<int>();
     int[] NumberOfItems2;
 
-    //每部位加Item
-    private void PrePartAddItem()
+    private void AddItemByEveryPart()
     {
-        EditorGUILayout.LabelField(mArea);
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("位置： : "); 
         playerPosition = EditorGUILayout.IntField(playerPosition, GUILayout.Width(30));
@@ -536,10 +550,8 @@ public class GEGMTool : GEBase
     private int[] itemIds3;
     private int[] NumberOfItems3;
 
-
-    private void LimitPartAddItem()
+    private void AddItemByLimitPart()
     {
-        EditorGUILayout.LabelField(mArea);
         EditorGUILayout.BeginHorizontal();
 
         GUILayout.Label("位置:"); 
@@ -613,6 +625,68 @@ public class GEGMTool : GEBase
         EditorGUILayout.EndHorizontal();
     }
 
+    private string itemtip = "裝備狀況  ： ";
+
+    private void PlayerItemsSetting()
+    {
+        if (GameData.Team.Player.Items != null && GameData.Team.Player.Items.Length > 0)
+        {
+            for (int i = 0; i < GameData.Team.Player.Items.Length; i++)
+            {
+                if (i > 0)
+                {
+                    EditorGUILayout.BeginHorizontal();
+
+                    if (GameData.Team.Player.Items[i].ID > 0)
+                    {
+                        GUILayout.Label("裝備中, ");
+
+                        if (GameData.Team.Player.Items[i].UseKind == 1)
+                            GUILayout.Label(itemtip + "時限內");
+                        else if (GameData.Team.Player.Items[i].UseKind == 2)
+                            GUILayout.Label(itemtip + "過期");
+                        else
+                            GUILayout.Label(itemtip + "永久");
+
+                        if (GUILayout.Button("過期", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, 2, new DateTime().ToUniversalTime());
+
+                        if (GUILayout.Button("時限內", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, 1, DateTime.Now.AddDays(1).ToUniversalTime());
+
+                        if (GUILayout.Button("買斷", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, -1, new DateTime().ToUniversalTime());
+                    }
+                    else
+                        GUILayout.Label("未裝備, ");                   
+
+                    EditorGUILayout.EndHorizontal(); 
+                }
+            }
+        }
+    }
+
+    private void SendGMChangeAvatarUseKind(int index, int kind, DateTime time)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("Index", index);
+        form.AddField("Kind", kind);
+        string isoJson = JsonConvert.SerializeObject(time, new IsoDateTimeConverter());
+        form.AddField("UseTime", isoJson);
+        SendHttp.Get.Command(URLConst.GMChangeAvatarUseKind, waitGMChangeAvatarUseKind, form);
+    }
+
+    private void waitGMChangeAvatarUseKind(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Player.Items = team.Player.Items;
+            GameData.Team.Player.Init();
+        }
+    }
+
+
     private void SendGMAddItem(List<int> addindexs, int[] numberofitems)
     {
         WWWForm form = new WWWForm();
@@ -635,9 +709,9 @@ public class GEGMTool : GEBase
                 for (int i = 0; i < team.Items.Length; i++)
                     if (GameData.DItemData.ContainsKey(team.Items[i].ID))
                         Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
-			GameData.Team.SkillCards = team.SkillCards;
-			GameData.Team.InitSkillCardCount();
-			GameData.Team.GotItemCount = team.GotItemCount;
+            GameData.Team.SkillCards = team.SkillCards;
+            GameData.Team.InitSkillCardCount();
+            GameData.Team.GotItemCount = team.GotItemCount;
 
             if (UIAvatarFitted.Visible)
                 UIAvatarFitted.Get.UpdateAvatar(true);
@@ -655,8 +729,6 @@ public class GEGMTool : GEBase
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
             GameData.Team.Player.Lv = team.Player.Lv;
-            GameData.Team.Player.Exp = team.Player.Exp;
-            GameData.Team.AvatarPotential = team.AvatarPotential;
             InitPotentialPoint();
 
             if (UIMainLobby.Get.IsVisible)
@@ -756,7 +828,7 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("副本進度: ");
-        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             SendHttp.Get.Command(URLConst.GMResetNextInstanceIDs, waitGMResetNextInstanceIDs, form);
@@ -768,9 +840,9 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitGMResetNextInstanceIDs, ok:{0}", ok);
 
-        if(ok)
+        if (ok)
         {
-            if(GameData.Team.Player.NextInstanceIDs != null)
+            if (GameData.Team.Player.NextInstanceIDs != null)
                 GameData.Team.Player.NextInstanceIDs.Clear();
             updateUIInstance();
         }
@@ -780,6 +852,7 @@ public class GEGMTool : GEBase
 
     private int mNextInstanceChapter = 1;
     private int mNextInstanceID = 2111;
+
     private void setNextInstanceID()
     {
         EditorGUILayout.BeginHorizontal();
@@ -787,7 +860,7 @@ public class GEGMTool : GEBase
         mNextInstanceChapter = EditorGUILayout.IntField(mNextInstanceChapter, GUILayout.Width(60));
         GUILayout.Label("NextInstanceID: ");
         mNextInstanceID = EditorGUILayout.IntField(mNextInstanceID, GUILayout.Width(60));
-        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        if (GUILayout.Button("設定", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("Chapter", mNextInstanceChapter);
@@ -801,7 +874,7 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitSetNextInstanceIDs, ok:{0}", ok);
 
-        if(ok)
+        if (ok)
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player.NextInstanceIDs = team.Player.NextInstanceIDs;
@@ -811,7 +884,7 @@ public class GEGMTool : GEBase
 
     private void updateUIMainStage()
     {
-        if(UIMainStage.Get.Visible)
+        if (UIMainStage.Get.Visible)
         {
             UIMainStage.Get.Hide();
             UIMainStage.Get.Show();
@@ -820,7 +893,7 @@ public class GEGMTool : GEBase
 
     private void updateUIInstance(int chapter = 1)
     {
-        if(UIInstance.Get.Visible)
+        if (UIInstance.Get.Visible)
         {
             UIInstance.Get.Hide();
             UIInstance.Get.ShowByChapter(chapter);

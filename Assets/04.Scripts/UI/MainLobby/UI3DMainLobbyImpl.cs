@@ -297,9 +297,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             Destroy(mAvatarPlayer);
 
         mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
-        ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
-            GameData.Team.Player.BodyType,
-            EAnimatorType.AnimationControl, false);
+//        ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
+//            GameData.Team.Player.BodyType,
+//            EAnimatorType.AnimationControl, false);
+
+        ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AnimationControl, false);
 
         mAvatarPlayer.transform.parent = BuildPos[0].transform;
         mAvatarPlayer.transform.localPosition = Vector3.zero;

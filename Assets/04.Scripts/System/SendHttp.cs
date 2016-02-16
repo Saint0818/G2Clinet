@@ -149,6 +149,7 @@ public static class URLConst {
     public const string GMResetStage = "gmresetstage";
     public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
+	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
     public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
 	public const string ValueItemExchange = "valueitemexchange";

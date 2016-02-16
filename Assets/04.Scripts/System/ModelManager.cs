@@ -507,7 +507,8 @@ public class ModelManager : KnightSingleton<ModelManager>
                                     else
                                         dummyBall = t.gameObject;
 
-                                    dummyBall.transform.parent = result.transform;
+                                    if(dummyBall)
+                                        dummyBall.transform.parent = result.transform;
                                 }
 								
                                 hips = bipGO.GetComponentsInChildren<Transform>();

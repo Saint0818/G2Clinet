@@ -169,10 +169,18 @@ public static class GameFunction
     {
         for (int i = 0; i < items.Length; i++)
         {
-            int kind = GetItemKind(items [i].ID);
+//            int kind = GetItemKind(items [i].ID);
             int index = GetItemAvatarIndex(items [i].ID);
+
+            if (i > 0 && index == 0)
+            {
+                if (i != 2 && i < 6)
+                    index = 99001;
+                else
+                    index = 0;
+            }
             
-            switch (kind)
+            switch (i)
             {
                 case 0:
                     avatar.Body = GameData.Team.Player.Avatar.Body;

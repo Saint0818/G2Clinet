@@ -366,7 +366,7 @@ public class UIAvatarFitted : UIBase
     private UILabel TotalPriceLabel;
     private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
     private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
-    private Dictionary<int, TEquip> ExpriedChangeEquips = new Dictionary<int, TEquip>();
+    private Dictionary<int, TEquip> TakeOffEauips = new Dictionary<int, TEquip>();
     private TAvatar EquipsAvatar = new TAvatar();
     private TimeSpan checktime;
     private string[] btnPaths = new string[avatarPartCount];
@@ -541,19 +541,25 @@ public class UIAvatarFitted : UIBase
     {
         bool result = false;
 
-        //檢查是否有過期裝備
+        //檢查是否有過期裝備,並脫掉
         foreach (KeyValuePair<int, TEquip> item in Equips)
         {
             if (backpackItems[item.Value.BackageSortNoLimit].UseKind == 1)
             {
-//				DateTime dt = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
-//				int compare = DateTime.Compare(dt, DateTime.UtcNow);
                 int compare = TimeSpan.Compare(TimeSpan.FromTicks(DateTime.UtcNow.Ticks), backpackItems[item.Value.BackageSortNoLimit].UseTime);
                 if (compare < 0)
+                {
                     result = true;
+                    backpackItems[item.Value.BackageSortNoLimit].Equip = false;
+                    AddUnEquipItem(item.Value.Kind, item.Value);
+                }
             }
             else if (backpackItems[item.Value.BackageSortNoLimit].UseKind == 2)
+            {
                 result = true;
+                backpackItems[item.Value.BackageSortNoLimit].Equip = false;
+                AddUnEquipItem(item.Value.Kind, item.Value);
+            }
         }
 
 
@@ -565,39 +571,50 @@ public class UIAvatarFitted : UIBase
     /// </summary>
     private void ChangeExpiredItem()
     {
-        ExpriedChangeEquips.Clear();
+        TakeOffEauips.Clear();
 
         foreach (KeyValuePair<int, TEquip> item in Equips)
         {
             DateTime time = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
             if (backpackItems[item.Value.BackageSortNoLimit].UseKind == 2 ||
-            (backpackItems[item.Value.BackageSortNoLimit].UseKind == 1 && DateTime.Compare(time, DateTime.UtcNow) < 0))
+                (backpackItems[item.Value.BackageSortNoLimit].UseKind == 1 && DateTime.Compare(time, DateTime.UtcNow) < 0))
             {
-                if (item.Value.Kind == 2 || item.Value.Kind == 6 || item.Value.Kind == 7)
-                {
-                    //飾品不需要新手裝直接脫掉
-                    AddUnEquipItem(item.Value.Kind, item.Value);
-                }
-                else
-                {
-                    AddUnEquipItem(item.Value.Kind, item.Value);
-                    for (int i = 0; i < backpackItems.Length; i++)
-                    {
-                        if (item.Value.Kind == backpackItems[i].Kind && backpackItems[i].SellPrice == 0)
-                        {
-                            TEquip equip = new TEquip();
-                            equip.Kind = item.Value.Kind;
-                            equip.ID = backpackItems[i].ID;
-                            equip.BackageSort = i;
-                            equip.BackageSortNoLimit = i;
-                            AddExpiredChangeItem(item.Value.Kind, equip);
-                        }
-                    }
-                }
+                TEquip off = new TEquip();
+                off.ID = 0;
+                off.Kind = item.Value.Kind;
+                off.BackageSort = item.Value.BackageSort;
+                off.BackageSortNoLimit = item.Value.BackageSortNoLimit;
+
+//                if (item.Value.Kind == 2 || item.Value.Kind == 6 || item.Value.Kind == 7)
+//                {
+                //飾品不需要新手裝直接脫掉
+                AddUnEquipItem(item.Value.Kind, item.Value);
+                AddTakeOffItem(item.Value.Kind, off);
+//                    AddEquipItem(item.Value.Kind, off);
+//                    item.Value.ID = 0;
+//                    Equips[item.Value.Kind] = item;
+//                }
+//                else
+//                {
+//                    AddUnEquipItem(item.Value.Kind, item.Value);
+//                    AddEquipItem(item.Value.Kind, off);
+//                    for (int i = 0; i < backpackItems.Length; i++)
+//                    {
+//                        if (item.Value.Kind == backpackItems[i].Kind && backpackItems[i].SellPrice == 0)
+//                        {
+//                            TEquip equip = new TEquip();
+//                            equip.Kind = item.Value.Kind;
+//                            equip.ID = backpackItems[i].ID;
+//                            equip.BackageSort = i;
+//                            equip.BackageSortNoLimit = i;
+//                            AddTakeOffItem(item.Value.Kind, equip);
+//                        }
+//                    }
+//                }
             }
         }
 
-        foreach (KeyValuePair<int, TEquip> item in ExpriedChangeEquips)
+        foreach (KeyValuePair<int, TEquip> item in TakeOffEauips)
         {
             AddEquipItem(item.Key, item.Value);
         }
@@ -673,7 +690,7 @@ public class UIAvatarFitted : UIBase
 
     private Vector3 GetItemPos(int count)
     {
-		return new Vector3(210 * (int)(count / 2), (count % 2 == 0 ? 135 : -135), 0);
+        return new Vector3(210 * (int)(count / 2), (count % 2 == 0 ? 135 : -135), 0);
     }
 
     public void UpdateView()
@@ -805,7 +822,7 @@ public class UIAvatarFitted : UIBase
             }
             else
             {
-                AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);	
+                AudioMgr.Get.PlaySound(SoundType.SD_Prohibit);	
             }
         }
     }
@@ -853,6 +870,7 @@ public class UIAvatarFitted : UIBase
                 else
                 {
                     //ask need save?
+                    ExpiredItemHanddle();
                     OnSave();//yes
 //					UpdateAvatar(true);//No
                     ChangeMode(EAvatarMode.Sell);
@@ -1024,12 +1042,12 @@ public class UIAvatarFitted : UIBase
         }
     }
 
-    private void AddExpiredChangeItem(int kind, TEquip item)
+    private void AddTakeOffItem(int kind, TEquip item)
     {
-        if (ExpriedChangeEquips.ContainsKey(kind))
-            ExpriedChangeEquips[kind] = item;
+        if (TakeOffEauips.ContainsKey(kind))
+            TakeOffEauips[kind] = item;
         else
-            ExpriedChangeEquips.Add(kind, item);
+            TakeOffEauips.Add(kind, item);
     }
 
     private void AddEquipItem(int kind, TEquip item)
@@ -1067,7 +1085,12 @@ public class UIAvatarFitted : UIBase
             if (item.Value.ID > 0)
                 avatarIndex = GameData.DItemData[item.Value.ID].Avatar;
             else
-                avatarIndex = 0;
+            {
+                if (item.Value.Kind > 0 && item.Value.Kind != 2 && item.Value.Kind < 6)
+                    avatarIndex = 99001;
+                else
+                    avatarIndex = 0;
+            }
 
             switch (item.Value.Kind)
             {
@@ -1108,6 +1131,7 @@ public class UIAvatarFitted : UIBase
 
     private void OnReturn()
     {
+        ExpiredItemHanddle();
         OnSave(true);
     }
 
@@ -1154,9 +1178,8 @@ public class UIAvatarFitted : UIBase
         }
     }
 
-    private void OnSave(bool iscloseui = false)
+    private bool ExpiredItemHanddle()
     {
-        isCloseUI = iscloseui;
         if (CheckExpiredItem())
         {
             //發現過期裝備，先重置預設裝備
@@ -1164,7 +1187,17 @@ public class UIAvatarFitted : UIBase
             ChangeExpiredItem();
             ItemIdTranslateAvatar();
             UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
+            return true;
         }
+        else
+            return false;	
+    }
+
+    //過期裝備，可試穿，但不能存檔
+    private void OnSave(bool iscloseui = false)
+    {
+        isCloseUI = iscloseui;
+       
 
         if (!CheckSameEquip())
         {
@@ -1267,8 +1300,10 @@ public class UIAvatarFitted : UIBase
     protected override void InitData()
     {
         UpdateAvatar(true);
+        GameData.Team.Player.Init();
         UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIAvatarFitted, ref GameData.Team);
-        UIPlayerMgr.Get.ChangeAvatar(GameData.Team.Player.Avatar);
+        ExpiredItemHanddle();
+//            UIPlayerMgr.Get.ChangeAvatar(GameData.Team.Player.Avatar);
     }
 
     private void changeLayersRecursively(Transform trans, string name)
