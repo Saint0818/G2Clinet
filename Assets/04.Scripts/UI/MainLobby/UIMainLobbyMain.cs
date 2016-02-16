@@ -81,7 +81,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public int Power
     {
-        set { PowerLabel.text = NumFormater.Convert(value); }
+        set { PowerLabel.text = string.Format("{0}/{1}", value, GameConst.Max_Power); }
     }
 
     public void PlayPowerAnimation(float delay = 0)
