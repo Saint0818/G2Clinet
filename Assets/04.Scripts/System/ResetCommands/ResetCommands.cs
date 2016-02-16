@@ -19,6 +19,7 @@ public class ResetCommands : KnightSingleton<ResetCommands>
     private void Awake()
     {
         mCommands.Add(new ResetStageCommand());
+        mCommands.Add(new ComputeTeamPowerCommand());
     }
 
     [UsedImplicitly]

@@ -11,7 +11,7 @@ public interface ICommand
     bool IsTimeUp();
 
     /// <summary>
-    /// 執行命令. 使用者也順便更新時間, 避免不斷的送出 Command.
+    /// 執行命令. 使用者也要順便更新時間, 避免不斷的送出 Command.
     /// </summary>
     void Execute();
 }
