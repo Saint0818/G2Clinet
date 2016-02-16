@@ -902,4 +902,16 @@ public static class GameFunction
 		}
 		return 0;
 	}
+
+    public static bool CanGetPVPReward(ref TTeam team)
+    {
+        
+        if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && 
+            team.DailyCount.PVPReaward == 0 && 
+            team.PVPIntegral >= GameData.DPVPData[GameConst.PVPMinLv].LowScore && 
+            team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.PVP))
+            return true;
+        else
+            return false;
+    } 
 }

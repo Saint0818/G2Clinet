@@ -241,12 +241,10 @@ public class PVPMainView
        
 //        SetOffset(lv);
     }
-
-
-
+        
     public void UpdateView(ref TTeam team)
     {
-		getRewardBtn.isEnabled = team.DailyCount.PVPReaward == 0;
+        getRewardBtn.isEnabled = GameFunction.CanGetPVPReward(ref team);
     }
 
     public bool Enable
@@ -683,7 +681,7 @@ public class UIPVP : UIBase
     public void UpdateRedPoint()
     {
         if(readPoint)
-            readPoint.enabled = GameData.Team.DailyCount.PVPReaward == 0;
+            readPoint.enabled = GameFunction.CanGetPVPReward(ref GameData.Team);
         
         page0.mainview.UpdateView (ref GameData.Team);
     }
@@ -893,7 +891,7 @@ public class UIPVP : UIBase
 
     private void OnAward()
     {
-		if (GameData.Team.DailyCount.PVPReaward == 0)
+        if (GameFunction.CanGetPVPReward(ref GameData.Team))
         {
             WWWForm form = new WWWForm();
             SendHttp.Get.Command(URLConst.PVPAward, WaitPVPAward, form, false); 
