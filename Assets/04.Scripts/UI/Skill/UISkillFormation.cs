@@ -200,6 +200,7 @@ public class UISkillFormation : UIBase {
 
 	//Total Cost
 	private UILabel labelCostValue;
+	private UILabel labelFrameCount;
 
 	//Left CardView
 	private GameObject gridCardList;
@@ -302,6 +303,7 @@ public class UISkillFormation : UIBase {
 		}
 		gridPassiveCardBase = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList/UIGrid").GetComponent<UIGrid>();
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
+		labelFrameCount = GameObject.Find (UIName + "/Center/FrameCount").GetComponent<UILabel>();
 		scrollViewItemList = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
 //		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
 //		scrollViewItemList.panel.clipOffset = new Vector2(12, 110);
@@ -337,7 +339,10 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
 		SetBtnFun (UIName + "/Center/SellBtn/SellCount/CancelBtn", DoCloseSell);
-		StartCoroutine(loadCard());
+
+		initCards ();
+		UpdateSort();
+		refreshFrameCount ();
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -352,12 +357,6 @@ public class UISkillFormation : UIBase {
 
 		isChangePage = false;
 		isLeave = false;
-	}
-		
-	IEnumerator loadCard () {
-		initCards ();
-		yield return new WaitForSeconds(0.3f);
-		UpdateSort();
 	}
 	
 	private void hide() {
@@ -417,23 +416,27 @@ public class UISkillFormation : UIBase {
 	public void RefreshAddCard () {
 		refresh();
 		initCards ();
+		refreshFrameCount ();
 	}
 
 	private void refreshAfterInstall () {
 		refresh();
 		initCards ();
+		refreshFrameCount ();
 	}
 
 	private void refreshBeforeSell () {
 		refresh();
 		initCards (true);
 		setEditState(true);
+		refreshFrameCount ();
 	}
 	
 	private void refreshAfterSell () {
 		refresh();
 		DoCloseSell();
 		initCards ();
+		refreshFrameCount ();
 	}
 
 	private void initCards (bool isCheckBuy = false) {
@@ -515,6 +518,10 @@ public class UISkillFormation : UIBase {
 		resetScrollPostion ();
 		refreshActiveItems ();
 		refreshPassiveItems();
+	}
+
+	private void refreshFrameCount () {
+		labelFrameCount.text = GetCardFrameCount + "/" + GameData.Team.SkillCardMax;
 	}
 
 	private int getActiveFieldNull{
@@ -738,6 +745,7 @@ public class UISkillFormation : UIBase {
 				}
 			}
 			refreshRedPoint();
+			refreshFrameCount ();
 		}
 	}
 
@@ -805,6 +813,7 @@ public class UISkillFormation : UIBase {
 			}
 			uiCards[go.name].UpdateRedPoint(false, uiCards[go.name].skillCard.Skill);
 			uiCards[go.name].SetIsEquip(false);
+			refreshFrameCount ();
 		}
 	}
 	
@@ -1129,6 +1138,17 @@ public class UISkillFormation : UIBase {
 //		gridPassiveCardBase.Reposition();
 //		gridPassiveCardBase.repositionNow = true;
 //	}
+
+	public int GetCardFrameCount {
+		get {
+			int count = 0;
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+				if(!uicard.Value.skillCard.IsInstall)
+					count ++;
+			}
+			return count;
+		}
+	}
 
 	public bool CheckCardnoInstall{
 		get {

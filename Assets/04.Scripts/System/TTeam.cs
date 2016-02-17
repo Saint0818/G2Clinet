@@ -29,6 +29,8 @@ namespace GameStruct
         public int StatiumLv; //經營球館等級
         public int SocialCoin; //社群幣
 
+		public int SkillCardMax;//背包空間數
+
         public int[] TutorialFlags;
         public int[] Achievements;
         public Dictionary<int, int> GotItemCount; //key: item id, value: got number
@@ -677,6 +679,14 @@ namespace GameStruct
 						SkillCardCounts.Add(Player.SkillCards[i].ID , 1);
 					}
 				}
+			}
+		}
+
+		public bool IsSkillCardFull {
+			get {
+				if(SkillCardMax == 0)
+					SkillCardMax = 100;
+				return (SkillCards.Length > SkillCardMax);
 			}
 		}
 

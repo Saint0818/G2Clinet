@@ -17,6 +17,11 @@ public struct TDailyRecordResult {
     public TDailyRecord MonthlyRecord;
 }
 
+public struct TSkillCardBag {
+	public int Diamond;
+	public int SkillCardBagCount;
+}
+
 public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
@@ -39,6 +44,7 @@ public static class URLConst {
 	public const string SellSkillcard = "sellskillcard";
 	public const string ReinforceSkillcard = "reinforceskillcard";
 	public const string EvolutionSkillcard = "evolutionskillcard";
+	public const string BuySkillcardBag = "buyskillcardbag";
 	public const string PickLottery = "picklottery";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
@@ -173,7 +179,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private EventDelegate.Callback LookFriendsEvent;
     private EventDelegate.Callback FreshFriendsEvent;
-    private EventDelegate.Callback MakeFriendEvent;
+	private EventDelegate.Callback MakeFriendEvent;
+	private EventDelegate.Callback BuySkillCardBagEvent;
 
 	protected override void Init() {
 		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
@@ -584,6 +591,24 @@ public class SendHttp : KnightSingleton<SendHttp> {
             }
         }
     }
+
+	public void AddSkillCardBag (EventDelegate.Callback e) {
+		BuySkillCardBagEvent = e;
+		WWWForm form = new WWWForm();
+		form.AddField("Identifier", GameData.Team.Identifier);
+		SendHttp.Get.Command(URLConst.BuySkillcardBag, waitAddSkillCardBag, form);
+	}
+
+	private void waitAddSkillCardBag(bool flag, WWW www) {
+		if (flag) {
+			TSkillCardBag bag = JsonConvert.DeserializeObject <TSkillCardBag>(www.text, SendHttp.Get.JsonSetting);
+			GameData.Team.Diamond = bag.Diamond;
+			GameData.Team.SkillCardMax = bag.SkillCardBagCount;
+
+		}
+		if (BuySkillCardBagEvent != null)
+			BuySkillCardBagEvent();
+	}
 
     private IEnumerator longPollingSocialEvent(int kind) {
         yield return new WaitForSeconds(20); //every 20 seconds request once

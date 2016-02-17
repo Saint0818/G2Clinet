@@ -292,6 +292,22 @@ public class UIBase: MonoBehaviour
 		GameData.Team.Power = power;
 	}
 
+	public void CheckSkillCardFull () {
+		if(GameData.Team.IsSkillCardFull)
+			UIMessage.Get.ShowMessage(TextConst.S(202), TextConst.S(311), YesBuyBag, NoBuyBag);
+	}
+
+	public void YesBuyBag (object extraInfo) {
+		SendHttp.Get.AddSkillCardBag(CheckSkillCardFull);
+	}
+
+	public void NoBuyBag () {
+		if(!UISkillFormation.Visible) {
+			UISkillFormation.UIShow(true);
+			UIMainLobby.Get.Hide();
+		}
+	}
+
     public static string ButtonBG(bool ok)
     {
         return ok ? "button_orange1" : "button_gray";
