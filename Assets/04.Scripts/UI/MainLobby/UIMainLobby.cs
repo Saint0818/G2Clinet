@@ -198,6 +198,7 @@ public class UIMainLobby : UIBase
 //        RemoveUI(UIName);
 
         mCountDownTimer.Stop();
+        Main.PowerCountDownVisible = false;
     }
 
     public void HideAll(bool playAnimation = true)
@@ -207,6 +208,7 @@ public class UIMainLobby : UIBase
         ResetCommands.Get.Stop();
 
         mCountDownTimer.Stop();
+        Main.PowerCountDownVisible = false;
     }
 
     private void onMoneyChange(int money)
