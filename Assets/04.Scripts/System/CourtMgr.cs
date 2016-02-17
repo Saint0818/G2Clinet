@@ -421,7 +421,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				if(!GameController.Get.IsDunk && !GameController.Get.IsAlleyoop && !GameController.Get.IsPassing &&
 					GameController.Get.BasketSituation != EBasketSituation.AirBall) {
 					BasketEntra[Team, 0].Into = true;
-					RealBallTrigger.IsAutoRotate = false;
+					RealBallCompoment.Trigger.IsAutoRotate = false;
 					RealBallDoMoveFinish();
 					switch (GameController.Get.BasketSituation) {
 					case EBasketSituation.Swish:
