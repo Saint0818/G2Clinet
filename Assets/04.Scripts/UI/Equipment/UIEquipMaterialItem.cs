@@ -152,6 +152,7 @@ public class UIEquipMaterialItem : MonoBehaviour
             AttrValues[j].gameObject.SetActive(true);
 
             AttrSprites[j].spriteName = pair.Value.Icon;
+            AttrSprites[j].GetComponent<UIButton>().normalSprite = pair.Value.Icon;
             AttrValues[j].text = string.Format("+{0}", pair.Value.Value);
 
             mBonus[j] = pair.Value.Bonus;
