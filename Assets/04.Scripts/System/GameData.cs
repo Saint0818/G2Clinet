@@ -233,6 +233,7 @@ public static class GameData
         int foundIndex = -1;
         string[] names = QualitySettings.names;
 
+        #if !UNITY_IOS
         for (int i = 0; i < names.Length; i++)
         {
             if (names[i] == setting)
@@ -242,6 +243,7 @@ public static class GameData
                 return;
             }
         }
+        #endif
     }
 
     private static void loadGameSetting()
