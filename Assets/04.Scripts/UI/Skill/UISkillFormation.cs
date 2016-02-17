@@ -169,7 +169,6 @@ public class UISkillFormation : UIBase {
 	//Instantiate Object
 	private GameObject itemSkillCard;
 	private GameObject itemCardEquipped;
-//	private GameObject equipEffect;
 	
 	//Original for compare DoFinish
 	private List<int> activeOriginalSN = new List<int>();
@@ -287,7 +286,6 @@ public class UISkillFormation : UIBase {
 	protected override void InitCom() {
 		itemSkillCard = Resources.Load(UIPrefabPath.ItemSkillCard) as GameObject;
 		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
-//		equipEffect = Resources.Load("Effect/UIEquipSkill") as GameObject;
 
 		tempPage = GameData.Team.Player.SkillPage;
 
@@ -305,8 +303,6 @@ public class UISkillFormation : UIBase {
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
 		labelFrameCount = GameObject.Find (UIName + "/Center/FrameCount").GetComponent<UILabel>();
 		scrollViewItemList = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
-//		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
-//		scrollViewItemList.panel.clipOffset = new Vector2(12, 110);
 		scrollViewItemList.onDragFinished = ItemDragFinish;
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
@@ -320,6 +316,7 @@ public class UISkillFormation : UIBase {
 		betterGrid = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList/Grid").GetComponent<UIBetterGrid>();
 		scrollViewCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
 		scrollViewCardList.onDragStarted = CardDragStart;
+		scrollViewCardList.onDragFinished = CardDragFinish;
 		scrollViewCardList.onStoppedMoving = CardDragEnd;
 
 		itemPassiveField = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveField/Icon");
@@ -333,7 +330,7 @@ public class UISkillFormation : UIBase {
 		cardSell.LabelTotalPrice = GameObject.Find (UIName + "/Center/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
 		cardSell.Init();
 
-		GameObject.Find(UIName + "/Center/SortBtn").SetActive(false);
+//		GameObject.Find(UIName + "/Center/SortBtn").SetActive(false);
 
 		SetBtnFun (UIName + "/Center/SortBtn", DoSort);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
@@ -343,6 +340,7 @@ public class UISkillFormation : UIBase {
 		initCards ();
 		UpdateSort();
 		refreshFrameCount ();
+		CardDragFinish();
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -417,12 +415,14 @@ public class UISkillFormation : UIBase {
 		refresh();
 		initCards ();
 		refreshFrameCount ();
+		CardDragFinish();
 	}
 
 	private void refreshAfterInstall () {
 		refresh();
 		initCards ();
 		refreshFrameCount ();
+		CardDragFinish();
 	}
 
 	private void refreshBeforeSell () {
@@ -430,6 +430,7 @@ public class UISkillFormation : UIBase {
 		initCards (true);
 		setEditState(true);
 		refreshFrameCount ();
+		CardDragFinish();
 	}
 	
 	private void refreshAfterSell () {
@@ -437,6 +438,7 @@ public class UISkillFormation : UIBase {
 		DoCloseSell();
 		initCards ();
 		refreshFrameCount ();
+		CardDragFinish();
 	}
 
 	private void initCards (bool isCheckBuy = false) {
@@ -944,6 +946,7 @@ public class UISkillFormation : UIBase {
 				} else
 					skillSortCards[i].SetActive(false);
 			}
+			CardDragFinish();
 		} else {
 			index = 0;
 			for(int i=0; i<skillSortCards.Count; i++) {
@@ -1111,6 +1114,8 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void CardDragStart() {IsDragNow = true;}
+
+	public void CardDragFinish() {betterGrid.WrapContent(false);}
 
 	public void CardDragEnd() {IsDragNow = false;}
 
@@ -1632,6 +1637,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.InitSkillCardCount();
 			setEditState(false);
 			UIMainLobby.Get.UpdateUI();
+			refreshAfterInstall ();
 			AudioMgr.Get.PlaySound (SoundType.SD_Sell);
 		} else {
 			Debug.LogError("text:"+www.text);

@@ -42,9 +42,10 @@ public class UIBetterGrid : MonoBehaviour
 	public void init () {
 		if (!CacheScrollView()) return;
 		if (mScroll != null) mScroll.GetComponent<UIPanel>().onClipMove = OnMove;
+		WrapContent(false);
 	}
 
-	protected virtual void OnMove (UIPanel panel) { WrapContent(); }
+	protected virtual void OnMove (UIPanel panel) { WrapContent(true); }
 	protected bool CacheScrollView ()
 	{
 		mTrans = transform;
@@ -83,7 +84,7 @@ public class UIBetterGrid : MonoBehaviour
 		return true;
 	}
 
-	public virtual void WrapContent ()
+	public virtual void WrapContent (bool isMoving)
 	{
 		Vector3[] corners = mPanel.worldCorners;
 
@@ -111,8 +112,13 @@ public class UIBetterGrid : MonoBehaviour
 								if (cullContent)
 								{
 									distance += mPanel.clipOffset.x - mTrans.localPosition.x;
-									if (!UICamera.IsPressed(t.gameObject))
-										NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+									if (!UICamera.IsPressed(t.gameObject)){
+										if(isMoving ){
+											if((distance > min && distance < max))
+												NGUITools.SetActive(t.gameObject, true, false);
+										} else 
+											NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+									}
 								}
 							}else {
 								NGUITools.SetActive(t.gameObject, false, false);
@@ -137,8 +143,13 @@ public class UIBetterGrid : MonoBehaviour
 								if (cullContent)
 								{
 									distance += mPanel.clipOffset.x - mTrans.localPosition.x;
-									if (!UICamera.IsPressed(t.gameObject))
-										NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+									if (!UICamera.IsPressed(t.gameObject)){
+										if(isMoving ){
+											if((distance > min && distance < max))
+												NGUITools.SetActive(t.gameObject, true, false);
+										} else 
+											NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
+									}
 								}
 							}
 						}

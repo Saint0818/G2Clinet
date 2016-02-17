@@ -33,7 +33,6 @@ public class UIReinForceGrid : MonoBehaviour
 	protected UIPanel mPanel;
 	protected UIScrollView mScroll;
 	protected bool mHorizontal = false;
-	//	protected List<Transform> mChildren = new List<Transform>();
 	public List<GameObject> mChildren = new List<GameObject>();
 
 	public void init () {
@@ -41,7 +40,7 @@ public class UIReinForceGrid : MonoBehaviour
 		if (mScroll != null) mScroll.GetComponent<UIPanel>().onClipMove = OnMove;
 	}
 
-	protected virtual void OnMove (UIPanel panel) { WrapContent(); }
+	protected virtual void OnMove (UIPanel panel) { WrapContent(true); }
 	protected bool CacheScrollView ()
 	{
 		mTrans = transform;
@@ -54,7 +53,7 @@ public class UIReinForceGrid : MonoBehaviour
 		return true;
 	}
 
-	public virtual void WrapContent ()
+	public virtual void WrapContent (bool isMoving)
 	{
 		Vector3[] corners = mPanel.worldCorners;
 
@@ -80,28 +79,12 @@ public class UIReinForceGrid : MonoBehaviour
 						if (cullContent)
 						{
 							distance += mPanel.clipOffset.y - mTrans.localPosition.y;
-							if (!UICamera.IsPressed(t.gameObject))
-								NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
-						}
-					}
-				}
-			}
-		}
-
-		mScroll.restrictWithinPanel = true;
-	}
-
-	private bool isSkillCardCanSell(int sn) {
-		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
-			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
-				if(GameData.Team.PlayerBank[i].ID != GameData.Team.Player.ID) {
-					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
-						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
-							int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
-							if (SNs.Length > 0) {
-								for (int k=0; k<SNs.Length; k++)
-									if (SNs[k] == sn)
-										return false;
+							if (!UICamera.IsPressed(t.gameObject)) {
+								if(isMoving ){
+									if((distance > min && distance < max))
+										NGUITools.SetActive(t.gameObject, true, false);
+								} else 
+									NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
 							}
 						}
 					}
@@ -109,10 +92,6 @@ public class UIReinForceGrid : MonoBehaviour
 			}
 		}
 
-		for(int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
-			if(GameData.Team.Player.SkillCards[i].SN == sn)
-				return false;
-
-		return true;
+		mScroll.restrictWithinPanel = true;
 	}
 }

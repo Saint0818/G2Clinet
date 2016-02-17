@@ -168,6 +168,7 @@ public class UISkillReinforce : UIBase {
 		scrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView/Grid");
 		reinforceGrid = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView/Grid").GetComponent<UIReinForceGrid>();
 		uiScrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView").GetComponent<UIScrollView>();
+		uiScrollView.onDragFinished = ScrollViewDragFinish;
 		buttonReinforce = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn").GetComponent<UIButton>();
 		labelPrice = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn/PriceLabel").GetComponent<UILabel>();
 
@@ -276,6 +277,11 @@ public class UISkillReinforce : UIBase {
 		uiScrollView.ResetPosition();
 		reinforceGrid.init();
 		reinforceGrid.mChildren = reinforceGoCards;
+		ScrollViewDragFinish ();
+	}
+
+	public void ScrollViewDragFinish () {
+		reinforceGrid.WrapContent(false);
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
