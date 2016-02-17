@@ -35,6 +35,7 @@ public class UIEquipDetail : MonoBehaviour
     public UIButton DemountButton;
     private const string ButtonNormal = "button_orange1";
     private const string ButtonDisable = "button_gray";
+    public UILabel NameLabel;
     public UILabel Desc;
     public UILabel LevelNotEnoughLabel;
 
@@ -73,6 +74,7 @@ public class UIEquipDetail : MonoBehaviour
 
         mEquipItem.Set(data, !mMain.IsBestValueItem(mSlotIndex));
 
+        NameLabel.text = data.Name;
         Desc.text = data.Desc;
         UpgradeMoneyLabel.text = data.UpgradeMoney.ToString();
 
