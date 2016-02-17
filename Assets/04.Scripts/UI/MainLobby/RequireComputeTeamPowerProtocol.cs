@@ -11,7 +11,7 @@ public class RequireComputeTeamPowerProtocol
 
         public override string ToString()
         {
-            return string.Format("Power: {0}, PowerCD: {1}", Power, PowerCD.ToUniversalTime());
+            return string.Format("Power: {0}, UtcPowerCD: {1}", Power, PowerCD.ToUniversalTime());
         }
     }
 
@@ -25,7 +25,7 @@ public class RequireComputeTeamPowerProtocol
         mCallback = callback;
 
         WWWForm form = new WWWForm();
-        SendHttp.Get.Command(URLConst.RequireComputeTeamPower, waitRequireComputeTeamPower, form);
+        SendHttp.Get.Command(URLConst.RequireComputeTeamPower, waitRequireComputeTeamPower, form, false);
     }
 
     private void waitRequireComputeTeamPower(bool ok, WWW www)

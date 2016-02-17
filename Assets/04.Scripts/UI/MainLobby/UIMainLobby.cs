@@ -1,4 +1,6 @@
-﻿using GameEnum;
+﻿using System;
+using AI;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -24,6 +26,8 @@ public class UIMainLobby : UIBase
     // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
     private const float AnimDelay = 3f;
 
+    private readonly CountDownTimer mCountDownTimer = new CountDownTimer(1);
+
     [UsedImplicitly]
     private void Awake()
     {
@@ -36,6 +40,8 @@ public class UIMainLobby : UIBase
         GameData.Team.OnMoneyChangeListener += onMoneyChange;
         GameData.Team.OnDiamondChangeListener += onDiamondChange;
         GameData.Team.OnPowerChangeListener += onPowerChange;
+
+        mCountDownTimer.TimeUpListener += updateCountDownPower;
     }
 
     [UsedImplicitly]
@@ -44,6 +50,8 @@ public class UIMainLobby : UIBase
         GameData.Team.OnMoneyChangeListener -= onMoneyChange;
         GameData.Team.OnDiamondChangeListener -= onDiamondChange;
         GameData.Team.OnPowerChangeListener -= onPowerChange;
+
+        mCountDownTimer.TimeUpListener -= updateCountDownPower;
     }
 
     public bool IsVisible
@@ -69,9 +77,22 @@ public class UIMainLobby : UIBase
 
         if(GameData.Team.NeedForSyncRecord)
             SendHttp.Get.SyncDailyRecord();
+
+        updateCountDownPower();
+        mCountDownTimer.StartAgain(true);
     }
 
-	public void ShowForLottery (bool isShow) {
+    private void updateCountDownPower()
+    {
+        DateTime utcFuture = GameData.Team.PowerCD.ToUniversalTime().AddSeconds(GameConst.AddPowerTimeInSeconds);
+        TimeSpan timeInterval = utcFuture.Subtract(DateTime.UtcNow);
+
+        Main.PowerCountDown = GameFunction.GetTimeString(timeInterval);
+        Main.PowerCountDownVisible = GameData.Team.Power < GameConst.Max_Power;
+    }
+
+    public void ShowForLottery(bool isShow)
+    {
 		Main.ShowForLottery(isShow);
 	}
 
@@ -159,7 +180,12 @@ public class UIMainLobby : UIBase
 		Main.PlayerPosition = GameData.Team.Player.PositionPicture;
     }
 
-	public void ResetText()
+    private void Update()
+    {
+        mCountDownTimer.Update(Time.deltaTime);
+    }
+
+    public void ResetText()
 	{
 		initDefaultText (Main.MainMenu);
 	}
@@ -170,6 +196,8 @@ public class UIMainLobby : UIBase
         Main.Hide(kind, playAnimation);
         ResetCommands.Get.Stop();
 //        RemoveUI(UIName);
+
+        mCountDownTimer.Stop();
     }
 
     public void HideAll(bool playAnimation = true)
@@ -177,6 +205,8 @@ public class UIMainLobby : UIBase
         UI3DMainLobby.Get.Hide();
         Main.HideAll(playAnimation);
         ResetCommands.Get.Stop();
+
+        mCountDownTimer.Stop();
     }
 
     private void onMoneyChange(int money)

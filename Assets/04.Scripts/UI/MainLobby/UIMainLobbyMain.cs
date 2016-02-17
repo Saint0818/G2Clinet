@@ -13,6 +13,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public UILabel DiamondLabel;
     public GameObject PowerObj;
     public UILabel PowerLabel; // 體力.
+    public UILabel PowerCountDownLabel; // 體力倒數計時.
 
     public UISprite PlayerIconSprite;
     public UISprite PlayerPositionSprite;
@@ -88,6 +89,16 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         PowerTweenScale.delay = delay;
         PowerTweenScale.PlayForward();
+    }
+
+    public string PowerCountDown
+    {
+        set { PowerCountDownLabel.text = value; }
+    }
+
+    public bool PowerCountDownVisible
+    {
+        set { PowerCountDownLabel.gameObject.SetActive(value);}
     }
 
     public string PlayerName

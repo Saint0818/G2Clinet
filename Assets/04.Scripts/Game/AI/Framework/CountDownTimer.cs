@@ -19,6 +19,9 @@ namespace AI
     /// </list>
     public class CountDownTimer
     {
+        /// <summary>
+        /// 呼叫時機: 倒數完畢.
+        /// </summary>
         public event Action TimeUpListener;
 
         /// <summary>
@@ -34,6 +37,8 @@ namespace AI
             get { return mRemainTime; }
         }
         private float mRemainTime = TimeUpTime;
+
+        private bool mLoop;
 
         /// <summary>
         /// 前一次的倒數時間.
@@ -52,17 +57,19 @@ namespace AI
             mLastRemainTime = defaultRemainTime;
         }
 
-        public void Start(float remainSecond)
+        public void Start(float remainSecond, bool loop = false)
         {
             mLastRemainTime = remainSecond;
             mRemainTime = remainSecond;
             mIsUpdating = true;
+            mLoop = loop;
         }
 
-        public void StartAgain()
+        public void StartAgain(bool loop = false)
         {
             mRemainTime = mLastRemainTime;
             mIsUpdating = true;
+            mLoop = loop;
         }
 
         public void Resume()
@@ -99,7 +106,7 @@ namespace AI
             if(mRemainTime <= 0)
             {
                 mRemainTime = TimeUpTime; // 表示時間已經到了.
-                mIsUpdating = false;
+                mIsUpdating = mLoop;
 
                 fireTimeUp();
             }

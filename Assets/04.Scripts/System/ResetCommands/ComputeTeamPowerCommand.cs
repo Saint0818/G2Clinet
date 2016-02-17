@@ -6,19 +6,27 @@ public class ComputeTeamPowerCommand : ICommand
 
     public bool IsTimeUp()
     {
-        return GameData.Team.Power < GameConst.Max_Power &&
-            DateTime.UtcNow.Subtract(GameData.Team.PowerCD.ToUniversalTime()).TotalSeconds >=
-               GameConst.AddPowerTimeInSeconds;
+        DateTime utcPowerCD = GameData.Team.PowerCD.ToUniversalTime();
+        DateTime utcUpdatePowerTime = utcPowerCD.AddSeconds(GameConst.AddPowerTimeInSeconds);
+        bool isPowerLack = GameData.Team.Power < GameConst.Max_Power;
+        bool isUpdateTimeUp = DateTime.UtcNow.Subtract(utcUpdatePowerTime).TotalSeconds >= 0;
+
+//        Debug.LogFormat("PowerCD:{0}, UpdatePowerCD:{1}, isPowerLack:{2}, isNeedUpdate:{3}, IsWaitingServer:{4}", 
+//                        utcPowerCD, utcUpdatePowerTime, isPowerLack, isNeedUpdate, mIsWaitingServer);
+
+        return isPowerLack && isUpdateTimeUp && !mIsWaitingServer;
     }
 
     public void Execute()
     {
-        if(mIsWaitingServer)
-            return;
-
+//        Debug.Log("Send Command");
         mIsWaitingServer = true;
 
         RequireComputeTeamPowerProtocol protocol = new RequireComputeTeamPowerProtocol();
-        protocol.Send(ok => { mIsWaitingServer = false; });
+        protocol.Send(ok =>
+        {
+            mIsWaitingServer = false;
+//            Debug.Log("Receive Command");
+        });
     }
 }
