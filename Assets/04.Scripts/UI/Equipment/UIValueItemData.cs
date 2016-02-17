@@ -121,6 +121,22 @@ public class UIValueItemData
         return 0;
     }
 
+    public bool HasInlayMaterial
+    {
+        get
+        {
+            return Materials.Any(data => data.Status == UIEquipMaterialItem.EStatus.Enough);
+
+            /*
+            foreach(UIEquipMaterialItem.Data data in Materials)
+            {
+                if(data.Status == UIEquipMaterialItem.EStatus.Enough)
+                    return true;
+            }
+            return false;
+            */
+        }
+    }
     // 數值裝的升級材料.
     public List<UIEquipMaterialItem.Data> Materials = new List<UIEquipMaterialItem.Data>();
 

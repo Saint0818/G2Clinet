@@ -67,7 +67,8 @@ public class UIEquipPlayer : MonoBehaviour
         for(int slotIndex = 0; slotIndex < mPartSlots.Count; slotIndex++)
         {
             if(mMain.PlayerValueItems.Length > slotIndex)
-                mPartSlots[slotIndex].Set(mMain.PlayerValueItems[slotIndex], !mMain.IsBestValueItem(slotIndex));
+                mPartSlots[slotIndex].Set(mMain.PlayerValueItems[slotIndex], 
+                            !mMain.IsBestValueItem(slotIndex) || mMain.PlayerValueItems[slotIndex].HasInlayMaterial);
         }
     }
 
