@@ -21,7 +21,7 @@ public class MallBox : MonoBehaviour {
 	}
 
 	void Update () {
-		close.transform.localPosition = new Vector3((tween.transform.localScale.x * 585f) + 200, 0, 0);
+		close.transform.localPosition = new Vector3((tween.transform.localScale.x * 685f) + 200, 0, 0);
 	} 
 
 	void OnFinish () {
