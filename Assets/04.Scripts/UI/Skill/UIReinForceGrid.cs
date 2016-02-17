@@ -18,26 +18,23 @@ using GameEnum;
 /// |-- Item 3
 /// </summary>
 
-[AddComponentMenu("NGUI/Interaction/Better Grid")]
-public class UIBetterGrid : MonoBehaviour
+[AddComponentMenu("NGUI/Interaction/ReinForce Grid")]
+public class UIReinForceGrid : MonoBehaviour
 {
-//	public delegate void OnInitializeItem (GameObject go, int wrapIndex, int realIndex);
+	//	public delegate void OnInitializeItem (GameObject go, int wrapIndex, int realIndex);
 
-	public int itemSize = 200;
-	public int itemSizeY = 265;
+	public int itemSize = 80;
 
 	private bool cullContent = true;
 
-//	private bool hideInactive = false;
+	//	private bool hideInactive = false;
 
 	public Transform mTrans;
 	protected UIPanel mPanel;
 	protected UIScrollView mScroll;
 	protected bool mHorizontal = false;
-//	protected List<Transform> mChildren = new List<Transform>();
+	//	protected List<Transform> mChildren = new List<Transform>();
 	public List<GameObject> mChildren = new List<GameObject>();
-
-	private bool isBuy;
 
 	public void init () {
 		if (!CacheScrollView()) return;
@@ -57,32 +54,6 @@ public class UIBetterGrid : MonoBehaviour
 		return true;
 	}
 
-	private int getSN (string name){
-		string[] sn = name.Split("_"[0]);
-		return int.Parse(sn[2]);
-	}
-
-	private int getID (string name){
-		string[] sn = name.Split("_"[0]);
-		return int.Parse(sn[1]);
-	}
-
-	private int getSort{
-		get {return PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());}
-	}
-
-	private bool isNeedShow (string name) {
-		int id = getID(name);
-		if(getSort == (int)EFilter.All) 
-			return true;
-		else if(getSort == (int)EFilter.Active) 
-			return GameFunction.IsActiveSkill(id);
-		else if(getSort == (int)EFilter.Passive) 
-			return !GameFunction.IsActiveSkill(id);
-		
-		return true;
-	}
-
 	public virtual void WrapContent ()
 	{
 		Vector3[] corners = mPanel.worldCorners;
@@ -95,52 +66,22 @@ public class UIBetterGrid : MonoBehaviour
 		}
 
 		Vector3 center = Vector3.Lerp(corners[0], corners[2], 0.5f);
-		if(isBuy) {
-			if (mHorizontal)
-			{
-				float min = corners[0].x - itemSize;
-				float max = corners[2].x + itemSize;
-				if(mChildren.Count > 0) {
-					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
-					{
-						Transform t = mChildren[i].transform;
-						if(t != null) {
-							if(isSkillCardCanSell(getSN(mChildren[i].name)) && isNeedShow(mChildren[i].name)) {
-								float distance = t.localPosition.x - center.x;
-								
-								if (cullContent)
-								{
-									distance += mPanel.clipOffset.x - mTrans.localPosition.x;
-									if (!UICamera.IsPressed(t.gameObject))
-										NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
-								}
-							}else {
-								NGUITools.SetActive(t.gameObject, false, false);
-							}
-						} 
-					}
-				}
-			}
-		} else {
-			if (mHorizontal)
-			{
-				float min = corners[0].x - itemSize;
-				float max = corners[2].x + itemSize;
-				if(mChildren.Count > 0) {
-					for (int i = 0, imax = mChildren.Count; i < imax; ++i)
-					{
-						Transform t = mChildren[i].transform;
-						if(t != null) {
-							if(isNeedShow(mChildren[i].name)) {
-								float distance = t.localPosition.x - center.x;
-								
-								if (cullContent)
-								{
-									distance += mPanel.clipOffset.x - mTrans.localPosition.x;
-									if (!UICamera.IsPressed(t.gameObject))
-										NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
-								}
-							}
+		if (!mHorizontal)
+		{
+			float min = corners[0].y - itemSize;
+			float max = corners[2].y + itemSize;
+			if(mChildren.Count > 0) {
+				for (int i = 0, imax = mChildren.Count; i < imax; ++i)
+				{
+					Transform t = mChildren[i].transform;
+					if(t != null) {
+						float distance = t.localPosition.y - center.y;
+
+						if (cullContent)
+						{
+							distance += mPanel.clipOffset.y - mTrans.localPosition.y;
+							if (!UICamera.IsPressed(t.gameObject))
+								NGUITools.SetActive(t.gameObject, (distance > min && distance < max), false);
 						}
 					}
 				}
@@ -173,9 +114,5 @@ public class UIBetterGrid : MonoBehaviour
 				return false;
 
 		return true;
-	}
-
-	public bool IsBuy {
-		set {isBuy = value;}
 	}
 }

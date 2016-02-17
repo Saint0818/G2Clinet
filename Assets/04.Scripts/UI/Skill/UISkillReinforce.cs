@@ -65,6 +65,8 @@ public class UISkillReinforce : UIBase {
 	private UIScrollView uiScrollView;
 	private UIButton buttonReinforce;
 	private UILabel labelPrice;
+	private UIReinForceGrid reinforceGrid;
+	private List<GameObject> reinforceGoCards = new List<GameObject>();
 
 	private int reinforceMoney;
 	private int originalExp;
@@ -163,12 +165,14 @@ public class UISkillReinforce : UIBase {
 		reinForceInfo.Init(GameObject.Find(UIName + "/Window/Center/CenterView/ReinforceInfo").transform);
 
 		//RightView
-		scrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView");
+		scrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView/Grid");
+		reinforceGrid = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView/Grid").GetComponent<UIReinForceGrid>();
 		uiScrollView = GameObject.Find(UIName + "/Window/Center/RightView/ScrollView").GetComponent<UIScrollView>();
 		buttonReinforce = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn").GetComponent<UIButton>();
 		labelPrice = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn/PriceLabel").GetComponent<UILabel>();
 
 		reinforceCards = new List<TPassiveSkillCard>();
+		reinforceGoCards = new List<GameObject>();
 		reinforceItems = new Dictionary<string, GameObject>();
 		passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
 
@@ -263,12 +267,15 @@ public class UISkillReinforce : UIBase {
 				obj = addItem(i, index, GameData.Team.SkillCards[i]);
 				if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
 					passiveSkillCards.Add(obj.Name, obj);
+					reinforceGoCards.Add(obj.item);
 					index ++ ;
 				} else
 					Destroy(obj.item);
 			}
 		}
 		uiScrollView.ResetPosition();
+		reinforceGrid.init();
+		reinforceGrid.mChildren = reinforceGoCards;
 	}
 
 	private TPassiveSkillCard addItem (int skillCardIndex, int positionIndex, TSkill skill) {
@@ -470,9 +477,12 @@ public class UISkillReinforce : UIBase {
 
 	public void RefreshView (TSkill skill) {
 		//Delete list
-		foreach(Transform child in scrollView.transform) {
-			Destroy(child.gameObject);
-		}
+
+		if(reinforceGrid.mTrans != null)
+			reinforceGrid.mTrans.DestroyChildren();
+//		foreach(Transform child in scrollView.transform) {
+//			Destroy(child.gameObject);
+//		}
 		if(reinforceItems.Count > 0) {
 			foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
 				Destroy(obj.Value);
@@ -498,6 +508,7 @@ public class UISkillReinforce : UIBase {
 
 		reinforceCards.Clear();
 		reinforceItems.Clear();
+		reinforceGoCards.Clear();
 		passiveSkillCards.Clear();
 		reinforceMoney = 0;
 		labelPrice.text = reinforceMoney.ToString();
