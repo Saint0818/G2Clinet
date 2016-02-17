@@ -903,6 +903,13 @@ public static class GameFunction
 		return 0;
 	}
 
+	public static string CardLevelName (int skillID) {
+		if(GameData.DSkillData.ContainsKey(skillID))
+			return "cardlevel_" + GameData.DSkillData[skillID].Quality.ToString();
+		else 
+			return "cardlevel_1";
+	}
+
     public static bool CanGetPVPReward(ref TTeam team)
     {
         

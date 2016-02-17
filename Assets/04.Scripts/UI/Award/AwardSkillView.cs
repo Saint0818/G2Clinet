@@ -40,7 +40,7 @@ public class AwardSkillView : MonoBehaviour {
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
-			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
 			GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
@@ -59,7 +59,7 @@ public class AwardSkillView : MonoBehaviour {
 				SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(21)];
 			}
 
-			QualityCards.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
 			GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 		}

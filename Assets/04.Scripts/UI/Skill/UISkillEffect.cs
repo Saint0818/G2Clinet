@@ -57,7 +57,7 @@ public class UISkillEffect : UIBase {
 	public void ShowView (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey (skill.ID)) {
 			UIShow(true);
-			spriteCardFrame.spriteName = "cardlevel_" + GameFunction.GetSkillLevel(skill).ToString();
+			spriteCardFrame.spriteName =  GameFunction.CardLevelName(skill.ID);
 			textureCardInfo.mainTexture = GameData.CardTexture(GameData.DSkillData[skill.ID].PictureNo);
 			labelCardName.text = GameData.DSkillData[skill.ID].Name;
 		}

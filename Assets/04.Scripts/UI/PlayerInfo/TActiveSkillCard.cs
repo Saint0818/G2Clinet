@@ -90,7 +90,7 @@ public class TActiveSkillCard
 				Skill = skill;
     			self.name = index.ToString();
     			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
-				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID);
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
 //				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
@@ -115,7 +115,7 @@ public class TActiveSkillCard
 			if (GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 				self.name = itemData.ID.ToString();
 				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
-				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
 //				SkillName.color = TextConst.Color(GameData.DSkillData[itemData.Avatar].Quality);
 				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
@@ -140,7 +140,7 @@ public class TActiveSkillCard
 			if (GameData.DSkillData.ContainsKey(skill.ID)) {
 				Skill = skill;
 				SkillPic.mainTexture = GameData.CardTexture(skill.ID);
-				SkillCard.spriteName = "cardlevel_" + GameData.DSkillData[skill.ID].Quality.ToString();
+				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID);
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
 				SkillSuit.spriteName = "Levelball" + GameData.DSkillData[skill.ID].Quality.ToString();
 				if(GameFunction.IsActiveSkill(skill.ID))

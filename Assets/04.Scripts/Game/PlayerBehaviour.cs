@@ -1772,6 +1772,7 @@ public class PlayerBehaviour : MonoBehaviour
                     break;
                 case 20:
                     RotateTo(CourtMgr.Get.GetHoodPosition(Team).x, CourtMgr.Get.GetHoodPosition(Team).z);
+					isShootJumpActive = true;
                     break;
             }
 			
