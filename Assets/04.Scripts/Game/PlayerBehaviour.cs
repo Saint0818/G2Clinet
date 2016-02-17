@@ -567,7 +567,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
+        if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
         {
             if (!IsDefence)
             {
@@ -584,7 +584,7 @@ public class PlayerBehaviour : MonoBehaviour
             mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
 			if (isSpeedup)
             {
-				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC))
+				if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack))
                 {
                     mMovePower -= GameConst.MovePowerMoving;
                     if (mMovePower < 0)
@@ -712,7 +712,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
-            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC ||
+            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
                 GameStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
@@ -786,7 +786,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (timeScale > 0 && (CanMove || HoldBallCanMove))
         {
-            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC ||
+            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
                 GameStart.Get.TestMode != EGameTest.None)
             {
                 EPlayerState ps = EPlayerState.Run0;
@@ -914,8 +914,8 @@ public class PlayerBehaviour : MonoBehaviour
             ps = EPlayerState.Idle;
 
         if (CanMove &&
-            situation != EGameSituation.InboundsGamer && situation != EGameSituation.GamerPickBall &&
-            situation != EGameSituation.InboundsNPC && situation != EGameSituation.NPCPickBall)
+            situation != EGameSituation.GamerInbounds && situation != EGameSituation.GamerPickBall &&
+            situation != EGameSituation.NPCInbounds && situation != EGameSituation.NPCPickBall)
         {
             SetManually();
             isJoystick = false;
@@ -926,9 +926,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (crtState == EPlayerState.Dribble0)
             {
-                if (situation == EGameSituation.AttackGamer)
+                if (situation == EGameSituation.GamerAttack)
                     RotateTo(CourtMgr.Get.ShootPoint[0].transform.position.x, CourtMgr.Get.ShootPoint[0].transform.position.z);
-                else if (situation == EGameSituation.AttackNPC)
+                else if (situation == EGameSituation.NPCAttack)
                     RotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
             }
         }
@@ -1049,13 +1049,13 @@ public class PlayerBehaviour : MonoBehaviour
                     // 移動距離很短 or 不移動, 球員又是在進攻狀態.
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
-                    else if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
+                    else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
                         AniState(EPlayerState.Dribble0);
                     
                     if (first || GameStart.Get.TestMode == EGameTest.Edit)
 //                        WaitMoveTime = 0;
                         CantMoveTimer.Clear();
-                    else if ((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC) &&
+                    else if ((situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack) &&
                              GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
                     {
                         // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
@@ -1101,7 +1101,7 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (data.Catcher)
                         {
-                            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
+                            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
                             {
                                 if (GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = data.Shooting;
@@ -1503,7 +1503,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-                if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.InboundsGamer && situation != EGameSituation.InboundsNPC)
+                if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.GamerInbounds && situation != EGameSituation.NPCInbounds)
                     return true;
                 break;
 
@@ -1539,7 +1539,7 @@ public class PlayerBehaviour : MonoBehaviour
     { 
         get
         {
-            return (situation == EGameSituation.SpecialAction || situation == EGameSituation.InboundsGamer || situation == EGameSituation.GamerPickBall || situation == EGameSituation.InboundsNPC || situation == EGameSituation.NPCPickBall);
+            return (situation == EGameSituation.SpecialAction || situation == EGameSituation.GamerInbounds || situation == EGameSituation.GamerPickBall || situation == EGameSituation.NPCInbounds || situation == EGameSituation.NPCPickBall);
         }
     }
 
@@ -2407,7 +2407,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation)
             return;
         ReadyToNextState = true;
-        if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
+        if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
         {
             if (IsBallOwner)
                 AniState(EPlayerState.Dribble0);
@@ -2587,8 +2587,8 @@ public class PlayerBehaviour : MonoBehaviour
                     OnShooting(this, true);
                 break;
             case "PushDistancePlayer":
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.AttackGamer ||
-                    GameController.Get.Situation == EGameSituation.AttackNPC))
+                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
+                    GameController.Get.Situation == EGameSituation.NPCAttack))
                 {
                     GameController.Get.CheckConditionText();
                     GameController.Get.IsGameFinish();
@@ -2988,9 +2988,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (situation == EGameSituation.AttackGamer && Team == ETeamKind.Npc)
+            if (situation == EGameSituation.GamerAttack && Team == ETeamKind.Npc)
                 return true;
-            if (situation == EGameSituation.AttackNPC && Team == ETeamKind.Self)
+            if (situation == EGameSituation.NPCAttack && Team == ETeamKind.Self)
                 return true;
             return false;
         }

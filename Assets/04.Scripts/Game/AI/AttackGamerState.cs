@@ -9,7 +9,7 @@ namespace AI
     {
         public override EGameSituation ID
         {
-            get { return EGameSituation.AttackGamer; }
+            get { return EGameSituation.GamerAttack; }
         }
 
         public override void Enter(object extraInfo)

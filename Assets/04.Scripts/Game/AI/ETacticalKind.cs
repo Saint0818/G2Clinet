@@ -39,7 +39,7 @@ public enum ETacticalKind
     HalfInboundsDefF,
     HalfInboundsDefG,
 
-    // 對方得分後, 攻守轉換, 邊界發球結束, 剛切換到 EGameSituation.AttackGamer or EGameSituation.AttackNPC 狀態時,
+    // 對方得分後, 攻守轉換, 邊界發球結束, 剛切換到 EGameSituation.GamerAttack or EGameSituation.NPCAttack 狀態時,
     // 要球員跑到前場的路線.
     MoveFrontCourtC, // 中鋒持球路線.
     MoveFrontCourtF, // 前鋒持球路線.

@@ -41,8 +41,8 @@ public class SkillController : MonoBehaviour {
 		updateSkillAttribute();
 
 		if (GameController.Get.Situation == EGameSituation.JumpBall || 
-		    GameController.Get.Situation == EGameSituation.AttackGamer || 
-		    GameController.Get.Situation == EGameSituation.AttackNPC)
+		    GameController.Get.Situation == EGameSituation.GamerAttack || 
+		    GameController.Get.Situation == EGameSituation.NPCAttack)
 			judgeSkillUI();
 	}
 	
@@ -262,10 +262,10 @@ public class SkillController : MonoBehaviour {
 		} catch {
 			LogMgr.Get.LogWarning("this situation isn't contain EPlayerState:" + situation.ToString());
 		}
-		if((GameController.Get.Situation == EGameSituation.InboundsGamer || GameController.Get.Situation == EGameSituation.InboundsNPC) && kind == ESkillKind.Pass) {
+		if((GameController.Get.Situation == EGameSituation.GamerInbounds || GameController.Get.Situation == EGameSituation.NPCInbounds) && kind == ESkillKind.Pass) {
 			playerState = EPlayerState.Pass50;
 		}
-		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) {
+		if(GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack) {
 			string animationName = randomPassive(kind, v, isHaveDefPlayer, shootDistance);
 			
 			if (animationName != string.Empty) {
@@ -377,10 +377,10 @@ public class SkillController : MonoBehaviour {
 		bool Result = false;
 		EPlayerState playerState = EPlayerState.Idle;
 		
-		if((GameController.Get.Situation == EGameSituation.AttackGamer || 
-            GameController.Get.Situation == EGameSituation.AttackNPC || 
-            GameController.Get.Situation == EGameSituation.InboundsGamer|| 
-            GameController.Get.Situation == EGameSituation.InboundsNPC||
+		if((GameController.Get.Situation == EGameSituation.GamerAttack || 
+            GameController.Get.Situation == EGameSituation.NPCAttack || 
+            GameController.Get.Situation == EGameSituation.GamerInbounds|| 
+            GameController.Get.Situation == EGameSituation.NPCInbounds||
             GameController.Get.Situation == EGameSituation.Opening||
             GameController.Get.Situation == EGameSituation.JumpBall)) {
 			switch(state) {
@@ -582,7 +582,7 @@ public class SkillController : MonoBehaviour {
 				return  true;
 			
 			switch (GameController.Get.Situation) {
-			case EGameSituation.AttackGamer:
+			case EGameSituation.GamerAttack:
 				if(executePlayer.Team == ETeamKind.Self) {
 					if (kind >= 10 && kind <= 70 && executePlayer.IsBallOwner) return true;
 					if ((kind == 110 || kind == 180) && executePlayer.IsBallOwner) return true;
@@ -594,7 +594,7 @@ public class SkillController : MonoBehaviour {
 					if (kind == 170 && !executePlayer.IsBallOwner) return true;
 				}
 				break;
-			case EGameSituation.AttackNPC:
+			case EGameSituation.NPCAttack:
 				if(executePlayer.Team == ETeamKind.Self){
 					if (kind == 160 || kind == 161) return true;
 					if (kind == 150 && !executePlayer.IsBallOwner && GameController.Get.CanUseStealSkill) return true;
@@ -643,13 +643,13 @@ public class SkillController : MonoBehaviour {
 				if(GameController.Get.BallState == EBallState.CanRebound) return true;
 				break;
 			case 150://Steal
-				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanSteal) return true;
+				if(GameController.Get.Situation == EGameSituation.NPCAttack && GameController.Get.BallState == EBallState.CanSteal) return true;
 				break;
 			case 160://Block
-				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanBlock) return true;
+				if(GameController.Get.Situation == EGameSituation.NPCAttack && GameController.Get.BallState == EBallState.CanBlock) return true;
 				break;
 			case 161:
-				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanDunkBlock) return true;
+				if(GameController.Get.Situation == EGameSituation.NPCAttack && GameController.Get.BallState == EBallState.CanDunkBlock) return true;
 				break;
 			default:
 				return true;

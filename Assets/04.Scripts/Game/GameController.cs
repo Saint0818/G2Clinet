@@ -840,10 +840,10 @@ public class GameController : KnightSingleton<GameController>
 			else {
 				if(!playerSelectMe.activeInHierarchy)
 					playerSelectMe.SetActive(true);
-				if(Situation == EGameSituation.AttackGamer) {
+				if(Situation == EGameSituation.GamerAttack) {
 					NpcSelectMe = FindNearNpc();
 					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position), 0);
-				} else if(Situation == EGameSituation.AttackNPC) {
+				} else if(Situation == EGameSituation.NPCAttack) {
 					NpcSelectMe = FindNearNpc();
 					showEnemySelect(NpcSelectMe);
 					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
@@ -879,7 +879,7 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.DoAttack(null, false);
 		}
 		
-		if (Situation == EGameSituation.AttackGamer) {
+		if (Situation == EGameSituation.GamerAttack) {
 			if (Input.GetKeyUp (KeyCode.A))
 			{
 				UIGame.Get.DoPassChoose(null, false);
@@ -910,7 +910,7 @@ public class GameController : KnightSingleton<GameController>
 
 			}
 		}
-		else if(Situation == EGameSituation.AttackNPC){
+		else if(Situation == EGameSituation.NPCAttack){
 			if(Input.GetKeyDown (KeyCode.A)){
 				UIGame.Get.DoSteal(null, true);
 				UIGame.Get.DoSteal(null, false);
@@ -949,7 +949,7 @@ public class GameController : KnightSingleton<GameController>
 		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 		UIGame.Get.ChangeControl(false);
 
-		ChangeSituation(EGameSituation.AttackGamer);
+		ChangeSituation(EGameSituation.GamerAttack);
 
 		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z-1);
 		PlayerList[0].AniState(EPlayerState.Idle);
@@ -1157,7 +1157,7 @@ public class GameController : KnightSingleton<GameController>
                 else 
                     // InboundsBall 其實是混和的行為, 跑到這, 表示沒有持球者.
                     // 所以這行的意思其實是叫進攻方, 撿球以外的人執行戰術跑位.
-                    InboundsBall(PlayerList[i], team, ref attackTactical);
+                    inboundsBall(PlayerList[i], team, ref attackTactical);
             }
             else 
                 backToDef(PlayerList[i], ETeamKind.Npc, ref defTactical);
@@ -1188,7 +1188,7 @@ public class GameController : KnightSingleton<GameController>
 		        if(PlayerList[i].Team == team)
 		        {
 		            if(!IsPassing)
-		                InboundsBall(PlayerList[i], team, ref attackTactical);
+		                inboundsBall(PlayerList[i], team, ref attackTactical);
 		        }
 		        else
 		            backToDef(PlayerList[i], PlayerList[i].Team, ref defTactical);
@@ -1244,7 +1244,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
-		    (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
+		    (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack))
         {
 			if(player.DefPlayer.CanMove && player.DefPlayer.CantMoveTimer.IsOff())
             {
@@ -1377,11 +1377,11 @@ public class GameController : KnightSingleton<GameController>
                     switch(PlayerList[i].Team)
                     {
                         case ETeamKind.Self:
-                            if(newSituation == EGameSituation.InboundsNPC || (oldgs == EGameSituation.InboundsNPC && newSituation == EGameSituation.AttackNPC) == false)
+                            if(newSituation == EGameSituation.NPCInbounds || (oldgs == EGameSituation.NPCInbounds && newSituation == EGameSituation.NPCAttack) == false)
                             {
                                 if(!PlayerList[i].AIing)
                                 {
-                                    if(!(newSituation == EGameSituation.AttackGamer || newSituation == EGameSituation.AttackNPC))
+                                    if(!(newSituation == EGameSituation.GamerAttack || newSituation == EGameSituation.NPCAttack))
                                         PlayerList[i].ResetFlag();
                                 } else
                                     PlayerList[i].ResetFlag();
@@ -1389,7 +1389,7 @@ public class GameController : KnightSingleton<GameController>
 
 						break;
 					case ETeamKind.Npc:
-						if((newSituation == EGameSituation.InboundsGamer || (oldgs == EGameSituation.InboundsGamer && newSituation == EGameSituation.AttackGamer)) == false)
+						if((newSituation == EGameSituation.GamerInbounds || (oldgs == EGameSituation.GamerInbounds && newSituation == EGameSituation.GamerAttack)) == false)
 							PlayerList[i].ResetFlag();
 
 						break;
@@ -1444,30 +1444,32 @@ public class GameController : KnightSingleton<GameController>
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].IsCanCatchBall = true;
 				break;
-			case EGameSituation.AttackGamer:
-			case EGameSituation.AttackNPC:
+			case EGameSituation.GamerAttack:
+			case EGameSituation.NPCAttack:
 				break;
 			case EGameSituation.GamerPickBall:
 				hideAllEnemySelect();
                 break;
-            case EGameSituation.InboundsGamer:
+            case EGameSituation.GamerInbounds:
 				hideAllEnemySelect();
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				AudioMgr.Get.PlaySound(SoundType.SD_Line);
 				UITransition.Get.SelfAttack();
+                mInboundsBallOnlyOnce = true;
                 break;
             case EGameSituation.NPCPickBall:
 				PickBallPlayer = null;
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].IsCanCatchBall = true;
                 break;
-			case EGameSituation.InboundsNPC:
+			case EGameSituation.NPCInbounds:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				AudioMgr.Get.PlaySound(SoundType.SD_Line);
 				UITransition.Get.SelfOffense();
-				break;
+                mInboundsBallOnlyOnce = true;
+                break;
 			case EGameSituation.End:
 				SetPlayerAI(false);
 				IsFinish = true;
@@ -1536,19 +1538,19 @@ public class GameController : KnightSingleton<GameController>
 	                case EGameSituation.None:
 	                case EGameSituation.Opening:
 	                case EGameSituation.JumpBall:
-	                case EGameSituation.AttackGamer:
-	                case EGameSituation.AttackNPC:
+	                case EGameSituation.GamerAttack:
+	                case EGameSituation.NPCAttack:
                         break;
 	                case EGameSituation.GamerPickBall:
 	                    SituationPickBall(ETeamKind.Self);
 	                    break;
-	                case EGameSituation.InboundsGamer:
+	                case EGameSituation.GamerInbounds:
 	                    SituationInbounds(ETeamKind.Self);
 	                    break;
 	                case EGameSituation.NPCPickBall:
 	                    SituationPickBall(ETeamKind.Npc);
 	                    break;
-	                case EGameSituation.InboundsNPC:
+	                case EGameSituation.NPCInbounds:
 	                    SituationInbounds(ETeamKind.Npc);
 	                    break;
 	                case EGameSituation.End:
@@ -2290,7 +2292,7 @@ public class GameController : KnightSingleton<GameController>
 					if(result)
                     {
 						Catcher = catchPlayer;
-//						if (BallOwner && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) 
+//						if (BallOwner && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) 
 //							BallOwner.GameRecord.Pass++;
 						
 						UIGame.Get.DoPassNone();
@@ -2454,7 +2456,7 @@ public class GameController : KnightSingleton<GameController>
 	//Call From Delegate
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
-		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
+		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
             int playerindex = -1;
             if (Joysticker)
                 Joysticker.GameRecord.DoubleClickLaunch++;
@@ -2623,7 +2625,6 @@ public class GameController : KnightSingleton<GameController>
 //    {
 //        return true;
 //    }
-    
 	
     /// <summary>
     /// 只有攻守交換的時候才會被呼叫. 叫球員照著戰術路線跑.
@@ -2683,7 +2684,7 @@ public class GameController : KnightSingleton<GameController>
     /// <param name="someone"></param>
     /// <param name="team"></param>
     /// <param name="data"></param>
-    private void InboundsBall(PlayerBehaviour someone, ETeamKind team, ref TTacticalData data)
+    private void inboundsBall(PlayerBehaviour someone, ETeamKind team, ref TTacticalData data)
     {
 		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && 
             someone.CantMoveTimer.IsOff() && someone.TargetPosNum == 0)
@@ -2694,104 +2695,127 @@ public class GameController : KnightSingleton<GameController>
 
             moveData.Clear();
 			if(GameStart.Get.CourtMode == ECourtMode.Full)
-            {
-                // 全場跑位.
-				if(someone == BallOwner)
-                {
-                    // 持球者跑到界外區, 然後發球.
-					int targetZ = 18; // todo 魔術數字要拉出來 ...
-					if (team == ETeamKind.Self)
-						targetZ = -18;
+			    inboundsFull(someone, team, data);
+			else
+			    inboundsHalf(someone, data);
 
-					Vector2 v = new Vector2(someone.transform.position.x, targetZ);
-					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
-					if(dis <= 1.7f)
-                    {
-                        // 已經跑到界外區了, 要執行發球.
-						if(BallOwner) // todo 這個檢查是多餘的.
-							StartCoroutine(AutoTee());
-					}
-                    else
-                    {
-                        // 要求拿球的人要跑到界外區.
-
-                        // 這行就非常不合理, 我明明沒有用戰術的任何資料來指引持球者跑到某個位置,
-                        // 那這樣 TacticalName 還做設定, 是一件非常不合裡的設定.
-                        moveData.TacticalName = data.Name; 
-						moveData.SetTarget(someone.transform.position.x, targetZ);
-						someone.TargetPos = moveData;
-					}
-	            }
-                else if(data.Name != string.Empty)
-                {
-                    // 沒有拿到球的人. 跑企劃編輯的位置.
-					tacticalActions = data.GetActions(someone.Index);
-	                
-					if(tacticalActions != null)
-                    {
-						for(int i = 0; i < tacticalActions.Length; i++)
-                        {
-							moveData.Clear();
-							moveData.Speedup = tacticalActions[i].Speedup;
-							moveData.Catcher = tacticalActions[i].Catcher;
-							moveData.Shooting = tacticalActions[i].Shooting;
-	                        if(team == ETeamKind.Self) 
-								moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z);
-	                        else
-								moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
-
-							moveData.TacticalName = data.Name;
-							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
-							someone.TargetPos = moveData;
-	                    }
-	                }
-	            }
-			}
-            else
-            {
-                // 這段是半場的跑位.
-                // todo 這段幾乎都是重複的程式碼...
-                if (someone == BallOwner)
-                {
-					Vector2 v = new Vector2(0, -0.2f);
-					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
-					if (dis <= 1.5f) {
-						if (BallOwner)
-							StartCoroutine(AutoTee());
-					} else {
-						moveData.TacticalName = data.Name;
-//						moveData.Target = v;
-						moveData.SetTarget(v.x, v.y);
-						someone.TargetPos = moveData;
-					}
-				}
-                else if (data.Name != string.Empty)
-                {
-					tacticalActions = data.GetActions(someone.Index);
-					
-					if(tacticalActions != null)
-                    {
-						for(int j = 0; j < tacticalActions.Length; j++)
-                        {
-							moveData.Clear();
-							moveData.Speedup = tacticalActions [j].Speedup;
-							moveData.Catcher = tacticalActions [j].Catcher;
-							moveData.Shooting = tacticalActions [j].Shooting;
-//							moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
-							moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
-							
-							moveData.TacticalName = data.Name;
-							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
-							someone.TargetPos = moveData;
-						}
-					}
-				}
-			}
-		}
+            mInboundsBallOnlyOnce = false;
+        }
         
         // 感覺這段是預防特殊狀況, 當特殊狀況發生時, 強迫持球員做運球.
         if(someone.CantMoveTimer.IsOn() && someone == BallOwner)
             someone.AniState(EPlayerState.Dribble0);
+    }
+
+    /// <summary>
+    /// 這個變數的目的只是限制邊界發球時, 只可以跑一次戰術, 跑完後, 就停在原地, 不跑下一個戰術.
+    /// 現在因為程式碼很亂, 我又沒有時間整理, 所以, 我就只好硬寫 ...
+    /// </summary>
+    private bool mInboundsBallOnlyOnce = true;
+    /// <summary>
+    /// 全場跑位.
+    /// </summary>
+    /// <param name="someone"></param>
+    /// <param name="team"></param>
+    /// <param name="data"></param>
+    private void inboundsFull(PlayerBehaviour someone, ETeamKind team, TTacticalData data)
+    {
+        if(someone == BallOwner)
+        {
+            // 持球者跑到界外區, 然後發球.
+            int targetZ = 18; // todo 魔術數字要拉出來 ...
+            if(team == ETeamKind.Self)
+                targetZ = -18;
+
+            Vector2 v = new Vector2(someone.transform.position.x, targetZ);
+            float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
+            if(dis <= 1.7f)
+            {
+                // 已經跑到界外區了, 要執行發球.
+//                if(BallOwner) // todo 這個檢查是多餘的.
+                StartCoroutine(AutoTee());
+            }
+            else
+            {
+                // 要求拿球的人要跑到界外區.
+
+                // 這行就非常不合理, 我明明沒有用戰術的任何資料來指引持球者跑到某個位置,
+                // 那這樣 TacticalName 還做設定, 是一件非常不合裡的設定.
+                moveData.TacticalName = data.Name;
+                moveData.SetTarget(someone.transform.position.x, targetZ);
+                someone.TargetPos = moveData;
+            }
+        }
+        else if(data.Name != string.Empty && mInboundsBallOnlyOnce)
+        {
+            // 沒有拿到球的人. 跑企劃編輯的位置.
+            tacticalActions = data.GetActions(someone.Index);
+
+            if(tacticalActions != null)
+            {
+                for(int i = 0; i < tacticalActions.Length; i++)
+                {
+                    moveData.Clear();
+                    moveData.Speedup = tacticalActions[i].Speedup;
+                    moveData.Catcher = tacticalActions[i].Catcher;
+                    moveData.Shooting = tacticalActions[i].Shooting;
+                    if(team == ETeamKind.Self)
+                        moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z);
+                    else
+                        moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
+
+                    moveData.TacticalName = data.Name;
+                    moveData.LookTarget = CourtMgr.Get.RealBall.transform;
+                    someone.TargetPos = moveData;
+                }
+
+                mInboundsBallOnlyOnce = false;
+            }
+        }
+    }
+
+    private void inboundsHalf(PlayerBehaviour someone, TTacticalData data)
+    {
+        // 這段是半場的跑位.
+        // todo 這段幾乎都是重複的程式碼...
+        if(someone == BallOwner)
+        {
+            Vector2 v = new Vector2(0, -0.2f);
+            float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
+            if(dis <= 1.5f)
+            {
+                if(BallOwner)
+                    StartCoroutine(AutoTee());
+            }
+            else
+            {
+                moveData.TacticalName = data.Name;
+                //						moveData.Target = v;
+                moveData.SetTarget(v.x, v.y);
+                someone.TargetPos = moveData;
+            }
+        }
+        else if(data.Name != string.Empty)
+        {
+            tacticalActions = data.GetActions(someone.Index);
+
+            if(tacticalActions != null)
+            {
+                for(int j = 0; j < tacticalActions.Length; j++)
+                {
+                    moveData.Clear();
+                    moveData.Speedup = tacticalActions[j].Speedup;
+                    moveData.Catcher = tacticalActions[j].Catcher;
+                    moveData.Shooting = tacticalActions[j].Shooting;
+                    //							moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
+                    moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
+
+                    moveData.TacticalName = data.Name;
+                    moveData.LookTarget = CourtMgr.Get.RealBall.transform;
+                    someone.TargetPos = moveData;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -2832,15 +2856,15 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		if (!flag) {
-		    if(Situation == EGameSituation.InboundsGamer)
+		    if(Situation == EGameSituation.GamerInbounds)
 		    {
-		        ChangeSituation(EGameSituation.AttackGamer);
-                AIController.Get.ChangeState(EGameSituation.AttackGamer);
+		        ChangeSituation(EGameSituation.GamerAttack);
+                AIController.Get.ChangeState(EGameSituation.GamerAttack);
 		    }
-			else if(Situation == EGameSituation.InboundsNPC)
+			else if(Situation == EGameSituation.NPCInbounds)
 			{
-			    ChangeSituation(EGameSituation.AttackNPC);
-                AIController.Get.ChangeState(EGameSituation.AttackNPC);
+			    ChangeSituation(EGameSituation.NPCAttack);
+                AIController.Get.ChangeState(EGameSituation.NPCAttack);
 			}
 		}
 	}
@@ -3090,7 +3114,7 @@ public class GameController : KnightSingleton<GameController>
 			IsReboundTime = false;
 			if (!newBallOwner.IsAlleyoopState) 
 			{
-				if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
+				if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
 					BallState = EBallState.CanSteal;	
 				else
 					BallState = EBallState.None;
@@ -3156,15 +3180,15 @@ public class GameController : KnightSingleton<GameController>
                 // 之球的持球者和 p 是不同隊的球員.
                 if(GameStart.Get.CourtMode == ECourtMode.Full)
                 {
-                    if(Situation == EGameSituation.AttackGamer)
+                    if(Situation == EGameSituation.GamerAttack)
                     {
-                        ChangeSituation(EGameSituation.AttackNPC);
-                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                        ChangeSituation(EGameSituation.NPCAttack);
+                        AIController.Get.ChangeState(EGameSituation.NPCAttack);
                     }
-                    else if(Situation == EGameSituation.AttackNPC)
+                    else if(Situation == EGameSituation.NPCAttack)
                     {
-                        ChangeSituation(EGameSituation.AttackGamer);
-                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                        ChangeSituation(EGameSituation.GamerAttack);
+                        AIController.Get.ChangeState(EGameSituation.GamerAttack);
                     }
                 }
                 else
@@ -3172,28 +3196,28 @@ public class GameController : KnightSingleton<GameController>
                     // 半場處理... 這又是 copy and past 的傑作 ...
                     if(newBallOwner.Team == ETeamKind.Self)
                     {
-                        ChangeSituation(EGameSituation.InboundsGamer);
-                        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+                        ChangeSituation(EGameSituation.GamerInbounds);
+                        AIController.Get.ChangeState(EGameSituation.GamerInbounds);
                     }
                     else
                     {
-                        ChangeSituation(EGameSituation.InboundsNPC);
-                        AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+                        ChangeSituation(EGameSituation.NPCInbounds);
+                        AIController.Get.ChangeState(EGameSituation.NPCInbounds);
                     }
                 }
             }
             else
             {
                 // 之前的持球者和 p 是同一隊的球員.
-                if(Situation == EGameSituation.InboundsGamer)
+                if(Situation == EGameSituation.GamerInbounds)
                 {
-                    ChangeSituation(EGameSituation.AttackGamer);
-                    AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                    ChangeSituation(EGameSituation.GamerAttack);
+                    AIController.Get.ChangeState(EGameSituation.GamerAttack);
                 }
-                else if(Situation == EGameSituation.InboundsNPC)
+                else if(Situation == EGameSituation.NPCInbounds)
                 {
-                    ChangeSituation(EGameSituation.AttackNPC);
-                    AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                    ChangeSituation(EGameSituation.NPCAttack);
+                    AIController.Get.ChangeState(EGameSituation.NPCAttack);
                 }
                 else
                     BallOwner.ResetFlag(false);
@@ -3204,43 +3228,43 @@ public class GameController : KnightSingleton<GameController>
             // 目前沒有持球者.
             if(Situation == EGameSituation.GamerPickBall)
             {
-                ChangeSituation(EGameSituation.InboundsGamer);
-                AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+                ChangeSituation(EGameSituation.GamerInbounds);
+                AIController.Get.ChangeState(EGameSituation.GamerInbounds);
             }
             else if(Situation == EGameSituation.NPCPickBall)
             {
-                ChangeSituation(EGameSituation.InboundsNPC);
-                AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+                ChangeSituation(EGameSituation.NPCInbounds);
+                AIController.Get.ChangeState(EGameSituation.NPCInbounds);
             }
-            else if(Situation == EGameSituation.InboundsGamer)
+            else if(Situation == EGameSituation.GamerInbounds)
             {
-                ChangeSituation(EGameSituation.AttackGamer);
-                AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                ChangeSituation(EGameSituation.GamerAttack);
+                AIController.Get.ChangeState(EGameSituation.GamerAttack);
             }
-            else if(Situation == EGameSituation.InboundsNPC)
+            else if(Situation == EGameSituation.NPCInbounds)
             {
-                ChangeSituation(EGameSituation.AttackNPC);
-                AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                ChangeSituation(EGameSituation.NPCAttack);
+                AIController.Get.ChangeState(EGameSituation.NPCAttack);
             }
             else
             {
                 // 我認為這是一個不好的判斷條件, 這是判斷是否為得分後的攻守轉換.
                 if(GameStart.Get.CourtMode == ECourtMode.Full ||
-                   (newBallOwner.Team == ETeamKind.Self && Situation == EGameSituation.AttackGamer) ||
-                   (newBallOwner.Team == ETeamKind.Npc && Situation == EGameSituation.AttackNPC))
+                   (newBallOwner.Team == ETeamKind.Self && Situation == EGameSituation.GamerAttack) ||
+                   (newBallOwner.Team == ETeamKind.Npc && Situation == EGameSituation.NPCAttack))
                 {
-                    if(Situation == EGameSituation.InboundsGamer || Situation == EGameSituation.InboundsNPC)
+                    if(Situation == EGameSituation.GamerInbounds || Situation == EGameSituation.NPCInbounds)
                         setMoveFrontCourtTactical(newBallOwner);
 
                     if(newBallOwner.Team == ETeamKind.Self)
                     {
-                        ChangeSituation(EGameSituation.AttackGamer);
-                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
+                        ChangeSituation(EGameSituation.GamerAttack);
+                        AIController.Get.ChangeState(EGameSituation.GamerAttack);
                     }
                     else
                     {
-                        ChangeSituation(EGameSituation.AttackNPC);
-                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
+                        ChangeSituation(EGameSituation.NPCAttack);
+                        AIController.Get.ChangeState(EGameSituation.NPCAttack);
                     }
                 }
                 else
@@ -3248,13 +3272,13 @@ public class GameController : KnightSingleton<GameController>
                     // 半場狀態切換...
                     if(newBallOwner.Team == ETeamKind.Self)
                     {
-                        ChangeSituation(EGameSituation.InboundsGamer);
-                        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
+                        ChangeSituation(EGameSituation.GamerInbounds);
+                        AIController.Get.ChangeState(EGameSituation.GamerInbounds);
                     }
                     else
                     {
-                        ChangeSituation(EGameSituation.InboundsNPC);
-                        AIController.Get.ChangeState(EGameSituation.InboundsNPC);
+                        ChangeSituation(EGameSituation.NPCInbounds);
+                        AIController.Get.ChangeState(EGameSituation.NPCInbounds);
                     }
                 }
             }
@@ -3286,7 +3310,7 @@ public class GameController : KnightSingleton<GameController>
 		CourtMgr.Get.ResetBasketEntra();
 		CourtMgr.Get.IsBallOffensive = false;
 		
-		if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) 
+		if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) 
 			BallState = EBallState.CanSteal;
 		else 
 			BallState = EBallState.None;
@@ -3314,7 +3338,7 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄球成功, false: 抄球失敗. </returns>
     public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence  && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) && Passer && passingStealBallTime == 0)
+		if(player.IsDefence  && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) && Passer && passingStealBallTime == 0)
 		{
 			if(Catcher == player || Catcher.Team == player.Team)
 				return false;
@@ -3422,7 +3446,7 @@ public class GameController : KnightSingleton<GameController>
             else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
 				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
-				   (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
+				   (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack))
             {
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
@@ -3441,7 +3465,7 @@ public class GameController : KnightSingleton<GameController>
 				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
 			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
-				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) {
+				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
 						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
@@ -3547,7 +3571,7 @@ public class GameController : KnightSingleton<GameController>
 	public void DefRangeTouchBall(PlayerBehaviour player)
 	{
 		if(player.PlayerSkillController.IsHavePickBall2) {
-			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
+			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player.PlayerSkillController.PickBall2Rate) {
 					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBall.transform.position);
@@ -3569,7 +3593,7 @@ public class GameController : KnightSingleton<GameController>
 	public void PlayerEnterPaint(int team, GameObject obj) {
 		if (BallOwner && canPassToAlleyoop(BallOwner.crtState) &&
 		   (GameStart.Get.TestMode == EGameTest.Alleyoop || 
-		 	Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
+		 	Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList[i].crtState == EPlayerState.Alleyoop) {
@@ -4561,7 +4585,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		get
 		{
-			if(Situation == EGameSituation.InboundsGamer || Situation == EGameSituation.InboundsNPC || Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall)
+			if(Situation == EGameSituation.GamerInbounds || Situation == EGameSituation.NPCInbounds || Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall)
 				return false;
 			else
 				return true;

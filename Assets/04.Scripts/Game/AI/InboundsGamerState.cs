@@ -5,7 +5,7 @@ namespace AI
     {
         public override EGameSituation ID
         {
-            get { return EGameSituation.InboundsGamer; }
+            get { return EGameSituation.GamerInbounds; }
         }
 
         public override void Enter(object extraInfo)

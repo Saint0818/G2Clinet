@@ -206,8 +206,8 @@ namespace AI
                 else
                 {
                     // 投籃者出手, 此時球在空中飛行.
-                    if((GameController.Get.Situation == EGameSituation.AttackGamer && mPlayer.Team == ETeamKind.Self) ||
-                       (GameController.Get.Situation == EGameSituation.AttackNPC && mPlayer.Team == ETeamKind.Npc))
+                    if((GameController.Get.Situation == EGameSituation.GamerAttack && mPlayer.Team == ETeamKind.Self) ||
+                       (GameController.Get.Situation == EGameSituation.NPCAttack && mPlayer.Team == ETeamKind.Npc))
                     {
                         if(!mPlayer.IsShoot)
                             GameController.Get.NearestBallPlayerDoPickBall(mPlayer);
