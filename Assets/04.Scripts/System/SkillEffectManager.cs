@@ -287,7 +287,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				objs.Add(CourtMgr.Get.ShootPoint[team]);
 				break;
 			case 15:
-				objs.Add(CourtMgr.Get.RealBall);
+				objs.Add(CourtMgr.Get.RealBallObj);
 				break;
 			}
 			skillEffectPositions.Add(key, objs);

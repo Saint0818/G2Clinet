@@ -345,9 +345,9 @@ public class GameController : KnightSingleton<GameController>
 		}*/
 
 		switch (GameStart.Get.TestMode) {
-		case EGameTest.Rebound:
-			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
-			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
+            case EGameTest.Rebound:
+        	CourtMgr.Get.RealBallCompoment.Gravity = false; 
+			CourtMgr.Get.RealBallObj.transform.position = new Vector3(0, 5, 13);
 			break;
 		case EGameTest.Edit:
 			SetBall(PlayerList[0]);
@@ -800,7 +800,7 @@ public class GameController : KnightSingleton<GameController>
 			GameRecord.Done = true;
 			SetGameRecord();
 			SetBallOwnerNull();
-			CourtMgr.Get.RealBall.transform.position = Vector3.down * 100;
+			CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
 			if(CheckAllPlayerIdle) {
 				IsFinishShow = false;
 				StartCoroutine(playFinish());
@@ -809,7 +809,7 @@ public class GameController : KnightSingleton<GameController>
 					finishWaitTime -= Time.deltaTime;
 					if(finishWaitTime <= 0) {
 						SetBallOwnerNull();
-						CourtMgr.Get.RealBall.transform.position = Vector3.down * 100;
+						CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
 						for(int i = 0; i < PlayerList.Count; i++)
 							PlayerList[i].AniState(EPlayerState.Idle);
 					}
@@ -849,7 +849,7 @@ public class GameController : KnightSingleton<GameController>
 					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
 					NpcSelectMe.SelectMe.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.PlayerRefGameObject.transform.position) + 180, 0);
 				} else
-					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position), 0);
+					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBallObj.transform.position), 0);
 			}
 		}
 	}
@@ -943,15 +943,15 @@ public class GameController : KnightSingleton<GameController>
 	private void resetTestMode() {
 		SetBallOwnerNull();
 		SetBall();
-		CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
+		CourtMgr.Get.RealBallObj.transform.localEulerAngles = Vector3.zero;
 		CourtMgr.Get.SetBallState(EPlayerState.Shoot0);
-		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5.2f, 13);
-		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
+		CourtMgr.Get.RealBallObj.transform.position = new Vector3(0, 5.2f, 13);
+        CourtMgr.Get.RealBallCompoment.Gravity = false;
 		UIGame.Get.ChangeControl(false);
 
 		ChangeSituation(EGameSituation.GamerAttack);
 
-		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z-1);
+		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBallObj.transform.position.x, 0, CourtMgr.Get.RealBallObj.transform.position.z-1);
 		PlayerList[0].AniState(EPlayerState.Idle);
     }
 
@@ -1868,7 +1868,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if(BallOwner && BallOwner == player)
 		{     
-			CourtMgr.Get.RealBallTrigger.IsAutoRotate = true;
+            CourtMgr.Get.RealBallCompoment.Trigger.IsAutoRotate = true;
 			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
 //			SetBallOwnerNull();
@@ -2593,10 +2593,10 @@ public class GameController : KnightSingleton<GameController>
 
                 return true;
             } else  
-				if (Shooter && Vector3.Distance(player.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position) < 5)
+				if (Shooter && Vector3.Distance(player.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBallObj.transform.position) < 5)
             {
 				player.PlayerRigidbody.velocity = GameFunction.GetVelocity(player.PlayerRefGameObject.transform.position, 
-                    new Vector3(CourtMgr.Get.RealBall.transform.position.x, 5, CourtMgr.Get.RealBall.transform.position.z), 70);
+                    new Vector3(CourtMgr.Get.RealBallObj.transform.position.x, 5, CourtMgr.Get.RealBallObj.transform.position.z), 70);
         
                 return true;
             } else
@@ -2618,7 +2618,7 @@ public class GameController : KnightSingleton<GameController>
 
     private bool Rebound(PlayerBehaviour player)
     {
-		return player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBall.transform.position);
+		return player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBallObj.transform.position);
 	}
 	
 //	public bool OnRebound(PlayerBehaviour player)
@@ -2765,7 +2765,7 @@ public class GameController : KnightSingleton<GameController>
                         moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
 
                     moveData.TacticalName = data.Name;
-                    moveData.LookTarget = CourtMgr.Get.RealBall.transform;
+							moveData.LookTarget = CourtMgr.Get.RealBallObj.transform;
                     someone.TargetPos = moveData;
                 }
 
@@ -2811,7 +2811,7 @@ public class GameController : KnightSingleton<GameController>
                     moveData.SetTarget(tacticalActions[j].X, tacticalActions[j].Z);
 
                     moveData.TacticalName = data.Name;
-                    moveData.LookTarget = CourtMgr.Get.RealBall.transform;
+							moveData.LookTarget = CourtMgr.Get.RealBallObj.transform;
                     someone.TargetPos = moveData;
                 }
             }
@@ -2988,8 +2988,8 @@ public class GameController : KnightSingleton<GameController>
     private void doLookAtBall(PlayerBehaviour someone)
     {
         if(!someone.IsBlock  && someone.AIing)
-            someone.RotateTo(CourtMgr.Get.RealBall.transform.position.x, 
-                             CourtMgr.Get.RealBall.transform.position.z);
+            someone.RotateTo(CourtMgr.Get.RealBallObj.transform.position.x, 
+                             CourtMgr.Get.RealBallObj.transform.position.z);
     }
 
     /// <summary>
@@ -3022,7 +3022,7 @@ public class GameController : KnightSingleton<GameController>
 	    {
             // 球員移動到球的位置.
 	        moveData.Clear();
-	        moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
+	        moveData.FollowTarget = CourtMgr.Get.RealBallObj.transform;
 	        someone.TargetPos = moveData;
 	    }
     }
@@ -3142,7 +3142,7 @@ public class GameController : KnightSingleton<GameController>
 			AudioMgr.Get.PlaySound(SoundType.SD_Catch);
 			newBallOwner.CantMoveTimer.Clear();
 			newBallOwner.IsFirstDribble = true;
-			CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
+            CourtMgr.Get.RealBallCompoment.Trigger.IsAutoRotate = false;
 
 			for(int i = 0; i < PlayerList.Count; i++)
             {
@@ -3354,14 +3354,14 @@ public class GameController : KnightSingleton<GameController>
 				{
 					if(dir == 6)
 					{
-						player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBall.transform.position);
+						player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBallObj.transform.position);
 					}
 					else if(dir == 5)
 					{
 						if(player.CheckAnimatorSate(EPlayerState.Intercept1))
 						{
 							if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-								CourtMgr.Get.RealBall.transform.DOKill();
+								CourtMgr.Get.RealBallObj.transform.DOKill();
 							
 							if(SetBall(player))
 							{
@@ -3381,7 +3381,7 @@ public class GameController : KnightSingleton<GameController>
 						player.AniState(EPlayerState.Intercept0);
 						
 						if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-							CourtMgr.Get.RealBall.transform.DOKill();
+							CourtMgr.Get.RealBallObj.transform.DOKill();
 						
 						if(SetBall(player))
 						{
@@ -3445,7 +3445,7 @@ public class GameController : KnightSingleton<GameController>
 			}
             else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
-				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
+				   CourtMgr.Get.RealBallObj.transform.position.y >= 3 &&
 				   (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack))
             {
 
@@ -3509,10 +3509,10 @@ public class GameController : KnightSingleton<GameController>
 					if((Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall) &&
                         player == PickBallPlayer)
                     {
-						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
-							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
+						if(CourtMgr.Get.RealBallObj.transform.position.y > 1.7f)
+							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBallObj.transform.position);
 						else
-							player.AniState(EPlayerState.Pick0, CourtMgr.Get.RealBall.transform.position);
+							player.AniState(EPlayerState.Pick0, CourtMgr.Get.RealBallObj.transform.position);
 					}
 					else if(!IsPassing || isEnter)
 					{
@@ -3574,7 +3574,7 @@ public class GameController : KnightSingleton<GameController>
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player.PlayerSkillController.PickBall2Rate) {
-					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBall.transform.position);
+					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBallObj.transform.position);
 				}
 			}
 		}

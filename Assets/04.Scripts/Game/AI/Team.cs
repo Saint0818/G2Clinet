@@ -103,7 +103,7 @@ namespace AI
             PlayerAI nearestBallPlayer = null;
 
             Vector2 ballPos = Vector2.zero;
-            ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
+            ballPos.Set(CourtMgr.Get.RealBallObj.transform.position.x, CourtMgr.Get.RealBallObj.transform.position.z);
 
             for(int i = 0; i < mPlayers.Count; i++)
             {

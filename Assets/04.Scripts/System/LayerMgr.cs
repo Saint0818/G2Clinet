@@ -90,6 +90,8 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 
 	public void IgnoreLayerCollision(ELayer transform, ELayer target, bool isIgnore)
 	{
+		//DebugLog
+        //Debug.LogError("IgnoreLayerCollision : " + transform.ToString() + " Vs " + target.ToString() + " isIgnore : " + isIgnore);
 		string name1 = transform.ToString();
 		string name2 = target.ToString();
 
@@ -99,7 +101,7 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 		if(target == ELayer.IgnoreRaycast)
 			name2 = "Ignore Raycast";
 
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer (name1), LayerMask.NameToLayer (name2), false);
+        Physics.IgnoreLayerCollision (LayerMask.NameToLayer (name1), LayerMask.NameToLayer (name2), isIgnore);
 	}
 
 

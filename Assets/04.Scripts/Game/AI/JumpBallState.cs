@@ -30,11 +30,11 @@ namespace AI
             // 找出 2 位要跳球的球員.
             mJumpBallPlayers[0] = findJumpBallPlayer(ETeamKind.Self);
             if (mJumpBallPlayers[0] != null)
-				mJumpBallPlayers[0].PlayerSkillController.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
+				mJumpBallPlayers[0].PlayerSkillController.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBallObj.transform.position);
 
             mJumpBallPlayers[1] = findJumpBallPlayer(ETeamKind.Npc);
             if (mJumpBallPlayers[1] != null)
-				mJumpBallPlayers[1].PlayerSkillController.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
+				mJumpBallPlayers[1].PlayerSkillController.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBallObj.transform.position);
         }
 
         public override void UpdateAI()

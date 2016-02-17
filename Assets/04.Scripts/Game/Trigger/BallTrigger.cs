@@ -107,11 +107,6 @@ public class BallTrigger : MonoBehaviour
 	void OnTriggerStay(Collider other) {
 		touchPlayer(other, false);
 	}
-
-	public void Falling()
-	{
-		ParentRigidbody.AddForce (new Vector3 (0, -100, 0));
-	}
 	
 	public bool PassBall(int kind = 0)
 	{
@@ -131,7 +126,7 @@ public class BallTrigger : MonoBehaviour
 				CameraMgr.Get.IsLongPass = true;
 
 			CourtMgr.Get.SetBallState (EPlayerState.Pass0);
-			float dis = Vector3.Distance (GameController.Get.Catcher.CatchBallPoint.transform.position, CourtMgr.Get.RealBall.transform.position);
+			float dis = Vector3.Distance (GameController.Get.Catcher.CatchBallPoint.transform.position, CourtMgr.Get.RealBallObj.transform.position);
 			float time = dis / (GameConst.AttackSpeedup * Random.Range (3, 5));
 
 			switch(kind)
@@ -140,14 +135,14 @@ public class BallTrigger : MonoBehaviour
 				Vector3 [] pathay = new Vector3[2];
 				pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.CatchBallPoint.transform.position);
 				pathay[1] = GameController.Get.Catcher.CatchBallPoint.transform.position;
-				CourtMgr.Get.RealBall.transform.DOPath(pathay, time * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
+				CourtMgr.Get.RealBallObj.transform.DOPath(pathay, time * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
 				break;
 			case 1:
 				ParabolaTime = 0;
 				Parabolamove = true;
-				Parabolatarget = CourtMgr.Get.RealBall.transform.position;
-				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
+				Parabolatarget = CourtMgr.Get.RealBallObj.transform.position;
+				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBallObj.transform.position, GameController.Get.Catcher.transform.position); 
 				switch(GameController.Get.Passer.Attribute.BodyType)
 				{
 				case 0:
@@ -167,13 +162,13 @@ public class BallTrigger : MonoBehaviour
 				break;
 
 			case 99://Alleyoop
-				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, GameConst.AlleyoopPassTime * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
+				CourtMgr.Get.RealBallObj.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, GameConst.AlleyoopPassTime * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
 				break;
 
 			default:
-				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, time * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
+				CourtMgr.Get.RealBallObj.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, time * 1/GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.timeScale, 10, 1);
 				break;
 			}
 
@@ -207,7 +202,7 @@ public class BallTrigger : MonoBehaviour
 				if (Parabolatarget.y < 0)
 					Parabolatarget.y = 0.5f;
 				
-				CourtMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
+				CourtMgr.Get.RealBallObj.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
 				
 				if(ParabolaDis < 8){
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.ShortBall.LifeTime)
@@ -242,7 +237,7 @@ public class BallTrigger : MonoBehaviour
 		{
 			if((Parabolamove && ParabolaTime >= 0.2f) || !Parabolamove && GameController.Get.Catcher != null)
 			{
-				float dis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
+				float dis = Vector3.Distance(CourtMgr.Get.RealBallObj.transform.position, GameController.Get.Catcher.transform.position);  
 
 				if(PassKind == 1){
 					if(ParabolaDis < 8)
@@ -334,8 +329,8 @@ public class BallTrigger : MonoBehaviour
 			ParentRigidbody.gameObject.transform.Rotate (ParentRigidbody.gameObject.transform.forward * -10);
 		}
 
-        if (ballObject && ballObject.transform.position.y < 0) 
-            ballObject.transform.position = new Vector3(ballObject.transform.position.x, 0.3f, ballObject.transform.position.z);
+//        if (ballObject && ballObject.transform.position.y < 0) 
+//            ballObject.transform.position = new Vector3(ballObject.transform.position.x, 0.3f, ballObject.transform.position.z);
 	}
 
 	public bool IsAutoRotate 

@@ -394,15 +394,16 @@ public class ModelManager : KnightSingleton<ModelManager>
 
     public void SetAvatarByItem(ref GameObject result, TItem[] items, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false)
     {
-        if (items.Length != 8)
+        if (items != null && items.Length == 8)
         {
-            Debug.LogError("Error : Item's Lenght");
-            return;
+            TAvatar attr = new TAvatar();
+            GameFunction.ItemIdTranslateAvatar(ref attr, items);
+            SetAvatar(ref result, attr, bodyType, animatorType, combine, Reset);
         }
-
-        TAvatar attr = new TAvatar();
-        GameFunction.ItemIdTranslateAvatar(ref attr, items);
-        SetAvatar(ref result, attr, bodyType, animatorType, combine, Reset);
+        else
+        {
+            Debug.LogError("Avatar data Error");
+        }
     }
 
     public GameObject SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false)

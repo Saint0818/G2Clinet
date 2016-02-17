@@ -326,8 +326,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             focusTarget.name = "focusTarget";
         }
 		
-        if (CourtMgr.Get.RealBall)
-            focusTargetOne.transform.position = CourtMgr.Get.RealBall.transform.position;
+        if (CourtMgr.Get.RealBallObj)
+            focusTargetOne.transform.position = CourtMgr.Get.RealBallObj.transform.position;
     }
 
     private void InitTestTool()
@@ -473,10 +473,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             float h;
 
-            if (CourtMgr.Get.RealBall.transform.position.y > 10f)
+            if (CourtMgr.Get.RealBallObj.transform.position.y > 10f)
                 h = 2;
             else
-                h = (CourtMgr.Get.RealBall.transform.position.y / 10f) * 2f;
+                h = (CourtMgr.Get.RealBallObj.transform.position.y / 10f) * 2f;
 
             smothHight = Vector2.Lerp(smothHight, new Vector2(0, startPos.y + h), 0.1f);
         }
@@ -493,7 +493,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             if (GameController.Get.BallOwner)
                 distanceZ = Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Joysticker.transform.position);
             else
-                distanceZ = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Joysticker.transform.position);
+                distanceZ = Vector3.Distance(CourtMgr.Get.RealBallObj.transform.position, GameController.Get.Joysticker.transform.position);
 
             if (distanceZ > safeZ)
             {
@@ -561,7 +561,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         if (GameController.Get.BallOwner && GameController.Get.BallOwner != GameController.Get.Joysticker)
             v1 = new Vector3(GameController.Get.BallOwner.transform.position.x, 0, GameController.Get.BallOwner.transform.position.z);
         else
-            v1 = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
+            v1 = new Vector3(CourtMgr.Get.RealBallObj.transform.position.x, 0, CourtMgr.Get.RealBallObj.transform.position.z);
 
         Vector3 BarycentreV3 = new Vector3((cameraFx.gameObject.transform.position.x + GameController.Get.transform.position.x + v1.x) * 1 / 3,
                                0, 
@@ -611,7 +611,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void focusObjectOffset()
     {
         Vector3 pos = Vector3.zero;
-        pos.x = CourtMgr.Get.RealBall.transform.position.x;
+        pos.x = CourtMgr.Get.RealBallObj.transform.position.x;
         pos.y = 0;
 
         focusLimitX = new Vector2(focusMoveAeraObj.transform.position.x + focusMoveAeraObj.transform.localScale.x / 2,
@@ -634,8 +634,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 }
                 else
                 {
-                    pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
-                    pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera.y;
+                    pos.x = CourtMgr.Get.RealBallObj.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+                    pos.z = CourtMgr.Get.RealBallObj.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera.y;
                 }
 
                 if (pos.x > focusLimitX.x)
@@ -657,8 +657,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 }
                 else
                 {
-                    pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
-                    pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera.y;
+                    pos.x = CourtMgr.Get.RealBallObj.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+                    pos.z = CourtMgr.Get.RealBallObj.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera.y;
                 }
 
                 if (pos.x > focusLimitX.x)
@@ -682,7 +682,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private void resetSKillLayer()
     {
-        LayerMgr.Get.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default", "RealBall");
+        LayerMgr.Get.ReSetLayerRecursively(CourtMgr.Get.RealBallObj, "Default", "RealBall");
         switch (skillEventKind)
         {
             case 0://reset self  layer
