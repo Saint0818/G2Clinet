@@ -536,9 +536,11 @@ public class FileManager : KnightSingleton<FileManager>
 
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
-				if(!GameData.DSkillData.ContainsKey(data[i].ID))
+				if(!GameData.DSkillData.ContainsKey(data[i].ID)) {
 					GameData.DSkillData.Add(data[i].ID, data[i]);
-				else
+					if(data[i].UpgradeExp != null && data[i].UpgradeExp.Length != data[i].UpgradeMoney.Length)
+						Debug.LogError("UpgradeExp or UpgradeMoney is wrong:"+ data[i].ID);
+				} else
 					Debug.LogError("GameData.DSkillData is ContainsKey:"+ data[i].ID);
 			}
 
