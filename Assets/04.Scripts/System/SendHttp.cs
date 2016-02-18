@@ -153,6 +153,7 @@ public static class URLConst {
     public const string GMSavePotential = "gmsavepotential";
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";
     public const string GMResetStage = "gmresetstage";
+    public const string GMResetLoginMonths = "gmresetloginmonths";
     public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
