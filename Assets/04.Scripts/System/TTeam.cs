@@ -57,6 +57,11 @@ namespace GameStruct
         public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
         public string[] EnemyIDs;
 
+        /// <summary>
+        /// 每日登入獎勵. -1:沒獎勵, >=0 有獎勵.
+        /// </summary>
+        public int DailyLoginRewardIndex;
+
         //PVP
         public int PVPCoin; //聯盟幣
         public int PVPLv;
