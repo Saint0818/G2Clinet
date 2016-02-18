@@ -7,7 +7,7 @@
     },
     {
         "id": 202,
-        "tw": "技能卡",
+        "tw": "技能晶片",
         "en": "Ability Micro Chips"
     },
     {
@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "  {0} Out"
+        "en": "  {0} Out"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": "  {0:00} day {1:00} when"
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": "  {0:00} when {1:00} minutes"
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": "  {0:00} sub {1:00} seconds"
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
@@ -277,8 +277,13 @@
     },
     {
         "id": 310,
-        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，只要有它將可以無往不利，趕快想辦法得到它吧！",
+        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
         "en": "Icon_Gem = This is the world of basketball gang highest value [c900ff] Gem [-] money, as long as it can almost always, quickly find a way to get it right!"
+    },
+    {
+        "id": 311,
+        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？？",
+        "en": "Inadequate skills wafer storage space, make sure to spend [FF00FF] 15 [-] Gem later [33FFDD] die space X1 [-] ??"
     },
     {
         "id": 400,
@@ -381,6 +386,12 @@
         "en": "Successfully unlocked [FFDD33] Off the main challenge [-] function"
     },
     {
+        "id": 461,
+        "explain": "解鎖數值裝合成任務",
+        "tw": "成功解鎖[FFDD33]新每日任務[-]",
+        "en": "Successfully unlocked [FD33] new mission [-]"
+    },
+    {
         "id": 501,
         "explain": "警告訊息"
     },
@@ -443,7 +454,8 @@
     {
         "id": 513,
         "explain": "第三個角色欄位",
-        "tw": "購買角色欄位需花費 [FF00FFFF]{0}[-] 寶石。"
+        "tw": "購買角色欄位需花費 [FF00FFFF]{0}[-] 寶石。",
+        "en": "Later takes the role of field [FF00FF] {0} [-] stones."
     },
     {
         "id": 531,
@@ -643,7 +655,7 @@
         "id": 1006,
         "explain": "技能按鈕",
         "tw": "技 能",
-        "en": "ABILITY"
+        "en": "CARDS"
     },
     {
         "id": 1007,
@@ -655,7 +667,7 @@
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "競 賽",
-        "en": "RACE"
+        "en": "PLAY"
     },
     {
         "id": 1009,
@@ -667,7 +679,7 @@
         "id": 1010,
         "explain": "任務按鈕",
         "tw": "任 務",
-        "en": "Mission"
+        "en": "Quest"
     },
     {
         "id": 1011,
@@ -972,7 +984,7 @@
         "id": 3205,
         "uipeth": "WarningLabel",
         "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
-        "en": "Potential to obtain:\n[33F FDD] to enhance the level [-], [33F FDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
+        "en": "Potential to obtain:\n[33F FDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
     },
     {
         "id": 3206,
@@ -1252,35 +1264,35 @@
         "id": 3702,
         "uipeth": "Tab0",
         "tw": "成 就",
-        "en": "achievement"
+        "en": "Achievement"
     },
     {
         "id": 3703,
         "uipeth": "Tab1",
         "tw": "任 務",
-        "en": "Task"
+        "en": "TASK"
     },
     {
         "id": 3704,
         "tw": "獎 勵",
-        "en": "reward"
+        "en": "REWARD"
     },
     {
         "id": 3705,
         "uipeth": "GetBtn",
         "tw": "前 往",
-        "en": "Ago to"
+        "en": "GO"
     },
     {
         "id": 3706,
         "uipeth": "GetBtn",
         "tw": "領 取",
-        "en": "Take lead"
+        "en": "\nRECEIVE"
     },
     {
         "id": 3707,
         "tw": "完 成",
-        "en": "carry out"
+        "en": "CLEAR"
     },
     {
         "id": 3708,
@@ -1309,7 +1321,7 @@
     },
     {
         "id": 3713,
-        "tw": "社群連結",
+        "tw": "社群",
         "en": "Community Links"
     },
     {
@@ -1725,13 +1737,13 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -1929,7 +1941,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": "  {0} ago"
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
@@ -2050,7 +2062,7 @@
     {
         "id": 5031,
         "tw": " [969696FF]搜尋符合[-]",
-        "en": "  [969696FF] Search accord [-] "
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
@@ -2116,14 +2128,14 @@
     {
         "id": 6002,
         "uipeth": "UpgradeBtn/BtnLabel",
-        "tw": "升 級",
+        "tw": "進 化",
         "en": "UPGRADE",
         "jp": "UPGRADE"
     },
     {
         "id": 6003,
         "uipeth": "WarningLabel",
-        "tw": "此物品無法合成",
+        "tw": "此物品無法進化",
         "en": "Unable To Combine These Items"
     },
     {
@@ -2165,7 +2177,7 @@
     {
         "id": 6010,
         "explain": "未達等級需求無法合成",
-        "tw": "球員等級需達到{0} ",
+        "tw": " [ff0000]球員等級需達到{0} [-] ",
         "en": "Players need to reach Level {0} "
     },
     {
@@ -2198,7 +2210,7 @@
         "id": 6202,
         "uipeth": "StartBtn/BtnLabel",
         "tw": "前往",
-        "en": "Head To"
+        "en": "GO"
     },
     {
         "id": 6301,
@@ -2216,7 +2228,7 @@
         "id": 6303,
         "explain": "沒有備選裝備時",
         "tw": "無符合條件裝備",
-        "en": "XX"
+        "en": "Not Match"
     },
     {
         "id": 6401,
@@ -2235,7 +2247,7 @@
     {
         "id": 6404,
         "tw": "請點擊畫面繼續",
-        "en": "Click on the picture to continue"
+        "en": "Click to Continue"
     },
     {
         "id": 7001,
@@ -2246,14 +2258,14 @@
     {
         "id": 7002,
         "uipeth": "ActiveCheck/ActiveLabel",
-        "tw": "[ff0000]主動技[-]",
-        "en": "[ff0000]Ability[-] "
+        "tw": "主動技",
+        "en": "Ability"
     },
     {
         "id": 7003,
         "uipeth": "PassiveCheck/PassiveLabel",
-        "tw": "[23A3A3FF]被動技[-]",
-        "en": "[23A3A3FF]Pasive Ability[-] "
+        "tw": "被動技",
+        "en": "Pasive Ability"
     },
     {
         "id": 7004,
@@ -2296,6 +2308,23 @@
         "tw": "COST",
         "en": "COST",
         "jp": "COST"
+    },
+    {
+        "id": 7010,
+        "tw": "晶片插槽",
+        "en": "Wafer socket"
+    },
+    {
+        "id": 7011,
+        "explain": "技能介面頁籤1",
+        "tw": "技能晶片",
+        "en": "Skills wafer"
+    },
+    {
+        "id": 7012,
+        "explain": "技能介面頁籤2",
+        "tw": "晶片圖鑑",
+        "en": "Wafer Atlas"
     },
     {
         "id": 7101,
@@ -2384,7 +2413,7 @@
         "explain": "不可以裝備或是出售",
         "uipeth": "UnavailableLabel",
         "tw": "不可裝備",
-        "en": "Equipment can not be"
+        "en": "Unavailable"
     },
     {
         "id": 7116,
@@ -2406,7 +2435,8 @@
     {
         "id": 7203,
         "uipeth": "LabelKind1",
-        "tw": "晶片品質"
+        "tw": "晶片品質",
+        "en": "Wafer quality"
     },
     {
         "id": 7204,
@@ -2424,7 +2454,7 @@
         "id": 7206,
         "uipeth": "LabelKind4",
         "tw": "發動機率",
-        "en": "Percentage of activating Ability"
+        "en": "Probability(Activation)"
     },
     {
         "id": 7207,
@@ -2559,8 +2589,8 @@
     {
         "id": 7302,
         "uipeth": "LabelMaxAnger",
-        "tw": "士氣值",
-        "en": "Energy Level"
+        "tw": "AP",
+        "en": "AP"
     },
     {
         "id": 7401,
@@ -2584,25 +2614,25 @@
         "id": 7404,
         "uipeth": "動作機率",
         "tw": "動作機率",
-        "en": "Percentage of activating Ability"
+        "en": "Probability(Action)"
     },
     {
         "id": 7405,
         "uipeth": "發動距離",
         "tw": "發動距離",
-        "en": "Launch distance"
+        "en": "Distance"
     },
     {
         "id": 7406,
         "uipeth": "持續時間",
         "tw": "持續時間",
-        "en": "duration"
+        "en": "Duration"
     },
     {
         "id": 7407,
         "uipeth": "升級所需",
         "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]",
-        "en": "[B7B7B7FF] required EXP: [FFFF00FF] {0} [-] "
+        "en": "[B7B7B7FF] Required EXP: [FFFF00FF] {0} [-] "
     },
     {
         "id": 7408,
@@ -2688,7 +2718,7 @@
     {
         "id": 7651,
         "explain": "技能卡星等未滿",
-        "tw": "技能晶片等級未滿。",
+        "tw": "技能晶片星等未滿。",
         "en": "Wafers not yet reached the highest level"
     },
     {
@@ -2707,6 +2737,53 @@
         "id": 7654,
         "explain": "達到最高等",
         "tw": "技能晶片已達最高級。"
+    },
+    {
+        "id": 7700,
+        "explain": "套卡介面",
+        "tw": "晶片圖鑑"
+    },
+    {
+        "id": 7701,
+        "explain": "套卡介面說明",
+        "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下啟動，取得組合加成效果。再點擊即可關閉。\n3.注意啟動上限值。",
+        "en": "1. Find the same series of skills wafer becomes combination.\n2. After the collection is complete press the start, get a combination of additive effects. Click again to close.\n3. Note that the upper limit start. "
+    },
+    {
+        "id": 7702,
+        "explain": "啟動按鈕 未啟動狀態",
+        "tw": "啟動組合",
+        "en": "Start combination"
+    },
+    {
+        "id": 7703,
+        "explain": "啟動按鈕 啟動狀態",
+        "tw": "啟動中⋯",
+        "en": "Start in ⋯"
+    },
+    {
+        "id": 7704,
+        "explain": "啟動按鈕 未收集完成",
+        "tw": "尚未完成",
+        "en": "Not completed"
+    },
+    {
+        "id": 7705,
+        "explain": "說明按鈕",
+        "tw": "說明",
+        "en": "Explanation"
+    },
+    {
+        "id": 7706,
+        "explain": "Hint-未收集完成點擊按鈕",
+        "tw": "晶片組合尚未收集完成。",
+        "en": "Collection is complete wafer combination yet."
+    },
+    {
+        "id": 7707,
+        "explain": "啟動值",
+        "tw": "啟動值",
+        "en": "Launch Point"
     },
     {
         "id": 8001,
@@ -2878,7 +2955,8 @@
     {
         "id": 9251,
         "explain": "尚未通過前一關卡",
-        "tw": "請先通過前一關卡"
+        "tw": "請先通過前一關卡",
+        "en": "First through a checkpoint before"
     },
     {
         "id": 9301,
@@ -3087,7 +3165,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": "  {0} in use"
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
@@ -3135,7 +3213,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "The next stage\n  {0} "
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,
@@ -3308,7 +3386,7 @@
         "id": 9803,
         "explain": "目標文字",
         "tw": "擊敗關主機率獲得\n[33FFDD]技能晶片進化材料[-]及[33FFDD]關主服飾[-] ",
-        "en": "Beat off the main access to skills [33F FDD] evolution wafer material [-] and [33F FDD] Off Main Clothing [-] "
+        "en": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-] "
     },
     {
         "id": 9811,
@@ -3944,7 +4022,7 @@
         "id": 12012,
         "explain": "較差的畫面品質",
         "uipeth": "0/BtnLabel",
-        "tw": "低",
+        "tw": "低階效能",
         "en": "LOW"
     },
     {
@@ -4072,13 +4150,13 @@
     {
         "id": 12035,
         "explain": "一般的畫面品質",
-        "tw": "中",
+        "tw": "中階效能",
         "en": "MEDIUM"
     },
     {
         "id": 12036,
         "explain": "較好的畫面品質",
-        "tw": "高",
+        "tw": "高階效能",
         "en": "HIGH"
     },
     {
@@ -4211,31 +4289,36 @@
         "id": 13031,
         "explain": "包裝成物品的金幣",
         "uipeth": "31.錢",
-        "tw": "金 幣"
+        "tw": "金 幣",
+        "en": "Gold coins"
     },
     {
         "id": 13032,
         "explain": "包裝成物品的寶石(商城幣",
         "uipeth": "32.鑽石",
-        "tw": "寶 石"
+        "tw": "寶 石",
+        "en": "Precious stones"
     },
     {
         "id": 13033,
         "explain": "經驗值物品",
         "uipeth": "33.經驗值",
-        "tw": "經驗值"
+        "tw": "經驗值",
+        "en": "Experience"
     },
     {
         "id": 13034,
         "explain": "體力物品",
         "uipeth": "34.體力",
-        "tw": "體 力"
+        "tw": "體 力",
+        "en": "Body force"
     },
     {
         "id": 13040,
         "explain": "強化卡牌用的材料",
         "uipeth": "40.卡片材料",
-        "tw": "進化材料"
+        "tw": "進化材料",
+        "en": "Evolution materials"
     },
     {
         "id": 15000,
@@ -4429,12 +4512,12 @@
     },
     {
         "id": 2000107,
-        "tw": "[33FFDD]得分[-]高於對手",
+        "tw": "[33FFDD]最後得分[-]高於對手",
         "en": "Obtain [33FFDD]Victory[-]"
     },
     {
         "id": 2000108,
-        "tw": "[33FFDD]得分[-]高於對手",
+        "tw": "[33FFDD]最後得分[-]高於對手",
         "en": "Obtain [33FFDD]Victory[-]"
     },
     {
@@ -4514,7 +4597,7 @@
     },
     {
         "id": 2000408,
-        "tw": "[33FFDD]得分[-]需超過對手[FFDD33]{0}[-]分",
+        "tw": "[33FFDD]最後得分[-]需超過對手[FFDD33]{0}[-]分",
         "en": "[33FFDD]Must Beat Opponent more than[-][FFDD33]{0}[-]Points"
     },
     {
