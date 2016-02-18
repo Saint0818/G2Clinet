@@ -64,7 +64,7 @@ namespace AI
                     mReceiveBallPlayer = randomReceiveBallPlayer(touchPlayer);
 
                     // 要求籃球飛向 ReceiveBallPlayer.
-                    CourtMgr.Get.SetBallState(EPlayerState.JumpBall, mReceiveBallPlayer);
+					CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.JumpBall, mReceiveBallPlayer);
                 }
                 else
                     Debug.LogWarning("Can't found any jump player!");

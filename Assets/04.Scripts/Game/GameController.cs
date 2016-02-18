@@ -354,7 +354,7 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		}
 
-		CourtMgr.Get.SetBallState (EPlayerState.Start);
+		CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Start);
 		ChangeSituation(EGameSituation.JumpBall);
 
 		if (jumpBall)
@@ -943,10 +943,7 @@ public class GameController : KnightSingleton<GameController>
 	private void resetTestMode() {
 		SetBallOwnerNull();
 		SetBall();
-		CourtMgr.Get.RealBallObj.transform.localEulerAngles = Vector3.zero;
-		CourtMgr.Get.SetBallState(EPlayerState.Shoot0);
-		CourtMgr.Get.RealBallObj.transform.position = new Vector3(0, 5.2f, 13);
-        CourtMgr.Get.RealBallCompoment.Gravity = false;
+		CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Shoot0);
 		UIGame.Get.ChangeControl(false);
 
 		ChangeSituation(EGameSituation.GamerAttack);
@@ -1364,7 +1361,7 @@ public class GameController : KnightSingleton<GameController>
             {
                 // 當要切換不同狀態的時候, 會將某些東西重置.
                 // todo 這段邏輯應該要打掉, 改寫在 PlayerAI 內.
-                CourtMgr.Get.HideBallSFX();
+				CourtMgr.Get.RealBallCompoment.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
                     if(newSituation == EGameSituation.GamerPickBall || 
@@ -1914,7 +1911,7 @@ public class GameController : KnightSingleton<GameController>
 			//確實把球放在手上
 			SetBall();
 			//再把球的持有者設成null
-			CourtMgr.Get.SetBallState(player.crtState);
+			CourtMgr.Get.RealBallCompoment.SetBallState(player.crtState);
 			CourtMgr.Get.RealBallShoot(player, shootAngle, ShootDistance);
 
 
@@ -2096,7 +2093,7 @@ public class GameController : KnightSingleton<GameController>
 			else
 				ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 
-            CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
+			CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.DunkBasket);
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
@@ -2369,7 +2366,7 @@ public class GameController : KnightSingleton<GameController>
 
 				int addRate = 0;
 				int addAngle = 0;
-				if(CourtMgr.Get.IsBallSFXEnabled())
+				if(CourtMgr.Get.RealBallCompoment.IsBallSFXEnabled())
                     // 特效開啟, 就表示被懲罰的機率增加.
 					addRate = 30;
 
@@ -2407,7 +2404,7 @@ public class GameController : KnightSingleton<GameController>
                 if (Random.Range(0, 100) <= probability)
                 {
                     // 進入懲罰.
-                    CourtMgr.Get.ShowBallSFX(player.Attr.PunishTime);
+					CourtMgr.Get.RealBallCompoment.ShowBallSFX(player.Attr.PunishTime);
 				}
 			}
         }
@@ -2549,9 +2546,9 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case 1: 
 			if(Shooter)
-				CourtMgr.Get.SetBallState(EPlayerState.Block0, Shooter);
+				CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Block0, Shooter);
 			else
-				CourtMgr.Get.SetBallState(EPlayerState.Block0, player);
+				CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Block0, player);
 			break;
 		case 2: 
 			SetBall(player);
@@ -3077,7 +3074,7 @@ public class GameController : KnightSingleton<GameController>
 		if (BallOwner != null) {
 			BallOwner.IsBallOwner = false;
 			BallOwner = null;
-			CourtMgr.Get.SetBallOwnerNull();
+			CourtMgr.Get.RealBallCompoment.SetBallOwnerNull();
 		}
 	}
 
@@ -3137,7 +3134,7 @@ public class GameController : KnightSingleton<GameController>
 
 			UIGame.Get.ChangeControl(newBallOwner.Team == ETeamKind.Self);
 			UIGame.Get.SetPassButton();
-			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, newBallOwner);
+			CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.HoldBall, newBallOwner);
 
 			AudioMgr.Get.PlaySound(SoundType.SD_Catch);
 			newBallOwner.CantMoveTimer.Clear();
@@ -3345,10 +3342,10 @@ public class GameController : KnightSingleton<GameController>
 
 			int rate = Random.Range(0, 100);
 
-			if(CourtMgr.Get.RealBallState == EPlayerState.Pass0 || 
-			   CourtMgr.Get.RealBallState == EPlayerState.Pass2 ||
-			   CourtMgr.Get.RealBallState == EPlayerState.Pass1 || 
-			   CourtMgr.Get.RealBallState == EPlayerState.Pass3)
+			if(CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass0 || 
+				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass2 ||
+				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass1 || 
+				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass3)
 			{
 				if(BallOwner == null && (rate > Passer.Attr.PassRate || dir == 5) && !player.IsPush)
 				{
@@ -3451,8 +3448,8 @@ public class GameController : KnightSingleton<GameController>
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
-					else if(CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || 
-					        CourtMgr.Get.RealBallState ==  EPlayerState.Rebound0)
+					else if(CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Steal0 || 
+						CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Rebound0)
                     {
 					    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
 					        Rebound(player);
@@ -4185,7 +4182,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		SetBall();
-		CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
+		CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Steal0, player);
 	}
 	
 	public void Reset()
@@ -4206,14 +4203,13 @@ public class GameController : KnightSingleton<GameController>
 		CameraMgr.Get.PlayGameStartCamera();
 		UIPassiveEffect.Get.Reset();
 		UIDoubleClick.Get.Reset();
-		CourtMgr.Get.SetBallState(EPlayerState.Reset);
 
 		if (GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
 			Joysticker.SetManually();
 		else
 			Joysticker.SetToAI();
 
-		CourtMgr.Get.SetBallState (EPlayerState.Reset);
+		CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Reset);
 
 		for(int i = 0; i < PlayerList.Count; i++) 
 		{

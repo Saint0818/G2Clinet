@@ -121,13 +121,18 @@ public class AnimatorBehavior : MonoBehaviour
                 layupPoint.z += (team == 0 ? -1 : 1);
                 InitLayupCurve(stateNo, layupPoint);
                 break;
-            case EAnimatorState.Dunk:
-                int angle;
-                if (SceneMgr.Get.IsCourt)
-                    angle = team == 0 ? 0 : 180;
-                else
-                    angle = 90;
-                InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [team].transform.position, angle);
+				case EAnimatorState.Dunk:
+						int angle;
+						if (SceneMgr.Get.IsCourt)
+								angle = team == 0 ? 0 : 180;
+						else
+								angle = 90;
+				
+				//TODO : unity bug prefab位置小數點第二位會被無條件進位
+				Vector3 transPos = new Vector3 (CourtMgr.Get.DunkPoint [team].transform.position.x, 
+						                 CourtMgr.Get.DunkPoint [team].transform.position.y, 
+						                 CourtMgr.Get.DunkPoint [team].transform.position.z); 
+				InitDunkCurve(stateNo, transPos, angle);
                 break;
             case EAnimatorState.Fall:
                 InitFallCurve(stateNo);

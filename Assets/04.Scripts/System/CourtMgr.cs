@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using AI;
 using Chronos;
 using DG.Tweening;
 using JetBrains.Annotations;
@@ -18,13 +17,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     //RealBall
     private bool isBallOffensive = false;
 //Shoot and Dunk (true)
-    public GameObject RealBallObj;
-    private GameObject mRealBallSFX;
-    public EPlayerState RealBallState;
+    public GameObject RealBallObj;   
     private bool isRealBallInAcitve = false;
-    private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1);
-    // 特效顯示的時間. 單位: 秒.
-
     private GameObject crtCollider;
     private GameObject[] pveBasketAy = new GameObject[2];
     private GameObject[] BuildBasket = new GameObject[2];
@@ -61,8 +55,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     public GameObject SkillArrowOfAction;
     private UITexture textureArrow;
     public Transform[] EndPlayerPosition = new Transform[6];
-
-    public AutoFollowGameObject BallShadow;
     public GameObject[] CameraHood = new GameObject[2];
     public Material BasketMaterial;
     public BallCurve RealBallCurve;
@@ -245,7 +237,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             BasketHoopDummy[0].localPosition = Vector3.zero;
             BasketHoopDummy[1].localPosition = Vector3.zero;
         }
-
     }
 
     private List<string> arrayIntersection(string[] list1, List<string> list2)
@@ -264,7 +255,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void InitScoreboard(bool isEnable = false)
     {
-        InitBallShadow();
         EffectEnable((QualityType)GameData.Setting.Quality);
     }
 
@@ -281,15 +271,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     void Awake()
     {
         RefGameObject = gameObject;
-        mRealBallSFXTimer.TimeUpListener += HideBallSFX;
-
         CheckCollider();
-    }
-
-    [UsedImplicitly]
-    private void FixedUpdate()
-    {
-        mRealBallSFXTimer.Update(Time.deltaTime);
     }
 
     public void InitEffect()
@@ -360,12 +342,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         if (isImmediately)
             CameraMgr.Get.ShowCameraEnable(false);
     }
-
-//    void OnGUI()
-//    {
-//        if (Input.GetKeyDown(KeyCode.B))
-//            CameraMgr.Get.PlayGameStartCamera();
-//    }
 
 	private void InitBasketDelegate () {
 		for (int i = 0; i < basketAnimation.Length; i++) {
@@ -470,7 +446,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         {
             RealBallObj = GameObject.Instantiate(Resources.Load("Prefab/Stadium/RealBall")) as GameObject;
             RealBallCompoment = RealBallObj.GetComponent<RealBall>();
-            mRealBallSFX = RealBallObj.transform.FindChild("BallFX").gameObject;
             RealBallObj.name = "RealBall";
             if (RealBallCurve == null)
                 RealBallCurve = RealBallObj.GetComponent<BallCurve>();
@@ -495,10 +470,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         {
             crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = RefGameObject.transform;
-            BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
-
-            if (spotlight == null && BallShadow)
-                spotlight = BallShadow.transform.FindChild("SpotLight").gameObject; 
         }
 		
         EndPlayerPosition[0] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
@@ -576,13 +547,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 for (int j = 0; j < Distance3Pos.GetLength(1); j++)
                     Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
         }
-    }
-
-    public void InitBallShadow()
-    {
-        BallShadow.RefGameObject.SetActive(true);
-        BallShadow.SetTarget(RealBallObj);
-        spotlight.SetActive(false);
     }
 
     private void switchGameobj(ref GameObject obj1, ref GameObject obj2)
@@ -686,20 +650,20 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     {
         if (!GameController.Get.IsReset)
         {
-            //ToDo:目前bug BasketNetPlay 跟 ActionNoScoreEnd 會同時呼叫
+			//Debug.LogError("RealBallPath : " + animationName.ToString());
 			
             switch (animationName)
             {
                 case "ActionEnd":
                     SetBasketState(EPlayerState.BasketActionEnd, team);
-                    SetBallOwnerNull();
+					RealBallCompoment.SetBallOwnerNull();
                     break;
                 case "ActionNoScoreShot":
 //				PlayShootNoScore(team);
                     break;
                 case "ActionNoScoreEnd":
                     SetBasketState(EPlayerState.BasketActionNoScoreEnd, team);
-                    SetBallOwnerNull();
+					RealBallCompoment.SetBallOwnerNull();
                     break;
                 case "BasketNetPlay":
                     PlayShoot(team, index);
@@ -725,7 +689,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 GameController.Get.PlusScore(scoreTeam, false, true);
                 GameController.Get.ShowShootSate(true, scoreTeam);
                 LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, false);
-                RealBallCompoment.AddForce(Vector3.down * 2, ForceMode.VelocityChange);
+                RealBallCompoment.AddForce(Vector3.down * 2, ForceMode.Impulse);
                 scoreTeam = -1;
             }
         }
@@ -737,8 +701,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         {
             //Debug.LogError("SetBasketState : " + state.ToString());
             switch (state)
-            {
+            {				
                 case EPlayerState.BasketActionSwish:
+					//第一個偵測點 球：程式控制
                     scoreTeam = team;
                     LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, true);
                     RealBallObj.transform.DOMove(new Vector3(BasketEntra[team, 1].transform.position.x + Mathf.Clamp(-(RealBallObj.transform.position.x - BasketEntra[team, 0].transform.position.x), -BasketEntra[team, 1].transform.localPosition.x, BasketEntra[team, 1].transform.localPosition.x),
@@ -747,6 +712,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
                     break;
                 case EPlayerState.BasketActionSwishEnd:
+					//第二個偵測點 球：物理	
                     RealBallDoMoveFinish();
                     IfSwishNoScore();
                     isBallOffensive = false;
@@ -754,8 +720,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 case EPlayerState.BasketAnimationStart:
                     RealBallCompoment.Gravity = false;
                     RealBallCompoment.TriggerEnable = false;
-					RealBallObj.transform.parent = BasketHoopDummy[team];
-
+					RealBallCompoment.Parent = BasketHoopDummy[team];					
                     GameController.Get.IsReboundTime = true;
                     GameController.Get.BallState = EBallState.None;
                     break;
@@ -768,10 +733,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     isBallOffensive = false;
                     GameController.Get.PlusScore(team, false, true);
                     GameController.Get.ShowShootSate(true, team);
-                    SetBallOwnerNull();
-
+					RealBallCompoment.SetBallOwnerNull();
 					RealBallDoMoveFinish();
-                    RealBallCompoment.AddForce(Vector3.right * 5, ForceMode.Impulse);
+                    RealBallCompoment.AddForce(Vector3.right * 2, ForceMode.VelocityChange);
                     GameController.Get.IsPassing = false;
                     GameController.Get.BallState = EBallState.None;
                     break;
@@ -780,224 +744,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                         Debug.LogWarning("RealBall NoScore Out:" + BasketAnimationName);
                     isBallOffensive = false;
                     GameController.Get.ShowShootSate(false, team);
-                    SetBallOwnerNull();
+					RealBallCompoment.SetBallOwnerNull();
                     RealBallCompoment.AddForce(new Vector3(1, 0, 0) * (70 + GameController.Get.ShootDistance * 2), ForceMode.Impulse);
 					RealBallDoMoveFinish();
                     GameController.Get.IsPassing = false;
                     GameController.Get.BallState = EBallState.CanRebound;
                     break;
             }
-        }
-    }
-
-    public void SetBallOwnerNull()
-    {
-        RealBallCompoment.ColliderEnable = true;
-        RealBallCompoment.TriggerEnable = true;
-        RealBallCompoment.Parent = null;
-        RealBallCompoment.Gravity = true;
-    }
-
-    public void SetBallStateByLobby(EPlayerState state, Transform dummyTransfrom)
-    {
-        LayerMgr.Get.SetLayerAllChildren(RealBallObj, "Player");
-        switch (state)
-        {
-            case EPlayerState.Dribble0:
-                RealBallCompoment.ColliderEnable = false;
-                RealBallCompoment.Gravity = false;
-
-                if (dummyTransfrom)
-                    RealBallCompoment.Parent = dummyTransfrom;
-                RealBallCompoment.TriggerEnable = false;
-
-                HideBallSFX();
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.Shoot0: 
-            case EPlayerState.Shoot1: 
-            case EPlayerState.Shoot2: 
-            case EPlayerState.Shoot3: 
-            case EPlayerState.Shoot4: 
-            case EPlayerState.Shoot5: 
-            case EPlayerState.Shoot6: 
-            case EPlayerState.Shoot7: 
-            case EPlayerState.Shoot20: 
-            case EPlayerState.Layup0: 
-            case EPlayerState.Layup1: 
-            case EPlayerState.Layup2: 
-            case EPlayerState.Layup3: 
-            case EPlayerState.TipIn: 
-            case EPlayerState.Shooting: 
-                spotlight.SetActive(false);
-                RealBallCompoment.Parent = null;
-                RealBallCompoment.Gravity = true;
-                break;
-        }
-    }
-
-    public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
-    {
-        if (!GameController.Get.IsStart && state != EPlayerState.Start &&
-        state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
-            return;
-//        Debug.LogError("SetBallState : " + state.ToString());
-        SetBallOwnerNull();
-
-        RealBallState = state;
-			
-        switch (state)
-        {
-            case EPlayerState.Dribble0:
-                RealBallCompoment.ColliderEnable = false;
-                RealBallCompoment.Gravity = false;
-
-                if (player)
-                    RealBallCompoment.Parent = player.DummyBall.transform;
-                RealBallCompoment.TriggerEnable = false;
-                HideBallSFX();
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.Shoot0: 
-            case EPlayerState.Shoot1: 
-            case EPlayerState.Shoot2: 
-            case EPlayerState.Shoot3: 
-            case EPlayerState.Shoot4: 
-            case EPlayerState.Shoot5: 
-            case EPlayerState.Shoot6: 
-            case EPlayerState.Shoot7: 
-            case EPlayerState.Shoot20: 
-            case EPlayerState.Layup0: 
-            case EPlayerState.Layup1: 
-            case EPlayerState.Layup2: 
-            case EPlayerState.Layup3: 
-            case EPlayerState.TipIn: 
-            case EPlayerState.Shooting: 
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.Pass0: 
-            case EPlayerState.Pass2: 
-            case EPlayerState.Pass1: 
-            case EPlayerState.Pass3: 
-            case EPlayerState.Pass4: 
-            case EPlayerState.Pass5: 
-            case EPlayerState.Pass6: 
-            case EPlayerState.Pass7: 
-            case EPlayerState.Pass8: 
-            case EPlayerState.Pass9: 
-                RealBallCompoment.Gravity = false;
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.Steal0:
-            case EPlayerState.Steal1:
-            case EPlayerState.Steal2:
-                GameController.Get.IsPassing = false;
-				
-//				Vector3 v = RealBall.transform.forward * -1;
-//				if(player != null)					
-//					v = player.transform.forward * 10;
-
-                Vector3 newDir = Vector3.zero;
-                newDir.Set(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-
-                // 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
-                RealBallCompoment.MoveVelocity = newDir.normalized * 10;
-                mRealBallSFX.SetActive(true);
-                spotlight.SetActive(true);
-                break;
-            case EPlayerState.JumpBall:
-                if (!GameController.Get.IsJumpBall)
-                {
-                    GameController.Get.IsJumpBall = true;
-                    GameController.Get.IsPassing = false;
-
-                    Vector3 v1;
-                    if (player != null)
-                        v1 = player.transform.position; // 球要拍到某位球員的位置.
-					else
-                        v1 = RealBallObj.transform.forward * -1;
-
-                    RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, v1, 60);
-                    mRealBallSFX.SetActive(true);
-                    spotlight.SetActive(false);
-                    AudioMgr.Get.PlaySound(SoundType.SD_Rebound);
-                }
-                break;
-			
-            case EPlayerState.Block0:
-            case EPlayerState.Block1:
-            case EPlayerState.Block2:
-            case EPlayerState.Block20:
-            case EPlayerState.KnockDown0: 
-            case EPlayerState.KnockDown1: 
-                GameController.Get.Shooter = null;
-                GameController.Get.IsPassing = false;
-				
-                Vector3 v = RealBallObj.transform.forward * -1;
-                if (player != null)
-                    v = player.transform.forward * 10;
-
-                RealBallCompoment.MoveVelocity = v;
-                mRealBallSFX.SetActive(true);
-                spotlight.SetActive(true);
-                break;
-
-            case EPlayerState.Dunk0:
-            case EPlayerState.Dunk1:
-            case EPlayerState.Dunk3:
-            case EPlayerState.Dunk5:
-            case EPlayerState.Dunk7:
-                GameController.Get.BallState = EBallState.CanDunkBlock;
-                RealBallCompoment.ColliderEnable = true;
-                RealBallCompoment.Gravity = false;
-				
-                if (player)
-                    RealBallCompoment.Parent = player.DummyBall.transform;
-                RealBallCompoment.TriggerEnable = false;
-                HideBallSFX();
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.DunkBasket:
-                if (player)
-                    RealBallObj.transform.position = player.DummyBall.transform.position;
-
-                RealBallCompoment.AddForce(Vector3.down * 1, ForceMode.VelocityChange);
-                break;
-
-            case EPlayerState.Reset:
-                RealBallCompoment.Gravity = false;
-                RealBallObj.transform.position = new Vector3(0, 7, 0);
-                mRealBallSFX.SetActive(true);
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.Start:
-                RealBallObj.transform.localPosition = new Vector3(0, 6, 0);
-                RealBallCompoment.Gravity = true;
-                spotlight.SetActive(false);
-                break;
-
-            case EPlayerState.HoldBall:
-            case EPlayerState.Pick0:
-            case EPlayerState.Pick1:
-            case EPlayerState.Pick2:
-                RealBallCompoment.ColliderEnable = false;
-                if (player)
-                {
-                    RealBallCompoment.Parent = player.DummyBall.transform;
-                    RealBallObj.transform.DOKill();
-                }
-
-                RealBallCompoment.Gravity = false;
-                RealBallCompoment.TriggerEnable = false;
-                HideBallSFX();
-                spotlight.SetActive(false);
-                break;
         }
     }
 
@@ -1234,29 +987,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     {
         return ShootPoint[(int)teamKind].transform.position;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sfxTime"> 特效顯示的時間, 單位:秒. -1: 表示特效永遠顯示, 必須要手動關閉. </param>
-    public void ShowBallSFX(float sfxTime = -1)
-    {
-        mRealBallSFX.SetActive(true);
-        if (sfxTime > 0)
-            mRealBallSFXTimer.Start(sfxTime);
-    }
-
-    public bool IsBallSFXEnabled()
-    {
-        return mRealBallSFX.activeInHierarchy;
-    }
-
-    public void HideBallSFX()
-    {
-        mRealBallSFX.SetActive(false);
-        mRealBallSFXTimer.Stop();
-    }
-
+				
     public bool IsRealBallActive
     {
         get { return isRealBallInAcitve; }

@@ -125,7 +125,7 @@ public class BallTrigger : MonoBehaviour
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
-			CourtMgr.Get.SetBallState (EPlayerState.Pass0);
+			CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Pass0);
 			float dis = Vector3.Distance (GameController.Get.Catcher.CatchBallPoint.transform.position, CourtMgr.Get.RealBallObj.transform.position);
 			float time = dis / (GameConst.AttackSpeedup * Random.Range (3, 5));
 
@@ -208,7 +208,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.ShortBall.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
+							CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
@@ -216,7 +216,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.Ball.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
+							CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}

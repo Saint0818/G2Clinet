@@ -1198,7 +1198,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.GamerAttack);
 
             SetPassButton();
-			CourtMgr.Get.SetBallState (EPlayerState.Start);
+            CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
 			initJoystickPos ();
 //			drawLine.IsShow = false;

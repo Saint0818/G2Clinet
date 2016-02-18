@@ -3,7 +3,6 @@ using System.Collections;
 
 public class AutoFollowGameObject : MonoBehaviour 
 {
-	public GameObject RefGameObject;
 	public GameObject Target;
 	public bool FollowPosition_X = false;
 	public bool FollowPosition_Y = false;
@@ -16,7 +15,6 @@ public class AutoFollowGameObject : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		RefGameObject = gameObject;
 		followPos = new Vector3 (0, 0.08f, 0);
 		followRot = gameObject.transform.localEulerAngles;
 	}
@@ -54,4 +52,9 @@ public class AutoFollowGameObject : MonoBehaviour
 		if (obj) 
 			Target = obj;
 	}
+
+    public bool Enable
+    {
+        set{ gameObject.SetActive(value);}
+    }
 }

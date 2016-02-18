@@ -68,7 +68,7 @@ public class BlockTrigger : MonoBehaviour {
 				if(faller && faller.IsDunk) {
 					if(faller.IsCanBlock && !faller.IsTee) {
 						GameController.Get.SetBall();
-						CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+						CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Block0, blocker);
 						faller.AniState(EPlayerState.Fall1);
 						gameObject.SetActive (false);
 						AudioMgr.Get.PlaySound (SoundType.SD_Block);
@@ -76,7 +76,7 @@ public class BlockTrigger : MonoBehaviour {
 				}
 			} else {
 				blocker.IsPerfectBlockCatch = true;
-				CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+				CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Block0, blocker);
 				AudioMgr.Get.PlaySound (SoundType.SD_Block);
 			}
 

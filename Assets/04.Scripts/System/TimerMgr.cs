@@ -37,6 +37,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
 	public void ChangeTime(ETimerKind key, float value)
 	{
+        //Debug.LogError("Use Time : " + " Who : " + key.ToString() + " value : " + value);
 		if (!GameStart.Get.IsOpenChronos && CrtTime == 0)
             return;
         

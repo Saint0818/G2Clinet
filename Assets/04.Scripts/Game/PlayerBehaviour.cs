@@ -995,10 +995,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void moveTo(TMoveData data, bool first = false)
     {
-        // 蓋火鍋測試場景不希望球員移動, 所以才會有 GameStart.Get.TestMode != EGameTest.Block 
-        // 這樣的判斷式. 這要改為蓋火鍋測試場景在初始化的時候, 叫 AI 不要指定戰術跑位.
-		if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End && !IsTimePause &&
-           GameStart.Get.TestMode != EGameTest.Block)
+		if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End && !IsTimePause)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
             float temp = Vector2.Distance(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z), MoveTarget);
@@ -1659,7 +1656,12 @@ public class PlayerBehaviour : MonoBehaviour
 //		AnimatorControl.InitDunkCurve(stateNo, CourtMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position, Team == 0 ? 0 : 180);
 
         SetShooterLayer();
-        CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
+       
+		CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Dunk0, this);
+
+        if(stateNo == 0 || stateNo == 1 || stateNo == 3 || stateNo == 5 || stateNo == 7)
+            GameController.Get.BallState = EBallState.CanDunkBlock;
+
         if (OnDunkJump != null)
             OnDunkJump(this);
     }
@@ -1680,7 +1682,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
             
         AnimatorControl.Play(EAnimatorState.Dribble, stateNo, Team.GetHashCode());
-        CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
+		CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Dribble0, this);
         isCanCatchBall = false;
         IsFirstDribble = false;
     }
@@ -1718,7 +1720,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsBallOwner && (situation != EGameSituation.GamerPickBall || situation != EGameSituation.NPCPickBall))
         {
             GameController.Get.SetBall();
-            CourtMgr.Get.SetBallState(EPlayerState.KnockDown0);
+			CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.KnockDown0);
         }
         if (IsDunk)
         {
@@ -2388,8 +2390,7 @@ public class PlayerBehaviour : MonoBehaviour
             AniState(EPlayerState.HoldBall);
         else
             AniState(EPlayerState.Idle);
-        CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
-        CourtMgr.Get.ShowBallSFX(Attr.PunishTime);  
+        CourtMgr.Get.RealBallCompoment.ShowBallSFX(Attr.PunishTime); 
     }
 
     private void FallEnd()
@@ -2444,7 +2445,7 @@ public class PlayerBehaviour : MonoBehaviour
             AniState(EPlayerState.Idle);
 
         OnUI(this);
-        CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
+		CourtMgr.Get.RealBallCompoment.ShowBallSFX(Attr.PunishTime);
     }
 
     private void TipInStart()
@@ -2972,8 +2973,8 @@ public class PlayerBehaviour : MonoBehaviour
         set
         {
             isCanBlock = value;
-            if (CourtMgr.Get.IsBallSFXEnabled() != value)
-                CourtMgr.Get.ShowBallSFX();
+			if (CourtMgr.Get.RealBallCompoment.IsBallSFXEnabled() != value)
+				CourtMgr.Get.RealBallCompoment.ShowBallSFX();
         }
     }
 
