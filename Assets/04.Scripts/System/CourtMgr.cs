@@ -689,7 +689,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 GameController.Get.PlusScore(scoreTeam, false, true);
                 GameController.Get.ShowShootSate(true, scoreTeam);
                 LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, false);
-                RealBallCompoment.AddForce(Vector3.down * 2, ForceMode.Impulse);
+				RealBallCompoment.MoveVelocity = Vector3.zero;
+				RealBallCompoment.AddForce(Vector3.down, ForceMode.VelocityChange);
                 scoreTeam = -1;
             }
         }
