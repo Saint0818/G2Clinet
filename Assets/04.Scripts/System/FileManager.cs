@@ -83,7 +83,7 @@ public class FileManager : KnightSingleton<FileManager>
         {
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit"
+        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -218,6 +218,7 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[20] = ParseMall;
         downloadCallBack[21] = ParsePVP;
         downloadCallBack[22] = parseLimitData;
+        downloadCallBack[23] = parseDailyData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -610,6 +611,14 @@ public class FileManager : KnightSingleton<FileManager>
 			Debug.LogError ("[Teamname parsed error] " + ex.Message);
 		}
 	}
+
+    private void parseDailyData(string version, string text, bool isSaveVersion)
+    {
+        DailyTable.Ins.Load(text);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(text, "daily", version);
+    }
 
     private void parseLimitData(string version, string text, bool isSaveVersion)
     {
