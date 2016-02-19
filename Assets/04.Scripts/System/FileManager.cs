@@ -80,10 +80,11 @@ public class FileManager : KnightSingleton<FileManager>
     #endif
 
     private static string[] downloadFiles =
-        {
+    {
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem"
+        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
+        "lifetime"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -221,6 +222,7 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[23] = parseDailyData;
 		downloadCallBack[24] = ParseSuitCard;
 		downloadCallBack[25] = ParseSuitItem;
+		downloadCallBack[26] = parseLifeTimeData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -613,6 +615,14 @@ public class FileManager : KnightSingleton<FileManager>
 			Debug.LogError ("[Teamname parsed error] " + ex.Message);
 		}
 	}
+
+    private void parseLifeTimeData(string version, string text, bool isSaveVersion)
+    {
+        LifeTimeTable.Ins.Load(text);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(text, "lifetime", version);
+    }
 
     private void parseDailyData(string version, string text, bool isSaveVersion)
     {
