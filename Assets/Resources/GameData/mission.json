@@ -11,8 +11,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Novice street",
         "explaintw": "提升知名度等級",
         "explainen": "Enhance the visibility level"
@@ -30,8 +28,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Amateur",
         "explaintw": "提升知名度等級",
         "explainen": "Enhance the visibility level"
@@ -49,8 +45,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Professional player",
         "explaintw": "提升知名度等級",
         "explainen": "Enhance the visibility level"
@@ -68,8 +62,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Well-known players",
         "explaintw": "提升知名度等級",
         "explainen": "Enhance the visibility level"
@@ -88,8 +80,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "World star",
         "explaintw": "提升知名度等級",
         "explainen": "Enhance the visibility level"
@@ -105,8 +95,7 @@
         "value": [5,100,200],
         "money": [400,400,600],
         "exp": [10,10,10],
-        "diamond": [1200,1200,1200],
-        "spendkind": 2,
+        "diamond": [200,200,250],
         "nameen": "Street league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -123,8 +112,7 @@
         "value": [400,600,800],
         "money": [2500,2500,2700],
         "exp": [10,10,10],
-        "diamond": [1500,1500,1500],
-        "spendkind": 2,
+        "diamond": [250,250,300],
         "nameen": "Township league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -141,8 +129,7 @@
         "value": [1000,1200,1400],
         "money": [2500,2500,2700],
         "exp": [10,10,10],
-        "diamond": [1800,1800,2100],
-        "spendkind": 2,
+        "diamond": [350,350,350],
         "nameen": "Region league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -159,8 +146,7 @@
         "value": [1700,2000,2300],
         "money": [3300,3300,3500],
         "exp": [10,10,10],
-        "diamond": [2100,2100,2700],
-        "spendkind": 2,
+        "diamond": [500,500,600],
         "nameen": "National League career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -177,8 +163,7 @@
         "value": [2600,2900,3200],
         "money": [7000,7000,7600],
         "exp": [10,10,10],
-        "diamond": [2700,2700,3000],
-        "spendkind": 2,
+        "diamond": [650,650,750],
         "nameen": "World league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -195,8 +180,7 @@
         "value": [3600,4000,4400],
         "money": [8200,8200,8800],
         "exp": [10,10,10],
-        "diamond": [3600,3600,4500],
-        "spendkind": 2,
+        "diamond": [800,800,900],
         "nameen": "Starcraft league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -213,8 +197,7 @@
         "value": [4800,5200,5600],
         "money": [9400,9400,10000],
         "exp": [10,10,10],
-        "diamond": [4800,4800,5400],
-        "spendkind": 2,
+        "diamond": [950,950,1100],
         "nameen": "Galaxy league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -232,8 +215,7 @@
         "value": [6100],
         "money": [11000],
         "exp": [10],
-        "diamond": [6600],
-        "spendkind": 2,
+        "diamond": [1300],
         "nameen": "Universe league career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
         "explainen": "Promoting Alliance Battle points, improve the league level"
@@ -437,8 +419,6 @@
         "exp": [5],
         "diamond": [240],
         "spendkind": 3,
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "I make golfers",
         "explaintw": "與其他球員互相關注成為朋友",
         "explainen": "Follow with other players to become friends with each other"
@@ -457,8 +437,6 @@
         "exp": [5,5],
         "diamond": [300,360],
         "spendkind": 3,
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Make golfers II",
         "explaintw": "與其他球員互相關注成為朋友",
         "explainen": "Follow with other players to become friends with each other"
@@ -477,8 +455,6 @@
         "exp": [5,5,5],
         "diamond": [420,420,540],
         "spendkind": 3,
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Make golfers III",
         "explaintw": "與其他球員互相關注成為朋友",
         "explainen": "Follow with other players to become friends with each other"
@@ -497,8 +473,6 @@
         "exp": [5,5,5,5],
         "diamond": [600,600,720,900],
         "spendkind": 3,
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Make golfers IV",
         "explaintw": "與其他球員互相關注成為朋友",
         "explainen": "Follow with other players to become friends with each other"
@@ -518,8 +492,6 @@
         "exp": [5,5,5,5,5],
         "diamond": [960,960,1080,1080,1320],
         "spendkind": 3,
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Make golfers V",
         "explaintw": "與其他球員互相關注成為朋友",
         "explainen": "Follow with other players to become friends with each other"
@@ -702,15 +674,15 @@
     {
         "id": 120,
         "kind": 12,
-        "lv": 10,
+        "lv": 5,
         "color": 1,
         "score": 1,
-        "nametw": "勝利製造機 I",
+        "nametw": "勝利的開始",
         "openui": "UIMall",
-        "value": [20],
+        "value": [5],
         "money": [1000],
-        "exp": [5],
-        "diamond": [20],
+        "exp": [15],
+        "diamond": [100],
         "nameen": "Victory maker I",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
         "explainen": "Wins Competition and made a career off the main challenge"
@@ -719,8 +691,25 @@
         "id": 121,
         "kind": 12,
         "lv": 10,
-        "color": 2,
+        "color": 1,
         "privousid": 120,
+        "score": 1,
+        "nametw": "勝利製造機 I",
+        "openui": "UIMall",
+        "value": [15],
+        "money": [1000],
+        "exp": [5],
+        "diamond": [20],
+        "nameen": "Victory maker I",
+        "explaintw": "取得生涯競賽與關主挑戰的勝場數",
+        "explainen": "Wins Competition and made a career off the main challenge"
+    },
+    {
+        "id": 122,
+        "kind": 12,
+        "lv": 10,
+        "color": 2,
+        "privousid": 121,
         "score": 2,
         "nametw": "勝利製造機 II",
         "openui": "UIMall",
@@ -733,11 +722,11 @@
         "explainen": "Wins Competition and made a career off the main challenge"
     },
     {
-        "id": 122,
+        "id": 123,
         "kind": 12,
         "lv": 10,
         "color": 3,
-        "privousid": 121,
+        "privousid": 122,
         "score": 3,
         "nametw": "勝利製造機 III",
         "openui": "UIMall",
@@ -750,11 +739,11 @@
         "explainen": "Wins Competition and made a career off the main challenge"
     },
     {
-        "id": 123,
+        "id": 124,
         "kind": 12,
         "lv": 10,
         "color": 4,
-        "privousid": 122,
+        "privousid": 123,
         "score": 4,
         "nametw": "勝利製造機 IV",
         "openui": "UIMall",
@@ -767,11 +756,11 @@
         "explainen": "Wins Competition and made a career off the main challenge"
     },
     {
-        "id": 124,
+        "id": 125,
         "kind": 12,
         "lv": 10,
         "color": 5,
-        "privousid": 123,
+        "privousid": 124,
         "final": 1,
         "score": 5,
         "nametw": "勝利製造機 V",
@@ -881,8 +870,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Score Novice",
         "explaintw": "增加生涯總得分",
         "explainen": "Career total score increase"
@@ -900,8 +887,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Scorer",
         "explaintw": "增加生涯總得分",
         "explainen": "Career total score increase"
@@ -919,8 +904,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Scorer",
         "explaintw": "增加生涯總得分",
         "explainen": "Career total score increase"
@@ -938,8 +921,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Scorer",
         "explaintw": "增加生涯總得分",
         "explainen": "Career total score increase"
@@ -958,8 +939,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Score King",
         "explaintw": "增加生涯總得分",
         "explainen": "Career total score increase"
@@ -976,8 +955,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Layup novice",
         "explaintw": "增加生涯2分球進球數",
         "explainen": "2-point increase in career goals"
@@ -995,8 +972,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Two-ball expert",
         "explaintw": "增加生涯2分球進球數",
         "explainen": "2-point increase in career goals"
@@ -1014,8 +989,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Two ball players",
         "explaintw": "增加生涯2分球進球數",
         "explainen": "2-point increase in career goals"
@@ -1033,8 +1006,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Two-ball master",
         "explaintw": "增加生涯2分球進球數",
         "explainen": "2-point increase in career goals"
@@ -1053,8 +1024,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Two-ball king",
         "explaintw": "增加生涯2分球進球數",
         "explainen": "2-point increase in career goals"
@@ -1071,8 +1040,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Trey novice",
         "explaintw": "增加生涯3分球進球數",
         "explainen": "Increase career 3-point shot goals"
@@ -1090,8 +1057,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Trey expert",
         "explaintw": "增加生涯3分球進球數",
         "explainen": "Increase career 3-point shot goals"
@@ -1109,8 +1074,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Trey players",
         "explaintw": "增加生涯3分球進球數",
         "explainen": "Increase career 3-point shot goals"
@@ -1128,8 +1091,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Trey master",
         "explaintw": "增加生涯3分球進球數",
         "explainen": "Increase career 3-point shot goals"
@@ -1148,8 +1109,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Trey King",
         "explaintw": "增加生涯3分球進球數",
         "explainen": "Increase career 3-point shot goals"
@@ -1166,8 +1125,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "DEAR novice",
         "explaintw": "增加生涯灌籃數",
         "explainen": "Increase the number of career dunk"
@@ -1185,8 +1142,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Dunk ace",
         "explaintw": "增加生涯灌籃數",
         "explainen": "Increase the number of career dunk"
@@ -1204,8 +1159,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "DEAR players",
         "explaintw": "增加生涯灌籃數",
         "explainen": "Increase the number of career dunk"
@@ -1223,8 +1176,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Slam Dunk",
         "explaintw": "增加生涯灌籃數",
         "explainen": "Increase the number of career dunk"
@@ -1243,8 +1194,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "King of Dunk",
         "explaintw": "增加生涯灌籃數",
         "explainen": "Increase the number of career dunk"
@@ -1261,8 +1210,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Backboard novice",
         "explaintw": "增加生涯籃板數",
         "explainen": "Increased career rebounds"
@@ -1280,8 +1227,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Rebound ace",
         "explaintw": "增加生涯籃板數",
         "explainen": "Increased career rebounds"
@@ -1299,8 +1244,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Rebounder",
         "explaintw": "增加生涯籃板數",
         "explainen": "Increased career rebounds"
@@ -1318,8 +1261,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Rebounder",
         "explaintw": "增加生涯籃板數",
         "explainen": "Increased career rebounds"
@@ -1338,8 +1279,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "The king rebounds",
         "explaintw": "增加生涯籃板數",
         "explainen": "Increased career rebounds"
@@ -1356,8 +1295,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Assists novice",
         "explaintw": "增加生涯助攻數",
         "explainen": "Increase the number of career assists"
@@ -1375,8 +1312,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Assisted by experts",
         "explaintw": "增加生涯助攻數",
         "explainen": "Increase the number of career assists"
@@ -1394,8 +1329,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Assists players",
         "explaintw": "增加生涯助攻數",
         "explainen": "Increase the number of career assists"
@@ -1413,8 +1346,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Assisted by experts",
         "explaintw": "增加生涯助攻數",
         "explainen": "Increase the number of career assists"
@@ -1433,8 +1364,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "King of assists",
         "explaintw": "增加生涯助攻數",
         "explainen": "Increase the number of career assists"
@@ -1451,8 +1380,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Novice steals",
         "explaintw": "提加生涯抄截數",
         "explainen": "Tigard career steals Number"
@@ -1470,8 +1397,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Steals expert",
         "explaintw": "提加生涯抄截數",
         "explainen": "Tigard career steals Number"
@@ -1489,8 +1414,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Steals players",
         "explaintw": "提加生涯抄截數",
         "explainen": "Tigard career steals Number"
@@ -1508,8 +1431,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Steals master",
         "explaintw": "提加生涯抄截數",
         "explainen": "Tigard career steals Number"
@@ -1528,8 +1449,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "King of steals",
         "explaintw": "提加生涯抄截數",
         "explainen": "Tigard career steals Number"
@@ -1546,8 +1465,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Novice pot",
         "explaintw": "提加生涯火鍋數",
         "explainen": "Tigard career pot number"
@@ -1565,8 +1482,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Hotpot hotshot",
         "explaintw": "提加生涯火鍋數",
         "explainen": "Tigard career pot number"
@@ -1584,8 +1499,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Pot players",
         "explaintw": "提加生涯火鍋數",
         "explainen": "Tigard career pot number"
@@ -1603,8 +1516,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Master pot",
         "explaintw": "提加生涯火鍋數",
         "explainen": "Tigard career pot number"
@@ -1623,8 +1534,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "King fondue",
         "explaintw": "提加生涯火鍋數",
         "explainen": "Tigard career pot number"
@@ -1641,8 +1550,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Push the novice",
         "explaintw": "提加生涯推人數",
         "explainen": "Tigard push the number of career"
@@ -1660,8 +1567,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Pushing people hotshot",
         "explaintw": "提加生涯推人數",
         "explainen": "Tigard push the number of career"
@@ -1679,8 +1584,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Pushing people players",
         "explaintw": "提加生涯推人數",
         "explainen": "Tigard push the number of career"
@@ -1698,8 +1601,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Pushing people master",
         "explaintw": "提加生涯推人數",
         "explainen": "Tigard push the number of career"
@@ -1718,8 +1619,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Pushing people King",
         "explaintw": "提加生涯推人數",
         "explainen": "Tigard push the number of career"
@@ -1736,8 +1635,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Novice down",
         "explaintw": "提加生涯擊倒對手次數",
         "explainen": "Tigard career knockouts times"
@@ -1755,8 +1652,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Ace down",
         "explaintw": "提加生涯擊倒對手次數",
         "explainen": "Tigard career knockouts times"
@@ -1774,8 +1669,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Knock players",
         "explaintw": "提加生涯擊倒對手次數",
         "explainen": "Tigard career knockouts times"
@@ -1793,8 +1686,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Master down",
         "explaintw": "提加生涯擊倒對手次數",
         "explainen": "Tigard career knockouts times"
@@ -1813,8 +1704,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "The king down",
         "explaintw": "提加生涯擊倒對手次數",
         "explainen": "Tigard career knockouts times"
@@ -1831,8 +1720,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Perfect novice",
         "explaintw": "提高 Perfect 點擊成功次數",
         "explainen": "Click to increase the number of successful Perfect"
@@ -1850,8 +1737,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Perfect expert",
         "explaintw": "提高 Perfect 點擊成功次數",
         "explainen": "Click to increase the number of successful Perfect"
@@ -1869,8 +1754,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Perfect players",
         "explaintw": "提高 Perfect 點擊成功次數",
         "explainen": "Click to increase the number of successful Perfect"
@@ -1888,8 +1771,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Perfect master",
         "explaintw": "提高 Perfect 點擊成功次數",
         "explainen": "Click to increase the number of successful Perfect"
@@ -1908,8 +1789,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "King's Perfect",
         "explaintw": "提高 Perfect 點擊成功次數",
         "explainen": "Click to increase the number of successful Perfect"
@@ -1926,8 +1805,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Alley oops novice",
         "explaintw": "提高Alley oops 成功次數",
         "explainen": "Increase the number of successful Alley oops"
@@ -1945,8 +1822,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Alley oops ace",
         "explaintw": "提高Alley oops 成功次數",
         "explainen": "Increase the number of successful Alley oops"
@@ -1964,8 +1839,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Alley oops players",
         "explaintw": "提高Alley oops 成功次數",
         "explainen": "Increase the number of successful Alley oops"
@@ -1983,8 +1856,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Alley oops master",
         "explaintw": "提高Alley oops 成功次數",
         "explainen": "Increase the number of successful Alley oops"
@@ -2003,8 +1874,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Alley oops King",
         "explaintw": "提高Alley oops 成功次數",
         "explainen": "Increase the number of successful Alley oops"
@@ -2021,8 +1890,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "I upgrade the skills of the wafer",
         "explaintw": "提升技能晶片等級次數",
         "explainen": "Upgrade the skills of the wafer level times"
@@ -2040,8 +1907,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Skills upgrading wafer II",
         "explaintw": "提升技能晶片等級次數",
         "explainen": "Upgrade the skills of the wafer level times"
@@ -2059,8 +1924,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Skills Upgrade III chip",
         "explaintw": "提升技能晶片等級次數",
         "explainen": "Upgrade the skills of the wafer level times"
@@ -2078,8 +1941,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Skills upgrading wafer IV",
         "explaintw": "提升技能晶片等級次數",
         "explainen": "Upgrade the skills of the wafer level times"
@@ -2098,8 +1959,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Skills upgrading wafer V",
         "explaintw": "提升技能晶片等級次數",
         "explainen": "Upgrade the skills of the wafer level times"
@@ -2116,8 +1975,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Skills wafer evolution I",
         "explaintw": "提升技能晶片進化次數",
         "explainen": "Upgrade the skills of the wafer number of the evolution"
@@ -2135,8 +1992,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Skills wafer evolution II",
         "explaintw": "提升技能晶片進化次數",
         "explainen": "Upgrade the skills of the wafer number of the evolution"
@@ -2154,8 +2009,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Skills wafer evolution III",
         "explaintw": "提升技能晶片進化次數",
         "explainen": "Upgrade the skills of the wafer number of the evolution"
@@ -2173,8 +2026,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Evolution IV skills wafer",
         "explaintw": "提升技能晶片進化次數",
         "explainen": "Upgrade the skills of the wafer number of the evolution"
@@ -2193,8 +2044,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Skills wafer evolutionary V",
         "explaintw": "提升技能晶片進化次數",
         "explainen": "Upgrade the skills of the wafer number of the evolution"
@@ -2211,8 +2060,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Synaptic mosaic I",
         "explaintw": "提高突觸裝備的鑲嵌次數",
         "explainen": "Mosaic increase the number of synapses and equipment"
@@ -2230,8 +2077,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Synaptic Mosaic II",
         "explaintw": "提高突觸裝備的鑲嵌次數",
         "explainen": "Mosaic increase the number of synapses and equipment"
@@ -2249,8 +2094,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Synaptic Mosaic III",
         "explaintw": "提高突觸裝備的鑲嵌次數",
         "explainen": "Mosaic increase the number of synapses and equipment"
@@ -2268,8 +2111,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Synaptic Mosaic IV",
         "explaintw": "提高突觸裝備的鑲嵌次數",
         "explainen": "Mosaic increase the number of synapses and equipment"
@@ -2288,8 +2129,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Synaptic mosaic V",
         "explaintw": "提高突觸裝備的鑲嵌次數",
         "explainen": "Mosaic increase the number of synapses and equipment"
@@ -2306,8 +2145,6 @@
         "money": [1000],
         "exp": [5],
         "diamond": [20],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Synaptic evolution I",
         "explaintw": "提高突觸裝備的進化次數",
         "explainen": "Increase the number of synapses equipment evolution"
@@ -2325,8 +2162,6 @@
         "money": [1200,1300],
         "exp": [5,5],
         "diamond": [25,30],
-        "awardid": [0,0],
-        "awardnum": [0,0],
         "nameen": "Synaptic Evolution II",
         "explaintw": "提高突觸裝備的進化次數",
         "explainen": "Increase the number of synapses equipment evolution"
@@ -2344,8 +2179,6 @@
         "money": [3100,3300,3500],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Synaptic Evolution III",
         "explaintw": "提高突觸裝備的進化次數",
         "explainen": "Increase the number of synapses equipment evolution"
@@ -2363,8 +2196,6 @@
         "money": [3700,3900,4100,4300],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "awardid": [0,0,0,0],
-        "awardnum": [0,0,0,0],
         "nameen": "Synaptic Evolution IV",
         "explaintw": "提高突觸裝備的進化次數",
         "explainen": "Increase the number of synapses equipment evolution"
@@ -2383,8 +2214,6 @@
         "money": [7600,8200,8800,9400,10000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Synaptic Evolution V",
         "explaintw": "提高突觸裝備的進化次數",
         "explainen": "Increase the number of synapses equipment evolution"
@@ -2404,8 +2233,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Career progress",
         "explaintw": "取得生涯競賽的勝利",
         "explainen": "Obtain career race victory"
@@ -2425,8 +2252,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [15],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Lien Chan are the Czech Republic",
         "explaintw": "取得生涯競賽或者魔王挑戰的連勝",
         "explainen": "Career race winning streak or the devil challenges"
@@ -2445,8 +2270,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Challenge the devil",
         "explaintw": "取得魔王挑戰的勝利",
         "explainen": "Won devil challenges"
@@ -2465,8 +2288,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Union victory",
         "explaintw": "取得聯盟對戰的勝利",
         "explainen": "Union made war victory"
@@ -2486,8 +2307,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [15],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "League winning streak",
         "explaintw": "取得聯盟競賽的連續勝利",
         "explainen": "Consecutive league victory of the competition"
@@ -2506,8 +2325,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Timing was",
         "explaintw": "成功掌握投籃的Perfect時機次數",
         "explainen": "Perfect opportunity to successfully master the shooting times"
@@ -2526,8 +2343,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Skills Growth",
         "explaintw": "技能晶片升級合成次數",
         "explainen": "Skills upgrading wafer synthesis times"
@@ -2546,8 +2361,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Skills breakthrough",
         "explaintw": "技能晶片進化次數",
         "explainen": "Skills wafer evolutionary times"
@@ -2566,8 +2379,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [5],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Strengthening synapses",
         "explaintw": "突觸強化鑲嵌次數",
         "explainen": "The number of synaptic strengthening mosaic"
@@ -2586,8 +2397,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Synaptic evolution",
         "explaintw": "突觸強化合成次數",
         "explainen": "Synthesis number of synaptic strengthening"
@@ -2606,8 +2415,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Physical Daren",
         "explaintw": "消費體力數量",
         "explainen": "Number of physical consumption"
@@ -2627,8 +2434,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Gold Daren",
         "explaintw": "消費金幣數量",
         "explainen": "Number of gold consumption"
@@ -2648,8 +2453,6 @@
         "money": [100],
         "exp": [30],
         "diamond": [10],
-        "awardid": [0],
-        "awardnum": [0],
         "nameen": "Gem Daren",
         "explaintw": "消費寶石數量",
         "explainen": "Number of consumer Gem"
@@ -2668,8 +2471,6 @@
         "money": [2000,4000,8000],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Playing career",
         "explaintw": "每週提升等級",
         "explainen": "Enhance the level of a week"
@@ -2688,8 +2489,6 @@
         "money": [2000,4000,8000],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Career progress",
         "explaintw": "每週獲得大量勝利",
         "explainen": "Get a lot of victory a week"
@@ -2708,8 +2507,6 @@
         "money": [2000,4000,8000],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "awardid": [0,0,0],
-        "awardnum": [0,0,0],
         "nameen": "Cumulative score",
         "explaintw": "每週獲得大量分數",
         "explainen": "Get a lot of points every week"
@@ -2728,8 +2525,6 @@
         "money": [8000,16000,24000,32000,40000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Playing career",
         "explaintw": "每週提升等級",
         "explainen": "Enhance the level of a week"
@@ -2748,8 +2543,6 @@
         "money": [8000,16000,24000,32000,40000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Career progress",
         "explaintw": "每週獲得大量勝利",
         "explainen": "Get a lot of victory a week"
@@ -2768,8 +2561,6 @@
         "money": [8000,16000,24000,32000,40000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "awardid": [0,0,0,0,0],
-        "awardnum": [0,0,0,0,0],
         "nameen": "Cumulative score",
         "explaintw": "每週獲得大量分數",
         "explainen": "Get a lot of points every week"
