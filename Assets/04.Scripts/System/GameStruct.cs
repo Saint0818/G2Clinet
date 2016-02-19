@@ -1477,4 +1477,71 @@ namespace GameStruct
 		public int PVPCoin;
 		public TDailyCount DailyCount;		
 	}
+
+	public struct TSuitCard 
+	{
+		public int ID;
+		public string SuitNameTW;
+		public string SuitNameCN;
+		public string SuitNameEN;
+		public string SuitNameJP;
+		public int Item1;
+		public int Item2;
+		public int Item3;
+		public int CardPower;
+		public int AttrKind1;
+		public int Value1;
+		public int AttrKind2;
+		public int Value2;
+		public int AttrKind3;
+		public int Value3;
+
+		public int[] Items {
+			get {
+				int[] items = new int[3];
+				items[0] = Item1;
+				items[1] = Item2;
+				items[2] = Item3;
+				return items;
+			}
+		}
+
+		public int[] AttrKind {
+			get {
+				int[] attrKinds = new int[3];
+				attrKinds[0] = AttrKind1;
+				attrKinds[1] = AttrKind2;
+				attrKinds[2] = AttrKind3;
+				return attrKinds;
+			}
+		}
+
+		public int[] Value {
+			get {
+				int[] values = new int[3];
+				values[0] = Value1;
+				values[1] = Value2;
+				values[2] = Value3;
+				return values;
+			}
+		}
+
+		public string SuitName {
+			get
+			{
+				switch(GameData.Setting.Language)
+				{
+				case ELanguage.TW: return SuitNameTW;
+				case ELanguage.CN: return SuitNameCN;
+				case ELanguage.JP: return SuitNameJP;
+				default : return SuitNameEN;
+				}
+			}
+		}
+	}
+
+	public struct TSuitItem {
+		public int ID;
+	}
+
 }

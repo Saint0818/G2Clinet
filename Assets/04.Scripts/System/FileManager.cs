@@ -83,7 +83,7 @@ public class FileManager : KnightSingleton<FileManager>
         {
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
-        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily"
+        "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -218,7 +218,9 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[20] = ParseMall;
         downloadCallBack[21] = ParsePVP;
         downloadCallBack[22] = parseLimitData;
-        downloadCallBack[23] = parseDailyData;
+		downloadCallBack[23] = parseDailyData;
+		downloadCallBack[24] = ParseSuitCard;
+		downloadCallBack[25] = ParseSuitItem;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -591,7 +593,7 @@ public class FileManager : KnightSingleton<FileManager>
 			}
 			
 			if(isSaveVersion)
-				SaveDataVersionAndJson(text, "item", version);
+				SaveDataVersionAndJson(text, "exp", version);
 			
 			Debug.Log ("[item parsed finished.] ");
 		} catch (Exception ex) {
@@ -742,7 +744,7 @@ public class FileManager : KnightSingleton<FileManager>
             GameData.SkillRecommends = JsonConvert.DeserializeObject<TSkillRecommend[]>(text);
 
             if (isSaveVersion)
-                SaveDataVersionAndJson(text, "textconst", version);
+				SaveDataVersionAndJson(text, "skillrecommend", version);
 
             Debug.Log ("[SkillRecommend parsed finished.]");
         } catch (System.Exception ex) {
@@ -768,7 +770,7 @@ public class FileManager : KnightSingleton<FileManager>
 					Debug.Log("Mission id repeat " + GameData.MissionData[i].ID.ToString());
 			
             if (isSaveVersion)
-                SaveDataVersionAndJson(text, "textconst", version);
+				SaveDataVersionAndJson(text, "mission", version);
 
             Debug.Log ("[Achievement parsed finished.]");
         } catch (System.Exception ex) {
@@ -788,7 +790,7 @@ public class FileManager : KnightSingleton<FileManager>
 			}
 
 			if (isSaveVersion)
-				SaveDataVersionAndJson(text, "textconst", version);
+				SaveDataVersionAndJson(text, "pickcost", version);
 
 			Debug.Log ("[PickCost parsed finished.]");
 		} catch (System.Exception ex) {
@@ -801,7 +803,7 @@ public class FileManager : KnightSingleton<FileManager>
 			GameData.DShops = JsonConvertWrapper.DeserializeObject<TShop[]>(text);
 
 			if (isSaveVersion)
-				SaveDataVersionAndJson(text, "textconst", version);
+				SaveDataVersionAndJson(text, "shop", version);
 
 			Debug.Log ("[Shop parsed finished.]");
 		} catch (System.Exception ex) {
@@ -814,7 +816,7 @@ public class FileManager : KnightSingleton<FileManager>
 			GameData.DMalls = JsonConvertWrapper.DeserializeObject<TMall[]>(text);
 
 			if (isSaveVersion)
-				SaveDataVersionAndJson(text, "textconst", version);
+				SaveDataVersionAndJson(text, "mall", version);
 
 			Debug.Log ("[Mall parsed finished.]");
 		} catch (System.Exception ex) {
@@ -837,11 +839,55 @@ public class FileManager : KnightSingleton<FileManager>
             }
 
             if(isSaveVersion)
-                SaveDataVersionAndJson(text, "item", version);
+                SaveDataVersionAndJson(text, "pvp", version);
 
 			Debug.Log ("[PVP parsed finished.] ");
         } catch (System.Exception ex) {
 			Debug.LogError ("[PVP parsed error] " + ex.Message);
         }
+	}
+
+	public void ParseSuitCard(string version, string text, bool isSaveVersion) 
+	{
+		try
+		{
+			TSuitCard[] data = JsonConvertWrapper.DeserializeObject<TSuitCard[]>(text);
+
+			for (int i = 0; i < data.Length; i++) {
+				if(!GameData.DSuitCard.ContainsKey(data[i].ID))
+					GameData.DSuitCard.Add(data[i].ID, data[i]);
+				else 
+					Debug.LogError("GameData.DSuitCard is ContainsKey:"+ data[i].ID);
+			}
+
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "suitcard", version);
+
+			Debug.Log ("[SuitCard parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[SuitCard parsed error] " + ex.Message);
+		}
+	}
+
+	public void ParseSuitItem(string version, string text, bool isSaveVersion) 
+	{
+		try
+		{
+			TSuitItem[] data = JsonConvertWrapper.DeserializeObject<TSuitItem[]>(text);
+
+			for (int i = 0; i < data.Length; i++) {
+				if(!GameData.DSuitItem.ContainsKey(data[i].ID))
+					GameData.DSuitItem.Add(data[i].ID, data[i]);
+				else 
+					Debug.LogError("GameData.SuitItem is ContainsKey:"+ data[i].ID);
+			}
+
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "suititem", version);
+
+			Debug.Log ("[SuitItem parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[SuitItem parsed error] " + ex.Message);
+		}
 	}
 }

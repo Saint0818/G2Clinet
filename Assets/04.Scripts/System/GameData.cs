@@ -55,6 +55,8 @@ public static class GameData
 	public static TPickCost[] DPickCost; // Order 排列順序
     public static TShop[] DShops;
     public static TMall[] DMalls;
+	public static Dictionary<int, TSuitCard> DSuitCard = new Dictionary<int, TSuitCard>();
+	public static Dictionary<int, TSuitItem> DSuitItem = new Dictionary<int, TSuitItem>();
 
     public static float ServerVersion;
     public static float SaveVersion;
