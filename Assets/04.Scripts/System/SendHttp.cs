@@ -153,7 +153,7 @@ public static class URLConst {
     public const string GMSavePotential = "gmsavepotential";
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";
     public const string GMResetStage = "gmresetstage";
-    public const string GMResetLoginMonths = "gmresetloginmonths";
+    public const string GMResetDailyLoginNums = "gmresetdailyloginnums";
     public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
@@ -456,6 +456,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				string text = GSocket.Get.OnHttpText(www.text);
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
+
+//			    Debug.LogFormat("DailyLogin, [{0},{1},{2}]", GameData.Team.DailyLoginRewardYear, GameData.Team.DailyLoginRewardMonth, GameData.Team.DailyLoginRewardIndex);
+//			    Debug.LogFormat("LifeTimeLoginNum:{0}", GameData.Team.LifeTimeLoginNum);
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();

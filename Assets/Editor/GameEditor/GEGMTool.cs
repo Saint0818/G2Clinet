@@ -266,7 +266,7 @@ public class GEGMTool : GEBase
         addPower();
         addExp();
         setMaxPlayerBank();
-        resetLoginMonths();
+        resetDailyLoginNums();
     }
 
     private int mMaxPlayerBank = 2;
@@ -901,21 +901,21 @@ public class GEGMTool : GEBase
         }
     }
 
-    private void resetLoginMonths()
+    private void resetDailyLoginNums()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("每月登入次數: ");
         if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
-            SendHttp.Get.Command(URLConst.GMResetLoginMonths, waitGMResetLoginMonths, form);
+            SendHttp.Get.Command(URLConst.GMResetDailyLoginNums, waitGMResetDailyLoginNums, form);
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void waitGMResetLoginMonths(bool ok, WWW www)
+    private void waitGMResetDailyLoginNums(bool ok, WWW www)
     {
-        Debug.LogFormat("waitGMResetLoginMonths, ok:{0}", ok);
+        Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
     }
 
     private void BattleHandle()
