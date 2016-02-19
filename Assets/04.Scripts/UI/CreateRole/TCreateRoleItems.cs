@@ -1,18 +1,18 @@
 public struct TCreateRoleItems
 {
-    public int ColorC;
+    public int BodyC;
     public int HairC;
     public int ClothC;
     public int PantsC;
     public int ShoesC;
 
-    public int ColorF;
+    public int BodyF;
     public int HairF;
     public int ClothF;
     public int PantsF;
     public int ShoesF;
 
-    public int ColorG;
+    public int BodyG;
     public int HairG;
     public int ClothG;
     public int PantsG;

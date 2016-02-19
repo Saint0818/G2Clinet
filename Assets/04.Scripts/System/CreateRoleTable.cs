@@ -32,23 +32,38 @@ public class CreateRoleTable
         TCreateRoleItems[] items = (TCreateRoleItems[])JsonConvert.DeserializeObject(jsonText, typeof(TCreateRoleItems[]));
         foreach(var item in items)
         {
-            mBodies[EPlayerPostion.C].Add(item.ColorC);
-            mHairs[EPlayerPostion.C].Add(item.HairC);
-            mCloths[EPlayerPostion.C].Add(item.ClothC);
-            mPants[EPlayerPostion.C].Add(item.PantsC);
-            mShoes[EPlayerPostion.C].Add(item.ShoesC);
+            if(item.BodyC > 0)
+                mBodies[EPlayerPostion.C].Add(item.BodyC);
+            if(item.HairC > 0)
+                mHairs[EPlayerPostion.C].Add(item.HairC);
+            if(item.ClothC > 0)
+                mCloths[EPlayerPostion.C].Add(item.ClothC);
+            if(item.PantsC > 0)
+                mPants[EPlayerPostion.C].Add(item.PantsC);
+            if(item.ShoesC > 0)
+                mShoes[EPlayerPostion.C].Add(item.ShoesC);
 
-            mBodies[EPlayerPostion.F].Add(item.ColorF);
-            mHairs[EPlayerPostion.F].Add(item.HairF);
-            mCloths[EPlayerPostion.F].Add(item.ClothF);
-            mPants[EPlayerPostion.F].Add(item.PantsF);
-            mShoes[EPlayerPostion.F].Add(item.ShoesF);
+            if(item.BodyF > 0)
+                mBodies[EPlayerPostion.F].Add(item.BodyF);
+            if(item.HairF > 0)
+                mHairs[EPlayerPostion.F].Add(item.HairF);
+            if(item.ClothF > 0)
+                mCloths[EPlayerPostion.F].Add(item.ClothF);
+            if(item.PantsF > 0)
+                mPants[EPlayerPostion.F].Add(item.PantsF);
+            if(item.ShoesF > 0)
+                mShoes[EPlayerPostion.F].Add(item.ShoesF);
 
-            mBodies[EPlayerPostion.G].Add(item.ColorG);
-            mHairs[EPlayerPostion.G].Add(item.HairG);
-            mCloths[EPlayerPostion.G].Add(item.ClothG);
-            mPants[EPlayerPostion.G].Add(item.PantsG);
-            mShoes[EPlayerPostion.G].Add(item.ShoesG);
+            if(item.BodyG > 0)
+                mBodies[EPlayerPostion.G].Add(item.BodyG);
+            if(item.HairG > 0)
+                mHairs[EPlayerPostion.G].Add(item.HairG);
+            if(item.ClothG > 0)
+                mCloths[EPlayerPostion.G].Add(item.ClothG);
+            if(item.PantsG > 0)
+                mPants[EPlayerPostion.G].Add(item.PantsG);
+            if(item.ShoesG > 0)
+                mShoes[EPlayerPostion.G].Add(item.ShoesG);
         }
 
         Debug.Log("[createroleitem parsed finished.]");
