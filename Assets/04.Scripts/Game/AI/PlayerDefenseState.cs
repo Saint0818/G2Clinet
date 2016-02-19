@@ -35,6 +35,7 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+            mPlayer.ResetMove();
 //			if (mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0)
 //            {
 //                if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))

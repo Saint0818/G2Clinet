@@ -56,6 +56,7 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+            mPlayer.ResetMove();
 //            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
 
 //			if(mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0) 

@@ -2821,6 +2821,11 @@ public class GameController : KnightSingleton<GameController>
     /// <returns></returns>
 	IEnumerator AutoTee()
     {
+        if (BallOwner)
+        {
+            Vector3 lookatV3 = CourtMgr.Get.ShootPoint[BallOwner.Team == ETeamKind.Self ? 1 : 0].transform.position;
+            BallOwner.RotateTo(lookatV3.x, lookatV3.z);
+        }
 		yield return new WaitForSeconds(1);
 
 		bool flag = false;
@@ -4328,6 +4333,10 @@ public class GameController : KnightSingleton<GameController>
 
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
+        //預防撿球時，被推倒卡住
+        if (Situation != EGameSituation.GamerAttack || Situation != EGameSituation.NPCAttack)
+            return;
+        
 		for (int i = 0; i < PlayerList.Count; i++)
         {
 			if(PlayerList[i] && PlayerList[i].Team != player.Team && !PlayerList[i].IsUseActiveSkill)
