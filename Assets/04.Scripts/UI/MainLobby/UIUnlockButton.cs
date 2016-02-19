@@ -24,7 +24,7 @@ public class UIUnlockButton : MonoBehaviour
     {
 //        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 0);
 
-        TLimitData limit = LimitTable.Ins.GetByID(OpenID);
+        TLimitData limit = LimitTable.Ins.GetByOpenID(OpenID);
         if(limit != null)
         {
             IsEnable = GameData.Team.Player.Lv >= limit.Lv;

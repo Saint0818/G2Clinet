@@ -21,7 +21,7 @@ public class LimitTable
 
     private readonly Dictionary<EOpenID, TLimitData> mLimitsByOpenID = new Dictionary<EOpenID, TLimitData>();
 
-    private readonly Dictionary<int, TLimitData> mLimitsByLv = new Dictionary<int, TLimitData>();
+    private readonly Dictionary<int, List<TLimitData>> mLimitsByLv = new Dictionary<int, List<TLimitData>>();
 
     private LimitTable() {}
 
@@ -39,7 +39,10 @@ public class LimitTable
         foreach(TLimitData limit in limits)
         {
             mLimitsByOpenID.Add(limit.OpenID, limit);
-            mLimitsByLv.Add(limit.Lv, limit);
+
+            if(!mLimitsByLv.ContainsKey(limit.Lv))
+                mLimitsByLv.Add(limit.Lv, new List<TLimitData>());
+            mLimitsByLv[limit.Lv].Add(limit);
         }
 
         Debug.Log("[limit parsed finished.] ");
@@ -50,17 +53,15 @@ public class LimitTable
         mLimitsByOpenID.Clear();
     }
 
-    public bool HasByID(EOpenID id)
+    public bool HasByOpenID(EOpenID id)
     {
         return mLimitsByOpenID.ContainsKey(id);
     }
 
     [CanBeNull]
-    public TLimitData GetByID(EOpenID id)
+    public TLimitData GetByOpenID(EOpenID id)
     {
-        if(mLimitsByOpenID.ContainsKey(id))
-            return mLimitsByOpenID[id];
-        return null;
+        return mLimitsByOpenID.ContainsKey(id) ? mLimitsByOpenID[id] : null;
     }
 
     public bool HasOpenIDByLv(int lv)
@@ -70,15 +71,11 @@ public class LimitTable
 
     public int GetLv(EOpenID id)
     {
-        if(mLimitsByOpenID.ContainsKey(id))
-            return mLimitsByOpenID[id].Lv;
-        return 0;
+        return mLimitsByOpenID.ContainsKey(id) ? mLimitsByOpenID[id].Lv : 0;
     }
 
     public int GetDiamond(EOpenID id)
     {
-        if(mLimitsByOpenID.ContainsKey(id))
-            return mLimitsByOpenID[id].Diamond;
-        return 0;
+        return mLimitsByOpenID.ContainsKey(id) ? mLimitsByOpenID[id].Diamond : 0;
     }
 }

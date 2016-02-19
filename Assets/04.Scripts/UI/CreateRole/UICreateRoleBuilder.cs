@@ -57,7 +57,7 @@ public static class UICreateRoleBuilder
         Func<string> needDiamond = () =>
         {
             int diamond = 0;
-            TLimitData data = LimitTable.Ins.GetByID(EOpenID.CreateRole);
+            TLimitData data = LimitTable.Ins.GetByOpenID(EOpenID.CreateRole);
             if(data != null)
                 diamond = data.Diamond;
             return string.Format(TextConst.S(513), diamond);

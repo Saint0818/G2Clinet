@@ -573,9 +573,9 @@ public static class GameData
 
     public static bool IsOpenUIEnable(EOpenID openID)
     {
-        if(!LimitTable.Ins.HasByID(openID))
+        if(!LimitTable.Ins.HasByOpenID(openID))
             return true;
 
-        return Team.Player.Lv >= LimitTable.Ins.GetByID(openID).Lv;
+        return Team.Player.Lv >= LimitTable.Ins.GetByOpenID(openID).Lv;
     }
 }

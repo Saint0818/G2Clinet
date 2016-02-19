@@ -33,15 +33,18 @@
     },
     {
         "openid": 22,
-        "lv": 11
+        "lv": 11,
+        "visiblelv": 8
     },
     {
         "openid": 21,
-        "lv": 12
+        "lv": 15,
+        "visiblelv": 10
     },
     {
         "openid": 8,
-        "lv": 15
+        "lv": 15,
+        "visiblelv": 10
     },
     {
         "openid": 10,
