@@ -267,6 +267,7 @@ public class GEGMTool : GEBase
         addExp();
         setMaxPlayerBank();
         resetDailyLoginNums();
+        setDailyLoginNums();
         setLifeTimeLoginNum();
     }
 
@@ -917,6 +918,35 @@ public class GEGMTool : GEBase
     private void waitGMResetDailyLoginNums(bool ok, WWW www)
     {
         Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
+    }
+
+    private int mDailyLoginYear = DateTime.Now.Year;
+    private int mDailyLoginMonth = DateTime.Now.Month;
+    private int mDailyLoginLoginNum;
+    private void setDailyLoginNums()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("每月登入次數: ");
+        GUILayout.Label("年:");
+        mDailyLoginYear = EditorGUILayout.IntField(mDailyLoginYear);
+        GUILayout.Label("月:");
+        mDailyLoginMonth = EditorGUILayout.IntField(mDailyLoginMonth);
+        GUILayout.Label("次數:");
+        mDailyLoginLoginNum = EditorGUILayout.IntField(mDailyLoginLoginNum);
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Year", mDailyLoginYear);
+            form.AddField("Month", mDailyLoginMonth);
+            form.AddField("LoginNum", mDailyLoginLoginNum);
+            SendHttp.Get.Command(URLConst.GMSetDailyLoginNums, waitGMSetDailyLoginNums, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMSetDailyLoginNums(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMSetDailyLoginNums, ok:{0}", ok);
     }
 
     private int mLifeTimeLoginNum;
