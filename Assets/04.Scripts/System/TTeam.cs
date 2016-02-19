@@ -67,6 +67,11 @@ namespace GameStruct
         /// </summary>
         public int DailyLoginRewardIndex;
 
+        /// <summary>
+        /// 終生登入獎勵. 這是對應到 LifeTimeTable 的登入次數..
+        /// </summary>
+        public int LifeTimeLoginNum;
+
         //PVP
         public int PVPCoin; //聯盟幣
         public int PVPLv;
