@@ -24,7 +24,7 @@
 	public static int PotentialResetPrice = 100;
 	public static int[] PotentialRule = new int[6]{5, 5, 5, 5, 5, 5};
 
-	public static int RenamePrice = 100;
+	public static int RenamePrice = 300;
 	
 	public const int ID_LimitActive = 10000;
 

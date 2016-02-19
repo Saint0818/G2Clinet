@@ -133,7 +133,12 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public bool SocialNotice
     {
-        set { SocialNoticeObj.SetActive(value); }
+        set { 
+            if (GameData.IsOpenUIEnable(GameEnum.EOpenID.Social))
+                SocialNoticeObj.SetActive(value); 
+            else
+                SocialNoticeObj.SetActive(false); 
+        }
     }
 
     public bool ShopNotice

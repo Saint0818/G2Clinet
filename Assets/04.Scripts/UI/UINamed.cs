@@ -4,9 +4,10 @@ using UnityEngine;
 public struct TRenameResult {
 	public string Name;
 	public int Diamond;
+    public int RenameCount;
 }
 
-public class NameView
+public class TNameView
 {
 	private GameObject self;
 	private UIInput nameInput;
@@ -30,13 +31,22 @@ public class NameView
 
 			if(isInit)
 			{
-				tip.text = TextConst.S(9000002);
-				price.text = GameConst.RenamePrice.ToString();
+                UpdateUI();
 				if(randomFunction != null)
 					randomBtn.onClick.Add(randomFunction);
 			}
 		}
 	}
+
+    public void UpdateUI() {
+        int diamond = 0;
+        if (!string.IsNullOrEmpty(GameData.Team.Player.Name))
+            diamond = GameData.Team.LifetimeRecord.RenameCount * GameConst.RenamePrice;
+
+        bool flag = GameData.Team.CoinEnough(0, diamond);
+        price.color = GameData.CoinEnoughTextColor(flag);
+        price.text = diamond.ToString();
+    }
 
 	public void UpdateView()
 	{
@@ -60,13 +70,13 @@ public class NameView
 	public bool IsLegal
 	{
 		get{ 
-			if(Name.Length >= 2 && Name.Length <= 20)
+			if(Name.Length >= 2 && Name.Length <= 16)
 			{
 				return true;
 			}
 			else
 			{
-				UIHint.Get.ShowHint(TextConst.S(9000005), Color.red);
+				UIHint.Get.ShowHint(TextConst.S(3407), Color.red);
 				return false;
 			}
 		}
@@ -76,7 +86,7 @@ public class NameView
 public class UINamed : UIBase {
 	private static UINamed instance = null;
 	private const string UIName = "UINamed";
-	private NameView nameView = new NameView();
+	private TNameView nameView = new TNameView();
 	private UIButton yesBtn;
 	private UIButton noBtn;
 
@@ -111,14 +121,15 @@ public class UINamed : UIBase {
 		SetBtnFun(UIName + "/Center/NoBtn", OnCancelChange);
 	}
 
-	protected override void InitText(){
-		SetLabel (UIName + "/Center/Title/LabelTitle", TextConst.S(9000000));
-	}
-
 	protected override void OnShow(bool isShow) {
         base.OnShow(isShow);
-		if(isShow){
+
+		if (isShow) {
 			nameView.UpdateView ();
+            if (string.IsNullOrEmpty(GameData.Team.Player.Name))
+                SetLabel (UIName + "/Center/NamedView/SpendGemIcon/PriceLabel", "0");
+            else
+                SetLabel (UIName + "/Center/NamedView/SpendGemIcon/PriceLabel", (300 * (GameData.Team.LifetimeRecord.RenameCount + 1)).ToString());
 		}
 	}
 
@@ -134,12 +145,17 @@ public class UINamed : UIBase {
 
 	private void OnCheckBtn()
 	{
-		if (nameView.IsChange && nameView.IsLegal)
-			changePlayerName ();
-		else
-		{
+        if (nameView.IsChange && nameView.IsLegal) {
+            int diamond = 0;
+            if (!string.IsNullOrEmpty(GameData.Team.Player.Name))
+                diamond = GameData.Team.LifetimeRecord.RenameCount * 300;
+
+            if (diamond > 0)
+                CheckDiamond(diamond, true, string.Format(TextConst.S(3406), diamond), changePlayerName, nameView.UpdateUI);
+            else
+                changePlayerName();
+        } else
 			UIShow(false);
-		}
 	}
 
 	private void OnCancelChange()
@@ -162,16 +178,16 @@ public class UINamed : UIBase {
 	{
 		if (ok)
 		{
-			TRenameResult result = JsonConvert.DeserializeObject<TRenameResult>(www.text);
-			GameData.Team.Player.Name = result.Name;
-			GameData.Team.Diamond = result.Diamond;
-			UIMainLobby.Get.UpdateUI();
-			if(UIPlayerInfo.Visible)
-				UIPlayerInfo.UIShow(true,ref GameData.Team);
-//			UIHint.Get.ShowHint("Change Name Success!", Color.black);
-		}
-		else
-			UIHint.Get.ShowHint(string.Format("Change Player Name fail! {0}", www.text), Color.red);
+            if (SendHttp.Get.CheckServerMessage(www.text)) {
+    			TRenameResult result = JsonConvert.DeserializeObject<TRenameResult>(www.text);
+    			GameData.Team.Player.Name = result.Name;
+    			GameData.Team.Diamond = result.Diamond;
+                GameData.Team.LifetimeRecord.RenameCount = result.RenameCount;
+    			UIMainLobby.Get.UpdateUI();
+    			if(UIPlayerInfo.Visible)
+    				UIPlayerInfo.UIShow(true,ref GameData.Team);
+    		}
+        }
 
 		if (UIPlayerInfo.Visible)
 			UIPlayerInfo.Get.UpdatePage (0);

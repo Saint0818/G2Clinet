@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "  {0} Out"
+        "en": "  {0} Out"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": "  {0:00} day {1:00} when"
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": "  {0:00} when {1:00} minutes"
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": "  {0:00} sub {1:00} seconds"
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
@@ -984,7 +984,7 @@
         "id": 3205,
         "uipeth": "WarningLabel",
         "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
-        "en": "Potential to obtain:\n[33F FDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
+        "en": "Potential to obtain:\n[33FFDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
     },
     {
         "id": 3206,
@@ -1107,13 +1107,13 @@
         "explain": "力 量",
         "uipeth": "AttrKind7/ExplainLabel",
         "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
-        "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase the chance of elbowing opponent in AI mode"
+        "en": "1. Less chance to fall after being pushed by opponent.\n2. Increase the chance of elbowing opponent in AI mode\n3. Automatic alley-oops percentage in AI mode."
     },
     {
         "id": 3327,
         "explain": "灌 籃",
         "uipeth": "AttrKind9/ExplainLabel",
-        "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率",
+        "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率\n3.發動Alley-oops灌籃的機率",
         "en": "1. Higher percentage to activate dunking ability in the restricted area.\n2. Higher percentage to activate tip-in."
     },
     {
@@ -1168,20 +1168,40 @@
         "id": 3402,
         "explain": "修改名稱會消費的寶石金額",
         "uipeth": "WarningLabel",
-        "tw": "本次修改需花費",
-        "en": "The Cost For The Changes Made"
+        "tw": "修改需花費",
+        "en": "Must Spend "
     },
     {
         "id": 3403,
         "explain": "最多可使用的字數",
         "uipeth": "NameLabel",
-        "tw": "字元長度1-8個字",
-        "en": "From 1-16 Characters"
+        "tw": "字元長度2-16個字",
+        "en": "2 to 16 Characters"
     },
     {
         "id": 3404,
         "tw": "你",
         "en": "You"
+    },
+    {
+        "id": 3405,
+        "tw": "名稱中含非法字元，請重新命名。",
+        "en": "Illegal name. Please rename again."
+    },
+    {
+        "id": 3406,
+        "tw": "花費鑽石{0}修改名稱？",
+        "en": "Spending {0} diamonds to rename ?"
+    },
+    {
+        "id": 3407,
+        "tw": "字元長度需介於2-16個字。",
+        "en": "Character length must be between 2-16 characters."
+    },
+    {
+        "id": 3408,
+        "tw": "名稱已被使用，請重新命名。",
+        "en": "This name was be used. Please rename again."
     },
     {
         "id": 3501,
@@ -1737,13 +1757,13 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -1941,7 +1961,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": "  {0} ago"
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
@@ -2062,7 +2082,7 @@
     {
         "id": 5031,
         "tw": " [969696FF]搜尋符合[-]",
-        "en": "  [969696FF] Search accord [-] "
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
@@ -2544,7 +2564,8 @@
         "id": 7221,
         "explain": "晶片類型",
         "uipeth": "LabelKind5",
-        "tw": "晶片類型"
+        "tw": "晶片類型",
+        "en": "Wafer type"
     },
     {
         "id": 7222,
@@ -2881,6 +2902,50 @@
         "en": "All"
     },
     {
+        "id": 8200,
+        "explain": "套裝介面",
+        "tw": "套裝圖鑑"
+    },
+    {
+        "id": 8201,
+        "explain": "Left list標題",
+        "tw": "套裝列表",
+        "en": "ALL Suits List"
+    },
+    {
+        "id": 8202,
+        "explain": "Right list標題",
+        "tw": "對應晶片",
+        "en": "Match Ability Cards"
+    },
+    {
+        "id": 8203,
+        "explain": "Right下方對應晶片說明",
+        "uipeth": "CaptionLabel",
+        "tw": "同時擁有上列技能晶片，即能降低晶片COST，1 件即降低 [00E1FFFF]{0}[-]，以此類推。\n此系列晶片已降低 [00ff00]{1}[-] COST。",
+        "en": "Also has above the Ability Cards, the cards that can reduce the COST, a deduction that is [00E1FFFF]{0}[-], and so on.此系列晶片已降低 [00ff00]{1}[-] COST。"
+    },
+    {
+        "id": 8204,
+        "explain": "Middle下方套裝說明",
+        "uipeth": "CaptionLabel",
+        "tw": "收集同系列造型套裝，擁有 2 件以上即可開啟加成效果，收集越多加成越多！",
+        "en": "Suits are special collections. Characters who get more than one item from a particular Suits receive special bonuses. "
+    },
+    {
+        "id": 8205,
+        "explain": "套裝加成屬性",
+        "uipeth": "BonusLabelView/0~6",
+        "tw": " ({0})件：{1}+{2} ",
+        "en": " ({0})pieces：{1}+{2} "
+    },
+    {
+        "id": 8206,
+        "explain": "無對應晶片時的說明",
+        "uipeth": "NoCardLabel",
+        "tw": "此套造型無對應技能晶片"
+    },
+    {
         "id": 9001,
         "explain": "競賽介面",
         "tw": "競賽大廳",
@@ -3165,7 +3230,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": "  {0} in use"
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
@@ -3213,7 +3278,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "The next stage\n  {0} "
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,

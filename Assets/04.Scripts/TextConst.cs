@@ -100,7 +100,7 @@ public static class TextConst
 	public static void Init(){
 		if (!loaded) {
 			loaded = true;
-
+            /*
 			AddString (1, "重新開始", "重新開始"); //1~1000 UI
 			AddString (2, "點擊開始", "點擊開始");
 			AddString (3, "點擊繼續", "點擊繼續");
@@ -145,15 +145,7 @@ public static class TextConst
 			AddString (204, "牌組變更，是否儲存？", "");
 			AddString (205, "CUSTOMIZED PLAYER", "CUSTOMIZED PLAYER");
 			AddString (206, "確定刪除此角色？", "");
-			AddString (207, "確定購買角色欄位？", "");
-
-			//UINamed
-			AddString(9000000,"更改名稱");
-			AddString(9000001,"請輸入名稱八字字");
-			AddString(9000002,"本次修改需花費");
-			AddString (9000003, "確定修改名稱？", "");
-			AddString (9000004, "非法字元請重新輸入", "");
-			AddString (9000005, "字元長度請介於1-12個字", "");
+			AddString (207, "確定購買角色欄位？", "");*/
 		}
     }
 

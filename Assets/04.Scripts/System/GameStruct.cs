@@ -385,6 +385,7 @@ namespace GameStruct
         public int SkillCount; //kind 9
         public int FriendCount;
         public int GoodCount;
+        public int RenameCount;
         public int PVECount;
         public int PVEWin;
         public int PVEKeepWin;
