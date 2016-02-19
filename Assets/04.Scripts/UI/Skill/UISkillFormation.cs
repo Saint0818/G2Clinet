@@ -921,7 +921,7 @@ public class UISkillFormation : UIBase {
 //		gridCardList.transform.localPosition = Vector3.zero;
 //		scrollViewCardList.panel.clipOffset = new Vector2(0, 10);
 //		scrollViewCardList.ResetPosition();
-		scrollViewCardList.Scroll(-0.01f);
+		scrollViewCardList.Scroll(0);
 	}
 
 	private void setEditState (bool isEditState) {
@@ -1345,6 +1345,7 @@ public class UISkillFormation : UIBase {
 			toggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
 		}
 		refreshCards();
+		CardDragFinish();
 	}
 
 	public void DoOpenPassive (GameObject go){
@@ -1371,6 +1372,7 @@ public class UISkillFormation : UIBase {
 		} else {
 			toggleCheckBoxSkill[1].value = (eFilter == EFilter.Passive.GetHashCode());
 		}
+		CardDragFinish();
 	}
 
 	public void DoSellState() {
