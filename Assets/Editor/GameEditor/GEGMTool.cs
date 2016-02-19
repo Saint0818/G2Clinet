@@ -267,6 +267,7 @@ public class GEGMTool : GEBase
         addExp();
         setMaxPlayerBank();
         resetDailyLoginNums();
+        setLifeTimeLoginNum();
     }
 
     private int mMaxPlayerBank = 2;
@@ -916,6 +917,27 @@ public class GEGMTool : GEBase
     private void waitGMResetDailyLoginNums(bool ok, WWW www)
     {
         Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
+    }
+
+    private int mLifeTimeLoginNum;
+    private void setLifeTimeLoginNum()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("終生登入次數: ");
+        mLifeTimeLoginNum = EditorGUILayout.IntField(mLifeTimeLoginNum, GUILayout.Width(60));
+        mLifeTimeLoginNum = Math.Max(0, mLifeTimeLoginNum);
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("LoginNum", mLifeTimeLoginNum);
+            SendHttp.Get.Command(URLConst.GMSetLifeTimeLoginNum, waitGMSetLifeTimeLoginNum, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMSetLifeTimeLoginNum(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMSetLifeTimeLoginNum, ok:{0}", ok);
     }
 
     private void BattleHandle()

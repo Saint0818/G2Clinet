@@ -154,6 +154,7 @@ public static class URLConst {
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";
     public const string GMResetStage = "gmresetstage";
     public const string GMResetDailyLoginNums = "gmresetdailyloginnums";
+    public const string GMSetLifeTimeLoginNum = "gmsetlifetimeloginnum";
     public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
