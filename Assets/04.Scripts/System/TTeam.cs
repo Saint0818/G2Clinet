@@ -58,6 +58,11 @@ namespace GameStruct
         public string[] EnemyIDs;
 
         /// <summary>
+        /// 每日登入獎勵. 拿到哪個時間的登入獎勵.
+        /// </summary>
+        public int DailyLoginRewardYear;
+        public int DailyLoginRewardMonth;
+        /// <summary>
         /// 每日登入獎勵. -1:沒獎勵, >=0 有獎勵.
         /// </summary>
         public int DailyLoginRewardIndex;
