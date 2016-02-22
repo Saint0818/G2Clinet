@@ -9,6 +9,7 @@ public class DeleteRoleProtocol
     {
         public TPlayer Player;
         public TPlayerBank[] PlayerBank;
+        public TSkill[] SkillCards;
     }
 
     /// <summary>
@@ -36,6 +37,7 @@ public class DeleteRoleProtocol
             GameData.Team.Player = data.Player;
             GameData.Team.Player.Init();
             GameData.Team.PlayerBank = data.PlayerBank;
+            GameData.Team.SkillCards = data.SkillCards;
         }
 
         mCallback(ok);
