@@ -828,8 +828,8 @@ namespace GameStruct
 
 	public enum EAttribute
 	{
-		Point2,
-		Point3,
+		Point2,//命中率
+		Point3,//腕力＝計算投籃命中衰減的加成
 		Dunk,
 		Rebound,
 		Block,

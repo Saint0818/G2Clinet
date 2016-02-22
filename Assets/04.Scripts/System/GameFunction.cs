@@ -946,4 +946,26 @@ public static class GameFunction
         else
             return false;
     } 
+
+	//Distance 為 -1, 就不需要計算衰退值
+	public static float ShootingCalculate (PlayerBehaviour player, float originalRate, float scoreRate, float extraScoreRate, float distance = -1) {
+		float beginRate = 0;
+		float decayRate = 0;
+		float wristRate = 0;
+		//1 動作影響的機率
+		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
+
+		if(distance >= 5) {
+			//  (5~10)命中衰減率 = [1-((D-4)*0.06)]   
+			//  (11~) 命中衰減率 = [1-((D-4)*D*0.008)]
+			if(distance >= 5 && distance <= 11)
+				decayRate = (1 - ((distance - 4) * 0.06f));
+			else if(distance > 11) 
+				decayRate = (1 - ((distance - 4) * distance * 0.008f));
+			//腕力加成 (1-命中衰減率)＊(腕力＊比重換算 * 100%)->PlayerBehaviour已換算
+			wristRate = (1 - decayRate) * player.Attr.PointRate3 * 0.01f;
+		}
+
+		return Mathf.Max(2, beginRate * (decayRate + wristRate));
+	}
 }

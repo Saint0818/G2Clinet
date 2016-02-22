@@ -29,7 +29,7 @@ public class GameJoystick : ETCJoystick {
 
 	public void ShowJoystick () {
 		visible = true;
-		cachedRectTransform.anchoredPosition = new Vector3(-245, -102.8f, 0);
+		cachedRectTransform.anchoredPosition = new Vector3(-245, -130f, 0);
 	}
 
 	public Canvas GetCanvas {

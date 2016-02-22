@@ -398,7 +398,7 @@ public class UIGame : UIBase {
 	}
 
 	private void initJoystickPos () {
-		gameJoystick.transform.localPosition = new Vector3(-245, -102.5f);
+		gameJoystick.transform.localPosition = new Vector3(-245, -130f);
 	}
 
 	private void showGameJoystick (bool isShow) {

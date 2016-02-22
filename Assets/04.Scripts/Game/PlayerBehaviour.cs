@@ -314,7 +314,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         }
         Attr.PointRate2 = GameData.BaseAttr[Attribute.AILevel].PointRate2 + GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, Attribute.Point2);
-        Attr.PointRate3 = GameData.BaseAttr[Attribute.AILevel].PointRate3 + GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, Attribute.Point3);
+        Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, Attribute.Point3);
         Attr.StealRate = GameData.BaseAttr[Attribute.AILevel].StealRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, Attribute.Steal);
         Attr.DunkRate = GameData.BaseAttr[Attribute.AILevel].DunkRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.DunkRate, Attribute.Dunk);
         Attr.TipInRate = GameData.BaseAttr[Attribute.AILevel].TipInRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, Attribute.Dunk);

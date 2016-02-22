@@ -1627,10 +1627,9 @@ public class GameController : KnightSingleton<GameController>
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDistance >= GameConst.Point3Distance) {
-			originalRate = player.Attr.PointRate3;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
-		} else 
-			originalRate = player.Attr.PointRate2;
+		} 
+		originalRate = player.Attr.PointRate2;
 
 		randomrate = 0;
 		normalRate = 0;
@@ -1647,55 +1646,56 @@ public class GameController : KnightSingleton<GameController>
 		bool isSwich = false;
 		bool isAirBall = false;
 		if(type == EScoreType.DownHand) {
-			isScore = (rate <= Mathf.Max(2, (originalRate + (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate))) ? true : false;
-			downhandRate = (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate);
+			downhandRate = GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.DownHandScoreRate, extraScoreRate, ShootDistance);
+			isScore = (rate <= downhandRate)? true : false;
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.DownHandSwishRate / 100f))) ? true : false;
+				isSwich = (rate <= GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.DownHandSwishRate, extraScoreRate, -1)) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.UpHand) {
-			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
-			uphandRate = (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate);
+			uphandRate = GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.UpHandScoreRate, extraScoreRate, ShootDistance);
+			isScore = (rate <= uphandRate) ? true : false;
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.UpHandSwishRate / 100f))) ? true : false;
+				isSwich = (rate <= GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.UpHandSwishRate, extraScoreRate, -1)) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.Normal) {
-			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate)) ? true : false;
-			normalRate = (originalRate + (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate);
+			normalRate = GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.NormalScoreRate, extraScoreRate, ShootDistance);
+			isScore = (rate <= normalRate) ? true : false;
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.NormalSwishRate / 100f))) ? true : false;
+				isSwich = (rate <= GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.NormalSwishRate, extraScoreRate, -1)) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.NearShot) {
-			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate)) ? true : false;
-			nearshotRate = (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate);
+			nearshotRate = GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.NearShotScoreRate, extraScoreRate, ShootDistance);	
+			isScore = (rate <= nearshotRate) ? true : false;
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
+				isSwich = (rate <=  GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.NearShotSwishRate, extraScoreRate, -1)) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.LayUp) {
-			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate)) ? true : false;
-			layupRate = (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate);
+			layupRate = GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.LayUpScoreRate, extraScoreRate, ShootDistance);
+			isScore = (rate <= layupRate) ? true : false;
 			if(isScore) {
 				rate = (Random.Range(0, 100) + 1);
-				isSwich = rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
+				isSwich = (rate <= GameFunction.ShootingCalculate(player, originalRate, player.ScoreRate.LayUpSwishRate, extraScoreRate, -1)) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
+		
 		if(DoubleClickType == EDoubleType.Perfect || DoubleClickType == EDoubleType.Good || ShootDistance < 9)
 			isAirBall = false;
 
@@ -1868,7 +1868,6 @@ public class GameController : KnightSingleton<GameController>
             CourtMgr.Get.RealBallCompoment.Trigger.IsAutoRotate = true;
 			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
-//			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
 			if(!isActive)
 				BallState = EBallState.CanBlock;
@@ -3114,6 +3113,7 @@ public class GameController : KnightSingleton<GameController>
 		if(newBallOwner != null && Situation != EGameSituation.End)
         {
 			IsReboundTime = false;
+			CourtMgr.Get.IsBallOffensive = false;
 			if (!newBallOwner.IsAlleyoopState) 
 			{
 				if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
@@ -3796,6 +3796,13 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsTimePass() {
 		if (GameStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) 
 			return MissionChecker.Get.IsTimePass(ref GameTime);
+
+		if(GameTime <= 0) {
+			GameTime -= Time.deltaTime;
+			if(GameTime < -2)
+				CourtMgr.Get.IsBallOffensive = false;
+		}
+			
 		return false;
 	}
 	public void CheckConditionText () {MissionChecker.Get.CheckConditionText(StageData.ID);}
