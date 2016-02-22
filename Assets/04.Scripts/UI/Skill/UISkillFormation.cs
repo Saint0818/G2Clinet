@@ -236,6 +236,12 @@ public class UISkillFormation : UIBase {
 	private int infoIndex = -1;
 	private bool isAlreadyEquip = false;
 
+	private GameObject[] tabs = new GameObject[2];
+	private GameObject[] redPoints = new GameObject[2];
+	private GameObject[] views = new GameObject[2];
+	//ForSuitCard
+	private UISuitCard uiSuitCard;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -330,13 +336,25 @@ public class UISkillFormation : UIBase {
 		cardSell.LabelTotalPrice = GameObject.Find (UIName + "/Center/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
 		cardSell.Init();
 
-//		GameObject.Find(UIName + "/Center/SortBtn").SetActive(false);
+		GameObject.Find(UIName + "/Center/SortBtn").SetActive(false);
 
 		SetBtnFun (UIName + "/Center/SortBtn", DoSort);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
 		SetBtnFun (UIName + "/Center/SellBtn/SellCount/CancelBtn", DoCloseSell);
 
+
+		views[0] = GameObject.Find(UIName + "/Center");
+		views[1] = GameObject.Find(UIName + "/SuitCardsView");
+
+		uiSuitCard = new UISuitCard();
+		uiSuitCard.InitCom(this, UIName);
+		for(int i=0; i<tabs.Length; i++) {
+			tabs[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/Selected");
+			redPoints[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/RedPoint");
+			SetBtnFun(UIName + "/Top/Tabs/"+i.ToString(), OnTab);
+		}
+		clickTab(0);
 		initCards ();
 		UpdateSort();
 		refreshFrameCount ();
@@ -356,7 +374,36 @@ public class UISkillFormation : UIBase {
 		isChangePage = false;
 		isLeave = false;
 	}
-	
+
+	public void OnTab() {
+		int result = 0;
+		if(int.TryParse(UIButton.current.name, out result)) {
+			clickTab(result);
+		}
+	}
+
+	private void clickTab (int no) {
+		if(no >= 0 && no < views.Length) {
+			for (int i=0; i<views.Length; i++) {
+				tabs[i].SetActive(i == no);
+				views[i].SetActive(i == no);
+			}
+		}
+	}
+
+	private void refreshTabsRedPoint () {
+		redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard);
+		redPoints[1].SetActive(uiSuitCard.CheckRedPoint);
+	}
+
+	public void SetBtn (string path, EventDelegate.Callback callback) {
+		SetBtnFun(path, callback);
+	}
+
+	public GameObject Duplicate (GameObject obj) {
+		return Instantiate(obj);
+	}
+
 	private void hide() {
 		if(UISort.Visible)
 			UISort.UIShow(false);
@@ -407,8 +454,6 @@ public class UISkillFormation : UIBase {
 		}
 		itemPassiveCards.Clear();
 		itemPassiveField.SetActive(true);
-//		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
-//		scrollViewItemList.panel.clipOffset = new Vector2(12, 110);
 	}
 
 	public void RefreshAddCard () {
@@ -520,6 +565,7 @@ public class UISkillFormation : UIBase {
 		resetScrollPostion ();
 		refreshActiveItems ();
 		refreshPassiveItems();
+		refreshTabsRedPoint ();
 	}
 
 	private void refreshFrameCount () {

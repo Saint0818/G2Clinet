@@ -134,6 +134,30 @@ public class UIItemHint : UIBase {
 		}
 	}
 
+	public void OnShowForSuit(int itemID) {
+		if(GameData.DItemData.ContainsKey (itemID)) {
+			uiBuy.SetActive(false);
+			hideAll ();
+			scrollViewExplain.ResetPosition();
+			UIShow(true);
+			gameObject.transform.localPosition = new Vector3(0, 0, -10);
+			if(GameData.DItemData[itemID].Kind == 21) { //技能卡
+				//For First Get
+				hintSkillView.Show();
+				hintSkillView.UpdateUIForSuit(GameData.DItemData[itemID]);
+				if(GameData.Team.SkillCardCounts == null)
+					GameData.Team.InitSkillCardCount();
+				if(GameData.Team.SkillCardCounts.ContainsKey(GameData.DItemData[itemID].Avatar))
+					setHaveCount(GameData.Team.SkillCardCounts[GameData.DItemData[itemID].Avatar]);
+				else
+					setHaveCount(0);
+				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+			}
+			uiLabelName.text = GameData.DItemData[itemID].Name;
+			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
+		}
+	}
+
 	public void OnShowPartnerItem (int itemID, TPlayer player) {
 		if(GameData.DItemData.ContainsKey (itemID)) {
 			uiBuy.SetActive(false);

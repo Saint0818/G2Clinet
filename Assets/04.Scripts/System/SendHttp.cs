@@ -41,6 +41,8 @@ public static class URLConst {
 	public const string ClearTutorialFlag = "cleartutorialflag";
 	public const string EquipsSkillCard = "equipskillcard";
 	public const string ChangeSkillPage = "changeskillpage";
+	public const string AddSuitCardExecute = "addsuitcardexecute";
+	public const string RemoveSuitCardExecute = "removesuitcardexecute";
 	public const string SellSkillcard = "sellskillcard";
 	public const string ReinforceSkillcard = "reinforceskillcard";
 	public const string EvolutionSkillcard = "evolutionskillcard";

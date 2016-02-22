@@ -116,7 +116,6 @@ public class TActiveSkillCard
 				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
 				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
-//				SkillName.color = TextConst.Color(GameData.DSkillData[itemData.Avatar].Quality);
 				SkillSuit.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
 				if(GameFunction.IsActiveSkill(itemData.Avatar))
 					SkillKind.spriteName = "ActiveIcon";
@@ -124,6 +123,30 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+			} else
+				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
+	public void UpdateViewItemDataForSuit(TItemData itemData)
+	{
+		if(isInit){
+			if (GameData.DSkillData.ContainsKey(itemData.Avatar)) {
+				self.name = itemData.ID.ToString();
+				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
+				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
+				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
+				SkillSuit.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
+				if(GameFunction.IsActiveSkill(itemData.Avatar))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PasstiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				GameFunction.ShowStar(ref SkillStars, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
 		}
@@ -225,6 +248,12 @@ public class TActiveSkillCard
 	public bool IsCanUse {
 		get {return (UnavailableMask != null && !UnavailableMask.activeSelf);}
 		set {UnavailableMask.SetActive(value);}
+	}
+
+	public bool IsCanUseForSuit {
+		get {return (UnavailableMask != null && !UnavailableMask.activeSelf);}
+		set {UnavailableMaskLabel.gameObject.SetActive(false);
+			UnavailableMask.SetActive(value);}
 	}
 
 	public bool IsSold {

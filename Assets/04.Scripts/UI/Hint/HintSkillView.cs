@@ -71,8 +71,27 @@ public class HintSkillView : MonoBehaviour {
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 			GameFunction.ShowStar(ref SkillStar, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
-		
-//		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();
+
+		AmountLabel.text = "";
+	}
+
+	public void UpdateUIForSuit(TItemData itemData)
+	{
+		if(GameFunction.IsActiveSkill(itemData.Avatar))
+			SkillKindLabel.text = TextConst.S(7111);
+		else 
+			SkillKindLabel.text = TextConst.S(7112);
+
+		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
+			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
+		}
+
+		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
+			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
+			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
+			GameFunction.ShowStar(ref SkillStar, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+		}
+
 		AmountLabel.text = "";
 	}
 }

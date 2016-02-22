@@ -216,6 +216,7 @@ namespace GameStruct
 				if (type == ESkillType.Player) {
 	                addEquipValues();
 					addPotentialValues();
+					GameData.Team.AddSuitCardEffect(Lv);
 				}
             }
         }
@@ -278,6 +279,10 @@ namespace GameStruct
                 }
             }
         }
+
+		public void addSuitCardValue () {
+			
+		}
 
 		public void addPotentialValues()
 		{

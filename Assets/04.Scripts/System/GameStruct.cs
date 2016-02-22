@@ -1543,6 +1543,120 @@ namespace GameStruct
 
 	public struct TSuitItem {
 		public int ID;
+		public string SuitNameTW;
+		public string SuitNameCN;
+		public string SuitNameEN;
+		public string SuitNameJP;
+		public int Position;
+		public int Card1;
+		public int Card2;
+		public int Card3;
+		public int Card4;
+		public int Card5;
+		public int Item1;
+		public int Item2;
+		public int Item3;
+		public int Item4;
+		public int Item5;
+		public int Item6;
+		public int Item7;
+		public int AttrKind1;
+		public int Value1;
+		public int AttrKind2;
+		public int Value2;
+		public int AttrKind3;
+		public int Value3;
+		public int AttrKind4;
+		public int Value4;
+		public int AttrKind5;
+		public int Value5;
+		public int AttrKind6;
+		public int Value6;
+
+		public int[] Card {
+			get {
+				int[] cards = new int[5];
+				cards[0] = Card1;
+				cards[1] = Card2;
+				cards[2] = Card3;
+				cards[3] = Card4;
+				cards[4] = Card5;
+				return cards;
+			}
+		}
+
+		public int CardLength {
+			get {
+				int count = 0;
+				for (int i=0; i<Card.Length; i++) 
+					if(Card[i] != 0)
+						count ++;
+				return count;
+			}
+		}
+
+		public int[] Items {
+			get {
+				int[] items = new int[7];
+				items[0] = Item1;
+				items[1] = Item2;
+				items[2] = Item3;
+				items[3] = Item4;
+				items[4] = Item5;
+				items[5] = Item6;
+				items[6] = Item7;
+				return items;
+			}
+		}
+
+		public int ItemLength {
+			get {
+				int count = 0;
+				for (int i=0; i<Items.Length; i++) 
+					if(Items[i] != 0)
+						count ++;
+				return count;
+			}
+		}
+
+		public int[] AttrKind {
+			get {
+				int[] attrKinds = new int[6];
+				attrKinds[0] = AttrKind1;
+				attrKinds[1] = AttrKind2;
+				attrKinds[2] = AttrKind3;
+				attrKinds[3] = AttrKind4;
+				attrKinds[4] = AttrKind5;
+				attrKinds[5] = AttrKind6;
+				return attrKinds;
+			}
+		}
+
+		public int[] Value {
+			get {
+				int[] values = new int[6];
+				values[0] = Value1;
+				values[1] = Value2;
+				values[2] = Value3;
+				values[3] = Value4;
+				values[4] = Value5;
+				values[5] = Value6;
+				return values;
+			}
+		}
+
+		public string SuitName {
+			get
+			{
+				switch(GameData.Setting.Language)
+				{
+				case ELanguage.TW: return SuitNameTW;
+				case ELanguage.CN: return SuitNameCN;
+				case ELanguage.JP: return SuitNameJP;
+				default : return SuitNameEN;
+				}
+			}
+		}
 	}
 
 }

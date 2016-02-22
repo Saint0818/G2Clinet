@@ -760,7 +760,6 @@ public static class GameFunction
 	public static void ShowInlay (ref GameObject[] emptyStars, ref  GameObject[] inlays, TPlayer player, int itemDataKind) {
 		foreach (KeyValuePair<int, TValueItem> pair in player.ValueItems) {
 			if (GameData.DItemData.ContainsKey(pair.Value.ID) && pair.Key == itemDataKind) {
-//				UIValueItemData vd = UIValueItemDataBuilder.Build(GameData.DItemData[pair.Value.ID], pair.Value.InlayItemIDs, pair.Value.Num);
 				for(int i=0; i<inlays.Length; i++) {
 					if(i < pair.Value.RevisionInlayItemIDs.Length) {
 						inlays[i].SetActive((pair.Value.RevisionInlayItemIDs[i] != 0));
@@ -915,6 +914,18 @@ public static class GameFunction
 			return "Levelball" + GameData.DSkillData[skillID].Quality.ToString();
 		else 
 			return "Levelball1";
+	}
+
+	public static string PositionIcon (int bodytype) {
+		switch (bodytype)
+		{
+		case 1: 
+			return "IconForward";
+		case 2:
+			return "IconGuard";
+		default:
+			return "IconCenter";  
+		}
 	}
 
     public static bool CanGetPVPReward(ref TTeam team)

@@ -30,6 +30,7 @@ namespace GameStruct
         public int SocialCoin; //社群幣
 
 		public int SkillCardMax;//背包空間數
+		public int[] SuitCardCost; //套卡有啟動的id就會紀錄id
 
         public int[] TutorialFlags;
         public int[] Achievements;
@@ -834,5 +835,76 @@ namespace GameStruct
                 LifetimeRecord = value;
             }
         }
+
+		public bool IsGetAvatar (int itemID) {
+			if(GotAvatar.ContainsKey(itemID)) 
+				if(GotAvatar[itemID] != 0)
+					return true;
+			
+			return false;
+		}
+
+		public bool IsExecuteSuitCard (int id) {
+			if(SuitCardCost != null) 
+				for(int i=0; i<SuitCardCost.Length; i++) 
+					if(SuitCardCost[i] == id)
+						return true;	
+			return false;
+		}
+
+		//初始士氣值 限制等級使用(limit.json)
+//		public int InitGetAP () {
+//			
+//		}
+
+		//lv : player's level  限制等級使用(limit.json)
+		public void AddSuitCardEffect (int lv) {
+			if(lv > 20) {
+				if(SuitCardCost != null) {
+					for(int i=0; i<SuitCardCost.Length; i++) {
+						for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) {
+							switch(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j]) {
+							case (int)EBonus.Point2:
+								Player.Point2 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Point3:
+								Player.Point3 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Dunk:
+								Player.Dunk += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Rebound:
+								Player.Rebound += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Block:
+								Player.Block += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Steal:
+								Player.Steal += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Stamina:
+								Player.Stamina += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Defence:
+								Player.Defence += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Dribble:
+								Player.Dribble += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Pass:
+								Player.Pass += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Speed:
+								Player.Speed += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							case (int)EBonus.Strength:
+								Player.Strength += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
     }
 }
