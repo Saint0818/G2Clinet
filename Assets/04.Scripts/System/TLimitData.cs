@@ -14,10 +14,13 @@ public class TLimitData
     public int Lv { get; private set; }
 
     [UsedImplicitly]
+    public int VisibleLv { get; private set; }
+
+    [UsedImplicitly]
     public int Diamond { get; private set; }
 
     public override string ToString()
     {
-        return string.Format("OpenID: {0}, Lv: {1}, Diamond: {2}", OpenID, Lv, Diamond);
+        return string.Format("OpenID: {0}, Lv: {1}, VisibleLv: {2}, Diamond: {3}", OpenID, Lv, VisibleLv, Diamond);
     }
 }
