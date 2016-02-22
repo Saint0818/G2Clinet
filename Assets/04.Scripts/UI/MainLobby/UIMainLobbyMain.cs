@@ -63,6 +63,12 @@ public class UIMainLobbyMain : MonoBehaviour
         set { MoneyLabel.text = NumFormater.Convert(value); }
     }
 
+    public bool MoneyVisible
+    {
+        set { MoneyObj.SetActive(value);}
+        get { return MoneyObj.activeSelf; }
+    }
+
     public void PlayMoneyAnimation(float delay = 0)
     {
         MoneyTweenScale.delay = delay;
@@ -72,6 +78,12 @@ public class UIMainLobbyMain : MonoBehaviour
     public int Diamond
     {
         set { DiamondLabel.text = NumFormater.Convert(value); }
+    }
+
+    public bool DiamondVisible
+    {
+        set { DiamondObj.SetActive(value); }
+        get { return DiamondObj.activeSelf; }
     }
 
     public void PlayDiamondAnimation(float delay = 0)
@@ -183,12 +195,6 @@ public class UIMainLobbyMain : MonoBehaviour
         MoneyObj.SetActive(true);
         DiamondObj.SetActive(true);
         PowerObj.SetActive(true);
-    }
-
-    public void ShowForLottery(bool isShow)
-    {
-        MoneyObj.SetActive(isShow);
-        DiamondObj.SetActive(isShow);
     }
 
     public void Hide(int kind = 3, bool playAnimation = true)

@@ -91,11 +91,6 @@ public class UIMainLobby : UIBase
         Main.PowerCountDownVisible = GameData.Team.Power < GameConst.Max_Power;
     }
 
-    public void ShowForLottery(bool isShow)
-    {
-		Main.ShowForLottery(isShow);
-	}
-
     /// <summary>
     /// 更新大廳下面按鈕的狀態.
     /// </summary>
