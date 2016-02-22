@@ -222,13 +222,11 @@ public class UIBuyStore : UIBase {
 	//order = 0 can used
 	private void SendPickLottery(int order, int kind, int type)
 	{
-		if(order == 0) {
-			WWWForm form = new WWWForm();
-			form.AddField("Order", order);
-			form.AddField("Type", type);
-			form.AddField("Index", mIndex);
-			SendHttp.Get.Command(URLConst.PickLottery, waitPickLottery, form);
-		}
+		WWWForm form = new WWWForm();
+		form.AddField("Order", order);
+		form.AddField("Type", type);
+		form.AddField("Index", mIndex);
+		SendHttp.Get.Command(URLConst.PickLottery, waitPickLottery, form);
 	}
 
 	private void waitPickLottery(bool ok, WWW www)
