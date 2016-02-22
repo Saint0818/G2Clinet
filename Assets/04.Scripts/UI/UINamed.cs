@@ -17,7 +17,7 @@ public class TNameView
 	private UILabel price;
 	private bool isInit = false;
 
-	public void Init(GameObject go, EventDelegate randomFunction = null)
+    public void Init(GameObject go, EventDelegate randomFunction = null, EventDelegate changeFunction = null)
 	{
 		if (go) {
 			self =  go;
@@ -26,14 +26,15 @@ public class TNameView
 			randomBtn = self.transform.FindChild("RandomBtn").gameObject.GetComponent<UIButton>();
 			tip = self.transform.FindChild("WarningLabel").gameObject.GetComponent<UILabel>();
 			price = self.transform.FindChild("SpendGemIcon/PriceLabel").gameObject.GetComponent<UILabel>();
-
-			isInit = self && nameInput && nameLabel && randomBtn && tip && price;
+            isInit = self && nameInput && nameLabel && randomBtn && tip && price;
 
 			if(isInit)
 			{
                 UpdateUI();
 				if(randomFunction != null)
 					randomBtn.onClick.Add(randomFunction);
+
+                nameInput.onChange.Add(changeFunction);
 			}
 		}
 	}
@@ -41,7 +42,7 @@ public class TNameView
     public void UpdateUI() {
         int diamond = 0;
         if (!string.IsNullOrEmpty(GameData.Team.Player.Name))
-            diamond = GameData.Team.LifetimeRecord.RenameCount * GameConst.RenamePrice;
+            diamond = (GameData.Team.LifetimeRecord.RenameCount+1) * GameConst.RenamePrice;
 
         bool flag = GameData.Team.CoinEnough(0, diamond);
         price.color = GameData.CoinEnoughTextColor(flag);
@@ -87,6 +88,7 @@ public class UINamed : UIBase {
 	private static UINamed instance = null;
 	private const string UIName = "UINamed";
 	private TNameView nameView = new TNameView();
+    private UISprite spriteOKBtn;
 	private UIButton yesBtn;
 	private UIButton noBtn;
 
@@ -116,7 +118,10 @@ public class UINamed : UIBase {
 
 	protected override void InitCom() {
 		GameObject obj = GameObject.Find (UIName + "/Center/NamedView");
-		nameView.Init (obj, new EventDelegate(OnRandomName));
+        spriteOKBtn = GameObject.Find (UIName + "/Center/CheckBtn/Icon/Btn").GetComponent<UISprite>();
+        spriteOKBtn.spriteName = "buttor_gray";
+
+        nameView.Init (obj, new EventDelegate(OnRandomName), new EventDelegate(OnChange));
 		SetBtnFun(UIName + "/Center/CheckBtn", OnCheckBtn);
 		SetBtnFun(UIName + "/Center/NoBtn", OnCancelChange);
 	}
@@ -148,15 +153,21 @@ public class UINamed : UIBase {
         if (nameView.IsChange && nameView.IsLegal) {
             int diamond = 0;
             if (!string.IsNullOrEmpty(GameData.Team.Player.Name))
-                diamond = GameData.Team.LifetimeRecord.RenameCount * 300;
+                diamond = (GameData.Team.LifetimeRecord.RenameCount+1) * 300;
 
             if (diamond > 0)
                 CheckDiamond(diamond, true, string.Format(TextConst.S(3406), diamond), changePlayerName, nameView.UpdateUI);
             else
                 changePlayerName();
-        } else
-			UIShow(false);
+        }
 	}
+
+    public void OnChange() {
+        if (nameView.IsChange && nameView.IsLegal)
+            spriteOKBtn.spriteName = "button_orange1";
+        else
+            spriteOKBtn.spriteName = "button_gray";
+    }
 
 	private void OnCancelChange()
 	{
@@ -184,14 +195,14 @@ public class UINamed : UIBase {
     			GameData.Team.Diamond = result.Diamond;
                 GameData.Team.LifetimeRecord.RenameCount = result.RenameCount;
     			UIMainLobby.Get.UpdateUI();
-    			if(UIPlayerInfo.Visible)
+                if (UIPlayerInfo.Visible) {
     				UIPlayerInfo.UIShow(true,ref GameData.Team);
-    		}
-        }
+                    UIPlayerInfo.Get.UpdatePage (0);
+                }
 
-		if (UIPlayerInfo.Visible)
-			UIPlayerInfo.Get.UpdatePage (0);
-
-		UIShow (false);
+                UIShow (false);
+            }
+        } else
+            UIHint.Get.ShowHint(TextConst.S(3409), Color.red);
 	}
 }

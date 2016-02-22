@@ -423,7 +423,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
             if (text.Length <= 6) {
                 int index = -1;
                 if (int.TryParse(text, out index))
-                    UIHint.Get.ShowHint(TextConst.S(index), Color.white);
+                    UIHint.Get.ShowHint(TextConst.S(index), Color.red);
             } else
                 return true;
         }
@@ -652,12 +652,16 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     }
 
                     if (flag && GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
-                        UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.white);
+                        UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.blue);
                         if (UIMainLobby.Get.IsVisible)
                             UIMainLobby.Get.Main.SocialNotice = true;
 
                         GameData.Setting.ShowEvent = true;
                         PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
+
+                        GameData.Setting.SocialEventTime = DateTime.UtcNow;
+                        PlayerPrefs.SetString(ESave.SocialEventTime.ToString(), DateTime.UtcNow.ToString());
+
                         PlayerPrefs.Save();
                     }
                 }

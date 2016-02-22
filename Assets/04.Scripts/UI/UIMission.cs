@@ -183,7 +183,6 @@ public class UIMission : UIBase {
             else {
                 missionLine = 0;
                 for (int i = 0; i < missionList[page].Count; i++) {
-                    totalScore += missionList[page][i].Mission.Score;
                     checkMission(missionList[page][i], missionList[page][i].Mission, true);
                 }
             }
@@ -254,6 +253,7 @@ public class UIMission : UIBase {
                 if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
                     GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
                     GameData.DMissionData[missionData.PrivousID].Value.Length) {
+                    totalScore += missionData.Score;
                     int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
                     if (mLv >= missionData.Value.Length)
                         missionScore += missionData.Score;

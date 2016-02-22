@@ -9,7 +9,7 @@
         "talkl": 11,
         "actionl": 1,
         "texttw": "良好的配件有助於我們取得更好的成績，我們可以利用[ff6060]突觸強化[-]來增加自身的能力！！",
-        "texten": "Great gear will give us a great boost "
+        "texten": "Good accessories can help us to achieve better results, we can use [ff6060] synaptic strengthening [-] to increase its ability! !"
     },
     {
         "id": 1,
@@ -27,21 +27,22 @@
         "talkl": 11,
         "actionl": 1,
         "texttw": "我們先來強化可以有效提升[ff6060]射籃命中率[-]的[ff6060]顱部插件[-]吧！！",
-        "texten": "Let's change better equiptment."
+        "texten": "We can effectively to strengthen the first upgrade [ff6060] to shoot the basket hit rate [-] of [ff6060] cranial plug [-] it! !"
     },
     {
         "id": 1,
         "line": 4,
         "kind": 4,
         "value": 3,
-        "texttw": "只要點擊右邊的[ff6060]鑲嵌材料[-]，即可進行第一階段的強化囉。"
+        "texttw": "只要點擊右邊的[ff6060]鑲嵌材料[-]，即可進行第一階段的強化囉。",
+        "texten": "Just click on the right [ff6060] inlays [-] can be carried out to strengthen the first phase of the La."
     },
     {
         "id": 1,
         "line": 5,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0"
+        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0/View/MaterialItem(Clone)"
     },
     {
         "id": 1,
@@ -52,7 +53,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "當插件已經鑲嵌滿星星後，即可進行[ff6060]進化合成[-]了，進化後可大幅提升自身能力值喔。",
-        "texten": "Select the gear you got to equip it!"
+        "texten": "When the plug-in has inlaid full of stars, you can be [ff6060] evolutionary synthesis [-], and can significantly improve their ability to value evolution Oh."
     },
     {
         "id": 1,
@@ -63,14 +64,14 @@
         "talkl": 11,
         "actionl": 1,
         "texttw": "有沒有感覺自己的能力又更上一層了呢？",
-        "texten": "Can feel the difference can't ya?"
+        "texten": "There is no sense of their own ability and an even higher level of it?"
     },
     {
         "id": 1,
         "line": 8,
         "kind": 4,
         "value": 3,
-        "uipath": "UI2D/UIMainLobby/MainView/BottomLeft/BackBtn"
+        "uipath": "UI2D/UIEquipment/Window/BottomLeft/BackBtn"
     },
     {
         "id": 2,
@@ -82,8 +83,7 @@
         "talkl": 11,
         "actionl": 4,
         "texttw": "剛剛的勝利獲得了很酷的[ff6060]造型服裝[-]喔，快來搭配屬於自己的造型吧。",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6]Mix and show your [ff6060]unique style[-]，"
+        "texten": "The victory gained just cool [ff6060] modeling clothing [-] Oh, come with their own shape it."
     },
     {
         "id": 2,
@@ -101,7 +101,7 @@
         "talkl": 11,
         "actionl": 4,
         "texttw": "選擇[ff6060]背部飾品[-]種類。",
-        "texten": "Click the clothes button."
+        "texten": "Select [ff6060] back Jewelry [-] species."
     },
     {
         "id": 2,
@@ -119,7 +119,7 @@
         "talkl": 11,
         "actionl": 4,
         "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。",
-        "texten": "These styles and equipments all have a limited sample [ff6060]period[-]，unless you buy it now, it will expire at that time."
+        "texten": "Modeling clothing has defined [ff6060] limit [-], unless to buy it, otherwise you can not wear the time expires."
     },
     {
         "id": 2,
@@ -130,7 +130,7 @@
         "talkl": 11,
         "actionl": 4,
         "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！",
-        "texten": "Purchasing new stle will increase [ff6060]Attribution points[-]！！"
+        "texten": "And buy a new modeling can also add your own [ff6060] potential [-] Oh! !"
     },
     {
         "id": 2,
@@ -141,7 +141,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "點擊[ff6060]物品圖示[-]就可以把它穿起來了！！",
-        "texten": "Tap [ff6060]icon[-] to equip it！！"
+        "texten": "Click [ff6060] Item icon [-] you can wear it up! !"
     },
     {
         "id": 2,
@@ -151,8 +151,7 @@
         "uipath": "UI2D/UIAvatarFitted/MainView/Left/ItemList/",
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 6,
-        "texten": "Tap [ff6060]icon[-] to equip it！！"
+        "actionl": 6
     },
     {
         "id": 2,
@@ -163,7 +162,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "哇，好看極了！！可以穿出去嚇嚇對手囉！！",
-        "texten": "Tap [ff6060]icon[-] to equip it！！"
+        "texten": "Wow, very nice! ! You can wear out and scare opponents Hello! !"
     },
     {
         "id": 2,
@@ -173,8 +172,7 @@
         "uipath": "UI2D/UIAvatarFitted/BottomLeft/BackBtn/",
         "talkindex": 0,
         "talkl": 11,
-        "actionl": 6,
-        "texten": "Tap [ff6060]icon[-] to equip it！！"
+        "actionl": 6
     },
     {
         "id": 3,
@@ -185,7 +183,8 @@
         "talkindex": 1,
         "talkr": 11,
         "actionr": 6,
-        "texttw": "隨著競賽的進行，可能會有些資源上的不足，聯盟這邊有一個[ff6060]購物商店[-]可以讓您補充自己想要的東西。"
+        "texttw": "隨著競賽的進行，可能會有些資源上的不足，聯盟這邊有一個[ff6060]購物商店[-]可以讓您補充自己想要的東西。",
+        "texten": "As the competition progresses, there may be some lack of resources on the alliance side there is a [ff6060] shopping outlets [-] allows you to supplement what you want."
     },
     {
         "id": 3,
@@ -194,7 +193,8 @@
         "talkindex": 1,
         "talkr": 11,
         "actionr": 6,
-        "texttw": "這邊有眾多豐富的商品，分別可以使用 [ff00eb]寶石[-]、[fff300]金幣[-]、[a200ff]聯盟幣[-]、[00ff6b]社群幣[-] 來進行購買。"
+        "texttw": "這邊有眾多豐富的商品，分別可以使用 [ff00eb]寶石[-]、[fff300]金幣[-]、[a200ff]聯盟幣[-]、[00ff6b]社群幣[-] 來進行購買。",
+        "texten": "Here there are many rich product can be used separately [ff00eb] Gem [-], [fff300] gold [-], [a200ff] Union currency [-], [00ff6b] Community credits [-] to make a purchase."
     },
     {
         "id": 3,
@@ -203,7 +203,8 @@
         "talkindex": 1,
         "talkr": 11,
         "actionr": 6,
-        "texttw": "各商店的商品每隔一段時間會進行[ff6060]更換[-]，記得要常常回來逛逛是否有[ff6060]新商品上架[-]唷。"
+        "texttw": "各商店的商品每隔一段時間會進行[ff6060]更換[-]，記得要常常回來逛逛是否有[ff6060]新商品上架[-]唷。",
+        "texten": "Each store merchandise from time to time will be [ff6060] Replace [-], remember to always come back around whether there [ff6060] new product was added to [-] yo."
     },
     {
         "id": 3,
@@ -213,7 +214,8 @@
         "talkindex": 1,
         "talkr": 11,
         "actionr": 6,
-        "texttw": "如果等不及想要快點看看有什麼新商品，可以點擊下方的[ff6060]刷新按鈕[-]，就可以立即的更換新的商品喔！！！"
+        "texttw": "如果等不及想要快點看看有什麼新商品，可以點擊下方的[ff6060]刷新按鈕[-]，就可以立即的更換新的商品喔！！！",
+        "texten": "If you can not wait to see what new products quickly, you can click on the bottom [ff6060] refresh button [-], you can immediately replace the new goods Oh! ! !"
     },
     {
         "id": 4,
@@ -223,7 +225,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "由於你前幾場競賽搶眼的表現，我們發現有其他球員開始在[ff6060]關注[-]你的動態唷！！"
+        "texttw": "由於你前幾場競賽搶眼的表現，我們發現有其他球員開始在[ff6060]關注[-]你的動態唷！！",
+        "texten": "Since your first few contests eye-catching performance, we found that there are other players in the beginning [ff6060] concern [-] Your dynamic yo! !"
     },
     {
         "id": 4,
@@ -233,7 +236,8 @@
         "actionl": 5,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "這麼酷，快帶我瞧瞧是誰在關注我！！"
+        "texttw": "這麼酷，快帶我瞧瞧是誰在關注我！！",
+        "texten": "So cool, take me look who's concerned about me! !"
     },
     {
         "id": 4,
@@ -258,7 +262,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "這邊有許多來自各地的優秀球員，你可以選擇其中一位球員進行[ff6060]關注[-]！！"
+        "texttw": "這邊有許多來自各地的優秀球員，你可以選擇其中一位球員進行[ff6060]關注[-]！！",
+        "texten": "Here are a lot of good players from around the world, you can choose one of the players for [ff6060] concern [-]! !"
     },
     {
         "id": 4,
@@ -273,7 +278,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "你已經成功關注他了，現在你可以在[ff6060]動態牆[-]上看到你所有關注朋友的動態消息喔！！"
+        "texttw": "你已經成功關注他了，現在你可以在[ff6060]動態牆[-]上看到你所有關注朋友的動態消息喔！！",
+        "texten": "You have successfully concerned about him, and now you can dynamically walls [ff6060] [-] to see all your friends' attention on dynamic message Oh! !"
     },
     {
         "id": 4,
@@ -288,7 +294,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "接下我們來幫被你關注的朋友點個[ff6060]讚[-]吧！！"
+        "texttw": "接下我們來幫被你關注的朋友點個[ff6060]讚[-]吧！！",
+        "texten": "He took us to help you focus on being a friend point [ff6060] Like [-] it! !"
     },
     {
         "id": 4,
@@ -300,7 +307,8 @@
         "id": 4,
         "line": 12,
         "kind": 4,
-        "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。"
+        "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。",
+        "texten": "As long as you click on a friend's dynamic message [ff6060] Like [-], you can get [ff6060] Community credits [-] Yo, allowing you to buy [ff6060] community store merchandise [-]."
     },
     {
         "id": 5,
@@ -313,7 +321,7 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
-        "texten": "Just received an [ff6060]Ability Chip[-]，what is this for？"
+        "texten": "Just get to a [ff6060] skills wafer [-], which is why the way?"
     },
     {
         "id": 5,
@@ -324,7 +332,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成[ff6060]決定性的影響[-]。我來教你怎麼安裝它。",
-        "texten": "[ff6060]Ability chip[-] uses technology to provide us exceptional performance. If you can utilize this well, it can change the outcome of the game.Let me teach you how to install it."
+        "texten": "[Ff6060] skills wafer [-] is the use of technology to enable us to achieve extraordinary ability, if the wafer used properly, it will cause the game's outcome [ff6060] decisive influence [-]. I'll teach you how to install it."
     },
     {
         "id": 5,
@@ -332,7 +340,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "首先我們可以先往下一場競賽邁進。"
+        "texttw": "首先我們可以先往下一場競賽邁進。",
+        "texten": "First, we can be down to a race forward."
     },
     {
         "id": 5,
@@ -347,7 +356,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "繼續點擊[ff6060]競賽開始[-]。"
+        "texttw": "繼續點擊[ff6060]競賽開始[-]。",
+        "texten": "Continue clicking [ff6060] race start [-]."
     },
     {
         "id": 5,
@@ -362,7 +372,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "在開始競賽前，我們快把剛剛獲得的[ff6060]技能晶片[-]裝上吧！！"
+        "texttw": "在開始競賽前，我們快把剛剛獲得的[ff6060]技能晶片[-]裝上吧！！",
+        "texten": "Before starting the competition, we are making just get [ff6060] skills wafer [-] installed it! !"
     },
     {
         "id": 5,
@@ -380,7 +391,7 @@
         "talkl": 11,
         "actionl": 6,
         "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，只要[ff6060]點擊[-]技能晶片，即可開啟對應的功能。",
-        "texten": "Ability chips can be divided into [ff6060]Active[-] and [ff6060]Passive Abilities[-]，"
+        "texten": "Skills are divided into wafer [ff6060] Active Technology [-] with [ff6060] passive techniques [-] as long as [ff6060] Click [-] skills wafer to open the corresponding function."
     },
     {
         "id": 5,
@@ -397,7 +408,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "接下來點擊[ff6060]裝備晶片[-]即可將晶片安裝到自己身上。"
+        "texttw": "接下來點擊[ff6060]裝備晶片[-]即可將晶片安裝到自己身上。",
+        "texten": "Next, click [ff6060] Equipment wafer [-] can be installed wafer to himself."
     },
     {
         "id": 5,
@@ -414,7 +426,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "這樣就完成了，他已經出現[ff6060]右側[-]的已安裝區，我們可以按[ff6060]上一步[-]回到剛剛的賽前準備區了。"
+        "texttw": "這樣就完成了，他已經出現[ff6060]右側[-]的已安裝區，我們可以按[ff6060]上一步[-]回到剛剛的賽前準備區了。",
+        "texten": "This done, he has appeared [ff6060] on the right [-] installed area, we can step [ff6060] on [-] back to the staging area just before the game."
     },
     {
         "id": 5,
@@ -431,7 +444,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "接下來就是去競賽中大展身手囉！！"
+        "texttw": "接下來就是去競賽中大展身手囉！！",
+        "texten": "The next step is to show its mettle in competition Hello! !"
     },
     {
         "id": 5,
@@ -448,7 +462,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "經歷了幾場競賽，你已經累積了屬於自己的成績，聯盟這邊有幫你準備[ff6060]任務成就[-]的統計，可以讓你檢視自己辛苦的成果。"
+        "texttw": "經歷了幾場競賽，你已經累積了屬於自己的成績，聯盟這邊有幫你準備[ff6060]任務成就[-]的統計，可以讓你檢視自己辛苦的成果。",
+        "texten": "Experienced several competitions, you have accumulated their own achievements, the Union here are ready to help you [ff6060] mission accomplishment [-] statistics, allows you to view the results of their hard work."
     },
     {
         "id": 6,
@@ -476,7 +491,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "目前你已經達成球員生涯的第一項任務，往後還有更多的挑戰等你來達成喔。"
+        "texttw": "目前你已經達成球員生涯的第一項任務，往後還有更多的挑戰等你來達成喔。",
+        "texten": "Currently you have reached the first task of his career, later there are more challenges waiting for you to reach Oh."
     },
     {
         "id": 6,
@@ -485,7 +501,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "可以領取你剛剛達成的任務獎勵！！"
+        "texttw": "可以領取你剛剛達成的任務獎勵！！",
+        "texten": "Rewards You can receive just arrived! !"
     },
     {
         "id": 6,
@@ -504,7 +521,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "[ff6060]技能抽取[-]可以快速增加你的戰力，每天都有[ff6060]免費[-]的次數可以進行抽取！！"
+        "texttw": "[ff6060]技能抽取[-]可以快速增加你的戰力，每天都有[ff6060]免費[-]的次數可以進行抽取！！",
+        "texten": "[Ff6060] Practical Extraction [-] you can quickly increase your combat power, every day [ff6060] free [-] The number of times you can extract! !"
     },
     {
         "id": 7,
@@ -530,7 +548,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "記得在倒數時間結束後再回來抽喔．"
+        "texttw": "記得在倒數時間結束後再回來抽喔．",
+        "texten": "I remember at the end of the countdown time to come back after pumping Oh."
     },
     {
         "id": 8,
@@ -540,7 +559,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "嗨，明日之星您好！！"
+        "texttw": "嗨，明日之星您好！！",
+        "texten": "Hey, Rising Star Hello! !"
     },
     {
         "id": 8,
@@ -549,7 +569,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "哈哈，你這樣稱呼我會讓我受寵若驚！！"
+        "texttw": "哈哈，你這樣稱呼我會讓我受寵若驚！！",
+        "texten": "Haha, let me call you so I was thrilled! !"
     },
     {
         "id": 8,
@@ -558,7 +579,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "是這樣的，由於您優異的表現，獲得了[ff6060]宇宙聯盟總會[-]的關注，因此總會想要邀請您加入宇宙聯盟的聯賽，讓您有機會與宇宙中的強者有[ff6060]一較高下[-]的機會。"
+        "texttw": "是這樣的，由於您優異的表現，獲得了[ff6060]宇宙聯盟總會[-]的關注，因此總會想要邀請您加入宇宙聯盟的聯賽，讓您有機會與宇宙中的強者有[ff6060]一較高下[-]的機會。",
+        "texten": "This is due to your excellent performance, won the [ff6060] universe Union Federation [-] attention, so they just want to invite you to join the Union League of the universe, and the universe gives you the opportunity to have the strong [ff6060 ] under a high [-] opportunities."
     },
     {
         "id": 8,
@@ -567,7 +589,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "加入聯盟之後會有豐厚的報酬等著您喔。"
+        "texttw": "加入聯盟之後會有豐厚的報酬等著您喔。",
+        "texten": "After joining the league will have a rich reward waiting for you to Oh."
     },
     {
         "id": 8,
@@ -576,7 +599,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 5,
-        "texttw": "這麼酷，那我當然要加入。"
+        "texttw": "這麼酷，那我當然要加入。",
+        "texten": "So cool, I certainly want to join."
     },
     {
         "id": 8,
@@ -585,7 +609,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "太好了，讓我來告訴您該如何加入！！"
+        "texttw": "太好了，讓我來告訴您該如何加入！！",
+        "texten": "Great, let me show you how to join! !"
     },
     {
         "id": 8,
@@ -600,7 +625,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "在這裡選擇進入[ff6060]聯盟挑戰[-]。"
+        "texttw": "在這裡選擇進入[ff6060]聯盟挑戰[-]。",
+        "texten": "Here choose to enter [ff6060] Challenge League [-]."
     },
     {
         "id": 8,
@@ -616,13 +642,15 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "一開始您會從[ff6060]街頭聯盟[-]開始打起，隨著積分的改變，將會決定您聯盟等級的升降，越高級的聯盟可以獲得越高的報酬喔！！"
+        "texttw": "一開始您會從[ff6060]街頭聯盟[-]開始打起，隨著積分的改變，將會決定您聯盟等級的升降，越高級的聯盟可以獲得越高的報酬喔！！",
+        "texten": "You'll start from [ff6060] street Alliance [-] started playing, integral with the change, the league will determine your level of lift, the more advanced the coalition can get higher rewards Oh! !"
     },
     {
         "id": 8,
         "line": 9,
         "kind": 4,
-        "texttw": "現在來開始您的第一次挑戰吧！！"
+        "texttw": "現在來開始您的第一次挑戰吧！！",
+        "texten": "Now start your first challenge! !"
     },
     {
         "id": 8,
@@ -637,7 +665,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "這邊會顯示您這場競賽的對手，如果沒有問題就可以直接開始了！！"
+        "texttw": "這邊會顯示您這場競賽的對手，如果沒有問題就可以直接開始了！！",
+        "texten": "Here you'll see your opponent in this race, if there is no problem you can directly begin! !"
     },
     {
         "id": 8,
@@ -652,7 +681,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "生涯競賽中的每個關主都有屬於他們的籃球故事，快來挑戰他們體驗他們的故事，打贏他們甚至有機會獲得他們身上的[ff6060]寶物[-]或珍貴的[ff6060]技能晶片[-]喔！！"
+        "texttw": "生涯競賽中的每個關主都有屬於他們的籃球故事，快來挑戰他們體驗他們的故事，打贏他們甚至有機會獲得他們身上的[ff6060]寶物[-]或珍貴的[ff6060]技能晶片[-]喔！！",
+        "texten": "Career Competition Each master has their off their basketball story, come challenges they experience their stories, they even have a chance to win to get their body [ff6060] treasures [-] or precious [ff6060] skills wafer [-]Oh! !"
     },
     {
         "id": 9,
@@ -661,7 +691,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 5,
-        "texttw": "我早就想要再次跟他們多多學習，快跟我說怎樣找到他們！"
+        "texttw": "我早就想要再次跟他們多多學習，快跟我說怎樣找到他們！",
+        "texten": "I have long wanted to learn a lot with them again, soon told me how to find them!"
     },
     {
         "id": 9,
@@ -687,7 +718,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。"
+        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。",
+        "texten": "This is before you turn off the main encounter, now you can challenge him again Hello! ! Note, however, that this time they will not turn on the water, and will show real ability to deal with you yo! ! And you should pay attention to this series of challenges [ff6060] characteristics [-]."
     },
     {
         "id": 9,
@@ -702,7 +734,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "這邊開始有一些前置關卡，當你挑戰完這些關卡後，就可以正式挑戰關主了，加油！！"
+        "texttw": "這邊開始有一些前置關卡，當你挑戰完這些關卡後，就可以正式挑戰關主了，加油！！",
+        "texten": "Here are some pre-start level, when you finish these challenging levels, you can turn off the main formal challenge, come on! !"
     },
     {
         "id": 9,
@@ -723,7 +756,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。"
+        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。",
+        "texten": "This is before you turn off the main encounter, now you can challenge him again Hello! ! Note, however, that this time they will not turn on the water, and will show real ability to deal with you yo! ! And you should pay attention to this series of challenges [ff6060] characteristics [-]."
     },
     {
         "id": 11,
@@ -732,7 +766,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "隨著您的成長，聯盟這邊有準備一些[ff6060]每日考驗[-]給您，只要您完成考驗，就可以獲得到獎勵喔！！"
+        "texttw": "隨著您的成長，聯盟這邊有準備一些[ff6060]每日考驗[-]給您，只要您完成考驗，就可以獲得到獎勵喔！！",
+        "texten": "As you grow, the Union here are ready for some [ff6060] Daily test [-] to you, as long as you complete the test, you can get the reward Oh! !"
     },
     {
         "id": 11,
@@ -758,7 +793,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "這邊的考驗都是[ff6060]每天計算[-]一次喔，所以要把握時間完成他們喔！！"
+        "texttw": "這邊的考驗都是[ff6060]每天計算[-]一次喔，所以要把握時間完成他們喔！！",
+        "texten": "Here are the test [ff6060] calculated per day [-] once Oh, so you want to take the time to complete their Oh! !"
     },
     {
         "id": 11,
@@ -767,7 +803,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "我現在來帶你完成"
+        "texttw": "我現在來帶你完成",
+        "texten": "I take you now to complete"
     },
     {
         "id": 11,
@@ -784,7 +821,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
-        "texttw": "嗨，這裡是[ff6060]潛能成長[-]區，在這裏可以激發自己的潛能，讓自己的能力更上一層樓喔！！"
+        "texttw": "嗨，這裡是[ff6060]潛能成長[-]區，在這裏可以激發自己的潛能，讓自己的能力更上一層樓喔！！",
+        "texten": "Hi, this is [ff6060] Potential growth [-] District, where you can stimulate their potential, their ability to make the next level Oh! !"
     },
     {
         "id": 12,
@@ -793,7 +831,8 @@
         "actionl": 6,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "哇，是喔，那該怎麼提升自己的能力啊！！"
+        "texttw": "哇，是喔，那該怎麼提升自己的能力啊！！",
+        "texten": "Wow, it is Oh, then how to enhance their ability ah! !"
     },
     {
         "id": 12,
@@ -801,7 +840,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "只要你每次[ff6060]提升等級[-]，或者藉由購買造型外觀都可以獲得[ff6060]潛能點數[-]"
+        "texttw": "只要你每次[ff6060]提升等級[-]，或者藉由購買造型外觀都可以獲得[ff6060]潛能點數[-]",
+        "texten": "As long as you every time [ff6060] to enhance the level [-], or by purchasing Exterior styling can get [ff6060] Potential Points [-]"
     },
     {
         "id": 12,
@@ -809,7 +849,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "當有技能點數後，只要點擊各數值的[ff6060]＋[-]按鈕，即可增加對應的數值唷，快來試試吧！！"
+        "texttw": "當有技能點數後，只要點擊各數值的[ff6060]＋[-]按鈕，即可增加對應的數值唷，快來試試吧！！",
+        "texten": "When skill points, as long as the value of each click [ff6060] + [-] button to increase the corresponding value yo, come try it! !"
     },
     {
         "id": 30,
@@ -821,134 +862,116 @@
         "talkl": 11,
         "actionl": 5,
         "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
-        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
-        "texten": "Yo~~ The game is about to start, what are you doing here?"
+        "texten": "Hey Hey hey! ! Game fast start, you still doing here?"
     },
     {
         "id": 30,
         "line": 2,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
         "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
-        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
-        "texten": "Wow! I just had that exciting \"Basketball Match\" again!"
+        "texten": "what! ! I just made a wonderful and \"Hoop Dreams\" ..."
     },
     {
         "id": 30,
         "line": 3,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
-        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
-        "texten": "Can't help it! That classical match is deeply imprinted in our brain."
+        "texten": "No way, the year has been exciting duel Shenluo in our minds up."
     },
     {
         "id": 30,
         "line": 4,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
-        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！",
-        "texten": "Hey, stop messing around! If we don't register soon we'll be forced to forfeit!!"
+        "texten": "OK OK! ! Do not procrastinate, we do not report would be forced to abstain Oh! !"
     },
     {
         "id": 30,
         "line": 5,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 1,
         "talkr": -1,
         "actionr": 1,
         "texttw": "好啦，走吧！！",
-        "textcn": "好啦好啦！！",
-        "texten": "Fine fine, let's go!"
+        "texten": "Well, let's go! !"
     },
     {
         "id": 30,
         "line": 6,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
         "id": 30,
         "line": 7,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "先進入[ff6060]生涯競賽[-]",
-        "texten": "Please enter [ff6060]Career Mode[-]."
+        "texten": "First enter [ff6060] career race [-]"
     },
     {
         "id": 30,
         "line": 8,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
     },
     {
         "id": 30,
         "line": 9,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
         "texttw": "再來選擇第一場競賽。",
-        "texten": "Select the first competition."
+        "texten": "Select the first game again."
     },
     {
         "id": 30,
         "line": 10,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement101"
     },
     {
         "id": 30,
         "line": 11,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "確認這場比賽的[ff6060]獲勝條件[-]之後，就可以繼續進入下一步了。",
-        "texten": "Make sure you know the winning criteria before moving to the next step."
+        "texten": "Confirm game [ff6060] winning conditions [-], you can then proceed to the next step."
     },
     {
         "id": 30,
         "line": 12,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
         "id": 30,
         "line": 13,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
         "texttw": "這裡是你這場比賽的[ff6060]隊友[-]，確認完畢就可以開始競賽了",
-        "texten": "Here are your teammates for this game, press confirm to begin game."
+        "texten": "Here is your game [ff6060] teammate [-] to confirm completion of the contest can begin"
     },
     {
         "id": 30,
         "line": 14,
         "kind": 0,
-        "uiname": "UIMainLobby",
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
@@ -960,7 +983,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "哇，連續取得獲勝耶，我們繼續挑戰下一組對手吧！！"
+        "texttw": "哇，連續取得獲勝耶，我們繼續挑戰下一組對手吧！！",
+        "texten": "Wow, yeah consecutive wins achieved, we continue to challenge the next group of rival it! !"
     },
     {
         "id": 31,
@@ -1010,7 +1034,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "哇，您已經成功挑戰了第一章節的關主，我們可以離開貧民窟，往下一章邁進囉。"
+        "texttw": "哇，您已經成功挑戰了第一章節的關主，我們可以離開貧民窟，往下一章邁進囉。",
+        "texten": "Wow, you've successfully challenged the first section off the main, we can leave the slums, to the next chapter forward Hello."
     },
     {
         "id": 32,
@@ -1028,23 +1053,23 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "對了，我只知道您高超的球技，還不知道您叫什麼名字呢！！"
+        "texttw": "對了，我只知道您高超的球技，還不知道您叫什麼名字呢！！",
+        "texten": "Yes, I know your superb skills, do not know your name too! !"
     },
     {
         "id": 34,
         "line": 2,
         "kind": 0,
-        "uiname": "UIPlayerInfo",
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "喔，我叫..."
+        "texttw": "喔，我叫...",
+        "texten": "Oh, my name is ..."
     },
     {
         "id": 34,
         "line": 3,
         "kind": 0,
-        "uiname": "UIPlayerInfo",
         "uipath": "UI2D/UIMainLobby/TopLeft/PlayerInGameBtn",
         "talkindex": 1,
         "talkr": -1,
@@ -1053,14 +1078,12 @@
     {
         "id": 34,
         "line": 4,
-        "kind": 0,
-        "uiname": "UIPlayerInfo"
+        "kind": 0
     },
     {
         "id": 34,
         "line": 5,
         "kind": 0,
-        "uiname": "UIPlayerInfo",
         "uipath": "UI2D/UIPlayerInfo/Window/Center/View/PersonalView/PlayerName"
     },
     {
@@ -1072,7 +1095,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "恭喜您獲得聯盟賽首場勝利，正式加入宇宙聯盟賽的體系！！這是您加入的報酬！！"
+        "texttw": "恭喜您獲得聯盟賽首場勝利，正式加入宇宙聯盟賽的體系！！這是您加入的報酬！！",
+        "texten": "Congratulations on your first victory in the league tournament, formally joined the alliance universe game system! ! This is the reward you join! !"
     },
     {
         "id": 38,
@@ -1089,7 +1113,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "今後您可以每天回來這裏領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！"
+        "texttw": "今後您可以每天回來這裏領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！",
+        "texten": "You can come back here the next day to pick up your [ff6060] Alliance Payroll [-], remember, the higher the Union level, the higher the reward Oh! !"
     },
     {
         "id": 40,
@@ -1099,7 +1124,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "在籃球黑幫2中，[ff6666]紅色[-]投射燈的球員是你自己．你也只能移動你自己的角色。"
+        "texttw": "在籃球黑幫2中，[ff6666]紅色[-]投射燈的球員是你自己．你也只能移動你自己的角色。",
+        "texten": "Basketball gang 2, [ff6666] red [-] projection lamp player yourself. You can only move your character."
     },
     {
         "id": 40,
@@ -1110,7 +1136,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "現在，先操作搖桿移動到指定的地方吧！"
+        "texttw": "現在，先操作搖桿移動到指定的地方吧！",
+        "texten": "For now, move the joystick to the designated place to go!"
     },
     {
         "id": 41,
@@ -1119,7 +1146,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "旁邊[6666ff]藍色[-]、[66ff66]綠色[-]投射燈的球員是你的隊友，你無法控制他們的移動"
+        "texttw": "旁邊[6666ff]藍色[-]、[66ff66]綠色[-]投射燈的球員是你的隊友，你無法控制他們的移動",
+        "texten": "Next to the [6666ff] Blue [-], [66ff66] Green [-] projection lamp player is your teammates, you can not control their movement"
     },
     {
         "id": 41,
@@ -1128,7 +1156,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "既然敵方防守球員站那麼遠，我們給他們一個驚喜吧！！"
+        "texttw": "既然敵方防守球員站那麼遠，我們給他們一個驚喜吧！！",
+        "texten": "Since the enemy's defensive player of the station so far away, we give them a pleasant surprise! !"
     },
     {
         "id": 41,
@@ -1143,7 +1172,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "趁他們不注意，我們可以來嘗試一下抄截。"
+        "texttw": "趁他們不注意，我們可以來嘗試一下抄截。",
+        "texten": "While they do not pay attention, we can try steals."
     },
     {
         "id": 42,
@@ -1152,7 +1182,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "首先移動到指定的位置！！"
+        "texttw": "首先移動到指定的位置！！",
+        "texten": "First, move to the specified location! !"
     },
     {
         "id": 43,
@@ -1161,7 +1192,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "趁現在可以使用抄截了！！"
+        "texttw": "趁現在可以使用抄截了！！",
+        "texten": "Now you can use to take advantage of steals! !"
     },
     {
         "id": 43,
@@ -1176,7 +1208,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
-        "texttw": "瞧他們慌亂的，小心，有兩位敵對球員正朝你而來"
+        "texttw": "瞧他們慌亂的，小心，有兩位敵對球員正朝你而來",
+        "texten": "Look at their panic, be careful, there are two players moving you from hostile"
     },
     {
         "id": 44,
@@ -1185,7 +1218,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 6,
-        "texttw": "可以使用肘擊，防止他們靠近。"
+        "texttw": "可以使用肘擊，防止他們靠近。",
+        "texten": "You can use the elbow, to prevent them close."
     },
     {
         "id": 44,
@@ -1200,7 +1234,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "趁現在有空擋了，可以試著傳給隊友，"
+        "texttw": "趁現在有空擋了，可以試著傳給隊友，",
+        "texten": "While there are neutral, you can try to teammates,"
     },
     {
         "id": 45,
@@ -1215,7 +1250,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 4,
-        "texttw": "也可以再指揮隊友回傳給你！！"
+        "texttw": "也可以再指揮隊友回傳給你！！",
+        "texten": "You can also re-directing his teammates back to you! !"
     },
     {
         "id": 45,
@@ -1230,7 +1266,8 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "好啦，不要玩了，該給他們一個再見絕殺了"
+        "texttw": "好啦，不要玩了，該給他們一個再見絕殺了",
+        "texten": "Well, do not play, that give them a bye lore"
     },
     {
         "id": 46,
@@ -1255,7 +1292,7 @@
         "talkindex": 0,
         "talkl": 11,
         "actionl": 5,
-        "texttw": "條件有點困難，所以要記得要好好利用剛剛所安裝的技能卡片喔！！",
+        "texttw": "條件有點困難，所以要記得要好好利用剛剛所安裝的[fff400]技能晶片[-]喔！！",
         "texten": "This criteria seems a little challenging, remember to use the ability chip！！"
     },
     {
