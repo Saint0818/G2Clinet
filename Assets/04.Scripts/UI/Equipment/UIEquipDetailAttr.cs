@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIEquipDetailAttr : MonoBehaviour
 {
     public UISprite Icon;
+    public UILabel NameLabel;
     public UILabel ValueLabel;
 
     private EBonus mBonus;
@@ -25,6 +26,8 @@ public class UIEquipDetailAttr : MonoBehaviour
         mBonus = data.Bonus;
 
         Icon.spriteName = data.Icon;
+
+        NameLabel.text = data.Name;
 
         ValueLabel.text = inlayValue > 0 
             ? string.Format("{0}[ABFF83FF]+{1}[-]", data.Value, inlayValue) 

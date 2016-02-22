@@ -190,12 +190,34 @@ public static class UIValueItemDataBuilder
                 var data = new UIValueItemData.BonusData
                 {
                     Icon = string.Format("AttrKind_{0}", bonus[i].GetHashCode()),
+                    Name = convertBounsName(bonus[i]),
                     Value = bonusValues[i],
                     Bonus = bonus[i]
                 };
                 boundsData.Add(attribute, data);
             }
         }
+    }
+
+    private static string convertBounsName(EBonus bonus)
+    {
+        switch(bonus)
+        {
+            case EBonus.Point2: return TextConst.S(10501);
+            case EBonus.Point3: return TextConst.S(10502);
+            case EBonus.Speed: return TextConst.S(10503);
+            case EBonus.Stamina: return TextConst.S(10504);
+            case EBonus.Strength: return TextConst.S(10505);
+            case EBonus.Dunk: return TextConst.S(10506);
+            case EBonus.Rebound: return TextConst.S(10507);
+            case EBonus.Block: return TextConst.S(10508);
+            case EBonus.Defence: return TextConst.S(10509);
+            case EBonus.Steal: return TextConst.S(10510);
+            case EBonus.Dribble: return TextConst.S(10511);
+            case EBonus.Pass: return TextConst.S(10512);
+        }
+
+        throw new NotImplementedException(bonus.ToString());
     }
 
     private static Dictionary<EAttribute, UIValueItemData.BonusData>
