@@ -2922,8 +2922,8 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipeth": "CaptionLabel",
-        "tw": "同時擁有上列技能晶片，即能降低晶片COST，1 件即降低 [00E1FFFF]{0}[-]，以此類推。\n此系列晶片已降低 [00ff00]{1}[-] COST。",
-        "en": "Also has above the Ability Cards, the cards that can reduce the COST, a deduction that is [00E1FFFF]{0}[-], and so on.此系列晶片已降低 [00ff00]{1}[-] COST。"
+        "tw": "同時擁有上列技能晶片，即能降低晶片COST，1 件即降低 [00E1FFFF]1[-]，以此類推。\n此系列晶片已降低 [00ff00]{0}[-] COST。",
+        "en": "Also has above the Ability Cards, the cards that can reduce the COST, a deduction that is [00E1FFFF]1[-], and so on.此系列晶片已降低 [00ff00]{0}[-] COST。"
     },
     {
         "id": 8204,

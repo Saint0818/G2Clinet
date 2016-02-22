@@ -16,7 +16,8 @@ public class TActiveSkillCard
 	private UISprite SkillCard;
 	private UILabel SkillName;
 	private SkillCardStar[] SkillStars;
-	private UISprite SkillSuit;
+	private UISprite SuitCard;
+	private UISprite SuitItem;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
 	public GameObject UnavailableMask;
@@ -42,7 +43,11 @@ public class TActiveSkillCard
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++)
 				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
-			SkillSuit = go.transform.Find("SkillSuit").gameObject.GetComponent<UISprite>();
+			
+			if(go.transform.Find("SuitCard/SuitFinish"))
+				SuitCard = go.transform.Find("SuitCard/SuitFinish").gameObject.GetComponent<UISprite>();
+			if(go.transform.Find("SuitItem"))
+				SuitItem = go.transform.Find("SuitItem").gameObject.GetComponent<UISprite>();
 			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			UnavailableMask = go.transform.Find("UnavailableMask").gameObject;
@@ -72,7 +77,7 @@ public class TActiveSkillCard
 			SellSelect.SetActive(isFormation);
 
 			btn = self.GetComponent<UIButton>();
-			isInit = SkillPic && SkillCard && SkillName  && SkillSuit && SkillKind;
+			isInit = SkillPic && SkillCard && SkillName  && SkillKind;
 
 			if(!isInit)
 				Debug.LogError("TActive Init Fail!");
@@ -92,7 +97,6 @@ public class TActiveSkillCard
     			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
 				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID);
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
-				SkillSuit.spriteName = GameFunction.CardLevelBallName(skill.ID);
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
@@ -116,7 +120,6 @@ public class TActiveSkillCard
 				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
 				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
-				SkillSuit.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
 				if(GameFunction.IsActiveSkill(itemData.Avatar))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
@@ -140,7 +143,6 @@ public class TActiveSkillCard
 				SkillPic.mainTexture = GameData.CardTexture(itemData.Avatar);
 				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
-				SkillSuit.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
 				if(GameFunction.IsActiveSkill(itemData.Avatar))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
@@ -164,7 +166,6 @@ public class TActiveSkillCard
 				SkillPic.mainTexture = GameData.CardTexture(skill.ID);
 				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID);
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
-				SkillSuit.spriteName = GameFunction.CardLevelBallName(skill.ID);
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
@@ -186,6 +187,11 @@ public class TActiveSkillCard
 		{
 			Debug.LogError("You needed to Init()");
 		}
+	}
+
+	public void SetSuitLight (int count) {
+		if(SuitCard != null)
+			SuitCard.spriteName = GameFunction.CardSuitLightName(count);
 	}
 
 	public GameObject MySkillCard {

@@ -916,6 +916,13 @@ public static class GameFunction
 			return "Levelball1";
 	}
 
+	public static string CardSuitLightName (int count) {
+		if(count > 0  && count < 3)
+			return "SuitLight" + count.ToString();
+		else 
+			return "SuitLight0";
+	}
+
 	public static string PositionIcon (int bodytype) {
 		switch (bodytype)
 		{

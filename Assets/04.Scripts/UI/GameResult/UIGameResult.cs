@@ -55,6 +55,7 @@ public class UIGameResult : UIBase {
 	private int tempMoney;
 	private int tempExp;
 	private int tempDia;
+	private TSkill[] oldSkillCards;
 
 	private bool isHaveBonus = false;
 	private bool isGetAward = false;
@@ -550,7 +551,7 @@ public class UIGameResult : UIBase {
 			awardScrollView.MoveRelative(new Vector3(-90 * (alreadyGetItems.Count - 7), 0, 0));
 
 		if(GameData.DItemData[id].Kind == 21) 
-			if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar))
+			if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar, oldSkillCards))
 				showSkillInfo(id);
 	}
 
@@ -662,7 +663,7 @@ public class UIGameResult : UIBase {
 					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
 						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
 				}
-
+				oldSkillCards = GameData.Team.SkillCards;
 				GameData.Team.SkillCards = reward.SkillCards;
 
 				isGetAward = true;
@@ -729,14 +730,6 @@ public class UIGameResult : UIBase {
 		
 		if (ok)
 		{
-//			var reward = JsonConvert.DeserializeObject<TMainStageRewardAgain>(www.text);
-//			GameData.Team.Money = reward.Money;
-//			GameData.Team.Diamond = reward.Diamond;
-//			GameData.Team.Player.Lv = reward.PlayerLv;
-//			GameData.Team.Player.Exp = reward.PlayerExp;
-//			GameData.Team.Items = reward.Items;
-//			GameData.Team.SkillCards = reward.SkillCards;
-			
 			alreadGetBonusID = reward.RandomItemID;
 			chooseItem(chooseIndex);
 		}

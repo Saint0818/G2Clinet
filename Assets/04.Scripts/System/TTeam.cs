@@ -735,6 +735,30 @@ namespace GameStruct
             return true;
         }
 
+		public bool CheckSkillCardisNew (int id, TSkill[] SkillCardOld) {
+			if(SkillCardOld != null) {
+				if(SkillCardOld.Length > 0) 
+					for (int i=0; i<SkillCardOld.Length; i++) 
+						if(SkillCardOld[i].ID == id)
+							return false;
+			}
+
+
+			if(PlayerBank != null && PlayerBank.Length > 0) 
+				for (int i=0; i<PlayerBank.Length; i++) 
+					if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) 
+						for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) 
+							if(PlayerBank[i].SkillCards[j].ID == id)
+								return false;
+
+			if(Player.SkillCards != null && Player.SkillCards.Length > 0) 
+				for (int i=0; i<Player.SkillCards.Length; i++) 
+					if (Player.SkillCards[i].ID == id)
+						return false;
+
+			return true;
+		}
+
 		public int GetAvatarCount (int id) {
 			int count = 0;
 			int kind = 0;

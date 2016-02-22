@@ -102,10 +102,8 @@ public struct TMiddleBonusView {
 		if(GameData.DSuitItem.ContainsKey(id)) {
 			if(GameData.DSuitItem[id].AttrKind.Length == BonusLabel.Length) {
 				for(int i=0; i<BonusLabel.Length; i++) {
-					if(GameData.DSuitItem[id].AttrKind[i] != 0 && GameData.DSuitItem[id].Value[i] != 0)
-						BonusLabel[i].text = string.Format("{0}件:{1}", (i+2), TextConst.S(10500 + GameData.DSuitItem[id].AttrKind[i]) + " + " + GameData.DSuitItem[id].Value[i]);
-					else
-						BonusLabel[i].gameObject.SetActive(false);
+					BonusLabel[i].text = string.Format(TextConst.S(8205), i+2, TextConst.S(10500 + GameData.DSuitItem[id].AttrKind[i]) , GameData.DSuitItem[id].Value[i]);
+					BonusLabel[i].gameObject.SetActive((GameData.DSuitItem[id].AttrKind[i] != 0 && GameData.DSuitItem[id].Value[i] != 0));
 				}
 			}
 		}
@@ -157,13 +155,10 @@ public struct TSuitItemRight {
 	public void ClickCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-//			TSkill skill = new TSkill();
-//			skill.ID = result;
-//			skill.Lv = 
-//			UIItemHint.Get.OnShowSkill(skill);
+			UIItemHint.Get.OnShow(result);
 		}
 	}
-
+		
 
 	private void hideAllCard () {
 		for(int i=0; i<itemCards.Length; i++)
@@ -172,9 +167,10 @@ public struct TSuitItemRight {
 
 	public void UpdateView (int id) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
+			NoCardLabel.SetActive((GameData.DSuitItem[id].CardLength == 0));
+			CostCaptionLabel.gameObject.SetActive((GameData.DSuitItem[id].CardLength != 0));
 			if(GameData.DSuitItem[id].CardLength == 0) {
 				hideAllCard ();
-				NoCardLabel.SetActive(true);
 			} else {
 				if(itemCards.Length == GameData.DSuitItem[id].Card.Length) {
 					for(int i=0; i<itemCards.Length; i++) {
@@ -185,6 +181,7 @@ public struct TSuitItemRight {
 							itemCards[i].UpdateViewSuitItem(GameData.DSuitItem[id].Card[i]);
 						}
 					}
+					CostCaptionLabel.text = string.Format(TextConst.S(8203), 0);//目前已取得的件數
 				}
 			}
 		} else 
@@ -263,9 +260,9 @@ public class UISuitAvatar : UIBase {
 			tItemSuitAvatarGroup.Add(itemsuitItem);
 			index ++;
 		}
-		middleBonusView.SetColor(middleItemView.GotItemCount);
 		leftScorllView.Scroll(0);
 		clickSuit (1);
+		middleBonusView.SetColor(middleItemView.GotItemCount);
 	}
 
 	private void clickSuit (int id) {
