@@ -10,6 +10,7 @@ public class UIDailyLoginMain : MonoBehaviour
     /// [0]:第 1 天, [1]: 第 2 天 ... [6]:第 7 天.
     /// </summary>
     public Transform[] DailyParents;
+    public UIToggle[] Toggles;
 
     public UIButton CloseButton;
 
@@ -25,10 +26,18 @@ public class UIDailyLoginMain : MonoBehaviour
             if(OnCloseClickListener != null)
                 OnCloseClickListener();
         }));
+
+        Toggles[0].onChange.Add(new EventDelegate(() => { if(UIToggle.current.value) ShowWeek(1, false); }));
+        Toggles[1].onChange.Add(new EventDelegate(() => { if(UIToggle.current.value) ShowWeek(2, false); }));
+        Toggles[2].onChange.Add(new EventDelegate(() => { if(UIToggle.current.value) ShowWeek(3, false); }));
+        Toggles[3].onChange.Add(new EventDelegate(() => { if(UIToggle.current.value) ShowWeek(4, false); }));
     }
 
-    public void ShowWeek(int week)
+    public void ShowWeek(int week, bool updateTab = true)
     {
+        if(week > 4 || week < 1)
+            return;
+
         foreach(var pair in mDailyRewards)
         {
             foreach(UIDailyLoginReward reward in pair.Value)
@@ -37,13 +46,12 @@ public class UIDailyLoginMain : MonoBehaviour
             }
         }
 
-        if(!mDailyRewards.ContainsKey(week))
-            return;
+        if(mDailyRewards.ContainsKey(week))
+            foreach(UIDailyLoginReward reward in mDailyRewards[week])
+                reward.gameObject.SetActive(true);
 
-        foreach(UIDailyLoginReward reward in mDailyRewards[week])
-        {
-            reward.gameObject.SetActive(true);
-        }
+        if(updateTab)
+            Toggles[week - 1].value = true;
     }
 
     /// <summary>
@@ -54,17 +62,14 @@ public class UIDailyLoginMain : MonoBehaviour
     {
         ClearDailyRewards();
         createDailyRewardObjs(rewards);
+        updateTabs(rewards.Length);
     }
 
     public void ClearDailyRewards()
     {
         foreach(var pair in mDailyRewards)
-        {
             foreach(UIDailyLoginReward reward in pair.Value)
-            {
                 Destroy(reward.gameObject);
-            }
-        }
         mDailyRewards.Clear();
     }
 
@@ -89,5 +94,13 @@ public class UIDailyLoginMain : MonoBehaviour
                 ++week;
             }
         }
+    }
+
+    private void updateTabs(int rewardNum)
+    {
+        Toggles[0].gameObject.SetActive(rewardNum > 0);
+        Toggles[1].gameObject.SetActive(rewardNum > 7);
+        Toggles[2].gameObject.SetActive(rewardNum > 14);
+        Toggles[3].gameObject.SetActive(rewardNum > 21);
     }
 } 
