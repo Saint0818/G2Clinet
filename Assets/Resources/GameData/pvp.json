@@ -6,8 +6,8 @@
         "highscore": 99,
         "basicscore": 15,
         "calculate": 10,
-        "pvpcoin": 10,
-        "pvpcoindaily": 100,
+        "pvpcoin": 60,
+        "pvpcoindaily": 50,
         "stage": 10,
         "searchcost": 300
     },
@@ -18,8 +18,8 @@
         "highscore": 199,
         "basicscore": 15,
         "calculate": 10,
-        "pvpcoin": 15,
-        "pvpcoindaily": 100,
+        "pvpcoin": 70,
+        "pvpcoindaily": 60,
         "stage": 11,
         "searchcost": 330
     },
@@ -30,8 +30,8 @@
         "highscore": 399,
         "basicscore": 20,
         "calculate": 15,
-        "pvpcoin": 20,
-        "pvpcoindaily": 100,
+        "pvpcoin": 85,
+        "pvpcoindaily": 70,
         "stage": 12,
         "searchcost": 360
     },
@@ -42,8 +42,8 @@
         "highscore": 599,
         "basicscore": 20,
         "calculate": 15,
-        "pvpcoin": 25,
-        "pvpcoindaily": 200,
+        "pvpcoin": 120,
+        "pvpcoindaily": 100,
         "stage": 13,
         "searchcost": 390
     },
@@ -54,8 +54,8 @@
         "highscore": 799,
         "basicscore": 20,
         "calculate": 15,
-        "pvpcoin": 30,
-        "pvpcoindaily": 200,
+        "pvpcoin": 130,
+        "pvpcoindaily": 110,
         "stage": 14,
         "searchcost": 420
     },
@@ -66,8 +66,8 @@
         "highscore": 999,
         "basicscore": 20,
         "calculate": 15,
-        "pvpcoin": 35,
-        "pvpcoindaily": 200,
+        "pvpcoin": 145,
+        "pvpcoindaily": 120,
         "stage": 15,
         "searchcost": 450
     }
