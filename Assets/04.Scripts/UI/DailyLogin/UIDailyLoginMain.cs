@@ -17,7 +17,7 @@ public class UIDailyLoginMain : MonoBehaviour
     /// <summary>
     /// key: 1 是第 1 週, 2 是第 2 週, 已此類推.
     /// </summary>
-    private readonly Dictionary<int, List<UIDailyLoginReward>> mDailyRewards = new Dictionary<int, List<UIDailyLoginReward>>();
+    private readonly Dictionary<int, List<IDailyLoginReward>> mDailyRewards = new Dictionary<int, List<IDailyLoginReward>>();
 
     private void Awake()
     {
@@ -40,14 +40,14 @@ public class UIDailyLoginMain : MonoBehaviour
 
         foreach(var pair in mDailyRewards)
         {
-            foreach(UIDailyLoginReward reward in pair.Value)
+            foreach(IDailyLoginReward reward in pair.Value)
             {
                 reward.gameObject.SetActive(false);
             }
         }
 
         if(mDailyRewards.ContainsKey(week))
-            foreach(UIDailyLoginReward reward in mDailyRewards[week])
+            foreach(IDailyLoginReward reward in mDailyRewards[week])
                 reward.gameObject.SetActive(true);
 
         if(updateTab)
@@ -58,7 +58,7 @@ public class UIDailyLoginMain : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="rewards"> [0]:第1天登入獎勵, [1]:第2天登入獎勵, 已此類推. </param>
-    public void SetDayReward(UIDailyLoginReward.Data[] rewards)
+    public void SetDayReward(IDailyLoginReward.Data[] rewards)
     {
         ClearDailyRewards();
         createDailyRewardObjs(rewards);
@@ -68,23 +68,24 @@ public class UIDailyLoginMain : MonoBehaviour
     public void ClearDailyRewards()
     {
         foreach(var pair in mDailyRewards)
-            foreach(UIDailyLoginReward reward in pair.Value)
+            foreach(IDailyLoginReward reward in pair.Value)
                 Destroy(reward.gameObject);
         mDailyRewards.Clear();
     }
 
-    private void createDailyRewardObjs(UIDailyLoginReward.Data[] rewards)
+    private void createDailyRewardObjs(IDailyLoginReward.Data[] rewards)
     {
         int parentIndex = 0;
         int week = 1;
         foreach(var data in rewards)
         {
-            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIDailyReward, DailyParents[parentIndex]);
-            UIDailyLoginReward reward = obj.GetComponent<UIDailyLoginReward>();
+            string prefabName = parentIndex == 6 ? UIPrefabPath.UIDailyReward7 : UIPrefabPath.UIDailyReward;
+            var obj = UIPrefabPath.LoadUI(prefabName, DailyParents[parentIndex]);
+            var reward = obj.GetComponent<IDailyLoginReward>();
             reward.Set(data);
 
             if(!mDailyRewards.ContainsKey(week))
-                mDailyRewards.Add(week, new List<UIDailyLoginReward>());
+                mDailyRewards.Add(week, new List<IDailyLoginReward>());
             mDailyRewards[week].Add(reward);
 
             ++parentIndex;
