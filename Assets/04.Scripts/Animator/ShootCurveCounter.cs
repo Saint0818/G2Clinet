@@ -11,8 +11,6 @@ public class ShootCurveCounter
     private bool isplaying = false;
     private float timeScale = 1f;
     private TShootCurve Curve;
-    private bool isAnimatorMove = false;
-	private Vector3 rotateTo;
 
     public float Timer
     {
@@ -24,17 +22,11 @@ public class ShootCurveCounter
         get{ return isplaying; }
     }
 
-    private bool IsAnimatorMove
-    {
-        get{ return isAnimatorMove; }
-        set{ isAnimatorMove = value; }
-    }
-
     private EAnimatorState state = EAnimatorState.Shoot;
+//    private bool isShootJumpActive = false;
 
-	public void Init(int index, GameObject player, Vector3 rotateto)
+    public void Init(int index, GameObject player)
     {
-		rotateTo = rotateto;
         self = player;
         curveName = string.Format("{0}{1}", state.ToString(), index);
 
@@ -47,6 +39,8 @@ public class ShootCurveCounter
         isFindCurve = Curve != null ? true : false;
         curveTime = 0;
         isplaying = true;
+//        if (index >= 20)
+//            isShootJumpActive = true;
 
         if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
@@ -54,16 +48,9 @@ public class ShootCurveCounter
 
     private void Calculation()
     {	
-        if (isplaying && Curve != null)
+        if (isplaying && Curve != null )
         {
             curveTime += Time.deltaTime * timeScale;
-
-			if (IsAnimatorMove == false)
-            { 
-                IsAnimatorMove = true; 
-				self.transform.DOLookAt(rotateTo, 0.5f, AxisConstraint.Y);
-            } 
-
             switch (Curve.Dir)
             {
                 case AniCurveDirection.Forward:
@@ -91,13 +78,8 @@ public class ShootCurveCounter
             if (curveTime >= Curve.LifeTime)
             {
                 isplaying = false;
-                IsAnimatorMove = false;
                 curveTime = 0;
             }
-        }
-        else
-        {
-            IsAnimatorMove = false;
         }
     }
 

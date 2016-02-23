@@ -1003,238 +1003,218 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (temp <= MoveCheckValue || !doMove)
             {
-                ShortDintanceMoveOrNotMove(ref data, doMove, first);
-
-                if (IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5 && GameController.Get.BallOwner != null)
-                {
-                    JustRotate();
-                }
-            }
-            else
-            {
+                // 移動距離太短 or 不移動.
+                MoveTurn = 0;
+                isMoving = false;
+                
                 if (IsDefence)
                 {
-                    DefenderMove(ref data);
-                }
-                else
-                {
-                    AttackerMove(ref data);
-                }
-            }
-        }
-        else
-            isMoving = false;
-    }
-
-    private void ShortDintanceMoveOrNotMove(ref TMoveData data, bool doMove, bool first)
-    {
-        // 移動距離太短 or 不移動.
-        MoveTurn = 0;
-        isMoving = false;
-
-        if (IsDefence)
-        {
-            // 移動距離很短 or 不移動, 球員又是在防守狀態.
-            //                    WaitMoveTime = 0;
-            CantMoveTimer.Clear();
-            if (data.DefPlayer != null)
-            {
-                dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
-
-                if (data.LookTarget != null)
-                {
-                    if (Vector3.Distance(transform.position, data.DefPlayer.transform.position) <= GameConst.StealPushDistance)
-                        RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                    else if (!doMove)
-                        RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                    else if (dis > GameConst.Point3Distance + 4 && data.DefPlayer.AIing &&
-                        (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
-                        RotateTo(MoveTarget.x, MoveTarget.y);
+                    // 移動距離很短 or 不移動, 球員又是在防守狀態.
+//                    WaitMoveTime = 0;
+                    CantMoveTimer.Clear();
+                    if (data.DefPlayer != null)
+                    {
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
+                        
+                        if (data.LookTarget != null)
+                        {
+                            if (Vector3.Distance(transform.position, data.DefPlayer.transform.position) <= GameConst.StealPushDistance)
+                                RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                            else if (!doMove)
+                                RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                            else if (dis > GameConst.Point3Distance + 4 && data.DefPlayer.AIing &&
+                                     (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
+                                RotateTo(MoveTarget.x, MoveTarget.y);
+                            else
+                                RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                        }
+                        else
+                            RotateTo(MoveTarget.x, MoveTarget.y);
+                    }
                     else
-                        RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                    {
+                        if (data.LookTarget == null)
+                            RotateTo(MoveTarget.x, MoveTarget.y);
+                        else
+                            RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                    }
+                    
+                    AniState(EPlayerState.Defence0);                          
                 }
                 else
-                    RotateTo(MoveTarget.x, MoveTarget.y);
-            }
-            else
-            {
-                if (data.LookTarget == null)
-                    RotateTo(MoveTarget.x, MoveTarget.y);
-                else
-                    RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-            }
-
-            AniState(EPlayerState.Defence0);                          
-        }
-        else
-        {
-            // 移動距離很短 or 不移動, 球員又是在進攻狀態.
-            if (!IsBallOwner)
-                AniState(EPlayerState.Idle);
-            else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
-                AniState(EPlayerState.Dribble0);
-
-            if (first || GameStart.Get.TestMode == EGameTest.Edit)
-                //                        WaitMoveTime = 0;
-                CantMoveTimer.Clear();
-            else if ((situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack) &&
-                GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
-            {
-                // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
-                // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
-                // 所以當 AI 做防守邏輯的時候, 會 1 秒下 30 的命令, 命令跑到某位球員的旁邊.
-                // 就會造成防守球員會一直的轉向.(因為距離很近的時候, 對方移動一點距離, 防守者就必須轉向很多度
-                // , 才可以正確的面相對方)
-                dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);
-                if (dis <= 8)
-                    //                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 1.1f);
-                    CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
-                else
-                    //                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 2.1f);
-                    CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 2.1f));
-            }
-
-            if (IsBallOwner)
-            {
-                if (Team == ETeamKind.Self)
-                    RotateTo(CourtMgr.Get.ShootPoint[0].transform.position.x, CourtMgr.Get.ShootPoint[0].transform.position.z);
-                else
-                    RotateTo(CourtMgr.Get.ShootPoint[1].transform.position.x, CourtMgr.Get.ShootPoint[1].transform.position.z);
-
-                if (data.Shooting && AIing)
-                    GameController.Get.DoShoot();
-            }
-            else
-            {
-                if (data.LookTarget == null)
                 {
-                    if (GameController.Get.BallOwner != null)
-                        RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
-                    else
+                    // 移動距離很短 or 不移動, 球員又是在進攻狀態.
+                    if (!IsBallOwner)
+                        AniState(EPlayerState.Idle);
+                    else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
+                        AniState(EPlayerState.Dribble0);
+                    
+                    if (first || GameStart.Get.TestMode == EGameTest.Edit)
+//                        WaitMoveTime = 0;
+                        CantMoveTimer.Clear();
+                    else if ((situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack) &&
+                             GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+                    {
+                        // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
+                        // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
+                        // 所以當 AI 做防守邏輯的時候, 會 1 秒下 30 的命令, 命令跑到某位球員的旁邊.
+                        // 就會造成防守球員會一直的轉向.(因為距離很近的時候, 對方移動一點距離, 防守者就必須轉向很多度
+                        // , 才可以正確的面相對方)
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);
+                        if (dis <= 8)
+//                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 1.1f);
+                            CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
+                        else
+//                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 2.1f);
+                            CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 2.1f));
+                    }
+                    
+                    if (IsBallOwner)
                     {
                         if (Team == ETeamKind.Self)
                             RotateTo(CourtMgr.Get.ShootPoint[0].transform.position.x, CourtMgr.Get.ShootPoint[0].transform.position.z);
                         else
                             RotateTo(CourtMgr.Get.ShootPoint[1].transform.position.x, CourtMgr.Get.ShootPoint[1].transform.position.z);
+                        
+                        if (data.Shooting && AIing)
+                            GameController.Get.DoShoot();
+                    }
+                    else
+                    {
+                        if (data.LookTarget == null)
+                        {
+                            if (GameController.Get.BallOwner != null)
+                                RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
+                            else
+                            {
+                                if (Team == ETeamKind.Self)
+                                    RotateTo(CourtMgr.Get.ShootPoint[0].transform.position.x, CourtMgr.Get.ShootPoint[0].transform.position.z);
+                                else
+                                    RotateTo(CourtMgr.Get.ShootPoint[1].transform.position.x, CourtMgr.Get.ShootPoint[1].transform.position.z);
+                            }
+                        }
+                        else
+                            RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                        
+                        if (data.Catcher)
+                        {
+                            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
+                            {
+                                if (GameController.Get.Pass(this, false, false, true))
+                                    NeedShooting = data.Shooting;
+                            }
+                        }
+                    }
+                }
+
+                // 移動到非常接近 target, 所以刪除這筆, 接著移動到下一個 target.
+                if (moveQueue.Count > 0)
+                {
+                    moveQueue.Dequeue();
+//                    Debug.LogFormat("moveTo(), moveQueue.Dequeue()");
+                }
+
+                if (data.MoveFinish != null)
+                    data.MoveFinish(this, data.Speedup);
+            }
+            else if (IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5 &&
+                    GameController.Get.BallOwner != null)
+            {
+                // 這段應該是不做移動, 只做轉身, 然後用 6 個 frame 做轉身.
+                MoveTurn++;
+                RotateTo(MoveTarget.x, MoveTarget.y);
+                if (MoveTurn == 1)
+                    moveStartTime = Time.time + GameConst.DefMoveTime;           
+            }
+            else
+            {
+                if (IsDefence)
+                {
+                    // 防守移動.
+                    if (data.DefPlayer != null)
+                    {
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
+                        
+                        if (dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
+                            RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
+                        else
+                            RotateTo(MoveTarget.x, MoveTarget.y);
+
+                        if (MathUtils.FindAngle(PlayerRefGameObject.transform, new Vector3(MoveTarget.x, 0, MoveTarget.y)) > 90)
+                            AniState(EPlayerState.Defence1);
+                        else
+                            AniState(EPlayerState.RunningDefence);
+                    }
+                    else
+                    {
+                        RotateTo(MoveTarget.x, MoveTarget.y);
+                        AniState(EPlayerState.Run0);
+                    }
+                    
+                    isMoving = true;
+                    if (mMovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
+                    {
+                        setSpeed(1, 0);
+                        transform.position = Vector3.MoveTowards(transform.position, 
+                            new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                            Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * timeScale);
+                        isSpeedup = true;
+                    }
+                    else
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, 
+                            new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                            Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * timeScale);
+                        isSpeedup = false;
                     }
                 }
                 else
-                    RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-
-                if (data.Catcher)
                 {
-                    if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
+                    // 進攻移動.
+                    RotateTo(MoveTarget.x, MoveTarget.y);                   
+                    isMoving = true;
+
+                    if (IsBallOwner)
                     {
-                        if (GameController.Get.Pass(this, false, false, true))
-                            NeedShooting = data.Shooting;
+                        // 持球者移動.
+                        if (data.Speedup && mMovePower > 0)
+                        {
+                            // 持球者加速移動.(因為球員已經轉身了, 所以往 forward 移動就可以了)
+                            setSpeed(1, 0);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue * timeScale);
+                            AniState(EPlayerState.Dribble2);
+                            isSpeedup = true;
+                        }
+                        else
+                        {
+                            // 持球者一般移動.
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue * timeScale);
+                            AniState(EPlayerState.Dribble1);
+                            isSpeedup = false;
+                        }
+                    }
+                    else
+                    {
+                        // 未持球者移動.
+                        if (data.Speedup && mMovePower > 0)
+                        {
+                            setSpeed(1, 0);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue * timeScale);
+                            AniState(EPlayerState.Run1);
+                            isSpeedup = true;
+                        }
+                        else
+                        {
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * timeScale);
+                            AniState(EPlayerState.Run0);
+                            isSpeedup = false;
+                        }
                     }
                 }
-            }
-        }
-
-        // 移動到非常接近 target, 所以刪除這筆, 接著移動到下一個 target.
-        if (moveQueue.Count > 0)
-        {
-            moveQueue.Dequeue();
-            //                    Debug.LogFormat("moveTo(), moveQueue.Dequeue()");
-        }
-
-        if (data.MoveFinish != null)
-            data.MoveFinish(this, data.Speedup);
-    }
-
-    private void DefenderMove(ref TMoveData data)
-    {
-        // 防守移動.
-        if (data.DefPlayer != null)
-        {
-            dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
-
-            if (dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
-                RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-            else
-                RotateTo(MoveTarget.x, MoveTarget.y);
-
-            if (MathUtils.FindAngle(PlayerRefGameObject.transform, new Vector3(MoveTarget.x, 0, MoveTarget.y)) > 90)
-                AniState(EPlayerState.Defence1);
-            else
-                AniState(EPlayerState.RunningDefence);
+            } 
         }
         else
-        {
-            RotateTo(MoveTarget.x, MoveTarget.y);
-            AniState(EPlayerState.Run0);
-        }
-
-        isMoving = true;
-        if (mMovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
-        {
-            setSpeed(1, 0);
-            transform.position = Vector3.MoveTowards(transform.position, 
-                new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * timeScale);
-            isSpeedup = true;
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, 
-                new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * timeScale);
-            isSpeedup = false;
-        }
-    }
-
-    private void AttackerMove(ref TMoveData data)
-    {
-        // 進攻移動.
-        RotateTo(MoveTarget.x, MoveTarget.y);                   
-        isMoving = true;
-
-        if (IsBallOwner)
-        {
-            // 持球者移動.
-            if (data.Speedup && mMovePower > 0)
-            {
-                // 持球者加速移動.(因為球員已經轉身了, 所以往 forward 移動就可以了)
-                setSpeed(1, 0);
-                transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue * timeScale);
-                AniState(EPlayerState.Dribble2);
-                isSpeedup = true;
-            }
-            else
-            {
-                // 持球者一般移動.
-                transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue * timeScale);
-                AniState(EPlayerState.Dribble1);
-                isSpeedup = false;
-            }
-        }
-        else
-        {
-            // 未持球者移動.
-            if (data.Speedup && mMovePower > 0)
-            {
-                setSpeed(1, 0);
-                transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue * timeScale);
-                AniState(EPlayerState.Run1);
-                isSpeedup = true;
-            }
-            else
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * timeScale);
-                AniState(EPlayerState.Run0);
-                isSpeedup = false;
-            }
-        }
-    }
-
-    private void JustRotate()
-    {
-        // 這段應該是不做移動, 只做轉身, 然後用 6 個 frame 做轉身.
-        MoveTurn++;
-        RotateTo(MoveTarget.x, MoveTarget.y);
-        if (MoveTurn == 1)
-            moveStartTime = Time.time + GameConst.DefMoveTime;  
+            isMoving = false;
     }
 
     public void RotateTo(float lookAtX, float lookAtZ)
@@ -1243,6 +1223,20 @@ public class PlayerBehaviour : MonoBehaviour
             return;
 
         PlayerRefGameObject.transform.LookAt(new Vector3(lookAtX, PlayerRefGameObject.transform.position.y, lookAtZ));
+
+//      Debug.Log ("Roatte To .GameObject : " + PlayerGameObect.name);
+//        transform.rotation = Quaternion.Lerp(transform.rotation, 
+//                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
+//            transform.localPosition), time * Time.deltaTime);
+
+//        Vector3 lookAtPos = new Vector3(lookAtX, PlayerTransform.position.y, lookAtZ);
+//        Vector3 relative = PlayerTransform.InverseTransformPoint(lookAtPos);
+//        float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+
+//        if ((mangle > 15 && mangle < 180) || (mangle < -15 && mangle > -180))
+//        {
+//            PlayerTransform.DOLookAt(lookAtPos, 0.1f);
+//        }
     }
 
     public void SetInvincible(float time)
@@ -1340,6 +1334,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (IsBallOwner && !IsLayup && !IsDunk && !IsAlleyoopState && IsShoot && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
+            
             case EPlayerState.BlockCatch:
                 if (IsBlock && crtState != EPlayerState.BlockCatch)
                     return true;
@@ -1778,7 +1773,7 @@ public class PlayerBehaviour : MonoBehaviour
                     skillKind = ESkillKind.DownHand;
                     break;
                 case 20:
-//                    RotateTo(CourtMgr.Get.GetHoodPosition(Team).x, CourtMgr.Get.GetHoodPosition(Team).z);
+                    RotateTo(CourtMgr.Get.GetHoodPosition(Team).x, CourtMgr.Get.GetHoodPosition(Team).z);
 					isShootJumpActive = true;
                     break;
             }
@@ -2483,9 +2478,6 @@ public class PlayerBehaviour : MonoBehaviour
                 AniState(EPlayerState.Dribble0);
         }
 
-        if (LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Shooter))
-            LayerMgr.Get.SetLayer(PlayerRefGameObject, ELayer.Player);
-
         InitFlag();
     }
 
@@ -2713,39 +2705,39 @@ public class PlayerBehaviour : MonoBehaviour
                 
                 isSkillShow = true;
 //					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
-                string effectName = string.Format("UseSkillEffect_{0}", 0);
+				string effectName = string.Format("UseSkillEffect_{0}", 0);
                 EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
                 
 //                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
-                if (GameController.Get.BallOwner != null)
+				if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
                 
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
-                UISkillEffect.Get.ShowView(ActiveSkillUsed);
-                AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
+				UISkillEffect.Get.ShowView(ActiveSkillUsed);
+				AudioMgr.Get.PlaySound (SoundType.SD_ActiveLaunch);
                 
                 switch (skillEffectKind)
                 {
                     case 0://show self and rotate camera
-                        Invoke("showEffect", skillTime);
+						Invoke("showEffect", skillTime);
 //					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                        LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                        animatorEvent.floatParameter = GameConst.Min_TimePause;
+						LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 0;
                         TimeScaleCallBack(animatorEvent);   
                         break;
                     case 1://show self
                         showActiveEffect();
 //					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                        LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                        animatorEvent.floatParameter = GameConst.Min_TimePause;
+						LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 2;
                         TimeScaleCallBack(animatorEvent); 
                         break;
                     case 2://show all Player
                         showActiveEffect();
                         GameController.Get.SetAllPlayerLayer("SkillPlayer");
-                        animatorEvent.floatParameter = GameConst.Min_TimePause;
+						animatorEvent.floatParameter = GameConst.Min_TimePause;
                         animatorEvent.intParameter = 2;
                         TimeScaleCallBack(animatorEvent); 
                         break;
