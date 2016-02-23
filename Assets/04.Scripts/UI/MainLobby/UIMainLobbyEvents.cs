@@ -126,4 +126,9 @@ public class UIMainLobbyEvents : MonoBehaviour
 		if(!UIRecharge.Visible)
 			UIRecharge.Get.ShowView(ERechargeType.Power.GetHashCode(), null, false);
     }
+
+    public void OnDailyLogin()
+    {
+        UIDailyLogin.Get.Show();
+    }
 }

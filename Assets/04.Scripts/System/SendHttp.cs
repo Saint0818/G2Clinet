@@ -462,7 +462,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				GameData.Team.Init();
 
 //			    Debug.LogFormat("DailyLogin, [{0},{1},{2}]", GameData.Team.DailyLoginRewardYear, GameData.Team.DailyLoginRewardMonth, GameData.Team.DailyLoginRewardIndex);
-//			    Debug.LogFormat("LifeTimeLoginNum:{0}", GameData.Team.LifeTimeLoginNum);
+//			    Debug.LogFormat("LifetimeLoginNum:{0}", GameData.Team.LifetimeLoginNum);
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();

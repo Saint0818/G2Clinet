@@ -32,6 +32,9 @@ public class UIMainLobby : UIBase
     private void Awake()
     {
         Main = GetComponent<UIMainLobbyMain>();
+
+        var lobbyEvents = GetComponent<UIMainLobbyEvents>();
+        Main.DailyLoginButton.onClick.Add(new EventDelegate(lobbyEvents.OnDailyLogin));
     }
 
     [UsedImplicitly]

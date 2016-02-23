@@ -69,9 +69,22 @@ namespace GameStruct
         public int DailyLoginRewardIndex;
 
         /// <summary>
+        /// [year][month][登入次數].
+        /// [2016][2] 是 2016 年 2 月的登入次數.
+        /// </summary>
+        public Dictionary<int, Dictionary<int, int>> DailyLoginNums;
+
+        public int GetDailyLoginNum(int year, int month)
+        {
+            if(DailyLoginNums.ContainsKey(year) && DailyLoginNums[year].ContainsKey(month))
+                return DailyLoginNums[year][month];
+            return 0;
+        }
+
+        /// <summary>
         /// 終生登入獎勵. 這是對應到 LifeTimeTable 的登入次數..
         /// </summary>
-        public int LifeTimeLoginNum;
+        public int LifetimeLoginNum;
 
         //PVP
         public int PVPCoin; //聯盟幣

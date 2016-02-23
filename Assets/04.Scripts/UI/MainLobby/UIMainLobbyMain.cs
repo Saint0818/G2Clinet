@@ -27,6 +27,8 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public UILabel NameLabel;
 
+    public UIButton DailyLoginButton;
+
     // 紅點.
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
