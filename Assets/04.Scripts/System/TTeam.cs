@@ -707,10 +707,10 @@ namespace GameStruct
 		}
 
 		/// <summary>
-		/// 檢查卡片是否有得到過
+		/// 檢查身上卡片是否有
 		/// </summary>
 		/// <returns><c>true</c>, if skill cardis new was checked, <c>false</c> otherwise.</returns>
-		/// <param name="id">Identifier.</param>
+		/// <param name="id">Skill id.</param>
         public bool CheckSkillCardisNew (int id) {
             if(SkillCards == null)
                 SkillCards = new TSkill[0];
@@ -734,6 +734,33 @@ namespace GameStruct
 
             return true;
         }
+
+		public bool CheckSkillCardItemIDisNew (int itemID) {
+			if(GameData.DItemData.ContainsKey(itemID)) {
+				if(SkillCards == null)
+					SkillCards = new TSkill[0];
+				
+				if(SkillCards.Length > 0) 
+					for (int i=0; i<SkillCards.Length; i++) 
+						if(SkillCards[i].ID == GameData.DItemData[itemID].Avatar)
+							return false;
+				
+				if(PlayerBank != null && PlayerBank.Length > 0) 
+					for (int i=0; i<PlayerBank.Length; i++) 
+						if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) 
+							for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) 
+								if(PlayerBank[i].SkillCards[j].ID == GameData.DItemData[itemID].Avatar)
+									return false;
+				
+				if(Player.SkillCards != null && Player.SkillCards.Length > 0) 
+					for (int i=0; i<Player.SkillCards.Length; i++) 
+						if (Player.SkillCards[i].ID == GameData.DItemData[itemID].Avatar)
+							return false;
+				
+				return true;
+			}
+			return false;
+		}
 
 		public bool CheckSkillCardisNew (int id, TSkill[] SkillCardOld) {
 			if(SkillCardOld != null) {
@@ -860,6 +887,24 @@ namespace GameStruct
             }
         }
 
+		/// <summary>
+		/// 擁有過的item數量
+		/// </summary>
+		/// <returns><c>true</c> if this instance is get item the specified itemID; otherwise, <c>false</c>.</returns>
+		/// <param name="itemID">Item I.</param>
+		public bool IsGetItem (int itemID) {
+			if(GotItemCount.ContainsKey(itemID)) 
+				if(GotItemCount[itemID] != 0)
+					return true;
+			
+			return false;
+		}
+
+		/// <summary>
+		/// 擁有過的造型數量
+		/// </summary>
+		/// <returns><c>true</c> if this instance is get avatar the specified itemID; otherwise, <c>false</c>.</returns>
+		/// <param name="itemID">Item I.</param>
 		public bool IsGetAvatar (int itemID) {
 			if(GotAvatar.ContainsKey(itemID)) 
 				if(GotAvatar[itemID] != 0)
@@ -868,67 +913,203 @@ namespace GameStruct
 			return false;
 		}
 
-		public bool IsExecuteSuitCard (int id) {
+		/// <summary>
+		/// 某一列的套卡完成數量 （擁有過的卡牌）
+		/// </summary>
+		/// <returns>The card complete count.</returns>
+		/// <param name="suitcardID">Suitcard I.</param>
+		public int SuitCardCompleteCount (int suitcardID) {
+			int count = 0;
+			foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) {
+				if(item.Key == suitcardID) {
+					for(int i=0; i<item.Value.Items.Length; i++) 
+						if(IsGetItem(item.Value.Items[i]))
+							count ++;
+				}
+			}
+			return count;
+		}
+
+		public int SuitCardExecuteCost {
+			get {
+				int count = 0;
+				if(SuitCardCost != null) 
+					for(int i=0; i<SuitCardCost.Length; i++) 
+						if(GameData.DSuitCard.ContainsKey(SuitCardCost[i]))
+							count += GameData.DSuitCard[SuitCardCost[i]].CardPower;
+				
+				return count;
+			}
+		}
+
+		/// <summary>
+		/// 是否有啟動套卡技能.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is execute suit card the specified id; otherwise, <c>false</c>.</returns>
+		/// <param name="id">Identifier.</param>
+
+		public bool IsExecuteSuitCard (int itemID) {
 			if(SuitCardCost != null) 
 				for(int i=0; i<SuitCardCost.Length; i++) 
-					if(SuitCardCost[i] == id)
+					if(SuitCardCost[i] == itemID)
 						return true;	
 			return false;
 		}
 
-		//初始士氣值 限制等級使用(limit.json)
-//		public int InitGetAP () {
-//			
-//		}
+		//AP (Ability Points)初始士氣值
+		public int InitGetAP () {
+			int ap = 0;
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)) {
+				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) 
+					if(SuitCardCost != null) 
+						for(int i=0; i<SuitCardCost.Length; i++) 
+							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
+								if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 20) 
+									ap += GameData.DSuitCard[SuitCardCost[i]].Value[j];
+			}
 
-		//lv : player's level  限制等級使用(limit.json)
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
+				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) 
+					if(SuitCardCost != null) 
+						for(int i=0; i<SuitCardCost.Length; i++) 
+							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
+								if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 20) 
+									ap += GameData.DSuitCard[SuitCardCost[i]].Value[j];
+			}
+
+			return ap;
+		}
+
+		//加入套卡的效果
 		public void AddSuitCardEffect (int lv) {
-			if(lv > 20) {
-				if(SuitCardCost != null) {
-					for(int i=0; i<SuitCardCost.Length; i++) {
-						for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) {
-							switch(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j]) {
-							case (int)EBonus.Point2:
-								Player.Point2 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Point3:
-								Player.Point3 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Dunk:
-								Player.Dunk += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Rebound:
-								Player.Rebound += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Block:
-								Player.Block += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Steal:
-								Player.Steal += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Stamina:
-								Player.Stamina += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Defence:
-								Player.Defence += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Dribble:
-								Player.Dribble += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Pass:
-								Player.Pass += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Speed:
-								Player.Speed += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
-							case (int)EBonus.Strength:
-								Player.Strength += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
-								break;
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)) {
+				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) {
+					if(SuitCardCost != null) {
+						for(int i=0; i<SuitCardCost.Length; i++) {
+							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) {
+								switch(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j]) {
+								case (int)EBonus.Point2:
+									Player.Point2 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Point3:
+									Player.Point3 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Dunk:
+									Player.Dunk += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Rebound:
+									Player.Rebound += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Block:
+									Player.Block += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Steal:
+									Player.Steal += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Stamina:
+									Player.Stamina += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Defence:
+									Player.Defence += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Dribble:
+									Player.Dribble += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Pass:
+									Player.Pass += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Speed:
+									Player.Speed += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Strength:
+									Player.Strength += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									break;
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+
+		//某一列套裝完成的數量
+		public int SuitItemCompleteCount (int id) {
+			int count = 0;
+			foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
+				if(item.Key == id) {
+					for(int i=0; i<item.Value.Items.Length; i++) 
+						if(IsGetAvatar(item.Value.Items[i]))
+							count ++;
+				}
+			}
+			return count;
+		}
+
+		//某一列套裝 卡片完成的數量
+		public int SuitItemCardCompleteCount (int id) {
+			int count = 0;
+			foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
+				if(item.Key == id) {
+					for(int i=0; i<item.Value.Card.Length; i++) 
+						if(CheckSkillCardItemIDisNew(item.Value.Card[i]))
+							count ++;
+				}
+			}
+			return count;
+		}
+
+		//加入套裝加成的效果
+		public void AddSuitItemEffect (int lv) {
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
+				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+					if(SuitCardCost != null) {
+						for(int i=0; i<SuitCardCost.Length; i++) {
+							for (int j=0; j<GameData.DSuitItem[SuitCardCost[i]].AttrKind.Length; j++) {
+								switch(GameData.DSuitItem[SuitCardCost[i]].AttrKind[j]) {
+								case (int)EBonus.Point2:
+									Player.Point2 += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Point3:
+									Player.Point3 += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Dunk:
+									Player.Dunk += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Rebound:
+									Player.Rebound += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Block:
+									Player.Block += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Steal:
+									Player.Steal += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Stamina:
+									Player.Stamina += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Defence:
+									Player.Defence += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Dribble:
+									Player.Dribble += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Pass:
+									Player.Pass += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Speed:
+									Player.Speed += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								case (int)EBonus.Strength:
+									Player.Strength += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+
     }
 }

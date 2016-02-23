@@ -16,8 +16,10 @@ public class TActiveSkillCard
 	private UISprite SkillCard;
 	private UILabel SkillName;
 	private SkillCardStar[] SkillStars;
-	private UISprite SuitCard;
-	private UISprite SuitItem;
+	private GameObject SuitCard;
+	private UISprite SuitCardFinish;
+	private GameObject SuitItem;
+	private UISprite SuitItemFinish;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
 	public GameObject UnavailableMask;
@@ -43,11 +45,14 @@ public class TActiveSkillCard
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++)
 				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
-			
-			if(go.transform.Find("SuitCard/SuitFinish"))
-				SuitCard = go.transform.Find("SuitCard/SuitFinish").gameObject.GetComponent<UISprite>();
-			if(go.transform.Find("SuitItem"))
-				SuitItem = go.transform.Find("SuitItem").gameObject.GetComponent<UISprite>();
+			if(go.transform.Find("SuitCard")) {
+				SuitCard = go.transform.Find("SuitCard").gameObject;
+				SuitCardFinish = go.transform.Find("SuitCard/SuitFinish").gameObject.GetComponent<UISprite>();
+			}
+			if(go.transform.Find("SuitItem")){
+				SuitItem = go.transform.Find("SuitItem").gameObject;
+				SuitItemFinish = go.transform.Find("SuitItem/Icon").gameObject.GetComponent<UISprite>();
+			}
 			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
 			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
 			UnavailableMask = go.transform.Find("UnavailableMask").gameObject;
@@ -189,9 +194,35 @@ public class TActiveSkillCard
 		}
 	}
 
-	public void SetSuitLight (int count) {
-		if(SuitCard != null)
-			SuitCard.spriteName = GameFunction.CardSuitLightName(count);
+	public void UpdateSuitCardButton (UIEventListener.VoidDelegate btnFun) {
+		UIEventListener.Get(SuitCard).onClick = btnFun;
+	}
+
+	public void UpdateSuitItemButton (UIEventListener.VoidDelegate btnFun) {
+		UIEventListener.Get(SuitItem).onClick = btnFun;
+	}
+
+	public void UpdateSuitCardLight (int suitcardID) {
+		if(SuitCardFinish != null) {
+			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
+			SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID));
+		}
+	}
+
+	public void UpdateSuitItem (int suitItemID) {
+		if(SuitItemFinish != null) {
+			SuitItemFinish.gameObject.name = suitItemID.ToString();
+			SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID));
+		}
+
+	}
+
+	public bool SuitCardEnable {
+		set {SuitCard.SetActive(value);}
+	}
+
+	public bool SuitItemEnable {
+		set {SuitItem.SetActive(value);}
 	}
 
 	public GameObject MySkillCard {

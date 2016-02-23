@@ -96,15 +96,24 @@ public struct TUICard{
 		skillCard.SetCoin(money);
 	}
 
-	public void Init (GameObject obj, int index, TSkill skill, bool isEquip, EventDelegate btnFunc = null) {
+	public void Init (GameObject obj, int index, TSkill skill, bool isEquip, EventDelegate btnFunc = null, UIEventListener.VoidDelegate suitCardBtn = null, UIEventListener.VoidDelegate suitItemBtn = null) {
 		Card = obj;
 		CardIndex = index;
-		if(GameData.DSkillData.ContainsKey(skill.ID))
+		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			Cost = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1);
 
-		skillCard = new TActiveSkillCard();
-		skillCard.Init(obj, btnFunc, true);
-		UpdateRedPoint(isEquip, skill);
+			skillCard = new TActiveSkillCard();
+			skillCard.Init(obj, btnFunc, true);
+
+			if(suitCardBtn != null)
+				skillCard.UpdateSuitCardButton(suitCardBtn);
+			if(suitItemBtn != null)
+				skillCard.UpdateSuitItemButton(suitItemBtn);
+
+			skillCard.UpdateSuitCardLight(GameData.DSkillData[skill.ID].SuitCard);
+			skillCard.UpdateSuitItem(GameData.DSkillData[skill.ID].Suititem);
+			UpdateRedPoint(isEquip, skill);
+		}
 	}
 
 	public void UpdateRedPoint (bool isEquip, TSkill skill) {
@@ -354,7 +363,7 @@ public class UISkillFormation : UIBase {
 			redPoints[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/RedPoint");
 			SetBtnFun(UIName + "/Top/Tabs/"+i.ToString(), OnTab);
 		}
-		clickTab(0);
+		ClickTab(0);
 		initCards ();
 		UpdateSort();
 		refreshFrameCount ();
@@ -378,11 +387,11 @@ public class UISkillFormation : UIBase {
 	public void OnTab() {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			clickTab(result);
+			ClickTab(result);
 		}
 	}
 
-	private void clickTab (int no) {
+	public void ClickTab (int no) {
 		if(no >= 0 && no < views.Length) {
 			for (int i=0; i<views.Length; i++) {
 				tabs[i].SetActive(i == no);
@@ -638,6 +647,17 @@ public class UISkillFormation : UIBase {
 			return false;
 	}
 
+	public void OnSuitCard (GameObject go) {
+		ClickTab(1);
+	}
+
+	public void OnSuitItem (GameObject go) {
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			UISuitAvatar.Get.ShowView(result);
+		}
+	}
+
 	private GameObject addUICards (int skillCardIndex, int positionIndex, TSkill skill, GameObject parent, bool isEquip) {
 		if (GameData.DSkillData.ContainsKey(skill.ID)) {
 			string name = skillCardIndex.ToString() + "_" + skill.ID.ToString()+ "_" + skill.SN.ToString() + "_" + skill.Lv.ToString();
@@ -654,7 +674,7 @@ public class UISkillFormation : UIBase {
 				drag.pressAndHoldDelay = 0.25f;
 				
 				TUICard uicard = new TUICard();
-				uicard.Init(obj, skillCardIndex, skill, isEquip, new EventDelegate(OnCardDetailInfo));
+				uicard.Init(obj, skillCardIndex, skill, isEquip, new EventDelegate(OnCardDetailInfo), OnSuitCard, OnSuitItem);
 				uicard.skillCard.UpdateViewFormation(skill, isEquip);
 				uiCards.Add(obj.transform.name, uicard);
 				return obj;

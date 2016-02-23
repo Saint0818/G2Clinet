@@ -21,10 +21,14 @@ namespace GameStruct
         public int AILevel;
         public int Strategy;
 
-        /// <summary>
-        /// 球員的能力值(目前主要是表格的數值 + 數值裝的數值)
-        /// </summary>
+        // 球員的能力值(目前主要是表格的數值 + 數值裝的數值)
+		/// <summary>
+		/// Point2 命中率
+		/// </summary>
         public float Point2; //kind1
+		/// <summary>
+		/// Point3 腕力(投籃的衰減值) 
+		/// </summary>
         public float Point3; //kind2
         public float Speed; //kind3
         public float Stamina; //kind4
@@ -217,6 +221,7 @@ namespace GameStruct
 	                addEquipValues();
 					addPotentialValues();
 					GameData.Team.AddSuitCardEffect(Lv);
+					GameData.Team.AddSuitItemEffect(Lv);
 				}
             }
         }

@@ -67,8 +67,8 @@ public struct TItemSuitCardGroup {
 				if(GameData.DItemData.ContainsKey(GameData.DSuitCard[id].Items[i])) { 
 					SuitCards[i].UpdateViewItemDataForSuit(GameData.DItemData[GameData.DSuitCard[id].Items[i]]);
 					UIEventListener.Get(SuitCards[i].MySkillCard).onClick = OnShowCardInfo;
-					SuitCards[i].IsCanUseForSuit = !HasCard(GameData.DSuitCard[id].Items[i]);
-					if(!HasCard(GameData.DSuitCard[id].Items[i]))
+					SuitCards[i].IsCanUseForSuit = !GameData.Team.IsGetItem(GameData.DSuitCard[id].Items[i]);
+					if(!GameData.Team.IsGetItem(GameData.DSuitCard[id].Items[i]))
 						isAllGet = false;
 				} 
 				else {
@@ -158,20 +158,6 @@ public struct TItemSuitCardGroup {
 	private Color32 colorLaunch {
 		get {return new Color32(30, 170, 220, 255);}
 	}
-
-	private bool HasCard(int itemID)
-	{
-		foreach (KeyValuePair<int, int> item in GameData.Team.GotItemCount)
-		{
-			if (GameData.DItemData.ContainsKey(item.Key))
-			if (GameData.DItemData[item.Key].ID == itemID)
-				return true;
-		}
-		if (GameData.DItemData.ContainsKey(itemID))
-			return !GameData.Team.CheckSkillCardisNew(GameData.DItemData[itemID].Avatar);
-		
-		return false;   
-	}
 }
 
 public class UISuitCard {
@@ -184,10 +170,12 @@ public class UISuitCard {
 
 	private List<TItemSuitCardGroup> itemSuitCards;
 
-	private int cost;
+	private int costNow;
+	private int costMax;//啟動值最大值
 
 	public void InitCom (UISkillFormation skillFormation, string UIName) {
-		cost = 10;
+		costNow = GameData.Team.SuitCardExecuteCost;
+		costMax = 10;
 		mSelf = skillFormation;
 		itemSuitCardGroup = Resources.Load(UIPrefabPath.ItemSuitCardGroup) as GameObject;
 
@@ -215,7 +203,11 @@ public class UISuitCard {
 			}
 		}
 		//目前還沒計算0暫代
-		labelSuitCost.text = "0 / " + cost.ToString();
+		labelSuitCost.text = costNow + " / " + costMax.ToString();
+	}
+
+	private bool checkCost (int currentCost) {
+		return ((currentCost + costNow) > costMax);
 	}
 
 	public void OnLaunch (GameObject go) {
@@ -223,7 +215,12 @@ public class UISuitCard {
 		if(int.TryParse(go.name,out result)) {
 			if(result >=0 && result < itemSuitCards.Count) {
 				if(itemSuitCards[result].IsAllGet) {
-					itemSuitCards[result].LaunchSuit(GameData.Team.IsExecuteSuitCard(itemSuitCards[result].SuitID));
+					if(GameData.DSuitCard.ContainsKey(result)) {
+						if(checkCost (GameData.DSuitCard[result].CardPower))
+							itemSuitCards[result].LaunchSuit(GameData.Team.IsExecuteSuitCard(itemSuitCards[result].SuitID));
+						else 
+							UIHint.Get.ShowHint(TextConst.S(7708), Color.red);
+					}
 				}else 
 					UIHint.Get.ShowHint(TextConst.S(7706), Color.red);
 			}

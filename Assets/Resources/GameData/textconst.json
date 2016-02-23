@@ -2888,6 +2888,12 @@
         "en": "Launch Point"
     },
     {
+        "id": 7708,
+        "explain": "啟動值超過",
+        "tw": "啟動值超過，無法啟動",
+        "en": "Launch Point Overweight."
+    },
+    {
         "id": 8001,
         "explain": "紙娃娃介面",
         "tw": "造 型",
@@ -3025,6 +3031,12 @@
         "explain": "無對應晶片時的說明",
         "uipeth": "NoCardLabel",
         "tw": "此套造型無對應技能晶片"
+    },
+    {
+        "id": 8207,
+        "explain": "套裝不需要全部位時",
+        "uipeth": "ItemNameLabel",
+        "tw": "無此部位造型"
     },
     {
         "id": 9001,

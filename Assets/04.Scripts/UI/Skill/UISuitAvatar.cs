@@ -31,7 +31,7 @@ public struct TItemSuitAvatarGroup {
 			SuitNameLabel.text = GameData.DSuitItem[id].SuitName;
 			CountLabel.text = ownCount.ToString() + "/" + GameData.DSuitItem[id].CardLength;
 			PositionIcon.spriteName = GameFunction.PositionIcon(GameData.DSuitItem[id].Position);
-		}
+		} 
 	}
 
 	public bool SelectActive {
@@ -62,11 +62,13 @@ public struct TMiddleItemView {
 			if(GameData.DSuitItem[id].Items.Length == itemAwardGroup.Length) {
 				for (int i=0; i<itemAwardGroup.Length; i++) {
 					if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
-						itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
-						if(GameData.DSuitItem[id].Items[i] != 0)
+						if(GameData.DSuitItem[id].Items[i] != 0) {
 							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
-						else 
+							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
+						} else {
 							itemAwardGroup[i].Hide();
+							itemNameLabel[i].text = TextConst.S(8207);
+						}
 					}
 				}
 			}
@@ -250,7 +252,7 @@ public class UISuitAvatar : UIBase {
 		Visible = false;
 	}
 
-	public void ShowView () {
+	public void ShowView (int suitItemID) {
 		Visible = true;
 		int index = 0;
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
@@ -261,7 +263,7 @@ public class UISuitAvatar : UIBase {
 			index ++;
 		}
 		leftScorllView.Scroll(0);
-		clickSuit (1);
+		clickSuit (suitItemID);
 		middleBonusView.SetColor(middleItemView.GotItemCount);
 	}
 

@@ -109,7 +109,9 @@
         Mall = 7,
         PVP = 8,
         Instance = 9,
-        CreateRole = 10
+        CreateRole = 10,
+		SuitCard = 26,
+		SuitItem = 27
     }
 					
 	public enum EPlayerPostion

@@ -598,10 +598,11 @@ namespace GameStruct
 		public int ID;
 		public int Kind; 
 		public int Quality; //Card Color
-//		public int Star; // Space
 		public int MaxStar;
 		public int PictureNo;
 		public string NameTW;
+		public int SuitCard;
+		public int Suititem;
 		public string Animation;
 		public string Situation;
 		public int Sell;
@@ -890,6 +891,9 @@ namespace GameStruct
 		public int MaxStack;
 		public int UseTime;
 		public int Potential;
+
+		public int SuitCard;
+		public int SuitItem;
 
         public EBonus[] Bonus
         {
