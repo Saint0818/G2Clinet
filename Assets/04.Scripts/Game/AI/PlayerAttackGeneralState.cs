@@ -56,6 +56,7 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+            mPlayer.ResetMove();
 //            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
 
 //			if(mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0) 
@@ -129,7 +130,7 @@ namespace AI
 
             if(isBallOwner())
                 mBallActions.Do();
-            else
+			else if(!mPlayer.IsCatch)
                 mNoBallActions.Do();
 
             if(GameController.Get.HasBallOwner)

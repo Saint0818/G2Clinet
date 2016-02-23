@@ -134,7 +134,25 @@ public class GameController : KnightSingleton<GameController>
 
 	//Rebound
 	public bool IsReboundTime = false;
-	public EBallState BallState = EBallState.None;
+	private EBallState ballState = EBallState.None;
+
+    public EBallState BallState
+    {
+        set{
+            ballState = value;
+
+            if (CourtMgr.Get.RealBallCompoment){
+                if (ballState != EBallState.None)
+                    CourtMgr.Get.RealBallCompoment.ShowBallSFX();
+                else
+                    CourtMgr.Get.RealBallCompoment.HideBallSFX();
+            }
+        }
+
+        get{ 
+            return ballState;
+        }
+    }
 
 	//Basket
 	public EBasketSituation BasketSituation;
@@ -759,6 +777,7 @@ public class GameController : KnightSingleton<GameController>
 					break;
 
 				case EGameTest.AnimationUnit:
+                case EGameTest.Block:
 					if (Input.GetKeyDown (KeyCode.S)){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
 						TSkill skill = new TSkill();
@@ -767,8 +786,19 @@ public class GameController : KnightSingleton<GameController>
 						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}
-					break;
 
+                    if (Input.GetKeyDown (KeyCode.K)){
+                        Joysticker.AniState(EPlayerState.KnockDown0);
+                    }
+
+                    if(Input.GetKeyDown (KeyCode.R))
+                    {
+                        PlayerList[1].transform.position = Vector3.zero;
+                        SetBall(PlayerList [1]);
+                        PlayerList [1].AniState(EPlayerState.Dribble0);
+                        PlayerList [1].AniState(EPlayerState.Dunk0);
+                    }
+					break;
 				default:
 					KeyboardControl();
 					break;
@@ -1279,10 +1309,10 @@ public class GameController : KnightSingleton<GameController>
 
                             // 如果有接近的球員, 要靠近他; 沒有接近的球員, 繼續往 Home Region 移動.
 							PlayerBehaviour p = hasNearPlayer(player.DefPlayer, player.DefPlayer.Attr.DefDistance, false, true);
-							if (p != null)
-								moveData.DefPlayer = p;
-							else if(GetDis(player, player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
-								moveData.DefPlayer = player;
+                            if (p != null)
+                                moveData.DefPlayer = p;
+                            else if (GetDis(player, player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
+                                moveData.DefPlayer = player;
 							
 							if(moveData.DefPlayer != null)
                             {
@@ -1629,7 +1659,7 @@ public class GameController : KnightSingleton<GameController>
 		if(ShootDistance >= GameConst.Point3Distance) {
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} 
-		originalRate = player.Attr.PointRate2;
+			originalRate = player.Attr.PointRate2;
 
 		randomrate = 0;
 		normalRate = 0;
@@ -1695,7 +1725,6 @@ public class GameController : KnightSingleton<GameController>
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
-		
 		if(DoubleClickType == EDoubleType.Perfect || DoubleClickType == EDoubleType.Good || ShootDistance < 9)
 			isAirBall = false;
 
@@ -1770,7 +1799,8 @@ public class GameController : KnightSingleton<GameController>
 //				int t = BallOwner.Team.GetHashCode();
                 if(GameStart.Get.TestMode == EGameTest.Dunk)
                 {
-					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+//					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+                    BallOwner.AniState(EPlayerState.Dunk20);
 					return true;
 				}
 
@@ -1779,7 +1809,8 @@ public class GameController : KnightSingleton<GameController>
                     // 持球者不在灌籃中, 但是搶籃板中 ...
 					if(inTipinDistance(BallOwner)  && BallOwner.CanUseTipIn)
                     {
-						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+//                        BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+						BallOwner.AniState(EPlayerState.TipIn);
 						return true;
 					}
 				}
@@ -1868,9 +1899,12 @@ public class GameController : KnightSingleton<GameController>
             CourtMgr.Get.RealBallCompoment.Trigger.IsAutoRotate = true;
 			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
+//			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
-			if(!isActive)
-				BallState = EBallState.CanBlock;
+            if (!isActive)
+            {
+                BallState = EBallState.CanBlock;
+            }
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
@@ -1910,7 +1944,7 @@ public class GameController : KnightSingleton<GameController>
 			//確實把球放在手上
 			SetBall();
 			//再把球的持有者設成null
-			CourtMgr.Get.RealBallCompoment.SetBallState(player.crtState);
+            CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Shooting);
 			CourtMgr.Get.RealBallShoot(player, shootAngle, ShootDistance);
 
 
@@ -2023,7 +2057,7 @@ public class GameController : KnightSingleton<GameController>
 					return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
 				else
 					if (BallOwner) {
-						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 
+						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
 						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
 					} else {
 						if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
@@ -2052,6 +2086,7 @@ public class GameController : KnightSingleton<GameController>
 		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill(player.TimerKind.GetHashCode())) || GameStart.Get.TestMode == EGameTest.Skill)
 		{
 			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
+                TimerMgr.Get.SetTimeController(ref player);
 				player.ActiveSkillUsed = tSkill;
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
 				if(result){
@@ -2820,6 +2855,11 @@ public class GameController : KnightSingleton<GameController>
     /// <returns></returns>
 	IEnumerator AutoTee()
     {
+        if (BallOwner)
+        {
+            Vector3 lookatV3 = CourtMgr.Get.ShootPoint[BallOwner.Team == ETeamKind.Self ? 1 : 0].transform.position;
+			BallOwner.RotateTo(lookatV3.x, lookatV3.z);
+        }
 		yield return new WaitForSeconds(1);
 
 		bool flag = false;
@@ -3304,27 +3344,24 @@ public class GameController : KnightSingleton<GameController>
 	
 	public void BallOnFloor()
     {
-		CourtMgr.Get.ResetBasketEntra();
-		CourtMgr.Get.IsBallOffensive = false;
-		
-		if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) 
-			BallState = EBallState.CanSteal;
-		else 
-			BallState = EBallState.None;
-
-        Shooter = null;
-
-		if(GameStart.Get.TestMode == EGameTest.Shoot)
+        if (BallOwner == null)
         {
-			SetBall(Joysticker);	
-			Joysticker.AniState(EPlayerState.HoldBall);
-		}
-		else if(GameStart.Get.TestMode == EGameTest.Block)
+            CourtMgr.Get.ResetBasketEntra();
+            CourtMgr.Get.IsBallOffensive = false;
+
+            if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) 
+                BallState = EBallState.CanSteal;
+            else 
+                BallState = EBallState.None;
+
+            Shooter = null;
+        }
+
+        if(GameStart.Get.TestMode == EGameTest.Shoot)
         {
-			SetBall(PlayerList [1]);
-			PlayerList [1].AniState(EPlayerState.Dribble0);
-			PlayerList [1].AniState(EPlayerState.Shoot0);
-		}
+            SetBall(Joysticker);    
+            Joysticker.AniState(EPlayerState.HoldBall);
+        }
     }
 
     /// <summary>
@@ -4258,6 +4295,7 @@ public class GameController : KnightSingleton<GameController>
 
 		ChangeSituation(EGameSituation.Opening);
 		AIController.Get.ChangeState(EGameSituation.Opening);
+        TimerMgr.Get.ResetTime();
     }
 
 	public void SetPlayerLevel(){
@@ -4335,6 +4373,10 @@ public class GameController : KnightSingleton<GameController>
 
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
+        //預防撿球時，被推倒卡住
+        if (Situation != EGameSituation.GamerAttack || Situation != EGameSituation.NPCAttack)
+            return;
+        
 		for (int i = 0; i < PlayerList.Count; i++)
         {
 			if(PlayerList[i] && PlayerList[i].Team != player.Team && !PlayerList[i].IsUseActiveSkill)

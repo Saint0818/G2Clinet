@@ -23,7 +23,7 @@ public class AnimatorBehavior : MonoBehaviour
     public int StateNo = -1;
 
     private BlockCurveCounter blockCurveCounter = new BlockCurveCounter();
-	private DunkCurveCounter dunkCurveCounter = new DunkCurveCounter();
+    private DunkCurveCounter dunkCurveCounter = new DunkCurveCounter();
     private SharedCurveCounter fallCurveCounter = new SharedCurveCounter();
     private SharedCurveCounter pushCurveCounter = new SharedCurveCounter();
     private SharedCurveCounter pickCurveCounter = new SharedCurveCounter();
@@ -31,7 +31,7 @@ public class AnimatorBehavior : MonoBehaviour
     private ShootCurveCounter shootCurveCounter = new ShootCurveCounter();
     private LayupCurveCounter layupCurveCounter = new LayupCurveCounter();
     private ReboundCurveCounter reboundCurveCounter = new ReboundCurveCounter();
-//    private JumpBallCurveCounter jumpBallCurveCounter = new JumpBallCurveCounter();
+    //    private JumpBallCurveCounter jumpBallCurveCounter = new JumpBallCurveCounter();
     private float headHeight;
 
     public AnimationDelegate GotStealingDel = null;
@@ -69,7 +69,7 @@ public class AnimatorBehavior : MonoBehaviour
     public AnimationDelegate TipInStartDel = null;
     public AnimationDelegate TipInEndDel = null;
     public AnimationDelegate AnimationEndDel = null;
-	public AnimationDelegate ShowDel = null;
+    public AnimationDelegate ShowDel = null;
     public AnimationDelegate CatchDel = null;
 
     public TimeScaleDelegate TimeScaleCallBack = null;
@@ -95,7 +95,7 @@ public class AnimatorBehavior : MonoBehaviour
 
     public void Play(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget)
     {
-        addTrigger(state, stateNo, team, false ,skillMoveTarget);
+        addTrigger(state, stateNo, team, false, skillMoveTarget);
     }
 
     public void Play(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget, Vector3 reboundMove)
@@ -103,36 +103,35 @@ public class AnimatorBehavior : MonoBehaviour
         addTrigger(state, stateNo, team, false, skillMoveTarget, reboundMove);
     }
 
-    public void Play(EAnimatorState state,int stateNo, int team, bool isDunkBlock, Vector3 skillMoveTarget)
+    public void Play(EAnimatorState state, int stateNo, int team, bool isDunkBlock, Vector3 skillMoveTarget)
     {
         addTrigger(state, stateNo, team, isDunkBlock, skillMoveTarget);
     }
 
-    private void InitCurve(EAnimatorState state, int stateNo, int team, bool isDunkBlock = false ,
-        Vector3 skillMoveTarget = default(Vector3) , Vector3 reboundMove = default(Vector3))
+    private void InitCurve(EAnimatorState state, int stateNo, int team, bool isDunkBlock = false,
+                           Vector3 skillMoveTarget = default(Vector3), Vector3 reboundMove = default(Vector3))
     {
+        int angle;
+        if (SceneMgr.Get.IsCourt)
+            angle = team == 0 ? 0 : 180;
+        else
+            angle = 90;		
         switch (state)
         {
             case EAnimatorState.Shoot:
-                InitShootCurve(stateNo);
+                InitShootCurve(stateNo, CourtMgr.Get.ShootPoint[team].transform.position);
                 break;
             case EAnimatorState.Layup:
                 Vector3 layupPoint = CourtMgr.Get.DunkPoint[team].transform.position;
                 layupPoint.z += (team == 0 ? -1 : 1);
                 InitLayupCurve(stateNo, layupPoint);
                 break;
-				case EAnimatorState.Dunk:
-						int angle;
-						if (SceneMgr.Get.IsCourt)
-								angle = team == 0 ? 0 : 180;
-						else
-								angle = 90;
-				
+            case EAnimatorState.Dunk:
 				//TODO : unity bug prefab位置小數點第二位會被無條件進位
-				Vector3 transPos = new Vector3 (CourtMgr.Get.DunkPoint [team].transform.position.x, 
-						                 CourtMgr.Get.DunkPoint [team].transform.position.y, 
-						                 CourtMgr.Get.DunkPoint [team].transform.position.z); 
-				InitDunkCurve(stateNo, transPos, angle);
+                Vector3 transPos = new Vector3(CourtMgr.Get.DunkPoint[team].transform.position.x, 
+                           CourtMgr.Get.DunkPoint[team].transform.position.y, 
+                           CourtMgr.Get.DunkPoint[team].transform.position.z); 
+                InitDunkCurve(stateNo, transPos, angle);
                 break;
             case EAnimatorState.Fall:
                 InitFallCurve(stateNo);
@@ -147,8 +146,8 @@ public class AnimatorBehavior : MonoBehaviour
         }
     }
 
-    private void addTrigger(EAnimatorState state, int stateNo,int team, bool isDunkBlock = false,
-        Vector3 skillMoveTarget = default(Vector3), Vector3 reboundMove = default(Vector3))
+    private void addTrigger(EAnimatorState state, int stateNo, int team, bool isDunkBlock = false,
+                            Vector3 skillMoveTarget = default(Vector3), Vector3 reboundMove = default(Vector3))
     {
         Controler.SetInteger("StateNo", stateNo);
         StateNo = stateNo;
@@ -260,10 +259,10 @@ public class AnimatorBehavior : MonoBehaviour
     {
         Controler.Play(Name);
     }
-        
-	public void InitDunkCurve(int stateNo, Vector3 dunkPoint, float rotateAngle)
+
+    public void InitDunkCurve(int stateNo, Vector3 dunkPoint, float rotateAngle)
     {	
-		dunkCurveCounter.Init(stateNo, gameObject, dunkPoint, rotateAngle);
+        dunkCurveCounter.Init(stateNo, gameObject, dunkPoint, rotateAngle);
     }
 
     public void InitBlockCurve(int stateNo, Vector3 skillmovetarget, bool isdunkblock = false)
@@ -307,9 +306,9 @@ public class AnimatorBehavior : MonoBehaviour
         stealCurveCounter.Init(stateNo, gameObject);
     }
 
-    public void InitShootCurve(int stateNo)
+    public void InitShootCurve(int stateNo, Vector3 rotateto)
     {
-        shootCurveCounter.Init(stateNo, gameObject);
+        shootCurveCounter.Init(stateNo, gameObject, rotateto);
     }
 
     public void InitLayupCurve(int stateNo, Vector3 layupPoint)
@@ -317,15 +316,15 @@ public class AnimatorBehavior : MonoBehaviour
         layupCurveCounter.Init(stateNo, gameObject, layupPoint);
     }
 
-    public void InitReboundCurve(int stateNo, Vector3 skillmovetarget,Vector3 reboundMove)
+    public void InitReboundCurve(int stateNo, Vector3 skillmovetarget, Vector3 reboundMove)
     {
         headHeight = gameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f;
-        reboundCurveCounter.Init(gameObject, stateNo, skillmovetarget, headHeight,reboundMove);
+        reboundCurveCounter.Init(gameObject, stateNo, skillmovetarget, headHeight, reboundMove);
     }
 
     public bool IsCanBlock
     {
-        get{ return dunkCurveCounter.IsCanBlock;}
+        get{ return dunkCurveCounter.IsCanBlock; }
     }
 
     void FixedUpdate()
@@ -333,22 +332,23 @@ public class AnimatorBehavior : MonoBehaviour
         blockCurveCounter.FixedUpdate();
         shootCurveCounter.FixedUpdate();
         reboundCurveCounter.FixedUpdate();
-		layupCurveCounter.FixedUpdate();
+        layupCurveCounter.FixedUpdate();
         pushCurveCounter.FixedUpdate();
         fallCurveCounter.FixedUpdate();
         pickCurveCounter.FixedUpdate();
         stealCurveCounter.FixedUpdate();
-		dunkCurveCounter.FixedUpdate ();
+        dunkCurveCounter.FixedUpdate();
     }
 
     private float timescale = 1;
 
     public float TimeScaleTime
     {
-        set{
+        set
+        {
             timescale = value;
             blockCurveCounter.Timer = timescale; 
-           	dunkCurveCounter.Timer = timescale; 		
+            dunkCurveCounter.Timer = timescale; 		
             shootCurveCounter.Timer = timescale;   
             reboundCurveCounter.Timer = timescale;   
             layupCurveCounter.Timer = timescale;   
@@ -358,7 +358,7 @@ public class AnimatorBehavior : MonoBehaviour
             stealCurveCounter.Timer = timescale;
         }
 
-        get{ return timescale;}
+        get{ return timescale; }
     }
 
     public void Reset()
@@ -533,16 +533,16 @@ public class AnimatorBehavior : MonoBehaviour
                 if (ShowDel != null)
                     ShowDel();
                 break;
-			case "CatchEnd":
-				if (CatchDel != null)
-					CatchDel ();
-				break;
+            case "CatchEnd":
+                if (CatchDel != null)
+                    CatchDel();
+                break;
         }
     }
 
     public void TimeScale(AnimationEvent aniEvent)
     {
-        if(TimeScaleCallBack != null)
+        if (TimeScaleCallBack != null)
             TimeScaleCallBack(aniEvent);
     }
 

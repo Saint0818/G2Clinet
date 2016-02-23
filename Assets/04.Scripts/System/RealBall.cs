@@ -108,6 +108,8 @@ public class RealBall : MonoBehaviour
                 RigidbodyCom.isKinematic = !RigidbodyCom.useGravity;
             }
         }
+
+        get{ return RigidbodyCom.useGravity; }
     }
 
     public void AddForce(Vector3 to, ForceMode mode)
@@ -136,15 +138,10 @@ public class RealBall : MonoBehaviour
 
     public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
     {
-        if (spotlight == null)
-        {
-            Debug.LogError("Null Object : spotlight");
-            return;
-        }
-            
         if (!GameController.Get.IsStart && state != EPlayerState.Start &&
         state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
             return;
+        
         //        Debug.LogError("SetBallState : " + state.ToString());
         SetBallOwnerNull();
 
@@ -160,7 +157,9 @@ public class RealBall : MonoBehaviour
                     Parent = player.DummyBall.transform;
                 TriggerEnable = false;
                 HideBallSFX();
-                spotlight.SetActive(false);
+
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
 
             case EPlayerState.Shoot0: 
@@ -177,9 +176,19 @@ public class RealBall : MonoBehaviour
             case EPlayerState.Layup2: 
             case EPlayerState.Layup3: 
             case EPlayerState.TipIn: 
+                if (player)
+                    Parent = player.DummyBall.transform;
+
+                Gravity = false;
+                break;
+
             case EPlayerState.Shooting: 
-				
-                spotlight.SetActive(false);
+                if (spotlight)
+                    spotlight.SetActive(false);
+
+                Parent = null;
+
+                Gravity = true;
                 break;
 
             case EPlayerState.Pass0: 
@@ -193,7 +202,8 @@ public class RealBall : MonoBehaviour
             case EPlayerState.Pass8: 
             case EPlayerState.Pass9: 
                 Gravity = false;
-                spotlight.SetActive(false);
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
 
             case EPlayerState.Steal0:
@@ -207,7 +217,8 @@ public class RealBall : MonoBehaviour
 				// 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
                 MoveVelocity = newDir.normalized * 10;
                 ShowBallSFX();
-                spotlight.SetActive(true);
+                if(spotlight)
+                    spotlight.SetActive(true);
                 break;
             case EPlayerState.JumpBall:
                 if (!GameController.Get.IsJumpBall)
@@ -223,7 +234,8 @@ public class RealBall : MonoBehaviour
 
                     MoveVelocity = GameFunction.GetVelocity(gameObject.transform.position, v1, 60);
                     ShowBallSFX();
-                    spotlight.SetActive(false);
+                    if(spotlight)
+                        spotlight.SetActive(false);
                     AudioMgr.Get.PlaySound(SoundType.SD_Rebound);
                 }
                 break;
@@ -243,7 +255,8 @@ public class RealBall : MonoBehaviour
 
                 MoveVelocity = v;
                 ShowBallSFX();
-                spotlight.SetActive(true);
+                if(spotlight)
+                    spotlight.SetActive(true);
                 break;
 
             case EPlayerState.Dunk0:
@@ -258,7 +271,8 @@ public class RealBall : MonoBehaviour
                     Parent = player.DummyBall.transform;
                 TriggerEnable = false;
                 HideBallSFX();
-                spotlight.SetActive(false);
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
 
             case EPlayerState.DunkBasket:
@@ -272,13 +286,15 @@ public class RealBall : MonoBehaviour
                 Gravity = false;
                 gameObject.transform.position = new Vector3(0, 7, 0);
                 ShowBallSFX();
-                spotlight.SetActive(false);
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
 
             case EPlayerState.Start:
                 gameObject.transform.localPosition = new Vector3(0, 6, 0);
                 Gravity = true;
-                spotlight.SetActive(false);
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
 
             case EPlayerState.HoldBall:
@@ -295,7 +311,8 @@ public class RealBall : MonoBehaviour
                 Gravity = false;
                 TriggerEnable = false;
                 HideBallSFX();
-                spotlight.SetActive(false);
+                if(spotlight)
+                    spotlight.SetActive(false);
                 break;
         }
     }

@@ -53,8 +53,8 @@ public class LayupCurveCounter
 
     private void Calculation()
     {	
-        if (!isplaying)
-            return;
+		if (!isplaying || timeScale <= GameConst.Min_TimePause)
+				return;
 
         if (Curve != null)
         {
