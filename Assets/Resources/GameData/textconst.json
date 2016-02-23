@@ -688,6 +688,12 @@
         "en": "Potential"
     },
     {
+        "id": 1012,
+        "explain": "潛能按鈕",
+        "tw": "每 日",
+        "en": "Daily"
+    },
+    {
         "id": 1101,
         "explain": "購買體力",
         "en": "Purchase Energy"
@@ -1204,6 +1210,11 @@
         "en": "This name was be used. Please rename again."
     },
     {
+        "id": 3409,
+        "tw": "命名失敗請再試一次。",
+        "en": "Naming failed. Please try again."
+    },
+    {
         "id": 3501,
         "explain": "玩家升級"
     },
@@ -1545,6 +1556,76 @@
     },
     {
         "id": 3779
+    },
+    {
+        "id": 3800,
+        "explain": "每日登入/累積登入"
+    },
+    {
+        "id": 3801,
+        "explain": "每日簽到標題",
+        "tw": "每日簽到",
+        "en": "Daiy Login"
+    },
+    {
+        "id": 3802,
+        "explain": "累積簽到標題",
+        "tw": "累積簽到",
+        "en": "Cumulative Login"
+    },
+    {
+        "id": 3803,
+        "explain": "LifeTime領取按鈕 可",
+        "tw": "可領取",
+        "en": "RECIEVE"
+    },
+    {
+        "id": 3804,
+        "explain": "LifeTime領取Cover 已領取",
+        "tw": "完 成",
+        "en": "CLEAR"
+    },
+    {
+        "id": 3805,
+        "explain": "LifeTime項目",
+        "tw": "累 積",
+        "en": "Cumulative Days"
+    },
+    {
+        "id": 3806,
+        "explain": "LifeTime計數",
+        "tw": "目前累積簽到天數：[00ff00]{0}[-] 天",
+        "en": "The cumulative number of days：[00ff00]{0}[-] "
+    },
+    {
+        "id": 3807,
+        "explain": "週數",
+        "tw": "第 [00ff00]1[-] 週",
+        "en": "WEEK [00ff00]1[-]"
+    },
+    {
+        "id": 3808,
+        "explain": "週數",
+        "tw": "第 [00ff00]2[-] 週",
+        "en": "WEEK [00ff00]2[-]"
+    },
+    {
+        "id": 3809,
+        "explain": "週數",
+        "tw": "第 [00ff00]3[-] 週",
+        "en": "WEEK [00ff00]3[-]"
+    },
+    {
+        "id": 3810,
+        "explain": "週數",
+        "tw": "第 [00ff00]4[-] 週",
+        "en": "WEEK [00ff00]4[-]"
+    },
+    {
+        "id": 3811,
+        "explain": "天數1",
+        "tw": "第 [00ff00]{0}[-] 天",
+        "en": "DAY [00ff00]{0}[-]"
     },
     {
         "id": 4001,
@@ -3217,8 +3298,8 @@
     },
     {
         "id": 9516,
-        "tw": "可出戰次數",
-        "en": "Fight Count"
+        "tw": "可參賽次數",
+        "en": "Join Count"
     },
     {
         "id": 9601,
@@ -3671,8 +3752,8 @@
         "id": 10315,
         "uipeth": "PlayerInfoBtn/Label",
         "tw": "玩家資訊",
-        "en": "PLAYER\nINFO",
-        "jp": "PLAYER\nINFO"
+        "en": "PLAYER INFO",
+        "jp": "PLAYER INFO"
     },
     {
         "id": 10316,
@@ -3684,14 +3765,14 @@
     {
         "id": 10317,
         "uipeth": "ButtonReturnSelect/Label",
-        "tw": "EXIT",
+        "tw": "離開比賽",
         "en": "EXIT",
         "jp": "EXIT"
     },
     {
         "id": 10318,
         "uipeth": "ButtonResume/Label",
-        "tw": "RESUME",
+        "tw": "回到比賽",
         "en": "RESUME",
         "jp": "RESUME"
     },
