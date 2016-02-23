@@ -32,9 +32,9 @@ public class UISkillInfo : UIBase {
 	private UILabel labelSkillKind;
 	private UILabel labelSkillInfoKind4;
 
-	private GameObject goSuitCard;
+	private UISprite goSuitCard;
 	private UISprite suitCardFinish;
-	private GameObject goSuitItem;
+	private UISprite goSuitItem;
 	private UISprite suitItemFinish;
 
 	//TopRight
@@ -129,13 +129,13 @@ public class UISkillInfo : UIBase {
 		spriteSkillKind = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillKind").GetComponent<UISprite>();
 		spriteSkillKindBg  = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SkillKind/KindBg").GetComponent<UISprite>();
 
-		goSuitCard = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitCard");
+		goSuitCard = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitCard").GetComponent<UISprite>();
 		suitCardFinish = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitCard/SuitFinish").GetComponent<UISprite>();
-		goSuitItem = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem");
+		goSuitItem = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem").GetComponent<UISprite>();
 		suitItemFinish = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem/Icon").GetComponent<UISprite>();
 
-		UIEventListener.Get(goSuitCard).onClick = OnSuitCard;
-		UIEventListener.Get(goSuitItem).onClick = OnSuitItem;
+		UIEventListener.Get(goSuitCard.gameObject).onClick = OnSuitCard;
+		UIEventListener.Get(goSuitItem.gameObject).onClick = OnSuitItem;
 
 		SetBtnFun(UIName + "/Center/BG", OnClose);
 		SetBtnFun(UIName + "/Center/BottomRight/BackBtn", OnClose);
@@ -148,9 +148,14 @@ public class UISkillInfo : UIBase {
 	public void OnSuitCard (GameObject go) {
 		Visible = false;
 		UISkillFormation.Get.ClickTab(1);
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			UISkillFormation.Get.SuitCard.MoveToID(result);
+		}
 	}
 
 	public void OnSuitItem (GameObject go) {
+		Visible = false;
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			UISuitAvatar.Get.ShowView(result);
@@ -173,8 +178,8 @@ public class UISkillInfo : UIBase {
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 			RefreshUICard(uicard);
-			goSuitCard.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
@@ -186,8 +191,8 @@ public class UISkillInfo : UIBase {
 		Refresh(skill, -1);
 
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			goSuitCard.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard)));
-			goSuitItem.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
 		}
 	}
 
@@ -229,6 +234,14 @@ public class UISkillInfo : UIBase {
 				labelSkillKind.text = TextConst.S(7003);
 			}
 			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+
+			goSuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
+			goSuitCard.gameObject.name = GameData.DSkillData[skill.ID].SuitCard.ToString();
+			suitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(GameData.DSkillData[skill.ID].SuitCard));
+
+			goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
+			goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
+			suitItemFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
 
 			//SkillInfo
 			labelSkillQuality.text =GameFunction.QualityName(GameData.DSkillData[skill.ID].Quality);
@@ -280,8 +293,8 @@ public class UISkillInfo : UIBase {
 		else 
 			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, -90), openCardSpeed);
 
-		goSuitCard.SetActive(false);
-		goSuitItem.SetActive(false);
+		goSuitCard.gameObject.SetActive(false);
+		goSuitItem.gameObject.SetActive(false);
 	}
 
 	private void closeCardTurn (){
@@ -294,8 +307,8 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 
 		if(GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
-			goSuitCard.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 

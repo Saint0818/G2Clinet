@@ -916,6 +916,39 @@ public static class GameFunction
 			return "Levelball1";
 	}
 
+	public static string CardSuitItemBg (int skillID) {
+		if(GameData.DSkillData.ContainsKey(skillID))
+			return "SuitItemBg" + GameData.DSkillData[skillID].Quality.ToString();
+		else 
+			return "SuitItemBg1";
+	}
+
+	public static string CardSuitItemStarBg (int count) {
+		if(count >= 5 && count <= 7)
+			return "SuitItem" + count.ToString() + "LBg";
+		else
+			return "SuitItem7LBg";
+	}
+
+	public static void CardSuitItemStar (ref GameObject[] stars, int count, int current) {
+		for(int i=0; i<stars.Length; i++)
+			stars[i].SetActive(false);
+
+		for (int i=0; i<stars.Length; i++) {
+			if(count == 5) {//0~4
+				if(current >= 0 && current <= 4) {
+					stars[current].SetActive(true);
+				}
+			} else if(count == 6) {//1~6
+				if(current >= 1 && current <= 6) {
+					stars[current - 1].SetActive(true);
+				}
+			} else if (count == 7) {
+				stars[current].SetActive(true);
+			}
+		}
+	}
+
 	public static string CardSuitLightName (int count) {
 		if(count > 0  && count < 3)
 			return "SuitLight" + count.ToString();

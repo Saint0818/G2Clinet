@@ -21,6 +21,7 @@ public struct TItemSuitAvatarGroup {
 		PositionIcon = obj.transform.Find("PositionIcon").GetComponent<UISprite>();
 		Select = obj.transform.Find("Select").gameObject;
 
+		Select.SetActive(false);
 		UIEventListener.Get(obj).onClick = btnFun;
 	}
 
@@ -43,15 +44,18 @@ public struct TItemSuitAvatarGroup {
 public struct TMiddleItemView {
 	public ItemAwardGroup[] itemAwardGroup;
 	public UILabel[] itemNameLabel;
+	public GameObject[] SuitCover;
 
 	private int mID;
 
 	public void Init (GameObject obj) {
 		itemAwardGroup = new ItemAwardGroup[7];
 		itemNameLabel = new UILabel[7];
+		SuitCover = new GameObject[7];
 		for (int i=0; i<itemAwardGroup.Length; i++) {
 			itemAwardGroup[i] = obj.transform.Find(i.ToString() + "/View/ItemAwardGroup").GetComponent<ItemAwardGroup>();
 			itemNameLabel[i] = obj.transform.Find(i.ToString() + "/ItemNameLabel").GetComponent<UILabel>();
+			SuitCover[i] = obj.transform.Find(i.ToString() + "/SuitCover").gameObject;
 		}
 	}
 
@@ -65,6 +69,7 @@ public struct TMiddleItemView {
 						if(GameData.DSuitItem[id].Items[i] != 0) {
 							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
 							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
+							SuitCover[i].SetActive(!GameData.Team.IsGetAvatar(GameData.DSuitItem[id].Items[i]));
 						} else {
 							itemAwardGroup[i].Hide();
 							itemNameLabel[i].text = TextConst.S(8207);
@@ -78,14 +83,7 @@ public struct TMiddleItemView {
 		
 	public int GotItemCount {
 		get {
-			int count = 0;
-			if(GameData.DSuitItem.ContainsKey(mID)) 
-				for(int i=0; i<GameData.DSuitItem[mID].Items.Length; i++) 
-					if(GameData.Team.IsGetAvatar(GameData.DSuitItem[mID].Items[i])) 
-						count ++;
-
-			return count;
-
+			return GameData.Team.SuitItemCompleteCount(mID);
 		}
 	}
 }
@@ -157,7 +155,7 @@ public struct TSuitItemRight {
 	public void ClickCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			UIItemHint.Get.OnShow(result);
+			UIItemHint.Get.OnShowForSuit(result);
 		}
 	}
 		
@@ -183,7 +181,7 @@ public struct TSuitItemRight {
 							itemCards[i].UpdateViewSuitItem(GameData.DSuitItem[id].Card[i]);
 						}
 					}
-					CostCaptionLabel.text = string.Format(TextConst.S(8203), 0);//目前已取得的件數
+					CostCaptionLabel.text = string.Format(TextConst.S(8203), GameData.Team.SuitItemCardCompleteCount(id));//目前已取得的件數
 				}
 			}
 		} else 
@@ -197,7 +195,7 @@ public class UISuitAvatar : UIBase {
 
 	private GameObject itemAward;
 
-	private List<TItemSuitAvatarGroup> tItemSuitAvatarGroup = new List<TItemSuitAvatarGroup>();
+	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
 
 	private UIScrollView leftScorllView;
 	private TMiddleItemView middleItemView;
@@ -255,11 +253,12 @@ public class UISuitAvatar : UIBase {
 	public void ShowView (int suitItemID) {
 		Visible = true;
 		int index = 0;
+		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
 			itemsuitItem.UpdateView(item.Key, index, middleItemView.GotItemCount);
-			tItemSuitAvatarGroup.Add(itemsuitItem);
+			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
 			index ++;
 		}
 		leftScorllView.Scroll(0);
@@ -267,10 +266,19 @@ public class UISuitAvatar : UIBase {
 		middleBonusView.SetColor(middleItemView.GotItemCount);
 	}
 
+	private void hideAllSelect () {
+		for(int i=0; i<tItemSuitAvatarGroup.Length; i++) {
+			tItemSuitAvatarGroup[i].SelectActive = false;
+		}
+	}
+
 	private void clickSuit (int id) {
 		middleItemView.UpdateView(id);
 		middleBonusView.UpdateView(id);
 		suitItemRight.UpdateView(id);
+		hideAllSelect();
+		if(id > 0 && id <= tItemSuitAvatarGroup.Length)
+			tItemSuitAvatarGroup[id - 1].SelectActive = true;
 	} 
 
 	public void OnClickSuit (GameObject go) {

@@ -166,7 +166,7 @@ public class UISuitCard {
 
 	private UILabel labelSuitCost;
 	private GameObject viewCaption;
-	private GameObject scrollView;
+	private UIScrollView scrollView;
 
 	private List<TItemSuitCardGroup> itemSuitCards;
 
@@ -180,7 +180,7 @@ public class UISuitCard {
 		itemSuitCardGroup = Resources.Load(UIPrefabPath.ItemSuitCardGroup) as GameObject;
 
 		labelSuitCost = GameObject.Find(UIName + "/SuitCardsView/Top/SuitCostLabel").GetComponent<UILabel>();
-		scrollView = GameObject.Find(UIName + "/SuitCardsView/MainView/ScrollView");
+		scrollView = GameObject.Find(UIName + "/SuitCardsView/MainView/ScrollView").GetComponent<UIScrollView>();
 		viewCaption = GameObject.Find(UIName + "/SuitCardsView/CaptionView");
 
 		UIEventListener.Get(GameObject.Find(UIName + "/SuitCardsView/CaptionView/CoverCollider")).onClick = HideCaption;
@@ -204,6 +204,11 @@ public class UISuitCard {
 		}
 		//目前還沒計算0暫代
 		labelSuitCost.text = costNow + " / " + costMax.ToString();
+	}
+
+	public void MoveToID (int id) {
+		scrollView.gameObject.transform.localPosition = new Vector3(15, 75 + (200 * (id-1)), 0);
+		scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 70));
 	}
 
 	private bool checkCost (int currentCost) {

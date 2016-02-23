@@ -943,6 +943,10 @@ namespace GameStruct
 			return count;
 		}
 
+		/// <summary>
+		/// 套卡啟動值使用的數量
+		/// </summary>
+		/// <value>The suit card execute cost.</value>
 		public int SuitCardExecuteCost {
 			get {
 				int count = 0;
@@ -1048,26 +1052,20 @@ namespace GameStruct
 		//某一列套裝完成的數量
 		public int SuitItemCompleteCount (int id) {
 			int count = 0;
-			foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
-				if(item.Key == id) {
-					for(int i=0; i<item.Value.Items.Length; i++) 
-						if(IsGetAvatar(item.Value.Items[i]))
-							count ++;
-				}
-			}
+			if(GameData.DSuitItem.ContainsKey(id)) 
+				for(int i=0; i<GameData.DSuitItem[id].Items.Length; i++) 
+					if(IsGetAvatar(GameData.DSuitItem[id].Items[i])) 
+						count ++;
 			return count;
 		}
 
 		//某一列套裝 卡片完成的數量
 		public int SuitItemCardCompleteCount (int id) {
 			int count = 0;
-			foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
-				if(item.Key == id) {
-					for(int i=0; i<item.Value.Card.Length; i++) 
-						if(CheckSkillCardItemIDisNew(item.Value.Card[i]))
-							count ++;
-				}
-			}
+			if(GameData.DSuitItem.ContainsKey(id)) 
+				for(int i=0; i<GameData.DSuitItem[id].Card.Length; i++) 
+					if(CheckSkillCardItemIDisNew(GameData.DSuitItem[id].Card[id]))
+						count ++;
 			return count;
 		}
 

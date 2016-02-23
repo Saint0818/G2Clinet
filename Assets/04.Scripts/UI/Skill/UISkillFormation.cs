@@ -649,6 +649,10 @@ public class UISkillFormation : UIBase {
 
 	public void OnSuitCard (GameObject go) {
 		ClickTab(1);
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			uiSuitCard.MoveToID(result);
+		}
 	}
 
 	public void OnSuitItem (GameObject go) {
@@ -1738,5 +1742,9 @@ public class UISkillFormation : UIBase {
 
 	public int ExtraCostSpace {
 		get {return GameConst.Max_CostSpace - costSpace;}
+	}
+
+	public UISuitCard SuitCard {
+		get {return uiSuitCard;}
 	}
 }

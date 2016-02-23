@@ -19,7 +19,9 @@ public class TPassiveSkillCard
 	private UIButton btn;
 	//For Reinforce
 	public int CardIndex;
-	
+	//For Suit
+	public GameObject SuitCover;
+
 	public void Init(GameObject partent, GameObject go, EventDelegate btnFunc = null, bool isFormation = false)
 	{
 		if (!isInit && go && partent) {
@@ -206,6 +208,9 @@ public class TPassiveSkillCard
 			for(int i=0; i<SkillStars.Length; i++) 
 				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
 
+			if(go.transform.Find("SuitCover"))
+				SuitCover = go.transform.Find("SuitCover").gameObject;
+
 			BtnRemove = go.transform.Find("BtnRemove").gameObject;
 			BtnRemove.SetActive(false);
 			ForReinforce.SetActive(false);
@@ -220,17 +225,21 @@ public class TPassiveSkillCard
 	public void UpdateViewSuitItem(int id)
 	{
 		if(isInit){
-			if(GameData.DSkillData.ContainsKey(id)){
-				item.name = id.ToString();
-				SkillName.text = GameData.DSkillData[id].Name;
-				SkillCard.spriteName = GameFunction.CardLevelName(id) + "s";
-				SkillTexture.mainTexture = GameData.CardItemTexture(id);
-				if(GameFunction.IsActiveSkill(id))
-					SkillKind.spriteName = "ActiveIcon";
-				else 
-					SkillKind.spriteName = "PasstiveIcon";
-				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
-				GameFunction.ShowStar_Item(ref SkillStars, GameData.DSkillData[id].MaxStar, GameData.DSkillData[id].Quality, GameData.DSkillData[id].MaxStar);
+			if(GameData.DItemData.ContainsKey(id)){
+				if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
+					item.name = id.ToString();
+					SkillName.text = GameData.DItemData[id].Name;
+					SkillCard.spriteName = GameFunction.CardLevelName(id) + "s";
+					SkillTexture.mainTexture = GameData.CardItemTexture(id);
+					if(GameFunction.IsActiveSkill(id))
+						SkillKind.spriteName = "ActiveIcon";
+					else 
+						SkillKind.spriteName = "PasstiveIcon";
+					SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[GameData.DItemData[id].Avatar].Quality.ToString();
+					GameFunction.ShowStar_Item(ref SkillStars, GameData.DSkillData[GameData.DItemData[id].Avatar].MaxStar, GameData.DSkillData[GameData.DItemData[id].Avatar].Quality, GameData.DSkillData[GameData.DItemData[id].Avatar].MaxStar);
+					if(SuitCover != null)
+						SuitCover.SetActive(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar));
+				}
 			}
 		}
 		else

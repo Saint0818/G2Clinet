@@ -109,7 +109,7 @@ public struct TSkillCardValue {
 
 public struct TSkillCardMaterial {
 	public GameObject[] mMaterial;
-	public UIButton[] MaterialItem;
+	public UISprite[] MaterialItem;
 	public UISprite[] ElementPic;
 	public UILabel[] NameLabel;
 	public UILabel[] AmountLabel; // 99/99
@@ -125,7 +125,7 @@ public struct TSkillCardMaterial {
 
 	public void Init (GameObject obj) {
 		mMaterial = new GameObject[3];
-		MaterialItem = new UIButton[3];
+		MaterialItem = new UISprite[3];
 		ElementPic = new UISprite[3];
 		NameLabel = new UILabel[3];
 		AmountLabel = new UILabel[3];
@@ -133,7 +133,7 @@ public struct TSkillCardMaterial {
 
 		for (int i=0; i<3; i++) {
 			mMaterial[i] = obj.transform.Find("ElementSlot" + i.ToString()).gameObject;
-			MaterialItem[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem").GetComponent<UIButton>();
+			MaterialItem[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem").GetComponent<UISprite>();
 			ElementPic[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/ElementPic").GetComponent<UISprite>();
 			NameLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/NameLabel").GetComponent<UILabel>();
 			AmountLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/AmountLabel").GetComponent<UILabel>();
@@ -151,6 +151,7 @@ public struct TSkillCardMaterial {
 			if(GameData.DSkillData[skill.ID].Material1 != 0 && GameData.DSkillData[skill.ID].MaterialNum1 != 0) {
 				mMaterial[0].SetActive(true);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1)) {
+					MaterialItem[0].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality;
 					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) {
 						ElementPic[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
 					}
@@ -177,6 +178,7 @@ public struct TSkillCardMaterial {
 			if(GameData.DSkillData[skill.ID].Material2 != 0 && GameData.DSkillData[skill.ID].MaterialNum2 != 0) {
 				mMaterial[1].SetActive(true);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2)) {
+					MaterialItem[1].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality;
 					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) {
 						ElementPic[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
 					}
@@ -206,6 +208,7 @@ public struct TSkillCardMaterial {
 			if(GameData.DSkillData[skill.ID].Material3 != 0 && GameData.DSkillData[skill.ID].MaterialNum3 != 0) {
 				mMaterial[2].SetActive(true);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3)) {
+					MaterialItem[2].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality;
 					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) {
 						ElementPic[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
 					}

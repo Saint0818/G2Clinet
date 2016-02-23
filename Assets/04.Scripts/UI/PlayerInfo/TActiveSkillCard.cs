@@ -16,10 +16,11 @@ public class TActiveSkillCard
 	private UISprite SkillCard;
 	private UILabel SkillName;
 	private SkillCardStar[] SkillStars;
-	private GameObject SuitCard;
+	private UISprite SuitCard;
 	private UISprite SuitCardFinish;
-	private GameObject SuitItem;
-	private UISprite SuitItemFinish;
+	private UISprite SuitItem;
+	private UISprite SuitItemStarBg;
+	private GameObject[] SuitItemFinish;
 	private UISprite SkillKind;
 	private UISprite SkillKindBg;
 	public GameObject UnavailableMask;
@@ -44,17 +45,20 @@ public class TActiveSkillCard
 			SkillName = go.transform.Find("SkillName").gameObject.GetComponent<UILabel>();
 			SkillStars = new SkillCardStar[5];
 			for(int i=0; i<SkillStars.Length; i++)
-				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).gameObject.GetComponent<SkillCardStar>();
+				SkillStars[i] = go.transform.Find("SkillStar/StarBG" + i.ToString()).GetComponent<SkillCardStar>();
 			if(go.transform.Find("SuitCard")) {
-				SuitCard = go.transform.Find("SuitCard").gameObject;
-				SuitCardFinish = go.transform.Find("SuitCard/SuitFinish").gameObject.GetComponent<UISprite>();
+				SuitCard = go.transform.Find("SuitCard").GetComponent<UISprite>();
+				SuitCardFinish = go.transform.Find("SuitCard/SuitFinish").GetComponent<UISprite>();
 			}
 			if(go.transform.Find("SuitItem")){
-				SuitItem = go.transform.Find("SuitItem").gameObject;
-				SuitItemFinish = go.transform.Find("SuitItem/Icon").gameObject.GetComponent<UISprite>();
+				SuitItem = go.transform.Find("SuitItem").GetComponent<UISprite>();
+				SuitItemStarBg = go.transform.Find("SuitItem/ItemBottom").GetComponent<UISprite>();
+				SuitItemFinish = new GameObject[7];
+				for (int i=0; i<SuitItemFinish.Length; i++)
+					SuitItemFinish[i] = go.transform.Find("SuitItem/Light/" + i.ToString()).gameObject;
 			}
-			SkillKind = go.transform.Find("SkillKind").gameObject.GetComponent<UISprite>();
-			SkillKindBg = go.transform.Find("SkillKind/KindBg").gameObject.GetComponent<UISprite>();
+			SkillKind = go.transform.Find("SkillKind").GetComponent<UISprite>();
+			SkillKindBg = go.transform.Find("SkillKind/KindBg").GetComponent<UISprite>();
 			UnavailableMask = go.transform.Find("UnavailableMask").gameObject;
 			if(go.transform.Find("UnavailableMask/UnavailableLabel") != null) {
 				UnavailableMaskLabel = go.transform.Find("UnavailableMask/UnavailableLabel").GetComponent<UILabel>();
@@ -64,14 +68,14 @@ public class TActiveSkillCard
 				DragMask = go.transform.Find("DragMask").gameObject;
 			InListCard = go.transform.Find("InListCard").gameObject;
 			SellSelect = go.transform.Find("SellSelect").gameObject;
-			SellLabel = go.transform.Find("SellSelect/SellLabel").gameObject.GetComponent<UILabel>();
+			SellLabel = go.transform.Find("SellSelect/SellLabel").GetComponent<UILabel>();
 			SellSelectCover = go.transform.Find("SellSelect/SellCover").gameObject;
-			LightAnimation = go.transform.Find("InListCard/SpriteAnim/Shine").gameObject.GetComponent<UISpriteAnimation>();
+			LightAnimation = go.transform.Find("InListCard/SpriteAnim/Shine").GetComponent<UISpriteAnimation>();
 			if(go.transform.Find("RedPoint"))
 				RedPoint = go.transform.Find("RedPoint").gameObject;
 
-			go.transform.Find ("InListCard/InlistLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7110);
-			go.transform.Find ("SellSelect/SellCover/SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(7114);
+			go.transform.Find ("InListCard/InlistLabel").GetComponent<UILabel>().text = TextConst.S(7110);
+			go.transform.Find ("SellSelect/SellCover/SellLabel").GetComponent<UILabel>().text = TextConst.S(7114);
 
 			if(RedPoint != null)
 				RedPoint.SetActive(false);
@@ -108,6 +112,12 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+				if(SuitCard != null)
+					SuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
+
+				if(SuitItem != null)
+					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
+
             } else
                 Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
@@ -131,6 +141,11 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+				if(SuitCard != null)
+					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
+
+				if(SuitItem != null)
+					SuitItem.spriteName = GameFunction.CardSuitItemBg(itemData.Avatar);
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
 		}
@@ -154,6 +169,11 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+				if(SuitCard != null)
+					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
+
+				if(SuitItem != null)
+					SuitItem.spriteName = GameFunction.CardSuitItemBg(itemData.Avatar);
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
 		}
@@ -180,11 +200,16 @@ public class TActiveSkillCard
 				UnavailableMask.SetActive(false);
 				if(DragMask != null)
 					DragMask.SetActive(false);
+
 				InListCard.SetActive(isEquip);
 				SellSelect.SetActive(false);
 				SellSelectCover.SetActive(false);
 				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+				if(SuitCard != null)
+					SuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
 
+				if(SuitItem != null)
+					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
@@ -195,15 +220,16 @@ public class TActiveSkillCard
 	}
 
 	public void UpdateSuitCardButton (UIEventListener.VoidDelegate btnFun) {
-		UIEventListener.Get(SuitCard).onClick = btnFun;
+		UIEventListener.Get(SuitCard.gameObject).onClick = btnFun;
 	}
 
 	public void UpdateSuitItemButton (UIEventListener.VoidDelegate btnFun) {
-		UIEventListener.Get(SuitItem).onClick = btnFun;
+		UIEventListener.Get(SuitItem.gameObject).onClick = btnFun;
 	}
 
 	public void UpdateSuitCardLight (int suitcardID) {
 		if(SuitCardFinish != null) {
+			SuitCard.gameObject.name = suitcardID.ToString();
 			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
 			SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID));
 		}
@@ -211,18 +237,22 @@ public class TActiveSkillCard
 
 	public void UpdateSuitItem (int suitItemID) {
 		if(SuitItemFinish != null) {
-			SuitItemFinish.gameObject.name = suitItemID.ToString();
+			if(GameData.DSuitItem.ContainsKey(suitItemID)) {
+				SuitItem.gameObject.name = suitItemID.ToString();
+				SuitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[suitItemID].Items.Length);
+				GameFunction.CardSuitItemStar(ref SuitItemFinish, GameData.DSuitItem[suitItemID].Items.Length, GameData.Team.SuitItemCompleteCount(suitItemID));
+			}
 			SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID));
 		}
 
 	}
 
 	public bool SuitCardEnable {
-		set {SuitCard.SetActive(value);}
+		set {SuitCard.gameObject.SetActive(value);}
 	}
 
 	public bool SuitItemEnable {
-		set {SuitItem.SetActive(value);}
+		set {SuitItem.gameObject.SetActive(value);}
 	}
 
 	public GameObject MySkillCard {
