@@ -3,7 +3,7 @@ guid: 23fd75fd8dc27ea4eb9e6beb67588a7e
 timeCreated: 1449067966
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: Bip01
     100002: Bip01 Head
@@ -118,7 +118,6 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -126,9 +125,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: 0.5
-    animationPositionError: 0.5
-    animationScaleError: 0.5
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
@@ -142,7 +141,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -156,91 +154,91 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.06501516
+      - time: .0650151595
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.1
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: 0.17315616
+      - time: .173156157
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: 0.22246754
+      - time: .222467542
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.3
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: 0.22967876
+      - time: .229678765
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.24283905
+      - time: .242839053
         functionName: AnimationEvent
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.39753896
+      - time: .39753896
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.1
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: 0.48563397
+      - time: .485633969
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.3
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: 0.50048494
+      - time: .500484943
         functionName: AnimationEvent
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.63054657
+      - time: .63054657
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.1
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: 0.74507076
+      - time: .745070755
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.3
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: 0.7749758
-        functionName: AnimationEvent
-        data: OnlyScore
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.78289163
+      - time: .768656731
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8731343
+      - time: .774975777
+        functionName: AnimationEvent
+        data: OnlyScore
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .873134315
         functionName: SkillEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
@@ -380,7 +378,6 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -401,6 +398,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
+    splitTangentsAcrossUV: 0
     normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
@@ -408,12 +406,12 @@ ModelImporter:
   humanDescription:
     human: []
     skeleton: []
-    armTwist: 0.5
-    foreArmTwist: 0.5
-    upperLegTwist: 0.5
-    legTwist: 0.5
-    armStretch: 0.05
-    legStretch: 0.05
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
