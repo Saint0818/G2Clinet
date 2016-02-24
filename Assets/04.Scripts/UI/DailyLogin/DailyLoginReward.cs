@@ -1,5 +1,4 @@
-﻿using System;
-using GameStruct;
+﻿using GameStruct;
 using UnityEngine;
 
 public abstract class DailyLoginReward : MonoBehaviour

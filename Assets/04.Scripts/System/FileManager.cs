@@ -618,7 +618,7 @@ public class FileManager : KnightSingleton<FileManager>
 
     private void parseLifeTimeData(string version, string text, bool isSaveVersion)
     {
-        LifeTimeTable.Ins.Load(text);
+        LifetimeTable.Ins.Load(text);
 
         if(isSaveVersion)
             SaveDataVersionAndJson(text, "lifetime", version);

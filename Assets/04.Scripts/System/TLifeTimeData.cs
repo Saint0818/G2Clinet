@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 /// <summary>
 /// LifeTime 表格中的某一筆資料.
 /// </summary>
-public class TLifeTimeData
+public class TLifetimeData
 {
     public struct Reward
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -69,6 +70,7 @@ public class UIDailyLogin : UIBase
         Show(true);
 
         mLifetimeMain.LifetimeLoginNum = GameData.Team.LifetimeRecord.LoginNum;
+        buildLifetimeRewards();
 
         buildDailyLoginRewards(year, month);
         selectLastWeek(year, month);
@@ -110,6 +112,26 @@ public class UIDailyLogin : UIBase
             mDailyMain.ShowWeek(3);
         else if(22 <= curLoginNum && curLoginNum <= 28)
             mDailyMain.ShowWeek(4);
+    }
+
+    private void buildLifetimeRewards()
+    {
+        var receivedLoginNum = UIDailyLoginHelper.GetLifetimeReceiveLoginNum();
+        var index = LifetimeTable.Ins.FindIndex(receivedLoginNum);
+        index = Math.Max(index, 0); // 必須大於 0.
+
+        List<UILifetimeReward.Data> rewards = new List<UILifetimeReward.Data>();
+        for(int i = index; i < index + 3; i++) // 介面最多只能顯示 3 個終生獎勵.
+        {
+            TLifetimeData data = LifetimeTable.Ins.GetByIndex(i);
+            if(data == null)
+                break;
+
+            UILifetimeReward.Data reward = UIDailyLoginBuilder.BuildLifetimeReward(data);
+            rewards.Add(reward);
+        }
+        
+        mLifetimeMain.SetRewards(rewards.ToArray());
     }
 
     public void Hide()

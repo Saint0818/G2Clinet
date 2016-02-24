@@ -85,7 +85,7 @@ namespace GameStruct
         }
 
         /// <summary>
-        /// 終生登入獎勵. 這是對應到 LifeTimeTable 的登入次數..
+        /// 終生登入獎勵. 這是對應到 LifetimeTable 的登入次數..
         /// </summary>
         public int LifetimeLoginNum;
 
