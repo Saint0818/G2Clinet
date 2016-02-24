@@ -52,6 +52,8 @@ public class UIDailyLogin : UIBase
         Show(true);
 
         buildDailyLoginRewards(year, month);
+
+        selectLastWeek(year, month);
     }
 
     private void buildDailyLoginRewards(int year, int month)
@@ -77,7 +79,19 @@ public class UIDailyLogin : UIBase
         }
 
         mMain.SetDayReward(year, month, rewards);
-        mMain.ShowWeek(1);
+    }
+
+    private void selectLastWeek(int year, int month)
+    {
+        var curLoginNum = GameData.Team.GetDailyLoginNum(year, month);
+        if(0 <= curLoginNum && curLoginNum <= 7)
+            mMain.ShowWeek(1);
+        else if(8 <= curLoginNum && curLoginNum <= 14)
+            mMain.ShowWeek(2);
+        else if(15 <= curLoginNum && curLoginNum <= 21)
+            mMain.ShowWeek(3);
+        else if(22 <= curLoginNum && curLoginNum <= 28)
+            mMain.ShowWeek(4);
     }
 
     public void Hide()

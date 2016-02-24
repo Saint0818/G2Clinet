@@ -53,20 +53,26 @@ public class UIDailyLoginMain : MonoBehaviour
         if(week > 4 || week < 1)
             return;
 
-        foreach(var pair in mDailyRewards)
+        // 如果只有 2 週的資料, 但是 week = 4, 那麼會校正 week 為 2, 然後顯示第二週的資料.
+        var reviseWeek = week;
+        while(!mDailyRewards.ContainsKey(reviseWeek))
         {
-            foreach(DailyLoginReward reward in pair.Value)
-            {
-                reward.gameObject.SetActive(false);
-            }
+            --reviseWeek;
+            if(reviseWeek < 1)
+                return;
         }
 
-        if(mDailyRewards.ContainsKey(week))
-            foreach(DailyLoginReward reward in mDailyRewards[week])
+        // Hide All Dialy Reward.
+        foreach (var pair in mDailyRewards)
+            foreach(DailyLoginReward reward in pair.Value)
+                reward.gameObject.SetActive(false);
+
+        if(mDailyRewards.ContainsKey(reviseWeek))
+            foreach(DailyLoginReward reward in mDailyRewards[reviseWeek])
                 reward.gameObject.SetActive(true);
 
         if(updateTab)
-            Toggles[week - 1].value = true;
+            Toggles[reviseWeek - 1].value = true;
     }
 
     /// <summary>
