@@ -2,14 +2,15 @@
 
 public static class UIDailyLoginBuilder
 {
-    public static UIDailyLoginReward.Data BuildDailyReward(int day, TItemData itemData, bool showClear)
+    public static IDailyLoginReward.Data BuildDailyReward(int day, TItemData itemData, 
+                                                          IDailyLoginReward.EStatus status)
     {
-        return new UIDailyLoginReward.Data
+        return new IDailyLoginReward.Data
         {
             Day = string.Format(TextConst.S(3811), day),
             ItemData = itemData,
             Name = itemData.Name,
-            ShowClear = showClear
+            Status = status
         };
     }
 	

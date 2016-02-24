@@ -46,13 +46,19 @@ public class UIDailyLogin : UIBase
         if(dailyData == null)
             return;
 
-        int dailyLoginNum = GameData.Team.GetDailyLoginNum(year, month);
-        UIDailyLoginReward.Data[] rewards = new UIDailyLoginReward.Data[dailyData.Rewards.Length];
+        int currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
+        int receiveLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
+        IDailyLoginReward.Data[] rewards = new IDailyLoginReward.Data[dailyData.Rewards.Length];
         for(var i = 0; i < dailyData.Rewards.Length; i++)
         {
             var itemData = GameData.DItemData[dailyData.Rewards[i].ItemID];
             int day = i + 1;
-            rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, day < dailyLoginNum);
+            IDailyLoginReward.EStatus status;
+            if(day <= receiveLoginNum)
+                status = IDailyLoginReward.EStatus.Received;
+            else
+                status = day <= currentLoginNum ? IDailyLoginReward.EStatus.Receivable : IDailyLoginReward.EStatus.NoReceive;
+            rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, status);
         }
 
         mMain.SetDayReward(rewards);

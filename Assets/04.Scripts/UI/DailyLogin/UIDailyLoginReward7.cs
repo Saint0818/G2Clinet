@@ -7,12 +7,14 @@ public class UIDailyLoginReward7 : IDailyLoginReward
     public GameObject Clear;
     public ItemAwardGroup ItemAward;
     public GameObject SkillObj;
+    public GameObject ReceiveButton;
 
     public override void Set(Data data)
     {
         DayLabel.text = data.Day;
         NameLabel.text = data.Name;
-        Clear.SetActive(data.ShowClear);
+
+        updateStatus(data.Status);
 
         ItemAward.gameObject.SetActive(data.ItemData.Kind != 21);
         SkillObj.SetActive(data.ItemData.Kind == 21);
@@ -25,5 +27,11 @@ public class UIDailyLoginReward7 : IDailyLoginReward
         }
         else
             ItemAward.Show(data.ItemData);
+    }
+
+    private void updateStatus(EStatus status)
+    {
+        Clear.SetActive(status == EStatus.Received);
+        ReceiveButton.SetActive(status == EStatus.Receivable);
     }
 }
