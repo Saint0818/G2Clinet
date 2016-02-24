@@ -24,6 +24,7 @@ public class GameStart : MonoBehaviour {
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.BasketballAction_0;
     public ETestActive TestID = ETestActive.Dunk20;
     public int TestLv = 2;
+    public float GameSpeed = 1f;
 
     public static GameStart Get {
         get {

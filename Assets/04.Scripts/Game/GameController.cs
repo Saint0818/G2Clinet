@@ -788,6 +788,11 @@ public class GameController : KnightSingleton<GameController>
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}
 
+                    if (Input.GetKeyDown (KeyCode.T)){
+                        Joysticker.AniState(EPlayerState.Dribble1);
+                        Joysticker.AniState(EPlayerState.Dribble2);
+                        Joysticker.AniState(EPlayerState.Dunk20);
+                    }
                     if (Input.GetKeyDown (KeyCode.K)){
                         Joysticker.AniState(EPlayerState.KnockDown0);
                     }
@@ -3663,6 +3668,7 @@ public class GameController : KnightSingleton<GameController>
 		if(GameStart.Get.IsAutoReplay){
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);
+            Time.timeScale = GameStart.Get.GameSpeed;
 		}
 	}
 
