@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GameStruct;
 using UnityEngine;
+using GameEnum;
 
 public class UISkillInfo : UIBase {
 	private static UISkillInfo instance = null;
@@ -35,7 +36,8 @@ public class UISkillInfo : UIBase {
 	private UISprite goSuitCard;
 	private UISprite suitCardFinish;
 	private UISprite goSuitItem;
-	private UISprite suitItemFinish;
+	private UISprite suitItemStarBg;
+	private GameObject[] suitItemFinish = new GameObject[7];
 
 	//TopRight
 	private UILabel labelEquip;
@@ -132,7 +134,9 @@ public class UISkillInfo : UIBase {
 		goSuitCard = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitCard").GetComponent<UISprite>();
 		suitCardFinish = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitCard/SuitFinish").GetComponent<UISprite>();
 		goSuitItem = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem").GetComponent<UISprite>();
-		suitItemFinish = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem/Icon").GetComponent<UISprite>();
+		suitItemStarBg = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem/ItemBottom").GetComponent<UISprite>();
+		for (int i=0; i<suitItemFinish.Length; i++)
+			suitItemFinish[i] = GameObject.Find(UIName + "/Center/Left/BtnMediumCard/ItemSkillCard/SuitItem/Light/" + i.ToString()).gameObject;
 
 		UIEventListener.Get(goSuitCard.gameObject).onClick = OnSuitCard;
 		UIEventListener.Get(goSuitItem.gameObject).onClick = OnSuitItem;
@@ -146,19 +150,19 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnSuitCard (GameObject go) {
-		Visible = false;
-		UISkillFormation.Get.ClickTab(1);
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
+			UISkillFormation.Get.ClickTab(1);
 			UISkillFormation.Get.SuitCard.MoveToID(result);
+			Visible = false;
 		}
 	}
 
 	public void OnSuitItem (GameObject go) {
-		Visible = false;
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			UISuitAvatar.Get.ShowView(result);
+			Visible = false;
 		}
 	}
 	
@@ -167,8 +171,8 @@ public class UISkillInfo : UIBase {
 		UIMainLobby.Get.HideAll(false);
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
-		btnUpgrade.SetActive(true);
-		btnCrafting.SetActive(true);
+		btnUpgrade.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce));
+		btnCrafting.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillEvolution));
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -214,9 +218,9 @@ public class UISkillInfo : UIBase {
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 
-				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && !UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
-				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar));
-				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
+				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
+				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
+				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name)&& LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
 			}
 
 			//MediumCard
@@ -235,13 +239,22 @@ public class UISkillInfo : UIBase {
 			}
 			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 
-			goSuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
-			goSuitCard.gameObject.name = GameData.DSkillData[skill.ID].SuitCard.ToString();
-			suitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(GameData.DSkillData[skill.ID].SuitCard));
+			if(GameData.DSkillData[skill.ID].SuitCard > 0) {
+				goSuitCard.gameObject.SetActive(true);
+				goSuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
+				goSuitCard.gameObject.name = GameData.DSkillData[skill.ID].SuitCard.ToString();
+				suitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(GameData.DSkillData[skill.ID].SuitCard));
+			} else
+				goSuitCard.gameObject.SetActive(false);
 
-			goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
-			goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
-			suitItemFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
+			if(GameData.DSkillData[skill.ID].Suititem > 0) {
+				goSuitItem.gameObject.SetActive(true);
+				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
+				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
+				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length);
+				GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
+			} else 
+				goSuitItem.gameObject.SetActive(false);
 
 			//SkillInfo
 			labelSkillQuality.text =GameFunction.QualityName(GameData.DSkillData[skill.ID].Quality);

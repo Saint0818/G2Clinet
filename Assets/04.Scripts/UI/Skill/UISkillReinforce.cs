@@ -2,6 +2,7 @@
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
+using GameEnum;
 
 public struct ReinEvoTab {
 
@@ -208,17 +209,37 @@ public class UISkillReinforce : UIBase {
 	/// <param name="isAlreadyEquip">If set to <c>true</c> is already equip.</param>
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
-		Visible = true;
-		UIMainLobby.Get.Hide(3, false);
-		mSkill = skill;
-		mOldSkill = mSkill;
-		RefreshView(skill);
-		initRightCards ();
-		targetIndex = index;
-		isEquiped = isAlreadyEquip;
-		skillEvolution.ShowView(index, skill, isAlreadyEquip);
+		if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce)) {
+			if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) {
+				if(!Visible)
+					Visible = true;
+				
+				UIMainLobby.Get.Hide(3, false);
+				mSkill = skill;
+				mOldSkill = mSkill;
+				RefreshView(skill);
+				initRightCards ();
+				targetIndex = index;
+				isEquiped = isAlreadyEquip;
+				showWindows(showType);
+			} else 
+				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);
+		} else 
+			Debug.LogError("No OpenID:" + EOpenID.SkillReinforce);
 
-		showWindows(showType);
+		if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution)) {
+			if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) {
+				if(!Visible)
+					Visible = true;
+
+				skillEvolution.ShowView(index, skill, isAlreadyEquip);
+			}else 
+				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
+		}else 
+			Debug.LogError("No OpenID:" + EOpenID.SkillEvolution);
+
+		if(Visible)
+			showWindows(showType);
 	}
 
 	private void showWindows (int showType) {
@@ -232,10 +253,11 @@ public class UISkillReinforce : UIBase {
 		//Reinforce
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			//Reinforce
-			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar);
+			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
 			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
 			//Evolution
-			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar));
+			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar) && 
+											 LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
 			reinEvoTabs[1].CheckUnUse = (GameData.DSkillData[mSkill.ID].EvolutionSkill == 0);
 		}
 	}
@@ -247,14 +269,22 @@ public class UISkillReinforce : UIBase {
 				if(result == 0) {
 					if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar)
 						UIHint.Get.ShowHint(TextConst.S(553), Color.red);
-					else 
-						showWindows(result);
+					else {
+						if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)))
+							showWindows(result);
+						else
+							UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);			
+					}
 					
 				} else if(result == 1) {
 					if(GameData.DSkillData[mSkill.ID].EvolutionSkill == 0) 
 						UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
-					else 
-						showWindows(result);
+					else {
+						if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)))
+							showWindows(result);
+						else
+							UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
+					}
 				}
 			}
 		}

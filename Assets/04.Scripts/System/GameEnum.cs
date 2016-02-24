@@ -111,7 +111,9 @@
         Instance = 9,
         CreateRole = 10,
 		SuitCard = 26,
-		SuitItem = 27
+		SuitItem = 27,
+		SkillEvolution = 21,
+		SkillReinforce = 22
     }
 					
 	public enum EPlayerPostion

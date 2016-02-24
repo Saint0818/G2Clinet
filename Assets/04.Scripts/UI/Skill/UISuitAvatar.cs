@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using GameEnum;
 
 public struct TItemSuitAvatarGroup {
 	public GameObject mSelf;
@@ -30,7 +31,7 @@ public struct TItemSuitAvatarGroup {
 			mSelf.name = id.ToString();
 			mSelf.transform.localPosition = new Vector3(0, -60 * index, 0);
 			SuitNameLabel.text = GameData.DSuitItem[id].SuitName;
-			CountLabel.text = ownCount.ToString() + "/" + GameData.DSuitItem[id].CardLength;
+			CountLabel.text = ownCount.ToString() + "/" + GameData.DSuitItem[id].ItemLength;
 			PositionIcon.spriteName = GameFunction.PositionIcon(GameData.DSuitItem[id].Position);
 		} 
 	}
@@ -65,15 +66,16 @@ public struct TMiddleItemView {
 			mID = id;
 			if(GameData.DSuitItem[id].Items.Length == itemAwardGroup.Length) {
 				for (int i=0; i<itemAwardGroup.Length; i++) {
-					if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
-						if(GameData.DSuitItem[id].Items[i] != 0) {
+					if(GameData.DSuitItem[id].Items[i] != 0) {
+
+						if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
 							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
 							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
 							SuitCover[i].SetActive(!GameData.Team.IsGetAvatar(GameData.DSuitItem[id].Items[i]));
-						} else {
-							itemAwardGroup[i].Hide();
-							itemNameLabel[i].text = TextConst.S(8207);
 						}
+					} else {
+						itemAwardGroup[i].Hide();
+						itemNameLabel[i].text = TextConst.S(8207);
 					}
 				}
 			}
@@ -251,7 +253,16 @@ public class UISuitAvatar : UIBase {
 	}
 
 	public void ShowView (int suitItemID) {
-		Visible = true;
+		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+			Visible = true;
+			initScrollView ();
+			clickSuit (suitItemID);
+			middleBonusView.SetColor(middleItemView.GotItemCount);
+		} else 
+			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+	}
+
+	private void initScrollView () {
 		int index = 0;
 		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
@@ -262,8 +273,6 @@ public class UISuitAvatar : UIBase {
 			index ++;
 		}
 		leftScorllView.Scroll(0);
-		clickSuit (suitItemID);
-		middleBonusView.SetColor(middleItemView.GotItemCount);
 	}
 
 	private void hideAllSelect () {

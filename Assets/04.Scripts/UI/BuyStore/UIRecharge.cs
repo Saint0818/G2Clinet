@@ -85,6 +85,10 @@ public struct TItemRecharge {
 		RefreshPrice();
 	}
 
+	public void RefreshTextColor () {
+		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, mPrice));
+	}
+
 	/// <summary>
 	/// 主要重整有限制次數的UI
 	/// </summary>
@@ -106,7 +110,7 @@ public struct TItemRecharge {
 		} else 
 			mPrice = mShop.Price;
 
-		PriceLabel.text = mPrice.ToString();
+		PriceLabel.text =  NumFormater.Convert(mPrice);
 	}
 
 	private void showSoldOut () {
@@ -293,10 +297,8 @@ public class UIRecharge : UIBase {
 				kindBuyCoin[GameData.DShops[i].Order].init(Instantiate(prefabKind[1]), scrollviews[1]);
 				kindBuyCoin[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
 				if(GameData.DShops[i].Kind == 0)
-//					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
 					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-//					kindBuyCoin[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
 					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnPower;
 			} else if(GameData.DShops[i].Kind == 1) {
 				if(GameData.DShops[i].Order >= BuyStaminaLen) {
@@ -305,11 +307,10 @@ public class UIRecharge : UIBase {
 				}
 				kindBuyStamina[GameData.DShops[i].Order].init(Instantiate(prefabKind[2]), scrollviews[2]);
 				kindBuyStamina[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
+				kindBuyStamina[GameData.DShops[i].Order].RefreshTextColor();
 				if(GameData.DShops[i].Kind == 0)
-//					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnBuyCoin));
 					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-//					kindBuyStamina[GameData.DShops[i].Order].UpdateBtn(new EventDelegate(OnPower));
 					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnPower;
 			}
 
@@ -325,7 +326,6 @@ public class UIRecharge : UIBase {
 			}
 			kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
 			kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
-//			kindBuyDiamond[GameData.DMalls[i].Order].UpdateBtn(new EventDelegate(OnBuyDiamond));
 			UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].mSelf).onClick = OnBuyDiamond;
 		}
 	}

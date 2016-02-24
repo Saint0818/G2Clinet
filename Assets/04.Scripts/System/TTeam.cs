@@ -30,7 +30,10 @@ namespace GameStruct
         public int SocialCoin; //社群幣
 
 		public int SkillCardMax;//背包空間數
-		public int[] SuitCardCost; //套卡有啟動的id就會紀錄id
+		/// <summary>
+		/// 套卡有啟動的id就會紀錄id
+		/// </summary>
+		public int[] SuitCardCost; 
 
         public int[] TutorialFlags;
         public int[] Achievements;
@@ -552,21 +555,25 @@ namespace GameStruct
 		//檢查所有卡片是否有可以進化或合成(For GameLobby Skill RedPoint)
 		public bool IsAnyCardReinEvo {
 			get {
-				if(SkillCards != null && SkillCards.Length > 0) {
-					for(int i=0; i<SkillCards.Length; i++) {
-						if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
-							if(IsEnoughMaterial(SkillCards[i])){
-									return true;
+				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)){
+					if(SkillCards != null && SkillCards.Length > 0) {
+						for(int i=0; i<SkillCards.Length; i++) {
+							if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
+								if(IsEnoughMaterial(SkillCards[i])){
+										return true;
+								}
 							}
 						}
 					}
 				}
-				
-				if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
-					for (int i=0; i<Player.SkillCards.Length; i++) {
-						if(GameData.DSkillData.ContainsKey(Player.SkillCards[i].ID )) {
-							if(IsEnoughMaterial(Player.SkillCards[i])) {
-								return true; 
+
+				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)){
+					if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
+						for (int i=0; i<Player.SkillCards.Length; i++) {
+							if(GameData.DSkillData.ContainsKey(Player.SkillCards[i].ID )) {
+								if(IsEnoughMaterial(Player.SkillCards[i])) {
+									return true; 
+								}
 							}
 						}
 					}
@@ -579,10 +586,11 @@ namespace GameStruct
 		//檢查是否有未安裝的卡
 		public bool IsExtraCard {
 			get {
-				if(SkillCards != null && SkillCards.Length > 0) 
-					for (int i=0; i<SkillCards.Length; i++) 
-						if(CheckNoInstallCard(SkillCards[i].SN))
-							return true;
+				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce))
+					if(SkillCards != null && SkillCards.Length > 0) 
+						for (int i=0; i<SkillCards.Length; i++) 
+							if(CheckNoInstallCard(SkillCards[i].SN))
+								return true;
 				
 				return false;
 			}	
@@ -748,29 +756,16 @@ namespace GameStruct
             return true;
         }
 
-		public bool CheckSkillCardItemIDisNew (int itemID) {
+		public bool CheckSkillCardItemIDGet (int itemID) {
 			if(GameData.DItemData.ContainsKey(itemID)) {
-				if(SkillCards == null)
-					SkillCards = new TSkill[0];
-				
-				if(SkillCards.Length > 0) 
-					for (int i=0; i<SkillCards.Length; i++) 
-						if(SkillCards[i].ID == GameData.DItemData[itemID].Avatar)
-							return false;
-				
-				if(PlayerBank != null && PlayerBank.Length > 0) 
-					for (int i=0; i<PlayerBank.Length; i++) 
-						if(PlayerBank[i].ID != Player.ID &&PlayerBank[i].SkillCards != null && PlayerBank[i].SkillCards.Length > 0) 
-							for(int j=0; j<PlayerBank[i].SkillCards.Length; j++) 
-								if(PlayerBank[i].SkillCards[j].ID == GameData.DItemData[itemID].Avatar)
-									return false;
-				
-				if(Player.SkillCards != null && Player.SkillCards.Length > 0) 
-					for (int i=0; i<Player.SkillCards.Length; i++) 
-						if (Player.SkillCards[i].ID == GameData.DItemData[itemID].Avatar)
-							return false;
-				
-				return true;
+				return !CheckSkillCardisNew(GameData.DItemData[itemID].Avatar);
+			}
+			return false;
+		}
+
+		public bool CheckSkillCardIDGet (int skillID) {
+			if(GameData.DSkillData.ContainsKey(skillID)) {
+				return !CheckSkillCardisNew(skillID);
 			}
 			return false;
 		}
@@ -1049,6 +1044,20 @@ namespace GameStruct
 			}
 		}
 
+		//套卡影響Cost的值總和
+		public int SuitCardCostEffect (int id) {
+			int count = 0;
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) 
+				if(SuitCardCost != null) 
+					for(int i=0; i<SuitCardCost.Length; i++) 
+						if(SuitCardCost[i] == id) 
+							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
+								if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 30) 
+									count += GameData.DSuitCard[SuitCardCost[i]].Value[j];
+
+			return count;
+		}
+
 		//某一列套裝完成的數量
 		public int SuitItemCompleteCount (int id) {
 			int count = 0;
@@ -1059,12 +1068,12 @@ namespace GameStruct
 			return count;
 		}
 
-		//某一列套裝 卡片完成的數量
+		//某一列套裝 卡片完成的數量 (影響Cost值)
 		public int SuitItemCardCompleteCount (int id) {
 			int count = 0;
 			if(GameData.DSuitItem.ContainsKey(id)) 
 				for(int i=0; i<GameData.DSuitItem[id].Card.Length; i++) 
-					if(CheckSkillCardItemIDisNew(GameData.DSuitItem[id].Card[id]))
+					if(CheckSkillCardItemIDGet(GameData.DSuitItem[id].Card[i]))
 						count ++;
 			return count;
 		}

@@ -106,9 +106,12 @@ public class TMallBox
 		changeSpendKind(pickcost.SpendKind);
 		TitleLabel.text = pickcost.Name;
 		ExplainLabel.text = pickcost.Explain;
-		PriceLabel.text = pickcost.OnePick.ToString();
-		Open5Price.text = pickcost.FivePick.ToString();
-		Open10Price.text = pickcost.TenPick.ToString();
+		PriceLabel.text = NumFormater.Convert(pickcost.OnePick);
+		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.OnePick));
+		Open5Price.text = NumFormater.Convert(pickcost.FivePick);
+		Open5Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.FivePick));
+		Open10Price.text = NumFormater.Convert(pickcost.TenPick);
+		Open10Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.FivePick));
 	}
 
 	public void UpdateFreeTimeCD () {

@@ -663,6 +663,7 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 
         Joysticker = PlayerList[0];
+		Joysticker.SetAnger(GameData.Team.InitGetAP());
         UIGame.Get.SetJoystick(Joysticker);
 
         AddValueItemAttributes();

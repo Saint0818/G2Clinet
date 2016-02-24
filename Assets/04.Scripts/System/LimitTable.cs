@@ -77,5 +77,10 @@ public class LimitTable
     public int GetDiamond(EOpenID id)
     {
         return mLimitsByOpenID.ContainsKey(id) ? mLimitsByOpenID[id].Diamond : 0;
-    }
+	}
+
+	public int GetVisibleLv (EOpenID id)
+	{
+		return mLimitsByOpenID.ContainsKey(id) ? mLimitsByOpenID[id].VisibleLv : 0;
+	}
 }
