@@ -19,13 +19,16 @@ public class UIDailyLogin : UIBase
     private static UIDailyLogin instance;
     private const string UIName = "UIDailyLogin";
 
-    private UIDailyLoginMain mMain;
+    private UIDailyLoginMain mDailyMain;
+    private UILifetimeLoginMain mLifetimeMain;
     private void Awake()
     {
-        mMain = GetComponent<UIDailyLoginMain>();
-        mMain.OnCloseClickListener += () => Hide();
+        mDailyMain = GetComponent<UIDailyLoginMain>();
+        mDailyMain.OnCloseClickListener += () => Hide();
 
-        mMain.OnReceiveListener += onReceive;
+        mLifetimeMain = GetComponent<UILifetimeLoginMain>();
+
+        mDailyMain.OnReceiveListener += onReceive;
     }
 
     private void onReceive(int year, int month)
@@ -51,8 +54,8 @@ public class UIDailyLogin : UIBase
     /// <summary>
     /// 目前顯示的是哪一個月份的登入獎勵.
     /// </summary>
-    public int Year { get { return mMain.Year; } }
-    public int Month { get { return mMain.Month; } }
+    public int Year { get { return mDailyMain.Year; } }
+    public int Month { get { return mDailyMain.Month; } }
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
@@ -65,14 +68,15 @@ public class UIDailyLogin : UIBase
     {
         Show(true);
 
-        buildDailyLoginRewards(year, month);
+        mLifetimeMain.LifetimeLoginNum = GameData.Team.LifetimeRecord.LoginNum;
 
+        buildDailyLoginRewards(year, month);
         selectLastWeek(year, month);
     }
 
     private void buildDailyLoginRewards(int year, int month)
     {
-        mMain.ClearDailyRewards();
+        mDailyMain.ClearDailyRewards();
         TDailyData dailyData = DailyTable.Ins.GetByDate(year, month);
         if(dailyData == null)
             return;
@@ -92,20 +96,20 @@ public class UIDailyLogin : UIBase
             rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, status);
         }
 
-        mMain.SetDayReward(year, month, rewards);
+        mDailyMain.SetDayReward(year, month, rewards);
     }
 
     private void selectLastWeek(int year, int month)
     {
         var curLoginNum = GameData.Team.GetDailyLoginNum(year, month);
         if(0 <= curLoginNum && curLoginNum <= 7)
-            mMain.ShowWeek(1);
+            mDailyMain.ShowWeek(1);
         else if(8 <= curLoginNum && curLoginNum <= 14)
-            mMain.ShowWeek(2);
+            mDailyMain.ShowWeek(2);
         else if(15 <= curLoginNum && curLoginNum <= 21)
-            mMain.ShowWeek(3);
+            mDailyMain.ShowWeek(3);
         else if(22 <= curLoginNum && curLoginNum <= 28)
-            mMain.ShowWeek(4);
+            mDailyMain.ShowWeek(4);
     }
 
     public void Hide()

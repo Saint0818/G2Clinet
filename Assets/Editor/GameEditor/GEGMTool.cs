@@ -961,16 +961,18 @@ public class GEGMTool : GEBase
         mLifeTimeLoginNum = Math.Max(0, mLifeTimeLoginNum);
         if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
-            WWWForm form = new WWWForm();
-            form.AddField("LoginNum", mLifeTimeLoginNum);
-            SendHttp.Get.Command(URLConst.GMSetLifeTimeLoginNum, waitGMSetLifeTimeLoginNum, form);
+            var protocol = new GMSetLifetimeLoginNumProtocol();
+            protocol.Send(mLifeTimeLoginNum, waitGMSetLifeTimeLoginNum);
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void waitGMSetLifeTimeLoginNum(bool ok, WWW www)
+    private void waitGMSetLifeTimeLoginNum(bool ok)
     {
         Debug.LogFormat("waitGMSetLifeTimeLoginNum, ok:{0}", ok);
+
+        if(UIDailyLogin.Get.Visible)
+            UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private void BattleHandle()

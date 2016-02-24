@@ -408,6 +408,8 @@ namespace GameStruct
 		public int BuyDiamondQuantity;
 		public int BuyCoinQuantity;
 
+        public int LoginNum; // 終生登入次數.
+
         public bool NeedForSync(ref TTeamRecord newRecord) {
             if (/*newRecord.TotalAddDiamond != TotalAddDiamond ||
                 newRecord.TotalDelDiamond != TotalDelDiamond ||
