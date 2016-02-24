@@ -912,7 +912,7 @@ public class GEGMTool : GEBase
             GMResetDailyLoginNumProtocol protocol = new GMResetDailyLoginNumProtocol();
             protocol.Send(waitGMResetDailyLoginNums);
 
-            PlayerPrefs.DeleteAll();
+            UIDailyLoginHelper.SetDailyReceiveLoginNum(DateTime.Now.Year, DateTime.Now.Month, 0);
         }
         EditorGUILayout.EndHorizontal();
     }

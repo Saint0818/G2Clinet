@@ -19,6 +19,22 @@ public class TDailyData
     [UsedImplicitly]
     public int Month { get; private set; }
 
+    public bool HasRewardByDay(int day)
+    {
+        var index = day - 1;
+        if(index < 0)
+            return false;
+
+        return index < Rewards.Length;
+    }
+
+    public Reward GetRewardByDay(int day)
+    {
+        if(HasRewardByDay(day))
+            return Rewards[day - 1];
+        return new Reward();
+    }
+
     public Reward[] Rewards
     {
         get { return mRewards ?? (mRewards = buildRewards()); }

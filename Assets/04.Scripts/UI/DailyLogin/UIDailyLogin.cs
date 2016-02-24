@@ -2,14 +2,15 @@
 using UnityEngine;
 
 /// <summary>
-/// 副本介面.
+/// 每日登入獎勵介面.
 /// </summary>
 /// <remarks>
 /// 使用方法:
 /// <list type="number">
 /// <item> 用 Get 取得 instance. </item>
-/// <item> Call Show() 顯示副本. </item>
-/// <item> Call Hide() 關閉副本. </item>
+/// <item> Call Show() 顯示介面. </item>
+/// <item> Call Hide() 關閉介面. </item>
+/// <item> Year, Month 是目前介面是顯示哪一個月份的資料. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -24,14 +25,27 @@ public class UIDailyLogin : UIBase
         mMain = GetComponent<UIDailyLoginMain>();
         mMain.OnCloseClickListener += () => Hide();
 
-        mMain.OnReceiveListener += (year, month) =>
-        {
-            var currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
-            Debug.LogFormat("OnReceiveClick:{0}-{1}, LoginNum:{2}", year, month, currentLoginNum);
-            UIDailyLoginHelper.SetDailyReceiveLoginNum(year, month, currentLoginNum);
+        mMain.OnReceiveListener += onReceive;
+    }
 
-            buildDailyLoginRewards(year, month);
-        };
+    private void onReceive(int year, int month)
+    {
+        var currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
+        var receviedLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
+//        Debug.LogFormat("OnReceiveClick:{0}-{1}, CurLoginNum:{2}, ReceivedLoginNum:{3}", year, month, currentLoginNum, receviedLoginNum);
+
+        TDailyData dailyData = DailyTable.Ins.GetByDate(year, month);
+        for(var day = receviedLoginNum + 1; day <= currentLoginNum; day++)
+        {
+            if(dailyData.HasRewardByDay(day))
+            {
+                TDailyData.Reward reward = dailyData.GetRewardByDay(day);
+                UIGetItem.Get.AddItem(reward.ItemID);
+            }
+        }
+
+        UIDailyLoginHelper.SetDailyReceiveLoginNum(year, month, currentLoginNum);
+        Hide();
     }
 
     /// <summary>
