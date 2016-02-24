@@ -14,7 +14,7 @@ public static class UIDailyLoginHelper
         string key = getKey(year, month);
         if(PlayerPrefs.HasKey(key))
             return PlayerPrefs.GetInt(key);
-        return 2;
+        return 0;
     }
 
     private static string getKey(int year, int month)

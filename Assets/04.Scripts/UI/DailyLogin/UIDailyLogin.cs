@@ -23,7 +23,22 @@ public class UIDailyLogin : UIBase
     {
         mMain = GetComponent<UIDailyLoginMain>();
         mMain.OnCloseClickListener += () => Hide();
+
+        mMain.OnReceiveListener += (year, month) =>
+        {
+            var currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
+            Debug.LogFormat("OnReceiveClick:{0}-{1}, LoginNum:{2}", year, month, currentLoginNum);
+            UIDailyLoginHelper.SetDailyReceiveLoginNum(year, month, currentLoginNum);
+
+            buildDailyLoginRewards(year, month);
+        };
     }
+
+    /// <summary>
+    /// 目前顯示的是哪一個月份的登入獎勵.
+    /// </summary>
+    public int Year { get { return mMain.Year; } }
+    public int Month { get { return mMain.Month; } }
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
@@ -48,20 +63,20 @@ public class UIDailyLogin : UIBase
 
         int currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
         int receiveLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
-        IDailyLoginReward.Data[] rewards = new IDailyLoginReward.Data[dailyData.Rewards.Length];
+        DailyLoginReward.Data[] rewards = new DailyLoginReward.Data[dailyData.Rewards.Length];
         for(var i = 0; i < dailyData.Rewards.Length; i++)
         {
             var itemData = GameData.DItemData[dailyData.Rewards[i].ItemID];
             int day = i + 1;
-            IDailyLoginReward.EStatus status;
+            DailyLoginReward.EStatus status;
             if(day <= receiveLoginNum)
-                status = IDailyLoginReward.EStatus.Received;
+                status = DailyLoginReward.EStatus.Received;
             else
-                status = day <= currentLoginNum ? IDailyLoginReward.EStatus.Receivable : IDailyLoginReward.EStatus.NoReceive;
+                status = day <= currentLoginNum ? DailyLoginReward.EStatus.Receivable : DailyLoginReward.EStatus.NoReceive;
             rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, status);
         }
 
-        mMain.SetDayReward(rewards);
+        mMain.SetDayReward(year, month, rewards);
         mMain.ShowWeek(1);
     }
 

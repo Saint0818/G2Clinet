@@ -2,10 +2,10 @@
 
 public static class UIDailyLoginBuilder
 {
-    public static IDailyLoginReward.Data BuildDailyReward(int day, TItemData itemData, 
-                                                          IDailyLoginReward.EStatus status)
+    public static DailyLoginReward.Data BuildDailyReward(int day, TItemData itemData, 
+                                                          DailyLoginReward.EStatus status)
     {
-        return new IDailyLoginReward.Data
+        return new DailyLoginReward.Data
         {
             Day = string.Format(TextConst.S(3811), day),
             ItemData = itemData,

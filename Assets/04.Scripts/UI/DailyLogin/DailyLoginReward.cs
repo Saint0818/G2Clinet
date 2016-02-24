@@ -1,7 +1,8 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 using UnityEngine;
 
-public abstract class IDailyLoginReward : MonoBehaviour
+public abstract class DailyLoginReward : MonoBehaviour
 {
     public enum EStatus
     {

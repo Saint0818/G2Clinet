@@ -1,13 +1,22 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class UIDailyLoginReward7 : IDailyLoginReward
+/// <summary>
+/// 第 7 天的每日登入獎勵.
+/// </summary>
+public class UIDailyLoginReward7 : DailyLoginReward
 {
     public UILabel DayLabel;
     public UILabel NameLabel;
     public GameObject Clear;
     public ItemAwardGroup ItemAward;
     public GameObject SkillObj;
-    public GameObject ReceiveButton;
+    public UIButton ReceiveButton;
+
+    private void Start()
+    {
+        var main = GetComponentInParent<UIDailyLoginMain>();
+        ReceiveButton.onClick.Add(new EventDelegate(main.FireReceiveClick));
+    }
 
     public override void Set(Data data)
     {
@@ -32,6 +41,6 @@ public class UIDailyLoginReward7 : IDailyLoginReward
     private void updateStatus(EStatus status)
     {
         Clear.SetActive(status == EStatus.Received);
-        ReceiveButton.SetActive(status == EStatus.Receivable);
+        ReceiveButton.gameObject.SetActive(status == EStatus.Receivable);
     }
 }

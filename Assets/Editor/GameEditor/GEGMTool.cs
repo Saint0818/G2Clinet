@@ -907,17 +907,22 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("每月登入次數: ");
-        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
         {
-            WWWForm form = new WWWForm();
-            SendHttp.Get.Command(URLConst.GMResetDailyLoginNums, waitGMResetDailyLoginNums, form);
+            GMResetDailyLoginNumProtocol protocol = new GMResetDailyLoginNumProtocol();
+            protocol.Send(waitGMResetDailyLoginNums);
+
+            PlayerPrefs.DeleteAll();
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void waitGMResetDailyLoginNums(bool ok, WWW www)
+    private void waitGMResetDailyLoginNums(bool ok)
     {
         Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
+
+        if(UIDailyLogin.Get.Visible)
+            UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private int mDailyLoginYear = DateTime.Now.Year;
@@ -935,18 +940,16 @@ public class GEGMTool : GEBase
         mDailyLoginLoginNum = EditorGUILayout.IntField(mDailyLoginLoginNum);
         if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
-            WWWForm form = new WWWForm();
-            form.AddField("Year", mDailyLoginYear);
-            form.AddField("Month", mDailyLoginMonth);
-            form.AddField("LoginNum", mDailyLoginLoginNum);
-            SendHttp.Get.Command(URLConst.GMSetDailyLoginNums, waitGMSetDailyLoginNums, form);
+            var protocol = new GMSetDailyLoginNumProtocol();
+            protocol.Send(mDailyLoginYear, mDailyLoginMonth, mDailyLoginLoginNum, waitGMSetDailyLoginNum);
         }
         EditorGUILayout.EndHorizontal();
     }
 
-    private void waitGMSetDailyLoginNums(bool ok, WWW www)
+    private void waitGMSetDailyLoginNum(bool ok)
     {
-        Debug.LogFormat("waitGMSetDailyLoginNums, ok:{0}", ok);
+        if(UIDailyLogin.Get.Visible)
+            UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private int mLifeTimeLoginNum;
