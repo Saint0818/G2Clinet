@@ -1,7 +1,7 @@
 ﻿/***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -97,27 +97,28 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 
 		isOnDrag = false;
 		isOnTouch = false;
-		
-		axisX.positivekey = KeyCode.RightArrow;
-		axisX.negativeKey = KeyCode.LeftArrow;
-		
-		axisY.positivekey = KeyCode.UpArrow;
-		axisY.negativeKey = KeyCode.DownArrow;
+
+		axisX.unityAxis = "Horizontal";
+		axisY.unityAxis = "Vertical";
 		
 		enableKeySimulation = true;
-		#if !UNITY_EDITOR
-		enableKeySimulation = false;
-		#endif
 	}
 	#endregion
 
 	#region Monobehaviour Callback
-	void Start(){
+	public override void Start(){
+
+		base.Start();
+
 		tmpAxis = Vector2.zero;
 		OldTmpAxis = Vector2.zero;
 		
 		axisX.InitAxis();
 		axisY.InitAxis();
+
+		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor){
+			SetVisible(visibleOnStandalone);
+		}
 	}
 
 	/*
@@ -137,6 +138,11 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 	protected override void UpdateControlState ()
 	{
 		UpdateDPad();
+	}
+
+	protected override void DoActionBeforeEndOfFrame (){
+		axisX.DoGravity();
+		axisY.DoGravity();
 	}
 	#endregion
 
@@ -191,27 +197,22 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 		#region Key simulation
 
 		if (enableKeySimulation && !isOnTouch && _activated && _visible){
+			float x = Input.GetAxis(axisX.unityAxis);
+			float y= Input.GetAxis(axisY.unityAxis);
+
 			isOnDrag = false;
 			tmpAxis = Vector2.zero;
 
-			if (Input.GetKey( axisX.positivekey)){
+			if (x!=0){
 				isOnDrag = true;
-				tmpAxis = new Vector2(1,tmpAxis.y);
+				tmpAxis = new Vector2(1 * Mathf.Sign(x),tmpAxis.y);
 			}
-			else if (Input.GetKey( axisX.negativeKey)){
-				isOnDrag = true;
-				tmpAxis = new Vector2(-1,tmpAxis.y);
-			}
-			
-			if (Input.GetKey( axisY.positivekey)){
-				isOnDrag = true;
-				tmpAxis = new Vector2(tmpAxis.x,1);
 
-			}
-			else if (Input.GetKey( axisY.negativeKey)){
+			if (y!=0){
 				isOnDrag = true;
-				tmpAxis = new Vector2(tmpAxis.x,-1);
+				tmpAxis = new Vector2(tmpAxis.x,1 * Mathf.Sign(y));
 			}
+
 		}
 		#endregion
 
@@ -220,9 +221,6 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 
 		axisX.UpdateAxis( tmpAxis.x,isOnDrag,ETCBase.ControlType.DPad);
 		axisY.UpdateAxis( tmpAxis.y,isOnDrag, ETCBase.ControlType.DPad);
-
-		axisX.DoGravity();
-		axisY.DoGravity();
 
 		#region Move event
 		if ((axisX.axisValue!=0 ||  axisY.axisValue!=0 ) && OldTmpAxis == Vector2.zero){
@@ -323,8 +321,12 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 	#endregion
 
 	#region Private methods
-	protected override void SetVisible (){
-		GetComponent<Image>().enabled = _visible;
+	protected override void SetVisible (bool forceUnvisible=false){
+		bool localVisible = _visible;
+		if (!visible){
+			localVisible = visible;
+		}
+		GetComponent<Image>().enabled = localVisible;
 	}
 
 	protected override void SetActivated (){
@@ -348,41 +350,45 @@ public class ETCDPad : ETCBase, IDragHandler,  IPointerDownHandler, IPointerUpHa
 		}
 	}
 
+	public float buttonSizeCoef = 3;
+
 	private void GetTouchDirection(Vector2 position, Camera cam){
 
 		Vector2 localPoint;
 		RectTransformUtility.ScreenPointToLocalPointInRectangle( cachedRectTransform,position,cam,out localPoint);
-
-		Vector2 buttonSize = this.rectTransform().sizeDelta / 3f;
-	
+		
+		Vector2 buttonSize = this.rectTransform().sizeDelta / buttonSizeCoef;
+		
+		
 		tmpAxis = Vector2.zero;
-
+		
+		
 		// Left
-		if ( (localPoint.x < -buttonSize.x/2f && localPoint.y > -buttonSize.y/2f && localPoint.y< buttonSize.y/2f && dPadAxisCount== DPadAxis.Two_Axis) 
-		    || (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.x < -buttonSize.x/2f) ){
+		if ( (localPoint.x < -buttonSize.x/2 && localPoint.y > -buttonSize.y/2 && localPoint.y< buttonSize.y/2 && dPadAxisCount== DPadAxis.Two_Axis) 
+		    || (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.x < -buttonSize.x/2) ){
 			tmpAxis.x = -1;
 		}
-
+		
 		// right
-		if ( (localPoint.x > buttonSize.x/2f && localPoint.y> -buttonSize.y/2f && localPoint.y< buttonSize.y/2f && dPadAxisCount== DPadAxis.Two_Axis) 
-			|| (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.x > buttonSize.x/2f) ){
+		if ( (localPoint.x > buttonSize.x/2 && localPoint.y> -buttonSize.y/2 && localPoint.y< buttonSize.y/2 && dPadAxisCount== DPadAxis.Two_Axis) 
+		    || (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.x > buttonSize.x/2) ){
 			tmpAxis.x = 1;
 		}
-
-
+		
+		
 		// Up
 		if ( (localPoint.y > buttonSize.y/2f && localPoint.x>-buttonSize.x/2f && localPoint.x<buttonSize.x/2f && dPadAxisCount == DPadAxis.Two_Axis)
-			|| (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.y > buttonSize.y/2f) ){
+		    || (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.y > buttonSize.y/2f) ){
 			tmpAxis.y = 1;
 		}
-
-
+		
+		
 		// Down
 		if ( (localPoint.y < -buttonSize.y/2f && localPoint.x>-buttonSize.x/2f && localPoint.x<buttonSize.x/2f && dPadAxisCount == DPadAxis.Two_Axis)
-			|| (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.y <- buttonSize.y/2f) ){
+		    || (dPadAxisCount== DPadAxis.Four_Axis &&  localPoint.y <- buttonSize.y/2f) ){
 			tmpAxis.y = -1;
 		}
-				
+						
 	}
 	#endregion
 }

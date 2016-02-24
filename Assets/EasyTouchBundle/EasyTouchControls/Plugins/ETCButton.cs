@@ -1,7 +1,7 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -57,12 +57,8 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 		isOnTouch = false;
 
 		enableKeySimulation = true;
-		#if !UNITY_EDITOR
-			enableKeySimulation = false;
-		#endif
 
-		axis.positivekey = KeyCode.Space;
-
+		axis.unityAxis = "Jump";
 		showPSInspector = true; 
 		showSpriteInspector = false;
 		showBehaviourInspector = false;
@@ -78,14 +74,22 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 	}
 
-	void Start(){
+	public override void Start(){
+		axis.InitAxis();
+		base.Start();
 		isOnPress = false;
+
+		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor){
+			SetVisible(visibleOnStandalone);
+		}
+	}
+	
+	protected override void UpdateControlState (){
+		UpdateButton();
 	}
 
-
-	protected override void UpdateControlState ()
-	{
-		UpdateButton();
+	protected override void DoActionBeforeEndOfFrame (){
+		axis.DoGravity();
 	}
 	#endregion
 
@@ -120,6 +124,7 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 			onDown.Invoke();
 			ApllyState();
+			axis.UpdateButton();
 		}
 	}
 
@@ -152,6 +157,7 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 	private void UpdateButton(){
 
 		if (axis.axisState == ETCAxis.AxisState.Down){
+
 			isOnPress = true;
 			axis.axisState = ETCAxis.AxisState.Press;
 		}
@@ -170,24 +176,35 @@ public class ETCButton : ETCBase, IPointerEnterHandler, IPointerDownHandler, IPo
 
 
 		if (enableKeySimulation && _activated && _visible && !isOnTouch){
-			
-			
-			if (Input.GetKey( axis.positivekey) && axis.axisState ==ETCAxis.AxisState.None  ){
+
+			if (Input.GetButton( axis.unityAxis)&& axis.axisState ==ETCAxis.AxisState.None ){	
+				axis.ResetAxis();
+				onDown.Invoke();
 				axis.axisState = ETCAxis.AxisState.Down;
 			}
-			
-			if (!Input.GetKey(axis.positivekey) && axis.axisState == ETCAxis.AxisState.Press){
+
+			if (!Input.GetButton(axis.unityAxis )&& axis.axisState == ETCAxis.AxisState.Press){
 				axis.axisState = ETCAxis.AxisState.Up;
+				axis.axisValue = 0;
+				
 				onUp.Invoke();
 			}
+
+			axis.UpdateButton();
+			ApllyState();
 		}
+
 
 	}	
 	#endregion
 
 	#region Private Method
-	protected override void SetVisible (){
-		GetComponent<Image>().enabled = _visible;
+	protected override void SetVisible (bool forceUnvisible=false){
+		bool localVisible = _visible;
+		if (!visible){
+			localVisible = visible;
+		}
+		GetComponent<Image>().enabled = localVisible;
 	}
 
 	private void ApllyState(){

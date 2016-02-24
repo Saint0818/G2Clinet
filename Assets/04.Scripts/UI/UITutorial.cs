@@ -45,7 +45,7 @@ public class UITutorial : UIBase {
 
 	public static void UIShow(bool isShow) {
 		if (isShow)
-			UIAnnouncement.UIShow(false);
+			UINotic.UIShow(false);
 
 		if (instance) {
 			if (!isShow) {
@@ -285,20 +285,23 @@ public class UITutorial : UIBase {
     public void ShowHint(string path, int offsetx, int offsety) {
         try {
             GameObject obj = GameObject.Find(path);
-            UIScrollView sv = obj.GetComponent<UIScrollView>();
-            if (sv != null) {
-                GameObject[] objs = obj.GetComponents<GameObject>();
-                if (objs != null && objs.Length > 0)
-                    obj = objs[0];
-            }
+            if (obj) {
+                UIScrollView sv = obj.GetComponent<UIScrollView>();
+                if (sv != null) {
+                    GameObject[] objs = obj.GetComponents<GameObject>();
+                    if (objs != null && objs.Length > 0)
+                        obj = objs[0];
+                }
 
-            if(obj) {
-                Vector3 v = obj.transform.position;
-                v.x += offsetx;
-                v.y += offsety;
-                uiHint.SetActive(true);
-                uiHint.transform.position = v;
-            }
+                if(obj) {
+                    //Vector3 v = UI2D.Get.Camera2D.WorldToViewportPoint(obj.transform.position);
+                    //v.x += offsetx;
+                    //v.y += offsety;
+                    uiHint.SetActive(true);
+                    uiHint.transform.localPosition = obj.transform.localPosition;
+                }
+            } else 
+                Debug.Log("No hint path " + path);
         } catch (UnityException e) {
             Debug.Log("Tutorial click error " + e.ToString());
             UIShow(false);

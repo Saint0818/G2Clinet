@@ -1,14 +1,17 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		
 **********************************************/
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 //ETCSingleton<ETCInput>
 public class ETCInput : MonoBehaviour{
@@ -31,13 +34,14 @@ public class ETCInput : MonoBehaviour{
 			return _instance;
 		}
 	}
-
+	
 	private  Dictionary<string,ETCAxis> axes = new Dictionary<string,ETCAxis>();
 	private  Dictionary<string, ETCBase> controls = new Dictionary<string, ETCBase>();
 	
 	private static  ETCBase control;
 	private static ETCAxis axis;
-	
+
+	#region Control
 	public void RegisterControl(ETCBase ctrl){
 
 		if (controls.ContainsKey( ctrl.name)){
@@ -86,6 +90,7 @@ public class ETCInput : MonoBehaviour{
 			}
 		}
 	}
+
 
 	public  void Create(){
 	
@@ -200,8 +205,115 @@ public class ETCInput : MonoBehaviour{
 			return ETCBase.DPadAxis.Two_Axis;
 		}
 	}
+	#endregion
 
+	#region New 2.0
+	// Control
+	public static ETCJoystick GetControlJoystick(string ctrlName){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			if (control.GetType() == typeof(ETCJoystick)){
+				ETCJoystick tmpJoy = (ETCJoystick)control;
+				return tmpJoy;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static ETCDPad GetControlDPad(string ctrlName){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			if (control.GetType() == typeof(ETCDPad)){
+				ETCDPad tmpctrl = (ETCDPad)control;
+				return tmpctrl;
+			}
+		}
 
+		return null;
+	}
+	
+	public static ETCTouchPad GetControlTouchPad(string ctrlName){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			if (control.GetType() == typeof(ETCTouchPad)){
+				ETCTouchPad tmpctrl = (ETCTouchPad)control;
+				return tmpctrl;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static ETCButton GetControlButton(string ctrlName){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			if (control.GetType() == typeof(ETCJoystick)){
+				ETCButton tmpctrl = (ETCButton)control;
+				return tmpctrl;
+			}
+		}
+		
+		return null;
+	}
+	
+
+	//Image
+	public static void SetControlSprite(string ctrlName,Sprite spr,Color color = default(Color)){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			Image img = control.GetComponent<Image>();
+			
+			if (img){
+				img.sprite = spr;
+				img.color = color;
+			}
+		}
+	}
+	
+	public static void SetJoystickThumbSprite(string ctrlName,Sprite spr,Color color = default(Color)){
+		if (ETCInput.instance.controls.TryGetValue( ctrlName, out control)){
+			
+			if (control.GetType() == typeof(ETCJoystick)){
+				ETCJoystick tmpJoy = (ETCJoystick)control;
+				if (tmpJoy){
+					Image img = tmpJoy.thumb.GetComponent<Image>();
+					
+					if (img){
+						img.sprite = spr;
+						img.color = color;
+					}
+				}
+			}
+		}
+	}
+	
+	public static void SetButtonPressedSprite(string ctrlName, Sprite spr,Color color = default(Color)){
+	}
+
+	// Axes
+	public static void SetAxisSpeed(string axisName, float speed){
+		if (ETCInput.instance.axes.TryGetValue( axisName, out axis)){
+			axis.speed = speed;
+		}
+		else{
+			Debug.LogWarning("ETCInput : " + axisName + " doesn't exist");
+		}
+	}
+
+	public static void SetAxisGravity(string axisName, float gravity){
+		if (ETCInput.instance.axes.TryGetValue( axisName, out axis)){
+			axis.gravity = gravity;
+		}
+		else{
+			Debug.LogWarning("ETCInput : " + axisName + " doesn't exist");
+		}
+	}
+
+	public static void SetTurnMoveSpeed(string ctrlName, float speed){
+		ETCJoystick joy = GetControlJoystick( ctrlName);
+		if (joy){
+			joy.tmSpeed = speed;
+		}
+	}
+	#endregion
+
+	#region Axes
 	public static void ResetAxis(string axisName ){
 		if (ETCInput.instance.axes.TryGetValue( axisName, out axis)){
 			axis.axisValue = 0;
@@ -828,8 +940,9 @@ public class ETCInput : MonoBehaviour{
 			return -1;
 		}
 	}
+	#endregion
 
-
+	#region private Method
 	private void RegisterAxis(ETCAxis axis){
 		
 		if (ETCInput.instance.axes.ContainsKey( axis.name)){
@@ -848,4 +961,7 @@ public class ETCInput : MonoBehaviour{
 		}
 		
 	}
+	#endregion
+
+
 }

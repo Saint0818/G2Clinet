@@ -1,7 +1,7 @@
 /***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -57,7 +57,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#region Enumeration
 	public enum JoystickArea { UserDefined,FullScreen, Left,Right,Top, Bottom, TopLeft, TopRight, BottomLeft, BottomRight};
 	public enum JoystickType {Dynamic, Static};
-	public enum RadiusBase {Width, Height};
+	public enum RadiusBase {Width, Height, UserDefined};
 	#endregion
 
 	#region Members
@@ -66,12 +66,21 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	public JoystickType joystickType;
 	public bool allowJoystickOverTouchPad;
 	public RadiusBase radiusBase;
+	public float radiusBaseValue;
 	public ETCAxis axisX;
 	public ETCAxis axisY;
 	public RectTransform thumb;
 	
 	public JoystickArea joystickArea;
 	public RectTransform userArea;
+
+	public bool isTurnAndMove = false;
+	public float tmSpeed = 10;
+	public float tmAdditionnalRotation = 0;
+	public AnimationCurve tmMoveCurve;
+	public bool tmLockInJump = false;
+	private Vector3 tmLastMove;
+
 	#endregion
 		
 	#region Private members
@@ -136,17 +145,14 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		isOnDrag = false;
 		isOnTouch = false;
 
-		axisX.positivekey = KeyCode.RightArrow;
-		axisX.negativeKey = KeyCode.LeftArrow;
-
-		axisY.positivekey = KeyCode.UpArrow;
-		axisY.negativeKey = KeyCode.DownArrow;
+		axisX.unityAxis = "Horizontal";
+		axisY.unityAxis = "Vertical";
 
 		enableKeySimulation = true;
 
 		isNoReturnThumb = false;
 
-		showPSInspector = true;
+		showPSInspector = false;
 		showAxesInspector = false;
 		showEventInspector = false;
 		showSpriteInspector = false;
@@ -155,6 +161,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 
 	#region Monobehaviours Callback
 	protected override void Awake (){
+
 		base.Awake ();
 
 		if (joystickType == JoystickType.Dynamic){
@@ -164,21 +171,46 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 			visible = false;
 		}
 
+		if (allowSimulationStandalone && enableKeySimulation && !Application.isEditor && joystickType!=JoystickType.Dynamic){
+			SetVisible(visibleOnStandalone);
+		}
 	}
 
-	void Start(){
+	public override void Start(){
 	
+		axisX.InitAxis();
+		axisY.InitAxis();
+
+		if (enableCamera){
+			InitCameraLookAt();
+		}
+
 		tmpAxis = Vector2.zero;
 		OldTmpAxis = Vector2.zero;
 
-		axisX.InitAxis();
-		axisY.InitAxis();
 		noReturnPosition = thumb.position;
 
 		pointId = -1;
 
 		if (joystickType == JoystickType.Dynamic){
 			visible = false;
+		}
+
+		base.Start();
+
+		// Init Camera position
+		if (enableCamera && cameraMode == CameraMode.SmoothFollow){
+			if (cameraTransform && cameraLookAt){
+				cameraTransform.position = cameraLookAt.TransformPoint( new Vector3(0,followHeight,-followDistance));
+				cameraTransform.LookAt( cameraLookAt);
+			}
+		}
+
+		if (enableCamera && cameraMode == CameraMode.Follow){
+			if (cameraTransform && cameraLookAt){
+				cameraTransform.position = cameraLookAt.position + followOffset;
+				cameraTransform.LookAt( cameraLookAt.position);
+			}
 		}
 	}
 
@@ -197,6 +229,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 				GameObject overGO = GetFirstUIElement( screenPosition);
 				
 				if (overGO == null || (allowJoystickOverTouchPad && overGO.GetComponent<ETCTouchPad>()) || (overGO != null && overGO.GetComponent<ETCArea>() ) ) {
+
 					cachedRectTransform.anchoredPosition = localPosition;
 					visible = true;
 				}
@@ -204,7 +237,37 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		}
 		#endregion
 
+	}
 
+	public override void LateUpdate (){
+
+		if (enableCamera && !cameraLookAt ){
+			InitCameraLookAt();
+		}
+		base.LateUpdate ();
+
+	}
+
+	private void InitCameraLookAt(){
+
+		if (cameraTargetMode == CameraTargetMode.FromDirectActionAxisX){
+			cameraLookAt = axisX.directTransform;
+		}
+		else if (cameraTargetMode == CameraTargetMode.FromDirectActionAxisY){
+			cameraLookAt = axisY.directTransform;
+			if (isTurnAndMove){
+				cameraLookAt = axisX.directTransform;
+			}
+		}
+		else if (cameraTargetMode == CameraTargetMode.LinkOnTag){
+			GameObject tmpobj = GameObject.FindGameObjectWithTag(camTargetTag);
+			if (tmpobj){
+				cameraLookAt = tmpobj.transform;
+			}
+		}
+
+		if (cameraLookAt)
+			cameraLookAtCC = cameraLookAt.GetComponent<CharacterController>();
 	}
 
 	protected override void UpdateControlState (){
@@ -337,28 +400,18 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#endregion
 
 	#region Joystick Update
+	protected override void DoActionBeforeEndOfFrame (){
+		axisX.DoGravity();
+		axisY.DoGravity();
+	}
+
 	private void UpdateJoystick(){
 
-	/*
-		#region dynamic joystick
-		if (joystickType == JoystickType.Dynamic && !_visible && _activated){
-			Vector2 localPosition = Vector2.zero;
-			Vector2 screenPosition = Vector2.zero;
+		#region Unity axes
+		if (enableKeySimulation && !isOnTouch && _activated && _visible ){
 
-			if (isTouchOverJoystickArea(ref localPosition, ref screenPosition)){
-
-				GameObject overGO = GetFirstUIElement( screenPosition);
-
-				if (overGO == null || (allowJoystickOverTouchPad && overGO.GetComponent<ETCTouchPad>()) || (overGO != null && overGO.GetComponent<ETCArea>() ) ) {
-					cachedRectTransform.anchoredPosition = localPosition;
-					visible = true;
-				}
-			}
-		}
-		#endregion*/
-
-		#region Key simulation
-		if (enableKeySimulation && !isOnTouch && _activated && _visible){
+			float x = Input.GetAxis(axisX.unityAxis);
+			float y= Input.GetAxis(axisY.unityAxis);
 
 			if (!isNoReturnThumb){
 				thumb.localPosition = Vector2.zero;
@@ -366,22 +419,14 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 
 			isOnDrag = false;
 
-			if (Input.GetKey( axisX.positivekey)){
+			if (x!=0){
 				isOnDrag = true;
-				thumb.localPosition = new Vector2(GetRadius(), thumb.localPosition.y);
-			}
-			else if (Input.GetKey( axisX.negativeKey)){
-				isOnDrag = true;
-				thumb.localPosition = new Vector2(-GetRadius(), thumb.localPosition.y);
+				thumb.localPosition = new Vector2(GetRadius()*x, thumb.localPosition.y);
 			}
 
-			if (Input.GetKey( axisY.positivekey)){
+			if (y!=0){
 				isOnDrag = true;
-				thumb.localPosition = new Vector2(thumb.localPosition.x,GetRadius() );
-			}
-			else if (Input.GetKey( axisY.negativeKey)){
-				isOnDrag = true;
-				thumb.localPosition = new Vector2(thumb.localPosition.x,-GetRadius());
+				thumb.localPosition = new Vector2(thumb.localPosition.x,GetRadius()*y );
 			}
 
 			thumbPosition = thumb.localPosition;
@@ -397,37 +442,60 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		axisX.UpdateAxis( tmpAxis.x,isOnDrag, ETCBase.ControlType.Joystick,true);
 		axisY.UpdateAxis( tmpAxis.y,isOnDrag, ETCBase.ControlType.Joystick,true);
 
-		axisX.DoGravity();
-		axisY.DoGravity();
-
 		#region Move event
 		if ((axisX.axisValue!=0 ||  axisY.axisValue!=0 ) && OldTmpAxis == Vector2.zero){
 			onMoveStart.Invoke();
 		}
 		if (axisX.axisValue!=0 ||  axisY.axisValue!=0 ){
 
-			// X axis
-			if( axisX.actionOn == ETCAxis.ActionOn.Down && (axisX.axisState == ETCAxis.AxisState.DownLeft || axisX.axisState == ETCAxis.AxisState.DownRight)){
-				axisX.DoDirectAction();
-			}
-			else if (axisX.actionOn == ETCAxis.ActionOn.Press){
-				axisX.DoDirectAction();
-			}
+			if (!isTurnAndMove){
+				// X axis
+				if( axisX.actionOn == ETCAxis.ActionOn.Down && (axisX.axisState == ETCAxis.AxisState.DownLeft || axisX.axisState == ETCAxis.AxisState.DownRight)){
+					axisX.DoDirectAction();
+				}
+				else if (axisX.actionOn == ETCAxis.ActionOn.Press){
+					axisX.DoDirectAction();
+				}
 
-			// Y axis
-			if( axisY.actionOn == ETCAxis.ActionOn.Down && (axisY.axisState == ETCAxis.AxisState.DownUp || axisY.axisState == ETCAxis.AxisState.DownDown)){
-				axisY.DoDirectAction();
+				// Y axis
+				if( axisY.actionOn == ETCAxis.ActionOn.Down && (axisY.axisState == ETCAxis.AxisState.DownUp || axisY.axisState == ETCAxis.AxisState.DownDown)){
+					axisY.DoDirectAction();
+				}
+				else if (axisY.actionOn == ETCAxis.ActionOn.Press){
+					axisY.DoDirectAction();
+				}
 			}
-			else if (axisY.actionOn == ETCAxis.ActionOn.Press){
-				axisY.DoDirectAction();
+			else{
+				DoTurnAndMove();
 			}
 			onMove.Invoke( new Vector2(axisX.axisValue,axisY.axisValue));
 			onMoveSpeed.Invoke( new Vector2(axisX.axisSpeedValue,axisY.axisSpeedValue));
 		}
 		else if (axisX.axisValue==0 &&  axisY.axisValue==0  && OldTmpAxis!=Vector2.zero) {
 			onMoveEnd.Invoke();
+		}		
+
+		if (!isTurnAndMove){
+			if (axisX.axisValue==0 &&  axisX.directCharacterController ){
+				if (!axisX.directCharacterController.isGrounded && axisX.isLockinJump)
+					axisX.DoDirectAction();
+			} 
+
+			if (axisY.axisValue==0 &&  axisY.directCharacterController ){
+				if (!axisY.directCharacterController.isGrounded && axisY.isLockinJump)
+					axisY.DoDirectAction();
+			}
 		}
+		else{
+			if ((axisX.axisValue==0 && axisY.axisValue==0) &&  axisX.directCharacterController ){
+				if (!axisX.directCharacterController.isGrounded && tmLockInJump)
+					DoTurnAndMove();
+			}
+		}
+
 		#endregion
+
+
 
 		#region Down & press event
 		float coef =1;
@@ -513,6 +581,7 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 			if (Input.GetMouseButtonDown(0)){
 				screenPosition = Input.mousePosition;
 				doTest = true;
+
 			}
 			#endif
 			
@@ -613,8 +682,8 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 	#endregion
 
 	#region Other private method
-	private float GetRadius(){
-		
+	public float GetRadius(){
+
 		float radius =0;
 		
 		switch (radiusBase){
@@ -623,6 +692,9 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 			break;
 		case RadiusBase.Height:
 			radius = cachedRectTransform.sizeDelta.y * 0.5f;
+			break;
+		case RadiusBase.UserDefined:
+			radius = radiusBaseValue;
 			break;
 		}
 		
@@ -638,13 +710,57 @@ public class ETCJoystick : ETCBase,IPointerEnterHandler,IDragHandler, IBeginDrag
 		}
 	}
 
-	protected override void SetVisible (){
+	protected override void SetVisible (bool visible=true){
 
-		GetComponent<Image>().enabled = _visible;
-		thumb.GetComponent<Image>().enabled = _visible;
+		bool localVisible = _visible;
+		if (!visible){
+			localVisible = visible;
+		}
+		GetComponent<Image>().enabled = localVisible;
+		thumb.GetComponent<Image>().enabled = localVisible;
 		GetComponent<CanvasGroup>().blocksRaycasts = _activated;
+
+
 	}
 	#endregion
-	
+
+
+	private void DoTurnAndMove(){
+
+		float angle =Mathf.Atan2( axisX.axisValue,axisY.axisValue ) * Mathf.Rad2Deg;
+		float speed = tmMoveCurve.Evaluate( new Vector2(axisX.axisValue,axisY.axisValue).magnitude) * tmSpeed;
+
+		if (axisX.directTransform != null){
+
+			axisX.directTransform.rotation = Quaternion.Euler(new Vector3(0,  angle + tmAdditionnalRotation,0));
+
+			if (axisX.directCharacterController != null){
+				if (axisX.directCharacterController.isGrounded || !tmLockInJump){
+					Vector3 move = axisX.directCharacterController.transform.TransformDirection(Vector3.forward) *  speed;
+					axisX.directCharacterController.Move(move* Time.deltaTime);
+					tmLastMove = move;
+				}
+				else{
+					axisX.directCharacterController.Move(tmLastMove* Time.deltaTime);
+				}
+			}
+			else{
+				axisX.directTransform.Translate(Vector3.forward *  speed * Time.deltaTime,Space.Self);
+			}
+		}
+
+	}
+
+	public void InitCurve(){
+		axisX.InitDeadCurve();
+		axisY.InitDeadCurve();
+		InitTurnMoveCurve();
+	}
+
+	public void InitTurnMoveCurve(){
+		tmMoveCurve = AnimationCurve.EaseInOut(0,0,1,1);
+		tmMoveCurve.postWrapMode = WrapMode.PingPong;
+		tmMoveCurve.preWrapMode = WrapMode.PingPong;
+	}
 }
 

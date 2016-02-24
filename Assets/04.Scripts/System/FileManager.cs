@@ -565,7 +565,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 			TItemData[] data = JsonConvertWrapper.DeserializeObject<TItemData[]>(text);
 			for (int i = 0; i < data.Length; i++) {
-				if(!GameData.DItemData.ContainsKey(data[i].ID))
+                if(!GameData.DItemData.ContainsKey(data[i].ID) && data[i].ID > 0)
 					GameData.DItemData.Add(data[i].ID, data[i]);
 				else 
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);

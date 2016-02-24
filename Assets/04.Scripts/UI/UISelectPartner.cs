@@ -267,7 +267,7 @@ public class UISelectPartner : UIBase {
         item.LabelTeamName.text = player.Name;
         item.LabelPower.text = ((int) player.CombatPower()).ToString();
         item.SpriteFace.spriteName = player.FacePicture;
-        item.SpritePosition.spriteName = GameData.Team.Player.PositionPicture;
+        item.SpritePosition.spriteName = player.PositionPicture;
 
         if (player.Lv > 0) {
             item.LabelLv.text = player.Lv.ToString();

@@ -68,8 +68,8 @@
 		NewAvatar7,
 		LevelUpFlag, // 1:LevelUp
 		NewCardFlag,  // 2:Get New Card
-		AnnouncementDate,
-		AnnouncementDaily,
+		NoticDate,
+		NoticDaily,
         Quality,
         ShowEvent,
         ShowWatchFriend,

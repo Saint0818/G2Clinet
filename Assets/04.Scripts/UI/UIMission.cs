@@ -34,15 +34,15 @@ public class TMissionItem{
 	public ItemAwardGroup AwardGroup;
 	public UILabel LabelName;
 	public UILabel LabelExplain;
-	public UILabel LabelAward1;
-	public UILabel LabelAward2;
+	public UILabel LabelAwardDiamond;
+	public UILabel LabelAwardExp;
+    public UILabel LabelAwardMoney;
     public UILabel LabelExp;
     public UILabel LabelGot;
     public UILabel LabelScore;
     public UIButton ButtonGot;
     public UISlider SliderExp;
-	public UISprite SpriteAward1;
-	public UISprite SpriteAward2;
+	public UISprite SpriteAwardDiamond;
 	public UISprite SpriteColor;
 	public UISprite[] SpriteLvs;
     public Animator[] AniLvs;
@@ -79,9 +79,12 @@ public class UIMission : UIBase {
         }
 
         set {
-            if (instance)
-                instance.Show(value);
-            else
+            if (instance) {
+                if (value)
+                    instance.Show(value);
+                else
+                    RemoveUI(UIName);
+            } else
             if (value)
                 Get.Show(value);
         }
@@ -205,13 +208,13 @@ public class UIMission : UIBase {
 		mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
 		mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
         mi.LabelExp = GameObject.Find(name + "/Window/EXPView/ExpLabel").GetComponent<UILabel>();
-		mi.LabelAward1 = GameObject.Find(name + "/Window/AwardGroup/Award0").GetComponent<UILabel>();
-		mi.LabelAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1").GetComponent<UILabel>();
+		mi.LabelAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond").GetComponent<UILabel>();
+		mi.LabelAwardExp = GameObject.Find(name + "/Window/AwardGroup/AwardExp").GetComponent<UILabel>();
+        mi.LabelAwardMoney = GameObject.Find(name + "/Window/AwardGroup/AwardMoney").GetComponent<UILabel>();
         mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
         mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
         mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
-		mi.SpriteAward1 = GameObject.Find(name + "/Window/AwardGroup/Award0/Icon").GetComponent<UISprite>();
-		mi.SpriteAward2 = GameObject.Find(name + "/Window/AwardGroup/Award1/Icon").GetComponent<UISprite>();
+		mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
 		mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
         mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
 		mi.SpriteLvs = new UISprite[5];
@@ -291,15 +294,12 @@ public class UIMission : UIBase {
                         }
 
                         if (missionData.Diamond[lv] > 0) {
-                            missionItem.LabelAward1.text = missionData.Diamond[lv].ToString();
-                            missionItem.SpriteAward1.spriteName = GameFunction.SpendKindTexture(missionData.SpendKind);
-                        } else
-                            missionItem.SpriteAward1.spriteName = "Icon_Coin";
-                            if (missionData.Money[lv] > 0) {
-                                missionItem.LabelAward1.text = missionData.Money[lv].ToString();
+                            missionItem.LabelAwardDiamond.text = missionData.Diamond[lv].ToString();
+                            missionItem.SpriteAwardDiamond.spriteName = GameFunction.SpendKindTexture(missionData.SpendKind);
                         }
 
-                        missionItem.LabelAward2.text = missionData.Exp[lv].ToString();
+                        missionItem.LabelAwardMoney.text = NumFormater.Convert(missionData.Money[lv]);
+                        missionItem.LabelAwardExp.text = missionData.Exp[lv].ToString();
                         int mValue = GameData.Team.GetMissionValue(missionData.Kind, missionData.TimeKind, missionData.TimeValue);
                         if (mValue >= missionData.Value[lv]) {
                             missionItem.FXGetAward.SetActive(true);

@@ -1,12 +1,30 @@
 **********************************************
-				EASY TOUCH 4
+				EASY TOUCH 5
 				
-Copyright © 2015 The Hedgehog Team
+Copyright © 2016 The Hedgehog Team
 http://www.thehedgehogteam.com/Forum/
 
 		the.hedgehog.team@gmail.com
 
 **********************************************
+EasyTouch 5.0.2
+===============
+- Fixed bug in QuickSwipe. "On Swipe Action" was triggerde  everytime  without take into account the direction, if triggering was set to "End"
+
+EasyTouch 5.0.1
+===============
+- Fixed bug in multi-cameras management
+
+EasyTouch 5.0.0
+===============
+- Add namespace HedgehogTeam.EasyTouch;
+- Add Quick Gesture components
+- Add new syntaxe to use EasyTouch in Update method
+- EasyTouch class is now a singleton
+- Playmaker support
+- You can choose to always send swipe event during a drag
+- GetPickedCurrentObject & GetUiElemnt take an optional parmater for twofinger gesutre;
+- Gesture class exposes altitudeAngle, azimuthAngle, maximumPossiblePressure, pressure, radius, radiusVariance, touchType from Touch class
 
 EasyTouch 4.1.1
 ===============

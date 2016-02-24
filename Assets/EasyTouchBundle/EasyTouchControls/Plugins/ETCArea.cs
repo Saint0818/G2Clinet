@@ -1,7 +1,7 @@
 ﻿/***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		

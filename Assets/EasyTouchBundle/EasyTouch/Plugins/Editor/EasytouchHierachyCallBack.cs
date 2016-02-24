@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using HedgehogTeam.EasyTouch;
 
 [InitializeOnLoad]
 public class EasytouchHierachyCallBack{
@@ -41,18 +42,21 @@ public class EasytouchHierachyCallBack{
 	private static void DrawHierarchyIcon(int instanceID, Rect selectionRect)
 	{
 		GameObject gameObject = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
-		if (gameObject != null && gameObject.GetComponent<EasyTouch>() != null)
-		{
-			Rect rect = new Rect(selectionRect.x + selectionRect.width - 16f, selectionRect.y, 16f, 16f);
-			GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
-		}
 
-		/*
-		if (gameObject != null && gameObject.GetComponent<ETComponentBase>() != null)
-		{
+		if (gameObject != null){
 			Rect rect = new Rect(selectionRect.x + selectionRect.width - 16f, selectionRect.y, 16f, 16f);
-			GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyEventIcon);
-		}*/
+			if ( gameObject.GetComponent<EasyTouch>() != null){
+				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
+			}
+			else if (gameObject.GetComponent<QuickBase>() != null){
+				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyEventIcon);
+			}
+#if FALSE
+			else if (gameObject.GetComponent<EasyTouchSceneProxy>() != null){
+				GUI.DrawTexture( rect,EasytouchHierachyCallBack.HierarchyIcon);
+			}
+#endif
+		}
 	}
 		
 }

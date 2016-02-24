@@ -1,53 +1,12 @@
 **********************************************
-				EASY TOUCH 4
+				EASY TOUCH 5
 				
-Copyright © 2015 The Hedgehog Team
+Copyright © 2016 The Hedgehog Team
 http://www.thehedgehogteam.com/Forum/
 
 		the.hedgehog.team@gmail.com
 
 **********************************************
-EasyTouch Bundle 4.4.0
-***********************
-EasyTouch => 4.1.1 
-EasyTouch Controls => EasyTouchControls 1.2.6
-
-EasyTouch Bundle 4.3.3
-***********************
-EasyTouch => 4.1.0 
-EasyTouch Controls => EasyTouchControls 1.2.5
-
-EasyTouch Bundle 4.3.2
-***********************
-EasyTouch => 4.1.0 
-EasyTouch Controls => EasyTouchControls 1.2.4
-
-EasyTouch Bundle 4.3.1
-***********************
-EasyTouch => 4.1.0 
-EasyTouch Controls => EasyTouchControls 1.2.3
-
-EasyTouch Bundle 4.3.0
-***********************
-EasyTouch => 4.1.0 
-EasyTouch Controls => EasyTouchControls 1.2.2
-
-EasyTouch Bundle 4.2.2
-***********************
-EasyTouch => 4.0.4 
-EasyTouch Controls => EasyTouchControls 1.2.2
-
-EasyTouch Bundle 4.2.1
-***********************
-EasyTouch => 4.0.4 
-EasyTouch Controls => EasyTouchControls 1.2.1
-
-
-EasyTouch Bundle 4.2.0
-***********************
-EasyTouch => 4.0.4 
-EasyTouch Controls => EasyTouchControls 1.2.0
-
 
 Thank you for your purchase!
 
@@ -58,16 +17,27 @@ Or send us an email at : the.hedgehog.team@gmail.com
 
 If you like EasyTouch, don't forget a write a review on the asset store :-)
 
-***********
-* WARNING *
-***********
-EasyTouch 4 comes with a lot of new features, which can not be compatible with the version 3.1.X.
 
-Make migration that if you create a new project
+Look at Youtube channel for new EasyTouch 5 features : https://www.youtube.com/playlist?list=PL_xsQKiLfGUYpZt7uDepdadHo7GBGbozH
 
-features no longer supported
------------------------------
-* EasyJoystick & EasyButton are no longer supported, they are replaced by Easy Touch Controls
-* Reserved area are no longer supported, the new Unity UI is more flexible
-* Message sending via the internal management system in Unity for javascript user has been replaced by the component EasyTouchTrigger.
+EasyTouch Bundle 5.0.3
+***********************
+EasyTouch => 5.0.2
+EasyTouch Controls => 2.0.4
+
+EasyTouch Bundle 5.0.2
+***********************
+EasyTouch => 5.0.2
+EasyTouch Controls => 2.0.3
+
+EasyTouch Bundle 5.0.1
+***********************
+EasyTouch => 5.0.1
+EasyTouch Controls => 2.0.3
+
+
+EasyTouch Bundle 5.0.0
+***********************
+EasyTouch => 5.0.0
+EasyTouch Controls => 2.0.3
 

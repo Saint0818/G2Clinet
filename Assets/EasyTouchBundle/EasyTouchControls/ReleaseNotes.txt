@@ -7,6 +7,40 @@ http://www.thehedgehogteam.com/Forum/
 		the.hedgehog.team@gmail.com
 
 **********************************************
+EasyTouch Controls 2.0.4
+========================
+* fixed bug : A Null Reference Exception occured when one of thier option inertia,stabilization or clamp rotation was enabled,  and gameobject wasn't available for direct action.
+
+
+EasyTouch Controls 2.0.3
+========================
+* Add auto link on tag for camera target
+* fixed warning in Unity 5.3.X
+
+EasyTouch Controls 2.0.2
+========================
+* Add the possibility to setup yourself the radius of a joystick
+
+EasyTouch Controls 2.0.1
+========================
+* Fixe dynamic joystick
+
+EasyTouch Controls 2.0.0
+========================
+- News
+*******
+Look at Youtube channel : https://www.youtube.com/playlist?list=PL_xsQKiLfGUYpZt7uDepdadHo7GBGbozH
+
+
+* Turn and Move direct action  is now available.It allows you to create a quick third person as Angry Bot demo
+* Jump direct action is now available.
+* Camera follow features
+* Auto link on tag : you can use direct mode  without making reference to a physical gameobject in the Inspector.The joystick take the reference gameobject possessing a specific tag.
+* Dead zone : You can now chose a curve to manage the deads zones of axes.
+* New methods are exposed in input manager (ETCInput)
+* New examples
+* New prefab for quick prototype.
+* new aspect of the Inspector
 
 EasyTouchControls 1.2.6
 =======================

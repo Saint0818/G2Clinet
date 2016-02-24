@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using HedgehogTeam.EasyTouch;
 
 [CustomEditor(typeof(EasyTouchTrigger))]
 public class EasyTouchTriggerInspector : Editor {
@@ -12,14 +13,14 @@ public class EasyTouchTriggerInspector : Editor {
 
 		EasyTouchTrigger t = (EasyTouchTrigger)target;
 
-		string[] eventNames = Enum.GetNames( typeof(EasyTouch.EventName) ) ;
+		string[] eventNames = Enum.GetNames( typeof(EasyTouch.EvtType) ) ;
 		eventNames[0] = "Add new event";
 
 		#region Event properties
 		GUILayout.Space(5f);
 		for (int i=1;i<eventNames.Length;i++){
 
-			EasyTouch.EventName ev = (EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[i]);
+			EasyTouch.EvtType ev = (EasyTouch.EvtType)Enum.Parse( typeof(EasyTouch.EvtType), eventNames[i]);
 			int result = t.receivers.FindIndex(
 				delegate(EasyTouchTrigger.EasyTouchReceiver e){
 				return  e.eventName == ev;
@@ -39,14 +40,14 @@ public class EasyTouchTriggerInspector : Editor {
 
 		if (index!=0){
 			//AddEvent((EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[index]),t );
-			t.AddTrigger( (EasyTouch.EventName)Enum.Parse( typeof(EasyTouch.EventName), eventNames[index]));
+			t.AddTrigger( (EasyTouch.EvtType)Enum.Parse( typeof(EasyTouch.EvtType), eventNames[index]));
 			EditorPrefs.SetBool( eventNames[index], true); 
 		}
 		#endregion
 
 	}
 
-	private void TriggerInspector(EasyTouch.EventName ev, EasyTouchTrigger t){
+	private void TriggerInspector(EasyTouch.EvtType ev, EasyTouchTrigger t){
 
 		bool folding = EditorPrefs.GetBool( ev.ToString() );
 		folding = HTGuiTools.BeginFoldOut( ev.ToString(),folding,false);
@@ -148,7 +149,7 @@ public class EasyTouchTriggerInspector : Editor {
 
 	}
 
-	private void AddEvent(EasyTouch.EventName ev, EasyTouchTrigger t){
+	private void AddEvent(EasyTouch.EvtType ev, EasyTouchTrigger t){
 		EasyTouchTrigger.EasyTouchReceiver r = new EasyTouchTrigger.EasyTouchReceiver();
 		r.enable = true;
 		r.restricted = true;

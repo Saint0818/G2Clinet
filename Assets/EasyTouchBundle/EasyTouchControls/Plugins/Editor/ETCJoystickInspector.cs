@@ -15,6 +15,22 @@ using UnityEditor;
 [CustomEditor(typeof(ETCJoystick))]
 public class ETCJoystickInspector:Editor  {
 
+	public string[] unityAxes;
+
+	void OnEnable(){
+		var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
+		SerializedObject obj = new SerializedObject(inputManager);
+		SerializedProperty axisArray = obj.FindProperty("m_Axes");
+		if (axisArray.arraySize > 0){
+			unityAxes = new string[axisArray.arraySize];
+			for( int i = 0; i < axisArray.arraySize; ++i ){
+				var axis = axisArray.GetArrayElementAtIndex(i);
+				unityAxes[i] = axis.FindPropertyRelative("m_Name").stringValue;
+			}
+		}
+
+	}
+
 	public override void OnInspectorGUI(){
 		
 		ETCJoystick t = (ETCJoystick)target;
@@ -97,7 +113,9 @@ public class ETCJoystickInspector:Editor  {
 				EditorGUILayout.Space();
 
 				t.radiusBase = (ETCJoystick.RadiusBase)EditorGUILayout.EnumPopup("Radius based on",t.radiusBase );
-
+				if (t.radiusBase == ETCJoystick.RadiusBase.UserDefined){
+					t.radiusBaseValue = EditorGUILayout.FloatField("Radius",t.radiusBaseValue);
+				}
 				EditorGUILayout.Space();
 
 	
@@ -114,20 +132,98 @@ public class ETCJoystickInspector:Editor  {
 
 				EditorGUILayout.Space();
 
-				t.enableKeySimulation = ETCGuiTools.Toggle("Enable key simulation",t.enableKeySimulation,true);
+				ETCGuiTools.BeginGroup(5);{
+				t.enableKeySimulation = ETCGuiTools.Toggle("Enable Unity axes",t.enableKeySimulation,true);
 				if (t.enableKeySimulation){
-					t.allowSimulationStandalone = ETCGuiTools.Toggle("Allow simulation on standalone",t.allowSimulationStandalone,true);
+					t.allowSimulationStandalone = ETCGuiTools.Toggle("Allow Unity axes on standalone",t.allowSimulationStandalone,true);
+					t.visibleOnStandalone = ETCGuiTools.Toggle("Force visible",t.visibleOnStandalone,true);
 				}
+				}ETCGuiTools.EndGroup();
+
 				EditorGUILayout.Space();
 
 				ETCGuiTools.BeginGroup(5);{
-					ETCAxisInspector.AxisInspector( t.axisX,"Horizontal",ETCBase.ControlType.Joystick);
+				//t.isTurnAndMove = EditorGUILayout.ToggleLeft("Enable Turn & Move direction Action",t.isTurnAndMove);
+				t.isTurnAndMove	= ETCGuiTools.Toggle("Turn & Move direction Action",t.isTurnAndMove,true,220,true);
+				if (t.isTurnAndMove){
+					TurnAndMove(t.axisX, t.axisY,t );
+				}
+				}ETCGuiTools.EndGroup();
+
+				//EditorGUILayout.Space();
+
+				ETCGuiTools.BeginGroup(5);{
+					ETCAxisInspector.AxisInspector( t.axisX,"Horizontal",ETCBase.ControlType.Joystick,t.isTurnAndMove,unityAxes);
 				}ETCGuiTools.EndGroup();
 
 				ETCGuiTools.BeginGroup(5);{
-					ETCAxisInspector.AxisInspector( t.axisY,"Vertical" ,ETCBase.ControlType.Joystick);
+					ETCAxisInspector.AxisInspector( t.axisY,"Vertical" ,ETCBase.ControlType.Joystick,t.isTurnAndMove,unityAxes);
 				}ETCGuiTools.EndGroup();
 
+
+
+			}ETCGuiTools.EndGroup();
+		}
+		#endregion
+
+		#region Camera
+		t.showCameraInspector = ETCGuiTools.BeginFoldOut( "Camera",t.showCameraInspector);
+		if (t.showCameraInspector){
+			ETCGuiTools.BeginGroup();{
+				EditorGUILayout.Space();
+				t.enableCamera = ETCGuiTools.Toggle("Enable tracking",t.enableCamera,true);
+				if (t.enableCamera){
+
+					EditorGUILayout.Space();
+
+					// Auto link
+					ETCGuiTools.BeginGroup(5);{
+						t.autoLinkTagCam = EditorGUILayout.ToggleLeft("Auto link on tag",t.autoLinkTagCam);
+						if (t.autoLinkTagCam){
+							t.autoCamTag = EditorGUILayout.TagField("",t.autoCamTag);
+						}
+						else{
+							t.cameraTransform = (Transform)EditorGUILayout.ObjectField("Camera",t.cameraTransform,typeof(Transform),true);
+						}
+					}ETCGuiTools.EndGroup();
+
+					EditorGUILayout.Space();
+
+					ETCGuiTools.BeginGroup(5);{
+						t.cameraTargetMode = (ETCJoystick.CameraTargetMode)EditorGUILayout.EnumPopup("Target mode",t.cameraTargetMode);
+						if (t.cameraTargetMode == ETCBase.CameraTargetMode.UserDefined){
+							t.cameraLookAt = (Transform)EditorGUILayout.ObjectField("Camera target",t.cameraLookAt,typeof(Transform),true);
+						}
+						if (t.cameraTargetMode == ETCBase.CameraTargetMode.LinkOnTag){
+							t.camTargetTag = EditorGUILayout.TagField("",t.camTargetTag);
+						}
+					}ETCGuiTools.EndGroup();
+
+						EditorGUILayout.Space();
+
+					ETCGuiTools.BeginGroup(5);{
+						t.cameraMode = (ETCJoystick.CameraMode)EditorGUILayout.EnumPopup("Camera mode",t.cameraMode);
+						switch (t.cameraMode){
+						case ETCJoystick.CameraMode.Follow:
+							t.followOffset = EditorGUILayout.Vector3Field("Offset",t.followOffset);
+							break;
+						case ETCJoystick.CameraMode.SmoothFollow:
+							t.enableWallDetection = EditorGUILayout.Toggle("Wall detection", t.enableWallDetection);
+							if (t.enableWallDetection){
+								SerializedObject so = new SerializedObject(t);
+								SerializedProperty layer = so.FindProperty("wallLayer");
+								EditorGUILayout.PropertyField( layer,true);
+								so.ApplyModifiedProperties();
+							}
+							EditorGUILayout.Space();
+							t.followDistance = EditorGUILayout.FloatField("Distance",t.followDistance);
+							t.followHeight = EditorGUILayout.FloatField("Height",t.followHeight);
+							t.followHeightDamping = EditorGUILayout.FloatField("Height damping",t.followHeightDamping);
+							t.followRotationDamping = EditorGUILayout.FloatField("Rotation dampping",t.followRotationDamping);
+							break;
+						}
+					}ETCGuiTools.EndGroup();
+				}
 			}ETCGuiTools.EndGroup();
 		}
 		#endregion
@@ -294,6 +390,34 @@ public class ETCJoystickInspector:Editor  {
 		if (t.anchor != ETCBase.RectAnchor.UserDefined && t.joystickType == ETCJoystick.JoystickType.Static){
 			t.SetAnchorPosition();
 		}
+	}
+
+	private void TurnAndMove(ETCAxis X, ETCAxis Y, ETCJoystick j){
+
+		EditorGUI.indentLevel++;
+		X.autoLinkTagPlayer = EditorGUILayout.ToggleLeft("Auto link on tag",X.autoLinkTagPlayer, GUILayout.Width(200));
+		if (X.autoLinkTagPlayer){
+			X.autoTag = EditorGUILayout.TagField("",X.autoTag);
+		}
+
+		if (!X.autoLinkTagPlayer){
+			X.directTransform = (Transform)EditorGUILayout.ObjectField("Direct action to",X.directTransform,typeof(Transform),true);
+		}
+		EditorGUILayout.Space();
+
+		if (j.tmMoveCurve==null){
+			j.InitTurnMoveCurve();
+		}
+		j.tmMoveCurve = EditorGUILayout.CurveField("Move curve",j.tmMoveCurve);
+
+		j.tmSpeed = EditorGUILayout.FloatField("Move speed",j.tmSpeed);
+		j.tmAdditionnalRotation = EditorGUILayout.FloatField("Intial rotation",j.tmAdditionnalRotation);
+
+		j.tmLockInJump = EditorGUILayout.Toggle("Lock in jump",j.tmLockInJump);
+
+		X.gravity = EditorGUILayout.FloatField("Gravity",X.gravity);
+		EditorGUI.indentLevel--;
+
 	}
 		
 }

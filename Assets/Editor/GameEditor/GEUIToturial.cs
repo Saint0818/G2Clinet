@@ -7,6 +7,7 @@ using GamePlayStruct;
 
 public class GEUIToturial : GEBase {
 	private int flagID;
+    private Vector2 mScroll = Vector2.zero;
 
     void OnGUI() {
 		if (GameData.DTutorial.Count > 0) {
@@ -38,6 +39,7 @@ public class GEUIToturial : GEBase {
 		EditorGUILayout.BeginHorizontal();
 
         if (GameData.Team.TutorialFlags != null) {
+            mScroll = GUILayout.BeginScrollView(mScroll);
 			for (int i = 0; i < GameData.Team.TutorialFlags.Length; i++) {
 				EditorGUILayout.BeginHorizontal();
 
@@ -52,6 +54,8 @@ public class GEUIToturial : GEBase {
 
 				EditorGUILayout.EndHorizontal();
 			}
+
+            GUILayout.EndScrollView ();
         }
 
         EditorGUILayout.EndHorizontal();

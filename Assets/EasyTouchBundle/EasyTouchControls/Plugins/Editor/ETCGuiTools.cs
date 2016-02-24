@@ -55,7 +55,7 @@ public class ETCGuiTools{
 	public static bool Toggle(string text, bool value,bool leftToggle=false, int width=-1, bool bold=false){
 
 
-		if (value) GUI.backgroundColor = Color.green; else GUI.backgroundColor = Color.red;
+		//if (value) GUI.backgroundColor = Color.green; else GUI.backgroundColor = Color.red;
 
 		GUIStyle boldStyle = new GUIStyle( "toggle");
 		boldStyle.fontStyle = FontStyle.Bold;
@@ -73,7 +73,7 @@ public class ETCGuiTools{
 				value = GUILayout.Toggle(value,text,boldStyle,GUILayout.Width(width));
 		}
 		
-		GUI.backgroundColor = Color.white;
+		//GUI.backgroundColor = Color.white;
 
 
 		return value;

@@ -22,8 +22,6 @@ public static class ETCMenu{
 
 		GameObject joystick = new GameObject("New Joystick", typeof(ETCJoystick),typeof(RectTransform), typeof( CanvasGroup), typeof(Image) );
 		joystick.transform.SetParent( canvas.transform,false);
-
-	
 		joystick.GetComponent<Image>().preserveAspect = true;
 		joystick.GetComponent<Image>().sprite = GetSpriteByName("ETCArea",sprites);
 		joystick.GetComponent<Image>().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,130);
@@ -41,6 +39,7 @@ public static class ETCMenu{
 
 		joystick.GetComponent<ETCJoystick>().thumb = thumb.transform as RectTransform;
 
+		joystick.GetComponent<ETCJoystick>().InitCurve();
 
 
 		Selection.activeGameObject = joystick;
@@ -130,7 +129,6 @@ public static class ETCMenu{
 		
 		area.GetComponent<ETCArea>().ApplyPreset(ETCArea.AreaPreset.BottomLeft);
 		return area.GetComponent<ETCArea>();
-
 	
 	}
 
@@ -147,7 +145,7 @@ public static class ETCMenu{
 		}
 
 		// TouchInput
-		#if !UNITY_5_3
+		#if UNITY_5_3
 		if ( GameObject.FindObjectOfType(typeof(TouchInputModule)) ){
 			TouchInputModule tm = (TouchInputModule)GameObject.FindObjectOfType(typeof(TouchInputModule));
 			//tm.allowActivationOnStandalone = true;
@@ -159,12 +157,12 @@ public static class ETCMenu{
 	}
 	
 	static void AddEventSystem(){
+
 		#if UNITY_5_3
 		new GameObject("EventSystem",typeof(EventSystem), typeof(StandaloneInputModule));
 		#else
 		new GameObject("EventSystem",typeof(EventSystem), typeof(TouchInputModule), typeof(StandaloneInputModule));
 		#endif
-
 	}
 
 	static GameObject  AddCanvas(bool isSpaceCamera=false){

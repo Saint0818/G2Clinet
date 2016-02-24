@@ -191,7 +191,7 @@ public class UIShop : UIBase {
             int x = index / 2;
             int y = index % 2;
 
-            item.Item.transform.localPosition = new Vector3(-310 + x * 220, 135 - y * 270, 0);
+            item.Item.transform.localPosition = new Vector3(-310 + x * 215, 135 - y * 270, 0);
             item.Item.transform.localScale = Vector3.one;
             shopItemList[page].Add(item);
             index = shopItemList[page].Count-1;
@@ -206,7 +206,7 @@ public class UIShop : UIBase {
         
         shopItemList[page][index].UISoldout.SetActive(data.Num <= 0);
         shopItemList[page][index].UISuit.SetActive(false);
-        shopItemList[page][index].LabelPrice.text = data.Price.ToString();
+        shopItemList[page][index].LabelPrice.text = NumFormater.Convert(data.Price);
         shopItemList[page][index].SpriteSpendKind.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
 
         bool flag = GameData.Team.CoinEnough(shopItemList[page][index].Data.SpendKind, shopItemList[page][index].Data.Price);

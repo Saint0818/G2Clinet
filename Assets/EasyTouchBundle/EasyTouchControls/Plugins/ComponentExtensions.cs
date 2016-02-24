@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/***********************************************
+				EasyTouch Controls
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
+		
+	  The.Hedgehog.Team@gmail.com
+		
+**********************************************/
+using UnityEngine;
 using System.Collections;
 
 public static class ComponentExtensions{

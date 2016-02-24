@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using HedgehogTeam.EasyTouch;
 
 [CustomEditor(typeof(EasyTouch))]
 public class EasyTouchInspector : Editor {
@@ -142,11 +143,18 @@ public class EasyTouchInspector : Editor {
 				t.StationaryTolerance = EditorGUILayout.FloatField("Stationary tolerance",t.StationaryTolerance);
 				t.longTapTime = EditorGUILayout.FloatField("Long tap time",t.longTapTime);
 
+				EditorGUILayout.Space ();
+
 				t.doubleTapDetection = (EasyTouch.DoubleTapDetection) EditorGUILayout.EnumPopup("Double tap detection",t.doubleTapDetection);
 				if (t.doubleTapDetection == EasyTouch.DoubleTapDetection.ByTime){
 					t.doubleTapTime = EditorGUILayout.Slider("Double tap time",t.doubleTapTime,0.15f,0.4f);
 				}
+
+				EditorGUILayout.Space ();
+
 				t.swipeTolerance = EditorGUILayout.FloatField("Swipe tolerance",t.swipeTolerance);
+				t.alwaysSendSwipe = EditorGUILayout.Toggle("always sent swipe event",t.alwaysSendSwipe);
+
 			}HTGuiTools.EndGroup();
 		}
 

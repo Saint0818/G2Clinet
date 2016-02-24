@@ -126,16 +126,16 @@ public class UILoading : UIBase
     {
         if (GameData.Team.Player.Lv > 0)
         {
-            int check = PlayerPrefs.GetInt(ESave.AnnouncementDaily.ToString(), 0);
+            int check = PlayerPrefs.GetInt(ESave.NoticDaily.ToString(), 0);
 			
             if (check == 0)
-                UIAnnouncement.UIShow(true);
+                UINotic.UIShow(true);
             else
             {
                 int day = DateTime.Now.Day;
-                int date = PlayerPrefs.GetInt(ESave.AnnouncementDate.ToString(), -1);
+                int date = PlayerPrefs.GetInt(ESave.NoticDate.ToString(), -1);
                 if (day != date)
-                    UIAnnouncement.UIShow(true);
+                    UINotic.UIShow(true);
             }
         }
     }

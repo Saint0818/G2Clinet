@@ -1,7 +1,7 @@
 ﻿/***********************************************
 				EasyTouch Controls
-	Copyright © 2014-2015 The Hedgehog Team
-  http://www.blitz3dfr.com/teamtalk/index.php
+	Copyright © 2016 The Hedgehog Team
+      http://www.thehedgehogteam.com/Forum/
 		
 	  The.Hedgehog.Team@gmail.com
 		
@@ -16,12 +16,22 @@ using System.Collections.Generic;
 [System.Serializable]
 public abstract class ETCBase : MonoBehaviour {
 
+	#region Enumeration
 	public enum ControlType {Joystick, TouchPad, DPad, Button};
 	public enum RectAnchor { UserDefined,BottomLeft,BottomCenter,BottonRight,CenterLeft,Center,CenterRight,TopLeft,TopCenter, TopRight};
 	public enum DPadAxis{ Two_Axis, Four_Axis };
+	public enum CameraMode{ Follow, SmoothFollow};
+	public enum CameraTargetMode{ UserDefined, LinkOnTag,FromDirectActionAxisX, FromDirectActionAxisY};
+	#endregion
 
+	#region Members
 	protected RectTransform cachedRectTransform;	
 	protected Canvas cachedRootCanvas;
+
+	#region general propertie
+	public bool isUnregisterAtDisable = false;
+	private bool visibleAtStart = true;
+	private bool activatedAtStart = true;
 
 	[SerializeField]
 	protected RectAnchor _anchor;
@@ -78,11 +88,37 @@ public abstract class ETCBase : MonoBehaviour {
 			}
 		}
 	}
+	#endregion
 
+	#region Camera
+	public bool enableCamera=false;
+	public CameraMode cameraMode;
+	public string camTargetTag ="Player";
+
+	public bool autoLinkTagCam = true;
+	public string autoCamTag ="MainCamera";
+	public Transform cameraTransform;
+
+	public CameraTargetMode cameraTargetMode;
+	public bool enableWallDetection =false;
+	public LayerMask wallLayer = 0;
+	public Transform cameraLookAt;
+	protected CharacterController cameraLookAtCC;
+
+	public Vector3 followOffset = new Vector3(0,6,-6);
+	public float followDistance = 10;
+	public float followHeight = 5;
+	public float followRotationDamping=5;
+	public float followHeightDamping=5;	
+	
+	#endregion
+
+	#region Other
 	public int pointId=-1;
-
+	
 	public bool enableKeySimulation;
 	public bool allowSimulationStandalone;
+	public bool visibleOnStandalone = true;
 
 	public DPadAxis dPadAxisCount;
 	public bool useFixedUpdate;
@@ -94,7 +130,9 @@ public abstract class ETCBase : MonoBehaviour {
 	public bool isOnDrag;
 	public bool isSwipeIn;
 	public bool isSwipeOut;
+	#endregion
 
+	#region Inspector
 	public bool showPSInspector;
 	public bool showSpriteInspector;
 	public bool showEventInspector;
@@ -103,11 +141,13 @@ public abstract class ETCBase : MonoBehaviour {
 	public bool showTouchEventInspector;
 	public bool showDownEventInspector;
 	public bool showPressEventInspector;
+	public bool showCameraInspector;
+	#endregion
 
-	public bool isUnregisterAtDisable = false;
-	private bool visibleAtStart = true;
-	private bool activatedAtStart = true;
 
+	#endregion
+
+	#region Monobehaviour callback
 	protected virtual void Awake(){
 		cachedRectTransform = transform as RectTransform;
 		cachedRootCanvas = transform.parent.GetComponent<Canvas>();
@@ -126,6 +166,19 @@ public abstract class ETCBase : MonoBehaviour {
 		}
 	}
 
+	public virtual void Start(){
+
+		if (enableCamera){
+			if (autoLinkTagCam){
+				cameraTransform = null;
+				GameObject tmpobj = GameObject.FindGameObjectWithTag(autoCamTag);
+				if (tmpobj){
+					cameraTransform = tmpobj.transform;
+				}
+			}
+
+		}
+	}
 	
 	public virtual void OnEnable(){
 
@@ -172,16 +225,36 @@ public abstract class ETCBase : MonoBehaviour {
 		}
 	}
 
-	IEnumerator UpdateVirtualControl() {
-		yield return new WaitForEndOfFrame();
-		UpdateControlState();
-	}
+	public virtual void LateUpdate(){
+		if (enableCamera){
 
+			// find camera 
+			if (autoLinkTagCam && cameraTransform==null){
+				//cameraTransform = null;
+				GameObject tmpobj = GameObject.FindGameObjectWithTag(autoCamTag);
+				if (tmpobj){
+					cameraTransform = tmpobj.transform;
+				}
+			}
+
+			switch (cameraMode){
+			case CameraMode.Follow:
+				CameraFollow();
+				break;
+			case CameraMode.SmoothFollow:
+				CameraSmoothFollow();
+				break;
+			}
+		}
+	}
+	#endregion
+
+	#region Virtual & public
 	protected virtual void UpdateControlState(){
 
 	}
 
-	protected virtual void SetVisible(){
+	protected virtual void SetVisible(bool forceUnvisible=true){
 
 	}
 
@@ -265,5 +338,68 @@ public abstract class ETCBase : MonoBehaviour {
 			return null;
 		}
 	}
+	#endregion
 
+	#region Private Method
+	protected void CameraSmoothFollow(){
+
+		if (!cameraTransform  ||  !cameraLookAt ) return ;
+
+
+		float wantedRotationAngle = cameraLookAt.eulerAngles.y;
+		float wantedHeight = cameraLookAt.position.y + followHeight;
+		
+		float currentRotationAngle = cameraTransform.eulerAngles.y;
+		float currentHeight = cameraTransform.position.y;
+
+		currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, followRotationDamping * Time.deltaTime);
+		currentHeight = Mathf.Lerp(currentHeight, wantedHeight, followHeightDamping * Time.deltaTime);
+
+		Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+		Vector3 newPos = cameraLookAt.position;
+		newPos -= currentRotation * Vector3.forward * followDistance;
+		newPos = new Vector3(newPos.x ,currentHeight , newPos.z);
+
+		if (enableWallDetection){
+			RaycastHit wallHit;
+
+			if (Physics.Linecast( new Vector3(cameraLookAt.position.x,cameraLookAt.position.y+1f,cameraLookAt.position.z),newPos, out wallHit)){
+				newPos= new Vector3( wallHit.point.x, currentHeight,wallHit.point.z);
+			}
+		}
+		cameraTransform.position = newPos;
+		cameraTransform.LookAt(cameraLookAt);
+		
+	}
+	
+
+	protected void CameraFollow(){
+
+		if (!cameraTransform  ||  !cameraLookAt ) return ;
+
+		Vector3 localOffset = followOffset;
+
+		//if (cameraLookAtCC){
+			cameraTransform.position = cameraLookAt.position + localOffset;
+			cameraTransform.LookAt( cameraLookAt.position);
+		//}
+		//else{
+
+		//}
+
+	}
+
+	IEnumerator UpdateVirtualControl() {
+
+		DoActionBeforeEndOfFrame();
+
+		yield return new WaitForEndOfFrame();
+		
+		UpdateControlState();
+	}
+
+	protected virtual void DoActionBeforeEndOfFrame(){
+	}
+	#endregion
 }
