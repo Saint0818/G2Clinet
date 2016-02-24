@@ -128,10 +128,10 @@ public struct TUICard{
 		}
 	}
 
-	public void RefreshRedPoint (bool isExtraCard, int currentCostSpace, bool isEquip ) { // For All
+	public void RefreshRedPoint (int currentCostSpace, bool isEquip ) { // For All
 		skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skillCard.Skill) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) ||
-			((skillCard.Skill.Lv < GameData.DSkillData[skillCard.Skill.ID].MaxStar) && isExtraCard && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce)) ||
-			Cost <= currentCostSpace && !isEquip);
+			((skillCard.Skill.Lv < GameData.DSkillData[skillCard.Skill.ID].MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(Card.name) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce)) ||
+			(Cost <= currentCostSpace && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv < LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce))  && !isEquip);
 	}
 }
 
@@ -381,6 +381,7 @@ public class UISkillFormation : UIBase {
 				UISelectRole.Get.DisableRedPoint();
 		}
 
+		refreshRedPoint();
 		isChangePage = false;
 		isLeave = false;
 	}
@@ -441,9 +442,6 @@ public class UISkillFormation : UIBase {
 
 	private void refresh(){
 		costSpace = 0;
-//		for(int i=0; i<skillSortCards.Count; i++) {
-//			Destroy(skillSortCards[i]);
-//		}
 		betterGrid.mTrans.DestroyChildren();
 		removeIndexs = new int[0];
 		addIndexs = new int[0];
@@ -1251,16 +1249,15 @@ public class UISkillFormation : UIBase {
 		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
 			if(!ignoreName.Equals(uicard.Value.Card.name) ){
 				if (!skillsRecord.Contains(uicard.Value.Card.name))
-					return true;
+						return true;
 			}
 		}
 		return false;
 	}
 
 	private void refreshRedPoint () {
-		bool anyNotInstallCard = CheckCardnoInstall;
 		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
-			uicard.Value.RefreshRedPoint(anyNotInstallCard, ExtraCostSpace, skillsRecord.Contains(uicard.Value.Card.name));
+			uicard.Value.RefreshRedPoint(ExtraCostSpace, skillsRecord.Contains(uicard.Value.Card.name));
 		}
 	}
 

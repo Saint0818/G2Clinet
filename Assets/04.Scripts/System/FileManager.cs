@@ -886,9 +886,10 @@ public class FileManager : KnightSingleton<FileManager>
 			TSuitItem[] data = JsonConvertWrapper.DeserializeObject<TSuitItem[]>(text);
 
 			for (int i = 0; i < data.Length; i++) {
-				if(!GameData.DSuitItem.ContainsKey(data[i].ID))
+				if(!GameData.DSuitItem.ContainsKey(data[i].ID)) {
+					data[i].LengthCalCulate();
 					GameData.DSuitItem.Add(data[i].ID, data[i]);
-				else 
+				} else 
 					Debug.LogError("GameData.SuitItem is ContainsKey:"+ data[i].ID);
 			}
 

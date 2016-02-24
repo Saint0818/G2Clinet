@@ -195,6 +195,15 @@ public class UILevelUp : UIBase {
 		UIEventListener.Get(GameObject.Find(UIName + "/Window/BottomRight/NextLabel")).onClick = OnReturn;
 	}
 
+	private float delayWaitTime = 10;
+	void FixedUpdate () {
+		if(delayWaitTime > 0) {
+			delayWaitTime -= Time.deltaTime;
+			if(delayWaitTime <= 0)
+				OnReturn(null);
+		}
+	}
+
 	public void OnClickAttr (GameObject go) {
 		int result = -1;
 		if(int.TryParse(go.name, out result)){
@@ -208,11 +217,34 @@ public class UILevelUp : UIBase {
 				UIShow(false);
 				UIAchievement.Get.ShowView(lv);
 			} else {
-				UILoading.OpenUI = UILoading.OpenStageUI;
-				if (isStage)
+//				UILoading.OpenUI = UILoading.OpenStageUI;
+//				if (isStage)
+//					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//				else
+//					SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+
+				UILoading.StageID = -1;
+				if(GameData.IsMainStage)
+				{
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+					UILoading.OpenUI = UILoading.OpenStageUI;
+				}
+				else if(GameData.IsInstance)
+				{
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+					UILoading.OpenUI = UILoading.OpenInstanceUI;
+				}
+				else if (GameData.IsPVP)
+				{
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+					UILoading.OpenUI = UILoading.OpenStageUI;
+				}
 				else
-					SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+				{
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+					UILoading.OpenUI = UILoading.OpenStageUI;
+				}
+
 			}
 		} else 
 			UIShow(false);

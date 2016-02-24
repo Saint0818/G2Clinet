@@ -209,37 +209,16 @@ public class UISkillReinforce : UIBase {
 	/// <param name="isAlreadyEquip">If set to <c>true</c> is already equip.</param>
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
-		if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce)) {
-			if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) {
-				if(!Visible)
-					Visible = true;
-				
-				UIMainLobby.Get.Hide(3, false);
-				mSkill = skill;
-				mOldSkill = mSkill;
-				RefreshView(skill);
-				initRightCards ();
-				targetIndex = index;
-				isEquiped = isAlreadyEquip;
-				showWindows(showType);
-			} else 
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);
-		} else 
-			Debug.LogError("No OpenID:" + EOpenID.SkillReinforce);
-
-		if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution)) {
-			if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) {
-				if(!Visible)
-					Visible = true;
-
-				skillEvolution.ShowView(index, skill, isAlreadyEquip);
-			}else 
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
-		}else 
-			Debug.LogError("No OpenID:" + EOpenID.SkillEvolution);
-
-		if(Visible)
-			showWindows(showType);
+		Visible = true;
+		UIMainLobby.Get.Hide(3, false);
+		mSkill = skill;
+		mOldSkill = mSkill;
+		RefreshView(skill);
+		initRightCards ();
+		targetIndex = index;
+		isEquiped = isAlreadyEquip;
+		skillEvolution.ShowView(index, skill, isAlreadyEquip);
+		showWindows(showType);
 	}
 
 	private void showWindows (int showType) {

@@ -219,8 +219,8 @@ public class UISkillInfo : UIBase {
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 
 				goEquipRedPoint.SetActive((mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
-				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
-				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name)&& LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
+				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
+				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name)&& LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
 			}
 
 			//MediumCard
@@ -365,8 +365,11 @@ public class UISkillInfo : UIBase {
 			if(GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill == 0) {
 				UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
 			} else {
-				UISkillFormation.Get.IsEvolution = true;
-				UISkillFormation.Get.DoFinish();
+				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) {
+					UISkillFormation.Get.IsEvolution = true;
+					UISkillFormation.Get.DoFinish();
+				} else
+					UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
 			}
 		}
 	}
@@ -376,8 +379,11 @@ public class UISkillInfo : UIBase {
 			if(mUICard.skillCard.Skill.Lv >= GameData.DSkillData[mUICard.skillCard.Skill.ID].MaxStar ) {
 				UIHint.Get.ShowHint(TextConst.S(553), Color.red);
 			} else {
-				UISkillFormation.Get.IsReinforce = true;
-				UISkillFormation.Get.DoFinish();
+				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) {
+					UISkillFormation.Get.IsReinforce = true;
+					UISkillFormation.Get.DoFinish();
+				} else 
+					UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);
 			}
 		}
 	}

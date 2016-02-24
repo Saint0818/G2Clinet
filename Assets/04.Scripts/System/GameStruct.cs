@@ -1559,6 +1559,7 @@ namespace GameStruct
 		public int Card3;
 		public int Card4;
 		public int Card5;
+		public int CardLength;
 		public int Item1;
 		public int Item2;
 		public int Item3;
@@ -1566,6 +1567,7 @@ namespace GameStruct
 		public int Item5;
 		public int Item6;
 		public int Item7;
+		public int ItemLength;
 		public int AttrKind1;
 		public int Value1;
 		public int AttrKind2;
@@ -1591,16 +1593,6 @@ namespace GameStruct
 			}
 		}
 
-		public int CardLength {
-			get {
-				int count = 0;
-				for (int i=0; i<Card.Length; i++) 
-					if(Card[i] != 0)
-						count ++;
-				return count;
-			}
-		}
-
 		public int[] Items {
 			get {
 				int[] items = new int[7];
@@ -1615,14 +1607,16 @@ namespace GameStruct
 			}
 		}
 
-		public int ItemLength {
-			get {
-				int count = 0;
-				for (int i=0; i<Items.Length; i++) 
-					if(Items[i] != 0)
-						count ++;
-				return count;
-			}
+		public void LengthCalCulate () {
+			ItemLength = 0;
+			for (int i=0; i<Items.Length; i++) 
+				if(Items[i] != 0)
+					ItemLength ++;
+
+			CardLength = 0;
+			for (int i=0; i<Card.Length; i++) 
+				if(Card[i] != 0)
+					CardLength ++;
 		}
 
 		public int[] AttrKind {
