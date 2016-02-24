@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class UIDailyLoginMain : MonoBehaviour
 {
+    public enum EStatus
+    {
+        Received, // 已領取.
+        Receivable, // 可領取.
+        NoReceive // 不可領取.
+    }
+
     public Action OnCloseClickListener;
     
     /// <summary>

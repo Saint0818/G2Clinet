@@ -90,11 +90,11 @@ public class UIDailyLogin : UIBase
         {
             var itemData = GameData.DItemData[dailyData.Rewards[i].ItemID];
             int day = i + 1;
-            DailyLoginReward.EStatus status;
+            UIDailyLoginMain.EStatus status;
             if(day <= receiveLoginNum)
-                status = DailyLoginReward.EStatus.Received;
+                status = UIDailyLoginMain.EStatus.Received;
             else
-                status = day <= currentLoginNum ? DailyLoginReward.EStatus.Receivable : DailyLoginReward.EStatus.NoReceive;
+                status = day <= currentLoginNum ? UIDailyLoginMain.EStatus.Receivable : UIDailyLoginMain.EStatus.NoReceive;
             rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, status);
         }
 

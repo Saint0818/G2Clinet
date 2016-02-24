@@ -26,9 +26,9 @@ public class UIDailyLoginReward : DailyLoginReward
         updateStatus(data.Status);
     }
 
-    private void updateStatus(EStatus status)
+    private void updateStatus(UIDailyLoginMain.EStatus status)
     {
-        Clear.SetActive(status == EStatus.Received);
-        ReceiveButton.gameObject.SetActive(status == EStatus.Receivable);
+        Clear.SetActive(status == UIDailyLoginMain.EStatus.Received);
+        ReceiveButton.gameObject.SetActive(status == UIDailyLoginMain.EStatus.Receivable);
     }
 }
