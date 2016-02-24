@@ -106,8 +106,11 @@ public class UIStageHintManager{
 				int value = 0;
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
-				
-				describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+	
+				if(GameController.Get.GameTime >= 0)
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+				else 
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex ++;
 			}
@@ -320,7 +323,10 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+				if(GameController.Get.GameTime >= 0)
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+				else 
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
 				mTargets[hintIndex].UpdateUI(describe, true, false);
 				hintIndex ++;
 			}

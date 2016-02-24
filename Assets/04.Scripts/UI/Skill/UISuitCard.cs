@@ -174,22 +174,24 @@ public class UISuitCard {
 	private int costMax;//啟動值最大值
 
 	public void InitCom (UISkillFormation skillFormation, string UIName) {
-		costNow = GameData.Team.SuitCardExecuteCost;
-		costMax = 10;
-		mSelf = skillFormation;
-		itemSuitCardGroup = Resources.Load(UIPrefabPath.ItemSuitCardGroup) as GameObject;
-
-		labelSuitCost = GameObject.Find(UIName + "/SuitCardsView/Top/SuitCostLabel").GetComponent<UILabel>();
-		scrollView = GameObject.Find(UIName + "/SuitCardsView/MainView/ScrollView").GetComponent<UIScrollView>();
-		viewCaption = GameObject.Find(UIName + "/SuitCardsView/CaptionView");
-
-		UIEventListener.Get(GameObject.Find(UIName + "/SuitCardsView/CaptionView/CoverCollider")).onClick = HideCaption;
-
-		mSelf.SetBtn(UIName + "/SuitCardsView/Top/CaptionBtn", OnCaption);
-
-		viewCaption.SetActive(false);
-		itemSuitCards = new List<TItemSuitCardGroup>();
-		initSuitCard() ;
+		if(LimitTable.Ins.HasByOpenID(GameEnum.EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) {
+			costNow = GameData.Team.SuitCardExecuteCost;
+			costMax = 10;
+			mSelf = skillFormation;
+			itemSuitCardGroup = Resources.Load(UIPrefabPath.ItemSuitCardGroup) as GameObject;
+			
+			labelSuitCost = GameObject.Find(UIName + "/SuitCardsView/Top/SuitCostLabel").GetComponent<UILabel>();
+			scrollView = GameObject.Find(UIName + "/SuitCardsView/MainView/ScrollView").GetComponent<UIScrollView>();
+			viewCaption = GameObject.Find(UIName + "/SuitCardsView/CaptionView");
+			
+			UIEventListener.Get(GameObject.Find(UIName + "/SuitCardsView/CaptionView/CoverCollider")).onClick = HideCaption;
+			
+			mSelf.SetBtn(UIName + "/SuitCardsView/Top/CaptionBtn", OnCaption);
+			
+			viewCaption.SetActive(false);
+			itemSuitCards = new List<TItemSuitCardGroup>();
+			initSuitCard() ;
+		}
 	}
 
 	private void initSuitCard() {
@@ -234,9 +236,11 @@ public class UISuitCard {
 
 	public bool CheckRedPoint {
 		get {
-			for (int i=0; i<itemSuitCards.Count; i++) 
-				if(itemSuitCards[i].IsAllGet && !GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitID))
-					return true;
+			if(LimitTable.Ins.HasByOpenID(GameEnum.EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) {
+				for (int i=0; i<itemSuitCards.Count; i++) 
+					if(itemSuitCards[i].IsAllGet && !GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitID))
+						return true;
+			}
 			return false;
 		}
 	}
