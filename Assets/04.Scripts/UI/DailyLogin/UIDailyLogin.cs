@@ -58,7 +58,9 @@ public class UIDailyLogin : UIBase
         }
 
         UIDailyLoginHelper.SetLifetimeReceiveLoginNum(currentLoginNum);
-        Hide();
+
+        UIMainLobby.Get.UpdateButtonStatus(); // 這只是為了更新大廳登入按鈕的紅點狀態.
+        Show(Year, Month); // 刷新介面.
     }
 
     private void onDailyReceive(int year, int month)
@@ -78,7 +80,9 @@ public class UIDailyLogin : UIBase
         }
 
         UIDailyLoginHelper.SetDailyReceiveLoginNum(year, month, currentLoginNum);
-        Hide();
+
+        UIMainLobby.Get.UpdateButtonStatus(); // 這只是為了更新大廳登入按鈕的紅點狀態.
+        Show(Year, Month); // 刷新介面.
     }
 
     /// <summary>

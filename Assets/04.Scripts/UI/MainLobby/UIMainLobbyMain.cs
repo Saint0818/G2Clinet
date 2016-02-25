@@ -38,6 +38,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public GameObject MissionNoticeObj;
     public GameObject PlayerNoticeObj;
     public GameObject MallNoticeObj;
+    public GameObject LoginNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIUnlockButton AvatarButton;
@@ -173,6 +174,11 @@ public class UIMainLobbyMain : MonoBehaviour
     public bool MallNotice
     {
         set { MallNoticeObj.SetActive(value); }
+    }
+
+    public bool LoginNotice
+    {
+        set { LoginNoticeObj.SetActive(value); }
     }
 
     /// <summary>

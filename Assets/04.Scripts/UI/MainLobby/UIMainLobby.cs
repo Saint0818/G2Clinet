@@ -74,7 +74,7 @@ public class UIMainLobby : UIBase
         playPowerAnimation(AnimDelay);
         playDiamondAnimation(AnimDelay);
 
-        updateButtons();
+        UpdateButtonStatus();
 
         ResetCommands.Get.Run();
 
@@ -95,20 +95,10 @@ public class UIMainLobby : UIBase
     }
 
     /// <summary>
-    /// 更新大廳下面按鈕的狀態.
+    /// 更新大廳的全部按鈕狀態.
     /// </summary>
-    private void updateButtons()
+    public void UpdateButtonStatus()
     {
-        /*
-        1.解鎖數值裝
-        2.解鎖Avatar
-        3.商店按鈕
-        4.社群按鈕
-        5.解鎖技能介面
-        6.任務
-        7.抽卡牌
-        */
-
         updateEquipmentButton();
         updateAvatarButton();
         updateShopButton();
@@ -118,6 +108,8 @@ public class UIMainLobby : UIBase
         updateMallButton();
         
         Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
+        Main.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
+                           UIDailyLoginHelper.HasLifetimeLoginReward();
     }
 
     private void updateMallButton()
