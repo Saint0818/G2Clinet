@@ -47,6 +47,7 @@ public class UIDailyLogin : UIBase
 
         Debug.LogFormat("StartIndex:{0}, EndIndex:{1}", startIndex, endIndex);
 
+        UIGetItem.Get.SetTitle(TextConst.S(3812));
         for(int i = startIndex; i <= endIndex; i++)
         {
             TLifetimeData data = LifetimeTable.Ins.GetByIndex(i);
@@ -69,6 +70,7 @@ public class UIDailyLogin : UIBase
         var receviedLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
 //        Debug.LogFormat("OnReceiveClick:{0}-{1}, CurLoginNum:{2}, ReceivedLoginNum:{3}", year, month, currentLoginNum, receviedLoginNum);
 
+        UIGetItem.Get.SetTitle(TextConst.S(3812));
         TDailyData dailyData = DailyTable.Ins.GetByDate(year, month);
         for(var day = receviedLoginNum + 1; day <= currentLoginNum; day++)
         {
