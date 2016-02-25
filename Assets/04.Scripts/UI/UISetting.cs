@@ -395,7 +395,7 @@ public class UISetting : UIBase {
 			UISetting.UIShow(true);
 
 		if (UIMainLobby.Get.IsVisible)
-			UIMainLobby.Get.ResetText();
+			UIMainLobby.Get.UpdateText();
 
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}

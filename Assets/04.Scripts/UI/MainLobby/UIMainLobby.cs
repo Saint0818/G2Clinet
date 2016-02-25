@@ -175,9 +175,9 @@ public class UIMainLobby : UIBase
         mCountDownTimer.Update(Time.deltaTime);
     }
 
-    public void ResetText()
+    public void UpdateText()
 	{
-		initDefaultText (Main.MainMenu);
+		initDefaultText(Main.gameObject);
 	}
 
     public void Hide(int kind = 3, bool playAnimation = true)
