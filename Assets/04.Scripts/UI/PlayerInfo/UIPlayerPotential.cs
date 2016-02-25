@@ -184,7 +184,8 @@ public class UpgradeView
                         break; 
                 }
                         
-                upgradeBtns[index].SetValue(item.Value + (int)basic, AddPotential [index]);
+//                upgradeBtns[index].SetValue(item.Value + (int)basic, AddPotential [index]);
+                upgradeBtns[index].SetValue((int)basic, AddPotential [index]);
 			}
 		}
 	}
