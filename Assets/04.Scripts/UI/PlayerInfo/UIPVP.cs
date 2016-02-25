@@ -553,7 +553,7 @@ public class UIPVP : UIBase
     private int currecntPage = 0;
     private int shopIndex = -1;
     private UISprite readPoint;
-
+    private UILabel labelPVPCoin;
 
     public static bool Visible
     {
@@ -583,6 +583,7 @@ public class UIPVP : UIBase
         {
             if (!isShow)
             {
+                UIMainLobby.Get.Hide();
                 RemoveUI(UIName);
             }
             else
@@ -594,6 +595,9 @@ public class UIPVP : UIBase
         {
             Get.Show(isShow);
         }
+
+        if (isShow)
+            UIMainLobby.Get.Hide(2);
     }
 
     protected override void InitCom()
@@ -603,7 +607,7 @@ public class UIPVP : UIBase
         page0 = new PVPPage0();
         page1 = new PVPPage1();
         currentLv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-       
+        labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
         if (GameData.DPVPData.Count > 0)
         {
             for (int i = 0; i < pageCount; i++)
@@ -807,8 +811,8 @@ public class UIPVP : UIBase
 
                     if (GameData.DPVPData.ContainsKey(lv))
                     {
-                        UISelectRole.Get.LoadStage(GameData.DPVPData[lv].Stage);
                         UIShow(false);
+                        UISelectRole.Get.LoadStage(GameData.DPVPData[lv].Stage);
                     }
                     break;
             } 
@@ -905,7 +909,9 @@ public class UIPVP : UIBase
 			TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.DailyCount = data.DailyCount;
             UIGetItem.Get.AddExp(2, data.PVPCoin - GameData.Team.PVPCoin);
+            UIGetItem.Get.SetTitle(TextConst.S(9707));
 			GameData.Team.PVPCoin = data.PVPCoin;
+            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
             UpdateRedPoint();
         }
     }
@@ -1009,6 +1015,7 @@ public class UIPVP : UIBase
         if (isShow)
         {
             DoPage(0);
+            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
         }
     }
 

@@ -116,10 +116,17 @@ public class UILoading : UIBase
             if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
                 StageID = -1;
     }
+
     public static void OpenInstanceUI()
     {
         UIInstance.Get.Show();
         UIMainLobby.Get.Hide();
+    }
+
+    public static void OpenPVPUI()
+    {
+        UIPVP.UIShow(true);
+        UIMainLobby.Get.Hide(2);
     }
 
     public static void OpenNotic()

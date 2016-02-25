@@ -282,19 +282,26 @@ public class UISelectRole : UIBase {
 	}
 
     public void OnExit() {
+        Visible = false;
+
         if(GameData.IsInstance) {
-            Visible = false;
             if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
                 UILoading.OpenUI = UILoading.OpenInstanceUI;
                 SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-            } else
+            } else 
                 UIInstance.Get.ShowByStageID(GameData.StageID);
+        } else
+        if(GameData.IsPVP) {
+            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
+                UILoading.OpenUI = UILoading.OpenPVPUI;
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            } else 
+                UIPVP.UIShow(true);
         } else {
-            Visible = false;
             if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
                 UILoading.OpenUI = UILoading.OpenStageUI;
                 SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-            } else
+            } else 
                 UIMainStage.Get.Show(GameData.StageID);
         }
     }
