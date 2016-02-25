@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "  {0} Out"
+        "en": "  {0} Out"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": "  {0:00} day {1:00} when"
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": "  {0:00} when {1:00} minutes"
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": "  {0:00} sub {1:00} seconds"
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
@@ -353,7 +353,7 @@
         "id": 454,
         "explain": "解鎖社交功能",
         "tw": "成功解鎖[FFDD33]社群[-]功能",
-        "en": "Successfully unlocked community features"
+        "en": "Successfully unlocked social features"
     },
     {
         "id": 455,
@@ -1318,7 +1318,7 @@
         "id": 3706,
         "uipeth": "GetBtn",
         "tw": "領 取",
-        "en": "\nRECEIVE"
+        "en": "RECEIVE"
     },
     {
         "id": 3707,
@@ -1353,7 +1353,7 @@
     {
         "id": 3713,
         "tw": "社群",
-        "en": "Community Links"
+        "en": "Social"
     },
     {
         "id": 3714,
@@ -1740,22 +1740,22 @@
         "id": 4502,
         "explain": "無限定使用的貨幣",
         "uipeth": "Tabs/0/雜貨商店",
-        "tw": "雜物商店",
-        "en": "Sundries shop"
+        "tw": "黑幫商店",
+        "en": "Gangs"
     },
     {
         "id": 4503,
         "explain": "限定使用聯盟對戰貨幣",
         "uipeth": "Tabs/1/聯盟商店（天梯）",
         "tw": "聯盟商店",
-        "en": "Union Shop"
+        "en": "Union"
     },
     {
         "id": 4504,
         "explain": "限定使用社群取得的貨幣",
         "uipeth": "Tabs/2/社群商店",
         "tw": "社群商店",
-        "en": "Community Store"
+        "en": "Social"
     },
     {
         "id": 4505,
@@ -1780,7 +1780,7 @@
         "id": 4508,
         "uipeth": "ItemShopBtn/FittingIcon",
         "tw": "試穿中",
-        "en": "Try the"
+        "en": "Suiting"
     },
     {
         "id": 4509,
@@ -1817,12 +1817,12 @@
     {
         "id": 4515,
         "tw": "聯盟幣不足",
-        "en": "Union currency shortage"
+        "en": "Union coin not enough"
     },
     {
         "id": 4516,
         "tw": "社群幣不足",
-        "en": "Community currency shortage"
+        "en": "Social coin not enough"
     },
     {
         "id": 4600,
@@ -1838,13 +1838,13 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -2000,7 +2000,7 @@
         "id": 5002,
         "uipeth": "頁籤1",
         "tw": "動 態",
-        "en": "Dynamic"
+        "en": "Event"
     },
     {
         "id": 5003,
@@ -2012,7 +2012,7 @@
         "id": 5004,
         "uipeth": "頁籤3",
         "tw": "推 薦",
-        "en": "Recommended"
+        "en": "Advice"
     },
     {
         "id": 5005,
@@ -2024,7 +2024,7 @@
         "id": 5006,
         "uipeth": "頁籤5",
         "tw": "社群連結",
-        "en": "Community Links"
+        "en": "Social Links"
     },
     {
         "id": 5007,
@@ -2042,7 +2042,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": "  {0} ago"
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
@@ -2123,17 +2123,17 @@
     {
         "id": 5023,
         "tw": "關 注",
-        "en": "Off Note"
+        "en": "Follow"
     },
     {
         "id": 5024,
         "tw": "取消關注",
-        "en": "unsubscribe"
+        "en": "Unfollow"
     },
     {
         "id": 5025,
         "tw": "刪除好友",
-        "en": "Remove Friend"
+        "en": "Remove"
     },
     {
         "id": 5026,
@@ -2163,7 +2163,7 @@
     {
         "id": 5031,
         "tw": " [969696FF]搜尋符合[-]",
-        "en": "  [969696FF] Search accord [-] "
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
@@ -2412,7 +2412,7 @@
     },
     {
         "id": 7010,
-        "tw": "晶片插槽",
+        "tw": "插槽數",
         "en": "Wafer socket"
     },
     {
@@ -2890,8 +2890,7 @@
     {
         "id": 7708,
         "explain": "啟動值超過",
-        "tw": "啟動值超過，無法啟動",
-        "en": "Launch Point Overweight."
+        "tw": "啟動值超過，無法啟動"
     },
     {
         "id": 8001,
@@ -3030,13 +3029,15 @@
         "id": 8206,
         "explain": "無對應晶片時的說明",
         "uipeth": "NoCardLabel",
-        "tw": "此套造型無對應技能晶片"
+        "tw": "此套造型無對應技能晶片",
+        "en": "No Match Ability Cards"
     },
     {
         "id": 8207,
         "explain": "套裝不需要全部位時",
         "uipeth": "ItemNameLabel",
-        "tw": "無此部位造型"
+        "tw": "無此部位造型",
+        "en": "Do not need this part"
     },
     {
         "id": 9001,
@@ -3323,7 +3324,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": "  {0} in use"
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
@@ -3371,7 +3372,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "The next stage\n  {0} "
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,
@@ -3666,6 +3667,36 @@
         "jp": "TARGET \nSCORE"
     },
     {
+        "id": 10206,
+        "explain": "加速 1",
+        "tw": "1 X",
+        "en": "1 X"
+    },
+    {
+        "id": 10207,
+        "explain": "加速 0.5",
+        "tw": "0.5 X",
+        "en": "0.5 X"
+    },
+    {
+        "id": 10208,
+        "explain": "加速 2",
+        "tw": "2 X",
+        "en": "2 X"
+    },
+    {
+        "id": 10209,
+        "explain": "加速 3",
+        "tw": "4 X",
+        "en": "4 X"
+    },
+    {
+        "id": 10210,
+        "explain": "戰場內秀戰術",
+        "tw": "目前戰術：[00ff00]{0}[-]",
+        "en": "Strategy: [00ff00]{0}[-]"
+    },
+    {
         "id": 10301,
         "explain": "暫停介面"
     },
@@ -3770,9 +3801,9 @@
     {
         "id": 10316,
         "uipeth": "ButtonAgain/Label",
-        "tw": "AGAIN",
+        "tw": "重新開始",
         "en": "RESTART",
-        "jp": "AGAIN"
+        "jp": "RESTART"
     },
     {
         "id": 10317,
@@ -4054,6 +4085,20 @@
         "jp": "PAS"
     },
     {
+        "id": 10520,
+        "explain": "20.起手的士氣值",
+        "tw": "士氣",
+        "en": "Morale",
+        "jp": "Morale"
+    },
+    {
+        "id": 10530,
+        "explain": "30.卡牌的Cost值",
+        "tw": "Cost",
+        "en": "Cost",
+        "jp": "Cost"
+    },
+    {
         "id": 10600,
         "explain": "戰鬥內換場介面"
     },
@@ -4113,7 +4158,7 @@
     },
     {
         "id": 12001,
-        "explain": "LabelTitle"
+        "explain": "設定"
     },
     {
         "id": 12002,
@@ -4561,8 +4606,8 @@
     {
         "id": 100100,
         "explain": "一般商店介面標題",
-        "tw": "[ff8000]雜物商店[-]",
-        "en": "General Store"
+        "tw": "[ff8000]黑幫商店[-]",
+        "en": "Gangs Shop"
     },
     {
         "id": 100101,
@@ -4597,7 +4642,7 @@
         "id": 100120,
         "explain": "社群商店介面標題",
         "tw": "[ff8000]社群商店[-]",
-        "en": "Community Store"
+        "en": "Social Shop"
     },
     {
         "id": 100121,
