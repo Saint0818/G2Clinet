@@ -757,8 +757,13 @@ public static class GameFunction
 		}
 	}
 
-	public static void ShowInlay (ref GameObject[] emptyStars, ref  GameObject[] inlays, TPlayer player, int itemDataKind) {
-		foreach (KeyValuePair<int, TValueItem> pair in player.ValueItems) {
+	public static void ShowInlay (ref GameObject[] emptyStars, ref  GameObject[] inlays, TPlayer player, int itemDataKind)
+    {
+        if(player.ValueItems == null)
+            return;
+
+		foreach (KeyValuePair<int, TValueItem> pair in player.ValueItems)
+        {
 			if (GameData.DItemData.ContainsKey(pair.Value.ID) && pair.Key == itemDataKind) {
 				for(int i=0; i<inlays.Length; i++) {
 					if(i < pair.Value.RevisionInlayItemIDs.Length) {

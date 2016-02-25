@@ -89,6 +89,7 @@ namespace GameStruct
         /// <summary>
         /// 玩家身上的數值裝備. key: TItemData.Kind.
         /// </summary>
+        [CanBeNull]
         public Dictionary<int, TValueItem> ValueItems;
 
         /// <summary>

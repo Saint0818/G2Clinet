@@ -351,9 +351,6 @@ public class UILoading : UIBase
             case ELoading.Lobby:
                 ProgressValue = 1;
                 UIMainLobby.Get.Show();
-
-                if(UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward())
-                    UIDailyLogin.Get.Show();	
 			
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
@@ -362,12 +359,16 @@ public class UILoading : UIBase
                     UICreateRole.Get.ShowPositionView();
                     UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                     UIMainLobby.Get.HideAll();
-                } else 
-                if (OpenUI != null) {
+                }
+                else if(OpenUI != null)
+                {
                     yield return new WaitForSeconds(2);
 
                     OpenUI();
                     OpenUI = null;
+
+                    if(UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward())
+                        UIDailyLogin.Get.Show();
                 }
 
                 UIShow(false);
