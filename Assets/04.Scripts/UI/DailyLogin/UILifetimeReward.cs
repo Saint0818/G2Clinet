@@ -13,11 +13,15 @@ public class UILifetimeReward : MonoBehaviour
         public UIDailyLoginMain.EStatus Status;
     }
 
+    private readonly Color32 mReceivableColor = new Color32(255, 255, 180, 255);
+    private readonly Color32 mNoReceivableColor = new Color32(255, 255, 255, 255);
+
     public UILabel LoginNumLabel;
     public UILabel ReceivableLabel;
     public ItemAwardGroup[] ItemAwards;
     public GameObject ReceivedObj;
     public UIButton ReceiveButton;
+    public UISprite BGSprite;
 
     private Data mData;
 
@@ -47,6 +51,8 @@ public class UILifetimeReward : MonoBehaviour
     {
         ReceivableLabel.gameObject.SetActive(status == UIDailyLoginMain.EStatus.Receivable);
         ReceivedObj.SetActive(status == UIDailyLoginMain.EStatus.Received);
+
+        BGSprite.color = status == UIDailyLoginMain.EStatus.Receivable ? mReceivableColor : mNoReceivableColor;
     }
 
     private void updateItems(TItemData[] itemData)
