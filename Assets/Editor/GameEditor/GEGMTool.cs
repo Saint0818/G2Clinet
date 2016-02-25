@@ -423,7 +423,8 @@ public class GEGMTool : GEBase
 
     private bool CanUsePotential(int index)
     {
-        return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential + GameConst.PotentialRule[index];
+		return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential +
+			GameFunction.GetPotentialRule (GameData.Team.Player.BodyType, index);
     }
 
     private void CalculateAddPotential()
@@ -431,7 +432,7 @@ public class GEGMTool : GEBase
         int count = 0;
         for (int i = 0; i < addPotential.Length; i++)
         {
-            count += addPotential[i] * GameConst.PotentialRule[i];
+			count += addPotential[i] * GameFunction.GetPotentialRule (GameData.Team.Player.BodyType, i);
         }
 
         if (CrtLvPotential >= count)

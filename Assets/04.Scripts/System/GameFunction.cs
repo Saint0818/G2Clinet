@@ -172,7 +172,7 @@ public static class GameFunction
 //            int kind = GetItemKind(items [i].ID);
             int index = GetItemAvatarIndex(items [i].ID);
 
-            if (i > 0 && index == 0)
+			if (i > 0 && index <= 0)
             {
                 if (i != 2 && i < 6)
                     index = 99001;
@@ -405,15 +405,6 @@ public static class GameFunction
         return att;
     }
 
-    /// <summary>取得每一級potential需要多少點</summary>
-    public static int GetPotentialRule(EAttribute kind)
-    {
-        if (GetAttributeIndex(kind) < GameConst.PotentialRule.Length)
-            return GameConst.PotentialRule [GetAttributeIndex(kind)];
-        else
-            return -1;
-    }
-
     public static void UpdateAttrHexagon(UIAttributes attHexagon, TPlayer basic, int[] potentialAdds = null)
     {
         float add;
@@ -514,7 +505,7 @@ public static class GameFunction
         if (player.Potential != null)
             foreach (var item in GameData.Team.Player.Potential)
             {
-                use += item.Value * GameConst.PotentialRule [GameFunction.GetAttributeIndex(item.Key)]; 
+                use += item.Value * GetPotentialRule(player.BodyType, GameFunction.GetAttributeIndex(item.Key));
             }
         
         if (lvpoint > use)
@@ -530,7 +521,7 @@ public static class GameFunction
         int use = 0;
         
         if (player.Potential != null)
-            use = GameFunction.GetUseTotalPotential(player.Potential);
+            use = GameFunction.GetUseTotalPotential(player.Potential, player.BodyType);
         
         if (use > lvpoint)
             return use - lvpoint;
@@ -543,10 +534,19 @@ public static class GameFunction
     {
         int lvpoint = GetLvPotential(player.Lv);
         int use = 0;
-        
-        if (player.Potential != null)
-            use = GameFunction.GetUseTotalPotential(player.Potential);
-        
+
+        if (GameData.DPlayers.ContainsKey(player.ID))
+        {
+            if (player.Potential != null)
+            {
+                use = GameFunction.GetUseTotalPotential(player.Potential, GameData.DPlayers[player.ID].BodyType);
+            }
+        }
+        else
+        {
+            Debug.LogError("Can't found Player.ID : " + player.ID);
+        }
+
         if (use > lvpoint)
             return use - lvpoint;
         else
@@ -554,13 +554,13 @@ public static class GameFunction
     }
 
     /// <summary>單一player總共使用potential點數</summary>
-    public static int GetUseTotalPotential(Dictionary<EAttribute, int> potential)
+    public static int GetUseTotalPotential(Dictionary<EAttribute, int> potential, int bodytype)
     {
         int count = 0;
         
         foreach (var item in potential)
         {
-            count += item.Value * GameConst.PotentialRule [GameFunction.GetAttributeIndex(item.Key)];
+            count += item.Value * GetPotentialRule(bodytype, item.Key);
         }
         
         return count;
@@ -1005,4 +1005,39 @@ public static class GameFunction
 
 		return Mathf.Max(2, beginRate * (decayRate + wristRate));
 	}
+
+    public static int GetPotentialRule(int bodytype, int index)
+    {
+        if (GameData.DPotential.ContainsKey(bodytype))
+        {
+            switch (index)
+            {
+                case 0:
+                    return GameData.DPotential[bodytype].Point2;
+                case 1:
+                    return GameData.DPotential[bodytype].Point3;
+                case 2:
+                    return GameData.DPotential[bodytype].Dunk;
+                case 3:
+                    return GameData.DPotential[bodytype].Rebound;
+                case 4:
+                    return GameData.DPotential[bodytype].Block;
+                case 5:
+                    return GameData.DPotential[bodytype].Steal;
+            }
+        }
+
+        return -1;
+    }
+
+    /// <summary>取得每一級potential需要多少點</summary>
+    public static int GetPotentialRule(int boydkind, EAttribute kind)
+    {
+        if (GetAttributeIndex(kind) < GameConst.PotentialCount)
+        {
+            return GetPotentialRule(boydkind, GetAttributeIndex(kind));
+        }
+        else
+            return -1;
+    }
 }

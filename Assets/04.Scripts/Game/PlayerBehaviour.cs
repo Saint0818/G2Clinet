@@ -284,9 +284,11 @@ public class PlayerBehaviour : MonoBehaviour
         TestGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         TestGameObject.name = gameObject.name + ".Target";
         if (TestGameObject.GetComponent<SphereCollider>())
-            TestGameObject.GetComponent<SphereCollider>().enabled = false; 
+            TestGameObject.GetComponent<SphereCollider>().enabled = false;
+				
+		TestGameObject.GetComponent<MeshRenderer> ().enabled = GameStart.Get.IsDebugAnimation;
     }
-	
+
     private void manuallyTimeUp()
     {
         moveQueue.Clear();
@@ -526,8 +528,10 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     void OnDrawGizmos() {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
+		if (GameStart.Get.IsDebugAnimation) {
+			Gizmos.color = Color.green;
+			Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
+		}
     }
 
     void FixedUpdate()
@@ -1221,6 +1225,7 @@ public class PlayerBehaviour : MonoBehaviour
                 TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
             }
         }
+
     }
 
     private void moveTo(TMoveData data, bool first = false)
@@ -1266,6 +1271,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     AttackerMove(first, data, false);
                 }
+
 
 //                if (MoveTurn >= 0 && MoveTurn <= 5 && GameController.Get.BallOwner != null)
 //                {

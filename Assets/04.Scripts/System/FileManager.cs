@@ -84,7 +84,7 @@ public class FileManager : KnightSingleton<FileManager>
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
         "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
-        "lifetime"
+        "lifetime", "Potential"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -222,7 +222,9 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[23] = parseDailyData;
 		downloadCallBack[24] = ParseSuitCard;
 		downloadCallBack[25] = ParseSuitItem;
-		downloadCallBack[26] = parseLifeTimeData;
+        downloadCallBack[26] = parseLifeTimeData;
+        downloadCallBack[27] = ParsePotentital;
+
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -901,4 +903,26 @@ public class FileManager : KnightSingleton<FileManager>
 			Debug.LogError ("[SuitItem parsed error] " + ex.Message);
 		}
 	}
+
+    public void ParsePotentital(string version, string text, bool isSaveVersion) 
+    {
+        try
+        {
+            TPotentital[] data = JsonConvertWrapper.DeserializeObject<TPotentital[]>(text);
+
+            for (int i = 0; i < data.Length; i++) {
+                if(!GameData.DPotential.ContainsKey(data[i].ID)) {
+                    GameData.DPotential.Add(data[i].ID, data[i]);
+                } else 
+                    Debug.LogError("GameData.SuitItem is ContainsKey:"+ data[i].ID);
+            }
+
+            if(isSaveVersion)
+                SaveDataVersionAndJson(text, "potentital", version);
+
+            Debug.Log ("[Potentital parsed finished.] ");
+        } catch (System.Exception ex) {
+            Debug.LogError ("[Potentital parsed error] " + ex.Message);
+        }
+    }
 }

@@ -131,10 +131,8 @@ public class PersonalView
 public class AbilityView
 {
     private GameObject self;
-    private UIButton skillPointBtn;
     private TAbilityItem[] abilitys = new TAbilityItem[12];
     private UIAttributes hexagon;
-    private GameObject RedPoint;
 
     public void Init(GameObject obj, GameObject hexgonObj, EventDelegate hitFunc)
     {
@@ -148,9 +146,6 @@ public class AbilityView
                 go = self.transform.FindChild(string.Format("AttrGroup/{0}", i)).gameObject;
                 abilitys[i].Init(go, i, hitFunc);
             }
-
-            skillPointBtn = self.transform.FindChild("SkillPointBtn").gameObject.GetComponent<UIButton>();
-            RedPoint = skillPointBtn.transform.FindChild("RedPoint").gameObject;
 
             GameObject hexagonCenter = GameObject.Find("AttributeHexagonCenter").gameObject;
             hexagon = hexgonObj.GetComponent<UIAttributes>();
@@ -217,19 +212,12 @@ public class AbilityView
             }
             abilitys[i].Value.text = (basic + add).ToString();
         }
-
-        RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
         GameFunction.UpdateAttrHexagon(hexagon, team.Player);
     }
 
     public void HexagonEnable(bool enable)
     {
         hexagon.SetVisible(enable);
-    }
-
-    public void InitBtttonFunction(EventDelegate skillFunc)
-    {
-        skillPointBtn.onClick.Add(skillFunc);
     }
 
     public bool Enable{ set { self.SetActive(value); } }
@@ -563,7 +551,6 @@ public class UIPlayerInfo : UIBase
 
         obj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
         abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject, new EventDelegate(OnAttributeHint));
-        abilityView.InitBtttonFunction(new EventDelegate(OnUpgradingMasteries));
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnReturn);
         for (int i = 0; i < 3; i++)
             SetBtnFun(UIName + string.Format("/Window/Center/View/TopTabs/{0}", i), OnPage);	
@@ -649,10 +636,10 @@ public class UIPlayerInfo : UIBase
         UIMainLobby.Get.Show();
     }
 
-    public void OnUpgradingMasteries()
-    {
-        UIPlayerPotential.UIShow(true);
-    }
+//    public void OnUpgradingMasteries()
+//    {
+//        UIPlayerPotential.UIShow(true);
+//    }
 
     public void UpdateHexagon(bool flag)
     {

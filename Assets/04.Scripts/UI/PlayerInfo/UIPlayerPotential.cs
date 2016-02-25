@@ -86,9 +86,9 @@ public class UpgradeView
 	private TUpgradeBtn[] upgradeBtns  = new TUpgradeBtn[6];
 	public UIAttributes hexagon;
 	public int[] AddPotential = new int[6];
-
 	private int useLvPotential;
 	private int useAvatarPotential;
+    private int bodytype = 0;
 
 	public int UseAvatarPotential
 	{
@@ -102,7 +102,7 @@ public class UpgradeView
 		get{return useLvPotential;}
 	}
 
-	public void Init(GameObject go, GameObject hexgonObj)
+    public void Init(GameObject go, GameObject hexgonObj)
 	{
 		if(go){
 			self = go;
@@ -113,7 +113,6 @@ public class UpgradeView
 					upgradeBtns[i] = new TUpgradeBtn();
 					upgradeBtns[i].Init(btn);
 					upgradeBtns[i].InitBtttonFunction(new EventDelegate(OnAdd));
-					upgradeBtns[i].DemandValue = GameConst.PotentialRule[i];
 				}
 			}
 		}
@@ -132,6 +131,10 @@ public class UpgradeView
 	public void UpdatePotential(TPlayer player)
 	{
 		hexagon.enabled = true;
+        bodytype = player.BodyType;
+
+        for (int i = 0; i < upgradeBtns.Length; i++)
+            upgradeBtns[i].DemandValue = GameFunction.GetPotentialRule(bodytype, i);
 
 		if(player.Potential != null && player.Potential.Count == AddPotential.Length)
 		{
@@ -208,14 +211,15 @@ public class UpgradeView
 
 	public bool CanUsePotential(int index)
 	{
-		return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential (GameData.Team.Player) >= useLvPotential + useAvatarPotential + GameConst.PotentialRule [index];
+        return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential(GameData.Team.Player) >= 
+            useLvPotential + useAvatarPotential + GameFunction.GetPotentialRule(bodytype, index);
 	}
 
 	private void CalculateAddPotential()
 	{
 		int count = 0;
 		for (int i = 0; i < AddPotential.Length; i++) {
-			count += AddPotential[i] * GameConst.PotentialRule[i];
+            count += AddPotential[i] * GameFunction.GetPotentialRule(bodytype, i);
 		}
 		
 		if (UIPlayerPotential.Get.CrtLvPotential >= count) {
@@ -336,7 +340,6 @@ public class UIPlayerPotential : UIBase {
 
 		if (obj) {
 			upgradeView.Init (obj, Instantiate (Resources.Load ("Prefab/UI/UIattributeHexagon")) as GameObject);
-
 		}
 
 		obj = GameObject.Find(UIName + "Window/Center/PointView");
@@ -382,9 +385,11 @@ public class UIPlayerPotential : UIBase {
 	{
 		UIShow (false);
 		GameData.Team.Player.SetAttribute (GameEnum.ESkillType.Player);
-		UIPlayerInfo.UIShow (true, ref GameData.Team);
-		UIPlayerInfo.Get.UpdatePage (0);
-		UIPlayerInfo.Get.UpdateHexagon(true);
+		UIPlayerMgr.Get.Enable = false;
+		UIMainLobby.Get.Show();
+//		UIPlayerInfo.UIShow (true, ref GameData.Team);
+//		UIPlayerInfo.Get.UpdatePage (0);
+//		UIPlayerInfo.Get.UpdateHexagon(true);
 	}
 
 	public void OnReset()
@@ -458,7 +463,7 @@ public class UIPlayerPotential : UIBase {
 		if (isShow) {
 			UpdateView ();
 			upgradeView.EnableHexagon(true);
-			UIPlayerInfo.Get.UpdateHexagon(false);
+//			UIPlayerInfo.Get.UpdateHexagon(false);
 		}
 	}
 

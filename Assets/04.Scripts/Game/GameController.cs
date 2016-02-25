@@ -4372,9 +4372,8 @@ public class GameController : KnightSingleton<GameController>
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
         //預防撿球時，被推倒卡住
-        if (Situation != EGameSituation.GamerAttack || Situation != EGameSituation.NPCAttack)
-            return;
-        
+        if (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
+        {
 		for (int i = 0; i < PlayerList.Count; i++)
         {
 			if(PlayerList[i] && PlayerList[i].Team != player.Team && !PlayerList[i].IsUseActiveSkill)
@@ -4385,8 +4384,10 @@ public class GameController : KnightSingleton<GameController>
 					PlayerBehaviour faller = PlayerList[i];
 					PlayerBehaviour pusher = player;
 
-					if(rate < faller.Attr.StrengthRate){
-						if(faller.AniState(EPlayerState.Fall2, pusher.PlayerRefGameObject.transform.position)) {
+                        if (rate < faller.Attr.StrengthRate)
+                        {
+                            if (faller.AniState(EPlayerState.Fall2, pusher.PlayerRefGameObject.transform.position))
+                            {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
 							pusher.GameRecord.Knock++;
@@ -4404,10 +4405,13 @@ public class GameController : KnightSingleton<GameController>
 						}
 					}
 
-					if (pusher.IsElbow) {
+                        if (pusher.IsElbow)
+                        {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
-					} else {
+                        }
+                        else
+                        {
 						pusher.GameRecord.Push++;
 						faller.GameRecord.BePush++;
 					}
@@ -4420,7 +4424,7 @@ public class GameController : KnightSingleton<GameController>
 
 			}
 		}
-		
+        }
 	}
 	
 	public bool IsOnceAnimation(EAnimatorState state)

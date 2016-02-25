@@ -88,6 +88,11 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
         setManLocation(uiMode);
 	}
 
+	/// <summary>
+	/// 介面上人物的開關
+	/// 使用介面 : UIPlayerInfo、UIAvatarFitted、UIShop
+	/// </summary>
+	/// <value><c>true</c> if enable; otherwise, <c>false</c>.</value>
 	public bool Enable
 	{
 		set{gameObject.SetActive (value);}

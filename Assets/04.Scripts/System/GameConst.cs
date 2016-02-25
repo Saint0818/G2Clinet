@@ -22,7 +22,6 @@
 	public static int PotentialCount = 6;
 	public static int PreLvPotential = 10;
 	public static int PotentialResetPrice = 100;
-	public static int[] PotentialRule = new int[6]{5, 5, 5, 5, 5, 5};
 
 	public static int RenamePrice = 300;
 	

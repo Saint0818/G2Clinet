@@ -58,6 +58,8 @@ public static class GameData
 	public static Dictionary<int, TSuitCard> DSuitCard = new Dictionary<int, TSuitCard>();
 	public static Dictionary<int, TSuitItem> DSuitItem = new Dictionary<int, TSuitItem>();
 
+    public static Dictionary<int, TPotentital> DPotential = new Dictionary<int, TPotentital>();
+
     public static float ServerVersion;
     public static float SaveVersion;
     public static bool IsLoginRTS;
@@ -451,9 +453,9 @@ public static class GameData
             int ownerlvPoint = GameFunction.GetCurrentLvPotential(team.Player);
             int ownerAvatarPoint = GameFunction.GetAllPlayerTotalUseAvatarPotential();
 			
-            for (int i = 0; i < GameConst.PotentialRule.Length; i++)
+            for (int i = 0; i < GameConst.PotentialCount; i++)
             {
-                if (ownerlvPoint + ownerAvatarPoint >= GameConst.PotentialRule[i])
+                if (ownerlvPoint + ownerAvatarPoint >= GameFunction.GetPotentialRule(team.Player.BodyType, i))
                     return true;
             }
             return false;

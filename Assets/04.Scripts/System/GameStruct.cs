@@ -1662,4 +1662,14 @@ namespace GameStruct
 		}
 	}
 
+    public struct TPotentital
+    {
+        public int ID;
+        public int Point2;
+        public int Point3;
+        public int Dunk;    
+        public int Rebound; 
+        public int Block; 
+        public int Steal;
+    }
 }
