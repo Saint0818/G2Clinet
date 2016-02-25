@@ -16,9 +16,9 @@ namespace GameItem
             if (go)
             {
                 self = go;
-                headTexture = self.transform.FindChild("PlayerPic").GetComponent<UISprite>();
-                position = headTexture.transform.FindChild("PositionIcon").GetComponent<UISprite>();
-                lv = self.transform.FindChild("LevelGroup").GetComponent<UILabel>();
+                headTexture = self.transform.Find("PlayerPic").GetComponent<UISprite>();
+                position = headTexture.transform.Find("PositionIcon").GetComponent<UISprite>();
+                lv = self.transform.Find("LevelGroup").GetComponent<UILabel>();
             }
         }
 
@@ -53,18 +53,19 @@ namespace GameItem
             if(go){
                 self = go;
                 btn = self.GetComponent<UIButton>();
-                playerName = self.transform.FindChild("Window/PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
-                combatLabel = self.transform.FindChild("Window/CombatLabel").gameObject.GetComponent<UILabel>();
-                GameObject obj = self.transform.FindChild("Window/PlayerInGameBtn").gameObject;
-                PvPRankIcon = self.transform.FindChild("Window/PvPRankIcon").gameObject.GetComponent<UISprite>();
-				GuildIcon = self.transform.FindChild("Window/GuildView/GuildIcon").gameObject.GetComponent<UISprite>();
-				GuildIDLabel = self.transform.FindChild("Window/GuildView/GuildIDLabel").gameObject.GetComponent<UILabel>();
-                WinLabel = self.transform.FindChild("Window/DetailGroup/WinLabel").gameObject.GetComponent<UILabel>();
-                WinRateLabel = self.transform.FindChild("Window/DetailGroup/WinRateLabel").gameObject.GetComponent<UILabel>();
-                PVPIntegral = self.transform.FindChild("Window/DetailGroup/ScoreIcon/ScoreLabel").gameObject.GetComponent<UILabel>();
-                optionsBtnGroup = self.transform.FindChild("Window/ButtonListGroup").gameObject;
-                optionsBtn =  optionsBtnGroup.transform.FindChild("View/ProfileBtn").gameObject.GetComponent<UIButton>();
-                playerIndex = self.transform.FindChild("Window/PVPPlaceLabel").gameObject.GetComponent<UILabel>();
+                playerName = self.transform.Find("Window/PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
+                combatLabel = self.transform.Find("Window/CombatLabel").gameObject.GetComponent<UILabel>();
+                GameObject obj = self.transform.Find("Window/PlayerInGameBtn").gameObject;
+                PvPRankIcon = self.transform.Find("Window/PvPRankIcon").gameObject.GetComponent<UISprite>();
+				GuildIcon = self.transform.Find("Window/GuildView/GuildIcon").gameObject.GetComponent<UISprite>();
+				GuildIDLabel = self.transform.Find("Window/GuildView/GuildIDLabel").gameObject.GetComponent<UILabel>();
+				self.transform.Find("Window/GuildView").gameObject.SetActive(false);
+                WinLabel = self.transform.Find("Window/DetailGroup/WinLabel").gameObject.GetComponent<UILabel>();
+                WinRateLabel = self.transform.Find("Window/DetailGroup/WinRateLabel").gameObject.GetComponent<UILabel>();
+                PVPIntegral = self.transform.Find("Window/DetailGroup/ScoreIcon/ScoreLabel").gameObject.GetComponent<UILabel>();
+                optionsBtnGroup = self.transform.Find("Window/ButtonListGroup").gameObject;
+                optionsBtn =  optionsBtnGroup.transform.Find("View/ProfileBtn").gameObject.GetComponent<UIButton>();
+                playerIndex = self.transform.Find("Window/PVPPlaceLabel").gameObject.GetComponent<UILabel>();
 
 				isInit = self && btn && playerName && obj && combatLabel && PvPRankIcon && GuildIcon 
                     && GuildIDLabel && WinLabel && WinRateLabel && PVPIntegral && optionsBtnGroup && optionsBtn && playerIndex;
@@ -150,8 +151,8 @@ namespace GameItem
             {
                 self = go;
                 self.transform.parent = parent.transform;
-                PvPRankIcon = self.transform.FindChild("PvPRankIcon").GetComponent<UISprite>();
-                RangeNameLabel = self.transform.FindChild("RangeNameLabel").GetComponent<UILabel>();
+                PvPRankIcon = self.transform.Find("PvPRankIcon").GetComponent<UISprite>();
+                RangeNameLabel = self.transform.Find("RangeNameLabel").GetComponent<UILabel>();
 
                 isInit = PvPRankIcon && RangeNameLabel;
 
