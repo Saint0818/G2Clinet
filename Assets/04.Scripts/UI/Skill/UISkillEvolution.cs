@@ -57,20 +57,33 @@ public class UISkillEvolution {
 		Refresh (currentSkill);
 	}
 
-	public void OnSearchMaterial1 () {
-		if(mSelf.IsCanClick) {
-			TMaterialItem materialSkillCard = new TMaterialItem();
-			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
-				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
-					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material1)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material1], enable => {if(enable){ 
+	private void search(int itemID) {
+		if(GameData.DItemData.ContainsKey(itemID)) {
+			if(GameData.DItemData[itemID].Kind == 19) {
+				UIItemSource.Get.ShowMaterial(GameData.DItemData[itemID], enable => {if(enable){ 
 						mSelf.OnSearch(); 
 						UISkillFormation.Visible = false;
 						UISkillInfo.Visible = false;
 					}
 				});
+			} else if(GameData.DItemData[itemID].Kind == 21) {
+				UIItemSource.Get.ShowSkill(GameData.DItemData[itemID], enable => {if(enable){ 
+						mSelf.OnSearch(); 
+						UISkillFormation.Visible = false;
+						UISkillInfo.Visible = false;
+					}
+				});
+			}
 		}
-		
+	}
+
+	public void OnSearchMaterial1 () {
+		if(mSelf.IsCanClick) {
+			TMaterialItem materialSkillCard = new TMaterialItem();
+			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
+				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum1) 
+					search(GameData.DSkillData[mSkill.ID].Material1);
+		}
 	}
 
 	public void OnSearchMaterial2 () {
@@ -78,13 +91,7 @@ public class UISkillEvolution {
 			TMaterialItem materialSkillCard = new TMaterialItem();
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum2) 
-					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material2)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material2], enable => {if(enable) {
-						mSelf.OnSearch();
-						UISkillFormation.Visible = false;
-						UISkillInfo.Visible = false;
-					}
-				});
+					search(GameData.DSkillData[mSkill.ID].Material2);
 		}
 	}
 
@@ -93,13 +100,7 @@ public class UISkillEvolution {
 			TMaterialItem materialSkillCard = new TMaterialItem();
 			if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
 				if(materialSkillCard.Num < GameData.DSkillData[mSkill.ID].MaterialNum3) 
-					if(GameData.DItemData.ContainsKey(GameData.DSkillData[mSkill.ID].Material3)) 
-				UIItemSource.Get.ShowMaterial(GameData.DItemData[GameData.DSkillData[mSkill.ID].Material3], enable => {if(enable){ 
-						mSelf.OnSearch();
-						UISkillFormation.Visible = false;
-						UISkillInfo.Visible = false;
-					}
-				});
+					search(GameData.DSkillData[mSkill.ID].Material3);
 		}
 	}
 

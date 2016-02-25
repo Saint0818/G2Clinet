@@ -2925,7 +2925,7 @@ public class PlayerBehaviour : MonoBehaviour
                 return false;
 
             GameRecord.Skill++;
-            SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID));
+			SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
 
             if (Attribute.SkillAnimation(ActiveSkillUsed.ID) != "")
             {
@@ -3295,7 +3295,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsAngerFull(TSkill tSkill)
     {
-        return Attribute.CheckIfMaxAnger(tSkill.ID, angerValue);
+		return Attribute.CheckIfMaxAnger(tSkill.ID, angerValue, tSkill.Lv);
     }
 
     public bool AIing

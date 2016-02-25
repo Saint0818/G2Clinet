@@ -645,7 +645,8 @@ namespace GameStruct
 		public float distanceAdd;
 		public int angle;
 		public int angleAdd;
-		public int MaxAnger;
+		public int MaxAngerBase;
+		public int MaxAngerAdd;
 		public int ActiveCamera;
 		public float ActiveCameraTime;
 		public int TargetKind;
@@ -672,6 +673,11 @@ namespace GameStruct
 		public string ExplainEN;
 		public string ExplainJP;
 		public int Open; //skillheaditem
+
+
+		public int MaxAnger (int lv) {
+			return MaxAngerBase + lv * MaxAngerAdd;
+		}
 
 		public int GetUpgradeExp(int lv) {
 			if(lv < 0)

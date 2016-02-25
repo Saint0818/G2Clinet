@@ -959,7 +959,7 @@ public class UIGame : UIBase
         if (IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill)
             for (int i = 0; i < PlayerMe.Attribute.ActiveSkills.Count; i++)
                 if (uiButtonSkill[i].activeSelf)
-                    spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, newForceValue * PlayerMe.Attribute.MaxAnger);
+					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, newForceValue * PlayerMe.Attribute.MaxAnger, PlayerMe.Attribute.ActiveSkills[i].Lv);
     }
 
     public void PlusScore(int team, int score)

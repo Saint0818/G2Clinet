@@ -268,7 +268,7 @@ public class UISkillInfo : UIBase {
 			}
 
 			if(GameFunction.IsActiveSkill(skill.ID))
-				labelSkillDemandValue.text = skillData.MaxAnger.ToString();
+				labelSkillDemandValue.text = skillData.MaxAnger(skill.Lv).ToString();
 			else 
 				labelSkillDemandValue.text = skillData.Rate(skill.Lv).ToString() + "%";
 
