@@ -270,6 +270,7 @@ public class GEGMTool : GEBase
         setDailyLoginNums();
         setLifetimeLoginNum();
         clearClientLifetimeLoginNum();
+        deleteAllPlayerPrefabs();
     }
 
     private int mMaxPlayerBank = 2;
@@ -985,6 +986,18 @@ public class GEGMTool : GEBase
             UIDailyLoginHelper.SetLifetimeReceiveLoginNum(0);
             if(UIDailyLogin.Get.Visible)
                 UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void deleteAllPlayerPrefabs()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Delete All Player Prefabs");
+        if(GUILayout.Button("Delete All"))
+        {
+            PlayerPrefs.DeleteAll();
+            Debug.Log("Delete All PlayerPrefabs");
         }
         EditorGUILayout.EndHorizontal();
     }

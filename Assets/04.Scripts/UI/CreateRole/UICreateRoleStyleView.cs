@@ -120,7 +120,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void onRandomStyle()
     {
-        Debug.Log("onRandomStyle");
+//        Debug.Log("onRandomStyle");
 
         UICreateRole.EPart[] parts = new UICreateRole.EPart[5];
         int[] itemIDs = new int[5];
