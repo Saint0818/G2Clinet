@@ -461,8 +461,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
 
-//			    Debug.LogFormat("DailyLogin, [{0},{1},{2}]", GameData.Team.DailyLoginRewardYear, GameData.Team.DailyLoginRewardMonth, GameData.Team.DailyLoginRewardIndex);
-//			    Debug.LogFormat("LifetimeLoginNum:{0}", GameData.Team.LifetimeLoginNum);
+//			    var dailyLoginNum = GameData.Team.GetDailyLoginNum(DateTime.Now.Year, DateTime.Now.Month);
+//			    Debug.LogFormat("Daily: {0}-{1}, LoginNum:{2}", DateTime.Now.Year, DateTime.Now.Month, dailyLoginNum);
+//			    Debug.LogFormat("Lifetime LoginNum:{0}", GameData.Team.LifetimeRecord.LoginNum);
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();

@@ -350,7 +350,10 @@ public class UILoading : UIBase
                 break;
             case ELoading.Lobby:
                 ProgressValue = 1;
-                UIMainLobby.Get.Show();				
+                UIMainLobby.Get.Show();
+
+                if(UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward())
+                    UIDailyLogin.Get.Show();	
 			
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
