@@ -100,4 +100,22 @@ public class ItemAwardGroup : MonoBehaviour
 		if(mItemData.ID > 0 && !UILevelUp.Visible)
 			UIItemHint.Get.OnShow(mItemData.ID);
     }
+
+    public void SetAmountText(string amount) {
+        if(mItemData.Kind == 21)
+        {
+            if (awardSkillView)
+                awardSkillView.AmountLabel.text = amount;
+        }
+        else if(mItemData.Kind == 19)
+        {
+            if (awardInlayView)
+                awardInlayView.AmountLabel.text = amount;
+        }
+        else
+        {
+            if (awardAvatarView)
+                awardAvatarView.AmountLabel.text = amount;
+        }
+    }
 }

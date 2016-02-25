@@ -122,7 +122,7 @@ public class UILoading : UIBase
         UIMainLobby.Get.Hide();
     }
 
-    public static void OpenAnnouncement()
+    public static void OpenNotic()
     {
         if (GameData.Team.Player.Lv > 0)
         {
@@ -350,7 +350,7 @@ public class UILoading : UIBase
                 break;
             case ELoading.Lobby:
                 ProgressValue = 1;
-                UIMainLobby.Get.Show();
+                UIMainLobby.Get.Show();				
 			
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
@@ -359,10 +359,10 @@ public class UILoading : UIBase
                     UICreateRole.Get.ShowPositionView();
                     UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                     UIMainLobby.Get.HideAll();
-                }
-                else if(OpenUI != null)
-                {
-                    yield return new WaitForSeconds(2);
+                } else 
+                if (OpenUI != null) {
+                    if (!UITutorial.Visible)
+                        yield return new WaitForSeconds(2);
 
                     OpenUI();
                     OpenUI = null;
@@ -401,7 +401,8 @@ public class UILoading : UIBase
 				if(GameData.IsPVP)
 					AudioMgr.Get.PlayMusic(EMusicType.MU_BattlePVP);
 				else
-					AudioMgr.Get.PlayMusic(EMusicType.MU_BattleNormal);		
+					AudioMgr.Get.PlayMusic(EMusicType.MU_BattleNormal);
+                
                 break;
             case ELoading.Stage:
                 ProgressValue = 1;

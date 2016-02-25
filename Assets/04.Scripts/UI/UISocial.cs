@@ -399,10 +399,13 @@ public class UISocial : UIBase {
                 case 3: //mission
                     if (GameData.DMissionData.ContainsKey(e.Value)) {
                         int itemID = 0;
-                        if (GameData.DMissionData[e.Value].AwardID != null && GameData.DMissionData[e.Value].AwardID.Length > 0) {
+                        if (GameData.DMissionData[e.Value].AwardID != null && GameData.DMissionData[e.Value].AwardID.Length > 0)
                             itemID = GameData.DMissionData[e.Value].AwardID[GameData.DMissionData[e.Value].AwardID.Length-1];
-                            setItemPic(itemID, friendList[page][index]);
-                        }
+
+                        if (!GameData.DItemData.ContainsKey(itemID))
+                            itemID = 93301;
+
+                        setItemPic(itemID, friendList[page][index]);
                     }
 
                     break;

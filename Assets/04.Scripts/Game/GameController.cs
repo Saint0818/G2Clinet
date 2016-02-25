@@ -49,7 +49,6 @@ public class GameController : KnightSingleton<GameController>
 	public OnSkillDCComplete onSkillDCComplete = null;
     public bool IsStart = false;
 	public bool IsFinish = false;
-	public bool IsFinishShow = true;
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
@@ -831,26 +830,13 @@ public class GameController : KnightSingleton<GameController>
 		if (IsTimePass())
 			gameResult();
 
-		if(IsFinish && IsFinishShow && !CourtMgr.Get.IsBallOffensive) {
+		if (IsFinish && !CourtMgr.Get.IsBallOffensive) {
 			CameraMgr.Get.FinishGame();
 			GameRecord.Done = true;
 			SetGameRecord();
 			SetBallOwnerNull();
 			CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
-			if(CheckAllPlayerIdle) {
-				IsFinishShow = false;
-				StartCoroutine(playFinish());
-			} else {
-				if(IsFinishShow){
-					finishWaitTime -= Time.deltaTime;
-					if(finishWaitTime <= 0) {
-						SetBallOwnerNull();
-						CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
-						for(int i = 0; i < PlayerList.Count; i++)
-							PlayerList[i].AniState(EPlayerState.Idle);
-					}
-				}
-			}
+			StartCoroutine(playFinish());
 		}
 	}
 
@@ -3739,13 +3725,19 @@ public class GameController : KnightSingleton<GameController>
 
 	private void setEndShowScene () {
 		UITutorial.UIShow(false);
+
+        SetBallOwnerNull();
+        CourtMgr.Get.RealBallCompoment.Trigger.Reset();
+
 		//Player
-		for (int i=0; i<PlayerList.Count; i++) {
-			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
-				PlayerList[i].Reset();
-				PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
-				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
-			}
+        int num = Mathf.Min(PlayerList.Count, CourtMgr.Get.EndPlayerPosition.Length);
+		for (int i=0; i< num; i++) {
+            PlayerList[i].DefPlayer = null;
+			PlayerList[i].Reset();
+            PlayerList[i].ResetMove();
+            PlayerList[i].AniState(EPlayerState.Idle);
+			PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
+			PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
 		}
 
 		if (IsWinner) {
@@ -4243,7 +4235,6 @@ public class GameController : KnightSingleton<GameController>
 		Shooter = null;
 		IsStart = false;
 		IsFinish = false;
-		IsFinishShow = true;
 		SetPlayerAI(true);
 		SetBallOwnerNull();
 		GameTime = MissionChecker.Get.MaxGameTime;

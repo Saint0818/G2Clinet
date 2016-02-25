@@ -6,15 +6,6 @@ using GameEnum;
 using GameStruct;
 using UnityEngine;
 
-public enum EUIRoleSituation {
-	ListA = 1,
-	ListB = 2,
-	SelectRole = 3,
-	ChooseRole = 5,
-	BackToSelectMe = 6,
-	Start = 7
-}
-
 public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
@@ -34,15 +25,8 @@ public class UISelectRole : UIBase {
 	public TPlayer [] arrayPlayerData = new TPlayer[3];
 	private Vector3 [] arrayPlayerPosition = new Vector3[3];
 	private GameObject [] arrayPlayer = new GameObject[3];
-	private GameObject [] buttonSelectRole = new GameObject[6];
 	private List<TPlayer> playerList = new List<TPlayer>();
 
-	private Animator animatorLeft;
-	private Animator animatorRight;
-	private Animator animatorLoading;
-
-	private GameObject uiShowTime;
-	private GameObject uiCharacterCheck;
 	private GameObject uiChangPlayerA;
 	private GameObject uiChangPlayerB;
 	private GameObject uiRedPoint;
@@ -91,19 +75,6 @@ public class UISelectRole : UIBase {
 	}
 
 	void OnDestroy() {
-		if (animatorLeft)
-			Destroy (animatorLeft);
-
-		if (animatorRight)
-			Destroy (animatorRight);
-
-		if (animatorLoading)
-			Destroy (animatorLoading);
-
-		animatorLeft = null;
-		animatorRight = null;
-		animatorLoading = null;
-
 		for (int i = 0; i < arrayAnimator.Length; i++)
 			Destroy(arrayAnimator[i]);
 
@@ -167,7 +138,7 @@ public class UISelectRole : UIBase {
     				playerList.Add(player);
     			}
     		}
-    		randomPlayerList();
+
     		ModelManager.Get.LoadAllSelectPlayer(ref ids);
         }
 	}
@@ -211,26 +182,6 @@ public class UISelectRole : UIBase {
             player.RoleIndex = i;
             playerList[i] = player;
         }
-		//randomPlayerList();
-	}
-
-	private void randomPlayerList() {
-		if (playerList.Count > 1) {
-			for (int i = 0; i < playerList.Count; i++) {
-				int j = UnityEngine.Random.Range(0, playerList.Count-1);
-				if (i != j) {
-					TPlayer player = playerList[i];
-					playerList[i] = playerList[j];
-					playerList[j] = player;
-				}
-			}
-
-			for (int i = 0; i < playerList.Count; i++) {
-				TPlayer player = playerList[i];
-				player.RoleIndex = i;
-				playerList[i] = player;
-			}
-		}
 	}
 
 	protected override void InitCom() {
@@ -245,19 +196,13 @@ public class UISelectRole : UIBase {
 		arrayPlayerPosition [1] = new Vector3 (3, 0, 0);
 		arrayPlayerPosition [2] = new Vector3 (-3, 0, 0);
 
-		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
-		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
-		SetBtnFun (UIName + "/Right/GameStart", DoStart);
+		SetBtnFun (UIName + "/Left/Back", OnExit);
+		SetBtnFun (UIName + "/Right/GameStart", OnStart);
 		SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
         SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
 		SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 
-		animatorLeft = GameObject.Find (UIName + "/Left").GetComponent<Animator>();
-		animatorRight = GameObject.Find (UIName + "/Right").GetComponent<Animator>();
-		animatorLoading = GameObject.Find (UIName + "/Center/ViewLoading").GetComponent<Animator>();
-		uiShowTime = GameObject.Find(UIName + "/Center/ShowTimeCollider");
-		uiCharacterCheck = GameObject.Find(UIName + "/Right/CharacterCheck");
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
         labelsSelectABName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
         labelsSelectABName[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
@@ -321,117 +266,39 @@ public class UISelectRole : UIBase {
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);
-		//Invoke("hideSelectRoleAnimator", 2.5f);
 
-		//setTriangleData();
+        selectFriendMode();
 	}
 
-	private void UIState(EUIRoleSituation state) {
-		switch (state) {
-		case EUIRoleSituation.SelectRole:
-			uiChangPlayerA.SetActive(false);
-			uiChangPlayerB.SetActive(false);
-			
-			int roleIndex;
-			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out roleIndex)) {
-				if(selectRoleIndex != roleIndex) {
-					selectRoleIndex = roleIndex;
-					SetPlayerAvatar(0, roleIndex);
-					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-				}
-			}
-			
-			break;
-		case EUIRoleSituation.ChooseRole:
-			uiChangPlayerA.SetActive(true);
-			uiChangPlayerB.SetActive(true);
-			uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
-			arrayAnimator[0].SetTrigger("Idle");
-			uiShowTime.SetActive(false);
-			
-			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
-				int index = getFreeListIndex(i);
-				SetPlayerAvatar(i, index);
-				arrayPlayer[i].SetActive(false);
-			}
-			
-			animatorLeft.SetTrigger("Close");
-			animatorRight.SetTrigger("Close");
-			Invoke("otherPlayerDoAnimator", 0.5f);
-			Invoke("otherPlayerShowTime", 0.65f);
-			Invoke("loadingShow", 1f);
-			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-			
-			break;
-            case EUIRoleSituation.BackToSelectMe:
-                if(GameData.IsInstance) {
-                    Visible = false;
-                    if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
-                        UILoading.OpenUI = UILoading.OpenInstanceUI;
-                        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                    } else
-                        UIInstance.Get.ShowByStageID(GameData.StageID);
-                } else {
-                    Visible = false;
-                    if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
-                        UILoading.OpenUI = UILoading.OpenStageUI;
-                        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-                    } else
-                        UIMainStage.Get.Show(GameData.StageID);
-                }
-
-			    break;
-            case EUIRoleSituation.Start:
-				Visible = false;
-                if (GameData.IsPVP)
-                {
-                    SendPVPStart();
-                }
-                else
-                {
-                    if (GameStart.Get.ConnectToServer)
-                        mainStageStart(GameData.StageID);
-                    else
-                        enterGame();
-                }
-
-			break;
-		case EUIRoleSituation.ListA: // 1
-		case EUIRoleSituation.ListB: // 2
-			int mIndex;
-			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out mIndex)) {
-				SetPlayerAvatar((int)state, mIndex);
-			}
-			
-			break;
-		}
+	public void OnStart(){
+        Visible = false;
+        if (GameData.IsPVP)
+            SendPVPStart();
+        else {
+            if (GameStart.Get.ConnectToServer)
+                mainStageStart(GameData.StageID);
+            else
+                enterGame();
+        }
 	}
 
-	public void DoBackToSelectMe() {
-		if(doubleClickTime == 0) {
-			doubleClickTime = 1;
-			UIState(EUIRoleSituation.BackToSelectMe);
-		}
-	}
-
-	public void DoStart(){
-		UIState(EUIRoleSituation.Start);
-	}
-
-	public void DoListA() {
-		UIState(EUIRoleSituation.ListA);
-	}
-
-	public void DoListB(){
-		UIState(EUIRoleSituation.ListB);
-	}
-
-	public void DoChooseRole() {
-		if(doubleClickTime == 0) {
-			doubleClickTime = 1;
-			UIState(EUIRoleSituation.ChooseRole);
-		}
-	}
+    public void OnExit() {
+        if(GameData.IsInstance) {
+            Visible = false;
+            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
+                UILoading.OpenUI = UILoading.OpenInstanceUI;
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            } else
+                UIInstance.Get.ShowByStageID(GameData.StageID);
+        } else {
+            Visible = false;
+            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby) {
+                UILoading.OpenUI = UILoading.OpenStageUI;
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            } else
+                UIMainStage.Get.Show(GameData.StageID);
+        }
+    }
 
     public void OnStrategy() {
         UIStrategy.Visible = true;
@@ -476,24 +343,6 @@ public class UISelectRole : UIBase {
 	public void OnSkillCard() {
         UISelectPartner.Visible = false;
         UISkillFormation.Visible = true;
-	}
-
-	public void SelectRole() {
-		UIState(EUIRoleSituation.SelectRole);
-	}
-
-	public void SetBodyPic(ref UISprite Pic, int Type) {
-		switch(Type) {
-		case 1:
-			Pic.spriteName = "L_namecard_FORWARD";
-			break;
-		case 2:
-			Pic.spriteName = "L_namecard_GUARD";
-			break;
-		default:
-			Pic.spriteName = "L_namecard_CENTER";
-			break;
-		}
 	}
 
 	public void SetPlayerAvatar(int roleIndex, int index) {
@@ -564,20 +413,9 @@ public class UISelectRole : UIBase {
 		arrayPlayer[2].transform.localPosition = new Vector3(-X_Partner, Y_Partner, Z_Partner);
 	}
 
-	private void loadingShow(){
-		animatorLoading.SetTrigger("Open");
-	}
-
-	private void leftRightShow(){
-		animatorLeft.SetTrigger("Open");
-		animatorRight.SetTrigger("Open");
-	}
-
 	private void waitLookFriends() {
         GameData.Team.InitFriends();
 	    InitPlayerList(ref GameData.Team.Friends);
-		selectFriendMode();
-		UIState(EUIRoleSituation.ChooseRole);
 	}
 
     public void InitPlayer() {
@@ -588,10 +426,8 @@ public class UISelectRole : UIBase {
                 arrayPlayer[i].SetActive(true);
             }
         
-        if (arrayPlayer[1]) {
+        if (arrayPlayer[1])
             arrayPlayer[1].transform.localPosition = new Vector3(X_Partner, 0, Z_Partner);
-            //arrayPlayer[1].transform.localEulerAngles = new Vector3(0, -150, 0);
-        }
     }
 
     public void LoadStage(int stageID) {
@@ -605,15 +441,11 @@ public class UISelectRole : UIBase {
 					UILoading.Get.ProgressValue = 0.7f;
 			} else 
                 waitLookFriends();
-		} else {
+		} else
 			InitPlayerList(ref StageTable.Ins.GetByID(GameData.StageID).FriendID);
-			selectFriendMode();
-			UIState(EUIRoleSituation.ChooseRole);
-		}
 	}
 
 	private void selectFriendMode() {
-		uiCharacterCheck.SetActive(false);
 		doubleClickTime = 1;
 
         GameData.Team.Player.Init();
@@ -635,6 +467,21 @@ public class UISelectRole : UIBase {
         obj.transform.localPosition = Vector3.zero;
 		LayerMgr.Get.SetLayer(obj, ELayer.Default);
 		arrayAnimator[0] = arrayPlayer[0].GetComponent<Animator>();
+
+        uiChangPlayerA.SetActive(true);
+        uiChangPlayerB.SetActive(true);
+        uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
+        arrayAnimator[0].SetTrigger("Idle");
+
+        for(int i = 1; i < arrayPlayerPosition.Length; i++) {
+            int index = getFreeListIndex(i);
+            SetPlayerAvatar(i, index);
+            arrayPlayer[i].SetActive(false);
+        }
+
+        Invoke("otherPlayerDoAnimator", 0.5f);
+        Invoke("otherPlayerShowTime", 0.65f);
+        arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 	}
 
 	private int getFreeListIndex(int roleIndex) {

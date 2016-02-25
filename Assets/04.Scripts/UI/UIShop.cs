@@ -24,7 +24,10 @@ public class TShopItemObj {
     public ItemAwardGroup AwardGroup;
     public UILabel LabelName;
     public UILabel LabelPrice;
+    public UILabel LabelSuitCount;
     public UISprite SpriteSpendKind;
+    public UISprite SpriteSuit; 
+    public UIButton ButtonSuit; 
     public UIButton ButtonBuy;
 }
 
@@ -167,6 +170,11 @@ public class UIShop : UIBase {
             if (item.ButtonBuy)
                 SetBtnFun(ref item.ButtonBuy, OnBuy);
 
+            item.ButtonSuit = GameObject.Find(name + "/SuitItem").GetComponent<UIButton>();
+            if (item.ButtonSuit)
+                SetBtnFun(ref item.ButtonSuit, OnSuitItem);
+
+            item.SpriteSuit = GameObject.Find(name + "/SuitItem").GetComponent<UISprite>();
             item.UISuit = GameObject.Find(name + "/FittingIcon");
             item.UISoldout = GameObject.Find(name + "/SoldOutIcon");
             GameObject obj = GameObject.Find(name + "/ItemAwardGroup");
@@ -182,6 +190,7 @@ public class UIShop : UIBase {
                 }
             }
 
+            item.LabelSuitCount = GameObject.Find(name + "/SuitItem/CountLabel").GetComponent<UILabel>();
             item.LabelName = GameObject.Find(name + "/ItemName").GetComponent<UILabel>();
             item.LabelPrice = GameObject.Find(name + "/BuyBtn/PriceLabel").GetComponent<UILabel>();
             item.SpriteSpendKind = GameObject.Find(name + "/BuyBtn/Icon").GetComponent<UISprite>();
@@ -201,9 +210,6 @@ public class UIShop : UIBase {
         shopItemList[page][index].Index = index;
         shopItemList[page][index].Data = data;
         shopItemList[page][index].LabelName.text = GameData.DItemData[data.ID].Name;
-        if (data.Num > 1)
-            shopItemList[page][index].LabelName.text += "X" + data.Num.ToString();
-        
         shopItemList[page][index].UISoldout.SetActive(data.Num <= 0);
         shopItemList[page][index].UISuit.SetActive(false);
         shopItemList[page][index].LabelPrice.text = NumFormater.Convert(data.Price);
@@ -213,9 +219,36 @@ public class UIShop : UIBase {
         shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag, 1);
         shopItemList[page][index].LabelPrice.color = GameData.CoinEnoughTextColor(flag, shopItemList[page][index].Data.SpendKind);
 
+        if (GameData.DItemData[data.ID].Kind < 8) {
+            int id = GameData.DItemData[data.ID].SuitItem;
+            if (GameData.DSuitItem.ContainsKey(id))
+                shopItemList[page][index].LabelSuitCount.text = string.Format("{0}/{1}", GameData.Team.SuitItemCompleteCount(id), GameData.DSuitItem[id].ItemLength);
+        } else
+        if (GameData.DItemData[data.ID].Kind == 21) {
+            shopItemList[page][index].SpriteSuit.spriteName = "SuitLight";
+            int id = GameData.DItemData[data.ID].SuitCard;
+            if (GameData.DSuitCard.ContainsKey(id)) 
+                shopItemList[page][index].LabelSuitCount.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
+        } else
+            shopItemList[page][index].ButtonSuit.gameObject.SetActive(false);
 
-        if (GameData.DItemData.ContainsKey(data.ID))
+        if (shopItemList[page][index].ButtonSuit.gameObject.activeInHierarchy) {
+            if (!GameData.Team.IsGetItem(data.ID)) {
+                shopItemList[page][index].ButtonSuit.defaultColor = Color.gray;
+                shopItemList[page][index].ButtonSuit.hover = Color.gray;
+                shopItemList[page][index].ButtonSuit.pressed = Color.gray;
+            } else {
+                shopItemList[page][index].ButtonSuit.defaultColor = Color.white;
+                shopItemList[page][index].ButtonSuit.hover = Color.white;
+                shopItemList[page][index].ButtonSuit.pressed = Color.white; 
+            }
+        }
+
+        if (GameData.DItemData.ContainsKey(data.ID)) {
             shopItemList[page][index].AwardGroup.Show(GameData.DItemData[data.ID]);
+            if (data.Num > 1)
+                shopItemList[page][index].AwardGroup.SetAmountText("X" + data.Num.ToString());
+        }
     }
 
     void FixedUpdate() {
@@ -285,6 +318,10 @@ public class UIShop : UIBase {
             int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
             shopItemList[nowPage][nowIndex].Data.Num > 0)
             UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+    }
+
+    public void OnSuitItem() {
+        
     }
 
     private void checkOtherSuit(int kind, int page, int index) {

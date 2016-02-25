@@ -21,6 +21,20 @@ public class GameJoystick : ETCJoystick {
         onMove.AddListener(player.OnJoystickMove);
         onMoveEnd.AddListener(player.OnJoystickMoveEnd);
 		onTouchUp.AddListener(ShowJoystick);
+
+        onMoveStart.AddListener(OnTutorial);
+        onMove.AddListener(OnTutorialMove);
+        onTouchStart.AddListener(OnTutorial);
+    }
+
+    public void OnTutorialMove(Vector2 v) {
+        if (UITutorial.Visible) 
+           UITutorial.Get.OnTutorial();
+    }
+
+    public void OnTutorial() {
+        if (UITutorial.Visible) 
+            UITutorial.Get.OnTutorial();
     }
 
 	public void SetJoystickType (JoystickType type) {

@@ -321,6 +321,12 @@ public class BallTrigger : MonoBehaviour
 		CameraMgr.Get.IsLongPass = false;
 	}
 
+    public void Reset() {
+        ParentRigidbody.velocity = Vector3.zero;
+        followObject = null;
+        Parabolamove = false;
+    }
+
 	void FixedUpdate()
 	{
 		CalculationParabolaMove();

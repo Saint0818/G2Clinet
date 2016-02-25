@@ -461,9 +461,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
 
-//			    var dailyLoginNum = GameData.Team.GetDailyLoginNum(DateTime.Now.Year, DateTime.Now.Month);
-//			    Debug.LogFormat("Daily: {0}-{1}, LoginNum:{2}", DateTime.Now.Year, DateTime.Now.Month, dailyLoginNum);
-//			    Debug.LogFormat("Lifetime LoginNum:{0}", GameData.Team.LifetimeRecord.LoginNum);
+//			    Debug.LogFormat("DailyLogin, [{0},{1},{2}]", GameData.Team.DailyLoginRewardYear, GameData.Team.DailyLoginRewardMonth, GameData.Team.DailyLoginRewardIndex);
+//			    Debug.LogFormat("LifeTimeLoginNum:{0}", GameData.Team.LifeTimeLoginNum);
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();
@@ -487,7 +486,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     StartCoroutine(longPollingSocialEvent(0));
                     StartCoroutine(longPollingWatchFriends(0));
 
-					UILoading.OpenUI = UILoading.OpenAnnouncement;
+					UILoading.OpenUI = UILoading.OpenNotic;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 				}
 			} catch (Exception e) {

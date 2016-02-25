@@ -12,8 +12,8 @@ public class UI3DTutorial : UIBase {
 	private Animator[] manAnimator = new Animator[manNum];
 	private TAvatar[] manData = new TAvatar[manNum];
 	private int[] manBodyType = new int[manNum];
-	private int[] manID = new int[2];
-	private int[] actionNo = new int[2];
+    private int[] manID = new int[manNum];
+    private int[] actionNo = new int[manNum];
 
 	public static bool Visible
 	{
@@ -37,10 +37,17 @@ public class UI3DTutorial : UIBase {
 	}
 
 	void OnDestroy() {
-		releaseTalkMan();
+		ReleaseTalkMan();
 	}
 
-	private void releaseTalkMan() {
+	public void ReleaseTalkMan() {
+        for (int i = 0; i < manNum; i++) {
+            Destroy(talkMan[i]);
+            manRender[i] = null;
+            manAnimator[i] = null;
+            manID[i] = 0;
+        }
+
 		for (int i = 0; i < manRender.Length; i++) 
 			manRender[i] = null;
 

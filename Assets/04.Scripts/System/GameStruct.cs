@@ -1103,7 +1103,8 @@ namespace GameStruct
 		public int Kind;
 		public string Title;
 		public string UIName;
-		public int Value;
+        public float Wait;
+        public int Value;
 		public int Offsetx;
 		public int Offsety;
 		public int TalkIndex;
@@ -1113,10 +1114,15 @@ namespace GameStruct
 		public int ActionR;
 		public string UIPath;
         public string HintPath;
+        public string ScalePath;
 		public string TextTW;
 		public string TextCN;
 		public string TextJP;
 		public string TextEN;
+        public string HintTW;
+        public string HintCN;
+        public string HintJP;
+        public string HintEN;
 		
 		public string Text {
 			get{
@@ -1128,6 +1134,17 @@ namespace GameStruct
 				}
 			}
 		}
+
+        public string Hint {
+            get{
+                switch(GameData.Setting.Language){
+                    case ELanguage.TW: return HintTW;
+                    case ELanguage.CN: return HintCN;
+                    case ELanguage.JP: return HintJP;
+                    default: return HintEN;
+                }
+            }
+        }
 	}
 
     public struct TMission {
