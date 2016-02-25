@@ -5,6 +5,7 @@ public class UIStrategy : UIBase {
     private static UIStrategy instance = null;
     private const string UIName = "UIStrategy";
     private const int strantegyNum = 3;
+    private int mStrategy;
 
     public UILabel LabelStrategy;
     private UIToggle[] toggleStrantegy = new UIToggle[strantegyNum];
@@ -19,13 +20,19 @@ public class UIStrategy : UIBase {
 
         set {
             if (instance) {
-                if (!value)
+                if (!value) {
+                    if (UIGame.Visible && GameData.Team.Player.Strategy != instance.mStrategy)
+                        UIHint.Get.ShowHint(TextConst.S(10211) + TextConst.S(15102 + GameData.Team.Player.Strategy), Color.white);
+                    
                     RemoveUI(UIName);
-                else
+                } else
                     instance.Show(value);
             } else
-                if (value)
-                    Get.Show(value);
+            if (value)
+                Get.Show(value);
+
+            if (value)
+                instance.mStrategy = GameData.Team.Player.Strategy;
         }
     }
 
@@ -61,17 +68,13 @@ public class UIStrategy : UIBase {
             toggleStrantegy[i] = GameObject.Find(UIName + "/Window/Center/MainView/" + i.ToString()).GetComponent<UIToggle>();
     }
 
-    protected override void InitData() {
-
-    }
-
     public void OnClose() {
         Visible = false;
     }
 
     public void OnSelect() {
         int index = -1;
-        if (int.TryParse(UIButton.current.name, out index)) {
+        if (int.TryParse(UIButton.current.name, out index) && GameData.Team.Player.Strategy != index) {
             GameData.Team.Player.Strategy = index;
 
             if (index == 0)
@@ -81,9 +84,12 @@ public class UIStrategy : UIBase {
                 GameData.Team.AttackTactical = ETacticalAuto.AttackShoot2;
             else
                 GameData.Team.AttackTactical = ETacticalAuto.AttackShoot3;
-            
+
+            if (AIController.Visible)
+                AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
+
             if (LabelStrategy != null)
-                LabelStrategy.text = TextConst.S(15002 + GameData.Team.Player.Strategy);
+                LabelStrategy.text = GameData.Team.Player.StrategyText;
 
             WWWForm form = new WWWForm();
             form.AddField("Strategy", index.ToString());

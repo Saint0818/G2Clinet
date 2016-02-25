@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "  {0} Out"
+        "en": "  {0} Out"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": "  {0:00} day {1:00} when"
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": "  {0:00} when {1:00} minutes"
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": "  {0:00} sub {1:00} seconds"
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
@@ -1838,13 +1838,13 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -2042,7 +2042,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": "  {0} ago"
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
@@ -2163,7 +2163,7 @@
     {
         "id": 5031,
         "tw": " [969696FF]搜尋符合[-]",
-        "en": "  [969696FF] Search accord [-] "
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
@@ -3307,7 +3307,8 @@
         "id": 9515,
         "explain": "戰術",
         "uipeth": "StrategyBtn",
-        "tw": "戰 術"
+        "tw": "戰 術",
+        "en": "Strategy"
     },
     {
         "id": 9516,
@@ -3324,7 +3325,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": "  {0} in use"
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
@@ -3372,7 +3373,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "The next stage\n  {0} "
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,
@@ -3695,6 +3696,11 @@
         "explain": "戰場內秀戰術",
         "tw": "目前戰術：[00ff00]{0}[-]",
         "en": "Strategy: [00ff00]{0}[-]"
+    },
+    {
+        "id": 10211,
+        "tw": "變換戰術為",
+        "en": "Changing strategy for"
     },
     {
         "id": 10301,

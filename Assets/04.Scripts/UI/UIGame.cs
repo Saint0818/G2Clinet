@@ -104,6 +104,7 @@ public class UIGame : UIBase
     private UILabel[] labelTopLeftScore = new UILabel[2];
     private GameObject uiLimitTime;
     private UILabel labelLimitTime;
+    public UILabel LabelStrategy;
 
     //Right
     private GameObject uiPlayerLocation;
@@ -331,6 +332,7 @@ public class UIGame : UIBase
         labelTopLeftScore[1] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Away").GetComponent<UILabel>();
         uiLimitTime = GameObject.Find(UIName + "/TopLeft/Countdown");
         labelLimitTime = GameObject.Find(UIName + "/TopLeft/Countdown/TimeLabel").GetComponent<UILabel>();
+        LabelStrategy = GameObject.Find(UIName + "/TopLeft/StrategyLabel").GetComponent<UILabel>();
         SetBtnFun(UIName + "/TopLeft/ButtonPause", OnPause);
 		
         //Right
@@ -406,6 +408,7 @@ public class UIGame : UIBase
         labelTopLeftScore[0].text = "0";
         labelTopLeftScore[1].text = "0";
         uiForceNum.text = "0/[13CECEFF]" + GameData.Team.Player.MaxAnger + "[-]";
+        LabelStrategy.text = string.Format(TextConst.S(9602), GameData.Team.Player.StrategyText);
         spriteForce.fillAmount = 0;
         spriteForceFirst.fillAmount = 0;
         showUITime();
@@ -425,18 +428,12 @@ public class UIGame : UIBase
         ChangeControl(true);
         showViewForceBar(true);
         ShowSkillEnableUI(false);
-//		drawLine.IsShow = false;
     }
 
     public void InitTutorialUI()
     {
         uiSpeed.SetActive(false);
         uiPause.SetActive(false);
-    }
-
-    protected override void InitText()
-    {
-
     }
 
     private void initJoystickPos()

@@ -830,7 +830,7 @@ public class GameController : KnightSingleton<GameController>
 		if (IsTimePass())
 			gameResult();
 
-		if (IsFinish && !CourtMgr.Get.IsBallOffensive) {
+        if (IsFinish && !GameRecord.Done && !CourtMgr.Get.IsBallOffensive) {
 			CameraMgr.Get.FinishGame();
 			GameRecord.Done = true;
 			SetGameRecord();
@@ -3733,7 +3733,8 @@ public class GameController : KnightSingleton<GameController>
         int num = Mathf.Min(PlayerList.Count, CourtMgr.Get.EndPlayerPosition.Length);
 		for (int i=0; i< num; i++) {
             PlayerList[i].DefPlayer = null;
-			PlayerList[i].Reset();
+            PlayerList[i].Reset();
+            PlayerList[i].ResetFlag();
             PlayerList[i].ResetMove();
             PlayerList[i].AniState(EPlayerState.Idle);
 			PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;

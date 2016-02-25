@@ -748,5 +748,9 @@ namespace GameStruct
                 LifetimeRecord = value;
             }
         }
+
+        public string StrategyText {
+            get {return TextConst.S(15002 + Strategy);}
+        }
     } // end of the struct.
 } // end of the namespace.

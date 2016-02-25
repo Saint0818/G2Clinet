@@ -18,7 +18,6 @@ public class UISelectRole : UIBase {
 	private const float Y_Player = 0.25f;
 
 	private float roleFallTime = 0;
-	private int selectRoleIndex = 0;
 	private float doubleClickTime = 3;
 
 	public GameObject playerInfoModel = null;
@@ -262,7 +261,7 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
 			arrayPlayer[i].SetActive(false);
 
-        labelStrategy.text = TextConst.S(15002 + GameData.Team.Player.Strategy);
+        labelStrategy.text = GameData.Team.Player.StrategyText;
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1.1f);

@@ -112,11 +112,17 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
+        SetBtnFun (UIName + "/TopRight/ViewTools/StrategyBtn", OnStrategy);
         SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
         SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
 
 		buttonPlayerInfo.gameObject.SetActive(false);
 	}
+
+    protected override void InitText()
+    {
+        SetLabel(UIName + "/TopRight/ViewTools/StrategyBtn/StrategyLabel", "");
+    }
 
 	private void initHomeAway (){
 		int basemin = 0;
@@ -318,6 +324,12 @@ public class UIGamePause : UIBase {
 		uiStageHint.Show();
 		uiGameResult.SetActive(false);
 	}
+
+    public void OnStrategy() {
+        UIStrategy.Visible = true;
+        if (UIGame.Visible)
+            UIStrategy.Get.LabelStrategy = UIGame.Get.LabelStrategy;
+    }
 
 	public void OptionSelect(){
 		UISetting.UIShow(true, false);

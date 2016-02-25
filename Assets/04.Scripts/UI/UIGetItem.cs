@@ -96,4 +96,8 @@ public class UIGetItem : UIBase {
             itemList.Add(obj);
         }
     }
+
+    public void SetTitle(string text) {
+        SetLabel(UIName + "/Center/TitleLabel", text);
+    }
 }
