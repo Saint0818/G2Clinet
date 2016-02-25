@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -10,13 +9,15 @@ public class UIStageElement : MonoBehaviour
 {
     public class Data
     {
-        public string NormalIcon;
-        public string PressIcon;
+        public string BGNormalIcon;
+        public string BGPressIcon;
 
         public bool IsEnable;
         public string ErrMsg;
 
         public bool IsSelected;
+
+        public bool ShowClear;
     }
 
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
@@ -24,6 +25,7 @@ public class UIStageElement : MonoBehaviour
 
     public UISprite KindSprite;
     public GameObject SelectedMark;
+    public GameObject ClearMark;
 
     /// <summary>
     /// 撥 Animation 時, 關卡經過幾秒後, 會變成可點選的狀態.
@@ -64,13 +66,12 @@ public class UIStageElement : MonoBehaviour
         mData = data;
         mInfoData = infoData;
 
-        mButton.normalSprite = mData.NormalIcon;
-        mButton.hoverSprite = mData.NormalIcon;
-        mButton.pressedSprite = mData.PressIcon;
-
-//        KindSprite.spriteName = mInfoData.KindSpriteName;
+        mButton.normalSprite = mData.BGNormalIcon;
+        mButton.hoverSprite = mData.BGNormalIcon;
+        mButton.pressedSprite = mData.BGPressIcon;
 
         SelectedMark.SetActive(data.IsSelected);
+        ClearMark.SetActive(data.ShowClear);
     }
 
     public void PlayUnlockAnimation()

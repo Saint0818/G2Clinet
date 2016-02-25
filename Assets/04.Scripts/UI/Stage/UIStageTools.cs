@@ -100,6 +100,12 @@ public static class UIStageTools
         return result;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <param name="errMsg"></param>
+    /// <returns> true: 關卡可以打; false: 關卡不能打. </returns>
     public static bool VerifyPlayerChallengeOnlyOnce(TStageData stageData, out string errMsg)
     {
         errMsg = String.Empty;

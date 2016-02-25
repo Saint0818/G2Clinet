@@ -236,35 +236,25 @@ public class UIMainStage : UIBase
             IsSelected = stageData.ID == GameData.Team.Player.NextMainStageID
         };
         elementData.IsEnable = UIStageTools.VerifyPlayerProgress(stageData, out elementData.ErrMsg);
-        if(elementData.IsEnable)
+        if(elementData.IsEnable) // 再一次驗證關卡是不是只能打一次.
+        {
             elementData.IsEnable = UIStageTools.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
+            elementData.ShowClear = !elementData.IsEnable;
+        }
 
         if(stageData.Kind != 9)
         {
-            elementData.NormalIcon = elementData.IsEnable ? "StageButton01" : "StageButton03";
-            elementData.PressIcon = elementData.IsEnable ? "StageButton02" : "StageButton03";
+            elementData.BGNormalIcon = elementData.IsEnable ? "StageButton01" : "StageButton03";
+            elementData.BGPressIcon = elementData.IsEnable ? "StageButton02" : "StageButton03";
             mMain.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
         }
         else
         {
-            elementData.NormalIcon = elementData.IsEnable ? "2000009" : "StageButton09";
-            elementData.PressIcon = elementData.IsEnable ? "StageButton08" : "StageButton09";
+            elementData.BGNormalIcon = elementData.IsEnable ? "2000009" : "StageButton09";
+            elementData.BGPressIcon = elementData.IsEnable ? "StageButton08" : "StageButton09";
             mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
         }
     }
-
-//    private void addLockStage(TStageData stageData)
-//    {
-//        if(!verify(stageData))
-//            return;
-//
-//        Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-//
-//        if(stageData.Kind != 9)
-//            mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
-//        else
-//            mMain.AddLockBossStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
-//    }
 
     /// <summary>
     /// 根據玩家的進度, 設定下一個章節為 lock 狀態.
