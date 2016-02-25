@@ -88,6 +88,13 @@ namespace GameStruct
 	    {
 			return string.Format("ID: {0}, Lv: {1}, Exp: {2}, SN: {3}", ID, Lv, Exp, SN);
 	    }
+
+		public void Reset () {
+			this.ID = 0;
+			this.Lv = 0;
+			this.Exp = 0;
+			this.SN = 0;
+		}
 	}
 
     public struct TSkillRecommend {

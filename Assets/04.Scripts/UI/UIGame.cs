@@ -99,6 +99,7 @@ public class UIGame : UIBase
 
     //TopLeft
     private GameObject uiSpeed;
+	private UILabel labelSpeed;
     private GameObject uiPause;
     private GameObject viewTopLeft;
     private UILabel[] labelTopLeftScore = new UILabel[2];
@@ -214,19 +215,19 @@ public class UIGame : UIBase
     {
         if (GameController.Get.IsStart)
         {
-            if (PlayerMe && !IsPlayerAttack)
+            if (PlayerMe && IsPlayerAttack)
             {
                 if (isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange)
                 {
                     if (isShowPushRange)
                     {
-                        nearP = GameController.Get.NpcSelectMe;
-                        CourtMgr.Get.RangeOfActionEuler(MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position));
+						CourtMgr.Get.RangeOfActionEuler(0);
                     }
                     else if (isShowStealRange)
                     {
-                        if (GameController.Get.BallOwner != null)
-                            CourtMgr.Get.RangeOfActionEuler(MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.transform.position));
+						if (GameController.Get.BallOwner != null) {
+							CourtMgr.Get.RangeOfActionEuler(0);
+						}
                     }
                     if (skillRangeTarget != null)
                         CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
@@ -326,6 +327,7 @@ public class UIGame : UIBase
 		
         //TopLeft
         uiSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed");
+		labelSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
         uiPause = GameObject.Find(UIName + "/TopLeft/ButtonPause");
         viewTopLeft = GameObject.Find(UIName + "TopLeft");
         labelTopLeftScore[0] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Home").GetComponent<UILabel>();
@@ -427,7 +429,9 @@ public class UIGame : UIBase
         }
         ChangeControl(true);
         showViewForceBar(true);
-        ShowSkillEnableUI(false);
+		ShowSkillEnableUI(false);
+		refreshSpeedLabel ();
+//		drawLine.IsShow = false;
     }
 
     public void InitTutorialUI()
@@ -779,14 +783,29 @@ public class UIGame : UIBase
         if (Time.timeScale == 1) 
             Time.timeScale = 2;
         else if (Time.timeScale == 2) 
-            Time.timeScale = 0.5f;
-        else if (Time.timeScale == 0.5f) 
+			Time.timeScale = 4;
+		else if (Time.timeScale == 4) 
+			Time.timeScale = 0.5f;
+		else if (Time.timeScale == 0.5f) 
             Time.timeScale = 1;
         #endif
-   
+		refreshSpeedLabel ();
         GameStart.Get.GameSpeed = Time.timeScale;
         GameController.Get.RecordTimeScale = Time.timeScale;
     }
+
+	private void refreshSpeedLabel () {
+		labelSpeed.text = "X" + Time.timeScale.ToString();
+//		if(Time.timeScale == 1) {
+//			labelSpeed.text = TextConst.S(10206);
+//		} else if(Time.timeScale == 0.5f) {
+//			labelSpeed.text = TextConst.S(10207);
+//		} else if(Time.timeScale == 2) {
+//			labelSpeed.text = TextConst.S(10208);
+//		} else if(Time.timeScale == 4) {
+//			labelSpeed.text = TextConst.S(10209);
+//		}
+	}
 
     public void DoShoot(GameObject go, bool state)
     {
@@ -1239,7 +1258,7 @@ public class UIGame : UIBase
                             if (noAI)
                             {
                                 UIMaskState(EUIControl.Attack);
-                                showRange(EUIRangeType.Elbow, true);
+								isShowElbowRange = true;
                             }
                             else
                                 ResetRange();
@@ -1257,7 +1276,7 @@ public class UIGame : UIBase
                             if (noAI)
                             {
                                 UIMaskState(EUIControl.Attack);
-                                showRange(EUIRangeType.Push, true);
+								isShowPushRange = true;
                             }
                             else
                                 ResetRange();
@@ -1287,7 +1306,7 @@ public class UIGame : UIBase
                         if (noAI)
                         {
                             UIMaskState(EUIControl.Steal);
-                            showRange(EUIRangeType.Steal, true);
+							isShowStealRange = true;
                         }
                         else
                             ResetRange();

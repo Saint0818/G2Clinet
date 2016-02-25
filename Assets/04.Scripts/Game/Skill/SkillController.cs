@@ -235,6 +235,12 @@ public class SkillController : MonoBehaviour {
 			}
 		}
 	}
+
+	public void ResetUseSkill () {
+		PassiveSkillUsed.Reset();
+		ActiveSkillUsed.Reset();
+	}
+
 	//PassiveSkill======================================================================================
 	//judge Passer to Catcher Angle
 	private int judgeDirect(float angle) {
@@ -452,7 +458,7 @@ public class SkillController : MonoBehaviour {
 								skill.ID = 1100;
 							}			
 							skill.Lv = MoveDodgeLv;
-							executePlayer.PassiveSkillUsed = skill;
+							PassiveSkillUsed = skill;
 							
 							GameController.Get.CoolDownCrossover = Time.time + 4;
 							Result = executePlayer.AniState(playerState);
