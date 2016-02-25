@@ -33,6 +33,9 @@ public class TItemAvatar
     private UISprite TrimBottom;
     private UISprite SellSelect;
     private UISprite EquipedIcon;
+    private UILabel labelSuitCount;
+    private UISprite spriteSuit;
+    private UIButton buttonSuit; 
     private TimeSpan currentTime;
     public int BackageSort;
     //-1 : Player.Item
@@ -204,6 +207,9 @@ public class TItemAvatar
             SellSelect = self.transform.FindChild("SellSelect").gameObject.GetComponent<UISprite>();
             SellSelect.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(8007);
             self.transform.FindChild("EquipedIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(8107);
+            buttonSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UIButton>();
+            spriteSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UISprite>();
+            labelSuitCount = self.transform.FindChild("SuitItem/CountLabel").gameObject.GetComponent<UILabel>();
             Selected = false;
             EquipedIcon = self.transform.FindChild("EquipedIcon").gameObject.GetComponent<UISprite>();
             equipBtn = self.transform.GetComponent<UIButton>();
@@ -276,13 +282,42 @@ public class TItemAvatar
             PriceLabel.text = GameData.DItemData[id].Buy.ToString();
             BuyInfoLabel.text = TextConst.StringFormat(8005, GameData.DItemData[id].Potential);
             getModeLabel.text = TextConst.StringFormat(8004, GameData.DItemData[id].Potential);
-		
+            SetSuitItem(id, buttonSuit, spriteSuit, labelSuitCount);
             UpdateBtnUseState();
         }
         else
         {
             id = 0;
             Enable = false;
+        }
+    }
+
+    private void SetSuitItem(int itemID, UIButton btn, UISprite sp, UILabel lab) {
+        if (btn && sp && lab) {
+            if (GameData.DItemData[itemID].Kind < 8) {
+                int id = GameData.DItemData[itemID].SuitItem;
+                if (GameData.DSuitItem.ContainsKey(id))
+                    lab.text = string.Format("{0}/{1}", GameData.Team.SuitItemCompleteCount(id), GameData.DSuitItem[id].ItemLength);
+            } else
+                if (GameData.DItemData[itemID].Kind == 21) {
+                    sp.spriteName = "SuitLight";
+                    int id = GameData.DItemData[itemID].SuitCard;
+                    if (GameData.DSuitCard.ContainsKey(id)) 
+                        lab.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
+                } else
+                    btn.gameObject.SetActive(false);
+
+            if (btn.gameObject.activeInHierarchy) {
+                if (!GameData.Team.IsGetItem(itemID)) {
+                    btn.defaultColor = Color.gray;
+                    btn.hover = Color.gray;
+                    btn.pressed = Color.gray;
+                } else {
+                    btn.defaultColor = Color.white;
+                    btn.hover = Color.white;
+                    btn.pressed = Color.white; 
+                }
+            }
         }
     }
 
@@ -438,7 +473,6 @@ public class UIAvatarFitted : UIBase
 
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
         SetBtnFun(UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
-		GameObject.Find (UIName + "/MainView/BottomLeft/SortBtn").SetActive (false);
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
         SellCount = GameObject.Find(UIName + "/MainView/BottomLeft/SellBtn/SellCount");
@@ -517,7 +551,7 @@ public class UIAvatarFitted : UIBase
                 total += backpackItems[i].SellPrice;
 
         totalPrice = total;
-        TotalPriceLabel.text = string.Format("Total : {0}", totalPrice);
+        TotalPriceLabel.text = NumFormater.Convert(totalPrice);
     }
 
     private bool CheckSameEquip()

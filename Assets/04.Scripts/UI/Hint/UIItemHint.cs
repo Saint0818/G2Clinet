@@ -56,7 +56,7 @@ public class UIItemHint : UIBase {
             uiBuy.SetActive(true);
             callbackBuy = callback;
             sellItemData = data;
-            labelPrice.text = data.Price.ToString();
+            labelPrice.text = NumFormater.Convert(data.Price);
             labelCount.text = string.Format(TextConst.S(4513), data.Num);
             spriteCoin.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
             FreshUI();

@@ -81,7 +81,7 @@ public class FileManager : KnightSingleton<FileManager>
 
     private static string[] downloadFiles =
     {
-	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
+        "greatplayer", "tactical", "baseattr", "ballposition", "skill", "stage", "item", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
         "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
         "lifetime", "potential"
@@ -201,8 +201,8 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[2] = parseBaseAttr;
 		downloadCallBack[3] = parseBasketShootPositionData;
 		downloadCallBack[4] = parseSkillData;
-		downloadCallBack[5] = parseItemData;
-		downloadCallBack[6] = parseStageData;
+        downloadCallBack[5] = parseStageData;
+        downloadCallBack[6] = parseItemData;
 		downloadCallBack[7] = parseStageChapterData;
 		downloadCallBack[8] = parseCreateRoleData;
 		downloadCallBack[9] = parseAISkillData;
@@ -571,6 +571,14 @@ public class FileManager : KnightSingleton<FileManager>
 					GameData.DItemData.Add(data[i].ID, data[i]);
 				else 
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
+
+                #if UNITY_EDITOR
+                if (data[i].StageSource != null) {
+                    for (int j = 0; j < data[i].StageSource.Length; j++)
+                        if (StageTable.Ins.GetByID(data[i].StageSource[j]).ChallengeOnlyOnce)
+                            Debug.LogError(string.Format("Item source error stage item id {0} stage id {1}", data[i].ID, data[i].StageSource[j]));
+                }
+                #endif
 			}
 			
 			if(isSaveVersion)

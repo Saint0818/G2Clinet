@@ -8,7 +8,7 @@
     {
         "id": 202,
         "tw": "技能晶片",
-        "en": "Ability Micro Chips"
+        "en": "Ability Disk"
     },
     {
         "id": 203,
@@ -473,7 +473,7 @@
         "id": 533,
         "explain": "技能晶片裝備成功",
         "tw": "技能晶片變更完成。",
-        "en": "Skills wafer change completion."
+        "en": "Ability disk change completion."
     },
     {
         "id": 534,
@@ -685,7 +685,7 @@
         "id": 1011,
         "explain": "潛能按鈕",
         "tw": "潛 能",
-        "en": "Potential"
+        "en": "Attribute"
     },
     {
         "id": 1012,
@@ -890,7 +890,7 @@
         "id": 3018,
         "uipeth": "SkillPointBtn/Icon",
         "tw": "潛能分配",
-        "en": "Potential Distribution"
+        "en": "Attribute Distribution"
     },
     {
         "id": 3019,
@@ -966,37 +966,37 @@
         "id": 3201,
         "explain": "玩家資訊-潛能成長",
         "tw": "潛能成長",
-        "en": "Potential Growth"
+        "en": "Attribute Growth"
     },
     {
         "id": 3202,
         "uipeth": "PointView/HeadingLabel",
         "tw": "潛能點",
-        "en": "Potential Points"
+        "en": "Attribute Points"
     },
     {
         "id": 3203,
         "uipeth": "SubheadLabel1",
         "tw": "升級點數",
-        "en": "Level Potential"
+        "en": "Level Attribute"
     },
     {
         "id": 3204,
         "uipeth": "SubheadLabel2",
         "tw": "造型點數",
-        "en": "Style Potential"
+        "en": "Style Attribute"
     },
     {
         "id": 3205,
         "uipeth": "WarningLabel",
         "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
-        "en": "Potential to obtain:\n[33FFDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
+        "en": "Getting Attribute:\n[33FFDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
     },
     {
         "id": 3206,
         "uipeth": "ResetBtn/BtnLabel",
         "tw": "重置點數",
-        "en": "Reset Potentials"
+        "en": "Reset Attribute"
     },
     {
         "id": 3207,
@@ -1228,7 +1228,7 @@
         "id": 3503,
         "uipeth": "GetPotentialLabel",
         "tw": "獲得 {0} 潛能點",
-        "en": "Received {0} Attribution Points"
+        "en": "Received {0} Attribute Points"
     },
     {
         "id": 3504,
@@ -1283,7 +1283,7 @@
         "explain": "必須得到技能晶片後才會取得",
         "uipeth": "頭圖分類2",
         "tw": "技能晶片",
-        "en": "Skills wafer"
+        "en": "Ability Disk"
     },
     {
         "id": 3701,
@@ -1501,12 +1501,12 @@
     {
         "id": 3767,
         "tw": "技能晶片收集數",
-        "en": "Skills wafer collect data"
+        "en": "Ability disk collect number"
     },
     {
         "id": 3768,
         "tw": "技能晶片套卡收集數",
-        "en": "Skills wafer Taoka collect data"
+        "en": "Ability disk set collect data"
     },
     {
         "id": 3769
@@ -2343,12 +2343,12 @@
     {
         "id": 6402,
         "tw": "完成成就獎勵",
-        "en": "Earned the achievement award"
+        "en": "Achievement Award"
     },
     {
         "id": 6403,
         "tw": "每日任務獎勵",
-        "en": "Daily quest"
+        "en": "Daily Quest"
     },
     {
         "id": 6404,
@@ -2921,12 +2921,12 @@
         "id": 8004,
         "uipeth": "GetModeLabel",
         "tw": "已取得{0}潛能點",
-        "en": "Received {0} Attribution Points"
+        "en": "Add {0} Attribute"
     },
     {
         "id": 8005,
         "tw": "潛能點+{0} ",
-        "en": "Attribution Points+{0} "
+        "en": "Attribute+{0} "
     },
     {
         "id": 8006,
@@ -2938,7 +2938,7 @@
         "id": 8007,
         "explain": "選擇預備出售狀態",
         "tw": "出售中",
-        "en": "On Sale"
+        "en": "Sell"
     },
     {
         "id": 8008,

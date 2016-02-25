@@ -49,9 +49,9 @@ public class UINotic : UIBase {
         initWebView();
 
 		SetBtnFun (UIName + "/Window/TopRight/Exit", Close);
-		SetBtnFun (UIName + "/Window/BottomLeft/Check", OnNoLongger);
+        SetBtnFun (UIName + "/Window/TopLeft/Check", OnNoLongger);
 
-		toggleDaily = GameObject.Find (UIName + "/Window/BottomLeft/Check").GetComponent<UIToggle>();
+		toggleDaily = GameObject.Find (UIName + "/Window/TopLeft/Check").GetComponent<UIToggle>();
 		toggleDaily.value = false;
 		int check = PlayerPrefs.GetInt(ESave.NoticDaily.ToString(), 0);
 		if (check == 1)
@@ -79,7 +79,7 @@ public class UINotic : UIBase {
     }
 
     UniWebViewEdgeInsets InsetsForScreenOreitation(UniWebView webView, UniWebViewOrientation orientation) {
-        return new UniWebViewEdgeInsets(60,0,60,0);
+        return new UniWebViewEdgeInsets(60,0,0,0);
     }
 
     void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {

@@ -218,36 +218,41 @@ public class UIShop : UIBase {
         bool flag = GameData.Team.CoinEnough(shopItemList[page][index].Data.SpendKind, shopItemList[page][index].Data.Price);
         shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag, 1);
         shopItemList[page][index].LabelPrice.color = GameData.CoinEnoughTextColor(flag, shopItemList[page][index].Data.SpendKind);
-
-        if (GameData.DItemData[data.ID].Kind < 8) {
-            int id = GameData.DItemData[data.ID].SuitItem;
-            if (GameData.DSuitItem.ContainsKey(id))
-                shopItemList[page][index].LabelSuitCount.text = string.Format("{0}/{1}", GameData.Team.SuitItemCompleteCount(id), GameData.DSuitItem[id].ItemLength);
-        } else
-        if (GameData.DItemData[data.ID].Kind == 21) {
-            shopItemList[page][index].SpriteSuit.spriteName = "SuitLight";
-            int id = GameData.DItemData[data.ID].SuitCard;
-            if (GameData.DSuitCard.ContainsKey(id)) 
-                shopItemList[page][index].LabelSuitCount.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
-        } else
-            shopItemList[page][index].ButtonSuit.gameObject.SetActive(false);
-
-        if (shopItemList[page][index].ButtonSuit.gameObject.activeInHierarchy) {
-            if (!GameData.Team.IsGetItem(data.ID)) {
-                shopItemList[page][index].ButtonSuit.defaultColor = Color.gray;
-                shopItemList[page][index].ButtonSuit.hover = Color.gray;
-                shopItemList[page][index].ButtonSuit.pressed = Color.gray;
-            } else {
-                shopItemList[page][index].ButtonSuit.defaultColor = Color.white;
-                shopItemList[page][index].ButtonSuit.hover = Color.white;
-                shopItemList[page][index].ButtonSuit.pressed = Color.white; 
-            }
-        }
+        SetSuitItem(data.ID, shopItemList[page][index].ButtonSuit, shopItemList[page][index].SpriteSuit, shopItemList[page][index].LabelSuitCount);
 
         if (GameData.DItemData.ContainsKey(data.ID)) {
             shopItemList[page][index].AwardGroup.Show(GameData.DItemData[data.ID]);
             if (data.Num > 1)
                 shopItemList[page][index].AwardGroup.SetAmountText("X" + data.Num.ToString());
+        }
+    }
+
+    private void SetSuitItem(int itemID, UIButton btn, UISprite sp, UILabel lab) {
+        if (btn && sp && lab) {
+            if (GameData.DItemData[itemID].Kind < 8) {
+                int id = GameData.DItemData[itemID].SuitItem;
+                if (GameData.DSuitItem.ContainsKey(id))
+                    lab.text = string.Format("{0}/{1}", GameData.Team.SuitItemCompleteCount(id), GameData.DSuitItem[id].ItemLength);
+            } else
+            if (GameData.DItemData[itemID].Kind == 21) {
+                sp.spriteName = "SuitLight";
+                int id = GameData.DItemData[itemID].SuitCard;
+                if (GameData.DSuitCard.ContainsKey(id)) 
+                    lab.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
+            } else
+                btn.gameObject.SetActive(false);
+
+            if (btn.gameObject.activeInHierarchy) {
+                if (!GameData.Team.IsGetItem(itemID)) {
+                    btn.defaultColor = Color.gray;
+                    btn.hover = Color.gray;
+                    btn.pressed = Color.gray;
+                } else {
+                    btn.defaultColor = Color.white;
+                    btn.hover = Color.white;
+                    btn.pressed = Color.white; 
+                }
+            }
         }
     }
 

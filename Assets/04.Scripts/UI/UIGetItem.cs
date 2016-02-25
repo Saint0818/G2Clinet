@@ -9,6 +9,7 @@ public class UIGetItem : UIBase {
     private GameObject itemAward;
     private GameObject itemExp;
     private GameObject itemAnchor;
+    private UILabel labelTitle;
     private List<GameObject> itemList = new List<GameObject>();
 
     public static bool Visible {
@@ -47,11 +48,7 @@ public class UIGetItem : UIBase {
         itemAward = Resources.Load("Prefab/UI/Items/ItemAwardGroup") as GameObject;
         itemExp = Resources.Load("Prefab/UI/Items/ItemExp") as GameObject;
         itemAnchor = GameObject.Find(UIName + "/Center/AwardsGroup/ScrollView") as GameObject; 
-
-    }
-
-    protected override void InitData() {
-
+        labelTitle = GameObject.Find(UIName + "/Center/TitleLabel").GetComponent<UILabel>();
     }
 
     protected override void OnShow(bool isShow) {
@@ -98,6 +95,6 @@ public class UIGetItem : UIBase {
     }
 
     public void SetTitle(string text) {
-        SetLabel(UIName + "/Center/TitleLabel", text);
+        labelTitle.text = text;
     }
 }
