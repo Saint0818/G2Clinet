@@ -29,7 +29,7 @@ public class UIMainLobbyEvents : MonoBehaviour
     {
         if(GameData.IsOpenUIEnable(EOpenID.Ability))
         {
-            UISkillFormation.UIShow(true);
+			UISkillFormation.Get.ShowView();
             UIMainLobby.Get.Hide();
         }
         else

@@ -123,7 +123,8 @@ public class UIMain : UIBase {
 	}
 
 	public void OnSkillFormation() {
-		UISkillFormation.UIShow(!UISkillFormation.Visible);
+		if(!UISkillFormation.Visible)
+			UISkillFormation.Get.ShowView();
 	}
 
 	public void OnAvatarFitted() {

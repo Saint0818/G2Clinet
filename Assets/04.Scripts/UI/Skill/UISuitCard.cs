@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 public struct TSuitCardResult {
-	public int[] SuitCard;
+	public int[] SuitCardCost;
 }
 
 public struct TItemSuitCardGroup {
@@ -97,8 +97,8 @@ public struct TItemSuitCardGroup {
 		return false;
 	}
 
-	public void LaunchSuit (bool isExecute) {
-		SetUseColor(true, isExecute);
+	public void LaunchSuit (bool isHave, bool isExecute) {
+		SetUseColor(isHave, isExecute);
 	}
 
 	public bool IsAllGet {
@@ -204,17 +204,28 @@ public class UISuitCard {
 				index ++;
 			}
 		}
-		//目前還沒計算0暫代
+
 		labelSuitCost.text = costNow + " / " + costMax.ToString();
 	}
 
 	public void MoveToID (int id) {
-		scrollView.gameObject.transform.localPosition = new Vector3(15, 75 + (200 * (id-1)), 0);
-		scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 70));
+		if(id >0) {
+			scrollView.gameObject.transform.localPosition = new Vector3(15, 75 + (200 * (id-1)), 0);
+			scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 70));
+		}
 	}
 
 	private bool checkCost (int currentCost) {
-		return ((currentCost + costNow) > costMax);
+		return ((currentCost + costNow) <= costMax);
+	}
+
+	private void refreshUI () {
+		costNow = GameData.Team.SuitCardExecuteCost;
+		labelSuitCost.text = costNow + " / " + costMax.ToString();
+		UISkillFormation.Get.RefreshTabsRedPoint();
+
+		for(int i=0; i<itemSuitCards.Count; i++)
+			itemSuitCards[i].LaunchSuit(itemSuitCards[i].IsAllGet ,GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitID));
 	}
 
 	public void OnLaunch (GameObject go) {
@@ -222,11 +233,21 @@ public class UISuitCard {
 		if(int.TryParse(go.name,out result)) {
 			if(result >=0 && result < itemSuitCards.Count) {
 				if(itemSuitCards[result].IsAllGet) {
-					if(GameData.DSuitCard.ContainsKey(result)) {
-						if(checkCost (GameData.DSuitCard[result].CardPower))
-							itemSuitCards[result].LaunchSuit(GameData.Team.IsExecuteSuitCard(itemSuitCards[result].SuitID));
-						else 
-							UIHint.Get.ShowHint(TextConst.S(7708), Color.red);
+					if(GameData.DSuitCard.ContainsKey(itemSuitCards[result].SuitID)) {
+						if(GameData.Team.IsExecuteSuitCard(itemSuitCards[result].SuitID)) {
+							//關掉
+							int index = GameData.Team.GetExecuteSuitCardIndex(itemSuitCards[result].SuitID);
+							if(index != -1)
+								SendRemoveSuitCardExecute(index);
+							else 
+								Debug.LogError("index -1:" + itemSuitCards[result].SuitID);
+						} else {
+							//開啟
+							if(checkCost (GameData.DSuitCard[result].CardPower))
+								SendAddSuitCardExecute(result);
+							else 
+								UIHint.Get.ShowHint(TextConst.S(7708), Color.red);
+						}
 					}
 				}else 
 					UIHint.Get.ShowHint(TextConst.S(7706), Color.red);
@@ -262,8 +283,28 @@ public class UISuitCard {
 	private void waitAddSuitCardExecute(bool ok, WWW www) {
 		if (ok) {
 			TSuitCardResult result = JsonConvert.DeserializeObject <TSuitCardResult>(www.text); 
-			GameData.Team.SuitCardCost = result.SuitCard;
+			GameData.Team.SuitCardCost = result.SuitCardCost;
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 
+			refreshUI ();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+	public void SendRemoveSuitCardExecute(int index) {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", index);
+		SendHttp.Get.Command(URLConst.RemoveSuitCardExecute, waitRemoveSuitCardExecute, form);
+	}
+
+	private void waitRemoveSuitCardExecute(bool ok, WWW www) {
+		if (ok) {
+			TSuitCardResult result = JsonConvert.DeserializeObject <TSuitCardResult>(www.text); 
+			GameData.Team.SuitCardCost = result.SuitCardCost;
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
+
+			refreshUI ();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 

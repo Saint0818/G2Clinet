@@ -247,7 +247,7 @@ public class UISkillInfo : UIBase {
 			} else
 				goSuitCard.gameObject.SetActive(false);
 
-			if(GameData.DSkillData[skill.ID].Suititem > 0) {
+			if(GameData.DSkillData[skill.ID].Suititem > 0 && GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)) {
 				goSuitItem.gameObject.SetActive(true);
 				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
 				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();

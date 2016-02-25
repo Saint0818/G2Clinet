@@ -26,12 +26,12 @@ public struct TItemSuitAvatarGroup {
 		UIEventListener.Get(obj).onClick = btnFun;
 	}
 
-	public void UpdateView (int id, int index, int ownCount) {
+	public void UpdateView (int id, int index) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
 			mSelf.name = id.ToString();
 			mSelf.transform.localPosition = new Vector3(0, -60 * index, 0);
 			SuitNameLabel.text = GameData.DSuitItem[id].SuitName;
-			CountLabel.text = ownCount.ToString() + "/" + GameData.DSuitItem[id].ItemLength;
+			CountLabel.text = GameData.Team.SuitItemCompleteCount(id).ToString() + "/" + GameData.DSuitItem[id].ItemLength;
 			PositionIcon.spriteName = GameFunction.PositionIcon(GameData.DSuitItem[id].Position);
 		} 
 	}
@@ -71,7 +71,7 @@ public struct TMiddleItemView {
 						if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
 							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
 							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
-							SuitCover[i].SetActive(!GameData.Team.IsGetAvatar(GameData.DSuitItem[id].Items[i]));
+							SuitCover[i].SetActive(!GameData.Team.IsGetItem(GameData.DSuitItem[id].Items[i]));
 						}
 					} else {
 						itemAwardGroup[i].Hide();
@@ -81,12 +81,6 @@ public struct TMiddleItemView {
 			}
 		} else 
 			Debug.LogError("SuitItem can't find id:"+ id);
-	}
-		
-	public int GotItemCount {
-		get {
-			return GameData.Team.SuitItemCompleteCount(mID);
-		}
 	}
 }
 
@@ -120,7 +114,7 @@ public struct TMiddleBonusView {
 	public void SetColor (int count) {
 		if(count > 1) {
 			for(int i=0; i<BonusLabel.Length; i++) {
-				if((i+2) < count) 
+				if((i+2) <= count) 
 					BonusLabel[i].color = GetIt;
 				else 
 					BonusLabel[i].color = NotGetIt;
@@ -257,7 +251,7 @@ public class UISuitAvatar : UIBase {
 			Visible = true;
 			initScrollView ();
 			clickSuit (suitItemID);
-			middleBonusView.SetColor(middleItemView.GotItemCount);
+			middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
 		} else 
 			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 	}
@@ -268,7 +262,7 @@ public class UISuitAvatar : UIBase {
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
-			itemsuitItem.UpdateView(item.Key, index, middleItemView.GotItemCount);
+			itemsuitItem.UpdateView(item.Key, index);
 			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
 			index ++;
 		}
@@ -285,6 +279,7 @@ public class UISuitAvatar : UIBase {
 		middleItemView.UpdateView(id);
 		middleBonusView.UpdateView(id);
 		suitItemRight.UpdateView(id);
+		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(id));
 		hideAllSelect();
 		if(id > 0 && id <= tItemSuitAvatarGroup.Length)
 			tItemSuitAvatarGroup[id - 1].SelectActive = true;

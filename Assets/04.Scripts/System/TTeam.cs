@@ -945,12 +945,20 @@ namespace GameStruct
 		/// <returns><c>true</c> if this instance is execute suit card the specified id; otherwise, <c>false</c>.</returns>
 		/// <param name="id">Identifier.</param>
 
-		public bool IsExecuteSuitCard (int itemID) {
+		public bool IsExecuteSuitCard (int suitcardID) {
 			if(SuitCardCost != null) 
 				for(int i=0; i<SuitCardCost.Length; i++) 
-					if(SuitCardCost[i] == itemID)
+					if(SuitCardCost[i] == suitcardID)
 						return true;	
 			return false;
+		}
+
+		public int GetExecuteSuitCardIndex (int suitcardID) {
+			if(SuitCardCost != null) 
+				for(int i=0; i<SuitCardCost.Length; i++) 
+					if(SuitCardCost[i] == suitcardID)
+						return i;	
+			return -1;
 		}
 
 		//AP (Ability Points)初始士氣值
@@ -966,12 +974,17 @@ namespace GameStruct
 			}
 
 			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
-				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) 
-					if(SuitCardCost != null) 
-						for(int i=0; i<SuitCardCost.Length; i++) 
-							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
-								if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 20) 
-									ap += GameData.DSuitCard[SuitCardCost[i]].Value[j];
+				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
+						int count = SuitItemCompleteCount(item.Key);
+						if(count >= 2) {
+							for(int i=0; i<item.Value.AttrKind.Length; i++) {
+								if(GameData.DSuitItem[item.Key].AttrKind[i] == 20) 
+									ap += GameData.DSuitItem[item.Key].Value[i];
+							}
+						}
+					}
+				}
 			}
 
 			return ap;
@@ -1048,7 +1061,7 @@ namespace GameStruct
 			int count = 0;
 			if(GameData.DSuitItem.ContainsKey(id)) 
 				for(int i=0; i<GameData.DSuitItem[id].Items.Length; i++) 
-					if(IsGetAvatar(GameData.DSuitItem[id].Items[i])) 
+					if(IsGetItem(GameData.DSuitItem[id].Items[i])) 
 						count ++;
 			return count;
 		}
@@ -1067,46 +1080,49 @@ namespace GameStruct
 		public void AddSuitItemEffect (int lv) {
 			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
 				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
-					if(SuitCardCost != null) {
-						for(int i=0; i<SuitCardCost.Length; i++) {
-							for (int j=0; j<GameData.DSuitItem[SuitCardCost[i]].AttrKind.Length; j++) {
-								switch(GameData.DSuitItem[SuitCardCost[i]].AttrKind[j]) {
-								case (int)EBonus.Point2:
-									Player.Point2 += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Point3:
-									Player.Point3 += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Dunk:
-									Player.Dunk += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Rebound:
-									Player.Rebound += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Block:
-									Player.Block += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Steal:
-									Player.Steal += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Stamina:
-									Player.Stamina += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Defence:
-									Player.Defence += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Dribble:
-									Player.Dribble += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Pass:
-									Player.Pass += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Speed:
-									Player.Speed += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
-								case (int)EBonus.Strength:
-									Player.Strength += (float)GameData.DSuitItem[SuitCardCost[i]].Value[j];
-									break;
+					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
+						int count = SuitItemCompleteCount(item.Key);
+						if(count >= 2) {
+							for(int i=0; i<item.Value.AttrKind.Length; i++) {
+								if(i <= (count - 2)) {
+									switch(item.Value.AttrKind[count-2]) {
+									case (int)EBonus.Point2:
+										Player.Point2 += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Point3:
+										Player.Point3 += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Dunk:
+										Player.Dunk += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Rebound:
+										Player.Rebound += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Block:
+										Player.Block += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Steal:
+										Player.Steal += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Stamina:
+										Player.Stamina += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Defence:
+										Player.Defence += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Dribble:
+										Player.Dribble += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Pass:
+										Player.Pass += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Speed:
+										Player.Speed += (float)item.Value.Value[count-2];
+										break;
+									case (int)EBonus.Strength:
+										Player.Strength += (float)item.Value.Value[count-2];
+										break;
+									}
 								}
 							}
 						}
@@ -1114,7 +1130,5 @@ namespace GameStruct
 				}
 			}
 		}
-
-
     }
 }

@@ -955,7 +955,7 @@ public static class GameFunction
 	}
 
 	public static string CardSuitLightName (int count) {
-		if(count > 0  && count < 3)
+		if(count > 0  && count <= 3)
 			return "SuitLight" + count.ToString();
 		else 
 			return "SuitLight0";
@@ -975,7 +975,6 @@ public static class GameFunction
 
     public static bool CanGetPVPReward(ref TTeam team)
     {
-        
         if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && 
             team.DailyCount.PVPReaward == 0 && 
             team.PVPIntegral >= GameData.DPVPData[GameConst.PVPMinLv].LowScore && 

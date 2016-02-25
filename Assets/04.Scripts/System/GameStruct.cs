@@ -1581,33 +1581,45 @@ namespace GameStruct
 		public int AttrKind6;
 		public int Value6;
 
-		public int[] Card {
-			get {
-				int[] cards = new int[5];
-				cards[0] = Card1;
-				cards[1] = Card2;
-				cards[2] = Card3;
-				cards[3] = Card4;
-				cards[4] = Card5;
-				return cards;
-			}
-		}
-
-		public int[] Items {
-			get {
-				int[] items = new int[7];
-				items[0] = Item1;
-				items[1] = Item2;
-				items[2] = Item3;
-				items[3] = Item4;
-				items[4] = Item5;
-				items[5] = Item6;
-				items[6] = Item7;
-				return items;
-			}
-		}
+		public int[] Card;
+		public int[] Items;
+		public int[] AttrKind;
+		public int[] Value;
 
 		public void LengthCalCulate () {
+
+			Card = new int[5];
+			Card[0] = Card1;
+			Card[1] = Card2;
+			Card[2] = Card3;
+			Card[3] = Card4;
+			Card[4] = Card5;
+
+			Items = new int[7];
+			Items[0] = Item1;
+			Items[1] = Item2;
+			Items[2] = Item3;
+			Items[3] = Item4;
+			Items[4] = Item5;
+			Items[5] = Item6;
+			Items[6] = Item7;
+
+			AttrKind = new int[6];
+			AttrKind[0] = AttrKind1;
+			AttrKind[1] = AttrKind2;
+			AttrKind[2] = AttrKind3;
+			AttrKind[3] = AttrKind4;
+			AttrKind[4] = AttrKind5;
+			AttrKind[5] = AttrKind6;
+
+			Value = new int[6];
+			Value[0] = Value1;
+			Value[1] = Value2;
+			Value[2] = Value3;
+			Value[3] = Value4;
+			Value[4] = Value5;
+			Value[5] = Value6;
+
 			ItemLength = 0;
 			for (int i=0; i<Items.Length; i++) 
 				if(Items[i] != 0)
@@ -1617,32 +1629,6 @@ namespace GameStruct
 			for (int i=0; i<Card.Length; i++) 
 				if(Card[i] != 0)
 					CardLength ++;
-		}
-
-		public int[] AttrKind {
-			get {
-				int[] attrKinds = new int[6];
-				attrKinds[0] = AttrKind1;
-				attrKinds[1] = AttrKind2;
-				attrKinds[2] = AttrKind3;
-				attrKinds[3] = AttrKind4;
-				attrKinds[4] = AttrKind5;
-				attrKinds[5] = AttrKind6;
-				return attrKinds;
-			}
-		}
-
-		public int[] Value {
-			get {
-				int[] values = new int[6];
-				values[0] = Value1;
-				values[1] = Value2;
-				values[2] = Value3;
-				values[3] = Value4;
-				values[4] = Value5;
-				values[5] = Value6;
-				return values;
-			}
 		}
 
 		public string SuitName {

@@ -386,6 +386,18 @@ public class UISkillFormation : UIBase {
 		isLeave = false;
 	}
 
+	/// <summary>
+	/// tab  0 : SkillFormation 1: SuitCard
+	/// </summary>
+	/// <param name="tab">Tab.</param>
+	public void ShowView (int tab = 0, int suitId = 0) {
+		UIShow(true);
+		if(tab == 1) {
+			ClickTab(1);
+			uiSuitCard.MoveToID(suitId);
+		}
+	}
+
 	public void OnTab() {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
@@ -408,7 +420,7 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
-	private void refreshTabsRedPoint () {
+	public void RefreshTabsRedPoint () {
 		redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard || CheckCardnoInstall);
 		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)));
 	}
@@ -578,7 +590,7 @@ public class UISkillFormation : UIBase {
 		resetScrollPostion ();
 		refreshActiveItems ();
 		refreshPassiveItems();
-		refreshTabsRedPoint ();
+		RefreshTabsRedPoint ();
 	}
 
 	private void refreshFrameCount () {
@@ -822,7 +834,7 @@ public class UISkillFormation : UIBase {
 			}
 			refreshRedPoint();
 			refreshFrameCount ();
-			refreshTabsRedPoint ();
+			RefreshTabsRedPoint ();
 		}
 	}
 
@@ -1270,7 +1282,7 @@ public class UISkillFormation : UIBase {
 			}
 			refreshCards();
 			refreshRedPoint (); 
-			refreshTabsRedPoint ();
+			RefreshTabsRedPoint ();
 		}
 //		else UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
@@ -1304,7 +1316,7 @@ public class UISkillFormation : UIBase {
 			}
 			refreshCards();
 			refreshRedPoint();
-			refreshTabsRedPoint ();
+			RefreshTabsRedPoint ();
 		} 
 		else Debug.LogWarning ("It's Buy State.");
 	}
@@ -1349,7 +1361,7 @@ public class UISkillFormation : UIBase {
 		removeItems(uiCards[go.transform.parent.name].skillCard.Skill.ID, uiCards[go.transform.parent.name].skillCard.Skill.SN, go.transform.parent.gameObject);
 		refreshCards();
 		refreshRedPoint ();
-		refreshTabsRedPoint ();
+		RefreshTabsRedPoint ();
 	}
 
 	private void activeCheckShow (bool isClick){
