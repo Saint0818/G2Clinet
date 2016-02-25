@@ -17,9 +17,26 @@ public class UILifetimeReward : MonoBehaviour
     public UILabel ReceivableLabel;
     public ItemAwardGroup[] ItemAwards;
     public GameObject ReceivedObj;
+    public UIButton ReceiveButton;
+
+    private Data mData;
+
+    private void Start()
+    {
+        ReceiveButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(mData.Status == UIDailyLoginMain.EStatus.Receivable)
+            {
+                var main = GetComponentInParent<UILifetimeLoginMain>();
+                main.FireReceiveClick();
+            }
+        }));
+    }
 
     public void Set(Data data)
     {
+        mData = data;
+
         LoginNumLabel.text = data.LoginNum;
 
         updateStatus(data.Status);

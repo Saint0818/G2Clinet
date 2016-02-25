@@ -268,7 +268,8 @@ public class GEGMTool : GEBase
         setMaxPlayerBank();
         resetDailyLoginNums();
         setDailyLoginNums();
-        setLifeTimeLoginNum();
+        setLifetimeLoginNum();
+        clearClientLifetimeLoginNum();
     }
 
     private int mMaxPlayerBank = 2;
@@ -952,17 +953,17 @@ public class GEGMTool : GEBase
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
-    private int mLifeTimeLoginNum;
-    private void setLifeTimeLoginNum()
+    private int mLifetimeLoginNum;
+    private void setLifetimeLoginNum()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("終生登入次數: ");
-        mLifeTimeLoginNum = EditorGUILayout.IntField(mLifeTimeLoginNum, GUILayout.Width(60));
-        mLifeTimeLoginNum = Math.Max(0, mLifeTimeLoginNum);
+        mLifetimeLoginNum = EditorGUILayout.IntField(mLifetimeLoginNum, GUILayout.Width(60));
+        mLifetimeLoginNum = Math.Max(0, mLifetimeLoginNum);
         if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
             var protocol = new GMSetLifetimeLoginNumProtocol();
-            protocol.Send(mLifeTimeLoginNum, waitGMSetLifeTimeLoginNum);
+            protocol.Send(mLifetimeLoginNum, waitGMSetLifeTimeLoginNum);
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -973,6 +974,19 @@ public class GEGMTool : GEBase
 
         if(UIDailyLogin.Get.Visible)
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
+    }
+
+    private void clearClientLifetimeLoginNum()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("重置 Client 終生登入次數: ");
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            UIDailyLoginHelper.SetLifetimeReceiveLoginNum(0);
+            if(UIDailyLogin.Get.Visible)
+                UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
+        }
+        EditorGUILayout.EndHorizontal();
     }
 
     private void BattleHandle()

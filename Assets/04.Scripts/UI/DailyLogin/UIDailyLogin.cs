@@ -27,12 +27,41 @@ public class UIDailyLogin : UIBase
         mDailyMain = GetComponent<UIDailyLoginMain>();
         mDailyMain.OnCloseClickListener += () => Hide();
 
-        mLifetimeMain = GetComponent<UILifetimeLoginMain>();
+        mDailyMain.OnReceiveListener += onDailyReceive;
 
-        mDailyMain.OnReceiveListener += onReceive;
+        mLifetimeMain = GetComponent<UILifetimeLoginMain>();
+        mLifetimeMain.OnReceiveListener += onLifetimeReceive;
     }
 
-    private void onReceive(int year, int month)
+    private void onLifetimeReceive()
+    {
+        var currentLoginNum = GameData.Team.LifetimeRecord.LoginNum;
+        var receivedLoginNum = UIDailyLoginHelper.GetLifetimeReceiveLoginNum();
+        Debug.LogFormat("Current:{0}, Received:{1}", currentLoginNum, receivedLoginNum);
+
+        // +1 才是可領取的獎勵.
+        var startIndex = LifetimeTable.Ins.FindIndex(receivedLoginNum) + 1;
+
+        var endIndex = LifetimeTable.Ins.FindIndex(currentLoginNum);
+        endIndex = Math.Max(0, endIndex);
+
+        Debug.LogFormat("StartIndex:{0}, EndIndex:{1}", startIndex, endIndex);
+
+        for(int i = startIndex; i <= endIndex; i++)
+        {
+            TLifetimeData data = LifetimeTable.Ins.GetByIndex(i);
+            if(data == null)
+                break;
+
+            foreach(TLifetimeData.Reward reward in data.Rewards)
+                UIGetItem.Get.AddItem(reward.ItemID);
+        }
+
+        UIDailyLoginHelper.SetLifetimeReceiveLoginNum(currentLoginNum);
+        Hide();
+    }
+
+    private void onDailyReceive(int year, int month)
     {
         var currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
         var receviedLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);

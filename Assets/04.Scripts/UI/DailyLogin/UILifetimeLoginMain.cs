@@ -1,7 +1,18 @@
+﻿using System;
 using UnityEngine;
 
 public class UILifetimeLoginMain : MonoBehaviour
 {
+    /// <summary>
+    /// 呼叫時機: 可領取按鈕按下.
+    /// </summary>
+    public event Action OnReceiveListener;
+    public void FireReceiveClick()
+    {
+        if(OnReceiveListener != null)
+            OnReceiveListener();
+    }
+
     public UILabel LifetimeLoginNumLabel;
     public Transform[] RewardParents;
     private readonly UILifetimeReward[] mRewards = new UILifetimeReward[3];
