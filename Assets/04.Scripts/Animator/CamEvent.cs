@@ -7,9 +7,10 @@ public class CamEvent : MonoBehaviour {
 	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
 
-		//set all
-		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-			TimerMgr.Get.ChangeTime (item, floatParam);
+		if (floatParam != 1) 
+		{
+			TimerMgr.Get.CamEvent(1.2f, floatParam);			
+		}
 	}
 
 	public void ZoomIn(float t) {

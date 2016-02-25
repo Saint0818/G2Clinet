@@ -187,6 +187,14 @@ public class TimerMgr : KnightSingleton<TimerMgr>
      
         StartCoroutine(DelayTime( releaseTime, callback));
 	}
+				
+	public void CamEvent(float releaseTime,float speed)
+	{
+		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+			ChangeTime(item, speed);
+
+		StartCoroutine(DelayTime( releaseTime, ResetTime));
+	}
 
     private IEnumerator DelayTime(float t, Action callback)
 	{
