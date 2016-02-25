@@ -448,10 +448,21 @@ public class UIGameResult : UIBase {
 	}
 
 	public void PayChooseReward () {
-		if (GameData.Team.Diamond >= chooseCount * 50)
+		if(chooseCount == 0) 
 			stageRewardAgain(GameData.StageID);
-		else
-			UIHint.Get.ShowHint(TextConst.S (233), Color.red);
+		else if (chooseCount == 1) {
+			if(GameData.Team.Diamond >= 20)
+				stageRewardAgain(GameData.StageID);
+			else
+				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
+		} else if(chooseCount == 2) {
+			if(GameData.Team.Diamond >= 100)
+				stageRewardAgain(GameData.StageID);
+			else
+				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
+		}
+			
+	
 	}
 	
 	private void chooseItem (int index) {
@@ -491,7 +502,7 @@ public class UIGameResult : UIBase {
 		Invoke("MoveItem",1);
 		if(chooseCount == 0) {
 			showPayDiamond(index);
-			setPayDiamond(50);
+			setPayDiamond(20);
 		} else if (chooseCount == 1) {
 			diamondPay[index].gameObject.SetActive(false);
 			setPayDiamond(100);

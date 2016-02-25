@@ -2,12 +2,16 @@
 using System.Collections;
 using GameStruct;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public class UISkillEvolution { 
 	public UISkillReinforce mSelf;
 
 	private int skillIndex;
 	private int[] materialIndexs;
+	private int[] skillIndexs;
+
+	private List<int> tempSkillIndexs = new List<int>();
 
 	private TActiveSkillCard[] skillCards = new TActiveSkillCard[2];
 	private TSkillCardValue[] skillCardValues = new TSkillCardValue[2];
@@ -26,7 +30,7 @@ public class UISkillEvolution {
 
 	public void InitCom(UISkillReinforce skillReinforce, string UIName) {
 		mSelf = skillReinforce;
-		goEvolution = GameObject.Find(UIName + "/Window2/Center/View/RightPart");
+		goEvolution = GameObject.Find(UIName + "/Window2/Center/View/RightPart/Evolution");
 		labelWarning = GameObject.Find(UIName + "/Window2/Center/View/RightPart/WarningLabel");
 
 		labelPrice = GameObject.Find(UIName + "/Window2/Center/View/RightPart/DemountBtn/BtnLabel/PriceLabel").GetComponent<UILabel>();
@@ -42,10 +46,14 @@ public class UISkillEvolution {
 		skillCardMaterial = new TSkillCardMaterial();
 		skillCardMaterial.Init(GameObject.Find(UIName + "/Window2/Center/View/RightPart/Evolution"));
 		materialIndexs = new int[3];//目前訂三種
+		refreshMaterialIndex ();
 
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot0/View/MaterialItem", OnSearchMaterial1);
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot1/View/MaterialItem", OnSearchMaterial2);
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot2/View/MaterialItem", OnSearchMaterial3);
+		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot0/View/SkillCardItem", OnSearchMaterial1);
+		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot1/View/SkillCardItem", OnSearchMaterial2);
+		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot2/View/SkillCardItem", OnSearchMaterial3);
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/DemountBtn", OnEvolution);
 
 		labelWarning.SetActive(false);
@@ -56,6 +64,12 @@ public class UISkillEvolution {
 		isEquiped = isAlreadyEquip;
 		Refresh (currentSkill);
 	}
+
+	private void refreshMaterialIndex () {
+		for (int i=0 ;i< materialIndexs.Length; i++)
+			materialIndexs[i] = -1;
+	}
+
 
 	private void search(int itemID) {
 		if(GameData.DItemData.ContainsKey(itemID)) {
@@ -116,6 +130,8 @@ public class UISkillEvolution {
 
 	public void Refresh (TSkill skill) {
 		mSkill = skill;
+		skillIndexs = new int[0];
+		refreshMaterialIndex ();
 		skillCanEvolution.SetActive(GameData.Team.IsEnoughMaterial(skill));
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			nextSkill = new TSkill();
@@ -150,9 +166,66 @@ public class UISkillEvolution {
 				if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar) {
 					//材料判斷
 					if(GameData.Team.IsEnoughMaterial(mSkill)) {
-						materialIndexs[0] = skillCardMaterial.material1index;
-						materialIndexs[1] = skillCardMaterial.material2index;
-						materialIndexs[2] = skillCardMaterial.material3index;
+						if(skillCardMaterial.material1index != -1) {
+							//材料
+							materialIndexs[0] = skillCardMaterial.material1index;
+						} else {
+							//卡牌
+							if(skillCardMaterial.skill1.Count > 0){
+								for(int i=0; i<skillCardMaterial.skill1.Count; i++) {
+									if(i < GameData.DSkillData[mSkill.ID].MaterialNum1){
+										tempSkillIndexs.Add(skillCardMaterial.skill1[i].Index);
+									}
+								}
+							}
+						}
+
+						if(skillCardMaterial.material2index != -1) {
+							//材料
+							materialIndexs[1] = skillCardMaterial.material2index;
+						} else {
+							//卡牌
+							if(skillCardMaterial.skill2.Count > 0){
+								for(int i=0; i<skillCardMaterial.skill2.Count; i++) {
+									if(i < GameData.DSkillData[mSkill.ID].MaterialNum2){
+										tempSkillIndexs.Add(skillCardMaterial.skill2[i].Index);
+									}
+								}
+							}
+						}
+
+						if(skillCardMaterial.material3index != -1) {
+							//材料
+							materialIndexs[2] = skillCardMaterial.material3index;
+						} else {
+							//卡牌
+							if(skillCardMaterial.skill3.Count > 0){
+								for(int i=0; i<skillCardMaterial.skill3.Count; i++) {
+									if(i < GameData.DSkillData[mSkill.ID].MaterialNum3){
+										tempSkillIndexs.Add(skillCardMaterial.skill3[i].Index);
+									}
+								}
+							}
+						}
+							
+						skillIndexs = new int[tempSkillIndexs.Count];
+
+						for(int i=0; i<tempSkillIndexs.Count; i++)
+							skillIndexs[i] = tempSkillIndexs[i];
+
+						//由小排到大
+						if(skillIndexs.Length > 1) {
+							for(int i=0; i<skillIndexs.Length; i++) {
+								for (int j=i+1; j<skillIndexs.Length; j++){
+									if (skillIndexs[i] >= skillIndexs[j]){
+										int temp = skillIndexs[i];
+										skillIndexs[i] = skillIndexs[j];
+										skillIndexs[j] = temp;
+									}
+								}
+							}
+						}
+
 						//金額判斷
 						if(mSelf.CheckMoney(evolutionPrice, true)) {
 							if(isEquiped) {
@@ -183,6 +256,10 @@ public class UISkillEvolution {
 
 	public int[] MaterialIndexs {
 		get {return materialIndexs;}
+	}
+
+	public int[] SkillIndexs {
+		get {return skillIndexs;}
 	}
 
 	public TSkill NextSkill {

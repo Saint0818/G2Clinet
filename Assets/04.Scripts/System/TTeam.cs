@@ -537,6 +537,25 @@ namespace GameStruct
 			return false;
 		}
 
+		//除了自己，相同的卡片數量（for 進化）
+		//skill就是本身要進化   skillID是要被吃的卡
+		public List<TSkill> GetCardList (TSkill skill , int skillID) {
+			List<TSkill> skills = new List<TSkill>();
+
+			if(SkillCards == null)
+				SkillCards = new TSkill[0];
+
+			if(SkillCards.Length > 0) {
+				for (int i=0; i<SkillCards.Length; i++) {
+					if(SkillCards[i].SN != skill.SN && SkillCards[i].ID == skill.ID) {
+						SkillCards[i].Index = i;
+						skills.Add(SkillCards[i]);
+					}
+				}
+			}
+			return skills;
+		} 
+
 		//檢查所有卡片是否有可以進化或合成(For GameLobby Skill RedPoint)
 		public bool IsAnyCardReinEvo {
 			get {

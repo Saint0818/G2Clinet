@@ -1477,7 +1477,6 @@ public class UIGame : UIBase
             case EUISituation.Continue:
                 if (GameController.Get.IsStart)
                 {
-                    Time.timeScale = 1;
                     GameController.Get.RecordTimeScale = Time.timeScale;
                     viewBottomRight.SetActive(true);
                     showViewForceBar(true);

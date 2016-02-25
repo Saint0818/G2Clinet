@@ -743,9 +743,10 @@ public class UISkillReinforce : UIBase {
 	public void SendEvolution(int kind) {
 		isInEvolution = true;
 		WWWForm form = new WWWForm();
-		form.AddField("RemoveIndex", skillEvolution.SkillIndex);
+		form.AddField("RemoveIndex", skillEvolution.SkillIndex);//要進化的對象
 		form.AddField("Kind", kind);
-		form.AddField("MaterialIndexs", JsonConvert.SerializeObject(skillEvolution.MaterialIndexs));
+		form.AddField("MaterialIndexs", JsonConvert.SerializeObject(skillEvolution.MaterialIndexs));//進化材料
+		form.AddField("SkillIndexs", JsonConvert.SerializeObject(skillEvolution.SkillIndexs));//進化卡牌
 		SendHttp.Get.Command(URLConst.EvolutionSkillcard, waitEvolutionSkillcard, form);
 	}
 

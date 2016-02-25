@@ -2009,6 +2009,8 @@
         "nametw": "後衛頭髮15",
         "kind": 1,
         "atlas": 1,
+        "icon": 1215,
+        "avatar": 24001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -3086,6 +3088,8 @@
         "nametw": "後衛手飾15",
         "kind": 2,
         "atlas": 2,
+        "icon": 2215,
+        "avatar": 24001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -4219,6 +4223,8 @@
         "nametw": "後衛衣服15",
         "kind": 3,
         "atlas": 3,
+        "icon": 3215,
+        "avatar": 24001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -5350,6 +5356,8 @@
         "nametw": "後衛褲子15",
         "kind": 4,
         "atlas": 4,
+        "icon": 4215,
+        "avatar": 24001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -6480,6 +6488,8 @@
         "nametw": "後衛鞋子15",
         "kind": 5,
         "atlas": 5,
+        "icon": 5215,
+        "avatar": 24001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -6776,6 +6786,8 @@
         "nametw": "頭飾10",
         "kind": 6,
         "atlas": 6,
+        "icon": 6010,
+        "avatar": 24001,
         "quality": 3,
         "position": 3,
         "maxstack": 1,
@@ -7174,6 +7186,8 @@
         "nametw": "背飾11",
         "kind": 7,
         "atlas": 7,
+        "icon": 7011,
+        "avatar": 24001,
         "quality": 4,
         "position": 3,
         "maxstack": 1,
@@ -14146,6 +14160,7 @@
         "avatar": 10701,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Wild Two Handed Power Slam II"
@@ -14159,6 +14174,7 @@
         "avatar": 10702,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Wild Two Handed Power Slam III"
@@ -14172,6 +14188,7 @@
         "avatar": 10703,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Wild Two Handed Power Slam IV"
@@ -14185,6 +14202,7 @@
         "avatar": 10704,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Wild Two Handed Power Slam V"
@@ -14198,6 +14216,7 @@
         "avatar": 10710,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Ultimate Triple Dunks I"
@@ -14212,6 +14231,7 @@
         "suitcard": 1,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Ultimate Triple Dunks II"
@@ -14226,6 +14246,7 @@
         "suitcard": 2,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Ultimate Triple Dunks III"
@@ -14240,6 +14261,7 @@
         "suitcard": 3,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Ultimate Triple Dunks IV"
@@ -14254,6 +14276,7 @@
         "suitcard": 4,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Ultimate Triple Dunks V"
@@ -14267,6 +14290,7 @@
         "avatar": 10798,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Wild Two Handed Power Slam"
@@ -14280,6 +14304,7 @@
         "avatar": 10799,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Extreme double dunk"
@@ -14293,6 +14318,7 @@
         "avatar": 11400,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Legendary Rebound Champion I"
@@ -14307,6 +14333,7 @@
         "suitcard": 13,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Legendary Rebound Champion II"
@@ -14321,6 +14348,7 @@
         "suitcard": 14,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Legendary Rebound Champion III"
@@ -14335,6 +14363,7 @@
         "suitcard": 15,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Legendary Rebound Champion IV"
@@ -14349,6 +14378,7 @@
         "suitcard": 16,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Legendary Rebound Champion V"
@@ -14362,6 +14392,7 @@
         "avatar": 11500,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Teleport Steal I"
@@ -14376,6 +14407,7 @@
         "suititem": 12,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Teleport Steal II"
@@ -14390,6 +14422,7 @@
         "suititem": 12,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Teleport Steal III"
@@ -14404,6 +14437,7 @@
         "suititem": 12,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Teleport Steal IV"
@@ -14418,6 +14452,7 @@
         "suititem": 12,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Teleport Steal V"
@@ -14431,6 +14466,7 @@
         "avatar": 11599,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Ultimate Teleport Steal"
@@ -14444,6 +14480,7 @@
         "avatar": 11600,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Shot Prohibitor I"
@@ -14458,6 +14495,7 @@
         "suitcard": 1,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Shot Prohibitor II"
@@ -14472,6 +14510,7 @@
         "suitcard": 2,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Shot Prohibitor III"
@@ -14486,6 +14525,7 @@
         "suitcard": 3,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Shot Prohibitor IV"
@@ -14500,6 +14540,7 @@
         "suitcard": 4,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Shot Prohibitor V"
@@ -14513,6 +14554,7 @@
         "avatar": 11610,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Dunk Prohibitor I"
@@ -14528,6 +14570,7 @@
         "suititem": 14,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Dunk Prohibitor II"
@@ -14543,6 +14586,7 @@
         "suititem": 14,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Dunk Prohibitor III"
@@ -14558,6 +14602,7 @@
         "suititem": 14,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Dunk Prohibitor IV"
@@ -14573,6 +14618,7 @@
         "suititem": 14,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Dunk Prohibitor V"
@@ -14586,6 +14632,7 @@
         "avatar": 11700,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Tackle I"
@@ -14601,6 +14648,7 @@
         "suititem": 4,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Tackle II"
@@ -14616,6 +14664,7 @@
         "suititem": 4,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Tackle III"
@@ -14631,6 +14680,7 @@
         "suititem": 4,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Tackle IV"
@@ -14646,6 +14696,7 @@
         "suititem": 4,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Tackle V"
@@ -14659,6 +14710,7 @@
         "avatar": 11710,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Power Through I"
@@ -14674,6 +14726,7 @@
         "suititem": 8,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Power Through II"
@@ -14689,6 +14742,7 @@
         "suititem": 8,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Power Through III"
@@ -14704,6 +14758,7 @@
         "suititem": 8,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Power Through IV"
@@ -14719,6 +14774,7 @@
         "suititem": 8,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Power Through V"
@@ -14732,6 +14788,7 @@
         "avatar": 11800,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Area of Effect Elbow I"
@@ -14747,6 +14804,7 @@
         "suititem": 2,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Area of Effect Elbow II"
@@ -14762,6 +14820,7 @@
         "suititem": 2,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Area of Effect Elbow III"
@@ -14777,6 +14836,7 @@
         "suititem": 2,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Area of Effect Elbow IV"
@@ -14792,6 +14852,7 @@
         "suititem": 2,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Area of Effect Elbow V"
@@ -14805,6 +14866,7 @@
         "avatar": 12100,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "2 Points Battle Cry "
@@ -14818,6 +14880,7 @@
         "avatar": 12101,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "3 Points Battle Cry"
@@ -14831,6 +14894,7 @@
         "avatar": 12102,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Speed Battle Cry"
@@ -14844,6 +14908,7 @@
         "avatar": 12103,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Endurance Battle Cry"
@@ -14857,6 +14922,7 @@
         "avatar": 12104,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Power Battle Cry"
@@ -14870,6 +14936,7 @@
         "avatar": 12105,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Dunking Battle Cry"
@@ -14883,6 +14950,7 @@
         "avatar": 12106,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Rebounding Battle Cry"
@@ -14896,6 +14964,7 @@
         "avatar": 12107,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Blocking Battle Cry"
@@ -14909,6 +14978,7 @@
         "avatar": 12108,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Defense Battle Cry"
@@ -14922,6 +14992,7 @@
         "avatar": 12109,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Stealing Battle Cry"
@@ -14935,6 +15006,7 @@
         "avatar": 12110,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Dribble Battle Cry"
@@ -14948,6 +15020,7 @@
         "avatar": 12111,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Passing Battle Cry"
@@ -14961,6 +15034,7 @@
         "avatar": 12150,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "2 Points Team Battle Shout"
@@ -14974,6 +15048,7 @@
         "avatar": 12151,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "3 Points Team Battle Shout"
@@ -14987,6 +15062,7 @@
         "avatar": 12152,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Team Speed Shout"
@@ -15000,6 +15076,7 @@
         "avatar": 12153,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Team Endurance Shout"
@@ -15013,6 +15090,7 @@
         "avatar": 12154,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Team Power Shout"
@@ -15026,6 +15104,7 @@
         "avatar": 12155,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Team Dunking Shout"
@@ -15039,6 +15118,7 @@
         "avatar": 12156,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Team Rebounding Shout"
@@ -15052,6 +15132,7 @@
         "avatar": 12157,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Team Blocking Shout"
@@ -15065,6 +15146,7 @@
         "avatar": 12158,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Team Defense Shout"
@@ -15078,6 +15160,7 @@
         "avatar": 12159,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Team Stealing Shout"
@@ -15091,6 +15174,7 @@
         "avatar": 12160,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Team Dribbling Shout"
@@ -15104,6 +15188,7 @@
         "avatar": 12161,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Team Passing Shout"
@@ -15117,6 +15202,7 @@
         "avatar": 12170,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Team Spirit Shout"
@@ -15130,6 +15216,7 @@
         "avatar": 12171,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Team Commanding Shout"
@@ -15143,6 +15230,7 @@
         "avatar": 12180,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "2 Point Diminishing Curse"
@@ -15156,6 +15244,7 @@
         "avatar": 12181,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "3 Point Diminishing Curse"
@@ -15169,6 +15258,7 @@
         "avatar": 12182,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Speed Diminishing Curse"
@@ -15182,6 +15272,7 @@
         "avatar": 12183,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Endurance Diminishing Curse"
@@ -15195,6 +15286,7 @@
         "avatar": 12184,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Power Diminishing Curse"
@@ -15208,6 +15300,7 @@
         "avatar": 12185,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Dunk Diminishing Curse"
@@ -15221,6 +15314,7 @@
         "avatar": 12186,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Rebound Diminishing Curse"
@@ -15234,6 +15328,7 @@
         "avatar": 12187,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Block Diminishing Curse"
@@ -15247,6 +15342,7 @@
         "avatar": 12188,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "Defense Diminishing Curse"
@@ -15260,6 +15356,7 @@
         "avatar": 12189,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
         "nameen": "Stealing Diminishing Curse"
@@ -15273,6 +15370,7 @@
         "avatar": 12190,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
         "nameen": "Handle Diminishing Curse"
@@ -15286,6 +15384,7 @@
         "avatar": 12191,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
         "nameen": "Passing Diminishing Curse"
@@ -15299,6 +15398,7 @@
         "avatar": 13000,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Zone Trap I"
@@ -15314,6 +15414,7 @@
         "suititem": 11,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Zone Trap II"
@@ -15329,6 +15430,7 @@
         "suititem": 11,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Zone Trap III"
@@ -15344,6 +15446,7 @@
         "suititem": 11,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Zone Trap IV"
@@ -15359,6 +15462,7 @@
         "suititem": 11,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
         "nameen": "Zone Trap V"
@@ -15372,6 +15476,7 @@
         "avatar": 13100,
         "quality": 1,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "3 Point Trap I"
@@ -15386,6 +15491,7 @@
         "suitcard": 1,
         "quality": 2,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "3 Point Trap II"
@@ -15400,6 +15506,7 @@
         "suitcard": 2,
         "quality": 3,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "3 Point Trap III"
@@ -15414,6 +15521,7 @@
         "suitcard": 3,
         "quality": 4,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "3 Point Trap IV"
@@ -15428,6 +15536,7 @@
         "suitcard": 4,
         "quality": 5,
         "lv": 0,
+        "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
         "nameen": "3 Point Trap V"
@@ -15801,5 +15910,23 @@
         "nameen": "X5 league match tickets",
         "explaintw": "可獲得額外參加聯盟賽的機會",
         "explainen": "The availability of additional opportunity to participate in the league tournament"
+    },
+    {
+        "id": 93601,
+        "nametw": "xx賽入場券",
+        "kind": 36,
+        "icon": 93601
+    },
+    {
+        "id": 93701,
+        "nametw": "xx賽入場券",
+        "kind": 37,
+        "icon": 93701
+    },
+    {
+        "id": 93801,
+        "nametw": "xx賽入場券",
+        "kind": 38,
+        "icon": 93801
     }
 ]

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using GameStruct;
+using System.Collections.Generic;
 //Evolution
 public struct TEvolution {
 	public int Money;
@@ -109,11 +110,19 @@ public struct TSkillCardValue {
 
 public struct TSkillCardMaterial {
 	public GameObject[] mMaterial;
+
 	public UISprite[] MaterialItem;
 	public UISprite[] ElementPic;
 	public UILabel[] NameLabel;
 	public UILabel[] AmountLabel; // 99/99
 	public GameObject[] RedPoint;
+
+	public GameObject[] MaterialSkill;
+	public UISprite[] MaterialItemSkill;
+	public UISprite[] ElementPicSkill;
+	public UILabel[] NameLabelSkill;
+	public UILabel[] AmountLabelSkill; // 99/99
+	public GameObject[] RedPointSkill;
 
 	public TSkill mSkill;
 	public int material1index;
@@ -122,14 +131,29 @@ public struct TSkillCardMaterial {
 	public int material1count;
 	public int material2count;
 	public int material3count;
+	public List<TSkill> skill1;
+	public List<TSkill> skill2;
+	public List<TSkill> skill3;
 
 	public void Init (GameObject obj) {
 		mMaterial = new GameObject[3];
+
 		MaterialItem = new UISprite[3];
 		ElementPic = new UISprite[3];
 		NameLabel = new UILabel[3];
 		AmountLabel = new UILabel[3];
 		RedPoint = new GameObject[3];
+
+		MaterialSkill = new GameObject[3];
+		MaterialItemSkill = new UISprite[3];
+		ElementPicSkill = new UISprite[3];
+		NameLabelSkill = new UILabel[3];
+		AmountLabelSkill = new UILabel[3];
+		RedPointSkill = new GameObject[3];
+
+		skill1 = new List<TSkill>();
+		skill2 = new List<TSkill>();
+		skill3 = new List<TSkill>();
 
 		for (int i=0; i<3; i++) {
 			mMaterial[i] = obj.transform.Find("ElementSlot" + i.ToString()).gameObject;
@@ -138,6 +162,13 @@ public struct TSkillCardMaterial {
 			NameLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/NameLabel").GetComponent<UILabel>();
 			AmountLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/AmountLabel").GetComponent<UILabel>();
 			RedPoint[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/RedPoint").gameObject;
+
+			MaterialSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem").gameObject;
+			MaterialItemSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/Quality").GetComponent<UISprite>();
+			ElementPicSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/ElementPic").GetComponent<UISprite>();
+			NameLabelSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/NameLabel").GetComponent<UILabel>();
+			AmountLabelSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/AmountLabel").GetComponent<UILabel>();
+			RedPointSkill[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/RedPoint").gameObject;
 		}
 	}
 
@@ -149,86 +180,164 @@ public struct TSkillCardMaterial {
 		mSkill = skill;
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			if(GameData.DSkillData[skill.ID].Material1 != 0 && GameData.DSkillData[skill.ID].MaterialNum1 != 0) {
-				mMaterial[0].SetActive(true);
+				mMaterial[0].SetActive(true); 
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1)) {
-					MaterialItem[0].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality;
-					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) {
-						ElementPic[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
-					}
-					ElementPic[0].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Icon;
-					NameLabel[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Kind == 21) {
+						MaterialSkill[0].gameObject.SetActive(true);
+						MaterialItem[0].gameObject.SetActive(false);
+						MaterialItemSkill[0].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality);
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) 
+							ElementPicSkill[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
 
-					TMaterialItem materialSkillCard = new TMaterialItem();
-					material1index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar))
+							ElementPicSkill[0].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar].PictureNo + "s";
+						else 
+							ElementPicSkill[0].spriteName = "0s";
+						NameLabelSkill[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
 
-					if(material1index != -1) {
-						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum1)
-							AmountLabel[0].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+						skill1 = GameData.Team.GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar);
+						material1count = skill1.Count;
+						if(material1count < GameData.DSkillData[skill.ID].MaterialNum1)
+							AmountLabelSkill[0].text = "[FF0000]" + material1count + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 						else
-							AmountLabel[0].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
-					} else 
-						AmountLabel[0].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+							AmountLabelSkill[0].text = material1count + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 
-					RedPoint[0].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1));
+						RedPointSkill[0].SetActive(material1count >= GameData.DSkillData[skill.ID].MaterialNum1);
 
-					material1count = materialSkillCard.Num;
+					} else {
+						MaterialSkill[0].gameObject.SetActive(false);
+						MaterialItem[0].gameObject.SetActive(true);
+						MaterialItem[0].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality;
+
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) 
+							ElementPic[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
+
+						ElementPic[0].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Icon;
+						NameLabel[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
+
+						TMaterialItem materialSkillCard = new TMaterialItem();
+						material1index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
+
+						if(material1index != -1) {
+							if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum1)
+								AmountLabel[0].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+							else
+								AmountLabel[0].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+						} else 
+							AmountLabel[0].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
+
+						RedPoint[0].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1));
+
+						material1count = materialSkillCard.Num;
+					}
 				}
 			}
 
 			if(GameData.DSkillData[skill.ID].Material2 != 0 && GameData.DSkillData[skill.ID].MaterialNum2 != 0) {
 				mMaterial[1].SetActive(true);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2)) {
-					MaterialItem[1].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality;
-					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) {
-						ElementPic[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
-					}
-					ElementPic[1].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Icon;
-					NameLabel[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Kind == 21) {
+						MaterialSkill[1].gameObject.SetActive(true);
+						MaterialItem[1].gameObject.SetActive(false);
+						MaterialItemSkill[1].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality);
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) 
+							ElementPicSkill[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
 
-					TMaterialItem materialSkillCard = new TMaterialItem();
-					material2index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar))
+							ElementPicSkill[1].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar].PictureNo + "s";
+						else 
+							ElementPicSkill[1].spriteName = "0s";
+						NameLabelSkill[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
 
-					if(material2index != -1) {
-						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum2)
-							AmountLabel[1].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+						skill2 = GameData.Team.GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar);
+						material2count = skill2.Count;
+						if(material2count < GameData.DSkillData[skill.ID].MaterialNum2)
+							AmountLabelSkill[1].text = "[FF0000]" + material2count + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
 						else
-							AmountLabel[1].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+							AmountLabelSkill[1].text = material2count + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+
+						RedPointSkill[1].SetActive(material2count >= GameData.DSkillData[skill.ID].MaterialNum2);
+
 					} else {
-						AmountLabel[1].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+						MaterialSkill[1].gameObject.SetActive(false);
+						MaterialItem[1].gameObject.SetActive(true);
+						MaterialItem[1].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality;
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) 
+							ElementPic[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
+
+						ElementPic[1].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Icon;
+						NameLabel[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
+
+						TMaterialItem materialSkillCard = new TMaterialItem();
+						material2index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
+
+						if(material2index != -1) {
+							if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum2)
+								AmountLabel[1].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+							else
+								AmountLabel[1].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+						} else 
+							AmountLabel[1].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
+
+
+						RedPoint[1].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2));
+
+						material2count = materialSkillCard.Num;
 					}
-
-
-					
-					RedPoint[1].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2));
-
-					material2count = materialSkillCard.Num;
 				}
 			}
 
 			if(GameData.DSkillData[skill.ID].Material3 != 0 && GameData.DSkillData[skill.ID].MaterialNum3 != 0) {
 				mMaterial[2].SetActive(true);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3)) {
-					MaterialItem[2].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality;
-					if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) {
-						ElementPic[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
-					}
-					ElementPic[2].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Icon;
-					NameLabel[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Kind == 21) {
+						MaterialSkill[2].gameObject.SetActive(true);
+						MaterialItem[2].gameObject.SetActive(false);
+						MaterialItemSkill[2].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality);
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) 
+							ElementPicSkill[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
 
-					TMaterialItem materialSkillCard = new TMaterialItem();
-					material3index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar))
+							ElementPicSkill[2].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar].PictureNo + "s";
+						else 
+							ElementPicSkill[2].spriteName = "0s";
+						NameLabelSkill[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
 
-					if(material3index != -1) {
-						if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum3)
-							AmountLabel[2].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+						skill3 = GameData.Team.GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar);
+						material3count = skill3.Count;
+						if(material3count < GameData.DSkillData[skill.ID].MaterialNum3)
+							AmountLabelSkill[2].text = "[FF0000]" + material3count + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 						else
-							AmountLabel[2].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
-					} else 
-						AmountLabel[2].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+							AmountLabelSkill[2].text = material3count + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 
-					RedPoint[2].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3));
+						RedPointSkill[2].SetActive(material3count >= GameData.DSkillData[skill.ID].MaterialNum3);
 
-					material3count = materialSkillCard.Num;
+					} else {
+						MaterialSkill[2].gameObject.SetActive(false);
+						MaterialItem[2].gameObject.SetActive(true);
+						MaterialItem[2].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality;
+						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) 
+							ElementPic[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
+
+						ElementPic[2].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Icon;
+						NameLabel[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
+
+						TMaterialItem materialSkillCard = new TMaterialItem();
+						material3index = GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+
+						if(material3index != -1) {
+							if(materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum3)
+								AmountLabel[2].text = "[FF0000]" + materialSkillCard.Num + "[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+							else
+								AmountLabel[2].text =  materialSkillCard.Num + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+						} else 
+							AmountLabel[2].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
+
+						RedPoint[2].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3));
+
+						material3count = materialSkillCard.Num;
+					}
+
 				}
 			}
 		}

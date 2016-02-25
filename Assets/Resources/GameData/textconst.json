@@ -1713,6 +1713,24 @@
         "en": "Claim your free extract wafer?"
     },
     {
+        "id": 4109,
+        "uipeth": "Agaiin",
+        "tw": "再抽一次",
+        "en": "Agaiin"
+    },
+    {
+        "id": 4110,
+        "uipeth": "Awards",
+        "tw": "獲得以下物品",
+        "en": "Awards"
+    },
+    {
+        "id": 4111,
+        "uipeth": "Finish",
+        "tw": "確定",
+        "en": "Finish"
+    },
+    {
         "id": 4200,
         "explain": "銷售語",
         "tw": "特 賣",

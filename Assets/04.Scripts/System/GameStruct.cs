@@ -84,6 +84,8 @@ namespace GameStruct
 		public int Exp;
 		public int SN;
 
+		public int Index; //目前為了給進化用
+
 	    public override string ToString()
 	    {
 			return string.Format("ID: {0}, Lv: {1}, Exp: {2}, SN: {3}", ID, Lv, Exp, SN);
