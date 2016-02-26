@@ -24,7 +24,7 @@ public class UIRandomName : MonoBehaviour
         mLabel = GetComponent<UILabel>();
         TextAsset text = Resources.Load("GameData/teamname") as TextAsset;
         if(text)
-			mTeamNames = (TTeamName[])JsonConvert.DeserializeObject<TTeamName[]>(text.text, SendHttp.Get.JsonSetting));
+			mTeamNames = (TTeamName[])JsonConvert.DeserializeObject<TTeamName[]>(text.text, SendHttp.Get.JsonSetting);
         else
             Debug.LogError("Load Resource fail:GameData/teamname.");
     }
