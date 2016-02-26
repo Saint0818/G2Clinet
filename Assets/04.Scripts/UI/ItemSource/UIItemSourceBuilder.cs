@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using GameEnum;
@@ -12,14 +12,14 @@ public static class UIItemSourceBuilder
     {
         List<UIItemSourceElement.Data> elements = new List<UIItemSourceElement.Data>();
         if(item.StageSource != null)
-            buildMainStage(item.StageSource, startCallback, elements);
+            buildStages(item.StageSource, startCallback, elements);
         if(item.UISource != null)
             buildUISource(item.UISource, startCallback, elements);
 
         return elements.ToArray();
     }
 
-    private static void buildMainStage([NotNull]int[] stageSource, Action<bool> startCallback, 
+    private static void buildStages([NotNull]int[] stageSource, Action<bool> startCallback, 
                                        List<UIItemSourceElement.Data> elements)
     {
         foreach(int stageID in stageSource)
@@ -30,15 +30,31 @@ public static class UIItemSourceBuilder
                 continue;
             }
 
-            if(TStageData.MinMainStageID <= stageID && stageID <= TStageData.MaxMainStageID)
+            if(TStageData.IsMainStage(stageID))
             {
                 var data = new UIItemSourceElement.Data
                 {
-                    KindName = TextConst.S(9152),
+                    KindName = TextConst.S(9152), // [FFDD33]生涯競賽[-]
                     Name = StageTable.Ins.GetByID(stageID).Name,
                     StartEnabled = GameData.Team.Player.NextMainStageID >= stageID,
-                    StartWarningMessage = TextConst.S(100009),
-                    StartAction = new OpenStageAction(stageID),
+                    StartWarningMessage = TextConst.S(100009), // 100009:尚未符合挑戰此關卡的條件
+                    StartAction = new OpenMainStageAction(stageID),
+                    StartCallback = startCallback
+                };
+                elements.Add(data);
+            }
+            else if(TStageData.IsInstance(stageID))
+            {
+                TStageData instance = StageTable.Ins.GetByID(stageID);
+
+                var data = new UIItemSourceElement.Data
+                {
+                    KindName = TextConst.S(9154), // [06b225]關主挑戰[-]
+                    Name = instance.Name,
+                    StartEnabled = GameData.Team.Player.GetNextInstanceID(instance.Chapter) >= stageID &&
+                                   UIInstanceHelper.IsMainStagePass(instance.Chapter) ,
+                    StartWarningMessage = TextConst.S(100009), // 100009:尚未符合挑戰此關卡的條件
+                    StartAction = new OpenInstanceAction(stageID),
                     StartCallback = startCallback
                 };
                 elements.Add(data);

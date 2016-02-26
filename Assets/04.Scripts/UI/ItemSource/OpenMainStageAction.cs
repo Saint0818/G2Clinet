@@ -1,10 +1,9 @@
-using UnityEngine;
 
-public class OpenStageAction : UIItemSourceElement.IAction
+public class OpenMainStageAction : UIItemSourceElement.IAction
 {
     private readonly int mStageID;
 
-    public OpenStageAction(int stageID)
+    public OpenMainStageAction(int stageID)
     {
         mStageID = stageID;
     }

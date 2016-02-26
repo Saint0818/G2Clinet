@@ -90,7 +90,7 @@ public class UIInstance : UIBase
         List<ChapterData> allData = StageChapterTable.Ins.GetAllInstance();
         foreach(ChapterData chapterData in allData)
         {
-            if(!isMainStagePass(chapterData.Chapter))
+            if(!UIInstanceHelper.IsMainStagePass(chapterData.Chapter))
                 continue;
 
             List<TStageData> normalStages = StageTable.Ins.GetInstanceNormalStagesByChapter(chapterData.Chapter);
@@ -98,15 +98,6 @@ public class UIInstance : UIBase
             UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
             mMain.AddChapter(chapterData.Chapter, uiData);
         }
-    }
-
-    private bool isMainStagePass(int chapter)
-    {
-        if(!StageTable.Ins.HasMainStageByChapter(chapter))
-            return false;
-
-        TStageData lastStage = StageTable.Ins.GetLastMainStageByChapter(chapter);
-        return GameData.Team.Player.NextMainStageID > lastStage.ID;
     }
 
     private void enterSelectRole(int stageID)

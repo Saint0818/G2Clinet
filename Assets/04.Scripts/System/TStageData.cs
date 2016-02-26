@@ -19,12 +19,20 @@ public class TStageData
     /// </summary>
     public const int MinMainStageID = 101;
     public const int MaxMainStageID = 2000;
+    public static bool IsMainStage(int stageID)
+    {
+        return MinMainStageID <= stageID && stageID <= MaxMainStageID;
+    }
 
     /// <summary>
     /// 副本的 ID 範圍.
     /// </summary>
     public const int MinInstanceID = 2001;
     public const int MaxInstanceID = 4000;
+    public static bool IsInstance(int stageID)
+    {
+        return MinInstanceID <= stageID && stageID <= MaxInstanceID;
+    }
 
     public enum EKind
     {
