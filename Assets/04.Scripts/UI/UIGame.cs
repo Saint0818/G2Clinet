@@ -100,7 +100,7 @@ public class UIGame : UIBase
     //TopLeft
     private GameObject uiSpeed;
 	private UILabel labelSpeed;
-    private GameObject uiPause;
+    private UIButton buttonPause;
     private GameObject viewTopLeft;
     private UILabel[] labelTopLeftScore = new UILabel[2];
     private GameObject uiLimitTime;
@@ -328,7 +328,7 @@ public class UIGame : UIBase
         //TopLeft
         uiSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed");
 		labelSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
-        uiPause = GameObject.Find(UIName + "/TopLeft/ButtonPause");
+        buttonPause = GameObject.Find(UIName + "/TopLeft/ButtonPause").GetComponent<UIButton>();
         viewTopLeft = GameObject.Find(UIName + "TopLeft");
         labelTopLeftScore[0] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Home").GetComponent<UILabel>();
         labelTopLeftScore[1] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Away").GetComponent<UILabel>();
@@ -436,8 +436,9 @@ public class UIGame : UIBase
 
     public void InitTutorialUI()
     {
+        viewTopLeft.SetActive(true);
         uiSpeed.SetActive(false);
-        uiPause.SetActive(false);
+        buttonPause.enabled = false;
     }
 
     private void initJoystickPos()

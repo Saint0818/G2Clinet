@@ -382,7 +382,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void SetEnemyMembers() {
-		if (GameData.IsMainStage) {
+        if (StageTable.Ins.HasByID(GameData.StageID) && !GameData.IsPVP) {
 			int[] ids = StageTable.Ins.GetByID(GameData.StageID).PlayerID;
 			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
 			for (int i = 0; i < num; i ++) {
@@ -391,8 +391,7 @@ public class UISelectRole : UIBase {
 					GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[ids[i]].Name;
 			}
         } else {
-			int num = Mathf.Min(GameData.EnemyMembers.Length, arrayPlayerData.Length);
-			if(num < playerList.Count)
+			int num = Mathf.Min(GameData.EnemyMembers.Length, playerList.Count);
 			for(int i = 0; i < num; i++) 
 				GameData.EnemyMembers[i].Player = playerList[i];
 		}
@@ -454,7 +453,7 @@ public class UISelectRole : UIBase {
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
 			} else 
-                waitLookFriends(false);
+                waitLookFriends(true);
 		} else
         if (StageTable.Ins.GetByID(GameData.StageID).FriendID != null)
 			InitPlayerList(ref StageTable.Ins.GetByID(GameData.StageID).FriendID);

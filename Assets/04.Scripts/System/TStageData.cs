@@ -258,7 +258,7 @@ public class TStageData
 	}
 
 	public bool IsOnlineFriend {
-		get {return FriendKind == 1 || FriendKind == 2;}
+        get {return FriendKind == 1 || FriendKind == 2 || FriendKind == 3;}
 	}
 
     public override string ToString()
