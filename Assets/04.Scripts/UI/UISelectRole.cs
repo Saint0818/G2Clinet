@@ -392,6 +392,7 @@ public class UISelectRole : UIBase {
 			}
         } else {
 			int num = Mathf.Min(GameData.EnemyMembers.Length, arrayPlayerData.Length);
+			if(num < playerList.Count)
 			for(int i = 0; i < num; i++) 
 				GameData.EnemyMembers[i].Player = playerList[i];
 		}

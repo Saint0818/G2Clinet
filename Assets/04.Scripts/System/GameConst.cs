@@ -17,7 +17,7 @@
 	public const int Default_MainStageID = 101;
 	public const int Max_ActiveSkill = 3;
 	public const int Max_CostSpace = 20;
-	public const float Min_TimePause = 0.1f;
+	public const float Min_TimePause = 0f;
 
 	public static int PotentialCount = 6;
 	public static int PreLvPotential = 10;

@@ -53,7 +53,7 @@ public class BlockTrigger : MonoBehaviour {
 				}
 			}
 		} else 
-			if (GameController.Visible && other.gameObject.CompareTag ("RealBall") && !CourtMgr.Get.IsRealBallActive && 
+			if (GameController.Visible && other.gameObject.CompareTag ("RealBallTrigger") && !CourtMgr.Get.IsRealBallActive && 
 			   GameController.Get.BallState == GameEnum.EBallState.CanBlock) {
 			faller = GameController.Get.Shooter;
 

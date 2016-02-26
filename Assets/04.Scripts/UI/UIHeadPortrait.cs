@@ -254,7 +254,7 @@ public class UIHeadPortrait : UIBase
                             if (GameData.DItemData.ContainsKey(DHeadTexture[index][0]))
                             {
                                 TItemData data = GameData.DItemData[DHeadTexture[index][0]];
-                                UIItemSource.Get.ShowMaterial(data, enable =>
+								UIItemSource.Get.ShowSkill(data, enable =>
                                     {
                                         if (enable)
                                         {

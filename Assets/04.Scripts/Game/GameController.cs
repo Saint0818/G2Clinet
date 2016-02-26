@@ -830,13 +830,17 @@ public class GameController : KnightSingleton<GameController>
 		if (IsTimePass())
 			gameResult();
 
-        if (IsFinish && !GameRecord.Done && !CourtMgr.Get.IsBallOffensive) {
-			CameraMgr.Get.FinishGame();
-			GameRecord.Done = true;
-			SetGameRecord();
-			SetBallOwnerNull();
-			CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
-			StartCoroutine(playFinish());
+		if (IsFinish)
+		{
+			if (!GameRecord.Done && !CourtMgr.Get.IsBallOffensive) 
+			{
+				CameraMgr.Get.FinishGame ();
+				GameRecord.Done = true;
+				SetGameRecord ();
+				SetBallOwnerNull ();
+				CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
+				StartCoroutine (playFinish ());
+			}
 		}
 	}
 
@@ -3732,9 +3736,9 @@ public class GameController : KnightSingleton<GameController>
 		//Player
         int num = Mathf.Min(PlayerList.Count, CourtMgr.Get.EndPlayerPosition.Length);
 		for (int i=0; i< num; i++) {
-            PlayerList[i].DefPlayer = null;
+			if(!GameStart.Get.IsAutoReplay)
+           		PlayerList[i].DefPlayer = null;
             PlayerList[i].Reset();
-            PlayerList[i].ResetFlag();
             PlayerList[i].ResetMove();
             PlayerList[i].AniState(EPlayerState.Idle);
 			PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
@@ -4236,6 +4240,7 @@ public class GameController : KnightSingleton<GameController>
 		Shooter = null;
 		IsStart = false;
 		IsFinish = false;
+		GameRecord.Init(PlayerList.Count);
 		SetPlayerAI(true);
 		SetBallOwnerNull();
 		GameTime = MissionChecker.Get.MaxGameTime;
@@ -4258,7 +4263,6 @@ public class GameController : KnightSingleton<GameController>
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].AnimatorControl.Play("Idle");
-			PlayerList [i].ResetFlag();
 			PlayerList [i].Reset();
 			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
 

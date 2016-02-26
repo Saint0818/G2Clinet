@@ -58,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanUseTipIn = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
-    private float ProactiveTime = 0;
+    //    private float ProactiveTime = 0;
     private float animationSpeed = 0;
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
@@ -286,12 +286,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (TestGameObject.GetComponent<SphereCollider>())
             TestGameObject.GetComponent<SphereCollider>().enabled = false;
 				
-		TestGameObject.GetComponent<MeshRenderer> ().enabled = GameStart.Get.IsDebugAnimation;
+        TestGameObject.GetComponent<MeshRenderer>().enabled = GameStart.Get.IsDebugAnimation;
     }
 
     private void manuallyTimeUp()
     {
-        moveQueue.Clear();
+        RemoveMoveData();
 
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
@@ -527,25 +527,32 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos() {
-		if (GameStart.Get.IsDebugAnimation) {
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
-		}
+    void OnDrawGizmos()
+    {
+        if (GameStart.Get.IsDebugAnimation)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
+        }
     }
 
     void FixedUpdate()
     {
-        if (GameController.Get.IsShowSituation)
+        if (GameController.Get.IsShowSituation || !GameController.Get.IsStart)
         {
             return;
         }
 
-        if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock || IsBuff || IsPush)
-        {
-            timeScale = TimerMgr.Get.GetTime(TimerKind);
+        timeScale = TimerMgr.Get.CrtTime;
+
+        if (AnimatorControl.TimeScaleTime != timeScale)
             AnimatorControl.TimeScaleTime = timeScale;
-        }
+
+//		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock || IsBuff || IsPush) {
+//
+//				AnimatorControl.TimeScaleTime = timeScale;
+//		} else {
+//		}			
 				
         DebugTool();
         
@@ -584,10 +591,25 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 // 移動完畢時. 若是防守方, 要撥防守動作; 若是進攻方, 要撥 Idle.
                 isMoving = false;
-                if (IsDefence && (CheckAnimatorSate(EPlayerState.RunningDefence) || CheckAnimatorSate(EPlayerState.Defence1)))
-                    AniState(EPlayerState.Defence0);
-                else if (!IsDefence && !IsBallOwner && IsRun)
-                    AniState(EPlayerState.Idle);
+                if (IsDefence)
+                {
+                    if (!CheckAnimatorSate(EPlayerState.Defence0))
+                    {
+                        AniState(EPlayerState.Defence0);		
+                    }
+                }
+                else
+                {
+                    if (!IsBallOwner && IsRun)
+                    {
+                        AniState(EPlayerState.Idle); 
+                    }
+                }
+
+//                if (IsDefence && (CheckAnimatorSate(EPlayerState.RunningDefence) || CheckAnimatorSate(EPlayerState.Defence1)))
+//                    AniState(EPlayerState.Defence0);
+//                else if (!IsDefence && !IsBallOwner && IsRun)
+//                    AniState(EPlayerState.Idle);
             }
         }
 
@@ -595,6 +617,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (!IsDefence)
             {
+                //每0.2秒移動一次, 用進攻球員去控制防守球員
                 if (Time.time >= moveStartTime)
                 {
                     moveStartTime = Time.time + GameConst.DefMoveTime;
@@ -603,12 +626,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                if (Time.time >= ProactiveTime)
-                {
-                    ProactiveTime = Time.time + 4;
-                    //                TimeProactiveRate = UnityEngine.Random.Range(0, 100) + 1;
-                }
-
                 if (AutoFollow)
                 {
                     Vector3 ShootPoint;
@@ -668,24 +685,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (isMoving)
             DribbleTime += Time.deltaTime;
     }
-
-    //    public void SetSelectTexture(string name)
-    //    {
-    //        if (selectTexture)
-    //        {
-    //
-    //        } else
-    //        {
-    //            GameObject obj = Resources.Load("Prefab/Player/" + name) as GameObject;
-    //            if (obj)
-    //            {
-    //                selectTexture = Instantiate(obj) as GameObject;
-    //                selectTexture.name = "Select";
-    //                selectTexture.transform.parent = transform;
-    //                selectTexture.transform.localPosition = new Vector3(0, 0.05f, 0);
-    //            }
-    //        }
-    //    }
 
     public void DashEffectEnable(bool isEnable)
     {
@@ -777,27 +776,52 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private float proofingTime = 2f;
+
     public void DebugTool()
-    {
-        if (!GameStart.Get.IsDebugAnimation)
-            return;
-
-        //LayerCheck
-//        if (PlayerRefGameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Player))
-//        {
-//            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
-//        }
-
-        //IdleAirCheck
-//      if (PlayerTransform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
-//      {
-//          LogMgr.Get.AnimationError((int)Team * 3 + Index, PlayerGameObject.name + " : Error State : Idle in the Air ");
-//      }
-
-        //Idle ballowner
-        if (crtState == EPlayerState.Idle && IsBallOwner && GameController.Get.Situation != EGameSituation.End)
+    {	
+        if (GameController.Get.IsStart && TimerMgr.Get.CrtTime > 0 && 
+            (GameController.Get.Situation == EGameSituation.GamerAttack || 
+                GameController.Get.Situation == EGameSituation.NPCAttack))
         {
-            LogMgr.Get.AnimationError((int)Team * 3 + Index.GetHashCode(), PlayerRefGameObject.name + " : Error State: Idle BallOWner");
+            if (crtState == EPlayerState.Idle && IsBallOwner)
+            {
+                proofingTime -= Time.deltaTime;
+                if (proofingTime <= 0)
+                {
+                    if (GameStart.Get.IsDebugAnimation)
+                        Debug.LogError("proofing1");
+                    
+                    if (IsBallOwner)
+                        AniState(EPlayerState.Dribble0);
+                    else
+                        AniState(EPlayerState.Fall0);
+    									
+                    proofingTime = 2f;
+                }
+            }
+            else if (IsElbow && crtAnimatorState == EAnimatorState.Idle)
+            {
+                proofingTime -= Time.deltaTime;
+                if (proofingTime <= 0)
+                {
+                    if (GameStart.Get.IsDebugAnimation)
+                        Debug.LogError("proofing2");
+                    
+                    if (IsBallOwner)
+                        AniState(EPlayerState.HoldBall);
+                    else
+                        AniState(EPlayerState.Fall0);
+                    
+                    proofingTime = 2f;
+                }
+            }
+            else
+                proofingTime = 2f; 
+        }
+        else
+        {
+            proofingTime = 2f;
         }
     }
 
@@ -819,7 +843,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 int moveKind = 0;
                 float calculateSpeed = 1;
-                moveQueue.Clear();
+                RemoveMoveData();
 
                 #if UNITY_EDITOR
                 if (IsFall && GameStart.Get.IsDebugAnimation)
@@ -1225,7 +1249,6 @@ public class PlayerBehaviour : MonoBehaviour
                 TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
             }
         }
-
     }
 
     private void moveTo(TMoveData data, bool first = false)
@@ -1263,15 +1286,24 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                if (IsDefence)
+                if (MoveTurn >= 0 && MoveTurn <= 5 && GameController.Get.BallOwner != null)
                 {
-                    DefenderMove(data, doMove, false);
+                    MoveTurn++;
+                    RotateTo(MoveTarget.x, MoveTarget.y);
+                    if (MoveTurn == 1)
+                        moveStartTime = Time.time + GameConst.DefMoveTime;  	
                 }
                 else
                 {
-                    AttackerMove(first, data, false);
+                    if (IsDefence)
+                    {
+                        DefenderMove(data, doMove, false);
+                    }
+                    else
+                    {
+                        AttackerMove(first, data, false);
+                    }
                 }
-
 
 //                if (MoveTurn >= 0 && MoveTurn <= 5 && GameController.Get.BallOwner != null)
 //                {
@@ -1292,7 +1324,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
 				
 //        PlayerRefGameObject.transform.DOLookAt(new Vector3(lookAtX, PlayerRefGameObject.transform.position.y, lookAtZ), 0, AxisConstraint.Y);
-		PlayerRefGameObject.transform.LookAt(new Vector3(lookAtX, PlayerRefGameObject.transform.position.y, lookAtZ));
+        PlayerRefGameObject.transform.LookAt(new Vector3(lookAtX, PlayerRefGameObject.transform.position.y, lookAtZ));
     }
 
     public void SetInvincible(float time)
@@ -1336,7 +1368,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             //When AI disabled player has to run all path
             if (clearMove && AI.enabled)
-                moveQueue.Clear();
+            {
+                RemoveMoveData();
+            }
 
             CantMoveTimer.Clear();
             NeedShooting = false;
@@ -1355,15 +1389,10 @@ public class PlayerBehaviour : MonoBehaviour
         angerValue = 0;
         AnimatorControl.Reset();
         isBlock = false;
-//        isLayup = false;
         isCanBlock = false;
-//        isRebound = false;
-//        isShootJump = false;
         isShootJumpActive = false;
         isSkillShow = false;
-//        animatorEvent.floatParameter = 1;
-//        animatorEvent.intParameter = 0;
-//		TimeScaleCallBack(animatorEvent);
+        ResetFlag();
     }
 
     public bool CanUseState(EPlayerState state)
@@ -2533,7 +2562,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         ReadyToNextState = true;
         OnUI(this);
-		PlayerSkillController.ResetUseSkill();
+        PlayerSkillController.ResetUseSkill();
 
         if (!IsBallOwner)
             AniState(EPlayerState.Idle);
@@ -2768,10 +2797,10 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     public void StartSkillCamera(int no)
-	{
-		if(no >= 20) 
-			if(GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID)) 
-				UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+    {
+        if (no >= 20)
+        if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID))
+            UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
 			
 		
         if (no < 20 && GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()))
@@ -2781,10 +2810,10 @@ public class PlayerBehaviour : MonoBehaviour
 	
         if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
-			//Debug.LogError(gameObject.name + " . Skill Start");
+            //Debug.LogError(gameObject.name + " . Skill Start");
 
             int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
-			float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
+            float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
 			TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
 //            if (this == GameController.Get.Joysticker)
 //            {
@@ -2797,9 +2826,11 @@ public class PlayerBehaviour : MonoBehaviour
                     UIPassiveEffect.UIShow(false);
                 
                 isSkillShow = true;
+//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
                 string effectName = string.Format("UseSkillEffect_{0}", 0);
                 EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
                 
+//                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
                 
@@ -2895,9 +2926,15 @@ public class PlayerBehaviour : MonoBehaviour
         DribbleTime = 0;
         if (AI.enabled)
         {
-            moveQueue.Clear();
+            RemoveMoveData();
             CantMoveTimer.Clear();
         }
+    }
+
+    private void RemoveMoveData()
+    {
+        moveQueue.Clear(); 
+        TestGameObject.transform.position = gameObject.transform.position;
     }
 
     public void SetAutoFollowTime()
@@ -2923,7 +2960,7 @@ public class PlayerBehaviour : MonoBehaviour
                 return false;
 
             GameRecord.Skill++;
-			SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
+            SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
 
             if (Attribute.SkillAnimation(ActiveSkillUsed.ID) != "")
             {
@@ -3293,7 +3330,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsAngerFull(TSkill tSkill)
     {
-		return Attribute.CheckIfMaxAnger(tSkill.ID, angerValue, tSkill.Lv);
+        return Attribute.CheckIfMaxAnger(tSkill.ID, angerValue, tSkill.Lv);
     }
 
     public bool AIing

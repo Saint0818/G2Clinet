@@ -29,7 +29,7 @@ namespace AI
 //            Debug.LogFormat("PlayerAttackFastBreakState.Enter, Player:{0}, TargetPos:{1}", mPlayerAI.name, mPlayerAI.Team.GetShootPoint());
 
             mPlayer.ResetFlag();
-            mPlayer.ResetMove();
+//            mPlayer.ResetMove();
 
             updateTarget();
         }

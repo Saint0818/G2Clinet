@@ -1465,7 +1465,10 @@ namespace GameStruct
 	public struct TPVPData
 	{
         public int Lv;
-		public string Name;
+        public string NameTW;
+        public string NameCN;
+        public string NameEN;
+        public string NameJP;
 		public int LowScore;
 		public int HighScore;
 		public int BasicScore;
@@ -1474,6 +1477,19 @@ namespace GameStruct
         public int PVPCoinDaily;
         public int Stage;
         public int SearchCost;
+
+        public string Name
+        {
+            get{
+                switch(GameData.Setting.Language)
+                {
+                    case ELanguage.TW: return NameTW;
+                    case ELanguage.CN: return NameCN;
+                    case ELanguage.JP: return NameJP;
+                    default : return NameEN;
+                }
+            }
+        }
 	}
 
     public struct TTeamRank
