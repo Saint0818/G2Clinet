@@ -572,7 +572,7 @@ public class UIGameResult : UIBase {
 				showSkillInfo(GetCardLists[0]);
 				GetCardLists.RemoveAt(0);
 		} else {
-			if(isHaveBonus)
+			if(isHaveBonus && chooseCount == 0)
 				moveBonusItem ();
 			else 
 				ShowReturnButton();
