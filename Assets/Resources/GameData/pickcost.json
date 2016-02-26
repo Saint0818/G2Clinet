@@ -11,7 +11,9 @@
         "showitem": [40001,40002,40003,40004,40100,40101,40102],
         "prefab": "MallboxDiamond2",
         "order": 0,
-        "explaintw": "最強的進攻絕技都在這裡，可以幫助你快速達成進攻的過關條件。"
+        "nameen": " - OFFENSIVE -",
+        "explaintw": "持續進攻，成為無堅不摧的戰矛吧！",
+        "explainen": " - OFFENSIVE -"
     },
     {
         "id": 2,
@@ -24,7 +26,9 @@
         "showitem": [40001,40002,40003,40004,40100,40101,40102],
         "prefab": "MallboxDiamond1",
         "order": 1,
-        "explaintw": "堅實的防守可以讓你有效的阻斷對手的進攻。"
+        "nameen": " - DEFEND -",
+        "explaintw": "銅牆鐵壁、固若金湯，有效阻斷你的對手！",
+        "explainen": " - DEFEND -"
     },
     {
         "id": 3,
@@ -37,6 +41,8 @@
         "showitem": [40001,40002,40003,40004,40100,40101,40102],
         "prefab": "MallboxDiamond3",
         "order": 2,
-        "explaintw": "有效幫助整場競賽的控場技能都可以在這裡找到。"
+        "nameen": " - CROWD CONTROL -",
+        "explaintw": "想成為掌控賽局的控場大師？來這裡吧！",
+        "explainen": " - CROWD CONTROL -"
     }
 ]
