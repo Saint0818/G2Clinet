@@ -10,7 +10,7 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 
-	private static int[] selectRoleID = new int[6]{11, 12, 13, 31, 32, 33};
+	private static int[] selectRoleID = new int[6]{20, 21, 22, 31, 32, 33};
 	private const int MaxValue = 100;
 	private const float X_Partner = 2.6f;
 	private const float Y_Partner = 0;
@@ -139,6 +139,7 @@ public class UISelectRole : UIBase {
     		}
 
     		ModelManager.Get.LoadAllSelectPlayer(ref ids);
+            initTeammateList();
         }
 	}
 
@@ -174,13 +175,14 @@ public class UISelectRole : UIBase {
 			}
 		}
 
-
         playerList = playerList.OrderBy(x => -x.CombatPower()).ToList();
         for (int i = 0; i < playerList.Count; i++) {
             TPlayer player = playerList[i];
             player.RoleIndex = i;
             playerList[i] = player;
         }
+
+        initTeammateList();
 	}
 
 	protected override void InitCom() {
@@ -216,58 +218,60 @@ public class UISelectRole : UIBase {
 	}
 
 	protected override void InitData() {
-        InitPlayerList(ref selectRoleID);
-		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
-			if (i < playerList.Count) {
-				arrayPlayerData[i] = playerList[i];
-				arrayPlayer[i] = new GameObject();
-				arrayPlayer[i].name = i.ToString();
-				arrayPlayer[i].transform.parent = playerInfoModel.transform;
-				GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, arrayPlayerData[i].BodyType, EAnimatorType.AvatarControl, false);
+	}
 
-				arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
-				arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
+    private void initTeammateList() {
+        for(int i = 0; i < arrayPlayerPosition.Length; i++) {
+            if (i < playerList.Count) {
+                arrayPlayerData[i] = playerList[i];
+                arrayPlayer[i] = new GameObject();
+                arrayPlayer[i].name = i.ToString();
+                arrayPlayer[i].transform.parent = playerInfoModel.transform;
+                GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, arrayPlayerData[i].BodyType, EAnimatorType.AvatarControl, false);
 
-				if(i == 0) {
-					arrayPlayer [i].transform.localPosition = new Vector3 (0, 0.25f, 0);
-					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
-				}else 
-				if(i == 1) {
-					arrayPlayer[i].transform.localPosition = new Vector3(2.6f, 0, Z_Partner);
-					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
-				}else 
-				if(i == 2) {
-					arrayPlayer[i].transform.localPosition = new Vector3(-2.6f, 0, Z_Partner);
-					arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
-				}
-				
-				if(i == 0)
-					arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
-				else
-					arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
-				
+                arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
+                arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
+
+                if(i == 0) {
+                    arrayPlayer [i].transform.localPosition = new Vector3 (0, 0.25f, 0);
+                    arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+                }else 
+                    if(i == 1) {
+                        arrayPlayer[i].transform.localPosition = new Vector3(2.6f, 0, Z_Partner);
+                        arrayPlayer[i].transform.localEulerAngles = new Vector3(0, -150, 0);
+                    }else 
+                        if(i == 2) {
+                            arrayPlayer[i].transform.localPosition = new Vector3(-2.6f, 0, Z_Partner);
+                            arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 150, 0);
+                        }
+
+                if(i == 0)
+                    arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
+                else
+                    arrayPlayer[i].transform.localScale = new Vector3(1, 1, 1);
+
                 LayerMgr.Get.SetLayer(obj, ELayer.Default);
                 obj.transform.localScale = Vector3.one;
                 obj.transform.localEulerAngles = Vector3.zero;
                 obj.transform.localPosition = Vector3.zero;
-			}
-		}
+            }
+        }
 
-		arrayPlayerData[1] = new TPlayer();
-		arrayPlayerData[2] = new TPlayer();
-		arrayPlayerData[1].RoleIndex = -1;
-		arrayPlayerData[2].RoleIndex = -1;
+        arrayPlayerData[1] = new TPlayer();
+        arrayPlayerData[2] = new TPlayer();
+        arrayPlayerData[1].RoleIndex = -1;
+        arrayPlayerData[2].RoleIndex = -1;
 
-		for(int i = 0; i < arrayPlayerPosition.Length; i++) 		
-			arrayPlayer[i].SetActive(false);
+        for(int i = 0; i < arrayPlayerPosition.Length; i++)         
+            arrayPlayer[i].SetActive(false);
 
         labelStrategy.text = GameData.Team.Player.StrategyText;
-		arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
-		Invoke("playerDoAnimator", 0.95f);
-		Invoke("playerShowTime", 1.1f);
+        arrayPlayer[0].transform.localPosition = new Vector3(0, 4.5f, 0);
+        Invoke("playerDoAnimator", 0.95f);
+        Invoke("playerShowTime", 1.1f);
 
         selectFriendMode();
-	}
+    }
 
 	public void OnStart(){
         Visible = false;
@@ -419,9 +423,12 @@ public class UISelectRole : UIBase {
 		arrayPlayer[2].transform.localPosition = new Vector3(-X_Partner, Y_Partner, Z_Partner);
 	}
 
-	private void waitLookFriends() {
-        GameData.Team.InitFriends();
-	    InitPlayerList(ref GameData.Team.Friends);
+    private void waitLookFriends(bool ok) {
+        if (ok) {
+            GameData.Team.InitFriends();
+    	    InitPlayerList(ref GameData.Team.Friends);
+        } else
+            InitPlayerList(ref selectRoleID);
 	}
 
     public void InitPlayer() {
@@ -441,14 +448,17 @@ public class UISelectRole : UIBase {
         UIMainLobby.Get.HideAll(false);
         Visible = true;
 		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
-            if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime()) {
+            if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime() && GameData.Team.Friends == null) {
                 SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
 			} else 
-                waitLookFriends();
+                waitLookFriends(false);
 		} else
+        if (StageTable.Ins.GetByID(GameData.StageID).FriendID != null)
 			InitPlayerList(ref StageTable.Ins.GetByID(GameData.StageID).FriendID);
+        else
+            InitPlayerList(ref selectRoleID);
 	}
 
 	private void selectFriendMode() {

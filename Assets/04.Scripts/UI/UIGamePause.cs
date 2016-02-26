@@ -293,6 +293,7 @@ public class UIGamePause : UIBase {
 	}
 	
 	public void OnResume() {
+        Time.timeScale = GameController.Get.RecordTimeScale;
 		uiStageHint.Hide();
 		UIShow(false);
 		UIGame.Get.UIState(EUISituation.Continue);

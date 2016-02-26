@@ -400,7 +400,7 @@ public class GameController : KnightSingleton<GameController>
 	private void checkPlayerID() {
 		for (int i = 0; i < GameData.TeamMembers.Length; i ++)
 			if (!GameData.DPlayers.ContainsKey(GameData.TeamMembers[i].Player.ID))
-				GameData.TeamMembers[i].Player.SetID(11 + i);
+				GameData.TeamMembers[i].Player.SetID(20 + i);
 
 		for (int i = 0; i < GameData.EnemyMembers.Length; i ++)
 			if (!GameData.DPlayers.ContainsKey(GameData.EnemyMembers[i].Player.ID))

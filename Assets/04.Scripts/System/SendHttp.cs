@@ -7,6 +7,8 @@ using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
+public delegate void BoolCallback(bool flag);
+
 public struct TSessionResult {
 	public string sessionID;
 }
@@ -183,7 +185,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private Queue<string> confirmFriends = new Queue<string>();
 
     private EventDelegate.Callback LookFriendsEvent;
-    private EventDelegate.Callback FreshFriendsEvent;
+    private BoolCallback FreshFriendsEvent;
 	private EventDelegate.Callback MakeFriendEvent;
 	private EventDelegate.Callback BuySkillCardBagEvent;
 
@@ -537,7 +539,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
         }
     }
 
-    public void FreshFriends(EventDelegate.Callback e, bool waiting) {
+    public void FreshFriends(BoolCallback e, bool waiting) {
         FreshFriendsEvent = e;
         WWWForm form = new WWWForm();
         form.AddField("Identifier", GameData.Team.Identifier);
@@ -546,29 +548,25 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void waitFreshFriends(bool flag, WWW www) {
         if (flag) {
-            try {
-                if (CheckServerMessage(www.text)) {
-                    string text = GSocket.Get.OnHttpText(www.text);
-                    if (!string.IsNullOrEmpty(text)) {
-                        TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
-                        team.InitFriends();
+            if (CheckServerMessage(www.text)) {
+                string text = GSocket.Get.OnHttpText(www.text);
+                if (!string.IsNullOrEmpty(text)) {
+                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                    team.InitFriends();
 
-                        GameData.Team.FreshFriendTime = team.FreshFriendTime;
-                        GameData.Team.DailyCount.FreshFriend = team.DailyCount.FreshFriend;
-                        GameData.Team.Friends = team.Friends;
-                        GameData.Team.FreshFriendTime = team.FreshFriendTime;
-                        if (GameData.Team.Diamond != team.Diamond)
-                            GameData.Team.Diamond = team.Diamond;
-                    }
+                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                    GameData.Team.DailyCount.FreshFriend = team.DailyCount.FreshFriend;
+                    GameData.Team.Friends = team.Friends;
+                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
+                    if (GameData.Team.Diamond != team.Diamond)
+                        GameData.Team.Diamond = team.Diamond;
                 }
-
-				if (FreshFriendsEvent != null) {
-					FreshFriendsEvent();
-					FreshFriendsEvent = null;
-				}
-            } catch (Exception e) {
-                Debug.Log(e.ToString());
             }
+        }
+
+        if (FreshFriendsEvent != null) {
+            FreshFriendsEvent(flag);
+            FreshFriendsEvent = null;
         }
     }
 

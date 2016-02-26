@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "  {0} Out"
+        "en": "  {0} Out"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": "  {0:00} day {1:00} when"
+        "en": "  {0:00} day {1:00} when"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": "  {0:00} when {1:00} minutes"
+        "en": "  {0:00} when {1:00} minutes"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": "  {0:00} sub {1:00} seconds"
+        "en": "  {0:00} sub {1:00} seconds"
     },
     {
         "id": 246,
@@ -690,7 +690,7 @@
     {
         "id": 1012,
         "explain": "潛能按鈕",
-        "tw": "每 日",
+        "tw": "簽 到",
         "en": "Daily"
     },
     {
@@ -805,16 +805,16 @@
     {
         "id": 3006,
         "uipeth": "AttrKind0/KindLabel",
-        "tw": "2分",
-        "en": "2PT",
-        "jp": "2PT"
+        "tw": "命中",
+        "en": "OFF",
+        "jp": "OFF"
     },
     {
         "id": 3007,
         "uipeth": "AttrKind1/KindLabel",
-        "tw": "3分",
-        "en": "3PT",
-        "jp": "3PT"
+        "tw": "外線",
+        "en": "OUT",
+        "jp": "OUT"
     },
     {
         "id": 3008,
@@ -926,14 +926,14 @@
     {
         "id": 3025,
         "uipeth": "Attribute4/Label",
-        "tw": "3分",
-        "en": "3PT"
+        "tw": "外線",
+        "en": "OUT"
     },
     {
         "id": 3026,
         "uipeth": "Attribute5/Label",
-        "tw": "2分",
-        "en": "2PT"
+        "tw": "命中",
+        "en": "OFF"
     },
     {
         "id": 3027,
@@ -1011,14 +1011,14 @@
     {
         "id": 3302,
         "uipeth": "AttrKind0/KindLabel",
-        "tw": "2分球",
-        "en": "2 Points"
+        "tw": "命中",
+        "en": "Offensive"
     },
     {
         "id": 3303,
         "uipeth": "AttrKind1/KindLabel",
-        "tw": "3分球",
-        "en": "3 Points"
+        "tw": "外線",
+        "en": "Outside"
     },
     {
         "id": 3304,
@@ -1082,16 +1082,16 @@
     },
     {
         "id": 3322,
-        "explain": "2分球",
+        "explain": "命中",
         "uipeth": "AttrKind0/ExplainLabel",
-        "tw": "影響2分球命中機率",
-        "en": "2 Points Field Goal Percentage"
+        "tw": "影響投射命中機率",
+        "en": "Shooting Goal Percentage"
     },
     {
         "id": 3323,
-        "explain": "3分球",
+        "explain": "外線",
         "uipeth": "AttrKind1/ExplainLabel",
-        "tw": "影響3分球命中機率",
+        "tw": "降低遠離籃筐時的衰減值",
         "en": "3 Points Field Goal Percentage"
     },
     {
@@ -1714,9 +1714,9 @@
     },
     {
         "id": 4109,
-        "uipeth": "Agaiin",
+        "uipeth": "Again",
         "tw": "再抽一次",
-        "en": "Agaiin"
+        "en": "Again"
     },
     {
         "id": 4110,
@@ -1861,13 +1861,13 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": "  [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": "  [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -2065,7 +2065,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": "  {0} ago"
+        "en": "  {0} ago"
     },
     {
         "id": 5010,
@@ -2186,7 +2186,7 @@
     {
         "id": 5031,
         "tw": " [969696FF]搜尋符合[-]",
-        "en": "  [969696FF] Search accord [-] "
+        "en": "  [969696FF] Search accord [-] "
     },
     {
         "id": 5032,
@@ -2436,19 +2436,19 @@
     {
         "id": 7010,
         "tw": "插槽數",
-        "en": "Wafer socket"
+        "en": "Socket"
     },
     {
         "id": 7011,
         "explain": "技能介面頁籤1",
         "tw": "技能晶片",
-        "en": "Skills wafer"
+        "en": "Skill Cards"
     },
     {
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "Wafer Atlas"
+        "en": "Card Atlas"
     },
     {
         "id": 7101,
@@ -2560,7 +2560,7 @@
         "id": 7203,
         "uipeth": "LabelKind1",
         "tw": "晶片品質",
-        "en": "Wafer quality"
+        "en": "Quality"
     },
     {
         "id": 7204,
@@ -3094,7 +3094,7 @@
         "id": 9152,
         "explain": "主線關卡",
         "tw": "[FFDD33]生涯競賽[-]",
-        "en": "[FFFD 33] Career Competition [-] "
+        "en": "[FFFD33] Career Competition [-] "
     },
     {
         "id": 9153,
@@ -3349,7 +3349,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": "  {0} in use"
+        "en": "  {0} in use"
     },
     {
         "id": 9701,
@@ -3397,7 +3397,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "The next stage\n  {0} "
+        "en": "The next stage\n  {0} "
     },
     {
         "id": 9709,
@@ -3761,16 +3761,16 @@
     {
         "id": 10306,
         "uipeth": "FG/LabelTitle",
-        "tw": "2分",
-        "en": "FG",
-        "jp": "FG"
+        "tw": "命中",
+        "en": "OFF",
+        "jp": "OFF"
     },
     {
         "id": 10307,
         "uipeth": "3FG/LabelTitle",
-        "tw": "3分",
-        "en": "3FG",
-        "jp": "3FG"
+        "tw": "外線",
+        "en": "OUT",
+        "jp": "OUT"
     },
     {
         "id": 10308,
@@ -3980,16 +3980,16 @@
     {
         "id": 10410,
         "uipeth": "2PTLabel",
-        "tw": "2分球",
-        "en": "2PT",
-        "jp": "2PT"
+        "tw": "命中",
+        "en": "OFF",
+        "jp": "OFF"
     },
     {
         "id": 10411,
         "uipeth": "3PTLabel",
-        "tw": "3分球",
-        "en": "3PT",
-        "jp": "3PT"
+        "tw": "外線",
+        "en": "OUT",
+        "jp": "OUT"
     },
     {
         "id": 10412,
@@ -4032,17 +4032,17 @@
     },
     {
         "id": 10501,
-        "explain": "1.2分 2-Point（2PT）",
-        "tw": "2分",
-        "en": "2PT",
-        "jp": "2PT"
+        "explain": "1.命中 Offensuve OFF",
+        "tw": "命中",
+        "en": "OFF",
+        "jp": "OFF"
     },
     {
         "id": 10502,
-        "explain": "2.3分 3-Point（3PT）",
-        "tw": "3分",
-        "en": "3PT",
-        "jp": "3PT"
+        "explain": "2.外線 Outside OUT",
+        "tw": "外線",
+        "en": "OUT",
+        "jp": "OUT"
     },
     {
         "id": 10503,

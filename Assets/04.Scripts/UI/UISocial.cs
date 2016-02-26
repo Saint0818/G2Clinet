@@ -449,7 +449,7 @@ public class UISocial : UIBase {
             item = null;
     }
         
-    private void waitFreshFriends() {
+    private void waitFreshFriends(bool ok) {
         freshDiamond();
         initList(nowPage);
     }

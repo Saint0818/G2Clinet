@@ -246,7 +246,7 @@ public class TStageData
     }
 
 	public bool IsTutorial {
-		get {return Chapter == 0;}
+        get {return ID < 10;}
 	}
 
 	public bool IsOnlineFriend {
