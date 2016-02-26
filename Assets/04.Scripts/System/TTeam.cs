@@ -537,8 +537,14 @@ namespace GameStruct
 			return false;
 		}
 
-		//除了自己，相同的卡片數量（for 進化）
-		//skill就是本身要進化   skillID是要被吃的卡
+
+		/// <summary>
+		/// 除了自己，相同的卡片數量（for 進化）
+		/// skill就是本身要進化   skillID是要被吃的卡
+		/// </summary>
+		/// <returns>The card list.</returns>
+		/// <param name="skill">Skill.</param>
+		/// <param name="skillID">Skill I.</param>
 		public List<TSkill> GetCardList (TSkill skill , int skillID) {
 			List<TSkill> skills = new List<TSkill>();
 
@@ -563,7 +569,7 @@ namespace GameStruct
 					if(SkillCards != null && SkillCards.Length > 0) {
 						for(int i=0; i<SkillCards.Length; i++) {
 							if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
-								if(IsEnoughMaterial(SkillCards[i])){
+								if(SkillCards[i].Lv == GameData.DSkillData[SkillCards[i].ID].MaxStar &&  IsEnoughMaterial(SkillCards[i])){
 										return true;
 								}
 							}
@@ -575,7 +581,7 @@ namespace GameStruct
 					if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
 						for (int i=0; i<Player.SkillCards.Length; i++) {
 							if(GameData.DSkillData.ContainsKey(Player.SkillCards[i].ID )) {
-								if(IsEnoughMaterial(Player.SkillCards[i])) {
+								if(Player.SkillCards[i].Lv == GameData.DSkillData[Player.SkillCards[i].ID].MaxStar &&  IsEnoughMaterial(Player.SkillCards[i])) {
 									return true; 
 								}
 							}
@@ -646,29 +652,59 @@ namespace GameStruct
 					!GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3))
 					return false;
 
-				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1)) {
-					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1)
-						flag1 = true;
-					else 
-						flag1 = false;
-				}
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Kind == 21) {
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar))
+							flag1 = (GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar).Count > 0);
+						else 
+							flag1 = false;
+					} else {
+						GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material1, ref materialSkillCard);
+						if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material1)) {
+							if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1)
+								flag1 = true;
+							else 
+								flag1 = false;
+						}
+					}
+				} else 
+					flag1 = true;
 
-				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2)) {
-					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2)
-						flag2 = true;
-					else
-						flag2 = false;
-				} 
-
-				GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Kind == 21) {
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar))
+							flag2 = (GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar).Count > 0);
+						else 
+							flag2 = false;
+					} else {
+						GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material2, ref materialSkillCard);
+						if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material2)) {
+							if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2)
+								flag2 = true;
+							else
+								flag2 = false;
+						} 
+					}
+				} else 
+					flag2 = true;
+				
 				if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3)) {
-					if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3)
-						flag3 = true;
-					else
-						flag3 = false;
-				} 
+					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Kind == 21) {
+						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar))
+							flag3 = (GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar).Count > 0);
+						else 
+							flag3 = false;
+					} else {
+						GameData.Team.FindMaterialItem(GameData.DSkillData[skill.ID].Material3, ref materialSkillCard);
+						if(GameData.DItemData.ContainsKey(GameData.DSkillData[skill.ID].Material3)) {
+							if(materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3)
+								flag3 = true;
+							else
+								flag3 = false;
+						} 
+					}
+				} else
+					flag3 = true;
 
 				if(flag1 && flag2 && flag3)
 					return true;

@@ -119,11 +119,11 @@ public struct TUICard{
 	public void UpdateRedPoint (bool isEquip, TSkill skill) {
 		recordIsEquip = isEquip;
 		if(!isEquip) {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution))||
+			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution))||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) ||
 				GameData.Team.CheckCardCost(skill));
 		} else {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution))||
+			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution))||
 				((skill.Lv < GameData.DSkillData[skill.ID].MaxStar) && GameData.Team.IsExtraCard) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
 		}
 	}
