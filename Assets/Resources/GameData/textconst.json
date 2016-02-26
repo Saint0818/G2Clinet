@@ -139,22 +139,22 @@
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": [0} NOT ENOUGH"
+        "en": " {0} NOT ENOUGH"
     },
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": [0:00}DAYS{1:00}HOURS"
+        "en": " {0:00}DAYS{1:00}HOURS"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": [0:00}HOURS{1:00}MINUTES"
+        "en": " {0:00}HOURS{1:00}MINUTES"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": [0:00}MINUTES{1:00}SECONDS"
+        "en": " {0:00}MINUTES{1:00}SECONDS"
     },
     {
         "id": 246,
@@ -1378,7 +1378,7 @@
     {
         "id": 3717,
         "tw": "獲得[0000ff]{0}[-] X {1} ",
-        "en": "GET [0000FF] {0} [-] X {1]
+        "en": "GET [0000FF] {0} [-] X {1} "
     },
     {
         "id": 3718,
@@ -1704,7 +1704,7 @@
         "id": 4106,
         "uipeth": "FreeLabel",
         "tw": "免費倒數 {0} ",
-        "en": "NEXT FREE IN {0]
+        "en": "NEXT FREE IN {0} "
     },
     {
         "id": 4107,
@@ -1861,19 +1861,19 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]銅質晶片[-]",
-        "en": "[B3B3B3FF] copper wafer [-]"
+        "en": " [B3B3B3FF] copper wafer [-]"
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": "  [C17269FF] iron wafer [-]"
+        "en": " [C17269FF] iron wafer [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": "  [99B3D4FF] silver wafer [-]"
+        "en": " [99B3D4FF] silver wafer [-]"
     },
     {
         "id": 4604,
@@ -1980,7 +1980,7 @@
         "explain": "介面上的銷售標語",
         "uipeth": "Pages1/SubheadLabel1",
         "tw": "換夠金幣籌碼，才能繼續前進！",
-        "en": "\"I HAVE ENOUGH GOLD\" - SAID NO ONE EVER"
+        "en": " \"I HAVE ENOUGH GOLD\" - SAID NO ONE EVER"
     },
     {
         "id": 4918,
@@ -2059,7 +2059,7 @@
         "id": 5009,
         "uipeth": "TimeLabel",
         "tw": " {0} 前",
-        "en": [0} AGO"
+        "en": " {0} AGO "
     },
     {
         "id": 5010,
@@ -2200,7 +2200,7 @@
     {
         "id": 5035,
         "tw": "與{0}成為朋友",
-        "en": "BECOME FRIENDS WITH {0]
+        "en": "BECOME FRIENDS WITH {0} "
     },
     {
         "id": 5036,
@@ -2306,19 +2306,19 @@
         "id": 6102,
         "uipeth": "SkillKindLabel",
         "tw": "[ff0000]主動技[-][ff0000]A[-][fffffff]bility[-]",
-        "en": "[FF0000]ABILITY[-]"
+        "en": " [FF0000]ABILITY[-]"
     },
     {
         "id": 6103,
         "uipeth": "SkillKindLabel",
         "tw": "[3355ff]被動技[-][3355ff]P[-][fffffff]asive[-]",
-        "en": "[3355FF]PASSIVE ABILITY[-]"
+        "en": " [3355FF]PASSIVE ABILITY[-]"
     },
     {
         "id": 6110,
         "explain": "目前擁有數量",
         "tw": "[33FFDD]擁有：[-][ffffff]{0}[-] [33FFDD]件[-]",
-        "en": "[33FFDD]OWNED：[-][FFFFFF]{0}[-]"
+        "en": " [33FFDD]OWNED：[-][FFFFFF]{0}[-]"
     },
     {
         "id": 6201,
@@ -2799,13 +2799,13 @@
         "id": 7415,
         "explain": "合成按鈕",
         "tw": "－選擇好材料後進行合成－",
-        "en": "- After selecting the material synthesis -"
+        "en": " - After selecting the material synthesis - "
     },
     {
         "id": 7416,
         "explain": "進化按鈕",
         "tw": "－蒐集完材料後進化晶片－",
-        "en": "- After collecting material evolution wafer -"
+        "en": " - After collecting material evolution wafer -"
     },
     {
         "id": 7417,
@@ -2939,7 +2939,7 @@
     {
         "id": 8005,
         "tw": "潛能點+{0} ",
-        "en": "ATTRIBUTION POINTS+{0]
+        "en": "ATTRIBUTION POINTS+{0} "
     },
     {
         "id": 8006,
@@ -3089,7 +3089,7 @@
         "id": 9152,
         "explain": "主線關卡",
         "tw": "[FFDD33]生涯競賽[-]",
-        "en": "[FFFD 33] STAGE CLEARED [-]"
+        "en": "[FFFD33] STAGE CLEARED [-]"
     },
     {
         "id": 9153,
@@ -3294,7 +3294,7 @@
     {
         "id": 9509,
         "tw": "戰鬥力 {0:F1} ",
-        "en": "OVERALL {0:F1]
+        "en": "OVERALL {0:F1} "
     },
     {
         "id": 9510,
@@ -3345,7 +3345,7 @@
         "id": 9602,
         "uipeth": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
-        "en": [0} IN USE"
+        "en": " {0} IN USE "
     },
     {
         "id": 9701,
@@ -3393,7 +3393,7 @@
         "id": 9708,
         "uipeth": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
-        "en": "THE NEXT STAGE\n {0]
+        "en": "THE NEXT STAGE\n {0} "
     },
     {
         "id": 9709,
@@ -3521,7 +3521,7 @@
         "explain": "每個聯盟都有積分範圍",
         "uipeth": "RankSlider/Thumb",
         "tw": "積分區間 {0}-{1} ",
-        "en": "INTEGRATION INTERVAL {0} - {1]
+        "en": "INTEGRATION INTERVAL {0} - {1} "
     },
     {
         "id": 9742,
@@ -4214,7 +4214,7 @@
         "id": 12006,
         "uipeth": "VersionLabel",
         "tw": "Version {0} ",
-        "en": "VER{0]
+        "en": "VER{0} "
     },
     {
         "id": 12007,
