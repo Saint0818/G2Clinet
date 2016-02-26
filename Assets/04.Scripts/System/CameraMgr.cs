@@ -729,20 +729,19 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         skillEventKind = kind;
         cameraFx.enabled = false;
         cameraSkill.gameObject.SetActive(true);
-//		cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
 		cameraSkillCenter.transform.position = player.PlayerRefGameObject.transform.position;
         cameraSkill.gameObject.transform.parent = cameraSkillCenter.transform;
         switch (kind)
         {
             case 0: //rotate
             case 1://take self
-                TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
-//                cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3(0, 2, 0), 0.5f).SetEase(Ease.Linear);
+				TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
 				cameraSkill.gameObject.transform.DOLookAt(player.PlayerRefGameObject.transform.position + new Vector3(0, 2, 0), 0.5f).SetEase(Ease.Linear);
-                if (kind == 0)
-                    cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t - 0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
-                else
-                    Invoke("StopSkill", (t - 0.3f));
+				cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), t , RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
+//                if (kind == 0)
+//                    cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), t , RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
+//                else
+//                    Invoke("StopSkill", (t - 0.3f));
 
                 break;
             case 2://take all player
@@ -762,13 +761,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     public void LootAtPlayer()
     {
-//        cameraSkill.gameObject.transform.LookAt(GameController.Get.Joysticker.transform.position + new Vector3(0, 2, 0));
 		cameraSkill.gameObject.transform.LookAt(executePlayer.PlayerRefGameObject.transform.position + new Vector3(0, 2, 0));
     }
 
     public void ResetCamera()
     {
-//		GameController.Get.Joysticker.StopSkill();
 		executePlayer.StopSkill();
         cameraFx.enabled = true;
         cameraSkill.gameObject.SetActive(false);

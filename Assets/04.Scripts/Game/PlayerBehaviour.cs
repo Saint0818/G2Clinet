@@ -2781,11 +2781,11 @@ public class PlayerBehaviour : MonoBehaviour
 	
         if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
-            //Debug.LogError(gameObject.name + " . Skill Start");
-            TimerMgr.Get.PauseTimeByUseSkill(1f, ResetTimeCallBack);
+			//Debug.LogError(gameObject.name + " . Skill Start");
 
             int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
-            float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
+			float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
+			TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
 //            if (this == GameController.Get.Joysticker)
 //            {
             if (!isSkillShow)
@@ -2797,11 +2797,9 @@ public class PlayerBehaviour : MonoBehaviour
                     UIPassiveEffect.UIShow(false);
                 
                 isSkillShow = true;
-//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
                 string effectName = string.Format("UseSkillEffect_{0}", 0);
                 EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
                 
-//                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
                 
