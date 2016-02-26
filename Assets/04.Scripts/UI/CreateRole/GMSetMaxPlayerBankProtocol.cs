@@ -36,7 +36,7 @@ public class GMSetMaxPlayerBankProtocol
 
         if(ok)
         {
-            var data = JsonConvert.DeserializeObject<Data>(www.text);
+			var data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
 
             Debug.Log(data);
 

@@ -211,7 +211,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if(ok)
         {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
             GameData.Team.Player.Init();
             GameData.Team.SkillCards = team.SkillCards;

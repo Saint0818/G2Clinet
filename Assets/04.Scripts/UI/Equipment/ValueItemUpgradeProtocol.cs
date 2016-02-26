@@ -22,7 +22,7 @@ public class ValueItemUpgradeProtocol
 
         if(ok)
         {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player.ValueItems = team.Player.ValueItems;
             GameData.Team.Money = team.Money;
 

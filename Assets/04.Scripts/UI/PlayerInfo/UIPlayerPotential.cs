@@ -404,7 +404,7 @@ public class UIPlayerPotential : UIBase {
 	public void waitPotential(bool ok, WWW www)
 	{
 		if (ok) {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.Player.Potential = team.Player.Potential;
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 			upgradeView.OnCancel();
@@ -416,7 +416,7 @@ public class UIPlayerPotential : UIBase {
 	public void waitResetPotential(bool ok, WWW www)
 	{
 		if (ok) {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.Player.Potential = team.Player.Potential;
 			GameData.Team.Diamond = team.Diamond;
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);

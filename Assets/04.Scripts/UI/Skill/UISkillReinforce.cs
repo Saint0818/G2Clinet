@@ -718,7 +718,7 @@ public class UISkillReinforce : UIBase {
 
 	private void waitReinforce(bool ok, WWW www) {
 		if (ok) {
-			TReinforceCallBack result = JsonConvert.DeserializeObject <TReinforceCallBack>(www.text); 
+			TReinforceCallBack result = JsonConvert.DeserializeObject <TReinforceCallBack>(www.text, SendHttp.Get.JsonSetting); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.InitSkillCardCount();
@@ -752,7 +752,7 @@ public class UISkillReinforce : UIBase {
 
 	private void waitEvolutionSkillcard(bool ok, WWW www) {
 		if (ok) {
-			TEvolution result = JsonConvert.DeserializeObject <TEvolution>(www.text); 
+			TEvolution result = JsonConvert.DeserializeObject <TEvolution>(www.text, SendHttp.Get.JsonSetting); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;

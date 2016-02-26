@@ -95,7 +95,7 @@ public class TacticalTable
     {
         clear();
 
-        TTacticalData[] tacticals = JsonConvert.DeserializeObject<TTacticalData[]>(jsonText);
+		TTacticalData[] tacticals = JsonConvert.DeserializeObject<TTacticalData[]>(jsonText, SendHttp.Get.JsonSetting);
         foreach(TTacticalData data in tacticals)
         {
             mTacticals[data.Kind].Add(data);

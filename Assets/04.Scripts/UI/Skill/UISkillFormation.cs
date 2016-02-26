@@ -1665,7 +1665,7 @@ public class UISkillFormation : UIBase {
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
 		if (ok) {
-			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text, SendHttp.Get.JsonSetting); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
@@ -1712,7 +1712,7 @@ public class UISkillFormation : UIBase {
 
 	private void waitChangeSkillPage(bool ok, WWW www) {
 		if (ok) {
-			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text, SendHttp.Get.JsonSetting); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.InitSkillCardCount();
@@ -1726,7 +1726,7 @@ public class UISkillFormation : UIBase {
 
 	private void waitSellSkillPage(bool ok, WWW www) {
 		if (ok) {
-			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text, SendHttp.Get.JsonSetting); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Money = result.Money;
 			GameData.Team.Player.SkillPage = tempPage;

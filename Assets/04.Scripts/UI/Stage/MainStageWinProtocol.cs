@@ -25,7 +25,7 @@ public class MainStageWinProtocol
 
         if(ok)
         {
-            TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text);
+			TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text, SendHttp.Get.JsonSetting);
 
 //            Debug.LogFormat("waitMainStageWin:{0}", reward);
 

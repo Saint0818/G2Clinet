@@ -17,6 +17,7 @@ public class UISkillEvolution {
 	private TSkillCardValue[] skillCardValues = new TSkillCardValue[2];
 	private TSkillCardMaterial skillCardMaterial;
 	private GameObject skillCanEvolution;
+	private GameObject skillArrow;
 
 	private UILabel labelPrice;
 
@@ -42,6 +43,7 @@ public class UISkillEvolution {
 		}
 
 		skillCanEvolution = GameObject.Find(UIName + "/Window2/Center/View/LeftPart/CanEvolution");
+		skillArrow = GameObject.Find(UIName + "/Window2/Center/View/LeftPart/Arrow");
 
 		skillCardMaterial = new TSkillCardMaterial();
 		skillCardMaterial.Init(GameObject.Find(UIName + "/Window2/Center/View/RightPart/Evolution"));
@@ -133,6 +135,7 @@ public class UISkillEvolution {
 		skillIndexs = new int[0];
 		refreshMaterialIndex ();
 		skillCanEvolution.SetActive(GameData.Team.IsEnoughMaterial(skill));
+		skillArrow.SetActive(!skillCanEvolution.activeSelf);
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			nextSkill = new TSkill();
 			if(GameData.DSkillData[mSkill.ID].EvolutionSkill != 0) {

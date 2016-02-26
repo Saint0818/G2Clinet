@@ -223,7 +223,7 @@ public class UIMall : UIBase {
 	{
 		if(ok)
 		{
-			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject(www.text, typeof(TPickLotteryResult));
+			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject<TPickLotteryResult>(www.text, SendHttp.Get.JsonSetting);
 			GameData.Team.Items = result.Items;
 			newSkillCard = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;

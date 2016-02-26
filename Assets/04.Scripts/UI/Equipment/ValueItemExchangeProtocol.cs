@@ -23,7 +23,7 @@ public class ValueItemExchangeProtocol
     {
         if(ok)
         {
-            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
             GameData.Team.ValueItems = team.ValueItems;
             GameData.Team.Player.Init();

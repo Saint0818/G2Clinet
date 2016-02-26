@@ -190,7 +190,7 @@ public class UINamed : UIBase {
 		if (ok)
 		{
             if (SendHttp.Get.CheckServerMessage(www.text)) {
-    			TRenameResult result = JsonConvert.DeserializeObject<TRenameResult>(www.text);
+				TRenameResult result = JsonConvert.DeserializeObject<TRenameResult>(www.text, SendHttp.Get.JsonSetting);
     			GameData.Team.Player.Name = result.Name;
     			GameData.Team.Diamond = result.Diamond;
                 GameData.Team.LifetimeRecord.RenameCount = result.RenameCount;
