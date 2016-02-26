@@ -278,8 +278,8 @@ public class UICreateRole : UIBase
 
     public readonly Dictionary<EPlayerPostion, PosInfo> PosInfos = new Dictionary<EPlayerPostion, PosInfo>
     {
-        {EPlayerPostion.G, new PosInfo {TextIndex = 21, DescIndex = 2107, TextColor = new Color32(57, 94, 204, 255)} },
-        {EPlayerPostion.F, new PosInfo {TextIndex = 22, DescIndex = 2106, TextColor = new Color32(56, 171, 66, 255)} },
-        {EPlayerPostion.C, new PosInfo {TextIndex = 23, DescIndex = 2105, TextColor = new Color32(180, 33, 35, 255)} }
+        {EPlayerPostion.G, new PosInfo {TextIndex = 2104, DescIndex = 2107, TextColor = new Color32(57, 94, 204, 255)} },
+        {EPlayerPostion.F, new PosInfo {TextIndex = 2103, DescIndex = 2106, TextColor = new Color32(56, 171, 66, 255)} },
+        {EPlayerPostion.C, new PosInfo {TextIndex = 2102, DescIndex = 2105, TextColor = new Color32(180, 33, 35, 255)} }
     };
 }

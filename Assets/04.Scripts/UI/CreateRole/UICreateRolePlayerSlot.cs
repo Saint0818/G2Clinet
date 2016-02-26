@@ -60,9 +60,9 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
     private readonly Dictionary<EPlayerPostion, int> mPosTextIndices = new Dictionary<EPlayerPostion, int>
     {
-        { EPlayerPostion.G, 21},
-        { EPlayerPostion.F, 22},
-        { EPlayerPostion.C, 23}
+        { EPlayerPostion.G, 2104},
+        { EPlayerPostion.F, 2103},
+        { EPlayerPostion.C, 2102}
     };
 
     private readonly Dictionary<EPlayerPostion, string> mPosBGs = new Dictionary<EPlayerPostion, string>

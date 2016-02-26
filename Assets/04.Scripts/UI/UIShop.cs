@@ -233,12 +233,16 @@ public class UIShop : UIBase {
                 int id = GameData.DItemData[itemID].SuitItem;
                 if (GameData.DSuitItem.ContainsKey(id))
                     lab.text = string.Format("{0}/{1}", GameData.Team.SuitItemCompleteCount(id), GameData.DSuitItem[id].ItemLength);
+                else
+                    btn.gameObject.SetActive(false);
             } else
             if (GameData.DItemData[itemID].Kind == 21) {
                 sp.spriteName = "SuitLight";
                 int id = GameData.DItemData[itemID].SuitCard;
                 if (GameData.DSuitCard.ContainsKey(id)) 
                     lab.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
+                else
+                    btn.gameObject.SetActive(false);
             } else
                 btn.gameObject.SetActive(false);
 
