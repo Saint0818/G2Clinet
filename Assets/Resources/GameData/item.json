@@ -16,7 +16,9 @@
         "buy": 700,
         "namecn": "白皙肤色",
         "nameen": "Light",
-        "namejp": "白色"
+        "namejp": "白色",
+        "explaintw": "白淨的溫柔膚色",
+        "explaincn": "Gentle pale complexion"
     },
     {
         "id": 2,
@@ -33,7 +35,9 @@
         "buy": 700,
         "namecn": "黝黑膚色",
         "nameen": "Brown",
-        "namejp": "暗褐色"
+        "namejp": "暗褐色",
+        "explaintw": "勇猛的黑皮膚",
+        "explaincn": "Brave black skin"
     },
     {
         "id": 3,
@@ -162,7 +166,9 @@
         "buy": 700,
         "namecn": "红铜肤色",
         "nameen": "Hazelnut",
-        "namejp": "銅色"
+        "namejp": "銅色",
+        "explaintw": "健康的紅銅膚色",
+        "explaincn": "Healthy copper complexion"
     },
     {
         "id": 11,
@@ -345,7 +351,9 @@
         "buy": 700,
         "namecn": "白皙肤色",
         "nameen": "Pale",
-        "namejp": "白色"
+        "namejp": "白色",
+        "explaintw": "白皙的溫柔膚色",
+        "explainen": "Pale"
     },
     {
         "id": 102,
@@ -362,7 +370,9 @@
         "buy": 700,
         "namecn": "小麦肤色",
         "nameen": "Amber",
-        "namejp": "小麦の色"
+        "namejp": "小麦の色",
+        "explaintw": "陽光的小麥色",
+        "explainen": "Amber"
     },
     {
         "id": 103,
@@ -379,7 +389,9 @@
         "buy": 700,
         "namecn": "前锋身体3",
         "nameen": "Dark Brown",
-        "namejp": "フォワードボディ3"
+        "namejp": "フォワードボディ3",
+        "explaintw": "勇猛的黑皮膚",
+        "explainen": "Dark Brown"
     },
     {
         "id": 104,
@@ -674,7 +686,9 @@
         "buy": 700,
         "namecn": "小麦肤色",
         "nameen": "Amber",
-        "namejp": "小麦の色"
+        "namejp": "小麦の色",
+        "explaintw": "陽光的小麥色",
+        "explainen": "Amber"
     },
     {
         "id": 202,
@@ -691,7 +705,9 @@
         "buy": 700,
         "namecn": "深棕肤色",
         "nameen": "Brown",
-        "namejp": "暗褐色"
+        "namejp": "暗褐色",
+        "explaintw": "健美的深棕色",
+        "explainen": "Brown"
     },
     {
         "id": 203,
@@ -820,7 +836,9 @@
         "buy": 700,
         "namecn": "白皙肤色",
         "nameen": "Pale",
-        "namejp": "白色"
+        "namejp": "白色",
+        "explaintw": "白淨無暇的白皙皮膚",
+        "explainen": "Pale"
     },
     {
         "id": 211,
@@ -1206,9 +1224,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋头发12",
-        "nameen": "Hair center 12",
+        "nameen": "Zodiac suit head",
         "namejp": "髪のセンター12",
-        "explaintw": "銳利殺氣的西裝頭。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "銳利殺氣的西裝頭。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Murderous sharp suit head.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 1013,
@@ -1227,9 +1246,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋头发13",
-        "nameen": "Hair center 13",
+        "nameen": "Bing Feng Black Warrior",
         "namejp": "毛髪センター13",
-        "explaintw": "屬於戰士的俐落髮型。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "屬於戰士的俐落髮型。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Belongs soldiers neat hairstyle.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 1014,
@@ -1466,9 +1486,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "前锋头发6",
-        "nameen": "6 forward hair",
+        "nameen": "Yamamoto green head",
         "namejp": "6前方髪",
-        "explaintw": "俐落的帥勁髮型。\n\n限定[3960CEFF]前鋒[-]裝備。"
+        "explaintw": "俐落的帥勁髮型。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Jin Shuai neat hairstyle.\n\nLimited [3960 CEFF] forward [-] equipment. "
     },
     {
         "id": 1107,
@@ -1826,9 +1847,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫头发5",
-        "nameen": "5 guard hair",
+        "nameen": "Romantic black hair",
         "namejp": "5ガード髪",
-        "explaintw": "古典氣質女性專屬。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "古典氣質女性專屬。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Classical temperament female exclusive.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 1206,
@@ -1844,9 +1866,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫头发6",
-        "nameen": "6 guard hair",
+        "nameen": "Romantic green hair",
         "namejp": "6ガード髪",
-        "explaintw": "有如來自深海的美人魚。\n\n限定[00BA7BFF]後衛[-]裝備。"
+        "explaintw": "有如來自深海的美人魚。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Like a mermaid from the deep sea.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 1207,
@@ -1957,10 +1980,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "后卫头发13",
-        "nameen": "Guard hair 13",
+        "nameen": "Agile girl Mawei",
         "namejp": "ガード毛13",
         "explaintw": "鄰家女孩般的活潑俏麗。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Don't mess with gils from the hood."
+        "explainen": "Girl next door like a pretty lively.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 1213,
@@ -2323,9 +2346,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋手饰12",
-        "nameen": "Jewelry center 12",
+        "nameen": "Zodiac carved sleeve ring",
         "namejp": "ジュエリーセンター12",
-        "explaintw": "東方黑社會的藝術風格。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "東方黑社會的藝術風格。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Oriental underworld art style.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 2013,
@@ -2344,9 +2368,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋手饰13",
-        "nameen": "Jewelry center 13",
+        "nameen": "Bing Feng Warrior Gauntlets",
         "namejp": "ジュエリーセンター13",
-        "explaintw": "極限戰士專屬。\n\n限定[ff0000]中鋒[-]裝備。"
+        "explaintw": "極限戰士專屬。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Ultimate Warrior exclusive.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 2014,
@@ -3040,10 +3065,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "后卫手饰12",
-        "nameen": "Defender jewelry 12",
+        "nameen": "Agile girl cuff",
         "namejp": "ディフェンダーの宝石12",
         "explaintw": "甜美清純的鄰家女孩風格。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Stylish letaher gloves for a fancy control of the ball."
+        "explainen": "Pure sweet girl next door style.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 2213,
@@ -3427,7 +3452,7 @@
         "nameen": "Clothes center 12",
         "namejp": "服センタ12",
         "explaintw": "東方風格的黑道夾克。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Massive beads hault negative energy"
+        "explainen": "Oriental style underworld jacket.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 3013,
@@ -3449,7 +3474,7 @@
         "nameen": "Clothes center 13",
         "namejp": "服センタ13",
         "explaintw": "攀上巔峰，極限戰士。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Massive beads hault negative energy"
+        "explainen": "Climb the peak, ultimate warrior.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 3014,
@@ -3688,7 +3713,7 @@
         "nameen": "6 forward clothes",
         "namejp": "6前方服",
         "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "Special design to maximize energy."
+        "explainen": "Special cut with diversion of energy to create a great effect.\n\nLimited [3960CEFF] forward [-] equipment. "
     },
     {
         "id": 3107,
@@ -4182,7 +4207,7 @@
         "nameen": "Guard clothes 11",
         "namejp": "Guardは11服",
         "explaintw": "天真無邪的少女裝扮。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "For those who take sexiness seriously all the time."
+        "explainen": "Innocent girl dress.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 3213,
@@ -4563,10 +4588,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋裤子12",
-        "nameen": "Pants center 12",
+        "nameen": "Zodiac suit pants",
         "namejp": "パンツ・センター12",
         "explaintw": "以氣勢取勝的極道風格。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "This is your street, show your style."
+        "explainen": "In the momentum to win the pole road style.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 4013,
@@ -4585,10 +4610,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋裤子13",
-        "nameen": "Pants center 13",
+        "nameen": "Bing Feng soldiers shorts",
         "namejp": "パンツ・センター13",
         "explaintw": "極限戰士的極限裝束。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "This is your street, show your style."
+        "explainen": "Ultimate Warrior Ultimate attire.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 4014,
@@ -4824,10 +4849,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "前锋裤子6",
-        "nameen": "Forward pants 6",
+        "nameen": "Black sports shorts",
         "namejp": "フォワードパンツ6",
         "explaintw": "帶有流動能量，且包覆性極佳。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "With boosting energy flow and excellent protections."
+        "explainen": "With the flow of energy, and excellent cover.\n\nLimited [3960CEFF] forward [-] equipment. "
     },
     {
         "id": 4107,
@@ -5185,10 +5210,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫裤子5",
-        "nameen": "5 guard pants",
+        "nameen": "Light blue short shorts",
         "namejp": "5ガードパンツ",
         "explaintw": "活潑有勁的清涼藍色。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Reminiscent of you team."
+        "explainen": "Lively and strong and cool blue.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 4206,
@@ -5204,10 +5229,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫裤子6",
-        "nameen": "Defender pants 6",
+        "nameen": "Pink short shorts",
         "namejp": "ディフェンダーパンツ6",
         "explaintw": "熱情可愛的甜美桃紅。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Reminiscent of you team."
+        "explainen": "Warm lovely sweet pink.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 4207,
@@ -5318,10 +5343,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "后卫裤子13",
-        "nameen": "Defender pants 13",
+        "nameen": "Agile girl skirt",
         "namejp": "ディフェンダーパンツ13",
         "explaintw": "鄰家少女嬌俏可人。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "High performance full of character."
+        "explainen": "Girl next door tender and pleasant.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 4213,
@@ -5569,10 +5594,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "中锋鞋子5",
-        "nameen": "5 center Shoes",
+        "nameen": "Dark blue sneakers",
         "namejp": "5中央シューズ",
         "explaintw": "專業運動風格。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Simple and comfy."
+        "explainen": "Professional sports style.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 5006,
@@ -5588,10 +5613,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "中锋鞋子6",
-        "nameen": "6 center Shoes",
+        "nameen": "Purple sneakers",
         "namejp": "6中央シューズ",
         "explaintw": "品味不凡。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Simple and comfy."
+        "explainen": "Extraordinary taste.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 5007,
@@ -5702,10 +5727,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋鞋子12",
-        "nameen": "Shoes center 12",
+        "nameen": "Zodiac running shoes",
         "namejp": "靴・センター12",
         "explaintw": "街頭黑幫專用機能跑鞋。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Heavy duty material, for those who take the game to its MAX."
+        "explainen": "Street gangs dedicated performance running shoes.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 5013,
@@ -5724,10 +5749,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋鞋子13",
-        "nameen": "Shoes center 13",
+        "nameen": "Bing Feng soldier boots",
         "namejp": "靴・センター13",
         "explaintw": "勇者無懼的戰靴。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Heavy duty material, for those who take the game to its MAX."
+        "explainen": "Amistad boots.\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 5014,
@@ -6054,10 +6079,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "前锋鞋子12",
-        "nameen": "Forward Shoes 12",
+        "nameen": "Rock boots",
         "namejp": "フォワードシューズ12",
         "explaintw": "引領潮流五十年，歷久不衰。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "For the tough ones who like the game."
+        "explainen": "Fifty years trend, long lasting.\n\nLimited [3960CEFF] forward [-] equipment. "
     },
     {
         "id": 5112,
@@ -6323,10 +6348,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫鞋子5",
-        "nameen": "5 guard shoes",
+        "nameen": "Light blue sneakers",
         "namejp": "5ガード靴",
         "explaintw": "亮眼的配色容易成為眾人的焦點。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Dazzling but comfy."
+        "explainen": "Dazzling color easily in the limelight.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 5206,
@@ -6342,10 +6367,10 @@
         "sell": 3000,
         "buy": 700,
         "namecn": "后卫鞋子6",
-        "nameen": "Defender shoes 6",
+        "nameen": "Sweetheart sneakers",
         "namejp": "ディフェンダーの靴6",
         "explaintw": "甜美的配色適合甜美的女生。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Dazzling but comfy."
+        "explainen": "Sweet color for sweet girls.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 5207,
@@ -6456,10 +6481,10 @@
         "buy": 700,
         "flag": 1,
         "namecn": "后卫鞋子11",
-        "nameen": "Defender Shoes 11",
+        "nameen": "Agility Girls Boots",
         "namejp": "ディフェンダーシューズ11",
         "explaintw": "甜美中不失性感，增添嬌俏氣質。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Comfy, cool, effective."
+        "explainen": "Sweet, yet sexy, adding tender temperament.\n\nLimited [00BA7BFF] back [-] equipment. "
     },
     {
         "id": 5213,
@@ -6675,7 +6700,6 @@
         "buy": 700,
         "flag": 1,
         "namecn": "头饰3",
-        "nameen": "Headdress 3",
         "namejp": "ヘッドドレス3"
     },
     {
@@ -6761,7 +6785,7 @@
         "buy": 700,
         "flag": 1,
         "namecn": "头饰7",
-        "nameen": "Headdress 7",
+        "nameen": "Zodiac Japanese soul",
         "namejp": "ヘッドドレス7",
         "explaintw": "必勝！必勝！",
         "explainen": "Street style sunglasess"
@@ -6800,7 +6824,7 @@
         "buy": 700,
         "flag": 1,
         "namecn": "头饰9",
-        "nameen": "Headwear 9",
+        "nameen": "Frozen Warrior Helmet",
         "namejp": "ヘッドウェア9",
         "explaintw": "戰士的重要裝備，保護勇者的頭部。",
         "explainen": "Warrior Mask"
@@ -7136,7 +7160,7 @@
         "buy": 700,
         "flag": 1,
         "namecn": "背饰7",
-        "nameen": "Back ornaments 7",
+        "nameen": "Zodiac Japanese sword",
         "namejp": "戻る装飾品7",
         "explaintw": "最能代表神秘東方的武器。",
         "explainen": "Put it on to make eyes glue on you"
@@ -7180,7 +7204,7 @@
         "buy": 700,
         "flag": 1,
         "namecn": "背饰9",
-        "nameen": "Back ornaments 9",
+        "nameen": "Bingfeng warrior wings",
         "namejp": "戻る装飾品9",
         "explaintw": "極限戰士的氣勢展現。",
         "explainen": "Put it on to make eyes glue on you"
@@ -7403,9 +7427,9 @@
         "upgradeitem": 11101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal cranial plug",
+        "nameen": "Crystal Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11002,
@@ -7428,9 +7452,9 @@
         "upgradeitem": 11102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal cranial plug",
+        "nameen": "Crystal Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11003,
@@ -7453,9 +7477,9 @@
         "upgradeitem": 11103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal cranial plug",
+        "nameen": "Crystal Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11101,
@@ -7480,9 +7504,9 @@
         "upgradeitem": 11201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald cranial plug",
+        "nameen": "Emerald Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11102,
@@ -7507,9 +7531,9 @@
         "upgradeitem": 11202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald cranial plug",
+        "nameen": "Emerald Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11103,
@@ -7534,9 +7558,9 @@
         "upgradeitem": 11203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald cranial plug",
+        "nameen": "Emerald Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11201,
@@ -7561,9 +7585,9 @@
         "upgradeitem": 11301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-cranial",
+        "nameen": "Sapphire Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11202,
@@ -7588,9 +7612,9 @@
         "upgradeitem": 11302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-cranial",
+        "nameen": "Sapphire Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11203,
@@ -7615,9 +7639,9 @@
         "upgradeitem": 11303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-cranial",
+        "nameen": "Sapphire Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11301,
@@ -7642,9 +7666,9 @@
         "upgradeitem": 11401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond cranial plug",
+        "nameen": "Ruby Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11302,
@@ -7669,9 +7693,9 @@
         "upgradeitem": 11402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond cranial plug",
+        "nameen": "Ruby Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11303,
@@ -7696,9 +7720,9 @@
         "upgradeitem": 11403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond cranial plug",
+        "nameen": "Ruby Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11401,
@@ -7723,9 +7747,9 @@
         "upgradeitem": 11501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold cranial plug",
+        "nameen": "Gold Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11402,
@@ -7750,9 +7774,9 @@
         "upgradeitem": 11502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold cranial plug",
+        "nameen": "Gold Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11403,
@@ -7777,9 +7801,9 @@
         "upgradeitem": 11503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold cranial plug",
+        "nameen": "Gold Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11501,
@@ -7801,9 +7825,9 @@
         "materialnum2": 5,
         "material3": 19061,
         "materialnum3": 5,
-        "nameen": "Colorful cranial plug",
+        "nameen": "Dimond Head plug α",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11502,
@@ -7825,9 +7849,9 @@
         "materialnum2": 5,
         "material3": 19062,
         "materialnum3": 5,
-        "nameen": "Colorful cranial plug",
+        "nameen": "Dimond Head plug β",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 11503,
@@ -7849,9 +7873,9 @@
         "materialnum2": 5,
         "material3": 19063,
         "materialnum3": 5,
-        "nameen": "Colorful cranial plug",
+        "nameen": "Dimond Head plug γ",
         "explaintw": "專屬顱部的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen cranial plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your head to enhance your skills."
     },
     {
         "id": 12001,
@@ -7874,9 +7898,9 @@
         "upgradeitem": 12101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal left arm plug",
+        "nameen": "Crystal left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12002,
@@ -7899,9 +7923,9 @@
         "upgradeitem": 12102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal left arm plug",
+        "nameen": "Crystal left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12003,
@@ -7924,9 +7948,9 @@
         "upgradeitem": 12103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal left arm plug",
+        "nameen": "Crystal left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12101,
@@ -7951,9 +7975,9 @@
         "upgradeitem": 12201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald left arm plug",
+        "nameen": "Emerald left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12102,
@@ -7978,9 +8002,9 @@
         "upgradeitem": 12202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald left arm plug",
+        "nameen": "Emerald left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12103,
@@ -8005,9 +8029,9 @@
         "upgradeitem": 12203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald left arm plug",
+        "nameen": "Emerald left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12201,
@@ -8032,9 +8056,9 @@
         "upgradeitem": 12301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-left arm",
+        "nameen": "Sapphire  left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12202,
@@ -8059,9 +8083,9 @@
         "upgradeitem": 12302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-left arm",
+        "nameen": "Sapphire  left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12203,
@@ -8086,9 +8110,9 @@
         "upgradeitem": 12303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-left arm",
+        "nameen": "Sapphire  left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12301,
@@ -8113,9 +8137,9 @@
         "upgradeitem": 12401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left arm plug",
+        "nameen": "Ruby left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12302,
@@ -8140,9 +8164,9 @@
         "upgradeitem": 12402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left arm plug",
+        "nameen": "Ruby left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12303,
@@ -8167,9 +8191,9 @@
         "upgradeitem": 12403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left arm plug",
+        "nameen": "Ruby left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12401,
@@ -8194,9 +8218,9 @@
         "upgradeitem": 12501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold left arm plug",
+        "nameen": "Gold left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12402,
@@ -8221,9 +8245,9 @@
         "upgradeitem": 12502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold left arm plug",
+        "nameen": "Gold left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12403,
@@ -8248,9 +8272,9 @@
         "upgradeitem": 12503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold left arm plug",
+        "nameen": "Gold left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12501,
@@ -8272,9 +8296,9 @@
         "materialnum2": 5,
         "material3": 19064,
         "materialnum3": 5,
-        "nameen": "Colorful left arm plug",
+        "nameen": "Dimon left arm plug α",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12502,
@@ -8296,9 +8320,9 @@
         "materialnum2": 5,
         "material3": 19065,
         "materialnum3": 5,
-        "nameen": "Colorful left arm plug",
+        "nameen": "Dimon left arm plug β",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 12503,
@@ -8320,9 +8344,9 @@
         "materialnum2": 5,
         "material3": 19066,
         "materialnum3": 5,
-        "nameen": "Colorful left arm plug",
+        "nameen": "Dimon left arm plug γ",
         "explaintw": "專屬左臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive left arm strengthen plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left arm to enhance your skills."
     },
     {
         "id": 13001,
@@ -8345,9 +8369,9 @@
         "upgradeitem": 13101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right arm plug",
+        "nameen": "Crystal right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13002,
@@ -8370,9 +8394,9 @@
         "upgradeitem": 13102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right arm plug",
+        "nameen": "Crystal right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13003,
@@ -8395,9 +8419,9 @@
         "upgradeitem": 13103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right arm plug",
+        "nameen": "Crystal right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13101,
@@ -8422,9 +8446,9 @@
         "upgradeitem": 13201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right arm plug",
+        "nameen": "Emerald right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13102,
@@ -8449,9 +8473,9 @@
         "upgradeitem": 13202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right arm plug",
+        "nameen": "Emerald right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13103,
@@ -8476,9 +8500,9 @@
         "upgradeitem": 13203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right arm plug",
+        "nameen": "Emerald right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13201,
@@ -8503,9 +8527,9 @@
         "upgradeitem": 13301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire plug right arm",
+        "nameen": "Sapphire right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13202,
@@ -8530,9 +8554,9 @@
         "upgradeitem": 13302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire plug right arm",
+        "nameen": "Sapphire right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13203,
@@ -8557,9 +8581,9 @@
         "upgradeitem": 13303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire plug right arm",
+        "nameen": "Sapphire right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13301,
@@ -8584,9 +8608,9 @@
         "upgradeitem": 13401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right arm plug",
+        "nameen": "Ruby right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13302,
@@ -8611,9 +8635,9 @@
         "upgradeitem": 13402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right arm plug",
+        "nameen": "Ruby right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13303,
@@ -8638,9 +8662,9 @@
         "upgradeitem": 13403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right arm plug",
+        "nameen": "Ruby right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13401,
@@ -8665,9 +8689,9 @@
         "upgradeitem": 13501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right arm plug",
+        "nameen": "Gold right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13402,
@@ -8692,9 +8716,9 @@
         "upgradeitem": 13502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right arm plug",
+        "nameen": "Gold right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13403,
@@ -8719,9 +8743,9 @@
         "upgradeitem": 13503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right arm plug",
+        "nameen": "Gold right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13501,
@@ -8743,9 +8767,9 @@
         "materialnum2": 5,
         "material3": 19061,
         "materialnum3": 5,
-        "nameen": "Colorful right arm plug",
+        "nameen": "Dimon right arm plug α",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13502,
@@ -8767,9 +8791,9 @@
         "materialnum2": 5,
         "material3": 19062,
         "materialnum3": 5,
-        "nameen": "Colorful right arm plug",
+        "nameen": "Dimon right arm plug β",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 13503,
@@ -8791,9 +8815,9 @@
         "materialnum2": 5,
         "material3": 19063,
         "materialnum3": 5,
-        "nameen": "Colorful right arm plug",
+        "nameen": "Dimon right arm plug γ",
         "explaintw": "專屬右臂的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive right arm strengthen plug, which can effectively enhance the ability to equip."
+        "explainen": "A biological plug that can be inserted in your right arm to enhance your skills."
     },
     {
         "id": 14001,
@@ -8816,9 +8840,9 @@
         "upgradeitem": 14101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal Pleural widget",
+        "nameen": "Crystal chest plug α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14002,
@@ -8841,9 +8865,9 @@
         "upgradeitem": 14102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal Pleural widget",
+        "nameen": "Crystal chest plug β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14003,
@@ -8866,9 +8890,9 @@
         "upgradeitem": 14103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal Pleural widget",
+        "nameen": "Crystal chest plug γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14101,
@@ -8893,9 +8917,9 @@
         "upgradeitem": 14201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald chest widget",
+        "nameen": "Emerald chest plug α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14102,
@@ -8920,9 +8944,9 @@
         "upgradeitem": 14202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald chest widget",
+        "nameen": "Emerald chest plug β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14103,
@@ -8947,9 +8971,9 @@
         "upgradeitem": 14203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald chest widget",
+        "nameen": "Emerald chest plug γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14201,
@@ -8974,9 +8998,9 @@
         "upgradeitem": 14301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-chest",
+        "nameen": "Sapphire chest plug α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14202,
@@ -9001,9 +9025,9 @@
         "upgradeitem": 14302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-chest",
+        "nameen": "Sapphire chest plug β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14203,
@@ -9028,9 +9052,9 @@
         "upgradeitem": 14303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-chest",
+        "nameen": "Sapphire chest plug γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14301,
@@ -9055,9 +9079,9 @@
         "upgradeitem": 14401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond chest widget",
+        "nameen": "Ruby chest plug α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14302,
@@ -9082,9 +9106,9 @@
         "upgradeitem": 14402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond chest widget",
+        "nameen": "Ruby chest plug β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14303,
@@ -9109,9 +9133,9 @@
         "upgradeitem": 14403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond chest widget",
+        "nameen": "Ruby chest plug γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14401,
@@ -9136,9 +9160,9 @@
         "upgradeitem": 14501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold chest plug",
+        "nameen": "Gold chest plugin α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14402,
@@ -9163,9 +9187,9 @@
         "upgradeitem": 14502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold chest plug",
+        "nameen": "Gold chest plugin β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14403,
@@ -9190,9 +9214,9 @@
         "upgradeitem": 14503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold chest plug",
+        "nameen": "Gold chest plugin γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14501,
@@ -9214,9 +9238,9 @@
         "materialnum2": 5,
         "material3": 19064,
         "materialnum3": 5,
-        "nameen": "Colorful chest plug",
+        "nameen": "Dimond chest plug α",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14502,
@@ -9238,9 +9262,9 @@
         "materialnum2": 5,
         "material3": 19065,
         "materialnum3": 5,
-        "nameen": "Colorful chest plug",
+        "nameen": "Dimond chest plug β",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 14503,
@@ -9262,9 +9286,9 @@
         "materialnum2": 5,
         "material3": 19066,
         "materialnum3": 5,
-        "nameen": "Colorful chest plug",
+        "nameen": "Dimond chest plug γ",
         "explaintw": "專屬胸腔的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive strengthen chest plug, which can effectively enhance the capability when equipped."
+        "explainen": "A biological plug that can be inserted in your chest to enhance your skills."
     },
     {
         "id": 15001,
@@ -9287,9 +9311,9 @@
         "upgradeitem": 15101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal leg plug",
+        "nameen": "Crystal left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15002,
@@ -9312,9 +9336,9 @@
         "upgradeitem": 15102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal leg plug",
+        "nameen": "Crystal left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15003,
@@ -9337,9 +9361,9 @@
         "upgradeitem": 15103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal leg plug",
+        "nameen": "Crystal left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15101,
@@ -9364,9 +9388,9 @@
         "upgradeitem": 15201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald leg plug",
+        "nameen": "Emerald left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15102,
@@ -9391,9 +9415,9 @@
         "upgradeitem": 15202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald leg plug",
+        "nameen": "Emerald left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15103,
@@ -9418,9 +9442,9 @@
         "upgradeitem": 15203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald leg plug",
+        "nameen": "Emerald left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15201,
@@ -9445,9 +9469,9 @@
         "upgradeitem": 15301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15202,
@@ -9472,9 +9496,9 @@
         "upgradeitem": 15302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15203,
@@ -9499,9 +9523,9 @@
         "upgradeitem": 15303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15301,
@@ -9526,9 +9550,9 @@
         "upgradeitem": 15401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left leg plug",
+        "nameen": "Ruby  left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15302,
@@ -9553,9 +9577,9 @@
         "upgradeitem": 15402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left leg plug",
+        "nameen": "Ruby  left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15303,
@@ -9580,9 +9604,9 @@
         "upgradeitem": 15403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple Diamond left leg plug",
+        "nameen": "Ruby  left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15401,
@@ -9607,9 +9631,9 @@
         "upgradeitem": 15501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold leg plug",
+        "nameen": "Gold left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15402,
@@ -9634,9 +9658,9 @@
         "upgradeitem": 15502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold leg plug",
+        "nameen": "Gold left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15403,
@@ -9661,9 +9685,9 @@
         "upgradeitem": 15503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold leg plug",
+        "nameen": "Gold left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15501,
@@ -9685,9 +9709,9 @@
         "materialnum2": 5,
         "material3": 19061,
         "materialnum3": 5,
-        "nameen": "Colorful leg plug",
+        "nameen": "Dimond left leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15502,
@@ -9709,9 +9733,9 @@
         "materialnum2": 5,
         "material3": 19062,
         "materialnum3": 5,
-        "nameen": "Colorful leg plug",
+        "nameen": "Dimond left leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 15503,
@@ -9733,9 +9757,9 @@
         "materialnum2": 5,
         "material3": 19063,
         "materialnum3": 5,
-        "nameen": "Colorful leg plug",
+        "nameen": "Dimond left leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your left leg to enhance your skills."
     },
     {
         "id": 16001,
@@ -9758,9 +9782,9 @@
         "upgradeitem": 16101,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right leg plug",
+        "nameen": "Crystal right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16002,
@@ -9783,9 +9807,9 @@
         "upgradeitem": 16102,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right leg plug",
+        "nameen": "Crystal right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16003,
@@ -9808,9 +9832,9 @@
         "upgradeitem": 16103,
         "upgrademoney": 500,
         "upgradelv": 5,
-        "nameen": "White crystal right leg plug",
+        "nameen": "Crystal right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16101,
@@ -9835,9 +9859,9 @@
         "upgradeitem": 16201,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right leg plug",
+        "nameen": "Emerald right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16102,
@@ -9862,9 +9886,9 @@
         "upgradeitem": 16202,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right leg plug",
+        "nameen": "Emerald right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16103,
@@ -9889,9 +9913,9 @@
         "upgradeitem": 16203,
         "upgrademoney": 2000,
         "upgradelv": 15,
-        "nameen": "Emerald right leg plug",
+        "nameen": "Emerald right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16201,
@@ -9916,9 +9940,9 @@
         "upgradeitem": 16301,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16202,
@@ -9943,9 +9967,9 @@
         "upgradeitem": 16302,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16203,
@@ -9970,9 +9994,9 @@
         "upgradeitem": 16303,
         "upgrademoney": 4500,
         "upgradelv": 25,
-        "nameen": "Sapphire Plug-leg",
+        "nameen": "Sapphire right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16301,
@@ -9997,9 +10021,9 @@
         "upgradeitem": 16401,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right leg plug",
+        "nameen": "Ruby right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16302,
@@ -10024,9 +10048,9 @@
         "upgradeitem": 16402,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right leg plug",
+        "nameen": "Ruby right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16303,
@@ -10051,9 +10075,9 @@
         "upgradeitem": 16403,
         "upgrademoney": 7000,
         "upgradelv": 35,
-        "nameen": "Purple diamond right leg plug",
+        "nameen": "Ruby right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16401,
@@ -10078,9 +10102,9 @@
         "upgradeitem": 16501,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right leg plug",
+        "nameen": "Gold right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16402,
@@ -10105,9 +10129,9 @@
         "upgradeitem": 16502,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right leg plug",
+        "nameen": "Gold right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16403,
@@ -10132,9 +10156,9 @@
         "upgradeitem": 16503,
         "upgrademoney": 12000,
         "upgradelv": 45,
-        "nameen": "Gold right leg plug",
+        "nameen": "Gold right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16501,
@@ -10156,9 +10180,9 @@
         "materialnum2": 5,
         "material3": 19064,
         "materialnum3": 5,
-        "nameen": "Colorful right leg plug",
+        "nameen": "Dimon right leg plug α",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16502,
@@ -10180,9 +10204,9 @@
         "materialnum2": 5,
         "material3": 19065,
         "materialnum3": 5,
-        "nameen": "Colorful right leg plug",
+        "nameen": "Dimon right leg plug β",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 16503,
@@ -10204,9 +10228,9 @@
         "materialnum2": 5,
         "material3": 19066,
         "materialnum3": 5,
-        "nameen": "Colorful right leg plug",
+        "nameen": "Dimon right leg plug γ",
         "explaintw": "專屬左腿的強化插件，裝備後可有效提升能力。",
-        "explainen": "Exclusive to strengthen leg plug, which can effectively enhance the ability equip."
+        "explainen": "A biological plug that can be inserted in your right leg to enhance your skills."
     },
     {
         "id": 17001,
@@ -10219,9 +10243,9 @@
         "attrkind1": 1,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "2 points left ear tubes",
+        "nameen": "2 minutes left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17002,
@@ -10234,9 +10258,9 @@
         "attrkind1": 2,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "3 points left ear tubes",
+        "nameen": "3 minutes left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17003,
@@ -10249,9 +10273,9 @@
         "attrkind1": 3,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "Speed left ear tubes",
+        "nameen": "Speed ​​left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17004,
@@ -10266,7 +10290,7 @@
         "uisource": [10,11,12],
         "nameen": "Left ear endurance test tube",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17005,
@@ -10281,7 +10305,7 @@
         "uisource": [10,11,12],
         "nameen": "Strength left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17006,
@@ -10296,7 +10320,7 @@
         "uisource": [10,11,12],
         "nameen": "DEAR left ear tubes",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 17007,
@@ -10311,7 +10335,7 @@
         "uisource": [10,11,12],
         "nameen": "Left ear tubes rebounds",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18001,
@@ -10324,9 +10348,9 @@
         "attrkind1": 8,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "Ear injection pot",
+        "nameen": "Right ear injection pot",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18002,
@@ -10339,9 +10363,9 @@
         "attrkind1": 9,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "Defensive ear injection",
+        "nameen": "Defensive right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18003,
@@ -10354,9 +10378,9 @@
         "attrkind1": 10,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "Ear steals injection",
+        "nameen": "Right ear steals injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18004,
@@ -10371,7 +10395,7 @@
         "uisource": [10,11,12],
         "nameen": "Right ear had injections",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18005,
@@ -10386,7 +10410,7 @@
         "uisource": [10,11,12],
         "nameen": "Pass right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18006,
@@ -10401,7 +10425,7 @@
         "uisource": [10,11,12],
         "nameen": "2 points right ear injection",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 18007,
@@ -10414,9 +10438,9 @@
         "attrkind1": 2,
         "attrvalue1": 10,
         "uisource": [10,11,12],
-        "nameen": "3 points right ear injection",
+        "nameen": "3 points right ear injections",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Can be equipped to \"strengthen synapses\" field, will greatly enhance their ability to be brief.\n[ff0000] Note: This equipment items into the contest, each contest that is deducted [-] [33FFDD] 1 [-] [ff0000] member. [-]"
+        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
     },
     {
         "id": 19000,
@@ -10433,11 +10457,11 @@
         "icon": 11001,
         "quality": 1,
         "maxstack": 999,
-        "stagesource": [103,124,141],
+        "stagesource": [105,114],
         "uisource": [10,11,12],
-        "nameen": "White crystal stone",
+        "nameen": "White Crystal Core",
         "explaintw": "突觸強化合成材料。可協助所有 白色 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. All white quality can help to strengthen plugins."
+        "explainen": "Low quality material that can help you upgrade your plugs."
     },
     {
         "id": 19002,
@@ -10447,11 +10471,11 @@
         "icon": 11101,
         "quality": 2,
         "maxstack": 999,
-        "stagesource": [103,124,141],
+        "stagesource": [124,134],
         "uisource": [10,11,12],
-        "nameen": "Emerald stone",
+        "nameen": "Emerald Core",
         "explaintw": "突觸強化合成材料。可協助所有 [00b35a]綠色[-] 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. We can assist all [00b35a] Green [-] to strengthen the quality of plug-ins."
+        "explainen": "Normal quality material that can help you upgrade your plugs."
     },
     {
         "id": 19003,
@@ -10461,11 +10485,11 @@
         "icon": 11201,
         "quality": 3,
         "maxstack": 999,
-        "stagesource": [103,124,141],
+        "stagesource": [144,154],
         "uisource": [10,11,12],
-        "nameen": "Sapphire stone",
+        "nameen": "Sapphire Core",
         "explaintw": "突觸強化合成材料。可協助所有 [33bbff]藍色[-] 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. We can assist all [33bbff] Blue [-] to strengthen the quality of plug-ins."
+        "explainen": "Medium quality material that can help you upgrade your plugs."
     },
     {
         "id": 19004,
@@ -10475,11 +10499,11 @@
         "icon": 11001,
         "quality": 4,
         "maxstack": 999,
-        "stagesource": [135,136],
+        "stagesource": [164,174],
         "uisource": [10,11,12],
-        "nameen": "Purple rough diamonds",
+        "nameen": "Ruby Core",
         "explaintw": "突觸強化合成材料。可協助所有 [c900ff]紫色[-] 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. We can assist all [c900ff] purple [-] to strengthen the quality of plug-ins."
+        "explainen": "High quality material that can help you upgrade your plugs."
     },
     {
         "id": 19005,
@@ -10489,11 +10513,11 @@
         "icon": 11101,
         "quality": 5,
         "maxstack": 999,
-        "stagesource": [143,144],
+        "stagesource": [184],
         "uisource": [10,11,12],
-        "nameen": "Gold stone",
+        "nameen": "Gold Core",
         "explaintw": "突觸強化合成材料。可協助所有 [ff8000]橘色[-] 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. We can assist all [ff8000] orange [-] to strengthen the quality of plug-ins."
+        "explainen": "Expensive material that can help you upgrade your plugs."
     },
     {
         "id": 19006,
@@ -10503,9 +10527,11 @@
         "icon": 11201,
         "quality": 5,
         "maxstack": 999,
-        "nameen": "Colorful original stone",
+        "stagesource": [191],
+        "uisource": [10,11,12],
+        "nameen": "Dimond Core",
         "explaintw": "突觸強化合成材料。可協助所有 [ff00db]七彩[-] 品質的插件進行強化。",
-        "explainen": "Synaptic strengthening synthetic materials. We can assist all [ff00db] Colorful [-] to strengthen the quality of plug-ins."
+        "explainen": "Rare material that can help you upgrade your plugs."
     },
     {
         "id": 19007,
@@ -10537,9 +10563,9 @@
         "maxstack": 999,
         "attrkind1": 1,
         "attrvalue1": 1,
-        "stagesource": [107,126,144],
+        "stagesource": [107,116],
         "uisource": [10,11,12],
-        "nameen": "Square columns crystal",
+        "nameen": "Square columns crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]顱部插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] cranial plug [-] to strengthen."
     },
@@ -10553,9 +10579,9 @@
         "maxstack": 999,
         "attrkind1": 2,
         "attrvalue1": 1,
-        "stagesource": [107,126,144],
+        "stagesource": [107,116],
         "uisource": [10,11,12],
-        "nameen": "Distorted crystal",
+        "nameen": "Twisted crystalline",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]左臂插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] left arm plug [-] to strengthen."
     },
@@ -10569,9 +10595,9 @@
         "maxstack": 999,
         "attrkind1": 6,
         "attrvalue1": 1,
-        "stagesource": [107,126,144],
+        "stagesource": [109,119],
         "uisource": [10,11,12],
-        "nameen": "Nested crystal",
+        "nameen": "Nest-like crystals",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]右臂插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] right arm plug [-] to strengthen."
     },
@@ -10585,9 +10611,9 @@
         "maxstack": 999,
         "attrkind1": 7,
         "attrvalue1": 1,
-        "stagesource": [111,129,146],
+        "stagesource": [109,119],
         "uisource": [10,11,12],
-        "nameen": "Flawless crystal",
+        "nameen": "No time to crystallize",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]胸腔插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] chest plug [-] to strengthen."
     },
@@ -10601,9 +10627,9 @@
         "maxstack": 999,
         "attrkind1": 8,
         "attrvalue1": 1,
-        "stagesource": [111,129,146],
+        "stagesource": [111,121],
         "uisource": [10,11,12],
-        "nameen": "Isometric crystal",
+        "nameen": "Equiaxed crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]左腿插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] leg plug [-] to strengthen."
     },
@@ -10617,9 +10643,9 @@
         "maxstack": 999,
         "attrkind1": 10,
         "attrvalue1": 1,
-        "stagesource": [111,129,146],
+        "stagesource": [111,121],
         "uisource": [10,11,12],
-        "nameen": "Ion crystal",
+        "nameen": "Ion crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]右腿插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] right leg plug [-] to strengthen."
     },
@@ -10653,7 +10679,7 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 1,
-        "stagesource": [114,131],
+        "stagesource": [126,131,139],
         "uisource": [10,11,12],
         "nameen": "Oxygen",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10669,7 +10695,7 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 1,
-        "stagesource": [114,131],
+        "stagesource": [126,131,139],
         "uisource": [10,11,12],
         "nameen": "Carbon element",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10685,7 +10711,7 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 1,
-        "stagesource": [114,131],
+        "stagesource": [126,131,139],
         "uisource": [10,11,12],
         "nameen": "Hydrogen",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10701,7 +10727,7 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 1,
-        "stagesource": [119,136],
+        "stagesource": [129,136,141],
         "uisource": [10,11,12],
         "nameen": "Nitrogen",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10717,7 +10743,7 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 1,
-        "stagesource": [119,136],
+        "stagesource": [129,136,141],
         "uisource": [10,11,12],
         "nameen": "Calcium",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10733,7 +10759,7 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 1,
-        "stagesource": [119,136],
+        "stagesource": [129,136,141],
         "uisource": [10,11,12],
         "nameen": "Phosphorus",
         "explaintw": "突觸強化合成材料。可協助部分 [00b35a]綠色[-] 品質的插件進行強化。",
@@ -10769,7 +10795,7 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 1,
-        "stagesource": [116,134],
+        "stagesource": [146,151,159],
         "uisource": [10,11,12],
         "nameen": "T cells",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10785,7 +10811,7 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 1,
-        "stagesource": [116,134],
+        "stagesource": [146,151,159],
         "uisource": [10,11,12],
         "nameen": "B cells",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10801,7 +10827,7 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 1,
-        "stagesource": [116,134],
+        "stagesource": [146,151,159],
         "uisource": [10,11,12],
         "nameen": "K cells",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10817,7 +10843,7 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 1,
-        "stagesource": [121,139],
+        "stagesource": [149,156,161],
         "uisource": [10,11,12],
         "nameen": "NK cells",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10833,7 +10859,7 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 1,
-        "stagesource": [121,139],
+        "stagesource": [149,156,161],
         "uisource": [10,11,12],
         "nameen": "X Cell",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10849,7 +10875,7 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 1,
-        "stagesource": [121,139],
+        "stagesource": [149,156,161],
         "uisource": [10,11,12],
         "nameen": "Z cell",
         "explaintw": "突觸強化合成材料。可協助部分 [33bbff]藍色[-] 品質的插件進行強化。",
@@ -10885,6 +10911,8 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 1,
+        "stagesource": [166,171,179],
+        "uisource": [10,11,12],
         "nameen": "Thermal particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10899,6 +10927,8 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 1,
+        "stagesource": [166,171,179],
+        "uisource": [10,11,12],
         "nameen": "Strange particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10913,6 +10943,8 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 1,
+        "stagesource": [166,171,179],
+        "uisource": [10,11,12],
         "nameen": "Charged particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10927,6 +10959,8 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 1,
+        "stagesource": [169,176,181],
+        "uisource": [10,11,12],
         "nameen": "Superfluid particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10941,6 +10975,8 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 1,
+        "stagesource": [169,176,181],
+        "uisource": [10,11,12],
         "nameen": "Light-sensitive particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10955,6 +10991,8 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 1,
+        "stagesource": [169,176,181],
+        "uisource": [10,11,12],
         "nameen": "Liquid titanium particles",
         "explaintw": "突觸強化合成材料。可協助部分 [c900ff]紫色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [c900ff] purple [-] to strengthen the quality of plug-ins."
@@ -10989,6 +11027,8 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 1,
+        "stagesource": [186],
+        "uisource": [10,11,12],
         "nameen": "A-DNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11003,6 +11043,8 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 1,
+        "stagesource": [186],
+        "uisource": [10,11,12],
         "nameen": "B-DNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11017,6 +11059,8 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 1,
+        "stagesource": [186],
+        "uisource": [10,11,12],
         "nameen": "Z-DNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11031,6 +11075,8 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 1,
+        "stagesource": [189],
+        "uisource": [10,11,12],
         "nameen": "mRNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11045,6 +11091,8 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 1,
+        "stagesource": [189],
+        "uisource": [10,11,12],
         "nameen": "tRNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11059,6 +11107,8 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 1,
+        "stagesource": [189],
+        "uisource": [10,11,12],
         "nameen": "rRNA",
         "explaintw": "突觸強化合成材料。可協助部分 [ff8000]橘色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff8000] orange [-] to strengthen the quality of plug-ins."
@@ -11093,6 +11143,8 @@
         "maxstack": 999,
         "attrkind1": 11,
         "attrvalue1": 1,
+        "stagesource": [194],
+        "uisource": [10,11,12],
         "nameen": "Alpha atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
@@ -11107,6 +11159,8 @@
         "maxstack": 999,
         "attrkind1": 9,
         "attrvalue1": 1,
+        "stagesource": [194],
+        "uisource": [10,11,12],
         "nameen": "Beta atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
@@ -11121,6 +11175,8 @@
         "maxstack": 999,
         "attrkind1": 3,
         "attrvalue1": 1,
+        "stagesource": [194],
+        "uisource": [10,11,12],
         "nameen": "Gamma atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
@@ -11135,6 +11191,8 @@
         "maxstack": 999,
         "attrkind1": 12,
         "attrvalue1": 1,
+        "stagesource": [196],
+        "uisource": [10,11,12],
         "nameen": "Glick atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
@@ -11149,6 +11207,8 @@
         "maxstack": 999,
         "attrkind1": 5,
         "attrvalue1": 1,
+        "stagesource": [196],
+        "uisource": [10,11,12],
         "nameen": "Omega atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
@@ -11163,6 +11223,8 @@
         "maxstack": 999,
         "attrkind1": 4,
         "attrvalue1": 1,
+        "stagesource": [196],
+        "uisource": [10,11,12],
         "nameen": "Delta atom",
         "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
