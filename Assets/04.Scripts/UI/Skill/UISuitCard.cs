@@ -121,6 +121,7 @@ public struct TItemSuitCardGroup {
 			}
 			LabelButtonBG.spriteName = "button_gray";
 			LabelButton.text = TextConst.S(7704);
+			LaunchSelect.SetActive(false);
 		} else 
 		if(isHave && !isLaunch) 
 		{
@@ -133,6 +134,7 @@ public struct TItemSuitCardGroup {
 			}
 			LabelButtonBG.spriteName = "button_orange1";
 			LabelButton.text = TextConst.S(7702);
+			LaunchSelect.SetActive(false);
 		} else 
 		{
 			SuitNameLabel.color = colorNormal;
@@ -144,6 +146,7 @@ public struct TItemSuitCardGroup {
 			}
 			LabelButtonBG.spriteName = "ButtonY";
 			LabelButton.text = TextConst.S(7703);
+			LaunchSelect.SetActive(true);
 		}
 	}
 

@@ -949,7 +949,8 @@ public static class GameFunction
 					stars[current - 1].SetActive(true);
 				}
 			} else if (count == 7) {
-				stars[current].SetActive(true);
+				if(current >= 0 && current <= 7)
+					stars[current].SetActive(true);
 			}
 		}
 	}

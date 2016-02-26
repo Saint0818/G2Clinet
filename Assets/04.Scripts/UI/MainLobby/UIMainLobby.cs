@@ -127,7 +127,7 @@ public class UIMainLobby : UIBase
 
     private void updateSkillButton()
     {
-        Main.SkillNotice = GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard;
+		Main.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard) && (LimitTable.Ins.HasByOpenID(EOpenID.Ability) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Ability))) ;
         Main.SkillButton.CheckEnable();
     }
 

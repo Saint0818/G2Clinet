@@ -726,7 +726,7 @@ namespace GameStruct
 		public bool IsSkillCardFull {
 			get {
 				if(SkillCardMax == 0)
-					SkillCardMax = 100;
+					SkillCardMax = 300;
 				return (SkillCards.Length > SkillCardMax);
 			}
 		}
@@ -1080,7 +1080,7 @@ namespace GameStruct
 			int count = 0;
 			if(GameData.DSuitItem.ContainsKey(id)) 
 				for(int i=0; i<GameData.DSuitItem[id].Items.Length; i++) 
-					if(IsGetItem(GameData.DSuitItem[id].Items[i])) 
+					if(IsGetAvatar(GameData.DSuitItem[id].Items[i])) 
 						count ++;
 			return count;
 		}

@@ -4,6 +4,6 @@ public class OpenMallAction : UIItemSourceElement.IAction
 {
     public void Do()
     {
-        Debug.Log("Open Mall");
+		UIMall.Get.ShowView();
     }
 }

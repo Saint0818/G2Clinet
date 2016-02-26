@@ -71,7 +71,7 @@ public struct TMiddleItemView {
 						if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
 							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
 							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
-							SuitCover[i].SetActive(!GameData.Team.IsGetItem(GameData.DSuitItem[id].Items[i]));
+							SuitCover[i].SetActive(!GameData.Team.IsGetAvatar(GameData.DSuitItem[id].Items[i]));
 						}
 					} else {
 						itemAwardGroup[i].Hide();

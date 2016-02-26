@@ -112,6 +112,7 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PasstiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+
 				if(SuitCard != null)
 					SuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
 
@@ -142,10 +143,10 @@ public class TActiveSkillCard
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 				if(SuitCard != null)
-					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
+					SuitCardEnable = false;
 
 				if(SuitItem != null)
-					SuitItem.spriteName = GameFunction.CardSuitItemBg(itemData.Avatar);
+					SuitItemEnable = false;
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
 		}
