@@ -1,29 +1,29 @@
 [
     {
         "id": 0,
-        "point2": 1,
-        "point3": 2,
-        "dunk": 3,
-        "rebound": 4,
-        "block": 5,
-        "steal": 6
+        "point2": 6,
+        "point3": 8,
+        "dunk": 4,
+        "rebound": 3,
+        "block": 3,
+        "steal": 5
     },
     {
         "id": 1,
-        "point2": 11,
-        "point3": 12,
-        "dunk": 13,
-        "rebound": 14,
-        "block": 15,
-        "steal": 16
+        "point2": 5,
+        "point3": 3,
+        "dunk": 5,
+        "rebound": 7,
+        "block": 6,
+        "steal": 6
     },
     {
         "id": 2,
-        "point2": 21,
-        "point3": 22,
-        "dunk": 23,
-        "rebound": 24,
-        "block": 25,
-        "steal": 26
+        "point2": 4,
+        "point3": 4,
+        "dunk": 6,
+        "rebound": 5,
+        "block": 6,
+        "steal": 4
     }
 ]

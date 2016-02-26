@@ -2002,11 +2002,13 @@
         "flag": 1,
         "namecn": "后卫头发14",
         "nameen": "Guard hair 14",
-        "namejp": "ガード毛14"
+        "namejp": "ガード毛14",
+        "explaintw": "霸氣女王髮冠。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "The Queen's haircut."
     },
     {
         "id": 1215,
-        "nametw": "後衛頭髮15",
+        "nametw": "紫喵感應短髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1215,
@@ -2021,7 +2023,9 @@
         "flag": 1,
         "namecn": "后卫头发15",
         "nameen": "Guard hair 15",
-        "namejp": "ガード毛15"
+        "namejp": "ガード毛15",
+        "explaintw": "神秘的貓咪感應，前衛髮型。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Catwoman's haircut."
     },
     {
         "id": 1216,
@@ -3081,11 +3085,13 @@
         "flag": 1,
         "namecn": "后卫手饰14",
         "nameen": "Defender jewelry 14",
-        "namejp": "ディフェンダーの宝石14"
+        "namejp": "ディフェンダーの宝石14",
+        "explaintw": "屬於女王的霸氣手裝。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
         "id": 2215,
-        "nametw": "後衛手飾15",
+        "nametw": "紫喵感應袖套",
         "kind": 2,
         "atlas": 2,
         "icon": 2215,
@@ -3100,7 +3106,9 @@
         "flag": 1,
         "namecn": "后卫手饰15",
         "nameen": "Defender jewelry 15",
-        "namejp": "ディフェンダーの宝石15"
+        "namejp": "ディフェンダーの宝石15",
+        "explaintw": "神秘紫色貓貓專屬袖套。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Stylish letaher gloves for a fancy control of the ball."
     },
     {
         "id": 2216,
@@ -4216,11 +4224,13 @@
         "flag": 1,
         "namecn": "后卫衣服14",
         "nameen": "Guard clothes 14",
-        "namejp": "Guardは14服"
+        "namejp": "Guardは14服",
+        "explaintw": "守護女皇的尊貴身軀。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "For those who take sexiness seriously all the time."
     },
     {
         "id": 3215,
-        "nametw": "後衛衣服15",
+        "nametw": "紫喵感應背心",
         "kind": 3,
         "atlas": 3,
         "icon": 3215,
@@ -4235,7 +4245,9 @@
         "flag": 1,
         "namecn": "后卫衣服15",
         "nameen": "Guard clothes 15",
-        "namejp": "Guardは15服"
+        "namejp": "Guardは15服",
+        "explaintw": "絕對感應、絕對神秘。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "For those who take sexiness seriously all the time."
     },
     {
         "id": 3216,
@@ -5329,7 +5341,9 @@
         "flag": 1,
         "namecn": "后卫裤子13",
         "nameen": "Defender pants 13",
-        "namejp": "ディフェンダーパンツ13"
+        "namejp": "ディフェンダーパンツ13",
+        "explaintw": "彈性、排汗性極佳，適合激烈運動。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "High performance full of character."
     },
     {
         "id": 4214,
@@ -5349,11 +5363,13 @@
         "flag": 1,
         "namecn": "后卫裤子14",
         "nameen": "Defender pants 14",
-        "namejp": "ディフェンダーパンツ14"
+        "namejp": "ディフェンダーパンツ14",
+        "explaintw": "展現女皇的霸氣雙腿。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "High performance full of character."
     },
     {
         "id": 4215,
-        "nametw": "後衛褲子15",
+        "nametw": "紫喵感應熱褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4215,
@@ -5368,7 +5384,9 @@
         "flag": 1,
         "namecn": "后卫裤子15",
         "nameen": "Defender pants 15",
-        "namejp": "ディフェンダーパンツ15"
+        "namejp": "ディフェンダーパンツ15",
+        "explaintw": "不只超感應、還要超俏麗。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "High performance full of character."
     },
     {
         "id": 4216,
@@ -6461,7 +6479,9 @@
         "flag": 1,
         "namecn": "后卫鞋子13",
         "nameen": "Defender Shoes 13",
-        "namejp": "ディフェンダーシューズ13"
+        "namejp": "ディフェンダーシューズ13",
+        "explaintw": "輕量化，彈性楦頭，增加舒適度。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Comfy, cool, effective."
     },
     {
         "id": 5214,
@@ -6481,11 +6501,13 @@
         "flag": 1,
         "namecn": "后卫鞋子14",
         "nameen": "Defender Shoes 14",
-        "namejp": "ディフェンダーシューズ14"
+        "namejp": "ディフェンダーシューズ14",
+        "explaintw": "冷冽透骨、彰顯女皇霸氣。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Comfy, cool, effective."
     },
     {
         "id": 5215,
-        "nametw": "後衛鞋子15",
+        "nametw": "紫喵感應短靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5215,
@@ -6500,7 +6522,9 @@
         "flag": 1,
         "namecn": "后卫鞋子15",
         "nameen": "Defender Shoes 15",
-        "namejp": "ディフェンダーシューズ15"
+        "namejp": "ディフェンダーシューズ15",
+        "explaintw": "有如觸電一般的超感應。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Comfy, cool, effective."
     },
     {
         "id": 5216,
@@ -6783,7 +6807,7 @@
     },
     {
         "id": 6010,
-        "nametw": "頭飾10",
+        "nametw": "喵感應眼鏡",
         "kind": 6,
         "atlas": 6,
         "icon": 6010,
@@ -6798,7 +6822,9 @@
         "flag": 1,
         "namecn": "头饰10",
         "nameen": "Headwear 10",
-        "namejp": "帽子10"
+        "namejp": "帽子10",
+        "explaintw": "透過超感應眼鏡增加視覺強度。",
+        "explainen": "Cat VR glasess"
     },
     {
         "id": 6011,
@@ -7183,7 +7209,7 @@
     },
     {
         "id": 7011,
-        "nametw": "背飾11",
+        "nametw": "喵感應推進器",
         "kind": 7,
         "atlas": 7,
         "icon": 7011,
@@ -7198,7 +7224,9 @@
         "flag": 1,
         "namecn": "背饰11",
         "nameen": "Back decorated 11",
-        "namejp": "戻る11装飾"
+        "namejp": "戻る11装飾",
+        "explaintw": "擁有超感應之力，敏捷度大增。",
+        "explainen": "Put it on to make eyes glue on you"
     },
     {
         "id": 7012,
@@ -11179,7 +11207,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Babyhook I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, a surprise babyhook catches opponent off guard and \nenchances field goal percentage.\n[F0FF00]Criteria：Shooting under tha basket[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20411,
@@ -11195,7 +11225,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Babyhook II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, a surprise babyhook catches opponent off guard and enchances field goal percentage.\n[F0FF00]Criteria：Shooting in the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20412,
@@ -11212,7 +11244,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Babyhook III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, a surprise babyhook catches opponent off guard and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20413,
@@ -11228,7 +11262,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Babyhook IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, a surprise babyhook catches opponent off guard and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20414,
@@ -11244,7 +11280,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Babyhook V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, a surprise babyhook catches opponent off guard and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20420,
@@ -11261,7 +11299,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Skyhook I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, does an unblockable skyhook and enchances field goal percentage.\n[F0FF00]Criteria：Shooting under the basket[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20421,
@@ -11277,7 +11317,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Skyhook II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, does an unblockable skyhook and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20422,
@@ -11293,7 +11335,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Skyhook III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, does an unblockable skyhook and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20423,
@@ -11310,7 +11354,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Skyhook IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, does an unblockable skyhook and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20424,
@@ -11326,7 +11372,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Skyhook V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, does an unblockable skyhook and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20430,
@@ -11342,7 +11390,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fadeaway Jump Shot I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fade away to create space from the opponent and enchances field goal percentage.\n[F0FF00]Criteria：Shooting under the basket[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20431,
@@ -11359,7 +11409,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fadeaway Jump Shot II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fade away to create space from the opponent and enchances field goal percentage.\n[F0FF00]Criteria：Shooting in the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20432,
@@ -11377,7 +11429,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Fadeaway Jump Shot III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fade away to create space from the opponent and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20433,
@@ -11394,7 +11448,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fadeaway Jump Shot IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fade away to create space from the opponent and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20434,
@@ -11411,7 +11467,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fadeaway Jump Shot V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fade away to create space from the opponent and enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20499,
@@ -11428,7 +11486,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Ultimate Hawk Eye",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "Launch an ultimate three pointer, once it goes in it demoralize the opposing team and lower their field goal percentage for a short period of time.\n[F0FF00] Criteria:\n[F0FF00] Conditions:\n[F0FF00] Effect: "
     },
     {
         "id": 20510,
@@ -11444,7 +11504,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Up and Under Finger Roll I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, up and under to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20511,
@@ -11460,7 +11522,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Up and Under Finger Roll II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, up and under to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20512,
@@ -11477,7 +11541,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Up and Under Finger Roll III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, up and under move to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20513,
@@ -11493,7 +11559,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Up and Under Finger Roll IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, up and under move to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20514,
@@ -11509,7 +11577,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Up and Under Finger Roll V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, up and under move to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20520,
@@ -11526,7 +11596,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Switch Hand Double Cluctch Layup I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, the absurd switch hand double clutch layup to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20521,
@@ -11543,7 +11615,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Switch Hand Double Cluctch Layup II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, the absurd switch hand double clutch layup to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20522,
@@ -11560,7 +11634,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Switch Hand Double Cluctch Layup III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, the absurd switch hand double clutch layup to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20523,
@@ -11578,7 +11654,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Switch Hand Double Cluctch Layup IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, the absurd switch hand double clutch layup to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20524,
@@ -11595,7 +11673,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Switch Hand Double Cluctch Layup V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, the absurd switch hand double clutch layup to avoid the block attempt and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20530,
@@ -11611,7 +11691,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fake then Layup I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fake out your opponent for and open drive and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20531,
@@ -11629,7 +11711,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Fake then Layup II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fake out your opponent for and open drive and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20532,
@@ -11646,7 +11730,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fake then Layup III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fake out your opponent for and open drive and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20533,
@@ -11663,7 +11749,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fake then Layup IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fake out your opponent for and open drive and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20534,
@@ -11681,7 +11769,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Fake then Layup V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "上籃時有機會發動，利用華麗的上籃動作來得分。\n[F0FF00]觸發時機：於禁區內移動上籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, fake out your opponent for and open drive and enchances field goal percentage.\n[F0FF00]Criteria：Driving layup below the free throw line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Field Goal Percentage＋{6}%[-]"
     },
     {
         "id": 20610,
@@ -11697,7 +11787,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Pump Fake then Dunk I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, pump fake your opponent then dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting under the basket[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20611,
@@ -11714,7 +11806,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shot Fake then Dunk II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, shot fake your opponent then dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20612,
@@ -11732,7 +11826,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Shot Fake then Drive for Dunk III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, shot fake your opponent then dirve for dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20613,
@@ -11749,7 +11845,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shot Fake then Drive for Dunk IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, shot fake your opponent then dirve for dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20614,
@@ -11766,7 +11864,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shot Fake then Drive for Dunk V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, shot fake your opponent then dirve for dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20620,
@@ -11783,7 +11883,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Wrap Around Dunk I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting under the basket[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20621,
@@ -11799,7 +11901,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wrap Around Dunk II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20622,
@@ -11815,7 +11919,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wrap Around Dunk III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20623,
@@ -11832,7 +11938,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Wrap Around Dunk IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20624,
@@ -11848,7 +11956,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wrap Around Dunk V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20630,
@@ -11864,7 +11974,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Two Handed Power Slam I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a two handed slam. \n[F0FF00]Criteria：Shooting in the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20631,
@@ -11881,7 +11993,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Driving Two Handed Power Slam II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a two handed slam. \n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20632,
@@ -11898,7 +12012,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Driving Two Handed Power Slam III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a two handed slam.\n [F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20633,
@@ -11916,7 +12032,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Driving Two Handed Power Slam IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a two handed slam.\n [F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20634,
@@ -11933,7 +12051,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Driving Two Handed Power Slam V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a two handed slam.\n [F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20640,
@@ -11949,7 +12069,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Between The Leg Dunk I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a between the leg dunk. \n[F0FF00]Criteria：Shooting in the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20641,
@@ -11967,7 +12089,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Between The Leg Dunk II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a between the leg dunk. \n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20642,
@@ -11986,7 +12110,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Between The Leg Dunk III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a between the leg dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20643,
@@ -12004,7 +12130,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Between The Leg Dunk IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a between the leg dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20644,
@@ -12022,7 +12150,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Between The Leg Dunk V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a between the leg dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20650,
@@ -12039,7 +12169,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Classic Air Jordan Dunk I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a classic Air Jordan dunk. \n[F0FF00]Criteria：Shooting within the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20651,
@@ -12057,7 +12189,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Classic Air Jordan Dunk II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a classic Air Jordan dunk. \n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20652,
@@ -12075,7 +12209,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Classic Air Jordan Dunk III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a classic Air Jordan dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20653,
@@ -12094,7 +12230,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Classic Air Jordan Dunk IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a classic Air Jordan dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20654,
@@ -12112,7 +12250,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Classic Air Jordan Dunk V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a classic Air Jordan dunk. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20660,
@@ -12128,7 +12268,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wind Mill Slam I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting within the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20661,
@@ -12146,7 +12288,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Wind Mill Slam II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20662,
@@ -12163,7 +12307,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wind Mill Slam III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20663,
@@ -12180,7 +12326,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Wind Mill Slam IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20664,
@@ -12198,7 +12346,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Wind Mill Slam V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20670,
@@ -12214,7 +12364,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Power Slam I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a power slam. \n[F0FF00]Criteria：Shooting in the restricted area[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20671,
@@ -12230,7 +12382,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Power Slam II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a power slam. \n[F0FF00]Criteria：Shooting from mid range[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20672,
@@ -12247,7 +12401,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Power Slam III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a power slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20673,
@@ -12263,7 +12419,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Power Slam IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a power slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20674,
@@ -12279,7 +12437,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Power Slam V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, power through your opponent for a power slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20698,
@@ -12295,7 +12455,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Fancy dunk",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
         "id": 20699,
@@ -12311,7 +12473,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Big Wheel Jam",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
         "id": 21100,
@@ -12328,7 +12492,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Spin Move I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21101,
@@ -12345,7 +12511,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Spin Move II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21102,
@@ -12362,7 +12530,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Spin Move III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21103,
@@ -12380,7 +12550,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Spin Move IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21104,
@@ -12397,7 +12569,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Spin Move V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21198,
@@ -12413,7 +12587,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Spin Move II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "運球遭遇對方防守球員時，有機會利用速度，快速轉身晃過對手。\n[F0FF00]觸發時機：運球遭遇對方防守球員時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, spin around the defender for an open lane. \n[F0FF00]Criteria：When defender approaches while dribbling[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Get pass the defender"
     },
     {
         "id": 21210,
@@ -12429,7 +12605,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Front Pass I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的正面跑傳可以增加進攻傳球的流暢度，讓對手防不勝防。\n[F0FF00]觸發時機：傳球給前方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the front pass efficiency and left rivals off guard.\n[F0FF00]Criteria：Run infront of  a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21211,
@@ -12447,7 +12625,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Running Front Pass II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的正面跑傳可以增加進攻傳球的流暢度，讓對手防不勝防。\n[F0FF00]觸發時機：傳球給前方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the front pass efficiency and left rivals off guard.\n[F0FF00]Criteria：Run infront of  a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21212,
@@ -12464,7 +12644,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Front Pass III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的正面跑傳可以增加進攻傳球的流暢度，讓對手防不勝防。\n[F0FF00]觸發時機：傳球給前方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the front pass efficiency and left rivals off guard.\n[F0FF00]Criteria：Run infront of  a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21213,
@@ -12481,7 +12663,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Front Pass IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的正面跑傳可以增加進攻傳球的流暢度，讓對手防不勝防。\n[F0FF00]觸發時機：傳球給前方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the front pass efficiency and left rivals off guard.\n[F0FF00]Criteria：Run infront of  a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21214,
@@ -12499,7 +12683,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Running Front Pass V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的正面跑傳可以增加進攻傳球的流暢度，讓對手防不勝防。\n[F0FF00]觸發時機：傳球給前方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the front pass efficiency and left rivals off guard.\n[F0FF00]Criteria：Run infront of  a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21220,
@@ -12515,7 +12701,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Pass Between The Legs I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的胯下跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the pass between the legs efficiency and left rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21221,
@@ -12532,7 +12720,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Pass Between The Legs II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的胯下跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the pass between the legs efficiency and left rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21222,
@@ -12550,7 +12740,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Pass Between The Legs III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的胯下跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the pass between the legs efficiency and left rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21223,
@@ -12567,7 +12759,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Pass Between The Legs IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的胯下跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the pass between the legs efficiency and left rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21224,
@@ -12584,7 +12778,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Pass Between The Legs V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的胯下跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the pass between the legs efficiency and left rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21230,
@@ -12600,7 +12796,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Shoulder Pass I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的肩上跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the runing shoulder pass efficiency and leave rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21231,
@@ -12618,7 +12816,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Running Shoulder Pass II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的肩上跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the runing shoulder pass efficiency and leave rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21232,
@@ -12635,7 +12835,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Shoulder Pass III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的肩上跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the runing shoulder pass efficiency and leave rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21233,
@@ -12652,7 +12854,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Shoulder Pass III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的肩上跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the runing shoulder pass efficiency and leave rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21234,
@@ -12669,7 +12873,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Running Shoulder Pass III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的肩上跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the runing shoulder pass efficiency and leave rivals off guard.\n[F0FF00]Criteria：Run behind of a teammate[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21240,
@@ -12685,7 +12891,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Left I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的左側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給左後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the left efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your left rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21241,
@@ -12701,7 +12909,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Left II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的左側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給左後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the left efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your left rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21242,
@@ -12717,7 +12927,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Left III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的左側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給左後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the left efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your left rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21243,
@@ -12733,7 +12945,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Left IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的左側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給左後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the left efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your left rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21244,
@@ -12749,7 +12963,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Left V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的左側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給左後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the left efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your left rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21250,
@@ -12765,7 +12981,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Right I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的右側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給右後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the right efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21251,
@@ -12781,7 +12999,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Right II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的右側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給右後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the right efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21252,
@@ -12797,7 +13017,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Right III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的右側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給右後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the right efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21253,
@@ -12813,7 +13035,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Right IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的右側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給右後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the right efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21254,
@@ -12829,7 +13053,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Behind The Back Pass To The Right V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "快速的右側背後跑傳可以增加進攻傳球的流暢度，讓對手防不勝防\n[F0FF00]觸發時機：傳球給右後方隊友時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, Increase the behind the back pass to the right efficiency and leave rivals off guard.\n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Pass efficiency + {6}% [-] "
     },
     {
         "id": 21310,
@@ -12845,7 +13071,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21311,
@@ -12861,7 +13089,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21312,
@@ -12877,7 +13107,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21313,
@@ -12894,7 +13126,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Dive For The Ball IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21314,
@@ -12910,7 +13144,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21398,
@@ -12926,7 +13162,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21399,
@@ -12942,7 +13180,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Dive For The Ball III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當自己的防守範圍有球時，將有機會奮不顧身前往撲搶，增加拿到球的機會。\n[F0FF00]觸發時機：防守範圍有自由球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, While in defence if the ball is in range, the chances of snatching the ball will increase. \n[F0FF00]Criteria：Passing a teammate on your right rear[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to snatch the ball"
     },
     {
         "id": 21400,
@@ -12959,7 +13199,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Rebounding Champ I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過搶籃板的特訓後，將使自己的籃板能力更加提升。\n[F0FF00]觸發時機：發動籃板球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going up for the rebound, the chances of getting the rebound increases. \n[F0FF00]Criteria：Attempting to grab a rebound[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to getting the rebound"
     },
     {
         "id": 21401,
@@ -12976,7 +13218,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Rebounding Champ II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過搶籃板的特訓後，將使自己的籃板能力更加提升。\n[F0FF00]觸發時機：發動籃板球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going up for the rebound, the chances of getting the rebound increases. \n[F0FF00]Criteria：Attempting to grab a rebound[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to getting the rebound"
     },
     {
         "id": 21402,
@@ -12993,7 +13237,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Rebounding Champ III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過搶籃板的特訓後，將使自己的籃板能力更加提升。\n[F0FF00]觸發時機：發動籃板球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going up for the rebound, the chances of getting the rebound increases. \n[F0FF00]Criteria：Attempting to grab a rebound[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to getting the rebound"
     },
     {
         "id": 21403,
@@ -13011,7 +13257,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Rebounding Champ IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過搶籃板的特訓後，將使自己的籃板能力更加提升。\n[F0FF00]觸發時機：發動籃板球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going up for the rebound, the chances of getting the rebound increases. \n[F0FF00]Criteria：Attempting to grab a rebound[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to getting the rebound"
     },
     {
         "id": 21404,
@@ -13028,7 +13276,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Rebounding Champ V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過搶籃板的特訓後，將使自己的籃板能力更加提升。\n[F0FF00]觸發時機：發動籃板球時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going up for the rebound, the chances of getting the rebound increases. \n[F0FF00]Criteria：Attempting to grab a rebound[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances to getting the rebound"
     },
     {
         "id": 21500,
@@ -13044,7 +13294,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Stealing Champ I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21501,
@@ -13061,7 +13313,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Stealing Champ II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21502,
@@ -13078,7 +13332,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Stealing Champ III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21503,
@@ -13096,7 +13352,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Stealing Champ IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21504,
@@ -13113,7 +13371,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Stealing Champ V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21599,
@@ -13129,7 +13389,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Stealing Champ III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過抄截的特訓後，將使自己的抄截技巧更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the steal, the chances of stealing the basketball increases. \n[F0FF00]Criteria：Attempting to get a steal[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the steal"
     },
     {
         "id": 21610,
@@ -13146,7 +13408,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Blocking Champ I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過蓋火鍋的特訓後，將使自己的蓋火鍋能力更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21611,
@@ -13162,7 +13426,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Blocking Champ II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過蓋火鍋的特訓後，將使自己的蓋火鍋能力更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21612,
@@ -13178,7 +13444,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Blocking Champ III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過蓋火鍋的特訓後，將使自己的蓋火鍋能力更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21613,
@@ -13194,7 +13462,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Blocking Champ IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過蓋火鍋的特訓後，將使自己的蓋火鍋能力更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21614,
@@ -13211,7 +13481,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Blocking Champ V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過蓋火鍋的特訓後，將使自己的蓋火鍋能力更加提升。\n[F0FF00]觸發時機：發動抄截時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21700,
@@ -13227,7 +13499,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shoving Champ I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過推人的特訓後，將使自己的推人技巧更加提升。\n[F0FF00]觸發時機：發動推人時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21701,
@@ -13244,7 +13518,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shoving Champ II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過推人的特訓後，將使自己的推人技巧更加提升。\n[F0FF00]觸發時機：發動推人時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21702,
@@ -13262,7 +13538,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Shoving Champ III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過推人的特訓後，將使自己的推人技巧更加提升。\n[F0FF00]觸發時機：發動推人時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21703,
@@ -13279,7 +13557,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shoving Champ IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過推人的特訓後，將使自己的推人技巧更加提升。\n[F0FF00]觸發時機：發動推人時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21704,
@@ -13296,7 +13576,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Shoving Champ V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過推人的特訓後，將使自己的推人技巧更加提升。\n[F0FF00]觸發時機：發動推人時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, when going for the block, the chances of blocking the basketball increases. \n[F0FF00]Criteria：Attempting to get a block[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances getting the block"
     },
     {
         "id": 21800,
@@ -13313,7 +13595,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Elbow I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21801,
@@ -13330,7 +13614,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Elbow II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21802,
@@ -13347,7 +13633,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Elbow III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21803,
@@ -13365,7 +13653,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Elbow IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21804,
@@ -13382,7 +13672,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Elbow V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21899,
@@ -13398,7 +13690,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Ultimate Elbow ",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
         "id": 21900,
@@ -13415,7 +13709,9 @@
         "flag": 1,
         "namecn": "小勾射",
         "nameen": "Flip Back Up I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 21901,
@@ -13432,7 +13728,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Flip Back Up II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 21902,
@@ -13449,7 +13747,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Flip Back Up III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 21903,
@@ -13466,7 +13766,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Flip Back Up IV",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 21904,
@@ -13483,7 +13785,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Flip Back Up V",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 21998,
@@ -13499,7 +13803,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Flip Back Up I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "被對手擊倒在地時，有機會能夠快速起身，繼續回到比賽當中。\n[F0FF00]觸發時機：被擊倒在地時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "Chance to activate this ability when the criteria is satisfied, manage to flip right back up when knocked down to the floor. \n[F0FF00]Criteria：Being knocked down to the floor[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Flip right back up"
     },
     {
         "id": 22200,
@@ -13515,7 +13821,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22201,
@@ -13531,7 +13839,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22202,
@@ -13547,7 +13857,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22203,
@@ -13563,7 +13875,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22204,
@@ -13579,7 +13893,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22210,
@@ -13595,7 +13911,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22211,
@@ -13611,7 +13929,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22212,
@@ -13627,7 +13947,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22213,
@@ -13643,7 +13965,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22214,
@@ -13659,7 +13983,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Scoring Shout II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22220,
@@ -13675,7 +14001,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Score incentive III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22221,
@@ -13691,7 +14019,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Score incentive III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22222,
@@ -13707,7 +14037,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Score incentive III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22223,
@@ -13723,7 +14055,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Score incentive III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22224,
@@ -13739,7 +14073,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Score incentive III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22250,
@@ -13755,7 +14091,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22251,
@@ -13772,7 +14110,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22252,
@@ -13789,7 +14129,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22253,
@@ -13806,7 +14148,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22254,
@@ -13823,7 +14167,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22260,
@@ -13839,7 +14185,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22261,
@@ -13856,7 +14204,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22262,
@@ -13873,7 +14223,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22263,
@@ -13890,7 +14242,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 22264,
@@ -13907,7 +14261,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Got Your Back II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
+        "explaincn": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]"
     },
     {
         "id": 30400,
@@ -13923,7 +14279,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Hawk Eye I",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30401,
@@ -13941,7 +14299,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Hawk Eye II",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30402,
@@ -13959,7 +14319,9 @@
         "uisource": [1],
         "namecn": "小勾射",
         "nameen": "Hawk Eye III",
-        "namejp": "Komagariショット"
+        "namejp": "Komagariショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30403,
@@ -13977,7 +14339,9 @@
         "uisource": [1],
         "namecn": "大勾射",
         "nameen": "Hawk Eye IV",
-        "namejp": "グレートフックショット"
+        "namejp": "グレートフックショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30404,
@@ -13995,7 +14359,9 @@
         "uisource": [1],
         "namecn": "大勾射",
         "nameen": "Hawk Eye V",
-        "namejp": "グレートフックショット"
+        "namejp": "グレートフックショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30498,
@@ -14011,7 +14377,9 @@
         "uisource": [1],
         "namecn": "大勾射",
         "nameen": "Hawk Eye I",
-        "namejp": "グレートフックショット"
+        "namejp": "グレートフックショット",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30499,
@@ -14027,7 +14395,9 @@
         "uisource": [1],
         "namecn": "后仰跳投 I",
         "nameen": "Ultimate Hawk Eye",
-        "namejp": "私は消えていくこと"
+        "namejp": "私は消えていくこと",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "Launch an ultimate three pointer, once it goes in it demoralize the opposing team and lower their field goal percentage for a short period of time.\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]"
     },
     {
         "id": 30600,
@@ -14043,7 +14413,9 @@
         "uisource": [1],
         "namecn": "后仰跳投 II",
         "nameen": "Windmill Power Slam I",
-        "namejp": "消えていくことジャンパII"
+        "namejp": "消えていくことジャンパII",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30601,
@@ -14061,7 +14433,9 @@
         "uisource": [1],
         "namecn": "后仰跳投 II",
         "nameen": "Windmill Power Slam II",
-        "namejp": "消えていくことジャンパII"
+        "namejp": "消えていくことジャンパII",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30602,
@@ -14079,7 +14453,9 @@
         "uisource": [1],
         "namecn": "后仰跳投 II",
         "nameen": "Windmill Power Slam III",
-        "namejp": "消えていくことジャンパII"
+        "namejp": "消えていくことジャンパII",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30603,
@@ -14098,7 +14474,9 @@
         "flag": 1,
         "namecn": "拉杆挑篮",
         "nameen": "Windmill Power Slam IV",
-        "namejp": "トロリーバスケットを選びます"
+        "namejp": "トロリーバスケットを選びます",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30604,
@@ -14116,7 +14494,9 @@
         "uisource": [1],
         "namecn": "拉杆挑篮",
         "nameen": "Windmill Power Slam V",
-        "namejp": "トロリーバスケットを選びます"
+        "namejp": "トロリーバスケットを選びます",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30698,
@@ -14132,7 +14512,9 @@
         "uisource": [1],
         "namecn": "拉杆挑篮",
         "nameen": "Windmill Power Slam I",
-        "namejp": "トロリーバスケットを選びます"
+        "namejp": "トロリーバスケットを選びます",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動大車輪爆扣，直接獲得分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes windmill usable and will slam for 2 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to dunk for 2 points [-]"
     },
     {
         "id": 30700,
@@ -14149,7 +14531,9 @@
         "flag": 1,
         "namecn": "换手拉杆上篮",
         "nameen": "Wild Two Handed Power Slam I",
-        "namejp": "手レイアップロッド"
+        "namejp": "手レイアップロッド",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30701,
@@ -14163,7 +14547,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Wild Two Handed Power Slam II"
+        "nameen": "Wild Two Handed Power Slam II",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30702,
@@ -14177,7 +14563,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Wild Two Handed Power Slam III"
+        "nameen": "Wild Two Handed Power Slam III",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30703,
@@ -14191,7 +14579,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Wild Two Handed Power Slam IV"
+        "nameen": "Wild Two Handed Power Slam IV",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30704,
@@ -14205,7 +14595,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Wild Two Handed Power Slam V"
+        "nameen": "Wild Two Handed Power Slam V",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30710,
@@ -14219,7 +14611,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Ultimate Triple Dunks I"
+        "nameen": "Ultimate Triple Dunks I",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a triple slam for 6 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a triple dunk for 6 points [-]"
     },
     {
         "id": 30711,
@@ -14234,7 +14628,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Ultimate Triple Dunks II"
+        "nameen": "Ultimate Triple Dunks II",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a triple slam for 6 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a triple dunk for 6 points [-]"
     },
     {
         "id": 30712,
@@ -14249,7 +14645,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Ultimate Triple Dunks III"
+        "nameen": "Ultimate Triple Dunks III",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a triple slam for 6 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a triple dunk for 6 points [-]"
     },
     {
         "id": 30713,
@@ -14264,7 +14662,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Ultimate Triple Dunks IV"
+        "nameen": "Ultimate Triple Dunks IV",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a triple slam for 6 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a triple dunk for 6 points [-]"
     },
     {
         "id": 30714,
@@ -14279,7 +14679,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Ultimate Triple Dunks V"
+        "nameen": "Ultimate Triple Dunks V",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a triple slam for 6 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a triple dunk for 6 points [-]"
     },
     {
         "id": 30798,
@@ -14293,7 +14695,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Wild Two Handed Power Slam"
+        "nameen": "Wild Two Handed Power Slam",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 30799,
@@ -14307,7 +14711,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Extreme double dunk"
+        "nameen": "Extreme double dunk",
+        "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
         "id": 31400,
@@ -14321,7 +14727,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Legendary Rebound Champion I"
+        "nameen": "Legendary Rebound Champion I",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]"
     },
     {
         "id": 31401,
@@ -14336,7 +14744,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Legendary Rebound Champion II"
+        "nameen": "Legendary Rebound Champion II",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]"
     },
     {
         "id": 31402,
@@ -14351,7 +14761,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Legendary Rebound Champion III"
+        "nameen": "Legendary Rebound Champion III",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]"
     },
     {
         "id": 31403,
@@ -14366,7 +14778,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Legendary Rebound Champion IV"
+        "nameen": "Legendary Rebound Champion IV",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]"
     },
     {
         "id": 31404,
@@ -14381,7 +14795,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Legendary Rebound Champion V"
+        "nameen": "Legendary Rebound Champion V",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]"
     },
     {
         "id": 31500,
@@ -14395,7 +14811,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Teleport Steal I"
+        "nameen": "Teleport Steal I",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleports and steals the basketball [-]"
     },
     {
         "id": 31501,
@@ -14410,7 +14828,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Teleport Steal II"
+        "nameen": "Teleport Steal II",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]"
     },
     {
         "id": 31502,
@@ -14425,7 +14845,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Teleport Steal III"
+        "nameen": "Teleport Steal III",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]"
     },
     {
         "id": 31503,
@@ -14440,7 +14862,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Teleport Steal IV"
+        "nameen": "Teleport Steal IV",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]"
     },
     {
         "id": 31504,
@@ -14455,7 +14879,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Teleport Steal V"
+        "nameen": "Teleport Steal V",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]"
     },
     {
         "id": 31599,
@@ -14469,7 +14895,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Ultimate Teleport Steal"
+        "nameen": "Ultimate Teleport Steal",
+        "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleports and steals the basketball [-]"
     },
     {
         "id": 31600,
@@ -14483,7 +14911,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Shot Prohibitor I"
+        "nameen": "Shot Prohibitor I",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: 100% chance of teleporting and blocking the basketball [-]"
     },
     {
         "id": 31601,
@@ -14498,7 +14928,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Shot Prohibitor II"
+        "nameen": "Shot Prohibitor II",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: 100% chance of teleporting and blocking the basketball [-]"
     },
     {
         "id": 31602,
@@ -14513,7 +14945,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Shot Prohibitor III"
+        "nameen": "Shot Prohibitor III",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:100% chance of teleporting and blocking the basketball [-]"
     },
     {
         "id": 31603,
@@ -14528,7 +14962,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Shot Prohibitor IV"
+        "nameen": "Shot Prohibitor IV",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:100% chance of teleporting and blocking the basketball [-]"
     },
     {
         "id": 31604,
@@ -14543,7 +14979,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Shot Prohibitor V"
+        "nameen": "Shot Prohibitor V",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:100% chance of teleporting and blocking the basketball [-]"
     },
     {
         "id": 31610,
@@ -14557,7 +14995,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Dunk Prohibitor I"
+        "nameen": "Dunk Prohibitor I",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleport and blocks the basketball [-]"
     },
     {
         "id": 31611,
@@ -14573,7 +15013,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Dunk Prohibitor II"
+        "nameen": "Dunk Prohibitor II",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleport and blocks the basketball [-]"
     },
     {
         "id": 31612,
@@ -14589,7 +15031,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Dunk Prohibitor III"
+        "nameen": "Dunk Prohibitor III",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleport and blocks the basketball [-]"
     },
     {
         "id": 31613,
@@ -14605,7 +15049,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Dunk Prohibitor IV"
+        "nameen": "Dunk Prohibitor IV",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleport and blocks the basketball [-]"
     },
     {
         "id": 31614,
@@ -14621,7 +15067,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Dunk Prohibitor V"
+        "nameen": "Dunk Prohibitor V",
+        "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleport and blocks the basketball [-]"
     },
     {
         "id": 31700,
@@ -14635,7 +15083,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Tackle I"
+        "nameen": "Tackle I",
+        "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]"
     },
     {
         "id": 31701,
@@ -14651,7 +15101,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Tackle II"
+        "nameen": "Tackle II",
+        "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]"
     },
     {
         "id": 31702,
@@ -14667,7 +15119,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Tackle III"
+        "nameen": "Tackle III",
+        "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\nF0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]"
     },
     {
         "id": 31703,
@@ -14683,7 +15137,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Tackle IV"
+        "nameen": "Tackle IV",
+        "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\nF0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]"
     },
     {
         "id": 31704,
@@ -14699,7 +15155,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Tackle V"
+        "nameen": "Tackle V",
+        "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\nF0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]"
     },
     {
         "id": 31710,
@@ -14713,7 +15171,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Power Through I"
+        "nameen": "Power Through I",
+        "explaintw": "當士氣值達到需求，即可往前方直衝，造成被衝撞到的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will perform a dash that will knock or stun any opponent that its on the way.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will be stunned [-]"
     },
     {
         "id": 31711,
@@ -14729,7 +15189,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Power Through II"
+        "nameen": "Power Through II",
+        "explaintw": "當士氣值達到需求，即可往前方直衝，造成被衝撞到的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will perform a dash that will knock or stun any opponent that its on the way.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will be stunned [-]"
     },
     {
         "id": 31712,
@@ -14745,7 +15207,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Power Through III"
+        "nameen": "Power Through III",
+        "explaintw": "當士氣值達到需求，即可往前方直衝，造成被衝撞到的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will perform a dash that will knock or stun any opponent that its on the way.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will be stunned [-]"
     },
     {
         "id": 31713,
@@ -14761,7 +15225,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Power Through IV"
+        "nameen": "Power Through IV",
+        "explaintw": "當士氣值達到需求，即可往前方直衝，造成被衝撞到的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will perform a dash that will knock or stun any opponent that its on the way.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will be stunned [-]"
     },
     {
         "id": 31714,
@@ -14777,7 +15243,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Power Through V"
+        "nameen": "Power Through V",
+        "explaintw": "當士氣值達到需求，即可往前方直衝，造成被衝撞到的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached the player will perform a dash that will knock or stun any opponent that its on the way.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will be stunned [-]"
     },
     {
         "id": 31800,
@@ -14791,7 +15259,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Area of Effect Elbow I"
+        "nameen": "Area of Effect Elbow I",
+        "explaintw": "當士氣值達到需求，即可從自身範圍發動衝擊，造成周遭對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will create a shock wave in the ground stuning the opponents and making them collapse and loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: It will stun the opponent and reduce its overal strenght [-]"
     },
     {
         "id": 31801,
@@ -14807,7 +15277,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Area of Effect Elbow II"
+        "nameen": "Area of Effect Elbow II",
+        "explaintw": "當士氣值達到需求，即可從自身範圍發動衝擊，造成周遭對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will launch a long range attack that stuns the opponent and make them loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: It will stun the opponent and reduce its overal strenght [-]"
     },
     {
         "id": 31802,
@@ -14823,7 +15295,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Area of Effect Elbow III"
+        "nameen": "Area of Effect Elbow III",
+        "explaintw": "當士氣值達到需求，即可從自身範圍發動衝擊，造成周遭對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will launch a long range attack that stuns the opponent and make them loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: It will stun the opponent and reduce its overal strenght [-]"
     },
     {
         "id": 31803,
@@ -14839,7 +15313,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Area of Effect Elbow IV"
+        "nameen": "Area of Effect Elbow IV",
+        "explaintw": "當士氣值達到需求，即可從自身範圍發動衝擊，造成周遭對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will launch a long range attack that stuns the opponent and make them loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: It will stun the opponent and reduce its overal strenght [-]"
     },
     {
         "id": 31804,
@@ -14855,7 +15331,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Area of Effect Elbow V"
+        "nameen": "Area of Effect Elbow V",
+        "explaintw": "當士氣值達到需求，即可從自身範圍發動衝擊，造成周遭對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will launch a long range attack that stuns the opponent and make them loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: It will stun the opponent and reduce its overal strenght [-]"
     },
     {
         "id": 32100,
@@ -14869,7 +15347,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "2 Points Battle Cry "
+        "nameen": "2 Points Battle Cry ",
+        "explaintw": "當士氣值達到需求，施放於自己身上的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 2 point shooting ability {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32101,
@@ -14883,7 +15363,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "3 Points Battle Cry"
+        "nameen": "3 Points Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的3分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal 3 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 3 point shooting ability{3}＋{4}Duration{5}Seconds[-]"
     },
     {
         "id": 32102,
@@ -14897,7 +15379,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Speed Battle Cry"
+        "nameen": "Speed Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的加速數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal speed.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]"
     },
     {
         "id": 32103,
@@ -14911,7 +15395,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Endurance Battle Cry"
+        "nameen": "Endurance Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32104,
@@ -14925,7 +15411,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Power Battle Cry"
+        "nameen": "Power Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32105,
@@ -14939,7 +15427,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Dunking Battle Cry"
+        "nameen": "Dunking Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal dunking ability.\n \n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32106,
@@ -14953,7 +15443,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Rebounding Battle Cry"
+        "nameen": "Rebounding Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32107,
@@ -14967,7 +15459,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Blocking Battle Cry"
+        "nameen": "Blocking Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32108,
@@ -14981,7 +15475,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Defense Battle Cry"
+        "nameen": "Defense Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32109,
@@ -14995,7 +15491,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Stealing Battle Cry"
+        "nameen": "Stealing Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32110,
@@ -15009,7 +15507,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Dribble Battle Cry"
+        "nameen": "Dribble Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32111,
@@ -15023,7 +15523,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Passing Battle Cry"
+        "nameen": "Passing Battle Cry",
+        "explaintw": "當士氣值達到需求，施放於自己身上的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the player's personal passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32150,
@@ -15037,7 +15539,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "2 Points Team Battle Shout"
+        "nameen": "2 Points Team Battle Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 2 point shooting ability {3}＋{4} Duration {5}Seconds[-]"
     },
     {
         "id": 32151,
@@ -15051,7 +15555,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "3 Points Team Battle Shout"
+        "nameen": "3 Points Team Battle Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的3分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's 3 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 3 point shooting ability{3}＋{4}Duration{5}Seconds[-]"
     },
     {
         "id": 32152,
@@ -15065,7 +15571,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Team Speed Shout"
+        "nameen": "Team Speed Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的加速數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's speed.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]"
     },
     {
         "id": 32153,
@@ -15079,7 +15587,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Team Endurance Shout"
+        "nameen": "Team Endurance Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32154,
@@ -15093,7 +15603,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Team Power Shout"
+        "nameen": "Team Power Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32155,
@@ -15107,7 +15619,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Team Dunking Shout"
+        "nameen": "Team Dunking Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32156,
@@ -15121,7 +15635,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Team Rebounding Shout"
+        "nameen": "Team Rebounding Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32157,
@@ -15135,7 +15651,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Team Blocking Shout"
+        "nameen": "Team Blocking Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32158,
@@ -15149,7 +15667,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Team Defense Shout"
+        "nameen": "Team Defense Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's defense.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32159,
@@ -15163,7 +15683,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Team Stealing Shout"
+        "nameen": "Team Stealing Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32160,
@@ -15177,7 +15699,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Team Dribbling Shout"
+        "nameen": "Team Dribbling Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32161,
@@ -15191,7 +15715,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Team Passing Shout"
+        "nameen": "Team Passing Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32170,
@@ -15205,7 +15731,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Team Spirit Shout"
+        "nameen": "Team Spirit Shout",
+        "explaintw": "當士氣值達到需求，施放於我方隊友的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's spirit.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32171,
@@ -15219,7 +15747,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Team Commanding Shout"
+        "nameen": "Team Commanding Shout",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will boost the team's commanding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32180,
@@ -15233,7 +15763,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "2 Point Diminishing Curse"
+        "nameen": "2 Point Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 2 point shooting ability {6}% duration {5}seconds[-]"
     },
     {
         "id": 32181,
@@ -15247,7 +15779,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "3 Point Diminishing Curse"
+        "nameen": "3 Point Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 3 point shooting ability {6}% duration {5}seconds[-]"
     },
     {
         "id": 32182,
@@ -15261,7 +15795,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Speed Diminishing Curse"
+        "nameen": "Speed Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的加速衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their speed.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32183,
@@ -15275,7 +15811,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Endurance Diminishing Curse"
+        "nameen": "Endurance Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的耐力衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32184,
@@ -15289,7 +15827,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Power Diminishing Curse"
+        "nameen": "Power Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的力量衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32185,
@@ -15303,7 +15843,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Dunk Diminishing Curse"
+        "nameen": "Dunk Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的灌籃衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32186,
@@ -15317,7 +15859,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Rebound Diminishing Curse"
+        "nameen": "Rebound Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的籃板衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their rebound ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32187,
@@ -15331,7 +15875,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Block Diminishing Curse"
+        "nameen": "Block Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的火鍋衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32188,
@@ -15345,7 +15891,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "Defense Diminishing Curse"
+        "nameen": "Defense Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的防守衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their strenght defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32189,
@@ -15359,7 +15907,9 @@
         "maxstack": 1,
         "stagesource": [106,107,108,109,110],
         "uisource": [1],
-        "nameen": "Stealing Diminishing Curse"
+        "nameen": "Stealing Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的抄截衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their stiling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32190,
@@ -15373,7 +15923,9 @@
         "maxstack": 1,
         "stagesource": [111,112,113,114,115],
         "uisource": [1],
-        "nameen": "Handle Diminishing Curse"
+        "nameen": "Handle Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的控球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their ball handling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 32191,
@@ -15387,7 +15939,9 @@
         "maxstack": 1,
         "stagesource": [116,117,118,119,120],
         "uisource": [1],
-        "nameen": "Passing Diminishing Curse"
+        "nameen": "Passing Diminishing Curse",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的傳球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} {4} duratiom {5}seconds[-]"
     },
     {
         "id": 33000,
@@ -15401,7 +15955,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Zone Trap I"
+        "nameen": "Zone Trap I",
+        "explaintw": "在三分線內施放結界，只要敵方球員進入結界內即完全無法移動，也無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated inside the 3 point line, when opponents enter the trap it  they won't be able to move, jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents can't move within te trap area."
     },
     {
         "id": 33001,
@@ -15417,7 +15973,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Zone Trap II"
+        "nameen": "Zone Trap II",
+        "explaintw": "在三分線內施放結界，只要敵方球員進入結界內即完全無法移動，也無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated inside the 3 point line, when opponents enter the trap it  they won't be able to move, jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents can't move within te trap area."
     },
     {
         "id": 33002,
@@ -15433,7 +15991,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Zone Trap III"
+        "nameen": "Zone Trap III",
+        "explaintw": "在三分線內施放結界，只要敵方球員進入結界內即完全無法移動，也無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated inside the 3 point line, when opponents enter the trap it  they won't be able to move, jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents can't move within te trap area."
     },
     {
         "id": 33003,
@@ -15449,7 +16009,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Zone Trap IV"
+        "nameen": "Zone Trap IV",
+        "explaintw": "在三分線內施放結界，只要敵方球員進入結界內即完全無法移動，也無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated inside the 3 point line, when opponents enter the trap it  they won't be able to move, jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents can't move within te trap area."
     },
     {
         "id": 33004,
@@ -15465,7 +16027,9 @@
         "maxstack": 1,
         "stagesource": [121,122,123,124,125],
         "uisource": [1],
-        "nameen": "Zone Trap V"
+        "nameen": "Zone Trap V",
+        "explaintw": "在三分線內施放結界，只要敵方球員進入結界內即完全無法移動，也無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated inside the 3 point line, when opponents enter the trap it  they won't be able to move, jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents can't move within te trap area."
     },
     {
         "id": 33100,
@@ -15479,7 +16043,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "3 Point Trap I"
+        "nameen": "3 Point Trap I",
+        "explaintw": "在三分線外施放結界，只要敵方球員進入結界內將大幅降低控球值，並無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated outside the 3 point line, when opponents enter the trap it  will significantly reduce their ball handling ability and they won't be ablo to jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Lower Opponents Chances of Succesfully Shooting.  "
     },
     {
         "id": 33101,
@@ -15494,7 +16060,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "3 Point Trap II"
+        "nameen": "3 Point Trap II",
+        "explaintw": "在三分線外施放結界，只要敵方球員進入結界內將大幅降低控球值，並無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated outside the 3 point line, when opponents enter the trap it  will significantly reduce their ball handling ability and they won't be ablo to jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Lower Opponents Chances of Succesfully Shooting.  "
     },
     {
         "id": 33102,
@@ -15509,7 +16077,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "3 Point Trap III"
+        "nameen": "3 Point Trap III",
+        "explaintw": "在三分線外施放結界，只要敵方球員進入結界內將大幅降低控球值，並無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated outside the 3 point line, when opponents enter the trap it  will significantly reduce their ball handling ability and they won't be ablo to jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Lower Opponents Chances of Succesfully Shooting.  "
     },
     {
         "id": 33103,
@@ -15524,7 +16094,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "3 Point Trap IV"
+        "nameen": "3 Point Trap IV",
+        "explaintw": "在三分線外施放結界，只要敵方球員進入結界內將大幅降低控球值，並無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated outside the 3 point line, when opponents enter the trap it  will significantly reduce their ball handling ability and they won't be ablo to jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Lower Opponents Chances of Succesfully Shooting.  "
     },
     {
         "id": 33104,
@@ -15539,7 +16111,9 @@
         "maxstack": 1,
         "stagesource": [101,102,103,104,105],
         "uisource": [1],
-        "nameen": "3 Point Trap V"
+        "nameen": "3 Point Trap V",
+        "explaintw": "在三分線外施放結界，只要敵方球員進入結界內將大幅降低控球值，並無法跳躍或射籃\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explaincn": "The trap is activated outside the 3 point line, when opponents enter the trap it  will significantly reduce their ball handling ability and they won't be ablo to jump or shoot baskets.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Lower Opponents Chances of Succesfully Shooting.  "
     },
     {
         "id": 40000,
@@ -15549,6 +16123,7 @@
         "icon": 40001,
         "quality": 1,
         "maxstack": 999,
+        "stagesource": [2111,2113,2123,2131,2133],
         "uisource": [10],
         "nameen": "Skills card upgrade material"
     },
@@ -15787,7 +16362,7 @@
         "flag": 1,
         "nameen": "150 Diamond",
         "explaintw": "獲得125鑽石",
-        "explainen": "Get 150 diamonds"
+        "explainen": "Get 125 diamonds"
     },
     {
         "id": 93204,
@@ -15799,7 +16374,7 @@
         "value": 5,
         "nameen": "50 diamonds",
         "explaintw": "獲得5鑽石",
-        "explainen": "Get 50 diamonds"
+        "explainen": "Get 5 diamonds"
     },
     {
         "id": 93205,
@@ -15811,7 +16386,19 @@
         "value": 10,
         "nameen": "50 diamonds",
         "explaintw": "獲得10鑽石",
-        "explainen": "Get 50 diamonds"
+        "explainen": "Get 10 diamonds"
+    },
+    {
+        "id": 93205,
+        "nametw": "500鑽石",
+        "kind": 32,
+        "atlas": 12,
+        "icon": 93201,
+        "quality": 1,
+        "value": 500,
+        "nameen": "500 diamonds",
+        "explaintw": "獲得500鑽石",
+        "explainen": "Get 500 diamonds"
     },
     {
         "id": 93301,
