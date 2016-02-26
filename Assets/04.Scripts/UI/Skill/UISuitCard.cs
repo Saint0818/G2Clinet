@@ -246,7 +246,7 @@ public class UISuitCard {
 								Debug.LogError("index -1:" + itemSuitCards[result].SuitID);
 						} else {
 							//開啟
-							if(checkCost (GameData.DSuitCard[result].CardPower))
+							if(checkCost (GameData.DSuitCard[itemSuitCards[result].SuitID].CardPower))
 								SendAddSuitCardExecute(result);
 							else 
 								UIHint.Get.ShowHint(TextConst.S(7708), Color.red);
