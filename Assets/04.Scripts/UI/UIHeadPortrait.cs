@@ -168,7 +168,7 @@ public class UIHeadPortrait : UIBase
         //SkillHead
         foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
         {
-            if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar))
+			if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar) && GameData.DSkillData[item.Value.Avatar].Open > 0)
             {
                 picno = GameData.DSkillData[item.Value.Avatar].PictureNo;
 
