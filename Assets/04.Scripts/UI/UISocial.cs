@@ -82,8 +82,8 @@ public class UISocial : UIBase {
                 //else
                     instance.Show(value);
             } else
-                if (value)
-                    Get.Show(value);
+            if (value)
+                Get.Show(value);
         }
     }
 

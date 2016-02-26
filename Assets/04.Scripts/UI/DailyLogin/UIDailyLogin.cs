@@ -93,10 +93,18 @@ public class UIDailyLogin : UIBase
     public int Year { get { return mDailyMain.Year; } }
     public int Month { get { return mDailyMain.Month; } }
 
-    public bool Visible { get { return gameObject.activeSelf; } }
+    public bool Visible { 
+        get { 
+            if (gameObject)
+                return gameObject.activeSelf; 
+            else
+                return false;
+        } 
+    }
 
     public void Show()
     {
+        UIMainLobby.Get.HideAll();
         Show(DateTime.Now.Year, DateTime.Now.Month);
     }
 
@@ -171,6 +179,7 @@ public class UIDailyLogin : UIBase
 
     public void Hide()
     {
+        UIMainLobby.Get.Show();
         RemoveUI(UIName);
     }
 

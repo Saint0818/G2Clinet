@@ -68,7 +68,7 @@ public class UIGetItem : UIBase {
         GameObject.Find(name + "/Icon").GetComponent<UISprite>().spriteName = GameFunction.SpendKindTexture(kind);
         UILabel lab = GameObject.Find(name + "/ValueLabel").GetComponent<UILabel>();
         if (lab) 
-            lab.text = value.ToString();
+            lab.text = NumFormater.Convert(value);
 
         obj.transform.parent = itemAnchor.transform;
         obj.transform.localPosition = new Vector3(-230 + itemList.Count * 150, 0, 0);

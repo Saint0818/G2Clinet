@@ -583,7 +583,6 @@ public class UIPVP : UIBase
         {
             if (!isShow)
             {
-                UIMainLobby.Get.Hide();
                 RemoveUI(UIName);
             }
             else
@@ -598,6 +597,8 @@ public class UIPVP : UIBase
 
         if (isShow)
             UIMainLobby.Get.Hide(2);
+        else
+            UIMainLobby.Get.Hide();
     }
 
     protected override void InitCom()

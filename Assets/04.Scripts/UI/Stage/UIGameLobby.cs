@@ -26,9 +26,9 @@ public class UIGameLobby : UIBase
     {
         mMain = GetComponent<UIGameLobbyMain>();
         mMain.BackListener += goToMainLobby;
-        mMain.MainStageListener += goToMainStage;
-        mMain.PVPListener += goToPvp;
-        mMain.InstanceListener += goToInstance;
+        mMain.MainStageListener += GoToMainStage;
+        mMain.PVPListener += GoToPvp;
+        mMain.InstanceListener += GoToInstance;
     }
 
     public void Show()
@@ -48,14 +48,14 @@ public class UIGameLobby : UIBase
         Hide();
     }
 
-    private void goToMainStage()
+    public void GoToMainStage()
     {
         UIMainStageTools.ClearSelectChapter();
         UIMainStage.Get.Show();
         Hide();
     }
 
-    private void goToPvp()
+    public void GoToPvp()
     {
         if(GameData.IsOpenUIEnable(EOpenID.PVP))
         {
@@ -67,7 +67,7 @@ public class UIGameLobby : UIBase
             UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.PVP)), Color.white);
     }
 
-    private void goToInstance()
+    public void GoToInstance()
     {
         if(GameData.IsOpenUIEnable(EOpenID.Instance))
         {

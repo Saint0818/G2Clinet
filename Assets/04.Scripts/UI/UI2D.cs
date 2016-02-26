@@ -134,26 +134,41 @@ public class UI2D : MonoBehaviour {
     }
 
     public void OpenUI(string name) {
+        UIMainLobby.Get.Hide();
         switch (name) {
             case "UIGameLobby":
                 UIGameLobby.Get.Show();
-                UIMainLobby.Get.Hide();
                 break;
-            case  "UIAvatarFitted":
-                UIAvatarFitted.UIShow(true);
-                UIMainLobby.Get.Hide();
+            case "UIMainStage":
+                UIGameLobby.Get.Show();
+                UIGameLobby.Get.GoToMainStage();
+                break;
+            case "UIInstance":
+                UIGameLobby.Get.Show();
+                UIGameLobby.Get.GoToInstance();
+                break;
+            case "UIPVP":
+                UIGameLobby.Get.Show();
+                UIGameLobby.Get.GoToPvp();
                 break;
             case "UISkillFormation":
                 UISkillFormation.UIShow(true);
-                UIMainLobby.Get.Hide();
+                break;
+            case  "UIAvatarFitted":
+                UIAvatarFitted.UIShow(true);
                 break;
             case "UIEquipment":
                 UIEquipment.Get.Show();
-                UIMainLobby.Get.Hide();
                 break;
             case "UISocial":
                 UISocial.Visible = true;
-                UIMainLobby.Get.Hide();
+                break;
+            case "UIShop":
+                UIShop.Visible = true;
+                UIMainLobby.Get.Hide(2);
+                break;
+            case "UIMall":
+                UIMall.Get.ShowView();
                 break;
         }
     }
