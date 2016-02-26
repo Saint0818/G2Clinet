@@ -469,6 +469,7 @@ public class UIAvatarFitted : UIBase
 
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
         SetBtnFun(UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
+        GameObject.Find(UIName + "/MainView/BottomLeft/SortBtn").SetActive(false);
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
         SellCount = GameObject.Find(UIName + "/MainView/BottomLeft/SellBtn/SellCount");

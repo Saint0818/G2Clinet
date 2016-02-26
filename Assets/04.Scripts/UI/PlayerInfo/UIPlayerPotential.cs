@@ -83,9 +83,9 @@ public class UpgradeView
 {
 	private GameObject self;
 	// sort Blk = 0, Stl = 1, 2PT = 2, 3PT = 3, Dnk = 4, Reb = 5
-	private TUpgradeBtn[] upgradeBtns  = new TUpgradeBtn[6];
+    private TUpgradeBtn[] upgradeBtns  = new TUpgradeBtn[GameConst.PotentialCount];
 	public UIAttributes hexagon;
-	public int[] AddPotential = new int[6];
+    public int[] AddPotential = new int[GameConst.PotentialCount];
 	private int useLvPotential;
 	private int useAvatarPotential;
     private int bodytype = 0;
@@ -132,62 +132,49 @@ public class UpgradeView
 	{
 		hexagon.enabled = true;
         bodytype = player.BodyType;
+        int index = 0;
+        float basic = 0;
 
         for (int i = 0; i < upgradeBtns.Length; i++)
             upgradeBtns[i].DemandValue = GameFunction.GetPotentialRule(bodytype, i);
 
-		if(player.Potential != null && player.Potential.Count == AddPotential.Length)
-		{
-			int index = 0;
-            float basic = 0;
+        if (player.Potential == null || player.Potential.Count == 0)
+        {
+            for (int i = 0; i < GameConst.PotentialCount; i++)
+            {
+                EAttribute att = GameFunction.GetAttributeKind(i);
+                if (!player.Potential.ContainsKey(att))
+                    player.Potential.Add(att, 0);
+            }
+        }
 
-			foreach (var item in GameData.Team.Player.Potential) {
-				index = GameFunction.GetAttributeIndex(item.Key);
+        foreach (var item in GameData.Team.Player.Potential)
+        {
+            index = GameFunction.GetAttributeIndex(item.Key);
 
-                switch (item.Key)
-                {
-                    case EAttribute.Point2:
-                        basic = player.Point2;
-                        break;
-                    case EAttribute.Point3:
-                        basic = player.Point3;
-                        break;
-                    case EAttribute.Dunk:
-                        basic = player.Dunk;
-                        break;
-                    case EAttribute.Rebound:
-                        basic = player.Rebound;
-                        break;
-                    case EAttribute.Block:
-                        basic = player.Block;
-                        break;
-                    case EAttribute.Steal:
-                        basic = player.Steal;
-                        break;
-                    case EAttribute.Speed:
-                        basic = player.Speed;
-                        break;
-                    case EAttribute.Stamina:
-                        basic = player.Stamina;
-                        break;
-                    case EAttribute.Strength:
-                        basic = player.Strength;
-                        break;
-                    case EAttribute.Defence:
-                        basic = player.Defence;
-                        break;
-                    case EAttribute.Dribble:
-                        basic = player.Dribble;
-                        break;
-                    case EAttribute.Pass:
-                        basic = player.Pass;
-                        break; 
-                }
-                        
-//                upgradeBtns[index].SetValue(item.Value + (int)basic, AddPotential [index]);
-                upgradeBtns[index].SetValue((int)basic, AddPotential [index]);
-			}
-		}
+            switch (item.Key)
+            {
+                case EAttribute.Point2:
+                    basic = player.Point2;
+                    break;
+                case EAttribute.Point3:
+                    basic = player.Point3;
+                    break;
+                case EAttribute.Dunk:
+                    basic = player.Dunk;
+                    break;
+                case EAttribute.Rebound:
+                    basic = player.Rebound;
+                    break;
+                case EAttribute.Block:
+                    basic = player.Block;
+                    break;
+                case EAttribute.Steal:
+                    basic = player.Steal;
+                    break;
+            }
+            upgradeBtns[index].SetValue((int)basic, AddPotential[index]);
+        }
 	}
 
 	public void OnAdd()
