@@ -106,6 +106,7 @@ public class UIBuyStore : UIBase {
 		updateView(type);
 		mItemDatas = itemDatas;
 		spritePay.spriteName = GameFunction.SpendKindTexture(pick.SpendKind);
+		refreshLabelColor ();
 	}
 
 	public void SetNewSkillCard (TSkill[] skill) {
@@ -114,6 +115,10 @@ public class UIBuyStore : UIBase {
 
 	private void updateView (int type) {
 		labelPay.text = getLabelPay(type);
+	}
+
+	private void refreshLabelColor () {
+		labelPay.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, getLabelPayCount(mSpendType)));
 	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {
@@ -204,6 +209,15 @@ public class UIBuyStore : UIBase {
 		SendPickLottery(mPickCost.Order, mPickCost.ID, mSpendType);
 	}
 
+	private int getLabelPayCount (int spendType) {
+		if(spendType == EPickSpendType.ONE.GetHashCode()) 
+			return mPickCost.OnePick;
+		else if(spendType == EPickSpendType.FIVE.GetHashCode()) 
+			return mPickCost.FivePick;
+		else if(spendType == EPickSpendType.TEN.GetHashCode()) 
+			return mPickCost.TenPick;
+		return 0;
+	}
 
 	private string getLabelPay (int spendType) {
 		if(spendType == EPickSpendType.ONE.GetHashCode()) 
@@ -219,6 +233,7 @@ public class UIBuyStore : UIBase {
 		UIShow(false);
 		UI3DBuyStore.UIShow(false);
 		UIMall.UIShow(true);
+		UIMall.Get.RefreshTextColor();
 	}
 
 	//order = 0 can used
@@ -244,7 +259,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.GotItemCount = result.GotItemCount;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
-
+			refreshLabelColor ();
 			if(result.ItemIDs != null) {
 				mItemDatas = new TItemData[result.ItemIDs.Length];
 				for(int i=0; i<result.ItemIDs.Length; i++) {

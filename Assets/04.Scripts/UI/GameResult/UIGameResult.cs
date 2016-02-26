@@ -453,13 +453,15 @@ public class UIGameResult : UIBase {
 		else if (chooseCount == 1) {
 			if(GameData.Team.Diamond >= 20)
 				stageRewardAgain(GameData.StageID);
-			else
-				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
+			else 
+				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
+//				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
 		} else if(chooseCount == 2) {
 			if(GameData.Team.Diamond >= 100)
 				stageRewardAgain(GameData.StageID);
 			else
-				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
+				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
+//				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
 		}
 			
 	

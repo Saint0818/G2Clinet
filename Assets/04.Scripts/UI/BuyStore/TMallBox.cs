@@ -37,6 +37,10 @@ public class TMallBox
 	public GameObject BtnFive;
 	public GameObject BtnTen;
 
+	private int money1;
+	private int money2;
+	private int money3;
+
 	public void Init(GameObject obj, EventDelegate oneBtn, EventDelegate fiveBtn, EventDelegate tenBtn) {
 		mMallBox = obj;
 		FreeLabelTitle = obj.transform.Find("FreeLabel").GetComponent<UILabel>();
@@ -107,11 +111,19 @@ public class TMallBox
 		TitleLabel.text = pickcost.Name;
 		ExplainLabel.text = pickcost.Explain;
 		PriceLabel.text = NumFormater.Convert(pickcost.OnePick);
-		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.OnePick));
 		Open5Price.text = NumFormater.Convert(pickcost.FivePick);
-		Open5Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.FivePick));
 		Open10Price.text = NumFormater.Convert(pickcost.TenPick);
-		Open10Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, pickcost.FivePick));
+		money1 = pickcost.OnePick;
+		money2 = pickcost.FivePick;
+		money3 = pickcost.TenPick;
+
+		RefreshText();
+	}
+
+	public void RefreshText () {
+		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money1));
+		Open5Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money2));
+		Open10Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money3));
 	}
 
 	public void UpdateFreeTimeCD () {

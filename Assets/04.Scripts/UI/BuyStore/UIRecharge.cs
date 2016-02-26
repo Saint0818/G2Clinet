@@ -419,13 +419,16 @@ public class UIRecharge : UIBase {
 
 	public void OnClose () {
 		UIShow(false);
-		if(!UISkillReinforce.Visible) {
-			if(IsNeedShowLobbyMenu)
-				UIMainLobby.Get.Show();
-			if(IsNeedShowPlayer)
-				UIPlayerMgr.Get.Enable = true;
-			if(UIShop.Visible)
-				UIMainLobby.Get.Hide(2);
+		if(!GameData.IsMainStage && !GameData.IsInstance && !GameData.IsPVP)
+		{
+			if(!UISkillReinforce.Visible) {
+				if(IsNeedShowLobbyMenu)
+					UIMainLobby.Get.Show();
+				if(IsNeedShowPlayer)
+					UIPlayerMgr.Get.Enable = true;
+				if(UIShop.Visible)
+					UIMainLobby.Get.Hide(2);
+			}
 		}
 	}
 
@@ -459,6 +462,9 @@ public class UIRecharge : UIBase {
 
             if (UIItemHint.Visible)
                 UIItemHint.Get.FreshUI();
+
+			if(GameData.IsMainStage || GameData.IsInstance || GameData.IsPVP)
+				UIHint.Get.ShowHint(TextConst.S(535), Color.red);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);
@@ -497,6 +503,9 @@ public class UIRecharge : UIBase {
 
             if (UIItemHint.Visible)
                 UIItemHint.Get.FreshUI();
+
+			if(GameData.IsMainStage || GameData.IsInstance || GameData.IsPVP)
+				UIHint.Get.ShowHint(TextConst.S(535), Color.red);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);

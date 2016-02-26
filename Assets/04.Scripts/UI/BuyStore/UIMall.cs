@@ -190,6 +190,13 @@ public class UIMall : UIBase {
 		}
 	}
 
+	public void RefreshTextColor () {
+		for(int i=0; i<mallBoxs.Count; i++) {
+			mallBoxs[i].Refresh();
+			mallBoxs[i].RefreshText();
+		}
+	}
+
 	public void OnClose () {
 		UIShow(false);
 		UIMainLobby.Get.Show();
@@ -232,9 +239,8 @@ public class UIMall : UIBase {
 						getItemIDs[i] = GameData.DItemData[result.ItemIDs[i]];
 				}
 				OpenLottery(getItemIDs);
-				for(int i=0; i<mallBoxs.Count; i++) {
-					mallBoxs[i].Refresh();
-				}
+
+				RefreshTextColor();
 			}
 		}
 		else
