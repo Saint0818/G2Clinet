@@ -140,7 +140,7 @@ public static class UIValueItemDataBuilder
                 NameColor = TextConst.Color(materialItem.Quality),
                 Icon = string.Format("Item_{0}", materialItem.Icon),
                 IconBGColor = TextConst.ColorBG(materialItem.Quality),
-                Frame = string.Format("Equipment_{0}", item.Quality),
+                Frame = string.Format("Patch{0}", item.Quality),
                 NeedValue = item.MaterialNums[i],
                 StorageIndex = storageMaterials[i].Index,
                 ItemID = materialItem.ID,
