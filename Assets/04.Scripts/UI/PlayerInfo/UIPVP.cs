@@ -596,9 +596,9 @@ public class UIPVP : UIBase
         }
 
         if (isShow)
-            UIMainLobby.Get.Hide(2);
+            UIMainLobby.Get.Hide(2, false);
         else
-            UIMainLobby.Get.Hide();
+            UIMainLobby.Get.Hide(3, false);
     }
 
     protected override void InitCom()

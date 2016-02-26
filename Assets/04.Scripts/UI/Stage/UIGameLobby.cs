@@ -60,7 +60,7 @@ public class UIGameLobby : UIBase
         if(GameData.IsOpenUIEnable(EOpenID.PVP))
         {
             UIPVP.UIShow(true);
-            UIMainLobby.Get.Hide(2);
+            UIMainLobby.Get.Hide(2, false);
             Hide();
         }
         else
