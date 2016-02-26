@@ -43,6 +43,7 @@ ModelImporter:
     100070: Bip01 Spine1
     100072: Bone_Hair_1
     100074: Bone_Hair_2
+    100076: 3_H_25
     400000: //RootNode
     400002: 3_H_14
     400004: Bip01
@@ -81,9 +82,12 @@ ModelImporter:
     400070: Bip01 Spine1
     400072: Bone_Hair_1
     400074: Bone_Hair_2
+    400076: 3_H_25
     4300000: 3_H_14
+    4300002: 3_H_25
     9500000: //RootNode
     13700000: 3_H_14
+    13700002: 3_H_25
   materials:
     importMaterials: 0
     materialName: 0
