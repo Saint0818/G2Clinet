@@ -64,9 +64,9 @@ public static class UIStageTools
 
     public static bool VerifyPlayerDailyCount(TStageData stageData, out string errMsg)
     {
-        var result = FindPlayerRemainDailyCount(stageData) > 0;
-        errMsg = result ? TextConst.S(231) : String.Empty;
-        return result;
+        var isCanPlay = FindPlayerRemainDailyCount(stageData) > 0;
+        errMsg = isCanPlay ? String.Empty : TextConst.S(231);
+        return isCanPlay;
     }
 
     public static bool VerifyPlayerProgress(TStageData stageData)
