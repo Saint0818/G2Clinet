@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameStruct;
+using UnityEngine;
 
 /// <summary>
 /// 第 7 天的每日登入獎勵.
@@ -12,14 +13,26 @@ public class UIDailyLoginReward7 : DailyLoginReward
     public GameObject SkillObj;
     public UIButton ReceiveButton;
 
+    private UIButton mSkillButton;
+
+    private Data mData;
+
     private void Start()
     {
         var main = GetComponentInParent<UIDailyLoginMain>();
         ReceiveButton.onClick.Add(new EventDelegate(main.FireReceiveClick));
+
+        mSkillButton = SkillObj.GetComponent<UIButton>();
+        mSkillButton.onClick.Add(new EventDelegate(() =>
+        {
+            UIItemHint.Get.OnShow(mData.ItemData.ID);
+        }));
     }
 
     public override void Set(Data data)
     {
+        mData = data;
+
         DayLabel.text = data.Day;
         NameLabel.text = data.Name;
 
