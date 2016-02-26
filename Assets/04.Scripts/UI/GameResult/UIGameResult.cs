@@ -227,6 +227,8 @@ public class UIGameResult : UIBase {
 		if (GameController.Visible && GameData.IsPVP) {
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            UILoading.OpenUI = UILoading.OpenPVPUI;
 		}
 		else if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
 			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {

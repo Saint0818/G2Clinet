@@ -126,6 +126,7 @@ public class UILoading : UIBase
     public static void OpenPVPUI()
     {
         UIPVP.UIShow(true);
+        UIMainLobby.Get.Hide(2);
     }
 
     public static void OpenNotic()

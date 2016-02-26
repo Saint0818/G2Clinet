@@ -382,7 +382,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void SetEnemyMembers() {
-        if (StageTable.Ins.HasByID(GameData.StageID) && !GameData.IsPVP) {
+        if (!GameData.IsPVP) {
 			int[] ids = StageTable.Ins.GetByID(GameData.StageID).PlayerID;
 			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
 			for (int i = 0; i < num; i ++) {
