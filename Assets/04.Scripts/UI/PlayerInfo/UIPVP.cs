@@ -962,20 +962,25 @@ public class UIPVP : UIBase
 
     private void SendPVPRank()
     {
-        WWWForm form = new WWWForm();
-		form.AddField("PVPLv", GameFunction.GetPVPLv(GameData.Team.PVPIntegral));
-        form.AddField("Language", GameData.Setting.Language.GetHashCode());
-        SendHttp.Get.Command(URLConst.PVPRank, WaitSendPVPRank, form, true);
+		if (rankdata == null || rankdata.Length == 0) {
+			WWWForm form = new WWWForm ();
+			form.AddField ("PVPLv", GameFunction.GetPVPLv (GameData.Team.PVPIntegral));
+			form.AddField ("Language", GameData.Setting.Language.GetHashCode ());
+			SendHttp.Get.Command (URLConst.PVPRank, WaitSendPVPRank, form, true);
+		}
     }
+
+	private TTeamRank[] rankdata; 
 
     public void WaitSendPVPRank(bool ok, WWW www)
     {
         if (ok)
         {
-            TTeamRank[] data = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
+			rankdata = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
+//            TTeamRank[] data = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
             //TODO:更新Rank資料：
             TTeamRank myrank = GameFunction.TTeamCoverTTeamRank(GameData.Team);
-            page1.UpdateView(myrank, data);
+			page1.UpdateView(myrank, rankdata);
         }
     }
 

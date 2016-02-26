@@ -458,7 +458,13 @@ public class UISelectRole : UIBase {
 		arrayPlayerData[0] = GameData.Team.Player;
 		arrayPlayerData[0].RoleIndex = -1;
 		GameObject temp = arrayPlayer [0];
-		GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
+		
+		int bodytype = 0;
+
+		if (GameData.DPlayers.ContainsKey (GameData.Team.Player.ID))
+			bodytype = GameData.DPlayers [GameData.Team.Player.ID].BodyType;
+
+		GameObject obj = ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, bodytype, EAnimatorType.AvatarControl, false, true);
 
 		arrayPlayer[0].name = 0.ToString();
 		arrayPlayer[0].transform.parent = playerInfoModel.transform;
