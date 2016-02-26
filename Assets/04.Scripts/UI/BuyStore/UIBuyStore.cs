@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public struct TPickLotteryResult {
 	public int[] ItemIDs;
@@ -10,6 +11,7 @@ public struct TPickLotteryResult {
 	public int Diamond;
 	public int Money;
 	public DateTime[] LotteryFreeTime;
+	public Dictionary<int, int> GotItemCount; //key: item id, value: got number
 }
 
 public enum EPickSpendType {
@@ -239,6 +241,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
+			GameData.Team.GotItemCount = result.GotItemCount;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 

@@ -339,11 +339,12 @@ public class TActiveSkillCard
 	}
 
 	public bool CheckRedPoint {
-		get {if(RedPoint != null)
+		get {
+			if(RedPoint != null)
 				return RedPoint.activeSelf;
 			else 
 				return false;
-		}
+			}
 		set {
 			if(RedPoint != null)
 				RedPoint.SetActive(value);
