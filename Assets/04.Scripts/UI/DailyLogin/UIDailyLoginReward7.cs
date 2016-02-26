@@ -1,5 +1,4 @@
-﻿using GameStruct;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 第 7 天的每日登入獎勵.
@@ -34,6 +33,9 @@ public class UIDailyLoginReward7 : DailyLoginReward
         mData = data;
 
         DayLabel.text = data.Day;
+
+        // 21 表示道具是技能卡.
+        NameLabel.gameObject.SetActive(data.ItemData.Kind != 21);
         NameLabel.text = data.Name;
 
         updateStatus(data.Status);
