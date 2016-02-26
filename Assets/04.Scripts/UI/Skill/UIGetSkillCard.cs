@@ -87,16 +87,6 @@ public class UIGetSkillCard : UIBase {
 			return 2;
 	}
 
-//	public void Show(TSkill skill) {
-//		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-//			UIShow(true);
-//			skillCard.UpdateView(0, skill);
-//			labelSkillExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain,skill.ID, skill.Lv);
-//			sloganView[getQuality(GameData.DSkillData[skill.ID].Quality)].SetActive(false);
-//			setSloganLabel(skill.ID, GameData.DSkillData[skill.ID].Quality);
-//		}
-//	}
-
 	public void ShowView(int id) {
 		if(GameData.DItemData.ContainsKey(id)){
 			if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
