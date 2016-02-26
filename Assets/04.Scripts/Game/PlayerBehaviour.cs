@@ -2715,7 +2715,7 @@ public class PlayerBehaviour : MonoBehaviour
                     animatorEvent.floatParameter = 1;
                     TimeScaleCallBack(animatorEvent, this);
 					
-					PlayerSkillController.ResetUseSkill();
+//					PlayerSkillController.ResetUseSkill();
                     if (isBlock)
                     {
                         if (GameController.Get.BallState == EBallState.CanBlock)
