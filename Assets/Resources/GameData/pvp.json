@@ -2,6 +2,8 @@
     {
         "lv": 1,
         "name": "街頭聯盟I",
+        "nametw": "街頭聯盟I",
+        "nameen": "Street League I",
         "lowscore": 5,
         "highscore": 99,
         "basicscore": 15,
@@ -14,6 +16,8 @@
     {
         "lv": 2,
         "name": "街頭聯盟II",
+        "nametw": "街頭聯盟II",
+        "nameen": "Street League II",
         "lowscore": 100,
         "highscore": 199,
         "basicscore": 15,
@@ -26,6 +30,8 @@
     {
         "lv": 3,
         "name": "街頭聯盟III",
+        "nametw": "街頭聯盟III",
+        "nameen": "Street League III",
         "lowscore": 200,
         "highscore": 399,
         "basicscore": 20,
@@ -38,6 +44,8 @@
     {
         "lv": 4,
         "name": "鄉鎮聯盟I",
+        "nametw": "鄉鎮聯盟I",
+        "nameen": "Country League I",
         "lowscore": 400,
         "highscore": 599,
         "basicscore": 20,
@@ -50,6 +58,8 @@
     {
         "lv": 5,
         "name": "鄉鎮聯盟II",
+        "nametw": "鄉鎮聯盟II",
+        "nameen": "Country League II",
         "lowscore": 600,
         "highscore": 799,
         "basicscore": 20,
@@ -62,6 +72,8 @@
     {
         "lv": 6,
         "name": "鄉鎮聯盟III",
+        "nametw": "鄉鎮聯盟III",
+        "nameen": "Country League III",
         "lowscore": 800,
         "highscore": 999,
         "basicscore": 20,
