@@ -226,7 +226,7 @@ public class UIGameResult : UIBase {
 	public void OnNext (GameObject go) {
 		if (GameController.Visible && GameData.IsPVP) {
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-            GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+            GameData.EnemyMembers[0].Identifier = string.Empty;
             SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             UILoading.OpenUI = UILoading.OpenPVPUI;
 		}

@@ -712,9 +712,9 @@ public class UIPVP : UIBase
     {
         bool isalreadyFind = true;
 
-        for (var i = 0; i < GameData.PVPEnemyMembers.Length; i++)
+        for (var i = 0; i < GameData.EnemyMembers.Length; i++)
         {
-            if (GameData.PVPEnemyMembers[i].Identifier == null || GameData.PVPEnemyMembers[i].Identifier == string.Empty)
+            if (GameData.EnemyMembers[i].Identifier == null || GameData.EnemyMembers[i].Identifier == string.Empty)
             {
                 isalreadyFind = false;
                 continue;
@@ -728,7 +728,7 @@ public class UIPVP : UIBase
 
             if (GameData.DPVPData.ContainsKey(lv))
             {
-                page0.UpdateEnterView(ref GameData.PVPEnemyMembers, GameData.DPVPData[lv].SearchCost); 
+                page0.UpdateEnterView(ref GameData.EnemyMembers, GameData.DPVPData[lv].SearchCost); 
             }
             else
                 Debug.LogError("Error : not Found PVPData " + lv); 
@@ -949,7 +949,6 @@ public class UIPVP : UIBase
                 for (int i = 0; i < num; i++)
                 {
                     data.Teams[i].Init();
-                    GameData.PVPEnemyMembers[i] = data.Teams[i];
                     GameData.EnemyMembers[i] = data.Teams[i];
                 }
             }

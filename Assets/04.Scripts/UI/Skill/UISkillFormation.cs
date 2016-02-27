@@ -440,7 +440,7 @@ public class UISkillFormation : UIBase {
 		if (!UISelectRole.Visible)
 			UIMainLobby.Get.Show();
         else
-			UISelectRole.Get.InitPlayer();
+			UISelectRole.Get.InitPartnerPosition();
 		Visible = false;  
 	}
 

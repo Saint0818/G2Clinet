@@ -752,5 +752,25 @@ namespace GameStruct
         public string StrategyText {
             get {return TextConst.S(15002 + Strategy);}
         }
+
+		public string AttrText {
+			get {
+				string str  = string.Format("{0}:{1:f1}", TextConst.S(3019), CombatPower()) + "      " +
+					TextConst.S(3006) + ":" + Point2.ToString() + "      " +
+					TextConst.S(3007) + ":" + Point3 + "      " +
+					TextConst.S(3008) + ":" + Speed + "\n" +
+					TextConst.S(3009) + ":" + Stamina + "      " +
+					TextConst.S(3010) + ":" + Strength + "      " +
+					TextConst.S(3011) + ":" + Dunk +"      " +
+					TextConst.S(3012) + ":" + Rebound +"\n" +
+					TextConst.S(3013) + ":" + Block +"      " +
+					TextConst.S(3014) + ":" + Defence + "      " +
+					TextConst.S(3015) + ":" + Steal + "      " +
+					TextConst.S(3016) + ":" + Dribble + "\n" +
+					TextConst.S(3017) + ":" + Pass;
+
+				return str;
+			}
+		}
     } // end of the struct.
 } // end of the namespace.

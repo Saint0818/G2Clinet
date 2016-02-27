@@ -85,7 +85,7 @@ public class UISelectPartner : UIBase {
 	}
 
 	public void OnClose(){
-        UISelectRole.Get.InitPlayer();
+        UISelectRole.Get.InitPartnerPosition();
         Visible = false;
 	}
 
@@ -205,9 +205,6 @@ public class UISelectPartner : UIBase {
             pageToggle[0].value = true;
             nowPage = 0;
         }
-        
-		//if (index >= 0 && index < selectAy.Length)
-		//	initSkillList(selectAy[index].RoleIndex);
 	}
 
 	private void addMember(int page, TPlayer player) {
@@ -218,7 +215,6 @@ public class UISelectPartner : UIBase {
         item.Item.name = name;
 		UIButton btn = item.Item.GetComponent<UIButton>();
 		SetBtnFun(ref btn, OnSelectPartner);
-        //SetLabel(name + "/CombatGroup/Label", TextConst.S(3019));
 		item.Item.GetComponent<UIDragScrollView>().scrollView = partnerScrollView[page];
 		item.LabelTeamName = GameObject.Find(name + "/PlayerName/NameLabel").GetComponent<UILabel>();
         item.LabelFightCount = GameObject.Find(name + "/FightCount").GetComponent<UILabel>();
@@ -302,7 +298,7 @@ public class UISelectPartner : UIBase {
 
                     if (i != memberList[nowPage][index].Player.RoleIndex && j != memberList[nowPage][index].Player.RoleIndex) {
                         tempSelectAy[selectIndex].RoleIndex = memberList[nowPage][index].Player.RoleIndex;
-                        checkSelected(ref UISelectRole.Get.arrayPlayerData);
+                        checkSelected(ref UISelectRole.Get.playerData);
                         UISelectRole.Get.SetPlayerAvatar(selectIndex, memberList[nowPage][index].Player.RoleIndex);
     				}
     				

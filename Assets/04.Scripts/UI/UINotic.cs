@@ -79,7 +79,7 @@ public class UINotic : UIBase {
     }
 
     UniWebViewEdgeInsets InsetsForScreenOreitation(UniWebView webView, UniWebViewOrientation orientation) {
-        return new UniWebViewEdgeInsets(100,0,0,0);
+        return new UniWebViewEdgeInsets(90,0,0,0);
     }
 
     void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {
