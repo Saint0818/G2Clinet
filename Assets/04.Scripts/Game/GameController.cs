@@ -276,10 +276,6 @@ public class GameController : KnightSingleton<GameController>
 		Catcher = null;
 		Passer = null;
 		PickBallPlayer  = null;
-//		ballHolder = null;
-
-//		if (UIGame.Visible)
-//			UIGame.Get.ClearLine();
 
 		for (var i = 0; i < PlayerList.Count; i ++)
 			if (PlayerList[i].PlayerRefGameObject) 
@@ -1448,8 +1444,6 @@ public class GameController : KnightSingleton<GameController>
 				UIGameResult.UIShow(false);
 				UIGameLoseResult.UIShow(true);
 				UIGameLoseResult.UIShow(false);
-				UIGamePause.UIShow(true);
-				UIGamePause.UIShow(false);
 				UIDoubleClick.UIShow(true);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);

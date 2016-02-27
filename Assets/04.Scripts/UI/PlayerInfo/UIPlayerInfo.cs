@@ -158,7 +158,6 @@ public class AbilityView
 
     public void UpdateView(ref TTeam team)
     {
-//		int index = 0;
         float basic = 0;
 		int add = 0;
 
@@ -168,8 +167,8 @@ public class AbilityView
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
 
-			if(team.Player.Potential.ContainsKey(kind))
-				add = team.Player.Potential[kind];
+			//if(team.Player.Potential.ContainsKey(kind))
+			//	add = team.Player.Potential[kind];
 
             switch (kind)
             {
@@ -514,8 +513,10 @@ public class UIPlayerInfo : UIBase
 
     public static void UIShow(bool isShow, ref TTeam team)
     {
-        if (isShow)
+		if (isShow) {
+			team.Player.Init();
             teamdata = team;
+		}
 
         if (instance)
         {

@@ -18,23 +18,23 @@ public enum EPauseType {
 public class UIGamePause : UIBase {
 	private static UIGamePause instance = null;
 	private const string UIName = "UIGamePause";
-
-	private GameObject uiGameResult;
-	private EPauseType pauseType = EPauseType.Target;
-	private GameObject uiSelect;
 	private string[] positionPicName = {"IconCenter", "IconForward", "IconGuard"};
+	private EPauseType pauseType = EPauseType.Target;
+
 	private TGameRecord gameRecord;
-
 	private UIStageHint uiStageHint;
-
-	private UIButton buttonPlayerInfo;
+	private GameObject uiGameResult;
+	private GameObject uiSelect;
 	private GameObject goMakeFriend;
+	private GameObject uiRecord;
+	private UIButton buttonPlayerInfo;
 	private UISprite spriteMakeFriend;
-
-
 	private UILabel labelMakeFriend;
+	private UILabel labelAttr;
+
 	private string playerID;
 	private int playerIndex;
+	private int selectIndex;
 	private bool isFriend;
 
 	public static bool Visible {
@@ -94,14 +94,16 @@ public class UIGamePause : UIBase {
 		uiStageHint.transform.localScale = Vector3.one;
 		uiStageHint.SetInterval(150, 150);
 
+		uiRecord = GameObject.Find(UIName + "/Center/GameResult/GameAttribute");
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
 		goMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend");
 		labelMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Label").GetComponent<UILabel>();
-
+		labelAttr = GameObject.Find(UIName + "/Center/GameResult/AttributeBoard/LabelAttr").GetComponent<UILabel>();
 		buttonPlayerInfo = GameObject.Find(UIName + "/Center/GameResult/PlayerInfoBtn").GetComponent<UIButton>();
 		spriteMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Btn").GetComponent<UISprite>();
 
+		SetBtnFun(UIName + "/Center/GameResult/AttributeBoard/NextInfo", OnNextInfo);
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
@@ -175,6 +177,7 @@ public class UIGamePause : UIBase {
 
 	private void setInfo(int index, ref TGameRecord record) {
 		if (index >= 0 && index < record.PlayerRecords.Length) {
+			selectIndex = index;
 			getInfoString(ref record.PlayerRecords[index]);
 			initHomeAway ();
 			
@@ -195,7 +198,6 @@ public class UIGamePause : UIBase {
 				uiSelect.transform.localPosition = new Vector3(-270, 105, 0);
 				break;
 			}
-
 
 			if(playerIndex < GameData.TeamMembers.Length) {
 				if(GameData.Team.CheckFriend(GameData.TeamMembers[playerIndex].Identifier)) 
@@ -259,6 +261,16 @@ public class UIGamePause : UIBase {
     public void OnOpenInfo() {
         
     }
+
+	public void OnNextInfo() {
+		if (uiRecord.activeInHierarchy) {
+			uiRecord.SetActive(false);
+			labelAttr.text = GameController.Get.GamePlayers[selectIndex].Attribute.AttrText;
+		} else {
+			uiRecord.SetActive(true);
+			labelAttr.text = "";
+		}
+	}
 	
 	public void OnPlayerInfo() {
 		if(pauseType == EPauseType.Home) {
