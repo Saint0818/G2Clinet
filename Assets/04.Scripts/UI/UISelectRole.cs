@@ -28,7 +28,8 @@ public class UISelectRole : UIBase {
 	private GameObject uiChangPlayerB;
 	private GameObject uiRedPoint;
     private UILabel labelStrategy;
-	private UILabel [] labelsSelectABName = new UILabel[2];
+    private UILabel [] labelPlayerName = new UILabel[2];
+    private UILabel [] labelCombatPower = new UILabel[playerNum];
 	private Animator [] arrayAnimator = new Animator[playerNum];
 
 	public static bool Visible {
@@ -93,6 +94,34 @@ public class UISelectRole : UIBase {
 		playerObjects = new GameObject[0];
 	}
 
+    protected override void InitCom() {
+        GameObject obj = GameObject.Find("PlayerModel");
+        if (!obj) {
+            playerInfoModel = new GameObject();
+            playerInfoModel.name = "PlayerModel";
+        } else
+            playerInfoModel = obj;
+
+        SetBtnFun (UIName + "/Left/Back", OnExit);
+        SetBtnFun (UIName + "/Right/GameStart", OnStart);
+        SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
+        SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
+        SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
+        SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
+
+        labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
+        labelCombatPower[0] = GameObject.Find(UIName + "/Top/SelectMe/CombatPower/Label").GetComponent<UILabel>();
+        labelCombatPower[1] = GameObject.Find(UIName + "/Top/SelectA/CombatPower/Label").GetComponent<UILabel>();
+        labelCombatPower[2] = GameObject.Find(UIName + "/Top/SelectB/CombatPower/Label").GetComponent<UILabel>();
+        labelPlayerName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
+        labelPlayerName[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
+        uiChangPlayerA = GameObject.Find(UIName + "/Top/SelectA");
+        uiChangPlayerB = GameObject.Find(UIName + "/Top/SelectB");
+        uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
+
+        uiRedPoint.SetActive(false);
+    }
+
 	public void InitPlayerList(ref int[] ids) {
 		playerList.Clear();
         if (ids != null) {
@@ -153,30 +182,35 @@ public class UISelectRole : UIBase {
         initTeammateList();
 	}
 
-	protected override void InitCom() {
-        GameObject obj = GameObject.Find("PlayerModel");
-        if (!obj) {
-		    playerInfoModel = new GameObject();
-            playerInfoModel.name = "PlayerModel";
-        } else
-            playerInfoModel = obj;
+    private void initPlayerAvatar(int roleIndex, ref TPlayer player) {
+        if (!playerObjects [roleIndex])
+            playerObjects [roleIndex] = new GameObject();
+        
+        GameObject temp = playerObjects [roleIndex];
+        GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], player.Avatar, player.BodyType, EAnimatorType.AvatarControl, false, true);
 
-		SetBtnFun (UIName + "/Left/Back", OnExit);
-		SetBtnFun (UIName + "/Right/GameStart", OnStart);
-		SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
-        SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
-		SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
-        SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
+        playerObjects[roleIndex].name = roleIndex.ToString();
+        playerObjects[roleIndex].transform.parent = playerInfoModel.transform;
+        playerObjects[roleIndex].AddComponent<SelectEvent>();
+        playerObjects[roleIndex].AddComponent<SpinWithMouse>();
+        UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
 
-        labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
-        labelsSelectABName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
-        labelsSelectABName[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-		uiChangPlayerA = GameObject.Find(UIName + "/Top/SelectA");
-		uiChangPlayerB = GameObject.Find(UIName + "/Top/SelectB");
-		uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
+        if (temp) {
+            playerObjects[roleIndex].transform.localPosition = temp.transform.localPosition;
+            playerObjects[roleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
+            playerObjects[roleIndex].transform.localScale = temp.transform.localScale;
+        }
 
-		uiRedPoint.SetActive(false);
-	}
+        obj.transform.localScale = Vector3.one;
+        obj.transform.localEulerAngles = Vector3.zero;
+        obj.transform.localPosition = Vector3.zero;
+        LayerMgr.Get.SetLayer(obj, ELayer.Default);
+        arrayAnimator[roleIndex] = playerObjects[roleIndex].GetComponent<Animator>();
+
+        labelCombatPower[roleIndex].text = string.Format("{0:f0}", player.CombatPower());
+        if (roleIndex > 0)
+            labelPlayerName[roleIndex - 1].text = player.Name;
+    }
 
     private void initTeammateList() {
 		GameData.Team.Player.Init();
@@ -186,15 +220,11 @@ public class UISelectRole : UIBase {
 		int num = Mathf.Min(2, playerList.Count);
         for (int i = 0; i < num; i++) {
 			playerData[i+1] = playerList[i];
-            labelsSelectABName[i].text = playerData[i].Name;
+            labelPlayerName[i].text = playerList[i].Name;
         }
 
 		for (int i = 0; i < playerData.Length; i++) {
-            playerObjects[i] = new GameObject();
-            playerObjects[i].name = i.ToString();
-            playerObjects[i].transform.parent = playerInfoModel.transform;
-            GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[i], playerData[i].Avatar, playerData[i].BodyType, EAnimatorType.AvatarControl, false);
-            arrayAnimator[i] = playerObjects[i].GetComponent<Animator>();
+            initPlayerAvatar(i, ref playerData[i]);
 
 			switch (i) {
 			    case 0:
@@ -210,11 +240,6 @@ public class UISelectRole : UIBase {
                     playerObjects[i].transform.localEulerAngles = new Vector3(0, 150, 0);
     				break;
 			}
-
-            LayerMgr.Get.SetLayer(obj, ELayer.Default);
-            obj.transform.localScale = Vector3.one;
-            obj.transform.localEulerAngles = Vector3.zero;
-            obj.transform.localPosition = Vector3.zero;
         }
 
         labelStrategy.text = GameData.Team.Player.StrategyText;
@@ -236,6 +261,40 @@ public class UISelectRole : UIBase {
 			playerObjects[1].transform.localPosition = new Vector3(X_Partner, 0, Z_Partner);
 	}
 
+    private void initEnemy() {
+        if (stageData.FriendKind == 1) {
+            int count = 0;
+            foreach (KeyValuePair<string, TFriend> item in GameData.Team.Friends) {
+                
+                if (item.Value.Kind == EFriendKind.Advice && item.Value.Identifier != playerData[1].Identifier && item.Value.Identifier != playerData[2].Identifier) {
+                    GameData.EnemyMembers[count].Player = item.Value.Player;
+                    count++;
+                    if (count >= GameData.EnemyMembers.Length)
+                        break;
+                }
+            }
+
+            if (count < 3) {
+                for (int i = 0; i < stageData.PlayerID.Length; i ++) {
+                    GameData.EnemyMembers[i].Player.SetID(stageData.PlayerID[i]);
+                    if (GameData.DPlayers.ContainsKey(stageData.PlayerID[i])) {
+                        GameData.EnemyMembers[count].Player.SetID(stageData.PlayerID[i]);
+                        count++;
+                        if (count >= GameData.EnemyMembers.Length)
+                            break;
+                    }
+                }
+            }
+        } else {
+            int num = Mathf.Min(GameData.EnemyMembers.Length, stageData.PlayerID.Length);
+            for (int i = 0; i < num; i ++) {
+                GameData.EnemyMembers[i].Player.SetID(stageData.PlayerID[i]);
+                if (GameData.DPlayers.ContainsKey(stageData.PlayerID[i])) 
+                    GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[stageData.PlayerID[i]].Name;
+            }
+        }
+    }
+
 	public void LoadStage(int stageID) {
 		GameData.StageID = stageID;
 		stageData = StageTable.Ins.GetByID(GameData.StageID);
@@ -245,7 +304,7 @@ public class UISelectRole : UIBase {
 		GameData.Team.Player.Init();
 		playerData[0] = GameData.Team.Player;
 		if (stageData.IsOnlineFriend) {
-			if (DateTime.UtcNow > GameData.Team.FreshFriendTime.ToUniversalTime() && GameData.Team.Friends == null) {
+            if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
 				SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)
 					UILoading.Get.ProgressValue = 0.7f;
@@ -340,44 +399,10 @@ public class UISelectRole : UIBase {
 		UISkillFormation.Visible = true;
 	}
 
-	public void SetPlayerAvatar(int roleIndex, int index) {
+	public void SelectPartner(int roleIndex, int index) {
 		if (index >= 0 && index < playerList.Count) {
 			playerData[roleIndex] = playerList[index];
-			GameObject temp = playerObjects [roleIndex];
-			GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], playerData[roleIndex].Avatar, playerData[roleIndex].BodyType, EAnimatorType.AvatarControl, false, true);
-
-			playerObjects[roleIndex].name = roleIndex.ToString();
-			playerObjects[roleIndex].transform.parent = playerInfoModel.transform;
-            playerObjects[roleIndex].AddComponent<SelectEvent>();
-            playerObjects[roleIndex].AddComponent<SpinWithMouse>();
-            UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
-			playerObjects[roleIndex].transform.localPosition = temp.transform.localPosition;
-			playerObjects[roleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
-			playerObjects[roleIndex].transform.localScale = temp.transform.localScale;
-            obj.transform.localScale = Vector3.one;
-            obj.transform.localEulerAngles = Vector3.zero;
-            obj.transform.localPosition = Vector3.zero;
-			LayerMgr.Get.SetLayer(obj, ELayer.Default);
-			arrayAnimator[roleIndex] = playerObjects[roleIndex].GetComponent<Animator>();
-
-            if (roleIndex > 0)
-				labelsSelectABName[roleIndex - 1].text = playerData[roleIndex].Name;
-		}
-	}
-
-	public void SetEnemyMembers() {
-        if (!GameData.IsPVP) {
-			int[] ids = stageData.PlayerID;
-			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
-			for (int i = 0; i < num; i ++) {
-				GameData.EnemyMembers[i].Player.SetID(ids[i]);
-				if (GameData.DPlayers.ContainsKey(ids[i])) 
-					GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[ids[i]].Name;
-			}
-        } else {
-			int num = Mathf.Min(GameData.EnemyMembers.Length, playerList.Count);
-			for(int i = 0; i < num; i++) 
-				GameData.EnemyMembers[i].Player = playerList[i];
+            initPlayerAvatar(roleIndex, ref playerData[roleIndex]);
 		}
 	}
 
@@ -412,6 +437,9 @@ public class UISelectRole : UIBase {
             GameData.Team.InitFriends();
     	    InitPlayerList(ref GameData.Team.Friends);
         } else
+        if (stageData.FriendID != null)
+            InitPlayerList(ref stageData.FriendID);
+        else
             InitPlayerList(ref selectRoleID);
 	}
     
@@ -455,7 +483,7 @@ public class UISelectRole : UIBase {
         for (int i = 0; i < playerData.Length; i++)
             GameData.TeamMembers[i].Player = playerData[i];
 
-        SetEnemyMembers ();
+        initEnemy ();
 
 		int courtNo = stageData.CourtNo;
         if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())

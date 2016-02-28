@@ -69,7 +69,7 @@ namespace GameStruct
 
         public int GetDailyLoginNum(int year, int month)
         {
-            if(DailyLoginNums.ContainsKey(year) && DailyLoginNums[year].ContainsKey(month))
+            if(DailyLoginNums != null && DailyLoginNums.ContainsKey(year) && DailyLoginNums[year].ContainsKey(month))
                 return DailyLoginNums[year][month];
             return 0;
         }

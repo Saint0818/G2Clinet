@@ -319,7 +319,7 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed);
 		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 
-		if(GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
+        if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
 			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
 		}

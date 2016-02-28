@@ -1005,7 +1005,7 @@ public class GameController : KnightSingleton<GameController>
 	}
         
     public void SendGameRecord() {
-		if (GameStart.Get.TestMode == EGameTest.None && (!StageData.IsTutorial || GameData.IsPVP)) {
+        if (!string.IsNullOrEmpty(GameRecord.Identifier) && GameStart.Get.TestMode == EGameTest.None && (!StageData.IsTutorial)) {
             string str = JsonConvert.SerializeObject(GameRecord);
             if (SendHttp.Get.CheckNetwork(false)) {
                 WWWForm form = new WWWForm();
@@ -1013,6 +1013,7 @@ public class GameController : KnightSingleton<GameController>
                 form.AddField("Start", GameRecord.Start.ToString());
                 form.AddField("End", GameRecord.End.ToString());
                 SendHttp.Get.Command(URLConst.GameRecord, waitGameRecord, form, true);
+                GameRecord.Identifier = "";
             } else {
                 //PlayerPrefs.SetString(SettingText.GameRecord, str);
                 //PlayerPrefs.SetString(SettingText.GameRecordStart, GameRecord.Start.ToString());

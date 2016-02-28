@@ -1,5 +1,11 @@
 ## UniWebView - An easier solution for integrating WebView to your mobile games
 
+2.6.0
+
+New: Rewrite video playing for Android web view. Now you could expect a better and stable video playback for both Youtube and Vimeo.
+Fix: Remove custom activity which is not needed anymore.
+
+------------------------
 2.5.2
 
 Fix: Use UnityPlayerActivity instead. This makes UniWebView compatible with Unity 5.4 (current in beta).

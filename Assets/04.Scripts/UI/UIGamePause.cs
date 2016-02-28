@@ -211,6 +211,10 @@ public class UIGamePause : UIBase {
 				goMakeFriend.SetActive(false);
 				
 			CheckFriendLike();
+            if (!uiRecord.activeInHierarchy)
+                labelAttr.text = GameController.Get.GamePlayers[selectIndex].Attribute.AttrText;
+            else
+                labelAttr.text = "";
 		}
 	} 
 

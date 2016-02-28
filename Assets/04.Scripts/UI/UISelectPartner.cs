@@ -299,7 +299,7 @@ public class UISelectPartner : UIBase {
                     if (i != memberList[nowPage][index].Player.RoleIndex && j != memberList[nowPage][index].Player.RoleIndex) {
                         tempSelectAy[selectIndex].RoleIndex = memberList[nowPage][index].Player.RoleIndex;
                         checkSelected(ref UISelectRole.Get.playerData);
-                        UISelectRole.Get.SetPlayerAvatar(selectIndex, memberList[nowPage][index].Player.RoleIndex);
+                        UISelectRole.Get.SelectPartner(selectIndex, memberList[nowPage][index].Player.RoleIndex);
     				}
     				
     				initSkillList(index);

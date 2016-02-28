@@ -711,8 +711,6 @@ public class UIGameResult : UIBase {
 				}
 				
 				init ();
-                if (GameController.Visible)
-                    GameController.Get.SendGameRecord();
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 				isGetAward = false;
