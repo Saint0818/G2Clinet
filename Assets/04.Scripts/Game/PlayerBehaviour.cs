@@ -181,6 +181,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool canSpeedup = true;
     private float SlowDownTime = 0;
     public float DribbleTime = 0;
+	private float holdBallTime = 0;
 
     //SkillEvent
     private bool isSkillShow = false;
@@ -647,6 +648,15 @@ public class PlayerBehaviour : MonoBehaviour
                     CloseDef = 0;
                 }
             }
+
+			if (IsIdle && IsBallOwner) {
+				holdBallTime += Time.deltaTime;
+				if (holdBallTime >= 2) {
+					AniState(EPlayerState.Dribble0);
+					holdBallTime = 0;
+					Debug.Log("Exception idle become dribble");
+				}
+			}
         }
         
         if (Time.time >= mMovePowerTime)

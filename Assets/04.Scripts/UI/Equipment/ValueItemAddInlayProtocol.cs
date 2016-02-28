@@ -32,7 +32,7 @@ public class ValueItemAddInlayProtocol
             TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
             GameData.Team.MaterialItems = team.MaterialItems;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
             
 //            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
         }

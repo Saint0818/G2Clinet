@@ -26,7 +26,7 @@ public class ValueItemExchangeProtocol
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
             GameData.Team.ValueItems = team.ValueItems;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
             
             UIHint.Get.ShowHint(TextConst.S(531), Color.black);
         }

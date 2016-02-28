@@ -514,7 +514,7 @@ public class UIPlayerInfo : UIBase
     public static void UIShow(bool isShow, ref TTeam team)
     {
 		if (isShow) {
-			team.Player.Init();
+			team.PlayerInit();
             teamdata = team;
 		}
 

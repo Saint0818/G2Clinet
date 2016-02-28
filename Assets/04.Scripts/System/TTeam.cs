@@ -221,8 +221,18 @@ namespace GameStruct
 				}
 			}
 
-            Player.Init();
+            PlayerInit();
         }
+
+		public void PlayerInit() {
+			if (Player.Name == null)
+				Player.Name = "";
+
+			Player.SetAttribute(ESkillType.Player);
+			Player.SetAvatar();
+			AddSuitCardEffect(Player.Lv);
+			AddSuitItemEffect(Player.Lv);
+		}
 
 		/// <summary>
 		/// Kind 0.Diamond 1.Money 2.PVPCoin 3.SocialCoin
@@ -314,7 +324,7 @@ namespace GameStruct
                 int count = 0;
                 foreach (KeyValuePair<string, TFriend> item in Friends.ToList()) {
                     TFriend friend = item.Value;
-                    friend.Player.Init();
+                    friend.PlayerInit();
                     friend.Player.RoleIndex = count;
                     Friends[item.Key] = friend;
                     count++;
@@ -954,7 +964,7 @@ namespace GameStruct
 		/// <returns><c>true</c> if this instance is get avatar the specified itemID; otherwise, <c>false</c>.</returns>
 		/// <param name="itemID">Item I.</param>
 		public bool IsGetAvatar (int itemID) {
-			if(GotAvatar.ContainsKey(itemID)) 
+			if(GotAvatar != null && GotAvatar.ContainsKey(itemID)) 
 				if(GotAvatar[itemID] != 0)
 					return true;
 			
@@ -1133,7 +1143,7 @@ namespace GameStruct
 
 		//加入套裝加成的效果
 		public void AddSuitItemEffect (int lv) {
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
+			if(GotAvatar != null && LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
 				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
 					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 						int count = SuitItemCompleteCount(item.Key);

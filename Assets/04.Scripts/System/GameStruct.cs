@@ -35,6 +35,18 @@ namespace GameStruct
         public int FightCount;
         public DateTime Time;
 		public TPlayer Player;
+		public int[] SuitCardCost;
+		public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
+
+		public void PlayerInit() {
+			if (Player.Name == null)
+				Player.Name = "";
+
+			Player.SetAttribute(ESkillType.Player);
+			Player.SetAvatar();
+			//AddSuitCardEffect(Player.Lv);
+			//AddSuitItemEffect(Player.Lv);
+		}
 	}
 
     public struct TSocialEvent {

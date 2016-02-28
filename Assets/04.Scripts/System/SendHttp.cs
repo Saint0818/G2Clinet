@@ -586,7 +586,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     GameData.Team.Friends = new Dictionary<string, TFriend>();
                 
                 TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
-                friend.Player.Init();
+                friend.PlayerInit();
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                     GameData.Team.Friends[friend.Identifier] = friend;
                 else
@@ -751,7 +751,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;
                     GameData.Team.NeedForSyncRecord = true;
-                    friend.Player.Init();
+                    friend.PlayerInit();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;
                     else

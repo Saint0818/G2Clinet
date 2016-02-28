@@ -213,7 +213,7 @@ public class UISelectRole : UIBase {
     }
 
     private void initTeammateList() {
-		GameData.Team.Player.Init();
+		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
 		playerData[0].RoleIndex = -1;
 
@@ -301,7 +301,7 @@ public class UISelectRole : UIBase {
 		UIMainLobby.Get.HideAll(false);
 		Visible = true;
 
-		GameData.Team.Player.Init();
+		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
 		if (stageData.IsOnlineFriend) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {

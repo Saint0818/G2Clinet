@@ -1669,7 +1669,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
-			GameData.Team.Player.Init();
+			GameData.Team.PlayerInit();
 			GameData.Team.InitSkillCardCount();
 
 			if(!isEvolution) {

@@ -33,7 +33,7 @@ public class MainStageWinProtocol
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
             GameData.Team.Player = reward.Player;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
             GameData.Team.Items = reward.Items;
             GameData.Team.ValueItems = reward.ValueItems;
             GameData.Team.MaterialItems = reward.MaterialItems;

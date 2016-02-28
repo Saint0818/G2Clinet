@@ -688,7 +688,7 @@ public class GEGMTool : GEBase
         {
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Player.Items = team.Player.Items;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
         }
     }
 

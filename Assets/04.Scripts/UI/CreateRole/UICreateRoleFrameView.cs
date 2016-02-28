@@ -196,7 +196,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
 			var team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
 
             UICreateRole.Get.Hide();
 			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)

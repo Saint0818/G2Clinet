@@ -1316,7 +1316,7 @@ public class UIAvatarFitted : UIBase
             GameData.Team.Player.Items = team.Player.Items;
             GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
             UpdateAvatar(true);
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
             UIHint.Get.ShowHint(TextConst.S(532), Color.black);
         }
         else
@@ -1332,7 +1332,7 @@ public class UIAvatarFitted : UIBase
     protected override void InitData()
     {
         UpdateAvatar(true);
-        GameData.Team.Player.Init();
+        GameData.Team.PlayerInit();
         UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIAvatarFitted, ref GameData.Team);
         ExpiredItemHanddle();
 //            UIPlayerMgr.Get.ChangeAvatar(GameData.Team.Player.Avatar);

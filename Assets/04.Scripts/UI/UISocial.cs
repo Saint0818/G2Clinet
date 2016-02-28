@@ -457,7 +457,7 @@ public class UISocial : UIBase {
     private void waitLookAvatar(bool ok, WWW www) {
         if (ok) {
             TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
-            friend.Player.Init();
+            friend.PlayerInit();
             if (GameData.Team.Friends.ContainsKey(friend.Identifier)) {
                 friend.Kind = GameData.Team.Friends[friend.Identifier].Kind;
                 friend.Time = GameData.Team.Friends[friend.Identifier].Time;
@@ -483,7 +483,7 @@ public class UISocial : UIBase {
             if (SendHttp.Get.CheckServerMessage(www.text)) {
                 if (nowPage == 2) {
                     TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
-                    friend.Player.Init();
+                    friend.PlayerInit();
 
                     if (!GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends.Add(friend.Identifier, friend);
@@ -516,7 +516,7 @@ public class UISocial : UIBase {
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;
                     GameData.Team.NeedForSyncRecord = true;
-                    friend.Player.Init();
+                    friend.PlayerInit();
                     if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                         GameData.Team.Friends[friend.Identifier] = friend;
                     else

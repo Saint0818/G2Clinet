@@ -97,7 +97,8 @@ public class UIGameLoseResult : UIBase {
 		UITransition.Visible = false;
 		UICourtInstant.Visible = false;
 		UIInGameMission.Visible = false;
-
+		UILevelUp.Visible = false;
+		UIAchievement.Visible = false;
 
 		Time.timeScale = 1;
 		UIShow(false);

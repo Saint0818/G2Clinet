@@ -194,7 +194,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         GameData.Team.Player.Items = new TItem[partItemIDs.Length];
         for (int i = 0; i < partItemIDs.Length; i++)
             GameData.Team.Player.Items[i].ID = partItemIDs[i];
-        GameData.Team.Player.Init();
+        GameData.Team.PlayerInit();
 
         WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
@@ -213,7 +213,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
-            GameData.Team.Player.Init();
+            GameData.Team.PlayerInit();
             GameData.Team.SkillCards = team.SkillCards;
             GameData.Team.Items = team.Items;
             GameData.Team.InitSkillCardCount();

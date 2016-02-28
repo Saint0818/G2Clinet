@@ -175,14 +175,6 @@ namespace GameStruct
             return string.Format("ID:{0}, Name:{1}", ID, Name);
         }
 
-        public void Init() {
-            if (Name == null)
-                Name = "";
-			
-			SetAttribute(ESkillType.Player);
-            SetAvatar();
-        } 
-
         /// <summary>
         /// only for npc.
         /// </summary>
@@ -221,8 +213,6 @@ namespace GameStruct
 				if (type == ESkillType.Player) {
 	                addEquipValues();
 					addPotentialValues();
-					GameData.Team.AddSuitCardEffect(Lv);
-					GameData.Team.AddSuitItemEffect(Lv);
 				}
             }
         }
