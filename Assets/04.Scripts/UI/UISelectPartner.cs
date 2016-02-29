@@ -98,6 +98,7 @@ public class UISelectPartner : UIBase {
                 partnerUI[i].SetActive(false);
 
             partnerUI[nowPage].SetActive(true);
+            initSkillList(0);
         }
     }
 
@@ -205,6 +206,8 @@ public class UISelectPartner : UIBase {
             pageToggle[0].value = true;
             nowPage = 0;
         }
+
+        initSkillList(0);
 	}
 
 	private void addMember(int page, TPlayer player) {
@@ -248,7 +251,7 @@ public class UISelectPartner : UIBase {
 
                         int x = count % 4;
                         int y = count / 4;
-                        ep.transform.localPosition = new Vector3(x * 60, y * -54, 0);
+                        ep.transform.localPosition = new Vector3(x * 60, 2+ y * -60, 0);
                         count ++;
                     }
                 }

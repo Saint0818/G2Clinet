@@ -127,13 +127,7 @@ public class UIMission : UIBase {
                 pageObjects[i].SetActive(false);
                 
             initMissionList(nowPage);
-            for (int i = 0; i < 4; i++)
-                if (!redPoints[i].activeInHierarchy)
-                    for (int j = 0; j < GameData.MissionData.Length; j++)
-                        if (GameData.MissionData[j].TimeKind == i && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
-                            redPoints[i].SetActive(true);
-                            break;
-                        }
+            initRedPoint();
         }
 
 		base.OnShow(isShow);
@@ -165,6 +159,16 @@ public class UIMission : UIBase {
 
     private void initStats() {
         labelStats.text = GameData.Team.StatsText;
+    }
+
+    private void initRedPoint() {
+        for (int i = 0; i < pageNum; i++)
+            if (!redPoints[i].activeInHierarchy)
+                for (int j = 0; j < GameData.MissionData.Length; j++)
+                    if (GameData.MissionData[j].TimeKind == i && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
+                        redPoints[i].SetActive(true);
+                        break;
+                    }
     }
 
 	private void initMissionList(int page) {
@@ -305,7 +309,7 @@ public class UIMission : UIBase {
                             missionItem.FXGetAward.SetActive(true);
                             missionItem.LabelGot.text = TextConst.S(3706);
                             missionItem.ButtonGot.normalSprite = "button_orange1";
-                            if (!redPoints[nowPage].activeInHierarchy &&mLv == lv)
+                            if (!redPoints[nowPage].activeInHierarchy && mLv == lv)
                                 redPoints[nowPage].SetActive(true);
                         } else {
                             missionItem.FXGetAward.SetActive(false);
@@ -391,6 +395,7 @@ public class UIMission : UIBase {
 
         mission.PrivousID = 0;
         checkMission(item, mission, false);
+        //initRedPoint();
     }
 
     IEnumerator waitUpdateMission(TMissionFinishResult result, float sec) {
@@ -408,6 +413,8 @@ public class UIMission : UIBase {
             UILevelUp.Get.Show(player, GameData.Team.Player);
             if (GameData.DExpData.ContainsKey(result.Lv) && LimitTable.Ins.HasOpenIDByLv(result.Lv))
                 PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[result.Lv].UI);
+
+            SendHttp.Get.SyncDailyRecord();
         }
 
         if (GameData.DMissionData.ContainsKey(result.MissionID)) {

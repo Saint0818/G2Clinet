@@ -532,6 +532,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
             GameData.Team.DailyRecord = result.DailyRecord;
             GameData.Team.WeeklyRecord = result.WeeklyRecord;
             GameData.Team.MonthlyRecord = result.MonthlyRecord;
+
+            GameData.Team.NeedForSyncRecord = false;
+            GameData.Team.Player.NeedForSyncRecord = false;
         }
     }
 

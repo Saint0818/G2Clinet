@@ -43,8 +43,8 @@ public class GEBuildTool : GEBase {
 	
 	private static string[] accounts = new string[2]{"nbaa", "g2"};
 	private string[] appName = new string[2]{"Gang of Basketball", "Basketball Gangs 2"};
-	private string companyName = "Nice Market Gangs Ltd.";
-	private string bundleId = "com.nicemarket.g2";
+	private string companyName = "Nice Market Games Ltd.";
+	private string bundleId = "com.nicemarket.g2canada";
 	private int selectedIndex = 1;
 	private int[] sizes = new int[]{0,1};
 	static string[] SCENES = FindEnabledEditorScenes();
