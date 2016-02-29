@@ -4320,24 +4320,14 @@ public class GameController : KnightSingleton<GameController>
 		else
 			Joysticker.SetToAI();
 
-		for (int i = 0; i < PlayerList.Count; i++) {
-			if (PlayerList[i].Team == ETeamKind.Npc)
-				PlayerList[i].Attribute.AILevel = GameConst.NpcAILevel;
-			else
-				PlayerList[i].Attribute.AILevel = GameConst.SelfAILevel;
-
-			if(PlayerList[i].Team == ETeamKind.Npc)
-				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
-			else
-				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = Vector3.zero;
-
-			PlayerList[i].InitAttr();
-		}
+		//要讓玩家隨關卡變化AI等級，所以需要再重設一次
+		Joysticker.Attribute.AILevel = StageData.PlayerAI;
+		Joysticker.InitAttr();
 	}
 
     public void SetAllPlayerLayer (string layerName){
 		for (int i = 0; i < PlayerList.Count; i++)
-			LayerMgr.Get.ReSetLayerRecursively(PlayerList[i].PlayerRefGameObject, layerName,"PlayerModel", "(Clone)");
+			LayerMgr.Get.ReSetLayerRecursively(PlayerList[i].PlayerRefGameObject, layerName, "PlayerModel", "(Clone)");
 	}
 
 	public void ShowWord (EShowWordType type, int team = 0, GameObject parent = null) {

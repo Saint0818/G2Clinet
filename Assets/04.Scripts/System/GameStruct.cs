@@ -44,8 +44,10 @@ namespace GameStruct
 
 			Player.SetAttribute(ESkillType.Player);
 			Player.SetAvatar();
-			//AddSuitCardEffect(Player.Lv);
-			//AddSuitItemEffect(Player.Lv);
+			if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
+				GameData.Team.AddSuitCardEffect(SuitCardCost, Player.Lv);
+				GameData.Team.AddSuitItemEffect(GotAvatar, Player.Lv);
+			}
 		}
 	}
 

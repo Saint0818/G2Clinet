@@ -230,8 +230,8 @@ namespace GameStruct
 
 			Player.SetAttribute(ESkillType.Player);
 			Player.SetAvatar();
-			AddSuitCardEffect(Player.Lv);
-			AddSuitItemEffect(Player.Lv);
+			AddSuitCardEffect(SuitCardCost, Player.Lv);
+			AddSuitItemEffect(GotAvatar, Player.Lv);
 		}
 
 		/// <summary>
@@ -971,6 +971,14 @@ namespace GameStruct
 			return false;
 		}
 
+		public bool IsGetAvatarFriend (Dictionary<int, int> gotAvatar, int itemID) {
+			if(gotAvatar != null && gotAvatar.ContainsKey(itemID)) 
+				if(gotAvatar[itemID] != 0)
+					return true;
+
+			return false;
+		}
+
 		/// <summary>
 		/// 某一列的套卡完成數量 （擁有過的卡牌）
 		/// </summary>
@@ -1056,48 +1064,48 @@ namespace GameStruct
 		}
 
 		//加入套卡的效果
-		public void AddSuitCardEffect (int lv) {
+		public void AddSuitCardEffect (int[] suitCardCost, int lv) {
 			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)) {
 				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) {
-					if(SuitCardCost != null) {
-						for(int i=0; i<SuitCardCost.Length; i++) {
-							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) {
-								switch(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j]) {
+					if(suitCardCost != null) {
+						for(int i=0; i<suitCardCost.Length; i++) {
+							for (int j=0; j<GameData.DSuitCard[suitCardCost[i]].AttrKind.Length; j++) {
+								switch(GameData.DSuitCard[suitCardCost[i]].AttrKind[j]) {
 								case (int)EBonus.Point2:
-									Player.Point2 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Point2 += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Point3:
-									Player.Point3 += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Point3 += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Dunk:
-									Player.Dunk += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Dunk += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Rebound:
-									Player.Rebound += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Rebound += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Block:
-									Player.Block += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Block += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Steal:
-									Player.Steal += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Steal += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Stamina:
-									Player.Stamina += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Stamina += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Defence:
-									Player.Defence += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Defence += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Dribble:
-									Player.Dribble += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Dribble += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Pass:
-									Player.Pass += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Pass += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Speed:
-									Player.Speed += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Speed += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								case (int)EBonus.Strength:
-									Player.Strength += (float)GameData.DSuitCard[SuitCardCost[i]].Value[j];
+									Player.Strength += (float)GameData.DSuitCard[suitCardCost[i]].Value[j];
 									break;
 								}
 							}
@@ -1131,6 +1139,16 @@ namespace GameStruct
 			return count;
 		}
 
+		//某一列套裝完成的數量(Friend)
+		public int SuitItemCompleteCountFriend (Dictionary<int, int> gotAvatar, int id) {
+			int count = 0;
+			if(GameData.DSuitItem.ContainsKey(id)) 
+				for(int i=0; i<GameData.DSuitItem[id].Items.Length; i++) 
+					if(IsGetAvatarFriend(gotAvatar, GameData.DSuitItem[id].Items[i])) 
+						count ++;
+			return count;
+		}
+
 		//某一列套裝 卡片完成的數量 (影響Cost值)
 		public int SuitItemCardCompleteCount (int id) {
 			int count = 0;
@@ -1142,11 +1160,11 @@ namespace GameStruct
 		}
 
 		//加入套裝加成的效果
-		public void AddSuitItemEffect (int lv) {
+		public void AddSuitItemEffect (Dictionary<int, int> gotAvatar, int lv) {
 			if(GotAvatar != null && LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
 				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
 					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
-						int count = SuitItemCompleteCount(item.Key);
+						int count = SuitItemCompleteCountFriend(gotAvatar, item.Key);
 						if(count >= 2) {
 							for(int i=0; i<item.Value.AttrKind.Length; i++) {
 								if(i <= (count - 2)) {

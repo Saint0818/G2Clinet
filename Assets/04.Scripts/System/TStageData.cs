@@ -89,6 +89,11 @@ public class TStageData
     private int[] bitNum = new int[4];
 	private int[] hintBit = new int[0];
 
+	/// <summary>
+	/// 玩家本身該有的AI等級
+	/// </summary>
+	public int PlayerAI;
+
     public enum ECostKind
     {
         Stamina = 0, // 體力.
