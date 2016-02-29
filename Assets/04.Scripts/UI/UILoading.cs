@@ -144,6 +144,9 @@ public class UILoading : UIBase
                 if (day != date)
                     UINotic.UIShow(true);
             }
+
+            if (!UITutorial.Visible && (UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward()))
+                UIDailyLogin.Get.Show();
         }
     }
 
@@ -373,9 +376,6 @@ public class UILoading : UIBase
 
                     OpenUI();
                     OpenUI = null;
-
-                    if(UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward())
-                        UIDailyLogin.Get.Show();
                 }
 
                 UIShow(false);
