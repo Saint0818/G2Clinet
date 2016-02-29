@@ -674,7 +674,6 @@ public class UIPlayerInfo : UIBase
                 personalView.Update(ref teamdata);
                 abilityView.UpdateView(ref teamdata);
                 UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo, ref teamdata);
-                UIPlayerMgr.Get.ChangeAvatar(teamdata.Player.Avatar);
                 break;
             case 1:
                 skillView.UpdateView(teamdata.Player.SkillCards);
