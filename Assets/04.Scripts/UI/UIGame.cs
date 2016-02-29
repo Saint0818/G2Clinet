@@ -86,6 +86,7 @@ public class UIGame : UIBase
     private GameObject uiAlleyoopA;
     private GameObject uiAlleyoopB;
     private UISprite spriteAttack;
+	private UILabel labelAttack;
     private GameObject[] uiDefenceGroup = new GameObject[2];
     // 0:ButtonSteal 1:ButtonBlock
     private GameObject[] controlButtonGroup = new GameObject[2];
@@ -317,6 +318,7 @@ public class UIGame : UIBase
         uiAlleyoopA = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopA");
         uiAlleyoopB = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopB");
         spriteAttack = GameObject.Find(UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
+		labelAttack = GameObject.Find(UIName + "/BottomRight/ButtonAttack/BtnLabel").GetComponent<UILabel>();
         uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
         uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
         controlButtonGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewAttack");
@@ -1093,26 +1095,30 @@ public class UIGame : UIBase
                 uiPassObjectGroup[1].SetActive(true);
                 uiPassObjectGroup[2].SetActive(true);
                 spriteAttack.spriteName = "B_elbow";
+				labelAttack.text = TextConst.S(10114);
                 break;
             case (int)EUIPassType.ABallOwner:
                 viewPass.SetActive(true);
                 uiPassObjectGroup[0].SetActive(true);
                 uiPassObjectGroup[1].SetActive(false);
                 uiPassObjectGroup[2].SetActive(true);
-                spriteAttack.spriteName = "B_push";
+				spriteAttack.spriteName = "B_push";
+				labelAttack.text = TextConst.S(10115);
                 break;
             case (int)EUIPassType.BBallOwner:
                 viewPass.SetActive(true);
                 uiPassObjectGroup[0].SetActive(true);
                 uiPassObjectGroup[1].SetActive(true);
                 uiPassObjectGroup[2].SetActive(false);
-                spriteAttack.spriteName = "B_push";
+				spriteAttack.spriteName = "B_push";
+				labelAttack.text = TextConst.S(10115);
                 break;
             default:
                 uiPassObjectGroup[0].SetActive(false);
                 uiPassObjectGroup[1].SetActive(false);
                 uiPassObjectGroup[2].SetActive(false);
-                spriteAttack.spriteName = "B_push";
+				spriteAttack.spriteName = "B_push";
+				labelAttack.text = TextConst.S(10115);
                 if (GameController.Get.Situation == EGameSituation.NPCAttack || GameController.Get.Situation == EGameSituation.NPCPickBall)
                 {
                     viewPass.SetActive(false);

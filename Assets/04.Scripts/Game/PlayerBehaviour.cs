@@ -342,7 +342,7 @@ public class PlayerBehaviour : MonoBehaviour
 		Attr.PassRate =     GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
 		Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
 		Attr.ReboundHeadDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance));
-		Attr.ReboundHandDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
+		Attr.ReboundHandDistance = GameConst.ReboundHandDistanceMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
 		Attr.BlockDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance));
 		Attr.DefDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
 		Attr.SpeedValue =  GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
@@ -391,7 +391,7 @@ public class PlayerBehaviour : MonoBehaviour
             BodyMaterial = render.material;
 				
         DummyBall = null;
-        Transform find = transform.FindChild("DummyBall");
+        Transform find = transform.Find("DummyBall");
 
         if (find)
             DummyBall = find.gameObject;
@@ -431,8 +431,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-            blockTrigger = obj2.transform.FindChild("Block").gameObject;
-            ShowWord = obj2.transform.FindChild("ShowWord").gameObject;
+            blockTrigger = obj2.transform.Find("Block").gameObject;
+            ShowWord = obj2.transform.Find("ShowWord").gameObject;
             
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
@@ -446,19 +446,19 @@ public class PlayerBehaviour : MonoBehaviour
             if (defTrigger != null)
                 defTrigger.Player = this;
             
-            DefPoint = obj2.transform.FindChild("DefRange").gameObject;          
-            TopPoint = obj2.transform.FindChild("TriggerTop").gameObject; 
-            CatchBallPoint = obj2.transform.FindChild("CatchBall").gameObject; 
+            DefPoint = obj2.transform.Find("DefRange").gameObject;          
+            TopPoint = obj2.transform.Find("TriggerTop").gameObject; 
+            CatchBallPoint = obj2.transform.Find("CatchBall").gameObject; 
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
 
-            Transform t = obj2.transform.FindChild("TriggerFinger");
+            Transform t = obj2.transform.Find("TriggerFinger");
             if (t)
             {
                 FingerPoint = t.gameObject;
-				t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
-                t.parent = transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
+                t.name = Team.GetHashCode().ToString() + Index.ToString() + "TriggerFinger";
+                t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
                 t.localPosition = Vector3.zero;
                 t.localScale = Vector3.one;
             }

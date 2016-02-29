@@ -704,7 +704,7 @@ public static class GameFunction
 		case EPlayerAttributeRate.ElbowDistance:
 			return value * 0.005f;
 		case EPlayerAttributeRate.ReboundHandDistance:
-			return value * 0.02f;
+			return value * 0.01f;
 		case EPlayerAttributeRate.FakeBlockrate:
 			return (100 - (value / 1.15f));
 		case EPlayerAttributeRate.BlockDistance:

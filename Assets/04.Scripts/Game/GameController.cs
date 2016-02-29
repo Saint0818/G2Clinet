@@ -2092,7 +2092,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
 	{
 		bool result = false;
-		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill(player.TimerKind.GetHashCode())) || GameStart.Get.TestMode == EGameTest.Skill)
+		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode())) || GameStart.Get.TestMode == EGameTest.Skill)
 		{
 			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
                 TimerMgr.Get.SetTimeController(ref player);
@@ -4607,6 +4607,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
+	//true: 有人在使用 
 	public bool CheckOthersUseSkill (int myTimerKind) {
 		for (int i=0; i<PlayerList.Count; i++) 
 			if(PlayerList[i].TimerKind.GetHashCode() != myTimerKind)

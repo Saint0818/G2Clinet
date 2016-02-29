@@ -79,6 +79,7 @@
 	public const float ElbowFanAngle = 180;
 
 	public const float SpeedValueMin = 0.8f;
+	public const float ReboundHandDistanceMin = 0.5f;
 
 	public const float BlockDistance = 5;
 
