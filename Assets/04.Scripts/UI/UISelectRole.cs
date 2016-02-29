@@ -146,11 +146,23 @@ public class UISelectRole : UIBase {
             foreach (KeyValuePair<string, TFriend> item in players.ToList()) {
                 if (item.Value.FightCount > 0 && item.Value.Identifier != GameData.Team.Identifier) {
                     if (item.Value.Kind == EFriendKind.Advice || item.Value.Kind == EFriendKind.Friend) {
-                        TFriend friend = item.Value;
-                        friend.Player.Identifier = item.Value.Identifier;
-                        friend.Player.FriendKind = item.Value.Kind;
-                        friend.Player.FightCount = item.Value.FightCount;
-                        playerList.Add(friend.Player);
+                        bool flag = true;
+                        if (stageData.IDKind == TStageData.EKind.PVP) {
+                            for (int i = 0; i < GameData.PVPEnemyMembers.Length; i++)
+                                if (item.Value.Identifier == GameData.PVPEnemyMembers[i].Identifier) {
+                                    flag = false;
+                                    break;
+                                }
+
+                        }
+                            
+                        if (flag) {
+                            TFriend friend = item.Value;
+                            friend.Player.Identifier = item.Value.Identifier;
+                            friend.Player.FriendKind = item.Value.Kind;
+                            friend.Player.FightCount = item.Value.FightCount;
+                            playerList.Add(friend.Player);
+                        }
                     }
                 }
             }
@@ -262,6 +274,12 @@ public class UISelectRole : UIBase {
 	}
 
     private void initEnemy() {
+        if (stageData.IDKind == TStageData.EKind.PVP) {
+            int num = Mathf.Min(GameData.EnemyMembers.Length, GameData.PVPEnemyMembers.Length);
+            for (int i = 0; i < num; i ++) {
+                GameData.EnemyMembers[i] = GameData.PVPEnemyMembers[i];
+            }
+        } else
         if (stageData.FriendKind == 1) {
             int count = 0;
             foreach (KeyValuePair<string, TFriend> item in GameData.Team.Friends) {

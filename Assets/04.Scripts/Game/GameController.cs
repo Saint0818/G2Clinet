@@ -974,6 +974,17 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[0].AniState(EPlayerState.Idle);
     }
 
+    private void waitPVPEnd(bool ok, WWW www)
+    {
+        if (ok) {
+            TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
+            GameData.Team.PVPLv = reslut.PVPLv;
+            GameData.Team.PVPIntegral = reslut.PVPIntegral;
+            GameData.Team.PVPCoin = reslut.PVPCoin;
+            GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+        }
+    }
+
 	public void SetGameRecord() {
         GameRecord.Identifier = GameData.Team.Identifier;
 		GameRecord.Version = BundleVersion.Version;
@@ -1492,6 +1503,13 @@ public class GameController : KnightSingleton<GameController>
 				SetPlayerAI(false);
 				IsFinish = true;
 				UIGame.Get.GameOver();
+                if (GameData.IsPVP) {
+                    WWWForm form = new WWWForm();
+                    form.AddField("Score1", UIGame.Get.Scores [0]);
+                    form.AddField("Score2", UIGame.Get.Scores [1]);
+                    SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
+                    GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+                }
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }

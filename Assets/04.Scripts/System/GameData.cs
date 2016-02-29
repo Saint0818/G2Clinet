@@ -70,6 +70,7 @@ public static class GameData
     public const int Max_GamePlayer = 3;
     public static TTeam[] TeamMembers = new TTeam[Max_GamePlayer];
 	public static TTeam[] EnemyMembers = new TTeam[Max_GamePlayer];
+    public static TTeam[] PVPEnemyMembers = new TTeam[Max_GamePlayer];
     public static TGameSetting Setting;
 
     public static List<TSocialEvent> SocialEvents = new List<TSocialEvent>();
