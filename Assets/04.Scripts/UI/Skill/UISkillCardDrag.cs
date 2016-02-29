@@ -129,9 +129,9 @@ public class UISkillCardDrag : UIDragDropItem {
 	private int getPositionIndex (float x, float y) {
 		if(x > 0) {
 			if(y > 0 && (UISkillFormation.Get.IsCardActive || isDragItem)) {
-				if(y >= 0.1f && y<0.3f)
+				if(y >= -0.1f && y< 0.2f)
 					return 2;
-				else if(y >= 0.3f && y<0.5f)
+				else if(y >= 0.2f && y<0.5f)
 					return 1;
 				else if(y >= 0.5f && y<=0.65f)
 					return 0;

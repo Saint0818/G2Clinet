@@ -991,7 +991,8 @@ public static class GameFunction
 		float decayRate = 0;
 		float wristRate = 0;
 		//1 動作影響的機率
-		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
+//		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
+		beginRate = originalRate + scoreRate + extraScoreRate;
 
 		if(distance >= 5) {
 			//  (5~10)命中衰減率 = [1-((D-4)*0.06)]   
@@ -1004,7 +1005,10 @@ public static class GameFunction
 			wristRate = (1 - decayRate) * player.Attr.PointRate3 * 0.01f;
 		}
 
-		return Mathf.Max(2, beginRate * (decayRate + wristRate));
+		if(decayRate == 0) 
+			return Mathf.Max(2, beginRate);
+		else
+			return Mathf.Max(2, beginRate * (decayRate + wristRate));
 	}
 
     public static int GetPotentialRule(int bodytype, int index)
