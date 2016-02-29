@@ -682,7 +682,7 @@ public static class GameFunction
 		case EPlayerAttributeRate.ElbowExtraAngle:
 			return value * 0.5f;
 		case EPlayerAttributeRate.SpeedValue:
-			return value * 0.002f;
+			return value * 0.003f;
 		case EPlayerAttributeRate.StaminaValue:
 			return value * 1f;
 		case EPlayerAttributeRate.PushingRate:

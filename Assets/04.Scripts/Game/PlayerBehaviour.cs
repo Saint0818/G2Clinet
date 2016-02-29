@@ -245,7 +245,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (SlowDownTime == 0)
         {
             SlowDownTime += Time.time + Value;
-            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue * GameConst.SlowDownValue;
+//            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue * GameConst.SlowDownValue;
         }
     }
 
@@ -325,37 +325,37 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogErrorFormat("initialize attributes fail, BaseAttr:{0}, AILevel:{1}.", GameData.BaseAttr.Length, Attribute.AILevel);
             return;
         }
-        Attr.PointRate2 = GameData.BaseAttr[Attribute.AILevel].PointRate2 + GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, Attribute.Point2);
-        Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, Attribute.Point3);
-        Attr.StealRate = GameData.BaseAttr[Attribute.AILevel].StealRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, Attribute.Steal);
-        Attr.DunkRate = GameData.BaseAttr[Attribute.AILevel].DunkRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.DunkRate, Attribute.Dunk);
-        Attr.TipInRate = GameData.BaseAttr[Attribute.AILevel].TipInRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, Attribute.Dunk);
-        Attr.AlleyOopRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, Attribute.Dunk);
-        Attr.StrengthRate = GameData.BaseAttr[Attribute.AILevel].StrengthRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StrengthRate, Attribute.Strength);
-        Attr.BlockPushRate = GameData.BaseAttr[Attribute.AILevel].BlockPushRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, Attribute.Strength);
-        Attr.ElbowingRate = GameData.BaseAttr[Attribute.AILevel].ElbowingRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, Attribute.Strength);
-        Attr.ReboundRate = GameData.BaseAttr[Attribute.AILevel].ReboundRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, Attribute.Rebound);
-        Attr.BlockRate = GameData.BaseAttr[Attribute.AILevel].BlockRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, Attribute.Block);
-        Attr.FaketBlockRate = GameData.BaseAttr[Attribute.AILevel].FaketBlockRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, Attribute.Block);
-        Attr.JumpBallRate = GameData.BaseAttr[Attribute.AILevel].JumpBallRate;
-        Attr.PushingRate = GameData.BaseAttr[Attribute.AILevel].PushingRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, Attribute.Defence);
-        Attr.PassRate = GameData.BaseAttr[Attribute.AILevel].PassRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, Attribute.Pass);
-        Attr.AlleyOopPassRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate + GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, Attribute.Pass);
-        Attr.ReboundHeadDistance = GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, Attribute.Rebound);
-        Attr.ReboundHandDistance = GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, Attribute.Rebound);
-        Attr.BlockDistance = GameData.BaseAttr[Attribute.AILevel].BlockDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, Attribute.Block);
-        Attr.DefDistance = GameData.BaseAttr[Attribute.AILevel].DefDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, Attribute.Defence);
-        Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, Attribute.Speed);
-        Attr.StaminaValue = GameData.BaseAttr[Attribute.AILevel].StaminaValue + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, Attribute.Stamina);
+		Attr.PointRate2 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (Attribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2));
+		Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, (Attribute.Point3 + GameData.BaseAttr[Attribute.AILevel].PointRate3));
+		Attr.StealRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, (Attribute.Steal + GameData.BaseAttr[Attribute.AILevel].StealRate));
+		Attr.DunkRate =   GameFunction.GetAttributeFormula(EPlayerAttributeRate.DunkRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].DunkRate));
+		Attr.TipInRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].TipInRate));
+		Attr.AlleyOopRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].AlleyOopRate));
+		Attr.StrengthRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StrengthRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].StrengthRate));
+		Attr.BlockPushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].BlockPushRate));
+		Attr.ElbowingRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].ElbowingRate));
+		Attr.ReboundRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundRate));
+		Attr.BlockRate =    GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockRate));
+		Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
+//        Attr.JumpBallRate = GameData.BaseAttr[Attribute.AILevel].JumpBallRate;//沒用到（已有技能）
+		Attr.PushingRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
+		Attr.PassRate =     GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
+		Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
+		Attr.ReboundHeadDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance));
+		Attr.ReboundHandDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
+		Attr.BlockDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance));
+		Attr.DefDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
+		Attr.SpeedValue =  GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
+		Attr.StaminaValue = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, (Attribute.Stamina + GameData.BaseAttr[Attribute.AILevel].StaminaValue));
 
-        Attr.StealDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealDistance, Attribute.Steal);
-        Attr.StealExtraAngle = GameConst.StealFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealExtraAngle, Attribute.Steal);
-        Attr.PushDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushDistance, Attribute.Defence);
-        Attr.PushExtraAngle = GameConst.PushFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushExtraAngle, Attribute.Defence);
-        Attr.ElbowDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowDistance, Attribute.Strength);
-        Attr.ElbowExtraAngle = GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
+        Attr.StealDistance = 	GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealDistance, Attribute.Steal);
+        Attr.StealExtraAngle =  GameConst.StealFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealExtraAngle, Attribute.Steal);
+        Attr.PushDistance = 	GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushDistance, Attribute.Defence);
+        Attr.PushExtraAngle = 	GameConst.PushFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushExtraAngle, Attribute.Defence);
+        Attr.ElbowDistance = 	GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowDistance, Attribute.Strength);
+        Attr.ElbowExtraAngle =  GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
 		
-        Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
+        Attr.AutoFollowTime =  GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
@@ -579,7 +579,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (SlowDownTime > 0 && Time.time >= SlowDownTime)
         {
             SlowDownTime = 0;
-            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
+//            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
         }
 
 //        if(aiTime == 0)

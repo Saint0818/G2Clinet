@@ -78,6 +78,8 @@
 	public const float PushFanAngle = 30;
 	public const float ElbowFanAngle = 180;
 
+	public const float SpeedValueMin = 0.8f;
+
 	public const float BlockDistance = 5;
 
     public const int FakeShootRate = 40; // 做假動作的機率.
