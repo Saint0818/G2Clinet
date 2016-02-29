@@ -24,9 +24,10 @@ namespace AI
             float shootPointDis = MathUtils.Find2DDis(Player.transform.position,
                                        CourtMgr.Get.ShootPoint[Player.Team.GetHashCode()].transform.position);
 
-            var hasDefPlayer = PlayerAI.HasDefPlayer(GameConst.ThreatDistance, GameConst.ThreatAngle);
+//            var hasDefPlayer = PlayerAI.HasDefPlayer(GameConst.ThreatDistance, GameConst.ThreatAngle);
             return isAnimationValid() &&
-                shootPointDis <= GameConst.Point3Distance + 1 && !hasDefPlayer;
+//                shootPointDis <= GameConst.Point3Distance + 1 && !hasDefPlayer;
+                shootPointDis <= GameConst.Point3Distance + 1;
         }
 
         private bool isAnimationValid()
