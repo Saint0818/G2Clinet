@@ -37,8 +37,8 @@
     },
     {
         "id": 208,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？",
-        "en": "CONFIRM PURCHASE [33FFDD]{0}[-] NUMBER OF DIAMONDS PURCHASED [33FFDD]{1}[-]？"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [00ff00]{1}[-] ？",
+        "en": "CONFIRM PURCHASE [FF00FFFF]{0}[-] NUMBER OF DIAMONDS PURCHASED [00ff00]{1}[-]？"
     },
     {
         "id": 209,
@@ -90,8 +90,8 @@
     {
         "id": 234,
         "explain": "重置關卡次數",
-        "tw": "確認花費 [33FFDD]{0}[-] 寶石重置本關卡？",
-        "en": "CONFIRM PURCHASE [33FFDD] {0} [-] RESET THIS LEVEL WITH GEMS?"
+        "tw": "確認花費 [FF00FFFF]{0}[-] 寶石重置本關卡？",
+        "en": "CONFIRM PURCHASE [FF00FFFF] {0} [-] RESET THIS LEVEL WITH GEMS?"
     },
     {
         "id": 235,
@@ -115,13 +115,13 @@
         "id": 238,
         "explain": "鑽石不足/內文",
         "tw": "你的[FF00FFFF]寶 石[-]不夠囉，是否前往購買？",
-        "en": "[00FFFFFF] GEMS [-] ARE NOT ENOUGH, PURCHASE MORE?"
+        "en": "[FF00FFFF] GEMS [-] ARE NOT ENOUGH, PURCHASE MORE?"
     },
     {
         "id": 239,
         "explain": "金幣不足/內文",
         "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？",
-        "en": "[FFFF00FF] GOLD COINS [-] ARE NOT ENOUGH, PURCHASE MORE?"
+        "en": "[FFCC00FF] GOLD COINS [-] ARE NOT ENOUGH, PURCHASE MORE?"
     },
     {
         "id": 240,
@@ -133,7 +133,7 @@
         "id": 241,
         "explain": "其他貨幣不足/內文",
         "tw": "你的[33FFDD] {0} [-]不夠囉，是否前往購買？",
-        "en": "[33FFFF] {0} [-] IS NOT ENOUGH, PURCHASE MORE?"
+        "en": "[00ff00] {0} [-] IS NOT ENOUGH, PURCHASE MORE?"
     },
     {
         "id": 242,
@@ -179,22 +179,22 @@
     {
         "id": 250,
         "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [33FFDD]{1}[-] ？",
-        "en": "CONFIRM TO SPEND [00FFFFFF] {0} [-] GEMS TO PURCHASE [33FFDD] {1} [-]?"
+        "en": "CONFIRM TO SPEND [FF00FFFF] {0} [-] GEMS TO PURCHASE [00ff00] {1} [-]?"
     },
     {
         "id": 251,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣購買 [33FFDD]{1}[-] ？",
-        "en": "CONFIRM TO SPEND [00FFFFFF] {0} [-] GOLD COINS TO PURCHASE [33FFDD] {1} [-] ?"
+        "tw": "確認花費 [FFCC00FF]{0}[-] 金幣購買 [33FFDD]{1}[-] ？",
+        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLD COINS TO PURCHASE [00ff00] {1} [-] ?"
     },
     {
         "id": 252,
         "tw": "確認花費 [FF00FFFF]{0}[-] 寶石抽取晶片？",
-        "en": "CONFIRM TO SPEND [00FFFFFF] {0} [-] GEMS TO BUY A SKILL CARD?"
+        "en": "CONFIRM TO SPEND [FF00FFFF] {0} [-] GEMS TO BUY A SKILL CARD?"
     },
     {
         "id": 253,
         "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？",
-        "en": "CONFIRM TO SPEND [00FFFFFF] {0} [-] GOLD TO BUY A SKILL CARD?"
+        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLD TO BUY A SKILL CARD?"
     },
     {
         "id": 254,
@@ -282,8 +282,8 @@
     },
     {
         "id": 311,
-        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？？",
-        "en": "Inadequate skills wafer storage space, make sure to spend [FF00FF] 15 [-] Gem later [33FFDD] die space X1 [-] ??"
+        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [00ff00]晶片空間X1[-] ？？",
+        "en": "Inadequate skills wafer storage space, make sure to spend [FF00FFFF] 15 [-] Gem later [00ff00] die space X1 [-] ??"
     },
     {
         "id": 400,
@@ -377,7 +377,7 @@
         "id": 458,
         "explain": "解鎖PVP",
         "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
-        "en": "Successfully unlocked [VDD33] Battle League [-] function"
+        "en": "Successfully unlocked [FFDD33] Battle League [-] function"
     },
     {
         "id": 459,
@@ -389,7 +389,7 @@
         "id": 461,
         "explain": "解鎖數值裝合成任務",
         "tw": "成功解鎖[FFDD33]新每日任務[-]",
-        "en": "Successfully unlocked [FD33] new mission [-]"
+        "en": "Successfully unlocked [FFDD33] new mission [-]"
     },
     {
         "id": 501,
@@ -455,7 +455,7 @@
         "id": 513,
         "explain": "第三個角色欄位",
         "tw": "購買角色欄位需花費 [FF00FFFF]{0}[-] 寶石。",
-        "en": "Later takes the role of field [FF00FF] {0} [-] stones."
+        "en": "Later takes the role of field [FF00FFFF] {0} [-] Gems."
     },
     {
         "id": 531,
@@ -904,7 +904,9 @@
     },
     {
         "id": 3020,
-        "tw": "數 據"
+        "tw": "數 據",
+        "en": "STATS",
+        "jp": "STATS"
     },
     {
         "id": 3021,
@@ -1358,7 +1360,7 @@
     {
         "id": 3713,
         "tw": "社群",
-        "en": "SOCIAL NETWORKS"
+        "en": "SOCIAL LINKS"
     },
     {
         "id": 3714,
@@ -1815,7 +1817,7 @@
         "id": 4509,
         "uipeth": "ItemShopBtn/SoldOutIcon",
         "tw": "售 完",
-        "en": "SOLD OUT"
+        "en": "SOLD\nOUT"
     },
     {
         "id": 4510,
@@ -2047,7 +2049,7 @@
         "id": 5007,
         "uipeth": "搜尋好友",
         "tw": "請輸入玩家名稱",
-        "en": "PLEASE ENTER THE NAME OF THE PLAYER"
+        "en": "ENTER PLAYER'S NAME"
     },
     {
         "id": 5008,
@@ -2290,7 +2292,7 @@
         "id": 6009,
         "uipeth": "PartSlot",
         "tw": "未裝備",
-        "en": "NOT EQUIPPED YET"
+        "en": "NOT EQUIPPED"
     },
     {
         "id": 6010,
@@ -2377,13 +2379,13 @@
         "id": 7002,
         "uipeth": "ActiveCheck/ActiveLabel",
         "tw": "主動技",
-        "en": "[FF0000]ABILITY[-]"
+        "en": "[FF0000]ACTIVE[-]"
     },
     {
         "id": 7003,
         "uipeth": "PassiveCheck/PassiveLabel",
         "tw": "被動技",
-        "en": "[23A3A3FF]PASSIVE ABILITY[-]"
+        "en": "[23A3A3FF]PASSIVE[-]"
     },
     {
         "id": 7004,
@@ -2430,7 +2432,7 @@
     {
         "id": 7010,
         "tw": "插槽數",
-        "en": "Socket"
+        "en": "SOCKET"
     },
     {
         "id": 7011,
@@ -2885,7 +2887,7 @@
         "id": 7704,
         "explain": "啟動按鈕 未收集完成",
         "tw": "尚未完成",
-        "en": "Not completed"
+        "en": "UNAVAILABLE"
     },
     {
         "id": 7705,
@@ -2933,8 +2935,8 @@
     {
         "id": 8004,
         "uipeth": "GetModeLabel",
-        "tw": "已取得{0}潛能點",
-        "en": "RECEIVED {0} ATTRIBUTION POINTS"
+        "tw": "已取得[00E1FFFF]{0}[-]潛能點",
+        "en": "RECEIVED [00E1FFFF]{0}[-] ATTRIBUTION POINTS"
     },
     {
         "id": 8005,
@@ -3154,8 +3156,8 @@
     {
         "id": 9304,
         "uipeth": "Awards/AwardLabel",
-        "tw": "有機率獲得",
-        "en": "CHANCE TO RECEIVE"
+        "tw": "— 有機率獲得 —",
+        "en": "— CHANCE TO RECEIVE —"
     },
     {
         "id": 9305,
@@ -3193,7 +3195,7 @@
         "id": 9310,
         "uipeth": "AwardLabel1",
         "tw": " [FFDD33]必定獲得[-]",
-        "en": "[FFFD 33] MUST GET [-]"
+        "en": "[FFFD33] MUST GET [-]"
     },
     {
         "id": 9311,
@@ -3212,7 +3214,7 @@
         "id": 9313,
         "uipeth": "AwardLabel2",
         "tw": "過關獎勵",
-        "en": "REWARD CLEARANCE"
+        "en": "REWARD"
     },
     {
         "id": 9391,
@@ -3247,13 +3249,13 @@
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
-        "en": "SELECT FRIENDS"
+        "en": "SELECT TEAMMATE"
     },
     {
         "id": 9502,
         "uipeth": 0,
-        "tw": "其他玩家",
-        "en": "OTHER PLAYERS"
+        "tw": "推薦玩家",
+        "en": "SUGGEDTED"
     },
     {
         "id": 9503,
@@ -3310,13 +3312,13 @@
         "id": 9512,
         "explain": "與你搭擋的另一個玩家A",
         "tw": "隊友A",
-        "en": "FIRST TEAMMATE"
+        "en": "1st TEAMMATE"
     },
     {
         "id": 9513,
         "explain": "與你搭擋的另一個玩家B",
         "tw": "隊友B",
-        "en": "SECOND TEAMMATE"
+        "en": "2nd TEAMMATE"
     },
     {
         "id": 9514,
@@ -3515,6 +3517,24 @@
         "explain": "次數分子不等於0且在冷卻中",
         "tw": "挑戰次數冷卻中，是否使用 [FF00FFFF]{0}寶石[-] 消除冷卻時間？",
         "en": "Challenges cooling times, whether [FF00FFFF] {0} gem [-] to eliminate the cooling time?"
+    },
+    {
+        "id": 9733,
+        "uipeth": "ItemRankGroup",
+        "tw": "勝 率",
+        "en": "Winning"
+    },
+    {
+        "id": 9734,
+        "uipeth": "ItemRankGroup",
+        "tw": "勝場數",
+        "en": "Wins"
+    },
+    {
+        "id": 9735,
+        "uipeth": "ItemRankGroup",
+        "tw": "積 分",
+        "en": "Score"
     },
     {
         "id": 9741,
@@ -4306,7 +4326,7 @@
         "id": 12020,
         "uipeth": "SubheadLabel0",
         "tw": "設定語言",
-        "en": "LANGUAGE SETTINGS"
+        "en": "LANGUAGES"
     },
     {
         "id": 12021,
