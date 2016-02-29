@@ -163,6 +163,26 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 8
@@ -211,6 +231,36 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7012,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 1011,
@@ -239,6 +289,15 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 1014,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 1110,
@@ -260,6 +319,24 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 1112,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 1113,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 1114,
         "num": 1,
         "rate": 10
     },
@@ -323,6 +400,15 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 2014,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 2110,
@@ -344,6 +430,51 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 2112,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 2113,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 2114,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 1213,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 1214,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 1215,
         "num": 1,
         "rate": 10
     },
@@ -379,6 +510,33 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 2213,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 2214,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 2215,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 3011,
@@ -400,6 +558,15 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 3013,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 3014,
         "num": 1,
         "rate": 10
     },
@@ -435,6 +602,24 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 3113,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 3114,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 3210,
@@ -456,6 +641,33 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 3212,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 3213,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 3214,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 3215,
         "num": 1,
         "rate": 10
     },
@@ -491,6 +703,15 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 4014,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 4110,
@@ -512,6 +733,24 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 4112,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 4113,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 4114,
         "num": 1,
         "rate": 10
     },
@@ -547,6 +786,33 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 4213,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 4214,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 4215,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 5011,
@@ -568,6 +834,15 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 5013,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 5014,
         "num": 1,
         "rate": 10
     },
@@ -603,6 +878,24 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "itemid": 5113,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 5114,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 5210,
@@ -624,6 +917,33 @@
         "spendkind": 0,
         "price": 750,
         "itemid": 5212,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 5213,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 5214,
+        "num": 1,
+        "rate": 10
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "itemid": 5215,
         "num": 1,
         "rate": 10
     },
@@ -703,6 +1023,26 @@
         "spendkind": 1,
         "price": 112500,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 4
@@ -751,6 +1091,36 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 1,
+        "price": 112500,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "sale": 2,
+        "itemid": 7012,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
         "price": 52500,
         "sale": 1,
         "itemid": 1011,
@@ -772,6 +1142,15 @@
         "spendkind": 1,
         "price": 112500,
         "itemid": 1013,
+        "num": 1,
+        "rate": 5
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "itemid": 1014,
         "num": 1,
         "rate": 5
     },
@@ -863,6 +1242,15 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 1,
+        "price": 112500,
+        "itemid": 2014,
+        "num": 1,
+        "rate": 5
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
         "price": 52500,
         "sale": 1,
         "itemid": 2110,
@@ -940,6 +1328,15 @@
         "spendkind": 1,
         "price": 112500,
         "itemid": 3013,
+        "num": 1,
+        "rate": 5
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "itemid": 3014,
         "num": 1,
         "rate": 5
     },
@@ -1031,6 +1428,15 @@
         "kind": 10,
         "kind2": 1,
         "spendkind": 1,
+        "price": 112500,
+        "itemid": 4014,
+        "num": 1,
+        "rate": 5
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
         "price": 52500,
         "sale": 1,
         "itemid": 4110,
@@ -1108,6 +1514,15 @@
         "spendkind": 1,
         "price": 112500,
         "itemid": 5013,
+        "num": 1,
+        "rate": 5
+    },
+    {
+        "kind": 10,
+        "kind2": 1,
+        "spendkind": 1,
+        "price": 112500,
+        "itemid": 5014,
         "num": 1,
         "rate": 5
     },
@@ -9686,6 +10101,26 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 8
@@ -9727,6 +10162,36 @@
         "price": 750,
         "sale": 2,
         "itemid": 7009,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7012,
         "num": 1,
         "rate": 8
     },
@@ -10226,6 +10691,26 @@
         "spendkind": 2,
         "price": 5630,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 2,
+        "price": 5630,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 2,
+        "price": 5630,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 4
@@ -10274,11 +10759,41 @@
         "kind": 11,
         "kind2": 1,
         "spendkind": 2,
+        "price": 5630,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 2,
+        "price": 5630,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 2,
+        "price": 5630,
+        "sale": 2,
+        "itemid": 7012,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 11,
+        "kind2": 1,
+        "spendkind": 2,
         "price": 2630,
         "sale": 1,
         "itemid": 1011,
         "num": 1,
-        "rate": 5
+        "rate": 4
     },
     {
         "kind": 11,
@@ -19209,6 +19724,26 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 8
@@ -19257,11 +19792,41 @@
         "kind": 12,
         "kind2": 1,
         "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 0,
+        "price": 750,
+        "sale": 2,
+        "itemid": 7012,
+        "num": 1,
+        "rate": 8
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 0,
         "price": 350,
         "sale": 1,
         "itemid": 1011,
         "num": 1,
-        "rate": 10
+        "rate": 8
     },
     {
         "kind": 12,
@@ -19749,6 +20314,26 @@
         "spendkind": 3,
         "price": 1130,
         "sale": 2,
+        "itemid": 6010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 3,
+        "price": 1130,
+        "sale": 2,
+        "itemid": 6011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 3,
+        "price": 1130,
+        "sale": 2,
         "itemid": 7004,
         "num": 1,
         "rate": 4
@@ -19797,11 +20382,41 @@
         "kind": 12,
         "kind2": 1,
         "spendkind": 3,
+        "price": 1130,
+        "sale": 2,
+        "itemid": 7010,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 3,
+        "price": 1130,
+        "sale": 2,
+        "itemid": 7011,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 3,
+        "price": 1130,
+        "sale": 2,
+        "itemid": 7012,
+        "num": 1,
+        "rate": 4
+    },
+    {
+        "kind": 12,
+        "kind2": 1,
+        "spendkind": 3,
         "price": 530,
         "sale": 1,
         "itemid": 1011,
         "num": 1,
-        "rate": 5
+        "rate": 4
     },
     {
         "kind": 12,
@@ -19810,7 +20425,7 @@
         "price": 1130,
         "itemid": 1012,
         "num": 1,
-        "rate": 5
+        "rate": 4
     },
     {
         "kind": 12,

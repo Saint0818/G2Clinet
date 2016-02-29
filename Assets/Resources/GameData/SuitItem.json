@@ -145,6 +145,46 @@
     },
     {
         "id": 5,
+        "suitnametw": "龐克紳士套裝",
+        "card1": 1221,
+        "cardname1": "胯下跑傳 II",
+        "card2": 1222,
+        "cardname2": "胯下跑傳 III",
+        "card3": 1223,
+        "cardname3": "胯下跑傳 IV",
+        "card4": 1224,
+        "cardname4": "胯下跑傳 V",
+        "item1": 1014,
+        "name1": "龐克紳士尾辮",
+        "item2": 3014,
+        "name2": "龐克紳士背心",
+        "item3": 2014,
+        "name3": "龐克紳士腕輪",
+        "item4": 4014,
+        "name4": "龐克紳士護腿",
+        "item5": 5014,
+        "name5": "龐克紳士筒靴",
+        "item6": 6011,
+        "name6": "龐克半遮盔",
+        "item7": 7012,
+        "name7": "龐克雙電筒",
+        "number": 7,
+        "attrkind1": 8,
+        "value1": 2,
+        "attrkind2": 8,
+        "value2": 3,
+        "attrkind3": 8,
+        "value3": 5,
+        "attrkind4": 20,
+        "value4": 5,
+        "attrkind5": 20,
+        "value5": 5,
+        "attrkind6": 20,
+        "value6": 5,
+        "suitnameen": "Punk gentleman suit"
+    },
+    {
+        "id": 6,
         "suitnametw": "生化鎧甲套裝",
         "position": 1,
         "item1": 1110,
@@ -173,7 +213,7 @@
         "suitnameen": "Biochemical armor suit"
     },
     {
-        "id": 6,
+        "id": 7,
         "suitnametw": "搖滾巨星套裝",
         "position": 1,
         "card1": 30401,
@@ -214,7 +254,7 @@
         "suitnameen": "Rock star suits"
     },
     {
-        "id": 7,
+        "id": 8,
         "suitnametw": "科技導流套裝",
         "position": 1,
         "item1": 1112,
@@ -239,7 +279,7 @@
         "suitnameen": "SCIENCE diversion Set"
     },
     {
-        "id": 8,
+        "id": 9,
         "suitnametw": "冰霜鬥士套裝",
         "position": 1,
         "card1": 31711,
@@ -276,7 +316,7 @@
         "suitnameen": "Frost Fighter Set"
     },
     {
-        "id": 9,
+        "id": 10,
         "suitnametw": "極道帥哥套裝",
         "position": 1,
         "card1": 20641,
@@ -309,7 +349,7 @@
         "suitnameen": "Zodiac handsome suit"
     },
     {
-        "id": 10,
+        "id": 11,
         "suitnametw": "調酒師套裝",
         "position": 2,
         "item1": 1210,
@@ -334,7 +374,7 @@
         "suitnameen": "Bartender Kit"
     },
     {
-        "id": 11,
+        "id": 12,
         "suitnametw": "嘻哈比基尼套裝",
         "position": 2,
         "card1": 33001,
@@ -375,7 +415,7 @@
         "suitnameen": "Hip-Hop Bikini Set"
     },
     {
-        "id": 12,
+        "id": 13,
         "suitnametw": "敏捷少女套裝",
         "position": 2,
         "card1": 31501,
@@ -410,7 +450,7 @@
         "suitnameen": "Agile Girl Set"
     },
     {
-        "id": 13,
+        "id": 14,
         "suitnametw": "極道少女套裝",
         "position": 2,
         "card1": 20651,
@@ -447,7 +487,7 @@
         "suitnameen": "Zodiac Girl Set"
     },
     {
-        "id": 14,
+        "id": 15,
         "suitnametw": "寒冰女皇套裝",
         "position": 2,
         "card1": 31611,
@@ -480,5 +520,46 @@
         "attrkind5": 20,
         "value5": 5,
         "suitnameen": "Ice Queen Set"
+    },
+    {
+        "id": 16,
+        "suitnametw": "紫喵感應套裝",
+        "position": 2,
+        "card1": 1211,
+        "cardname1": "正面跑傳 II",
+        "card2": 1212,
+        "cardname2": "正面跑傳 III",
+        "card3": 1213,
+        "cardname3": "正面跑傳 IV",
+        "card4": 1214,
+        "cardname4": "正面跑傳 V",
+        "item1": 1215,
+        "name1": "紫喵感應短髮",
+        "item2": 3215,
+        "name2": "紫喵感應背心",
+        "item3": 2215,
+        "name3": "紫喵感應袖套",
+        "item4": 4215,
+        "name4": "紫喵感應熱褲",
+        "item5": 5215,
+        "name5": "紫喵感應短靴",
+        "item6": 6010,
+        "name6": "喵感應眼鏡",
+        "item7": 7011,
+        "name7": "喵感應推進器",
+        "number": 5,
+        "attrkind1": 4,
+        "value1": 2,
+        "attrkind2": 4,
+        "value2": 3,
+        "attrkind3": 4,
+        "value3": 5,
+        "attrkind4": 20,
+        "value4": 5,
+        "attrkind5": 20,
+        "value5": 5,
+        "attrkind6": 20,
+        "value6": 5,
+        "suitnameen": "Kitty Suits"
     }
 ]
