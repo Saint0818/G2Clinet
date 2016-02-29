@@ -174,6 +174,7 @@ public class AnimatorBehavior : MonoBehaviour
             case EAnimatorState.Rebound:    
             case EAnimatorState.JumpBall:
             case EAnimatorState.TipIn:
+            case EAnimatorState.MoveDodge:
                 ClearAnimatorFlag();
                 Controler.SetTrigger(string.Format("{0}Trigger", state.ToString()));
                 break;
@@ -200,7 +201,6 @@ public class AnimatorBehavior : MonoBehaviour
             case EAnimatorState.Run:
                 ClearAnimatorFlag(EActionFlag.IsRun);
                 break;
-            case EAnimatorState.MoveDodge:
             case EAnimatorState.Show:
                 Controler.SetInteger("StateNo", stateNo);
                 Controler.SetTrigger(string.Format("{0}Trigger", state.ToString()));

@@ -957,6 +957,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJoystickMoveEnd()
     {
+        if (timeScale > 0 && (CanMove || HoldBallCanMove))
+        {
         EPlayerState ps;
 
         if (IsBallOwner)
@@ -992,6 +994,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         isMoving = false;
+        }
     }
 
     private bool GetMoveTarget(ref TMoveData data, out Vector2 result)
@@ -1129,7 +1132,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             // 進攻移動.                 
             RotateTo(MoveTarget.x, MoveTarget.y); 
-            TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+			MoveTargetPos( new Vector3(MoveTarget.x, 0, MoveTarget.y));
             isMoving = true;
 
             if (IsBallOwner)
@@ -1218,12 +1221,12 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
                 {
-                    TestGameObject.transform.position = new Vector3(data.LookTarget.position.x, 0, data.LookTarget.position.z);
+					MoveTargetPos( new Vector3(data.LookTarget.position.x, 0, data.LookTarget.position.z));
                     RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                 }
                 else
                 {
-                    TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+					MoveTargetPos( new Vector3(MoveTarget.x, 0, MoveTarget.y));
                     RotateTo(MoveTarget.x, MoveTarget.y);
                 }
 
@@ -1234,7 +1237,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+				MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
                 RotateTo(MoveTarget.x, MoveTarget.y);
                 AniState(EPlayerState.Run0);
             }
@@ -1248,7 +1251,7 @@ public class PlayerBehaviour : MonoBehaviour
                     Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * timeScale);
                 isSpeedup = true;
 
-                TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+				MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
             }
             else
             {
@@ -1256,10 +1259,16 @@ public class PlayerBehaviour : MonoBehaviour
                     new Vector3(MoveTarget.x, 0, MoveTarget.y), 
                     Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * timeScale);
                 isSpeedup = false;
-                TestGameObject.transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+				MoveTargetPos (new Vector3 (MoveTarget.x, 0, MoveTarget.y));
             }
         }
     }
+
+	private void MoveTargetPos(Vector3 pos)
+	{
+		Debug.LogError (gameObject.name + ".MoveTargetPos : " + pos);
+		TestGameObject.transform.position = pos;
+	}
 
     private void moveTo(TMoveData data, bool first = false)
     {
@@ -2944,7 +2953,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void RemoveMoveData()
     {
         moveQueue.Clear(); 
-        TestGameObject.transform.position = gameObject.transform.position;
+		MoveTargetPos(gameObject.transform.position);
     }
 
     public void SetAutoFollowTime()
