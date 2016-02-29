@@ -205,7 +205,6 @@ public class UISelectRole : UIBase {
         playerObjects[roleIndex].transform.parent = playerInfoModel.transform;
         playerObjects[roleIndex].AddComponent<SelectEvent>();
         playerObjects[roleIndex].AddComponent<SpinWithMouse>();
-        UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
 
         if (temp) {
             playerObjects[roleIndex].transform.localPosition = temp.transform.localPosition;
@@ -219,9 +218,11 @@ public class UISelectRole : UIBase {
         LayerMgr.Get.SetLayer(obj, ELayer.Default);
         arrayAnimator[roleIndex] = playerObjects[roleIndex].GetComponent<Animator>();
 
-        labelCombatPower[roleIndex].text = string.Format("{0:f0}", player.CombatPower());
-        if (roleIndex > 0)
+        labelCombatPower[roleIndex].text = ((int)player.CombatPower()).ToString();
+        if (roleIndex > 0) {
+            UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
             labelPlayerName[roleIndex - 1].text = player.Name;
+        }
     }
 
     private void initTeammateList() {
