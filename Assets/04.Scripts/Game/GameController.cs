@@ -3405,17 +3405,17 @@ public class GameController : KnightSingleton<GameController>
 						{
 							if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
 								CourtMgr.Get.RealBallObj.transform.DOKill();
+
+							player.GameRecord.Intercept++;
+							ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+							if (Passer)
+								Passer.GameRecord.BeIntercept++;
 							
 							if(SetBall(player))
 							{
 								player.AniState(EPlayerState.HoldBall);
 								passingStealBallTime = Time.time + 2;
 							}
-
-							player.GameRecord.Intercept++;
-							ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-							if (Passer)
-								Passer.GameRecord.BeIntercept++;
 
 							IsPassing = false;
 						}
@@ -3427,16 +3427,17 @@ public class GameController : KnightSingleton<GameController>
 						if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
 							CourtMgr.Get.RealBallObj.transform.DOKill();
 						
+						if (Passer)
+							Passer.GameRecord.BeIntercept++;
+						
+						player.GameRecord.Intercept++;
+						ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+						
 						if(SetBall(player))
 						{
 //							player.AniState(EPlayerState.HoldBall);
 							passingStealBallTime = Time.time + 2;
 						}
-
-						player.GameRecord.Intercept++;
-						ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-						if (Passer)
-							Passer.GameRecord.BeIntercept++;
 
                         IsPassing = false;
 					}
