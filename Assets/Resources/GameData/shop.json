@@ -4529,7 +4529,7 @@
         "kind": 10,
         "kind2": 4,
         "spendkind": 0,
-        "price": 500,
+        "price": 50,
         "itemid": 93501,
         "num": 1,
         "rate": 10
@@ -14052,7 +14052,7 @@
         "kind": 11,
         "kind2": 4,
         "spendkind": 0,
-        "price": 500,
+        "price": 50,
         "itemid": 93501,
         "num": 1,
         "rate": 10
@@ -23575,7 +23575,7 @@
         "kind": 12,
         "kind2": 4,
         "spendkind": 0,
-        "price": 500,
+        "price": 50,
         "itemid": 93501,
         "num": 1,
         "rate": 10
