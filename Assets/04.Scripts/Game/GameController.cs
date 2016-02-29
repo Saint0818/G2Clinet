@@ -797,7 +797,7 @@ public class GameController : KnightSingleton<GameController>
                         PlayerList[1].transform.position = Vector3.zero;
                         SetBall(PlayerList [1]);
                         PlayerList [1].AniState(EPlayerState.Dribble0);
-                        PlayerList [1].AniState(EPlayerState.Dunk0);
+                        PlayerList [1].AniState(EPlayerState.Shoot0);
                     }
 					break;
 				default:
@@ -3511,7 +3511,7 @@ public class GameController : KnightSingleton<GameController>
 				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
 			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
-				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) {
+				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack || GameStart.Get.TestMode == EGameTest.Block) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
 						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
