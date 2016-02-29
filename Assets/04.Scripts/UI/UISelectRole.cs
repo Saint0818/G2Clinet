@@ -225,9 +225,14 @@ public class UISelectRole : UIBase {
     }
 
     private void initTeammateList() {
-		GameData.Team.PlayerInit();
-		playerData[0] = GameData.Team.Player;
-		playerData[0].RoleIndex = -1;
+        if (GameStart.Get.ConnectToServer) {
+        	GameData.Team.PlayerInit();
+        	playerData[0] = GameData.Team.Player;
+        	playerData[0].RoleIndex = -1;
+        } else {
+            playerData[0].SetID(21);
+            playerData[0].RoleIndex = -1;
+        }
 
 		int num = Mathf.Min(2, playerList.Count);
         for (int i = 0; i < num; i++) {
@@ -321,7 +326,7 @@ public class UISelectRole : UIBase {
 
 		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
-		if (stageData.IsOnlineFriend) {
+        if (GameStart.Get.ConnectToServer && stageData.IsOnlineFriend) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
 				SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)

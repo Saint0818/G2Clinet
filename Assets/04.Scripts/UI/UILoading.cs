@@ -453,7 +453,7 @@ public class UILoading : UIBase
 
     private void loadSelectRole()
     {
-        UISelectRole.Visible = true;
+        UISelectRole.Get.LoadStage(101);
         UIShow(false);
     }
 
