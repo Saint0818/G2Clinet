@@ -233,9 +233,9 @@ public class UIGamePause : UIBase {
 		SetLabel(UIName + "Center/GameResult/GameAttribute/3FG/LabelValue", fg3.ToString() + "%");
 		SetLabel(UIName + "Center/GameResult/GameAttribute/REB/LabelValue", player.Rebound.ToString());
 		SetLabel(UIName + "Center/GameResult/GameAttribute/AST/LabelValue", player.Assist.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/STL/LabelValue", player.Steal.ToString());
+		SetLabel(UIName + "Center/GameResult/GameAttribute/STL/LabelValue", (player.Steal + player.Intercept).ToString());
 		SetLabel(UIName + "Center/GameResult/GameAttribute/BLK/LabelValue", player.Block.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/TOV/LabelValue", player.BeIntercept.ToString());
+		SetLabel(UIName + "Center/GameResult/GameAttribute/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
 		SetLabel(UIName + "Center/GameResult/GameAttribute/PUSH/LabelValue", player.Push.ToString());
 		SetLabel(UIName + "Center/GameResult/GameAttribute/KNOCK/LabelValue", player.Knock.ToString());
 		

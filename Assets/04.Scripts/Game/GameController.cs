@@ -3413,6 +3413,7 @@ public class GameController : KnightSingleton<GameController>
 							}
 
 							player.GameRecord.Intercept++;
+							ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
 							if (Passer)
 								Passer.GameRecord.BeIntercept++;
 
@@ -3433,6 +3434,7 @@ public class GameController : KnightSingleton<GameController>
 						}
 
 						player.GameRecord.Intercept++;
+						ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
 						if (Passer)
 							Passer.GameRecord.BeIntercept++;
 
