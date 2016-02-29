@@ -408,8 +408,8 @@
     },
     {
         "id": 504,
-        "tw": "伺服器維護中，請稍後再嘗試登入。",
-        "en": "SERVER IS CURRENTLY UNDERGOING MAINTENANCE. PLEASE TRY AGAIN LATER."
+        "tw": "伺服器維護中，請稍後再嘗試登入。\n(V點擊確認鈕，重新嘗試登入)\n(X點擊離開鈕，查詢官方公告)",
+        "en": "SERVER IS CURRENTLY UNDERGOING MAINTENANCE. PLEASE TRY AGAIN LATER.\n(V TAP CONFIRM BUTTOM FOR TRY AGAIN LOGIN.)\n(X TAP EXIT BUTTON FOR CHECK THE OFFICIAL NOTICE.)"
     },
     {
         "id": 505,
@@ -582,7 +582,7 @@
     {
         "id": 602,
         "tw": "遊戲公告",
-        "en": "ANNOUNCEMENT"
+        "en": "NOTIC"
     },
     {
         "id": 603,
@@ -608,6 +608,11 @@
         "id": 607,
         "tw": "從App Store更新",
         "en": "PLEASE UPDATE FROM THE APP STORE"
+    },
+    {
+        "id": 608,
+        "tw": "下載",
+        "en": "DOWNLOAD"
     },
     {
         "id": 701,
@@ -3674,6 +3679,61 @@
         "tw": "LOADING",
         "en": "LOADING",
         "jp": "LOADING"
+    },
+    {
+        "id": 10107,
+        "explain": "按鈕",
+        "uipeth": "ViewAttack-Shoot",
+        "tw": "跳 投",
+        "en": "SHOOT"
+    },
+    {
+        "id": 10108,
+        "uipeth": "ViewAttack-PASS",
+        "tw": "PASS",
+        "en": "PASS"
+    },
+    {
+        "id": 10109,
+        "uipeth": "ViewAttack-YOU",
+        "tw": "YOU",
+        "en": "YOU"
+    },
+    {
+        "id": 10110,
+        "uipeth": "ViewAttack-A",
+        "tw": "A",
+        "en": "A"
+    },
+    {
+        "id": 10111,
+        "uipeth": "ViewAttack-B",
+        "tw": "B",
+        "en": "B"
+    },
+    {
+        "id": 10112,
+        "uipeth": "ViewDefance-Block",
+        "tw": "火 鍋",
+        "en": "BLOCK"
+    },
+    {
+        "id": 10113,
+        "uipeth": "ViewDefance-Steal",
+        "tw": "抄 截",
+        "en": "STEAL"
+    },
+    {
+        "id": 10114,
+        "uipeth": "ButtonAttack-Elbow",
+        "tw": "肘 擊",
+        "en": "ELBOW"
+    },
+    {
+        "id": 10115,
+        "uipeth": "ButtonAttack-Push",
+        "tw": "推 人",
+        "en": "PUSH"
     },
     {
         "id": 10201,
