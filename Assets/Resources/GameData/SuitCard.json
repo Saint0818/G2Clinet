@@ -10,7 +10,7 @@
         "name2": "外線結界 II",
         "item3": 31601,
         "name3": "投籃剋星 II",
-        "cardpower": 2,
+        "cardpower": 3,
         "attrkind1": 1,
         "attrkindexplain": "1.2分 2-Point（2PT）",
         "value1": 5
@@ -25,7 +25,7 @@
         "name2": "外線結界 III",
         "item3": 31602,
         "name3": "投籃剋星 III",
-        "cardpower": 3,
+        "cardpower": 4,
         "attrkind1": 1,
         "attrkindexplain": "1.2分 2-Point（2PT）",
         "value1": 10,
@@ -42,14 +42,12 @@
         "name2": "外線結界 IV",
         "item3": 31603,
         "name3": "投籃剋星 IV",
-        "cardpower": 4,
+        "cardpower": 5,
         "attrkind1": 1,
         "attrkindexplain": "1.2分 2-Point（2PT）",
         "value1": 15,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 5
+        "value2": -2
     },
     {
         "id": 4,
@@ -61,14 +59,12 @@
         "name2": "外線結界 V",
         "item3": 31604,
         "name3": "投籃剋星 V",
-        "cardpower": 5,
+        "cardpower": 6,
         "attrkind1": 1,
         "attrkindexplain": "1.2分 2-Point（2PT）",
         "value1": 20,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 10
+        "value2": -3
     },
     {
         "id": 5,
@@ -81,7 +77,7 @@
         "name2": "大地震波 II",
         "item3": 33001,
         "name3": "禁區陷阱 II",
-        "cardpower": 2,
+        "cardpower": 3,
         "attrkind1": 6,
         "attrkindexplain": "6.灌籃 Dunk（DNK）灌籃",
         "value1": 5
@@ -96,7 +92,7 @@
         "name2": "大地震波 III",
         "item3": 33002,
         "name3": "禁區陷阱 III",
-        "cardpower": 3,
+        "cardpower": 4,
         "attrkind1": 6,
         "attrkindexplain": "6.灌籃 Dunk（DNK）灌籃",
         "value1": 10,
@@ -113,14 +109,12 @@
         "name2": "大地震波 IV",
         "item3": 33003,
         "name3": "禁區陷阱 IV",
-        "cardpower": 4,
+        "cardpower": 5,
         "attrkind1": 6,
         "attrkindexplain": "6.灌籃 Dunk（DNK）灌籃",
         "value1": 15,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 5
+        "value2": -2
     },
     {
         "id": 8,
@@ -132,14 +126,12 @@
         "name2": "大地震波 V",
         "item3": 33004,
         "name3": "禁區陷阱 V",
-        "cardpower": 5,
+        "cardpower": 6,
         "attrkind1": 6,
         "attrkindexplain": "6.灌籃 Dunk（DNK）灌籃",
         "value1": 20,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 10
+        "value2": -3
     },
     {
         "id": 9,
@@ -152,7 +144,7 @@
         "name2": "飛身衝撞 II",
         "item3": 31711,
         "name3": "直線暴衝 II",
-        "cardpower": 2,
+        "cardpower": 3,
         "attrkind1": 5,
         "attrkindexplain": "5.力量 Strength（STR）肘擊",
         "value1": 4
@@ -167,7 +159,7 @@
         "name2": "飛身衝撞 III",
         "item3": 31712,
         "name3": "直線暴衝 III",
-        "cardpower": 3,
+        "cardpower": 4,
         "attrkind1": 5,
         "attrkindexplain": "5.力量 Strength（STR）肘擊",
         "value1": 8,
@@ -184,14 +176,12 @@
         "name2": "飛身衝撞 IV",
         "item3": 31713,
         "name3": "直線暴衝 IV",
-        "cardpower": 4,
+        "cardpower": 5,
         "attrkind1": 5,
         "attrkindexplain": "5.力量 Strength（STR）肘擊",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 4
+        "value2": -2
     },
     {
         "id": 12,
@@ -203,14 +193,12 @@
         "name2": "飛身衝撞 V",
         "item3": 31714,
         "name3": "直線暴衝 V",
-        "cardpower": 5,
+        "cardpower": 6,
         "attrkind1": 5,
         "attrkindexplain": "5.力量 Strength（STR）肘擊",
         "value1": 16,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 8
+        "value2": -3
     },
     {
         "id": 13,
@@ -223,7 +211,7 @@
         "name2": "假動作灌籃 II",
         "item3": 20641,
         "name3": "胯下灌籃 II",
-        "cardpower": 1,
+        "cardpower": 2,
         "attrkind1": 7,
         "attrkindexplain": "7.籃板 Rebound（REB)搶籃板",
         "value1": 4
@@ -238,7 +226,7 @@
         "name2": "假動作灌籃 III",
         "item3": 20642,
         "name3": "胯下灌籃 III",
-        "cardpower": 2,
+        "cardpower": 3,
         "attrkind1": 7,
         "attrkindexplain": "7.籃板 Rebound（REB)搶籃板",
         "value1": 8,
@@ -255,14 +243,12 @@
         "name2": "假動作灌籃 IV",
         "item3": 20643,
         "name3": "胯下灌籃 IV",
-        "cardpower": 3,
+        "cardpower": 4,
         "attrkind1": 7,
         "attrkindexplain": "7.籃板 Rebound（REB)搶籃板",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 4
+        "value2": -2
     },
     {
         "id": 16,
@@ -274,14 +260,12 @@
         "name2": "假動作灌籃 V",
         "item3": 20644,
         "name3": "胯下灌籃 V",
-        "cardpower": 4,
+        "cardpower": 5,
         "attrkind1": 7,
         "attrkindexplain": "7.籃板 Rebound（REB)搶籃板",
         "value1": 16,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 8
+        "value2": -3
     },
     {
         "id": 17,
@@ -294,7 +278,7 @@
         "name2": "換手拉杆上籃 II",
         "item3": 20651,
         "name3": "飛人灌籃 II",
-        "cardpower": 1,
+        "cardpower": 2,
         "attrkind1": 2,
         "attrkindexplain": "2.3分 3-Point（3PT）",
         "value1": 4
@@ -309,7 +293,7 @@
         "name2": "換手拉杆上籃 III",
         "item3": 20652,
         "name3": "飛人灌籃 III",
-        "cardpower": 2,
+        "cardpower": 3,
         "attrkind1": 2,
         "attrkindexplain": "2.3分 3-Point（3PT）",
         "value1": 8,
@@ -326,14 +310,12 @@
         "name2": "換手拉杆上籃 IV",
         "item3": 20653,
         "name3": "飛人灌籃 IV",
-        "cardpower": 3,
+        "cardpower": 4,
         "attrkind1": 2,
         "attrkindexplain": "2.3分 3-Point（3PT）",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 4
+        "value2": -2
     },
     {
         "id": 20,
@@ -345,14 +327,12 @@
         "name2": "換手拉杆上籃 V",
         "item3": 20654,
         "name3": "飛人灌籃 V",
-        "cardpower": 4,
+        "cardpower": 5,
         "attrkind1": 2,
         "attrkindexplain": "2.3分 3-Point（3PT）",
         "value1": 16,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 8
+        "value2": -3
     },
     {
         "id": 21,
@@ -402,9 +382,7 @@
         "attrkindexplain": "11.控球 Dribble（DRB)  運球過人",
         "value1": 9,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 3
+        "value2": -2
     },
     {
         "id": 24,
@@ -421,9 +399,7 @@
         "attrkindexplain": "11.控球 Dribble（DRB)  運球過人",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 6
+        "value2": -3
     },
     {
         "id": 25,
@@ -473,9 +449,7 @@
         "attrkindexplain": "4.耐力 Stamina（STA) 跌倒起身",
         "value1": 9,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 3
+        "value2": -2
     },
     {
         "id": 28,
@@ -492,9 +466,7 @@
         "attrkindexplain": "4.耐力 Stamina（STA) 跌倒起身",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 6
+        "value2": -3
     },
     {
         "id": 29,
@@ -544,9 +516,7 @@
         "attrkindexplain": "10.抄截 Steal（STL）抄截",
         "value1": 9,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 3
+        "value2": -2
     },
     {
         "id": 32,
@@ -563,9 +533,7 @@
         "attrkindexplain": "10.抄截 Steal（STL）抄截",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 6
+        "value2": -3
     },
     {
         "id": 33,
@@ -615,9 +583,7 @@
         "attrkindexplain": "8.火鍋 Block（BLK）火鍋",
         "value1": 9,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 3
+        "value2": -2
     },
     {
         "id": 36,
@@ -634,9 +600,7 @@
         "attrkindexplain": "8.火鍋 Block（BLK）火鍋",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 6
+        "value2": -3
     },
     {
         "id": 37,
@@ -686,9 +650,7 @@
         "attrkindexplain": "3.速度 Speed（SPD)  撲球",
         "value1": 9,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 3
+        "value2": -2
     },
     {
         "id": 40,
@@ -705,8 +667,6 @@
         "attrkindexplain": "3.速度 Speed（SPD)  撲球",
         "value1": 12,
         "attrkind2": 30,
-        "value2": -1,
-        "attrkind3": 20,
-        "value3": 6
+        "value2": -3
     }
 ]
