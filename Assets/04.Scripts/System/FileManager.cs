@@ -1,6 +1,7 @@
 #define Debug
 //#define Release
 //#define PUBGAME
+#define CANADA
 
 using System;
 using System.Collections;
@@ -75,6 +76,8 @@ public class FileManager : KnightSingleton<FileManager>
 
     #if PUBGAME
     public const string Company = ECompany.PubGame;
+    #elif CANADA
+    public const string Company = ECompany.Canada;
     #else
     public const string Company = ECompany.NiceMarket;
     #endif

@@ -136,13 +136,13 @@ public class UILoading : UIBase
             int check = PlayerPrefs.GetInt(ESave.NoticDaily.ToString(), 0);
 			
             if (check == 0)
-                UINotic.UIShow(true);
+                UINotic.Visible = true;
             else
             {
                 int day = DateTime.Now.Day;
                 int date = PlayerPrefs.GetInt(ESave.NoticDate.ToString(), -1);
                 if (day != date)
-                    UINotic.UIShow(true);
+                    UINotic.Visible = true;
             }
 
             if (!UITutorial.Visible && (UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward()))

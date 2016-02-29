@@ -78,7 +78,7 @@ public class UIMessage : UIBase {
 		UIShow(false);
 	}
 
-	public void ShowMessage(string titleStr, string messageStr, EventDelegate.Callback yesEvent) {
+    public void ShowMessage(string titleStr, string messageStr, EventDelegate.Callback yesEvent, EventDelegate.Callback noEvent = null) {
 		UIShow (true);
 		YesBtn.gameObject.SetActive(true);
 		RechargeBtn.gameObject.SetActive(false);
@@ -90,6 +90,8 @@ public class UIMessage : UIBase {
 			LabelMessage.text = messageStr;
 
 		YesBtn.onClick.Insert(0, new EventDelegate(yesEvent));
+        if (noEvent != null)
+            NoBtn.onClick.Insert(0, new EventDelegate(noEvent));
 	}
 
 	public void ShowMessageForBuy (string titleStr, string messageStr, ERechargeType type) {

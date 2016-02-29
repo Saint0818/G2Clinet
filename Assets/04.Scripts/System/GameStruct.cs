@@ -12,10 +12,10 @@ namespace GameStruct
 		public int RoleIndex;
 		public int ID;
         public int Lv;
+        public int HeadTextureNo;
 		public string Name;
-		public TSkill[] SkillCards;
+        public TSkill[] SkillCards;
 		public TSkillCardPage[] SkillCardPages;
-		public TItem[] Items;
 		public Dictionary<EAttribute, int> Potential;
 
         public bool IsValid

@@ -292,7 +292,7 @@ public class UISetting : UIBase {
 	public void OnAnnouncement()
 	{
 		UIShow(false);
-		UINotic.UIShow (true);
+        UINotic.Visible = true;
 	}
 
 

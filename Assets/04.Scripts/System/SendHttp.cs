@@ -27,9 +27,26 @@ public struct TSkillCardBag {
 public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
-	public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
-	public const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.nbaa";
-	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/g2.apk";
+	//public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
+	private const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.g2canada";
+    private const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/g2.apk";
+    private const string PubGameApk = "http://nicemarket.com.tw/assets/apk/g2pubgame.apk";
+    private const string CanadaApk = "http://nicemarket.com.tw/assets/apk/g2canada.apk";
+
+    public static string DownLoadURL {
+        get {
+            if (GameData.Company == ECompany.NiceMarket)
+                return GooglePlay;
+            else
+            if (GameData.Company == ECompany.Canada)
+                return CanadaApk;
+            else
+            if (GameData.Company == ECompany.PubGame)
+                return PubGameApk;
+            else
+                return NiceMarketApk;
+        }
+    }
 
 	public const string Version = "version";
 	public const string CheckSession = "checksession";
@@ -322,8 +339,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 						if (UIWaitingHttp.Visible)
 							UIWaitingHttp.Get.WaitForCheckSession();
 					}
-				}
-				else
+				} else
 					if (e == "Team not Found." ||
 					    e == "You have not created." ||
 					   e.Contains("connect")) {
@@ -342,9 +358,11 @@ public class SendHttp : KnightSingleton<SendHttp> {
             #if ShowHttpLog
 			Debug.Log(www.url + " : " + www.error);
             #endif
-			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host")) {
+            if (www.error.Contains("Failed to connect to") ||
+                www.error.Contains("couldn't connect to host") || 
+                www.error.Contains("Couldn't resolve host")) {
 				UIWaitingHttp.UIShow(false);
-				UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion);
+                UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion, openNotic);
 			} else
 			if (SceneMgr.Get.CurrentScene == ESceneName.Main) {
 				if (!versionChecked)
@@ -448,6 +466,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			}
 		}
 	}
+
+    private void openNotic() {
+        UINotic.Visible = true;
+    }
 	
 	private void SendLogin() {
 		GameData.Team.Identifier = "";

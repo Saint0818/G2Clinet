@@ -4,10 +4,6 @@ public class UIUpdateVersion : UIBase {
 	private static UIUpdateVersion instance = null;
 	private const string UIName = "UIUpdateVersion";
 
-	private GameObject uiGooglePlay;
-	private GameObject uiAppleStore;
-	private GameObject uiOfficialWebsite;
-
 	public static bool Visible
 	{
 		get
@@ -26,8 +22,10 @@ public class UIUpdateVersion : UIBase {
 			else
 				instance.Show(isShow);
 		} else
-		if(isShow)
+        if(isShow) {
+            GameData.Setting.Language = (GameEnum.ELanguage)PlayerPrefs.GetInt(GameEnum.ESave.UserLanguage.ToString());
 			Get.Show(isShow);
+        }
 	}
 	
 	public static UIUpdateVersion Get
@@ -41,18 +39,8 @@ public class UIUpdateVersion : UIBase {
 	}
 	
 	protected override void InitCom() {
-		SetBtnFun (UIName + "/Background/Download", NiceMarket);
-		SetBtnFun (UIName + "/Background/Googleplay", GooglePaly);
-		SetBtnFun (UIName + "/Background/AppStore", AppStore);
-		SetBtnFun (UIName + "/BottomRight/Announcement", OnAnnouncement);
-
-		uiGooglePlay = GameObject.Find(UIName + "/Background/Googleplay");
-		uiOfficialWebsite = GameObject.Find(UIName + "/Background/Download");
-		uiAppleStore = GameObject.Find(UIName + "/Background/AppStore");
-
-		uiGooglePlay.SetActive(false);
-		uiAppleStore.SetActive(false);
-		uiOfficialWebsite.SetActive(true);
+		SetBtnFun (UIName + "/BottomRight/Notic", OnNotic);
+        SetBtnFun (UIName + "/Background/Download", OnDownload);
         
         /*if (GameData.OS == EOS.IOS) 
 			uiAppleStore.SetActive(true);
@@ -64,22 +52,19 @@ public class UIUpdateVersion : UIBase {
 
 	protected override void InitText(){
 		SetLabel (UIName + "/Background/Title", TextConst.S(604) + GameData.ServerVersion);
+
+        if (GameData.Company == GameEnum.ECompany.NiceMarket)
+            SetLabel (UIName + "/Background/LabelFrom", TextConst.S(606));
+        else
+            SetLabel (UIName + "/Background/LabelFrom", TextConst.S(605));
 	}
 
-	public void AppStore(){
-		Application.OpenURL(URLConst.AppStore);
-	}
+    public void OnDownload() {
+        Application.OpenURL(URLConst.DownLoadURL);
+    }
 
-	public void GooglePaly(){
-		Application.OpenURL(URLConst.GooglePlay);
-	}
-
-	public void NiceMarket(){
-		Application.OpenURL (URLConst.NiceMarketApk);
-	}
-
-	public void OnAnnouncement(){
-		Application.OpenURL (GameData.UrlAnnouncement);
+	public void OnNotic(){
+        UINotic.Visible = true;
 	}
 }
 

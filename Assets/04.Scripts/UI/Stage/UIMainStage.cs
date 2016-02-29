@@ -70,7 +70,7 @@ public class UIMainStage : UIBase
 
     public void Show(int stageID)
     {
-        UIMainLobby.Get.Hide();
+        UIMainLobby.Get.Hide(3, false);
         Show(true);
 
         buildChapters();

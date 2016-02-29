@@ -15,9 +15,8 @@
 
 	public static class ECompany {
 		public const string NiceMarket = "NiceMarket";
+        public const string Canada = "Canada";
 		public const string PubGame = "PubGame";
-		public const string R2 = "R2";
-		public const string MyGamez = "MyGamez";
 	}
 
 	public enum ELoading {

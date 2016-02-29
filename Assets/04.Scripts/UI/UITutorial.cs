@@ -53,7 +53,7 @@ public class UITutorial : UIBase {
 
 	public static void UIShow(bool isShow) {
         if (isShow)
-            UINotic.UIShow(false);
+            UINotic.Visible = false;
         
         if (instance) {
 			if (!isShow) {

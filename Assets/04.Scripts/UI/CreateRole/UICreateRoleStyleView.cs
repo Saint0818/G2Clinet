@@ -213,10 +213,11 @@ public class UICreateRoleStyleView : MonoBehaviour
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Player = team.Player;
-            GameData.Team.PlayerInit();
-            GameData.Team.SkillCards = team.SkillCards;
             GameData.Team.Items = team.Items;
-            GameData.Team.InitSkillCardCount();
+            GameData.Team.PlayerInit();
+
+            if (team.PlayerBank != null) 
+                GameData.Team.PlayerBank = team.PlayerBank;  
 
 			UICreateRole.Get.Hide();
 			UI3DCreateRole.Get.Hide();

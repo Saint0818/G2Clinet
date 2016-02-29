@@ -9,31 +9,30 @@ public class UINotic : UIBase {
     public GameObject webViewGameObject;
 	private UIToggle toggleDaily;
 	
-	public static bool Visible{
-		get
-		{
+	public static bool Visible {
+		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
 				return false;
 		}
-	}
-	
-	public static void UIShow(bool isShow){
-		if (UITutorial.Visible)
-			return;
 
-		if(instance) {
-			if (!isShow) {
-                if (Get.webViewGameObject)
-                    Destroy(Get.webViewGameObject);
-                
-				RemoveUI(UIName);
-			} else
-				instance.Show(isShow);
-		} else
-		if(isShow)
-			Get.Show(isShow);
+        set {
+            if (UITutorial.Visible)
+                return;
+
+            if(instance) {
+                if (!value) {
+                    if (Get.webViewGameObject)
+                        Destroy(Get.webViewGameObject);
+
+                    RemoveUI(UIName);
+                } else
+                    instance.Show(value);
+            } else
+            if (value)
+                Get.Show(value);
+        }
 	}
 	
 	public static UINotic Get{
@@ -91,7 +90,7 @@ public class UINotic : UIBase {
     }
 
 	public void Close(){
-		UIShow (false);
+        Visible = false;
 	}
 
 	public void OnNoLongger() {
