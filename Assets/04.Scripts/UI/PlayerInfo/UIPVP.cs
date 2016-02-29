@@ -736,6 +736,7 @@ public class UIPVP : UIBase
         else
         {
             WWWForm form = new WWWForm();
+			form.AddField("Identifier", GameData.Team.Identifier);	
             form.AddField("Kind", 0);
             SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, false); 
         }
@@ -750,6 +751,7 @@ public class UIPVP : UIBase
             if (CheckMoney(GameData.DPVPData[lv].SearchCost))
             {
                 WWWForm form = new WWWForm();
+				form.AddField("Identifier", GameData.Team.Identifier);	
                 form.AddField("Kind", 1);
                 SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, true);
             }
