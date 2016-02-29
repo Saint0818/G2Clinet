@@ -132,7 +132,7 @@ namespace GameStruct
 		public float ReboundRate;
 		public float BlockRate;
 		public float FaketBlockRate;
-		public float JumpBallRate;
+//		public float JumpBallRate;
 		public float PushingRate;
 		public float PassRate;
 		public float AlleyOopPassRate;
