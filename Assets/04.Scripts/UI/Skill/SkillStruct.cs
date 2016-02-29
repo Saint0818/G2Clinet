@@ -185,7 +185,7 @@ public struct TSkillCardMaterial {
 					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Kind == 21) {
 						MaterialSkill[0].gameObject.SetActive(true);
 						MaterialItem[0].gameObject.SetActive(false);
-						MaterialItemSkill[0].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality);
+						MaterialItemSkill[0].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar);
 						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) 
 							ElementPicSkill[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
 
@@ -239,7 +239,7 @@ public struct TSkillCardMaterial {
 					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Kind == 21) {
 						MaterialSkill[1].gameObject.SetActive(true);
 						MaterialItem[1].gameObject.SetActive(false);
-						MaterialItemSkill[1].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality);
+						MaterialItemSkill[1].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar);
 						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) 
 							ElementPicSkill[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
 
@@ -293,7 +293,7 @@ public struct TSkillCardMaterial {
 					if(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Kind == 21) {
 						MaterialSkill[2].gameObject.SetActive(true);
 						MaterialItem[2].gameObject.SetActive(false);
-						MaterialItemSkill[2].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality);
+						MaterialItemSkill[2].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar);
 						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) 
 							ElementPicSkill[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
 
