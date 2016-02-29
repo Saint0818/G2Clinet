@@ -282,7 +282,7 @@ public class UIBase: MonoBehaviour
         return false;
 	}
 
-	public void OnBuyPower() {
+	public static void OnBuyPower() {
 		UIRecharge.Get.ShowView(ERechargeType.Power.GetHashCode());
 		UIMessage.UIShow(false);
 	}

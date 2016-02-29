@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameEnum;
 using GameStruct;
 using UnityEngine;
@@ -46,13 +44,13 @@ public static class UIInstanceBuilder
             ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
                         GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
                         GameData.Team.Player.NextInstanceIDs[stageData.Chapter] > stageData.ID,
-//            ShowMask = GameData.Team.Player.GetNextInstanceID(stageData.Chapter) < stageData.ID
             ShowMask = UIStageTools.VerifyPlayerProgress(stageData)
         };
 
         string errMsg;
         data.StartEnable = UIStageTools.VerifyPlayer(stageData, out errMsg);
         data.ErrorMsg = errMsg;
+        data.ShowBuyPower = !UIStageTools.VerifyPlayerCost(stageData, out errMsg);
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
 

@@ -41,6 +41,12 @@ public static class UIStageTools
         return true;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <param name="errMsg"></param>
+    /// <returns> true: 進入關卡的體力足夠; false: 不可進入關卡. </returns>
     public static bool VerifyPlayerCost(TStageData stageData, out string errMsg)
     {
         errMsg = String.Empty;

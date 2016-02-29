@@ -46,6 +46,11 @@ public class UIInstanceStage : MonoBehaviour
         public string ErrorMsg;
 
         /// <summary>
+        /// 要不要顯示買體力介面.
+        /// </summary>
+        public bool ShowBuyPower;
+
+        /// <summary>
         /// true: 顯示半透明的遮照.(用在不能打的關卡上)
         /// </summary>
         public bool ShowMask;
@@ -82,8 +87,13 @@ public class UIInstanceStage : MonoBehaviour
                 UIInstance.Get.Main.NotifyStageStartClick(mData.ID);
             else
             {
-                Debug.LogWarning(mData.ErrorMsg);
-                UIHint.Get.ShowHint(mData.ErrorMsg, Color.green);
+                if(mData.ShowBuyPower)
+                    UIBase.OnBuyPower();
+                else
+                {
+                    Debug.LogWarning(mData.ErrorMsg);
+                    UIHint.Get.ShowHint(mData.ErrorMsg, Color.green);
+                }
             }
         }));
     }

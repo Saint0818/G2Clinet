@@ -430,6 +430,9 @@ public class UIRecharge : UIBase {
 					UIMainLobby.Get.Hide(2);
 			}
 		}
+
+        if(UIInstance.Get.Visible)
+            UIInstance.Get.ShowByChapter(UIInstance.Get.Main.CurrentChapter);
 	}
 
 	private void SendBuyDiamond(int index, string receipt)
