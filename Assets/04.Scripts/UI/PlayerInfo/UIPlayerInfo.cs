@@ -167,13 +167,8 @@ public class AbilityView
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
 
-<<<<<<< Updated upstream
-			//if(team.Player.Potential.ContainsKey(kind))
-			//	add = team.Player.Potential[kind];
-=======
 //			if(team.Player.Potential.ContainsKey(kind))
 //				add = team.Player.Potential[kind];
->>>>>>> Stashed changes
 
             switch (kind)
             {
