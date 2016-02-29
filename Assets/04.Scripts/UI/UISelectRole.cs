@@ -16,7 +16,7 @@ public class UISelectRole : UIBase {
 	private const float Y_Partner = 0;
 	private const float Z_Partner = 0.1f;
     private const float Y_Down = 4.5f;
-	private const float Y_Player = 0.25f;
+	private const float Y_Player = 0;
 	private const int playerNum = 3;
 
 	private TStageData stageData;
@@ -447,8 +447,8 @@ public class UISelectRole : UIBase {
 		playerObjects[2].SetActive(true);
 		arrayAnimator[1].SetTrigger("SelectDown");
 		arrayAnimator[2].SetTrigger("SelectDown");
-		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(1,0,1.7f), null, null, 1f);
-		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(-1.7f,0,1.7f), null, null, 1f);
+		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(2.6f,0,0.1f), null, null, 1f);
+		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(-2.6f,0,0.1f), null, null, 1f);
 	}
 
 	private void otherPlayerShowTime(){
