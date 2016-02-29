@@ -229,7 +229,7 @@ public class TPassiveSkillCard
 				if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
 					item.name = id.ToString();
 					SkillName.text = GameData.DItemData[id].Name;
-					SkillCard.spriteName = GameFunction.CardLevelName(GameData.DItemData[id].Quality) + "s";
+					SkillCard.spriteName = GameFunction.CardLevelName(GameData.DItemData[id].Avatar);
 					SkillTexture.mainTexture = GameData.CardItemTexture(GameData.DItemData[id].Avatar);
 					if(GameFunction.IsActiveSkill(GameData.DItemData[id].Avatar))
 						SkillKind.spriteName = "ActiveIcon";
