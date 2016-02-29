@@ -1,105 +1,6 @@
 [
     {
-        "pointrate2": 30,
-        "pointrate3": 15,
-        "stealrate": 0,
-        "dunkrate": 99,
-        "tipinrate": 0,
-        "alleyooprate": 0,
-        "strengthrate": 0,
-        "blockpushrate": 0,
-        "elbowingrate": 0,
-        "reboundrate": 0,
-        "blockrate": 0,
-        "faketblockrate": 0,
-        "jumpballrate": 60,
-        "pushingrate": 0,
-        "passrate": 99,
-        "alleyooppassrate": 10,
-        "reboundheaddistance": 0,
-        "reboundhanddistance": 1,
-        "blockdistance": 0,
-        "defdistance": 0,
-        "speedvalue": 0.85,
-        "staminavalue": 10,
-        "autofollowtime": 10
-    },
-    {
-        "pointrate2": 30,
-        "pointrate3": 15,
-        "stealrate": 0,
-        "dunkrate": 0,
-        "tipinrate": 0,
-        "alleyooprate": 15,
-        "strengthrate": 0,
-        "blockpushrate": 0,
-        "elbowingrate": 0,
-        "reboundrate": 0,
-        "blockrate": 0,
-        "faketblockrate": 0,
-        "jumpballrate": 65,
-        "pushingrate": 0,
-        "passrate": 50,
-        "alleyooppassrate": 10,
-        "reboundheaddistance": 0,
-        "reboundhanddistance": 1,
-        "blockdistance": 0,
-        "defdistance": 0,
-        "speedvalue": 0.85,
-        "staminavalue": 10,
-        "autofollowtime": 8
-    },
-    {
-        "pointrate2": 30,
-        "pointrate3": 15,
-        "stealrate": 0,
-        "dunkrate": 0,
-        "tipinrate": 0,
-        "alleyooprate": 15,
-        "strengthrate": 0,
-        "blockpushrate": 0,
-        "elbowingrate": 0,
-        "reboundrate": 0,
-        "blockrate": 0,
-        "faketblockrate": 0,
-        "jumpballrate": 70,
-        "pushingrate": 0,
-        "passrate": 50,
-        "alleyooppassrate": 10,
-        "reboundheaddistance": 0,
-        "reboundhanddistance": 1,
-        "blockdistance": 0,
-        "defdistance": 0,
-        "speedvalue": 0.85,
-        "staminavalue": 10,
-        "autofollowtime": 6
-    },
-    {
-        "pointrate2": 30,
-        "pointrate3": 15,
-        "stealrate": 0,
-        "dunkrate": 0,
-        "tipinrate": 0,
-        "alleyooprate": 15,
-        "strengthrate": 0,
-        "blockpushrate": 0,
-        "elbowingrate": 0,
-        "reboundrate": 0,
-        "blockrate": 0,
-        "faketblockrate": 0,
-        "jumpballrate": 80,
-        "pushingrate": 0,
-        "passrate": 50,
-        "alleyooppassrate": 10,
-        "reboundheaddistance": 0,
-        "reboundhanddistance": 1,
-        "blockdistance": 0,
-        "defdistance": 0,
-        "speedvalue": 0.85,
-        "staminavalue": 10,
-        "autofollowtime": 4
-    },
-    {
+        "id": 0,
         "pointrate2": 0,
         "pointrate3": 0,
         "stealrate": 0,
@@ -112,7 +13,6 @@
         "reboundrate": 0,
         "blockrate": 0,
         "faketblockrate": 0,
-        "jumpballrate": 0,
         "pushingrate": 0,
         "passrate": 0,
         "alleyooppassrate": 0,
@@ -122,31 +22,618 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 0
+        "autofollowtime": 4
     },
     {
-        "pointrate2": 30,
-        "pointrate3": 15,
+        "id": 1
+    },
+    {
+        "id": 2
+    },
+    {
+        "id": 3
+    },
+    {
+        "id": 4
+    },
+    {
+        "id": 5
+    },
+    {
+        "id": 6
+    },
+    {
+        "id": 7
+    },
+    {
+        "id": 8
+    },
+    {
+        "id": 9
+    },
+    {
+        "id": 10,
+        "pointrate2": 40,
+        "pointrate3": 20,
         "stealrate": 0,
-        "dunkrate": 0,
+        "dunkrate": 99,
         "tipinrate": 0,
-        "alleyooprate": 15,
+        "alleyooprate": 0,
         "strengthrate": 0,
         "blockpushrate": 0,
         "elbowingrate": 0,
         "reboundrate": 0,
         "blockrate": 0,
         "faketblockrate": 0,
-        "jumpballrate": 100,
         "pushingrate": 0,
-        "passrate": 50,
+        "passrate": 99,
+        "alleyooppassrate": 0,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 10,
+        "autofollowtime": 3
+    },
+    {
+        "id": 11,
+        "pointrate2": 40,
+        "pointrate3": 20,
+        "stealrate": 0,
+        "dunkrate": 40,
+        "tipinrate": 0,
+        "alleyooprate": 40,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 60,
+        "alleyooppassrate": 60,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 3
+    },
+    {
+        "id": 12,
+        "pointrate2": 30,
+        "pointrate3": 15,
+        "stealrate": 0,
+        "dunkrate": 30,
+        "tipinrate": 0,
+        "alleyooprate": 30,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 40,
+        "alleyooppassrate": 40,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 4
+    },
+    {
+        "id": 13,
+        "pointrate2": 20,
+        "pointrate3": 10,
+        "stealrate": 0,
+        "dunkrate": 20,
+        "tipinrate": 0,
+        "alleyooprate": 20,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 20,
+        "alleyooppassrate": 20,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 5
+    },
+    {
+        "id": 14,
+        "pointrate2": 10,
+        "pointrate3": 5,
+        "stealrate": 0,
+        "dunkrate": 10,
+        "tipinrate": 0,
+        "alleyooprate": 10,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 0,
+        "alleyooppassrate": 0,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 5
+    },
+    {
+        "id": 15,
+        "pointrate2": 0,
+        "pointrate3": 0,
+        "stealrate": 0,
+        "dunkrate": 0,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 0,
+        "alleyooppassrate": 0,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 5
+    },
+    {
+        "id": 16
+    },
+    {
+        "id": 17
+    },
+    {
+        "id": 18
+    },
+    {
+        "id": 19
+    },
+    {
+        "id": 20
+    },
+    {
+        "id": 21
+    },
+    {
+        "id": 22
+    },
+    {
+        "id": 23
+    },
+    {
+        "id": 24
+    },
+    {
+        "id": 25
+    },
+    {
+        "id": 26
+    },
+    {
+        "id": 27
+    },
+    {
+        "id": 28
+    },
+    {
+        "id": 29
+    },
+    {
+        "id": 30
+    },
+    {
+        "id": 31
+    },
+    {
+        "id": 32
+    },
+    {
+        "id": 33
+    },
+    {
+        "id": 34
+    },
+    {
+        "id": 35
+    },
+    {
+        "id": 36
+    },
+    {
+        "id": 37
+    },
+    {
+        "id": 38
+    },
+    {
+        "id": 39
+    },
+    {
+        "id": 40
+    },
+    {
+        "id": 41
+    },
+    {
+        "id": 42
+    },
+    {
+        "id": 43
+    },
+    {
+        "id": 44
+    },
+    {
+        "id": 45
+    },
+    {
+        "id": 46
+    },
+    {
+        "id": 47
+    },
+    {
+        "id": 48
+    },
+    {
+        "id": 49
+    },
+    {
+        "id": 50
+    },
+    {
+        "id": 51
+    },
+    {
+        "id": 52
+    },
+    {
+        "id": 53
+    },
+    {
+        "id": 54
+    },
+    {
+        "id": 55
+    },
+    {
+        "id": 56
+    },
+    {
+        "id": 57
+    },
+    {
+        "id": 58
+    },
+    {
+        "id": 59
+    },
+    {
+        "id": 60
+    },
+    {
+        "id": 61
+    },
+    {
+        "id": 62
+    },
+    {
+        "id": 63
+    },
+    {
+        "id": 64
+    },
+    {
+        "id": 65
+    },
+    {
+        "id": 66
+    },
+    {
+        "id": 67
+    },
+    {
+        "id": 68
+    },
+    {
+        "id": 69
+    },
+    {
+        "id": 70
+    },
+    {
+        "id": 71
+    },
+    {
+        "id": 72
+    },
+    {
+        "id": 73
+    },
+    {
+        "id": 74
+    },
+    {
+        "id": 75
+    },
+    {
+        "id": 76
+    },
+    {
+        "id": 77
+    },
+    {
+        "id": 78
+    },
+    {
+        "id": 79
+    },
+    {
+        "id": 80
+    },
+    {
+        "id": 81
+    },
+    {
+        "id": 82
+    },
+    {
+        "id": 83
+    },
+    {
+        "id": 84
+    },
+    {
+        "id": 85
+    },
+    {
+        "id": 86
+    },
+    {
+        "id": 87
+    },
+    {
+        "id": 88
+    },
+    {
+        "id": 89
+    },
+    {
+        "id": 90
+    },
+    {
+        "id": 91
+    },
+    {
+        "id": 92
+    },
+    {
+        "id": 93
+    },
+    {
+        "id": 94
+    },
+    {
+        "id": 95
+    },
+    {
+        "id": 96
+    },
+    {
+        "id": 97
+    },
+    {
+        "id": 98
+    },
+    {
+        "id": 99
+    },
+    {
+        "id": 100
+    },
+    {
+        "id": 101
+    },
+    {
+        "id": 102
+    },
+    {
+        "id": 103
+    },
+    {
+        "id": 104
+    },
+    {
+        "id": 105
+    },
+    {
+        "id": 106
+    },
+    {
+        "id": 107
+    },
+    {
+        "id": 108
+    },
+    {
+        "id": 109
+    },
+    {
+        "id": 110,
+        "pointrate2": 0,
+        "pointrate3": 0,
+        "stealrate": 0,
+        "dunkrate": 0,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 0,
+        "alleyooppassrate": 0,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 8
+    },
+    {
+        "id": 111,
+        "pointrate2": 0,
+        "pointrate3": 0,
+        "stealrate": 0,
+        "dunkrate": 0,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 0,
+        "alleyooppassrate": 0,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 8
+    },
+    {
+        "id": 112,
+        "pointrate2": 10,
+        "pointrate3": 5,
+        "stealrate": 0,
+        "dunkrate": 10,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 10,
         "alleyooppassrate": 10,
         "reboundheaddistance": 0,
         "reboundhanddistance": 1,
         "blockdistance": 0,
         "defdistance": 0,
-        "speedvalue": 0.85,
-        "staminavalue": 10,
-        "autofollowtime": 1
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 7
+    },
+    {
+        "id": 113,
+        "pointrate2": 20,
+        "pointrate3": 10,
+        "stealrate": 0,
+        "dunkrate": 20,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 20,
+        "alleyooppassrate": 20,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 6
+    },
+    {
+        "id": 114,
+        "pointrate2": 30,
+        "pointrate3": 15,
+        "stealrate": 0,
+        "dunkrate": 30,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 30,
+        "alleyooppassrate": 30,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 5
+    },
+    {
+        "id": 115,
+        "pointrate2": 40,
+        "pointrate3": 20,
+        "stealrate": 0,
+        "dunkrate": 40,
+        "tipinrate": 0,
+        "alleyooprate": 0,
+        "strengthrate": 0,
+        "blockpushrate": 0,
+        "elbowingrate": 0,
+        "reboundrate": 0,
+        "blockrate": 0,
+        "faketblockrate": 0,
+        "pushingrate": 0,
+        "passrate": 40,
+        "alleyooppassrate": 40,
+        "reboundheaddistance": 0,
+        "reboundhanddistance": 1,
+        "blockdistance": 0,
+        "defdistance": 0,
+        "speedvalue": 0,
+        "staminavalue": 0,
+        "autofollowtime": 4
+    },
+    {
+        "id": 116
     }
 ]
