@@ -1266,7 +1266,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void MoveTargetPos(Vector3 pos)
 	{
-		Debug.LogError (gameObject.name + ".MoveTargetPos : " + pos);
 		TestGameObject.transform.position = pos;
 	}
 

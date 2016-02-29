@@ -4608,9 +4608,8 @@ public class GameController : KnightSingleton<GameController>
 		for (int i=0; i<PlayerList.Count; i++) 
 			if(PlayerList[i].TimerKind.GetHashCode() != myTimerKind)
 				if(PlayerList[i].IsUseActiveSkill)
+					return true;
 					return false;
-		
-		return true;
 	}
 
 	public bool CheckAllPlayerIdle {
