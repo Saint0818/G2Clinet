@@ -241,6 +241,10 @@ public class SkillController : MonoBehaviour {
 		ActiveSkillUsed.Reset();
 	}
 
+	public bool IsActiveUse {
+		get {return (ActiveSkillUsed.ID > 0);}
+	}
+
 	//PassiveSkill======================================================================================
 	//judge Passer to Catcher Angle
 	private int judgeDirect(float angle) {

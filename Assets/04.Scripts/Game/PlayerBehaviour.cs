@@ -2260,7 +2260,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (GameController.Get.IsShowSituation)
             return;
-        ReadyToNextState = true;
+		ReadyToNextState = true;
+		PlayerSkillController.ResetUseSkill();
         if (IsBallOwner)
         {
             AniState(EPlayerState.HoldBall);
@@ -2334,7 +2335,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation)
             return;
         ReadyToNextState = true;
-        OnUI(this);
+		OnUI(this);
+		PlayerSkillController.ResetUseSkill();
         if (IsBallOwner)
             AniState(EPlayerState.Dribble0);
         else
@@ -2357,6 +2359,7 @@ public class PlayerBehaviour : MonoBehaviour
             else
                 CourtMgr.Get.RealBallCompoment.Trigger.PassBall(AnimatorControl.StateNo);
 
+			PlayerSkillController.ResetUseSkill();
             GameController.Get.IsCatcherAlleyoop = false;
         } 
     }
@@ -2417,6 +2420,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         ReadyToNextState = true;
         IsStealCalculate = false; 
+		PlayerSkillController.ResetUseSkill();
     }
 
     private void PushCalculateStart()
@@ -2496,6 +2500,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation)
             return;
         ReadyToNextState = true;
+		PlayerSkillController.ResetUseSkill();
         OnUI(this);
         if (IsBallOwner)
             AniState(EPlayerState.HoldBall);
@@ -2821,7 +2826,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void StartSkillCamera(int no)
     {
 		if (no >= 20) {
-			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID)) {
+			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID) && !PlayerSkillController.IsActiveUse) {
 	            UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
 				return;
 			}
