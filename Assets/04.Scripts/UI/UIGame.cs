@@ -743,6 +743,7 @@ public class UIGame : UIBase
     //Attack
     public void DoSkillOut(GameObject go)
     {
+		PlayerMe.PlayerSkillController.ResetUseActive();
         if (isShowSkillRange)
             ResetRange();
     }
