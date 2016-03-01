@@ -105,10 +105,10 @@ public class GameController : KnightSingleton<GameController>
     private readonly Vector3[] mJumpBallPos = //new Vector3[6]
     {
         new Vector3(-3.5f, 0, -3), // G
-        new Vector3(0, 0, -1.5f), // C
+        new Vector3(0, 0, -1.2f), // C
         new Vector3(3.5f, 0, -3), // F
         new Vector3(3.5f, 0, 3), // G
-        new Vector3(0, 0, 1.5f), // C
+        new Vector3(0, 0, 1.2f), // C
         new Vector3(-3.5f, 0, 3) // F
     };
 

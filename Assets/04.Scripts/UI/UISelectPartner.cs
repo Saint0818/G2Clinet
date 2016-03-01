@@ -103,14 +103,16 @@ public class UISelectPartner : UIBase {
     }
 
 	private void initSkillList(int index) {
-		for (int i = 0; i < memberList[nowPage][index].Player.SkillCards.Length; i++)
-            addSkillItem(i, memberList[nowPage][index].Player.SkillCards[i]);
+        if (index < memberList[nowPage].Count) {
+    		for (int i = 0; i < memberList[nowPage][index].Player.SkillCards.Length; i++)
+                addSkillItem(i, memberList[nowPage][index].Player.SkillCards[i]);
 
-        for (int i = memberList[nowPage][index].Player.SkillCards.Length; i < skillList.Count; i++)
-            skillList[i].Enable = false;
-        
-        skillScrollView.gameObject.transform.localPosition = Vector3.zero;
-        skillPanel.clipOffset = Vector2.zero;
+            for (int i = memberList[nowPage][index].Player.SkillCards.Length; i < skillList.Count; i++)
+                skillList[i].Enable = false;
+            
+            skillScrollView.gameObject.transform.localPosition = Vector3.zero;
+            skillPanel.clipOffset = Vector2.zero;
+        }
 	}
 
 	private void addSkillItem(int index, TSkill skill) {

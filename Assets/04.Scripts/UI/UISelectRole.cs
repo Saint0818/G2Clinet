@@ -289,7 +289,6 @@ public class UISelectRole : UIBase {
         if (stageData.FriendKind == 1) {
             int count = 0;
             foreach (KeyValuePair<string, TFriend> item in GameData.Team.Friends) {
-                
                 if (item.Value.Kind == EFriendKind.Advice && item.Value.Identifier != playerData[1].Identifier && item.Value.Identifier != playerData[2].Identifier) {
                     GameData.EnemyMembers[count].Player = item.Value.Player;
                     count++;
@@ -300,9 +299,9 @@ public class UISelectRole : UIBase {
 
             if (count < 3) {
                 for (int i = 0; i < stageData.PlayerID.Length; i ++) {
-                    GameData.EnemyMembers[i].Player.SetID(stageData.PlayerID[i]);
                     if (GameData.DPlayers.ContainsKey(stageData.PlayerID[i])) {
                         GameData.EnemyMembers[count].Player.SetID(stageData.PlayerID[i]);
+                        GameData.EnemyMembers[count].Player.Name = GameData.DPlayers[stageData.PlayerID[i]].Name;
                         count++;
                         if (count >= GameData.EnemyMembers.Length)
                             break;
@@ -312,9 +311,10 @@ public class UISelectRole : UIBase {
         } else {
             int num = Mathf.Min(GameData.EnemyMembers.Length, stageData.PlayerID.Length);
             for (int i = 0; i < num; i ++) {
-                GameData.EnemyMembers[i].Player.SetID(stageData.PlayerID[i]);
-                if (GameData.DPlayers.ContainsKey(stageData.PlayerID[i])) 
+                if (GameData.DPlayers.ContainsKey(stageData.PlayerID[i])) {
+                    GameData.EnemyMembers[i].Player.SetID(stageData.PlayerID[i]);
                     GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[stageData.PlayerID[i]].Name;
+                }
             }
         }
     }
