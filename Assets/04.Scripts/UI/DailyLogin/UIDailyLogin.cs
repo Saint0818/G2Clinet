@@ -180,7 +180,7 @@ public class UIDailyLogin : UIBase
     public void Hide()
     {
         UIMainLobby.Get.Show();
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     public static UIDailyLogin Get

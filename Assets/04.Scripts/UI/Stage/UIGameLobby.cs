@@ -39,9 +39,7 @@ public class UIGameLobby : UIBase
 
     public void Hide()
     {
-		if (instance)
-			instance.Show(false);
-        //RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     private void goToMainLobby()

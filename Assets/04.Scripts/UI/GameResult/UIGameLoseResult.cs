@@ -22,7 +22,7 @@ public class UIGameLoseResult : UIBase {
 		set {
 			if (instance) {
 				if (!value)
-					RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
 				else
 					instance.Show(value);
 			} else

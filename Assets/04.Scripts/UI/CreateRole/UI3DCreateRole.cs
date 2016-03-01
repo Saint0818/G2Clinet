@@ -72,7 +72,7 @@ public class UI3DCreateRole : UIBase
 
     public void Hide()
     {
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     public static UI3DCreateRole Get

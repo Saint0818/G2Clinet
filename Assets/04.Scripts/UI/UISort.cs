@@ -55,7 +55,7 @@ public class UISort : UIBase {
 
 		if (instance) {
 			if (!isShow)
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
 			else{
 				instance.Show(isShow);
 			}

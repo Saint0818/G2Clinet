@@ -583,7 +583,7 @@ public class UIPVP : UIBase
         {
             if (!isShow)
             {
-                RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
             }
             else
             {

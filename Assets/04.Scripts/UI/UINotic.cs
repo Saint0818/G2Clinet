@@ -26,7 +26,7 @@ public class UINotic : UIBase {
                     if (Get.webViewGameObject)
                         Destroy(Get.webViewGameObject);
 
-                    RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
                 } else
                     instance.Show(value);
             } else

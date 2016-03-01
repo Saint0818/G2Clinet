@@ -432,7 +432,7 @@ public class UIAvatarFitted : UIBase
         {
             if (!isShow)
             {
-                RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
                 UIPlayerMgr.Get.Enable = false;
             }
             else
@@ -516,7 +516,7 @@ public class UIAvatarFitted : UIBase
 
 	public void DoAvatarCollection () {
 		UISuitAvatar.Get.ShowView();
-    }
+	}
 
     public void DoAvatarTab()
     {

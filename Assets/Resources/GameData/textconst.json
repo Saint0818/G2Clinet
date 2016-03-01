@@ -677,7 +677,7 @@
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "競 賽",
-        "en": "GAME MODE"
+        "en": "PLAY"
     },
     {
         "id": 1009,
@@ -1657,7 +1657,7 @@
     },
     {
         "id": 4002,
-        "explain": "Get Disk",
+        "uipeth": "Disk",
         "tw": "獲得技能晶片",
         "en": "GET A SKILL CARD"
     },
@@ -3041,8 +3041,8 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipeth": "CaptionLabel",
-        "tw": "同時擁有上列技能晶片，即能降低晶片COST，1 件即降低 [00E1FFFF]1[-]，以此類推。\n此系列晶片已降低 [00ff00]{0}[-] COST。",
-        "en": "Also has above the Ability Cards, the cards that can reduce the COST, a deduction that is [00E1FFFF]1[-], and so on.此系列晶片已降低 [00ff00]{0}[-] COST。"
+        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片COST，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] COST，以此類推。\n\n目前已降低 [00ff00] {0} [-] COST。",
+        "en": "Also has above the clothes, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
         "id": 8204,
@@ -4490,12 +4490,12 @@
     },
     {
         "id": 12038,
-        "tw": "開啟遊戲酒吧動態視窗",
+        "tw": "開啟遊戲酒吧WIDGE",
         "en": "OPEN PUBGAME WIDGE"
     },
     {
         "id": 12039,
-        "tw": "關閉遊戲酒吧動態視窗",
+        "tw": "關閉遊戲酒吧WIDGE",
         "en": "CLOSE PUBGAME WIDGE"
     },
     {
@@ -4869,7 +4869,7 @@
     },
     {
         "id": 2000109,
-        "tw": "[33FFDD]目前得分[-]高於對手",
+        "tw": "[33FFDD]最後得分[-]高於對手",
         "en": "BEAT [33FFDD]YOUR OPPONENT[-]"
     },
     {

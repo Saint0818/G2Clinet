@@ -83,7 +83,7 @@ public class UIMission : UIBase {
                 if (value)
                     instance.Show(value);
                 else
-                    RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
             } else
             if (value)
                 Get.Show(value);

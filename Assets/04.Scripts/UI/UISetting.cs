@@ -216,7 +216,7 @@ public class UISetting : UIBase {
 	public static void UIShow(bool isShow, bool isMainLobby = true){
 		if (instance) {
 			if (!isShow){
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
 			}
 			else 
 				instance.Show(isShow);

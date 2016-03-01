@@ -522,7 +522,7 @@ public class UIPlayerInfo : UIBase
         {
             if (!isShow)
             {
-                RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
                 UIPlayerMgr.Get.Enable = false;
             }
             else

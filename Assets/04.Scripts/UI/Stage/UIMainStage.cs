@@ -281,7 +281,7 @@ public class UIMainStage : UIBase
     {
         GameData.Team.OnPowerChangeListener -= OnPowerChange;
 
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     private void goToGameLobby()

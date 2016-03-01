@@ -24,7 +24,7 @@ public class UIStrategy : UIBase {
                     if (UIGame.Visible && GameData.Team.Player.Strategy != instance.mStrategy)
                         UIHint.Get.ShowHint(TextConst.S(10211) + TextConst.S(15102 + GameData.Team.Player.Strategy), Color.white);
                     
-                    RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
                 } else
                     instance.Show(value);
             } else

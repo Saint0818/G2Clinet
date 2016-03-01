@@ -309,7 +309,7 @@ public class UIPlayerPotential : UIBase {
 	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow){
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
 				UIPlayerMgr.Get.Enable = true;
 			}
 			else{

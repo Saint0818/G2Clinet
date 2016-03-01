@@ -163,7 +163,7 @@ public class UILevelUp : UIBase {
 		set {
 			if (instance) {
 				if (!value)
-					RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
 				else
 					instance.Show(value);
 			} else
@@ -175,12 +175,12 @@ public class UILevelUp : UIBase {
 	public static void UIShow(bool isShow){
 		if (instance)
 			if(!isShow)
-				RemoveUI(UIName);
+            RemoveUI(instance.gameObject);
 			else
 				instance.Show(isShow);
 		else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 	
 	public static UILevelUp Get

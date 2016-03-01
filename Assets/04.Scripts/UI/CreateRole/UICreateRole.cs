@@ -75,7 +75,7 @@ public class UICreateRole : UIBase
     public void Hide()
     {
         UI3DCreateRole.Get.Hide();
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     /// <summary>

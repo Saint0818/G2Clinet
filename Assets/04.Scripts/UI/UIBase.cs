@@ -19,8 +19,12 @@ public class UIBase: MonoBehaviour
 	private GameEnum.ELanguage uiLanguage;
 	private Dictionary<UILabel, int> labelTextID = new Dictionary<UILabel, int>();
 
-	public static void RemoveUI(string uiname) {
-        UIManager.RemoveUI(uiname);
+	//public static void RemoveUI(string uiname) {
+    public static void RemoveUI(GameObject uiObj) {
+        if (uiObj != null) {
+            NGUIDebug.DestroyImmediate(uiObj, true);
+        }
+        //UIManager.RemoveUI(uiname);
 	}
 
 	protected static UIBase LoadUI(string path)
@@ -35,7 +39,7 @@ public class UIBase: MonoBehaviour
                     obj2 = Instantiate(obj) as GameObject;
                 
 				if(obj2) {
-                    UIManager.AddUI(path, ref obj2);
+                    //UIManager.AddUI(path, ref obj2);
 					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
@@ -71,7 +75,7 @@ public class UIBase: MonoBehaviour
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
 				if(obj2) {
-                    UIManager.AddUI(path, ref obj2);
+                    //UIManager.AddUI(path, ref obj2);
 					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                

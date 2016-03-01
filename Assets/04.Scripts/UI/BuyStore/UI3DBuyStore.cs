@@ -18,13 +18,13 @@ public class UI3DBuyStore :  UIBase {
 	public static void UIShow(bool isShow) {
 		if (instance) {
 			if (!isShow)
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
 			else
 				instance.Show(isShow);
 		} else
-			if (isShow) {
-				Get.Show(isShow);
-			}
+		if (isShow) {
+			Get.Show(isShow);
+		}
 	}
 
 	public static UI3DBuyStore Get {

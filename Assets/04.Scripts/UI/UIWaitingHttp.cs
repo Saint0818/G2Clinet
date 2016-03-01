@@ -66,7 +66,7 @@ public class UIWaitingHttp : UIBase {
 	}
 
 	public void ReleaseUI() {
-		RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
 	}
 
 	public static UIWaitingHttp Get

@@ -93,7 +93,7 @@ public class UIItemSource : UIBase
 
     public void Hide()
     {
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     public static UIItemSource Get

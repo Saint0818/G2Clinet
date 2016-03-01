@@ -185,7 +185,7 @@ public class UIGame : UIBase
             if (instance)
             {
                 if (!value)
-                    RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
                 else
                     instance.Show(value);
             }

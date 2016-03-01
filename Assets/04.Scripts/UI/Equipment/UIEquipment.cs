@@ -248,8 +248,7 @@ public class UIEquipment : UIBase
 
     public void Hide()
     {
-		instance.Show(false);
-        //RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     private void goToMainLobby()

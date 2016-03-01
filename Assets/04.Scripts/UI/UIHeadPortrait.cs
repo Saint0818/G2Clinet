@@ -99,7 +99,7 @@ public class UIHeadPortrait : UIBase
             {
                 if (!value)
                 {
-                    RemoveUI(UIName);
+                    RemoveUI(instance.gameObject);
                 }
                 else
                     instance.Show(value);
@@ -114,7 +114,7 @@ public class UIHeadPortrait : UIBase
         if (instance)
         {
 			if (!isShow)
-					RemoveUI (UIName);
+                RemoveUI (instance.gameObject);
 			else {
 				instance.Show (isShow);
 			}

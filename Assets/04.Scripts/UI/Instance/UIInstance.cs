@@ -111,7 +111,7 @@ public class UIInstance : UIBase
 
     public void Hide()
     {
-        RemoveUI(UIName);
+        RemoveUI(instance.gameObject);
     }
 
     public static UIInstance Get

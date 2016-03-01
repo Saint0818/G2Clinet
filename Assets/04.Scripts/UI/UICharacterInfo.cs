@@ -47,7 +47,7 @@ public class UICharacterInfo : UIBase {
 	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow)
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
 			else
 				instance.Show(isShow);
 		} else

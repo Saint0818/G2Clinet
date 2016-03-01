@@ -217,7 +217,7 @@ public class UIRecharge : UIBase {
         if (instance) {
             if (!isShow) {
                 FreshUICallback = null;
-				RemoveUI(UIName);
+                RemoveUI(instance.gameObject);
             } else
 				instance.Show(isShow);
         } else
