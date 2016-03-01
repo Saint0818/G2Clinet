@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b78472fc474c52845a15e5175ea998de
-timeCreated: 1449653313
+timeCreated: 1456816022
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -136,7 +136,7 @@ ModelImporter:
       name: Dunk0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 90
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -156,37 +156,37 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.16071185
+      - time: 0.060473178
         functionName: AnimationEvent
         data: CloneMesh
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.34345704
+      - time: 0.20980549
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.50148875
+      - time: 0.4459332
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.55686957
-        functionName: AnimationEvent
-        data: DunkFallBall
+      - time: 0.45068327
+        functionName: SkillEvent
+        data: CameraAction
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5062389
-        functionName: SkillEvent
-        data: CameraAction
+      - time: 0.5228194
+        functionName: AnimationEvent
+        data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

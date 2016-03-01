@@ -136,7 +136,7 @@ ModelImporter:
       name: Dunk0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 90
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -156,35 +156,35 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.16071184
+      - time: 0.060473178
         functionName: AnimationEvent
         data: CloneMesh
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.34345704
+      - time: 0.20980549
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.50148875
+      - time: 0.4459332
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5062388
+      - time: 0.45068327
         functionName: SkillEvent
         data: CameraAction
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.55686957
+      - time: 0.5228194
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
