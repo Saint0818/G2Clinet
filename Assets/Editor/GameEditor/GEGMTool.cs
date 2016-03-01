@@ -274,12 +274,13 @@ public class GEGMTool : GEBase
     }
 
     private int mMaxPlayerBank = 2;
+
     private void setMaxPlayerBank()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Set MaxPlayerBank:");
         mMaxPlayerBank = EditorGUILayout.IntField(mMaxPlayerBank, GUILayout.Width(100));
-        if(GUILayout.Button("Set", GUILayout.Width(50)))
+        if (GUILayout.Button("Set", GUILayout.Width(50)))
         {
             var protocol = new GMSetMaxPlayerBankProtocol();
             protocol.Send(mMaxPlayerBank, ok => {});
@@ -288,6 +289,7 @@ public class GEGMTool : GEBase
     }
 
     private int mAddMoney;
+
     private void addMoney()
     {
         EditorGUILayout.BeginHorizontal();
@@ -352,7 +354,7 @@ public class GEGMTool : GEBase
         
         GUILayout.Label("Power");
         mAddPowerValue = EditorGUILayout.IntField(mAddPowerValue, GUILayout.Width(100));
-        if(GUILayout.Button("Add", GUILayout.Width(50)))
+        if (GUILayout.Button("Add", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("Value", mAddPowerValue);
@@ -423,8 +425,8 @@ public class GEGMTool : GEBase
 
     private bool CanUsePotential(int index)
     {
-		return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential +
-			GameFunction.GetPotentialRule (GameData.Team.Player.BodyType, index);
+        return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential +
+        GameFunction.GetPotentialRule(GameData.Team.Player.BodyType, index);
     }
 
     private void CalculateAddPotential()
@@ -432,7 +434,7 @@ public class GEGMTool : GEBase
         int count = 0;
         for (int i = 0; i < addPotential.Length; i++)
         {
-			count += addPotential[i] * GameFunction.GetPotentialRule (GameData.Team.Player.BodyType, i);
+            count += addPotential[i] * GameFunction.GetPotentialRule(GameData.Team.Player.BodyType, i);
         }
 
         if (CrtLvPotential >= count)
@@ -632,8 +634,24 @@ public class GEGMTool : GEBase
     }
 
     private string itemtip = "裝備狀況  ： ";
+    private int PlayerItemsSettingOption = 0;
+    private string[] PlayerItemsSettingOptionstr = new string[2]{"背包", "裝備中"};
 
     private void PlayerItemsSetting()
+    {
+        PlayerItemsSettingOption = GUILayout.Toolbar(PlayerItemsSettingOption, PlayerItemsSettingOptionstr);
+        switch (PlayerItemsSettingOption)
+        {
+            case 0:
+                InBackage();
+                break;
+            case 1:
+                InPlayer();
+                break;
+        }
+    }
+
+    private void InPlayer()
     {
         if (GameData.Team.Player.Items != null && GameData.Team.Player.Items.Length > 0)
         {
@@ -648,9 +666,53 @@ public class GEGMTool : GEBase
                         GUILayout.Label("裝備中, ");
 
                         if (GameData.Team.Player.Items[i].UseKind == 1)
-                            GUILayout.Label(itemtip + "時限內");
+                            GUILayout.Label(itemtip + "時限內" + ", Time : " + GameData.Team.Player.Items[i].UseTime);
                         else if (GameData.Team.Player.Items[i].UseKind == 2)
-                            GUILayout.Label(itemtip + "過期");
+                            GUILayout.Label(itemtip + "過期" + ", Time : " + GameData.Team.Player.Items[i].UseTime);
+                        else
+                            GUILayout.Label(itemtip + "永久");
+
+                        if (GUILayout.Button("過期", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, 2, new DateTime().ToUniversalTime());
+
+                        if (GUILayout.Button("時限內", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, 1, DateTime.Now.AddDays(1).ToUniversalTime());
+
+                        if (GUILayout.Button("買斷", GUILayout.Width(50)))
+                            SendGMChangeAvatarUseKind(i, -1, new DateTime().ToUniversalTime());
+                    }
+                    else
+                        GUILayout.Label("未裝備, ");                   
+
+                    EditorGUILayout.EndHorizontal(); 
+                }
+            }
+        }	
+    }
+
+	private Vector2 scrollPosition = new Vector2(0, 0);
+
+    private void InBackage()
+    {
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition, true, true);//  GUILayout.Width(620),  GUILayout.Height(500)); 
+		GUILayout.BeginArea(new Rect(0, 0, 600, 600));    //Does not display correctly if this is not commented out!
+		
+        if (GameData.Team.Items != null && GameData.Team.Items.Length > 0)
+        {
+            for (int i = 0; i < GameData.Team.Items.Length; i++)
+            {
+                if (GameData.DItemData.ContainsKey(GameData.Team.Items[i].ID) && 
+                    GameData.DItemData[GameData.Team.Items[i].ID].Kind > 0 &&
+                    GameData.DItemData[GameData.Team.Items[i].ID].Kind < 8)
+                {
+                    EditorGUILayout.BeginHorizontal();
+
+                    if (GameData.Team.Items[i].ID > 0)
+                    {
+                        if (GameData.Team.Items[i].UseKind == 1)
+                            GUILayout.Label(itemtip + "時限內" + ", Time : " + GameData.Team.Items[i].UseTime + " Index : " + i.ToString());
+                        else if (GameData.Team.Items[i].UseKind == 2)
+                            GUILayout.Label(itemtip + "過期" + ", Time : " + GameData.Team.Items[i].UseTime + " Index : " + i.ToString());
                         else
                             GUILayout.Label(itemtip + "永久");
 
@@ -670,13 +732,16 @@ public class GEGMTool : GEBase
                 }
             }
         }
+
+		GUILayout.EndArea();
+		GUILayout.EndScrollView();
     }
 
     private void SendGMChangeAvatarUseKind(int index, int kind, DateTime time)
     {
         WWWForm form = new WWWForm();
         form.AddField("Index", index);
-        form.AddField("Kind", kind);
+        form.AddField("UseKind", kind);
         string isoJson = JsonConvert.SerializeObject(time, new IsoDateTimeConverter());
         form.AddField("UseTime", isoJson);
         SendHttp.Get.Command(URLConst.GMChangeAvatarUseKind, waitGMChangeAvatarUseKind, form);
@@ -688,6 +753,7 @@ public class GEGMTool : GEBase
         {
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Player.Items = team.Player.Items;
+            GameData.Team.Items = team.Items;
             GameData.Team.PlayerInit();
         }
     }
@@ -910,7 +976,7 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("每月登入次數: ");
-        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             GMResetDailyLoginNumProtocol protocol = new GMResetDailyLoginNumProtocol();
             protocol.Send(waitGMResetDailyLoginNums);
@@ -924,13 +990,14 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
 
-        if(UIDailyLogin.Get.Visible)
+        if (UIDailyLogin.Get.Visible)
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private int mDailyLoginYear = DateTime.Now.Year;
     private int mDailyLoginMonth = DateTime.Now.Month;
     private int mDailyLoginLoginNum;
+
     private void setDailyLoginNums()
     {
         EditorGUILayout.BeginHorizontal();
@@ -941,7 +1008,7 @@ public class GEGMTool : GEBase
         mDailyLoginMonth = EditorGUILayout.IntField(mDailyLoginMonth);
         GUILayout.Label("次數:");
         mDailyLoginLoginNum = EditorGUILayout.IntField(mDailyLoginLoginNum);
-        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        if (GUILayout.Button("設定", GUILayout.Width(50)))
         {
             var protocol = new GMSetDailyLoginNumProtocol();
             protocol.Send(mDailyLoginYear, mDailyLoginMonth, mDailyLoginLoginNum, waitGMSetDailyLoginNum);
@@ -951,18 +1018,19 @@ public class GEGMTool : GEBase
 
     private void waitGMSetDailyLoginNum(bool ok)
     {
-        if(UIDailyLogin.Get.Visible)
+        if (UIDailyLogin.Get.Visible)
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private int mLifetimeLoginNum;
+
     private void setLifetimeLoginNum()
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("終生登入次數: ");
         mLifetimeLoginNum = EditorGUILayout.IntField(mLifetimeLoginNum, GUILayout.Width(60));
         mLifetimeLoginNum = Math.Max(0, mLifetimeLoginNum);
-        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        if (GUILayout.Button("設定", GUILayout.Width(50)))
         {
             var protocol = new GMSetLifetimeLoginNumProtocol();
             protocol.Send(mLifetimeLoginNum, waitGMSetLifeTimeLoginNum);
@@ -974,7 +1042,7 @@ public class GEGMTool : GEBase
     {
         Debug.LogFormat("waitGMSetLifeTimeLoginNum, ok:{0}", ok);
 
-        if(UIDailyLogin.Get.Visible)
+        if (UIDailyLogin.Get.Visible)
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
@@ -982,10 +1050,10 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("重置 Client 終生登入次數: ");
-        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             UIDailyLoginHelper.SetLifetimeReceiveLoginNum(0);
-            if(UIDailyLogin.Get.Visible)
+            if (UIDailyLogin.Get.Visible)
                 UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
         }
         EditorGUILayout.EndHorizontal();
@@ -995,7 +1063,7 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Delete All Player Prefabs");
-        if(GUILayout.Button("Delete All"))
+        if (GUILayout.Button("Delete All"))
         {
             PlayerPrefs.DeleteAll();
             Debug.Log("Delete All PlayerPrefabs");

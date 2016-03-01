@@ -516,7 +516,7 @@ public class UIAvatarFitted : UIBase
 
 	public void DoAvatarCollection () {
 		UISuitAvatar.Get.ShowView();
-	}
+    }
 
     public void DoAvatarTab()
     {
@@ -610,10 +610,12 @@ public class UIAvatarFitted : UIBase
     private void ChangeExpiredItem()
     {
         TakeOffEauips.Clear();
+		DateTime time;
 
         foreach (KeyValuePair<int, TEquip> item in Equips)
         {
-            DateTime time = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
+//			time = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
+			time = backpackItems[item.Value.BackageSortNoLimit].EndUseTime;
             if (backpackItems[item.Value.BackageSortNoLimit].UseKind == 2 ||
                 (backpackItems[item.Value.BackageSortNoLimit].UseKind == 1 && DateTime.Compare(time, DateTime.UtcNow) < 0))
             {
@@ -622,33 +624,8 @@ public class UIAvatarFitted : UIBase
                 off.Kind = item.Value.Kind;
                 off.BackageSort = item.Value.BackageSort;
                 off.BackageSortNoLimit = item.Value.BackageSortNoLimit;
-
-//                if (item.Value.Kind == 2 || item.Value.Kind == 6 || item.Value.Kind == 7)
-//                {
-                //飾品不需要新手裝直接脫掉
                 AddUnEquipItem(item.Value.Kind, item.Value);
                 AddTakeOffItem(item.Value.Kind, off);
-//                    AddEquipItem(item.Value.Kind, off);
-//                    item.Value.ID = 0;
-//                    Equips[item.Value.Kind] = item;
-//                }
-//                else
-//                {
-//                    AddUnEquipItem(item.Value.Kind, item.Value);
-//                    AddEquipItem(item.Value.Kind, off);
-//                    for (int i = 0; i < backpackItems.Length; i++)
-//                    {
-//                        if (item.Value.Kind == backpackItems[i].Kind && backpackItems[i].SellPrice == 0)
-//                        {
-//                            TEquip equip = new TEquip();
-//                            equip.Kind = item.Value.Kind;
-//                            equip.ID = backpackItems[i].ID;
-//                            equip.BackageSort = i;
-//                            equip.BackageSortNoLimit = i;
-//                            AddTakeOffItem(item.Value.Kind, equip);
-//                        }
-//                    }
-//                }
             }
         }
 
