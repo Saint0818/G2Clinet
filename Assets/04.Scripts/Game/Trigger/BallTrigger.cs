@@ -92,7 +92,7 @@ public class BallTrigger : MonoBehaviour
     {
         if (touchPlayer(other, true))
         {
-            Debug.LogError("OnTriggerEnter");
+//            Debug.LogError("OnTriggerEnter");
         }
         else if (other.gameObject.CompareTag("Floor"))
         {

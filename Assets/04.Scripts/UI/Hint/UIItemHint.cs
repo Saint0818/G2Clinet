@@ -111,7 +111,10 @@ public class UIItemHint : UIBase {
 					setHaveCount(GameData.Team.SkillCardCounts[GameData.DItemData[itemID].Avatar]);
 				else
 					setHaveCount(0);
-				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+				if(GameData.DSkillData.ContainsKey(GameData.DItemData[itemID].Avatar)) 
+					uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+				else
+					uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DItemData[itemID].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
 			} else if(GameData.DItemData[itemID].Kind == 19) {//材料
 				hintInlayView.Show();
 				hintInlayView.UpdateUI(GameData.DItemData[itemID]);
