@@ -2243,7 +2243,7 @@
     {
         "id": 2120,
         "kind": 12,
-        "lv": 10,
+        "lv": 9,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2262,7 +2262,7 @@
     {
         "id": 2130,
         "kind": 13,
-        "lv": 10,
+        "lv": 12,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2281,7 +2281,7 @@
     {
         "id": 2150,
         "kind": 15,
-        "lv": 10,
+        "lv": 11,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2300,7 +2300,7 @@
     {
         "id": 2170,
         "kind": 17,
-        "lv": 10,
+        "lv": 15,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2319,7 +2319,7 @@
     {
         "id": 2180,
         "kind": 18,
-        "lv": 10,
+        "lv": 16,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2357,7 +2357,7 @@
     {
         "id": 2810,
         "kind": 81,
-        "lv": 10,
+        "lv": 99,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2376,7 +2376,7 @@
     {
         "id": 2820,
         "kind": 82,
-        "lv": 10,
+        "lv": 99,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2395,7 +2395,7 @@
     {
         "id": 2830,
         "kind": 83,
-        "lv": 10,
+        "lv": 99,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2414,7 +2414,7 @@
     {
         "id": 2840,
         "kind": 84,
-        "lv": 10,
+        "lv": 99,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2431,28 +2431,9 @@
         "explainen": "Upgrade Plugs"
     },
     {
-        "id": 3220,
-        "kind": 122,
-        "lv": 10,
-        "color": 1,
-        "final": 1,
-        "timekind": 1,
-        "timevalue": 0,
-        "score": 1,
-        "nametw": "體力達人",
-        "openui": "UIGameLobby",
-        "value": [10],
-        "money": [100],
-        "exp": [30],
-        "diamond": [10],
-        "nameen": "Physical Daren",
-        "explaintw": "消費體力數量",
-        "explainen": "Number of physical consumption"
-    },
-    {
         "id": 3200,
         "kind": 120,
-        "lv": 10,
+        "lv": 17,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2471,7 +2452,7 @@
     {
         "id": 3210,
         "kind": 121,
-        "lv": 10,
+        "lv": 14,
         "color": 1,
         "final": 1,
         "timekind": 1,
@@ -2488,9 +2469,28 @@
         "explainen": "Number of consumer Gem"
     },
     {
+        "id": 3220,
+        "kind": 122,
+        "lv": 13,
+        "color": 1,
+        "final": 1,
+        "timekind": 1,
+        "timevalue": 0,
+        "score": 1,
+        "nametw": "體力達人",
+        "openui": "UIGameLobby",
+        "value": [10],
+        "money": [100],
+        "exp": [30],
+        "diamond": [10],
+        "nameen": "Physical Daren",
+        "explaintw": "消費體力數量",
+        "explainen": "Number of physical consumption"
+    },
+    {
         "id": 4010,
         "kind": 1,
-        "lv": 10,
+        "lv": 20,
         "color": 3,
         "final": 1,
         "timekind": 2,
@@ -2509,7 +2509,7 @@
     {
         "id": 4120,
         "kind": 12,
-        "lv": 10,
+        "lv": 20,
         "color": 3,
         "final": 1,
         "timekind": 2,
@@ -2528,7 +2528,7 @@
     {
         "id": 4310,
         "kind": 31,
-        "lv": 10,
+        "lv": 20,
         "color": 3,
         "final": 1,
         "timekind": 2,
@@ -2547,7 +2547,7 @@
     {
         "id": 6010,
         "kind": 1,
-        "lv": 10,
+        "lv": 20,
         "color": 5,
         "final": 1,
         "timekind": 3,
@@ -2566,7 +2566,7 @@
     {
         "id": 6120,
         "kind": 12,
-        "lv": 10,
+        "lv": 20,
         "color": 5,
         "final": 1,
         "timekind": 3,
@@ -2585,7 +2585,7 @@
     {
         "id": 6310,
         "kind": 31,
-        "lv": 10,
+        "lv": 20,
         "color": 5,
         "final": 1,
         "timekind": 3,
