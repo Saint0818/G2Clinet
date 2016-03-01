@@ -755,12 +755,13 @@ public class UIGame : UIBase
             if (int.TryParse(go.name, out id) && id >= 0 && id < PlayerMe.Attribute.ActiveSkills.Count)
             {
                 PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
-                if (!state)
-                if (isShowSkillRange)
-                    UIControllerState(EUIControl.Skill);
-                else
-                    ResetRange();
-				
+				if (!state) {
+	                if (isShowSkillRange)
+	                    UIControllerState(EUIControl.Skill);
+	                else
+						ResetRange();
+					PlayerMe.PlayerSkillController.ResetUseActive();
+				}
                 showRange(EUIRangeType.Skill, state);
                 showSkillHint(state, id);
             }

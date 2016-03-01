@@ -3383,7 +3383,7 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄球成功, false: 抄球失敗. </returns>
     public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence  && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) && Passer && passingStealBallTime == 0)
+		if(player.IsDefence && (player.IsMoving || player.IsRun || player.IsDef) && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) && Passer && passingStealBallTime == 0)
 		{
 			if(Catcher == player || Catcher.Team == player.Team)
 				return false;
