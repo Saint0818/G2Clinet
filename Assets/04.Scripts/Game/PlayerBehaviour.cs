@@ -2816,9 +2816,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void StartSkillCamera(int no)
     {
-        if (no >= 20)
-        if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID))
-            UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+		if (no >= 20) {
+			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID)) {
+	            UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+				return;
+			}
+		}
 			
 		
         if (no < 20 && GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()))

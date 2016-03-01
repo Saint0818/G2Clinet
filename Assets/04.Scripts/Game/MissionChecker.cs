@@ -316,7 +316,7 @@ public class MissionChecker {
 					count += GameController.Get.GamePlayers[i].GameRecord.Push;
 					break;
 				case 5://steal
-					count += GameController.Get.GamePlayers[i].GameRecord.Steal;
+					count += (GameController.Get.GamePlayers[i].GameRecord.Steal + GameController.Get.GamePlayers[i].GameRecord.Intercept);
 					break;
 				case 6://block
 					count += GameController.Get.GamePlayers[i].GameRecord.Block;
