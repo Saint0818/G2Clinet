@@ -40,10 +40,7 @@ public class UIInstance : UIBase
 
     public void Show()
     {
-        Show(true);
-
-        buildChapters();
-        mMain.ShowChapters();
+        ShowByChapter(UIInstanceHelper.DefaultSelectChapter);
     }
 
     public void ShowByChapter(int chapter)
@@ -102,6 +99,12 @@ public class UIInstance : UIBase
 
     private void enterSelectRole(int stageID)
     {
+        if(StageTable.Ins.HasByID(stageID))
+        {
+            TStageData stageData = StageTable.Ins.GetByID(stageID);
+            UIInstanceHelper.DefaultSelectChapter = stageData.Chapter;
+        }
+
         UISelectRole.Get.LoadStage(stageID);
         Hide();
     }
