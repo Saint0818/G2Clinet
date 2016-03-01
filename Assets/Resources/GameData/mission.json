@@ -2221,6 +2221,26 @@
         "explainen": "Increase the number of synapses equipment evolution"
     },
     {
+        "id": 2100,
+        "kind": 10,
+        "lv": 10,
+        "color": 1,
+        "final": 1,
+        "timekind": 1,
+        "timevalue": 0,
+        "score": 1,
+        "nametw": "結交好友",
+        "openui": "UISocial",
+        "value": [3],
+        "money": [100],
+        "exp": [20],
+        "diamond": [50],
+        "spendkind": 3,
+        "nameen": "Keep in touch",
+        "explaintw": "給其他朋友一些讚吧",
+        "explainen": "Like some of your friends' profiles."
+    },
+    {
         "id": 2120,
         "kind": 12,
         "lv": 10,

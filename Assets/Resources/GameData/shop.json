@@ -5340,64 +5340,10 @@
         "kind": 10,
         "kind2": 10,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -5790,64 +5736,10 @@
         "kind": 10,
         "kind2": 10,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 10,
@@ -6240,64 +6132,10 @@
         "kind": 10,
         "kind2": 11,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -6690,64 +6528,10 @@
         "kind": 10,
         "kind2": 11,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 10,
@@ -7140,64 +6924,10 @@
         "kind": 10,
         "kind2": 12,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -7590,64 +7320,10 @@
         "kind": 10,
         "kind2": 12,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 10,
@@ -8040,64 +7716,10 @@
         "kind": 10,
         "kind2": 13,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -8490,64 +8112,10 @@
         "kind": 10,
         "kind2": 13,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 10,
@@ -8940,64 +8508,10 @@
         "kind": 10,
         "kind2": 14,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -9390,64 +8904,10 @@
         "kind": 10,
         "kind2": 14,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 10,
@@ -9678,64 +9138,10 @@
         "kind": 10,
         "kind2": 15,
         "spendkind": 1,
-        "price": 5000,
-        "itemid": 40001,
+        "price": 10000,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 7500,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 11250,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 16875,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 1,
-        "price": 50000,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 10,
@@ -9966,64 +9372,10 @@
         "kind": 10,
         "kind2": 15,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 10,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -14963,64 +14315,10 @@
         "kind": 11,
         "kind2": 10,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -15413,64 +14711,10 @@
         "kind": 11,
         "kind2": 10,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -15863,64 +15107,10 @@
         "kind": 11,
         "kind2": 11,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -16313,64 +15503,10 @@
         "kind": 11,
         "kind2": 11,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -16763,64 +15899,10 @@
         "kind": 11,
         "kind2": 12,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -17213,64 +16295,10 @@
         "kind": 11,
         "kind2": 12,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -17663,64 +16691,10 @@
         "kind": 11,
         "kind2": 13,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -18113,64 +17087,10 @@
         "kind": 11,
         "kind2": 13,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -18563,64 +17483,10 @@
         "kind": 11,
         "kind2": 14,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -19013,64 +17879,10 @@
         "kind": 11,
         "kind2": 14,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 11,
@@ -19301,64 +18113,10 @@
         "kind": 11,
         "kind2": 15,
         "spendkind": 2,
-        "price": 250,
-        "itemid": 40001,
+        "price": 500,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 380,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 570,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 850,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 2,
-        "price": 2500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 11,
@@ -19589,64 +18347,10 @@
         "kind": 11,
         "kind2": 15,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 11,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -24586,64 +23290,10 @@
         "kind": 12,
         "kind2": 10,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -25036,64 +23686,10 @@
         "kind": 12,
         "kind2": 10,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 10,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -25486,64 +24082,10 @@
         "kind": 12,
         "kind2": 11,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -25936,64 +24478,10 @@
         "kind": 12,
         "kind2": 11,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 11,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -26386,64 +24874,10 @@
         "kind": 12,
         "kind2": 12,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -26836,64 +25270,10 @@
         "kind": 12,
         "kind2": 12,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 12,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -27286,64 +25666,10 @@
         "kind": 12,
         "kind2": 13,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -27736,64 +26062,10 @@
         "kind": 12,
         "kind2": 13,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 13,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -28186,64 +26458,10 @@
         "kind": 12,
         "kind2": 14,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -28636,64 +26854,10 @@
         "kind": 12,
         "kind2": 14,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 14,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     },
     {
         "kind": 12,
@@ -28924,64 +27088,10 @@
         "kind": 12,
         "kind2": 15,
         "spendkind": 3,
-        "price": 50,
-        "itemid": 40001,
+        "price": 100,
+        "itemid": 40000,
         "num": 1,
         "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 80,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 120,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 170,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 14
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 8
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 3,
-        "price": 500,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 8
     },
     {
         "kind": 12,
@@ -29212,63 +27322,9 @@
         "kind": 12,
         "kind2": 15,
         "spendkind": 0,
-        "price": 42,
-        "itemid": 40001,
+        "price": 50,
+        "itemid": 40000,
         "num": 1,
         "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 63,
-        "itemid": 40002,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 94,
-        "itemid": 40003,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 141,
-        "itemid": 40004,
-        "num": 1,
-        "rate": 7
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40100,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40101,
-        "num": 1,
-        "rate": 4
-    },
-    {
-        "kind": 12,
-        "kind2": 15,
-        "spendkind": 0,
-        "price": 417,
-        "itemid": 40102,
-        "num": 1,
-        "rate": 4
     }
 ]
