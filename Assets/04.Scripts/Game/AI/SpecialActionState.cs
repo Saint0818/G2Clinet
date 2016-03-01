@@ -56,14 +56,14 @@ namespace AI
 
                 foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
                 {
-                    playerAI.ChangeState(EPlayerAIState.ReturnToHome);
+                    playerAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
                 }
             }
             else if(mNextState == EGameSituation.NPCPickBall)
             {
                 foreach(PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Self).Players)
                 {
-                    playerAI.ChangeState(EPlayerAIState.ReturnToHome);
+                    playerAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
                 }
 
                 foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)

@@ -59,17 +59,17 @@ namespace AI
         public override string ToString()
         {
             mBuilder.Remove(0, mBuilder.Length);
-            mBuilder.AppendFormat("Team:{0}, ", mTeamKind);
-            for(int i = 0; i < mPlayers.Count; i++)
-            {
-                mBuilder.AppendFormat("{0}:{1}, ", mPlayers[i].name, mPlayers[i].GetCurrentStateName());
-            }
 
+            mBuilder.AppendLine();
+            mBuilder.AppendFormat("Team:{0}, ", mTeamKind);
             mBuilder.AppendLine();
 
             for(int i = 0; i < mPlayers.Count; i++)
             {
-                mBuilder.AppendFormat("{0}:{1}, ", mPlayers[i].name, mPlayers[i].GetCurrentAnimationName());
+                mBuilder.AppendFormat("{0}, State:{1}: Ani:{2}, MoveTarget:{3}", 
+                    mPlayers[i].name, mPlayers[i].GetCurrentStateName(), mPlayers[i].GetCurrentAnimationName(),
+                    mPlayers[i].GetCurrentMoveTarget());
+                mBuilder.AppendLine();
             }
 
             return mBuilder.ToString();
@@ -145,30 +145,27 @@ namespace AI
         }
 
         /// <summary>
-        /// 是否球員在前場.
+        /// 是否球員在前場(接近進攻籃框); 後場(接近防守籃框).
         /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public bool IsInUpfield(Vector3 pos)
+        /// <param name="worldPos"></param>
+        /// <returns> true: 在前場; false: 在後場. </returns>
+        public bool IsInUpfield(Vector3 worldPos)
         {
+            // 球場的大小是 (-12, -17) ~ (12, 17).
+            // 畫面上的左是 +z 軸, 畫面上的右是 -z 軸.
+            // 我為了判斷正確, 我就稍微加大數值.
             if(mTeamKind == ETeamKind.Self)
             {
-                if(-12 <= pos.x && pos.x <= 12 &&
-                   0 <= pos.z && pos.z <= 17.0f)
+                if(-15 <= worldPos.x && worldPos.x <= 15 &&
+                   0 <= worldPos.z && worldPos.z <= 20.0f)
                     return true;
             }
             else if(mTeamKind == ETeamKind.Npc)
             {
-                if(-12 <= pos.x && pos.x <= 12 &&
-                   -17.0f <= pos.z && pos.z <= 0)
+                if(-15 <= worldPos.x && worldPos.x <= 15 &&
+                   -20.0f <= worldPos.z && worldPos.z <= 0)
                     return true;
             }
-//            if(pos.Team == ETeamKind.Self && pos.transform.position.z >= 15.5f && 
-//               pos.transform.position.x <= 1 && pos.transform.position.x >= -1)
-//                return false;
-//            if(pos.Team == ETeamKind.Npc && pos.transform.position.z <= -15.5f && 
-//               pos.transform.position.x <= 1 && pos.transform.position.x >= -1)
-//                return false;
             return false;
         }
 
@@ -280,6 +277,18 @@ namespace AI
         public Vector2 GetHomePosition(EPlayerPostion pos)
         {
             return mHomePositions[pos];
+        }
+
+        private const float NearHomePositionDis = 0.5f;
+
+        public bool IsNearHomePosition(PlayerBehaviour player)
+        {
+            return IsNearHomePosition(player.Postion, player.transform.position);
+        }
+
+        public bool IsNearHomePosition(EPlayerPostion pos, Vector3 worldPos)
+        {
+            return Vector2.Distance(mHomePositions[pos], MathUtils.Convert2D(worldPos)) <= NearHomePositionDis;
         }
     } // end of the class Team.
 } // end of the namespace AI.

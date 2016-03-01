@@ -82,6 +82,11 @@ namespace AI
             return string.Format("{0}", mPlayer.crtState);
         }
 
+        public Vector3 GetCurrentMoveTarget()
+        {
+            return mPlayer.TargetPosNum > 0 ? mPlayer.CurrentTargetPos : Vector3.zero;
+        }
+
         public void HandleMessage(Telegram<EGameMsg> msg)
         {
             if (msg.Msg == EGameMsg.GamePlayersCreated)

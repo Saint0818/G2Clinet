@@ -9,18 +9,19 @@ namespace AI
             get { return EPlayerAIState.Defense; }
         }
 
+        private readonly PlayerAI mPlayerAI;
         private readonly PlayerBehaviour mPlayer;
-//        private AISkillJudger mSkillJudger;
 
-        private readonly StartSkillAction mStartSkillAction;
+        private readonly StartActiveSkillAction mStartActiveSkillAction;
 
         private readonly ActionRandomizer mActions = new ActionRandomizer();
 
         public PlayerDefenseState([NotNull]PlayerAI playerAI, [NotNull] PlayerBehaviour player)
         {
+            mPlayerAI = playerAI;
             mPlayer = player;
 
-            mStartSkillAction = new StartSkillAction(mPlayer);
+            mStartActiveSkillAction = new StartActiveSkillAction(mPlayer);
 
             mActions.Add(new CloseDefPlayerAction(playerAI, mPlayer));
             mActions.Add(new PushAction(playerAI, mPlayer));
@@ -29,21 +30,12 @@ namespace AI
 
         public void Init(PlayerBehaviour[] players)
         {
-//            mSkillJudger = new AISkillJudger(mPlayer, false, players);
-            mStartSkillAction.Init(players, false);
+            mStartActiveSkillAction.Init(players, false);
         }
 
         public override void Enter(object extraInfo)
         {
             mPlayer.ResetMove();
-//			if (mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0)
-//            {
-//                if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
-//                {
-//                    TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
-//                    mSkillJudger.SetNewCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
-//                }
-//            }
         }
 
         public override void Exit()
@@ -55,22 +47,10 @@ namespace AI
             if(!mPlayer.AIing)
                 return;
 
-//            if(mPlayer.Attribute.ActiveSkills.Count > 0)
-//            {
-//				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
-//                   mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
-//				{
-//				    if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]))
-//                        return; // 真的有做主動技, 才真的結束 AI 的判斷.
-//				}
-//            }
-
-            if(mStartSkillAction.Do())
+            if(mStartActiveSkillAction.Do())
                 return; // 真的有做主動技, 會結束此次的 AI 判斷.
 
             doDefenseAction();
-
-//            GameController.Get.MoveDefPlayer(mPlayer.DefPlayer);
         }
 
         public override void Update()

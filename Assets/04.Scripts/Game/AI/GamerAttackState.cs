@@ -5,7 +5,7 @@ namespace AI
     /// <summary>
     /// 玩家進攻, 電腦防守.
     /// </summary>
-    public class AttackGamerState : AttackerState
+    public class GamerAttackState : AttackerState
     {
         public override EGameSituation ID
         {
@@ -32,19 +32,30 @@ namespace AI
             if(GameController.Get.Joysticker && GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
                 GameController.Get.Joysticker.SetManually();
 
-            foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
-            {
-                if (player.Team == ETeamKind.Self)
-                    player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Attack);
-                else if (player.Team == ETeamKind.Npc)
-                    player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Defense);
-            }
+            setPlayerStates();
 
             if(AIController.Get.AIRemainTime > 0)
             {
                 GameController.Get.Joysticker.SetAITime(AIController.Get.AIRemainTime);
                 GameController.Get.Joysticker.AniState(EPlayerState.Idle);
                 AIController.Get.AIRemainTime = 0;
+            }
+        }
+
+        private static void setPlayerStates()
+        {
+            foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
+            {
+                var playerAI = player.GetComponent<PlayerAI>();
+                if(player.Team == ETeamKind.Self)
+                    playerAI.ChangeState(EPlayerAIState.Attack);
+                else if(player.Team == ETeamKind.Npc)
+                {
+//                    if(playerAI.IsInUpfield())
+                        playerAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.Defense);
+//                    else
+//                        playerAI.ChangeState(EPlayerAIState.Defense);
+                }
             }
         }
 

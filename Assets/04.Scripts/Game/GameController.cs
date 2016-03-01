@@ -1347,27 +1347,29 @@ public class GameController : KnightSingleton<GameController>
                                 player.DefPlayer.TargetPos = moveData;
                             }
                         }
-                        else
-                        {
-                            // 防守者離 Home Region 不夠近.(比如球員在前場)
-                            // 要防守者往 Home Region 跑.
-                            player.DefPlayer.ResetMove();
-                            sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-//                            moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
-                            moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
-                            
-                            if(BallOwner != null)
-								moveData.LookTarget = BallOwner.transform;
-                            else
-                            {
-                                if (player.Team == ETeamKind.Self)
-                                    moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
-                                else
-                                    moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
-                            }
-                            
-                            player.DefPlayer.TargetPos = moveData;                         
-                        }
+//                        else
+//                        {
+//                            if(player.DefPlayer.TargetPosNum == 0)
+//                            {
+//                                // 防守者離 Home Region 不夠近.(比如球員在前場)
+//                                // 要防守者往 Home Region 跑.
+//                                player.DefPlayer.ResetMove();
+//                                sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+//                                moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
+//
+//                                if (BallOwner != null)
+//                                    moveData.LookTarget = BallOwner.transform;
+//                                else
+//                                {
+//                                    if (player.Team == ETeamKind.Self)
+//                                        moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
+//                                    else
+//                                        moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
+//                                }
+//
+//                                player.DefPlayer.TargetPos = moveData;
+//                            }
+//                        }
                     }
                 }
                 else

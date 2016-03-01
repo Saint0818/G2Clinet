@@ -1234,44 +1234,43 @@ namespace GameStruct
 
 	public struct TMoveData
 	{
-			public Vector2 Target
-			{
-					get { return mTarget; }
-			}
+		public Vector2 Target
+		{
+			get { return mTarget; }
+		}
 
-			private Vector2 mTarget;
+		private Vector2 mTarget;
 
-			/// <summary>
-			/// 當移動到定點的時候, 要往哪個方向看.
-			/// </summary>
-			[CanBeNull]
-			public Transform LookTarget;
-			public Transform FollowTarget;
-			public PlayerBehaviour DefPlayer;
-			public OnPlayerAction2 MoveFinish;
-			public bool Speedup;
-			public bool Catcher;
-			public bool Shooting;
-			public string TacticalName;
-			// for debug.
+		/// <summary>
+		/// 當移動到定點的時候, 要往哪個方向看.
+		/// </summary>
+		[CanBeNull]
+		public Transform LookTarget;
+		public Transform FollowTarget;
+		public PlayerBehaviour DefPlayer;
+		public OnPlayerAction2 MoveFinish;
+		public bool Speedup;
+		public bool Catcher;
+		public bool Shooting;
+		public string TacticalName; // for debug.
 
-			public void Clear()
-			{
-					mTarget = Vector2.zero;
-					LookTarget = null;
-					MoveFinish = null;
-					FollowTarget = null;
-					DefPlayer = null;
-					Speedup = false;
-					Catcher = false;
-					Shooting = false;
-					TacticalName = "";
-			}
+		public void Clear()
+		{
+			mTarget = Vector2.zero;
+			LookTarget = null;
+			MoveFinish = null;
+			FollowTarget = null;
+			DefPlayer = null;
+			Speedup = false;
+			Catcher = false;
+			Shooting = false;
+			TacticalName = "";
+		}
 
-			public void SetTarget(float x, float y)
-			{
-					mTarget.Set(x, y);
-			}
+		public void SetTarget(float x, float y)
+		{
+			mTarget.Set(x, y);
+		}
 	}
 
 	[System.Serializable]

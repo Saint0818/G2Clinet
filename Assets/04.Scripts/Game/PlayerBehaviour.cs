@@ -3367,11 +3367,15 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         { 
-            if (moveQueue.Count == 0)
+            if(moveQueue.Count == 0)
                 return "";
-            else
-                return moveQueue.Peek().TacticalName;
+            return moveQueue.Peek().TacticalName;
         }
+    }
+
+    public Vector3 CurrentTargetPos
+    {
+        get { return TestGameObject.transform.position; }
     }
 
     public bool UseGravity

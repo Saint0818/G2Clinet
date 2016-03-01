@@ -74,8 +74,8 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         mFSM.AddState(new InitCourtState());
         mFSM.AddState(new OpeningState());
         mFSM.AddState(new JumpBallState());
-        mFSM.AddState(new AttackGamerState());
-        mFSM.AddState(new AttackNPCState());
+        mFSM.AddState(new GamerAttackState());
+        mFSM.AddState(new NPCAttackState());
         mFSM.AddState(new GamerPickBallState());
         mFSM.AddState(new InboundsGamerState());
         mFSM.AddState(new NPCPickBallState());
@@ -115,7 +115,6 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         }
     }
 
-    [UsedImplicitly]
     private void FixedUpdate()
     {
         mFSM.Update();
@@ -124,14 +123,17 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         GameMsgDispatcher.Ins.Update();
     }
 
-    [UsedImplicitly]
     private void OnGUI()
     {
         if(AIDebugger.Get.ShowStatus)
         {
-            GUI.Label(new Rect(100, 100, 600, 100), string.Format("GameController:{0}", GameController.Get.Situation));
-            GUI.Label(new Rect(100, 130, 600, 100), string.Format("{0}", mTeams[ETeamKind.Self]));
-            GUI.Label(new Rect(100, 160, 600, 100), string.Format("{0}", mTeams[ETeamKind.Npc]));
+            GUI.Label(new Rect(AIDebugger.Get.StartPos.x, AIDebugger.Get.StartPos.y, 600, 100), string.Format("GameController:{0}", GameController.Get.Situation));
+
+            GUI.color = Color.yellow;
+            GUI.Label(new Rect(AIDebugger.Get.StartPos.x, AIDebugger.Get.StartPos.y + 20, 600, 100), string.Format("{0}", mTeams[ETeamKind.Self]));
+
+            GUI.color = Color.white;
+            GUI.Label(new Rect(AIDebugger.Get.StartPos.x, AIDebugger.Get.StartPos.y + AIDebugger.Get.YInterval*2, 600, 100), string.Format("{0}", mTeams[ETeamKind.Npc]));
         }
     }
 

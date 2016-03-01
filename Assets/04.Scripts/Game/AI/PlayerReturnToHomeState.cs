@@ -5,7 +5,8 @@ using GameStruct;
 namespace AI
 {
     /// <summary>
-    /// 球員要跑回 Home Position.
+    /// <para> 球員跑回 Home Position. </para>
+    /// <para> 切換到此狀態時, 必須要傳遞 EPlayerAIState, 也就是跑到 Home Position 時, AI 要切換到什麼狀態. </para>
     /// </summary>
     public class PlayerReturnToHomeState : State<EPlayerAIState, EGameMsg>
     {
@@ -16,6 +17,11 @@ namespace AI
 
         private readonly PlayerAI mPlayerAI;
         private readonly PlayerBehaviour mPlayer;
+
+        /// <summary>
+        /// 跑到 Home Position 時, 要切換到哪個狀態.
+        /// </summary>
+        private EPlayerAIState mFinishNextState = EPlayerAIState.None;
 
         public PlayerReturnToHomeState([NotNull]PlayerAI playerAI, [NotNull]PlayerBehaviour player)
         {
@@ -28,6 +34,8 @@ namespace AI
 //            Debug.LogFormat("PlayerReturnToHomeState.Enter, Player:{0}", mPlayer.name);
 
             moveToHomePosition();
+
+            mFinishNextState = (EPlayerAIState)extraInfo;
         }
 
         private void moveToHomePosition()
@@ -44,10 +52,11 @@ namespace AI
 
         private void onMoveFinish(PlayerBehaviour player, bool speedup)
         {
-//            Parent.ChangeState(EPlayerAIState.Defense);
             mPlayer.AniState(EPlayerState.Idle);
             Vector3 shootPoint = mPlayerAI.Team.GetShootPoint();
             mPlayer.RotateTo(shootPoint.x, shootPoint.z);
+
+            Parent.ChangeState(mFinishNextState);
         }
 
         public override void Exit()

@@ -16,7 +16,7 @@ namespace AI
         /// </summary>
 //        private int mNextSkillIndex;
 
-        private readonly StartSkillAction mStartSkillAction;
+        private readonly StartActiveSkillAction mStartActiveSkillAction;
 
         /// <summary>
         /// 持球行為選擇.
@@ -38,7 +38,7 @@ namespace AI
             mPlayerAI = playerAI;
             mPlayer = player;
 
-            mStartSkillAction = new StartSkillAction(mPlayer);
+            mStartActiveSkillAction = new StartActiveSkillAction(mPlayer);
 
             mBallActions.Add(new MoveDodgeAction(mPlayerAI, mPlayer));
             mBallActions.Add(new TacticalAction(mPlayerAI, mPlayer));
@@ -56,19 +56,6 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
-//            mPlayer.ResetMove();
-//            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
-
-//			if(mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0) 
-//			{
-//				if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
-//				{
-//					TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
-//					mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
-//				}
-//			}
-
-//            mStartSkillAction.UpdateCondition();
         }
 
         public override void Exit()
@@ -90,8 +77,7 @@ namespace AI
         /// <param name="players"> 該場比賽中, 全部的球員. </param>
         public void Init([NotNull]PlayerBehaviour[] players)
         {
-//            mSkillJudger = new AISkillJudger(mPlayer, players, true);
-            mStartSkillAction.Init(players, true);
+            mStartActiveSkillAction.Init(players, true);
         }
 
         public override void UpdateAI()
@@ -108,25 +94,8 @@ namespace AI
                 return;
             }
 
-            if(mStartSkillAction.Do())
+            if(mStartActiveSkillAction.Do())
                 return; // 主動技真的放成功, 結束這次 AI 的判斷.
-//          嘗試放主動技.
-//			if(mPlayer.Attribute.ActiveSkills.Count > 0)
-//			{
-//				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
-//                   mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[mNextSkillIndex]))
-//				{
-//					if(GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[mNextSkillIndex]))
-//					{
-//                        // 現在規則是主動技會按順序發動, 第 1 招發完, 下一次會放第 2 招.
-//					    ++mNextSkillIndex;
-//					    if(mNextSkillIndex >= mPlayer.Attribute.ActiveSkills.Count)
-//					        mNextSkillIndex = 0;
-//
-//                        return; // 主動技真的放成功, 才真的會結束 AI 的判斷.
-//                    }
-//				}
-//			}
 
             if(isBallOwner())
                 mBallActions.Do();

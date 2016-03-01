@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace AI
 {
     /// <summary>
-    /// 發動技能.
+    /// 發動主動技能.
     /// </summary>
     /// 使用方法:
     /// <list type="number">
@@ -13,7 +13,7 @@ namespace AI
     /// <item> Call Init() 初始化. </item>
     /// <item> Call Do() 嘗試放主動技. </item>
     /// </list>
-    public class StartSkillAction
+    public class StartActiveSkillAction
     {
         private readonly PlayerBehaviour mPlayer;
 
@@ -25,7 +25,7 @@ namespace AI
         [CanBeNull]
         private AISkillJudger[] mSkillJudgers;
 
-        public StartSkillAction(PlayerBehaviour player)
+        public StartActiveSkillAction(PlayerBehaviour player)
         {
             mPlayer = player;
         }
