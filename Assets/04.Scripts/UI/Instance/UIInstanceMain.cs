@@ -49,6 +49,9 @@ public class UIInstanceMain : MonoBehaviour
     /// </summary>
     private const int MoveStep = 10;
 
+    /// <summary>
+    /// key: Chapter, 1: 第 1 章, 2: 第 2 章, 以此類推.
+    /// </summary>
     private readonly Dictionary<int, UIInstanceChapter> mChapters = new Dictionary<int, UIInstanceChapter>();
     private readonly List<UIInstanceStage> mStages = new List<UIInstanceStage>();
 
@@ -149,12 +152,34 @@ public class UIInstanceMain : MonoBehaviour
         get
         {
             // 其實這部份只是根據 ScrollView 的 Local Position 來判斷現在顯示哪一章.
-            // 當位置是 0 時, 表示是選擇第 1 章; 當位置是 (-900) 時, 表示是選擇第 2 章;
-            // 當位置是 (-1800) 時, 表示是選擇第 3 章. 以此類推.(目前章節的寬度是 900)
-            // +1 也是依據算式而做的調整, 不然明明是第 1 章, 但是卻回傳 0.
-            return (int)Mathf.Abs(ChapterScrollView.transform.localPosition.x / ChapterInterval) + 1;
+            // 當位置是 -450 ~ 450 時, 表示是選擇第 1 章; 
+            // 當位置是 451 ~ 900 時, 表示是選擇第 2 章;
+            // 當位置是 901 ~ 1350 時, 表示是選擇第 3 章. 以此類推.(目前章節的寬度是 900)
+
+            float minX = -450;
+            float maxX = 450;
+            int chapter = 1;
+            int currentPosX = (int)Mathf.Abs(ChapterScrollView.transform.localPosition.x);
+            while (chapter <= mChapters.Count)
+            {
+                if(minX <= currentPosX && currentPosX <= maxX)
+                    return chapter;
+
+                ++chapter;
+                minX += ChapterInterval;
+                maxX += ChapterInterval;
+            }
+
+            return 0;
+
+//            return (int)Mathf.Abs(ChapterScrollView.transform.localPosition.x / ChapterInterval) + 1;
         }
     }
+
+//    private void OnGUI()
+//    {
+//        GUI.Label(new Rect(100, 100, 600, 100), string.Format("Current Chapter:{0}", CurrentChapter));
+//    }
 
     private Vector3 getChapterTargetPos(int chapter)
     {
@@ -238,6 +263,17 @@ public class UIInstanceMain : MonoBehaviour
         foreach(UIInstanceStage stage in mStages)
             Destroy(stage.gameObject);
         mStages.Clear();
+    }
+
+    private void updateNavigationButtons()
+    {
+        PreviousChapterButton.gameObject.SetActive(CurrentChapter != 1);
+        NextChapterButton.gameObject.SetActive(CurrentChapter != mChapters.Count);
+    }
+
+    private void FixedUpdate()
+    {
+        updateNavigationButtons();
     }
 
     /// <summary>
