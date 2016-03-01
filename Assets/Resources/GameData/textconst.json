@@ -458,6 +458,11 @@
         "en": "Later takes the role of field [FF00FFFF] {0} [-] Gems."
     },
     {
+        "id": 514,
+        "tw": "登入失敗",
+        "en": "Login Fail"
+    },
+    {
         "id": 531,
         "explain": "數值裝備成功",
         "tw": "裝備變更完成。",
@@ -4472,6 +4477,16 @@
         "id": 12037,
         "tw": "帳號登入",
         "en": "Login"
+    },
+    {
+        "id": 12038,
+        "tw": "開啟遊戲酒吧動態視窗",
+        "en": "OPEN PUBGAME WIDGE"
+    },
+    {
+        "id": 12039,
+        "tw": "關閉遊戲酒吧動態視窗",
+        "en": "CLOSE PUBGAME WIDGE"
     },
     {
         "id": 13000,

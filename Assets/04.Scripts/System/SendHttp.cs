@@ -1,4 +1,5 @@
 ﻿//#define ShowHttpLog
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -217,7 +218,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else {
 			focusCount++;
 			if (focusCount > 1 && CheckNetwork(false)) {
-				if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible) {
+                if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible && 
+                    !UIPubgame.Visible && !UIMessage.Visible) {
 					checkVersion ();
 				} else
 				if (GameData.Team.Player.Lv > 0) {
@@ -393,12 +395,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		return false;
 	}
 
-	private void addLoginInfo(ref WWWForm form) {
+    private void addLoginInfo(ref WWWForm form, string openID="") {
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
 		form.AddField("Language", GameData.Setting.Language.GetHashCode());
 		form.AddField("OS", GameData.OS);
 		form.AddField("Company", GameData.Company);
 		form.AddField("Version", BundleVersion.Version.ToString());
+        if (!string.IsNullOrEmpty(openID))
+            form.AddField("OpenID", openID);
 	}
 
 	private void waitResetToday(bool Value, WWW www) {
@@ -457,6 +461,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
             if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion) {
                 if (GameData.Company == ECompany.PubGame) {
                     UIPubgame.Visible = true;
+                    UIPubgame.Get.LoginHandle = waitPubgameLogin;
                     UILoading.UIShow(false);
                 } else
 				    SendLogin();
@@ -471,10 +476,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
         UINotic.Visible = true;
     }
 	
-	private void SendLogin() {
+    private void SendLogin(string openID="") {
 		GameData.Team.Identifier = "";
 		WWWForm form = new WWWForm();
-		addLoginInfo(ref form);
+        addLoginInfo(ref form, openID);
 		Command(URLConst.DeviceLogin, waitDeviceLogin, form);
 	}
 	
@@ -808,5 +813,13 @@ public class SendHttp : KnightSingleton<SendHttp> {
         form.AddField("Name", GameData.Team.Player.Name);
         form.AddField("Ask", "1");
         Command(URLConst.ConfirmMakeFriend, waitConfirm, form);
+    }
+
+    private void waitPubgameLogin(int resultCode, string playerId, string token) {
+        if (resultCode == 1) {
+            SendLogin(playerId);
+            UIPubgame.Visible = false;
+        } else
+            UIHint.Get.ShowHint(TextConst.S(514) + " " + resultCode.ToString(), Color.red);
     }
 }

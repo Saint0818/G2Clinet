@@ -144,13 +144,19 @@ public class AccountView
 	private GameObject self;
 	private UIButton othterCharacterBtn;
 	private ELanguage language;
+    private GameObject uiPubgame;
+    public UILabel labelWidge;
 
 	public void Init(GameObject obj)
 	{
 		if (obj) {
 			self = obj;
-
+            uiPubgame = self.transform.FindChild("Pubgame").gameObject;
+            labelWidge = self.transform.FindChild("Pubgame/Widge/Label").gameObject.GetComponent<UILabel>();
 			othterCharacterBtn = self.transform.FindChild("Account/0").gameObject.GetComponent<UIButton>();
+
+            if (GameData.Company != ECompany.PubGame)
+                uiPubgame.SetActive(false);
 		}
 
 		language = GameData.Setting.Language;
@@ -226,12 +232,15 @@ public class UISetting : UIBase {
 	}
 
 	protected override void InitCom() {
+        SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
+        SetBtnFun(UIName + "Window/Center/Pages/2/GameNews/0", OnNotic);
+        SetBtnFun(UIName + "/Window/Center/Pages/2/Pubgame/Widge", OnPubgameWidge);
+
 		for (int i = 0; i < pages.Length; i++) {
 			pages[i] = GameObject.Find(UIName + string.Format("Window/Center/Pages/{0}", i));
 			tabs[i] = GameObject.Find(UIName + string.Format("Window/Center/Tabs/{0}", i));
 			SetBtnFun(UIName + string.Format("Window/Center/Tabs/{0}", i), OnPage);
-			SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
-			SetBtnFun(UIName + "Window/Center/Pages/2/GameNews/0", OnAnnouncement);
+			
 
 			switch(i)
 			{
@@ -245,7 +254,7 @@ public class UISetting : UIBase {
 					break;
 				case 2:
 					accountSetting.Init(pages[i]);
-					accountSetting.InitBtttonFunction(new EventDelegate(OnOtherCharacter));		
+					accountSetting.InitBtttonFunction(new EventDelegate(OnOtherCharacter));
 					break;
 				case 3:
 					pages[i].gameObject.SetActive(false);
@@ -289,12 +298,17 @@ public class UISetting : UIBase {
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
-	public void OnAnnouncement()
+	public void OnNotic()
 	{
-		UIShow(false);
         UINotic.Visible = true;
 	}
 
+    public void OnPubgameWidge() {
+        if (UIPubgame.Get.OnSwitchWidge())
+            accountSetting.labelWidge.text = TextConst.S(12039);
+        else
+            accountSetting.labelWidge.text = TextConst.S(12038);
+    }
 
 	public void OnReturn()
 	{

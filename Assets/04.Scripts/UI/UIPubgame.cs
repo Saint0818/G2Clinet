@@ -5,8 +5,9 @@ using Pubgame;
 public class UIPubgame : UIBase {
     private static UIPubgame instance = null;
     private const string UIName = "UIPubgame";
-    public delegate void LoginCallback (string id);
+    public delegate void LoginCallback (int resultCode, string playerId, string token);
     public LoginCallback LoginHandle = null;
+    private bool eventSwitch = true;
 
     public static bool Visible {
         get {
@@ -17,12 +18,9 @@ public class UIPubgame : UIBase {
         }
 
         set {
-            if (instance) {
-                if (!value)
-                    RemoveUI(UIName);
-                else
-                    instance.Show(value);
-            } else
+            if (instance)
+                instance.Show(value);
+            else
             if (value)
                 Get.Show(value);
         }
@@ -46,16 +44,24 @@ public class UIPubgame : UIBase {
 
     protected override void OnShow(bool isShow) {
         base.OnShow(isShow);
+
+        SetLabel(UIName + "/BottomLeft/Label", TextConst.StringFormat (12006, BundleVersion.Version));
     }
 
     public void OnLogin() {
         Pubgame.PubgameSdk.Get.Login(pubgameLogin);
     }
 
+    public bool OnSwitchWidge() {
+        eventSwitch = !eventSwitch;
+        Pubgame.PubgameSdk.Get.SetPgToolsActive(eventSwitch);
+        return eventSwitch;
+    }
+
     private void pubgameLogin(bool ok, PubgameLoginResponse res) {
         if (ok) {
             if (LoginHandle != null)
-                LoginHandle(res.PlayerId);
+                LoginHandle(res.ResultCode, res.PlayerId, res.Token);
 
             Visible = false;
         }
