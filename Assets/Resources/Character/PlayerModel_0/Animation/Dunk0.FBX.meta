@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b78472fc474c52845a15e5175ea998de
-timeCreated: 1456816022
+timeCreated: 1456818334
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -156,7 +156,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.060473178
+      - time: 0.022553388
+        functionName: EffectEvent
+        data: JumpFX
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.07801703
         functionName: AnimationEvent
         data: CloneMesh
         objectReferenceParameter: {instanceID: 0}
@@ -184,7 +191,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5228194
+      - time: 0.489908
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
