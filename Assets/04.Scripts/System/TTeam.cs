@@ -951,7 +951,7 @@ namespace GameStruct
 		/// <returns><c>true</c> if this instance is get item the specified itemID; otherwise, <c>false</c>.</returns>
 		/// <param name="itemID">Item I.</param>
 		public bool IsGetItem (int itemID) {
-			if(GotItemCount.ContainsKey(itemID)) 
+			if(GotItemCount != null && GotItemCount.ContainsKey(itemID)) 
 				if(GotItemCount[itemID] != 0)
 					return true;
 			
