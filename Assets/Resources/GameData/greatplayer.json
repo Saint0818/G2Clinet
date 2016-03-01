@@ -4054,8 +4054,8 @@
     {
         "id": 1400,
         "nametw": "Emma",
-        "point2": 23,
-        "point3": 18,
+        "point2": 43,
+        "point3": 38,
         "speed": 28,
         "stamina": 13,
         "strength": 13,
@@ -4093,8 +4093,8 @@
     {
         "id": 1401,
         "nametw": "Nick",
-        "point2": 26,
-        "point3": 21,
+        "point2": 46,
+        "point3": 41,
         "speed": 23,
         "stamina": 18,
         "strength": 23,
@@ -4132,8 +4132,8 @@
     {
         "id": 1402,
         "nametw": "Hank",
-        "point2": 23,
-        "point3": 13,
+        "point2": 43,
+        "point3": 33,
         "speed": 18,
         "stamina": 23,
         "strength": 24,
