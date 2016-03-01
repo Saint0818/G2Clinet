@@ -77,6 +77,11 @@ public class AnimatorBehavior : MonoBehaviour
     public ZoomDelegate ZoomOutDel = null;
     public SkillDelegate SkillDel = null;
 
+	public void ResetSpeed()
+	{
+//		Controler.speed = 1f;
+	}
+
     public void Init(Animator ani)
     {
         Controler = ani;

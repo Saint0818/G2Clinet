@@ -78,10 +78,12 @@ public class TimerMgr : KnightSingleton<TimerMgr>
         if (!GameStart.Get.IsOpenChronos && CrtTime == 0)
             return;
 
-        CrtTime = value;
+		if (value == 0)
+			CrtTime = GameConst.Min_TimePause;	
+		else
+			CrtTime = value;
+				
         Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
-
-//        checkPlayerIsUseActive(key); 
     }
 
     /// <summary>

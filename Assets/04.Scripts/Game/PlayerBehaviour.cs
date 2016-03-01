@@ -2638,6 +2638,9 @@ public class PlayerBehaviour : MonoBehaviour
             case "ShakeFX_0":
                 EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 1.5f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
                 break;
+			case "JumpFX":
+				EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 0f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
+				break;
         }
     }
 
@@ -2811,6 +2814,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsStart)
         {
             TimerMgr.Get.ResetTime();  
+			AnimatorControl.ResetSpeed ();
         }
     }
 
