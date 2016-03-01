@@ -2744,12 +2744,12 @@ public class PlayerBehaviour : MonoBehaviour
                     GameController.Get.Shooter = null;
                 break;
             case "ActiveSkillEnd":
-                if (isSkillShow)
-                {
+//                if (isSkillShow)
+//                {
                     if (OnUIJoystick != null)
                         OnUIJoystick(this, true);
     				
-                    isSkillShow = false;
+//                    isSkillShow = false;
                     UISkillEffect.UIShow(false);
                     if (isShootJumpActive)
                     {
@@ -2780,7 +2780,7 @@ public class PlayerBehaviour : MonoBehaviour
                         GameController.Get.CheckConditionText();
                         GameController.Get.IsGameFinish();
                     }
-                }
+//                }
                 break;
         }
     }
@@ -2916,7 +2916,8 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     public void StopSkill()
-    {
+	{
+		isSkillShow = false;
         //TODO: TimePause(false)
 //        Debug.LogError(gameObject.name + " . Skill Stop");
 //        TimerMgr.Get.PauseTime(false);
@@ -2942,7 +2943,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void ResetMove()
     {
         DribbleTime = 0;
-        if (AI.enabled)
+        if (AI != null && AI.enabled)
         {
             RemoveMoveData();
             CantMoveTimer.Clear();

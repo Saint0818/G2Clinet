@@ -1656,7 +1656,10 @@
         "en": "CARD COLLECTION"
     },
     {
-        "id": 4002
+        "id": 4002,
+        "explain": "Get Disk",
+        "tw": "獲得技能晶片",
+        "en": "GET A SKILL CARD"
     },
     {
         "id": 4003
