@@ -484,6 +484,8 @@ public class UIAvatarFitted : UIBase
         disableGroup.name = "disableGroup";
         disableGroup.transform.parent = scrollView.transform;
 
+		SetBtnFun(UIName + "/Title/TopLeft/AvatarCollection", DoAvatarCollection);
+
         InitEquips();
     }
 
@@ -511,6 +513,10 @@ public class UIAvatarFitted : UIBase
 
         ItemIdTranslateAvatar();
     }
+
+	public void DoAvatarCollection () {
+		UISuitAvatar.Get.ShowView();
+	}
 
     public void DoAvatarTab()
     {

@@ -738,7 +738,7 @@ namespace GameStruct
 		}
 
 		public int Space(int lv) {
-			return Mathf.Max((space + lv * spaceAdd) - GameData.Team.SuitItemCardCompleteCount(Suititem) + GameData.Team.SuitCardCostEffect(SuitCard), 1) ;
+			return Mathf.Max((space + lv * spaceAdd) - (GameData.Team.SuitItemCompleteCount(Suititem) / 2) + GameData.Team.SuitCardCostEffect(SuitCard), 1) ;
 		}
 
 		public float LifeTime(int lv) {

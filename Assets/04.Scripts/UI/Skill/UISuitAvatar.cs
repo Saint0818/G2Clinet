@@ -177,7 +177,7 @@ public struct TSuitItemRight {
 							itemCards[i].UpdateViewSuitItem(GameData.DSuitItem[id].Card[i]);
 						}
 					}
-					CostCaptionLabel.text = string.Format(TextConst.S(8203), GameData.Team.SuitItemCardCompleteCount(id));//目前已取得的件數
+					CostCaptionLabel.text = string.Format(TextConst.S(8203), (GameData.Team.SuitItemCompleteCount(id) / 2));//目前已取得的件數
 				}
 			}
 		} else 
@@ -246,7 +246,7 @@ public class UISuitAvatar : UIBase {
 		Visible = false;
 	}
 
-	public void ShowView (int suitItemID) {
+	public void ShowView (int suitItemID = 1) {
 		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
 			Visible = true;
 			initScrollView ();

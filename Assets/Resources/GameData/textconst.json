@@ -3070,6 +3070,13 @@
         "en": "Do not need this part"
     },
     {
+        "id": 8208,
+        "explain": "套裝收集標題",
+        "uipeth": "Avatar Collection",
+        "tw": "套裝收集",
+        "en": "Avatar Collection"
+    },
+    {
         "id": 9001,
         "explain": "競賽介面",
         "tw": "競賽大廳",
