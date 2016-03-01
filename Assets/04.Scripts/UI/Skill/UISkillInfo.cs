@@ -336,13 +336,13 @@ public class UISkillInfo : UIBase {
 
 	public void OpenCard() {
 		if(!isOpen) {
-			if(Screen.orientation == ScreenOrientation.LandscapeLeft) {
+//			if(Screen.orientation == ScreenOrientation.LandscapeLeft) {
+//				openCardTurn(true);
+//			} else if(Screen.orientation == ScreenOrientation.LandscapeRight) {
+//				openCardTurn(false);
+//			} else {
 				openCardTurn(true);
-			} else if(Screen.orientation == ScreenOrientation.LandscapeRight) {
-				openCardTurn(false);
-			} else {
-				openCardTurn(true);
-			}
+//			}
 		} else
 			closeCardTurn();
 	}
