@@ -15611,7 +15611,9 @@
         "maxstack": 999,
         "stagesource": [2112,2122,2132,2143,2153,2163,2173,2183,2193,2203,2213,2223,2233,2243,2253,2263,2273,2283,2293,2303],
         "uisource": [10],
-        "nameen": "Skills card upgrade material"
+        "nameen": "Skills card upgrade material",
+        "explaintw": "可將技能晶片進化的特殊材料",
+        "explaincn": "Skills can be evolved into [76231a] High Level [-] chip of special materials"
     },
     {
         "id": 40001,
