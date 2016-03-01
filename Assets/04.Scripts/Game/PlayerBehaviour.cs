@@ -554,8 +554,6 @@ public class PlayerBehaviour : MonoBehaviour
 //		} else {
 //		}			
 				
-		FoolProofing();
-        
         CantMoveTimer.Update(Time.deltaTime);
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
@@ -684,6 +682,7 @@ public class PlayerBehaviour : MonoBehaviour
             
         if (isMoving)
             DribbleTime += Time.deltaTime;
+        FoolProofing();
     }
 
     public void DashEffectEnable(bool isEnable)
@@ -780,47 +779,36 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void FoolProofing()
     {	
-        if (GameController.Get.IsStart && TimerMgr.Get.CrtTime > 0 &&
+        if (GameController.Get.IsStart && TimerMgr.Get.CrtTime > GameConst.Min_TimePause &&
             (GameController.Get.Situation == EGameSituation.GamerAttack ||
             GameController.Get.Situation == EGameSituation.NPCAttack))
         {
             if (crtState == EPlayerState.Idle && IsBallOwner)
-            {
-                proofingTime -= Time.deltaTime;
-                if (proofingTime <= 0)
-                {
-                    if (GameStart.Get.IsDebugAnimation)
-                        Debug.LogError("proofing1");
-                    
-                    if (IsBallOwner)
-                        AniState(EPlayerState.Dribble0);
-                    else
-                        AniState(EPlayerState.Fall0);
-    									
+                    freeAniCountdown();
+                else if (IsElbow && crtAnimatorState == EAnimatorState.Idle)
+                    freeAniCountdown();
+                else
                     proofingTime = 2f;
-                }
-            }
-            else if (IsElbow && crtAnimatorState == EAnimatorState.Idle)
-            {
-                proofingTime -= Time.deltaTime;
-                if (proofingTime <= 0)
-                {
-                    if (GameStart.Get.IsDebugAnimation)
-                        Debug.LogError("proofing2");
                     
-                    if (IsBallOwner)
-                        AniState(EPlayerState.HoldBall);
-                    else
-                        AniState(EPlayerState.Fall0);
-                    
-                    proofingTime = 2f;
-                }
-            }
-            else
-                proofingTime = 2f; 
         }
-        else
+                    else
         {
+                    proofingTime = 2f;
+                }
+            }
+
+    private void freeAniCountdown()
+            {
+                proofingTime -= Time.deltaTime;
+                if (proofingTime <= 0)
+                {
+                    if (GameStart.Get.IsDebugAnimation)
+                Debug.LogError("proofing");
+                    
+                    if (IsBallOwner)
+                AniState(EPlayerState.Dribble0);
+                    else
+                        AniState(EPlayerState.Fall0);
             proofingTime = 2f;
         }
     }

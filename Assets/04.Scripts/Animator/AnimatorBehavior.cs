@@ -345,6 +345,11 @@ public class AnimatorBehavior : MonoBehaviour
         dunkCurveCounter.FixedUpdate();
     }
 
+	public bool IsStuck
+	{
+        get{ return !Controler.IsInTransition(0); }
+	}
+
     private float timescale = 1;
 
     public float TimeScaleTime
