@@ -546,10 +546,14 @@ public struct TEnergyView {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			if(skill.Lv < GameData.DSkillData[skill.ID].MaxStar && newLv <= GameData.DSkillData[skill.ID].MaxStar) {
 				if(GameFunction.IsActiveSkill(skill.ID)) {
-					SecondLabel.text = GameData.DSkillData[skill.ID].MaxAnger(skill.Lv).ToString();
+					SecondLabel.text = GameData.DSkillData[skill.ID].MaxAnger(newLv).ToString();
+					if(GameData.DSkillData[skill.ID].MaxAnger(newLv) != GameData.DSkillData[skill.ID].MaxAnger(skill.Lv))
+						SecondLabel.color = Color.green;
+					else 
+						SecondLabel.color = Color.white;
 				} else {
 					SecondLabel.text = GameData.DSkillData[skill.ID].Rate(newLv).ToString();
-					if(GameData.DSkillData[skill.ID].Rate(newLv) > GameData.DSkillData[skill.ID].Rate(skill.Lv))
+					if(GameData.DSkillData[skill.ID].Rate(newLv) != GameData.DSkillData[skill.ID].Rate(skill.Lv))
 						SecondLabel.color = Color.green;
 					else 
 						SecondLabel.color = Color.white;
@@ -697,9 +701,9 @@ public struct TReinforceInfo {
 
 				if(GameFunction.IsActiveSkill(newSkill.ID)) {
 					GroupLabel[index].text = TextConst.S(7207);
-					ValueLabel0[index].text = GameData.DSkillData[skill.ID].MaxStar.ToString();
-					ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].MaxStar.ToString();
-					if(GameData.DSkillData[newSkill.ID].MaxStar != GameData.DSkillData[skill.ID].MaxStar) {
+					ValueLabel0[index].text = GameData.DSkillData[skill.ID].MaxAnger(skill.Lv).ToString();
+					ValueLabel1[index].text = GameData.DSkillData[skill.ID].MaxAnger(newSkill.Lv).ToString();
+					if(GameData.DSkillData[skill.ID].MaxAnger(newSkill.Lv) != GameData.DSkillData[skill.ID].MaxAnger(skill.Lv)) {
 						ValueLabel1[index].gameObject.SetActive(true);
 						ValueLabel1[index].color = Color.green;
 						index ++;
