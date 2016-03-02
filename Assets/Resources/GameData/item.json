@@ -6860,7 +6860,7 @@
         "explainen": "Warrior Mask"
     },
     {
-        "id": 6010,
+        "id": 6011,
         "nametw": "暫無（跳過）",
         "kind": 6,
         "atlas": 6,
@@ -6877,11 +6877,11 @@
         "namejp": "帽子10"
     },
     {
-        "id": 6011,
+        "id": 6012,
         "nametw": "喵感應眼鏡",
         "kind": 6,
         "atlas": 6,
-        "icon": 6011,
+        "icon": 6012,
         "avatar": 24001,
         "suititem": 206,
         "quality": 3,
@@ -10426,7 +10426,7 @@
         "attrvalue1": 1,
         "stagesource": [107,116],
         "uisource": [10,11,12],
-        "nameen": "Square columns crystallization",
+        "nameen": "Rectangular crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]顱部插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] cranial plug [-] to strengthen."
     },
@@ -10442,7 +10442,7 @@
         "attrvalue1": 1,
         "stagesource": [107,116],
         "uisource": [10,11,12],
-        "nameen": "Twisted crystalline",
+        "nameen": "Twisted crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]左臂插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] left arm plug [-] to strengthen."
     },
@@ -10458,13 +10458,13 @@
         "attrvalue1": 1,
         "stagesource": [109,119],
         "uisource": [10,11,12],
-        "nameen": "Nest-like crystals",
+        "nameen": "Honeycomb crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]右臂插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] right arm plug [-] to strengthen."
     },
     {
         "id": 19014,
-        "nametw": "無暇結晶",
+        "nametw": "無瑕結晶",
         "kind": 19,
         "atlas": 11,
         "icon": 19014,
@@ -10474,7 +10474,7 @@
         "attrvalue1": 1,
         "stagesource": [109,119],
         "uisource": [10,11,12],
-        "nameen": "No time to crystallize",
+        "nameen": "Flawless crystallization",
         "explaintw": "突觸強化合成材料。可協助所有 [33FFDD]胸腔插件[-] 進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. We can assist all [33FFDD] chest plug [-] to strengthen."
     },
@@ -15818,7 +15818,7 @@
         "icon": 93101,
         "quality": 1,
         "value": 12000,
-        "nameen": "12,000 gold",
+        "nameen": "12,000 Golds",
         "explaintw": "獲得12000金幣",
         "explainen": "Get 12,000 coins"
     },
@@ -15830,7 +15830,7 @@
         "icon": 93102,
         "quality": 1,
         "value": 36000,
-        "nameen": "36,000 gold",
+        "nameen": "36,000 Golds",
         "explaintw": "獲得36000金幣",
         "explainen": "Get 36,000 coins"
     },
@@ -15842,7 +15842,7 @@
         "icon": 93103,
         "quality": 2,
         "value": 62000,
-        "nameen": "62000 gold",
+        "nameen": "62000 Golds",
         "explaintw": "獲得62000金幣",
         "explainen": "Get 62,000 coins"
     },
@@ -15854,7 +15854,7 @@
         "icon": 93104,
         "quality": 3,
         "value": 150000,
-        "nameen": "150,000 coins",
+        "nameen": "150,000 Golds",
         "explaintw": "獲得150000金幣",
         "explainen": "Get 150,000 coins"
     },
@@ -15866,7 +15866,7 @@
         "icon": 93105,
         "quality": 4,
         "value": 450000,
-        "nameen": "450,000 coins",
+        "nameen": "450,000 Golds",
         "explaintw": "獲得450000金幣",
         "explainen": "Get 450,000 coins"
     },
@@ -15879,7 +15879,7 @@
         "quality": 5,
         "value": 1200000,
         "flag": 1,
-        "nameen": "1.2 million coins",
+        "nameen": "1.2 million Golds",
         "explaintw": "獲得1200000金幣",
         "explainen": "Get 1,200,000 gold"
     },
@@ -15891,7 +15891,7 @@
         "icon": 93110,
         "quality": 1,
         "value": 50,
-        "nameen": "50 coins",
+        "nameen": "50 Golds",
         "explaintw": "獲得50金幣",
         "explainen": "Get 50 coins"
     },
@@ -15903,7 +15903,7 @@
         "icon": 93110,
         "quality": 1,
         "value": 100,
-        "nameen": "100 coins",
+        "nameen": "100 Golds",
         "explaintw": "獲得100金幣",
         "explainen": "Get 100 coins"
     },
@@ -15915,7 +15915,7 @@
         "icon": 93110,
         "quality": 2,
         "value": 200,
-        "nameen": "200 coins",
+        "nameen": "200 Golds",
         "explaintw": "獲得200金幣",
         "explainen": "Get 200 coins"
     },

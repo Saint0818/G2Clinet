@@ -2329,7 +2329,7 @@
         "en": "NOT EQUIPPED"
     },
     {
-        "id": 6010,
+        "id": 6011,
         "explain": "未達等級需求無法合成",
         "tw": " [ff0000]球員等級需達到{0} [-] ",
         "en": " [ff0000]YOU HAVE TO GET LV {0} [-] "
