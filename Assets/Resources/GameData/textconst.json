@@ -109,7 +109,7 @@
         "id": 237,
         "explain": "金幣不足/標題",
         "tw": "金幣不足",
-        "en": "INSUFFICIENT GOLD"
+        "en": "INSUFFICIENT GOLDS"
     },
     {
         "id": 238,
@@ -121,7 +121,7 @@
         "id": 239,
         "explain": "金幣不足/內文",
         "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？",
-        "en": "[FFCC00FF] GOLD COINS [-] ARE NOT ENOUGH, PURCHASE MORE?"
+        "en": "[FFCC00FF] GOLDS [-] ARE NOT ENOUGH, PURCHASE MORE?"
     },
     {
         "id": 240,
@@ -184,7 +184,7 @@
     {
         "id": 251,
         "tw": "確認花費 [FFCC00FF]{0}[-] 金幣購買 [33FFDD]{1}[-] ？",
-        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLD COINS TO PURCHASE [00ff00] {1} [-] ?"
+        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLDS TO PURCHASE [00ff00] {1} [-] ?"
     },
     {
         "id": 252,
@@ -194,7 +194,7 @@
     {
         "id": 253,
         "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？",
-        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLD TO BUY A SKILL CARD?"
+        "en": "CONFIRM TO SPEND [FFCC00FF] {0} [-] GOLDS TO BUY A SKILL CARD?"
     },
     {
         "id": 254,
@@ -464,7 +464,7 @@
     {
         "id": 510,
         "tw": "金幣不足。",
-        "en": "INSUFFICIENT GOLD"
+        "en": "INSUFFICIENT GOLDS"
     },
     {
         "id": 511,
@@ -561,7 +561,7 @@
         "id": 552,
         "explain": "需求金幣不足",
         "tw": "需求金幣不足。",
-        "en": "NOT ENOUGH GOLD"
+        "en": "NOT ENOUGH GOLDS"
     },
     {
         "id": 553,
@@ -731,17 +731,17 @@
     {
         "id": 1101,
         "explain": "購買體力",
-        "en": "PURCHASE ENERGY"
+        "en": "PURCHASE STAMINA"
     },
     {
         "id": 1201,
         "explain": "購買商城幣",
-        "en": "PURCHASE ENERGY"
+        "en": "PURCHASE GEMS"
     },
     {
         "id": 1301,
         "explain": "購買遊戲幣",
-        "en": "PURCHASE GOLD"
+        "en": "PURCHASE GOLDS"
     },
     {
         "id": 2001,
@@ -1921,7 +1921,7 @@
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "金質晶片",
-        "en": "GOLD CARD"
+        "en": "GOLDEN CARD"
     },
     {
         "id": 4605,
@@ -1942,13 +1942,13 @@
         "id": 4901,
         "explain": "體力金幣鑽石儲值",
         "tw": "補給站",
-        "en": "PHYSICAL GOLD DIAMOND GIFT"
+        "en": "STAMINA GOLD DIAMOND GIFT"
     },
     {
         "id": 4902,
         "explain": "寶石",
         "tw": "寶 石",
-        "en": "GEMS"
+        "en": "GEM"
     },
     {
         "id": 4903,
@@ -2009,7 +2009,7 @@
         "id": 4916,
         "uipeth": "Pages1/SubheadLabel0",
         "tw": "購買金幣",
-        "en": "BUY GOLD COINS"
+        "en": "BUY GOLDS"
     },
     {
         "id": 4917,
@@ -2332,7 +2332,7 @@
         "id": 6010,
         "explain": "未達等級需求無法合成",
         "tw": " [ff0000]球員等級需達到{0} [-] ",
-        "en": "YOU HAVE TO GET LV {0} "
+        "en": " [ff0000]YOU HAVE TO GET LV {0} [-] "
     },
     {
         "id": 6101,
@@ -2686,7 +2686,7 @@
         "id": 7219,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [EFC653FF]金質[-]",
-        "en": "[EFC653FF] GOLD [-] "
+        "en": "[EFC653FF] GOLDEN [-] "
     },
     {
         "id": 7220,
@@ -4649,7 +4649,7 @@
         "explain": "包裝成物品的金幣",
         "uipeth": "31.錢",
         "tw": "金 幣",
-        "en": "Gold coins"
+        "en": "Golds"
     },
     {
         "id": 13032,
