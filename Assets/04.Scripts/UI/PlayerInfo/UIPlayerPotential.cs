@@ -341,6 +341,7 @@ public class UIPlayerPotential : UIBase {
 		SetBtnFun (ref resetBtn, OnReset);
 		SetBtnFun (ref saveBtn, OnCheck);
 		SetBtnFun (ref cancelBtn, OnCancel);
+		SetBtnFun (UIName + "/Window/Center/ExplainBtn", OnExplain);
 		SetUseState (EPotential.none);
 
 		resetLabel = GameObject.Find (UIName + "/Window/Center/ResetBtn/PriceLabel").GetComponent<UILabel> ();
@@ -367,6 +368,10 @@ public class UIPlayerPotential : UIBase {
 	public int ResetPrice
 	{
 		set{resetLabel.text = value.ToString();}
+	}
+
+	public void OnExplain () {
+		UIAttributeExplain.UIShow(true);
 	}
 
 	public void OnReturn()
