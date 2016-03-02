@@ -163,7 +163,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 8
     },
@@ -173,7 +173,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 8
     },
@@ -1023,7 +1023,7 @@
         "spendkind": 1,
         "price": 112500,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 4
     },
@@ -1033,7 +1033,7 @@
         "spendkind": 1,
         "price": 112500,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 4
     },
@@ -5889,7 +5889,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 8
     },
@@ -5899,7 +5899,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 8
     },
@@ -6479,7 +6479,7 @@
         "spendkind": 2,
         "price": 5630,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 4
     },
@@ -6489,7 +6489,7 @@
         "spendkind": 2,
         "price": 5630,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 4
     },
@@ -11462,7 +11462,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 8
     },
@@ -11472,7 +11472,7 @@
         "spendkind": 0,
         "price": 750,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 8
     },
@@ -12052,7 +12052,7 @@
         "spendkind": 3,
         "price": 1130,
         "sale": 2,
-        "itemid": 6010,
+        "itemid": 6011,
         "num": 1,
         "rate": 4
     },
@@ -12062,7 +12062,7 @@
         "spendkind": 3,
         "price": 1130,
         "sale": 2,
-        "itemid": 6011,
+        "itemid": 6012,
         "num": 1,
         "rate": 4
     },
