@@ -204,6 +204,7 @@ public class TItemAvatar
             TrimBottom = self.transform.FindChild("TrimBottom").gameObject.GetComponent<UISprite>();
             sellBtn = self.transform.FindChild("SellBtn").gameObject.GetComponent<UIButton>();
             sellPrice = sellBtn.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>();
+            sellBtn.GetComponent<BoxCollider>().enabled = false;
             SellSelect = self.transform.FindChild("SellSelect").gameObject.GetComponent<UISprite>();
             SellSelect.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(8007);
             self.transform.FindChild("EquipedIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(8107);
@@ -247,7 +248,10 @@ public class TItemAvatar
         }
 
         if (equipBtn)
+        {
             equipBtn.onClick.Add(EquipFunc);
+            equipBtn.onClick.Add(SellFunc);
+        }
         else
         {
             isInitBtn = false;
@@ -1162,8 +1166,6 @@ public class UIAvatarFitted : UIBase
     public void ChangeMode(EAvatarMode mode)
     {
         Mode = mode;
-        UpdateView();
-
         switch (Mode)
         {
             case EAvatarMode.Normal:
@@ -1176,6 +1178,7 @@ public class UIAvatarFitted : UIBase
                 SellCount.SetActive(false);
                 break;
         }
+        UpdateView();
     }
 
     private void OnSortMode()
@@ -1270,7 +1273,7 @@ public class UIAvatarFitted : UIBase
             GameData.Team.Money = team.Money;
             UIMainLobby.Get.UpdateUI();
             ChangeMode(EAvatarMode.Normal);
-            UpdateAvatar();
+            UpdateAvatar(true);
         }
     }
 
