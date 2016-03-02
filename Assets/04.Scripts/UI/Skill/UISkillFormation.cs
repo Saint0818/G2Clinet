@@ -252,6 +252,18 @@ public class UISkillFormation : UIBase {
 	//ForSuitCard
 	private UISuitCard uiSuitCard;
 
+	void OnDestroy() {
+		activeOriginalSN.Clear();
+		sellNames.Clear();
+		skillOriginalCards.Clear();
+		skillSortCards.Clear();
+		skillsOriginal.Clear();
+		skillsRecord.Clear();
+		skillActiveCards.Clear();
+		skillPassiveCards.Clear();
+		uiCards.Clear();
+	}
+
 	public static bool Visible {
 		get {
 			if(instance)

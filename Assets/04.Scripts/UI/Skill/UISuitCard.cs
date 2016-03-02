@@ -176,6 +176,10 @@ public class UISuitCard {
 	private int costNow;
 	private int costMax;//啟動值最大值
 
+	void OnDestroy() {
+		itemSuitCards.Clear();
+	}
+
 	public void InitCom (UISkillFormation skillFormation, string UIName) {
 		if(LimitTable.Ins.HasByOpenID(GameEnum.EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) {
 			costNow = GameData.Team.SuitCardExecuteCost;

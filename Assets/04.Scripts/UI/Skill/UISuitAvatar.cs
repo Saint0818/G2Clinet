@@ -295,5 +295,7 @@ public class UISuitAvatar : UIBase {
 		}
 	}
 
-
+	void OnDestroy() {
+		tItemSuitAvatarGroup.Clear();
+	}
 }
