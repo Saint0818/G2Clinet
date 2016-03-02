@@ -1279,9 +1279,9 @@ public class UIGame : UIBase
 						PlayerMe.PlayerSkillController.ResetUseActive();
 				
 					if (noAI) {
-						PlayerMe.PlayerSkillController.ResetUseActive();
                         UIMaskState(EUIControl.Skill);
 					}
+					PlayerMe.PlayerSkillController.ResetUseActive();
 					
                     break;
 

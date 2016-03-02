@@ -246,11 +246,13 @@ public class SkillController : MonoBehaviour {
 	}
 
 	public void ResetUsePassive () {
-		PassiveSkillUsed.Reset();
+		if(!executePlayer.IsSkillShow)
+			PassiveSkillUsed.Reset();
 
 	}
 	public void ResetUseActive () {
-		ActiveSkillUsed.Reset();
+		if(!executePlayer.IsSkillShow)
+			ActiveSkillUsed.Reset();
 	}
 
 	public void ResetUseSkill() {
