@@ -38,7 +38,7 @@
     {
         "id": 208,
         "tw": "確認花費 [FF00FFFF]{0}[-] 寶石購買 [00ff00]{1}[-] ？",
-        "en": "CONFIRM PURCHASE [FF00FFFF]{0}[-] NUMBER OF DIAMONDS PURCHASED [00ff00]{1}[-]？"
+        "en": "CONFIRM PURCHASE [33FFDD]{0}[-] NUMBER OF GEMS PURCHASED [33FFDD]{1}[-]？"
     },
     {
         "id": 209,
@@ -201,39 +201,39 @@
         "explain": "社群-解除好友關係",
         "uipeth": "請用UIMessage",
         "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)",
-        "en": "OK lifting and [00E1FFFF] {0} [-] the relationship between friends?\n(Once released, we can not see each other in a dynamic on La.) "
+        "en": "Are you sure [00E1FFFF] {0} [-] you want to unfriend?\n(Oncedone, you can't see each others feed) "
     },
     {
         "id": 255,
         "explain": "PVP撮合不到對手內文",
         "uipeth": "請用UIMessage",
         "tw": "目前搓合不到對手，請稍候再試。",
-        "en": "Currently less than rubbing opponents, please try again later."
+        "en": "Not enough opponents, please try again later."
     },
     {
         "id": 256,
         "explain": "PVP撮合不到對手標題",
         "uipeth": "請用UIMessage",
         "tw": "聯盟對戰",
-        "en": "Union Battle"
+        "en": "PVP Challenge"
     },
     {
         "id": 257,
         "explain": "PVP次數達到上限",
         "tw": "每日可購買的次數已達到上限，無法進行挑戰。",
-        "en": "The number of daily purchase limit has been reached, can not be challenged."
+        "en": "The limit of daily purchases has been reached."
     },
     {
         "id": 258,
         "explain": "PVP次數使用完畢",
         "tw": "已無挑戰次數，請明日再來。",
-        "en": "The challenge is no longer the number, please come back tomorrow."
+        "en": "The challenge is already expired, please come back tomorrow."
     },
     {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",
-        "en": "YOU CAN ONLY CONTROL YOUR AVATAR DURING GAME MODE."
+        "en": "YOU CAN ONLY CONTROL YOUR OWN CHARACTER DURING THE GAME."
     },
     {
         "id": 302,
@@ -253,7 +253,7 @@
     {
         "id": 305,
         "tw": "物品的品質高低分別為『白色<[00b35a]綠色[-]<[33bbff]藍色[-]<[c900ff]紫色[-]<[ff8000]橘色[-]』",
-        "en": "EQUIPMENT QUALITY RANGES FROM『WHITE<[00B35A]GREEN[-]<[33BBFF]BLUE[-]<[8000FF]PURPLE[-]<[FF8000]ORANGE[-]』"
+        "en": "EQUIPMENT QUALITY RANGES FROM: WHITE<[00B35A]GREEN[-]<[33BBFF]BLUE[-]<[8000FF]PURPLE[-]<[FF8000]ORANGE[-] "
     },
     {
         "id": 306,
@@ -273,12 +273,17 @@
     {
         "id": 309,
         "tw": "在禁區使用投籃時，如果[FFDD33]灌籃值[-]越高，越容易發動[FFDD33]灌籃[-]唷！！",
-        "en": "WHEN SHOOTING FROM THE PAINT, IF THE [FFDD33] DEAR VALUE [-] HIGHER, THE MORE EASY TO LAUNCH [FFDD33] DEAR [-] YO! !"
+        "en": "INSIDE THE PAINT, YOU HAVE A  [FFDD33] HIGHER CHANCE [-] TO ATTEMPT A [FFDD33] DUNK[-]  !"
     },
     {
         "id": 310,
         "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
-        "en": "Icon_Gem = This is the world of basketball gang highest value [c900ff] Gem [-] money, as long as it can almost always, quickly find a way to get it right!"
+        "en": "Icon_Gem = This is the most valuable item you can get in the game [c900ff] Gems [-] get your hands into some of them as soon as you can!"
+    },
+    {
+        "id": 311,
+        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
+        "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
     },
     {
         "id": 400,
@@ -342,13 +347,13 @@
         "id": 453,
         "explain": "解鎖商店功能",
         "tw": "成功解鎖[FFDD33]商店[-]功能",
-        "en": "THE SHOP HAS BEEN UNLOCKED"
+        "en": "Shop function successfully unlocked"
     },
     {
         "id": 454,
         "explain": "解鎖社交功能",
         "tw": "成功解鎖[FFDD33]社群[-]功能",
-        "en": "SOCIAL FUNCTION HAS BEEN UNLOCKED"
+        "en": "Successfully unlocked community features"
     },
     {
         "id": 455,
@@ -360,7 +365,7 @@
         "id": 456,
         "explain": "解鎖任務功能",
         "tw": "成功解鎖[FFDD33]任務[-]功能",
-        "en": "MISSIONS HAVE BEEN UNLOCKED"
+        "en": "Tasks function successfully unlocked"
     },
     {
         "id": 457,
@@ -372,19 +377,19 @@
         "id": 458,
         "explain": "解鎖PVP",
         "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
-        "en": "Successfully unlocked [FFDD33] Battle League [-] function"
+        "en": "Successfully unlocked [FFDD33] PVP [-] function"
     },
     {
         "id": 459,
         "explain": "解鎖副本",
         "tw": "成功解鎖[FFDD33]關主挑戰[-]功能",
-        "en": "Successfully unlocked [FFDD33] Off the main challenge [-] function"
+        "en": "Successfully unlocked [FFDD33]  Challenge [-] function"
     },
     {
         "id": 461,
         "explain": "解鎖數值裝合成任務",
         "tw": "成功解鎖[FFDD33]新每日任務[-]",
-        "en": "Successfully unlocked [FFDD33] New mission [-]"
+        "en": "Successfully unlocked [FFFDD33] Missions [-] "
     },
     {
         "id": 462,
@@ -454,7 +459,7 @@
     {
         "id": 508,
         "tw": "資料異常，請再傳送一次。",
-        "en": "DATA ERROR. PLEASE RESEND.."
+        "en": "DATA ERROR. PLEASE RESEND."
     },
     {
         "id": 509,
@@ -474,7 +479,7 @@
     {
         "id": 512,
         "tw": "球員等級達到{0}級，才能使用此功能。",
-        "en": "YOU NEED TO REACH LEVEL {0} TO USE THIS FEATURE."
+        "en": "YOU NEED TO REACH LEVEL {0} TO UNLOCK THIS FEATURE."
     },
     {
         "id": 513,
@@ -497,7 +502,7 @@
         "id": 532,
         "explain": "造型裝備成功",
         "tw": "造型變更完成。",
-        "en": "STYLE CHANGE COMPLETED."
+        "en": "STYLE CHANGED."
     },
     {
         "id": 533,
@@ -539,7 +544,7 @@
         "id": 539,
         "explain": "BUG2",
         "tw": "錯誤：物品種類有誤。",
-        "en": "Shop Kind Error"
+        "en": "Shop Error"
     },
     {
         "id": 540,
@@ -597,7 +602,7 @@
         "id": 558,
         "explain": "COST值滿",
         "tw": "你的COST值不足以安裝此技能晶片。",
-        "en": "Your COST value is not sufficient to install this Skill Card."
+        "en": "Your COST value is not enough to use this skill card."
     },
     {
         "id": 559,
@@ -1032,7 +1037,7 @@
         "id": 3205,
         "uipeth": "WarningLabel",
         "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
-        "en": "Potential to obtain:\n[33FFDD] to enhance the level [-], [33FFDD] later modeling [-]\n\nNote:\nThe priority [FF0000] Upgrade Points [-]"
+        "en": "Chance to obtain:\n[33FFDD] Level up[-], [33FFDD] EXP [-]\n\nNote:\nThe priority is to obtain [FF0000] attribution points [-] "
     },
     {
         "id": 3206,
@@ -1903,37 +1908,37 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]銅質晶片[-]",
-        "en": " [B3B3B3FF] COPPER CARD [-]"
+        "en": " [B3B3B3FF] COPPER SKILL CARD [-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": " [C17269FF] IRON CARD [-]"
+        "en": " [C17269FF] IRON SKILL CARD [-] "
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF] SLIVER CARD [-]"
+        "en": " [99B3D4FF] SLIVER SKILL CARD [-] "
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "金質晶片",
-        "en": "GOLDEN CARD"
+        "en": "GOLDEN SKILL CARD"
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "鑽石晶片",
-        "en": "DIAMOND CARD"
+        "en": "DIAMOND SKILL CARD"
     },
     {
         "id": 4606,
         "explain": "介面上的大標題",
         "tw": "獲得技能晶片",
-        "en": "Acquire SKILL CARD"
+        "en": "Get skill cards"
     },
     {
         "id": 4607
@@ -1942,7 +1947,7 @@
         "id": 4901,
         "explain": "體力金幣鑽石儲值",
         "tw": "補給站",
-        "en": "STAMINA GOLD DIAMOND GIFT"
+        "en": "Make up currency"
     },
     {
         "id": 4902,
@@ -2271,7 +2276,7 @@
     {
         "id": 5042,
         "tw": "不能關注自己",
-        "en": "Not concerned about their"
+        "en": "Not following this player"
     },
     {
         "id": 6001,
@@ -2332,13 +2337,13 @@
         "id": 6010,
         "explain": "未達等級需求無法合成",
         "tw": " [ff0000]球員等級需達到{0} [-] ",
-        "en": " [ff0000]YOU HAVE TO GET LV {0} [-] "
+        "en": "Player need to reach Level {0} "
     },
     {
         "id": 6011,
         "explain": "未達等級需求無法合成",
         "tw": " [ff0000]球員等級需達到{0} [-] ",
-        "en": " [ff0000]YOU HAVE TO GET LV {0} [-] "
+        "en": "Player need to reach Level {0} "
     },
     {
         "id": 6101,
@@ -2382,7 +2387,7 @@
         "id": 6302,
         "explain": "引導開啟選單",
         "tw": "點擊開啟裝備選單",
-        "en": "CLICK TO SELECT EQUIPMENT"
+        "en": "Click to initiate equipment selection"
     },
     {
         "id": 6303,
@@ -2478,13 +2483,13 @@
         "id": 7011,
         "explain": "技能介面頁籤1",
         "tw": "技能晶片",
-        "en": "SKILL CARD"
+        "en": "SKILL CARDS"
     },
     {
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "CARD COLLECTION"
+        "en": "COLLECTION"
     },
     {
         "id": 7101,
@@ -2596,7 +2601,7 @@
         "id": 7203,
         "uipeth": "LabelKind1",
         "tw": "晶片品質",
-        "en": "Quality"
+        "en": "CARD QUALITY"
     },
     {
         "id": 7204,
@@ -2711,7 +2716,7 @@
         "id": 7222,
         "explain": "晶片類型 主動技",
         "tw": " [AA0000]主動技[-]",
-        "en": "[ff0000]A[-][fffffff]ctive[-]"
+        "en": "[ff0000]A[-][fffffff]bility[-]"
     },
     {
         "id": 7223,
@@ -2829,31 +2834,31 @@
         "id": 7413,
         "explain": "頁籤1",
         "tw": "晶片升級",
-        "en": "CARD Upgrade"
+        "en": "Card synthesis"
     },
     {
         "id": 7414,
         "explain": "頁籤2",
         "tw": "晶片進化",
-        "en": "CARD Evolution"
+        "en": "Card evolution"
     },
     {
         "id": 7415,
         "explain": "合成按鈕",
         "tw": "－選擇好材料後進行合成－",
-        "en": " - After selecting the material synthesis - "
+        "en": "- After selecting the material, proceed to synthesis -"
     },
     {
         "id": 7416,
         "explain": "進化按鈕",
         "tw": "－蒐集完材料後進化晶片－",
-        "en": " - After collecting material evolution Card -"
+        "en": "- After collecting material, proceed to evolve the card -"
     },
     {
         "id": 7417,
         "explain": "進化材料",
         "tw": "需求材料",
-        "en": "Material needs"
+        "en": "Materials needed"
     },
     {
         "id": 7501,
@@ -2904,13 +2909,13 @@
         "id": 7700,
         "explain": "套卡介面",
         "tw": "晶片圖鑑",
-        "en": "CARD COLLECTION"
+        "en": "Card Collection"
     },
     {
         "id": 7701,
         "explain": "套卡介面說明",
         "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下啟動，取得組合加成效果。再點擊即可關閉。\n3.注意啟動上限值。",
-        "en": "1. Find the same series of skill cards becomes combination.\n2. After the collection is complete press the start, get a combination of additive effects. Click again to close.\n3. Note that the upper limit start. "
+        "en": "1. Find the same series of skill cards and combine them.\n2. After you combine the cards press start to for it to take effect. Click again to close.\n3. Note that the upper limit has increased. "
     },
     {
         "id": 7702,
@@ -2922,13 +2927,13 @@
         "id": 7703,
         "explain": "啟動按鈕 啟動狀態",
         "tw": "啟動中⋯",
-        "en": "Start in ⋯"
+        "en": "Start in..."
     },
     {
         "id": 7704,
         "explain": "啟動按鈕 未收集完成",
         "tw": "尚未完成",
-        "en": "UNAVAILABLE"
+        "en": "Not completed"
     },
     {
         "id": 7705,
@@ -2940,7 +2945,7 @@
         "id": 7706,
         "explain": "Hint-未收集完成點擊按鈕",
         "tw": "晶片組合尚未收集完成。",
-        "en": "Collection is complete Cards combination yet."
+        "en": "Combination is complete"
     },
     {
         "id": 7707,
@@ -3152,7 +3157,7 @@
         "id": 9154,
         "explain": "副本關卡",
         "tw": "[06b225]關主挑戰[-]",
-        "en": "[06b225] Off the main challenge [-] "
+        "en": "[06b225] Main Challenge [-] "
     },
     {
         "id": 9155
@@ -3178,7 +3183,7 @@
         "id": 9250,
         "explain": "關卡已達生涯最多次數限制",
         "tw": "已通過此關卡",
-        "en": "You have passed this stage."
+        "en": "You have already compleated this stage."
     },
     {
         "id": 9251,
@@ -3476,7 +3481,7 @@
         "explain": "每日獎勵按鈕 已領",
         "uipeth": "DailyAwardBtn",
         "tw": "本日已領取",
-        "en": "The date has already received"
+        "en": "Has already received this day's award"
     },
     {
         "id": 9714,
@@ -3490,14 +3495,14 @@
         "explain": "Hint顯示：領取完畢",
         "uipeth": "UIHint",
         "tw": "每日聯盟排名獎勵領取完畢。",
-        "en": "Daily league award receive completed."
+        "en": "Daily league award received"
     },
     {
         "id": 9716,
         "explain": "Hint顯示：領過了",
         "uipeth": "UIHint/按鈕換button_gray",
         "tw": "今天領過囉，請明天再來。",
-        "en": "Today over collar Hello, please come back tomorrow."
+        "en": "Today's awards are over! Please come back tomorrow."
     },
     {
         "id": 9721,
@@ -3547,7 +3552,7 @@
         "id": 9729,
         "explain": "對戰按鈕狀態 冷卻時",
         "tw": "冷卻中 {0} ",
-        "en": "Cooling {0} "
+        "en": "Coolling {0} "
     },
     {
         "id": 9730,
@@ -3559,13 +3564,13 @@
         "id": 9731,
         "explain": "次數分子等於0",
         "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[00E1FFFF] {1} [-]？",
-        "en": "Number of challenges has been exhausted, whether [FF00FFFF] {0} gem [-] later [00E1FFFF] {1} [-]?"
+        "en": "Number of challenges has been exhausted, Use [FF00FFFF] {0} gems [-] for more challenges [00E1FFFF] {1} [-] ?"
     },
     {
         "id": 9732,
         "explain": "次數分子不等於0且在冷卻中",
         "tw": "挑戰次數冷卻中，是否使用 [FF00FFFF]{0}寶石[-] 消除冷卻時間？",
-        "en": "Challenges cooling times, whether [FF00FFFF] {0} gem [-] to eliminate the cooling time?"
+        "en": "Challenges coolling time, use [FF00FFFF] {0} gems [-] to skip the cooling time?"
     },
     {
         "id": 9733,
@@ -3623,13 +3628,13 @@
         "id": 9801,
         "explain": "標題使用",
         "tw": "關主挑戰",
-        "en": "Off the main challenge"
+        "en": "Main challenge"
     },
     {
         "id": 9802,
         "explain": "完成用的字標",
         "tw": "完 成",
-        "en": "carry out"
+        "en": "Complete"
     },
     {
         "id": 9803,
@@ -3641,19 +3646,19 @@
         "id": 9811,
         "explain": "關主副本條件文字9811~9860-1",
         "tw": "完成第一章後開啟",
-        "en": "After the completion of the first chapter open"
+        "en": "It will be open after you complete the first chapter"
     },
     {
         "id": 9812,
         "explain": "關主副本條件文字9811~9860-2",
         "tw": "完成第二章後開啟",
-        "en": "After completing the second chapter Open"
+        "en": "It will be open after you complete the second chapter"
     },
     {
         "id": 9813,
         "explain": "關主副本條件文字9811~9860-3",
         "tw": "完成第三章後開啟",
-        "en": "Upon completion of Chapter III Open"
+        "en": "It will be open after you complete the third chapter"
     },
     {
         "id": 9814,
@@ -4662,7 +4667,7 @@
         "explain": "包裝成物品的寶石(商城幣",
         "uipeth": "32.鑽石",
         "tw": "寶 石",
-        "en": "Precious stones"
+        "en": "Gems"
     },
     {
         "id": 13033,
@@ -4676,7 +4681,7 @@
         "explain": "體力物品",
         "uipeth": "34.體力",
         "tw": "體 力",
-        "en": "Body force"
+        "en": "Stamina"
     },
     {
         "id": 13040,
@@ -4699,19 +4704,19 @@
         "id": 15002,
         "explain": "戰術1",
         "tw": "綜合進攻",
-        "en": "INSIDE & OUTSIDE STRATEGIES"
+        "en": "WARRIOR"
     },
     {
         "id": 15003,
         "explain": "戰術2",
         "tw": "內線突破",
-        "en": "INSIDE WARRIOR"
+        "en": "FIGHTER"
     },
     {
         "id": 15004,
         "explain": "戰術3",
         "tw": "外線狙擊",
-        "en": "OUTSIDE SNIPER"
+        "en": "SNIPER"
     },
     {
         "id": 15101,
@@ -4727,7 +4732,7 @@
         "id": 15103,
         "explain": "說明2",
         "tw": "主打內線投籃，適用於條件為 [33FFDD]“2分球數量“[-]、[33FFDD]”灌籃數量“[-] 的關卡",
-        "en": "FOCUSES THE ATTACK INSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 2-POINT SHOTS AND [-], [33FFDD] DUNK ATTEMPTS [-] FOR OTHER CONDITIONS ARE SELECTED LEVEL"
+        "en": "FOCUSES THE ATTACK INSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 2-POINT SHOTS AND [-], [33FFDD] DUNK ATTEMPTS [-] AND OTHER CONDITIONS ARE SELECTED LEVEL"
     },
     {
         "id": 15104,

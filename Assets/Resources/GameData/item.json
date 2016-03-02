@@ -10105,9 +10105,9 @@
         "attrkind1": 1,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Offensive left ear tubes",
+        "nameen": "SXC-2 Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's 2-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17002,
@@ -10120,9 +10120,9 @@
         "attrkind1": 2,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Outside left ear tubes",
+        "nameen": "SXC-3 Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's 3-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17003,
@@ -10135,9 +10135,9 @@
         "attrkind1": 3,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Speed ​​left ear tubes",
+        "nameen": "SXP-1 Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's speed for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17004,
@@ -10150,9 +10150,9 @@
         "attrkind1": 4,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Left ear endurance test tube",
+        "nameen": "SXT-0 Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's stamina for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17005,
@@ -10165,9 +10165,9 @@
         "attrkind1": 5,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Strength left ear tubes",
+        "nameen": "STR-9 Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's strenght for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17006,
@@ -10180,9 +10180,9 @@
         "attrkind1": 6,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "DEAR left ear tubes",
+        "nameen": "DNK-X Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's dunking ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 17007,
@@ -10195,9 +10195,9 @@
         "attrkind1": 7,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Left ear tubes rebounds",
+        "nameen": "RV-D Left ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's rebounding ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18001,
@@ -10210,9 +10210,9 @@
         "attrkind1": 8,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Right ear injection pot",
+        "nameen": "BKK-5 Right ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's blocking skills for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18002,
@@ -10225,9 +10225,9 @@
         "attrkind1": 9,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Defensive right ear injection",
+        "nameen": "AD-X",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's defense skills for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18003,
@@ -10240,9 +10240,9 @@
         "attrkind1": 10,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Right ear steals injection",
+        "nameen": "STL-0 Right Ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's stealing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18004,
@@ -10255,9 +10255,9 @@
         "attrkind1": 11,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Right ear had injections",
+        "nameen": "PSS-3 Right ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's passing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18005,
@@ -10270,9 +10270,9 @@
         "attrkind1": 12,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Pass right ear injection",
+        "nameen": "PSS-4 Right ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's passing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18006,
@@ -10285,9 +10285,9 @@
         "attrkind1": 1,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Offensive right ear injection",
+        "nameen": "SXC-2 Right ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's 2-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 18007,
@@ -10300,9 +10300,9 @@
         "attrkind1": 2,
         "attrvalue1": 20,
         "uisource": [10,11,12],
-        "nameen": "Outside right ear injections",
+        "nameen": "SXC-3 Right ear chip",
         "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
-        "explainen": "Consumable items. To strengthen synapses \"in the equipment, greatly enhance their capabilities.\n[ff0000] Note: every contest that the use of [-] [33FFDD] 1 [-] [ff0000] member. [-] "
+        "explainen": "This microchip will considerably enhance a player's 3-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
         "id": 19000,
@@ -15756,7 +15756,7 @@
         "uisource": [10],
         "nameen": "Advanced chip design",
         "explaintw": "可將技能晶片進化成[EFC653FF]金質外框[-]的特殊材料",
-        "explainen": "The skills of the wafer can evolve into [ffe700] gold frame [-] of special materials"
+        "explainen": "The skill card can be evolved into [ffe700] gold frame [-] of special materials"
     },
     {
         "id": 40004,
@@ -15769,7 +15769,7 @@
         "uisource": [10],
         "nameen": "Top chip design",
         "explaintw": "可將技能晶片進化成[11F5F1FF]鑽石外框[-]的特殊材料",
-        "explainen": "The skills of the wafer can evolve into [ff00db] colorful frame [-] of special materials"
+        "explainen": "The skill card can be evolved into [ff00db] colorful frame [-] of special materials"
     },
     {
         "id": 40100,
@@ -15782,7 +15782,7 @@
         "uisource": [10],
         "nameen": "Offensive IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "IC wafer rare, with \"top chip design\" that is able to enhance the specific skills of the wafer to the highest level."
+        "explainen": "IC rare Skill Card, with \"top chip design\" that is able to enhance the specific skills of the card to the highest level."
     },
     {
         "id": 40101,
@@ -15795,7 +15795,7 @@
         "uisource": [10],
         "nameen": "Defensive IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "IC wafer rare, with \"top chip design\" that is able to enhance the specific skills of the wafer to the highest level."
+        "explainen": "IC  rare Skill Card, with \"top chip design\" that is able to enhance the specific skills of the card to the highest level."
     },
     {
         "id": 40102,
@@ -15808,7 +15808,7 @@
         "uisource": [10],
         "nameen": "Wisdom IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "IC wafer rare, with \"top chip design\" that is able to enhance the specific skills of the wafer to the highest level."
+        "explainen": "IC rare Skill Card, with \"top chip design\" that is able to enhance the specific skills of the card to the highest level."
     },
     {
         "id": 93101,
