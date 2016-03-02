@@ -781,7 +781,8 @@ public class UIGame : UIBase
             int id = -1;
             if (int.TryParse(go.name, out id) && id >= 0 && id < PlayerMe.Attribute.ActiveSkills.Count)
             {
-                PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
+				if(state)
+                	PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
 				if (!state) {
 	                if (isShowSkillRange)
 	                    UIControllerState(EUIControl.Skill);
@@ -1204,6 +1205,7 @@ public class UIGame : UIBase
                 spriteAttack.gameObject.SetActive(false);
                 uiDefenceGroup[0].SetActive(false);
                 uiDefenceGroup[1].SetActive(true);
+				ResetRange();
                 break;
             case EUIControl.Steal:
                 ShowSkillEnableUI(false);
