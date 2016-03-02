@@ -384,25 +384,25 @@
         "id": 461,
         "explain": "解鎖數值裝合成任務",
         "tw": "成功解鎖[FFDD33]新每日任務[-]",
-        "en": "Successfully unlocked [FFDD33] new mission [-]"
+        "en": "Successfully unlocked [FFDD33] New mission [-]"
     },
     {
         "id": 462,
         "explain": "解鎖技能升星",
-        "tw": "成功解鎖[FFDD33]技能升級[-]",
-        "en": "Successfully unlocked [FFDD33] Ability LV UP [-]"
+        "tw": "成功解鎖[FFDD33]晶片升級[-]",
+        "en": "Successfully unlocked [FFDD33] CARD Upgrade [-]"
     },
     {
         "id": 463,
         "explain": "解鎖技能進化",
-        "tw": "成功解鎖[FFDD33]技能進化[-]",
-        "en": "Successfully unlocked [FFDD33] Ability EVOLUTION [-]"
+        "tw": "成功解鎖[FFDD33]晶片進化[-]",
+        "en": "Successfully unlocked [FFDD33] CARD Evolution [-]"
     },
     {
         "id": 464,
         "explain": "解鎖套卡",
         "tw": "成功解鎖[FFDD33]晶片圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33] Cards Collection [-]"
+        "en": "Successfully unlocked [FFDD33] CARD Collection [-]"
     },
     {
         "id": 465,
@@ -597,7 +597,7 @@
         "id": 558,
         "explain": "COST值滿",
         "tw": "你的COST值不足以安裝此技能晶片。",
-        "en": "Your COST value is not sufficient to install this skill wafer."
+        "en": "Your COST value is not sufficient to install this Skill Card."
     },
     {
         "id": 559,
@@ -823,8 +823,8 @@
         "id": 3003,
         "uipeth": "1/BtnLabel",
         "tw": "技 能",
-        "en": "ABILITY",
-        "jp": "ABILITY"
+        "en": "SKILL CARD",
+        "jp": "SKILL CARD"
     },
     {
         "id": 3004,
@@ -1758,7 +1758,7 @@
         "id": 4108,
         "uipeth": "FreeQA",
         "tw": "確認免費抽取晶片？",
-        "en": "Claim your free extract wafer?"
+        "en": "Claim your free extract Skill Cards?"
     },
     {
         "id": 4109,
@@ -2407,7 +2407,7 @@
         "id": 7001,
         "explain": "技能介面",
         "tw": "技能晶片",
-        "en": "ABILITY"
+        "en": "SKILL CARD"
     },
     {
         "id": 7002,
@@ -2583,8 +2583,8 @@
         "id": 7202,
         "uipeth": "SkillInfo/LabelSubhead",
         "tw": "晶片資訊",
-        "en": "ABILITY INFO",
-        "jp": "SKILL INFO."
+        "en": "CARD INFO",
+        "jp": "CARD INFO"
     },
     {
         "id": 7203,
@@ -2705,7 +2705,7 @@
         "id": 7222,
         "explain": "晶片類型 主動技",
         "tw": " [AA0000]主動技[-]",
-        "en": "[ff0000]A[-][fffffff]bility[-]"
+        "en": "[ff0000]A[-][fffffff]ctive[-]"
     },
     {
         "id": 7223,
@@ -2750,7 +2750,7 @@
     {
         "id": 7401,
         "explain": "技能晶片強化合成",
-        "tw": "強化與合成",
+        "tw": "升級與進化",
         "en": "CARD FUSION"
     },
     {
@@ -2822,14 +2822,14 @@
     {
         "id": 7413,
         "explain": "頁籤1",
-        "tw": "晶片合成",
-        "en": "Wafer synthesis"
+        "tw": "晶片升級",
+        "en": "CARD Upgrade"
     },
     {
         "id": 7414,
         "explain": "頁籤2",
         "tw": "晶片進化",
-        "en": "Wafer evolution"
+        "en": "CARD Evolution"
     },
     {
         "id": 7415,
@@ -2841,7 +2841,7 @@
         "id": 7416,
         "explain": "進化按鈕",
         "tw": "－蒐集完材料後進化晶片－",
-        "en": " - After collecting material evolution wafer -"
+        "en": " - After collecting material evolution Card -"
     },
     {
         "id": 7417,
@@ -2903,7 +2903,7 @@
         "id": 7701,
         "explain": "套卡介面說明",
         "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下啟動，取得組合加成效果。再點擊即可關閉。\n3.注意啟動上限值。",
-        "en": "1. Find the same series of skills wafer becomes combination.\n2. After the collection is complete press the start, get a combination of additive effects. Click again to close.\n3. Note that the upper limit start. "
+        "en": "1. Find the same series of skill cards becomes combination.\n2. After the collection is complete press the start, get a combination of additive effects. Click again to close.\n3. Note that the upper limit start. "
     },
     {
         "id": 7702,
@@ -2933,7 +2933,7 @@
         "id": 7706,
         "explain": "Hint-未收集完成點擊按鈕",
         "tw": "晶片組合尚未收集完成。",
-        "en": "Collection is complete wafer combination yet."
+        "en": "Collection is complete Cards combination yet."
     },
     {
         "id": 7707,
@@ -3044,7 +3044,8 @@
     {
         "id": 8200,
         "explain": "套裝介面",
-        "tw": "套裝圖鑑"
+        "tw": "套裝圖鑑",
+        "en": "Style Collection"
     },
     {
         "id": 8201,
@@ -3056,14 +3057,14 @@
         "id": 8202,
         "explain": "Right list標題",
         "tw": "對應晶片",
-        "en": "Match Ability Cards"
+        "en": "Match Skill Cards"
     },
     {
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipeth": "CaptionLabel",
         "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片COST，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] COST，以此類推。\n\n目前已降低 [00ff00] {0} [-] COST。",
-        "en": "Also has above the clothes, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
+        "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
         "id": 8204,
@@ -3084,7 +3085,7 @@
         "explain": "無對應晶片時的說明",
         "uipeth": "NoCardLabel",
         "tw": "此套造型無對應技能晶片",
-        "en": "No Match Ability Cards"
+        "en": "No Match Skill Cards"
     },
     {
         "id": 8207,
@@ -3098,7 +3099,7 @@
         "explain": "套裝收集標題",
         "uipeth": "Avatar Collection",
         "tw": "套裝收集",
-        "en": "Avatar Collection"
+        "en": "Style Collection"
     },
     {
         "id": 9001,
@@ -3290,7 +3291,7 @@
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
-        "en": "TEAMMATE [6666ff]A[-]"
+        "en": "TEAMMATE"
     },
     {
         "id": 9502,
@@ -4718,14 +4719,14 @@
     {
         "id": 15103,
         "explain": "說明2",
-        "tw": "主打內線投籃，適合 [33FFDD]“2分球數量“[-]、[33FFDD]”灌籃數量“[-] 的關卡條件選擇",
-        "en": "THIS GAME STYLE FOCUSES THE ATTACK INSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FDD] OF 2-POINT SHOTS AND [-], [33FDD] DUNK ATTEMPTS [-] FOR OTHER CONDITIONS ARE SELECTED LEVEL"
+        "tw": "主打內線投籃，適用於條件為 [33FFDD]“2分球數量“[-]、[33FFDD]”灌籃數量“[-] 的關卡",
+        "en": "FOCUSES THE ATTACK INSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 2-POINT SHOTS AND [-], [33FFDD] DUNK ATTEMPTS [-] FOR OTHER CONDITIONS ARE SELECTED LEVEL"
     },
     {
         "id": 15104,
         "explain": "說明3",
-        "tw": "主打外線投籃，適合 [33FFDD]“3分球數量“[-]、[33FFDD]”得分限制“[-] 的關卡條件需求選擇",
-        "en": "THIS GAME STYLE FOCUSES THE ATTACK OUTSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 3-POINT SHOTS AND [-], [33FFDD] A HIGHER TURNOVER PERCENTAGE [-] FOR OTHER CONDITIONS NEEDS TO CHOOSE THE LEVEL"
+        "tw": "主打外線投籃，適用於條件為 [33FFDD]“3分球數量“[-]、[33FFDD]”得分限制“[-] 的關卡",
+        "en": "FOCUSES THE ATTACK OUTSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 3-POINT SHOTS [-] AND, [33FFDD] A HIGHER TURNOVER PERCENTAGE [-] FOR OTHER CONDITIONS NEEDS TO CHOOSE THE LEVEL"
     },
     {
         "id": 100000,
