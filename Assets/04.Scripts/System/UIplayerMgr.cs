@@ -14,11 +14,12 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
     private EUIPlayerMode uiMode;
 	private Camera camera3d;
 	private GameObject avatar;
+    private int currentIndex = -1;
 
 	void Awake()
 	{
 		Init3DCamera ();
-		InitAvatar ();
+//		InitAvatar ();
 	}
 
 	private void Init3DCamera()
@@ -75,6 +76,15 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 
     public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
 	{
+        if (currentIndex != team.Player.BodyType)
+        {
+            if (avatar != null)
+            {
+                Destroy(avatar);
+                avatar = null;
+            }
+            InitAvatar();
+        }
 		gameObject.SetActive (true);
 		ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.AvatarControl, false);
 

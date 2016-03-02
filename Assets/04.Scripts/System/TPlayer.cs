@@ -605,6 +605,12 @@ namespace GameStruct
 		public string FacePicture {
 			get {
                 //npc
+                if (HeadTextureNo > 2)
+                {
+                    return string.Format("{0}s", HeadTextureNo);
+                }
+                else
+                {
                 if (GameData.DPlayers.ContainsKey(ID)) {
                     if (ID > 3)
                         return string.Format("{0}s", GameData.DPlayers[ID].BodyType.ToString());
@@ -614,7 +620,9 @@ namespace GameStruct
                         else
                             return string.Format("{0}s", HeadTextureNo);
                     }
+                    }
                 }
+               
                     
                 return "0s";
 			}
