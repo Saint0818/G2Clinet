@@ -61,7 +61,10 @@ namespace GameItem
 				GuildIDLabel = self.transform.Find("Window/GuildView/GuildIDLabel").gameObject.GetComponent<UILabel>();
 				self.transform.Find("Window/GuildView").gameObject.SetActive(false);
                 WinLabel = self.transform.Find("Window/DetailGroup/WinLabel").gameObject.GetComponent<UILabel>();
+                WinLabel.transform.Find("Label").gameObject.GetComponent<UILabel>().text = TextConst.S(9734);
                 WinRateLabel = self.transform.Find("Window/DetailGroup/WinRateLabel").gameObject.GetComponent<UILabel>();
+                WinRateLabel.transform.Find("Label").gameObject.GetComponent<UILabel>().text = TextConst.S(9733);
+                self.transform.Find("Window/DetailGroup/ScoreIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(9735);
                 PVPIntegral = self.transform.Find("Window/DetailGroup/ScoreIcon/ScoreLabel").gameObject.GetComponent<UILabel>();
                 optionsBtnGroup = self.transform.Find("Window/ButtonListGroup").gameObject;
                 optionsBtn =  optionsBtnGroup.transform.Find("View/ProfileBtn").gameObject.GetComponent<UIButton>();
