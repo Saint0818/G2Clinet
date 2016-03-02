@@ -2,51 +2,59 @@
     {
         "loginnum": 3,
         "itemid1": 7011,
+        "name1": "喵感應推進器",
         "itemnum1": 1,
         "itemid2": 93203,
         "itemnum2": 1
     },
     {
         "loginnum": 5,
-        "itemid1": 93206,
+        "itemid1": 93207,
+        "name1": "500鑽石",
         "itemnum1": 1
     },
     {
         "loginnum": 10,
-        "itemid1": 30702,
+        "itemid1": 30400,
+        "name1": "鷹眼神射 I",
         "itemnum1": 1,
         "itemid2": 93203,
         "itemnum2": 1
     },
     {
         "loginnum": 15,
-        "itemid1": 6010,
+        "itemid1": 6011,
+        "name1": "喵感應眼鏡",
         "itemnum1": 1,
         "itemid2": 93203,
         "itemnum2": 1
     },
     {
         "loginnum": 20,
-        "itemid1": 93206,
+        "itemid1": 93207,
+        "name1": "500鑽石",
         "itemnum1": 1
     },
     {
         "loginnum": 25,
-        "itemid1": 30712,
+        "itemid1": 30700,
+        "name1": "狂野雙爆扣 I",
         "itemnum1": 1,
         "itemid2": 93203,
         "itemnum2": 1
     },
     {
         "loginnum": 30,
-        "itemid1": 7010,
+        "itemid1": 7004,
+        "name1": "武鬥輪盤背甲",
         "itemnum1": 1,
         "itemid2": 93203,
         "itemnum2": 1
     },
     {
         "loginnum": 40,
-        "itemid1": 93206,
+        "itemid1": 93207,
+        "name1": "500鑽石",
         "itemnum1": 1
     }
 ]

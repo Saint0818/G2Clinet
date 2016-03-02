@@ -690,7 +690,7 @@
         "id": 1006,
         "explain": "技能按鈕",
         "tw": "技 能",
-        "en": "SKILL CARDS"
+        "en": "SKILL CARD"
     },
     {
         "id": 1007,
@@ -2478,7 +2478,7 @@
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "CARD ATLAS"
+        "en": "CARD COLLECTION"
     },
     {
         "id": 7101,
@@ -2897,7 +2897,8 @@
     {
         "id": 7700,
         "explain": "套卡介面",
-        "tw": "晶片圖鑑"
+        "tw": "晶片圖鑑",
+        "en": "CARD COLLECTION"
     },
     {
         "id": 7701,
