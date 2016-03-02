@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GameStruct;
 using GameEnum;
 
-public struct TItemSuitAvatarGroup {
+public class TItemSuitAvatarGroup {
 	public GameObject mSelf;
 
 	public UILabel SuitNameLabel;
@@ -28,7 +28,7 @@ public struct TItemSuitAvatarGroup {
 
 	public void UpdateView (int id, int index) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
-			mSelf.name = id.ToString();
+			mSelf.name = index.ToString();
 			mSelf.transform.localPosition = new Vector3(0, -60 * index, 0);
 			SuitNameLabel.text = GameData.DSuitItem[id].SuitName;
 			CountLabel.text = GameData.Team.SuitItemCompleteCount(id).ToString() + "/" + GameData.DSuitItem[id].ItemLength;
@@ -191,7 +191,8 @@ public class UISuitAvatar : UIBase {
 
 	private GameObject itemAward;
 
-	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
+//	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
+	private List<TItemSuitAvatarGroup> tItemSuitAvatarGroup = new List<TItemSuitAvatarGroup>();
 
 	private UIScrollView leftScorllView;
 	private TMiddleItemView middleItemView;
@@ -258,19 +259,21 @@ public class UISuitAvatar : UIBase {
 
 	private void initScrollView () {
 		int index = 0;
-		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
+//		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
+		tItemSuitAvatarGroup = new List<TItemSuitAvatarGroup>();
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
 			itemsuitItem.UpdateView(item.Key, index);
-			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
+//			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
+			tItemSuitAvatarGroup.Add(itemsuitItem);
 			index ++;
 		}
 		leftScorllView.Scroll(0);
 	}
 
 	private void hideAllSelect () {
-		for(int i=0; i<tItemSuitAvatarGroup.Length; i++) {
+		for(int i=0; i<tItemSuitAvatarGroup.Count; i++) {
 			tItemSuitAvatarGroup[i].SelectActive = false;
 		}
 	}
@@ -281,8 +284,8 @@ public class UISuitAvatar : UIBase {
 		suitItemRight.UpdateView(id);
 		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(id));
 		hideAllSelect();
-		if(id > 0 && id <= tItemSuitAvatarGroup.Length)
-			tItemSuitAvatarGroup[id - 1].SelectActive = true;
+		if(id >= 0 && id < tItemSuitAvatarGroup.Count)
+			tItemSuitAvatarGroup[id].SelectActive = true;
 	} 
 
 	public void OnClickSuit (GameObject go) {
