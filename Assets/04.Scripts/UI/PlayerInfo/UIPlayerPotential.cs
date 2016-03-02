@@ -182,11 +182,24 @@ public class UpgradeView
 		int index;
 		if (int.TryParse (UIButton.current.name, out index)) {
 			if(CanUsePotential(index)){
-				AddPotential[index]++;
+				AddPotential[index]+= AddLevel;
 				UIPlayerPotential.Get.UpdateView();
 				UIPlayerPotential.Get.SetUseState (EPotential.adding);
 			}
 		}
+	}
+
+	public int AddLevel = 1;
+	
+	public void OnChangeAddLevle()
+	{
+		if (AddLevel == 1)
+			AddLevel = 5;
+		else if (AddLevel == 5)
+			AddLevel = 10;
+		else
+			AddLevel = 1;
+		UpdateBtnSate ();			
 	}
 
 	public void UpdateBtnSate()
@@ -200,7 +213,7 @@ public class UpgradeView
 	public bool CanUsePotential(int index)
 	{
         return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential(GameData.Team.Player) >= 
-            useLvPotential + useAvatarPotential + GameFunction.GetPotentialRule(bodytype, index);
+			useLvPotential + useAvatarPotential + (GameFunction.GetPotentialRule(bodytype, index) * AddLevel);
 	}
 
 	private void CalculateAddPotential()
@@ -450,13 +463,17 @@ public class UIPlayerPotential : UIBase {
 		UpdateView ();
 		SetUseState (EPotential.none);
 	}
+
+	public void OnChangeLvel()
+	{
+		upgradeView.OnChangeAddLevle();
+	}
 	
 	protected override void OnShow(bool isShow) {
         base.OnShow(isShow);
 		if (isShow) {
 			UpdateView ();
 			upgradeView.EnableHexagon(true);
-//			UIPlayerInfo.Get.UpdateHexagon(false);
 		}
 	}
 
@@ -469,5 +486,10 @@ public class UIPlayerPotential : UIBase {
 		upgradeView.UpdateBtnSate();
 		pointView.SetLvPotential (CrtLvPotential, upgradeView.UseLvPotential);
 		pointView.SetAvatarPotential (CrtAvatarPotential, upgradeView.UseAvatarPotential);
+	}
+
+	public int AddLevel
+	{
+		get{ return upgradeView.AddLevel; }
 	}
 }

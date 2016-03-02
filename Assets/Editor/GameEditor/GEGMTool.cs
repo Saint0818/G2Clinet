@@ -18,7 +18,7 @@ public class GEGMTool : GEBase
 {
     private int options = 0;
     private int itemOptions = 0;
-    private string[] optionsTitle = new string[6]{ "物品", "關卡", "戰鬥", "場景", "人物資料", "其它" };
+    private string[] optionsTitle = new string[7]{ "物品", "關卡", "戰鬥", "場景", "人物資料", "其它" ,"介面"};
     private string[] itemOptionsTitle = new string[4]{ "Add Item單件物品", "Add Item每一個部位", "Add Item指定部位", "人物裝備時限" };
 
     void OnGUI()
@@ -53,6 +53,10 @@ public class GEGMTool : GEBase
                     }
                     OtherHandle();
                     break;
+				case 6:
+					UIHandle ();
+					break;
+								
             }
         }
         else
@@ -1106,4 +1110,17 @@ public class GEGMTool : GEBase
     {
         this.ShowNotification(new GUIContent(str));
     }
+
+	private void UIHandle()
+	{
+		if (UIPlayerPotential.Visible) {
+			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label("每次加: " + UIPlayerPotential.Get.AddLevel);
+			if (GUILayout.Button("切換", GUILayout.Width(50)))
+			{
+				UIPlayerPotential.Get.OnChangeLvel ();
+			}
+			EditorGUILayout.EndHorizontal();
+		}
+	}
 }
