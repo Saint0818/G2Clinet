@@ -405,42 +405,55 @@ public static class GameFunction
         return att;
     }
 
-    public static void UpdateAttrHexagon(UIAttributes attHexagon, TPlayer basic, int[] potentialAdds = null)
+    public static void UpdateAttrHexagon(UIAttributes attHexagon, TPlayer player, int[] potentialAdds = null)
     {
         float add;
 
-        foreach (var item in basic.Potential)
-        {
-            add = 0;
-
-            if (potentialAdds != null){
-                add = GetAttributeIndex(item.Key) < potentialAdds.Length ? potentialAdds [GetAttributeIndex(item.Key)] : 0;
-//				add += item.Value;
+		if (player.Potential.Count == 0) {
+			for (int i = 0; i < GameConst.PotentialCount; i++) {
+				EAttribute kind = GetAttributeKind(i);
+				SetAttrHexagon (ref attHexagon, kind, 0, player);
 			}
+		} else {
+			foreach (var item in player.Potential)
+			{
+				add = 0;
 
-            switch (item.Key)
-            {
-                case EAttribute.Point2:
-					attHexagon.SetValue(UIAttributes.EGroup.Point2, (basic.Point2 + add) / GameConst.AttributeMax);
-                    break;
-                case EAttribute.Point3:
-					attHexagon.SetValue(UIAttributes.EGroup.Point3, (basic.Point3 + add) / GameConst.AttributeMax);
-                    break;
-                case EAttribute.Dunk:
-					attHexagon.SetValue(UIAttributes.EGroup.Dunk, (basic.Dunk + add) / GameConst.AttributeMax);
-                    break;
-                case EAttribute.Rebound:
-					attHexagon.SetValue(UIAttributes.EGroup.Rebound, (basic.Rebound + add) / GameConst.AttributeMax);
-                    break;
-                case EAttribute.Block:
-					attHexagon.SetValue(UIAttributes.EGroup.Block, (basic.Block + add) / GameConst.AttributeMax);
-                    break;
-                case EAttribute.Steal:
-					attHexagon.SetValue(UIAttributes.EGroup.Steal, (basic.Steal + add) / GameConst.AttributeMax);
-                    break;
-            }
-        }
+				if (potentialAdds != null)
+				{
+					add = GetAttributeIndex(item.Key) < potentialAdds.Length ? potentialAdds [GetAttributeIndex(item.Key)] : 0;
+					SetAttrHexagon (ref attHexagon, item.Key, add, player);
+				}
+				else
+					SetAttrHexagon (ref attHexagon, item.Key, 0, player);					
+			}			
+		}
     }
+
+	private static void SetAttrHexagon(ref UIAttributes attHexagon, EAttribute att, float add, TPlayer player)
+	{
+		switch (att)
+		{
+		case EAttribute.Point2:
+			attHexagon.SetValue(UIAttributes.EGroup.Point2, (player.Point2 + add) / GameConst.AttributeMax);
+				break;
+		case EAttribute.Point3:
+			attHexagon.SetValue(UIAttributes.EGroup.Point3, (player.Point3 + add) / GameConst.AttributeMax);
+				break;
+		case EAttribute.Dunk:
+			attHexagon.SetValue(UIAttributes.EGroup.Dunk, (player.Dunk + add) / GameConst.AttributeMax);
+				break;
+		case EAttribute.Rebound:
+			attHexagon.SetValue(UIAttributes.EGroup.Rebound, (player.Rebound + add) / GameConst.AttributeMax);
+				break;
+		case EAttribute.Block:
+			attHexagon.SetValue(UIAttributes.EGroup.Block, (player.Block + add) / GameConst.AttributeMax);
+				break;
+		case EAttribute.Steal:
+			attHexagon.SetValue(UIAttributes.EGroup.Steal, (player.Steal + add) / GameConst.AttributeMax);
+				break;
+		}	
+	}
 
     /// <summary>屬性六角形</summary>
     public static void UpdateAttrHexagon(UIAttributes attHexagon, Dictionary<EAttribute, int> attData, int[] adds = null)

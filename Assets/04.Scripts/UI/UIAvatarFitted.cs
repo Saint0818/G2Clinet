@@ -766,7 +766,7 @@ public class UIAvatarFitted : UIBase
                 backpackItems[i].Enable = false;
             }
 					
-			//企劃要求不賣永久的avatar
+			//企劃要求永久的avatar不能出售
 			if (Mode == EAvatarMode.Sell && (backpackItems[i].UseKind == -1 || (backpackItems[i].Equip || backpackItems[i].SellPrice == 0)))
                 backpackItems[i].Enable = false;
 
