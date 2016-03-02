@@ -578,6 +578,6 @@ public static class GameData
         if(!LimitTable.Ins.HasByOpenID(openID))
             return true;
 
-        return Team.Player.Lv >= LimitTable.Ins.GetByOpenID(openID).Lv;
+        return Team.HighestLv >= LimitTable.Ins.GetByOpenID(openID).Lv;
     }
 }

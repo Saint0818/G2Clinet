@@ -69,13 +69,20 @@ public class UIGameLobby : UIBase
 
     public void GoToInstance()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Instance))
+        if(!GameData.IsOpenUIEnable(EOpenID.Instance))
         {
-            UIInstance.Get.Show();
-            Hide();
-        }
-        else
             UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Instance)), Color.white);
+            return;
+        }
+
+        if(!UIInstanceHelper.IsMainStagePass(1))
+        {
+            UIHint.Get.ShowHint(TextConst.S(100009), Color.white);
+            return;
+        }
+
+        UIInstance.Get.Show();
+        Hide();
     }
 
     public static UIGameLobby Get

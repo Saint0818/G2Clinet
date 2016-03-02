@@ -27,9 +27,9 @@ public class UIUnlockButton : MonoBehaviour
         TLimitData limit = LimitTable.Ins.GetByOpenID(OpenID);
         if(limit != null)
         {
-            IsVisible = GameData.Team.Player.Lv >= limit.VisibleLv;
-            IsEnable = GameData.Team.Player.Lv >= limit.Lv;
-            if(GameData.Team.Player.Lv == limit.Lv && hasFlag())
+            IsVisible = GameData.Team.HighestLv >= limit.VisibleLv;
+            IsEnable = GameData.Team.HighestLv >= limit.Lv;
+            if(GameData.Team.HighestLv == limit.Lv && hasFlag())
             {
                 PlaySFX();
                 deleteFlag();

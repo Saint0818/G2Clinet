@@ -25,7 +25,7 @@ namespace GameStruct
 
         public override string ToString()
         {
-            return string.Format("ID:{0}, Name:{1}, RoleIndex:{2}", ID, Name, RoleIndex);
+            return string.Format("ID:{0}, Name:{1}, Lv:{2}, RoleIndex:{3}", ID, Name, Lv, RoleIndex);
         }
     }
 

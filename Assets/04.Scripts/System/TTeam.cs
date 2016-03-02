@@ -201,6 +201,24 @@ namespace GameStruct
 
         public int MaxPlayerBank;
 
+        /// <summary>
+        /// 整個帳號最高的等級.
+        /// </summary>
+        public int HighestLv
+        {
+            get
+            {
+                int highestLv = Player.Lv;
+                for(var i = 0; i < PlayerBank.Length; i++)
+                {
+                    if(PlayerBank[i].Lv > highestLv)
+                        highestLv = PlayerBank[i].Lv;
+                }
+
+                return highestLv;
+            }
+        }
+
         public void Init() {
             if (Identifier == null)
                 Identifier = "";
