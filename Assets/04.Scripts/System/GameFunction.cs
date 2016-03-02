@@ -1009,7 +1009,8 @@ public static class GameFunction
 		float wristRate = 0;
 		//1 動作影響的機率
 //		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
-		beginRate = originalRate + scoreRate + extraScoreRate;
+		beginRate = Mathf.Max (0, (originalRate + scoreRate + extraScoreRate));
+
 
 		if(distance >= 5) {
 			//  (5~10)命中衰減率 = [1-((D-4)*0.06)]   

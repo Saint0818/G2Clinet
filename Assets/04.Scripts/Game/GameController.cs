@@ -692,7 +692,8 @@ public class GameController : KnightSingleton<GameController>
                 PlayerList[i].SelectMe.SetActive(false);
             }
         }
-        UIGame.Get.InitPlayerSkillUI(Joysticker);
+		UIGame.Get.InitPlayerSkillUI(Joysticker);
+		UIGame.Get.RefreshSkillUI();
 
         Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i++)
@@ -3517,8 +3518,9 @@ public class GameController : KnightSingleton<GameController>
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
-					else if(CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Steal0 || 
-						CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Rebound0)
+//					else if(CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Steal0 || 
+//						CourtMgr.Get.RealBallCompoment.RealBallState ==  EPlayerState.Rebound0)
+					else if(GameController.Get.BallState == EBallState.CanRebound)
                     {
 					    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
 					        Rebound(player);
