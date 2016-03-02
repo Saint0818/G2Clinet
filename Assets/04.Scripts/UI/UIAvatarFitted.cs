@@ -765,8 +765,9 @@ public class UIAvatarFitted : UIBase
             {
                 backpackItems[i].Enable = false;
             }
-
-            if (Mode == EAvatarMode.Sell && (backpackItems[i].Equip || backpackItems[i].SellPrice == 0))
+					
+			//企劃要求不賣永久的avatar
+			if (Mode == EAvatarMode.Sell && (backpackItems[i].UseKind == -1 || (backpackItems[i].Equip || backpackItems[i].SellPrice == 0)))
                 backpackItems[i].Enable = false;
 
             backpackItems[i].UpdateBtnUseState();
