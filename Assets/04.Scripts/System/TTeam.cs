@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameEnum;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameStruct
@@ -56,6 +57,7 @@ namespace GameStruct
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
 		public Dictionary<int, int> SkillCardCounts; //key: ID , value:num
+        [CanBeNull]
         public TPlayerBank[] PlayerBank;
         public TMail[] Mails;
         public Dictionary<string, TFriend> Friends; //key: Identifier, value: TFriend
@@ -209,10 +211,14 @@ namespace GameStruct
             get
             {
                 int highestLv = Player.Lv;
-                for(var i = 0; i < PlayerBank.Length; i++)
+
+                if(PlayerBank != null)
                 {
-                    if(PlayerBank[i].Lv > highestLv)
-                        highestLv = PlayerBank[i].Lv;
+                    for (var i = 0; i < PlayerBank.Length; i++)
+                    {
+                        if (PlayerBank[i].Lv > highestLv)
+                            highestLv = PlayerBank[i].Lv;
+                    }
                 }
 
                 return highestLv;

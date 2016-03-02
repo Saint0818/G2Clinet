@@ -112,7 +112,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void onPartItemSelected(UICreateRole.EPart part, int index, int itemID)
     {
-        Debug.LogFormat("Part:{0}, Index:{1}, ItemID:{2}", part, index, itemID);
+//        Debug.LogFormat("Part:{0}, Index:{1}, ItemID:{2}", part, index, itemID);
 
         UI3DCreateRole.Get.StyleView.UpdateModel(part, itemID);
         mCurrentPlayerParts[part] = itemID;

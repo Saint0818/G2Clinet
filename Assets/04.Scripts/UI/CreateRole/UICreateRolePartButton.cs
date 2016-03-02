@@ -75,7 +75,7 @@ public class UICreateRolePartButton : MonoBehaviour
 
     public TItemData RandomItemData()
     {
-        return mItems[UnityEngine.Random.Range(0, mItems.Length - 1)];
+        return mItems[UnityEngine.Random.Range(0, mItems.Length)];
     }
 
     private void notifySelected()
