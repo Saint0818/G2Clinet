@@ -1278,12 +1278,17 @@ public class UIAvatarFitted : UIBase
         if (ok)
         {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
-            GameData.Team.Items = team.Items;
-            GameData.Team.Player.Items = team.Player.Items;
+			if(team.Items != null)
+            	GameData.Team.Items = team.Items;
+			
+			if(team.Player.Items != null)
+            	GameData.Team.Player.Items = team.Player.Items;
+						
             GameData.Team.Diamond = team.Diamond;
             GameData.Team.AvatarPotential = team.AvatarPotential;
             GameData.Team.TeamRecord = team.TeamRecord;
-            GameData.Team.GotAvatar = team.GotAvatar;
+			if(team.GotAvatar != null)
+            	GameData.Team.GotAvatar = team.GotAvatar;		
             UIMainLobby.Get.UpdateUI();
             ChangeMode(EAvatarMode.Normal);
             UpdateAvatar();
