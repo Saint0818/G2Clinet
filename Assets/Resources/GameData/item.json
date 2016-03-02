@@ -6860,7 +6860,7 @@
         "explainen": "Warrior Mask"
     },
     {
-        "id": 6011,
+        "id": 6010,
         "nametw": "暫無（跳過）",
         "kind": 6,
         "atlas": 6,
@@ -6877,11 +6877,11 @@
         "namejp": "帽子10"
     },
     {
-        "id": 6012,
+        "id": 6011,
         "nametw": "喵感應眼鏡",
         "kind": 6,
         "atlas": 6,
-        "icon": 6012,
+        "icon": 6011,
         "avatar": 24001,
         "suititem": 206,
         "quality": 3,
