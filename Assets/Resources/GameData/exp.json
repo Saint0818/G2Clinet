@@ -67,7 +67,8 @@
     },
     {
         "lv": 11,
-        "lvupexp": 60
+        "lvupexp": 60,
+        "unlockname": 462
     },
     {
         "lv": 12,
@@ -83,7 +84,7 @@
     {
         "lv": 14,
         "lvupexp": 70,
-        "ui": 2
+        "unlockname": 463
     },
     {
         "lv": 15,
@@ -92,11 +93,13 @@
     },
     {
         "lv": 16,
-        "lvupexp": 100
+        "lvupexp": 100,
+        "unlockname": 464
     },
     {
         "lv": 17,
-        "lvupexp": 110
+        "lvupexp": 110,
+        "unlockname": 465
     },
     {
         "lv": 18,
@@ -108,7 +111,8 @@
     },
     {
         "lv": 20,
-        "lvupexp": 140
+        "lvupexp": 140,
+        "unlockname": 466
     },
     {
         "lv": 21,
