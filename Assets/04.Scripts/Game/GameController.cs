@@ -3765,6 +3765,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		if (IsWinner) {
+            UILoading.StageID = GameData.StageID;
             AudioMgr.Get.PlaySound (SoundType.SD_ResultWin);
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {
@@ -3777,6 +3778,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 		else
 		{
+            UILoading.StageID = -1;
             AudioMgr.Get.PlaySound (SoundType.SD_ResultLose);
 			NpcWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {

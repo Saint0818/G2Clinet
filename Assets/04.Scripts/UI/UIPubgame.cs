@@ -49,12 +49,12 @@ public class UIPubgame : UIBase {
     }
 
     public void OnLogin() {
-        Pubgame.PubgameSdk.Get.Login(pubgameLogin);
+        PubgameSdk.Get.Login(pubgameLogin);
     }
 
     public bool OnSwitchWidge() {
         eventSwitch = !eventSwitch;
-        Pubgame.PubgameSdk.Get.SetPgToolsActive(eventSwitch);
+        PubgameSdk.Get.SetPgToolsActive(eventSwitch);
         return eventSwitch;
     }
 
@@ -64,6 +64,7 @@ public class UIPubgame : UIBase {
                 LoginHandle(res.ResultCode, res.PlayerId, res.Token);
 
             Visible = false;
-        }
+        } else
+            UIHint.Get.ShowHint(TextConst.S(514) + " " + res.ToString(), Color.red);
     }
 }

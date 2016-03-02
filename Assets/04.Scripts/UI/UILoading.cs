@@ -64,7 +64,7 @@ public class UILoading : UIBase
         }
     }
 
-    public static void AchievementUI(int lv)
+    public static void LvUpUI(int lv)
     {
         if (GameData.DExpData.ContainsKey(lv))
         {
@@ -77,12 +77,20 @@ public class UILoading : UIBase
                 case 1:
                     OpenUI = OpenMainUI;
                     break;
+                case 2:
+                    OpenUI = OpenGameLobby;
+                    break;
+                case 3:
+                    OpenUI = OpenInstanceUI;
+                    break;
+                case 4:
+                    OpenUI = OpenPVPUI;
+                    break;
                 default:
                     OpenUI = null;
                     break;
             }
-        }
-        else
+        } else
             OpenUI = OpenStageUI;
     }
 
@@ -91,7 +99,7 @@ public class UILoading : UIBase
         OpenUI = null;
         if (GameData.DTutorial.ContainsKey(id * 100 + 1))
         {
-            if (FileManager.NowMode == VersionMode.Debug || !GameData.Team.HaveTutorialFlag(id)) {
+            if (!GameData.Team.HaveTutorialFlag(id)) {
                 UITutorial.Get.ShowTutorial(id, 1);
                 achievementTutorialID = -1;
                 return true;
@@ -103,6 +111,13 @@ public class UILoading : UIBase
 
     public static void OpenMainUI()
     {
+        checkTutorialUI(achievementTutorialID);
+    }
+
+    public static void OpenGameLobby()
+    {
+        UIMainLobby.Get.Hide();
+        UIGameLobby.Get.Show();
         checkTutorialUI(achievementTutorialID);
     }
 
@@ -121,12 +136,20 @@ public class UILoading : UIBase
     {
         UIInstance.Get.Show();
         UIMainLobby.Get.Hide();
+
+        if (!checkTutorialUI(achievementTutorialID))
+            if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
+                StageID = -1;
     }
 
     public static void OpenPVPUI()
     {
         UIPVP.UIShow(true);
         UIMainLobby.Get.Hide(2);
+
+        if (!checkTutorialUI(achievementTutorialID))
+            if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
+                StageID = -1;
     }
 
     public static void OpenNotic()
@@ -163,13 +186,13 @@ public class UILoading : UIBase
             Get.initLoadingPic(kind);
             Get.Show(true);
         }
-        else if (instance)
+        else 
+        if (instance)
         { 
             if (Get.LoadingFinished)
                 Get.Show(false);
             else
                 Get.closeAfterFinished = true;
-            //RemoveUI(UIName);
         }
     }
 

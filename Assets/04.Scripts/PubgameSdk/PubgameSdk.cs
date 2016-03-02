@@ -17,6 +17,7 @@ namespace Pubgame
 		
 		public void InitSDK()
 		{
+            try {
 			Debug.Log("PubgameSdk.Init");
 #if UNITY_EDITOR
 			return;
@@ -32,12 +33,19 @@ namespace Pubgame
 				_currentPlatform.Init();
 			else
 				Debug.Log("PubgameSdk not avalible for current platform");
+            } catch (System.Exception e) {
+                
+            }
 		}
 		
 		public void Login(System.Action<bool, PubgameLoginResponse> callback)
 		{
 			Debug.Log("PubgameSdk.Login");
 #if UNITY_EDITOR
+            PubgameLoginResponse res = new PubgameLoginResponse();
+            res.ResultCode = 1;
+            res.PlayerId = SystemInfo.deviceUniqueIdentifier;
+            callback(true, res);
 			return;
 #endif
 			if(_currentPlatform != null)
@@ -78,7 +86,7 @@ namespace Pubgame
 
 			if (GUI.Button(new Rect(10, 10, 200, 80), "Init"))
 			{
-				Init();
+                InitSDK();
 			}
 
 			if(GUI.Button(new Rect(10, 100, 200, 80), "Login"))

@@ -32,6 +32,7 @@ namespace Pubgame
 		
 		public void Init()
 		{
+            try {
 			_eventListener = new PubgameEventListener(this);
 			_unityActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
 			_unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() => 
@@ -39,7 +40,9 @@ namespace Pubgame
 				_unityPlugin = new AndroidJavaObject("com.pubgame.unityplugin.PubgameUnityPlugin");
 				_unityPlugin.Call("init", _unityActivity, _eventListener);
 			}));
-
+            } catch (System.Exception e) {
+                
+            }
 		}
 
 		public void Login(System.Action<bool, PubgameLoginResponse> callback)

@@ -70,27 +70,7 @@ public class UIAchievement : UIBase {
 	}
 
 	public void OnReturn (GameObject go) {
-		UILoading.StageID = -1;
-		if(GameData.IsMainStage)
-		{
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			UILoading.OpenUI = UILoading.OpenStageUI;
-		}
-		else if(GameData.IsInstance)
-		{
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			UILoading.OpenUI = UILoading.OpenInstanceUI;
-		}
-		else if (GameData.IsPVP)
-		{
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			UILoading.OpenUI = UILoading.OpenStageUI;
-		}
-		else
-		{
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			UILoading.OpenUI = UILoading.OpenStageUI;
-		}
+        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 
 //		if (isStage) {
 //			UILoading.AchievementUI(playerLv);

@@ -293,22 +293,24 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        if (mAvatarPlayer)
-            Destroy(mAvatarPlayer);
+        if (GameData.Team.Player.Items != null) { //before create role Player.Items is null
+            if (mAvatarPlayer)
+                Destroy(mAvatarPlayer);
 
-        mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
-//        ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
-//            GameData.Team.Player.BodyType,
-//            EAnimatorType.AnimationControl, false);
+            mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
+    //        ModelManager.Get.SetAvatar(ref mAvatarPlayer, GameData.Team.Player.Avatar, 
+    //            GameData.Team.Player.BodyType,
+    //            EAnimatorType.AnimationControl, false);
 
-        ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AnimationControl, false);
+            ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AnimationControl, false);
 
-        mAvatarPlayer.transform.parent = BuildPos[0].transform;
-        mAvatarPlayer.transform.localPosition = Vector3.zero;
-        mAvatarPlayer.transform.localScale = Vector3.one;
-        mAvatarPlayer.transform.localRotation = Quaternion.identity;
+            mAvatarPlayer.transform.parent = BuildPos[0].transform;
+            mAvatarPlayer.transform.localPosition = Vector3.zero;
+            mAvatarPlayer.transform.localScale = Vector3.one;
+            mAvatarPlayer.transform.localRotation = Quaternion.identity;
 
-        playerCenterPos = mAvatarPlayer.transform.position;
+            playerCenterPos = mAvatarPlayer.transform.position;
+        }
         //CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
         //TODO: 因新帳號無人物資料造成find null，所以先關掉
 //        DummyBall = mAvatarPlayer.transform.Find("DummyBall").gameObject.transform;

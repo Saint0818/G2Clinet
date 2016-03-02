@@ -490,9 +490,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
 
-//			    Debug.LogFormat("DailyLogin, [{0},{1},{2}]", GameData.Team.DailyLoginRewardYear, GameData.Team.DailyLoginRewardMonth, GameData.Team.DailyLoginRewardIndex);
-//			    Debug.LogFormat("LifeTimeLoginNum:{0}", GameData.Team.LifeTimeLoginNum);
-
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();
 					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
@@ -816,9 +813,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
     }
 
     private void waitPubgameLogin(int resultCode, string playerId, string token) {
-        if (resultCode == 1) {
-            SendLogin(playerId);
-            UIPubgame.Visible = false;
+        if (resultCode != 99) {
+            if (!string.IsNullOrEmpty(playerId)) {
+                SendLogin(playerId);
+                UIPubgame.Visible = false;
+            } else
+                UIHint.Get.ShowHint(TextConst.S(514) + " -50", Color.red);
         } else
             UIHint.Get.ShowHint(TextConst.S(514) + " " + resultCode.ToString(), Color.red);
     }

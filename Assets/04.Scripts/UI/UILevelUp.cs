@@ -224,17 +224,11 @@ public class UILevelUp : UIBase {
 
 	public void OnReturn (GameObject go) {
 		if(SceneMgr.Get.IsCourt) {
+            UILoading.LvUpUI(lv);
 			if(GameData.DExpData.ContainsKey(lv) && LimitTable.Ins.HasOpenIDByLv(lv)) {
 				UIShow(false);
 				UIAchievement.Get.ShowView(lv);
 			} else {
-//				UILoading.OpenUI = UILoading.OpenStageUI;
-//				if (isStage)
-//					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//				else
-//					SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
-
-				UILoading.StageID = -1;
 				if(GameData.IsMainStage)
 				{
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
