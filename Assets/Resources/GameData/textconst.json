@@ -1048,19 +1048,20 @@
     {
         "id": 3301,
         "explain": "屬性說明介面",
-        "tw": "屬性說明"
+        "tw": "屬性說明",
+        "en": "ATTRIBUTE INTERPRET"
     },
     {
         "id": 3302,
         "uipeth": "AttrKind0/KindLabel",
-        "tw": "命中",
-        "en": "Offensive"
+        "tw": "命 中",
+        "en": "OFFENSIVE"
     },
     {
         "id": 3303,
         "uipeth": "AttrKind1/KindLabel",
-        "tw": "外線",
-        "en": "Outside"
+        "tw": "外 線",
+        "en": "OUTSIDE"
     },
     {
         "id": 3304,
@@ -1148,42 +1149,42 @@
         "explain": "耐 力",
         "uipeth": "AttrKind6/ExplainLabel",
         "tw": "可加速衝刺的總時間",
-        "en": "1. AFFECT PASSING RATE \n 2. CHANCE TO DO AN ALLEY OOP WHEN IN AI MODE."
+        "en": "1. AFFECT PASSING RATE \n2. CHANCE TO DO AN ALLEY OOP WHEN IN AI MODE."
     },
     {
         "id": 3326,
         "explain": "力 量",
         "uipeth": "AttrKind7/ExplainLabel",
         "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
-        "en": "1. LESS CHANCE TO FALL AFTER BEING PUSHED BY AN OPPONENT.\n 2. INCREASE THE CHANCE OF ELBOWING OPPONENT IN AI MODE.\n 3. INCREASE ELBOWING RANGE."
+        "en": "1. LESS CHANCE TO FALL AFTER BEING PUSHED BY AN OPPONENT.\n2. INCREASE THE CHANCE OF ELBOWING OPPONENT IN AI MODE.\n3. INCREASE ELBOWING RANGE."
     },
     {
         "id": 3327,
         "explain": "灌 籃",
         "uipeth": "AttrKind9/ExplainLabel",
         "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率\n3.發動Alley-oops灌籃的機率",
-        "en": "1. HIGHER CHANCE OF DUNKING FROM THE PAINT.\n 2. HIGHER CHANCE TO TIP-IN."
+        "en": "1. HIGHER CHANCE OF DUNKING FROM THE PAINT.\n2. HIGHER CHANCE TO TIP-IN."
     },
     {
         "id": 3328,
         "explain": "籃 板",
         "uipeth": "AttrKind2/ExplainLabel",
         "tw": "1.發動籃板的距離\n2.提高抓到籃板的機會",
-        "en": "1. INCREASE THE REBOUNDING ZONE\n 2. INCREASE THE CHANCE OF GETTING A REBOUND"
+        "en": "1. INCREASE THE REBOUNDING ZONE\n2. INCREASE THE CHANCE OF GETTING A REBOUND"
     },
     {
         "id": 3329,
         "explain": "火 鍋",
         "uipeth": "AttrKind3/ExplainLabel",
         "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
-        "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n 2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n 3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n 4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING SHOTS."
+        "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING SHOTS."
     },
     {
         "id": 3330,
         "explain": "防 守",
         "uipeth": "AttrKind4/ExplainLabel",
         "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
-        "en": "1. INCREASE THE CHANCE OF STEALING\n 2. INCREASE THE CHANCE OF STEALING IN AI MODE."
+        "en": "1. INCREASE THE CHANCE OF STEALING\n2. INCREASE THE CHANCE OF STEALING IN AI MODE."
     },
     {
         "id": 3331,
@@ -1204,7 +1205,7 @@
         "explain": "傳 球",
         "uipeth": "AttrKind11/ExplainLabel",
         "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
-        "en": "1. PLAYER'S DEFENSIVE RANGE.\n 2. INCREASE THE CHANCE OF PUSHING IN AI MODE.\n 3. INCREASE THE PUSHING RANGE."
+        "en": "1. PLAYER'S DEFENSIVE RANGE.\n2. INCREASE THE CHANCE OF PUSHING IN AI MODE.\n3. INCREASE THE PUSHING RANGE."
     },
     {
         "id": 3401,
@@ -1672,7 +1673,8 @@
     {
         "id": 3812,
         "explain": "每日登入獎勵",
-        "tw": "簽到獎勵"
+        "tw": "簽到獎勵",
+        "en": "REWARD"
     },
     {
         "id": 4001,
@@ -1901,46 +1903,40 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]銅質晶片[-]",
-        "en": " [B3B3B3FF] copper wafer [-]"
+        "en": " [B3B3B3FF] COPPER CARD [-]"
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]鐵質晶片[-]",
-        "en": " [C17269FF] iron wafer [-]"
+        "en": " [C17269FF] IRON CARD [-]"
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF] silver wafer [-]"
+        "en": " [99B3D4FF] SLIVER CARD [-]"
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "金質晶片",
-        "en": "Gold wafer"
+        "en": "GOLD CARD"
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "鑽石晶片",
-        "en": "Diamond wafer"
+        "en": "DIAMOND CARD"
     },
     {
         "id": 4606,
         "explain": "介面上的大標題",
         "tw": "獲得技能晶片",
-        "en": "Acquire skills wafer"
+        "en": "Acquire SKILL CARD"
     },
     {
         "id": 4607
-    },
-    {
-        "id": 4608
-    },
-    {
-        "id": 4609
     },
     {
         "id": 4901,
@@ -2476,13 +2472,13 @@
         "id": 7011,
         "explain": "技能介面頁籤1",
         "tw": "技能晶片",
-        "en": "Skill Cards"
+        "en": "SKILL CARD"
     },
     {
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "Card Atlas"
+        "en": "CARD ATLAS"
     },
     {
         "id": 7101,
@@ -2672,38 +2668,38 @@
         "id": 7216,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [B3B3B3FF]鐵質[-]",
-        "en": "[B3B3B3FF] Iron [-] "
+        "en": "[B3B3B3FF] IRON [-] "
     },
     {
         "id": 7217,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [C17269FF]銅質[-]",
-        "en": "[C17269FF] Copper [-] "
+        "en": "[C17269FF] COPPER [-] "
     },
     {
         "id": 7218,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [99B3D4FF]銀質[-]",
-        "en": "[99B3D4FF] Silver [-] "
+        "en": "[99B3D4FF] SLIVER [-] "
     },
     {
         "id": 7219,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [EFC653FF]金質[-]",
-        "en": "[EFC653FF] Gold [-] "
+        "en": "[EFC653FF] GOLD [-] "
     },
     {
         "id": 7220,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [11F5F1FF]鑽石[-]",
-        "en": "[11F5F1FF] Diamond [-]"
+        "en": "[11F5F1FF] DIAMOND [-]"
     },
     {
         "id": 7221,
         "explain": "晶片類型",
         "uipeth": "LabelKind5",
         "tw": "晶片類型",
-        "en": "Wafer type"
+        "en": "CARD TYPE"
     },
     {
         "id": 7222,
@@ -3294,7 +3290,7 @@
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
-        "en": "SELECT TEAMMATE"
+        "en": "TEAMMATE [6666ff]A[-]"
     },
     {
         "id": 9502,
@@ -3356,14 +3352,14 @@
     {
         "id": 9512,
         "explain": "與你搭擋的另一個玩家A",
-        "tw": "隊友A",
-        "en": "1st TEAMMATE"
+        "tw": "隊友[6666ff]A[-]",
+        "en": "TEAMMATE [6666ff]A[-]"
     },
     {
         "id": 9513,
         "explain": "與你搭擋的另一個玩家B",
-        "tw": "隊友B",
-        "en": "2nd TEAMMATE"
+        "tw": "隊友[66ff66]B[-]",
+        "en": "TEAMMATE [66ff66]B[-]"
     },
     {
         "id": 9514,
@@ -3730,7 +3726,7 @@
     {
         "id": 10108,
         "uipeth": "ViewAttack-PASS",
-        "tw": "PASS",
+        "tw": "傳球",
         "en": "PASS"
     },
     {
