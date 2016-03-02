@@ -922,7 +922,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "先進入[ff6060]生涯競賽[-]",
-        "texten": "First, enter [ff6060] history mode [-]"
+        "texten": "First, enter [ff6060] STORY [-]"
     },
     {
         "id": 30,
@@ -1012,22 +1012,6 @@
         "kind": 2,
         "value": 102,
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
-    },
-    {
-        "id": 31,
-        "line": 5,
-        "kind": 2,
-        "value": 102,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1
-    },
-    {
-        "id": 31,
-        "line": 6,
-        "kind": 2,
-        "value": 102,
-        "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
         "id": 32,
@@ -1128,7 +1112,7 @@
         "talkr": 10,
         "actionr": 6,
         "texttw": "頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
-        "texten": "In this game [ff6666] red [-] you are your player! You can only control your own character."
+        "texten": "In this game [ff6666] Red [-] you are your player! You can only control your own character."
     },
     {
         "id": 40,
