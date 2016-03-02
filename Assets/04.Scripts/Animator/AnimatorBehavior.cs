@@ -345,9 +345,14 @@ public class AnimatorBehavior : MonoBehaviour
         dunkCurveCounter.FixedUpdate();
     }
 
-	public bool IsStuck
+    private bool flag;
+
+	public bool IsStuck(EPlayerState crtstate)
 	{
-        get{ return !Controler.IsInTransition(0); }
+		if(!Controler.GetCurrentAnimatorStateInfo(0).IsName(crtstate.ToString()))
+			return true;
+		else
+			return false;
 	}
 
     private float timescale = 1;

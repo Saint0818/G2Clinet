@@ -3677,6 +3677,7 @@ public class GameController : KnightSingleton<GameController>
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);
             Time.timeScale = GameStart.Get.GameSpeed;
+			UIGameLoseResult.UIShow(false);
 		}
 	}
 

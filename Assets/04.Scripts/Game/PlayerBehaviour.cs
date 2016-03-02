@@ -324,28 +324,28 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogErrorFormat("initialize attributes fail, BaseAttr:{0}, AILevel:{1}.", GameData.BaseAttr.Length, Attribute.AILevel);
             return;
         }
-		Attr.PointRate2 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (Attribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2));
-		Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, (Attribute.Point3 + GameData.BaseAttr[Attribute.AILevel].PointRate3));
-		Attr.StealRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, (Attribute.Steal + GameData.BaseAttr[Attribute.AILevel].StealRate));
-		Attr.DunkRate =   GameFunction.GetAttributeFormula(EPlayerAttributeRate.DunkRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].DunkRate));
-		Attr.TipInRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].TipInRate));
-		Attr.AlleyOopRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].AlleyOopRate));
-		Attr.StrengthRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StrengthRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].StrengthRate));
-		Attr.BlockPushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].BlockPushRate));
-		Attr.ElbowingRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].ElbowingRate));
-		Attr.ReboundRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundRate));
-		Attr.BlockRate =    GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockRate));
-		Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
+        Attr.PointRate2 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (Attribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2));
+        Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, (Attribute.Point3 + GameData.BaseAttr[Attribute.AILevel].PointRate3));
+        Attr.StealRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, (Attribute.Steal + GameData.BaseAttr[Attribute.AILevel].StealRate));
+        Attr.DunkRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.DunkRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].DunkRate));
+        Attr.TipInRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].TipInRate));
+        Attr.AlleyOopRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].AlleyOopRate));
+        Attr.StrengthRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StrengthRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].StrengthRate));
+        Attr.BlockPushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].BlockPushRate));
+        Attr.ElbowingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].ElbowingRate));
+        Attr.ReboundRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundRate));
+        Attr.BlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockRate));
+        Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
 //        Attr.JumpBallRate = GameData.BaseAttr[Attribute.AILevel].JumpBallRate;//沒用到（已有技能）
-		Attr.PushingRate =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
-		Attr.PassRate =     GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
-		Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
-		Attr.ReboundHeadDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance));
-		Attr.ReboundHandDistance = GameConst.ReboundHandDistanceMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
-		Attr.BlockDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance));
-		Attr.DefDistance =  GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
-		Attr.SpeedValue =  GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
-		Attr.StaminaValue = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, (Attribute.Stamina + GameData.BaseAttr[Attribute.AILevel].StaminaValue));
+        Attr.PushingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
+        Attr.PassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
+        Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
+        Attr.ReboundHeadDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance));
+        Attr.ReboundHandDistance = GameConst.ReboundHandDistanceMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
+        Attr.BlockDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance));
+        Attr.DefDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
+        Attr.SpeedValue = GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
+        Attr.StaminaValue = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, (Attribute.Stamina + GameData.BaseAttr[Attribute.AILevel].StaminaValue));
 
         Attr.StealDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealDistance, Attribute.Steal);
         Attr.StealExtraAngle = GameConst.StealFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealExtraAngle, Attribute.Steal);
@@ -456,7 +456,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (t)
             {
                 FingerPoint = t.gameObject;
-				t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
+                t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
                 t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
                 t.localPosition = Vector3.zero;
                 t.localScale = Vector3.one;
@@ -554,6 +554,8 @@ public class PlayerBehaviour : MonoBehaviour
 //		} else {
 //		}			
 				
+		
+        
         CantMoveTimer.Update(Time.deltaTime);
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
@@ -682,6 +684,7 @@ public class PlayerBehaviour : MonoBehaviour
             
         if (isMoving)
             DribbleTime += Time.deltaTime;
+
         FoolProofing();
     }
 
@@ -774,42 +777,45 @@ public class PlayerBehaviour : MonoBehaviour
                 new Vector2(CourtMgr.Get.RealBallObj.transform.position.x, CourtMgr.Get.RealBallObj.transform.position.z)) <= 6;
         }
     }
+	
+	private float proffingCheckTime = 10f;
+	private float proofingTime = 10f;
 
-    private float proofingTime = 2f;
-
-	public void FoolProofing()
+    public void FoolProofing()
     {	
         if (GameController.Get.IsStart && TimerMgr.Get.CrtTime > GameConst.Min_TimePause &&
-            (GameController.Get.Situation == EGameSituation.GamerAttack ||
-            GameController.Get.Situation == EGameSituation.NPCAttack))
+        (GameController.Get.Situation == EGameSituation.GamerAttack ||
+        GameController.Get.Situation == EGameSituation.NPCAttack))
         {
-            if (crtState == EPlayerState.Idle && IsBallOwner)
-                    freeAniCountdown();
-                else if (IsElbow && crtAnimatorState == EAnimatorState.Idle)
-                    freeAniCountdown();
-                else
-                    proofingTime = 2f;
-                    
-        }
-                    else
-        {
-                    proofingTime = 2f;
-                }
+			if (AnimatorControl.IsStuck(crtState) && !AnimatorMgr.Get.IsLoopState(crtState))
+            {
+                freeAniCountdown();
             }
+            else
+            {
+				proofingTime = proffingCheckTime;
+            }
+        }
+        else
+        {
+			proofingTime = proffingCheckTime;
+        }
+    }
 
     private void freeAniCountdown()
-            {
-                proofingTime -= Time.deltaTime;
-                if (proofingTime <= 0)
-                {
-                    if (GameStart.Get.IsDebugAnimation)
-                Debug.LogError("proofing");
-                    
-                    if (IsBallOwner)
-                AniState(EPlayerState.Dribble0);
-                    else
-                        AniState(EPlayerState.Fall0);
-            proofingTime = 2f;
+    {
+        proofingTime -= Time.deltaTime; 
+        if (proofingTime <= 0)
+        {
+            if (GameStart.Get.IsDebugAnimation)
+				Debug.LogError(gameObject.name + ".proofing stuck : " + crtState.ToString());
+
+            if (IsBallOwner)
+                AniState(EPlayerState.HoldBall);
+            else
+                AniState(EPlayerState.Fall0);
+						
+			proofingTime = proffingCheckTime;
         }
     }
 
@@ -952,8 +958,8 @@ public class PlayerBehaviour : MonoBehaviour
                 ps = EPlayerState.Idle;
 
             if (CanMove &&
-            situation != EGameSituation.GamerInbounds && situation != EGameSituation.GamerPickBall &&
-            situation != EGameSituation.NPCInbounds && situation != EGameSituation.NPCPickBall)
+                situation != EGameSituation.GamerInbounds && situation != EGameSituation.GamerPickBall &&
+                situation != EGameSituation.NPCInbounds && situation != EGameSituation.NPCPickBall)
             {
                 SetManually();
                 isJoystick = false;
@@ -2239,7 +2245,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation)
             return;
         ReadyToNextState = true;
-		PlayerSkillController.ResetUseSkill();
+        PlayerSkillController.ResetUseSkill();
         if (IsBallOwner)
         {
             AniState(EPlayerState.HoldBall);
@@ -2314,7 +2320,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         ReadyToNextState = true;
         OnUI(this);
-		PlayerSkillController.ResetUseSkill();
+        PlayerSkillController.ResetUseSkill();
         if (IsBallOwner)
             AniState(EPlayerState.Dribble0);
         else
@@ -2337,7 +2343,7 @@ public class PlayerBehaviour : MonoBehaviour
             else
                 CourtMgr.Get.RealBallCompoment.Trigger.PassBall(AnimatorControl.StateNo);
 
-			PlayerSkillController.ResetUseSkill();
+            PlayerSkillController.ResetUseSkill();
             GameController.Get.IsCatcherAlleyoop = false;
         } 
     }
@@ -2398,7 +2404,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         ReadyToNextState = true;
         IsStealCalculate = false; 
-		PlayerSkillController.ResetUseSkill();
+        PlayerSkillController.ResetUseSkill();
     }
 
     private void PushCalculateStart()
@@ -2478,7 +2484,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation)
             return;
         ReadyToNextState = true;
-		PlayerSkillController.ResetUseSkill();
+        PlayerSkillController.ResetUseSkill();
         OnUI(this);
         if (IsBallOwner)
             AniState(EPlayerState.HoldBall);
@@ -2565,16 +2571,17 @@ public class PlayerBehaviour : MonoBehaviour
         OnUI(this);
         PlayerSkillController.ResetUseSkill();
 
-        if (!IsBallOwner)
-            AniState(EPlayerState.Idle);
+		if (!IsBallOwner) {
+			AniState (EPlayerState.Idle);
+		}
         else
         {
 			if (IsAllShoot) {
-				AniState (EPlayerState.Fall0);
+                AniState(EPlayerState.Fall0);
 			} else {
-				if (firstDribble)
-					AniState (EPlayerState.Dribble0);
-			}
+                if (firstDribble)
+                    AniState(EPlayerState.Dribble0);
+            }
         }
 
         if (LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Shooter))
@@ -2625,9 +2632,9 @@ public class PlayerBehaviour : MonoBehaviour
             case "ShakeFX_0":
                 EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 1.5f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
                 break;
-			case "JumpFX":
-				EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 0f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
-				break;
+            case "JumpFX":
+                EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 0f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
+                break;
         }
     }
 
@@ -2736,40 +2743,40 @@ public class PlayerBehaviour : MonoBehaviour
             case "ActiveSkillEnd":
 //                if (isSkillShow)
 //                {
-                    if (OnUIJoystick != null)
-                        OnUIJoystick(this, true);
+                if (OnUIJoystick != null)
+                    OnUIJoystick(this, true);
     				
 //                    isSkillShow = false;
-                    UISkillEffect.UIShow(false);
-                    if (isShootJumpActive)
-                    {
-                        isShootJumpActive = false;
-                        animatorEvent.intParameter = 4;
-                    }
-                    else
-                        animatorEvent.intParameter = 0;
+                UISkillEffect.UIShow(false);
+                if (isShootJumpActive)
+                {
+                    isShootJumpActive = false;
+                    animatorEvent.intParameter = 4;
+                }
+                else
+                    animatorEvent.intParameter = 0;
 				
-                    animatorEvent.floatParameter = 1;
-                    TimeScaleCallBack(animatorEvent, this);
+                animatorEvent.floatParameter = 1;
+                TimeScaleCallBack(animatorEvent, this);
 					
 //					PlayerSkillController.ResetUseSkill();
-                    if (isBlock)
+                if (isBlock)
+                {
+                    if (GameController.Get.BallState == EBallState.CanBlock)
                     {
-                        if (GameController.Get.BallState == EBallState.CanBlock)
-                        {
-                            skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
-                            Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 40;
-                            CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
-                        }
-                        else if (GameController.Get.BallState == EBallState.CanDunkBlock)
-                        {
-                            if (GameController.Get.BallOwner != null)
-                                GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
-                        }
-                        GameController.Get.BallState = EBallState.None;
-                        GameController.Get.CheckConditionText();
-                        GameController.Get.IsGameFinish();
+                        skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
+                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 40;
+                        CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
                     }
+                    else if (GameController.Get.BallState == EBallState.CanDunkBlock)
+                    {
+                        if (GameController.Get.BallOwner != null)
+                            GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
+                    }
+                    GameController.Get.BallState = EBallState.None;
+                    GameController.Get.CheckConditionText();
+                    GameController.Get.IsGameFinish();
+                }
 //                }
                 break;
         }
@@ -2801,7 +2808,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsStart)
         {
             TimerMgr.Get.ResetTime();  
-			AnimatorControl.ResetSpeed ();
+            AnimatorControl.ResetSpeed();
         }
     }
 
@@ -2809,10 +2816,10 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		if (no >= 20) {
 			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID) && !PlayerSkillController.IsActiveUse) {
-            UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
-				return;
-			}
-		}
+                UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+                return;
+            }
+        }
 			
 		
         if (no < 20 && GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()))
@@ -2911,7 +2918,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void StopSkill()
     {
-		isSkillShow = false;
+        isSkillShow = false;
         //TODO: TimePause(false)
 //        Debug.LogError(gameObject.name + " . Skill Stop");
 //        TimerMgr.Get.PauseTime(false);
@@ -3363,7 +3370,7 @@ public class PlayerBehaviour : MonoBehaviour
         { 
             if (moveQueue.Count == 0)
                 return "";
-                return moveQueue.Peek().TacticalName;
+            return moveQueue.Peek().TacticalName;
         }
     }
 

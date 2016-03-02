@@ -313,6 +313,7 @@ public static class StateChecker {
 			LoopStates.Add(EPlayerState.Dribble1,true);
 			LoopStates.Add(EPlayerState.Dribble2,true);
 			LoopStates.Add(EPlayerState.Dribble3,true);
+			LoopStates.Add(EPlayerState.RunningDefence, true);
 			
 			PassStates.Add(EPlayerState.Pass0, true);
 			PassStates.Add(EPlayerState.Pass1, true);
@@ -586,5 +587,9 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 		}
 	}
 
+	public bool IsLoopState(EPlayerState state)
+	{
+		return StateChecker.LoopStates.ContainsKey (state); 
+	}
 }
 
