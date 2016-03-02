@@ -761,7 +761,6 @@ public class UIGame : UIBase
 	                    UIControllerState(EUIControl.Skill);
 	                else
 						ResetRange();
-					PlayerMe.PlayerSkillController.ResetUseActive();
 				}
                 showRange(EUIRangeType.Skill, state);
                 showSkillHint(state, id);
@@ -1250,8 +1249,13 @@ public class UIGame : UIBase
                 case EUIControl.Skill:
                     if (PlayerMe.Attribute.IsHaveActiveSkill)
                         noAI = GameController.Get.OnSkill(PlayerMe.ActiveSkillUsed);
-                    if (noAI)
+					else
+						PlayerMe.PlayerSkillController.ResetUseActive();
+				
+					if (noAI) {
+						PlayerMe.PlayerSkillController.ResetUseActive();
                         UIMaskState(EUIControl.Skill);
+					}
 					
                     break;
 

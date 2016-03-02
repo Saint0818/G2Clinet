@@ -554,8 +554,6 @@ public class PlayerBehaviour : MonoBehaviour
 //		} else {
 //		}			
 				
-		
-        
         CantMoveTimer.Update(Time.deltaTime);
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
@@ -2816,10 +2814,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		if (no >= 20) {
 			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID) && !PlayerSkillController.IsActiveUse) {
-                UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
-                return;
-            }
-        }
+            	UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+				return;
+			} else
+				PlayerSkillController.ResetUsePassive();
+		}
 			
 		
         if (no < 20 && GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()))
@@ -2834,8 +2833,6 @@ public class PlayerBehaviour : MonoBehaviour
             int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
             TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
-//            if (this == GameController.Get.Joysticker)
-//            {
             if (!isSkillShow)
             {
                 if (OnUIJoystick != null)
@@ -2845,11 +2842,9 @@ public class PlayerBehaviour : MonoBehaviour
                     UIPassiveEffect.UIShow(false);
                 
                 isSkillShow = true;
-//					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
                 string effectName = string.Format("UseSkillEffect_{0}", 0);
                 EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
                 
-//                    if (GameController.Get.BallOwner != null && GameController.Get.BallOwner == GameController.Get.Joysticker)
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
                 
@@ -2861,7 +2856,6 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     case 0://show self and rotate camera
                         Invoke("showEffect", skillTime);
-//					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
                         LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 					
 //                        animatorEvent.floatParameter = GameConst.Min_TimePause;
@@ -2872,7 +2866,6 @@ public class PlayerBehaviour : MonoBehaviour
                         break;
                     case 1://show self
 //                        showActiveEffect();
-//					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 //                        LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 //                        animatorEvent.floatParameter = GameConst.Min_TimePause;
 //                        animatorEvent.intParameter = 2;
@@ -2886,7 +2879,8 @@ public class PlayerBehaviour : MonoBehaviour
 //                        TimeScaleCallBack(animatorEvent); 
                         break;
                 }
-            }
+            } else 
+				PlayerSkillController.ResetUseActive();
 //            }
 //            else
 //            {
