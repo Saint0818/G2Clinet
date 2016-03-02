@@ -331,7 +331,8 @@ public class UISkillInfo : UIBase {
 			UIGameResult.Get.ShowBonusItem();
 		}
 
-		UIMainLobby.Get.Hide(3, false);
+        if (!UISelectRole.Visible)
+		    UIMainLobby.Get.Hide(3, false);
 	}
 
 	public void OpenCard() {

@@ -30,6 +30,10 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	private List<int> talkManList = new List<int>();
 
 	void OnDestroy() {
+        eventList.Clear();
+        moveActions = new TToturialAction[0];
+        talkManList.Clear();
+
 		if (eventTrigger.Item)
 			Destroy(eventTrigger.Item);
 	}

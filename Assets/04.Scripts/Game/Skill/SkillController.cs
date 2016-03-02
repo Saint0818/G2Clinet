@@ -34,6 +34,15 @@ public class SkillController : MonoBehaviour {
 	private SkillBuff skillBuff;
 	private List<TSkillAttribute> skillAttribute = new List<TSkillAttribute>();
 
+    void OnDestroy() {
+        activeSkillTargets.Clear();
+        DPassiveSkills.Clear();
+        DExtraPassiveSkills.Clear();
+        skillAttribute.Clear();
+        if (skillBuff != null)
+            skillBuff = null;
+    }
+
 	void FixedUpdate() {
 		if(skillBuff != null)
 			skillBuff.UpdateBuff();

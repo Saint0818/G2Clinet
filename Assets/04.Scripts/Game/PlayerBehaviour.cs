@@ -99,8 +99,8 @@ public class PlayerBehaviour : MonoBehaviour
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public EAnimatorState crtAnimatorState = EAnimatorState.Idle;
-    public Transform[] DefPointAy = new Transform[8];
-
+    private Transform[] DefPointAy = new Transform[8];
+    private GameObject defPointCopy;
     /// <summary>
     /// 這是避免近距離時, 人物不斷轉向的問題, 而設計的解決方案.(這不好, 應該要換作法才對)
     /// </summary>
@@ -250,16 +250,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnDestroy()
     {
+        moveQueue.Clear();
+
+        if (DoubleClick)
+            Destroy(DoubleClick);
+
+        if (defPointCopy)
+            Destroy(defPointCopy);
+
+        if (blockTrigger && blockTrigger.gameObject)
+            Destroy(blockTrigger.gameObject);
+        
         if (AnimatorControl)
             Destroy(AnimatorControl);
 
-        AnimatorControl = null;
+        if (animatorEvent != null)
+            animatorEvent = null;
 
-        if (BodyMaterial)
-            Destroy(BodyMaterial);
-
-        BodyMaterial = null;
-        Destroy(PlayerRefGameObject);
+        if (BodyHeight)
+            Destroy(BodyHeight);
     }
 
     void Awake()
@@ -465,20 +474,20 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (defPoint != null)
         {
-            GameObject DefPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
-            DefPointCopy.transform.parent = PlayerRefGameObject.transform;
-            DefPointCopy.name = "DefPoint";
-            DefPointCopy.transform.localScale = Vector3.one;
-            DefPointCopy.transform.localPosition = Vector3.zero;
+            defPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
+            defPointCopy.transform.parent = PlayerRefGameObject.transform;
+            defPointCopy.name = "DefPoint";
+            defPointCopy.transform.localScale = Vector3.one;
+            defPointCopy.transform.localPosition = Vector3.zero;
 
-            DefPointAy[EDefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find("Front");
-            DefPointAy[EDefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find("Back");
-            DefPointAy[EDefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find("Right");
-            DefPointAy[EDefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find("Left");
-            DefPointAy[EDefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find("FrontSteal");
-            DefPointAy[EDefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find("BackSteal");
-            DefPointAy[EDefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find("RightSteal");
-            DefPointAy[EDefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find("LeftSteal");
+            DefPointAy[EDefPointKind.Front.GetHashCode()] = defPointCopy.transform.Find("Front");
+            DefPointAy[EDefPointKind.Back.GetHashCode()] = defPointCopy.transform.Find("Back");
+            DefPointAy[EDefPointKind.Right.GetHashCode()] = defPointCopy.transform.Find("Right");
+            DefPointAy[EDefPointKind.Left.GetHashCode()] = defPointCopy.transform.Find("Left");
+            DefPointAy[EDefPointKind.FrontSteal.GetHashCode()] = defPointCopy.transform.Find("FrontSteal");
+            DefPointAy[EDefPointKind.BackSteal.GetHashCode()] = defPointCopy.transform.Find("BackSteal");
+            DefPointAy[EDefPointKind.RightSteal.GetHashCode()] = defPointCopy.transform.Find("RightSteal");
+            DefPointAy[EDefPointKind.LeftSteal.GetHashCode()] = defPointCopy.transform.Find("LeftSteal");
         }
     }
 

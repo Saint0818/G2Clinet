@@ -182,20 +182,22 @@ public class UIGame : UIBase
 
         set
         {
+            if (!value) {
+                UIGameResult.Visible = false;
+                UIGameLoseResult.Visible = false;
+                UIGamePause.Visible = false;
+                UIDoubleClick.Visible = false;
+                UIPassiveEffect.Visible = false;
+                UITransition.Visible = false;
+                UICourtInstant.Visible = false;
+                UIInGameMission.Visible = false;
+                UILevelUp.Visible = false;
+                UIAchievement.Visible = false;
+            }
+
             if (instance)
             {
                 if (!value) {
-                    UIGameResult.Visible = false;
-                    UIGameLoseResult.Visible = false;
-                    UIGamePause.Visible = false;
-                    UIDoubleClick.Visible = false;
-                    UIPassiveEffect.Visible = false;
-                    UITransition.Visible = false;
-                    UICourtInstant.Visible = false;
-                    UIInGameMission.Visible = false;
-                    UILevelUp.Visible = false;
-                    UIAchievement.Visible = false;
-
                     RemoveUI(instance.gameObject);
                 } else
                     instance.Show(value);
@@ -203,6 +205,20 @@ public class UIGame : UIBase
             else if (value)
                 Get.Show(value);
         }
+    }
+
+    void OnDestroy() {
+        uiButtonSkill = new GameObject[0];
+        uiSkillEnables = new GameObject[0];
+        uiDCs = new GameObject[0];
+        spriteSkills = new UISprite[0];
+        spriteEmptys = new UISprite[0];
+        spriteForce = null;
+        spriteForceFirst = null;
+        uiSpriteFull = null;
+
+        if (gameJoystick != null && gameJoystick.gameObject)
+            Destroy(gameJoystick.gameObject);
     }
 
     public static void UIShow(bool isShow)
@@ -300,7 +316,6 @@ public class UIGame : UIBase
             {
                 obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
                 obj2.name = "GameJoystick";
-                //joystickController = obj.AddComponent<JoystickController> ();
             }
         }
 
@@ -379,15 +394,15 @@ public class UIGame : UIBase
             uiSkillEnables[i].SetActive(false);
         }
 
+        SetBtnFun(UIName + "/Center/ViewStart/ButtonStart", StartGame);
+        SetBtnFun(UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
+
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
         UIEventListener.Get(uiPassA).onPress = DoPassTeammateA;
         UIEventListener.Get(uiPassB).onPress = DoPassTeammateB;
         UIEventListener.Get(uiAlleyoopA).onPress = DoPassTeammateA;
         UIEventListener.Get(uiAlleyoopB).onPress = DoPassTeammateB;
-
-        SetBtnFun(UIName + "/Center/ViewStart/ButtonStart", StartGame);
-        SetBtnFun(UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ButtonAttack")).onPress = DoAttack;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ButtonAttack")).onDragOver = DoAttackOut;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal")).onPress = DoSteal;

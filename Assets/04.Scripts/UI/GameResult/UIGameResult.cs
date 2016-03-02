@@ -274,8 +274,6 @@ public class UIGameResult : UIBase {
 
 	private void backToLobby()
     {
-		UIGame.Visible = false;
-
 		Time.timeScale = 1;
 		UIShow(false);
         UILoading.StageID = GameData.StageID;

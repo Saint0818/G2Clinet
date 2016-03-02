@@ -19,6 +19,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
 
+    void OnDestroy() {
+        skillEffectPositions.Clear();
+        skillEffects.Clear();
+    }
+
 	void FixedUpdate() {
 		if(skillEffects.Count > 0) {
 			for (int i=0; i<skillEffects.Count; i++) {

@@ -198,6 +198,8 @@ public class GameController : KnightSingleton<GameController>
 	[HideInInspector]public float nearshotRate = 0;
 	
 	void OnDestroy() {
+        UIGame.Visible = false;
+
 		for (int i = 0; i < PlayerList.Count; i++) 
 			Destroy(PlayerList[i]);
 
@@ -246,26 +248,6 @@ public class GameController : KnightSingleton<GameController>
 			#endif
 		}
 	}
-
-//    private void InitPos()
-//    {
-//        teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
-//        teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
-//        teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
-
-		/*
-		 *     0	 5
-		 * 		 1 4
-		 * 	   2     3
-		 */
-
-//		bornPosAy[0] = new Vector3(-3.5f, 0, -3); // G_A
-//		bornPosAy[1] = new Vector3(0, 0, -1.5f);  // C_A
-//		bornPosAy[2] = new Vector3(3.5f, 0, -3);  // F_A
-//		bornPosAy[3] = new Vector3(3.5f, 0, 3);   // G_B
-//		bornPosAy[4] = new Vector3(0, 0, 1.5f);   // C_B
-//		bornPosAy[5] = new Vector3(-3.5f, 0, 3);  // F_B
-//    }
 
     public void InitGame()
     {

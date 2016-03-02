@@ -88,8 +88,6 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	public void OnReturn (GameObject go) {
-		UIGame.Visible = false;
-
 		Time.timeScale = 1;
 		UIShow(false);
 		if(GameData.IsMainStage)
