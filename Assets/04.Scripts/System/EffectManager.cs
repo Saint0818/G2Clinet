@@ -47,6 +47,16 @@ public class EffectManager : MonoBehaviour
 		ObjPool.transform.parent = gameObject.transform;
 	}
 
+    void OnDestroy() {
+        Destroy(ObjPool);
+        cloneMeshs.Clear();
+        materials.Clear();
+        triangles.Clear();
+        cloneObjects.Clear();
+        effectList.Clear();
+        pooledObjects.Clear();
+    }
+
 	void Update() {
 		for (int i = cloneMeshs.Count-1; i >= 0; i--) {
 			if (cloneMeshs[i].Count > 0) {

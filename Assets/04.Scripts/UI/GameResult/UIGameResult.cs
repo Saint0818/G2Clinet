@@ -275,16 +275,6 @@ public class UIGameResult : UIBase {
 	private void backToLobby()
     {
 		UIGame.Visible = false;
-		UIGameResult.Visible = false;
-		UIGameLoseResult.Visible = false;
-		UIGamePause.Visible = false;
-		UIDoubleClick.Visible = false;
-		UIPassiveEffect.Visible = false;
-		UITransition.Visible = false;
-		UICourtInstant.Visible = false;
-		UIInGameMission.Visible = false;
-		UILevelUp.Visible = false;
-		UIAchievement.Visible = false;
 
 		Time.timeScale = 1;
 		UIShow(false);

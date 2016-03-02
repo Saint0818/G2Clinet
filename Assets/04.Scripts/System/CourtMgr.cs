@@ -274,6 +274,27 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         CheckCollider();
     }
 
+    void OnDestroy() {
+        DBasketShootWorldPosition.Clear();
+        DBasketAnimationName.Clear();
+        DBasketAnimationNoneState.Clear();
+
+        if (crtBasket)
+            Destroy(crtBasket);
+
+        if (SkillRangeOfAction)
+            Destroy(SkillRangeOfAction);
+
+        if (SkillArrowOfAction)
+            Destroy(SkillArrowOfAction);
+
+        if (RealBallObj)
+            Destroy(RealBallObj);
+
+        if (crtCollider)
+            Destroy(crtCollider);
+    }
+
     public void InitEffect()
     {
         EffectMedium = GameObject.Find("Effect/Medium");
@@ -449,11 +470,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             RealBallObj.name = "RealBall";
             if (RealBallCurve == null)
                 RealBallCurve = RealBallObj.GetComponent<BallCurve>();
-			
-//			if(RealBallCurve == null || RealBallCurve.gameObject == null) {
-//				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
-//				RealBallCurve = obj.GetComponent<BallCurve> ();
-//			}
         }
 
         if (RealBallObj)

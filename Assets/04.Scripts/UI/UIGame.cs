@@ -184,9 +184,20 @@ public class UIGame : UIBase
         {
             if (instance)
             {
-                if (!value)
+                if (!value) {
+                    UIGameResult.Visible = false;
+                    UIGameLoseResult.Visible = false;
+                    UIGamePause.Visible = false;
+                    UIDoubleClick.Visible = false;
+                    UIPassiveEffect.Visible = false;
+                    UITransition.Visible = false;
+                    UICourtInstant.Visible = false;
+                    UIInGameMission.Visible = false;
+                    UILevelUp.Visible = false;
+                    UIAchievement.Visible = false;
+
                     RemoveUI(instance.gameObject);
-                else
+                } else
                     instance.Show(value);
             }
             else if (value)

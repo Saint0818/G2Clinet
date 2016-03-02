@@ -29,13 +29,42 @@ public class ModelManager : KnightSingleton<ModelManager>
 
     void Awake()
     {
-        PlayerInfoModel = new GameObject();
-        PlayerInfoModel.name = "PlayerInfoModel";
-
         materialSource = Resources.Load("Character/Materials/Material_0") as Material;
         DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
-        GameObject cloneObj = Instantiate(Resources.Load("Character/Component/AnimatorCurve")) as GameObject;
-        AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
+
+        PlayerInfoModel = GameObject.Find("PlayerInfoModel");
+        if (!PlayerInfoModel) {
+            PlayerInfoModel = new GameObject();
+            PlayerInfoModel.name = "PlayerInfoModel";
+        }
+
+        GameObject cloneObj = GameObject.Find("AnimatorCurve") as GameObject;
+        if (!cloneObj) {
+            cloneObj = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
+            if (cloneObj) {
+                cloneObj = Instantiate(cloneObj) as GameObject;
+                cloneObj.name = "AnimatorCurve";
+            }
+        }
+                
+        if (cloneObj) {
+            AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
+            AnimatorCurveManager.transform.parent = transform;
+        }
+    }
+
+    void OnDestroy() {
+        bodyCache.Clear();
+        textureCache.Clear();
+        controllorCache.Clear();
+        DefPointObject = null;
+        materialSource = null;
+
+        if (PlayerInfoModel)
+            Destroy(PlayerInfoModel);
+
+        if (AnimatorCurveManager != null)
+            Destroy(AnimatorCurveManager.gameObject);
     }
 
     public void PreloadResource(TAvatar attr, int bodyType)
