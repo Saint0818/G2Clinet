@@ -28,7 +28,7 @@ public class TItemSuitAvatarGroup {
 
 	public void UpdateView (int id, int index) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
-			mSelf.name = index.ToString();
+			mSelf.name = id.ToString();
 			mSelf.transform.localPosition = new Vector3(0, -60 * index, 0);
 			SuitNameLabel.text = GameData.DSuitItem[id].SuitName;
 			CountLabel.text = GameData.Team.SuitItemCompleteCount(id).ToString() + "/" + GameData.DSuitItem[id].ItemLength;
@@ -192,7 +192,7 @@ public class UISuitAvatar : UIBase {
 	private GameObject itemAward;
 
 //	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
-	private List<TItemSuitAvatarGroup> tItemSuitAvatarGroup = new List<TItemSuitAvatarGroup>();
+	private Dictionary<int,TItemSuitAvatarGroup>  tItemSuitAvatarGroup ;
 
 	private UIScrollView leftScorllView;
 	private TMiddleItemView middleItemView;
@@ -260,21 +260,21 @@ public class UISuitAvatar : UIBase {
 	private void initScrollView () {
 		int index = 0;
 //		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
-		tItemSuitAvatarGroup = new List<TItemSuitAvatarGroup>();
+		tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
 			itemsuitItem.UpdateView(item.Key, index);
 //			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
-			tItemSuitAvatarGroup.Add(itemsuitItem);
+			tItemSuitAvatarGroup.Add(item.Key, itemsuitItem);
 			index ++;
 		}
 		leftScorllView.Scroll(0);
 	}
 
 	private void hideAllSelect () {
-		for(int i=0; i<tItemSuitAvatarGroup.Count; i++) {
-			tItemSuitAvatarGroup[i].SelectActive = false;
+		foreach(KeyValuePair<int, TItemSuitAvatarGroup> item in tItemSuitAvatarGroup) {
+			tItemSuitAvatarGroup[item.Key].SelectActive = false;
 		}
 	}
 
@@ -284,7 +284,7 @@ public class UISuitAvatar : UIBase {
 		suitItemRight.UpdateView(id);
 		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(id));
 		hideAllSelect();
-		if(id >= 0 && id < tItemSuitAvatarGroup.Count)
+		if(tItemSuitAvatarGroup.ContainsKey(id))
 			tItemSuitAvatarGroup[id].SelectActive = true;
 	} 
 
