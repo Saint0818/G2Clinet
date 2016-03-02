@@ -3,6 +3,9 @@
         "teamname1tw": "紐約",
         "teamname2tw": "狂",
         "teamname3tw": "皮卡秋",
+        "teamname1cn": "纽约",
+        "teamname2cn": "狂",
+        "teamname3cn": "皮卡秋",
         "teamname1en": "New York",
         "teamname2en": "Crazy",
         "teamname3en": "Pikachu"
@@ -11,7 +14,10 @@
         "teamname1tw": "舊金山",
         "teamname2tw": "帥",
         "teamname3tw": "妙哇花",
-        "teamname1en": "San Francisco",
+        "teamname1cn": "旧金山",
+        "teamname2cn": "帅",
+        "teamname3cn": "妙哇花",
+        "teamname1en": "S.F",
         "teamname2en": "Shuai",
         "teamname3en": "Venusaur"
     },
@@ -19,22 +25,29 @@
         "teamname1tw": "芝加哥",
         "teamname2tw": "金",
         "teamname3tw": "謎唇姐",
+        "teamname1cn": "芝加哥",
+        "teamname2cn": "金",
+        "teamname3cn": "谜唇姐",
         "teamname1en": "Chicago",
-        "teamname2en": "Gold",
-        "teamname3en": "Mystery lip sister"
+        "teamname2en": "Gold"
     },
     {
         "teamname1tw": "烏拉圭",
         "teamname2tw": "走鐘",
         "teamname3tw": "忍者龜",
+        "teamname1cn": "乌拉圭",
+        "teamname2cn": "走钟",
+        "teamname3cn": "忍者龟",
         "teamname1en": "Uruguay",
-        "teamname2en": "Go bell",
-        "teamname3en": "Ninja Turtles"
+        "teamname2en": "Go bell"
     },
     {
         "teamname1tw": "臺北",
         "teamname2tw": "火",
         "teamname3tw": "牛",
+        "teamname1cn": "台北",
+        "teamname2cn": "火",
+        "teamname3cn": "牛",
         "teamname1en": "Taipei",
         "teamname2en": "Fire",
         "teamname3en": "Cow"
@@ -43,6 +56,9 @@
         "teamname1tw": "南部",
         "teamname2tw": "的",
         "teamname3tw": "乘武",
+        "teamname1cn": "南部",
+        "teamname2cn": "的",
+        "teamname3cn": "乘武",
         "teamname1en": "Country",
         "teamname2en": "Of",
         "teamname3en": "Samurai"
@@ -51,14 +67,18 @@
         "teamname1tw": "斯德哥爾摩",
         "teamname2tw": "之",
         "teamname3tw": "暴龍",
+        "teamname2cn": "之",
+        "teamname3cn": "暴龙",
         "teamname1en": "Stockholm",
-        "teamname2en": "It",
-        "teamname3en": "Tyrannosaurus"
+        "teamname2en": "It"
     },
     {
         "teamname1tw": "阿拉斯加",
         "teamname2tw": "大",
         "teamname3tw": "巫濕",
+        "teamname1cn": "阿拉斯加",
+        "teamname2cn": "大",
+        "teamname3cn": "巫湿",
         "teamname1en": "Alaska",
         "teamname2en": "Great",
         "teamname3en": "Sorcerer"
@@ -67,6 +87,9 @@
         "teamname1tw": "多倫多",
         "teamname2tw": "小",
         "teamname3tw": "書嚎",
+        "teamname1cn": "多伦多",
+        "teamname2cn": "小",
+        "teamname3cn": "书嚎",
         "teamname1en": "Toronto",
         "teamname2en": "Small",
         "teamname3en": "Jeremy"
@@ -75,6 +98,9 @@
         "teamname1tw": "波士頓",
         "teamname2tw": "公",
         "teamname3tw": "雞塊",
+        "teamname1cn": "波士顿",
+        "teamname2cn": "公",
+        "teamname3cn": "鸡块",
         "teamname1en": "Boston",
         "teamname2en": "Male",
         "teamname3en": "Bullion"
@@ -83,6 +109,9 @@
         "teamname1tw": "紐澤西",
         "teamname2tw": "母",
         "teamname3tw": "迅猛龍",
+        "teamname1cn": "纽泽西",
+        "teamname2cn": "母",
+        "teamname3cn": "迅猛龙",
         "teamname1en": "New Jersey",
         "teamname2en": "Female",
         "teamname3en": "Raptor"
@@ -91,6 +120,9 @@
         "teamname1tw": "布魯克林",
         "teamname2tw": "熱",
         "teamname3tw": "泥克",
+        "teamname1cn": "布鲁克林",
+        "teamname2cn": "热",
+        "teamname3cn": "泥克",
         "teamname1en": "Brooklyn",
         "teamname2en": "Hot",
         "teamname3en": "Nick"
@@ -98,15 +130,20 @@
     {
         "teamname1tw": "費城",
         "teamname2tw": "漂撇",
-        "teamname3tw": "賽魯迪克",
+        "teamname3tw": "賽魯",
+        "teamname1cn": "费城",
+        "teamname2cn": "漂撇",
+        "teamname3cn": "赛鲁迪克",
         "teamname1en": "Philadelphia",
-        "teamname2en": "Chic",
-        "teamname3en": "Dick Purcell"
+        "teamname2en": "Chic"
     },
     {
         "teamname1tw": "克里夫蘭",
         "teamname2tw": "雷",
         "teamname3tw": "藍網",
+        "teamname1cn": "克里夫兰",
+        "teamname2cn": "雷",
+        "teamname3cn": "蓝网",
         "teamname1en": "Cleveland",
         "teamname2en": "Mine",
         "teamname3en": "Nets"
@@ -115,6 +152,9 @@
         "teamname1tw": "底特律",
         "teamname2tw": "冰",
         "teamname3tw": "78人",
+        "teamname1cn": "底特律",
+        "teamname2cn": "冰",
+        "teamname3cn": "78人",
         "teamname1en": "Detroit",
         "teamname2en": "Ice",
         "teamname3en": "76ers"
@@ -123,6 +163,9 @@
         "teamname1tw": "印第安那",
         "teamname2tw": "寒",
         "teamname3tw": "騎仕",
+        "teamname1cn": "印第安那",
+        "teamname2cn": "寒",
+        "teamname3cn": "骑仕",
         "teamname1en": "Indiana",
         "teamname2en": "Cold",
         "teamname3en": "Knight"
@@ -131,6 +174,9 @@
         "teamname1tw": "密爾瓦基",
         "teamname2tw": "胖",
         "teamname3tw": "活腮",
+        "teamname1cn": "密尔瓦基",
+        "teamname2cn": "胖",
+        "teamname3cn": "活腮",
         "teamname1en": "Milwaukee",
         "teamname2en": "Fat",
         "teamname3en": "Piston"
@@ -139,6 +185,9 @@
         "teamname1tw": "亞特蘭大",
         "teamname2tw": "瘦",
         "teamname3tw": "溜螞",
+        "teamname1cn": "亚特兰大",
+        "teamname2cn": "瘦",
+        "teamname3cn": "溜蚂",
         "teamname1en": "Atlanta",
         "teamname2en": "Thin",
         "teamname3en": "Pacers"
@@ -147,6 +196,9 @@
         "teamname1tw": "夏洛特",
         "teamname2tw": "高",
         "teamname3tw": "公路",
+        "teamname1cn": "夏洛特",
+        "teamname2cn": "高",
+        "teamname3cn": "公路",
         "teamname1en": "Charlotte",
         "teamname2en": "High",
         "teamname3en": "Bucks"
@@ -155,6 +207,9 @@
         "teamname1tw": "邁阿密",
         "teamname2tw": "矮",
         "teamname3tw": "老鸚",
+        "teamname1cn": "迈阿密",
+        "teamname2cn": "矮",
+        "teamname3cn": "老鹦",
         "teamname1en": "Miami",
         "teamname2en": "Short",
         "teamname3en": "Eagle"
@@ -163,6 +218,9 @@
         "teamname1tw": "奧蘭多",
         "teamname2tw": "老",
         "teamname3tw": "黃蜂",
+        "teamname1cn": "奥兰多",
+        "teamname2cn": "老",
+        "teamname3cn": "黄蜂",
         "teamname1en": "Orlando",
         "teamname2en": "Old",
         "teamname3en": "Wasp"
@@ -171,6 +229,9 @@
         "teamname1tw": "華盛頓",
         "teamname2tw": "慢",
         "teamname3tw": "熱伙",
+        "teamname1cn": "华盛顿",
+        "teamname2cn": "慢",
+        "teamname3cn": "热伙",
         "teamname1en": "Washington",
         "teamname2en": "Slow",
         "teamname3en": "Heat"
@@ -179,6 +240,9 @@
         "teamname1tw": "達拉斯",
         "teamname2tw": "快",
         "teamname3tw": "魔術",
+        "teamname1cn": "达拉斯",
+        "teamname2cn": "快",
+        "teamname3cn": "魔术",
         "teamname1en": "Dallas",
         "teamname2en": "Fast",
         "teamname3en": "Magic"
@@ -187,6 +251,9 @@
         "teamname1tw": "休士頓",
         "teamname2tw": "闇",
         "teamname3tw": "豬",
+        "teamname1cn": "休士顿",
+        "teamname2cn": "暗",
+        "teamname3cn": "猪",
         "teamname1en": "Houston",
         "teamname2en": "Dark",
         "teamname3en": "Pig"
@@ -195,6 +262,9 @@
         "teamname1tw": "曼菲斯",
         "teamname2tw": "光",
         "teamname3tw": "火箭",
+        "teamname1cn": "曼菲斯",
+        "teamname2cn": "光",
+        "teamname3cn": "火箭",
         "teamname1en": "Memphis",
         "teamname2en": "Light",
         "teamname3en": "Rocket"
@@ -203,6 +273,9 @@
         "teamname1tw": "溫哥華",
         "teamname2tw": "瘋狂",
         "teamname3tw": "灰熊",
+        "teamname1cn": "温哥华",
+        "teamname2cn": "疯狂",
+        "teamname3cn": "灰熊",
         "teamname1en": "Vancouver",
         "teamname2en": "Madness",
         "teamname3en": "Grizzly"
@@ -211,14 +284,19 @@
         "teamname1tw": "紐奧良",
         "teamname2tw": "好",
         "teamname3tw": "海賊",
+        "teamname1cn": "纽奥良",
+        "teamname2cn": "好",
+        "teamname3cn": "海贼",
         "teamname1en": "New Orleans",
         "teamname2en": "Okay",
         "teamname3en": "Pirates"
     },
     {
-        "teamname1tw": "聖安東尼奧",
+        "teamname1tw": "佛州",
         "teamname2tw": "壞",
         "teamname3tw": "螞刺",
+        "teamname2cn": "坏",
+        "teamname3cn": "蚂刺",
         "teamname1en": "San Antonio",
         "teamname2en": "Bad",
         "teamname3en": "Ant sting"
@@ -227,14 +305,19 @@
         "teamname1tw": "丹佛",
         "teamname2tw": "時髦",
         "teamname3tw": "海盜",
+        "teamname1cn": "丹佛",
+        "teamname2cn": "时髦",
+        "teamname3cn": "海盗",
         "teamname1en": "Denver",
-        "teamname2en": "Fashionable",
         "teamname3en": "Pirate"
     },
     {
         "teamname1tw": "明尼蘇達",
         "teamname2tw": "落伍",
         "teamname3tw": "灰狼",
+        "teamname1cn": "明尼苏达",
+        "teamname2cn": "落伍",
+        "teamname3cn": "灰狼",
         "teamname1en": "Minnesota",
         "teamname2en": "Outdated",
         "teamname3en": "Gray Wolf"
@@ -243,6 +326,9 @@
         "teamname1tw": "波特蘭",
         "teamname2tw": "神奇",
         "teamname3tw": "拓慌者",
+        "teamname1cn": "波特兰",
+        "teamname2cn": "神奇",
+        "teamname3cn": "拓慌者",
         "teamname1en": "Portland",
         "teamname2en": "Magical",
         "teamname3en": "Pioneer"
@@ -251,6 +337,9 @@
         "teamname1tw": "猶他",
         "teamname2tw": "慵懶",
         "teamname3tw": "嚼士",
+        "teamname1cn": "犹他",
+        "teamname2cn": "慵懒",
+        "teamname3cn": "嚼士",
         "teamname1en": "Utah",
         "teamname2en": "Lazy",
         "teamname3en": "Jazz"
@@ -259,6 +348,9 @@
         "teamname1tw": "金洲",
         "teamname2tw": "搞笑",
         "teamname3tw": "湧士",
+        "teamname1cn": "金洲",
+        "teamname2cn": "搞笑",
+        "teamname3cn": "涌士",
         "teamname1en": "Jinzhou",
         "teamname2en": "Funny",
         "teamname3en": "Warrior"
@@ -267,6 +359,9 @@
         "teamname1tw": "洛杉磯",
         "teamname2tw": "雜魚",
         "teamname3tw": "胡人",
+        "teamname1cn": "洛杉矶",
+        "teamname2cn": "杂鱼",
+        "teamname3cn": "胡人",
         "teamname1en": "Los Angeles",
         "teamname2en": "Trash",
         "teamname3en": "Lakers"
@@ -275,14 +370,18 @@
         "teamname1tw": "洛城",
         "teamname2tw": "惡",
         "teamname3tw": "快挺",
+        "teamname1cn": "洛城",
+        "teamname2cn": "恶",
+        "teamname3cn": "快挺",
         "teamname1en": "L.A.",
-        "teamname2en": "Evil",
-        "teamname3en": "Speedboat"
+        "teamname2en": "Evil"
     },
     {
         "teamname1tw": "拉斯維加斯",
         "teamname2tw": "極道",
         "teamname3tw": "大腸",
+        "teamname2cn": "极道",
+        "teamname3cn": "大肠",
         "teamname1en": "Las Vegas",
         "teamname2en": "Zodiac",
         "teamname3en": "Sun"
@@ -291,6 +390,9 @@
         "teamname1tw": "鳳凰城",
         "teamname2tw": "強",
         "teamname3tw": "國王",
+        "teamname1cn": "凤凰城",
+        "teamname2cn": "强",
+        "teamname3cn": "国王",
         "teamname1en": "Phoenix",
         "teamname2en": "Strong",
         "teamname3en": "King"
@@ -299,14 +401,19 @@
         "teamname1tw": "沙加緬度",
         "teamname2tw": "弱",
         "teamname3tw": "雷霆",
+        "teamname1cn": "沙加缅度",
+        "teamname2cn": "弱",
+        "teamname3cn": "雷霆",
         "teamname1en": "Sacramento",
-        "teamname2en": "Weak",
-        "teamname3en": "Thunderbolt"
+        "teamname2en": "Weak"
     },
     {
         "teamname1tw": "西雅圖",
         "teamname2tw": "美",
         "teamname3tw": "惡兔",
+        "teamname1cn": "西雅图",
+        "teamname2cn": "美",
+        "teamname3cn": "恶兔",
         "teamname1en": "Seattle",
         "teamname2en": "US",
         "teamname3en": "Evil rabbit"
@@ -315,6 +422,9 @@
         "teamname1tw": "堪薩斯",
         "teamname2tw": "神秘",
         "teamname3tw": "胖子",
+        "teamname1cn": "堪萨斯",
+        "teamname2cn": "神秘",
+        "teamname3cn": "胖子",
         "teamname1en": "Kansas",
         "teamname2en": "Mysterious",
         "teamname3en": "Fatty"
@@ -323,6 +433,9 @@
         "teamname1tw": "杜克",
         "teamname2tw": "搞笑",
         "teamname3tw": "小皇帝",
+        "teamname1cn": "杜克",
+        "teamname2cn": "搞笑",
+        "teamname3cn": "小皇帝",
         "teamname1en": "Duke",
         "teamname2en": "Funny",
         "teamname3en": "LeBron"
@@ -331,62 +444,79 @@
         "teamname1tw": "德州",
         "teamname2tw": "陰險",
         "teamname3tw": "愛神",
+        "teamname1cn": "德州",
+        "teamname2cn": "阴险",
+        "teamname3cn": "爱神",
         "teamname1en": "Texas",
-        "teamname2en": "Insidious",
-        "teamname3en": "God of love"
+        "teamname2en": "Insidious"
     },
     {
-        "teamname1tw": "奧克拉荷馬",
+        "teamname1tw": "紐約",
         "teamname2tw": "霸氣",
         "teamname3tw": "海螺",
+        "teamname2cn": "霸气",
+        "teamname3cn": "海螺",
         "teamname1en": "Oklahoma",
-        "teamname2en": "Domineering",
         "teamname3en": "Conch"
     },
     {
         "teamname1tw": "亞利桑那",
         "teamname2tw": "可愛",
         "teamname3tw": "燒酒螺",
+        "teamname1cn": "亚利桑那",
+        "teamname2cn": "可爱",
+        "teamname3cn": "烧酒螺",
         "teamname1en": "Arizona",
-        "teamname2en": "Cute",
-        "teamname3en": "Lo Shochu"
+        "teamname2en": "Cute"
     },
     {
         "teamname1tw": "肯塔基",
         "teamname2tw": "逆襲",
         "teamname3tw": "BOY",
+        "teamname1cn": "肯塔基",
+        "teamname2cn": "逆袭",
+        "teamname3cn": "BOY",
         "teamname1en": "Kentucky",
-        "teamname2en": "Counter-attack",
         "teamname3en": "BOY"
     },
     {
         "teamname1tw": "密西根",
         "teamname2tw": "白目",
         "teamname3tw": "獅子",
+        "teamname1cn": "密西根",
+        "teamname2cn": "白目",
+        "teamname3cn": "狮子",
         "teamname1en": "Michigan",
         "teamname2en": "White Head",
         "teamname3en": "Lion"
     },
     {
-        "teamname1tw": "克羅埃西亞",
+        "teamname1tw": "新加坡",
         "teamname2tw": "誇張",
         "teamname3tw": "老虎",
+        "teamname1cn": "克罗埃西亚",
+        "teamname2cn": "夸张",
+        "teamname3cn": "老虎",
         "teamname1en": "Croatia",
-        "teamname2en": "Exaggeration",
         "teamname3en": "Tiger"
     },
     {
         "teamname1tw": "康乃狄克",
         "teamname2tw": "陽光",
         "teamname3tw": "黑熊",
+        "teamname1cn": "康乃狄克",
+        "teamname2cn": "阳光",
+        "teamname3cn": "黑熊",
         "teamname1en": "Connecticut",
-        "teamname2en": "Sunlight",
-        "teamname3en": "Black bear"
+        "teamname2en": "Sunlight"
     },
     {
-        "teamname1tw": "路易斯安那",
+        "teamname1tw": "高雄",
         "teamname2tw": "憂鬱",
         "teamname3tw": "鮭魚",
+        "teamname1cn": "路易斯安那",
+        "teamname2cn": "忧郁",
+        "teamname3cn": "鲑鱼",
         "teamname1en": "Louisiana",
         "teamname2en": "Gloomy",
         "teamname3en": "Salmon"
@@ -395,6 +525,9 @@
         "teamname1tw": "史丹佛",
         "teamname2tw": "打鐵",
         "teamname3tw": "玫瑰",
+        "teamname1cn": "史丹佛",
+        "teamname2cn": "打铁",
+        "teamname3cn": "玫瑰",
         "teamname1en": "Stanford",
         "teamname2en": "Blacksmith",
         "teamname3en": "Rose"
@@ -403,6 +536,9 @@
         "teamname1tw": "維吉尼亞",
         "teamname2tw": "自盡",
         "teamname3tw": "雛菊",
+        "teamname1cn": "维吉尼亚",
+        "teamname2cn": "自尽",
+        "teamname3cn": "雏菊",
         "teamname1en": "Virginia",
         "teamname2en": "Suicide",
         "teamname3en": "Daisy"
@@ -411,6 +547,9 @@
         "teamname1tw": "科羅拉多",
         "teamname2tw": "飛人",
         "teamname3tw": "章魚",
+        "teamname1cn": "科罗拉多",
+        "teamname2cn": "飞人",
+        "teamname3cn": "章鱼",
         "teamname1en": "Colorado",
         "teamname2en": "Flyers",
         "teamname3en": "Octopus"
@@ -419,6 +558,9 @@
         "teamname1tw": "田納西",
         "teamname2tw": "灌籃",
         "teamname3tw": "透抽",
+        "teamname1cn": "田纳西",
+        "teamname2cn": "灌篮",
+        "teamname3cn": "透抽",
         "teamname1en": "Tennessee",
         "teamname2en": "Dunk",
         "teamname3en": "Oyster"
@@ -427,6 +569,9 @@
         "teamname1tw": "聖地牙哥",
         "teamname2tw": "一代",
         "teamname3tw": "蛤蠣",
+        "teamname1cn": "圣地牙哥",
+        "teamname2cn": "一代",
+        "teamname3cn": "蛤蛎",
         "teamname1en": "San Diego",
         "teamname2en": "Generation",
         "teamname3en": "Clams"
@@ -434,15 +579,20 @@
     {
         "teamname1tw": "巴爾的摩",
         "teamname2tw": "神射",
-        "teamname3tw": "賽巴斯丁",
+        "teamname3tw": "賽巴",
+        "teamname1cn": "巴尔的摩",
+        "teamname2cn": "神射",
+        "teamname3cn": "赛巴斯丁",
         "teamname1en": "Baltimore",
-        "teamname2en": "God shot",
-        "teamname3en": "Sebastian"
+        "teamname2en": "God shot"
     },
     {
         "teamname1tw": "坦帕灣",
         "teamname2tw": "逆轉",
         "teamname3tw": "德華",
+        "teamname1cn": "坦帕湾",
+        "teamname2cn": "逆转",
+        "teamname3cn": "德华",
         "teamname1en": "Tampa Bay",
         "teamname2en": "Reverse",
         "teamname3en": "Edward"
@@ -451,6 +601,9 @@
         "teamname1tw": "辛辛那提",
         "teamname2tw": "連勝",
         "teamname3tw": "獵豹",
+        "teamname1cn": "辛辛那提",
+        "teamname2cn": "连胜",
+        "teamname3cn": "猎豹",
         "teamname1en": "Cincinnati",
         "teamname2en": "Streak",
         "teamname3en": "Cheetah"
@@ -459,14 +612,19 @@
         "teamname1tw": "匹茲堡",
         "teamname2tw": "孤獨",
         "teamname3tw": "高富帥",
+        "teamname1cn": "匹兹堡",
+        "teamname2cn": "孤独",
+        "teamname3cn": "高富帅",
         "teamname1en": "Pittsburgh",
-        "teamname2en": "Lonely",
-        "teamname3en": "Rich handsome"
+        "teamname2en": "Lonely"
     },
     {
         "teamname1tw": "聖路易",
         "teamname2tw": "嗆聲",
         "teamname3tw": "雷帝",
+        "teamname1cn": "圣路易",
+        "teamname2cn": "呛声",
+        "teamname3cn": "雷帝",
         "teamname1en": "St. Louis",
         "teamname2en": "Audibles",
         "teamname3en": "KD"
@@ -475,6 +633,9 @@
         "teamname1tw": "亞利桑那",
         "teamname2tw": "性感",
         "teamname3tw": "黑子",
+        "teamname1cn": "亚利桑那",
+        "teamname2cn": "趣味",
+        "teamname3cn": "黑子",
         "teamname1en": "Arizona",
         "teamname2en": "Sexy",
         "teamname3en": "Sunspots"
@@ -483,6 +644,9 @@
         "teamname1tw": "夏威夷",
         "teamname2tw": "無敵",
         "teamname3tw": "石佛",
+        "teamname1cn": "夏威夷",
+        "teamname2cn": "无敌",
+        "teamname3cn": "石佛",
         "teamname1en": "Hawaii",
         "teamname2en": "Invincible",
         "teamname3en": "Buddha"
@@ -491,22 +655,29 @@
         "teamname1tw": "喬治亞",
         "teamname2tw": "少年",
         "teamname3tw": "流川風",
+        "teamname1cn": "乔治亚",
+        "teamname2cn": "少年",
+        "teamname3cn": "流川风",
         "teamname1en": "Georgia",
-        "teamname2en": "Young",
-        "teamname3en": "Rukawa wind"
+        "teamname2en": "Young"
     },
     {
         "teamname1tw": "佛羅里達",
         "teamname2tw": "火鍋",
         "teamname3tw": "李查怕克",
+        "teamname1cn": "佛罗里达",
+        "teamname2cn": "火锅",
+        "teamname3cn": "李查怕克",
         "teamname1en": "Florida",
-        "teamname2en": "Chafing dish",
-        "teamname3en": "Richard Paker"
+        "teamname2en": "Chafing dish"
     },
     {
         "teamname1tw": "加州",
         "teamname2tw": "抄截",
         "teamname3tw": "葡萄柚",
+        "teamname1cn": "加州",
+        "teamname2cn": "抄截",
+        "teamname3cn": "葡萄柚",
         "teamname1en": "California",
         "teamname2en": "Steals",
         "teamname3en": "Grapefruit"
@@ -515,6 +686,9 @@
         "teamname1tw": "伊利諾",
         "teamname2tw": "助攻",
         "teamname3tw": "飛馬",
+        "teamname1cn": "伊利诺",
+        "teamname2cn": "助攻",
+        "teamname3cn": "飞马",
         "teamname1en": "Illinois",
         "teamname2en": "Assists",
         "teamname3en": "Pegasus"
@@ -523,6 +697,9 @@
         "teamname1tw": "密西西比",
         "teamname2tw": "籃板",
         "teamname3tw": "教練",
+        "teamname1cn": "密西西比",
+        "teamname2cn": "篮板",
+        "teamname3cn": "教练",
         "teamname1en": "Mississippi",
         "teamname2en": "Backboard",
         "teamname3en": "Coach"
@@ -531,15 +708,21 @@
         "teamname1tw": "威尼斯",
         "teamname2tw": "天鉤",
         "teamname3tw": "魔導士",
+        "teamname1cn": "威尼斯",
+        "teamname2cn": "天钩",
+        "teamname3cn": "魔导士",
         "teamname1en": "Venice",
         "teamname2en": "Kareem",
         "teamname3en": "Slayers"
     },
     {
-        "teamname1tw": "北卡羅萊那",
+        "teamname1tw": "台北",
         "teamname2tw": "光頭",
         "teamname3tw": "地獄犬",
-        "teamname1en": "North Carolina",
+        "teamname1cn": "北卡罗莱那",
+        "teamname2cn": "光头",
+        "teamname3cn": "地狱犬",
+        "teamname1en": "Taipei",
         "teamname2en": "Bald",
         "teamname3en": "Cerberus"
     },
@@ -547,6 +730,9 @@
         "teamname1tw": "東京",
         "teamname2tw": "惡漢",
         "teamname3tw": "歐尼爾",
+        "teamname1cn": "东京",
+        "teamname2cn": "恶汉",
+        "teamname3cn": "欧尼尔",
         "teamname1en": "Tokyo",
         "teamname2en": "Villains",
         "teamname3en": "O'Neill"
@@ -555,6 +741,9 @@
         "teamname1tw": "大阪",
         "teamname2tw": "狼王",
         "teamname3tw": "咖哩",
+        "teamname1cn": "大阪",
+        "teamname2cn": "狼王",
+        "teamname3cn": "咖喱",
         "teamname1en": "Osaka",
         "teamname2en": "Garnett",
         "teamname3en": "Curry"
@@ -563,6 +752,9 @@
         "teamname1tw": "神奈川",
         "teamname2tw": "天才",
         "teamname3tw": "武士",
+        "teamname1cn": "神奈川",
+        "teamname2cn": "天才",
+        "teamname3cn": "武士",
         "teamname1en": "Kanagawa",
         "teamname2en": "Genius",
         "teamname3en": "Warrior"
@@ -571,6 +763,9 @@
         "teamname1tw": "墨爾本",
         "teamname2tw": "全能",
         "teamname3tw": "船長",
+        "teamname1cn": "墨尔本",
+        "teamname2cn": "全能",
+        "teamname3cn": "船长",
         "teamname1en": "Melbourne",
         "teamname2en": "All-around",
         "teamname3en": "Captain"
@@ -579,6 +774,9 @@
         "teamname1tw": "雪梨",
         "teamname2tw": "尷尬",
         "teamname3tw": "保羅",
+        "teamname1cn": "雪梨",
+        "teamname2cn": "尴尬",
+        "teamname3cn": "保罗",
         "teamname1en": "Sydney",
         "teamname2en": "Awkward",
         "teamname3en": "Paul"
@@ -587,6 +785,9 @@
         "teamname1tw": "法國",
         "teamname2tw": "中年",
         "teamname3tw": "布萊恩",
+        "teamname1cn": "法国",
+        "teamname2cn": "中年",
+        "teamname3cn": "布莱恩",
         "teamname1en": "France",
         "teamname2en": "Middle aged",
         "teamname3en": "Brian"
@@ -595,6 +796,9 @@
         "teamname1tw": "澳洲",
         "teamname2tw": "神經",
         "teamname3tw": "奈許",
+        "teamname1cn": "澳洲",
+        "teamname2cn": "神经",
+        "teamname3cn": "奈许",
         "teamname1en": "Australia",
         "teamname2en": "Nerve",
         "teamname3en": "Nash"
@@ -603,38 +807,50 @@
         "teamname1tw": "泰國",
         "teamname2tw": "俠客",
         "teamname3tw": "將軍",
+        "teamname1cn": "泰国",
+        "teamname2cn": "侠客",
+        "teamname3cn": "将军",
         "teamname1en": "Thailand",
         "teamname2en": "Knight",
         "teamname3en": "General"
     },
     {
-        "teamname1tw": "阿爾巴尼亞",
+        "teamname1tw": "英國",
         "teamname2tw": "無雙",
         "teamname3tw": "世界和平",
+        "teamname1cn": "阿尔巴尼亚",
+        "teamname2cn": "无双",
+        "teamname3cn": "世界和平",
         "teamname1en": "Albania",
-        "teamname2en": "Warriors",
-        "teamname3en": "World Peace"
+        "teamname2en": "Warriors"
     },
     {
         "teamname1tw": "阿根廷",
         "teamname2tw": "傳奇",
         "teamname3tw": "魔術強森",
+        "teamname1cn": "阿根廷",
+        "teamname2cn": "传奇",
+        "teamname3cn": "魔术强森",
         "teamname1en": "Argentina",
-        "teamname2en": "Legend",
-        "teamname3en": "Magic Johnson"
+        "teamname2en": "Legend"
     },
     {
         "teamname1tw": "安哥拉",
         "teamname2tw": "假掰",
         "teamname3tw": "護士",
+        "teamname1cn": "安哥拉",
+        "teamname2cn": "假掰",
+        "teamname3cn": "护士",
         "teamname1en": "Angola",
-        "teamname2en": "Breaking false",
         "teamname3en": "Nurse"
     },
     {
         "teamname1tw": "孟加拉",
         "teamname2tw": "禿頭",
         "teamname3tw": "歐拉朱萬",
+        "teamname1cn": "孟加拉",
+        "teamname2cn": "秃头",
+        "teamname3cn": "欧拉朱万",
         "teamname1en": "Bengal",
         "teamname2en": "Bald",
         "teamname3en": "Olajuwon"
@@ -643,14 +859,19 @@
         "teamname1tw": "俄羅斯",
         "teamname2tw": "煞氣a",
         "teamname3tw": "喬丹",
+        "teamname1cn": "俄罗斯",
+        "teamname2cn": "煞气a",
+        "teamname3cn": "乔丹",
         "teamname1en": "Russia",
-        "teamname2en": "Evil spirits a",
         "teamname3en": "Jordan"
     },
     {
         "teamname1tw": "亞洲",
         "teamname2tw": "超人",
         "teamname3tw": "大鳥",
+        "teamname1cn": "亚洲",
+        "teamname2cn": "超人",
+        "teamname3cn": "大鸟",
         "teamname1en": "Asia",
         "teamname2en": "Superman",
         "teamname3en": "Bird"
@@ -659,14 +880,18 @@
         "teamname1tw": "印尼",
         "teamname2tw": "碎念",
         "teamname3tw": "賈霸",
-        "teamname1en": "Indonesia",
-        "teamname2en": "Broken read",
-        "teamname3en": "Abdul-Jabbar"
+        "teamname1cn": "印尼",
+        "teamname2cn": "碎念",
+        "teamname3cn": "贾霸",
+        "teamname1en": "Indonesia"
     },
     {
         "teamname1tw": "索馬利亞",
         "teamname2tw": "單挑",
         "teamname3tw": "甜甜圈",
+        "teamname1cn": "索马利亚",
+        "teamname2cn": "单挑",
+        "teamname3cn": "甜甜圈",
         "teamname1en": "Somalia",
         "teamname2en": "Singled",
         "teamname3en": "Donuts"
@@ -675,6 +900,9 @@
         "teamname1tw": "歐洲",
         "teamname2tw": "亂入",
         "teamname3tw": "小蟲",
+        "teamname1cn": "欧洲",
+        "teamname2cn": "乱入",
+        "teamname3cn": "小虫",
         "teamname1en": "Europe",
         "teamname2en": "Into chaos",
         "teamname3en": "Bug"
@@ -683,6 +911,9 @@
         "teamname1tw": "玻利維亞",
         "teamname2tw": "憨厚",
         "teamname3tw": "艾倫",
+        "teamname1cn": "玻利维亚",
+        "teamname2cn": "憨厚",
+        "teamname3cn": "艾伦",
         "teamname1en": "Bolivia",
         "teamname2en": "Honest",
         "teamname3en": "Alan"
@@ -691,14 +922,19 @@
         "teamname1tw": "巴西",
         "teamname2tw": "奸詐",
         "teamname3tw": "馬龍",
+        "teamname1cn": "巴西",
+        "teamname2cn": "奸诈",
+        "teamname3cn": "马龙",
         "teamname1en": "Brazil",
-        "teamname2en": "Treacherous",
         "teamname3en": "Malone"
     },
     {
         "teamname1tw": "緬甸",
         "teamname2tw": "奇蹟",
         "teamname3tw": "史塔克頓",
+        "teamname1cn": "缅甸",
+        "teamname2cn": "奇迹",
+        "teamname3cn": "史塔克顿",
         "teamname1en": "Myanmar",
         "teamname2en": "Miracle",
         "teamname3en": "Stockton"
@@ -707,6 +943,9 @@
         "teamname1tw": "阿富汗",
         "teamname2tw": "小氣",
         "teamname3tw": "T-MAC",
+        "teamname1cn": "阿富汗",
+        "teamname2cn": "小气",
+        "teamname3cn": "T-MAC",
         "teamname1en": "India",
         "teamname2en": "Stingy",
         "teamname3en": "T-MAC"
@@ -715,14 +954,19 @@
         "teamname1tw": "柬埔寨",
         "teamname2tw": "罐頭",
         "teamname3tw": "戰神",
+        "teamname1cn": "柬埔寨",
+        "teamname2cn": "罐头",
+        "teamname3cn": "战神",
         "teamname1en": "Cambodia",
-        "teamname2en": "Canned food",
         "teamname3en": "Mars"
     },
     {
         "teamname1tw": "非洲",
         "teamname2tw": "激動",
         "teamname3tw": "小鬼",
+        "teamname1cn": "非洲",
+        "teamname2cn": "激动",
+        "teamname3cn": "小鬼",
         "teamname1en": "Africa",
         "teamname2en": "Excitement",
         "teamname3en": "Imp"
@@ -731,6 +975,9 @@
         "teamname1tw": "加拿大",
         "teamname2tw": "扯",
         "teamname3tw": "艾佛森",
+        "teamname1cn": "加拿大",
+        "teamname2cn": "扯",
+        "teamname3cn": "艾佛森",
         "teamname1en": "Canada",
         "teamname2en": "Pull",
         "teamname3en": "Iverson"
@@ -739,7 +986,10 @@
         "teamname1tw": "英國",
         "teamname2tw": "極",
         "teamname3tw": "流氓",
-        "teamname1en": "United Kingdom",
+        "teamname1cn": "英国",
+        "teamname2cn": "极",
+        "teamname3cn": "流氓",
+        "teamname1en": "U.K",
         "teamname2en": "Pole",
         "teamname3en": "Rogue"
     },
@@ -747,14 +997,19 @@
         "teamname1tw": "美洲",
         "teamname2tw": "唯一",
         "teamname3tw": "皮朋",
+        "teamname1cn": "美洲",
+        "teamname2cn": "唯一",
+        "teamname3cn": "皮朋",
         "teamname1en": "America",
-        "teamname2en": "The only",
-        "teamname3en": "Leather Pen"
+        "teamname2en": "The only"
     },
     {
         "teamname1tw": "相北",
         "teamname2tw": "帥哥",
         "teamname3tw": "基德",
+        "teamname1cn": "相北",
+        "teamname2cn": "帅哥",
+        "teamname3cn": "基德",
         "teamname1en": "Japan",
         "teamname2en": "Guy",
         "teamname3en": "Kidd"
@@ -763,38 +1018,49 @@
         "teamname1tw": "凌南",
         "teamname2tw": "中二",
         "teamname3tw": "腎鬥士",
+        "teamname1cn": "凌南",
+        "teamname2cn": "中二",
+        "teamname3cn": "肾斗士",
         "teamname1en": "Sky",
-        "teamname2en": "In two",
-        "teamname3en": "Kidney fighter"
+        "teamname2en": "In two"
     },
     {
         "teamname1tw": "三王工業",
         "teamname2tw": "夢幻",
         "teamname3tw": "世代",
-        "teamname1en": "Out Space",
-        "teamname2en": "Dream",
-        "teamname3en": "Generations"
+        "teamname1cn": "三王工业",
+        "teamname2cn": "梦幻",
+        "teamname3cn": "世代",
+        "teamname1en": "Sea",
+        "teamname2en": "Dream"
     },
     {
         "teamname1tw": "翔楊",
         "teamname2tw": "國寶",
         "teamname3tw": "火神",
+        "teamname1cn": "翔杨",
+        "teamname2cn": "国宝",
+        "teamname3cn": "火神",
         "teamname1en": "Heaven",
-        "teamname2en": "National treasure",
         "teamname3en": "Vulcan"
     },
     {
         "teamname1tw": "噯和學院",
         "teamname2tw": "華麗",
         "teamname3tw": "三丼壽",
+        "teamname1cn": "嗳和学院",
+        "teamname2cn": "华丽",
+        "teamname3cn": "三丼寿",
         "teamname1en": "Oasis",
-        "teamname2en": "Gorgeous",
-        "teamname3en": "Hisashi Mitsui"
+        "teamname2en": "Gorgeous"
     },
     {
         "teamname1tw": "帝洸",
         "teamname2tw": "神",
         "teamname3tw": "櫻木",
+        "teamname1cn": "帝洸",
+        "teamname2cn": "神",
+        "teamname3cn": "樱木",
         "teamname1en": "Ocean",
         "teamname2en": "God",
         "teamname3en": "Sakuragi"
