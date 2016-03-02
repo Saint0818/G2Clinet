@@ -44,16 +44,23 @@ public class UIInstanceMain : MonoBehaviour
     private const float ChapterInterval = 900;
     private const float StageInterval = 230;
 
-    /// <summary>
-    /// 幾個 Frame, ScrollView 捲動完畢.
-    /// </summary>
-    private const int MoveStep = 10;
+//    /// <summary>
+//    /// 幾個 Frame, ScrollView 捲動完畢.
+//    /// </summary>
+//    private const int MoveStep = 10;
 
     /// <summary>
     /// key: Chapter, 1: 第 1 章, 2: 第 2 章, 以此類推.
     /// </summary>
     private readonly Dictionary<int, UIInstanceChapter> mChapters = new Dictionary<int, UIInstanceChapter>();
     private readonly List<UIInstanceStage> mStages = new List<UIInstanceStage>();
+
+    private UIMoveScrollView mMoveScrollView;
+
+    private void Awake()
+    {
+        mMoveScrollView = GetComponent<UIMoveScrollView>();
+    }
 
     private void Start()
     {
@@ -118,31 +125,35 @@ public class UIInstanceMain : MonoBehaviour
         var reviseChapter = getReviseChapter(chapter);
 
         Vector3 targetPos = getChapterTargetPos(reviseChapter);
-        Vector3 moveAmount = targetPos - ChapterScrollView.transform.localPosition;
+
+        FullScreenBlock.SetActive(true);
+        mMoveScrollView.Move(ChapterScrollView, targetPos, () => FullScreenBlock.SetActive(false));
+
+//        Vector3 moveAmount = targetPos - ChapterScrollView.transform.localPosition;
 
 //        Debug.LogFormat("MoveToChapter, Chapter:{0}, TargetPos:{1}, MoveAmount:{2}", reviseChapter, targetPos, moveAmount);
 
-        StartCoroutine(moveChapter(moveAmount));
+//        StartCoroutine(moveChapter(moveAmount));
     }
 
-    private IEnumerator moveChapter(Vector3 moveAmount)
-    {
-        FullScreenBlock.SetActive(true);
-        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = false;
-        
-        Vector3 stepMoveAmount = moveAmount / MoveStep;
-
-//        Debug.LogFormat("moveChapter, stepMoveAmount:{0}", stepMoveAmount);
-
-        for(int i = 0; i < MoveStep; i++)
-        {
-            ChapterScrollView.MoveRelative(stepMoveAmount);
-            yield return new WaitForEndOfFrame();
-        }
-
-        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = true;
-        FullScreenBlock.SetActive(false);
-    }
+//    private IEnumerator moveChapter(Vector3 moveAmount)
+//    {
+//        FullScreenBlock.SetActive(true);
+//        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = false;
+//        
+//        Vector3 stepMoveAmount = moveAmount / MoveStep;
+//
+////        Debug.LogFormat("moveChapter, stepMoveAmount:{0}", stepMoveAmount);
+//
+//        for(int i = 0; i < MoveStep; i++)
+//        {
+//            ChapterScrollView.MoveRelative(stepMoveAmount);
+//            yield return new WaitForEndOfFrame();
+//        }
+//
+//        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = true;
+//        FullScreenBlock.SetActive(false);
+//    }
 
     /// <summary>
     /// 目前介面顯示哪一個章節. 1: 第一章, 2: 第二章.
