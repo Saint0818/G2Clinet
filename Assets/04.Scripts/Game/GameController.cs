@@ -3368,6 +3368,24 @@ public class GameController : KnightSingleton<GameController>
             Shooter = null;
         }
 
+        // todo 這段是預防遊戲卡住, 但因為無法重現, 找不到原因, 所以只能根據別人的描述來寫預防措施.
+        // 情況: 球員灌籃得分, 沒有人撿球.
+	    if(Situation == EGameSituation.NPCPickBall || Situation == EGameSituation.GamerPickBall)
+	    {
+	        if(PickBallPlayer && 
+               PickBallPlayer.crtState != EPlayerState.Idle &&
+               PickBallPlayer.crtState != EPlayerState.Run0 &&
+               PickBallPlayer.crtState != EPlayerState.Run1 &&
+               PickBallPlayer.crtState != EPlayerState.Run2 &&
+               PickBallPlayer.crtState != EPlayerState.Pick0 &&
+               PickBallPlayer.crtState != EPlayerState.Pick1 &&
+               PickBallPlayer.crtState != EPlayerState.Pick2)
+	        {
+	            PickBallPlayer.AniState(EPlayerState.Idle);
+	        }
+	        PickBallPlayer = null;
+	    }
+
         if(GameStart.Get.TestMode == EGameTest.Shoot)
         {
             SetBall(Joysticker);    
