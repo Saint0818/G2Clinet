@@ -75,26 +75,37 @@ public class UIStrategy : UIBase {
     public void OnSelect() {
         int index = -1;
         if (int.TryParse(UIButton.current.name, out index) && GameData.Team.Player.Strategy != index) {
-            GameData.Team.Player.Strategy = index;
+            try {
+                GameData.Team.Player.Strategy = index;
 
-            if (index == 0)
-                GameData.Team.AttackTactical = ETacticalAuto.AttackNormal;
-            else
-            if (index == 1)
-                GameData.Team.AttackTactical = ETacticalAuto.AttackShoot2;
-            else
-                GameData.Team.AttackTactical = ETacticalAuto.AttackShoot3;
+                if (index == 0)
+                    GameData.Team.AttackTactical = ETacticalAuto.AttackNormal;
+                else
+                if (index == 1)
+                    GameData.Team.AttackTactical = ETacticalAuto.AttackShoot2;
+                else
+                    GameData.Team.AttackTactical = ETacticalAuto.AttackShoot3;
 
-            if (AIController.Visible)
-                AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
+                if (AIController.Visible) {
+                    try {
+                    AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
+                    } catch (System.Exception e) {
+                        
+                    }
+                }
 
-            if (LabelStrategy != null)
-                LabelStrategy.text = GameData.Team.Player.StrategyText;
+                if (LabelStrategy != null)
+                    LabelStrategy.text = GameData.Team.Player.StrategyText;
 
-            WWWForm form = new WWWForm();
-            form.AddField("Strategy", index.ToString());
-            SendHttp.Get.Command(URLConst.ChangeStrategy, null, form, false);
+                WWWForm form = new WWWForm();
+                form.AddField("Strategy", index.ToString());
+                SendHttp.Get.Command(URLConst.ChangeStrategy, waitStrantegy, form, false);
+            } catch (System.Exception e) {
+                
+            }
         }
     }
 
+    private void waitStrantegy(bool ok, WWW www) {
+    }
 }
