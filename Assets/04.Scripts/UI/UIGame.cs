@@ -598,7 +598,7 @@ public class UIGame : UIBase
     {
         skillRangeTarget = null;
 
-        if (state && IsPlayerMe && !PlayerMe.IsUseActiveSkill && (GameController.Get.Situation == EGameSituation.GamerAttack ||
+		if (state && IsPlayerMe && !PlayerMe.IsJump && !PlayerMe.IsUseActiveSkill && (GameController.Get.Situation == EGameSituation.GamerAttack ||
         GameController.Get.Situation == EGameSituation.NPCAttack))
         {
             switch (type)
