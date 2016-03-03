@@ -1981,7 +1981,15 @@ public class GameController : KnightSingleton<GameController>
 				else
 					return Joysticker.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
             } else //someone else shot
-			if (BallOwner && BallOwner.Team == ETeamKind.Self) {
+			if (BallOwner && BallOwner.Team == ETeamKind.Self)
+            {
+//                Debug.Log("UIGame Do Shoot.");
+
+                // 如果是玩家命令自己的隊友投球, 要暫時將投球隊友的 AI 關閉.
+                // 這麼做的原因是避免球員跳起來後, 在空中傳球. 
+                // 所以當玩家命令自己隊友投球時, 就是要準確的投出.
+                // 將 AI 停止 1.8 秒是我測試的結果, 讓球員真的準確投出球.
+                StartCoroutine(disablePlayerAIForShortTime(BallOwner, 1.8f));
 				DoShoot();
 			} else 
 			if (!Joysticker.IsRebound && IsReboundTime)
@@ -1989,6 +1997,18 @@ public class GameController : KnightSingleton<GameController>
         }
 
 		return false;
+    }
+
+    private IEnumerator disablePlayerAIForShortTime(PlayerBehaviour player, float delayTime)
+    {
+        var playerAI = player.GetComponent<PlayerAI>();
+        if(playerAI)
+            playerAI.enabled = false;
+
+        yield return new WaitForSeconds(delayTime);
+
+        if(playerAI)
+            playerAI.enabled = true;
     }
 
 	//Call From UIGame
