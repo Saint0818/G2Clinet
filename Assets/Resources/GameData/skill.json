@@ -3069,7 +3069,7 @@
     },
     {
         "id": 1198,
-        "nametw": "轉身過人",
+        "nametw": "轉身過人 I",
         "kind": 110,
         "quality": 1,
         "maxstar": 3,
@@ -4485,7 +4485,7 @@
     },
     {
         "id": 1398,
-        "nametw": "飛身搶球 ",
+        "nametw": "飛身搶球 I",
         "kind": 130,
         "quality": 1,
         "maxstar": 3,
@@ -5653,7 +5653,7 @@
     },
     {
         "id": 1998,
-        "nametw": "倒地快起",
+        "nametw": "倒地快起 I",
         "kind": 190,
         "quality": 1,
         "maxstar": 2,
@@ -7070,7 +7070,7 @@
     },
     {
         "id": 10698,
-        "nametw": "大車輪爆扣",
+        "nametw": "大車輪爆扣 I",
         "kind": 60,
         "quality": 1,
         "maxstar": 3,
