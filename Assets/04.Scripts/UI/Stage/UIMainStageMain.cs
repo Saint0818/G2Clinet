@@ -60,10 +60,13 @@ public class UIMainStageMain : MonoBehaviour
     /// </summary>
     private readonly Dictionary<int, UIStageChapter> mChapters = new Dictionary<int, UIStageChapter>();
 
-    [UsedImplicitly]
+    private UIMoveScrollView mMoveScrollView;
+
     private void Awake()
     {
         EnableFullScreenBlock = false;
+
+        mMoveScrollView = GetComponent<UIMoveScrollView>();
     }
 
     /// <summary>
@@ -103,11 +106,34 @@ public class UIMainStageMain : MonoBehaviour
         {
             // 魔術數字 71 主要是歸零, 並且能夠正確計算出章節的數值(try and error).
             // 其實這部份只是根據 ScrollView 的 Local Position 來判斷現在顯示哪一章.
-            // 當位置是 (69.999) 時, 表示是選擇第一章; 當位置是 (-1210) 時, 表示是選擇第二章;
-            // 當位置是 (-2490) 時, 表示是選擇第三章. 以此類推.(目前章節的寬度是 1280)
-            // +1 也是依據算式而做的調整, 不然明明是第一章, 但是卻回傳 0.
-            return (int)Mathf.Abs((ScrollView.transform.localPosition.x - 71f) / mChapterWidth) + 1;
+            // 當位置是 -640 ~ 640 時, 表示是選擇第 1 章; 
+            // 當位置是 641 ~ 1280 時, 表示是選擇第 2 章;
+            // 當位置是 1921 ~ 2560 時, 表示是選擇第 3 章. 以此類推.(目前章節的寬度是 1280)
+
+            float minX = -450;
+            float maxX = 450;
+            int chapter = 1;
+            int currentPosX = (int)Mathf.Abs(ScrollView.transform.localPosition.x);
+            while (chapter <= mChapters.Count)
+            {
+                if (minX <= currentPosX && currentPosX <= maxX)
+                    return chapter;
+
+                ++chapter;
+                minX += mChapterWidth;
+                maxX += mChapterWidth;
+            }
+
+            return 0;
+
+//            return (int)Mathf.Abs((ScrollView.transform.localPosition.x - 71f) / mChapterWidth) + 1;
         }
+    }
+
+    private int getReviseChapter(int chapter)
+    {
+        int reviseChapter = Math.Max(1, chapter); // >= 1
+        return Math.Min(reviseChapter, mChapters.Count); // <= mChapters.Count
     }
 
     /// <summary>
@@ -116,35 +142,34 @@ public class UIMainStageMain : MonoBehaviour
     /// <param name="chapter"></param>
     public void SelectChapter(int chapter)
     {
-        int reviseChapter = Math.Max(1, chapter); // >= 1
-        reviseChapter = Math.Min(reviseChapter, mChapters.Count); // <= mChapters.Count
-
-//        ScrollView.ResetPosition();
+        int reviseChapter = getReviseChapter(chapter);
 
         // 其實顯示某個章節, 只是移動一整個章節的寬度. 而第1章的位置是 (70, 3, 0),
         // 第 2 章的位置是 (-1210, 3, 0), 所以這邊才會這樣麼魔術數字去計算.
-        Vector3 targetPos = new Vector3(70 -(reviseChapter - 1) * mChapterWidth, 3, 0);
+        Vector3 targetPos = getChapterTargetPos(reviseChapter);
         Vector3 moveAmount = targetPos - ScrollView.transform.localPosition;
         ScrollView.MoveRelative(moveAmount);
-
-        // 這兩行只是 ScrollView 的行為我無法掌握(沒辦法正確更新).
-        // 這樣設定, 就可以確保 ScrollView 的行為會有效(之前是設定後, 完全沒效果).
-        // 當 NGUI 更新後, 可以嘗試刪除.(現在用的是 NGUI 3.9.4)
-//        ScrollView.enabled = false;
-//        ScrollView.enabled = true;
     }
 
-    public void PlayUnlockChapterAnimation(int unlockChapter, int stageID)
+    private Vector3 getChapterTargetPos(int chapter)
+    {
+        return new Vector3(70 -(chapter - 1) * mChapterWidth, 3, 0);
+    }
+
+    public void PlayUnlockChapterAnimation(int unlockChapter, int unlockStageID)
     {
         SelectChapter(unlockChapter - 1);
         // 魔術數字 10, 是要保證會捲動到下一頁.
-        Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
-        ScrollView.MoveRelative(move);
+//        Vector3 move = new Vector3(-mChapterWidth / 2f - 10, 0, 0);
+//        ScrollView.MoveRelative(move);
 
         EnableFullScreenBlock = true;
+        mChapters[unlockChapter].ShowLock();
+        mMoveScrollView.Move(ScrollView, getChapterTargetPos(unlockChapter), 
+            () => StartCoroutine(playUnlockChapterAnimation(unlockChapter, unlockStageID, PlayUnlockTime)));
 
         // 需要一段很短的時間, 讓 ScrollView 捲動到新章節的頁面. 
-        StartCoroutine(playUnlockChapterAnimation(unlockChapter, stageID, PlayUnlockTime));
+//        StartCoroutine(playUnlockChapterAnimation(unlockChapter, stageID, PlayUnlockTime));
 
         // 4 是 try and error 的數值, 整個 Unlock 特效的時間大概是 4 秒左右撥完, 所以撥完時,
         // 就可以點選了.
@@ -155,16 +180,16 @@ public class UIMainStageMain : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="unlockChapter"></param>
-    /// <param name="stageID"></param>
+    /// <param name="unlockStageID"></param>
     /// <param name="delayTime"> 幾秒後開始撥章節解鎖 Animation. </param>
     /// <returns></returns>
-    private IEnumerator playUnlockChapterAnimation(int unlockChapter, int stageID, float delayTime)
+    private IEnumerator playUnlockChapterAnimation(int unlockChapter, int unlockStageID, float delayTime)
     {
-        mChapters[unlockChapter].ShowLock();
+//        mChapters[unlockChapter].ShowLock();
 
         yield return new WaitForSeconds(delayTime);
 
-        mChapters[unlockChapter].PlayUnlockAnimation(stageID);
+        mChapters[unlockChapter].PlayUnlockAnimation(unlockStageID);
     }
 
     private IEnumerator disableFullScreenBlock(float delayTime)

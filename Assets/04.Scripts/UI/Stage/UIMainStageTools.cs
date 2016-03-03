@@ -82,11 +82,14 @@ public static class UIMainStageTools
 
     public static void SetDebugNewChapter()
     {
-        // 第一章通關, 第二張解鎖.
-//        GameData.Team.Player.NextMainStageID = 105;
-//        PlayerPrefs.SetInt(PlayerNextMainStageIDKey, 104);
-//        PlayerPrefs.SetInt(SelectChapterKey, 1);
+        // 第 3 章打完, 第 4 章解鎖.
+        GameData.Team.Player.NextMainStageID = 113;
+        PlayerPrefs.SetInt(PlayerNextMainStageIDKey, 112);
+        PlayerPrefs.SetInt(SelectChapterKey, 1);
+    }
 
+    public static void SetDebugNewStage()
+    {
         // 主線關卡 106 過關.
         GameData.Team.Player.NextMainStageID = 107;
         PlayerPrefs.SetInt(PlayerNextMainStageIDKey, 106);

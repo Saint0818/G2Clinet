@@ -8,11 +8,12 @@ using UnityEngine;
 public class UIMoveScrollView : MonoBehaviour
 {
     /// <summary>
-    /// 幾個 Frame, ScrollView 捲動完畢.
+    /// 捲動時間, 單位: 秒.
     /// </summary>
-    private const int MoveStep = 10;
+    private const float MoveTime = 0.3f;
 
     private UIScrollView mScrollView;
+    private Vector3 mScrollViewStartPos;
 
     private Action mOnMoveFinish;
     private Action mOnMoving;
@@ -24,37 +25,52 @@ public class UIMoveScrollView : MonoBehaviour
     /// <param name="targetPos"> ScrollView 要捲動到到的目的位置. </param>
     /// <param name="onMoveFinish"> 呼叫時機: 移動完成後. </param>
     /// <param name="onMoving"> 呼叫時機: ScrollView 移動 1 步. </param>
-    public void Move(UIScrollView scrollView, Vector3 targetPos, Action onMoveFinish = null, Action onMoving = null)
+    public void Move(UIScrollView scrollView, Vector3 targetPos, Action onMoveFinish = null, 
+                     Action onMoving = null)
     {
         mScrollView = scrollView;
         mOnMoveFinish = onMoveFinish;
         mOnMoving = onMoving;
 
+        mScrollViewStartPos = mScrollView.transform.localPosition;
+
         Vector3 moveAmount = targetPos - mScrollView.transform.localPosition;
 
-//        Debug.LogFormat("MoveToChapter, Chapter:{0}, TargetPos:{1}, MoveAmount:{2}", reviseChapter, targetPos, moveAmount);
+//        Debug.LogFormat("MoveToChapter, Chapter:{0}, TargetPos:{1}, MoveAmount:{2}", reviseChapter, targetPos, sumMoveAmount);
 
-        StartCoroutine(moveChapter(moveAmount));
+        StartCoroutine(moving(moveAmount));
     }
 
-    private IEnumerator moveChapter(Vector3 moveAmount)
+    private IEnumerator moving(Vector3 sumMoveAmount)
     {
-        var centerOnChild = mScrollView.GetComponent<UICenterOnChild>();
+        var centerOnChild = mScrollView.GetComponentInChildren<UICenterOnChild>();
         if(centerOnChild)
             centerOnChild.enabled = false;
 
-        Vector3 stepMoveAmount = moveAmount / MoveStep;
+        float elapsedTime = 0;
+//        Vector3 stepMoveAmount = sumMoveAmount / MoveStep;
 
-//        Debug.LogFormat("moveChapter, stepMoveAmount:{0}", stepMoveAmount);
+//        Debug.LogFormat("moving, stepMoveAmount:{0}", stepMoveAmount);
 
-        for(int i = 0; i < MoveStep; i++)
+        while(elapsedTime <= MoveTime)
         {
-            mScrollView.MoveRelative(stepMoveAmount);
+            yield return new WaitForEndOfFrame();
+
+            elapsedTime += Time.deltaTime;
+
+            float percent = elapsedTime / MoveTime;
+            if(percent > 1)
+                percent = 1;
+
+            Vector3 currentTargetPos = sumMoveAmount * percent + mScrollViewStartPos;
+            Vector3 currentMoveValue = currentTargetPos - mScrollView.transform.localPosition;
+
+//            Debug.LogFormat("CurTargetPos:{0}, CurMoveValue:{1}", currentTargetPos, currentMoveValue);
+
+            mScrollView.MoveRelative(currentMoveValue);
 
             if(mOnMoving != null)
                 mOnMoving();
-
-            yield return new WaitForEndOfFrame();
         }
 
         if(centerOnChild)
@@ -63,5 +79,4 @@ public class UIMoveScrollView : MonoBehaviour
         if(mOnMoveFinish != null)
             mOnMoveFinish();
     }
-
 }

@@ -226,7 +226,7 @@ public class UIEquipment : UIBase
 
     private void onUpgradeClick(int slotIndex)
     {
-        Debug.LogFormat("onUpgradeClick, slotIndex:{0}", slotIndex);
+//        Debug.LogFormat("onUpgradeClick, slotIndex:{0}", slotIndex);
 
         int valueItemKind = slotIndex + 11;
 

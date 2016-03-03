@@ -60,6 +60,9 @@ public class UIMainStage : UIBase
     {
         Show(true);
 
+//        UIMainStageTools.SetDebugNewChapter();
+//        UIMainStageTools.SetDebugNewStage();
+
         buildChapters();
 
         if(isNeedPlayUnlockAnimation())

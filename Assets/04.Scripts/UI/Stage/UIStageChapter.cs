@@ -104,24 +104,24 @@ public class UIStageChapter : MonoBehaviour
         return mStages[stageID];
     }
 
-    public void PlayUnlockAnimation(int stageID)
+    public void PlayUnlockAnimation(int unlockStageID)
     {
         mAnimator.SetTrigger("Unlock");
 
-        StartCoroutine(showAllStages(stageID, ShowAllStagesTime));
+        StartCoroutine(showAllStages(unlockStageID, ShowAllStagesTime));
 
         // 要經過比較久的時間, 才把 Lock GameObject 關掉. 因為整個流程是
         // UnLock 要繼續撥, 撥的途中, 會出現關卡, 並撥關卡開啟的 Animation.
         StartCoroutine(delayShow(10)); 
     }
 
-    private IEnumerator showAllStages(int stageID, float delayTime)
+    private IEnumerator showAllStages(int unlockStageID, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
 
         Open.SetActive(true);
 
-        mStages[stageID].PlayUnlockAnimation();
+        mStages[unlockStageID].PlayUnlockAnimation();
     }
 
     private IEnumerator delayShow(float delayTime)
