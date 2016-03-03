@@ -39,6 +39,11 @@ public class GEMainMenu: EditorWindow {
 	private static void OnAvatar() {
 		GEAvatar.GetWindow<GEAvatar>(true, "7.Avatar").SetStyle();
 	}
+
+	[MenuItem (menuRoot + "8.StageAvatarCheck", false, 7)]
+	private static void OnStageAvatar() {
+		GEStageAvatarCheck.GetWindow<GEStageAvatarCheck>(true, "8.StageAvatarCheck").SetStyle();
+	}
 	
 	[MenuItem (menuRoot + "9.GM Tool", false, 9)]
 	private static void OnGM() {
