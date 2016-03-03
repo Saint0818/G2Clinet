@@ -1700,8 +1700,10 @@ public class UIGame : UIBase
             for (int i = 0; i < uiTutorial.Length; i++)
                 uiTutorial[i].SetActive(false);
 
+            for (int i = 0; i < uiTutorial2.Length; i++)
+                uiTutorial2[i].SetActive(false);
+
             viewTopRight.SetActive(false);
-//			ClearLine();
         }
         else
         {
