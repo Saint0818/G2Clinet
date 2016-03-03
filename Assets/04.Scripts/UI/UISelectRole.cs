@@ -95,10 +95,10 @@ public class UISelectRole : UIBase {
 	}
 
     protected override void InitCom() {
-        GameObject obj = GameObject.Find("PlayerModel");
+        GameObject obj = GameObject.Find("TeammatesPool");
         if (!obj) {
             playerInfoModel = new GameObject();
-            playerInfoModel.name = "PlayerModel";
+            playerInfoModel.name = "TeammatesPool";
         } else
             playerInfoModel = obj;
 

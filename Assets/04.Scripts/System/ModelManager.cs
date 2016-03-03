@@ -27,6 +27,11 @@ public class ModelManager : KnightSingleton<ModelManager>
     private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
     private Dictionary<string, RuntimeAnimatorController> controllorCache = new Dictionary<string, RuntimeAnimatorController>();
 
+    protected override void Init() {
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(PlayerInfoModel);
+    }
+
     void Awake()
     {
         materialSource = Resources.Load("Character/Materials/Material_0") as Material;
@@ -61,7 +66,7 @@ public class ModelManager : KnightSingleton<ModelManager>
         materialSource = null;
 
         if (PlayerInfoModel)
-            Destroy(PlayerInfoModel);
+            DestroyImmediate(PlayerInfoModel);
 
         if (AnimatorCurveManager != null)
             Destroy(AnimatorCurveManager.gameObject);

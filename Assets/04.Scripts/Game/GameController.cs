@@ -204,6 +204,8 @@ public class GameController : KnightSingleton<GameController>
 			Destroy(PlayerList[i]);
 
 		PlayerList.Clear();
+
+        DestroyImmediate(ModelManager.Get.gameObject);
 	}
 
     [UsedImplicitly]
@@ -1969,6 +1971,9 @@ public class GameController : KnightSingleton<GameController>
 	//Call From UIGame
 	public bool DoShoot(bool isshoot)
     {
+        if (StageData.IsTutorial)
+            isshoot = true;
+
 		if (IsStart && CandoBtn) {
             if (Joysticker == BallOwner) {
 				if (isshoot)
