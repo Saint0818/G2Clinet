@@ -1,7 +1,7 @@
 //#define Debug
 #define Release
 //#define PUBGAME
-#define CANADA
+//#define CANADA
 
 using System;
 using System.Collections;
