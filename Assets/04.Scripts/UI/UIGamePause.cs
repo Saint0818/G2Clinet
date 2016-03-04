@@ -104,7 +104,7 @@ public class UIGamePause : UIBase {
 		spriteMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Btn").GetComponent<UISprite>();
 
 		SetBtnFun(UIName + "/Center/GameResult/AttributeBoard/NextInfo", OnNextInfo);
-		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
+//		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
 		SetBtnFun(UIName + "/Center/HomeBtn", OnHomeResult);
@@ -302,10 +302,30 @@ public class UIGamePause : UIBase {
 		Time.timeScale = 1;
 		uiStageHint.Hide();
 		UIShow(false);
-		if (isStage)
+//		if (isStage)
+//			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//		else
+//			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+		if(GameData.IsMainStage)
+		{
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenStageUI;
+		}
+		else if(GameData.IsInstance)
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenInstanceUI;
+		}
+		else if (GameData.IsPVP)
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenPVPUI;
+		}
 		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+		{
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenStageUI;
+		}
 	}
 	
 	public void OnResume() {

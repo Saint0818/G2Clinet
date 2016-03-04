@@ -77,7 +77,9 @@ public struct TItemRecharge {
 
 		
 		if(shop.ItemID > 0 && GameData.DItemData.ContainsKey(shop.ItemID)) {
-			ItemIcon.spriteName = itemKindIconName(shop.Kind, shop.Order);
+			ItemIcon.atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[shop.ItemID].Atlas)];
+			ItemIcon.spriteName = "Item_" + shop.ItemID.ToString();
+				
 			ItemNameLabel.text = GameData.DItemData[shop.ItemID].Name;
 			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
 			ValueIcon.spriteName = itemKindIconValueName(GameData.DItemData[shop.ItemID].Kind);
@@ -130,7 +132,7 @@ public struct TItemRecharge {
 		else
 			SaleLabel.gameObject.SetActive(false);
 		
-		ItemIcon.spriteName = itemKindIconName(-1, mall.Order);
+		ItemIcon.spriteName = itemKindIconName(mall.Order);
 		ItemNameLabel.text = mall.Name;
 		ValueLabel.text = mall.Diamond.ToString();
 	}
@@ -157,28 +159,10 @@ public struct TItemRecharge {
 		return TextConst.S(4200 + (sale - 1));
 	}
 
-	/*
-	0.鑽石
-	1.遊戲幣
-	2.聯盟幣
-	3.社群幣
-	*/
-	private string itemKindIconName (int kind, int pic) {
-		switch(kind) {
-		case -1:
-			if(pic > 0 && pic <= 2)
-				return "MallGem"+pic;
-			return "MallGem1";
-		case 0:
-			if(pic > 0 && pic <= 2)
-				return "MallCoin"+pic;
-			return "MallCoin1";
-		case 1:
-			if(pic > 0 && pic <= 2)
-				return "MallStamina"+pic;
-			return "MallStamina1";
-		}
-		return "";
+	private string itemKindIconName (int pic) {
+		if(pic > 0 && pic <= 2)
+			return "MallGem"+pic;
+		return "MallGem1";
 	}
 }
 

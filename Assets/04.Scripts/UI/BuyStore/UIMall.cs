@@ -20,6 +20,10 @@ public class UIMall : UIBase {
 
 	private TSkill[] newSkillCard;
 
+	void OnDestroy () {
+		mallBoxs.Clear();
+	}
+
 	public static bool Visible {
 		get {
 			if(instance)

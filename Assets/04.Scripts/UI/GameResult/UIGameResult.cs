@@ -327,6 +327,7 @@ public class UIGameResult : UIBase {
 				playerStats.ShowAddFriendBtn(i);
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
 			}
+			playerStats.CheckFriend();
 		}
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);

@@ -14,10 +14,10 @@ public class PlayerStats : MonoBehaviour {
 
 	void Awake () {
 		for(int i=0; i<AddFriendBtn.Length; i++) {
-			UIEventListener.Get(AddFriendBtn[i].gameObject).onClick = OnOpenAttrbute;
+			AddFriendBtn[i].gameObject.name = i.ToString();
+			UIEventListener.Get(AddFriendBtn[i].gameObject).onClick = OnMakeFriend;
 			AddFriendBtn[i].gameObject.SetActive(false);
 		}
-
 		UIEventListener.Get(ViewAttrBtn).onClick = OnOpenAttrbute;
 	}
 
@@ -33,9 +33,11 @@ public class PlayerStats : MonoBehaviour {
 
 	public void CheckFriend () {
 		for(int i=0; i<tempID.Length; i++) {
-			if(string.IsNullOrEmpty(tempID[i])) {
+			if(!string.IsNullOrEmpty(tempID[i])) {
+				AddFriendBtn[i].gameObject.SetActive(true);
 				if(GameData.Team.CheckFriend(tempID[i]))
-					AddFriendBtn[i].normalSprite = "IconDislike";
+//					AddFriendBtn[i].normalSprite = "IconDislike";
+					AddFriendBtn[i].gameObject.SetActive(false);
 				else 
 					AddFriendBtn[i].normalSprite = "IconLike";
 			} else {
@@ -68,9 +70,12 @@ public class PlayerStats : MonoBehaviour {
 		UIAttributeExplain.UIShow(true);
 	}
 
-	public void OnMakeFriend(int index) {
-		if(!string.IsNullOrEmpty(tempID[index])) {
-			SendHttp.Get.MakeFriend(CheckFriend, tempID[index]);
-		} 
+	public void OnMakeFriend(GameObject go) {
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			if(!string.IsNullOrEmpty(tempID[result])) {
+				SendHttp.Get.MakeFriend(CheckFriend, tempID[result]);
+			} 
+		}
 	}
 }
