@@ -258,6 +258,40 @@ namespace GameStruct
 			AddSuitItemEffect(GotAvatar, Player.Lv);
 		}
 
+		public bool IsMallExpired (TPickCost pickCost) {
+			if(pickCost.FinishTimeYear == 0 || pickCost.FinishTimeMonth == 0 || pickCost.FinishTimeDay == 0) {
+				return false;
+			}
+
+			DateTime finishTime = new DateTime(pickCost.FinishTimeYear, pickCost.FinishTimeMonth, pickCost.FinishTimeDay);
+			if(DateTime.UtcNow > finishTime)
+				return true;
+
+			return false;
+		}
+
+		public bool IsMallPickFree (int index, TPickCost pickCost){
+			if(pickCost.FreeTime == 0)
+				return false;
+
+			if(pickCost.FreeTime > 0 &&  DateTime.UtcNow > GameData.Team.LotteryFreeTime[index].ToUniversalTime())
+				return true;
+			else
+				return false;
+		}
+
+		public bool IsMallFree {
+			get {
+				if(GameData.DPickCost != null) 
+					for (int i=0; i<GameData.DPickCost.Length; i++) 
+						if(!IsMallExpired(GameData.DPickCost[i]))
+							if (IsMallPickFree(i, GameData.DPickCost[i]))
+								return true;
+
+				return false;
+			}
+		}
+
 		/// <summary>
 		/// Kind 0.Diamond 1.Money 2.PVPCoin 3.SocialCoin
 		/// </summary>

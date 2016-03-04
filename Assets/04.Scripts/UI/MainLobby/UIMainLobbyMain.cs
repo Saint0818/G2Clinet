@@ -53,7 +53,7 @@ public class UIMainLobbyMain : MonoBehaviour
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
-        MallNotice = false;
+//        MallNotice = false;
     }
 
     public int Level

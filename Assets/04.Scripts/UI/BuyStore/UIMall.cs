@@ -74,7 +74,7 @@ public class UIMall : UIBase {
 		UIShow(true);
 		mallBoxs = new List<TMallBox>();
 		for (int i=0; i<GameData.DPickCost.Length; i++) {
-			if(IsStart(GameData.DPickCost[i]) && !IsExpired(GameData.DPickCost[i])) {
+			if(IsStart(GameData.DPickCost[i]) && !GameData.Team.IsMallExpired(GameData.DPickCost[i])) {
 				TMallBox mallBox = new TMallBox();
 				GameObject prefab = Instantiate(Resources.Load("Prefab/UI/Items/" + GameData.DPickCost[i].Prefab)) as GameObject;
 				setParentInit(prefab, table);
@@ -129,17 +129,7 @@ public class UIMall : UIBase {
 		return false;
 	}
 
-	private bool IsExpired (TPickCost pickCost) {
-		if(pickCost.FinishTimeYear == 0 || pickCost.FinishTimeMonth == 0 || pickCost.FinishTimeDay == 0) {
-			return false;
-		}
 
-		DateTime finishTime = new DateTime(pickCost.FinishTimeYear, pickCost.FinishTimeMonth, pickCost.FinishTimeDay);
-		if(DateTime.UtcNow > finishTime)
-			return true;
-		
-		return false;
-	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {
 		if(spendType == EPickSpendType.ONE.GetHashCode())

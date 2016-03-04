@@ -113,7 +113,8 @@ public class UIMainLobby : UIBase
     }
 
     private void updateMallButton()
-    {
+	{
+		Main.MallNotice = GameData.Team.IsMallFree && (LimitTable.Ins.HasByOpenID(EOpenID.Mall) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mall)));
         Main.MallButton.CheckEnable();
     }
 

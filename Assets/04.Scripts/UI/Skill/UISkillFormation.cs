@@ -432,8 +432,12 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
-	public void RefreshTabsRedPoint () {
-		redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard || CheckCardnoInstall);
+	public void RefreshTabsRedPoint (bool isInit = false) {
+		if(isInit) 
+			redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || GameData.Team.IsExtraCard || CheckCardnoInstall);
+		else
+			redPoints[0].SetActive(isSurplusCost || GameData.Team.IsAnyCardReinEvo || isExtraCard || CheckCardnoInstall);
+		
 		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)));
 	}
 
@@ -602,7 +606,7 @@ public class UISkillFormation : UIBase {
 		resetScrollPostion ();
 		refreshActiveItems ();
 		refreshPassiveItems();
-		RefreshTabsRedPoint ();
+		RefreshTabsRedPoint (true);
 	}
 
 	private void refreshFrameCount () {
@@ -1260,13 +1264,47 @@ public class UISkillFormation : UIBase {
 	/// <value><c>true</c> if check cardno install; otherwise, <c>false</c>.</value>
 	public bool CheckCardnoInstall{
 		get {
-			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
 				if (!skillsRecord.Contains(uicard.Value.Card.name))
 					if(uicard.Value.Cost <= ExtraCostSpace)
 						return true;
-			}
+			
 			return false;
 		}
+	}
+	//取得已用空間數
+	private int getSkillCost {
+		get {
+			int cost = 0;
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
+				if (skillsRecord.Contains(uicard.Value.Card.name))
+					cost += uicard.Value.Cost;
+			
+			return cost;
+		}
+	}
+	//檢查空間是否有卡牌可以安裝
+	private bool isSurplusCost {
+		get {
+			int surplus = GameConst.Max_CostSpace - getSkillCost;
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
+				if (!skillsRecord.Contains(uicard.Value.Card.name))
+					if(uicard.Value.Cost <= surplus)	
+						return true;
+				
+			return false;
+		}
+	}
+	//檢查是否有未安裝的卡
+	private bool isExtraCard {
+		get {
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce))
+				foreach (KeyValuePair<string, TUICard> uicard in uiCards)
+					if (!skillsRecord.Contains(uicard.Value.Card.name))
+						return true;
+
+			return false;
+		}	
 	}
 
 	public bool CheckCardnoInstallIgnoreSelf (string ignoreName){
