@@ -7,7 +7,7 @@ using GameStruct;
 using Newtonsoft.Json;
 
 public class GEStageAvatarCheck : GEBase {
-	private int stageID;
+	private int stageID = 101;
 	private int tempStageIndex;
 	public TAvatar[] Avatars = new TAvatar[6];
 	private Dictionary<int, TStageData> DStageData = new Dictionary<int, TStageData>();
@@ -105,8 +105,11 @@ public class GEStageAvatarCheck : GEBase {
 		}
 		if (GUILayout.Button("Create", GUILayout.Width(200)))
 		{
-			tempStageIndex = recordIDs.IndexOf(stageID);
-			create (stageID);
+			if(recordIDs.Contains(stageID)) {
+				tempStageIndex = recordIDs.IndexOf(stageID);
+				create (stageID);
+			}else 
+				Debug.LogError("stageid wrong");	
 		}
 		EditorGUILayout.EndHorizontal();
 	}
