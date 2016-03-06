@@ -20,6 +20,21 @@ If you like EasyTouch, don't forget a write a review on the asset store :-)
 
 Look at Youtube channel for new EasyTouch 5 features : https://www.youtube.com/playlist?list=PL_xsQKiLfGUYpZt7uDepdadHo7GBGbozH
 
+EasyTouch Bundle 5.0.6
+***********************
+* EasyTouch => 5.0.4
+* EasyTouch Controls => 2.0.6
+
+EasyTouch Bundle 5.0.5
+***********************
+* EasyTouch => 5.0.3
+* EasyTouch Controls => 2.0.6
+
+EasyTouch Bundle 5.0.4
+***********************
+* EasyTouch => 5.0.2
+* EasyTouch Controls => 2.0.5
+
 EasyTouch Bundle 5.0.3
 ***********************
 EasyTouch => 5.0.2

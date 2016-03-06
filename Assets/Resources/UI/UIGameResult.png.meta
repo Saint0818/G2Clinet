@@ -53,6 +53,11 @@ TextureImporter:
     textureFormat: 12
     compressionQuality: 50
     allowsAlphaSplitting: 0
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: 13
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites: []
     outline: []

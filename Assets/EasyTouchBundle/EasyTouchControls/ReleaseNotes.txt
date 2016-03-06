@@ -7,6 +7,15 @@ http://www.thehedgehogteam.com/Forum/
 		the.hedgehog.team@gmail.com
 
 **********************************************
+EasyTouch Controls 2.0.6
+========================
+* Fixed bug: Changes in inspectors was not taken into account in some cases
+
+EasyTouch Controls 2.0.5
+========================
+* Fixed warning in Unity 5.3.X
+* Fixed bug : When control are set to use FixedUpdate 
+
 EasyTouch Controls 2.0.4
 ========================
 * fixed bug : A Null Reference Exception occured when one of thier option inertia,stabilization or clamp rotation was enabled,  and gameobject wasn't available for direct action.
