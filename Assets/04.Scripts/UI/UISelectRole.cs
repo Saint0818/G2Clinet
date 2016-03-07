@@ -343,14 +343,16 @@ public class UISelectRole : UIBase {
 
 	public void OnStart(){
         Visible = false;
-        if (GameData.IsPVP)
-            SendPVPStart();
+        if (GameData.TestStage || !GameStart.Get.ConnectToServer)
+            enterGame();
         else {
-            if (GameStart.Get.ConnectToServer)
+            if (GameData.IsPVP)
+                SendPVPStart();
+            else 
                 mainStageStart(GameData.StageID);
-            else
-                enterGame();
         }
+
+        GameData.TestStage = false;
 	}
 
     public void OnExit() {

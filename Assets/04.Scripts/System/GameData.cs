@@ -79,6 +79,7 @@ public static class GameData
     /// 記錄玩家目前打的關卡.
     /// </summary>
     public static int StageID = -1;
+    public static bool TestStage = false;
     public static bool IsMainStage
     {
         get
