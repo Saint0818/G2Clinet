@@ -69,7 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject DefPoint;
     private GameObject TopPoint;
     public GameObject CatchBallPoint;
-//    private GameObject FingerPoint;
+    private GameObject FingerPoint;
     private GameObject blockTrigger;
     private GameObject dashSmoke;
 	private GameObject reboundTrigger;
@@ -370,7 +370,7 @@ public class PlayerBehaviour : MonoBehaviour
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
-//        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
+        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
 //        blockTrigger.transform.localScale = new Vector3(blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
 		blockTrigger.transform.localScale = new Vector3(Attr.BlockDistance * 0.1f, Attr.BlockDistance * 0.2f, blockTrigger.transform.localScale.z);
 		reboundTrigger.transform.localScale = new Vector3(Attr.ReboundHandDistance * 0.1f, Attr.ReboundHandDistance * 0.2f, Attr.ReboundHandDistance * 0.1f);
@@ -466,15 +466,15 @@ public class PlayerBehaviour : MonoBehaviour
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
 
-//            Transform t = obj2.transform.Find("TriggerFinger");
-//            if (t)
-//            {
-//                FingerPoint = t.gameObject;
-//                t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
-//                t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
-//                t.localPosition = Vector3.zero;
-//                t.localScale = Vector3.one;
-//            }
+            Transform t = obj2.transform.Find("TriggerFinger");
+            if (t)
+            {
+                FingerPoint = t.gameObject;
+                t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
+                t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
+                t.localPosition = Vector3.zero;
+                t.localScale = Vector3.one;
+            }
         }
         
         if (defPoint != null)
