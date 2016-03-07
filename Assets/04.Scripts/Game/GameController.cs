@@ -604,13 +604,7 @@ public class GameController : KnightSingleton<GameController>
                 SetPlayerAI(false);
                 break;
             case EGameTest.Edit:
-                checkPlayerID();
-                num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
-                for (int i = 0; i < num; i++)
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
-
-                PlayerList[0].IsJumpBallPlayer = true;
-                SetPlayerAI(false);
+                createEditTeam();
                 break;
             case EGameTest.CrossOver:
                 Self = new TPlayer(0);
@@ -706,6 +700,30 @@ public class GameController : KnightSingleton<GameController>
         playerSelectMe.SetActive(false);
         preLoadSkillEffect();
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
+    }
+
+    private void createEditTeam()
+    {
+        var playerC = new TPlayer(0) {ID = 3};
+        playerC.SetID(3);
+        PlayerList.Add(ModelManager.Get.CreateGamePlayer(
+            0, ETeamKind.Self, Vector3.zero, playerC));
+
+        var playerF = new TPlayer(0) {ID = 2};
+        playerF.SetID(2);
+        PlayerList.Add(ModelManager.Get.CreateGamePlayer(
+            1, ETeamKind.Self, new Vector3(-5, 0, -2), playerF));
+
+        var playerG = new TPlayer(0) {ID = 1};
+        playerG.SetID(1);
+        PlayerList.Add(ModelManager.Get.CreateGamePlayer(
+            2, ETeamKind.Self, new Vector3(5, 0, -2), playerG));
+
+        PlayerList[0].IsJumpBallPlayer = true;
+        SetPlayerAI(false);
+
+        PlayerList[0].IsJumpBallPlayer = true;
+        SetPlayerAI(false);
     }
 
     private void AddValueItemAttributes()
