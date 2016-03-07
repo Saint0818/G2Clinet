@@ -66,9 +66,9 @@ namespace AI
 
             for(int i = 0; i < mPlayers.Count; i++)
             {
-                mBuilder.AppendFormat("{0}, State:{1}: Ani:{2}, MoveTarget:{3}", 
-                    mPlayers[i].name, mPlayers[i].GetCurrentStateName(), mPlayers[i].GetCurrentAnimationName(),
-                    mPlayers[i].GetCurrentMoveTarget());
+                mBuilder.AppendFormat("{0}, AI Enable:{1}, State:{2}: Ani:{3}, MoveTarget:{4}", 
+                    mPlayers[i].name, mPlayers[i].enabled, mPlayers[i].GetCurrentStateName(), 
+                    mPlayers[i].GetCurrentAnimationName(), mPlayers[i].GetCurrentMoveTarget());
                 mBuilder.AppendLine();
             }
 

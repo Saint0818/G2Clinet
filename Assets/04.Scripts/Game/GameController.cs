@@ -1506,7 +1506,7 @@ public class GameController : KnightSingleton<GameController>
                 mInboundsBallOnlyOnce = true;
                 break;
 			case EGameSituation.End:
-				SetPlayerAI(false);
+//				SetPlayerAI(false);
 				IsFinish = true;
 				UIGame.Get.GameOver();
                 if (GameData.IsPVP) {
@@ -3733,7 +3733,8 @@ public class GameController : KnightSingleton<GameController>
 
 	IEnumerator playFinish() {
 		yield return new WaitForSeconds(1);
-		setEndShowScene ();
+	    IsStart = false;
+		setEndShowScene();
 		if(GameStart.Get.IsAutoReplay){
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);

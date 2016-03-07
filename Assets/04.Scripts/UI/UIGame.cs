@@ -1540,7 +1540,7 @@ public class UIGame : UIBase
 //			showGameJoystick(false);
                 gameJoystick.gameObject.SetActive(false);
                 showViewForceBar(false);
-                GameController.Get.IsStart = false;
+//                GameController.Get.IsStart = false;
 
                 break;
             case EUISituation.Reset:

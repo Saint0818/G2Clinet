@@ -552,10 +552,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameController.Get.IsShowSituation || !GameController.Get.IsStart)
-        {
+        if(GameController.Get.IsShowSituation || !GameController.Get.IsStart)
             return;
-        }
 
         timeScale = TimerMgr.Get.CrtTime;
 
@@ -1265,7 +1263,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void moveTo(TMoveData data, bool first = false)
     {
-        if ((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && GameController.Get.Situation != EGameSituation.End && !IsTimePause)
+        if((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && !IsTimePause)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
             float temp = Vector2.Distance(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z), MoveTarget);
