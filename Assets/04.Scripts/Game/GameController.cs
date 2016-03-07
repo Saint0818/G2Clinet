@@ -2148,7 +2148,6 @@ public class GameController : KnightSingleton<GameController>
 			
 			PlusScore(player.Team.GetHashCode(), true, false);
 			ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
-			UIInGameMission.Get.CheckMisstion();
 
 			return true;
 		} else
@@ -2466,7 +2465,6 @@ public class GameController : KnightSingleton<GameController>
 						ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 
 						player.GameRecord.Steal++;
-						CheckConditionText();
 						IsGameFinish ();
 						return true;
 					}
@@ -3935,6 +3933,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsWinner {get {return MissionChecker.Get.IsWinner(GameTime);}}
 
 	public bool IsGameFinish (){
+		CheckConditionText ();
 		UIInGameMission.Get.CheckMisstion();
 		bool flag = false;
 
@@ -4410,18 +4409,22 @@ public class GameController : KnightSingleton<GameController>
 		switch(type) {
 		case EShowWordType.Block:
 			EffectManager.Get.PlayEffect("ShowWord_Block", Vector3.zero, parent, null, 1, true);
+			IsGameFinish();
 			break;
 		case EShowWordType.Dunk:
 			EffectManager.Get.PlayEffect("ShowWord_Dunk", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1, true);
+			IsGameFinish();
 			break;
 		case EShowWordType.NiceShot:
 			EffectManager.Get.PlayEffect("ShowWord_NiceShot", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1, true);
 			break;
 		case EShowWordType.Punch:
 			EffectManager.Get.PlayEffect("ShowWord_Punch", Vector3.zero, parent, null, 1, true);
+			IsGameFinish();
 			break;
 		case EShowWordType.Steal:
 			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
+			IsGameFinish();
 			break;
 		case EShowWordType.GetTwo:
 			EffectManager.Get.PlayEffect("GetScoreTwo", CourtMgr.Get.ShootPoint[team].transform.position, null, null, 1.5f);
@@ -4503,7 +4506,6 @@ public class GameController : KnightSingleton<GameController>
 					pusher.IsPushCalculate = false;
 
 					IsGameFinish();
-					CheckConditionText();
 				}
 
 			}

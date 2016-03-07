@@ -2732,7 +2732,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
                     GameController.Get.Situation == EGameSituation.NPCAttack))
                 {
-                    GameController.Get.CheckConditionText();
                     GameController.Get.IsGameFinish();
                     for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
                     {
@@ -2753,7 +2752,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case "SetBallEvent":
                 GameController.Get.SetBall(this);
-                GameController.Get.CheckConditionText();
                 GameController.Get.IsGameFinish();
             
                 if (GameController.Get.Catcher != null)
@@ -2797,7 +2795,6 @@ public class PlayerBehaviour : MonoBehaviour
                             GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
                     }
                     GameController.Get.BallState = EBallState.None;
-                    GameController.Get.CheckConditionText();
                     GameController.Get.IsGameFinish();
                 }
 //                }

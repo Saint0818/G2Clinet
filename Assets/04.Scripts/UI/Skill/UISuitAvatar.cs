@@ -191,7 +191,6 @@ public class UISuitAvatar : UIBase {
 
 	private GameObject itemAward;
 
-//	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
     private Dictionary<int,TItemSuitAvatarGroup>  tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 
 	private UIScrollView leftScorllView;
@@ -259,13 +258,10 @@ public class UISuitAvatar : UIBase {
 
 	private void initScrollView () {
 		int index = 0;
-//		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
-		//tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
 			itemsuitItem.UpdateView(item.Key, index);
-//			tItemSuitAvatarGroup[item.Key - 1] = itemsuitItem;
 			tItemSuitAvatarGroup.Add(item.Key, itemsuitItem);
 			index ++;
 		}
