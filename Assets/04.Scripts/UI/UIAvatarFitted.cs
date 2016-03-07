@@ -519,7 +519,10 @@ public class UIAvatarFitted : UIBase
     }
 
 	public void DoAvatarCollection () {
-		UISuitAvatar.Get.ShowView();
+		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+			UISuitAvatar.Get.ShowView();
+		} else 
+			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 	}
 
     public void DoAvatarTab()

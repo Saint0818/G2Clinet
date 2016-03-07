@@ -161,8 +161,12 @@ public class UISkillInfo : UIBase {
 	public void OnSuitItem (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			UISuitAvatar.Get.ShowView(result);
-			Visible = false;
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+				UISuitAvatar.Get.ShowView(result);
+				Visible = false;
+			} else 
+				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+			
 		}
 	}
 	

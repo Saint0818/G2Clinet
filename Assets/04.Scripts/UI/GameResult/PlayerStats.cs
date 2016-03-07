@@ -10,8 +10,10 @@ public class PlayerStats : MonoBehaviour {
 	public UISprite[] PositionIcon = new UISprite[6];
 	public string[] tempID = new string[6];
 
+	public UILabel[] FollowLabel = new UILabel[6];
 	public GameObject ViewAttrBtn;
 
+	private int result = 0;
 	void Awake () {
 		for(int i=0; i<AddFriendBtn.Length; i++) {
 			AddFriendBtn[i].gameObject.name = i.ToString();
@@ -19,6 +21,9 @@ public class PlayerStats : MonoBehaviour {
 			AddFriendBtn[i].gameObject.SetActive(false);
 		}
 		UIEventListener.Get(ViewAttrBtn).onClick = OnOpenAttrbute;
+
+		for(int i=0; i<FollowLabel.Length; i++)
+			FollowLabel[i].text = TextConst.S(5023);
 	}
 
 	public void SetID (int index, string id) {
@@ -34,16 +39,22 @@ public class PlayerStats : MonoBehaviour {
 	public void CheckFriend () {
 		for(int i=0; i<tempID.Length; i++) {
 			if(!string.IsNullOrEmpty(tempID[i])) {
-				AddFriendBtn[i].gameObject.SetActive(true);
-				if(GameData.Team.CheckFriend(tempID[i]))
-//					AddFriendBtn[i].normalSprite = "IconDislike";
-					AddFriendBtn[i].gameObject.SetActive(false);
-				else 
-					AddFriendBtn[i].normalSprite = "IconLike";
+				if(GameData.Team.CheckFriend(tempID[i])){
+					if(GameData.Team.Friends[tempID[i]].Kind == EFriendKind.Advice.GetHashCode()){
+						AddFriendBtn[i].gameObject.SetActive(true);
+						AddFriendBtn[i].normalSprite = "IconLike";
+					}else 
+						AddFriendBtn[i].gameObject.SetActive(false);
+				}
 			} else {
 				AddFriendBtn[i].gameObject.SetActive(false);
 			}
 		}
+	}
+
+	public void AddFriendSuccess () {
+		UIHint.Get.ShowHint(string.Format(TextConst.S(5027), PlayerName[result].text), Color.red, true);
+		CheckFriend ();
 	}
 
 	public void HideAddFriendBtn (int index) {
@@ -71,10 +82,10 @@ public class PlayerStats : MonoBehaviour {
 	}
 
 	public void OnMakeFriend(GameObject go) {
-		int result = 0;
+		result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(!string.IsNullOrEmpty(tempID[result])) {
-				SendHttp.Get.MakeFriend(CheckFriend, tempID[result]);
+				SendHttp.Get.MakeFriend(AddFriendSuccess, tempID[result]);
 			} 
 		}
 	}
