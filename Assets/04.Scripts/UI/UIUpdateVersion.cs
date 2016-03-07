@@ -23,8 +23,7 @@ public class UIUpdateVersion : UIBase {
 				instance.Show(isShow);
 		} else
         if(isShow) {
-            GameData.Setting.Language = (GameEnum.ELanguage)PlayerPrefs.GetInt(GameEnum.ESave.UserLanguage.ToString());
-			Get.Show(isShow);
+            Get.Show(isShow);
         }
 	}
 	

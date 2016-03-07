@@ -192,7 +192,7 @@ public class UISuitAvatar : UIBase {
 	private GameObject itemAward;
 
 //	private TItemSuitAvatarGroup[] tItemSuitAvatarGroup;
-	private Dictionary<int,TItemSuitAvatarGroup>  tItemSuitAvatarGroup ;
+    private Dictionary<int,TItemSuitAvatarGroup>  tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 
 	private UIScrollView leftScorllView;
 	private TMiddleItemView middleItemView;
@@ -260,7 +260,7 @@ public class UISuitAvatar : UIBase {
 	private void initScrollView () {
 		int index = 0;
 //		tItemSuitAvatarGroup = new TItemSuitAvatarGroup[GameData.DSuitItem.Count];
-		tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
+		//tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 		foreach(KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 			TItemSuitAvatarGroup itemsuitItem = new TItemSuitAvatarGroup();
 			itemsuitItem.Init(Instantiate(itemAward), leftScorllView.gameObject, OnClickSuit);
@@ -296,6 +296,7 @@ public class UISuitAvatar : UIBase {
 	}
 
 	void OnDestroy() {
-		tItemSuitAvatarGroup.Clear();
+        if (tItemSuitAvatarGroup != null)
+		    tItemSuitAvatarGroup.Clear();
 	}
 }

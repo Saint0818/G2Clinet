@@ -9,6 +9,7 @@ public struct TMissionFinishResult {
     public int MissionID;
     public int Money;
     public int Diamond;
+    public int Power;
     public int PVPCoin;
     public int SocialCoin;
     public int Exp;
@@ -447,6 +448,9 @@ public class UIMission : UIBase {
 
         if (GameData.DItemData.ContainsKey(result.ItemID))
             UIGetItem.Get.AddItem(result.ItemID);
+
+        if (GameData.Team.Power < result.Power)
+            GameData.Team.Power = result.Power;
 
         int diamond = 0;
         if (GameData.Team.Diamond < result.Diamond) {

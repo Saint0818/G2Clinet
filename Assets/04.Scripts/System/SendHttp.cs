@@ -218,8 +218,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else {
 			focusCount++;
 			if (focusCount > 1 && CheckNetwork(false)) {
-                if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible && 
-                    !UIPubgame.Visible && !UIMessage.Visible) {
+                if (needResendLogin()) {
 					checkVersion ();
 				} else
 				if (GameData.Team.Player.Lv > 0) {
@@ -315,6 +314,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		UIWaitingHttp.Get.ShowResend(TextConst.S(506));
 	}
 
+    private bool needResendLogin() {
+        if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible && 
+            !UIPubgame.Visible && !UIMessage.Visible)
+            return true;
+        else
+            return false;
+    }
+
 	private bool checkResponse(WWW www){
 		if (string.IsNullOrEmpty(www.error)) {
 			if (www.text.Contains("{err:")) {
@@ -324,7 +331,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				Debug.Log(e);
                 #endif
 				
-				if (UILoading.Visible) {
+                if (needResendLogin()) {
 					if (!versionChecked)
 						checkVersion();
 					else
