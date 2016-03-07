@@ -524,7 +524,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void speedBarColor()
     {
-        if (this == GameController.Get.Joysticker)
+        if (SpeedUpView != null && this == GameController.Get.Joysticker)
         {
             SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
             SpeedUpView.color = new Color32(255, (byte)(200 * SpeedUpView.fillAmount), (byte)(15 * SpeedUpView.fillAmount), 255);

@@ -17,6 +17,12 @@ public class GameJoystick : ETCJoystick {
     }
 
     public void AttachPlayer(PlayerBehaviour player) {
+        onMoveStart.RemoveAllListeners();
+        onMove.RemoveAllListeners();
+        onMoveEnd.RemoveAllListeners();
+        onTouchUp.RemoveAllListeners();
+        onTouchStart.RemoveAllListeners();
+
         onMoveStart.AddListener(player.OnJoystickStart);
         onMove.AddListener(player.OnJoystickMove);
         onMoveEnd.AddListener(player.OnJoystickMoveEnd);

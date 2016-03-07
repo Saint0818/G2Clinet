@@ -288,6 +288,7 @@ public class GameController : KnightSingleton<GameController>
 				WWWForm form = new WWWForm();
 				form.AddField("StageID", StageData.ID);
 				form.AddField("Cause", 0);
+                form.AddField("Company", GameData.Company);
 				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
 			}
 		} else {
@@ -3734,8 +3735,12 @@ public class GameController : KnightSingleton<GameController>
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
 			else {
-				form.AddField("Cause", 1);
-				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
+                if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
+    				form.AddField("Cause", 1);
+                    form.AddField("Company", GameData.Company);
+                    form.AddField("GameTime", GameRecord.GamePlayTime.ToString());
+    				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
+                }
 
 				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
@@ -4232,7 +4237,8 @@ public class GameController : KnightSingleton<GameController>
     {
         if (PlayerList.Count > index)
         {
-            Joysticker = PlayerList [index];        
+            Joysticker = PlayerList [index];
+            UIGame.Get.SetJoystick(Joysticker);
         }
     }
 
