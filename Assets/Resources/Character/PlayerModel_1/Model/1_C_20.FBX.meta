@@ -43,6 +43,9 @@ ModelImporter:
     100070: Bip01 Spine1
     100072: Bone_Hair_1
     100074: Bone_Hair_2
+    100076: DummyBack
+    100078: DummyBall
+    100080: DummyHead
     400000: 1_C_20
     400002: //RootNode
     400004: Bip01
@@ -81,6 +84,9 @@ ModelImporter:
     400070: Bip01 Spine1
     400072: Bone_Hair_1
     400074: Bone_Hair_2
+    400076: DummyBack
+    400078: DummyBall
+    400080: DummyHead
     4300000: 1_C_20
     9500000: //RootNode
     13700000: 1_C_20
