@@ -4,6 +4,7 @@ using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 using DG.Tweening;
+using GameEnum;
 
 public enum EBildsType
 {

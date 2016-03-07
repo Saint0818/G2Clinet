@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using GameEnum;
 
 public enum ETimerKind
 {

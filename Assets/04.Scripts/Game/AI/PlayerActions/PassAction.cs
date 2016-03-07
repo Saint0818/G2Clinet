@@ -1,3 +1,4 @@
+using GameEnum;
 
 namespace AI
 {

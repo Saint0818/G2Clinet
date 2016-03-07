@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using GameEnum;
+
+/// <summary>
+/// JumpBall 跟 Rebound共用
+/// </summary>
 
 public class ReboundCurveCounter
 {
@@ -60,6 +65,7 @@ public class ReboundCurveCounter
             curveTime += Time.deltaTime * timeScale;
             if (Curve.isSkill)
             {
+				//轉向
                 self.transform.LookAt(new Vector3(skillMoveTarget.x, self.transform.position.y, skillMoveTarget.z));
                 if (curveTime < 0.7f)
                 {
@@ -88,7 +94,6 @@ public class ReboundCurveCounter
             }
             else
             {
-//                    if (curveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
                 if (curveTime < 0.7f && reboundMove != Vector3.zero)
                 {
                     self.transform.position = new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale, 

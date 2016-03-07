@@ -1,4 +1,5 @@
-﻿
+﻿using GameEnum;
+
 namespace AI
 {
     public class EndState : State<EGameSituation, EGameMsg>

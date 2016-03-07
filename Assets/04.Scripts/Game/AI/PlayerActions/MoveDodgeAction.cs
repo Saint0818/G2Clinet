@@ -1,3 +1,4 @@
+using GameEnum;
 namespace AI
 {
     public class MoveDodgeAction : PlayerAIAction

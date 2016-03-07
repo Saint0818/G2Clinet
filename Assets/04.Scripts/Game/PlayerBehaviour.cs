@@ -134,7 +134,6 @@ public class PlayerBehaviour : MonoBehaviour
     public bool NeedShooting = false;
         
     //Block
-    private bool isCanBlock = false;
     private bool isBlock = false;
     private Vector3 skillMoveTarget;
     private Vector3 skillFaceTarget;
@@ -552,7 +551,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(GameController.Get.IsShowSituation || !GameController.Get.IsStart)
+        if (GameController.Get.IsShowSituation || !GameController.Get.IsStart)
             return;
 
         timeScale = TimerMgr.Get.CrtTime;
@@ -752,6 +751,7 @@ public class PlayerBehaviour : MonoBehaviour
                 GameStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
+//              aiTime = Time.time + GameData.Setting.AIChangeTime;
                 mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv]);
                 StartCoroutine(GetCurrentClipLength());
 
@@ -760,6 +760,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
+//              aiTime = 0;
                 mManually.Clear();
                 if (AIActiveHint)
                     AIActiveHint.SetActive(true);
@@ -1399,7 +1400,6 @@ public class PlayerBehaviour : MonoBehaviour
         angerValue = 0;
         AnimatorControl.Reset();
         isBlock = false;
-        isCanBlock = false;
         isShootJumpActive = false;
         isSkillShow = false;
         ResetFlag();
@@ -2522,7 +2522,7 @@ public class PlayerBehaviour : MonoBehaviour
         InitFlag();
         AniState(EPlayerState.Idle); 
     }
-
+				
     private void CatchEnd()
     {
         if (GameController.Get.IsShowSituation)

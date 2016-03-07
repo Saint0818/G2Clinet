@@ -1,5 +1,6 @@
 using G2;
 using UnityEngine;
+using GameEnum;
 
 public enum EUISituation
 {

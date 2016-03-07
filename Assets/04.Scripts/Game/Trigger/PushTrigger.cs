@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameEnum;
 
 public class PushTrigger : MonoBehaviour {
 	public int Direction = 0;

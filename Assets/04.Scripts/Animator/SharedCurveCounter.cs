@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameEnum;
 
+/// <summary>
+/// 只做Ｘ跟Ｚ軸位移
+/// </summary>
 public class SharedCurveCounter
 {
 	//共用Curve : push, pick, fall
@@ -60,6 +64,7 @@ public class SharedCurveCounter
         curveTime = 0;
         isplaying = true;
 
+		//用來Debug 如果有忘記加curve Perfab的話
         if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
@@ -75,15 +80,16 @@ public class SharedCurveCounter
 
             if (curveTime >= Curve.StartTime && curveTime <= Curve.EndTime)
             {
+				//向前移動或向後移動一段距離 : StartTime - EndTime
                 switch (Curve.Dir)
                 {
                     case AniCurveDirection.Forward:
                         self.transform.position = new Vector3(self.transform.position.x + (self.transform.forward.x * Curve.DirVaule * timeScale), 0, 
-                            self.transform.position.z + (self.transform.forward.z * Curve.DirVaule) * timeScale);
+                        self.transform.position.z + (self.transform.forward.z * Curve.DirVaule) * timeScale);
                         break;
                     case AniCurveDirection.Back:
                         self.transform.position = new Vector3(self.transform.position.x + (self.transform.forward.x * -Curve.DirVaule * timeScale), 0, 
-                            self.transform.position.z + (self.transform.forward.z * -Curve.DirVaule) * timeScale);
+                        self.transform.position.z + (self.transform.forward.z * -Curve.DirVaule) * timeScale);
                         break;
                 }
             }

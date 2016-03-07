@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using GameEnum;
 
 public class BlockTrigger : MonoBehaviour {
 	public int Direction = 0;

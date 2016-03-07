@@ -2,6 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 using JetBrains.Annotations;
+using GameEnum;
 
 public class BallTrigger : MonoBehaviour
 {

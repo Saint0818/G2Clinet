@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GameEnum;
-
-
 public delegate void AnimationDelegate();
 public delegate void TimeScaleDelegate(AnimationEvent aniEvent);
 public delegate void ZoomDelegate(float speed);
 public delegate void SkillDelegate(AnimationEvent aniEvent);
-//TimeScale
 
 /// <summary>
-/// 用法：
+/// 用法：主要用來控制Animator跟Curve的播放
 /// 1.addComponent<AnimatorBehavior>到一個角色身上 
 /// 2.先Init(Animator)
 /// 3.再塞各自動作委託(可省略)
@@ -153,6 +150,15 @@ public class AnimatorBehavior : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Animator播動作的方法
+	/// </summary>
+	/// <param name="state">State.</param>
+	/// <param name="stateNo">State no.</param>
+	/// <param name="team">Team.</param>
+	/// <param name="isDunkBlock">If set to <c>true</c> is dunk block.</param>
+	/// <param name="skillMoveTarget">Skill move target.</param>
+	/// <param name="reboundMove">Rebound move.</param>
     private void addTrigger(EAnimatorState state, int stateNo, int team, bool isDunkBlock = false,
                             Vector3 skillMoveTarget = default(Vector3), Vector3 reboundMove = default(Vector3))
     {
@@ -426,10 +432,6 @@ public class AnimatorBehavior : MonoBehaviour
                 if (DoubleClickMomentDel != null)
                     DoubleClickMomentDel();
                 break;
-            case "BuffEnd":
-                if (BuffEndDel != null)
-                    BuffEndDel();
-                break;
             case "BlockCatchMomentStart":
                 if (BlockCatchMomentStartDel != null)
                     BlockCatchMomentStartDel();
@@ -450,30 +452,14 @@ public class AnimatorBehavior : MonoBehaviour
                 if (ShootingDel != null)
                     ShootingDel();
                 break;
-            case "MoveDodgeEnd":
-                if (MoveDodgeEndDel != null)
-                    MoveDodgeEndDel();
-                break;
             case "Passing":
                 if (PassingDel != null)
                     PassingDel();
                 break;
-            case "PassEnd":
-                if (PassEndDel != null)
-                    PassEndDel();
-                break;
-            case "ShowEnd":
-                if (ShowEndDel != null)
-                    ShowEndDel();
-                break;
             case "PickUp":
                 if (PickUpDel != null)
                     PickUpDel();
-                break;
-            case "PickEnd":
-                if (PickEndDel != null)
-                    PickEndDel();
-                break;
+                break;        
             case "Stealing":
                 if (StealingDel != null)
                     StealingDel();
@@ -522,14 +508,6 @@ public class AnimatorBehavior : MonoBehaviour
                 if (DunkFallBallDel != null)
                     DunkFallBallDel();
                 break;
-            case "ElbowEnd":
-                if (ElbowEndDel != null)
-                    ElbowEndDel();
-                break;
-            case "FallEnd":
-                if (FallEndDel != null)
-                    FallEndDel();
-                break;
             case "FakeShootEnd":
                 if (FakeShootEndDel != null)
                     FakeShootEndDel();
@@ -542,18 +520,48 @@ public class AnimatorBehavior : MonoBehaviour
                 if (TipInEndDel != null)
                     TipInEndDel();
                 break;
-            case "AnimationEnd":
-                if (AnimationEndDel != null)
-                    AnimationEndDel();
-                break;
             case "Show": 
                 if (ShowDel != null)
                     ShowDel();
+                break;
+            #region 以下動作結束後事件
+			case "AnimationEnd":
+					if (AnimationEndDel != null)
+							AnimationEndDel();
+					break;
+            case "BuffEnd":
+                if (BuffEndDel != null)
+                    BuffEndDel();
                 break;
             case "CatchEnd":
                 if (CatchDel != null)
                     CatchDel();
                 break;
+            case "FallEnd":
+                if (FallEndDel != null)
+                    FallEndDel();
+                break;
+            case "ElbowEnd":
+                if (ElbowEndDel != null)
+                    ElbowEndDel();
+                break;
+            case "ShowEnd":
+                if (ShowEndDel != null)
+                    ShowEndDel();
+                break;
+            case "PassEnd":
+                if (PassEndDel != null)
+                    PassEndDel();
+                    break;
+            case "PickEnd":
+                if (PickEndDel != null)
+                    PickEndDel();
+                break;
+            case "MoveDodgeEnd":
+                if (MoveDodgeEndDel != null)
+                    MoveDodgeEndDel();
+                break;
+          #endregion 
         }
     }
 

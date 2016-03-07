@@ -1,5 +1,6 @@
 ﻿
 using G2;
+using GameEnum;
 
 namespace AI
 {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameEnum;
 
 public class ShowStateBehaviour : StateMachineBehaviour
 {
@@ -20,7 +21,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
                     ani.AnimationEvent("FallEnd");
                     break;
                 case EAnimatorState.Show:
-                    ani.AnimationEvent("Show");
+                    ani.AnimationEvent("ShowEnd");
                     break;
                 case EAnimatorState.Pass:
                     ani.AnimationEvent("PassEnd");
@@ -45,7 +46,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
                     ani.AnimationEvent("PickEnd");
                     break;
                 case EAnimatorState.Buff:
-                    ani.AnimationEvent("PickEnd");
+                    ani.AnimationEvent("BuffEnd");
                     ani.SkillEvent(skillEvent);
                     break;
                 case EAnimatorState.MoveDodge:
