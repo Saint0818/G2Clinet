@@ -49,7 +49,7 @@ public class BallTrigger : MonoBehaviour
             dir = 1;
         else if (other.gameObject.name == "TriggerBR")
             dir = 3;
-        else if (other.gameObject.name.Contains("TriggerFinger"))
+		else if (other.gameObject.name.Contains("TriggerFinger") || other.gameObject.name.Contains("TriggerRebound"))
         {
             // 球和 Player 接觸.
             dir = 5;

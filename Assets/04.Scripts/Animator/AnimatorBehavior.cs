@@ -59,6 +59,8 @@ public class AnimatorBehavior : MonoBehaviour
     public AnimationDelegate ElbowCalculateEndDel = null;
     public AnimationDelegate BlockCalculateStartDel = null;
     public AnimationDelegate BlockCalculateEndDel = null;
+	public AnimationDelegate ReboundCalculateStartDel = null;
+	public AnimationDelegate ReboundCalculateEndDel = null;
     public AnimationDelegate CloneMeshDel = null;
     public AnimationDelegate DunkBasketStartDel = null;
     public AnimationDelegate OnlyScoreDel = null;

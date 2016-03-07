@@ -69,9 +69,10 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject DefPoint;
     private GameObject TopPoint;
     public GameObject CatchBallPoint;
-    private GameObject FingerPoint;
+//    private GameObject FingerPoint;
     private GameObject blockTrigger;
     private GameObject dashSmoke;
+	private GameObject reboundTrigger;
     private BlockCatchTrigger blockCatchTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DoubleClick = null;
@@ -258,8 +259,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (defPointCopy)
             Destroy(defPointCopy);
 
-        if (blockTrigger && blockTrigger.gameObject)
-            Destroy(blockTrigger.gameObject);
+        if (blockTrigger)
+            Destroy(blockTrigger);
+
+		if (reboundTrigger)
+			Destroy(reboundTrigger);		
         
         if (AnimatorControl)
             Destroy(AnimatorControl);
@@ -367,9 +371,9 @@ public class PlayerBehaviour : MonoBehaviour
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
-        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
+//        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
         blockTrigger.transform.localScale = new Vector3(blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
-      
+		reboundTrigger.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
     }
 
     private void initSkill()
@@ -440,6 +444,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
             blockTrigger = obj2.transform.Find("Block").gameObject;
+			reboundTrigger = obj2.transform.Find("TriggerRebound").gameObject;
             ShowWord = obj2.transform.Find("ShowWord").gameObject;
             
             obj2.name = "BodyTrigger";
@@ -461,15 +466,15 @@ public class PlayerBehaviour : MonoBehaviour
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
 
-            Transform t = obj2.transform.Find("TriggerFinger");
-            if (t)
-            {
-                FingerPoint = t.gameObject;
-                t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
-                t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
-                t.localPosition = Vector3.zero;
-                t.localScale = Vector3.one;
-            }
+//            Transform t = obj2.transform.Find("TriggerFinger");
+//            if (t)
+//            {
+//                FingerPoint = t.gameObject;
+//                t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
+//                t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
+//                t.localPosition = Vector3.zero;
+//                t.localScale = Vector3.one;
+//            }
         }
         
         if (defPoint != null)
@@ -2182,6 +2187,8 @@ public class PlayerBehaviour : MonoBehaviour
         AnimatorControl.ElbowCalculateEndDel = ElbowCalculateEnd;
         AnimatorControl.BlockCalculateStartDel = BlockCalculateStart;
         AnimatorControl.BlockCalculateEndDel = BlockCalculateEnd;
+		AnimatorControl.ReboundCalculateStartDel = ReboundCalculateStart;
+		AnimatorControl.ReboundCalculateEndDel = ReboundCalculateEnd;			
         AnimatorControl.CloneMeshDel = CloneMesh;
         AnimatorControl.DunkBasketStartDel = DunkBasketStart;
         AnimatorControl.OnlyScoreDel = OnlyScore;
@@ -2454,6 +2461,16 @@ public class PlayerBehaviour : MonoBehaviour
         blockTrigger.SetActive(false); 
     }
 
+	private void ReboundCalculateStart()
+	{
+		reboundTrigger.SetActive (true);
+	}
+
+	private void ReboundCalculateEnd()
+	{
+		reboundTrigger.SetActive (false);
+	}
+
     private void CloneMesh()
     {
         if (GameController.Get.IsShowSituation)
@@ -2618,6 +2635,7 @@ public class PlayerBehaviour : MonoBehaviour
         isCanCatchBall = true;
         IsPassAirMoment = false;
         blockTrigger.SetActive(false);
+		reboundTrigger.SetActive (false);
         UseGravity = true;
         IsKinematic = false;
         IsPerfectBlockCatch = false;
