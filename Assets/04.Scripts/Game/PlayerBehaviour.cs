@@ -754,7 +754,6 @@ public class PlayerBehaviour : MonoBehaviour
                 GameStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
-//              aiTime = Time.time + GameData.Setting.AIChangeTime;
                 mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv]);
                 StartCoroutine(GetCurrentClipLength());
 
@@ -763,7 +762,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-//              aiTime = 0;
                 mManually.Clear();
                 if (AIActiveHint)
                     AIActiveHint.SetActive(true);
