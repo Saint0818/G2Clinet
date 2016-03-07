@@ -834,11 +834,10 @@ public class GameController : KnightSingleton<GameController>
 		{
 			if (!GameRecord.Done && !CourtMgr.Get.IsBallOffensive) 
 			{
-				CameraMgr.Get.FinishGame ();
+//				CameraMgr.Get.FinishGame ();
+				UIEndGame.Get.ShowView();
 				GameRecord.Done = true;
 				SetGameRecord ();
-				SetBallOwnerNull ();
-				CourtMgr.Get.RealBallObj.transform.position = Vector3.down * 100;
 				StartCoroutine (playFinish ());
 			}
 		}
@@ -1470,6 +1469,8 @@ public class GameController : KnightSingleton<GameController>
 				UICourtInstant.UIShow(false);
 				UIInGameMission.UIShow(true);
 				UIInGameMission.UIShow(false);
+				UIEndGame.Visible = true;
+				UIEndGame.Visible = false;
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
@@ -1506,7 +1507,7 @@ public class GameController : KnightSingleton<GameController>
                 mInboundsBallOnlyOnce = true;
                 break;
 			case EGameSituation.End:
-//				SetPlayerAI(false);
+				
 				IsFinish = true;
 				UIGame.Get.GameOver();
                 if (GameData.IsPVP) {
@@ -3814,6 +3815,8 @@ public class GameController : KnightSingleton<GameController>
 
 	private void setEndShowScene () {
 		UITutorial.UIShow(false);
+		SetPlayerAI(false);
+		AIController.Get.ChangeState(EGameSituation.End);
 
         SetBallOwnerNull();
         CourtMgr.Get.RealBallCompoment.Trigger.Reset();

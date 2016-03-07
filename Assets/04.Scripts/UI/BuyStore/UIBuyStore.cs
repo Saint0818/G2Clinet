@@ -177,6 +177,7 @@ public class UIBuyStore : UIBase {
 
 	public void ShowOneNew () {
 		oneItem.ShowNew();
+		AudioMgr.Get.PlaySound(SoundType.SD_Instant);
 	}
 
 	public void FinishDrawLottery () {

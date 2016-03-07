@@ -38,6 +38,7 @@ public class GetTenItem : MonoBehaviour {
 						if(showTime <=0) {
 							showTime = showInterval;
 							itemAwardGroups[index].gameObject.SetActive(true);
+							AudioMgr.Get.PlaySound(SoundType.SD_Instant);
 							if(isNeedPause[index]){
 								isNeedPause[index] = false;
 								isShowPause = true;
@@ -67,7 +68,7 @@ public class GetTenItem : MonoBehaviour {
 		isNeedPause = new bool[itemData.Length];
 		if(itemData.Length > 0 && itemData.Length == 10 && itemAwardGroups.Length == 10) {
 			for(int i=0; i<itemData.Length; i++) {
-				if(itemData[i].Kind == 21 && itemData[i].Flag == 1)
+				if(itemData[i].Kind == 21)
 					isNeedPause[i] = GameData.Team.CheckSkillCardisNew(itemData[i].Avatar);
 				else 
 					isNeedPause[i] = false;

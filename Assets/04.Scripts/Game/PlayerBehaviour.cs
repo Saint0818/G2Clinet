@@ -371,8 +371,9 @@ public class PlayerBehaviour : MonoBehaviour
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 //        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
-        blockTrigger.transform.localScale = new Vector3(blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
-		reboundTrigger.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
+//        blockTrigger.transform.localScale = new Vector3(blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
+		blockTrigger.transform.localScale = new Vector3(Attr.BlockDistance * 0.1f, Attr.BlockDistance * 0.2f, blockTrigger.transform.localScale.z);
+		reboundTrigger.transform.localScale = new Vector3(Attr.ReboundHandDistance * 0.1f, Attr.ReboundHandDistance * 0.2f, Attr.ReboundHandDistance * 0.1f);
     }
 
     private void initSkill()
