@@ -6,6 +6,9 @@ public class UIMainLobbyMain : MonoBehaviour
 {
     public GameObject FullScreenBlock;
 
+    public GameObject TopLeftGroup;
+    public GameObject BottomGroup;
+
     public GameObject MoneyObj;
     public UILabel LevelLabel;
     public UILabel MoneyLabel;

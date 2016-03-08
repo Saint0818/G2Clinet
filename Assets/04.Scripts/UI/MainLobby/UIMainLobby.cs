@@ -178,7 +178,8 @@ public class UIMainLobby : UIBase
 
     public void UpdateText()
 	{
-		initDefaultText(Main.gameObject);
+		initDefaultText(Main.TopLeftGroup);
+		initDefaultText(Main.BottomGroup);
 	}
 
     public void Hide(int kind = 3, bool playAnimation = true)
