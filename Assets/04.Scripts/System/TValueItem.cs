@@ -43,6 +43,25 @@ public class TValueItem
         }
     }
 
+    /// <summary>
+    /// 是否數值裝鑲嵌滿了?
+    /// </summary>
+    /// <returns> true: 數值裝鑲嵌滿了; false: 數值裝還有空位未被鑲嵌. </returns>
+    public bool IsInlayFull()
+    {
+        if(RevisionInlayItemIDs.Length == 0)
+            return false;
+
+        foreach(int itemID in RevisionInlayItemIDs)
+        {
+            if(!GameData.DItemData.ContainsKey(itemID))
+                return false;
+        }
+        return true;
+
+//        return RevisionInlayItemIDs.All(itemID => GameData.DItemData.ContainsKey(itemID));
+    }
+
     public bool HasInlay(int itemID)
     {
         for(var i = 0; i < RevisionInlayItemIDs.Length; i++)

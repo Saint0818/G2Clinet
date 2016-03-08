@@ -1046,6 +1046,26 @@ namespace GameStruct
             return 0;
         }
 
+        /// <summary>
+        /// 玩家身上的全部數值裝, 是否有一件數值裝可以升級.
+        /// </summary>
+        /// <returns> true: 有一件可升級的數值裝; false: 全部的數值裝都不可以升級. </returns>
+        public bool HasUpgrableValueItem()
+        {
+            for(int kind = 11; kind <= 18; kind++)
+            {
+                TValueItem valueItem = Player.GetValueItem(kind);
+                if(valueItem == null)
+                    continue;
+
+                TItemData item = GameData.DItemData[valueItem.ID];
+
+                if(valueItem.IsInlayFull() && Player.Lv >= item.UpgradeLv && Money >= item.UpgradeMoney)
+                    return true;
+            }
+            return false;
+        }
+
         public bool NeedForSyncRecord{
             get {return needForSyncRecord || Player.NeedForSyncRecord;}
             set {
