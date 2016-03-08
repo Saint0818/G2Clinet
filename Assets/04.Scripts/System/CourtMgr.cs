@@ -255,16 +255,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void InitScoreboard(bool isEnable = false)
     {
-        EffectEnable((QualityType)GameData.Setting.Quality);
+        EffectEnable((EQualityType)GameData.Setting.Quality);
     }
 
-    public void EffectEnable(QualityType type)
+    public void EffectEnable(EQualityType type)
     {
         if (EffectHigh)
-            EffectHigh.SetActive(type == QualityType.High);
+            EffectHigh.SetActive(type == EQualityType.High);
 		
         if (EffectMedium)
-            EffectMedium.SetActive(type >= QualityType.Medium);
+            EffectMedium.SetActive(type >= EQualityType.Medium);
     }
 
     [UsedImplicitly]

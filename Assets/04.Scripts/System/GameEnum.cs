@@ -87,7 +87,7 @@
         WatchFriendTime
     }
 
-    public enum QualityType
+    public enum EQualityType
     {
         Low = 0,
         Medium = 1,

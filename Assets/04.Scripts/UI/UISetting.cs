@@ -246,7 +246,7 @@ public class UISetting : UIBase {
 			{
 				case 0:
 					gameSetting.Init(pages[i]);
-					gameSetting.InitBtttonFunction(new EventDelegate(OnMusic), new EventDelegate(OnSound), new EventDelegate(OnEffect), new EventDelegate(OnAILv));
+					gameSetting.InitBtttonFunction(new EventDelegate(OnMusic), new EventDelegate(OnSound), new EventDelegate(OnQuality), new EventDelegate(OnAILv));
 					break;
 				case 1:
 					languageSetting.Init(pages[i]);
@@ -345,7 +345,7 @@ public class UISetting : UIBase {
 		PlayerPrefs.Save ();
 	}
 
-	public void OnEffect()
+	public void OnQuality()
 	{
         int index = -1;
         if (int.TryParse(UIButton.current.name, out index))
@@ -357,10 +357,10 @@ public class UISetting : UIBase {
 
                 //Effect
                 if(CourtMgr.Visible)
-                    CourtMgr.Get.EffectEnable((QualityType)GameData.Setting.Quality);
+                    CourtMgr.Get.EffectEnable((EQualityType)GameData.Setting.Quality);
 
                 //Setting 
-                GameData.SetGameQuality((QualityType)GameData.Setting.Quality);
+                GameData.SetGameQuality((EQualityType)GameData.Setting.Quality);
             }
         }
 		

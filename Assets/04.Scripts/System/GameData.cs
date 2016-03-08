@@ -232,23 +232,17 @@ public static class GameData
             return null;
     }
 
-    public static void SetGameQuality(QualityType lv)
+    public static void SetGameQuality(EQualityType lv)
     {
-        string setting = lv.ToString();
-        int foundIndex = -1;
-        string[] names = QualitySettings.names;
-
-        #if !UNITY_IOS
-        for (int i = 0; i < names.Length; i++)
-        {
-            if (names[i] == setting)
-            {
-                foundIndex = i;
-                QualitySettings.SetQualityLevel(foundIndex, true);
-                return;
-            }
-        }
+        int q = QualitySettings.GetQualityLevel();
+        int foundIndex = lv.GetHashCode();
+        #if UNITY_IOS
+        foundIndex += 1;
+        #else
+        foundIndex += 6;
         #endif
+        if (q != foundIndex)
+            QualitySettings.SetQualityLevel(foundIndex);
     }
 
     private static void loadGameSetting()
@@ -277,7 +271,7 @@ public static class GameData
                         break;
                     case ESave.Quality:
                         Setting.Quality = 1;
-                        SetGameQuality((QualityType)Setting.Quality);
+                        SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
                         Setting.AIChangeTimeLv = 0;
@@ -346,7 +340,7 @@ public static class GameData
                         break;
                     case ESave.Quality:
                         Setting.Quality = index;
-                        SetGameQuality((QualityType)Setting.Quality);
+                        SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
                         Setting.AIChangeTimeLv = index;
