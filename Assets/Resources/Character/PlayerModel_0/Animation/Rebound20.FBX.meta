@@ -156,13 +156,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.009073759
-        functionName: AnimationEvent
-        data: ReboundCalculateStart
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.24999997
         functionName: SkillEvent
         data: ActiveSkillEnd
@@ -173,13 +166,6 @@ ModelImporter:
       - time: 0.2597701
         functionName: SkillEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.48064518
-        functionName: AnimationEvent
-        data: ReboundCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

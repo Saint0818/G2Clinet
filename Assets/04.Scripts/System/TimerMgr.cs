@@ -38,7 +38,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     public void ResetTime()
     {
         for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            GameController.Get.GamePlayers[i].Pasue = false;
+			GameController.Get.GamePlayers[i].Pause = false;
         PauseBall(false);
 //        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 //            ChangeTime(item, 1);
@@ -52,7 +52,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     public void ResetTime(ref PlayerBehaviour player)
     {
         for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            GameController.Get.GamePlayers[i].Pasue = false;
+			GameController.Get.GamePlayers[i].Pause = false;
 
         PauseBall(false);
 //        if (TimeController == player || player == null)
@@ -173,7 +173,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     public void PauseTimeByUseSkill(float releaseTime, Action callback)
 	{
         for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            GameController.Get.GamePlayers[i].Pasue = true;
+            GameController.Get.GamePlayers[i].Pause = true;
 
 //        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 //            ChangeTime(item, 0);
@@ -224,10 +224,10 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
     public void PauseBall(bool isPase)
     {
-//        if (IsPause == isPase)
-//            return;
-//        else
-//        {
+        if (IsPause == isPase)
+            return;
+        else
+        {
             if (isPase)
             {
                 ballvelocity = CourtMgr.Get.RealBallCompoment.MoveVelocity;
@@ -241,8 +241,8 @@ public class TimerMgr : KnightSingleton<TimerMgr>
                 CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
                 CourtMgr.Get.RealBallObj.transform.DOPlay();
             }
-//            IsPause = isPase;
-//        }
+            IsPause = isPase;
+        }
     }
 }
 

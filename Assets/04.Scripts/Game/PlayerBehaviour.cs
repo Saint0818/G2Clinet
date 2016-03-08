@@ -228,7 +228,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool Pasue
+    public bool Pause
     {
         set{ AnimatorControl.Speed = value == true ? GameConst.Min_TimePause : 1;}
         get{ return AnimatorControl.Speed == GameConst.Min_TimePause;}
@@ -2800,12 +2800,9 @@ public class PlayerBehaviour : MonoBehaviour
                     GameController.Get.Shooter = null;
                 break;
             case "ActiveSkillEnd":
-//                if (isSkillShow)
-//                {
                 if (OnUIJoystick != null)
                     OnUIJoystick(this, true);
     				
-//                    isSkillShow = false;
                 UISkillEffect.UIShow(false);
                 if (isShootJumpActive)
                 {
@@ -2818,13 +2815,13 @@ public class PlayerBehaviour : MonoBehaviour
                 animatorEvent.floatParameter = 1;
                 TimeScaleCallBack(animatorEvent, this);
 					
-//					PlayerSkillController.ResetUseSkill();
                 if (isBlock)
                 {
                     if (GameController.Get.BallState == EBallState.CanBlock)
                     {
+						TimerMgr.Get.PauseBall(false);
                         skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
-                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 4;
+                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
                         CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
                     }
                     else if (GameController.Get.BallState == EBallState.CanDunkBlock)
@@ -2835,7 +2832,6 @@ public class PlayerBehaviour : MonoBehaviour
                     GameController.Get.BallState = EBallState.None;
                     GameController.Get.IsGameFinish();
                 }
-//                }
                 break;
         }
     }
@@ -2907,36 +2903,32 @@ public class PlayerBehaviour : MonoBehaviour
                 
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
-                
+				
+//				CameraMgr.Get.SkillShowActive(this, 2, 0.5f);
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
                 UISkillEffect.Get.ShowView(ActiveSkillUsed);
                 AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
                 
+
                 switch (skillEffectKind)
                 {
                     case 0://show self and rotate camera
-                        Invoke("showEffect", skillTime);
+						Invoke("showEffect", skillTime);
+						TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
                         LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 					
 //                        animatorEvent.floatParameter = GameConst.Min_TimePause;
-//                        animatorEvent.intParameter = 0;
-                        //TODO: TimePause(true)
-//                        TimerMgr.Get.PauseTime(true);
-//                        TimeScaleCallBack(animatorEvent);   
+//                        animatorEvent.intParameter = 0; 
                         break;
                     case 1://show self
 //                        showActiveEffect();
-//                        LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-//                        animatorEvent.floatParameter = GameConst.Min_TimePause;
-//                        animatorEvent.intParameter = 2;
-//                        TimeScaleCallBack(animatorEvent); 
                         break;
                     case 2://show all Player
-//                        showActiveEffect();
-//                        GameController.Get.SetAllPlayerLayer("SkillPlayer");
-//                        animatorEvent.floatParameter = GameConst.Min_TimePause;
-//                        animatorEvent.intParameter = 2;
-//                        TimeScaleCallBack(animatorEvent); 
+						// kind= 2, time = 0.5f
+							showActiveEffect();
+							GameController.Get.SetAllPlayerLayer("SkillPlayer");
+							TimerMgr.Get.PauseTimeByUseSkill(0.5f, ResetTimeCallBack);
+							Pause = false;
                         break;
                 }
             } else 

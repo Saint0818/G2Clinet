@@ -1800,7 +1800,8 @@ public class GameController : KnightSingleton<GameController>
                 if(BallOwner.IsRebound)
                 {
                     // 持球者不在灌籃中, 但是搶籃板中 ...
-					if(inTipinDistance(BallOwner)  && BallOwner.CanUseTipIn)
+//					if(inTipinDistance(BallOwner)  && BallOwner.CanUseTipIn)
+					if(BallOwner.CanUseTipIn)
                     {
 //                        BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 						BallOwner.AniState(EPlayerState.TipIn);
@@ -1809,68 +1810,71 @@ public class GameController : KnightSingleton<GameController>
 				}
                 else
                 {
-                    // 持球者不在灌籃和搶籃板狀態.
-					shootRandomizer.Clear();
-					if(BallOwner.IsMoving)
-                    {
-						if(ShootDistance > GameConst.LongShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
-					
-						if(ShootDistance > GameConst.Point2Distance && ShootDistance <= GameConst.LongShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
+					if(!BallOwner.IsTipIn)
+					{
+	                    // 持球者不在灌籃和搶籃板狀態.
+						shootRandomizer.Clear();
+						if(BallOwner.IsMoving)
+	                    {
+							if(ShootDistance > GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
 						
-						if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, 50);
-						else if(ShootDistance > GameConst.LayupDistance){
-							if(BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance) > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance));
-						}
+							if(ShootDistance > GameConst.Point2Distance && ShootDistance <= GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
+							
+							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, 50);
+							else if(ShootDistance > GameConst.LayupDistance){
+								if(BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance) > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance));
+							}
+							
+							if(ShootDistance <= GameConst.DunkDistance) {
+								if(BallOwner.Attr.DunkRate > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+							} else {
+								if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance) > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance));
+							}
 						
-						if(ShootDistance <= GameConst.DunkDistance) {
-							if(BallOwner.Attr.DunkRate > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
-						} else {
-							if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance) > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance));
+							if(ShootDistance <= GameConst.ShortShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+							else {
+								if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
+							}
+
+							BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 						}
-					
-						if(ShootDistance <= GameConst.ShortShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
-						else {
-							if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
+	                    else
+	                    {
+	                        // 站在原地投籃.
+							if(ShootDistance > GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
+						
+							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot0, 50);
+							
+							if(ShootDistance <= GameConst.DunkDistanceNoMove) {
+								if(BallOwner.Attr.DunkRate > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+							} else {
+								if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove) > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove));
+							}
+							
+							if(ShootDistance <= GameConst.ShortShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+							else {
+								if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
+							}
+							
+							BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 						}
 
-						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
-					}
-                    else
-                    {
-                        // 站在原地投籃.
-						if(ShootDistance > GameConst.LongShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
-					
-						if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LongShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot0, 50);
-						
-						if(ShootDistance <= GameConst.DunkDistanceNoMove) {
-							if(BallOwner.Attr.DunkRate > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
-						} else {
-							if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove) > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove));
-						}
-						
-						if(ShootDistance <= GameConst.ShortShootDistance)
-							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
-						else {
-							if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
-						}
-						
-						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
-					}
-
-					return true;
+						return true;
+					}	
 				}
 			}
         }

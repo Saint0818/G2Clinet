@@ -745,13 +745,11 @@ public class SkillController : MonoBehaviour {
 	public int GetPickBall2Rate
 	{
 		get { return PickBall2Rate;}
-		set { PickBall2Rate = value;}
 	}
 
 	public int GetPickBall2Lv
 	{
 		get { return PickBall2Lv;}
-		set { PickBall2Lv = value;}
 	}
 
 	public List<int> GetAllBuffs
