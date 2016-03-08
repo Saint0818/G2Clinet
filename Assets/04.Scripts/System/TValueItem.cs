@@ -3,7 +3,7 @@ using System.Linq;
 using GameStruct;
 using JetBrains.Annotations;
 
-public struct TValueItem
+public class TValueItem
 {
     public int ID;
 

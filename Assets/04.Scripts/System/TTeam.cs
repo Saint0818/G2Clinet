@@ -987,7 +987,65 @@ namespace GameStruct
 
             return maxTotalPoint;
         }
-            
+
+        /// <summary>
+        /// 是否玩家身上的全部數值裝中, 有一件數值裝可以鑲嵌?
+        /// </summary>
+        /// <returns> true: 有數值裝可以鑲嵌; false: 全部的數值裝都不能鑲嵌. </returns>
+        public bool HasInlayableValueItem()
+        {
+            for(int kind = 11; kind <= 18; kind++)
+            {
+                if(IsPlayerValueItemInlayable(kind))
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// kind 這件數值裝是否可以鑲嵌.
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        private bool IsPlayerValueItemInlayable(int kind)
+        {
+            // 取出玩家身上數值裝鑲嵌資訊, 已鑲嵌的要跳過.
+            // 檢查倉庫材料數量是否足夠.
+
+            var valueItem = Player.GetValueItem(kind);
+            if(valueItem == null)
+                return false;
+
+            var item = GameData.DItemData[valueItem.ID];
+            for(var i = 0; i < item.ReviseMaterials.Length; i++)
+            {
+                if(GameData.DItemData.ContainsKey(valueItem.RevisionInlayItemIDs[i]))
+                    continue; // 已鑲嵌.
+
+                if(item.ReviseMaterials[i].Num <= getStorageMaterialNum(item.ReviseMaterials[i].ID))
+                    return true; // 有一個材料足夠.
+            }
+
+            return false; // 全部的材料都不足.
+        }
+
+        /// <summary>
+        /// 材料倉庫中, 某個材料的數量.
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
+        private int getStorageMaterialNum(int itemID)
+        {
+            foreach(TMaterialItem materialItem in MaterialItems)
+            {
+                if(materialItem.ID == itemID)
+                    return materialItem.Num;
+            }
+
+            return 0;
+        }
+
         public bool NeedForSyncRecord{
             get {return needForSyncRecord || Player.NeedForSyncRecord;}
             set {

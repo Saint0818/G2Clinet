@@ -53,6 +53,14 @@ public class UIUnlockButton : MonoBehaviour
 
     public bool IsEnable
     {
+        get
+        {
+            TLimitData limit = LimitTable.Ins.GetByOpenID(OpenID);
+            if(limit == null)
+                return true;
+
+            return GameData.Team.HighestLv >= limit.Lv;
+        }
         set
         {
             var button = GetComponent<UIButton>();

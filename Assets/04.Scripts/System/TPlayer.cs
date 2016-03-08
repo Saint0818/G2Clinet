@@ -90,10 +90,36 @@ namespace GameStruct
         public TItem[] Items;
 
         /// <summary>
-        /// 玩家身上的數值裝備. key: TItemData.Kind.
+        /// <para> 玩家身上的數值裝備. 不要直接使用, 改用 GetValueItem(). </para>
+        /// <para> key: TItemData.Kind. </para>
         /// </summary>
         [CanBeNull]
         public Dictionary<int, TValueItem> ValueItems;
+
+        [CanBeNull]
+        public TValueItem GetValueItem(int kind)
+        {
+            if(ValueItems == null)
+                return null;
+
+            return ValueItems.ContainsKey(kind) ? ValueItems[kind] : null;
+        }
+
+        /// <summary>
+        /// 某個數值裝的總分.
+        /// </summary>
+        /// <param name="kind"> TItemData.Kind </param>
+        /// <returns></returns>
+        public int GetValueItemTotalPoints(int kind)
+        {
+//            if(ValueItems == null || !ValueItems.ContainsKey(kind))
+//                return 0;
+//
+//            return ValueItems[kind].GetTotalPoint();
+
+            var valueItem = GetValueItem(kind);
+            return valueItem != null ? valueItem.GetTotalPoint() : 0;
+        }
 
         /// <summary>
         /// 主線關卡進度(下一個可以打的關卡). 範圍是 101 ~ 2000.
@@ -727,19 +753,6 @@ namespace GameStruct
             }
 
             return sum;
-        }
-
-        /// <summary>
-        /// 某個數值裝的總分.
-        /// </summary>
-        /// <param name="kind"> TItemData.Kind </param>
-        /// <returns></returns>
-        public int GetValueItemTotalPoints(int kind)
-        {
-            if(ValueItems == null || !ValueItems.ContainsKey(kind))
-                return 0;
-
-            return ValueItems[kind].GetTotalPoint();
         }
 
         public TGamePlayerRecord PlayerRecord {

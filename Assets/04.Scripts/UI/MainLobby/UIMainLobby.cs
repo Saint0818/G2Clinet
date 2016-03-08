@@ -146,17 +146,17 @@ public class UIMainLobby : UIBase
 
     private void updateAvatarButton()
     {
-        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Avatar);
-        Main.AvatarNotice = false;
+//        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Avatar);
         Main.AvatarButton.CheckEnable();
-        Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
+        Main.AvatarNotice = Main.AvatarButton.IsEnable && GameData.AvatarNoticeEnable();
     }
 
     private void updateEquipmentButton()
     {
-        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
+//        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
         Main.EquipButton.CheckEnable();
-        Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
+        Main.EquipmentNotice = Main.EquipButton.IsEnable && 
+              (!GameData.Team.IsPlayerAllBestValueItem() || GameData.Team.HasInlayableValueItem());
     }
 
     public void UpdateUI()
