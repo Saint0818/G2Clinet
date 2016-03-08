@@ -352,9 +352,9 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.PushingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
         Attr.PassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
         Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
-        Attr.ReboundHeadDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance));
-        Attr.ReboundHandDistance = GameConst.ReboundHandDistanceMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance));
-        Attr.BlockDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockDistance, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance));
+        Attr.ReboundHeadDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance;
+        Attr.ReboundHandDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance;
+        Attr.BlockDistance = Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance;
         Attr.DefDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
         Attr.SpeedValue = GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
         Attr.StaminaValue = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, (Attribute.Stamina + GameData.BaseAttr[Attribute.AILevel].StaminaValue));
@@ -369,12 +369,39 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-//        TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
         FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
-//        blockTrigger.transform.localScale = new Vector3(blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
-		TopPoint.transform.localScale = new Vector3(2 + Attr.ReboundHeadDistance , 2 + Attr.ReboundHeadDistance , 2 + Attr.ReboundHeadDistance);
-		blockTrigger.transform.localScale = new Vector3(Attr.BlockDistance * 0.1f, Attr.BlockDistance * 0.2f, blockTrigger.transform.localScale.z);
-		reboundTrigger.transform.localScale = new Vector3(Attr.ReboundHandDistance * 0.1f, Attr.ReboundHandDistance * 0.2f, Attr.ReboundHandDistance * 0.1f);
+
+		if(Attribute.BodyType == 0){
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.1f) , 
+														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.2f) , 
+														GameConst.ReboundHeadZC + (Attr.ReboundHeadDistance* 0.1f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.BlockDistance * 0.1f), 
+															GameConst.ReboundBlockYC + (Attr.BlockDistance * 0.2f), 
+															GameConst.ReboundBlockZC + (Attr.BlockDistance * 0.1f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.ReboundHandDistance * 0.1f), 
+															  GameConst.ReboundBlockYC + (Attr.ReboundHandDistance * 0.2f),
+															  GameConst.ReboundBlockZC + (Attr.ReboundHandDistance * 0.1f));
+		} else if(Attribute.BodyType == 1) {
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXF + (Attr.ReboundHeadDistance* 0.1f), 
+														GameConst.ReboundHeadYF + (Attr.ReboundHeadDistance* 0.2f) , 
+														GameConst.ReboundHeadZF + (Attr.ReboundHeadDistance* 0.1f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.BlockDistance * 0.1f), 
+															GameConst.ReboundBlockYF + (Attr.BlockDistance * 0.2f), 
+															GameConst.ReboundBlockZF + (Attr.BlockDistance * 0.1f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.ReboundHandDistance * 0.1f), 
+															  GameConst.ReboundBlockYF + (Attr.ReboundHandDistance * 0.2f),
+															  GameConst.ReboundBlockZF + (Attr.ReboundHandDistance * 0.1f));
+		} else {
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXG + (Attr.ReboundHeadDistance* 0.1f) , 
+														GameConst.ReboundHeadYG + (Attr.ReboundHeadDistance* 0.2f) , 
+														GameConst.ReboundHeadZG + (Attr.ReboundHeadDistance* 0.1f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.BlockDistance * 0.1f), 
+															GameConst.ReboundBlockYG + (Attr.BlockDistance * 0.2f), 
+															GameConst.ReboundBlockZG + (Attr.BlockDistance * 0.1f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.ReboundHandDistance * 0.1f), 
+															  GameConst.ReboundBlockYG + (Attr.ReboundHandDistance * 0.2f),
+															  GameConst.ReboundBlockZG + (Attr.ReboundHandDistance * 0.1f));
+		}
     }
 
     private void initSkill()

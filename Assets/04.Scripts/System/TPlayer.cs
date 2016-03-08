@@ -41,7 +41,10 @@ namespace GameStruct
         public float Dribble; //kind11
         public float Pass; //kind12
 
-        public int BodyType; // 2:後衛, 1:前鋒, 0:中鋒.
+		/// <summary>
+		/// 2:後衛, 1:前鋒, 0:中鋒.
+		/// </summary>
+        public int BodyType; 
 
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4

@@ -2428,6 +2428,11 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄截成功; false:抄截失敗. </returns>
 	public bool OnStealMoment(PlayerBehaviour player, float dis, float angle)
     {
+		if (StageData.IsTutorial) {
+			dis = 30;
+			angle = 360;
+		}
+		
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
 			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, dis, angle))

@@ -79,7 +79,37 @@
 	public const float ElbowFanAngle = 180;
 
 	public const float SpeedValueMin = 0.8f;
-	public const float ReboundHandDistanceMin = 0.5f;
+
+	/// <summary>
+	/// 後衛籃板 火鍋 一樣的初始值（trigger的初始大小）
+	/// </summary>
+	public const float ReboundBlockXG = 0.5f;
+	public const float ReboundBlockYG = 1f;
+	public const float ReboundBlockZG = 0.5f;
+	public const float ReboundHeadXG = 2;
+	public const float ReboundHeadYG = 0.5f;
+	public const float ReboundHeadZG = 2;
+
+	/// <summary>
+	/// 前鋒籃板 火鍋 一樣的初始值（trigger的初始大小）
+	/// </summary>
+	public const float ReboundBlockXF = 0.5f;
+	public const float ReboundBlockYF = 1f;
+	public const float ReboundBlockZF = 0.5f;
+	public const float ReboundHeadXF = 2;
+	public const float ReboundHeadYF = 0.5f;
+	public const float ReboundHeadZF = 2;
+
+	/// <summary>
+	/// 中鋒籃板 火鍋 一樣的初始值（trigger的初始大小）
+	/// </summary>
+	public const float ReboundBlockXC = 0.5f;
+	public const float ReboundBlockYC = 1f;
+	public const float ReboundBlockZC = 0.5f;
+	public const float ReboundHeadXC = 2;
+	public const float ReboundHeadYC = 0.5f;
+	public const float ReboundHeadZC = 2;
+
 
 	public const float BlockDistance = 5;
 
