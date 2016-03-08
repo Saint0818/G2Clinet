@@ -228,6 +228,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    public bool Pasue
+    {
+        set{ AnimatorControl.Speed = value == true ? GameConst.Min_TimePause : 1;}
+        get{ return AnimatorControl.Speed == GameConst.Min_TimePause;}
+    }
+
+    public float TimeSpeed
+    {
+        set{ AnimatorControl.Speed = value;}
+        get{ return AnimatorControl.Speed;}
+    }
+
     public void ReviveAnger(float value)
     {
         angerValue += value;
@@ -369,8 +381,7 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-//        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
-
+//        TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 		if(Attribute.BodyType == 0){
 			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.04f) , 
 														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.05f) , 
@@ -583,10 +594,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (GameController.Get.IsShowSituation || !GameController.Get.IsStart)
             return;
 
-        timeScale = TimerMgr.Get.CrtTime;
-
-        if (AnimatorControl.TimeScaleTime != timeScale)
-            AnimatorControl.TimeScaleTime = timeScale;
+//        timeScale = TimerMgr.Get.CrtTime;
+//
+//        if (AnimatorControl.TimeScaleTime != timeScale)
+//            AnimatorControl.TimeScaleTime = timeScale;
 
 //		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock || IsBuff || IsPush) {
 //
@@ -2813,7 +2824,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (GameController.Get.BallState == EBallState.CanBlock)
                     {
                         skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
-                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 40;
+                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 4;
                         CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
                     }
                     else if (GameController.Get.BallState == EBallState.CanDunkBlock)

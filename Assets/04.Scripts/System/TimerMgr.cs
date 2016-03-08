@@ -37,10 +37,11 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     /// </summary>
     public void ResetTime()
     {
-        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-            TimerMgr.Get.ChangeTime(item, 1);
-
-        TimeController = null;
+        for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+            GameController.Get.GamePlayers[i].Pasue = false;
+        PauseBall(false);
+//        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+//            ChangeTime(item, 1);
     }
 
     /// <summary>
@@ -50,27 +51,31 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
     public void ResetTime(ref PlayerBehaviour player)
     {
-        if (TimeController == player || player == null)
-        {
-            ResetTime();
-        }
+        for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+            GameController.Get.GamePlayers[i].Pasue = false;
+
+        PauseBall(false);
+//        if (TimeController == player || player == null)
+//        {
+//            ResetTime();
+//        }
     }
 
     /// <summary>
     /// 設定時間主控權
     /// </summary>
     /// <param name="player">Player.</param>
-    public void SetTimeController(ref PlayerBehaviour player)
-    {
-        if (player)
-            TimeController = player;
-    }
+//    public void SetTimeController(ref PlayerBehaviour player)
+//    {
+//        if (player)
+//            TimeController = player;
+//    }
 
     public float GetTime(ETimerKind key)
     {
-        if (GameStart.Get.IsOpenChronos)
-            return Timekeeper.instance.Clock(key.ToString()).localTimeScale;
-        else
+//        if (GameStart.Get.IsOpenChronos)
+//            return Timekeeper.instance.Clock(key.ToString()).localTimeScale;
+//        else
             return 1;
     }
 
@@ -84,7 +89,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 		else
 			CrtTime = value;
 				
-        Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
+//        Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
     }
 
     /// <summary>
@@ -93,13 +98,13 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     /// <param name="key">Key.</param>
     /// <param name="value">Value.</param>
     /// <param name="user">User.</param>
-    public void ChangeTime(ETimerKind key, float value, ref PlayerBehaviour user)
-    {
-        if (user != TimeController)
-            return;
-        
-        ChangeTime(key, value);
-    }
+//    public void ChangeTime(ETimerKind key, float value, ref PlayerBehaviour user)
+//    {
+//        if (user != TimeController)
+//            return;
+//        
+//        ChangeTime(key, value);
+//    }
 
 //    private void checkPlayerIsUseActive(ETimerKind key)
 //    {
@@ -144,50 +149,36 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     {
         if (GameStart.Get.IsOpenChronos)
         {
-            Timeline timer = obj.GetComponent<Timeline>();
+//            Timeline timer = obj.GetComponent<Timeline>();
 
-            if (timer == null)
-            {
-                timer = obj.AddComponent<Timeline>();
-            }
+//            if (timer == null)
+//            {
+//                timer = obj.AddComponent<Timeline>();
+//            }
 
-            if (timer)
-            {
-                timer.mode = TimelineMode.Global;
-                timer.globalClockKey = key.ToString();
-
-                //timer.SetRecording(34, 2);
-                //timer.recordTransform = false;
-                timer.rigidbody.useGravity = true;
-            }  
+//            if (timer)
+//            {
+//                timer.mode = TimelineMode.Global;
+//                timer.globalClockKey = key.ToString();
+//
+//                //timer.SetRecording(34, 2);
+//                //timer.recordTransform = false;
+//                timer.rigidbody.useGravity = true;
+//            }  
         }
     }
 
-    private bool Useing = false;
+//    private bool Useing = false;
 
     public void PauseTimeByUseSkill(float releaseTime, Action callback)
 	{
-        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-            ChangeTime(item, 0);
-//        }
-//        else
-//        {
-//            foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//            {
-//                if (timeRecorder.ContainsKey(item))
-//                    timeRecorder[item] = GetTime(item);
-//                else
-//                    timeRecorder.Add(item, GetTime(item));
-//
-//                ChangeTime(item, 0);
-//            }
-//        }
+        for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+            GameController.Get.GamePlayers[i].Pasue = true;
+
+//        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+//            ChangeTime(item, 0);
 
         PauseBall(true);
-
-//        if (Useing == false)
-//            Useing = true;
-     
         StartCoroutine(DelayTime( releaseTime, callback));
 	}
 				
@@ -206,43 +197,42 @@ public class TimerMgr : KnightSingleton<TimerMgr>
             callback();
 	}
 
-    public void PauseTime(bool isPase)
-    {
-        float time;
-
-        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-        {
-            if (isPase)
-            {
-                time = 0;
-                if (timeRecorder.ContainsKey(item))
-                {
-                    timeRecorder[item] = GetTime(item);
-                }
-                else
-                {
-                    timeRecorder.Add(item, GetTime(item));
-                }
-            }
-            else
-                time = timeRecorder[item]; 
-
-            ChangeTime(item, time);
-        }
-
-        PauseBall(isPase);
-    }
+//    public void PauseTime(bool isPase)
+//    {
+//        float time;
+//
+//        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+//        {
+//            if (isPase)
+//            {
+//                time = 0;
+//                if (timeRecorder.ContainsKey(item))
+//                {
+//                    timeRecorder[item] = GetTime(item);
+//                }
+//                else
+//                {
+//                    timeRecorder.Add(item, GetTime(item));
+//                }
+//            }
+//            else
+//                time = timeRecorder[item]; 
+//
+//            ChangeTime(item, time);
+//        }
+//    }
 
     public void PauseBall(bool isPase)
     {
-        if (IsPause == isPase)
-            return;
-        else
-        {
+//        if (IsPause == isPase)
+//            return;
+//        else
+//        {
             if (isPase)
             {
                 ballvelocity = CourtMgr.Get.RealBallCompoment.MoveVelocity;
                 tempGravity = CourtMgr.Get.RealBallCompoment.Gravity;
+                CourtMgr.Get.RealBallCompoment.Gravity = false;
                 CourtMgr.Get.RealBallObj.transform.DOPause();
             }
             else
@@ -251,8 +241,8 @@ public class TimerMgr : KnightSingleton<TimerMgr>
                 CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
                 CourtMgr.Get.RealBallObj.transform.DOPlay();
             }
-            IsPause = isPase;
-        }
+//            IsPause = isPase;
+//        }
     }
 }
 

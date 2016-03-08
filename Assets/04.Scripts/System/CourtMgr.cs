@@ -625,13 +625,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket").gameObject;
 		for (int i = 0; i < pveBasketAy.Length; i++)
 		{
-            if (!pveBasketAy[i].GetComponent<Timeline>())
-            {
-                Timeline timer = pveBasketAy[i].AddComponent<Timeline>();
-                timer.mode = TimelineMode.Global;
-                timer.globalClockKey = ETimerKind.Default.ToString();
+//            if (!pveBasketAy[i].GetComponent<Timeline>())
+//            {
+//                Timeline timer = pveBasketAy[i].AddComponent<Timeline>();
+//                timer.mode = TimelineMode.Global;
+//                timer.globalClockKey = ETimerKind.Default.ToString();
                 //timer.recordTransform = false;
-            }
+//            }
         }
 		
         animPos[0] = pveBasketAy[0].transform.localPosition;

@@ -221,6 +221,14 @@ public class AnimatorBehavior : MonoBehaviour
         }
     }
 
+    public float Speed
+    {
+        set{ Controler.speed = value;
+            TimeScaleTime = Controler.speed;
+        }
+        get{ return Controler.speed;} 
+    }
+
     public void ClearAnimatorFlag(EActionFlag addFlag = EActionFlag.None)
     {
         if (addFlag == EActionFlag.None)
@@ -370,15 +378,15 @@ public class AnimatorBehavior : MonoBehaviour
         set
         {
             timescale = value;
-            blockCurveCounter.Timer = timescale; 
-            dunkCurveCounter.Timer = timescale; 		
-            shootCurveCounter.Timer = timescale;   
-            reboundCurveCounter.Timer = timescale;   
-            layupCurveCounter.Timer = timescale;   
-            pushCurveCounter.Timer = timescale;   
-            fallCurveCounter.Timer = timescale;   
-            pickCurveCounter.Timer = timescale;   
-            stealCurveCounter.Timer = timescale;
+            blockCurveCounter.Timer = value; 
+            dunkCurveCounter.Timer = value; 		
+            shootCurveCounter.Timer = value;   
+            reboundCurveCounter.Timer = value;   
+            layupCurveCounter.Timer = value;   
+            pushCurveCounter.Timer = value;   
+            fallCurveCounter.Timer = value;   
+            pickCurveCounter.Timer = value;   
+            stealCurveCounter.Timer = value;
         }
 
         get{ return timescale; }
@@ -491,6 +499,14 @@ public class AnimatorBehavior : MonoBehaviour
             case "BlockCalculateEnd":
                 if (BlockCalculateEndDel != null)
                     BlockCalculateEndDel();
+                break;
+            case "ReboundCalculateStart":
+                if (ReboundCalculateStartDel != null)
+                    ReboundCalculateStartDel();
+                break;
+            case "ReboundCalculateEnd":
+                if (ReboundCalculateEndDel != null)
+                    ReboundCalculateEndDel();
                 break;
             case "CloneMesh":
                 if (CloneMeshDel != null)

@@ -2102,7 +2102,7 @@ public class GameController : KnightSingleton<GameController>
 		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode())) || GameStart.Get.TestMode == EGameTest.Skill)
 		{
 			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
-                TimerMgr.Get.SetTimeController(ref player);
+//                TimerMgr.Get.SetTimeController(ref player);
 				player.ActiveSkillUsed = tSkill;
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
 				if(result){
@@ -2409,7 +2409,6 @@ public class GameController : KnightSingleton<GameController>
 			dis = 30;
 			angle = 360;
 		}
-		
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
 			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, dis, angle))
