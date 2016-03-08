@@ -369,38 +369,38 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
+//        FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
 
 		if(Attribute.BodyType == 0){
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.1f) , 
-														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.2f) , 
-														GameConst.ReboundHeadZC + (Attr.ReboundHeadDistance* 0.1f));
-			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.BlockDistance * 0.1f), 
-															GameConst.ReboundBlockYC + (Attr.BlockDistance * 0.2f), 
-															GameConst.ReboundBlockZC + (Attr.BlockDistance * 0.1f));
-			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.ReboundHandDistance * 0.1f), 
-															  GameConst.ReboundBlockYC + (Attr.ReboundHandDistance * 0.2f),
-															  GameConst.ReboundBlockZC + (Attr.ReboundHandDistance * 0.1f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.01f) , 
+														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.02f) , 
+														GameConst.ReboundHeadZC + (Attr.ReboundHeadDistance* 0.01f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.BlockDistance * 0.01f), 
+															GameConst.ReboundBlockYC + (Attr.BlockDistance * 0.02f), 
+															GameConst.ReboundBlockZC + (Attr.BlockDistance * 0.01f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.ReboundHandDistance * 0.01f), 
+															  GameConst.ReboundBlockYC + (Attr.ReboundHandDistance * 0.02f),
+															  GameConst.ReboundBlockZC + (Attr.ReboundHandDistance * 0.01f));
 		} else if(Attribute.BodyType == 1) {
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXF + (Attr.ReboundHeadDistance* 0.1f), 
-														GameConst.ReboundHeadYF + (Attr.ReboundHeadDistance* 0.2f) , 
-														GameConst.ReboundHeadZF + (Attr.ReboundHeadDistance* 0.1f));
-			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.BlockDistance * 0.1f), 
-															GameConst.ReboundBlockYF + (Attr.BlockDistance * 0.2f), 
-															GameConst.ReboundBlockZF + (Attr.BlockDistance * 0.1f));
-			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.ReboundHandDistance * 0.1f), 
-															  GameConst.ReboundBlockYF + (Attr.ReboundHandDistance * 0.2f),
-															  GameConst.ReboundBlockZF + (Attr.ReboundHandDistance * 0.1f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXF + (Attr.ReboundHeadDistance* 0.01f), 
+														GameConst.ReboundHeadYF + (Attr.ReboundHeadDistance* 0.02f) , 
+														GameConst.ReboundHeadZF + (Attr.ReboundHeadDistance* 0.01f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.BlockDistance * 0.01f), 
+															GameConst.ReboundBlockYF + (Attr.BlockDistance * 0.02f), 
+															GameConst.ReboundBlockZF + (Attr.BlockDistance * 0.01f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.ReboundHandDistance * 0.01f), 
+															  GameConst.ReboundBlockYF + (Attr.ReboundHandDistance * 0.02f),
+															  GameConst.ReboundBlockZF + (Attr.ReboundHandDistance * 0.01f));
 		} else {
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXG + (Attr.ReboundHeadDistance* 0.1f) , 
-														GameConst.ReboundHeadYG + (Attr.ReboundHeadDistance* 0.2f) , 
-														GameConst.ReboundHeadZG + (Attr.ReboundHeadDistance* 0.1f));
-			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.BlockDistance * 0.1f), 
-															GameConst.ReboundBlockYG + (Attr.BlockDistance * 0.2f), 
-															GameConst.ReboundBlockZG + (Attr.BlockDistance * 0.1f));
-			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.ReboundHandDistance * 0.1f), 
-															  GameConst.ReboundBlockYG + (Attr.ReboundHandDistance * 0.2f),
-															  GameConst.ReboundBlockZG + (Attr.ReboundHandDistance * 0.1f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXG + (Attr.ReboundHeadDistance* 0.01f) , 
+														GameConst.ReboundHeadYG + (Attr.ReboundHeadDistance* 0.02f) , 
+														GameConst.ReboundHeadZG + (Attr.ReboundHeadDistance* 0.01f));
+			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.BlockDistance * 0.01f), 
+															GameConst.ReboundBlockYG + (Attr.BlockDistance * 0.02f), 
+															GameConst.ReboundBlockZG + (Attr.BlockDistance * 0.01f));
+			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.ReboundHandDistance * 0.01f), 
+															  GameConst.ReboundBlockYG + (Attr.ReboundHandDistance * 0.02f),
+															  GameConst.ReboundBlockZG + (Attr.ReboundHandDistance * 0.01f));
 		}
     }
 
