@@ -40,16 +40,16 @@ public static class UIEquipChecker
     /// <returns></returns>
     public static bool IsInlayFull(TItemData item, int[] playerInlayItemIDs)
     {
-        for(var i = 0; i < item.Materials.Length; i++)
+        for(var i = 0; i < item.ReviseMaterials.Length; i++)
         {
-            if(item.Materials[i] <= 0)
-                continue;
+//            if(item.Materials[i].ItemID <= 0)
+//                continue;
 
             bool found = false;
             if (playerInlayItemIDs != null) {
                 for(var j = 0; j < playerInlayItemIDs.Length; j++)
                 {
-                    if(item.Materials[i] == playerInlayItemIDs[j])
+                    if(item.ReviseMaterials[i].ID == playerInlayItemIDs[j])
                     {
                         found = true;
                         break;

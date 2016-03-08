@@ -778,80 +778,6 @@ namespace GameStruct
 	    }
 	}
 
-	public struct TValueItem
-    {
-		public int ID;
-
-        /// <summary>
-        /// 鑲嵌物品的 ItemID.(這個只是用在接 Json 讀出的資料, 不要使用, 改使用 RealInlayItemIDs)
-        /// </summary>
-        [CanBeNull]public int[] InlayItemIDs;
-
-        /// <summary>
-        /// 堆疊數量.
-        /// </summary>
-	    public int Num;
-
-	    [NotNull]
-	    public int[] RevisionInlayItemIDs
-	    {
-	        get
-	        {
-                if(!GameData.DItemData.ContainsKey(ID))
-                    return new int[0];
-                TItemData item = GameData.DItemData[ID];
-
-                if(InlayItemIDs == null)
-	                InlayItemIDs = new int[item.AvailableMaterialNum];
-                else if(InlayItemIDs.Length < item.AvailableMaterialNum)
-                {
-                    // 不足的部份補上 0.
-                    int[] revisionInlayItemIDs = new int[item.AvailableMaterialNum];
-                    Array.Copy(InlayItemIDs, revisionInlayItemIDs, InlayItemIDs.Length);
-                    InlayItemIDs = revisionInlayItemIDs;
-                }
-                return InlayItemIDs;
-	        }
-	    }
-
-	    public bool HasInlay(int itemID)
-	    {
-	        for(var i = 0; i < RevisionInlayItemIDs.Length; i++)
-	        {
-	            if(RevisionInlayItemIDs[i] == itemID)
-	                return true;
-	        }
-	        return false;
-	    }
-
-	    public int GetTotalPoint()
-	    {
-	        int totalPoints = getSumAttriValues(ID);
-
-	        if(InlayItemIDs != null)
-	        {
-                foreach(int inlayItemID in InlayItemIDs)
-                {
-                    totalPoints += getSumAttriValues(inlayItemID);
-                }
-	        }
-
-	        return totalPoints;
-	    }
-
-        private int getSumAttriValues(int itemID)
-        {
-            if(GameData.DItemData.ContainsKey(itemID))
-                return GameData.DItemData[itemID].BonusValues.Sum();
-            return 0;
-        }
-
-        public override string ToString()
-	    {
-	        return string.Format("ID: {0}, InlayItemIDs: {1}", ID, InlayItemIDs);
-	    }
-    }
-
     public struct TMaterialItem
     {
         public int ID;
@@ -949,54 +875,62 @@ namespace GameStruct
         public EBonus AttrKind3;
         public int AttrValue3;
 
-        public int[] Materials
-        {
-            get { return mMaterials ?? (mMaterials = new []{Material1, Material2, Material3, Material4}); }
-        }
-
-        public int[] MaterialNums
-        {
-            get { return mMaterialNums ?? (mMaterialNums = new []{MaterialNum1, MaterialNum2, MaterialNum3, MaterialNum4}); }
-        }
-
-        public int AvailableMaterialNum
+        public TMaterialItem[] ReviseMaterials
         {
             get
             {
-                int num = 0;
-                for(var i = 0; i < Materials.Length; i++)
+                if(mMaterials == null)
                 {
-                    if(Materials[i] > 0 && MaterialNums[i] > 0)
-                        ++num;
+                    List<TMaterialItem> materials = new List<TMaterialItem>();
+
+                    if(GameData.DItemData.ContainsKey(Material1) && MaterialNum1 > 0)
+                        materials.Add(new TMaterialItem { ID = Material1, Num = MaterialNum1});
+
+                    if(GameData.DItemData.ContainsKey(Material2) && MaterialNum2 > 0)
+                        materials.Add(new TMaterialItem { ID = Material2, Num = MaterialNum2 });
+
+                    if(GameData.DItemData.ContainsKey(Material3) && MaterialNum3 > 0)
+                        materials.Add(new TMaterialItem { ID = Material3, Num = MaterialNum3 });
+
+                    if(GameData.DItemData.ContainsKey(Material4) && MaterialNum4 > 0)
+                        materials.Add(new TMaterialItem { ID = Material4, Num = MaterialNum4 });
+
+                    mMaterials = materials.ToArray();
                 }
 
-                return num;
+                return mMaterials;
             }
         }
 
-        public bool HasMaterial(int itemID)
-        {
-            for(var i = 0; i < Materials.Length; i++)
-            {
-                if(Materials[i] == itemID)
-                    return true;
-            }
-            return false;
-        }
+        private TMaterialItem[] mMaterials;
 
-        public int FindMaterialNum(int itemID)
-        {
-            for(var i = 0; i < Materials.Length; i++)
-            {
-                if(Materials[i] == itemID)
-                    return MaterialNums[i];
-            }
+//        private int[] MaterialItemIDs
+//        {
+//            get { return mMaterialItemIDs ?? (mMaterialItemIDs = new []{Material1, Material2, Material3, Material4}); }
+//        }
+//
+//        private int[] MaterialNums
+//        {
+//            get { return mMaterialNums ?? (mMaterialNums = new []{MaterialNum1, MaterialNum2, MaterialNum3, MaterialNum4}); }
+//        }
 
-            return 0;
-        }
+//        public int AvailableMaterialNum
+//        {
+//            get
+//            {
+//                int num = 0;
+//                for(var i = 0; i < MaterialItemIDs.Length; i++)
+//                {
+//                    if(MaterialItemIDs[i] > 0 && MaterialNums[i] > 0)
+//                        ++num;
+//                }
+//
+//                return num;
+//            }
+//        }
 
-        private int[] mMaterials;
-        private int[] mMaterialNums;
+//        private int[] mMaterialItemIDs;
+//        private int[] mMaterialNums;
         [UsedImplicitly]
         public int Material1 { get; private set; }
         [UsedImplicitly]

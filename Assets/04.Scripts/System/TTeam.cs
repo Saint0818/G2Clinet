@@ -105,7 +105,7 @@ namespace GameStruct
         {
             for(var i = 0; i < MaterialItems.Length; i++)
             {
-                if (MaterialItems[i].ID == itemID)
+                if(MaterialItems[i].ID == itemID)
                     return true;
             }
 
@@ -937,7 +937,7 @@ namespace GameStruct
 		}
 
         /// <summary>
-        /// 是否玩家身上的數值裝是最強的.
+        /// 是否玩家身上的數值裝是最強的(會和倉庫內的數值裝做數值比較).
         /// </summary>
         /// <returns></returns>
         public bool IsPlayerAllBestValueItem()
@@ -969,7 +969,7 @@ namespace GameStruct
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public int getStorageBestValueItemTotalPoints(int kind)
+        private int getStorageBestValueItemTotalPoints(int kind)
         {
             int maxTotalPoint = Int32.MinValue;
             foreach(TValueItem valueItem in ValueItems)

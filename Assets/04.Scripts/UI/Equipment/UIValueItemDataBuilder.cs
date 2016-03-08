@@ -51,12 +51,12 @@ public static class UIValueItemDataBuilder
     {
         List<MaterialItemInfo> infos = new List<MaterialItemInfo>();
 
-        for(var i = 0; i < item.Materials.Length; i++)
+        for(var i = 0; i < item.ReviseMaterials.Length; i++)
         {
-            if(GameData.Team.HasMaterialItem(item.Materials[i]))
+            if(GameData.Team.HasMaterialItem(item.ReviseMaterials[i].ID))
             {
                 TMaterialItem materialItem = new TMaterialItem();
-                int materialItemIndex = GameData.Team.FindMaterialItem(item.Materials[i], ref materialItem);
+                int materialItemIndex = GameData.Team.FindMaterialItem(item.ReviseMaterials[i].ID, ref materialItem);
                 MaterialItemInfo info = new MaterialItemInfo
                 {
                     Index = materialItemIndex,
@@ -117,48 +117,48 @@ public static class UIValueItemDataBuilder
     }
 
     private static void buildMaterials(TItemData item, int[] playerInlayItemIDs, 
-                                    MaterialItemInfo[] storageMaterials,
-                                    ref UIValueItemData valueItem)
+                                       MaterialItemInfo[] storageMaterials,
+                                       ref UIValueItemData valueItem)
     {
         valueItem.Materials.Clear();
 
-        for(var i = 0; i < item.Materials.Length; i++)
+        for(var i = 0; i < item.ReviseMaterials.Length; i++)
         {
-            if(item.Materials[i] <= 0)
-                continue;
+//            if(item.MaterialItemIDs[i] <= 0)
+//                continue;
 
-            if(!GameData.DItemData.ContainsKey(item.Materials[i]))
-            {
-                Debug.LogWarningFormat("Can't Find ItemData by ItemID({0})", item.Materials[i]);
-                continue;
-            }
-            TItemData materialItem = GameData.DItemData[item.Materials[i]];
+//            if(!GameData.DItemData.ContainsKey(item.MaterialItemIDs[i]))
+//            {
+//                Debug.LogWarningFormat("Can't Find ItemData by ItemID({0})", item.MaterialItemIDs[i]);
+//                continue;
+//            }
+            TItemData materialItem = GameData.DItemData[item.ReviseMaterials[i].ID];
 
-            UIEquipMaterialItem.Data data = new UIEquipMaterialItem.Data
+            UIEquipMaterialItem.Data materialData = new UIEquipMaterialItem.Data
             {
                 Name = materialItem.Name,
                 NameColor = TextConst.Color(materialItem.Quality),
                 Icon = string.Format("Item_{0}", materialItem.Icon),
                 IconBGColor = TextConst.ColorBG(materialItem.Quality),
                 Frame = string.Format("Patch{0}", item.Quality),
-                NeedValue = item.MaterialNums[i],
+                NeedValue = item.ReviseMaterials[i].Num,
                 StorageIndex = storageMaterials[i].Index,
                 ItemID = materialItem.ID,
                 Values = convertBonus(materialItem.Bonus, materialItem.BonusValues)
             };
-            valueItem.Materials.Add(data);
+            valueItem.Materials.Add(materialData);
             
             if(playerInlayItemIDs != null && i < playerInlayItemIDs.Length && playerInlayItemIDs[i] > 0)
             {
                 // 有鑲嵌物.
-                data.Status = UIEquipMaterialItem.EStatus.Inlayed;
-                data.RealValue = data.NeedValue;
+                materialData.Status = UIEquipMaterialItem.EStatus.Inlayed;
+                materialData.RealValue = materialData.NeedValue;
             }
             else
             {
                 // 沒有鑲嵌.
-                data.Status = storageMaterials[i].Num >= item.MaterialNums[i] ? UIEquipMaterialItem.EStatus.Enough : UIEquipMaterialItem.EStatus.Lack;
-                data.RealValue = storageMaterials[i].Num;
+                materialData.Status = storageMaterials[i].Num >= item.ReviseMaterials[i].Num ? UIEquipMaterialItem.EStatus.Enough : UIEquipMaterialItem.EStatus.Lack;
+                materialData.RealValue = storageMaterials[i].Num;
             }
         }
     }
