@@ -59,7 +59,7 @@ namespace AI
         {
             // 魔術數字 1.0 的目的是希望球員可以盡可能的變成快攻狀態.
             if(GameController.Get.BallOwner == mPlayer &&
-               !mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position, GameConst.AIFastBreakOffset))
+               !mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
             {
                 // 我是持球者, 而且我前方有任何人.
                 Parent.ChangeState(PlayerAttackState.EPlayerAttackState.General);

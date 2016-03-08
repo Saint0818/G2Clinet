@@ -87,7 +87,7 @@ namespace AI
 
             // 魔術數字 1.0 的目的是希望球員可以盡可能的變成快攻狀態.
             if(GameController.Get.BallOwner == mPlayer &&
-               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position, GameConst.AIFastBreakOffset))
+               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
             {
                 // 我是持球者, 而且我前方沒有任何人.
                 Parent.ChangeState(PlayerAttackState.EPlayerAttackState.FastBreak);
@@ -98,9 +98,17 @@ namespace AI
                 return; // 主動技真的放成功, 結束這次 AI 的判斷.
 
             if(isBallOwner())
+            {
                 mBallActions.Do();
+
+//                Debug.LogFormat("{0}, {1}", mPlayer.name, mBallActions);
+            }
 			else if(!mPlayer.IsCatch)
-                mNoBallActions.Do();
+			{
+			    mNoBallActions.Do();
+
+//                Debug.LogFormat("{0}, {1}", mPlayer.name, mNoBallActions);
+            }
 
             if(GameController.Get.HasBallOwner)
                 updateTactical(); // 一直指定戰術給球員.

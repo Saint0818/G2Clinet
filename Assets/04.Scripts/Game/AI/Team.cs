@@ -253,16 +253,15 @@ namespace AI
         /// 
         /// </summary>
         /// <param name="position"></param>
-        /// <param name="oppDisOffset"> 對手距離判斷增加的位移量. </param>
         /// <returns></returns>
-        public bool IsAllOpponentsBehindMe(Vector3 position, float oppDisOffset = 0)
+        public bool IsAllOpponentsBehindMe(Vector3 position)
         {
             var targetPos = CourtMgr.Get.ShootPoint[(int)mTeamKind].transform.position;
             var meDis = MathUtils.Find2DDis(targetPos, position);
             for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                float oppDis = MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, targetPos) + oppDisOffset;
-                if(oppDis < meDis)
+                float oppDis = MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, targetPos);
+                if(oppDis - meDis < GameConst.AIFastBreakThreshold)
                     return false;
             }
 

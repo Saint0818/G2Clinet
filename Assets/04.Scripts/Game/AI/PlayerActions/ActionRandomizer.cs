@@ -38,6 +38,11 @@ namespace AI
             mActions.Clear();
         }
 
+        public override string ToString()
+        {
+            return string.Format("Current:{0}, {1}", mCurrentAction, mRandomizer);
+        }
+
         public void Do()
         {
             if(mCurrentAction.IsDone)
