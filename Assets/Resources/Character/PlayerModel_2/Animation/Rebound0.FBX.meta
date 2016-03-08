@@ -158,6 +158,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.010246971
+        functionName: AnimationEvent
+        data: ReboundCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.32362497
         functionName: AnimationEvent
         data: TipInStart
@@ -168,13 +175,6 @@ ModelImporter:
       - time: 0.45045042
         functionName: AnimationEvent
         data: TipInEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.07153729
-        functionName: AnimationEvent
-        data: ReboundCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -156,7 +156,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.071537286
+      - time: 0.010246963
         functionName: AnimationEvent
         data: ReboundCalculateStart
         objectReferenceParameter: {instanceID: 0}
