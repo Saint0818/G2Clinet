@@ -3683,7 +3683,7 @@ public class GameController : KnightSingleton<GameController>
 		if(player.PlayerSkillController.IsHavePickBall2) {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
 				int rate = Random.Range(0, 100);
-				if(rate < player.PlayerSkillController.PickBall2Rate) {
+				if(rate < player.PlayerSkillController.GetPickBall2Rate) {
 					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBallObj.transform.position);
 				}
 			}
@@ -3733,7 +3733,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	IEnumerator playFinish() {
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(2.5f);
 	    IsStart = false;
 		setEndShowScene();
 		if(GameStart.Get.IsAutoReplay){

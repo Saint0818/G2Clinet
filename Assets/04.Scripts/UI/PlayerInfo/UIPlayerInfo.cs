@@ -25,23 +25,24 @@ public class PersonalView
 
         if (self)
         {
-            playerName = self.transform.FindChild("PlayerName").gameObject.GetComponent<UIButton>();
-            changeHeadBtn = self.transform.FindChild("PlayerBt").gameObject.GetComponent<UIButton>();
-            headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
-			position = changeHeadBtn.transform.FindChild("PositionIcon").gameObject.GetComponent<UISprite>();
-            lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
-            name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
-            expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
-            expValue = self.transform.FindChild("EXPView/ExpLabel").gameObject.GetComponent<UILabel>();
-//			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
-            powerValue = self.transform.FindChild("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
-//			group = self.transform.FindChild("PlayerLeague").gameObject.GetComponent<UIButton>();
-//			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
-//			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
-			
+            playerName = self.transform.Find("PlayerName").gameObject.GetComponent<UIButton>();
+            changeHeadBtn = self.transform.Find("PlayerBt").gameObject.GetComponent<UIButton>();
+            headTex = changeHeadBtn.transform.Find("PlayerIcon").gameObject.GetComponent<UISprite>();
+			position = changeHeadBtn.transform.Find("PositionIcon").gameObject.GetComponent<UISprite>();
+            lv = changeHeadBtn.transform.Find("LevelLabel").gameObject.GetComponent<UILabel>();
+            name = self.transform.Find("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
+            expBar = self.transform.Find("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
+            expValue = self.transform.Find("EXPView/ExpLabel").gameObject.GetComponent<UILabel>();
+//			powerBar = self.transform.Find("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
+            powerValue = self.transform.Find("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
+//			group = self.transform.Find("PlayerLeague").gameObject.GetComponent<UIButton>();
+//			groupHead = group.transform.Find("Label").gameObject.GetComponent<UILabel>();
+//			groupBody = group.transform.Find("LeagueID").gameObject.GetComponent<UILabel>();
+			UIEventListener.Get(self.transform.Find("CombatView").gameObject).onClick = OnClickPower;
+
             for (int i = 0; i < ValueItems.Length; i++)
             {
-                GameObject go = self.transform.FindChild(string.Format("EquipmentView/PartSlot{0}/View", i)).gameObject;
+                GameObject go = self.transform.Find(string.Format("EquipmentView/PartSlot{0}/View", i)).gameObject;
                 if ((ValueItems[i] == null || !ValueItems[i].IsInit) && itemEquipmentBtn[i] != null)
                 {
                     ValueItems[i] = new TValueAvater();
@@ -50,6 +51,10 @@ public class PersonalView
             }
         }
     }
+
+	public void OnClickPower(GameObject go) {
+		UIOverallHint.Get.ShowView(powerValue.text);
+	}
 
     public void InitBtttonFunction(EventDelegate changeHeadFunc, EventDelegate groupFunc, EventDelegate itemHint, EventDelegate changeName)
     {
@@ -143,7 +148,7 @@ public class AbilityView
             for (int i = 0; i < abilitys.Length; i++)
             {
                 abilitys[i] = new TAbilityItem();
-                go = self.transform.FindChild(string.Format("AttrGroup/{0}", i)).gameObject;
+                go = self.transform.Find(string.Format("AttrGroup/{0}", i)).gameObject;
                 abilitys[i].Init(go, i, hitFunc);
             }
 
@@ -243,7 +248,7 @@ public class TSkillView
                 activeSkillCard[i].Init(active[i], new EventDelegate(OnActiveSkillHint));
             }
 
-            GameObject passiveParent = self.transform.FindChild("PassiveCard/PassiveList").gameObject;
+            GameObject passiveParent = self.transform.Find("PassiveCard/PassiveList").gameObject;
 
             for (int i = 0; i < passive.Length; i++)
             {
@@ -319,7 +324,7 @@ public class TStateView
         if (go)
         {
             self = go;	
-            ContentsLabel = self.transform.FindChild("ShowPve/Contents/ContentsLabel").gameObject.GetComponent<UILabel>();
+            ContentsLabel = self.transform.Find("ShowPve/Contents/ContentsLabel").gameObject.GetComponent<UILabel>();
         }
     }
 
@@ -363,13 +368,13 @@ public class TValueAvater
             self.transform.localScale = Vector3.one;
             BG = self.GetComponent<UISprite>();
 
-            pic = self.transform.FindChild("Icon").gameObject.GetComponent<UISprite>();
-			qualityBG = self.transform.FindChild("QualityBG").gameObject.GetComponent<UISprite>();
-            redPoint = self.transform.FindChild("RedPoint").gameObject.GetComponent<UISprite>();
+            pic = self.transform.Find("Icon").gameObject.GetComponent<UISprite>();
+			qualityBG = self.transform.Find("QualityBG").gameObject.GetComponent<UISprite>();
+            redPoint = self.transform.Find("RedPoint").gameObject.GetComponent<UISprite>();
             redPoint.enabled = false;
-            name = self.transform.FindChild("NameLabel").gameObject.GetComponent<UILabel>();
-			plusIcon =  self.transform.FindChild("PlustIcon").gameObject;
-			amountLabel = self.transform.FindChild("AmountLabel").gameObject.GetComponent<UILabel>();
+            name = self.transform.Find("NameLabel").gameObject.GetComponent<UILabel>();
+			plusIcon =  self.transform.Find("PlustIcon").gameObject;
+			amountLabel = self.transform.Find("AmountLabel").gameObject.GetComponent<UILabel>();
 			plusIcon.SetActive(false);
 			amountLabel.gameObject.SetActive(false);
             Btn = self.GetComponent<UIButton>();
@@ -377,7 +382,7 @@ public class TValueAvater
             self.name = Index.ToString();
 
             for (int i = 0; i < stars.Length; i++)
-                stars[i] = obj.transform.FindChild(string.Format("EquipmentStar/Empty{0}", i)).gameObject.GetComponent<UISprite>();
+                stars[i] = obj.transform.Find(string.Format("EquipmentStar/Empty{0}", i)).gameObject.GetComponent<UISprite>();
 
             IsInit = self || BG || Btn || stars[0] || stars[1] || stars[2] || stars[3] || pic;
         }
@@ -443,7 +448,7 @@ public class TAbilityItem
             go = obj;
 //			pic = go.GetComponent<UISprite> ();
 //			pic.spriteName = string.Format ("AttrKind_{0}", index + 1);
-            Value = go.transform.FindChild("ValueBaseLabel").gameObject.GetComponent<UILabel>();
+            Value = go.transform.Find("ValueBaseLabel").gameObject.GetComponent<UILabel>();
             btn = go.GetComponent<UIButton>();
             IsInit = go && Value;
 
@@ -565,7 +570,7 @@ public class UIPlayerInfo : UIBase
 
         for (int i = 0; i < GameConst.Max_ActiveSkill; i++)
         {
-            actives[i] = obj.transform.FindChild(string.Format("ActiveCard/ActiveCardBase{0}/ItemSkillCard", i)).gameObject;	
+            actives[i] = obj.transform.Find(string.Format("ActiveCard/ActiveCardBase{0}/ItemSkillCard", i)).gameObject;	
         }
 
         for (int i = 0; i < passives.Length; i++)
