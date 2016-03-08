@@ -383,9 +383,9 @@ public class PlayerBehaviour : MonoBehaviour
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 //        TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 		if(Attribute.BodyType == 0){
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.04f) , 
-														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.05f) , 
-														GameConst.ReboundHeadZC + (Attr.ReboundHeadDistance* 0.04f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.03f) , 
+														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.04f) , 
+														GameConst.ReboundHeadZC + (Attr.ReboundHeadDistance* 0.03f));
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.BlockDistance * 0.04f), 
 															GameConst.ReboundBlockYC + (Attr.BlockDistance * 0.05f), 
 															GameConst.ReboundBlockZC + (Attr.BlockDistance * 0.04f));
@@ -393,9 +393,9 @@ public class PlayerBehaviour : MonoBehaviour
 															  GameConst.ReboundBlockYC + (Attr.ReboundHandDistance * 0.05f),
 															  GameConst.ReboundBlockZC + (Attr.ReboundHandDistance * 0.04f));
 		} else if(Attribute.BodyType == 1) {
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXF + (Attr.ReboundHeadDistance* 0.03f), 
-														GameConst.ReboundHeadYF + (Attr.ReboundHeadDistance* 0.04f) , 
-														GameConst.ReboundHeadZF + (Attr.ReboundHeadDistance* 0.03f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXF + (Attr.ReboundHeadDistance* 0.02f), 
+														GameConst.ReboundHeadYF + (Attr.ReboundHeadDistance* 0.03f) , 
+														GameConst.ReboundHeadZF + (Attr.ReboundHeadDistance* 0.02f));
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.BlockDistance * 0.02f), 
 															GameConst.ReboundBlockYF + (Attr.BlockDistance * 0.03f), 
 															GameConst.ReboundBlockZF + (Attr.BlockDistance * 0.02f));
@@ -403,9 +403,9 @@ public class PlayerBehaviour : MonoBehaviour
 															  GameConst.ReboundBlockYF + (Attr.ReboundHandDistance * 0.04f),
 															  GameConst.ReboundBlockZF + (Attr.ReboundHandDistance * 0.03f));
 		} else {
-			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXG + (Attr.ReboundHeadDistance* 0.02f) , 
-														GameConst.ReboundHeadYG + (Attr.ReboundHeadDistance* 0.03f) , 
-														GameConst.ReboundHeadZG + (Attr.ReboundHeadDistance* 0.02f));
+			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXG + (Attr.ReboundHeadDistance* 0.01f) , 
+														GameConst.ReboundHeadYG + (Attr.ReboundHeadDistance* 0.02f) , 
+														GameConst.ReboundHeadZG + (Attr.ReboundHeadDistance* 0.01f));
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.BlockDistance * 0.03f), 
 															GameConst.ReboundBlockYG + (Attr.BlockDistance * 0.04f), 
 															GameConst.ReboundBlockZG + (Attr.BlockDistance * 0.03f));
