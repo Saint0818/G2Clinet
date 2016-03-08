@@ -126,7 +126,6 @@
     {
         "id": 240,
         "explain": "體力不足/內文",
-        "tw": "你的[00E1FFFF]體 力[-]不夠囉，下次體力回復在{0}後，是否前往購買？",
         "en": "[00E1FFFF] STAMINA [-] IS NOT ENOUGH, MORE IN {0}, PURCHASE?"
     },
     {
@@ -947,6 +946,12 @@
         "tw": "數 據",
         "en": "STATS",
         "jp": "STATS"
+    },
+    {
+        "id": 3021,
+        "explain": "秀戰力值",
+        "tw": "完整戰力值",
+        "en": "OVERALL"
     },
     {
         "id": 3021,
@@ -1907,14 +1912,14 @@
     {
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": " [B3B3B3FF]銅質晶片[-]",
-        "en": " [B3B3B3FF] COPPER SKILL CARD [-] "
+        "tw": " [B3B3B3FF]鐵質晶片[-]",
+        "en": " [B3B3B3FF] IRON SKILL CARD [-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": " [C17269FF]鐵質晶片[-]",
-        "en": " [C17269FF] IRON SKILL CARD [-] "
+        "tw": " [C17269FF]銅質晶片[-]",
+        "en": " [C17269FF] COPPER SKILL CARD [-] "
     },
     {
         "id": 4603,
@@ -3242,7 +3247,7 @@
     {
         "id": 9309,
         "uipeth": "StageHint/TargetLabel",
-        "tw": "關卡目標",
+        "tw": "競賽目標",
         "en": "MISSION"
     },
     {
@@ -3365,8 +3370,8 @@
     {
         "id": 9512,
         "explain": "與你搭擋的另一個玩家A",
-        "tw": "隊友[6666ff]A[-]",
-        "en": "TEAMMATE [6666ff]A[-]"
+        "tw": "隊友[0096FFFF]A[-]",
+        "en": "TEAMMATE [0096FFFF]A[-]"
     },
     {
         "id": 9513,
@@ -3858,23 +3863,23 @@
     {
         "id": 10302,
         "uipeth": "HomeBtn/SpriteHome",
-        "tw": "HOME",
+        "tw": "我 方",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10303,
         "uipeth": "AwayBtn/SpriteAway",
-        "tw": "AWAY",
+        "tw": "對 手",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10304,
         "uipeth": "TargetBtn/LabelTitle",
-        "tw": "GAME TARGET",
-        "en": "OBJECTIVE",
-        "jp": "GAME TARGET"
+        "tw": "競 賽 目 標",
+        "en": "MISSION",
+        "jp": "MISSION"
     },
     {
         "id": 10305,
@@ -3977,35 +3982,35 @@
     {
         "id": 10319,
         "uipeth": "AIControlScrollBar/Label0",
-        "tw": "1s",
+        "tw": "1秒",
         "en": "1s",
         "jp": "1s"
     },
     {
         "id": 10320,
         "uipeth": "AIControlScrollBar/Label1",
-        "tw": "3s",
+        "tw": "3秒",
         "en": "3s",
         "jp": "3s"
     },
     {
         "id": 10321,
         "uipeth": "AIControlScrollBar/Label2",
-        "tw": "5s",
+        "tw": "5秒",
         "en": "5s",
         "jp": "5s"
     },
     {
         "id": 10322,
         "uipeth": "AIControlScrollBar/Label3",
-        "tw": "15s",
+        "tw": "15秒",
         "en": "15s",
         "jp": "15s"
     },
     {
         "id": 10323,
         "uipeth": "AIControlScrollBar/Label4",
-        "tw": "30s",
+        "tw": "30秒",
         "en": "30s",
         "jp": "30s"
     },
@@ -4019,7 +4024,7 @@
     {
         "id": 10325,
         "uipeth": "AISecLabel",
-        "tw": "AI Mode",
+        "tw": "自動模式",
         "en": "AI MODE"
     },
     {
@@ -4043,7 +4048,7 @@
     {
         "id": 10329,
         "uipeth": "暫停/SpriteTitle",
-        "tw": "數值統計",
+        "tw": "單場數據",
         "en": "PLAYER STATS"
     },
     {
@@ -4053,14 +4058,14 @@
     {
         "id": 10402,
         "uipeth": "BottomRight/StatsNextLabel",
-        "tw": "NEXT",
+        "tw": "下一步",
         "en": "NEXT",
         "jp": "NEXT"
     },
     {
         "id": 10403,
         "uipeth": "BottomRight/AwardSkipLabel",
-        "tw": "SKIP",
+        "tw": "跳過",
         "en": "SKIP",
         "jp": "SKIP"
     },
@@ -4392,35 +4397,35 @@
     {
         "id": 12014,
         "uipeth": "0/BtnLabel",
-        "tw": "1s",
+        "tw": "1秒",
         "en": "1S",
         "jp": "1s"
     },
     {
         "id": 12015,
         "uipeth": "1/BtnLabel",
-        "tw": "3s",
+        "tw": "3秒",
         "en": "3S",
         "jp": "3s"
     },
     {
         "id": 12016,
         "uipeth": "2/BtnLabel",
-        "tw": "5s",
+        "tw": "5秒",
         "en": "5S",
         "jp": "5s"
     },
     {
         "id": 12017,
         "uipeth": "3/BtnLabel",
-        "tw": "15s",
+        "tw": "15秒",
         "en": "15S",
         "jp": "15s"
     },
     {
         "id": 12018,
         "uipeth": "4/BtnLabel",
-        "tw": "30s",
+        "tw": "30秒",
         "en": "30S",
         "jp": "30s"
     },
