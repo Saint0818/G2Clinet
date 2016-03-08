@@ -49,6 +49,7 @@ public class GameStart : MonoBehaviour {
 		Time.timeScale = 1;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		SceneMgr.Get.SetDontDestory (gameObject);
+		GameData.InitGameSetting ();
 		TextConst.Init();
 		GameData.Init();
         AnimatorMgr.Get.InitAnimtorStatesType();

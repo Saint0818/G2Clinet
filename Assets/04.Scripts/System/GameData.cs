@@ -118,7 +118,6 @@ public static class GameData
             isLoaded = true;
 
             FileManager.Get.LoadFileResource();
-            loadGameSetting();
             initAtlas();
         }
     }
@@ -245,7 +244,7 @@ public static class GameData
             QualitySettings.SetQualityLevel(foundIndex);
     }
 
-    private static void loadGameSetting()
+	public static void InitGameSetting()
     {
 
         Setting.NewAvatar = new Dictionary<int, int>();

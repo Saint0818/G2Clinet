@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public delegate void IntDelegate (int lv);
 public delegate void PlayerDelegate (int lv, PlayerBehaviour player);
@@ -10,6 +11,12 @@ public enum EDoubleClick
 	Rebound
 }
 
+/// <summary>
+/// 每個球員身上的bar條結構
+/// 使用combo功能：段數：012345 ＋命中機率 2:才顯示美術字5:為max
+/// 投籃：玩家可以控制其他隊友的二次點擊
+/// 火鍋：玩家只能控制自己的二次點擊
+/// </summary>
 public struct TDoubleClick
 {
 	public int Team;
@@ -34,23 +41,23 @@ public struct TDoubleClick
 	public void Init(GameObject obj)
 	{
 		string mainPath = "Scale/Billboard/QTEGroup/";
-		Group = obj.transform.FindChild(mainPath).gameObject;
+		Group = obj.transform.Find(mainPath).gameObject;
 		finsh = null;
 		finshPalyer = null;
 		speed = 1;
 		CrtValue = 800;
 		FramSpeed =  CrtValue / (speed * 30);
-		runSprite = Group.transform.FindChild ("BarSprite").gameObject.GetComponent<UISprite>();
-//		targetSprite = Group.transform.FindChild ("TargetSprite").gameObject.GetComponent<UISprite>();
+		runSprite = Group.transform.Find ("BarSprite").gameObject.GetComponent<UISprite>();
 		IsStart = false;
 		Enable = false;
 		Group.SetActive (false);
 
-		DoubleClickEffect = obj.transform.FindChild("Scale/Billboard/Combo").gameObject;
-		DoubleClickEffectSp = DoubleClickEffect.transform.FindChild("HitSprite").gameObject.GetComponent<UISprite>();
+		DoubleClickEffect = obj.transform.Find("Scale/Billboard/Combo").gameObject;
+		DoubleClickEffectSp = DoubleClickEffect.transform.Find("HitSprite").gameObject.GetComponent<UISprite>();
 		DoubleClickEffect.SetActive(false);
 	}
 
+    //Combo最多四級超過一律顯示Max
 	public void SetComBoEffect(int index)
 	{
 		if (index > 1) {
@@ -95,30 +102,16 @@ public struct TDoubleClick
 			SetLv(2, Index);
 		else
 			SetLv(0, Index);
-		/*				
-		if(CheckValue < 150 || CheckValue> 400) {
-//			Debug.Log("week");
-			SetLv(0, Index);
-
-		} else if(CheckValue > 250 && CheckValue <= 400) {
-//			Debug.Log("good");
-			SetLv(1, Index);
-
-		} else if(CheckValue >= 150 && CheckValue <= 250) {
-//			Debug.Log("perfab");
-			SetLv(2, Index);
-		}
-		*/
 	}
 	
-	public void SetData(EDoubleClick type, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	public void SetData(EDoubleClick type, float speedvalue, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
 		crtType = type;
 		Enable = true;
 		finsh = intFunction;
 		finshPalyer = playerFunction;
 		crtPlayer = player;
-		speed = value;
+		speed = speedvalue;
 		FramSpeed = 800 / (speed * 30);
 		IsStart = true;
 	}
@@ -146,8 +139,6 @@ public struct TDoubleClick
 				finsh(index);
 			else if(crtPlayer != null)
 				finshPalyer(index, crtPlayer);
-			
-			Enable = false;
 		}
 	}
 
@@ -155,26 +146,32 @@ public struct TDoubleClick
 	{
 		if (Enable) {
 			IsStart = false;
-//			CheckValue = CrtValue;
 			CrtValue = 800;
 			CheckLv ();
 		}
 	}
 
+    //因為之前大小是800速度也都測好，所以才會用800去換算速率，這樣才不需要停整Event裡DoubleClick觸發的時機
 	public void ValueCalculation()
 	{
 		if (IsStart) {
 			CrtValue -= FramSpeed;
+            //一開始runSprite y的位置會是-50的地方，終點是50,分成100等分再根據之前的速率，所以才得到以下公式;
 			float y = 50 - (100 * CrtValue / 800);
 			runSprite.transform.localPosition = new Vector3 (0, y, 0);
 
+            //時間到自動關閉
 			if (CrtValue <= 0) {
 				ClickStop();
+                Enable = false;
 			}
 		}
 	}
 }
 
+/// <summary>
+/// User interface double click.
+/// </summary>
 public class UIDoubleClick : UIBase {
 
 	public TDoubleClick[] DoubleClicks = new TDoubleClick[6];
@@ -240,12 +237,12 @@ public class UIDoubleClick : UIBase {
 			}		
 		}
 	}
-
-	public void SetData(EDoubleClick type, int playerIndex, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+       
+	public void SetData(EDoubleClick type, int playerIndex, float speed, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
 		if (playerIndex != -1 && playerIndex < DoubleClicks.Length) {
 			UIShow(true);
-			DoubleClicks[playerIndex].SetData(type, value, intFunction, playerFunction, player);
+			DoubleClicks[playerIndex].SetData(type, speed, intFunction, playerFunction, player);
 			if(BottomRight)
 				BottomRight.SetActive(true);
 
@@ -310,7 +307,18 @@ public class UIDoubleClick : UIBase {
 
 	public void ClickStop(int index)
 	{
-		if (index != -1 && DoubleClicks[index].Team == 0)
-			DoubleClicks[index].ClickStop();
+        if (index != -1 && DoubleClicks[index].Team == 0)
+        {
+            DoubleClicks[index].ClickStop();
+            StartCoroutine(DelayToCloseUI(index));
+        }
 	}
+
+    private IEnumerator DelayToCloseUI(int index)
+    {
+        Debug.LogError("Wait 1f ");
+        yield return new WaitForSeconds (1f);
+        DoubleClicks[index].Enable = false;
+        Debug.LogError("Close " + index);
+    }
 }
