@@ -32,6 +32,7 @@ public class UIEquipDetail : MonoBehaviour
     public Transform ItemParent;
     public UIButton UpgradeButton;
     public UILabel UpgradeMoneyLabel;
+    public GameObject UpgradeRedPoint;
     public UIButton DemountButton;
     private const string ButtonNormal = "button_orange1";
     private const string ButtonDisable = "button_gray";
@@ -104,6 +105,7 @@ public class UIEquipDetail : MonoBehaviour
     private void updateButton(UIValueItemData item)
     {
         UpgradeButton.gameObject.SetActive(false);
+        UpgradeRedPoint.SetActive(false);
         DemountButton.gameObject.SetActive(false);
 
         if(item.Status == UIValueItemData.EStatus.CannotUpgrade)
@@ -117,6 +119,7 @@ public class UIEquipDetail : MonoBehaviour
             UpgradeButton.gameObject.SetActive(true);
             UpgradeButton.GetComponent<UISprite>().spriteName = ButtonNormal;
             UpgradeButton.normalSprite = ButtonNormal;
+            UpgradeRedPoint.SetActive(true);
         }
         else if(item.Status == UIValueItemData.EStatus.CannotDemount)
         {

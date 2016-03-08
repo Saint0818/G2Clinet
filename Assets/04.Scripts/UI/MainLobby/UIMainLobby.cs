@@ -155,7 +155,6 @@ public class UIMainLobby : UIBase
     private void updateEquipmentButton()
     {
         bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
-        Main.EquipmentNotice = false;
         Main.EquipButton.CheckEnable();
         Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
     }
