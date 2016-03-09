@@ -247,10 +247,13 @@ public class UISkillFormation : UIBase {
 	private bool isAlreadyEquip = false;
 
 	private GameObject[] tabs = new GameObject[2];
+	private GameObject tabLock;
 	private GameObject[] redPoints = new GameObject[2];
 	private GameObject[] views = new GameObject[2];
 	//ForSuitCard
 	private UISuitCard uiSuitCard;
+
+	private GameObject activeLock;
 
 	void OnDestroy() {
 		activeOriginalSN.Clear();
@@ -327,6 +330,8 @@ public class UISkillFormation : UIBase {
 		for(int i=0; i<activeStruct.Length; i++) {
 			activeStruct[i].Init(UIName, i);
 		}
+
+		activeLock = GameObject.Find(UIName + "/Center/MainView/Right/ActiveCardBase2/Lock");
 		gridPassiveCardBase = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList/UIGrid").GetComponent<UIGrid>();
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
 		labelFrameCount = GameObject.Find (UIName + "/Center/FrameCount").GetComponent<UILabel>();
@@ -376,11 +381,17 @@ public class UISkillFormation : UIBase {
 			redPoints[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/RedPoint");
 			SetBtnFun(UIName + "/Top/Tabs/"+i.ToString(), OnTab);
 		}
+		tabLock = GameObject.Find(UIName + "/Top/Tabs/1/Lock");
 		ClickTab(0);
 		initCards ();
 		UpdateSort();
 		refreshFrameCount ();
 		CardDragFinish();
+
+
+		//企劃說目前不需要所以先隱藏(20160309)
+		labelFrameCount.gameObject.SetActive(false);
+		GameObject.Find(UIName + "/Center/SellBtn").SetActive(false);
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -439,6 +450,7 @@ public class UISkillFormation : UIBase {
 			redPoints[0].SetActive(isSurplusCost || GameData.Team.IsAnyCardReinEvo || isExtraCard || CheckCardnoInstall);
 		
 		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)));
+		tabLock.SetActive((LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SuitCard)));
 	}
 
 	public void SetBtn (string path, EventDelegate.Callback callback) {
@@ -607,6 +619,14 @@ public class UISkillFormation : UIBase {
 		refreshActiveItems ();
 		refreshPassiveItems();
 		RefreshTabsRedPoint (true);
+
+		if(IsOpenThirdActive) 
+			activeFieldLimit = 3;
+		 else 
+			activeFieldLimit = 2;
+		
+		activeLock.SetActive(!IsOpenThirdActive);
+		activeStruct[activeStruct.Length - 1].SpriteActiveFieldIcon.gameObject.SetActive(IsOpenThirdActive);
 	}
 
 	private void refreshFrameCount () {
@@ -838,7 +858,6 @@ public class UISkillFormation : UIBase {
 								}
 							}
 //							else UIHint.Get.ShowHint("More than SpaceMax", Color.red);
-
 						}
 						refreshActiveItems();
 					}
@@ -960,9 +979,11 @@ public class UISkillFormation : UIBase {
 			}
 		}
 			
-		for (int i=0; i<activeStruct.Length; i++) 
-			if((i+1) > activeFieldLimit)
-				activeStruct[i].SpriteActiveFieldIcon.spriteName = "Icon_lock";
+		activeLock.SetActive(!IsOpenThirdActive);
+		activeStruct[activeStruct.Length - 1].SpriteActiveFieldIcon.gameObject.SetActive(IsOpenThirdActive);
+//		for (int i=0; i<activeStruct.Length; i++) 
+//			if((i+1) > activeFieldLimit)
+//				activeStruct[i].SpriteActiveFieldIcon.spriteName = "Icon_lock";
 	}
 
 	//page 0 1 2 3 4
@@ -1343,16 +1364,17 @@ public class UISkillFormation : UIBase {
 	public void DoEquipCard (TUICard uicard){
 		if(!IsBuyState) {
 			if(GameFunction.IsActiveSkill(uicard.skillCard.Skill.ID)) {
-				if(getContainActiveSN(uicard.skillCard.Skill.SN) == -1){
-					if(getActiveFieldNull != -1) {
-						if(addItems(uicard, getActiveFieldNull)) {
-							AudioMgr.Get.PlaySound(SoundType.SD_Compose);
-						}
-					}
-					else UIHint.Get.ShowHint(TextConst.S(559), Color.red);
-				} 
-				else Debug.LogWarning ("Active SN is Same."+ uicard.skillCard.Skill.SN);
-				refreshActiveItems();
+//				if(getContainActiveSN(uicard.skillCard.Skill.SN) == -1){
+//					if(getActiveFieldNull != -1) {
+//						if(addItems(uicard, getActiveFieldNull)) {
+//							AudioMgr.Get.PlaySound(SoundType.SD_Compose);
+//						}
+//					}
+//					else UIHint.Get.ShowHint(TextConst.S(559), Color.red);
+//				} 
+//				else Debug.LogWarning ("Active SN is Same."+ uicard.skillCard.Skill.SN);
+//				refreshActiveItems();
+				AddItem(uicard.Card, getActiveInstall);
 			} else {
 				if(uicard.skillCard.IsInstall) { //Selected to NoSelected
 					uicard.skillCard.IsInstall = !uicard.skillCard.IsInstall;
@@ -1811,6 +1833,12 @@ public class UISkillFormation : UIBase {
 		}
 
 		return skill;
+	}
+
+	public bool IsOpenThirdActive {
+		get {
+			return (LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.ThirdActive)));
+		}
 	}
 
 	public int CostSpace {

@@ -50,6 +50,7 @@ public class UISkillReinforce : UIBase {
 
 	private GameObject[] windows = new GameObject[2];
 	private ReinEvoTab[] reinEvoTabs = new ReinEvoTab[2];
+	private GameObject tabLock;
 
 	//LeftView
 	private TActiveSkillCard skillCard;
@@ -140,6 +141,8 @@ public class UISkillReinforce : UIBase {
 		for (int i=0; i<2; i++) {
 			reinEvoTabs[i].Init(GameObject.Find(UIName + "/Window3/Center/Tabs/" + i.ToString()), OnTab);
 		}
+
+		tabLock = GameObject.Find(UIName + "/Window3/Center/Tabs/1/Lock");
 
 		skillEvolution = new UISkillEvolution();
 		skillEvolution.InitCom(this, UIName);
@@ -238,6 +241,8 @@ public class UISkillReinforce : UIBase {
 			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar) && 
 											 LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
 			reinEvoTabs[1].CheckUnUse = (GameData.DSkillData[mSkill.ID].EvolutionSkill == 0);
+
+			tabLock.SetActive( LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
 		}
 	}
 

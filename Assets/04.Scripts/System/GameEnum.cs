@@ -124,7 +124,8 @@
         SuitCard = 26,
         SuitItem = 27,
         SkillEvolution = 21,
-        SkillReinforce = 22
+        SkillReinforce = 22,
+		ThirdActive = 11
     }
 
     public enum EPlayerPostion

@@ -391,11 +391,15 @@ public class SkillController : MonoBehaviour {
 			if(skills.Count > 0) {
 				AI.WeightedRandomizer<TPassiveType> randomizer = new AI.WeightedRandomizer<TPassiveType>();
 				for(int i=0; i<skills.Count; i++) 
-					randomizer.AddOrUpdate(skills[i], skills[i].Rate);
-				
-				TPassiveType type = randomizer.GetNext();
-				PassiveSkillUsed = type.Tskill;
-				return GameData.DSkillData[type.Tskill.ID].Animation;
+					if(skills[i].Rate > 0 )
+						randomizer.AddOrUpdate(skills[i], skills[i].Rate);
+
+				if(!randomizer.IsEmpty()) {
+					TPassiveType type = randomizer.GetNext();
+					PassiveSkillUsed = type.Tskill;
+					return GameData.DSkillData[type.Tskill.ID].Animation;
+				} else 
+					return string.Empty;
 			} else 
 				return string.Empty;
 		} else 

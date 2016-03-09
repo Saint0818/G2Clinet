@@ -53,6 +53,9 @@ public class UISkillInfo : UIBase {
 	private GameObject goCraftRedPoint;
 	private GameObject goUpgradeRedPoint;
 
+	private GameObject goCraftLock;
+	private GameObject goUpgradeLock;
+
 	private bool isOpen = false;
 	private float openCardSpeed = 0.1f;
 
@@ -100,6 +103,9 @@ public class UISkillInfo : UIBase {
 		goEquipRedPoint = GameObject.Find (UIName + "/Center/TopRight/EquipBtn/RedPoint");
 		goCraftRedPoint = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/RedPoint");
 		goUpgradeRedPoint = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/RedPoint");
+
+		goCraftLock = GameObject.Find (UIName + "/Center/TopRight/CraftingBtn/Lock");
+		goUpgradeLock = GameObject.Find (UIName + "/Center/TopRight/UpgradeBtn/Lock");
 
 		btnMedium = GameObject.Find (UIName + "/Center/Left/BtnMediumCard");
 		btnMediumTop = GameObject.Find (UIName + "/Center/Left/BtnMediumCard/Top");
@@ -177,6 +183,9 @@ public class UISkillInfo : UIBase {
 		btnEquip.SetActive(true);
 		btnUpgrade.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce));
 		btnCrafting.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillEvolution));
+	
+		goUpgradeLock.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
+		goCraftLock.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -225,6 +234,7 @@ public class UISkillInfo : UIBase {
 				goEquipRedPoint.SetActive(!isAlreadyEquip && (mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
 				goUpgradeRedPoint.SetActive((skill.Lv < skillData.MaxStar) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name)&& LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
+
 			}
 
 			//MediumCard
