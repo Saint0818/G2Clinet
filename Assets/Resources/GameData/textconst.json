@@ -4058,6 +4058,12 @@
         "en": "PLAYER STATS"
     },
     {
+        "id": 10330,
+        "uipeth": "設定按鈕",
+        "tw": "競賽設定",
+        "en": "Game\nSetting"
+    },
+    {
         "id": 10401,
         "explain": "戰果流程"
     },
