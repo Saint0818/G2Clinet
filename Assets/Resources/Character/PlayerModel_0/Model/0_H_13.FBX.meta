@@ -3,7 +3,7 @@ guid: 9539dbe203a488340a11840db6a03318
 timeCreated: 1448942038
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: 0_H_13
     100002: //RootNode
@@ -43,6 +43,9 @@ ModelImporter:
     100070: Bip01 Spine1
     100072: Bone_Hair_1
     100074: Bone_Hair_2
+    100076: DummyBack
+    100078: DummyBall
+    100080: DummyHead
     400000: 0_H_13
     400002: //RootNode
     400004: Bip01
@@ -81,6 +84,9 @@ ModelImporter:
     400070: Bip01 Spine1
     400072: Bone_Hair_1
     400074: Bone_Hair_2
+    400076: DummyBack
+    400078: DummyBall
+    400080: DummyHead
     4300000: 0_H_13
     9500000: //RootNode
     13700000: 0_H_13
@@ -91,6 +97,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -98,9 +105,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
@@ -124,7 +131,6 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 0
     normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 0
@@ -132,12 +138,12 @@ ModelImporter:
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
