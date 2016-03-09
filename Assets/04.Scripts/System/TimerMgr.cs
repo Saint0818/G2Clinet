@@ -1,5 +1,4 @@
 ﻿using System;
-using Chronos;
 using DG.Tweening;
 using UnityEngine;
 using System.Collections.Generic;
@@ -48,28 +47,14 @@ public class TimerMgr : KnightSingleton<TimerMgr>
     /// 用於放完技能時，時間回復
     /// </summary>
     /// <param name="player">Player.</param>
-
     public void ResetTime(ref PlayerBehaviour player)
     {
         for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
 			GameController.Get.GamePlayers[i].Pause = false;
 
         PauseBall(false);
-//        if (TimeController == player || player == null)
-//        {
-//            ResetTime();
-//        }
     }
 
-    /// <summary>
-    /// 設定時間主控權
-    /// </summary>
-    /// <param name="player">Player.</param>
-//    public void SetTimeController(ref PlayerBehaviour player)
-//    {
-//        if (player)
-//            TimeController = player;
-//    }
 
     public float GetTime(ETimerKind key)
     {
@@ -81,8 +66,8 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
     public void ChangeTime(ETimerKind key, float value)
     {
-        if (!GameStart.Get.IsOpenChronos && CrtTime == 0)
-            return;
+//        if (!GameStart.Get.IsOpenChronos && CrtTime == 0)
+//            return;
 
 		if (value == 0)
 			CrtTime = GameConst.Min_TimePause;	
@@ -184,8 +169,9 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				
 	public void CamEvent(float releaseTime,float speed)
 	{
-		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-			ChangeTime(item, speed);
+//        Debug.LogError("CamEvent_SetTime " + "releaseTime : " + releaseTime + " speed : " + speed);
+//		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+//			ChangeTime(item, speed);
 
 		StartCoroutine(DelayTime( releaseTime, ResetTime));
 	}
@@ -196,31 +182,6 @@ public class TimerMgr : KnightSingleton<TimerMgr>
         if (callback != null)
             callback();
 	}
-
-//    public void PauseTime(bool isPase)
-//    {
-//        float time;
-//
-//        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//        {
-//            if (isPase)
-//            {
-//                time = 0;
-//                if (timeRecorder.ContainsKey(item))
-//                {
-//                    timeRecorder[item] = GetTime(item);
-//                }
-//                else
-//                {
-//                    timeRecorder.Add(item, GetTime(item));
-//                }
-//            }
-//            else
-//                time = timeRecorder[item]; 
-//
-//            ChangeTime(item, time);
-//        }
-//    }
 
     public void PauseBall(bool isPase)
     {

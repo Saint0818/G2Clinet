@@ -243,6 +243,7 @@ public class ModelManager : KnightSingleton<ModelManager>
 
             SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.AnimationControl); //EAnimatorType.ShowControl); 
 			InitRigbody(res);
+
 			ETimerKind timeKey;
 			if (team == ETeamKind.Self)
 				timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Self{0}", teamIndex));

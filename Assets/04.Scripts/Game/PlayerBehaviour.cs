@@ -6,7 +6,6 @@ using AI;
 using DG.Tweening;
 using GameStruct;
 using GameEnum;
-using Chronos;
 using G2;
 using JetBrains.Annotations;
 
