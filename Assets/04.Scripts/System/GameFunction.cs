@@ -1009,7 +1009,7 @@ public static class GameFunction
 		float wristRate = 0;
 		//1 動作影響的機率
 //		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
-		beginRate = Mathf.Max (0, (originalRate + scoreRate + extraScoreRate));
+		beginRate = Mathf.Max (0, (originalRate + scoreRate));
 
 
 		if(distance >= 5) {
@@ -1024,9 +1024,9 @@ public static class GameFunction
 		}
 
 		if(decayRate == 0) 
-			return Mathf.Max(2, beginRate);
+			return Mathf.Max(2, (beginRate + extraScoreRate));
 		else
-			return Mathf.Max(2, beginRate * (decayRate + wristRate));
+			return Mathf.Max(2, (beginRate * (decayRate + wristRate) + extraScoreRate));
 	}
 
     public static int GetPotentialRule(int bodytype, int index)

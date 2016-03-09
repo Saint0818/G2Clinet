@@ -69,7 +69,8 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject TopPoint;
     public GameObject CatchBallPoint;
     private GameObject FingerPoint;
-    private GameObject blockTrigger;
+	private GameObject blockTrigger;
+	private GameObject interceptTrigger;
     private GameObject dashSmoke;
 	private GameObject reboundTrigger;
     private BlockCatchTrigger blockCatchTrigger;
@@ -272,6 +273,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (blockTrigger)
             Destroy(blockTrigger);
 
+		if (interceptTrigger)
+			Destroy(interceptTrigger);
+
 		if (reboundTrigger)
 			Destroy(reboundTrigger);		
         
@@ -381,6 +385,7 @@ public class PlayerBehaviour : MonoBehaviour
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 //        TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
+		interceptTrigger.transform.localScale = new Vector3(1, 1.5f, 1); //因還未有成長先(1, 1.5, 1)， 有成長就變成(0,5 1 0,5)
 		if(Attribute.BodyType == 0){
 			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.03f) , 
 														GameConst.ReboundHeadYC + (Attr.ReboundHeadDistance* 0.04f) , 
@@ -481,7 +486,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-            blockTrigger = obj2.transform.Find("Block").gameObject;
+			blockTrigger = obj2.transform.Find("Intercept").gameObject;
+			interceptTrigger = obj2.transform.Find("Block").gameObject;
 			reboundTrigger = obj2.transform.Find("TriggerRebound").gameObject;
             ShowWord = obj2.transform.Find("ShowWord").gameObject;
             
@@ -2893,9 +2899,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnUIJoystick != null)
                     OnUIJoystick(this, false);
                 
-                if (UIPassiveEffect.Visible)
-                    UIPassiveEffect.UIShow(false);
-                
                 isSkillShow = true;
                 string effectName = string.Format("UseSkillEffect_{0}", 0);
                 EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
@@ -2905,7 +2908,6 @@ public class PlayerBehaviour : MonoBehaviour
 				
 //				CameraMgr.Get.SkillShowActive(this, 2, 0.5f);
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
-                UISkillEffect.Get.ShowView(ActiveSkillUsed);
                 AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
                 
 
@@ -2913,6 +2915,9 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     case 0://show self and rotate camera
 						Invoke("showEffect", skillTime);
+						if (UIPassiveEffect.Visible)
+							UIPassiveEffect.UIShow(false);
+						UISkillEffect.Get.ShowView(ActiveSkillUsed);
 						TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
                         LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
 					
@@ -2925,6 +2930,7 @@ public class PlayerBehaviour : MonoBehaviour
                     case 2://show all Player
 						// kind= 2, time = 0.5f
 							showActiveEffect();
+							UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
 							GameController.Get.SetAllPlayerLayer("SkillPlayer");
 							TimerMgr.Get.PauseTimeByUseSkill(0.5f, ResetTimeCallBack);
 							Pause = false;

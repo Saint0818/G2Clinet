@@ -304,7 +304,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	
 	private GameObject getPlayerChest (PlayerBehaviour player) {
 		Transform t = null;
-		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+		t = player.transform.Find("Bip01/Bip01 Spine/Bip01 Spine1");
 		if(t != null)
 			return t.gameObject;
 		return null;
@@ -312,7 +312,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	
 	private GameObject getPlayerHand (PlayerBehaviour player) {
 		Transform t = null;
-		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
+		t = player.transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2");
 		if(t != null)
 			return t.gameObject;
 		return null;
