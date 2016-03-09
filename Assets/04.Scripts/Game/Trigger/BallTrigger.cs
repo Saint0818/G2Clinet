@@ -59,7 +59,9 @@ public class BallTrigger : MonoBehaviour
         }
         else if (other.gameObject.name == "TriggerSteal")
             dir = 6;
-
+        else if(other.gameObject.name == "TriggerIntercept")
+            dir = 7;
+        
         if (dir > -1)
         {
             if (team > -1 && index > -1 && GameController.Get.Situation == EGameSituation.JumpBall)

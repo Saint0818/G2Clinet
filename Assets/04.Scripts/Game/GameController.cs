@@ -1350,6 +1350,29 @@ public class GameController : KnightSingleton<GameController>
                                 player.DefPlayer.TargetPos = moveData;
                             }
                         }
+//                        else
+//                        {
+//                            if(player.DefPlayer.TargetPosNum == 0)
+//                            {
+//                                // 防守者離 Home Region 不夠近.(比如球員在前場)
+//                                // 要防守者往 Home Region 跑.
+//                                player.DefPlayer.ResetMove();
+//                                sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+//                                moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
+//
+//                                if (BallOwner != null)
+//                                    moveData.LookTarget = BallOwner.transform;
+//                                else
+//                                {
+//                                    if (player.Team == ETeamKind.Self)
+//                                        moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
+//                                    else
+//                                        moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
+//                                }
+//
+//                                player.DefPlayer.TargetPos = moveData;
+//                            }
+//                        }
                     }
                 }
                 else
@@ -1812,68 +1835,68 @@ public class GameController : KnightSingleton<GameController>
                 {
 					if(!BallOwner.IsTipIn)
 					{
-	                    // 持球者不在灌籃和搶籃板狀態.
-						shootRandomizer.Clear();
-						if(BallOwner.IsMoving)
-	                    {
-							if(ShootDistance > GameConst.LongShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
+                    // 持球者不在灌籃和搶籃板狀態.
+					shootRandomizer.Clear();
+					if(BallOwner.IsMoving)
+                    {
+						if(ShootDistance > GameConst.LongShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
+					
+						if(ShootDistance > GameConst.Point2Distance && ShootDistance <= GameConst.LongShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
 						
-							if(ShootDistance > GameConst.Point2Distance && ShootDistance <= GameConst.LongShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
-							
-							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, 50);
-							else if(ShootDistance > GameConst.LayupDistance){
-								if(BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance) > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance));
-							}
-							
-							if(ShootDistance <= GameConst.DunkDistance) {
-								if(BallOwner.Attr.DunkRate > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
-							} else {
-								if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance) > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance));
-							}
-						
-							if(ShootDistance <= GameConst.ShortShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
-							else {
-								if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
-							}
-
-							BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+						if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, 50);
+						else if(ShootDistance > GameConst.LayupDistance){
+							if(BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance) > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, BallOwner.GetPassiveAniRate(50, ShootDistance, GameConst.LayupDistance));
 						}
-	                    else
-	                    {
-	                        // 站在原地投籃.
-							if(ShootDistance > GameConst.LongShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
 						
-							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LongShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot0, 50);
-							
-							if(ShootDistance <= GameConst.DunkDistanceNoMove) {
-								if(BallOwner.Attr.DunkRate > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
-							} else {
-								if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove) > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove));
-							}
-							
-							if(ShootDistance <= GameConst.ShortShootDistance)
-								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
-							else {
-								if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
-									shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
-							}
-							
-							BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+						if(ShootDistance <= GameConst.DunkDistance) {
+							if(BallOwner.Attr.DunkRate > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+						} else {
+							if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance) > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistance));
+						}
+					
+						if(ShootDistance <= GameConst.ShortShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+						else {
+							if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
 						}
 
-						return true;
+						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+					}
+                    else
+                    {
+                        // 站在原地投籃.
+						if(ShootDistance > GameConst.LongShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot3, 50);
+					
+						if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LongShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot0, 50);
+						
+						if(ShootDistance <= GameConst.DunkDistanceNoMove) {
+							if(BallOwner.Attr.DunkRate > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+						} else {
+							if(BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove) > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.GetPassiveAniRate(60, ShootDistance, GameConst.DunkDistanceNoMove));
+						}
+						
+						if(ShootDistance <= GameConst.ShortShootDistance)
+							shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+						else {
+							if(BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance) > 0)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, BallOwner.GetPassiveAniRate(40, ShootDistance, GameConst.ShortShootDistance));
+						}
+						
+						BallOwner.PlayerSkillController.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
+					}
+
+					return true;
 					}	
 				}
 			}
@@ -3433,64 +3456,69 @@ public class GameController : KnightSingleton<GameController>
 		{
 			if(Catcher == player || Catcher.Team == player.Team)
 				return false;
-
-			int rate = Random.Range(0, 100);
-
+            
 			if(CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass0 || 
 				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass2 ||
 				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass1 || 
 				CourtMgr.Get.RealBallCompoment.RealBallState == EPlayerState.Pass3)
 			{
-				if(BallOwner == null && (rate > Passer.Attr.PassRate || dir == 5) && !player.IsPush)
-				{
-					if(dir == 6)
-					{
-						player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBallObj.transform.position);
-					}
-					else if(dir == 5)
-					{
-						if(player.CheckAnimatorSate(EPlayerState.Intercept1))
-						{
-							if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-								CourtMgr.Get.RealBallObj.transform.DOKill();
+                if (dir == 5 || dir == 7 || dir == 6)
+                {
+                    int rate = Random.Range(0, 100);
 
-							player.GameRecord.Intercept++;
-							ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-							if (Passer)
-								Passer.GameRecord.BeIntercept++;
-							
-							if(SetBall(player))
-							{
-								player.AniState(EPlayerState.HoldBall);
-								passingStealBallTime = Time.time + 2;
-							}
+                    if (BallOwner == null && (rate > Passer.Attr.PassRate) && !player.IsPush)
+                    {
+                        if (dir == 6)
+                        {
+                            player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBallObj.transform.position);
+                            return false;
+                        }
+                        else if (dir == 5)
+                        {
+                            if (player.CheckAnimatorSate(EPlayerState.Intercept1))
+                            {
+                                if (BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
+                                    CourtMgr.Get.RealBallObj.transform.DOKill();
 
-							IsPassing = false;
-						}
-					}
-					else if(dir != 0)
-					{
-						player.AniState(EPlayerState.Intercept0);
-						
-						if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-							CourtMgr.Get.RealBallObj.transform.DOKill();
-						
-						if (Passer)
-							Passer.GameRecord.BeIntercept++;
-						
-						player.GameRecord.Intercept++;
-						ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-						
-						if(SetBall(player))
-						{
-//							player.AniState(EPlayerState.HoldBall);
-							passingStealBallTime = Time.time + 2;
-						}
+                                player.GameRecord.Intercept++;
+                                ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+                                if (Passer)
+                                    Passer.GameRecord.BeIntercept++;
 
-                        IsPassing = false;
-					}
-					return true;
-				}
+                                if (SetBall(player))
+                                {
+                                    player.AniState(EPlayerState.HoldBall);
+                                    passingStealBallTime = Time.time + 2;
+                                }
+
+                                IsPassing = false;
+                                return true;
+                            }
+                        }
+                        else if(dir == 7)
+                        {
+                            player.AniState(EPlayerState.Intercept0);
+
+                            if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
+                                CourtMgr.Get.RealBallObj.transform.DOKill();
+
+                            if (Passer)
+                                Passer.GameRecord.BeIntercept++;
+
+                            player.GameRecord.Intercept++;
+                            ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+
+                            if(SetBall(player))
+                            {
+                                //                          player.AniState(EPlayerState.HoldBall);
+                                passingStealBallTime = Time.time + 2;
+                            }
+
+                            IsPassing = false;
+                            return true;
+                        }
+                    }
+                }
 			}
 		}
 
