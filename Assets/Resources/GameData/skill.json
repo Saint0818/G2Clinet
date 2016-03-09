@@ -3069,7 +3069,7 @@
     },
     {
         "id": 1198,
-        "nametw": "轉身過人 I",
+        "nametw": "轉身過人 ",
         "kind": 110,
         "quality": 1,
         "maxstar": 3,
@@ -4485,7 +4485,7 @@
     },
     {
         "id": 1398,
-        "nametw": "飛身搶球 I",
+        "nametw": "飛身搶球 ",
         "kind": 130,
         "quality": 1,
         "maxstar": 3,
@@ -5653,7 +5653,7 @@
     },
     {
         "id": 1998,
-        "nametw": "倒地快起 I",
+        "nametw": "倒地快起 ",
         "kind": 190,
         "quality": 1,
         "maxstar": 2,
@@ -5686,7 +5686,7 @@
     },
     {
         "id": 2200,
-        "nametw": "得分激勵 1 I",
+        "nametw": "籃板追擊 I",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5717,7 +5717,7 @@
     },
     {
         "id": 2201,
-        "nametw": "得分激勵 1 II",
+        "nametw": "籃板追擊 II",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5748,7 +5748,7 @@
     },
     {
         "id": 2202,
-        "nametw": "得分激勵 1 III",
+        "nametw": "籃板追擊 III",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5779,7 +5779,7 @@
     },
     {
         "id": 2203,
-        "nametw": "得分激勵 1 IV",
+        "nametw": "籃板追擊 IV",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5810,7 +5810,7 @@
     },
     {
         "id": 2204,
-        "nametw": "得分激勵 1 V",
+        "nametw": "籃板追擊 V",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5841,7 +5841,7 @@
     },
     {
         "id": 2210,
-        "nametw": "得分激勵 2 I",
+        "nametw": "火鍋追擊 I",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5872,7 +5872,7 @@
     },
     {
         "id": 2211,
-        "nametw": "得分激勵 2 II",
+        "nametw": "火鍋追擊 II",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5903,7 +5903,7 @@
     },
     {
         "id": 2212,
-        "nametw": "得分激勵 2 III",
+        "nametw": "火鍋追擊 III",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5934,7 +5934,7 @@
     },
     {
         "id": 2213,
-        "nametw": "得分激勵 2 IV",
+        "nametw": "火鍋追擊 IV",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5965,7 +5965,7 @@
     },
     {
         "id": 2214,
-        "nametw": "得分激勵 2 V",
+        "nametw": "火鍋追擊 V",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -5996,7 +5996,7 @@
     },
     {
         "id": 2220,
-        "nametw": "得分激勵 3 I",
+        "nametw": "防線追擊 I",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -6027,7 +6027,7 @@
     },
     {
         "id": 2221,
-        "nametw": "得分激勵 3 II",
+        "nametw": "防線追擊 II",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -6058,7 +6058,7 @@
     },
     {
         "id": 2222,
-        "nametw": "得分激勵 3 III",
+        "nametw": "防線追擊III",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -6089,7 +6089,7 @@
     },
     {
         "id": 2223,
-        "nametw": "得分激勵 3 IV",
+        "nametw": "防線追擊 IV",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -6120,7 +6120,7 @@
     },
     {
         "id": 2224,
-        "nametw": "得分激勵 3 V",
+        "nametw": "防線追擊 V",
         "kind": 220,
         "quality": 1,
         "maxstar": 1,
@@ -6151,7 +6151,7 @@
     },
     {
         "id": 2250,
-        "nametw": "放槍激勵 1 I",
+        "nametw": "命中激勵 I",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6182,7 +6182,7 @@
     },
     {
         "id": 2251,
-        "nametw": "放槍激勵 1 II",
+        "nametw": "命中激勵 II",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6214,7 +6214,7 @@
     },
     {
         "id": 2252,
-        "nametw": "放槍激勵 1 III",
+        "nametw": "命中激勵 III",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6246,7 +6246,7 @@
     },
     {
         "id": 2253,
-        "nametw": "放槍激勵 1 IV",
+        "nametw": "命中激勵 IV",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6278,7 +6278,7 @@
     },
     {
         "id": 2254,
-        "nametw": "放槍激勵 1 V",
+        "nametw": "命中激勵 V",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6310,7 +6310,7 @@
     },
     {
         "id": 2260,
-        "nametw": "放槍激勵 2 I",
+        "nametw": "外線激勵 I",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6341,7 +6341,7 @@
     },
     {
         "id": 2261,
-        "nametw": "放槍激勵 2 II",
+        "nametw": "外線激勵 II",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6373,7 +6373,7 @@
     },
     {
         "id": 2262,
-        "nametw": "放槍激勵 2 III",
+        "nametw": "外線激勵 III",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6405,7 +6405,7 @@
     },
     {
         "id": 2263,
-        "nametw": "放槍激勵 2 IV",
+        "nametw": "外線激勵 IV",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6437,7 +6437,7 @@
     },
     {
         "id": 2264,
-        "nametw": "放槍激勵 2 V",
+        "nametw": "外線激勵 V",
         "kind": 230,
         "quality": 1,
         "maxstar": 1,
@@ -6495,7 +6495,7 @@
         "lifetime": 5,
         "maxangerbase": 80,
         "maxangeradd": -2,
-        "distance": 7,
+        "distance": 11,
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 1,
@@ -6548,7 +6548,7 @@
         "lifetime": 5,
         "maxangerbase": 68,
         "maxangeradd": -2,
-        "distance": 8,
+        "distance": 12,
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 1,
@@ -6601,7 +6601,7 @@
         "lifetime": 5,
         "maxangerbase": 56,
         "maxangeradd": -2,
-        "distance": 10,
+        "distance": 13,
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 1,
@@ -6652,7 +6652,7 @@
         "lifetime": 5,
         "maxangerbase": 44,
         "maxangeradd": -2,
-        "distance": 13,
+        "distance": 14,
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 1,
@@ -6699,7 +6699,7 @@
         "lifetime": 5,
         "maxangerbase": 32,
         "maxangeradd": -2,
-        "distance": 16,
+        "distance": 15,
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 1,
@@ -6746,9 +6746,9 @@
         "valuebase": 200,
         "valueadd": 1,
         "lifetime": 5,
-        "maxangerbase": 68,
+        "maxangerbase": 100,
         "maxangeradd": -2,
-        "distance": 12,
+        "distance": 11,
         "distanceadd": 1,
         "activecamera": 0,
         "activecameratime": 1.5,
@@ -7317,7 +7317,7 @@
     },
     {
         "id": 10698,
-        "nametw": "飛人爆扣 I",
+        "nametw": "飛人爆扣 ",
         "kind": 60,
         "quality": 1,
         "maxstar": 3,
