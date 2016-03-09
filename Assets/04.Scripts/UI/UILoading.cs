@@ -134,7 +134,7 @@ public class UILoading : UIBase
 
     public static void OpenInstanceUI()
     {
-        UIInstance.Get.Show();
+        UIInstance.Get.ShowByPlayStageID();
         UIMainLobby.Get.Hide();
 
         if (!checkTutorialUI(achievementTutorialID))

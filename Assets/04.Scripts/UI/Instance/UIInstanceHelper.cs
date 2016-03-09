@@ -23,4 +23,16 @@ public static class UIInstanceHelper
             return 1;
         }
     }
+
+    private const string DefaultSelectStageKey = "InstanceDefaultSelectStageKey";
+    public static int PlayStageID
+    {
+        set { PlayerPrefs.SetInt(DefaultSelectStageKey, value); }
+        get
+        {
+            if(PlayerPrefs.HasKey(DefaultSelectStageKey))
+                return PlayerPrefs.GetInt(DefaultSelectStageKey);
+            return 2111; // 第一章第一個小關卡.
+        }
+    }
 }

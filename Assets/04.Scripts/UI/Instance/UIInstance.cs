@@ -52,6 +52,14 @@ public class UIInstance : UIBase
         mMain.SelectChapter(chapter);
     }
 
+    /// <summary>
+    /// 顯示在玩家上次打的副本關卡.
+    /// </summary>
+    public void ShowByPlayStageID()
+    {
+        ShowByStageID(UIInstanceHelper.PlayStageID);
+    }
+
     public void ShowByStageID(int stageID)
     {
         UIMainLobby.Get.Hide(3, false);
@@ -103,6 +111,7 @@ public class UIInstance : UIBase
         {
             TStageData stageData = StageTable.Ins.GetByID(stageID);
             UIInstanceHelper.DefaultSelectChapter = stageData.Chapter;
+            UIInstanceHelper.PlayStageID = stageData.ID;
         }
 
         UISelectRole.Get.LoadStage(stageID);
