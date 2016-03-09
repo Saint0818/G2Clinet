@@ -2638,20 +2638,13 @@ public class GameController : KnightSingleton<GameController>
 
 	public void DoubleRebound(int lv)
 	{
-		switch (lv) {
-		case 0: 
-			AddExtraScoreRate(0);
-			break;
-		case 1: 
+        if (lv > 0)
+        {
 			AddExtraScoreRate(GameData.ExtraGreatRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
 			DoShoot();
-			break;
-		case 2: 
-			AddExtraScoreRate(GameData.ExtraPerfectRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
-			DoShoot();
-			break;
 		}
-		
+        else
+            AddExtraScoreRate(0);
 	}
 
 	//Call From Delegate
