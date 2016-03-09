@@ -43,8 +43,8 @@ public class GetTenItem : MonoBehaviour {
 								isNeedPause[index] = false;
 								isShowPause = true;
 								UIGetSkillCard.Get.ShowView(itemAwardGroups[index].mItemData.ID);
-							}
-							index ++;
+							} else
+								index ++;
 						} 
 					}else {
 						isShowFin = true;
@@ -57,6 +57,7 @@ public class GetTenItem : MonoBehaviour {
 
 	public void GoAhead () {
 		isShowPause = false;
+		index ++;
 	}
 
 	public void ShowAni(bool isshow) {

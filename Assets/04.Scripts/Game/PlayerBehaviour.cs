@@ -486,8 +486,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-			blockTrigger = obj2.transform.Find("Intercept").gameObject;
-			interceptTrigger = obj2.transform.Find("Block").gameObject;
+			interceptTrigger= obj2.transform.Find("Intercept").gameObject;
+			blockTrigger = obj2.transform.Find("Block").gameObject;
 			reboundTrigger = obj2.transform.Find("TriggerRebound").gameObject;
             ShowWord = obj2.transform.Find("ShowWord").gameObject;
             
@@ -2768,6 +2768,11 @@ public class PlayerBehaviour : MonoBehaviour
             case "Shooting":
                 CourtMgr.Get.IsRealBallActive = true;
                 GameController.Get.BallState = EBallState.None;
+				if (GameController.Get.ShootDistance >= GameConst.Point3Distance)
+					GameRecord.FG3++;
+				else
+					GameRecord.FG++;
+			
                 if (OnShooting != null)
                     OnShooting(this, true);
                 break;
@@ -2925,8 +2930,6 @@ public class PlayerBehaviour : MonoBehaviour
 //                        animatorEvent.intParameter = 0; 
                         break;
                     case 1://show self
-//                        showActiveEffect();
-                        break;
                     case 2://show all Player
 						// kind= 2, time = 0.5f
 							showActiveEffect();

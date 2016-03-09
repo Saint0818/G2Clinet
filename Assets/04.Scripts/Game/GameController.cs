@@ -1938,7 +1938,7 @@ public class GameController : KnightSingleton<GameController>
 				shootAngle = 50;
 
 			if(isActive) {
-				ShootDistance = 30;
+//				ShootDistance = 30;
 				shootAngle = 65;
 				scoreType = EScoreType.UpHand;
 			}
@@ -2130,6 +2130,12 @@ public class GameController : KnightSingleton<GameController>
 		{
 			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
 //                TimerMgr.Get.SetTimeController(ref player);
+				if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
+					if(GameData.DSkillData[tSkill.ID].Kind == 40){//鷹眼神射
+						Vector3 v = CourtMgr.Get.GetShootPointPosition(BallOwner.Team);
+						ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
+					}
+				}
 				player.ActiveSkillUsed = tSkill;
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
 				if(result){
