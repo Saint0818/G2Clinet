@@ -34,34 +34,39 @@ public class GEMainMenu: EditorWindow {
 	private static void OnToturial() {
 		GEUIToturial.GetWindow<GEUIToturial>(true, "6.UI Toturial").SetStyle();
 	}
+
+    [MenuItem (menuRoot + "7.Mission", false, 7)]
+    private static void OnMission() {
+        GEUIToturial.GetWindow<GEUIMission>(true, "7.Mission").SetStyle();
+    }
 	
-	[MenuItem (menuRoot + "7.Avatar", false, 7)]
+	[MenuItem (menuRoot + "8.Avatar", false, 8)]
 	private static void OnAvatar() {
-		GEAvatar.GetWindow<GEAvatar>(true, "7.Avatar").SetStyle();
+		GEAvatar.GetWindow<GEAvatar>(true, "8.Avatar").SetStyle();
 	}
 
-	[MenuItem (menuRoot + "8.StageAvatarCheck", false, 7)]
+	[MenuItem (menuRoot + "9.StageAvatarCheck", false, 9)]
 	private static void OnStageAvatar() {
-		GEStageAvatarCheck.GetWindow<GEStageAvatarCheck>(true, "8.StageAvatarCheck").SetStyle();
+		GEStageAvatarCheck.GetWindow<GEStageAvatarCheck>(true, "9.StageAvatarCheck").SetStyle();
 	}
 	
-	[MenuItem (menuRoot + "9.GM Tool", false, 9)]
+	[MenuItem (menuRoot + "10.GM Tool", false, 10)]
 	private static void OnGM() {
-		GEGMTool.GetWindow<GEGMTool>(true, "9.GM Tool").SetStyle();
+		GEGMTool.GetWindow<GEGMTool>(true, "10.GM Tool").SetStyle();
     }
 
-	[MenuItem(menuRoot + "10.Define Wizard", false, 10)]
+	[MenuItem(menuRoot + "11.Define Wizard", false, 11)]
 	private static void OnDefineWizard() {
 		GEGlobalDefinesWizard.CreateWizardFromMenu();
     }
 	
-	[MenuItem (menuRoot + "11.Check Tool", false, 11)]
+	[MenuItem (menuRoot + "12.Check Tool", false, 12)]
 	private static void OnDataChecker() {
-		GEDataChecker.GetWindow<GEDataChecker>(true, "11.Check Tool").SetStyle();
+		GEDataChecker.GetWindow<GEDataChecker>(true, "12.Check Tool").SetStyle();
 	}
 
-	[MenuItem (menuRoot + "12.Build Tool", false, 12)]
+	[MenuItem (menuRoot + "13.Build Tool", false, 13)]
 	private static void OnBuildTool() {
-		GEBuildTool.GetWindow<GEBuildTool>(true, "12.Build Tool").SetStyle();
+		GEBuildTool.GetWindow<GEBuildTool>(true, "13.Build Tool").SetStyle();
 	}
 }

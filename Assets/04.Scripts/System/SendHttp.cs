@@ -59,6 +59,7 @@ public static class URLConst {
 	public const string DeleteRole = "deleterole";
 	public const string AddTutorialFlag = "addtutorialflag";
 	public const string ClearTutorialFlag = "cleartutorialflag";
+    public const string ClearMission = "clearmission";
 	public const string EquipsSkillCard = "equipskillcard";
 	public const string ChangeSkillPage = "changeskillpage";
 	public const string AddSuitCardExecute = "addsuitcardexecute";

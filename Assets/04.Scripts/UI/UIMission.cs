@@ -374,10 +374,10 @@ public class UIMission : UIBase {
                         mission = missionList[nowPage][i+1].Mission;
 
                     StartCoroutine(waitFinish(item, mission));
-                    return 1.5f;
+                    return 0.8f;
                 }
 
-                return 0.8f;
+                return 0.4f;
             }
         }
 
@@ -385,7 +385,7 @@ public class UIMission : UIBase {
     }
 
     IEnumerator waitFinish(TMissionItem item, TMission mission) {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         item.AniFinish.SetTrigger("Next");
         StartCoroutine(waitNextMission(item, mission));

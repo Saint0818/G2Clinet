@@ -251,8 +251,21 @@ public class UILevelUp : UIBase {
 				}
 
 			}
-		} else 
+        } else {
 			UIShow(false);
+            if (GameData.DExpData.ContainsKey(lv)) {
+                int tid = GameData.DExpData[lv].TutorialID;
+                if (GameData.DTutorial.ContainsKey(tid* 100 + 1))
+                {
+                    if (!GameData.Team.HaveTutorialFlag(tid)) {
+                        UIMission.Visible = false;
+                        UIGetItem.Visible = false;
+                        UIMainLobby.Get.Show();
+                        UITutorial.Get.ShowTutorial(tid, 1);
+                    }
+                }
+            }
+        }
 	}
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer) {
