@@ -98,7 +98,7 @@ public struct TDoubleClick
 	
 	public void CheckLv()
 	{
-		if (runSprite.transform.localPosition.y > 0 && runSprite.transform.localPosition.y < 35)
+		if (runSprite.transform.localPosition.y >= 0 && runSprite.transform.localPosition.y <= 35)
 			SetLv(2, Index);
 		else
 			SetLv(0, Index);

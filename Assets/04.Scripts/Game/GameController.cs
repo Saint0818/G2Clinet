@@ -4579,6 +4579,7 @@ public class GameController : KnightSingleton<GameController>
 			BallOwner.CheckAnimatorSate(EPlayerState.Shoot3) ||
 			BallOwner.CheckAnimatorSate(EPlayerState.Shoot6) ||
 			BallOwner.CheckAnimatorSate(EPlayerState.TipIn) ||
+            BallOwner.CheckAnimatorSate(EPlayerState.Rebound0) ||
 			BallOwner.IsLayup))
 			return true;
 		else
