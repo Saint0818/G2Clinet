@@ -12,6 +12,7 @@ public struct TPickLotteryResult {
 	public int Money;
 	public DateTime[] LotteryFreeTime;
 	public Dictionary<int, int> GotItemCount; //key: item id, value: got number
+	public TMaterialItem[] MaterialItems;
 }
 
 public enum EPickSpendType {
@@ -137,7 +138,7 @@ public class UIBuyStore : UIBase {
 		tenItem.ShowAni(false);
 		animationBuy.SetTrigger("One");
 		Invoke("FinishDrawLottery", 3.3f);
-		Invoke("ShowOneNew", 3.3f);
+		Invoke("ShowOneNew", 3f);
 		UI3DBuyStore.Get.StartRaffle();
 	}
 
@@ -207,7 +208,7 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void ConfirmUse () {
-		SendPickLottery(mPickCost.Order, mPickCost.ID, mSpendType);
+		SendPickLottery(mPickCost.Order, mSpendType);
 	}
 
 	private int getLabelPayCount (int spendType) {
@@ -238,7 +239,7 @@ public class UIBuyStore : UIBase {
 	}
 
 	//order = 0 can used
-	private void SendPickLottery(int order, int kind, int type)
+	private void SendPickLottery(int order, int type)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("Order", order);
@@ -258,6 +259,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.Money = result.Money;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			GameData.Team.GotItemCount = result.GotItemCount;
+			GameData.Team.MaterialItems = result.MaterialItems;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 			refreshLabelColor ();
