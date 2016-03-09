@@ -40,7 +40,7 @@ public class UIEquipListButton : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="data"></param>
-    /// <param name="showNum"> true: 強制顯示數值. </param>
+    /// <param name="showNum"> true: 強制顯示數量. </param>
     public void Set(UIValueItemData data, bool showNum)
     {
         NameLabel.text = data.Name;
@@ -50,7 +50,7 @@ public class UIEquipListButton : MonoBehaviour
         Icon.spriteName = data.Icon;
         Frame.spriteName = data.Frame;
 
-        AmountLabel.gameObject.SetActive(data.Num >= 2 || showNum);
+        AmountLabel.gameObject.SetActive(showNum);
         AmountLabel.text = data.Num.ToString();
 
         setValues(data.AllValues);

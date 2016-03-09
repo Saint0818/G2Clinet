@@ -67,7 +67,7 @@ public class UIEquipItem : MonoBehaviour
 
         RedPoint.SetActive(showRedPoint);
 
-        Amount.gameObject.SetActive(data.Num >= 2 || showNum);
+        Amount.gameObject.SetActive(showNum);
         Amount.text = data.Num.ToString();
 
 		if(qualityBG != null) {
