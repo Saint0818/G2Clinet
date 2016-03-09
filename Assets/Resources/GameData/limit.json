@@ -13,7 +13,8 @@
     },
     {
         "lv": 5,
-        "openid": 6
+        "openid": 6,
+        "visiblelv": 3
     },
     {
         "lv": 6,
@@ -24,14 +25,14 @@
         "openid": 7
     },
     {
-        "lv": 10,
+        "lv": 8,
         "openid": 9,
         "visiblelv": 5
     },
     {
-        "lv": 11,
+        "lv": 9,
         "openid": 22,
-        "visiblelv": 8
+        "visiblelv": 6
     },
     {
         "lv": 12,

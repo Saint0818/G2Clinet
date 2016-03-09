@@ -48,6 +48,19 @@
         "id": 1,
         "line": 6,
         "kind": 4,
+        "value": 3
+    },
+    {
+        "id": 1,
+        "line": 7,
+        "kind": 4,
+        "value": 3,
+        "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot1/View/MaterialItem(Clone)"
+    },
+    {
+        "id": 1,
+        "line": 8,
+        "kind": 4,
         "value": 3,
         "talkindex": 0,
         "talkl": 10,
@@ -57,7 +70,7 @@
     },
     {
         "id": 1,
-        "line": 7,
+        "line": 9,
         "kind": 4,
         "value": 3,
         "talkindex": 0,
@@ -68,7 +81,7 @@
     },
     {
         "id": 1,
-        "line": 8,
+        "line": 10,
         "kind": 4,
         "value": 3,
         "uipath": "UI2D/UIEquipment/Window/BottomLeft/BackBtn"
@@ -225,7 +238,8 @@
         "id": 4,
         "line": 1,
         "title": "社群",
-        "kind": 4,
+        "kind": 0,
+        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -235,7 +249,8 @@
     {
         "id": 4,
         "line": 2,
-        "kind": 4,
+        "kind": 0,
+        "uiname": "UISocial",
         "talkindex": 1,
         "actionl": 5,
         "talkr": -1,
@@ -246,23 +261,15 @@
     {
         "id": 4,
         "line": 3,
-        "kind": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SocialBt"
-    },
-    {
-        "id": 4,
-        "line": 4
-    },
-    {
-        "id": 4,
-        "line": 5,
-        "kind": 4,
+        "kind": 0,
+        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Tabs/2"
     },
     {
         "id": 4,
-        "line": 6,
-        "kind": 4,
+        "line": 4,
+        "kind": 0,
+        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -271,14 +278,16 @@
     },
     {
         "id": 4,
-        "line": 7,
-        "kind": 4,
+        "line": 5,
+        "kind": 0,
+        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Pages/2/ScrollView/2-0/Window/Good"
     },
     {
         "id": 4,
-        "line": 8,
-        "kind": 4,
+        "line": 6,
+        "kind": 0,
+        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -287,14 +296,16 @@
     },
     {
         "id": 4,
-        "line": 9,
-        "kind": 4,
+        "line": 7,
+        "kind": 0,
+        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Tabs/0"
     },
     {
         "id": 4,
-        "line": 10,
-        "kind": 4,
+        "line": 8,
+        "kind": 0,
+        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -303,16 +314,21 @@
     },
     {
         "id": 4,
-        "line": 11,
-        "kind": 4,
-        "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView"
+        "line": 9,
+        "kind": 0,
+        "uiname": "UISocial",
+        "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView/0-0/Window/Good"
     },
     {
         "id": 4,
-        "line": 12,
-        "kind": 4,
+        "line": 10,
+        "kind": 0,
+        "uiname": "UISocial",
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 6,
         "texttw": "只要你在朋友的動態訊息上點擊[ff6060]讚[-]，就可以獲得[ff6060]社群幣[-]唷，可以讓你去購買[ff6060]社群商店的商品[-]。",
-        "texten": "Liking your friends' status [ff6060] will [-], award you [ff6060] social coins! [-] Allowing you to buy [ff6060] merchandise in the social store.[-]."
+        "texten": "[ff6060]Liking[-] your friends' status will, award you [ff6060] social coins! [-] Allowing you to buy [ff6060] merchandise in the social store.[-]."
     },
     {
         "id": 5,
@@ -681,6 +697,7 @@
     {
         "id": 9,
         "line": 1,
+        "title": "副本",
         "kind": 4,
         "talkindex": 0,
         "talkl": 10,
@@ -702,23 +719,12 @@
         "id": 9,
         "line": 3,
         "kind": 4,
-        "uipath": "UI2D/UIMainStage/MainView/BottomLeft/BackBtn"
-    },
-    {
-        "id": 9,
-        "line": 4,
-        "kind": 4
-    },
-    {
-        "id": 9,
-        "line": 5,
-        "kind": 4,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
     },
     {
         "id": 9,
-        "line": 6,
-        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)/ShowAwardLabel",
+        "line": 4,
+        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -727,13 +733,13 @@
     },
     {
         "id": 9,
-        "line": 7,
+        "line": 5,
         "kind": 4,
-        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView"
+        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)"
     },
     {
         "id": 9,
-        "line": 8,
+        "line": 6,
         "kind": 4,
         "talkindex": 0,
         "talkl": 10,
@@ -743,25 +749,9 @@
     },
     {
         "id": 9,
-        "line": 9,
+        "line": 7,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
-    },
-    {
-        "id": 9,
-        "line": 10,
-        "kind": 4
-    },
-    {
-        "id": 9,
-        "line": 11,
-        "kind": 4,
-        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton",
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。",
-        "texten": "You can now challenge the boss again! However, this time he won't take it easy on you ! You should also pay attention to the series of challenges [ff6060] in the game [-]."
     },
     {
         "id": 11,
@@ -857,6 +847,106 @@
         "texten": "When you have attribution points, choose the skill you wanna enhance and press the [ff6060] + [-] to increase 1 point of that skill. You can use all your points in a single skill or different ones!"
     },
     {
+        "id": 22,
+        "line": 1,
+        "title": "技能升星",
+        "kind": 4,
+        "talkindex": 1,
+        "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "剛剛獲得[ff6060]我愛籃球黑幫[-]技能晶片，這又是幹嘛的呀？",
+        "texten": "Just got a [ff6060] I Love Basketball Gangs[-]skill card, what's up with this thing?"
+    },
+    {
+        "id": 22,
+        "line": 2,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "這是個好東西！！這張晶片可以幫助你提升你擁有的技能晶片強度喔！！",
+        "texten": "This is a good thing! ! This card can help you enhance your own skills card's strength! !"
+    },
+    {
+        "id": 22,
+        "line": 3,
+        "talkindex": 1,
+        "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "這麼厲害！！快教我怎麼強化！！",
+        "texten": "It's awesome!! Teach me how to enhance it!!"
+    },
+    {
+        "id": 22,
+        "line": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+    },
+    {
+        "id": 22,
+        "line": 5
+    },
+    {
+        "id": 22,
+        "line": 6,
+        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList"
+    },
+    {
+        "id": 22,
+        "line": 7
+    },
+    {
+        "id": 22,
+        "line": 8,
+        "uipath": "UI2D/UISkillInfo/Center/TopRight/UpgradeBtn"
+    },
+    {
+        "id": 22,
+        "line": 9,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "右側有一些你現在擁有的技能晶片，所有晶片都可以作為強化的材料，不過注意，晶片被當作強化後就會消失了！！",
+        "texten": "On the right,there is something you now have the skills cards, these cards can be used as all reinforced material, but notce, the card  will disappear after being the material! !"
+    },
+    {
+        "id": 22,
+        "line": 10,
+        "hintpath": "UI2D/UISkillReinforce/Window/Center/RightView"
+    },
+    {
+        "id": 22,
+        "line": 11,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧",
+        "texten": "Choose [ff6060] I Love Basketball Gangs[-] ."
+    },
+    {
+        "id": 22,
+        "line": 12,
+        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ScrollView/Grid/10_2_0"
+    },
+    {
+        "id": 22,
+        "line": 13
+    },
+    {
+        "id": 22,
+        "line": 14,
+        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ReinforceBtn"
+    },
+    {
+        "id": 22,
+        "line": 15,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "這樣就強化成功囉！！",
+        "texten": "That's over!!"
+    },
+    {
         "id": 30,
         "line": 1,
         "title": "主介面",
@@ -865,7 +955,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 5,
-        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
+        "texttw": "這就是將來會發生的事...若不在未來贏得這場比賽，這個星球會毀滅的！",
         "texten": "Hey Hey hey! ! You're still  here? Go play some ball now!"
     },
     {
@@ -875,7 +965,7 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
+        "texttw": "我知道了！但我該如何開始呢？",
         "texten": "I was just having this awesome dream.. I was the best player in the world!"
     },
     {
@@ -885,7 +975,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
+        "texttw": "我們得贏得這一屆星際籃球大賽的冠軍，才能改變未來的結局！",
         "texten": "The best player? Give me a break, with your current level you can't even beat me!"
     },
     {
@@ -895,7 +985,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
+        "texttw": "先從成為出色的籃球員開始，競賽能累積豐厚的經驗以及獎金，不僅能償還債務！也能朝目標邁進！",
         "texten": "OK OK! ! Stop loosing time and start shooting some balls."
     },
     {
@@ -905,7 +995,7 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 1,
-        "texttw": "好啦，走吧！！",
+        "texttw": "債務⋯哎～明明就是你撞破我家的屋頂⋯。",
         "texten": "Sure, let's go!"
     },
     {
@@ -921,7 +1011,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "先進入[ff6060]生涯競賽[-]",
+        "texttw": "哈哈哈，先別說這個了！我們進入[ff6060]生涯競賽[-]－",
         "texten": "First, enter [ff6060] STORY [-]"
     },
     {
@@ -937,7 +1027,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "再來選擇第一場競賽。",
+        "texttw": "再來選擇第一場競賽－",
         "texten": "Select the first match."
     },
     {
@@ -969,7 +1059,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "這裡是你這場比賽的[ff6060]隊友[-]，確認完畢就可以開始競賽了",
+        "texttw": "這裡是你這場比賽的[ff6060]隊友[-]，確認完畢就可以開始競賽了。",
         "texten": "This are your [ff6060] teammates [-] for the match. If your ok with them lets start playing!"
     },
     {
@@ -1036,17 +1126,24 @@
         "id": 34,
         "line": 1,
         "title": "取名",
-        "kind": 0,
+        "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "對了，我只知道您高超的球技，還不知道您叫什麼名字呢！！",
-        "texten": "I've heard of your skills,.. haven't heard your name tho"
+        "texttw": "由於你前幾場競賽搶眼的表現，我們發現有其他球員開始在[ff6060]關注[-]你的動態唷！！",
+        "texten": "I've been hearing your name in the streets more and more, people is starting to pay attention to you  [ff6060] and that's great! [-] But remember to watch your back!"
     },
     {
         "id": 34,
         "line": 2,
-        "kind": 0,
+        "kind": 4,
+        "texttw": "但是，我還不知道你的名字呢？",
+        "texten": "I've heard of your skills,.. haven't heard your name ..."
+    },
+    {
+        "id": 34,
+        "line": 3,
+        "kind": 4,
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
@@ -1055,8 +1152,8 @@
     },
     {
         "id": 34,
-        "line": 3,
-        "kind": 0,
+        "line": 4,
+        "kind": 4,
         "uipath": "UI2D/UIMainLobby/TopLeft/PlayerInGameBtn",
         "talkindex": 1,
         "talkr": -1,
@@ -1064,13 +1161,13 @@
     },
     {
         "id": 34,
-        "line": 4,
-        "kind": 0
+        "line": 5,
+        "kind": 4
     },
     {
         "id": 34,
-        "line": 5,
-        "kind": 0,
+        "line": 6,
+        "kind": 4,
         "uipath": "UI2D/UIPlayerInfo/Window/Center/View/PersonalView/PlayerName"
     },
     {
@@ -1108,19 +1205,16 @@
         "line": 1,
         "title": "新教學",
         "kind": 3,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 6,
-        "texttw": "頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
-        "texten": "The avatar with the [ff6666] red triangle [-] is your character! You can only control your own character."
+        "texttw": "哇啊！你、你是誰？怎麼撞破我家的屋頂⋯糟糕了啦！",
+        "texten": "Wow ah! Who are you? How crashed through the roof of my house ⋯ bad it!"
     },
     {
         "id": 40,
         "line": 2,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self0/PassMe/View",
-        "texttw": "你只可以操作紅色三角形頭標球員移動。",
-        "texten": "Now, move the joystick to the place you wanna go!"
+        "texttw": "⋯⋯啊！這裡是什麼地方！",
+        "texten": "⋯Where am I?"
     },
     {
         "id": 40,
@@ -1131,11 +1225,65 @@
         "offsety": -10,
         "talkindex": 1,
         "talkr": 10,
-        "actionr": 6,
-        "texttw": "現在，先操作搖桿移動到指定的地方吧！",
-        "texten": "Now, move the joystick until you reach this spot!",
+        "actionr": 1,
+        "texttw": "別緊張，我叫潔西卡，最喜歡的食物是⋯哎呀！不是說這個的時候了！",
+        "texten": "Take easy, my name is Jessica, favorite food is ⋯ Oops! It's not a time chatting!",
         "hinttw": "拖曳搖桿移動球員",
         "hinten": "Controlling joystick to move player"
+    },
+    {
+        "id": 40,
+        "line": 4,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 4,
+        "texttw": "你現在被我拉進了時空夾層的夢境中，必須完成這場夢境的目標才能夠醒來，否則就再也醒不過來了！",
+        "texten": "You must complete this dream goal to be able to wake up, otherwise it could wake up to!"
+    },
+    {
+        "id": 40,
+        "line": 5,
+        "kind": 3,
+        "texttw": "什麼！？你⋯那、那我要完成什麼樣的目標！？",
+        "texten": "WHAT? "
+    },
+    {
+        "id": 40,
+        "line": 6,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 5,
+        "texttw": "你必須贏得這場比賽！我會在一旁給你提示，很快就能完成的！快跟上－－",
+        "texten": "You have to win this game! I will lead you. Come on!"
+    },
+    {
+        "id": 40,
+        "line": 7,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 6,
+        "texttw": "首先，頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
+        "texten": "The avatar with the [ff6666] red triangle [-] is your character! You can only control your own character."
+    },
+    {
+        "id": 40,
+        "line": 8,
+        "kind": 3,
+        "texttw": "你只可以操作紅色三角形頭標球員移動。",
+        "texten": "Now, move the joystick to the place you wanna go!"
+    },
+    {
+        "id": 40,
+        "line": 9,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 6,
+        "texttw": "現在，先操作搖桿移動到指定的地方吧！",
+        "texten": "Now, move the joystick until you reach this spot!"
     },
     {
         "id": 41,
@@ -1360,8 +1508,57 @@
     {
         "id": 1041,
         "line": 1,
+        "title": "踏上意外旅程-4",
         "kind": 3,
         "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "太好了、太好了！你越來越厲害了呢！"
+    },
+    {
+        "id": 1041,
+        "line": 2,
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 1,
+        "talkl": 32,
+        "actionl": 2,
+        "texttw": "剛才那幾場只是讓你！這場和我『絕殺比爾』比賽三分球吧！"
+    },
+    {
+        "id": 1041,
+        "line": 3,
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 32,
+        "actionl": 2,
+        "texttw": "看看最後是誰贏得獎金！"
+    },
+    {
+        "id": 1041,
+        "line": 4,
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 5,
+        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！"
+    },
+    {
+        "id": 1041,
+        "line": 5,
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "沒問題！"
+    },
+    {
+        "id": 1041,
+        "line": 6,
+        "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 5,
         "texttw": "這場比賽所需要的[fff400]3分球[-]數量比上一場更多。",
@@ -1369,9 +1566,8 @@
     },
     {
         "id": 1041,
-        "line": 2,
-        "kind": 3,
-        "talkindex": 1,
+        "line": 7,
+        "title": "踏上意外旅程-4",
         "actionl": 3,
         "talkr": -1,
         "actionr": 4,
@@ -1380,9 +1576,8 @@
     },
     {
         "id": 1041,
-        "line": 3,
-        "kind": 3,
-        "talkindex": 0,
+        "line": 8,
+        "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 1,
         "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手。",
@@ -1390,9 +1585,8 @@
     },
     {
         "id": 1041,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 0,
+        "line": 9,
+        "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 4,
         "texttw": "我們把機會做給他吧！！",
@@ -1400,9 +1594,8 @@
     },
     {
         "id": 1041,
-        "line": 5,
-        "kind": 3,
-        "talkindex": 1,
+        "line": 10,
+        "title": "踏上意外旅程-4",
         "actionl": 5,
         "talkr": -1,
         "actionr": 4,
@@ -1412,83 +1605,205 @@
     {
         "id": 1010,
         "line": 1,
-        "title": "1-1全新的開始",
-        "kind": 1
+        "title": "踏上意外旅程-1",
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "潔西卡，你到底是什麼人呀？"
     },
     {
         "id": 1010,
         "line": 2,
-        "kind": 1
+        "title": "踏上意外旅程-1",
+        "kind": 1,
+        "talkl": 10,
+        "actionl": 3,
+        "texttw": "唉，其實我來自未來，來自那個即將被毀滅的時空。"
     },
     {
         "id": 1010,
         "line": 3,
-        "kind": 1
+        "title": "踏上意外旅程-1",
+        "kind": 1,
+        "talkl": 10,
+        "actionl": 6,
+        "texttw": "我的主人－喬，令我回到過去，找尋可以改變未來的機會。"
+    },
+    {
+        "id": 1010,
+        "line": 4,
+        "title": "踏上意外旅程-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "那你的主人⋯喬呢？"
+    },
+    {
+        "id": 1010,
+        "line": 5,
+        "title": "踏上意外旅程-1",
+        "talkl": 10,
+        "actionl": 3,
+        "texttw": "他犧牲了自己，在未來沉眠中。所以我需要你的幫助，收集能夠擊敗邪惡的力量，並且拯救我的主人。"
+    },
+    {
+        "id": 1010,
+        "line": 6,
+        "title": "踏上意外旅程-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "好吧，雖然聽起來有點不容易，但打籃球的感覺真好。我們接下來要先做什麼呢？"
+    },
+    {
+        "id": 1010,
+        "line": 7,
+        "title": "踏上意外旅程-1",
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "首先得取得正式球員的資格。我打聽好了，先贏得黑幫老大的獎金，我們就能參加資格賽！"
+    },
+    {
+        "id": 1010,
+        "line": 8,
+        "title": "踏上意外旅程-1",
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "我已經替你報名好了，你看！你的對手多熱情啊！"
+    },
+    {
+        "id": 1010,
+        "line": 9,
+        "title": "踏上意外旅程-1",
+        "talkl": 32,
+        "actionl": 2,
+        "texttw": "臭小子！敢瞧不起我『絕殺比爾』？活得不耐煩了？"
+    },
+    {
+        "id": 1010,
+        "line": 10,
+        "title": "踏上意外旅程-1",
+        "talkl": 32,
+        "actionl": 2,
+        "texttw": "想贏得獎金？回去再練一百年吧！"
     },
     {
         "id": 1020,
         "line": 0,
-        "title": "1-2得分能力的展現",
+        "title": "踏上意外旅程-2",
         "kind": 1
     },
     {
         "id": 1030,
         "line": 0,
-        "title": "1-3叫我神射手",
+        "title": "踏上意外旅程-3",
         "kind": 1
     },
     {
         "id": 1040,
         "line": 0,
-        "title": "1-4神一般的隊友",
+        "title": "踏上意外旅程-4",
         "kind": 1
     },
     {
         "id": 1050,
-        "line": 0,
-        "title": "2-1不一樣的策略",
-        "kind": 1
+        "line": 1,
+        "title": "成為勇士吧-1",
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "我們終於晉級了，一點都不困難嘛！我很有機會成為偉大的球員吧？"
+    },
+    {
+        "id": 1050,
+        "line": 2,
+        "title": "成為勇士吧-1",
+        "talkl": 10,
+        "actionl": 4,
+        "texttw": "嗯～是蠻有機會的，但要追上喬的腳步，還得練很多年！"
+    },
+    {
+        "id": 1050,
+        "line": 3,
+        "title": "成為勇士吧-1",
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "每次比賽前，千萬別忘了檢查『技能晶片』的搭配－"
+    },
+    {
+        "id": 1050,
+        "line": 4,
+        "title": "成為勇士吧-1",
+        "talkl": 10,
+        "actionl": 5,
+        "texttw": "也別忘了在比賽中，適時地發動技能！技能能夠讓你輕鬆突破難關！"
+    },
+    {
+        "id": 1050,
+        "line": 5,
+        "title": "成為勇士吧-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "好～我知道了，我一定會贏得資格賽！"
     },
     {
         "id": 1060,
         "line": 0,
-        "title": "2-2防守也是一種藝術",
-        "kind": 1
+        "title": "成為勇士吧-2"
     },
     {
         "id": 1070,
         "line": 0,
-        "title": "2-3火鍋的防守價值",
-        "kind": 1
+        "title": "成為勇士吧-3"
     },
     {
         "id": 1080,
-        "line": 0,
-        "title": "2-4防守！！",
-        "kind": 1
+        "line": 1,
+        "title": "成為勇士吧-4",
+        "texttw": "你贏得了資格賽，但你居住的貧民窟卻傳來了不好的消息－有神秘的大軍正在攻擊貧民窟！"
+    },
+    {
+        "id": 1080,
+        "line": 2,
+        "title": "成為勇士吧-4",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 2,
+        "texttw": "不好了！我得回去看看才行！"
+    },
+    {
+        "id": 1080,
+        "line": 3,
+        "title": "成為勇士吧-4",
+        "talkl": 10,
+        "actionl": 4,
+        "texttw": "這是當然囉！快走吧！"
     },
     {
         "id": 1090,
-        "line": 0,
-        "title": "3-1得分競賽",
+        "line": 1,
+        "title": "突然出現的強敵-1",
         "kind": 1
     },
     {
         "id": 1100,
         "line": 0,
-        "title": "3-2抄截的運用",
+        "title": "突然出現的強敵-2",
         "kind": 1
     },
     {
         "id": 1110,
         "line": 0,
-        "title": "3-3身體的對抗性",
+        "title": "突然出現的強敵-3",
         "kind": 1
     },
     {
         "id": 1120,
-        "line": 0,
-        "title": "3-4取得勝利",
+        "line": 1,
+        "title": "突然出現的強敵-4",
         "kind": 1
     },
     {
