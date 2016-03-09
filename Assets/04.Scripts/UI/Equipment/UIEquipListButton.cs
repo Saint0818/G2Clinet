@@ -36,7 +36,12 @@ public class UIEquipListButton : MonoBehaviour
         RedPointVisible = false;
     }
 
-    public void Set(UIValueItemData data)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="showNum"> true: 強制顯示數值. </param>
+    public void Set(UIValueItemData data, bool showNum)
     {
         NameLabel.text = data.Name;
         NameLabel.color = data.NameColor;
@@ -45,7 +50,7 @@ public class UIEquipListButton : MonoBehaviour
         Icon.spriteName = data.Icon;
         Frame.spriteName = data.Frame;
 
-        AmountLabel.gameObject.SetActive(data.Num >= 2);
+        AmountLabel.gameObject.SetActive(data.Num >= 2 || showNum);
         AmountLabel.text = data.Num.ToString();
 
         setValues(data.AllValues);

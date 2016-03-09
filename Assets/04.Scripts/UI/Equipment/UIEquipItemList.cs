@@ -49,11 +49,12 @@ public class UIEquipItemList : MonoBehaviour
     /// <param name="playerItem"> 玩家身上裝的裝備.(只是用來判斷要不要顯示紅點, 以後要改掉, 應該是傳遞哪個要道具顯示紅點的參數) </param>
     /// <param name="items"> 列表要顯示的數值裝. </param>
     /// <param name="resetPos"> true: 會將 ScrollView 底下的元件位置重置. </param>
-    public void Show(UIValueItemData playerItem, List<UIValueItemData> items, bool resetPos)
+    /// <param name="showNum"> true: 強迫顯示每個數值裝的數量. </param>
+    public void Show(UIValueItemData playerItem, List<UIValueItemData> items, bool resetPos, bool showNum)
     {
         Window.SetActive(true);
 
-        buildUI(playerItem, items);
+        buildUI(playerItem, items, showNum);
 
         if(resetPos)
             // 這個和 ScrollView 的 Content Origin 非常有關係, 這會影響重置的位置.
@@ -62,7 +63,13 @@ public class UIEquipItemList : MonoBehaviour
         ScrollView.enabled = true;
     }
 
-    private void buildUI(UIValueItemData playerItem, List<UIValueItemData> items)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerItem"> 這個資料只是用來驗證紅點. </param>
+    /// <param name="items"></param>
+    /// <param name="showNum"></param>
+    private void buildUI(UIValueItemData playerItem, List<UIValueItemData> items, bool showNum)
     {
         clear();
 
@@ -75,7 +82,7 @@ public class UIEquipItemList : MonoBehaviour
             localPos.y -= obj.GetComponent<UISprite>().height; // 因為每個元件的高度都相同, 所以可以這樣增加.
 
             element.Init(this, i);
-            element.Set(items[i]);
+            element.Set(items[i], showNum);
         }
 
         if(items.Count > 0)

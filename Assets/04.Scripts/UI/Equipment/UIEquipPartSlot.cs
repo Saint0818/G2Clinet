@@ -31,7 +31,7 @@ public class UIEquipPartSlot : MonoBehaviour
 
     public void Set(UIValueItemData item, bool showRedPoint)
     {
-        mItem.Set(item, showRedPoint);
+        mItem.Set(item, showRedPoint, (Index == 6 || Index == 7) && item.Num >= 1);
     }
 
     /// <summary>

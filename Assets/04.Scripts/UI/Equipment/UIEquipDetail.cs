@@ -73,7 +73,7 @@ public class UIEquipDetail : MonoBehaviour
     {
         mSlotIndex = slotIndex;
 
-        mEquipItem.Set(data, !mMain.IsBestValueItem(mSlotIndex));
+        mEquipItem.Set(data, !mMain.IsBestValueItem(mSlotIndex), false);
 
         NameLabel.text = data.Name;
         Desc.text = data.Desc;

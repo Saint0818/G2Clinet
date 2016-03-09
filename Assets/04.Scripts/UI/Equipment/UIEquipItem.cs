@@ -51,7 +51,13 @@ public class UIEquipItem : MonoBehaviour
         }
     }
 
-    public void Set(UIValueItemData data, bool showRedPoint)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="showRedPoint"> 要不要顯示紅點. </param>
+    /// <param name="showNum"> true: 強制顯示數量. </param>
+    public void Set(UIValueItemData data, bool showRedPoint, bool showNum)
     {
         gameObject.SetActive(true);
         
@@ -61,7 +67,7 @@ public class UIEquipItem : MonoBehaviour
 
         RedPoint.SetActive(showRedPoint);
 
-        Amount.gameObject.SetActive(data.Num >= 2);
+        Amount.gameObject.SetActive(data.Num >= 2 || showNum);
         Amount.text = data.Num.ToString();
 
 		if(qualityBG != null) {

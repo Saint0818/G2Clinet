@@ -34,10 +34,10 @@ public class UIValueItemData
     /// 倉庫中的哪一個.
     /// </summary>
     public int StorageIndex = StorageIndexNone;
-    /// <summary>
-    /// UI 並不會使用這個數值, 這個只是給 UIEquipment 得知這是哪一個道具.
-    /// </summary>
-    public int ItemID;
+//    /// <summary>
+//    /// UI 並不會使用這個數值, 這個只是給 UIEquipment 得知這是哪一個道具.
+//    /// </summary>
+//    public int ItemID;
 
     public string Name
     {

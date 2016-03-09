@@ -246,7 +246,7 @@ public class UISelectPartner : UIBase {
                     UIValueItemData vd = UIValueItemDataBuilder.Build(GameData.DItemData[pair.Value.ID], pair.Value.InlayItemIDs, pair.Value.Num);
                     UIEquipItem ei = ep.GetComponent<UIEquipItem>();
                     if (ei != null) {
-                        ei.Set(vd, false);
+                        ei.Set(vd, false, false);
                         ei.OnClickListener += OnItemHint;
                         ep.transform.parent = item.UIEquiptment.transform;
                         ep.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
