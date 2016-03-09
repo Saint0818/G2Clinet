@@ -410,7 +410,7 @@ public class UILoading : UIBase
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
                 CourtMgr.Get.InitCourtScene();
-                AudioMgr.Get.StartGame();
+//                AudioMgr.Get.StartGame();
                 waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
                 yield return new WaitForSeconds(waitTime);
 

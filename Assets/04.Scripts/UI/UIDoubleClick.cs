@@ -316,9 +316,7 @@ public class UIDoubleClick : UIBase {
 
     private IEnumerator DelayToCloseUI(int index)
     {
-        Debug.LogError("Wait 1f ");
         yield return new WaitForSeconds (1f);
         DoubleClicks[index].Enable = false;
-        Debug.LogError("Close " + index);
     }
 }

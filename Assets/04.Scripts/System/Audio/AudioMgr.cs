@@ -65,6 +65,7 @@ public enum EMusicType
 
 public class AudioMgr : KnightSingleton<AudioMgr>
 {
+    private string path = "Audio/Prefab/";
     public string CurrentMusic = string.Empty;
     public AudioMixer MasterMix;
     public AudioMixerSnapshot SplashSnapshot;
@@ -85,25 +86,15 @@ public class AudioMgr : KnightSingleton<AudioMgr>
         if(SplashSnapshot != null)
             ChangeSnapshot(ref SplashSnapshot);
         
-        AudioSource[] loads = gameObject.transform.GetComponentsInChildren<AudioSource>();
-        if (loads.Length > 0)
-        {
-            for (int i = 0; i < loads.Length; i++)
-            {
-                if (!DAudios.ContainsKey(loads[i].name))
-                    DAudios.Add(loads[i].name, loads[i]);
-            }
-        }
-    }
-
-    public void StartGame()
-    {
-//		if (GameData.Setting.Music) {
-//			AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{ StartST };
-//			float[] f = new float[1]{ 1 };
-//			MasterMix.TransitionToSnapshots (s, f, 1);
-//			PlayMusic (EMusicType.MU_ThemeSong);
-//		}
+//        AudioSource[] loads = gameObject.transform.GetComponentsInChildren<AudioSource>();
+//        if (loads.Length > 0)
+//        {
+//            for (int i = 0; i < loads.Length; i++)
+//            {
+//                if (!DAudios.ContainsKey(loads[i].name))
+//                    DAudios.Add(loads[i].name, loads[i]);
+//            }
+//        }
     }
 
     public void PlayMusic(EMusicType type)
@@ -142,10 +133,37 @@ public class AudioMgr : KnightSingleton<AudioMgr>
             init = true;
         }
 
-        if (CurrentMusic != name && DAudios.ContainsKey(name))
+        if (CurrentMusic != name && loadAudio(name))
         {
             DAudios[name].Play();
             CurrentMusic = name;
+        }
+    }
+
+    private bool loadAudio(string name)
+    {
+        if (!DAudios.ContainsKey(name))
+        {
+            Object temp = Resources.Load(path + name);
+            if (temp)
+            {
+                GameObject obj = Instantiate(temp) as GameObject;
+                obj.transform.parent = gameObject.transform;
+
+                obj.name = name;
+                AudioSource clone = obj.GetComponent<AudioSource>();
+                DAudios.Add(name, clone);
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Can not found Audio : " + name);
+                return false;
+            }
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -182,10 +200,10 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
     public void PlaySound(string name)
     {
-        if (DAudios.ContainsKey(name))
+        if (loadAudio(name))
+        {
             DAudios[name].Play();
-        else
-            Debug.LogError("Name : " + name);			
+        }
     }
 
     public void MusicOn(bool flag)

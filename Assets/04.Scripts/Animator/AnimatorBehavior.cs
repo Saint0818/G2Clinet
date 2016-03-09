@@ -350,6 +350,7 @@ public class AnimatorBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
+        Controler.SetFloat("CrtHight", gameObject.transform.localPosition.y);
         blockCurveCounter.FixedUpdate();
         shootCurveCounter.FixedUpdate();
         reboundCurveCounter.FixedUpdate();

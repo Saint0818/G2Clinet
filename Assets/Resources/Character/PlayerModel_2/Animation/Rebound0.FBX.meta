@@ -165,7 +165,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.32362497
+      - time: 0.17015478
         functionName: AnimationEvent
         data: TipInStart
         objectReferenceParameter: {instanceID: 0}
