@@ -712,7 +712,7 @@
         "id": 1009,
         "explain": "抽包按鈕",
         "tw": "抽 卡",
-        "en": "CARD STORE"
+        "en": "LOTTORY BOX"
     },
     {
         "id": 1010,
@@ -730,7 +730,7 @@
         "id": 1012,
         "explain": "潛能按鈕",
         "tw": "簽 到",
-        "en": "Daily"
+        "en": "Signin"
     },
     {
         "id": 1101,
@@ -1690,7 +1690,7 @@
         "id": 4001,
         "explain": "晶片收集",
         "tw": "晶片抽取",
-        "en": "CARD COLLECTION"
+        "en": "LOTTORY BOX"
     },
     {
         "id": 4002,
@@ -1737,14 +1737,14 @@
     {
         "id": 4103,
         "uipeth": "Open10Label",
-        "tw": "X10",
-        "en": "X10"
+        "tw": "10 連抽，[33FFDD]必得1張晶片[-]  ",
+        "en": "10x Draws [33FFDD]gift 1 card[-]  "
     },
     {
         "id": 4104,
         "uipeth": "Open5Label",
-        "tw": "X5",
-        "en": "X5"
+        "tw": "5 連抽",
+        "en": "5x Draws"
     },
     {
         "id": 4105,
@@ -1755,8 +1755,8 @@
     {
         "id": 4106,
         "uipeth": "FreeLabel",
-        "tw": "免費倒數 {0} ",
-        "en": "NEXT FREE IN {0} "
+        "tw": "免費倒數 [33FFDD]{0} [-]   ",
+        "en": "NEXT FREE IN [33FFDD]{0}[-]   "
     },
     {
         "id": 4107,
@@ -2063,7 +2063,7 @@
         "id": 5002,
         "uipeth": "頁籤1",
         "tw": "動 態",
-        "en": "TREND"
+        "en": "NEWS \nFEED"
     },
     {
         "id": 5003,
@@ -2488,13 +2488,19 @@
         "id": 7011,
         "explain": "技能介面頁籤1",
         "tw": "技能晶片",
-        "en": "SKILL CARDS"
+        "en": "SKILL \nCARDS"
     },
     {
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "COLLECTION"
+        "en": "CARD \nCOLLECTION"
+    },
+    {
+        "id": 7013,
+        "explain": "主動技限制",
+        "tw": "等級達到 [33FFDD]{0}[-] 開啟",
+        "en": "Unlocks at  [33FFDD]Level {0} [-] "
     },
     {
         "id": 7101,
@@ -3288,7 +3294,7 @@
     {
         "id": 9402,
         "uipeth": "SkipButton/Icon",
-        "tw": "SKIP",
+        "tw": "跳過",
         "en": "SKIP"
     },
     {
@@ -3723,7 +3729,7 @@
     {
         "id": 10105,
         "uipeth": "Next/Icon",
-        "tw": "NEXT",
+        "tw": "下一步",
         "en": "NEXT",
         "jp": "NEXT"
     },
@@ -4771,7 +4777,7 @@
         "id": 100010,
         "explain": "抽包介面標題",
         "tw": "[f000ff]晶片抽取[-]",
-        "en": "CARD STORE"
+        "en": "LOTTORY BOX"
     },
     {
         "id": 100011,

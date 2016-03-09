@@ -176,7 +176,7 @@
     /// <para> 進入快攻模式的判斷條件參數. 單位: Unity. </para>
     /// <para> 當全部的敵方球員和持球者的距離大於此數值, 會進入快攻狀態. </para>
     /// </summary>
-    public const float AIFastBreakThreshold = 2;
+    public const float AIFastBreakThreshold = 3;
 
     public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
