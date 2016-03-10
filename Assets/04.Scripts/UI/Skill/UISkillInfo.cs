@@ -247,7 +247,7 @@ public class UISkillInfo : UIBase {
 				labelSkillInfoKind4.text = TextConst.S(7207);
 				labelSkillKind.text = TextConst.S(7002);
 			} else {
-				spriteSkillKind.spriteName = "PasstiveIcon";
+				spriteSkillKind.spriteName = "PassiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7206);
 				labelSkillKind.text = TextConst.S(7003);
 			}

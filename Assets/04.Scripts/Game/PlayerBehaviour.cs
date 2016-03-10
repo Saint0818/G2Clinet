@@ -2861,9 +2861,6 @@ public class PlayerBehaviour : MonoBehaviour
                     OnUIJoystick(this, false);
                 
                 isSkillShow = true;
-                string effectName = string.Format("UseSkillEffect_{0}", 0);
-                EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
-                
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
 				
@@ -2874,6 +2871,8 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (skillEffectKind)
                 {
                     case 0://show self and rotate camera
+						string effectName = string.Format("UseSkillEffect_{0}", 0);
+						EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
 						Invoke("showEffect", skillTime);
 						if (UIPassiveEffect.Visible)
 							UIPassiveEffect.UIShow(false);

@@ -152,7 +152,8 @@ public class UIMall : UIBase {
 			chooseIndex = mallBoxs[result].mIndex;
 			spendType = EPickSpendType.ONE.GetHashCode();
 			if(mallBoxs[result].IsPickFree)
-				CheckDiamond(0, true, TextConst.S(4108), ConfirmUse);
+//				CheckDiamond(0, true, TextConst.S(4108), ConfirmUse);
+				ConfirmUse ();
 			else {
 				if(!CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
