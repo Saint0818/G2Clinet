@@ -25,7 +25,6 @@ public struct TTextConst {
 
 public static class TextConst
 {
-	private static bool loaded = false;
 	private static Dictionary<int, TTextConst> gameText = new Dictionary<int, TTextConst> ();
 	public static TTeamName[] TeamNameAy;
 	

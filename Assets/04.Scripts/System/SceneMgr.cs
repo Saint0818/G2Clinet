@@ -64,7 +64,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         if (OnLevelWaitLoadNext != null) 
 			OnLevelWaitLoadNext ();
 
-        //Resources.UnloadUnusedAssets();
+        Resources.UnloadUnusedAssets();
     }
 
     void Awake()

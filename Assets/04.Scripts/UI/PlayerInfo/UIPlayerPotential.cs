@@ -473,6 +473,7 @@ public class UIPlayerPotential : UIBase {
 	protected override void OnShow(bool isShow) {
         base.OnShow(isShow);
 		if (isShow) {
+            GameData.Team.PlayerInit();
 			UpdateView ();
 			upgradeView.EnableHexagon(true);
 		}

@@ -21,7 +21,7 @@ public class UIBase: MonoBehaviour
 
     public static void RemoveUI(GameObject uiObj) {
         NGUIDebug.DestroyImmediate(uiObj, true);
-        Resources.UnloadUnusedAssets();
+        //Resources.UnloadUnusedAssets();
     }
 
 	protected static UIBase LoadUI(string path)
