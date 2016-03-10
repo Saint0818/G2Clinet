@@ -949,12 +949,6 @@
     },
     {
         "id": 3021,
-        "explain": "秀戰力值",
-        "tw": "完整戰力值",
-        "en": "OVERALL"
-    },
-    {
-        "id": 3021,
         "explain": "屬性六角圖"
     },
     {
@@ -992,6 +986,12 @@
         "uipeth": "Attribute6/Label",
         "tw": "抄截",
         "en": "STL"
+    },
+    {
+        "id": 3028,
+        "explain": "秀戰力值",
+        "tw": "完整戰力值",
+        "en": "OVERALL"
     },
     {
         "id": 3101,
