@@ -70,7 +70,7 @@ public class TPassiveSkillCard
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
-					SkillKind.spriteName = "PasstiveIcon";
+					SkillKind.spriteName = "PassiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 				GameFunction.ShowStar_Item(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			}
@@ -122,7 +122,7 @@ public class TPassiveSkillCard
 				if(GameFunction.IsActiveSkill(id))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
-					SkillKind.spriteName = "PasstiveIcon";
+					SkillKind.spriteName = "PassiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[id].Quality.ToString();
 				GameFunction.ShowStar_Item(ref SkillStars, lv, GameData.DSkillData[id].Quality, GameData.DSkillData[id].MaxStar);
 			}
@@ -174,7 +174,7 @@ public class TPassiveSkillCard
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
-					SkillKind.spriteName = "PasstiveIcon";
+					SkillKind.spriteName = "PassiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 				GameFunction.ShowStar_Item(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			}
@@ -234,7 +234,7 @@ public class TPassiveSkillCard
 					if(GameFunction.IsActiveSkill(GameData.DItemData[id].Avatar))
 						SkillKind.spriteName = "ActiveIcon";
 					else 
-						SkillKind.spriteName = "PasstiveIcon";
+						SkillKind.spriteName = "PassiveIcon";
 					SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[GameData.DItemData[id].Avatar].Quality.ToString();
 					GameFunction.ShowStar_Item(ref SkillStars, GameData.DSkillData[GameData.DItemData[id].Avatar].MaxStar, GameData.DSkillData[GameData.DItemData[id].Avatar].Quality, GameData.DSkillData[GameData.DItemData[id].Avatar].MaxStar);
 					if(SuitCover != null)

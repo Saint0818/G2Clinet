@@ -196,7 +196,7 @@ public class UISkillInfo : UIBase {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 			RefreshUICard(uicard);
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
@@ -209,7 +209,7 @@ public class UISkillInfo : UIBase {
 
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
 		}
 	}
 
@@ -263,7 +263,8 @@ public class UISkillInfo : UIBase {
 
 			if(GameData.DSkillData[skill.ID].Suititem > 0 && GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)) {
 				goSuitItem.gameObject.SetActive(true);
-				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
+//				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
+				goSuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
 				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
 				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length);
 				GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
@@ -335,7 +336,7 @@ public class UISkillInfo : UIBase {
 
         if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
+			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
