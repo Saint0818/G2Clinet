@@ -102,12 +102,6 @@ public class GSocket : KnightSingleton<GSocket> {
 	}
 
 	protected override void Init() {
-		DontDestroyOnLoad(gameObject);
-		NetMsgProcs[1, 1] = netmsg_1_1;
-		NetMsgProcs[1, 3] = netmsg_1_3;
-		NetMsgProcs[1, 5] = netmsg_1_5;
-
-		NetMsgProcs[2, 1] = netmsg_2_1;
 	}
 
 	public void Connect(Action callback)
@@ -138,8 +132,6 @@ public class GSocket : KnightSingleton<GSocket> {
 		data.sessionID = GameData.Team.sessionID;
 		data.X = GameData.ScenePlayer.X;
 		data.Z = GameData.ScenePlayer.Z;
-
-		Send(1, 1, data, waitRec1_1);
 	}
 
 	private void OnConnected(Packet packet) {
@@ -248,63 +240,5 @@ public class GSocket : KnightSingleton<GSocket> {
 	public string OnHttpText(string text) {
 		byte[] buf = JsonConvert.DeserializeObject <byte[]>(text);
 		return System.Text.Encoding.UTF8.GetString(Decompress(buf));
-	}
-    
-	private void waitRec1_1(JSONObject obj) {
-		TRec1_1[] result = JsonConvert.DeserializeObject<TRec1_1[]>(obj.ToString());
-		if (result.Length > 0) {
-			if (result[0].R == 1) {
-				GameData.IsLoginRTS = true;
-				if (onConnectFunc != null) {
-					onConnectFunc();
-					onConnectFunc = null;
-				}
-			} else
-				Debug.Log("1_1 error " + result[0].R.ToString());
-		}
-	}
-
-	private void netmsg_1_1(string data) {
-		TRec1_1 result = JsonConvert.DeserializeObject<TRec1_1>(data);
-		switch (result.R) {
-		case 21:
-			UIHint.Get.ShowHint(result.Name + " online", Color.blue);
-			break;
-		case 22:
-			UIHint.Get.ShowHint(result.Name + " offline", Color.red);
-            break;
-        }
-    }
-
-    private void netmsg_1_3(string data) {
-		TRec1_3 result = JsonConvert.DeserializeObject<TRec1_3>(data);
-		switch (result.R) {
-			case 21:
-			LobbyStart.Get.RemoveOnlinePlayer(result.Index);
-			break;
-            
-            case 22:
-			if (result.IsDisconnect)
-				UIHint.Get.ShowHint("Lost connection.", Color.red);
-
-			UIMain.Get.ExitRoom();
-			break;
-		}
-	}
-
-	private void netmsg_1_5(string data) {
-		TRec1_5 result = JsonConvert.DeserializeObject<TRec1_5>(data);
-		switch (result.R) {
-		case 21:
-			LobbyStart.Get.AddOnlinePlayer(result.PIndex, ref result.Team, ref result.ScenePlayer);
-			break;
-        }
-    }
-
-	private void netmsg_2_1(string data) {
-		if (LobbyStart.Visible) {
-			TRec2_1 result = JsonConvert.DeserializeObject<TRec2_1>(data);
-			LobbyStart.Get.Rec_PlayerMove(ref result);
-		}
 	}
 }

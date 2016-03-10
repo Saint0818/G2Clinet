@@ -24,6 +24,7 @@ public class EffectManager : MonoBehaviour
 	
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 	private Dictionary<string, List<GameObject>> pooledObjects = new Dictionary<string, List<GameObject>>();
+    private Dictionary<string, bool> specialEffect = new Dictionary<string, bool>();
 
 	public static EffectManager Get {
 		get
@@ -55,9 +56,20 @@ public class EffectManager : MonoBehaviour
         cloneObjects.Clear();
         effectList.Clear();
         pooledObjects.Clear();
+        specialEffect.Clear();
     }
 
-	void Update() {
+    public void InitData() {
+        string[] strs = new string[]{"FX_SelectDown","SelectMe", "SelectTarget", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01",
+            "PassMe", "PassA", "PassB", "UseSkillEffect_0", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201", "PassiveFX"
+            ,"ShowWord_Block","ShowWord_Dunk","ShowWord_NiceShot","ShowWord_Punch","ShowWord_Steal", "GetScoreThree", "GetScoreTwo"};
+
+        specialEffect.Clear();
+        for (int i = 0; i < strs.Length; i++)
+            specialEffect.Add(strs[i], true);
+    }
+
+	void FixedUpdate() {
 		for (int i = cloneMeshs.Count-1; i >= 0; i--) {
 			if (cloneMeshs[i].Count > 0) {
 				TCloneMesh cm = cloneMeshs[i];
@@ -84,10 +96,6 @@ public class EffectManager : MonoBehaviour
             obj = Resources.Load("Effect/" + effectName) as GameObject;
 			if (obj) {
 				effectList.Add(effectName, obj);
-//				#if UNITY_EDITOR
-//				if (GameController.Visible && GameController.Get.IsStart) 
-//					Debug.LogError("Load effect in game : " + effectName);
-//				#endif
 			}
 		}
 
@@ -138,7 +146,7 @@ public class EffectManager : MonoBehaviour
 
 	public GameObject PlayEffectFollowBallOwner(string effectName, Vector3 position)
 	{
-		if (GameData.Setting.Quality > 0 || IsCheckSpecial(effectName)) {
+        if (GameData.Setting.Quality > 0 || specialEffect.ContainsKey(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
@@ -157,7 +165,7 @@ public class EffectManager : MonoBehaviour
 	}
 
 	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0, bool isNeedPause = true, bool isNeedPool = true) {
-		if (GameData.Setting.Quality > 0 || IsCheckSpecial(effectName)) {
+        if (GameData.Setting.Quality > 0 || specialEffect.ContainsKey(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
@@ -166,6 +174,7 @@ public class EffectManager : MonoBehaviour
 					particles = getPooledObject(effectName, obj);
 				else
 					particles = Instantiate(obj);
+                
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
@@ -201,21 +210,6 @@ public class EffectManager : MonoBehaviour
 		}
 
 		return null;
-	}
-
-	public bool IsCheckSpecial(string name)
-	{
-		string[] strs = new string[]{"FX_SelectDown","SelectMe", "SelectTarget", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01",
-			"PassMe", "PassA", "PassB", "UseSkillEffect_0", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201", "PassiveFX"
-			,"ShowWord_Block","ShowWord_Dunk","ShowWord_NiceShot","ShowWord_Punch","ShowWord_Steal", "GetScoreThree", "GetScoreTwo"};
-
-		for(int i = 0; i < strs.Length; i++)
-		{
-			if(strs[i] == name)
-				return true;
-		}
-	
-		return false;
 	}
 
 	private GameObject getCloneObject() {

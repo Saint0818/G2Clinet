@@ -64,7 +64,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         if (OnLevelWaitLoadNext != null) 
 			OnLevelWaitLoadNext ();
 
-        Resources.UnloadUnusedAssets();
+        //Resources.UnloadUnusedAssets();
     }
 
     void Awake()
@@ -72,7 +72,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         DontDestroyOnLoad(transform.gameObject);
     }
 
-    public void ChangeLevel(int courtNo, bool isNeedLoading = true)
+    public void ChangeLevel(int courtNo, bool isNeedLoading = false)
     {
 		string scene = ESceneName.Court + courtNo;
 		ChangeLevel(scene, isNeedLoading);
@@ -84,7 +84,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         get{  return CurrentScene == string.Format("{0}{1}", ESceneName.Court, CurrentSceneNo);}
     }
 
-    public void ChangeLevel(string scene, bool isNeedLoading = true)
+    public void ChangeLevel(string scene, bool isNeedLoading = false)
     {
         if (CurrentScene == "Main")
         {
@@ -100,7 +100,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                     StartCoroutine(LoadLevelCoroutine(scene));
 
                 LoadScene = scene;
-                OnLevelWaitLoadNext += WaitLoadScene;
+                //OnLevelWaitLoadNext += WaitLoadScene;
             }
         }
     }

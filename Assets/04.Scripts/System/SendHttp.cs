@@ -218,7 +218,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
 		} else {
 			focusCount++;
-			if (focusCount > 1 && CheckNetwork(false)) {
+			if (focusCount > 1 && CheckNetwork(true)) {
                 if (needResendLogin()) {
 					checkVersion ();
 				} else

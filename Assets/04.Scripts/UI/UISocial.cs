@@ -438,7 +438,7 @@ public class UISocial : UIBase {
     }
         
     private IEnumerator downloadModel(TSocialEventItem item) {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.6f);
 
         if (!string.IsNullOrEmpty(item.Friend.Identifier)) {
             waitDownloadItem = item;

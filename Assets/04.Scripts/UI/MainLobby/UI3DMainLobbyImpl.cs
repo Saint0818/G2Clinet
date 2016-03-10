@@ -303,7 +303,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     //            GameData.Team.Player.BodyType,
     //            EAnimatorType.AnimationControl, false);
 
-            ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AnimationControl, false);
+            ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.TalkControl, false);
 
             mAvatarPlayer.transform.parent = BuildPos[0].transform;
             mAvatarPlayer.transform.localPosition = Vector3.zero;

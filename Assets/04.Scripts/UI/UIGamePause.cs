@@ -52,8 +52,8 @@ public class UIGamePause : UIBase {
 				else
 					instance.Show(value);
 			} else
-				if (value)
-					Get.Show(value);
+			if (value)
+				Get.Show(value);
 		}
 	}
 	
@@ -65,23 +65,12 @@ public class UIGamePause : UIBase {
 			
 			return instance;
 		}
-
-		set {
-			if (instance) {
-				if (!value)
-                    RemoveUI(instance.gameObject);
-				else
-					instance.Show(value);
-			} else
-				if (value)
-					Get.Show(value);
-		}
 	}
 
 	public static void UIShow(bool isShow) {
-		if (instance)
-			instance.Show(isShow);
-		else
+        if (instance) 
+            instance.Show(isShow);
+        else
 			if (isShow)
 				Get.Show(isShow);
 	}

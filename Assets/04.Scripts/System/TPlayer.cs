@@ -234,7 +234,6 @@ namespace GameStruct
                 Dribble = GameData.DPlayers[ID].Dribble;
                 Defence = GameData.DPlayers[ID].Defence;
                 Pass = GameData.DPlayers[ID].Pass;
-                BodyType = GameData.DPlayers[ID].BodyType;
                 AILevel = GameData.DPlayers[ID].AILevel;
                 AISkillLv = GameData.DPlayers[ID].AISkillLv;
                 SetSkill(type);
@@ -420,7 +419,7 @@ namespace GameStruct
                     ActiveSkills.Clear();
                     if(SkillCards == null)
                         SkillCards = new TSkill[0];
-
+                    
                     if(SkillCards.Length > 0) {
                         for(int i=0; i<SkillCards.Length; i++) {
 							if(GameFunction.IsActiveSkill(SkillCards[i].ID)){
@@ -436,6 +435,7 @@ namespace GameStruct
 		
         public void SetAvatar() {
             if (ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
+                BodyType = GameData.DPlayers[ID].BodyType;
                 Avatar.Body = GameData.DPlayers[ID].Body;
                 Avatar.Hair = GameData.DPlayers[ID].Hair;
                 Avatar.AHeadDress = GameData.DPlayers[ID].AHeadDress;

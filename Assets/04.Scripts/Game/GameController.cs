@@ -1469,8 +1469,6 @@ public class GameController : KnightSingleton<GameController>
 				UICourtInstant.UIShow(false);
 				UIInGameMission.UIShow(true);
 				UIInGameMission.UIShow(false);
-				UIEndGame.Visible = true;
-				UIEndGame.Visible = false;
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:

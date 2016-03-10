@@ -118,8 +118,6 @@ public class ModelManager : KnightSingleton<ModelManager>
         {
             path = string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString());
             loadController(path, i, EAnimatorType.AnimationControl);
-            path = string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString());
-            loadController(path, i, EAnimatorType.ShowControl);
         }
     }
 
@@ -243,7 +241,6 @@ public class ModelManager : KnightSingleton<ModelManager>
 
             SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.AnimationControl); //EAnimatorType.ShowControl); 
 			InitRigbody(res);
-
 			ETimerKind timeKey;
 			if (team == ETeamKind.Self)
 				timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Self{0}", teamIndex));

@@ -122,6 +122,13 @@ public class UISelectRole : UIBase {
         uiRedPoint.SetActive(false);
     }
 
+    protected override void InitData() {
+        for (int i = 0; i < GameData.TeamMembers.Length; i++) {
+            GameData.TeamMembers[i] = new TTeam();
+            GameData.EnemyMembers[i] = new TTeam();
+        }
+    }
+
 	public void InitPlayerList(ref int[] ids) {
 		playerList.Clear();
         if (ids != null) {
@@ -199,7 +206,7 @@ public class UISelectRole : UIBase {
             playerObjects [roleIndex] = new GameObject();
         
         GameObject temp = playerObjects [roleIndex];
-        GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], player.Avatar, player.BodyType, EAnimatorType.AvatarControl, false, true);
+        GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], player.Avatar, player.BodyType, EAnimatorType.TalkControl, false, true);
 
         playerObjects[roleIndex].name = roleIndex.ToString();
         playerObjects[roleIndex].transform.parent = playerInfoModel.transform;

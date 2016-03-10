@@ -19,50 +19,41 @@ public class UIBase: MonoBehaviour
 	private GameEnum.ELanguage uiLanguage;
 	private Dictionary<UILabel, int> labelTextID = new Dictionary<UILabel, int>();
 
-	//public static void RemoveUI(string uiname) {
     public static void RemoveUI(GameObject uiObj) {
-        if (uiObj != null) {
-            NGUIDebug.DestroyImmediate(uiObj, true);
-        }
-        //UIManager.RemoveUI(uiname);
-	}
+        NGUIDebug.DestroyImmediate(uiObj, true);
+        Resources.UnloadUnusedAssets();
+    }
 
 	protected static UIBase LoadUI(string path)
 	{
 		if(!string.IsNullOrEmpty(path))
         {
 			UI2D.UIShow(true);
-			GameObject obj = UIManager.LoadPrefab(UIPrefab + path);
+            GameObject obj = Resources.Load<GameObject>(UIPrefab + path);
 			if(obj) {
-                GameObject obj2 = UIManager.FindUIObject(path);
-                if (!obj2)
-                    obj2 = Instantiate(obj) as GameObject;
-                
-				if(obj2) {
-                    //UIManager.AddUI(path, ref obj2);
-					string[] strChars = path.Split('/'); 
-					if(strChars.Length > 0) {
-						string UIName = strChars[strChars.Length - 1];                
-						obj2.name = UIName;
-						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
-						ui.uiLanguage = GameData.Setting.Language;
-						ui.initDefaultText(ui.gameObject);
-						ui.InitText();
-						ui.InitCom();
-						ui.InitData();
+				string[] strChars = path.Split('/'); 
+				if(strChars.Length > 0) {
+                    GameObject obj2 = Instantiate(obj) as GameObject;
 
-						obj2.transform.parent = UI2D.Get.gameObject.transform;
-						obj2.transform.localPosition = Vector3.zero;
-						obj2.transform.localScale = Vector3.one;
-						obj2.SetActive(false);
+					string UIName = strChars[strChars.Length - 1];                
+					obj2.name = UIName;
+					UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+					ui.uiLanguage = GameData.Setting.Language;
+					ui.initDefaultText(ui.gameObject);
+					ui.InitText();
+					ui.InitCom();
+					ui.InitData();
 
-						return ui;
-					} else
-						Debug.LogError("Split path fail: " + path);
+					obj2.transform.parent = UI2D.Get.gameObject.transform;
+					obj2.transform.localPosition = Vector3.zero;
+					obj2.transform.localScale = Vector3.one;
+					obj2.SetActive(false);
+
+					return ui;
 				} else
-					Debug.Log("Instantiate fail: " + path);
+                    Debug.LogError("Loading prefab fail: " + path);
 			} else
-				Debug.LogError("Loading prefab fail: " + path);
+                Debug.LogError("Split path fail: " + path);
 		}
 
 		return null;
@@ -71,36 +62,33 @@ public class UIBase: MonoBehaviour
 	protected static UIBase Load3DUI(string path)
 	{
 		if(!string.IsNullOrEmpty(path)){
-			GameObject obj = UIManager.LoadPrefab(UIPrefab + path);
+            GameObject obj = Resources.Load<GameObject>(UIPrefab + path);
 			if(obj) {
-				GameObject obj2 = Instantiate(obj) as GameObject;
-				if(obj2) {
-                    //UIManager.AddUI(path, ref obj2);
-					string[] strChars = path.Split('/'); 
-					if(strChars.Length > 0) {
-						string UIName = strChars[strChars.Length - 1];                
-						obj2.name = UIName;
-						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
-						ui.uiLanguage = GameData.Setting.Language;
-						ui.initDefaultText(ui.gameObject);
-						ui.InitText();
-						ui.InitCom();
-						ui.InitData();
+				string[] strChars = path.Split('/'); 
+				if(strChars.Length > 0) {
+                    GameObject obj2 = Instantiate(obj) as GameObject;
 
-                        UI3D.Visible = true;
-                        obj2.transform.parent = UI3D.Get.transform;
-						obj2.transform.localEulerAngles = Vector3.zero;
-						obj2.transform.localPosition = Vector3.zero;
-						obj2.transform.localScale = Vector3.one;
-						obj2.SetActive(false);
+					string UIName = strChars[strChars.Length - 1];                
+					obj2.name = UIName;
+					UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+					ui.uiLanguage = GameData.Setting.Language;
+					ui.initDefaultText(ui.gameObject);
+					ui.InitText();
+					ui.InitCom();
+					ui.InitData();
 
-						return ui;
-					} else
-						Debug.LogError("Split path fail: " + path);
+                    UI3D.Visible = true;
+                    obj2.transform.parent = UI3D.Get.transform;
+					obj2.transform.localEulerAngles = Vector3.zero;
+					obj2.transform.localPosition = Vector3.zero;
+					obj2.transform.localScale = Vector3.one;
+					obj2.SetActive(false);
+
+					return ui;
 				} else
 					Debug.Log("Instantiate fail: " + path);
 			} else
-				Debug.LogError("Loading prefab fail: " + path);
+            Debug.LogError("Split path fail: " + path);
 		}
 		
 		return null;

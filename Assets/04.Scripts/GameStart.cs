@@ -1,4 +1,5 @@
-#define PUSHWOOSH
+//#define PUSHWOOSH
+using System.Collections;
 using GameEnum;
 using UnityEngine;
 
@@ -48,12 +49,12 @@ public class GameStart : MonoBehaviour {
 
 		Time.timeScale = 1;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		SceneMgr.Get.SetDontDestory (gameObject);
-		GameData.InitGameSetting ();
-		TextConst.Init();
-		GameData.Init();
+		//SceneMgr.Get.SetDontDestory (gameObject);
+        GameData.InitGameSetting ();
+        GameData.Init();
         AnimatorMgr.Get.InitAnimtorStatesType();
-		SendHttp.Get.CheckServerData(ConnectToServer);
+        UILoading.UIShow(true, ELoading.Login);
+        SendHttp.Get.CheckServerData(ConnectToServer);
 		#if PUSHWOOSH
 			#if UNITY_ANDROID
 	        gameObject.AddComponent<Pushwoosh>();

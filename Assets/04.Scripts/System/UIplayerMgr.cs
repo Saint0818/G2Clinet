@@ -86,7 +86,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
             InitAvatar();
         }
 		gameObject.SetActive (true);
-		ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.AvatarControl, false);
+        ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.TalkControl, false);
 
         uiMode = mode;
         setManLocation(mode);
@@ -94,7 +94,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 
 	public void ChangeAvatar(TAvatar equipAvatar)
 	{
-		ModelManager.Get.SetAvatar(ref avatar, equipAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
+        ModelManager.Get.SetAvatar(ref avatar, equipAvatar, GameData.Team.Player.BodyType, EAnimatorType.TalkControl, false);
         setManLocation(uiMode);
 	}
 

@@ -31,7 +31,7 @@ public class UILoading : UIBase
     private List<int> skillIDs = new List<int>();
 
     public static EventDelegate.Callback OpenUI = null;
-    private ELoading loadingKind;
+    private ELoading loadingKind = ELoading.Null;
     private bool closeAfterFinished = false;
     public static int StageID = -1;
     private static int achievementTutorialID = -1;
@@ -246,8 +246,7 @@ public class UILoading : UIBase
         loadingKind = kind;
         startTimer = Time.time;
         closeAfterFinished = false;
-        nowProgress = 0;
-        ProgressValue = 0;
+
         if (kind == ELoading.Game)
         {
             windowStage.SetActive(true);
@@ -358,7 +357,7 @@ public class UILoading : UIBase
         if (kind != ELoading.Login)
             ProgressValue = 0.3f;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForEndOfFrame();
 
         switch (kind) {
             case ELoading.SelectRole:
@@ -377,7 +376,7 @@ public class UILoading : UIBase
                 UI3DCreateRole.Get.PositionView.PlayDropAnimation();
                 ProgressValue = 0.7f;
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(0.5f);
                 UIShow(false);
 				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
                 break;
@@ -395,7 +394,7 @@ public class UILoading : UIBase
                 } else 
                 if (OpenUI != null) {
                     if (!UITutorial.Visible)
-                        yield return new WaitForSeconds(2);
+                        yield return new WaitForSeconds(0.5f);
 
                     OpenUI();
                     OpenUI = null;
@@ -410,9 +409,7 @@ public class UILoading : UIBase
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
                 CourtMgr.Get.InitCourtScene();
-//                AudioMgr.Get.StartGame();
-                waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(1);
 
                 if (GameStart.Get.TestMode == EGameTest.None)
                     GameController.Get.LoadStage(GameData.StageID);

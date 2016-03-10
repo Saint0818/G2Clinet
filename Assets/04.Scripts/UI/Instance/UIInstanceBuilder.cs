@@ -96,7 +96,7 @@ public static class UIInstanceBuilder
 
         GameObject model = new GameObject { name = "BossModel" };
         ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[playerID].BodyType,
-                                   EAnimatorType.AvatarControl, false);
+            EAnimatorType.TalkControl, false);
 
         changeLayersRecursively(model.transform, "UI");
 
