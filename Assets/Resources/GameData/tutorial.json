@@ -48,7 +48,8 @@
         "id": 1,
         "line": 6,
         "kind": 4,
-        "value": 3
+        "value": 3,
+        "wait": 1
     },
     {
         "id": 1,
@@ -724,10 +725,7 @@
     {
         "id": 9,
         "line": 4,
-        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)",
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
+        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)",
         "texttw": "這就是你之前遇到的關主，現在可以再次挑戰他囉！！不過要注意，他們這次不會放水了，會拿出真本事來對付你唷！！並且你要注意這系列挑戰的[ff6060]特性[-]。",
         "texten": "You can now challenge the boss again! However, this time he won't take it easy on you ! You should also pay attention to the series of challenges [ff6060] in the game [-]."
     },
@@ -735,7 +733,7 @@
         "id": 9,
         "line": 5,
         "kind": 4,
-        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(關主 1)"
+        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 9,
