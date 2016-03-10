@@ -41,10 +41,10 @@ public class GEBuildTool : GEBase {
 		g2
 	}
 	
-	//private static string[] accounts = new string[2]{"nbaa", "g2"};
-	//private string[] appName = new string[2]{"Gang of Basketball", "Basketball Gangs 2"};
-	//private string companyName = "Nice Market Games Ltd.";
-	//private string bundleId = "com.nicemarket.g2canada";
+	private static string[] accounts = new string[2]{"nbaa", "g2"};
+	private string[] appName = new string[2]{"Basketball Gangs", "Basketball Gangs 2"};
+	private string companyName = "Nice Market Games Ltd.";
+	private string bundleId = "com.nicemarket.g2canada";
 	private int selectedIndex = 1;
 	private int[] sizes = new int[]{0,1};
 	static string[] SCENES = FindEnabledEditorScenes();
@@ -86,9 +86,9 @@ public class GEBuildTool : GEBase {
 
 		if (GUILayout.Button("Build Android", GUILayout.Width(200)))
 		{
-			//PlayerSettings.companyName = companyName;
-			//PlayerSettings.productName = appName[selectedIndex];
-			//PlayerSettings.bundleIdentifier = bundleId;
+			PlayerSettings.companyName = companyName;
+			PlayerSettings.productName = appName[selectedIndex];
+			PlayerSettings.bundleIdentifier = bundleId;
 		    PlayerSettings.bundleVersion = mVersion.ToString();
 		    PlayerSettings.Android.bundleVersionCode = mVersionCode;
 		    PlayerSettings.Android.keyaliasPass = mPass;
