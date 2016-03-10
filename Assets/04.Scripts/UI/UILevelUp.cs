@@ -58,46 +58,83 @@ public struct TEquipmentGroup {
 		}
 	}
 
+	private void showAllView () {
+		for(int i=0; i<AttrView.Length; i++) {
+			AttrView[i].SetActive(true);
+			AttrKind[i].gameObject.SetActive(true);
+			AttrKindLabel[i].gameObject.SetActive(true);
+			ValueLabel0[i].gameObject.SetActive(true);
+			ValueLabel1[i].gameObject.SetActive(true);
+
+		}
+	}
+
 	public void UpgradeViewForLevelUp (TItemData beforeItemData, TItemData afterItemData) {
+		showAllView ();
 		int value1 = 0;
 		int value2 = 0;
 		if(GameData.DItemData.ContainsKey(beforeItemData.ID) && GameData.DItemData.ContainsKey(afterItemData.ID)) {
-			AttrKind[0].spriteName = "AttrKind_" + beforeItemData.AttrKind1.GetHashCode();
-			AttrKindLabel[0].text = TextConst.S(10500 + beforeItemData.AttrKind1.GetHashCode());
-			AttrView[0].name = beforeItemData.AttrKind1.GetHashCode().ToString();
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue1;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue1;
-			ValueLabel0[0].text = value1.ToString();
-			ValueLabel1[0].text = value2.ToString();
-			if(value2 != value1) {
-				ValueLabel1[0].gameObject.SetActive(true);
+			if(value1 > 0) {
+				AttrKind[0].spriteName = "AttrKind_" + beforeItemData.AttrKind1.GetHashCode();
+				AttrKindLabel[0].text = TextConst.S(10500 + beforeItemData.AttrKind1.GetHashCode());
+				AttrView[0].name = beforeItemData.AttrKind1.GetHashCode().ToString();
+				ValueLabel0[0].text = value1.ToString();
+				ValueLabel1[0].text = value2.ToString();
+				if(value2 != value1) {
+					ValueLabel1[0].gameObject.SetActive(true);
+				} else {
+					ValueLabel1[0].gameObject.SetActive(false);
+				}
 			} else {
+				AttrKind[0].gameObject.SetActive(false);
+				AttrKindLabel[0].gameObject.SetActive(false);
+				AttrView[0].gameObject.SetActive(false);
+				ValueLabel0[0].gameObject.SetActive(false);
 				ValueLabel1[0].gameObject.SetActive(false);
 			}
 
-			AttrKind[1].spriteName = "AttrKind_" + beforeItemData.AttrKind2.GetHashCode();
-			AttrKindLabel[1].text = TextConst.S(10500 + beforeItemData.AttrKind2.GetHashCode());
-			AttrView[1].name = beforeItemData.AttrKind2.GetHashCode().ToString();
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue2;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue2;
-			ValueLabel0[1].text = value1.ToString();
-			ValueLabel1[1].text = value2.ToString();
-			if(value2 != value1) {
-				ValueLabel1[1].gameObject.SetActive(true);
+			if(value1 > 0) {
+				AttrKind[1].spriteName = "AttrKind_" + beforeItemData.AttrKind2.GetHashCode();
+				AttrKindLabel[1].text = TextConst.S(10500 + beforeItemData.AttrKind2.GetHashCode());
+				AttrView[1].name = beforeItemData.AttrKind2.GetHashCode().ToString();
+				ValueLabel0[1].text = value1.ToString();
+				ValueLabel1[1].text = value2.ToString();
+				if(value2 != value1) {
+					ValueLabel1[1].gameObject.SetActive(true);
+				} else {
+					ValueLabel1[1].gameObject.SetActive(false);
+				}
 			} else {
+				AttrKind[1].gameObject.SetActive(false);
+				AttrKindLabel[1].gameObject.SetActive(false);
+				AttrView[1].gameObject.SetActive(false);
+				ValueLabel0[1].gameObject.SetActive(false);
 				ValueLabel1[1].gameObject.SetActive(false);
 			}
 
-			AttrKind[2].spriteName = "AttrKind_" + beforeItemData.AttrKind3.GetHashCode();
-			AttrKindLabel[2].text = TextConst.S(10500 + beforeItemData.AttrKind3.GetHashCode());
-			AttrView[2].name = beforeItemData.AttrKind3.GetHashCode().ToString();
+
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue3;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue3;
-			ValueLabel0[2].text = value1.ToString();
-			ValueLabel1[2].text = value2.ToString();
-			if(value2 != value1) {
-				ValueLabel1[2].gameObject.SetActive(true);
+			if(value1 > 0) {
+				AttrKind[2].spriteName = "AttrKind_" + beforeItemData.AttrKind3.GetHashCode();
+				AttrKindLabel[2].text = TextConst.S(10500 + beforeItemData.AttrKind3.GetHashCode());
+				AttrView[2].name = beforeItemData.AttrKind3.GetHashCode().ToString();
+				ValueLabel0[2].text = value1.ToString();
+				ValueLabel1[2].text = value2.ToString();
+				if(value2 != value1) {
+					ValueLabel1[2].gameObject.SetActive(true);
+				} else {
+					ValueLabel1[2].gameObject.SetActive(false);
+				}
 			} else {
+				AttrKind[2].gameObject.SetActive(false);
+				AttrKindLabel[2].gameObject.SetActive(false);
+				AttrView[2].gameObject.SetActive(false);
+				ValueLabel0[2].gameObject.SetActive(true);
 				ValueLabel1[2].gameObject.SetActive(false);
 			}
 		}
