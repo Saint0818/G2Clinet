@@ -254,6 +254,7 @@ public class UISkillFormation : UIBase {
 	private UISuitCard uiSuitCard;
 
 	private GameObject activeLock;
+	private UILabel labelLock;
 
 	void OnDestroy() {
 		activeOriginalSN.Clear();
@@ -332,6 +333,7 @@ public class UISkillFormation : UIBase {
 		}
 
 		activeLock = GameObject.Find(UIName + "/Center/MainView/Right/ActiveCardBase2/Lock");
+		labelLock = GameObject.Find(UIName + "/Center/MainView/Right/ActiveCardBase2/Lock/TabLabel").GetComponent<UILabel>();
 		gridPassiveCardBase = GameObject.Find (UIName + "/Center/MainView/Right/PassiveCardBase/PassiveList/UIGrid").GetComponent<UIGrid>();
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
 		labelFrameCount = GameObject.Find (UIName + "/Center/FrameCount").GetComponent<UILabel>();
@@ -622,9 +624,12 @@ public class UISkillFormation : UIBase {
 
 		if(IsOpenThirdActive) 
 			activeFieldLimit = 3;
-		 else 
+		else {
 			activeFieldLimit = 2;
-		
+			if(LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive))
+				labelLock.text = string.Format(TextConst.S(7013), LimitTable.Ins.GetLv(EOpenID.ThirdActive));
+		}
+
 		activeLock.SetActive(!IsOpenThirdActive);
 		activeStruct[activeStruct.Length - 1].SpriteActiveFieldIcon.gameObject.SetActive(IsOpenThirdActive);
 	}
@@ -1837,7 +1842,10 @@ public class UISkillFormation : UIBase {
 
 	public bool IsOpenThirdActive {
 		get {
-			return (LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.ThirdActive)));
+			if(LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive))
+				return (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.ThirdActive));
+			else 
+				return true;
 		}
 	}
 

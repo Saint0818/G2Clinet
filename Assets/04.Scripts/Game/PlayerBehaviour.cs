@@ -2911,7 +2911,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameController.Get.BallOwner != null)
                     LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
 				
-//				CameraMgr.Get.SkillShowActive(this, 2, 0.5f);
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
                 AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
                 

@@ -1009,6 +1009,8 @@ public class UIGame : UIBase
 
     public void ChangeControl(bool IsAttack)
     {
+		if(IsPlayerMe)
+			PlayerMe.PlayerSkillController.ResetUseActive();
         if (IsAttack)
             UIMaskState(EUIControl.AttackA);
         else
@@ -1276,9 +1278,10 @@ public class UIGame : UIBase
             switch (controllerState)
             {
                 case EUIControl.Skill:
-                    if (PlayerMe.Attribute.IsHaveActiveSkill)
-                        noAI = GameController.Get.OnSkill(PlayerMe.ActiveSkillUsed);
-					else
+					if (PlayerMe.Attribute.IsHaveActiveSkill) {
+						if(!PlayerMe.IsSkillShow)
+	                        noAI = GameController.Get.OnSkill(PlayerMe.ActiveSkillUsed);
+					}else
 						PlayerMe.PlayerSkillController.ResetUseActive();
 				
 					if (noAI) {
