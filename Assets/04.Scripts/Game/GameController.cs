@@ -643,17 +643,12 @@ public class GameController : KnightSingleton<GameController>
         AddValueItemAttributes();
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
-        PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
-        #if UNITY_EDITOR
-        Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
-        #else
-		GameObject obj = GameObject.Find("SelectMe/AI");
-		if (obj)
-			obj.SetActive(false);
-        #endif
-
-        Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
-        Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
+        if (playerSelectMe) {
+            PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
+            Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
+            Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
+            Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
+        }
 
         passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
 

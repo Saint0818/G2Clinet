@@ -46,6 +46,7 @@ public class EffectManager : MonoBehaviour
 		ObjPool = new GameObject ();
 		ObjPool.name = "ObjPool";
 		ObjPool.transform.parent = gameObject.transform;
+        InitData();
 	}
 
     void OnDestroy() {

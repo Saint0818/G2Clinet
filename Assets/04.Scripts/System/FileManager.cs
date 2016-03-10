@@ -1,5 +1,5 @@
-//#define Debug
-#define Release
+#define Debug
+//#define Release
 //#define PUBGAME
 //#define CANADA
 
@@ -60,7 +60,7 @@ public class FileManager : KnightSingleton<FileManager>
     public const VersionMode NowMode = VersionMode.Release;
     #else
     public const string URL = "http://52.68.61.220:3500/";
-//    public const string URL = "http://localhost:3500/";
+    //public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 
@@ -123,7 +123,7 @@ public class FileManager : KnightSingleton<FileManager>
 		FinishCallBack = callback;
 
 		for (int i = 0; i < dataList.Count; i++) {
-			TextAsset tx = Resources.Load (ClientFilePath + dataList[i].fileName) as TextAsset;
+            TextAsset tx = Resources.Load (ClientFilePath + dataList[i].fileName) as TextAsset;
 			if (tx) {
 				if(CallBackFun.ContainsKey(dataList[i].fileName)){
 					CallBackFun[dataList[i].fileName](dataList[i].version, tx.text, false);
