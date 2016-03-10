@@ -484,9 +484,23 @@
         Alleyoop
     }
 
+    public enum EanimationEventFunction
+    {
+        AnimationEvent,
+        TimeScale,
+        ZoomIn,
+        ZoomOut,
+        MoveEvent,
+        SetBallEvent,
+        SkillEvent,
+        EffectEvent,
+        PlaySound
+    }
+
     public enum EAnimationEventString{
         ActiveSkillEnd,
         Stealing,
+        StealingEnd,
         GotStealing,
         FakeShootBlockMoment,
         BlockMoment,
@@ -514,7 +528,13 @@
         MoveDodgeEnd,
         BuffEnd,
         FakeShootEnd,
-        BlockCatchingEnd
+        BlockCatchingEnd,
+        ReboundCalculateStart,
+        ReboundCalculateEnd,
+        TipInStart,
+        TipInEnd,
+		PushCalculateEnd,
+		ElbowCalculateEnd
     }
 
     public enum ESkillEventString{

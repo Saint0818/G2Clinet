@@ -71,7 +71,7 @@ public class AnimatorBehavior : MonoBehaviour
     public AnimationDelegate ShowDel = null;
     public AnimationDelegate CatchDel = null;
 
-    public TimeScaleDelegate TimeScaleCallBack = null;
+//    public TimeScaleDelegate TimeScaleCallBack = null;
     public ZoomDelegate ZoomInDel = null;
     public ZoomDelegate ZoomOutDel = null;
     public SkillDelegate SkillDel = null;
@@ -580,12 +580,6 @@ public class AnimatorBehavior : MonoBehaviour
                 break;
           #endregion 
         }
-    }
-
-    public void TimeScale(AnimationEvent aniEvent)
-    {
-        if (TimeScaleCallBack != null)
-            TimeScaleCallBack(aniEvent);
     }
 
     public void ZoomIn(float t)

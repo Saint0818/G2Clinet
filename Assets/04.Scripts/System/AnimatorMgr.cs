@@ -4,19 +4,6 @@ using UnityEngine;
 using System;
 using GameEnum;
 
-public enum EanimationEventFunction
-{
-	AnimationEvent,
-	TimeScale,
-	ZoomIn,
-	ZoomOut,
-	MoveEvent,
-	SetBallEvent,
-	SkillEvent,
-	EffectEvent,
-	PlaySound
-}
-
 public struct TAnimatorItem
 {
 	public EAnimatorState Type;

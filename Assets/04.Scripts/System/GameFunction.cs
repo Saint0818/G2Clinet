@@ -579,7 +579,7 @@ public static class GameFunction
         return count;
     }
 
-    /// <summary>全部player用了多少共用點數</summary>
+    /// <summary>還剩下多少可用的AvatarPotential</summary>
     public static int GetAllPlayerTotalUseAvatarPotential()
     {
         int use = 0;

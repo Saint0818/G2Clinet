@@ -210,6 +210,7 @@ public class UpgradeView
 		}
 	}
 
+    //是否可以升級此屬性
 	public bool CanUsePotential(int index)
 	{
         return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential(GameData.Team.Player) >= 

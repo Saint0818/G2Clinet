@@ -2708,51 +2708,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         AudioMgr.Get.PlaySound(soundName);
     }
-
-    public void TimeScaleCallBack(AnimationEvent aniEvent, PlayerBehaviour player)
-    {
-        return;
-//        if (player != TimerMgr.Get.TimeController)
-//            return;
-//        
-//        float floatParam = aniEvent.floatParameter;
-//        int intParam = aniEvent.intParameter;
-//			
-//		Debug.LogWarning ("aniEvent : " + aniEvent.ToString ());
-//
-//		if(floatParam <= GameConst.Min_TimePause)
-//			floatParam = GameConst.Min_TimePause;
-//
-//        switch (intParam)
-//        {
-//            case 0: //set all
-//                foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//                    TimerMgr.Get.ChangeTime(item, floatParam);
-//
-//				TimerMgr.Get.PauseBall(IsTimePause);
-//                break;
-//            case 1: //Set myself
-//                foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//					if (item == TimerKind)
-//                       TimerMgr.Get.ChangeTime(item, floatParam);
-//                break;
-//            case 2: //Set Other 
-//                foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//					if (item != TimerKind && item != ETimerKind.Default)
-//                        TimerMgr.Get.ChangeTime(item, floatParam);
-//
-//				TimerMgr.Get.PauseBall(IsTimePause);
-//                break;
-//            case 3: //Set Default
-//                TimerMgr.Get.ChangeTime(ETimerKind.Default, floatParam);
-//                break;
-//            case 4: //Set Other Without Ball
-//                foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//					if (item != TimerKind && item != ETimerKind.Default)
-//                        TimerMgr.Get.ChangeTime(item, floatParam);
-//                break;
-//        }
-    }
        
     //All Skill Event From this Function
     public void SkillEventCallBack(AnimationEvent aniEvent)
@@ -2823,7 +2778,7 @@ public class PlayerBehaviour : MonoBehaviour
                     animatorEvent.intParameter = 0;
 				
                 animatorEvent.floatParameter = 1;
-                TimeScaleCallBack(animatorEvent, this);
+//                TimeScaleCallBack(animatorEvent, this);
 					
                 if (isBlock)
                 {
