@@ -725,9 +725,10 @@ public static class GameFunction
 		case EPlayerAttributeRate.FakeBlockrate:
 			return (100 - (value / 1.15f));
 		case EPlayerAttributeRate.BlockDistance:
-		case EPlayerAttributeRate.StealRate:
 		case EPlayerAttributeRate.DefDistance:
 			return value * 0.1f;
+		case EPlayerAttributeRate.StealRate:
+			return value * 0.3f;
 		case EPlayerAttributeRate.PassRate:
 			return value * 0.7f;
 		}

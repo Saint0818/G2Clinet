@@ -445,8 +445,6 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "attrkind5": 20,
-        "value5": 5,
         "suitnameen": "Agile Girl Set"
     },
     {
@@ -517,8 +515,6 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "attrkind5": 20,
-        "value5": 5,
         "suitnameen": "Ice Queen Set"
     },
     {
@@ -556,10 +552,6 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "attrkind5": 20,
-        "value5": 5,
-        "attrkind6": 20,
-        "value6": 5,
         "suitnameen": "Kitty Suits"
     }
 ]

@@ -199,7 +199,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
-        int v = (int)(Mathf.Abs(value) / 5);
+        int v = (int)(Mathf.Abs(value) / 2);
         if (v <= 0)
             v = 0;
         if (GameController.Get.Situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0)
