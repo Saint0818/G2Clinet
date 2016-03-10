@@ -388,7 +388,7 @@
         "id": 461,
         "explain": "解鎖數值裝合成任務",
         "tw": "成功解鎖[FFDD33]新每日任務[-]",
-        "en": "Successfully unlocked [FFFDD33] Missions [-] "
+        "en": "Successfully unlocked [FFDD33] Missions [-] "
     },
     {
         "id": 462,
@@ -2370,7 +2370,7 @@
         "id": 6110,
         "explain": "目前擁有數量",
         "tw": "[33FFDD]擁有：[-][ffffff]{0}[-] [33FFDD]件[-]",
-        "en": " [33FFDD]OWNED：[-][FFFFFF]{0}[-]"
+        "en": " [33FFDD]OWNED：[-][33FFDD]{0}[-]"
     },
     {
         "id": 6201,

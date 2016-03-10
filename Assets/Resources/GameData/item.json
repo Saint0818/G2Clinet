@@ -3812,7 +3812,7 @@
         "nameen": "Cyborg armor",
         "namejp": "サイボーグの鎧",
         "explaintw": "用以保護柔軟的軀幹。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "Extra protection for the body.\n\nLimited [3960 CEFF] Forward [-] equipment."
+        "explainen": "Extra protection for the body.\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 3111,
@@ -3834,7 +3834,7 @@
         "nameen": "Rocker Tights",
         "namejp": "12ストライカー服",
         "explaintw": "可以有效顯露精壯身材。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "High performance clothes with a lot of personality.\n\nLimited [3960 CEFF] Forward [-] equipment."
+        "explainen": "High performance clothes with a lot of personality.\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 3112,
@@ -3856,7 +3856,7 @@
         "nameen": "Elastic Clothes",
         "namejp": "ストライカー服5",
         "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "Special design to maximize energy.\n\nLimited [3960 CEFF] Forward [-] equipment."
+        "explainen": "Special design to maximize energy.\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 3113,
@@ -3878,7 +3878,7 @@
         "nameen": "Forzen Warrior armor",
         "namejp": "13ストライカー服",
         "explaintw": "激發如珠穆朗瑪峰般的高昂鬥志。\n\n限定[3960CEFF]前鋒[-]裝備。",
-        "explainen": "Everest-like excitation as high morale.\n\nLimited [3960 CEFF] Forward [-] equipment."
+        "explainen": "Everest-like excitation as high morale.\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 3114,
@@ -12284,7 +12284,7 @@
         "nameen": "Fancy dunk",
         "namejp": "Komagariショット",
         "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
+        "explainen": "Chance to activate this ability when the criteria is satisfied, elevate for a wrap around dunk to enchances field goal percentage.\n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 20699,
@@ -12301,7 +12301,7 @@
         "nameen": "Big Wheel Jam",
         "namejp": "Komagariショット",
         "explaintw": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "灌籃時有機會發動，利用狂野的灌籃動作力抗對手的火鍋。\n[F0FF00]觸發時機：於禁區內灌籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
+        "explainen": "Chance to activate this ability when the criteria is satisfied, elevate for a unstoppable wind mill slam. \n[F0FF00]Criteria：Shooting within the 3 point line[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：Increase Likelihood of Dunking"
     },
     {
         "id": 21100,
@@ -13478,7 +13478,7 @@
         "nameen": "Ultimate Elbow ",
         "namejp": "Komagariショット",
         "explaintw": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "經過肘擊的特訓後，將使自己的肘擊技巧更加提升。\n[F0FF00]觸發時機：發動肘擊時[-]\n[F0FF00]觸發方式：機率觸發[-]"
+        "explainen": "After a specialized training, elbowing has become much more effective\n[F0FF00]Criteria：Attempting to elbow opponent[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect： Increase the chances successful elbow"
     },
     {
         "id": 21900,
@@ -14555,7 +14555,7 @@
         "flag": 1,
         "nameen": "Extreme double dunk",
         "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
+        "explainen": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]"
     },
     {
         "id": 31400,
@@ -15931,7 +15931,7 @@
         "uisource": [10],
         "nameen": "Primary chip design",
         "explaintw": "可將技能晶片進化成[C17269FF]銅質外框[-]的特殊材料",
-        "explainen": "Skills can be evolved into a chip [76231a] brass frame [-] of special materials"
+        "explainen": "Skills can be evolved into a chip [C17269FF] brass frame [-] of special materials"
     },
     {
         "id": 40002,
@@ -15944,7 +15944,7 @@
         "uisource": [10],
         "nameen": "Intermediate chip design",
         "explaintw": "可將技能晶片進化成[99B3D4FF]銀質外框[-]的特殊材料",
-        "explainen": "Skills can be evolved into a chip [f6f6f6] silver frame [-] of special materials"
+        "explainen": "Skills can be evolved into a chip [99B3D4FF] silver frame [-] of special materials"
     },
     {
         "id": 40003,
@@ -15957,7 +15957,7 @@
         "uisource": [10],
         "nameen": "Advanced chip design",
         "explaintw": "可將技能晶片進化成[EFC653FF]金質外框[-]的特殊材料",
-        "explainen": "The skill card can be evolved into [ffe700] gold frame [-] of special materials"
+        "explainen": "The skill card can be evolved into [EFC653FF] gold frame [-] of special materials"
     },
     {
         "id": 40004,
@@ -15970,7 +15970,7 @@
         "uisource": [10],
         "nameen": "Top chip design",
         "explaintw": "可將技能晶片進化成[11F5F1FF]鑽石外框[-]的特殊材料",
-        "explainen": "The skill card can be evolved into [ff00db] colorful frame [-] of special materials"
+        "explainen": "The skill card can be evolved into [11F5F1FF] colorful frame [-] of special materials"
     },
     {
         "id": 40100,
