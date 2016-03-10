@@ -2875,7 +2875,8 @@ public class PlayerBehaviour : MonoBehaviour
             AnimatorControl.ResetSpeed();
         }
     }
-
+		
+	//TODO:因為規則改成被動技跟主動技會用相同動作，因此不能用20以上做判斷
     public void StartSkillCamera(int no)
     {
 		if (no >= 20) {
@@ -2887,7 +2888,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 			
 		
-        if (no < 20 && GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()))
+        if (no < 20)
         {
             return;
         }
