@@ -81,7 +81,8 @@ public struct TItemRecharge {
 			ItemIcon.spriteName = "Item_" + shop.ItemID.ToString();
 				
 			ItemNameLabel.text = GameData.DItemData[shop.ItemID].Name;
-			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
+			//			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
+			ValueLabel.text =  NumFormater.Convert(GameData.DItemData[shop.ItemID].Value);
 			ValueIcon.spriteName = itemKindIconValueName(GameData.DItemData[shop.ItemID].Kind);
 		}
 		RefreshPrice();
