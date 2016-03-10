@@ -85,7 +85,7 @@ public class UIInstanceMain : MonoBehaviour
     {
         var localPos = new Vector3(mChapters.Count * ChapterInterval, 0, 0);
         var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIInstanceChapter, ChapterParent, localPos);
-        obj.name = string.Format("{0}({1})", obj.name, data.Title);
+        obj.name = string.Format("{0}({1})", obj.name, chapter);
         UIInstanceChapter uiChapter = obj.GetComponent<UIInstanceChapter>();
         uiChapter.SetData(data);
 
