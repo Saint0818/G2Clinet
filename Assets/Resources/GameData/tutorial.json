@@ -1250,7 +1250,6 @@
     {
         "id": 40,
         "line": 1,
-        "title": "新教學",
         "kind": 3,
         "texttw": "哇啊！你、你是誰？怎麼撞破我家的屋頂⋯糟糕了啦！",
         "texten": "Wow ah! Who are you? How crashed through the roof of my house ⋯ bad it!"
@@ -1259,7 +1258,6 @@
         "id": 40,
         "line": 2,
         "kind": 3,
-        "scalepath": "PlayerInfoModel/Self0/PassMe/View",
         "texttw": "⋯⋯啊！這裡是什麼地方！",
         "texten": "⋯Where am I?"
     },
@@ -1267,16 +1265,11 @@
         "id": 40,
         "line": 3,
         "kind": 3,
-        "hintpath": "UI2D/UIGame/BottomLeft/JoystickHint",
-        "offsetx": -390,
-        "offsety": -10,
         "talkindex": 1,
         "talkr": 10,
         "actionr": 1,
         "texttw": "別緊張，我叫潔西卡，最喜歡的食物是⋯哎呀！不是說這個的時候了！",
-        "texten": "Take easy, my name is Jessica, favorite food is ⋯ Oops! It's not a time chatting!",
-        "hinttw": "拖曳搖桿移動球員",
-        "hinten": "Controlling joystick to move player"
+        "texten": "Take easy, my name is Jessica, favorite food is ⋯ Oops! It's not a time chatting!"
     },
     {
         "id": 40,
@@ -1308,7 +1301,14 @@
     {
         "id": 40,
         "line": 7,
+        "title": "新教學",
+        "kind": 3
+    },
+    {
+        "id": 40,
+        "line": 8,
         "kind": 3,
+        "scalepath": "PlayerInfoModel/Self0/PassMe/View",
         "talkindex": 1,
         "talkr": 10,
         "actionr": 6,
@@ -1317,20 +1317,39 @@
     },
     {
         "id": 40,
-        "line": 8,
-        "kind": 3,
+        "line": 9,
         "texttw": "你只可以操作紅色三角形頭標球員移動。",
         "texten": "Now, move the joystick to the place you wanna go!"
     },
     {
         "id": 40,
-        "line": 9,
-        "kind": 3,
+        "line": 10,
         "talkindex": 1,
         "talkr": 10,
         "actionr": 6,
         "texttw": "現在，先操作搖桿移動到指定的地方吧！",
         "texten": "Now, move the joystick until you reach this spot!"
+    },
+    {
+        "id": 40,
+        "line": 11,
+        "kind": 3,
+        "hintpath": "UI2D/UIGame/BottomLeft/JoystickHint",
+        "offsetx": -390,
+        "offsety": -10,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 1,
+        "hinttw": "拖曳搖桿移動球員",
+        "hinten": "Controlling joystick to move player"
+    },
+    {
+        "id": 40,
+        "line": 12,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 4
     },
     {
         "id": 41,
