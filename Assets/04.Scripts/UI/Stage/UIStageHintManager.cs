@@ -253,7 +253,7 @@ public class UIStageHintManager{
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
-				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num);
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 				mTargets[hintIndex].UpdateUI(describe, isFin);
 			}
 		} else 
