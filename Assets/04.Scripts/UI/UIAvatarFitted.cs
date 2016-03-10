@@ -488,7 +488,7 @@ public class UIAvatarFitted : UIBase
         disableGroup.name = "disableGroup";
         disableGroup.transform.parent = scrollView.transform;
 
-		SetBtnFun(UIName + "/Title/TopLeft/AvatarCollection", DoAvatarCollection);
+		SetBtnFun(UIName + "/MainView/AvatarCollection", DoAvatarCollection);
 
         InitEquips();
     }
@@ -838,7 +838,7 @@ public class UIAvatarFitted : UIBase
         if (int.TryParse(UIButton.current.name, out index))
         {
             BuyIndex = index;
-            if (CheckDiamond(GameData.DItemData[backpackItems[index].ID].Buy))
+            if (CheckDiamond(GameData.DItemData[backpackItems[index].ID].Buy, true))
             {
                 string ask = string.Format(TextConst.S(208), GameData.DItemData[backpackItems[index].ID].Buy, GameData.DItemData[backpackItems[index].ID].Name);
                 UIMessage.Get.ShowMessage(TextConst.S(201), ask, OnYesBuy);
