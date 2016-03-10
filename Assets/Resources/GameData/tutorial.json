@@ -1105,6 +1105,52 @@
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
+        "id": 31,
+        "line": 5,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "這場競賽的勝利條件需要投進[ff6060]三分球[-]，我們可以更換這場的戰術，讓大家的跑位能夠適合三分球目標・",
+        "texten": "Now show me you can shooting [fff400]3 point[-]to beat this level.Seems like this a little to hard for ya! Change the strategy to help you beat this level."
+    },
+    {
+        "id": 31,
+        "line": 6,
+        "uipath": "UI2D/UISelectRole/Bottom/StrategyBtn"
+    },
+    {
+        "id": 31,
+        "line": 7
+    },
+    {
+        "id": 31,
+        "line": 8,
+        "uipath": "UI2D/UIStrategy/Window/Center/MainView/2"
+    },
+    {
+        "id": 31,
+        "line": 9,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "這樣就設定完畢了，我們可以直接去挑戰他們囉。",
+        "texten": "That's OK, we can challenge them immediately."
+    },
+    {
+        "id": 31,
+        "line": 10,
+        "uipath": "UI2D/UIStrategy/Window/Center/NoBtn"
+    },
+    {
+        "id": 31,
+        "line": 11
+    },
+    {
+        "id": 31,
+        "line": 12,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
         "id": 32,
         "line": 1,
         "title": "通過第一章",
@@ -1514,27 +1560,24 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "太好了、太好了！你越來越厲害了呢！"
+        "texttw": "太好了、太好了！你越來越厲害了呢！",
+        "texten": "Great, great! You're getting much too!"
     },
     {
         "id": 1041,
         "line": 2,
         "title": "踏上意外旅程-4",
         "kind": 3,
-        "talkindex": 1,
-        "talkl": 32,
-        "actionl": 2,
-        "texttw": "剛才那幾場只是讓你！這場和我『絕殺比爾』比賽三分球吧！"
+        "texttw": "剛才那幾場只是讓你！這場和『絕殺比爾』比賽三分球吧！",
+        "texten": "Just a few games that just make you! And this \"lore Bill\" contest pointers it!"
     },
     {
         "id": 1041,
         "line": 3,
         "title": "踏上意外旅程-4",
         "kind": 3,
-        "talkindex": 0,
-        "talkl": 32,
-        "actionl": 2,
-        "texttw": "看看最後是誰贏得獎金！"
+        "texttw": "看看最後是誰贏得獎金！",
+        "texten": "Finally, a look at who won a bonus!"
     },
     {
         "id": 1041,
@@ -1544,7 +1587,8 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 5,
-        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！"
+        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！",
+        "texten": "We must win! Get a bonus, to qualify!"
     },
     {
         "id": 1041,
@@ -1554,7 +1598,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 1,
-        "texttw": "沒問題！"
+        "texttw": "沒問題！",
+        "texten": "No problem!"
     },
     {
         "id": 1041,
@@ -1562,8 +1607,8 @@
         "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 5,
-        "texttw": "這場比賽所需要的[fff400]3分球[-]數量比上一場更多。",
-        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-] if you wanna move on."
+        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]灌籃[-]！！",
+        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] Dunk[-]  if you wanna move on."
     },
     {
         "id": 1041,
@@ -1611,7 +1656,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "潔西卡，你到底是什麼人呀？"
+        "texttw": "潔西卡，你到底是什麼人呀？",
+        "texten": "Jessica, WHO ARE YOU?"
     },
     {
         "id": 1010,
@@ -1620,7 +1666,8 @@
         "kind": 1,
         "talkl": 10,
         "actionl": 3,
-        "texttw": "唉，其實我來自未來，來自那個即將被毀滅的時空。"
+        "texttw": "唉，其實我來自未來，來自那個即將被毀滅的時空。",
+        "texten": "Well, in fact I'm from the future, which is about to be destroyed from the time."
     },
     {
         "id": 1010,
@@ -1629,7 +1676,8 @@
         "kind": 1,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "我的主人－喬，令我回到過去，找尋可以改變未來的機會。"
+        "texttw": "我的主人－喬，令我回到過去，找尋可以改變未來的機會。",
+        "texten": "My master - Joe, so I went back to the past, to find future opportunities can be changed."
     },
     {
         "id": 1010,
@@ -1638,7 +1686,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 5,
-        "texttw": "那你的主人⋯喬呢？"
+        "texttw": "那你的主人⋯喬呢？",
+        "texten": "And where is your master ⋯ Joe?"
     },
     {
         "id": 1010,
@@ -1646,7 +1695,8 @@
         "title": "踏上意外旅程-1",
         "talkl": 10,
         "actionl": 3,
-        "texttw": "他犧牲了自己，在未來沉眠中。所以我需要你的幫助，收集能夠擊敗邪惡的力量，並且拯救我的主人。"
+        "texttw": "他犧牲了自己，在未來沉眠中。所以我需要你的幫助，收集能夠擊敗邪惡的力量，並且拯救我的主人。",
+        "texten": "He sacrificed himself in the future Chenmian. So I need your help to collect able to defeat the forces of evil and save my master."
     },
     {
         "id": 1010,
@@ -1655,7 +1705,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "好吧，雖然聽起來有點不容易，但打籃球的感覺真好。我們接下來要先做什麼呢？"
+        "texttw": "好吧，雖然聽起來有點不容易，但打籃球的感覺真好。我們接下來要先做什麼呢？",
+        "texten": "Well, although it sounds a bit easy, but playing basketball in my life. Next we want to do what to do first?"
     },
     {
         "id": 1010,
@@ -1663,7 +1714,8 @@
         "title": "踏上意外旅程-1",
         "talkl": 10,
         "actionl": 1,
-        "texttw": "首先得取得正式球員的資格。我打聽好了，先贏得黑幫老大的獎金，我們就能參加資格賽！"
+        "texttw": "首先得取得正式球員的資格。我打聽好了，先贏得黑幫老大的獎金，我們就能參加資格賽！",
+        "texten": "First was the official qualifying players. I have learned well, winning the first prize gangster, we will be able to qualify!"
     },
     {
         "id": 1010,
@@ -1671,23 +1723,8 @@
         "title": "踏上意外旅程-1",
         "talkl": 10,
         "actionl": 1,
-        "texttw": "我已經替你報名好了，你看！你的對手多熱情啊！"
-    },
-    {
-        "id": 1010,
-        "line": 9,
-        "title": "踏上意外旅程-1",
-        "talkl": 32,
-        "actionl": 2,
-        "texttw": "臭小子！敢瞧不起我『絕殺比爾』？活得不耐煩了？"
-    },
-    {
-        "id": 1010,
-        "line": 10,
-        "title": "踏上意外旅程-1",
-        "talkl": 32,
-        "actionl": 2,
-        "texttw": "想贏得獎金？回去再練一百年吧！"
+        "texttw": "我已經替你報名好了，你看！你的對手多熱情啊！",
+        "texten": "I have signed up for you. Look! Your opponents are really enthusiasm!"
     },
     {
         "id": 1020,
@@ -1715,7 +1752,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 1,
-        "texttw": "我們終於晉級了，一點都不困難嘛！我很有機會成為偉大的球員吧？"
+        "texttw": "我們終於晉級了，一點都不困難嘛！我很有機會成為偉大的球員吧？",
+        "texten": "We finally qualified for, is not difficult to do! I have a good chance to become a great player, right?"
     },
     {
         "id": 1050,
@@ -1723,7 +1761,8 @@
         "title": "成為勇士吧-1",
         "talkl": 10,
         "actionl": 4,
-        "texttw": "嗯～是蠻有機會的，但要追上喬的腳步，還得練很多年！"
+        "texttw": "嗯～是蠻有機會的，但要追上喬的腳步，還得練很多年！",
+        "texten": "Ah ~ it is quite a chance, but to catch up with Joe's footsteps, had practiced for many years!"
     },
     {
         "id": 1050,
@@ -1731,7 +1770,8 @@
         "title": "成為勇士吧-1",
         "talkl": 10,
         "actionl": 1,
-        "texttw": "每次比賽前，千萬別忘了檢查『技能晶片』的搭配－"
+        "texttw": "每次比賽前，千萬別忘了檢查『技能晶片』的搭配－",
+        "texten": "Before into the game, do not forget to check out the \"Skill Card\"."
     },
     {
         "id": 1050,
@@ -1739,7 +1779,8 @@
         "title": "成為勇士吧-1",
         "talkl": 10,
         "actionl": 5,
-        "texttw": "也別忘了在比賽中，適時地發動技能！技能能夠讓你輕鬆突破難關！"
+        "texttw": "也別忘了在比賽中，適時地發動技能！技能能夠讓你輕鬆突破難關！",
+        "texten": "And do not forget in the race, timely launch skills! Skill will enable you to easily break the storm!"
     },
     {
         "id": 1050,
@@ -1748,7 +1789,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 1,
-        "texttw": "好～我知道了，我一定會贏得資格賽！"
+        "texttw": "好～我知道了，我一定會贏得資格賽！",
+        "texten": "Well - I know, I will win the qualifying!"
     },
     {
         "id": 1060,
@@ -1764,7 +1806,8 @@
         "id": 1080,
         "line": 1,
         "title": "成為勇士吧-4",
-        "texttw": "你贏得了資格賽，但你居住的貧民窟卻傳來了不好的消息－有神秘的大軍正在攻擊貧民窟！"
+        "texttw": "你贏得了資格賽，但你居住的貧民窟卻傳來了不好的消息－有神秘的大軍正在攻擊貧民窟！",
+        "texten": "You won the qualifying, but you live in slums has heard the bad news - there is a mysterious army is attacking the slums!"
     },
     {
         "id": 1080,
@@ -1773,7 +1816,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 2,
-        "texttw": "不好了！我得回去看看才行！"
+        "texttw": "不好了！我得回去看看才行！",
+        "texten": "Oh no! I have to go back!"
     },
     {
         "id": 1080,
@@ -1781,7 +1825,8 @@
         "title": "成為勇士吧-4",
         "talkl": 10,
         "actionl": 4,
-        "texttw": "這是當然囉！快走吧！"
+        "texttw": "這是當然囉！快走吧！",
+        "texten": "Of Course! Hurry up!"
     },
     {
         "id": 1090,

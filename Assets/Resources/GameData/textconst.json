@@ -1913,31 +1913,31 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]鐵質晶片[-]",
-        "en": " [B3B3B3FF] IRON SKILL CARD [-] "
+        "en": " [B3B3B3FF] IRON [-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF] COPPER SKILL CARD [-] "
+        "en": " [C17269FF] COPPER [-] "
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF] SLIVER SKILL CARD [-] "
+        "en": " [99B3D4FF] SILVER[-] "
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "金質晶片",
-        "en": "GOLDEN SKILL CARD"
+        "en": "GOLDEN"
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "鑽石晶片",
-        "en": "DIAMOND SKILL CARD"
+        "en": "DIAMOND"
     },
     {
         "id": 4606,
