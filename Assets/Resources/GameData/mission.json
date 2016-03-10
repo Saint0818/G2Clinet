@@ -607,6 +607,7 @@
     {
         "id": 111,
         "kind": 11,
+        "lv": 99,
         "color": 2,
         "privousid": 110,
         "score": 2,
@@ -623,6 +624,7 @@
     {
         "id": 112,
         "kind": 11,
+        "lv": 99,
         "color": 3,
         "privousid": 111,
         "score": 3,
@@ -639,6 +641,7 @@
     {
         "id": 113,
         "kind": 11,
+        "lv": 99,
         "color": 4,
         "privousid": 112,
         "score": 4,
@@ -655,6 +658,7 @@
     {
         "id": 114,
         "kind": 11,
+        "lv": 99,
         "color": 5,
         "privousid": 113,
         "final": 1,
