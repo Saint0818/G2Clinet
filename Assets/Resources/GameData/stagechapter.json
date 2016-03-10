@@ -4,11 +4,11 @@
         "chapter": 1,
         "nametw": "從天而降的巨大使命",
         "namecn": "從天而降的巨大使命",
-        "nameen": 0.05,
+        "nameen": "Heaven great mission",
         "namejp": "発端",
         "explaintw": "從天而降的巨大使命",
-        "explaincn": "故事的开端",
-        "explainen": 0.05,
+        "explaincn": "從天而降的巨大使命",
+        "explainen": "Heaven great mission",
         "explainjp": "物語が始まります"
     },
     {
@@ -16,11 +16,11 @@
         "chapter": 2,
         "nametw": "勇者之路的開始",
         "namecn": "勇者之路的開始",
-        "nameen": 0.1,
+        "nameen": "Began to brave the road",
         "namejp": "小テストのスキル",
         "explaintw": "勇者之路的開始",
-        "explaincn": "惊艳众人的开始",
-        "explainen": 0.1,
+        "explaincn": "勇者之路的開始",
+        "explainen": "Began to brave the road",
         "explainjp": "みんなの見事なスタート"
     },
     {
@@ -28,11 +28,11 @@
         "chapter": 3,
         "nametw": "來自未知的敵人",
         "namecn": "來自未知的敵人",
-        "nameen": 0.15,
+        "nameen": "From an unknown enemy",
         "namejp": "良くなります",
         "explaintw": "來自未知的敵人",
-        "explaincn": "立足篮坛的表现",
-        "explainen": 0.15,
+        "explaincn": "來自未知的敵人",
+        "explainen": "From an unknown enemy",
         "explainjp": "バスケットボールのパフォーマンスに基づいて、"
     },
     {
@@ -40,63 +40,70 @@
         "chapter": 4,
         "nametw": "列車競賽開始！",
         "namecn": "列車競賽開始！",
-        "nameen": 0.2,
+        "nameen": "Trains start of the competition!",
         "explaintw": "列車競賽開始！",
-        "explainen": 0.2
+        "explaincn": "列車競賽開始！",
+        "explainen": "Trains start of the competition!"
     },
     {
         "id": 5,
         "chapter": 5,
         "nametw": "相知相惜的英雄",
         "namecn": "相知相惜的英雄",
-        "nameen": 0.25,
+        "nameen": "Knowing each other hero",
         "explaintw": "相知相惜的英雄",
-        "explainen": 0.25
+        "explaincn": "相知相惜的英雄",
+        "explainen": "Knowing each other hero"
     },
     {
         "id": 6,
         "chapter": 6,
         "nametw": "急凍地帶",
         "namecn": "急凍地帶",
-        "nameen": 0.3,
+        "nameen": "Frozen zone",
         "explaintw": "急凍地帶",
-        "explainen": 0.3
+        "explaincn": "急凍地帶",
+        "explainen": "Frozen zone"
     },
     {
         "id": 7,
         "chapter": 7,
         "nametw": "被撕裂的時空",
         "namecn": "被撕裂的時空",
-        "nameen": 0.35,
+        "nameen": "Torn temporal",
         "explaintw": "被撕裂的時空",
-        "explainen": 0.35
+        "explaincn": "被撕裂的時空",
+        "explainen": "Torn temporal"
     },
     {
         "id": 8,
         "chapter": 8,
         "nametw": "戛然而止的混亂",
         "namecn": "戛然而止的混亂",
-        "nameen": 0.4,
+        "nameen": "Stopped short of chaos",
         "explaintw": "戛然而止的混亂",
-        "explainen": 0.4
+        "explaincn": "戛然而止的混亂",
+        "explainen": "Stopped short of chaos"
     },
     {
         "id": 9,
         "chapter": 9,
         "nametw": "世界的另一端",
         "namecn": "世界的另一端",
-        "nameen": 0.45,
+        "nameen": "The other side of the world",
         "explaintw": "世界的另一端",
-        "explainen": 0.45
+        "explaincn": "世界的另一端",
+        "explainen": "The other side of the world"
     },
     {
         "id": 10,
         "chapter": 10,
         "nametw": "迎接真正的挑戰",
         "namecn": "迎接真正的挑戰",
-        "nameen": 0.5,
+        "nameen": "Meet real challenge",
         "explaintw": "迎接真正的挑戰",
-        "explainen": 0.5
+        "explaincn": "迎接真正的挑戰",
+        "explainen": "Meet real challenge"
     },
     {
         "id": 11,
