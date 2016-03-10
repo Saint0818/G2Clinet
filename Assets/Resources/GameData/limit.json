@@ -35,31 +35,32 @@
         "visiblelv": 6
     },
     {
+        "lv": 10,
+        "openid": 8,
+        "visiblelv": 7
+    },
+    {
+        "lv": 11,
+        "openid": 21,
+        "visiblelv": 8
+    },
+    {
         "lv": 12,
-        "openid": 3
+        "openid": 3,
+        "visiblelv": 9
+    },
+    {
+        "lv": 13,
+        "openid": 27,
+        "visiblelv": 10
     },
     {
         "lv": 14,
-        "openid": 21,
+        "openid": 26,
         "visiblelv": 11
     },
     {
         "lv": 15,
-        "openid": 8,
-        "visiblelv": 10
-    },
-    {
-        "lv": 16,
-        "openid": 26,
-        "visiblelv": 13
-    },
-    {
-        "lv": 17,
-        "openid": 27,
-        "visiblelv": 14
-    },
-    {
-        "lv": 20,
         "openid": 10,
         "diamond": 200
     }

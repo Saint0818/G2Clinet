@@ -36,14 +36,14 @@
     },
     {
         "lv": 6,
-        "lvupexp": 15,
+        "lvupexp": 17,
         "ui": 1,
         "unlockname": 454,
         "tutorialid": 34
     },
     {
         "lv": 7,
-        "lvupexp": 20,
+        "lvupexp": 22,
         "ui": 1,
         "unlockname": 457,
         "tutorialid": 7,
@@ -58,257 +58,260 @@
     },
     {
         "lv": 9,
-        "lvupexp": 40,
+        "lvupexp": 35,
         "ui": 1,
         "unlockname": 462,
         "tutorialid": 22
     },
     {
         "lv": 10,
-        "lvupexp": 50
+        "lvupexp": 40,
+        "ui": 4,
+        "unlockname": 458,
+        "tutorialid": 8
     },
     {
         "lv": 11,
-        "lvupexp": 60
+        "lvupexp": 50,
+        "unlockname": 463
     },
     {
         "lv": 12,
         "lvupexp": 60,
         "ui": 1,
         "unlockname": 453,
+        "tutorialid": 3,
         "unlockhint": 403
     },
     {
         "lv": 13,
-        "lvupexp": 65
+        "lvupexp": 65,
+        "unlockname": 465
     },
     {
         "lv": 14,
         "lvupexp": 70,
-        "unlockname": 463
-    },
-    {
-        "lv": 15,
-        "lvupexp": 90,
-        "unlockname": 458
-    },
-    {
-        "lv": 16,
-        "lvupexp": 100,
         "unlockname": 464
     },
     {
-        "lv": 17,
-        "lvupexp": 110,
-        "unlockname": 465
-    },
-    {
-        "lv": 18,
-        "lvupexp": 120
-    },
-    {
-        "lv": 19,
-        "lvupexp": 130
-    },
-    {
-        "lv": 20,
-        "lvupexp": 140,
+        "lv": 15,
+        "lvupexp": 80,
         "unlockname": 466
     },
     {
+        "lv": 16,
+        "lvupexp": 90
+    },
+    {
+        "lv": 17,
+        "lvupexp": 100
+    },
+    {
+        "lv": 18,
+        "lvupexp": 110
+    },
+    {
+        "lv": 19,
+        "lvupexp": 120
+    },
+    {
+        "lv": 20,
+        "lvupexp": 130
+    },
+    {
         "lv": 21,
-        "lvupexp": 150
+        "lvupexp": 140
     },
     {
         "lv": 22,
-        "lvupexp": 160
+        "lvupexp": 150
     },
     {
         "lv": 23,
-        "lvupexp": 170
+        "lvupexp": 160
     },
     {
         "lv": 24,
-        "lvupexp": 180
+        "lvupexp": 170
     },
     {
         "lv": 25,
-        "lvupexp": 190
+        "lvupexp": 180
     },
     {
         "lv": 26,
-        "lvupexp": 200
+        "lvupexp": 190
     },
     {
         "lv": 27,
-        "lvupexp": 210
+        "lvupexp": 200
     },
     {
         "lv": 28,
-        "lvupexp": 220
+        "lvupexp": 210
     },
     {
         "lv": 29,
-        "lvupexp": 230
+        "lvupexp": 220
     },
     {
         "lv": 30,
-        "lvupexp": 240
+        "lvupexp": 230
     },
     {
         "lv": 31,
-        "lvupexp": 250
+        "lvupexp": 240
     },
     {
         "lv": 32,
-        "lvupexp": 260
+        "lvupexp": 250
     },
     {
         "lv": 33,
-        "lvupexp": 270
+        "lvupexp": 260
     },
     {
         "lv": 34,
-        "lvupexp": 280
+        "lvupexp": 270
     },
     {
         "lv": 35,
-        "lvupexp": 290
+        "lvupexp": 280
     },
     {
         "lv": 36,
-        "lvupexp": 300
+        "lvupexp": 290
     },
     {
         "lv": 37,
-        "lvupexp": 310
+        "lvupexp": 300
     },
     {
         "lv": 38,
-        "lvupexp": 320
+        "lvupexp": 310
     },
     {
         "lv": 39,
-        "lvupexp": 330
+        "lvupexp": 320
     },
     {
         "lv": 40,
-        "lvupexp": 340
+        "lvupexp": 330
     },
     {
         "lv": 41,
-        "lvupexp": 350
+        "lvupexp": 340
     },
     {
         "lv": 42,
-        "lvupexp": 360
+        "lvupexp": 350
     },
     {
         "lv": 43,
-        "lvupexp": 370
+        "lvupexp": 360
     },
     {
         "lv": 44,
-        "lvupexp": 380
+        "lvupexp": 370
     },
     {
         "lv": 45,
-        "lvupexp": 390
+        "lvupexp": 380
     },
     {
         "lv": 46,
-        "lvupexp": 400
+        "lvupexp": 390
     },
     {
         "lv": 47,
-        "lvupexp": 410
+        "lvupexp": 400
     },
     {
         "lv": 48,
-        "lvupexp": 420
+        "lvupexp": 410
     },
     {
         "lv": 49,
-        "lvupexp": 430
+        "lvupexp": 420
     },
     {
         "lv": 50,
-        "lvupexp": 440
+        "lvupexp": 430
     },
     {
         "lv": 51,
-        "lvupexp": 450
+        "lvupexp": 440
     },
     {
         "lv": 52,
-        "lvupexp": 460
+        "lvupexp": 450
     },
     {
         "lv": 53,
-        "lvupexp": 470
+        "lvupexp": 460
     },
     {
         "lv": 54,
-        "lvupexp": 480
+        "lvupexp": 470
     },
     {
         "lv": 55,
-        "lvupexp": 490
+        "lvupexp": 480
     },
     {
         "lv": 56,
-        "lvupexp": 500
+        "lvupexp": 490
     },
     {
         "lv": 57,
-        "lvupexp": 510
+        "lvupexp": 500
     },
     {
         "lv": 58,
-        "lvupexp": 520
+        "lvupexp": 510
     },
     {
         "lv": 59,
-        "lvupexp": 530
+        "lvupexp": 520
     },
     {
         "lv": 60,
-        "lvupexp": 540
+        "lvupexp": 530
     },
     {
         "lv": 61,
-        "lvupexp": 550
+        "lvupexp": 540
     },
     {
         "lv": 62,
-        "lvupexp": 560
+        "lvupexp": 550
     },
     {
         "lv": 63,
-        "lvupexp": 570
+        "lvupexp": 560
     },
     {
         "lv": 64,
-        "lvupexp": 580
+        "lvupexp": 570
     },
     {
         "lv": 65,
-        "lvupexp": 590
+        "lvupexp": 580
     },
     {
         "lv": 66,
-        "lvupexp": 600
+        "lvupexp": 590
     },
     {
         "lv": 67,
-        "lvupexp": 620
+        "lvupexp": 600
     },
     {
         "lv": 68,
-        "lvupexp": 630
+        "lvupexp": 610
     },
     {
         "lv": 69,
-        "lvupexp": 640
+        "lvupexp": 620
     }
 ]
