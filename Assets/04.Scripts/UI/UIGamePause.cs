@@ -103,7 +103,7 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
-        SetBtnFun (UIName + "/TopRight/ViewTools/StrategyBtn", OnStrategy);
+        SetBtnFun (UIName + "/Bottom/StrategyBtn", OnStrategy);
         SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
         SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
 
@@ -112,7 +112,7 @@ public class UIGamePause : UIBase {
 
     protected override void InitText()
     {
-        SetLabel(UIName + "/TopRight/ViewTools/StrategyBtn/StrategyLabel", "");
+        SetLabel(UIName + "/Bottom/StrategyBtn/StrategyLabel", "");
     }
 
 	private void initHomeAway (){
