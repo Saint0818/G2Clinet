@@ -28,7 +28,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				
-				describe = StringFormat (GameFunction.GetHintText(1, value, 8), stageData.Bit0Num);
+				describe = string.Format (GameFunction.GetHintText(1, value, 8), stageData.Bit0Num);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex ++;
 			}
@@ -36,7 +36,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 8), stageData.Bit1Num);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), stageData.Bit1Num);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -44,7 +44,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 2 && hintBits[2] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[2], 8), stageData.Bit2Num);
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 8), stageData.Bit2Num);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -52,7 +52,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 3 && hintBits[3] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[3], 8), stageData.Bit3Num);
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 8), stageData.Bit3Num);
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		} else 
@@ -67,7 +67,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = StringFormat (GameFunction.GetHintText(1, value, 8), GameStart.Get.GameWinTimeValue);
+				describe = string.Format (GameFunction.GetHintText(1, value, 8), GameStart.Get.GameWinTimeValue);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -75,7 +75,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 8), GameStart.Get.GameWinValue);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), GameStart.Get.GameWinValue);
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		}
@@ -108,9 +108,9 @@ public class UIStageHintManager{
 					value = 1;
 	
 				if(GameController.Get.GameTime >= 0)
-					describe = StringFormat (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
 				else 
-					describe = StringFormat (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex ++;
 			}
@@ -129,7 +129,7 @@ public class UIStageHintManager{
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				}
 
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 7), stageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 7), stageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -137,7 +137,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 2 && hintBits[2] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[2], 7), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 7), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -145,7 +145,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 3 && hintBits[3] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[3], 7), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 7), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		} else 
@@ -162,7 +162,7 @@ public class UIStageHintManager{
 				int value = 0;
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
-				describe = StringFormat (GameFunction.GetHintText(1, value, 7), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
+				describe = string.Format (GameFunction.GetHintText(1, value, 7), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -181,7 +181,7 @@ public class UIStageHintManager{
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				}
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 7), GameController.Get.StageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 7), GameController.Get.StageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		}
@@ -213,7 +213,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = StringFormat (GameFunction.GetHintText(1, value, 9), stageData.Bit0Num, "", (minute * 60 + second));
+				describe = string.Format (GameFunction.GetHintText(1, value, 9), stageData.Bit0Num, "", (minute * 60 + second));
 				mTargets[hintIndex].UpdateUI(describe, true);
 				hintIndex ++;
 			}
@@ -235,7 +235,7 @@ public class UIStageHintManager{
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, isFin);
 				hintIndex++;
 			}
@@ -244,7 +244,7 @@ public class UIStageHintManager{
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
 				mTargets[hintIndex].UpdateUI(describe, isFin);
 				hintIndex++;
 			}
@@ -253,7 +253,7 @@ public class UIStageHintManager{
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 				mTargets[hintIndex].UpdateUI(describe, isFin);
 			}
 		} else 
@@ -270,7 +270,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = StringFormat (GameFunction.GetHintText(1, value, 9), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
+				describe = string.Format (GameFunction.GetHintText(1, value, 9), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
 				mTargets[hintIndex].UpdateUI(describe, true);
 				hintIndex++;
 			}
@@ -292,7 +292,7 @@ public class UIStageHintManager{
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				}
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 9), GameController.Get.StageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), GameController.Get.StageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, isFin);
 			}
 		}
@@ -324,9 +324,9 @@ public class UIStageHintManager{
 					value = 1;
 
 				if(GameController.Get.GameTime >= 0)
-					describe = StringFormat (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
 				else 
-					describe = StringFormat (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
+					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
 				mTargets[hintIndex].UpdateUI(describe, true, false);
 				hintIndex ++;
 			}
@@ -348,7 +348,7 @@ public class UIStageHintManager{
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 7), stageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 7), stageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, isFin, false);
 
 				hintIndex++;
@@ -358,7 +358,7 @@ public class UIStageHintManager{
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[2], 7), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 7), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
 				mTargets[hintIndex].UpdateUI(describe, isFin, false);
 				hintIndex++;
 			}
@@ -367,7 +367,7 @@ public class UIStageHintManager{
 			{
 				mTargets[hintIndex].Show();
 				isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
-				describe = StringFormat (GameFunction.GetHintText(3, hintBits[3], 7), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+				describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 7), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 				mTargets[hintIndex].UpdateUI(describe, isFin, false);
 				hintIndex++;
 			}
@@ -385,7 +385,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				
-				describe = StringFormat (GameFunction.GetHintText(1, value, 7), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
+				describe = string.Format (GameFunction.GetHintText(1, value, 7), GameController.Get.StageData.Bit0Num, "", (minute * 60 + second));
 				mTargets[hintIndex].UpdateUI(describe, true, false);
 				hintIndex++;
 			}
@@ -405,21 +405,13 @@ public class UIStageHintManager{
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				}
-				describe = StringFormat (GameFunction.GetHintText(2, hintBits[1], 7), GameController.Get.StageData.Bit1Num, "", score);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 7), GameController.Get.StageData.Bit1Num, "", score);
 				mTargets[hintIndex].UpdateUI(describe, isFin, false);
 				hintIndex ++;
 			}
 		}
 
 		return hintIndex;
-	}
-
-	private static string StringFormat (string text, int value1, string value2, int value3) {
-		try {
-			return string.Format (text, value1, value2, value3);
-		}catch {
-			return "";
-		}
 	}
 
 	private static void hideAllTargets(UIStageHintTarget[] target)
