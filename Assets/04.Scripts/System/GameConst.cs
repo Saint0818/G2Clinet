@@ -116,7 +116,7 @@
     public const int FakeShootRate = 40; // 做假動作的機率.
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
-	public const float CoolDownPushTime = 3; // 推人冷卻時間, 單位:秒.
+	public const float CoolDownPushTime = 2; // 推人冷卻時間, 單位:秒.
 	public const float CoolDownElbowTime = 3; // Elbow 冷卻時間, 單位:秒.
     public const float CoolDownStealTime = 1.2f; // 抄截冷卻時間, 單位:秒.
 //	public const float WaitStealTime = 0.5f;
@@ -154,7 +154,7 @@
     /// <summary>
     /// AI 執行跑戰術機率.
     /// </summary>
-    public const float AITacticalRate = 30;
+    public const float AITacticalRate = 100;
 
     /// <summary>
     /// AI 執行跑戰術的時間範圍. 單位: 秒.
@@ -165,12 +165,12 @@
     /// <summary>
     /// AI 防守時, 接近對位球員的機率.
     /// </summary>
-    public const float AICloseDefPlayerRate = 10;
+    public const float AICloseDefPlayerRate = 30;
     /// <summary>
     /// AI 防守時, 接近球員的時間. 單位: 秒.
     /// </summary>
-    public const float AIMinCloseDefPlayerTime = 1.0f;
-    public const float AIMaxCloseDefPlayerTime = 3.0f;
+    public const float AIMinCloseDefPlayerTime = 2.0f;
+    public const float AIMaxCloseDefPlayerTime = 4.0f;
 
     /// <summary>
     /// <para> 進入快攻模式的判斷條件參數. 單位: Unity. </para>
@@ -178,12 +178,12 @@
     /// </summary>
     public const float AIFastBreakThreshold = 3;
 
-    public const int AddAnger_PlusScore = 20;
-	public const int AddAnger_Block = 30;
-	public const int AddAnger_Steal = 20;
-	public const int AddAnger_Push = 20;
-	public const int AddAnger_Rebound = 20;
-	public const int AddAnger_Perfect = 15;
+    public const int AddAnger_PlusScore = 10;
+	public const int AddAnger_Block = 20;
+	public const int AddAnger_Steal = 10;
+	public const int AddAnger_Push = 10;
+	public const int AddAnger_Rebound = 10;
+	public const int AddAnger_Perfect = 5;
 	public const int DelAnger_Blocked = -10;
 	public const int DelAnger_Fall1 = -10;
 	public const int DelAnger_Stealed = -10;
