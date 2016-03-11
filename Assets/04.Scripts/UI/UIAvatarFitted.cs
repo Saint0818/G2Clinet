@@ -108,7 +108,7 @@ public class TItemAvatar
 
     public int ID
     {
-        get{ return id; }	
+        get{ return id; }
     }
 
     public bool Selected
@@ -292,6 +292,7 @@ public class TItemAvatar
         else
         {
             id = 0;
+            Kind = 0;
             Enable = false;
         }
     }
@@ -361,15 +362,25 @@ public class TItemAvatar
 
 public struct TEquip
 {
-	
     /// <summary>
     /// The kind : 部位 ID:ItemID 
     /// Index : 陣列索引, -1: 為player.Items 
     /// SortIndex : 陣列索引, 不分team.items 或playeritems
     /// </summary>
     public int Kind;
+    /// <summary>
+    /// ItemID
+    /// </summary>
     public int ID;
+    /// <summary>
+    /// BackageSort 
+    /// -1：代表是Team.Player.Items的資料.
+    /// !-1 ： 代表是Team.Items的資料
+    /// </summary>
     public int BackageSort;
+    /// <summary>
+    /// BackageSortNoLimit : 純粹是GameObject實體化的順序
+    /// </summary>
     public int BackageSortNoLimit;
 }
 
@@ -538,6 +549,11 @@ public class UIAvatarFitted : UIBase
         }
     }
 
+    /// <summary>
+    /// 更新Avatar clearEquipsData = true代表,現在裝備的資料 = GameData.Team.Player.Items
+    /// 因EquipsData有可能是試穿資料所以不能直接用GameData.Team.Player.Items來用
+    /// </summary>
+    /// <param name="clearEquipsData">If set to <c>true</c> clear equips data.</param>
     public void UpdateAvatar(bool clearEquipsData = false)
     {
         if (clearEquipsData)
@@ -668,8 +684,8 @@ public class UIAvatarFitted : UIBase
         }
         else
         {
-            if (all > backpackItems.Length)//{
-				Array.Resize(ref backpackItems, all);
+            if (all > backpackItems.Length)
+                Array.Resize(ref backpackItems, all);
         }
     }
 
@@ -886,28 +902,29 @@ public class UIAvatarFitted : UIBase
 
             if (Mode == EAvatarMode.Normal)
             {
+                //檢查是否需要存檔流程，先檢查過期裝備、存檔、在切換模式
                 if (CheckSameEquip())
                 {
                     ChangeMode(EAvatarMode.Sell);
                 }
                 else
                 {
-                    //ask need save?
                     ExpiredItemHanddle();
-                    OnSave();//yes
-//					UpdateAvatar(true);//No
+                    OnSave();
                     ChangeMode(EAvatarMode.Sell);
                 }
             }
             else
             {
-                //sell something
+                //再按一次準備售出
                 if (totalPrice > 0)
                     UIMessage.Get.ShowMessage(TextConst.S(201), TextConst.S(203), OnYesSell);
                 else
                     ChangeMode(EAvatarMode.Normal);
             }
         }
+
+		UpdateAvatar ();
     }
 
     private void OnCancelSell()
@@ -917,8 +934,13 @@ public class UIAvatarFitted : UIBase
 
         UpdateSellMoney();
         ChangeMode(EAvatarMode.Normal);
+		UpdateAvatar ();
     }
-
+	
+	/// <summary>
+	/// BackageSort = -1代表是現在裝的裝備，所以在賣出幫玩家存檔，並把試穿的裝備改為正式裝備，正在穿的裝備不能出售
+	/// </summary>
+	/// <param name="obj">Object.</param>
     private void OnYesSell(object obj)
     {
         List<int> sells = new List<int>();
@@ -928,14 +950,14 @@ public class UIAvatarFitted : UIBase
         for (int i = 0; i < backpackItems.Length; i++)
             if (backpackItems[i].BackageSort != -1 && backpackItems[i].Selected)
             {
-                sells.Add(backpackItems[i].BackageSort);
-                backpackItems[i].Enable = false;
-                backpackItems[i].Selected = false;
+               sells.Add(backpackItems[i].BackageSort);
+               backpackItems[i].Enable = false;
+               backpackItems[i].Selected = false;
             }
-
-        sells.Sort((x, y) =>
+			
+        	sells.Sort((x, y) =>
             {
-                return x.CompareTo(y);
+				return x.CompareTo(y);
             });
 
         //SendtoServer
@@ -1166,7 +1188,7 @@ public class UIAvatarFitted : UIBase
             UISort.UIShow(false);
     }
 
-    public void ChangeMode(EAvatarMode mode)
+	public void ChangeMode(EAvatarMode mode)
     {
         Mode = mode;
         switch (Mode)
@@ -1181,7 +1203,6 @@ public class UIAvatarFitted : UIBase
                 SellCount.SetActive(false);
                 break;
         }
-        UpdateView();
     }
 
     private void OnSortMode()
@@ -1198,6 +1219,8 @@ public class UIAvatarFitted : UIBase
             else
                 ChangeMode(EAvatarMode.Sort);
         }
+
+		UpdateAvatar ();
     }
 
     private bool ExpiredItemHanddle()
@@ -1276,7 +1299,7 @@ public class UIAvatarFitted : UIBase
             GameData.Team.Money = team.Money;
             UIMainLobby.Get.UpdateUI();
             ChangeMode(EAvatarMode.Normal);
-            UpdateAvatar(true);
+			UpdateAvatar(true);
         }
     }
 
