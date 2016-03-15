@@ -65,14 +65,32 @@ namespace GameStruct
 
         /// <summary>
         /// [year][month][登入次數].
-        /// [2016][2] 是 2016 年 2 月的登入次數.
+        /// [2016][2] 是 2016 年 2 月的登入次數. 不要直接存取, 改用 GetDailyLoginNum().
         /// </summary>
         public Dictionary<int, Dictionary<int, int>> DailyLoginNums;
 
         public int GetDailyLoginNum(int year, int month)
         {
-            if(DailyLoginNums != null && DailyLoginNums.ContainsKey(year) && DailyLoginNums[year].ContainsKey(month))
+            if(DailyLoginNums != null && 
+               DailyLoginNums.ContainsKey(year) && 
+               DailyLoginNums[year].ContainsKey(month))
                 return DailyLoginNums[year][month];
+            return 0;
+        }
+
+        /// <summary>
+        /// <para> 玩家已領取的每日獎勵. </para>
+        /// <para> [2016][3] 是 2016 年 3 月的已領取日. 假如是 3, 表示第 3 天的獎勵已經領取了. </para>
+        /// <para> 不要直接使用, 改用 GetReceivedDailyLoginNum() 取值. </para>
+        /// </summary>
+        public Dictionary<int, Dictionary<int, int>> ReceivedDailyLoginNums;
+
+        public int GetReceivedDailyLoginNum(int year, int month)
+        {
+            if(ReceivedDailyLoginNums != null &&
+               ReceivedDailyLoginNums.ContainsKey(year) &&
+               ReceivedDailyLoginNums[year].ContainsKey(month))
+                return ReceivedDailyLoginNums[year][month];
             return 0;
         }
 
