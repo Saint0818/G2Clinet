@@ -60,10 +60,10 @@ public class ReceiveLifetimeLoginRewardProtocol
             GameData.Team.SkillCards = data.SkillCards;
             GameData.Team.LifetimeRecord = data.LifetimeRecord;
 
-            Debug.Log(data);
-            Debug.LogFormat("Login:{0}, ReceivedLogin:{1}",
-                    GameData.Team.LifetimeRecord.LoginNum, 
-                    GameData.Team.LifetimeRecord.ReceivedLoginNum);
+//            Debug.Log(data);
+//            Debug.LogFormat("Login:{0}, ReceivedLogin:{1}",
+//                    GameData.Team.LifetimeRecord.LoginNum, 
+//                    GameData.Team.LifetimeRecord.ReceivedLoginNum);
 
             mCallback(true, GameData.Team.LifetimeRecord.ReceivedLoginNum);
         }
