@@ -272,6 +272,7 @@ public class GEGMTool : GEBase
         setMaxPlayerBank();
         resetDailyLoginNums();
         setDailyLoginNums();
+        resetReceivedDailyLoginNums();
         setLifetimeLoginNum();
         clearClientLifetimeLoginNum();
         deleteAllPlayerPrefabs();
@@ -984,8 +985,6 @@ public class GEGMTool : GEBase
         {
             GMResetDailyLoginNumProtocol protocol = new GMResetDailyLoginNumProtocol();
             protocol.Send(waitGMResetDailyLoginNums);
-
-            UIDailyLoginHelper.SetDailyReceiveLoginNum(DateTime.Now.Year, DateTime.Now.Month, 0);
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -995,6 +994,26 @@ public class GEGMTool : GEBase
         Debug.LogFormat("waitGMResetDailyLoginNums, ok:{0}", ok);
 
         if (UIDailyLogin.Get.Visible)
+            UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
+    }
+
+    private void resetReceivedDailyLoginNums()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("每月登入獎勵: ");
+        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            var protocol = new GMResetReceivedDailyLoginNumProtocol();
+            protocol.Send(waitGMResetReceivedDailyLoginNums);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMResetReceivedDailyLoginNums(bool ok)
+    {
+        Debug.LogFormat("waitGMResetReceivedDailyLoginNums, ok:{0}", ok);
+
+        if(UIDailyLogin.Get.Visible)
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 

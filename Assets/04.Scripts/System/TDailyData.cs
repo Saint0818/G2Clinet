@@ -25,21 +25,21 @@ public class TDailyData
         if(index < 0)
             return false;
 
-        return index < Rewards.Length;
+        return index < ReviseRewards.Length;
     }
 
     public Reward GetRewardByDay(int day)
     {
         if(HasRewardByDay(day))
-            return Rewards[day - 1];
+            return ReviseRewards[day - 1];
         return new Reward();
     }
 
-    public Reward[] Rewards
+    public Reward[] ReviseRewards
     {
-        get { return mRewards ?? (mRewards = buildRewards()); }
+        get { return mReviseRewards ?? (mReviseRewards = buildRewards()); }
     }
-    private Reward[] mRewards;
+    private Reward[] mReviseRewards;
 
     private Reward[] buildRewards()
     {
@@ -145,6 +145,6 @@ public class TDailyData
 
     public override string ToString()
     {
-        return string.Format("{0}-{1}, RewardCount:{2}", Year, Month, Rewards.Length);
+        return string.Format("{0}-{1}, RewardCount:{2}", Year, Month, ReviseRewards.Length);
     }
 }

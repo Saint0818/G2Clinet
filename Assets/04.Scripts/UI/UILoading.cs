@@ -168,7 +168,8 @@ public class UILoading : UIBase
                     UINotic.Visible = true;
             }
 
-            if (!UITutorial.Visible && (UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward()))
+            if(!UITutorial.Visible && 
+               (UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward()))
                 UIDailyLogin.Get.Show();
         }
     }

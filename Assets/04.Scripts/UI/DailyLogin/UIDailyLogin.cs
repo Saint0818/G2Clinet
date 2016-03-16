@@ -27,7 +27,11 @@ public class UIDailyLogin : UIBase
         mDailyMain = GetComponent<UIDailyLoginMain>();
         mDailyMain.OnCloseClickListener += () => Hide();
 
-        mDailyMain.OnReceiveListener += onDailyReceive;
+        mDailyMain.OnReceiveClick += (year, month) =>
+        {
+            ReceiveDailyLoginRewardProtocol protocol = new ReceiveDailyLoginRewardProtocol();
+            protocol.Send(onDailyReceived);
+        };
 
         mLifetimeMain = GetComponent<UILifetimeLoginMain>();
         mLifetimeMain.OnReceiveListener += onLifetimeReceive;
@@ -64,27 +68,23 @@ public class UIDailyLogin : UIBase
         Show(Year, Month); // 刷新介面.
     }
 
-    private void onDailyReceive(int year, int month)
+    private void onDailyReceived(bool ok, int year, int month)
     {
-        var currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
-        var receviedLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
-//        Debug.LogFormat("OnReceiveClick:{0}-{1}, CurLoginNum:{2}, ReceivedLoginNum:{3}", year, month, currentLoginNum, receviedLoginNum);
-
-        UIGetItem.Get.SetTitle(TextConst.S(3812));
-        TDailyData dailyData = DailyTable.Ins.GetByDate(year, month);
-        for(var day = receviedLoginNum + 1; day <= currentLoginNum; day++)
+        if(ok)
         {
-            if(dailyData.HasRewardByDay(day))
+            var rewardDay = GameData.Team.GetReceivedDailyLoginNum(year, month);
+
+            UIGetItem.Get.SetTitle(TextConst.S(3812));
+            TDailyData dailyData = DailyTable.Ins.GetByDate(year, month);
+            if(dailyData != null && dailyData.HasRewardByDay(rewardDay))
             {
-                TDailyData.Reward reward = dailyData.GetRewardByDay(day);
+                TDailyData.Reward reward = dailyData.GetRewardByDay(rewardDay);
                 UIGetItem.Get.AddItem(reward.ItemID);
             }
+
+            UIMainLobby.Get.UpdateButtonStatus(); // 這只是為了更新大廳登入按鈕的紅點狀態.
+            Show(Year, Month); // 刷新介面.
         }
-
-        UIDailyLoginHelper.SetDailyReceiveLoginNum(year, month, currentLoginNum);
-
-        UIMainLobby.Get.UpdateButtonStatus(); // 這只是為了更新大廳登入按鈕的紅點狀態.
-        Show(Year, Month); // 刷新介面.
     }
 
     /// <summary>
@@ -127,17 +127,20 @@ public class UIDailyLogin : UIBase
             return;
 
         int currentLoginNum = GameData.Team.GetDailyLoginNum(year, month);
-        int receiveLoginNum = UIDailyLoginHelper.GetDailyReceiveLoginNum(year, month);
-        DailyLoginReward.Data[] rewards = new DailyLoginReward.Data[dailyData.Rewards.Length];
-        for(var i = 0; i < dailyData.Rewards.Length; i++)
+        int receivedLoginNum = GameData.Team.GetReceivedDailyLoginNum(year, month);
+        DailyLoginReward.Data[] rewards = new DailyLoginReward.Data[dailyData.ReviseRewards.Length];
+        for(var i = 0; i < dailyData.ReviseRewards.Length; i++)
         {
-            var itemData = GameData.DItemData[dailyData.Rewards[i].ItemID];
+            var itemData = GameData.DItemData[dailyData.ReviseRewards[i].ItemID];
             int day = i + 1;
+
             UIDailyLoginMain.EStatus status;
-            if(day <= receiveLoginNum)
+            if(day <= receivedLoginNum)
                 status = UIDailyLoginMain.EStatus.Received;
+            else if(day == receivedLoginNum + 1 && currentLoginNum > receivedLoginNum) // +1 是下一天未領取的獎勵.
+                status = UIDailyLoginMain.EStatus.Receivable;
             else
-                status = day <= currentLoginNum ? UIDailyLoginMain.EStatus.Receivable : UIDailyLoginMain.EStatus.NoReceive;
+                status = UIDailyLoginMain.EStatus.NoReceive;
             rewards[i] = UIDailyLoginBuilder.BuildDailyReward(day, itemData, status);
         }
 
@@ -146,14 +149,16 @@ public class UIDailyLogin : UIBase
 
     private void selectLastWeek(int year, int month)
     {
-        var curLoginNum = GameData.Team.GetDailyLoginNum(year, month);
-        if(0 <= curLoginNum && curLoginNum <= 7)
+        var receivedDailyLoginNum = GameData.Team.GetReceivedDailyLoginNum(year, month) + 1;
+        if(0 <= receivedDailyLoginNum && receivedDailyLoginNum <= 7)
             mDailyMain.ShowWeek(1);
-        else if(8 <= curLoginNum && curLoginNum <= 14)
+        else if(8 <= receivedDailyLoginNum && receivedDailyLoginNum <= 14)
             mDailyMain.ShowWeek(2);
-        else if(15 <= curLoginNum && curLoginNum <= 21)
+        else if(15 <= receivedDailyLoginNum && receivedDailyLoginNum <= 21)
             mDailyMain.ShowWeek(3);
-        else if(22 <= curLoginNum && curLoginNum <= 28)
+        else if(22 <= receivedDailyLoginNum && receivedDailyLoginNum <= 28)
+            mDailyMain.ShowWeek(4);
+        else
             mDailyMain.ShowWeek(4);
     }
 

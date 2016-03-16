@@ -18,11 +18,11 @@ public class UIDailyLoginMain : MonoBehaviour
     /// <para> 參數(int): Year. </para>
     /// <para> 參數(int): Month. </para>
     /// </summary>
-    public event Action<int, int> OnReceiveListener;
+    public event Action<int, int> OnReceiveClick;
     public void FireReceiveClick()
     {
-        if(OnReceiveListener != null)
-            OnReceiveListener(Year, Month);
+        if(OnReceiveClick != null)
+            OnReceiveClick(Year, Month);
     }
 
     /// <summary>
