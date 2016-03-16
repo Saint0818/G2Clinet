@@ -29,40 +29,27 @@ public class UIDailyLogin : UIBase
 
         mDailyMain.OnReceiveClick += (year, month) =>
         {
-            ReceiveDailyLoginRewardProtocol protocol = new ReceiveDailyLoginRewardProtocol();
+            var protocol = new ReceiveDailyLoginRewardProtocol();
             protocol.Send(onDailyReceived);
         };
 
         mLifetimeMain = GetComponent<UILifetimeLoginMain>();
-        mLifetimeMain.OnReceiveListener += onLifetimeReceive;
+        mLifetimeMain.OnReceiveClick += loginNum =>
+        {
+            var protocol = new ReceiveLifetimeLoginRewardProtocol();
+            protocol.Send(loginNum, onLifetimeReceive);
+        };
     }
 
-    private void onLifetimeReceive()
+    private void onLifetimeReceive(bool ok, int loginNum)
     {
-        var currentLoginNum = GameData.Team.LifetimeRecord.LoginNum;
-        var receivedLoginNum = UIDailyLoginHelper.GetLifetimeReceiveLoginNum();
-        Debug.LogFormat("Current:{0}, Received:{1}", currentLoginNum, receivedLoginNum);
-
-        // +1 才是可領取的獎勵.
-        var startIndex = LifetimeTable.Ins.FindIndex(receivedLoginNum) + 1;
-
-        var endIndex = LifetimeTable.Ins.FindIndex(currentLoginNum);
-        endIndex = Math.Max(0, endIndex);
-
-        Debug.LogFormat("StartIndex:{0}, EndIndex:{1}", startIndex, endIndex);
-
         UIGetItem.Get.SetTitle(TextConst.S(3812));
-        for(int i = startIndex; i <= endIndex; i++)
-        {
-            TLifetimeData data = LifetimeTable.Ins.GetByIndex(i);
-            if(data == null)
-                break;
+        TLifetimeData data = LifetimeTable.Ins.Get(loginNum);
+        if(data == null)
+            return;
 
-            foreach(TLifetimeData.Reward reward in data.Rewards)
-                UIGetItem.Get.AddItem(reward.ItemID);
-        }
-
-        UIDailyLoginHelper.SetLifetimeReceiveLoginNum(currentLoginNum);
+        foreach (TLifetimeData.Reward reward in data.Rewards)
+            UIGetItem.Get.AddItem(reward.ItemID);
 
         UIMainLobby.Get.UpdateButtonStatus(); // 這只是為了更新大廳登入按鈕的紅點狀態.
         Show(Year, Month); // 刷新介面.
@@ -164,7 +151,7 @@ public class UIDailyLogin : UIBase
 
     private void buildLifetimeRewards()
     {
-        var receivedLoginNum = UIDailyLoginHelper.GetLifetimeReceiveLoginNum();
+        var receivedLoginNum = GameData.Team.LifetimeRecord.ReceivedLoginNum;
         var index = LifetimeTable.Ins.FindIndex(receivedLoginNum);
         index = Math.Max(index, 0); // 必須大於 0.
 
@@ -179,7 +166,29 @@ public class UIDailyLogin : UIBase
             rewards.Add(reward);
         }
         
+        onlyOneRewardReceivable(rewards);
+
         mLifetimeMain.SetRewards(rewards.ToArray());
+    }
+
+    /// <summary>
+    /// 一次只顯示 1 個可領取獎勵.
+    /// </summary>
+    /// <param name="rewards"></param>
+    private static void onlyOneRewardReceivable(List<UILifetimeReward.Data> rewards)
+    {
+        bool hasReceivableReward = false;
+        for(var i = 0; i < rewards.Count; i++)
+        {
+            if(hasReceivableReward)
+            {
+                rewards[i].Status = UIDailyLoginMain.EStatus.NoReceive;
+                continue;
+            }
+
+            if(rewards[i].Status == UIDailyLoginMain.EStatus.Receivable)
+                hasReceivableReward = true;
+        }
     }
 
     public void Hide()

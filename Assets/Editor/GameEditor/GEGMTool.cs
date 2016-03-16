@@ -274,7 +274,7 @@ public class GEGMTool : GEBase
         setDailyLoginNums();
         resetReceivedDailyLoginNums();
         setLifetimeLoginNum();
-        clearClientLifetimeLoginNum();
+        clearLifetimeReceivedLoginNum();
         deleteAllPlayerPrefabs();
     }
 
@@ -1053,7 +1053,7 @@ public class GEGMTool : GEBase
         GUILayout.Label("終生登入次數: ");
         mLifetimeLoginNum = EditorGUILayout.IntField(mLifetimeLoginNum, GUILayout.Width(60));
         mLifetimeLoginNum = Math.Max(0, mLifetimeLoginNum);
-        if (GUILayout.Button("設定", GUILayout.Width(50)))
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
             var protocol = new GMSetLifetimeLoginNumProtocol();
             protocol.Send(mLifetimeLoginNum, waitGMSetLifeTimeLoginNum);
@@ -1069,17 +1069,24 @@ public class GEGMTool : GEBase
             UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
-    private void clearClientLifetimeLoginNum()
+    private void clearLifetimeReceivedLoginNum()
     {
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("重置 Client 終生登入次數: ");
-        if (GUILayout.Button("重置", GUILayout.Width(50)))
+        GUILayout.Label("終生登入的領獎記錄: ");
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
         {
-            UIDailyLoginHelper.SetLifetimeReceiveLoginNum(0);
-            if (UIDailyLogin.Get.Visible)
-                UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
+            var protocol = new GMResetLifetimeReceivedLoginNumProtocol();
+            protocol.Send(waitGMClearLifetimeReceivedLoginNum);
         }
         EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMClearLifetimeReceivedLoginNum(bool ok)
+    {
+        Debug.LogFormat("waitGMClearLifetimeReceivedLoginNum, ok:{0}", ok);
+
+        if(UIDailyLogin.Get.Visible)
+            UIDailyLogin.Get.Show(UIDailyLogin.Get.Year, UIDailyLogin.Get.Month);
     }
 
     private void deleteAllPlayerPrefabs()

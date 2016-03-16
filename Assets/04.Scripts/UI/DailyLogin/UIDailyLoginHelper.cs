@@ -1,20 +1,7 @@
 ﻿using System;
-using UnityEngine;
 
 public static class UIDailyLoginHelper
 {
-    private const string LifetimeReceiveKey = "UILifetimeLoginReceiveNum";
-
-    public static void SetLifetimeReceiveLoginNum(int value)
-    {
-        PlayerPrefs.SetInt(LifetimeReceiveKey, value);
-    }
-
-    public static int GetLifetimeReceiveLoginNum()
-    {
-        return PlayerPrefs.HasKey(LifetimeReceiveKey) ? PlayerPrefs.GetInt(LifetimeReceiveKey) : 0;
-    }
-
     public static bool HasTodayDailyLoginReward()
     {
         return HasDailyLoginReward(DateTime.UtcNow.Year, DateTime.UtcNow.Month);
@@ -33,7 +20,7 @@ public static class UIDailyLoginHelper
     public static bool HasLifetimeLoginReward()
     {
         var currentLoginNum = GameData.Team.LifetimeRecord.LoginNum;
-        var receiveLoginNum = GetLifetimeReceiveLoginNum();
+        var receiveLoginNum = GameData.Team.LifetimeRecord.ReceivedLoginNum;
 
         var currentIndex = LifetimeTable.Ins.FindIndex(currentLoginNum);
         // +1 是下一個未領取的獎勵.

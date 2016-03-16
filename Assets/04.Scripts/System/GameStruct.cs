@@ -432,6 +432,7 @@ namespace GameStruct
 		public int BuyCoinQuantity;
 
         public int LoginNum; // 終生登入次數.
+        public int ReceivedLoginNum; // 終生登入的領獎記錄.
 
         public bool NeedForSync(ref TTeamRecord newRecord) {
             if (/*newRecord.TotalAddDiamond != TotalAddDiamond ||

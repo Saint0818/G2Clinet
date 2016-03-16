@@ -6,11 +6,16 @@ public class UILifetimeLoginMain : MonoBehaviour
     /// <summary>
     /// 呼叫時機: 可領取按鈕按下.
     /// </summary>
-    public event Action OnReceiveListener;
-    public void FireReceiveClick()
+    public event Action<int> OnReceiveClick;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="loginNum"> 哪一個登入次數的獎勵被點選. </param>
+    public void FireReceiveClick(int loginNum)
     {
-        if(OnReceiveListener != null)
-            OnReceiveListener();
+        if(OnReceiveClick != null)
+            OnReceiveClick(loginNum);
     }
 
     public UILabel LifetimeLoginNumLabel;

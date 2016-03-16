@@ -19,12 +19,12 @@ public class GMSetLifetimeLoginNumProtocol
 
         WWWForm form = new WWWForm();
         form.AddField("LoginNum", value);
-        SendHttp.Get.Command(URLConst.GMSetLifeTimeLoginNum, waitGMSetLifetimeLoginNum, form);
+        SendHttp.Get.Command(URLConst.GMSetLifetimeLoginNum, waitGMSetLifetimeLoginNum, form);
     }
 
     private void waitGMSetLifetimeLoginNum(bool ok, WWW www)
     {
-        Debug.LogFormat("waitGMSetLifetimeLoginNum, ok:{0}", ok);
+//        Debug.LogFormat("waitGMSetLifetimeLoginNum, ok:{0}", ok);
 
         if(ok)
         {

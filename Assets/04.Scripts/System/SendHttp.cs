@@ -179,7 +179,8 @@ public static class URLConst {
     public const string GMResetDailyLoginNums = "gmresetdailyloginnums";
     public const string GMResetReceivedDailyLoginNums = "gmresetreceiveddailyloginnums";
     public const string GMSetDailyLoginNums = "gmsetdailyloginnums";
-    public const string GMSetLifeTimeLoginNum = "gmsetlifetimeloginnum";
+    public const string GMSetLifetimeLoginNum = "gmsetlifetimeloginnum";
+    public const string GMResetLifetimeReceivedLoginNum = "gmresetlifetimereceivedloginnum";
     public const string GMResetNextInstanceIDs = "gmresetnextinstanceids";
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
@@ -192,6 +193,7 @@ public static class URLConst {
     public const string ChangeLanguage = "changelanguage";
     public const string RequireComputeTeamPower = "requirecomputeteampower";
     public const string ReceivedDailyLoginReward = "receivedailyloginreward";
+    public const string ReceivedLifetimeLoginReward = "receivelifetimeloginreward";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {
@@ -499,12 +501,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				string text = GSocket.Get.OnHttpText(www.text);
 				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
-
-//			    int year = 2016;
-//			    int month = 3;
-//			    Debug.LogFormat("{0}-{1}, DailyLogin:{2}, ReceivedDailyLogin:{3}", 
-//                    year, month,
-//                    GameData.Team.GetDailyLoginNum(year, month), GameData.Team.GetReceivedDailyLoginNum(year, month));
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
 					SendHttp.Get.cookieHeaders.Clear();

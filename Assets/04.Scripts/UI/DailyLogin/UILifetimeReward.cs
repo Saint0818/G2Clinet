@@ -8,7 +8,9 @@ public class UILifetimeReward : MonoBehaviour
 {
     public class Data
     {
-        public string LoginNum;
+        public int CurrentLoginNum; // 目前登入次數.(分子)
+        public int TargetLoginNum; // 目標登入次數.(分母)
+
         public TItemData[] Items;
         public UIDailyLoginMain.EStatus Status;
     }
@@ -32,7 +34,7 @@ public class UILifetimeReward : MonoBehaviour
             if(mData.Status == UIDailyLoginMain.EStatus.Receivable)
             {
                 var main = GetComponentInParent<UILifetimeLoginMain>();
-                main.FireReceiveClick();
+                main.FireReceiveClick(mData.TargetLoginNum);
             }
         }));
     }
@@ -41,7 +43,7 @@ public class UILifetimeReward : MonoBehaviour
     {
         mData = data;
 
-        LoginNumLabel.text = data.LoginNum;
+        LoginNumLabel.text = string.Format("{0}/{1}", mData.CurrentLoginNum, mData.TargetLoginNum);
 
         updateStatus(data.Status);
         updateItems(data.Items);

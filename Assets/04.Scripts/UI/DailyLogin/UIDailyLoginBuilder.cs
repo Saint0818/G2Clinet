@@ -25,7 +25,7 @@ public static class UIDailyLoginBuilder
         }
 
         UIDailyLoginMain.EStatus status;
-        int receiveLoginNum = UIDailyLoginHelper.GetLifetimeReceiveLoginNum();
+        int receiveLoginNum = GameData.Team.LifetimeRecord.ReceivedLoginNum;
         int currentLoginNum = GameData.Team.LifetimeRecord.LoginNum;
         if(receiveLoginNum >= data.LoginNum)
             status = UIDailyLoginMain.EStatus.Received;
@@ -34,7 +34,8 @@ public static class UIDailyLoginBuilder
 
         return new UILifetimeReward.Data
         {
-            LoginNum = string.Format("{0}/{1}", GameData.Team.LifetimeRecord.LoginNum, data.LoginNum),
+            CurrentLoginNum = GameData.Team.LifetimeRecord.LoginNum,
+            TargetLoginNum = data.LoginNum,
             Items = items.ToArray(),
             Status = status
         };
