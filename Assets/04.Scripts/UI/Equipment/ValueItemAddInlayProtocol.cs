@@ -6,6 +6,13 @@ public class ValueItemAddInlayProtocol
 {
     private Action<bool> mCallback;
 
+    private class Data
+    {
+        public TPlayer Player;
+        public TMaterialItem[] MaterialItems;
+        public TTeamRecord LifetimeRecord;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -25,16 +32,15 @@ public class ValueItemAddInlayProtocol
 
     private void waitAddValueItemInlay(bool ok, WWW www)
     {
-//        Debug.LogFormat("ValueItemAddInlay, ok:{0}", ok);
+//        Debug.LogFormat("waitAddValueItemInlay, ok:{0}", ok);
 
         if(ok)
         {
-            TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player = team.Player;
-            GameData.Team.MaterialItems = team.MaterialItems;
+            var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
+            GameData.Team.Player = data.Player;
+            GameData.Team.MaterialItems = data.MaterialItems;
+            GameData.Team.LifetimeRecord = data.LifetimeRecord;
             GameData.Team.PlayerInit();
-            
-//            UIHint.Get.ShowHint(TextConst.S(531), Color.black);
         }
         else
             UIHint.Get.ShowHint(www.text, Color.red);
