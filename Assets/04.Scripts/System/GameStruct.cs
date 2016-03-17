@@ -432,6 +432,7 @@ namespace GameStruct
 		public int BuyCoinQuantity;
 
         public int ValueItemInlayNum; // 數值裝鑲嵌次數.
+        public int ValueItemUpgradeNum; // 數值裝升級次數.
 
         public int LoginNum; // 終生登入次數.
         public int ReceivedLoginNum; // 終生登入的領獎記錄.

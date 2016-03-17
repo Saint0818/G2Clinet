@@ -526,6 +526,7 @@ namespace GameStruct
 				case 81: return record.TeamRecord.SkillEvolution;;//技能卡升級每日合成次數
 				case 82: return record.TeamRecord.SkillReinforce;//技能卡進階每日進階次數
 				case 83: return record.TeamRecord.ValueItemInlayNum;
+				case 84: return record.TeamRecord.ValueItemUpgradeNum;
 
 				case 101: return record.TeamRecord.BuyStaminaQuantity;//每日購買體力次數
 				case 102: return record.TeamRecord.BuyDiamondQuantity;//每日購買鑽石次數
