@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -36,6 +35,9 @@ public class UIMainStageMain : MonoBehaviour
     }
     private UIStageInfo mInfo;
 
+    public UIButton BackButton;
+    public UIButton PreviousChapterButton;
+    public UIButton NextChapterButton;
     public Transform ChapterParent;
     public UIScrollView ScrollView;
     public GameObject FullScreenBlock;
@@ -67,6 +69,24 @@ public class UIMainStageMain : MonoBehaviour
         EnableFullScreenBlock = false;
 
         mMoveScrollView = GetComponent<UIMoveScrollView>();
+
+        BackButton.onClick.Add(new EventDelegate(onBackClick));
+
+        PreviousChapterButton.onClick.Add(new EventDelegate(() => moveToChapter(CurrentChapter - 1)));
+        NextChapterButton.onClick.Add(new EventDelegate(() => moveToChapter(CurrentChapter + 1)));
+    }
+
+    /// <summary>
+    /// 移動到某個章節.
+    /// </summary>
+    /// <param name="chapter"></param>
+    private void moveToChapter(int chapter)
+    {
+        FullScreenBlock.SetActive(true);
+
+        var reviseChapter = getReviseChapter(chapter);
+        Vector3 targetPos = getChapterTargetPos(reviseChapter);
+        mMoveScrollView.Move(ScrollView, targetPos, () => FullScreenBlock.SetActive(false));
     }
 
     /// <summary>
@@ -236,22 +256,6 @@ public class UIMainStageMain : MonoBehaviour
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-//    public void AddLockStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
-//    {
-//        if(mChapters.ContainsKey(chapter))
-//            mChapters[chapter].AddLockStage(stageID, localPos, kindSpriteName);
-//        else
-//            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
-//    }
-
-//    public void AddLockBossStage(int chapter, int stageID, Vector3 localPos, string kindSpriteName)
-//    {
-//        if (mChapters.ContainsKey(chapter))
-//            mChapters[chapter].AddLockBossStage(stageID, localPos, kindSpriteName);
-//        else
-//            Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
-//    }
-
     public bool HasChapter(int chapter)
     {
         return mChapters.ContainsKey(chapter);
@@ -295,7 +299,13 @@ public class UIMainStageMain : MonoBehaviour
         Info.Show(stageID, element.InfoData);
     }
 
-    public void OnBackClick()
+    private void FixedUpdate()
+    {
+        PreviousChapterButton.gameObject.SetActive(CurrentChapter != 1);
+        NextChapterButton.gameObject.SetActive(CurrentChapter != mChapters.Count);
+    }
+
+    private void onBackClick()
     {
         if(BackListener != null)
             BackListener();

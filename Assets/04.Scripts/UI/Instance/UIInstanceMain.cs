@@ -44,11 +44,6 @@ public class UIInstanceMain : MonoBehaviour
     private const float ChapterInterval = 900;
     private const float StageInterval = 230;
 
-//    /// <summary>
-//    /// 幾個 Frame, ScrollView 捲動完畢.
-//    /// </summary>
-//    private const int MoveStep = 10;
-
     /// <summary>
     /// key: Chapter, 1: 第 1 章, 2: 第 2 章, 以此類推.
     /// </summary>
@@ -120,6 +115,10 @@ public class UIInstanceMain : MonoBehaviour
         return chapter;
     }
 
+    /// <summary>
+    /// 移動到某個章節.
+    /// </summary>
+    /// <param name="chapter"></param>
     public void MoveToChapter(int chapter)
     {
         var reviseChapter = getReviseChapter(chapter);
@@ -128,32 +127,7 @@ public class UIInstanceMain : MonoBehaviour
 
         FullScreenBlock.SetActive(true);
         mMoveScrollView.Move(ChapterScrollView, targetPos, () => FullScreenBlock.SetActive(false));
-
-//        Vector3 moveAmount = targetPos - ChapterScrollView.transform.localPosition;
-
-//        Debug.LogFormat("MoveToChapter, Chapter:{0}, TargetPos:{1}, MoveAmount:{2}", reviseChapter, targetPos, moveAmount);
-
-//        StartCoroutine(moveChapter(moveAmount));
     }
-
-//    private IEnumerator moveChapter(Vector3 moveAmount)
-//    {
-//        FullScreenBlock.SetActive(true);
-//        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = false;
-//        
-//        Vector3 stepMoveAmount = moveAmount / MoveStep;
-//
-////        Debug.LogFormat("moveChapter, stepMoveAmount:{0}", stepMoveAmount);
-//
-//        for(int i = 0; i < MoveStep; i++)
-//        {
-//            ChapterScrollView.MoveRelative(stepMoveAmount);
-//            yield return new WaitForEndOfFrame();
-//        }
-//
-//        ChapterScrollView.GetComponent<UICenterOnChild>().enabled = true;
-//        FullScreenBlock.SetActive(false);
-//    }
 
     /// <summary>
     /// 目前介面顯示哪一個章節. 1: 第一章, 2: 第二章.
@@ -276,15 +250,10 @@ public class UIInstanceMain : MonoBehaviour
         mStages.Clear();
     }
 
-    private void updateNavigationButtons()
+    private void FixedUpdate()
     {
         PreviousChapterButton.gameObject.SetActive(CurrentChapter != 1);
         NextChapterButton.gameObject.SetActive(CurrentChapter != mChapters.Count);
-    }
-
-    private void FixedUpdate()
-    {
-        updateNavigationButtons();
     }
 
     /// <summary>
