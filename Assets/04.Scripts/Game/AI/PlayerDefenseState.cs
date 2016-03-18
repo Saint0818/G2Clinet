@@ -28,6 +28,11 @@ namespace AI
             mActions.Add(new StealAction(playerAI, mPlayer));
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}", ID, mActions);
+        }
+
         public void Init(PlayerBehaviour[] players)
         {
             mStartActiveSkillAction.Init(players, false);

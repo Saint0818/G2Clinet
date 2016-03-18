@@ -40,7 +40,8 @@ namespace AI
 
         public override string ToString()
         {
-            return string.Format("Current:{0}, {1}", mCurrentAction, mRandomizer);
+//            return string.Format("Current:{0}, {1}", mCurrentAction.GetType(), mRandomizer);
+            return string.Format("Action:{0}", mCurrentAction.GetType());
         }
 
         public void Do()

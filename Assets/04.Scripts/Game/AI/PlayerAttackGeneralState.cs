@@ -9,12 +9,6 @@ namespace AI
         private TTacticalData mTactical;
         private readonly PlayerAI mPlayerAI;
         private readonly PlayerBehaviour mPlayer;
-//        private AISkillJudger mSkillJudger;
-
-        /// <summary>
-        /// 下一個要發的主動技.
-        /// </summary>
-//        private int mNextSkillIndex;
 
         private readonly StartActiveSkillAction mStartActiveSkillAction;
 
@@ -52,6 +46,13 @@ namespace AI
             mNoBallActions.Add(new TacticalAction(mPlayerAI, mPlayer));
             mNoBallActions.Add(new IdleAction(mPlayerAI, mPlayer, EPlayerState.Idle));
             mNoBallActions.Add(new PushAction(mPlayerAI, mPlayer));
+        }
+
+        public override string ToString()
+        {
+            if(isBallOwner())
+                return string.Format("{0}, {1}", ID, mBallActions);
+            return string.Format("{0}, {1}", ID, mNoBallActions);
         }
 
         public override void Enter(object extraInfo)
@@ -163,7 +164,7 @@ namespace AI
 
         private void oneMoveDone(PlayerBehaviour player, bool speedup)
         {
-            GameController.Get.MoveDefPlayer(player, speedup);
+//            GameController.Get.MoveDefPlayer(player, speedup);
 
             if(mPlayer.TargetPosNum == 0)
                 // 全部的戰術都跑完了.

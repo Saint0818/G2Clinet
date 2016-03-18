@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameStruct;
+using UnityEngine;
 
 namespace AI
 {
@@ -37,6 +38,11 @@ namespace AI
         public override void Do()
         {
             GameController.Get.MoveDefPlayer(Player.DefPlayer);
+
+//            TMoveData followDefPlayer = new TMoveData();
+//            followDefPlayer.FollowTarget = Player.DefPlayer.transform;
+//            Player.TargetPos = followDefPlayer;
+
             mDoneTime = Time.time + Random.Range(GameConst.AIMinCloseDefPlayerTime, GameConst.AIMaxCloseDefPlayerTime);
         }
     }

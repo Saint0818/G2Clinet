@@ -37,6 +37,9 @@ namespace AI
 
         private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
 
+        [CanBeNull]
+        public State<TEnumState, TEnumMsg> CurrentState { get; private set; }
+
         /// <summary>
         /// 下一次更新 AI 邏輯的時間. 單位:秒.
         /// </summary>
@@ -79,8 +82,13 @@ namespace AI
             }
         }
 
-        [CanBeNull]
-        public State<TEnumState, TEnumMsg> CurrentState { get; private set; }
+        public override string ToString()
+        {
+            if(CurrentState != null) 
+                return string.Format("{0}", CurrentState);
+
+            return String.Empty;
+        }
 
         /// <summary>
         /// 每個 Frame 都要呼叫一次.

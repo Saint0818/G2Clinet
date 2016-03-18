@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using JetBrains.Annotations;
 
 /// <summary>
@@ -7,21 +6,23 @@ using JetBrains.Annotations;
 /// </summary>
 public class DefTrigger : MonoBehaviour
 {
-	public int Direction = 0;
 	public PlayerBehaviour Player;
-	
-    [UsedImplicitly]
-	void OnTriggerEnter(Collider other)
+
+    /// <summary>
+    /// OnTriggerEnter is called when the Collider other enters the trigger.
+    /// </summary>
+    /// <param name="other"></param>
+    void OnTriggerEnter(Collider other)
     {
 		if (GameController.Visible && GameController.Get.IsStart)
         {
-            // PlayerTrigger tag: 就是球員身上的 TriggerFR, TriggerBR, TriggerTop, TriggerSteal.
+            // PlayerTrigger tag: 就是球員身上的 TriggerFR, TriggerBR, TriggerTop.
             if (other.gameObject.CompareTag("PlayerTrigger")) 
 			{
 				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
 				if(obj)
                 {
-					GameController.Get.DefRangeTouch(Player, obj.Player);
+//					GameController.Get.DefRangeTouch(Player, obj.Player);
 					obj.Player.IsTouchPlayerForCheckLayer(1);
 				}
 			}

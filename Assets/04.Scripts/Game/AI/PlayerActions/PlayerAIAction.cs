@@ -36,7 +36,8 @@ namespace AI
         }
 
         /// <summary>
-        /// 真的做撥動作的行為.
+        /// <para> 真的做撥動作的行為. </para> 
+        /// <para> 呼叫時機: 當選擇新的行為時, 會被執行一次. </para>
         /// </summary>
         public abstract void Do();
     }
