@@ -762,6 +762,7 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.Player.SkillCards = result.PlayerSkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
+			GameData.Team.GotItemCount = result.GotItemCount;
 			GameData.Team.InitSkillCardCount();
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();

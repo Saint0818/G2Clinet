@@ -8,6 +8,7 @@ public struct TEvolution {
 	public TSkill[] PlayerSkillCards;
 	public TMaterialItem[] MaterialItems;
 	public TTeamRecord LifetimeRecord;
+	public Dictionary<int, int> GotItemCount;
 }
 
 public struct TSkillCardValue {
