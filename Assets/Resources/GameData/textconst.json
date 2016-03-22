@@ -1690,13 +1690,13 @@
         "id": 4001,
         "explain": "晶片收集",
         "tw": "晶片抽取",
-        "en": "CARD STORE"
+        "en": "CARD STOTE"
     },
     {
         "id": 4002,
         "uipeth": "Disk",
         "tw": "獲得技能晶片",
-        "en": "You got a skill Card"
+        "en": "YOU GOT A SKILL CARD"
     },
     {
         "id": 4003
@@ -1913,19 +1913,19 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]鐵質晶片[-]",
-        "en": " [B3B3B3FF] IRON [-] "
+        "en": " [B3B3B3FF]IRON [-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF] COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF] SILVER[-] "
+        "en": " [99B3D4FF]SILVER[-] "
     },
     {
         "id": 4604,
@@ -2612,7 +2612,7 @@
         "id": 7203,
         "uipeth": "LabelKind1",
         "tw": "晶片品質",
-        "en": "CARD QUALITY"
+        "en": "QUALITY"
     },
     {
         "id": 7204,
@@ -2690,38 +2690,38 @@
         "id": 7216,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [B3B3B3FF]鐵質[-]",
-        "en": "[B3B3B3FF] IRON [-] "
+        "en": "[B3B3B3FF]IRON[-]"
     },
     {
         "id": 7217,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [C17269FF]銅質[-]",
-        "en": "[C17269FF] COPPER [-] "
+        "en": "[C17269FF]COPPER[-]"
     },
     {
         "id": 7218,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [99B3D4FF]銀質[-]",
-        "en": "[99B3D4FF] SLIVER [-] "
+        "en": "[99B3D4FF]SLIVER[-]"
     },
     {
         "id": 7219,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [EFC653FF]金質[-]",
-        "en": "[EFC653FF] GOLDEN [-] "
+        "en": "[EFC653FF]GOLDEN[-]"
     },
     {
         "id": 7220,
         "explain": "技能晶片的品質等第(秀在SKillInfo",
         "tw": " [11F5F1FF]鑽石[-]",
-        "en": "[11F5F1FF] DIAMOND [-]"
+        "en": "[11F5F1FF]DIAMOND[-]"
     },
     {
         "id": 7221,
         "explain": "晶片類型",
         "uipeth": "LabelKind5",
         "tw": "晶片類型",
-        "en": "CARD TYPE"
+        "en": "TYPE"
     },
     {
         "id": 7222,
@@ -4783,7 +4783,7 @@
         "id": 100010,
         "explain": "抽包介面標題",
         "tw": "[f000ff]晶片抽取[-]",
-        "en": "CARD STORE"
+        "en": "LOTTERY BOX"
     },
     {
         "id": 100011,
@@ -4819,7 +4819,7 @@
         "id": 100110,
         "explain": "聯盟商店介面標題",
         "tw": "[ff8000]聯盟商店[-]",
-        "en": "PVP STORE"
+        "en": "PVP SHOP"
     },
     {
         "id": 100111,
@@ -4837,13 +4837,13 @@
         "id": 100120,
         "explain": "社群商店介面標題",
         "tw": "[ff8000]社群商店[-]",
-        "en": "SOCIAL STORE"
+        "en": "SOCIAL SHOP"
     },
     {
         "id": 100121,
         "explain": "社群商店說明",
         "tw": "有機會在商店中購買此物",
-        "en": "YOU CAN BUY THIS ITEM ON THE SOCIAL STORE SHOP"
+        "en": "YOU CAN BUY THIS ITEM ON THE SOCIAL SHOP"
     },
     {
         "id": 100129,
