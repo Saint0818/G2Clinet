@@ -712,7 +712,7 @@
         "id": 1009,
         "explain": "抽包按鈕",
         "tw": "抽 卡",
-        "en": "LOTTORY BOX"
+        "en": "CARD STORE"
     },
     {
         "id": 1010,
@@ -1690,13 +1690,13 @@
         "id": 4001,
         "explain": "晶片收集",
         "tw": "晶片抽取",
-        "en": "LOTTORY BOX"
+        "en": "CARD STORE"
     },
     {
         "id": 4002,
         "uipeth": "Disk",
         "tw": "獲得技能晶片",
-        "en": "GET A SKILL CARD"
+        "en": "You got a skill Card"
     },
     {
         "id": 4003
@@ -4783,7 +4783,7 @@
         "id": 100010,
         "explain": "抽包介面標題",
         "tw": "[f000ff]晶片抽取[-]",
-        "en": "LOTTORY BOX"
+        "en": "CARD STORE"
     },
     {
         "id": 100011,

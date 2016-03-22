@@ -879,7 +879,7 @@
     {
         "id": 22,
         "line": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+        "uipath": "UI2D/UIInstance/BottomLeft/StageBackBtn"
     },
     {
         "id": 22,
@@ -888,7 +888,7 @@
     {
         "id": 22,
         "line": 6,
-        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList"
+        "uipath": "UI2D/UIInstance/BottomLeft/ChapterBackBtn"
     },
     {
         "id": 22,
@@ -897,35 +897,25 @@
     {
         "id": 22,
         "line": 8,
-        "uipath": "UI2D/UISkillInfo/Center/TopRight/UpgradeBtn"
+        "uipath": "UI2D/UIGameLobby/MainView/BottomLeft/BackBtn"
     },
     {
         "id": 22,
-        "line": 9,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "右側有一些你現在擁有的技能晶片，所有晶片都可以作為強化的材料，不過注意，晶片被當作強化後就會消失了！！",
-        "texten": "On the right,there is something you now have the skills cards, these cards can be used as all reinforced material, but notce, the card  will disappear after being the material! !"
+        "line": 9
     },
     {
         "id": 22,
         "line": 10,
-        "hintpath": "UI2D/UISkillReinforce/Window/Center/RightView"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
     },
     {
         "id": 22,
-        "line": 11,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧",
-        "texten": "Choose [ff6060] I Love Basketball Gangs[-] ."
+        "line": 11
     },
     {
         "id": 22,
         "line": 12,
-        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ScrollView/Grid/10_2_0"
+        "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList"
     },
     {
         "id": 22,
@@ -934,11 +924,48 @@
     {
         "id": 22,
         "line": 14,
-        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ReinforceBtn"
+        "uipath": "UI2D/UISkillInfo/Center/TopRight/UpgradeBtn"
     },
     {
         "id": 22,
         "line": 15,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "右側有一些你現在擁有的技能晶片，所有晶片都可以作為強化的材料，不過注意，晶片被當作強化後就會消失了！！",
+        "texten": "On the right,there is something you now have the skills cards, these cards can be used as all reinforced material, but notce, the card  will disappear after being the material! !"
+    },
+    {
+        "id": 22,
+        "line": 16,
+        "hintpath": "UI2D/UISkillReinforce/Window/Center/RightView"
+    },
+    {
+        "id": 22,
+        "line": 17,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧",
+        "texten": "Choose [ff6060] I Love Basketball Gangs[-] ."
+    },
+    {
+        "id": 22,
+        "line": 18,
+        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ScrollView/Grid/10_2_0"
+    },
+    {
+        "id": 22,
+        "line": 19
+    },
+    {
+        "id": 22,
+        "line": 20,
+        "uipath": "UI2D/UISkillReinforce/Window/Center/RightView/ReinforceBtn"
+    },
+    {
+        "id": 22,
+        "line": 21,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -1161,13 +1188,6 @@
         "texten": "Congratulations! You've successfully finished the first chapter! Time to move on... Say goodbye to everything you know"
     },
     {
-        "id": 32,
-        "line": 2,
-        "kind": 2,
-        "value": 104,
-        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter2/Open/StageElement105"
-    },
-    {
         "id": 34,
         "line": 1,
         "title": "取名",
@@ -1248,106 +1268,35 @@
     {
         "id": 40,
         "line": 1,
+        "title": "新教學",
         "kind": 3,
-        "texttw": "哇啊！你、你是誰？怎麼撞破我家的屋頂⋯糟糕了啦！",
-        "texten": "Wow ah! Who are you? How crashed through the roof of my house ⋯ bad it!"
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 6,
+        "texttw": "頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
+        "texten": "The avatar with the [ff6666] red triangle [-] is your character! You can only control your own character."
     },
     {
         "id": 40,
         "line": 2,
         "kind": 3,
-        "texttw": "⋯⋯啊！這裡是什麼地方！",
-        "texten": "⋯Where am I?"
+        "scalepath": "PlayerInfoModel/Self0/PassMe/View",
+        "texttw": "你只可以操作紅色三角形頭標球員移動。"
     },
     {
         "id": 40,
         "line": 3,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 1,
-        "texttw": "別緊張，我叫潔西卡，最喜歡的食物是⋯哎呀！不是說這個的時候了！",
-        "texten": "Take easy, my name is Jessica, favorite food is ⋯ Oops! It's not a time chatting!"
-    },
-    {
-        "id": 40,
-        "line": 4,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 4,
-        "texttw": "你現在被我拉進了時空夾層的夢境中，必須完成這場夢境的目標才能夠醒來，否則就再也醒不過來了！",
-        "texten": "You must complete this dream goal to be able to wake up, otherwise it could wake up to!"
-    },
-    {
-        "id": 40,
-        "line": 5,
-        "kind": 3,
-        "texttw": "什麼！？你⋯那、那我要完成什麼樣的目標！？",
-        "texten": "WHAT? "
-    },
-    {
-        "id": 40,
-        "line": 6,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 5,
-        "texttw": "你必須贏得這場比賽！我會在一旁給你提示，很快就能完成的！快跟上－－",
-        "texten": "You have to win this game! I will lead you. Come on!"
-    },
-    {
-        "id": 40,
-        "line": 7,
-        "title": "新教學",
-        "kind": 3
-    },
-    {
-        "id": 40,
-        "line": 8,
-        "kind": 3,
-        "scalepath": "PlayerInfoModel/Self0/PassMe/View",
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 6,
-        "texttw": "首先，頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
-        "texten": "The avatar with the [ff6666] red triangle [-] is your character! You can only control your own character."
-    },
-    {
-        "id": 40,
-        "line": 9,
-        "texttw": "你只可以操作紅色三角形頭標球員移動。",
-        "texten": "Now, move the joystick to the place you wanna go!"
-    },
-    {
-        "id": 40,
-        "line": 10,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 6,
-        "texttw": "現在，先操作搖桿移動到指定的地方吧！",
-        "texten": "Now, move the joystick until you reach this spot!"
-    },
-    {
-        "id": 40,
-        "line": 11,
         "kind": 3,
         "hintpath": "UI2D/UIGame/BottomLeft/JoystickHint",
         "offsetx": -390,
         "offsety": -10,
         "talkindex": 1,
         "talkr": 10,
-        "actionr": 1,
+        "actionr": 6,
+        "texttw": "現在，先操作搖桿移動到指定的地方吧！",
+        "texten": "Now, move the joystick until you reach this spot!",
         "hinttw": "拖曳搖桿移動球員",
         "hinten": "Controlling joystick to move player"
-    },
-    {
-        "id": 40,
-        "line": 12,
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": 10,
-        "actionr": 4
     },
     {
         "id": 41,
@@ -1357,7 +1306,7 @@
         "talkr": 10,
         "actionr": 4,
         "texttw": "旁邊[6666ff]藍色[-]、[66ff66]綠色[-]三角形頭標的球員是你的隊友，你無法控制他們的移動。",
-        "texten": "The characters with the [6666ff] Blue [-], [66ff66] and Green [-] triangles are your teammates, you can not control their movement"
+        "texten": "The characters with the [6666ff] Blue [-], [66ff66] and Green [-] triangles are your teammates, you can not control their movement."
     },
     {
         "id": 41,
@@ -1585,7 +1534,7 @@
         "line": 2,
         "title": "踏上意外旅程-4",
         "kind": 3,
-        "texttw": "剛才那幾場只是讓你！這場和『絕殺比爾』比賽三分球吧！",
+        "texttw": "這場和『絕殺比爾』比賽三分球吧！",
         "texten": "Just a few games that just make you! And this \"lore Bill\" contest pointers it!"
     },
     {
@@ -1684,7 +1633,7 @@
         "talkl": 10,
         "actionl": 3,
         "texttw": "唉，其實我來自未來，來自那個即將被毀滅的時空。",
-        "texten": "Well, in fact I'm from the future, which is about to be destroyed from the time."
+        "texten": "Well, in fact I'm from the future."
     },
     {
         "id": 1010,
@@ -1713,7 +1662,7 @@
         "talkl": 10,
         "actionl": 3,
         "texttw": "他犧牲了自己，在未來沉眠中。所以我需要你的幫助，收集能夠擊敗邪惡的力量，並且拯救我的主人。",
-        "texten": "He sacrificed himself in the future Chenmian. So I need your help to collect able to defeat the forces of evil and save my master."
+        "texten": "He sacrificed himself. So I need your help to collect able to defeat the forces of evil and save my master."
     },
     {
         "id": 1010,
@@ -1732,7 +1681,7 @@
         "talkl": 10,
         "actionl": 1,
         "texttw": "首先得取得正式球員的資格。我打聽好了，先贏得黑幫老大的獎金，我們就能參加資格賽！",
-        "texten": "First was the official qualifying players. I have learned well, winning the first prize gangster, we will be able to qualify!"
+        "texten": "We have to win the qualify!"
     },
     {
         "id": 1010,
@@ -1770,7 +1719,7 @@
         "talkr": -1,
         "actionr": 1,
         "texttw": "我們終於晉級了，一點都不困難嘛！我很有機會成為偉大的球員吧？",
-        "texten": "We finally qualified for, is not difficult to do! I have a good chance to become a great player, right?"
+        "texten": "It's not difficult to do! I have a good chance to become a great player, right?"
     },
     {
         "id": 1050,
