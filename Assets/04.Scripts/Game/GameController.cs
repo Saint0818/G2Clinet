@@ -2433,6 +2433,13 @@ public class GameController : KnightSingleton<GameController>
 					addAngle = 90;
 				}
 
+
+				if (StageData.IsTutorial) {
+					addRate = 100;
+					addAngle = 360;
+					probability = 100;
+				}
+
 				if(Random.Range(0, 100) <= (probability + addRate) && 
 				   Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, BallOwner.PlayerRefGameObject.transform.position)) <= 90 + addAngle)
                 {

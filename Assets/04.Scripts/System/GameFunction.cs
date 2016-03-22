@@ -711,7 +711,6 @@ public static class GameFunction
 		case EPlayerAttributeRate.BlockRate:
 			return value * 0.9f;
 		case EPlayerAttributeRate.ElbowingRate:
-			return value * 0.6f;
 		case EPlayerAttributeRate.AlleyOopRate:
 		case EPlayerAttributeRate.AlleyOopPassRate:
 			return value * 0.6f;

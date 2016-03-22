@@ -1,6 +1,7 @@
 using G2;
 using UnityEngine;
 using GameEnum;
+using GameStruct;
 
 public enum EUISituation
 {
@@ -67,6 +68,8 @@ public class UIGame : UIBase
     private bool isCanDefenceBtnPress = true;
     private bool isPressShootBtn = false;
     private bool isShootAvailable = true;
+
+	public TSkill ActiveSkillUsedTemp;
 
     // GoldFinger
     private bool isPressA = false;
@@ -548,9 +551,9 @@ public class UIGame : UIBase
     {
         if (GameStart.Get.TestMode == EGameTest.AttackA)
             return PlayerMe.PlayerRefGameObject;
-        if (IsPlayerMe && GameData.DSkillData.ContainsKey(PlayerMe.ActiveSkillUsed.ID))
+		if (IsPlayerMe && GameData.DSkillData.ContainsKey(ActiveSkillUsedTemp.ID))
         {
-            switch (GameData.DSkillData[PlayerMe.ActiveSkillUsed.ID].TargetKind)
+			switch (GameData.DSkillData[ActiveSkillUsedTemp.ID].TargetKind)
             {
                 case 0:
                 case 4:
@@ -572,9 +575,9 @@ public class UIGame : UIBase
     {
         get
         {
-            if (IsPlayerMe && GameData.DSkillData.ContainsKey(PlayerMe.ActiveSkillUsed.ID))
+			if (IsPlayerMe && GameData.DSkillData.ContainsKey(ActiveSkillUsedTemp.ID))
             {
-                if (GameData.DSkillData[PlayerMe.ActiveSkillUsed.ID].Kind == 171)
+				if (GameData.DSkillData[ActiveSkillUsedTemp.ID].Kind == 171)
                     return false;
             }
             return true;
@@ -613,21 +616,21 @@ public class UIGame : UIBase
                     if (getSkillRangeTarget() != null)
                     {
                         skillRangeTarget = getSkillRangeTarget().transform;
-                        if (GameData.DSkillData.ContainsKey(PlayerMe.ActiveSkillUsed.ID))
+					if (GameData.DSkillData.ContainsKey(ActiveSkillUsedTemp.ID))
                         {
                             if (isCircleRange)
                             {
                                 CourtMgr.Get.ShowRangeOfAction(state, 
                                     skillRangeTarget, 
                                     360, 
-                                    GameData.DSkillData[PlayerMe.ActiveSkillUsed.ID].Distance(PlayerMe.ActiveSkillUsed.Lv)); 
+									GameData.DSkillData[ActiveSkillUsedTemp.ID].Distance(ActiveSkillUsedTemp.Lv)); 
                             }
                             else
                             {
                                 //Draw Arrow
                                 CourtMgr.Get.ShowArrowOfAction(state,
                                     skillRangeTarget,
-                                    GameData.DSkillData[PlayerMe.ActiveSkillUsed.ID].Distance(PlayerMe.ActiveSkillUsed.Lv));
+									GameData.DSkillData[ActiveSkillUsedTemp.ID].Distance(ActiveSkillUsedTemp.Lv));
                             }
                         }
                     }
@@ -783,7 +786,7 @@ public class UIGame : UIBase
             if (int.TryParse(go.name, out id) && id >= 0 && id < PlayerMe.Attribute.ActiveSkills.Count)
             {
 				if(state)
-                	PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
+					ActiveSkillUsedTemp = PlayerMe.Attribute.ActiveSkills[id];
 				if (!state) {
 	                if (isShowSkillRange)
 	                    UIControllerState(EUIControl.Skill);
@@ -1280,7 +1283,7 @@ public class UIGame : UIBase
                 case EUIControl.Skill:
 					if (PlayerMe.Attribute.IsHaveActiveSkill) {
 						if(!PlayerMe.IsSkillShow)
-	                        noAI = GameController.Get.OnSkill(PlayerMe.ActiveSkillUsed);
+							noAI = GameController.Get.OnSkill(ActiveSkillUsedTemp);
 					}else
 						PlayerMe.PlayerSkillController.ResetUseActive();
 				

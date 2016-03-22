@@ -363,17 +363,19 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.ReboundRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundRate));
         Attr.BlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockRate));
         Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
-//        Attr.JumpBallRate = GameData.BaseAttr[Attribute.AILevel].JumpBallRate;//沒用到（已有技能）
         Attr.PushingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
         Attr.PassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
         Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
-        Attr.ReboundHeadDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance;
-        Attr.ReboundHandDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance;
-        Attr.BlockDistance = Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance;
         Attr.DefDistance = GameFunction.GetAttributeFormula(EPlayerAttributeRate.DefDistance, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].DefDistance));
-        Attr.SpeedValue = GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
         Attr.StaminaValue = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StaminaValue, (Attribute.Stamina + GameData.BaseAttr[Attribute.AILevel].StaminaValue));
 
+		//其他算法
+		Attr.ReboundHeadDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHeadDistance;
+		Attr.ReboundHandDistance = Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundHandDistance;
+		Attr.BlockDistance = Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockDistance;
+
+		//有最小值
+		Attr.SpeedValue = GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
         Attr.StealDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealDistance, Attribute.Steal);
         Attr.StealExtraAngle = GameConst.StealFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealExtraAngle, Attribute.Steal);
         Attr.PushDistance = GameConst.StealPushDistance + GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushDistance, Attribute.Defence);
@@ -384,7 +386,6 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-//        TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 		interceptTrigger.transform.localScale = new Vector3(1, 1.5f, 1); //因還未有成長先(1, 1.5, 1)， 有成長就變成(0,5 1 0,5)
 		if(Attribute.BodyType == 0){
 			TopPoint.transform.localScale = new Vector3(GameConst.ReboundHeadXC + (Attr.ReboundHeadDistance* 0.03f) , 
