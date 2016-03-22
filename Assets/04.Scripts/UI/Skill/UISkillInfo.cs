@@ -266,8 +266,8 @@ public class UISkillInfo : UIBase {
 //				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
 				goSuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
 				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
-				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length);
-				GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].Items.Length, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
+				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength);
+				GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
 			} else 
 				goSuitItem.gameObject.SetActive(false);
 

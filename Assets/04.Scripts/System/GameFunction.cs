@@ -958,18 +958,17 @@ public static class GameFunction
 
 		for (int i=0; i<stars.Length; i++) {
 			if(count == 5) {//0~4
-				if(current >= 0 && current <= 4) {
-					stars[current].SetActive(true);
-				}
+				if(current >= 0 && current <= 5 && i < current) 
+					stars[i].SetActive(true);
+				
 			} else if(count == 6) {//1~6
-				if(current >= 1 && current <= 6) {
-					stars[current - 1].SetActive(true);
+				if(current >= 1 && current <= 6 && i >= 1 && i <= 6) {
+					if(i <= current)
+						stars[i].SetActive(true);
 				}
 			} else if (count == 7) {
-				if(current >= 0 && current < 7)
-					stars[current].SetActive(true);
-				if (current >= 7)
-					stars [stars.Length - 1].SetActive (true);
+				if(current >= 0 && current <= 7 && i < current)
+					stars[i].SetActive(true);
 			}
 		}
 	}

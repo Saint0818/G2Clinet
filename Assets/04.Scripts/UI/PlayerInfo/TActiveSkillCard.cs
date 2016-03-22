@@ -240,8 +240,8 @@ public class TActiveSkillCard
 		if(SuitItemFinish != null) {
 			if(GameData.DSuitItem.ContainsKey(suitItemID)) {
 				SuitItem.gameObject.name = suitItemID.ToString();
-				SuitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[suitItemID].Items.Length);
-				GameFunction.CardSuitItemStar(ref SuitItemFinish, GameData.DSuitItem[suitItemID].Items.Length, GameData.Team.SuitItemCompleteCount(suitItemID));
+				SuitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[suitItemID].ItemLength);
+				GameFunction.CardSuitItemStar(ref SuitItemFinish, GameData.DSuitItem[suitItemID].ItemLength, GameData.Team.SuitItemCompleteCount(suitItemID));
 			}
 			SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID));
 		}
