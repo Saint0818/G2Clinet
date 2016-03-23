@@ -45,7 +45,7 @@ public class HintSkillView : MonoBehaviour {
 		}
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
-			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
+			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].MiniPicture;
 			GameFunction.ShowStar(ref SkillStar, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			if(QualityBG != null)
 				QualityBG.color = TextConst.ColorBG(GameData.DSkillData[skill.ID].Quality);
@@ -67,7 +67,7 @@ public class HintSkillView : MonoBehaviour {
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
-			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
+			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 			GameFunction.ShowStar(ref SkillStar, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
@@ -87,7 +87,7 @@ public class HintSkillView : MonoBehaviour {
 		}
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
-			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
+			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 			GameFunction.ShowStar(ref SkillStar, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}

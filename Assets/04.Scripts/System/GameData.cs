@@ -204,31 +204,30 @@ public static class GameData
     {
         if (GameData.DSkillData.ContainsKey(id))
         {
-            if (GameData.DSkillData[id].PictureNo > 0)
-                id = GameData.DSkillData[id].PictureNo;
-			
-            if (cardItemTextureCache.ContainsKey(id.ToString() + "t"))
-            {
-                return cardItemTextureCache[id.ToString() + "t"];
-            }
-            else
-            {
-                string path = "Textures/SkillCards/" + id.ToString() + "t";
-                Texture2D obj = Resources.Load(path) as Texture2D;
-                if (obj)
-                {
-                    cardItemTextureCache.Add(id.ToString() + "t", obj);
-                    return obj;
-                }
-                else
-                {
-                    //download form server
-                    return null;
-                }
-            }
+			if (!string.IsNullOrEmpty(GameData.DSkillData[id].RectanglePicture))
+			{
+				if (cardItemTextureCache.ContainsKey(GameData.DSkillData[id].RectanglePicture))
+				{
+					return cardItemTextureCache[GameData.DSkillData[id].RectanglePicture];
+				}
+				else
+				{
+					string path = "Textures/SkillCards/" + GameData.DSkillData[id].RectanglePicture;
+					Texture2D obj = Resources.Load(path) as Texture2D;
+					if (obj)
+					{
+						cardItemTextureCache.Add(GameData.DSkillData[id].RectanglePicture, obj);
+						return obj;
+					}
+					else
+					{
+						//download form server
+						return null;
+					}
+				}
+			}
         }
-        else
-            return null;
+        return null;
     }
 
     public static void SetGameQuality(EQualityType lv)

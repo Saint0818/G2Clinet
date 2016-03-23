@@ -189,6 +189,7 @@
 	public const int DelAnger_Stealed = -10;
 	public const int DelAnger_Fall2 = -5;
 	public const float SlowDownValue = 0f;
+	public const float SlowDownValueMin = 0.2f; // 移動速度最小值
 	public const float SlowDownTime = 0.1f;
 	public const int SlowDownAngle = 90;
 

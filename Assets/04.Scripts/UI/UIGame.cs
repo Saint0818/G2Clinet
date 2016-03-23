@@ -441,7 +441,7 @@ public class UIGame : UIBase
         Scores[1] = 0;
         labelTopLeftScore[0].text = "0";
         labelTopLeftScore[1].text = "0";
-        uiForceNum.text = "0/[13CECEFF]" + GameData.Team.Player.MaxAnger + "[-]";
+//        uiForceNum.text = "0/[13CECEFF]" + GameData.Team.Player.MaxAnger + "[-]";
         LabelStrategy.text = string.Format(TextConst.S(9602), GameData.Team.Player.StrategyText);
         spriteForce.fillAmount = 0;
         spriteForceFirst.fillAmount = 0;
@@ -526,7 +526,7 @@ public class UIGame : UIBase
                 if (IsPlayerMe && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID))
                 {
                     if (spriteSkills[i] != null)
-                        spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+						spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].MiniPicture;
                 }
             }
         }
@@ -1596,9 +1596,10 @@ public class UIGame : UIBase
         if (IsPlayerMe && spriteForce.fillAmount != newForceValue)
         {
             timeForce += Time.fixedDeltaTime;
-            if (newForceValue > oldForceValue)
+			if (newForceValue > oldForceValue) {
+				spriteForce.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
                 spriteForceFirst.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
-            else
+			} else
             {
                 spriteForce.fillAmount = newForceValue;
                 spriteForceFirst.fillAmount = newForceValue;

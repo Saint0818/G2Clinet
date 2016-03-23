@@ -41,7 +41,7 @@ public class AwardSkillView : MonoBehaviour {
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
-			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
+			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;
 			GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
 		if(QualityBG != null)
@@ -60,7 +60,7 @@ public class AwardSkillView : MonoBehaviour {
 			}
 
 			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
-			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
+			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].MiniPicture;
 			GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 		}
 		if(QualityBG != null)

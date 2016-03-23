@@ -191,7 +191,7 @@ public struct TSkillCardMaterial {
 							ElementPicSkill[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
 
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar))
-							ElementPicSkill[0].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar].PictureNo + "s";
+							ElementPicSkill[0].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar].MiniPicture;
 						else 
 							ElementPicSkill[0].spriteName = "0s";
 						NameLabelSkill[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
@@ -245,7 +245,7 @@ public struct TSkillCardMaterial {
 							ElementPicSkill[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
 
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar))
-							ElementPicSkill[1].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar].PictureNo + "s";
+							ElementPicSkill[1].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar].MiniPicture;
 						else 
 							ElementPicSkill[1].spriteName = "0s";
 						NameLabelSkill[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
@@ -299,7 +299,7 @@ public struct TSkillCardMaterial {
 							ElementPicSkill[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
 
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar))
-							ElementPicSkill[2].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar].PictureNo + "s";
+							ElementPicSkill[2].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar].MiniPicture;
 						else 
 							ElementPicSkill[2].spriteName = "0s";
 						NameLabelSkill[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;

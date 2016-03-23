@@ -629,6 +629,8 @@ namespace GameStruct
 		public int Quality; //Card Color
 		public int MaxStar;
 		public int PictureNo;
+		public string MiniPicture;
+		public string RectanglePicture;
 		public string NameTW;
 		public int SuitCard;
 		public int Suititem;
