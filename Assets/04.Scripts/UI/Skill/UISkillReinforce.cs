@@ -68,6 +68,11 @@ public class UISkillReinforce : UIBase {
 	private UIButton buttonReinforce;
 	private UILabel labelPrice;
 	private UIReinForceGrid reinforceGrid;
+
+	private List<GameObject> queueMaterial = new List<GameObject>();
+	private List<GameObject> queueBuff = new List<GameObject>();
+	private List<GameObject> queuePassive = new List<GameObject>();
+	private List<GameObject> queueActive = new List<GameObject>();
 	private List<GameObject> reinforceGoCards = new List<GameObject>();
 
 	private int reinforceMoney;
@@ -126,6 +131,17 @@ public class UISkillReinforce : UIBase {
 		}
 	}
 
+	void OnDestroy() {
+		reinforceCards.Clear();
+		reinforceItems.Clear();
+		reinforceGoCards.Clear();
+		queueMaterial.Clear();
+		queueBuff.Clear();
+		queuePassive.Clear();
+		queueActive.Clear();
+		passiveSkillCards.Clear();
+	}
+
 	void FixedUpdate () {
 		runExp ();
 	}
@@ -178,6 +194,10 @@ public class UISkillReinforce : UIBase {
 
 		reinforceCards = new List<TPassiveSkillCard>();
 		reinforceGoCards = new List<GameObject>();
+		queueMaterial = new List<GameObject>();
+		queueBuff = new List<GameObject>();
+		queuePassive = new List<GameObject>();
+		queueActive = new List<GameObject>();
 		reinforceItems = new Dictionary<string, GameObject>();
 		passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
 
@@ -278,20 +298,47 @@ public class UISkillReinforce : UIBase {
 		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) {
 			int index = 0;
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
-				TPassiveSkillCard obj = null;
-				obj = addItem(i, index, GameData.Team.SkillCards[i]);
-				if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID) && isCanReinForce(GameData.Team.SkillCards[i].SN)) {
-					passiveSkillCards.Add(obj.Name, obj);
-					reinforceGoCards.Add(obj.item);
-					index ++ ;
-				} else
-					Destroy(obj.item);
+				if(isCanReinForce(GameData.Team.SkillCards[i].SN)) {
+					TPassiveSkillCard obj = null;
+					obj = addItem(i, index, GameData.Team.SkillCards[i]);
+					if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID)) {
+						passiveSkillCards.Add(obj.Name, obj);
+//						reinforceGoCards.Add(obj.item);
+						if(GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind == 1) 
+							queueMaterial.Add(obj.item);
+						else if(GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind >= 200) 
+							queueBuff.Add(obj.item);
+						else if(!GameFunction.IsActiveSkill(GameData.Team.SkillCards[i].ID) && GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind < 200)
+							queuePassive.Add(obj.item);
+						else if(GameFunction.IsActiveSkill(GameData.Team.SkillCards[i].ID) && GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind < 200)
+							queueActive.Add(obj.item);
+						index ++ ;
+					} 
+//					else
+//						Destroy(obj.item);
+				}
 			}
 		}
+		sortCard(ref reinforceGoCards);
 		uiScrollView.ResetPosition();
 		reinforceGrid.init();
 		reinforceGrid.mChildren = reinforceGoCards;
 		ScrollViewDragFinish ();
+	}
+
+	//我愛籃球黑幫 > Buff > 被動技 > 主動技
+	private void sortCard (ref List<GameObject> goCards) {
+		for(int i=0; i<queueMaterial.Count; i++)
+			goCards.Add(queueMaterial[i]);
+		for(int i=0; i<queueBuff.Count; i++)
+			goCards.Add(queueBuff[i]);
+		for(int i=0; i<queuePassive.Count; i++)
+			goCards.Add(queuePassive[i]);
+		for(int i=0; i<queueActive.Count; i++)
+			goCards.Add(queueActive[i]);
+
+		for(int i=0; i<goCards.Count; i++)
+			goCards[i].transform.localPosition = new Vector3(0, 200 - 80 * i, 0);
 	}
 
 	public void ScrollViewDragFinish () {
@@ -302,7 +349,7 @@ public class UISkillReinforce : UIBase {
 		GameObject obj = Instantiate(itemCardEquipped, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = scrollView.transform;
 		obj.transform.name =  skill.ID.ToString() + "_" + skill.SN.ToString() + "_" + skill.Lv.ToString();
-		obj.transform.localPosition = new Vector3(0, 200 - 80 * positionIndex, 0);
+//		obj.transform.localPosition = new Vector3(0, 200 - 80 * positionIndex, 0);
 		LayerMgr.Get.SetLayerAllChildren(obj, "TopUI");
 
 		TPassiveSkillCard passiveSkillCard = new TPassiveSkillCard();
@@ -500,9 +547,7 @@ public class UISkillReinforce : UIBase {
 
 		if(reinforceGrid.mTrans != null)
 			reinforceGrid.mTrans.DestroyChildren();
-//		foreach(Transform child in scrollView.transform) {
-//			Destroy(child.gameObject);
-//		}
+		
 		if(reinforceItems.Count > 0) {
 			foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
 				Destroy(obj.Value);
@@ -529,6 +574,10 @@ public class UISkillReinforce : UIBase {
 		reinforceCards.Clear();
 		reinforceItems.Clear();
 		reinforceGoCards.Clear();
+		queueMaterial.Clear();
+		queueBuff.Clear();
+		queuePassive.Clear();
+		queueActive.Clear();
 		passiveSkillCards.Clear();
 		reinforceMoney = 0;
 		labelPrice.text = reinforceMoney.ToString();
@@ -544,6 +593,7 @@ public class UISkillReinforce : UIBase {
 		reinForceInfo.UpdateView(skill);
 		RefreshSlot ();
 
+		UISkillFormation.Get.RefreshSuitCard();
 		skillEvolution.RefreshReinForce(skill, targetIndex);
 		refreshTabRed();
 	}

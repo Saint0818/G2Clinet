@@ -728,7 +728,7 @@ public struct TReinforceInfo {
 
 			}
 
-			if(GameData.DSkillData[skill.ID].aniRate > 0) {
+			if(GameData.DSkillData[skill.ID].aniRate > 0 && index < AttrView.Length) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7404);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].AniRate(skill.Lv).ToString();
@@ -743,7 +743,7 @@ public struct TReinforceInfo {
 				}
 			}
 
-			if(GameData.DSkillData[skill.ID].distance > 0) {
+			if(GameData.DSkillData[skill.ID].distance > 0 && index < AttrView.Length) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7405);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Distance(skill.Lv).ToString();
@@ -758,7 +758,7 @@ public struct TReinforceInfo {
 				}
 			}
 
-			if(GameData.DSkillData[skill.ID].valueBase > 0) {
+			if(GameData.DSkillData[skill.ID].valueBase > 0 && index < AttrView.Length) {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(10500 + GameData.DSkillData[skill.ID].AttrKind);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Value(skill.Lv).ToString();
@@ -773,7 +773,7 @@ public struct TReinforceInfo {
 				}
 			}
 
-			if(GameData.DSkillData[skill.ID].lifeTime > 0) {
+			if(GameData.DSkillData[skill.ID].lifeTime > 0 && index < AttrView.Length)  {
 				AttrView[index].SetActive(true);	
 				GroupLabel[index].text = TextConst.S(7406);
 				ValueLabel0[index].text = GameData.DSkillData[skill.ID].LifeTime(skill.Lv).ToString();

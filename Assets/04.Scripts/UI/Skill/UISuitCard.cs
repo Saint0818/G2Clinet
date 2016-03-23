@@ -54,6 +54,11 @@ public struct TItemSuitCardGroup {
 		}
 	}
 
+	public void RefreshView() {
+		for (int i=0; i<GameData.DSuitCard[suitID].Items.Length;i ++) 
+			SuitCards[i].IsCanUseForSuit = !GameData.Team.IsGetItem(GameData.DSuitCard[suitID].Items[i]);
+	}
+
 	public bool UpdateView (int id, int index, Transform parent, bool isExecute) {
 		if(GameData.DSuitCard.ContainsKey(id)) {
 			mSelf.transform.parent = parent;
@@ -199,6 +204,11 @@ public class UISuitCard {
 			itemSuitCards = new List<TItemSuitCardGroup>();
 			initSuitCard() ;
 		}
+	}
+
+	public void Refresh () {
+		for(int i=0; i<itemSuitCards.Count; i++)
+			itemSuitCards[i].RefreshView();	
 	}
 
 	private void initSuitCard() {

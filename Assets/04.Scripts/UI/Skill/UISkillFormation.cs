@@ -1436,6 +1436,9 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
+	public void RefreshSuitCard () {
+		uiSuitCard.Refresh();
+	}
 	//From Item RemoveButton
 	public void OnRemoveItem(GameObject go, bool state){
 		removeItems(uiCards[go.transform.parent.name].skillCard.Skill.ID, uiCards[go.transform.parent.name].skillCard.Skill.SN, go.transform.parent.gameObject);
