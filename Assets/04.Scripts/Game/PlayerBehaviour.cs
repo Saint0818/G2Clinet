@@ -627,16 +627,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsStealCalculate)
             GameController.Get.OnStealMoment(this, Attr.StealDistance, Attr.StealExtraAngle);
 
-//        if(CoolDownElbow > 0 && Time.time >= CoolDownElbow)
-//            CoolDownElbow = 0;
-
         if (SlowDownTime > 0 && Time.time >= SlowDownTime)
         {
             SlowDownTime = 0;
 //            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
         }
 
-//        if(aiTime == 0)
         if (mManually.IsOff())
         {
             // AI 控制中.

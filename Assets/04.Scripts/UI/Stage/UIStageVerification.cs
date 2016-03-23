@@ -1,23 +1,15 @@
 ﻿using System;
-using UnityEngine;
+using GameStruct;
 
-public static class UIStageTools
+/// <summary>
+/// 負責主線關卡介面驗證資訊.
+/// </summary>
+public static class UIStageVerification
 {
-    /// <summary>
-    /// 找出玩家該關卡還可以打幾次.
-    /// </summary>
-    /// <param name="stageData"></param>
-    /// <returns></returns>
-    public static int FindPlayerRemainDailyCount(TStageData stageData)
-    {
-        int remainDailyCount = stageData.DailyChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
-        return Mathf.Max(0, remainDailyCount); // 強迫數值大於等於 0.
-    }
-
-    public static bool VerifyPlayer(TStageData stageData)
+    public static bool VerifyQualification(TStageData stageData)
     {
         string errMsg;
-        return VerifyPlayer(stageData, out errMsg);
+        return VerifyQualification(stageData, out errMsg);
     }
 
     /// <summary>
@@ -26,15 +18,18 @@ public static class UIStageTools
     /// <param name="stageData"></param>
     /// <param name="errMsg"></param>
     /// <returns></returns>
-    public static bool VerifyPlayer(TStageData stageData, out string errMsg)
+    public static bool VerifyQualification(TStageData stageData, out string errMsg)
     {
-        if(!VerifyPlayerCost(stageData, out errMsg))
+        if(!VerifyCost(stageData, out errMsg))
             return false;
 
         if(!VerifyPlayerDailyCount(stageData, out errMsg))
             return false;
 
         if(!VerifyPlayerChallengeOnlyOnce(stageData, out errMsg))
+            return false;
+
+        if(!VerifyPlayerMission(stageData, out errMsg))
             return false;
 
         errMsg = String.Empty;
@@ -47,7 +42,7 @@ public static class UIStageTools
     /// <param name="stageData"></param>
     /// <param name="errMsg"></param>
     /// <returns> true: 進入關卡的體力足夠; false: 不可進入關卡. </returns>
-    public static bool VerifyPlayerCost(TStageData stageData, out string errMsg)
+    public static bool VerifyCost(TStageData stageData, out string errMsg)
     {
         errMsg = String.Empty;
 
@@ -60,8 +55,8 @@ public static class UIStageTools
                     return false;
                 }
                 break;
-            //            case TStageData.ECostKind.Activity:
-            //            case TStageData.ECostKind.Challenger:
+//            case TStageData.ECostKind.Activity:
+//            case TStageData.ECostKind.Challenger:
             default:
                 throw new NotImplementedException();
         }
@@ -70,7 +65,7 @@ public static class UIStageTools
 
     public static bool VerifyPlayerDailyCount(TStageData stageData, out string errMsg)
     {
-        var isCanPlay = FindPlayerRemainDailyCount(stageData) > 0;
+        var isCanPlay = UIStageHelper.FindPlayerRemainDailyCount(stageData) > 0;
         errMsg = isCanPlay ? String.Empty : TextConst.S(231);
         return isCanPlay;
     }
@@ -111,7 +106,7 @@ public static class UIStageTools
     /// </summary>
     /// <param name="stageData"></param>
     /// <param name="errMsg"></param>
-    /// <returns> true: 關卡可以打; false: 關卡不能打. </returns>
+    /// <returns> true: 驗證通過, 關卡可能可以打; false: 關卡不能打. </returns>
     public static bool VerifyPlayerChallengeOnlyOnce(TStageData stageData, out string errMsg)
     {
         errMsg = String.Empty;
@@ -136,5 +131,25 @@ public static class UIStageTools
             errMsg = TextConst.S(9250);
 
         return result;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <param name="errMsg"></param>
+    /// <returns> true: 驗證通過, 關卡可能可以打; false: 關卡不能打. </returns>
+    public static bool VerifyPlayerMission(TStageData stageData, out string errMsg)
+    {
+        errMsg = String.Empty;
+        if(!GameData.DMissionData.ContainsKey(stageData.MissionLimit))
+            return true; // 沒有任務限制.
+
+        TMission mission = GameData.DMissionData[stageData.MissionLimit];
+        bool missionFinished = GameData.Team.MissionFinished(ref mission);
+        if(!missionFinished)
+            errMsg = TextConst.S(541);
+
+        return missionFinished;
     }
 }

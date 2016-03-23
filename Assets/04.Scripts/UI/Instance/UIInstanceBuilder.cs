@@ -40,17 +40,17 @@ public static class UIInstanceBuilder
             Money = stageData.Money,
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
-            RemainDailyCount = string.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData)),
+            RemainDailyCount = string.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
             ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
                         GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
                         GameData.Team.Player.NextInstanceIDs[stageData.Chapter] > stageData.ID,
-            ShowMask = UIStageTools.VerifyPlayerProgress(stageData)
+            ShowMask = UIStageVerification.VerifyPlayerProgress(stageData)
         };
 
         string errMsg;
-        data.StartEnable = UIStageTools.VerifyPlayer(stageData, out errMsg);
+        data.StartEnable = UIStageVerification.VerifyQualification(stageData, out errMsg);
         data.ErrorMsg = errMsg;
-        data.ShowBuyPower = !UIStageTools.VerifyPlayerCost(stageData, out errMsg);
+        data.ShowBuyPower = !UIStageVerification.VerifyCost(stageData, out errMsg);
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
 

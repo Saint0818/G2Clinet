@@ -552,6 +552,12 @@
         "en": "Can not Reset CD"
     },
     {
+        "id": 541,
+        "explain": "關卡條件未達城",
+        "tw": "任務條件尚未完成。",
+        "en": "Conditions has not been completed."
+    },
+    {
         "id": 550,
         "explain": "按鈕狀態"
     },
@@ -1919,7 +1925,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,

@@ -117,7 +117,7 @@ public class UIMainStage : UIBase
         }
 
         string errMsg;
-        if(UIStageTools.VerifyPlayer(stageData, out errMsg))
+        if(UIStageVerification.VerifyQualification(stageData, out errMsg))
         {
 //            UIMainStageDebug debug = new UIMainStageDebug();
 //            debug.SendCommand(stageID);
@@ -225,8 +225,8 @@ public class UIMainStage : UIBase
             Exp = stageData.Exp,
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
-            RemainDailyCount = String.Format(TextConst.S(9312), UIStageTools.FindPlayerRemainDailyCount(stageData)),
-            StartEnable = UIStageTools.VerifyPlayer(stageData),
+            RemainDailyCount = String.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
+            StartEnable = UIStageVerification.VerifyQualification(stageData),
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
 
@@ -238,10 +238,10 @@ public class UIMainStage : UIBase
         {
             IsSelected = stageData.ID == GameData.Team.Player.NextMainStageID
         };
-        elementData.IsEnable = UIStageTools.VerifyPlayerProgress(stageData, out elementData.ErrMsg);
+        elementData.IsEnable = UIStageVerification.VerifyPlayerProgress(stageData, out elementData.ErrMsg);
         if(elementData.IsEnable) // 再一次驗證關卡是不是只能打一次.
         {
-            elementData.IsEnable = UIStageTools.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
+            elementData.IsEnable = UIStageVerification.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
             elementData.ShowClear = !elementData.IsEnable;
         }
 
