@@ -94,16 +94,22 @@ public class ReboundCurveCounter
             }
             else
             {
-                if (curveTime < 0.7f && reboundMove != Vector3.zero)
-                {
-                    self.transform.position = new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale, 
-                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-                        self.transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
-                }
-                else
-                    self.transform.position = new Vector3(self.transform.position.x + self.transform.forward.x * 0.05f, 
-                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-                        self.transform.position.z + self.transform.forward.z * 0.05f);
+				if(self.transform.position.y > 0.2f) {
+					if (curveTime < 0.7f && reboundMove != Vector3.zero)
+					{
+						self.transform.position = new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale, 
+							Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
+							self.transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
+					}
+					else
+						self.transform.position = new Vector3(self.transform.position.x + self.transform.forward.x * 0.05f, 
+							Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
+							self.transform.position.z + self.transform.forward.z * 0.05f);
+				} else {
+					self.transform.position = new Vector3(self.transform.position.x, 
+						Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
+						self.transform.position.z);
+				}
             }
 
             if (curveTime >= Curve.LifeTime)
