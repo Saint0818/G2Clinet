@@ -170,6 +170,7 @@ public class UIMall : UIBase {
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
 			spendType = EPickSpendType.FIVE.GetHashCode();
+			chooseIndex = mallBoxs[result].mIndex;
 			if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse))
 				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		}
@@ -179,6 +180,7 @@ public class UIMall : UIBase {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
 			choosePickCost = mallBoxs[result].mPickCost;
+			chooseIndex = mallBoxs[result].mIndex;
 			spendType = EPickSpendType.TEN.GetHashCode();
 			if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse))
 				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);

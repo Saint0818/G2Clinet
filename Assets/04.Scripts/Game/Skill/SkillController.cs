@@ -681,7 +681,7 @@ public class SkillController : MonoBehaviour {
 			case 160://Block
 				if(GameController.Get.Situation == EGameSituation.NPCAttack && GameController.Get.BallState == EBallState.CanBlock) return true;
 				break;
-			case 161:
+			case 161://灌籃剋星
 				if(GameController.Get.Situation == EGameSituation.NPCAttack && GameController.Get.BallState == EBallState.CanDunkBlock) return true;
 				break;
 			default:
