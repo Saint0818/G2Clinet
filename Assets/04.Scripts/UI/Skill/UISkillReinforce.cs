@@ -255,7 +255,8 @@ public class UISkillReinforce : UIBase {
 		//Reinforce
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			//Reinforce
-			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
+			reinEvoTabs[0].CheckRedPoint = false;
+//			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
 			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
 			//Evolution
 			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar) && 
