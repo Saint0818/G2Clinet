@@ -40,7 +40,15 @@ namespace GameStruct
         public int[] Achievements;
         public Dictionary<int, int> GotItemCount; //key: item id, value: got number
         public Dictionary<int, int> GotAvatar; //key: item id, value: 1 : got already
+
         public Dictionary<int, int> MissionLv; //key: mission id, value: lv
+        public int GetMissionLv(int missionID)
+        {
+            if(MissionLv.ContainsKey(missionID))
+                return MissionLv[missionID];
+            return 0;
+        }
+
         private bool needForSyncRecord;
         public TTeamRecord LifetimeRecord;
         public TDailyCount DailyCount;
@@ -579,6 +587,16 @@ namespace GameStruct
             }
 
             return 0;
+        }
+
+        public bool MissionFinished(int id)
+        {
+            if(GameData.DMissionData.ContainsKey(id))
+            {
+                TMission mission = GameData.DMissionData[id];
+                return MissionFinished(ref mission);
+            }
+            return false;
         }
 
         public bool MissionFinished(ref TMission mission) {

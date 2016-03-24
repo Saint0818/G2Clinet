@@ -1127,7 +1127,20 @@ namespace GameStruct
         public int TimeKind;
         public int TimeValue;
         public int SpendKind;
+
         public int[] Value;
+
+        public int GetAppropriateValue(int value)
+        {
+            for(var i = 0; i < Value.Length; i++)
+            {
+                if(value < Value[i])
+                    return Value[i];
+            }
+
+            return Value[Value.Length - 1];
+        }
+
         public int[] Money;
         public int[] Exp;
         public int[] Diamond;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -243,6 +244,23 @@ public class UIMainStage : UIBase
         {
             elementData.IsEnable = UIStageVerification.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
             elementData.ShowClear = !elementData.IsEnable;
+        }
+
+        infoData.MissionVisible = GameData.DMissionData.ContainsKey(stageData.MissionLimit) &&
+                                  !GameData.Team.MissionFinished(stageData.MissionLimit);
+        if(infoData.MissionVisible)
+        {
+            TMission mission = GameData.DMissionData[stageData.MissionLimit];
+            infoData.MissionTitle = mission.Name;
+            infoData.MissionDesc = mission.Explain;
+            infoData.MissionCurrentValue = 
+                    GameData.Team.GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
+            infoData.MissionGoalValue = mission.GetAppropriateValue(infoData.MissionCurrentValue);
+            infoData.MissionAction = () =>
+            {
+                Hide();
+                UI2D.Get.OpenUI(mission.OpenUI);
+            };
         }
 
         if(stageData.Kind != 9)

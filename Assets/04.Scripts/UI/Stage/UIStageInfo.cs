@@ -54,6 +54,13 @@ public class UIStageInfo : MonoBehaviour
         /// 開始按鈕可不可以點選.
         /// </summary>
         public bool StartEnable;
+
+        public bool MissionVisible;
+        public string MissionTitle;
+        public string MissionDesc;
+        public int MissionCurrentValue; // 任務目前的數值.
+        public int MissionGoalValue; // 達成任務所需的數值.
+        public Action MissionAction; // 任務的前往按鈕按下後會執行的行為.
     }
 
     public GameObject Window;
@@ -71,6 +78,12 @@ public class UIStageInfo : MonoBehaviour
     public UILabel RewardExp;
     public UILabel RewardTitle;
     public UILabel DailyCount; // 每日限制的數值.
+    public GameObject MissionObj;
+    public UILabel MissionTitle;
+    public UILabel MissionDesc;
+    public UILabel MissionValue;
+    public UISlider MissionProgress;
+    public UIButton MissionButton;
 
     // 按鈕旁邊圖示和數值.
     public UISprite CostSprite;
@@ -84,6 +97,7 @@ public class UIStageInfo : MonoBehaviour
     private int mStageID;
 
     private UIStageHint mHint;
+    private Action mMissionAction;
 
     [UsedImplicitly]
 	void Awake()
@@ -95,6 +109,18 @@ public class UIStageInfo : MonoBehaviour
             var obj = UIPrefabPath.LoadUI(UIPrefabPath.ItemAwardGroup, RewardParents[i]);
             mRewardIcons.Add(obj.GetComponent<ItemAwardGroup>());
         }
+
+        StartButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(StartListener != null)
+                StartListener(mStageID);
+        }));
+
+        MissionButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(mMissionAction != null)
+                mMissionAction();
+        }));
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -139,16 +165,17 @@ public class UIStageInfo : MonoBehaviour
         RewardExp.text = string.Format("{0}", data.Exp);
 
         DailyCount.text = data.RemainDailyCount;
+
+        MissionObj.SetActive(data.MissionVisible);
+        MissionTitle.text = data.MissionTitle;
+        MissionDesc.text = data.MissionDesc;
+        MissionValue.text = string.Format("{0}/{1}", data.MissionCurrentValue, data.MissionGoalValue);
+        MissionProgress.value = data.MissionCurrentValue / (float)data.MissionGoalValue;
+        mMissionAction = data.MissionAction;
     }
 
     public void Hide()
     {
         Window.SetActive(false);
-    }
-
-    public void OnStartClick()
-    {
-        if(StartListener != null)
-            StartListener(mStageID);
     }
 }
