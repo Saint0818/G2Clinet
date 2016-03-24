@@ -87,7 +87,7 @@ public class FileManager : KnightSingleton<FileManager>
         "greatplayer", "tactical", "baseattr", "ballposition", "skill", "stage", "item", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
         "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
-        "lifetime", "potential"
+        "lifetime", "potential", "diamonds"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -227,7 +227,7 @@ public class FileManager : KnightSingleton<FileManager>
 		downloadCallBack[25] = ParseSuitItem;
         downloadCallBack[26] = parseLifeTimeData;
         downloadCallBack[27] = ParsePotentital;
-
+        downloadCallBack[28] = ParseDiamonds;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -937,5 +937,13 @@ public class FileManager : KnightSingleton<FileManager>
         } catch (System.Exception ex) {
             Debug.LogError ("[Potentital parsed error] " + ex.Message);
         }
+    }
+
+    public void ParseDiamonds(string version, string jsonText, bool isSaveVersion)
+    {
+        DiamondsTable.Ins.Load(jsonText);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(jsonText, "diamonds", version);
     }
 }
