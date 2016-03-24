@@ -126,7 +126,16 @@
         SuitItem = 27,
         SkillEvolution = 21,
         SkillReinforce = 22,
-		ThirdActive = 11
+		ThirdActive = 11,
+		OperateBasket = 51,
+		OperateAdvertisement = 52,
+		OperateStore = 53,
+		OperateGym = 54,
+		OperateDoor = 55,
+		OperateLogo = 56,
+		OperateChair = 57,
+		OperateCalendar = 58,
+		OperateMail = 59
     }
 
     public enum EPlayerPostion

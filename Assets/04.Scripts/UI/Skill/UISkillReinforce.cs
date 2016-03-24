@@ -685,6 +685,12 @@ public class UISkillReinforce : UIBase {
 						recordGreenExp,
 						reinforceExp);
 					
+					if(reinforceExp > 500) 
+						addInterVal = 30;
+					else if(reinforceExp > 100)
+						addInterVal = 10;
+					else 
+						addInterVal = 5;
 					
 					if(reinforceExp >= addInterVal)
 						reinforceExp -= addInterVal;

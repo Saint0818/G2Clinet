@@ -94,8 +94,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
     private void OnSelect()
     {
-//		//TODO: it's not open yet.
-		return;
+////		//TODO: it's not open yet.
+//		return;
         if (delay > 0)
             return;
 
@@ -103,37 +103,50 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
         if (!UITutorial.Visible && int.TryParse(UIButton.current.name, out index))
         {
-            if (selectIndex == index)
-            {
-                //back 
-                selectIndex = -1;
-                SetCameraAnimator(index, false);
-                UpdateButtonCollider(index, true);
-                UIMainLobby.Get.Main.PlayEnterAnimation();
-                delay = 1;
-            }
-            else
-            {
-                //go
-                if (selectIndex == -1)
-                {
-                    if (index == 0)
-                    {
-                        Play();
-                    }
-                    else
-                    {
-                        selectIndex = index;
-                        SetCameraAnimator(index, true);
-                        UpdateButtonCollider(index, false);
-                        UIMainLobby.Get.Main.PlayExitAnimation();
-                        delay = 1;
-                    }
-                }
-            }
-            AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
+			if(index == 0)
+				return;
+
+			if(LimitTable.Ins.HasByOpenID(GetEOpenID(index + 50))) {
+				if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GetEOpenID(index + 50))) {
+					if (selectIndex == index)
+					{
+						//back 
+						selectIndex = -1;
+						SetCameraAnimator(index, false);
+						UpdateButtonCollider(index, true);
+						UIMainLobby.Get.Main.PlayEnterAnimation();
+						delay = 1;
+					}
+					else
+					{
+						//go
+						if (selectIndex == -1)
+						{
+							if (index == 0)
+							{
+								Play();
+							}
+							else
+							{
+								selectIndex = index;
+								SetCameraAnimator(index, true);
+								UpdateButtonCollider(index, false);
+								UIMainLobby.Get.Main.PlayExitAnimation();
+								delay = 1;
+							}
+						}
+					}
+					AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
+				} else
+					UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
+			} 
         }
     }
+
+	private EOpenID GetEOpenID(int index)
+	{
+		return ((EOpenID)index);
+	}
 
     private void Play()
     {
