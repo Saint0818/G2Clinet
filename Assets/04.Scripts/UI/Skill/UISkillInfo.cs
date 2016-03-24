@@ -197,6 +197,8 @@ public class UISkillInfo : UIBase {
 			RefreshUICard(uicard);
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
 			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard));
+			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
 		}
 	}
 
@@ -208,8 +210,10 @@ public class UISkillInfo : UIBase {
 		Refresh(skill, -1);
 
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
+//			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard)));
+//			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(false);
+			goSuitItem.gameObject.SetActive(false);
 		}
 	}
 
@@ -339,6 +343,8 @@ public class UISkillInfo : UIBase {
         if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
 			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard));
+			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
 		}
 	}
 
