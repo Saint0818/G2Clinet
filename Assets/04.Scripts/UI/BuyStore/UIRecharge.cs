@@ -133,7 +133,7 @@ public struct TItemRecharge {
 		else
 			SaleLabel.gameObject.SetActive(false);
 		
-		ItemIcon.spriteName = itemKindIconName(mall.Order);
+		ItemIcon.spriteName = itemKindIconName(index);
 		ItemNameLabel.text = mall.Name;
 		ValueLabel.text = mall.Diamond.ToString();
 	}
@@ -161,8 +161,8 @@ public struct TItemRecharge {
 	}
 
 	private string itemKindIconName (int pic) {
-		if(pic > 0 && pic <= 2)
-			return "MallGem"+pic;
+		if(pic >= 0 && pic <= 5)
+			return "MallGem"+(pic + 1);
 		return "MallGem1";
 	}
 }
