@@ -386,11 +386,10 @@ public class UISkillFormation : UIBase {
 		tabLock = GameObject.Find(UIName + "/Top/Tabs/1/Lock");
 		ClickTab(0);
 		initCards ();
+		PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
 		UpdateSort();
 		refreshFrameCount ();
 		CardDragFinish();
-
-
 		//企劃說目前不需要所以先隱藏(20160309)
 		labelFrameCount.gameObject.SetActive(false);
 		GameObject.Find(UIName + "/Center/SellBtn").SetActive(false);
@@ -1468,6 +1467,7 @@ public class UISkillFormation : UIBase {
 
 		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
 		sortSkillFilter(eFilter);
+
 		switch(eFilter) {
 			case (int)EFilter.All:
 				toggleCheckBoxSkill[0].value = true;

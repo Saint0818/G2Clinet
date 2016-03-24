@@ -55,8 +55,22 @@ public struct TItemSuitCardGroup {
 	}
 
 	public void RefreshView() {
-		for (int i=0; i<GameData.DSuitCard[suitID].Items.Length;i ++) 
-			SuitCards[i].IsCanUseForSuit = !GameData.Team.IsGetItem(GameData.DSuitCard[suitID].Items[i]);
+		isAllGet = true;
+
+		for (int i=0; i<GameData.DSuitCard[suitID].Items.Length;i ++) {
+			if(GameData.DItemData.ContainsKey(GameData.DSuitCard[suitID].Items[i])) { 
+				SuitCards[i].UpdateViewItemDataForSuit(GameData.DItemData[GameData.DSuitCard[suitID].Items[i]]);
+				SuitCards[i].IsCanUseForSuit = !GameData.Team.IsGetItem(GameData.DSuitCard[suitID].Items[i]);
+				if(!GameData.Team.IsGetItem(GameData.DSuitCard[suitID].Items[i]))
+					isAllGet = false;
+			} 
+			else {
+				Debug.LogError("no ID:" + GameData.DSuitCard[suitID].Items[i]);
+				SuitCards[i].Enable = false;
+			}
+		}
+
+		SetUseColor(isAllGet, false);
 	}
 
 	public bool UpdateView (int id, int index, Transform parent, bool isExecute) {
@@ -107,7 +121,20 @@ public struct TItemSuitCardGroup {
 	}
 
 	public bool IsAllGet {
-		get {return isAllGet;}
+		get {	
+			bool isGet = true;
+			for (int i=0; i<GameData.DSuitCard[suitID].Items.Length;i ++) {
+				if(GameData.DItemData.ContainsKey(GameData.DSuitCard[suitID].Items[i])) { 
+					if(!GameData.Team.IsGetItem(GameData.DSuitCard[suitID].Items[i]))
+						isGet = false;
+				} 
+				else {
+					isGet = false;
+					Debug.LogError("no ID:" + GameData.DSuitCard[suitID].Items[i]);
+				}
+			}
+			return isGet;
+		}
 	}
 
 	public int SuitID {
