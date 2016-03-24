@@ -1491,7 +1491,8 @@ public class UIGame : UIBase
 
                 SetPassButton();
                 CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Start);
-                GameController.Get.StartGame();
+				GameController.Get.StartGame();
+				RefreshSkillUI();
                 initJoystickPos();
 //			drawLine.IsShow = false;
                 break;

@@ -667,7 +667,7 @@ public class GameController : KnightSingleton<GameController>
             }
         }
 		UIGame.Get.InitPlayerSkillUI(Joysticker);
-		UIGame.Get.RefreshSkillUI();
+//		UIGame.Get.RefreshSkillUI();
 
         Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i++)
@@ -2289,13 +2289,13 @@ public class GameController : KnightSingleton<GameController>
 							else 
 								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
 						}
-                        else if(disKind == 2)
-						{
-							if(rate == 1)
-								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
-							else
-								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
-						}						
+//                        else if(disKind == 2)
+//						{
+//							if(rate == 1)
+//								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+//							else
+//								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+//						}						
 						else
 						{
                             // 這其實是重複的程式碼 ....
@@ -2308,14 +2308,16 @@ public class GameController : KnightSingleton<GameController>
                     else if(dis <= GameConst.MiddleDistance)
 					{
 						// 中距離傳球.
-						if(disKind == 1)
-						{
-							if(rate == 1)
-								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
-							else
-								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
-						}
-                        else if(disKind == 2)
+
+//						if(disKind == 1)
+//						{
+//							if(rate == 1)
+//								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
+//							else
+//								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass2, catchPlayer.PlayerRefGameObject.transform.position);
+//						}
+//                        else 
+						if(disKind == 2)
 						{
 							if(rate == 1)
 								result = BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass1, catchPlayer.PlayerRefGameObject.transform.position);
@@ -2432,7 +2434,6 @@ public class GameController : KnightSingleton<GameController>
 					addAngle = 90;
 				}
 
-
 				if (StageData.IsTutorial) {
 					addRate = 100;
 					addAngle = 360;
@@ -2452,7 +2453,6 @@ public class GameController : KnightSingleton<GameController>
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						//抄截成功直接嗆到手上（20160215）
 						SetBall(player);
-//						if(player == Joysticker || BallOwner == Joysticker)
 						ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 
 						player.GameRecord.Steal++;
@@ -2671,11 +2671,6 @@ public class GameController : KnightSingleton<GameController>
     {
 		return player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBallObj.transform.position);
 	}
-	
-//	public bool OnRebound(PlayerBehaviour player)
-//    {
-//        return true;
-//    }
 	
     /// <summary>
     /// 只有攻守交換的時候才會被呼叫. 叫球員照著戰術路線跑.
@@ -4388,8 +4383,21 @@ public class GameController : KnightSingleton<GameController>
 			Joysticker.SetToAI();
 
 		//要讓玩家隨關卡變化AI等級，所以需要再重設一次
-		Joysticker.Attribute.AILevel = StageData.PlayerAI;
-		Joysticker.InitAttr();
+//		Joysticker.Attribute.AILevel = StageData.PlayerAI;
+//		Joysticker.InitAttr();
+		for(int i=0; i<PlayerList.Count; i++) {
+			if(PlayerList[i].Team == ETeamKind.Self) {
+				if(StageData.PlayerAI != 0) {
+					PlayerList[i].Attribute.AILevel = StageData.PlayerAI;
+					PlayerList[i].InitAttr();
+				}
+			} else {
+				if(StageData.OppenentAI != 0) {
+					PlayerList[i].Attribute.AILevel = StageData.OppenentAI;
+					PlayerList[i].InitAttr();
+				}
+			}
+		}
 	}
 
     public void SetAllPlayerLayer (string layerName){

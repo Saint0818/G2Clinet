@@ -90,9 +90,14 @@ public class TStageData
 	private int[] hintBit = new int[0];
 
 	/// <summary>
-	/// 玩家本身該有的AI等級
+	/// 玩家與隊友本身該有的AI等級
 	/// </summary>
 	public int PlayerAI;
+
+	/// <summary>
+	/// 對手的AI等級.
+	/// </summary>
+	public int OppenentAI;
 
     public enum ECostKind
     {

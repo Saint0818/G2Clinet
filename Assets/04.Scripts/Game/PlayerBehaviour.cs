@@ -256,7 +256,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (SlowDownTime == 0)
         {
             SlowDownTime += Time.time + Value;
-//            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue * GameConst.SlowDownValue;
+			Attr.SpeedValue = Mathf.Max(GameData.BaseAttr[Attribute.AILevel].SpeedValue * GameConst.SlowDownValue, GameConst.SlowDownValueMin);
         }
     }
 
@@ -631,6 +631,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             SlowDownTime = 0;
 //            Attr.SpeedValue = GameData.BaseAttr[Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
+			Attr.SpeedValue = GameConst.SpeedValueMin + GameFunction.GetAttributeFormula(EPlayerAttributeRate.SpeedValue, (Attribute.Speed + GameData.BaseAttr[Attribute.AILevel].SpeedValue));
         }
 
         if (mManually.IsOff())
@@ -1588,7 +1589,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.KnockDown0:
             case EPlayerState.KnockDown1:
 
-                if (!IsTee && !IsFall && !IsUseActiveSkill)
+				if (!IsTee && !IsFall ) //&& !IsUseActiveSkill (主動技可以被蓋)
                     return true;
                 break;
 
@@ -1794,10 +1795,10 @@ public class PlayerBehaviour : MonoBehaviour
        
         CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Dunk0, this);
 
-        if (stateNo == 0 || stateNo == 1 || stateNo == 3 || stateNo == 5 || stateNo == 7)
-        {
+//        if (stateNo == 0 || stateNo == 1 || stateNo == 3 || stateNo == 5 || stateNo == 7)
+//        {
             GameController.Get.BallState = EBallState.CanDunkBlock;
-        }
+//        }
             
 
         if (OnDunkJump != null)
@@ -2716,8 +2717,10 @@ public class PlayerBehaviour : MonoBehaviour
                 CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
                 break;
             case "Shooting":
-                CourtMgr.Get.IsRealBallActive = true;
-                GameController.Get.BallState = EBallState.None;
+				CourtMgr.Get.IsRealBallActive = true;
+				//主動技也可以被蓋 (20160323)
+//                GameController.Get.BallState = EBallState.None;//主動技要可以被蓋所以註解
+				GameController.Get.BallState = EBallState.CanBlock;
 				if (GameController.Get.ShootDistance >= GameConst.Point3Distance)
 					GameRecord.FG3++;
 				else
@@ -2979,8 +2982,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanUseActiveSkill(ActiveSkillUsed) || GameStart.Get.TestMode == EGameTest.Skill)
         {
-            if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && PlayerSkillController.IsGetBuff(ActiveSkillUsed.ID))
-                return false;
+//            if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && PlayerSkillController.IsGetBuff(ActiveSkillUsed.ID))
+//                return false;
 
             GameRecord.Skill++;
             SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
