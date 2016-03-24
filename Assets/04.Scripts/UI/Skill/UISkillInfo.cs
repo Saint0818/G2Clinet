@@ -148,7 +148,7 @@ public class UISkillInfo : UIBase {
 		UIEventListener.Get(goSuitItem.gameObject).onClick = OnSuitItem;
 
 		SetBtnFun(UIName + "/Center/BG", OnClose);
-		SetBtnFun(UIName + "/Center/BottomRight/BackBtn", OnClose);
+		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 		SetBtnFun(UIName + "/Center/TopRight/EquipBtn", OnEquip);
 		SetBtnFun(UIName + "/Center/TopRight/CraftingBtn", OnCrafting);
 		SetBtnFun(UIName + "/Center/TopRight/UpgradeBtn", OnUpgrade);

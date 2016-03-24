@@ -1202,8 +1202,6 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                 {
                     transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * timeScale);
-                    //                            transform.Translate(transform.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * timeScale);
-                    //                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * timeScale);
                     AniState(EPlayerState.Run0);
                     isSpeedup = false;
                 }
