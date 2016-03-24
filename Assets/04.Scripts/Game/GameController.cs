@@ -125,7 +125,7 @@ public class GameController : KnightSingleton<GameController>
 	private TTacticalAction[] tacticalActions;
 
 	//Shoot
-	private int shootAngle = 55;
+	private float shootAngle = 55;
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;
 	private EDoubleType doubleType = EDoubleType.None;
@@ -1908,8 +1908,7 @@ public class GameController : KnightSingleton<GameController>
 				shootAngle = 50;
 
 			if(isActive) {
-//				ShootDistance = 30;
-				shootAngle = 65;
+				shootAngle = 66 - (ShootDistance * 0.6f);
 				scoreType = EScoreType.UpHand;
 			}
 

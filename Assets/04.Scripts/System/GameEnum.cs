@@ -96,7 +96,8 @@
 
     public enum ETestActive
     {
-        Block20 = 11600,
+		Block20 = 11600,
+		DunkBlock20 = 11610,
         Buff20 = 12100,
         Buff21 = 12150,
         Elbow20 = 11800,

@@ -783,7 +783,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	}
 
-	public void RealBallShoot (PlayerBehaviour player, int shootAngle, float ShootDistance) {
+	public void RealBallShoot (PlayerBehaviour player, float shootAngle, float ShootDistance) {
 		if(GameController.Get.BasketSituation == EBasketSituation.AirBall) {
             LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, true);
 			RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
