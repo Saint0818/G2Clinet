@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class MainStageRewardAgainProtocol
+public class StageRewardAgainProtocol
 {
     public delegate void Action(bool ok, TStageRewardAgain reward);
     private Action mCallback;
@@ -25,6 +25,7 @@ public class MainStageRewardAgainProtocol
 
 //            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
 
+            GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
             GameData.Team.Player.Lv = reward.PlayerLv;

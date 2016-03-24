@@ -1,9 +1,12 @@
-﻿using System;
-using System.Text;
-using GameStruct;
+﻿using GameStruct;
 
 public class TStageRewardAgain
 {
+    /// <summary>
+    /// 帳號的體力.
+    /// </summary>
+    public int Power;
+
     /// <summary>
     /// 帳號的錢.
     /// </summary>

@@ -720,7 +720,7 @@ public class UIGameResult : UIBase {
 //		form.AddField("StageID", stageID);
 //		SendHttp.Get.Command(URLConst.MainStageRewardAgain, WaitMainStageRewardAgain, form);
 
-	    var again = new MainStageRewardAgainProtocol();
+	    var again = new StageRewardAgainProtocol();
         again.Send(stageID, waitMainStageRewardAgain);
 	}
 	

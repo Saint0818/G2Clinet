@@ -26,7 +26,7 @@ public class UIMainStageDebug
         Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
         Debug.Log(reward);
 
-        var again = new MainStageRewardAgainProtocol();
+        var again = new StageRewardAgainProtocol();
         again.Send(mStageID, waitMainStageRewardAgain);
     }
 
@@ -35,7 +35,7 @@ public class UIMainStageDebug
         Debug.LogFormat("waitMainStageRewardAgain, ok:{0}", ok);
         Debug.Log(reward);
 
-        var again = new MainStageRewardAgainProtocol();
+        var again = new StageRewardAgainProtocol();
         again.Send(mStageID, waitMainStageRewardAgain2);
     }
 
