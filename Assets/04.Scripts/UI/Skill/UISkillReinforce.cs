@@ -304,7 +304,6 @@ public class UISkillReinforce : UIBase {
 					obj = addItem(i, index, GameData.Team.SkillCards[i]);
 					if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID)) {
 						passiveSkillCards.Add(obj.Name, obj);
-//						reinforceGoCards.Add(obj.item);
 						if(GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind == 1) 
 							queueMaterial.Add(obj.item);
 						else if(GameData.DSkillData[GameData.Team.SkillCards[i].ID].Kind >= 200) 
@@ -327,8 +326,33 @@ public class UISkillReinforce : UIBase {
 		ScrollViewDragFinish ();
 	}
 
-	//我愛籃球黑幫 > Buff > 被動技 > 主動技
+	private string getCardID (string name) {
+		string[] names = name.Split("_"[0]);
+		return names[0];
+	}
+
+	private void bubbleSort (ref List<GameObject> cards) {
+		int a = 0;
+		int b = 0;
+		for(int i=0; i<cards.Count; i++) {
+			for (int j=i+1; j<cards.Count; j++){
+				if(int.TryParse(getCardID(cards[i].name), out a) && int.TryParse(getCardID(cards[j].name), out b)) {
+					if (a >= b){
+						GameObject temp = cards[i];
+						cards[i] = cards[j];
+						cards[j] = temp;
+					}
+				}
+			}
+		}
+	}
+	//我愛籃球黑幫 > Buff > 被動技>主動技
 	private void sortCard (ref List<GameObject> goCards) {
+		bubbleSort(ref queueMaterial);
+		bubbleSort(ref queueBuff);
+		bubbleSort(ref queuePassive);
+		bubbleSort(ref queueActive);
+
 		for(int i=0; i<queueMaterial.Count; i++)
 			goCards.Add(queueMaterial[i]);
 		for(int i=0; i<queueBuff.Count; i++)
