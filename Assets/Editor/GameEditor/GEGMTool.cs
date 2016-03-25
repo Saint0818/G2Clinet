@@ -841,7 +841,8 @@ public class GEGMTool : GEBase
     private void StageHandle()
     {
         setNextMainStageID();
-        resetStageChallengeNums();
+        resetStageDailyChallengeNums();
+        setStageDailyChallengeNum();
         resetInstanceIDs();
         setNextInstanceID();
     }
@@ -875,10 +876,10 @@ public class GEGMTool : GEBase
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
     }
 
-    private void resetStageChallengeNums()
+    private void resetStageDailyChallengeNums()
     {
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("每日關卡限制: ");
+        GUILayout.Label("每日關卡挑戰次數: ");
         if (GUILayout.Button("重置", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
@@ -899,6 +900,33 @@ public class GEGMTool : GEBase
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+    }
+
+    private int mStageID = 101;
+    private int mValue = 0;
+    private void setStageDailyChallengeNum()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("每日關卡挑戰次數: ");
+        mStageID = EditorGUILayout.IntField(mStageID, GUILayout.Width(100));
+        mValue = EditorGUILayout.IntField(mValue, GUILayout.Width(100));
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        {
+            var protocol = new GMSetStageDailyChallengeNumProtocol();
+            protocol.Send(mStageID, mValue, waitGMSetStageDailyChallengeNum);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMSetStageDailyChallengeNum(bool ok)
+    {
+        Debug.LogFormat("waitGMSetStageDailyChallengeNum, ok:{0}", ok);
+
+        if(ok)
+        {
+            updateUIMainStage();
+            updateUIInstance();
+        }
     }
 
     private void resetInstanceIDs()
@@ -961,7 +989,7 @@ public class GEGMTool : GEBase
 
     private void updateUIMainStage()
     {
-        if (UIMainStage.Get.Visible)
+        if(UIMainStage.Get.Visible)
         {
             UIMainStage.Get.Hide();
             UIMainStage.Get.Show();
@@ -970,7 +998,7 @@ public class GEGMTool : GEBase
 
     private void updateUIInstance(int chapter = 1)
     {
-        if (UIInstance.Get.Visible)
+        if(UIInstance.Get.Visible)
         {
             UIInstance.Get.Hide();
             UIInstance.Get.ShowByChapter(chapter);
