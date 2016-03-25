@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clickable="true" >
+    <LinearLayout
+        android:id="@+id/pubgame_payment_google_progress_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+        <ProgressBar
+            android:id="@+id/pubgame_payment_google_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/default_size"
+            android:layout_height="@dimen/default_size"
+            android:padding="@dimen/margin" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="載入中..."
+            android:textSize="@dimen/text_size" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/pubgame_payment_google_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Alert"
+        android:textColor="#ffff0000"
+        android:textSize="@dimen/text_size" />
+</FrameLayout>

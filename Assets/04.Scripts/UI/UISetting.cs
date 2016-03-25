@@ -122,7 +122,7 @@ public class LanguageView
 	
 	public void UpdateView()
 	{
-		int index = PlayerPrefs.GetInt(ESave.UserLanguage.ToString(), 0);
+        int index = language.GetHashCode();
 		for(int i = 0; i< btnsToggle.Length;i++)
 			btnsToggle[i].Set(i == index);
 

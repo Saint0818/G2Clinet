@@ -845,6 +845,8 @@ public class UIGame : UIBase
     public void DoShoot(GameObject go, bool state)
     {
         UIControllerState(EUIControl.Shoot, go, state);
+        if (GameData.StageID == 4 && UITutorial.Visible)
+            UITutorial.Get.OnClickHint();
     }
 
     public void DoPassChoose(GameObject obj, bool state)
@@ -1226,6 +1228,7 @@ public class UIGame : UIBase
                 uiPassObjectGroup[0].SetActive(false);
                 uiPassObjectGroup[1].SetActive(false);
                 uiPassObjectGroup[2].SetActive(false);
+
                 break;
             case EUIControl.Pass:
             case EUIControl.PassA:

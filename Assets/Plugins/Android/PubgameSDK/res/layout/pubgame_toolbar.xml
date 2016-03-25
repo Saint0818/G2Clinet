@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="#00000000" >
+    <!-- 
+     	<ListView
+            android:id="@+id/pgtools_gridview"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:gravity="center" >
+        </ListView>
+    
+    	<ImageButton
+    	    android:id="@+id/pgtools_button"
+    	    android:layout_width="32dp"
+    	    android:layout_height="64dp"
+    	    android:layout_gravity="right|center_vertical"
+    	    android:adjustViewBounds="true"
+    	    android:background="#00000000"
+    	    android:scaleType="fitCenter" /> -->
+
+</LinearLayout>

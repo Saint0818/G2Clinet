@@ -32,7 +32,11 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -1
+<<<<<<< HEAD
     wrapMode: 0
+=======
+    wrapMode: -1
+>>>>>>> Release-CB
   nPOTScale: 0
   lightmap: 0
   rGBM: 0

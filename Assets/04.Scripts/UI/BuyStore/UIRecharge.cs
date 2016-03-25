@@ -163,6 +163,7 @@ public struct TItemRecharge {
 	private string itemKindIconName (int pic) {
 		if(pic >= 0 && pic <= 5)
 			return "MallGem"+(pic + 1);
+        
 		return "MallGem1";
 	}
 }

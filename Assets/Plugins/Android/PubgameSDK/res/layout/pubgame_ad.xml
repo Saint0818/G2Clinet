@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:clickable="true" >
+    <WebView
+        android:id="@+id/pubgame_ad_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/pubgame_ad_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:id="@+id/pubgame_ad_progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal" >
+        <ProgressBar
+            android:id="@+id/pubgame_payment_webview_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/default_size"
+            android:layout_height="@dimen/default_size"
+            android:padding="@dimen/margin" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="載入中..."
+            android:textSize="@dimen/text_size" />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/pubgame_ad_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin" >
+        <Button
+            android:id="@+id/pubgame_ad_close"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="right"
+            android:clickable="false"
+            android:background="@drawable/cancel" />
+    </FrameLayout>
+</RelativeLayout>

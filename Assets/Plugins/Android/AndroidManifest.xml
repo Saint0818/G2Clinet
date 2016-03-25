@@ -20,16 +20,101 @@
             <meta-data android:name="android.app.lib_name" android:value="unity" />
             <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
         </activity>
-        <!-- UniWebView -->
-        <activity android:name="com.onevcat.uniwebview.AndroidPlugin" android:label="@string/app_name" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
-            <meta-data android:name="android.app.lib_name" android:value="unity" />
-            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+
+<!-- PubGame activity start -->
+	<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id" />
+	<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+        <activity android:name="com.pubgame.unityplugin.ExActivity"/>
+        <activity
+            android:name="com.pubgame.sdk.base.PubgameSdkActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
-        <activity android:name="com.onevcat.uniwebview.UniWebViewCustomViewActivity" android:label="@string/app_name" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
-            <meta-data android:name="android.app.lib_name" android:value="unity" />
-            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+        <activity android:name="com.facebook.LoginActivity" >
         </activity>
-    <!--  pushwoosh  -->
+        <activity android:name="com.pubgame.sdk.base.widget.ActivityForDialog"
+            	  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+             ></activity>
+        <activity
+            android:name="com.pubgame.sdk.base.PubgameLogoActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop" >
+        </activity>
+	<activity 
+	    android:name="com.pubgame.sdk.base.toolbar.PubgamePopupActivity" 
+	    android:theme="@android:style/Theme.Dialog">
+	</activity>
+	<activity 
+	    android:name="com.pubgame.sdk.base.toolbar.PubgameMessageList" 
+	    android:theme="@android:style/Theme.Dialog">
+	</activity>
+		
+	   <activity android:name="com.pubgame.sdk.base.pubspace.FakeActivity"
+		android:noHistory="true"
+		android:theme="@android:style/Theme.Translucent"
+		android:launchMode="singleInstance"
+		android:label="@string/app_name">
+		<intent-filter>
+			<!--<action android:name="android.intent.action.VIEW" />-->
+			<category android:name="android.intent.category.DEFAULT" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<!-- Accepts URIs that begin with "http://example.com/gizmos” -->
+			<data android:scheme="http"
+				android:host="pubgame.tw"/>
+		</intent-filter>
+         </activity>
+
+        <receiver android:name="com.appsflyer.MultipleInstallBroadcastReceiver" android:exported="true">
+		<intent-filter>
+			<action android:name="com.android.vending.INSTALL_REFERRER" />
+		</intent-filter>
+	</receiver>
+       
+        <receiver
+            android:name="com.pubgame.sdk.base.PGCampaignTrackingReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        
+        <service android:enabled="true" android:name="com.pubgame.sdk.base.toolbar.PubgameWidgetService" />
+        
+        <receiver
+            android:name="com.pubgame.sdk.base.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" > 
+             	<intent-filter>
+                	<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                	<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                	<action android:name="com.google.android.c2dm.intent.GCM_RECEIVED_ACTION" />
+		</intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.pubgame.myandroid.PubspaceBroadcastReceiver">
+			<intent-filter>
+				<action android:name="com.pubgame.myandroid.PubspaceService"></action>
+			</intent-filter>
+        </receiver>
+        
+        <service android:name="com.pubgame.sdk.base.pubspace.PubspaceService"/>
+        <service android:name="com.pubgame.sdk.base.gcm.GcmIntentService" />    
+<!-- PubGame activity end -->
+
+<!-- UniWebView activity start -->
+	<activity android:name="com.onevcat.uniwebview.AndroidPlugin" android:label="@string/app_name" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
+	    <meta-data android:name="android.app.lib_name" android:value="unity" />
+	    <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+	</activity>
+	<activity android:name="com.onevcat.uniwebview.UniWebViewCustomViewActivity" android:label="@string/app_name" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
+	    <meta-data android:name="android.app.lib_name" android:value="unity" />
+	    <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+	</activity>
+<!-- UniWebView activity end -->
+
+<!--  pushwoosh activity start  -->
     <activity android:name="com.pushwoosh.richpages.RichPageActivity" />
     <activity android:name="com.pushwoosh.MessageActivity" />
     <activity android:name="com.pushwoosh.PushHandlerActivity" />
@@ -73,11 +158,33 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-<!-- pushwooshEnd   -->
+<!-- pushwoosh End   -->
     </application>
+<<<<<<< HEAD
     <uses-feature android:glEsVersion="0x00020000" />
     <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="23" />
     <!-- pushwooshEnd   -->
+=======
+
+    	<uses-feature android:glEsVersion="0x00020000" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="23" />
+
+<!-- PubGame permission start  -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+        <uses-permission android:name="android.permission.WAKE_LOCK" />
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+        <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+        <uses-permission android:name="com.android.vending.BILLING" />
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<!-- PubGame permission end  -->
+
+<!-- pushwoosh permission start   -->
+>>>>>>> Release-CB
     	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -102,4 +209,5 @@
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 	
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<!-- pushwoosh permission end   -->
 </manifest>

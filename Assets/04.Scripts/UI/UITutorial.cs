@@ -262,7 +262,7 @@ public class UITutorial : UIBase {
     		}
 
     		if (found) {
-    			buttonClick.onClick.Add(new EventDelegate(OnClickHint));
+                buttonClick.onClick.Add(new EventDelegate(OnClickHint));
     			buttonClick.name = obj.name;
     			Vector3 v = obj.transform.position;
     			v.x += offsetx;

@@ -69,7 +69,6 @@ public class UIMainStageMain : MonoBehaviour
         EnableFullScreenBlock = false;
 
         mMoveScrollView = GetComponent<UIMoveScrollView>();
-
         BackButton.onClick.Add(new EventDelegate(onBackClick));
 
         PreviousChapterButton.onClick.Add(new EventDelegate(() => moveToChapter(CurrentChapter - 1)));

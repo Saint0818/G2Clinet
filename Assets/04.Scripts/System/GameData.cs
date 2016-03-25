@@ -276,37 +276,13 @@ public static class GameData
                         break;
                     case ESave.UserLanguage: 
                         Setting.Language = ELanguage.EN;
-						#if UNITY_EDITOR
-							#if TW
-							GameData.Setting.Language = ELanguage.TW;
-							#endif
-							
-							#if CN
-							GameData.Setting.Language = ELanguage.CN;
-							#endif
-							
-							#if EN
-							GameData.Setting.Language = ELanguage.EN;
-							#endif
-							
-							#if JP
-							GameData.Setting.Language = ELanguage.JP;
-							#endif
-							
-						#else
-							switch (Application.systemLanguage) {
-							case SystemLanguage.ChineseTraditional:
-							case SystemLanguage.Chinese:
-								GameData.Setting.Language = ELanguage.TW;
-								break;
-							case SystemLanguage.ChineseSimplified:
-								GameData.Setting.Language = ELanguage.CN;
-								break;
-							case SystemLanguage.Japanese:
-								GameData.Setting.Language = ELanguage.JP;
-								break;
-							}
-						#endif
+                        switch (Application.systemLanguage) {
+                            case SystemLanguage.ChineseTraditional:
+                            case SystemLanguage.Chinese:
+                            case SystemLanguage.ChineseSimplified:
+                                GameData.Setting.Language = ELanguage.TW;
+                                break;
+                        }
                         break;
                     case ESave.ShowEvent:
                         Setting.ShowEvent = false;

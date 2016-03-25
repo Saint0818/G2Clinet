@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="payment_width">600dp</dimen>
+</resources>

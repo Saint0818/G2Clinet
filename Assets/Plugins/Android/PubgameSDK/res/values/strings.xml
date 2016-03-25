@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="pubgame_login_signup"><u>註冊新帳號</u></string>
+    <string name="app_name">MainActivity</string>
+	<string name="app_id">1512981095669848</string>
+	<string name="new_game">New Game</string>
+	<string name="help">Help</string>
+	<string name="button_text">button</string>
+	<string name="lorem_ipsum">1234</string>
+	<string name="title_template_step">Step Ipsum</string>
+</resources>

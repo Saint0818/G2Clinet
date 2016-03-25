@@ -29,7 +29,7 @@ public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
 	//public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
-	private const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.g2canada";
+    private const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.g2candan";
     private const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/g2.apk";
     private const string PubGameApk = "http://nicemarket.com.tw/assets/apk/g2pubgame.apk";
     private const string CanadaApk = "http://nicemarket.com.tw/assets/apk/g2canada.apk";
@@ -233,6 +233,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 						//Command(URLConst.CheckResetToday, waitResetToday);
 				}
 			}
+
+            if (GameData.Company == ECompany.NiceMarket)
+                StartCoroutine(hidePGTool());
 		}
 	}
 
@@ -467,6 +470,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
         return false;
     }
+
+    private IEnumerator hidePGTool() {
+        yield return new WaitForSeconds(2);
+
+        Pubgame.PubgameSdk.Get.SetPgToolsActive(false);
+    } 
 	
 	private void waitVersion(bool ok, WWW www) {
 		if (ok) {
@@ -476,8 +485,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     UIPubgame.Visible = true;
                     UIPubgame.Get.LoginHandle = waitPubgameLogin;
                     UILoading.UIShow(false);
-                } else
-				    SendLogin();
+                } else {
+                    SendLogin();
+                    //for pubgame login record
+                    if (GameData.Company == ECompany.NiceMarket)
+                        Pubgame.PubgameSdk.Get.InitSDK();
+                }
             } else {
 				UILoading.UIShow(false);
 				UIUpdateVersion.UIShow(true);
@@ -525,9 +538,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     StartCoroutine(longPollingSocialEvent(0));
                     StartCoroutine(longPollingWatchFriends(0));
 
-					UILoading.OpenUI = UILoading.OpenNotic;
+					//UILoading.OpenUI = UILoading.OpenNotic;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 				}
+
+                if (GameData.Company == ECompany.NiceMarket)
+                    Pubgame.PubgameSdk.Get.SetPgToolsActive(false);
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}

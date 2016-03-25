@@ -1,0 +1,7 @@
+<style name="CircleIndicator">
+    <item name="fillColor">@color/light_blue</item>
+    <item name="unselectedColor">@android:color/white</item>
+    <item name="centered">true</item>
+    <item name="strokeColor">@null</item>
+    <item name="pageColor">@android:color/white</item>
+</style>

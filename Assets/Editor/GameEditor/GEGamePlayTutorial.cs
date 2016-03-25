@@ -220,7 +220,7 @@ public class GEGamePlayTutorial : GEBase {
 					break;
 				case 8: //hint area
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "X");
-					events[i].Value2 = GUIIntEdit(events[i].Value2, "X");
+					events[i].Value2 = GUIIntEdit(events[i].Value2, "Z");
 					events[i].Value3 = GUIIntEdit(events[i].Value3, "Distance");
 					events[i].ConditionValue = GUIIntEdit(events[i].ConditionValue, "Team");
 					events[i].ConditionValue2 = GUIIntEdit(events[i].ConditionValue2, "PlayerIndex");

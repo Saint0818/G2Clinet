@@ -452,7 +452,7 @@ public class UISkillFormation : UIBase {
 			redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || CheckCardnoInstall);
 		else
 			redPoints[0].SetActive(isSurplusCost || GameData.Team.IsAnyCardReinEvo || CheckCardnoInstall);
-		
+        
 		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)));
 		tabLock.SetActive((LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SuitCard)));
 	}

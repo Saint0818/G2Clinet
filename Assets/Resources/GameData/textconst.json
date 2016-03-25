@@ -718,7 +718,7 @@
         "id": 1009,
         "explain": "抽包按鈕",
         "tw": "抽 卡",
-        "en": "CARD STORE"
+        "en": "LOTTERY BOX"
     },
     {
         "id": 1010,
@@ -1696,7 +1696,7 @@
         "id": 4001,
         "explain": "晶片收集",
         "tw": "晶片抽取",
-        "en": "CARD STORE"
+        "en": "LOTTERY BOX"
     },
     {
         "id": 4002,
