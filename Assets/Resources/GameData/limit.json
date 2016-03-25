@@ -67,8 +67,40 @@
         "openid": 54
     },
     {
+        "lv": 17,
+        "openid": 51
+    },
+    {
+        "lv": 18,
+        "openid": 52
+    },
+    {
+        "lv": 19,
+        "openid": 53
+    },
+    {
         "lv": 20,
         "openid": 10,
         "diamond": 200
+    },
+    {
+        "lv": 21,
+        "openid": 55
+    },
+    {
+        "lv": 22,
+        "openid": 56
+    },
+    {
+        "lv": 23,
+        "openid": 57
+    },
+    {
+        "lv": 24,
+        "openid": 58
+    },
+    {
+        "lv": 25,
+        "openid": 59
     }
 ]
