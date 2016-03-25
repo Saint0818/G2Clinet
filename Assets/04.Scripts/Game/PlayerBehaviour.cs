@@ -1744,7 +1744,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void BuffStateHandle(int stateNo)
     {
-//        StartSkillCamera(stateNo);
+        StartSkillCamera(stateNo);
         AnimatorControl.Play(EAnimatorState.Buff, stateNo, Team.GetHashCode());
     }
 

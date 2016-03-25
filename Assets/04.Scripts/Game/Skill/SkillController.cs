@@ -133,11 +133,11 @@ public class SkillController : MonoBehaviour {
 	private void updateSkillAttribute() {
 		if(skillAttribute.Count > 0) {
 			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-				if (skillAttribute [i].CDTime > 0 &&  !GameFunction.IsActiveSkill(skillAttribute [i].ID)) {
+				if (skillAttribute [i].CDTime > 0) {
 					skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 					if (skillAttribute [i].CDTime <= 0) {
 						executePlayer.SetAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
-						
+						skillBuff.RemoveBuff(i);
 						skillAttribute.RemoveAt(i);
 					}
 				}
@@ -718,6 +718,13 @@ public class SkillController : MonoBehaviour {
 					case 3://my all teammates
 						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
 							if (GameController.Get.GamePlayers[i].Team == executePlayer.Team) {
+								objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
+							}
+						}
+						break;
+					case 5://all opponent
+						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
+							if (GameController.Get.GamePlayers[i].Team != executePlayer.Team) {
 								objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 							}
 						}

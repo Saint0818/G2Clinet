@@ -1050,21 +1050,23 @@ public class GameController : KnightSingleton<GameController>
 			if(isOpen){
 				if(GUILayout.Button("Close"))
 					isOpen = false;
-				GUILayout.Label("PointRate2:"+ Joysticker.Attr.PointRate2);
-				GUILayout.Label("PointRate3:"+ Joysticker.Attr.PointRate3);
-				GUILayout.Label("StealRate:"+ Joysticker.Attr.StealRate);
-				GUILayout.Label("DunkRate:"+ Joysticker.Attr.DunkRate);
-				GUILayout.Label("TipInRate:"+ Joysticker.Attr.TipInRate);
-				GUILayout.Label("AlleyOopRate:"+ Joysticker.Attr.AlleyOopRate);
-				GUILayout.Label("StrengthRate:"+ Joysticker.Attr.StrengthRate);
-				GUILayout.Label("BlockPushRate:"+ Joysticker.Attr.BlockPushRate);
-				GUILayout.Label("ElbowingRate:"+ Joysticker.Attr.ElbowingRate);
-				GUILayout.Label("ReboundRate:"+ Joysticker.Attr.ReboundRate);
-				GUILayout.Label("BlockRate:"+ Joysticker.Attr.BlockRate);
-				GUILayout.Label("PushingRate:"+ Joysticker.Attr.PushingRate);
-				GUILayout.Label("PassRate:"+ Joysticker.Attr.PassRate);
-				GUILayout.Label("SpeedValue:"+ Joysticker.Attr.SpeedValue);
-				GUILayout.Label("StaminaValue:"+ Joysticker.Attr.StaminaValue);
+	if(Joysticker != null) {
+	GUILayout.Label("PointRate2:"+ Joysticker.Attr.PointRate2);
+	GUILayout.Label("PointRate3:"+ Joysticker.Attr.PointRate3);
+	GUILayout.Label("StealRate:"+ Joysticker.Attr.StealRate);
+	GUILayout.Label("DunkRate:"+ Joysticker.Attr.DunkRate);
+	GUILayout.Label("TipInRate:"+ Joysticker.Attr.TipInRate);
+	GUILayout.Label("AlleyOopRate:"+ Joysticker.Attr.AlleyOopRate);
+	GUILayout.Label("StrengthRate:"+ Joysticker.Attr.StrengthRate);
+	GUILayout.Label("BlockPushRate:"+ Joysticker.Attr.BlockPushRate);
+	GUILayout.Label("ElbowingRate:"+ Joysticker.Attr.ElbowingRate);
+	GUILayout.Label("ReboundRate:"+ Joysticker.Attr.ReboundRate);
+	GUILayout.Label("BlockRate:"+ Joysticker.Attr.BlockRate);
+	GUILayout.Label("PushingRate:"+ Joysticker.Attr.PushingRate);
+	GUILayout.Label("PassRate:"+ Joysticker.Attr.PassRate);
+	GUILayout.Label("SpeedValue:"+ Joysticker.Attr.SpeedValue);
+	GUILayout.Label("StaminaValue:"+ Joysticker.Attr.StaminaValue);
+	}
 			} else {
 				if(GUILayout.Button("Open"))
 					isOpen = true;
