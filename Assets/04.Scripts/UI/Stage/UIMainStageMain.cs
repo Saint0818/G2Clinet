@@ -11,7 +11,7 @@ using UnityEngine;
 /// <item> Call RemoveAllChapters() 將整個關卡介面重置. </item>
 /// <item> Call AddXXX() 加入章節和關卡. </item>
 /// <item> Call SelectChapter() 控制預設顯示哪一個章節. </item>
-/// <item> 向 UIStageInfo 註冊事件. </item>
+/// <item> 向 UIMainStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
 public class UIMainStageMain : MonoBehaviour
@@ -29,11 +29,11 @@ public class UIMainStageMain : MonoBehaviour
     /// <summary>
     /// Index 0: 第一章, Index 2: 第二章.
     /// </summary>
-    public UIStageInfo Info
+    public UIMainStageInfo Info
     {
-        get { return mInfo ?? (mInfo = GetComponent<UIStageInfo>()); }
+        get { return mInfo ?? (mInfo = GetComponent<UIMainStageInfo>()); }
     }
-    private UIStageInfo mInfo;
+    private UIMainStageInfo mInfo;
 
     public UIButton BackButton;
     public UIButton PreviousChapterButton;
@@ -69,6 +69,7 @@ public class UIMainStageMain : MonoBehaviour
         EnableFullScreenBlock = false;
 
         mMoveScrollView = GetComponent<UIMoveScrollView>();
+
         BackButton.onClick.Add(new EventDelegate(onBackClick));
 
         PreviousChapterButton.onClick.Add(new EventDelegate(() => moveToChapter(CurrentChapter - 1)));
@@ -237,8 +238,8 @@ public class UIMainStageMain : MonoBehaviour
         return localPos;
     }
 
-    public void AddStage(int chapter, int stageID, Vector3 localPos, UIStageElement.Data elementData, 
-                         UIStageInfo.Data infoData)
+    public void AddStage(int chapter, int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
+                         UIMainStageInfo.Data infoData)
     {
         if(mChapters.ContainsKey(chapter))
             mChapters[chapter].AddStage(stageID, localPos, elementData, infoData);
@@ -246,8 +247,8 @@ public class UIMainStageMain : MonoBehaviour
             Debug.LogErrorFormat("Chapter({0}) don't exist, you need call AddChapter() first.", chapter);
     }
 
-    public void AddBossStage(int chapter, int stageID, Vector3 localPos, UIStageElement.Data elementData, 
-                             UIStageInfo.Data data)
+    public void AddBossStage(int chapter, int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
+                             UIMainStageInfo.Data data)
     {
         if(mChapters.ContainsKey(chapter))
             mChapters[chapter].AddBossStage(stageID, localPos, elementData, data);
@@ -294,7 +295,7 @@ public class UIMainStageMain : MonoBehaviour
 
         SelectChapter(chapter);
 
-        UIStageElement element = mChapters[chapter].GetStageByID(stageID);
+        UIMainStageElement element = mChapters[chapter].GetStageByID(stageID);
         Info.Show(stageID, element.InfoData);
     }
 

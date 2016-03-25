@@ -53,7 +53,7 @@ public class UIStageChapter : MonoBehaviour
     /// <summary>
     /// key: StageID.
     /// </summary>
-    private readonly Dictionary<int, UIStageElement> mStages = new Dictionary<int, UIStageElement>();
+    private readonly Dictionary<int, UIMainStageElement> mStages = new Dictionary<int, UIMainStageElement>();
 
     private Animator mAnimator;
 
@@ -78,16 +78,16 @@ public class UIStageChapter : MonoBehaviour
         Open.SetActive(false);
     }
 
-    public void AddStage(int stageID, Vector3 localPos, UIStageElement.Data elementData, 
-                         UIStageInfo.Data infoData)
+    public void AddStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
+                         UIMainStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathStage, stageID, localPos));
         mStages[stageID].Set(elementData, infoData);
     }
 
-    public void AddBossStage(int stageID, Vector3 localPos, UIStageElement.Data elementData, 
-                             UIStageInfo.Data infoData)
+    public void AddBossStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
+                             UIMainStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
             mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
@@ -99,7 +99,7 @@ public class UIStageChapter : MonoBehaviour
         return mStages.ContainsKey(stageID);
     }
 
-    public UIStageElement GetStageByID(int stageID)
+    public UIMainStageElement GetStageByID(int stageID)
     {
         return mStages[stageID];
     }
@@ -131,7 +131,7 @@ public class UIStageChapter : MonoBehaviour
         Show();
     }
 
-    private UIStageElement createStage(string path, int stageID, Vector3 localPos)
+    private UIMainStageElement createStage(string path, int stageID, Vector3 localPos)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>(path));
         obj.transform.parent = Open.transform;
@@ -140,7 +140,7 @@ public class UIStageChapter : MonoBehaviour
         obj.transform.localScale = mDefaultStageScale;
         obj.name = string.Format("StageElement{0}", stageID);
 
-        var stage = obj.GetComponent<UIStageElement>();
+        var stage = obj.GetComponent<UIMainStageElement>();
         stage.StageID = stageID;
         return stage;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 小關卡, 也就是關卡介面上的小圓點, 點擊後, 玩家可以進入關卡.
 /// </summary>
-public class UIStageElement : MonoBehaviour
+public class UIMainStageElement : MonoBehaviour
 {
     public class Data
     {
@@ -32,8 +32,8 @@ public class UIStageElement : MonoBehaviour
     /// </summary>
     private const float EnableTime = 1.8f;
 
-    public UIStageInfo.Data InfoData { get { return mInfoData; } }
-    private UIStageInfo.Data mInfoData;
+    public UIMainStageInfo.Data InfoData { get { return mInfoData; } }
+    private UIMainStageInfo.Data mInfoData;
 
     private Data mData;
 
@@ -61,7 +61,7 @@ public class UIStageElement : MonoBehaviour
         }));
     }
 
-    public void Set(Data data, UIStageInfo.Data infoData)
+    public void Set(Data data, UIMainStageInfo.Data infoData)
     {
         mData = data;
         mInfoData = infoData;

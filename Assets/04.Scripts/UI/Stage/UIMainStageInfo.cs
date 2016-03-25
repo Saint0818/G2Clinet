@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 關卡資訊視窗.
+/// 主線關卡的資訊視窗.
 /// </summary>
-public class UIStageInfo : MonoBehaviour
+public class UIMainStageInfo : MonoBehaviour
 {
     /// <summary>
     /// <para> 呼叫時機: 進入關卡按鈕按下時. </para>
