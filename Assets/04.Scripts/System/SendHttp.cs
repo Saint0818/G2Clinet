@@ -74,6 +74,7 @@ public static class URLConst {
 	public const string StageStart = "stagestart";
 	public const string StageWin = "stagewin";
 	public const string StageRewardAgain = "stagerewardagain";
+	public const string ResetStageDailyChallenge = "resetstagedailychallenge";
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
     public const string SyncDailyRecord = "syncdailyrecord";

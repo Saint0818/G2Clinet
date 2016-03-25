@@ -41,7 +41,7 @@ public class ResetStageCommand : ICommand
         if(ok)
         {
             if(www.text.Length > 0)
-                GameData.Team.Player.DailyStageChallengeNums.Clear();
+                GameData.Team.Player.StageDailyChallengeNums.Clear();
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.CheckResetStage);

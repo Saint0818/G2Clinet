@@ -62,20 +62,35 @@ namespace GameStruct
 
 		public Dictionary<EAttribute, int> Potential;
 
-        public int GetStageChallengeNum(int stageID)
-        {
-            if(DailyStageChallengeNums == null)
-                DailyStageChallengeNums = new Dictionary<int, int>();
-
-            if(!DailyStageChallengeNums.ContainsKey(stageID))
-                DailyStageChallengeNums.Add(stageID, 0);
-
-            return DailyStageChallengeNums[stageID];
-        }
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 已經打過的次數.
         /// </summary>
-        public Dictionary<int, int> DailyStageChallengeNums;
+        public Dictionary<int, int> StageDailyChallengeNums;
+        public int GetStageChallengeNum(int stageID)
+        {
+            if(StageDailyChallengeNums == null)
+                StageDailyChallengeNums = new Dictionary<int, int>();
+
+            if(!StageDailyChallengeNums.ContainsKey(stageID))
+                StageDailyChallengeNums.Add(stageID, 0);
+
+            return StageDailyChallengeNums[stageID];
+        }
+
+        /// <summary>
+        /// 玩家當日挑戰次數的重置次數.
+        /// </summary>
+        public Dictionary<int, int> ResetStageDailyChallengeNums;
+        public int GetResetStageChallengeNum(int stageID)
+        {
+            if(ResetStageDailyChallengeNums == null)
+                ResetStageDailyChallengeNums = new Dictionary<int, int>();
+
+            if(!ResetStageDailyChallengeNums.ContainsKey(stageID))
+                ResetStageDailyChallengeNums.Add(stageID, 0);
+
+            return ResetStageDailyChallengeNums[stageID];
+        }
 
         public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
@@ -190,12 +205,12 @@ namespace GameStruct
             SkillCards = new TSkill[0];
             SkillCardPages = new TSkillCardPage[0];
             Items = new TItem[0];
-            //			EquipItems = new TEquipItem[0];
             ValueItems = new Dictionary<int, TValueItem>();
 			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = TStageData.MinMainStageID;
             NextInstanceIDs = new Dictionary<int, int>();
-            DailyStageChallengeNums = new Dictionary<int, int>();
+            StageDailyChallengeNums = new Dictionary<int, int>();
+            ResetStageDailyChallengeNums = new Dictionary<int, int>();
             ConsumeValueItems = new int[0];
         }
 

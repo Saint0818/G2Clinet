@@ -1,12 +1,12 @@
+using System;
 using Newtonsoft.Json;
 using UnityEngine;
 
 public class StageRewardAgainProtocol
 {
-    public delegate void Action(bool ok, TStageRewardAgain reward);
-    private Action mCallback;
+    private Action<bool, TStageRewardAgain> mCallback;
 
-    public void Send(int stageID, Action callback)
+    public void Send(int stageID, Action<bool, TStageRewardAgain> callback)
     {
         mCallback = callback;
 

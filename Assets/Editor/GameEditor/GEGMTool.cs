@@ -893,7 +893,7 @@ public class GEGMTool : GEBase
 
         if (ok)
         {
-            GameData.Team.Player.DailyStageChallengeNums.Clear();
+            GameData.Team.Player.StageDailyChallengeNums.Clear();
             updateUIMainStage();
             updateUIInstance();
         }
