@@ -63,6 +63,13 @@
         "line": 8,
         "kind": 4,
         "value": 3,
+        "wait": 2
+    },
+    {
+        "id": 1,
+        "line": 9,
+        "kind": 4,
+        "value": 3,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -71,7 +78,7 @@
     },
     {
         "id": 1,
-        "line": 9,
+        "line": 10,
         "kind": 4,
         "value": 3,
         "talkindex": 0,
@@ -82,7 +89,7 @@
     },
     {
         "id": 1,
-        "line": 10,
+        "line": 11,
         "kind": 4,
         "value": 3,
         "uipath": "UI2D/UIEquipment/Window/BottomLeft/BackBtn"
@@ -251,7 +258,6 @@
         "id": 4,
         "line": 2,
         "kind": 0,
-        "uiname": "UISocial",
         "talkindex": 1,
         "actionl": 5,
         "talkr": -1,
@@ -263,14 +269,12 @@
         "id": 4,
         "line": 3,
         "kind": 0,
-        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Tabs/2"
     },
     {
         "id": 4,
         "line": 4,
         "kind": 0,
-        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -281,14 +285,12 @@
         "id": 4,
         "line": 5,
         "kind": 0,
-        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Pages/2/ScrollView/2-0/Window/Good"
     },
     {
         "id": 4,
         "line": 6,
         "kind": 0,
-        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -299,14 +301,12 @@
         "id": 4,
         "line": 7,
         "kind": 0,
-        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Tabs/0"
     },
     {
         "id": 4,
         "line": 8,
         "kind": 0,
-        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -317,14 +317,12 @@
         "id": 4,
         "line": 9,
         "kind": 0,
-        "uiname": "UISocial",
         "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView/0-0/Window/Good"
     },
     {
         "id": 4,
         "line": 10,
         "kind": 0,
-        "uiname": "UISocial",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -1281,7 +1279,8 @@
         "line": 2,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self0/PassMe/View",
-        "texttw": "你只可以操作紅色三角形頭標球員移動。"
+        "texttw": "你只可以操作紅色三角形頭標球員移動。",
+        "texten": "Now, move the joystick to the place you wanna go!"
     },
     {
         "id": 40,
