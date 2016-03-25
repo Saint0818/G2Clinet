@@ -197,6 +197,8 @@ public class UISkillInfo : UIBase {
 			RefreshUICard(uicard);
 			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
 			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard));
+			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
 		}
 	}
 

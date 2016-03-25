@@ -198,9 +198,11 @@ public class TimerMgr : KnightSingleton<TimerMgr>
             }
             else
             {
-                CourtMgr.Get.RealBallCompoment.Gravity = tempGravity;
-                CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
-                CourtMgr.Get.RealBallObj.transform.DOPlay();
+				if(GameController.Get.BallOwner == null) {
+					CourtMgr.Get.RealBallCompoment.Gravity = tempGravity;
+					CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
+					CourtMgr.Get.RealBallObj.transform.DOPlay();
+				}
             }
             IsPause = isPase;
         }

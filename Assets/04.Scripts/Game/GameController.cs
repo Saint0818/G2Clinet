@@ -2556,7 +2556,8 @@ public class GameController : KnightSingleton<GameController>
 					return true;
 				case EPlayerState.Rebound0:
 				case EPlayerState.Rebound20:
-					UIDoubleClick.Get.SetData(EDoubleClick.Rebound, playerindex, 0.75f, DoubleRebound);
+					if(!player.PlayerSkillController.IsActiveUse)
+						UIDoubleClick.Get.SetData(EDoubleClick.Rebound, playerindex, 0.75f, DoubleRebound);
 					return true;
 			}
 		}

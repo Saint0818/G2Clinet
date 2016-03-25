@@ -67,30 +67,18 @@ public class ReboundCurveCounter
             {
 				//轉向
                 self.transform.LookAt(new Vector3(skillMoveTarget.x, self.transform.position.y, skillMoveTarget.z));
-                if (curveTime < 0.7f)
+                if (skillMoveTarget.y > BodyHeight)
                 {
-                    if (skillMoveTarget.y > BodyHeight)
-                    {
-                        self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
-                            Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime) * ((skillMoveTarget.y - BodyHeight) / 3)), 
-                            Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
-                    }
-                    else
-                    {
-                        self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
-                            self.transform.position.y, 
-                            Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
-                    }
+                    self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
+                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime) * ((skillMoveTarget.y - BodyHeight) / 3)), 
+                        Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
                 }
                 else
                 {
-                    if (skillMoveTarget.y > BodyHeight)
-                    {
-                        self.transform.position = new Vector3(self.transform.position.x, 
-                            Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime) * (skillMoveTarget.y / 3)), 
-                            self.transform.position.z);
-                    } 
-                }   
+                    self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
+                        self.transform.position.y, 
+                        Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
+                }
             }
             else
             {

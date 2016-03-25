@@ -69,11 +69,11 @@ public class UISkillReinforce : UIBase {
 	private UILabel labelPrice;
 	private UIReinForceGrid reinforceGrid;
 
-	private List<GameObject> queueMaterial = new List<GameObject>();
-	private List<GameObject> queueBuff = new List<GameObject>();
-	private List<GameObject> queuePassive = new List<GameObject>();
-	private List<GameObject> queueActive = new List<GameObject>();
-	private List<GameObject> reinforceGoCards = new List<GameObject>();
+	private List<GameObject> queueMaterial;
+	private List<GameObject> queueBuff;
+	private List<GameObject> queuePassive;
+	private List<GameObject> queueActive;
+	private List<GameObject> reinforceGoCards;
 
 	private int reinforceMoney;
 	private int originalExp;
@@ -256,7 +256,6 @@ public class UISkillReinforce : UIBase {
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			//Reinforce
 			reinEvoTabs[0].CheckRedPoint = false;
-//			reinEvoTabs[0].CheckRedPoint = (mSkill.Lv < GameData.DSkillData[mSkill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
 			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
 			//Evolution
 			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar) && 
@@ -314,8 +313,6 @@ public class UISkillReinforce : UIBase {
 							queueActive.Add(obj.item);
 						index ++ ;
 					} 
-//					else
-//						Destroy(obj.item);
 				}
 			}
 		}
@@ -346,7 +343,7 @@ public class UISkillReinforce : UIBase {
 			}
 		}
 	}
-	//我愛籃球黑幫 > Buff > 被動技>主動技
+	//我愛籃球黑幫 > Buff > 被動技 > 主動技
 	private void sortCard (ref List<GameObject> goCards) {
 		bubbleSort(ref queueMaterial);
 		bubbleSort(ref queueBuff);
@@ -374,7 +371,6 @@ public class UISkillReinforce : UIBase {
 		GameObject obj = Instantiate(itemCardEquipped, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = scrollView.transform;
 		obj.transform.name =  skill.ID.ToString() + "_" + skill.SN.ToString() + "_" + skill.Lv.ToString();
-//		obj.transform.localPosition = new Vector3(0, 200 - 80 * positionIndex, 0);
 		LayerMgr.Get.SetLayerAllChildren(obj, "TopUI");
 
 		TPassiveSkillCard passiveSkillCard = new TPassiveSkillCard();

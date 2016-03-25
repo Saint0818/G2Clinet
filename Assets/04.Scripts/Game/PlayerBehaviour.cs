@@ -2762,20 +2762,26 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameController.Get.Shooter != null)
                     GameController.Get.Shooter = null;
                 break;
+			case "ReboundSetBall":
+				if(GameController.Get.BallOwner == null && PlayerSkillController.IsActiveUse) {
+					GameController.Get.SetBall(this);
+					GameController.Get.IsGameFinish();
+				}
+			break;
             case "ActiveSkillEnd":
                 if (OnUIJoystick != null)
                     OnUIJoystick(this, true);
     				
                 UISkillEffect.UIShow(false);
-                if (isShootJumpActive)
-                {
-                    isShootJumpActive = false;
-                    animatorEvent.intParameter = 4;
-                }
-                else
-                    animatorEvent.intParameter = 0;
-				
-                animatorEvent.floatParameter = 1;
+//                if (isShootJumpActive)
+//                {
+//                    isShootJumpActive = false;
+//                    animatorEvent.intParameter = 4;
+//                }
+//                else
+//                    animatorEvent.intParameter = 0;
+//				
+//                animatorEvent.floatParameter = 1;
 //                TimeScaleCallBack(animatorEvent, this);
 					
                 if (isBlock)

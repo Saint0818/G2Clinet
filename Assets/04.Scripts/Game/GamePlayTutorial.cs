@@ -88,7 +88,6 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 	public void HandleEvent(int i, GameObject player=null) {
 		CurrentEventID = eventList[i].ID;
-        Debug.Log("id " + CurrentEventID.ToString());
 		int otherEventID = 0;
 
 		switch (eventList[i].ConditionKind) {
