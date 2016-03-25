@@ -48,7 +48,7 @@ public static class UIInstanceBuilder
         };
 
         string errMsg;
-        data.StartEnable = UIStageVerification.VerifyQualification(stageData, out errMsg);
+        data.StartEnable = UIStageVerification.VerifyQualification(stageData, out errMsg) != UIStageVerification.EErrorCode.Pass;
         data.ErrorMsg = errMsg;
         data.ShowBuyPower = !UIStageVerification.VerifyCost(stageData, out errMsg);
 

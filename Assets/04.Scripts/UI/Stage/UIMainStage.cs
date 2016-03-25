@@ -110,28 +110,29 @@ public class UIMainStage : UIBase
             return;
         }
 
-        // todo 購買體力流程, 暫時寫在這, 以後再改流程.
-        if(!CheckPower(stageData.CostValue, true))
-        {
-            OnBuyPower();
-            return;
-        }
-
         string errMsg;
-        if(UIStageVerification.VerifyQualification(stageData, out errMsg))
+        var code = UIStageVerification.VerifyQualification(stageData, out errMsg);
+        switch(code)
         {
+            case UIStageVerification.EErrorCode.Pass:
 //            UIMainStageDebug debug = new UIMainStageDebug();
 //            debug.SendCommand(stageID);
 
-            UIMainStageTools.Record(stageData.Chapter);
-            UISelectRole.Get.LoadStage(stageID);
-
-            Hide();
-        }
-        else
-        {
-            Debug.LogWarning(errMsg);
-            UIHint.Get.ShowHint(errMsg, Color.green);
+                UIMainStageTools.Record(stageData.Chapter);
+                UISelectRole.Get.LoadStage(stageID);
+                Hide();
+                break;
+            case UIStageVerification.EErrorCode.NoPower:
+                OnBuyPower();
+                break;
+            case UIStageVerification.EErrorCode.NoDailyChallenge:
+                var protocol = new ResetStageDailyChallengeProtocol();
+                protocol.Send(stageData.ID, ok => {if(ok) Show(stageData.ID);});
+                break;
+            default:
+                Debug.LogWarning(errMsg);
+                UIHint.Get.ShowHint(errMsg, Color.green);
+                break;
         }
     }
 

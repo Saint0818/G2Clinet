@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 主線關卡的資訊視窗.
@@ -38,7 +39,8 @@ public class UIMainStageInfo : MonoBehaviour
         public bool ExpVisible; 
         public int Exp { get; set; }
 
-        public int Stamina { set; get; }
+        public int Power { set; get; }
+        public int Diamond { set; get; }
 
         /// <summary>
         /// 是否要顯示關卡打完的圖示.
@@ -50,10 +52,14 @@ public class UIMainStageInfo : MonoBehaviour
         /// </summary>
         public string RemainDailyCount;
 
-        /// <summary>
-        /// 開始按鈕可不可以點選.
-        /// </summary>
-        public bool StartEnable;
+//        /// <summary>
+//        /// 開始按鈕可不可以點選.
+//        /// </summary>
+//        public bool StartEnable;
+
+        public UIStageVerification.EErrorCode ErrorCode;
+        public string StartButtonSprite;
+        public string StartButtonText;
 
         public bool MissionVisible;
         public string MissionTitle;
@@ -69,9 +75,10 @@ public class UIMainStageInfo : MonoBehaviour
     public UILabel DescriptionLabel;
     public UISprite KindSprite;
     public UILabel KindLabel;
-    public UILabel StaminaLabel;
+    
     public GameObject Completed; // 標示是否關卡打過的圖片.
     public UIButton StartButton; // 右下角的開始按鈕.
+    public UILabel StartButtonLabel; // 右下角的開始按鈕.
     public Transform[] RewardParents; // 獎勵圖示的位置.
     public UILabel RewardMoney;
     public GameObject ExpObj; // 控制經驗值要不要顯示.
@@ -85,9 +92,12 @@ public class UIMainStageInfo : MonoBehaviour
     public UISlider MissionProgress;
     public UIButton MissionButton;
 
-    // 按鈕旁邊圖示和數值.
-    public UISprite CostSprite;
-    public UILabel CostValue;
+    // 開始按鈕旁邊圖示和數值.
+    public GameObject PowerObj;
+    [FormerlySerializedAs("StaminaLabel")]
+    public UILabel PowerLabel;
+    public GameObject DiamondObj;
+    public UILabel DiamondLabel;
 
     private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
 
@@ -153,11 +163,18 @@ public class UIMainStageInfo : MonoBehaviour
                 mRewardIcons[i].Hide();
         }
 
-        StaminaLabel.text = string.Format("{0}", data.Stamina);
+        PowerObj.SetActive(data.Power > 0);
+        PowerLabel.text = string.Format("{0}", data.Power);
+        DiamondObj.SetActive(data.Diamond > 0);
+        DiamondLabel.text = string.Format("{0}", data.Diamond);
+
         Completed.SetActive(data.ShowCompleted);
 
-        StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
-        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
+//        StartButton.normalSprite = UIBase.ButtonBG(data.ErrorCode == UIStageVerification.EErrorCode.Pass);
+        StartButton.normalSprite = data.StartButtonSprite;
+//        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.ErrorCode == UIStageVerification.EErrorCode.Pass);
+        StartButton.GetComponent<UISprite>().spriteName = data.StartButtonSprite;
+        StartButtonLabel.text = data.StartButtonText;
 
         RewardMoney.text = string.Format("{0}", data.Money);
 

@@ -126,7 +126,11 @@ public class TStageData
     /// </summary>
     public bool ChallengeOnlyOnce { get; private set; }
 
-    public int MissionLimit;
+    [UsedImplicitly]
+    public int MissionLimit { get; private set; }
+
+    [UsedImplicitly]
+    public int MaxResetDailyChallengeNum { get; private set; }
 
     public int Diamond { get; private set; }
     public int Exp { get; private set; }

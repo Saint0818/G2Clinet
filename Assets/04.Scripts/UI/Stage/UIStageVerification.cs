@@ -6,7 +6,17 @@ using GameStruct;
 /// </summary>
 public static class UIStageVerification
 {
-    public static bool VerifyQualification(TStageData stageData)
+    public enum EErrorCode
+    {
+        Pass,
+        NoPower, 
+        NoDailyChallenge, // 每日挑戰次數用完.
+        NoResetDailyChallenge, // 每日重置挑戰次數用完.
+        NoChallengeAgain, // 已經打過, 而且不能再打.
+        MissionNoPass
+    }
+
+    public static EErrorCode VerifyQualification(TStageData stageData)
     {
         string errMsg;
         return VerifyQualification(stageData, out errMsg);
@@ -18,22 +28,25 @@ public static class UIStageVerification
     /// <param name="stageData"></param>
     /// <param name="errMsg"></param>
     /// <returns></returns>
-    public static bool VerifyQualification(TStageData stageData, out string errMsg)
+    public static EErrorCode VerifyQualification(TStageData stageData, out string errMsg)
     {
         if(!VerifyCost(stageData, out errMsg))
-            return false;
-
-        if(!VerifyPlayerDailyCount(stageData, out errMsg))
-            return false;
+            return EErrorCode.NoPower;
 
         if(!VerifyPlayerChallengeOnlyOnce(stageData, out errMsg))
-            return false;
+            return EErrorCode.NoChallengeAgain;
 
         if(!VerifyPlayerMission(stageData, out errMsg))
-            return false;
+            return EErrorCode.MissionNoPass;
+
+        if(!VerifyDailyChallenge(stageData, out errMsg) && !VerifyResetDialyChallenge(stageData, out errMsg))
+            return EErrorCode.NoResetDailyChallenge;
+
+        if(!VerifyDailyChallenge(stageData, out errMsg)) 
+            return EErrorCode.NoDailyChallenge;
 
         errMsg = String.Empty;
-        return true;
+        return EErrorCode.Pass;
     }
 
     /// <summary>
@@ -63,11 +76,18 @@ public static class UIStageVerification
         return true;
     }
 
-    public static bool VerifyPlayerDailyCount(TStageData stageData, out string errMsg)
+    public static bool VerifyDailyChallenge(TStageData stageData, out string errMsg)
     {
         var isCanPlay = UIStageHelper.FindPlayerRemainDailyCount(stageData) > 0;
         errMsg = isCanPlay ? String.Empty : TextConst.S(231);
         return isCanPlay;
+    }
+
+    public static bool VerifyResetDialyChallenge(TStageData stageData, out string errMsg)
+    {
+        var isPass = stageData.MaxResetDailyChallengeNum < GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
+        errMsg = isPass ? String.Empty : TextConst.S(9314);
+        return isPass;
     }
 
     public static bool VerifyPlayerProgress(TStageData stageData)

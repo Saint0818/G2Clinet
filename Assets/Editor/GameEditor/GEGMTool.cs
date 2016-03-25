@@ -895,6 +895,7 @@ public class GEGMTool : GEBase
         if (ok)
         {
             GameData.Team.Player.StageDailyChallengeNums.Clear();
+            GameData.Team.Player.ResetStageDailyChallengeNums.Clear();
             updateUIMainStage();
             updateUIInstance();
         }

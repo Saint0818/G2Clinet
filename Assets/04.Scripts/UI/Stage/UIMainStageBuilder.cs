@@ -15,12 +15,32 @@ public static class UIMainStageBuilder
             Money = stageData.Money,
             ExpVisible = GameData.Team.Player.NextMainStageID <= stageData.ID,
             Exp = stageData.Exp,
-            Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             RemainDailyCount = String.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
-            StartEnable = UIStageVerification.VerifyQualification(stageData),
+//            StartEnable = UIStageVerification.VerifyQualification(stageData) != UIStageVerification.EErrorCode.Pass,
+            ErrorCode = UIStageVerification.VerifyQualification(stageData),
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
+
+        switch(infoData.ErrorCode)
+        {
+            case UIStageVerification.EErrorCode.NoDailyChallenge:
+                infoData.StartButtonSprite = "button_green";
+                infoData.StartButtonText = TextConst.S(9311);
+                TDiamondData diamondData = DiamondsTable.Ins.Get(TDiamondData.EKind.ResetDailyChallenge);
+                int resetNum = GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
+                infoData.Diamond = diamondData.GetReviseNum(resetNum);
+                break;
+            case UIStageVerification.EErrorCode.NoResetDailyChallenge:
+                infoData.StartButtonSprite = UIBase.ButtonBG(false);
+                infoData.StartButtonText = TextConst.S(9314);
+                break;
+            default:
+                infoData.StartButtonSprite = UIBase.ButtonBG(infoData.ErrorCode == UIStageVerification.EErrorCode.Pass);
+                infoData.StartButtonText = TextConst.S(9305);
+                infoData.Power = stageData.CostValue;
+                break;
+        }
 
         infoData.RewardItems.AddRange(UIMainStageTools.FindRewardItems(stageData));
 

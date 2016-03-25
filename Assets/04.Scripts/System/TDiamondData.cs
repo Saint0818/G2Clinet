@@ -16,6 +16,12 @@ public class TDiamondData
         get { return mNums ?? (mNums = new [] {Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8}); }
     }
 
+    public int GetReviseNum(int index)
+    {
+        if(0 <= index && index < Nums.Length)
+            return Nums[index];
+        return Nums[Nums.Length - 1]; // 回傳最後一個數值.
+    }
     private int[] mNums;
 
     [UsedImplicitly]
