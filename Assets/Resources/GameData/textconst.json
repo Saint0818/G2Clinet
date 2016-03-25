@@ -54,7 +54,7 @@
     },
     {
         "id": 211,
-        "uipeth": "UIMessage/TitleLabel",
+        "uipath": "UIMessage/TitleLabel",
         "tw": "設 定",
         "en": "SETTINGS"
     },
@@ -198,21 +198,21 @@
     {
         "id": 254,
         "explain": "社群-解除好友關係",
-        "uipeth": "請用UIMessage",
+        "uipath": "請用UIMessage",
         "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)",
         "en": "Are you sure [00E1FFFF] {0} [-] you want to unfriend?\n(Oncedone, you can't see each others feed) "
     },
     {
         "id": 255,
         "explain": "PVP撮合不到對手內文",
-        "uipeth": "請用UIMessage",
+        "uipath": "請用UIMessage",
         "tw": "目前搓合不到對手，請稍候再試。",
         "en": "Not enough opponents, please try again later."
     },
     {
         "id": 256,
         "explain": "PVP撮合不到對手標題",
-        "uipeth": "請用UIMessage",
+        "uipath": "請用UIMessage",
         "tw": "聯盟對戰",
         "en": "PVP Challenge"
     },
@@ -788,21 +788,21 @@
     {
         "id": 2105,
         "explain": "中鋒",
-        "uipeth": "中鋒\nSpriteCharacterInfo/Description",
+        "uipath": "中鋒\nSpriteCharacterInfo/Description",
         "tw": "星際摔角界難見的奇才，卻因下級居民的身份只能打假比賽賺取收入。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。[33FFDD]擁有強壯的體格[-]",
         "en": "ONCE A TALENTED WRESTLER UNABLE TO ACHIEVE STARDOM DUE TO HIS UNPRIVILEGED BACKGROUND. FORCED TO PLAY IN SET-UP MATCHES FOR A LIVING HE ENDED UP WITH A HUGE DEBT WHEN HE ACCIDENTALLY DEFEATED A FAKE CHAMP. A FREE MAN NOW HE FIGHTS ONLY FOR HIMSELF, AND BASKETBALL HAS GIVEN HIM A SECOND SHOT AT LIFE. [33FFDD] HE’S A VERY STRONG AND DOMINANT PLAYER UNDER THE RIM.[-]"
     },
     {
         "id": 2106,
         "explain": "前鋒",
-        "uipeth": "前鋒\nSpriteCharacterInfo/Description",
+        "uipath": "前鋒\nSpriteCharacterInfo/Description",
         "tw": "原為前途光明的高階星際軍官，意外失去右臂並接受改造卻失敗了，而後淪為政治犧牲品，同時人生盡毀。[33FFDD]擁有高超的命中率[-]",
         "en": "HE WAS A HIGH RANKED OFFICER IN THE ARMY, LOST HIS RIGHT ARM IN COMBAT AND THE ROBOTIC ARM HE GOT IMPLANTED BEGAN TO FAIL HIM TOO. DISCHARGED OF THE ARMY WHEN HE NEED THEM THE MOST HE NOW SWEARS ALLEGIANCE TO NO ONE. HE PLAYS TO SAVE ENOUGH MONEY FOR NEW ARM AND TO BRING HONOR BACK TO HIS NAME [33FFDD] HE HAS EXCEPTIONAL RANGE AND ACCURACY.[-]"
     },
     {
         "id": 2107,
         "explain": "後衛",
-        "uipeth": "後衛\nSpriteCharacterInfo/Description",
+        "uipath": "後衛\nSpriteCharacterInfo/Description",
         "tw": "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在星際酒吧練出敏捷的身手。[33FFDD]擁有靈敏的身手[-]",
         "en": "BORN AND RAISED IN THE PROJECTS SHE’S GONE THROUGH LIFE WITHOUT ANYONE’S HELP. HER STRONG WILL HAS MAKE HER MOVE FORWARD AGAINST ALL ODDS. SHE’S WORKED MULTIPLE JOBS TO SUPPORT HERSELF AND HER SISTER, BUT HER PASSION HAS ALWAYS BEEN B-BALL. SHE DREAMS OF A BETTER LIFE FOR HER AND HER SIS AND WITH THAT GOAL IN MIND SHE’S UNSTOPPABLE IN THE COURT.[33FFDD]POSSESS EXCELLENT AGILITY[-]"
     },
@@ -824,119 +824,119 @@
     },
     {
         "id": 3002,
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "角 色",
         "en": "PLAYER",
         "jp": "PLAYER"
     },
     {
         "id": 3003,
-        "uipeth": "1/BtnLabel",
+        "uipath": "1/BtnLabel",
         "tw": "技 能",
         "en": "SKILL CARD",
         "jp": "SKILL CARD"
     },
     {
         "id": 3004,
-        "uipeth": "PlayerLeague/Label",
+        "uipath": "PlayerLeague/Label",
         "tw": "球 隊",
         "en": "TEAM",
         "jp": "TEAM"
     },
     {
         "id": 3005,
-        "uipeth": "ExpLabel/Label",
+        "uipath": "ExpLabel/Label",
         "tw": "EXP",
         "en": "EXP",
         "jp": "EXP"
     },
     {
         "id": 3006,
-        "uipeth": "AttrKind0/KindLabel",
+        "uipath": "AttrKind0/KindLabel",
         "tw": "命中",
         "en": "OFF",
         "jp": "OFF"
     },
     {
         "id": 3007,
-        "uipeth": "AttrKind1/KindLabel",
+        "uipath": "AttrKind1/KindLabel",
         "tw": "外線",
         "en": "OUT",
         "jp": "OUT"
     },
     {
         "id": 3008,
-        "uipeth": "AttrKind2/KindLabel",
+        "uipath": "AttrKind2/KindLabel",
         "tw": "速度",
         "en": "SPD",
         "jp": "SPD"
     },
     {
         "id": 3009,
-        "uipeth": "AttrKind3/KindLabel",
+        "uipath": "AttrKind3/KindLabel",
         "tw": "耐力",
         "en": "STA",
         "jp": "STA"
     },
     {
         "id": 3010,
-        "uipeth": "AttrKind4/KindLabel",
+        "uipath": "AttrKind4/KindLabel",
         "tw": "力量",
         "en": "STR",
         "jp": "STR"
     },
     {
         "id": 3011,
-        "uipeth": "AttrKind5/KindLabel",
+        "uipath": "AttrKind5/KindLabel",
         "tw": "灌籃",
         "en": "DNK",
         "jp": "DNK"
     },
     {
         "id": 3012,
-        "uipeth": "AttrKind6/KindLabel",
+        "uipath": "AttrKind6/KindLabel",
         "tw": "籃板",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 3013,
-        "uipeth": "AttrKind7/KindLabel",
+        "uipath": "AttrKind7/KindLabel",
         "tw": "火鍋",
         "en": "BLK",
         "jp": "BLK"
     },
     {
         "id": 3014,
-        "uipeth": "AttrKind8/KindLabel",
+        "uipath": "AttrKind8/KindLabel",
         "tw": "防守",
         "en": "DEF",
         "jp": "DEF"
     },
     {
         "id": 3015,
-        "uipeth": "AttrKind9/KindLabel",
+        "uipath": "AttrKind9/KindLabel",
         "tw": "抄截",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 3016,
-        "uipeth": "AttrKind10/KindLabel",
+        "uipath": "AttrKind10/KindLabel",
         "tw": "控球",
         "en": "DRB",
         "jp": "DRB"
     },
     {
         "id": 3017,
-        "uipeth": "AttrKind11/KindLabel",
+        "uipath": "AttrKind11/KindLabel",
         "tw": "傳球",
         "en": "PAS",
         "jp": "PAS"
     },
     {
         "id": 3018,
-        "uipeth": "SkillPointBtn/Icon",
+        "uipath": "SkillPointBtn/Icon",
         "tw": "潛能分配",
         "en": "STATS",
         "jp": "STATS"
@@ -959,37 +959,37 @@
     },
     {
         "id": 3022,
-        "uipeth": "Attribute1/Label",
+        "uipath": "Attribute1/Label",
         "tw": "火鍋",
         "en": "BLK"
     },
     {
         "id": 3023,
-        "uipeth": "Attribute2/Label",
+        "uipath": "Attribute2/Label",
         "tw": "籃板",
         "en": "REB"
     },
     {
         "id": 3024,
-        "uipeth": "Attribute3/Label",
+        "uipath": "Attribute3/Label",
         "tw": "灌籃",
         "en": "DNK"
     },
     {
         "id": 3025,
-        "uipeth": "Attribute4/Label",
+        "uipath": "Attribute4/Label",
         "tw": "外線",
         "en": "OUT"
     },
     {
         "id": 3026,
-        "uipeth": "Attribute5/Label",
+        "uipath": "Attribute5/Label",
         "tw": "命中",
         "en": "OFF"
     },
     {
         "id": 3027,
-        "uipeth": "Attribute6/Label",
+        "uipath": "Attribute6/Label",
         "tw": "抄截",
         "en": "STL"
     },
@@ -1001,7 +1001,7 @@
     },
     {
         "id": 3101,
-        "uipeth": "HeadingLabel",
+        "uipath": "HeadingLabel",
         "tw": "[ff0000]主動技[-]",
         "en": "[FF0000]ABILITY[-]"
     },
@@ -1028,31 +1028,29 @@
     },
     {
         "id": 3202,
-        "uipeth": "PointView/HeadingLabel",
+        "uipath": "PointView/HeadingLabel",
         "tw": "潛能點",
         "en": "ATTRIBUTION POINTS"
     },
     {
         "id": 3203,
-        "uipeth": "SubheadLabel1",
-        "tw": "升級點數",
-        "en": "LEVEL POINTS"
+        "tw": "可用潛能點：",
+        "en": "AVAILABLE POINTS :"
     },
     {
         "id": 3204,
-        "uipeth": "SubheadLabel2",
-        "tw": "造型點數",
-        "en": "STYLE POINTS"
+        "tw": "[C8C8C8FF]＊前列點數為[-]升級取得[C8C8C8FF]，後列點數為[-][00E1FFFF]造型取得[-]",
+        "en": "[C8C8C8FF]＊WHERE YOU CAN GET POINTS:[-] \nLEVEL UP[C8C8C8FF]，AND[-] [00E1FFFF]PURCHASE STYLE[-]"
     },
     {
         "id": 3205,
-        "uipeth": "WarningLabel",
+        "uipath": "WarningLabel",
         "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
         "en": "Chance to obtain:\n[33FFDD] Level up[-], [33FFDD] EXP [-]\n\nNote:\nThe priority is to obtain [FF0000] attribution points [-] "
     },
     {
         "id": 3206,
-        "uipeth": "ResetBtn/BtnLabel",
+        "uipath": "ResetBtn/BtnLabel",
         "tw": "重置點數",
         "en": "RESET STATS"
     },
@@ -1062,6 +1060,11 @@
         "en": "OBTAIN FOR THE FIRST TIME"
     },
     {
+        "id": 3208,
+        "tw": "確認投點",
+        "en": "FINISH"
+    },
+    {
         "id": 3301,
         "explain": "屬性說明介面",
         "tw": "屬性說明",
@@ -1069,157 +1072,157 @@
     },
     {
         "id": 3302,
-        "uipeth": "AttrKind0/KindLabel",
+        "uipath": "AttrKind0/KindLabel",
         "tw": "命 中",
         "en": "OFFENSIVE"
     },
     {
         "id": 3303,
-        "uipeth": "AttrKind1/KindLabel",
+        "uipath": "AttrKind1/KindLabel",
         "tw": "外 線",
         "en": "OUTSIDE"
     },
     {
         "id": 3304,
-        "uipeth": "AttrKind5/KindLabel",
+        "uipath": "AttrKind5/KindLabel",
         "tw": "速 度",
         "en": "SPEED"
     },
     {
         "id": 3305,
-        "uipeth": "AttrKind6/KindLabel",
+        "uipath": "AttrKind6/KindLabel",
         "tw": "耐 力",
         "en": "STAMINA"
     },
     {
         "id": 3306,
-        "uipeth": "AttrKind7/KindLabel",
+        "uipath": "AttrKind7/KindLabel",
         "tw": "力 量",
         "en": "STRENGTH"
     },
     {
         "id": 3307,
-        "uipeth": "AttrKind9/KindLabel",
+        "uipath": "AttrKind9/KindLabel",
         "tw": "灌 籃",
         "en": "DUNK"
     },
     {
         "id": 3308,
-        "uipeth": "AttrKind2/KindLabel",
+        "uipath": "AttrKind2/KindLabel",
         "tw": "籃 板",
         "en": "REBOUND"
     },
     {
         "id": 3309,
-        "uipeth": "AttrKind3/KindLabel",
+        "uipath": "AttrKind3/KindLabel",
         "tw": "火 鍋",
         "en": "BLOCK"
     },
     {
         "id": 3310,
-        "uipeth": "AttrKind4/KindLabel",
+        "uipath": "AttrKind4/KindLabel",
         "tw": "防 守",
         "en": "DEFENSE"
     },
     {
         "id": 3311,
-        "uipeth": "AttrKind8/KindLabel",
+        "uipath": "AttrKind8/KindLabel",
         "tw": "抄 截",
         "en": "STEAL"
     },
     {
         "id": 3312,
-        "uipeth": "AttrKind10/KindLabel",
+        "uipath": "AttrKind10/KindLabel",
         "tw": "控 球",
         "en": "DRIBBLE"
     },
     {
         "id": 3313,
-        "uipeth": "AttrKind11/KindLabel",
+        "uipath": "AttrKind11/KindLabel",
         "tw": "傳 球",
         "en": "PASS"
     },
     {
         "id": 3322,
         "explain": "命中",
-        "uipeth": "AttrKind0/ExplainLabel",
+        "uipath": "AttrKind0/ExplainLabel",
         "tw": "影響投射命中機率",
         "en": "Shooting Goal Percentage"
     },
     {
         "id": 3323,
         "explain": "外線",
-        "uipeth": "AttrKind1/ExplainLabel",
+        "uipath": "AttrKind1/ExplainLabel",
         "tw": "降低遠離籃筐時的衰減值",
         "en": "3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
         "explain": "速 度",
-        "uipeth": "AttrKind5/ExplainLabel",
+        "uipath": "AttrKind5/ExplainLabel",
         "tw": "影響球員基本跑動速度",
         "en": "LOWER TURNOVER PERCENTAGE"
     },
     {
         "id": 3325,
         "explain": "耐 力",
-        "uipeth": "AttrKind6/ExplainLabel",
+        "uipath": "AttrKind6/ExplainLabel",
         "tw": "可加速衝刺的總時間",
         "en": "1. AFFECT PASSING RATE \n2. CHANCE TO DO AN ALLEY OOP WHEN IN AI MODE."
     },
     {
         "id": 3326,
         "explain": "力 量",
-        "uipeth": "AttrKind7/ExplainLabel",
+        "uipath": "AttrKind7/ExplainLabel",
         "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
         "en": "1. LESS CHANCE TO FALL AFTER BEING PUSHED BY AN OPPONENT.\n2. INCREASE THE CHANCE OF ELBOWING OPPONENT IN AI MODE.\n3. INCREASE ELBOWING RANGE."
     },
     {
         "id": 3327,
         "explain": "灌 籃",
-        "uipeth": "AttrKind9/ExplainLabel",
+        "uipath": "AttrKind9/ExplainLabel",
         "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率\n3.發動Alley-oops灌籃的機率",
         "en": "1. HIGHER CHANCE OF DUNKING FROM THE PAINT.\n2. HIGHER CHANCE TO TIP-IN."
     },
     {
         "id": 3328,
         "explain": "籃 板",
-        "uipeth": "AttrKind2/ExplainLabel",
+        "uipath": "AttrKind2/ExplainLabel",
         "tw": "1.發動籃板的距離\n2.提高抓到籃板的機會",
         "en": "1. INCREASE THE REBOUNDING ZONE\n2. INCREASE THE CHANCE OF GETTING A REBOUND"
     },
     {
         "id": 3329,
         "explain": "火 鍋",
-        "uipeth": "AttrKind3/ExplainLabel",
+        "uipath": "AttrKind3/ExplainLabel",
         "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
         "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING SHOTS."
     },
     {
         "id": 3330,
         "explain": "防 守",
-        "uipeth": "AttrKind4/ExplainLabel",
+        "uipath": "AttrKind4/ExplainLabel",
         "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
         "en": "1. INCREASE THE CHANCE OF STEALING\n2. INCREASE THE CHANCE OF STEALING IN AI MODE."
     },
     {
         "id": 3331,
         "explain": "抄 截",
-        "uipeth": "AttrKind8/ExplainLabel",
+        "uipath": "AttrKind8/ExplainLabel",
         "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率\n3.增加抄截的距離與範圍",
         "en": "INCREASE THE DURATION OF MAX SPEED."
     },
     {
         "id": 3332,
         "explain": "控 球",
-        "uipeth": "AttrKind10/ExplainLabel",
+        "uipath": "AttrKind10/ExplainLabel",
         "tw": "提高不被抄球的機率",
         "en": "PLAYER'S NORMAL SPEED"
     },
     {
         "id": 3333,
         "explain": "傳 球",
-        "uipeth": "AttrKind11/ExplainLabel",
+        "uipath": "AttrKind11/ExplainLabel",
         "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
         "en": "1. PLAYER'S DEFENSIVE RANGE.\n2. INCREASE THE CHANCE OF PUSHING IN AI MODE.\n3. INCREASE THE PUSHING RANGE."
     },
@@ -1232,14 +1235,14 @@
     {
         "id": 3402,
         "explain": "修改名稱會消費的寶石金額",
-        "uipeth": "WarningLabel",
+        "uipath": "WarningLabel",
         "tw": "修改需花費",
         "en": "NEED TO MODIFY"
     },
     {
         "id": 3403,
         "explain": "最多可使用的字數",
-        "uipeth": "NameLabel",
+        "uipath": "NameLabel",
         "tw": "字元長度2-16個字",
         "en": "BETWEEN 1-16 CHARACTERS"
     },
@@ -1279,43 +1282,43 @@
     },
     {
         "id": 3502,
-        "uipeth": "TitleLabel",
+        "uipath": "TitleLabel",
         "tw": "LEVEL UP",
         "en": "LEVEL UP"
     },
     {
         "id": 3503,
-        "uipeth": "GetPotentialLabel",
+        "uipath": "GetPotentialLabel",
         "tw": "獲得 {0} 潛能點",
         "en": "RECEIVED {0} ATTRIBUTION POINTS"
     },
     {
         "id": 3504,
-        "uipeth": "Label0",
+        "uipath": "Label0",
         "tw": "等 級",
         "en": "LEVEL"
     },
     {
         "id": 3505,
-        "uipeth": "Label1",
+        "uipath": "Label1",
         "tw": "COST",
         "en": "COST"
     },
     {
         "id": 3506,
-        "uipeth": "Label2",
+        "uipath": "Label2",
         "tw": "體 力",
         "en": "STAMINA"
     },
     {
         "id": 3507,
-        "uipeth": "AddValueLabel",
+        "uipath": "AddValueLabel",
         "tw": "+{0} ",
         "en": "+{0} "
     },
     {
         "id": 3508,
-        "uipeth": "AddValueLabel",
+        "uipath": "AddValueLabel",
         "tw": "[00ffff]體力[-]補滿",
         "en": "[00FFFF]STAMINA[-] FILL UP"
     },
@@ -1333,14 +1336,14 @@
     {
         "id": 3602,
         "explain": "玩家一開始就能取得的",
-        "uipeth": "頭圖分類1",
+        "uipath": "頭圖分類1",
         "tw": "基礎頭像",
         "en": "MAIN AVATAR"
     },
     {
         "id": 3603,
         "explain": "必須得到技能晶片後才會取得",
-        "uipeth": "頭圖分類2",
+        "uipath": "頭圖分類2",
         "tw": "技能晶片",
         "en": "SKILL CARDS"
     },
@@ -1352,13 +1355,13 @@
     },
     {
         "id": 3702,
-        "uipeth": "Tab0",
+        "uipath": "Tab0",
         "tw": "成 就",
         "en": "ACHIEVEMENTS"
     },
     {
         "id": 3703,
-        "uipeth": "Tab1",
+        "uipath": "Tab1",
         "tw": "任 務",
         "en": "TASKS"
     },
@@ -1369,13 +1372,13 @@
     },
     {
         "id": 3705,
-        "uipeth": "GetBtn",
+        "uipath": "GetBtn",
         "tw": "前 往",
         "en": "PROCEED"
     },
     {
         "id": 3706,
-        "uipeth": "GetBtn",
+        "uipath": "GetBtn",
         "tw": "領 取",
         "en": "REDEEM"
     },
@@ -1700,7 +1703,7 @@
     },
     {
         "id": 4002,
-        "uipeth": "Disk",
+        "uipath": "Disk",
         "tw": "獲得技能晶片",
         "en": "YOU GOT A SKILL CARD"
     },
@@ -1730,69 +1733,75 @@
     },
     {
         "id": 4101,
-        "uipeth": "SubheadLabelDisk",
+        "uipath": "SubheadLabelDisk",
         "tw": "可能獲得晶片",
         "en": "CHANCE TO GET A SKILL CARD"
     },
     {
         "id": 4102,
-        "uipeth": "SubheadLabelItem",
+        "uipath": "SubheadLabelItem",
         "tw": "可能獲得物品",
         "en": "CHANCE TO GET AN ITEM"
     },
     {
         "id": 4103,
-        "uipeth": "Open10Label",
+        "uipath": "Open10Label",
         "tw": "10 連抽，[33FFDD]必得1張晶片[-]  ",
         "en": "10x Draws [33FFDD]gift 1 card[-]  "
     },
     {
         "id": 4104,
-        "uipeth": "Open5Label",
+        "uipath": "Open5Label",
         "tw": "5 連抽",
         "en": "5x Draws"
     },
     {
         "id": 4105,
-        "uipeth": "OpenBtn10/SaleLabel",
+        "uipath": "OpenBtn10/SaleLabel",
         "tw": "最划算",
         "en": "BEST VALUE"
     },
     {
         "id": 4106,
-        "uipeth": "FreeLabel",
+        "uipath": "FreeLabel",
         "tw": "免費倒數 [33FFDD]{0} [-]   ",
         "en": "NEXT FREE IN [33FFDD]{0}[-]   "
     },
     {
         "id": 4107,
-        "uipeth": "FreeLabel1",
+        "uipath": "FreeLabel1",
         "tw": "免費抽卡",
         "en": "Free draw card"
     },
     {
         "id": 4108,
-        "uipeth": "FreeQA",
+        "uipath": "FreeQA",
         "tw": "確認免費抽取晶片？",
         "en": "Claim your free extract Skill Cards?"
     },
     {
         "id": 4109,
-        "uipeth": "Again",
+        "uipath": "Again",
         "tw": "再抽一次",
-        "en": "Again"
+        "en": "AGAIN"
     },
     {
         "id": 4110,
-        "uipeth": "Awards",
+        "uipath": "Awards",
         "tw": "獲得以下物品",
-        "en": "Awards"
+        "en": "REWARD"
     },
     {
         "id": 4111,
-        "uipeth": "Finish",
+        "uipath": "Finish",
         "tw": "確定",
         "en": "Finish"
+    },
+    {
+        "id": 4112,
+        "uipath": "Tap",
+        "tw": "TAP",
+        "en": "TAP"
     },
     {
         "id": 4200,
@@ -1826,52 +1835,52 @@
     {
         "id": 4502,
         "explain": "無限定使用的貨幣",
-        "uipeth": "Tabs/0/雜貨商店",
+        "uipath": "Tabs/0/雜貨商店",
         "tw": "黑幫商店",
         "en": "SHOP"
     },
     {
         "id": 4503,
         "explain": "限定使用聯盟對戰貨幣",
-        "uipeth": "Tabs/1/聯盟商店（天梯）",
+        "uipath": "Tabs/1/聯盟商店（天梯）",
         "tw": "聯盟商店",
         "en": "PVP"
     },
     {
         "id": 4504,
         "explain": "限定使用社群取得的貨幣",
-        "uipeth": "Tabs/2/社群商店",
+        "uipath": "Tabs/2/社群商店",
         "tw": "社群商店",
         "en": "SOCIAL"
     },
     {
         "id": 4505,
-        "uipeth": "Tabs/3",
+        "uipath": "Tabs/3",
         "tw": "好友限定",
         "en": "FRIENDS LIMITED"
     },
     {
         "id": 4506,
-        "uipeth": "ResetBtn",
+        "uipath": "ResetBtn",
         "tw": "商品刷新",
         "en": "REFRESH ITEM"
     },
     {
         "id": 4507,
         "explain": "每隔幾小時後商店盤面就會刷新",
-        "uipeth": "WarningsLabel",
+        "uipath": "WarningsLabel",
         "tw": "下次刷新尚餘：[33FFDD]{0}[-]",
         "en": "NEXT ITEM REFRESH IN: [33FFFF] {0} [-]"
     },
     {
         "id": 4508,
-        "uipeth": "ItemShopBtn/FittingIcon",
+        "uipath": "ItemShopBtn/FittingIcon",
         "tw": "試穿中",
         "en": "TRY"
     },
     {
         "id": 4509,
-        "uipeth": "ItemShopBtn/SoldOutIcon",
+        "uipath": "ItemShopBtn/SoldOutIcon",
         "tw": "售 完",
         "en": "SOLD\nOUT"
     },
@@ -1925,7 +1934,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -1998,64 +2007,64 @@
     },
     {
         "id": 4911,
-        "uipeth": "Pages0/SubheadLabel0",
+        "uipath": "Pages0/SubheadLabel0",
         "tw": "購買寶石",
         "en": "BUY GEMS"
     },
     {
         "id": 4912,
         "explain": "介面上的銷售標語",
-        "uipeth": "Pages0/SubheadLabel1",
+        "uipath": "Pages0/SubheadLabel1",
         "tw": "寶石並非萬能，但沒有寶石萬萬不能。",
         "en": "WANNA TAKE YOU GAME TO THE NEXT LEVEL? TIME TO GET SOME BLING!"
     },
     {
         "id": 4913,
-        "uipeth": "Pages0"
+        "uipath": "Pages0"
     },
     {
         "id": 4914,
-        "uipeth": "Pages0"
+        "uipath": "Pages0"
     },
     {
         "id": 4915,
-        "uipeth": "Pages0"
+        "uipath": "Pages0"
     },
     {
         "id": 4916,
-        "uipeth": "Pages1/SubheadLabel0",
+        "uipath": "Pages1/SubheadLabel0",
         "tw": "購買金幣",
         "en": "BUY GOLDS"
     },
     {
         "id": 4917,
         "explain": "介面上的銷售標語",
-        "uipeth": "Pages1/SubheadLabel1",
+        "uipath": "Pages1/SubheadLabel1",
         "tw": "換夠金幣籌碼，才能繼續前進！",
         "en": " \"I HAVE ENOUGH GOLD\" - SAID NO ONE EVER"
     },
     {
         "id": 4918,
-        "uipeth": "Pages1"
+        "uipath": "Pages1"
     },
     {
         "id": 4919,
-        "uipeth": "Pages1"
+        "uipath": "Pages1"
     },
     {
         "id": 4920,
-        "uipeth": "Pages1"
+        "uipath": "Pages1"
     },
     {
         "id": 4921,
-        "uipeth": "Pages2/SubheadLabel0",
+        "uipath": "Pages2/SubheadLabel0",
         "tw": "補充體力",
         "en": "BUY STAMINA"
     },
     {
         "id": 4922,
         "explain": "介面上的銷售標語",
-        "uipeth": "Pages2/SubheadLabel1",
+        "uipath": "Pages2/SubheadLabel1",
         "tw": "消除疲勞，恢復體力也快！真的！",
         "en": "PREPARE FOR COMBAT! NEVER STOP MOVING!"
     },
@@ -2067,115 +2076,115 @@
     },
     {
         "id": 5002,
-        "uipeth": "頁籤1",
+        "uipath": "頁籤1",
         "tw": "動 態",
         "en": "NEWS \nFEED"
     },
     {
         "id": 5003,
-        "uipeth": "頁籤2",
+        "uipath": "頁籤2",
         "tw": "邀 請",
         "en": "INVITE"
     },
     {
         "id": 5004,
-        "uipeth": "頁籤3",
+        "uipath": "頁籤3",
         "tw": "推 薦",
         "en": "ADVICE"
     },
     {
         "id": 5005,
-        "uipeth": "頁籤4",
+        "uipath": "頁籤4",
         "tw": "好 友",
         "en": "FRIENDS"
     },
     {
         "id": 5006,
-        "uipeth": "頁籤5",
-        "tw": "社群連結",
-        "en": "SOCIAL LINKS"
+        "uipath": "頁籤5",
+        "tw": "社群\n連結",
+        "en": "SOCIAL\nLINKS"
     },
     {
         "id": 5007,
-        "uipeth": "搜尋好友",
+        "uipath": "搜尋好友",
         "tw": "請輸入玩家名稱",
         "en": "ENTER PLAYER'S NAME"
     },
     {
         "id": 5008,
-        "uipeth": "OnlineTime",
+        "uipath": "OnlineTime",
         "tw": "最近上線：",
         "en": "RECENTLY ON-LINE:"
     },
     {
         "id": 5009,
-        "uipeth": "TimeLabel",
+        "uipath": "TimeLabel",
         "tw": " {0} 前",
         "en": " {0} AGO "
     },
     {
         "id": 5010,
-        "uipeth": "TimeLabel",
+        "uipath": "TimeLabel",
         "tw": "很久以前",
         "en": "LONG TIME AGO"
     },
     {
         "id": 5011,
-        "uipeth": "RequestGroup",
+        "uipath": "RequestGroup",
         "tw": "是否接受請求？",
         "en": "ACCEPT REQUEST?"
     },
     {
         "id": 5012,
-        "uipeth": "InviteGroup",
+        "uipath": "InviteGroup",
         "tw": "邀 請",
         "en": "INVITED"
     },
     {
         "id": 5013,
-        "uipeth": "ButtonListGroup",
+        "uipath": "ButtonListGroup",
         "tw": "檢視資料",
         "en": "VIEW PROFILE"
     },
     {
         "id": 5014,
-        "uipeth": "ButtonListGroup",
+        "uipath": "ButtonListGroup",
         "tw": "檢視球館",
         "en": "VIEW COURT"
     },
     {
         "id": 5015,
-        "uipeth": "ButtonListGroup",
+        "uipath": "ButtonListGroup",
         "tw": "檢視球隊",
         "en": "VIEW TEAM"
     },
     {
         "id": 5016,
-        "uipeth": "ButtonListGroup",
+        "uipath": "ButtonListGroup",
         "tw": "移 除",
         "en": "REMOVE"
     },
     {
         "id": 5017,
-        "uipeth": "CountLabel",
+        "uipath": "CountLabel",
         "tw": "好友數",
         "en": "FRIENDS"
     },
     {
         "id": 5018,
-        "uipeth": "TextLabel",
+        "uipath": "TextLabel",
         "tw": "每日9:00刷新推薦名單，或即刻刷新。",
         "en": "ADVICED DAILY REFRESH TIME: 9:00, OR INSTANTLY REFRESH."
     },
     {
         "id": 5019,
-        "uipeth": "TextLabel",
+        "uipath": "TextLabel",
         "tw": "加朋友",
         "en": "ADD FRIEND"
     },
     {
         "id": 5020,
-        "uipeth": "功能訊息",
+        "uipath": "功能訊息",
         "tw": "玩家名稱錯誤",
         "en": "PLAYER NAME ERROR"
     },
@@ -2297,50 +2306,50 @@
     },
     {
         "id": 6002,
-        "uipeth": "UpgradeBtn/BtnLabel",
+        "uipath": "UpgradeBtn/BtnLabel",
         "tw": "進 化",
         "en": "UPGRADE",
         "jp": "UPGRADE"
     },
     {
         "id": 6003,
-        "uipeth": "WarningLabel",
+        "uipath": "WarningLabel",
         "tw": "此物品無法進化",
         "en": "THIS ARTICLE CAN NOT BE FUSED"
     },
     {
         "id": 6004,
-        "uipeth": "材料未滿",
+        "uipath": "材料未滿",
         "tw": "尋 找",
         "en": "LOOK FOR"
     },
     {
         "id": 6005,
-        "uipeth": "已鑲嵌完成",
+        "uipath": "已鑲嵌完成",
         "tw": "完 成",
         "en": "CARRY OUT"
     },
     {
         "id": 6006,
-        "uipeth": "卸下次數型裝備",
+        "uipath": "卸下次數型裝備",
         "tw": "卸下此物品",
         "en": "REMOVE THIS ITEM"
     },
     {
         "id": 6007,
-        "uipeth": "嵌入材料",
+        "uipath": "嵌入材料",
         "tw": "嵌入材料",
         "en": "PLUG SHARDS"
     },
     {
         "id": 6008,
-        "uipeth": "合成數值裝",
+        "uipath": "合成數值裝",
         "tw": "進化合成",
         "en": "UPGRADE"
     },
     {
         "id": 6009,
-        "uipeth": "PartSlot",
+        "uipath": "PartSlot",
         "tw": "未裝備",
         "en": "NOT EQUIPPED"
     },
@@ -2362,13 +2371,13 @@
     },
     {
         "id": 6102,
-        "uipeth": "SkillKindLabel",
+        "uipath": "SkillKindLabel",
         "tw": "[ff0000]主動技[-][ff0000]A[-][fffffff]bility[-]",
         "en": " [FF0000]ABILITY[-]"
     },
     {
         "id": 6103,
-        "uipeth": "SkillKindLabel",
+        "uipath": "SkillKindLabel",
         "tw": "[3355ff]被動技[-][3355ff]P[-][fffffff]asive[-]",
         "en": " [3355FF]PASSIVE ABILITY[-]"
     },
@@ -2384,7 +2393,7 @@
     },
     {
         "id": 6202,
-        "uipeth": "StartBtn/BtnLabel",
+        "uipath": "StartBtn/BtnLabel",
         "tw": "前往",
         "en": "GO"
     },
@@ -2433,54 +2442,54 @@
     },
     {
         "id": 7002,
-        "uipeth": "ActiveCheck/ActiveLabel",
+        "uipath": "ActiveCheck/ActiveLabel",
         "tw": "主動技",
         "en": "[FF0000]ACTIVE[-]"
     },
     {
         "id": 7003,
-        "uipeth": "PassiveCheck/PassiveLabel",
+        "uipath": "PassiveCheck/PassiveLabel",
         "tw": "被動技",
         "en": "[23A3A3FF]PASSIVE[-]"
     },
     {
         "id": 7004,
-        "uipeth": "DecksBtn0/Label",
+        "uipath": "DecksBtn0/Label",
         "tw": 1,
         "en": 1,
         "jp": 1
     },
     {
         "id": 7005,
-        "uipeth": "DecksBtn1",
+        "uipath": "DecksBtn1",
         "tw": 2,
         "en": 2,
         "jp": 2
     },
     {
         "id": 7006,
-        "uipeth": "DecksBtn2",
+        "uipath": "DecksBtn2",
         "tw": 3,
         "en": 3,
         "jp": 3
     },
     {
         "id": 7007,
-        "uipeth": "DecksBtn3",
+        "uipath": "DecksBtn3",
         "tw": 4,
         "en": 4,
         "jp": 4
     },
     {
         "id": 7008,
-        "uipeth": "DecksBtn4",
+        "uipath": "DecksBtn4",
         "tw": 5,
         "en": 5,
         "jp": 5
     },
     {
         "id": 7009,
-        "uipeth": "LabelCost",
+        "uipath": "LabelCost",
         "tw": "COST",
         "en": "COST",
         "jp": "COST"
@@ -2500,7 +2509,7 @@
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "CARD \nCOLLECTION"
+        "en": "CARD\nCOLLECTION"
     },
     {
         "id": 7013,
@@ -2514,73 +2523,73 @@
     },
     {
         "id": 7102,
-        "uipeth": "LabelCondition",
+        "uipath": "LabelCondition",
         "tw": "排 列",
         "en": "ARRANGE"
     },
     {
         "id": 7103,
-        "uipeth": "LabelFilter",
+        "uipath": "LabelFilter",
         "tw": "篩 選",
         "en": "FILTER"
     },
     {
         "id": 7104,
-        "uipeth": "RarityCheck/Label",
+        "uipath": "RarityCheck/Label",
         "tw": "稀有度",
         "en": "QUALITY"
     },
     {
         "id": 7105,
-        "uipeth": "CostCheck",
+        "uipath": "CostCheck",
         "tw": "COST",
         "en": "COST"
     },
     {
         "id": 7106,
-        "uipeth": "LevelCheck",
+        "uipath": "LevelCheck",
         "tw": "等 級",
         "en": "LEVEL"
     },
     {
         "id": 7107,
-        "uipeth": "KindCheck",
+        "uipath": "KindCheck",
         "tw": "種 類",
         "en": "CATEGORY"
     },
     {
         "id": 7108,
-        "uipeth": "AttributeCheck",
+        "uipath": "AttributeCheck",
         "tw": "屬 性",
         "en": "DISTRIBUTION"
     },
     {
         "id": 7109,
-        "uipeth": "AvailableCheck",
+        "uipath": "AvailableCheck",
         "tw": "未裝備",
         "en": "UNEQUIPPED"
     },
     {
         "id": 7110,
-        "uipeth": "SelectedCheck",
+        "uipath": "SelectedCheck",
         "tw": "裝備中",
         "en": "EQUIP"
     },
     {
         "id": 7111,
-        "uipeth": "ActiveCheck",
+        "uipath": "ActiveCheck",
         "tw": "主動技",
         "en": "ABILITY"
     },
     {
         "id": 7112,
-        "uipeth": "PassiveCheck",
+        "uipath": "PassiveCheck",
         "tw": "被動技",
         "en": "PASSIVE ABILITY"
     },
     {
         "id": 7113,
-        "uipeth": "AllCheck",
+        "uipath": "AllCheck",
         "tw": "全 部",
         "en": "ALL"
     },
@@ -2593,13 +2602,13 @@
     {
         "id": 7115,
         "explain": "不可以裝備或是出售",
-        "uipeth": "UnavailableLabel",
+        "uipath": "UnavailableLabel",
         "tw": "不可裝備",
         "en": "UNAVAILABLE"
     },
     {
         "id": 7116,
-        "uipeth": "LabelFilter/變換字串",
+        "uipath": "LabelFilter/變換字串",
         "tw": "篩選中",
         "en": "FILTER"
     },
@@ -2609,86 +2618,86 @@
     },
     {
         "id": 7202,
-        "uipeth": "SkillInfo/LabelSubhead",
+        "uipath": "SkillInfo/LabelSubhead",
         "tw": "晶片資訊",
         "en": "CARD INFO",
         "jp": "CARD INFO"
     },
     {
         "id": 7203,
-        "uipeth": "LabelKind1",
+        "uipath": "LabelKind1",
         "tw": "晶片品質",
         "en": "QUALITY"
     },
     {
         "id": 7204,
-        "uipeth": "LabelKind2",
+        "uipath": "LabelKind2",
         "tw": "COST",
         "en": "COST"
     },
     {
         "id": 7205,
-        "uipeth": "LabelKind3",
+        "uipath": "LabelKind3",
         "tw": "EXP",
         "en": "EXP"
     },
     {
         "id": 7206,
-        "uipeth": "LabelKind4",
+        "uipath": "LabelKind4",
         "tw": "發動機率",
         "en": "CHANCE OF ACTIVATING ABILITY"
     },
     {
         "id": 7207,
-        "uipeth": "LabelKind4",
+        "uipath": "LabelKind4",
         "tw": "士氣需求",
         "en": "REQUIRED ENERGY"
     },
     {
         "id": 7208,
-        "uipeth": "LabelSubhead",
+        "uipath": "LabelSubhead",
         "tw": "說明",
         "en": "ADDITIONAL INFORMATION"
     },
     {
         "id": 7209,
-        "uipeth": "LabelSubhead",
+        "uipath": "LabelSubhead",
         "tw": "附加效果",
         "en": "BONUS EFFECTS"
     },
     {
         "id": 7210,
-        "uipeth": "LifeTimeLabel/Label",
+        "uipath": "LifeTimeLabel/Label",
         "tw": "持續時間",
         "en": "DURATION"
     },
     {
         "id": 7211,
-        "uipeth": "TitleLabel",
+        "uipath": "TitleLabel",
         "tw": "發動距離",
         "en": "LAUNCH DISTANCE"
     },
     {
         "id": 7212,
-        "uipeth": "EvolutionBtn/Label",
+        "uipath": "EvolutionBtn/Label",
         "tw": "晶片進化",
         "en": "CARD EVOLUTION"
     },
     {
         "id": 7213,
-        "uipeth": "UpgradeBtn/Label",
+        "uipath": "UpgradeBtn/Label",
         "tw": "晶片合成",
         "en": "CARD FUSION"
     },
     {
         "id": 7214,
-        "uipeth": "EquipBtn/Label",
+        "uipath": "EquipBtn/Label",
         "tw": "裝備晶片",
         "en": "EQUIP"
     },
     {
         "id": 7215,
-        "uipeth": "EquipBtn/Label",
+        "uipath": "EquipBtn/Label",
         "tw": "卸下晶片",
         "en": "UNEQUIP"
     },
@@ -2725,7 +2734,7 @@
     {
         "id": 7221,
         "explain": "晶片類型",
-        "uipeth": "LabelKind5",
+        "uipath": "LabelKind5",
         "tw": "晶片類型",
         "en": "TYPE"
     },
@@ -2771,7 +2780,7 @@
     },
     {
         "id": 7302,
-        "uipeth": "LabelMaxAnger",
+        "uipath": "LabelMaxAnger",
         "tw": "AP",
         "en": "AP"
     },
@@ -2783,67 +2792,67 @@
     },
     {
         "id": 7402,
-        "uipeth": "EXP",
+        "uipath": "EXP",
         "tw": "EXP",
         "en": "EXP"
     },
     {
         "id": 7403,
-        "uipeth": "Cost",
+        "uipath": "Cost",
         "tw": "Cost",
         "en": "COST"
     },
     {
         "id": 7404,
-        "uipeth": "動作機率",
+        "uipath": "動作機率",
         "tw": "動作機率",
         "en": "CHANCE OF ACTIVATING ABILITY"
     },
     {
         "id": 7405,
-        "uipeth": "發動距離",
+        "uipath": "發動距離",
         "tw": "發動距離",
         "en": "LAUNCH DISTANCE"
     },
     {
         "id": 7406,
-        "uipeth": "持續時間",
+        "uipath": "持續時間",
         "tw": "持續時間",
         "en": "DURATION"
     },
     {
         "id": 7407,
-        "uipeth": "升級所需",
+        "uipath": "升級所需",
         "tw": "[B7B7B7FF]所需EXP：[FFFF00FF]{0}[-]",
         "en": "[B7B7B7FF] REQUIRED EXP: [FFFF00FF] {0} [-]"
     },
     {
         "id": 7408,
-        "uipeth": "材料獲得",
+        "uipath": "材料獲得",
         "tw": "總獲得EXP：[00FF00FF]{0}[-]",
         "en": " OBTAINED EXP: [00FF00FF] {0} [-]"
     },
     {
         "id": 7409,
-        "uipeth": "等級達上限",
+        "uipath": "等級達上限",
         "tw": "[FFFF00FF]等級已達上限[-]",
         "en": "[FFFF00FF] MAX LEVEL REACHED [-]"
     },
     {
         "id": 7410,
-        "uipeth": "SubheadLabel",
+        "uipath": "SubheadLabel",
         "tw": "強化材料",
         "en": "SKILL CARD PARTS"
     },
     {
         "id": 7411,
-        "uipeth": "SubheadLabel",
+        "uipath": "SubheadLabel",
         "tw": "選擇強化材料",
         "en": "SELECT THE SKILL CARD PARTS"
     },
     {
         "id": 7412,
-        "uipeth": "EmptyLabel",
+        "uipath": "EmptyLabel",
         "tw": "未選擇",
         "en": "NONE SELECTED"
     },
@@ -2880,7 +2889,7 @@
     {
         "id": 7501,
         "explain": "技能晶片安裝後的狀態",
-        "uipeth": "ItemCardEquipped ",
+        "uipath": "ItemCardEquipped ",
         "tw": "COST [00FFFFFF]{0}[-]",
         "en": "COST [00FFFFFF]{0}[-] ",
         "jp": "COST [00FFFFFF]{0}[-]"
@@ -2888,7 +2897,7 @@
     {
         "id": 7502,
         "explain": "技能合成界面顯示該卡EXP",
-        "uipeth": "ItemCardEquipped ",
+        "uipath": "ItemCardEquipped ",
         "tw": "EXP [00FF00FF]{0}[-]",
         "en": "EXP [00FF00FF]{0}[-] ",
         "jp": "EXP [00FF00FF]{0}[-]"
@@ -2931,8 +2940,8 @@
     {
         "id": 7701,
         "explain": "套卡介面說明",
-        "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下啟動，取得組合加成效果。再點擊即可關閉。\n3.注意啟動上限值。",
-        "en": "1. Find the same series of skill cards and combine them.\n2. After you combine the cards press start to for it to take effect. Click again to close.\n3. Note that the upper limit has increased. "
+        "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下[33FFDD]啟動[-]，取得組合加成效果。再點擊即可關閉。\n3.注意[33FFDD]啟動上限值[-]。",
+        "en": "1. Find the same series of skill cards and combine them.\n2. After you combine the cards press  [33FFDD]start[-] to for it to take effect. Click again to close.\n3. Note that the [33FFDD]upper limit[-] has increased. "
     },
     {
         "id": 7702,
@@ -2983,21 +2992,21 @@
     },
     {
         "id": 8002,
-        "uipeth": "Prefab/Items/SortBtn",
+        "uipath": "Prefab/Items/SortBtn",
         "tw": "篩 選",
         "en": "FILTER",
         "jp": "SORT"
     },
     {
         "id": 8003,
-        "uipeth": "SellBtn",
+        "uipath": "SellBtn",
         "tw": "販 賣",
         "en": "SELL",
         "jp": "SELL"
     },
     {
         "id": 8004,
-        "uipeth": "GetModeLabel",
+        "uipath": "GetModeLabel",
         "tw": "已取得[00E1FFFF]{0}[-]潛能點",
         "en": "RECEIVED [00E1FFFF]{0}[-] ATTRIBUTION POINTS"
     },
@@ -3030,43 +3039,43 @@
     },
     {
         "id": 8102,
-        "uipeth": "LabelCondition",
+        "uipath": "LabelCondition",
         "tw": "排 列",
         "en": "ARRANGE"
     },
     {
         "id": 8103,
-        "uipeth": "LabelFilter",
+        "uipath": "LabelFilter",
         "tw": "篩 選",
         "en": "FILTER"
     },
     {
         "id": 8104,
-        "uipeth": "TimelimitCheck",
+        "uipath": "TimelimitCheck",
         "tw": "時間最久",
         "en": "MAX TIME"
     },
     {
         "id": 8105,
-        "uipeth": "TimelessCheck",
+        "uipath": "TimelessCheck",
         "tw": "即將到期",
         "en": "EXPIRING"
     },
     {
         "id": 8106,
-        "uipeth": "AvailableCheck",
+        "uipath": "AvailableCheck",
         "tw": "未裝備",
         "en": "UNEQUIPPED"
     },
     {
         "id": 8107,
-        "uipeth": "SelectedCheck",
+        "uipath": "SelectedCheck",
         "tw": "裝備中",
         "en": "EQUIP"
     },
     {
         "id": 8108,
-        "uipeth": "AllCheck",
+        "uipath": "AllCheck",
         "tw": "全 部",
         "en": "ALL"
     },
@@ -3091,44 +3100,44 @@
     {
         "id": 8203,
         "explain": "Right下方對應晶片說明",
-        "uipeth": "CaptionLabel",
+        "uipath": "CaptionLabel",
         "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片COST，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] COST，以此類推。\n\n目前已降低 [00ff00] {0} [-] COST。",
         "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
         "id": 8204,
         "explain": "Middle下方套裝說明",
-        "uipeth": "CaptionLabel",
+        "uipath": "CaptionLabel",
         "tw": "收集同系列造型套裝，擁有 2 件以上即可開啟加成效果，收集越多加成越多！",
         "en": "Suits are special collections. Characters who get more than one item from a particular Suits receive special bonuses. "
     },
     {
         "id": 8205,
         "explain": "套裝加成屬性",
-        "uipeth": "BonusLabelView/0~6",
+        "uipath": "BonusLabelView/0~6",
         "tw": " ({0})件：{1}+{2} ",
         "en": " ({0})pieces：{1}+{2} "
     },
     {
         "id": 8206,
         "explain": "無對應晶片時的說明",
-        "uipeth": "NoCardLabel",
+        "uipath": "NoCardLabel",
         "tw": "此套造型無對應技能晶片",
         "en": "No Match Skill Cards"
     },
     {
         "id": 8207,
         "explain": "套裝不需要全部位時",
-        "uipeth": "ItemNameLabel",
+        "uipath": "ItemNameLabel",
         "tw": "無此部位造型",
         "en": "Do not need this part"
     },
     {
         "id": 8208,
         "explain": "套裝收集標題",
-        "uipeth": "Avatar Collection",
-        "tw": "套裝收集",
-        "en": "Style Collection"
+        "uipath": "Avatar Collection",
+        "tw": "套裝\n收集",
+        "en": "Style\nCollection"
     },
     {
         "id": 9001,
@@ -3142,19 +3151,19 @@
     },
     {
         "id": 9102,
-        "uipeth": "MainStageBtn/BtnLabel",
+        "uipath": "MainStageBtn/BtnLabel",
         "tw": "生 涯 競 賽",
         "en": "STORY"
     },
     {
         "id": 9103,
-        "uipeth": "PvPStageBtn/BtnLabel",
+        "uipath": "PvPStageBtn/BtnLabel",
         "tw": "聯 盟 對 戰",
         "en": "PVP"
     },
     {
         "id": 9104,
-        "uipeth": "ChallengeBtn/BtnLabel",
+        "uipath": "ChallengeBtn/BtnLabel",
         "tw": "關 主 挑 戰",
         "en": "CHALLENGE"
     },
@@ -3185,14 +3194,14 @@
     },
     {
         "id": 9202,
-        "uipeth": "LabelTitle",
+        "uipath": "LabelTitle",
         "tw": "MAIN STAGE",
         "en": "MAIN STAGE",
         "jp": "MAIN STAGE"
     },
     {
         "id": 9203,
-        "uipeth": "Label",
+        "uipath": "Label",
         "tw": "請先通過前一章節",
         "en": "PLEASE COMPLETE THE PREVIOUS CHAPTER"
     },
@@ -3214,82 +3223,88 @@
     },
     {
         "id": 9302,
-        "uipeth": "DailyTimes/TimesLabel",
+        "uipath": "DailyTimes/TimesLabel",
         "tw": "限制次數",
         "en": "LIMITED ATTEMPTS"
     },
     {
         "id": 9303,
-        "uipeth": "ConditionTitle/TitleLabel",
+        "uipath": "ConditionTitle/TitleLabel",
         "tw": "限制條件",
         "en": "CONDITIONS"
     },
     {
         "id": 9304,
-        "uipeth": "Awards/AwardLabel",
+        "uipath": "Awards/AwardLabel",
         "tw": "— 有機率獲得 —",
         "en": "— CHANCE TO RECEIVE —"
     },
     {
         "id": 9305,
-        "uipeth": "StartButton/StartLabel",
+        "uipath": "StartButton/StartLabel",
         "tw": "競賽開始",
         "en": "START",
         "jp": "START"
     },
     {
         "id": 9306,
-        "uipeth": "Completed/FinLabel",
+        "uipath": "Completed/FinLabel",
         "tw": "完成挑戰",
         "en": "COMPLETED",
         "jp": "COMPLETED"
     },
     {
         "id": 9307,
-        "uipeth": "ConditionLabel1",
+        "uipath": "ConditionLabel1",
         "tw": "條件{0}未滿",
         "en": "CONDITIONS {0} ARE NOT MET"
     },
     {
         "id": 9308,
-        "uipeth": "ConditionLabel2",
+        "uipath": "ConditionLabel2",
         "tw": "條件{1}未滿",
         "en": "CONDITIONS {1} ARE NOT MET"
     },
     {
         "id": 9309,
-        "uipeth": "StageHint/TargetLabel",
+        "uipath": "StageHint/TargetLabel",
         "tw": "競賽目標",
         "en": "MISSION"
     },
     {
         "id": 9310,
-        "uipeth": "AwardLabel1",
+        "uipath": "AwardLabel1",
         "tw": " [FFDD33]必定獲得[-]",
         "en": "[FFFD33] MUST GET [-]"
     },
     {
         "id": 9311,
-        "uipeth": "StartButton/StartLabel",
+        "uipath": "StartButton/StartLabel",
         "tw": "重置次數",
         "en": "RESET COUNT"
     },
     {
         "id": 9312,
-        "uipeth": "StartButton/TimesLabel",
+        "uipath": "StartButton/TimesLabel",
         "tw": "挑戰次數：[33FFDD]{0}[-]",
         "en": "CHALLENGE NUMBER: [33FFDD] {0} [-]",
         "jp": "({0})"
     },
     {
         "id": 9313,
-        "uipeth": "AwardLabel2",
+        "uipath": "AwardLabel2",
         "tw": "過關獎勵",
         "en": "REWARD"
     },
     {
+        "id": 9314,
+        "explain": "本日挑戰次數已用完",
+        "uipath": "StartButton/StartLabel",
+        "tw": "次數已用完"
+    },
+    {
         "id": 9391,
-        "uipeth": "Title",
+        "uipath": "Title",
         "tw": "生涯競賽",
         "en": "STORY"
     },
@@ -3299,20 +3314,20 @@
     },
     {
         "id": 9402,
-        "uipeth": "SkipButton/Icon",
+        "uipath": "SkipButton/Icon",
         "tw": "跳過",
         "en": "SKIP"
     },
     {
         "id": 9403,
-        "uipeth": "ButtonStart",
+        "uipath": "ButtonStart",
         "tw": "點擊開始",
         "en": "CLICK TO START"
     },
     {
         "id": 9404,
         "explain": "在Loading的畫面中為玩家推薦的技能晶片",
-        "uipeth": "UILoading/ShowAbilityDisc/TitleLabel",
+        "uipath": "UILoading/ShowAbilityDisc/TitleLabel",
         "tw": "推薦晶片",
         "en": "RECOMMENDED CARD"
     },
@@ -3324,43 +3339,43 @@
     },
     {
         "id": 9502,
-        "uipeth": 0,
+        "uipath": 0,
         "tw": "推薦玩家",
         "en": "SUGGEDTED"
     },
     {
         "id": 9503,
-        "uipeth": 1,
+        "uipath": 1,
         "tw": "好 友",
         "en": "FRIENDS"
     },
     {
         "id": 9504,
-        "uipeth": 2,
+        "uipath": 2,
         "tw": "球 隊",
         "en": "TEAM"
     },
     {
         "id": 9505,
-        "uipeth": "PositionLabel",
+        "uipath": "PositionLabel",
         "tw": "C",
         "en": "C"
     },
     {
         "id": 9506,
-        "uipeth": "PositionLabel",
+        "uipath": "PositionLabel",
         "tw": "F",
         "en": "F"
     },
     {
         "id": 9507,
-        "uipeth": "PositionLabel",
+        "uipath": "PositionLabel",
         "tw": "G",
         "en": "G"
     },
     {
         "id": 9508,
-        "uipeth": "GameStart/Label",
+        "uipath": "GameStart/Label",
         "tw": "競賽開始",
         "en": "START GAME"
     },
@@ -3399,7 +3414,7 @@
     {
         "id": 9515,
         "explain": "戰術",
-        "uipeth": "StrategyBtn",
+        "uipath": "StrategyBtn",
         "tw": "戰 術",
         "en": "STRATEGY"
     },
@@ -3410,13 +3425,13 @@
     },
     {
         "id": 9601,
-        "uipeth": "戰術選擇/SubheadLabel",
+        "uipath": "戰術選擇/SubheadLabel",
         "tw": "請選擇戰術",
         "en": "PLEASE CHOOSE TACTICS"
     },
     {
         "id": 9602,
-        "uipeth": "StrategyBtn/StrategyLabel",
+        "uipath": "StrategyBtn/StrategyLabel",
         "tw": " {0} 使用中",
         "en": " {0} "
     },
@@ -3428,55 +3443,55 @@
     },
     {
         "id": 9702,
-        "uipeth": "tabs/01",
+        "uipath": "tabs/01",
         "tw": "搜尋對戰",
         "en": "SEARCH BATTLE"
     },
     {
         "id": 9703,
-        "uipeth": "tabs/02",
+        "uipath": "tabs/02",
         "tw": "聯盟排行",
         "en": "LEAGUE RANK"
     },
     {
         "id": 9704,
-        "uipeth": "tabs/03",
+        "uipath": "tabs/03",
         "tw": "排行榜2",
         "en": "LEADERBOARD 2"
     },
     {
         "id": 9705,
-        "uipeth": "tabs/04",
+        "uipath": "tabs/04",
         "tw": "預留",
         "en": "Reserved"
     },
     {
         "id": 9706,
-        "uipeth": "tabs/05",
+        "uipath": "tabs/05",
         "tw": "預留",
         "en": "Reserved"
     },
     {
         "id": 9707,
-        "uipeth": "AwardGroup/TitleLabel",
+        "uipath": "AwardGroup/TitleLabel",
         "tw": "積分獎勵",
         "en": "REWARD"
     },
     {
         "id": 9708,
-        "uipeth": "RangeNameLabel",
+        "uipath": "RangeNameLabel",
         "tw": "下一階段\n {0} ",
         "en": "THE NEXT STAGE\n {0} "
     },
     {
         "id": 9709,
-        "uipeth": "NextRankGroup/TitleLabel/each",
+        "uipath": "NextRankGroup/TitleLabel/each",
         "tw": "每場",
         "en": "OVERALL"
     },
     {
         "id": 9710,
-        "uipeth": "NextRankGroup/TitleLabel/daily",
+        "uipath": "NextRankGroup/TitleLabel/daily",
         "tw": "每日",
         "en": "DAILY"
     },
@@ -3489,53 +3504,53 @@
     {
         "id": 9712,
         "explain": "每日獎勵按鈕 未領",
-        "uipeth": "DailyAwardBtn",
+        "uipath": "DailyAwardBtn",
         "tw": "可領取",
         "en": "Can receive"
     },
     {
         "id": 9713,
         "explain": "每日獎勵按鈕 已領",
-        "uipeth": "DailyAwardBtn",
+        "uipath": "DailyAwardBtn",
         "tw": "本日已領取",
         "en": "Has already received this day's award"
     },
     {
         "id": 9714,
         "explain": "說明",
-        "uipeth": "TitleLabel",
+        "uipath": "TitleLabel",
         "tw": "每日聯盟排名獎勵",
         "en": "Daily league award"
     },
     {
         "id": 9715,
         "explain": "Hint顯示：領取完畢",
-        "uipeth": "UIHint",
+        "uipath": "UIHint",
         "tw": "每日聯盟排名獎勵領取完畢。",
         "en": "Daily league award received"
     },
     {
         "id": 9716,
         "explain": "Hint顯示：領過了",
-        "uipeth": "UIHint/按鈕換button_gray",
+        "uipath": "UIHint/按鈕換button_gray",
         "tw": "今天領過囉，請明天再來。",
         "en": "Today's awards are over! Please come back tomorrow."
     },
     {
         "id": 9721,
-        "uipeth": "StartBtn",
+        "uipath": "StartBtn",
         "tw": "開始戰鬥",
         "en": "START BATTLE"
     },
     {
         "id": 9722,
-        "uipeth": "CombatLabel0/Label",
+        "uipath": "CombatLabel0/Label",
         "tw": "對手戰力值",
         "en": "OPPONENT OVERALL STATS"
     },
     {
         "id": 9723,
-        "uipeth": "CombatLabel1/Label",
+        "uipath": "CombatLabel1/Label",
         "tw": "玩家戰力值",
         "en": "PLAYERS OVERALL STATS"
     },
@@ -3591,32 +3606,32 @@
     },
     {
         "id": 9733,
-        "uipeth": "ItemRankGroup",
+        "uipath": "ItemRankGroup",
         "tw": "勝 率",
         "en": "Winning"
     },
     {
         "id": 9734,
-        "uipeth": "ItemRankGroup",
+        "uipath": "ItemRankGroup",
         "tw": "勝場數",
         "en": "Wins"
     },
     {
         "id": 9735,
-        "uipeth": "ItemRankGroup",
+        "uipath": "ItemRankGroup",
         "tw": "積 分",
         "en": "Score"
     },
     {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
-        "uipeth": "RankSlider/Thumb",
+        "uipath": "RankSlider/Thumb",
         "tw": "積分區間 {0}-{1} ",
         "en": "INTEGRATION INTERVAL {0} - {1} "
     },
     {
         "id": 9742,
-        "uipeth": "RankSlider/NowRank",
+        "uipath": "RankSlider/NowRank",
         "tw": "YOU",
         "en": "YOU"
     },
@@ -3713,35 +3728,35 @@
     },
     {
         "id": 10102,
-        "uipeth": "P1Button/Label",
+        "uipath": "P1Button/Label",
         "tw": 1,
         "en": 1,
         "jp": 1
     },
     {
         "id": 10103,
-        "uipeth": "P2Button/Label",
+        "uipath": "P2Button/Label",
         "tw": 2,
         "en": 2,
         "jp": 2
     },
     {
         "id": 10104,
-        "uipeth": "P3Button/Label",
+        "uipath": "P3Button/Label",
         "tw": 3,
         "en": 3,
         "jp": 3
     },
     {
         "id": 10105,
-        "uipeth": "Next/Icon",
+        "uipath": "Next/Icon",
         "tw": "下一步",
         "en": "NEXT",
         "jp": "NEXT"
     },
     {
         "id": 10106,
-        "uipeth": "LoadingPic/UIWord",
+        "uipath": "LoadingPic/UIWord",
         "tw": "LOADING",
         "en": "LOADING",
         "jp": "LOADING"
@@ -3749,55 +3764,55 @@
     {
         "id": 10107,
         "explain": "按鈕",
-        "uipeth": "ViewAttack-Shoot",
+        "uipath": "ViewAttack-Shoot",
         "tw": "跳 投",
         "en": "SHOOT"
     },
     {
         "id": 10108,
-        "uipeth": "ViewAttack-PASS",
+        "uipath": "ViewAttack-PASS",
         "tw": "傳球",
         "en": "PASS"
     },
     {
         "id": 10109,
-        "uipeth": "ViewAttack-YOU",
+        "uipath": "ViewAttack-YOU",
         "tw": "YOU",
         "en": "YOU"
     },
     {
         "id": 10110,
-        "uipeth": "ViewAttack-A",
+        "uipath": "ViewAttack-A",
         "tw": "A",
         "en": "A"
     },
     {
         "id": 10111,
-        "uipeth": "ViewAttack-B",
+        "uipath": "ViewAttack-B",
         "tw": "B",
         "en": "B"
     },
     {
         "id": 10112,
-        "uipeth": "ViewDefance-Block",
+        "uipath": "ViewDefance-Block",
         "tw": "火 鍋",
         "en": "BLOCK"
     },
     {
         "id": 10113,
-        "uipeth": "ViewDefance-Steal",
+        "uipath": "ViewDefance-Steal",
         "tw": "抄 截",
         "en": "STEAL"
     },
     {
         "id": 10114,
-        "uipeth": "ButtonAttack-Elbow",
+        "uipath": "ButtonAttack-Elbow",
         "tw": "肘 擊",
         "en": "ELBOW"
     },
     {
         "id": 10115,
-        "uipeth": "ButtonAttack-Push",
+        "uipath": "ButtonAttack-Push",
         "tw": "推 人",
         "en": "PUSH"
     },
@@ -3807,28 +3822,28 @@
     },
     {
         "id": 10202,
-        "uipeth": "SpriteAway",
+        "uipath": "SpriteAway",
         "tw": "AWAY",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10203,
-        "uipeth": "SpriteHome",
+        "uipath": "SpriteHome",
         "tw": "HOME",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10204,
-        "uipeth": "SpriteVS",
+        "uipath": "SpriteVS",
         "tw": "VS.",
         "en": "VS.",
         "jp": "VS."
     },
     {
         "id": 10205,
-        "uipeth": "TargetLabel",
+        "uipath": "TargetLabel",
         "tw": "TARGET \nSCORE",
         "en": "TARGET \nSCORE",
         "jp": "TARGET \nSCORE"
@@ -3874,198 +3889,198 @@
     },
     {
         "id": 10302,
-        "uipeth": "HomeBtn/SpriteHome",
+        "uipath": "HomeBtn/SpriteHome",
         "tw": "我 方",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10303,
-        "uipeth": "AwayBtn/SpriteAway",
+        "uipath": "AwayBtn/SpriteAway",
         "tw": "對 手",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10304,
-        "uipeth": "TargetBtn/LabelTitle",
+        "uipath": "TargetBtn/LabelTitle",
         "tw": "競 賽 目 標",
         "en": "MISSION",
         "jp": "MISSION"
     },
     {
         "id": 10305,
-        "uipeth": "PTS/LabelTitle",
+        "uipath": "PTS/LabelTitle",
         "tw": "總得分",
         "en": "PTS",
         "jp": "PTS"
     },
     {
         "id": 10306,
-        "uipeth": "FG/LabelTitle",
+        "uipath": "FG/LabelTitle",
         "tw": "命中",
         "en": "OFF",
         "jp": "OFF"
     },
     {
         "id": 10307,
-        "uipeth": "3FG/LabelTitle",
+        "uipath": "3FG/LabelTitle",
         "tw": "外線",
         "en": "OUT",
         "jp": "OUT"
     },
     {
         "id": 10308,
-        "uipeth": "REB/LabelTitle",
+        "uipath": "REB/LabelTitle",
         "tw": "籃板",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 10309,
-        "uipeth": "AST/LabelTitle",
+        "uipath": "AST/LabelTitle",
         "tw": "助攻",
         "en": "AST",
         "jp": "AST"
     },
     {
         "id": 10310,
-        "uipeth": "STL/LabelTitle",
+        "uipath": "STL/LabelTitle",
         "tw": "抄截",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 10311,
-        "uipeth": "BLK/LabelTitle",
+        "uipath": "BLK/LabelTitle",
         "tw": "火鍋",
         "en": "BLK",
         "jp": "BLK"
     },
     {
         "id": 10312,
-        "uipeth": "TOV/LabelTitle",
+        "uipath": "TOV/LabelTitle",
         "tw": "失誤",
         "en": "TOV",
         "jp": "TOV"
     },
     {
         "id": 10313,
-        "uipeth": "PUSH/LabelTitle",
+        "uipath": "PUSH/LabelTitle",
         "tw": "推人",
         "en": "PUSH",
         "jp": "PUSH"
     },
     {
         "id": 10314,
-        "uipeth": "KNOCK/LabelTitle",
+        "uipath": "KNOCK/LabelTitle",
         "tw": "擊倒",
         "en": "KNOCK",
         "jp": "KNOCK"
     },
     {
         "id": 10315,
-        "uipeth": "PlayerInfoBtn/Label",
+        "uipath": "PlayerInfoBtn/Label",
         "tw": "玩家資訊",
         "en": "PLAYER INFO",
         "jp": "PLAYER INFO"
     },
     {
         "id": 10316,
-        "uipeth": "ButtonAgain/Label",
+        "uipath": "ButtonAgain/Label",
         "tw": "重新開始",
         "en": "RESTART",
         "jp": "RESTART"
     },
     {
         "id": 10317,
-        "uipeth": "ButtonReturnSelect/Label",
+        "uipath": "ButtonReturnSelect/Label",
         "tw": "離開比賽",
         "en": "EXIT",
         "jp": "EXIT"
     },
     {
         "id": 10318,
-        "uipeth": "ButtonResume/Label",
+        "uipath": "ButtonResume/Label",
         "tw": "回到比賽",
         "en": "RESUME",
         "jp": "RESUME"
     },
     {
         "id": 10319,
-        "uipeth": "AIControlScrollBar/Label0",
+        "uipath": "AIControlScrollBar/Label0",
         "tw": "1秒",
         "en": "1s",
         "jp": "1s"
     },
     {
         "id": 10320,
-        "uipeth": "AIControlScrollBar/Label1",
+        "uipath": "AIControlScrollBar/Label1",
         "tw": "3秒",
         "en": "3s",
         "jp": "3s"
     },
     {
         "id": 10321,
-        "uipeth": "AIControlScrollBar/Label2",
+        "uipath": "AIControlScrollBar/Label2",
         "tw": "5秒",
         "en": "5s",
         "jp": "5s"
     },
     {
         "id": 10322,
-        "uipeth": "AIControlScrollBar/Label3",
+        "uipath": "AIControlScrollBar/Label3",
         "tw": "15秒",
         "en": "15s",
         "jp": "15s"
     },
     {
         "id": 10323,
-        "uipeth": "AIControlScrollBar/Label4",
+        "uipath": "AIControlScrollBar/Label4",
         "tw": "30秒",
         "en": "30s",
         "jp": "30s"
     },
     {
         "id": 10324,
-        "uipeth": "AIControlScrollBar/Label5",
+        "uipath": "AIControlScrollBar/Label5",
         "tw": "∞",
         "en": "∞",
         "jp": "∞"
     },
     {
         "id": 10325,
-        "uipeth": "AISecLabel",
+        "uipath": "AISecLabel",
         "tw": "自動模式",
         "en": "AI MODE"
     },
     {
         "id": 10326,
-        "uipeth": "球隊數據-戰果 TitleLabel",
+        "uipath": "球隊數據-戰果 TitleLabel",
         "tw": "球隊數據",
         "en": "TEAM DATA"
     },
     {
         "id": 10327,
-        "uipeth": "獲得物品-戰果",
+        "uipath": "獲得物品-戰果",
         "tw": "獲得物品",
         "en": "ITEMS REWARDED"
     },
     {
         "id": 10328,
-        "uipeth": "解鎖成就-戰果",
+        "uipath": "解鎖成就-戰果",
         "tw": "解鎖成就",
         "en": "FEATURE UNLOCKED"
     },
     {
         "id": 10329,
-        "uipeth": "暫停/SpriteTitle",
+        "uipath": "暫停/SpriteTitle",
         "tw": "單場數據",
         "en": "PLAYER STATS"
     },
     {
         "id": 10330,
-        "uipeth": "設定按鈕",
+        "uipath": "設定按鈕",
         "tw": "競賽設定",
         "en": "Game\nSetting"
     },
@@ -4075,101 +4090,101 @@
     },
     {
         "id": 10402,
-        "uipeth": "BottomRight/StatsNextLabel",
+        "uipath": "BottomRight/StatsNextLabel",
         "tw": "下一步",
         "en": "NEXT",
         "jp": "NEXT"
     },
     {
         "id": 10403,
-        "uipeth": "BottomRight/AwardSkipLabel",
+        "uipath": "BottomRight/AwardSkipLabel",
         "tw": "跳過",
         "en": "SKIP",
         "jp": "SKIP"
     },
     {
         "id": 10404,
-        "uipeth": "TitleLabel\n(StageTargetView)",
+        "uipath": "TitleLabel\n(StageTargetView)",
         "tw": "條件達成",
         "en": "OBJECTIVE ACHIEVED"
     },
     {
         "id": 10405,
-        "uipeth": "TitleLabel\n(StatsView/TeamStats)",
+        "uipath": "TitleLabel\n(StatsView/TeamStats)",
         "tw": "球隊數據",
         "en": "TEAM STATS"
     },
     {
         "id": 10406,
-        "uipeth": "TitleLabel\n(StatsView/PlayerStats)",
+        "uipath": "TitleLabel\n(StatsView/PlayerStats)",
         "tw": "玩家數據",
         "en": "PLAYER STATS"
     },
     {
         "id": 10407,
-        "uipeth": "AwardsView",
+        "uipath": "AwardsView",
         "tw": "獲得物品",
         "en": "REWARDS"
     },
     {
         "id": 10408,
-        "uipeth": "TeamStats/HomeLabel",
+        "uipath": "TeamStats/HomeLabel",
         "tw": "我方進攻",
         "en": "HOME",
         "jp": "HOME"
     },
     {
         "id": 10409,
-        "uipeth": "TeamStats/AwayLabel",
+        "uipath": "TeamStats/AwayLabel",
         "tw": "敵隊進攻",
         "en": "AWAY",
         "jp": "AWAY"
     },
     {
         "id": 10410,
-        "uipeth": "2PTLabel",
+        "uipath": "2PTLabel",
         "tw": "命中",
         "en": "OFF",
         "jp": "OFF"
     },
     {
         "id": 10411,
-        "uipeth": "3PTLabel",
+        "uipath": "3PTLabel",
         "tw": "外線",
         "en": "OUT",
         "jp": "OUT"
     },
     {
         "id": 10412,
-        "uipeth": "DNKLabel",
+        "uipath": "DNKLabel",
         "tw": "灌籃",
         "en": "DNK",
         "jp": "DNK"
     },
     {
         "id": 10413,
-        "uipeth": "REBLabel",
+        "uipath": "REBLabel",
         "tw": "籃板",
         "en": "REB",
         "jp": "REB"
     },
     {
         "id": 10414,
-        "uipeth": "STLLabel",
+        "uipath": "STLLabel",
         "tw": "抄截",
         "en": "STL",
         "jp": "STL"
     },
     {
         "id": 10415,
-        "uipeth": "ASTLabel",
+        "uipath": "ASTLabel",
         "tw": "助攻",
         "en": "AST",
         "jp": "AST"
     },
     {
         "id": 10416,
-        "uipeth": "BLKLabel",
+        "uipath": "BLKLabel",
         "tw": "火鍋",
         "en": "BLK",
         "jp": "BLK"
@@ -4282,14 +4297,14 @@
     },
     {
         "id": 10601,
-        "uipeth": "HomeOffense/HomeOffenseLabel",
+        "uipath": "HomeOffense/HomeOffenseLabel",
         "tw": "AWAY OFFENSIVE",
         "en": "AWAY OFFENSIVE",
         "jp": "AWAY OFFENSIVE"
     },
     {
         "id": 10602,
-        "uipeth": "AwayOffense/AwayOffenseLabel",
+        "uipath": "AwayOffense/AwayOffenseLabel",
         "tw": "HOME OFFENSIVE",
         "en": "HOME OFFENSIVE",
         "jp": "HOME OFFENSIVE"
@@ -4340,136 +4355,136 @@
     },
     {
         "id": 12002,
-        "uipeth": "0/TabLabel",
+        "uipath": "0/TabLabel",
         "tw": "遊 戲",
         "en": "GAME"
     },
     {
         "id": 12003,
-        "uipeth": "1/TabLabel",
+        "uipath": "1/TabLabel",
         "tw": "語 言",
         "en": "LANGUAGES"
     },
     {
         "id": 12004,
-        "uipeth": "2/TabLabel",
+        "uipath": "2/TabLabel",
         "tw": "帳 號",
         "en": "ACCOUNT"
     },
     {
         "id": 12005,
-        "uipeth": "3/TabLabel",
+        "uipath": "3/TabLabel",
         "tw": "關 於",
         "en": "INFO"
     },
     {
         "id": 12006,
-        "uipeth": "VersionLabel",
+        "uipath": "VersionLabel",
         "tw": "Version {0} ",
         "en": "VER{0} "
     },
     {
         "id": 12007,
-        "uipeth": "SubheadLabel0",
+        "uipath": "SubheadLabel0",
         "tw": "音 效",
         "en": "SOUND"
     },
     {
         "id": 12008,
         "explain": "畫面的品質",
-        "uipeth": "SubheadLabel1",
+        "uipath": "SubheadLabel1",
         "tw": "畫面顯示",
         "en": "SCREEN DISPLAY"
     },
     {
         "id": 12009,
-        "uipeth": "SubheadLabel2",
+        "uipath": "SubheadLabel2",
         "tw": "AI 設定",
         "en": "AI SETTINGS"
     },
     {
         "id": 12010,
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "音 樂",
         "en": "MUSIC"
     },
     {
         "id": 12011,
-        "uipeth": "1/BtnLabel",
+        "uipath": "1/BtnLabel",
         "tw": "音 效",
         "en": "SOUND"
     },
     {
         "id": 12012,
         "explain": "較差的畫面品質",
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "低階效能",
         "en": "LOW"
     },
     {
         "id": 12013,
-        "uipeth": "WarningLabel",
+        "uipath": "WarningLabel",
         "tw": "目前AI接管時間為：[ff0000]{0}[-]秒",
         "en": "AFTER [FF0000]{0}[-] SECONDS, THE SYSTEM WILL TAKE OVER YOUR CHARACTER."
     },
     {
         "id": 12014,
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "1秒",
         "en": "1S",
         "jp": "1s"
     },
     {
         "id": 12015,
-        "uipeth": "1/BtnLabel",
+        "uipath": "1/BtnLabel",
         "tw": "3秒",
         "en": "3S",
         "jp": "3s"
     },
     {
         "id": 12016,
-        "uipeth": "2/BtnLabel",
+        "uipath": "2/BtnLabel",
         "tw": "5秒",
         "en": "5S",
         "jp": "5s"
     },
     {
         "id": 12017,
-        "uipeth": "3/BtnLabel",
+        "uipath": "3/BtnLabel",
         "tw": "15秒",
         "en": "15S",
         "jp": "15s"
     },
     {
         "id": 12018,
-        "uipeth": "4/BtnLabel",
+        "uipath": "4/BtnLabel",
         "tw": "30秒",
         "en": "30S",
         "jp": "30s"
     },
     {
         "id": 12019,
-        "uipeth": "5/BtnLabel",
+        "uipath": "5/BtnLabel",
         "tw": "∞",
         "en": "∞",
         "jp": "∞"
     },
     {
         "id": 12020,
-        "uipeth": "SubheadLabel0",
+        "uipath": "SubheadLabel0",
         "tw": "設定語言",
         "en": "LANGUAGES"
     },
     {
         "id": 12021,
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "繁體中文",
         "en": "繁體中文",
         "jp": "繁體中文"
     },
     {
         "id": 12022,
-        "uipeth": "1/BtnLabel",
+        "uipath": "1/BtnLabel",
         "tw": "ENGLISH",
         "en": "ENGLISH",
         "jp": "ENGLISH"
@@ -4508,13 +4523,13 @@
     },
     {
         "id": 12031,
-        "uipeth": "SubheadLabel0",
+        "uipath": "SubheadLabel0",
         "tw": "切換角色",
         "en": "SWITCH CHARACTER"
     },
     {
         "id": 12032,
-        "uipeth": "0/BtnLabel",
+        "uipath": "0/BtnLabel",
         "tw": "選擇其他角色",
         "en": "SELECT OTHER CHARACTER"
     },
@@ -4615,57 +4630,57 @@
     {
         "id": 13011,
         "explain": "生化科技的概念，在以下部位能夠裝備物品增加能力",
-        "uipeth": "11.（左上）",
+        "uipath": "11.（左上）",
         "tw": "顱部插件",
         "en": "HEAD PLUG"
     },
     {
         "id": 13012,
-        "uipeth": "12.（左）",
+        "uipath": "12.（左）",
         "tw": "左臂插件",
         "en": "LEFT ARM PLUG"
     },
     {
         "id": 13013,
-        "uipeth": "13.（左下）",
+        "uipath": "13.（左下）",
         "tw": "右臂插件",
         "en": "RIGHT ARM PLUG"
     },
     {
         "id": 13014,
-        "uipeth": "14.（右下）",
+        "uipath": "14.（右下）",
         "tw": "胸腔插件",
         "en": "CHEST PLUG"
     },
     {
         "id": 13015,
-        "uipeth": "15.（右）",
+        "uipath": "15.（右）",
         "tw": "左腿插件",
         "en": "LEFT LEG PLUG"
     },
     {
         "id": 13016,
-        "uipeth": "16.（右上）",
+        "uipath": "16.（右上）",
         "tw": "右腿插件",
         "en": "RIGHT LEG PLUG"
     },
     {
         "id": 13017,
         "explain": "消耗型的增加能力物品",
-        "uipeth": "17.可消耗的數值裝備1（上）",
+        "uipath": "17.可消耗的數值裝備1（上）",
         "tw": "左耳注射器",
         "en": "LEFT EAR PLUG"
     },
     {
         "id": 13018,
-        "uipeth": "18.可消耗的數值裝備2（下）",
+        "uipath": "18.可消耗的數值裝備2（下）",
         "tw": "右耳注射器",
         "en": "RIGHT EAR PLUG"
     },
     {
         "id": 13019,
         "explain": "加強物品的消耗材料(突觸",
-        "uipeth": "19.鑲嵌材料",
+        "uipath": "19.鑲嵌材料",
         "tw": "鑲嵌材料",
         "en": "PLUG PARTS"
     },
@@ -4674,42 +4689,42 @@
     },
     {
         "id": 13021,
-        "uipeth": "21.技能卡牌",
+        "uipath": "21.技能卡牌",
         "tw": "技能晶片",
         "en": "SKILL CARD"
     },
     {
         "id": 13031,
         "explain": "包裝成物品的金幣",
-        "uipeth": "31.錢",
+        "uipath": "31.錢",
         "tw": "金 幣",
         "en": "Golds"
     },
     {
         "id": 13032,
         "explain": "包裝成物品的寶石(商城幣",
-        "uipeth": "32.鑽石",
+        "uipath": "32.鑽石",
         "tw": "寶 石",
         "en": "Gems"
     },
     {
         "id": 13033,
         "explain": "經驗值物品",
-        "uipeth": "33.經驗值",
+        "uipath": "33.經驗值",
         "tw": "經驗值",
         "en": "Experience"
     },
     {
         "id": 13034,
         "explain": "體力物品",
-        "uipeth": "34.體力",
+        "uipath": "34.體力",
         "tw": "體 力",
         "en": "Stamina"
     },
     {
         "id": 13040,
         "explain": "強化卡牌用的材料",
-        "uipeth": "40.卡片材料",
+        "uipath": "40.卡片材料",
         "tw": "進化材料",
         "en": "Evolution materials"
     },
