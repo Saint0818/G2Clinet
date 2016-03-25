@@ -114,15 +114,11 @@ public class TActiveSkillCard
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 
-				if(SuitCard != null){
+				if(SuitCard != null)
 					SuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
-					SuitCardEnable = LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard);
-				}
 
-				if(SuitItem != null) {
+				if(SuitItem != null) 
 					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
-					SuitItemEnable = (LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
-				}
 
             } else
                 Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
@@ -175,15 +171,11 @@ public class TActiveSkillCard
 					SkillKind.spriteName = "PassiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
 				GameFunction.ShowStar(ref SkillStars, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
-				if(SuitCard != null) {
+				if(SuitCard != null) 
 					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
-					SuitCardEnable = LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard);
-				}
 
-				if(SuitItem != null) {
+				if(SuitItem != null) 
 					SuitItem.spriteName = GameFunction.CardSuitItemBg(itemData.Avatar);
-					SuitItemEnable = (LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
-				}
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
 		}
@@ -215,15 +207,11 @@ public class TActiveSkillCard
 				SellSelect.SetActive(false);
 				SellSelectCover.SetActive(false);
 				GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
-				if(SuitCard != null){
+				if(SuitCard != null)
 					SuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
-					SuitCardEnable = LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard);
-				}
 
-				if(SuitItem != null) {
+				if(SuitItem != null) 
 					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
-					SuitItemEnable = (LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
-				}
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}
@@ -245,8 +233,8 @@ public class TActiveSkillCard
 		if(SuitCardFinish != null) {
 			SuitCard.gameObject.name = suitcardID.ToString();
 			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
-			SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID));
 		}
+		SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID)) && LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard);
 	}
 
 	public void UpdateSuitItem (int suitItemID) {
@@ -256,8 +244,8 @@ public class TActiveSkillCard
 				SuitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[suitItemID].ItemLength);
 				GameFunction.CardSuitItemStar(ref SuitItemFinish, GameData.DSuitItem[suitItemID].ItemLength, GameData.Team.SuitItemCompleteCount(suitItemID));
 			}
-			SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID));
 		}
+		SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID)) && LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem);
 
 	}
 
