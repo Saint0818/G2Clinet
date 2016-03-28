@@ -706,7 +706,7 @@ public class PlayerBehaviour : MonoBehaviour
             mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
             if (isSpeedup)
             {
-                if (mMovePower > 0 && (GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack))
+				if (mMovePower > 0 && !IsFall && (GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack))
                 {
                     mMovePower -= GameConst.MovePowerMoving;
                     if (mMovePower < 0)
@@ -2744,7 +2744,8 @@ public class PlayerBehaviour : MonoBehaviour
                                 if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk)
                                     GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
                                 else
-                                    GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
+									GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
+//                                    GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
 								
                             }
                         } 

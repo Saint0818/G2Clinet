@@ -234,8 +234,10 @@ public class UISuitCard {
 	}
 
 	public void Refresh () {
-		for(int i=0; i<itemSuitCards.Count; i++)
-			itemSuitCards[i].RefreshView();	
+		if(itemSuitCards != null) {
+			for(int i=0; i<itemSuitCards.Count; i++)
+				itemSuitCards[i].RefreshView();	
+		}
 	}
 
 	private void initSuitCard() {

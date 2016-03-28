@@ -4474,10 +4474,10 @@ public class GameController : KnightSingleton<GameController>
 					PlayerBehaviour faller = PlayerList[i];
 					PlayerBehaviour pusher = player;
 
-                        if (rate < faller.Attr.StrengthRate)
+                    if (rate < faller.Attr.StrengthRate)
+                    {
+                        if (faller.AniState(EPlayerState.Fall2, pusher.PlayerRefGameObject.transform.position))
                         {
-                            if (faller.AniState(EPlayerState.Fall2, pusher.PlayerRefGameObject.transform.position))
-                            {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
 							pusher.GameRecord.Knock++;
@@ -4486,7 +4486,8 @@ public class GameController : KnightSingleton<GameController>
 					}
 					else
                     {
-						if(faller.AniState(EPlayerState.Fall1, pusher.PlayerRefGameObject.transform.position))
+//						if(faller.AniState(EPlayerState.Fall1, pusher.PlayerRefGameObject.transform.position))
+						if(faller.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, pusher.transform.position))
                         {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);

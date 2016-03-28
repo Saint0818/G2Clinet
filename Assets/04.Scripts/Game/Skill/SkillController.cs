@@ -428,11 +428,8 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Fall1:
-				Result = true;
-				break;
-				
-			case ESkillSituation.Fall2:
-				Result = true;
+				playerState = getPassiveSkill(ESkillSituation.Fall1, ESkillKind.Fall1);
+				Result = executePlayer.AniState(playerState);
 				break;
 
 			case ESkillSituation.Elbow0:
@@ -611,7 +608,7 @@ public class SkillController : MonoBehaviour {
 		if(executePlayer.Attribute.IsHaveActiveSkill && GameData.DSkillData.ContainsKey(tSkill.ID)) {
 			int kind = GameData.DSkillData[tSkill.ID].Kind;
 
-			if( kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210 || kind == 220 || kind == 230)
+			if( kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210 || kind == 220 || kind == 230 || kind == 300 || kind == 310)
 				return  true;
 			
 			switch (GameController.Get.Situation) {
