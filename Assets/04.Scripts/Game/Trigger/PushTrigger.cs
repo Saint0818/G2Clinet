@@ -40,14 +40,11 @@ public class PushTrigger : MonoBehaviour {
 					}
 					else
 					{
-//						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
 						if(faller.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
 						}
 					}
-
-//					gameObject.SetActive(false);
 
 					if (pusher.IsElbow) {
 						pusher.GameRecord.Elbow++;

@@ -4486,12 +4486,10 @@ public class GameController : KnightSingleton<GameController>
 					}
 					else
                     {
-//						if(faller.AniState(EPlayerState.Fall1, pusher.PlayerRefGameObject.transform.position))
 						if(faller.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, pusher.transform.position))
                         {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
-//							if(faller == Joysticker || pusher == Joysticker)
 							ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
 					}
