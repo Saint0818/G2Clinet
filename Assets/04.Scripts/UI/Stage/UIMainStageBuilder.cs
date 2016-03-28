@@ -24,6 +24,7 @@ public static class UIMainStageBuilder
         switch(infoData.ErrorCode)
         {
             case UIStageVerification.EErrorCode.NoDailyChallenge:
+            case UIStageVerification.EErrorCode.NoDailyChallengeNoDiamond:
                 infoData.StartButtonSprite = "button_green";
                 infoData.StartButtonText = TextConst.S(9311);
                 TDiamondData diamondData = DiamondsTable.Ins.Get(TDiamondData.EKind.ResetDailyChallenge);

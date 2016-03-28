@@ -55,6 +55,7 @@ public static class UIInstanceBuilder
                 data.IconValue = stageData.CostValue;
                 break;
             case UIStageVerification.EErrorCode.NoDailyChallenge:
+            case UIStageVerification.EErrorCode.NoDailyChallengeNoDiamond:
                 data.StartButtonSprite = "button_green";
                 data.StartButtonText = TextConst.S(9311);
 

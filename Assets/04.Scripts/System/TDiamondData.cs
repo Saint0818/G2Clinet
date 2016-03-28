@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Diamonds 表格中的某一筆資料.
@@ -11,6 +12,7 @@ public class TDiamondData
         ResetDailyChallenge = 1
     }
 
+    [Obsolete("改用 GetReviseNum().")]
     public int[] Nums
     {
         get { return mNums ?? (mNums = new [] {Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8}); }

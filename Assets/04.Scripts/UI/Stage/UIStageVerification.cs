@@ -11,6 +11,7 @@ public static class UIStageVerification
         Pass,
         NoPower, 
         NoDailyChallenge, // 每日挑戰次數用完, 但是每日重置次數還有(所以可以重置).
+        NoDailyChallengeNoDiamond, // 每日挑戰次數用完, 但是每日重置次數還有(所以可以重置), 但是鑽石不夠.
         NoResetDailyChallenge, // 每日重置挑戰次數用完.
         NoChallengeAgain, // 已經打過, 而且不能再打.
         MissionNoPass
@@ -36,8 +37,17 @@ public static class UIStageVerification
         if(!VerifyDailyChallenge(stageData, out errMsg) && !VerifyResetDialyChallenge(stageData, out errMsg))
             return EErrorCode.NoResetDailyChallenge;
 
-        if(!VerifyDailyChallenge(stageData, out errMsg)) 
-            return EErrorCode.NoDailyChallenge;
+        if(!VerifyDailyChallenge(stageData, out errMsg))
+        {
+            var diamondsData = DiamondsTable.Ins.Get(TDiamondData.EKind.ResetDailyChallenge);
+            int resetNum = GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
+            int requireDiamond = diamondsData.GetReviseNum(resetNum);
+            if(GameData.Team.Diamond >= requireDiamond)
+                return EErrorCode.NoDailyChallenge;
+
+            errMsg = TextConst.S(233);
+            return EErrorCode.NoDailyChallengeNoDiamond;
+        }
 
         errMsg = String.Empty;
         return EErrorCode.Pass;
