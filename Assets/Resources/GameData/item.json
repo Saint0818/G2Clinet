@@ -1080,7 +1080,7 @@
     },
     {
         "id": 1007,
-        "nametw": "中鋒頭髮7",
+        "nametw": "黑色後梳油頭",
         "kind": 1,
         "atlas": 1,
         "icon": 1007,
@@ -1097,7 +1097,7 @@
     },
     {
         "id": 1008,
-        "nametw": "中鋒頭髮8",
+        "nametw": "金髮後梳油頭",
         "kind": 1,
         "atlas": 1,
         "icon": 1008,
@@ -1114,7 +1114,7 @@
     },
     {
         "id": 1009,
-        "nametw": "中鋒頭髮9",
+        "nametw": "墨綠後梳油頭",
         "kind": 1,
         "atlas": 1,
         "icon": 1009,
@@ -1247,7 +1247,7 @@
     },
     {
         "id": 1016,
-        "nametw": "太空人頭盔",
+        "nametw": "星際特工頭盔",
         "kind": 1,
         "atlas": 1,
         "icon": 1016,
@@ -1259,9 +1259,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋头发16",
-        "nameen": "Hair center 16",
-        "namejp": "毛髪センタ16"
+        "namecn": "星際特工頭盔",
+        "nameen": "Cosmic Agents Helmet",
+        "namejp": "毛髪センタ16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents\n\nLimited [ff0000] center [-] equipment. "
     },
     {
         "id": 1017,
@@ -1300,6 +1302,8 @@
         "nametw": "中鋒頭髮19",
         "kind": 1,
         "atlas": 1,
+        "icon": 1019,
+        "avatar": 34001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -1449,7 +1453,7 @@
     },
     {
         "id": 1107,
-        "nametw": "前鋒頭髮7",
+        "nametw": "時髦旁分金髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1107,
@@ -1466,7 +1470,7 @@
     },
     {
         "id": 1108,
-        "nametw": "前鋒頭髮8",
+        "nametw": "時髦旁分綠髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1108,
@@ -1483,7 +1487,7 @@
     },
     {
         "id": 1109,
-        "nametw": "前鋒頭髮9",
+        "nametw": "時髦旁分藍髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1109,
@@ -1620,7 +1624,7 @@
     },
     {
         "id": 1116,
-        "nametw": "太空人頭罩",
+        "nametw": "星際特工頭罩",
         "kind": 1,
         "atlas": 1,
         "icon": 1116,
@@ -1632,9 +1636,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋头发16",
-        "nameen": "Hair striker 16",
-        "namejp": "髪のストライカー16"
+        "namecn": "星際特工頭罩",
+        "nameen": "Cosmic Agents Helmet",
+        "namejp": "髪のストライカー16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Cosmic Agents Helmet\n\nLimited [3960CEFF] Forward [-] equipment. "
     },
     {
         "id": 1117,
@@ -1822,7 +1828,7 @@
     },
     {
         "id": 1207,
-        "nametw": "後衛頭髮7",
+        "nametw": "艷紅犀利短髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1207,
@@ -1839,7 +1845,7 @@
     },
     {
         "id": 1208,
-        "nametw": "後衛頭髮8",
+        "nametw": "亮綠犀利短髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1208,
@@ -1856,7 +1862,7 @@
     },
     {
         "id": 1209,
-        "nametw": "後衛頭髮9",
+        "nametw": "海藍犀利短髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1209,
@@ -1999,7 +2005,7 @@
     },
     {
         "id": 1216,
-        "nametw": "太空人面罩",
+        "nametw": "星際特工面罩",
         "kind": 1,
         "atlas": 1,
         "icon": 1216,
@@ -2011,9 +2017,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "后卫头发16",
-        "nameen": "Guard hair 16",
-        "namejp": "ガード毛16"
+        "namecn": "星際特工面罩",
+        "nameen": "Cosmic Agents Helmet",
+        "namejp": "ガード毛16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Cosmic Agents Helmet\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 1217,
@@ -2033,9 +2041,11 @@
     },
     {
         "id": 1218,
-        "nametw": "後衛頭髮18",
+        "nametw": "戰鬥學員長髮",
         "kind": 1,
         "atlas": 1,
+        "icon": 1218,
+        "avatar": 33001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -2052,6 +2062,8 @@
         "nametw": "後衛頭髮19",
         "kind": 1,
         "atlas": 1,
+        "icon": 1219,
+        "avatar": 36001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -2342,7 +2354,7 @@
     },
     {
         "id": 2016,
-        "nametw": "太空人手套",
+        "nametw": "星際特工手套",
         "kind": 2,
         "atlas": 2,
         "icon": 2016,
@@ -2354,9 +2366,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋手饰16",
-        "nameen": "Jewelry center 16",
-        "namejp": "ジュエリーセンター16"
+        "namecn": "星際特工手套",
+        "nameen": "Cosmic Agents Gloves",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Gloves\n\nLimited [ff0000] Center [-] equipment. "
     },
     {
         "id": 2017,
@@ -2395,6 +2409,8 @@
         "nametw": "中鋒手飾19",
         "kind": 2,
         "atlas": 2,
+        "icon": 2019,
+        "avatar": 34001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -2685,7 +2701,7 @@
     },
     {
         "id": 2116,
-        "nametw": "太空人護手",
+        "nametw": "星際特工護手",
         "kind": 2,
         "atlas": 2,
         "icon": 2116,
@@ -2697,9 +2713,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋手饰16",
-        "nameen": "Forward jewelry 16",
-        "namejp": "フォワードジュエリー16"
+        "namecn": "星際特工護手",
+        "nameen": "Cosmic Agents Gloves",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Gloves\n\nLimited [ff0000] Forward [-] equipment. "
     },
     {
         "id": 2117,
@@ -3033,7 +3051,7 @@
     },
     {
         "id": 2216,
-        "nametw": "太空人腕套",
+        "nametw": "星際特工腕套",
         "kind": 2,
         "atlas": 2,
         "icon": 2216,
@@ -3045,9 +3063,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "后卫手饰16",
-        "nameen": "Defender jewelry 16",
-        "namejp": "ディフェンダーの宝石16"
+        "namecn": "星際特工腕套",
+        "nameen": "Cosmic Agents Wrist",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Wrist\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 2217,
@@ -3067,9 +3087,11 @@
     },
     {
         "id": 2218,
-        "nametw": "後衛手飾18",
+        "nametw": "戰鬥學員手甲",
         "kind": 2,
         "atlas": 2,
+        "icon": 2218,
+        "avatar": 33001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -3086,6 +3108,8 @@
         "nametw": "後衛手飾19",
         "kind": 2,
         "atlas": 2,
+        "icon": 2219,
+        "avatar": 36001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -3234,7 +3258,7 @@
     },
     {
         "id": 3007,
-        "nametw": "中鋒衣服7",
+        "nametw": "黑色街頭上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3007,
@@ -3251,7 +3275,7 @@
     },
     {
         "id": 3008,
-        "nametw": "中鋒衣服8",
+        "nametw": "紅色街頭上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3008,
@@ -3268,7 +3292,7 @@
     },
     {
         "id": 3009,
-        "nametw": "中鋒衣服9",
+        "nametw": "白色街頭上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3009,
@@ -3365,7 +3389,7 @@
         "nameen": "Forzen Warrior Breastplate",
         "namejp": "服センタ13",
         "explaintw": "攀上巔峰，極限戰士。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "Climb the peak, ultimate warrior.\n\nLimited [ff0000] center [-] equipment. "
+        "explainen": "Climb the peak, ultimate warrior.\n\nLimited [ff0000] Center [-] equipment. "
     },
     {
         "id": 3014,
@@ -3386,7 +3410,7 @@
         "nameen": "Punk gentleman vest",
         "namejp": "服センター14",
         "explaintw": "紳士就是要穿上合身背心。\n\n限定[ff0000]中鋒[-]裝備。",
-        "explainen": "A gentleman is fit to wear the vest.\n\nLimited [ff0000] center [-] equipment. "
+        "explainen": "A gentleman is fit to wear the vest.\n\nLimited [ff0000] Center [-] equipment. "
     },
     {
         "id": 3015,
@@ -3406,7 +3430,7 @@
     },
     {
         "id": 3016,
-        "nametw": "太空人背心",
+        "nametw": "星際特工背心",
         "kind": 3,
         "atlas": 3,
         "icon": 3016,
@@ -3418,9 +3442,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋衣服16",
-        "nameen": "Clothes center 16",
-        "namejp": "服センタ16"
+        "namecn": "星際特工背心",
+        "nameen": "Cosmic Agents Tank Top",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Tank Top\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 3017,
@@ -3459,6 +3485,8 @@
         "nametw": "中鋒衣服19",
         "kind": 3,
         "atlas": 3,
+        "icon": 3019,
+        "avatar": 34001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -3607,7 +3635,7 @@
     },
     {
         "id": 3107,
-        "nametw": "前鋒衣服7",
+        "nametw": "紫金纖維球衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3107,
@@ -3624,7 +3652,7 @@
     },
     {
         "id": 3108,
-        "nametw": "前鋒衣服8",
+        "nametw": "青藍纖維球衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3108,
@@ -3641,7 +3669,7 @@
     },
     {
         "id": 3109,
-        "nametw": "前鋒衣服9",
+        "nametw": "黃色纖維球衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3109,
@@ -3779,7 +3807,7 @@
     },
     {
         "id": 3116,
-        "nametw": "太空人上衣",
+        "nametw": "星際特工塑衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3116,
@@ -3791,9 +3819,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋衣服16",
-        "nameen": "16 striker clothes",
-        "namejp": "16ストライカー服"
+        "namecn": "星際特工塑衣",
+        "nameen": "Cosmic Agents Clothing",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Cosmic Agents Clothing\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 3117,
@@ -3980,7 +4010,7 @@
     },
     {
         "id": 3207,
-        "nametw": "後衛衣服7",
+        "nametw": "紫色運動上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3207,
@@ -3997,7 +4027,7 @@
     },
     {
         "id": 3208,
-        "nametw": "後衛衣服8",
+        "nametw": "黃色運動上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3208,
@@ -4014,7 +4044,7 @@
     },
     {
         "id": 3209,
-        "nametw": "後衛衣服9",
+        "nametw": "粉色運動上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3209,
@@ -4157,7 +4187,7 @@
     },
     {
         "id": 3216,
-        "nametw": "太空人緊身衣",
+        "nametw": "星際特工夾克",
         "kind": 3,
         "atlas": 3,
         "icon": 3216,
@@ -4169,9 +4199,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "后卫衣服16",
-        "nameen": "Guard clothes 16",
-        "namejp": "Guardは16服"
+        "namecn": "星際特工夾克",
+        "nameen": "Cosmic Agents Jacket",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Cosmic Agents Jacket\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 3217,
@@ -4191,9 +4223,11 @@
     },
     {
         "id": 3218,
-        "nametw": "後衛衣服18",
+        "nametw": "戰鬥學員校服",
         "kind": 3,
         "atlas": 3,
+        "icon": 3218,
+        "avatar": 33001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -4210,6 +4244,8 @@
         "nametw": "後衛衣服19",
         "kind": 3,
         "atlas": 3,
+        "icon": 3219,
+        "avatar": 36001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -4358,7 +4394,7 @@
     },
     {
         "id": 4007,
-        "nametw": "中鋒褲子7",
+        "nametw": "黑色街頭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4007,
@@ -4375,7 +4411,7 @@
     },
     {
         "id": 4008,
-        "nametw": "中鋒褲子8",
+        "nametw": "紅色街頭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4008,
@@ -4392,7 +4428,7 @@
     },
     {
         "id": 4009,
-        "nametw": "中鋒褲子9",
+        "nametw": "白色街頭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4009,
@@ -4530,7 +4566,7 @@
     },
     {
         "id": 4016,
-        "nametw": "太空人短褲",
+        "nametw": "星際特工短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4016,
@@ -4542,9 +4578,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋裤子16",
-        "nameen": "Pants center 16",
-        "namejp": "パンツ・センター16"
+        "namecn": "星際特工短褲",
+        "nameen": "Cosmic Agents Shorts",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Shorts\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 4017,
@@ -4583,6 +4621,8 @@
         "nametw": "中鋒褲子19",
         "kind": 4,
         "atlas": 4,
+        "icon": 4019,
+        "avatar": 34001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -4731,7 +4771,7 @@
     },
     {
         "id": 4107,
-        "nametw": "前鋒褲子7",
+        "nametw": "紫金內搭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4107,
@@ -4748,7 +4788,7 @@
     },
     {
         "id": 4108,
-        "nametw": "前鋒褲子8",
+        "nametw": "青藍內搭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4108,
@@ -4765,7 +4805,7 @@
     },
     {
         "id": 4109,
-        "nametw": "前鋒褲子9",
+        "nametw": "黃色內搭球褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4109,
@@ -4903,7 +4943,7 @@
     },
     {
         "id": 4116,
-        "nametw": "太空人長褲",
+        "nametw": "星際特工塑褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4116,
@@ -4915,9 +4955,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋裤子16",
-        "nameen": "Forward pants 16",
-        "namejp": "フォワードパンツ16"
+        "namecn": "星際特工塑褲",
+        "nameen": "Cosmic Agents Pants",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Cosmic Agents Pants\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 4117,
@@ -5104,7 +5146,7 @@
     },
     {
         "id": 4207,
-        "nametw": "後衛褲子7",
+        "nametw": "紫色運動短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4207,
@@ -5121,7 +5163,7 @@
     },
     {
         "id": 4208,
-        "nametw": "後衛褲子8",
+        "nametw": "黃色運動短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4208,
@@ -5138,7 +5180,7 @@
     },
     {
         "id": 4209,
-        "nametw": "後衛褲子9",
+        "nametw": "粉色運動短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4209,
@@ -5281,7 +5323,7 @@
     },
     {
         "id": 4216,
-        "nametw": "太空人緊身褲",
+        "nametw": "星際特工長褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4216,
@@ -5293,9 +5335,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "后卫裤子16",
-        "nameen": "Defender pants 16",
-        "namejp": "ディフェンダーパンツ16"
+        "namecn": "星際特工長褲",
+        "nameen": "Cosmic Agents Leggings",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Cosmic Agents Leggings\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 4217,
@@ -5315,9 +5359,11 @@
     },
     {
         "id": 4218,
-        "nametw": "後衛褲子18",
+        "nametw": "戰鬥學員熱褲",
         "kind": 4,
         "atlas": 4,
+        "icon": 4218,
+        "avatar": 33001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -5334,6 +5380,8 @@
         "nametw": "後衛褲子19",
         "kind": 4,
         "atlas": 4,
+        "icon": 4219,
+        "avatar": 36001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -5482,7 +5530,7 @@
     },
     {
         "id": 5007,
-        "nametw": "中鋒鞋子7",
+        "nametw": "黑色基礎球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5007,
@@ -5499,7 +5547,7 @@
     },
     {
         "id": 5008,
-        "nametw": "中鋒鞋子8",
+        "nametw": "紅色基礎球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5008,
@@ -5516,7 +5564,7 @@
     },
     {
         "id": 5009,
-        "nametw": "中鋒鞋子9",
+        "nametw": "藍色基礎球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5009,
@@ -5654,7 +5702,7 @@
     },
     {
         "id": 5016,
-        "nametw": "太空人鞋子",
+        "nametw": "星際特工筒靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5016,
@@ -5666,9 +5714,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋鞋子16",
-        "nameen": "Shoes center 16",
-        "namejp": "靴・センター16"
+        "namecn": "星際特工筒靴",
+        "nameen": "Cosmic Agents Boots",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Cosmic Agents Boots\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 5017,
@@ -5707,6 +5757,8 @@
         "nametw": "中鋒鞋子19",
         "kind": 5,
         "atlas": 5,
+        "icon": 5019,
+        "avatar": 34001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -5854,7 +5906,7 @@
     },
     {
         "id": 5107,
-        "nametw": "前鋒鞋子7",
+        "nametw": "藍色籃球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5107,
@@ -5871,7 +5923,7 @@
     },
     {
         "id": 5108,
-        "nametw": "前鋒鞋子8",
+        "nametw": "墨綠籃球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5108,
@@ -5888,7 +5940,7 @@
     },
     {
         "id": 5109,
-        "nametw": "前鋒鞋子9",
+        "nametw": "黑色籃球鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5109,
@@ -6026,7 +6078,7 @@
     },
     {
         "id": 5116,
-        "nametw": "太空人護鞋",
+        "nametw": "星際特工護靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5116,
@@ -6038,9 +6090,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋鞋子16",
-        "nameen": "Forward Shoes 16",
-        "namejp": "フォワードシューズ16"
+        "namecn": "星際特工護靴",
+        "nameen": "Cosmic Agents Boots",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Cosmic Agents Boots\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 5117,
@@ -6227,7 +6281,7 @@
     },
     {
         "id": 5207,
-        "nametw": "後衛鞋子7",
+        "nametw": "深藍訓練鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5207,
@@ -6244,7 +6298,7 @@
     },
     {
         "id": 5208,
-        "nametw": "後衛鞋子8",
+        "nametw": "夜黑訓練鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5208,
@@ -6261,7 +6315,7 @@
     },
     {
         "id": 5209,
-        "nametw": "後衛鞋子9",
+        "nametw": "寶藍訓練鞋",
         "kind": 5,
         "atlas": 5,
         "icon": 5209,
@@ -6404,7 +6458,7 @@
     },
     {
         "id": 5216,
-        "nametw": "太空人長靴",
+        "nametw": "星際特工長靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5216,
@@ -6416,9 +6470,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "后卫鞋子16",
-        "nameen": "Defender Shoes 16",
-        "namejp": "ディフェンダーシューズ16"
+        "namecn": "星際特工長靴",
+        "nameen": "Cosmic Agents Boots",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Cosmic Agents Boots\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 5217,
@@ -6438,9 +6494,11 @@
     },
     {
         "id": 5218,
-        "nametw": "後衛鞋子18",
+        "nametw": "戰鬥學員長襪",
         "kind": 5,
         "atlas": 5,
+        "icon": 5218,
+        "avatar": 33001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -6457,6 +6515,8 @@
         "nametw": "後衛鞋子19",
         "kind": 5,
         "atlas": 5,
+        "icon": 5219,
+        "avatar": 36001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -6727,7 +6787,7 @@
     },
     {
         "id": 6013,
-        "nametw": "太空人耳麥",
+        "nametw": "星際特工耳麥",
         "kind": 6,
         "atlas": 6,
         "icon": 6013,
@@ -6739,15 +6799,19 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "头饰13",
-        "nameen": "Headdress 13",
-        "namejp": "頭飾り13"
+        "namecn": "星際特工耳麥",
+        "nameen": "Cosmic Agents Mic",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。",
+        "explainen": "Cosmic Agents Mic"
     },
     {
         "id": 6014,
-        "nametw": "頭飾14",
+        "nametw": "電子超能眼鏡",
         "kind": 6,
         "atlas": 6,
+        "icon": 6014,
+        "avatar": 29001,
         "quality": 3,
         "position": 3,
         "maxstack": 1,
@@ -6755,9 +6819,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "头饰14",
-        "nameen": "Headdress 14",
-        "namejp": "頭飾り14"
+        "namecn": "電子超能眼鏡",
+        "nameen": "Super Electronic Glasses",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "電子超能系列，展現你的超能力。",
+        "explainen": "Super Electronic Glasses"
     },
     {
         "id": 6015,
@@ -6809,9 +6875,11 @@
     },
     {
         "id": 6018,
-        "nametw": "頭飾18",
+        "nametw": "戰鬥護目鏡",
         "kind": 6,
         "atlas": 6,
+        "icon": 6018,
+        "avatar": 33001,
         "quality": 3,
         "position": 3,
         "maxstack": 1,
@@ -7099,7 +7167,7 @@
     },
     {
         "id": 7013,
-        "nametw": "太空人無線電",
+        "nametw": "星際通訊器",
         "kind": 7,
         "atlas": 7,
         "icon": 7013,
@@ -7111,15 +7179,19 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "背饰13",
-        "nameen": "Back decorated 13",
-        "namejp": "戻る13装飾"
+        "namecn": "星際通訊器",
+        "nameen": "Cosmic Agents Radio",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "星際特工系列，守護宇宙和平。",
+        "explainen": "Cosmic Agents Radio"
     },
     {
         "id": 7014,
-        "nametw": "背飾14",
+        "nametw": "電子雙筒喇叭",
         "kind": 7,
         "atlas": 7,
+        "icon": 7014,
+        "avatar": 29001,
         "quality": 3,
         "position": 3,
         "maxstack": 1,
@@ -7127,9 +7199,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "背饰14",
-        "nameen": "Back decorated 14",
-        "namejp": "戻る14装飾"
+        "namecn": "電子雙筒喇叭",
+        "nameen": "Super Electronic Speaker",
+        "namejp": "ジュエリーセンター16",
+        "explaintw": "電子超能系列，展現你的超能力。",
+        "explainen": "Super Electronic Speaker"
     },
     {
         "id": 7015,
@@ -7149,7 +7223,7 @@
     },
     {
         "id": 7016,
-        "nametw": "背飾16",
+        "nametw": "星際特工包",
         "kind": 7,
         "atlas": 7,
         "quality": 3,
@@ -7159,9 +7233,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "背饰16",
-        "nameen": "Back decorated 16",
-        "namejp": "戻る16装飾"
+        "namecn": "星際特工包",
+        "nameen": "Cosmic Agents Pack",
+        "namejp": "戻る16装飾",
+        "explaintw": "星際特工系列，守護宇宙和平。",
+        "explainen": "Cosmic Agents Pack"
     },
     {
         "id": 7017,
@@ -7182,9 +7258,11 @@
     },
     {
         "id": 7018,
-        "nametw": "背飾18",
+        "nametw": "戰鬥學員長槍",
         "kind": 7,
         "atlas": 7,
+        "icon": 7018,
+        "avatar": 33001,
         "quality": 3,
         "position": 3,
         "maxstack": 1,
@@ -15770,6 +15848,60 @@
         "nameen": "Wisdom IC chip design",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
         "explainen": "IC rare Skill Card, with \"top chip design\" that is able to enhance the specific skills of the card to the highest level."
+    },
+    {
+        "id": 51000,
+        "nametw": "51.Basket = 1,",
+        "kind": 51
+    },
+    {
+        "id": 52000,
+        "nametw": "52.Advertisement = 2,",
+        "kind": 52
+    },
+    {
+        "id": 53000,
+        "nametw": "53.Store = 3,",
+        "kind": 53
+    },
+    {
+        "id": 54000,
+        "nametw": "54.Gym = 4,體育館1",
+        "kind": 54,
+        "attrkind1": 50,
+        "attrvalue1": 0.1
+    },
+    {
+        "id": 54001,
+        "nametw": "54.Gym = 4,體育館2",
+        "kind": 54,
+        "attrkind1": 50,
+        "attrvalue1": 0.1
+    },
+    {
+        "id": 55000,
+        "nametw": "55.Door = 5,",
+        "kind": 55
+    },
+    {
+        "id": 56000,
+        "nametw": "56.Logo = 6,",
+        "kind": 56
+    },
+    {
+        "id": 57000,
+        "nametw": "57.Chair = 7,",
+        "kind": 57
+    },
+    {
+        "id": 58000,
+        "nametw": "58.Calendar = 8,",
+        "kind": 58
+    },
+    {
+        "id": 59000,
+        "nametw": "59.Mail = 9",
+        "kind": 59
     },
     {
         "id": 93101,
