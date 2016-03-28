@@ -2141,9 +2141,10 @@ public class GameController : KnightSingleton<GameController>
     {
         if (player == BallOwner)
         {
-			if (player.crtState == EPlayerState.Alleyoop)
+			if (player.crtState == EPlayerState.Alleyoop){
 				player.GameRecord.Alleyoop++;
-			else
+				ShootDistance = 0; //maybe score 3, so it sets 0.
+			}else
 				ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 
 			CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.DunkBasket);

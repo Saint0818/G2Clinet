@@ -282,6 +282,13 @@ public class UISuitAvatar : UIBase {
 		hideAllSelect();
 		if(tItemSuitAvatarGroup.ContainsKey(id))
 			tItemSuitAvatarGroup[id].SelectActive = true;
+
+		if(id >= 200)
+			leftScorllView.Scroll(-0.5f);
+		else if(id >= 100)
+			leftScorllView.Scroll(-0.25f);
+		else 
+			leftScorllView.Scroll(0);
 	} 
 
 	public void OnClickSuit (GameObject go) {
