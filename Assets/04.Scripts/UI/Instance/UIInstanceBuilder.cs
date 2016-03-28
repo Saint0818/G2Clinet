@@ -39,7 +39,6 @@ public static class UIInstanceBuilder
             Title = stageData.Name,
             Money = stageData.Money,
             Exp = stageData.Exp,
-            Stamina = stageData.CostValue,
             RemainDailyCount = string.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
             ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
                         GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
@@ -47,10 +46,29 @@ public static class UIInstanceBuilder
             ShowMask = UIStageVerification.VerifyPlayerProgress(stageData)
         };
 
-        string errMsg;
-        data.StartEnable = UIStageVerification.VerifyQualification(stageData, out errMsg) != UIStageVerification.EErrorCode.Pass;
-        data.ErrorMsg = errMsg;
-        data.ShowBuyPower = !UIStageVerification.VerifyCost(stageData, out errMsg);
+        data.ErrorCode = UIStageVerification.VerifyQualification(stageData, out data.ErrorMsg);
+        switch(data.ErrorCode)
+        {
+            case UIStageVerification.EErrorCode.Pass:
+                data.StartButtonSprite = UIBase.ButtonBG(true);
+                data.IconValue = stageData.CostValue;
+                break;
+            case UIStageVerification.EErrorCode.NoDailyChallenge:
+                data.StartButtonSprite = "button_green";
+                data.StartButtonText = TextConst.S(9311);
+                TDiamondData diamondData = DiamondsTable.Ins.Get(TDiamondData.EKind.ResetDailyChallenge);
+                int resetNum = GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
+                data.IconValue = diamondData.GetReviseNum(resetNum);
+                break;
+            case UIStageVerification.EErrorCode.MissionNoPass:
+            case UIStageVerification.EErrorCode.NoChallengeAgain:
+            case UIStageVerification.EErrorCode.NoPower:
+            case UIStageVerification.EErrorCode.NoResetDailyChallenge:
+                data.StartButtonSprite = UIBase.ButtonBG(false);
+                data.IconValue = stageData.CostValue;
+                break;
+        }
+//        data.ShowBuyPower = !UIStageVerification.VerifyCost(stageData);
 
         data.RewardItems.AddRange(FindRewardItems(stageData));
 

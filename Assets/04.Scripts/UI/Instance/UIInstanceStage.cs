@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 副本章節內的關卡. 這對應到 UIInstanceStage.prefab.
@@ -10,13 +11,25 @@ public class UIInstanceStage : MonoBehaviour
     public UILabel TitleLabel;
     public UILabel MoneyLabel;
     public UILabel ExpLabel;
-    public UILabel StaminaLabel; // 體力.
     public UILabel RemainDailyLabel; // 關卡剩餘挑戰次數.
     public UIButton StartButton;
+    public UILabel StartButtonLabel;
     public GameObject ClearIcon;
     public GameObject Mask;
 
+    public GameObject PowerObj;
+    [FormerlySerializedAs("StaminaLabel")]
+    public UILabel PowerLabel;
+    public GameObject DiamondObj;
+    public UILabel DiamondLabel;
+
     public Transform[] RewardParents; // 獎勵圖示的位置.
+
+    public enum EIcon
+    {
+        Power,
+        Diamond
+    }
 
     public class Data
     {
@@ -25,30 +38,41 @@ public class UIInstanceStage : MonoBehaviour
         public int Money;
         public int Exp;
 
-        /// <summary>
-        /// 進入關卡所需的體力.
-        /// </summary>
-        public int Stamina;
+//        /// <summary>
+//        /// 進入關卡所需的體力.
+//        /// </summary>
+//        public int Power;
 
         /// <summary>
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
         public string RemainDailyCount;
 
-        /// <summary>
-        /// 是否可以進入關卡.
-        /// </summary>
-        public bool StartEnable;
+//        /// <summary>
+//        /// 是否可以進入關卡.
+//        /// </summary>
+//        public bool StartEnable;
+
+        public UIStageVerification.EErrorCode ErrorCode;
 
         /// <summary>
         /// 不可進入關卡的錯誤訊息.
         /// </summary>
         public string ErrorMsg;
 
+//        /// <summary>
+//        /// 要不要顯示買體力介面.
+//        /// </summary>
+//        public bool ShowBuyPower;
+
+        public string StartButtonSprite;
+        public string StartButtonText;
+
         /// <summary>
-        /// 要不要顯示買體力介面.
+        /// 開始按鈕旁邊的圖示, 也就是按下開始按鈕後會扣的數值.
         /// </summary>
-        public bool ShowBuyPower;
+        public EIcon Icon;
+        public int IconValue;
 
         /// <summary>
         /// true: 顯示半透明的遮照.(用在不能打的關卡上)
@@ -83,18 +107,7 @@ public class UIInstanceStage : MonoBehaviour
 
         StartButton.onClick.Add(new EventDelegate(() =>
         {
-            if(mData.StartEnable)
-                UIInstance.Get.Main.NotifyStageStartClick(mData.ID);
-            else
-            {
-                if(mData.ShowBuyPower)
-                    UIBase.OnBuyPower();
-                else
-                {
-                    Debug.LogWarning(mData.ErrorMsg);
-                    UIHint.Get.ShowHint(mData.ErrorMsg, Color.green);
-                }
-            }
+            UIInstance.Get.Main.NotifyStageStartClick(mData.ID, mData.ErrorCode, mData.ErrorMsg);
         }));
     }
 
@@ -107,11 +120,17 @@ public class UIInstanceStage : MonoBehaviour
         TitleLabel.text = data.Title;
         MoneyLabel.text = data.Money.ToString();
         ExpLabel.text = data.Exp.ToString();
-        StaminaLabel.text = data.Stamina.ToString();
+        
         RemainDailyLabel.text = data.RemainDailyCount;
 
-        StartButton.normalSprite = UIBase.ButtonBG(data.StartEnable);
-        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.StartEnable);
+        StartButton.normalSprite = mData.StartButtonSprite;
+        StartButton.GetComponent<UISprite>().spriteName = mData.StartButtonSprite;
+        StartButtonLabel.text = mData.StartButtonText;
+
+        PowerObj.SetActive(mData.Icon == EIcon.Power);
+        PowerLabel.text = data.IconValue.ToString();
+        DiamondObj.SetActive(mData.Icon == EIcon.Diamond);
+        DiamondLabel.text = data.IconValue.ToString();
 
         ClearIcon.SetActive(data.ShowClear);
         Mask.SetActive(data.ShowMask);

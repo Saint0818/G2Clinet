@@ -10,16 +10,10 @@ public static class UIStageVerification
     {
         Pass,
         NoPower, 
-        NoDailyChallenge, // 每日挑戰次數用完.
+        NoDailyChallenge, // 每日挑戰次數用完, 但是每日重置次數還有(所以可以重置).
         NoResetDailyChallenge, // 每日重置挑戰次數用完.
         NoChallengeAgain, // 已經打過, 而且不能再打.
         MissionNoPass
-    }
-
-    public static EErrorCode VerifyQualification(TStageData stageData)
-    {
-        string errMsg;
-        return VerifyQualification(stageData, out errMsg);
     }
 
     /// <summary>

@@ -35,8 +35,10 @@ public class UIInstanceMain : MonoBehaviour
     /// <summary>
     /// <para> 呼叫時機: 關卡的 Start 按鈕按下. </para>
     /// <para>[int stageID]: 進入哪一個關卡. </para>
+    /// <para>[EErrorCode errorCode]:  </para>
+    /// <para>[string errorMsg]:  </para>
     /// </summary>
-    public event Action<int> StageStartListener;
+    public event Action<int, UIStageVerification.EErrorCode, string> StageStartListener;
 
     /// <summary>
     /// 單位: Pixel.
@@ -260,9 +262,11 @@ public class UIInstanceMain : MonoBehaviour
     /// 內部使用...
     /// </summary>
     /// <param name="stageID"></param>
-    public void NotifyStageStartClick(int stageID)
+    /// <param name="errorCode"></param>
+    /// <param name="errorMsg"></param>
+    public void NotifyStageStartClick(int stageID, UIStageVerification.EErrorCode errorCode, string errorMsg)
     {
         if(StageStartListener != null)
-            StageStartListener(stageID);
+            StageStartListener(stageID, errorCode, errorMsg);
     }
 }

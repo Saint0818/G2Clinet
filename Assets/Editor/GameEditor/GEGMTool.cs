@@ -909,8 +909,8 @@ public class GEGMTool : GEBase
     {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("每日關卡挑戰次數: ");
-        mStageID = EditorGUILayout.IntField(mStageID, GUILayout.Width(100));
-        mValue = EditorGUILayout.IntField(mValue, GUILayout.Width(100));
+        mStageID = EditorGUILayout.IntField("StageID:", mStageID);
+        mValue = EditorGUILayout.IntField("已挑戰次數", mValue);
         if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
             var protocol = new GMSetStageDailyChallengeNumProtocol();
@@ -962,11 +962,10 @@ public class GEGMTool : GEBase
     private void setNextInstanceID()
     {
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Chapter: ");
-        mNextInstanceChapter = EditorGUILayout.IntField(mNextInstanceChapter, GUILayout.Width(60));
-        GUILayout.Label("NextInstanceID: ");
-        mNextInstanceID = EditorGUILayout.IntField(mNextInstanceID, GUILayout.Width(60));
-        if (GUILayout.Button("設定", GUILayout.Width(50)))
+        GUILayout.Label("副本進度: ");
+        mNextInstanceChapter = EditorGUILayout.IntField("Chapter:", mNextInstanceChapter);
+        mNextInstanceID = EditorGUILayout.IntField("NextInstanceID:", mNextInstanceID);
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("Chapter", mNextInstanceChapter);

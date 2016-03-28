@@ -3754,6 +3754,7 @@
         "costkind": 0,
         "costvalue": 3,
         "dailychallengenum": 3,
+        "maxresetdailychallengenum": 1,
         "exp": 8,
         "money": 300,
         "surelyrewardsc": [20010,40000],

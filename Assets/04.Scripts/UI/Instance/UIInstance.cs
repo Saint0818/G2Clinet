@@ -33,7 +33,39 @@ public class UIInstance : UIBase
                 Hide();
             }));
 
-        mMain.StageStartListener += enterSelectRole;
+        mMain.StageStartListener += (stageID, errorCode, errorMsg) =>
+        {
+            switch(errorCode)
+            {
+                case UIStageVerification.EErrorCode.Pass:
+                    enterSelectRole(stageID);
+                    break;
+                case UIStageVerification.EErrorCode.NoPower:
+                    OnBuyPower();
+                    break;
+                case UIStageVerification.EErrorCode.NoDailyChallenge:
+                    var protocol = new ResetStageDailyChallengeProtocol();
+                    protocol.Send(stageID, ok => {if(ok) ShowByStageID(stageID);});
+                    break;
+                default:
+                    Debug.LogWarning(errorMsg);
+                    UIHint.Get.ShowHint(errorMsg, Color.green);
+                    break;
+            }
+        };
+    }
+
+    private void enterSelectRole(int stageID)
+    {
+        if(StageTable.Ins.HasByID(stageID))
+        {
+            TStageData stageData = StageTable.Ins.GetByID(stageID);
+            UIInstanceHelper.DefaultSelectChapter = stageData.Chapter;
+            UIInstanceHelper.PlayStageID = stageData.ID;
+        }
+
+        UISelectRole.Get.LoadStage(stageID);
+        Hide();
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -103,19 +135,6 @@ public class UIInstance : UIBase
             UIInstanceChapter.Data uiData = UIInstanceBuilder.Build(chapterData, normalStages, bossStage);
             mMain.AddChapter(chapterData.Chapter, uiData);
         }
-    }
-
-    private void enterSelectRole(int stageID)
-    {
-        if(StageTable.Ins.HasByID(stageID))
-        {
-            TStageData stageData = StageTable.Ins.GetByID(stageID);
-            UIInstanceHelper.DefaultSelectChapter = stageData.Chapter;
-            UIInstanceHelper.PlayStageID = stageData.ID;
-        }
-
-        UISelectRole.Get.LoadStage(stageID);
-        Hide();
     }
 
     public void Hide()
