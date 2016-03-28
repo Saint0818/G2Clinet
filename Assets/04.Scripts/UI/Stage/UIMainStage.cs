@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using GameStruct;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 關卡介面, 會顯示很多的小關卡.
+/// 主線關卡介面.
 /// </summary>
 /// <remarks>
 /// 使用方法:
@@ -13,7 +11,6 @@ using UnityEngine;
 /// <item> 用 Get 取得 instance. </item>
 /// <item> Call Show() 顯示關卡. </item>
 /// <item> Call Hide() 關閉關卡. </item>
-/// <item> Call ClearSelectChapter() 將之前選擇的章節記錄刪除. </item>
 /// <item> (Optional)Visible 用來檢查關卡介面是否顯示. </item>
 /// </list>
 /// 
@@ -40,7 +37,7 @@ public class UIMainStage : UIBase
         mMain.Info.StartListener += enterSelectRole;
     }
 
-    private void OnPowerChange(int power)
+    private void onPowerChange(int power)
     {
         if(mMain.Info.Visible)
             Show(mMain.Info.StageID);
@@ -49,7 +46,7 @@ public class UIMainStage : UIBase
     [UsedImplicitly]
     private void Start()
     {
-        GameData.Team.OnPowerChangeListener += OnPowerChange;
+        GameData.Team.OnPowerChangeListener += onPowerChange;
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -93,26 +90,10 @@ public class UIMainStage : UIBase
         mMain.ShowStageInfo(stageData.Chapter, stageID);
     }
 
-    private void enterSelectRole(int stageID)
+    private void enterSelectRole(int stageID, UIStageVerification.EErrorCode errorCode, string errMsg)
     {
-//        Debug.LogFormat("enterSelectRole, StageID:{0}", stageID);
-
-        if(!StageTable.Ins.HasByID(stageID))
-        {
-            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
-            return;
-        }
-
         TStageData stageData = StageTable.Ins.GetByID(stageID);
-        if(!stageData.IsValid())
-        {
-            Debug.LogErrorFormat("StageID:{0}, StageData Error.", stageID);
-            return;
-        }
-
-        string errMsg;
-        var code = UIStageVerification.VerifyQualification(stageData, out errMsg);
-        switch(code)
+        switch(errorCode)
         {
             case UIStageVerification.EErrorCode.Pass:
 //            UIMainStageDebug debug = new UIMainStageDebug();
@@ -180,7 +161,7 @@ public class UIMainStage : UIBase
         foreach(TStageData data in allMainStage)
         {
             addChapter(data.Chapter);
-            addStage(data);
+            addStageElement(data);
         }
 
         addLastLockChapter();
@@ -210,7 +191,7 @@ public class UIMainStage : UIBase
         mMain.AddChapter(chapter, data.Name);
     }
 
-    private void addStage(TStageData stageData)
+    private void addStageElement(TStageData stageData)
     {
         if(!stageData.IsValid())
         {
@@ -251,7 +232,7 @@ public class UIMainStage : UIBase
 
     public void Hide()
     {
-        GameData.Team.OnPowerChangeListener -= OnPowerChange;
+        GameData.Team.OnPowerChangeListener -= onPowerChange;
 
         RemoveUI(instance.gameObject);
     }

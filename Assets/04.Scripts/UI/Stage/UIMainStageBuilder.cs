@@ -17,10 +17,11 @@ public static class UIMainStageBuilder
             Exp = stageData.Exp,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             RemainDailyCount = String.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
-//            StartEnable = UIStageVerification.VerifyQualification(stageData) != UIStageVerification.EErrorCode.Pass,
-            ErrorCode = UIStageVerification.VerifyQualification(stageData),
+//            ErrorCode = UIStageVerification.VerifyQualification(stageData),
             RewardTitle = UIMainStageTools.FindRewardTitle(stageData)
         };
+
+        infoData.ErrorCode = UIStageVerification.VerifyQualification(stageData, out infoData.ErrorMsg);
 
         switch(infoData.ErrorCode)
         {

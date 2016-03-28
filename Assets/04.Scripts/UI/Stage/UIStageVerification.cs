@@ -83,9 +83,15 @@ public static class UIStageVerification
         return isCanPlay;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <param name="errMsg"></param>
+    /// <returns> true: 可重置. </returns>
     public static bool VerifyResetDialyChallenge(TStageData stageData, out string errMsg)
     {
-        var isPass = stageData.MaxResetDailyChallengeNum < GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
+        var isPass = stageData.MaxResetDailyChallengeNum > GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
         errMsg = isPass ? String.Empty : TextConst.S(9314);
         return isPass;
     }

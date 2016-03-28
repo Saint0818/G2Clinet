@@ -13,8 +13,10 @@ public class UIMainStageInfo : MonoBehaviour
     /// <summary>
     /// <para> 呼叫時機: 進入關卡按鈕按下時. </para>
     /// <para> 參數:(int StageID) </para>
+    /// <para> 參數:(EErrorCode) </para>
+    /// <para> 參數:(string errMsg) </para>
     /// </summary>
-    public event Action<int> StartListener;
+    public event Action<int, UIStageVerification.EErrorCode, string> StartListener;
 
     public class Data
     {
@@ -52,12 +54,9 @@ public class UIMainStageInfo : MonoBehaviour
         /// </summary>
         public string RemainDailyCount;
 
-//        /// <summary>
-//        /// 開始按鈕可不可以點選.
-//        /// </summary>
-//        public bool StartEnable;
-
         public UIStageVerification.EErrorCode ErrorCode;
+        public string ErrorMsg;
+
         public string StartButtonSprite;
         public string StartButtonText;
 
@@ -105,6 +104,8 @@ public class UIMainStageInfo : MonoBehaviour
 
     public int StageID { get { return mStageID; } }
     private int mStageID;
+    private UIStageVerification.EErrorCode mErrorCode;
+    private string mErrMsg;
 
     private UIStageHint mHint;
     private Action mMissionAction;
@@ -123,7 +124,7 @@ public class UIMainStageInfo : MonoBehaviour
         StartButton.onClick.Add(new EventDelegate(() =>
         {
             if(StartListener != null)
-                StartListener(mStageID);
+                StartListener(mStageID, mErrorCode, mErrMsg);
         }));
 
         MissionButton.onClick.Add(new EventDelegate(() =>
@@ -139,7 +140,10 @@ public class UIMainStageInfo : MonoBehaviour
     {
         gameObject.SetActive(true);
         Window.SetActive(true);
+
         mStageID = stageID;
+        mErrorCode = data.ErrorCode;
+        mErrMsg = data.ErrorMsg;
 
         updateUI(data);
 
@@ -170,9 +174,7 @@ public class UIMainStageInfo : MonoBehaviour
 
         Completed.SetActive(data.ShowCompleted);
 
-//        StartButton.normalSprite = UIBase.ButtonBG(data.ErrorCode == UIStageVerification.EErrorCode.Pass);
         StartButton.normalSprite = data.StartButtonSprite;
-//        StartButton.GetComponent<UISprite>().spriteName = UIBase.ButtonBG(data.ErrorCode == UIStageVerification.EErrorCode.Pass);
         StartButton.GetComponent<UISprite>().spriteName = data.StartButtonSprite;
         StartButtonLabel.text = data.StartButtonText;
 
