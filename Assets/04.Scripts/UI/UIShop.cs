@@ -170,11 +170,14 @@ public class UIShop : UIBase {
             if (item.ButtonBuy)
                 SetBtnFun(ref item.ButtonBuy, OnBuy);
 
-            item.ButtonSuit = GameObject.Find(name + "/SuitItem").GetComponent<UIButton>();
-            if (item.ButtonSuit)
-                SetBtnFun(ref item.ButtonSuit, OnSuitItem);
-
+            item.LabelSuitCount = GameObject.Find(name + "/SuitItem/CountLabel").GetComponent<UILabel>();
             item.SpriteSuit = GameObject.Find(name + "/SuitItem").GetComponent<UISprite>();
+            item.ButtonSuit = GameObject.Find(name + "/SuitItem").GetComponent<UIButton>();
+            if (item.ButtonSuit) {
+                SetBtnFun(ref item.ButtonSuit, OnSuitItem);
+                item.ButtonSuit.name = data.ID.ToString();
+            }
+
             item.UISuit = GameObject.Find(name + "/FittingIcon");
             item.UISoldout = GameObject.Find(name + "/SoldOutIcon");
             GameObject obj = GameObject.Find(name + "/ItemAwardGroup");
@@ -190,7 +193,6 @@ public class UIShop : UIBase {
                 }
             }
 
-            item.LabelSuitCount = GameObject.Find(name + "/SuitItem/CountLabel").GetComponent<UILabel>();
             item.LabelName = GameObject.Find(name + "/ItemName").GetComponent<UILabel>();
             item.LabelPrice = GameObject.Find(name + "/BuyBtn/PriceLabel").GetComponent<UILabel>();
             item.SpriteSpendKind = GameObject.Find(name + "/BuyBtn/Icon").GetComponent<UISprite>();
@@ -295,7 +297,7 @@ public class UIShop : UIBase {
             labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
             labelFreshTime.text = "";
             labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
-        }
+        } 
     }
 
     public void OnClose() {
@@ -330,7 +332,19 @@ public class UIShop : UIBase {
     }
 
     public void OnSuitItem() {
-        
+        int id = -1;
+        if (int.TryParse(UIButton.current.name, out id)) {
+            if (GameData.DItemData.ContainsKey(id)) {
+                if (GameData.DItemData[id].Kind == 21) {
+                    UISkillFormation.UIShow(true);
+                    UISkillFormation.Get.OpenSuitCard(GameData.DItemData[id].SuitCard);
+                    Visible = false;
+                    UIPlayerMgr.Visible = false;
+                } else
+                if (GameData.DItemData[id].Kind <= 7)
+                    UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
+            }
+        }
     }
 
     private void checkOtherSuit(int kind, int page, int index) {

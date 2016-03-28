@@ -208,9 +208,11 @@ public class TItemAvatar
             SellSelect = self.transform.FindChild("SellSelect").gameObject.GetComponent<UISprite>();
             SellSelect.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(8007);
             self.transform.FindChild("EquipedIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(8107);
-            buttonSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UIButton>();
-            spriteSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UISprite>();
             labelSuitCount = self.transform.FindChild("SuitItem/CountLabel").gameObject.GetComponent<UILabel>();
+            spriteSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UISprite>();
+            buttonSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UIButton>();
+            buttonSuit.name = self.name;
+
             Selected = false;
             EquipedIcon = self.transform.FindChild("EquipedIcon").gameObject.GetComponent<UISprite>();
             equipBtn = self.transform.GetComponent<UIButton>();
@@ -234,36 +236,25 @@ public class TItemAvatar
         Mode = EAvatarMode.Normal;
     }
 
-    public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc, EventDelegate SellFunc)
+    public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc, EventDelegate SellFunc, EventDelegate suitFunc)
     {
         if (isInitBtn)
             return;
 
         if (buyBtn)
             buyBtn.onClick.Add(BuyFunc);
-        else
-        {
-            isInitBtn = false;
-            return;
-        }
 
         if (equipBtn)
         {
             equipBtn.onClick.Add(EquipFunc);
             equipBtn.onClick.Add(SellFunc);
         }
-        else
-        {
-            isInitBtn = false;
-            return;
-        }
 
         if (sellBtn)
-        {
             sellBtn.onClick.Add(SellFunc);
-        }
 
-        isInitBtn = true;
+        if (buttonSuit)
+            buttonSuit.onClick.Add(suitFunc);
     }
 
     public void UpdateView(int itemid, DateTime usetime, int usekind, int backageSort)
@@ -275,6 +266,7 @@ public class TItemAvatar
             name.text = GameData.DItemData[id].Name;
             if (GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[id].Atlas)))
                 pic.atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[id].Atlas)];
+            
             pic.spriteName = string.Format("Item_{0}", GameData.DItemData[id].Icon);
             qualityBG.color = TextConst.ColorBG(GameData.DItemData[id].Quality);
             OutLine.spriteName = string.Format("Equipment_{0}", GameData.DItemData[id].Quality);
@@ -283,14 +275,19 @@ public class TItemAvatar
             UseKind = usekind;
             BackageSort = backageSort; //-1 : player.items else team.items
             sellPrice.text = GameData.DItemData[id].Sell.ToString();
-            PriceLabel.text = GameData.DItemData[id].Buy.ToString();
-            BuyInfoLabel.text = TextConst.StringFormat(8005, GameData.DItemData[id].Potential);
-            getModeLabel.text = TextConst.StringFormat(8004, GameData.DItemData[id].Potential);
+            PriceLabel.text = NumFormater.Convert(GameData.DItemData[id].Buy);
+            bool flag = GameData.Team.CoinEnough(0, GameData.DItemData[id].Buy);
+            PriceLabel.color = GameData.CoinEnoughTextColor(flag); 
+
+            BuyInfoLabel.text = ""; //TextConst.StringFormat(8005, GameData.DItemData[id].Potential);
+            if (GameData.DItemData[id].Potential > 0)
+                getModeLabel.text = TextConst.StringFormat(8004, GameData.DItemData[id].Potential);
+            else
+                getModeLabel.text = "";
+            
             SetSuitItem(id, buttonSuit, spriteSuit, labelSuitCount);
             UpdateBtnUseState();
-        }
-        else
-        {
+        } else {
             id = 0;
             Kind = 0;
             Enable = false;
@@ -529,6 +526,12 @@ public class UIAvatarFitted : UIBase
         ItemIdTranslateAvatar();
     }
 
+    public void OnOpenSuitAvatar() {
+        int index = -1;
+        if (int.TryParse(UIButton.current.name, out index) && GameData.DItemData.ContainsKey(backpackItems[index].ID))
+            UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem);
+    }
+
 	public void DoAvatarCollection () {
 		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
 			UISuitAvatar.Get.ShowView();
@@ -701,7 +704,7 @@ public class UIAvatarFitted : UIBase
             if (!backpackItems[i].IsInit)
             {
                 backpackItems[i].Init(Instantiate(item) as GameObject, enablePool, disableGroup.gameObject.transform, i);
-                backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip), new EventDelegate(OnSellSelect));
+                backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip), new EventDelegate(OnSellSelect), new EventDelegate(OnOpenSuitAvatar));
             }
 
             //InitData
@@ -735,7 +738,9 @@ public class UIAvatarFitted : UIBase
     {
         enableCount = 0;
         int filter = 0;
-        int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
+        int sort = 0;
+
+        /*int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
 
         if (PlayerPrefs.HasKey(ESave.AvatarFilter.ToString()))
             filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
@@ -744,7 +749,7 @@ public class UIAvatarFitted : UIBase
             filter = 2;
             PlayerPrefs.SetInt(ESave.AvatarFilter.ToString(), 2);
             PlayerPrefs.Save();
-        }
+        }*/
 
         for (int i = 0; i < backpackItems.Length; i++)
         {
@@ -798,11 +803,14 @@ public class UIAvatarFitted : UIBase
 
         int count = 0;
 
-        List<TItemAvatar> sortlist = new List<TItemAvatar>();
+        //List<TItemAvatar> sortlist = new List<TItemAvatar>();
         for (int i = 0; i < backpackItems.Length; i++)
-            if (backpackItems[i].Enable)
-                sortlist.Add(backpackItems[i]);
-			
+            if (backpackItems[i].Enable) {
+                backpackItems[i].LocalPosition = GetItemPos(count);
+                count++;
+            }
+                //sortlist.Add(backpackItems[i]);
+			/*
         switch (sort)
         {
             case 0:
@@ -824,7 +832,6 @@ public class UIAvatarFitted : UIBase
                 for (int i = 0; i < sortlist.Count; i++)
                 {
                     sortlist[i].LocalPosition = GetItemPos(count);
-                    ;
                     count++;
                 }
                 break;
@@ -833,13 +840,13 @@ public class UIAvatarFitted : UIBase
                     if (backpackItems[i].Enable)
                     {
                         backpackItems[i].LocalPosition = GetItemPos(count);
-                        ;
                         count++;
                     }
                 break;
         }
 
-        sortlist.Clear();
+        sortlist.Clear();*/
+
         enablePool.gameObject.SetActive(false);
         enablePool.gameObject.SetActive(true);
         scrollView.ResetPosition();
@@ -854,19 +861,23 @@ public class UIAvatarFitted : UIBase
         if (int.TryParse(UIButton.current.name, out index))
         {
             BuyIndex = index;
-            if (CheckDiamond(GameData.DItemData[backpackItems[index].ID].Buy, true))
+            TItemData itemData = GameData.DItemData[backpackItems[index].ID];
+            if (CheckDiamond(itemData.Buy, true, "", null, UpdateAvatar))
             {
-                string ask = string.Format(TextConst.S(208), GameData.DItemData[backpackItems[index].ID].Buy, GameData.DItemData[backpackItems[index].ID].Name);
-                UIMessage.Get.ShowMessage(TextConst.S(201), ask, OnYesBuy);
-            }
-            else
-            {
+                TSellItem item = new TSellItem();
+                item.ID = itemData.ID;
+                item.Price = itemData.Buy;
+                item.Num = 1;
+                UIItemHint.Get.OpenBuyUI(item, OnYesBuy);
+
+                //string ask = string.Format(TextConst.S(208), GameData.DItemData[backpackItems[index].ID].Buy, GameData.DItemData[backpackItems[index].ID].Name);
+                //UIMessage.Get.ShowMessage(TextConst.S(201), ask, OnYesBuy);
+            } else
                 AudioMgr.Get.PlaySound(SoundType.SD_Prohibit);	
-            }
         }
     }
 
-    public void OnYesBuy(object obj)
+    public void OnYesBuy()
     {
         if (BuyIndex != -1)
         {
@@ -883,8 +894,8 @@ public class UIAvatarFitted : UIBase
                 from = 0;
                 buyIndex = BuyIndex;
             }
-			
-            AudioMgr.Get.PlaySound(SoundType.SD_Buy);
+
+            UIItemHint.UIShow(false);
             WWWForm form = new WWWForm();
             form.AddField("From", from);
             form.AddField("Index", buyIndex);
