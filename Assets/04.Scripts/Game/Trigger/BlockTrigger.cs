@@ -69,6 +69,7 @@ public class BlockTrigger : MonoBehaviour {
 					if(faller.IsCanBlock && !faller.IsTee) {
 						GameController.Get.SetBall();
 						CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Block0, blocker);
+//						faller.AniState(EPlayerState.Fall1);
 							faller.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1);
 						gameObject.SetActive (false);
 						AudioMgr.Get.PlaySound (SoundType.SD_Block);
@@ -82,6 +83,7 @@ public class BlockTrigger : MonoBehaviour {
 
 			blocker.GameRecord.Block++;
 			GameController.Get.IsGameFinish();
+//			if(blocker == GameController.Get.Joysticker)
 			GameController.Get.ShowWord(GameEnum.EShowWordType.Block, 0, blocker.ShowWord);
 			if (faller)
 				faller.GameRecord.BeBlock++;
