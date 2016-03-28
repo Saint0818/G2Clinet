@@ -282,7 +282,7 @@ public class SkillController : MonoBehaviour {
 	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
-			if(kind == ESkillKind.Pick2 || kind == ESkillKind.MoveDodge)
+			if(kind == ESkillKind.Pick2 || kind == ESkillKind.MoveDodge0)
 				playerState = EPlayerState.Idle;
 			else
 				playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -454,9 +454,11 @@ public class SkillController : MonoBehaviour {
 				if(executePlayer.IsBallOwner) {
 					int Dir = GameController.Get.HasDefPlayer(executePlayer, GameConst.CrossOverDistance, 50);
 					if(Dir != 0 && IsHaveMoveDodge) {
-						if(Random.Range(0, 100) <= MoveDodgeRate) {
+						playerState = getPassiveSkill(ESkillSituation.MoveDodge, ESkillKind.MoveDodge0 , v);
+//						if(Random.Range(0, 100) <= MoveDodgeRate) {
+						if(playerState != EPlayerState.Idle){
 							Vector3 pos = CourtMgr.Get.ShootPoint [executePlayer.Team.GetHashCode()].transform.position;
-							//Crossover     
+							//Crossover 這裡是判斷某個範圍內才可以做動作    
 							if(executePlayer.Team == ETeamKind.Self && executePlayer.transform.position.z >= 9.5)
 								return Result;
 							else 
@@ -469,18 +471,17 @@ public class SkillController : MonoBehaviour {
 							
 							executePlayer.RotateTo(pos.x, pos.z);
 							executePlayer.transform.DOMoveZ(executePlayer.transform.position.z + AddZ, GameConst.CrossTimeZ).SetEase(Ease.Linear);
-							TSkill skill = new TSkill();
+//							TSkill skill = new TSkill();
+							//Dir = 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方.
 							if (Dir == 1) {
 								executePlayer.transform.DOMoveX(executePlayer.transform.position.x - 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge0;
-								skill.ID = 1100;
 							} else {
 								executePlayer.transform.DOMoveX(executePlayer.transform.position.x + 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge1;
-								skill.ID = 1100;
 							}			
-							skill.Lv = MoveDodgeLv;
-							PassiveSkillUsed = skill;
+//							skill.ID = 1100;
+//							PassiveSkillUsed = skill;
 							
 							GameController.Get.CoolDownCrossover = Time.time + 4;
 							Result = executePlayer.AniState(playerState);
@@ -735,18 +736,6 @@ public class SkillController : MonoBehaviour {
 		return null;
 	}
 
-	public int GetMoveDodgeRate
-	{
-		get { return MoveDodgeRate;}
-		set { MoveDodgeRate = value;}
-	}
-
-	public int GetMoveDodgeLv
-	{
-		get { return MoveDodgeLv;}
-		set { MoveDodgeLv = value;}
-	}
-
 	public List<int> GetAllBuffs
 	{
 		get { return GetAllBuff();}
@@ -754,7 +743,7 @@ public class SkillController : MonoBehaviour {
 
 	public bool IsHaveMoveDodge
 	{
-		get { return DPassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
+		get { return DPassiveSkills.ContainsKey((int)ESkillKind.MoveDodge0);}
 	}
 
 	public bool IsHavePickBall2

@@ -3648,6 +3648,11 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
+				//只判斷玩家，AI另外判斷
+				if(player1.isJoystick) 
+					if(player1.PlayerSkillController.IsHaveMoveDodge)
+						player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
+				
 				if(!player2.IsDefence && player1.IsDefence)
 				{
 					if(Mathf.Abs(MathUtils.FindAngle(player2.PlayerRefGameObject.transform, player1.PlayerRefGameObject.transform.position)) <= GameConst.SlowDownAngle)

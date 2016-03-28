@@ -900,93 +900,92 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 #endif
 
-                if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence &&
-                    PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge)))
-                {
-                    isMoving = true;
-                    if (!isJoystick)
-                        moveStartTime = Time.time + GameConst.DefMoveTime;
+				if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && IsMoveDodge))
+				{
+					isMoving = true;
+					if (!isJoystick)
+						moveStartTime = Time.time + GameConst.DefMoveTime;
 
-                    SetManually();
-                    animationSpeed = Vector2.Distance(new Vector2(v.x, 0), new Vector2(0, v.y));
-                    if (!IsPass)
-                    {
-                        float angle = Mathf.Atan2(v.x, v.y) * Mathf.Rad2Deg;
-                        float a = 90 + yAxizOffset;
-                        Vector3 rotation = new Vector3(0, angle + a, 0);
-                        transform.rotation = Quaternion.Euler(rotation);
-                    }
+					SetManually();
+					animationSpeed = Vector2.Distance(new Vector2(v.x, 0), new Vector2(0, v.y));
+					if (!IsPass)
+					{
+						float angle = Mathf.Atan2(v.x, v.y) * Mathf.Rad2Deg;
+						float a = 90 + yAxizOffset;
+						Vector3 rotation = new Vector3(0, angle + a, 0);
+						transform.rotation = Quaternion.Euler(rotation);
+					}
 
-                    if (animationSpeed <= MoveMinSpeed)
-                        moveKind = 0;
-                    else
-                    {
-                        if (mMovePower == 0)
-                            moveKind = 0;
-                        else
-                            moveKind = 1;
-                    }
+					if (animationSpeed <= MoveMinSpeed)
+						moveKind = 0;
+					else
+					{
+						if (mMovePower == 0)
+							moveKind = 0;
+						else
+							moveKind = 1;
+					}
 
-                    switch (moveKind)
-                    {
-                        case 0://run
-                            if (animationSpeed <= MoveMinSpeed)
-                                isSpeedup = false;
+					switch (moveKind)
+					{
+					case 0://run
+						if (animationSpeed <= MoveMinSpeed)
+							isSpeedup = false;
 
-                            setSpeed(0.3f, 0);
-                            if (IsBallOwner)
-                            {  
-                                calculateSpeed = GameConst.BallOwnerSpeedNormal;
-                                ps = EPlayerState.Dribble1;
-                            }
-                            else
-                            {
-                                ps = EPlayerState.Run0;
-                                if (IsDefence)
-                                    calculateSpeed = GameConst.DefSpeedNormal;
-                                else
-                                    calculateSpeed = GameConst.AttackSpeedNormal;
-                            }
-                            break;
+						setSpeed(0.3f, 0);
+						if (IsBallOwner)
+						{  
+							calculateSpeed = GameConst.BallOwnerSpeedNormal;
+							ps = EPlayerState.Dribble1;
+						}
+						else
+						{
+							ps = EPlayerState.Run0;
+							if (IsDefence)
+								calculateSpeed = GameConst.DefSpeedNormal;
+							else
+								calculateSpeed = GameConst.AttackSpeedNormal;
+						}
+						break;
 
-                        case 1://dash
-                            isSpeedup = true;
-                            setSpeed(1f, 0);
+					case 1://dash
+						isSpeedup = true;
+						setSpeed(1f, 0);
 
-                            if (IsBallOwner)
-                            {  
-                                calculateSpeed = GameConst.BallOwnerSpeedup;
-                                ps = EPlayerState.Dribble2;
-                            }
-                            else
-                            {
-                                ps = EPlayerState.Run1;
-                                if (IsDefence)
-                                    calculateSpeed = GameConst.DefSpeedup;
-                                else
-                                    calculateSpeed = GameConst.AttackSpeedup;
-                            }
+						if (IsBallOwner)
+						{  
+							calculateSpeed = GameConst.BallOwnerSpeedup;
+							ps = EPlayerState.Dribble2;
+						}
+						else
+						{
+							ps = EPlayerState.Run1;
+							if (IsDefence)
+								calculateSpeed = GameConst.DefSpeedup;
+							else
+								calculateSpeed = GameConst.AttackSpeedup;
+						}
 
-                            break;
+						break;
 
-                        case 2://walk
-                            setSpeed(0.2f, 0);
-                            if (IsBallOwner)
-                                ps = EPlayerState.Dribble3;
-                            else
-                                ps = EPlayerState.Run2;
-                            
-                            calculateSpeed = GameConst.WalkSpeed;
-                            break;
-                    }
+					case 2://walk
+						setSpeed(0.2f, 0);
+						if (IsBallOwner)
+							ps = EPlayerState.Dribble3;
+						else
+							ps = EPlayerState.Run2;
 
-                    if (GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
-                        calculateSpeed = GameConst.AttackSpeedup;
-                    translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * timeScale;
-                    transform.Translate(translate); 
-                    transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-                    AniState(ps);
-                }        
+						calculateSpeed = GameConst.WalkSpeed;
+						break;
+					}
+
+					if (GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
+						calculateSpeed = GameConst.AttackSpeedup;
+					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * timeScale;
+					transform.Translate(translate); 
+					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+					AniState(ps);
+				}     
             }
         }
     }

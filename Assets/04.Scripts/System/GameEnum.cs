@@ -286,7 +286,7 @@
         NearShoot = 40,
         Layup = 50,
         Dunk = 60,
-        MoveDodge = 110,
+        MoveDodge0 = 110,
         Pass = 120,
         Pick2 = 130,
         Rebound = 140,
