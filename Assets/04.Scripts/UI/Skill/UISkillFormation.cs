@@ -707,12 +707,15 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void OnSuitCard (GameObject go) {
-		ClickTab(1);
 		int result = 0;
-		if(int.TryParse(go.name, out result)) {
-			uiSuitCard.MoveToID(result);
-		}
+		if(int.TryParse(go.name, out result))
+            OpenSuitCard(result);
 	}
+
+    public void OpenSuitCard (int id) {
+        ClickTab(1);
+        uiSuitCard.MoveToID(id);
+    }
 
 	public void OnSuitItem (GameObject go) {
 		int result = 0;

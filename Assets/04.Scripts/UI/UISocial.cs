@@ -98,23 +98,23 @@ public class UISocial : UIBase {
     }
 
     protected override void InitCom() {
-        SetBtnFun(UIName + "/Window/Center/Pages/3/SocialNetworkBtn", OnLink);
-        SetBtnFun(UIName + "/Window/Center/Pages/2/SearchBtn", OnSearch);
-        SetBtnFun(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn", OnFresh);
+        SetBtnFun(UIName + "/Window/Center/Pages/3/BottomRight/SocialNetworkBtn", OnLink);
+        SetBtnFun(UIName + "/Window/Center/Pages/2/BottomRight/SearchBtn", OnSearch);
+        SetBtnFun(UIName + "/Window/Center/Pages/2/BottomRight/ResetListGroup/ResetBtn", OnFresh);
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
         itemSocialEvent = Resources.Load("Prefab/UI/Items/ItemSocialEvent") as GameObject;
-        totalLabel = GameObject.Find(UIName + "/Window/Center/Pages/3/Total").GetComponent<UILabel>();
-        labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/SearchArea/TypeLabel").GetComponent<UILabel>();
-        labelFreshTime = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/TextLabel").GetComponent<UILabel>();
-        labelFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn/Label").GetComponent<UILabel>();
-        buttonFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/ResetListGroup/ResetBtn").GetComponent<UIButton>();
+        totalLabel = GameObject.Find(UIName + "/Window/Center/Pages/3/BottomRight/Total").GetComponent<UILabel>();
+        labelSearch = GameObject.Find(UIName + "/Window/Center/Pages/2/BottomRight/SearchArea/TypeLabel").GetComponent<UILabel>();
+        labelFreshTime = GameObject.Find(UIName + "/Window/Center/Pages/2/BottomRight/ResetListGroup/TextLabel").GetComponent<UILabel>();
+        labelFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/BottomRight/ResetListGroup/ResetBtn/Label").GetComponent<UILabel>();
+        buttonFreshDiamond = GameObject.Find(UIName + "/Window/Center/Pages/2/BottomRight/ResetListGroup/ResetBtn").GetComponent<UIButton>();
         for (int i = 0; i < pageNum; i++) {
-            redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
+            redPoints[i] = GameObject.Find(UIName + "/Window/BottomLeft/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
             pageScrollViews[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
             pagePanels[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
-            SetBtnFun(UIName + "/Window/Center/Tabs/" + i.ToString(), OnPage);
+            SetBtnFun(UIName + "/Window/BottomLeft/Tabs/" + i.ToString(), OnPage);
 
             redPoints[i].SetActive(false);
             pageObjects[i].SetActive(false);

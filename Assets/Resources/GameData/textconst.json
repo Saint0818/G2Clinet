@@ -1065,6 +1065,11 @@
         "en": "FINISH"
     },
     {
+        "id": 3209,
+        "tw": "花費寶石{0}重置潛能點配置？",
+        "en": "Are you confirm to spend {0} gem for reset attribution points?"
+    },
+    {
         "id": 3301,
         "explain": "屬性說明介面",
         "tw": "屬性說明",
@@ -1934,7 +1939,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,

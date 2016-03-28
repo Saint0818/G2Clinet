@@ -47,7 +47,7 @@ public class TUpgradeBtn
 		set
 		{
 			demandValue = value;
-			demandValueLabel.text = demandValue.ToString();
+            demandValueLabel.text = (-demandValue).ToString();
 		}
 	}
 
@@ -65,13 +65,6 @@ public class TUpgradeBtn
 		}
 						
 	}
-
-//	public void DotSave()
-//	{
-//		curPoint = curPoint + addPoint;
-//		addPoint = 0;
-//		BaseValueLabel.text = "[FFFFFFFF]" + curPoint + "[-]";
-//	}
 
 	public void InitBtttonFunction(EventDelegate addBtnFunc)
 	{
@@ -240,7 +233,6 @@ public class UpgradeView
 			AddPotential[i] = 0;
 		
 		CalculateAddPotential();
-		//cancel this time;
 	}
 
 	public void EnableHexagon(bool show)
@@ -250,53 +242,14 @@ public class UpgradeView
 
 }
 
-public class PointView 
-{
-	private GameObject self;
-//	private UILabel title;
-//	private UILabel lvtitle;
-	private UILabel lvVaule;
-//	private UILabel avatartitle;
-	private UILabel avatarVaule;
-//	private UILabel explanation;
-
-	public void Init(GameObject go)
-	{
-		if (go) {
-			self = go;
-//			title = self.transform.FindChild("HeadingLabel").gameObject.GetComponent<UILabel>();
-//			lvtitle = self.transform.FindChild("Top/SubheadLabel1").gameObject.GetComponent<UILabel>();
-			lvVaule = self.transform.FindChild("Top/LevelPointsLabel").gameObject.GetComponent<UILabel>();
-//			avatartitle = self.transform.FindChild("Top/SubheadLabel2").gameObject.GetComponent<UILabel>();
-			avatarVaule = self.transform.FindChild("Top/AvatarPointsLabel").gameObject.GetComponent<UILabel>();
-//			explanation = self.transform.FindChild("Bottom/WarningLabel").gameObject.GetComponent<UILabel>();
-		}
-	}
-
-	public void SetLvPotential(int current, int use)
-	{
-        lvVaule.text = string.Format ("[3EBBBCFF]{0}[-]", current - use);
-	}
-
-	public void SetAvatarPotential(int current, int use)
-	{
-        avatarVaule.text = string.Format ("[3EBBBCFF]{0}[-]", current - use);
-	}
-}
-
 public class UIPlayerPotential : UIBase {
 	private static UIPlayerPotential instance = null;
 	private const string UIName = "UIPlayerPotential";
 
+    public int CrtAvatarPotential = 0; //can use avatarPotential
+    public int CrtLvPotential = 0; //can use lvPotential
 	private UpgradeView upgradeView = new UpgradeView();
-	private PointView pointView = new PointView();
-
-	//can use avatarPotential
-	public int CrtAvatarPotential = 0;
-	//can use lvPotential
-	public int CrtLvPotential = 0;
-	private UILabel lvPotentialLabel;
-	private UILabel avatarPotentialLabel;
+	private UILabel labelPotential;
 	private UILabel resetLabel;
 	private UIButton resetBtn;
 	private UIButton saveBtn;
@@ -331,35 +284,31 @@ public class UIPlayerPotential : UIBase {
 				UIPlayerMgr.Get.Enable = false;
 			}
 		} else
-			if (isShow){
-				Get.Show(isShow);
-				UIPlayerMgr.Get.Enable = false;
-			}
+		if (isShow){
+			Get.Show(isShow);
+			UIPlayerMgr.Get.Enable = false;
+		}
 	}
 	
 	protected override void InitCom() {
 		GameObject obj = GameObject.Find(UIName + "Window/Center/UpgradeView");
 
-		if (obj) {
+		if (obj) 
 			upgradeView.Init (obj, Instantiate (Resources.Load ("Prefab/UI/UIattributeHexagon")) as GameObject);
-		}
-
-		obj = GameObject.Find(UIName + "Window/Center/PointView");
-		pointView.Init (obj);
 
 		resetBtn = GameObject.Find(UIName + "/Window/Center/ResetBtn").gameObject.GetComponent<UIButton>();
 		saveBtn = GameObject.Find(UIName + "/Window/Center/CheckBtn").gameObject.GetComponent<UIButton>();
 		cancelBtn = GameObject.Find(UIName + "/Window/Center/CancelBtn").gameObject.GetComponent<UIButton>();
 
-		SetBtnFun (UIName + "/Window/Center/NoBtn", OnReturn);
+        SetBtnFun (UIName + "/BottomLeft/BackBtn", OnReturn);
 		SetBtnFun (ref resetBtn, OnReset);
 		SetBtnFun (ref saveBtn, OnCheck);
 		SetBtnFun (ref cancelBtn, OnCancel);
 		SetBtnFun (UIName + "/Window/Center/ExplainBtn", OnExplain);
 		SetUseState (EPotential.none);
 
+        labelPotential = GameObject.Find (UIName + "/Window/Center/PointView/Top/LevelPointsLabel").GetComponent<UILabel> (); 
 		resetLabel = GameObject.Find (UIName + "/Window/Center/ResetBtn/PriceLabel").GetComponent<UILabel> ();
-		ResetPrice = GameConst.PotentialResetPrice;
 	}
 
 	public void SetUseState(EPotential state)
@@ -379,10 +328,12 @@ public class UIPlayerPotential : UIBase {
 		}
 	}
 
-	public int ResetPrice
-	{
-		set{resetLabel.text = value.ToString();}
-	}
+    public void SetLvPotential(int lvPoint, int avatarPoint)
+    {
+        labelPotential.text = string.Format ("[3EBBBCFF]{0}[-]", lvPoint);
+        if (avatarPoint > 0)
+            labelPotential.text += " + " + string.Format ("[3EBBBCFF]{0}[-]", avatarPoint);
+    }
 
 	public void OnExplain () {
 		UIAttributeExplain.UIShow(true);
@@ -394,27 +345,32 @@ public class UIPlayerPotential : UIBase {
 		GameData.Team.Player.SetAttribute (GameEnum.ESkillType.Player);
 		UIPlayerMgr.Get.Enable = false;
 		UIMainLobby.Get.Show();
-//		UIPlayerInfo.UIShow (true, ref GameData.Team);
-//		UIPlayerInfo.Get.UpdatePage (0);
-//		UIPlayerInfo.Get.UpdateHexagon(true);
 	}
+
+    private void initResetDiamond() {
+        bool flag = GameData.Team.CoinEnough(0, GameConst.PotentialResetPrice);
+        resetLabel.color = GameData.CoinEnoughTextColor(flag);
+        resetLabel.text = GameConst.PotentialResetPrice.ToString();
+    }
+
+    private void askReset() {
+        WWWForm form = new WWWForm();
+        form.AddField("Kind", 2);
+        SendHttp.Get.Command(URLConst.Potential, waitResetPotential, form);
+    }
 
 	public void OnReset()
 	{
-		if(CanUseReset()){
-			WWWForm form = new WWWForm();
-			form.AddField("Kind", 2);
-			SendHttp.Get.Command(URLConst.Potential, waitResetPotential, form);
+		if(CanUseReset()) {
+            CheckDiamond(GameConst.PotentialResetPrice, true, string.Format(TextConst.S(3209), GameConst.PotentialResetPrice), askReset, initResetDiamond);
 		}
 	}
 
 	private bool CanUseReset()
 	{
-		if (GameData.Team.Diamond >= GameConst.PotentialResetPrice) {
-			foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
-				if(item.Value > 0)
-					return true;
-			}
+		foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
+			if(item.Value > 0)
+				return true;
 		}
 
 		return false;
@@ -474,7 +430,8 @@ public class UIPlayerPotential : UIBase {
         base.OnShow(isShow);
 		if (isShow) {
             GameData.Team.PlayerInit();
-			UpdateView ();
+            initResetDiamond();
+			UpdateView();
 			upgradeView.EnableHexagon(true);
 		}
 	}
@@ -486,8 +443,7 @@ public class UIPlayerPotential : UIBase {
 		CrtLvPotential = GameFunction.GetCurrentLvPotential (GameData.Team.Player);
 		CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
 		upgradeView.UpdateBtnSate();
-		pointView.SetLvPotential (CrtLvPotential, upgradeView.UseLvPotential);
-		pointView.SetAvatarPotential (CrtAvatarPotential, upgradeView.UseAvatarPotential);
+        SetLvPotential (CrtLvPotential - upgradeView.UseLvPotential, CrtAvatarPotential - upgradeView.UseAvatarPotential);
 	}
 
 	public int AddLevel
