@@ -1051,7 +1051,7 @@
     {
         "id": 3205,
         "uipath": "WarningLabel",
-        "tw": "潛能取得：\n[33FFDD]提升等級[-]、[33FFDD]購買造型[-]\n\n注意：\n將優先消耗[FF0000]升級點數[-]",
+        "tw": "潛能取得：\n[33FFDD]提升等級[-]、[00E1FFFF]購買造型[-]\n\n注意：\n將優先消耗[33FFDD]升級點數[-]",
         "en": "Chance to obtain:\n[33FFDD] Level up[-], [33FFDD] EXP [-]\n\nNote:\nThe priority is to obtain [FF0000] attribution points [-] "
     },
     {
@@ -1072,8 +1072,8 @@
     },
     {
         "id": 3209,
-        "tw": "花費寶石{0}重置潛能點配置？",
-        "en": "Are you confirm to spend {0} gem for reset attribution points?"
+        "tw": "花費[FF00FFFF]寶石 {0} [-]重置潛能點配置？",
+        "en": "Are you confirm to spend[FF00FFFF] {0} gem [-]for reset attribution points?"
     },
     {
         "id": 3301,
@@ -1945,7 +1945,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
