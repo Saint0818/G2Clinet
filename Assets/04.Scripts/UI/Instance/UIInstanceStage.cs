@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -107,7 +108,13 @@ public class UIInstanceStage : MonoBehaviour
 
         StartButton.onClick.Add(new EventDelegate(() =>
         {
-            UIInstance.Get.Main.NotifyStageStartClick(mData.ID, mData.ErrorCode, mData.ErrorMsg);
+            if(mData.Icon == EIcon.Diamond)
+            {
+                UIMessage.Get.ShowMessage(TextConst.S(259), string.Format(TextConst.S(234), mData.IconValue), 
+                () => UIInstance.Get.Main.NotifyStageStartClick(mData.ID, mData.ErrorCode, mData.ErrorMsg));
+            }
+            else
+                UIInstance.Get.Main.NotifyStageStartClick(mData.ID, mData.ErrorCode, mData.ErrorMsg);
         }));
     }
 

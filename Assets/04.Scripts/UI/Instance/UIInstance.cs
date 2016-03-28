@@ -45,7 +45,14 @@ public class UIInstance : UIBase
                     break;
                 case UIStageVerification.EErrorCode.NoDailyChallenge:
                     var protocol = new ResetStageDailyChallengeProtocol();
-                    protocol.Send(stageID, ok => {if(ok) ShowByStageID(stageID);});
+                    protocol.Send(stageID, ok => 
+                    {
+                        if(ok)
+                        {
+                            ShowByStageID(stageID);
+                            UIMainLobby.Get.UpdateUI();
+                        }
+                    });
                     break;
                 default:
                     Debug.LogWarning(errorMsg);

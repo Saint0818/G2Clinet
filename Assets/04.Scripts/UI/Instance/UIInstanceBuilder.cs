@@ -51,11 +51,14 @@ public static class UIInstanceBuilder
         {
             case UIStageVerification.EErrorCode.Pass:
                 data.StartButtonSprite = UIBase.ButtonBG(true);
+                data.Icon = UIInstanceStage.EIcon.Power;
                 data.IconValue = stageData.CostValue;
                 break;
             case UIStageVerification.EErrorCode.NoDailyChallenge:
                 data.StartButtonSprite = "button_green";
                 data.StartButtonText = TextConst.S(9311);
+
+                data.Icon = UIInstanceStage.EIcon.Diamond;
                 TDiamondData diamondData = DiamondsTable.Ins.Get(TDiamondData.EKind.ResetDailyChallenge);
                 int resetNum = GameData.Team.Player.GetResetStageChallengeNum(stageData.ID);
                 data.IconValue = diamondData.GetReviseNum(resetNum);
@@ -65,6 +68,7 @@ public static class UIInstanceBuilder
             case UIStageVerification.EErrorCode.NoPower:
             case UIStageVerification.EErrorCode.NoResetDailyChallenge:
                 data.StartButtonSprite = UIBase.ButtonBG(false);
+                data.Icon = UIInstanceStage.EIcon.Power;
                 data.IconValue = stageData.CostValue;
                 break;
         }
