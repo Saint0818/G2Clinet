@@ -229,6 +229,12 @@
         "en": "The challenge is already expired, please come back tomorrow."
     },
     {
+        "id": 259,
+        "explain": "重置關卡",
+        "tw": "重置關卡",
+        "en": "RESET STAGE"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",

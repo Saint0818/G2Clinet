@@ -106,6 +106,7 @@ public class UIMainStageInfo : MonoBehaviour
     private int mStageID;
     private UIStageVerification.EErrorCode mErrorCode;
     private string mErrMsg;
+    private int mDiamond;
 
     private UIStageHint mHint;
     private Action mMissionAction;
@@ -121,17 +122,30 @@ public class UIMainStageInfo : MonoBehaviour
             mRewardIcons.Add(obj.GetComponent<ItemAwardGroup>());
         }
 
-        StartButton.onClick.Add(new EventDelegate(() =>
-        {
-            if(StartListener != null)
-                StartListener(mStageID, mErrorCode, mErrMsg);
-        }));
+        StartButton.onClick.Add(new EventDelegate(onStartClick));
 
         MissionButton.onClick.Add(new EventDelegate(() =>
         {
             if(mMissionAction != null)
                 mMissionAction();
         }));
+    }
+
+    private void onStartClick()
+    {
+        if(DiamondObj.activeSelf)
+        {
+            UIMessage.Get.ShowMessage(TextConst.S(259), String.Format(TextConst.S(234), mDiamond), () =>
+            {
+                if(StartListener != null)
+                    StartListener(mStageID, mErrorCode, mErrMsg);
+            });
+        }
+        else
+        {
+            if(StartListener != null)
+                StartListener(mStageID, mErrorCode, mErrMsg);
+        }
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }
@@ -171,6 +185,7 @@ public class UIMainStageInfo : MonoBehaviour
         PowerLabel.text = string.Format("{0}", data.Power);
         DiamondObj.SetActive(data.Diamond > 0);
         DiamondLabel.text = string.Format("{0}", data.Diamond);
+        mDiamond = data.Diamond;
 
         Completed.SetActive(data.ShowCompleted);
 
