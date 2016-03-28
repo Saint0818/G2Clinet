@@ -24,8 +24,6 @@ public class SkillController : MonoBehaviour {
 	[HideInInspector]public TSkill PassiveSkillUsed;
 	[HideInInspector]public int MoveDodgeRate = 0;
 	[HideInInspector]public int MoveDodgeLv = 0;
-	[HideInInspector]public int PickBall2Rate = 0;
-	[HideInInspector]public int PickBall2Lv = 0;
 
 	//PlayerInfo for Init
 	private bool isHavePlayerInfo = false;
@@ -93,11 +91,6 @@ public class SkillController : MonoBehaviour {
 						if (skillData.Kind == (int)ESkillKind.MoveDodge){
 							MoveDodgeLv = attribute.SkillCards[i].Lv;
 							MoveDodgeRate = skillData.Rate(MoveDodgeLv);
-						}
-						
-						if (skillData.Kind == (int)ESkillKind.Pick2) {
-							PickBall2Lv = attribute.SkillCards[i].Lv;
-							PickBall2Rate = skillData.Rate(PickBall2Lv);
 						}
 
 						TPassiveType type = new TPassiveType();
@@ -289,7 +282,10 @@ public class SkillController : MonoBehaviour {
 	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
-			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
+			if(kind == ESkillKind.Pick2 || kind == ESkillKind.MoveDodge)
+				playerState = EPlayerState.Idle;
+			else
+				playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
 		} catch {
 			LogMgr.Get.LogWarning("this situation isn't contain EPlayerState:" + situation.ToString());
 		}
@@ -494,13 +490,12 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Pick0:{
-				playerState = EPlayerState.Pick2;
-				TSkill skill = new TSkill();
-				skill.ID = 1310;
-				skill.Lv = PickBall2Lv;
-				PassiveSkillUsed = skill;
-
-				Result = executePlayer.AniState(playerState, v);
+				playerState = getPassiveSkill(ESkillSituation.Pick0, ESkillKind.Pick2, v);
+				//因為有可能會沒有觸發，用idle判斷說有沒有執行，主要是沒有初始動作
+				if(playerState == EPlayerState.Idle)
+					Result = false;
+				else
+					Result = executePlayer.AniState(playerState, v);
 				break;
 			}
 				
@@ -750,16 +745,6 @@ public class SkillController : MonoBehaviour {
 	{
 		get { return MoveDodgeLv;}
 		set { MoveDodgeLv = value;}
-	}
-
-	public int GetPickBall2Rate
-	{
-		get { return PickBall2Rate;}
-	}
-
-	public int GetPickBall2Lv
-	{
-		get { return PickBall2Lv;}
 	}
 
 	public List<int> GetAllBuffs

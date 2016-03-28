@@ -3668,10 +3668,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if(player.PlayerSkillController.IsHavePickBall2) {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
-				int rate = Random.Range(0, 100);
-				if(rate < player.PlayerSkillController.GetPickBall2Rate) {
-					player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBallObj.transform.position);
-				}
+				player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBallObj.transform.position);
 			}
 		}
 	}
@@ -3866,9 +3863,7 @@ public class GameController : KnightSingleton<GameController>
 //            UIHint.Get.ShowHint("PVE End fail!", Color.red);
 //    }
 
-//    private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
-//	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
-
+	//投進的buff要從AI呼叫PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
 	public void ShowShootSate(bool isIn, int team)
 	{
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
@@ -3878,15 +3873,15 @@ public class GameController : KnightSingleton<GameController>
 			if(PlayerList[i].Team.GetHashCode() == team)
 			{
 				if(PlayerList[i] != PickBallPlayer && !PlayerList[i].IsDunk){
-					if(isIn)
-						PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
-					else {
+//					if(isIn)
+//						PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
+//					else {
 					if(PlayerList[i].crtState == EPlayerState.Idle && 
 					   GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
 					                                     CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11
 					   )
 							PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnOut);
-					}
+//					}
 				}
 			}
 	}
@@ -4486,12 +4481,10 @@ public class GameController : KnightSingleton<GameController>
 					}
 					else
                     {
-//						if(faller.AniState(EPlayerState.Fall1, pusher.PlayerRefGameObject.transform.position))
 						if(faller.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, pusher.transform.position))
                         {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
-//							if(faller == Joysticker || pusher == Joysticker)
 							ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
 					}

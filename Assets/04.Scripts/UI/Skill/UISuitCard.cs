@@ -99,9 +99,9 @@ public struct TItemSuitCardGroup {
 				for(int i=0; i<GameData.DSuitCard[id].AttrKind.Length; i++) {
 					if(GameData.DSuitCard[id].AttrKind[i] != 0) {
 						if(GameData.DSuitCard[id].Value[i] > 0)
-							AttrBonus[i].text = TextConst.S(10500 + GameData.DSuitCard[id].AttrKind[i]) +"[ff0000] + "+ GameData.DSuitCard[id].Value[i] +"[-]";
+							AttrBonus[i].text = TextConst.S(10500 + GameData.DSuitCard[id].AttrKind[i]) +"[00ff00] + "+ GameData.DSuitCard[id].Value[i] +"[-]";
 						else
-							AttrBonus[i].text = TextConst.S(10500 + GameData.DSuitCard[id].AttrKind[i]) +"[ff0000] "+ GameData.DSuitCard[id].Value[i] +"[-]";
+							AttrBonus[i].text = TextConst.S(10500 + GameData.DSuitCard[id].AttrKind[i]) +"[00ff00] "+ GameData.DSuitCard[id].Value[i] +"[-]";
 					} else {
 						AttrBonus[i].gameObject.SetActive(false);
 					}
