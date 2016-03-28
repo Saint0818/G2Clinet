@@ -209,6 +209,8 @@ public class SkillController : MonoBehaviour {
 				} else {
 					AddSkillAttribute(skill.ID, skill.AttrKind, skill.Value(tSkill.Lv), skill.LifeTime(tSkill.Lv));
 				}
+			} else {
+				AddSkillAttribute(skill.ID, skill.AttrKind, skill.Value(tSkill.Lv), skill.LifeTime(tSkill.Lv));
 			}
 			
 		}
