@@ -118,6 +118,9 @@ namespace GameStruct
         public int[] IDs;
     }
 
+    /// <summary>
+    /// 這對應到 baseattr 表格的數值.
+    /// </summary>
 	public class TPlayerAttribute
     {
 		public float PointRate2;
@@ -136,6 +139,7 @@ namespace GameStruct
 		public float PushingRate;
 		public float PassRate;
 		public float AlleyOopPassRate;
+		public float ShootingRate;
 
 		public float ReboundHeadDistance;
 		public float ReboundHandDistance;

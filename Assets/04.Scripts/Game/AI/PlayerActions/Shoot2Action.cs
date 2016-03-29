@@ -11,7 +11,7 @@ namespace AI
 
         public override float Probability
         {
-            get { return Player.Attr.PointRate2; }
+            get { return Player.Attr.ShootingRate + Player.Attr.PointRate2; }
         }
 
         public override bool IsDone

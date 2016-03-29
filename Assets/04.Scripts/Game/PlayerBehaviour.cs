@@ -85,8 +85,8 @@ public class PlayerBehaviour : MonoBehaviour
     public Material BodyMaterial;
     [HideInInspector]
     public GameObject BodyHeight;
-    public TPlayerAttribute Attr = new TPlayerAttribute();
-    public TPlayer Attribute;
+    public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
+    public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
     [HideInInspector]
     public TScoreRate ScoreRate;
     public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
@@ -351,6 +351,7 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogErrorFormat("initialize attributes fail, BaseAttr:{0}, AILevel:{1}.", GameData.BaseAttr.Length, Attribute.AILevel);
             return;
         }
+        Attr.ShootingRate = GameData.BaseAttr[Attribute.AILevel].ShootingRate;
         Attr.PointRate2 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (Attribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2));
         Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, (Attribute.Point3 + GameData.BaseAttr[Attribute.AILevel].PointRate3));
         Attr.StealRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StealRate, (Attribute.Steal + GameData.BaseAttr[Attribute.AILevel].StealRate));

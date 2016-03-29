@@ -14,14 +14,14 @@ namespace GameStruct
     public struct TPlayer {
         public string Identifier;
         public int RoleIndex;
-        public int ID;
+        public int ID; // 對應到 great player 表格.
         public string Name;
         public int Lv;
         public int Exp;
         public int AILevel;
         public int Strategy;
 
-        // 球員的能力值(目前主要是表格的數值 + 數值裝的數值)
+        // 球員的能力值(目前主要是 greatplayer 表格的數值 + 數值裝的數值)
 		/// <summary>
 		/// Point2 命中率
 		/// </summary>
