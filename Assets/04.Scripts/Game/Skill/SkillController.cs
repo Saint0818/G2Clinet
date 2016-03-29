@@ -280,7 +280,7 @@ public class SkillController : MonoBehaviour {
 	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
-			if(kind == ESkillKind.Pick2 || kind == ESkillKind.MoveDodge0)
+			if(kind == ESkillKind.Pick2 || kind == ESkillKind.MoveDodge0 || kind == ESkillKind.ShowOwnIn || kind == ESkillKind.ShowOwnOut)
 				playerState = EPlayerState.Idle;
 			else
 				playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -290,7 +290,8 @@ public class SkillController : MonoBehaviour {
 		if((GameController.Get.Situation == EGameSituation.GamerInbounds || GameController.Get.Situation == EGameSituation.NPCInbounds) && kind == ESkillKind.Pass) {
 			playerState = EPlayerState.Pass50;
 		}
-		if(GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack) {
+
+		if(GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack || kind == ESkillKind.ShowOwnIn) {
 			string animationName = randomPassive(kind, v, isHaveDefPlayer, shootDistance);
 			
 			if (animationName != string.Empty) {
@@ -406,14 +407,12 @@ public class SkillController : MonoBehaviour {
 		bool Result = false;
 		EPlayerState playerState = EPlayerState.Idle;
 		
-		if(GameController.Get.Situation == EGameSituation.GamerAttack || 
+		if((GameController.Get.Situation == EGameSituation.GamerAttack || 
             GameController.Get.Situation == EGameSituation.NPCAttack || 
             GameController.Get.Situation == EGameSituation.GamerInbounds|| 
             GameController.Get.Situation == EGameSituation.NPCInbounds||
             GameController.Get.Situation == EGameSituation.Opening||
-            GameController.Get.Situation == EGameSituation.JumpBall ||
-            GameController.Get.Situation == EGameSituation.SpecialAction)
-        {
+            GameController.Get.Situation == EGameSituation.JumpBall)) {
 			switch(state) {
 			case ESkillSituation.Block0:
 				playerState = getPassiveSkill(ESkillSituation.Block0, ESkillKind.Block0, v);
@@ -488,7 +487,7 @@ public class SkillController : MonoBehaviour {
 				
 			case ESkillSituation.Pick0:{
 				playerState = getPassiveSkill(ESkillSituation.Pick0, ESkillKind.Pick2, v);
-				//因為有可能會沒有觸發，用idle判斷說有沒有執行，主要是沒有初始動作
+				//被防守範圍影響，因為有可能會沒有觸發，用idle判斷說有沒有執行，主要是沒有初始動作
 				if(playerState == EPlayerState.Idle)
 					Result = false;
 				else
@@ -559,16 +558,16 @@ public class SkillController : MonoBehaviour {
 				Result = executePlayer.AniState(playerState, v );
 				break;
 
-			case ESkillSituation.ShowOwnIn:
-				playerState = getPassiveSkill(ESkillSituation.ShowOwnIn, ESkillKind.ShowOwnIn);
-				Result = executePlayer.AniState(playerState);
-				break;
-
 			case ESkillSituation.ShowOwnOut:
 				playerState = getPassiveSkill(ESkillSituation.ShowOwnOut, ESkillKind.ShowOwnOut);
-				Result = executePlayer.AniState(playerState);
+				if(playerState == EPlayerState.Idle)
+					Result = false;
+				else {
+					executePlayer.AniState(playerState);
+					Result = true; //沒做動作也可以觸發
+				}
 				break;
-				
+
 			case ESkillSituation.Steal0:	
 				playerState = getPassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
 				Result = executePlayer.AniState(playerState, v);
@@ -579,6 +578,17 @@ public class SkillController : MonoBehaviour {
 				Result = executePlayer.AniState (playerState, v);
 				break;
 			}	
+		}
+		if(GameController.Get.Situation == EGameSituation.SpecialAction) {
+			if(state == ESkillSituation.ShowOwnIn) {
+				playerState = getPassiveSkill(ESkillSituation.ShowOwnIn, ESkillKind.ShowOwnIn);
+				if(playerState == EPlayerState.Idle)
+					Result = false;
+				else {
+					executePlayer.AniState(playerState);
+					Result = true; //沒做動作也可以觸發
+				}
+			}
 		}
 		try {
 			if(Result && !playerState.ToString().Equals(state.ToString())){

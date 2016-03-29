@@ -1784,10 +1784,8 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.DoPassNone();
 				CourtMgr.Get.ResetBasketEntra();
 
-//				int t = BallOwner.Team.GetHashCode();
                 if(GameStart.Get.TestMode == EGameTest.Dunk)
                 {
-//					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
                     BallOwner.AniState(EPlayerState.Dunk20);
 					return true;
 				}
@@ -1798,7 +1796,6 @@ public class GameController : KnightSingleton<GameController>
 //					if(inTipinDistance(BallOwner)  && BallOwner.CanUseTipIn)
 					if(BallOwner.CanUseTipIn)
                     {
-//                        BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 						BallOwner.AniState(EPlayerState.TipIn);
 						return true;
 					}
@@ -1891,7 +1888,6 @@ public class GameController : KnightSingleton<GameController>
             CourtMgr.Get.RealBallCompoment.Trigger.IsAutoRotate = true;
 			CourtMgr.Get.IsBallOffensive = true;
 			Shooter = player;
-//			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
             if (!isActive)
             {
@@ -2064,12 +2060,12 @@ public class GameController : KnightSingleton<GameController>
 
 				return true;
 			} else {
-				if (Shooter)
-				if(IsReboundTime)
-					return Rebound(Joysticker);
-				else
-					return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
-				else
+				if (Shooter) {
+					if(IsReboundTime)
+						return Rebound(Joysticker);
+					else
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
+				} else {
 					if (BallOwner) {
 						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
 						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
@@ -2079,6 +2075,7 @@ public class GameController : KnightSingleton<GameController>
 						else
 							return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
 					}
+				}
 			}
 		}
 
@@ -3650,6 +3647,12 @@ public class GameController : KnightSingleton<GameController>
 			case 2:
 				if(player1.PlayerSkillController.IsHaveMoveDodge)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
+
+				if(player1.IsSkillPushThrough)
+					player2.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player1.transform.position);
+			
+				if(player2.IsSkillPushThrough)
+					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player2.transform.position);
 				
 				if(!player2.IsDefence && player1.IsDefence)
 				{

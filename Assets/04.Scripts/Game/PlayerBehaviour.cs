@@ -901,7 +901,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 #endif
 
-				if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && IsMoveDodge))
+				if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && IsMoveDodge && IsPush))
 				{
 					isMoving = true;
 					if (!isJoystick)
@@ -1912,7 +1912,6 @@ public class PlayerBehaviour : MonoBehaviour
                     skillKind = ESkillKind.DownHand;
                     break;
                 case 20:
-//                    RotateTo(CourtMgr.Get.GetHoodPosition(Team).x, CourtMgr.Get.GetHoodPosition(Team).z);
                     isShootJumpActive = true;
                     break;
             }
@@ -2733,23 +2732,30 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
                     GameController.Get.Situation == EGameSituation.NPCAttack))
                 {
-                    GameController.Get.IsGameFinish();
+					GameRecord.PushLaunch++;
                     for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
                     {
                         if (GameController.Get.GamePlayers[i].Team != Team)
                         {
-                            if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
-                                    new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
-                            {
-                                if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk)
-                                    GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
-                                else
-									GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
-//                                    GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
-								
-                            }
+							if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
+								//直線碰撞
+								transform.DOMove(CourtMgr.Get.GetArrowPosition(GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
+							} else {
+								//圓形碰撞
+								if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
+									new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
+								{
+									if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk){ 
+										GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
+									} else {
+										GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
+									}
+									GameRecord.Push++;
+								}
+							}
                         } 
-                    }
+					}
+					GameController.Get.IsGameFinish();
                 }
                 break;
             case "SetBallEvent":
@@ -3317,6 +3323,17 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push1 || crtState == EPlayerState.Push2 || crtState == EPlayerState.Push20; }
     }
+
+	public bool IsSkillPushThrough 
+	{
+		get {
+			if(GameData.DSkillData.ContainsKey(PlayerSkillController.ActiveSkillUsed.ID))
+				if(GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].Kind == 171)
+					return true;
+			
+			return false;
+		}
+	}
 
     public bool IsIntercept
     {

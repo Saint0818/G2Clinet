@@ -338,14 +338,26 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void ShowArrowOfAction(bool isShow, Transform parent = null, float dis = 0)
     {
-        SkillArrowOfAction.transform.parent = parent;
-        if (parent)
-            SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
+		if(isShow) {
+			SkillArrowOfAction.transform.parent = parent;
+			if (parent)
+				SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
+			
+		}
+		//有機會會被改到layer,所以要檢查
+		if(!LayerMgr.Get.CheckLayer(SkillArrowOfAction.gameObject, ELayer.Default))
+			LayerMgr.Get.SetLayer(SkillArrowOfAction.gameObject, ELayer.Default);
         SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
         if (textureArrow)
             textureArrow.SetRect(0, 0, 200, dis * 100);
         SkillArrowOfAction.SetActive(isShow);
     }
+
+	public Vector3 GetArrowPosition (float dis) {
+		SkillArrowOfAction.transform.localPosition = new Vector3(SkillArrowOfAction.transform.localPosition.x, SkillArrowOfAction.transform.localPosition.y, SkillArrowOfAction.transform.localPosition.z + dis);
+		SkillArrowOfAction.transform.parent = null;
+		return SkillArrowOfAction.transform.position;
+	}
 
     public void RangeOfActionPosition(Vector3 position)
     {
