@@ -23,7 +23,6 @@ public class SkillController : MonoBehaviour {
 	[HideInInspector]public TSkill ActiveSkillUsed;
 	[HideInInspector]public TSkill PassiveSkillUsed;
 	[HideInInspector]public int MoveDodgeRate = 0;
-	[HideInInspector]public int MoveDodgeLv = 0;
 
 	//PlayerInfo for Init
 	private bool isHavePlayerInfo = false;
@@ -88,9 +87,8 @@ public class SkillController : MonoBehaviour {
 						TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 						int key = skillData.Kind;
 						
-						if (skillData.Kind == (int)ESkillKind.MoveDodge){
-							MoveDodgeLv = attribute.SkillCards[i].Lv;
-							MoveDodgeRate = skillData.Rate(MoveDodgeLv);
+						if (skillData.Kind == (int)ESkillKind.MoveDodge0){
+							MoveDodgeRate = skillData.Rate(attribute.SkillCards[i].Lv);
 						}
 
 						TPassiveType type = new TPassiveType();
@@ -471,7 +469,6 @@ public class SkillController : MonoBehaviour {
 							
 							executePlayer.RotateTo(pos.x, pos.z);
 							executePlayer.transform.DOMoveZ(executePlayer.transform.position.z + AddZ, GameConst.CrossTimeZ).SetEase(Ease.Linear);
-//							TSkill skill = new TSkill();
 							//Dir = 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方.
 							if (Dir == 1) {
 								executePlayer.transform.DOMoveX(executePlayer.transform.position.x - 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
@@ -480,9 +477,6 @@ public class SkillController : MonoBehaviour {
 								executePlayer.transform.DOMoveX(executePlayer.transform.position.x + 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge1;
 							}			
-//							skill.ID = 1100;
-//							PassiveSkillUsed = skill;
-							
 							GameController.Get.CoolDownCrossover = Time.time + 4;
 							Result = executePlayer.AniState(playerState);
 						}
