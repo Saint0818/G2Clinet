@@ -42,10 +42,11 @@ namespace AI
                 player.ResetMove();
             }
 
-            defensePlayerGoHomePosition();
+            attackerPlayerIdle();
+            defensePlayerTryFireSkillBuff();
         }
 
-        private void defensePlayerGoHomePosition()
+        private void attackerPlayerIdle()
         {
             if(mNextState == EGameSituation.GamerPickBall)
             {
@@ -53,7 +54,46 @@ namespace AI
                 {
                     playerAI.ChangeState(EPlayerAIState.None);
                 }
+            }
+            else if(mNextState == EGameSituation.NPCPickBall)
+            {
+                foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
+                {
+                    playerAI.ChangeState(EPlayerAIState.None);
+                }
+            }
+            else
+                Debug.LogWarning("Next State must be APickBallAfterScore or BPickBallAfterScore.");
+        }
 
+        private void defensePlayerTryFireSkillBuff()
+        {
+            if(mNextState == EGameSituation.GamerPickBall)
+            {
+                foreach(PlayerAI npcAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
+                {
+                    var npc = npcAI.GetComponent<PlayerBehaviour>();
+                    if(!npc.PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn)) 
+                        npcAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
+                }
+            }
+            else if(mNextState == EGameSituation.NPCPickBall)
+            {
+                foreach(PlayerAI selfAI in AIController.Get.GetTeam(ETeamKind.Self).Players)
+                {
+                    var self = selfAI.GetComponent<PlayerBehaviour>();
+                    if(!self.PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn))
+                        selfAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
+                }
+            }
+            else
+                Debug.LogWarning("Next State must be APickBallAfterScore or BPickBallAfterScore.");
+        }
+
+        private void defensePlayerGoHomePosition()
+        {
+            if(mNextState == EGameSituation.GamerPickBall)
+            {
                 foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
                 {
                     playerAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
@@ -65,11 +105,6 @@ namespace AI
                 {
                     playerAI.ChangeState(EPlayerAIState.ReturnToHome, EPlayerAIState.None);
                 }
-
-                foreach (PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
-                {
-                    playerAI.ChangeState(EPlayerAIState.None);
-                }
             }
             else
                 Debug.LogWarning("Next State must be APickBallAfterScore or BPickBallAfterScore.");
@@ -79,6 +114,8 @@ namespace AI
         {
             if(Time.time >= mChangeStateTime)
             {
+                defensePlayerGoHomePosition();
+
                 Parent.ChangeState(mNextState);
                 GameController.Get.ChangeSituation(mNextState);
             }

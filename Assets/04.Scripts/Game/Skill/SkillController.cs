@@ -406,12 +406,14 @@ public class SkillController : MonoBehaviour {
 		bool Result = false;
 		EPlayerState playerState = EPlayerState.Idle;
 		
-		if((GameController.Get.Situation == EGameSituation.GamerAttack || 
+		if(GameController.Get.Situation == EGameSituation.GamerAttack || 
             GameController.Get.Situation == EGameSituation.NPCAttack || 
             GameController.Get.Situation == EGameSituation.GamerInbounds|| 
             GameController.Get.Situation == EGameSituation.NPCInbounds||
             GameController.Get.Situation == EGameSituation.Opening||
-            GameController.Get.Situation == EGameSituation.JumpBall)) {
+            GameController.Get.Situation == EGameSituation.JumpBall ||
+            GameController.Get.Situation == EGameSituation.SpecialAction)
+        {
 			switch(state) {
 			case ESkillSituation.Block0:
 				playerState = getPassiveSkill(ESkillSituation.Block0, ESkillKind.Block0, v);

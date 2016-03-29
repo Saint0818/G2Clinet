@@ -3879,11 +3879,11 @@ public class GameController : KnightSingleton<GameController>
 				if(PlayerList[i] != PickBallPlayer && !PlayerList[i].IsDunk){
 //					if(isIn)
 //						PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
-//					else {
-					if(PlayerList[i].crtState == EPlayerState.Idle && 
-					   GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
-					                                     CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11
-					   )
+//					else
+//                    {
+					    if(!isIn && PlayerList[i].crtState == EPlayerState.Idle && 
+					       GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
+					              CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11)
 							PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnOut);
 //					}
 				}
