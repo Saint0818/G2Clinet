@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using JetBrains.Annotations;
 
 /// <summary>
@@ -12,10 +14,31 @@ public class TDiamondData
         ResetDailyChallenge = 1
     }
 
-    [Obsolete("改用 GetReviseNum().")]
+    [Description("改用 GetReviseNum().")]
     public int[] Nums
     {
-        get { return mNums ?? (mNums = new [] {Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8}); }
+        get
+        {
+            if(mNums == null)
+            {
+                Action<List<int>, int> checkAndAdd = (collections, value) =>
+                {
+                    if(value > 0)
+                        collections.Add(value);
+                };
+                List<int> nums = new List<int>();
+                checkAndAdd(nums, Num1);
+                checkAndAdd(nums, Num2);
+                checkAndAdd(nums, Num3);
+                checkAndAdd(nums, Num4);
+                checkAndAdd(nums, Num5);
+                checkAndAdd(nums, Num6);
+                checkAndAdd(nums, Num7);
+                checkAndAdd(nums, Num8);
+                mNums = nums.ToArray();
+            }
+            return mNums;
+        }
     }
 
     public int GetReviseNum(int index)
