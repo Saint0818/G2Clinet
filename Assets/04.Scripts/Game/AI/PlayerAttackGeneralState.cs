@@ -34,7 +34,7 @@ namespace AI
 
             mStartActiveSkillAction = new StartActiveSkillAction(mPlayer);
 
-            mBallActions.Add(new MoveDodgeAction(mPlayerAI, mPlayer));
+//            mBallActions.Add(new MoveDodgeAction(mPlayerAI, mPlayer));
             mBallActions.Add(new TacticalAction(mPlayerAI, mPlayer));
             mBallActions.Add(new IdleAction(mPlayerAI, mPlayer, EPlayerState.Dribble0));
             mBallActions.Add(new PassAction(mPlayerAI, mPlayer));
