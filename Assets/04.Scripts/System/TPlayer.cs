@@ -106,7 +106,7 @@ namespace GameStruct
 
         /// <summary>
         /// <para> 玩家身上的數值裝備. 不要直接使用, 改用 GetValueItem(). </para>
-        /// <para> key: TItemData.Kind. </para>
+        /// <para> key: TItemData.Kind, 11 ~ 16 是晶片, 17,18 是次數型數值裝. </para>
         /// </summary>
         [CanBeNull]
         public Dictionary<int, TValueItem> ValueItems;
@@ -262,18 +262,19 @@ namespace GameStruct
 
         private void addEquipValues()
         {
-            if(ValueItems == null)
-                return;
-
-            foreach(KeyValuePair<int, TValueItem> pair in ValueItems)
+            for(int kind = 11; kind <= 16; kind++)
             {
-                if(!GameData.DItemData.ContainsKey(pair.Value.ID))
+                TValueItem valueItem = GetValueItem(kind);
+                if(valueItem == null)
+                    continue;
+
+                if(!GameData.DItemData.ContainsKey(valueItem.ID))
                 {
-                    Debug.LogErrorFormat("Can't find ItemData({0})", pair.Value.ID);
+                    Debug.LogErrorFormat("Can't find ItemData({0})", valueItem.ID);
                     continue;
                 }
 
-                TItemData data = GameData.DItemData[pair.Value.ID];
+                TItemData data = GameData.DItemData[valueItem.ID];
                 for(int i = 0; i < data.Bonus.Length; i++)
                 {
                     switch(data.Bonus[i])
