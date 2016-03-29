@@ -215,7 +215,7 @@ public class UICreateRole : UIBase
     {
         GameObject model = new GameObject { name = name };
 		ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType, 
-            EAnimatorType.AvatarControl, false);
+            EAnimatorType.TalkControl, false);
 
         model.transform.parent = parent;
         model.transform.localPosition = Vector3.zero;
