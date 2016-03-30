@@ -198,10 +198,15 @@ public class TimerMgr : KnightSingleton<TimerMgr>
             }
             else
             {
-				if(GameController.Get.BallOwner == null) {
-					CourtMgr.Get.RealBallCompoment.Gravity = tempGravity;
-					CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
-					CourtMgr.Get.RealBallObj.transform.DOPlay();
+				if(!tempGravity && GameController.Get.IsReboundTime) {
+					//因為球在跑動作的時候沒有Gravity，所以用IsReboundTime去判斷是否在做籃筐動作
+					//如果進來就是不把重力恢復(恢復的話球變沒重力)
+				} else {
+					if(GameController.Get.BallOwner == null) {
+						CourtMgr.Get.RealBallCompoment.Gravity = tempGravity;
+						CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
+						CourtMgr.Get.RealBallObj.transform.DOPlay();
+					}
 				}
             }
             IsPause = isPase;
