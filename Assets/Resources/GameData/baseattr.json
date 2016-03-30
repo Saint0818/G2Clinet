@@ -22,7 +22,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 4
+        "autofollowtime": 4,
+        "shootingrate": 2000
     },
     {
         "id": 1
@@ -74,12 +75,13 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 10,
-        "autofollowtime": 3
+        "autofollowtime": 3,
+        "shootingrate": 2000
     },
     {
         "id": 11,
-        "pointrate2": 60,
-        "pointrate3": 50,
+        "pointrate2": 80,
+        "pointrate3": 70,
         "stealrate": 60,
         "dunkrate": 40,
         "tipinrate": 0,
@@ -99,12 +101,13 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 3
+        "autofollowtime": 3,
+        "shootingrate": 2000
     },
     {
         "id": 12,
-        "pointrate2": 40,
-        "pointrate3": 30,
+        "pointrate2": 60,
+        "pointrate3": 50,
         "stealrate": 40,
         "dunkrate": 30,
         "tipinrate": 0,
@@ -124,12 +127,13 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 4
+        "autofollowtime": 4,
+        "shootingrate": 2000
     },
     {
         "id": 13,
-        "pointrate2": 25,
-        "pointrate3": 15,
+        "pointrate2": 40,
+        "pointrate3": 35,
         "stealrate": 25,
         "dunkrate": 20,
         "tipinrate": 0,
@@ -149,12 +153,13 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 5
+        "autofollowtime": 5,
+        "shootingrate": 2000
     },
     {
         "id": 14,
-        "pointrate2": 10,
-        "pointrate3": 5,
+        "pointrate2": 20,
+        "pointrate3": 15,
         "stealrate": 10,
         "dunkrate": 10,
         "tipinrate": 0,
@@ -174,7 +179,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 5
+        "autofollowtime": 5,
+        "shootingrate": 2000
     },
     {
         "id": 15,
@@ -199,7 +205,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 5
+        "autofollowtime": 5,
+        "shootingrate": 2000
     },
     {
         "id": 16
@@ -506,7 +513,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 8
+        "autofollowtime": 5,
+        "shootingrate": 2000
     },
     {
         "id": 111,
@@ -520,7 +528,7 @@
         "blockpushrate": 0,
         "elbowingrate": 0,
         "reboundrate": 0,
-        "blockrate": 0,
+        "blockrate": -30,
         "faketblockrate": 0,
         "pushingrate": 0,
         "passrate": 0,
@@ -531,7 +539,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 8
+        "autofollowtime": 5,
+        "shootingrate": 2000
     },
     {
         "id": 112,
@@ -545,7 +554,7 @@
         "blockpushrate": 0,
         "elbowingrate": 0,
         "reboundrate": 0,
-        "blockrate": 0,
+        "blockrate": -20,
         "faketblockrate": 0,
         "pushingrate": 0,
         "passrate": 10,
@@ -556,7 +565,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 7
+        "autofollowtime": 4,
+        "shootingrate": 2000
     },
     {
         "id": 113,
@@ -570,7 +580,7 @@
         "blockpushrate": 0,
         "elbowingrate": 0,
         "reboundrate": 0,
-        "blockrate": 0,
+        "blockrate": -10,
         "faketblockrate": 0,
         "pushingrate": 0,
         "passrate": 20,
@@ -581,7 +591,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 6
+        "autofollowtime": 3,
+        "shootingrate": 2000
     },
     {
         "id": 114,
@@ -606,7 +617,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 5
+        "autofollowtime": 2,
+        "shootingrate": 2000
     },
     {
         "id": 115,
@@ -631,7 +643,8 @@
         "defdistance": 0,
         "speedvalue": 0,
         "staminavalue": 0,
-        "autofollowtime": 4
+        "autofollowtime": 1,
+        "shootingrate": 2000
     },
     {
         "id": 116
