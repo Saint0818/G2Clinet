@@ -103,7 +103,7 @@
         "id": 236,
         "explain": "前往購買",
         "tw": "前往購買",
-        "en": "PROCEED TO BUY"
+        "en": "BUY"
     },
     {
         "id": 237,
@@ -1073,7 +1073,7 @@
     {
         "id": 3209,
         "tw": "花費[FF00FFFF]寶石 {0} [-]重置潛能點配置？",
-        "en": "Are you confirm to spend[FF00FFFF] {0} gem [-]for reset attribution points?"
+        "en": "Are you confirm to spend[FF00FFFF] {0} gems [-]for reset attribution points?"
     },
     {
         "id": 3301,
@@ -3455,8 +3455,8 @@
     {
         "id": 9702,
         "uipath": "tabs/01",
-        "tw": "搜尋對戰",
-        "en": "SEARCH BATTLE"
+        "tw": "對戰大廳",
+        "en": "BATTLE ROOM"
     },
     {
         "id": 9703,
@@ -3467,13 +3467,13 @@
     {
         "id": 9704,
         "uipath": "tabs/03",
-        "tw": "排行榜2",
+        "tw": "頂尖排行",
         "en": "LEADERBOARD 2"
     },
     {
         "id": 9705,
         "uipath": "tabs/04",
-        "tw": "預留",
+        "tw": "獎勵兌換",
         "en": "Reserved"
     },
     {
@@ -3530,7 +3530,7 @@
         "id": 9714,
         "explain": "說明",
         "uipath": "TitleLabel",
-        "tw": "每日聯盟排名獎勵",
+        "tw": "每日領取獎勵",
         "en": "Daily league award"
     },
     {
@@ -3637,31 +3637,46 @@
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipath": "RankSlider/Thumb",
-        "tw": "積分區間 {0}-{1} ",
+        "tw": "積分需求 {0} - {1} ",
         "en": "INTEGRATION INTERVAL {0} - {1} "
     },
     {
         "id": 9742,
         "uipath": "RankSlider/NowRank",
-        "tw": "YOU",
-        "en": "YOU"
+        "tw": "你的積分 {2} ",
+        "en": "Your INTEGRAL"
     },
     {
         "id": 9743,
-        "tw": "下一步",
-        "en": "NEXT"
+        "tw": "挑戰",
+        "en": "CHALLENGE"
     },
     {
         "id": 9744,
         "explain": "獎勵，每場勝利後得到",
-        "tw": "每場獲勝",
-        "en": "OVERALL WINS"
+        "tw": "每場獲勝獎勵",
+        "en": "WIN REWARD"
     },
     {
         "id": 9745,
         "explain": "獎勵，依照玩家打進的聯盟每日得到",
-        "tw": "每日取得",
-        "en": "DAILY WINS"
+        "tw": "每日領取獎勵",
+        "en": "DAILY REWARD"
+    },
+    {
+        "id": 9746,
+        "tw": "聯盟獎勵",
+        "en": "League Reward"
+    },
+    {
+        "id": 9747,
+        "tw": "晉級",
+        "en": "Promoted"
+    },
+    {
+        "id": 9748,
+        "tw": "目前",
+        "en": "Now"
     },
     {
         "id": 9800,
@@ -4326,39 +4341,58 @@
     },
     {
         "id": 11101,
-        "explain": "球館(Gym)"
+        "explain": "球館(Gym)",
+        "uipath": "NameLabel",
+        "tw": "球館",
+        "en": "GYM"
     },
     {
         "id": 11201,
-        "explain": "隨機商店(Store)"
+        "explain": "隨機商店(Store)",
+        "tw": "隨機商店",
+        "en": "STORE"
     },
     {
         "id": 11301,
-        "explain": "廣告看板(Advertisement)"
+        "explain": "廣告看板(Advertisement)",
+        "tw": "廣告看板",
+        "en": "ADVERTISEMENT"
     },
     {
         "id": 11401,
-        "explain": "籃筐(Basket)"
+        "explain": "籃筐(Basket)",
+        "tw": "籃筐",
+        "en": "BASKET"
     },
     {
         "id": 11501,
-        "explain": "椅子(Chair)"
+        "explain": "椅子(Chair)",
+        "tw": "椅子",
+        "en": "CHAIR"
     },
     {
         "id": 11601,
-        "explain": "LOGO 旗子(Logo)"
+        "explain": "LOGO 旗子(Logo)",
+        "tw": "旗幟",
+        "en": "LOGO"
     },
     {
         "id": 11701,
-        "explain": "行事曆(Calendar)"
+        "explain": "行事曆(Calendar)",
+        "tw": "賽程表",
+        "en": "CALENDAR"
     },
     {
         "id": 11801,
-        "explain": "信箱(Mail)"
+        "explain": "信箱(Mail)",
+        "tw": "信箱",
+        "en": "MAIL BOX"
     },
     {
         "id": 11901,
-        "explain": "大門(Door)"
+        "explain": "大門(Door)",
+        "tw": "大門",
+        "en": "GATE"
     },
     {
         "id": 12001,

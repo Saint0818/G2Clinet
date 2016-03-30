@@ -29,8 +29,8 @@
         "nametw": "一小袋寶石"
     },
     {
-        "diamonds": 700,
-        "diamondcn": 700,
+        "diamonds": 750,
+        "diamondcn": 750,
         "android": "com.nicemarket.g2.3",
         "order": 1,
         "pricetw": "NT.300",
@@ -43,8 +43,8 @@
         "nametw": "一大袋寶石"
     },
     {
-        "diamonds": 1500,
-        "diamondcn": 1500,
+        "diamonds": 1600,
+        "diamondcn": 1600,
         "android": "com.nicemarket.g2.4",
         "order": 0,
         "pricetw": "NT.590",
