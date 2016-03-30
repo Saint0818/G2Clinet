@@ -349,7 +349,6 @@ public class UISelectRole : UIBase {
 	}
 
 	public void OnStart(){
-        Visible = false;
         if (GameData.TestStage || !LobbyStart.Get.ConnectToServer)
             enterGame();
         else {
@@ -513,16 +512,15 @@ public class UISelectRole : UIBase {
     }
 
     private void enterGame() {
+        Visible = false;
         for (int i = 0; i < playerData.Length; i++)
             GameData.TeamMembers[i].Player = playerData[i];
 
         initEnemy ();
 
 		int courtNo = stageData.CourtNo;
-        if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
-            UILoading.UIShow(true, ELoading.Game);
-        else
-            SceneMgr.Get.ChangeLevel (courtNo);
+        UILoading.UIShow(true, ELoading.Game);
+        SceneMgr.Get.ChangeLevel (courtNo);
     }
 
     private void SendPVPStart()

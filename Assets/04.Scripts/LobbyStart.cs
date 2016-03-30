@@ -45,7 +45,6 @@ public class LobbyStart : MonoBehaviour {
 	void Awake ()
     {
         instance = gameObject.GetComponent<LobbyStart>();
-        DontDestroyOnLoad(gameObject);
 		Time.timeScale = 1;
 
         #if UNITY_EDITOR
@@ -59,24 +58,29 @@ public class LobbyStart : MonoBehaviour {
         Application.runInBackground = false;
         #endif
 
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        GameData.InitGameSetting ();
-        GameData.Init();
-        AnimatorMgr.Get.InitAnimtorStatesType();
-        UILoading.UIShow(true, ELoading.Login);
-        SendHttp.Get.CheckServerData(ConnectToServer);
-
-        if (IsUseFpsLimiter) {
-            FpsLimiter fl = gameObject.GetComponent<FpsLimiter>();
-            if (!fl)
-                gameObject.AddComponent<FpsLimiter>();
+        obj = GameObject.Find("AudioMgr");
+        if (!obj) {
+            obj = Resources.Load("Prefab/AudioMgr") as GameObject;
+            obj = Instantiate(obj) as GameObject;
+            obj.name = "AudioMgr";
         }
 
-        #if PUSHWOOSH
-        #if UNITY_ANDROID
-        gameObject.AddComponent<Pushwoosh>();
-        #endif
-        #endif
+        if (GameData.Init()) {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            UILoading.UIShow(true, ELoading.Login);
+            SendHttp.Get.CheckServerData(ConnectToServer);
+            if (IsUseFpsLimiter) {
+                FpsLimiter fl = gameObject.GetComponent<FpsLimiter>();
+                if (!fl)
+                    SendHttp.Get.gameObject.AddComponent<FpsLimiter>();
+            }
+
+            #if PUSHWOOSH
+            #if UNITY_ANDROID
+            SendHttp.Get.gameObject.AddComponent<Pushwoosh>();
+            #endif
+            #endif
+        }
     }
 
     public void EnterLobby()

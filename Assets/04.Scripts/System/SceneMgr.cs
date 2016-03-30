@@ -19,26 +19,19 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     public delegate void LevelWillBeLoaded();
     public delegate void LevelWaitLoadNextScene();
 	public delegate void LevelWasFinishedDoSomething();
-	
-    public static event LevelWillBeLoaded OnLevelWillBeLoaded;
-    public static event LevelWaitLoadNextScene OnLevelWaitLoadNext;
     public int CurrentSceneNo = 0;
 
     IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
-        if (OnLevelWillBeLoaded != null)
-            OnLevelWillBeLoaded();
-
-        yield return SceneManager.LoadSceneAsync(levelToLoad.ToString());
+        yield return SceneManager.LoadSceneAsync(levelToLoad);
 
         if(levelToLoad != ESceneName.Null.ToString())
-         CurrentScene = levelToLoad;
+            CurrentScene = levelToLoad;
 
         switch (levelToLoad)
         {
             case ESceneName.Null:
                 SceneManager.UnloadScene(CurrentScene);
-                System.GC.Collect();
                 CurrentScene = levelToLoad;
 			break;
 			case ESceneName.Lobby:
@@ -58,9 +51,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 UILoading.UIShow(true, ELoading.Game);
                 break;
         }
-
-        if (OnLevelWaitLoadNext != null) 
-			OnLevelWaitLoadNext ();
 
         Resources.UnloadUnusedAssets();
     }
@@ -93,14 +83,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 StartCoroutine(LoadLevelCoroutine(scene));
 
             LoadScene = scene;
-            //OnLevelWaitLoadNext += WaitLoadScene;
         }
-    }
-
-    public void WaitLoadScene()
-    {
-        StartCoroutine(LoadLevelCoroutine(LoadScene));
-        OnLevelWaitLoadNext -= WaitLoadScene;
     }
 }
 

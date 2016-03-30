@@ -144,6 +144,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
     void Awake()
     {
         //DontDestroyOnLoad(gameObject);
+        InitAnimtorStatesType();
     }
 
     /// <summary>

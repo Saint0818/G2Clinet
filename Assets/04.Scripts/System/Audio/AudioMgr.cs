@@ -63,8 +63,9 @@ public enum EMusicType
     MU_ThemeSong
 }
 
-public class AudioMgr : KnightSingleton<AudioMgr>
+public class AudioMgr : MonoBehaviour
 {
+    private static AudioMgr instance;
     private string path = "Audio/Prefab/";
     public string CurrentMusic = string.Empty;
     public AudioMixer MasterMix;
@@ -81,20 +82,18 @@ public class AudioMgr : KnightSingleton<AudioMgr>
     private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource>();
     public bool init = false;
 
+    public static AudioMgr Get {
+        get {
+            return instance;
+        }
+    }
+
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        instance = gameObject.GetComponent<AudioMgr>();
         if(SplashSnapshot != null)
             ChangeSnapshot(ref SplashSnapshot);
-        
-//        AudioSource[] loads = gameObject.transform.GetComponentsInChildren<AudioSource>();
-//        if (loads.Length > 0)
-//        {
-//            for (int i = 0; i < loads.Length; i++)
-//            {
-//                if (!DAudios.ContainsKey(loads[i].name))
-//                    DAudios.Add(loads[i].name, loads[i]);
-//            }
-//        }
     }
 
     public void PlayMusic(EMusicType type)

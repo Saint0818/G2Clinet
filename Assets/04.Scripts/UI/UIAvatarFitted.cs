@@ -557,6 +557,12 @@ public class UIAvatarFitted : UIBase
     /// 因EquipsData有可能是試穿資料所以不能直接用GameData.Team.Player.Items來用
     /// </summary>
     /// <param name="clearEquipsData">If set to <c>true</c> clear equips data.</param>
+
+    public void UpdateUI()
+    {
+        UpdateAvatar(false);
+    }
+
     public void UpdateAvatar(bool clearEquipsData = false)
     {
         if (clearEquipsData)
@@ -865,7 +871,7 @@ public class UIAvatarFitted : UIBase
         {
             BuyIndex = index;
             TItemData itemData = GameData.DItemData[backpackItems[index].ID];
-            if (CheckDiamond(itemData.Buy, true, "", null, UpdateAvatar))
+            if (CheckDiamond(itemData.Buy, true, "", null, UpdateUI))
             {
                 TSellItem item = new TSellItem();
                 item.ID = itemData.ID;
