@@ -164,9 +164,9 @@ public class UIItemHint : UIBase {
 		if(kind == 1)
 			id = 93110;
 		else if(kind == 2)
-			id = 93210;
+			id = 93201;
 		else if(kind == 3)
-			id = 93310;
+			id = 93301;
 		uiLabelHave.gameObject.SetActive(false);
 		hintAvatarView.UpdateUI(GameData.DItemData[id]);
 		uiLabelName.text = string.Format(GameData.DItemData[id].Name, value);
