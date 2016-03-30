@@ -412,7 +412,7 @@ public class UILoading : UIBase
                 CourtMgr.Get.InitCourtScene();
                 yield return new WaitForSeconds(1);
 
-                if (GameStart.Get.TestMode == EGameTest.None)
+                if (LobbyStart.Get.TestMode == EGameTest.None)
                     GameController.Get.LoadStage(GameData.StageID);
                 else {
                     CourtMgr.Get.ShowEnd();

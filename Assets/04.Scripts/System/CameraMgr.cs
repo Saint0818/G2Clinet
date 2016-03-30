@@ -137,7 +137,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private void setHalfCourtCamera()
     {
-        if (GameStart.Get.CourtMode == ECourtMode.Half)
+        if (LobbyStart.Get.CourtMode == ECourtMode.Half)
         {
             cameraOffsetObj.transform.localPosition = new Vector3(0, 10.35f, -15);
             cameraOffsetObj.transform.eulerAngles = Vector3.zero;
@@ -149,7 +149,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.fieldOfView = 25;
 
         if (cameraAnimator)
-            cameraAnimator.enabled = GameStart.Get.CourtMode != ECourtMode.Half;
+            cameraAnimator.enabled = LobbyStart.Get.CourtMode != ECourtMode.Half;
     }
 
     public void SetCourtCamera(string scene)
@@ -165,7 +165,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.gameObject.name = scene.ToString();
             cameraAnimator = cameraFx.GetComponent<Animator>();
 
-			if (!GameStart.Get.IsOpenColorfulFX && cameraFx) 
+			if (!LobbyStart.Get.IsOpenColorfulFX && cameraFx) 
 			{
 				if (cameraFx.GetComponent<CC_Sharpen> ())
 					cameraFx.GetComponent<CC_Sharpen> ().enabled = false;
@@ -338,7 +338,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         focusMoveAeraObj.name = "ColorG";
         Renderer r = focusMoveAeraObj.GetComponent<Renderer>();
 
-        if (GameStart.Get.TestCameraMode == ECameraTest.RGB)
+        if (LobbyStart.Get.TestCameraMode == ECameraTest.RGB)
         {
             cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
@@ -357,9 +357,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
             SetTestToolPosition();
 
-            cameraOffsetAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
-            focusMoveAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
-            focusStopAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
+            cameraOffsetAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
+            focusMoveAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
+            focusStopAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
             focusTargetOne.GetComponent<Renderer>().enabled = true;
             focusTargetTwo.GetComponent<Renderer>().enabled = true;
 
@@ -376,7 +376,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private void SetTestToolPosition()
     {
-        if (GameStart.Get.TestCameraMode == ECameraTest.RGB)
+        if (LobbyStart.Get.TestCameraMode == ECameraTest.RGB)
         {
             if (situation == ECameraSituation.Self)
             {
@@ -412,7 +412,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     void FixedUpdate()
     {
-        if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self ||
+        if (LobbyStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self ||
         situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller))
         {
             ZoomCalculation();

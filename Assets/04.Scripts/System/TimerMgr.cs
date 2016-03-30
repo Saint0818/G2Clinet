@@ -73,95 +73,14 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 			CrtTime = GameConst.Min_TimePause;	
 		else
 			CrtTime = value;
-				
-//        Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
     }
-
-    /// <summary>
-    /// 技能施放，時間控制
-    /// </summary>
-    /// <param name="key">Key.</param>
-    /// <param name="value">Value.</param>
-    /// <param name="user">User.</param>
-//    public void ChangeTime(ETimerKind key, float value, ref PlayerBehaviour user)
-//    {
-//        if (user != TimeController)
-//            return;
-//        
-//        ChangeTime(key, value);
-//    }
-
-//    private void checkPlayerIsUseActive(ETimerKind key)
-//    {
-//        bool isNeedRecover = false;
-//        if (GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Self0 && GameController.Get.GamePlayers[0].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Self1 && GameController.Get.GamePlayers[1].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Self2 && GameController.Get.GamePlayers[2].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Npc0 && GameController.Get.GamePlayers[3].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Npc1 && GameController.Get.GamePlayers[4].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Npc2 && GameController.Get.GamePlayers[5].IsUseActiveSkill)
-//        {
-//            isNeedRecover = true;
-//        }
-//
-//        if (isNeedRecover)
-//            Timekeeper.instance.Clock(key.ToString()).localTimeScale = 1;
-//    }
 
     public Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
-
-    public void SetTimerKey(ETimerKind key, ref GameObject obj)
-    {
-        if (GameStart.Get.IsOpenChronos)
-        {
-//            Timeline timer = obj.GetComponent<Timeline>();
-
-//            if (timer == null)
-//            {
-//                timer = obj.AddComponent<Timeline>();
-//            }
-
-//            if (timer)
-//            {
-//                timer.mode = TimelineMode.Global;
-//                timer.globalClockKey = key.ToString();
-//
-//                //timer.SetRecording(34, 2);
-//                //timer.recordTransform = false;
-//                timer.rigidbody.useGravity = true;
-//            }  
-        }
-    }
-
-//    private bool Useing = false;
 
     public void PauseTimeByUseSkill(float releaseTime, Action callback)
 	{
         for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
             GameController.Get.GamePlayers[i].Pause = true;
-
-//        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//            ChangeTime(item, 0);
 
         PauseBall(true);
         StartCoroutine(DelayTime( releaseTime, callback));
@@ -169,10 +88,6 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				
 	public void CamEvent(float releaseTime,float speed)
 	{
-//        Debug.LogError("CamEvent_SetTime " + "releaseTime : " + releaseTime + " speed : " + speed);
-//		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//			ChangeTime(item, speed);
-
 		StartCoroutine(DelayTime( releaseTime, ResetTime));
 	}
 

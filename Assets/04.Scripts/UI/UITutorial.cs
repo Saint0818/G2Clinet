@@ -168,7 +168,7 @@ public class UITutorial : UIBase {
 				return;
 			}*/
 
-            if (!GameStart.Get.OpenTutorial) {
+            if (!LobbyStart.Get.OpenTutorial) {
                 UIShow(false);
                 return;
             }

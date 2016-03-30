@@ -738,8 +738,6 @@ public class UIAvatarFitted : UIBase
     {
         enableCount = 0;
         int filter = 0;
-        int sort = 0;
-
         /*int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
 
         if (PlayerPrefs.HasKey(ESave.AvatarFilter.ToString()))
@@ -773,6 +771,7 @@ public class UIAvatarFitted : UIBase
                     enableCount++;
                 }
 
+                /*
                 switch (filter)
                 {
                     case 0:
@@ -787,7 +786,7 @@ public class UIAvatarFitted : UIBase
                         else
                             backpackItems[i].Enable = false;
                         break;
-                }
+                }*/
             }
             else
             {
@@ -802,15 +801,19 @@ public class UIAvatarFitted : UIBase
         }
 
         int count = 0;
-
-        //List<TItemAvatar> sortlist = new List<TItemAvatar>();
         for (int i = 0; i < backpackItems.Length; i++)
             if (backpackItems[i].Enable) {
                 backpackItems[i].LocalPosition = GetItemPos(count);
                 count++;
             }
-                //sortlist.Add(backpackItems[i]);
-			/*
+        /*
+        List<TItemAvatar> sortlist = new List<TItemAvatar>();
+        for (int i = 0; i < backpackItems.Length; i++)
+            if (backpackItems[i].Enable) {
+                sortlist.Add(backpackItems[i]);
+                count++;
+            }
+			
         switch (sort)
         {
             case 0:

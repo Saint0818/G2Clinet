@@ -33,38 +33,33 @@ public class FpsLimiter : MonoBehaviour {
 
 	void Update()
 	{
-        if (GameStart.Get.IsUseFpsLimiter)
+        timeleft -= Time.deltaTime;
+        accum += Time.timeScale / Time.deltaTime;
+        ++frames;
+	
+        // Interval ended - update GUI text and start new interval
+        if (timeleft <= 0.0)
         {
-            timeleft -= Time.deltaTime;
-            accum += Time.timeScale / Time.deltaTime;
-            ++frames;
-		
-            // Interval ended - update GUI text and start new interval
-            if (timeleft <= 0.0)
-            {
-                // display two fractional digits (f2 format)
-                float fps = accum / frames;
+            // display two fractional digits (f2 format)
+            float fps = accum / frames;
+            if (ShowFPS)
                 fpsText = System.String.Format("FPS {0:F2}", fps);
 
-                timeleft = updateInterval;
-                accum = 0.0F;
-                frames = 0;
-            }
+            timeleft = updateInterval;
+            accum = 0.0F;
+            frames = 0;
         }
 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
-        if (GameStart.Get.IsUseFpsLimiter)
+        curTime = Time.realtimeSinceStartup;
+        timeTaken = (curTime - oldTime);
+        if (timeTaken < theDeltaTime)
         {
-            curTime = Time.realtimeSinceStartup;
-            timeTaken = (curTime - oldTime);
-            if (timeTaken < theDeltaTime)
-            {
-                Thread.Sleep((int)(1000 * (theDeltaTime - timeTaken)));
-            }
-		
-            oldTime = Time.realtimeSinceStartup;
+            Thread.Sleep((int)(1000 * (theDeltaTime - timeTaken)));
         }
+	
+        oldTime = Time.realtimeSinceStartup;
 	}
 }

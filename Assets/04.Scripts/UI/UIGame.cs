@@ -549,7 +549,7 @@ public class UIGame : UIBase
 
     private GameObject getSkillRangeTarget()
     {
-        if (GameStart.Get.TestMode == EGameTest.AttackA)
+        if (LobbyStart.Get.TestMode == EGameTest.AttackA)
             return PlayerMe.PlayerRefGameObject;
 		if (IsPlayerMe && GameData.DSkillData.ContainsKey(ActiveSkillUsedTemp.ID))
         {
@@ -825,7 +825,7 @@ public class UIGame : UIBase
             Time.timeScale = 1;
         #endif
 		refreshSpeedLabel ();
-        GameStart.Get.GameSpeed = Time.timeScale;
+        LobbyStart.Get.GameSpeed = Time.timeScale;
         GameController.Get.RecordTimeScale = Time.timeScale;
     }
 
@@ -1115,7 +1115,7 @@ public class UIGame : UIBase
 
     public void SetPassButton()
     {
-        if (GameStart.Get.TestMode != EGameTest.None && GameStart.Get.TestMode != EGameTest.Pass && GameStart.Get.TestMode != EGameTest.Alleyoop)
+        if (LobbyStart.Get.TestMode != EGameTest.None && LobbyStart.Get.TestMode != EGameTest.Pass && LobbyStart.Get.TestMode != EGameTest.Alleyoop)
             return;
 
         if (GameController.Get.IsShowSituation)
@@ -1483,7 +1483,7 @@ public class UIGame : UIBase
                 viewTopLeft.SetActive(true);
                 viewBottomRight.SetActive(true);
 
-                if (!GameController.Get.StageData.IsTutorial || !GameStart.Get.ConnectToServer)
+                if (!GameController.Get.StageData.IsTutorial || !LobbyStart.Get.ConnectToServer)
                 {
                     showGameJoystick(true);
                 }

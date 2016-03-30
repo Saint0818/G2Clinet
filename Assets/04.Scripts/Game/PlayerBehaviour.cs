@@ -317,7 +317,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (TestGameObject.GetComponent<SphereCollider>())
             TestGameObject.GetComponent<SphereCollider>().enabled = false;
 				
-        TestGameObject.GetComponent<MeshRenderer>().enabled = GameStart.Get.IsDebugAnimation;
+        TestGameObject.GetComponent<MeshRenderer>().enabled = LobbyStart.Get.IsDebugAnimation;
     }
 
     private void manuallyTimeUp()
@@ -603,7 +603,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (GameStart.Get.IsDebugAnimation)
+        if (LobbyStart.Get.IsDebugAnimation)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
@@ -806,7 +806,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
             if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
-                GameStart.Get.TestMode != EGameTest.None)
+                LobbyStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
 //              aiTime = Time.time + GameData.Setting.AIChangeTime;
@@ -874,7 +874,7 @@ public class PlayerBehaviour : MonoBehaviour
         proofingTime -= Time.deltaTime; 
         if (proofingTime <= 0)
         {
-            if (GameStart.Get.IsDebugAnimation)
+            if (LobbyStart.Get.IsDebugAnimation)
 				Debug.LogError(gameObject.name + ".proofing stuck : " + crtState.ToString());
 
             if (IsBallOwner)
@@ -896,7 +896,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (timeScale > 0 && (CanMove || HoldBallCanMove))
         {
             if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
-                GameStart.Get.TestMode != EGameTest.None)
+                LobbyStart.Get.TestMode != EGameTest.None)
             {
                 EPlayerState ps = EPlayerState.Run0;
                 if (IsBallOwner)
@@ -907,7 +907,7 @@ public class PlayerBehaviour : MonoBehaviour
                 RemoveMoveData();
 
                 #if UNITY_EDITOR
-                if (IsFall && GameStart.Get.IsDebugAnimation)
+                if (IsFall && LobbyStart.Get.IsDebugAnimation)
                 {
                     LogMgr.Get.LogError("CanMove : " + CanMove);
                     LogMgr.Get.LogError("stop : " + stop);
@@ -994,7 +994,7 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					}
 
-					if (GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
+					if (LobbyStart.Get.TestMode == EGameTest.Skill || LobbyStart.Get.TestMode == EGameTest.PassiveSkill)
 						calculateSpeed = GameConst.AttackSpeedup;
 					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * timeScale;
 					transform.Translate(translate); 
@@ -1121,7 +1121,7 @@ public class PlayerBehaviour : MonoBehaviour
             else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
                 AniState(EPlayerState.Dribble0);
 
-            if (first || GameStart.Get.TestMode == EGameTest.Edit)
+            if (first || LobbyStart.Get.TestMode == EGameTest.Edit)
 						//                        WaitMoveTime = 0;
 						CantMoveTimer.Clear();
             else if ((situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack) &&
@@ -1532,7 +1532,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (crtState != EPlayerState.Alleyoop && !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && !IsBallOwner && (LobbyStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -1705,7 +1705,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (AniState(state))
         {
             RotateTo(lookAtPoint.x, lookAtPoint.z);
-            if (GameStart.Get.TestMode == EGameTest.Pass)
+            if (LobbyStart.Get.TestMode == EGameTest.Pass)
                 LogMgr.Get.Log("name:" + PlayerRefGameObject.name + "Rotate");
 
             return true;
@@ -1991,7 +1991,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Shooter))
             LayerMgr.Get.SetLayer(PlayerRefGameObject, ELayer.Player);
 
-        if (GameStart.Get.IsDebugAnimation)
+        if (LobbyStart.Get.IsDebugAnimation)
             Debug.LogWarning(PlayerRefGameObject.name + ", CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation + ", Time : " + Time.time);
 
         DashEffectEnable(false);
@@ -3010,7 +3010,7 @@ public class PlayerBehaviour : MonoBehaviour
     //=====Skill=====
     public bool DoActiveSkill(GameObject target = null)
     {
-        if (CanUseActiveSkill(ActiveSkillUsed) || GameStart.Get.TestMode == EGameTest.Skill)
+        if (CanUseActiveSkill(ActiveSkillUsed) || LobbyStart.Get.TestMode == EGameTest.Skill)
         {
 //            if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && PlayerSkillController.IsGetBuff(ActiveSkillUsed.ID))
 //                return false;

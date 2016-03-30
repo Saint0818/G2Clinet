@@ -139,7 +139,7 @@ public class RealBall : MonoBehaviour
     public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
     {
         if (!GameController.Get.IsStart && state != EPlayerState.Start &&
-        state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
+        state != EPlayerState.Reset && LobbyStart.Get.TestMode == EGameTest.None)
             return;
         
         //        Debug.LogError("SetBallState : " + state.ToString());

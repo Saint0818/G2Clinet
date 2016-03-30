@@ -57,7 +57,7 @@ public class DunkCurveCounter
         isplaying = true;
         curveTime = 0;
 
-        if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
+        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 

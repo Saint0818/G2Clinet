@@ -200,8 +200,8 @@ public class UISocial : UIBase {
     }
         
     void FixedUpdate() {
-        if (modelLoader.Count > 0)
-            StartCoroutine(loadModel(modelLoader.Dequeue()));
+        //if (modelLoader.Count > 0)
+        //    StartCoroutine(loadModel(modelLoader.Dequeue()));
 
         if (nowPage == 2) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
@@ -277,7 +277,8 @@ public class UISocial : UIBase {
             friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
             friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
             friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
-            modelLoader.Enqueue(friendList[page][index]);
+            //modelLoader.Enqueue(friendList[page][index]);
+            StartCoroutine(ModelManager.Get.AsyncSetAvatar(friendList[page][index].PlayerModel, friendList[page][index].Friend.Player.Avatar, friendList[page][index].Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
         } else 
         if (friend.Kind == EFriendKind.Ask) {
             if (!friendList[page][index].PlayerModel) {
@@ -310,11 +311,13 @@ public class UISocial : UIBase {
                 Destroy(friendList[page][index].PlayerModel);
 
             friendList[page][index].PlayerModel = new GameObject("PlayerModel");
+            LayerMgr.Get.SetLayerAllChildren(friendList[page][index].PlayerModel, ELayer.UI.ToString());
             friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
             friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
             friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
             friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
-            modelLoader.Enqueue(friendList[page][index]);
+            StartCoroutine(ModelManager.Get.AsyncSetAvatar(friendList[page][index].PlayerModel, friendList[page][index].Friend.Player.Avatar, friendList[page][index].Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
+            //modelLoader.Enqueue(friendList[page][index]);
         }
 
         friendList[page][index].Event = e;
@@ -433,8 +436,8 @@ public class UISocial : UIBase {
 
     private IEnumerator loadModel(TSocialEventItem item) {
         yield return new WaitForSeconds(0.2f);
-        ModelManager.Get.SetAvatar(ref item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl);
-        LayerMgr.Get.SetLayerAllChildren(item.PlayerModel, ELayer.UI.ToString());
+        StartCoroutine(ModelManager.Get.AsyncSetAvatar(item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
+
     }
         
     private IEnumerator downloadModel(TSocialEventItem item) {
@@ -469,8 +472,7 @@ public class UISocial : UIBase {
                 waitDownloadItem.Friend = friend;
                 waitDownloadItem.LabelLv.text = friend.Player.Lv.ToString();
                 waitDownloadItem.LabelPower.text = string.Format("{0:F0}",friend.Player.CombatPower());
-                ModelManager.Get.SetAvatar(ref waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl);
-                LayerMgr.Get.SetLayerAllChildren(waitDownloadItem.PlayerModel, ELayer.UI.ToString());
+                StartCoroutine(ModelManager.Get.AsyncSetAvatar(waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
             }
         }
 

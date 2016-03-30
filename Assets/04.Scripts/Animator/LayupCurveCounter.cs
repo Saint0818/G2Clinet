@@ -48,7 +48,7 @@ public class LayupCurveCounter
         curveTime = 0;
         isplaying = true;
 
-        if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
+        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 

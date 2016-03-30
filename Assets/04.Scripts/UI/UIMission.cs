@@ -64,7 +64,6 @@ public class UIMission : UIBase {
     private bool waitForAnimator = false;
 
     private UILabel totalLabel;
-    private UILabel labelStats;
     private GameObject itemMission;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
@@ -81,10 +80,10 @@ public class UIMission : UIBase {
 
         set {
             if (instance) {
-                if (value)
+                //if (value)
                     instance.Show(value);
-                else
-                    RemoveUI(instance.gameObject);
+                //else
+                //    RemoveUI(instance.gameObject);
             } else
             if (value)
                 Get.Show(value);
@@ -104,7 +103,6 @@ public class UIMission : UIBase {
     protected override void InitCom() {
         itemMission = Resources.Load("Prefab/UI/Items/ItemMission") as GameObject;
         totalLabel = GameObject.Find(UIName + "/Window/Center/Total").GetComponent<UILabel>();
-        labelStats = GameObject.Find(UIName + "/Window/Center/Pages/4/ScrollView/Label").GetComponent<UILabel>();
         for (int i = 0; i < pageNum; i++) {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
@@ -118,11 +116,8 @@ public class UIMission : UIBase {
         SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
     }
 
-    protected override void InitData() {
-
-    }
-
     protected override void OnShow(bool isShow) {
+        base.OnShow(isShow);
         if (isShow) {
             for (int i = 0; i < pageObjects.Length; i++)
                 pageObjects[i].SetActive(false);
@@ -130,8 +125,6 @@ public class UIMission : UIBase {
             initMissionList(nowPage);
             initRedPoint();
         }
-
-		base.OnShow(isShow);
     }
 
     public void OnPage() {
@@ -146,20 +139,13 @@ public class UIMission : UIBase {
             pageObjects[index].SetActive(true);
             nowPage = index;
 
-            if (index == 4)
-                initStats();
-            else
-                initMissionList(index);
+            initMissionList(index);
         }
     }
 
     public void OnClose() {
 		Visible = false;
         UIMainLobby.Get.Show();
-    }
-
-    private void initStats() {
-        labelStats.text = GameData.Team.StatsText;
     }
 
     private void initRedPoint() {
@@ -172,35 +158,35 @@ public class UIMission : UIBase {
                     }
     }
 
+    IEnumerator loadMission(int page) {
+        yield return new WaitForEndOfFrame();
+
+        if (missionList[page] == null) {
+            missionList[page] = new List<TMissionItem>();
+
+            for (int i = 0; i < GameData.MissionData.Length; i++)
+                if (GameData.MissionData[i].TimeKind == page)
+                    addMission(i, page, GameData.MissionData[i]);
+        }
+
+        for (int i = 0; i < missionList[page].Count; i++)
+            checkMission(missionList[page][i], missionList[page][i].Mission, true);
+    }
+
 	private void initMissionList(int page) {
         if (page >= 0 && page < missionList.Length) {
 			totalScore = 0;
 			missionScore = 0;
 			missionLine = 0;
-			if (missionList[page] == null) {
-				missionList[page] = new List<TMissionItem>();
-
-				for (int i = 0; i < GameData.MissionData.Length; i++)
-					if (GameData.MissionData[i].TimeKind == page)
-						addMission(i, page, GameData.MissionData[i]);
-			}
-
             redPoints[page].SetActive(false);
-            if (page == 4)
-                initStats();
-            else {
-                missionLine = 0;
-                for (int i = 0; i < missionList[page].Count; i++) {
-                    checkMission(missionList[page][i], missionList[page][i].Mission, true);
-                }
-            }
+            StartCoroutine(loadMission(page));
 		}
 
 		pageObjects[page].SetActive(true);
 		totalLabel.text = missionScore.ToString() + "/" + totalScore.ToString();
 	}
 
-	private void addMission(int index, int page, TMission data) {
+    private void addMission(int index, int page, TMission data) {
 		TMissionItem mi = new TMissionItem();
 		mi.Item = Instantiate(itemMission, Vector3.zero, Quaternion.identity) as GameObject;
 		initDefaultText(mi.Item);
@@ -246,12 +232,11 @@ public class UIMission : UIBase {
 					mi.Item.transform.localPosition = missionList[page][i].Item.transform.localPosition;
 					break;
 				}
-		} else {
+		} else 
 			mi.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
-			missionLine++;
-		}
 
 		mi.Item.transform.localScale = Vector3.one;
+        //checkMission(mi, data, true);
 		missionList[page].Add(mi);
 	}
 
@@ -357,7 +342,7 @@ public class UIMission : UIBase {
             } else
                 missionItem.Item.SetActive(false);
         } catch (System.Exception e) {
-            Debug.Log(missionData.ID.ToString());
+            Debug.Log(missionData.ID.ToString() + e.ToString());
         }
 	}
 

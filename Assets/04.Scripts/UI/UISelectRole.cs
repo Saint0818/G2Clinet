@@ -233,7 +233,7 @@ public class UISelectRole : UIBase {
     }
 
     private void initTeammateList() {
-        if (GameStart.Get.ConnectToServer) {
+        if (LobbyStart.Get.ConnectToServer) {
         	GameData.Team.PlayerInit();
         	playerData[0] = GameData.Team.Player;
         	playerData[0].RoleIndex = -1;
@@ -334,7 +334,7 @@ public class UISelectRole : UIBase {
 
 		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
-        if (GameStart.Get.ConnectToServer && stageData.IsOnlineFriend) {
+        if (LobbyStart.Get.ConnectToServer && stageData.IsOnlineFriend) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
 				SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)
@@ -350,7 +350,7 @@ public class UISelectRole : UIBase {
 
 	public void OnStart(){
         Visible = false;
-        if (GameData.TestStage || !GameStart.Get.ConnectToServer)
+        if (GameData.TestStage || !LobbyStart.Get.ConnectToServer)
             enterGame();
         else {
             if (GameData.IsPVP)

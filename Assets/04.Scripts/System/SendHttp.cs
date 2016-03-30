@@ -241,7 +241,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
-		if (!GameStart.Get.ConnectToServer)
+		if (!LobbyStart.Get.ConnectToServer)
 			return;
         
 		waitingURL = url;
@@ -325,7 +325,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
     private bool needResendLogin() {
-        if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible && 
+        if (string.IsNullOrEmpty(GameData.Team.Identifier) && !UIUpdateVersion.Visible && 
             !UIPubgame.Visible && !UIMessage.Visible)
             return true;
         else
@@ -383,7 +383,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				UIWaitingHttp.UIShow(false);
                 UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion, openNotic);
 			} else
-			if (SceneMgr.Get.CurrentScene == ESceneName.Main) {
+            if (needResendLogin()) {
 				if (!versionChecked)
 					checkVersion();
 				else
@@ -445,7 +445,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	public void checkVersion() {
-		UILoading.UIShow(true, GameEnum.ELoading.Login);
 		WWWForm form = new WWWForm();
 		addLoginInfo(ref form);
 		Command(URLConst.Version, waitVersion, form);
@@ -540,7 +539,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     StartCoroutine(longPollingWatchFriends(0));
 
 					//UILoading.OpenUI = UILoading.OpenNotic;
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+                    UILoading.UIShow(true, ELoading.Lobby);
 				}
 
                 if (GameData.Company == ECompany.NiceMarket)

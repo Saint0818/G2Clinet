@@ -67,7 +67,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = string.Format (GameFunction.GetHintText(1, value, 8), GameStart.Get.GameWinTimeValue);
+				describe = string.Format (GameFunction.GetHintText(1, value, 8), LobbyStart.Get.GameWinTimeValue);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -75,7 +75,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), GameStart.Get.GameWinValue);
+				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), LobbyStart.Get.GameWinValue);
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		}

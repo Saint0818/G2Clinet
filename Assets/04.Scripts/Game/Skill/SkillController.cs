@@ -298,7 +298,7 @@ public class SkillController : MonoBehaviour {
 				try {
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 				} catch {
-					if(GameStart.Get.IsDebugAnimation)
+					if(LobbyStart.Get.IsDebugAnimation)
 						LogMgr.Get.LogError("AnimationName: '" + animationName + "'was not found.");
 					return playerState;
 				}

@@ -207,7 +207,7 @@ public class MissionChecker {
 				else if (mStageData.HintBit[1] == 3 && (UIGame.Get.Scores[enemy] <= mStageData.WinValue)) return true;
 				else if (mStageData.HintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= mStageData.WinValue) return true;
 			}
-		} else if(!GameStart.Get.ConnectToServer)
+		} else if(!LobbyStart.Get.ConnectToServer)
 		{
 			if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[team] >= mStageData.WinValue)) return true;
 		}
@@ -225,7 +225,7 @@ public class MissionChecker {
 					if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= mStageData.WinValue)) return true;
 					else if (mStageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] > mStageData.WinValue)) return true;
 				}
-			} else if(!GameStart.Get.ConnectToServer)
+			} else if(!LobbyStart.Get.ConnectToServer)
 			{
 				if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= mStageData.WinValue)) return true;
 			}
@@ -246,7 +246,7 @@ public class MissionChecker {
 				if(!checkCountEnough(mStageData.HintBit[3], mStageData.BitNum[3]))
 					return false;
 				return true;
-			} else if(!GameStart.Get.ConnectToServer)
+			} else if(!LobbyStart.Get.ConnectToServer)
 			{
 				return true;
 			}

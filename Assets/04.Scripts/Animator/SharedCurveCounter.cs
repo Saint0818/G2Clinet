@@ -65,7 +65,7 @@ public class SharedCurveCounter
         isplaying = true;
 
 		//用來Debug 如果有忘記加curve Perfab的話
-        if (curveName != string.Empty && !isFindCurve && GameStart.Get.IsDebugAnimation)
+        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 
