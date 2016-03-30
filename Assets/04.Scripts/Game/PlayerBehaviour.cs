@@ -70,6 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject CatchBallPoint;
     private GameObject FingerPoint;
 	private GameObject blockTrigger;
+	private GameObject pushThroughTigger;
 	private GameObject interceptTrigger;
     private GameObject dashSmoke;
 	private GameObject reboundTrigger;
@@ -273,6 +274,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (blockTrigger)
             Destroy(blockTrigger);
 
+		if(pushThroughTigger)
+			Destroy (pushThroughTigger);
+
 		if (interceptTrigger)
 			Destroy(interceptTrigger);
 
@@ -395,6 +399,9 @@ public class PlayerBehaviour : MonoBehaviour
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.BlockDistance * 0.04f), 
 															GameConst.ReboundBlockYC + (Attr.BlockDistance * 0.05f), 
 															GameConst.ReboundBlockZC + (Attr.BlockDistance * 0.04f));
+			pushThroughTigger.transform.localScale = new Vector3(GameConst.PushThroughX + (Attr.BlockDistance * 0.04f), 
+																 GameConst.PushThroughY + (Attr.BlockDistance * 0.05f), 
+																 GameConst.PushThroughZ + (Attr.BlockDistance * 0.04f));
 			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXC + (Attr.ReboundHandDistance * 0.04f), 
 															  GameConst.ReboundBlockYC + (Attr.ReboundHandDistance * 0.05f),
 															  GameConst.ReboundBlockZC + (Attr.ReboundHandDistance * 0.04f));
@@ -405,6 +412,9 @@ public class PlayerBehaviour : MonoBehaviour
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.BlockDistance * 0.02f), 
 															GameConst.ReboundBlockYF + (Attr.BlockDistance * 0.03f), 
 															GameConst.ReboundBlockZF + (Attr.BlockDistance * 0.02f));
+			pushThroughTigger.transform.localScale = new Vector3(GameConst.PushThroughX + (Attr.BlockDistance * 0.02f), 
+																 GameConst.PushThroughY + (Attr.BlockDistance * 0.03f), 
+																 GameConst.PushThroughZ + (Attr.BlockDistance * 0.02f));
 			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXF + (Attr.ReboundHandDistance * 0.03f), 
 															  GameConst.ReboundBlockYF + (Attr.ReboundHandDistance * 0.04f),
 															  GameConst.ReboundBlockZF + (Attr.ReboundHandDistance * 0.03f));
@@ -415,6 +425,9 @@ public class PlayerBehaviour : MonoBehaviour
 			blockTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.BlockDistance * 0.03f), 
 															GameConst.ReboundBlockYG + (Attr.BlockDistance * 0.04f), 
 															GameConst.ReboundBlockZG + (Attr.BlockDistance * 0.03f));
+			pushThroughTigger.transform.localScale = new Vector3(GameConst.PushThroughX + (Attr.BlockDistance * 0.03f), 
+															 	 GameConst.PushThroughY + (Attr.BlockDistance * 0.04f), 
+																 GameConst.PushThroughZ + (Attr.BlockDistance * 0.03f));
 			reboundTrigger.transform.localScale = new Vector3(GameConst.ReboundBlockXG + (Attr.ReboundHandDistance * 0.02f), 
 															  GameConst.ReboundBlockYG + (Attr.ReboundHandDistance * 0.03f),
 															  GameConst.ReboundBlockZG + (Attr.ReboundHandDistance * 0.02f));
@@ -490,6 +503,7 @@ public class PlayerBehaviour : MonoBehaviour
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
 			interceptTrigger= obj2.transform.Find("Intercept").gameObject;
 			blockTrigger = obj2.transform.Find("Block").gameObject;
+			pushThroughTigger = obj2.transform.Find("TriggerPushThrough").gameObject;
 			reboundTrigger = obj2.transform.Find("TriggerRebound").gameObject;
             ShowWord = obj2.transform.Find("ShowWord").gameObject;
             
@@ -2629,6 +2643,7 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         ReadyToNextState = true;
         OnUI(this);
+		pushThroughTigger.SetActive(false);
         PlayerSkillController.ResetUseSkill();
 
 		if (!IsBallOwner) {
@@ -2671,6 +2686,7 @@ public class PlayerBehaviour : MonoBehaviour
         isCanCatchBall = true;
         IsPassAirMoment = false;
         blockTrigger.SetActive(false);
+		pushThroughTigger.SetActive(false);
 		reboundTrigger.SetActive (false);
         UseGravity = true;
         IsKinematic = false;
@@ -2739,6 +2755,7 @@ public class PlayerBehaviour : MonoBehaviour
                         {
 							if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
 								//直線碰撞
+								pushThroughTigger.SetActive(true);
 								transform.DOMove(CourtMgr.Get.GetArrowPosition(GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
 							} else {
 								//圓形碰撞

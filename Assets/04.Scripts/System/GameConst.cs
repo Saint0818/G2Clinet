@@ -110,7 +110,13 @@
 	public const float ReboundHeadYC = 0.5f;
 	public const float ReboundHeadZC = 2;
 
-
+	/// <summary>
+	/// The push through base value.
+	/// </summary>
+	public const float PushThroughX = 1;
+	public const float PushThroughY = 3;
+	public const float PushThroughZ = 1;
+		
 	public const float BlockDistance = 5;
 
     public const int FakeShootRate = 40; // 做假動作的機率.

@@ -414,6 +414,8 @@ public class UIRecharge : UIBase {
 					UIPlayerMgr.Get.Enable = true;
 				if(UIShop.Visible)
 					UIMainLobby.Get.Hide(2);
+				if(UIMall.Visible)
+					UIMall.Get.RefreshTextColor();
 			}
 		}
 
@@ -510,7 +512,8 @@ public class UIRecharge : UIBase {
 		get {
 			return !(UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
 				UISkillFormation.Visible || UISkillReinforce.Visible || UIPlayerInfo.Visible || UIMission.Visible || UIAvatarFitted.Visible ||
-				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible || UIPlayerPotential.Visible);
+				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible || UIPlayerPotential.Visible || 
+				UICreateRole.Visible);
 		}
 	}
 }

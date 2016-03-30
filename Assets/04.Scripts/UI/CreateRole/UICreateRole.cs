@@ -28,6 +28,15 @@ public class UICreateRole : UIBase
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
 
+	public static bool Visible {
+		get {
+			if(instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
+		}
+	}
+
     public void ShowFrameView()
     {
         Show(true);
