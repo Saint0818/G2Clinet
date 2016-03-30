@@ -12,6 +12,9 @@ public class ItemAwardGroup : MonoBehaviour
 
 	public  TItemData mItemData;
 
+	private int otherKind = -1;
+	private int otherValue = 0;
+
     [UsedImplicitly]
 	void Awake()
     {
@@ -47,7 +50,7 @@ public class ItemAwardGroup : MonoBehaviour
         {
 			awardInlayView.Show();
 			awardInlayView.UpdateUI(itemData);
-		}
+		} 
         else
         {
 			awardAvatarView.Show();
@@ -62,43 +65,31 @@ public class ItemAwardGroup : MonoBehaviour
 		awardSkillView.UpdateUI(skill);
 	}
 
-    public void ShowMoney(int value)
-	{
+	/// <summary>
+	///  kind 1:Money 2:Gem 3:EXP 4:PVP
+	/// </summary>
+	/// <param name="kind">Kind.</param>
+	/// <param name="value">Value.</param>
+	public void ShowOther (int kind, int value) {
+		otherKind = kind;
+		otherValue = value;
 		Window.SetActive(true);
-        hideAllGroup();
+		hideAllGroup();
 
-        awardAvatarView.Show();
-        awardAvatarView.UpdateMoney(value);
+		awardAvatarView.Show();
+		awardAvatarView.UpdateOther(kind, value);
 
-        mItemData = new TItemData();
-    }
-
-    public void ShowExp(int value)
-	{
-		Window.SetActive(true);
-        hideAllGroup();
-
-        awardAvatarView.Show();
-        awardAvatarView.UpdateExp(value);
-
-        mItemData = new TItemData();
-    }
-
-    public void ShowGem(int value)
-	{
-		Window.SetActive(true);
-        hideAllGroup();
-
-        awardAvatarView.Show();
-        awardAvatarView.UpdateGem(value);
-
-        mItemData = new TItemData();
-    }
+		mItemData = new TItemData();
+	}
 
     public void NotifyClick()
     {
-		if(mItemData.ID > 0 && !UILevelUp.Visible)
-			UIItemHint.Get.OnShow(mItemData.ID);
+		if(otherKind > -1) {
+			UIItemHint.Get.OnShowOther(otherKind, otherValue);
+		} else
+			if(mItemData.ID > 0 && !UILevelUp.Visible)
+				UIItemHint.Get.OnShow(mItemData.ID);
+			
     }
 
     public void SetAmountText(string amount) {

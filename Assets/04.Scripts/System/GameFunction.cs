@@ -992,6 +992,10 @@ public static class GameFunction
 		}
 	}
 
+	public static string PVPRankName (int level) {
+		return "IconRank" + level.ToString();
+	}
+
     public static bool CanGetPVPReward(ref TTeam team)
     {
         if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && 

@@ -2644,6 +2644,7 @@ public class PlayerBehaviour : MonoBehaviour
         ReadyToNextState = true;
         OnUI(this);
 		pushThroughTigger.SetActive(false);
+		isBlock = false;
         PlayerSkillController.ResetUseSkill();
 
 		if (!IsBallOwner) {

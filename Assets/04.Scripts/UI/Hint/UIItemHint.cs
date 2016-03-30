@@ -128,13 +128,50 @@ public class UIItemHint : UIBase {
 				hintAvatarView.UpdateUI(GameData.DItemData[itemID]);
 				//TODO : 等待來源
 				setHaveCount(GameData.Team.GetAvatarCount(GameData.DItemData[itemID].ID));
-				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+				if(GameData.DItemData[itemID].Kind == 31 || GameData.DItemData[itemID].Kind == 32 || GameData.DItemData[itemID].Kind == 33) {
+					uiLabelExplain.text = string.Format(GameData.DItemData[itemID].Explain, GameData.DItemData[itemID].Value);
+					uiLabelHave.gameObject.SetActive(false);
+				} else
+					uiLabelExplain.text = GameData.DItemData[itemID].Explain;
 				if(GameData.DItemData[GameData.DItemData[itemID].ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(GameData.DItemData[itemID].ID))
 					uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[GameData.DItemData[itemID].ID].Potential.ToString();
 			}
-			uiLabelName.text = GameData.DItemData[itemID].Name;
+			if(GameData.DItemData[itemID].Kind == 31 || GameData.DItemData[itemID].Kind == 32 || GameData.DItemData[itemID].Kind == 33) 
+				uiLabelName.text = string.Format(GameData.DItemData[itemID].Name, GameData.DItemData[itemID].Value);
+			else
+				uiLabelName.text = GameData.DItemData[itemID].Name;
+			
 			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
 		}
+	}
+
+//		93110 金幣
+//		93210 寶石
+//		93310 EXP
+	/// <summary>
+	/// kind  1:Money 2:Gem 3:EXP 4:PVP
+	/// </summary>
+	/// <param name="kind">Kind.</param>
+	/// <param name="value">Value.</param>
+	public void OnShowOther (int kind, int value) {
+		int id = 0;
+		uiBuy.SetActive(false);
+		hideAll ();
+		scrollViewExplain.ResetPosition();
+		UIShow(true);
+		gameObject.transform.localPosition = new Vector3(0, 0, -10);
+		hintAvatarView.Show();
+		if(kind == 1)
+			id = 93110;
+		else if(kind == 2)
+			id = 93210;
+		else if(kind == 3)
+			id = 93310;
+		uiLabelHave.gameObject.SetActive(false);
+		hintAvatarView.UpdateUI(GameData.DItemData[id]);
+		uiLabelName.text = string.Format(GameData.DItemData[id].Name, value);
+		uiLabelName.color = TextConst.Color(GameData.DItemData[id].Quality);
+		uiLabelExplain.text = string.Format(GameData.DItemData[id].Explain, value);
 	}
 
 	public void OnShowForSuit(int itemID) {

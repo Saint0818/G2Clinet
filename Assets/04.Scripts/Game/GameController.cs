@@ -161,7 +161,7 @@ public class GameController : KnightSingleton<GameController>
 
 	//Player Anger 每秒回復的士氣值（浮動值會依據套卡而變化）
 	private float recoverTime = 1;
-	private int recoverAngerBase = 1;
+	private float recoverAngerBase = 0.5f;
 
 	//SelectMe
 	private GameObject playerSelectMe;
@@ -2051,12 +2051,12 @@ public class GameController : KnightSingleton<GameController>
 
 				return true;
 			} else {
-				if (Shooter)
-				if(IsReboundTime)
-					return Rebound(Joysticker);
-				else
-					return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
-				else
+				if (Shooter) {
+					if(IsReboundTime)
+						return Rebound(Joysticker);
+					else
+						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
+				} else {
 					if (BallOwner) {
 						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
 						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
@@ -2066,6 +2066,7 @@ public class GameController : KnightSingleton<GameController>
 						else
 							return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
 					}
+				}
 			}
 		}
 
@@ -2181,41 +2182,6 @@ public class GameController : KnightSingleton<GameController>
 
 		if(BallOwner)
         {
-			#if UNITY_EDITOR
-            if(LobbyStart.Get.TestMode == EGameTest.Pass) {
-				if(BallOwner.IsMoving) {
-					float angle = MathUtils.FindAngle(BallOwner.PlayerRefGameObject.transform, catchPlayer.PlayerRefGameObject.transform.position);
-					if (angle < 60f && angle > -60f){
-						UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
-						result = BallOwner.AniState(EPlayerState.Pass5);
-					} else 
-					if (angle <= -60f && angle > -120f){
-						UIHint.Get.ShowHint("Direct Left and Angle:" + angle, Color.yellow);
-						result = BallOwner.AniState(EPlayerState.Pass7);
-					} else 
-					if (angle < 120f && angle >= 60f){
-						UIHint.Get.ShowHint("Direct Right and Angle:" + angle, Color.yellow);
-						result = BallOwner.AniState(EPlayerState.Pass8);
-					} else 
-					if (angle >= 120f || angle <= -120f){
-						UIHint.Get.ShowHint("Direct Back and Angle:" + angle, Color.yellow);
-						if (Random.Range(0, 100) < 50)
-							result = BallOwner.AniState(EPlayerState.Pass9);
-						else 
-							result = BallOwner.AniState(EPlayerState.Pass6);
-					}
-				} else 
-					result = BallOwner.AniState(EPlayerState.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
-				
-				if(result){
-					Catcher = catchPlayer;
-					UIGame.Get.DoPassNone();
-				}
-				
-				return result;
-			}
-			#endif
-
 			if(IsShooting)
 			{
 				if(catchPlayer.Team == ETeamKind.Self)
@@ -3217,6 +3183,8 @@ public class GameController : KnightSingleton<GameController>
 				newBallOwner.AniState(EPlayerState.Dribble0);
 			else if(newBallOwner.IsRun)
 				newBallOwner.AniState(EPlayerState.Dribble1);
+			else
+				newBallOwner.AniState(EPlayerState.HoldBall);
 
 			if (GamePlayTutorial.Visible)
 				GamePlayTutorial.Get.CheckSetBallEvent(newBallOwner);

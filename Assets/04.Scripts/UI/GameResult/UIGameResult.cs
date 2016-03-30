@@ -141,11 +141,11 @@ public class UIGameResult : UIBase {
 							if(GameData.DItemData.ContainsKey (awardItemTempIDs[(awardMax - awardIndex)]))
 								alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
 						}else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
-							alreadyGetItems[awardMax - awardIndex].ShowMoney(tempMoney);
+							alreadyGetItems[awardMax - awardIndex].ShowOther(1, tempMoney);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -2) 
-							alreadyGetItems[awardMax - awardIndex].ShowExp(tempExp);
+							alreadyGetItems[awardMax - awardIndex].ShowOther(3, tempExp);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -3)
-							alreadyGetItems[awardMax - awardIndex].ShowGem(tempDia);
+							alreadyGetItems[awardMax - awardIndex].ShowOther(2, tempDia);
 					}
 
 					awardGetTime = awardGetTimeInterval;
@@ -338,29 +338,6 @@ public class UIGameResult : UIBase {
 		} else 
 			stageRewardStart(GameData.StageID);
 	}
-
-	private void SendPVPEnd(int score1, int score2)
-	{
-		WWWForm form = new WWWForm();
-		form.AddField("Score1", score1);
-		form.AddField("Score2", score2);
-		SendHttp.Get.Command(URLConst.PVPEnd, WaitPVPEnd, form, false);
-	}
-
-	public void WaitPVPEnd(bool ok, WWW www)
-	{
-		if (ok) {
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting);	
-            GameData.Team.PVPLv = reslut.PVPLv;
-            GameData.Team.PVPIntegral = reslut.PVPIntegral;
-            GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-			showMissionBoard ();
-		} else {
-		}
-
-		uiStatsNext.SetActive (true);
-	}
 	
 	private void init () {
 		if(IsHaveBonus) {
@@ -444,16 +421,12 @@ public class UIGameResult : UIBase {
 				stageRewardAgain(GameData.StageID);
 			else 
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
-//				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
 		} else if(chooseCount == 2) {
 			if(GameData.Team.Diamond >= 100)
 				stageRewardAgain(GameData.StageID);
 			else
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
-//				UIHint.Get.ShowHint(TextConst.S (233), Color.red);
 		}
-			
-	
 	}
 	
 	private void chooseItem (int index) {

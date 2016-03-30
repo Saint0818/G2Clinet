@@ -1039,7 +1039,7 @@ public class UIGame : UIBase
         oldForceValue = (anger / max);
         newForceValue = oldForceValue;
         spriteForce.fillAmount = oldForceValue;
-        uiForceNum.text = anger + "/[13CECEFF]" + max + "[-]";
+		uiForceNum.text = Mathf.Floor(anger) + "/[13CECEFF]" + max + "[-]";
         runSkillValue();
     }
 

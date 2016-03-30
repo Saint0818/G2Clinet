@@ -5,6 +5,7 @@ public class AwardAvatarView : MonoBehaviour {
 	public GameObject EXP;
 	public GameObject Money;
 	public GameObject Gem;
+	public Transform PVPCoin;
 
 	public GameObject EquipmentStar;
 
@@ -26,7 +27,9 @@ public class AwardAvatarView : MonoBehaviour {
 		if(goQuality != null)
 			QualityBG = goQuality.GetComponent<UISprite>();
 		if(specialEffect == null)
-			specialEffect = transform.FindChild("ItemView/SpecialEffect");
+			specialEffect = transform.Find("ItemView/SpecialEffect");
+		if(PVPCoin == null)
+			PVPCoin = transform.Find("ItemView/PVPCoin");
 
 		mGameObject = gameObject;
 		Hide();
@@ -37,6 +40,8 @@ public class AwardAvatarView : MonoBehaviour {
 		EXP.SetActive(false);
 		Money.SetActive(false);
 		Gem.SetActive(false);
+		if(PVPCoin != null)
+			PVPCoin.gameObject.SetActive(false);
 		EquipmentStar.SetActive(false);
 		
 		for (int i=0; i<AvatarStars.Length; i++)
@@ -79,39 +84,40 @@ public class AwardAvatarView : MonoBehaviour {
 		if(specialEffect != null)
 			specialEffect.gameObject.SetActive((itemData.Flag == 1));
 
-		AmountLabel.text = "";
+		if(itemData.Kind == 31 || itemData.Kind == 32 || itemData.Kind == 33) {
+			AmountLabel.text = itemData.Value.ToString();
+		} else 
+			AmountLabel.text = "";
 	}
 
-	public void UpdateExp (int value) {
+	/// <summary>
+	/// kind 1:Money 2:Gem 3:EXP 4:PVP
+	/// </summary>
+	/// <param name="kind">Kind.</param>
+	/// <param name="value">Value.</param>
+	public void UpdateOther (int kind, int value) {
 		hideAll () ;
 		Show ();
-		EXP.SetActive(true);
+		switch(kind) {
+		case 1:
+			Money.SetActive(true);
+			break;
+		case 2:
+			Gem.SetActive(true);
+			break;
+		case 3:
+			EXP.SetActive(true);
+			break;
+		case 4:
+			if(PVPCoin != null)
+				PVPCoin.gameObject.SetActive(true);
+			break;
+		}
 		AmountLabel.text = value.ToString();
 		if(QualityBG != null)
 			QualityBG.color = TextConst.ColorBG(1);
 		if(specialEffect != null)
 			specialEffect.gameObject.SetActive(false);
 	}
-	
-	public void UpdateMoney (int value) {
-		hideAll () ;
-		Show ();
-		Money.SetActive(true);
-		AmountLabel.text = value.ToString();
-		if(QualityBG != null)
-			QualityBG.color = TextConst.ColorBG(1);
-		if(specialEffect != null)
-			specialEffect.gameObject.SetActive(false);
-	}
-	
-	public void UpdateGem (int value) {
-		hideAll () ;
-		Show ();
-		Gem.SetActive(true);
-		AmountLabel.text = value.ToString();
-		if(QualityBG != null)
-			QualityBG.color = TextConst.ColorBG(1);
-		if(specialEffect != null)
-			specialEffect.gameObject.SetActive(false);
-	}
+
 }
