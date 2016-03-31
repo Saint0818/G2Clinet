@@ -119,7 +119,7 @@ public class UIBuyStore : UIBase {
 	}
 
 	private void refreshLabelColor () {
-		labelPay.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, getLabelPayCount(mSpendType)));
+		labelPay.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(mPickCost.SpendKind, getLabelPayCount(mSpendType)), mPickCost.SpendKind);
 	}
 
 	private int howMuch (TPickCost pickCost, int spendType) {

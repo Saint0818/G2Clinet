@@ -148,15 +148,20 @@ public class UIMall : UIBase {
 	public void OnOneBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			choosePickCost = mallBoxs[result].mPickCost;
-			chooseIndex = mallBoxs[result].mIndex;
-			spendType = EPickSpendType.ONE.GetHashCode();
+			chooseIndex = findIndex(result);
+			choosePickCost = mallBoxs[chooseIndex].mPickCost;
+			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
 			if(mallBoxs[result].IsPickFree)
 //				CheckDiamond(0, true, TextConst.S(4108), ConfirmUse);
 				ConfirmUse ();
 			else {
-				if(!CheckDiamond(choosePickCost.OnePick, true, string.Format(TextConst.S(252), choosePickCost.OnePick), ConfirmUse))
-					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+				if (spendType == 0) {
+					if (!CheckDiamond (choosePickCost.OnePick, true, string.Format (TextConst.S (252), choosePickCost.OnePick), ConfirmUse))
+						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+				} else if(spendType == 1) {
+					if (!CheckMoney (choosePickCost.OnePick, true, string.Format (TextConst.S (253), choosePickCost.OnePick), ConfirmUse))
+						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+				}
 			}
 		}
 	}
@@ -168,23 +173,41 @@ public class UIMall : UIBase {
 	public void OnFiveBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			choosePickCost = mallBoxs[result].mPickCost;
-			spendType = EPickSpendType.FIVE.GetHashCode();
-			chooseIndex = mallBoxs[result].mIndex;
-			if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse))
-				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			chooseIndex = findIndex(result);
+			choosePickCost = mallBoxs[chooseIndex].mPickCost;
+			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
+			if (spendType == 0) {
+				if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse))
+					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			} else if(spendType == 1) {
+				if(!CheckMoney(choosePickCost.FivePick, true, string.Format(TextConst.S(253) , choosePickCost.FivePick), ConfirmUse))
+					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			}
 		}
 	}
 
 	public void OnTenBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			choosePickCost = mallBoxs[result].mPickCost;
-			chooseIndex = mallBoxs[result].mIndex;
-			spendType = EPickSpendType.TEN.GetHashCode();
-			if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse))
-				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			chooseIndex = findIndex(result);
+			choosePickCost = mallBoxs[chooseIndex].mPickCost;
+			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
+			if (spendType == 0) {
+				if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse))
+					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			} else if(spendType == 1) {
+				if(!CheckMoney(choosePickCost.TenPick, true, string.Format(TextConst.S(253) , choosePickCost.TenPick), ConfirmUse))
+					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+			}
 		}
+	}
+
+	private int findIndex(int order) {
+		for (int i = 0; i < GameData.DPickCost.Length; i++) {
+			if (GameData.DPickCost [i].Order == order)
+				return i;
+		}	
+		return 0;
 	}
 
 	public void RefreshTextColor () {

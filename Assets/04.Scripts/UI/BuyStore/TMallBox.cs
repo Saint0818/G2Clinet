@@ -82,7 +82,7 @@ public class TMallBox
 
 		SubheadLabelDisk.text = TextConst.S(4101);
 		SubheadLabelItem.text = TextConst.S(4102);
-		Open10Label.text = TextConst.S(4103);
+//		Open10Label.text = TextConst.S(4103);
 		Open5Label.text = TextConst.S(4104);
 		SaleLabel.text = TextConst.S(4105);
 		FreeLabelTitle.text = TextConst.S(4106);
@@ -102,9 +102,9 @@ public class TMallBox
 
 	public void UpdateView(int posIndex, TPickCost pickcost) {
 		mPickCost = pickcost;
-		BtnOne.name = posIndex.ToString();
-		BtnFive.name = posIndex.ToString();
-		BtnTen.name = posIndex.ToString();
+		BtnOne.name = pickcost.Order.ToString();
+		BtnFive.name = pickcost.Order.ToString();
+		BtnTen.name = pickcost.Order.ToString();
 		mMallBox.transform.localPosition = new Vector3(420 * posIndex, 0, 0);
 		setHaveFree();
 		changeSpendKind(pickcost.SpendKind);
@@ -121,9 +121,9 @@ public class TMallBox
 	}
 
 	public void RefreshText () {
-		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money1));
-		Open5Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money2));
-		Open10Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, money3));
+		PriceLabel.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(mPickCost.SpendKind, money1),mPickCost.SpendKind);
+		Open5Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(mPickCost.SpendKind, money2),mPickCost.SpendKind);
+		Open10Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(mPickCost.SpendKind, money3),mPickCost.SpendKind);
 	}
 
 	public void UpdateFreeTimeCD () {
