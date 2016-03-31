@@ -146,8 +146,8 @@ public class UIItemHint : UIBase {
 	}
 
 //		93110 金幣
-//		93210 寶石
-//		93310 EXP
+//		93201 寶石
+//		93301 EXP
 	/// <summary>
 	/// kind  1:Money 2:Gem 3:EXP 4:PVP
 	/// </summary>

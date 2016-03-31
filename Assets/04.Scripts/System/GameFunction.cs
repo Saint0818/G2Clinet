@@ -992,7 +992,7 @@ public static class GameFunction
 		}
 	}
 
-	public static string PVPRankName (int level) {
+	public static string PVPRankIconName (int level) {
 		return "IconRank" + level.ToString();
 	}
 

@@ -640,6 +640,12 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
         UIGame.Get.SetJoystick(Joysticker);
 
+		if(LobbyStart.Get.TestMode == EGameTest.Skill) {
+			for (int i=0; i<LobbyStart.Get.TestSkill.Length; i++) {
+				if(LobbyStart.Get.TestSkill[i].ID != 0)
+					Joysticker.Attribute.ActiveSkills.Add(LobbyStart.Get.TestSkill[i]);
+			}
+		}
         AddValueItemAttributes();
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
@@ -773,6 +779,7 @@ public class GameController : KnightSingleton<GameController>
 
 				case EGameTest.AnimationUnit:
                 case EGameTest.Block:
+				case EGameTest.PassiveSkill:
 					if (Input.GetKeyDown (KeyCode.S)){
                         Joysticker.AniState(LobbyStart.Get.SelectAniState);
 						TSkill skill = new TSkill();
@@ -967,17 +974,6 @@ public class GameController : KnightSingleton<GameController>
 
 		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBallObj.transform.position.x, 0, CourtMgr.Get.RealBallObj.transform.position.z-1);
 		PlayerList[0].AniState(EPlayerState.Idle);
-    }
-
-    private void waitPVPEnd(bool ok, WWW www)
-    {
-        if (ok) {
-            TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
-            GameData.Team.PVPLv = reslut.PVPLv;
-            GameData.Team.PVPIntegral = reslut.PVPIntegral;
-            GameData.Team.PVPCoin = reslut.PVPCoin;
-            GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-        }
     }
 
 	public void SetGameRecord() {
@@ -1473,13 +1469,7 @@ public class GameController : KnightSingleton<GameController>
 				
 				IsFinish = true;
 				UIGame.Get.GameOver();
-                if (GameData.IsPVP) {
-                    WWWForm form = new WWWForm();
-                    form.AddField("Score1", UIGame.Get.Scores [0]);
-                    form.AddField("Score2", UIGame.Get.Scores [1]);
-                    SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
-                    GameData.PVPEnemyMembers[0].Identifier = string.Empty;
-                }
+                
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }
@@ -3810,23 +3800,6 @@ public class GameController : KnightSingleton<GameController>
 		SendGameRecord();
 		CameraMgr.Get.SetEndShowSituation();
 	}
-
-//    private void waitPVEEnd(bool ok, WWW www)
-//    {
-//        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
-//
-//        if(ok)
-//        {
-//            TTeam newTeam = JsonConvert.DeserializeObject<TTeam>(www.text);
-//            GameData.Team.Player = newTeam.Player;
-//            GameData.Team.Player.Init();
-//
-//            UIGameResult.UIShow(true);
-//            UIGameResult.Get.SetGameRecord(ref GameRecord);
-//        }
-//        else
-//            UIHint.Get.ShowHint("PVE End fail!", Color.red);
-//    }
 
 	//投進的buff要從AI呼叫PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
 	public void ShowShootSate(bool isIn, int team)

@@ -105,7 +105,7 @@ namespace GameStruct
         //PVP
         public int PVPCoin; //聯盟幣
         public int PVPLv;
-        public int PVPIntegral;
+		public int PVPIntegral;//積分(非數學的積分)
 		public int PVPDailyReaward;
         public int PVPEnemyIntegral;
 		public int PVPTicket;
