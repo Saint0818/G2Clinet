@@ -639,8 +639,6 @@ public class GameController : KnightSingleton<GameController>
 
         Joysticker = PlayerList[0];
         UIGame.Get.SetJoystick(Joysticker);
-
-
         AddValueItemAttributes();
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
@@ -790,7 +788,7 @@ public class GameController : KnightSingleton<GameController>
                         Joysticker.AniState(EPlayerState.Dunk20);
                     }
                     if (Input.GetKeyDown (KeyCode.K)){
-                        Joysticker.AniState(EPlayerState.KnockDown0);
+						Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1);
                     }
 
                     if(Input.GetKeyDown (KeyCode.R))
@@ -922,7 +920,13 @@ public class GameController : KnightSingleton<GameController>
 					TSkill skill = new TSkill();
 					skill.ID = LobbyStart.Get.TestID.GetHashCode();
 					skill.Lv = LobbyStart.Get.TestLv;
-					DoSkill(Joysticker, skill);
+					if (GameData.DSkillData[skill.ID].Kind == 171){
+						CourtMgr.Get.ShowArrowOfAction(true,
+							Joysticker.PlayerRefGameObject.transform,
+							GameData.DSkillData[skill.ID].Distance(skill.Lv));
+					}
+				 	DoSkill(Joysticker, skill);
+					CourtMgr.Get.ShowArrowOfAction(false);
 				} else
 				if(LobbyStart.Get.TestMode != EGameTest.AnimationUnit)
 					UIGame.Get.DoShoot(null, false);
@@ -940,7 +944,13 @@ public class GameController : KnightSingleton<GameController>
 					TSkill skill = new TSkill();
 					skill.ID = LobbyStart.Get.TestID.GetHashCode();
 					skill.Lv = LobbyStart.Get.TestLv;
+					if (GameData.DSkillData[skill.ID].Kind == 171){
+						CourtMgr.Get.ShowArrowOfAction(true,
+							Joysticker.PlayerRefGameObject.transform,
+							GameData.DSkillData[skill.ID].Distance(skill.Lv));
+					}
 					DoSkill(Joysticker, skill);
+					CourtMgr.Get.ShowArrowOfAction(false);
 				} else
 					UIGame.Get.DoBlock();
 			}
@@ -1119,7 +1129,11 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[0].AniState(EPlayerState.Idle);
 			}
 			if (GUI.Button(new Rect(Screen.width - 100, 200, 100, 50), "shoot")) {
-				DoShoot();
+//				DoShoot();
+				TSkill skill = new TSkill();
+				skill.ID = 10700;
+				skill.Lv = 2;
+				DoSkill(BallOwner, skill);
 			}
 			if (GUI.Button(new Rect(Screen.width - 100, 270, 100, 50), "dunk")) {
 				BallOwner.AniState(EPlayerState.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
