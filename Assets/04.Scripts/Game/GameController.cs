@@ -640,12 +640,7 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
         UIGame.Get.SetJoystick(Joysticker);
 
-		if(LobbyStart.Get.TestMode == EGameTest.Skill) {
-			for (int i=0; i<LobbyStart.Get.TestSkill.Length; i++) {
-				if(LobbyStart.Get.TestSkill[i].ID != 0)
-					Joysticker.Attribute.ActiveSkills.Add(LobbyStart.Get.TestSkill[i]);
-			}
-		}
+
         AddValueItemAttributes();
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
