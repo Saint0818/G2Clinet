@@ -239,7 +239,7 @@ public class UILevelUp : UIBase {
 	}
 	
 	protected override void InitCom() {
-		page = new GameObject[2];
+		page = new GameObject[3];
 		page[0] = GameObject.Find(UIName + "/Window/Center/BottomView/Page0");
 		page[1] = GameObject.Find(UIName + "/Window/Center/BottomView/Page1");
 		page[2] = GameObject.Find(UIName + "/Window/Center/BottomView/Page2");
