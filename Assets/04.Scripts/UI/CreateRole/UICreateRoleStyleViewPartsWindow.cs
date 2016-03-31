@@ -54,6 +54,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <param name="selectedIndex"> 預設哪一個要被選擇. </param>
     public void UpdateData(UICreateRole.EPart part, TItemData[] items, int selectedIndex)
     {
+        mScrollView.ResetPosition();
         mPart = part;
 
         clear();
