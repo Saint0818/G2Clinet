@@ -1757,8 +1757,8 @@
     {
         "id": 4103,
         "uipath": "Open10Label",
-        "tw": "10 連抽，[33FFDD]必得1張晶片[-]  ",
-        "en": "10x Draws [33FFDD]gift 1 card[-]  "
+        "tw": "10 連抽，必得1張[33FFDD]5星技能[-]  ",
+        "en": "10x Draws gift 1 [33FFDD]5 Star card[-]  "
     },
     {
         "id": 4104,
@@ -1813,6 +1813,18 @@
         "uipath": "Tap",
         "tw": "TAP",
         "en": "TAP"
+    },
+    {
+        "id": 4120,
+        "uipath": "Open10Label",
+        "tw": "10 連抽，必得1張[33FFDD]2星技能[-]  ",
+        "en": "10x Draws gift 1 [33FFDD]2 Star card[-]  "
+    },
+    {
+        "id": 4121,
+        "uipath": "Open10Label",
+        "tw": "10 連抽，必得1張[33FFDD]3星技能[-]  ",
+        "en": "10x Draws gift 1 [33FFDD]3 Star card[-]  "
     },
     {
         "id": 4200,
@@ -3467,14 +3479,14 @@
     {
         "id": 9704,
         "uipath": "tabs/03",
-        "tw": "頂尖排行",
-        "en": "LEADERBOARD 2"
+        "tw": "全球排行",
+        "en": "GLOBAL"
     },
     {
         "id": 9705,
         "uipath": "tabs/04",
         "tw": "獎勵兌換",
-        "en": "Reserved"
+        "en": "Awards"
     },
     {
         "id": 9706,
@@ -3516,8 +3528,8 @@
         "id": 9712,
         "explain": "每日獎勵按鈕 未領",
         "uipath": "DailyAwardBtn",
-        "tw": "可領取",
-        "en": "Can receive"
+        "tw": "每日獎勵",
+        "en": "Daily Award"
     },
     {
         "id": 9713,
@@ -3551,7 +3563,7 @@
         "id": 9721,
         "uipath": "StartBtn",
         "tw": "開始戰鬥",
-        "en": "START BATTLE"
+        "en": "START"
     },
     {
         "id": 9722,
@@ -3582,14 +3594,14 @@
     },
     {
         "id": 9727,
-        "tw": "刷新對手",
-        "en": "REFRESH OPPONENTS"
+        "tw": "點擊刷新",
+        "en": "REFRESH"
     },
     {
         "id": 9728,
         "explain": "對戰按鈕狀態 計算次數",
-        "tw": "挑戰次數 {0}/{1} ",
-        "en": "Challenge number {0} / {1} "
+        "tw": "挑戰次數 {0} ",
+        "en": "Challenged {0} "
     },
     {
         "id": 9729,
@@ -3634,17 +3646,23 @@
         "en": "Score"
     },
     {
+        "id": 9736,
+        "uipath": "PvP戰鬥結算",
+        "tw": "階級晉升",
+        "en": "RANK UP"
+    },
+    {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipath": "RankSlider/Thumb",
-        "tw": "積分需求 {0} - {1} ",
-        "en": "INTEGRATION INTERVAL {0} - {1} "
+        "tw": "PVP積分需求 {0} - {1} ",
+        "en": "PVP Score {0} - {1} "
     },
     {
         "id": 9742,
         "uipath": "RankSlider/NowRank",
-        "tw": "你的積分 {2} ",
-        "en": "Your INTEGRAL"
+        "tw": "你的積分 {1} ",
+        "en": "Your PVP Score {1} "
     },
     {
         "id": 9743,
@@ -3654,8 +3672,8 @@
     {
         "id": 9744,
         "explain": "獎勵，每場勝利後得到",
-        "tw": "每場獲勝獎勵",
-        "en": "WIN REWARD"
+        "tw": "獲勝獎勵",
+        "en": "WIN AWARD"
     },
     {
         "id": 9745,
@@ -3677,6 +3695,12 @@
         "id": 9748,
         "tw": "目前",
         "en": "Now"
+    },
+    {
+        "id": 9761,
+        "explain": "獎勵頁籤",
+        "tw": "PVP積分",
+        "en": "PVP SCORE"
     },
     {
         "id": 9800,
@@ -4337,7 +4361,51 @@
     },
     {
         "id": 11001,
-        "explain": "經營大廳"
+        "explain": "經營大廳",
+        "tw": "球館設施",
+        "en": "GYM QUEUES"
+    },
+    {
+        "id": 11002,
+        "explain": "閒置時",
+        "uipath": "NameLabel",
+        "tw": "閒置中",
+        "en": "AVAILABLE"
+    },
+    {
+        "id": 11003,
+        "explain": "佇列用-2 未開放時",
+        "uipath": "NameLabel",
+        "tw": "等級達到{0} ",
+        "en": "Level {0} "
+    },
+    {
+        "id": 11004,
+        "explain": "佇列用-3 未開放時",
+        "uipath": "NameLabel",
+        "tw": "購買佇列",
+        "en": "BUY QUEUE"
+    },
+    {
+        "id": 11005,
+        "explain": "設施升級按鈕",
+        "uipath": "UpgradeBtn",
+        "tw": "升 級"
+    },
+    {
+        "id": 11006,
+        "explain": "冷卻中",
+        "uipath": "BuyCDBtn",
+        "tw": "消除冷卻時間"
+    },
+    {
+        "id": 11007,
+        "explain": "選擇建築物標題",
+        "uipath": "LabelSubhead",
+        "tw": "外觀替換"
+    },
+    {
+        "id": 11008
     },
     {
         "id": 11101,

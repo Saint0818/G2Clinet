@@ -6,13 +6,15 @@
         "onepick": 350,
         "fivepick": 1500,
         "tenpick": 2850,
+        "freetime": 36,
         "showcard": [20412,20422,20432,20512,20522,20532,20612,20622,20632,20642,20652,20662,20672,30402,30602,30652,30702,30712],
         "showitem": [40000,17001,17002,18001,18002],
         "prefab": "MallboxDiamond2",
         "order": 2,
-        "nameen": " - OFFENSIVE -",
-        "explaintw": "持續進攻，成為無堅不摧的戰矛吧！",
-        "explainen": " - OFFENSIVE -"
+        "nameen": " - DEFEND -",
+        "explaintw": "機率獲得 [c94a4a]2~3 星[-] 技能晶片 ",
+        "explaincn": "持續進攻，成為無堅不摧的戰矛吧！",
+        "explainen": "Featuring [c94a4a]2~3 Star[-] Skill Cards"
     },
     {
         "id": 2,
@@ -25,24 +27,26 @@
         "showitem": [40000,17001,17002,18001,18002],
         "prefab": "MallboxDiamond1",
         "order": 1,
-        "nameen": " - DEFEND -",
-        "explaintw": "銅牆鐵壁、固若金湯，有效阻斷你的對手！",
-        "explainen": " - DEFEND -"
+        "nameen": " - OFFENSIVE -",
+        "explaintw": "機率獲得 [fffc00]4~5 星[-] 技能晶片 ",
+        "explaincn": "銅牆鐵壁、固若金湯，有效阻斷你的對手！",
+        "explainen": "Featuring [fffc00]4~5 Star[-] Skill Cards"
     },
     {
         "id": 3,
         "nametw": "掌控賽局的舵手！！",
-        "spendkind": 0,
-        "onepick": 250,
-        "fivepick": 1400,
-        "tenpick": 2000,
+        "spendkind": 1,
+        "onepick": 30000,
+        "fivepick": 140000,
+        "tenpick": 250000,
         "freetime": 24,
         "showcard": [21102,21212,21222,21232,21242,21252,21312,21902,33002,33102],
         "showitem": [40000,17001,17002,18001,18002],
         "prefab": "MallboxDiamond3",
         "order": 0,
         "nameen": " - CROWD CONTROL -",
-        "explaintw": "想成為掌控賽局的控場大師？來這裡吧！",
-        "explainen": " - CROWD CONTROL -"
+        "explaintw": "機率獲得 1~2 星 技能晶片 ",
+        "explaincn": "想成為掌控賽局的控場大師？來這裡吧！",
+        "explainen": "Featuring 1~2 Star Skill Cards"
     }
 ]
