@@ -148,6 +148,8 @@ public class UIItemHint : UIBase {
 //		93110 金幣
 //		93201 寶石
 //		93301 EXP
+//		93901 PVP
+//		94001 Social
 	/// <summary>
 	/// kind  1:Money 2:Gem 3:EXP 4:PVP
 	/// </summary>
@@ -167,6 +169,10 @@ public class UIItemHint : UIBase {
 			id = 93201;
 		else if(kind == 3)
 			id = 93301;
+		else if(kind == 4)
+			id = 93901;
+		else if(kind == 5)
+			id = 94001;
 		uiLabelHave.gameObject.SetActive(false);
 		hintAvatarView.UpdateUI(GameData.DItemData[id]);
 		uiLabelName.text = string.Format(GameData.DItemData[id].Name, value);

@@ -114,7 +114,7 @@ public class UIGameLoseResult : UIBase {
 				minusValue --;
 				nowValue -- ;
 				pvpObj.LabelNowPoint.text = nowValue.ToString();
-				pvpObj.SliderBar.value = getPercent(nowValue, nowMin, nowMax);
+				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
 				isShowRank = false;
 				deflation ();
@@ -197,15 +197,8 @@ public class UIGameLoseResult : UIBase {
 			pvpObj.LabelMinusPoint.text = minusValue.ToString();
 			pvpObj.LabelNowPoint.text = nowValue.ToString();
 			pvpObj.LabelNextPoint.text = pvpRank.BeforeHighScore.ToString();
-			pvpObj.SliderBar.value = getPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
+			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
 		}
-	}
-
-	private float getPercent (float value, float min, float max ) {
-		if(value > min) 
-			return (value - min) / max;
-		else
-			return 0;
 	}
 
 	private void showFinish () {

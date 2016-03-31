@@ -177,15 +177,23 @@ public struct TItemLevelUp {
 	}
 }
 
+public class TPVPLevelUp {
+	public UISprite BeforeRank;
+	public UISprite AfterRank;
+	public UILabel BeforeRankName;
+	public UILabel AfterRankName;
+}
+
 public class UILevelUp : UIBase {
 	private static UILevelUp instance = null;
 	private const string UIName = "UILevelUp";
 
-	private GameObject[] page;//0:角色升級 1:卡牌，物品升級
+	private GameObject[] page;//0:角色升級 1:卡牌，物品升級 2:PVP階級升級
 
 
 	private TPlayerLevelUp playerLevelUp;
 	private TItemLevelUp itemLevelUp;
+	private TPVPLevelUp pvpLevelUp;
 
 	private int lv;
 	
@@ -234,11 +242,17 @@ public class UILevelUp : UIBase {
 		page = new GameObject[2];
 		page[0] = GameObject.Find(UIName + "/Window/Center/BottomView/Page0");
 		page[1] = GameObject.Find(UIName + "/Window/Center/BottomView/Page1");
+		page[2] = GameObject.Find(UIName + "/Window/Center/BottomView/Page2");
 
 		playerLevelUp = new TPlayerLevelUp();
 		playerLevelUp.Init(GameObject.Find(UIName + "/Window/Center/BottomView/Page0"));
 		itemLevelUp = new TItemLevelUp();
 		itemLevelUp.Init(GameObject.Find(UIName + "/Window/Center/BottomView/Page1"), OnClickAttr);
+		pvpLevelUp = new TPVPLevelUp();
+		pvpLevelUp.BeforeRank = GameObject.Find(UIName + "/Window/Center/BottomView/Page2/LevelGroup/BeforeRank").GetComponent<UISprite>();
+		pvpLevelUp.BeforeRankName = GameObject.Find(UIName + "/Window/Center/BottomView/Page2/LevelGroup/BeforeRank/RankNameLabel").GetComponent<UILabel>();
+		pvpLevelUp.AfterRank = GameObject.Find(UIName + "/Window/Center/BottomView/Page2/LevelGroup/AfterRank").GetComponent<UISprite>();
+		pvpLevelUp.AfterRankName = GameObject.Find(UIName + "/Window/Center/BottomView/Page2/LevelGroup/AfterRank/RankNameLabel").GetComponent<UILabel>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/Window/BottomRight/NextLabel")).onClick = OnReturn;
 	}
@@ -310,6 +324,7 @@ public class UILevelUp : UIBase {
 		UIShow(true);
 		page[0].SetActive(true);
 		page[1].SetActive(false);
+		page[2].SetActive(false);
 		lv = afterPlayer.Lv;
 		playerLevelUp.UpdateView(beforePlayer, afterPlayer);
 	}
@@ -319,6 +334,7 @@ public class UILevelUp : UIBase {
 		UIShow(true);
 		page[0].SetActive(false);
 		page[1].SetActive(true);
+		page[2].SetActive(false);
 		itemLevelUp.UpdateForEquipment(beforeItemData, afterItemData);
 	}
 
@@ -327,7 +343,22 @@ public class UILevelUp : UIBase {
 		UIShow(true);
 		page[0].SetActive(false);
 		page[1].SetActive(true);
+		page[2].SetActive(false);
 		itemLevelUp.UpdateForReinforce(beforeSkill, afterSkill);
+	}
+
+	public void ShowRank (int beforeLv, int afterLv) {
+		AudioMgr.Get.PlaySound(SoundType.SD_UpgradeItems);
+		UIShow(true);
+		page[0].SetActive(false);
+		page[1].SetActive(false);
+		page[2].SetActive(true);
+		pvpLevelUp.BeforeRank.spriteName = GameFunction.PVPRankIconName(beforeLv);
+		pvpLevelUp.AfterRank.spriteName = GameFunction.PVPRankIconName(afterLv);
+		if(GameData.DPVPData.ContainsKey(beforeLv) && GameData.DPVPData.ContainsKey(afterLv)) {
+			pvpLevelUp.BeforeRankName.text = GameData.DPVPData[beforeLv].Name;
+			pvpLevelUp.AfterRankName.text = GameData.DPVPData[afterLv].Name;
+		}
 	}
 
 	public bool isStage

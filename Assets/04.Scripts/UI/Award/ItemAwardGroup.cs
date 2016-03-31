@@ -66,7 +66,7 @@ public class ItemAwardGroup : MonoBehaviour
 	}
 
 	/// <summary>
-	///  kind 1:Money 2:Gem 3:EXP 4:PVP
+	///  kind 1:Money 2:Gem 3:EXP 4:PVP 5:Social
 	/// </summary>
 	/// <param name="kind">Kind.</param>
 	/// <param name="value">Value.</param>

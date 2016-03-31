@@ -1068,4 +1068,11 @@ public static class GameFunction
         else
             return -1;
     }
+
+	public static float GetPercent (float value, float min, float max ) {
+		if(value > min) 
+			return (value - min) / max;
+		else
+			return 0;
+	}
 }
