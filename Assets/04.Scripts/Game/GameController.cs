@@ -2435,7 +2435,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if (player)
 		{
-			DefBlock(ref player, 1);
+			defBlock(ref player, true);
 			return true;
 		} else
 			return false;
@@ -2446,7 +2446,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if (player)
         {
-            DefBlock(ref player);
+            defBlock(ref player, false);
             return true;
         } else
             return false;
@@ -2939,43 +2939,43 @@ public class GameController : KnightSingleton<GameController>
         return disData;
 	}
 
-    private void DefBlock(ref PlayerBehaviour npc, int kind = 0)
+    private void defBlock(ref PlayerBehaviour attacker, bool isFakeShoot)
     {
-		if (PlayerList.Count > 0 && !IsPassing && !IsBlocking) {
-			PlayerBehaviour npc2;
-			int rate = Random.Range(0, 100);
-			TPlayerDisData [] playerDisData = findPlayerDisData(npc, false, true);
+		if(PlayerList.Count > 0 && !IsPassing && !IsBlocking)
+        {
+		    TPlayerDisData[] playerDisData = findPlayerDisData(attacker, false, true);
 
-			if(playerDisData != null)
+            if(playerDisData == null)
+                return;
+
+            for(int i = 0; i < playerDisData.Length; i++)
             {
-				for (int i = 0; i < playerDisData.Length; i++)
+                var blocker = playerDisData[i].Player;
+                if(blocker && blocker != attacker && blocker.Team != attacker.Team && blocker.AIing && 
+                    !blocker.IsSteal && !blocker.IsPush)
                 {
-					npc2 = playerDisData [i].Player;
-					if (npc2 && npc2 != npc && npc2.Team != npc.Team && npc2.AIing && 
-					    !npc2.IsSteal && !npc2.IsPush) {
-						float blockRate = npc2.Attr.BlockRate;
+                    float angle = MathUtils.FindAngle(attacker.transform, PlayerList[i].transform.position);
 						
-						if(kind == 1)
-							blockRate = npc2.Attr.FaketBlockRate;	
-						
-						float angle = MathUtils.FindAngle(npc.PlayerRefGameObject.transform, PlayerList [i].PlayerRefGameObject.transform.position);
-						
-						if(GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(angle) <= 70)
-                        {
-							if(rate < blockRate)
-                            {
-								if(npc2.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, npc.PlayerRefGameObject.transform.position)) {
-									if (kind == 1)
-										npc2.GameRecord.BeFake++;
+                    if(GetDis(attacker, blocker) <= GameConst.BlockDistance && Mathf.Abs(angle) <= 70)
+                    {
+                        float blockRate = blocker.Attr.BlockRate;
+                        if(isFakeShoot)
+                            blockRate = blocker.Attr.FaketBlockRate;
 
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+                        if(Random.Range(0, 100) < blockRate)
+                        {
+                            if(blocker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, attacker.PlayerRefGameObject.transform.position))
+                            {
+                                if(isFakeShoot)
+                                    blocker.GameRecord.BeFake++;
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 	}
 
     private void doLookAtBall(PlayerBehaviour someone)
