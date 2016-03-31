@@ -123,6 +123,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
         mPlayer.SetBall(Instantiate(mCommon.Ball));
         mPlayer.SetBallVisible(true);
+        mPlayer.PlayAnimation("CreateRoleIdle");
     }
 
     public void SetCamera(UICreateRole.EPart part)
