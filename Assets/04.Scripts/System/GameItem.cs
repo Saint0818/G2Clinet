@@ -115,9 +115,7 @@ namespace GameItem
                 playerName.text = rankData.Team.Player.Name;
                 playeHeadBtn.UpdateView(rankData.Team.Player);
                 combatLabel.text = rankData.Team.Player.CombatPower().ToString ();
-                PvPRankIcon.spriteName = string.Format("IconRank{0}", GameFunction.GetPVPLv(rankData.Team.PVPIntegral));
-//				GuildIcon.spriteName = string.Format("LeagueIcon{0}", rankData.GuildIIcon);
-//                GuildIDLabel.text = rankData.GuildIName;
+                PvPRankIcon.spriteName = string.Format("IconRank{0}", rankData.Team.PVPLv);
                 WinLabel.text = rankData.Team.LifetimeRecord.PVPWin.ToString();
                 if (rankData.Team.LifetimeRecord.PVPWin == 0 && rankData.Team.LifetimeRecord.PVPCount == 0)
                 {

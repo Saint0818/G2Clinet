@@ -56,7 +56,7 @@ public class PVPPage1TopView
     {
         if (isInit)
         {
-            int lv = GameFunction.GetPVPLv(team.PVPIntegral);
+            int lv = team.PVPLv;
             if (GameData.DPVPData.ContainsKey(lv))
             {
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", lv);
@@ -116,7 +116,7 @@ public class PVPPage1ListView
                     ranks[i] = new TItemRankGroup();
                     ranks[i].Init(ref rank100[i]);
                     ranks[i].SetParent(parent);
-					ranks[i].Enable = false;
+                    ranks[i].Enable = false;
                 }
         }
     }
@@ -182,8 +182,6 @@ public class PVPMainView
     private UILabel award0;
     private UILabel award1;
     private GameObject Sort;
-
-   
     private UIButton getRewardBtn;
     private UISprite readPoint;
     private PVPLvRangeItem lvRange;
@@ -202,8 +200,6 @@ public class PVPMainView
             Sort = self.transform.Find("PvPLeagueBoard/ScrollView/Sort").gameObject;
             award0 = self.transform.Find("AwardGroup/Award0/ValueLabel").gameObject.GetComponent<UILabel>();
             award1 = self.transform.Find("AwardGroup/Award1/ValueLabel").gameObject.GetComponent<UILabel>();
-           
-           
             getRewardBtn = self.transform.Find("DailyAwardBtn").gameObject.GetComponent<UIButton>();
             lvRange = self.transform.Find("PvPLeagueSlider/PVPLvRangeItem").gameObject.GetComponent<PVPLvRangeItem>();
 
@@ -218,30 +214,22 @@ public class PVPMainView
                 pvplvs[i].LoacalScale = Vector3.one * 0.6f;
             }
 
-            isInit = self && nextBtn && Sort && Lbtn && Rbtn;
+            nextBtn.onClick.Add(getEnemyFunc);
+            Lbtn.onClick.Add(lFunc);
+            Rbtn.onClick.Add(rFunc);
 
-            if (isInit)
-            {
-                nextBtn.onClick.Add(getEnemyFunc);
-                Lbtn.onClick.Add(lFunc);
-                Rbtn.onClick.Add(rFunc);
+            getRewardBtn.onClick.Add(getRewardFunc);
 
-                getRewardBtn.onClick.Add(getRewardFunc);
-
-                if(GameData.DPVPData.Count > 0 && lvRange != null)
-//                    lvRange.InitData(GameData.DPVPData.Count);
-                    lvRange.InitData(7, nowRankFunc);
-            }
+            if (GameData.DPVPData.Count > 0 && lvRange != null)
+                lvRange.InitData(7);
         }
     }
 
     public void OnNowRank(int lv)
     {
         lvRange.SetNowRankOffset(lv);
-       
-//        SetOffset(lv);
     }
-        
+
     public void UpdateView(ref TTeam team)
     {
         getRewardBtn.isEnabled = GameFunction.CanGetPVPReward(ref team);
@@ -397,7 +385,7 @@ public class EnterView
 
     public bool IsInit
     {
-        get{ return isInit;}
+        get{ return isInit; }
     }
 
     public bool Enable
@@ -408,7 +396,7 @@ public class EnterView
         }
         get{ return self.activeSelf; } 
     }
-        
+
     public EPVPSituation PVPSituation
     {
         set
@@ -433,7 +421,7 @@ public class EnterView
             }
         }
 
-        get{ return situation;}
+        get{ return situation; }
     }
 
     public void UpdatePVPTicket()
@@ -455,11 +443,11 @@ public class PVPPage0
         {
             self = go;
             mainview.Init(self.transform.Find("MainView").gameObject, ref pvplvBtns, getEnemyFunc, lFunc, rFunc, nowFunc, getRewardFunc);
-            EnterPage.Init(self.transform.Find("EnterView").gameObject, itemRankGroups, 
+            /*EnterPage.Init(self.transform.Find("EnterView").gameObject, itemRankGroups, 
                 new EventDelegate(CloseEnterView),
                 resetFunc,
                 startFunc);
-           
+           */
             EnableEnterView = false;
         }
     }
@@ -471,15 +459,15 @@ public class PVPPage0
 
     public void UpdateEnterView(ref TTeam[] team, int researchPrice)
     {
-        EnterPage.UpdateView(ref team, researchPrice);
+        //EnterPage.UpdateView(ref team, researchPrice);
     }
 
     public bool EnableEnterView
     {
         set
         { 
-            mainview.Enable = !value;
-            EnterPage.Enable = value;
+            //mainview.Enable = !value;
+            //EnterPage.Enable = value;
         }
     }
 
@@ -534,7 +522,7 @@ public class PVPPage1
     {
         if (ok)
         {
-			TTeamRank data = JsonConvert.DeserializeObject <TTeamRank>(www.text, SendHttp.Get.JsonSetting);
+            TTeamRank data = JsonConvert.DeserializeObject <TTeamRank>(www.text, SendHttp.Get.JsonSetting);
             listView.UpdateViewMyrank(data); 
         }
     }
@@ -544,16 +532,44 @@ public class UIPVP : UIBase
 {
     private static UIPVP instance = null;
     private const string UIName = "UIPVP";
-    private int pageCount = 2;
-    private UIButton[] tabs;
-    private GameObject[] pages;
-    private PVPPage0 page0;
-    private PVPPage1 page1;
+    private const int pageCount = 4;
+    private const float tweenSpeed = 0.5f;
     public int currentLv = 1;
     private int currecntPage = 0;
     private int shopIndex = -1;
-    private UISprite readPoint;
+
+    private GameObject[] pages = new GameObject[pageCount];
+    private GameObject[] redPoints = new GameObject[pageCount];
     private UILabel labelPVPCoin;
+    private GameObject itemRankgroupObj;
+
+    //page0
+    private TPvPLeagueGroup[] pvplvs = new TPvPLeagueGroup[GameData.DPVPData.Count];
+    private GameObject uiSort;
+    private UIButton buttonGetAward;
+    private UIButton buttonNext;
+    private UIButton buttonLeft;
+    private UIButton buttonRight;
+    private UILabel labelAward0;
+    private UILabel labelAward1;
+    private UILabel labelTime;
+    private PVPLvRangeItem lvRange;
+
+    //page1
+    private UISprite iconPVPRank;
+    private UILabel labelRangeName;
+    private UILabel labelNowRange;
+    private UILabel labelNowAward0;
+    private UILabel labelNowAward1;
+    private UILabel labelNextRangeName;
+    private UILabel labelNextAward0;
+    private UILabel labelNextAward1;
+    private UISprite iconNextRank;
+    private GameObject nextRankGroup;
+    private GameObject anchorMyRank;
+    private TItemRankGroup myRankInfo;
+    private TItemRankGroup[] rankGroups;
+    private TTeamRank[] rankData;
 
     public static bool Visible
     {
@@ -579,21 +595,14 @@ public class UIPVP : UIBase
 
     public static void UIShow(bool isShow)
     {
-        if (instance)
-        {
+        if (instance) {
             if (!isShow)
-            {
                 RemoveUI(instance.gameObject);
-            }
             else
-            {
                 instance.Show(isShow);
-            }
-        }
-        else if (isShow)
-        {
+        } else 
+        if (isShow)
             Get.Show(isShow);
-        }
 
         if (isShow)
             UIMainLobby.Get.Hide(2, false);
@@ -601,163 +610,123 @@ public class UIPVP : UIBase
             UIMainLobby.Get.Hide(3, false);
     }
 
+    protected override void OnShow(bool isShow)
+    {
+        base.OnShow(isShow);
+        if (isShow)
+        {
+            DoPage(0);
+            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
+        }
+    }
+        
     protected override void InitCom()
     {
-        tabs = new UIButton[pageCount];
-        pages = new GameObject[pageCount];
-        page0 = new PVPPage0();
-        page1 = new PVPPage1();
-        currentLv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-        labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
-        if (GameData.DPVPData.Count > 0)
-        {
-            for (int i = 0; i < pageCount; i++)
-            {
-                tabs[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Tabs/{0}", i)).GetComponent<UIButton>(); 
-
-                if (i == 0)
-                    readPoint = tabs[0].transform.Find("RedPoint").gameObject.GetComponent<UISprite>();
-            
-                tabs[i].onClick.Add(new EventDelegate(OnPage));
-                pages[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Pages/{0}", i));
-
-                UnityEngine.Object go;
-                UnityEngine.Object itemRankgroupObj = Resources.Load("Prefab/UI/Items/ItemRankGroup");
-                GameObject parent;
-                GameObject[] gos;
-                GameObject[] itemRankgroups;
-
-                shopIndex = GetShopIndex();
-
-                switch (i)
-                {
-                    case 0:
-                        go = Resources.Load("Prefab/UI/Items/PvPLeagueGroup");
-
-                        GameObject[] pvplvBtns = new GameObject[GameData.DPVPData.Count];
-
-                        for (int j = 0; j < pvplvBtns.Length; j++)
-                        {
-                            pvplvBtns[j] = Instantiate(go) as GameObject;
-                            pvplvBtns[j].name = (j + 1).ToString();
-                        }
-
-                        itemRankgroups = new GameObject[3];
-                        for (int j = 0; j < itemRankgroups.Length; j++)
-                        {
-                            itemRankgroups[j] = Instantiate(itemRankgroupObj) as GameObject;
-                        }
-
-                        page0.Init(pages[i], ref pvplvBtns, itemRankgroups,
-                            new EventDelegate(OnGetEnemy),
-                            new EventDelegate(OnSearch),
-                            new EventDelegate(OnPVPStart),
-                            new EventDelegate(OnLeft),
-                            new EventDelegate(OnRight),
-                            new EventDelegate(OnNowRank),
-                            new EventDelegate(OnAward));
-                        break;
-                    case 1:
-                        parent = pages[i].transform.Find("ListView/ScrollView").gameObject;
-                        if (itemRankgroupObj)
-                        {
-                            gos = new GameObject[GameConst.PVPMaxSort];
-
-                            for (int j = 0; j < gos.Length; j++)
-                                gos[j] = Instantiate(itemRankgroupObj) as GameObject;
-                        
-                            page1.Init(pages[i], ref gos, parent);
-                        }
-                        else
-                        {
-                            Debug.LogError("Resources.load error : ItemRankGroup");
-                        }
-                        break;
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError("PVPData Error"); 
-        }
         SetBtnFun(UIName + "/BottomLeft/BackBtn", OnReturn);
+        SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/NextBtn", OnStart);
+        SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/ButtonGroup/LButton", OnLeft);
+        SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/ButtonGroup/RButton", OnRight);
+        SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/DailyAwardBtn", OnAward);
+
+        itemRankgroupObj = Resources.Load("Prefab/UI/Items/ItemRankGroup") as GameObject;
+        GameObject itemPVPLeague = Resources.Load("Prefab/UI/Items/PvPLeagueGroup") as GameObject;
+
+        uiSort = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/PvPLeagueBoard/ScrollView/Sort");
+        labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
+        labelTime = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/NextBtn/Trim/TimesLabel").GetComponent<UILabel>();
+        labelAward0 = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/AwardGroup/Award0/ValueLabel").GetComponent<UILabel>();
+        labelAward1 = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/AwardGroup/Award1/ValueLabel").GetComponent<UILabel>();
+        lvRange = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/PvPLeagueSlider/PVPLvRangeItem").GetComponent<PVPLvRangeItem>();
+        buttonGetAward = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/DailyAwardBtn").GetComponent<UIButton>();
+
+        GameObject[] pvplvBtns = new GameObject[GameData.DPVPData.Count];
+        for (int i = 0; i < pvplvs.Length; i++)
+        {
+            pvplvBtns[i] = Instantiate(itemPVPLeague) as GameObject;
+            pvplvBtns[i].name = (i + 1).ToString();
+
+            pvplvs[i] = new TPvPLeagueGroup();
+            pvplvs[i].Init(ref pvplvBtns[i], uiSort);
+            pvplvs[i].UpdateView(i + 1);
+            pvplvs[i].LoaclPosition = new Vector3(260 * i, 0, 0);
+            pvplvs[i].LoacalScale = Vector3.one * 0.6f;
+        }
+
+        if (GameData.DPVPData.Count > 0 && lvRange != null)
+            lvRange.InitData(7);
+
+        nextRankGroup = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NextRankGroup");
+        labelNextRangeName = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NextRankGroup/RangeNameLabel").GetComponent<UILabel>();
+        labelNextAward0 = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NextRankGroup/Award0/ValueLabel").GetComponent<UILabel>();
+        labelNextAward1 = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NextRankGroup/Award1/ValueLabel").GetComponent<UILabel>();
+        iconNextRank = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NextRankGroup/PvPRankIcon").GetComponent<UISprite>();
+        labelNowAward0 = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/AwardGroup/Award0/ValueLabel").GetComponent<UILabel>();
+        labelNowAward1 = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/AwardGroup/Award1/ValueLabel").GetComponent<UILabel>();
+        iconPVPRank = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NowRankGroup/PvPRankIcon").GetComponent<UISprite>();
+        labelRangeName = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NowRankGroup/RangeNameLabel").GetComponent<UILabel>();
+        labelNowRange = GameObject.Find(UIName + "/Center/Window/Pages/1/TopView/NowRankGroup/NowRangeLabel").GetComponent<UILabel>();
+        anchorMyRank = GameObject.Find(UIName + "/Center/Window/Pages/1/ListView/ScrollView");
+
+        for (int i = 0; i < pageCount; i++) {
+            SetBtnFun(UIName + "/Center/Window/Tabs/" + i.ToString(), OnPage);
+            redPoints[i] = GameObject.Find(string.Format(UIName + "/Center/Window/Tabs/{0}/RedPoint", i));
+            redPoints[i].SetActive(false);
+            pages[i] = GameObject.Find(UIName + "/Center/Window/Pages/" + i.ToString());
+            pages[i].SetActive(false);
+        }
     }
 
-    public void UpdateRedPoint()
+    protected override void InitData() {
+        currentLv = GameData.Team.PVPLv;
+        shopIndex = GetShopIndex();
+    }
+
+    void FixedUpdate()
     {
-        if(readPoint)
-            readPoint.enabled = GameFunction.CanGetPVPReward(ref GameData.Team);
-        
-        page0.mainview.UpdateView (ref GameData.Team);
+        //if (currecntPage == 0)
+            //ComputingCD();
     }
 
     private int GetShopIndex()
     {
-        for(int i = 0; i < GameData.DShops.Length; i++)
+        for (int i = 0; i < GameData.DShops.Length; i++)
             if (GameData.DShops[i].Kind == 2)
                 return i;
 
         return -1;
     }
 
-    public void OnPage()
+    public void OnStart()
     {
-        int index;
-
-        if (int.TryParse(UIButton.current.name, out index))
-            DoPage(index);
-    }
-
-    public void OnGetEnemy()
-    {
-        bool isalreadyFind = true;
-
         for (var i = 0; i < GameData.PVPEnemyMembers.Length; i++)
-        {
-            if (GameData.PVPEnemyMembers[i].Identifier == null || GameData.PVPEnemyMembers[i].Identifier == string.Empty)
-            {
-                isalreadyFind = false;
-                continue;
+            if (!string.IsNullOrEmpty(GameData.PVPEnemyMembers[i].Identifier)) {
+                UIShow(false);
+                UISelectRole.Get.LoadStage(GameData.DPVPData[GameData.Team.PVPLv].Stage);
+                return;
             }
-        }
-
-        if (isalreadyFind)
-        {
-            page0.EnableEnterView = true;
-            int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-
-            if (GameData.DPVPData.ContainsKey(lv))
-            {
-                page0.UpdateEnterView(ref GameData.PVPEnemyMembers, GameData.DPVPData[lv].SearchCost); 
-            }
-            else
-                Debug.LogError("Error : not Found PVPData " + lv); 
-        }
-        else
-        {
-            WWWForm form = new WWWForm();
-			form.AddField("Identifier", GameData.Team.Identifier);	
-            form.AddField("Kind", 0);
-            SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, false); 
-        }
+        
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", GameData.Team.Identifier);	
+        form.AddField("Kind", 0);
+        SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, false); 
     }
 
     public void OnSearch()
     {
-        int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+        int lv = GameData.Team.PVPLv;
 
         if (GameData.DPVPData.ContainsKey(lv))
         {
             if (CheckMoney(GameData.DPVPData[lv].SearchCost))
             {
                 WWWForm form = new WWWForm();
-				form.AddField("Identifier", GameData.Team.Identifier);	
+                form.AddField("Identifier", GameData.Team.Identifier);	
                 form.AddField("Kind", 1);
                 SendHttp.Get.Command(URLConst.PVPGetEnemy, WaitPVPGetEnemy, form, true);
             }
         }			
     }
-
+    /*
     private void OnPVPStart()
     {
         if (page0.EnterPage.IsInit)
@@ -778,7 +747,7 @@ public class UIPVP : UIBase
                         {
                             if (GameData.DShops[shopIndex].Limit != null)
                             {
-                                if(GameData.Team.DailyCount.BuyPVPTicketCount < GameData.DShops[shopIndex].Limit.Length)
+                                if (GameData.Team.DailyCount.BuyPVPTicketCount < GameData.DShops[shopIndex].Limit.Length)
                                 {
                                     int price = GameData.DShops[shopIndex].Limit[GameData.Team.DailyCount.BuyPVPTicketCount];
                                     if (CheckMoney(price))
@@ -820,7 +789,7 @@ public class UIPVP : UIBase
                     break;
             } 
         }
-    }
+    }*/
 
     private void SendBuyPVPCD()
     {
@@ -861,7 +830,7 @@ public class UIPVP : UIBase
             GameData.Team.PVPTicket = data.PVPTicket;
             GameData.Team.PVPCD = data.PVPCD;
             GameData.Team.DailyCount = data.DailyCount;
-            page0.EnterPage.UpdatePVPTicket();
+            labelTime.text = string.Format(TextConst.S(9728), GameData.Team.PVPTicket, GameConst.PVPMaxTickket);
         }
     }
 
@@ -890,9 +859,9 @@ public class UIPVP : UIBase
 
     private void OnNowRank()
     {
-        int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
+        int lv = GameData.Team.PVPLv;
         currentLv = lv;
-        page0.mainview.OnNowRank(lv);  
+        lvRange.SetNowRankOffset(lv);  
         TurnLv(lv);
     }
 
@@ -909,20 +878,42 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-			TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
-			GameData.Team.DailyCount = data.DailyCount;
+            TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
+            GameData.Team.DailyCount = data.DailyCount;
             UIGetItem.Get.AddExp(2, data.PVPCoin - GameData.Team.PVPCoin);
             UIGetItem.Get.SetTitle(TextConst.S(9707));
-			GameData.Team.PVPCoin = data.PVPCoin;
+            GameData.Team.PVPCoin = data.PVPCoin;
             labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
-            UpdateRedPoint();
+            buttonGetAward.isEnabled = false;
+            redPoints[0].SetActive(false);
         }
     }
 
-    public void TurnLv(int i)
+    public void TurnLv(int currentIndex)
     {
-        page0.mainview.DoTrun(i);
-        //TODO:update data
+        lvRange.SetOffset(currentIndex);
+        uiSort.transform.DOLocalMoveX((260 - (260 * (currentIndex - 1))), tweenSpeed);
+
+        int ex = currentIndex - 1;
+        int next = currentIndex + 1;
+
+        if (ex >= 1 && ex < GameData.DPVPData.Count)
+        {
+            pvplvs[ex - 1].self.transform.DOScale(0.6f, tweenSpeed);
+        }
+
+        if (next >= 1 && next < GameData.DPVPData.Count)
+        {
+            pvplvs[next - 1].self.transform.DOScale(0.6f, tweenSpeed);
+        }
+
+        pvplvs[currentIndex - 1].self.transform.DOScale(1f, tweenSpeed);
+
+        if (GameData.DPVPData.ContainsKey(currentIndex))
+        {
+            labelAward0.text = GameData.DPVPData[currentIndex].PVPCoin.ToString();
+            labelAward1.text = GameData.DPVPData[currentIndex].PVPCoinDaily.ToString();
+        }
     }
 
     public void WaitPVPGetEnemy(bool ok, WWW www)
@@ -932,18 +923,7 @@ public class UIPVP : UIBase
             TPVPEnemyTeams data = JsonConvert.DeserializeObject <TPVPEnemyTeams>(www.text, SendHttp.Get.JsonSetting);
             GameData.Team.Money = data.Money;
             GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
-            UIMainLobby.Get.UpdateUI();
-
-            page0.EnableEnterView = true;
-
-            int lv = GameFunction.GetPVPLv(GameData.Team.PVPIntegral);
-
-            if (GameData.DPVPData.ContainsKey(lv))
-            {
-                page0.UpdateEnterView(ref data.Teams, GameData.DPVPData[lv].SearchCost); 
-            }
-            else
-                Debug.LogError("Error : not Found PVPData " + lv);
+            int lv = GameData.Team.PVPLv;
    
             if (data.Teams != null)
             {
@@ -955,60 +935,65 @@ public class UIPVP : UIBase
                     GameData.EnemyMembers[i] = data.Teams[i];
                 }
             }
-        }
-        else
-        {	
-            UIMessage.Get.ShowMessage(TextConst.S(256), TextConst.S(255));
-        }
+
+            UIShow(false);
+            UISelectRole.Get.LoadStage(GameData.DPVPData[GameData.Team.PVPLv].Stage);
+        } else
+            UIHint.Get.ShowHint(TextConst.S(255), Color.red);
+            //UIMessage.Get.ShowMessage(TextConst.S(256), TextConst.S(255));
     }
 
     private void SendPVPRank()
     {
-		if (rankdata == null || rankdata.Length == 0) {
-			WWWForm form = new WWWForm ();
-			form.AddField ("PVPLv", GameFunction.GetPVPLv (GameData.Team.PVPIntegral));
-			form.AddField ("Language", GameData.Setting.Language.GetHashCode ());
-			SendHttp.Get.Command (URLConst.PVPRank, WaitSendPVPRank, form, true);
-		}
+        if (rankData == null || rankData.Length == 0)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("PVPLv", GameData.Team.PVPLv);
+            form.AddField("Language", GameData.Setting.Language.GetHashCode());
+            SendHttp.Get.Command(URLConst.PVPRank, WaitSendPVPRank, form, true);
+        }
     }
 
-	private TTeamRank[] rankdata; 
+
 
     public void WaitSendPVPRank(bool ok, WWW www)
-    {
+    {/*
         if (ok)
         {
-			rankdata = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
+            rankdata = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
 //            TTeamRank[] data = JsonConvert.DeserializeObject <TTeamRank[]>(www.text, SendHttp.Get.JsonSetting);
             //TODO:更新Rank資料：
             TTeamRank myrank = GameFunction.TTeamCoverTTeamRank(GameData.Team);
-			page1.UpdateView(myrank, rankdata);
-        }
+            page1.UpdateView(myrank, rankdata);
+        }*/
     }
 
-    private void DoPage(int index)
-    {
-        for (int i = 0; i < pages.Length; i++)
-        {
-            if (index == i)
-                pages[i].SetActive(true);
-            else
-                pages[i].SetActive(false);
-        }
-
+    private void DoPage(int index) {
         currecntPage = index;
+        for (int i = 0; i < pages.Length; i++)
+            pages[i].SetActive(false);
 
+        pages[index].SetActive(true);
         switch (index)
         {
             case 0:
-                UpdateRedPoint();
+                buttonGetAward.isEnabled = GameFunction.CanGetPVPReward(ref GameData.Team);
+                redPoints[0].SetActive(buttonGetAward.isEnabled);
                 OnNowRank();
                 break;
             case 1:
-                page1.TopView.UpdateView(GameData.Team);
+                //page1.TopView.UpdateView(GameData.Team);
                 SendPVPRank();
                 break;
         }
+    }
+
+    public void OnPage()
+    {
+        int index;
+
+        if (int.TryParse(UIButton.current.name, out index))
+            DoPage(index);
     }
 
     public void OnReturn()
@@ -1017,45 +1002,26 @@ public class UIPVP : UIBase
         UIGameLobby.Get.Show();
     }
 
-    protected override void OnShow(bool isShow)
-    {
-        base.OnShow(isShow);
-        if (isShow)
-        {
-            DoPage(0);
-            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (currecntPage == 0)
-            ComputingCD();
-    }
-
     private void ComputingCD()
-    {
-        if (currecntPage == 0 && page0.EnterPage.IsInit)
+    {/*
+        if (GameData.Team.PVPTicket > 0)
         {
-            if (GameData.Team.PVPTicket > 0)
+            if (page0.EnterPage.PVPSituation == EPVPSituation.CDIng || page0.EnterPage.PVPSituation == EPVPSituation.NoCountOrBuy)
             {
-                if (page0.EnterPage.PVPSituation == EPVPSituation.CDIng || page0.EnterPage.PVPSituation == EPVPSituation.NoCountOrBuy)
+                int sec = (int)GameData.Team.PVPCD.ToUniversalTime().Subtract(DateTime.UtcNow).TotalSeconds;
+                if (sec < 0)
                 {
-                    int sec = (int)GameData.Team.PVPCD.ToUniversalTime().Subtract(DateTime.UtcNow).TotalSeconds;
-                    if (sec < 0)
-                    {
-                        page0.EnterPage.PVPSituation = EPVPSituation.CDEnd;
-                    }
-                    else
-                    {
-                        page0.EnterPage.PVPSituation = EPVPSituation.CDIng; 
-                    }
+                    page0.EnterPage.PVPSituation = EPVPSituation.CDEnd;
+                }
+                else
+                {
+                    page0.EnterPage.PVPSituation = EPVPSituation.CDIng; 
                 }
             }
-            else
-            {
-                page0.EnterPage.PVPSituation = EPVPSituation.NoCountOrBuy;
-            }
         }
+        else
+        {
+            page0.EnterPage.PVPSituation = EPVPSituation.NoCountOrBuy;
+        }*/
     }
 }

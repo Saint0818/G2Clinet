@@ -22,7 +22,10 @@ public class UISelectRole : UIBase {
 	private TStageData stageData;
 	private List<TPlayer> playerList = new List<TPlayer>();
 	public TPlayer [] playerData = new TPlayer[playerNum];
-	private GameObject [] playerObjects = new GameObject[playerNum];
+	private GameObject [] playerObjects = new GameObject[playerNum*2];
+    private GameObject uiTopPVE;
+    private GameObject uiTopPVP;
+    private GameObject uiCenterPVP;
 	private GameObject playerInfoModel = null;
 	private GameObject uiChangPlayerA;
 	private GameObject uiChangPlayerB;
@@ -30,7 +33,9 @@ public class UISelectRole : UIBase {
     private UILabel labelStrategy;
     private UILabel [] labelPlayerName = new UILabel[2];
     private UILabel [] labelCombatPower = new UILabel[playerNum];
-	private Animator [] arrayAnimator = new Animator[playerNum];
+    private UILabel [] labelPVPPlayerName = new UILabel[playerNum*2];
+    private UILabel [] labelPVPCombatPower = new UILabel[playerNum*2];
+	private Animator [] arrayAnimator = new Animator[playerNum*2];
 
 	public static bool Visible {
 		get {
@@ -50,8 +55,9 @@ public class UISelectRole : UIBase {
             if (value)
                 Get.Show(value);
 
-            UI3DSelectRole.UIShow(value);
             if (!value) {
+                UI3DSelectRole.UIShow(false);
+                UI3DPVP.Visible = false;
                 UISelectPartner.Visible = false;
                 UISkillFormation.Visible = false;
 				UIStrategy.Visible = false;
@@ -104,25 +110,39 @@ public class UISelectRole : UIBase {
 
         SetBtnFun (UIName + "/Left/Back", OnExit);
         SetBtnFun (UIName + "/Right/GameStart", OnStart);
-        SetBtnFun (UIName + "/Top/SelectA/PlayerNameA", OnChangePlayer);
-        SetBtnFun (UIName + "/Top/SelectB/PlayerNameB", OnChangePlayer);
+        SetBtnFun (UIName + "/Top/PVE/SelectA/PlayerNameA", OnChangePlayer);
+        SetBtnFun (UIName + "/Top/PVE/SelectB/PlayerNameB", OnChangePlayer);
         SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
-        labelCombatPower[0] = GameObject.Find(UIName + "/Top/SelectMe/CombatPower/Label").GetComponent<UILabel>();
-        labelCombatPower[1] = GameObject.Find(UIName + "/Top/SelectA/CombatPower/Label").GetComponent<UILabel>();
-        labelCombatPower[2] = GameObject.Find(UIName + "/Top/SelectB/CombatPower/Label").GetComponent<UILabel>();
-        labelPlayerName[0] = GameObject.Find(UIName + "/Top/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
-        labelPlayerName[1] = GameObject.Find(UIName + "/Top/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-        uiChangPlayerA = GameObject.Find(UIName + "/Top/SelectA");
-        uiChangPlayerB = GameObject.Find(UIName + "/Top/SelectB");
+        labelCombatPower[0] = GameObject.Find(UIName + "/Top/PVE/SelectMe/CombatPower/Label").GetComponent<UILabel>();
+        labelCombatPower[1] = GameObject.Find(UIName + "/Top/PVE/SelectA/CombatPower/Label").GetComponent<UILabel>();
+        labelCombatPower[2] = GameObject.Find(UIName + "/Top/PVE/SelectB/CombatPower/Label").GetComponent<UILabel>();
+        labelPlayerName[0] = GameObject.Find(UIName + "/Top/PVE/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
+        labelPlayerName[1] = GameObject.Find(UIName + "/Top/PVE/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
+        uiChangPlayerA = GameObject.Find(UIName + "/Top/PVE/SelectA");
+        uiChangPlayerB = GameObject.Find(UIName + "/Top/PVE/SelectB");
         uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
 
+        for (int i = 0; i < playerNum * 2; i++) {
+            labelPVPCombatPower[i] = GameObject.Find(UIName + string.Format("/Top/PVP/Player{0}/CombatPower/Label", i)).GetComponent<UILabel>();
+            labelPVPPlayerName[i] = GameObject.Find(UIName + string.Format("/Top/PVP/Player{0}/PlayerName/Label", i)).GetComponent<UILabel>();
+        }
+
+        uiTopPVE = GameObject.Find (UIName + "/Top/PVE");
+        uiTopPVP = GameObject.Find (UIName + "/Top/PVP");
+        uiCenterPVP = GameObject.Find (UIName + "/Center/PVP");
+
+        uiTopPVE.SetActive(false);
+        uiTopPVP.SetActive(false);
+        uiCenterPVP.SetActive(false);
         uiRedPoint.SetActive(false);
     }
 
     protected override void InitData() {
+        labelStrategy.text = GameData.Team.Player.StrategyText;
+        uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
         for (int i = 0; i < GameData.TeamMembers.Length; i++) {
             GameData.TeamMembers[i] = new TTeam();
             GameData.EnemyMembers[i] = new TTeam();
@@ -143,7 +163,11 @@ public class UISelectRole : UIBase {
     		}
 
     		ModelManager.Get.LoadAllSelectPlayer(ref ids);
-            initTeammateList();
+
+            if (stageData.IDKind == TStageData.EKind.PVP)
+                initPVPTeammate();
+            else
+                initPVETeammate();
         }
 	}
 
@@ -198,10 +222,13 @@ public class UISelectRole : UIBase {
             playerList[i] = player;
         }
 
-        initTeammateList();
+        if (stageData.IDKind == TStageData.EKind.PVP)
+            initPVPTeammate();
+        else
+            initPVETeammate();
 	}
 
-    private void initPlayerAvatar(int roleIndex, ref TPlayer player) {
+    private void initPlayerAvatar(int roleIndex, ref TPlayer player, GameObject anchorObj) {
         if (!playerObjects [roleIndex])
             playerObjects [roleIndex] = new GameObject();
         
@@ -209,7 +236,7 @@ public class UISelectRole : UIBase {
         GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], player.Avatar, player.BodyType, EAnimatorType.TalkControl, false, true);
 
         playerObjects[roleIndex].name = roleIndex.ToString();
-        playerObjects[roleIndex].transform.parent = playerInfoModel.transform;
+        playerObjects[roleIndex].transform.parent = anchorObj.transform;
         playerObjects[roleIndex].AddComponent<SelectEvent>();
         playerObjects[roleIndex].AddComponent<SpinWithMouse>();
 
@@ -225,14 +252,47 @@ public class UISelectRole : UIBase {
         LayerMgr.Get.SetLayer(obj, ELayer.Default);
         arrayAnimator[roleIndex] = playerObjects[roleIndex].GetComponent<Animator>();
 
-        labelCombatPower[roleIndex].text = ((int)player.CombatPower()).ToString();
-        if (roleIndex > 0) {
-            UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
-            labelPlayerName[roleIndex - 1].text = player.Name;
+        if (stageData.IDKind == TStageData.EKind.PVP) {
+            labelPVPCombatPower[roleIndex].text = ((int)player.CombatPower()).ToString();
+            if (roleIndex > 0) {
+                UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
+                labelPVPPlayerName[roleIndex].text = player.Name;
+            }
+        } else {
+            labelCombatPower[roleIndex].text = ((int)player.CombatPower()).ToString();
+            if (roleIndex > 0) {
+                UIEventListener.Get (playerObjects[roleIndex]).onClick = OnClickPlayer;
+                labelPlayerName[roleIndex - 1].text = player.Name;
+            }
         }
     }
 
-    private void initTeammateList() {
+    private void initPVPTeammate() {
+        if (LobbyStart.Get.ConnectToServer) {
+            GameData.Team.PlayerInit();
+            playerData[0] = GameData.Team.Player;
+            playerData[0].RoleIndex = -1;
+        } else {
+            playerData[0].SetID(21);
+            playerData[0].RoleIndex = -1;
+        }
+
+        int num = Mathf.Min(2, playerList.Count);
+        for (int i = 0; i < num; i++) {
+            playerData[i+1] = playerList[i];
+            labelPlayerName[i].text = playerList[i].Name;
+        }
+
+        for (int i = 0; i < playerData.Length; i++) {
+            initPlayerAvatar(i, ref playerData[i], UI3DPVP.Get.PlayerAnchor[i]);
+        }
+
+        for (int i = 0; i < GameData.PVPEnemyMembers.Length; i++) {
+            initPlayerAvatar(i+3, ref GameData.PVPEnemyMembers[i].Player, UI3DPVP.Get.PlayerAnchor[i+3]);
+        }
+    }
+
+    private void initPVETeammate() {
         if (LobbyStart.Get.ConnectToServer) {
         	GameData.Team.PlayerInit();
         	playerData[0] = GameData.Team.Player;
@@ -249,7 +309,7 @@ public class UISelectRole : UIBase {
         }
 
 		for (int i = 0; i < playerData.Length; i++) {
-            initPlayerAvatar(i, ref playerData[i]);
+            initPlayerAvatar(i, ref playerData[i], playerInfoModel);
 
 			switch (i) {
 			    case 0:
@@ -267,8 +327,6 @@ public class UISelectRole : UIBase {
 			}
         }
 
-        labelStrategy.text = GameData.Team.Player.StrategyText;
-        uiRedPoint.SetActive(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()));
         Invoke("otherPlayerDoAnimator", 0.5f);
         Invoke("otherPlayerShowTime", 0.65f);
         Invoke("playerDoAnimator", 0.95f);
@@ -331,6 +389,15 @@ public class UISelectRole : UIBase {
 		stageData = StageTable.Ins.GetByID(GameData.StageID);
 		UIMainLobby.Get.HideAll(false);
 		Visible = true;
+
+        if (stageData.IDKind == TStageData.EKind.PVP) {
+            UI3DPVP.Visible = true;
+            uiTopPVP.SetActive(true);
+            uiCenterPVP.SetActive(true);
+        } else {
+            UI3DSelectRole.UIShow(true);
+            uiTopPVE.SetActive(true);
+        }
 
 		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
@@ -434,7 +501,7 @@ public class UISelectRole : UIBase {
 	public void SelectPartner(int roleIndex, int index) {
 		if (index >= 0 && index < playerList.Count) {
 			playerData[roleIndex] = playerList[index];
-            initPlayerAvatar(roleIndex, ref playerData[roleIndex]);
+            initPlayerAvatar(roleIndex, ref playerData[roleIndex], playerInfoModel);
 		}
 	}
 
