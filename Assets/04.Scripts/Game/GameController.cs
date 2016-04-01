@@ -3434,7 +3434,8 @@ public class GameController : KnightSingleton<GameController>
 			{
                 if (dir == 5 || dir == 7 || dir == 6)
                 {
-                    int rate = Random.Range(0, 100);
+					int rate = Random.Range(0, 100);
+					passingStealBallTime = Time.time + 2;
 
                     if (BallOwner == null && (rate > Passer.Attr.PassRate) && !player.IsPush)
                     {
@@ -3445,20 +3446,19 @@ public class GameController : KnightSingleton<GameController>
                         }
                         else if (dir == 5)
                         {
-                            if (player.CheckAnimatorSate(EPlayerState.Intercept1))
+							if ( player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBallObj.transform.position))
                             {
                                 if (BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                     CourtMgr.Get.RealBallObj.transform.DOKill();
 
                                 player.GameRecord.Intercept++;
-                                ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+//                                ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
                                 if (Passer)
                                     Passer.GameRecord.BeIntercept++;
 
                                 if (SetBall(player))
                                 {
                                     player.AniState(EPlayerState.HoldBall);
-                                    passingStealBallTime = Time.time + 2;
                                 }
 
                                 IsPassing = false;
@@ -3476,12 +3476,11 @@ public class GameController : KnightSingleton<GameController>
                                 Passer.GameRecord.BeIntercept++;
 
                             player.GameRecord.Intercept++;
-                            ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+//                            ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
 
                             if(SetBall(player))
                             {
-                                //                          player.AniState(EPlayerState.HoldBall);
-                                passingStealBallTime = Time.time + 2;
+                                player.AniState(EPlayerState.HoldBall);
                             }
 
                             IsPassing = false;
