@@ -137,35 +137,14 @@ public class UIGameLoseResult : UIBase {
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/StatsNextLabel")).onClick = OnReturn;
 	}
 
-
-	public void Init () {
-		if (GameData.IsPVP) {
-			WWWForm form = new WWWForm();
-			form.AddField("Score1", UIGame.Get.Scores [0]);
-			form.AddField("Score2", UIGame.Get.Scores [1]);
-			SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
-			GameData.PVPEnemyMembers[0].Identifier = string.Empty;
-		} else {
-			setEndData ();
-		}
+	public void SetPVPData (TPVPResult before, TPVPResult after) {
+		setData(before, after);
+		setEndData ();
 	}
 
-	private void waitPVPEnd(bool ok, WWW www)
-	{
-		if (ok) {
-			beforeTeam.PVPLv = GameData.Team.PVPLv;
-			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
-			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
-			afterTeam.PVPLv = reslut.PVPLv;
-			afterTeam.PVPIntegral = reslut.PVPIntegral;
-			afterTeam.PVPCoin = reslut.PVPCoin;
 
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-			setData(beforeTeam, afterTeam);
-		}
+	public void Init () {
+		setEndData ();
 	}
 
 	private void setEndData () {

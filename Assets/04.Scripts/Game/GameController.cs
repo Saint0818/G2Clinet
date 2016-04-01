@@ -135,6 +135,9 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsReboundTime = false;
 	private EBallState ballState = EBallState.None;
 
+	private TPVPResult beforeTeam = new TPVPResult();
+	private TPVPResult afterTeam = new TPVPResult();
+
     public EBallState BallState
     {
         set{
@@ -1478,7 +1481,15 @@ public class GameController : KnightSingleton<GameController>
 				
 				IsFinish = true;
 				UIGame.Get.GameOver();
-                
+
+				if (GameData.IsPVP) {
+					WWWForm form = new WWWForm();
+					form.AddField("Score1", UIGame.Get.Scores [0]);
+					form.AddField("Score2", UIGame.Get.Scores [1]);
+					SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
+					GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+				}
+					
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }
@@ -1486,7 +1497,32 @@ public class GameController : KnightSingleton<GameController>
 			if (GamePlayTutorial.Visible)
 				GamePlayTutorial.Get.CheckSituationEvent(newSituation.GetHashCode());
         }
-    }
+	}
+
+	private void waitPVPEnd(bool ok, WWW www)
+	{
+		if (ok) {
+			beforeTeam.PVPLv = GameData.Team.PVPLv;
+			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
+			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
+			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
+			afterTeam.PVPLv = reslut.PVPLv;
+			afterTeam.PVPIntegral = reslut.PVPIntegral;
+			afterTeam.PVPCoin = reslut.PVPCoin;
+
+			GameData.Team.PVPIntegral = reslut.PVPIntegral;
+			GameData.Team.PVPCoin = reslut.PVPCoin;
+			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+
+			if(IsWinner) {
+				UIGameResult.UIShow(true);
+				UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
+			} else {
+				UIGameLoseResult.UIShow(true);
+				UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
+			}
+		}
+	}
 
     private void setMoveFrontCourtTactical(PlayerBehaviour player)
     {
@@ -3845,8 +3881,10 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState (EPlayerState.Ending0);
 			}
-			UIGameLoseResult.UIShow(true);
-			UIGameLoseResult.Get.Init();
+			if(!GameData.IsPVP) {
+				UIGameLoseResult.UIShow(true);
+				UIGameLoseResult.Get.Init();
+			}
 		}
 		SendGameRecord();
 		CameraMgr.Get.SetEndShowSituation();

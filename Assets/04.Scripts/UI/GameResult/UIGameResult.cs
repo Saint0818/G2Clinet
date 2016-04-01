@@ -359,10 +359,15 @@ public class UIGameResult : UIBase {
         }
 	}
 
-	private void showMissionBoard () {
+	public void ShowMissionBoard () {
 		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
 		hintIndex = hintCount;
 		Invoke("showFinish", 4);
+	}
+
+	public void SetPVPData (TPVPResult before, TPVPResult after) {
+		beforeTeam = before;
+		afterTeam = after;
 	}
 
 	/*
@@ -393,36 +398,13 @@ public class UIGameResult : UIBase {
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 
-		if (GameData.IsPVP) {
-            showMissionBoard ();
-			WWWForm form = new WWWForm();
-			form.AddField("Score1", UIGame.Get.Scores [0]);
-			form.AddField("Score2", UIGame.Get.Scores [1]);
-			SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
-			GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+		if(GameData.IsPVP)
 			uiStatsNext.SetActive (true);
-
-		} else 
+		else
 			stageRewardStart(GameData.StageID);
 	}
 
-	private void waitPVPEnd(bool ok, WWW www)
-	{
-		if (ok) {
-			beforeTeam.PVPLv = GameData.Team.PVPLv;
-			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
-			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
-			afterTeam.PVPLv = reslut.PVPLv;
-			afterTeam.PVPIntegral = reslut.PVPIntegral;
-			afterTeam.PVPCoin = reslut.PVPCoin;
 
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-			setData(beforeTeam, afterTeam);
-		}
-	}
 
 	private void setData (TPVPResult before, TPVPResult after) { 
 		awardIndex = 1;
@@ -723,7 +705,7 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		showMissionBoard ();
+		ShowMissionBoard ();
 		beforePlayer = GameData.Team.Player;
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
 			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {
