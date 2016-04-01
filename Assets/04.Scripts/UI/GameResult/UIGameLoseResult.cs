@@ -110,14 +110,16 @@ public class UIGameLoseResult : UIBase {
 		}
 
 		if(isShowRank && minusValue > 0) {
-			if(nowValue >= pvpRank.BeforeLowScore) {
+			if(nowValue > pvpRank.BeforeLowScore) {
 				minusValue --;
 				nowValue -- ;
 				pvpObj.LabelNowPoint.text = nowValue.ToString();
 				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
-				isShowRank = false;
-				deflation ();
+				if(pvpRank.AfterLv == 1 || pvpRank.BeforeLv == 1) {
+					return;
+				} else
+					deflation ();
 			}
 		}
 	}

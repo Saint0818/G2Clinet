@@ -129,8 +129,9 @@ public class TMallBox
 	public void UpdateFreeTimeCD () {
 		if(IsHaveFree) {
 			FreeLabelTitle.gameObject.SetActive(!IsPickFree);
-			if(!IsPickFree) 
-				FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.DeadlineString(GameData.Team.LotteryFreeTime[mIndex].ToUniversalTime()));  
+			if(!IsPickFree)  {
+				FreeLabelTitle.text =  string.Format(TextConst.S(4106), TextConst.SecondString((int)(new System.TimeSpan(GameData.Team.LotteryFreeTime[mIndex].ToUniversalTime().Ticks - DateTime.UtcNow.Ticks).TotalSeconds)));  
+			}
 			setHaveFree();
 		}
 	}

@@ -11,8 +11,8 @@ public class UIMall : UIBase {
 	private List<TMallBox> mallBoxs ;
 
 	private TPickCost choosePickCost;
-	private int spendType;
 	private int chooseIndex;
+	private int choosetype; //0:One 1:five 2: ten
 
 	private GameObject table;
 	private GameObject skillCard;
@@ -148,17 +148,16 @@ public class UIMall : UIBase {
 	public void OnOneBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			chooseIndex = findIndex(result);
+			chooseIndex = findIndexFromOrder(result);
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
-			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
-			if(mallBoxs[result].IsPickFree)
-//				CheckDiamond(0, true, TextConst.S(4108), ConfirmUse);
+			choosetype = EPickSpendType.ONE.GetHashCode();
+			if(mallBoxs[chooseIndex].IsPickFree)
 				ConfirmUse ();
 			else {
-				if (spendType == 0) {
+				if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
 					if (!CheckDiamond (choosePickCost.OnePick, true, string.Format (TextConst.S (252), choosePickCost.OnePick), ConfirmUse))
 						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-				} else if(spendType == 1) {
+				} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
 					if (!CheckMoney (choosePickCost.OnePick, true, string.Format (TextConst.S (253), choosePickCost.OnePick), ConfirmUse))
 						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 				}
@@ -167,19 +166,19 @@ public class UIMall : UIBase {
 	}
 
 	public void ConfirmUse () {
-		SendPickLottery(choosePickCost.Order, spendType);
+		SendPickLottery(choosePickCost.Order, choosetype);
 	}
 
 	public void OnFiveBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			chooseIndex = findIndex(result);
+			chooseIndex = findIndexFromOrder(result);
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
-			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
-			if (spendType == 0) {
+			choosetype = EPickSpendType.FIVE.GetHashCode();
+			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
 				if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			} else if(spendType == 1) {
+			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
 				if(!CheckMoney(choosePickCost.FivePick, true, string.Format(TextConst.S(253) , choosePickCost.FivePick), ConfirmUse))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			}
@@ -189,20 +188,20 @@ public class UIMall : UIBase {
 	public void OnTenBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
-			chooseIndex = findIndex(result);
+			chooseIndex = findIndexFromOrder(result);
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
-			spendType = mallBoxs[chooseIndex].mPickCost.SpendKind;
-			if (spendType == 0) {
+			choosetype = EPickSpendType.TEN.GetHashCode();
+			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
 				if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			} else if(spendType == 1) {
+			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
 				if(!CheckMoney(choosePickCost.TenPick, true, string.Format(TextConst.S(253) , choosePickCost.TenPick), ConfirmUse))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			}
 		}
 	}
 
-	private int findIndex(int order) {
+	private int findIndexFromOrder(int order) {
 		for (int i = 0; i < GameData.DPickCost.Length; i++) {
 			if (GameData.DPickCost [i].Order == order)
 				return i;
@@ -271,7 +270,7 @@ public class UIMall : UIBase {
 		UIMainLobby.Get.HideAll();
 		UI3DMainLobby.Get.Hide();
 		Hide ();
-		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, spendType, itemDatas);
+		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, choosetype, itemDatas);
 		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
 		UI3DBuyStore.Get.Show();
 	}
