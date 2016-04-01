@@ -3451,14 +3451,14 @@ public class GameController : KnightSingleton<GameController>
                                 if (BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                     CourtMgr.Get.RealBallObj.transform.DOKill();
 
+								if (Passer){
+									ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+									Passer.GameRecord.BeIntercept++;
+								}
+								player.GameRecord.Intercept++;
+
                                 if (SetBall(player))
 								{
-									if (Passer){
-										ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
-										Passer.GameRecord.BeIntercept++;
-									}
-
-									player.GameRecord.Intercept++;
                                     player.AniState(EPlayerState.HoldBall);
                                 }
 
@@ -3473,14 +3473,14 @@ public class GameController : KnightSingleton<GameController>
                             if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                 CourtMgr.Get.RealBallObj.transform.DOKill();
 							
+							if (Passer){
+								ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+								Passer.GameRecord.BeIntercept++;
+							}
+							player.GameRecord.Intercept++;
+
                             if(SetBall(player))
 							{
-								if (Passer){
-									ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
-									Passer.GameRecord.BeIntercept++;
-								}
-
-								player.GameRecord.Intercept++;
                                 player.AniState(EPlayerState.HoldBall);
                             }
 
