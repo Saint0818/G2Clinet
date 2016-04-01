@@ -588,7 +588,7 @@ public class UIGameResult : UIBase {
 		if(GameData.DItemData.ContainsKey(alreadGetBonusID))  {
 			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
 		}
-		Invoke("MoveItem",1);
+		Invoke("MoveItem",0.5f);
 		if(chooseCount == 0) {
 			showPayDiamond(index);
 			setPayDiamond(20);

@@ -158,12 +158,16 @@ public static class TextConst
             }
 
             if (d > 0)
-                sResult = string.Format(TextConst.S(245), d, h);
+                sResult = string.Format(TextConst.S(243), d, h);
             else 
             if (h > 0)
                 sResult = string.Format(TextConst.S(244), h, m);
-             else
-                sResult = string.Format(TextConst.S(243), m, s);
+            else
+			if (m > 0)
+				sResult = string.Format(TextConst.S(245), m, s);
+			else
+			if (s > 0)
+				sResult = s.ToString();
 
         } catch {
             sResult = string.Format("{0}s", sec.ToString());    
