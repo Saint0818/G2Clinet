@@ -7,6 +7,9 @@ public class AwardAvatarView : MonoBehaviour {
 	public GameObject Gem;
 	public Transform PVPCoin;
 
+	//for gameresult
+	private UILabel labelItemName;
+
 	public GameObject EquipmentStar;
 
 	public UISprite QualitySquare;
@@ -30,6 +33,11 @@ public class AwardAvatarView : MonoBehaviour {
 			specialEffect = transform.Find("ItemView/SpecialEffect");
 		if(PVPCoin == null)
 			PVPCoin = transform.Find("ItemView/PVPCoin");
+		if(labelItemName == null) {
+			Transform t = transform.Find("ItemLabel");
+			if(t != null)
+				labelItemName = t.GetComponent<UILabel>();
+		}
 
 		mGameObject = gameObject;
 		Hide();
@@ -86,8 +94,13 @@ public class AwardAvatarView : MonoBehaviour {
 
 		if(itemData.Kind == 31 || itemData.Kind == 32 || itemData.Kind == 33) {
 			AmountLabel.text = itemData.Value.ToString();
-		} else 
+			if(labelItemName != null) 
+				labelItemName.text = string.Format(itemData.Name, itemData.Value);
+		} else {
 			AmountLabel.text = "";
+			if(labelItemName != null) 
+				labelItemName.text = itemData.Name;
+		}
 	}
 
 	/// <summary>

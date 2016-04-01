@@ -3451,13 +3451,14 @@ public class GameController : KnightSingleton<GameController>
                                 if (BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                     CourtMgr.Get.RealBallObj.transform.DOKill();
 
-                                player.GameRecord.Intercept++;
-//                                ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-                                if (Passer)
-                                    Passer.GameRecord.BeIntercept++;
-
                                 if (SetBall(player))
-                                {
+								{
+									if (Passer){
+										ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+										Passer.GameRecord.BeIntercept++;
+									}
+
+									player.GameRecord.Intercept++;
                                     player.AniState(EPlayerState.HoldBall);
                                 }
 
@@ -3471,15 +3472,15 @@ public class GameController : KnightSingleton<GameController>
 
                             if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                 CourtMgr.Get.RealBallObj.transform.DOKill();
-
-                            if (Passer)
-                                Passer.GameRecord.BeIntercept++;
-
-                            player.GameRecord.Intercept++;
-//                            ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-
+							
                             if(SetBall(player))
-                            {
+							{
+								if (Passer){
+									ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+									Passer.GameRecord.BeIntercept++;
+								}
+
+								player.GameRecord.Intercept++;
                                 player.AniState(EPlayerState.HoldBall);
                             }
 
@@ -4410,6 +4411,10 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case EShowWordType.Steal:
 			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
+			IsGameFinish();
+			break;
+		case EShowWordType.Turnover:
+			EffectManager.Get.PlayEffect("ShowWord_Turnover", Vector3.zero, parent, null, 1, true);
 			IsGameFinish();
 			break;
 		case EShowWordType.GetTwo:

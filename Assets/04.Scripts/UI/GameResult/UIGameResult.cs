@@ -34,6 +34,8 @@ public class UIGameResult : UIBase {
 	private int[] awardItemIDs;
 	private int[] bonusItemIDs;
 
+	private GameObject clickTip;
+
 	private List<ItemAwardGroup> alreadyGetItems =  new List<ItemAwardGroup>();
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
@@ -62,6 +64,7 @@ public class UIGameResult : UIBase {
 	private bool isGetAward = false;
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
+	private bool isShow3Dbasket = false;
 	private TPlayer beforePlayer;
 	private TPlayer afterPlayer;
 	public List<int> GetCardLists = new List<int>();
@@ -211,6 +214,9 @@ public class UIGameResult : UIBase {
 		awardScaleView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
 		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView").GetComponent<UIScrollView>();
 
+		clickTip = GameObject.Find(UIName + "/ThreeAward/ClickLabel");
+		clickTip.SetActive(false);
+
 		pvpObj.PVPRankIcon = GameObject.Find(UIName + "/RankView/PvPRankIcon").GetComponent<UISprite>();
 		pvpObj.LabelRankName = GameObject.Find(UIName + "/RankView/PvPRankIcon/RankNameLabel").GetComponent<UILabel>();
 		pvpObj.LabelMinusPoint = GameObject.Find(UIName + "/RankView/RankPoint/GetPointLabel").GetComponent<UILabel>();
@@ -276,9 +282,17 @@ public class UIGameResult : UIBase {
 			}
 		} else {
 			if(SendHttp.Get.CheckNetwork(false) && isGetAward) {
-				uiStatsNext.SetActive(false);
-				animatorAward.SetTrigger("AwardViewStart");
-				Invoke("showAward", 1);
+				if(awardIndex > 0) {
+					uiStatsNext.SetActive(false);
+					animatorAward.SetTrigger("AwardViewStart");
+					Invoke("showAward", 1);
+				} else {
+					if(isShow3Dbasket) {
+						uiStatsNext.SetActive(false);
+						show3DBasket();
+						isShow3Dbasket = false;
+					}
+				}
 			} else  {
 				if(isLevelUp) {
 					UIShow(false);
@@ -682,7 +696,9 @@ public class UIGameResult : UIBase {
 
 	private void showLuckyThree () {
 		showThree ();
-		Invoke("show3DBasket", 1.5f);
+		isShow3Dbasket = true;
+		uiStatsNext.SetActive(true);
+//		Invoke("show3DBasket", 1.5f);
 	}
 
 	private void show3DBasket () {
@@ -694,6 +710,7 @@ public class UIGameResult : UIBase {
 
 	private void canChooseLucky () {
 		isCanChooseLucky = true;
+		clickTip.SetActive(true);
 	}
 
 	public void ShowReturnButton () {

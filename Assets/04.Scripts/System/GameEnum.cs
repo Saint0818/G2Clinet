@@ -335,7 +335,8 @@
         DC15,
         DC20,
         TipShot,
-        Catch
+        Catch,
+		Turnover
     }
     //For ActiveSkill
     public enum EBallState
