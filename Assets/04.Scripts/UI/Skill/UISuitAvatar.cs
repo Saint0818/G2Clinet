@@ -251,6 +251,12 @@ public class UISuitAvatar : UIBase {
 			Visible = true;
 			initScrollView ();
 			clickSuit (suitItemID);
+			if(suitItemID >= 200)
+				leftScorllView.Scroll(-0.5f);
+			else if(suitItemID >= 100)
+				leftScorllView.Scroll(-0.25f);
+			else 
+				leftScorllView.Scroll(0);
 			middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
 		} else 
 			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
@@ -282,13 +288,6 @@ public class UISuitAvatar : UIBase {
 		hideAllSelect();
 		if(tItemSuitAvatarGroup.ContainsKey(id))
 			tItemSuitAvatarGroup[id].SelectActive = true;
-
-		if(id >= 200)
-			leftScorllView.Scroll(-0.5f);
-		else if(id >= 100)
-			leftScorllView.Scroll(-0.25f);
-		else 
-			leftScorllView.Scroll(0);
 	} 
 
 	public void OnClickSuit (GameObject go) {
