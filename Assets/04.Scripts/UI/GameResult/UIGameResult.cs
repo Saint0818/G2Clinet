@@ -471,7 +471,7 @@ public class UIGameResult : UIBase {
 
 	private void pvpShowRank() {
 		animatorAward.SetTrigger("PVPView");
-		Invoke("showRank", 2f);
+		Invoke("showRank", 1f);
 	}
 
 	private void showRank () {
