@@ -433,15 +433,12 @@ public class ModelManager : KnightSingleton<ModelManager>
         }
     }
 
-    public IEnumerator AsyncSetAvatar(GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, ELayer layer, bool combine = true) {
-        Transform parent = result.transform.parent;
+    public IEnumerator AsyncSetAvatar(GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, ELayer layer) {
         Vector3 localposition = result.transform.localPosition;
         string mainBody = string.Format("PlayerModel_{0}", bodyType);
         int[] avatarIndex = new int[] { attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip };
 
-        GameObject dummyBall = null;
         GameObject bipGO = null;
-
         Transform[] hips;
         List<CombineInstance> combineInstances = new List<CombineInstance>();
         List<Material> materials = new List<Material>();
@@ -450,16 +447,6 @@ public class ModelManager : KnightSingleton<ModelManager>
         string path = string.Empty;
         string texturePath = string.Empty;
         Material matObj = materialSource;
-
-        Transform dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-        if (dt != null)
-            for (int j = 0; j < dt.childCount; j++)
-                Destroy(dt.GetChild(j).gameObject);
-
-        dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
-        if (dt != null)
-            for (int j = 0; j < dt.childCount; j++)
-                Destroy(dt.GetChild(j).gameObject);
 
         for (int i = 0; i < avatarIndex.Length; i++)
         {
@@ -493,24 +480,203 @@ public class ModelManager : KnightSingleton<ModelManager>
                     ResourceRequest request = Resources.LoadAsync(path);
                     yield return request;
                     resObj = request.asset as GameObject;
+					if (!bodyCache.ContainsKey(path))
+						bodyCache.Add(path, resObj);
                 }
 
                 if (resObj)
                 {
                     GameObject avatarPartGO = Instantiate(resObj) as GameObject;
 
-                    Texture texture = null;
+                    Texture2D texture = null;
                     if (textureCache.ContainsKey(texturePath))
                         texture = textureCache[texturePath];
                     else {
                         ResourceRequest request = Resources.LoadAsync(texturePath);
                         yield return request;
                         texture = request.asset as Texture2D;
+						if (!textureCache.ContainsKey (texturePath))
+							textureCache.Add (texturePath, texture);
                     }
 
                     if (texture != null) {
                         matObj.SetTexture("_MainTex", texture);
 
+                        if (i < 6)
+                        {
+                            if (bipGO == null) {
+                                bipGO = avatarPartGO.transform.FindChild("Bip01").gameObject;
+
+                                if (bipGO)
+                                    bipGO.transform.parent = result.transform;
+                            }
+
+                            hips = bipGO.GetComponentsInChildren<Transform>();
+                            if (hips.Length > 0)
+                            {
+                                CombineInstance ci = new CombineInstance();
+                                SkinnedMeshRenderer smr = avatarPartGO.GetComponentInChildren<SkinnedMeshRenderer>();
+                                if (smr != null)
+                                {
+                                    smr.material = matObj;
+                                    ci.mesh = smr.sharedMesh;
+								}
+
+                                combineInstances.Add(ci);
+
+                                //sort new material
+                                materials.AddRange(smr.materials);
+
+                                //get same bip to create new bones  
+                                foreach (Transform bone in smr.bones)
+                                {
+                                    foreach (Transform hip in hips)
+                                    {
+                                        if (hip.name != bone.name)
+                                            continue;
+
+                                        bones.Add(hip);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            Destroy(avatarPartGO);
+                            avatarPartGO = null;
+                        }
+                        else if (i == 6)
+                        {
+                            Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+                            Material matObj1 = Instantiate(materialSource);
+							MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer>();
+                            if (mr != null)
+                                mr.material = matObj1;
+
+                            avatarPartGO.transform.parent = t;
+                            avatarPartGO.transform.localPosition = Vector3.zero;
+                            avatarPartGO.transform.localEulerAngles = Vector3.zero;
+                            avatarPartGO.transform.localScale = Vector3.one;
+							LayerMgr.Get.SetLayer(avatarPartGO, layer);
+                        }
+                        else if (i == 7)
+                        {
+                            Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+                            Material matObj1 = Instantiate(materialSource);
+                            MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer>();
+                            if (mr != null)
+                                mr.material = matObj1;
+
+                            avatarPartGO.transform.parent = t;
+                            avatarPartGO.transform.localPosition = Vector3.zero;
+                            avatarPartGO.transform.localEulerAngles = Vector3.zero;
+                            avatarPartGO.transform.localScale = Vector3.one;
+							LayerMgr.Get.SetLayer(avatarPartGO, layer);
+                        }
+                    }
+                }
+            }
+        }
+
+        GameObject clone = null;
+        clone = new GameObject();
+
+		SkinnedMeshRenderer resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
+
+        if (resultSmr.sharedMesh == null)
+            resultSmr.sharedMesh = new Mesh();
+
+        resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray(), false, false);
+        resultSmr.bones = bones.ToArray();
+        resultSmr.materials = materials.ToArray();
+        resultSmr.gameObject.isStatic = true;
+        resultSmr.receiveShadows = false;
+        resultSmr.useLightProbes = false;
+		resultSmr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+        GameObject cobbineObject = null;
+        
+        MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
+        cobbineObject = materialCombiner.CombineMaterial(matObj);
+        cobbineObject.transform.parent = result.transform;
+        LayerMgr.Get.SetLayer(cobbineObject, layer);
+        cobbineObject.name = "PlayerModel";
+
+        Destroy(clone);
+        clone = null;
+
+        //InitCapsuleCollider(result, bodyType);
+        InitAnimator(result, bodyType, animatorType);
+        result.transform.localPosition = localposition;
+    }
+
+    public GameObject SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool reset = false)
+    {
+        Transform parent = result.transform.parent;
+        Vector3 localposition = result.transform.localPosition;
+        string mainBody = string.Format("PlayerModel_{0}", bodyType);
+        int[] avatarIndex = new int[] { attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip };
+
+        if (reset)
+        {
+            Destroy(result);            
+            result = new GameObject();
+        }
+
+        GameObject dummyBall = null;
+        GameObject bipGO = null;
+		
+        Transform[] hips;
+        List<CombineInstance> combineInstances = new List<CombineInstance>();
+        List<Material> materials = new List<Material>();
+        List<Transform> bones = new List<Transform>();
+
+        string path = string.Empty;
+        string texturePath = string.Empty;
+        Material matObj = materialSource;
+
+        Transform dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+        if (dt != null)
+            for (int j = 0; j < dt.childCount; j++)
+                Destroy(dt.GetChild(j).gameObject);
+	
+        dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+        if (dt != null)
+            for (int j = 0; j < dt.childCount; j++)
+                Destroy(dt.GetChild(j).gameObject);
+
+        for (int i = 0; i < avatarIndex.Length; i++)
+        {
+            if (avatarIndex[i] > 0)
+            {
+                int avatarBody = avatarIndex[i] / 1000;
+                int avatarBodyTexture = avatarIndex[i] % 1000;
+                string avatarPart = GetAvatarPartString(i);
+
+                if (i == 0)
+                {
+                    path = string.Format("Character/PlayerModel_{0}/Model/{1}", bodyType, mainBody); 
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, "B", "0", avatarBodyTexture);
+                }
+                else if (i < 6)
+                {
+                    path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPart, avatarBody);
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPart, avatarBody, avatarBodyTexture);
+                }
+                else
+                {//it maybe A or Z
+                    path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart, avatarBody);
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart, avatarBody, avatarBodyTexture);
+                }
+				
+                GameObject resObj = loadBody(path);
+                if (resObj)
+                {
+                    try
+                    {
+                        GameObject avatarPartGO = Instantiate(resObj) as GameObject;
+                        Texture texture = loadTexture(texturePath);
+                        matObj.SetTexture("_MainTex", texture);
+						
                         if (i < 6)
                         {
                             Transform tBipGo = result.transform.FindChild("Bip01");
@@ -519,13 +685,14 @@ public class ModelManager : KnightSingleton<ModelManager>
                                 if (bipGO == null)
                                 {
                                     bipGO = avatarPartGO.transform.FindChild("Bip01").gameObject;
-
+									
                                     if (bipGO)
                                         bipGO.transform.parent = result.transform;
                                 }
-                            } else
+                            }
+                            else
                                 bipGO = tBipGo.gameObject;
-
+							
                             if (dummyBall == null)
                             {
                                 Transform t = result.transform.FindChild("DummyBall");
@@ -544,7 +711,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                                 if(dummyBall)
                                     dummyBall.transform.parent = result.transform;
                             }
-
+							
                             hips = bipGO.GetComponentsInChildren<Transform>();
                             if (hips.Length > 0)
                             {
@@ -561,7 +728,7 @@ public class ModelManager : KnightSingleton<ModelManager>
 
                                 //sort new material
                                 materials.AddRange(smr.materials);
-
+								
                                 //get same bip to create new bones  
                                 foreach (Transform bone in smr.bones)
                                 {
@@ -569,7 +736,7 @@ public class ModelManager : KnightSingleton<ModelManager>
                                     {
                                         if (hip.name != bone.name)
                                             continue;
-
+										
                                         bones.Add(hip);
                                         break;
                                     }
@@ -616,6 +783,10 @@ public class ModelManager : KnightSingleton<ModelManager>
                             avatarPartGO.transform.localScale = Vector3.one;
                         }
                     }
+                    catch (UnityException e)
+                    {
+                        Debug.Log(e.ToString());
+                    }
                 }
             }
         }
@@ -626,26 +797,27 @@ public class ModelManager : KnightSingleton<ModelManager>
             clone = dt.gameObject;
         else
             clone = new GameObject();
-
+		
         SkinnedMeshRenderer resultSmr = clone.gameObject.GetComponent<SkinnedMeshRenderer>();
         if (resultSmr == null)
             resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
-
+		
         if (resultSmr.sharedMesh == null)
             resultSmr.sharedMesh = new Mesh();
-
+		
         resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray(), false, false);
         resultSmr.bones = bones.ToArray();
         resultSmr.materials = materials.ToArray();
         resultSmr.gameObject.isStatic = true;
         resultSmr.receiveShadows = false;
         resultSmr.useLightProbes = false;
+		resultSmr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
         GameObject cobbineObject = null;
         if (!combine)
         {
             clone.transform.parent = result.transform;
-            LayerMgr.Get.SetLayer(clone, layer);
+            LayerMgr.Get.SetLayer(clone, ELayer.Player);
             clone.name = "PlayerModel";
         }
         else
@@ -653,7 +825,7 @@ public class ModelManager : KnightSingleton<ModelManager>
             MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
             cobbineObject = materialCombiner.CombineMaterial(matObj);
             cobbineObject.transform.parent = result.transform;
-            LayerMgr.Get.SetLayer(cobbineObject, layer);
+            LayerMgr.Get.SetLayer(cobbineObject, ELayer.Player);
             cobbineObject.name = "PlayerModel";
 
             Destroy(clone);
@@ -664,246 +836,11 @@ public class ModelManager : KnightSingleton<ModelManager>
         InitAnimator(result, bodyType, animatorType);
         result.transform.parent = parent;
         result.transform.localPosition = localposition;
-    }
 
-    public GameObject SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool reset = false)
-    {
-        try
-        {
-            Transform parent = result.transform.parent;
-            Vector3 localposition = result.transform.localPosition;
-            string mainBody = string.Format("PlayerModel_{0}", bodyType);
-            int[] avatarIndex = new int[] { attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip };
-
-            if (reset)
-            {
-                Destroy(result);            
-                result = new GameObject();
-            }
-
-            GameObject dummyBall = null;
-            GameObject bipGO = null;
-			
-            Transform[] hips;
-            List<CombineInstance> combineInstances = new List<CombineInstance>();
-            List<Material> materials = new List<Material>();
-            List<Transform> bones = new List<Transform>();
-
-            string path = string.Empty;
-            string texturePath = string.Empty;
-            Material matObj = materialSource;
-
-            Transform dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-            if (dt != null)
-                for (int j = 0; j < dt.childCount; j++)
-                    Destroy(dt.GetChild(j).gameObject);
+        if(!combine)
+            return clone;
 		
-            dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
-            if (dt != null)
-                for (int j = 0; j < dt.childCount; j++)
-                    Destroy(dt.GetChild(j).gameObject);
-
-            for (int i = 0; i < avatarIndex.Length; i++)
-            {
-                if (avatarIndex[i] > 0)
-                {
-                    int avatarBody = avatarIndex[i] / 1000;
-                    int avatarBodyTexture = avatarIndex[i] % 1000;
-                    string avatarPart = GetAvatarPartString(i);
-
-                    if (i == 0)
-                    {
-                        path = string.Format("Character/PlayerModel_{0}/Model/{1}", bodyType, mainBody); 
-                        texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, "B", "0", avatarBodyTexture);
-                    }
-                    else if (i < 6)
-                    {
-                        path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPart, avatarBody);
-                        texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPart, avatarBody, avatarBodyTexture);
-                    }
-                    else
-                    {//it maybe A or Z
-                        path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart, avatarBody);
-                        texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart, avatarBody, avatarBodyTexture);
-                    }
-					
-                    GameObject resObj = loadBody(path);
-                    if (resObj)
-                    {
-                        try
-                        {
-                            GameObject avatarPartGO = Instantiate(resObj) as GameObject;
-                            Texture texture = loadTexture(texturePath);
-                            matObj.SetTexture("_MainTex", texture);
-							
-                            if (i < 6)
-                            {
-                                Transform tBipGo = result.transform.FindChild("Bip01");
-                                if (tBipGo == null)
-                                {
-                                    if (bipGO == null)
-                                    {
-                                        bipGO = avatarPartGO.transform.FindChild("Bip01").gameObject;
-										
-                                        if (bipGO)
-                                            bipGO.transform.parent = result.transform;
-                                    }
-                                }
-                                else
-                                    bipGO = tBipGo.gameObject;
-								
-                                if (dummyBall == null)
-                                {
-                                    Transform t = result.transform.FindChild("DummyBall");
-                                    if (t == null)
-                                    {
-                                        if (dummyBall == null)
-                                        {
-                                            Transform t1 = avatarPartGO.transform.FindChild("DummyBall");
-                                            if (t1 != null)
-                                                dummyBall = t1.gameObject;
-                                        }
-                                    }
-                                    else
-                                        dummyBall = t.gameObject;
-
-                                    if(dummyBall)
-                                        dummyBall.transform.parent = result.transform;
-                                }
-								
-                                hips = bipGO.GetComponentsInChildren<Transform>();
-                                if (hips.Length > 0)
-                                {
-                                    CombineInstance ci = new CombineInstance();
-                                    SkinnedMeshRenderer smr = avatarPartGO.GetComponentInChildren<SkinnedMeshRenderer>();
-                                    if (smr != null)
-                                    {
-                                        smr.material = matObj;
-                                        smr.material.name = avatarPart;
-                                        ci.mesh = smr.sharedMesh;
-                                    }
-
-                                    combineInstances.Add(ci);
-
-                                    //sort new material
-                                    materials.AddRange(smr.materials);
-									
-                                    //get same bip to create new bones  
-                                    foreach (Transform bone in smr.bones)
-                                    {
-                                        foreach (Transform hip in hips)
-                                        {
-                                            if (hip.name != bone.name)
-                                                continue;
-											
-                                            bones.Add(hip);
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                Destroy(avatarPartGO);
-                                avatarPartGO = null;
-                            }
-                            else if (i == 6)
-                            {
-                                Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-                                Material matObj1 = Instantiate(materialSource);
-                                if (t != null && matObj1 != null)
-                                {
-                                    for (int j = 0; j < t.childCount; j++)
-                                        Destroy(t.GetChild(j).gameObject);
-
-                                    MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer>();
-                                    if (mr != null)
-                                        mr.material = matObj1;
-
-                                    avatarPartGO.transform.parent = t;
-                                    avatarPartGO.transform.localPosition = Vector3.zero;
-                                    avatarPartGO.transform.localEulerAngles = Vector3.zero;
-                                    avatarPartGO.transform.localScale = Vector3.one;
-                                }
-                            }
-                            else if (i == 7)
-                            {
-                                Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
-                                Material matObj1 = Instantiate(materialSource);
-                                if (t != null && matObj1 != null)
-                                    for (int j = 0; j < t.childCount; j++)
-                                        Destroy(t.GetChild(j).gameObject);
-
-                                MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer>();
-                                if (mr != null)
-                                    mr.material = matObj1;
-
-                                avatarPartGO.transform.parent = t;
-                                avatarPartGO.transform.localPosition = Vector3.zero;
-                                avatarPartGO.transform.localEulerAngles = Vector3.zero;
-                                avatarPartGO.transform.localScale = Vector3.one;
-                            }
-                        }
-                        catch (UnityException e)
-                        {
-                            Debug.Log(e.ToString());
-                        }
-                    }
-                }
-            }
-
-            GameObject clone = null;
-            dt = result.transform.Find("PlayerModel");
-            if (dt != null)
-                clone = dt.gameObject;
-            else
-                clone = new GameObject();
-			
-            SkinnedMeshRenderer resultSmr = clone.gameObject.GetComponent<SkinnedMeshRenderer>();
-            if (resultSmr == null)
-                resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
-			
-            if (resultSmr.sharedMesh == null)
-                resultSmr.sharedMesh = new Mesh();
-			
-            resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray(), false, false);
-            resultSmr.bones = bones.ToArray();
-            resultSmr.materials = materials.ToArray();
-            resultSmr.gameObject.isStatic = true;
-            resultSmr.receiveShadows = false;
-            resultSmr.useLightProbes = false;
-
-            GameObject cobbineObject = null;
-            if (!combine)
-            {
-                clone.transform.parent = result.transform;
-                LayerMgr.Get.SetLayer(clone, ELayer.Player);
-                clone.name = "PlayerModel";
-            }
-            else
-            {
-                MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
-                cobbineObject = materialCombiner.CombineMaterial(matObj);
-                cobbineObject.transform.parent = result.transform;
-                LayerMgr.Get.SetLayer(cobbineObject, ELayer.Player);
-                cobbineObject.name = "PlayerModel";
-
-                Destroy(clone);
-                clone = null;
-            }
-
-            InitCapsuleCollider(result, bodyType);
-            InitAnimator(result, bodyType, animatorType);
-            result.transform.parent = parent;
-            result.transform.localPosition = localposition;
-
-            if(!combine)
-                return clone;
-            return cobbineObject;
-        }
-        catch (UnityException e)
-        {
-            Debug.Log(e.ToString());
-            return null;
-        }
+        return cobbineObject;
     }
 
     private void InitCapsuleCollider(GameObject obj, int bodyType)

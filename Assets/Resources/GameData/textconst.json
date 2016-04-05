@@ -468,7 +468,7 @@
     },
     {
         "id": 509,
-        "tw": "重送",
+        "tw": "重新連線",
         "en": "RESEND"
     },
     {
@@ -950,7 +950,7 @@
     {
         "id": 3019,
         "tw": "戰力值",
-        "en": "OVERALL",
+        "en": "POWER",
         "jp": "OVERALL"
     },
     {
@@ -1003,7 +1003,7 @@
         "id": 3028,
         "explain": "秀戰力值",
         "tw": "完整戰力值",
-        "en": "OVERALL"
+        "en": "POWER"
     },
     {
         "id": 3101,
@@ -1757,7 +1757,7 @@
     {
         "id": 4103,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]5星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]5星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]5 Star card[-]  "
     },
     {
@@ -1817,13 +1817,13 @@
     {
         "id": 4120,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]2星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]2星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]2 Star card[-]  "
     },
     {
         "id": 4121,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]3星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]3星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]3 Star card[-]  "
     },
     {
@@ -1957,7 +1957,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -2254,7 +2254,7 @@
     {
         "id": 5029,
         "tw": "開始關注你",
-        "en": "SOMEONE'S STARTED FOLLOWING YOU."
+        "en": "STARTED FOLLOWING YOU."
     },
     {
         "id": 5030,
@@ -3447,6 +3447,11 @@
         "en": "Join Count"
     },
     {
+        "id": 9517,
+        "tw": "更換隊友",
+        "en": "Switch Teammate"
+    },
+    {
         "id": 9601,
         "uipath": "戰術選擇/SubheadLabel",
         "tw": "請選擇戰術",
@@ -3462,7 +3467,7 @@
         "id": 9701,
         "explain": "聯盟對戰",
         "tw": "聯 盟 對 戰",
-        "en": "PVP BATTLE"
+        "en": "PVP CHALLENGE"
     },
     {
         "id": 9702,
@@ -3480,7 +3485,7 @@
         "id": 9704,
         "uipath": "tabs/03",
         "tw": "全球排行",
-        "en": "GLOBAL"
+        "en": "GLOBAL RANK"
     },
     {
         "id": 9705,
@@ -3562,20 +3567,20 @@
     {
         "id": 9721,
         "uipath": "StartBtn",
-        "tw": "開始戰鬥",
-        "en": "START"
+        "tw": "對戰",
+        "en": "CHALLENGE"
     },
     {
         "id": 9722,
         "uipath": "CombatLabel0/Label",
         "tw": "對手戰力值",
-        "en": "OPPONENT OVERALL STATS"
+        "en": "OPPONENT POWER"
     },
     {
         "id": 9723,
         "uipath": "CombatLabel1/Label",
-        "tw": "玩家戰力值",
-        "en": "PLAYERS OVERALL STATS"
+        "tw": "我方戰力值",
+        "en": "YOUR POWER"
     },
     {
         "id": 9724,
@@ -3584,36 +3589,36 @@
     },
     {
         "id": 9725,
-        "tw": "勝利",
-        "en": "VICTORY"
+        "tw": "贏",
+        "en": "Win"
     },
     {
         "id": 9726,
-        "tw": "敗北",
-        "en": "DEFEAT"
+        "tw": "輸",
+        "en": "Lose"
     },
     {
         "id": 9727,
-        "tw": "點擊刷新",
+        "tw": "刷新",
         "en": "REFRESH"
     },
     {
         "id": 9728,
         "explain": "對戰按鈕狀態 計算次數",
-        "tw": "挑戰次數 {0} ",
-        "en": "Challenged {0} "
+        "tw": "今日次數 {0} ",
+        "en": "Daily Times {0} "
     },
     {
         "id": 9729,
         "explain": "對戰按鈕狀態 冷卻時",
-        "tw": "冷卻中 {0} ",
-        "en": "Coolling {0} "
+        "tw": "倒數 {0} ",
+        "en": "CD {0} "
     },
     {
         "id": 9730,
         "explain": "對戰按鈕狀態 次數使用完畢",
-        "tw": "購買票券",
-        "en": "Buy tickets"
+        "tw": "購買對戰次數",
+        "en": "Buy Challenge Time"
     },
     {
         "id": 9731,
@@ -3652,6 +3657,26 @@
         "en": "RANK UP"
     },
     {
+        "id": 9737,
+        "tw": "聯盟階級",
+        "en": "Rank Level"
+    },
+    {
+        "id": 9738,
+        "tw": "立刻挑戰",
+        "en": "CHALLENGE Now"
+    },
+    {
+        "id": 9739,
+        "tw": "已達今日挑戰上限",
+        "en": "Challenge Times Over Today"
+    },
+    {
+        "id": 9740,
+        "tw": "花費金幣{0}刷新對手？",
+        "en": "Spend {0} gold to refresh opponent?"
+    },
+    {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipath": "RankSlider/Thumb",
@@ -3661,8 +3686,8 @@
     {
         "id": 9742,
         "uipath": "RankSlider/NowRank",
-        "tw": "你的積分 {1} ",
-        "en": "Your PVP Score {1} "
+        "tw": "我的排名",
+        "en": "My Rank"
     },
     {
         "id": 9743,
@@ -3693,8 +3718,33 @@
     },
     {
         "id": 9748,
-        "tw": "目前",
-        "en": "Now"
+        "tw": "目前階級",
+        "en": "Now Step"
+    },
+    {
+        "id": 9749,
+        "tw": "花費金幣{0}進行對戰？",
+        "en": "Spend {0} gold to challenge?"
+    },
+    {
+        "id": 9750,
+        "tw": "花費寶石{0}立即進行對戰？",
+        "en": "Spend {0} gems to challenge right now?"
+    },
+    {
+        "id": 9751,
+        "tw": "花費寶石{0}購買每日對戰次數？",
+        "en": "Spend {0} gems to buy daily challenge count?"
+    },
+    {
+        "id": 9752,
+        "tw": "上一階",
+        "en": "Previous Step"
+    },
+    {
+        "id": 9753,
+        "tw": "下一階",
+        "en": "Next Stop"
     },
     {
         "id": 9761,
@@ -4238,6 +4288,11 @@
         "tw": "火鍋",
         "en": "BLK",
         "jp": "BLK"
+    },
+    {
+        "id": 10417,
+        "uipath": "三選一",
+        "tw": "獎勵三選一"
     },
     {
         "id": 10500,

@@ -13,6 +13,7 @@ public class PVPLvRangeItem : MonoBehaviour
 
     public GameObject ThumbOffset;
     public UILabel ThumbOffsetLabel;
+	public UILabel LabelMyRank;
     public UISprite Trim;
 
     public GameObject NowRankOffset;
@@ -73,6 +74,7 @@ public class PVPLvRangeItem : MonoBehaviour
                     }
                 }
             }
+
             UpdatePosition();
         }
     }

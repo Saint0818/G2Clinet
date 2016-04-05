@@ -129,8 +129,8 @@ namespace GameItem
 
         public void SetParent(GameObject go)
         {
-            if(isInit)
-                self.transform.parent = go.transform;
+            self.transform.parent = go.transform;
+			self.transform.localScale = Vector3.one;
         }
 
         public Vector3 LocalPosititon
@@ -143,7 +143,9 @@ namespace GameItem
     {
         public GameObject self;
         private UISprite PvPRankIcon;
+		private UISprite spriteStep;
         private UILabel RangeNameLabel;
+		private UILabel labelStep;
         private bool isInit = false;
 
         public void Init(ref GameObject go, GameObject parent)
@@ -154,6 +156,8 @@ namespace GameItem
                 self.transform.parent = parent.transform;
                 PvPRankIcon = self.transform.Find("PvPRankIcon").GetComponent<UISprite>();
                 RangeNameLabel = self.transform.Find("RangeNameLabel").GetComponent<UILabel>();
+				labelStep = self.transform.Find("Step/LabelStep").GetComponent<UILabel>();
+				spriteStep = self.transform.Find("Step").GetComponent<UISprite>();
 
                 isInit = PvPRankIcon && RangeNameLabel;
 
@@ -173,7 +177,18 @@ namespace GameItem
             if (isInit && GameData.DPVPData.ContainsKey(lv))
             {
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", lv);
-                RangeNameLabel.text = GameData.DPVPData[lv].Name;
+				RangeNameLabel.text = GameData.DPVPData[lv].Name;
+
+				if (lv == GameData.Team.PVPLv) {
+					labelStep.text = TextConst.S (9748);
+					spriteStep.spriteName = "Success";
+				} else if (lv < GameData.Team.PVPLv) {
+					labelStep.text = TextConst.S (97478);
+					spriteStep.spriteName = "Select";
+				} else {
+					labelStep.text = "";
+					spriteStep.spriteName = "";
+				}
             }
         }
 
