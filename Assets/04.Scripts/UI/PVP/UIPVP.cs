@@ -22,7 +22,7 @@ public class UIPVP : UIBase
 	private TimeSpan checktime;
  
     //page0
-    private TPvPLeagueGroup[] pvplvs = new TPvPLeagueGroup[GameData.DPVPData.Count];
+    private TPVPLeagueGroup[] pvplvs = new TPVPLeagueGroup[GameData.DPVPData.Count];
     private GameObject uiSort;
     private UIButton buttonGetAward;
     private UIButton buttonNext;
@@ -132,7 +132,7 @@ public class UIPVP : UIBase
             pvplvBtns[i] = Instantiate(itemPVPLeague) as GameObject;
             pvplvBtns[i].name = (i + 1).ToString();
 
-            pvplvs[i] = new TPvPLeagueGroup();
+            pvplvs[i] = new TPVPLeagueGroup();
             pvplvs[i].Init(ref pvplvBtns[i], uiSort);
             pvplvs[i].UpdateView(i + 1);
             pvplvs[i].LoaclPosition = new Vector3(260 * i, 0, 0);
@@ -155,7 +155,7 @@ public class UIPVP : UIBase
 		shopIndex = GetShopIndex();
 		pvpLv = GameData.Team.PVPLv;
 		currentLv = pvpLv;
-		labelRank.text = TextConst.S (9737) + currentLv.ToString ();
+        labelRank.text = string.Format(TextConst.S (9737), currentLv);
 		spriteRank.spriteName = "IconRank" + currentLv.ToString ();
 		updateUI ();
 
@@ -180,7 +180,7 @@ public class UIPVP : UIBase
 				rankObjects [i].SetParent (anchorObj);
 				rankObjects [i].Enable = true;
 				rankObjects [i].UpdateView (data [i]);
-				rankObjects [i].LocalPosititon = new Vector3 (0, -130 * i, 0);
+				rankObjects [i].LocalPosititon = new Vector3 (0, -10 -110 * i, 0);
 			}
 		}
 	}

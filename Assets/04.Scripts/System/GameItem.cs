@@ -45,6 +45,7 @@ namespace GameItem
         private UILabel PVPIntegral;
         private UIButton btn;
         private GameObject optionsBtnGroup;
+        private GameObject uiNo;
         private UIButton optionsBtn;
         private bool isInit = false;
 
@@ -53,8 +54,9 @@ namespace GameItem
             if(go){
                 self = go;
                 btn = self.GetComponent<UIButton>();
+                uiNo = self.transform.Find("Window/PVPPlaceLabel/BG").gameObject;
                 playerName = self.transform.Find("Window/PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
-                combatLabel = self.transform.Find("Window/CombatLabel").gameObject.GetComponent<UILabel>();
+                combatLabel = self.transform.Find("Window/PlayerInGameBtn/CombatLabel").gameObject.GetComponent<UILabel>();
                 GameObject obj = self.transform.Find("Window/PlayerInGameBtn").gameObject;
                 PvPRankIcon = self.transform.Find("Window/PvPRankIcon").gameObject.GetComponent<UISprite>();
 				GuildIcon = self.transform.Find("Window/GuildView/GuildIcon").gameObject.GetComponent<UISprite>();
@@ -108,22 +110,32 @@ namespace GameItem
             if (isInit)
             {
                 rankData.Team.Init();
-				if (rankData.Index == 0)
-					playerIndex.text = "";
-				else
-                	playerIndex.text = rankData.Index.ToString();
+				
                 playerName.text = rankData.Team.Player.Name;
                 playeHeadBtn.UpdateView(rankData.Team.Player);
-                combatLabel.text = rankData.Team.Player.CombatPower().ToString ();
+                combatLabel.text = string.Format("{0:0f}", rankData.Team.Player.CombatPower());
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", rankData.Team.PVPLv);
                 WinLabel.text = rankData.Team.LifetimeRecord.PVPWin.ToString();
-                if (rankData.Team.LifetimeRecord.PVPWin == 0 && rankData.Team.LifetimeRecord.PVPCount == 0)
-                {
-                    WinRateLabel.text = "100%";
+                PVPIntegral.text = rankData.Team.PVPIntegral.ToString();
+
+                if (rankData.Index == 0)
+                    playerIndex.text = "";
+                else {
+                    playerIndex.text = rankData.Index.ToString() + ".";
+                    switch (rankData.Index) {
+                        case 1: playerIndex.color = Color.yellow; break;
+                        case 2: playerIndex.color = Color.blue; break;
+                        case 3: playerIndex.color = Color.green; break;
+                        default : uiNo.SetActive(false); break;
+                    }   
                 }
+                
+                if ((rankData.Team.LifetimeRecord.PVPWin == 0 && rankData.Team.LifetimeRecord.PVPCount == 0) ||
+                    (rankData.Team.LifetimeRecord.PVPWin >= rankData.Team.LifetimeRecord.PVPCount))
+                    WinRateLabel.text = "100%";
                 else
                     WinRateLabel.text = string.Format("{0:0%}", (float)rankData.Team.LifetimeRecord.PVPWin / (float)rankData.Team.LifetimeRecord.PVPCount);
-                PVPIntegral.text = rankData.Team.PVPIntegral.ToString();
+
             }
         }
 
@@ -139,13 +151,14 @@ namespace GameItem
         }
     }
 
-    public class TPvPLeagueGroup
+    public class TPVPLeagueGroup
     {
         public GameObject self;
         private UISprite PvPRankIcon;
-		private UISprite spriteStep;
+		private UISprite spritePass;
         private UILabel RangeNameLabel;
-		private UILabel labelStep;
+		private UILabel labelPass;
+        private UILabel labelStep;
         private bool isInit = false;
 
         public void Init(ref GameObject go, GameObject parent)
@@ -156,8 +169,9 @@ namespace GameItem
                 self.transform.parent = parent.transform;
                 PvPRankIcon = self.transform.Find("PvPRankIcon").GetComponent<UISprite>();
                 RangeNameLabel = self.transform.Find("RangeNameLabel").GetComponent<UILabel>();
-				labelStep = self.transform.Find("Step/LabelStep").GetComponent<UILabel>();
-				spriteStep = self.transform.Find("Step").GetComponent<UISprite>();
+                labelStep = self.transform.Find("LabelStep").GetComponent<UILabel>();
+                labelPass = self.transform.Find("Pass/LabelPass").GetComponent<UILabel>();
+                spritePass = self.transform.Find("Pass").GetComponent<UISprite>();
 
                 isInit = PvPRankIcon && RangeNameLabel;
 
@@ -178,16 +192,18 @@ namespace GameItem
             {
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", lv);
 				RangeNameLabel.text = GameData.DPVPData[lv].Name;
+                labelStep.text = string.Format(TextConst.S (9737), lv);
 
 				if (lv == GameData.Team.PVPLv) {
-					labelStep.text = TextConst.S (9748);
-					spriteStep.spriteName = "Success";
-				} else if (lv < GameData.Team.PVPLv) {
-					labelStep.text = TextConst.S (97478);
-					spriteStep.spriteName = "Select";
+					labelPass.text = TextConst.S (9748);
+					spritePass.spriteName = "Success";
+				} else 
+                if (lv < GameData.Team.PVPLv) {
+					labelPass.text = TextConst.S (97478);
+					spritePass.spriteName = "Select";
 				} else {
-					labelStep.text = "";
-					spriteStep.spriteName = "";
+					labelPass.text = "";
+					spritePass.spriteName = "";
 				}
             }
         }
