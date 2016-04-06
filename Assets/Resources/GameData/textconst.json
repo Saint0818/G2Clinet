@@ -235,6 +235,12 @@
         "en": "RESET STAGE"
     },
     {
+        "id": 260,
+        "explain": "卡牌空間",
+        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
+        "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",
@@ -282,13 +288,13 @@
     },
     {
         "id": 310,
-        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
+        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[FF00FFFF]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
         "en": "Icon_Gem = This is the most valuable item you can get in the game [c900ff] Gems [-] get your hands into some of them as soon as you can!"
     },
     {
         "id": 311,
-        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
-        "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
+        "tw": "Icon_Coin=升級、合成與進化都需要用到[FFCC00FF]金幣[-]，透過比賽將可贏得。",
+        "en": "Icon_Coin = Golds."
     },
     {
         "id": 400,
@@ -1957,7 +1963,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -3658,8 +3664,8 @@
     },
     {
         "id": 9737,
-        "tw": "聯盟階級",
-        "en": "Rank Level"
+        "tw": " {0}階鬥牛場",
+        "en": "Step {0} Court"
     },
     {
         "id": 9738,
@@ -4464,34 +4470,34 @@
     },
     {
         "id": 11101,
+        "explain": "籃筐(Basket)",
+        "tw": "籃筐",
+        "en": "BASKET"
+    },
+    {
+        "id": 11201,
+        "explain": "廣告看板(Advertisement)",
+        "tw": "廣告看板",
+        "en": "ADVERTISEMENT"
+    },
+    {
+        "id": 11301,
+        "explain": "隨機商店(Store)",
+        "tw": "隨機商店",
+        "en": "STORE"
+    },
+    {
+        "id": 11401,
         "explain": "球館(Gym)",
         "uipath": "NameLabel",
         "tw": "球館",
         "en": "GYM"
     },
     {
-        "id": 11201,
-        "explain": "隨機商店(Store)",
-        "tw": "隨機商店",
-        "en": "STORE"
-    },
-    {
-        "id": 11301,
-        "explain": "廣告看板(Advertisement)",
-        "tw": "廣告看板",
-        "en": "ADVERTISEMENT"
-    },
-    {
-        "id": 11401,
-        "explain": "籃筐(Basket)",
-        "tw": "籃筐",
-        "en": "BASKET"
-    },
-    {
         "id": 11501,
-        "explain": "椅子(Chair)",
-        "tw": "椅子",
-        "en": "CHAIR"
+        "explain": "大門(Door)",
+        "tw": "大門",
+        "en": "GATE"
     },
     {
         "id": 11601,
@@ -4501,21 +4507,21 @@
     },
     {
         "id": 11701,
+        "explain": "椅子(Chair)",
+        "tw": "椅子",
+        "en": "CHAIR"
+    },
+    {
+        "id": 11801,
         "explain": "行事曆(Calendar)",
         "tw": "賽程表",
         "en": "CALENDAR"
     },
     {
-        "id": 11801,
+        "id": 11901,
         "explain": "信箱(Mail)",
         "tw": "信箱",
         "en": "MAIL BOX"
-    },
-    {
-        "id": 11901,
-        "explain": "大門(Door)",
-        "tw": "大門",
-        "en": "GATE"
     },
     {
         "id": 12001,
