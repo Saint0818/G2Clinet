@@ -77,11 +77,11 @@ public struct TItemRecharge {
 
 		
 		if(shop.ItemID > 0 && GameData.DItemData.ContainsKey(shop.ItemID)) {
-			ItemIcon.atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[shop.ItemID].Atlas)];
-			ItemIcon.spriteName = "Item_" + shop.ItemID.ToString();
-				
+			if(GameData.DItemData[shop.ItemID].Kind == 31)
+				ItemIcon.spriteName = "MallCoin" + shop.Pic.ToString();
+			else if(GameData.DItemData[shop.ItemID].Kind == 34)
+				ItemIcon.spriteName = "MallStamina" + shop.Pic.ToString();
 			ItemNameLabel.text = GameData.DItemData[shop.ItemID].Name;
-			//			ValueLabel.text =  GameData.DItemData[shop.ItemID].Value.ToString();
 			ValueLabel.text =  NumFormater.Convert(GameData.DItemData[shop.ItemID].Value);
 			ValueIcon.spriteName = itemKindIconValueName(GameData.DItemData[shop.ItemID].Kind);
 		}
@@ -161,7 +161,7 @@ public struct TItemRecharge {
 	}
 
 	private string itemKindIconName (int pic) {
-		if(pic >= 0 && pic <= 5)
+		if(pic >= 0)
 			return "MallGem"+(pic + 1);
         
 		return "MallGem1";
