@@ -618,7 +618,7 @@
     {
         "id": 558,
         "explain": "COST值滿",
-        "tw": "你的COST值不足以安裝此技能晶片。",
+        "tw": "你的空間值不足以安裝此技能晶片。",
         "en": "Your COST value is not enough to use this skill card."
     },
     {
@@ -1318,7 +1318,7 @@
     {
         "id": 3505,
         "uipath": "Label1",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2519,7 +2519,7 @@
     {
         "id": 7009,
         "uipath": "LabelCost",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST",
         "jp": "COST"
     },
@@ -2547,6 +2547,12 @@
         "en": "Unlocks at  [33FFDD]Level {0} [-] "
     },
     {
+        "id": 7014,
+        "explain": "尚未安裝晶片",
+        "tw": "尚未安裝晶片",
+        "en": "Cards are not installed"
+    },
+    {
         "id": 7101,
         "explain": "技能sort"
     },
@@ -2571,7 +2577,7 @@
     {
         "id": 7105,
         "uipath": "CostCheck",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2632,7 +2638,7 @@
         "id": 7115,
         "explain": "不可以裝備或是出售",
         "uipath": "UnavailableLabel",
-        "tw": "不可裝備",
+        "tw": "空間不足",
         "en": "UNAVAILABLE"
     },
     {
@@ -2640,6 +2646,12 @@
         "uipath": "LabelFilter/變換字串",
         "tw": "篩選中",
         "en": "FILTER"
+    },
+    {
+        "id": 7117,
+        "explain": "試穿",
+        "tw": "試穿中",
+        "en": "FITTING"
     },
     {
         "id": 7201,
@@ -2661,7 +2673,7 @@
     {
         "id": 7204,
         "uipath": "LabelKind2",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2828,7 +2840,7 @@
     {
         "id": 7403,
         "uipath": "Cost",
-        "tw": "Cost",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2919,7 +2931,7 @@
         "id": 7501,
         "explain": "技能晶片安裝後的狀態",
         "uipath": "ItemCardEquipped ",
-        "tw": "COST [00FFFFFF]{0}[-]",
+        "tw": "空間 [00FFFFFF]{0}[-]",
         "en": "COST [00FFFFFF]{0}[-] ",
         "jp": "COST [00FFFFFF]{0}[-]"
     },
@@ -3130,7 +3142,7 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
-        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片COST，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] COST，以此類推。\n\n目前已降低 [00ff00] {0} [-] COST。",
+        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
         "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
@@ -3454,8 +3466,8 @@
     },
     {
         "id": 9517,
-        "tw": "更換隊友",
-        "en": "Switch Teammate"
+        "tw": "點擊更換隊友",
+        "en": "Tap to Switch Teammate"
     },
     {
         "id": 9601,
@@ -3472,7 +3484,7 @@
     {
         "id": 9701,
         "explain": "聯盟對戰",
-        "tw": "聯 盟 對 戰",
+        "tw": "聯盟對戰",
         "en": "PVP CHALLENGE"
     },
     {
@@ -3595,13 +3607,13 @@
     },
     {
         "id": 9725,
-        "tw": "贏",
-        "en": "Win"
+        "tw": "勝",
+        "en": "WIN"
     },
     {
         "id": 9726,
-        "tw": "輸",
-        "en": "Lose"
+        "tw": "敗",
+        "en": "LOSE"
     },
     {
         "id": 9727,
@@ -3679,8 +3691,8 @@
     },
     {
         "id": 9740,
-        "tw": "花費金幣{0}刷新對手？",
-        "en": "Spend {0} gold to refresh opponent?"
+        "tw": "花費金幣[FFCC00FF]{0}[-]刷新對手？（持有：[FFCC00FF]{1}[-]）",
+        "en": "Spend {0} gold to refresh opponent?（You have：[FFCC00FF]{1}[-]）"
     },
     {
         "id": 9741,
@@ -3729,18 +3741,18 @@
     },
     {
         "id": 9749,
-        "tw": "花費金幣{0}進行對戰？",
-        "en": "Spend {0} gold to challenge?"
+        "tw": "花費金幣[FFCC00FF]{0}[-]進行對戰？",
+        "en": "Spend [FFCC00FF]{0}[-] gold to challenge?"
     },
     {
         "id": 9750,
-        "tw": "花費寶石{0}立即進行對戰？",
-        "en": "Spend {0} gems to challenge right now?"
+        "tw": "花費寶石[FF00FFFF]{0}[-]立即進行對戰？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to challenge right now?"
     },
     {
         "id": 9751,
-        "tw": "花費寶石{0}購買每日對戰次數？",
-        "en": "Spend {0} gems to buy daily challenge count?"
+        "tw": "花費寶石[FF00FFFF]{0}[-]購買每日對戰次數？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to buy daily challenge count?"
     },
     {
         "id": 9752,
@@ -3750,7 +3762,7 @@
     {
         "id": 9753,
         "tw": "下一階",
-        "en": "Next Stop"
+        "en": "Next Step"
     },
     {
         "id": 9761,
@@ -4398,7 +4410,7 @@
     {
         "id": 10530,
         "explain": "30.卡牌的Cost值",
-        "tw": "Cost",
+        "tw": "空間",
         "en": "COST",
         "jp": "COST"
     },
@@ -4466,7 +4478,12 @@
         "tw": "外觀替換"
     },
     {
-        "id": 11008
+        "id": 11008,
+        "tw": "花費寶石[FF00FFFF]{0}[-]購買佇列？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to buy queue?"
+    },
+    {
+        "id": 11009
     },
     {
         "id": 11101,
