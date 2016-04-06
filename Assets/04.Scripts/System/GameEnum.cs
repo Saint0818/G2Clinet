@@ -136,7 +136,8 @@
 		OperateLogo = 56,
 		OperateChair = 57,
 		OperateCalendar = 58,
-		OperateMail = 59
+		OperateMail = 59,
+		OperateQueue = 50
     }
 
     public enum EPlayerPostion

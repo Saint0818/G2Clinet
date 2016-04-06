@@ -30,6 +30,7 @@ public class UIGameLoseResult : UIBase {
 	private const string UIName = "UIGameLoseResult";
 
 	private GameStageTargetLose[] mTargets;
+	private GameObject goStatsNextLabel;
 	private const float finishInterval = 0.2f;
 	private int hintIndex;
 	private int hintCount;
@@ -134,6 +135,9 @@ public class UIGameLoseResult : UIBase {
 		pvpObj.LabelNextPoint = GameObject.Find(UIName + "/RankView/NextPoint").GetComponent<UILabel>();
 		pvpObj.SliderBar = GameObject.Find(UIName + "/RankView/ProgressBar").GetComponent<UISlider>();
 
+		goStatsNextLabel = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
+		goStatsNextLabel.SetActive(false);
+
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/StatsNextLabel")).onClick = OnReturn;
 	}
 
@@ -184,6 +188,7 @@ public class UIGameLoseResult : UIBase {
 	private void showFinish () {
 		isShowFinish = true;
 		finishTime = finishInterval;
+		goStatsNextLabel.SetActive(true);
 	}
 
 	private void pvpNext () {

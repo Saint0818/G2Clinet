@@ -137,6 +137,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private TPVPResult beforeTeam = new TPVPResult();
 	private TPVPResult afterTeam = new TPVPResult();
+	private bool isEndShowScene = false;
 
     public EBallState BallState
     {
@@ -1513,13 +1514,15 @@ public class GameController : KnightSingleton<GameController>
 			GameData.Team.PVPIntegral = reslut.PVPIntegral;
 			GameData.Team.PVPCoin = reslut.PVPCoin;
 			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-
-			if(IsWinner) {
-				UIGameResult.UIShow(true);
-				UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
-			} else {
-				UIGameLoseResult.UIShow(true);
-				UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
+			if(isEndShowScene) { //進去的話就表示還沒回傳就跑完End Game
+				if(IsWinner) {
+					UIGameResult.UIShow(true);
+					UIGameResult.Get.SetGameRecord(ref GameRecord);
+					UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
+				} else {
+					UIGameLoseResult.UIShow(true);
+					UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
+				}
 			}
 		}
 	}
@@ -3758,9 +3761,11 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	IEnumerator playFinish() {
+		isEndShowScene = false;
 		yield return new WaitForSeconds(2.5f);
 	    IsStart = false;
 		setEndShowScene();
+		isEndShowScene = true;
 		if(LobbyStart.Get.IsAutoReplay){
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);
@@ -3868,7 +3873,15 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
 			}
-			pveEnd(StageData.ID);
+			if(!GameData.IsPVP)
+				pveEnd(StageData.ID);
+			else {
+				if(beforeTeam.PVPLv != 0 && afterTeam.PVPLv != 0) {
+					UIGameResult.UIShow(true);
+					UIGameResult.Get.SetGameRecord(ref GameRecord);
+					UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
+				}
+			}
 		}
 		else
 		{
@@ -3881,10 +3894,12 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState (EPlayerState.Ending0);
 			}
-			if(!GameData.IsPVP) {
-				UIGameLoseResult.UIShow(true);
+			UIGameLoseResult.UIShow(true);
+			if(!GameData.IsPVP) 
 				UIGameLoseResult.Get.Init();
-			}
+			else 
+				if(beforeTeam.PVPLv != 0 && afterTeam.PVPLv != 0) 
+					UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
 		}
 		SendGameRecord();
 		CameraMgr.Get.SetEndShowSituation();
