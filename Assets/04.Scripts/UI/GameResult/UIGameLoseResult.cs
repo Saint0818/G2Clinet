@@ -43,14 +43,12 @@ public class UIGameLoseResult : UIBase {
 	private TPVPObj pvpObj = new TPVPObj();
 	private TPVPRank pvpRank = new TPVPRank();
 	private bool isShowRank = false;
+	private bool isDeflation = false;
 
 	public int minusValue;
 	public int nowMin;
 	public int nowMax;
 	public int nowValue;
-
-	private TPVPResult beforeTeam = new TPVPResult();
-	private TPVPResult afterTeam = new TPVPResult();
 	
 	public static bool Visible {
 		get {
@@ -117,10 +115,12 @@ public class UIGameLoseResult : UIBase {
 				pvpObj.LabelNowPoint.text = nowValue.ToString();
 				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
-				if(pvpRank.AfterLv == 1 || pvpRank.BeforeLv == 1) {
+				if(pvpRank.AfterLv == 1 && pvpRank.BeforeLv == 1) {
 					return;
-				} else
-					deflation ();
+				} else {
+					if(!isDeflation)
+						deflation ();
+				}
 			}
 		}
 	}
@@ -158,6 +158,8 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	private void setData (TPVPResult before, TPVPResult after) {
+		before.PVPLv = GameFunction.GetPVPLv(before.PVPIntegral);
+		after.PVPLv = GameFunction.GetPVPLv(after.PVPIntegral);
 		if(GameData.DPVPData.ContainsKey(before.PVPLv) && GameData.DPVPData.ContainsKey(after.PVPLv)) {
 			setEndData ();
 			pvpRank.BeforeLv = before.PVPLv;
@@ -198,26 +200,30 @@ public class UIGameLoseResult : UIBase {
 
 	private void showRank () {
 		isShowRank = true;
+		goStatsNextLabel.SetActive(true);
 	}
 
 	private void deflation () {
+		isDeflation = true;
 		pvpObj.objAnimator.SetTrigger(PVPDownRank);
 		Invoke("showFinalRank", 0.5f);
 	}
 
-	private void showAfterRank () {
+	private void showFinalRank () {
 		pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.AfterLv);
 		if(GameData.DPVPData.ContainsKey(pvpRank.AfterLv))
 			pvpObj.LabelRankName.text = GameData.DPVPData[pvpRank.AfterLv].Name;
 
 		nowMax = pvpRank.AfterHighScore;
 		nowMin = pvpRank.AfterLowScore;
+		pvpRank.BeforeLowScore = nowMin;
 		pvpObj.LabelNextPoint.text = nowMax.ToString();
 		showRank();
 	}
 
 	public void OnReturn (GameObject go) {
 		Time.timeScale = 1;
+		goStatsNextLabel.SetActive(false);
 		if(GameData.IsMainStage)
 		{
 			UIShow(false);

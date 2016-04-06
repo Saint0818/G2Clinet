@@ -866,7 +866,27 @@ public static class GameFunction
 //        result.GuildIIcon= team.LeagueIcon;
 //		result.LifetimeRecord = team.LifetimeRecord;
         return result;
-    }
+	}
+
+	public static int GetPVPLv (int integral) {
+		if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && integral < GameData.DPVPData[GameConst.PVPMinLv].LowScore)
+			return GameConst.PVPMinLv;
+		else 
+			if (GameData.DPVPData.ContainsKey(GameConst.PVPMaxLv) && integral > GameData.DPVPData[GameConst.PVPMaxLv].HighScore)
+				return GameConst.PVPMaxLv;
+			else {
+				int lv = 1;
+
+				foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData) {
+					if (integral >= item.Value.LowScore && integral <= item.Value.HighScore) {
+						lv = item.Value.Lv;
+						break;
+					}
+				}
+
+				return lv;
+			}
+	}
 
 	public static Transform FindQualityBG (Transform obj) {
 		Transform t = obj.FindChild("QualityBG");

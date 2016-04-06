@@ -293,7 +293,7 @@ public class UILevelUp : UIBase {
 				else if (GameData.IsPVP)
 				{
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-					UILoading.OpenUI = UILoading.OpenStageUI;
+					UILoading.OpenUI = UILoading.OpenPVPUI;
 				}
 				else
 				{
