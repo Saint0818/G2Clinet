@@ -9,7 +9,7 @@ public class UIPVP : UIBase
 {
     private static UIPVP instance = null;
     private const string UIName = "UIPVP";
-    private const int pageCount = 4;
+    private const int pageCount = 3;
     private const float tweenSpeed = 0.5f;
     public int pvpLv = 1;
 	public int currentLv = 1;
@@ -94,6 +94,7 @@ public class UIPVP : UIBase
         if (isShow)
         {
             DoPage(0);
+            //sendMyRank();
             labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
         }
     }
@@ -192,8 +193,6 @@ public class UIPVP : UIBase
 			updateUI();
     }
 
-
-
 	private void updateUI()
 	{
 		spriteTicket.spriteName = GameFunction.SpendKindTexture(0);
@@ -211,14 +210,10 @@ public class UIPVP : UIBase
 				if (GameData.DPVPData.ContainsKey (pvpLv) && CheckMoney (GameData.DPVPData [pvpLv].SearchCost)) {
 					labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
 					spriteTicket.spriteName = GameFunction.SpendKindTexture (1);
-					for (var i = 0; i < GameData.PVPEnemyMembers.Length; i++)
-						if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [i].Identifier)) {
-							labelStatus.text = "0";
-							return;
-						}
-
-					labelStatus.text = GameData.DPVPData [pvpLv].SearchCost.ToString ();
-
+					if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) 
+						labelStatus.text = "0";
+                    else
+					    labelStatus.text = GameData.DPVPData [pvpLv].SearchCost.ToString ();
 				}
 			}
 		} else {
@@ -366,14 +361,11 @@ public class UIPVP : UIBase
 		if (GameData.Team.PVPTicket > 0) {
 			int sec = (int)GameData.Team.PVPCD.ToUniversalTime ().Subtract (DateTime.UtcNow).TotalSeconds;
 			if (sec <= 0) {
-				for (var i = 0; i < GameData.PVPEnemyMembers.Length; i++)
-					if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [i].Identifier)) {
-						UIShow (false);
-						UISelectRole.Get.LoadStage (GameData.DPVPData [GameData.Team.PVPLv].Stage);
-						return;
-					}
-
-				askSearchEnemy ();
+				if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) {
+					UIShow (false);
+					UISelectRole.Get.LoadStage (GameData.DPVPData [GameData.Team.PVPLv].Stage);
+				} else
+				    askSearchEnemy ();
 			} else
 				askBuyPVP (-1);
 		} else {

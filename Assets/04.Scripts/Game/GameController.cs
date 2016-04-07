@@ -1511,6 +1511,7 @@ public class GameController : KnightSingleton<GameController>
 			afterTeam.PVPIntegral = reslut.PVPIntegral;
 			afterTeam.PVPCoin = reslut.PVPCoin;
 
+            GameData.Team.PVPLv = reslut.PVPLv;
 			GameData.Team.PVPIntegral = reslut.PVPIntegral;
 			GameData.Team.PVPCoin = reslut.PVPCoin;
 			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;

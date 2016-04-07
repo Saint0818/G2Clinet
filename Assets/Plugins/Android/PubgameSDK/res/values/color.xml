@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <drawable name="color_blue_light">@color/divider</drawable>
-    <color name="divider">#ff6AAB17</color>
-    <color name="header_text">#ff76D300</color>
-    <color name="background">#FFFFFF</color>
-</resources>

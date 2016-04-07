@@ -43,6 +43,7 @@ public class UIGetItem : UIBase {
     }
 
     protected override void InitCom() {
+        SetBtnFun(UIName + "/Center/BG/NoBtn", OnReturn);
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/CoverBackground")).onClick = OnClose;
 
         itemAward = Resources.Load("Prefab/UI/Items/ItemAwardGroup") as GameObject;
@@ -96,5 +97,9 @@ public class UIGetItem : UIBase {
 
     public void SetTitle(string text) {
         labelTitle.text = text;
+    }
+
+    public void OnReturn() {
+        Visible = false;
     }
 }

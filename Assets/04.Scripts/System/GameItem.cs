@@ -112,6 +112,9 @@ namespace GameItem
                 rankData.Team.Init();
 				
                 playerName.text = rankData.Team.Player.Name;
+                if (rankData.Team.Identifier == GameData.Team.Identifier)
+                    playerName.color = Color.blue;
+
                 playeHeadBtn.UpdateView(rankData.Team.Player);
                 combatLabel.text = string.Format("{0:0f}", rankData.Team.Player.CombatPower());
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", rankData.Team.PVPLv);
@@ -199,7 +202,7 @@ namespace GameItem
 					spritePass.spriteName = "Success";
 				} else 
                 if (lv < GameData.Team.PVPLv) {
-					labelPass.text = TextConst.S (97478);
+					labelPass.text = TextConst.S (9747);
 					spritePass.spriteName = "Select";
 				} else {
 					labelPass.text = "";

@@ -3691,8 +3691,8 @@
     },
     {
         "id": 9740,
-        "tw": "花費金幣[FFCC00FF]{0}[-]刷新對手？（持有：[FFCC00FF]{1}[-]）",
-        "en": "Spend {0} gold to refresh opponent?（You have：[FFCC00FF]{1}[-]）"
+        "tw": "花費金幣[FFCC00FF]{0}[-]刷新對手？",
+        "en": "Spend [FFCC00FF]{0}[-] gold to refresh opponent?"
     },
     {
         "id": 9741,

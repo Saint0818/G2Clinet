@@ -4,6 +4,7 @@ using GameStruct;
 using GameEnum;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Linq;
 
 public struct TMissionFinishResult {
     public int MissionID;
@@ -25,6 +26,7 @@ public struct TMissionFinishResult {
 
 public class TMissionItem{
 	public int Index;
+    public int SortValue;
 	public TMission Mission;
 	public GameObject Item;
 	public GameObject UIFinished;
@@ -67,6 +69,7 @@ public class UIMission : UIBase {
     private GameObject itemMission;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
+    private UIPanel[] pagePanels = new UIPanel[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
 	private List<TMissionItem>[] missionList = new List<TMissionItem>[pageNum];
 
@@ -80,10 +83,10 @@ public class UIMission : UIBase {
 
         set {
             if (instance) {
-                //if (value)
+                if (value)
                     instance.Show(value);
-                //else
-                //    RemoveUI(instance.gameObject);
+                else
+                    RemoveUI(instance.gameObject);
             } else
             if (value)
                 Get.Show(value);
@@ -107,6 +110,7 @@ public class UIMission : UIBase {
             redPoints[i] = GameObject.Find(UIName + "/Window/Center/Tabs/" + i.ToString() + "/RedPoint");
             pageObjects[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString());
             pageScrollViews[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
+            pagePanels[i] = GameObject.Find(UIName + "/Window/Center/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
             SetBtnFun(UIName + "/Window/Center/Tabs/" + i.ToString(), OnPage);
 
 			redPoints[i].SetActive(false);
@@ -119,11 +123,13 @@ public class UIMission : UIBase {
     protected override void OnShow(bool isShow) {
         base.OnShow(isShow);
         if (isShow) {
-            for (int i = 0; i < pageObjects.Length; i++)
+            for (int i = 0; i < pageObjects.Length; i++) {
                 pageObjects[i].SetActive(false);
+                initRedPoint(i);
+            }
                 
             initMissionList(nowPage);
-            initRedPoint();
+            //initRedPoint();
         }
     }
 
@@ -148,29 +154,69 @@ public class UIMission : UIBase {
         UIMainLobby.Get.Show();
     }
 
-    private void initRedPoint() {
-        for (int i = 0; i < pageNum; i++)
-            if (!redPoints[i].activeInHierarchy)
-                for (int j = 0; j < GameData.MissionData.Length; j++)
-                    if (GameData.MissionData[j].TimeKind == i && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
-                        redPoints[i].SetActive(true);
-                        break;
-                    }
+    private void initRedPoint(int page) {
+        redPoints[page].SetActive(false);
+        for (int j = 0; j < GameData.MissionData.Length; j++)
+            if (GameData.MissionData[j].TimeKind == page && GameData.Team.HaveMissionAward(ref GameData.MissionData[j])) {
+                redPoints[page].SetActive(true);
+                break;
+            }
     }
 
     IEnumerator loadMission(int page) {
+        pageScrollViews[nowPage].restrictWithinPanel = false;
         yield return new WaitForEndOfFrame();
 
         if (missionList[page] == null) {
             missionList[page] = new List<TMissionItem>();
-
             for (int i = 0; i < GameData.MissionData.Length; i++)
                 if (GameData.MissionData[i].TimeKind == page)
                     addMission(i, page, GameData.MissionData[i]);
+
+            sortMissionPosition(page);
+        } else {
+            for (int i = 0; i < missionList[page].Count; i++)
+                checkMission(missionList[page][i], missionList[page][i].Mission, true);
         }
 
+        initRedPoint(page);
+        //sortMissionPosition(page);
+        yield return new WaitForEndOfFrame();
+        pageScrollViews[nowPage].restrictWithinPanel = true;
+    }
+
+    private void sortMissionPosition(int page) {
+        missionLine = 0;
         for (int i = 0; i < missionList[page].Count; i++)
-            checkMission(missionList[page][i], missionList[page][i].Mission, true);
+            if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+                missionList[page][i].ButtonGot.normalSprite == "button_orange1") {
+                missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                missionLine++;
+            }
+
+        for (int i = 0; i < missionList[page].Count; i++)
+            if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+                missionList[page][i].ButtonGot.normalSprite != "button_orange1") {
+                missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                missionLine++;
+            }
+
+        for (int i = 0; i < missionList[page].Count; i++)
+            if (missionList[page][i].Item.activeInHierarchy && !missionList[page][i].ButtonGot.gameObject.activeInHierarchy) {
+                missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                missionLine++;
+            }
+    }
+
+    private void removeAllMission(int page) {
+        for (int i = 0; i < missionList[page].Count; i++)
+            if (missionList[page][i].Item != null) {
+                Destroy(missionList[page][i].Item);
+                missionList[page][i].Item = null;
+            }
+
+        missionList[page].Clear();
+        missionList[page] = null;
     }
 
 	private void initMissionList(int page) {
@@ -178,7 +224,7 @@ public class UIMission : UIBase {
 			totalScore = 0;
 			missionScore = 0;
 			missionLine = 0;
-            redPoints[page].SetActive(false);
+            //redPoints[page].SetActive(false);
             StartCoroutine(loadMission(page));
 		}
 
@@ -186,164 +232,195 @@ public class UIMission : UIBase {
 		totalLabel.text = missionScore.ToString() + "/" + totalScore.ToString();
 	}
 
-    private void addMission(int index, int page, TMission data) {
-		TMissionItem mi = new TMissionItem();
-		mi.Item = Instantiate(itemMission, Vector3.zero, Quaternion.identity) as GameObject;
-		initDefaultText(mi.Item);
-        string name = data.ID.ToString();
-		mi.Item.name = name;
-		mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
-        mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
-        mi.FXGetAward = GameObject.Find(name + "/Window/GetBtn/FXGet");
-		mi.SliderExp = GameObject.Find(name + "/Window/EXPView/ProgressBar").GetComponent<UISlider>();
-		mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
-		mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
-        mi.LabelExp = GameObject.Find(name + "/Window/EXPView/ExpLabel").GetComponent<UILabel>();
-		mi.LabelAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond").GetComponent<UILabel>();
-		mi.LabelAwardExp = GameObject.Find(name + "/Window/AwardGroup/AwardExp").GetComponent<UILabel>();
-        mi.LabelAwardMoney = GameObject.Find(name + "/Window/AwardGroup/AwardMoney").GetComponent<UILabel>();
-        mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
-        mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
-        mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
-		mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
-		mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
-        mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
-		mi.SpriteLvs = new UISprite[5];
-        mi.AniLvs = new Animator[5];
-        for (int i = 0; i < mi.SpriteLvs.Length; i++) {
-            mi.AniLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString()).GetComponent<Animator>();
-			mi.SpriteLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString() + "/Get").GetComponent<UISprite>();
+    private bool checkMissionShow(TMission missionData) {
+        if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
+            if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
+                GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
+                GameData.DMissionData[missionData.PrivousID].Value.Length) {
+                int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
+
+                if (missionData.Final >= 1 || mLv < missionData.Value.Length) 
+                    return true;
+            }
         }
 
-		GameObject obj = GameObject.Find(name + "/Window/ItemAwardGroup");
-		if (obj)
-			mi.AwardGroup = obj.GetComponent<ItemAwardGroup>();
+        return false;
+    }
 
-        mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
-        mi.UIGetAwardBtn.name = name;
-        SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
+    private bool haveNextMission(int id) {
+        if (GameData.DMissionData.ContainsKey(id)) {
+            TMission missionData = GameData.DMissionData[id];
+            int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
 
-		mi.Index = missionList[page].Count;
-		mi.Mission = data;
-		mi.Item.transform.parent = pageScrollViews[page].gameObject.transform;
-		if (GameData.DMissionData.ContainsKey(mi.Mission.PrivousID)) {
-			for (int i = 0; i < missionList[page].Count; i++)
-				if (missionList[page][i].Mission.ID == mi.Mission.PrivousID) {
-					mi.Item.transform.localPosition = missionList[page][i].Item.transform.localPosition;
-					break;
-				}
-		} else 
-			mi.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+            if (missionData.Final == 0 && mLv >= missionData.Value.Length) {
+                int nextID = missionData.ID+1;
+                if (GameData.DMissionData.ContainsKey(nextID) && GameData.DMissionData[nextID].PrivousID == missionData.ID)
+                    return true;
+            }
+        }
 
-		mi.Item.transform.localScale = Vector3.one;
-        //checkMission(mi, data, true);
-		missionList[page].Add(mi);
+        return false;
+    }
+
+    private void addMission(int index, int page, TMission data) {
+        if (checkMissionShow(data)) {
+    		TMissionItem mi = new TMissionItem();
+    		mi.Item = Instantiate(itemMission, Vector3.zero, Quaternion.identity) as GameObject;
+    		initDefaultText(mi.Item);
+            string name = data.ID.ToString();
+    		mi.Item.name = name;
+    		mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
+            mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
+            mi.FXGetAward = GameObject.Find(name + "/Window/GetBtn/FXGet");
+    		mi.SliderExp = GameObject.Find(name + "/Window/EXPView/ProgressBar").GetComponent<UISlider>();
+    		mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
+    		mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
+            mi.LabelExp = GameObject.Find(name + "/Window/EXPView/ExpLabel").GetComponent<UILabel>();
+    		mi.LabelAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond").GetComponent<UILabel>();
+    		mi.LabelAwardExp = GameObject.Find(name + "/Window/AwardGroup/AwardExp").GetComponent<UILabel>();
+            mi.LabelAwardMoney = GameObject.Find(name + "/Window/AwardGroup/AwardMoney").GetComponent<UILabel>();
+            mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
+            mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
+            mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+    		mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
+    		mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
+            mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
+    		mi.SpriteLvs = new UISprite[5];
+            mi.AniLvs = new Animator[5];
+            for (int i = 0; i < mi.SpriteLvs.Length; i++) {
+                mi.AniLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString()).GetComponent<Animator>();
+    			mi.SpriteLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString() + "/Get").GetComponent<UISprite>();
+            }
+
+    		GameObject obj = GameObject.Find(name + "/Window/ItemAwardGroup");
+    		if (obj)
+    			mi.AwardGroup = obj.GetComponent<ItemAwardGroup>();
+
+            mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+            mi.UIGetAwardBtn.name = name;
+            SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
+
+    		mi.Index = missionList[page].Count;
+    		mi.Mission = data;
+    		mi.Item.transform.parent = pageScrollViews[page].gameObject.transform;
+    		if (GameData.DMissionData.ContainsKey(mi.Mission.PrivousID)) {
+    			for (int i = 0; i < missionList[page].Count; i++)
+    				if (missionList[page][i].Mission.ID == mi.Mission.PrivousID) {
+    					mi.Item.transform.localPosition = missionList[page][i].Item.transform.localPosition;
+    					break;
+    				}
+            } else {
+    			mi.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                missionLine++;
+            }
+
+    		mi.Item.transform.localScale = Vector3.one;
+            checkMission(mi, data, true);
+    		missionList[page].Add(mi);
+        }
 	}
 
     private void checkMission(TMissionItem missionItem, TMission missionData, bool resetPosition) {
-		try {
-            if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
-                if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
-                    GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
-                    GameData.DMissionData[missionData.PrivousID].Value.Length) {
-                    totalScore += missionData.Score;
-                    int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
-                    if (mLv >= missionData.Value.Length)
-                        missionScore += missionData.Score;
+        if (missionItem.Item == null)
+            return;
+        
+        if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
+            if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
+                GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
+                GameData.DMissionData[missionData.PrivousID].Value.Length) {
+                totalScore += missionData.Score;
+                int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
+                if (mLv >= missionData.Value.Length)
+                    missionScore += missionData.Score;
+                
+                if (missionData.Final >= 1 || mLv < missionData.Value.Length) {
+                    missionItem.Item.SetActive(true);
+                    missionItem.LabelName.text = missionData.Name;
+                    missionItem.LabelName.color = TextConst.Color(missionData.Color);
+                    missionItem.LabelExplain.text = missionData.Explain;
+                    if (missionData.Score > 0)
+                        missionItem.LabelScore.text = TextConst.S(3718) + " " + missionData.Score.ToString();
+                    else
+                        missionItem.LabelScore.text = "";
                     
-                    if (missionData.Final >= 1 || mLv < missionData.Value.Length) {
-            			missionItem.Item.SetActive(true);
-                        missionItem.LabelName.text = missionData.Name;
-                        missionItem.LabelName.color = TextConst.Color(missionData.Color);
-                        missionItem.LabelExplain.text = missionData.Explain;
-                        if (missionData.Score > 0)
-                            missionItem.LabelScore.text = TextConst.S(3718) + " " + missionData.Score.ToString();
+                    if (missionData.Final > 0) {
+                        if (mLv >= missionData.Value.Length) {
+        					missionItem.UIFinished.SetActive(true);
+        					missionItem.UIGetAwardBtn.gameObject.SetActive(false);
+        				} else
+        					missionItem.UIFinished.SetActive(false);
+        			} else
+        				missionItem.UIFinished.SetActive(false);
+
+                    int lv = Mathf.Min(mLv, missionData.Value.Length-1);
+                    if (missionData.AwardID != null) {
+                        missionItem.UIExp.SetActive(false);
+                        if (GameData.DItemData.ContainsKey(missionData.AwardID[lv]))
+                            missionItem.AwardGroup.Show(GameData.DItemData[missionData.AwardID[lv]]);
                         else
-                            missionItem.LabelScore.text = "";
-                        
-                        if (missionData.Final > 0) {
-                            if (mLv >= missionData.Value.Length) {
-            					missionItem.UIFinished.SetActive(true);
-            					missionItem.UIGetAwardBtn.gameObject.SetActive(false);
-            				} else
-            					missionItem.UIFinished.SetActive(false);
-            			} else
-            				missionItem.UIFinished.SetActive(false);
+                        if (missionData.Exp[lv] > 0)
+                            missionItem.UIExp.SetActive(true);
+                    } else {
+                        if (missionData.Exp[lv] > 0)
+                            missionItem.UIExp.SetActive(true);
+                    }
 
-                        int lv = Mathf.Min(mLv, missionData.Value.Length-1);
-                        if (missionData.AwardID != null) {
-                            missionItem.UIExp.SetActive(false);
-                            if (GameData.DItemData.ContainsKey(missionData.AwardID[lv]))
-                                missionItem.AwardGroup.Show(GameData.DItemData[missionData.AwardID[lv]]);
-                            else
-                            if (missionData.Exp[lv] > 0)
-                                missionItem.UIExp.SetActive(true);
-                        } else {
-                            if (missionData.Exp[lv] > 0)
-                                missionItem.UIExp.SetActive(true);
-                        }
+                    if (missionData.Diamond[lv] > 0) {
+                        missionItem.LabelAwardDiamond.text = missionData.Diamond[lv].ToString();
+                        missionItem.SpriteAwardDiamond.spriteName = GameFunction.SpendKindTexture(missionData.SpendKind);
+                    }
 
-                        if (missionData.Diamond[lv] > 0) {
-                            missionItem.LabelAwardDiamond.text = missionData.Diamond[lv].ToString();
-                            missionItem.SpriteAwardDiamond.spriteName = GameFunction.SpendKindTexture(missionData.SpendKind);
-                        }
+                    missionItem.LabelAwardMoney.text = NumFormater.Convert(missionData.Money[lv]);
+                    missionItem.LabelAwardExp.text = missionData.Exp[lv].ToString();
+                    int mValue = GameData.Team.GetMissionValue(missionData.Kind, missionData.TimeKind, missionData.TimeValue);
+                    if (mValue >= missionData.Value[lv]) {
+                        missionItem.FXGetAward.SetActive(true);
+                        missionItem.LabelGot.text = TextConst.S(3706);
+                        missionItem.ButtonGot.normalSprite = "button_orange1";
+                    } else {
+                        missionItem.FXGetAward.SetActive(false);
+                        missionItem.LabelGot.text = TextConst.S(3705);
+                        missionItem.ButtonGot.normalSprite = "button_blue2";
+                    }
 
-                        missionItem.LabelAwardMoney.text = NumFormater.Convert(missionData.Money[lv]);
-                        missionItem.LabelAwardExp.text = missionData.Exp[lv].ToString();
-                        int mValue = GameData.Team.GetMissionValue(missionData.Kind, missionData.TimeKind, missionData.TimeValue);
-                        if (mValue >= missionData.Value[lv]) {
-                            missionItem.FXGetAward.SetActive(true);
-                            missionItem.LabelGot.text = TextConst.S(3706);
-                            missionItem.ButtonGot.normalSprite = "button_orange1";
-                            if (!redPoints[nowPage].activeInHierarchy && mLv == lv)
-                                redPoints[nowPage].SetActive(true);
-                        } else {
-                            missionItem.FXGetAward.SetActive(false);
-                            missionItem.LabelGot.text = TextConst.S(3705);
-                            missionItem.ButtonGot.normalSprite = "button_blue2";
-                        }
-
-                        if (missionData.Value[lv] > 0) {
-                            missionItem.LabelExp.text = mValue + " / " + missionData.Value[lv];
-                            float r =  (float)mValue / (float)missionData.Value[lv];
-                            missionItem.SliderExp.value = r;
-                            if (r > 1) {
-                                r = 1;
-                                missionItem.LabelExp.color = Color.green;
-                            } else
-                                missionItem.LabelExp.color = Color.white;
+                    if (missionData.Value[lv] > 0) {
+                        missionItem.LabelExp.text = mValue + " / " + missionData.Value[lv];
+                        float r =  (float)mValue / (float)missionData.Value[lv];
+                        missionItem.SliderExp.value = r;
+                        if (r > 1) {
+                            r = 1;
+                            missionItem.LabelExp.color = Color.green;
                         } else
-                            missionItem.LabelExp.text = mValue.ToString();
+                            missionItem.LabelExp.color = Color.white;
+                    } else
+                        missionItem.LabelExp.text = mValue.ToString();
 
-                        missionItem.SpriteColor.spriteName = "MissionLv" + missionData.Color.ToString();
-                        for (int i = 0; i < missionItem.SpriteLvs.Length; i++) {
-                            if (i < missionData.Value.Length) {
-                                if (missionItem.SpriteLvs[i].transform.parent)
-                                    missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(true);
-
-                                if (mLv > i) {
-                                    missionItem.SpriteLvs[i].gameObject.SetActive(true);
-                                    missionItem.SpriteLvs[i].spriteName = "MissionBall" + missionData.Color.ToString();
-                                } else
-                                    missionItem.SpriteLvs[i].gameObject.SetActive(false);
-                            } else
+                    missionItem.SpriteColor.spriteName = "MissionLv" + missionData.Color.ToString();
+                    for (int i = 0; i < missionItem.SpriteLvs.Length; i++) {
+                        if (i < missionData.Value.Length) {
                             if (missionItem.SpriteLvs[i].transform.parent)
-                                missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(false);
-                        }
+                                missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(true);
 
-                        if (resetPosition) {
-                            missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
-                            missionLine++;
-                        }
-                    } else 
-                        missionItem.Item.SetActive(false);
-                } else
+                            if (mLv > i) {
+                                missionItem.SpriteLvs[i].gameObject.SetActive(true);
+                                missionItem.SpriteLvs[i].spriteName = "MissionBall" + missionData.Color.ToString();
+                            } else
+                                missionItem.SpriteLvs[i].gameObject.SetActive(false);
+                        } else
+                        if (missionItem.SpriteLvs[i].transform.parent)
+                            missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(false);
+                    }
+
+                    //if (resetPosition) {
+                    //    missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                    //    missionLine++;
+                    //}
+                } else 
                     missionItem.Item.SetActive(false);
             } else
                 missionItem.Item.SetActive(false);
-        } catch (System.Exception e) {
-            Debug.Log(missionData.ID.ToString() + e.ToString());
-        }
+        } else
+            missionItem.Item.SetActive(false);
 	}
 
     private float checkAnimator(int id, int lv) {
@@ -469,6 +546,9 @@ public class UIMission : UIBase {
         if (missionExp > 0)
             UIGetItem.Get.AddExp(4, missionExp);
 
+        if (haveNextMission(result.MissionID))
+            removeAllMission(nowPage);
+        
         initMissionList(nowPage);
     }
 

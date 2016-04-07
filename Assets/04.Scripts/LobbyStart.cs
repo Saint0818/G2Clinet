@@ -1,4 +1,5 @@
 ﻿//#define PUSHWOOSH
+#define APPSFLYER
 using UnityEngine;
 using System;
 using System.Collections;
@@ -75,9 +76,13 @@ public class LobbyStart : MonoBehaviour {
                     SendHttp.Get.gameObject.AddComponent<FpsLimiter>();
             }
 
-            #if PUSHWOOSH
             #if UNITY_ANDROID
+            #if PUSHWOOSH
             SendHttp.Get.gameObject.AddComponent<Pushwoosh>();
+            #endif
+
+            #if APPSFLYER
+            SendHttp.Get.gameObject.AddComponent<StartUp>();
             #endif
             #endif
         }

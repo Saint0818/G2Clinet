@@ -104,6 +104,7 @@ namespace GameStruct
 
         //PVP
         public int PVPCoin; //聯盟幣
+        public int PVPLv;
         public int PVPIntegral;
 		public int PVPDailyReaward;
         public int PVPEnemyIntegral;
@@ -249,30 +250,7 @@ namespace GameStruct
                 return highestLv;
             }
         }
-
-        public int PVPLv
-        {
-            get {
-                if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && PVPIntegral < GameData.DPVPData[GameConst.PVPMinLv].LowScore)
-                    return GameConst.PVPMinLv;
-                else 
-                    if (GameData.DPVPData.ContainsKey(GameConst.PVPMaxLv) && PVPIntegral > GameData.DPVPData[GameConst.PVPMaxLv].HighScore)
-                    return GameConst.PVPMaxLv;
-                else {
-                    int lv = 1;
-
-                    foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData) {
-                        if (PVPIntegral >= item.Value.LowScore && PVPIntegral <= item.Value.HighScore) {
-                            lv = item.Value.Lv;
-                            break;
-                        }
-                    }
-
-                    return lv;
-                }
-            }
-        }
-
+            
         public void Init() {
             if (Identifier == null)
                 Identifier = "";
@@ -521,7 +499,7 @@ namespace GameStruct
         private int getMissionValue(int kind, ref TDailyRecord record) {
             switch (kind) {
                 case 1: return record.TeamRecord.Lv; //玩家等級
-                case 2: return record.TeamRecord.PVPLv; //挑戰積分(PVP積分)
+                case 2: return record.TeamRecord.PVPIntegral; //挑戰積分(PVP積分)
                 case 3: return record.TeamRecord.StatiumLv; //球場等級
                 case 4: return record.TeamRecord.OccupyLv; //踢館等級
                 case 5: return record.TeamRecord.AvatarCount; //Avatar number
