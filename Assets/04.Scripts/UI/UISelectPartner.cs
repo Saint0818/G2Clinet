@@ -85,7 +85,7 @@ public class UISelectPartner : UIBase {
 	}
 
 	public void OnClose(){
-        UISelectRole.Get.InitPartnerPosition();
+		UISelectRole.Get.InitPartnerPosition();
         Visible = false;
 	}
 

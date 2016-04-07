@@ -12,6 +12,9 @@ public class AwardSkillView : MonoBehaviour {
 	private Transform specialEffect;
 	public UISprite QualityBG;
 	private GameObject mGameObject;
+
+	//for gameresult
+	private UILabel labelItemName;
 	private void Awake()
 	{
 		if(QualityBG == null)
@@ -20,6 +23,11 @@ public class AwardSkillView : MonoBehaviour {
 			QualityBG = goQuality.GetComponent<UISprite>();
 		if(specialEffect == null)
 			specialEffect = transform.FindChild("ItemView/SpecialEffect");
+		if(labelItemName == null) {
+			Transform t = transform.Find("ItemLabel");
+			if(t != null)
+				labelItemName = t.GetComponent<UILabel>();
+		}
 
 
 		mGameObject = gameObject;
@@ -51,6 +59,8 @@ public class AwardSkillView : MonoBehaviour {
 			specialEffect.gameObject.SetActive((itemData.Flag == 1));
 		
 		AmountLabel.text = "";
+		if(labelItemName != null) 
+			labelItemName.text = itemData.Name;
 	}
 
 	public void UpdateUI (TSkill skill) {
@@ -62,6 +72,8 @@ public class AwardSkillView : MonoBehaviour {
 			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].MiniPicture;
 			GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+			if(labelItemName != null) 
+				labelItemName.text = GameData.DSkillData[skill.ID].Name;
 		}
 		if(QualityBG != null)
 			QualityBG.color = TextConst.ColorBG(GameData.DSkillData[skill.ID].Quality);

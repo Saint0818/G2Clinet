@@ -135,6 +135,10 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsReboundTime = false;
 	private EBallState ballState = EBallState.None;
 
+	private TPVPResult beforeTeam = new TPVPResult();
+	private TPVPResult afterTeam = new TPVPResult();
+	private bool isEndShowScene = false;
+
     public EBallState BallState
     {
         set{
@@ -1478,7 +1482,15 @@ public class GameController : KnightSingleton<GameController>
 				
 				IsFinish = true;
 				UIGame.Get.GameOver();
-                
+
+				if (GameData.IsPVP) {
+					WWWForm form = new WWWForm();
+					form.AddField("Score1", UIGame.Get.Scores [0]);
+					form.AddField("Score2", UIGame.Get.Scores [1]);
+					SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
+					GameData.PVPEnemyMembers[0].Identifier = string.Empty;
+				}
+					
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }
@@ -1486,7 +1498,34 @@ public class GameController : KnightSingleton<GameController>
 			if (GamePlayTutorial.Visible)
 				GamePlayTutorial.Get.CheckSituationEvent(newSituation.GetHashCode());
         }
-    }
+	}
+
+	private void waitPVPEnd(bool ok, WWW www)
+	{
+		if (ok) {
+			beforeTeam.PVPLv = GameData.Team.PVPLv;
+			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
+			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
+			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
+			afterTeam.PVPLv = reslut.PVPLv;
+			afterTeam.PVPIntegral = reslut.PVPIntegral;
+			afterTeam.PVPCoin = reslut.PVPCoin;
+
+			GameData.Team.PVPIntegral = reslut.PVPIntegral;
+			GameData.Team.PVPCoin = reslut.PVPCoin;
+			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+			if(isEndShowScene) { //進去的話就表示還沒回傳就跑完End Game
+				if(IsWinner) {
+					UIGameResult.UIShow(true);
+					UIGameResult.Get.SetGameRecord(ref GameRecord);
+					UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
+				} else {
+					UIGameLoseResult.UIShow(true);
+					UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
+				}
+			}
+		}
+	}
 
     private void setMoveFrontCourtTactical(PlayerBehaviour player)
     {
@@ -3434,7 +3473,8 @@ public class GameController : KnightSingleton<GameController>
 			{
                 if (dir == 5 || dir == 7 || dir == 6)
                 {
-                    int rate = Random.Range(0, 100);
+					int rate = Random.Range(0, 100);
+					passingStealBallTime = Time.time + 2;
 
                     if (BallOwner == null && (rate > Passer.Attr.PassRate) && !player.IsPush)
                     {
@@ -3445,20 +3485,20 @@ public class GameController : KnightSingleton<GameController>
                         }
                         else if (dir == 5)
                         {
-                            if (player.CheckAnimatorSate(EPlayerState.Intercept1))
+							if ( player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBallObj.transform.position))
                             {
                                 if (BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                     CourtMgr.Get.RealBallObj.transform.DOKill();
 
-                                player.GameRecord.Intercept++;
-                                ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
-                                if (Passer)
-                                    Passer.GameRecord.BeIntercept++;
+								if (Passer){
+									ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+									Passer.GameRecord.BeIntercept++;
+								}
+								player.GameRecord.Intercept++;
 
                                 if (SetBall(player))
-                                {
+								{
                                     player.AniState(EPlayerState.HoldBall);
-                                    passingStealBallTime = Time.time + 2;
                                 }
 
                                 IsPassing = false;
@@ -3471,17 +3511,16 @@ public class GameController : KnightSingleton<GameController>
 
                             if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
                                 CourtMgr.Get.RealBallObj.transform.DOKill();
-
-                            if (Passer)
-                                Passer.GameRecord.BeIntercept++;
-
-                            player.GameRecord.Intercept++;
-                            ShowWord(EShowWordType.Steal, player.Team.GetHashCode(), player.ShowWord);
+							
+							if (Passer){
+								ShowWord(EShowWordType.Turnover, Passer.Team.GetHashCode(), Passer.ShowWord);
+								Passer.GameRecord.BeIntercept++;
+							}
+							player.GameRecord.Intercept++;
 
                             if(SetBall(player))
-                            {
-                                //                          player.AniState(EPlayerState.HoldBall);
-                                passingStealBallTime = Time.time + 2;
+							{
+                                player.AniState(EPlayerState.HoldBall);
                             }
 
                             IsPassing = false;
@@ -3722,9 +3761,11 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	IEnumerator playFinish() {
+		isEndShowScene = false;
 		yield return new WaitForSeconds(2.5f);
 	    IsStart = false;
 		setEndShowScene();
+		isEndShowScene = true;
 		if(LobbyStart.Get.IsAutoReplay){
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);
@@ -3832,7 +3873,15 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
 			}
-			pveEnd(StageData.ID);
+			if(!GameData.IsPVP)
+				pveEnd(StageData.ID);
+			else {
+				if(beforeTeam.PVPLv != 0 && afterTeam.PVPLv != 0) {
+					UIGameResult.UIShow(true);
+					UIGameResult.Get.SetGameRecord(ref GameRecord);
+					UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
+				}
+			}
 		}
 		else
 		{
@@ -3846,7 +3895,11 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].AniState (EPlayerState.Ending0);
 			}
 			UIGameLoseResult.UIShow(true);
-			UIGameLoseResult.Get.Init();
+			if(!GameData.IsPVP) 
+				UIGameLoseResult.Get.Init();
+			else 
+				if(beforeTeam.PVPLv != 0 && afterTeam.PVPLv != 0) 
+					UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
 		}
 		SendGameRecord();
 		CameraMgr.Get.SetEndShowSituation();
@@ -4411,6 +4464,10 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case EShowWordType.Steal:
 			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
+			IsGameFinish();
+			break;
+		case EShowWordType.Turnover:
+			EffectManager.Get.PlayEffect("ShowWord_Turnover", Vector3.zero, parent, null, 1, true);
 			IsGameFinish();
 			break;
 		case EShowWordType.GetTwo:

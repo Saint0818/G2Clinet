@@ -311,7 +311,7 @@ public class UISocial : UIBase {
                 Destroy(friendList[page][index].PlayerModel);
 
             friendList[page][index].PlayerModel = new GameObject("PlayerModel");
-            LayerMgr.Get.SetLayerAllChildren(friendList[page][index].PlayerModel, ELayer.UI.ToString());
+            //LayerMgr.Get.SetLayerAllChildren(friendList[page][index].PlayerModel, ELayer.UI.ToString());
             friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
             friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
             friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
@@ -432,12 +432,6 @@ public class UISocial : UIBase {
                 itemObj.AwardGroup.Show(GameData.DItemData[id]);
             }
         }
-    }
-
-    private IEnumerator loadModel(TSocialEventItem item) {
-        yield return new WaitForSeconds(0.2f);
-        StartCoroutine(ModelManager.Get.AsyncSetAvatar(item.PlayerModel, item.Friend.Player.Avatar, item.Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
-
     }
         
     private IEnumerator downloadModel(TSocialEventItem item) {

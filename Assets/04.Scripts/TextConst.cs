@@ -237,6 +237,13 @@ public static class TextConst
 
         return sResult;
     }
+
+	public static float DeadlineStringPercent (DateTime oriTime, DateTime time) {
+		float total = (float)(new System.TimeSpan(time.Ticks - oriTime.Ticks).TotalSeconds);
+		float current = (float)(new System.TimeSpan(DateTime.UtcNow.Ticks - oriTime.Ticks).TotalSeconds);
+
+		return current / total;
+	}
 	/// <summary>
 	/// Color the specified quality.
 	/// </summary>

@@ -235,6 +235,12 @@
         "en": "RESET STAGE"
     },
     {
+        "id": 260,
+        "explain": "卡牌空間",
+        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
+        "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",
@@ -282,13 +288,13 @@
     },
     {
         "id": 310,
-        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[c900ff]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
+        "tw": "Icon_Gem=這是籃球黑幫世界中價值最高的[FF00FFFF]寶石[-]貨幣，擁有它將可以無往不利，想辦法得到它吧！",
         "en": "Icon_Gem = This is the most valuable item you can get in the game [c900ff] Gems [-] get your hands into some of them as soon as you can!"
     },
     {
         "id": 311,
-        "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
-        "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
+        "tw": "Icon_Coin=升級、合成與進化都需要用到[FFCC00FF]金幣[-]，透過比賽將可贏得。",
+        "en": "Icon_Coin = Golds."
     },
     {
         "id": 400,
@@ -468,7 +474,7 @@
     },
     {
         "id": 509,
-        "tw": "重送",
+        "tw": "重新連線",
         "en": "RESEND"
     },
     {
@@ -612,7 +618,7 @@
     {
         "id": 558,
         "explain": "COST值滿",
-        "tw": "你的COST值不足以安裝此技能晶片。",
+        "tw": "你的空間值不足以安裝此技能晶片。",
         "en": "Your COST value is not enough to use this skill card."
     },
     {
@@ -950,7 +956,7 @@
     {
         "id": 3019,
         "tw": "戰力值",
-        "en": "OVERALL",
+        "en": "POWER",
         "jp": "OVERALL"
     },
     {
@@ -1003,7 +1009,7 @@
         "id": 3028,
         "explain": "秀戰力值",
         "tw": "完整戰力值",
-        "en": "OVERALL"
+        "en": "POWER"
     },
     {
         "id": 3101,
@@ -1312,7 +1318,7 @@
     {
         "id": 3505,
         "uipath": "Label1",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -1757,7 +1763,7 @@
     {
         "id": 4103,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]5星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]5星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]5 Star card[-]  "
     },
     {
@@ -1817,13 +1823,13 @@
     {
         "id": 4120,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]2星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]2星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]2 Star card[-]  "
     },
     {
         "id": 4121,
         "uipath": "Open10Label",
-        "tw": "10 連抽，必得1張[33FFDD]3星技能[-]  ",
+        "tw": "10 連抽，必得[33FFDD]3星卡[-] X1",
         "en": "10x Draws gift 1 [33FFDD]3 Star card[-]  "
     },
     {
@@ -2254,7 +2260,7 @@
     {
         "id": 5029,
         "tw": "開始關注你",
-        "en": "SOMEONE'S STARTED FOLLOWING YOU."
+        "en": "STARTED FOLLOWING YOU."
     },
     {
         "id": 5030,
@@ -2513,7 +2519,7 @@
     {
         "id": 7009,
         "uipath": "LabelCost",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST",
         "jp": "COST"
     },
@@ -2541,6 +2547,12 @@
         "en": "Unlocks at  [33FFDD]Level {0} [-] "
     },
     {
+        "id": 7014,
+        "explain": "尚未安裝晶片",
+        "tw": "尚未安裝晶片",
+        "en": "Cards are not installed"
+    },
+    {
         "id": 7101,
         "explain": "技能sort"
     },
@@ -2565,7 +2577,7 @@
     {
         "id": 7105,
         "uipath": "CostCheck",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2626,7 +2638,7 @@
         "id": 7115,
         "explain": "不可以裝備或是出售",
         "uipath": "UnavailableLabel",
-        "tw": "不可裝備",
+        "tw": "空間不足",
         "en": "UNAVAILABLE"
     },
     {
@@ -2634,6 +2646,12 @@
         "uipath": "LabelFilter/變換字串",
         "tw": "篩選中",
         "en": "FILTER"
+    },
+    {
+        "id": 7117,
+        "explain": "試穿",
+        "tw": "試穿中",
+        "en": "FITTING"
     },
     {
         "id": 7201,
@@ -2655,7 +2673,7 @@
     {
         "id": 7204,
         "uipath": "LabelKind2",
-        "tw": "COST",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2822,7 +2840,7 @@
     {
         "id": 7403,
         "uipath": "Cost",
-        "tw": "Cost",
+        "tw": "空間",
         "en": "COST"
     },
     {
@@ -2913,7 +2931,7 @@
         "id": 7501,
         "explain": "技能晶片安裝後的狀態",
         "uipath": "ItemCardEquipped ",
-        "tw": "COST [00FFFFFF]{0}[-]",
+        "tw": "空間 [00FFFFFF]{0}[-]",
         "en": "COST [00FFFFFF]{0}[-] ",
         "jp": "COST [00FFFFFF]{0}[-]"
     },
@@ -3124,7 +3142,7 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
-        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片COST，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] COST，以此類推。\n\n目前已降低 [00ff00] {0} [-] COST。",
+        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
         "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
@@ -3447,6 +3465,11 @@
         "en": "Join Count"
     },
     {
+        "id": 9517,
+        "tw": "點擊更換隊友",
+        "en": "Tap to Switch Teammate"
+    },
+    {
         "id": 9601,
         "uipath": "戰術選擇/SubheadLabel",
         "tw": "請選擇戰術",
@@ -3461,8 +3484,8 @@
     {
         "id": 9701,
         "explain": "聯盟對戰",
-        "tw": "聯 盟 對 戰",
-        "en": "PVP BATTLE"
+        "tw": "聯盟對戰",
+        "en": "PVP CHALLENGE"
     },
     {
         "id": 9702,
@@ -3480,7 +3503,7 @@
         "id": 9704,
         "uipath": "tabs/03",
         "tw": "全球排行",
-        "en": "GLOBAL"
+        "en": "GLOBAL RANK"
     },
     {
         "id": 9705,
@@ -3562,20 +3585,20 @@
     {
         "id": 9721,
         "uipath": "StartBtn",
-        "tw": "開始戰鬥",
-        "en": "START"
+        "tw": "對戰",
+        "en": "CHALLENGE"
     },
     {
         "id": 9722,
         "uipath": "CombatLabel0/Label",
         "tw": "對手戰力值",
-        "en": "OPPONENT OVERALL STATS"
+        "en": "OPPONENT POWER"
     },
     {
         "id": 9723,
         "uipath": "CombatLabel1/Label",
-        "tw": "玩家戰力值",
-        "en": "PLAYERS OVERALL STATS"
+        "tw": "我方戰力值",
+        "en": "YOUR POWER"
     },
     {
         "id": 9724,
@@ -3584,36 +3607,36 @@
     },
     {
         "id": 9725,
-        "tw": "勝利",
-        "en": "VICTORY"
+        "tw": "勝",
+        "en": "WIN"
     },
     {
         "id": 9726,
-        "tw": "敗北",
-        "en": "DEFEAT"
+        "tw": "敗",
+        "en": "LOSE"
     },
     {
         "id": 9727,
-        "tw": "點擊刷新",
+        "tw": "刷新",
         "en": "REFRESH"
     },
     {
         "id": 9728,
         "explain": "對戰按鈕狀態 計算次數",
-        "tw": "挑戰次數 {0} ",
-        "en": "Challenged {0} "
+        "tw": "今日次數 {0} ",
+        "en": "Daily Times {0} "
     },
     {
         "id": 9729,
         "explain": "對戰按鈕狀態 冷卻時",
-        "tw": "冷卻中 {0} ",
-        "en": "Coolling {0} "
+        "tw": "倒數 {0} ",
+        "en": "CD {0} "
     },
     {
         "id": 9730,
         "explain": "對戰按鈕狀態 次數使用完畢",
-        "tw": "購買票券",
-        "en": "Buy tickets"
+        "tw": "購買對戰次數",
+        "en": "Buy Challenge Time"
     },
     {
         "id": 9731,
@@ -3652,6 +3675,26 @@
         "en": "RANK UP"
     },
     {
+        "id": 9737,
+        "tw": " {0}階鬥牛場",
+        "en": "Step {0} Court"
+    },
+    {
+        "id": 9738,
+        "tw": "立刻挑戰",
+        "en": "CHALLENGE Now"
+    },
+    {
+        "id": 9739,
+        "tw": "已達今日挑戰上限",
+        "en": "Challenge Times Over Today"
+    },
+    {
+        "id": 9740,
+        "tw": "花費金幣[FFCC00FF]{0}[-]刷新對手？（持有：[FFCC00FF]{1}[-]）",
+        "en": "Spend {0} gold to refresh opponent?（You have：[FFCC00FF]{1}[-]）"
+    },
+    {
         "id": 9741,
         "explain": "每個聯盟都有積分範圍",
         "uipath": "RankSlider/Thumb",
@@ -3661,8 +3704,8 @@
     {
         "id": 9742,
         "uipath": "RankSlider/NowRank",
-        "tw": "你的積分 {1} ",
-        "en": "Your PVP Score {1} "
+        "tw": "我的排名",
+        "en": "My Rank"
     },
     {
         "id": 9743,
@@ -3693,8 +3736,33 @@
     },
     {
         "id": 9748,
-        "tw": "目前",
-        "en": "Now"
+        "tw": "目前階級",
+        "en": "Now Step"
+    },
+    {
+        "id": 9749,
+        "tw": "花費金幣[FFCC00FF]{0}[-]進行對戰？",
+        "en": "Spend [FFCC00FF]{0}[-] gold to challenge?"
+    },
+    {
+        "id": 9750,
+        "tw": "花費寶石[FF00FFFF]{0}[-]立即進行對戰？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to challenge right now?"
+    },
+    {
+        "id": 9751,
+        "tw": "花費寶石[FF00FFFF]{0}[-]購買每日對戰次數？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to buy daily challenge count?"
+    },
+    {
+        "id": 9752,
+        "tw": "上一階",
+        "en": "Previous Step"
+    },
+    {
+        "id": 9753,
+        "tw": "下一階",
+        "en": "Next Step"
     },
     {
         "id": 9761,
@@ -4240,6 +4308,11 @@
         "jp": "BLK"
     },
     {
+        "id": 10417,
+        "uipath": "三選一",
+        "tw": "獎勵三選一"
+    },
+    {
         "id": 10500,
         "explain": "技能Hint說明"
     },
@@ -4337,7 +4410,7 @@
     {
         "id": 10530,
         "explain": "30.卡牌的Cost值",
-        "tw": "Cost",
+        "tw": "空間",
         "en": "COST",
         "jp": "COST"
     },
@@ -4405,38 +4478,43 @@
         "tw": "外觀替換"
     },
     {
-        "id": 11008
+        "id": 11008,
+        "tw": "花費寶石[FF00FFFF]{0}[-]購買佇列？",
+        "en": "Spend [FF00FFFF]{0}[-] gems to buy queue?"
+    },
+    {
+        "id": 11009
     },
     {
         "id": 11101,
+        "explain": "籃筐(Basket)",
+        "tw": "籃筐",
+        "en": "BASKET"
+    },
+    {
+        "id": 11201,
+        "explain": "廣告看板(Advertisement)",
+        "tw": "廣告看板",
+        "en": "ADVERTISEMENT"
+    },
+    {
+        "id": 11301,
+        "explain": "隨機商店(Store)",
+        "tw": "隨機商店",
+        "en": "STORE"
+    },
+    {
+        "id": 11401,
         "explain": "球館(Gym)",
         "uipath": "NameLabel",
         "tw": "球館",
         "en": "GYM"
     },
     {
-        "id": 11201,
-        "explain": "隨機商店(Store)",
-        "tw": "隨機商店",
-        "en": "STORE"
-    },
-    {
-        "id": 11301,
-        "explain": "廣告看板(Advertisement)",
-        "tw": "廣告看板",
-        "en": "ADVERTISEMENT"
-    },
-    {
-        "id": 11401,
-        "explain": "籃筐(Basket)",
-        "tw": "籃筐",
-        "en": "BASKET"
-    },
-    {
         "id": 11501,
-        "explain": "椅子(Chair)",
-        "tw": "椅子",
-        "en": "CHAIR"
+        "explain": "大門(Door)",
+        "tw": "大門",
+        "en": "GATE"
     },
     {
         "id": 11601,
@@ -4446,21 +4524,21 @@
     },
     {
         "id": 11701,
+        "explain": "椅子(Chair)",
+        "tw": "椅子",
+        "en": "CHAIR"
+    },
+    {
+        "id": 11801,
         "explain": "行事曆(Calendar)",
         "tw": "賽程表",
         "en": "CALENDAR"
     },
     {
-        "id": 11801,
+        "id": 11901,
         "explain": "信箱(Mail)",
         "tw": "信箱",
         "en": "MAIL BOX"
-    },
-    {
-        "id": 11901,
-        "explain": "大門(Door)",
-        "tw": "大門",
-        "en": "GATE"
     },
     {
         "id": 12001,

@@ -104,8 +104,7 @@ namespace GameStruct
 
         //PVP
         public int PVPCoin; //聯盟幣
-        public int PVPLv;
-		public int PVPIntegral;//積分(非數學的積分)
+        public int PVPIntegral;
 		public int PVPDailyReaward;
         public int PVPEnemyIntegral;
 		public int PVPTicket;
@@ -248,6 +247,29 @@ namespace GameStruct
                 }
 
                 return highestLv;
+            }
+        }
+
+        public int PVPLv
+        {
+            get {
+                if (GameData.DPVPData.ContainsKey(GameConst.PVPMinLv) && PVPIntegral < GameData.DPVPData[GameConst.PVPMinLv].LowScore)
+                    return GameConst.PVPMinLv;
+                else 
+                    if (GameData.DPVPData.ContainsKey(GameConst.PVPMaxLv) && PVPIntegral > GameData.DPVPData[GameConst.PVPMaxLv].HighScore)
+                    return GameConst.PVPMaxLv;
+                else {
+                    int lv = 1;
+
+                    foreach (KeyValuePair<int, TPVPData> item in GameData.DPVPData) {
+                        if (PVPIntegral >= item.Value.LowScore && PVPIntegral <= item.Value.HighScore) {
+                            lv = item.Value.Lv;
+                            break;
+                        }
+                    }
+
+                    return lv;
+                }
             }
         }
 

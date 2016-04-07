@@ -30,6 +30,7 @@ public class UIGameLoseResult : UIBase {
 	private const string UIName = "UIGameLoseResult";
 
 	private GameStageTargetLose[] mTargets;
+	private GameObject goStatsNextLabel;
 	private const float finishInterval = 0.2f;
 	private int hintIndex;
 	private int hintCount;
@@ -42,14 +43,12 @@ public class UIGameLoseResult : UIBase {
 	private TPVPObj pvpObj = new TPVPObj();
 	private TPVPRank pvpRank = new TPVPRank();
 	private bool isShowRank = false;
+	private bool isDeflation = false;
 
 	public int minusValue;
 	public int nowMin;
 	public int nowMax;
 	public int nowValue;
-
-	private TPVPResult beforeTeam = new TPVPResult();
-	private TPVPResult afterTeam = new TPVPResult();
 	
 	public static bool Visible {
 		get {
@@ -116,10 +115,12 @@ public class UIGameLoseResult : UIBase {
 				pvpObj.LabelNowPoint.text = nowValue.ToString();
 				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
-				if(pvpRank.AfterLv == 1 || pvpRank.BeforeLv == 1) {
+				if(pvpRank.AfterLv == 1 && pvpRank.BeforeLv == 1) {
 					return;
-				} else
-					deflation ();
+				} else {
+					if(!isDeflation)
+						deflation ();
+				}
 			}
 		}
 	}
@@ -134,39 +135,20 @@ public class UIGameLoseResult : UIBase {
 		pvpObj.LabelNextPoint = GameObject.Find(UIName + "/RankView/NextPoint").GetComponent<UILabel>();
 		pvpObj.SliderBar = GameObject.Find(UIName + "/RankView/ProgressBar").GetComponent<UISlider>();
 
+		goStatsNextLabel = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
+		goStatsNextLabel.SetActive(false);
+
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/StatsNextLabel")).onClick = OnReturn;
+	}
+
+	public void SetPVPData (TPVPResult before, TPVPResult after) {
+		setData(before, after);
+		setEndData ();
 	}
 
 
 	public void Init () {
-		if (GameData.IsPVP) {
-			WWWForm form = new WWWForm();
-			form.AddField("Score1", UIGame.Get.Scores [0]);
-			form.AddField("Score2", UIGame.Get.Scores [1]);
-			SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
-			GameData.PVPEnemyMembers[0].Identifier = string.Empty;
-		} else {
-			setEndData ();
-		}
-	}
-
-	private void waitPVPEnd(bool ok, WWW www)
-	{
-		if (ok) {
-			beforeTeam.PVPLv = GameData.Team.PVPLv;
-			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
-			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
-			afterTeam.PVPLv = reslut.PVPLv;
-			afterTeam.PVPIntegral = reslut.PVPIntegral;
-			afterTeam.PVPCoin = reslut.PVPCoin;
-
-			GameData.Team.PVPLv = reslut.PVPLv;
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-			setData(beforeTeam, afterTeam);
-		}
+		setEndData ();
 	}
 
 	private void setEndData () {
@@ -176,6 +158,8 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	private void setData (TPVPResult before, TPVPResult after) {
+		before.PVPLv = GameFunction.GetPVPLv(before.PVPIntegral);
+		after.PVPLv = GameFunction.GetPVPLv(after.PVPIntegral);
 		if(GameData.DPVPData.ContainsKey(before.PVPLv) && GameData.DPVPData.ContainsKey(after.PVPLv)) {
 			setEndData ();
 			pvpRank.BeforeLv = before.PVPLv;
@@ -206,6 +190,7 @@ public class UIGameLoseResult : UIBase {
 	private void showFinish () {
 		isShowFinish = true;
 		finishTime = finishInterval;
+		goStatsNextLabel.SetActive(true);
 	}
 
 	private void pvpNext () {
@@ -215,26 +200,30 @@ public class UIGameLoseResult : UIBase {
 
 	private void showRank () {
 		isShowRank = true;
+		goStatsNextLabel.SetActive(true);
 	}
 
 	private void deflation () {
+		isDeflation = true;
 		pvpObj.objAnimator.SetTrigger(PVPDownRank);
 		Invoke("showFinalRank", 0.5f);
 	}
 
-	private void showAfterRank () {
+	private void showFinalRank () {
 		pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.AfterLv);
 		if(GameData.DPVPData.ContainsKey(pvpRank.AfterLv))
 			pvpObj.LabelRankName.text = GameData.DPVPData[pvpRank.AfterLv].Name;
 
 		nowMax = pvpRank.AfterHighScore;
 		nowMin = pvpRank.AfterLowScore;
+		pvpRank.BeforeLowScore = nowMin;
 		pvpObj.LabelNextPoint.text = nowMax.ToString();
 		showRank();
 	}
 
 	public void OnReturn (GameObject go) {
 		Time.timeScale = 1;
+		goStatsNextLabel.SetActive(false);
 		if(GameData.IsMainStage)
 		{
 			UIShow(false);

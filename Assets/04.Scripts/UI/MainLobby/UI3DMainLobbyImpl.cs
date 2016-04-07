@@ -94,8 +94,6 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
     private void OnSelect()
     {
-////		//TODO: it's not open yet.
-//		return;
         if (delay > 0)
             return;
 

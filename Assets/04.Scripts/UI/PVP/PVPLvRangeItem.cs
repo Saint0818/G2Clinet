@@ -13,16 +13,16 @@ public class PVPLvRangeItem : MonoBehaviour
 
     public GameObject ThumbOffset;
     public UILabel ThumbOffsetLabel;
+	public UILabel LabelMyRank;
     public UISprite Trim;
 
     public GameObject NowRankOffset;
     public UIButton NowRankBtn;
 
-    public void InitData(int count, EventDelegate nowRankFunc)
+    public void InitData(int count)
     {
         if (Line && Graduation && NowRankOffset && NowRankBtn && Trim)
         {
-            NowRankBtn.onClick.Add(nowRankFunc);
             graduations = new GameObject[count];
             Line.width = total;
             interval = total / (count - 1);
@@ -50,7 +50,7 @@ public class PVPLvRangeItem : MonoBehaviour
                     }
                     else
                     {
-                        graduations[i] = Instantiate(Graduation) as GameObject;  
+                        graduations[i] = Instantiate(Graduation) as GameObject;
                     } 
                 }
                 else
@@ -63,8 +63,18 @@ public class PVPLvRangeItem : MonoBehaviour
                 {
                     graduations[i].transform.parent = gameObject.transform;
                     graduations[i].name = i.ToString();
+                    Transform t = graduations[i].transform.FindChild("ScoreLabel");
+                    if (t != null) {
+                        GameObject obj = graduations[i].transform.FindChild("ScoreLabel").gameObject;
+                        if (obj) {
+                            UILabel label = graduations[i].transform.FindChild("ScoreLabel").gameObject.GetComponent<UILabel>();
+                            if (label)
+                                label.text = GameData.DPVPData[i+1].LowScore.ToString() + "+";
+                        }
+                    }
                 }
             }
+
             UpdatePosition();
         }
     }
@@ -85,7 +95,6 @@ public class PVPLvRangeItem : MonoBehaviour
         }
     }
 
-
     private float tweenSpeed = 0.5f;
 
     public void SetOffset(int lv)
@@ -93,7 +102,7 @@ public class PVPLvRangeItem : MonoBehaviour
         ThumbOffset.transform.DOLocalMoveX((lv - 1) * interval, tweenSpeed);
         if (GameData.DPVPData.ContainsKey(lv))
         {
-            ThumbOffsetLabel.text = string.Format(TextConst.S(9741), GameData.DPVPData[lv].LowScore, GameData.DPVPData[lv].HighScore);
+            //ThumbOffsetLabel.text = string.Format(TextConst.S(9741), GameData.DPVPData[lv].LowScore, GameData.DPVPData[lv].HighScore);
         }
     }
 

@@ -46,10 +46,10 @@ public class LobbyStart : MonoBehaviour {
     {
         instance = gameObject.GetComponent<LobbyStart>();
 		Time.timeScale = 1;
-
+        GameObject obj = null;
         #if UNITY_EDITOR
         Application.runInBackground = IsDebugAnimation;
-        GameObject obj = GameObject.Find("FileManager");
+        obj = GameObject.Find("FileManager");
         if (obj) {
             Destroy(obj);
             obj = null;

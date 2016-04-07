@@ -108,7 +108,6 @@ public static class URLConst {
     public const string PVPStart = "pvpstart";
     public const string PVPEnd = "pvpend";
     public const string PVPRank = "pvprank";
-    public const string PVPSearch = "pvpsearch";
     public const string PVPGetEnemy = "pvpgetenemy";
     public const string PVPMyRank = "pvpmyrank";
     public const string PVPAward = "pvpaward";
@@ -691,6 +690,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private void waitLookSocialEvent(bool ok, WWW www) {
         GameData.Team.SocialEventTime = DateTime.UtcNow;
         if (ok) {
+			bool needSave = false;
             if (!string.IsNullOrEmpty(www.text)) {
                 TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
                 for (int i = 0; i < events.Length; i++) {
@@ -710,18 +710,22 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         if (UIMainLobby.Get.IsVisible)
                             UIMainLobby.Get.Main.SocialNotice = true;
 
-                        GameData.Setting.ShowEvent = true;
-                        PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
-
-                        GameData.Setting.SocialEventTime = DateTime.UtcNow;
-                        PlayerPrefs.SetString(ESave.SocialEventTime.ToString(), DateTime.UtcNow.ToString());
-
-                        PlayerPrefs.Save();
+						needSave = true;
                     }
                 }
 
                 if (UISocial.Visible)
                     UISocial.Get.FreshSocialEvent(0);
+
+				if (needSave) {
+					GameData.Setting.ShowEvent = true;
+					PlayerPrefs.SetInt(ESave.ShowEvent.ToString(), 1);
+
+					GameData.Setting.SocialEventTime = DateTime.UtcNow;
+					PlayerPrefs.SetString(ESave.SocialEventTime.ToString(), DateTime.UtcNow.ToString());
+
+					PlayerPrefs.Save();
+				}
             }
         }
 
@@ -755,6 +759,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                         GameData.Team.Friends = new Dictionary<string, TFriend>();
                     
                     bool flag = false;
+					bool needSave = false;
                     for (int i = 0; i < events.Length; i++) {
                         if (!string.IsNullOrEmpty(events[i].TargetID)) {
                             if (events[i].Value == EFriendKind.Waiting || events[i].Value == EFriendKind.Ask) {
@@ -774,9 +779,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                                     if (UIMainLobby.Get.IsVisible)
                                         UIMainLobby.Get.Main.SocialNotice = true;
 
-                                    GameData.Setting.ShowWatchFriend = true;
-                                    PlayerPrefs.SetInt(ESave.ShowWatchFriend.ToString(), 1);
-                                    PlayerPrefs.Save();
+									needSave = true;
                                 }
 
                                 flag = true;
@@ -786,6 +789,14 @@ public class SendHttp : KnightSingleton<SendHttp> {
                             }
                         }
                     }
+
+					if (needSave) {
+						GameData.Setting.ShowWatchFriend = true;
+						PlayerPrefs.SetInt(ESave.ShowWatchFriend.ToString(), 1);
+						GameData.Setting.WatchFriendTime = DateTime.UtcNow;
+						PlayerPrefs.SetString(ESave.WatchFriendTime.ToString(), DateTime.UtcNow.ToString());
+						PlayerPrefs.Save();
+					}
 
                     if (confirmFriends.Count > 0)
                         confirmFriend(confirmFriends.Dequeue());

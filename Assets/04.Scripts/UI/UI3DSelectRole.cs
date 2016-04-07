@@ -34,6 +34,4 @@
 	protected override void InitCom() {
 	
 	}
-
-
 }

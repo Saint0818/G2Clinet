@@ -34,6 +34,8 @@ public class UIGameResult : UIBase {
 	private int[] awardItemIDs;
 	private int[] bonusItemIDs;
 
+	private GameObject clickTip;
+
 	private List<ItemAwardGroup> alreadyGetItems =  new List<ItemAwardGroup>();
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
@@ -62,6 +64,7 @@ public class UIGameResult : UIBase {
 	private bool isGetAward = false;
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
+	private bool isShow3Dbasket = false;
 	private TPlayer beforePlayer;
 	private TPlayer afterPlayer;
 	public List<int> GetCardLists = new List<int>();
@@ -127,7 +130,6 @@ public class UIGameResult : UIBase {
 			if(finishTime <= 0) {
 				if(hintIndex == -1) {
 					isShowFinish = false;
-					uiStatsNext.SetActive(true);
 					Invoke("finishStageHint", 1);
 				} else {
 					if(hintIndex > 0 && hintIndex < mTargets.Length) {
@@ -170,7 +172,7 @@ public class UIGameResult : UIBase {
 		}
 
 		if(isShowRank && minusValue > 0) {
-			if(nowValue >= pvpRank.BeforeLowScore) {
+			if(nowValue >= pvpRank.BeforeLowScore && nowValue < pvpRank.BeforeHighScore) {
 				minusValue --;
 				nowValue ++ ;
 				pvpObj.LabelNowPoint.text = nowValue.ToString();
@@ -210,6 +212,9 @@ public class UIGameResult : UIBase {
 
 		awardScaleView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
 		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView").GetComponent<UIScrollView>();
+
+		clickTip = GameObject.Find(UIName + "/ThreeAward/ClickLabel");
+		clickTip.SetActive(false);
 
 		pvpObj.PVPRankIcon = GameObject.Find(UIName + "/RankView/PvPRankIcon").GetComponent<UISprite>();
 		pvpObj.LabelRankName = GameObject.Find(UIName + "/RankView/PvPRankIcon/RankNameLabel").GetComponent<UILabel>();
@@ -260,8 +265,7 @@ public class UIGameResult : UIBase {
 
 	public void OnNext (GameObject go) {
 		if (GameController.Visible && GameData.IsPVP) {
-//            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//            UILoading.OpenUI = UILoading.OpenPVPUI;
+			uiStatsNext.SetActive(false);
 			backToLobby();
 		}
 		else if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
@@ -276,9 +280,17 @@ public class UIGameResult : UIBase {
 			}
 		} else {
 			if(SendHttp.Get.CheckNetwork(false) && isGetAward) {
-				uiStatsNext.SetActive(false);
-				animatorAward.SetTrigger("AwardViewStart");
-				Invoke("showAward", 1);
+				if(awardIndex > 0) {
+					uiStatsNext.SetActive(false);
+					animatorAward.SetTrigger("AwardViewStart");
+					Invoke("showAward", 1);
+				} else {
+					if(isShow3Dbasket) {
+						uiStatsNext.SetActive(false);
+						show3DBasket();
+						isShow3Dbasket = false;
+					}
+				}
 			} else  {
 				if(isLevelUp) {
 					UIShow(false);
@@ -293,17 +305,17 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnReturn(GameObject go) {
-		if(isChooseLucky) {
-			if(isLevelUp) {
-				UIShow(false);
-				UI3DGameResult.UIShow(false);
-				UILevelUp.Get.Show(beforePlayer, afterPlayer);
-			} else {
-//				if(IsExpUnlock) {
-//					UIShow(false);
-//					//Unlock UI
-//				} else
+		if(GameData.IsPVP) 
+			backToLobby();
+		else {
+			if(isChooseLucky) {
+				if(isLevelUp) {
+					UIShow(false);
+					UI3DGameResult.UIShow(false);
+					UILevelUp.Get.Show(beforePlayer, afterPlayer);
+				} else {
 					backToLobby ();
+				}
 			}
 		}
 	}
@@ -345,10 +357,47 @@ public class UIGameResult : UIBase {
         }
 	}
 
-	private void showMissionBoard () {
+	public void ShowMissionBoard () {
 		hintCount = UIStageHintManager.UpdateHintResult(GameData.StageID, ref mTargets);
 		hintIndex = hintCount;
 		Invoke("showFinish", 4);
+	}
+
+	public void SetPVPData (TPVPResult before, TPVPResult after) {
+		awardIndex = 1;
+		awardMax = 1;
+		awardItemTempIDs.Add(-4);
+		alreadyGetItems.Add(addItemToAward(0, new TItemData(), true, true));
+		tempPVP = Mathf.Abs(after.PVPCoin - before.PVPCoin);
+
+		before.PVPLv = GameFunction.GetPVPLv(before.PVPIntegral);
+		after.PVPLv = GameFunction.GetPVPLv(after.PVPIntegral);
+		beforeTeam = before;
+		afterTeam = after;
+		if(GameData.DPVPData.ContainsKey(before.PVPLv) && GameData.DPVPData.ContainsKey(after.PVPLv)) {
+			pvpRank.BeforeLv = before.PVPLv;
+			pvpRank.BeforeName = GameData.DPVPData[before.PVPLv].Name;
+			pvpRank.BeforeScore = before.PVPIntegral;
+			pvpRank.BeforeLowScore = GameData.DPVPData[before.PVPLv].LowScore;
+			pvpRank.BeforeHighScore = GameData.DPVPData[before.PVPLv].HighScore;
+			pvpRank.AfterLv = after.PVPLv;
+			pvpRank.AfterName = GameData.DPVPData[after.PVPLv].Name;
+			pvpRank.AfterScore = after.PVPIntegral;
+			pvpRank.AfterLowScore = GameData.DPVPData[after.PVPLv].LowScore;
+			pvpRank.AfterHighScore = GameData.DPVPData[after.PVPLv].HighScore;
+
+			minusValue = Mathf.Abs(pvpRank.AfterScore- pvpRank.BeforeScore);
+			nowValue = pvpRank.BeforeScore;
+			nowMin = pvpRank.BeforeLowScore;
+			nowMax = pvpRank.BeforeHighScore;
+
+			pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.BeforeLv);
+			pvpObj.LabelRankName.text = pvpRank.BeforeName ;
+			pvpObj.LabelMinusPoint.text = minusValue.ToString();
+			pvpObj.LabelNowPoint.text = nowValue.ToString();
+			pvpObj.LabelNextPoint.text = pvpRank.BeforeHighScore.ToString();
+			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
+		}
 	}
 
 	/*
@@ -379,69 +428,10 @@ public class UIGameResult : UIBase {
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 
-		if (GameData.IsPVP) {
-            showMissionBoard ();
-			WWWForm form = new WWWForm();
-			form.AddField("Score1", UIGame.Get.Scores [0]);
-			form.AddField("Score2", UIGame.Get.Scores [1]);
-			SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
-			GameData.PVPEnemyMembers[0].Identifier = string.Empty;
-			uiStatsNext.SetActive (true);
-
-		} else 
+		if(GameData.IsPVP) {
+			ShowMissionBoard ();
+		}else
 			stageRewardStart(GameData.StageID);
-	}
-
-	private void waitPVPEnd(bool ok, WWW www)
-	{
-		if (ok) {
-			beforeTeam.PVPLv = GameData.Team.PVPLv;
-			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
-			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
-			afterTeam.PVPLv = reslut.PVPLv;
-			afterTeam.PVPIntegral = reslut.PVPIntegral;
-			afterTeam.PVPCoin = reslut.PVPCoin;
-
-			GameData.Team.PVPLv = reslut.PVPLv;
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
-			setData(beforeTeam, afterTeam);
-		}
-	}
-
-	private void setData (TPVPResult before, TPVPResult after) { 
-		awardIndex = 1;
-		awardMax = 1;
-		awardItemTempIDs.Add(-4);
-		alreadyGetItems.Add(addItemToAward(0, new TItemData(), true, true));
-		tempPVP = Mathf.Abs(after.PVPCoin - before.PVPCoin);
-
-		if(GameData.DPVPData.ContainsKey(before.PVPLv) && GameData.DPVPData.ContainsKey(after.PVPLv)) {
-			pvpRank.BeforeLv = before.PVPLv;
-			pvpRank.BeforeName = GameData.DPVPData[before.PVPLv].Name;
-			pvpRank.BeforeScore = before.PVPIntegral;
-			pvpRank.BeforeLowScore = GameData.DPVPData[before.PVPLv].LowScore;
-			pvpRank.BeforeHighScore = GameData.DPVPData[before.PVPLv].HighScore;
-			pvpRank.AfterLv = after.PVPLv;
-			pvpRank.AfterName = GameData.DPVPData[after.PVPLv].Name;
-			pvpRank.AfterScore = after.PVPIntegral;
-			pvpRank.AfterLowScore = GameData.DPVPData[after.PVPLv].LowScore;
-			pvpRank.AfterHighScore = GameData.DPVPData[after.PVPLv].HighScore;
-
-			minusValue = Mathf.Abs(pvpRank.AfterScore- pvpRank.BeforeScore);
-			nowValue = pvpRank.BeforeScore;
-			nowMin = pvpRank.BeforeLowScore;
-			nowMax = pvpRank.BeforeHighScore;
-
-			pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.BeforeLv);
-			pvpObj.LabelRankName.text = pvpRank.BeforeName ;
-			pvpObj.LabelMinusPoint.text = minusValue.ToString();
-			pvpObj.LabelNowPoint.text = nowValue.ToString();
-			pvpObj.LabelNextPoint.text = pvpRank.BeforeHighScore.ToString();
-			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
-		}
 	}
 
 	private void pvpNext () {
@@ -457,11 +447,12 @@ public class UIGameResult : UIBase {
 
 	private void pvpShowRank() {
 		animatorAward.SetTrigger("PVPView");
-		Invoke("showRank", 2f);
+		Invoke("showRank", 1f);
 	}
 
 	private void showRank () {
 		isShowRank = true;
+		uiAwardSkip.SetActive(true);
 	}
 	
 	private void init () {
@@ -489,6 +480,7 @@ public class UIGameResult : UIBase {
 	}
 
 	private void showFinish () {
+		uiStatsNext.SetActive (true);
 		isShowFinish = true;
 		finishTime = finishInterval;
 	}
@@ -682,7 +674,9 @@ public class UIGameResult : UIBase {
 
 	private void showLuckyThree () {
 		showThree ();
-		Invoke("show3DBasket", 1.5f);
+		isShow3Dbasket = true;
+		uiStatsNext.SetActive(true);
+//		Invoke("show3DBasket", 1.5f);
 	}
 
 	private void show3DBasket () {
@@ -694,6 +688,7 @@ public class UIGameResult : UIBase {
 
 	private void canChooseLucky () {
 		isCanChooseLucky = true;
+		clickTip.SetActive(true);
 	}
 
 	public void ShowReturnButton () {
@@ -707,7 +702,7 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		showMissionBoard ();
+		ShowMissionBoard ();
 		beforePlayer = GameData.Team.Player;
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
 			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {

@@ -11,6 +11,9 @@ public class AwardInlayView : MonoBehaviour {
 	private Transform specialEffect;
 
 	private GameObject mGameObject;
+
+	//for gameresult
+	private UILabel labelItemName;
 	private void Awake()
 	{
 		if(QualityBG == null)
@@ -19,6 +22,11 @@ public class AwardInlayView : MonoBehaviour {
 			QualityBG = goQuality.GetComponent<UISprite>();
 		if(specialEffect == null)
 			specialEffect = transform.FindChild("ItemView/SpecialEffect");
+		if(labelItemName == null) {
+			Transform t = transform.Find("ItemLabel");
+			if(t != null)
+				labelItemName = t.GetComponent<UILabel>();
+		}
 		
 		mGameObject = gameObject;
 		Hide();
@@ -51,5 +59,8 @@ public class AwardInlayView : MonoBehaviour {
 			specialEffect.gameObject.SetActive((itemData.Flag == 1));
 
 		AmountLabel.text = "";
+
+		if(labelItemName != null) 
+			labelItemName.text = itemData.Name;
 	}
 }

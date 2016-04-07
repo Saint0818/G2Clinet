@@ -269,8 +269,8 @@ public static class GameData
                         Setting.Sound = true;
                         break;
                     case ESave.Quality:
-                        Setting.Quality = 1;
-                        SetGameQuality((EQualityType)Setting.Quality);
+                        //Setting.Quality = 1;
+                        //SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
                         Setting.AIChangeTimeLv = 0;
@@ -315,7 +315,7 @@ public static class GameData
                         break;
                     case ESave.Quality:
                         Setting.Quality = index;
-                        SetGameQuality((EQualityType)Setting.Quality);
+                        //SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
                         Setting.AIChangeTimeLv = index;
