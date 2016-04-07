@@ -1518,102 +1518,6 @@
         "texten": "The score has been real tight, you have to deliver on every possession!"
     },
     {
-        "id": 1041,
-        "line": 1,
-        "title": "踏上意外旅程-4",
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "太好了、太好了！你越來越厲害了呢！",
-        "texten": "Great, great! You're getting much too!"
-    },
-    {
-        "id": 1041,
-        "line": 2,
-        "title": "踏上意外旅程-4",
-        "kind": 3,
-        "texttw": "這場和『絕殺比爾』比賽三分球吧！",
-        "texten": "Just a few games that just make you! And this \"lore Bill\" contest pointers it!"
-    },
-    {
-        "id": 1041,
-        "line": 3,
-        "title": "踏上意外旅程-4",
-        "kind": 3,
-        "texttw": "看看最後是誰贏得獎金！",
-        "texten": "Finally, a look at who won a bonus!"
-    },
-    {
-        "id": 1041,
-        "line": 4,
-        "title": "踏上意外旅程-4",
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 5,
-        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！",
-        "texten": "We must win! Get a bonus, to qualify!"
-    },
-    {
-        "id": 1041,
-        "line": 5,
-        "title": "踏上意外旅程-4",
-        "kind": 3,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "沒問題！",
-        "texten": "No problem!"
-    },
-    {
-        "id": 1041,
-        "line": 6,
-        "title": "踏上意外旅程-4",
-        "talkl": 10,
-        "actionl": 5,
-        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]灌籃[-]！！",
-        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] Dunk[-]  if you wanna move on."
-    },
-    {
-        "id": 1041,
-        "line": 7,
-        "title": "踏上意外旅程-4",
-        "actionl": 3,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛...",
-        "texten": "Come on! Last level was hell and now this?"
-    },
-    {
-        "id": 1041,
-        "line": 8,
-        "title": "踏上意外旅程-4",
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手。",
-        "texten": "Don't worry, this time your teammates will all  be skilled 3 Point shooters."
-    },
-    {
-        "id": 1041,
-        "line": 9,
-        "title": "踏上意外旅程-4",
-        "talkl": 10,
-        "actionl": 4,
-        "texttw": "我們把機會做給他吧！！",
-        "texten": "If you can't shoot yourself, try to assist one of your teammates."
-    },
-    {
-        "id": 1041,
-        "line": 10,
-        "title": "踏上意外旅程-4",
-        "actionl": 5,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "好！！就這麼辦！！",
-        "texten": "Yeah!  Let's do this!"
-    },
-    {
         "id": 1010,
         "line": 1,
         "title": "踏上意外旅程-1",
@@ -1642,7 +1546,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "我的主人－喬，令我回到過去，找尋可以改變未來的機會。",
-        "texten": "My master - Joe, so I went back to the past, to find future opportunities can be changed."
+        "texten": "My master - Joe, Let me return to the past, to find future opportunities can be changed."
     },
     {
         "id": 1010,
@@ -1710,28 +1614,88 @@
         "kind": 1
     },
     {
-        "id": 1050,
+        "id": 1041,
         "line": 1,
-        "title": "成為勇士吧-1",
-        "kind": 1,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "我們終於晉級了，一點都不困難嘛！我很有機會成為偉大的球員吧？",
-        "texten": "It's not difficult to do! I have a good chance to become a great player, right?"
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "太好了、太好了！你越來越厲害了呢！",
+        "texten": "Great, great! You're getting much too!"
     },
     {
-        "id": 1050,
+        "id": 1041,
         "line": 2,
-        "title": "成為勇士吧-1",
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "這場和『絕殺比爾』比賽三分球吧！",
+        "texten": "Just a few games that just make you! And this \"lore Bill\" contest pointers it!"
+    },
+    {
+        "id": 1041,
+        "line": 3,
+        "title": "踏上意外旅程-4",
+        "kind": 3,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 5,
+        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！",
+        "texten": "We must win! Get a bonus, to qualify!"
+    },
+    {
+        "id": 1041,
+        "line": 4,
+        "title": "踏上意外旅程-4",
+        "talkl": 10,
+        "actionl": 5,
+        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]灌籃[-]！！",
+        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] Dunk[-]  if you wanna move on."
+    },
+    {
+        "id": 1041,
+        "line": 5,
+        "title": "踏上意外旅程-4",
+        "actionl": 3,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛...",
+        "texten": "Come on! Last level was hell and now this?"
+    },
+    {
+        "id": 1041,
+        "line": 6,
+        "title": "踏上意外旅程-4",
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手。",
+        "texten": "Don't worry, this time your teammates will all  be skilled 3 Point shooters."
+    },
+    {
+        "id": 1041,
+        "line": 7,
+        "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 4,
-        "texttw": "嗯～是蠻有機會的，但要追上喬的腳步，還得練很多年！",
-        "texten": "Ah ~ it is quite a chance, but to catch up with Joe's footsteps, had practiced for many years!"
+        "texttw": "我們把機會做給他吧！！",
+        "texten": "If you can't shoot yourself, try to assist one of your teammates."
+    },
+    {
+        "id": 1041,
+        "line": 8,
+        "title": "踏上意外旅程-4",
+        "actionl": 5,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "好！！就這麼辦！！",
+        "texten": "Yeah!  Let's do this!"
     },
     {
         "id": 1050,
-        "line": 3,
+        "line": 1,
         "title": "成為勇士吧-1",
         "talkl": 10,
         "actionl": 1,
@@ -1740,7 +1704,7 @@
     },
     {
         "id": 1050,
-        "line": 4,
+        "line": 2,
         "title": "成為勇士吧-1",
         "talkl": 10,
         "actionl": 5,
@@ -1749,7 +1713,7 @@
     },
     {
         "id": 1050,
-        "line": 5,
+        "line": 3,
         "title": "成為勇士吧-1",
         "talkindex": 1,
         "talkr": -1,
@@ -1797,7 +1761,9 @@
         "id": 1090,
         "line": 1,
         "title": "突然出現的強敵-1",
-        "kind": 1
+        "kind": 1,
+        "texttw": "回到家鄉，迎面對上了強悍的敵人！",
+        "texten": "You came home, and face of powerful enemies!"
     },
     {
         "id": 1100,
@@ -1815,216 +1781,308 @@
         "id": 1120,
         "line": 1,
         "title": "突然出現的強敵-4",
-        "kind": 1
+        "kind": 1,
+        "texttw": "你擊敗了強大的敵人，他們卻突然的消失了。",
+        "texten": "You beat a powerful enemy, they suddenly disappeared."
+    },
+    {
+        "id": 1120,
+        "line": 2,
+        "title": "突然出現的強敵-4",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "真是奇怪的對手！",
+        "texten": "What strange opponent!"
+    },
+    {
+        "id": 1120,
+        "line": 3,
+        "title": "突然出現的強敵-4",
+        "talkl": 10,
+        "actionl": 6,
+        "texttw": "他們透露著黑暗的氣息，不過我們有更重要的事要做了！",
+        "texten": "\nThey are really strange and evil, but now we have more important things to do it!"
     },
     {
         "id": 1130,
-        "line": 0,
-        "title": "4-1得分競賽",
-        "kind": 1
+        "line": 1,
+        "title": "列車競賽開始！-1",
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "列車上的球場！？",
+        "texten": "Stadium on the train! ?"
+    },
+    {
+        "id": 1130,
+        "line": 2,
+        "title": "列車競賽開始！-2",
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "沒錯！這是星際聯盟大賽前夕最重要的資格賽！",
+        "texten": "Yes! This is the most important contest before the Star Alliance Game!"
+    },
+    {
+        "id": 1130,
+        "line": 3,
+        "title": "列車競賽開始！-3",
+        "talkl": 10,
+        "actionl": 4,
+        "texttw": "我們可要好好表現！",
+        "texten": "We had better make a good showing!"
     },
     {
         "id": 1140,
         "line": 0,
-        "title": "4-2得分競賽",
+        "title": "列車競賽開始！-2",
         "kind": 1
     },
     {
         "id": 1150,
         "line": 0,
-        "title": "4-3三分球",
+        "title": "列車競賽開始！-3",
         "kind": 1
     },
     {
         "id": 1160,
         "line": 0,
-        "title": "4-4鬼之切入",
+        "title": "列車競賽開始！-4",
         "kind": 1
     },
     {
         "id": 1170,
-        "line": 0,
-        "title": "4-5對抗",
-        "kind": 1
+        "line": 1,
+        "title": "列車競賽開始！-5",
+        "kind": 1,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "我們表現得太棒了！順利通過第一階段！",
+        "texten": "Our performance was great! Successfully Passed!"
     },
     {
         "id": 1180,
-        "line": 0,
-        "title": "5-1體質的重要",
-        "kind": 1
+        "line": 1,
+        "title": "相知相惜的英雄-1",
+        "kind": 1,
+        "talkl": 10,
+        "actionl": 1,
+        "texttw": "很好、很好！繼續努力吧！",
+        "texten": "Very Good! Keep working hard!"
     },
     {
         "id": 1190,
         "line": 0,
-        "title": "5-2防守再防守",
+        "title": "相知相惜的英雄-2",
         "kind": 1
     },
     {
         "id": 1200,
         "line": 0,
-        "title": "5-3銅牆鐵壁",
+        "title": "相知相惜的英雄-3",
         "kind": 1
     },
     {
         "id": 1210,
         "line": 0,
-        "title": "5-4分數",
+        "title": "相知相惜的英雄-4",
         "kind": 1
     },
     {
         "id": 1220,
-        "line": 0,
-        "title": "5-5碰撞",
-        "kind": 1
+        "line": 1,
+        "title": "相知相惜的英雄-5",
+        "kind": 1,
+        "texttw": "你遇到了一位旗鼓相當的對手。",
+        "texten": "You met a worthy adversary."
+    },
+    {
+        "id": 1220,
+        "line": 2,
+        "title": "相知相惜的英雄-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "你的實力很不賴！你的名字是什麼？",
+        "texten": "Your strength is very strong! What's your name?"
+    },
+    {
+        "id": 1220,
+        "line": 3,
+        "title": "相知相惜的英雄-5",
+        "talkl": 5512,
+        "actionl": 1,
+        "texttw": "我叫布魯托！除了你以外，其他人都不是我的對手！",
+        "texten": "My name is Pluto! Except you, no competition for me!"
+    },
+    {
+        "id": 1220,
+        "line": 4,
+        "title": "相知相惜的英雄-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "看來我們能打上一場真正的籃球！",
+        "texten": "We can play a real basketball game!"
+    },
+    {
+        "id": 1220,
+        "line": 5,
+        "title": "相知相惜的英雄-5",
+        "talkl": 5512,
+        "actionl": 1,
+        "texttw": "下次再見面，就在星際聯盟大賽上！",
+        "texten": "Next time, we will meet on the Star Alliance Game!"
     },
     {
         "id": 1230,
-        "line": 0,
-        "title": "6-1妙手",
+        "line": 1,
+        "title": "急凍地帶-1",
         "kind": 1
     },
     {
         "id": 1240,
         "line": 0,
-        "title": "6-2得分競賽",
+        "title": "急凍地帶-2",
         "kind": 1
     },
     {
         "id": 1250,
         "line": 0,
-        "title": "6-3搶分",
+        "title": "急凍地帶-3",
         "kind": 1
     },
     {
         "id": 1260,
         "line": 0,
-        "title": "6-4追分",
+        "title": "急凍地帶-4",
         "kind": 1
     },
     {
         "id": 1270,
         "line": 0,
-        "title": "6-5神射手",
+        "title": "急凍地帶-5",
         "kind": 1
     },
     {
         "id": 1280,
         "line": 0,
-        "title": "7-1內線",
+        "title": "被撕裂的時空-1",
         "kind": 1
     },
     {
         "id": 1290,
         "line": 0,
-        "title": "7-2抄截大賽",
+        "title": "被撕裂的時空-2",
         "kind": 1
     },
     {
         "id": 1300,
         "line": 0,
-        "title": "7-3碰撞",
+        "title": "被撕裂的時空-3",
         "kind": 1
     },
     {
         "id": 1310,
         "line": 0,
-        "title": "7-4死守",
+        "title": "被撕裂的時空-4",
         "kind": 1
     },
     {
         "id": 1320,
         "line": 0,
-        "title": "7-5防守再防守",
+        "title": "被撕裂的時空-5",
         "kind": 1
     },
     {
         "id": 1330,
         "line": 0,
-        "title": "8-1得分競賽",
+        "title": "戛然而止的混亂-1",
         "kind": 1
     },
     {
         "id": 1340,
         "line": 0,
-        "title": "8-2推人大賽",
+        "title": "戛然而止的混亂-2",
         "kind": 1
     },
     {
         "id": 1350,
         "line": 0,
-        "title": "8-3抄截大賽",
+        "title": "戛然而止的混亂-3",
         "kind": 1
     },
     {
         "id": 1360,
         "line": 0,
-        "title": "8-4得分競賽",
+        "title": "戛然而止的混亂-4",
         "kind": 1
     },
     {
         "id": 1370,
         "line": 0,
-        "title": "8-5得分競賽",
+        "title": "戛然而止的混亂-5",
         "kind": 1
     },
     {
         "id": 1380,
         "line": 0,
-        "title": "9-1灌籃大賽",
+        "title": "世界的另一端-1",
         "kind": 1
     },
     {
         "id": 1390,
         "line": 0,
-        "title": "9-2冷箭",
+        "title": "世界的另一端-2",
         "kind": 1
     },
     {
         "id": 1400,
         "line": 0,
-        "title": "9-3得分王",
+        "title": "世界的另一端-3",
         "kind": 1
     },
     {
         "id": 1410,
         "line": 0,
-        "title": "9-4碰撞",
+        "title": "世界的另一端-4",
         "kind": 1
     },
     {
         "id": 1420,
         "line": 0,
-        "title": "9-5肢體接觸",
+        "title": "世界的另一端-5",
         "kind": 1
     },
     {
         "id": 1430,
         "line": 0,
-        "title": "10-1鐵桶陣",
+        "title": "迎接真正的挑戰-1",
         "kind": 1
     },
     {
         "id": 1440,
         "line": 0,
-        "title": "10-2防守至上",
+        "title": "迎接真正的挑戰-2",
         "kind": 1
     },
     {
         "id": 1450,
         "line": 0,
-        "title": "10-3得分競賽",
+        "title": "迎接真正的挑戰-3",
         "kind": 1
     },
     {
         "id": 1460,
         "line": 0,
-        "title": "10-4不一樣的策略",
+        "title": "迎接真正的挑戰-4",
         "kind": 1
     },
     {
         "id": 1470,
         "line": 0,
-        "title": "10-5艱難挑戰",
+        "title": "迎接真正的挑戰-5",
         "kind": 1
     },
     {
