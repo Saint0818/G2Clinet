@@ -3142,7 +3142,7 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
-        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
+        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
         "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
@@ -3551,21 +3551,21 @@
         "id": 9712,
         "explain": "每日獎勵按鈕 未領",
         "uipath": "DailyAwardBtn",
-        "tw": "每日獎勵",
+        "tw": "領取每日獎勵",
         "en": "Daily Award"
     },
     {
         "id": 9713,
         "explain": "每日獎勵按鈕 已領",
         "uipath": "DailyAwardBtn",
-        "tw": "本日已領取",
+        "tw": "已領取",
         "en": "Has already received this day's award"
     },
     {
         "id": 9714,
         "explain": "說明",
         "uipath": "TitleLabel",
-        "tw": "每日領取獎勵",
+        "tw": "每日獎勵",
         "en": "Daily league award"
     },
     {
@@ -3585,7 +3585,7 @@
     {
         "id": 9721,
         "uipath": "StartBtn",
-        "tw": "對戰",
+        "tw": "對 戰",
         "en": "CHALLENGE"
     },
     {
@@ -3703,9 +3703,9 @@
     },
     {
         "id": 9742,
-        "uipath": "RankSlider/NowRank",
-        "tw": "我的排名",
-        "en": "My Rank"
+        "uipath": "EXPView/SubheadLabel",
+        "tw": "目前排名 [00E1FFFF]#{0}[-]",
+        "en": "NOW RANK [00E1FFFF]#{0}[-]"
     },
     {
         "id": 9743,
@@ -3715,19 +3715,19 @@
     {
         "id": 9744,
         "explain": "獎勵，每場勝利後得到",
-        "tw": "獲勝獎勵",
+        "tw": "每場獲勝獎勵：",
         "en": "WIN AWARD"
     },
     {
         "id": 9745,
         "explain": "獎勵，依照玩家打進的聯盟每日得到",
-        "tw": "每日領取獎勵",
-        "en": "DAILY REWARD"
+        "tw": "每日獎勵：",
+        "en": "DAILY AWARD"
     },
     {
         "id": 9746,
         "tw": "聯盟獎勵",
-        "en": "League Reward"
+        "en": "League Award"
     },
     {
         "id": 9747,
@@ -4415,6 +4415,13 @@
         "jp": "COST"
     },
     {
+        "id": 10550,
+        "explain": "50.怒氣單位恢復速度",
+        "tw": "怒氣恢復速度",
+        "en": "Revive",
+        "jp": "Revive"
+    },
+    {
         "id": 10600,
         "explain": "戰鬥內換場介面"
     },
@@ -4475,7 +4482,8 @@
         "id": 11007,
         "explain": "選擇建築物標題",
         "uipath": "LabelSubhead",
-        "tw": "外觀替換"
+        "tw": "更換設施",
+        "en": "Change Facilities"
     },
     {
         "id": 11008,
@@ -4483,7 +4491,43 @@
         "en": "Spend [FF00FFFF]{0}[-] gems to buy queue?"
     },
     {
-        "id": 11009
+        "id": 11009,
+        "explain": "等級須達到[00ff00][-]",
+        "tw": "等級須達到[00ff00]Lv.{0}[-]",
+        "en": "Reach [00ff00]Lv.{0}[-]"
+    },
+    {
+        "id": 11010,
+        "explain": "花費寶石 顆",
+        "tw": "花費寶石[FF00FFFF]{0}[-]顆",
+        "en": "Cost [FF00FFFF]{0}[-] Diamonds"
+    },
+    {
+        "id": 11011,
+        "explain": "花費金幣 顆",
+        "tw": "花費金幣[FF00FFFF]{0}[-]",
+        "en": "Cost [FF00FFFF]{0}[-] Moneys"
+    },
+    {
+        "id": 11012,
+        "explain": "設施功能",
+        "tw": "設施功能：",
+        "en": "Features："
+    },
+    {
+        "id": 11013,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11014,
+        "explain": "下一級",
+        "tw": "下一級：LV{1} ",
+        "en": "NEXT：LV{1} "
+    },
+    {
+        "id": 11015
     },
     {
         "id": 11101,
