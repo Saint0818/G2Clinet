@@ -34,6 +34,9 @@ public class UISelectRole : UIBase {
 	private GameObject uiChangPlayerA;
 	private GameObject uiChangPlayerB;
 	private GameObject uiRedPoint;
+    private GameObject uiPVPWin;
+    private GameObject uiPVPLose;
+    private GameObject uiPVPFresh;
     private UILabel labelStrategy;
 	private UILabel labelPVPFresh;
 	private UILabel labelMyPower;
@@ -125,13 +128,16 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Top/PVP/Player2/2", OnChangePlayer);
         SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
-		SetBtnFun (UIName + "/Top/PVP/ResteBtn/", OnRefreshOpponent);
+		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
 
-		labelPVPWin = GameObject.Find (UIName + "/Center/PVP/Win/Label").GetComponent<UILabel>();
-		labelPVPLose = GameObject.Find (UIName + "/Center/PVP/Lose/Label").GetComponent<UILabel>();
-		labelMyPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel1").GetComponent<UILabel>();
+        uiPVPWin = GameObject.Find (UIName + "/Right/Win");
+        uiPVPLose = GameObject.Find (UIName + "/Right/Lose");
+        uiPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn");
+		labelPVPWin = GameObject.Find (UIName + "/Right/Win/Label").GetComponent<UILabel>();
+		labelPVPLose = GameObject.Find (UIName + "/Right/Lose/Label").GetComponent<UILabel>();
+        labelPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn/PriceLabel").GetComponent<UILabel>();
+        labelMyPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel1").GetComponent<UILabel>();
 		labelOpponentPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel0").GetComponent<UILabel>();
-		labelPVPFresh = GameObject.Find (UIName + "/Top/PVP/ResteBtn/PriceLabel").GetComponent<UILabel>();
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
         labelCombatPower[0] = GameObject.Find(UIName + "/Top/PVE/SelectMe/CombatPower/Label").GetComponent<UILabel>();
         labelCombatPower[1] = GameObject.Find(UIName + "/Top/PVE/SelectA/CombatPower/Label").GetComponent<UILabel>();
@@ -151,6 +157,9 @@ public class UISelectRole : UIBase {
         uiTopPVP = GameObject.Find (UIName + "/Top/PVP");
         uiCenterPVP = GameObject.Find (UIName + "/Center/PVP");
 
+        uiPVPWin.SetActive(false);
+        uiPVPLose.SetActive(false);
+        uiPVPFresh.SetActive(false);
         uiTopPVE.SetActive(false);
         uiTopPVP.SetActive(false);
         uiCenterPVP.SetActive(false);
@@ -477,6 +486,9 @@ public class UISelectRole : UIBase {
             UI3DPVP.Visible = true;
             uiTopPVP.SetActive(true);
             uiCenterPVP.SetActive(true);
+            uiPVPWin.SetActive(true);
+            uiPVPLose.SetActive(true);
+            uiPVPFresh.SetActive(true);
         } else {
             UI3DSelectRole.UIShow(true);
             uiTopPVE.SetActive(true);
