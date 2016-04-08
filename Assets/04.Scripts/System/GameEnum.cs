@@ -350,6 +350,9 @@
 
     }
 
+    /// <summary>
+    /// 這對應到真實的 Animation.(和 Animation 檔名相同)
+    /// </summary>
     public enum EPlayerState
     {
         Alleyoop,
@@ -464,6 +467,9 @@
         KnockDown1
     }
 
+    /// <summary>
+    /// 這是對應到 Animator Controller 裡面的 State. (應該是對應到 AnimationControl 這個檔案)
+    /// </summary>
     public enum EAnimatorState
     {
         Block,

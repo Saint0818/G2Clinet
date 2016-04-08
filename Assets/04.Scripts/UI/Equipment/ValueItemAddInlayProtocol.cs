@@ -1,5 +1,6 @@
 ﻿using System;
 using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ValueItemAddInlayProtocol
@@ -8,8 +9,11 @@ public class ValueItemAddInlayProtocol
 
     private class Data
     {
+        [UsedImplicitly]
         public TPlayer Player;
+        [UsedImplicitly]
         public TMaterialItem[] MaterialItems;
+        [UsedImplicitly]
         public TTeamRecord LifetimeRecord;
     }
 

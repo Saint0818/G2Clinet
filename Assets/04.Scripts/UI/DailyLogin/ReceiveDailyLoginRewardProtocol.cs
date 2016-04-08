@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ReceiveDailyLoginRewardProtocol
@@ -14,15 +15,25 @@ public class ReceiveDailyLoginRewardProtocol
 
     private class Data
     {
+        [UsedImplicitly]
         public int Diamond;
+        [UsedImplicitly]
         public int Money;
+        [UsedImplicitly]
         public int Power;
+        [UsedImplicitly]
         public TItem[] Items;
+        [UsedImplicitly]
         public TValueItem[] ValueItems;
+        [UsedImplicitly]
         public TMaterialItem[] MaterialItems;
+        [UsedImplicitly]
         public TSkill[] SkillCards;
+        [UsedImplicitly]
         public int Year;
+        [UsedImplicitly]
         public int Month;
+        [UsedImplicitly]
         public Dictionary<int, Dictionary<int, int>> ReceivedDailyLoginNums;
 
         public override string ToString()

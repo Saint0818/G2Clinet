@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
@@ -157,11 +157,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         if (GameData.Team.Player.SkillCards.Length > 0)
         {
             crtState = GetRandomState();
-            TAnimatorItem next = AnimatorMgr.Get.GetAnimatorStateType(crtState);
+            TAnimatorItem next = AnimatorMgr.Get.GetAnimatorState(crtState);
 
-            if (next.Type == EAnimatorState.Pass)
+            if (next.AnimatorState == EAnimatorState.Pass)
             {
-                next.Type = EAnimatorState.Shoot;
+                next.AnimatorState = EAnimatorState.Shoot;
                 stateNo = 0; 
                 crtState = EPlayerState.Shoot0;
             }

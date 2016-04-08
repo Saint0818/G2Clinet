@@ -1,5 +1,6 @@
 ﻿using System;
 using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -15,13 +16,21 @@ public class ReceiveLifetimeLoginRewardProtocol
 
     private class Data
     {
+        [UsedImplicitly]
         public int Diamond;
+        [UsedImplicitly]
         public int Money;
+        [UsedImplicitly]
         public int Power;
+        [UsedImplicitly]
         public TItem[] Items;
+        [UsedImplicitly]
         public TValueItem[] ValueItems;
+        [UsedImplicitly]
         public TMaterialItem[] MaterialItems;
+        [UsedImplicitly]
         public TSkill[] SkillCards;
+        [UsedImplicitly]
         public TTeamRecord LifetimeRecord;
 
         public override string ToString()

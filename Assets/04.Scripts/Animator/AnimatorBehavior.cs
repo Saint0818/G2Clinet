@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using GameEnum;
 public delegate void AnimationDelegate();
-public delegate void TimeScaleDelegate(AnimationEvent aniEvent);
+//public delegate void TimeScaleDelegate(AnimationEvent aniEvent);
 public delegate void ZoomDelegate(float speed);
 public delegate void SkillDelegate(AnimationEvent aniEvent);
 
@@ -93,8 +92,8 @@ public class AnimatorBehavior : MonoBehaviour
 
     public void Play(EPlayerState state, int team)
     {
-        TAnimatorItem findType = AnimatorMgr.Get.GetAnimatorStateType(state);
-        Play(findType.Type, findType.StateNo, team);
+        TAnimatorItem findType = AnimatorMgr.Get.GetAnimatorState(state);
+        Play(findType.AnimatorState, findType.StateNo, team);
     }
 
     public void Play(EAnimatorState state, int stateNo, int team, Vector3 skillMoveTarget)
