@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -187,10 +188,17 @@ public class UIMainLobbyMain : MonoBehaviour
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
     /// </summary>
-    /// <param name="enable"></param>
-    public void EnableBlock(bool enable)
+    /// <param name="lockTime"> 單位: 秒. </param>
+    public void EnableFullScreenBlock(float lockTime = 1)
     {
-        FullScreenBlock.SetActive(enable);
+        StartCoroutine(enableFullScreenBlock(lockTime));
+    }
+
+    private IEnumerator enableFullScreenBlock(float lockTime)
+    {
+        FullScreenBlock.SetActive(true);
+        yield return new WaitForSeconds(lockTime);
+        FullScreenBlock.SetActive(false);
     }
 
     public bool IsShow
@@ -239,5 +247,6 @@ public class UIMainLobbyMain : MonoBehaviour
     public void PlayExitAnimation()
     {
         GetComponent<Animator>().SetTrigger("MainLobby_Down");
+        EnableFullScreenBlock();
     }
 }
