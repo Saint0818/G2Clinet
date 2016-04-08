@@ -9,6 +9,7 @@ using UnityEngine;
 
 public enum EAnimatorType
 {
+    None,
     AnimationControl,
     AvatarControl,
     TalkControl

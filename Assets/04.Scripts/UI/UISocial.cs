@@ -77,9 +77,9 @@ public class UISocial : UIBase {
 
         set {
             if (instance) {
-                //if (!value)
-                //    RemoveUI(UIName);
-                //else
+                /*if (!value)
+                    RemoveUI(instance.gameObject);
+                else*/
                     instance.Show(value);
             } else
             if (value)
@@ -272,23 +272,16 @@ public class UISocial : UIBase {
             if (friendList[page][index].PlayerModel)
                 Destroy(friendList[page][index].PlayerModel);
 
-            friendList[page][index].PlayerModel = new GameObject("PlayerModel");
-            friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
-            friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
-            friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
-            friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
-            //modelLoader.Enqueue(friendList[page][index]);
-            StartCoroutine(ModelManager.Get.AsyncSetAvatar(friendList[page][index].PlayerModel, friendList[page][index].Friend.Player.Avatar, friendList[page][index].Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
+            friendList[page][index].PlayerModel = 
+                TAvatarLoader.CreateAvatarLoader(
+                    friendList[page][index].Friend.Player.BodyType,
+                    friendList[page][index].Friend.Player.Avatar,
+                    friendList[page][index].PlayerModel,
+                    friendList[page][index].ModelAnchor, ELayer.UI);
         } else 
         if (friend.Kind == EFriendKind.Ask) {
             if (!friendList[page][index].PlayerModel) {
                 friendList[page][index].Friend = friend;
-
-                friendList[page][index].PlayerModel = new GameObject("PlayerModel");
-                friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
-                friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
-                friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
-                friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
                 avatarDownloader.Enqueue(friendList[page][index]);
             }
         }
@@ -307,17 +300,12 @@ public class UISocial : UIBase {
         friendList[page][index].Index = index;
 
         if (e.Player.Avatar.HaveAvatar && friendList[page][index].Event.TargetID != e.TargetID) {
-            if (friendList[page][index].PlayerModel)
-                Destroy(friendList[page][index].PlayerModel);
-
-            friendList[page][index].PlayerModel = new GameObject("PlayerModel");
-            //LayerMgr.Get.SetLayerAllChildren(friendList[page][index].PlayerModel, ELayer.UI.ToString());
-            friendList[page][index].PlayerModel.transform.parent = friendList[page][index].ModelAnchor.transform;
-            friendList[page][index].PlayerModel.transform.localPosition = Vector3.zero;
-            friendList[page][index].PlayerModel.transform.localScale = Vector3.one;
-            friendList[page][index].PlayerModel.transform.localRotation = Quaternion.identity;
-            StartCoroutine(ModelManager.Get.AsyncSetAvatar(friendList[page][index].PlayerModel, friendList[page][index].Friend.Player.Avatar, friendList[page][index].Friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
-            //modelLoader.Enqueue(friendList[page][index]);
+            friendList[page][index].PlayerModel = 
+                TAvatarLoader.CreateAvatarLoader(
+                    friendList[page][index].Friend.Player.BodyType, 
+                    friendList[page][index].Friend.Player.Avatar,
+                    friendList[page][index].PlayerModel,
+                    friendList[page][index].ModelAnchor, ELayer.UI);
         }
 
         friendList[page][index].Event = e;
@@ -466,7 +454,11 @@ public class UISocial : UIBase {
                 waitDownloadItem.Friend = friend;
                 waitDownloadItem.LabelLv.text = friend.Player.Lv.ToString();
                 waitDownloadItem.LabelPower.text = string.Format("{0:F0}",friend.Player.CombatPower());
-                StartCoroutine(ModelManager.Get.AsyncSetAvatar(waitDownloadItem.PlayerModel, friend.Player.Avatar, friend.Player.BodyType, EAnimatorType.TalkControl, ELayer.UI));
+                waitDownloadItem.PlayerModel = TAvatarLoader.CreateAvatarLoader(
+                    waitDownloadItem.Friend.Player.BodyType, 
+                    waitDownloadItem.Friend.Player.Avatar, 
+                    waitDownloadItem.PlayerModel, 
+                    waitDownloadItem.ModelAnchor, ELayer.UI);
             }
         }
 

@@ -52,6 +52,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 break;
         }
 
+        TAvatarLoader.ReleaseCache();
         Resources.UnloadUnusedAssets();
     }
 

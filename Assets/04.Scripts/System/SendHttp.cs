@@ -234,8 +234,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				}
 			}
 
-            if (GameData.Company == ECompany.NiceMarket)
-                StartCoroutine(hidePGTool());
+            //if (GameData.Company == ECompany.NiceMarket)
+            //    StartCoroutine(hidePGTool());
 		}
 	}
 
@@ -487,8 +487,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 } else {
                     SendLogin();
                     //for pubgame login record
-                    if (GameData.Company == ECompany.NiceMarket)
-                        Pubgame.PubgameSdk.Get.InitSDK();
+                    //if (GameData.Company == ECompany.NiceMarket)
+                    //    Pubgame.PubgameSdk.Get.InitSDK();
                 }
             } else {
 				UILoading.UIShow(false);
@@ -541,8 +541,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     UILoading.UIShow(true, ELoading.Lobby);
 				}
 
-                if (GameData.Company == ECompany.NiceMarket)
-                    Pubgame.PubgameSdk.Get.SetPgToolsActive(false);
+                //if (GameData.Company == ECompany.NiceMarket)
+                //    Pubgame.PubgameSdk.Get.SetPgToolsActive(false);
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
