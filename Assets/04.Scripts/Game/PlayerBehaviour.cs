@@ -100,7 +100,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
-    public EAnimatorState crtAnimatorState = EAnimatorState.Idle;
+//    public EAnimatorState crtAnimatorState = EAnimatorState.Idle;
     private Transform[] DefPointAy = new Transform[8];
     private GameObject defPointCopy;
     /// <summary>
@@ -859,13 +859,9 @@ public class PlayerBehaviour : MonoBehaviour
         GameController.Get.Situation == EGameSituation.NPCAttack))
         {
 			if (AnimatorControl.IsStuck(crtState) && !AnimatorMgr.Get.IsLoopState(crtState))
-            {
                 freeAniCountdown();
-            }
             else
-            {
 				proofingTime = proffingCheckTime;
-            }
         }
         else
         {
@@ -878,15 +874,12 @@ public class PlayerBehaviour : MonoBehaviour
         proofingTime -= Time.deltaTime; 
         if (proofingTime <= 0)
         {
-            if (LobbyStart.Get.IsDebugAnimation)
-				Debug.LogError(gameObject.name + ".proofing stuck : " + crtState.ToString());
+            if(LobbyStart.Get.IsDebugAnimation)
+				Debug.LogErrorFormat("{0}.proofing stuck : {1}", name, crtState);
 
-            if (IsBallOwner)
-                AniState(EPlayerState.HoldBall);
-            else
-                AniState(EPlayerState.Fall0);
-						
-			proofingTime = proffingCheckTime;
+            AniState(IsBallOwner ? EPlayerState.HoldBall : EPlayerState.Idle);
+
+            proofingTime = proffingCheckTime;
         }
     }
 
@@ -1987,7 +1980,7 @@ public class PlayerBehaviour : MonoBehaviour
             LayerMgr.Get.SetLayer(PlayerRefGameObject, ELayer.Player);
 
         if (LobbyStart.Get.IsDebugAnimation)
-            Debug.LogWarning(PlayerRefGameObject.name + ", CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation + ", Time : " + Time.time);
+            Debug.LogWarningFormat("{0}, CurrentState:{1}, NewState:{2}, Time:{3}", name, crtState, state, Time.time);
 
         DashEffectEnable(false);
 

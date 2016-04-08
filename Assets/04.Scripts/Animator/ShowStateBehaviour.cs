@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 using GameEnum;
+using JetBrains.Annotations;
 
+[UsedImplicitly]
 public class ShowStateBehaviour : StateMachineBehaviour
 {
     public EAnimatorState State;
     private AnimationEvent skillEvent = new AnimationEvent();
     
-    override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
+    public override void OnStateMachineExit(Animator animator, int stateMachinePathHash)
     {
         AnimatorBehavior ani = animator.gameObject.GetComponent<AnimatorBehavior>();
         if (ani)

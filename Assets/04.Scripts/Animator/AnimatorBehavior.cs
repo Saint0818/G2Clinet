@@ -365,10 +365,7 @@ public class AnimatorBehavior : MonoBehaviour
 
 	public bool IsStuck(EPlayerState crtstate)
 	{
-		if(!Controler.GetCurrentAnimatorStateInfo(0).IsName(crtstate.ToString()))
-			return true;
-		else
-			return false;
+	    return !Controler.GetCurrentAnimatorStateInfo(0).IsName(crtstate.ToString());
 	}
 
     private float timescale = 1;
