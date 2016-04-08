@@ -846,7 +846,14 @@ namespace GameStruct
         // 11 ~ 16: 數值裝.
         // 17,18: 次數型數值裝.
         // 19:鑲嵌材料.
-        // 21:技能卡牌
+        // 21:技能卡牌.
+        // 31.錢,
+        // 32.鑽石.
+        // 33.經驗值.
+        // 34.體力.
+        // 35.PVP使用次數.
+        // 39.聯盟幣.
+        // 40.社群幣.
         public int Kind;
 		public int LV;
 		public int Atlas;
@@ -1028,13 +1035,26 @@ namespace GameStruct
         {
             get
             {
+                string name;
                 switch(GameData.Setting.Language)
                 {
-                    case ELanguage.TW: return NameTW;
-                    case ELanguage.CN: return NameCN;
-                    case ELanguage.JP: return NameJP;
-                    default: return NameEN;
+                    case ELanguage.TW:
+                        name = NameTW;
+                        break;
+                    case ELanguage.CN:
+                        name = NameCN;
+                        break;
+                    case ELanguage.JP:
+                        name = NameJP;
+                        break;
+                    default:
+                        name = NameEN;
+                        break;
                 }
+
+                if(Kind == 31 || Kind == 32 || Kind == 33 || Kind == 39 || Kind == 40)
+                    return string.Format(name, Value);
+                return name;
             }
         }
 
