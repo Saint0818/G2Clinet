@@ -1062,13 +1062,25 @@ namespace GameStruct
         {
             get
             {
+				string explain;
                 switch(GameData.Setting.Language)
                 {
-                    case ELanguage.TW: return ExplainTW;
-                    case ELanguage.CN: return ExplainCN;
-                    case ELanguage.JP: return ExplainJP;
-                    default: return ExplainEN;
+				case ELanguage.TW: 
+					explain = ExplainTW;
+					break;
+				case ELanguage.CN: 
+					explain = ExplainCN;
+					break;
+				case ELanguage.JP: 
+					explain = ExplainJP;
+					break;
+                default: 
+					explain = ExplainEN;
+					break;
                 }
+				if(Kind == 31 || Kind == 32 || Kind == 33 || Kind == 39 || Kind == 40)
+					return string.Format(explain, Value);
+				return explain;
             }
         }
     }
