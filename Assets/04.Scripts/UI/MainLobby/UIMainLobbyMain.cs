@@ -214,6 +214,8 @@ public class UIMainLobbyMain : MonoBehaviour
         MoneyObj.SetActive(true);
         DiamondObj.SetActive(true);
         PowerObj.SetActive(true);
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null) //因為後台還沒建立所以要判斷
+			UIGym.Get.ShowView();
     }
 
     public void Hide(int kind = 3, bool playAnimation = true)
@@ -226,6 +228,8 @@ public class UIMainLobbyMain : MonoBehaviour
         DiamondObj.SetActive(kind >= 1);
         MoneyObj.SetActive(kind >= 2);
         PowerObj.SetActive(kind >= 3);
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
+			UIGym.Visible = false;
     }
 
     public void HideAll(bool playAnimation = true)
@@ -236,7 +240,9 @@ public class UIMainLobbyMain : MonoBehaviour
 
         MoneyObj.SetActive(false);
         DiamondObj.SetActive(false);
-        PowerObj.SetActive(false);
+		PowerObj.SetActive(false);
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
+			UIGym.Visible = false;
     }
 
     public void PlayEnterAnimation()

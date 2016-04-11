@@ -129,17 +129,15 @@ public class UIItemHint : UIBase {
 				//TODO : 等待來源
 				setHaveCount(GameData.Team.GetAvatarCount(GameData.DItemData[itemID].ID));
 				if(GameData.DItemData[itemID].Kind == 31 || GameData.DItemData[itemID].Kind == 32 || GameData.DItemData[itemID].Kind == 33) {
-					uiLabelExplain.text = string.Format(GameData.DItemData[itemID].Explain, GameData.DItemData[itemID].Value);
 					uiLabelHave.gameObject.SetActive(false);
-				} else
-					uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+				}
+
+				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
 				if(GameData.DItemData[GameData.DItemData[itemID].ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(GameData.DItemData[itemID].ID))
 					uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[GameData.DItemData[itemID].ID].Potential.ToString();
 			}
-			if(GameData.DItemData[itemID].Kind == 31 || GameData.DItemData[itemID].Kind == 32 || GameData.DItemData[itemID].Kind == 33) 
-				uiLabelName.text = string.Format(GameData.DItemData[itemID].Name, GameData.DItemData[itemID].Value);
-			else
-				uiLabelName.text = GameData.DItemData[itemID].Name;
+
+			uiLabelName.text = GameData.DItemData[itemID].Name;
 			
 			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);
 		}
@@ -175,9 +173,9 @@ public class UIItemHint : UIBase {
 			id = 94001;
 		uiLabelHave.gameObject.SetActive(false);
 		hintAvatarView.UpdateUI(GameData.DItemData[id]);
-		uiLabelName.text = string.Format(GameData.DItemData[id].Name, value);
+		uiLabelName.text = GameData.DItemData[id].Name;
 		uiLabelName.color = TextConst.Color(GameData.DItemData[id].Quality);
-		uiLabelExplain.text = string.Format(GameData.DItemData[id].Explain, value);
+		uiLabelExplain.text = GameData.DItemData[id].Explain;
 	}
 
 	public void OnShowForSuit(int itemID) {

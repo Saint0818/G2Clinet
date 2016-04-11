@@ -104,6 +104,12 @@ public static class URLConst {
 	public const string AutoPower = "autopower";
 	public const string Rank = "rank";
 
+	//gym
+	public const string GymBuyCD = "gymbuycd";
+	public const string GymBuyQueue = "gymbuyqueue";
+	public const string GymCheckQueueLv = "gymcheckqueuelv";
+	public const string GymUpdateBuild = "gymupdatebuild";
+
     //pvp
     public const string PVPStart = "pvpstart";
     public const string PVPEnd = "pvpend";

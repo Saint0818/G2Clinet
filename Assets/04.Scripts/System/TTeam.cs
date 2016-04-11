@@ -77,21 +77,31 @@ namespace GameStruct
         /// </summary>
         public Dictionary<int, Dictionary<int, int>> DailyLoginNums;
 
-        public int GetDailyLoginNum(int year, int month)
-        {
-            if(DailyLoginNums != null && 
-               DailyLoginNums.ContainsKey(year) && 
-               DailyLoginNums[year].ContainsKey(month))
-                return DailyLoginNums[year][month];
-            return 0;
-        }
-
         /// <summary>
         /// <para> 玩家已領取的每日獎勵. </para>
         /// <para> [2016][3] 是 2016 年 3 月的已領取日. 假如是 3, 表示第 3 天的獎勵已經領取了. </para>
         /// <para> 不要直接使用, 改用 GetReceivedDailyLoginNum() 取值. </para>
         /// </summary>
-        public Dictionary<int, Dictionary<int, int>> ReceivedDailyLoginNums;
+		public Dictionary<int, Dictionary<int, int>> ReceivedDailyLoginNums;
+
+		/// <summary>
+		/// 順序
+		///	Basket = 0, Advertisement = 1, Store = 2,
+		///	Gym = 3, Door = 4, Logo = 5,
+		///	Chair = 6, Calendar = 7, Mail = 8
+		/// </summary>
+		public TGymBuild[] GymBuild;
+		public TGymQueue[] GymQueue;
+		public int[] GymOwn; //各個建築物的擁有數量
+
+		public int GetDailyLoginNum(int year, int month)
+		{
+			if(DailyLoginNums != null && 
+				DailyLoginNums.ContainsKey(year) && 
+				DailyLoginNums[year].ContainsKey(month))
+				return DailyLoginNums[year][month];
+			return 0;
+		}
 
         public int GetReceivedDailyLoginNum(int year, int month)
         {

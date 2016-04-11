@@ -286,7 +286,7 @@ public class UIBase: MonoBehaviour
 
 	public void CheckSkillCardFull () {
 		if(GameData.Team.IsSkillCardFull)
-			UIMessage.Get.ShowMessage(TextConst.S(202), TextConst.S(311), YesBuyBag, NoBuyBag);
+			UIMessage.Get.ShowMessage(TextConst.S(202), TextConst.S(260), YesBuyBag, NoBuyBag);//311->260
 	}
 
 	public void YesBuyBag (object extraInfo) {

@@ -56,7 +56,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             }
             //TODO:Read Server Data
             InitBuilds(temp);
-            InitButtons();
+//            InitButtons();
 
             if (advertisementPic == null)
             {
@@ -71,16 +71,16 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             Debug.LogError("Setting Prefab Error");
     }
 
-    private void InitButtons()
-    {
-        for (int i = 0; i < BuildPos.Length; i++)
-        {
-            Btns[i] = BuildPos[i].transform.parent.GetComponent<UIButton>();
-            BuildPos[i].transform.parent.name = i.ToString();
-            if (Btns[i])
-                Btns[i].onClick.Add(new EventDelegate(OnSelect));
-        }
-    }
+//    private void InitButtons()
+//    {
+//        for (int i = 0; i < BuildPos.Length; i++)
+//        {
+//            Btns[i] = BuildPos[i].transform.parent.GetComponent<UIButton>();
+//            BuildPos[i].transform.parent.name = i.ToString();
+//            if (Btns[i])
+//                Btns[i].onClick.Add(new EventDelegate(OnSelect));
+//        }
+//    }
 
 
     [UsedImplicitly]
@@ -92,20 +92,21 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 //        Move();
     }
 
-    private void OnSelect()
+	public void OnSelect(int buildIndex)
     {
         if (delay > 0)
             return;
 
-        int index;
+		int index = buildIndex + 1;
 
-        if (!UITutorial.Visible && int.TryParse(UIButton.current.name, out index))
+//        if (!UITutorial.Visible && int.TryParse(UIButton.current.name, out index))
+		if (!UITutorial.Visible)
         {
 			if(index == 0)
 				return;
 
 			if(LimitTable.Ins.HasByOpenID(GetEOpenID(index + 50))) {
-				if(GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GetEOpenID(index + 50))) {
+				if(GameData.Team.HighestLv >= LimitTable.Ins.GetLv(GetEOpenID(index + 50))) {
 					if (selectIndex == index)
 					{
 						//back 

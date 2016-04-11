@@ -1704,5 +1704,75 @@ namespace GameStruct
         public int Rebound; 
         public int Block; 
         public int Steal;
-    }
+	}
+
+	public struct TArchitectureExp {
+		public int LV;
+
+		public float GymTime;
+		public int GymSpendKind;
+		public int GymCost;
+		public int GymAttrKind;
+		public float GymAttrValue;
+
+		public float BasketTime;
+		public int BasketSpendKind;
+		public int BasketCost;
+		public int BasketAttrKind;
+		public float BasketAttrValue;
+
+		public float AdTime;
+		public int AdSpendKind;
+		public int AdCost;
+		public int AdAttrKind;
+		public float AdAttrValue;
+
+		public float StoreTime;
+		public int StoreSpendKind;
+		public int StoreCost;
+		public int StoreAttrKind;
+		public float StoreAttrValue;
+
+		public float ChairTime;
+		public int ChairSpendKind;
+		public int ChairCost;
+		public int ChairAttrKind;
+		public float ChairAttrValue;
+
+		public float DoorTime;
+		public int DoorSpendKind;
+		public int DoorCost;
+		public int DoorAttrKind;
+		public float DoorAttrValue;
+
+		public float LogoTime;
+		public int LogoSpendKind;
+		public int LogoCost;
+		public int LogoAttrKind;
+		public float LogoAttrValue;
+
+		public float CalendarTime;
+		public int CalendarSpendKind;
+		public int CalendarCost;
+		public int CalendarAttrKind;
+		public float CalendarAttrValue;
+
+		public float MailTime;
+		public int MailSpendKind;
+		public int MailCost;
+		public int MailAttrKind;
+		public float MailAttrValue;
+	}
+		
+	public struct TGymBuild {
+		public int LV;
+		public int Type;
+		public DateTime Time;
+	} 
+
+	public struct TGymQueue {
+		public int Index;//紀錄位置
+		public bool IsOpen;
+		public int BuildIndex;
+	} 
 }

@@ -241,6 +241,11 @@
         "en": "Insuficient skill cards storage space,  spend some[FF00FF] 15 [-] Gems later [33FFDD] when you cleared some space [-] ?"
     },
     {
+        "id": 261,
+        "tw": " {0:00}分",
+        "en": " {0:00}MINUTES"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制[FFDD33]自己角色[-]的移動。",
@@ -4498,9 +4503,9 @@
     },
     {
         "id": 11010,
-        "explain": "花費寶石 顆",
-        "tw": "花費寶石[FF00FFFF]{0}[-]顆",
-        "en": "Cost [FF00FFFF]{0}[-] Diamonds"
+        "explain": "花費寶石 顆消除冷卻時間",
+        "tw": "花費寶石[FF00FFFF]{0}[-]顆消除冷卻時間",
+        "en": "Cost [FF00FFFF]{0}[-] Diamonds to reduce CD time."
     },
     {
         "id": 11011,
@@ -4510,24 +4515,66 @@
     },
     {
         "id": 11012,
+        "explain": "等級達上限",
+        "tw": "等級已達上限",
+        "en": "LV Max"
+    },
+    {
+        "id": 11013,
+        "explain": "數值達上限",
+        "tw": "已達上限"
+    },
+    {
+        "id": 11014,
+        "explain": "花費金幣 顆升級",
+        "tw": "花費金幣[FF00FFFF]{0}[-]元升級",
+        "en": "Cost [FF00FFFF]{0}[-] Moneys to Upgrade"
+    },
+    {
+        "id": 11015,
+        "explain": "佇列已滿",
+        "tw": "佇列已滿",
+        "en": "Queue is full."
+    },
+    {
+        "id": 11020,
         "explain": "設施功能",
         "tw": "設施功能：",
         "en": "Features："
     },
     {
-        "id": 11013,
+        "id": 11021,
         "explain": "目前等級",
         "tw": "LV{0} ",
         "en": "LV{0} "
     },
     {
-        "id": 11014,
+        "id": 11022,
         "explain": "下一級",
         "tw": "下一級：LV{1} ",
         "en": "NEXT：LV{1} "
     },
     {
-        "id": 11015
+        "id": 11023,
+        "explain": "球場目前效果",
+        "tw": "士氣恢復速度 {0} / s",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11024,
+        "explain": "升級效果",
+        "tw": "士氣恢復速度 {0} / s",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11025,
+        "explain": "升級需求",
+        "tw": "升級需求："
+    },
+    {
+        "id": 11026,
+        "explain": "升級CD",
+        "tw": "升級CD："
     },
     {
         "id": 11101,

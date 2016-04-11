@@ -87,7 +87,7 @@ public class FileManager : KnightSingleton<FileManager>
         "greatplayer", "tactical", "baseattr", "ballposition", "skill", "stage", "item", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
         "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
-        "lifetime", "potential", "diamonds"
+		"lifetime", "potential", "diamonds", "architectureexp"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -228,6 +228,7 @@ public class FileManager : KnightSingleton<FileManager>
         downloadCallBack[26] = parseLifeTimeData;
         downloadCallBack[27] = ParsePotentital;
         downloadCallBack[28] = ParseDiamonds;
+		downloadCallBack[29] = ParseArchitectureExp;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -577,6 +578,15 @@ public class FileManager : KnightSingleton<FileManager>
 				else 
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
 
+
+				if(GameData.DBuildData.ContainsKey (data[i].Kind)) {
+					GameData.DBuildData[data[i].Kind].Add(data[i]);
+				} else {
+					List<TItemData> items = new List<TItemData>();
+					items.Add(data[i]);
+					GameData.DBuildData.Add(data[i].Kind, items);
+				}
+
                 #if UNITY_EDITOR
                 if (data[i].StageSource != null) {
                     for (int j = 0; j < data[i].StageSource.Length; j++)
@@ -606,15 +616,15 @@ public class FileManager : KnightSingleton<FileManager>
 //                    if (data[i].OpenIndex > 0 && !GameData.DOpenUILv.ContainsKey((EOpenUI)data[i].OpenIndex))
 //                        GameData.DOpenUILv.Add((EOpenUI)data[i].OpenIndex, data[i].Lv);
                 } else
-					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
+					Debug.LogError("GameData.DExpData is ContainsKey:"+ data[i].Lv);
 			}
 			
 			if(isSaveVersion)
 				SaveDataVersionAndJson(text, "exp", version);
 			
-			Debug.Log ("[item parsed finished.] ");
+			Debug.Log ("[exp parsed finished.] ");
 		} catch (Exception ex) {
-			Debug.LogError ("[item parsed error] " + ex.Message);
+			Debug.LogError ("[exp parsed error] " + ex.Message);
 		}
 	}
 
@@ -946,4 +956,54 @@ public class FileManager : KnightSingleton<FileManager>
         if(isSaveVersion)
             SaveDataVersionAndJson(jsonText, "diamonds", version);
     }
+
+	public void ParseArchitectureExp (string version, string text, bool isSaveVersion) {
+		try
+		{
+			TArchitectureExp[] data = JsonConvertWrapper.DeserializeObject<TArchitectureExp[]>(text);
+
+			for (int i = 0; i < data.Length; i++) {
+				if(!GameData.DArchitectureExp.ContainsKey(data[i].LV)) {
+					GameData.DArchitectureExp.Add(data[i].LV, data[i]);
+					setBuildHighLv(data[i]);
+				}
+			}
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "architectureexp", version);
+
+			Debug.Log ("[ArchitectureExp parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[ArchitectureExp parsed error] " + ex.Message);
+		}
+	}
+
+	private void setBuildHighLv (TArchitectureExp data) {
+		if(data.BasketTime > 0) {
+			GameData.DBuildHightestLvs[0] = data.LV;
+		}
+		if(data.AdTime > 0) {
+			GameData.DBuildHightestLvs[1] = data.LV;
+		}
+		if(data.StoreTime > 0) {
+			GameData.DBuildHightestLvs[2] = data.LV;
+		}
+		if(data.GymTime > 0) {
+			GameData.DBuildHightestLvs[3] = data.LV;
+		}
+		if(data.DoorTime > 0) {
+			GameData.DBuildHightestLvs[4] = data.LV;
+		}
+		if(data.LogoTime > 0) {
+			GameData.DBuildHightestLvs[5] = data.LV;
+		}
+		if(data.ChairTime > 0) {
+			GameData.DBuildHightestLvs[6] = data.LV;
+		}
+		if(data.CalendarTime > 0) {
+			GameData.DBuildHightestLvs[7] = data.LV;
+		}
+		if(data.MailTime > 0) {
+			GameData.DBuildHightestLvs[8] = data.LV;
+		}
+	}
 }

@@ -416,6 +416,8 @@ public class UIRecharge : UIBase {
 					UIMainLobby.Get.Hide(2);
 				if(UIMall.Visible)
 					UIMall.Get.RefreshTextColor();
+				if(UIGym.Visible)
+					UIGym.Get.RefreshDiamondColor();
 			}
 		}
 
@@ -513,7 +515,7 @@ public class UIRecharge : UIBase {
 			return !(UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
 				UISkillFormation.Visible || UISkillReinforce.Visible || UIPlayerInfo.Visible || UIMission.Visible || UIAvatarFitted.Visible ||
 				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible || UIPlayerPotential.Visible || 
-				UICreateRole.Visible);
+				UICreateRole.Visible || UIGymEngage.Visible);
 		}
 	}
 }

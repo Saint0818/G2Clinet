@@ -1077,4 +1077,66 @@ public static class GameFunction
 		else
 			return 0;
 	}
+
+	//Array從０開始
+	public static string GetBuildName (int index) {
+		return TextConst.S(11001 + (index + 1) * 100);
+	}
+
+	public static int GetBuildItemID (int index, int type) {
+		return 50000 + (index + 1) * 1000 + type;
+	}
+
+	public static int GetBuildLv (int index) {
+		if(index >= 0 && index < GameData.Team.GymBuild.Length) {
+			return GameData.Team.GymBuild[index].LV;
+		}
+		return 1;
+	}
+
+	public static DateTime GetBuildTime (int index) {
+		if(index >= 0 && index < GameData.Team.GymBuild.Length) {
+			return GameData.Team.GymBuild[index].Time;
+		}
+		return DateTime.UtcNow;
+	}
+
+	///	Basket = 0, Advertisement = 1, Store = 2,
+	///	Gym = 3, Door = 4, Logo = 5,
+	///	Chair = 6, Calendar = 7, Mail = 8
+	public static DateTime GetOriTime (int index, int lv, DateTime time) {
+		if(GameData.DArchitectureExp.ContainsKey(lv)) {
+			switch(index) {
+			case 0:
+				return time.AddHours(-GameData.DArchitectureExp[lv].BasketTime).ToUniversalTime();
+			case 1:
+				return time.AddHours(-GameData.DArchitectureExp[lv].AdTime).ToUniversalTime();
+			case 2:
+				return time.AddHours(-GameData.DArchitectureExp[lv].StoreTime).ToUniversalTime();
+			case 3:
+				return time.AddHours(-GameData.DArchitectureExp[lv].GymTime).ToUniversalTime();
+			case 4:
+				return time.AddHours(-GameData.DArchitectureExp[lv].DoorTime).ToUniversalTime();
+			case 5:
+				return time.AddHours(-GameData.DArchitectureExp[lv].LogoTime).ToUniversalTime();
+			case 6:
+				return time.AddHours(-GameData.DArchitectureExp[lv].ChairTime).ToUniversalTime();
+			case 7:
+				return time.AddHours(-GameData.DArchitectureExp[lv].CalendarTime).ToUniversalTime();
+			case 8:
+				return time.AddHours(-GameData.DArchitectureExp[lv].MailTime).ToUniversalTime();
+			}
+		}
+		return DateTime.UtcNow;
+	}
+
+	public static int GetIdleQueue {
+		get {
+			int count = 0;
+			for(int i=0; i<GameData.Team.GymQueue.Length; i++) 
+				if(GameData.Team.GymQueue[i].IsOpen && GameData.Team.GymQueue[i].BuildIndex == -1)
+					count ++;
+			return count;
+		}
+	}
 }

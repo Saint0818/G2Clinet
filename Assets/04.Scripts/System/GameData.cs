@@ -60,6 +60,12 @@ public static class GameData
 
     public static Dictionary<int, TPotentital> DPotential = new Dictionary<int, TPotentital>();
 
+	public static Dictionary<int, TArchitectureExp> DArchitectureExp = new Dictionary<int, TArchitectureExp>();
+
+	//building key:Kind
+	public static Dictionary<int, List<TItemData>> DBuildData = new Dictionary<int, List<TItemData>>();
+	public static int[] DBuildHightestLvs = new int[9];
+
     public static float ServerVersion;
     public static float SaveVersion;
     public static bool IsLoginRTS;

@@ -17,7 +17,7 @@ public class UI3DMainLobby : UIBase
     private static UI3DMainLobby instance;
     private const string UIName = "UI3DMainLobby";
 
-    private UI3DMainLobbyImpl mImpl;
+	public UI3DMainLobbyImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()
@@ -51,4 +51,24 @@ public class UI3DMainLobby : UIBase
             return instance;
         }
     }
+
+	public static bool Visible {
+		get {
+			if(instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
+		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(instance.gameObject);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
+	}
 }
