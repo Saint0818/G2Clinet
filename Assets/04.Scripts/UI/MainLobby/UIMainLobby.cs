@@ -65,10 +65,12 @@ public class UIMainLobby : UIBase
     public void Show()
     {
         Show(true);
-        UI3DMainLobby.Get.Show();
+		UI3DMainLobby.Get.Show();
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null) //因為後台還沒建立所以要判斷
+			UIGym.Get.ShowView();
         UpdateUI();
 
-        Main.Show();
+		Main.Show();
 
         playMoneyAnimation(AnimDelay);
         playPowerAnimation(AnimDelay);
@@ -184,7 +186,9 @@ public class UIMainLobby : UIBase
 	}
 
     public void Hide(int kind = 3, bool playAnimation = true)
-    {
+	{
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
+			UIGym.Visible = false;
         UI3DMainLobby.Get.Hide();
         Main.Hide(kind, playAnimation);
         ResetCommands.Get.Stop();
@@ -195,7 +199,9 @@ public class UIMainLobby : UIBase
     }
 
     public void HideAll(bool playAnimation = true)
-    {
+	{
+		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
+			UIGym.Visible = false;
         UI3DMainLobby.Get.Hide();
         Main.HideAll(playAnimation);
         ResetCommands.Get.Stop();
