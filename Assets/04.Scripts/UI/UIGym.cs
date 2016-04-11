@@ -4,6 +4,7 @@ using System.Collections;
 using GameStruct;
 using GameEnum;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public struct TGymResult {
 	public int Money;
@@ -32,6 +33,12 @@ public class UIGym : UIBase {
 
 	private const int ThirdQueueDiamonds = 1000;
 
+	private int[] sendIndexs = new int[0];
+	private int[] sendBuildIndexs = new int[0];
+
+	private List<int> tempSendIndex = new List<int> ();
+	private List<int> tempSendBuild = new List<int> ();
+
 	private TGymQueue[] tempGymQueue = new TGymQueue[3];
 
 	private GameObject gymCenter;
@@ -44,6 +51,8 @@ public class UIGym : UIBase {
 
 	private GameObject goLock;
 	private UILabel labelPrice;
+
+	private bool isCheckUpdateOnLoad = false;
 
 	public static bool Visible {
 		get {
@@ -75,8 +84,16 @@ public class UIGym : UIBase {
 		}
 	}
 
+	void OnDestroy () {
+		tempSendBuild.Clear ();
+		tempSendIndex.Clear ();
+	}
+
 	void FixedUpdate () {
-		updateQueue();
+		if (isCheckUpdateOnLoad) {
+			updateQueue();
+			updateBuildCD ();
+		}
 	}
 
 	protected override void InitCom() {
@@ -107,17 +124,25 @@ public class UIGym : UIBase {
 		RefreshDiamondColor ();
 	}
 
+	//場景上的建築物從1開始， Array從0開始
 	public void OnClickBuild () {
 		int result = 0;
 		if (int.TryParse (UIButton.current.name, out result)) {
-			if(UI3DMainLobby.Visible)
-				UI3DMainLobby.Get.mImpl.OnSelect(result);
-			
-			if(goQueueGroup.activeSelf)
-				goQueueGroup.SetActive(false);
-			
-			CenterVisible = false;
-			StartCoroutine(ShowEngage(result));
+			if (LimitTable.Ins.HasByOpenID ((EOpenID)(result + 1 + 50))) {
+				if (GameData.Team.HighestLv >= LimitTable.Ins.GetLv ((EOpenID)(result + 1 + 50))) {
+					if(UI3DMainLobby.Visible)
+						UI3DMainLobby.Get.mImpl.OnSelect(result);
+
+					if(goQueueGroup.activeSelf)
+						goQueueGroup.SetActive(false);
+
+					CenterVisible = false;
+					StartCoroutine(ShowEngage(result));
+				} else
+					UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
+			} else
+				UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
+
 		}
 	}
 
@@ -150,22 +175,65 @@ public class UIGym : UIBase {
 			gymObj[i].Obj.SetActive(isCanShow(i));
 		}
 		initQueue ();
+		checkUpdate ();
+	}
+
+	private void checkUpdate () {
+		tempSendIndex = new List<int> ();
+		tempSendBuild = new List<int> ();
+		for (int i = 0; i < GameData.Team.GymQueue.Length; i++) {
+			if (GameData.Team.GymQueue [i].BuildIndex >= 0 && GameData.Team.GymQueue [i].BuildIndex < GameData.Team.GymBuild.Length) {
+				if (GameData.Team.GymBuild [GameData.Team.GymQueue [i].BuildIndex].Time.ToUniversalTime () < DateTime.UtcNow) {
+					tempSendIndex.Add (i);
+					tempSendBuild.Add (GameData.Team.GymQueue [i].BuildIndex);
+				}
+			}
+		}
+
+		if (tempSendBuild.Count > 0 && tempSendIndex.Count > 0) {
+			sendBuildIndexs = new int[tempSendBuild.Count];
+			sendIndexs = new int[tempSendIndex.Count];
+			for (int i = 0; i < sendBuildIndexs.Length; i++) {
+				sendBuildIndexs [i] = tempSendBuild [i];
+			}
+			for (int i = 0; i < sendIndexs.Length; i++) {
+				sendIndexs [i] = tempSendIndex [i];
+			}
+			SendRefreshQueue ();
+		} else {
+			isCheckUpdateOnLoad = true;
+			tempSendBuild.Clear ();
+			tempSendIndex.Clear ();
+		}
 	}
 
 	private void refreshBuild () {
 		for (int i=0; i<gymObj.Length; i++) {
 			gymObj[i].NameLabel.text = GameFunction.GetBuildName(i);
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
-			gymObj[i].CDBar.gameObject.SetActive(false);
+			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
 		}
 	}
 
+	private bool isBuildRun (int buildIndex) {
+		for (int i = 0; i < GameData.Team.GymQueue.Length; i++) 
+			if (GameData.Team.GymQueue [i].BuildIndex == buildIndex)
+				return true;
+
+		return false;
+	}
+
 	private void updateBuildCD () {
-		if(tempGymQueue != null ) {
+		if(tempGymQueue != null) {
 			for(int i=0; i<tempGymQueue.Length; i++) {
-				if(tempGymQueue[i].IsOpen && tempGymQueue[i].BuildIndex != -1){
-					gymObj[i].CDBar.value = TextConst.DeadlineStringPercent(GameFunction.GetOriTime(tempGymQueue[i].BuildIndex, GameFunction.GetBuildLv(tempGymQueue[i].BuildIndex) - 1, GameFunction.GetBuildTime(tempGymQueue[i].BuildIndex).ToUniversalTime()) ,GameFunction.GetBuildTime(tempGymQueue[i].BuildIndex).ToUniversalTime());
-					gymObj[i].TimeLabel.text = TextConst.SecondString((int)(new System.TimeSpan(GameData.Team.GymBuild[tempGymQueue[i].BuildIndex].Time.ToUniversalTime().Ticks - DateTime.UtcNow.Ticks).TotalSeconds));
+				if(tempGymQueue[i].IsOpen && tempGymQueue[i].BuildIndex != -1 && tempGymQueue[i].BuildIndex < gymObj.Length && tempGymQueue[i].BuildIndex < GameData.Team.GymBuild.Length) {
+					if (GameData.Team.GymBuild [tempGymQueue [i].BuildIndex].Time.ToUniversalTime () > DateTime.UtcNow) {
+						gymObj [tempGymQueue [i].BuildIndex].CDBar.value = TextConst.DeadlineStringPercent (GameFunction.GetOriTime (tempGymQueue [i].BuildIndex, GameFunction.GetBuildLv (tempGymQueue [i].BuildIndex) - 1, GameFunction.GetBuildTime (tempGymQueue [i].BuildIndex).ToUniversalTime ()), GameFunction.GetBuildTime (tempGymQueue [i].BuildIndex).ToUniversalTime ());
+						gymObj [tempGymQueue [i].BuildIndex].TimeLabel.text = TextConst.SecondString ((int)(new System.TimeSpan (GameData.Team.GymBuild [tempGymQueue [i].BuildIndex].Time.ToUniversalTime ().Ticks - DateTime.UtcNow.Ticks).TotalSeconds));
+					} else {
+						isCheckUpdateOnLoad = false;
+						checkUpdate ();
+					}
 				}
 			}
 		}
@@ -174,10 +242,7 @@ public class UIGym : UIBase {
 	private void initQueue () {
 		if(GameData.Team.GymQueue != null && GameData.Team.GymQueue.Length > 0 && GameData.Team.GymQueue.Length == 3 && tempGymQueue.Length == GameData.Team.GymQueue.Length) {
 			if(LimitTable.Ins.HasByOpenID(EOpenID.OperateQueue)) {
-				if(GameData.Team.GymQueue[1].IsOpen != (GameData.Team.HighestLv >= LimitTable.Ins.GetLv(EOpenID.OperateQueue)))  //假如Client跟Server不同步，會先檢查Server再回傳
-					SendCheckQueueLv();
-				else 
-					RefreshQueue();
+				RefreshQueue();
 			}
 		}
 	}
@@ -205,8 +270,24 @@ public class UIGym : UIBase {
 			if(!tempGymQueue[2].IsOpen) 
 				gymQueueObj[2].NameLabel.text = TextConst.S(11004);
 		}
+
+		bubbleList ();
 		refreshRedPoint ();
 		updateQueue ();
+	}
+
+
+	private void bubbleList () {
+		for (int i = 0; i < tempGymQueue.Length; i++) {
+			for (int j = 1; j < tempGymQueue.Length; j++) {
+				if (tempGymQueue [i].IsOpen && tempGymQueue [i].BuildIndex == -1 &&
+					tempGymQueue [j].IsOpen && tempGymQueue [j].BuildIndex != -1) {
+					int tempBuildIndex = tempGymQueue [i].BuildIndex;
+					tempGymQueue [i].ChangePos (tempGymQueue[j].BuildIndex);
+					tempGymQueue [j].ChangePos (tempBuildIndex);
+				}
+			}
+		}
 	}
 
 	private void setQueueBreak (int index) {
@@ -258,21 +339,6 @@ public class UIGym : UIBase {
 		set {gymCenter.SetActive(value);}
 	}
 
-	private void SendCheckQueueLv () {
-		WWWForm form = new WWWForm();
-		SendHttp.Get.Command(URLConst.GymCheckQueueLv, waitCheckQueueLv, form);
-	}
-
-	private void waitCheckQueueLv(bool ok, WWW www) {
-		if (ok) {
-			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
-			GameData.Team.GymQueue = result.GymQueue;
-			RefreshQueue();
-		} else {
-			Debug.LogError("text:"+www.text);
-		} 
-	}
-
 	private void SendBuyQueue () {
 		WWWForm form = new WWWForm();
 		SendHttp.Get.Command(URLConst.GymBuyQueue, waitBuyQueue, form);
@@ -290,20 +356,29 @@ public class UIGym : UIBase {
 		} 
 	}
 
-//	private void SendRefreshQueue () {
-//		WWWForm form = new WWWForm();
-//		SendHttp.Get.Command(URLConst.GymBuyQueue, waitBuyQueue, form);
-//	}
-//
-//	private void waitBuyQueue(bool ok, WWW www) {
-//		if (ok) {
-//			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
-//			GameData.Team.Diamond = result.Diamond;
-//			GameData.Team.GymQueue = result.GymQueue;
-//			RefreshQueue();
-//			UIMainLobby.Get.UpdateUI();
-//		} else {
-//			Debug.LogError("text:"+www.text);
-//		} 
-//	}
+	private void SendRefreshQueue () {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", JsonConvert.SerializeObject(sendIndexs));
+		form.AddField("BuildIndex", JsonConvert.SerializeObject(sendBuildIndexs));
+		SendHttp.Get.Command(URLConst.GymRefreshQueue, waitRefreshQueue, form);
+	}
+
+	private void waitRefreshQueue(bool ok, WWW www) {
+		if (ok) {
+			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.GymBuild = result.GymBuild;
+			GameData.Team.GymQueue = result.GymQueue;
+			RefreshQueue();
+			UIMainLobby.Get.UpdateUI();
+			if (UIGymEngage.Visible)
+				UIGymEngage.Get.RefreshUI ();
+
+			isCheckUpdateOnLoad = true;
+			tempSendBuild.Clear ();
+			tempSendIndex.Clear ();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
 }

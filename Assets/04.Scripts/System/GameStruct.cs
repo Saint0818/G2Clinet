@@ -1774,5 +1774,9 @@ namespace GameStruct
 		public int Index;//紀錄位置
 		public bool IsOpen;
 		public int BuildIndex;
+
+		public void ChangePos(int buildIndex) {
+			BuildIndex = buildIndex;
+		}
 	} 
 }

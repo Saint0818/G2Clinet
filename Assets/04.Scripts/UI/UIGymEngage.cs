@@ -222,23 +222,23 @@ public class UIGymEngage : UIBase {
 		Visible = true;
 		mBuildIndex = index;
 		setTitle(index);
-		refreshUI(index);
+		RefreshUI();
 		setScrollView ();
 	}
 
-	private void refreshUI (int index) {
-		if(isHighestLevel (index)) {
+	public void RefreshUI () {
+		if(isHighestLevel (mBuildIndex)) {
 			windowHighest.SetActive(true);
 			windowNormal.SetActive(false);
-			setTempValue(index, true);
-			setHighLvInfo(index);
+			setTempValue(mBuildIndex, true);
+			setHighLvInfo(mBuildIndex);
 		} else {
 			windowHighest.SetActive(false);
 			windowNormal.SetActive(true);
 			goUpgrade.SetActive(false);
 			goBuyCD.SetActive(false);
-			setTempValue(index, false);
-			setInfo(index);
+			setTempValue(mBuildIndex, false);
+			setInfo(mBuildIndex);
 			setUpgrade();
 		}
 	}
@@ -356,7 +356,7 @@ public class UIGymEngage : UIBase {
 	}
 
 	private void refreshLabelColor () {
-		labelUpgradePrice.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(architectureValue.Cost, architectureValue.SpendKind), architectureValue.SpendKind);
+		labelUpgradePrice.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(architectureValue.SpendKind, architectureValue.Cost), architectureValue.SpendKind);
 	}
 
 	private int secToMin(int Sec){
@@ -630,7 +630,7 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymQueue = result.GymQueue;
 
 			UIMainLobby.Get.UpdateUI();
-			refreshUI(mBuildIndex);
+			RefreshUI();
 			UIGym.Get.RefreshQueue();
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -652,7 +652,7 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymQueue = result.GymQueue;
 
 			UIMainLobby.Get.UpdateUI();
-			refreshUI(mBuildIndex);
+			RefreshUI();
 			UIGym.Get.RefreshQueue();
 		} else {
 			Debug.LogError("text:"+www.text);
