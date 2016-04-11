@@ -33,7 +33,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
 //    private Transform DummyBall;
-    private AnimatorBehavior playerControl;
+    private AnimatorController playerControl;
     private EPlayerState crtState;
     private int stateNo = 0;
     private int selectIndex = -1;

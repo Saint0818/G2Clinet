@@ -6,14 +6,16 @@ public delegate void ZoomDelegate(float speed);
 public delegate void SkillDelegate(AnimationEvent aniEvent);
 
 /// <summary>
-/// 用法：主要用來控制Animator跟Curve的播放
-/// 1.addComponent<AnimatorBehavior>到一個角色身上 
+/// 方便控制 Animator 的控制器.
+/// 
+/// 用法：主要用來控制Animator跟Curve的播放(每位球員身上都有 1 個)
+/// 1.addComponent(AnimatorBehavior) 到一個角色身上.
 /// 2.先Init(Animator)
 /// 3.再塞各自動作委託(可省略)
 /// 4.播動作 AddTrigger
 /// </summary>
 
-public class AnimatorBehavior : MonoBehaviour
+public class AnimatorController : MonoBehaviour
 {
     public Animator Controler;
     public int StateNo = -1;

@@ -200,7 +200,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// <para> 當強制要撥完的動作撥完後, 就會設值為 true. </para>
     /// </summary>
     private bool mStateChangable = true;
-    public AnimatorBehavior AnimatorControl;
+    public AnimatorController AnimatorControl;
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -2198,7 +2198,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void InitAnmator()
     {
-        AnimatorControl = PlayerRefGameObject.AddComponent<AnimatorBehavior>();
+        AnimatorControl = PlayerRefGameObject.AddComponent<AnimatorController>();
         AnimatorControl.Init(PlayerRefGameObject.GetComponent<Animator>());
         AnimatorControl.GotStealingDel = GotStealing;
         AnimatorControl.FakeShootBlockMomentDel = FakeShootBlockMoment;
