@@ -132,7 +132,7 @@ public class UIGameResult : UIBase {
 					isShowFinish = false;
 					Invoke("finishStageHint", 1);
 				} else {
-					if(hintIndex > 0 && hintIndex < mTargets.Length) {
+					if(hintIndex >= 0 && hintIndex < mTargets.Length) {
 						mTargets[hintCount - hintIndex].UpdateFin(true);
 						AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
 					}
