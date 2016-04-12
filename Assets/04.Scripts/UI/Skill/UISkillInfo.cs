@@ -195,10 +195,8 @@ public class UISkillInfo : UIBase {
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 			RefreshUICard(uicard);
-			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
-			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard));
-			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
+			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
@@ -264,7 +262,6 @@ public class UISkillInfo : UIBase {
 
 			if(GameData.DSkillData[skill.ID].Suititem > 0 && GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)) {
 				goSuitItem.gameObject.SetActive(true);
-//				goSuitItem.spriteName = GameFunction.CardLevelBallName(skill.ID);
 				goSuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
 				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
 				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength);
@@ -336,10 +333,8 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 
         if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
-			goSuitCard.gameObject.SetActive((GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive((GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
-			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard));
-			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem));
+			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
