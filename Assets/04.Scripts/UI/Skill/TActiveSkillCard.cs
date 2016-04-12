@@ -77,7 +77,9 @@ public class TActiveSkillCard
 			if(go.transform.Find("RedPoint"))
 				RedPoint = go.transform.Find("RedPoint").gameObject;
 
-			go.transform.Find ("InListCard/InlistLabel").GetComponent<UILabel>().text = TextConst.S(7110);
+			if(InListCard != null) {
+				go.transform.Find ("InListCard/InlistLabel").GetComponent<UILabel>().text = TextConst.S(7110);
+			}
 			go.transform.Find ("SellSelect/SellCover/SellLabel").GetComponent<UILabel>().text = TextConst.S(7114);
 
 			if(RedPoint != null)
@@ -234,6 +236,23 @@ public class TActiveSkillCard
 		{
 			Debug.LogError("You needed to Init()");
 		}
+	}
+
+	public void RefreshInListColor (bool isEnough) {
+		if(UnavailableMaskLabel != null) {
+			if(isEnough)
+				UnavailableMaskLabel.color = Color.white;
+			else
+				UnavailableMaskLabel.color = Color.red;
+		}
+
+		if(labelCost != null) {
+			if(isEnough)
+				labelCost.color = Color.white;
+			else
+				labelCost.color = Color.red;
+		}
+
 	}
 
 	public void UpdateSuitCardButton (UIEventListener.VoidDelegate btnFun) {

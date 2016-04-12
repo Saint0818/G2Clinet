@@ -822,6 +822,7 @@ public class UISkillFormation : UIBase {
 					if(getActiveInstall == activeFieldLimit) {
 						//Delete
 						bool flag = false;
+						index --;
 						if(activeStruct[index].CheckBeInstall) {
 							if(checkCost(-uiCards[activeStruct[index].ItemEquipActiveCard.name].Cost))
 								if(checkCost(uiCards[name].Cost))
@@ -1351,6 +1352,7 @@ public class UISkillFormation : UIBase {
 
 	private void refreshRedPoint () {
 		foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+			uicard.Value.skillCard.RefreshInListColor(ExtraCostSpace >= uicard.Value.Cost || uicard.Value.skillCard.IsInstall);
 			uicard.Value.RefreshRedPoint(ExtraCostSpace, skillsRecord.Contains(uicard.Value.Card.name), uicard.Value.skillCard.Skill);
 		}
 	}
