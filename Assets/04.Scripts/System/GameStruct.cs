@@ -646,6 +646,7 @@ namespace GameStruct
 		public int spaceAdd;
 		public int[] UpgradeMoney;
 		public int[] UpgradeExp;
+		public int[] UpgradeMaterial;//該卡牌能合成的卡牌
 		public int Exp;
 		public int AddExp;
 		public int EvolutionSkill;
@@ -1769,7 +1770,7 @@ namespace GameStruct
 		
 	public struct TGymBuild {
 		public int LV;
-		public int Type;
+		public int ItemID;
 		public DateTime Time;
 	} 
 
