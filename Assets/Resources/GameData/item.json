@@ -1267,7 +1267,7 @@
     },
     {
         "id": 1017,
-        "nametw": "中鋒頭髮17",
+        "nametw": "雷鬼爆炸頭巾",
         "kind": 1,
         "atlas": 1,
         "icon": 1017,
@@ -1279,9 +1279,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋头发17",
-        "nameen": "Hair center 17",
-        "namejp": "髪のセンター17"
+        "namecn": "雷鬼爆炸頭巾",
+        "nameen": "Rock band hairstyle",
+        "namejp": "髪のセンター17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [ff0000] Center [-] equipment."
     },
     {
         "id": 1018,
@@ -1296,12 +1298,12 @@
         "buy": 700,
         "flag": 1,
         "namecn": "中锋头发18",
-        "nameen": "Hair center 18",
+        "nameen": "Hair center 20",
         "namejp": "髪のセンター18"
     },
     {
         "id": 1019,
-        "nametw": "中鋒頭髮19",
+        "nametw": "機甲指揮髮型",
         "kind": 1,
         "atlas": 1,
         "icon": 1019,
@@ -1313,9 +1315,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "中锋头发19",
-        "nameen": "Hair center 19",
-        "namejp": "毛髪センタ19"
+        "namecn": "機甲指揮髮型",
+        "nameen": "Frost Fighter redhead",
+        "namejp": "毛髪センタ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [ff0000] Center [-] equipment."
     },
     {
         "id": 1020,
@@ -1527,7 +1531,7 @@
     },
     {
         "id": 1111,
-        "nametw": "搖滾紳士髮型",
+        "nametw": "搖滾樂團髮型",
         "kind": 1,
         "atlas": 1,
         "icon": 1111,
@@ -1547,7 +1551,7 @@
     },
     {
         "id": 1112,
-        "nametw": "湛藍帥氣髮型",
+        "nametw": "金屬帥氣髮型",
         "kind": 1,
         "atlas": 1,
         "icon": 1112,
@@ -1658,9 +1662,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋头发17",
+        "namecn": "電子風髮辮",
         "nameen": "Hair striker 17",
-        "namejp": "髪のストライカー17"
+        "namejp": "髪のストライカー17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 1118,
@@ -1680,7 +1686,7 @@
     },
     {
         "id": 1119,
-        "nametw": "前鋒頭髮19",
+        "nametw": "機甲美男髮型",
         "kind": 1,
         "atlas": 1,
         "icon": 1119,
@@ -1692,9 +1698,11 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋头发19",
+        "namecn": "機甲美男髮型",
         "nameen": "Hair striker 19",
-        "namejp": "髪のストライカー19"
+        "namejp": "髪のストライカー19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [3960CEFF] Forward [-] equipment."
     },
     {
         "id": 1120,
@@ -2043,7 +2051,8 @@
         "flag": 1,
         "namecn": "后卫头发17",
         "nameen": "Guard hair 17",
-        "namejp": "ガード毛17"
+        "namejp": "ガード毛17",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 1218,
@@ -2061,11 +2070,13 @@
         "flag": 1,
         "namecn": "后卫头发18",
         "nameen": "Guard hair 18",
-        "namejp": "ガード毛18"
+        "namejp": "ガード毛18",
+        "explaintw": "甜美鎖定、心動重擊！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Lock sweet, heart pounding!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 1219,
-        "nametw": "後衛頭髮19",
+        "nametw": "機甲斥侯短髮",
         "kind": 1,
         "atlas": 1,
         "icon": 1219,
@@ -2079,7 +2090,9 @@
         "flag": 1,
         "namecn": "后卫头发19",
         "nameen": "Guard hair 19",
-        "namejp": "ガード毛19"
+        "namejp": "ガード毛19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 1220,
@@ -2239,7 +2252,7 @@
     },
     {
         "id": 2010,
-        "nametw": "格鬥手指虎",
+        "nametw": "摔角手指虎",
         "kind": 2,
         "atlas": 2,
         "icon": 2010,
@@ -2380,7 +2393,7 @@
     },
     {
         "id": 2017,
-        "nametw": "中鋒手飾17",
+        "nametw": "雷鬼爆炸手飾",
         "kind": 2,
         "atlas": 2,
         "icon": 2017,
@@ -2394,7 +2407,9 @@
         "flag": 1,
         "namecn": "中锋手饰17",
         "nameen": "Jewelry center 17",
-        "namejp": "ジュエリーセンター17"
+        "namejp": "ジュエリーセンター17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [ff0000] Center [-] equipment. "
     },
     {
         "id": 2018,
@@ -2414,7 +2429,7 @@
     },
     {
         "id": 2019,
-        "nametw": "中鋒手飾19",
+        "nametw": "機甲指揮護手",
         "kind": 2,
         "atlas": 2,
         "icon": 2019,
@@ -2428,7 +2443,9 @@
         "flag": 1,
         "namecn": "中锋手饰19",
         "nameen": "Jewelry center 19",
-        "namejp": "ジュエリーセンター19"
+        "namejp": "ジュエリーセンター19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [ff0000] Center [-] equipment. "
     },
     {
         "id": 2020,
@@ -2609,7 +2626,7 @@
     },
     {
         "id": 2111,
-        "nametw": "搖滾巨星手套",
+        "nametw": "搖滾樂團手套",
         "kind": 2,
         "atlas": 2,
         "icon": 2111,
@@ -2630,7 +2647,7 @@
     },
     {
         "id": 2112,
-        "nametw": "導流手套",
+        "nametw": "金屬導流手套",
         "kind": 2,
         "atlas": 2,
         "icon": 2112,
@@ -2724,7 +2741,7 @@
         "namecn": "星際特工護手",
         "nameen": "Cosmic Agents Gloves",
         "namejp": "ジュエリーセンター16",
-        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[3960CEFF]前鋒[-]裝備。",
         "explainen": "Cosmic Agents Gloves\n\nLimited [ff0000] Forward [-] equipment. "
     },
     {
@@ -2743,7 +2760,9 @@
         "flag": 1,
         "namecn": "前锋手饰17",
         "nameen": "Forward jewelry 17",
-        "namejp": "フォワードジュエリー17"
+        "namejp": "フォワードジュエリー17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [ff0000] Forward [-] equipment. "
     },
     {
         "id": 2118,
@@ -2763,7 +2782,7 @@
     },
     {
         "id": 2119,
-        "nametw": "前鋒手飾19",
+        "nametw": "機甲結構護手",
         "kind": 2,
         "atlas": 2,
         "icon": 2119,
@@ -2777,7 +2796,9 @@
         "flag": 1,
         "namecn": "前锋手饰19",
         "nameen": "Forward jewelry 19",
-        "namejp": "フォワードジュエリー19"
+        "namejp": "フォワードジュエリー19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[3960CEFF]前鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [ff0000] Forward [-] equipment. "
     },
     {
         "id": 2120,
@@ -3078,7 +3099,7 @@
         "namecn": "星際特工腕套",
         "nameen": "Cosmic Agents Wrist",
         "namejp": "ジュエリーセンター16",
-        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explaintw": "星際特工系列，守護宇宙和平。\n\n限定[00BA7BFF]後衛[-]裝備。",
         "explainen": "Cosmic Agents Wrist\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
@@ -3095,7 +3116,9 @@
         "flag": 1,
         "namecn": "后卫手饰17",
         "nameen": "Defender jewelry 17",
-        "namejp": "ディフェンダーの宝石17"
+        "namejp": "ディフェンダーの宝石17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 2218,
@@ -3113,11 +3136,13 @@
         "flag": 1,
         "namecn": "后卫手饰18",
         "nameen": "Defender jewelry 18",
-        "namejp": "ディフェンダーの宝石18"
+        "namejp": "ディフェンダーの宝石18",
+        "explaintw": "甜美鎖定、心動重擊！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Lock sweet, heart pounding!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 2219,
-        "nametw": "後衛手飾19",
+        "nametw": "機甲斥侯腕甲",
         "kind": 2,
         "atlas": 2,
         "icon": 2219,
@@ -3131,7 +3156,9 @@
         "flag": 1,
         "namecn": "后卫手饰19",
         "nameen": "Defender jewelry 19",
-        "namejp": "ディフェンダーの宝石19"
+        "namejp": "ディフェンダーの宝石19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[00BA7BFF]後衛[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Guard [-] equipment.  "
     },
     {
         "id": 2220,
@@ -3321,7 +3348,7 @@
     },
     {
         "id": 3010,
-        "nametw": "神秘圖騰刺青",
+        "nametw": "神秘摔角手刺青",
         "kind": 3,
         "atlas": 3,
         "icon": 3010,
@@ -3462,7 +3489,7 @@
     },
     {
         "id": 3017,
-        "nametw": "中鋒衣服17",
+        "nametw": "雷鬼爆炸T恤",
         "kind": 3,
         "atlas": 3,
         "icon": 3017,
@@ -3476,7 +3503,9 @@
         "flag": 1,
         "namecn": "中锋衣服17",
         "nameen": "Clothes center 17",
-        "namejp": "服センター17"
+        "namejp": "服センター17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Center [-] equipment.  "
     },
     {
         "id": 3018,
@@ -3496,7 +3525,7 @@
     },
     {
         "id": 3019,
-        "nametw": "中鋒衣服19",
+        "nametw": "機甲指揮上衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3019,
@@ -3510,7 +3539,9 @@
         "flag": 1,
         "namecn": "中锋衣服19",
         "nameen": "Clothes center 19",
-        "namejp": "服センタ19"
+        "namejp": "服センタ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 3020,
@@ -3742,7 +3773,7 @@
     },
     {
         "id": 3112,
-        "nametw": "導流塑衣",
+        "nametw": "金屬導流塑衣",
         "kind": 3,
         "atlas": 3,
         "icon": 3112,
@@ -3855,7 +3886,9 @@
         "flag": 1,
         "namecn": "前锋衣服17",
         "nameen": "17 striker clothes",
-        "namejp": "17ストライカー服"
+        "namejp": "17ストライカー服",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 3118,
@@ -3875,7 +3908,7 @@
     },
     {
         "id": 3119,
-        "nametw": "前鋒衣服19",
+        "nametw": "機甲結構上裝",
         "kind": 3,
         "atlas": 3,
         "icon": 3119,
@@ -3889,7 +3922,9 @@
         "flag": 1,
         "namecn": "前锋衣服19",
         "nameen": "19 striker clothes",
-        "namejp": "19ストライカー服"
+        "namejp": "19ストライカー服",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 3120,
@@ -4237,7 +4272,9 @@
         "flag": 1,
         "namecn": "后卫衣服17",
         "nameen": "Guard clothes 17",
-        "namejp": "Guardは17服"
+        "namejp": "Guardは17服",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 3218,
@@ -4255,11 +4292,13 @@
         "flag": 1,
         "namecn": "后卫衣服18",
         "nameen": "Guard clothes 18",
-        "namejp": "Guardは18服"
+        "namejp": "Guardは18服",
+        "explaintw": "甜美鎖定、心動重擊！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Lock sweet, heart pounding!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 3219,
-        "nametw": "後衛衣服19",
+        "nametw": "機甲斥侯馬甲",
         "kind": 3,
         "atlas": 3,
         "icon": 3219,
@@ -4273,7 +4312,9 @@
         "flag": 1,
         "namecn": "后卫衣服19",
         "nameen": "Guard clothes 19",
-        "namejp": "Guardは19服"
+        "namejp": "Guardは19服",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 3220,
@@ -4604,7 +4645,7 @@
     },
     {
         "id": 4017,
-        "nametw": "中鋒褲子17",
+        "nametw": "雷鬼爆炸短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4017,
@@ -4618,7 +4659,9 @@
         "flag": 1,
         "namecn": "中锋裤子17",
         "nameen": "Pants center 17",
-        "namejp": "パンツ・センター17"
+        "namejp": "パンツ・センター17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 4018,
@@ -4638,7 +4681,7 @@
     },
     {
         "id": 4019,
-        "nametw": "中鋒褲子19",
+        "nametw": "機甲指揮褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4019,
@@ -4652,7 +4695,9 @@
         "flag": 1,
         "namecn": "中锋裤子19",
         "nameen": "Pants center 19",
-        "namejp": "パンツ・センター19"
+        "namejp": "パンツ・センター19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Center [-] equipment.  "
     },
     {
         "id": 4020,
@@ -4863,7 +4908,7 @@
     },
     {
         "id": 4111,
-        "nametw": "搖滾軍褲",
+        "nametw": "搖滾樂團軍褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4111,
@@ -4884,7 +4929,7 @@
     },
     {
         "id": 4112,
-        "nametw": "導流緊身褲",
+        "nametw": "金屬導流褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4112,
@@ -4997,7 +5042,9 @@
         "flag": 1,
         "namecn": "前锋裤子17",
         "nameen": "Forward pants 17",
-        "namejp": "フォワードパンツ17"
+        "namejp": "フォワードパンツ17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 4118,
@@ -5017,7 +5064,7 @@
     },
     {
         "id": 4119,
-        "nametw": "前鋒褲子19",
+        "nametw": "機甲結構下裝",
         "kind": 4,
         "atlas": 4,
         "icon": 4119,
@@ -5031,7 +5078,9 @@
         "flag": 1,
         "namecn": "前锋裤子19",
         "nameen": "Forward pants 19",
-        "namejp": "フォワードパンツ19"
+        "namejp": "フォワードパンツ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 4120,
@@ -5379,7 +5428,9 @@
         "flag": 1,
         "namecn": "后卫裤子17",
         "nameen": "Defender pants 17",
-        "namejp": "ディフェンダーパンツ17"
+        "namejp": "ディフェンダーパンツ17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 4218,
@@ -5397,11 +5448,13 @@
         "flag": 1,
         "namecn": "后卫裤子18",
         "nameen": "Defender pants 18",
-        "namejp": "ディフェンダーパンツ18"
+        "namejp": "ディフェンダーパンツ18",
+        "explaintw": "甜美鎖定、心動重擊！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Lock sweet, heart pounding!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 4219,
-        "nametw": "後衛褲子19",
+        "nametw": "機甲斥侯短褲",
         "kind": 4,
         "atlas": 4,
         "icon": 4219,
@@ -5415,7 +5468,9 @@
         "flag": 1,
         "namecn": "后卫裤子19",
         "nameen": "Defender pants 19",
-        "namejp": "ディフェンダーパンツ19"
+        "namejp": "ディフェンダーパンツ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Guard [-] equipment. "
     },
     {
         "id": 4220,
@@ -5605,7 +5660,7 @@
     },
     {
         "id": 5010,
-        "nametw": "印第安摔角靴",
+        "nametw": "摔角靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5010,
@@ -5746,7 +5801,7 @@
     },
     {
         "id": 5017,
-        "nametw": "中鋒鞋子17",
+        "nametw": "雷鬼爆炸短靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5017,
@@ -5760,7 +5815,9 @@
         "flag": 1,
         "namecn": "中锋鞋子17",
         "nameen": "Shoes center 17",
-        "namejp": "靴・センター17"
+        "namejp": "靴・センター17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 5018,
@@ -5780,7 +5837,7 @@
     },
     {
         "id": 5019,
-        "nametw": "中鋒鞋子19",
+        "nametw": "機甲指揮短靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5019,
@@ -5794,7 +5851,9 @@
         "flag": 1,
         "namecn": "中锋鞋子19",
         "nameen": "Shoes center 19",
-        "namejp": "靴・センター19"
+        "namejp": "靴・センター19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]中鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Center [-] equipment. "
     },
     {
         "id": 5020,
@@ -6004,7 +6063,7 @@
     },
     {
         "id": 5111,
-        "nametw": "搖滾軍靴",
+        "nametw": "搖滾樂團軍靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5111,
@@ -6025,7 +6084,7 @@
     },
     {
         "id": 5112,
-        "nametw": "導流輕量鞋",
+        "nametw": "金屬導流靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5112,
@@ -6138,7 +6197,9 @@
         "flag": 1,
         "namecn": "前锋鞋子17",
         "nameen": "Forward Shoes 17",
-        "namejp": "フォワードシューズ17"
+        "namejp": "フォワードシューズ17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 5118,
@@ -6158,7 +6219,7 @@
     },
     {
         "id": 5119,
-        "nametw": "前鋒鞋子19",
+        "nametw": "機甲結構護脛",
         "kind": 5,
         "atlas": 5,
         "icon": 5119,
@@ -6172,7 +6233,9 @@
         "flag": 1,
         "namecn": "前锋鞋子19",
         "nameen": "Forward Shoes 19",
-        "namejp": "フォワードシューズ19"
+        "namejp": "フォワードシューズ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]前鋒[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Forward [-] equipment. "
     },
     {
         "id": 5120,
@@ -6520,7 +6583,9 @@
         "flag": 1,
         "namecn": "后卫鞋子17",
         "nameen": "Defender Shoes 17",
-        "namejp": "ディフェンダーシューズ17"
+        "namejp": "ディフェンダーシューズ17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Special genre series, non-mainstream people love.\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 5218,
@@ -6538,11 +6603,13 @@
         "flag": 1,
         "namecn": "后卫鞋子18",
         "nameen": "Defender Shoes 18",
-        "namejp": "ディフェンダーシューズ18"
+        "namejp": "ディフェンダーシューズ18",
+        "explaintw": "甜美鎖定、心動重擊！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Lock sweet, heart pounding!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 5219,
-        "nametw": "後衛鞋子19",
+        "nametw": "機甲斥侯長靴",
         "kind": 5,
         "atlas": 5,
         "icon": 5219,
@@ -6556,7 +6623,9 @@
         "flag": 1,
         "namecn": "后卫鞋子19",
         "nameen": "Defender Shoes 19",
-        "namejp": "ディフェンダーシューズ19"
+        "namejp": "ディフェンダーシューズ19",
+        "explaintw": "機動裝甲，地球衛士！\n\n限定[ff0000]後衛[-]裝備。",
+        "explainen": "Armored, Champions of the Earth!\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 5220,
@@ -6889,7 +6958,7 @@
     },
     {
         "id": 6017,
-        "nametw": "頭飾17",
+        "nametw": "雷鬼風墨鏡",
         "kind": 6,
         "atlas": 6,
         "icon": 6017,
@@ -6903,7 +6972,9 @@
         "flag": 1,
         "namecn": "头饰17",
         "nameen": "Headdress 17",
-        "namejp": "頭飾り17"
+        "namejp": "頭飾り17",
+        "explaintw": "特殊曲風系列，非主流人士最愛。",
+        "explainen": "Special genre series, non-mainstream people love."
     },
     {
         "id": 6018,
@@ -6921,11 +6992,13 @@
         "flag": 1,
         "namecn": "头饰18",
         "nameen": "Headdress 18",
-        "namejp": "頭飾り18"
+        "namejp": "頭飾り18",
+        "explaintw": "甜美風格與軍事用品的混搭！",
+        "explainen": "Sweet style military supplies mix!"
     },
     {
         "id": 6019,
-        "nametw": "頭飾19",
+        "nametw": "機甲VR鏡",
         "kind": 6,
         "atlas": 6,
         "icon": 6019,
@@ -6939,11 +7012,13 @@
         "flag": 1,
         "namecn": "头饰19",
         "nameen": "Headdress 19",
-        "namejp": "頭飾り19"
+        "namejp": "頭飾り19",
+        "explaintw": "機動裝甲VR應用，保衛地球更有力！",
+        "explainen": "Armored VR applications more powerful to defend the Earth!"
     },
     {
         "id": 6020,
-        "nametw": "頭飾20",
+        "nametw": "機械面罩",
         "kind": 6,
         "atlas": 6,
         "icon": 6020,
@@ -6957,11 +7032,13 @@
         "flag": 1,
         "namecn": "头饰20",
         "nameen": "Headdress 20",
-        "namejp": "頭飾り20"
+        "namejp": "頭飾り20",
+        "explaintw": "機動裝甲全罩式面具，戰鬥不怕臉部受擊！",
+        "explainen": "Armored full-face mask, a face that is not afraid of fighting hit!"
     },
     {
         "id": 6021,
-        "nametw": "頭飾1",
+        "nametw": "斥侯通訊護具",
         "kind": 6,
         "atlas": 6,
         "icon": 6021,
@@ -6975,7 +7052,9 @@
         "flag": 1,
         "namecn": "头饰21",
         "nameen": "Headdress 21",
-        "namejp": "頭飾り21"
+        "namejp": "頭飾り21",
+        "explaintw": "機動裝甲斥侯專用通訊器，有效距離500公尺。",
+        "explainen": "Armored scout dedicated communication device, the effective distance of 500 meters."
     },
     {
         "id": 7000,
@@ -7074,7 +7153,7 @@
     },
     {
         "id": 7006,
-        "nametw": "街頭嘻哈星甲",
+        "nametw": "嘻哈星甲",
         "kind": 7,
         "atlas": 7,
         "icon": 7006,
@@ -7299,7 +7378,7 @@
     },
     {
         "id": 7017,
-        "nametw": "背飾17",
+        "nametw": "雷鬼雙肩包",
         "kind": 7,
         "atlas": 7,
         "icon": 7017,
@@ -7314,7 +7393,9 @@
         "flag": 1,
         "namecn": "背饰17",
         "nameen": "Back decorated 17",
-        "namejp": "戻る17装飾"
+        "namejp": "戻る17装飾",
+        "explaintw": "特殊曲風系列，非主流人士最愛。",
+        "explainen": "Special genre series, non-mainstream people love."
     },
     {
         "id": 7018,
@@ -7332,11 +7413,13 @@
         "flag": 1,
         "namecn": "背饰18",
         "nameen": "Back decorated 18",
-        "namejp": "戻る18装飾"
+        "namejp": "戻る18装飾",
+        "explaintw": "甜美鎖定、心動重擊！",
+        "explainen": "Lock sweet, heart pounding!"
     },
     {
         "id": 7019,
-        "nametw": "背飾19",
+        "nametw": "機甲指揮巨斧",
         "kind": 7,
         "atlas": 7,
         "icon": 7019,
@@ -7350,11 +7433,13 @@
         "flag": 1,
         "namecn": "背饰19",
         "nameen": "Back decorated 19",
-        "namejp": "戻る19装飾"
+        "namejp": "戻る19装飾",
+        "explaintw": "指揮官專用巨斧，霸氣外漏。",
+        "explainen": "Commander special ax, domineering leakage."
     },
     {
         "id": 7020,
-        "nametw": "背飾20",
+        "nametw": "機甲結構長刀",
         "kind": 7,
         "atlas": 7,
         "icon": 7020,
@@ -7368,11 +7453,13 @@
         "flag": 1,
         "namecn": "背饰20",
         "nameen": "Back decorated 20",
-        "namejp": "戻る20装飾"
+        "namejp": "戻る20装飾",
+        "explaintw": "機甲特殊結構長刀，可伸縮、折疊。",
+        "explainen": "Mech special structure of the long knives, retractable, folding."
     },
     {
         "id": 7021,
-        "nametw": "背飾21",
+        "nametw": "機甲斥侯飛翼",
         "kind": 7,
         "atlas": 7,
         "icon": 7021,
@@ -7386,7 +7473,9 @@
         "flag": 1,
         "namecn": "背饰21",
         "nameen": "Back decorated 21",
-        "namejp": "戻る21装飾"
+        "namejp": "戻る21装飾",
+        "explaintw": "斥侯加速用雙飛翼，有效助於空中偵察。",
+        "explainen": "Scout speedup Flying wing, effective means of aerial reconnaissance."
     },
     {
         "id": 11001,
@@ -10930,7 +11019,7 @@
     },
     {
         "id": 19064,
-        "nametw": "格里克原子",
+        "nametw": "西格瑪原子",
         "kind": 19,
         "atlas": 11,
         "icon": 19064,
@@ -15934,17 +16023,20 @@
     {
         "id": 51000,
         "nametw": "51.Basket = 1,",
-        "kind": 51
+        "kind": 51,
+        "avatar": 101
     },
     {
         "id": 52000,
         "nametw": "52.Advertisement = 2,",
-        "kind": 52
+        "kind": 52,
+        "avatar": 101
     },
     {
         "id": 53000,
         "nametw": "53.Store = 3,",
-        "kind": 53
+        "kind": 53,
+        "avatar": 101
     },
     {
         "id": 54000,
@@ -15964,27 +16056,32 @@
     {
         "id": 55000,
         "nametw": "55.Door = 5,",
-        "kind": 55
+        "kind": 55,
+        "avatar": 101
     },
     {
         "id": 56000,
         "nametw": "56.Logo = 6,",
-        "kind": 56
+        "kind": 56,
+        "avatar": 101
     },
     {
         "id": 57000,
         "nametw": "57.Chair = 7,",
-        "kind": 57
+        "kind": 57,
+        "avatar": 101
     },
     {
         "id": 58000,
         "nametw": "58.Calendar = 8,",
-        "kind": 58
+        "kind": 58,
+        "avatar": 101
     },
     {
         "id": 59000,
         "nametw": "59.Mail = 9",
-        "kind": 59
+        "kind": 59,
+        "avatar": 101
     },
     {
         "id": 93101,
@@ -16065,7 +16162,7 @@
         "nametw": " {0}金幣",
         "kind": 31,
         "atlas": 12,
-        "icon": 93110,
+        "icon": 93101,
         "quality": 1,
         "value": 50,
         "nameen": " {0} Golds",
@@ -16077,7 +16174,7 @@
         "nametw": " {0}金幣",
         "kind": 31,
         "atlas": 12,
-        "icon": 93110,
+        "icon": 93101,
         "quality": 1,
         "value": 100,
         "nameen": " {0} Golds",
@@ -16089,7 +16186,7 @@
         "nametw": " {0}金幣",
         "kind": 31,
         "atlas": 12,
-        "icon": 93110,
+        "icon": 93101,
         "quality": 2,
         "value": 200,
         "nameen": " {0} Golds",
@@ -16113,7 +16210,7 @@
         "nametw": " {0}寶石",
         "kind": 32,
         "atlas": 12,
-        "icon": 93202,
+        "icon": 93201,
         "quality": 2,
         "value": 100,
         "nameen": " {0} Gems",
@@ -16125,7 +16222,7 @@
         "nametw": " {0}寶石",
         "kind": 32,
         "atlas": 12,
-        "icon": 93203,
+        "icon": 93201,
         "quality": 3,
         "value": 125,
         "flag": 1,
@@ -16162,7 +16259,7 @@
         "nametw": " {0}寶石",
         "kind": 32,
         "atlas": 12,
-        "icon": 93201,
+        "icon": 93203,
         "quality": 5,
         "value": 500,
         "flag": 1,
@@ -16175,7 +16272,7 @@
         "nametw": " {0}寶石",
         "kind": 32,
         "atlas": 12,
-        "icon": 93201,
+        "icon": 93202,
         "quality": 4,
         "value": 200,
         "flag": 1,
@@ -16307,6 +16404,7 @@
         "nametw": " {0} 聯盟幣",
         "kind": 39,
         "atlas": 12,
+        "icon": 93901,
         "value": 1,
         "nameen": " {0} Union coin ",
         "explaintw": "獲得{0}聯盟幣",
@@ -16317,6 +16415,7 @@
         "nametw": " {0} 社群幣",
         "kind": 40,
         "atlas": 12,
+        "icon": 94001,
         "value": 1,
         "nameen": " {0} Social coin ",
         "explaintw": "獲得{0}社群幣",
