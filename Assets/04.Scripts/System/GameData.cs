@@ -63,7 +63,7 @@ public static class GameData
 	public static Dictionary<int, TArchitectureExp> DArchitectureExp = new Dictionary<int, TArchitectureExp>();
 
 	//building key:Kind
-	public static Dictionary<int, List<TItemData>> DBuildData = new Dictionary<int, List<TItemData>>();
+	public static List<TItemData> DBuildData = new List<TItemData>();
 	public static int[] DBuildHightestLvs = new int[9];
 
     public static float ServerVersion;
@@ -145,6 +145,14 @@ public static class GameData
             DItemAtlas.Add(at.name, at);
         }
     }
+
+	public static int GetBuildItemIndex (int itemID) {
+		for(int i=0; i<DBuildData.Count; i++) 
+			if(DBuildData[i].ID == itemID)
+				return DBuildData[i].Index;
+			
+		return  -1;
+	}
 
 	/// <summary>
 	/// kind 0.orange1 1.green

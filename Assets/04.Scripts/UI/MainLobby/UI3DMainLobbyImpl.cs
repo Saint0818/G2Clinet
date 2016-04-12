@@ -29,7 +29,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private const int BuildCount = 10;
     public GameObject[] BuildPos = new GameObject[BuildCount];
     public GameObject[] Builds = new GameObject[BuildCount];
-    private UIButton[] Btns = new UIButton[BuildCount];
+//    private UIButton[] Btns = new UIButton[BuildCount];
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
 //    private Transform DummyBall;
@@ -44,15 +44,19 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        if (PrefabSettingIsLegal())
+		if (PrefabSettingIsLegal())
         {
             int[] temp = new int[BuildCount];
             for (int i = 0; i < temp.Length; i++)
             {
-                if (i == 0)
-                    temp[i] = -1;
-                else
-                    temp[i] = 101;
+				if (i == 0) // Player
+					temp[i] = -1;
+				else {
+					if(GameData.DItemData.ContainsKey(GameData.Team.GymBuild[i - 1].ItemID))
+						temp[i] = GameData.DItemData[GameData.Team.GymBuild[i - 1].ItemID].Avatar;
+					else 
+						temp[i] = 101;
+				}
             }
             //TODO:Read Server Data
             InitBuilds(temp);
@@ -223,6 +227,41 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             }
         }
     }
+
+	public void ReplaceObj (int buildIndex, int avatarIndex) {
+		if(avatarIndex > 0) {
+			int index = buildIndex + 1; //因為lobby建築物的0是人的位置，所以必須要＋１
+			string name = GetEBildsTypeString(index) + avatarIndex.ToString();
+			string path = string.Format("Prefab/Stadium/StadiumItem/{0}", name);
+
+			if(Builds[index]) {
+				Destroy (Builds[index]);
+				Builds[index] = null;
+			}
+
+			GameObject obj;
+			obj = Resources.Load(path) as GameObject;
+			if (obj)
+				Builds[index] = Instantiate(obj) as GameObject;
+			else
+				Debug.LogError("Can't found GameObject in Resource : " + path);
+			
+			if (Builds[index] && index < BuildPos.Length)
+			{
+				Builds[index].transform.parent = BuildPos[index].transform;
+				Builds[index].transform.localPosition = Vector3.zero;
+				Builds[index].transform.localScale = Vector3.one;
+				Builds[index].transform.localEulerAngles = Vector3.zero;
+				Builds[index].name = name;
+
+				if (index == 1)
+				{
+					basket = Builds[index];
+				}
+
+			}
+		}
+	}
 
     public void CloneObj(ref GameObject clone, int index, int id)
     {
@@ -502,5 +541,5 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 //                OnShooting();
 //                break;
 //        }
-//    }
 }
+//    }

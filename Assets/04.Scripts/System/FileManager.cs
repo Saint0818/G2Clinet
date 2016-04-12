@@ -579,12 +579,9 @@ public class FileManager : KnightSingleton<FileManager>
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
 
 
-				if(GameData.DBuildData.ContainsKey (data[i].Kind)) {
-					GameData.DBuildData[data[i].Kind].Add(data[i]);
-				} else {
-					List<TItemData> items = new List<TItemData>();
-					items.Add(data[i]);
-					GameData.DBuildData.Add(data[i].Kind, items);
+				if(data[i].Kind >= 51 && data[i].Kind <= 59) {
+					data[i].Index = i;
+					GameData.DBuildData.Add(data[i]);
 				}
 
                 #if UNITY_EDITOR

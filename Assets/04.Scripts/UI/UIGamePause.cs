@@ -93,7 +93,6 @@ public class UIGamePause : UIBase {
 		spriteMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Btn").GetComponent<UISprite>();
 
 		SetBtnFun(UIName + "/Center/GameResult/AttributeBoard/NextInfo", OnNextInfo);
-//		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
 		SetBtnFun(UIName + "/Center/HomeBtn", OnHomeResult);

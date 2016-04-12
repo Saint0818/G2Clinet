@@ -1139,4 +1139,28 @@ public static class GameFunction
 			return count;
 		}
 	}
+
+	public static string GetBuildEnName (int index) {
+		switch (index) {
+		case 0:
+			return "Basket";
+		case 1:
+			return "Advertisement";
+		case 2:
+			return "Store";
+		case 3:
+			return "Gym";
+		case 4:
+			return "Door";
+		case 5:
+			return "Logo";
+		case 6:
+			return "Chair";
+		case 7:
+			return "Calendar";
+		case 8:
+			return "Mail";
+		}
+		return "";
+	}
 }

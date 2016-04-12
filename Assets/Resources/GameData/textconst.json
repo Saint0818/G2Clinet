@@ -4537,6 +4537,12 @@
         "en": "Queue is full."
     },
     {
+        "id": 11016,
+        "explain": "花費寶石 顆購買建築物",
+        "tw": "花費寶石[FF00FFFF]{0}[-]顆購買{1}",
+        "en": "Cost [FF00FFFF]{0}[-] Diamonds to Buy {1}."
+    },
+    {
         "id": 11020,
         "explain": "設施功能",
         "tw": "設施功能：",

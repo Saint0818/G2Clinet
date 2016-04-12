@@ -842,6 +842,9 @@ namespace GameStruct
     {
 		public int ID;
 
+		//Record Build's Index in ItemArray
+		public int Index;
+
         // 0:Body, 1:Hair, 2:AHandDress, 3:Cloth, 4:Pants, 5:Shoes, 6:MHeadDress, 7:ZBackEquip.
         // 11 ~ 16: 數值裝.
         // 17,18: 次數型數值裝.

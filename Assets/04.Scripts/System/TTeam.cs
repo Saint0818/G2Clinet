@@ -92,7 +92,15 @@ namespace GameStruct
 		/// </summary>
 		public TGymBuild[] GymBuild;
 		public TGymQueue[] GymQueue;
-		public int[] GymOwn; //各個建築物的擁有數量
+		public int[] GymOwn; //建築物的擁有Item ID
+
+		public bool IsGymOwn (int itemID){
+			for(var i = 0; i < GymOwn.Length; i++)
+				if(GymOwn[i] == itemID)
+					return true;
+			
+			return false;
+		}
 
 		public int GetDailyLoginNum(int year, int month)
 		{

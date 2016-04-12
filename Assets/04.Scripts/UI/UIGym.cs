@@ -6,6 +6,12 @@ using GameEnum;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
+public struct TGymBuildResult {
+	public int Diamond;
+	public int[] GymOwn;
+	public TGymBuild[] GymBuild;
+}
+
 public struct TGymResult {
 	public int Money;
 	public int Diamond;

@@ -105,6 +105,8 @@ public static class URLConst {
 	public const string Rank = "rank";
 
 	//gym
+	public const string GymBuyType = "gymbuytype";
+	public const string GymChangeBuildType = "gymchangebuildtype";
 	public const string GymBuyCD = "gymbuycd";
 	public const string GymBuyQueue = "gymbuyqueue";
 	public const string GymRefreshQueue = "gymrefreshqueue";

@@ -33,6 +33,8 @@ public class TActiveSkillCard
 	public GameObject SellSelectCover;
 	public UISpriteAnimation LightAnimation;
 	public GameObject RedPoint;
+	private Transform tCost;
+	private UILabel labelCost;
 
 	private bool isInit = false;
 	private UIButton btn;
@@ -80,6 +82,13 @@ public class TActiveSkillCard
 
 			if(RedPoint != null)
 				RedPoint.SetActive(false);
+
+			tCost = go.transform.Find("Cost"); 
+			if(tCost != null) {
+				labelCost = go.transform.Find("Cost/InlistLabel").GetComponent<UILabel>();
+				tCost.gameObject.SetActive(isFormation);
+			}
+
 			UnavailableMask.SetActive(isFormation);
 			if(DragMask != null)
 				DragMask.SetActive(false);
@@ -119,6 +128,9 @@ public class TActiveSkillCard
 
 				if(SuitItem != null) 
 					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
+
+				if(labelCost != null)
+					labelCost.text = GameData.DSkillData[skill.ID].Space(skill.Lv).ToString();
 
             } else
                 Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
@@ -212,6 +224,9 @@ public class TActiveSkillCard
 
 				if(SuitItem != null) 
 					SuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
+				
+				if(labelCost != null)
+					labelCost.text = GameData.DSkillData[skill.ID].Space(skill.Lv).ToString();
 			} else
 				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + skill.ID.ToString());
 		}

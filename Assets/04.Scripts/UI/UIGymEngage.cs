@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 public class TITemGymObj {
 	public GameObject ItemObj;
-	public GameObject View;
+	public Transform[] ViewPos;
 	public UILabel Name;
 	public GameObject Selected;
 	public GameObject Lock;
@@ -16,10 +16,15 @@ public class TITemGymObj {
 	public UILabel Price;
 
 	public string BuildName;
+	public int ItemID; 
+	private int buildPrice;
 
 	public void Init (GameObject go, string name) {
 		ItemObj = go;
-		View = go.transform.Find("3DView").gameObject;
+		ViewPos = new Transform[9];
+		for(int i=0; i<ViewPos.Length; i++) {
+			ViewPos[i] = go.transform.Find("3DView/" + i.ToString());
+		}
 		Name = go.transform.Find("NameLabel").GetComponent<UILabel>();
 		Selected = go.transform.Find("Selected").gameObject;
 		Lock = go.transform.Find("Lock").gameObject;
@@ -31,27 +36,56 @@ public class TITemGymObj {
 	}
 
 	//先判斷等級是否達到，再判斷是否可以購買，最後判斷是否已購買 isOwn是否有擁有
-	public void UpdateUI(TItemData data, bool isSelect, bool isOwn) {
+	public void UpdateUI(int index, TItemData data, bool isSelect, bool isOwn) {
+		ItemID = data.ID;
+		Buy.name = index.ToString();
+		ItemObj.name = index.ToString();
 		ItemObj.transform.localScale = Vector3.one;
-//		GameObject go = UIPrefabPath.LoadUI("Prefab/Stadium/StadiumItem/" + BuildName + data.Avatar, View.transform, Vector3.zero);
-//		LayerMgr.Get.SetLayer(go, ELayer.UI);
-//		go.transform.parent = View.transform;
-//		go.transform.localScale = Vector3.one;
+		GameObject go = UIPrefabPath.LoadUI("Prefab/Stadium/StadiumItem/" + BuildName + data.Avatar, ViewPos[getBuildIndex(data.Kind)], Vector3.zero);
+		LayerMgr.Get.SetLayer(go, ELayer.UI);
+		go.transform.localScale = Vector3.one;
+		go.transform.localPosition = Vector3.zero;
+		go.transform.localEulerAngles = Vector3.zero;
 		Lock.SetActive(GameData.Team.HighestLv < data.LV);
 		Buy.SetActive(!Lock.activeSelf);
+		
 		if(isOwn) 
 			Buy.SetActive(false);
 		
-		if(GameData.Team.IsGetItem(data.ID)) {
+		if(GameData.Team.IsGymOwn(data.ID)) 
 			Buy.SetActive(false);	
-		}
+		
 		Name.text = data.Name;
 		Price.text = data.Buy.ToString();
+		buildPrice = data.Buy;
 
 		Selected.SetActive(isSelect);
 		Condition.text =  string.Format(TextConst.S(11021) ,data.LV.ToString());
+		RefreshColor ();
 	}
 
+	private int getBuildIndex (int kind) {
+		if(kind >= 51 && kind <= 59)
+			return kind - 51;
+		
+		return 0;
+	}
+
+	public void RefreshColor () {
+		Price.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, buildPrice));
+	}
+
+	public void RefreshUI () {
+		Buy.SetActive(false);
+	}
+
+	public void SelectBuild (bool isSelect) {
+		Selected.SetActive(isSelect);
+	}
+
+	public bool IsBuy {
+		get {return GameData.Team.IsGymOwn(ItemID);}
+	}
 }
 
 public struct TArchitectureValue {
@@ -105,10 +139,13 @@ public class UIGymEngage : UIBase {
 	private TArchitectureValue architectureNextValue = new TArchitectureValue();
 
 	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
+	private int mItemGymObjIndex = 0;
 
 	private UIScrollView scrollView;
 
 	private int mBuildIndex;
+	private int mAvatarIndex;
+	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
 
 	public static bool Visible {
 		get {
@@ -171,7 +208,6 @@ public class UIGymEngage : UIBase {
 		sliderCDBar = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/CDBar").GetComponent<UISlider>();
 		labelTime = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/CDBar/TimeLabel").GetComponent<UILabel>();
 		labelPrice = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/Btn/PriceLabel").GetComponent<UILabel>();
-//		spriteBuyCDIcon = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/Btn/Icon").GetComponent<UISprite>();
 
 		for(int i=0; i<awardGroup.Length; i++) 
 			awardGroup[i] = GameObject.Find (UIName + "/Window/Center/MainView/Normal/NextCondition/View/ItemAwardGroup" + i.ToString()).GetComponent<ItemAwardGroup>();
@@ -184,6 +220,9 @@ public class UIGymEngage : UIBase {
 	}
 
 	public void OnClose () {
+		if(!isRealChange) 
+			UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, mAvatarIndex);
+			
 		window.SetActive(false);
 		if(UI3DMainLobby.Visible)
 			UI3DMainLobby.Get.mImpl.OnSelect(mBuildIndex);
@@ -324,39 +363,86 @@ public class UIGymEngage : UIBase {
 
 	private void setScrollView () {
 		int kind = 51 + mBuildIndex;
-		if(GameData.DBuildData.ContainsKey(kind)) 
-			for(int i=0; i<GameData.DBuildData[kind].Count; i++) 
-				itemGymObjs.Add(addItems(i, GameData.DBuildData[kind][i]));
-			
+		int index = 0;
+		for(int i=0; i<GameData.DBuildData.Count; i++) {
+			if(GameData.DBuildData[i].Kind == kind) {
+				itemGymObjs.Add(addItems(index, GameData.DBuildData[i]));
+				index ++;
+			}
+		}
+		
 	}
 
 	private TITemGymObj addItems (int index, TItemData data) {
 		bool isSelect = false;
 		if(mBuildIndex >= 0 && mBuildIndex < GameData.Team.GymBuild.Length)
-			isSelect = (GameData.Team.GymBuild[mBuildIndex].Type == index);
+			isSelect = (GameData.Team.GymBuild[mBuildIndex].ItemID == data.ID);
 		
+		if(isSelect)
+			mAvatarIndex = data.Avatar;
+
 		GameObject go = Instantiate(itemBuild) as GameObject;
 		go.transform.parent = scrollView.gameObject.transform;
 		go.transform.localPosition = new Vector3(170 * index, 0, 0);
 		TITemGymObj obj = new TITemGymObj();
-		obj.Init(go, GetBuildEnName(mBuildIndex));
-		obj.UpdateUI(data, isSelect, IsOwn(mBuildIndex, index));
+		obj.Init(go, GameFunction.GetBuildEnName(mBuildIndex));
+		obj.UpdateUI(index, data, isSelect, GameData.Team.IsGymOwn(data.ID));
 		UIEventListener.Get(go).onClick = OnChooseBuildType;
+		UIEventListener.Get(obj.Buy).onClick = OnBuyBuildType;
 		return obj;
 	}
 
 	public void OnChooseBuildType (GameObject go) {
 		int result = 0;
+		//itemObj index
 		if(int.TryParse(go.name, out result)) {
+			mItemGymObjIndex = result;
 			if(result >= 0 && result < itemGymObjs.Count) {
-				
+				if(GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
+					if(itemGymObjs[result].IsBuy) {
+						int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
+						if(itemIndex != -1) {
+							isRealChange = true;
+							SendChangeBuildType(itemIndex);
+						}
+					} else {
+						isRealChange = false;
+					}
+					UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
+					refreshSelectBuild(mItemGymObjIndex);
+				}
 			}
-//			itemGymObjs[result]	
 		}
+	}
+
+	public void OnBuyBuildType (GameObject go) {
+		int result = 0;
+		//itemObj index
+		if(int.TryParse(go.name, out result)) {
+			if(result >=0 && result < itemGymObjs.Count && GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
+				mItemGymObjIndex = result;
+				CheckDiamond(GameData.DItemData[itemGymObjs[result].ItemID].Buy, true, string.Format(TextConst.S(11016),GameData.DItemData[itemGymObjs[result].ItemID].Buy, GameData.DItemData[itemGymObjs[result].ItemID].Name), ConfirmBuyBuildType, refreshLabelColor);
+			}
+		}
+	}
+
+	public void ConfirmBuyBuildType () {
+		int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
+		if(itemIndex != -1) 
+			SendBuyBuildType(itemIndex);
+	}
+
+	private void refreshSelectBuild (int gymObjIndex) {
+		for(int i=0; i<itemGymObjs.Count; i++) 
+			itemGymObjs[i].SelectBuild((i == gymObjIndex));
+		
 	}
 
 	private void refreshLabelColor () {
 		labelUpgradePrice.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(architectureValue.SpendKind, architectureValue.Cost), architectureValue.SpendKind);
+		for(int i=0; i<itemGymObjs.Count; i++) {
+			itemGymObjs[i].RefreshColor ();
+		}
 	}
 
 	private int secToMin(int Sec){
@@ -384,38 +470,6 @@ public class UIGymEngage : UIBase {
 			temp = TimeDiamondD5;
 			return Convert.ToInt32((temp - TimeDiamondD4) / 518400 * (time - 86400) + TimeDiamondD4);
 		}
-	}
-
-	private string GetBuildEnName (int index) {
-		switch (index) {
-		case 0:
-			return "Basket";
-		case 1:
-			return "Advertisement";
-		case 2:
-			return "Store";
-		case 3:
-			return "Gym";
-		case 4:
-			return "Door";
-		case 5:
-			return "Logo";
-		case 6:
-			return "Chair";
-		case 7:
-			return "Calendar";
-		case 8:
-			return "Mail";
-		}
-		return "";
-	}
-
-	private bool IsOwn (int buildIndex, int index) {
-		if(buildIndex >= 0 && buildIndex < GameData.Team.GymOwn.Length) 
-			if(index < GameData.Team.GymOwn[buildIndex])
-				return true;
-		
-		return false;
 	}
 
 	private bool isHighestLevel (int index) {
@@ -654,6 +708,42 @@ public class UIGymEngage : UIBase {
 			UIMainLobby.Get.UpdateUI();
 			RefreshUI();
 			UIGym.Get.RefreshQueue();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+	private void SendBuyBuildType (int itemIndex) {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", itemIndex);//itemData Array index
+		SendHttp.Get.Command(URLConst.GymBuyType, waitBuyBuildType, form);
+	}
+
+	private void waitBuyBuildType(bool ok, WWW www) {
+		if (ok) {
+			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.GymOwn = result.GymOwn;
+
+			UIMainLobby.Get.UpdateUI();
+			if(mItemGymObjIndex >= 0 && mItemGymObjIndex < itemGymObjs.Count)
+				itemGymObjs[mItemGymObjIndex].RefreshUI();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+	private void SendChangeBuildType (int itemIndex) {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", itemIndex);//itemData Array index
+		form.AddField("BuildIndex", mBuildIndex);
+		SendHttp.Get.Command(URLConst.GymChangeBuildType, waitChangeBuildType, form);
+	}
+
+	private void waitChangeBuildType(bool ok, WWW www) {
+		if (ok) {
+			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.GymBuild = result.GymBuild;
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
