@@ -44,9 +44,9 @@ public class ReboundCurveCounter
         if (Curve == null || (Curve != null && Curve.Name != curveName))
         {
             Curve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Rebound.Length; i++)
-                if (ModelManager.Get.AnimatorCurveManager.Rebound[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurveManager.Rebound[i];
+            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Rebound.Length; i++)
+                if (ModelManager.Get.AnimatorCurve.Rebound[i].Name == curveName)
+                    Curve = ModelManager.Get.AnimatorCurve.Rebound[i];
         }
         isFindCurve = Curve != null ? true : false;
         curveTime = 0;

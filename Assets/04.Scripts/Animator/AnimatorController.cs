@@ -330,7 +330,7 @@ public class AnimatorController : MonoBehaviour
 
     public void InitShootCurve(int stateNo, Vector3 rotateto)
     {
-        shootCurveCounter.Init(stateNo, gameObject, rotateto);
+        shootCurveCounter.Apply(stateNo, transform, rotateto);
     }
 
     public void InitLayupCurve(int stateNo, Vector3 layupPoint)

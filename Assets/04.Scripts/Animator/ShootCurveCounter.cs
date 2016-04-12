@@ -1,112 +1,114 @@
-﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameEnum;
+using UnityEngine;
 
 public class ShootCurveCounter
 {
-    private GameObject self;
-    private string curveName;
-    private float curveTime = 0;
-    private bool isFindCurve = false;
-    private bool isplaying = false;
+    private Transform mController;
+    private float mSamplingTime = 0;
+    private bool mIsPlaying = false;
     private float timeScale = 1f;
-    private TShootCurve Curve;
-    private bool isAnimatorMove = false;
-	private Vector3 rotateTo;
+    private TShootCurve mCurve;
+//    private Vector3 mLookAt;
 
     public float Timer
     {
         set{ timeScale = value; }
     }
 
-    public bool IsPlaying
+//    private bool mIsLookAt;
+
+    public void Apply(int index, Transform controlPlayer, Vector3 lookAt)
     {
-        get{ return isplaying; }
+//		mLookAt = lookAt;
+        mController = controlPlayer;
+	    string curveName = string.Format("{0}{1}", EAnimatorState.Shoot, index);
+
+//	    if(mCurve == null || (mCurve != null && mCurve.Name != curveName))
+//        {
+//            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Shoot.Length; i++)
+//                if (ModelManager.Get.AnimatorCurve.Shoot[i].Name == curveName)
+//                    mCurve = ModelManager.Get.AnimatorCurve.Shoot[i];
+//        }
+
+        mCurve = ModelManager.Get.AnimatorCurve.FindShootCurve(curveName);
+        if(mCurve != null)
+            mController.DOLookAt(lookAt, 0.5f, AxisConstraint.Y);
+
+        mSamplingTime = 0;
+        mIsPlaying = mCurve != null;
+//        mIsLookAt = false;
+
+//        if(!string.IsNullOrEmpty(curveName) && mCurve == null && LobbyStart.Get.IsDebugAnimation)
+        if(mCurve == null && LobbyStart.Get.IsDebugAnimation)
+            Debug.LogErrorFormat("Can't Found Curve: {0}", curveName);
     }
 
-    private bool IsAnimatorMove
-    {
-        get{ return isAnimatorMove; }
-        set{ isAnimatorMove = value; }
-    }
-
-    private EAnimatorState state = EAnimatorState.Shoot;
-
-	public void Init(int index, GameObject player, Vector3 rotateto)
-    {
-		rotateTo = rotateto;
-        self = player;
-        curveName = string.Format("{0}{1}", state.ToString(), index);
-
-        if (Curve == null || (Curve != null && Curve.Name != curveName))
-        {
-            for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Shoot.Length; i++)
-                if (ModelManager.Get.AnimatorCurveManager.Shoot[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurveManager.Shoot[i];
-        }
-        isFindCurve = Curve != null ? true : false;
-        curveTime = 0;
-        isplaying = true;
-
-        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
-            LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
-    }
-
-    private void Calculation()
+    private void calculation()
     {	
-		if (!isplaying || timeScale <= GameConst.Min_TimePause)
-				return;
-				
-        if (Curve != null)
+//        if(mCurve != null)
+//        {
+        mSamplingTime += Time.deltaTime * timeScale;
+
+//			if(mIsLookAt == false)
+//            { 
+//                mIsLookAt = true; 
+//				mController.DOLookAt(mLookAt, 0.5f, AxisConstraint.Y);
+//            } 
+
+        switch(mCurve.Dir)
         {
-            curveTime += Time.deltaTime * timeScale;
+            case AniCurveDirection.Forward:
+                if(mSamplingTime >= mCurve.OffsetStartTime && mSamplingTime < mCurve.OffsetEndTime)
+                    mController.position = new Vector3(
+                        mController.position.x + mController.forward.x * mCurve.DirVaule * timeScale, 
+                        Mathf.Max(0, mCurve.aniCurve.Evaluate(mSamplingTime)), 
+                        mController.transform.position.z + mController.forward.z * mCurve.DirVaule * timeScale);
+                else
+                    mController.position = new Vector3(
+                        mController.position.x, 
+                        mCurve.aniCurve.Evaluate(mSamplingTime), 
+                        mController.position.z);
+                break;
+            case AniCurveDirection.Back:
+                if (mSamplingTime >= mCurve.OffsetStartTime && mSamplingTime < mCurve.OffsetEndTime)
+                    mController.position = new Vector3(
+                        mController.position.x + mController.forward.x * -mCurve.DirVaule * timeScale,
+                        Mathf.Max(0, mCurve.aniCurve.Evaluate(mSamplingTime)), 
+                        mController.position.z + mController.forward.z * -mCurve.DirVaule * timeScale);
+                else
+                    mController.position = new Vector3(
+                        mController.position.x, 
+                        Mathf.Max(0, mCurve.aniCurve.Evaluate(mSamplingTime)), 
+                        mController.position.z);
+                break;
 
-			if (IsAnimatorMove == false)
-            { 
-                IsAnimatorMove = true; 
-				self.transform.DOLookAt(rotateTo, 0.5f, AxisConstraint.Y);
-            } 
-
-            switch (Curve.Dir)
-            {
-                case AniCurveDirection.Forward:
-                    if (curveTime >= Curve.OffsetStartTime && curveTime < Curve.OffsetEndTime)
-                        self.transform.position = new Vector3(self.transform.position.x + (self.transform.forward.x * Curve.DirVaule * timeScale), 
-                            Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-                            self.transform.position.z + (self.transform.forward.z * Curve.DirVaule * timeScale));
-                    else
-                        self.transform.position = new Vector3(self.transform.position.x, Curve.aniCurve.Evaluate(curveTime), self.transform.position.z);
-                    break;
-                case AniCurveDirection.Back:
-                    if (curveTime >= Curve.OffsetStartTime && curveTime < Curve.OffsetEndTime)
-                        self.transform.position = new Vector3(self.transform.position.x + (self.transform.forward.x * -Curve.DirVaule * timeScale), 
-                            Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-                            self.transform.position.z + (self.transform.forward.z * -Curve.DirVaule * timeScale));
-                    else
-                        self.transform.position = new Vector3(self.transform.position.x, Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), self.transform.position.z);
-                    break;
-
-                default : 
-                    self.transform.position = new Vector3(self.transform.position.x, Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), self.transform.position.z);
-                    break;
-            }
-
-            if (curveTime >= Curve.LifeTime)
-            {
-                isplaying = false;
-                IsAnimatorMove = false;
-                curveTime = 0;
-            }
+            default : 
+                mController.position = new Vector3(
+                    mController.position.x, 
+                    Mathf.Max(0, mCurve.aniCurve.Evaluate(mSamplingTime)), 
+                    mController.position.z);
+                break;
         }
-        else
+
+        if (mSamplingTime >= mCurve.LifeTime)
         {
-            IsAnimatorMove = false;
+            mIsPlaying = false;
+//                mIsLookAt = false;
+            mSamplingTime = 0;
         }
+//        }
+//        else
+//        {
+//            mIsLookAt = false;
+//        }
     }
 
     public void FixedUpdate()
     {
-        Calculation();
+        if(!mIsPlaying || timeScale <= GameConst.Min_TimePause)
+            return;
+
+        calculation();
     }
 }

@@ -47,9 +47,9 @@ public class DunkCurveCounter
         if (Curve == null || (Curve != null && Curve.Name != curveName))
         {
             Curve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Dunk.Length; i++)
-                if (ModelManager.Get.AnimatorCurveManager.Dunk[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurveManager.Dunk[i];
+            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Dunk.Length; i++)
+                if (ModelManager.Get.AnimatorCurve.Dunk[i].Name == curveName)
+                    Curve = ModelManager.Get.AnimatorCurve.Dunk[i];
         }
         recordPlayerPosition = player.transform.position;
         isFindCurve = Curve != null ? true : false;

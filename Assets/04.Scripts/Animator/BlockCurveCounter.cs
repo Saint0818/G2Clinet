@@ -39,9 +39,9 @@ public class BlockCurveCounter
         {
 
             playerBlockCurve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Block.Length; i++)
-                if (ModelManager.Get.AnimatorCurveManager.Block[i].Name == curveName)
-                    playerBlockCurve = ModelManager.Get.AnimatorCurveManager.Block[i];
+            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Block.Length; i++)
+                if (ModelManager.Get.AnimatorCurve.Block[i].Name == curveName)
+                    playerBlockCurve = ModelManager.Get.AnimatorCurve.Block[i];
         }
         isFindCurve = playerBlockCurve != null ? true : false;
         blockCurveTime = 0;

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
+using JetBrains.Annotations;
 
 public enum AniCurveDirection
 {
-	None,
-	Forward,
-	Back
+	None, // 僅控制球員的 Y 軸.
+	Forward, // 控制球員往前跑.
+	Back // 控制球員往後跑.
 }
 
 [System.Serializable]
@@ -75,7 +76,8 @@ public class TSharedCurve {
 	public float EndTime = 1f; 
 }
 
-public class AniCurve : MonoBehaviour {
+public class AniCurve : MonoBehaviour
+{
 	public TDunkCurve[] Dunk;
 	public TBlockCurve[] Block;
 	public TShootCurve[] Shoot;
@@ -85,5 +87,16 @@ public class AniCurve : MonoBehaviour {
 	public TSharedCurve[] Fall;
 	public TSharedCurve[] PickBall;
 	public TStealCurve[] Steal;
-	public TReboundCurve[] JumpBall; 
+	public TReboundCurve[] JumpBall;
+
+    [CanBeNull]
+    public TShootCurve FindShootCurve(string curveName)
+    {
+//        for(var i = 0; i < Shoot.Length; i++)
+//        {
+//            if(Shoot[i].Name == curveName)
+//                return Shoot[i];
+//        }
+        return Shoot.FirstOrDefault(t => t.Name == curveName);
+    }
 }

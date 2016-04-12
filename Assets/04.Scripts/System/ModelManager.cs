@@ -21,7 +21,7 @@ public class ModelManager : KnightSingleton<ModelManager>
 
     private GameObject DefPointObject = null;
     public GameObject PlayerInfoModel = null;
-    public AniCurve AnimatorCurveManager;
+    public AniCurve AnimatorCurve;
 
     private Material materialSource;
     private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
@@ -54,8 +54,8 @@ public class ModelManager : KnightSingleton<ModelManager>
         }
                 
         if (cloneObj) {
-            AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
-            AnimatorCurveManager.transform.parent = transform;
+            AnimatorCurve = cloneObj.GetComponent<AniCurve>();
+            AnimatorCurve.transform.parent = transform;
         }
     }
 
@@ -69,8 +69,8 @@ public class ModelManager : KnightSingleton<ModelManager>
         if (PlayerInfoModel)
             DestroyImmediate(PlayerInfoModel);
 
-        if (AnimatorCurveManager != null)
-            Destroy(AnimatorCurveManager.gameObject);
+        if (AnimatorCurve != null)
+            Destroy(AnimatorCurve.gameObject);
     }
 
     public void PreloadResource(TAvatar attr, int bodyType)

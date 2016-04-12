@@ -41,21 +41,21 @@ public class SharedCurveCounter
             switch (state)
             {
                 case EAnimatorState.Push:
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Push.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Push[i].Name == curveName)
-                            Curve = ModelManager.Get.AnimatorCurveManager.Push[i];
+                    for (int i = 0; i < ModelManager.Get.AnimatorCurve.Push.Length; i++)
+                        if (ModelManager.Get.AnimatorCurve.Push[i].Name == curveName)
+                            Curve = ModelManager.Get.AnimatorCurve.Push[i];
                     break;
 
                 case EAnimatorState.Pick:
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.PickBall.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.PickBall[i].Name == curveName)
-                            Curve = ModelManager.Get.AnimatorCurveManager.PickBall[i];
+                    for (int i = 0; i < ModelManager.Get.AnimatorCurve.PickBall.Length; i++)
+                        if (ModelManager.Get.AnimatorCurve.PickBall[i].Name == curveName)
+                            Curve = ModelManager.Get.AnimatorCurve.PickBall[i];
                     break;
 
                 case EAnimatorState.Fall:
-                    for (int i = 0; i < ModelManager.Get.AnimatorCurveManager.Fall.Length; i++)
-                        if (ModelManager.Get.AnimatorCurveManager.Fall[i].Name == curveName)
-                            Curve = ModelManager.Get.AnimatorCurveManager.Fall[i];
+                    for (int i = 0; i < ModelManager.Get.AnimatorCurve.Fall.Length; i++)
+                        if (ModelManager.Get.AnimatorCurve.Fall[i].Name == curveName)
+                            Curve = ModelManager.Get.AnimatorCurve.Fall[i];
                     break;
             }
 
