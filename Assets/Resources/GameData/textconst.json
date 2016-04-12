@@ -253,8 +253,8 @@
     },
     {
         "id": 302,
-        "tw": "投籃時的節奏點擊點到[FFDD33]Perfect[-]，可增加投籃命中率，[FFDD33]Combo[-]越高增加越多。",
-        "en": "YOUR SCORING CHANCES INCREASE WHEN YOU HIT THE SWEET SPOT IN THE SHOOTING BAR."
+        "tw": "Icon_Perfect=投籃時的節奏點擊點到[FFDD33]Perfect[-]，可增加投籃命中率，[FFDD33]Combo[-]越高增加越多。",
+        "en": "Icon_Perfect=YOUR SCORING CHANCES INCREASE WHEN YOU HIT THE SWEET SPOT IN THE SHOOTING BAR."
     },
     {
         "id": 303,
@@ -300,6 +300,16 @@
         "id": 311,
         "tw": "Icon_Coin=升級、合成與進化都需要用到[FFCC00FF]金幣[-]，透過比賽將可贏得。",
         "en": "Icon_Coin = Golds."
+    },
+    {
+        "id": 312,
+        "tw": "Icon_TokenPvp=聯盟幣，可用於商店與對戰獎勵中的消費，加入[33FFDD]聯盟對戰[-]就能得到囉！",
+        "en": "Icon_TokenPvp= From Pvp."
+    },
+    {
+        "id": 313,
+        "tw": "Icon_TokenSocial=社群幣，可用於商店中的消費，在社群中邀請其他玩家成為好友，並對他們[33FFDD]按讚[-]！",
+        "en": "Icon_TokenSocial= From Social."
     },
     {
         "id": 400,
@@ -1085,6 +1095,12 @@
         "id": 3209,
         "tw": "花費[FF00FFFF]寶石 {0} [-]重置潛能點配置？",
         "en": "Are you confirm to spend[FF00FFFF] {0} gems [-]for reset attribution points?"
+    },
+    {
+        "id": 3210,
+        "explain": "單一屬性投點說明",
+        "tw": " [FF0000FF]潛能點[-]\n提升 [33FFDD]1[-] 屬性值",
+        "en": " [FF0000FF]AP[-] to upgrade [33FFDD]1[-] Stats."
     },
     {
         "id": 3301,
@@ -3629,7 +3645,7 @@
         "id": 9728,
         "explain": "對戰按鈕狀態 計算次數",
         "tw": "今日次數 {0} ",
-        "en": "Daily Times {0} "
+        "en": "Daily Times [33FFDD]{0}[-] "
     },
     {
         "id": 9729,
@@ -4492,6 +4508,7 @@
     },
     {
         "id": 11008,
+        "explain": "購買佇列",
         "tw": "花費寶石[FF00FFFF]{0}[-]購買佇列？",
         "en": "Spend [FF00FFFF]{0}[-] gems to buy queue?"
     },
@@ -4575,12 +4592,14 @@
     {
         "id": 11025,
         "explain": "升級需求",
-        "tw": "升級需求："
+        "tw": "升級需求：",
+        "en": "Materials:"
     },
     {
         "id": 11026,
         "explain": "升級CD",
-        "tw": "升級CD："
+        "tw": "升級CD：",
+        "en": "CD Times:"
     },
     {
         "id": 11101,
