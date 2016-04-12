@@ -52,7 +52,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				if (i == 0) // Player
 					temp[i] = -1;
 				else {
-					if(GameData.DItemData.ContainsKey(GameData.Team.GymBuild[i - 1].ItemID))
+					if(GameData.Team.GymBuild != null && GameData.DItemData.ContainsKey(GameData.Team.GymBuild[i - 1].ItemID))
 						temp[i] = GameData.DItemData[GameData.Team.GymBuild[i - 1].ItemID].Avatar;
 					else 
 						temp[i] = 101;
