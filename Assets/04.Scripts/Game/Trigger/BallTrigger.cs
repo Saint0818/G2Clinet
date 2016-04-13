@@ -116,8 +116,8 @@ public class BallTrigger : MonoBehaviour
 
     public bool PassBall(int kind = 0)
     {
-        if (GameController.Get.Catcher && GameController.Get.BallOwner != null &&
-        GameController.Get.IsPassing == false)
+        if(GameController.Get.Catcher && GameController.Get.BallOwner != null &&
+           GameController.Get.IsPassing == false)
         {
             IsAutoRotate = true;
             GameController.Get.Passer = GameController.Get.BallOwner;
@@ -128,11 +128,13 @@ public class BallTrigger : MonoBehaviour
             GameController.Get.IsPassing = true;
 //			PassCheckTime = Time.time + 2.5f;
             PassKind = kind;
-            if (Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
+            if(Vector3.Distance(GameController.Get.Passer.transform.position, 
+                                GameController.Get.Catcher.transform.position) > 15f)
                 CameraMgr.Get.IsLongPass = true;
 
             CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Pass0);
-            float dis = Vector3.Distance(GameController.Get.Catcher.CatchBallPoint.transform.position, CourtMgr.Get.RealBallObj.transform.position);
+            float dis = Vector3.Distance(GameController.Get.Catcher.CatchBallPoint.transform.position, 
+                                         CourtMgr.Get.RealBallObj.transform.position);
             float time = dis / (GameConst.AttackSpeedup * Random.Range(3, 5));
 
             switch (kind)
@@ -141,8 +143,8 @@ public class BallTrigger : MonoBehaviour
                     Vector3[] pathay = new Vector3[2];
                     pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.CatchBallPoint.transform.position);
                     pathay[1] = GameController.Get.Catcher.CatchBallPoint.transform.position;
-                    CourtMgr.Get.RealBallObj.transform.DOPath(pathay, time * 1 / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1 / GameController.Get.Passer.timeScale, 10, 1);
+                    CourtMgr.Get.RealBallObj.transform.DOPath(pathay, time / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(passUpdate);
+                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time / GameController.Get.Passer.timeScale, 10, 1);
                     break;
                 case 1:
                     ParabolaTime = 0;
@@ -168,13 +170,17 @@ public class BallTrigger : MonoBehaviour
                     break;
 
                 case 99://Alleyoop
-                    CourtMgr.Get.RealBallObj.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, GameConst.AlleyoopPassTime * 1 / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1 / GameController.Get.Passer.timeScale, 10, 1);
+                    CourtMgr.Get.RealBallObj.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, GameConst.AlleyoopPassTime * 1 / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(passUpdate);
+                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(
+                        new Vector3(0, 0, 720), time / GameController.Get.Passer.timeScale);
                     break;
 
                 default:
-                    CourtMgr.Get.RealBallObj.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, time * 1 / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1 / GameController.Get.Passer.timeScale, 10, 1);
+                    CourtMgr.Get.RealBallObj.transform.DOMove(
+                        GameController.Get.Catcher.CatchBallPoint.transform.position, 
+                        time / GameController.Get.Passer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(passUpdate);
+                    CourtMgr.Get.RealBallObj.transform.DOPunchRotation(
+                        new Vector3(0, 0, 720), time / GameController.Get.Passer.timeScale);
                     break;
             }
 
@@ -235,14 +241,14 @@ public class BallTrigger : MonoBehaviour
                     }
                 }
 				
-                PassUpdate();
+                passUpdate();
             }
             else
                 Parabolamove = false;
         }
     }
 
-    private void PassUpdate()
+    private void passUpdate()
     {
         if (GameController.Get.Passer && GameController.Get.Passer.timeScale == 0)
             return;
@@ -251,7 +257,8 @@ public class BallTrigger : MonoBehaviour
         {
             if ((Parabolamove && ParabolaTime >= 0.2f) || !Parabolamove && GameController.Get.Catcher != null)
             {
-                float dis = Vector3.Distance(CourtMgr.Get.RealBallObj.transform.position, GameController.Get.Catcher.transform.position);  
+                float dis = Vector3.Distance(CourtMgr.Get.RealBallObj.transform.position, 
+                                             GameController.Get.Catcher.transform.position);  
 
                 if (PassKind == 1)
                 {
@@ -261,11 +268,14 @@ public class BallTrigger : MonoBehaviour
                         {
                             Passing = false;
                             if (PassKind == 0)
-                                GameController.Get.Catcher.AniState(EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);
+                                GameController.Get.Catcher.AniState(EPlayerState.CatchFlat, 
+                                                                    GameController.Get.Passer.transform.position);
                             else if (PassKind == 2)
-                                GameController.Get.Catcher.AniState(EPlayerState.CatchFloor, GameController.Get.Passer.transform.position);
+                                GameController.Get.Catcher.AniState(EPlayerState.CatchFloor, 
+                                                                    GameController.Get.Passer.transform.position);
                             else
-                                GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+                                GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, 
+                                                                    GameController.Get.Passer.transform.position);
                         }
                         else if (dis <= 2.8f)
                         {

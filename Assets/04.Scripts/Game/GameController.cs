@@ -2208,7 +2208,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
     /// <summary>
-    /// 要求持球者將球傳給 catchPlayer.
+    /// 要求持球者將球傳給 catchPlayer.(不見得真的會傳出球)
     /// </summary>
     /// <param name="catchPlayer"></param>
     /// <param name="isInbounds"> true: 攻守轉換的邊界發球. </param>

@@ -192,7 +192,10 @@ public class PlayerBehaviour : MonoBehaviour
     //Select
     public GameObject SelectMe;
 
-    private bool IsPassAirMoment = false;
+    /// <summary>
+    /// true: 可以做空中傳球;
+    /// </summary>
+    private bool mIsPassAirMoment = false;
 
     /// <summary>
     /// <para> 控制某些動作一定要撥完, 比如 Push, Block ... </para>
@@ -1470,7 +1473,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Pass4:
                 if(IsBallOwner && !IsLayup && !IsDunk && !IsAlleyoopState && IsShoot && 
-                   !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+                   !GameController.Get.Shooter && mIsPassAirMoment && !IsPass)
                     return true;
                 break;
             case EPlayerState.BlockCatch:
@@ -2277,9 +2280,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void AirPassMoment()
     {
-        if (GameController.Get.IsShowSituation)
+        if(GameController.Get.IsShowSituation)
             return;
-        IsPassAirMoment = true;
+        mIsPassAirMoment = true;
     }
 
     private void DoubleClickMoment()
@@ -2348,7 +2351,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (GameController.Get.IsShowSituation)
             return;
-        IsPassAirMoment = false;
+        mIsPassAirMoment = false;
         if (OnShooting != null)
         {
             if (crtState != EPlayerState.Pass4)
@@ -2386,10 +2389,8 @@ public class PlayerBehaviour : MonoBehaviour
         //1 3.Parabola(Tee)
         if (IsBallOwner)
         {
-            if (GameController.Get.IsCatcherAlleyoop)
-            {
+            if(GameController.Get.IsCatcherAlleyoop)
                 CourtMgr.Get.RealBallCompoment.Trigger.PassBall(99);   
-            }
             else
                 CourtMgr.Get.RealBallCompoment.Trigger.PassBall(AnimatorControl.StateNo);
 
@@ -2671,7 +2672,7 @@ public class PlayerBehaviour : MonoBehaviour
         CanUseTipIn = false;
         isUsePass = false;
         isCanCatchBall = true;
-        IsPassAirMoment = false;
+        mIsPassAirMoment = false;
         blockTrigger.SetActive(false);
 		pushThroughTigger.SetActive(false);
 		reboundTrigger.SetActive (false);

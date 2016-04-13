@@ -414,7 +414,7 @@
         Pass1,
         Pass2,
         Pass3,
-        Pass4,
+        Pass4, // 跳投時, 可以做的空中傳球.
         Pass5,
         Pass6,
         Pass7,

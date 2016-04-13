@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using GameEnum;
-public delegate void AnimationDelegate();
-//public delegate void TimeScaleDelegate(AnimationEvent aniEvent);
 public delegate void ZoomDelegate(float speed);
 public delegate void SkillDelegate(AnimationEvent aniEvent);
 
@@ -32,45 +31,61 @@ public class AnimatorController : MonoBehaviour
     //    private JumpBallCurveCounter jumpBallCurveCounter = new JumpBallCurveCounter();
     private float headHeight;
 
-    public AnimationDelegate GotStealingDel = null;
-    public AnimationDelegate FakeShootBlockMomentDel = null;
-    public AnimationDelegate BlockMomentDel = null;
-    public AnimationDelegate AirPassMomentDel = null;
-    public AnimationDelegate DoubleClickMomentDel = null;
-    public AnimationDelegate BuffEndDel = null;
-    public AnimationDelegate BlockCatchMomentStartDel = null;
-    public AnimationDelegate BlockCatchMomentEndDel = null;
-    public AnimationDelegate BlockJumpDel = null;
-    public AnimationDelegate BlockCatchingEndDel = null;
-    public AnimationDelegate ShootingDel = null;
-    public AnimationDelegate MoveDodgeEndDel = null;
-    public AnimationDelegate PassingDel = null;
-    public AnimationDelegate PassEndDel = null;
-    public AnimationDelegate ShowEndDel = null;
-    public AnimationDelegate PickUpDel = null;
-    public AnimationDelegate PickEndDel = null;
-    public AnimationDelegate StealingDel = null;
-    public AnimationDelegate StealingEndDel = null;
-    public AnimationDelegate PushCalculateStartDel = null;
-    public AnimationDelegate PushCalculateEndDel = null;
-    public AnimationDelegate ElbowCalculateStartDel = null;
-    public AnimationDelegate ElbowCalculateEndDel = null;
-    public AnimationDelegate BlockCalculateStartDel = null;
-    public AnimationDelegate BlockCalculateEndDel = null;
-	public AnimationDelegate ReboundCalculateStartDel = null;
-	public AnimationDelegate ReboundCalculateEndDel = null;
-    public AnimationDelegate CloneMeshDel = null;
-    public AnimationDelegate DunkBasketStartDel = null;
-    public AnimationDelegate OnlyScoreDel = null;
-    public AnimationDelegate DunkFallBallDel = null;
-    public AnimationDelegate ElbowEndDel = null;
-    public AnimationDelegate FallEndDel = null;
-    public AnimationDelegate FakeShootEndDel = null;
-    public AnimationDelegate TipInStartDel = null;
-    public AnimationDelegate TipInEndDel = null;
-    public AnimationDelegate AnimationEndDel = null;
-    public AnimationDelegate ShowDel = null;
-    public AnimationDelegate CatchDel = null;
+    public Action GotStealingDel;
+    public Action FakeShootBlockMomentDel;
+    public Action BlockMomentDel;
+
+    /// <summary>
+    /// 呼叫時機: 跳投的空中傳球.(Shoot0 or Shoot2 Animation)
+    /// </summary>
+    public Action AirPassMomentDel;
+    public Action DoubleClickMomentDel;
+    public Action BuffEndDel;
+    public Action BlockCatchMomentStartDel;
+    public Action BlockCatchMomentEndDel;
+    public Action BlockJumpDel;
+    public Action BlockCatchingEndDel;
+
+    /// <summary>
+    /// 呼叫時機: 投籃, 球投出的瞬間.
+    /// </summary>
+    public Action ShootingDel;
+    public Action MoveDodgeEndDel;
+
+    /// <summary>
+    /// 呼叫時機: 傳球動作中, 球傳出去的瞬間.
+    /// </summary>
+    public Action PassingDel;
+
+    /// <summary>
+    /// 呼叫時機: 傳球動作中, 傳球動作結束.
+    /// </summary>
+    public Action PassEndDel;
+    public Action ShowEndDel;
+    public Action PickUpDel;
+    public Action PickEndDel;
+    public Action StealingDel;
+    public Action StealingEndDel;
+    public Action PushCalculateStartDel;
+    public Action PushCalculateEndDel;
+    public Action ElbowCalculateStartDel;
+    public Action ElbowCalculateEndDel;
+    public Action BlockCalculateStartDel;
+    public Action BlockCalculateEndDel;
+	public Action ReboundCalculateStartDel;
+	public Action ReboundCalculateEndDel;
+    public Action CloneMeshDel;
+    public Action DunkBasketStartDel;
+    public Action OnlyScoreDel;
+    public Action DunkFallBallDel;
+    public Action ElbowEndDel;
+    public Action FallEndDel;
+    public Action FakeShootEndDel;
+    public Action TipInStartDel;
+    public Action TipInEndDel;
+    public Action AnimationEndDel;
+    public Action ShowDel;
+    public Action CatchDel;
 
 //    public TimeScaleDelegate TimeScaleCallBack = null;
     public ZoomDelegate ZoomInDel = null;
@@ -351,7 +366,7 @@ public class AnimatorController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Controler.SetFloat("CrtHight", gameObject.transform.localPosition.y);
+        Controler.SetFloat("CrtHight", transform.localPosition.y);
         blockCurveCounter.FixedUpdate();
         shootCurveCounter.FixedUpdate();
         reboundCurveCounter.FixedUpdate();
