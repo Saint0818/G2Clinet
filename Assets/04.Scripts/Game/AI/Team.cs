@@ -226,6 +226,11 @@ namespace AI
             return Vector2.Angle(playerToShootPoint, playerToOpp);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exceptPlayer"></param>
+        /// <returns> null: 如果是 1 vs 1 的時候會發生. </returns>
         [CanBeNull]
         public PlayerAI RandomSameTeamPlayer([NotNull] PlayerAI exceptPlayer)
         {

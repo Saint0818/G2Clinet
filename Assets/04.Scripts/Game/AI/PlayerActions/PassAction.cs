@@ -40,8 +40,12 @@ namespace AI
 
         public override void Do()
         {
-            GameController.Get.AIPass(Player);
-            GameController.Get.PassCD.StartAgain();
+            PlayerAI catchBallPlayer = PlayerAI.Team.RandomSameTeamPlayer(PlayerAI);
+            if(!catchBallPlayer)
+                return;
+
+            if(GameController.Get.TryPass(catchBallPlayer.Player)) 
+                GameController.Get.PassCD.StartAgain();
         }
     }
 }

@@ -20,6 +20,8 @@ namespace AI
         public Team Team { set; get; }
 
         private StateMachine<EPlayerAIState, EGameMsg> mFSM;
+
+        public PlayerBehaviour Player { get { return mPlayer; } }
         private PlayerBehaviour mPlayer;
 
         [UsedImplicitly]

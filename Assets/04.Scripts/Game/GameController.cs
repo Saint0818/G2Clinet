@@ -1228,44 +1228,44 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-    /// <summary>
-    /// 不見得真的會傳球.
-    /// </summary>
-    /// <param name="player"></param>
-	public void AIPass([NotNull]PlayerBehaviour player)
-    {
-		float angle = 90;
-		if ((player.Team == ETeamKind.Self && player.transform.position.z > 0) ||
-		    (player.Team == ETeamKind.Npc && player.transform.position.z < 0))
-			angle = 180;
-
-		PlayerBehaviour teammate = findTeammate(player, 20, angle);
-		
-		if(teammate != null)
-			TryPass(teammate);
-		else
-        {
-			int who = Random.Range(0, 2);
-			int find = 0;
-			
-			for(int i = 0; i < PlayerList.Count; i++)
-            {
-				if (PlayerList [i].PlayerRefGameObject.activeInHierarchy && 
-                    PlayerList[i].Team == player.Team && PlayerList[i] != player)
-                {
-					PlayerBehaviour npc = PlayerList[i];
-					
-					if(HasDefPlayer(npc, 1.5f, 40) == 0 || who == find)
-                    {
-						TryPass(PlayerList [i]);
-						break;
-					}
-					
-					find++;
-				}
-			}
-		}
-	}
+//    /// <summary>
+//    /// 不見得真的會傳球.
+//    /// </summary>
+//    /// <param name="player"> 持球者, 嘗試要傳球的人. </param>
+//	public void AIPass([NotNull]PlayerBehaviour player)
+//    {
+//		float angle = 90;
+//		if ((player.Team == ETeamKind.Self && player.transform.position.z > 0) ||
+//		    (player.Team == ETeamKind.Npc && player.transform.position.z < 0))
+//			angle = 180;
+//
+//		PlayerBehaviour teammate = findTeammate(player, 20, angle);
+//
+//		if(teammate != null)
+//			TryPass(teammate);
+//		else
+//        {
+//			int who = Random.Range(0, 2);
+//			int find = 0;
+//			
+//			for(int i = 0; i < PlayerList.Count; i++)
+//            {
+//				if(PlayerList[i].gameObject.activeInHierarchy && 
+//                   PlayerList[i].Team == player.Team && PlayerList[i] != player)
+//                {
+//					PlayerBehaviour someone = PlayerList[i];
+//					
+//					if(HasDefPlayer(someone, 1.5f, 40) == 0 || who == find)
+//                    {
+//						TryPass(PlayerList[i]);
+//						break;
+//					}
+//					
+//					find++;
+//				}
+//			}
+//		}
+//	}
 
     /// <summary>
     /// 僅用在玩家 or NPC 進攻時使用. 這部份都是對 player.DefPlayer 做移動邏輯.
@@ -4054,27 +4054,27 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-    [CanBeNull]
-	private PlayerBehaviour findTeammate(PlayerBehaviour player, float dis, float angle)
-    {
-        for(int i = 0; i < PlayerList.Count; i++)
-        {
-			PlayerBehaviour targetPlayer = PlayerList[i];
-			if(targetPlayer.PlayerRefGameObject.activeSelf && 
-               targetPlayer != player && targetPlayer.Team == player.Team && 
-			   GetDis(player, targetPlayer) <= dis && HasDefPlayer(targetPlayer, 1.5f, 40) == 0)
-            {
-				float betweenAngle = MathUtils.FindAngle(player.transform, targetPlayer.transform.position);
-	            
-                if(0 <= betweenAngle && betweenAngle <= angle)
-					return targetPlayer;
-				if(-angle <= betweenAngle && betweenAngle <= 0)
-					return targetPlayer;
-	        }
-        }
-        
-        return null;
-    }
+//    [CanBeNull]
+//	private PlayerBehaviour findTeammate(PlayerBehaviour player, float dis, float angle)
+//    {
+//        for(int i = 0; i < PlayerList.Count; i++)
+//        {
+//			PlayerBehaviour someone = PlayerList[i];
+//			if(someone.gameObject.activeSelf && 
+//               someone != player && someone.Team == player.Team && 
+//			   GetDis(player, someone) <= dis && HasDefPlayer(someone, 1.5f, 40) == 0)
+//            {
+//				float betweenAngle = MathUtils.FindAngle(player.transform, someone.transform.position);
+//	            
+//                if(0 <= betweenAngle && betweenAngle <= angle)
+//					return someone;
+//				if(-angle <= betweenAngle && betweenAngle <= 0)
+//					return someone;
+//	        }
+//        }
+//        
+//        return null;
+//    }
 
     /// <summary>
     /// 某位球員在某個距離和角度內, 是否有防守球員?
