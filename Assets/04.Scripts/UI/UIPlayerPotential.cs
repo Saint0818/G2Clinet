@@ -14,8 +14,10 @@ public class TUpgradeBtn
 	private GameObject self;
 	private UILabel BaseValueLabel;
 	private UILabel demandValueLabel;
-	private GameObject addBtn;
-	private UIButton btn;
+	private GameObject addBtnObj;
+	private GameObject minusBtnObj;
+	private UIButton btnAdd;
+	private UIButton btnMinus;
 	private int demandValue;
 	private int curPoint;
 	private int addPoint;
@@ -26,19 +28,31 @@ public class TUpgradeBtn
 			self = go;
 			BaseValueLabel = self.transform.FindChild("BaseValueLabel").gameObject.GetComponent<UILabel>();
 			demandValueLabel = self.transform.FindChild("DemandValueLabel").gameObject.GetComponent<UILabel>();
-			addBtn = self.transform.FindChild("AddBtn").gameObject;
-			btn = self.GetComponent<UIButton>();
+			addBtnObj = self.transform.FindChild("AddBtn").gameObject;
+			minusBtnObj = self.transform.FindChild ("MinusBtn").gameObject;
+			btnAdd = self.GetComponent<UIButton>();
+			btnMinus = minusBtnObj.GetComponent<UIButton>();
 		}
 
 	}
 
-	public bool CanUse
+	public bool CanUseAdd
 	{
 		set
 		{
-			addBtn.SetActive(value);
-			btn.enabled = value;
-			btn.defaultColor = btn.enabled == true? Color.white : Color.grey;
+			addBtnObj.SetActive(value);
+			btnAdd.enabled = value;
+			btnAdd.defaultColor = btnAdd.enabled == true? Color.white : Color.grey;
+		}
+	}
+
+	public bool CanUseMinus
+	{
+		set
+		{
+			minusBtnObj.SetActive(value);
+			btnMinus.enabled = value;
+			btnMinus.defaultColor = btnMinus.enabled == true? Color.white : Color.grey;
 		}
 	}
 
@@ -47,13 +61,14 @@ public class TUpgradeBtn
 		set
 		{
 			demandValue = value;
-            demandValueLabel.text = (-demandValue).ToString();
+            demandValueLabel.text = (demandValue).ToString();
 		}
 	}
 
 	public void Update()
 	{
-		CanUse = demandValue > GameData.Team.AvatarPotential? true : false;
+		CanUseAdd = demandValue > GameData.Team.AvatarPotential? true : false;
+		CanUseMinus = addPoint > 0;
 	}
 
 	public void SetValue(int curt, int add)
@@ -66,9 +81,11 @@ public class TUpgradeBtn
 						
 	}
 
-	public void InitBtttonFunction(EventDelegate addBtnFunc)
+	public void InitBtttonFunction(EventDelegate addBtnFunc, EventDelegate minusBtnFunc)
 	{
-		btn.onClick.Add (addBtnFunc);
+		btnAdd.onClick.Add (addBtnFunc);
+		btnMinus.onClick.Add (minusBtnFunc);
+
 	}
 }
 
@@ -105,7 +122,7 @@ public class UpgradeView
 				if(btn){
 					upgradeBtns[i] = new TUpgradeBtn();
 					upgradeBtns[i].Init(btn);
-					upgradeBtns[i].InitBtttonFunction(new EventDelegate(OnAdd));
+					upgradeBtns[i].InitBtttonFunction(new EventDelegate(OnAdd), new EventDelegate(OnMinus));
 				}
 			}
 		}
@@ -181,7 +198,17 @@ public class UpgradeView
 			}
 		}
 	}
-
+	public void OnMinus()
+	{
+		int index;
+		if (int.TryParse (UIButton.current.transform.parent.name, out index)) {
+			if(AddPotential[index]>0){
+				AddPotential[index]-= AddLevel;
+				UIPlayerPotential.Get.UpdateView();
+				UIPlayerPotential.Get.SetUseState (EPotential.adding);
+			}
+		}
+	}
 	public int AddLevel = 1;
 	
 	public void OnChangeAddLevle()
@@ -199,7 +226,8 @@ public class UpgradeView
 	{
 		CalculateAddPotential ();
 		for (int i = 0; i < upgradeBtns.Length; i++) {
-			upgradeBtns[i].CanUse = CanUsePotential(i);	
+			upgradeBtns[i].CanUseAdd = CanUsePotential(i);	
+			upgradeBtns [i].CanUseMinus = CanMinusPotential (i);
 		}
 	}
 
@@ -208,6 +236,11 @@ public class UpgradeView
 	{
         return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential(GameData.Team.Player) >= 
 			useLvPotential + useAvatarPotential + (GameFunction.GetPotentialRule(bodytype, index) * AddLevel);
+	}
+
+	public bool CanMinusPotential(int index)
+	{
+		return AddPotential[index]> 0;
 	}
 
 	private void CalculateAddPotential()
