@@ -58,9 +58,11 @@
     },
     {
         "id": 4,
-        "nametw": "中鋒身體4",
+        "nametw": "明亮膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 4,
+        "avatar": 4,
         "quality": 2,
         "position": 0,
         "maxstack": 1,
@@ -69,13 +71,16 @@
         "buy": 700,
         "namecn": "中锋身体4",
         "nameen": "Center body 4",
-        "namejp": "センターボディ4"
+        "namejp": "センターボディ4",
+        "explaintw": "明亮的偏白膚色"
     },
     {
         "id": 5,
-        "nametw": "中鋒身體5",
+        "nametw": "紅潤膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 5,
+        "avatar": 5,
         "quality": 2,
         "position": 0,
         "maxstack": 1,
@@ -84,7 +89,8 @@
         "buy": 700,
         "namecn": "中锋身体5",
         "nameen": "Center body 5",
-        "namejp": "センターボディ5"
+        "namejp": "センターボディ5",
+        "explaintw": "像是喝醉般的紅潤"
     },
     {
         "id": 6,
@@ -244,9 +250,11 @@
     },
     {
         "id": 16,
-        "nametw": "中鋒身體16",
+        "nametw": "暗黑布魯托",
         "kind": 0,
         "atlas": 0,
+        "icon": 16,
+        "avatar": 16,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -255,11 +263,12 @@
         "buy": 700,
         "namecn": "中锋身体16",
         "nameen": "Center body 16",
-        "namejp": "センターボディ16"
+        "namejp": "センターボディ16",
+        "explaintw": "來自未來的大魔王布魯托，散發著黑暗邪惡的氣息。"
     },
     {
         "id": 17,
-        "nametw": "中鋒身體17",
+        "nametw": "Boss中鋒身體17",
         "kind": 0,
         "atlas": 0,
         "quality": 3,
@@ -274,7 +283,7 @@
     },
     {
         "id": 18,
-        "nametw": "中鋒身體18",
+        "nametw": "Boss中鋒身體18",
         "kind": 0,
         "atlas": 0,
         "quality": 3,
@@ -289,7 +298,7 @@
     },
     {
         "id": 19,
-        "nametw": "中鋒身體19",
+        "nametw": "Boss中鋒身體19",
         "kind": 0,
         "atlas": 0,
         "quality": 3,
@@ -304,7 +313,7 @@
     },
     {
         "id": 20,
-        "nametw": "中鋒身體20",
+        "nametw": "Boss中鋒身體20",
         "kind": 0,
         "atlas": 0,
         "quality": 3,
@@ -432,9 +441,11 @@
     },
     {
         "id": 107,
-        "nametw": "前鋒身體7",
+        "nametw": "健康古銅膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 107,
+        "avatar": 7,
         "quality": 2,
         "position": 1,
         "maxstack": 1,
@@ -443,7 +454,8 @@
         "buy": 700,
         "namecn": "前锋身体7",
         "nameen": "Forward body 7",
-        "namejp": "フォワードボディ7"
+        "namejp": "フォワードボディ7",
+        "explaintw": "健康強壯的古銅色"
     },
     {
         "id": 108,
@@ -702,9 +714,11 @@
     },
     {
         "id": 204,
-        "nametw": "後衛身體4",
+        "nametw": "明亮朝氣膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 204,
+        "avatar": 4,
         "quality": 2,
         "position": 2,
         "maxstack": 1,
@@ -713,13 +727,16 @@
         "buy": 700,
         "namecn": "后卫身体4",
         "nameen": "Guard body 4",
-        "namejp": "ガード本体4"
+        "namejp": "ガード本体4",
+        "explaintw": "搭配甜美笑容，有如陽光一般溫暖"
     },
     {
         "id": 205,
-        "nametw": "後衛身體5",
+        "nametw": "健康古銅膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 205,
+        "avatar": 5,
         "quality": 2,
         "position": 2,
         "maxstack": 1,
@@ -728,7 +745,8 @@
         "buy": 700,
         "namecn": "后卫身体5",
         "nameen": "Guard body 5",
-        "namejp": "ガード本体5"
+        "namejp": "ガード本体5",
+        "explaintw": "象徵女性的健康美"
     },
     {
         "id": 206,
@@ -16022,32 +16040,32 @@
     },
     {
         "id": 51000,
-        "nametw": "51.Basket = 1,",
+        "nametw": "輕便籃球架",
         "kind": 51,
         "avatar": 101
     },
     {
         "id": 52000,
-        "nametw": "52.Advertisement = 2,",
+        "nametw": "簡易佈告欄",
         "kind": 52,
         "avatar": 101
     },
     {
         "id": 53000,
-        "nametw": "53.Store = 3,",
+        "nametw": "基礎販賣機",
         "kind": 53,
         "avatar": 101
     },
     {
         "id": 54000,
-        "nametw": "54.Gym = 4,體育館1",
+        "nametw": "基礎塑膠地板",
         "kind": 54,
         "avatar": 101,
         "lv": 1
     },
     {
         "id": 54001,
-        "nametw": "54.Gym = 4,體育館2",
+        "nametw": "拋光木質地板",
         "kind": 54,
         "avatar": 101,
         "lv": 2,
@@ -16055,31 +16073,31 @@
     },
     {
         "id": 55000,
-        "nametw": "55.Door = 5,",
+        "nametw": "低階木質大門",
         "kind": 55,
         "avatar": 101
     },
     {
         "id": 56000,
-        "nametw": "56.Logo = 6,",
+        "nametw": "尼龍布旗幟",
         "kind": 56,
         "avatar": 101
     },
     {
         "id": 57000,
-        "nametw": "57.Chair = 7,",
+        "nametw": "塑膠板凳",
         "kind": 57,
         "avatar": 101
     },
     {
         "id": 58000,
-        "nametw": "58.Calendar = 8,",
+        "nametw": "再生紙行事曆",
         "kind": 58,
         "avatar": 101
     },
     {
         "id": 59000,
-        "nametw": "59.Mail = 9",
+        "nametw": "木質收件盒",
         "kind": 59,
         "avatar": 101
     },
