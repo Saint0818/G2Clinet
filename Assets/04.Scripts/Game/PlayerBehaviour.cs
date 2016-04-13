@@ -3349,7 +3349,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool AIing
     {
-//      get { return PlayerRefGameObject.activeSelf && aiTime <= 0; }
         get { return PlayerRefGameObject.activeSelf && mManually.IsOff(); }
     }
 

@@ -86,6 +86,10 @@ public class TITemGymObj {
 	public bool IsBuy {
 		get {return GameData.Team.IsGymOwn(ItemID);}
 	}
+
+	public bool IsSelect {
+		get {return Selected.activeSelf;}
+	}
 }
 
 public struct TArchitectureValue {
@@ -131,7 +135,6 @@ public class UIGymEngage : UIBase {
 	private UISlider sliderCDBar;
 	private UILabel labelTime;
 	private UILabel labelPrice;
-//	private UISprite spriteBuyCDIcon;
 
 	private ItemAwardGroup[] awardGroup = new ItemAwardGroup[2];
 
@@ -140,6 +143,7 @@ public class UIGymEngage : UIBase {
 
 	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
 	private int mItemGymObjIndex = 0;
+	private int tempItemGymObjIndex = 0;
 
 	private UIScrollView scrollView;
 
@@ -403,20 +407,22 @@ public class UIGymEngage : UIBase {
 		int result = 0;
 		//itemObj index
 		if(int.TryParse(go.name, out result)) {
-			mItemGymObjIndex = result;
 			if(result >= 0 && result < itemGymObjs.Count) {
-				if(GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
-					if(itemGymObjs[result].IsBuy) {
-						int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
-						if(itemIndex != -1) {
-							isRealChange = true;
-							SendChangeBuildType(itemIndex);
+				if(!itemGymObjs[result].IsSelect) {
+					mItemGymObjIndex = result;
+					if(GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
+						if(itemGymObjs[result].IsBuy) {
+							int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
+							if(itemIndex != -1) {
+								isRealChange = true;
+								SendChangeBuildType(itemIndex);
+							}
+						} else {
+							isRealChange = false;
 						}
-					} else {
-						isRealChange = false;
+						UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
+						refreshSelectBuild(mItemGymObjIndex);
 					}
-					UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
-					refreshSelectBuild(mItemGymObjIndex);
 				}
 			}
 		}
