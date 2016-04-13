@@ -1463,23 +1463,24 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
             case EPlayerState.Pass50:
-                if (!IsShow && !IsDunk && !IsAlleyoopState && IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
-                {
+                if(!IsShow && !IsDunk && !IsAlleyoopState && IsBallOwner && !IsPass && !IsPickBall &&
+                   !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                     return true;
-                }
                 break;
 
             case EPlayerState.Pass4:
-                if (IsBallOwner && !IsLayup && !IsDunk && !IsAlleyoopState && IsShoot && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+                if(IsBallOwner && !IsLayup && !IsDunk && !IsAlleyoopState && IsShoot && 
+                   !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             case EPlayerState.BlockCatch:
-                if (IsBlock && crtState != EPlayerState.BlockCatch)
+                if(IsBlock && crtState != EPlayerState.BlockCatch)
                     return true;
                 break;
 
             case EPlayerState.FakeShoot:
-                if (IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.HoldBall || IsDribble))
+                if(IsBallOwner && 
+                   (crtState == EPlayerState.Idle || crtState == EPlayerState.HoldBall || IsDribble))
                     return true;
                 break;
 
@@ -1563,7 +1564,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Steal1:
             case EPlayerState.Steal2:
             case EPlayerState.Steal20:
-                if (!IsTee && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
+                if(!IsTee && !IsBallOwner && !IsSteal && IsInGround &&
+                   (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
@@ -1582,7 +1584,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow2:
             case EPlayerState.Elbow20:
             case EPlayerState.Elbow21:
-                if (!IsTee && !IsElbow && IsBallOwner && (IsDribble || crtState == EPlayerState.HoldBall))
+                if(!IsTee && !IsElbow && IsInGround && IsBallOwner && 
+                   (IsDribble || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
 
@@ -1591,8 +1594,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Fall2:
             case EPlayerState.KnockDown0:
             case EPlayerState.KnockDown1:
-
-				if (!IsTee && !IsFall ) //&& !IsUseActiveSkill (主動技可以被蓋)
+				if(!IsTee && !IsFall) //&& !IsUseActiveSkill (主動技可以被蓋)
                     return true;
                 break;
 
@@ -1674,7 +1676,11 @@ public class PlayerBehaviour : MonoBehaviour
     { 
         get
         {
-            return (situation == EGameSituation.SpecialAction || situation == EGameSituation.GamerInbounds || situation == EGameSituation.GamerPickBall || situation == EGameSituation.NPCInbounds || situation == EGameSituation.NPCPickBall);
+            return situation == EGameSituation.SpecialAction || 
+                   situation == EGameSituation.GamerInbounds || 
+                   situation == EGameSituation.GamerPickBall || 
+                   situation == EGameSituation.NPCInbounds || 
+                   situation == EGameSituation.NPCPickBall;
         }
     }
 
@@ -3249,6 +3255,23 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsFall
     {
         get{ return crtState == EPlayerState.Fall0 || crtState == EPlayerState.Fall1 || crtState == EPlayerState.Fall2 || crtState == EPlayerState.KnockDown0 || crtState == EPlayerState.KnockDown1; }
+    }
+
+    /// <summary>
+    /// true: 人在空中; false: 人在地面.
+    /// </summary>
+    public bool IsInAir
+    {
+        get
+        {
+            // 用 0.1 來判斷, 是因為我認為這樣才比較不會有數值誤差的問題.
+            return transform.position.y >= 0.1f;
+        }
+    }
+
+    public bool IsInGround
+    {
+        get { return !IsInAir; }
     }
 
     public bool IsCatch
