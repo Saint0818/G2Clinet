@@ -167,7 +167,7 @@ public class UISkillInfo : UIBase {
 	public void OnSuitItem (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) {
 				UISuitAvatar.Get.ShowView(result);
 				Visible = false;
 			} else 
@@ -181,11 +181,11 @@ public class UISkillInfo : UIBase {
 		UIMainLobby.Get.HideAll(false);
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
-		btnUpgrade.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillReinforce));
-		btnCrafting.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SkillEvolution));
+		btnUpgrade.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SkillReinforce));
+		btnCrafting.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SkillEvolution));
 	
-		goUpgradeLock.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillReinforce));
-		goCraftLock.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
+		goUpgradeLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce));
+		goCraftLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 
 		if(isEquip)
 			labelEquip.text = TextConst.S(7215);
@@ -195,8 +195,8 @@ public class UISkillInfo : UIBase {
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
 			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 			RefreshUICard(uicard);
-			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
@@ -232,7 +232,7 @@ public class UISkillInfo : UIBase {
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 
 				goEquipRedPoint.SetActive(!isAlreadyEquip && (mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
-				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution));
+				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 				goUpgradeRedPoint.SetActive(false);
 			}
 
@@ -333,8 +333,8 @@ public class UISkillInfo : UIBase {
 		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
 
         if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
-			goSuitCard.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
-			goSuitItem.gameObject.SetActive(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
+			goSuitCard.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));
+			goSuitItem.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].Suititem)));
 		}
 	}
 
@@ -379,7 +379,7 @@ public class UISkillInfo : UIBase {
 			if(GameData.DSkillData[mUICard.skillCard.Skill.ID].EvolutionSkill == 0) {
 				UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
 			} else {
-				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) {
+				if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution)) {
 					UISkillFormation.Get.IsEvolution = true;
 					UISkillFormation.Get.DoFinish();
 				} else
@@ -393,7 +393,7 @@ public class UISkillInfo : UIBase {
 			if(mUICard.skillCard.Skill.Lv >= GameData.DSkillData[mUICard.skillCard.Skill.ID].MaxStar ) {
 				UIHint.Get.ShowHint(TextConst.S(553), Color.red);
 			} else {
-				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) {
+				if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce)) {
 					UISkillFormation.Get.IsReinforce = true;
 					UISkillFormation.Get.DoFinish();
 				} else 

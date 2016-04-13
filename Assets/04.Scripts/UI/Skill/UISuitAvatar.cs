@@ -247,19 +247,16 @@ public class UISuitAvatar : UIBase {
 	}
 
 	public void ShowView (int suitItemID = 1) {
-		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
-			Visible = true;
-			initScrollView ();
-			clickSuit (suitItemID);
-			if(suitItemID >= 200)
-				leftScorllView.Scroll(-0.5f);
-			else if(suitItemID >= 100)
-				leftScorllView.Scroll(-0.25f);
-			else 
-				leftScorllView.Scroll(0);
-			middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
-		} else 
-			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+		Visible = true;
+		initScrollView ();
+		clickSuit (suitItemID);
+		if(suitItemID >= 200)
+			leftScorllView.Scroll(-0.5f);
+		else if(suitItemID >= 100)
+			leftScorllView.Scroll(-0.25f);
+		else 
+			leftScorllView.Scroll(0);
+		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
 	}
 
 	private void initScrollView () {

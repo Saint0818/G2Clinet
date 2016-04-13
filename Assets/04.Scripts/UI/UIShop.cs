@@ -342,7 +342,10 @@ public class UIShop : UIBase {
                     UIPlayerMgr.Visible = false;
                 } else
                 if (GameData.DItemData[id].Kind <= 7)
-                    UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
+					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
+						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
+					else 
+						UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.red);
             }
         }
     }

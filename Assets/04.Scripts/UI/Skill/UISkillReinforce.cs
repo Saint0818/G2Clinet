@@ -259,10 +259,10 @@ public class UISkillReinforce : UIBase {
 			reinEvoTabs[0].CheckUnUse = (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar);
 			//Evolution
 			reinEvoTabs[1].CheckRedPoint = ((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar) && 
-											 LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
+											 GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 			reinEvoTabs[1].CheckUnUse = (GameData.DSkillData[mSkill.ID].EvolutionSkill == 0);
 
-			tabLock.SetActive( LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
+			tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 		}
 	}
 
@@ -274,17 +274,17 @@ public class UISkillReinforce : UIBase {
 					if(mSkill.Lv >= GameData.DSkillData[mSkill.ID].MaxStar)
 						UIHint.Get.ShowHint(TextConst.S(553), Color.red);
 					else {
-						if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce)))
+						if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce))
 							showWindows(result);
 						else
-							UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);			
+							UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);			
 					}
 					
 				} else if(result == 1) {
 					if(GameData.DSkillData[mSkill.ID].EvolutionSkill == 0) 
 						UIHint.Get.ShowHint(TextConst.S(7654), Color.red);
 					else {
-						if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)))
+						if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution))
 							showWindows(result);
 						else
 							UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
@@ -298,7 +298,7 @@ public class UISkillReinforce : UIBase {
 		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) {
 			int index = 0;
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
-				if(isCanReinForce(GameData.Team.SkillCards[i].SN)) {
+				if(isCanReinForce(GameData.Team.SkillCards[i])) {
 					TPassiveSkillCard obj = null;
 					obj = addItem(i, index, GameData.Team.SkillCards[i]);
 					if(obj != null && !passiveSkillCards.ContainsKey(obj.Name) && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID)) {
@@ -393,42 +393,54 @@ public class UISkillReinforce : UIBase {
 		obj.GetComponent<ItemAwardGroup>().ShowSkill(skill);
 		return obj;
 	}
+
+	private bool isUpgradeMaterial (int skillID) {
+		if(GameData.DSkillData.ContainsKey(mSkill.ID)) 
+		if(GameData.DSkillData[mSkill.ID].UpgradeMaterial != null && GameData.DSkillData[mSkill.ID].UpgradeMaterial.Length > 0)
+			for(int i=0; i<GameData.DSkillData[mSkill.ID].UpgradeMaterial.Length; i++)
+				if(GameData.DSkillData[mSkill.ID].UpgradeMaterial[i] == skillID)
+						return true;
+		return false;
+	}
 		
-	private bool isCanReinForce(int sn) {
-		if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
-			for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
-				if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
-					for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
-						int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
-						if (SNs.Length > 0) {
-							for (int k=0; k<SNs.Length; k++)
-								if (SNs[k] == sn)
-									return false;
+	private bool isCanReinForce(TSkill skill) {
+		if(isUpgradeMaterial(skill.ID)) {
+			if(GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 0) {
+				for (int i=0; i<GameData.Team.PlayerBank.Length; i++) {
+					if(GameData.Team.PlayerBank[i].SkillCardPages != null && GameData.Team.PlayerBank[i].SkillCardPages.Length > 0) {
+						for (int j=0; j<GameData.Team.PlayerBank[i].SkillCardPages.Length; j++) {
+							int[] SNs = GameData.Team.PlayerBank[i].SkillCardPages[j].SNs;
+							if (SNs.Length > 0) {
+								for (int k=0; k<SNs.Length; k++)
+									if (SNs[k] == skill.SN)
+										return false;
+							}
 						}
 					}
 				}
 			}
-		}
-
-		if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
-			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
-				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
-				if (SNs.Length > 0) {
-					for (int k=0; k<SNs.Length; k++)
-						if (SNs[k] == sn)
-							return false;
+			
+			if(GameData.Team.Player.SkillCardPages != null && GameData.Team.Player.SkillCardPages.Length > 0) {
+				for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
+					int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
+					if (SNs.Length > 0) {
+						for (int k=0; k<SNs.Length; k++)
+							if (SNs[k] == skill.SN)
+								return false;
+					}
 				}
 			}
-		}
-
-		for(int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
-			if(GameData.Team.Player.SkillCards[i].SN == sn)
+			
+			for(int i=0; i<GameData.Team.Player.SkillCards.Length; i++) 
+				if(GameData.Team.Player.SkillCards[i].SN == skill.SN)
+					return false;
+			
+			if(mSkill.SN == skill.SN)
 				return false;
 
-		if(mSkill.SN == sn)
+			return true;
+		} else 
 			return false;
-
-		return true;
 	}
 
 	private int checkLvUp(int addExp) {

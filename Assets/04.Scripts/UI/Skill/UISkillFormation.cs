@@ -120,19 +120,18 @@ public struct TUICard{
 		recordIsEquip = isEquip;
 		//合成不須判斷紅點(20160324 GameData.Team.IsExtraCard)
 		if(!isEquip) {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) ||
-				GameData.Team.CheckCardCost(skill));
+			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && skill.Lv == GameData.DSkillData[skill.ID].MaxStar && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution)) || GameData.Team.CheckCardCost(skill));
 		} else {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
+			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skill) && skill.Lv == GameData.DSkillData[skill.ID].MaxStar && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 		}
 	}
 
 	public void RefreshRedPoint (int currentCostSpace, bool isEquip, TSkill skill ) { // For All
 		//合成不須判斷紅點(20160324 UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(Card.name))
 		if(!isEquip) {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skillCard.Skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) || Cost <= currentCostSpace);
+			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skillCard.Skill) && skill.Lv == GameData.DSkillData[skill.ID].MaxStar && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution)) || Cost <= currentCostSpace);
 		} else {
-			skillCard.CheckRedPoint =  ((GameData.Team.IsEnoughMaterial(skillCard.Skill) && (skill.Lv == GameData.DSkillData[skill.ID].MaxStar) && LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)));
+			skillCard.CheckRedPoint =  (GameData.Team.IsEnoughMaterial(skillCard.Skill) && skill.Lv == GameData.DSkillData[skill.ID].MaxStar && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 		}
 	}
 }
@@ -433,7 +432,7 @@ public class UISkillFormation : UIBase {
 
 	public void ClickTab (int no) {
 		if(no == 1) {
-			if(!LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) || GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SuitCard)){
+			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)){
 				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.red);
 				return ;
 			}
@@ -453,8 +452,8 @@ public class UISkillFormation : UIBase {
 		else
 			redPoints[0].SetActive(isSurplusCost || GameData.Team.IsAnyCardReinEvo || CheckCardnoInstall);
         
-		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)));
-		tabLock.SetActive((LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv < LimitTable.Ins.GetLv(EOpenID.SuitCard)));
+		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)));
+		tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard));
 	}
 
 	public void SetBtn (string path, EventDelegate.Callback callback) {
@@ -629,7 +628,7 @@ public class UISkillFormation : UIBase {
 			activeFieldLimit = 3;
 		else {
 			activeFieldLimit = 2;
-			if(LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive))
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.ThirdActive))
 				labelLock.text = string.Format(TextConst.S(7013), LimitTable.Ins.GetLv(EOpenID.ThirdActive));
 		}
 
@@ -721,7 +720,7 @@ public class UISkillFormation : UIBase {
 	public void OnSuitItem (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) 
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
 				UISuitAvatar.Get.ShowView(result);
 			else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
@@ -1331,7 +1330,7 @@ public class UISkillFormation : UIBase {
 	//檢查是否有未安裝的卡
 	private bool isExtraCard {
 		get {
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce))
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce))
 				foreach (KeyValuePair<string, TUICard> uicard in uiCards)
 					if (!skillsRecord.Contains(uicard.Value.Card.name))
 						return true;
@@ -1851,10 +1850,7 @@ public class UISkillFormation : UIBase {
 
 	public bool IsOpenThirdActive {
 		get {
-			if(LimitTable.Ins.HasByOpenID(EOpenID.ThirdActive))
-				return (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.ThirdActive));
-			else 
-				return true;
+			return GameData.IsOpenUIEnableByPlayer(EOpenID.ThirdActive);
 		}
 	}
 

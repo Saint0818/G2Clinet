@@ -213,7 +213,7 @@ public class UISuitCard {
 	}
 
 	public void InitCom (UISkillFormation skillFormation, string UIName) {
-		if(LimitTable.Ins.HasByOpenID(GameEnum.EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) {
+		if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard)) {
 			costNow = GameData.Team.SuitCardExecuteCost;
 			costMax = 10;
 			mSelf = skillFormation;
@@ -303,7 +303,7 @@ public class UISuitCard {
 
 	public bool CheckRedPoint {
 		get {
-			if(LimitTable.Ins.HasByOpenID(GameEnum.EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) {
+			if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard)) {
 				for (int i=0; i<itemSuitCards.Count; i++) 
 					if(itemSuitCards[i].IsAllGet && !GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitID))
 						return true;

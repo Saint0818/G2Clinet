@@ -528,14 +528,18 @@ public class UIAvatarFitted : UIBase
 
     public void OnOpenSuitAvatar() {
         int index = -1;
-        if (int.TryParse(UIButton.current.name, out index) && GameData.DItemData.ContainsKey(backpackItems[index].ID))
-            UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem);
+		if (int.TryParse(UIButton.current.name, out index) && GameData.DItemData.ContainsKey(backpackItems[index].ID)){
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
+            	UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem);
+			else 
+				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+		}
     }
 
 	public void DoAvatarCollection () {
-		if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+		if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
 			UISuitAvatar.Get.ShowView();
-		} else 
+		else 
 			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 	}
 
