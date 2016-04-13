@@ -84,24 +84,6 @@ namespace GameStruct
         /// </summary>
 		public Dictionary<int, Dictionary<int, int>> ReceivedDailyLoginNums;
 
-		/// <summary>
-		/// 順序
-		///	Basket = 0, Advertisement = 1, Store = 2,
-		///	Gym = 3, Door = 4, Logo = 5,
-		///	Chair = 6, Calendar = 7, Mail = 8
-		/// </summary>
-		public TGymBuild[] GymBuild;
-		public TGymQueue[] GymQueue;
-		public int[] GymOwn; //建築物的擁有Item ID
-
-		public bool IsGymOwn (int itemID){
-			for(var i = 0; i < GymOwn.Length; i++)
-				if(GymOwn[i] == itemID)
-					return true;
-			
-			return false;
-		}
-
 		public int GetDailyLoginNum(int year, int month)
 		{
 			if(DailyLoginNums != null && 
@@ -119,6 +101,33 @@ namespace GameStruct
                 return ReceivedDailyLoginNums[year][month];
             return 0;
         }
+
+		/// <summary>
+		/// 順序
+		///	Basket = 0, Advertisement = 1, Store = 2,
+		///	Gym = 3, Door = 4, Logo = 5,
+		///	Chair = 6, Calendar = 7, Mail = 8
+		/// </summary>
+		public TGymBuild[] GymBuild;
+		public TGymQueue[] GymQueue;
+		public int[] GymOwn; //建築物的擁有Item ID
+
+		public bool IsGymOwn (int itemID){
+			for(var i = 0; i < GymOwn.Length; i++)
+				if(GymOwn[i] == itemID)
+					return true;
+
+			return false;
+		}
+
+		public int GetGymLevel  {
+			get {
+				if(GymBuild != null && GymBuild.Length == 9) 
+					return GymBuild[3].LV;
+
+				return 0;
+			}
+		}
 
         //PVP
         public int PVPCoin; //聯盟幣
