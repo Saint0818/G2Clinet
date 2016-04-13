@@ -724,6 +724,7 @@ public class GameController : KnightSingleton<GameController>
         SetPlayerAI(false);
     }
 
+	//加數值裝的數值
     private void AddValueItemAttributes()
     {
         Action<TItemData> addAttributes = item =>

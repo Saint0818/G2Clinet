@@ -60,6 +60,7 @@ public static class GameData
 
     public static Dictionary<int, TPotentital> DPotential = new Dictionary<int, TPotentital>();
 
+	//Key: lv
 	public static Dictionary<int, TArchitectureExp> DArchitectureExp = new Dictionary<int, TArchitectureExp>();
 
 	//building key:Kind
@@ -129,6 +130,16 @@ public static class GameData
         } else
             return false;
     }
+
+	public static float GetReviveValue {
+		get {
+			if(Team.GymBuild != null && Team.GymBuild.Length == 9) 
+			if(DArchitectureExp.ContainsKey(Team.GymBuild[3].LV) && DArchitectureExp[Team.GymBuild[3].LV].GymAttrKind == 50)
+				return DArchitectureExp[Team.GymBuild[3].LV].GymAttrValue;
+			
+			return 0 ;
+		}
+	}
 
     public static string AtlasName(int atlas)
     {

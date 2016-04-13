@@ -304,7 +304,6 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRefGameObject = gameObject;
         LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
 
-//        PlayerSkillController = new SkillController();
         PlayerSkillController = gameObject.AddComponent<SkillController>();
 
         InitAnmator();
@@ -2712,36 +2711,37 @@ public class PlayerBehaviour : MonoBehaviour
     //All Skill Event From this Function
     public void SkillEventCallBack(AnimationEvent aniEvent)
     {
-        string skillString = aniEvent.stringParameter;
-        int skillInt = aniEvent.intParameter;
-
-        switch (skillString)
-        {
-            case "CameraAction": 
-                CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
-                break;
-            case "Shooting":
+		if(PlayerSkillController.IsActiveUse) {
+			string skillString = aniEvent.stringParameter;
+			int skillInt = aniEvent.intParameter;
+			
+			switch (skillString)
+			{
+			case "CameraAction": 
+				CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
+				break;
+			case "Shooting":
 				CourtMgr.Get.IsRealBallActive = true;
 				//主動技也可以被蓋 (20160323)
-//                GameController.Get.BallState = EBallState.None;//主動技要可以被蓋所以註解
+				//                GameController.Get.BallState = EBallState.None;//主動技要可以被蓋所以註解
 				GameController.Get.BallState = EBallState.CanBlock;
 				if (GameController.Get.ShootDistance >= GameConst.Point3Distance)
 					GameRecord.FG3++;
 				else
 					GameRecord.FG++;
-			
-                if (OnShooting != null)
-                    OnShooting(this, true);
-                break;
-            case "PushDistancePlayer":
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
-                    GameController.Get.Situation == EGameSituation.NPCAttack))
-                {
+				
+				if (OnShooting != null)
+					OnShooting(this, true);
+				break;
+			case "PushDistancePlayer":
+				if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
+					GameController.Get.Situation == EGameSituation.NPCAttack))
+				{
 					GameRecord.PushLaunch++;
-                    for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-                    {
-                        if (GameController.Get.GamePlayers[i].Team != Team)
-                        {
+					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+					{
+						if (GameController.Get.GamePlayers[i].Team != Team)
+						{
 							if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
 								//直線碰撞
 								pushThroughTigger.SetActive(true);
@@ -2759,63 +2759,54 @@ public class PlayerBehaviour : MonoBehaviour
 									GameRecord.Push++;
 								}
 							}
-                        } 
+						} 
 					}
 					GameController.Get.IsGameFinish();
-                }
-                break;
-            case "SetBallEvent":
-                GameController.Get.SetBall(this);
-                GameController.Get.IsGameFinish();
-            
-                if (GameController.Get.Catcher != null)
-                    GameController.Get.Catcher = null;
-                if (GameController.Get.Passer != null)
-                    GameController.Get.Passer = null;
-                if (GameController.Get.Shooter != null)
-                    GameController.Get.Shooter = null;
-                break;
+				}
+				break;
+			case "SetBallEvent":
+				GameController.Get.SetBall(this);
+				GameController.Get.IsGameFinish();
+				
+				if (GameController.Get.Catcher != null)
+					GameController.Get.Catcher = null;
+				if (GameController.Get.Passer != null)
+					GameController.Get.Passer = null;
+				if (GameController.Get.Shooter != null)
+					GameController.Get.Shooter = null;
+				break;
 			case "ReboundSetBall":
-				if(GameController.Get.BallOwner == null && PlayerSkillController.IsActiveUse) {
+				if(GameController.Get.BallOwner == null) {
 					GameController.Get.SetBall(this);
 					GameController.Get.IsGameFinish();
 				}
-			break;
-            case "ActiveSkillEnd":
-                if (OnUIJoystick != null)
-                    OnUIJoystick(this, true);
-    				
-                UISkillEffect.UIShow(false);
-//                if (isShootJumpActive)
-//                {
-//                    isShootJumpActive = false;
-//                    animatorEvent.intParameter = 4;
-//                }
-//                else
-//                    animatorEvent.intParameter = 0;
-//				
-//                animatorEvent.floatParameter = 1;
-//                TimeScaleCallBack(animatorEvent, this);
-					
-                if (isBlock)
-                {
-                    if (GameController.Get.BallState == EBallState.CanBlock)
-                    {
+				break;
+			case "ActiveSkillEnd":
+				if (OnUIJoystick != null)
+					OnUIJoystick(this, true);
+				
+				UISkillEffect.UIShow(false);
+				
+				if (isBlock)
+				{
+					if (GameController.Get.BallState == EBallState.CanBlock)
+					{
 						TimerMgr.Get.PauseBall(false);
-                        skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
-                        Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
-                        CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
-                    }
-                    else if (GameController.Get.BallState == EBallState.CanDunkBlock)
-                    {
-                        if (GameController.Get.BallOwner != null)
-                            GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
-                    }
-                    GameController.Get.BallState = EBallState.None;
-                    GameController.Get.IsGameFinish();
-                }
-                break;
-        }
+						skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
+						Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
+						CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
+					}
+					else if (GameController.Get.BallState == EBallState.CanDunkBlock)
+					{
+						if (GameController.Get.BallOwner != null)
+							GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
+					}
+					GameController.Get.BallState = EBallState.None;
+					GameController.Get.IsGameFinish();
+				}
+				break;
+			}
+		}
     }
 
     private Vector3 judgePlayerFace(float angle)
@@ -2857,18 +2848,11 @@ public class PlayerBehaviour : MonoBehaviour
 				return;
 			} else
 				PlayerSkillController.ResetUsePassive();
-		}
-			
-		
-        if (no < 20)
-        {
+		} else 
             return;
-        }
 	
         if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
-            //Debug.LogError(gameObject.name + " . Skill Start");
-
             int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
             TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
@@ -2896,9 +2880,6 @@ public class PlayerBehaviour : MonoBehaviour
 						UISkillEffect.Get.ShowView(ActiveSkillUsed);
 						TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
                         LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-					
-//                        animatorEvent.floatParameter = GameConst.Min_TimePause;
-//                        animatorEvent.intParameter = 0; 
                         break;
                     case 1://show self
                     case 2://show all Player
@@ -2912,47 +2893,12 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             } else 
 				PlayerSkillController.ResetUseActive();
-//            }
-//            else
-//            {
-//                if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 140 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 150 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 160 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 161 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 170 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171 ||
-//                    GameData.DSkillData[ActiveSkillUsed.ID].Kind == 180)
-//                {
-//                
-//                    if (!isSkillShow)
-//                    {
-//						animatorEvent.floatParameter = GameConst.Min_TimePause;
-//                        animatorEvent.intParameter = 2;
-//                        TimeScaleCallBack(animatorEvent); 
-//
-//                        isSkillShow = true;
-//                    }
-//                }
-//
-//                if (!IsUseActiveSkill)
-//					UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
-//                showActiveEffect();
-//            }
         }
     }
 
     public void StopSkill()
     {
         isSkillShow = false;
-        //TODO: TimePause(false)
-//        Debug.LogError(gameObject.name + " . Skill Stop");
-//        TimerMgr.Get.PauseTime(false);
-//        animatorEvent.floatParameter = 1;
-//        animatorEvent.intParameter = 1;
-//        TimeScaleCallBack(animatorEvent); 
-//		animatorEvent.floatParameter = 1;
-//		animatorEvent.intParameter = 3;
-//		TimeScaleCallBack(animatorEvent); 
     }
 
     public void showEffect()
@@ -3001,9 +2947,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanUseActiveSkill(ActiveSkillUsed) || LobbyStart.Get.TestMode == EGameTest.Skill)
         {
-//            if (GameData.DSkillData[ActiveSkillUsed.ID].Kind == 210 && PlayerSkillController.IsGetBuff(ActiveSkillUsed.ID))
-//                return false;
-
             GameRecord.Skill++;
             SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
 
@@ -3369,7 +3312,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnDoubleClickMoment != null)
                     OnDoubleClickMoment(this, crtState);
             }
-//                  EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, PlayerGameObject, 1f);
         }
     }
 
@@ -3505,21 +3447,18 @@ public class PlayerBehaviour : MonoBehaviour
             switch (index)
             {
                 case EPlayerPostion.C:
-//                    if (Index == 1)
                     if (Index == EPlayerPostion.F)
                         result.x += 1.5f;
                     else
                         result.x -= 1.5f;
                     break;
                 case EPlayerPostion.F:
-//                    if (Index == 0)
                     if (Index == EPlayerPostion.C)
                         result.x += 1.5f;
                     else
                         result.x -= 1.5f;
                     break;
                 case EPlayerPostion.G:
-//                    if (Index == 0)
                     if (Index == EPlayerPostion.C)
                         result.x += 1.5f;
                     else

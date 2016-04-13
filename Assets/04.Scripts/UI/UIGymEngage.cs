@@ -42,7 +42,7 @@ public class TITemGymObj {
 		ItemObj.name = index.ToString();
 		ItemObj.transform.localScale = Vector3.one;
 		GameObject go = UIPrefabPath.LoadUI("Prefab/Stadium/StadiumItem/" + BuildName + data.Avatar, ViewPos[getBuildIndex(data.Kind)], Vector3.zero);
-		LayerMgr.Get.SetLayer(go, ELayer.UI);
+		LayerMgr.Get.SetLayerAllChildren(go, ELayer.UI.ToString());
 		go.transform.localScale = Vector3.one;
 		go.transform.localPosition = Vector3.zero;
 		go.transform.localEulerAngles = Vector3.zero;
