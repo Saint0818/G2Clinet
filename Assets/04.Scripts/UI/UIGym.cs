@@ -137,7 +137,7 @@ public class UIGym : UIBase {
 			if (LimitTable.Ins.HasByOpenID ((EOpenID)(result + 1 + 50))) {
 				if (GameData.Team.HighestLv >= LimitTable.Ins.GetLv ((EOpenID)(result + 1 + 50))) {
 					if(UI3DMainLobby.Visible)
-						UI3DMainLobby.Get.mImpl.OnSelect(result);
+						UI3DMainLobby.Get.Impl.OnSelect(result);
 
 					if(goQueueGroup.activeSelf)
 						goQueueGroup.SetActive(false);

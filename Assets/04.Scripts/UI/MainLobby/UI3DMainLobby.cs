@@ -17,7 +17,8 @@ public class UI3DMainLobby : UIBase
     private static UI3DMainLobby instance;
     private const string UIName = "UI3DMainLobby";
 
-	public UI3DMainLobbyImpl mImpl;
+    public UI3DMainLobbyImpl Impl { get { return mImpl; } }
+    private UI3DMainLobbyImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()

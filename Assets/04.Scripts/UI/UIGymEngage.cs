@@ -225,11 +225,11 @@ public class UIGymEngage : UIBase {
 
 	public void OnClose () {
 		if(!isRealChange) 
-			UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, mAvatarIndex);
+			UI3DMainLobby.Get.Impl.ReplaceObj(mBuildIndex, mAvatarIndex);
 			
 		window.SetActive(false);
 		if(UI3DMainLobby.Visible)
-			UI3DMainLobby.Get.mImpl.OnSelect(mBuildIndex);
+			UI3DMainLobby.Get.Impl.OnSelect(mBuildIndex);
 		StartCoroutine(showGymCenter());
 	}
 
@@ -420,7 +420,7 @@ public class UIGymEngage : UIBase {
 						} else {
 							isRealChange = false;
 						}
-						UI3DMainLobby.Get.mImpl.ReplaceObj(mBuildIndex, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
+						UI3DMainLobby.Get.Impl.ReplaceObj(mBuildIndex, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
 						refreshSelectBuild(mItemGymObjIndex);
 					}
 				}
