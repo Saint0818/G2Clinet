@@ -143,17 +143,17 @@
     {
         "id": 243,
         "tw": " {0:00}天{1:00}時",
-        "en": " {0:00}DAYS{1:00}HOURS"
+        "en": " {0:00}D{1:00}H"
     },
     {
         "id": 244,
         "tw": " {0:00}時{1:00}分",
-        "en": " {0:00}HOURS{1:00}MINUTES"
+        "en": " {0:00}H{1:00}M"
     },
     {
         "id": 245,
         "tw": " {0:00}分{1:00}秒",
-        "en": " {0:00}MINUTES{1:00}SECONDS"
+        "en": " {0:00}M{1:00}SEC"
     },
     {
         "id": 246,
@@ -1044,8 +1044,13 @@
     },
     {
         "id": 3104,
-        "tw": "更換圖像",
+        "tw": "點擊更換圖像",
         "en": "Change"
+    },
+    {
+        "id": 3105,
+        "tw": "積分\n{0} ",
+        "en": "SCORE\n{0} "
     },
     {
         "id": 3201,
@@ -2091,7 +2096,7 @@
         "explain": "介面上的銷售標語",
         "uipath": "Pages1/SubheadLabel1",
         "tw": "換夠金幣籌碼，才能繼續前進！",
-        "en": " \"I HAVE ENOUGH GOLD\" - SAID NO ONE EVER"
+        "en": "  『I HAVE ENOUGH GOLD』-SAID NO ONE EVER "
     },
     {
         "id": 4918,
@@ -2229,7 +2234,7 @@
     {
         "id": 5019,
         "uipath": "TextLabel",
-        "tw": "加朋友",
+        "tw": "加好友",
         "en": "ADD FRIEND"
     },
     {
@@ -2265,7 +2270,7 @@
     },
     {
         "id": 5026,
-        "tw": "請先取名字，讓朋友認識你。",
+        "tw": "請先取名字，讓好友認識你。",
         "en": "CHOOSE A NAME TO ALLOW FRIENDS SEARCH YOU"
     },
     {
@@ -2275,7 +2280,7 @@
     },
     {
         "id": 5028,
-        "tw": "若對方也關注你，即為朋友。",
+        "tw": "若對方也關注你，即為好友。",
         "en": "IF THE OTHER PARTY IS ALSO CONCERNED ABOUT YOUR, MUST BE YOUR FRIEND."
     },
     {
@@ -2285,7 +2290,7 @@
     },
     {
         "id": 5030,
-        "tw": "成為朋友",
+        "tw": "成為好友",
         "en": "BECOME FRIENDS"
     },
     {
@@ -2295,7 +2300,7 @@
     },
     {
         "id": 5032,
-        "tw": "關注成為朋友",
+        "tw": "關注成為好友",
         "en": "BECOME FRIEND WITH FOLLOWER"
     },
     {
@@ -2310,7 +2315,7 @@
     },
     {
         "id": 5035,
-        "tw": "與{0}成為朋友",
+        "tw": "與{0}成為好友",
         "en": "BECOME FRIENDS WITH {0} "
     },
     {
@@ -2347,6 +2352,11 @@
         "id": 5042,
         "tw": "不能關注自己",
         "en": "Not following this player"
+    },
+    {
+        "id": 5043,
+        "explain": "對方已為你的好友 顯示在playerinfo",
+        "tw": "好 友"
     },
     {
         "id": 6001,
@@ -4521,13 +4531,13 @@
     {
         "id": 11010,
         "explain": "花費寶石 顆消除冷卻時間",
-        "tw": "花費寶石[FF00FFFF]{0}[-]顆消除冷卻時間",
+        "tw": "花費寶石[FF00FFFF]{0}[-] 顆消除冷卻時間",
         "en": "Cost [FF00FFFF]{0}[-] Diamonds to reduce CD time."
     },
     {
         "id": 11011,
         "explain": "花費金幣 顆",
-        "tw": "花費金幣[FF00FFFF]{0}[-]",
+        "tw": "花費金幣[FFCC00FF]{0}[-]",
         "en": "Cost [FF00FFFF]{0}[-] Moneys"
     },
     {
@@ -4544,32 +4554,26 @@
     {
         "id": 11014,
         "explain": "花費金幣 顆升級",
-        "tw": "花費金幣[FF00FFFF]{0}[-]元升級",
-        "en": "Cost [FF00FFFF]{0}[-] Moneys to Upgrade"
+        "tw": "花費金幣[FFCC00FF]{0}[-] 升級設施？",
+        "en": "Cost [FF00FFFF]{0}[-] Moneys to Upgrade？"
     },
     {
         "id": 11015,
-        "explain": "佇列已滿",
+        "explain": "佇列滿時",
         "tw": "佇列已滿",
         "en": "Queue is full."
     },
     {
         "id": 11016,
         "explain": "花費寶石 顆購買建築物",
-        "tw": "花費寶石[FF00FFFF]{0}[-]顆購買{1}",
-        "en": "Cost [FF00FFFF]{0}[-] Diamonds to Buy {1}."
+        "tw": "花費寶石[FF00FFFF]{0}[-] 顆購買{1} ",
+        "en": "Cost [FF00FFFF]{0}[-] Diamonds to Buy {1} "
     },
     {
         "id": 11017,
         "explain": "不可超過球館的等級",
         "tw": "不可超過球館的等級",
-        "en": "The Level can't more than Gym's Level."
-    },
-    {
-        "id": 11020,
-        "explain": "設施功能",
-        "tw": "設施功能：",
-        "en": "Features："
+        "en": "The Level can't more than Gym's Level"
     },
     {
         "id": 11021,
@@ -4580,19 +4584,19 @@
     {
         "id": 11022,
         "explain": "下一級",
-        "tw": "下一級：LV{1} ",
-        "en": "NEXT：LV{1} "
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
     },
     {
         "id": 11023,
         "explain": "球場目前效果",
-        "tw": "士氣恢復速度 {0} / s",
+        "tw": "士氣每秒恢復速度 {0}  ",
         "en": "Action Skill Point adding rate {0} / s"
     },
     {
         "id": 11024,
         "explain": "升級效果",
-        "tw": "士氣恢復速度 {0} / s",
+        "tw": "士氣每秒恢復速度 {0}  ",
         "en": "Action Skill Point adding rate {0} / s"
     },
     {
