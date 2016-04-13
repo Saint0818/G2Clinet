@@ -268,7 +268,7 @@ public class TActiveSkillCard
 			SuitCard.gameObject.name = suitcardID.ToString();
 			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
 		}
-		SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID)) && LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitCard);
+		SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID) && GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard));
 	}
 
 	public void UpdateSuitItem (int suitItemID) {
@@ -279,7 +279,7 @@ public class TActiveSkillCard
 				GameFunction.CardSuitItemStar(ref SuitItemFinish, GameData.DSuitItem[suitItemID].ItemLength, GameData.Team.SuitItemCompleteCount(suitItemID));
 			}
 		}
-		SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID)) && LimitTable.Ins.HasByOpenID(EOpenID.SuitItem) && GameData.Team.Player.Lv >= LimitTable.Ins.GetVisibleLv(EOpenID.SuitItem);
+		SuitItemEnable = (GameData.DSuitItem.ContainsKey(suitItemID) && GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitItem));
 
 	}
 

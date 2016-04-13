@@ -698,7 +698,7 @@ namespace GameStruct
 		//檢查所有卡片是否有可以進化或合成(For GameLobby Skill RedPoint)
 		public bool IsAnyCardReinEvo {
 			get {
-				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)){
+				if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution)){
 					if(SkillCards != null && SkillCards.Length > 0) {
 						for(int i=0; i<SkillCards.Length; i++) {
 							if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
@@ -710,7 +710,7 @@ namespace GameStruct
 					}
 				}
 
-				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillEvolution) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillEvolution)){
+				if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution)){
 					if(Player.SkillCards != null && Player.SkillCards.Length > 0) {
 						for (int i=0; i<Player.SkillCards.Length; i++) {
 							if(GameData.DSkillData.ContainsKey(Player.SkillCards[i].ID )) {
@@ -729,7 +729,7 @@ namespace GameStruct
 		//檢查是否有未安裝的卡
 		public bool IsExtraCard {
 			get {
-				if(LimitTable.Ins.HasByOpenID(EOpenID.SkillReinforce) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SkillReinforce))
+				if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce))
 					if(SkillCards != null && SkillCards.Length > 0) 
 						for (int i=0; i<SkillCards.Length; i++) 
 							if(CheckNoInstallCard(SkillCards[i].SN))
@@ -1238,24 +1238,21 @@ namespace GameStruct
 		//AP (Ability Points)初始士氣值
 		public int InitGetAP () {
 			int ap = 0;
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)) {
-				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) 
-					if(SuitCardCost != null) 
-						for(int i=0; i<SuitCardCost.Length; i++) 
-							for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
-								if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 20) 
-									ap += GameData.DSuitCard[SuitCardCost[i]].Value[j];
-			}
+			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard))
+				if(SuitCardCost != null) 
+					for(int i=0; i<SuitCardCost.Length; i++) 
+						for (int j=0; j<GameData.DSuitCard[SuitCardCost[i]].AttrKind.Length; j++) 
+							if(GameData.DSuitCard[SuitCardCost[i]].AttrKind[j] == 20) 
+								ap += GameData.DSuitCard[SuitCardCost[i]].Value[j];
+			
 
 			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
-				if(Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
-					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
-						int count = SuitItemCompleteCount(item.Key);
-						if(count >= 2) {
-							for(int i=0; i<item.Value.AttrKind.Length; i++) {
-								if(GameData.DSuitItem[item.Key].AttrKind[i] == 20) 
-									ap += GameData.DSuitItem[item.Key].Value[i];
-							}
+				foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
+					int count = SuitItemCompleteCount(item.Key);
+					if(count >= 2) {
+						for(int i=0; i<item.Value.AttrKind.Length; i++) {
+							if(GameData.DSuitItem[item.Key].AttrKind[i] == 20) 
+								ap += GameData.DSuitItem[item.Key].Value[i];
 						}
 					}
 				}
@@ -1319,7 +1316,7 @@ namespace GameStruct
 		//套卡影響Cost的值總和
 		public int SuitCardCostEffect (int id) {
 			int count = 0;
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard) && Player.Lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) 
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) 
 				if(SuitCardCost != null) 
 					for(int i=0; i<SuitCardCost.Length; i++) 
 						if(SuitCardCost[i] == id) 
