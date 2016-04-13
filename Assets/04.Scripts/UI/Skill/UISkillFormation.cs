@@ -628,8 +628,7 @@ public class UISkillFormation : UIBase {
 			activeFieldLimit = 3;
 		else {
 			activeFieldLimit = 2;
-			if(GameData.IsOpenUIEnableByPlayer(EOpenID.ThirdActive))
-				labelLock.text = string.Format(TextConst.S(7013), LimitTable.Ins.GetLv(EOpenID.ThirdActive));
+			labelLock.text = string.Format(TextConst.S(7013), LimitTable.Ins.GetLv(EOpenID.ThirdActive));
 		}
 
 		activeLock.SetActive(!IsOpenThirdActive);
