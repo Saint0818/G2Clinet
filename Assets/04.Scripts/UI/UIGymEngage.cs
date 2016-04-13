@@ -240,10 +240,17 @@ public class UIGymEngage : UIBase {
 			UIHint.Get.ShowHint(TextConst.S(11015), Color.red);
 		} else {
 			if(mBuildIndex >= 0 && mBuildIndex < GameData.Team.GymBuild.Length && architectureValue.Cost > 0) {
-				if(architectureValue.SpendKind == 0)
-					CheckDiamond(architectureValue.Cost, true, string.Format(TextConst.S(11014), architectureValue.Cost), SendUpdateBuild, refreshLabelColor);
-				else if(architectureValue.SpendKind == 1)
-					CheckMoney(architectureValue.Cost, true, string.Format(TextConst.S(11014), architectureValue.Cost), SendUpdateBuild, refreshLabelColor);
+				bool flag = true;
+				if(mBuildIndex != 3 && GameData.Team.GymBuild[mBuildIndex].LV + 1 > GameData.Team.GetGymLevel )
+					flag = false;
+
+				if(flag) {
+					if(architectureValue.SpendKind == 0)
+						CheckDiamond(architectureValue.Cost, true, string.Format(TextConst.S(11014), architectureValue.Cost), SendUpdateBuild, refreshLabelColor);
+					else if(architectureValue.SpendKind == 1)
+						CheckMoney(architectureValue.Cost, true, string.Format(TextConst.S(11014), architectureValue.Cost), SendUpdateBuild, refreshLabelColor);
+				} else 
+					UIHint.Get.ShowHint(TextConst.S(11017), Color.red);
 			}
 		}
 	}

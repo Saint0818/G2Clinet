@@ -4560,6 +4560,12 @@
         "en": "Cost [FF00FFFF]{0}[-] Diamonds to Buy {1}."
     },
     {
+        "id": 11017,
+        "explain": "不可超過球館的等級",
+        "tw": "不可超過球館的等級",
+        "en": "The Level can't more than Gym's Level."
+    },
+    {
         "id": 11020,
         "explain": "設施功能",
         "tw": "設施功能：",
