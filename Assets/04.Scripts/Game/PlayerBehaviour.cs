@@ -1168,7 +1168,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
                     {
-                        if (GameController.Get.Pass(this, false, false, true))
+                        if (GameController.Get.TryPass(this, false, false, true))
                             NeedShooting = data.Shooting;
                     }
                 }
@@ -1391,10 +1391,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetInvincible(float time)
     {
-//        if (Invincible == 0)
-//            Invincible = Time.time + time;
-//        else
-//            Invincible += time;
         Invincible.StartCounting(time);
     }
 
@@ -1405,10 +1401,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool CheckAnimatorSate(EPlayerState state)
     {
-        if (crtState == state)
-            return true;
-        else
-            return false;
+        return crtState == state;
     }
 
     public void ResetFlag(bool clearMove = true)

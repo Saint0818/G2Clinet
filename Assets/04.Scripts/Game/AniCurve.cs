@@ -36,6 +36,10 @@ public class TShootCurve {
 	public string Name = "Curve_Name";
 	public AniCurveDirection Dir = AniCurveDirection.None;
 	public float DirVaule = 0.05f;
+
+    /// <summary>
+    /// 當 AniCurveDirection = Forward or Back 才會有作用. 什麼時間範圍, x, z 的位置會被改變.
+    /// </summary>
 	public float OffsetStartTime = 1f;
 	public float OffsetEndTime = 1f;
 	public float LifeTime = 1.8f;
