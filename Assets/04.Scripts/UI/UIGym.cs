@@ -244,10 +244,18 @@ public class UIGym : UIBase {
 			for(int i=0; i<tempGymQueue.Length; i++) {
 				if(tempGymQueue[i].IsOpen && tempGymQueue[i].BuildIndex != -1 && tempGymQueue[i].BuildIndex < gymObj.Length && tempGymQueue[i].BuildIndex < GameData.Team.GymBuild.Length) {
 					if (GameData.Team.GymBuild [tempGymQueue [i].BuildIndex].Time.ToUniversalTime () > DateTime.UtcNow) {
+						if(gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.activeSelf)
+							gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.SetActive(false);
+						if(gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.activeSelf)
+							gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.SetActive(false);
 						gymObj [tempGymQueue [i].BuildIndex].CDBar.value = TextConst.DeadlineStringPercent (GameFunction.GetOriTime (tempGymQueue [i].BuildIndex, GameFunction.GetBuildLv (tempGymQueue [i].BuildIndex) - 1, GameFunction.GetBuildTime (tempGymQueue [i].BuildIndex).ToUniversalTime ()), GameFunction.GetBuildTime (tempGymQueue [i].BuildIndex).ToUniversalTime ());
 						gymObj [tempGymQueue [i].BuildIndex].TimeLabel.text = TextConst.SecondString ((int)(new System.TimeSpan (GameData.Team.GymBuild [tempGymQueue [i].BuildIndex].Time.ToUniversalTime ().Ticks - DateTime.UtcNow.Ticks).TotalSeconds));
 					} else {
 						isCheckUpdateOnLoad = false;
+						if(!gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.activeSelf)
+							gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.SetActive(true);
+						if(!gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.activeSelf)
+							gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.SetActive(true);
 						checkUpdate ();
 					}
 				}

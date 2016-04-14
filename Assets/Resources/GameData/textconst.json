@@ -5138,20 +5138,44 @@
     {
         "id": 90004,
         "explain": "物品",
+        "tw": " {0} 聯盟幣",
+        "en": " {0} Union coin "
+    },
+    {
+        "id": 90005,
+        "explain": "物品",
+        "tw": " {0} 社群幣",
+        "en": " {0} Social coin "
+    },
+    {
+        "id": 90006,
+        "explain": "物品",
         "tw": "獲得{0}金幣",
         "en": "Get {0} Coins"
     },
     {
-        "id": 90005,
+        "id": 90007,
         "explain": "物品",
         "tw": "獲得{0}寶石",
         "en": "Get {0} Gems"
     },
     {
-        "id": 90006,
+        "id": 90008,
         "explain": "物品",
         "tw": "獲得{0}經驗值",
         "en": "Get {0} EXP"
+    },
+    {
+        "id": 90009,
+        "explain": "物品",
+        "tw": "獲得{0}聯盟幣",
+        "en": "Get {0} Union coin "
+    },
+    {
+        "id": 90010,
+        "explain": "物品",
+        "tw": "獲得{0}社群幣",
+        "en": "Get {0} Social coin "
     },
     {
         "id": 100000,

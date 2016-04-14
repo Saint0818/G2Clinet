@@ -153,29 +153,41 @@ public class UIItemHint : UIBase {
 	/// </summary>
 	/// <param name="kind">Kind.</param>
 	/// <param name="value">Value.</param>
-	public void OnShowOther (int kind, int value) {
+	public void OnShowOther (int kind, int value = 0) {
 		int id = 0;
+		int textid = 0;
 		uiBuy.SetActive(false);
 		hideAll ();
 		scrollViewExplain.ResetPosition();
 		UIShow(true);
 		gameObject.transform.localPosition = new Vector3(0, 0, -10);
 		hintAvatarView.Show();
-		if(kind == 1)
+		if(kind == 1){
 			id = 93110;
-		else if(kind == 2)
+			textid = 90001;
+		}else if(kind == 2){
 			id = 93201;
-		else if(kind == 3)
+			textid = 90002;
+		}else if(kind == 3){
 			id = 93301;
-		else if(kind == 4)
+			textid = 90003;
+		}else if(kind == 4){
 			id = 93901;
-		else if(kind == 5)
+			textid = 90004;
+		}else if(kind == 5){
 			id = 94001;
+			textid = 90005;
+		}
 		uiLabelHave.gameObject.SetActive(false);
 		hintAvatarView.UpdateUI(GameData.DItemData[id]);
-		uiLabelName.text = GameData.DItemData[id].Name;
 		uiLabelName.color = TextConst.Color(GameData.DItemData[id].Quality);
-		uiLabelExplain.text = GameData.DItemData[id].Explain;
+		if(value != 0) {
+			uiLabelName.text = string.Format(TextConst.S(textid), value);
+			uiLabelExplain.text = string.Format(TextConst.S(textid + 5), value);
+		} else {
+			uiLabelName.text = GameData.DItemData[id].Name;
+			uiLabelExplain.text = GameData.DItemData[id].Explain;
+		}
 	}
 
 	public void OnShowForSuit(int itemID) {
