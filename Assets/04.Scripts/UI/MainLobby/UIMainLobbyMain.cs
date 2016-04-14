@@ -191,7 +191,8 @@ public class UIMainLobbyMain : MonoBehaviour
     /// <param name="lockTime"> 單位: 秒. </param>
     public void EnableFullScreenBlock(float lockTime = 1)
     {
-        StartCoroutine(enableFullScreenBlock(lockTime));
+        if(gameObject.activeSelf)
+            StartCoroutine(enableFullScreenBlock(lockTime));
     }
 
     private IEnumerator enableFullScreenBlock(float lockTime)
