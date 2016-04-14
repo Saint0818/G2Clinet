@@ -136,6 +136,11 @@ public class UITutorial : UIBase {
 		}
 	}
 
+    IEnumerator waitNextFrame() {
+        yield return new WaitForEndOfFrame();
+        OnTutorial();
+    }
+
     IEnumerator waitNextTutorial(float sec) {
         yield return new WaitForSeconds(sec);
         OnTutorial();
@@ -214,7 +219,7 @@ public class UITutorial : UIBase {
                         ShowMessage(ref tu);
                     else {
                         textFinish = true;
-                        StartCoroutine(waitNextTutorial(0.1f));
+                        StartCoroutine(waitNextTutorial(0.5f));
                     }
 				}
 			} else {

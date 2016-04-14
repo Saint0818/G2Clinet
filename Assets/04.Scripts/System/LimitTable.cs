@@ -38,10 +38,12 @@ public class LimitTable
         var limits = JsonConvertWrapper.DeserializeObject<TLimitData[]>(jsonText);
         foreach(TLimitData limit in limits)
         {
-            mLimitsByOpenID.Add(limit.OpenID, limit);
+            if (!mLimitsByOpenID.ContainsKey(limit.OpenID))
+                mLimitsByOpenID.Add(limit.OpenID, limit);
 
             if(!mLimitsByLv.ContainsKey(limit.Lv))
                 mLimitsByLv.Add(limit.Lv, new List<TLimitData>());
+            
             mLimitsByLv[limit.Lv].Add(limit);
         }
 

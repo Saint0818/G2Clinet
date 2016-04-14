@@ -53,7 +53,7 @@ namespace AI
         /// <returns> true: 主動技施放成功. </returns>
         public bool Do()
         {
-            if(mPlayer.Attribute.ActiveSkills.Count > 0)
+            if(mPlayer != null && mPlayer.Attribute.ActiveSkills != null && mPlayer.Attribute.ActiveSkills.Count > 0)
             {
                 if(mSkillJudgers != null && mSkillJudgers[mNextSkillIndex].IsMatchCondition() &&
                    mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[mNextSkillIndex]))
