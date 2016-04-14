@@ -1,10 +1,5 @@
 [
     {
-        "lv": 1,
-        "openid": 3,
-        "name": "3.商店按鈕"
-    },
-    {
         "lv": 2,
         "openid": 2,
         "name": "2.解鎖Avatar"
@@ -13,6 +8,11 @@
         "lv": 3,
         "openid": 8,
         "name": "8.PVP功能"
+    },
+    {
+        "lv": 3,
+        "openid": 3,
+        "name": "3.商店按鈕"
     },
     {
         "lv": 4,
@@ -50,7 +50,8 @@
     {
         "lv": 10,
         "openid": 54,
-        "name": "54.Gym = 4,"
+        "name": "54.Gym = 4,",
+        "visiblelv": 6
     },
     {
         "lv": 11,
@@ -71,64 +72,62 @@
         "visiblelv": 6
     },
     {
-        "lv": 14
-    },
-    {
         "lv": 15,
         "openid": 11,
         "name": "11.第三招主動技"
     },
     {
-        "lv": 16
-    },
-    {
-        "lv": 17,
+        "lv": 50,
         "openid": 51,
-        "name": "51.Basket = 1,"
+        "name": "51.Basket = 1,",
+        "visiblelv": 100
     },
     {
-        "lv": 18,
+        "lv": 51,
         "openid": 52,
-        "name": "52.Advertisement = 2,"
+        "name": "52.Advertisement = 2,",
+        "visiblelv": 100
     },
     {
-        "lv": 19,
+        "lv": 52,
         "openid": 53,
-        "name": "53.Store = 3,"
+        "name": "53.Store = 3,",
+        "visiblelv": 100
     },
     {
-        "lv": 20,
+        "lv": 53,
         "openid": 10,
-        "diamond": 200
+        "diamond": 200,
+        "visiblelv": 100
     },
     {
-        "lv": 21,
+        "lv": 54,
         "openid": 55,
-        "name": "55.Door = 5,"
+        "name": "55.Door = 5,",
+        "visiblelv": 100
     },
     {
-        "lv": 22,
+        "lv": 55,
         "openid": 56,
-        "name": "56.Logo = 6,"
+        "name": "56.Logo = 6,",
+        "visiblelv": 100
     },
     {
-        "lv": 23,
+        "lv": 56,
         "openid": 57,
-        "name": "57.Chair = 7,"
+        "name": "57.Chair = 7,",
+        "visiblelv": 100
     },
     {
-        "lv": 24,
+        "lv": 57,
         "openid": 58,
-        "name": "58.Calendar = 8,"
+        "name": "58.Calendar = 8,",
+        "visiblelv": 100
     },
     {
-        "lv": 25,
+        "lv": 58,
         "openid": 59,
-        "name": "59.Mail = 9"
-    },
-    {
-        "lv": 30,
-        "openid": 50,
-        "name": "建築序列2 "
+        "name": "59.Mail = 9",
+        "visiblelv": 100
     }
 ]
