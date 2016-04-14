@@ -377,7 +377,7 @@ public class UISelectRole : UIBase {
 		}
 
 		labelPVPWin.text = TextConst.S(9725) + "+" + winpoint.ToString();
-		labelPVPLose.text = TextConst.S(9726) + "+" + lostpoint.ToString();
+		labelPVPLose.text = TextConst.S(9726) + "-" + lostpoint.ToString();
 	}
 
     private void initPVETeammate() {

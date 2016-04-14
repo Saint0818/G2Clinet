@@ -160,6 +160,13 @@ public class UITutorial : UIBase {
                 UIButton[] objs = obj.GetComponentsInChildren<UIButton>();
                 if (objs != null && objs.Length > 0)
                     obj = objs[0].gameObject;
+            } else {
+                UIReinForceGrid grid = obj.GetComponent<UIReinForceGrid>();
+                if (grid != null) {
+                    UIButton[] objs = obj.GetComponentsInChildren<UIButton>();
+                    if (objs != null && objs.Length > 0)
+                        obj = objs[0].gameObject;
+                }
             }
         }
 

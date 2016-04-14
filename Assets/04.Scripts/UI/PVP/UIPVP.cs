@@ -162,9 +162,6 @@ public class UIPVP : UIBase
 
 		if (GameData.DPVPData.ContainsKey (currentLv)) {
 			int exp = GameData.Team.PVPIntegral;
-			if (currentLv > 1)
-				exp = GameData.DPVPData [currentLv].LowScore;
-
 			labelExp.text = exp.ToString () + " / " + GameData.DPVPData [currentLv].HighScore.ToString ();
 			sliderExp.value  = exp / (float) GameData.DPVPData [currentLv].HighScore;
 		}
