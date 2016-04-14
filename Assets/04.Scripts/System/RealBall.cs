@@ -22,6 +22,8 @@ public class RealBall : MonoBehaviour
     private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1);
     private AutoFollowGameObject BallShadow;
 
+	private GameObject goRefBall;
+
     void Awake()
     {
         mRealBallSFXTimer.TimeUpListener += HideBallSFX;
@@ -31,7 +33,8 @@ public class RealBall : MonoBehaviour
             BallShadow = obj.GetComponent<AutoFollowGameObject>();
             spotlight = obj.transform.FindChild("SpotLight").gameObject; 
             BallShadow.Enable = true;
-            BallShadow.SetTarget(gameObject);
+			goRefBall = gameObject;
+			BallShadow.SetTarget(goRefBall);
             spotlight.SetActive(false);
         }
     }
@@ -88,12 +91,12 @@ public class RealBall : MonoBehaviour
     {
         set
         {
-            gameObject.transform.parent = value;
-            if (gameObject.transform.parent)
+			goRefBall.transform.parent = value;
+			if (goRefBall.transform.parent)
             {
-                gameObject.transform.localPosition = Vector3.zero;  
-                gameObject.transform.localEulerAngles = Vector3.zero;
-                gameObject.transform.localScale = Vector3.one;
+				goRefBall.transform.localPosition = Vector3.zero;  
+				goRefBall.transform.localEulerAngles = Vector3.zero;
+				goRefBall.transform.localScale = Vector3.one;
             }
         }
     }
@@ -142,8 +145,7 @@ public class RealBall : MonoBehaviour
         state != EPlayerState.Reset && LobbyStart.Get.TestMode == EGameTest.None)
             return;
         
-        //        Debug.LogError("SetBallState : " + state.ToString());
-        SetBallOwnerNull();
+       	SetBallOwnerNull();
 
         RealBallState = state;
 
@@ -230,9 +232,10 @@ public class RealBall : MonoBehaviour
                     if (player != null)
                         v1 = player.transform.position; // 球要拍到某位球員的位置.
 							else
-                        v1 = gameObject.transform.forward * -1;
-
-                    MoveVelocity = GameFunction.GetVelocity(gameObject.transform.position, v1, 60);
+						v1 = goRefBall.transform.forward * -1;
+				
+					goRefBall.transform.DOKill();
+					MoveVelocity = GameFunction.GetVelocity(goRefBall.transform.position, v1, 60);
                     ShowBallSFX();
                     if(spotlight)
                         spotlight.SetActive(false);
@@ -244,12 +247,12 @@ public class RealBall : MonoBehaviour
             case EPlayerState.Block1:
             case EPlayerState.Block2:
             case EPlayerState.Block20:
-            case EPlayerState.KnockDown0: 
+            case EPlayerState.KnockDown0:
             case EPlayerState.KnockDown1: 
                 GameController.Get.Shooter = null;
                 GameController.Get.IsPassing = false;
 
-                Vector3 v = gameObject.transform.forward * -1;
+				Vector3 v = goRefBall.transform.forward * -1;
                 if (player != null)
                     v = player.transform.forward * 10;
 
@@ -277,21 +280,21 @@ public class RealBall : MonoBehaviour
 
             case EPlayerState.DunkBasket:
                 if (player)
-                    gameObject.transform.position = player.DummyBall.transform.position;
+					goRefBall.transform.position = player.DummyBall.transform.position;
 
                 AddForce(Vector3.down * 1, ForceMode.VelocityChange);
                 break;
 
             case EPlayerState.Reset:
                 Gravity = false;
-                gameObject.transform.position = new Vector3(0, 7, 0);
+				goRefBall.transform.position = new Vector3(0, 3.5f, 0);
                 ShowBallSFX();
                 if(spotlight)
                     spotlight.SetActive(false);
                 break;
 
             case EPlayerState.Start:
-                gameObject.transform.localPosition = new Vector3(0, 6, 0);
+				goRefBall.transform.localPosition = new Vector3(0, 3.5f, 0);
                 Gravity = true;
                 if(spotlight)
                     spotlight.SetActive(false);
@@ -305,7 +308,7 @@ public class RealBall : MonoBehaviour
                 if (player)
                 {
                     Parent = player.DummyBall.transform;
-                    gameObject.transform.DOKill();
+					goRefBall.transform.DOKill();
                 }
 
                 Gravity = false;
@@ -325,10 +328,15 @@ public class RealBall : MonoBehaviour
         Gravity = true;
     }
 
+	public void SetJumpBallPathUp () {
+		
+		goRefBall.transform.DOMoveY(6f, 0.55f).SetEase(ModelManager.Get.AnimatorCurve.FindJumpCurve());
+	}
+
     public void SetBallStateByLobby(EPlayerState state, Transform dummyTransfrom)
     {
         spotlight.SetActive(false);
-        LayerMgr.Get.SetLayerAllChildren(gameObject, "Player");
+		LayerMgr.Get.SetLayerAllChildren(goRefBall, "Player");
         switch (state)
         {
             case EPlayerState.Dribble0:

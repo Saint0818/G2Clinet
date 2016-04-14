@@ -382,11 +382,18 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		}
 
-		CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Start);
+//		CourtMgr.Get.RealBallCompoment.SetBallState (EPlayerState.Start);
 		ChangeSituation(EGameSituation.JumpBall);
+		StartCoroutine(playerJumpBall());
 
 		if (jumpBall)
 	        AIController.Get.ChangeState(EGameSituation.JumpBall);
+	}
+
+	IEnumerator playerJumpBall () {
+		CourtMgr.Get.RealBallCompoment.SetJumpBallPathUp();
+		yield return new WaitForSeconds(0.55f);
+		GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, getJumpTeam);
 	}
 
     private PlayerBehaviour FindDefMen(PlayerBehaviour npc)
@@ -509,6 +516,48 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
 	}
 
+	/// <summary>
+	/// Sets the player born target.
+	/// Player is forward, stand JumpballPos[2]
+	/// </summary>
+	private void setPlayerBornTarget () {
+		PlayerList[0].Postion = EPlayerPostion.F;
+		PlayerList[0].transform.position = mJumpBallPos[2];
+		PlayerList[0].ShowPos = 2;
+		PlayerList[0].IsJumpBallPlayer = false;
+		PlayerList[1].Postion = EPlayerPostion.C;
+		PlayerList[1].transform.position = mJumpBallPos[1];
+		PlayerList[1].ShowPos = 0;
+		PlayerList[1].IsJumpBallPlayer = true;
+		PlayerList[2].Postion = EPlayerPostion.G;
+		PlayerList[2].transform.position = mJumpBallPos[0];
+		PlayerList[2].ShowPos = 1;
+		PlayerList[2].IsJumpBallPlayer = false;
+	}
+
+	private PlayerBehaviour getJumpTeam {
+		get {
+			float vSelf = 0;
+			float vNPC = 0;
+			for(int i=0; i<PlayerList.Count; i++) {
+				if(PlayerList[i].IsJumpBallPlayer && PlayerList[i].Team == ETeamKind.Self)
+					vSelf = PlayerList[i].Attribute.Rebound;
+				else if(PlayerList[i].IsJumpBallPlayer && PlayerList[i].Team == ETeamKind.Npc)
+					vNPC = PlayerList[i].Attribute.Rebound;
+			}
+			if(vSelf >= vNPC) {
+				for(int i=0; i<PlayerList.Count; i++) 
+					if(PlayerList[i].IsJumpBallPlayer && PlayerList[i].Team == ETeamKind.Self)
+						return PlayerList[i];
+			} else {
+				for(int i=0; i<PlayerList.Count; i++) 
+					if(PlayerList[i].IsJumpBallPlayer && PlayerList[i].Team == ETeamKind.Npc)
+						return PlayerList[i];
+			}
+			return PlayerList[0];
+		}
+	}
+
 	public void InitIngameAnimator() {
         //skip for smooth
         playerSelectMe.SetActive(true);
@@ -617,7 +666,8 @@ public class GameController : KnightSingleton<GameController>
                         PlayerList[i].GameRecord.Init();
                 
 			    //1.G(Dribble) 2.C(Rebound) 3.F
-                SetBornPositions();
+				SetBornPositions();
+				setPlayerBornTarget ();
                 break;
             case EGameTest.All:
                 PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], new GameStruct.TPlayer(0)));	
@@ -3624,7 +3674,7 @@ public class GameController : KnightSingleton<GameController>
 		case 0: //top ,rebound
 			if(Situation == EGameSituation.JumpBall && isEnter)
             {
-                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
+//                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
             else if((isEnter || LobbyStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
@@ -3646,7 +3696,7 @@ public class GameController : KnightSingleton<GameController>
 		case 5: //finger
 			if(Situation == EGameSituation.JumpBall && isEnter)
 			{
-				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
+//				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
 			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
 				if (LobbyStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack || LobbyStart.Get.TestMode == EGameTest.Block) {

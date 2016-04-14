@@ -487,7 +487,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
         if (RealBallObj)
         {
-            RealBallObj.transform.localPosition = new Vector3(0, 7, 0);
+			RealBallObj.transform.localPosition = new Vector3(0, 3.5f, 0);
             RealBallObj.GetComponent<Rigidbody>().isKinematic = true;
             RealBallObj.GetComponent<Rigidbody>().useGravity = false;
         }

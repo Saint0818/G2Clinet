@@ -91,7 +91,7 @@ public class AniCurve : MonoBehaviour
 	public TSharedCurve[] Fall;
 	public TSharedCurve[] PickBall;
 	public TStealCurve[] Steal;
-	public TReboundCurve[] JumpBall;
+	public AnimationCurve[] JumpBall;
 
     [CanBeNull]
     public TShootCurve FindShootCurve(string curveName)
@@ -103,4 +103,13 @@ public class AniCurve : MonoBehaviour
 //        }
         return Shoot.FirstOrDefault(t => t.Name == curveName);
     }
+
+	[CanBeNull]
+	public AnimationCurve FindJumpCurve()
+	{
+		if(JumpBall.Length > 0)
+			return JumpBall[0];
+		else
+			return null;
+	}
 }

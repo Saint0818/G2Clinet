@@ -58,7 +58,6 @@ public class UIGame : UIBase
     private PlayerBehaviour PlayerMe;
     //Game const
     public float ButtonBTime = 0.08f;
-    //Fake to shoot time
     public int[] MaxScores = { 13, 13 };
     public int[] Scores = { 0, 0 };
 
@@ -94,13 +93,12 @@ public class UIGame : UIBase
     private GameObject[] uiDefenceGroup = new GameObject[2];
     // 0:ButtonSteal 1:ButtonBlock
     private GameObject[] controlButtonGroup = new GameObject[2];
-// 0:ViewAttack 1:ViewDefence
+	// 0:ViewAttack 1:ViewDefence
     private GameObject[] uiPassObjectGroup = new GameObject[3];
-// 0:SpriteMe 1:SpriteA 2:SpriteB
+	// 0:SpriteMe 1:SpriteA 2:SpriteB
     private GameObject[] uiTutorial = new GameObject[9];
-//set button for tutorial
+	//set button for tutorial
     private GameObject[] uiTutorial2 = new GameObject[2];
-//set button for tutorial
 
     //TopLeft
     private GameObject uiSpeed;
@@ -133,8 +131,6 @@ public class UIGame : UIBase
     private float oldForceValue;
     private float newForceValue;
     private float timeForce;
-
-    //	private DrawLine drawLine;
 	
     private bool isShowSkillRange;
     private bool isShowPushRange;
@@ -411,9 +407,7 @@ public class UIGame : UIBase
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ButtonAttack")).onDragOver = DoAttackOut;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal")).onPress = DoSteal;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
-		
-//		drawLine = gameObject.AddComponent<DrawLine>();
-//		uiScoreBar.SetActive(false);
+
         uiAlleyoopA.SetActive(false);
         uiAlleyoopB.SetActive(false);
         uiSpriteFull.SetActive(false);
@@ -436,12 +430,10 @@ public class UIGame : UIBase
 
     public void InitUI()
     {
-//		isShowScoreBar = false;
         Scores[0] = 0;
         Scores[1] = 0;
         labelTopLeftScore[0].text = "0";
         labelTopLeftScore[1].text = "0";
-//        uiForceNum.text = "0/[13CECEFF]" + GameData.Team.Player.MaxAnger + "[-]";
         LabelStrategy.text = string.Format(TextConst.S(9602), GameData.Team.Player.StrategyText);
         spriteForce.fillAmount = 0;
         spriteForceFirst.fillAmount = 0;
@@ -463,7 +455,6 @@ public class UIGame : UIBase
         showViewForceBar(true);
 		ShowSkillEnableUI(false);
 		refreshSpeedLabel ();
-//		drawLine.IsShow = false;
     }
 
     public void InitTutorialUI()
@@ -530,22 +521,7 @@ public class UIGame : UIBase
                 }
             }
         }
-
-//		initLine();
     }
-
-    //	public void ClearLine() {
-    //		drawLine.ClearTarget();
-    //	}
-	
-    //	private void initLine() {
-    //		drawLine.ClearTarget();
-    //			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
-    //			if (obj)
-    //				drawLine.AddTarget(uiPassObjectGroup[0], obj);
-    //
-    //		drawLine.Show(true);
-    //	}
 
     private GameObject getSkillRangeTarget()
     {
@@ -831,15 +807,6 @@ public class UIGame : UIBase
 
 	private void refreshSpeedLabel () {
 		labelSpeed.text = "X" + Time.timeScale.ToString();
-//		if(Time.timeScale == 1) {
-//			labelSpeed.text = TextConst.S(10206);
-//		} else if(Time.timeScale == 0.5f) {
-//			labelSpeed.text = TextConst.S(10207);
-//		} else if(Time.timeScale == 2) {
-//			labelSpeed.text = TextConst.S(10208);
-//		} else if(Time.timeScale == 4) {
-//			labelSpeed.text = TextConst.S(10209);
-//		}
 	}
 
     public void DoShoot(GameObject go, bool state)
@@ -1453,7 +1420,6 @@ public class UIGame : UIBase
                 gameJoystick.visible = false;
                 controlButtonGroup[0].SetActive(false);
                 controlButtonGroup[1].SetActive(false);
-//			drawLine.IsShow = false;
                 break;
             case EUISituation.Opening:
                 showUITime();
@@ -1464,7 +1430,6 @@ public class UIGame : UIBase
                 controlButtonGroup[1].SetActive(false);
                 gameJoystick.visible = true;
                 gameJoystick.activated = false;
-//			drawLine.IsShow = true;
                 showViewForceBar(true);
                 if (PlayerMe && PlayerMe.Attribute.IsHaveActiveSkill)
                 {
@@ -1493,11 +1458,9 @@ public class UIGame : UIBase
                 controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.GamerAttack);
 
                 SetPassButton();
-                CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Start);
 				GameController.Get.StartGame();
 				RefreshSkillUI();
                 initJoystickPos();
-//			drawLine.IsShow = false;
                 break;
             case EUISituation.Pause:
                 if (!viewStart.activeInHierarchy)
@@ -1701,7 +1664,6 @@ public class UIGame : UIBase
 
     public void CloseStartButton()
     {
-//		drawLine.IsShow = false;
         viewStart.SetActive(false);
     }
 
