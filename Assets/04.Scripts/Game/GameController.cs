@@ -2505,8 +2505,14 @@ public class GameController : KnightSingleton<GameController>
 	public bool OnStealMoment(PlayerBehaviour player, float dis, float angle)
     {
 		if (StageData.IsTutorial) {
-			dis = 30;
-			angle = 360;
+//			dis = 30;
+//			angle = 360;
+			player.IsStealCalculate = false;
+			SetBall(player);
+			ShowWord(EShowWordType.Steal, 0, player.ShowWord);
+			player.GameRecord.Steal++;
+			IsGameFinish ();
+			return true;
 		}
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
@@ -2538,9 +2544,6 @@ public class GameController : KnightSingleton<GameController>
 				if(Random.Range(0, 100) <= (probability + addRate) && 
 				   Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, BallOwner.PlayerRefGameObject.transform.position)) <= 90 + addAngle)
                 {
-					if (StageData.IsTutorial)
-						SetBall(player);
-
                     // 持球者嘗試撥被抄截的懲罰動作.
 					if(BallOwner.AniState(EPlayerState.GotSteal))
                     {
