@@ -95,7 +95,7 @@ namespace GameStruct
         public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
         public TAvatar Avatar;
-        public List<TSkill> ActiveSkills;
+        [CanBeNull]public List<TSkill> ActiveSkills;
         public TSkill[] SkillCards;
         public TSkillCardPage[] SkillCardPages;
 

@@ -32,7 +32,7 @@ namespace AI
 
         public void Init([NotNull]PlayerBehaviour[] players, bool isAttack)
         {
-            if(mPlayer.Attribute.ActiveSkills.Count == 0)
+            if(mPlayer.Attribute.ActiveSkills == null || mPlayer.Attribute.ActiveSkills.Count == 0)
                 return;
 
             mSkillJudgers = new AISkillJudger[mPlayer.Attribute.ActiveSkills.Count];
