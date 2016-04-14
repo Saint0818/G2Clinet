@@ -210,9 +210,10 @@ public class GameController : KnightSingleton<GameController>
 		for (int i = 0; i < PlayerList.Count; i++) 
 			Destroy(PlayerList[i]);
 
-		PlayerList.Clear();
+        PlayerList.Clear();
 
-        DestroyImmediate(ModelManager.Get.gameObject);
+        if (playerInfoModel)
+            Destroy(playerInfoModel);
 	}
 
     [UsedImplicitly]

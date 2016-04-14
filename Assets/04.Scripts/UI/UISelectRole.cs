@@ -308,6 +308,9 @@ public class UISelectRole : UIBase {
 				playerData [0].RoleIndex = -1;
 			}
 
+            if (string.IsNullOrEmpty(playerData[0].Name))
+                playerData[0].Name = TextConst.S(3404);
+
 	        int num = Mathf.Min(2, playerList.Count);
 	        for (int i = 0; i < num; i++) {
 	            playerData[i+1] = playerList[i];
@@ -386,6 +389,9 @@ public class UISelectRole : UIBase {
             playerData[0].SetID(21);
             playerData[0].RoleIndex = -1;
         }
+
+        if (string.IsNullOrEmpty(playerData[0].Name))
+            playerData[0].Name = TextConst.S(3404);
 
 		int num = Mathf.Min(2, playerList.Count);
         for (int i = 0; i < num; i++) {
