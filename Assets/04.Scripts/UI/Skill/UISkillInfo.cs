@@ -231,7 +231,7 @@ public class UISkillInfo : UIBase {
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 
-				goEquipRedPoint.SetActive(!isAlreadyEquip && (mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
+				goEquipRedPoint.SetActive(!isAlreadyEquip && (mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace)); //  && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name)
 				goCraftRedPoint.SetActive((GameData.Team.IsEnoughMaterial(skill)) && (skillData.EvolutionSkill != 0) && (skill.Lv == skillData.MaxStar) && GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution));
 				goUpgradeRedPoint.SetActive(false);
 			}
