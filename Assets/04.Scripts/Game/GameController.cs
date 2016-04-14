@@ -3277,29 +3277,12 @@ public class GameController : KnightSingleton<GameController>
 
             changeSituationForSetBall(newBallOwner);
 
-            // 如果是玩家控制的球員從未持球變成持球狀態時, 會切換成手控狀態.
-            // 這麼做的原因是要避免玩家感覺 AI 幫玩家做了玩家預期外的事情.
-            // 比如: 玩家設定閒置 1 秒後, 會切換成 AI 控管.
-            // 因為 1 秒非常的短暫, 很有可能玩家將球傳出去, 隊友又馬上傳回改玩家, 
-            // 但因為已經經過 1 秒, 玩家早就切換成 AI 控制的狀態.
-            // 如果此時主動技可以發動, 玩家就會剛接到球, 就馬上發動主動技. 
-            // 所以目前有玩家會有這種錯愕的感覺, 為什麼 AI 要幫我發技能 ...
-            // 現在暫時的解決方案是: 玩家球員從未持球變成持球狀態時, 切換成手控狀態. 
-            // 用這種方式來暫時解決這個問題.
-            var joystickerIsBallOwner = BallOwner != Joysticker && newBallOwner == Joysticker;
-
             // 這部份才真正的是將 newBallOwner 設定為持球者.
             BallOwner = newBallOwner;
 			BallOwner.CantMoveTimer.Clear();
 			BallOwner.IsBallOwner = true;
 			result = true;
 			Shooter = null;
-
-            if(joystickerIsBallOwner)
-            {
-                Joysticker.SetManually();
-                Joysticker.AniState(EPlayerState.Dribble0);
-            }
 
 			for(int i = 0 ; i < PlayerList.Count; i++)
 				PlayerList[i].ClearAutoFollowTime();

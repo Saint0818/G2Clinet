@@ -807,7 +807,8 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>
     /// 進入手控狀態.
     /// </summary>
-    public void SetManually()
+    /// <param name="aiAddTime"> 微調手動切換成 AI 的時間. 單位: 秒. </param>
+    public void SetManually(float aiAddTime = 0)
     {
         if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
@@ -815,8 +816,7 @@ public class PlayerBehaviour : MonoBehaviour
                 LobbyStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
-//              aiTime = Time.time + GameData.Setting.AIChangeTime;
-                mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv]);
+                mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv] + aiAddTime);
                 StartCoroutine(GetCurrentClipLength());
 
                 if (AIActiveHint)
@@ -824,7 +824,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-//              aiTime = 0;
                 mManually.Clear();
                 if (AIActiveHint)
                     AIActiveHint.SetActive(true);
