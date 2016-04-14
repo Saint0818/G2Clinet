@@ -172,7 +172,15 @@ public class UISelectPartner : UIBase {
             }
     }
 
-	public void InitMemberList(ref List<TPlayer> playerList, ref TPlayer[] selectAy, int index) {
+    public void InitMemberList(ref List<TPlayer> playerList, ref TPlayer[] selectAy, int index, bool isPVP = false) {
+        if (isPVP) {
+            SetLabel(UIName + "/Right/Window/Tabs/0/TabLabel", TextConst.S(9502));
+            SetLabel(UIName + "/Right/Window/Tabs/1/TabLabel", TextConst.S(9503));
+        } else {
+            SetLabel(UIName + "/Right/Window/Tabs/0/TabLabel", TextConst.S(9518));
+            SetLabel(UIName + "/Right/Window/Tabs/1/TabLabel", TextConst.S(9519));
+        }
+
         tempSelectAy = selectAy;
         selectIndex = index;
 

@@ -200,6 +200,7 @@ public class TStageData
     [CanBeNull]
     public int[] PlayerID;
     public int[] FriendID;
+    public int[] MercenaryID;
 
     private string nameTW;
     private string nameCN;
@@ -274,7 +275,7 @@ public class TStageData
 	}
 
 	public bool IsOnlineFriend {
-        get {return FriendKind == 1 || FriendKind == 2 || FriendKind == 3;}
+        get {return FriendKind == 2 || FriendKind == 3;}
 	}
 
     public override string ToString()

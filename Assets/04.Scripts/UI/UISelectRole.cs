@@ -10,7 +10,7 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 
-	private static int[] selectRoleID = new int[6]{20, 21, 22, 31, 32, 33};
+	private static int[] selectRoleID = new int[6]{101, 102, 103, 104, 105, 106};
 	private const int MaxValue = 100;
 	private const float X_Partner = 2.6f;
 	private const float Y_Partner = 0;
@@ -143,12 +143,9 @@ public class UISelectRole : UIBase {
         uiTopPVP = GameObject.Find (UIName + "/Top/PVP");
         uiCenterPVP = GameObject.Find (UIName + "/Center/PVP");
 
-        uiPVPWin.SetActive(false);
-        uiPVPLose.SetActive(false);
-        uiPVPFresh.SetActive(false);
-        uiTopPVE.SetActive(false);
-        uiTopPVP.SetActive(false);
+        showPVPUI(false);
         uiCenterPVP.SetActive(false);
+        uiTopPVE.SetActive(false);
         uiRedPoint.SetActive(false);
     }
 
@@ -161,29 +158,64 @@ public class UISelectRole : UIBase {
         }
     }
 
-	public void InitPlayerList(ref int[] ids) {
+    private void showPVPUI(bool flag) {
+        uiPVPWin.SetActive(flag);
+        uiPVPLose.SetActive(flag);
+        uiPVPFresh.SetActive(flag);
+        uiTopPVP.SetActive(flag);
+    }
+
+    private int[] addMercenary(int[] ids) {
+        int len = ids.Length;
+        if (stageData.MercenaryID != null && stageData.MercenaryID.Length > 0) {
+            len += stageData.MercenaryID.Length;
+            int [] ay = new int[len];
+            for (int i = 0; i < ids.Length; i++)
+                ay[i] = ids[i];
+
+            for (int i = ids.Length; i < len; i++)
+                ay[i] = stageData.MercenaryID[i-ids.Length];
+
+            return ay;
+        } else 
+            return ids;
+    }
+
+	private void initPlayerList(int[] ids) {
 		playerList.Clear();
         if (ids != null) {
-    		for (int i = 0; i < ids.Length; i ++) {
-    			if (GameData.DPlayers.ContainsKey(ids[i])) {
-    				TPlayer player = new TPlayer();
-    				player.SetID(ids[i]);
-    				player.Name = GameData.DPlayers[ids[i]].Name;
-    				player.RoleIndex = i;
-    				playerList.Add(player);
-    			}
-    		}
-
-    		//ModelManager.Get.LoadAllSelectPlayer(ref ids);
+            for (int i = 0; i < ids.Length; i ++) {
+                if (GameData.DPlayers.ContainsKey(ids[i])) {
+                    TPlayer player = new TPlayer();
+                    player.SetID(ids[i]);
+                    player.Name = GameData.DPlayers[ids[i]].Name;
+                    player.RoleIndex = i;
+                    playerList.Add(player);
+                }
+            }
 
             if (stageData.IDKind == TStageData.EKind.PVP)
                 initPVPTeammate();
-            else
+            else {
+                if (stageData.MercenaryID != null && stageData.MercenaryID.Length > 0) {
+                    for (int i = 0; i < stageData.MercenaryID.Length; i ++) {
+                        if (GameData.DPlayers.ContainsKey(stageData.MercenaryID[i])) {
+                            TPlayer player = new TPlayer();
+                            player.SetID(stageData.MercenaryID[i]);
+                            player.Name = GameData.DPlayers[stageData.MercenaryID[i]].Name;
+                            player.RoleIndex = i + ids.Length;
+                            player.FriendKind = EFriendKind.Friend;
+                            playerList.Add(player);
+                        }
+                    }
+                }
+
                 initPVETeammate();
+            }
         }
 	}
 
-    public void InitPlayerList(ref Dictionary<string, TFriend> players) {
+    public void initPlayerList(ref Dictionary<string, TFriend> players) {
 		playerList.Clear();
 		if (players != null) {
             foreach (KeyValuePair<string, TFriend> item in players.ToList()) {
@@ -289,14 +321,15 @@ public class UISelectRole : UIBase {
         for (int i = 0; i < GameData.PVPEnemyMembers.Length; i++) 
             initPlayerAvatar(i+3, ref GameData.PVPEnemyMembers[i].Player, UI3DPVP.Get.PlayerAnchor[i+3]);
       
-		string aniName = "Walk";
-		if (!init)
-			aniName = "Show";
-		else
-			Invoke("playerPVPShow", 1.1f);
-			
-        for (int i = 0; i < avatarLoaders.Length; i++)
-            avatarLoaders[i].SetTrigger (aniName);
+        if (init) {
+            for (int i = 0; i < avatarLoaders.Length; i++)
+                avatarLoaders[i].SetTrigger ("Walk");
+
+            Invoke("playerPVPShow", 1.1f);
+        } else {
+            for (int i = 3; i < avatarLoaders.Length; i++)
+                avatarLoaders[i].SetTrigger ("SelectDown");
+        }
 
 		refreshOpponetUI ();
 		computePower ();
@@ -387,8 +420,7 @@ public class UISelectRole : UIBase {
 
 	public void InitPartnerPosition() {
 		if (stageData.IDKind == TStageData.EKind.PVP) {
-			uiCenterPVP.SetActive (true);
-			uiTopPVP.SetActive (true);
+            showPVPUI(true);
 		} else
 			uiTopPVE.SetActive (true);
 
@@ -450,11 +482,8 @@ public class UISelectRole : UIBase {
 
         if (stageData.IDKind == TStageData.EKind.PVP) {
             UI3DPVP.Visible = true;
-            uiTopPVP.SetActive(true);
             uiCenterPVP.SetActive(true);
-            uiPVPWin.SetActive(true);
-            uiPVPLose.SetActive(true);
-            uiPVPFresh.SetActive(true);
+            showPVPUI(true);
         } else {
             UI3DSelectRole.UIShow(true);
             uiTopPVE.SetActive(true);
@@ -470,10 +499,10 @@ public class UISelectRole : UIBase {
 			} else 
 				waitLookFriends(true);
 		} else
-		if (stageData.FriendID != null)
-			InitPlayerList(ref stageData.FriendID);
-		else
-			InitPlayerList(ref selectRoleID);
+        if (stageData.FriendID != null) {
+            initPlayerList(stageData.FriendID);
+        } else
+			initPlayerList(selectRoleID);
 	}
 
 	public void OnStart(){
@@ -535,9 +564,8 @@ public class UISelectRole : UIBase {
         if (UISelectPartner.Visible)
             return;
 
-		uiCenterPVP.SetActive (false);
 		uiTopPVE.SetActive (false);
-		uiTopPVP.SetActive (false);
+        showPVPUI(false);
 
         for (int i = 0; i < playerObjects.Length; i++)
             if (playerObjects[i])
@@ -561,7 +589,7 @@ public class UISelectRole : UIBase {
 
         UISkillFormation.Visible = false;
         UISelectPartner.Visible = true;
-        UISelectPartner.Get.InitMemberList(ref playerList, ref playerData, index);
+        UISelectPartner.Get.InitMemberList(ref playerList, ref playerData, index, stageData.FriendKind == 3);
     }
 
 	public void OnSkillCard() {
@@ -616,6 +644,7 @@ public class UISelectRole : UIBase {
 				anchor = UI3DPVP.Get.PlayerAnchor [roleIndex];
 			
 			initPlayerAvatar(roleIndex, ref playerData[roleIndex], anchor);
+            avatarLoaders[roleIndex].SetTrigger("SelectDown");
 		}
 	}
 
@@ -651,12 +680,12 @@ public class UISelectRole : UIBase {
     private void waitLookFriends(bool ok) {
         if (ok) {
             GameData.Team.InitFriends();
-    	    InitPlayerList(ref GameData.Team.Friends);
+    	    initPlayerList(ref GameData.Team.Friends);
         } else
-        if (stageData.FriendID != null)
-            InitPlayerList(ref stageData.FriendID);
+        if (stageData.FriendID != null) 
+            initPlayerList(stageData.FriendID);
         else
-            InitPlayerList(ref selectRoleID);
+            initPlayerList(selectRoleID);
 	}
     
 	private int getFreeListIndex(int roleIndex) {

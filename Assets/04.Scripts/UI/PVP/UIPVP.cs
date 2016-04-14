@@ -207,12 +207,12 @@ public class UIPVP : UIBase
 				labelStatus.text = GameConst.PVPCD_Price.ToString ();
 				labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Diamond >= GameConst.PVPCD_Price);
 			} else {
-				if (GameData.DPVPData.ContainsKey (pvpLv) && CheckMoney (GameData.DPVPData [pvpLv].SearchCost)) {
+				if (GameData.DPVPData.ContainsKey (pvpLv)) {
 					labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
 					spriteTicket.spriteName = GameFunction.SpendKindTexture (1);
 					if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) 
 						labelStatus.text = "0";
-                    else
+                    else 
 					    labelStatus.text = GameData.DPVPData [pvpLv].SearchCost.ToString ();
 				}
 			}
@@ -377,7 +377,7 @@ public class UIPVP : UIBase
 	}
 
 	private void askSearchEnemy() {
-		if (GameData.DPVPData.ContainsKey (pvpLv) && CheckMoney (GameData.DPVPData [pvpLv].SearchCost)) 
+		if (GameData.DPVPData.ContainsKey (pvpLv)) 
 			CheckMoney(GameData.DPVPData [pvpLv].SearchCost, true,
 				string.Format (TextConst.S (9749), GameData.DPVPData [pvpLv].SearchCost), 
 				searchEnemy, updateUI);

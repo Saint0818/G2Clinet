@@ -591,7 +591,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
                     team.InitFriends();
                     GameData.Team.Friends = team.Friends;
-                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
                 }
 
                 if (LookFriendsEvent != null)
@@ -620,7 +619,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     GameData.Team.FreshFriendTime = team.FreshFriendTime;
                     GameData.Team.DailyCount.FreshFriend = team.DailyCount.FreshFriend;
                     GameData.Team.Friends = team.Friends;
-                    GameData.Team.FreshFriendTime = team.FreshFriendTime;
                     if (GameData.Team.Diamond != team.Diamond)
                         GameData.Team.Diamond = team.Diamond;
                 }

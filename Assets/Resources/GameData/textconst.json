@@ -3501,6 +3501,16 @@
         "en": "Tap to Switch Teammate"
     },
     {
+        "id": 9518,
+        "tw": "關卡夥伴",
+        "en": "PARTNERS"
+    },
+    {
+        "id": 9519,
+        "tw": "傭兵",
+        "en": "MERCENARY"
+    },
+    {
         "id": 9601,
         "uipath": "戰術選擇/SubheadLabel",
         "tw": "請選擇戰術",
@@ -4700,7 +4710,7 @@
         "id": 12006,
         "uipath": "VersionLabel",
         "tw": "Version {0} ",
-        "en": "VER{0} "
+        "en": "Version {0} "
     },
     {
         "id": 12007,

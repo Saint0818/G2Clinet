@@ -44,6 +44,7 @@ namespace GameItem
         private UILabel WinRateLabel;
         private UILabel PVPIntegral;
         private UIButton btn;
+        private UISprite BG;
         private GameObject optionsBtnGroup;
         private GameObject uiNo;
         private UIButton optionsBtn;
@@ -54,6 +55,7 @@ namespace GameItem
             if(go){
                 self = go;
                 btn = self.GetComponent<UIButton>();
+                BG = self.transform.Find("Window/RankBG").gameObject.GetComponent<UISprite>();
                 uiNo = self.transform.Find("Window/PVPPlaceLabel/BG").gameObject;
                 playerName = self.transform.Find("Window/PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
                 combatLabel = self.transform.Find("Window/PlayerInGameBtn/CombatLabel").gameObject.GetComponent<UILabel>();
@@ -113,7 +115,9 @@ namespace GameItem
 				
                 playerName.text = rankData.Team.Player.Name;
                 if (rankData.Team.Identifier == GameData.Team.Identifier)
-                    playerName.color = Color.blue;
+                    BG.color = new Color32(0, 230, 255, 255);
+                else
+                    BG.color = Color.white;
 
                 playeHeadBtn.UpdateView(rankData.Team.Player);
                 combatLabel.text = string.Format("{0:0f}", rankData.Team.Player.CombatPower());
@@ -157,6 +161,7 @@ namespace GameItem
     public class TPVPLeagueGroup
     {
         public GameObject self;
+        public GameObject ShineFX;
         private UISprite PvPRankIcon;
 		private UISprite spritePass;
         private UILabel RangeNameLabel;
@@ -170,6 +175,7 @@ namespace GameItem
             {
                 self = go;
                 self.transform.parent = parent.transform;
+                ShineFX = self.transform.Find("ShineFX").gameObject;
                 PvPRankIcon = self.transform.Find("PvPRankIcon").GetComponent<UISprite>();
                 RangeNameLabel = self.transform.Find("RangeNameLabel").GetComponent<UILabel>();
                 labelStep = self.transform.Find("LabelStep").GetComponent<UILabel>();
@@ -197,7 +203,9 @@ namespace GameItem
 				RangeNameLabel.text = GameData.DPVPData[lv].Name;
                 labelStep.text = string.Format(TextConst.S (9737), lv);
 
+                ShineFX.SetActive(false);
 				if (lv == GameData.Team.PVPLv) {
+                    ShineFX.SetActive(true);
 					labelPass.text = TextConst.S (9748);
 					spritePass.spriteName = "Success";
 				} else 
