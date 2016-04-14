@@ -30,13 +30,13 @@
 	public const int AngerReviveTime = 1;
 
 	//Game play move speed
-	public const float DefSpeedup = 7.5f;
-	public const float DefSpeedNormal = 6.2f;
-	public const float BallOwnerSpeedup = 6.5f;
-	public const float BallOwnerSpeedNormal = 5f;
-	public const float WalkSpeed = 3.2f;
-	public const float AttackSpeedup = 7;
-	public const float AttackSpeedNormal = 5.7f;
+	public const float DefSpeedup = 8.3f;
+	public const float DefSpeedNormal = 7.2f;
+	public const float BallOwnerSpeedup = 7.5f;
+	public const float BallOwnerSpeedNormal = 6f;
+	public const float WalkSpeed = 4.2f;
+	public const float AttackSpeedup = 8f;
+	public const float AttackSpeedNormal = 6.7f;
 
     /// <summary>
     /// 每幾秒檢查 MovePower 的數值.(MovePower 就是球員的體力)
