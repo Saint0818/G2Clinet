@@ -574,7 +574,15 @@ public static class GameData
             return true;
 
         return Team.HighestLv >= LimitTable.Ins.GetByOpenID(openID).Lv;
-    }
+	}
+
+	public static bool IsOpenUIVisible(EOpenID openID)
+	{
+		if(!LimitTable.Ins.HasByOpenID(openID))
+			return true;
+
+		return Team.HighestLv >= LimitTable.Ins.GetVisibleLv(openID);
+	}
 
 	public static bool IsOpenUIEnableByPlayer(EOpenID openID)
 	{
