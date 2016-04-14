@@ -189,7 +189,7 @@ public class UIMainLobbyMain : MonoBehaviour
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
     /// </summary>
     /// <param name="lockTime"> 單位: 秒. </param>
-    public void EnableFullScreenBlock(float lockTime = 1)
+    public void EnableFullScreenBlock(float lockTime = 0.5f)
     {
         if(gameObject.activeSelf)
             StartCoroutine(enableFullScreenBlock(lockTime));
