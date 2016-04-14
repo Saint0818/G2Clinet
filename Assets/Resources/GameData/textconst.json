@@ -4501,13 +4501,15 @@
         "id": 11005,
         "explain": "設施升級按鈕",
         "uipath": "UpgradeBtn",
-        "tw": "升 級"
+        "tw": "升 級",
+        "en": "Upgrade"
     },
     {
         "id": 11006,
         "explain": "冷卻中",
         "uipath": "BuyCDBtn",
-        "tw": "消除冷卻時間"
+        "tw": "消除冷卻時間",
+        "en": "Reduce CD"
     },
     {
         "id": 11007,

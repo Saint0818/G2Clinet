@@ -37,6 +37,8 @@ public class UIGym : UIBase {
 	private static UIGym instance = null;
 	private const string UIName = "UIGym";
 
+	private GameObject window;
+
 	private const int ThirdQueueDiamonds = 1000;
 
 	private int[] sendIndexs = new int[0];
@@ -103,6 +105,7 @@ public class UIGym : UIBase {
 	}
 
 	protected override void InitCom() {
+		window = GameObject.Find(UIName + "/Window");
 		gymCenter = GameObject.Find(UIName + "/Window/Center");
 		for (int i=0; i<gymObj.Length; i++) {
 			gymObj[i].Obj = GameObject.Find(UIName + "/Window/Center/" + i.ToString());
@@ -128,6 +131,12 @@ public class UIGym : UIBase {
 		labelPrice = GameObject.Find (UIName + "/Window/Left/QueueGroup/Lock/PriceLabel").GetComponent<UILabel>();
 		labelPrice.text = ThirdQueueDiamonds.ToString();
 		RefreshDiamondColor ();
+	}
+
+	public void UpdateText () {
+		initDefaultText(window);
+		refreshBuild ();
+		RefreshQueue ();
 	}
 
 	//場景上的建築物從1開始， Array從0開始

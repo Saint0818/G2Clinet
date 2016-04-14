@@ -329,7 +329,6 @@ public class RealBall : MonoBehaviour
     }
 
 	public void SetJumpBallPathUp () {
-		
 		goRefBall.transform.DOMoveY(6f, 0.55f).SetEase(ModelManager.Get.AnimatorCurve.FindJumpCurve());
 	}
 

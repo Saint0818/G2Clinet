@@ -64,6 +64,11 @@ public class TITemGymObj {
 		RefreshColor ();
 	}
 
+	public void UpdateText () {
+		if(GameData.DItemData.ContainsKey(ItemID))
+			Name.text = GameData.DItemData[ItemID].Name;
+	}
+
 	private int getBuildIndex (int kind) {
 		if(kind >= 51 && kind <= 59)
 			return kind - 51;
@@ -223,6 +228,13 @@ public class UIGymEngage : UIBase {
 		SetBtnFun (UIName + "/Window/Center/MainView/Normal/BuyCDBtn", OnBuyCD);
 	}
 
+	public void UpdateText () {
+		initDefaultText(window);
+		RefreshUI ();
+		for(int i=0; i<itemGymObjs.Count; i++)
+			itemGymObjs[i].UpdateText();
+	}
+
 	public void OnClose () {
 		if(!isRealChange) 
 			UI3DMainLobby.Get.Impl.ReplaceObj(mBuildIndex, mAvatarIndex);
@@ -271,12 +283,12 @@ public class UIGymEngage : UIBase {
 	public void ShowView (int index) {
 		Visible = true;
 		mBuildIndex = index;
-		setTitle(index);
 		RefreshUI();
 		setScrollView ();
 	}
 
 	public void RefreshUI () {
+		setTitle(mBuildIndex);
 		if(isHighestLevel (mBuildIndex)) {
 			windowHighest.SetActive(true);
 			windowNormal.SetActive(false);

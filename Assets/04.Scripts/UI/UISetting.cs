@@ -411,6 +411,12 @@ public class UISetting : UIBase {
 		if (UIMainLobby.Get.IsVisible)
 			UIMainLobby.Get.UpdateText();
 
+		if(UIGym.Visible)
+			UIGym.Get.UpdateText();
+
+		if(UIGymEngage.Visible)
+			UIGymEngage.Get.UpdateText();
+
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
