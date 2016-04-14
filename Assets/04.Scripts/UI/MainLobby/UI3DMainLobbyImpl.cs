@@ -346,7 +346,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     public void UpdateAvatar()
     {
         if (GameData.Team.Player.Items != null) { //before create role Player.Items is null
-            if (mAvatarPlayer)
+            /*if (mAvatarPlayer)
                 Destroy(mAvatarPlayer);
 
             mAvatarPlayer = new GameObject { name = "LobbyAvatarPlayer" };
@@ -355,11 +355,13 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     //            EAnimatorType.AnimationControl, false);
 
             ModelManager.Get.SetAvatarByItem(ref mAvatarPlayer, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.TalkControl, false);
-
             mAvatarPlayer.transform.parent = BuildPos[0].transform;
             mAvatarPlayer.transform.localPosition = Vector3.zero;
             mAvatarPlayer.transform.localScale = Vector3.one;
             mAvatarPlayer.transform.localRotation = Quaternion.identity;
+            */
+            GameData.Team.PlayerInit();
+            TAvatarLoader.Load(GameData.Team.Player.BodyType, GameData.Team.Player.Avatar, ref mAvatarPlayer, BuildPos[0], new TLoadParameter(ELayer.Default, "LobbyAvatarPlayer"));
 
             playerCenterPos = mAvatarPlayer.transform.position;
         }

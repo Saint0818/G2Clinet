@@ -181,8 +181,17 @@ public class UICreateRole : UIBase
         player.SetAvatar();
 
         extractAvatarData(ref player.Avatar, itemIDs);
+        GameObject obj = null;
+        TLoadParameter p = new TLoadParameter(ELayer.UI3D);
+        p.AddEvent = true;
+        p.AddDummyBall = true;
+        p.AsyncLoad = false;
+        p.Name = name;
 
-        return CreateModel(name, playerID, player.Avatar, parent);
+        TAvatarLoader.Load(GameData.DPlayers[playerID].BodyType, player.Avatar, ref obj, parent.gameObject, p);
+
+        return obj;
+        //return CreateModel(name, playerID, player.Avatar, parent);
     }
 
     private static void extractAvatarData(ref TAvatar avatar, Dictionary<EPart, int> itemIDs)
@@ -223,8 +232,8 @@ public class UICreateRole : UIBase
     public static GameObject CreateModel(string name, int playerID, TAvatar avatar, Transform parent)
     {
         GameObject model = new GameObject { name = name };
-		ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType, 
-            EAnimatorType.TalkControl, false);
+		//ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType, 
+        //    EAnimatorType.TalkControl, false);
 
         model.transform.parent = parent;
         model.transform.localPosition = Vector3.zero;
@@ -262,8 +271,9 @@ public class UICreateRole : UIBase
     /// <returns></returns>
     public static void UpdateModel(GameObject model, int playerID, TAvatar avatar)
     {
-        ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType,
-            EAnimatorType.AvatarControl, false);
+        TAvatarLoader.Load(GameData.DPlayers[playerID].BodyType, avatar, ref model, null, new TLoadParameter(ELayer.UI3D));
+        //ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType,
+        //    EAnimatorType.AvatarControl, false);
     }
 
     public enum EPart

@@ -69,8 +69,8 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 				UI3DTutorial.UIShow(false);
 				UITutorial.UIShow(true);
 				UITutorial.UIShow(false);
-				int[] ay = talkManList.ToArray();
-				ModelManager.Get.LoadAllSelectPlayer(ref ay);
+				//int[] ay = talkManList.ToArray();
+				//ModelManager.Get.LoadAllSelectPlayer(ref ay);
 			}
 
 			BegeingEvent();

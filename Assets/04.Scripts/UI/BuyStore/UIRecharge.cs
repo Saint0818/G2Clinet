@@ -242,7 +242,7 @@ public class UIRecharge : UIBase {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();
 			if(IsNeedShowPlayer)
-				UIPlayerMgr.Get.Enable = false;
+				UIPlayerAvatar.Get.Enable = false;
 			if(UIShop.Visible)
 				UIMainLobby.Get.Hide(4);
 		}
@@ -411,7 +411,7 @@ public class UIRecharge : UIBase {
 				if(IsNeedShowLobbyMenu)
 					UIMainLobby.Get.Show();
 				if(IsNeedShowPlayer)
-					UIPlayerMgr.Get.Enable = true;
+					UIPlayerAvatar.Get.Enable = true;
 				if(UIShop.Visible)
 					UIMainLobby.Get.Hide(2);
 				if(UIMall.Visible)

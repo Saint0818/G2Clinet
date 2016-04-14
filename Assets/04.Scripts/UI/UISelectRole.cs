@@ -47,7 +47,7 @@ public class UISelectRole : UIBase {
     private UILabel [] labelCombatPower = new UILabel[playerNum];
     private UILabel [] labelPVPPlayerName = new UILabel[playerNum*2];
     private UILabel [] labelPVPCombatPower = new UILabel[playerNum*2];
-	private Animator [] arrayAnimator = new Animator[playerNum*2];
+    private TAvatarLoader [] avatarLoaders = new TAvatarLoader[playerNum*2];
 
 	public static bool Visible {
 		get {
@@ -87,24 +87,10 @@ public class UISelectRole : UIBase {
 	}
 
 	void OnDestroy() {
-		for (int i = 0; i < arrayAnimator.Length; i++)
-			Destroy(arrayAnimator[i]);
-
-		arrayAnimator = new Animator[0];
+        avatarLoaders = new TAvatarLoader[0];
 
 		for (int i = 0; i < playerObjects.Length; i ++) {
 			if (playerObjects[i]) {
-				SkinnedMeshRenderer smr = playerObjects[i].GetComponent<SkinnedMeshRenderer>();
-				if (smr) {
-					Material[] mats = smr.materials;
-					for (int j = 0; j < mats.Length; j++) {
-						Destroy(mats[j]);
-						mats[j] = null;
-					}
-
-					smr.materials = new Material[0];
-				}
-
 				Destroy(playerObjects[i]);
 			}
 		}
@@ -188,7 +174,7 @@ public class UISelectRole : UIBase {
     			}
     		}
 
-    		ModelManager.Get.LoadAllSelectPlayer(ref ids);
+    		//ModelManager.Get.LoadAllSelectPlayer(ref ids);
 
             if (stageData.IDKind == TStageData.EKind.PVP)
                 initPVPTeammate();
@@ -255,28 +241,11 @@ public class UISelectRole : UIBase {
 	}
 
     private void initPlayerAvatar(int roleIndex, ref TPlayer player, GameObject anchorObj) {
-        if (!playerObjects [roleIndex])
-            playerObjects [roleIndex] = new GameObject();
-        
-        GameObject temp = playerObjects [roleIndex];
-        GameObject obj = ModelManager.Get.SetAvatar(ref playerObjects[roleIndex], player.Avatar, player.BodyType, EAnimatorType.TalkControl, false, true);
-
-        playerObjects[roleIndex].name = roleIndex.ToString();
-        playerObjects[roleIndex].transform.parent = anchorObj.transform;
-        playerObjects[roleIndex].AddComponent<SelectEvent>();
-        playerObjects[roleIndex].AddComponent<SpinWithMouse>();
-
-        if (temp) {
-            playerObjects[roleIndex].transform.localPosition = temp.transform.localPosition;
-            playerObjects[roleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
-            playerObjects[roleIndex].transform.localScale = temp.transform.localScale;
-        }
-
-        obj.transform.localScale = Vector3.one;
-        obj.transform.localEulerAngles = Vector3.zero;
-        obj.transform.localPosition = Vector3.zero;
-        LayerMgr.Get.SetLayer(obj, ELayer.Default);
-        arrayAnimator[roleIndex] = playerObjects[roleIndex].GetComponent<Animator>();
+        TLoadParameter p = new TLoadParameter(ELayer.Default, roleIndex.ToString());
+        p.AddSpin = true;
+        p.AddEvent = roleIndex > 0 && roleIndex < 3;
+        avatarLoaders[roleIndex] = TAvatarLoader.Load(
+            player.BodyType, player.Avatar, ref playerObjects [roleIndex], anchorObj, p);
 
         if (stageData.IDKind == TStageData.EKind.PVP) {
             labelPVPCombatPower[roleIndex].text = ((int)player.CombatPower()).ToString();
@@ -326,8 +295,8 @@ public class UISelectRole : UIBase {
 		else
 			Invoke("playerPVPShow", 1.1f);
 			
-		for (int i = 0; i < arrayAnimator.Length; i++)
-			arrayAnimator [i].SetTrigger (aniName);
+        for (int i = 0; i < avatarLoaders.Length; i++)
+            avatarLoaders[i].SetTrigger (aniName);
 
 		refreshOpponetUI ();
 		computePower ();
@@ -417,9 +386,6 @@ public class UISelectRole : UIBase {
     }
 
 	public void InitPartnerPosition() {
-		//uiChangPlayerB.SetActive(true);
-		//uiChangPlayerA.transform.localPosition = new Vector3(400, -360, 0);
-
 		if (stageData.IDKind == TStageData.EKind.PVP) {
 			uiCenterPVP.SetActive (true);
 			uiTopPVP.SetActive (true);
@@ -576,12 +542,6 @@ public class UISelectRole : UIBase {
         for (int i = 0; i < playerObjects.Length; i++)
             if (playerObjects[i])
                 playerObjects[i].SetActive(false);
-        
-		/*
-        if (index == 1) {
-            uiChangPlayerA.transform.localPosition = new Vector3(-400, -360, 0);
-            uiChangPlayerB.SetActive(false);
-        }*/
 
 		tempIndex = index;
 		playerObjects[index].SetActive(true);
@@ -660,13 +620,13 @@ public class UISelectRole : UIBase {
 	}
 
 	private void playerPVPShow() {
-		for (int i = 0; i < arrayAnimator.Length; i++)
-			arrayAnimator[i].SetTrigger("Show");
+        for (int i = 0; i < playerObjects.Length; i++)
+            avatarLoaders[i].SetTrigger("Show");
 	}
 
 	private void playerDoAnimator() {
 		playerObjects[0].SetActive(true);
-		arrayAnimator[0].SetTrigger("SelectDown");
+        avatarLoaders[0].SetTrigger("SelectDown");
 		EffectManager.Get.PlayEffect("FX_SelectDown", Vector3.zero, null, null, 1f);
 	}
 	
@@ -677,8 +637,8 @@ public class UISelectRole : UIBase {
 	private void otherPlayerDoAnimator() {
         playerObjects[1].SetActive(true);
 		playerObjects[2].SetActive(true);
-		arrayAnimator[1].SetTrigger("SelectDown");
-		arrayAnimator[2].SetTrigger("SelectDown");
+        avatarLoaders[1].SetTrigger("SelectDown");
+        avatarLoaders[2].SetTrigger("SelectDown");
 		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(2.6f,0,0.1f), null, null, 1f);
 		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(-2.6f,0,0.1f), null, null, 1f);
 	}

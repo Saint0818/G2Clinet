@@ -19,22 +19,24 @@ public class ModelManager : KnightSingleton<ModelManager>
 {
     public const string Name = "ModelManager";
 
+    public AniCurve AnimatorCurveManager;
+    /*
     private GameObject DefPointObject = null;
     public GameObject PlayerInfoModel = null;
-    public AniCurve AnimatorCurve;
 
     private Material materialSource;
     private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
     private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
     private Dictionary<string, RuntimeAnimatorController> controllorCache = new Dictionary<string, RuntimeAnimatorController>();
-
+    */
     protected override void Init() {
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(PlayerInfoModel);
+        //DontDestroyOnLoad(PlayerInfoModel);
     }
 
     void Awake()
     {
+        /*
         materialSource = Resources.Load("Character/Materials/Material_0") as Material;
         DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 
@@ -43,7 +45,7 @@ public class ModelManager : KnightSingleton<ModelManager>
             PlayerInfoModel = new GameObject();
             PlayerInfoModel.name = "PlayerInfoModel";
         }
-
+        */
         GameObject cloneObj = GameObject.Find("AnimatorCurve") as GameObject;
         if (!cloneObj) {
             cloneObj = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
@@ -54,13 +56,13 @@ public class ModelManager : KnightSingleton<ModelManager>
         }
                 
         if (cloneObj) {
-            AnimatorCurve = cloneObj.GetComponent<AniCurve>();
-            AnimatorCurve.transform.parent = transform;
+            AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
+            AnimatorCurveManager.transform.parent = transform;
         }
     }
 
     void OnDestroy() {
-        bodyCache.Clear();
+        /*bodyCache.Clear();
         textureCache.Clear();
         controllorCache.Clear();
         DefPointObject = null;
@@ -68,11 +70,11 @@ public class ModelManager : KnightSingleton<ModelManager>
 
         if (PlayerInfoModel)
             DestroyImmediate(PlayerInfoModel);
-
-        if (AnimatorCurve != null)
-            Destroy(AnimatorCurve.gameObject);
+        */
+        if (AnimatorCurveManager != null)
+            Destroy(AnimatorCurveManager.gameObject);
     }
-
+    /*
     public void PreloadResource(TAvatar attr, int bodyType)
     {
         string bodyNumber = bodyType.ToString();
@@ -230,6 +232,7 @@ public class ModelManager : KnightSingleton<ModelManager>
     /// <param name="player"></param>
     /// <param name="res"></param>
     /// <returns></returns>
+
     public PlayerBehaviour CreateGamePlayer(int teamIndex, ETeamKind team, Vector3 bornPos, TPlayer player, GameObject res = null)
     {
         if (GameData.DPlayers.ContainsKey(player.ID))
@@ -419,7 +422,8 @@ public class ModelManager : KnightSingleton<ModelManager>
             }
         }
     }
-
+    */
+    /*
     public void SetAvatarByItem(ref GameObject result, TItem[] items, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false)
     {
         if (items != null && items.Length == 8)
@@ -433,7 +437,8 @@ public class ModelManager : KnightSingleton<ModelManager>
             Debug.LogError("Avatar data Error");
         }
     }
-
+    */
+    /*
     public IEnumerator AsyncSetAvatar(GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, ELayer layer) {
         Vector3 localposition = result.transform.localPosition;
         string mainBody = string.Format("PlayerModel_{0}", bodyType);
@@ -609,7 +614,8 @@ public class ModelManager : KnightSingleton<ModelManager>
         InitAnimator(result, bodyType, animatorType);
         result.transform.localPosition = localposition;
     }
-
+    */
+    /*
     public GameObject SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool reset = false)
     {
         Transform parent = result.transform.parent;
@@ -821,8 +827,7 @@ public class ModelManager : KnightSingleton<ModelManager>
             LayerMgr.Get.SetLayer(clone, ELayer.Player);
             clone.name = "PlayerModel";
         }
-        else
-        {
+        else {
             MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
             cobbineObject = materialCombiner.CombineMaterial(matObj);
             cobbineObject.transform.parent = result.transform;
@@ -901,4 +906,5 @@ public class ModelManager : KnightSingleton<ModelManager>
         ani.parameters.Initialize();
         ani.applyRootMotion = false;
     }
+    */
 }

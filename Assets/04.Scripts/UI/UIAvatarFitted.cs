@@ -445,7 +445,7 @@ public class UIAvatarFitted : UIBase
             if (!isShow)
             {
                 RemoveUI(instance.gameObject);
-                UIPlayerMgr.Get.Enable = false;
+                UIPlayerAvatar.Get.Enable = false;
             }
             else
                 instance.Show(isShow);
@@ -1093,7 +1093,7 @@ public class UIAvatarFitted : UIBase
                     }
 					
                     ItemIdTranslateAvatar();
-                    UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
+                    UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
                 }
                 else
                 {
@@ -1104,7 +1104,7 @@ public class UIAvatarFitted : UIBase
                         equip.ID = 0;
                         Equips[kind] = equip;
                         ItemIdTranslateAvatar();
-                        UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
+                        UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
                     }
                 }
             }
@@ -1255,7 +1255,7 @@ public class UIAvatarFitted : UIBase
             UpdateAvatar(true);
             ChangeExpiredItem();
             ItemIdTranslateAvatar();
-            UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
+            UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
             return true;
         }
         else
@@ -1375,9 +1375,8 @@ public class UIAvatarFitted : UIBase
     {
         UpdateAvatar(true);
         GameData.Team.PlayerInit();
-        UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIAvatarFitted, ref GameData.Team);
+        UIPlayerAvatar.Get.ShowUIPlayer(EUIPlayerMode.UIAvatarFitted, GameData.Team.Player.BodyType, GameData.Team.Player.Avatar);
         ExpiredItemHanddle();
-//            UIPlayerMgr.Get.ChangeAvatar(GameData.Team.Player.Avatar);
     }
 
     private void changeLayersRecursively(Transform trans, string name)

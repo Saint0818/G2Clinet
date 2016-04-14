@@ -310,16 +310,13 @@ public class UIPlayerPotential : UIBase {
 		if (instance) {
 			if (!isShow){
                 RemoveUI(instance.gameObject);
-				UIPlayerMgr.Get.Enable = true;
 			}
 			else{
 				instance.Show(isShow);
-				UIPlayerMgr.Get.Enable = false;
 			}
 		} else
 		if (isShow){
 			Get.Show(isShow);
-			UIPlayerMgr.Get.Enable = false;
 		}
 	}
 	
@@ -376,7 +373,6 @@ public class UIPlayerPotential : UIBase {
 	{
 		UIShow (false);
 		GameData.Team.Player.SetAttribute (GameEnum.ESkillType.Player);
-		UIPlayerMgr.Get.Enable = false;
 		UIMainLobby.Get.Show();
 	}
 

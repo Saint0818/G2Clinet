@@ -9,17 +9,17 @@ public enum EUIPlayerMode
     UIShop
 }
 
-public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
+public class UIPlayerAvatar : KnightSingleton<UIPlayerAvatar>
 {
     private EUIPlayerMode uiMode;
 	private Camera camera3d;
-	private GameObject avatar;
-    private int currentIndex = -1;
-
+	private GameObject playerModel;
+    private TLoadParameter loadParam;
+   
 	void Awake()
 	{
+        loadParam = new TLoadParameter(ELayer.UIPlayer, "PlayerModel", false, true);
 		Init3DCamera ();
-//		InitAvatar ();
 	}
 
 	private void Init3DCamera()
@@ -45,56 +45,34 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		}
 	}
 
-	private void InitAvatar()
-	{
-		if(avatar == null){
-			avatar = new GameObject ();
-			avatar.name = "UIPlayer";
-
-			if(avatar.GetComponent<SpinWithMouse>() == null)
-				avatar.AddComponent<SpinWithMouse>();
-		}
-	}
-
     private void setManLocation(EUIPlayerMode mode) {
-        avatar.transform.parent = gameObject.transform;
-        avatar.transform.localScale = Vector3.one;
+        playerModel.transform.parent = gameObject.transform;
+        playerModel.transform.localScale = Vector3.one;
         switch (mode) {
             case EUIPlayerMode.UIPlayerInfo:
-                avatar.transform.localPosition = new Vector3 (3f, -1.7f, -3);
+                playerModel.transform.localPosition = new Vector3 (3f, -1.7f, -3);
                 break;
             case EUIPlayerMode.UIAvatarFitted:
-                avatar.transform.localPosition = new Vector3 (3, -1.7f, -3);
+                playerModel.transform.localPosition = new Vector3 (3, -1.7f, -3);
                 break;
             case EUIPlayerMode.UIShop:
-                avatar.transform.localPosition = new Vector3 (2.92f, -1.8f, -3);
+                playerModel.transform.localPosition = new Vector3 (2.92f, -1.8f, -3);
                 break;
         }
-
-        LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
     }
 
-    public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
+    public void ShowUIPlayer(EUIPlayerMode mode, int bodyType, TAvatar avatars)
 	{
-        if (currentIndex != team.Player.BodyType)
-        {
-            if (avatar != null)
-            {
-                Destroy(avatar);
-                avatar = null;
-            }
-            InitAvatar();
-        }
 		gameObject.SetActive (true);
-        ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.TalkControl, false);
-
+        TAvatarLoader.Load(bodyType, avatars, ref playerModel, gameObject, loadParam);
+       
         uiMode = mode;
         setManLocation(mode);
 	}
 
-	public void ChangeAvatar(TAvatar equipAvatar)
+	public void ChangeAvatar(int bodyType, TAvatar equipAvatar)
 	{
-        ModelManager.Get.SetAvatar(ref avatar, equipAvatar, GameData.Team.Player.BodyType, EAnimatorType.TalkControl, false);
+        TAvatarLoader.Load(bodyType, equipAvatar, ref playerModel, gameObject, loadParam);
         setManLocation(uiMode);
 	}
 

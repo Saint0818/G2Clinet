@@ -117,11 +117,16 @@ public static class UIInstanceBuilder
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
 
+        /*
         GameObject model = new GameObject { name = "BossModel" };
         ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[playerID].BodyType,
             EAnimatorType.TalkControl, false);
 
         changeLayersRecursively(model.transform, "UI");
+        */
+
+        GameObject model = null;
+        TAvatarLoader.Load(GameData.DPlayers[playerID].BodyType, player.Avatar, ref model, null, new TLoadParameter(ELayer.UI, "BossModel"));
 
         return model;
     }

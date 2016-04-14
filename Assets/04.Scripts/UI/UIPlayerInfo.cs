@@ -528,7 +528,7 @@ public class UIPlayerInfo : UIBase
             if (!isShow)
             {
                 RemoveUI(instance.gameObject);
-                UIPlayerMgr.Get.Enable = false;
+                UIPlayerAvatar.Get.Enable = false;
             }
             else
                 instance.Show(isShow);
@@ -678,13 +678,13 @@ public class UIPlayerInfo : UIBase
             case 0:
                 personalView.Update(ref teamdata);
                 abilityView.UpdateView(ref teamdata);
-                UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo, ref teamdata);
+                UIPlayerAvatar.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo, teamdata.Player.BodyType, teamdata.Player.Avatar);
                 break;
             case 1:
                 skillView.UpdateView(teamdata.Player.SkillCards);
                 break;
             case 2:
-                stateView.UpdateView();	
+                stateView.UpdateView();
                 break;
         }
 

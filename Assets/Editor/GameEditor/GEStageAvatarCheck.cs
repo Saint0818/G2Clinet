@@ -164,12 +164,14 @@ public class GEStageAvatarCheck : GEBase {
 	void createPlayer(string name, TAvatar attr, int bodytype){
 		if(Application.isPlaying) {
 			if(GameObject.Find(name) == null) {
-				GameObject obj = new GameObject();
+                GameObject obj = null;
+                TAvatarLoader.Load(bodytype, attr, ref obj, null, new TLoadParameter(ELayer.Default, name));
+				/*GameObject obj = new GameObject();
 				obj.name = name;
 				obj.AddComponent<DragRotateObject>();
 				ModelManager.Get.SetAvatar(ref obj, attr, bodytype, EAnimatorType.AvatarControl, false);
 				obj.AddComponent<AvatarAnimationTest>();
-
+                */
 				int result = 0;
 				if(int.TryParse(name, out result)) {
 					if(result >= 0 && result < showPosition.Length)

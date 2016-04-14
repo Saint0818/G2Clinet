@@ -8,8 +8,7 @@ public class UI3DTutorial : UIBase {
 	private const int manNum = 2;
 	private GameObject[] manAnchor = new GameObject[manNum];
 	private GameObject[] talkMan = new GameObject[manNum];
-	private SkinnedMeshRenderer[] manRender = new SkinnedMeshRenderer[manNum];
-	private Animator[] manAnimator = new Animator[manNum];
+    private TAvatarLoader[] manLoader = new TAvatarLoader[manNum];
 	private TAvatar[] manData = new TAvatar[manNum];
 	private int[] manBodyType = new int[manNum];
     private int[] manID = new int[manNum];
@@ -43,16 +42,8 @@ public class UI3DTutorial : UIBase {
 	public void ReleaseTalkMan() {
         for (int i = 0; i < manNum; i++) {
             Destroy(talkMan[i]);
-            manRender[i] = null;
-            manAnimator[i] = null;
             manID[i] = 0;
         }
-
-		for (int i = 0; i < manRender.Length; i++) 
-			manRender[i] = null;
-
-		for (int i = 0; i < talkMan.Length; i++) 
-			Destroy(talkMan[i]);
 	}
 
 	public static void UIShow(bool isShow){
@@ -75,13 +66,17 @@ public class UI3DTutorial : UIBase {
 
 	public void InitTalkMan(int talkL, int talkR) {
 		if (manID[0] != 0 && manID[0] != talkL) {
-			manRender[0] = null;
-			Destroy(talkMan[0]);
+            if (talkMan[0]) {
+			    Destroy(talkMan[0]);
+                talkMan[0] = null;
+            }
 		}
 
 		if (manID[1] != 0 && manID[1] != talkR) {
-			manRender[1] = null;
-			Destroy(talkMan[1]);
+            if (talkMan[0]) {
+			    Destroy(talkMan[1]);
+                talkMan[1] = null;
+            }
 		}
 
 		manID[0] = talkL;
@@ -99,15 +94,7 @@ public class UI3DTutorial : UIBase {
 					manBodyType[i] = GameData.Team.Player.BodyType;
 				}
 
-				talkMan[i] = new GameObject(manID[i].ToString());
-				talkMan[i].transform.parent = manAnchor[i].transform;
-				talkMan[i].transform.localPosition = Vector3.zero;
-				talkMan[i].transform.localScale = Vector3.one;
-				talkMan[i].transform.localRotation = Quaternion.identity;
-				ModelManager.Get.SetAvatar(ref talkMan[i], manData[i], manBodyType[i], EAnimatorType.TalkControl);
-				LayerMgr.Get.SetLayerAllChildren(talkMan[i], ELayer.UIPlayer.ToString());
-				manRender[i] = talkMan[i].GetComponentInChildren<SkinnedMeshRenderer>();
-				manAnimator[i] = talkMan[i].GetComponent<Animator>();
+                manLoader[i] = TAvatarLoader.Load(manBodyType[i], manData[i], ref talkMan[i], manAnchor[i], new TLoadParameter(ELayer.UIPlayer));
 			}
 		}
 	}
@@ -124,80 +111,20 @@ public class UI3DTutorial : UIBase {
 		actionNo[1] = tu.ActionR;
 		for (int i = 0; i < manNum; i++) {
 			if (talkMan[i]) {
-				if (manRender[i] && (GameData.DPlayers.ContainsKey(manID[i]) || manID[i] == -1)) {
+                if (manLoader[i] && (GameData.DPlayers.ContainsKey(manID[i]) || manID[i] == -1)) {
 					talkMan[i].SetActive(true);
 					if (i == tu.TalkIndex) {
-						manRender[i].material.color = new Color32(150, 150, 150, 255);
-
-						if (manAnimator[i]) {
-							int no = actionNo[i];
-							if (no == 0)
-								no = Random.Range(0, 2) + 1;
-							
-							manAnimator[i].Play("Talk" + no.ToString());
-						}
+                        manLoader[i].MaterialColor = new Color32(150, 150, 150, 255);
+						int no = actionNo[i];
+						if (no == 0)
+							no = Random.Range(0, 2) + 1;
+						
+                        manLoader[i].Play("Talk" + no.ToString());
 					} else
-						manRender[i].material.color = new Color32(75, 75, 75, 255);
+                        manLoader[i].MaterialColor = new Color32(75, 75, 75, 255);
 				} else
 					talkMan[i].SetActive(false);
 			}
 		}
 	}
-	/*
-	public void ShowTutorial(TTutorial tu) {
-		if (!Visible)
-			UIShow(true);
-
-		manID[0] = tu.TalkL;
-		manID[1] = tu.TalkR;
-		actionNo[0] = tu.ActionL;
-		actionNo[1] = tu.ActionR;
-		for (int i = 0; i < manNum; i++) {
-			if (GameData.DPlayers.ContainsKey(manID[i])) {
-				if (!talkMan[i]) {
-					manData[i] = new TAvatar(manID[i]);
-					manBodyType[i] = GameData.DPlayers[manID[i]].BodyType;
-				}
-			} else 
-			if (manID[i] == -1) {
-				if (!talkMan[i]) {
-					GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
-					manData[i] = GameData.Team.Player.Avatar;
-					manBodyType[i] = GameData.Team.Player.BodyType;
-				}
-			}
-
-			if (!talkMan[i] && (GameData.DPlayers.ContainsKey(manID[i]) || manID[i] == -1)) {
-				talkMan[i] = new GameObject(manID[i].ToString());
-				talkMan[i].transform.parent = manAnchor[i].transform;
-				talkMan[i].transform.localPosition = Vector3.zero;
-				talkMan[i].transform.localScale = Vector3.one;
-				talkMan[i].transform.localRotation = Quaternion.identity;
-				manRender[i] = null;
-			}
-
-			if (talkMan[i]) {
-				ModelManager.Get.SetAvatar(ref talkMan[i], manData[i], manBodyType[i], EAnimatorType.TalkControl);
-				LayerMgr.Get.SetLayerAllChildren(talkMan[i], ELayer.UIPlayer.ToString());
-
-				if (!manRender[i])
-					manRender[i] = talkMan[i].GetComponentInChildren<SkinnedMeshRenderer>();
-
-				if (manRender[i]) {
-					if (i == tu.TalkIndex) {
-						manRender[i].material.color = new Color32(150, 150, 150, 255);
-						Animator ani = talkMan[i].GetComponent<Animator>();
-						if (ani) {
-							int no = actionNo[i];
-							if (no == 0)
-								no = Random.Range(0, 2) + 1;
-
-							ani.Play("Talk" + no.ToString());
-						}
-					} else
-						manRender[i].material.color = new Color32(75, 75, 75, 255);
-				}
-			}
-		}
-	}*/
 }

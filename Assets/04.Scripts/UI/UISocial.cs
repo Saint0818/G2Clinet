@@ -97,6 +97,15 @@ public class UISocial : UIBase {
         }
     }
 
+    void OnDestroy() {
+        for (int i = 0; i < friendList.Length; i++)
+            if (friendList[i] != null) {
+                for (int j = 0; j < friendList[i].Count; j++)
+                    if (friendList[i][j].PlayerModel)
+                        Destroy(friendList[i][j].PlayerModel);
+            }
+    }
+
     protected override void InitCom() {
         SetBtnFun(UIName + "/Window/Center/Pages/3/BottomRight/SocialNetworkBtn", OnLink);
         SetBtnFun(UIName + "/Window/Center/Pages/2/BottomRight/SearchBtn", OnSearch);
@@ -268,16 +277,14 @@ public class UISocial : UIBase {
         friendList[page][index].Index = index;
 
         if (friend.Player.Avatar.HaveAvatar && friendList[page][index].Friend.Identifier != friend.Identifier) {
+            friendList[page][index].Item.SetActive(true);
             friendList[page][index].Friend = friend;
-            if (friendList[page][index].PlayerModel)
-                Destroy(friendList[page][index].PlayerModel);
 
-            friendList[page][index].PlayerModel = 
-                TAvatarLoader.CreateAvatarLoader(
-                    friendList[page][index].Friend.Player.BodyType,
-                    friendList[page][index].Friend.Player.Avatar,
-                    friendList[page][index].PlayerModel,
-                    friendList[page][index].ModelAnchor, ELayer.UI);
+            TAvatarLoader.Load(
+                friendList[page][index].Friend.Player.BodyType,
+                friendList[page][index].Friend.Player.Avatar,
+                ref friendList[page][index].PlayerModel,
+                friendList[page][index].ModelAnchor, new TLoadParameter(ELayer.UI));
         } else 
         if (friend.Kind == EFriendKind.Ask) {
             if (!friendList[page][index].PlayerModel) {
@@ -300,12 +307,11 @@ public class UISocial : UIBase {
         friendList[page][index].Index = index;
 
         if (e.Player.Avatar.HaveAvatar && friendList[page][index].Event.TargetID != e.TargetID) {
-            friendList[page][index].PlayerModel = 
-                TAvatarLoader.CreateAvatarLoader(
-                    friendList[page][index].Friend.Player.BodyType, 
-                    friendList[page][index].Friend.Player.Avatar,
-                    friendList[page][index].PlayerModel,
-                    friendList[page][index].ModelAnchor, ELayer.UI);
+            TAvatarLoader.Load(
+                friendList[page][index].Friend.Player.BodyType, 
+                friendList[page][index].Friend.Player.Avatar,
+                ref friendList[page][index].PlayerModel,
+                friendList[page][index].ModelAnchor, new TLoadParameter(ELayer.UI));
         }
 
         friendList[page][index].Event = e;
@@ -454,11 +460,11 @@ public class UISocial : UIBase {
                 waitDownloadItem.Friend = friend;
                 waitDownloadItem.LabelLv.text = friend.Player.Lv.ToString();
                 waitDownloadItem.LabelPower.text = string.Format("{0:F0}",friend.Player.CombatPower());
-                waitDownloadItem.PlayerModel = TAvatarLoader.CreateAvatarLoader(
+                TAvatarLoader.Load(
                     waitDownloadItem.Friend.Player.BodyType, 
                     waitDownloadItem.Friend.Player.Avatar, 
-                    waitDownloadItem.PlayerModel, 
-                    waitDownloadItem.ModelAnchor, ELayer.UI);
+                    ref waitDownloadItem.PlayerModel, 
+                    waitDownloadItem.ModelAnchor, new TLoadParameter(ELayer.UI));
             }
         }
 

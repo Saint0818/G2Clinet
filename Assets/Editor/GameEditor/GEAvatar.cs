@@ -19,6 +19,7 @@ public class GEAvatar : GEBase {
 	public Vector2 scrollPositionTexture = Vector2.zero;
 	public Vector2 scrollPositionAnimation = Vector2.zero;
 
+    private GameObject[] modelArray = new GameObject[3];
 	public List<UnityEngine.GameObject> allBody = new List<UnityEngine.GameObject> ();
 	public List<UnityEngine.Material> allMaterial = new List<UnityEngine.Material> ();
 	public List<UnityEngine.Texture> allTextures = new List<UnityEngine.Texture> ();
@@ -46,11 +47,17 @@ public class GEAvatar : GEBase {
 	public string bodyPartText = "";
 	public string bodyTextureText = "";
 	private AvatarAnimationTest avatarAnimationTest;
-
+    private TLoadParameter loadParameter;
 	public UnityEditor.Animations.AnimatorController controller;
 	public List<AnimationClip> allMotionAnimationClip = new List<AnimationClip>();
 		
 	void init (){
+        loadParameter = new TLoadParameter(ELayer.Default);
+        loadParameter.AnimatorType = EAnimatorType.AvatarControl;
+        loadParameter.AsyncLoad = false;
+        loadParameter.AddSpin = true;
+        loadParameter.AddDummyBall = true;
+
 		if(allBody.Count == 0) {
 			UnityEngine.Object[] obj_0 = Resources.LoadAll ("Character/PlayerModel_0/Model", typeof(GameObject));
 			for (int i=0; i<obj_0.Length; i++) {
@@ -208,23 +215,18 @@ public class GEAvatar : GEBase {
 	}
 
 	void createPlayer(string name){
-		if(Application.isPlaying) {
-			if(GameObject.Find(name) == null) {
-				GameObject obj = new GameObject();
-				obj.name = name;
-				obj.AddComponent<DragRotateObject>();
-				ModelManager.Get.SetAvatar(ref obj, attr, int.Parse(name), EAnimatorType.AvatarControl, false);
-				obj.AddComponent<AvatarAnimationTest>();
-				if(name.Equals("0")) {
-					obj.transform.position = new Vector3(2,0,0);
-				} else 
-				if(name.Equals("1")) {
-					obj.transform.position = Vector3.zero;
-				} else 
-				if(name.Equals("2")) {
-					obj.transform.position = new Vector3(-2,0,0);
-				}
-			}
+        int index = 0;
+        if(Application.isPlaying && GameObject.Find(name) == null && int.TryParse(name, out index) && index >= 0 && index < modelArray.Length) {
+            loadParameter.Name = name;
+            TAvatarLoader.Load(int.Parse(name), attr, ref modelArray[index], null, loadParameter);
+
+            //modelArray[index].AddComponent<DragRotateObject>();
+            //modelArray[index].AddComponent<AvatarAnimationTest>();
+            switch (index) {
+                case 0:modelArray[index].transform.position = new Vector3(2,0,0); break;
+                case 1:modelArray[index].transform.position = Vector3.zero; break;
+                case 2:modelArray[index].transform.position = new Vector3(-2,0,0); break;
+            }
 		}
 	}
 
@@ -421,7 +423,7 @@ public class GEAvatar : GEBase {
 		//Body Texture
 		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture: "+ bodyTextureText);
 		if(isAvatar) {
-			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBodyTexture.Count * 100, 50));
+			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 100, 50));
 			if (showBodyTexture.Count > 0) {
 				for (int i=0; i<showBodyTexture.Count; i++) {
 					if(GUI.Button(new Rect(90 * i, 0, 90, 30), showBodyTexture[i].name)) {
@@ -468,7 +470,9 @@ public class GEAvatar : GEBase {
 							bodyPart = 7;
 							attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 						}
-						ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+
+                        TAvatarLoader.Load(modelId, attr, ref Selection.gameObjects[0], null, loadParameter);
+						//ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 					}
 				}
 			}	
@@ -530,7 +534,7 @@ public class GEAvatar : GEBase {
 				attrString = name[3];
 			attr.Body = int.Parse(bodyPartTemp + attrString);
 			bodyPart = Array.IndexOf(strPart, name[1]);
-			ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+            //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 		}
 
 		//C
@@ -555,7 +559,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.Cloth = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -581,7 +585,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.Hair = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -608,7 +612,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -635,7 +639,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.Pants = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -662,7 +666,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.Shoes = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -689,7 +693,7 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -716,10 +720,11 @@ public class GEAvatar : GEBase {
 						attrString = name[3];
 					attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+                    //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
+        TAvatarLoader.Load(modelId, attr, ref Selection.gameObjects[0], null, loadParameter);
 	}
 
 	void chooseBodyPart(string showBodyName, bool isNone = false){
@@ -773,7 +778,9 @@ public class GEAvatar : GEBase {
 		if(showBodyTexture.Count > 0)
 			bodyTextureText = showBodyTexture[0].name;
 
-		ModelManager.Get.SetAvatar(ref selectGameObject, attr, modelId, EAnimatorType.AvatarControl, false);
+        TAvatarLoader.Load(modelId, attr, ref selectGameObject, null, loadParameter);
+
+		//ModelManager.Get.SetAvatar(ref selectGameObject, attr, modelId, EAnimatorType.AvatarControl, false);
 	}
 
 	void judgeBodyName(string body){

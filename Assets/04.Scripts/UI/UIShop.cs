@@ -286,8 +286,7 @@ public class UIShop : UIBase {
 
         if (isShow) {
             equipAvatar = GameData.Team.Player.Avatar;
-            UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIShop, ref GameData.Team);
-            UIPlayerMgr.Get.ChangeAvatar(equipAvatar);
+            UIPlayerAvatar.Get.ShowUIPlayer(EUIPlayerMode.UIShop, GameData.Team.Player.BodyType, equipAvatar);
             if (GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
                 refreshShop(0);
 
@@ -302,7 +301,7 @@ public class UIShop : UIBase {
 
     public void OnClose() {
         Visible = false;
-        UIPlayerMgr.Visible = false;
+        UIPlayerAvatar.Visible = false;
         UIMainLobby.Get.Show();
     }
 
@@ -339,7 +338,7 @@ public class UIShop : UIBase {
                     UISkillFormation.UIShow(true);
                     UISkillFormation.Get.OpenSuitCard(GameData.DItemData[id].SuitCard);
                     Visible = false;
-                    UIPlayerMgr.Visible = false;
+                    UIPlayerAvatar.Visible = false;
                 } else
                 if (GameData.DItemData[id].Kind <= 7)
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
@@ -401,7 +400,7 @@ public class UIShop : UIBase {
                         }  
                     }
 
-                    UIPlayerMgr.Get.ChangeAvatar(equipAvatar);
+                    UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, equipAvatar);
                 } else {
                     UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
                     UIHint.Get.ShowHint(TextConst.S(4514), Color.white);
