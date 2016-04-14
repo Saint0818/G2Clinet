@@ -196,6 +196,68 @@
         "actionl": 6
     },
     {
+        "id": 2,
+        "line": 11,
+        "kind": 4,
+        "value": 2,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 6,
+        "texttw": "現在我們繼續挑戰下一組對手吧！！",
+        "texten": "Let's go to the next match."
+    },
+    {
+        "id": 2,
+        "line": 12,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "id": 2,
+        "line": 13,
+        "kind": 4,
+        "value": 2
+    },
+    {
+        "id": 2,
+        "line": 14,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+    },
+    {
+        "id": 2,
+        "line": 15,
+        "kind": 4,
+        "value": 2
+    },
+    {
+        "id": 2,
+        "line": 16,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement102"
+    },
+    {
+        "id": 2,
+        "line": 17
+    },
+    {
+        "id": 2,
+        "line": 18,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
+    },
+    {
+        "id": 2,
+        "line": 19
+    },
+    {
+        "id": 2,
+        "line": 20,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
         "id": 3,
         "line": 1,
         "title": "商店",
@@ -680,18 +742,25 @@
     {
         "id": 8,
         "line": 13,
-        "kind": 4,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 6,
-        "texttw": "這邊會顯示您這場競賽的對手，如果沒有問題就可以直接開始了！！",
-        "texten": "Here you'll see your opponents, you can challenge them!"
+        "kind": 4
     },
     {
         "id": 8,
         "line": 14,
         "kind": 4,
-        "uipath": "UI2D/UIPVP/Center/Window/Pages/0/EnterView/StartBtn"
+        "uipath": "UI2D/UIMessage/Window/CheckBtn"
+    },
+    {
+        "id": 8,
+        "line": 15,
+        "kind": 4,
+        "wait": 3
+    },
+    {
+        "id": 8,
+        "line": 16,
+        "kind": 4,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
         "id": 9,
@@ -1484,8 +1553,8 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 3,
-        "texttw": "這場競賽我們必須要達成限定的[fff400]灌籃次數[-]，才可以取得這個關卡的勝利。",
-        "texten": "Now show me you can dunk [fff400] to [-] beat this level"
+        "texttw": "這場競賽我們必須要達成限定的[fff400]2分球次數[-]，才可以取得這個關卡的勝利。",
+        "texten": "Now show me you can  [fff400]2-point [-] to beat this level"
     },
     {
         "id": 1021,
@@ -1652,8 +1721,8 @@
         "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 5,
-        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]灌籃[-]！！",
-        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] Dunk[-]  if you wanna move on."
+        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]2分球[-]！！",
+        "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] 2-pointer[-]  if you wanna move on."
     },
     {
         "id": 1041,
@@ -1671,8 +1740,8 @@
         "title": "踏上意外旅程-4",
         "talkl": 10,
         "actionl": 1,
-        "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手。",
-        "texten": "Don't worry, this time your teammates will all  be skilled 3 Point shooters."
+        "texttw": "別擔心，這次我們的另一個夥伴是個神射手。",
+        "texten": "Don't worry, this time your teammates will all  be skilled shooters."
     },
     {
         "id": 1041,
