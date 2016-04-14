@@ -5114,6 +5114,46 @@
         "en": "FOCUSES THE ATTACK OUTSIDE OF THE 3-POINT LINE FOR A HIGHER NUMBER [33FFDD] OF 3-POINT SHOTS [-] AND, [33FFDD] A HIGHER TURNOVER PERCENTAGE [-] FOR OTHER CONDITIONS NEEDS TO CHOOSE THE LEVEL"
     },
     {
+        "id": 90000,
+        "explain": "物品用字串"
+    },
+    {
+        "id": 90001,
+        "explain": "物品",
+        "tw": " {0}金幣",
+        "en": " {0} Golds"
+    },
+    {
+        "id": 90002,
+        "explain": "物品",
+        "tw": " {0}寶石",
+        "en": " {0} Gems"
+    },
+    {
+        "id": 90003,
+        "explain": "物品",
+        "tw": " {0} EXP",
+        "en": " {0} EXP "
+    },
+    {
+        "id": 90004,
+        "explain": "物品",
+        "tw": "獲得{0}金幣",
+        "en": "Get {0} Coins"
+    },
+    {
+        "id": 90005,
+        "explain": "物品",
+        "tw": "獲得{0}寶石",
+        "en": "Get {0} Gems"
+    },
+    {
+        "id": 90006,
+        "explain": "物品",
+        "tw": "獲得{0}經驗值",
+        "en": "Get {0} EXP"
+    },
+    {
         "id": 100000,
         "explain": "物品來源出處介面"
     },
