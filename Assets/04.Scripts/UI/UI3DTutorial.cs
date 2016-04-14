@@ -89,7 +89,8 @@ public class UI3DTutorial : UIBase {
 					manBodyType[i] = GameData.DPlayers[manID[i]].BodyType;
 				} else 
 				if (manID[i] == -1) {
-					GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
+					//GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
+                    GameData.Team.PlayerInit();
 					manData[i] = GameData.Team.Player.Avatar;
 					manBodyType[i] = GameData.Team.Player.BodyType;
 				}
@@ -105,8 +106,6 @@ public class UI3DTutorial : UIBase {
 			InitTalkMan(talkL, talkR);
 		}
 
-		manID[0] = tu.TalkL;
-		manID[1] = tu.TalkR;
 		actionNo[0] = tu.ActionL;
 		actionNo[1] = tu.ActionR;
 		for (int i = 0; i < manNum; i++) {

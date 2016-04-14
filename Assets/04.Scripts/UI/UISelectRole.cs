@@ -631,7 +631,7 @@ public class UISelectRole : UIBase {
 	private void sendRefreshOpponent() {
 		WWWForm form = new WWWForm ();
 		form.AddField ("Identifier", GameData.Team.Identifier);	
-		form.AddField ("Kind", 0);
+		form.AddField ("Kind", 1);
 		SendHttp.Get.Command (URLConst.PVPGetEnemy, waitPVPGetEnemy, form, true);
 	}
 

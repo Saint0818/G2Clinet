@@ -390,6 +390,7 @@ public class UIPVP : UIBase
 		form.AddField ("Identifier", GameData.Team.Identifier);	
 		form.AddField ("Kind", 1);
 		SendHttp.Get.Command (URLConst.PVPGetEnemy, waitPVPGetEnemy, form, true);
+        UIMessage.UIShow(false);
 	}
 
 	private void askBuyPVP(int kind) {
