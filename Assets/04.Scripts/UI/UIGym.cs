@@ -47,6 +47,7 @@ public class UIGym : UIBase {
 	private List<int> tempSendIndex = new List<int> ();
 	private List<int> tempSendBuild = new List<int> ();
 
+	private GameObject goGymQueue;
 	private TGymQueue[] tempGymQueue = new TGymQueue[3];
 
 	private GameObject gymCenter;
@@ -121,6 +122,8 @@ public class UIGym : UIBase {
 			gymQueueObj [i].CDBar = GameObject.Find (UIName + "/Window/Left/QueueGroup/" + i.ToString () + "/CDBar").GetComponent<UISlider> ();
 			gymQueueObj[i].TimeLabel = GameObject.Find (UIName + "/Window/Left/QueueGroup/" + i.ToString () + "/CDBar/TimeLabel").GetComponent<UILabel> ();
 		}
+
+		goGymQueue = GameObject.Find (UIName + "/Window/Left/GymQueue");
 		SetBtnFun (UIName + "/Window/Left/GymQueue", OnClickQueue);
 
 		goRedPoint = GameObject.Find (UIName + "/Window/Left/GymQueue/AvailableIcon");
@@ -143,18 +146,15 @@ public class UIGym : UIBase {
 	public void OnClickBuild () {
 		int result = 0;
 		if (int.TryParse (UIButton.current.name, out result)) {
-			if (LimitTable.Ins.HasByOpenID ((EOpenID)(result + 1 + 50))) {
-				if (GameData.Team.HighestLv >= LimitTable.Ins.GetLv ((EOpenID)(result + 1 + 50))) {
-					if(UI3DMainLobby.Visible)
-						UI3DMainLobby.Get.Impl.OnSelect(result);
+			if (isCanUse(result + 1)) {
+				if(UI3DMainLobby.Visible)
+					UI3DMainLobby.Get.Impl.OnSelect(result);
 
-					if(goQueueGroup.activeSelf)
-						goQueueGroup.SetActive(false);
+				if(goQueueGroup.activeSelf)
+					goQueueGroup.SetActive(false);
 
-					CenterVisible = false;
-					StartCoroutine(ShowEngage(result));
-				} else
-					UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
+				CenterVisible = false;
+				StartCoroutine(ShowEngage(result));
 			} else
 				UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
 
@@ -185,12 +185,13 @@ public class UIGym : UIBase {
 	public void ShowView() {
 		Visible = true;
 		goQueueGroup.SetActive(false);
-		refreshBuild ();
+//		refreshBuild ();
 		for (int i=0; i<gymObj.Length; i++) {
-			gymObj[i].Obj.SetActive(isCanShow(i));
+			gymObj[i].Obj.SetActive(isCanShow(i + 1));
 		}
 		initQueue ();
 		checkUpdate ();
+		goGymQueue.SetActive(GameData.IsOpenUIEnable(EOpenID.OperateGym));
 	}
 
 	private void checkUpdate () {
@@ -329,9 +330,18 @@ public class UIGym : UIBase {
 
 	//目前要展示的功能
 	private bool isCanShow (int index) {
-		if(LimitTable.Ins.HasByOpenID((EOpenID)(index + 50)) && GameData.Team.HighestLv >= LimitTable.Ins.GetLv((EOpenID)(index + 50)))
+//		if(LimitTable.Ins.HasByOpenID((EOpenID)(index + 50)) && GameData.Team.HighestLv >= LimitTable.Ins.GetVisibleLv((EOpenID)(index + 50)))
+		if(GameData.IsOpenUIVisible((EOpenID)(index + 50)))
 			return true;
 		
+		return false;
+	}
+
+	private bool isCanUse (int index) {
+//		if(LimitTable.Ins.HasByOpenID((EOpenID)(index + 50)) && GameData.Team.HighestLv >= LimitTable.Ins.GetLv((EOpenID)(index + 50)))
+		if(GameData.IsOpenUIEnable((EOpenID)(index + 50)))
+			return true;
+
 		return false;
 	}
 
