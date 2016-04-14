@@ -627,6 +627,7 @@
         "hint": "3202",
         "courtno": 99,
         "bit3num": 2,
+		"bit2num": 2,
         "bit0num": 240,
         "courtmode": 0,
         "costkind": 0,
