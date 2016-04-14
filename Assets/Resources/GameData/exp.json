@@ -28,14 +28,14 @@
     },
     {
         "lv": 5,
-        "lvupexp": 15,
+        "lvupexp": 16,
         "ui": 1,
         "unlockname": 454,
         "tutorialid": 34
     },
     {
         "lv": 6,
-        "lvupexp": 17,
+        "lvupexp": 20,
         "ui": 1,
         "unlockname": 457,
         "tutorialid": 7,
@@ -43,21 +43,21 @@
     },
     {
         "lv": 7,
-        "lvupexp": 22,
+        "lvupexp": 20,
         "ui": 2,
         "unlockname": 459,
         "tutorialid": 9
     },
     {
         "lv": 8,
-        "lvupexp": 30,
+        "lvupexp": 25,
         "ui": 1,
         "unlockname": 462,
         "tutorialid": 22
     },
     {
         "lv": 9,
-        "lvupexp": 35,
+        "lvupexp": 30,
         "ui": 1,
         "unlockname": 451,
         "tutorialid": 1,
@@ -65,7 +65,7 @@
     },
     {
         "lv": 10,
-        "lvupexp": 40,
+        "lvupexp": 35,
         "ui": 1,
         "unlockname": 480
     },
@@ -308,5 +308,11 @@
     {
         "lv": 69,
         "lvupexp": 620
+    },
+    {
+        "lvupexp": 630
+    },
+    {
+        "lvupexp": 650
     }
 ]

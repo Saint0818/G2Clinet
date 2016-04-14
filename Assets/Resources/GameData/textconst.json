@@ -1202,8 +1202,8 @@
         "id": 3323,
         "explain": "外線",
         "uipath": "AttrKind1/ExplainLabel",
-        "tw": "降低遠離籃筐時的衰減值",
-        "en": "3 Points Field Goal Percentage"
+        "tw": "降低遠離籃筐時的命中率衰減",
+        "en": "Increase 3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
