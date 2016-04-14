@@ -377,7 +377,9 @@ public class UISkillReinforce : UIBase {
 		passiveSkillCard.InitReinforce(obj, skillCardIndex);
 		passiveSkillCard.UpdateViewReinforce(skill);
 
-		UIEventListener.Get(obj).onClick = ChooseItem;
+//		UIEventListener.Get(obj).onClick = ChooseItem;
+		UIButton btn = obj.GetComponent<UIButton>();
+		SetBtnFun(ref btn, ChooseItem);
 
 		return passiveSkillCard;
 	}
@@ -536,38 +538,41 @@ public class UISkillReinforce : UIBase {
 	public void RemoveChooseItem () {
 		int index = -1;
 		if(int.TryParse(UIButton.current.name, out index)) {
-			ChooseItem(reinforceCards[index].item);
+//			ChooseItem(reinforceCards[index].item);
+			ChooseItem();
 		}
 	}
 
-	public void ChooseItem (GameObject go) {
+	public void ChooseItem () {
+//		string name = go.name;
+		string name = UIButton.current.name;
 		if(!isRunExp && IsCanClick) {
-			if(passiveSkillCards.ContainsKey(go.name)) {
+			if(passiveSkillCards.ContainsKey(name)) {
 				if(reinforceCards.Count < 6) {
-					if(reinforceItems.ContainsKey(go.name)) {
-						Destroy(reinforceItems[go.name]);
-						passiveSkillCards[go.name].ChooseReinforce(false);
-						reinforceItems.Remove(go.name);
-						reinforceCards.Remove(passiveSkillCards[go.name]);
+					if(reinforceItems.ContainsKey(name)) {
+						Destroy(reinforceItems[name]);
+						passiveSkillCards[name].ChooseReinforce(false);
+						reinforceItems.Remove(name);
+						reinforceCards.Remove(passiveSkillCards[name]);
 						minusUpgradeMoney();
-						minusUpgradeView(passiveSkillCards[go.name].Skill);
+						minusUpgradeView(passiveSkillCards[name].Skill);
 					} else {
 						materialSlots[reinforceItems.Count].ShowInput();
-						reinforceItems.Add(go.name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[go.name].Skill));
-						reinforceCards.Add(passiveSkillCards[go.name]);
-						passiveSkillCards[go.name].ChooseReinforce(true, reinforceCards.Count);
+						reinforceItems.Add(name, addReinforceCard(materialSlots[reinforceItems.Count].View, passiveSkillCards[name].Skill));
+						reinforceCards.Add(passiveSkillCards[name]);
+						passiveSkillCards[name].ChooseReinforce(true, reinforceCards.Count);
 						addUpgradeMoney();
-						addUpgradeView(passiveSkillCards[go.name].Skill);
+						addUpgradeView(passiveSkillCards[name].Skill);
 						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
 					}
 				} else {
-					if(reinforceItems.ContainsKey(go.name)) {
-						Destroy(reinforceItems[go.name]);
-						passiveSkillCards[go.name].ChooseReinforce(false);
-						reinforceItems.Remove(go.name);
-						reinforceCards.Remove(passiveSkillCards[go.name]);
+					if(reinforceItems.ContainsKey(name)) {
+						Destroy(reinforceItems[name]);
+						passiveSkillCards[name].ChooseReinforce(false);
+						reinforceItems.Remove(name);
+						reinforceCards.Remove(passiveSkillCards[name]);
 						minusUpgradeMoney();
-						minusUpgradeView(passiveSkillCards[go.name].Skill);
+						minusUpgradeView(passiveSkillCards[name].Skill);
 					} 
 				}
 				RefreshSlot ();

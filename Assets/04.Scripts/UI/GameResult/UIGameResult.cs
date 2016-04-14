@@ -686,7 +686,7 @@ public class UIGameResult : UIBase {
 	private void show3DBasket () {
 		hideThree ();
 		UI3DGameResult.UIShow(true);
-		Invoke("canChooseLucky",4);
+		Invoke("canChooseLucky",3);
 
 	}
 
