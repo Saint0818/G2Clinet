@@ -149,8 +149,11 @@ public class UIInGameMission : UIBase {
 			
 			if(isFin)
 				missionDic[1].UpdateFin();
-		}
-		hintIndex ++;
+			
+			hintIndex ++;
+		} else
+		if(missionDic[1].IsFinish)
+			hintIndex ++;
 
 		if(isFin) {
 			Invoke("refresh", 1);
@@ -164,8 +167,10 @@ public class UIInGameMission : UIBase {
 			missionViews[hintIndex].UpdateUI(describe);
 			if(isFin)
 				missionDic[2].UpdateFin();
-		}
-		hintIndex ++;
+			hintIndex ++;
+		} else
+			if(missionDic[2].IsFinish)
+				hintIndex ++;
 
 		if(isFin){
 			Invoke("refresh", 1);
