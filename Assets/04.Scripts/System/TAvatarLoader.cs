@@ -180,7 +180,7 @@ public class TAvatarLoader : MonoBehaviour {
                 } else
                 if (i < 6) { //part of avatar
                     path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPartStr[i], avatarBody);
-                        texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPartStr[i], avatarBody, avatarBodyTexture);
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPartStr[i], avatarBody, avatarBodyTexture);
                 } else { //glasses or hat
                     path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPartStr[i], avatarBody);
                     texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPartStr[i], avatarBody, avatarBodyTexture);
@@ -366,16 +366,18 @@ public class TAvatarLoader : MonoBehaviour {
             if (avatarIndex[i] > 0) {
                 int avatarBody = avatarIndex[i] / 1000;
                 int avatarBodyTexture = avatarIndex[i] % 1000;
-                string texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPartStr[i], avatarBody, avatarBodyTexture);
-                if (i == 0) //body
+                string texturePath = "";
+                if (i == 0) { //body
                     path = string.Format("Character/PlayerModel_{0}/Model/PlayerModel_{1}", bodyType, bodyType);
-                else
-                    if (i < 6) //part of avatar
-                        path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPartStr[i], avatarBody);
-                    else { //glasses or hat
-                        path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPartStr[i], avatarBody);
-                        texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPartStr[i], avatarBody, avatarBodyTexture);
-                    }
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, "B", "0", avatarBodyTexture);
+                } else
+                if (i < 6) { //part of avatar
+                    path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPartStr[i], avatarBody);
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPartStr[i], avatarBody, avatarBodyTexture);
+                } else { //glasses or hat
+                    path = string.Format("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPartStr[i], avatarBody);
+                    texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPartStr[i], avatarBody, avatarBodyTexture);
+                }
 
                 if (modelCache.ContainsKey(path))
                     avatarModel = modelCache[path];
