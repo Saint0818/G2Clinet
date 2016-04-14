@@ -761,6 +761,7 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 
         Joysticker = PlayerList[0];
+		Joysticker.NameColor = Color.red;
         UIGame.Get.SetJoystick(Joysticker);
         AddValueItemAttributes();
 

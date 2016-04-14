@@ -130,7 +130,7 @@ public struct TItemSuitCardGroup {
 				} 
 				else {
 					isGet = false;
-					Debug.LogError("no ID:" + GameData.DSuitCard[suitID].Items[i]);
+					Debug.LogError("SuitCard no ID:" + GameData.DSuitCard[suitID].Items[i]);
 				}
 			}
 			return isGet;

@@ -137,6 +137,12 @@ public class SkillController : MonoBehaviour {
 	}
 
 	//SkillBuff======================================================================================
+	public Color NameColor {
+		set {
+			skillBuff.NameColor = value;
+		}
+	}
+
 	public void HidePlayerName (){
 		skillBuff.HideName();
 	}

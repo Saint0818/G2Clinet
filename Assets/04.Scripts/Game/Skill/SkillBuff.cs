@@ -75,6 +75,12 @@ namespace  SkillBuffSpace {
 			initValue ();
 		}
 
+		public Color NameColor {
+			set {
+				labelPlayerName.color = value;
+			}
+		}
+
 		public void HideName (){
 			labelPlayerName.gameObject.SetActive(false);
 		}

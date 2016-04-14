@@ -84,8 +84,8 @@ public class PlayerBehaviour : MonoBehaviour
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
     public Material BodyMaterial;
-    [HideInInspector]
     public GameObject BodyHeight;
+	[HideInInspector]public Transform Pelvis;
     public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
     public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
     [HideInInspector]
@@ -348,10 +348,10 @@ public class PlayerBehaviour : MonoBehaviour
         GameRecord.ID = Attribute.ID;
 
         initSkill();
-        if (Attr.StaminaValue > 0)
-            setMovePower(Attr.StaminaValue);
+		initAttr();
+		if (Attr.StaminaValue > 0)
+			setMovePower(Attr.StaminaValue);
 
-        initAttr();
     }
 
     private void initAttr()
@@ -448,6 +448,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (Team == ETeamKind.Npc)
             PlayerSkillController.HidePlayerName();
     }
+		
+	public Color NameColor {
+		set {
+			PlayerSkillController.NameColor = value;
+		}
+	}
 
     public void InitDoubleClick()
     {
@@ -503,6 +509,9 @@ public class PlayerBehaviour : MonoBehaviour
         BodyHeight.name = "BodyHeight";
         BodyHeight.transform.parent = transform;
         BodyHeight.transform.localPosition = new Vector3(0, PlayerRefGameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f, 0);
+
+		if(Pelvis == null)
+			Pelvis = transform.Find("Bip01");
 
         if (obj)
         {
@@ -2710,101 +2719,99 @@ public class PlayerBehaviour : MonoBehaviour
     //All Skill Event From this Function
     public void SkillEventCallBack(AnimationEvent aniEvent)
     {
-		if(PlayerSkillController.IsActiveUse) {
-			string skillString = aniEvent.stringParameter;
-			int skillInt = aniEvent.intParameter;
+		string skillString = aniEvent.stringParameter;
+		int skillInt = aniEvent.intParameter;
+		
+		switch (skillString)
+		{
+		case "CameraAction": 
+			CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
+			break;
+		case "Shooting":
+			CourtMgr.Get.IsRealBallActive = true;
+			//主動技也可以被蓋 (20160323)
+			//                GameController.Get.BallState = EBallState.None;//主動技要可以被蓋所以註解
+			GameController.Get.BallState = EBallState.CanBlock;
+			if (GameController.Get.ShootDistance >= GameConst.Point3Distance)
+				GameRecord.FG3++;
+			else
+				GameRecord.FG++;
 			
-			switch (skillString)
+			if (OnShooting != null)
+				OnShooting(this, true);
+			break;
+		case "PushDistancePlayer":
+			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
+				GameController.Get.Situation == EGameSituation.NPCAttack))
 			{
-			case "CameraAction": 
-				CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
-				break;
-			case "Shooting":
-				CourtMgr.Get.IsRealBallActive = true;
-				//主動技也可以被蓋 (20160323)
-				//                GameController.Get.BallState = EBallState.None;//主動技要可以被蓋所以註解
-				GameController.Get.BallState = EBallState.CanBlock;
-				if (GameController.Get.ShootDistance >= GameConst.Point3Distance)
-					GameRecord.FG3++;
-				else
-					GameRecord.FG++;
-				
-				if (OnShooting != null)
-					OnShooting(this, true);
-				break;
-			case "PushDistancePlayer":
-				if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
-					GameController.Get.Situation == EGameSituation.NPCAttack))
+				GameRecord.PushLaunch++;
+				for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
 				{
-					GameRecord.PushLaunch++;
-					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+					if (GameController.Get.GamePlayers[i].Team != Team)
 					{
-						if (GameController.Get.GamePlayers[i].Team != Team)
-						{
-							if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
-								//直線碰撞
-								pushThroughTigger.SetActive(true);
-								transform.DOMove(CourtMgr.Get.GetArrowPosition(GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
-							} else {
-								//圓形碰撞
-								if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
-									new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
-								{
-									if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk){ 
-										GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
-									} else {
-										GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
-									}
-									GameRecord.Push++;
+						if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
+							//直線碰撞
+							pushThroughTigger.SetActive(true);
+							transform.DOMove(CourtMgr.Get.GetArrowPosition(GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
+						} else {
+							//圓形碰撞
+							if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
+								new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
+							{
+								if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk){ 
+									GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
+								} else {
+									GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
 								}
+								GameRecord.Push++;
 							}
-						} 
-					}
-					GameController.Get.IsGameFinish();
+						}
+					} 
 				}
-				break;
-			case "SetBallEvent":
+				GameController.Get.IsGameFinish();
+			}
+			break;
+		case "SetBallEvent":
+			GameController.Get.SetBall(this);
+			GameController.Get.IsGameFinish();
+			
+			if (GameController.Get.Catcher != null)
+				GameController.Get.Catcher = null;
+			if (GameController.Get.Passer != null)
+				GameController.Get.Passer = null;
+			if (GameController.Get.Shooter != null)
+				GameController.Get.Shooter = null;
+			break;
+		case "ReboundSetBall":
+			if(GameController.Get.BallOwner == null && PlayerSkillController.IsActiveUse) {
 				GameController.Get.SetBall(this);
 				GameController.Get.IsGameFinish();
-				
-				if (GameController.Get.Catcher != null)
-					GameController.Get.Catcher = null;
-				if (GameController.Get.Passer != null)
-					GameController.Get.Passer = null;
-				if (GameController.Get.Shooter != null)
-					GameController.Get.Shooter = null;
-				break;
-			case "ReboundSetBall":
-				if(GameController.Get.BallOwner == null) {
-					GameController.Get.SetBall(this);
-					GameController.Get.IsGameFinish();
-				}
-				break;
-			case "ActiveSkillEnd":
-				if (OnUIJoystick != null)
-					OnUIJoystick(this, true);
-				
-				UISkillEffect.UIShow(false);
-				
-				if (isBlock)
-				{
-					if (GameController.Get.BallState == EBallState.CanBlock)
-					{
-						TimerMgr.Get.PauseBall(false);
-						skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
-						Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
-						CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
-					}
-					else if (GameController.Get.BallState == EBallState.CanDunkBlock)
-					{
-						if (GameController.Get.BallOwner != null)
-							GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
-					}
-					GameController.Get.BallState = EBallState.None;
-					GameController.Get.IsGameFinish();
-				}
-				break;
 			}
+			break;
+		case "ActiveSkillEnd":
+			if (OnUIJoystick != null)
+				OnUIJoystick(this, true);
+			
+			UISkillEffect.UIShow(false);
+			
+			if (isBlock)
+			{
+				if (GameController.Get.BallState == EBallState.CanBlock)
+				{
+					TimerMgr.Get.PauseBall(false);
+					skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
+					Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
+					CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
+				}
+				else if (GameController.Get.BallState == EBallState.CanDunkBlock)
+				{
+					if (GameController.Get.BallOwner != null)
+						GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
+				}
+				GameController.Get.BallState = EBallState.None;
+				GameController.Get.IsGameFinish();
+			}
+			break;
 		}
     }
 
