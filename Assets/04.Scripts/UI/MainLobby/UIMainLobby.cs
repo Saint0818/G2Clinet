@@ -131,7 +131,7 @@ public class UIMainLobby : UIBase
     private void updateSkillButton()
     {
 		//合成不須判斷紅點(20160324 GameData.Team.IsExtraCard)
-		Main.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo) && (LimitTable.Ins.HasByOpenID(EOpenID.Ability) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Ability))) ;
+		Main.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo);
         Main.SkillButton.CheckEnable();
     }
 

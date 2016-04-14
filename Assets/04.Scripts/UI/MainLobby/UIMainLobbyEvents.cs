@@ -27,13 +27,8 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowSkillFormation()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Ability))
-        {
-			UISkillFormation.Get.ShowView();
-            UIMainLobby.Get.Hide();
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Ability)), Color.white);
+		UISkillFormation.Get.ShowView();
+        UIMainLobby.Get.Hide();
     }
 
     public void ShowEquipment()
