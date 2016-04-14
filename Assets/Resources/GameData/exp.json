@@ -1,17 +1,10 @@
 [
     {
         "lv": 1,
-        "lvupexp": 4
+        "lvupexp": 8
     },
     {
         "lv": 2,
-        "lvupexp": 8,
-        "unlockname": 455,
-        "tutorialid": 5,
-        "unlockhint": 404
-    },
-    {
-        "lv": 3,
         "lvupexp": 8,
         "ui": 1,
         "unlockname": 452,
@@ -19,56 +12,62 @@
         "unlockhint": 402
     },
     {
-        "lv": 4,
+        "lv": 3,
         "lvupexp": 8,
-        "ui": 1,
-        "unlockname": 451,
-        "tutorialid": 1,
-        "unlockhint": 401
+        "ui": 4,
+        "unlockname": 458,
+        "tutorialid": 8
     },
     {
-        "lv": 5,
-        "lvupexp": 10,
+        "lv": 4,
+        "lvupexp": 12,
         "ui": 1,
         "unlockname": 456,
         "tutorialid": 6,
         "unlockhint": 406
     },
     {
-        "lv": 6,
-        "lvupexp": 17,
+        "lv": 5,
+        "lvupexp": 15,
         "ui": 1,
         "unlockname": 454,
         "tutorialid": 34
     },
     {
-        "lv": 7,
-        "lvupexp": 22,
+        "lv": 6,
+        "lvupexp": 17,
         "ui": 1,
         "unlockname": 457,
         "tutorialid": 7,
         "unlockhint": 407
     },
     {
-        "lv": 8,
-        "lvupexp": 30,
+        "lv": 7,
+        "lvupexp": 22,
         "ui": 2,
         "unlockname": 459,
         "tutorialid": 9
     },
     {
-        "lv": 9,
-        "lvupexp": 35,
+        "lv": 8,
+        "lvupexp": 30,
         "ui": 1,
         "unlockname": 462,
         "tutorialid": 22
     },
     {
+        "lv": 9,
+        "lvupexp": 35,
+        "ui": 1,
+        "unlockname": 451,
+        "tutorialid": 1,
+        "unlockhint": 401
+    },
+    {
         "lv": 10,
         "lvupexp": 40,
-        "ui": 4,
-        "unlockname": 458,
-        "tutorialid": 8
+        "ui": 1,
+        "unlockname": 480
     },
     {
         "lv": 11,
@@ -78,29 +77,25 @@
     {
         "lv": 12,
         "lvupexp": 60,
-        "ui": 1,
-        "unlockname": 453,
-        "tutorialid": 3,
-        "unlockhint": 403
+        "unlockname": 465
     },
     {
         "lv": 13,
         "lvupexp": 65,
-        "unlockname": 465
-    },
-    {
-        "lv": 14,
-        "lvupexp": 70,
         "unlockname": 464
     },
     {
+        "lv": 14,
+        "lvupexp": 70
+    },
+    {
         "lv": 15,
-        "lvupexp": 80,
-        "unlockname": 466
+        "lvupexp": 80
     },
     {
         "lv": 16,
-        "lvupexp": 90
+        "lvupexp": 90,
+        "unlockname": 466
     },
     {
         "lv": 17,

@@ -2,7 +2,7 @@
     {
         "id": 10,
         "kind": 1,
-        "lv": 5,
+        "lv": 6,
         "color": 1,
         "score": 1,
         "nametw": "街頭菜鳥",
@@ -18,7 +18,7 @@
     {
         "id": 11,
         "kind": 1,
-        "lv": 5,
+        "lv": 6,
         "color": 2,
         "privousid": 10,
         "score": 2,
@@ -35,7 +35,7 @@
     {
         "id": 12,
         "kind": 1,
-        "lv": 5,
+        "lv": 6,
         "color": 3,
         "privousid": 11,
         "score": 3,
@@ -52,7 +52,7 @@
     {
         "id": 13,
         "kind": 1,
-        "lv": 5,
+        "lv": 6,
         "color": 4,
         "privousid": 12,
         "score": 4,
@@ -69,7 +69,7 @@
     {
         "id": 14,
         "kind": 1,
-        "lv": 5,
+        "lv": 6,
         "color": 5,
         "privousid": 13,
         "final": 1,
@@ -224,7 +224,7 @@
     {
         "id": 50,
         "kind": 5,
-        "lv": 10,
+        "lv": 9,
         "color": 1,
         "score": 1,
         "nametw": "街頭型人",
@@ -240,7 +240,7 @@
     {
         "id": 51,
         "kind": 5,
-        "lv": 10,
+        "lv": 9,
         "color": 2,
         "privousid": 50,
         "score": 2,
@@ -257,7 +257,7 @@
     {
         "id": 52,
         "kind": 5,
-        "lv": 10,
+        "lv": 9,
         "color": 3,
         "privousid": 51,
         "score": 3,
@@ -274,7 +274,7 @@
     {
         "id": 53,
         "kind": 5,
-        "lv": 10,
+        "lv": 9,
         "color": 4,
         "privousid": 52,
         "score": 4,
@@ -291,7 +291,7 @@
     {
         "id": 54,
         "kind": 5,
-        "lv": 10,
+        "lv": 9,
         "color": 5,
         "privousid": 53,
         "final": 1,
@@ -309,7 +309,7 @@
     {
         "id": 70,
         "kind": 7,
-        "lv": 7,
+        "lv": 6,
         "color": 1,
         "score": 1,
         "nametw": "籃球初學",
@@ -325,7 +325,7 @@
     {
         "id": 71,
         "kind": 7,
-        "lv": 7,
+        "lv": 6,
         "color": 2,
         "privousid": 70,
         "score": 2,
@@ -342,7 +342,7 @@
     {
         "id": 72,
         "kind": 7,
-        "lv": 7,
+        "lv": 6,
         "color": 3,
         "privousid": 71,
         "score": 3,
@@ -359,7 +359,7 @@
     {
         "id": 73,
         "kind": 7,
-        "lv": 7,
+        "lv": 6,
         "color": 4,
         "privousid": 72,
         "score": 4,
@@ -376,7 +376,7 @@
     {
         "id": 74,
         "kind": 7,
-        "lv": 7,
+        "lv": 6,
         "color": 5,
         "privousid": 73,
         "final": 1,
@@ -394,7 +394,7 @@
     {
         "id": 90,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 1,
         "score": 1,
         "nametw": "結交球友",
@@ -410,7 +410,7 @@
     {
         "id": 91,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 1,
         "privousid": 90,
         "score": 1,
@@ -428,7 +428,7 @@
     {
         "id": 92,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 2,
         "privousid": 91,
         "score": 2,
@@ -446,7 +446,7 @@
     {
         "id": 93,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 3,
         "privousid": 92,
         "score": 3,
@@ -464,7 +464,7 @@
     {
         "id": 94,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 4,
         "privousid": 93,
         "score": 4,
@@ -482,7 +482,7 @@
     {
         "id": 95,
         "kind": 9,
-        "lv": 6,
+        "lv": 5,
         "color": 5,
         "privousid": 94,
         "final": 1,
@@ -501,14 +501,14 @@
     {
         "id": 100,
         "kind": 10,
-        "lv": 6,
+        "lv": 5,
         "color": 1,
         "score": 1,
         "nametw": "好友按個讚 I",
         "openui": "UISocial",
         "value": [10],
         "money": [1000],
-        "exp": [15],
+        "exp": [10],
         "diamond": [240],
         "spendkind": 3,
         "nameen": "I like ya I",
@@ -518,7 +518,7 @@
     {
         "id": 101,
         "kind": 10,
-        "lv": 6,
+        "lv": 5,
         "color": 2,
         "privousid": 100,
         "score": 2,
@@ -536,7 +536,7 @@
     {
         "id": 102,
         "kind": 10,
-        "lv": 6,
+        "lv": 5,
         "color": 3,
         "privousid": 101,
         "score": 3,
@@ -554,7 +554,7 @@
     {
         "id": 103,
         "kind": 10,
-        "lv": 6,
+        "lv": 5,
         "color": 4,
         "privousid": 102,
         "score": 4,
@@ -572,7 +572,7 @@
     {
         "id": 104,
         "kind": 10,
-        "lv": 6,
+        "lv": 5,
         "color": 5,
         "privousid": 103,
         "final": 1,
@@ -676,12 +676,12 @@
     {
         "id": 120,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 1,
         "score": 1,
         "nametw": "勝利的開始",
         "openui": "UIMainStage",
-        "value": [5],
+        "value": [4],
         "money": [1000],
         "exp": [20],
         "diamond": [100],
@@ -692,7 +692,7 @@
     {
         "id": 121,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 1,
         "privousid": 120,
         "score": 1,
@@ -709,7 +709,7 @@
     {
         "id": 122,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 2,
         "privousid": 121,
         "score": 2,
@@ -726,7 +726,7 @@
     {
         "id": 123,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 3,
         "privousid": 122,
         "score": 3,
@@ -743,7 +743,7 @@
     {
         "id": 124,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 4,
         "privousid": 123,
         "score": 4,
@@ -760,7 +760,7 @@
     {
         "id": 125,
         "kind": 12,
-        "lv": 5,
+        "lv": 4,
         "color": 5,
         "privousid": 124,
         "final": 1,
@@ -778,7 +778,7 @@
     {
         "id": 170,
         "kind": 17,
-        "lv": 10,
+        "lv": 9,
         "color": 1,
         "score": 1,
         "nametw": "聯盟新秀",
@@ -794,7 +794,7 @@
     {
         "id": 171,
         "kind": 17,
-        "lv": 10,
+        "lv": 9,
         "color": 2,
         "privousid": 170,
         "score": 2,
@@ -811,7 +811,7 @@
     {
         "id": 172,
         "kind": 17,
-        "lv": 10,
+        "lv": 9,
         "color": 3,
         "privousid": 171,
         "score": 3,
@@ -828,7 +828,7 @@
     {
         "id": 173,
         "kind": 17,
-        "lv": 10,
+        "lv": 9,
         "color": 4,
         "privousid": 172,
         "score": 4,
@@ -845,7 +845,7 @@
     {
         "id": 174,
         "kind": 17,
-        "lv": 10,
+        "lv": 9,
         "color": 5,
         "privousid": 173,
         "final": 1,
@@ -863,7 +863,7 @@
     {
         "id": 310,
         "kind": 31,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "得分新手",
@@ -879,7 +879,7 @@
     {
         "id": 311,
         "kind": 31,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 310,
         "score": 2,
@@ -896,7 +896,7 @@
     {
         "id": 312,
         "kind": 31,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 311,
         "score": 3,
@@ -913,7 +913,7 @@
     {
         "id": 313,
         "kind": 31,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 312,
         "score": 4,
@@ -930,7 +930,7 @@
     {
         "id": 314,
         "kind": 31,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 313,
         "final": 1,
@@ -948,7 +948,7 @@
     {
         "id": 320,
         "kind": 32,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "兩分球新手",
@@ -964,7 +964,7 @@
     {
         "id": 321,
         "kind": 32,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 320,
         "score": 2,
@@ -981,7 +981,7 @@
     {
         "id": 322,
         "kind": 32,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 321,
         "score": 3,
@@ -998,7 +998,7 @@
     {
         "id": 323,
         "kind": 32,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 322,
         "score": 4,
@@ -1015,7 +1015,7 @@
     {
         "id": 324,
         "kind": 32,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 323,
         "final": 1,
@@ -1033,7 +1033,7 @@
     {
         "id": 330,
         "kind": 33,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "三分球新手",
@@ -1049,7 +1049,7 @@
     {
         "id": 331,
         "kind": 33,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 330,
         "score": 2,
@@ -1066,7 +1066,7 @@
     {
         "id": 332,
         "kind": 33,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 331,
         "score": 3,
@@ -1083,7 +1083,7 @@
     {
         "id": 333,
         "kind": 33,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 332,
         "score": 4,
@@ -1100,7 +1100,7 @@
     {
         "id": 334,
         "kind": 33,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 333,
         "final": 1,
@@ -1118,7 +1118,7 @@
     {
         "id": 340,
         "kind": 34,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "灌籃新手",
@@ -1134,7 +1134,7 @@
     {
         "id": 341,
         "kind": 34,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 340,
         "score": 2,
@@ -1151,7 +1151,7 @@
     {
         "id": 342,
         "kind": 34,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 341,
         "score": 3,
@@ -1168,7 +1168,7 @@
     {
         "id": 343,
         "kind": 34,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 342,
         "score": 4,
@@ -1185,7 +1185,7 @@
     {
         "id": 344,
         "kind": 34,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 343,
         "final": 1,
@@ -1203,7 +1203,7 @@
     {
         "id": 350,
         "kind": 35,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "籃板新手",
@@ -1219,7 +1219,7 @@
     {
         "id": 351,
         "kind": 35,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 350,
         "score": 2,
@@ -1236,7 +1236,7 @@
     {
         "id": 352,
         "kind": 35,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 351,
         "score": 3,
@@ -1253,7 +1253,7 @@
     {
         "id": 353,
         "kind": 35,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 352,
         "score": 4,
@@ -1270,7 +1270,7 @@
     {
         "id": 354,
         "kind": 35,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 353,
         "final": 1,
@@ -1288,7 +1288,7 @@
     {
         "id": 360,
         "kind": 36,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "助攻新手",
@@ -1304,7 +1304,7 @@
     {
         "id": 361,
         "kind": 36,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 360,
         "score": 2,
@@ -1321,7 +1321,7 @@
     {
         "id": 362,
         "kind": 36,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 361,
         "score": 3,
@@ -1338,7 +1338,7 @@
     {
         "id": 363,
         "kind": 36,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 362,
         "score": 4,
@@ -1355,7 +1355,7 @@
     {
         "id": 364,
         "kind": 36,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 363,
         "final": 1,
@@ -1373,7 +1373,7 @@
     {
         "id": 370,
         "kind": 37,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "抄截新手",
@@ -1389,7 +1389,7 @@
     {
         "id": 371,
         "kind": 37,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 370,
         "score": 2,
@@ -1406,7 +1406,7 @@
     {
         "id": 372,
         "kind": 37,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 371,
         "score": 3,
@@ -1423,7 +1423,7 @@
     {
         "id": 373,
         "kind": 37,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 372,
         "score": 4,
@@ -1440,7 +1440,7 @@
     {
         "id": 374,
         "kind": 37,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 373,
         "final": 1,
@@ -1458,7 +1458,7 @@
     {
         "id": 380,
         "kind": 38,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "火鍋新手",
@@ -1474,7 +1474,7 @@
     {
         "id": 381,
         "kind": 38,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 380,
         "score": 2,
@@ -1491,7 +1491,7 @@
     {
         "id": 382,
         "kind": 38,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 381,
         "score": 3,
@@ -1508,7 +1508,7 @@
     {
         "id": 383,
         "kind": 38,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 382,
         "score": 4,
@@ -1525,7 +1525,7 @@
     {
         "id": 384,
         "kind": 38,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 383,
         "final": 1,
@@ -1543,7 +1543,7 @@
     {
         "id": 390,
         "kind": 39,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "推人新手",
@@ -1559,7 +1559,7 @@
     {
         "id": 391,
         "kind": 39,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 390,
         "score": 2,
@@ -1576,7 +1576,7 @@
     {
         "id": 392,
         "kind": 39,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 391,
         "score": 3,
@@ -1593,7 +1593,7 @@
     {
         "id": 393,
         "kind": 39,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 392,
         "score": 4,
@@ -1610,7 +1610,7 @@
     {
         "id": 394,
         "kind": 39,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 393,
         "final": 1,
@@ -1628,7 +1628,7 @@
     {
         "id": 400,
         "kind": 40,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "擊倒新手",
@@ -1644,7 +1644,7 @@
     {
         "id": 401,
         "kind": 40,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 400,
         "score": 2,
@@ -1661,7 +1661,7 @@
     {
         "id": 402,
         "kind": 40,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 401,
         "score": 3,
@@ -1678,7 +1678,7 @@
     {
         "id": 403,
         "kind": 40,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 402,
         "score": 4,
@@ -1695,7 +1695,7 @@
     {
         "id": 404,
         "kind": 40,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 403,
         "final": 1,
@@ -1713,7 +1713,7 @@
     {
         "id": 410,
         "kind": 41,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "Perfect新手",
@@ -1729,7 +1729,7 @@
     {
         "id": 411,
         "kind": 41,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 410,
         "score": 2,
@@ -1746,7 +1746,7 @@
     {
         "id": 412,
         "kind": 41,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 411,
         "score": 3,
@@ -1763,7 +1763,7 @@
     {
         "id": 413,
         "kind": 41,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 412,
         "score": 4,
@@ -1780,7 +1780,7 @@
     {
         "id": 414,
         "kind": 41,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 413,
         "final": 1,
@@ -1798,7 +1798,7 @@
     {
         "id": 420,
         "kind": 42,
-        "lv": 10,
+        "lv": 7,
         "color": 1,
         "score": 1,
         "nametw": "Alley oops新手",
@@ -1814,7 +1814,7 @@
     {
         "id": 421,
         "kind": 42,
-        "lv": 10,
+        "lv": 7,
         "color": 2,
         "privousid": 420,
         "score": 2,
@@ -1831,7 +1831,7 @@
     {
         "id": 422,
         "kind": 42,
-        "lv": 10,
+        "lv": 7,
         "color": 3,
         "privousid": 421,
         "score": 3,
@@ -1848,7 +1848,7 @@
     {
         "id": 423,
         "kind": 42,
-        "lv": 10,
+        "lv": 7,
         "color": 4,
         "privousid": 422,
         "score": 4,
@@ -1865,7 +1865,7 @@
     {
         "id": 424,
         "kind": 42,
-        "lv": 10,
+        "lv": 7,
         "color": 5,
         "privousid": 423,
         "final": 1,
@@ -1883,7 +1883,7 @@
     {
         "id": 810,
         "kind": 81,
-        "lv": 9,
+        "lv": 8,
         "color": 1,
         "score": 1,
         "nametw": "技能晶片升級 I",
@@ -1899,7 +1899,7 @@
     {
         "id": 811,
         "kind": 81,
-        "lv": 9,
+        "lv": 8,
         "color": 2,
         "privousid": 810,
         "score": 2,
@@ -1916,7 +1916,7 @@
     {
         "id": 812,
         "kind": 81,
-        "lv": 9,
+        "lv": 8,
         "color": 3,
         "privousid": 811,
         "score": 3,
@@ -1933,7 +1933,7 @@
     {
         "id": 813,
         "kind": 81,
-        "lv": 9,
+        "lv": 8,
         "color": 4,
         "privousid": 812,
         "score": 4,
@@ -1950,7 +1950,7 @@
     {
         "id": 814,
         "kind": 81,
-        "lv": 9,
+        "lv": 8,
         "color": 5,
         "privousid": 813,
         "final": 1,
@@ -2053,7 +2053,7 @@
     {
         "id": 830,
         "kind": 83,
-        "lv": 5,
+        "lv": 10,
         "color": 1,
         "score": 1,
         "nametw": "突觸鑲嵌 I",
@@ -2069,7 +2069,7 @@
     {
         "id": 831,
         "kind": 83,
-        "lv": 5,
+        "lv": 10,
         "color": 2,
         "privousid": 830,
         "score": 2,
@@ -2086,7 +2086,7 @@
     {
         "id": 832,
         "kind": 83,
-        "lv": 5,
+        "lv": 10,
         "color": 3,
         "privousid": 831,
         "score": 3,
@@ -2103,7 +2103,7 @@
     {
         "id": 833,
         "kind": 83,
-        "lv": 5,
+        "lv": 10,
         "color": 4,
         "privousid": 832,
         "score": 4,
@@ -2120,7 +2120,7 @@
     {
         "id": 834,
         "kind": 83,
-        "lv": 5,
+        "lv": 10,
         "color": 5,
         "privousid": 833,
         "final": 1,
@@ -2138,7 +2138,7 @@
     {
         "id": 840,
         "kind": 84,
-        "lv": 6,
+        "lv": 10,
         "color": 1,
         "score": 1,
         "nametw": "突觸進化 I",
@@ -2154,7 +2154,7 @@
     {
         "id": 841,
         "kind": 84,
-        "lv": 6,
+        "lv": 10,
         "color": 2,
         "privousid": 840,
         "score": 2,
@@ -2171,7 +2171,7 @@
     {
         "id": 842,
         "kind": 84,
-        "lv": 6,
+        "lv": 10,
         "color": 3,
         "privousid": 841,
         "score": 3,
@@ -2188,7 +2188,7 @@
     {
         "id": 843,
         "kind": 84,
-        "lv": 6,
+        "lv": 10,
         "color": 4,
         "privousid": 842,
         "score": 4,
@@ -2205,7 +2205,7 @@
     {
         "id": 844,
         "kind": 84,
-        "lv": 6,
+        "lv": 10,
         "color": 5,
         "privousid": 843,
         "final": 1,

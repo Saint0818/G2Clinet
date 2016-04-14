@@ -1,82 +1,100 @@
 [
     {
+        "lv": 1,
+        "openid": 3,
+        "name": "3.商店按鈕"
+    },
+    {
         "lv": 2,
-        "openid": 5
+        "openid": 2,
+        "name": "2.解鎖Avatar"
     },
     {
         "lv": 3,
-        "openid": 2
+        "openid": 8,
+        "name": "8.PVP功能"
     },
     {
         "lv": 4,
-        "openid": 1
-    },
-    {
-        "lv": 5,
         "openid": 6,
+        "name": "6.任務主按鈕",
         "visiblelv": 3
     },
     {
+        "lv": 5,
+        "openid": 4,
+        "name": "4.社群按鈕"
+    },
+    {
         "lv": 6,
-        "openid": 4
+        "openid": 7,
+        "name": "7.抽卡牌(Mall)"
     },
     {
         "lv": 7,
-        "openid": 7
+        "openid": 9,
+        "name": "9.副本",
+        "visiblelv": 4
     },
     {
         "lv": 8,
-        "openid": 9,
+        "openid": 22,
+        "name": "22.技能升星",
         "visiblelv": 5
     },
     {
         "lv": 9,
-        "openid": 22,
-        "visiblelv": 6
+        "openid": 1,
+        "name": "1.解鎖數值裝"
     },
     {
         "lv": 10,
-        "openid": 8,
-        "visiblelv": 7
+        "openid": 54,
+        "name": "54.Gym = 4,"
     },
     {
         "lv": 11,
         "openid": 21,
-        "visiblelv": 8
+        "name": "21.技能進化",
+        "visiblelv": 6
     },
     {
         "lv": 12,
-        "openid": 3
+        "openid": 27,
+        "name": "27.套裝按鈕",
+        "visiblelv": 6
     },
     {
         "lv": 13,
-        "openid": 27,
-        "visiblelv": 9
+        "openid": 26,
+        "name": "26.套卡按鈕",
+        "visiblelv": 6
     },
     {
-        "lv": 14,
-        "openid": 26,
-        "visiblelv": 10
+        "lv": 14
     },
     {
         "lv": 15,
-        "openid": 11
+        "openid": 11,
+        "name": "11.第三招主動技"
     },
     {
-        "lv": 16,
-        "openid": 54
+        "lv": 16
     },
     {
         "lv": 17,
-        "openid": 51
+        "openid": 51,
+        "name": "51.Basket = 1,"
     },
     {
         "lv": 18,
-        "openid": 52
+        "openid": 52,
+        "name": "52.Advertisement = 2,"
     },
     {
         "lv": 19,
-        "openid": 53
+        "openid": 53,
+        "name": "53.Store = 3,"
     },
     {
         "lv": 20,
@@ -85,26 +103,32 @@
     },
     {
         "lv": 21,
-        "openid": 55
+        "openid": 55,
+        "name": "55.Door = 5,"
     },
     {
         "lv": 22,
-        "openid": 56
+        "openid": 56,
+        "name": "56.Logo = 6,"
     },
     {
         "lv": 23,
-        "openid": 57
+        "openid": 57,
+        "name": "57.Chair = 7,"
     },
     {
         "lv": 24,
-        "openid": 58
+        "openid": 58,
+        "name": "58.Calendar = 8,"
     },
     {
         "lv": 25,
-        "openid": 59
+        "openid": 59,
+        "name": "59.Mail = 9"
     },
     {
         "lv": 30,
-        "openid": 50
+        "openid": 50,
+        "name": "建築序列2 "
     }
 ]

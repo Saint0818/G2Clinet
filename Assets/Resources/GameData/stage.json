@@ -47,7 +47,7 @@
     },
     {
         "id": 10,
-        "nametw": "街頭聯盟I",
+        "nametw": "1階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -63,7 +63,7 @@
     },
     {
         "id": 11,
-        "nametw": "街頭聯盟II",
+        "nametw": "2階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -77,7 +77,7 @@
     },
     {
         "id": 12,
-        "nametw": "街頭聯盟III",
+        "nametw": "3階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -91,7 +91,7 @@
     },
     {
         "id": 13,
-        "nametw": "鄉鎮聯盟I",
+        "nametw": "4階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -105,7 +105,7 @@
     },
     {
         "id": 14,
-        "nametw": "鄉鎮聯盟II",
+        "nametw": "5階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -119,7 +119,7 @@
     },
     {
         "id": 15,
-        "nametw": "鄉鎮聯盟III",
+        "nametw": "6階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -133,7 +133,7 @@
     },
     {
         "id": 16,
-        "nametw": "地區聯盟I",
+        "nametw": "7階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -147,7 +147,7 @@
     },
     {
         "id": 17,
-        "nametw": "地區聯盟II",
+        "nametw": "8階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -161,7 +161,7 @@
     },
     {
         "id": 18,
-        "nametw": "地區聯盟III",
+        "nametw": "9階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -175,7 +175,7 @@
     },
     {
         "id": 19,
-        "nametw": "國家聯盟I",
+        "nametw": "10階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -189,7 +189,7 @@
     },
     {
         "id": 20,
-        "nametw": "國家聯盟II",
+        "nametw": "11階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -203,7 +203,7 @@
     },
     {
         "id": 21,
-        "nametw": "國家聯盟III",
+        "nametw": "12階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -217,7 +217,7 @@
     },
     {
         "id": 22,
-        "nametw": "世界聯盟I",
+        "nametw": "13階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -231,7 +231,7 @@
     },
     {
         "id": 23,
-        "nametw": "世界聯盟II",
+        "nametw": "14階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -245,7 +245,7 @@
     },
     {
         "id": 24,
-        "nametw": "世界聯盟III",
+        "nametw": "15階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -259,7 +259,7 @@
     },
     {
         "id": 25,
-        "nametw": "星際聯盟I",
+        "nametw": "16階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -273,7 +273,7 @@
     },
     {
         "id": 26,
-        "nametw": "星際聯盟II",
+        "nametw": "17階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -287,7 +287,7 @@
     },
     {
         "id": 27,
-        "nametw": "星際聯盟III",
+        "nametw": "18階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -301,7 +301,7 @@
     },
     {
         "id": 28,
-        "nametw": "銀河聯盟I",
+        "nametw": "19階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -315,7 +315,7 @@
     },
     {
         "id": 29,
-        "nametw": "銀河聯盟II",
+        "nametw": "20階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -329,7 +329,7 @@
     },
     {
         "id": 30,
-        "nametw": "銀河聯盟III",
+        "nametw": "21階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -343,7 +343,7 @@
     },
     {
         "id": 31,
-        "nametw": "宇宙聯盟",
+        "nametw": "22階鬥牛場",
         "kind": 9,
         "hint": "0012",
         "courtno": 99,
@@ -627,7 +627,10 @@
         "hint": "3202",
         "courtno": 99,
         "bit3num": 2,
+<<<<<<< Updated upstream
 		"bit2num": 2,
+=======
+>>>>>>> Stashed changes
         "bit0num": 240,
         "courtmode": 0,
         "costkind": 0,

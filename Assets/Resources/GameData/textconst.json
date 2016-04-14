@@ -448,6 +448,12 @@
         "en": "Successfully unlocked [FFDD33] New Player [-]"
     },
     {
+        "id": 480,
+        "explain": "解鎖球場",
+        "tw": "成功解鎖[FFDD33]球館設施[-]",
+        "en": "Successfully unlocked [FFDD33] Gym [-]"
+    },
+    {
         "id": 501,
         "explain": "警告訊息"
     },
@@ -2710,7 +2716,7 @@
     {
         "id": 7205,
         "uipath": "LabelKind3",
-        "tw": "EXP",
+        "tw": "晶片經驗值",
         "en": "EXP"
     },
     {
