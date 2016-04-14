@@ -226,7 +226,9 @@ public class UIGym : UIBase {
 	private void refreshBuild () {
 		for (int i=0; i<gymObj.Length; i++) {
 			gymObj[i].NameLabel.text = GameFunction.GetBuildName(i);
+			gymObj[i].NameLabel.gameObject.SetActive(true);
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
+			gymObj[i].LevelLabel.gameObject.SetActive(true);
 			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
 		}
 	}
@@ -254,12 +256,7 @@ public class UIGym : UIBase {
 						isCheckUpdateOnLoad = false;
 						checkUpdate ();
 					}
-				} else {
-					if(!gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.activeSelf)
-						gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.SetActive(true);
-					if(!gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.activeSelf)
-						gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.SetActive(true);
-				}
+				} 
 			}
 		}
 	}
@@ -404,6 +401,7 @@ public class UIGym : UIBase {
 			GameData.Team.GymBuild = result.GymBuild;
 			GameData.Team.GymQueue = result.GymQueue;
 			RefreshQueue();
+			refreshBuild ();
 			UIMainLobby.Get.UpdateUI();
 			if (UIGymEngage.Visible)
 				UIGymEngage.Get.RefreshUI ();
