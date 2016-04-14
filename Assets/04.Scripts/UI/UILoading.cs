@@ -111,12 +111,13 @@ public class UILoading : UIBase
 
     public static void OpenMainUI()
     {
+        UIMainLobby.Get.Show();
         checkTutorialUI(achievementTutorialID);
     }
 
     public static void OpenGameLobby()
     {
-        UIMainLobby.Get.Hide();
+        //UIMainLobby.Get.Hide();
         UIGameLobby.Get.Show();
         checkTutorialUI(achievementTutorialID);
     }
@@ -383,7 +384,6 @@ public class UILoading : UIBase
                 break;
             case ELoading.Lobby:
                 ProgressValue = 1;
-                UIMainLobby.Get.Show();				
 			
                 if (UITutorial.Visible)
                     uiLoadingProgress.fillAmount = 1;
@@ -391,15 +391,12 @@ public class UILoading : UIBase
                 if (GameData.Team.Player.Lv == 0) {
                     UICreateRole.Get.ShowPositionView();
                     UI3DCreateRole.Get.PositionView.PlayDropAnimation();
-                    UIMainLobby.Get.HideAll();
                 } else 
                 if (OpenUI != null) {
-                    if (!UITutorial.Visible)
-                        yield return new WaitForSeconds(0.5f);
-
                     OpenUI();
                     OpenUI = null;
-                }
+                } else
+                    UIMainLobby.Get.Show();
 
                 UIShow(false);
 				AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
