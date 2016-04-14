@@ -4503,8 +4503,8 @@
         "id": 11003,
         "explain": "佇列用-2 未開放時",
         "uipath": "NameLabel",
-        "tw": "等級達到{0} ",
-        "en": "Level {0} "
+        "tw": "LV{0} 開啟 ",
+        "en": "Level {0} Unlock"
     },
     {
         "id": 11004,
