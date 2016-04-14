@@ -709,8 +709,8 @@ namespace GameStruct
 		public int GetUpgradeExp(int lv) {
 			if(lv < 0)
 				lv = 0;
-			if(lv > UpgradeExp.Length)
-				lv = UpgradeExp.Length;
+			if(lv >= UpgradeExp.Length)
+				lv = UpgradeExp.Length - 1;
 			return UpgradeExp[lv];
 		}
 
