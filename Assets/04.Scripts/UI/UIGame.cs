@@ -1248,6 +1248,7 @@ public class UIGame : UIBase
         if (IsPlayerMe && (GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack))
         {
             bool noAI = false;
+			int aiTime = 0;
             switch (controllerState)
             {
                 case EUIControl.Skill:
@@ -1384,6 +1385,7 @@ public class UIGame : UIBase
                         {
                             UIMaskState(EUIControl.Pass);
                             noAI = true;
+							aiTime = 1;
                         }
                     }
 
@@ -1403,7 +1405,7 @@ public class UIGame : UIBase
             }
 
             if (noAI)
-                PlayerMe.SetManually();
+				PlayerMe.SetManually(aiTime);
         }
     }
 

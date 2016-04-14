@@ -8,7 +8,6 @@ public class TPVPObj {
 	public UILabel LabelRankName;
 	public UILabel LabelMinusPoint;
 	public UILabel LabelNowPoint;
-	public UILabel LabelNextPoint;
 	public UISlider SliderBar;
 }
 
@@ -112,7 +111,7 @@ public class UIGameLoseResult : UIBase {
 			if(nowValue > pvpRank.BeforeLowScore) {
 				minusValue --;
 				nowValue -- ;
-				pvpObj.LabelNowPoint.text = nowValue.ToString();
+				pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
 				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
 				if(pvpRank.AfterLv == 1 && pvpRank.BeforeLv == 1) {
@@ -132,7 +131,6 @@ public class UIGameLoseResult : UIBase {
 		pvpObj.LabelRankName = GameObject.Find(UIName + "/RankView/PvPRankIcon/RankNameLabel").GetComponent<UILabel>();
 		pvpObj.LabelMinusPoint = GameObject.Find(UIName + "/RankView/RankPoint/GetPointLabel").GetComponent<UILabel>();
 		pvpObj.LabelNowPoint = GameObject.Find(UIName + "/RankView/NowPoint").GetComponent<UILabel>();
-		pvpObj.LabelNextPoint = GameObject.Find(UIName + "/RankView/NextPoint").GetComponent<UILabel>();
 		pvpObj.SliderBar = GameObject.Find(UIName + "/RankView/ProgressBar").GetComponent<UISlider>();
 
 		goStatsNextLabel = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
@@ -181,8 +179,7 @@ public class UIGameLoseResult : UIBase {
 			pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.BeforeLv);
 			pvpObj.LabelRankName.text = pvpRank.BeforeName ;
 			pvpObj.LabelMinusPoint.text = minusValue.ToString();
-			pvpObj.LabelNowPoint.text = nowValue.ToString();
-			pvpObj.LabelNextPoint.text = pvpRank.BeforeHighScore.ToString();
+			pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
 			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
 		}
 	}
@@ -217,7 +214,6 @@ public class UIGameLoseResult : UIBase {
 		nowMax = pvpRank.AfterHighScore;
 		nowMin = pvpRank.AfterLowScore;
 		pvpRank.BeforeLowScore = nowMin;
-		pvpObj.LabelNextPoint.text = nowMax.ToString();
 		showRank();
 	}
 

@@ -61,7 +61,8 @@ public class UI3DGameResult : UIBase {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(!isChoosed[result]) {
-				UIGameResult.Get.ChooseLucky(result);
+				if(UIGameResult.Get.ChooseLucky(result))
+					isChoosed[result] = true;
 			}
 		}
 	}

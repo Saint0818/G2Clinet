@@ -172,10 +172,10 @@ public class UIGameResult : UIBase {
 		}
 
 		if(isShowRank && minusValue > 0) {
-			if(nowValue >= pvpRank.BeforeLowScore && nowValue < pvpRank.BeforeHighScore) {
+			if(nowValue <= 0 || nowValue >= pvpRank.BeforeLowScore && nowValue < pvpRank.BeforeHighScore) {
 				minusValue --;
 				nowValue ++ ;
-				pvpObj.LabelNowPoint.text = nowValue.ToString();
+				pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
 				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
 			} else {
 				isShowRank = false;
@@ -219,7 +219,6 @@ public class UIGameResult : UIBase {
 		pvpObj.PVPRankIcon = GameObject.Find(UIName + "/RankView/PvPRankIcon").GetComponent<UISprite>();
 		pvpObj.LabelRankName = GameObject.Find(UIName + "/RankView/PvPRankIcon/RankNameLabel").GetComponent<UILabel>();
 		pvpObj.LabelMinusPoint = GameObject.Find(UIName + "/RankView/RankPoint/GetPointLabel").GetComponent<UILabel>();
-		pvpObj.LabelNextPoint = GameObject.Find(UIName + "/RankView/NextPoint").GetComponent<UILabel>();
 		pvpObj.LabelNowPoint = GameObject.Find(UIName + "/RankView/NowPoint").GetComponent<UILabel>();
 		pvpObj.SliderBar = GameObject.Find(UIName + "/RankView/ProgressBar").GetComponent<UISlider>();
 
@@ -394,8 +393,7 @@ public class UIGameResult : UIBase {
 			pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.BeforeLv);
 			pvpObj.LabelRankName.text = pvpRank.BeforeName ;
 			pvpObj.LabelMinusPoint.text = minusValue.ToString();
-			pvpObj.LabelNowPoint.text = nowValue.ToString();
-			pvpObj.LabelNextPoint.text = pvpRank.BeforeHighScore.ToString();
+			pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
 			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
 		}
 	}
@@ -518,32 +516,38 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	public void ChooseLucky(int index) {
+	public bool ChooseLucky(int index) {
 		if(isCanChooseLucky) {
 			chooseIndex = index;
 			if(chooseCount == 0) {
 				Invoke ("ShowReturnButton", 2);
 				chooseItem (index);
+				return true;
 			} else {
-				PayChooseReward ();
+				return PayChooseReward ();
 			}
 		}
+		return false;
 	}
 
-	public void PayChooseReward () {
-		if(chooseCount == 0) 
+	public bool PayChooseReward () {
+		if(chooseCount == 0) {
 			stageRewardAgain(GameData.StageID);
-		else if (chooseCount == 1) {
-			if(GameData.Team.Diamond >= 20)
+			return true;
+		} else if (chooseCount == 1) {
+			if(GameData.Team.Diamond >= 20) {
 				stageRewardAgain(GameData.StageID);
-			else 
+				return true;
+			} else
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
 		} else if(chooseCount == 2) {
-			if(GameData.Team.Diamond >= 100)
+			if(GameData.Team.Diamond >= 100) {
 				stageRewardAgain(GameData.StageID);
-			else
+				return true;
+			} else
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
 		}
+		return false;
 	}
 	
 	private void chooseItem (int index) {

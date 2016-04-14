@@ -174,7 +174,7 @@ public class UIInGameMission : UIBase {
 
 		isFin = false;
 		if(missionDic.ContainsKey(3) && !missionDic[3].IsFinish) {
-			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit2Num);
+			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
 			describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
 			missionViews[hintIndex].UpdateUI(describe);
 			if(isFin) {
