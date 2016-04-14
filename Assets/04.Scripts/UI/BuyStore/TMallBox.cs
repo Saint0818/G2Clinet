@@ -37,6 +37,8 @@ public class TMallBox
 	public GameObject BtnFive;
 	public GameObject BtnTen;
 
+	public GameObject BtnOneRedPoint;
+
 	private int money1;
 	private int money2;
 	private int money3;
@@ -65,6 +67,7 @@ public class TMallBox
 		SaleLabel = obj.transform.Find("Tween/OpenBtn10/SaleLabel").GetComponent<UILabel>();
 
 		BtnOne = obj.transform.Find("OpenBtn1").gameObject;
+		BtnOneRedPoint = obj.transform.Find("OpenBtn1/RedPoint").gameObject;
 		BtnFive = obj.transform.Find("Tween/OpenBtn5").gameObject;
 		BtnTen = obj.transform.Find("Tween/OpenBtn10").gameObject;
 
@@ -105,7 +108,7 @@ public class TMallBox
 		BtnOne.name = pickcost.Order.ToString();
 		BtnFive.name = pickcost.Order.ToString();
 		BtnTen.name = pickcost.Order.ToString();
-		mMallBox.transform.localPosition = new Vector3(420 * posIndex, 0, 0);
+		mMallBox.transform.localPosition = new Vector3(410 * posIndex, 0, 0);
 		setHaveFree();
 		changeSpendKind(pickcost.SpendKind);
 		TitleLabel.text = pickcost.Name;
@@ -153,17 +156,20 @@ public class TMallBox
 				FreeLabel1.gameObject.SetActive(true);
 				PriceIcon.gameObject.SetActive(false);
 				PriceLabel.gameObject.SetActive(false);
+				BtnOneRedPoint.SetActive(true);
 			} else {
 				FreeLabelTitle.gameObject.SetActive(true);
 				FreeLabel1.gameObject.SetActive(false);
 				PriceIcon.gameObject.SetActive(true);
 				PriceLabel.gameObject.SetActive(true);
+				BtnOneRedPoint.SetActive(false);
 			}
 		} else {
 			FreeLabelTitle.gameObject.SetActive(false);
 			FreeLabel1.gameObject.SetActive(false);
 			PriceIcon.gameObject.SetActive(true);
 			PriceLabel.gameObject.SetActive(true);
+			BtnOneRedPoint.SetActive(false);
 		}
 	}
 
