@@ -252,12 +252,13 @@ public class UIGym : UIBase {
 						gymObj [tempGymQueue [i].BuildIndex].TimeLabel.text = TextConst.SecondString ((int)(new System.TimeSpan (GameData.Team.GymBuild [tempGymQueue [i].BuildIndex].Time.ToUniversalTime ().Ticks - DateTime.UtcNow.Ticks).TotalSeconds));
 					} else {
 						isCheckUpdateOnLoad = false;
-						if(!gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.activeSelf)
-							gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.SetActive(true);
-						if(!gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.activeSelf)
-							gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.SetActive(true);
 						checkUpdate ();
 					}
+				} else {
+					if(!gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.activeSelf)
+						gymObj [tempGymQueue [i].BuildIndex].NameLabel.gameObject.SetActive(true);
+					if(!gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.activeSelf)
+						gymObj [tempGymQueue [i].BuildIndex].LevelLabel.gameObject.SetActive(true);
 				}
 			}
 		}
