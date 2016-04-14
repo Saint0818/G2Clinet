@@ -144,13 +144,13 @@ public class UIInGameMission : UIBase {
 			}
 			describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
 			missionViews[hintIndex].UpdateUI(describe);
-			hintIndex ++;
 			if((hintBits[1] == 3 || hintBits[1] == 4))
 				isFin = false;
 			
 			if(isFin)
 				missionDic[1].UpdateFin();
 		}
+		hintIndex ++;
 
 		if(isFin) {
 			Invoke("refresh", 1);
@@ -162,10 +162,10 @@ public class UIInGameMission : UIBase {
 			isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
 			describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
 			missionViews[hintIndex].UpdateUI(describe);
-			hintIndex ++;
 			if(isFin)
 				missionDic[2].UpdateFin();
 		}
+		hintIndex ++;
 
 		if(isFin){
 			Invoke("refresh", 1);
