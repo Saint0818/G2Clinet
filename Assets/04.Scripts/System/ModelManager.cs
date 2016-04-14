@@ -19,7 +19,7 @@ public class ModelManager : KnightSingleton<ModelManager>
 {
     public const string Name = "ModelManager";
 
-    public AniCurve AnimatorCurveManager;
+    public AniCurve AnimatorCurve;
     /*
     private GameObject DefPointObject = null;
     public GameObject PlayerInfoModel = null;
@@ -56,8 +56,8 @@ public class ModelManager : KnightSingleton<ModelManager>
         }
                 
         if (cloneObj) {
-            AnimatorCurveManager = cloneObj.GetComponent<AniCurve>();
-            AnimatorCurveManager.transform.parent = transform;
+            AnimatorCurve = cloneObj.GetComponent<AniCurve>();
+            AnimatorCurve.transform.parent = transform;
         }
     }
 
@@ -71,8 +71,8 @@ public class ModelManager : KnightSingleton<ModelManager>
         if (PlayerInfoModel)
             DestroyImmediate(PlayerInfoModel);
         */
-        if (AnimatorCurveManager != null)
-            Destroy(AnimatorCurveManager.gameObject);
+        if (AnimatorCurve != null)
+            Destroy(AnimatorCurve.gameObject);
     }
     /*
     public void PreloadResource(TAvatar attr, int bodyType)
