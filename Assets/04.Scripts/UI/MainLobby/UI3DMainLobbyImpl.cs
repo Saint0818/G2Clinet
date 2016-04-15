@@ -362,7 +362,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             */
             GameData.Team.PlayerInit();
             TLoadParameter p = new TLoadParameter(ELayer.Default, "LobbyAvatarPlayer");
-            p.AsyncLoad = false;
+            p.AsyncLoad = true;
             TAvatarLoader.Load(GameData.Team.Player.BodyType, GameData.Team.Player.Avatar, ref mAvatarPlayer, BuildPos[0], p);
 
             playerCenterPos = mAvatarPlayer.transform.position;

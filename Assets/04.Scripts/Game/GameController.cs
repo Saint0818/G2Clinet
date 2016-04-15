@@ -592,7 +592,7 @@ public class GameController : KnightSingleton<GameController>
             if (LobbyStart.Get.TestModel != EModelTest.None && LobbyStart.Get.TestMode != EGameTest.None)
                 player.BodyType = (int)LobbyStart.Get.TestModel;
 
-            TLoadParameter p = new TLoadParameter(ELayer.Player, team.ToString() + teamIndex.ToString(), true, false, false, true, false, EAnimatorType.AnimationControl);
+            TLoadParameter p = new TLoadParameter(ELayer.Player, team.ToString() + teamIndex.ToString(), false, false, false, true, false, EAnimatorType.AnimationControl);
             TAvatarLoader.Load(player.BodyType, player.Avatar, ref res, playerInfoModel, p);
             initRigbody(res);
             ETimerKind timeKey;

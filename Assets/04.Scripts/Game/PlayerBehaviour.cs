@@ -312,8 +312,6 @@ public class PlayerBehaviour : MonoBehaviour
         mManually.TimeUpListener += manuallyTimeUp;
 
         PlayerRefGameObject = gameObject;
-        LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
-
         PlayerSkillController = gameObject.AddComponent<SkillController>();
 
         InitAnmator();
@@ -473,7 +471,7 @@ public class PlayerBehaviour : MonoBehaviour
         } 
     }
 
-    public void InitTrigger(GameObject defPoint, GameObject bodyTrigger)
+    public void InitTrigger(GameObject defPoint, GameObject trigger)
     {
         DummyBall = null;
         Transform find = transform.Find("DummyBall");
@@ -499,8 +497,8 @@ public class PlayerBehaviour : MonoBehaviour
 		if(Pelvis == null)
 			Pelvis = transform.Find("Bip01");
 
-        if (bodyTrigger) {
-            bodyTrigger = Instantiate(bodyTrigger, Vector3.zero, Quaternion.identity) as GameObject;
+        if (trigger) {
+            bodyTrigger = Instantiate(trigger, Vector3.zero, Quaternion.identity) as GameObject;
             interceptTrigger= bodyTrigger.transform.Find("Intercept").gameObject;
             blockTrigger = bodyTrigger.transform.Find("Block").gameObject;
             pushThroughTigger = bodyTrigger.transform.Find("TriggerPushThrough").gameObject;
