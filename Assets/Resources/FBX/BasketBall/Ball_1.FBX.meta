@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4ea41a2371c990c4ba50f52e7595ac64
-timeCreated: 1427699016
+guid: f49f4151ea0920146bd5fc4ca7f8d108
+timeCreated: 1460692746
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: HandBall
+    4300000: Ball_1
     9500000: //RootNode
   materials:
     importMaterials: 0
