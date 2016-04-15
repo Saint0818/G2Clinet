@@ -62,8 +62,9 @@ public class GameController : KnightSingleton<GameController>
 
 	private float passingStealBallTime = 0;
 
+    private GameObject playerInfoModel = null;
     private GameObject defPointObject = null;
-    public GameObject playerInfoModel = null;
+    private GameObject[] bodyTriggerRes = new GameObject[3];
 
     public bool HasBallOwner { get { return BallOwner != null; } }
 	public PlayerBehaviour BallOwner; // 持球的球員.
@@ -234,6 +235,8 @@ public class GameController : KnightSingleton<GameController>
 
     private void initModel() {
         defPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
+        for (int i = 0; i < bodyTriggerRes.Length; i++)
+            bodyTriggerRes[i] = Resources.Load("Prefab/Player/BodyTrigger0") as GameObject;
 
         playerInfoModel = GameObject.Find("PlayerInfoModel");
         if (!playerInfoModel) {
@@ -584,6 +587,9 @@ public class GameController : KnightSingleton<GameController>
     {
         if (GameData.DPlayers.ContainsKey(player.ID))
         {
+            if (player.BodyType < 0 || player.BodyType  > 2)
+                player.BodyType = 0;
+
             if (LobbyStart.Get.TestModel != EModelTest.None && LobbyStart.Get.TestMode != EGameTest.None)
                 player.BodyType = (int)LobbyStart.Get.TestModel;
 
@@ -606,7 +612,7 @@ public class GameController : KnightSingleton<GameController>
             playerBehaviour.Postion = playerBehaviour.Index;
             playerBehaviour.TimerKind = timeKey;
 
-            playerBehaviour.InitTrigger(defPointObject);
+            playerBehaviour.InitTrigger(defPointObject, bodyTriggerRes[player.BodyType]);
             playerBehaviour.InitDoubleClick();
             playerBehaviour.InitAttr();
 

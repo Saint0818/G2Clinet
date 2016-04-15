@@ -128,32 +128,34 @@ public class UIInGameMission : UIBase {
 	public void CheckMisstion () {
 		isFin = false;
 		hintIndex = 0;
-		if(missionDic.ContainsKey(1) && !missionDic[1].IsFinish) {
-			int score = UIGame.Get.Scores[ETeamKind.Self.GetHashCode()];
-//			isFin = (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] > UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]);
-			isFin = false;
-			if(hintBits[1] == 2){
-				isFin = (score >= stageData.Bit1Num);
-			} else if(hintBits[1] == 3){
-				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
-//				isFin = (score < stageData.Bit1Num);
-				isFin = false;
-			} else if(hintBits[1] == 4){
-				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
-				isFin = (score >= stageData.Bit1Num);
-			}
-			describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
-			missionViews[hintIndex].UpdateUI(describe);
-			if((hintBits[1] == 3 || hintBits[1] == 4))
-				isFin = false;
-			
-			if(isFin)
-				missionDic[1].UpdateFin();
-			
-			hintIndex ++;
-		} else
-		if(missionDic[1].IsFinish)
-			hintIndex ++;
+        if(missionDic.ContainsKey(1)) { 
+            if (!missionDic[1].IsFinish) {
+    			int score = UIGame.Get.Scores[ETeamKind.Self.GetHashCode()];
+    //			isFin = (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] > UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]);
+    			isFin = false;
+    			if(hintBits[1] == 2){
+    				isFin = (score >= stageData.Bit1Num);
+    			} else if(hintBits[1] == 3){
+    				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
+    //				isFin = (score < stageData.Bit1Num);
+    				isFin = false;
+    			} else if(hintBits[1] == 4){
+    				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
+    				isFin = (score >= stageData.Bit1Num);
+    			}
+    			describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 9), stageData.Bit1Num, "", score);
+    			missionViews[hintIndex].UpdateUI(describe);
+    			if((hintBits[1] == 3 || hintBits[1] == 4))
+    				isFin = false;
+    			
+    			if(isFin)
+    				missionDic[1].UpdateFin();
+    			
+    			hintIndex ++;
+    		} else
+            if(missionDic[1].IsFinish)
+    			hintIndex ++;
+        }
 
 		if(isFin) {
 			Invoke("refresh", 1);
@@ -161,16 +163,19 @@ public class UIInGameMission : UIBase {
 		}
 		
 		isFin = false;
-		if(missionDic.ContainsKey(2) && !missionDic[2].IsFinish) {
-			isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
-			describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
-			missionViews[hintIndex].UpdateUI(describe);
-			if(isFin)
-				missionDic[2].UpdateFin();
-			hintIndex ++;
-		} else
+        if(missionDic.ContainsKey(2)) {
+            if (!missionDic[2].IsFinish) {
+    			isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
+    			describe = string.Format (GameFunction.GetHintText(3, hintBits[2], 9), stageData.Bit2Num, "", getConditionCount(hintBits[2]));
+    			missionViews[hintIndex].UpdateUI(describe);
+    			if(isFin)
+    				missionDic[2].UpdateFin();
+                
+    			hintIndex ++;
+    		} else
 			if(missionDic[2].IsFinish)
 				hintIndex ++;
+        }
 
 		if(isFin){
 			Invoke("refresh", 1);
@@ -178,14 +183,16 @@ public class UIInGameMission : UIBase {
 		}
 
 		isFin = false;
-		if(missionDic.ContainsKey(3) && !missionDic[3].IsFinish) {
-			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
-			describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
-			missionViews[hintIndex].UpdateUI(describe);
-			if(isFin) {
-				missionDic[3].UpdateFin();
-				AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
-			}
+        if(missionDic.ContainsKey(3)) {
+            if (!missionDic[3].IsFinish) {
+    			isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
+    			describe = string.Format (GameFunction.GetHintText(3, hintBits[3], 9), stageData.Bit3Num, "", getConditionCount(hintBits[3]));
+    			missionViews[hintIndex].UpdateUI(describe);
+    			if(isFin) {
+    				missionDic[3].UpdateFin();
+    				AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+    			}
+            }
 		}
 	}
 

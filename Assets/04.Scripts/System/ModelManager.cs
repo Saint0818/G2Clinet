@@ -30,7 +30,7 @@ public class ModelManager : KnightSingleton<ModelManager>
     private Dictionary<string, RuntimeAnimatorController> controllorCache = new Dictionary<string, RuntimeAnimatorController>();
     */
     protected override void Init() {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         //DontDestroyOnLoad(PlayerInfoModel);
     }
 

@@ -83,8 +83,9 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isSpeedStay = true;
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
-    public Material BodyMaterial;
     public GameObject BodyHeight;
+    private GameObject bodyTrigger;
+
 	[HideInInspector]public Transform Pelvis;
     public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
     public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
@@ -298,6 +299,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (BodyHeight)
             Destroy(BodyHeight);
+
+        if (bodyTrigger)
+            Destroy(bodyTrigger);
     }
 
     void Awake()
@@ -466,46 +470,25 @@ public class PlayerBehaviour : MonoBehaviour
         } 
     }
 
-    public void InitTrigger(GameObject defPoint)
+    public void InitTrigger(GameObject defPoint, GameObject bodyTrigger)
     {
-        SkinnedMeshRenderer render = PlayerRefGameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-        if (render && render.material)
-            BodyMaterial = render.material;
-				
         DummyBall = null;
         Transform find = transform.Find("DummyBall");
 
         if (find)
             DummyBall = find.gameObject;
 				
-        if (DummyBall != null)
-        {
+        if (DummyBall != null) {
             blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
             if (blockCatchTrigger == null)
                 blockCatchTrigger = DummyBall.AddComponent<BlockCatchTrigger>();
 
             blockCatchTrigger.SetEnable(false);	
-        } 
-
-        GameObject obj = null;
-        switch (Attribute.BodyType)
-        {
-            case 0:
-                obj = Resources.Load("Prefab/Player/BodyTrigger0") as GameObject;
-                break;
-            case 1:
-                obj = Resources.Load("Prefab/Player/BodyTrigger1") as GameObject;
-                break;
-            case 2:
-                obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
-                break;
-            default:
-                obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
-                break;
         }
 
         if (BodyHeight == null)
             BodyHeight = new GameObject();
+        
         BodyHeight.name = "BodyHeight";
         BodyHeight.transform.parent = transform;
         BodyHeight.transform.localPosition = new Vector3(0, PlayerRefGameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f, 0);
@@ -513,35 +496,34 @@ public class PlayerBehaviour : MonoBehaviour
 		if(Pelvis == null)
 			Pelvis = transform.Find("Bip01");
 
-        if (obj)
-        {
-            GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-			interceptTrigger= obj2.transform.Find("Intercept").gameObject;
-			blockTrigger = obj2.transform.Find("Block").gameObject;
-			pushThroughTigger = obj2.transform.Find("TriggerPushThrough").gameObject;
-			reboundTrigger = obj2.transform.Find("TriggerRebound").gameObject;
-            ShowWord = obj2.transform.Find("ShowWord").gameObject;
+        if (bodyTrigger) {
+            bodyTrigger = Instantiate(bodyTrigger, Vector3.zero, Quaternion.identity) as GameObject;
+            interceptTrigger= bodyTrigger.transform.Find("Intercept").gameObject;
+            blockTrigger = bodyTrigger.transform.Find("Block").gameObject;
+            pushThroughTigger = bodyTrigger.transform.Find("TriggerPushThrough").gameObject;
+            reboundTrigger = bodyTrigger.transform.Find("TriggerRebound").gameObject;
+            ShowWord = bodyTrigger.transform.Find("ShowWord").gameObject;
             
-            obj2.name = "BodyTrigger";
-            PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
+            bodyTrigger.name = "BodyTrigger";
+            PlayerTrigger[] objs = bodyTrigger.GetComponentsInChildren<PlayerTrigger>();
             if (objs != null)
             {
                 for (int i = 0; i < objs.Length; i++)
                     objs[i].Player = this;
             }
             
-            DefTrigger defTrigger = obj2.GetComponentInChildren<DefTrigger>(); 
+            DefTrigger defTrigger = bodyTrigger.GetComponentInChildren<DefTrigger>(); 
             if (defTrigger != null)
                 defTrigger.Player = this;
             
-            DefPoint = obj2.transform.Find("DefRange").gameObject;          
-            TopPoint = obj2.transform.Find("TriggerTop").gameObject; 
-            CatchBallPoint = obj2.transform.Find("CatchBall").gameObject; 
-            obj2.transform.parent = transform;
-            obj2.transform.transform.localPosition = Vector3.zero;
-            obj2.transform.transform.localScale = Vector3.one;
+            DefPoint = bodyTrigger.transform.Find("DefRange").gameObject;          
+            TopPoint = bodyTrigger.transform.Find("TriggerTop").gameObject; 
+            CatchBallPoint = bodyTrigger.transform.Find("CatchBall").gameObject; 
+            bodyTrigger.transform.parent = transform;
+            bodyTrigger.transform.transform.localPosition = Vector3.zero;
+            bodyTrigger.transform.transform.localScale = Vector3.one;
 
-            Transform t = obj2.transform.Find("TriggerFinger");
+            Transform t = bodyTrigger.transform.Find("TriggerFinger");
             if (t)
             {
                 FingerPoint = t.gameObject;

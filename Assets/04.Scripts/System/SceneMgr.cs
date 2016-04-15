@@ -31,30 +31,32 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         switch (levelToLoad)
         {
             case ESceneName.Null:
-                SceneManager.UnloadScene(CurrentScene);
                 CurrentScene = levelToLoad;
+                UILoading.UIShow(true, ELoading.Null);
+                SceneManager.UnloadScene(CurrentScene);
                 StartCoroutine(LoadLevelCoroutine(LoadScene));
 			    break;
 
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
+                UILoading.UIShow(true, ELoading.Lobby);
                 SceneManager.UnloadScene(ESceneName.Null);
                 Resources.UnloadUnusedAssets();
-                UILoading.UIShow(true, ELoading.Lobby);
                 break;
 
 			case ESceneName.SelectRole:
-                SceneManager.UnloadScene(ESceneName.Null);
                 if (GameData.StageID >= 0)
                     UILoading.UIShow(true, ELoading.Stage);
                 else
                     UILoading.UIShow(true, ELoading.SelectRole);
-                
+
+                SceneManager.UnloadScene(ESceneName.Null);
                 break;
+
             default:
                 //Court:
-                SceneManager.UnloadScene(ESceneName.Null);
                 UILoading.UIShow(true, ELoading.Game);
+                SceneManager.UnloadScene(ESceneName.Null);
                 break;
         }
     }
