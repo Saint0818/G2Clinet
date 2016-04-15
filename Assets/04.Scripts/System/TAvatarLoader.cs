@@ -609,8 +609,10 @@ public class TAvatarLoader : MonoBehaviour {
     public Color32 MaterialColor {
         set {
             mMaterialColor = value;
-            if (mSkinnedMeshRenderer != null)
-                mSkinnedMeshRenderer.material.color = value;
+            if (mSkinnedMeshRenderer != null && mSkinnedMeshRenderer.materials != null) {
+                for (int i = 0; i < mSkinnedMeshRenderer.materials.Length; i++)
+                    mSkinnedMeshRenderer.materials[i].color = value;
+            }
         }
     }
 }

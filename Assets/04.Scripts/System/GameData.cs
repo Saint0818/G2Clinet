@@ -259,13 +259,15 @@ public static class GameData
 
     public static void SetGameQuality(EQualityType lv)
     {
+        Setting.Quality = lv.GetHashCode();
         int q = QualitySettings.GetQualityLevel();
-        int foundIndex = lv.GetHashCode();
-        #if UNITY_IOS
-        foundIndex += 1;
-        #else
-        foundIndex += 6;
-        #endif
+        int foundIndex = 0;
+        if (Setting.Quality == 1)
+            foundIndex = 2;
+        else
+        if (Setting.Quality == 2)
+            foundIndex = 4;
+        
         if (q != foundIndex)
             QualitySettings.SetQualityLevel(foundIndex);
     }
@@ -294,7 +296,7 @@ public static class GameData
                         Setting.Sound = true;
                         break;
                     case ESave.Quality:
-                        //Setting.Quality = 1;
+                        Setting.Quality = 1;
                         //SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
@@ -339,7 +341,7 @@ public static class GameData
                         AudioMgr.Get.SoundOn(Setting.Sound);
                         break;
                     case ESave.Quality:
-                        Setting.Quality = index;
+                        Setting.Quality = 1;//index;
                         //SetGameQuality((EQualityType)Setting.Quality);
                         break;
                     case ESave.AIChangeTimeLv:
