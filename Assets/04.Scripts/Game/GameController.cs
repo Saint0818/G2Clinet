@@ -1307,7 +1307,16 @@ public class GameController : KnightSingleton<GameController>
             if(PlayerList[i].Team == team)
             {
                 if(PlayerList[i] == PickBallPlayer)
-                    MoveToBall(PlayerList[i]);
+                {
+                    if(PlayerList[i].CanMove && PlayerList[i].CantMoveTimer.IsOff())
+                    {
+                        // 球員移動到球的位置.
+                        moveData.Clear();
+                        moveData.SetTarget(CourtMgr.Get.RealBallObj.transform.position.x,
+                                           CourtMgr.Get.RealBallObj.transform.position.z);
+                        PlayerList[i].TargetPos = moveData;
+                    }
+                }
                 else 
                     // InboundsBall 其實是混和的行為, 跑到這, 表示沒有持球者.
                     // 所以這行的意思其實是叫進攻方, 撿球以外的人執行戰術跑位.
