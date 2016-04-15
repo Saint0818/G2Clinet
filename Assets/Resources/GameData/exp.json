@@ -14,7 +14,6 @@
     {
         "lv": 3,
         "lvupexp": 8,
-        "ui": 4,
         "unlockname": 458,
         "tutorialid": 8
     },
@@ -310,9 +309,7 @@
         "lvupexp": 620
     },
     {
+        "lv": 70,
         "lvupexp": 630
-    },
-    {
-        "lvupexp": 650
     }
 ]
