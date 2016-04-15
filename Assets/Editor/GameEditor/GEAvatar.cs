@@ -220,7 +220,7 @@ public class GEAvatar : GEBase {
             loadParameter.Name = name;
             TAvatarLoader.Load(int.Parse(name), attr, ref modelArray[index], null, loadParameter);
 
-            //modelArray[index].AddComponent<DragRotateObject>();
+            modelArray[index].AddComponent<DragRotateObject>();
             //modelArray[index].AddComponent<AvatarAnimationTest>();
             switch (index) {
                 case 0:modelArray[index].transform.position = new Vector3(2,0,0); break;
