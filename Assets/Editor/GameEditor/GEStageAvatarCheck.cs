@@ -29,6 +29,16 @@ public class GEStageAvatarCheck : GEBase {
 		new Vector3(-3.5f, 0, 3) 
 	};
 
+	private readonly Vector3[] mercenaryPosition = //new Vector3[6]
+	{
+		new Vector3(6, 0, -6),
+		new Vector3(4, 0, -6), 
+		new Vector3(2, 0, -6), 
+		new Vector3(-2, 0, -6), 
+		new Vector3(-4, 0, -6), 
+		new Vector3(-6, 0, -6) 
+	};
+
 	void OnFocus () {
 		if (EditorApplication.isPlaying)
 			LoadData ();
@@ -120,6 +130,7 @@ public class GEStageAvatarCheck : GEBase {
 			int index = 0;
 			int[] friends = DStageData[id].FriendID;
 			int[] players = DStageData[id].PlayerID;
+			int[] merceneries = DStageData[id].MercenaryID;
 			if(friends != null) {
 				for(int i=0; i<friends.Length; i++) {
 					if(DPlayers.ContainsKey(friends[i])) { 
@@ -157,6 +168,23 @@ public class GEStageAvatarCheck : GEBase {
 				}
 			}else
 				Debug.LogError("no players id");
+
+			if(merceneries != null) {
+				for(int i=0; i<merceneries.Length; i++) {
+					if(DPlayers.ContainsKey(merceneries[i])) { 
+						TAvatar attr = new TAvatar(1);
+						attr.Body = DPlayers[merceneries[i]].Body;
+						attr.Hair = DPlayers[merceneries[i]].Hair;
+						attr.Cloth = DPlayers[merceneries[i]].Cloth;
+						attr.Pants = DPlayers[merceneries[i]].Pants;
+						attr.Shoes = DPlayers[merceneries[i]].Shoes;
+						attr.MHandDress = DPlayers[merceneries[i]].MHandDress;
+						attr.AHeadDress = DPlayers[merceneries[i]].AHeadDress;
+						attr.ZBackEquip = DPlayers[merceneries[i]].ZBackEquip;
+						createMercenary((i + 10).ToString(), attr, DPlayers[merceneries[i]].BodyType);
+					}
+				}
+			}
 		} else
 			Debug.LogError("no stage id:"+ id);
 	}
@@ -176,6 +204,28 @@ public class GEStageAvatarCheck : GEBase {
 				if(int.TryParse(name, out result)) {
 					if(result >= 0 && result < showPosition.Length)
 						obj.transform.position = showPosition[result];
+				}
+				recordPlayer.Add(obj);
+			}
+		}
+	}
+
+	void createMercenary(string name, TAvatar attr, int bodytype){
+		if(Application.isPlaying) {
+			if(GameObject.Find(name) == null) {
+				GameObject obj = null;
+				TAvatarLoader.Load(bodytype, attr, ref obj, null, new TLoadParameter(ELayer.Default, name));
+				/*GameObject obj = new GameObject();
+				obj.name = name;
+				obj.AddComponent<DragRotateObject>();
+				ModelManager.Get.SetAvatar(ref obj, attr, bodytype, EAnimatorType.AvatarControl, false);
+				obj.AddComponent<AvatarAnimationTest>();
+                */
+				int result = 0;
+				if(int.TryParse(name, out result)) {
+					result -= 10;
+					if(result >= 0 && result < mercenaryPosition.Length)
+						obj.transform.position = mercenaryPosition[result];
 				}
 				recordPlayer.Add(obj);
 			}
