@@ -312,6 +312,7 @@ public class PlayerBehaviour : MonoBehaviour
         mManually.TimeUpListener += manuallyTimeUp;
 
         PlayerRefGameObject = gameObject;
+        LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
         PlayerSkillController = gameObject.AddComponent<SkillController>();
 
         InitAnmator();
