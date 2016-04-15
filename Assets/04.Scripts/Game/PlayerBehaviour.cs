@@ -1634,7 +1634,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case EPlayerState.MoveDodge0:
             case EPlayerState.MoveDodge1:
-                if (crtState != state && !IsPass && !IsAllShoot && !IsBlock && !IsFall)
+				if (crtState != state && !IsPass && !IsAllShoot && !IsBlock && !IsFall && IsInGround)
                     return true;
                 break;
             case EPlayerState.CatchFlat:
@@ -1642,7 +1642,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-                if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.GamerInbounds && situation != EGameSituation.NPCInbounds)
+				if (CanMove && !IsBallOwner && !IsAllShoot && IsInGround && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.GamerInbounds && situation != EGameSituation.NPCInbounds)
                     return true;
                 break;
 

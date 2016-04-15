@@ -3916,14 +3916,14 @@ public class GameController : KnightSingleton<GameController>
 		GameTime = 0;
 		if(isSelfWin) {
 			UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] = 100;
-			Joysticker.GameRecord.FGIn = 10;
-			Joysticker.GameRecord.FG3In = 10;
-			Joysticker.GameRecord.Dunk = 10;
-			Joysticker.GameRecord.Push = 10;
-			Joysticker.GameRecord.Steal = 10;
-			Joysticker.GameRecord.Block = 10;
-			Joysticker.GameRecord.Elbow = 10;
-			Joysticker.GameRecord.Rebound = 10;
+			Joysticker.GameRecord.FGIn = 16;
+			Joysticker.GameRecord.FG3In = 16;
+			Joysticker.GameRecord.Dunk = 16;
+			Joysticker.GameRecord.Push = 16;
+			Joysticker.GameRecord.Steal = 16;
+			Joysticker.GameRecord.Block = 16;
+			Joysticker.GameRecord.Elbow = 16;
+			Joysticker.GameRecord.Rebound = 16;
 		} else {
 			UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] = 100;
 			Joysticker.GameRecord.FGIn = 0;
