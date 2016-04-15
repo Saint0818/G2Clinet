@@ -21,8 +21,8 @@ public class BlockTrigger : MonoBehaviour {
 		if (!GameController.Get.IsStart)
 			return;
 
-		if (GameController.Visible && other.gameObject.CompareTag ("PlayerTrigger")) {
-			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;
+		if (GameController.Visible && other.gameObject.CompareTag ("Player")) {
+			GameObject toucher = other.gameObject;
 			if (toucher.layer == LayerMask.NameToLayer("Shooter") && blocker != null && blocker.gameObject != toucher) {
 				int rate = Random.Range(0, 100);
 				if(rate < blocker.Attr.BlockPushRate){

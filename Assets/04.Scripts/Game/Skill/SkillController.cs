@@ -615,7 +615,7 @@ public class SkillController : MonoBehaviour {
 
 	//Active======================================================================================
 	private bool checkSkillBaseSituation(TSkill tSkill) {
-		if(executePlayer.Attribute.IsHaveActiveSkill && GameData.DSkillData.ContainsKey(tSkill.ID)) {
+		if(executePlayer.Attribute.IsHaveActiveSkill && GameData.DSkillData.ContainsKey(tSkill.ID) && !IsActiveUse) {
 			int kind = GameData.DSkillData[tSkill.ID].Kind;
 
 			if( kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210 || kind == 220 || kind == 230 || kind == 300 || kind == 310)
