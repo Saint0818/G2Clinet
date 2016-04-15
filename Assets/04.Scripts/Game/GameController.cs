@@ -214,6 +214,8 @@ public class GameController : KnightSingleton<GameController>
 
         if (playerInfoModel)
             Destroy(playerInfoModel);
+
+        TAvatarLoader.ReleaseCache();
 	}
 
     [UsedImplicitly]

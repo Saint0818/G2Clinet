@@ -361,7 +361,9 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             mAvatarPlayer.transform.localRotation = Quaternion.identity;
             */
             GameData.Team.PlayerInit();
-            TAvatarLoader.Load(GameData.Team.Player.BodyType, GameData.Team.Player.Avatar, ref mAvatarPlayer, BuildPos[0], new TLoadParameter(ELayer.Default, "LobbyAvatarPlayer"));
+            TLoadParameter p = new TLoadParameter(ELayer.Default, "LobbyAvatarPlayer");
+            p.AsyncLoad = false;
+            TAvatarLoader.Load(GameData.Team.Player.BodyType, GameData.Team.Player.Avatar, ref mAvatarPlayer, BuildPos[0], p);
 
             playerCenterPos = mAvatarPlayer.transform.position;
         }

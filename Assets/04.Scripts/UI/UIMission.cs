@@ -69,6 +69,8 @@ public class UIMission : UIBase {
     private GameObject itemMission;
     private GameObject[] redPoints = new GameObject[pageNum];
     private GameObject[] pageObjects = new GameObject[pageNum];
+    private int[] totalCount = new int[pageNum];
+    private int[] finishCount = new int[pageNum];
     private UIPanel[] pagePanels = new UIPanel[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
 	private List<TMissionItem>[] missionList = new List<TMissionItem>[pageNum];
@@ -129,7 +131,6 @@ public class UIMission : UIBase {
             }
                 
             initMissionList(nowPage);
-            //initRedPoint();
         }
     }
 
@@ -167,6 +168,10 @@ public class UIMission : UIBase {
         pageScrollViews[nowPage].restrictWithinPanel = false;
         yield return new WaitForEndOfFrame();
 
+        totalScore = 0;
+        missionScore = 0;
+        missionLine = 0;
+
         if (missionList[page] == null) {
             missionList[page] = new List<TMissionItem>();
             for (int i = 0; i < GameData.MissionData.Length; i++)
@@ -174,13 +179,15 @@ public class UIMission : UIBase {
                     addMission(i, page, GameData.MissionData[i]);
 
             sortMissionPosition(page);
+            totalCount[page] = totalScore;
+            finishCount[page] = missionScore;
         } else {
             for (int i = 0; i < missionList[page].Count; i++)
                 checkMission(missionList[page][i], missionList[page][i].Mission, true);
         }
 
         initRedPoint(page);
-        //sortMissionPosition(page);
+        totalLabel.text = finishCount[page].ToString() + "/" + totalCount[page].ToString();
         yield return new WaitForEndOfFrame();
         pageScrollViews[nowPage].restrictWithinPanel = true;
     }
@@ -221,24 +228,22 @@ public class UIMission : UIBase {
 
 	private void initMissionList(int page) {
         if (page >= 0 && page < missionList.Length) {
-			totalScore = 0;
-			missionScore = 0;
-			missionLine = 0;
-            //redPoints[page].SetActive(false);
-            StartCoroutine(loadMission(page));
+			StartCoroutine(loadMission(page));
 		}
 
 		pageObjects[page].SetActive(true);
-		totalLabel.text = missionScore.ToString() + "/" + totalScore.ToString();
 	}
 
     private bool checkMissionShow(TMission missionData) {
+        totalScore += missionData.Score;
         if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
             if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
                 GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
                 GameData.DMissionData[missionData.PrivousID].Value.Length) {
                 int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
-
+                if (mLv >= missionData.Value.Length)
+                    missionScore += missionData.Score;
+                
                 if (missionData.Final >= 1 || mLv < missionData.Value.Length) 
                     return true;
             }
@@ -320,19 +325,15 @@ public class UIMission : UIBase {
         }
 	}
 
-    private void checkMission(TMissionItem missionItem, TMission missionData, bool resetPosition) {
+    private bool checkMission(TMissionItem missionItem, TMission missionData, bool resetPosition) {
         if (missionItem.Item == null)
-            return;
+            return false;
         
         if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
             if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
                 GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
                 GameData.DMissionData[missionData.PrivousID].Value.Length) {
-                totalScore += missionData.Score;
                 int mLv = Mathf.Min(GameData.Team.FindMissionLv(missionData.ID, missionData.TimeKind), missionData.Value.Length);
-                if (mLv >= missionData.Value.Length)
-                    missionScore += missionData.Score;
-                
                 if (missionData.Final >= 1 || mLv < missionData.Value.Length) {
                     missionItem.Item.SetActive(true);
                     missionItem.LabelName.text = missionData.Name;
@@ -411,16 +412,15 @@ public class UIMission : UIBase {
                             missionItem.SpriteLvs[i].transform.parent.gameObject.SetActive(false);
                     }
 
-                    //if (resetPosition) {
-                    //    missionItem.Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
-                    //    missionLine++;
-                    //}
+                    return true;
                 } else 
                     missionItem.Item.SetActive(false);
             } else
                 missionItem.Item.SetActive(false);
         } else
             missionItem.Item.SetActive(false);
+
+        return false;
 	}
 
     private float checkAnimator(int id, int lv) {
@@ -458,7 +458,6 @@ public class UIMission : UIBase {
 
         mission.PrivousID = 0;
         checkMission(item, mission, false);
-        //initRedPoint();
     }
 
     IEnumerator waitUpdateMission(TMissionFinishResult result, float sec) {
@@ -481,6 +480,7 @@ public class UIMission : UIBase {
         }
 
         if (GameData.DMissionData.ContainsKey(result.MissionID)) {
+            finishCount[nowPage] += GameData.DMissionData[result.MissionID].Score;
             switch (GameData.DMissionData[result.MissionID].TimeKind) {
                 case 0:
                     GameData.Team.MissionLv = result.MissionLv;

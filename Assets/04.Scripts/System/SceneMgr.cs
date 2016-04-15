@@ -33,13 +33,18 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             case ESceneName.Null:
                 SceneManager.UnloadScene(CurrentScene);
                 CurrentScene = levelToLoad;
-			break;
+                StartCoroutine(LoadLevelCoroutine(LoadScene));
+			    break;
+
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
+                SceneManager.UnloadScene(ESceneName.Null);
+                Resources.UnloadUnusedAssets();
                 UILoading.UIShow(true, ELoading.Lobby);
                 break;
 
 			case ESceneName.SelectRole:
+                SceneManager.UnloadScene(ESceneName.Null);
                 if (GameData.StageID >= 0)
                     UILoading.UIShow(true, ELoading.Stage);
                 else
@@ -48,12 +53,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 break;
             default:
                 //Court:
+                SceneManager.UnloadScene(ESceneName.Null);
                 UILoading.UIShow(true, ELoading.Game);
                 break;
         }
-
-        TAvatarLoader.ReleaseCache();
-        Resources.UnloadUnusedAssets();
     }
 
     void Awake()
@@ -61,7 +64,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         DontDestroyOnLoad(gameObject);
     }
 
-    public void ChangeLevel(int courtNo, bool isNeedLoading = false)
+    public void ChangeLevel(int courtNo, bool isNeedLoading = true)
     {
 		string scene = ESceneName.Court + courtNo;
 		ChangeLevel(scene, isNeedLoading);
@@ -73,7 +76,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         get{  return CurrentScene == string.Format("{0}{1}", ESceneName.Court, CurrentSceneNo);}
     }
 
-    public void ChangeLevel(string scene, bool isNeedLoading = false)
+    public void ChangeLevel(string scene, bool isNeedLoading = true)
     {
         
         if (CurrentScene != scene)

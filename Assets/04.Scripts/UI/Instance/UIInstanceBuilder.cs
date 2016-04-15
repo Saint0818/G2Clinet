@@ -126,7 +126,9 @@ public static class UIInstanceBuilder
         */
 
         GameObject model = null;
-        TAvatarLoader.Load(GameData.DPlayers[playerID].BodyType, player.Avatar, ref model, null, new TLoadParameter(ELayer.UI, "BossModel"));
+        TLoadParameter p = new TLoadParameter(ELayer.UI, "BossModel");
+        p.AsyncLoad = false;
+        TAvatarLoader.Load(GameData.DPlayers[playerID].BodyType, player.Avatar, ref model, null, p);
 
         return model;
     }

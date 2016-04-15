@@ -120,7 +120,7 @@ namespace GameItem
                     BG.color = Color.white;
 
                 playeHeadBtn.UpdateView(rankData.Team.Player);
-                combatLabel.text = string.Format("{0:0f}", rankData.Team.Player.CombatPower());
+                combatLabel.text = string.Format("{0:F0}", rankData.Team.Player.CombatPower());
                 PvPRankIcon.spriteName = string.Format("IconRank{0}", rankData.Team.PVPLv);
                 WinLabel.text = rankData.Team.LifetimeRecord.PVPWin.ToString();
                 PVPIntegral.text = rankData.Team.PVPIntegral.ToString();
