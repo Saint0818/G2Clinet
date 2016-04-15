@@ -54,7 +54,6 @@ public class GameController : KnightSingleton<GameController>
 	private bool isPassing = false;
 //    public float CoolDownPass = 0;
     public readonly CountDownTimer PassCD = new CountDownTimer(GameConst.CoolDownPassTime);
-    public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
 
@@ -939,9 +938,6 @@ public class GameController : KnightSingleton<GameController>
 		selectMeEvent();
 		angerRecoveryUpdate ();
         PassCD.Update(Time.deltaTime);
-
-		if (CoolDownCrossover > 0 && Time.time >= CoolDownCrossover)
-            CoolDownCrossover = 0;
 
         handleSituation();
 
@@ -3781,7 +3777,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-				if(player1.PlayerSkillController.IsHaveMoveDodge)
+			if(player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
 				if(player1.IsSkillPushThrough)

@@ -484,7 +484,7 @@ public class SkillController : MonoBehaviour {
 								executePlayer.transform.DOMoveX(executePlayer.transform.position.x + 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge1;
 							}			
-							GameController.Get.CoolDownCrossover = Time.time + 4;
+							executePlayer.CoolDownCrossover = 4;
 							Result = executePlayer.AniState(playerState);
 						}
 					} 

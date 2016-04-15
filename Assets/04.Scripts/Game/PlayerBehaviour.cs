@@ -156,6 +156,9 @@ public class PlayerBehaviour : MonoBehaviour
     //Steal
     public bool IsStealCalculate = false;
 
+	//MoveDodge CoolDown
+	public float CoolDownCrossover = 0;
+
     //Skill
     public SkillController PlayerSkillController;
     private ESkillKind skillKind;
@@ -630,6 +633,12 @@ public class PlayerBehaviour : MonoBehaviour
         ElbowCD.Update(Time.deltaTime);
         mManually.Update(Time.deltaTime);
 
+		if (CoolDownCrossover > 0) {
+			CoolDownCrossover -= Time.deltaTime;
+			if(CoolDownCrossover <= 0)
+				CoolDownCrossover = 0;
+		}
+
         if (IsPushCalculate)
             GameController.Get.PushCalculate(this, Attr.PushDistance, Attr.PushExtraAngle);
 
@@ -904,7 +913,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 #endif
 
-				if (!(GameController.Get.CoolDownCrossover == 0 && !IsDefence && IsMoveDodge && IsPush))
+				if (!(CoolDownCrossover == 0 && !IsDefence && IsMoveDodge && IsPush))
 				{
 					isMoving = true;
 					if (!isJoystick)
