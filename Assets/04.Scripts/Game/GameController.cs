@@ -2256,7 +2256,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
 	{
 		bool result = false;
-		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode())) || LobbyStart.Get.TestMode == EGameTest.Skill)
+		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode()) && player.IsInGround) || LobbyStart.Get.TestMode == EGameTest.Skill)
 		{
 			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || LobbyStart.Get.TestMode == EGameTest.Skill) {
 //                TimerMgr.Get.SetTimeController(ref player);

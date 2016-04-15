@@ -216,8 +216,8 @@ public class SkillController : MonoBehaviour {
 	public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
 		if (value != 0) {
 			int index = findSkillAttribute(skillID);
-			if(GameFunction.IsActiveSkill(skillID))
-				skillBuff.AddBuff(skillID, kind, lifetime, value);
+//			if(GameFunction.IsActiveSkill(skillID))
+			skillBuff.AddBuff(skillID, kind, lifetime, value);
 			
 			if (index == -1) {
 				TSkillAttribute item = new TSkillAttribute();
