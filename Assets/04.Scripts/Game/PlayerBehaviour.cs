@@ -850,8 +850,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 	
-	private float proffingCheckTime = 10f;
-	private float proofingTime = 10f;
+	private const float proffingCheckTime = 3f;
+	private float proofingTime = proffingCheckTime;
 
     public void FoolProofing()
     {	
@@ -878,7 +878,7 @@ public class PlayerBehaviour : MonoBehaviour
             if(LobbyStart.Get.IsDebugAnimation)
 				Debug.LogErrorFormat("{0}.proofing stuck : {1}", name, crtState);
 
-            AniState(IsBallOwner ? EPlayerState.HoldBall : EPlayerState.Idle);
+            AniState(IsBallOwner ? EPlayerState.HoldBall : EPlayerState.Idle, false);
 
             proofingTime = proffingCheckTime;
         }
@@ -1962,9 +1962,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool AniState(EPlayerState state)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="state"></param>
+    /// <param name="checkUseState"> true: 要檢查動作可不可以使用; false: 不檢查動作是否可以使用, 動作直接切過去. </param>
+    /// <returns></returns>
+    public bool AniState(EPlayerState state, bool checkUseState = true)
     {
-        if (!CanUseState(state))
+        if(checkUseState && !CanUseState(state))
             return false;
 
         mStateChangable = !AnimatorMgr.Get.IsForciblyStates(state);
