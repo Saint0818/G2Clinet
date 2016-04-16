@@ -181,7 +181,7 @@ public class UILoading : UIBase
             GameController.Get.StageStart();
     }
 
-    public static void UIShow(bool isShow, ELoading kind = ELoading.SelectRole)
+    public static void UIShow(bool isShow, ELoading kind = ELoading.Null)
     {
         if (isShow)
         {
@@ -201,7 +201,7 @@ public class UILoading : UIBase
     void FixedUpdate()
     {
         loadingTimer += Time.deltaTime;
-        if (loadingTimer >= 0.2f)
+        if (loadingTimer >= 0.1f)
         {
             loadingTimer = 0;
             textCount++;
@@ -385,9 +385,6 @@ public class UILoading : UIBase
             case ELoading.Lobby:
                 ProgressValue = 1;
 			
-                if (UITutorial.Visible)
-                    uiLoadingProgress.fillAmount = 1;
-
                 if (GameData.Team.Player.Lv == 0) {
                     UICreateRole.Get.ShowPositionView();
                     UI3DCreateRole.Get.PositionView.PlayDropAnimation();
@@ -398,6 +395,9 @@ public class UILoading : UIBase
                 } else
                     UIMainLobby.Get.Show();
 
+                if (UITutorial.Visible)
+                    uiLoadingProgress.fillAmount = 1;
+                
                 UIShow(false);
 				AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
                 break;

@@ -156,6 +156,11 @@ public class UIShop : UIBase {
     }
 
     private void addItem(int page, int index, TSellItem data) {
+        if (!GameData.DItemData.ContainsKey(data.ID)) {
+            Debug.Log("Shop item id error " + data.ID.ToString());
+            return;
+        }
+
         if (index >= shopItemList[page].Count) {
             TShopItemObj item = new TShopItemObj();
             item.Item = Instantiate(itemSellItem, Vector3.zero, Quaternion.identity) as GameObject;

@@ -480,7 +480,7 @@ public class UIMission : UIBase {
         }
 
         if (GameData.DMissionData.ContainsKey(result.MissionID)) {
-            finishCount[nowPage] += GameData.DMissionData[result.MissionID].Score;
+            
             switch (GameData.DMissionData[result.MissionID].TimeKind) {
                 case 0:
                     GameData.Team.MissionLv = result.MissionLv;
@@ -495,6 +495,11 @@ public class UIMission : UIBase {
                     GameData.Team.MonthlyRecord.MissionLv = result.MissionLv;
                     break;
             }
+
+            if (GameData.DMissionData[result.MissionID].Value != null &&
+                result.MissionLv.ContainsKey(result.MissionID) &&
+                result.MissionLv[result.MissionID] >= GameData.DMissionData[result.MissionID].Value.Length)
+                finishCount[nowPage] += GameData.DMissionData[result.MissionID].Score;
         }
 
         if (result.SkillCards != null) {
