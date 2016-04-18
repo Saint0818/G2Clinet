@@ -677,115 +677,52 @@ public struct TReinforceInfo {
 		}
 	}
 
+	private void valueShow (ref int index, int textNum, float value1, float value2) {
+		AttrView[index].SetActive(true);	
+		GroupLabel[index].text = TextConst.S(textNum);
+		ValueLabel0[index].text = value1.ToString();
+		ValueLabel1[index].text = value2.ToString();
+		if(value1 != value2) {
+			ValueLabel1[index].gameObject.SetActive(true);
+			ValueLabel1[index].color = Color.green;
+			index ++;
+		} else {
+			ValueLabel1[index].gameObject.SetActive(false);
+			AttrView[index].SetActive(false);
+		}
+	}
+
 	public void UpgradeViewForLevelUp (TSkill skill, TSkill newSkill) {
 		hideAll ();
 		int index = 0;
 		if(GameData.DSkillData.ContainsKey(skill.ID) && GameData.DSkillData.ContainsKey(newSkill.ID)) {
 
-			if(GameData.DSkillData[skill.ID].space > 0) {
-				AttrView[index].SetActive(true);	
-				GroupLabel[index].text = TextConst.S(7204);
-				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Space(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Space(newSkill.Lv).ToString();
-				if(GameData.DSkillData[newSkill.ID].Space(newSkill.Lv) != GameData.DSkillData[skill.ID].Space(skill.Lv)) {
-					ValueLabel1[index].gameObject.SetActive(true);
-					ValueLabel1[index].color = Color.green;
-					index ++;
-				} else {
-					ValueLabel1[index].gameObject.SetActive(false);
-					AttrView[index].SetActive(false);
-				}
-			}
+			if(GameData.DSkillData[skill.ID].space > 0) 
+				valueShow(ref index, 7204, GameData.DSkillData[skill.ID].Space(skill.Lv), GameData.DSkillData[newSkill.ID].Space(newSkill.Lv));
+			
 
 			if(GameData.DSkillData[skill.ID].rate > 0 || GameData.DSkillData[skill.ID].MaxAnger(skill.Lv) > 0) {
-				AttrView[index].SetActive(true);	
-
-				if(GameFunction.IsActiveSkill(newSkill.ID)) {
-					GroupLabel[index].text = TextConst.S(7207);
-					ValueLabel0[index].text = GameData.DSkillData[skill.ID].MaxAnger(skill.Lv).ToString();
-					ValueLabel1[index].text = GameData.DSkillData[skill.ID].MaxAnger(newSkill.Lv).ToString();
-					if(GameData.DSkillData[skill.ID].MaxAnger(newSkill.Lv) != GameData.DSkillData[skill.ID].MaxAnger(skill.Lv)) {
-						ValueLabel1[index].gameObject.SetActive(true);
-						ValueLabel1[index].color = Color.green;
-						index ++;
-					} else {
-						ValueLabel1[index].gameObject.SetActive(false);
-						AttrView[index].SetActive(false);
-					}
-				} else {
-					GroupLabel[index].text = TextConst.S(7206);
-					ValueLabel0[index].text = GameData.DSkillData[skill.ID].Rate(skill.Lv).ToString();
-					ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Rate(newSkill.Lv).ToString();
-					if(GameData.DSkillData[newSkill.ID].Rate(newSkill.Lv) != GameData.DSkillData[skill.ID].Rate(skill.Lv)) {
-						ValueLabel1[index].gameObject.SetActive(true);
-						ValueLabel1[index].color = Color.green;
-						index ++;
-					} else {
-						ValueLabel1[index].gameObject.SetActive(false);
-						AttrView[index].SetActive(false);
-					}
-				}
-
+				if(GameFunction.IsActiveSkill(newSkill.ID)) 
+					valueShow(ref index, 7207, GameData.DSkillData[skill.ID].MaxAnger(skill.Lv), GameData.DSkillData[newSkill.ID].MaxAnger(newSkill.Lv));
+				 else 
+					valueShow(ref index, 7206, GameData.DSkillData[skill.ID].Rate(skill.Lv), GameData.DSkillData[newSkill.ID].Rate(newSkill.Lv));
 			}
 
-			if(GameData.DSkillData[skill.ID].aniRate > 0 && index < AttrView.Length) {
-				AttrView[index].SetActive(true);	
-				GroupLabel[index].text = TextConst.S(7404);
-				ValueLabel0[index].text = GameData.DSkillData[skill.ID].AniRate(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].AniRate(newSkill.Lv).ToString();
-				if(GameData.DSkillData[newSkill.ID].AniRate(newSkill.Lv) != GameData.DSkillData[skill.ID].AniRate(skill.Lv)) {
-					ValueLabel1[index].gameObject.SetActive(true);
-					ValueLabel1[index].color = Color.green;
-					index ++;
-				} else {
-					ValueLabel1[index].gameObject.SetActive(false);
-					AttrView[index].SetActive(false);
-				}
-			}
+			if(GameData.DSkillData[skill.ID].aniRate > 0 && index < AttrView.Length) 
+				valueShow(ref index, 7404, GameData.DSkillData[skill.ID].AniRate(skill.Lv), GameData.DSkillData[newSkill.ID].AniRate(newSkill.Lv));
+			
 
-			if(GameData.DSkillData[skill.ID].distance > 0 && index < AttrView.Length) {
-				AttrView[index].SetActive(true);	
-				GroupLabel[index].text = TextConst.S(7405);
-				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Distance(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Distance(newSkill.Lv).ToString();
-				if(GameData.DSkillData[newSkill.ID].Distance(newSkill.Lv) != GameData.DSkillData[skill.ID].Distance(skill.Lv)) {
-					ValueLabel1[index].gameObject.SetActive(true);
-					ValueLabel1[index].color = Color.green;
-					index ++;
-				} else {
-					ValueLabel1[index].gameObject.SetActive(false);
-					AttrView[index].SetActive(false);
-				}
-			}
+			if(GameData.DSkillData[skill.ID].distance > 0 && index < AttrView.Length) 
+				valueShow(ref index, 7405, GameData.DSkillData[skill.ID].Distance(skill.Lv), GameData.DSkillData[newSkill.ID].Distance(newSkill.Lv));
+			
 
-			if(GameData.DSkillData[skill.ID].valueBase > 0 && index < AttrView.Length) {
-				AttrView[index].SetActive(true);	
-				GroupLabel[index].text = TextConst.S(10500 + GameData.DSkillData[skill.ID].AttrKind);
-				ValueLabel0[index].text = GameData.DSkillData[skill.ID].Value(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].Value(newSkill.Lv).ToString();
-				if(GameData.DSkillData[newSkill.ID].Value(newSkill.Lv) != GameData.DSkillData[skill.ID].Value(skill.Lv)) {
-					ValueLabel1[index].gameObject.SetActive(true);
-					ValueLabel1[index].color = Color.green;
-					index ++;
-				} else {
-					ValueLabel1[index].gameObject.SetActive(false);
-					AttrView[index].SetActive(false);
-				}
-			}
+			if(GameData.DSkillData[skill.ID].valueBase > 0 && index < AttrView.Length) 
+				valueShow(ref index, 10500 + GameData.DSkillData[skill.ID].AttrKind, GameData.DSkillData[skill.ID].Value(skill.Lv), GameData.DSkillData[newSkill.ID].Value(newSkill.Lv));
+			
 
-			if(GameData.DSkillData[skill.ID].lifeTime > 0 && index < AttrView.Length)  {
-				AttrView[index].SetActive(true);	
-				GroupLabel[index].text = TextConst.S(7406);
-				ValueLabel0[index].text = GameData.DSkillData[skill.ID].LifeTime(skill.Lv).ToString();
-				ValueLabel1[index].text = GameData.DSkillData[newSkill.ID].LifeTime(newSkill.Lv).ToString();
-				if(GameData.DSkillData[newSkill.ID].LifeTime(newSkill.Lv) != GameData.DSkillData[skill.ID].LifeTime(skill.Lv)) {
-					ValueLabel1[index].gameObject.SetActive(true);
-					ValueLabel1[index].color = Color.green;
-				} else {
-					ValueLabel1[index].gameObject.SetActive(false);
-					AttrView[index].SetActive(false);
-				}
-			}
+			if(GameData.DSkillData[skill.ID].lifeTime > 0 && index < AttrView.Length)  
+				valueShow(ref index, 7406, GameData.DSkillData[skill.ID].LifeTime(skill.Lv), GameData.DSkillData[newSkill.ID].LifeTime(newSkill.Lv));
+			
 		}
 	}
 }

@@ -69,6 +69,27 @@ public struct TEquipmentGroup {
 		}
 	}
 
+	private void valueShow (int index, int value1, int value2, int kind) {
+		AttrKind[index].spriteName = "AttrKind_" + kind;
+		AttrKindLabel[index].text = TextConst.S(10500 + kind);
+		AttrView[index].name = kind.ToString();
+		ValueLabel0[index].text = value1.ToString();
+		ValueLabel1[index].text = value2.ToString();
+		if(value2 != value1) {
+			ValueLabel1[index].gameObject.SetActive(true);
+		} else {
+			ValueLabel1[index].gameObject.SetActive(false);
+		}
+	}
+
+	private void valueHide (int index) {
+		AttrKind[index].gameObject.SetActive(false);
+		AttrKindLabel[index].gameObject.SetActive(false);
+		AttrView[index].gameObject.SetActive(false);
+		ValueLabel0[index].gameObject.SetActive(false);
+		ValueLabel1[index].gameObject.SetActive(false);
+	}
+
 	public void UpgradeViewForLevelUp (TItemData beforeItemData, TItemData afterItemData) {
 		showAllView ();
 		int value1 = 0;
@@ -76,67 +97,27 @@ public struct TEquipmentGroup {
 		if(GameData.DItemData.ContainsKey(beforeItemData.ID) && GameData.DItemData.ContainsKey(afterItemData.ID)) {
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue1;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue1;
-			if(value1 > 0) {
-				AttrKind[0].spriteName = "AttrKind_" + beforeItemData.AttrKind1.GetHashCode();
-				AttrKindLabel[0].text = TextConst.S(10500 + beforeItemData.AttrKind1.GetHashCode());
-				AttrView[0].name = beforeItemData.AttrKind1.GetHashCode().ToString();
-				ValueLabel0[0].text = value1.ToString();
-				ValueLabel1[0].text = value2.ToString();
-				if(value2 != value1) {
-					ValueLabel1[0].gameObject.SetActive(true);
-				} else {
-					ValueLabel1[0].gameObject.SetActive(false);
-				}
-			} else {
-				AttrKind[0].gameObject.SetActive(false);
-				AttrKindLabel[0].gameObject.SetActive(false);
-				AttrView[0].gameObject.SetActive(false);
-				ValueLabel0[0].gameObject.SetActive(false);
-				ValueLabel1[0].gameObject.SetActive(false);
-			}
+			if(value1 > 0) 
+				valueShow(0, value1, value2, beforeItemData.AttrKind1.GetHashCode());
+			else 
+				valueHide(0);
+			
 
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue2;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue2;
-			if(value1 > 0) {
-				AttrKind[1].spriteName = "AttrKind_" + beforeItemData.AttrKind2.GetHashCode();
-				AttrKindLabel[1].text = TextConst.S(10500 + beforeItemData.AttrKind2.GetHashCode());
-				AttrView[1].name = beforeItemData.AttrKind2.GetHashCode().ToString();
-				ValueLabel0[1].text = value1.ToString();
-				ValueLabel1[1].text = value2.ToString();
-				if(value2 != value1) {
-					ValueLabel1[1].gameObject.SetActive(true);
-				} else {
-					ValueLabel1[1].gameObject.SetActive(false);
-				}
-			} else {
-				AttrKind[1].gameObject.SetActive(false);
-				AttrKindLabel[1].gameObject.SetActive(false);
-				AttrView[1].gameObject.SetActive(false);
-				ValueLabel0[1].gameObject.SetActive(false);
-				ValueLabel1[1].gameObject.SetActive(false);
-			}
+			if(value1 > 0) 
+				valueShow(1, value1, value2, beforeItemData.AttrKind2.GetHashCode());
+			else 
+				valueHide(1);
 
 
 			value1 = GameData.DItemData[beforeItemData.ID].AttrValue3;
 			value2 = GameData.DItemData[afterItemData.ID].AttrValue3;
-			if(value1 > 0) {
-				AttrKind[2].spriteName = "AttrKind_" + beforeItemData.AttrKind3.GetHashCode();
-				AttrKindLabel[2].text = TextConst.S(10500 + beforeItemData.AttrKind3.GetHashCode());
-				AttrView[2].name = beforeItemData.AttrKind3.GetHashCode().ToString();
-				ValueLabel0[2].text = value1.ToString();
-				ValueLabel1[2].text = value2.ToString();
-				if(value2 != value1) {
-					ValueLabel1[2].gameObject.SetActive(true);
-				} else {
-					ValueLabel1[2].gameObject.SetActive(false);
-				}
-			} else {
-				AttrKind[2].gameObject.SetActive(false);
-				AttrKindLabel[2].gameObject.SetActive(false);
-				AttrView[2].gameObject.SetActive(false);
-				ValueLabel0[2].gameObject.SetActive(true);
-				ValueLabel1[2].gameObject.SetActive(false);
-			}
+			if(value1 > 0) 
+				valueShow(2, value1, value2, beforeItemData.AttrKind3.GetHashCode());
+			else 
+				valueHide(2);
+			
 		}
 	}
 }
