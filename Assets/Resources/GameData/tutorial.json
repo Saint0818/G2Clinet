@@ -146,12 +146,7 @@
         "id": 2,
         "line": 6,
         "kind": 4,
-        "value": 2,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 4,
-        "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！",
-        "texten": "When you buy an item, you'll get style [ff6060] attribution points [-] !"
+        "value": 2
     },
     {
         "id": 2,
@@ -899,8 +894,8 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "只要你每次[ff6060]提升等級[-]，或者藉由購買造型外觀都可以獲得[ff6060]潛能點數[-]",
-        "texten": "Every time you level up, [ff6060] or when you [-], purchase items, you'll get attribution points which you can use [ff6060] to increase  your overall skills. [-]"
+        "texttw": "只要你每次[ff6060]提升等級[-]，都可以獲得[ff6060]潛能點[-]。",
+        "texten": "When you level up, you'll get attribution points which you can use [ff6060] to increase  your overall skills. [-]"
     },
     {
         "id": 12,
@@ -908,7 +903,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "當有技能點數後，只要點擊各數值的[ff6060]＋[-]按鈕，即可增加對應的數值唷，快來試試吧！！",
+        "texttw": "提升每一個屬性的需求潛能點數量都不相同，要謹慎分配唷！完成後記得要點擊[ff6060]確認投點[-]的按鈕，才算正式完成！",
         "texten": "When you have attribution points, choose the skill you wanna enhance and press the [ff6060] + [-] to increase 1 point of that skill. You can use all your points in a single skill or different ones!"
     },
     {
@@ -1013,7 +1008,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧",
+        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧。",
         "texten": "Choose [ff6060] I Love Basketball Gangs[-] ."
     },
     {
@@ -1594,8 +1589,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "潔西卡，你到底是什麼人呀？",
-        "texten": "Jessica, WHO ARE YOU?"
+        "texttw": "萊達，你到底是什麼人呀？",
+        "texten": "Aranja, WHO ARE YOU?"
     },
     {
         "id": 1010,
@@ -1708,27 +1703,17 @@
         "id": 1041,
         "line": 3,
         "title": "踏上意外旅程-4",
-        "kind": 3,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 5,
-        "texttw": "我們一定要獲勝！拿到獎金，參加資格賽！",
-        "texten": "We must win! Get a bonus, to qualify!"
-    },
-    {
-        "id": 1041,
-        "line": 4,
-        "title": "踏上意外旅程-4",
-        "talkl": 10,
-        "actionl": 5,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 3,
         "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]2分球[-]！！",
         "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] 2-pointer[-]  if you wanna move on."
     },
     {
         "id": 1041,
-        "line": 5,
+        "line": 4,
         "title": "踏上意外旅程-4",
-        "actionl": 3,
+        "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
         "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛...",
@@ -1736,8 +1721,9 @@
     },
     {
         "id": 1041,
-        "line": 6,
+        "line": 5,
         "title": "踏上意外旅程-4",
+        "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
         "texttw": "別擔心，這次我們的另一個夥伴是個神射手。",
@@ -1745,8 +1731,9 @@
     },
     {
         "id": 1041,
-        "line": 7,
+        "line": 6,
         "title": "踏上意外旅程-4",
+        "talkindex": 0,
         "talkl": 10,
         "actionl": 4,
         "texttw": "我們把機會做給他吧！！",
@@ -1754,18 +1741,19 @@
     },
     {
         "id": 1041,
-        "line": 8,
+        "line": 7,
         "title": "踏上意外旅程-4",
-        "actionl": 5,
+        "talkindex": 1,
         "talkr": -1,
-        "actionr": 4,
+        "actionr": 1,
         "texttw": "好！！就這麼辦！！",
         "texten": "Yeah!  Let's do this!"
     },
     {
         "id": 1050,
-        "line": 1,
+        "line": 8,
         "title": "成為勇士吧-1",
+        "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
         "texttw": "每次比賽前，千萬別忘了檢查『技能晶片』的搭配－",
@@ -1773,8 +1761,9 @@
     },
     {
         "id": 1050,
-        "line": 2,
+        "line": 9,
         "title": "成為勇士吧-1",
+        "talkindex": 0,
         "talkl": 10,
         "actionl": 5,
         "texttw": "也別忘了在比賽中，適時地發動技能！技能能夠讓你輕鬆突破難關！",
@@ -1782,7 +1771,7 @@
     },
     {
         "id": 1050,
-        "line": 3,
+        "line": 10,
         "title": "成為勇士吧-1",
         "talkindex": 1,
         "talkr": -1,
