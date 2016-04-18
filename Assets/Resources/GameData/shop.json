@@ -2396,24 +2396,6 @@
         "kind": 10,
         "kind2": 2,
         "spendkind": 0,
-        "price": 900,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 10,
-        "kind2": 2,
-        "spendkind": 0,
-        "price": 900,
-        "itemid": 22251,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 10,
-        "kind2": 2,
-        "spendkind": 0,
         "price": 1200,
         "itemid": 30400,
         "num": 1,
@@ -3894,24 +3876,6 @@
         "spendkind": 1,
         "price": 135000,
         "itemid": 22203,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 10,
-        "kind2": 2,
-        "spendkind": 1,
-        "price": 135000,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 10,
-        "kind2": 2,
-        "spendkind": 1,
-        "price": 135000,
-        "itemid": 22251,
         "num": 1,
         "rate": 5
     },
@@ -7827,24 +7791,6 @@
         "kind": 11,
         "kind2": 2,
         "spendkind": 0,
-        "price": 900,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 11,
-        "kind2": 2,
-        "spendkind": 0,
-        "price": 900,
-        "itemid": 22251,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 11,
-        "kind2": 2,
-        "spendkind": 0,
         "price": 1200,
         "itemid": 30400,
         "num": 1,
@@ -9325,24 +9271,6 @@
         "spendkind": 2,
         "price": 6750,
         "itemid": 22203,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 11,
-        "kind2": 2,
-        "spendkind": 2,
-        "price": 6750,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 11,
-        "kind2": 2,
-        "spendkind": 2,
-        "price": 6750,
-        "itemid": 22251,
         "num": 1,
         "rate": 5
     },
@@ -13420,24 +13348,6 @@
         "kind": 12,
         "kind2": 2,
         "spendkind": 0,
-        "price": 900,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 12,
-        "kind2": 2,
-        "spendkind": 0,
-        "price": 900,
-        "itemid": 22251,
-        "num": 1,
-        "rate": 10
-    },
-    {
-        "kind": 12,
-        "kind2": 2,
-        "spendkind": 0,
         "price": 1200,
         "itemid": 30400,
         "num": 1,
@@ -14918,24 +14828,6 @@
         "spendkind": 3,
         "price": 1350,
         "itemid": 22203,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 12,
-        "kind2": 2,
-        "spendkind": 3,
-        "price": 1350,
-        "itemid": 22250,
-        "num": 1,
-        "rate": 5
-    },
-    {
-        "kind": 12,
-        "kind2": 2,
-        "spendkind": 3,
-        "price": 1350,
-        "itemid": 22251,
         "num": 1,
         "rate": 5
     },
