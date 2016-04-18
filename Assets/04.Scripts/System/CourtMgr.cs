@@ -14,6 +14,8 @@ using GameEnum;
 /// </list>
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
+    private const string DefaultRealBallPath = "Prefab/Stadium/RealBall";
+    private const string PrefabRealBallPath = "Prefab/Stadium/RealBall";
     public GameObject RefGameObject;
     private bool isPve = true;
     private int attackDirection = 0;
@@ -308,9 +310,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         EffectHigh = GameObject.Find("Effect/High");		
     }
 
-    public void InitCourtScene()
+    public void InitCourtScene(int courtNum)
     {
-        loadBall();
+        loadBall(courtNum);
         checkCollider();
         InitScoreboard();
         initEffect();
@@ -486,23 +488,37 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 
-    private void loadBall()
+    private void loadBall(int courtNum)
     {
-        if (RealBallObj == null)
+        if(RealBallObj)
         {
-            RealBallObj = Instantiate(Resources.Load("Prefab/Stadium/RealBall")) as GameObject;
-            RealBallCompoment = RealBallObj.GetComponent<RealBall>();
-            RealBallObj.name = "RealBall";
-            if (RealBallCurve == null)
-                RealBallCurve = RealBallObj.GetComponent<BallCurve>();
+            Destroy(RealBallObj);
+            RealBallObj = null;
         }
 
-        if (RealBallObj)
+        RealBallObj = safeLoadBall(courtNum);
+
+        RealBallCompoment = RealBallObj.GetComponent<RealBall>();
+        RealBallObj.name = "RealBall";
+        if (RealBallCurve == null)
+            RealBallCurve = RealBallObj.GetComponent<BallCurve>();
+
+		RealBallObj.transform.localPosition = new Vector3(0, 3.5f, 0);
+        RealBallObj.GetComponent<Rigidbody>().isKinematic = true;
+        RealBallObj.GetComponent<Rigidbody>().useGravity = false;
+    }
+
+    private GameObject safeLoadBall(int courtNum)
+    {
+        var realBallPathName = string.Format("{0}_{1}", PrefabRealBallPath, courtNum);
+        GameObject realBallObj = Resources.Load<GameObject>(realBallPathName);
+        if(realBallObj == null)
         {
-			RealBallObj.transform.localPosition = new Vector3(0, 3.5f, 0);
-            RealBallObj.GetComponent<Rigidbody>().isKinematic = true;
-            RealBallObj.GetComponent<Rigidbody>().useGravity = false;
+            Debug.LogErrorFormat("Can't find RealBall: {0}", realBallPathName);
+            realBallObj = Resources.Load<GameObject>(DefaultRealBallPath);
         }
+
+        return Instantiate(realBallObj);
     }
 
     private void checkCollider()

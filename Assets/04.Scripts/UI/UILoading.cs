@@ -406,7 +406,9 @@ public class UILoading : UIBase
                 ProgressValue = 0.6f;
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
-                CourtMgr.Get.InitCourtScene();
+
+                TStageData stageData = StageTable.Ins.GetByID(GameData.StageID);
+                CourtMgr.Get.InitCourtScene(stageData.CourtNo);
                 yield return new WaitForSeconds(1);
 
                 if (LobbyStart.Get.TestMode == EGameTest.None)
