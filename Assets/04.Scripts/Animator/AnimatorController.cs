@@ -87,10 +87,9 @@ public class AnimatorController : MonoBehaviour
     public Action ShowDel;
     public Action CatchDel;
 
-//    public TimeScaleDelegate TimeScaleCallBack = null;
-    public ZoomDelegate ZoomInDel = null;
-    public ZoomDelegate ZoomOutDel = null;
-    public SkillDelegate SkillDel = null;
+    public ZoomDelegate ZoomInDel;
+    public ZoomDelegate ZoomOutDel;
+    public SkillDelegate SkillDel;
 
 	public void ResetSpeed()
 	{

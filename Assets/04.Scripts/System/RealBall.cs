@@ -1,15 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
-using AI;
-using JetBrains.Annotations;
-using GameEnum;
+﻿using AI;
 using DG.Tweening;
+using GameEnum;
+using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
+/// <para> 籃球會有此 Component. </para>
 /// realBallCollider 用來與地板作實際的碰撞
 /// Trigger 用來判斷
 /// </summary>
-
 public class RealBall : MonoBehaviour
 {
     public BallTrigger Trigger;

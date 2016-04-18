@@ -5,6 +5,13 @@ using JetBrains.Annotations;
 using UnityEngine;
 using GameEnum;
 
+/// <summary>
+/// <para> 管理遊戲球場相關的事情. </para>
+/// </summary>
+/// 使用方法:
+/// <list type="number">
+/// <item> Call InitCourtScene() 初始化場景. </item>
+/// </list>
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
     public GameObject RefGameObject;
@@ -13,10 +20,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     private int crtBasketIndex = -1;
     private GameObject crtBasket;
 
-    //RealBall
     private bool isBallOffensive = false;
-//Shoot and Dunk (true)
-    public GameObject RealBallObj;   
+    
+    //Shoot and Dunk (true)
+    public GameObject RealBallObj { get; private set; }
+
     private bool isRealBallInAcitve = false;
     private GameObject crtCollider;
     private GameObject[] pveBasketAy = new GameObject[2];
@@ -270,7 +278,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     void Awake()
     {
         RefGameObject = gameObject;
-        CheckCollider();
+        checkCollider();
     }
 
     void OnDestroy() {
@@ -294,7 +302,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             Destroy(crtCollider);
     }
 
-    public void InitEffect()
+    private void initEffect()
     {
         EffectMedium = GameObject.Find("Effect/Medium");
         EffectHigh = GameObject.Find("Effect/High");		
@@ -302,25 +310,29 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void InitCourtScene()
     {
-        CloneReallBall();
-        CheckCollider();
-        //ChangeBasket(2);
+        loadBall();
+        checkCollider();
         InitScoreboard();
-        InitEffect();
+        initEffect();
+        loadSkillComponents();
 
-        if (!SkillRangeOfAction)
-            SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
+    }
 
-        if (!SkillArrowOfAction)
+    private void loadSkillComponents()
+    {
+        if(!SkillRangeOfAction)
+            SkillRangeOfAction =
+                Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+
+        if(!SkillArrowOfAction)
         {
             SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
             SkillArrowOfAction.SetActive(false);
             Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
-            if (t != null)
+            if(t != null)
                 textureArrow = t.GetComponent<UITexture>();
         }
-
-        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
     }
 
     public void ShowRangeOfAction(bool isShow, Transform parent = null, float degree = 0, float dis = 0, float euler = 0)
@@ -474,11 +486,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 
-    public void CloneReallBall()
+    private void loadBall()
     {
         if (RealBallObj == null)
         {
-            RealBallObj = GameObject.Instantiate(Resources.Load("Prefab/Stadium/RealBall")) as GameObject;
+            RealBallObj = Instantiate(Resources.Load("Prefab/Stadium/RealBall")) as GameObject;
             RealBallCompoment = RealBallObj.GetComponent<RealBall>();
             RealBallObj.name = "RealBall";
             if (RealBallCurve == null)
@@ -493,88 +505,88 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         }
     }
 
-    public void CheckCollider()
+    private void checkCollider()
     {
-        if (crtCollider == null)
+        if(crtCollider == null)
         {
             crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = RefGameObject.transform;
         }
 		
-        EndPlayerPosition[0] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
-        EndPlayerPosition[1] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
-        EndPlayerPosition[2] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/3", crtCollider.name)).transform;
-        EndPlayerPosition[3] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
-        EndPlayerPosition[4] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
-        EndPlayerPosition[5] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
+        EndPlayerPosition[0] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
+        EndPlayerPosition[1] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
+        EndPlayerPosition[2] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/3", crtCollider.name)).transform;
+        EndPlayerPosition[3] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
+        EndPlayerPosition[4] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
+        EndPlayerPosition[5] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
 
         if (LobbyStart.Get.CourtMode == ECourtMode.Full)
         {
-            Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
-            Walls[1] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
-            Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
-            Hood[1] = GetGameObjtInCollider(string.Format("{0}/HoodB", crtCollider.name)); 
-            ShootPoint[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
-            ShootPoint[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
-            BasketRangeCenter[0] = GetGameObjtInCollider(string.Format("{0}/RangeOfActionCenterL", crtCollider.name));
-            BasketRangeCenter[1] = GetGameObjtInCollider(string.Format("{0}/RangeOfActionCenterR", crtCollider.name));
-            MissPoint[0] = GetGameObjtInCollider(string.Format("{0}/MissPos/A", crtCollider.name));
-            MissPoint[1] = GetGameObjtInCollider(string.Format("{0}/MissPos/B", crtCollider.name));
-            DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/Point", crtCollider.name));
-            DunkPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkR/Point", crtCollider.name));
-            DunkJumpPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
-            DunkJumpPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkR/JumpPoint", crtCollider.name));
-            CameraHood[0] = GetGameObjtInCollider(string.Format("{0}/CameraHood/A", crtCollider.name));
-            CameraHood[1] = GetGameObjtInCollider(string.Format("{0}/CameraHood/B", crtCollider.name));
-            BasketEntra[0, 0] = GetGameObjtInCollider(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+            Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+            Walls[1] = GameObject.Find(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
+            Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
+            Hood[1] = GameObject.Find(string.Format("{0}/HoodB", crtCollider.name)); 
+            ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
+            ShootPoint[1] = GameObject.Find(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
+            BasketRangeCenter[0] = GameObject.Find(string.Format("{0}/RangeOfActionCenterL", crtCollider.name));
+            BasketRangeCenter[1] = GameObject.Find(string.Format("{0}/RangeOfActionCenterR", crtCollider.name));
+            MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
+            MissPoint[1] = GameObject.Find(string.Format("{0}/MissPos/B", crtCollider.name));
+            DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
+            DunkPoint[1] = GameObject.Find(string.Format("{0}/DunkR/Point", crtCollider.name));
+            DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+            DunkJumpPoint[1] = GameObject.Find(string.Format("{0}/DunkR/JumpPoint", crtCollider.name));
+            CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
+            CameraHood[1] = GameObject.Find(string.Format("{0}/CameraHood/B", crtCollider.name));
+            BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[0, 0].ScoreDel += ScoreMgr;
-			BasketEntra[0, 1] = GetGameObjtInCollider(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[0, 1].ScoreDel += ScoreMgr;
             BasketEntra[0, 1].IntTrigger = 1;
-			BasketEntra[1, 0] = GetGameObjtInCollider(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[1, 0] = GameObject.Find(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 0].ScoreDel += ScoreMgr;
-			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[1, 1] = GameObject.Find(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1].ScoreDel += ScoreMgr;
             BasketEntra[1, 1].IntTrigger = 1;
-            BasketAirBall[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+            BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
 			BasketAirBall[0].AirBallDel += AirBallMgr;
-			BasketAirBall[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+			BasketAirBall[1] = GameObject.Find(string.Format("{0}/HoodB/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
 			BasketAirBall[1].AirBallDel += AirBallMgr;
 
             for (int i = 0; i < Distance3Pos.GetLength(0); i++)
                 for (int j = 0; j < Distance3Pos.GetLength(1); j++)
-                    Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
+                    Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
         }
         else
         {
-            Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+            Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
             Walls[1] = Walls[0];
-            Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
+            Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
             Hood[1] = Hood[0];
-            ShootPoint[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
+            ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
             ShootPoint[1] = ShootPoint[0];
-            MissPoint[0] = GetGameObjtInCollider(string.Format("{0}/MissPos/A", crtCollider.name));
+            MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
             MissPoint[1] = MissPoint[0];
-            DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/Point", crtCollider.name));
+            DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
             DunkPoint[1] = DunkPoint[0];
-            DunkJumpPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+            DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
             DunkJumpPoint[1] = DunkJumpPoint[0];
-            CameraHood[0] = GetGameObjtInCollider(string.Format("{0}/CameraHood/A", crtCollider.name));
+            CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
             CameraHood[1] = CameraHood[0];
-			BasketEntra[0, 0] = GetGameObjtInCollider(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[0, 0].ScoreDel += ScoreMgr;
-			BasketEntra[0, 1] = GetGameObjtInCollider(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[0, 1].ScoreDel += ScoreMgr;
             BasketEntra[0, 1].IntTrigger = 1;
             BasketEntra[1, 0] = BasketEntra[0, 0];
             BasketEntra[1, 1] = BasketEntra[0, 1];
-			BasketAirBall[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+			BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
 			BasketAirBall[0].AirBallDel += AirBallMgr;
             BasketAirBall[1] = BasketAirBall[0];
 
             for (int i = 0; i < Distance3Pos.GetLength(0); i++)
                 for (int j = 0; j < Distance3Pos.GetLength(1); j++)
-                    Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
+                    Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
         }
     }
 
@@ -597,17 +609,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             switchGameobj(ref DunkPoint[0], ref DunkPoint[1]);
             switchGameobj(ref CameraHood[0], ref CameraHood[1]);
         }
-    }
-
-    private GameObject GetGameObjtInCollider(string path)
-    {
-        GameObject go = GameObject.Find(path);
-        if (go == null)
-        {
-            Debug.LogError("Can not find GameObject  Path : " + path);
-        }
-
-        return go;
     }
 
     public void ChangeBasket(int basketIndex)
