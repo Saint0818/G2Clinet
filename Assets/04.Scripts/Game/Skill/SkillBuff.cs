@@ -77,7 +77,8 @@ namespace  SkillBuffSpace {
 
 		public Color NameColor {
 			set {
-				labelPlayerName.color = value;
+//				labelPlayerName.color = value;
+				labelPlayerName.effectColor = value;
 			}
 		}
 
