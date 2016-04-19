@@ -42,7 +42,20 @@ struct TPlayerDisData {
 	public float Distance;
 }
 
+public struct TPassIcon {
+	public GameObject Obj;
+	public UISprite Face;
 
+	public void UpdateFace (string faceName) {
+		Face.spriteName = faceName;
+	}
+
+	public bool FaceVisible {
+		set {
+			Face.gameObject.SetActive(value);
+		}
+	}
+}
 
 public class GameController : KnightSingleton<GameController>
 {
@@ -115,6 +128,8 @@ public class GameController : KnightSingleton<GameController>
         new Vector3(-3.5f, 0, 3) // F
     };
 
+	private string[] passIconName = {"PassMe", "PassA", "PassB"};
+
 	private readonly List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 
 	//Alleyoop
@@ -164,7 +179,7 @@ public class GameController : KnightSingleton<GameController>
 	public EBasketSituation BasketSituation;
    
 	//Effect
-	public GameObject[] passIcon = new GameObject[3];
+	public TPassIcon[] passIcon = new TPassIcon[3];
 
 	//Player Anger 每秒回復的士氣值（浮動值會依據套卡而變化）
 	private float recoverTime = 1;
@@ -763,14 +778,18 @@ public class GameController : KnightSingleton<GameController>
                 PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, new Vector3(0, 0, 5), new TPlayer(0)));
                 SetPlayerAI(false);
                 break;
-        }
+		}
 
-        for (int i = 0; i < PlayerList.Count; i++)
-            PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
-
-        Joysticker = PlayerList[0];
+		Joysticker = PlayerList[0];
 		Joysticker.NameColor = Color.red;
-        UIGame.Get.SetJoystick(Joysticker);
+		UIGame.Get.SetJoystick(Joysticker);
+
+		for (int i = 0; i < PlayerList.Count; i++) {
+			if(i < 3 && PlayerList[i].Team == Joysticker.Team)
+				setPassIcon(0 , passIconName[i], PlayerList[i]);
+				
+            PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
+		}
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
         if (playerSelectMe) {
@@ -780,13 +799,13 @@ public class GameController : KnightSingleton<GameController>
             Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
         }
 
-        passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
-
-        if (PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team)
-            passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList[1].PlayerRefGameObject);
-
-        if (PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team)
-            passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList[2].PlayerRefGameObject);
+//        passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
+//
+//		if (PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team)
+//			passIcon[1] = EffectManager.Get.PlayEffect("PassA", PlayerList[1].BodyHeight.transform.localPosition, PlayerList[1].PlayerRefGameObject);
+//
+//		if (PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team)
+//			passIcon[2] = EffectManager.Get.PlayEffect("PassB", PlayerList[2].BodyHeight.transform.localPosition, PlayerList[2].PlayerRefGameObject);
 
         for (int i = 0; i < PlayerList.Count; i++)
         {
@@ -826,6 +845,16 @@ public class GameController : KnightSingleton<GameController>
         preLoadSkillEffect();
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
+
+	private void setPassIcon (int index, string effectname, PlayerBehaviour player) {
+		if(index >=0 && index < passIcon.Length) {
+			passIcon[index].Obj = EffectManager.Get.PlayEffect(effectname, player.BodyHeight.transform.localPosition, player.PlayerRefGameObject);
+			passIcon[index].Face = passIcon[index].Obj.transform.Find("View/HeadPic").GetComponent<UISprite>();
+			passIcon[index].UpdateFace(player.Attribute.FacePicture);
+			if(player != Joysticker)
+				passIcon[index].FaceVisible = !string.IsNullOrEmpty(player.Attribute.Identifier);
+		}
+	}
 
     private void createEditTeam()
     {
