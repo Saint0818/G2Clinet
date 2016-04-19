@@ -23,7 +23,7 @@ public class BlockTrigger : MonoBehaviour {
 
 		if (GameController.Visible && other.gameObject.CompareTag ("Player")) {
 			GameObject toucher = other.gameObject;
-			if (LayerMgr.Get.CheckLayer(toucher, ELayer.Shooter) && blocker != null && blocker.gameObject != toucher) {
+			if (LayerMgr.Get.CheckLayer(toucher, ELayer.Shooter) && blocker != null && blocker.gameObject != toucher && GameController.Get.BallState == EBallState.CanDunkBlock) {
 				int rate = Random.Range(0, 100);
 				if(rate < blocker.Attr.BlockPushRate){
 					faller = toucher.GetComponent<PlayerBehaviour> ();
