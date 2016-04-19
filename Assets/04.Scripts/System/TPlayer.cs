@@ -451,7 +451,8 @@ namespace GameStruct
 		
         public void SetAvatar() {
             if (ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
-                BodyType = GameData.DPlayers[ID].BodyType;
+				BodyType = GameData.DPlayers[ID].BodyType;
+				HeadTextureNo = GameData.DPlayers[ID].HeadTextureNo;
                 Avatar.Body = GameData.DPlayers[ID].Body;
                 Avatar.Hair = GameData.DPlayers[ID].Hair;
                 Avatar.AHeadDress = GameData.DPlayers[ID].AHeadDress;
