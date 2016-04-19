@@ -25,7 +25,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 {
     public Transform PlayerPos;
     public Animator cameraControl;
-    private GameObject basket;
+//    private GameObject basket;
     private const int BuildCount = 10;
     public GameObject[] BuildPos = new GameObject[BuildCount];
     public GameObject[] Builds = new GameObject[BuildCount];
@@ -33,11 +33,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
 //    private Transform DummyBall;
-    private AnimatorController playerControl;
+//    private AnimatorController playerControl;
     private EPlayerState crtState;
-    private int stateNo = 0;
+//    private int stateNo = 0;
     private int selectIndex = -1;
-    private float delay = 0;
+    private float delay;
 
     private List<EPlayerState> showstate = new List<EPlayerState>();
 
@@ -167,15 +167,13 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             if (next.AnimatorState == EAnimatorState.Pass)
             {
                 next.AnimatorState = EAnimatorState.Shoot;
-                stateNo = 0; 
+//                stateNo = 0; 
                 crtState = EPlayerState.Shoot0;
             }
-            else
-            {
-                stateNo = next.StateNo;
-            }
+//            else
+//                stateNo = next.StateNo;
             Debug.LogError("LogError : " + crtState.ToString());
-            playerControl.Play(crtState, 0); 
+//            playerControl.Play(crtState, 0); 
         }
     }
 
@@ -254,11 +252,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				Builds[index].transform.localEulerAngles = Vector3.zero;
 				Builds[index].name = name;
 
-				if (index == 1)
-				{
-					basket = Builds[index];
-				}
-
+//				if (index == 1)
+//					basket = Builds[index];
 			}
 		}
 	}
@@ -294,10 +289,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
                 clone.transform.localEulerAngles = Vector3.zero;
                 clone.name = name;
 
-                if (index == 1)
-                {
-                    basket = clone;
-                }
+//                if (index == 1)
+//                    basket = clone;
 										
             }
         }
@@ -341,7 +334,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     {
     }
 
-    private Vector3 playerCenterPos;
+//    private Vector3 playerCenterPos;
 
     public void UpdateAvatar()
     {
@@ -365,7 +358,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             p.AsyncLoad = true;
             TAvatarLoader.Load(GameData.Team.Player.BodyType, GameData.Team.Player.Avatar, ref mAvatarPlayer, BuildPos[0], p);
 
-            playerCenterPos = mAvatarPlayer.transform.position;
+//            playerCenterPos = mAvatarPlayer.transform.position;
         }
         //CourtMgr.Get.DunkPoint[0] = BuildPos[1].gameObject;
         //TODO: 因新帳號無人物資料造成find null，所以先關掉

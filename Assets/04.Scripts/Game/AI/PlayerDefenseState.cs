@@ -9,7 +9,7 @@ namespace AI
             get { return EPlayerAIState.Defense; }
         }
 
-        private readonly PlayerAI mPlayerAI;
+//        private readonly PlayerAI mPlayerAI;
         private readonly PlayerBehaviour mPlayer;
 
         private readonly StartActiveSkillAction mStartActiveSkillAction;
@@ -18,7 +18,7 @@ namespace AI
 
         public PlayerDefenseState([NotNull]PlayerAI playerAI, [NotNull] PlayerBehaviour player)
         {
-            mPlayerAI = playerAI;
+//            mPlayerAI = playerAI;
             mPlayer = player;
 
             mStartActiveSkillAction = new StartActiveSkillAction(mPlayer);

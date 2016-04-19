@@ -66,7 +66,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject DefPoint;
     private GameObject TopPoint;
     public GameObject CatchBallPoint;
-    private GameObject FingerPoint;
+//    private GameObject FingerPoint;
 	private GameObject blockTrigger;
 	private GameObject pushThroughTigger;
 	private GameObject interceptTrigger;
@@ -142,7 +142,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Rebound
     private Vector3 reboundMove;
-    private bool isShootJumpActive = false;
+//    private bool isShootJumpActive;
     //For Active
     private bool isFakeShoot = false;
 
@@ -527,7 +527,7 @@ public class PlayerBehaviour : MonoBehaviour
             Transform t = bodyTrigger.transform.Find("TriggerFinger");
             if (t)
             {
-                FingerPoint = t.gameObject;
+//                FingerPoint = t.gameObject;
                 t.name = Team.GetHashCode().ToString() + Index.GetHashCode().ToString() + "TriggerFinger";
                 t.parent = transform.Find("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
                 t.localPosition = Vector3.zero;
@@ -1443,7 +1443,7 @@ public class PlayerBehaviour : MonoBehaviour
         angerValue = 0;
         AnimatorControl.Reset();
         isBlock = false;
-        isShootJumpActive = false;
+//        isShootJumpActive = false;
         isSkillShow = false;
         ResetFlag();
     }
@@ -1917,7 +1917,7 @@ public class PlayerBehaviour : MonoBehaviour
                     skillKind = ESkillKind.DownHand;
                     break;
                 case 20:
-                    isShootJumpActive = true;
+//                    isShootJumpActive = true;
                     break;
             }
 			
