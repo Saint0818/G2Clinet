@@ -550,8 +550,30 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 break;
         }
     }
+	private Vector3 tempPos;
+	public void LookatByPause (Vector3 lookPos, Vector3 pos) {
+//		CourtCamera.transform.DOLookAt(lookPos, 0.2f).OnUpdate(PauseCameraLookAt).SetUpdate(UpdateType.Normal, true);
+		tempPos = lookPos;
+		CourtCamera.transform.DOMove(pos, 0.2f).OnUpdate(PauseCameraLookAt).SetUpdate(UpdateType.Normal, true);
+	}
 
-    private void Lookat(Vector3 pos)
+	public void PauseCameraLookAt () {
+//		Lookat(tempPos);
+		CourtCamera.transform.LookAt(tempPos);
+	}
+
+	public void GamePause () {
+		CourtCameraAnimator.enabled = false;
+		CourtCamera.fieldOfView = 20;
+	}
+
+	public void GameContinue () {
+		CourtCameraAnimator.enabled = true;
+		CourtCamera.fieldOfView = 25;
+		CourtCamera.transform.DOMove(Vector3.zero , 0.1f);
+	}
+
+	public void Lookat(Vector3 pos)
     {
         Vector3 v1;
         float sp;

@@ -771,7 +771,6 @@ public class GameController : KnightSingleton<GameController>
         Joysticker = PlayerList[0];
 		Joysticker.NameColor = Color.red;
         UIGame.Get.SetJoystick(Joysticker);
-        AddValueItemAttributes();
 
         playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
         if (playerSelectMe) {
@@ -4507,6 +4506,9 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
+
+		//會放在這裡是為了可以把BaseAttr跟數值裝的值取出來
+		AddValueItemAttributes();
 	}
 
     public void SetAllPlayerLayer (string layerName){

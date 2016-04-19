@@ -18,24 +18,19 @@ public enum EPauseType {
 public class UIGamePause : UIBase {
 	private static UIGamePause instance = null;
 	private const string UIName = "UIGamePause";
-	private string[] positionPicName = {"IconCenter", "IconForward", "IconGuard"};
 	private EPauseType pauseType = EPauseType.Target;
 
 	private TGameRecord gameRecord;
 	private UIStageHint uiStageHint;
 	private GameObject uiGameResult;
-	private GameObject uiSelect;
-	private GameObject goMakeFriend;
-	private GameObject uiRecord;
-	private UIButton buttonPlayerInfo;
-	private UISprite spriteMakeFriend;
-	private UILabel labelMakeFriend;
-	private UILabel labelAttr;
+	private UILabel labelStrategy;
 
-	private string playerID;
-	private int playerIndex;
-	private int selectIndex;
-	private bool isFriend;
+	private UIButton[] btnPlayer = new UIButton[3];
+	private GameObject[] goSelect = new GameObject[3];
+	private UILabel[] labelPlayerName = new UILabel[3];
+	private UISprite[] spritePlayerFace = new UISprite[3];
+	private UISprite[] spritePlayerPosition = new UISprite[3];
+	private UILabel[] labelPlayerLv = new UILabel[3];
 
 	public static bool Visible {
 		get {
@@ -76,43 +71,30 @@ public class UIGamePause : UIBase {
 	}
 	
 	protected override void InitCom() {
-		uiStageHint = Instantiate(Resources.Load<GameObject>(UIPrefabPath.UIStageHint)).GetComponent<UIStageHint>();
-		uiStageHint.transform.parent = GameObject.Find(UIName + "/Center").transform;
-		uiStageHint.transform.localPosition = Vector3.zero;
-		uiStageHint.transform.localRotation = Quaternion.identity;
-		uiStageHint.transform.localScale = Vector3.one;
-		uiStageHint.SetInterval(150, 150);
+		uiStageHint = GameObject.Find(UIName + "/Window/Right/View/UIStageHint").GetComponent<UIStageHint>();
 
-		uiRecord = GameObject.Find(UIName + "/Center/GameResult/GameAttribute");
-		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
-		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
-		goMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend");
-		labelMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Label").GetComponent<UILabel>();
-		labelAttr = GameObject.Find(UIName + "/Center/GameResult/AttributeBoard/LabelAttr").GetComponent<UILabel>();
-		buttonPlayerInfo = GameObject.Find(UIName + "/Center/GameResult/PlayerInfoBtn").GetComponent<UIButton>();
-		spriteMakeFriend = GameObject.Find(UIName + "/Center/GameResult/MakeFriend/Btn").GetComponent<UISprite>();
+		uiGameResult = GameObject.Find(UIName + "/Window/Right/View/GameResult");
 
-		SetBtnFun(UIName + "/Center/GameResult/AttributeBoard/NextInfo", OnNextInfo);
-		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
-		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
-		SetBtnFun(UIName + "/Center/HomeBtn", OnHomeResult);
-		SetBtnFun(UIName + "/Center/AwayBtn", OnAwayResult);
-		SetBtnFun(UIName + "/Center/TargetBtn", OnBackToTarget);
-		SetBtnFun(UIName + "/Center/GameResult/PlayerMe/ButtonMe", OnPlayerInfo);
-		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
-		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
-		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
-        SetBtnFun (UIName + "/Bottom/StrategyBtn", OnStrategy);
-        SetBtnFun (UIName + "/Center/GameResult/PlayerInfoBtn", OnOpenInfo);
-        SetBtnFun (UIName + "/Center/GameResult/MakeFriend", OnMakeFriend);
+		for(int i=0; i<3; i++) {
+			goSelect[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/Select");
+			btnPlayer[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn").GetComponent<UIButton>();
+			SetBtnFun(ref btnPlayer[i], OnOpenInfo);
+			labelPlayerName[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerNameLabel").GetComponent<UILabel>();
+			spritePlayerFace[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn/PlayerPic").GetComponent<UISprite>();
+			spritePlayerPosition[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn/PlayerPic/PositionIcon").GetComponent<UISprite>();
+			labelPlayerLv[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+		}
 
-		buttonPlayerInfo.gameObject.SetActive(false);
+		labelStrategy = GameObject.Find(UIName + "/Window/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
+
+		SetBtnFun(UIName + "/Window/Bottom/ButtonResume", OnResume);
+		SetBtnFun(UIName + "/Window/Bottom/ButtonReturnSelect", OnReturn);
+		SetBtnFun(UIName + "/Window/Right/View/HomeBtn", OnHomeResult);
+		SetBtnFun(UIName + "/Window/Right/View/AwayBtn", OnAwayResult);
+		SetBtnFun(UIName + "/Window/Right/View/TargetBtn", OnBackToTarget);
+		SetBtnFun (UIName + "/Window/TopRight/ViewTools/ButtonOption", OptionSelect);
+		SetBtnFun (UIName + "/Window/Bottom/StrategyBtn", OnStrategy);
 	}
-
-    protected override void InitText()
-    {
-        SetLabel(UIName + "/Bottom/StrategyBtn/StrategyLabel", "");
-    }
 
 	private void initHomeAway (){
 		int basemin = 0;
@@ -121,92 +103,69 @@ public class UIGamePause : UIBase {
 			basemin = 3;
 			basemax = 6;
 		}
-		string positionName = "";
-		string positionType = "";
-		string spriteMe = "";
+		int playerIndex = 0;
 		for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 			if (i>=basemin && i<basemax) {
 				switch (i) {
 				case 0:
 				case 3:
-					positionName = "/Center/GameResult/PlayerMe/ButtonMe/PlayerFace/MyFace";
-					positionType = "/Center/GameResult/PlayerMe/ButtonMe/PlayerNameMe/SpriteTypeMe";
-					spriteMe = "/Center/GameResult/PlayerMe/ButtonMe/LabelValue";
+					playerIndex = 0;
 					break;
 				case 1:
 				case 4:
-					positionName = "/Center/GameResult/PlayerA/ButtonA/PlayerFace/AFace";
-					positionType = "/Center/GameResult/PlayerA/ButtonA/PlayerNameA/SpriteTypeA";
-					spriteMe = "/Center/GameResult/PlayerA/ButtonA/LabelValue";
+					playerIndex = 1;
 					break;
 				case 2:
 				case 5:
-					positionName = "/Center/GameResult/PlayerB/ButtonB/PlayerFace/BFace";
-					positionType = "/Center/GameResult/PlayerB/ButtonB/PlayerNameB/SpriteTypeB";
-					spriteMe = "/Center/GameResult/PlayerB/ButtonB/LabelValue";
+					playerIndex = 2;
 					break;
 				}
-				if (GameController.Get.GamePlayers[i].Attribute.BodyType >= 0 && GameController.Get.GamePlayers[i].Attribute.BodyType < 3) {
-					GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = GameController.Get.GamePlayers[i].Attribute.FacePicture;
-					GameObject.Find(UIName + positionType).GetComponent<UISprite>().spriteName = positionPicName[GameController.Get.GamePlayers[i].Attribute.BodyType];
-					GameObject.Find(UIName + spriteMe).GetComponent<UILabel>().text = GameController.Get.GamePlayers[i].Attribute.Name;
-				}
+				hideSelect ();
+				goSelect[0].SetActive(true);
+				btnPlayer[playerIndex].gameObject.name = playerIndex.ToString();
+				labelPlayerName[playerIndex].text = GameController.Get.GamePlayers[i].Attribute.Name;
+				spritePlayerFace[playerIndex].spriteName = GameController.Get.GamePlayers[i].Attribute.FacePicture;
+				spritePlayerPosition[playerIndex].spriteName = GameFunction.PositionIcon(GameController.Get.GamePlayers[i].Attribute.BodyType);
+				labelPlayerLv[playerIndex].text = GameController.Get.GamePlayers[i].Attribute.Lv.ToString();
+				labelPlayerLv[playerIndex].gameObject.SetActive(GameController.Get.GamePlayers[i].Attribute.Lv > 0);
+				if(i < gameRecord.PlayerRecords.Length)
+					getInfoString(playerIndex, ref gameRecord.PlayerRecords[i]);
 			}
 		}
 	}
 
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
+		labelStrategy.text =  GameData.Team.Player.StrategyText;
 		uiStageHint.Show();
 		uiStageHint.UpdateValue(GameController.Get.StageData.ID);
 		UIShow(true);
 		uiGameResult.SetActive(false);
 	}	
 
+	private void hideSelect () {
+		for(int i=0; i<goSelect.Length; i++)
+			goSelect[i].SetActive(false);
+	}
+
 	private void setInfo(int index, ref TGameRecord record) {
 		if (index >= 0 && index < record.PlayerRecords.Length) {
-			selectIndex = index;
-			getInfoString(ref record.PlayerRecords[index]);
 			initHomeAway ();
-			
-			switch (index) {
-			case 0:
-			case 3:
-				playerIndex = 0;
-				uiSelect.transform.localPosition = new Vector3(0, 105, 0);
-				break;
-			case 1:
-			case 4:
-				playerIndex = 1;
-				uiSelect.transform.localPosition = new Vector3(270, 105, 0);
-				break;
-			case 2:
-			case 5:
-				playerIndex = 2;
-				uiSelect.transform.localPosition = new Vector3(-270, 105, 0);
-				break;
-			}
-
-			if(playerIndex < GameData.TeamMembers.Length) {
-				if(GameData.Team.CheckFriend(GameData.TeamMembers[playerIndex].Identifier)) 
-					isFriend = true;
-				else 
-					isFriend = false;
-				
-				playerID = GameData.TeamMembers[playerIndex].Identifier;
-				goMakeFriend.SetActive(!string.IsNullOrEmpty(GameData.TeamMembers[playerIndex].Identifier));//如果是AI就是空值
-			} else 
-				goMakeFriend.SetActive(false);
-				
-			CheckFriendLike();
-            if (!uiRecord.activeInHierarchy)
-                labelAttr.text = GameController.Get.GamePlayers[selectIndex].Attribute.AttrText;
-            else
-                labelAttr.text = "";
+			moveCamera (index);
 		}
 	} 
 
-	private string getInfoString(ref TGamePlayerRecord player) {
+	private void  moveCamera (int index) {
+		CameraMgr.Get.GamePause();
+		CameraMgr.Get.LookatByPause(new Vector3(GameController.Get.GamePlayers[index].Pelvis.transform.position.x , 
+			GameController.Get.GamePlayers[index].Pelvis.transform.position.y, 
+			GameController.Get.GamePlayers[index].Pelvis.transform.position.z -3),
+			new Vector3(GameController.Get.GamePlayers[index].PlayerRefGameObject.transform.position.x - 13, 
+				GameController.Get.GamePlayers[index].PlayerRefGameObject.transform.position.y + 12, 
+				GameController.Get.GamePlayers[index].PlayerRefGameObject.transform.position.z));
+	}
+
+	private void getInfoString(int index, ref TGamePlayerRecord player) {
 		int pts = player.FGIn * 2 + player.FG3In * 3;
 		float fg = 0;
 		if (player.FG > 0)
@@ -216,84 +175,42 @@ public class UIGamePause : UIBase {
 		if (player.FG3 > 0)
 			fg3 = Mathf.Min(Mathf.Round(player.FG3In * 100 / player.FG3), 100);
 		
-		SetLabel(UIName + "Center/GameResult/GameAttribute/PTS/LabelValue", pts.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/FG/LabelValue", fg.ToString() + "%");
-		SetLabel(UIName + "Center/GameResult/GameAttribute/3FG/LabelValue", fg3.ToString() + "%");
-		SetLabel(UIName + "Center/GameResult/GameAttribute/REB/LabelValue", player.Rebound.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/AST/LabelValue", player.Assist.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/STL/LabelValue", (player.Steal + player.Intercept).ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/BLK/LabelValue", player.Block.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/PUSH/LabelValue", player.Push.ToString());
-		SetLabel(UIName + "Center/GameResult/GameAttribute/KNOCK/LabelValue", player.Knock.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/PTS/LabelValue", pts.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/FG/LabelValue", fg.ToString() + "%");
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/3FG/LabelValue", fg3.ToString() + "%");
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/REB/LabelValue", player.Rebound.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/AST/LabelValue", player.Assist.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/STL/LabelValue", (player.Steal + player.Intercept).ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/BLK/LabelValue", player.Block.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/PUSH/LabelValue", player.Push.ToString());
+		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/KNOCK/LabelValue", player.Knock.ToString());
 		
-		return string.Format("{0}\n{1}%\n{2}%\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
-		                     pts, fg, fg3, player.Rebound, player.Assist, player.Steal, player.Block, player.BeIntercept, player.Push, player.Knock);
-	}
-
-    public void OnMakeFriend() {
-		if(!string.IsNullOrEmpty(playerID)) {
-			if(isFriend) {
-				isFriend = false;
-			} else {
-				isFriend = true;
-				SendHttp.Get.MakeFriend(CheckFriendLike, playerID);
-			}
-		} 
-    }
-
-	public void CheckFriendLike () {
-		if(isFriend)
-			labelMakeFriend.text = TextConst.S(5023);
-		else
-			labelMakeFriend.text = TextConst.S(5024);
-		spriteMakeFriend.spriteName = ButtonBG(isFriend);
+//		return string.Format("{0}\n{1}%\n{2}%\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
+//		                     pts, fg, fg3, player.Rebound, player.Assist, player.Steal, player.Block, player.BeIntercept, player.Push, player.Knock);
 	}
 
     public void OnOpenInfo() {
-        
+		int result = 0;
+		if(int.TryParse(UIButton.current.name, out result)) {
+			hideSelect ();
+			goSelect[result].SetActive(true);
+			if(pauseType == EPauseType.Away) {
+				moveCamera(result + 3);
+				if(result >= 0 && result < GameData.EnemyMembers.Length)
+					UIGamePlayerInfo.Get.ShowView(GameData.EnemyMembers[result], GameController.Get.GamePlayers[result + 3]);
+			}else {
+				moveCamera(result);
+				if(result >= 0 && result < GameData.TeamMembers.Length)
+					UIGamePlayerInfo.Get.ShowView(GameData.TeamMembers[result], GameController.Get.GamePlayers[result]);
+			}
+		}
     }
-
-	public void OnNextInfo() {
-		if (uiRecord.activeInHierarchy) {
-			uiRecord.SetActive(false);
-			labelAttr.text = GameController.Get.GamePlayers[selectIndex].Attribute.AttrText;
-		} else {
-			uiRecord.SetActive(true);
-			labelAttr.text = "";
-		}
-	}
-	
-	public void OnPlayerInfo() {
-		if(pauseType == EPauseType.Home) {
-			if (UIButton.current.name == "ButtonMe") 
-				setInfo(0, ref gameRecord);
-			else
-				if (UIButton.current.name == "ButtonA") 
-					setInfo(1, ref gameRecord);
-			else
-				if (UIButton.current.name == "ButtonB") 
-					setInfo(2, ref gameRecord);
-		} else {
-			if (UIButton.current.name == "ButtonMe") 
-				setInfo(3, ref gameRecord);
-			else
-				if (UIButton.current.name == "ButtonA") 
-					setInfo(4, ref gameRecord);
-			else
-				if (UIButton.current.name == "ButtonB") 
-					setInfo(5, ref gameRecord);
-		}
-	}
 
 	public void OnReturn() {
 		Time.timeScale = 1;
 		uiStageHint.Hide();
 		UIShow(false);
-//		if (isStage)
-//			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-//		else
-//			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 		if(GameData.IsMainStage)
 		{
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
@@ -317,10 +234,11 @@ public class UIGamePause : UIBase {
 	}
 	
 	public void OnResume() {
+		CameraMgr.Get.GameContinue();
         Time.timeScale = GameController.Get.RecordTimeScale;
+		UIGame.Get.UIState(EUISituation.Continue);
 		uiStageHint.Hide();
 		UIShow(false);
-		UIGame.Get.UIState(EUISituation.Continue);
 	}
 	
 	public void OnAgain() {
@@ -354,6 +272,8 @@ public class UIGamePause : UIBase {
         UIStrategy.Visible = true;
         if (UIGame.Visible)
             UIStrategy.Get.LabelStrategy = UIGame.Get.LabelStrategy;
+
+		UIStrategy.Get.PauseLabelStrategy = labelStrategy;
     }
 
 	public void OptionSelect(){

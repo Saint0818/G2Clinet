@@ -8,6 +8,7 @@ public class UIStrategy : UIBase {
     private int mStrategy;
 
     public UILabel LabelStrategy;
+	public UILabel PauseLabelStrategy;
     private UIToggle[] toggleStrantegy = new UIToggle[strantegyNum];
 
     public static bool Visible {
@@ -96,6 +97,9 @@ public class UIStrategy : UIBase {
 
                 if (LabelStrategy != null)
                     LabelStrategy.text = GameData.Team.Player.StrategyText;
+
+				if(PauseLabelStrategy != null)
+					PauseLabelStrategy.text = GameData.Team.Player.StrategyText;
 
                 WWWForm form = new WWWForm();
                 form.AddField("Strategy", index.ToString());

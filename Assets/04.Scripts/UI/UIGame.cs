@@ -193,6 +193,7 @@ public class UIGame : UIBase
                 UIInGameMission.Visible = false;
                 UILevelUp.Visible = false;
                 UIAchievement.Visible = false;
+				UIGamePlayerInfo.Visible = false;
             }
 
             if (instance)

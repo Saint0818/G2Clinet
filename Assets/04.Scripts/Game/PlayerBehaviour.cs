@@ -88,7 +88,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	[HideInInspector]public Transform Pelvis;
     public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
-    public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
+	public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
+	public TPlayer BaseAttribute = new TPlayer(); //球員沒加入base跟buff的值 
     [HideInInspector]
     public TScoreRate ScoreRate;
     public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
@@ -354,10 +355,10 @@ public class PlayerBehaviour : MonoBehaviour
         GameRecord.ID = Attribute.ID;
 
         initSkill();
+		BaseAttribute = Attribute;
 		initAttr();
 		if (Attr.StaminaValue > 0)
 			setMovePower(Attr.StaminaValue);
-
     }
 
     private void initAttr()
