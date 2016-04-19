@@ -1,13 +1,15 @@
 ﻿using System;
 using UnityEngine;
 using GameEnum;
+using JetBrains.Annotations;
+
 public delegate void ZoomDelegate(float speed);
 public delegate void SkillDelegate(AnimationEvent aniEvent);
 
 /// <summary>
-/// 方便控制 Animator 的控制器.
+/// <para> 方便控制 Animator 的控制器. 每位球員身上都會有此元件. </para>
 /// 
-/// 用法：主要用來控制Animator跟Curve的播放(每位球員身上都有 1 個)
+/// 用法：主要用來控制Animator跟Curve的播放.
 /// 1.addComponent(AnimatorBehavior) 到一個角色身上.
 /// 2.先Init(Animator)
 /// 3.再塞各自動作委託(可省略)
@@ -19,15 +21,15 @@ public class AnimatorController : MonoBehaviour
     public Animator Controler;
     public int StateNo = -1;
 
-    private BlockCurveCounter blockCurveCounter = new BlockCurveCounter();
-    private DunkCurveCounter dunkCurveCounter = new DunkCurveCounter();
-    private SharedCurveCounter fallCurveCounter = new SharedCurveCounter();
-    private SharedCurveCounter pushCurveCounter = new SharedCurveCounter();
-    private SharedCurveCounter pickCurveCounter = new SharedCurveCounter();
-    private StealCurveCounter stealCurveCounter = new StealCurveCounter();
-    private ShootCurveCounter shootCurveCounter = new ShootCurveCounter();
-    private LayupCurveCounter layupCurveCounter = new LayupCurveCounter();
-    private ReboundCurveCounter reboundCurveCounter = new ReboundCurveCounter();
+    private readonly BlockCurveCounter blockCurveCounter = new BlockCurveCounter();
+    private readonly DunkCurveCounter dunkCurveCounter = new DunkCurveCounter();
+    private readonly SharedCurveCounter fallCurveCounter = new SharedCurveCounter();
+    private readonly SharedCurveCounter pushCurveCounter = new SharedCurveCounter();
+    private readonly SharedCurveCounter pickCurveCounter = new SharedCurveCounter();
+    private readonly StealCurveCounter stealCurveCounter = new StealCurveCounter();
+    private readonly ShootCurveCounter shootCurveCounter = new ShootCurveCounter();
+    private readonly LayupCurveCounter layupCurveCounter = new LayupCurveCounter();
+    private readonly ReboundCurveCounter reboundCurveCounter = new ReboundCurveCounter();
     //    private JumpBallCurveCounter jumpBallCurveCounter = new JumpBallCurveCounter();
     private float headHeight;
 
@@ -40,7 +42,7 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     public Action AirPassMomentDel;
     public Action DoubleClickMomentDel;
-    public Action BuffEndDel;
+    public Action<EAnimatorState> BuffEndDel;
     public Action BlockCatchMomentStartDel;
     public Action BlockCatchMomentEndDel;
     public Action BlockJumpDel;
@@ -50,7 +52,7 @@ public class AnimatorController : MonoBehaviour
     /// 呼叫時機: 投籃, 球投出的瞬間.
     /// </summary>
     public Action ShootingDel;
-    public Action MoveDodgeEndDel;
+    public Action<EAnimatorState> MoveDodgeEndDel;
 
     /// <summary>
     /// 呼叫時機: 傳球動作中, 球傳出去的瞬間.
@@ -60,10 +62,10 @@ public class AnimatorController : MonoBehaviour
     /// <summary>
     /// 呼叫時機: 傳球動作中, 傳球動作結束.
     /// </summary>
-    public Action PassEndDel;
-    public Action ShowEndDel;
+    public Action<EAnimatorState> PassEndDel;
+    public Action<EAnimatorState> ShowEndDel;
     public Action PickUpDel;
-    public Action PickEndDel;
+    public Action<EAnimatorState> PickEndDel;
     public Action StealingDel;
     public Action StealingEndDel;
     public Action PushCalculateStartDel;
@@ -78,23 +80,18 @@ public class AnimatorController : MonoBehaviour
     public Action DunkBasketStartDel;
     public Action OnlyScoreDel;
     public Action DunkFallBallDel;
-    public Action ElbowEndDel;
-    public Action FallEndDel;
+    public Action<EAnimatorState> ElbowEndDel;
+    public Action<EAnimatorState> FallEndDel;
     public Action FakeShootEndDel;
     public Action TipInStartDel;
     public Action TipInEndDel;
-    public Action AnimationEndDel;
+    public Action<EAnimatorState> AnimationEndDel;
     public Action ShowDel;
-    public Action CatchDel;
+    public Action<EAnimatorState> CatchDel;
 
     public ZoomDelegate ZoomInDel;
     public ZoomDelegate ZoomOutDel;
     public SkillDelegate SkillDel;
-
-	public void ResetSpeed()
-	{
-//		Controler.speed = 1f;
-	}
 
     public void Init(Animator ani)
     {
@@ -434,7 +431,60 @@ public class AnimatorController : MonoBehaviour
         dunkCurveCounter.CloneMesh();
     }
 
-    public void AnimationEvent(string animationName)
+    /// <summary>
+    /// 呼叫時機: Animator 的 Sub-StateMachine 離開時被呼叫.
+    /// </summary>
+    /// <param name="state"></param>
+    /// <param name="animationName"></param>
+    public void AnimatorEndEvent(EAnimatorState state, string animationName)
+    {
+        switch (animationName)
+        {
+            case "AnimationEnd":
+                if(AnimationEndDel != null)
+                    AnimationEndDel(state);
+                break;
+            case "BuffEnd":
+                if (BuffEndDel != null)
+                    BuffEndDel(state);
+                break;
+            case "CatchEnd":
+                if (CatchDel != null)
+                    CatchDel(state);
+                break;
+            case "FallEnd":
+                if (FallEndDel != null)
+                    FallEndDel(state);
+                break;
+            case "ElbowEnd":
+                if (ElbowEndDel != null)
+                    ElbowEndDel(state);
+                break;
+            case "ShowEnd":
+                if (ShowEndDel != null)
+                    ShowEndDel(state);
+                break;
+            case "PassEnd":
+                if (PassEndDel != null)
+                    PassEndDel(state);
+                break;
+            case "PickEnd":
+                if (PickEndDel != null)
+                    PickEndDel(state);
+                break;
+            case "MoveDodgeEnd":
+                if (MoveDodgeEndDel != null)
+                    MoveDodgeEndDel(state);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 呼叫時機: Animation Clip 發出的 event.
+    /// </summary>
+    /// <param name="animationName"></param>
+    [UsedImplicitly]
+    private void AnimationEvent(string animationName)
     {
         switch (animationName)
         {
@@ -558,44 +608,6 @@ public class AnimatorController : MonoBehaviour
                 if (ShowDel != null)
                     ShowDel();
                 break;
-            #region 以下動作結束後事件
-			case "AnimationEnd":
-				if(AnimationEndDel != null)
-					AnimationEndDel();
-					break;
-            case "BuffEnd":
-                if (BuffEndDel != null)
-                    BuffEndDel();
-                break;
-            case "CatchEnd":
-                if (CatchDel != null)
-                    CatchDel();
-                break;
-            case "FallEnd":
-                if (FallEndDel != null)
-                    FallEndDel();
-                break;
-            case "ElbowEnd":
-                if (ElbowEndDel != null)
-                    ElbowEndDel();
-                break;
-            case "ShowEnd":
-                if (ShowEndDel != null)
-                    ShowEndDel();
-                break;
-            case "PassEnd":
-                if (PassEndDel != null)
-                    PassEndDel();
-                    break;
-            case "PickEnd":
-                if (PickEndDel != null)
-                    PickEndDel();
-                break;
-            case "MoveDodgeEnd":
-                if (MoveDodgeEndDel != null)
-                    MoveDodgeEndDel();
-                break;
-          #endregion 
         }
     }
 

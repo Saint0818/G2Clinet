@@ -1046,7 +1046,7 @@ public class UIGame : UIBase
             }
             else
             {
-                if (p.Team == PlayerMe.Team && p.crtState == EPlayerState.Alleyoop)
+                if (p.Team == PlayerMe.Team && p.CurrentState == EPlayerState.Alleyoop)
                     SetPassButton();
 				
                 return false;
@@ -1074,7 +1074,7 @@ public class UIGame : UIBase
         }
         else
         {
-            if (IsPlayerMe && p.Team == PlayerMe.Team && p.crtState == EPlayerState.Alleyoop)
+            if (IsPlayerMe && p.Team == PlayerMe.Team && p.CurrentState == EPlayerState.Alleyoop)
                 ShowAlleyoop(false);
 
             return false;

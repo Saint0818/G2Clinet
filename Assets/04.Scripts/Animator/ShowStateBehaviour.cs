@@ -31,16 +31,16 @@ public class ShowStateBehaviour : StateMachineBehaviour
         switch(State)
         {
             case EAnimatorState.Elbow:
-                controller.AnimationEvent("ElbowEnd");
+                controller.AnimatorEndEvent(State, "ElbowEnd");
                 break;
             case EAnimatorState.Fall:
-                controller.AnimationEvent("FallEnd");
+                controller.AnimatorEndEvent(State, "FallEnd");
                 break;
             case EAnimatorState.Show:
-                controller.AnimationEvent("ShowEnd");
+                controller.AnimatorEndEvent(State, "ShowEnd");
                 break;
             case EAnimatorState.Pass:
-                controller.AnimationEvent("PassEnd");
+                controller.AnimatorEndEvent(State, "PassEnd");
                 break;
             case EAnimatorState.Dunk:
             case EAnimatorState.Shoot:
@@ -50,23 +50,24 @@ public class ShowStateBehaviour : StateMachineBehaviour
             case EAnimatorState.Push:
             case EAnimatorState.GotSteal:
             case EAnimatorState.JumpBall:
-                controller.AnimationEvent("AnimationEnd");
+//                Debug.LogFormat("ShowStateBehaviour.OnStateExit, Event:AnimationEnd, State:{0}", State);
+                controller.AnimatorEndEvent(State, "AnimationEnd");
                 break;
             case EAnimatorState.Intercept:
             case EAnimatorState.Catch:
             case EAnimatorState.Rebound:
             case EAnimatorState.Block:
-                controller.AnimationEvent("CatchEnd");
+                controller.AnimatorEndEvent(State, "CatchEnd");
                 break;
             case EAnimatorState.Pick:
-                controller.AnimationEvent("PickEnd");
+                controller.AnimatorEndEvent(State, "PickEnd");
                 break;
             case EAnimatorState.Buff:
-                controller.AnimationEvent("BuffEnd");
+                controller.AnimatorEndEvent(State, "BuffEnd");
                 controller.SkillEvent(skillEvent);
                 break;
             case EAnimatorState.MoveDodge:
-                controller.AnimationEvent("MoveDodgeEnd");
+                controller.AnimatorEndEvent(State, "MoveDodgeEnd");
                 break;
         }
     }

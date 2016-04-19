@@ -819,7 +819,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, true);
 			RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
 		} else
-			if(player.crtState == EPlayerState.TipIn) {
+			if(player.CurrentState == EPlayerState.TipIn) {
 				if(GameController.Get.BasketSituation == EBasketSituation.Swish) {
 					if(RealBallObj.transform.position.y > (ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
 						RealBallObj.transform.DOMove(new Vector3(ShootPoint [player.Team.GetHashCode()].transform.position.x,

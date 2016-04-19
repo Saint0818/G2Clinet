@@ -2100,7 +2100,7 @@ public class GameController : KnightSingleton<GameController>
 				scoreType = EScoreType.UpHand;
 			}
 
-			if(player.crtState == EPlayerState.TipIn){
+			if(player.CurrentState == EPlayerState.TipIn){
 				scoreType = EScoreType.LayUp;
 				player.GameRecord.TipinLaunch++;
 			} else 
@@ -2328,7 +2328,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if (player == BallOwner)
         {
-			if (player.crtState == EPlayerState.Alleyoop){
+			if (player.CurrentState == EPlayerState.Alleyoop){
 				player.GameRecord.Alleyoop++;
 				ShootDistance = 0; //maybe score 3, so it sets 0.
 			}else
@@ -2427,7 +2427,7 @@ public class GameController : KnightSingleton<GameController>
             float dis = Vector3.Distance(BallOwner.transform.position, catchPlayer.transform.position);
             int disKind = getEnemyDis(catchPlayer); // 這控制選擇撥哪種傳球.
             int rate = Random.Range(0, 2); // 這控制選擇撥哪種傳球.
-            if(catchPlayer.crtState == EPlayerState.Alleyoop)
+            if(catchPlayer.CurrentState == EPlayerState.Alleyoop)
             {
                 IsCatcherAlleyoop = true;
                 result = BallOwner.AniState(EPlayerState.Pass0, catchPlayer.PlayerRefGameObject.transform.position);
@@ -3564,13 +3564,13 @@ public class GameController : KnightSingleton<GameController>
 	    if(Situation == EGameSituation.NPCPickBall || Situation == EGameSituation.GamerPickBall)
 	    {
 	        if(PickBallPlayer && 
-               PickBallPlayer.crtState != EPlayerState.Idle &&
-               PickBallPlayer.crtState != EPlayerState.Run0 &&
-               PickBallPlayer.crtState != EPlayerState.Run1 &&
-               PickBallPlayer.crtState != EPlayerState.Run2 &&
-               PickBallPlayer.crtState != EPlayerState.Pick0 &&
-               PickBallPlayer.crtState != EPlayerState.Pick1 &&
-               PickBallPlayer.crtState != EPlayerState.Pick2)
+               PickBallPlayer.CurrentState != EPlayerState.Idle &&
+               PickBallPlayer.CurrentState != EPlayerState.Run0 &&
+               PickBallPlayer.CurrentState != EPlayerState.Run1 &&
+               PickBallPlayer.CurrentState != EPlayerState.Run2 &&
+               PickBallPlayer.CurrentState != EPlayerState.Pick0 &&
+               PickBallPlayer.CurrentState != EPlayerState.Pick1 &&
+               PickBallPlayer.CurrentState != EPlayerState.Pick2)
 	        {
 	            PickBallPlayer.AniState(EPlayerState.Idle);
 	        }
@@ -3860,12 +3860,12 @@ public class GameController : KnightSingleton<GameController>
     }
     
 	public void PlayerEnterPaint(int team, GameObject obj) {
-		if (BallOwner && canPassToAlleyoop(BallOwner.crtState) &&
+		if (BallOwner && canPassToAlleyoop(BallOwner.CurrentState) &&
 		   (LobbyStart.Get.TestMode == EGameTest.Alleyoop || 
 		 	Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList[i].crtState == EPlayerState.Alleyoop) {
+				if (PlayerList[i].CurrentState == EPlayerState.Alleyoop) {
 					flag = false;
 					break;
 				}
@@ -4050,7 +4050,7 @@ public class GameController : KnightSingleton<GameController>
 //						PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
 //					else
 //                    {
-					    if(!isIn && PlayerList[i].crtState == EPlayerState.Idle && 
+					    if(!isIn && PlayerList[i].CurrentState == EPlayerState.Idle && 
 					       GetDis(PlayerList[i], new Vector2(CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.x,
 					              CourtMgr.Get.ShootPoint[PlayerList[i].Team.GetHashCode()].transform.position.z)) > 11)
 							PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnOut);
@@ -4138,7 +4138,7 @@ public class GameController : KnightSingleton<GameController>
 					ShowWord(EShowWordType.GetTwo, team);
 				}
 
-				if (Shooter.crtState == EPlayerState.TipIn) {
+				if (Shooter.CurrentState == EPlayerState.TipIn) {
 					Shooter.GameRecord.Tipin++;
 					if(Shooter != null)
 						ShowWord(EShowWordType.TipShot, 0, Shooter.ShowWord);
@@ -4313,7 +4313,7 @@ public class GameController : KnightSingleton<GameController>
                 {
                     if(someone != self && someone.Team != self.Team &&
                        MathUtils.Find2DDis(self.transform.position, someone.transform.position) <= dis && 
-                       someone.crtState == EPlayerState.Idle)
+                       someone.CurrentState == EPlayerState.Idle)
                         return someone;
                 }
             }
@@ -4473,7 +4473,7 @@ public class GameController : KnightSingleton<GameController>
 
 		for(int i = 0; i < PlayerList.Count; i++) 
 		{
-			PlayerList [i].crtState = EPlayerState.Idle;
+			PlayerList [i].CurrentState = EPlayerState.Idle;
 			PlayerList [i].AnimatorControl.Play("Idle");
 			PlayerList [i].Reset();
 			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
