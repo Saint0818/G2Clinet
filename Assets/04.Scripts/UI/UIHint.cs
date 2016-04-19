@@ -93,6 +93,9 @@ public class UIHint : UIBase
 	}
 
 	private bool haveText (string text) {
+		if(mLabel.text.Equals(text)) 
+			return true;
+		
 		if(textList != null && textList.Count > 0)
 			for(int i=0; i<textList.Count; i++)
 				if(text.Equals(textList.ToArray()[i].Text))

@@ -141,7 +141,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					}
 					AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
 				} else
-					UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
+					UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(index + 50)), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
 			} 
         }
     }

@@ -48,7 +48,7 @@ public static class UICreateRoleBuilder
         return new UICreateRolePlayerSlot.Data
         {
             Status = UICreateRolePlayerSlot.Data.EStatus.LockLv,
-            Message = string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.CreateRole)) 
+			Message = string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.CreateRole)), LimitTable.Ins.GetLv(EOpenID.CreateRole)) 
         };
     }
 

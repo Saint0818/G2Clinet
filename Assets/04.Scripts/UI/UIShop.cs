@@ -349,7 +349,7 @@ public class UIShop : UIBase {
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
 						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
 					else 
-						UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.red);
+						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitItem)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.red);
             }
         }
     }

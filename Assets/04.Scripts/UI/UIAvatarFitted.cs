@@ -532,7 +532,7 @@ public class UIAvatarFitted : UIBase
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
             	UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem);
 			else 
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 		}
     }
 
@@ -540,7 +540,7 @@ public class UIAvatarFitted : UIBase
 		if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
 			UISuitAvatar.Get.ShowView();
 		else 
-			UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 	}
 
     public void DoAvatarTab()

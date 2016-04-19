@@ -277,7 +277,7 @@ public class UISkillReinforce : UIBase {
 						if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillReinforce))
 							showWindows(result);
 						else
-							UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);			
+							UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SkillReinforce)), LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);			
 					}
 					
 				} else if(result == 1) {
@@ -287,7 +287,7 @@ public class UISkillReinforce : UIBase {
 						if(GameData.IsOpenUIEnableByPlayer(EOpenID.SkillEvolution))
 							showWindows(result);
 						else
-							UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
+							UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SkillEvolution)),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
 					}
 				}
 			}

@@ -158,7 +158,7 @@ public class UIGym : UIBase {
 				CenterVisible = false;
 				StartCoroutine(ShowEngage(result));
 			} else
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(result + 1 + 50)), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
 
 		}
 	}

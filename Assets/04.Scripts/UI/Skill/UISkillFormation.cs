@@ -433,7 +433,7 @@ public class UISkillFormation : UIBase {
 	public void ClickTab (int no) {
 		if(no == 1) {
 			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)){
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.red);
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.red);
 				return ;
 			}
 		}
@@ -722,7 +722,7 @@ public class UISkillFormation : UIBase {
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
 				UISuitAvatar.Get.ShowView(result);
 			else 
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 		}
 	}
 

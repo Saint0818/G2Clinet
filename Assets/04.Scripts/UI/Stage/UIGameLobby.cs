@@ -64,14 +64,14 @@ public class UIGameLobby : UIBase
             Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.PVP)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.PVP)), LimitTable.Ins.GetLv(EOpenID.PVP)), Color.white);
     }
 
     public void GoToInstance()
     {
         if(!GameData.IsOpenUIEnable(EOpenID.Instance))
         {
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Instance)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Instance)), LimitTable.Ins.GetLv(EOpenID.Instance)), Color.white);
             return;
         }
 

@@ -171,7 +171,7 @@ public class UISkillInfo : UIBase {
 				UISuitAvatar.Get.ShowView(result);
 				Visible = false;
 			} else 
-				UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 			
 		}
 	}
@@ -383,7 +383,7 @@ public class UISkillInfo : UIBase {
 					UISkillFormation.Get.IsEvolution = true;
 					UISkillFormation.Get.DoFinish();
 				} else
-					UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
+					UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SkillEvolution)),LimitTable.Ins.GetLv(EOpenID.SkillEvolution)) , Color.red);
 			}
 		}
 	}
@@ -397,7 +397,7 @@ public class UISkillInfo : UIBase {
 					UISkillFormation.Get.IsReinforce = true;
 					UISkillFormation.Get.DoFinish();
 				} else 
-					UIHint.Get.ShowHint(string.Format(TextConst.S(512),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);
+					UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SkillReinforce)),LimitTable.Ins.GetLv(EOpenID.SkillReinforce)) , Color.red);
 			}
 		}
 	}

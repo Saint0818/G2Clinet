@@ -16,7 +16,7 @@ public class UIMainLobbyEvents : MonoBehaviour
             UIMainLobby.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Avatar)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Avatar)), LimitTable.Ins.GetLv(EOpenID.Avatar)), Color.white);
     }
 
     public void ShowStage()
@@ -39,7 +39,7 @@ public class UIMainLobbyEvents : MonoBehaviour
             UIMainLobby.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Equipment)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Equipment)), LimitTable.Ins.GetLv(EOpenID.Equipment)), Color.white);
     }
 
     public void ShowPlayerInfo()
@@ -63,7 +63,7 @@ public class UIMainLobbyEvents : MonoBehaviour
             
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Mission)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Mission)), LimitTable.Ins.GetLv(EOpenID.Mission)), Color.white);
     }
 
     public void OnSocial()
@@ -78,7 +78,7 @@ public class UIMainLobbyEvents : MonoBehaviour
             }
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Social)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Social)), LimitTable.Ins.GetLv(EOpenID.Social)), Color.white);
     }
 
     public void OnShop()
@@ -89,7 +89,7 @@ public class UIMainLobbyEvents : MonoBehaviour
             UIShop.Visible = true;
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Shop)), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.white);
     }
 
     public void OnMall()
@@ -100,7 +100,7 @@ public class UIMainLobbyEvents : MonoBehaviour
 			UIMall.Get.ShowView();
         }
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(512), LimitTable.Ins.GetLv(EOpenID.Mall)), Color.white);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Mall)), LimitTable.Ins.GetLv(EOpenID.Mall)), Color.white);
     }
 
     public void OnBuyCoin()

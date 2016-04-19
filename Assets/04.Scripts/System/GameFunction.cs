@@ -1163,4 +1163,8 @@ public static class GameFunction
 		}
 		return "";
 	}
+
+	public static int GetUnlockNumber (int openid) {
+		return 1500 + openid;
+	}
 }
