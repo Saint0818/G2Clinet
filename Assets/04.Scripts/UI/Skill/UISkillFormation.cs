@@ -623,6 +623,7 @@ public class UISkillFormation : UIBase {
 		refreshActiveItems ();
 		refreshPassiveItems();
 		RefreshTabsRedPoint (true);
+		refreshRedPoint();
 
 		if(IsOpenThirdActive) 
 			activeFieldLimit = 3;

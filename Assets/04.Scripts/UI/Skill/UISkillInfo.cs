@@ -227,7 +227,7 @@ public class UISkillInfo : UIBase {
 			}
 			TSkillData skillData = GameData.DSkillData[skill.ID];
 			if(cardIndex != -1) {
-				goEquipUnuse.SetActive((mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
+				goEquipUnuse.SetActive(!isAlreadyEquip && (mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
 
