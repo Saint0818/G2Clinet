@@ -126,7 +126,7 @@
     {
         "id": 240,
         "explain": "體力不足/內文",
-        "en": "[00E1FFFF] STAMINA [-] IS NOT ENOUGH, MORE IN {0}, PURCHASE?"
+        "en": "[33FFDD] STAMINA [-] IS NOT ENOUGH, MORE IN {0}, PURCHASE?"
     },
     {
         "id": 241,
@@ -199,14 +199,14 @@
         "id": 254,
         "explain": "社群-解除好友關係",
         "uipath": "請用UIMessage",
-        "tw": "確認解除與[00E1FFFF] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)",
-        "en": "Are you sure [00E1FFFF] {0} [-] you want to unfriend?\n(Oncedone, you can't see each others feed) "
+        "tw": "確認解除與[33FFDD] {0} [-]的好友關係？\n(一旦解除，就不能在動態上看到對方囉。)",
+        "en": "Are you sure [33FFDD] {0} [-] you want to unfriend?\n(Oncedone, you can't see each others feed) "
     },
     {
         "id": 255,
         "explain": "PVP撮合不到對手內文",
         "uipath": "請用UIMessage",
-        "tw": "目前搓合不到對手，請稍候再試。",
+        "tw": "目前尋找不到對手，請稍候再試。",
         "en": "Not enough opponents, please try again later."
     },
     {
@@ -310,148 +310,6 @@
         "id": 313,
         "tw": "Icon_TokenSocial=社群幣，可用於商店中的消費，在社群中邀請其他玩家成為好友，並對他們[33FFDD]按讚[-]！",
         "en": "Icon_TokenSocial= From Social."
-    },
-    {
-        "id": 400,
-        "explain": "解鎖相關功能"
-    },
-    {
-        "id": 401,
-        "explain": "1.解鎖數值裝",
-        "tw": "知名度達到等級3時解鎖",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 2"
-    },
-    {
-        "id": 402,
-        "explain": "2.解鎖Avatar",
-        "tw": "知名度達到等級2時解鎖",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 3"
-    },
-    {
-        "id": 403,
-        "explain": "3.商店按鈕",
-        "tw": "知名度達到等級8時解鎖",
-        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
-    },
-    {
-        "id": 404,
-        "explain": "4.社群按鈕",
-        "tw": "知名度達到等級5時解鎖",
-        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
-    },
-    {
-        "id": 405,
-        "explain": "解鎖技能功能",
-        "tw": "知名度達到等級1時解鎖",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 1"
-    },
-    {
-        "id": 406,
-        "explain": "解鎖任務功能",
-        "tw": "知名度達到等級4時解鎖",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 5"
-    },
-    {
-        "id": 407,
-        "explain": "解鎖7.抽卡牌功能",
-        "tw": "知名度達到等級6時解鎖",
-        "en": "Will unlock when publicity reaches level 6"
-    },
-    {
-        "id": 451,
-        "explain": "解鎖數值裝功能",
-        "tw": "成功解鎖[FFDD33]裝備[-]功能",
-        "en": "EQUIPMENT HAS BEEN UNLOCKED"
-    },
-    {
-        "id": 452,
-        "explain": "解鎖造型功能",
-        "tw": "成功解鎖[FFDD33]造型[-]功能",
-        "en": "STYLE HAS BEEN UNLOCKED"
-    },
-    {
-        "id": 453,
-        "explain": "解鎖商店功能",
-        "tw": "成功解鎖[FFDD33]商店[-]功能",
-        "en": "Shop function successfully unlocked"
-    },
-    {
-        "id": 454,
-        "explain": "解鎖社交功能",
-        "tw": "成功解鎖[FFDD33]社群[-]功能",
-        "en": "Successfully unlocked community features"
-    },
-    {
-        "id": 455,
-        "explain": "解鎖技能功能",
-        "tw": "成功解鎖[FFDD33]技能[-]功能",
-        "en": "SKILL CARDS HAVE BEEN UNLOCKED"
-    },
-    {
-        "id": 456,
-        "explain": "解鎖任務功能",
-        "tw": "成功解鎖[FFDD33]任務[-]功能",
-        "en": "Tasks function successfully unlocked"
-    },
-    {
-        "id": 457,
-        "explain": "解鎖晶片抽取功能",
-        "tw": "成功解鎖[FFDD33]抽卡[-]功能",
-        "en": "Chip extraction function successfully unlocked"
-    },
-    {
-        "id": 458,
-        "explain": "解鎖PVP",
-        "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
-        "en": "Successfully unlocked [FFDD33] PVP [-] function"
-    },
-    {
-        "id": 459,
-        "explain": "解鎖副本",
-        "tw": "成功解鎖[FFDD33]關主挑戰[-]功能",
-        "en": "Successfully unlocked [FFDD33]  Challenge [-] function"
-    },
-    {
-        "id": 461,
-        "explain": "解鎖數值裝合成任務",
-        "tw": "成功解鎖[FFDD33]新每日任務[-]",
-        "en": "Successfully unlocked [FFDD33] Missions [-] "
-    },
-    {
-        "id": 462,
-        "explain": "解鎖技能升星",
-        "tw": "成功解鎖[FFDD33]晶片升級[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Upgrade [-]"
-    },
-    {
-        "id": 463,
-        "explain": "解鎖技能進化",
-        "tw": "成功解鎖[FFDD33]晶片進化[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Evolution [-]"
-    },
-    {
-        "id": 464,
-        "explain": "解鎖套卡",
-        "tw": "成功解鎖[FFDD33]晶片圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Collection [-]"
-    },
-    {
-        "id": 465,
-        "explain": "解鎖套裝",
-        "tw": "成功解鎖[FFDD33]套裝圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33] Style Collection [-]"
-    },
-    {
-        "id": 466,
-        "explain": "解鎖第三支球員",
-        "tw": "成功解鎖[FFDD33]新球員[-]",
-        "en": "Successfully unlocked [FFDD33] New Player [-]"
-    },
-    {
-        "id": 480,
-        "explain": "解鎖球場",
-        "tw": "成功解鎖[FFDD33]球館設施[-] ",
-        "en": "Successfully unlocked [FFDD33] Gym [-] "
     },
     {
         "id": 501,
@@ -787,29 +645,312 @@
         "en": "PURCHASE GOLDS"
     },
     {
-        "id": 2001,
-        "explain": "創角流程",
-        "tw": "創立角色",
-        "en": "CREATE PLAYER"
+        "id": 1500,
+        "explain": "解鎖相關功能"
     },
     {
-        "id": 2101,
-        "explain": "選擇職業",
-        "en": "SELECT POSITION"
+        "id": 1501,
+        "explain": "解鎖數值裝功能",
+        "uipath": "1.解鎖數值裝",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 2"
     },
     {
-        "id": 2102,
-        "explain": "中鋒",
-        "tw": "中 鋒",
-        "en": "CENTER",
-        "jp": "CENTER"
+        "id": 1502,
+        "explain": "解鎖造型功能",
+        "uipath": "2.解鎖Avatar",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 3"
     },
     {
-        "id": 2103,
-        "explain": "前鋒",
-        "tw": "前 鋒",
-        "en": "FORWARD",
-        "jp": "FORWARD"
+        "id": 1503,
+        "explain": "解鎖商店功能",
+        "uipath": "3.商店按鈕",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
+    },
+    {
+        "id": 1504,
+        "explain": "解鎖社交功能",
+        "uipath": "4.社群按鈕",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
+    },
+    {
+        "id": 1505,
+        "explain": "解鎖技能功能",
+        "uipath": "5.解鎖技能介面",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 1"
+    },
+    {
+        "id": 1506,
+        "explain": "解鎖任務功能",
+        "uipath": "6.任務主按鈕",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 5"
+    },
+    {
+        "id": 1507,
+        "explain": "解鎖晶片抽取功能",
+        "uipath": "7.抽卡牌(Mall)",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "Will unlock when publicity reaches level 6"
+    },
+    {
+        "id": 1508,
+        "explain": "解鎖PVP",
+        "uipath": "8.PVP功能",
+        "tw": "LV{0}時可開啟此功能"
+    },
+    {
+        "id": 1509,
+        "explain": "解鎖副本",
+        "uipath": "9.副本",
+        "tw": "LV{0}時可開啟此功能"
+    },
+    {
+        "id": 1510,
+        "explain": "解鎖第三支球員",
+        "uipath": "10.創角介面的第三位角色",
+        "tw": "LV{0}時可開啟此功能，獲得第三隻球員"
+    },
+    {
+        "id": 1511,
+        "uipath": "11.第三招主動技"
+    },
+    {
+        "id": 1521,
+        "explain": "解鎖技能進化",
+        "uipath": "21.技能進化",
+        "tw": "LV{0}時可開啟此功能，可提升技能品質"
+    },
+    {
+        "id": 1522,
+        "explain": "解鎖技能升星",
+        "uipath": "22.技能升星",
+        "tw": "LV{0}時可開啟此功能，可提升技能能力"
+    },
+    {
+        "id": 1513
+    },
+    {
+        "id": 1514
+    },
+    {
+        "id": 1515
+    },
+    {
+        "id": 1526,
+        "explain": "解鎖套卡",
+        "uipath": "26.套卡按鈕",
+        "tw": "LV{0}時可開啟此功能，可蒐集套卡提升技能能力"
+    },
+    {
+        "id": 1527,
+        "explain": "解鎖套裝",
+        "uipath": "27.套裝按鈕",
+        "tw": "LV{0}時可開啟此功能，可蒐集造型套裝提升能力"
+    },
+    {
+        "id": 1550,
+        "uipath": "50.建築序列2 ",
+        "tw": "LV{0}時可開啟此功能，可增加建築序列"
+    },
+    {
+        "id": 1551,
+        "uipath": "51.Basket = 1,",
+        "tw": "LV{0}時可開啟此功能，可開啟踢館功能"
+    },
+    {
+        "id": 1552,
+        "uipath": "52.Advertisement = 2,",
+        "tw": "LV{0}時可開啟此功能，可增加金幣收入"
+    },
+    {
+        "id": 1553,
+        "uipath": "53.Store = 3,",
+        "tw": "LV{0}時可開啟此功能，可購買優惠物品"
+    },
+    {
+        "id": 1554,
+        "explain": "解鎖球場",
+        "uipath": "54.Gym = 4,",
+        "tw": "LV{0}時可開啟此功能，加快士氣恢復速度"
+    },
+    {
+        "id": 1555,
+        "uipath": "55.Door = 5,",
+        "tw": "LV{0}時可開啟此功能，前往參觀其他球員的球館"
+    },
+    {
+        "id": 1556,
+        "uipath": "56.Logo = 6,",
+        "tw": "LV{0}時可開啟此功能，可增加進入競賽時的士氣值"
+    },
+    {
+        "id": 1557,
+        "uipath": "57.Chair = 7,",
+        "tw": "LV{0}時可開啟此功能，可增加士氣值的上限"
+    },
+    {
+        "id": 1558,
+        "uipath": "58.Calendar = 8,"
+    },
+    {
+        "id": 1559,
+        "uipath": "59.Mail = 9"
+    },
+    {
+        "id": 1600,
+        "explain": "解鎖相關功能"
+    },
+    {
+        "id": 1601,
+        "explain": "解鎖數值裝功能",
+        "uipath": "1.解鎖數值裝",
+        "tw": "成功解鎖[FFDD33]裝備[-]功能",
+        "en": "EQUIPMENT HAS BEEN UNLOCKED"
+    },
+    {
+        "id": 1602,
+        "explain": "解鎖造型功能",
+        "uipath": "2.解鎖Avatar",
+        "tw": "成功解鎖[FFDD33]造型[-]功能",
+        "en": "STYLE HAS BEEN UNLOCKED"
+    },
+    {
+        "id": 1603,
+        "explain": "解鎖商店功能",
+        "uipath": "3.商店按鈕",
+        "tw": "成功解鎖[FFDD33]商店[-]功能",
+        "en": "Shop function successfully unlocked"
+    },
+    {
+        "id": 1604,
+        "explain": "解鎖社交功能",
+        "uipath": "4.社群按鈕",
+        "tw": "成功解鎖[FFDD33]社群[-]功能",
+        "en": "Successfully unlocked community features"
+    },
+    {
+        "id": 1605,
+        "explain": "解鎖技能功能",
+        "uipath": "5.解鎖技能介面",
+        "tw": "成功解鎖[FFDD33]技能[-]功能",
+        "en": "SKILL CARDS HAVE BEEN UNLOCKED"
+    },
+    {
+        "id": 1606,
+        "explain": "解鎖任務功能",
+        "uipath": "6.任務主按鈕",
+        "tw": "成功解鎖[FFDD33]任務[-]功能",
+        "en": "Tasks function successfully unlocked"
+    },
+    {
+        "id": 1607,
+        "explain": "解鎖晶片抽取功能",
+        "uipath": "7.抽卡牌(Mall)",
+        "tw": "成功解鎖[FFDD33]抽卡[-]功能",
+        "en": "Chip extraction function successfully unlocked"
+    },
+    {
+        "id": 1608,
+        "explain": "解鎖PVP",
+        "uipath": "8.PVP功能",
+        "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
+        "en": "Successfully unlocked [FFDD33] PVP [-] function"
+    },
+    {
+        "id": 1609,
+        "explain": "解鎖副本",
+        "uipath": "9.副本",
+        "tw": "成功解鎖[FFDD33]關主挑戰[-]功能",
+        "en": "Successfully unlocked [FFDD33]  Challenge [-] function"
+    },
+    {
+        "id": 1610,
+        "explain": "解鎖第三支球員",
+        "uipath": "10.創角介面的第三位角色",
+        "tw": "成功解鎖[FFDD33]新球員[-]",
+        "en": "Successfully unlocked [FFDD33] New Player [-]"
+    },
+    {
+        "id": 1611,
+        "explain": "解鎖第三招主動技",
+        "uipath": "11.第三招主動技",
+        "tw": "成功解鎖[FFDD33]第三招主動技[-]"
+    },
+    {
+        "id": 1621,
+        "explain": "解鎖技能進化",
+        "uipath": "21.技能進化",
+        "tw": "成功解鎖[FFDD33]晶片進化[-]",
+        "en": "Successfully unlocked [FFDD33] CARD Evolution [-]"
+    },
+    {
+        "id": 1622,
+        "explain": "解鎖技能升星",
+        "uipath": "22.技能升星",
+        "tw": "成功解鎖[FFDD33]晶片升級[-]",
+        "en": "Successfully unlocked [FFDD33] CARD Upgrade [-]"
+    },
+    {
+        "id": 1626,
+        "explain": "解鎖套卡",
+        "uipath": "26.套卡按鈕",
+        "tw": "成功解鎖[FFDD33]晶片圖鑑[-]",
+        "en": "Successfully unlocked [FFDD33] CARD Collection [-]"
+    },
+    {
+        "id": 1627,
+        "explain": "解鎖套裝",
+        "uipath": "27.套裝按鈕",
+        "tw": "成功解鎖[FFDD33]套裝圖鑑[-]",
+        "en": "Successfully unlocked [FFDD33] Style Collection [-]"
+    },
+    {
+        "id": 1650,
+        "uipath": "50.建築序列2 "
+    },
+    {
+        "id": 1651,
+        "uipath": "51.Basket = 1,"
+    },
+    {
+        "id": 1652,
+        "uipath": "52.Advertisement = 2,"
+    },
+    {
+        "id": 1653,
+        "uipath": "53.Store = 3,"
+    },
+    {
+        "id": 1654,
+        "explain": "解鎖球場",
+        "uipath": "54.Gym = 4,",
+        "tw": "成功解鎖[FFDD33]球館設施[-] ",
+        "en": "Successfully unlocked [FFDD33] Gym [-] "
+    },
+    {
+        "id": 1655,
+        "uipath": "55.Door = 5,"
+    },
+    {
+        "id": 1656,
+        "uipath": "56.Logo = 6,"
+    },
+    {
+        "id": 1657,
+        "uipath": "57.Chair = 7,"
+    },
+    {
+        "id": 1658,
+        "uipath": "58.Calendar = 8,"
+    },
+    {
+        "id": 1659,
+        "uipath": "59.Mail = 9"
     },
     {
         "id": 2104,
@@ -1076,14 +1217,12 @@
         "en": "AVAILABLE POINTS :"
     },
     {
-        "id": 3204,
-        "tw": "[C8C8C8FF]＊前列點數為[-]升級取得[C8C8C8FF]，後列點數為[-][00E1FFFF]造型取得[-]",
-        "en": "[C8C8C8FF]＊WHERE YOU CAN GET POINTS:[-] \nLEVEL UP[C8C8C8FF]，AND[-] [00E1FFFF]PURCHASE STYLE[-]"
+        "id": 3204
     },
     {
         "id": 3205,
         "uipath": "WarningLabel",
-        "tw": "潛能取得：\n[33FFDD]提升等級[-]、[00E1FFFF]購買造型[-]\n\n注意：\n將優先消耗[33FFDD]升級點數[-]",
+        "tw": "潛能取得：\n透過等級提升取得[3EBBBCFF]潛能點[-] \n \n注意：\n每一屬性需求的[3EBBBCFF]潛能點[-]數量不同，請詳閱各數值下方說明。",
         "en": "Chance to obtain:\n[33FFDD] Level up[-], [33FFDD] EXP [-]\n\nNote:\nThe priority is to obtain [FF0000] attribution points [-] "
     },
     {
@@ -1104,14 +1243,19 @@
     },
     {
         "id": 3209,
-        "tw": "花費[FF00FFFF]寶石 {0} [-]重置潛能點配置？",
+        "tw": "花費寶石[FF00FFFF] {0} [-]重置潛能點配置？",
         "en": "Are you confirm to spend[FF00FFFF] {0} gems [-]for reset attribution points?"
     },
     {
         "id": 3210,
         "explain": "單一屬性投點說明",
-        "tw": " [FF0000FF]潛能點[-]\n提升 [33FFDD]1[-] 屬性值",
-        "en": " [FF0000FF]AP[-] to upgrade [33FFDD]1[-] Stats."
+        "tw": "提升 [3EBBBCFF]1[-] 屬性值\n須扣除[FF0000FF]潛能點[-] ",
+        "en": " [FF0000FF]AP[-] to upgrade [3EBBBCFF]1[-] Stats."
+    },
+    {
+        "id": 3211,
+        "explain": "自動配點",
+        "tw": "自動配點"
     },
     {
         "id": 3301,
@@ -1195,84 +1339,84 @@
         "id": 3322,
         "explain": "命中",
         "uipath": "AttrKind0/ExplainLabel",
-        "tw": "影響投射命中機率",
+        "tw": "影響投籃出手的命中率",
         "en": "Shooting Goal Percentage"
     },
     {
         "id": 3323,
         "explain": "外線",
         "uipath": "AttrKind1/ExplainLabel",
-        "tw": "降低遠離籃筐時的命中率衰減",
+        "tw": "離籃筐越遠，衰減值越高，則外線成功率降低；此數值影響衰減值的高低",
         "en": "Increase 3 Points Field Goal Percentage"
     },
     {
         "id": 3324,
         "explain": "速 度",
         "uipath": "AttrKind5/ExplainLabel",
-        "tw": "影響球員基本跑動速度",
+        "tw": "影響基本的移動速度",
         "en": "LOWER TURNOVER PERCENTAGE"
     },
     {
         "id": 3325,
         "explain": "耐 力",
         "uipath": "AttrKind6/ExplainLabel",
-        "tw": "可加速衝刺的總時間",
+        "tw": "影響可衝刺的持續時間，數值越高時間越久",
         "en": "1. AFFECT PASSING RATE \n2. CHANCE TO DO AN ALLEY OOP WHEN IN AI MODE."
     },
     {
         "id": 3326,
         "explain": "力 量",
         "uipath": "AttrKind7/ExplainLabel",
-        "tw": "1.被敵對衝撞不會倒地的機率\n2.AI模式時，發動肘擊的機率\n3.增加肘擊的距離與範圍",
+        "tw": "1.被對手衝撞時不會倒地的機率\n2.AI開啟時，自動發動肘擊的機率\n3.增加肘擊的距離與範圍",
         "en": "1. LESS CHANCE TO FALL AFTER BEING PUSHED BY AN OPPONENT.\n2. INCREASE THE CHANCE OF ELBOWING OPPONENT IN AI MODE.\n3. INCREASE ELBOWING RANGE."
     },
     {
         "id": 3327,
         "explain": "灌 籃",
         "uipath": "AttrKind9/ExplainLabel",
-        "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率\n3.發動Alley-oops灌籃的機率",
+        "tw": "1.在禁區內發動灌籃的機率\n2.發動補籃的機率\n3.AI開啟時，自動發動Alley-oops灌籃的機率",
         "en": "1. HIGHER CHANCE OF DUNKING FROM THE PAINT.\n2. HIGHER CHANCE TO TIP-IN."
     },
     {
         "id": 3328,
         "explain": "籃 板",
         "uipath": "AttrKind2/ExplainLabel",
-        "tw": "1.發動籃板的距離\n2.提高抓到籃板的機會",
+        "tw": "1.可發動籃板的距離\n2.提高發動籃板時抓到球的機會",
         "en": "1. INCREASE THE REBOUNDING ZONE\n2. INCREASE THE CHANCE OF GETTING A REBOUND"
     },
     {
         "id": 3329,
         "explain": "火 鍋",
         "uipath": "AttrKind3/ExplainLabel",
-        "tw": "1.提高蓋到火鍋的機會\n2.AI模式時，發動蓋火鍋的機率\n3.AI模式時，被投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
+        "tw": "1.提高蓋到火鍋的機會\n2.AI開啟時，自動發動蓋火鍋的機率\n3.AI開啟時，影響被對手投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
         "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING SHOTS."
     },
     {
         "id": 3330,
         "explain": "防 守",
         "uipath": "AttrKind4/ExplainLabel",
-        "tw": "1.球員區域防守的範圍\n2.AI模式時，發動推人的機率\n3.增加推人的距離與範圍",
+        "tw": "1.球員區域防守的範圍\n2.AI開啟時，自動發動推人的機率\n3.增加推人的距離與範圍",
         "en": "1. INCREASE THE CHANCE OF STEALING\n2. INCREASE THE CHANCE OF STEALING IN AI MODE."
     },
     {
         "id": 3331,
         "explain": "抄 截",
         "uipath": "AttrKind8/ExplainLabel",
-        "tw": "1.抄截成功的機率\n2.AI模式時，發動抄截的機率\n3.增加抄截的距離與範圍",
+        "tw": "1.影響發動抄截時的成功機率\n2.AI開啟時，自動發動抄截的機率\n3.增加抄截的距離與範圍",
         "en": "INCREASE THE DURATION OF MAX SPEED."
     },
     {
         "id": 3332,
         "explain": "控 球",
         "uipath": "AttrKind10/ExplainLabel",
-        "tw": "提高不被抄球的機率",
+        "tw": "影響被對手抄截成功的機率，數值越高，對手成功率越低",
         "en": "PLAYER'S NORMAL SPEED"
     },
     {
         "id": 3333,
         "explain": "傳 球",
         "uipath": "AttrKind11/ExplainLabel",
-        "tw": "1.影響傳球成功的機率\n2.AI模式時，發動alley-oops妙傳的機率",
+        "tw": "1.影響傳球成功的機率\n2.AI開啟時，自動發動alley-oops妙傳的機率",
         "en": "1. PLAYER'S DEFENSIVE RANGE.\n2. INCREASE THE CHANCE OF PUSHING IN AI MODE.\n3. INCREASE THE PUSHING RANGE."
     },
     {
@@ -1307,12 +1451,12 @@
     },
     {
         "id": 3406,
-        "tw": "花費鑽石{0}修改名稱？",
+        "tw": "花費寶石[FF00FFFF]{0}[-]修改名稱？",
         "en": "Spending {0} diamonds to rename ?"
     },
     {
         "id": 3407,
-        "tw": "字元長度需介於2-16個字。",
+        "tw": "字元長度：中文8字，英文16字。",
         "en": "Character length must be between 2-16 characters."
     },
     {
@@ -1350,7 +1494,7 @@
     {
         "id": 3505,
         "uipath": "Label1",
-        "tw": "空間",
+        "tw": "空間上限",
         "en": "COST"
     },
     {
@@ -1370,6 +1514,12 @@
         "uipath": "AddValueLabel",
         "tw": "[00ffff]體力[-]補滿",
         "en": "[00FFFF]STAMINA[-] FILL UP"
+    },
+    {
+        "id": 3509
+    },
+    {
+        "id": 3510
     },
     {
         "id": 3521,
@@ -1930,7 +2080,7 @@
         "id": 4507,
         "explain": "每隔幾小時後商店盤面就會刷新",
         "uipath": "WarningsLabel",
-        "tw": "下次刷新尚餘：[33FFDD]{0}[-]",
+        "tw": "下次刷新：[33FFDD]{0}[-]",
         "en": "NEXT ITEM REFRESH IN: [33FFFF] {0} [-]"
     },
     {
@@ -2006,14 +2156,14 @@
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": "金質晶片",
-        "en": "GOLDEN"
+        "tw": " [EFC653FF]金質晶片[-] ",
+        "en": " [EFC653FF]GOLDEN[-]  "
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
-        "tw": "鑽石晶片",
-        "en": "DIAMOND"
+        "tw": "[11F5F1FF]鑽石晶片[-] ",
+        "en": "[11F5F1FF]DIAMOND[-]  "
     },
     {
         "id": 4606,
@@ -2498,7 +2648,7 @@
     {
         "id": 6404,
         "tw": "請點擊畫面繼續",
-        "en": "Click to Continue"
+        "en": "Tap to Continue"
     },
     {
         "id": 7001,
@@ -2820,13 +2970,13 @@
         "id": 7222,
         "explain": "晶片類型 主動技",
         "tw": " [AA0000]主動技[-]",
-        "en": "[ff0000]A[-][fffffff]bility[-]"
+        "en": "[AA0000]A[-][fffffff]bility[-]"
     },
     {
         "id": 7223,
         "explain": "晶片類型 被動技",
         "tw": " [007799]被動技[-]",
-        "en": "[3355ff]P[-][fffffff]asive[-]"
+        "en": "[007799]P[-][fffffff]asive[-]"
     },
     {
         "id": 7224,
@@ -3085,8 +3235,8 @@
     {
         "id": 8004,
         "uipath": "GetModeLabel",
-        "tw": "已取得[00E1FFFF]{0}[-]潛能點",
-        "en": "RECEIVED [00E1FFFF]{0}[-] ATTRIBUTION POINTS"
+        "tw": "已取得[33FFDD]{0}[-]潛能點",
+        "en": "RECEIVED [33FFDD]{0}[-] ATTRIBUTION POINTS"
     },
     {
         "id": 8005,
@@ -3179,8 +3329,8 @@
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
-        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[00E1FFFF] 2 [-] 件即降低 [00E1FFFF] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
-        "en": "Also has above the items, the cards that can reduce the COST,  [00E1FFFF] 2 [-] items reduce  [00E1FFFF] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
+        "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[33FFDD] 2 [-] 件即降低 [33FFDD] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
+        "en": "Also has above the items, the cards that can reduce the COST,  [33FFDD] 2 [-] items reduce  [33FFDD] 1 [-] COST, and so on.\n\nNow reduce [00ff00] {0} [-] COST。"
     },
     {
         "id": 8204,
@@ -3254,7 +3404,7 @@
     {
         "id": 9153,
         "explain": "PVP關卡",
-        "tw": "[ff0074]聯盟挑戰[-]",
+        "tw": "[ff0074]聯盟對戰[-]",
         "en": "[FF8000] CHALLENGE LEAGUE [-]"
     },
     {
@@ -3688,8 +3838,8 @@
     {
         "id": 9731,
         "explain": "次數分子等於0",
-        "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[00E1FFFF] {1} [-]？",
-        "en": "Number of challenges has been exhausted, Use [FF00FFFF] {0} gems [-] for more challenges [00E1FFFF] {1} [-] ?"
+        "tw": "挑戰次數已用完，是否使用 [FF00FFFF]{0}寶石[-] 購買[33FFDD] {1} [-]？",
+        "en": "Number of challenges has been exhausted, Use [FF00FFFF] {0} gems [-] for more challenges [33FFDD] {1} [-] ?"
     },
     {
         "id": 9732,
@@ -3751,8 +3901,8 @@
     {
         "id": 9742,
         "uipath": "EXPView/SubheadLabel",
-        "tw": "目前排名 [00E1FFFF]#{0}[-]",
-        "en": "NOW RANK [00E1FFFF]#{0}[-]"
+        "tw": "目前排名 [33FFDD]#{0}[-]",
+        "en": "NOW RANK [33FFDD]#{0}[-]"
     },
     {
         "id": 9743,
@@ -4357,7 +4507,8 @@
     {
         "id": 10417,
         "uipath": "三選一",
-        "tw": "獎勵三選一"
+        "tw": "獎勵三選一",
+        "en": "Pick One"
     },
     {
         "id": 10500,
@@ -4450,7 +4601,7 @@
     {
         "id": 10520,
         "explain": "20.起手的士氣值",
-        "tw": "士氣",
+        "tw": "初始士氣",
         "en": "Morale",
         "jp": "Morale"
     },
@@ -4464,7 +4615,7 @@
     {
         "id": 10550,
         "explain": "50.怒氣單位恢復速度",
-        "tw": "怒氣恢復速度",
+        "tw": "士氣增加速度",
         "en": "Revive",
         "jp": "Revive"
     },
@@ -4475,21 +4626,21 @@
     {
         "id": 10601,
         "uipath": "HomeOffense/HomeOffenseLabel",
-        "tw": "AWAY OFFENSIVE",
+        "tw": "敵方進攻",
         "en": "AWAY OFFENSIVE",
         "jp": "AWAY OFFENSIVE"
     },
     {
         "id": 10602,
         "uipath": "AwayOffense/AwayOffenseLabel",
-        "tw": "HOME OFFENSIVE",
+        "tw": "我方進攻",
         "en": "HOME OFFENSIVE",
         "jp": "HOME OFFENSIVE"
     },
     {
         "id": 11001,
         "explain": "經營大廳",
-        "tw": "球館設施",
+        "tw": "球館",
         "en": "GYM QUEUES"
     },
     {
@@ -4715,7 +4866,7 @@
     {
         "id": 12006,
         "uipath": "VersionLabel",
-        "tw": "Version {0} ",
+        "tw": "版本 {0} ",
         "en": "Version {0} "
     },
     {
@@ -5355,7 +5506,7 @@
     },
     {
         "id": 2000202,
-        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}[-]分即可獲得勝利！！！",
+        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}[-]分即可達成目標！！！",
         "en": "[FF3355]{1}[-] SCORE [FFDD33]{0} MORE POINTS[-]TO WIN!"
     },
     {
@@ -5400,7 +5551,7 @@
     },
     {
         "id": 2000401,
-        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}分[-]就可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}分[-]即可達成目標！！！。",
         "en": "[FF3355]{1}[-] SCORE[FFDD33]{0}POINTS[-]TO OBTAIN VICTORY"
     },
     {
@@ -5430,7 +5581,7 @@
     },
     {
         "id": 2001001,
-        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]2分球[-]即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]2分球[-]即可即可達成目標！！！",
         "en": "[FF3355]{1}[-] SCORE [FFDD33]{0}[-] MORE [33FFDD]2-POINTERS[-] TO WIN THE GAME"
     },
     {
@@ -5460,7 +5611,7 @@
     },
     {
         "id": 2002001,
-        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]3分球[-]即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]3分球[-]即可達成目標！！！",
         "en": "[FF3355]{1}[-] SCORE [FFDD33]{0}[-] MORE [33FFDD]3-POINTERS[-] TO WIN THE GAME"
     },
     {
@@ -5490,7 +5641,7 @@
     },
     {
         "id": 2003001,
-        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]灌籃[-]即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]灌籃[-]即可達成目標！！！",
         "en": "DUNK [FF3355]{1}[-] MORE TIMES [FFDD33]{0}[-] [33FFDD]TO[-] OBTAIN VICTORY"
     },
     {
@@ -5520,7 +5671,7 @@
     },
     {
         "id": 2004001,
-        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]推倒[-]即可獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]推倒[-]即可達成目標！！！",
         "en": "[FF3355]{1}[-] [33FFDD]PUSH YOUR OPPONENT [-] [FFDD33]{0} MORE TIMES[-] TO OBTAIN VICTORY"
     },
     {
@@ -5550,7 +5701,7 @@
     },
     {
         "id": 2005001,
-        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]抄截[-]即獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]抄截[-]即可達成目標！！！",
         "en": "[FF3355]{1}[-] [33FFDD]STEAL THE BALL [-] [FFDD33]{0} MORE TIMES[-] TO OBTAIN VICTORY"
     },
     {
@@ -5580,7 +5731,7 @@
     },
     {
         "id": 2006001,
-        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]火鍋[-]即獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]火鍋[-]即可達成目標！！！",
         "en": "[FF3355]{1}[-] [33FFDD]BLOCK[-] [FFDD33]{0} MORE TIMES[-] TO OBTAIN VICTORY"
     },
     {
@@ -5610,7 +5761,7 @@
     },
     {
         "id": 2007001,
-        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]肘擊[-]即獲得勝利。",
+        "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]肘擊[-]即可達成目標！！！",
         "en": "[FF3355]{1}[-] [33FFDD]ELBOW[-] [FFDD33]{0} MORE TIMES[-] TO OBTAIN VICTORY"
     },
     {
