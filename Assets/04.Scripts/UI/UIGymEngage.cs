@@ -148,7 +148,6 @@ public class UIGymEngage : UIBase {
 
 	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
 	private int mItemGymObjIndex = 0;
-	private int tempItemGymObjIndex = 0;
 
 	private UIScrollView scrollView;
 
@@ -213,10 +212,10 @@ public class UIGymEngage : UIBase {
 		spriteUpgradeIcon = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/PriceLabel/Icon").GetComponent<UISprite>();
 		labelUpgradeCD = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/CD/CDLabel").GetComponent<UILabel>();
 
-		goBuyCD = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn");
-		sliderCDBar = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/CDBar").GetComponent<UISlider>();
-		labelTime = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/CDBar/TimeLabel").GetComponent<UILabel>();
-		labelPrice = GameObject.Find (UIName + "/Window/Center/MainView/Normal/BuyCDBtn/Btn/PriceLabel").GetComponent<UILabel>();
+		goBuyCD = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn");
+		sliderCDBar = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn/CDBar").GetComponent<UISlider>();
+		labelTime = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn/CDBar/TimeLabel").GetComponent<UILabel>();
+		labelPrice = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn/Btn/PriceLabel").GetComponent<UILabel>();
 
 		for(int i=0; i<awardGroup.Length; i++) 
 			awardGroup[i] = GameObject.Find (UIName + "/Window/Center/MainView/Normal/NextCondition/View/ItemAwardGroup" + i.ToString()).GetComponent<ItemAwardGroup>();
@@ -225,7 +224,7 @@ public class UIGymEngage : UIBase {
 
 		SetBtnFun (UIName + "/Window/BottomLeft/BackBtn", OnClose);
 		SetBtnFun (UIName + "/Window/Center/MainView/Normal/UpgradeBtn", OnUpgrade);
-		SetBtnFun (UIName + "/Window/Center/MainView/Normal/BuyCDBtn", OnBuyCD);
+		SetBtnFun (UIName + "/Window/Center/MainView/BuyCDBtn", OnBuyCD);
 	}
 
 	public void UpdateText () {
@@ -289,6 +288,7 @@ public class UIGymEngage : UIBase {
 
 	public void RefreshUI () {
 		setTitle(mBuildIndex);
+		goBuyCD.SetActive(IsWaitCD);
 		if(isHighestLevel (mBuildIndex)) {
 			windowHighest.SetActive(true);
 			windowNormal.SetActive(false);
@@ -298,7 +298,6 @@ public class UIGymEngage : UIBase {
 			windowHighest.SetActive(false);
 			windowNormal.SetActive(true);
 			goUpgrade.SetActive(false);
-			goBuyCD.SetActive(false);
 			setTempValue(mBuildIndex, false);
 			setInfo(mBuildIndex);
 			setUpgrade();
