@@ -58,6 +58,7 @@ public class UIGym : UIBase {
 	private GameObject goRedPoint;
 	private GameObject goQueueGroup;
 
+	private GameObject goLvLock;
 	private GameObject goLock;
 	private UILabel labelPrice;
 
@@ -130,6 +131,7 @@ public class UIGym : UIBase {
 		goQueueGroup = GameObject.Find (UIName + "/Window/Left/QueueGroup");
 
 		goLock = GameObject.Find (UIName + "/Window/Left/QueueGroup/Lock");
+		goLvLock = GameObject.Find (UIName + "/Window/Left/QueueGroup/LvLock");
 		UIEventListener.Get(goLock).onClick = OnClickLock;
 		labelPrice = GameObject.Find (UIName + "/Window/Left/QueueGroup/Lock/PriceLabel").GetComponent<UILabel>();
 		labelPrice.text = ThirdQueueDiamonds.ToString();
@@ -273,6 +275,7 @@ public class UIGym : UIBase {
 		refreshBuild ();
 		tempGymQueue[0] = GameData.Team.GymQueue[0];
 		setQueueBreak(0);
+		goLvLock.SetActive(!GameData.Team.GymQueue[1].IsOpen);
 		goLock.SetActive(!GameData.Team.GymQueue[2].IsOpen);
 		if(!GameData.Team.GymQueue[1].IsOpen && GameData.Team.GymQueue[2].IsOpen) { //特殊狀況：等級未到，但有購買
 			tempGymQueue[1] = GameData.Team.GymQueue[2];
@@ -280,10 +283,11 @@ public class UIGym : UIBase {
 			setQueueBreak(1);
 			setQueueBreak(2);
 			gymQueueObj[2].NameLabel.text = string.Format(TextConst.S(11003), LimitTable.Ins.GetLv(EOpenID.OperateQueue));
-
+			goLvLock.transform.localPosition = new Vector3(105, -36 ,0);
 		} else {
 			tempGymQueue[1] = GameData.Team.GymQueue[1];
 			tempGymQueue[2] = GameData.Team.GymQueue[2];
+			goLvLock.transform.localPosition = new Vector3(105, 0 ,0);
 			setQueueBreak(1);
 			setQueueBreak(2);
 			if(!tempGymQueue[1].IsOpen)
