@@ -9,16 +9,36 @@ public struct TAnimatorItem
 	public int StateNo;
 }
 
-public static class StateChecker {
-	private static bool isInit = false;
-	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> PassStates = new Dictionary<EPlayerState, bool>();
+public static class StateChecker
+{
+	private static bool isInit;
+
+    /// <summary>
+    /// 不可以移動的狀態.
+    /// </summary>
+	public static readonly Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
+
+	public static readonly Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
+
+    /// <summary>
+    /// 特別演出的動作.
+    /// </summary>
+	public static readonly Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
+
+    /// <summary>
+    /// 可以一直重複撥的動作.
+    /// </summary>
+	public static readonly Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
+
+    /// <summary>
+    /// 傳球動作.
+    /// </summary>
+	public static readonly Dictionary<EPlayerState, bool> PassStates = new Dictionary<EPlayerState, bool>();
 	
-	public static void InitState() {
-		if (!isInit) {
+	public static void InitState()
+    {
+		if(!isInit)
+        {
 			isInit = true;
 			
 			ShootStates.Add(EPlayerState.Shoot0, true);
@@ -136,18 +156,18 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
     /// </summary>
 	private readonly Dictionary<EAnimatorState, Dictionary<EPlayerState, int>> mAnimtorStates = new Dictionary<EAnimatorState, Dictionary<EPlayerState, int>>();
 
-//    public static Dictionary<EAnimatorState, bool> States = new Dictionary<EAnimatorState, bool>();
+    /// <summary>
+    /// 強制動作: 也就是這些動作一定要撥完, 才可以撥下一個動作.
+    /// </summary>
+//    private readonly Dictionary<EPlayerState, bool> mForciblyStates = new Dictionary<EPlayerState, bool>();
+    private readonly HashSet<EPlayerState> mForciblyStates = new HashSet<EPlayerState>();
 
-    //強制動作：必須等待強制動作做完之後，才能接下一個loop sate，避免loop state太快轉換下一個state,例如fall > Idle
-    //必須配合PlayerBehaviour.ReadyToNextState使用
-    private readonly Dictionary<EPlayerState, bool> mForciblyStates = new Dictionary<EPlayerState, bool>();
-
-	private TAnimatorItem ani = new TAnimatorItem();
+	private TAnimatorItem ani;
 
     void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
         initAnimtorStates();
+        initForciblyStates();
     }
 
     /// <summary>
@@ -325,8 +345,6 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 		            break;
 		    }
 		}
-
-        initForciblyStates();
 	}
 
     private void initForciblyStates()
@@ -356,8 +374,8 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
                     if(mAnimtorStates.ContainsKey(animatorState))
                         foreach(KeyValuePair<EPlayerState, int> pair in mAnimtorStates[animatorState])
                         {
-                            if(!mForciblyStates.ContainsKey(pair.Key))
-                                mForciblyStates.Add(pair.Key, true);
+                            if(!mForciblyStates.Contains(pair.Key))
+                                mForciblyStates.Add(pair.Key);
                         }
                     break;
             }
@@ -366,7 +384,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
         
     public bool IsForciblyStates(EPlayerState state)
     {
-        return mForciblyStates.ContainsKey(state);
+        return mForciblyStates.Contains(state);
     }
 	
 	public TAnimatorItem GetAnimatorState(EPlayerState playerState)

@@ -379,9 +379,14 @@ public class AnimatorController : MonoBehaviour
 
     private bool flag;
 
-	public bool IsStuck(EPlayerState crtstate)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="crtstate"></param>
+    /// <returns> true:  </returns>
+	public bool IsEqual(EPlayerState crtstate)
 	{
-	    return !Controler.GetCurrentAnimatorStateInfo(0).IsName(crtstate.ToString());
+	    return Controler.GetCurrentAnimatorStateInfo(0).IsName(crtstate.ToString());
 	}
 
     private float timescale = 1;
@@ -555,8 +560,8 @@ public class AnimatorController : MonoBehaviour
                 break;
             #region 以下動作結束後事件
 			case "AnimationEnd":
-					if (AnimationEndDel != null)
-							AnimationEndDel();
+				if(AnimationEndDel != null)
+					AnimationEndDel();
 					break;
             case "BuffEnd":
                 if (BuffEndDel != null)

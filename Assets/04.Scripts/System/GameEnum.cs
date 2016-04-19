@@ -229,7 +229,7 @@
     public enum EBasketSituation
     {
         Score = 0,
-        Swish = 1,
+        Swish = 1, // 空心命中.
         NoScore = 2,
         AirBall = 3
     }
@@ -392,7 +392,7 @@
         Elbow2,
         Elbow20,
         Elbow21,
-        Fall0,
+        Fall0, // 跌倒(會倒在地上).
         Fall1,
         Fall2,
         FakeShoot,
@@ -447,7 +447,7 @@
         Steal1,
         Steal2,
         Steal20,
-        TipIn,
+        TipIn, // 進攻時, 籃下補籃.
         JumpBall,
         Buff20,
         Buff21,
@@ -463,7 +463,7 @@
         Show1003,
         Ending0,
         Ending10,
-        KnockDown0,
+        KnockDown0, // 擊倒(被推後, 球員跌倒)
         KnockDown1
     }
 

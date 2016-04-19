@@ -9,8 +9,6 @@ using GameEnum;
 using G2;
 using JetBrains.Annotations;
 
-public delegate bool OnPlayerAction(PlayerBehaviour player);
-
 public delegate void OnPlayerAction1(PlayerBehaviour player,bool isActive);
 
 public delegate void OnPlayerAction2(PlayerBehaviour player,bool speedup);
@@ -26,20 +24,20 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public ETimerKind TimerKind;
     public OnPlayerAction1 OnShooting = null;
-    public OnPlayerAction OnPass = null;
-    public OnPlayerAction OnBlockJump = null;
-    public OnPlayerAction OnBlocking = null;
-    public OnPlayerAction OnBlockCatching = null;
-    public OnPlayerAction OnDunkBasket = null;
-    public OnPlayerAction OnDunkJump = null;
-    public OnPlayerAction OnBlockMoment = null;
-    public OnPlayerAction OnFakeShootBlockMoment = null;
-    public OnPlayerAction OnFall = null;
-    public OnPlayerAction OnPickUpBall = null;
-    public OnPlayerAction OnGotSteal = null;
-    public OnPlayerAction OnOnlyScore = null;
-    public OnPlayerAction OnUI = null;
-    public OnPlayerAction OnUICantUse = null;
+    public Func<PlayerBehaviour, bool> OnPass = null;
+    public Func<PlayerBehaviour, bool> OnBlockJump = null;
+    public Func<PlayerBehaviour, bool> OnBlocking = null;
+    public Func<PlayerBehaviour, bool> OnBlockCatching = null;
+    public Func<PlayerBehaviour, bool> OnDunkBasket = null;
+    public Func<PlayerBehaviour, bool> OnDunkJump = null;
+    public Func<PlayerBehaviour, bool> OnBlockMoment = null;
+    public Func<PlayerBehaviour, bool> OnFakeShootBlockMoment = null;
+    public Func<PlayerBehaviour, bool> OnFall = null;
+    public Func<PlayerBehaviour, bool> OnPickUpBall = null;
+    public Func<PlayerBehaviour, bool> OnGotSteal = null;
+    public Func<PlayerBehaviour, bool> OnOnlyScore = null;
+    public Func<PlayerBehaviour, bool> OnUI = null;
+    public Func<PlayerBehaviour, bool> OnUICantUse = null;
     public OnPlayerAction5 OnUIAnger = null;
     public OnPlayerAction5 OnReviveAnger = null;
     public OnPlayerAction4 OnDoubleClickMoment = null;
@@ -48,7 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject PlayerRefGameObject;
     public int ShowPos = -1;
 
-    [Tooltip("Just for Debug.")]
+    [Tooltip("Just for Debug."), UsedImplicitly]
     public string TacticalName = "";
 
     private const float MoveCheckValue = 1;
@@ -758,7 +756,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (isMoving)
             DribbleTime += Time.deltaTime;
 
-        FoolProofing();
+        tryReviseAnimation();
     }
 
     public void DashEffectEnable(bool isEnable)
@@ -850,37 +848,36 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 	
-	private const float proffingCheckTime = 3f;
-	private float proofingTime = proffingCheckTime;
+	private const float ReviseAnimationInterval = 3f;
+	private float mReviseElapsedTime = ReviseAnimationInterval;
 
-    public void FoolProofing()
+    private void tryReviseAnimation()
     {	
-        if (GameController.Get.IsStart && TimerMgr.Get.CrtTime > GameConst.Min_TimePause &&
-        (GameController.Get.Situation == EGameSituation.GamerAttack ||
-        GameController.Get.Situation == EGameSituation.NPCAttack))
+        if(GameController.Get.IsStart && 
+           TimerMgr.Get.CrtTime > GameConst.Min_TimePause &&
+           (GameController.Get.Situation == EGameSituation.GamerAttack ||
+            GameController.Get.Situation == EGameSituation.NPCAttack))
         {
-			if (AnimatorControl.IsStuck(crtState) && !AnimatorMgr.Get.IsLoopState(crtState))
-                freeAniCountdown();
+			if(!AnimatorControl.IsEqual(crtState) && !AnimatorMgr.Get.IsLoopState(crtState))
+                synchronousAnimation();
             else
-				proofingTime = proffingCheckTime;
+				mReviseElapsedTime = ReviseAnimationInterval;
         }
         else
-        {
-			proofingTime = proffingCheckTime;
-        }
+			mReviseElapsedTime = ReviseAnimationInterval;
     }
 
-    private void freeAniCountdown()
+    private void synchronousAnimation()
     {
-        proofingTime -= Time.deltaTime; 
-        if (proofingTime <= 0)
+        mReviseElapsedTime -= Time.deltaTime; 
+        if (mReviseElapsedTime <= 0)
         {
             if(LobbyStart.Get.IsDebugAnimation)
-				Debug.LogErrorFormat("{0}.proofing stuck : {1}", name, crtState);
+				Debug.LogErrorFormat("Animation stuck(asynchronous). {0} - {1}", name, crtState);
 
             AniState(IsBallOwner ? EPlayerState.HoldBall : EPlayerState.Idle, false);
 
-            proofingTime = proffingCheckTime;
+            mReviseElapsedTime = ReviseAnimationInterval;
         }
     }
 
@@ -2242,7 +2239,7 @@ public class PlayerBehaviour : MonoBehaviour
         AnimatorControl.FakeShootEndDel = FakeShootEnd;
         AnimatorControl.TipInStartDel = TipInStart;
         AnimatorControl.TipInEndDel = TipInEnd;
-        AnimatorControl.AnimationEndDel = AnimationEnd;
+        AnimatorControl.AnimationEndDel = animationEnd;
         AnimatorControl.ShowDel = OnShowCallBack;
         AnimatorControl.SkillDel = SkillEventCallBack;
         AnimatorControl.ZoomInDel = OnZoomIn;
@@ -2629,7 +2626,7 @@ public class PlayerBehaviour : MonoBehaviour
         CanUseTipIn = false;
     }
 
-    private void AnimationEnd()
+    private void animationEnd()
     {
         if (GameController.Get.IsShowSituation)
             return;
@@ -3037,10 +3034,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (IsUseActiveSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
+            if(IsUseActiveSkill || 
+               StateChecker.StopStates.ContainsKey(crtState) || 
+               IsFall || IsShoot || IsDunk || IsLayup)
                 return false;
-            else
-                return true;
+            return true;
         }
     }
 
@@ -3258,7 +3256,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsFall
     {
-        get{ return crtState == EPlayerState.Fall0 || crtState == EPlayerState.Fall1 || crtState == EPlayerState.Fall2 || crtState == EPlayerState.KnockDown0 || crtState == EPlayerState.KnockDown1; }
+        get
+        {
+            return crtState == EPlayerState.Fall0 || 
+                   crtState == EPlayerState.Fall1 || 
+                   crtState == EPlayerState.Fall2 || 
+                   crtState == EPlayerState.KnockDown0 || 
+                   crtState == EPlayerState.KnockDown1;
+        }
     }
 
     /// <summary>

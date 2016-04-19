@@ -44,11 +44,6 @@ namespace AI
             general.Init(players);
         }
 
-        public EPlayerAttackState GetCurrentState()
-        {
-            return mFSM.CurrentState.ID;
-        }
-
         public override void Enter(object extraInfo)
         {
             mFSM.ChangeState(EPlayerAttackState.General);
@@ -61,11 +56,11 @@ namespace AI
 
         public override void UpdateAI()
         {
-            mFSM.Update();
         }
 
         public override void Update()
         {
+            mFSM.Update();
         }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
