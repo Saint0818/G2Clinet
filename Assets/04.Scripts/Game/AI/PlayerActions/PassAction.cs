@@ -1,4 +1,4 @@
-using GameEnum;
+﻿using GameEnum;
 
 namespace AI
 {
@@ -20,7 +20,8 @@ namespace AI
 
         public override bool IsValid()
         {
-            return isAnimationValid() && GameController.Get.PassCD.IsTimeUp();
+            // 不要搶到籃板的時候, 又在空中傳球.
+            return !Player.IsRebound && isAnimationValid() && GameController.Get.PassCD.IsTimeUp();
         }
 
         private bool isAnimationValid()
