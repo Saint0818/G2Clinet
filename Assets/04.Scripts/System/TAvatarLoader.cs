@@ -34,12 +34,14 @@ public class TAvatarLoader : MonoBehaviour {
     public Color32 mMaterialColor = Color.white;
     private SkinnedMeshRenderer mSkinnedMeshRenderer = null;
     private Animator aniController = null;
+    private GameObject playerShadow;
     private List<GameObject> dressList = new List<GameObject>();
   
 	private static string[] avatarPartStr = {"B", "H", "M", "C", "P", "S", "A", "Z"};
     private const string bip01Text = "Bip01";
     private const string avatarText = "PlayerModel";
 	private static Material materialSource;
+    private static GameObject playerShadowRes;
 	private static Dictionary<string, GameObject> modelCache = new Dictionary<string, GameObject>();
 	private static Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
     private static Dictionary<string, RuntimeAnimatorController> controllorCache = new Dictionary<string, RuntimeAnimatorController>();
@@ -89,6 +91,10 @@ public class TAvatarLoader : MonoBehaviour {
     void OnDestroy() {
         mAnimationName  = "";
         clearLoaded();
+
+        if (playerShadow)
+            Destroy(playerShadow);
+        
         Destroy(gameObject);
     }
 
@@ -540,6 +546,14 @@ public class TAvatarLoader : MonoBehaviour {
                 clearLoaded();
             else
                 clearDress();
+        }
+
+        if (layer == ELayer.Player && GameData.Setting.Quality == 1) {
+            if (!playerShadowRes)
+                playerShadowRes = Resources.Load("Prefab/Player/PlayerShadow") as GameObject;
+
+            playerShadow = Instantiate(playerShadowRes) as GameObject;
+            playerShadow.transform.parent = parentObj.transform;
         }
 
         if (asyncLoad)

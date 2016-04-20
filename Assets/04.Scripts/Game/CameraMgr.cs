@@ -121,6 +121,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         if (cameraGroupObj)
             Destroy(cameraGroupObj);
 
+        if (cameraFx != null && cameraFx.gameObject)
+            Destroy(cameraFx.gameObject);
+        
         if (cameraSkill != null && cameraSkill.gameObject)
             Destroy(cameraSkill.gameObject);
 
@@ -284,8 +287,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             if (cameraOffsetObj == null)
                 cameraOffsetObj = cameraGroupObj.transform.FindChild("Offset").gameObject;
+            
             if (cameraRotationObj == null)
                 cameraRotationObj = cameraGroupObj.transform.FindChild("Offset/Rotation").gameObject;
+            
             if (cameraFx == null)
                 cameraFx = cameraRotationObj.transform.GetComponentInChildren<Camera>();
 
@@ -303,6 +308,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         ShowCourtCamera(false);
         if (cameraPlayerInfo)
             cameraPlayerInfo.gameObject.SetActive(false);
+        
         setHalfCourtCamera();
 		
         if (focusTargetOne == null)
