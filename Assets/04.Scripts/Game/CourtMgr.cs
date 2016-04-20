@@ -16,16 +16,19 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 {
     private const string DefaultRealBallPath = "Prefab/Stadium/RealBall";
     private const string PrefabRealBallPath = "Prefab/Stadium/RealBall";
+    public string BasketAnimationName = "BasketballAction_1";
+
     public GameObject RefGameObject;
+
     private bool isPve = true;
     private int attackDirection = 0;
     private int crtBasketIndex = -1;
     private GameObject crtBasket;
 
     private bool isBallOffensive = false;
-    
-    //Shoot and Dunk (true)
-    public GameObject RealBallObj { get; private set; }
+
+    private GameObject realBall;
+    public RealBall RealBall;
 
     private bool isRealBallInAcitve = false;
     private GameObject crtCollider;
@@ -58,7 +61,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     public GameObject EffectMedium;
 	private BasketAnimation[] basketAnimation = new BasketAnimation[2];
 	private BasketAnimation[] basketActionAnimation = new BasketAnimation[2];
-	public string BasketAnimationName = "BasketballAction_1";
 		
     public CircularSectorMeshRenderer SkillRangeOfAction;
     public GameObject SkillArrowOfAction;
@@ -67,7 +69,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     public GameObject[] CameraHood = new GameObject[2];
     public Material BasketMaterial;
     public BallCurve RealBallCurve;
-    //	public UILabel[] Scoreboards = new UILabel[2];
 
     public Dictionary<string, Vector3> DBasketShootWorldPosition = new Dictionary<string, Vector3>();
     public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>();
@@ -75,14 +76,77 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	private int scoreTeam = 0;
 	private bool isSwishIn = false;
-    public RealBall RealBallCompoment;
 
-    public void ChangeBasketByLobby(GameObject obj)
+    [UsedImplicitly]
+    void Awake()
     {
-        pveBasketAy[0] = obj;
+        RefGameObject = gameObject;
     }
 
-    public void InitBasket(RuntimeAnimatorController controller)
+    void OnDestroy() {
+        DBasketShootWorldPosition.Clear();
+        DBasketAnimationName.Clear();
+        DBasketAnimationNoneState.Clear();
+
+        if (crtBasket)
+            Destroy(crtBasket);
+
+        if (SkillRangeOfAction)
+            Destroy(SkillRangeOfAction);
+
+        if (SkillArrowOfAction)
+            Destroy(SkillArrowOfAction);
+
+        if (realBall)
+            Destroy(realBall);
+
+        if (crtCollider)
+            Destroy(crtCollider);
+    }
+
+    IEnumerator Reset()
+    {  
+        yield return new WaitForSeconds(3f);
+
+        if (isPve)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (pveBasketAy[i])
+                {
+                    pveBasketAy[i].transform.localEulerAngles = animRotate[i];
+                    pveBasketAy[i].transform.localPosition = animPos[i];
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (BuildDummyAy[i])
+                {
+                    BuildDummyAy[i].transform.localPosition = Vector3.zero;
+                    BuildDummyAy[i].transform.localEulerAngles = new Vector3(-90, 0, 0);
+                }
+            }
+        }
+
+        Hood[0].gameObject.SetActive(true);
+        Hood[1].gameObject.SetActive(true);
+    }
+
+    public void InitCourtScene(int courtNum)
+    {
+        loadBall(courtNum);
+        checkCollider();
+        InitScoreboard();
+        initEffect();
+        loadSkillComponents();
+
+        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
+    }
+
+    public void InitBasketAnimator(RuntimeAnimatorController controller)
     {
         AnimationClip[] clip = controller.animationClips;
         List<string> scoreName = new List<string>();
@@ -99,7 +163,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                         scoreName.Add(clip[i].name);
                     else
                         noScoreName.Add(clip[i].name);
-					
                 }
             }
         }
@@ -111,6 +174,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         List<string> BasketScoreAnimationStateCenter = new List<string>();
         List<string> BasketScoreAnimationStateLeft = new List<string>();
         List<string> BasketScoreAnimationStateLeftWing = new List<string>();
+
         if (scoreName.Count > 0)
         {
             for (int i = 0; i < scoreName.Count; i++)
@@ -243,9 +307,23 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 else
                     DBasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
             }
+
             BasketHoopDummy[0].localPosition = Vector3.zero;
             BasketHoopDummy[1].localPosition = Vector3.zero;
         }
+
+        scoreName.Clear();
+        noScoreName.Clear();
+        BasketScoreAnimationStateRightWing.Clear();
+        BasketScoreAnimationStateRight.Clear();
+        BasketScoreAnimationStateCenter.Clear();
+        BasketScoreAnimationStateLeft.Clear();
+        BasketScoreAnimationStateLeftWing.Clear();
+        BasketNoScoreAnimationStateRightWing.Clear();
+        BasketNoScoreAnimationStateRight.Clear();
+        BasketNoScoreAnimationStateCenter.Clear();
+        BasketNoScoreAnimationStateLeft.Clear();
+        BasketNoScoreAnimationStateLeftWing.Clear();
     }
 
     private List<string> arrayIntersection(string[] list1, List<string> list2)
@@ -276,33 +354,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             EffectMedium.SetActive(type >= EQualityType.Medium);
     }
 
-    [UsedImplicitly]
-    void Awake()
-    {
-        RefGameObject = gameObject;
-        checkCollider();
-    }
-
-    void OnDestroy() {
-        DBasketShootWorldPosition.Clear();
-        DBasketAnimationName.Clear();
-        DBasketAnimationNoneState.Clear();
-
-        if (crtBasket)
-            Destroy(crtBasket);
-
-        if (SkillRangeOfAction)
-            Destroy(SkillRangeOfAction);
-
-        if (SkillArrowOfAction)
-            Destroy(SkillArrowOfAction);
-
-        if (RealBallObj)
-            Destroy(RealBallObj);
-
-        if (crtCollider)
-            Destroy(crtCollider);
-    }
 
     private void initEffect()
     {
@@ -310,22 +361,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         EffectHigh = GameObject.Find("Effect/High");		
     }
 
-    public void InitCourtScene(int courtNum)
-    {
-        loadBall(courtNum);
-        checkCollider();
-        InitScoreboard();
-        initEffect();
-        loadSkillComponents();
-
-        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
-    }
-
     private void loadSkillComponents()
     {
         if(!SkillRangeOfAction)
-            SkillRangeOfAction =
-                Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+            SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
 
         if(!SkillArrowOfAction)
         {
@@ -343,8 +382,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		//有機會會被改到layer,所以要檢查
 		if(!LayerMgr.Get.CheckLayer(SkillRangeOfAction.gameObject, ELayer.Default))
 			LayerMgr.Get.SetLayer(SkillRangeOfAction.gameObject, ELayer.Default);
+        
         if (parent)
             SkillRangeOfAction.transform.localPosition = new Vector3(0, 0.1f, 0);
+        
         SkillRangeOfAction.transform.localEulerAngles = new Vector3(0, euler, 0);
         SkillRangeOfAction.ChangeValue(degree, dis);
         SkillRangeOfAction.RefGameObject.SetActive(isShow);
@@ -356,14 +397,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			SkillArrowOfAction.transform.parent = parent;
 			if (parent)
 				SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
-			
 		}
+
 		//有機會會被改到layer,所以要檢查
 		if(!LayerMgr.Get.CheckLayer(SkillArrowOfAction.gameObject, ELayer.Default))
 			LayerMgr.Get.SetLayer(SkillArrowOfAction.gameObject, ELayer.Default);
+        
         SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
         if (textureArrow)
             textureArrow.SetRect(0, 0, 200, dis * 100);
+        
         SkillArrowOfAction.SetActive(isShow);
     }
 
@@ -445,7 +488,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				if(!GameController.Get.IsDunk && !GameController.Get.IsAlleyoop && !GameController.Get.IsPassing &&
 					GameController.Get.BasketSituation != EBasketSituation.AirBall) {
 					BasketEntra[Team, 0].Into = true;
-					RealBallCompoment.Trigger.IsAutoRotate = false;
+					RealBall.Trigger.IsAutoRotate = false;
 					RealBallDoMoveFinish();
 					switch (GameController.Get.BasketSituation) {
 					case EBasketSituation.Swish:
@@ -490,27 +533,27 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     private void loadBall(int courtNum)
     {
-        if(RealBallObj)
+        if(realBall)
         {
-            Destroy(RealBallObj);
-            RealBallObj = null;
+            Destroy(realBall);
+            realBall = null;
         }
 
-        RealBallObj = safeLoadBall(courtNum);
+        realBall = safeLoadBall(courtNum);
+        realBall.name = "RealBall";
+        realBall.transform.localPosition = new Vector3(0, 3.5f, 0);
 
-        RealBallCompoment = RealBallObj.GetComponent<RealBall>();
-        RealBallObj.name = "RealBall";
+        RealBall = realBall.GetComponent<RealBall>();
+        RealBall.RigidbodyCom.isKinematic = true;
+        RealBall.RigidbodyCom.useGravity = false;
+
         if (RealBallCurve == null)
-            RealBallCurve = RealBallObj.GetComponent<BallCurve>();
-
-		RealBallObj.transform.localPosition = new Vector3(0, 3.5f, 0);
-        RealBallObj.GetComponent<Rigidbody>().isKinematic = true;
-        RealBallObj.GetComponent<Rigidbody>().useGravity = false;
+            RealBallCurve = realBall.GetComponent<BallCurve>();
     }
 
     private GameObject safeLoadBall(int courtNum)
     {
-        var realBallPathName = string.Format("{0}_{1}", PrefabRealBallPath, courtNum);
+        string realBallPathName = string.Format("{0}_{1}", PrefabRealBallPath, courtNum);
         GameObject realBallObj = Resources.Load<GameObject>(realBallPathName);
         if(realBallObj == null)
         {
@@ -523,11 +566,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     private void checkCollider()
     {
-        if(crtCollider == null)
-        {
+        if (crtCollider == null) {
             crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = RefGameObject.transform;
-        }
 		
         EndPlayerPosition[0] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
         EndPlayerPosition[1] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
@@ -535,74 +576,73 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         EndPlayerPosition[3] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
         EndPlayerPosition[4] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
         EndPlayerPosition[5] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
+            
+            if (LobbyStart.Get.CourtMode == ECourtMode.Full) {
+                Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+                Walls[1] = GameObject.Find(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
+                Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
+                Hood[1] = GameObject.Find(string.Format("{0}/HoodB", crtCollider.name)); 
+                ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
+                ShootPoint[1] = GameObject.Find(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
+                BasketRangeCenter[0] = GameObject.Find(string.Format("{0}/RangeOfActionCenterL", crtCollider.name));
+                BasketRangeCenter[1] = GameObject.Find(string.Format("{0}/RangeOfActionCenterR", crtCollider.name));
+                MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
+                MissPoint[1] = GameObject.Find(string.Format("{0}/MissPos/B", crtCollider.name));
+                DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
+                DunkPoint[1] = GameObject.Find(string.Format("{0}/DunkR/Point", crtCollider.name));
+                DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+                DunkJumpPoint[1] = GameObject.Find(string.Format("{0}/DunkR/JumpPoint", crtCollider.name));
+                CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
+                CameraHood[1] = GameObject.Find(string.Format("{0}/CameraHood/B", crtCollider.name));
+                BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[0, 0].ScoreDel += ScoreMgr;
+    			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[0, 1].ScoreDel += ScoreMgr;
+                BasketEntra[0, 1].IntTrigger = 1;
+    			BasketEntra[1, 0] = GameObject.Find(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[1, 0].ScoreDel += ScoreMgr;
+    			BasketEntra[1, 1] = GameObject.Find(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[1, 1].ScoreDel += ScoreMgr;
+                BasketEntra[1, 1].IntTrigger = 1;
+                BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+    			BasketAirBall[0].AirBallDel += AirBallMgr;
+    			BasketAirBall[1] = GameObject.Find(string.Format("{0}/HoodB/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+    			BasketAirBall[1].AirBallDel += AirBallMgr;
 
-        if (LobbyStart.Get.CourtMode == ECourtMode.Full)
-        {
-            Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
-            Walls[1] = GameObject.Find(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
-            Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
-            Hood[1] = GameObject.Find(string.Format("{0}/HoodB", crtCollider.name)); 
-            ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
-            ShootPoint[1] = GameObject.Find(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
-            BasketRangeCenter[0] = GameObject.Find(string.Format("{0}/RangeOfActionCenterL", crtCollider.name));
-            BasketRangeCenter[1] = GameObject.Find(string.Format("{0}/RangeOfActionCenterR", crtCollider.name));
-            MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
-            MissPoint[1] = GameObject.Find(string.Format("{0}/MissPos/B", crtCollider.name));
-            DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
-            DunkPoint[1] = GameObject.Find(string.Format("{0}/DunkR/Point", crtCollider.name));
-            DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
-            DunkJumpPoint[1] = GameObject.Find(string.Format("{0}/DunkR/JumpPoint", crtCollider.name));
-            CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
-            CameraHood[1] = GameObject.Find(string.Format("{0}/CameraHood/B", crtCollider.name));
-            BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[0, 0].ScoreDel += ScoreMgr;
-			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[0, 1].ScoreDel += ScoreMgr;
-            BasketEntra[0, 1].IntTrigger = 1;
-			BasketEntra[1, 0] = GameObject.Find(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[1, 0].ScoreDel += ScoreMgr;
-			BasketEntra[1, 1] = GameObject.Find(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[1, 1].ScoreDel += ScoreMgr;
-            BasketEntra[1, 1].IntTrigger = 1;
-            BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
-			BasketAirBall[0].AirBallDel += AirBallMgr;
-			BasketAirBall[1] = GameObject.Find(string.Format("{0}/HoodB/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
-			BasketAirBall[1].AirBallDel += AirBallMgr;
+                for (int i = 0; i < Distance3Pos.GetLength(0); i++)
+                    for (int j = 0; j < Distance3Pos.GetLength(1); j++)
+                        Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
+            }
+            else {
+                Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+                Walls[1] = Walls[0];
+                Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
+                Hood[1] = Hood[0];
+                ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
+                ShootPoint[1] = ShootPoint[0];
+                MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
+                MissPoint[1] = MissPoint[0];
+                DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
+                DunkPoint[1] = DunkPoint[0];
+                DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+                DunkJumpPoint[1] = DunkJumpPoint[0];
+                CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
+                CameraHood[1] = CameraHood[0];
+    			BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[0, 0].ScoreDel += ScoreMgr;
+    			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+    			BasketEntra[0, 1].ScoreDel += ScoreMgr;
+                BasketEntra[0, 1].IntTrigger = 1;
+                BasketEntra[1, 0] = BasketEntra[0, 0];
+                BasketEntra[1, 1] = BasketEntra[0, 1];
+    			BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+    			BasketAirBall[0].AirBallDel += AirBallMgr;
+                BasketAirBall[1] = BasketAirBall[0];
 
-            for (int i = 0; i < Distance3Pos.GetLength(0); i++)
-                for (int j = 0; j < Distance3Pos.GetLength(1); j++)
-                    Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
-        }
-        else
-        {
-            Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
-            Walls[1] = Walls[0];
-            Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
-            Hood[1] = Hood[0];
-            ShootPoint[0] = GameObject.Find(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
-            ShootPoint[1] = ShootPoint[0];
-            MissPoint[0] = GameObject.Find(string.Format("{0}/MissPos/A", crtCollider.name));
-            MissPoint[1] = MissPoint[0];
-            DunkPoint[0] = GameObject.Find(string.Format("{0}/DunkL/Point", crtCollider.name));
-            DunkPoint[1] = DunkPoint[0];
-            DunkJumpPoint[0] = GameObject.Find(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
-            DunkJumpPoint[1] = DunkJumpPoint[0];
-            CameraHood[0] = GameObject.Find(string.Format("{0}/CameraHood/A", crtCollider.name));
-            CameraHood[1] = CameraHood[0];
-			BasketEntra[0, 0] = GameObject.Find(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[0, 0].ScoreDel += ScoreMgr;
-			BasketEntra[0, 1] = GameObject.Find(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
-			BasketEntra[0, 1].ScoreDel += ScoreMgr;
-            BasketEntra[0, 1].IntTrigger = 1;
-            BasketEntra[1, 0] = BasketEntra[0, 0];
-            BasketEntra[1, 1] = BasketEntra[0, 1];
-			BasketAirBall[0] = GameObject.Find(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
-			BasketAirBall[0].AirBallDel += AirBallMgr;
-            BasketAirBall[1] = BasketAirBall[0];
-
-            for (int i = 0; i < Distance3Pos.GetLength(0); i++)
-                for (int j = 0; j < Distance3Pos.GetLength(1); j++)
-                    Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
+                for (int i = 0; i < Distance3Pos.GetLength(0); i++)
+                    for (int j = 0; j < Distance3Pos.GetLength(1); j++)
+                        Distance3Pos[i, j] = GameObject.Find(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
+            }
         }
     }
 
@@ -679,7 +719,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
         BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
 
-        InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
+        InitBasketAnimator(BasketHoopAnimator[0].runtimeAnimatorController);
     }
 
     public void RealBallPath(int team, string animationName, int index)
@@ -692,19 +732,19 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             {
                 case "ActionEnd":
                     SetBasketState(EPlayerState.BasketActionEnd, team);
-					RealBallCompoment.SetBallOwnerNull();
+					RealBall.SetBallOwnerNull();
                     break;
                 case "ActionNoScoreShot":
 //				PlayShootNoScore(team);
                     break;
                 case "ActionNoScoreEnd":
                     SetBasketState(EPlayerState.BasketActionNoScoreEnd, team);
-					RealBallCompoment.SetBallOwnerNull();
+					RealBall.SetBallOwnerNull();
                     break;
                 case "BasketNetPlay":
                     PlayShoot(team, index);
                     if (index < 100)
-                        RealBallCompoment.MoveVelocity = Vector3.zero;
+                        RealBall.MoveVelocity = Vector3.zero;
                     break;
             }
         }
@@ -725,8 +765,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 GameController.Get.PlusScore(scoreTeam, false, true);
                 GameController.Get.ShowShootSate(true, scoreTeam);
                 LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, false);
-				RealBallCompoment.MoveVelocity = Vector3.zero;
-				RealBallCompoment.AddForce(Vector3.down, ForceMode.VelocityChange);
+				RealBall.MoveVelocity = Vector3.zero;
+				RealBall.AddForce(Vector3.down, ForceMode.VelocityChange);
                 scoreTeam = -1;
             }
         }
@@ -743,9 +783,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					//第一個偵測點 球：程式控制
                     scoreTeam = team;
                     LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, true);
-                    RealBallObj.transform.DOMove(new Vector3(BasketEntra[team, 1].transform.position.x + Mathf.Clamp(-(RealBallObj.transform.position.x - BasketEntra[team, 0].transform.position.x), -BasketEntra[team, 1].transform.localPosition.x, BasketEntra[team, 1].transform.localPosition.x),
+                    RealBall.transform.DOMove(new Vector3(BasketEntra[team, 1].transform.position.x + Mathf.Clamp(-(RealBall.transform.position.x - BasketEntra[team, 0].transform.position.x), -BasketEntra[team, 1].transform.localPosition.x, BasketEntra[team, 1].transform.localPosition.x),
                             BasketEntra[team, 1].transform.position.y,
-                            BasketEntra[team, 1].transform.position.z + Mathf.Clamp(-(RealBallObj.transform.position.z - BasketEntra[team, 0].transform.position.z), -BasketEntra[team, 1].transform.localPosition.z, BasketEntra[team, 1].transform.localPosition.z)), 0.15f).OnComplete(IfSwishNoScore);
+                            BasketEntra[team, 1].transform.position.z + Mathf.Clamp(-(RealBall.transform.position.z - BasketEntra[team, 0].transform.position.z), -BasketEntra[team, 1].transform.localPosition.z, BasketEntra[team, 1].transform.localPosition.z)), 0.15f).OnComplete(IfSwishNoScore);
 
                     break;
                 case EPlayerState.BasketActionSwishEnd:
@@ -755,9 +795,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     isBallOffensive = false;
                     break;
                 case EPlayerState.BasketAnimationStart:
-                    RealBallCompoment.Gravity = false;
-                    RealBallCompoment.TriggerEnable = false;
-					RealBallCompoment.Parent = BasketHoopDummy[team];					
+                    RealBall.Gravity = false;
+                    RealBall.TriggerEnable = false;
+					RealBall.Parent = BasketHoopDummy[team];					
                     GameController.Get.IsReboundTime = true;
                     GameController.Get.BallState = EBallState.None;
                     break;
@@ -770,9 +810,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     isBallOffensive = false;
                     GameController.Get.PlusScore(team, false, true);
                     GameController.Get.ShowShootSate(true, team);
-					RealBallCompoment.SetBallOwnerNull();
+					RealBall.SetBallOwnerNull();
 					RealBallDoMoveFinish();
-                    RealBallCompoment.AddForce(Vector3.right * 2, ForceMode.VelocityChange);
+                    RealBall.AddForce(Vector3.right * 2, ForceMode.VelocityChange);
                     GameController.Get.IsPassing = false;
                     GameController.Get.BallState = EBallState.None;
                     break;
@@ -781,8 +821,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                         Debug.LogWarning("RealBall NoScore Out:" + BasketAnimationName);
                     isBallOffensive = false;
                     GameController.Get.ShowShootSate(false, team);
-					RealBallCompoment.SetBallOwnerNull();
-                    RealBallCompoment.AddForce(new Vector3(1, 0, 0) * (70 + GameController.Get.ShootDistance * 2), ForceMode.Impulse);
+					RealBall.SetBallOwnerNull();
+                    RealBall.AddForce(new Vector3(1, 0, 0) * (70 + GameController.Get.ShootDistance * 2), ForceMode.Impulse);
 					RealBallDoMoveFinish();
                     GameController.Get.IsPassing = false;
                     GameController.Get.BallState = EBallState.CanRebound;
@@ -817,50 +857,50 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void RealBallShoot (PlayerBehaviour player, float shootAngle, float ShootDistance) {
 		if(GameController.Get.BasketSituation == EBasketSituation.AirBall) {
             LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, true);
-			RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
+			RealBall.MoveVelocity = GameFunction.GetVelocity(RealBall.transform.position, BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
 		} else
 			if(player.CurrentState == EPlayerState.TipIn) {
 				if(GameController.Get.BasketSituation == EBasketSituation.Swish) {
-					if(RealBallObj.transform.position.y > (ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
-						RealBallObj.transform.DOMove(new Vector3(ShootPoint [player.Team.GetHashCode()].transform.position.x,
+					if(RealBall.transform.position.y > (ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
+						RealBall.transform.DOMove(new Vector3(ShootPoint [player.Team.GetHashCode()].transform.position.x,
 														      ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
 														      ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime * 0.5f);
 					} else {
-						RealBallObj.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
+						RealBall.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
 					}
 				} else {
-					if(RealBallObj.transform.position.y > (DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].y + 0.2f)) {
+					if(RealBall.transform.position.y > (DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].y + 0.2f)) {
 
-						RealBallObj.transform.DOMove(new Vector3(DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x,
+						RealBall.transform.DOMove(new Vector3(DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x,
 							DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].y + 0.5f,
 							DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z), 1 / TimerMgr.Get.CrtTime * 0.5f);
 					} else
-						RealBallObj.transform.DOMove(DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName], 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
+						RealBall.transform.DOMove(DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName], 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
 				}
 			}else 
 				if(GameController.Get.BasketSituation == EBasketSituation.Swish) {
                     LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, true);
 					if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-						RealBallObj.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
+						RealBall.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
 					} else if(player.Attribute.BodyType == 0 && ShootDistance < 5) {
-                        RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, 
+                        RealBall.MoveVelocity = GameFunction.GetVelocity(RealBall.transform.position, 
 							ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle, 1f);
 					} else 
-                        RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, 
+                        RealBall.MoveVelocity = GameFunction.GetVelocity(RealBall.transform.position, 
 							ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 				} else {
 					if(DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
 						if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-							RealBallObj.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
+							RealBall.transform.DOMove(ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
 						} else if(player.Attribute.BodyType == 0 && ShootDistance < 5) {
-                            RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position, 
+                            RealBall.MoveVelocity = GameFunction.GetVelocity(RealBall.transform.position, 
 								DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName] , shootAngle, 1f);
 						}  else {
-							float dis = GameController.Get.GetDis(new Vector2(RealBallObj.transform.position.x, RealBallObj.transform.position.z),
+							float dis = GameController.Get.GetDis(new Vector2(RealBall.transform.position.x, RealBall.transform.position.z),
 								new Vector2(DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
 							if(dis>10)
 								dis = 10;
-                            RealBallCompoment.MoveVelocity = GameFunction.GetVelocity(RealBallObj.transform.position,
+                            RealBall.MoveVelocity = GameFunction.GetVelocity(RealBall.transform.position,
 								DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
 								shootAngle,
 								dis * 0.05f);
@@ -873,8 +913,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void RealBallDoMoveFinish()
     {
-        RealBallObj.transform.DOKill(false);
-        RealBallCompoment.TriggerEnable = true;
+        RealBall.transform.DOKill(false);
+        RealBall.TriggerEnable = true;
     }
 
     public void SetScoreboards(int team, int score)
@@ -889,12 +929,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void SetRealBallPosition(Vector3 pos)
     {
-        RealBallObj.transform.position = pos;
+        RealBall.transform.position = pos;
     }
 
     public void SetRealBallOffset(Vector3 pos)
     {
-        RealBallObj.transform.Translate(pos);
+        RealBall.transform.Translate(pos);
     }
 
     public void ResetBasketEntra()
@@ -975,44 +1015,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             Hood[1].gameObject.SetActive(true);
         }
         animator.SetTrigger(animationName);
-    }
-
-    IEnumerator Reset()
-    {  
-        yield return new WaitForSeconds(3f);
-
-        if (isPve)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                if (pveBasketAy[i])
-                {
-                    pveBasketAy[i].transform.localEulerAngles = animRotate[i];
-                    pveBasketAy[i].transform.localPosition = animPos[i];
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                if (BuildDummyAy[i])
-                {
-                    BuildDummyAy[i].transform.localPosition = Vector3.zero;
-                    BuildDummyAy[i].transform.localEulerAngles = new Vector3(-90, 0, 0);
-                }
-            }
-        }
-
-        Hood[0].gameObject.SetActive(true);
-        Hood[1].gameObject.SetActive(true);
-    }
-
-    public GameObject GetGameObjectInColliderGp(string name)
-    {
-        GameObject result = null;
-        result = crtCollider.transform.FindChild(name).gameObject;
-        return result;
     }
 
     public Vector3 GetHoodPosition(ETeamKind teamKind)

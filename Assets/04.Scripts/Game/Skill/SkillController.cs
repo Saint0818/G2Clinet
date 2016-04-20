@@ -737,7 +737,7 @@ public class SkillController : MonoBehaviour {
 						}
 						break;
 					case 10://ball
-						objs.Add(CourtMgr.Get.RealBallObj);
+                        objs.Add(CourtMgr.Get.RealBall.gameObject);
 						break;
 					}
 					activeSkillTargets.Add(key , objs);

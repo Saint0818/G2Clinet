@@ -579,8 +579,9 @@ public class UIGame : UIBase
     {
         skillRangeTarget = null;
 
-		if (state && IsPlayerMe && !PlayerMe.IsJump && !PlayerMe.IsUseActiveSkill && (GameController.Get.Situation == EGameSituation.GamerAttack ||
-        GameController.Get.Situation == EGameSituation.NPCAttack))
+		if (state && IsPlayerMe && !PlayerMe.IsJump && !PlayerMe.IsUseActiveSkill && 
+            (GameController.Get.Situation == EGameSituation.GamerAttack ||
+            GameController.Get.Situation == EGameSituation.NPCAttack))
         {
             switch (type)
             {
@@ -611,6 +612,7 @@ public class UIGame : UIBase
                             }
                         }
                     }
+
                     break;
                 case EUIRangeType.Elbow:
                     isShowSkillRange = !state;
@@ -622,6 +624,7 @@ public class UIGame : UIBase
                         PlayerMe.PlayerRefGameObject.transform, 
                         PlayerMe.Attr.ElbowExtraAngle, 
                         PlayerMe.Attr.ElbowDistance); 
+                    
                     break;
                 case EUIRangeType.Push:
                     isShowSkillRange = !state;
@@ -633,11 +636,13 @@ public class UIGame : UIBase
                     nearP = GameController.Get.NpcSelectMe;
                     if (nearP)
                         eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, nearP.PlayerRefGameObject.transform.position);
+                        
                     CourtMgr.Get.ShowRangeOfAction(state, 
                         PlayerMe.PlayerRefGameObject.transform, 
                         PlayerMe.Attr.PushExtraAngle, 
                         PlayerMe.Attr.PushDistance,
-                        eulor); 
+                        eulor);
+                    
                     break;
                 case EUIRangeType.Steal:
                     isShowSkillRange = !state;
@@ -648,11 +653,11 @@ public class UIGame : UIBase
                     eulor = 0;
                     if (GameController.Get.BallOwner)
                         eulor = MathUtils.FindAngle(PlayerMe.PlayerRefGameObject.transform, GameController.Get.BallOwner.PlayerRefGameObject.transform.position);
-                    CourtMgr.Get.ShowRangeOfAction(state, 
-                        PlayerMe.PlayerRefGameObject.transform, 
-                        PlayerMe.Attr.StealExtraAngle, 
-                        PlayerMe.Attr.StealDistance,
-                        eulor); 
+                        CourtMgr.Get.ShowRangeOfAction(state, 
+                            PlayerMe.PlayerRefGameObject.transform, 
+                            PlayerMe.Attr.StealExtraAngle, 
+                            PlayerMe.Attr.StealDistance,
+                            eulor); 
                     break;
             }
         }

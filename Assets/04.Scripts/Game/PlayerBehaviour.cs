@@ -842,12 +842,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float timeScale = 1;
 
-    public  bool InReboundDistance
+    public bool InReboundDistance
     {
         get
         {
             return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
-                new Vector2(CourtMgr.Get.RealBallObj.transform.position.x, CourtMgr.Get.RealBallObj.transform.position.z)) <= 6;
+                                    new Vector2(CourtMgr.Get.RealBall.transform.position.x, 
+                                                CourtMgr.Get.RealBall.transform.position.z)) <= 6;
         }
     }
 	
@@ -1037,7 +1038,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (situation == EGameSituation.GamerAttack)
                         RotateTo(CourtMgr.Get.ShootPoint[0].transform.position.x, CourtMgr.Get.ShootPoint[0].transform.position.z);
                     else if (situation == EGameSituation.NPCAttack)
-                        RotateTo(CourtMgr.Get.RealBallObj.transform.position.x, CourtMgr.Get.RealBallObj.transform.position.z);
+                        RotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
                 }
             }
 
@@ -1721,7 +1722,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         if(GameController.Get.BallOwner == null)
-            skillMoveTarget = CourtMgr.Get.RealBallObj.transform.position;
+            skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
         else
             skillMoveTarget = GameController.Get.BallOwner.FindNearBlockPoint(PlayerRefGameObject.transform.position);
 
@@ -1799,7 +1800,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         SetShooterLayer();
        
-        CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Dunk0, this);
+        CourtMgr.Get.RealBall.SetBallState(EPlayerState.Dunk0, this);
 
 //        if (stateNo == 0 || stateNo == 1 || stateNo == 3 || stateNo == 5 || stateNo == 7)
 //        {
@@ -1827,7 +1828,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
             
         AnimatorControl.Play(EAnimatorState.Dribble, stateNo, Team.GetHashCode());
-        CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Dribble0, this);
+        CourtMgr.Get.RealBall.SetBallState(EPlayerState.Dribble0, this);
         isCanCatchBall = false;
         IsFirstDribble = false;
     }
@@ -1865,7 +1866,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsBallOwner && (situation != EGameSituation.GamerPickBall || situation != EGameSituation.NPCPickBall))
         {
             GameController.Get.SetBall();
-            CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.KnockDown0);
+            CourtMgr.Get.RealBall.SetBallState(EPlayerState.KnockDown0);
         }
         if (IsDunk)
         {
@@ -1923,7 +1924,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
 			
             //Debug.LogError("Shoot show camera: " + stateNo);
-            CourtMgr.Get.RealBallCompoment.SetBallState(EPlayerState.Shoot0, this);
+            CourtMgr.Get.RealBall.SetBallState(EPlayerState.Shoot0, this);
             StartSkillCamera(stateNo);
             UseGravity = false;
             IsKinematic = true;
@@ -2157,11 +2158,11 @@ public class PlayerBehaviour : MonoBehaviour
                 IsKinematic = true;
             
                 StartSkillCamera(nextAnimatorState.StateNo);
-                skillMoveTarget = CourtMgr.Get.RealBallObj.transform.position;
+                skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
                 if (InReboundDistance)
                 {
-                    reboundMove = CourtMgr.Get.RealBallObj.transform.position - transform.position;
-                    reboundMove += CourtMgr.Get.RealBallCompoment.MoveVelocity * 0.3f;
+                    reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
+                    reboundMove += CourtMgr.Get.RealBall.MoveVelocity * 0.3f;
                 }
                 else
                     reboundMove = Vector3.zero;
@@ -2377,7 +2378,7 @@ public class PlayerBehaviour : MonoBehaviour
                 OnShooting(this, false);
             else if (CurrentState == EPlayerState.Layup0)
             {
-                if (CourtMgr.Get.RealBallObj.transform.parent == DummyBall.transform)
+                if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform)
                 {
                     LogMgr.Get.Log(PlayerRefGameObject.name + " layup no ball.");
                     GameController.Get.SetBall();
@@ -2415,9 +2416,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsBallOwner)
         {
             if(GameController.Get.IsCatcherAlleyoop)
-                CourtMgr.Get.RealBallCompoment.Trigger.PassBall(99);   
+                CourtMgr.Get.RealBall.Trigger.PassBall(99);   
             else
-                CourtMgr.Get.RealBallCompoment.Trigger.PassBall(AnimatorControl.StateNo);
+                CourtMgr.Get.RealBall.Trigger.PassBall(AnimatorControl.StateNo);
 
             PlayerSkillController.ResetUseSkill();
             GameController.Get.IsCatcherAlleyoop = false;
@@ -2600,7 +2601,7 @@ public class PlayerBehaviour : MonoBehaviour
             AniState(EPlayerState.HoldBall);
         else
             AniState(EPlayerState.Idle);
-        CourtMgr.Get.RealBallCompoment.ShowBallSFX(Attr.PunishTime); 
+        CourtMgr.Get.RealBall.ShowBallSFX(Attr.PunishTime); 
     }
 
     private void fallEnd(EAnimatorState state)
@@ -2671,7 +2672,7 @@ public class PlayerBehaviour : MonoBehaviour
             AniState(EPlayerState.Idle);
 
         OnUI(this);
-        CourtMgr.Get.RealBallCompoment.ShowBallSFX(Attr.PunishTime);
+        CourtMgr.Get.RealBall.ShowBallSFX(Attr.PunishTime);
     }
 
     private void tipInStart()
@@ -2862,7 +2863,7 @@ public class PlayerBehaviour : MonoBehaviour
 					TimerMgr.Get.PauseBall(false);
 					skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
 					Vector3 pos = new Vector3(skillFaceTarget.x, -1, skillFaceTarget.z) * 20;
-					CourtMgr.Get.RealBallCompoment.AddForce(pos, ForceMode.VelocityChange);
+					CourtMgr.Get.RealBall.AddForce(pos, ForceMode.VelocityChange);
 				}
 				else if (GameController.Get.BallState == EBallState.CanDunkBlock)
 				{
@@ -2927,7 +2928,7 @@ public class PlayerBehaviour : MonoBehaviour
                 
                 isSkillShow = true;
                 if (GameController.Get.BallOwner != null)
-                    LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBallObj, "SkillPlayer", "RealBall");
+                    LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall.gameObject, "SkillPlayer", "RealBall");
 				
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
                 AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
@@ -3048,6 +3049,7 @@ public class PlayerBehaviour : MonoBehaviour
             for (int i = 0; i < PlayerSkillController.GetActiveSkillTarget(tSkill).Count; i++)
                 if (PlayerSkillController.CheckSkillDistance(tSkill, PlayerSkillController.GetActiveSkillTarget(tSkill)[i]))
                     result = true;
+        
         return result;
     }
 

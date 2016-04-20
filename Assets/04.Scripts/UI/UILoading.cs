@@ -240,6 +240,7 @@ public class UILoading : UIBase
         {
             nowProgress = 0;
             ProgressValue = 0;
+            uiLoadingProgress.fillAmount = 0;
         }
     }
 
@@ -402,14 +403,15 @@ public class UILoading : UIBase
 				AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
                 break;
             case ELoading.Game:
-                GameController.Get.ChangeSituation(EGameSituation.None);
-                ProgressValue = 0.6f;
+                ProgressValue = 0.3f;
                 yield return new WaitForSeconds(0.2f);
                 ProgressValue = 1;
 
                 TStageData stageData = StageTable.Ins.GetByID(GameData.StageID);
                 CourtMgr.Get.InitCourtScene(stageData.CourtNo);
+
                 yield return new WaitForSeconds(1);
+                GameController.Get.ChangeSituation(EGameSituation.None);
 
                 if (LobbyStart.Get.TestMode == EGameTest.None)
                     GameController.Get.LoadStage(GameData.StageID);
@@ -483,7 +485,10 @@ public class UILoading : UIBase
         {
             return uiLoadingProgress.fillAmount;
         }
-        set{ toProgress = value; }
+        set{ 
+            if (toProgress < value)
+            toProgress = value; 
+        }
     }
 
     public bool LoadingFinished

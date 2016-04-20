@@ -22,6 +22,7 @@ public class RealBall : MonoBehaviour
     private AutoFollowGameObject BallShadow;
 
 	private GameObject goRefBall;
+    public EPlayerState State;
 
     void Awake()
     {
@@ -136,8 +137,6 @@ public class RealBall : MonoBehaviour
         }
     }
 
-    public EPlayerState RealBallState;
-
     public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
     {
         if (!GameController.Get.IsStart && state != EPlayerState.Start &&
@@ -146,7 +145,7 @@ public class RealBall : MonoBehaviour
         
        	SetBallOwnerNull();
 
-        RealBallState = state;
+        State = state;
 
         switch (state)
         {

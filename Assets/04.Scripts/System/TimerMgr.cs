@@ -106,10 +106,10 @@ public class TimerMgr : KnightSingleton<TimerMgr>
         {
             if (isPase)
             {
-                ballvelocity = CourtMgr.Get.RealBallCompoment.MoveVelocity;
-                tempGravity = CourtMgr.Get.RealBallCompoment.Gravity;
-                CourtMgr.Get.RealBallCompoment.Gravity = false;
-                CourtMgr.Get.RealBallObj.transform.DOPause();
+                ballvelocity = CourtMgr.Get.RealBall.MoveVelocity;
+                tempGravity = CourtMgr.Get.RealBall.Gravity;
+                CourtMgr.Get.RealBall.Gravity = false;
+                CourtMgr.Get.RealBall.transform.DOPause();
             }
             else
             {
@@ -118,9 +118,9 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 					//如果進來就是不把重力恢復(恢復的話球變沒重力)
 				} else {
 					if(GameController.Get.BallOwner == null) {
-						CourtMgr.Get.RealBallCompoment.Gravity = tempGravity;
-						CourtMgr.Get.RealBallCompoment.MoveVelocity = ballvelocity;
-						CourtMgr.Get.RealBallObj.transform.DOPlay();
+						CourtMgr.Get.RealBall.Gravity = tempGravity;
+						CourtMgr.Get.RealBall.MoveVelocity = ballvelocity;
+						CourtMgr.Get.RealBall.transform.DOPlay();
 					}
 				}
             }

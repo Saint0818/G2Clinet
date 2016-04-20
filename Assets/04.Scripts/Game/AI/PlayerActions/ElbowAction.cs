@@ -39,7 +39,7 @@ namespace AI
 			if(Player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Elbow0))
             {
                 Player.ElbowCD.StartAgain();
-				CourtMgr.Get.RealBallCompoment.ShowBallSFX(Player.Attr.PunishTime);
+				CourtMgr.Get.RealBall.ShowBallSFX(Player.Attr.PunishTime);
             }
         }
     }
