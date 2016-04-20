@@ -953,6 +953,24 @@
         "uipath": "59.Mail = 9"
     },
     {
+        "id": 2001,
+        "explain": "創角",
+        "tw": "創立角色",
+        "en": "CUSTOMIZE CHARACTER"
+    },
+    {
+        "id": 2102,
+        "explain": "中鋒",
+        "tw": "中 鋒",
+        "en": "CENTER"
+    },
+    {
+        "id": 2103,
+        "explain": "前鋒",
+        "tw": "前 鋒",
+        "en": "FORWARD"
+    },
+    {
         "id": 2104,
         "explain": "後衛",
         "tw": "後 衛",
