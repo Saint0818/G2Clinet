@@ -25,7 +25,6 @@ namespace AI
         public override void Enter(object extraInfo)
         {
             GameController.Get.IsStart = true;
-            CourtMgr.Get.InitScoreboard(true);
 
             // 找出 2 位要跳球的球員.
             mJumpBallPlayers[0] = findJumpBallPlayer(ETeamKind.Self);

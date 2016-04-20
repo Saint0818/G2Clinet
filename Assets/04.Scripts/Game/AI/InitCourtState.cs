@@ -16,8 +16,6 @@ namespace AI
 
                 GameController.Get.ChangeSituation(EGameSituation.Opening);
                 Parent.ChangeState(EGameSituation.Opening);
-
-                CourtMgr.Get.InitScoreboard(true);
             }
         }
 

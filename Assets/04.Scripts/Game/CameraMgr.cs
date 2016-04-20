@@ -117,16 +117,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
-    public bool UICamVisible
-    {
-        set
-        {
-            cameraRotationObj.gameObject.SetActive(value);
-        }
-        get
-        {
-            return cameraRotationObj.gameObject.activeInHierarchy;
-        }
+    void OnDestroy() {
+        if (cameraGroupObj)
+            Destroy(cameraGroupObj);
+
+        if (cameraSkill != null && cameraSkill.gameObject)
+            Destroy(cameraSkill.gameObject);
+
+        if (cameraPlayerInfo != null && cameraPlayerInfo.gameObject)
+            Destroy(cameraPlayerInfo.gameObject);
+
+        if (showCamera != null && showCamera.gameObject)
+            Destroy(showCamera.gameObject);
     }
 
     public void PlayShake()
@@ -822,25 +824,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		
         if (showCamera == null)
         {
-            string path;
-			path = string.Format("Prefab/Camera/"+ name);
+            string path = string.Format("Prefab/Camera/"+ name);
             Object obj = Resources.Load(path);
-            if (!obj)
-            {
+            if (!obj) {
                 Debug.LogError("Missing Prefab : " + path);
                 path =  string.Format("Prefab/Camera/InGameStartShow_{0}", 0);
                 obj = Resources.Load(path);
                 if (!obj)
-                {
                     showCamera = Instantiate(obj) as GameObject;
-                }
             }
-            if (obj)
-            {
+
+            if (obj) {
                 showCamera = Instantiate(obj) as GameObject;
+			    showCamera.name = name;
             }
-			
-			showCamera.name = name;
         }
 
         if (showAnimatorControl == null)

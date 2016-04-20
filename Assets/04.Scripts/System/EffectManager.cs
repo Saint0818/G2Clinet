@@ -50,18 +50,35 @@ public class EffectManager : MonoBehaviour
 	}
 
     void OnDestroy() {
-        Destroy(ObjPool);
+        for (int i = 0; i < cloneObjects.Count; i++) {
+            /*MeshFilter mf = cloneObjects[i].GetComponent<MeshFilter> ();
+            if (mf) 
+                Destroy(mf);
+
+            MeshRenderer mr = cloneObjects[i].GetComponent<MeshRenderer> ();
+            if (mr) 
+                Destroy(mr);*/
+
+            Destroy(cloneObjects[i]);
+        }
+
+        foreach (KeyValuePair<string, List<GameObject>> items in pooledObjects) {
+            for (int i = 0; i < items.Value.Count; i++)
+                Destroy(items.Value[i]);
+        }
+
+        cloneObjects.Clear();
+        pooledObjects.Clear();
+        effectList.Clear();
         cloneMeshs.Clear();
         materials.Clear();
         triangles.Clear();
-        cloneObjects.Clear();
-        effectList.Clear();
-        pooledObjects.Clear();
         specialEffect.Clear();
+        Destroy(ObjPool);
     }
 
     public void InitData() {
-        string[] strs = new string[]{"FX_SelectDown","SelectMe", "SelectTarget", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01",
+        string[] strs = new string[] {"FX_SelectDown","SelectMe", "SelectTarget", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01",
             "PassMe", "PassA", "PassB", "UseSkillEffect_0", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201", "PassiveFX"
             ,"ShowWord_Block","ShowWord_Dunk","ShowWord_NiceShot","ShowWord_Punch","ShowWord_Steal", "GetScoreThree", "GetScoreTwo"};
 

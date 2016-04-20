@@ -355,10 +355,6 @@ public class UISetting : UIBase {
                 GameData.Setting.Quality = index;
                 gameSetting.UpdateView ();
 
-                //Effect
-                if(CourtMgr.Visible)
-                    CourtMgr.Get.EffectEnable((EQualityType)GameData.Setting.Quality);
-
                 //Setting 
                 GameData.SetGameQuality((EQualityType)GameData.Setting.Quality);
             }

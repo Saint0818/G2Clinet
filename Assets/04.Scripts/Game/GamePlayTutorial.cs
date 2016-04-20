@@ -215,7 +215,6 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		if (!GameController.Get.IsStart) {
 			GameController.Get.IsStart = true;
 			GameController.Get.StartGame(false);
-			CourtMgr.Get.InitScoreboard(true);
 		}
 		
 		UIGame.Get.CloseStartButton();

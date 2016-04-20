@@ -18,8 +18,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     private const string PrefabRealBallPath = "Prefab/Stadium/RealBall";
     public string BasketAnimationName = "BasketballAction_1";
 
-    public GameObject RefGameObject;
-
     private bool isPve = true;
     private int attackDirection = 0;
     private int crtBasketIndex = -1;
@@ -37,7 +35,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     private GameObject[] BuildDummyAy = new GameObject[2];
     private Vector3[] animPos = new Vector3[2];
     private Vector3[] animRotate = new Vector3[2];
-    private GameObject spotlight;
 
     public GameObject[] DunkPoint = new GameObject[2];
     public GameObject[] DunkJumpPoint = new GameObject[2];
@@ -57,8 +54,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     public Transform[] BasketHoop = new Transform[2];
     public Transform[] BasketHoopDummy = new Transform[2];
     public GameObject[] BasketRangeCenter = new GameObject[2];
-    public GameObject EffectHigh;
-    public GameObject EffectMedium;
 	private BasketAnimation[] basketAnimation = new BasketAnimation[2];
 	private BasketAnimation[] basketActionAnimation = new BasketAnimation[2];
 		
@@ -80,7 +75,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     [UsedImplicitly]
     void Awake()
     {
-        RefGameObject = gameObject;
+       
     }
 
     void OnDestroy() {
@@ -135,15 +130,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         Hood[1].gameObject.SetActive(true);
     }
 
-    public void InitCourtScene(int courtNum)
+    public void InitCourtScene(int courtNo)
     {
-        loadBall(courtNum);
+        loadBall(courtNo);
+        ChangeBasket(courtNo);
         checkCollider();
-        InitScoreboard();
-        initEffect();
         loadSkillComponents();
-
-        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
     }
 
     public void InitBasketAnimator(RuntimeAnimatorController controller)
@@ -338,27 +330,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             }
         }
         return list;
-    }
-
-    public void InitScoreboard(bool isEnable = false)
-    {
-        EffectEnable((EQualityType)GameData.Setting.Quality);
-    }
-
-    public void EffectEnable(EQualityType type)
-    {
-        if (EffectHigh)
-            EffectHigh.SetActive(type == EQualityType.High);
-		
-        if (EffectMedium)
-            EffectMedium.SetActive(type >= EQualityType.Medium);
-    }
-
-
-    private void initEffect()
-    {
-        EffectMedium = GameObject.Find("Effect/Medium");
-        EffectHigh = GameObject.Find("Effect/High");		
     }
 
     private void loadSkillComponents()
@@ -568,7 +539,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     {
         if (crtCollider == null) {
             crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
-            crtCollider.transform.parent = RefGameObject.transform;
+            crtCollider.transform.parent = transform;
 		
         EndPlayerPosition[0] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
         EndPlayerPosition[1] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
@@ -699,7 +670,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
         animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
 		
-        crtBasket.transform.parent = RefGameObject.transform;
+        crtBasket.transform.parent = transform;
         crtBasketIndex = basketIndex;
 		
         BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");

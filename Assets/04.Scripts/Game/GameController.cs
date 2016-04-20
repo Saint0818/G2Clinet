@@ -339,7 +339,6 @@ public class GameController : KnightSingleton<GameController>
 			StageData.WinValue = StageData.BitNum[1];
 			UIGame.Get.MaxScores[0] = StageData.WinValue;
 			UIGame.Get.MaxScores[1] = StageData.WinValue;
-			CourtMgr.Get.ChangeBasket(StageData.CourtNo);
 			MissionChecker.Get.Init(StageData);
 
 			if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
@@ -361,7 +360,6 @@ public class GameController : KnightSingleton<GameController>
 			GameTime = LobbyStart.Get.GameWinTimeValue;
 			UIGame.Get.MaxScores[0] = LobbyStart.Get.GameWinValue;
 			UIGame.Get.MaxScores[1] = LobbyStart.Get.GameWinValue;
-			CourtMgr.Get.ChangeBasket(0);
 			MissionChecker.Get.Init(StageData);
 		}
 
@@ -795,14 +793,6 @@ public class GameController : KnightSingleton<GameController>
             Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
         }
 
-//        passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
-//
-//		if (PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team)
-//			passIcon[1] = EffectManager.Get.PlayEffect("PassA", PlayerList[1].BodyHeight.transform.localPosition, PlayerList[1].PlayerRefGameObject);
-//
-//		if (PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team)
-//			passIcon[2] = EffectManager.Get.PlayEffect("PassB", PlayerList[2].BodyHeight.transform.localPosition, PlayerList[2].PlayerRefGameObject);
-
         for (int i = 0; i < PlayerList.Count; i++)
         {
             if (PlayerList[i].Team != Joysticker.Team)
@@ -812,14 +802,12 @@ public class GameController : KnightSingleton<GameController>
             }
         }
 		UIGame.Get.InitPlayerSkillUI(Joysticker);
-//		UIGame.Get.RefreshSkillUI();
 
         Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i++)
         {
             UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
             PlayerList[i].OnShooting = OnShooting;
-//            PlayerList [i].OnStealMoment = OnStealMoment;
             PlayerList[i].OnGotSteal = OnGotSteal;
             PlayerList[i].OnBlockMoment = OnBlockMoment;
             PlayerList[i].OnDoubleClickMoment = OnDoubleClickMoment;
