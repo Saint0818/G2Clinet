@@ -5,8 +5,10 @@ using JetBrains.Annotations;
 [UsedImplicitly]
 public class GamePlayerEvents : StateMachineBehaviour
 {
+    [UsedImplicitly]
     public EAnimatorState State;
-    private AnimationEvent skillEvent = new AnimationEvent();
+
+    private readonly AnimationEvent mSkillEvent = new AnimationEvent();
 
     /// <summary>
     /// OnStateExit 是 StateMachine 的某個子狀態結束時會被呼叫.
@@ -61,7 +63,7 @@ public class GamePlayerEvents : StateMachineBehaviour
                 break;
             case EAnimatorState.Buff:
                 controller.AnimatorEndEvent(State, "BuffEnd");
-                controller.SkillEvent(skillEvent);
+                controller.SkillEvent(mSkillEvent);
                 break;
             case EAnimatorState.MoveDodge:
                 controller.AnimatorEndEvent(State, "MoveDodgeEnd");

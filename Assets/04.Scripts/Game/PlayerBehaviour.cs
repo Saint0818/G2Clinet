@@ -142,9 +142,6 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 skillFaceTarget;
     private bool isDunkBlock;
 
-    //Rebound
-    private Vector3 reboundMove;
-//    private bool isShootJumpActive;
     //For Active
     private bool isFakeShoot = false;
 
@@ -848,7 +845,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                                     new Vector2(CourtMgr.Get.RealBall.transform.position.x, 
-                                                CourtMgr.Get.RealBall.transform.position.z)) <= 6;
+                                                CourtMgr.Get.RealBall.transform.position.z)) <= GameConst.ReboundDistance;
         }
     }
 	
@@ -2157,6 +2154,7 @@ public class PlayerBehaviour : MonoBehaviour
             
                 StartSkillCamera(nextAnimatorState.StateNo);
                 skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
+                Vector3 reboundMove;
                 if (InReboundDistance)
                 {
                     reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;

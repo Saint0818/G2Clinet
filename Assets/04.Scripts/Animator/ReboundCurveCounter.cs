@@ -1,12 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
-using GameEnum;
+﻿using GameEnum;
+using UnityEngine;
 
 /// <summary>
 /// JumpBall 跟 Rebound共用
 /// </summary>
-
 public class ReboundCurveCounter
 {
     private GameObject self;
@@ -31,9 +28,9 @@ public class ReboundCurveCounter
     private Vector3 skillMoveTarget;
     private float BodyHeight;
     private Vector3 reboundMove;
-//    private bool isJumpBall = false;
 
-    public void Init(GameObject player, int index, Vector3 skillmovetarget, float bodyHeight, Vector3 reboundmove)
+    public void Apply(GameObject player, int index, Vector3 skillmovetarget, float bodyHeight, 
+                      Vector3 reboundmove)
     {
         self = player;
         skillMoveTarget = skillmovetarget;
@@ -82,22 +79,27 @@ public class ReboundCurveCounter
             }
             else
             {
-				if(self.transform.position.y > 0.2f) {
-					if (curveTime < 0.7f && reboundMove != Vector3.zero)
-					{
-						self.transform.position = new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale, 
-							Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-							self.transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
-					}
-					else
-						self.transform.position = new Vector3(self.transform.position.x + self.transform.forward.x * 0.05f, 
-							Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-							self.transform.position.z + self.transform.forward.z * 0.05f);
-				} else {
-					self.transform.position = new Vector3(self.transform.position.x, 
-						Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)), 
-						self.transform.position.z);
-				}
+                if(self.transform.position.y > 0.2f)
+                {
+                    if(curveTime < 0.7f && reboundMove != Vector3.zero)
+                    {
+                        self.transform.position =
+                            new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale,
+                                Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
+                                self.transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
+                    }
+                    else
+                        self.transform.position =
+                            new Vector3(self.transform.position.x + self.transform.forward.x * 0.05f,
+                                Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
+                                self.transform.position.z + self.transform.forward.z * 0.05f);
+                }
+                else
+                {
+                    self.transform.position = new Vector3(self.transform.position.x,
+                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
+                        self.transform.position.z);
+                }
             }
 
             if (curveTime >= Curve.LifeTime)

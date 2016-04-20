@@ -110,6 +110,11 @@
 	public const float ReboundHeadYC = 0.5f;
 	public const float ReboundHeadZC = 2;
 
+    /// <summary>
+    /// 當嘗試搶籃板球時, 球員和球的距離在此範圍內(2D Distance)時, 球員才會跳起來搶球.
+    /// </summary>
+	public const float ReboundDistance = 3;
+
 	/// <summary>
 	/// The push through base value.
 	/// </summary>
@@ -125,7 +130,6 @@
 	public const float CoolDownPushTime = 2; // 推人冷卻時間, 單位:秒.
 	public const float CoolDownElbowTime = 3; // Elbow 冷卻時間, 單位:秒.
     public const float CoolDownStealTime = 1.2f; // 抄截冷卻時間, 單位:秒.
-//	public const float WaitStealTime = 0.5f;
 
     /// <summary>
     /// 當對手和球員在 TheatDistance and ThreatAngle 範圍內時, 表示雙方處理威脅狀態. 
