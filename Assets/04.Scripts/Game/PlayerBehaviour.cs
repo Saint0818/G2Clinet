@@ -2111,9 +2111,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (!isJoystick)
                     setSpeed(1, 1); 
                 if (nextAnimatorState.StateNo == 1)
-                {
                     DashEffectEnable(true);
-                }
                 AnimatorControl.Play(EAnimatorState.Run, nextAnimatorState.StateNo, Team.GetHashCode());
                 result = true;
                 break;

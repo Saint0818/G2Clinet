@@ -3,21 +3,18 @@ using GameEnum;
 using JetBrains.Annotations;
 
 [UsedImplicitly]
-public class ShowStateBehaviour : StateMachineBehaviour
+public class GamePlayerEvents : StateMachineBehaviour
 {
     public EAnimatorState State;
     private AnimationEvent skillEvent = new AnimationEvent();
 
     /// <summary>
-    /// 本來用 OnStateMachineExit, 改用 OnStateExit. 因為經過我測試，我發現 Animator 裡面若是
-    /// 沒有拉連線到 Exit Node，那麼 OnStateMachineExit 有可能會發生錯誤，但是 OnStateExit 不會
-    /// 發生錯誤，一樣會正常呼叫。
+    /// OnStateExit 是 StateMachine 的某個子狀態結束時會被呼叫.
+    /// OnStateMachineExit 是 StateMache 整個跳出才會被呼叫.
     /// </summary>
     /// <param name="animator"></param>
-    /// <param name="stateInfo"></param>
-    /// <param name="layerIndex"></param>
-//    public override void OnStateMachineExit(Animator animator, int stateMachinePathHash)
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    /// <param name="stateMachinePathHash"></param>
+    public override void OnStateMachineExit(Animator animator, int stateMachinePathHash)
     {
 //        Debug.LogFormat("OnStateMachineExit, stateMachinePathHash:{0}, State:{1}", stateMachinePathHash, State);
 
@@ -50,7 +47,7 @@ public class ShowStateBehaviour : StateMachineBehaviour
             case EAnimatorState.Push:
             case EAnimatorState.GotSteal:
             case EAnimatorState.JumpBall:
-//                Debug.LogFormat("ShowStateBehaviour.OnStateExit, Event:AnimationEnd, State:{0}", State);
+//                Debug.LogFormat("GamePlayerEvents.OnStateExit, Event:AnimationEnd, State:{0}", State);
                 controller.AnimatorEndEvent(State, "AnimationEnd");
                 break;
             case EAnimatorState.Intercept:

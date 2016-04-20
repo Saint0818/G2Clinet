@@ -238,7 +238,8 @@ public class UIDoubleClick : UIBase {
 		}
 	}
        
-	public void SetData(EDoubleClick type, int playerIndex, float speed, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	public void SetData(EDoubleClick type, int playerIndex, float speed, IntDelegate intFunction = null, 
+                        PlayerDelegate playerFunction = null, PlayerBehaviour player = null)
 	{
 		if (playerIndex != -1 && playerIndex < DoubleClicks.Length) {
 			UIShow(true);

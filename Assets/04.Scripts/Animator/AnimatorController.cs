@@ -252,7 +252,7 @@ public class AnimatorController : MonoBehaviour
         }
         else
         {
-            for (int i = 1; i < System.Enum.GetValues(typeof(EActionFlag)).Length; i++)
+            for (int i = 1; i < Enum.GetValues(typeof(EActionFlag)).Length; i++)
                 if (i != (int)addFlag)
                     DelActionFlag((EActionFlag)i);
 

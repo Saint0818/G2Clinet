@@ -392,9 +392,9 @@
         Elbow2,
         Elbow20,
         Elbow21,
-        Fall0, // 跌倒(會倒在地上).
-        Fall1,
-        Fall2,
+        Fall0, // 跌倒(會倒在地上), 但是會快速站起來.
+        Fall1, // 跌倒(會倒在地上), 但是會用標準速度站起來.
+        Fall2, // 人被打到, 但是人沒有倒地.
         FakeShoot,
         GotSteal,
         HoldBall,
@@ -425,10 +425,10 @@
         Push1,
         Push2,
         Push20,
-        Run0,
-        Run1,
-        Run2,
-        RunningDefence,
+        Run0, // 移動(Move).
+        Run1, // 衝刺(Dash).
+        Run2, // 走路(Walk).
+        RunningDefence, // 其實和 Run0 相同, 跑到相同的 Animation.
         Rebound0,
         Rebound20,
         ReboundCatch,
