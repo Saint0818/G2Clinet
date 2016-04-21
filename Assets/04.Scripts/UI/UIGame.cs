@@ -608,7 +608,7 @@ public class UIGame : UIBase
                             {
                                 //Draw Arrow
                                 CourtMgr.Get.ShowArrowOfAction(state,
-                                    skillRangeTarget,
+									PlayerMe,
 									GameData.DSkillData[ActiveSkillUsedTemp.ID].Distance(ActiveSkillUsedTemp.Lv));
                             }
                         }

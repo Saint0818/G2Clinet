@@ -1060,7 +1060,7 @@ public class GameController : KnightSingleton<GameController>
 					skill.Lv = LobbyStart.Get.TestLv;
 					if (GameData.DSkillData[skill.ID].Kind == 171){
 						CourtMgr.Get.ShowArrowOfAction(true,
-							Joysticker.PlayerRefGameObject.transform,
+							Joysticker,
 							GameData.DSkillData[skill.ID].Distance(skill.Lv));
 					}
 				 	DoSkill(Joysticker, skill);
@@ -1084,7 +1084,7 @@ public class GameController : KnightSingleton<GameController>
 					skill.Lv = LobbyStart.Get.TestLv;
 					if (GameData.DSkillData[skill.ID].Kind == 171){
 						CourtMgr.Get.ShowArrowOfAction(true,
-							Joysticker.PlayerRefGameObject.transform,
+							Joysticker,
 							GameData.DSkillData[skill.ID].Distance(skill.Lv));
 					}
 					DoSkill(Joysticker, skill);
@@ -3793,13 +3793,13 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-			if(player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
+				if(player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
-				if(player1.IsSkillPushThrough)
+				if(player1.IsSkillPushThrough && player1.Team != player2.Team)
 					player2.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player1.transform.position);
 			
-				if(player2.IsSkillPushThrough)
+				if(player2.IsSkillPushThrough && player1.Team != player2.Team)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player2.transform.position);
 				
 				if(!player2.IsDefence && player1.IsDefence)

@@ -362,26 +362,31 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         SkillRangeOfAction.RefGameObject.SetActive(isShow);
     }
 
-    public void ShowArrowOfAction(bool isShow, Transform parent = null, float dis = 0)
+	public void ShowArrowOfAction(bool isShow, PlayerBehaviour parent = null, float dis = 0)
     {
-		if(isShow) {
-			SkillArrowOfAction.transform.parent = parent;
-			if (parent)
-				SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
+		if(isShow && parent) {
+			SkillArrowOfAction.transform.parent = parent.transform;
+			SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
 		}
 
 		//有機會會被改到layer,所以要檢查
 		if(!LayerMgr.Get.CheckLayer(SkillArrowOfAction.gameObject, ELayer.Default))
 			LayerMgr.Get.SetLayer(SkillArrowOfAction.gameObject, ELayer.Default);
-        
+
+		SkillArrowOfAction.transform.localPosition = Vector3.zero;
         SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
-        if (textureArrow)
-            textureArrow.SetRect(0, 0, 200, dis * 100);
+		if (textureArrow && parent){
+			textureArrow.SetRect(0, 0, 200 * parent.GetPushThroughW, dis * 100);  //Scale:1 = X:200
+			textureArrow.transform.localPosition = Vector3.zero;
+		}
         
+
         SkillArrowOfAction.SetActive(isShow);
     }
 
-	public Vector3 GetArrowPosition (float dis) {
+	public Vector3 GetArrowPosition (GameObject player, float dis) {
+		SkillArrowOfAction.transform.parent = player.transform;
+		SkillArrowOfAction.transform.localPosition = Vector3.zero;
 		SkillArrowOfAction.transform.localPosition = new Vector3(SkillArrowOfAction.transform.localPosition.x, SkillArrowOfAction.transform.localPosition.y, SkillArrowOfAction.transform.localPosition.z + dis);
 		SkillArrowOfAction.transform.parent = null;
 		return SkillArrowOfAction.transform.position;

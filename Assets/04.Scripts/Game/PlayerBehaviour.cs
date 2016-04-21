@@ -2806,7 +2806,7 @@ public class PlayerBehaviour : MonoBehaviour
 						if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
 							//直線碰撞
 							pushThroughTigger.SetActive(true);
-							transform.DOMove(CourtMgr.Get.GetArrowPosition(GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
+							transform.DOMove(CourtMgr.Get.GetArrowPosition(PlayerRefGameObject, GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
 						} else {
 							//圓形碰撞
 							if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
@@ -3044,6 +3044,10 @@ public class PlayerBehaviour : MonoBehaviour
         
         return result;
     }
+
+	public float GetPushThroughW {
+		get {return pushThroughTigger.transform.localScale.x;}
+	}
 
     public TSkill ActiveSkillUsed
     {
