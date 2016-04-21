@@ -6,113 +6,105 @@ using UnityEngine;
 /// </summary>
 public class ReboundCurveCounter
 {
-    private GameObject self;
+    private Transform mController;
     private string curveName;
-    private float curveTime = 0;
-    private bool isFindCurve = false;
-    private bool isplaying = false;
+    private float mCurrentTime = 0;
+    private bool mIsPlaying = false;
     private float timeScale = 1f;
-    private TReboundCurve Curve;
+    private TReboundCurve mCurve;
 
     public float Timer
     {
         set{ timeScale = value; }
     }
 
-    public bool IsPlaying
-    {
-        get{ return isplaying; }
-    }
-
     private EAnimatorState state = EAnimatorState.Rebound;
     private Vector3 skillMoveTarget;
     private float BodyHeight;
-    private Vector3 reboundMove;
+    private Vector3 mHorizontalMove; 
 
-    public void Apply(GameObject player, int index, Vector3 skillmovetarget, float bodyHeight, 
-                      Vector3 reboundmove)
+    public void Apply(Transform player, int index, Vector3 skillmovetarget, float bodyHeight, 
+                      Vector3 reboundMove)
     {
-        self = player;
+        mController = player;
         skillMoveTarget = skillmovetarget;
         BodyHeight = bodyHeight;
-        reboundMove = reboundmove;
-        curveName = string.Format("{0}{1}", state.ToString(), index);
+        mHorizontalMove = reboundMove;
+        curveName = string.Format("{0}{1}", state, index);
 
-        if (Curve == null || (Curve != null && Curve.Name != curveName))
+        if (mCurve == null || (mCurve != null && mCurve.Name != curveName))
         {
-            Curve = null;
+            mCurve = null;
             for (int i = 0; i < ModelManager.Get.AnimatorCurve.Rebound.Length; i++)
                 if (ModelManager.Get.AnimatorCurve.Rebound[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurve.Rebound[i];
+                    mCurve = ModelManager.Get.AnimatorCurve.Rebound[i];
         }
-        isFindCurve = Curve != null ? true : false;
-        curveTime = 0;
-        isplaying = true;
-        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
+        mCurrentTime = 0;
+        mIsPlaying = mCurve != null;
+        if (curveName != string.Empty && mCurve == null && LobbyStart.Get.IsDebugAnimation)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
-    }
-
-    private void Calculation()
-    {	
-		if (timeScale <= GameConst.Min_TimePause)
-            return;
-
-        if (isplaying && Curve != null)
-        {
-            curveTime += Time.deltaTime * timeScale;
-            if (Curve.isSkill)
-            {
-				//轉向
-                self.transform.LookAt(new Vector3(skillMoveTarget.x, self.transform.position.y, skillMoveTarget.z));
-                if (skillMoveTarget.y > BodyHeight)
-                {
-                    self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
-                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime) * ((skillMoveTarget.y - BodyHeight) / 3)), 
-                        Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
-                }
-                else
-                {
-                    self.transform.position = new Vector3(Mathf.Lerp(self.transform.position.x, skillMoveTarget.x, curveTime), 
-                        self.transform.position.y, 
-                        Mathf.Lerp(self.transform.position.z, skillMoveTarget.z, curveTime));
-                }
-            }
-            else
-            {
-                if(self.transform.position.y > 0.2f)
-                {
-                    if(curveTime < 0.7f && reboundMove != Vector3.zero)
-                    {
-                        self.transform.position =
-                            new Vector3(self.transform.position.x + reboundMove.x * Time.deltaTime * 2 * timeScale,
-                                Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
-                                self.transform.position.z + reboundMove.z * Time.deltaTime * 2 * timeScale);
-                    }
-                    else
-                        self.transform.position =
-                            new Vector3(self.transform.position.x + self.transform.forward.x * 0.05f,
-                                Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
-                                self.transform.position.z + self.transform.forward.z * 0.05f);
-                }
-                else
-                {
-                    self.transform.position = new Vector3(self.transform.position.x,
-                        Mathf.Max(0, Curve.aniCurve.Evaluate(curveTime)),
-                        self.transform.position.z);
-                }
-            }
-
-            if (curveTime >= Curve.LifeTime)
-            {
-                isplaying = false;
-            }
-        }
-        else
-            isplaying = false;
     }
 
     public void FixedUpdate()
     {
-        Calculation();
+        if(timeScale <= GameConst.Min_TimePause || !mIsPlaying)
+            return;
+
+        mCurrentTime += Time.deltaTime * timeScale;
+        if (mCurve.isSkill)
+        {
+            //轉向
+            mController.LookAt(new Vector3(skillMoveTarget.x, mController.position.y, skillMoveTarget.z));
+            if (skillMoveTarget.y > BodyHeight)
+            {
+                mController.position = new Vector3(Mathf.Lerp(mController.position.x, skillMoveTarget.x, mCurrentTime), 
+                    Mathf.Max(0, mCurve.aniCurve.Evaluate(mCurrentTime) * ((skillMoveTarget.y - BodyHeight) / 3)), 
+                    Mathf.Lerp(mController.position.z, skillMoveTarget.z, mCurrentTime));
+            }
+            else
+            {
+                mController.position = new Vector3(Mathf.Lerp(mController.position.x, skillMoveTarget.x, mCurrentTime), 
+                    mController.position.y, 
+                    Mathf.Lerp(mController.position.z, skillMoveTarget.z, mCurrentTime));
+            }
+        }
+        else
+        {
+            if(mController.position.y > 0.2f)
+            {
+                float newX;
+                float newZ;
+                if(mCurrentTime < 0.7f && mHorizontalMove != Vector3.zero)
+                {
+                    newX = mController.position.x + mHorizontalMove.x * Time.deltaTime * timeScale;
+                    newZ = mController.position.z + mHorizontalMove.z * Time.deltaTime * timeScale;
+//                    mController.position =
+//                        new Vector3(mController.position.x + mHorizontalMove.x * Time.deltaTime * 2 * timeScale,
+//                                    Mathf.Max(0, mCurve.aniCurve.Evaluate(mCurrentTime)),
+//                                    mController.position.z + mHorizontalMove.z * Time.deltaTime * 2 * timeScale);
+                }
+                else
+                {
+                    newX = mController.position.x + mController.forward.x * 0.05f;
+                    newZ = mController.position.z + mController.forward.z * 0.05f;
+//                    mController.position =
+//                        new Vector3(mController.position.x + mController.forward.x * 0.05f,
+//                            Mathf.Max(0, mCurve.aniCurve.Evaluate(mCurrentTime)),
+//                            mController.position.z + mController.forward.z * 0.05f);
+                }
+
+                mController.position = new Vector3(newX, 
+                        Mathf.Max(0, mCurve.aniCurve.Evaluate(mCurrentTime)), newZ);
+            }
+            else
+            {
+                mController.position = new Vector3(mController.position.x,
+                                                   Mathf.Max(0, mCurve.aniCurve.Evaluate(mCurrentTime)),
+                                                   mController.position.z);
+            }
+        }
+
+        if(mCurrentTime >= mCurve.LifeTime)
+            mIsPlaying = false;
     }
 }

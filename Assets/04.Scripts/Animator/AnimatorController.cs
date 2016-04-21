@@ -29,7 +29,7 @@ public class AnimatorController : MonoBehaviour
     private readonly StealCurveCounter stealCurveCounter = new StealCurveCounter();
     private readonly ShootCurveCounter shootCurveCounter = new ShootCurveCounter();
     private readonly LayupCurveCounter layupCurveCounter = new LayupCurveCounter();
-    private readonly ReboundCurveCounter mReboundCurveCounter = new ReboundCurveCounter();
+    private readonly ReboundCurveCounter mReboundCurve = new ReboundCurveCounter();
     private float headHeight;
 
     public Action GotStealingDel;
@@ -152,7 +152,7 @@ public class AnimatorController : MonoBehaviour
                 InitFallCurve(stateNo);
                 break;
             case EAnimatorState.Rebound:
-                InitReboundCurve(stateNo, skillMoveTarget, reboundMove);
+                ApplyReboundCurve(stateNo, skillMoveTarget, reboundMove);
                 break;
 
             case EAnimatorState.Block:
@@ -348,10 +348,10 @@ public class AnimatorController : MonoBehaviour
         layupCurveCounter.Init(stateNo, gameObject, layupPoint);
     }
 
-    public void InitReboundCurve(int stateNo, Vector3 skillmovetarget, Vector3 reboundMove)
+    private void ApplyReboundCurve(int stateNo, Vector3 skillmovetarget, Vector3 reboundMove)
     {
-        headHeight = gameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f;
-        mReboundCurveCounter.Apply(gameObject, stateNo, skillmovetarget, headHeight, reboundMove);
+        headHeight = transform.GetComponent<CapsuleCollider>().height + 0.2f;
+        mReboundCurve.Apply(transform, stateNo, skillmovetarget, headHeight, reboundMove);
     }
 
     public bool IsCanBlock
@@ -364,7 +364,7 @@ public class AnimatorController : MonoBehaviour
         Controler.SetFloat("CrtHight", transform.localPosition.y);
         blockCurveCounter.FixedUpdate();
         shootCurveCounter.FixedUpdate();
-        mReboundCurveCounter.FixedUpdate();
+        mReboundCurve.FixedUpdate();
         layupCurveCounter.FixedUpdate();
         pushCurveCounter.FixedUpdate();
         fallCurveCounter.FixedUpdate();
@@ -395,7 +395,7 @@ public class AnimatorController : MonoBehaviour
             blockCurveCounter.Timer = value; 
             dunkCurveCounter.Timer = value; 		
             shootCurveCounter.Timer = value;   
-            mReboundCurveCounter.Timer = value;   
+            mReboundCurve.Timer = value;   
             layupCurveCounter.Timer = value;   
             pushCurveCounter.Timer = value;   
             fallCurveCounter.Timer = value;   
