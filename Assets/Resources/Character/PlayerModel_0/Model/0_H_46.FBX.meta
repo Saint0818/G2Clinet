@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 7f9354ee28aef164b90ed93bfaf8d38c
-timeCreated: 1461143987
+guid: a75d4c7cca4a58a4099a4ee9243308e4
+timeCreated: 1461219511
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: 0_P_43
+    100000: 0_H_46
     100002: //RootNode
     100004: Bip01
     100006: Bip01 Head
@@ -43,7 +43,7 @@ ModelImporter:
     100070: Bip01 Spine1
     100072: Bone_Hair_1
     100074: Bone_Hair_2
-    400000: 0_P_43
+    400000: 0_H_46
     400002: //RootNode
     400004: Bip01
     400006: Bip01 Head
@@ -81,11 +81,11 @@ ModelImporter:
     400070: Bip01 Spine1
     400072: Bone_Hair_1
     400074: Bone_Hair_2
-    4300000: 0_P_43
+    4300000: 0_H_46
     9500000: //RootNode
-    13700000: 0_P_43
+    13700000: 0_H_46
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -109,7 +109,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 2
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
@@ -126,8 +126,8 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
-  importAnimation: 1
+    tangentImportMode: 2
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
