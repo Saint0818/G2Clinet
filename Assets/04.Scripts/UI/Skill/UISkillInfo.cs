@@ -311,13 +311,13 @@ public class UISkillInfo : UIBase {
 		isOpen = true;
 		btnMedium.transform.DOKill();
 		btnMediumTop.SetActive(true);
-		btnMedium.transform.DOLocalMoveX(690, openCardSpeed);
-		btnMedium.transform.DOLocalMoveY(-50, openCardSpeed);
-		btnMedium.transform.DOScale(new Vector3(2.2f, 2.2f, 1), openCardSpeed);
+		btnMedium.transform.DOLocalMoveX(690, openCardSpeed).SetUpdate(UpdateType.Normal, true);
+		btnMedium.transform.DOLocalMoveY(-50, openCardSpeed).SetUpdate(UpdateType.Normal, true);
+		btnMedium.transform.DOScale(new Vector3(2.2f, 2.2f, 1), openCardSpeed).SetUpdate(UpdateType.Normal, true);
 		if(isRight)
-			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, 90), openCardSpeed);
+			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, 90), openCardSpeed).SetUpdate(UpdateType.Normal, true);
 		else 
-			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, -90), openCardSpeed);
+			btnMedium.transform.DOLocalRotate(new Vector3(0, 0, -90), openCardSpeed).SetUpdate(UpdateType.Normal, true);
 
 		goSuitCard.gameObject.SetActive(false);
 		goSuitItem.gameObject.SetActive(false);
@@ -327,10 +327,10 @@ public class UISkillInfo : UIBase {
 		isOpen = false;
 		btnMedium.transform.DOKill();
 		btnMediumTop.SetActive(false);
-		btnMedium.transform.DOLocalMoveX(325, openCardSpeed);
-		btnMedium.transform.DOLocalMoveY(0, openCardSpeed);
-		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed);
-		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed);
+		btnMedium.transform.DOLocalMoveX(325, openCardSpeed).SetUpdate(UpdateType.Normal, true);
+		btnMedium.transform.DOLocalMoveY(0, openCardSpeed).SetUpdate(UpdateType.Normal, true);
+		btnMedium.transform.DOScale(new Vector3(1.35f, 1.35f, 1), openCardSpeed).SetUpdate(UpdateType.Normal, true);
+		btnMedium.transform.DOLocalRotate(Vector3.zero, openCardSpeed).SetUpdate(UpdateType.Normal, true);
 
         if(mUICard.skillCard != null && GameData.DSkillData.ContainsKey(mUICard.skillCard.Skill.ID)) {
 			goSuitCard.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[mUICard.skillCard.Skill.ID].SuitCard)));

@@ -107,6 +107,8 @@ public class TMallBox
 
 	public void SetIndex (int index) {
 		mIndex = index;
+		cardScrollView.MoveRelative(new Vector3(-55, 0, 0));
+		itemScrollView.MoveRelative(new Vector3(-55, 0, 0));
 	}
 
 	public void UpdateView(int posIndex, TPickCost pickcost) {
@@ -125,9 +127,6 @@ public class TMallBox
 		money1 = pickcost.OnePick;
 		money2 = pickcost.FivePick;
 		money3 = pickcost.TenPick;
-
-		cardScrollView.MoveRelative(new Vector3(-55, 0, 0));
-		itemScrollView.MoveRelative(new Vector3(-55, 0, 0));
 
 		RefreshText();
 	}
