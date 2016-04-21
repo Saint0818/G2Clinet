@@ -38,8 +38,8 @@ public class UIOverallHint : UIBase {
 	}
 
 	protected override void InitCom() {
-		overallHint = GameObject.Find(UIName + "/Window/OverallView/OverallLabel").GetComponent<UILabel>();
-		UIEventListener.Get(GameObject.Find(UIName + "/Window/CoverCollider")).onClick = OnClose;
+		overallHint = GameObject.Find(UIName + "/Window/Bottom/OverallView/OverallLabel").GetComponent<UILabel>();
+		//UIEventListener.Get(GameObject.Find(UIName + "/CoverCollider")).onClick = OnClose;
 	}
 
 	public void ShowView (string value ) {
