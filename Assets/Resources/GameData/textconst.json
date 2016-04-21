@@ -2175,7 +2175,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -3561,6 +3561,26 @@
         "tw": "次數已用完"
     },
     {
+        "id": 9315,
+        "tw": "關卡成就",
+        "en": "ACHIEVEMENT"
+    },
+    {
+        "id": 9320,
+        "tw": "得分達到 [33FFDD]{0}[-] 分",
+        "en": "SCORE YOU MUST GET [33FFDD]{0}[-] POINTS"
+    },
+    {
+        "id": 9321,
+        "tw": "失分少於 [33FFDD]{0}[-] 分",
+        "en": "GIVE UP LESS THAN [33FFDD]{0}[-] POINTS"
+    },
+    {
+        "id": 9322,
+        "tw": "勝分達到 [33FFDD]{0}[-] 分",
+        "en": "YOU MUST BEAT OPPONENT BY MORE THAN [33FFDD]{0}[-] POINTS"
+    },
+    {
         "id": 9391,
         "uipath": "Title",
         "tw": "生涯競賽",
@@ -3704,8 +3724,9 @@
     },
     {
         "id": 9521,
-        "explain": "交易倒數",
-        "uipath": "BtnLabel"
+        "explain": "已聘僱",
+        "uipath": "BtnLabel",
+        "tw": "[FF0000FF]{0}[-]日聘僱中"
     },
     {
         "id": 9522
@@ -4899,6 +4920,12 @@
         "explain": "不可超過球館的等級",
         "tw": "不可超過球館的等級",
         "en": "The Level can't more than Gym's Level"
+    },
+    {
+        "id": 11018,
+        "explain": "佇列",
+        "tw": "佇列{0} ",
+        "en": "Queue{0} "
     },
     {
         "id": 11021,
