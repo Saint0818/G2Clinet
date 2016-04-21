@@ -374,11 +374,12 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.TipInRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.TipInRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].TipInRate));
         Attr.AlleyOopRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, (Attribute.Dunk + GameData.BaseAttr[Attribute.AILevel].AlleyOopRate));
         Attr.StrengthRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.StrengthRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].StrengthRate));
-        Attr.BlockPushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].BlockPushRate));
         Attr.ElbowingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].ElbowingRate));
+		Attr.BlockBePushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockBePushRate, (Attribute.Strength + GameData.BaseAttr[Attribute.AILevel].BlockBePushRate));
         Attr.ReboundRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.ReboundRate, (Attribute.Rebound + GameData.BaseAttr[Attribute.AILevel].ReboundRate));
         Attr.BlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockRate));
-        Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
+		Attr.FaketBlockRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].FaketBlockRate));
+		Attr.BlockPushRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, (Attribute.Block + GameData.BaseAttr[Attribute.AILevel].BlockPushRate));
         Attr.PushingRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PushingRate, (Attribute.Defence + GameData.BaseAttr[Attribute.AILevel].PushingRate));
         Attr.PassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.PassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].PassRate));
         Attr.AlleyOopPassRate = GameFunction.GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, (Attribute.Pass + GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate));
@@ -684,7 +685,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
+		if (IsGameAttack)
         {
             if (!IsDefence)
             {
@@ -725,7 +726,7 @@ public class PlayerBehaviour : MonoBehaviour
             mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
             if (isSpeedup)
             {
-				if (mMovePower > 0 && !IsFall && (GameController.Get.Situation == EGameSituation.GamerAttack || GameController.Get.Situation == EGameSituation.NPCAttack))
+				if (mMovePower > 0 && !IsFall && GameController.Get.IsGameAttack)
                 {
                     mMovePower -= GameConst.MovePowerMoving;
                     if (mMovePower < 0)
@@ -810,8 +811,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
-            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
-                LobbyStart.Get.TestMode != EGameTest.None)
+			if (IsGameAttack || LobbyStart.Get.TestMode != EGameTest.None)
             {
                 isJoystick = true;
                 mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv] + aiAddTime);
@@ -855,9 +855,8 @@ public class PlayerBehaviour : MonoBehaviour
     private void tryReviseAnimation()
     {	
         if(GameController.Get.IsStart && 
-           TimerMgr.Get.CrtTime > GameConst.Min_TimePause &&
-           (GameController.Get.Situation == EGameSituation.GamerAttack ||
-            GameController.Get.Situation == EGameSituation.NPCAttack))
+           TimerMgr.Get.CrtTime > GameConst.Min_TimePause && 
+			GameController.Get.IsGameAttack)
         {
 			if(!AnimatorControl.IsEqual(CurrentState) && !AnimatorMgr.Get.IsLoopState(CurrentState))
                 synchronousAnimation();
@@ -891,8 +890,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (timeScale > 0 && (CanMove || HoldBallCanMove))
         {
-            if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack ||
-                LobbyStart.Get.TestMode != EGameTest.None)
+			if (IsGameAttack || LobbyStart.Get.TestMode != EGameTest.None)
             {
                 EPlayerState ps = EPlayerState.Run0;
                 if (IsBallOwner)
@@ -1120,8 +1118,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (first || LobbyStart.Get.TestMode == EGameTest.Edit)
 						//                        WaitMoveTime = 0;
 						CantMoveTimer.Clear();
-            else if ((situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack) &&
-                     GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+			else if (IsGameAttack && GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
             {
                 // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
                 // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
@@ -1166,7 +1163,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (data.Catcher)
                 {
-                    if (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack)
+					if (IsGameAttack)
                     {
                         if (GameController.Get.TryPass(this, false, false, true))
                             NeedShooting = data.Shooting;
@@ -2799,8 +2796,7 @@ public class PlayerBehaviour : MonoBehaviour
 				OnShooting(this, true);
 			break;
 		case "PushDistancePlayer":
-			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.GamerAttack ||
-				GameController.Get.Situation == EGameSituation.NPCAttack))
+			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && GameController.Get.IsGameAttack)
 			{
 				GameRecord.PushLaunch++;
 				for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
@@ -3508,6 +3504,12 @@ public class PlayerBehaviour : MonoBehaviour
             return (TimerMgr.Get.CrtTime <= GameConst.Min_TimePause);
         }
     }
+
+	public bool IsGameAttack {
+		get {
+			return (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack);
+		}
+	}
 
     public Vector2 GetStealPostion(Vector3 p1, Vector3 p2, EPlayerPostion index)
     {

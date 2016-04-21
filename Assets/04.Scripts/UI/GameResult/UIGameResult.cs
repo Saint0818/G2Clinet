@@ -385,8 +385,6 @@ public class UIGameResult : UIBase {
 	}
 
 	void OnDestroy () {
-		Destroy(uiItem);
-		Destroy(uiItemEffect);
 		resultAwardParam.DestroyObj();
 	}
 

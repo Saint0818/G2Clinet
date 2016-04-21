@@ -1417,8 +1417,7 @@ public class GameController : KnightSingleton<GameController>
     public void MoveDefPlayer([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
-		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
-		    (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack))
+			!player.CheckAnimatorSate(EPlayerState.MoveDodge0) && IsGameAttack)
         {
 			if(player.DefPlayer.CanMove && player.DefPlayer.CantMoveTimer.IsOff())
             {
@@ -2636,7 +2635,7 @@ public class GameController : KnightSingleton<GameController>
 	//Call From Delegate
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
-		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
+		if (player.Team == ETeamKind.Self && IsGameAttack) {
             int playerindex = -1;
             if (Joysticker)
                 Joysticker.GameRecord.DoubleClickLaunch++;
@@ -3292,7 +3291,7 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.IsBallOffensive = false;
 			if (!newBallOwner.IsAlleyoopState) 
 			{
-				if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
+				if(IsGameAttack)
 					BallState = EBallState.CanSteal;	
 				else
 					BallState = EBallState.None;
@@ -3534,7 +3533,7 @@ public class GameController : KnightSingleton<GameController>
             CourtMgr.Get.ResetBasketEntra();
             CourtMgr.Get.IsBallOffensive = false;
 
-            if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) 
+			if(IsGameAttack) 
                 BallState = EBallState.CanSteal;
             else 
                 BallState = EBallState.None;
@@ -3575,7 +3574,7 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄球成功, false: 抄球失敗. </returns>
     public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence && (player.IsMoving || player.IsRun || player.IsDef) && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack) && Passer && passingStealBallTime == 0)
+		if(player.IsDefence && (player.IsMoving || player.IsRun || player.IsDef) && IsGameAttack && Passer && passingStealBallTime == 0)
 		{
 			if(Catcher == player || Catcher.Team == player.Team)
 				return false;
@@ -3690,8 +3689,7 @@ public class GameController : KnightSingleton<GameController>
 			}
             else 
             if((isEnter || LobbyStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner &&
-                CourtMgr.Get.RealBall.transform.position.y >= 3 &&
-			   (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack))
+					CourtMgr.Get.RealBall.transform.position.y >= 3 && IsGameAttack)
             {
 				if (LobbyStart.Get.TestMode == EGameTest.Rebound)
 					Rebound(player);
@@ -3709,7 +3707,7 @@ public class GameController : KnightSingleton<GameController>
 //				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
 			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
-				if (LobbyStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack || LobbyStart.Get.TestMode == EGameTest.Block) {
+				if (LobbyStart.Get.TestMode == EGameTest.Rebound || IsGameAttack || LobbyStart.Get.TestMode == EGameTest.Block) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
 						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
@@ -3816,7 +3814,7 @@ public class GameController : KnightSingleton<GameController>
 	public void DefRangeTouchBall(PlayerBehaviour player)
 	{
 		if(player.PlayerSkillController.IsHavePickBall2) {
-			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
+			if (BallOwner == null && Shooter == null && Catcher == null && IsGameAttack) {
 				player.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pick0, CourtMgr.Get.RealBall.transform.position);
 			}
 		}
@@ -3834,8 +3832,7 @@ public class GameController : KnightSingleton<GameController>
     
 	public void PlayerEnterPaint(int team, GameObject obj) {
 		if (BallOwner && canPassToAlleyoop(BallOwner.CurrentState) &&
-		   (LobbyStart.Get.TestMode == EGameTest.Alleyoop || 
-		 	Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)) {
+			(LobbyStart.Get.TestMode == EGameTest.Alleyoop || IsGameAttack)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList[i].CurrentState == EPlayerState.Alleyoop) {
@@ -4573,7 +4570,7 @@ public class GameController : KnightSingleton<GameController>
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
         //預防撿球時，被推倒卡住
-        if (Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
+		if (IsGameAttack)
         {
 		for (int i = 0; i < PlayerList.Count; i++)
         {
@@ -4830,6 +4827,17 @@ public class GameController : KnightSingleton<GameController>
 
 			return true;
 		}
+	}
+
+	public bool IsGameAttack 
+	{
+		get
+		{
+			if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
+				return true;
+			
+			return false;
+		}		
 	}
 
 	public bool CandoBtn

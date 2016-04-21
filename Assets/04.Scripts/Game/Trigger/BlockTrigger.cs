@@ -41,6 +41,10 @@ public class BlockTrigger : MonoBehaviour {
 						}
 					}
 				}
+				//值越大越不容易蓋火鍋跌倒
+				if(rate > blocker.Attr.BlockBePushRate) {
+					blocker.PlayerSkillController.DoPassiveSkill(GameEnum.ESkillSituation.KnockDown0);
+				}
 			}
 		} else 
 		if (GameController.Visible && other.gameObject.CompareTag ("RealBallTrigger") && !CourtMgr.Get.IsRealBallActive && GameController.Get.BallState == GameEnum.EBallState.CanBlock) {
