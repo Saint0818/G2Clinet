@@ -244,7 +244,10 @@ public class UIRecharge : UIBase {
 			if(IsNeedShowPlayer)
 				UIPlayerAvatar.Get.Enable = false;
 			if(UIShop.Visible)
-				UIMainLobby.Get.Hide(4);
+			{
+			    UIMainLobby.Get.Hide();
+                UIResource.Get.Show();
+			}
 		}
 		isRecord = isNeedRecord;
 		if(!UIRecharge.Visible)
@@ -413,8 +416,11 @@ public class UIRecharge : UIBase {
 				if(IsNeedShowPlayer)
 					UIPlayerAvatar.Get.Enable = true;
 				if(UIShop.Visible)
-					UIMainLobby.Get.Hide(2);
-				if(UIMall.Visible)
+				{
+				    UIMainLobby.Get.Hide();
+                    UIResource.Get.Show(2);
+				}
+			    if(UIMall.Visible)
 					UIMall.Get.RefreshTextColor();
 				if(UIGym.Visible)
 					UIGym.Get.RefreshDiamondColor();

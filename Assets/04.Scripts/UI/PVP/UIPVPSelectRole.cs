@@ -33,7 +33,7 @@ public class UIPVPSelectRole : UIBase {
 
             UI3DPVP.Visible = value;
             if (value)
-                UIMainLobby.Get.HideAll();
+                UIMainLobby.Get.Hide();
         }
     }
 

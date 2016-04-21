@@ -83,9 +83,15 @@ public class UIPVP : UIBase
             Get.Show(isShow);
 
         if (isShow)
-            UIMainLobby.Get.Hide(2, false);
+        {
+            UIMainLobby.Get.Hide(false);
+            UIResource.Get.Show(2);
+        }
         else
-            UIMainLobby.Get.Hide(3, false);
+        {
+            UIMainLobby.Get.Hide(false);
+            UIResource.Get.Show();
+        }
     }
 
     protected override void OnShow(bool isShow)

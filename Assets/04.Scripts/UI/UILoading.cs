@@ -127,6 +127,7 @@ public class UILoading : UIBase
     {
         UIMainStage.Get.Show();
         UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
 
         if (!checkTutorialUI(achievementTutorialID))
             if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
@@ -137,6 +138,7 @@ public class UILoading : UIBase
     {
         UIInstance.Get.ShowByPlayStageID();
         UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
 
         if (!checkTutorialUI(achievementTutorialID))
             if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))
@@ -146,7 +148,9 @@ public class UILoading : UIBase
     public static void OpenPVPUI()
     {
         UIPVP.UIShow(true);
-        UIMainLobby.Get.Hide(2);
+
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show(2);
 
         if (!checkTutorialUI(achievementTutorialID))
             if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))

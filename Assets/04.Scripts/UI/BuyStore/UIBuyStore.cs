@@ -182,7 +182,8 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void FinishDrawLottery () {
-        UIMainLobby.Get.Hide(2, false);
+        UIMainLobby.Get.Hide(false);
+        UIResource.Get.Show(2);
 		animationBuy.SetTrigger("Finish");
 		GameData.Team.SkillCards = newSkillCard;
 	}
@@ -191,7 +192,9 @@ public class UIBuyStore : UIBase {
 		oneItem.Reset();
 		fiveItem.Reset();
 		tenItem.Reset();
-        UIMainLobby.Get.HideAll(false);
+
+        UIMainLobby.Get.Hide(false);
+
         animationBuy.SetTrigger("Again");	
 		UI3DBuyStore.Get.AgainRaffle();
 		isClickTouch = false;

@@ -178,7 +178,7 @@ public class UISkillInfo : UIBase {
 	
 	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
 		Visible = true;
-		UIMainLobby.Get.HideAll(false);
+		UIMainLobby.Get.Hide(false);
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
 		btnUpgrade.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SkillReinforce));
@@ -345,8 +345,11 @@ public class UISkillInfo : UIBase {
 		}
 
         if (!UISelectRole.Visible)
-		    UIMainLobby.Get.Hide(3, false);
-	}
+        {
+            UIMainLobby.Get.Hide(false);
+            UIResource.Get.Show();
+        }
+    }
 
 	public void OpenCard() {
 		if(!isOpen) {

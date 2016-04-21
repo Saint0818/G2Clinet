@@ -711,7 +711,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     if (flag && GameData.Setting.SocialEventTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
                         UIHint.Get.ShowHint(events[i].Player.Name + TextConst.GetSocialText(events[i]), Color.blue);
                         if (UIMainLobby.Get.IsVisible)
-                            UIMainLobby.Get.Main.SocialNotice = true;
+                            UIMainLobby.Get.View.SocialNotice = true;
 
 						needSave = true;
                     }
@@ -780,7 +780,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                                 if (GameData.Setting.WatchFriendTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
                                     UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
                                     if (UIMainLobby.Get.IsVisible)
-                                        UIMainLobby.Get.Main.SocialNotice = true;
+                                        UIMainLobby.Get.View.SocialNotice = true;
 
 									needSave = true;
                                 }

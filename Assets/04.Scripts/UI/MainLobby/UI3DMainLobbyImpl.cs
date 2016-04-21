@@ -117,7 +117,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 						selectIndex = -1;
 						SetCameraAnimator(index, false);
 						UpdateButtonCollider(index, true);
-						UIMainLobby.Get.Main.PlayEnterAnimation();
+						UIMainLobby.Get.View.PlayEnterAnimation();
 						delay = 1;
 					}
 					else
@@ -134,7 +134,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 								selectIndex = index;
 								SetCameraAnimator(index, true);
 								UpdateButtonCollider(index, false);
-								UIMainLobby.Get.Main.PlayExitAnimation();
+								UIMainLobby.Get.View.PlayExitAnimation();
 								delay = 1;
 							}
 						}

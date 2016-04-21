@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameEnum;
 using GameStruct;
 using JetBrains.Annotations;
@@ -45,7 +44,8 @@ public class UICreateRole : UIBase
         mPositionView.Hide();
         mStyleView.Hide();
 
-        UIMainLobby.Get.Hide(1);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show(1);
     }
 
     public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex)
@@ -56,7 +56,8 @@ public class UICreateRole : UIBase
         mPositionView.Hide();
         mStyleView.Hide();
 
-        UIMainLobby.Get.Hide(1);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show(1);
     }
 
     public void ShowPositionView()
@@ -67,7 +68,7 @@ public class UICreateRole : UIBase
         mPositionView.Show(GameData.Team.Player.Lv > 0); // 大於 0 表示玩家有創角色.
         mStyleView.Hide();
 
-        UIMainLobby.Get.HideAll(false);
+        UIMainLobby.Get.Hide(false);
     }
 
     public void ShowStyleView(EPlayerPostion pos, int playerID)
@@ -78,7 +79,7 @@ public class UICreateRole : UIBase
         mPositionView.Hide();
         mStyleView.Show(pos, playerID);
 
-        UIMainLobby.Get.HideAll(false);
+        UIMainLobby.Get.Hide(false);
     }
 
     public void Hide()

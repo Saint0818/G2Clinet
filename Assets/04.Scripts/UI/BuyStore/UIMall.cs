@@ -265,7 +265,7 @@ public class UIMall : UIBase {
 	}
 
 	public void OpenLottery (TItemData[] itemDatas) {
-		UIMainLobby.Get.HideAll();
+		UIMainLobby.Get.Hide();
 		UI3DMainLobby.Get.Hide();
 		Hide ();
 		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, choosetype, itemDatas);

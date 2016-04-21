@@ -630,6 +630,18 @@
         "en": "Signin"
     },
     {
+        "id": 1013,
+        "explain": "圖鑑",
+        "tw": "圖 鑑",
+        "en": "Album"
+    },
+    {
+        "id": 1014,
+        "explain": "設施佇列",
+        "tw": "設 施",
+        "en": "Queues"
+    },
+    {
         "id": 1101,
         "explain": "購買體力",
         "en": "PURCHASE STAMINA"
@@ -1406,8 +1418,8 @@
         "id": 3329,
         "explain": "火 鍋",
         "uipath": "AttrKind3/ExplainLabel",
-        "tw": "1.提高蓋到火鍋的機會\n2.AI開啟時，自動發動蓋火鍋的機率\n3.AI開啟時，影響被對手投籃假動作騙的機率\n4.蓋火鍋時附加撞人機率",
-        "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING SHOTS."
+        "tw": "1.提高蓋到火鍋的機會\n2.AI開啟時，自動發動蓋火鍋的機率\n3.AI開啟時，影響被對手投籃假動作騙的機率\n4.提高蓋到灌籃火鍋的機會",
+        "en": "1. INCREASE THE CHANCE OF BLOCKING SHOTS\n2. INCREASE THE CHANCE OF BLOCKING SHOTS IN AI MODE.\n3. INCREASE THE CHANCE OF FAKING OUT YOUR OPPONENT IN AI MODE.\n4. INCREASE THE CHANCE TO KNOCK DOWN YOUR OPPONENT WHILE BLOCKING DUNK."
     },
     {
         "id": 3330,
@@ -2163,7 +2175,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -3676,13 +3688,30 @@
     },
     {
         "id": 9518,
-        "tw": "關卡夥伴",
+        "tw": "你的夥伴",
         "en": "PARTNERS"
     },
     {
         "id": 9519,
-        "tw": "傭兵",
-        "en": "MERCENARY"
+        "tw": "自由球員",
+        "en": "FREE AGENCY"
+    },
+    {
+        "id": 9520,
+        "explain": "聘請自由球員",
+        "uipath": "BtnLabel",
+        "tw": "聘請自由球員[00ff00]{0}[-]日"
+    },
+    {
+        "id": 9521,
+        "explain": "交易倒數",
+        "uipath": "BtnLabel"
+    },
+    {
+        "id": 9522
+    },
+    {
+        "id": 9523
     },
     {
         "id": 9601,
@@ -4654,6 +4683,115 @@
         "tw": "我方進攻",
         "en": "HOME OFFENSIVE",
         "jp": "HOME OFFENSIVE"
+    },
+    {
+        "id": 10700,
+        "explain": "Debuff技能Hint說明"
+    },
+    {
+        "id": 10701,
+        "explain": "1.命中 Offensuve OFF",
+        "tw": "[FF0000FF]敵隊[-]命中",
+        "en": "[FF0000FF]Oppenent[-] OFF",
+        "jp": "OFF"
+    },
+    {
+        "id": 10702,
+        "explain": "2.外線 Outside OUT",
+        "tw": "[FF0000FF]敵隊[-]外線",
+        "en": "[FF0000FF]Oppenent[-] OUT",
+        "jp": "OUT"
+    },
+    {
+        "id": 10703,
+        "explain": "3.速度 Speed（SPD)  撲球",
+        "tw": "[FF0000FF]敵隊[-]速度",
+        "en": "[FF0000FF]Oppenent[-] SPD",
+        "jp": "SPD"
+    },
+    {
+        "id": 10704,
+        "explain": "4.耐力 Stamina（STA) 跌倒起身",
+        "tw": "[FF0000FF]敵隊[-]耐力",
+        "en": "[FF0000FF]Oppenent[-] STA",
+        "jp": "STA"
+    },
+    {
+        "id": 10705,
+        "explain": "5.力量 Strength（STR）肘擊",
+        "tw": "[FF0000FF]敵隊[-]力量",
+        "en": "[FF0000FF]Oppenent[-] STR",
+        "jp": "STR"
+    },
+    {
+        "id": 10706,
+        "explain": "6.灌籃 Dunk（DNK）灌籃",
+        "tw": "[FF0000FF]敵隊[-]灌籃",
+        "en": "[FF0000FF]Oppenent[-] DNK",
+        "jp": "DNK"
+    },
+    {
+        "id": 10707,
+        "explain": "7.籃板 Rebound（REB)搶籃板",
+        "tw": "[FF0000FF]敵隊[-]籃板",
+        "en": "[FF0000FF]Oppenent[-] REB",
+        "jp": "REB"
+    },
+    {
+        "id": 10708,
+        "explain": "8.火鍋 Block（BLK）火鍋",
+        "tw": "[FF0000FF]敵隊[-]火鍋",
+        "en": "[FF0000FF]Oppenent[-] BLK",
+        "jp": "BLK"
+    },
+    {
+        "id": 10709,
+        "explain": "9.防守 Defence（DEF)  推人",
+        "tw": "[FF0000FF]敵隊[-]敵隊防守",
+        "en": "[FF0000FF]Oppenent[-] DEF",
+        "jp": "DEF"
+    },
+    {
+        "id": 10710,
+        "explain": "10.抄截 Steal（STL）抄截",
+        "tw": "[FF0000FF]敵隊[-]敵隊抄截",
+        "en": "[FF0000FF]Oppenent[-] STL",
+        "jp": "STL"
+    },
+    {
+        "id": 10711,
+        "explain": "11.控球 Dribble（DRB)  運球過人",
+        "tw": "[FF0000FF]敵隊[-]敵隊控球",
+        "en": "[FF0000FF]Oppenent[-] DRB",
+        "jp": "DRB"
+    },
+    {
+        "id": 10712,
+        "explain": "12.傳球 Pass（PAS）傳球",
+        "tw": "[FF0000FF]敵隊[-]敵隊傳球",
+        "en": "[FF0000FF]Oppenent[-] PAS",
+        "jp": "PAS"
+    },
+    {
+        "id": 10720,
+        "explain": "20.起手的士氣值",
+        "tw": "[FF0000FF]敵隊[-]敵隊初始士氣",
+        "en": "[FF0000FF]Oppenent[-] Morale",
+        "jp": "Morale"
+    },
+    {
+        "id": 10730,
+        "explain": "30.卡牌的Cost值",
+        "tw": "空間",
+        "en": "COST",
+        "jp": "COST"
+    },
+    {
+        "id": 10750,
+        "explain": "50.怒氣單位恢復速度",
+        "tw": "[FF0000FF]敵隊[-]士氣增加速度",
+        "en": "[FF0000FF]Oppenent[-] Revive",
+        "jp": "Revive"
     },
     {
         "id": 11001,

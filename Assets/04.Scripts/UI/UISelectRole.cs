@@ -483,8 +483,11 @@ public class UISelectRole : UIBase {
 	public void LoadStage(int stageID) {
 		GameData.StageID = stageID;
 		stageData = StageTable.Ins.GetByID(GameData.StageID);
-		UIMainLobby.Get.HideAll(false);
-		Visible = true;
+
+        UIMainLobby.Get.Hide(false);
+        UIResource.Get.Hide(false);
+
+        Visible = true;
 
         if (stageData.IDKind == TStageData.EKind.PVP) {
             UI3DPVP.Visible = true;

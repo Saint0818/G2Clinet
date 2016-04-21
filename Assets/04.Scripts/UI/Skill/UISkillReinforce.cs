@@ -233,8 +233,11 @@ public class UISkillReinforce : UIBase {
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
 		Visible = true;
-		UIMainLobby.Get.Hide(3, false);
-		mSkill = skill;
+
+		UIMainLobby.Get.Hide(false);
+        UIResource.Get.Show();
+
+        mSkill = skill;
 		mOldSkill = mSkill;
 		RefreshView(skill);
 		initRightCards ();
@@ -702,7 +705,8 @@ public class UISkillReinforce : UIBase {
 		if(IsCanClick) {
 			Visible = false;
 			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
-			UIMainLobby.Get.HideAll(false);
+			UIMainLobby.Get.Hide(false);
+            UIResource.Get.Hide(false);
 		}
 	} 
 

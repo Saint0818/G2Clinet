@@ -21,79 +21,41 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
-    public UIMainLobbyMain Main { get; private set; }
-
-    // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
-    private const float AnimDelay = 3f;
-
-    private readonly CountDownTimer mCountDownTimer = new CountDownTimer(1);
+    public UIMainLobbyView View { get; private set; }
 
     [UsedImplicitly]
     private void Awake()
     {
-        Main = GetComponent<UIMainLobbyMain>();
+        View = GetComponent<UIMainLobbyView>();
 
-        var lobbyEvents = GetComponent<UIMainLobbyEvents>();
-        Main.DailyLoginButton.onClick.Add(new EventDelegate(lobbyEvents.OnDailyLogin));
-    }
-
-    [UsedImplicitly]
-    private void Start()
-    {
-        GameData.Team.OnMoneyChangeListener += onMoneyChange;
-        GameData.Team.OnDiamondChangeListener += onDiamondChange;
-        GameData.Team.OnPowerChangeListener += onPowerChange;
-
-        mCountDownTimer.TimeUpListener += updateCountDownPower;
-    }
-
-    [UsedImplicitly]
-    private void OnDestroy()
-    {
-        GameData.Team.OnMoneyChangeListener -= onMoneyChange;
-        GameData.Team.OnDiamondChangeListener -= onDiamondChange;
-        GameData.Team.OnPowerChangeListener -= onPowerChange;
-
-        mCountDownTimer.TimeUpListener -= updateCountDownPower;
+//        var lobbyEvents = GetComponent<UIMainLobbyEvents>();
+//        View.DailyLoginButton.onClick.Add(new EventDelegate(lobbyEvents.OnDailyLogin));
     }
 
     public bool IsVisible
     {
-        get { return Main.IsShow; }
+        get { return gameObject.activeSelf; }
     }
 
     public void Show()
     {
         Show(true);
+
 		UI3DMainLobby.Get.Show();
 		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null) //因為後台還沒建立所以要判斷
 			UIGym.Get.ShowView();
         UpdateUI();
 
-		Main.Show();
-
-        playMoneyAnimation(AnimDelay);
-        playPowerAnimation(AnimDelay);
-        playDiamondAnimation(AnimDelay);
+		View.Show();
 
         UpdateButtonStatus();
 
         ResetCommands.Get.Run();
 
+        UIResource.Get.Show();
+
         if(GameData.Team.NeedForSyncRecord)
             SendHttp.Get.SyncDailyRecord();
-
-        updateCountDownPower();
-        mCountDownTimer.StartAgain(true);
-    }
-
-    private void updateCountDownPower()
-    {
-        DateTime utcFuture = GameData.Team.PowerCD.ToUniversalTime().AddSeconds(GameConst.AddPowerTimeInSeconds);
-        TimeSpan timeInterval = utcFuture.Subtract(DateTime.UtcNow);
-
-        Main.PowerCountDown = GameFunction.GetTimeString(timeInterval);
-        Main.PowerCountDownVisible = GameData.Team.Power < GameConst.Max_Power;
     }
 
     /// <summary>
@@ -109,153 +71,82 @@ public class UIMainLobby : UIBase
         updateMissionButton();
         updateMallButton();
         
-        Main.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
-        Main.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
-                           UIDailyLoginHelper.HasLifetimeLoginReward();
+        View.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
+//        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
+//                           UIDailyLoginHelper.HasLifetimeLoginReward();
     }
 
     private void updateMallButton()
 	{
-		Main.MallNotice = GameData.Team.IsMallFree && (LimitTable.Ins.HasByOpenID(EOpenID.Mall) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mall)));
-        Main.MallButton.CheckEnable();
+		View.MallNotice = GameData.Team.IsMallFree && (LimitTable.Ins.HasByOpenID(EOpenID.Mall) && (GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mall)));
+        View.MallButton.CheckEnable();
     }
 
     private void updateMissionButton()
     {
         bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Mission);
-        Main.MissionNotice = false;
-        Main.MissionButton.CheckEnable();
-        Main.MissionNotice = isEnable && hasMissionAward;
+        View.MissionNotice = false;
+        View.MissionButton.CheckEnable();
+        View.MissionNotice = isEnable && hasMissionAward;
     }
 
     private void updateSkillButton()
     {
 		//合成不須判斷紅點(20160324 GameData.Team.IsExtraCard)
-		Main.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo);
-        Main.SkillButton.CheckEnable();
+		View.SkillNotice = (GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo);
+        View.SkillButton.CheckEnable();
     }
 
     private void updateSocialButton()
     {
-        Main.SocialNotice = GameData.IsOpenUIEnable(EOpenID.Social) && (GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend);
-        Main.SocialButton.CheckEnable();
+        View.SocialNotice = GameData.IsOpenUIEnable(EOpenID.Social) && (GameData.Setting.ShowEvent || GameData.Setting.ShowWatchFriend);
+        View.SocialButton.CheckEnable();
     }
 
     private void updateShopButton()
     {
-        Main.ShopNotice = false;
-        Main.ShopButton.CheckEnable();
+        View.ShopNotice = false;
+        View.ShopButton.CheckEnable();
     }
 
     private void updateAvatarButton()
     {
 //        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Avatar);
-        Main.AvatarButton.CheckEnable();
-        Main.AvatarNotice = Main.AvatarButton.IsEnable && GameData.AvatarNoticeEnable();
+        View.AvatarButton.CheckEnable();
+        View.AvatarNotice = View.AvatarButton.IsEnable && GameData.AvatarNoticeEnable();
     }
 
     private void updateEquipmentButton()
     {
 //        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
-        Main.EquipButton.CheckEnable();
-        Main.EquipmentNotice = Main.EquipButton.IsEnable && 
+        View.EquipButton.CheckEnable();
+        View.EquipmentNotice = View.EquipButton.IsEnable && 
               (!GameData.Team.IsPlayerAllBestValueItem() || GameData.Team.HasInlayableValueItem() ||
                GameData.Team.HasUpgrableValueItem());
     }
 
     public void UpdateUI()
     {
-        Main.Level = GameData.Team.Player.Lv;
-        Main.Money = GameData.Team.Money;
-        Main.Diamond = GameData.Team.Diamond;
-        Main.Power = GameData.Team.Power;
-        Main.PlayerName = GameData.Team.Player.Name;
-        Main.PlayerIcon = GameData.Team.Player.FacePicture;
-		Main.PlayerPosition = GameData.Team.Player.PositionPicture;
-    }
-
-    private void Update()
-    {
-        mCountDownTimer.Update(Time.deltaTime);
+        View.Level = GameData.Team.Player.Lv;
+        View.PlayerName = GameData.Team.Player.Name;
+        View.PlayerIcon = GameData.Team.Player.FacePicture;
+		View.PlayerPosition = GameData.Team.Player.PositionPicture;
     }
 
     public void UpdateText()
 	{
-		initDefaultText(Main.TopLeftGroup);
-		initDefaultText(Main.BottomGroup);
+		initDefaultText(View.TopLeftGroup);
+		initDefaultText(View.BottomGroup);
 	}
 
-    public void Hide(int kind = 3, bool playAnimation = true)
+    public void Hide(bool playAnimation = true)
 	{
 		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
 			UIGym.Visible = false;
         UI3DMainLobby.Get.Hide();
-        Main.Hide(kind, playAnimation);
+        View.Hide(playAnimation);
         ResetCommands.Get.Stop();
 //        RemoveUI(UIName);
-
-        mCountDownTimer.Stop();
-        Main.PowerCountDownVisible = false;
-    }
-
-    public void HideAll(bool playAnimation = true)
-	{
-		if(GameData.Team.GymBuild != null && GameData.Team.GymQueue != null)
-			UIGym.Visible = false;
-        UI3DMainLobby.Get.Hide();
-        Main.HideAll(playAnimation);
-        ResetCommands.Get.Stop();
-
-        mCountDownTimer.Stop();
-        Main.PowerCountDownVisible = false;
-    }
-
-    private void onMoneyChange(int money)
-    {
-        Main.Money = money;
-        playMoneyAnimation();
-    }
-
-    private void onDiamondChange(int diamond)
-    {
-        Main.Diamond = diamond;
-        playDiamondAnimation();
-    }
-
-    private void onPowerChange(int power)
-    {
-        Main.Power = power;
-        playPowerAnimation();
-    }
-
-    private void playMoneyAnimation(float delay = 0)
-    {
-        if(PlayerPrefs.HasKey(ESave.MoneyChange.ToString()))
-        {
-            Main.PlayMoneyAnimation(delay);
-            PlayerPrefs.DeleteKey(ESave.MoneyChange.ToString());
-            PlayerPrefs.Save();
-        }
-    }
-
-    private void playDiamondAnimation(float delay = 0)
-    {
-        if(PlayerPrefs.HasKey(ESave.DiamondChange.ToString()))
-        {
-            Main.PlayDiamondAnimation(delay);
-            PlayerPrefs.DeleteKey(ESave.DiamondChange.ToString());
-            PlayerPrefs.Save();
-        }
-    }
-
-    private void playPowerAnimation(float delay = 0)
-    {
-        if(PlayerPrefs.HasKey(ESave.PowerChange.ToString()))
-        {
-            Main.PlayPowerAnimation(delay);
-            PlayerPrefs.DeleteKey(ESave.PowerChange.ToString());
-            PlayerPrefs.Save();
-        }
     }
 
     public static UIMainLobby Get

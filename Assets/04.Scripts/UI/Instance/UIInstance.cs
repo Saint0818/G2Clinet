@@ -101,7 +101,8 @@ public class UIInstance : UIBase
 
     public void ShowByStageID(int stageID)
     {
-        UIMainLobby.Get.Hide(3, false);
+        UIMainLobby.Get.Hide(false);
+        UIResource.Get.Show();
         Show(true);
 
         buildChapters();

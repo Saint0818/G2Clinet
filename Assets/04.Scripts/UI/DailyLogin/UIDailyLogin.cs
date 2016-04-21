@@ -91,7 +91,7 @@ public class UIDailyLogin : UIBase
 
     public void Show()
     {
-        UIMainLobby.Get.HideAll();
+        UIMainLobby.Get.Hide();
         Show(DateTime.Now.Year, DateTime.Now.Month);
     }
 

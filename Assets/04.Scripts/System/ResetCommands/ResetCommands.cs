@@ -9,11 +9,13 @@ using JetBrains.Annotations;
 /// <item> 用 Get 取得 instance. </item>
 /// <item> Call Run() 啟動檢查. </item>
 /// <item> Call Stop() 停止檢查. </item>
+/// <item> (Optional) IsRunning() 是否運作中. </item>
 /// </list>
 public class ResetCommands : KnightSingleton<ResetCommands>
 {
     private readonly List<ICommand> mCommands = new List<ICommand>();
-    private bool mIsRunning;
+
+    public bool IsRunning { get; private set; }
 
     [UsedImplicitly]
     private void Awake()
@@ -25,7 +27,7 @@ public class ResetCommands : KnightSingleton<ResetCommands>
     [UsedImplicitly]
     private void Update()
     {
-        if(!mIsRunning)
+        if(!IsRunning)
             return;
 
         for(int i = 0; i < mCommands.Count; i++)
@@ -37,12 +39,12 @@ public class ResetCommands : KnightSingleton<ResetCommands>
 
     public void Run()
     {
-        mIsRunning = true;
+        IsRunning = true;
     }
 
     public void Stop()
     {
-        mIsRunning = false;
+        IsRunning = false;
 //        DestroyInst();
     }
 }
