@@ -968,7 +968,6 @@ public class GameController : KnightSingleton<GameController>
 			{
 				UIEndGame.Get.ShowView();
 				GameRecord.Done = true;
-				SetGameRecord ();
 				StartCoroutine (playFinish ());
 			}
 		}
@@ -3869,6 +3868,7 @@ public class GameController : KnightSingleton<GameController>
 		isEndShowScene = false;
 		yield return new WaitForSeconds(2.5f);
 	    IsStart = false;
+		SetGameRecord ();
 		setEndShowScene();
 		isEndShowScene = true;
 		if(LobbyStart.Get.IsAutoReplay){
