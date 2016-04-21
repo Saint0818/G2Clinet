@@ -9,6 +9,30 @@ public class TPVPObj {
 	public UILabel LabelMinusPoint;
 	public UILabel LabelNowPoint;
 	public UISlider SliderBar;
+
+	public void SetValue (TPVPRank result, bool isLost = true) {
+		PVPRankIcon.spriteName = GameFunction.PVPRankIconName(result.BeforeLv);
+		LabelRankName.text = result.BeforeName ;
+		LabelMinusPoint.text = Mathf.Abs(result.AfterScore- result.BeforeScore).ToString();
+		if(isLost)
+			LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", result.BeforeScore, result.BeforeHighScore);
+		else
+			LabelNowPoint.text = string.Format("[00FF00FF]{0}[-]/{1}", result.BeforeScore, result.BeforeHighScore);
+		SliderBar.value = GameFunction.GetPercent(result.BeforeScore, result.BeforeLowScore, result.BeforeHighScore);
+	}
+
+	public void SetValue (TPVPValue value, bool isLost = true) {
+		if(isLost)
+			LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", value.NowValue, value.NowMax);
+		else
+			LabelNowPoint.text = string.Format("[00FF00FF]{0}[-]/{1}", value.NowValue, value.NowMax);
+		SliderBar.value = GameFunction.GetPercent(value.NowValue, value.NowMin, value.NowMax);
+	}
+
+	public void SetFinal (TPVPRank result, string rankName) {
+		PVPRankIcon.spriteName = GameFunction.PVPRankIconName(result.AfterLv);
+		LabelRankName.text = rankName;
+	}
 }
 
 public struct TPVPRank {
@@ -24,30 +48,102 @@ public struct TPVPRank {
 	public int AfterHighScore;
 }
 
+public struct TPVPValue {
+	public bool IsDeflation;
+	public bool IsShowRank;
+	public int MinusValue;
+	public int NowMin;
+	public int NowMax;
+	public int NowValue;
+
+	public void SetValue (TPVPRank result) {
+		MinusValue = Mathf.Abs(result.AfterScore- result.BeforeScore);
+		NowMin = result.BeforeLowScore;
+		NowMax = result.BeforeHighScore;
+		NowValue = result.BeforeScore;
+	}
+
+	public void SetFinal (TPVPRank result) {
+		NowValue = result.AfterScore;
+		NowMax = result.AfterHighScore;
+		NowMin = result.AfterLowScore;
+	}
+
+	public bool IsRunRankExp {
+		get {
+			return (IsShowRank && MinusValue > 0);
+		}
+	}
+}
+
+public struct THintValue {
+	public GameStageTargetLose[] LoseTargets;
+	public UIStageHintTarget[] WinTargets;
+	public float FinishInterval;
+	public int HintIndex;
+	public int HintCount;
+	public bool IsShowFinish ;
+	public float FinishTime;
+
+	public void Init () {
+		FinishInterval = 0.2f;
+	}
+
+	public void SetHintCount (int count) {
+		HintCount = count;
+		HintIndex = count;
+	}
+
+	public void InitFinish () {
+		IsShowFinish = true;
+		FinishTime = FinishInterval;
+	}
+
+	public void CostHint () {
+		FinishTime = FinishInterval;
+		HintIndex --;
+	}
+
+	public void UpdateUI (float time, EventDelegate.Callback oneAchieve, EventDelegate.Callback complete) {
+		if(IsRunHint) {
+			FinishTime -= time;
+			if(FinishTime <= 0) {
+				if(HintIndex == -1) {
+					IsShowFinish = false;
+					complete();
+				} else {
+					oneAchieve();
+					CostHint ();
+				}
+			}
+		}
+	}
+
+	public bool IsRunHint{
+		get {
+			return (IsShowFinish && HintIndex >= -1);
+		}
+	}
+
+	public int ExtraHint {
+		get {return HintCount - HintIndex;}
+	}
+}
+
 public class UIGameLoseResult : UIBase {
 	private static UIGameLoseResult instance = null;
 	private const string UIName = "UIGameLoseResult";
 
-	private GameStageTargetLose[] mTargets;
 	private GameObject goStatsNextLabel;
-	private const float finishInterval = 0.2f;
-	private int hintIndex;
-	private int hintCount;
-	private bool isShowFinish = false;
-	private float finishTime = 0;
+
+	private THintValue hintValue = new THintValue();
 
 	//PVP
 	private const string PVPNext = "Next";
 	private const string PVPDownRank = "DownRank";
 	private TPVPObj pvpObj = new TPVPObj();
 	private TPVPRank pvpRank = new TPVPRank();
-	private bool isShowRank = false;
-	private bool isDeflation = false;
-
-	public int minusValue;
-	public int nowMin;
-	public int nowMax;
-	public int nowValue;
+	private TPVPValue pvpValue = new TPVPValue();
 	
 	public static bool Visible {
 		get {
@@ -88,44 +184,38 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	void FixedUpdate () {
-		//Show StageHint
-		if(isShowFinish && hintIndex >= -1) {
-			finishTime -= Time.deltaTime;
-			if(finishTime <= 0) {
-				if(hintIndex == -1) {
-					isShowFinish = false;
-				} else {
-					if(hintIndex > 0 && hintIndex < mTargets.Length) {
-						if(mTargets[hintCount - hintIndex].IsComplete)
-							AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
-						mTargets[hintCount - hintIndex].UpdateFin(mTargets[hintCount - hintIndex].IsComplete);
-					}
+		hintValue.UpdateUI(Time.deltaTime, HintAchieveOne, HintComplete);
 
-					finishTime = finishInterval;
-					hintIndex --;
-				}
-			}
-		}
 
-		if(isShowRank && minusValue > 0) {
-			if(nowValue > pvpRank.BeforeLowScore) {
-				minusValue --;
-				nowValue -- ;
-				pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
-				pvpObj.SliderBar.value = GameFunction.GetPercent(nowValue, nowMin, nowMax);
+		if(pvpValue.IsRunRankExp) {
+			if(pvpValue.NowValue > pvpRank.BeforeLowScore) {
+				pvpValue.MinusValue --;
+				pvpValue.NowValue -- ;
+				pvpObj.SetValue(pvpValue);
 			} else {
 				if(pvpRank.AfterLv == 1 && pvpRank.BeforeLv == 1) {
 					return;
 				} else {
-					if(!isDeflation)
+					if(!pvpValue.IsDeflation)
 						deflation ();
 				}
 			}
 		}
 	}
+
+	public void HintAchieveOne () {
+		if(hintValue.HintIndex > 0 && hintValue.HintIndex < hintValue.LoseTargets.Length) {
+			if(hintValue.LoseTargets[hintValue.ExtraHint].IsComplete)
+				AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+			hintValue.LoseTargets[hintValue.ExtraHint].UpdateFin(hintValue.LoseTargets[hintValue.ExtraHint].IsComplete);
+		}
+	}
+
+	public void HintComplete () {
+	}
+
 	
 	protected override void InitCom() {
-		mTargets = GetComponentsInChildren<GameStageTargetLose>();
 		pvpObj.objAnimator = transform.GetComponent<Animator>();
 		pvpObj.PVPRankIcon = GameObject.Find(UIName + "/RankView/PvPRankIcon").GetComponent<UISprite>();
 		pvpObj.LabelRankName = GameObject.Find(UIName + "/RankView/PvPRankIcon/RankNameLabel").GetComponent<UILabel>();
@@ -135,6 +225,9 @@ public class UIGameLoseResult : UIBase {
 
 		goStatsNextLabel = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
 		goStatsNextLabel.SetActive(false);
+
+		hintValue.Init();
+		hintValue.LoseTargets = GetComponentsInChildren<GameStageTargetLose>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/StatsNextLabel")).onClick = OnReturn;
 	}
@@ -150,9 +243,8 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	private void setEndData () {
-		hintCount = UIStageHintManager.UpdateHintLose(GameData.StageID, ref mTargets);
-		hintIndex = hintCount;
-		Invoke("showFinish", 3);
+		hintValue.SetHintCount(UIStageHintManager.UpdateHintLose(GameData.StageID, ref hintValue.LoseTargets));
+		Invoke("showFinish", GameConst.GameEndWait);
 	}
 
 	private void setData (TPVPResult before, TPVPResult after) {
@@ -171,22 +263,13 @@ public class UIGameLoseResult : UIBase {
 			pvpRank.AfterLowScore = GameData.DPVPData[after.PVPLv].LowScore;
 			pvpRank.AfterHighScore = GameData.DPVPData[after.PVPLv].HighScore;
 
-			minusValue = Mathf.Abs(pvpRank.AfterScore- pvpRank.BeforeScore);
-			nowValue = pvpRank.BeforeScore;
-			nowMin = pvpRank.BeforeLowScore;
-			nowMax = pvpRank.BeforeHighScore;
-
-			pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.BeforeLv);
-			pvpObj.LabelRankName.text = pvpRank.BeforeName ;
-			pvpObj.LabelMinusPoint.text = minusValue.ToString();
-			pvpObj.LabelNowPoint.text = string.Format("[FF0000FF]{0}[-]/{1}", nowValue, nowMax);
-			pvpObj.SliderBar.value = GameFunction.GetPercent(pvpRank.BeforeScore, pvpRank.BeforeLowScore, pvpRank.BeforeHighScore);
+			pvpValue.SetValue(pvpRank);
+			pvpObj.SetValue(pvpRank);
 		}
 	}
 
 	private void showFinish () {
-		isShowFinish = true;
-		finishTime = finishInterval;
+		hintValue.InitFinish();
 		goStatsNextLabel.SetActive(true);
 	}
 
@@ -196,24 +279,25 @@ public class UIGameLoseResult : UIBase {
 	}
 
 	private void showRank () {
-		isShowRank = true;
+		pvpValue.IsShowRank = true;
 		goStatsNextLabel.SetActive(true);
 	}
 
+	//降階
 	private void deflation () {
-		isDeflation = true;
+		pvpValue.IsDeflation = true;
 		pvpObj.objAnimator.SetTrigger(PVPDownRank);
 		Invoke("showFinalRank", 0.5f);
 	}
 
 	private void showFinalRank () {
-		pvpObj.PVPRankIcon.spriteName = GameFunction.PVPRankIconName(pvpRank.AfterLv);
 		if(GameData.DPVPData.ContainsKey(pvpRank.AfterLv))
-			pvpObj.LabelRankName.text = GameData.DPVPData[pvpRank.AfterLv].Name;
+			pvpObj.SetFinal(pvpRank, GameData.DPVPData[pvpRank.AfterLv].Name);
+		else
+			pvpObj.SetFinal(pvpRank, "");
 
-		nowMax = pvpRank.AfterHighScore;
-		nowMin = pvpRank.AfterLowScore;
-		pvpRank.BeforeLowScore = nowMin;
+		pvpValue.SetFinal(pvpRank);
+		pvpRank.BeforeLowScore = pvpValue.NowMin;
 		showRank();
 	}
 
@@ -234,7 +318,7 @@ public class UIGameLoseResult : UIBase {
 		}
 		else if (GameData.IsPVP)
 		{
-			if(!isShowRank)
+			if(!pvpValue.IsShowRank)
 				pvpNext ();
 			else {
 				UIShow(false);

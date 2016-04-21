@@ -184,6 +184,7 @@ public class UIGame : UIBase
         {
             if (!value) {
                 UIGameResult.Visible = false;
+				UI3DGameResult.Visible = false;
                 UIGameLoseResult.Visible = false;
                 UIGamePause.Visible = false;
                 UIDoubleClick.Visible = false;

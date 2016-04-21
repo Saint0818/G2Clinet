@@ -8,6 +8,7 @@
 	public const int Default_RoleNum = 2;
 	public const int Max_Money = 1000000;
 
+	public const int GameEndWait = 4;
     public const int Max_Power = 20;
     /// <summary>
     /// 幾秒回復 1 點體力.

@@ -1147,7 +1147,7 @@ namespace GameStruct
         }
 
 		/// <summary>
-		/// 擁有過的item數量
+		/// 擁有過的item
 		/// </summary>
 		/// <returns><c>true</c> if this instance is get item the specified itemID; otherwise, <c>false</c>.</returns>
 		/// <param name="itemID">Item I.</param>
@@ -1160,7 +1160,7 @@ namespace GameStruct
 		}
 
 		/// <summary>
-		/// 擁有過的造型數量
+		/// 擁有過的造型
 		/// </summary>
 		/// <returns><c>true</c> if this instance is get avatar the specified itemID; otherwise, <c>false</c>.</returns>
 		/// <param name="itemID">Item I.</param>

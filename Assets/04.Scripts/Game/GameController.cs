@@ -3901,7 +3901,6 @@ public class GameController : KnightSingleton<GameController>
 
 			if(!StageData.IsTutorial)
 			{
-				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
 			else {
@@ -3912,12 +3911,10 @@ public class GameController : KnightSingleton<GameController>
     				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
                 }
 
-				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
 		} else {
 			if(!LobbyStart.Get.IsAutoReplay){
-				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
 		}
@@ -3982,7 +3979,6 @@ public class GameController : KnightSingleton<GameController>
 				pveEnd(StageData.ID);
 			else {
 				if(beforeTeam.PVPLv != 0 && afterTeam.PVPLv != 0) {
-					UIGameResult.UIShow(true);
 					UIGameResult.Get.SetGameRecord(ref GameRecord);
 					UIGameResult.Get.SetPVPData(beforeTeam, afterTeam);
 				}

@@ -113,7 +113,7 @@ public class UIMall : UIBase {
 			}
 		}
 		if(mallBoxs.Count > 0)
-			mallBoxs[0].Tween.gameObject.SetActive(true);
+			mallBoxs[1].Tween.gameObject.SetActive(true);
 	}
 
 	private void setParentInit (GameObject obj, GameObject parent) {
@@ -132,8 +132,6 @@ public class UIMall : UIBase {
 		
 		return false;
 	}
-
-
 
 	private int howMuch (TPickCost pickCost, int spendType) {
 		if(spendType == EPickSpendType.ONE.GetHashCode())

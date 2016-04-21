@@ -130,6 +130,7 @@ namespace GameStruct
 		public float TipInRate;
 		public float AlleyOopRate;
 		public float StrengthRate;
+		public float BlockBePushRate;
 		public float BlockPushRate;
 		public float ElbowingRate;
 		public float ReboundRate;
@@ -169,6 +170,7 @@ namespace GameStruct
 		SpeedValue,
 		StaminaValue,
 		StrengthRate,
+		BlockBePushRate,
 		BlockPushRate,
 		ElbowingRate,
 		DunkRate,
