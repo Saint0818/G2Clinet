@@ -79,8 +79,7 @@
     {
         "lv": 20,
         "openid": 10,
-        "diamond": 200,
-        "visiblelv": 100
+        "diamond": 200
     },
     {
         "lv": 25,
@@ -129,9 +128,6 @@
         "visiblelv": 100
     },
     {
-        "lv": 58,
-        "openid": 59,
-        "name": "59.Mail = 9",
-        "visiblelv": 100
+        "lv": 58
     }
 ]
