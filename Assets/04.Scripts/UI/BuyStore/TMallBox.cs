@@ -33,6 +33,9 @@ public class TMallBox
 	public UILabel Open10Price;
 	public UILabel SaleLabel;
 
+	private UIScrollView cardScrollView;
+	private UIScrollView itemScrollView;
+
 	public GameObject BtnOne;
 	public GameObject BtnFive;
 	public GameObject BtnTen;
@@ -70,6 +73,9 @@ public class TMallBox
 		BtnOneRedPoint = obj.transform.Find("OpenBtn1/RedPoint").gameObject;
 		BtnFive = obj.transform.Find("Tween/OpenBtn5").gameObject;
 		BtnTen = obj.transform.Find("Tween/OpenBtn10").gameObject;
+
+		cardScrollView = obj.transform.Find("Tween/VerticalDisk/ScrollView1").GetComponent<UIScrollView>();
+		itemScrollView = obj.transform.Find("Tween/VerticalItem/ScrollView2").GetComponent<UIScrollView>();
 
 		if(FreeLabelTitle != null && PriceIcon != null && PriceLabel != null && FreeLabel1 != null && 
 			TitleLabel != null && ExplainLabel != null && Tween != null && SubheadLabelDisk != null && SubheadLabelItem != null && 
@@ -119,6 +125,9 @@ public class TMallBox
 		money1 = pickcost.OnePick;
 		money2 = pickcost.FivePick;
 		money3 = pickcost.TenPick;
+
+		cardScrollView.MoveRelative(new Vector3(-55, 0, 0));
+		itemScrollView.MoveRelative(new Vector3(-55, 0, 0));
 
 		RefreshText();
 	}
