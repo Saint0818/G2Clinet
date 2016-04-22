@@ -155,6 +155,10 @@ public class UIGymEngage : UIBase {
 	private int mAvatarIndex;
 	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
 
+	void Destroy () {
+		itemGymObjs.Clear();
+	}
+
 	public static bool Visible {
 		get {
 			if(instance)
