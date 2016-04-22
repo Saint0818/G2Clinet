@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using GameStruct;
 using ProMaterialCombiner;
 
+public enum EAnimatorType
+{
+    None,
+    AnimationControl,
+    AvatarControl,
+    TalkControl
+}
+
 public struct TLoadParameter {
     public ELayer Layer;
     public EAnimatorType AnimatorType;
@@ -78,7 +86,7 @@ public class TAvatarLoader : MonoBehaviour {
         return avatarLoader;
     }
 
-    public static void ReleaseCache() {
+    public static void Release() {
         modelCache.Clear();
         textureCache.Clear();
     }

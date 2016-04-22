@@ -37,9 +37,9 @@ public class LayupCurveCounter
         if (Curve == null || (Curve != null && Curve.Name != curveName))
         {
             Curve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Layup.Length; i++)
-                if (ModelManager.Get.AnimatorCurve.Layup[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurve.Layup[i];
+            for (int i = 0; i < CurveManager.Get.AnimatorCurve.Layup.Length; i++)
+                if (CurveManager.Get.AnimatorCurve.Layup[i].Name == curveName)
+                    Curve = CurveManager.Get.AnimatorCurve.Layup[i];
         }
 
         //

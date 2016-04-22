@@ -17,7 +17,7 @@ public class ItemSkillHintView : MonoBehaviour {
 		SkillName.text = name;
 		SkillName.color = TextConst.Color(GameData.DSkillData[id].Quality);
 		SkillMaxAnger.text = anger + "[13CECEFF]" + maxAnger + "[-]";
-		SkillTexture.mainTexture = GameData.CardItemTexture(id);
+        SkillTexture.mainTexture = TextureManager.Get.CardItemTexture(id);
 		SkillCard.spriteName = GameFunction.CardLevelName(id) + "s";
 		if(GameFunction.IsActiveSkill(id))
 			SkillKind.spriteName = "ActiveIcon";

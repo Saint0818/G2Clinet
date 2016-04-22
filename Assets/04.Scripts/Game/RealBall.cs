@@ -11,32 +11,34 @@ using UnityEngine;
 /// </summary>
 public class RealBall : MonoBehaviour
 {
+    private GameObject goRefBall;
+    public EPlayerState State;
     public BallTrigger Trigger;
     public SphereCollider realBallCollider;
     public Rigidbody RigidbodyCom;
+    public GameObject mRealBallSFX;
+    private GameObject ballShadow;
     private GameObject spotlight;
 
-    public GameObject mRealBallSFX;
     // 特效顯示的時間. 單位: 秒.
     private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1);
-    private AutoFollowGameObject BallShadow;
-
-	private GameObject goRefBall;
-    public EPlayerState State;
 
     void Awake()
     {
+        goRefBall = gameObject;
         mRealBallSFXTimer.TimeUpListener += HideBallSFX;
-        GameObject obj = Instantiate(Resources.Load("Prefab/Stadium/BallShadow")) as GameObject;
-        if (obj)
+        ballShadow = Instantiate(Resources.Load("Prefab/Stadium/BallShadow")) as GameObject;
+        if (ballShadow)
         {
-            BallShadow = obj.GetComponent<AutoFollowGameObject>();
-            spotlight = obj.transform.FindChild("SpotLight").gameObject; 
-            BallShadow.Enable = true;
-			goRefBall = gameObject;
-			BallShadow.SetTarget(goRefBall);
+            ballShadow.GetComponent<AutoFollowGameObject>().SetTarget(goRefBall);
+            spotlight = ballShadow.transform.FindChild("SpotLight").gameObject;
             spotlight.SetActive(false);
         }
+    }
+
+    void OnDestroy() {
+        if (ballShadow)
+            Destroy(ballShadow);
     }
 
     [UsedImplicitly]
@@ -327,7 +329,7 @@ public class RealBall : MonoBehaviour
     }
 
 	public void SetJumpBallPathUp () {
-		goRefBall.transform.DOMoveY(6f, 0.55f).SetEase(ModelManager.Get.AnimatorCurve.FindJumpCurve());
+		goRefBall.transform.DOMoveY(6f, 0.55f).SetEase(CurveManager.Get.AnimatorCurve.FindJumpCurve());
 	}
 
     public void SetBallStateByLobby(EPlayerState state, Transform dummyTransfrom)

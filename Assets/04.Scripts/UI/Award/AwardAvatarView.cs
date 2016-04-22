@@ -76,10 +76,8 @@ public class AwardAvatarView : MonoBehaviour {
 			GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, GameData.Team.Player, itemData.Kind);
 		else 
 			Debug.LogError("EmptyStars not setting");
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
-
+        
+	    ItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 		ItemPic.gameObject.SetActive(true);
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

@@ -20,7 +20,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
 
     void OnDestroy() {
+        
         skillEffectPositions.Clear();
+
         skillEffects.Clear();
     }
 
@@ -64,21 +66,26 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			if (GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
 				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1 != 0) 
 					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1, isPassiveID);
-				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2 != 0)
+				
+                if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2 != 0)
 					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2, isPassiveID);
-				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
+				
+                if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
 					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 			
 			if(player.PassiveSkillUsed.ID != -1) 
 				skillID = player.PassiveSkillUsed.ID;
+            
 		} else {
 			if (GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID)) {
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1 != 0)
 					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1, isPassiveID);
-				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2 != 0)
+				
+                if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2 != 0)
 					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2, isPassiveID);
-				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
+				
+                if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
 					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 			
@@ -110,6 +117,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 							skillEffect.Player = objs1[i];
 							skillEffect.Parent = null;
 						}
+
 						skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
 						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
 						skillEffects.Add(skillEffect);
@@ -139,6 +147,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 							skillEffect.Player = objs2[i];
 							skillEffect.Parent = null;
 						}
+
 						skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
 						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
 						skillEffects.Add(skillEffect);
@@ -168,6 +177,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 							skillEffect.Player = objs3[i];
 							skillEffect.Parent = null;
 						}
+
 						skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
 						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
 						skillEffects.Add(skillEffect);
@@ -194,15 +204,6 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			else
 				Debug.Log("Effect not found " + effectName);
 		}
-		
-//		if (effectName == "SkillEffect1700" && obj) {
-//			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
-//			if (ps) {
-//				ps.pusher = executePlayer;
-//				if(GameData.DSkillData.ContainsKey(executePlayer.ActiveSkillUsed.ID))
-//					ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
-//			}
-//		}
 	}
 
 	private List<GameObject> getSkillEffectPosition (PlayerBehaviour player, int index, int effectkind, bool isPassive) {
@@ -296,7 +297,8 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				break;
 			}
 			skillEffectPositions.Add(key, objs);
-			
+
+            objs.Clear();
 			return skillEffectPositions[key];
 		}
 		return null;

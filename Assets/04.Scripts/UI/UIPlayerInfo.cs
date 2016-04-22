@@ -396,7 +396,7 @@ public class TValueAvater
 
     public int Atlas
     {
-        set{ pic.atlas = GameData.DItemAtlas["AtlasItem_" + value]; }
+        set{ pic.atlas = TextureManager.Get.ItemAtlas(value); }
     }
 
     public string Pic

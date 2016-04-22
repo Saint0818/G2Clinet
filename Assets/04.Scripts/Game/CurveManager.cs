@@ -7,17 +7,9 @@ using GameStruct;
 using ProMaterialCombiner;
 using UnityEngine;
 
-public enum EAnimatorType
+public class CurveManager : KnightSingleton<CurveManager>
 {
-    None,
-    AnimationControl,
-    AvatarControl,
-    TalkControl
-}
-
-public class ModelManager : KnightSingleton<ModelManager>
-{
-    public const string Name = "ModelManager";
+    public const string Name = "CurveManager";
 
     public AniCurve AnimatorCurve;
     /*

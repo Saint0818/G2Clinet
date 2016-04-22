@@ -106,9 +106,7 @@ public class HintAvatarView : MonoBehaviour {
 			ItemKindLabel.text = TextConst.S(13000 + itemData.Kind);
 		} 
 
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		ItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";
@@ -153,9 +151,7 @@ public class HintAvatarView : MonoBehaviour {
 			ItemKindLabel.text = TextConst.S(13000 + itemData.Kind);
 		} 
 
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		ItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

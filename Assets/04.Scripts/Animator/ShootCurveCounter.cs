@@ -31,7 +31,7 @@ public class ShootCurveCounter
 //                    mCurve = ModelManager.Get.AnimatorCurve.Shoot[i];
 //        }
 
-        mCurve = ModelManager.Get.AnimatorCurve.FindShootCurve(curveName);
+        mCurve = CurveManager.Get.AnimatorCurve.FindShootCurve(curveName);
         if(mCurve != null)
             mController.DOLookAt(lookAt, 0.5f, AxisConstraint.Y);
 

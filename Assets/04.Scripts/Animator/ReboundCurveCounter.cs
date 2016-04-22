@@ -35,9 +35,9 @@ public class ReboundCurveCounter
         if (mCurve == null || (mCurve != null && mCurve.Name != curveName))
         {
             mCurve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Rebound.Length; i++)
-                if (ModelManager.Get.AnimatorCurve.Rebound[i].Name == curveName)
-                    mCurve = ModelManager.Get.AnimatorCurve.Rebound[i];
+            for (int i = 0; i < CurveManager.Get.AnimatorCurve.Rebound.Length; i++)
+                if (CurveManager.Get.AnimatorCurve.Rebound[i].Name == curveName)
+                    mCurve = CurveManager.Get.AnimatorCurve.Rebound[i];
         }
         mCurrentTime = 0;
         mIsPlaying = mCurve != null;

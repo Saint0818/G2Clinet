@@ -43,9 +43,7 @@ public class AwardSkillView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData){
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		SkillItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
@@ -65,10 +63,7 @@ public class AwardSkillView : MonoBehaviour {
 
 	public void UpdateUI (TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(21))) {
-				SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(21)];
-			}
-
+            SkillItemPic.atlas = TextureManager.Get.ItemAtlas(21);
 			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].MiniPicture;
 			GameFunction.ShowStar(ref SkillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);

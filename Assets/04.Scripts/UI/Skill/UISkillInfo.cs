@@ -238,7 +238,7 @@ public class UISkillInfo : UIBase {
 
 			//MediumCard
 			spriteSkillCard.spriteName =  GameFunction.CardLevelName(skill.ID);
-			textureSkillPic.mainTexture = GameData.CardTexture(skill.ID);
+            textureSkillPic.mainTexture = TextureManager.Get.CardTexture(skill.ID);
 			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
 			GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
 			if(GameFunction.IsActiveSkill(skill.ID)) {

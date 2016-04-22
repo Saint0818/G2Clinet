@@ -140,6 +140,11 @@ public class UIHeadPortrait : UIBase
         }
     }
 
+    void OnDestroy() {
+        DHeadTexture.Clear();
+        headTexutres = new ItemHeadBtn[0];
+    }
+
     protected override void InitCom()
     {
         InitHeadTextureData();

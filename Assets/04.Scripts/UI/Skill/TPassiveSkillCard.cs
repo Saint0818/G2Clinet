@@ -66,7 +66,7 @@ public class TPassiveSkillCard
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
 //				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID) + "s";
-				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
+                SkillTexture.mainTexture = TextureManager.Get.CardItemTexture(skill.ID);
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
 				else 
@@ -117,7 +117,7 @@ public class TPassiveSkillCard
 				SkillName.text = GameData.DSkillData[id].Name;
 //				SkillName.color = TextConst.Color(GameData.DSkillData[id].Quality);
 				SkillCard.spriteName = GameFunction.CardLevelName(id) + "s";
-				SkillTexture.mainTexture = GameData.CardItemTexture(id);
+                SkillTexture.mainTexture = TextureManager.Get.CardItemTexture(id);
 				SkillCost.text = string.Format(TextConst.S(7501), GameData.DSkillData[id].Space(lv));
 				if(GameFunction.IsActiveSkill(id))
 					SkillKind.spriteName = "ActiveIcon";
@@ -169,7 +169,7 @@ public class TPassiveSkillCard
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
 //				SkillName.color = TextConst.Color(GameData.DSkillData[skill.ID].Quality);
 				SkillCard.spriteName = GameFunction.CardLevelName(skill.ID) + "s";
-				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
+                SkillTexture.mainTexture = TextureManager.Get.CardItemTexture(skill.ID);
 				SkillCost.text = string.Format(TextConst.S(7502), GameData.DSkillData[skill.ID].ExpInlay(skill.Lv));
 				if(GameFunction.IsActiveSkill(skill.ID))
 					SkillKind.spriteName = "ActiveIcon";
@@ -230,7 +230,7 @@ public class TPassiveSkillCard
 					item.name = id.ToString();
 					SkillName.text = GameData.DItemData[id].Name;
 					SkillCard.spriteName = GameFunction.CardLevelName(GameData.DItemData[id].Avatar) + "s";
-					SkillTexture.mainTexture = GameData.CardItemTexture(GameData.DItemData[id].Avatar);
+                    SkillTexture.mainTexture = TextureManager.Get.CardItemTexture(GameData.DItemData[id].Avatar);
 					if(GameFunction.IsActiveSkill(GameData.DItemData[id].Avatar))
 						SkillKind.spriteName = "ActiveIcon";
 					else 

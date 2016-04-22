@@ -239,7 +239,8 @@ public class GameController : KnightSingleton<GameController>
         if (playerInfoModel)
             Destroy(playerInfoModel);
 
-        TAvatarLoader.ReleaseCache();
+        TAvatarLoader.Release();
+        TextureManager.Get.Release();
 	}
 
     [UsedImplicitly]
@@ -785,7 +786,7 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 		}
 
-        playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
+        playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, Joysticker.PlayerRefGameObject);
         if (playerSelectMe) {
             PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
             Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
@@ -797,7 +798,7 @@ public class GameController : KnightSingleton<GameController>
         {
             if (PlayerList[i].Team != Joysticker.Team)
             {
-                PlayerList[i].SelectMe = EffectManager.Get.PlayEffect("SelectTarget", Vector3.zero, null, PlayerList[i].PlayerRefGameObject, 0, true, false);
+                PlayerList[i].SelectMe = EffectManager.Get.PlayEffect("SelectTarget", Vector3.zero, PlayerList[i].PlayerRefGameObject, null, 0, true, false);
                 PlayerList[i].SelectMe.SetActive(false);
             }
         }
@@ -1150,7 +1151,7 @@ public class GameController : KnightSingleton<GameController>
 	}
         
     public void SendGameRecord() {
-        if (!string.IsNullOrEmpty(GameRecord.Identifier) && LobbyStart.Get.TestMode == EGameTest.None && (!StageData.IsTutorial)) {
+        if (!string.IsNullOrEmpty(GameRecord.Identifier) && LobbyStart.Get.TestMode == EGameTest.None) {
             string str = JsonConvert.SerializeObject(GameRecord);
             if (SendHttp.Get.CheckNetwork(false)) {
                 WWWForm form = new WWWForm();

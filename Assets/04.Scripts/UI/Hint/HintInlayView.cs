@@ -62,9 +62,7 @@ public class HintInlayView : MonoBehaviour {
 				AttrKindsIcon[i].gameObject.SetActive(false);
 		}
 
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			ItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		ItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

@@ -90,9 +90,7 @@ public static class UIValueItemDataBuilder
         {
             Name = item.Name,
             NameColor = TextConst.Color(item.Quality),
-            Atlas = GameData.DItemAtlas.ContainsKey(GameData.AtlasName(item.Atlas))
-                    ? GameData.DItemAtlas[GameData.AtlasName(item.Atlas)]
-                    : null,
+            Atlas = TextureManager.Get.ItemAtlas(item.Atlas),
             Icon = string.Format("Item_{0}", item.Icon),
             Frame = string.Format("Equipment_{0}", item.Quality),
 			Quality = item.Quality,

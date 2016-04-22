@@ -237,7 +237,7 @@ public class UICharacterInfo : UIBase {
 
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
-			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTexture(id);
+            t.gameObject.GetComponent<UITexture>().mainTexture = TextureManager.Get.CardTexture(id);
 
 		t = obj.transform.FindChild("SkillLevel");
 		if(t != null)

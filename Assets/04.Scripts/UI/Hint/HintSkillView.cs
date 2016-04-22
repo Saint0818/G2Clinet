@@ -40,9 +40,7 @@ public class HintSkillView : MonoBehaviour {
 		else 
 			SkillKindLabel.text = TextConst.S(7112);
 		
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(21))) {
-			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(21)];
-		}
+		SkillItemPic.atlas = TextureManager.Get.ItemAtlas(21);
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			QualityCards.spriteName = GameFunction.CardLevelName(skill.ID);
 			SkillItemPic.spriteName = GameData.DSkillData[skill.ID].MiniPicture;
@@ -62,9 +60,7 @@ public class HintSkillView : MonoBehaviour {
 		else 
 			SkillKindLabel.text = TextConst.S(7112);
 
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		SkillItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;
@@ -82,9 +78,7 @@ public class HintSkillView : MonoBehaviour {
 		else 
 			SkillKindLabel.text = TextConst.S(7112);
 
-		if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(itemData.Atlas))) {
-			SkillItemPic.atlas = GameData.DItemAtlas[GameData.AtlasName(itemData.Atlas)];
-		}
+		SkillItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
 
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;

@@ -136,6 +136,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         ChangeBasket(courtNo);
         checkCollider();
         loadSkillComponents();
+
+        CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
     }
 
     public void InitBasketAnimator(RuntimeAnimatorController controller)

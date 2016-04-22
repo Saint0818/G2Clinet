@@ -69,9 +69,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
             var partBtn = btn.GetComponent<UICreateRoleStyleViewPartsWindowButton>();
             partBtn.Name = items[i].Name;
-			if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(items[i].Atlas)))
-				partBtn.Atlas = GameData.DItemAtlas[GameData.AtlasName(items[i].Atlas)];
-
+            partBtn.Atlas = TextureManager.Get.ItemAtlas(items[i].Atlas);
             int iconValue;
             if(!int.TryParse(items[i].Icon, out iconValue))
                 Debug.LogErrorFormat("Can't parse Icon to integer, Item:{0}", items[i]);

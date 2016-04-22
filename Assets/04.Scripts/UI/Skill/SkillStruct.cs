@@ -187,13 +187,13 @@ public struct TSkillCardMaterial {
 						MaterialSkill[0].gameObject.SetActive(true);
 						MaterialItem[0].gameObject.SetActive(false);
 						MaterialItemSkill[0].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar);
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) 
-							ElementPicSkill[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
-
+						ElementPicSkill[0].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas);
+                        
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar))
 							ElementPicSkill[0].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar].MiniPicture;
 						else 
 							ElementPicSkill[0].spriteName = "0s";
+                        
 						NameLabelSkill[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
 
 						skill1 = GameData.Team.GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Avatar);
@@ -209,10 +209,7 @@ public struct TSkillCardMaterial {
 						MaterialSkill[0].gameObject.SetActive(false);
 						MaterialItem[0].gameObject.SetActive(true);
 						MaterialItem[0].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Quality;
-
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas))) 
-							ElementPic[0].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas)];
-
+						ElementPic[0].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Atlas);
 						ElementPic[0].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Icon;
 						NameLabel[0].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material1].Name;
 
@@ -241,8 +238,7 @@ public struct TSkillCardMaterial {
 						MaterialSkill[1].gameObject.SetActive(true);
 						MaterialItem[1].gameObject.SetActive(false);
 						MaterialItemSkill[1].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar);
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) 
-							ElementPicSkill[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
+						ElementPicSkill[1].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas);
 
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar))
 							ElementPicSkill[1].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Avatar].MiniPicture;
@@ -263,10 +259,8 @@ public struct TSkillCardMaterial {
 						MaterialSkill[1].gameObject.SetActive(false);
 						MaterialItem[1].gameObject.SetActive(true);
 						MaterialItem[1].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Quality;
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas))) 
-							ElementPic[1].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas)];
-
-						ElementPic[1].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Icon;
+						ElementPic[1].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Atlas);
+                        ElementPic[1].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Icon;
 						NameLabel[1].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material2].Name;
 
 						TMaterialItem materialSkillCard = new TMaterialItem();
@@ -295,13 +289,13 @@ public struct TSkillCardMaterial {
 						MaterialSkill[2].gameObject.SetActive(true);
 						MaterialItem[2].gameObject.SetActive(false);
 						MaterialItemSkill[2].spriteName = GameFunction.CardLevelName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar);
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) 
-							ElementPicSkill[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
+						ElementPicSkill[2].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas);
 
 						if(GameData.DSkillData.ContainsKey(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar))
 							ElementPicSkill[2].spriteName = GameData.DSkillData[GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar].MiniPicture;
 						else 
 							ElementPicSkill[2].spriteName = "0s";
+                        
 						NameLabelSkill[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
 
 						skill3 = GameData.Team.GetCardList(skill, GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Avatar);
@@ -317,9 +311,7 @@ public struct TSkillCardMaterial {
 						MaterialSkill[2].gameObject.SetActive(false);
 						MaterialItem[2].gameObject.SetActive(true);
 						MaterialItem[2].spriteName = "Patch" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Quality;
-						if(GameData.DItemAtlas.ContainsKey(GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas))) 
-							ElementPic[2].atlas = GameData.DItemAtlas[GameData.AtlasName(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas)];
-
+                        ElementPic[2].atlas = TextureManager.Get.ItemAtlas(GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Atlas);
 						ElementPic[2].spriteName = "Item_" + GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Icon;
 						NameLabel[2].text = GameData.DItemData[GameData.DSkillData[skill.ID].Material3].Name;
 

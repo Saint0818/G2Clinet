@@ -38,7 +38,6 @@ public static class GameData
     public static Dictionary<string, int> DTutorialUI = new Dictionary<string, int>();
     public static Dictionary<int, int> DTutorialStageStart = new Dictionary<int, int>();
     public static Dictionary<int, int> DTutorialStageEnd = new Dictionary<int, int>();
-    public static Dictionary<string, UIAtlas> DItemAtlas = new Dictionary<string, UIAtlas>();
 
     public static Dictionary<int, TPVPData> DPVPData = new Dictionary<int, TPVPData>();
 
@@ -48,8 +47,6 @@ public static class GameData
 //    public static Dictionary<EOpenUI, int> DOpenUILv = new Dictionary<EOpenUI, int>();
     public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
     public static TStageToturial[] StageTutorial = new TStageToturial[0];
-    private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
-    private static Dictionary<string, Texture2D> cardItemTextureCache = new Dictionary<string, Texture2D>();
     public static TPreloadEffect[] PreloadEffect;
 
 	public static TPickCost[] DPickCost; // Order 排列順序
@@ -125,7 +122,6 @@ public static class GameData
             isLoaded = true;
             initGameSetting();
             FileManager.Get.LoadFileResource();
-            initAtlas();
             return true;
         } else
             return false;
@@ -140,22 +136,6 @@ public static class GameData
 			return 0 ;
 		}
 	}
-
-    public static string AtlasName(int atlas)
-    {
-        return "AtlasItem_" + atlas.ToString();
-    }
-
-    private static void initAtlas()
-    {
-        UnityEngine.Object[] ats = Resources.LoadAll("UI/AtlasItem", typeof(UIAtlas));
-
-        for (int i = 0; i < ats.Length; i++)
-        {
-            UIAtlas at = ats[i] as UIAtlas;
-            DItemAtlas.Add(at.name, at);
-        }
-    }
 
 	public static int GetBuildItemIndex (int itemID) {
 		for(int i=0; i<DBuildData.Count; i++) 
@@ -194,67 +174,6 @@ public static class GameData
                 return Color.white;
         } else
             return Color.red;
-    }
-
-    public static Texture2D CardTexture(int id)
-    {
-        if (GameData.DSkillData.ContainsKey(id))
-        {
-            if (GameData.DSkillData[id].PictureNo > 0)
-                id = GameData.DSkillData[id].PictureNo;
-
-            if (cardTextureCache.ContainsKey(id))
-            {
-                return cardTextureCache[id];
-            }
-            else
-            {
-                string path = "Textures/SkillCards/" + id.ToString();
-                Texture2D obj = Resources.Load(path) as Texture2D;
-                if (obj)
-                {
-                    cardTextureCache.Add(id, obj);
-                    return obj;
-                }
-                else
-                {
-                    //download form server
-                    return null;
-                }
-            }
-        }
-        else
-            return null;
-    }
-
-    public static Texture2D CardItemTexture(int id)
-    {
-        if (GameData.DSkillData.ContainsKey(id))
-        {
-			if (!string.IsNullOrEmpty(GameData.DSkillData[id].RectanglePicture))
-			{
-				if (cardItemTextureCache.ContainsKey(GameData.DSkillData[id].RectanglePicture))
-				{
-					return cardItemTextureCache[GameData.DSkillData[id].RectanglePicture];
-				}
-				else
-				{
-					string path = "Textures/SkillCards/" + GameData.DSkillData[id].RectanglePicture;
-					Texture2D obj = Resources.Load(path) as Texture2D;
-					if (obj)
-					{
-						cardItemTextureCache.Add(GameData.DSkillData[id].RectanglePicture, obj);
-						return obj;
-					}
-					else
-					{
-						//download form server
-						return null;
-					}
-				}
-			}
-        }
-        return null;
     }
 
     public static void SetGameQuality(EQualityType lv)

@@ -32,9 +32,9 @@ public class StealCurveCounter
         if (Curve == null || (Curve != null && Curve.Name != curveName))
         {
             Curve = null;
-            for (int i = 0; i < ModelManager.Get.AnimatorCurve.Steal.Length; i++)
-                if (ModelManager.Get.AnimatorCurve.Steal[i].Name == curveName)
-                    Curve = ModelManager.Get.AnimatorCurve.Steal[i];
+            for (int i = 0; i < CurveManager.Get.AnimatorCurve.Steal.Length; i++)
+                if (CurveManager.Get.AnimatorCurve.Steal[i].Name == curveName)
+                    Curve = CurveManager.Get.AnimatorCurve.Steal[i];
         }
         isFindCurve = Curve != null ? true : false;
         curveTime = 0;
