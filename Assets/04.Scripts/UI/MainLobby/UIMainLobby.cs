@@ -24,7 +24,23 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
-    public UIMainLobbyView View { get; private set; }
+	public UIMainLobbyView View { get; private set; }
+
+	private const int ThirdQueueDiamonds = 1000;
+
+	private int[] sendIndexs = new int[0];
+	private int[] sendBuildIndexs = new int[0];
+
+	private List<int> tempSendIndex = new List<int> ();
+	private List<int> tempSendBuild = new List<int> ();
+
+	private TGymQueue[] tempGymQueue = new TGymQueue[3];
+
+	private bool isCheckUpdateOnLoad = false;
+	public bool IsCheckUpdateOnLoad {
+		get {return isCheckUpdateOnLoad;}
+		set {isCheckUpdateOnLoad = value;}
+	}
 
     [UsedImplicitly]
     private void Awake()
@@ -182,22 +198,11 @@ public class UIMainLobby : UIBase
     }
 
 	void FixedUpdate () {
-		if (IsCheckUpdateOnLoad) 
+		if (isCheckUpdateOnLoad) 
 			updateQueue();
 	}
 
 	//GymQueue
-	private const int ThirdQueueDiamonds = 1000;
-
-	private int[] sendIndexs = new int[0];
-	private int[] sendBuildIndexs = new int[0];
-
-	private List<int> tempSendIndex = new List<int> ();
-	private List<int> tempSendBuild = new List<int> ();
-
-	private TGymQueue[] tempGymQueue = new TGymQueue[3];
-
-	public bool IsCheckUpdateOnLoad = false;
 
 	public void CheckUpdate () {
 		tempSendIndex = new List<int> ();
@@ -222,7 +227,7 @@ public class UIMainLobby : UIBase
 			}
 			SendRefreshQueue ();
 		} else {
-			IsCheckUpdateOnLoad = true;
+			isCheckUpdateOnLoad = true;
 			tempSendBuild.Clear ();
 			tempSendIndex.Clear ();
 		}
@@ -350,7 +355,7 @@ public class UIMainLobby : UIBase
 			if (UIGymEngage.Visible)
 				UIGymEngage.Get.RefreshUI ();
 
-			IsCheckUpdateOnLoad = true;
+			isCheckUpdateOnLoad = true;
 			tempSendBuild.Clear ();
 			tempSendIndex.Clear ();
 		} else {

@@ -206,7 +206,7 @@ public class UIPassiveEffect : UIBase {
 			hideCard(recordIndex[2]);
 		}
 		spriteCardFrame[recordIndex[0]].spriteName = GameFunction.CardLevelName(passiveValue[recordIndex[0]].Skill.ID);
-        textureCardInfo[recordIndex[0]].mainTexture = TextureManager.Get.CardTexture(passiveValue[recordIndex[0]].CardPicNos);
+		textureCardInfo[recordIndex[0]].mainTexture = TextureManager.Get.CardTexture(passiveValue[recordIndex[0]].Skill.ID);
 		labelCardLabel[recordIndex[0]].text = passiveValue[recordIndex[0]].CardNames;
 		passiveValue[recordIndex[0]].Timer = 2;
 	}
