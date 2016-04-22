@@ -155,6 +155,15 @@ public class UISkillInfo : UIBase {
 		SetBtnFun(UIName + "/Center/Left/BtnMediumCard/ItemSkillCard", OpenCard);
 	}
 
+	protected override void OnShow(bool isShow) {
+		base.OnShow(isShow);
+		UIResource.Get.Hide();
+	}
+
+	void Destroy () {
+		UIResource.Get.Show();
+	}
+
 	public void OnSuitCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {

@@ -182,7 +182,7 @@ public class UIMainLobby : UIBase
     }
 
 	void FixedUpdate () {
-		if (isCheckUpdateOnLoad) 
+		if (IsCheckUpdateOnLoad) 
 			updateQueue();
 	}
 
@@ -197,9 +197,9 @@ public class UIMainLobby : UIBase
 
 	private TGymQueue[] tempGymQueue = new TGymQueue[3];
 
-	private bool isCheckUpdateOnLoad = false;
+	public bool IsCheckUpdateOnLoad = false;
 
-	private void checkUpdate () {
+	public void CheckUpdate () {
 		tempSendIndex = new List<int> ();
 		tempSendBuild = new List<int> ();
 		for (int i = 0; i < GameData.Team.GymQueue.Length; i++) {
@@ -222,7 +222,7 @@ public class UIMainLobby : UIBase
 			}
 			SendRefreshQueue ();
 		} else {
-			isCheckUpdateOnLoad = true;
+			IsCheckUpdateOnLoad = true;
 			tempSendBuild.Clear ();
 			tempSendIndex.Clear ();
 		}
@@ -235,7 +235,7 @@ public class UIMainLobby : UIBase
 
 		UIEventListener.Get(View.QueueButton).onClick = OnClickQueue;
 		UIEventListener.Get(View.QueueLockObj).onClick = OnClickLock;
-		checkUpdate ();
+		CheckUpdate ();
 		View.QueueButton.SetActive(GameData.IsOpenUIEnable(EOpenID.OperateGym));
 		View.QueueGroup.SetActive(false);
 		View.QueueLockPrice.text = ThirdQueueDiamonds.ToString();
@@ -350,7 +350,7 @@ public class UIMainLobby : UIBase
 			if (UIGymEngage.Visible)
 				UIGymEngage.Get.RefreshUI ();
 
-			isCheckUpdateOnLoad = true;
+			IsCheckUpdateOnLoad = true;
 			tempSendBuild.Clear ();
 			tempSendIndex.Clear ();
 		} else {
