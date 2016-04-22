@@ -1524,7 +1524,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case EPlayerState.HoldBall:
-                if (IsBallOwner && !IsPass && !IsAllShoot && CurrentState != EPlayerState.GotSteal)
+                if (IsBallOwner && !IsPass && !IsAllShoot && CurrentState != EPlayerState.GotSteal && IsInGround)
                     return true;
                 break;
 
@@ -2151,17 +2151,12 @@ public class PlayerBehaviour : MonoBehaviour
             
                 StartSkillCamera(nextAnimatorState.StateNo);
                 skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
-                Vector3 reboundMove;
-                if (InReboundDistance)
-                {
-                    reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
-                    reboundMove += CourtMgr.Get.RealBall.MoveVelocity * 0.3f;
-                }
-                else
-                    reboundMove = Vector3.zero;
+
+                Vector3 horizontalMove = CourtMgr.Get.RealBall.transform.position - transform.position;
+//                horizontalMove += CourtMgr.Get.RealBall.MoveVelocity * 0.3f;
          
                 SetShooterLayer();
-                AnimatorControl.Play(EAnimatorState.Rebound, nextAnimatorState.StateNo, Team.GetHashCode(), skillMoveTarget, reboundMove);
+                AnimatorControl.Play(EAnimatorState.Rebound, nextAnimatorState.StateNo, Team.GetHashCode(), skillMoveTarget, horizontalMove);
                 GameRecord.ReboundLaunch++;
                 result = true;
                 break;
