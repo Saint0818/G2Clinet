@@ -210,12 +210,12 @@ public class AudioMgr : MonoBehaviour
         GameData.Setting.Music = flag;
         if (flag)
         {
-            SetVol(AudioValuetype.musicVol, -6);
+            setVol(AudioValuetype.musicVol, 0);
             PlayerPrefs.SetInt(ESave.MusicOn.ToString(), 1);
         }
         else
         {
-            SetVol(AudioValuetype.musicVol, -80);
+            setVol(AudioValuetype.musicVol, -80);
             PlayerPrefs.SetInt(ESave.MusicOn.ToString(), 0);
         }
         PlayerPrefs.Save();
@@ -227,12 +227,12 @@ public class AudioMgr : MonoBehaviour
 
         if (flag)
         {
-            SetVol(AudioValuetype.soundVol, -6);
+            setVol(AudioValuetype.soundVol, -6);
             PlayerPrefs.SetInt(ESave.SoundOn.ToString(), 1);
         }
         else
         {
-            SetVol(AudioValuetype.soundVol, -80);
+            setVol(AudioValuetype.soundVol, -80);
             PlayerPrefs.SetInt(ESave.SoundOn.ToString(), 0);
         }
 		
@@ -246,12 +246,10 @@ public class AudioMgr : MonoBehaviour
         soundVol
     }
 
-    private void SetVol(AudioValuetype type, float value)
+    private void setVol(AudioValuetype type, float value)
     {
         if (MasterMix)
-        {
             MasterMix.SetFloat(type.ToString(), value);			
-        }
     }
 }
 
