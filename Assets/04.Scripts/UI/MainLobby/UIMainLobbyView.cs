@@ -18,8 +18,6 @@ public class UIMainLobbyView : MonoBehaviour
 
     public UILabel NameLabel;
 
-//    public UIButton DailyLoginButton;
-
     // 紅點.
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
@@ -30,9 +28,9 @@ public class UIMainLobbyView : MonoBehaviour
     public GameObject PlayerNoticeObj;
     public GameObject MallNoticeObj;
 	public GameObject QueueNoticeObj;
-//    public GameObject LoginNoticeObj;
 
     // 畫面下方的主要功能按鈕.
+    public UIButton RaceButton;
     public UIUnlockButton AvatarButton;
     public UIUnlockButton EquipButton;
     public UIUnlockButton SkillButton;

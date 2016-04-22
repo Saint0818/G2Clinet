@@ -49,8 +49,14 @@ public class UIMainLobby : UIBase
 
 		initQueue();
 
-//        var lobbyEvents = GetComponent<UIMainLobbyEvents>();
-//        View.DailyLoginButton.onClick.Add(new EventDelegate(lobbyEvents.OnDailyLogin));
+        var events = GetComponent<UIMainLobbyEvents>();
+        View.RaceButton.onClick.Add(new EventDelegate(events.ShowStage));
+        View.SkillButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowSkillFormation));
+        View.AvatarButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowAvatarFitted));
+        View.EquipButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowEquipment));
+        View.SocialButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnSocial));
+        View.ShopButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnShop));
+        View.MallButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnMall));
     }
 
     public bool IsVisible
