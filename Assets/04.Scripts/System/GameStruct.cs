@@ -704,6 +704,55 @@ namespace GameStruct
 		public string ExplainJP;
 		public int Open; //skillheaditem
 
+		public int[] TargetKinds{
+			get {
+				int[] targetkind = new int[3];
+				targetkind[0] = TargetKind1;
+				targetkind[1] = TargetKind2;
+				targetkind[2] = TargetKind3;
+				return targetkind;
+			}
+		}
+
+		public int[] TargetEffects{
+			get {
+				int[] targeteffect = new int[3];
+				targeteffect[0] = TargetEffect1;
+				targeteffect[1] = TargetEffect2;
+				targeteffect[2] = TargetEffect3;
+				return targeteffect;
+			}
+		}
+
+		public int[] EffectParents{
+			get {
+				int[] effectparent = new int[3];
+				effectparent[0] = EffectParent1;
+				effectparent[1] = EffectParent2;
+				effectparent[2] = EffectParent3;
+				return effectparent;
+			}
+		}
+
+		public float[] DelayTimes{
+			get {
+				float[] delay = new float[3];
+				delay[0] = DelayTime1;
+				delay[1] = DelayTime2;
+				delay[2] = DelayTime3;
+				return delay;
+			}
+		}
+
+		public float[] Durations{
+			get {
+				float[] duration = new float[3];
+				duration[0] = Duration1;
+				duration[1] = Duration2;
+				duration[2] = Duration3;
+				return duration;
+			}
+		}
 
 		public int MaxAnger (int lv) {
 			return MaxAngerBase + lv * MaxAngerAdd;

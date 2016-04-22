@@ -1312,7 +1312,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void moveTo(TMoveData data, bool first = false)
     {
-        if((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && !IsTimePause)
+		if((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && !Pause)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
             float temp = Vector2.Distance(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z), MoveTarget);
@@ -2821,6 +2821,8 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 			break;
 		case "SetBallEvent":
+			//抄截後有１秒無敵
+			SetInvincible(1);
 			GameController.Get.SetBall(this);
 			GameController.Get.IsGameFinish();
 			
@@ -3494,14 +3496,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void IsTouchPlayerForCheckLayer(int index)
     {
         isTouchPalyer += index;
-    }
-
-    public bool IsTimePause
-    {
-        get
-        {
-            return (TimerMgr.Get.CrtTime <= GameConst.Min_TimePause);
-        }
     }
 
 	public bool IsGameAttack {

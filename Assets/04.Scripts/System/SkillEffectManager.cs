@@ -15,14 +15,13 @@ public class TSkillEffect {
 public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private Dictionary<string, List<GameObject>> skillEffectPositions = new Dictionary<string, List<GameObject>>();
-//	private PlayerBehaviour executePlayer;
 
 	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
 
-    void OnDestroy() {
-        
-        skillEffectPositions.Clear();
+	private bool isJudgeDistance;
 
+    void OnDestroy() {
+        skillEffectPositions.Clear();
         skillEffects.Clear();
     }
 
@@ -56,131 +55,51 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[player.ActiveSkillUsed.ID].Distance(player.ActiveSkillUsed.Lv);
 	}
 
+	private bool IsJudgeDistance (int[] targetkind) {
+		for(int i=0; i<targetkind.Length; i++)
+			if(targetkind[i] == 16 || targetkind[i] == 17 || targetkind[i] == 18 || targetkind[i] == 19)
+				return true;
+
+		return false;
+	}
+
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
-//		executePlayer = player;
 		int skillID = 0;
-		List<GameObject> objs1 = null;
-		List<GameObject> objs2 = null;
-		List<GameObject> objs3 = null;
-		if(isPassiveID) {
-			if (GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
-				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1 != 0) 
-					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1, isPassiveID);
-				
-                if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2, isPassiveID);
-				
-                if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
-			}
-			
-			if(player.PassiveSkillUsed.ID != -1) 
+		List<GameObject>[] objs = null;
+
+		if(isPassiveID) 
+			if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID) && player.PlayerSkillController.IsPassiveUse) 
 				skillID = player.PassiveSkillUsed.ID;
-            
-		} else {
-			if (GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID)) {
-				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1 != 0)
-					objs1 = getSkillEffectPosition(player, 1, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1, isPassiveID);
-				
-                if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(player, 2, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2, isPassiveID);
-				
-                if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(player, 3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
-			}
-			
-			if(player.ActiveSkillUsed.ID != 0)
+		else 
+			if(GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID) && player.PlayerSkillController.IsActiveUse)
 				skillID = player.ActiveSkillUsed.ID;
-		}
 
-		if(skillID != 0 && GameData.DSkillData.ContainsKey(skillID)) {
-			bool isJudgeDistance = false;
-			if(!isPassiveID) {
-				if(GameData.DSkillData[skillID].TargetKind1 == 16 || GameData.DSkillData[skillID].TargetKind1 == 17 ||
-				   GameData.DSkillData[skillID].TargetKind1 == 18 || GameData.DSkillData[skillID].TargetKind1 == 19)
-					isJudgeDistance = true;
-				else 
-					isJudgeDistance = false;
-			}
-
-			if(objs1 != null && objs1.Count != 0){
-				for (int i=0; i<objs1.Count; i++) {
-					if((isJudgeDistance && isInRange(objs1[i], player)) || !isJudgeDistance) {
-						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = player;
-						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
-						skillEffect.Position = Vector3.zero;
-						if(GameData.DSkillData[skillID].EffectParent1 == 1) {
-							skillEffect.Player = null;
-							skillEffect.Parent = objs1[i];
-						} else {
-							skillEffect.Player = objs1[i];
-							skillEffect.Parent = null;
+		if(skillID > 0) {
+			for(int i=0; i<objs.Length; i++) {
+				objs[i] = getSkillEffectPosition(player, i, GameData.DSkillData[skillID].TargetKinds[i], isPassiveID);
+					
+				isJudgeDistance = false;
+				if(!isPassiveID) 
+					isJudgeDistance = IsJudgeDistance(GameData.DSkillData[skillID].TargetKinds);
+				
+				if(objs[i] != null && objs[i].Count != 0){
+					for (int j=0; j<objs[i].Count; j++) {
+						if((isJudgeDistance && isInRange(objs[i][j], player)) || !isJudgeDistance) {
+							TSkillEffect skillEffect = new TSkillEffect();
+							skillEffect.SelfPlayer = player;
+							skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffects[i];
+							skillEffect.Position = Vector3.zero;
+							if(GameData.DSkillData[skillID].EffectParents[i] == 1) {
+								skillEffect.Player = null;
+								skillEffect.Parent = objs[i][j];
+							} else {
+								skillEffect.Player = objs[i][j];
+								skillEffect.Parent = null;
+							}
+							skillEffect.Duration = GameData.DSkillData[skillID].Durations[i];
+							skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTimes[i];
+							skillEffects.Add(skillEffect);
 						}
-
-						skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
-						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
-						skillEffects.Add(skillEffect);
-					}
-				}
-			}
-
-			if(!isPassiveID) {
-				if(GameData.DSkillData[skillID].TargetKind2 == 16 || GameData.DSkillData[skillID].TargetKind2 == 17 ||
-				   GameData.DSkillData[skillID].TargetKind2 == 18 || GameData.DSkillData[skillID].TargetKind2 == 19)
-					isJudgeDistance = true;
-				else 
-					isJudgeDistance = false;
-			}
-			
-			if(objs2 != null && objs2.Count != 0) {
-				for (int i=0; i<objs2.Count; i++) {
-					if((isJudgeDistance && isInRange(objs2[i], player)) || !isJudgeDistance) {
-						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = player;
-						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
-						skillEffect.Position = Vector3.zero;
-						if(GameData.DSkillData[skillID].EffectParent2 == 1) {
-							skillEffect.Player = null;
-							skillEffect.Parent = objs2[i];
-						} else {
-							skillEffect.Player = objs2[i];
-							skillEffect.Parent = null;
-						}
-
-						skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
-						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
-						skillEffects.Add(skillEffect);
-					}
-				}
-			}
-
-			if(!isPassiveID) {
-				if(GameData.DSkillData[skillID].TargetKind3 == 16 || GameData.DSkillData[skillID].TargetKind3 == 17 ||
-				   GameData.DSkillData[skillID].TargetKind3 == 18 || GameData.DSkillData[skillID].TargetKind3 == 19)
-					isJudgeDistance = true;
-				else 
-					isJudgeDistance = false;
-			}
-			
-			if(objs3 != null && objs3.Count != 0) {
-				for (int i=0; i<objs3.Count; i++) {
-					if((isJudgeDistance && isInRange(objs3[i], player)) || !isJudgeDistance) {
-						TSkillEffect skillEffect = new TSkillEffect();
-						skillEffect.SelfPlayer = player;
-						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
-						skillEffect.Position = Vector3.zero;
-						if(GameData.DSkillData[skillID].EffectParent3 == 1) {
-							skillEffect.Player = null;
-							skillEffect.Parent = objs3[i];
-						} else {
-							skillEffect.Player = objs3[i];
-							skillEffect.Parent = null;
-						}
-
-						skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
-						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
-						skillEffects.Add(skillEffect);
 					}
 				}
 			}
