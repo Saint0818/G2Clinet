@@ -88,6 +88,10 @@ public class PlayerBehaviour : MonoBehaviour
     public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
 	public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
 	public TPlayer BaseAttribute = new TPlayer(); //球員沒加入base跟buff的值 
+	private int shootNoScore;
+	private int shootNoScoreLimit;
+	private int shootScore;
+	private int shootScoreLimit;
     [HideInInspector]
     public TScoreRate ScoreRate;
     public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
@@ -239,6 +243,40 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	public int ShootNoScore {
+		get {return shootNoScore;}
+		set { shootNoScore = value;}
+	}
+
+	public bool IsNeedScore {
+		get {
+			if(shootNoScore > shootNoScoreLimit) {
+				shootNoScore = 0;
+				return true;
+			} else {
+				shootNoScore++;
+				return false;
+			}
+		}
+	}
+
+	public int ShootScore {
+		get {return shootScore;}
+		set {shootScoreLimit = value;}
+	}
+
+	public bool IsNeedNoScore {
+		get {
+			if(shootScore > shootScoreLimit) {
+				shootScore = 0;
+				return true;
+			} else {
+				shootScore++;
+				return false;
+			}
+		}
+	}
+
     public bool Pause
     {
         set{ AnimatorControl.Speed = value == true ? GameConst.Min_TimePause : 1;}
@@ -366,6 +404,14 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogErrorFormat("initialize attributes fail, BaseAttr:{0}, AILevel:{1}.", GameData.BaseAttr.Length, Attribute.AILevel);
             return;
         }
+
+		/*
+		 * 必進的校正公式(記錄不進)    100 / (玩家換算後的  “實際命中率”  )
+		   必不進的校正公式（紀錄進球）   (玩家換算後的  “實際命中率”  ) / 10
+		*/
+		shootNoScoreLimit = Mathf.RoundToInt( 100f / (GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)));
+		shootScoreLimit = Mathf.RoundToInt((GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)) / 10 );
+
         Attr.ShootingRate = GameData.BaseAttr[Attribute.AILevel].ShootingRate;
         Attr.PointRate2 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (Attribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2));
         Attr.PointRate3 = GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point3Rate, (Attribute.Point3 + GameData.BaseAttr[Attribute.AILevel].PointRate3));
@@ -401,6 +447,13 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.ElbowExtraAngle = GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
 		
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
+
+		/*
+		 * 必進的校正公式(記錄不進)    100 / (玩家換算後的  “實際命中率”  )
+		   必不進的校正公式（紀錄進球）   (玩家換算後的  “實際命中率”  ) / 10
+		*/
+		shootNoScoreLimit = Mathf.RoundToInt( 100f / (GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)));
+		shootScoreLimit = Mathf.RoundToInt((GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)) / 10 );
             
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 		interceptTrigger.transform.localScale = new Vector3(1, 1.5f, 1); //因還未有成長先(1, 1.5, 1)， 有成長就變成(0,5 1 0,5)

@@ -1910,6 +1910,10 @@ public class GameController : KnightSingleton<GameController>
 		if(isActive || LobbyStart.Get.TestMode == EGameTest.AttackA)
         {
 			BasketSituation = EBasketSituation.Swish;
+		} 
+		else 
+		{
+			calculateShooting(player);
 		}
 		
 		CourtMgr.Get.JudgeBasketAnimationName (judgeShootAngle(player));
@@ -1925,6 +1929,28 @@ public class GameController : KnightSingleton<GameController>
 			player.GameRecord.FG++;
 		
 		player.GameRecord.PushShot(new Vector2(player.PlayerRefGameObject.transform.position.x, player.PlayerRefGameObject.transform.position.z), BasketSituation.GetHashCode(), rate);
+	}
+
+	private void calculateShooting (PlayerBehaviour player) {
+		if(player.IsNeedScore) {
+			if(Random.Range(0,2) == 0) 
+				BasketSituation = EBasketSituation.Swish;
+			else
+				BasketSituation = EBasketSituation.Score;
+		}
+
+		if(player.IsNeedNoScore) {
+			if(Random.Range(0,2) == 0) 
+				BasketSituation = EBasketSituation.AirBall;
+			else
+				BasketSituation = EBasketSituation.NoScore;
+		}
+
+		if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.Swish) 
+			player.ShootScore ++;
+		else 
+			player.ShootNoScore ++;
+
 	}
 
 	public void AddExtraScoreRate(float rate) {
