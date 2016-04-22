@@ -17,12 +17,17 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	private Dictionary<string, List<GameObject>> skillEffectPositions = new Dictionary<string, List<GameObject>>();
 
 	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
+	private List<GameObject>[] objs = new List<GameObject>[3];
 
 	private bool isJudgeDistance;
 
     void OnDestroy() {
         skillEffectPositions.Clear();
         skillEffects.Clear();
+		for(int i=0; i<objs.Length; i++) 
+			if(objs[i] != null) 
+				objs[i].Clear();
+			
     }
 
 	void FixedUpdate() {
@@ -65,7 +70,6 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
 		int skillID = 0;
-		List<GameObject>[] objs = null;
 
 		if(isPassiveID) 
 			if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID) && player.PlayerSkillController.IsPassiveUse) 
