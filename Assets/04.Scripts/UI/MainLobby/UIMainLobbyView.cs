@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
+using System;
 
 [DisallowMultipleComponent]
 public class UIMainLobbyView : MonoBehaviour
@@ -28,6 +29,7 @@ public class UIMainLobbyView : MonoBehaviour
     public GameObject MissionNoticeObj;
     public GameObject PlayerNoticeObj;
     public GameObject MallNoticeObj;
+	public GameObject QueueNoticeObj;
 //    public GameObject LoginNoticeObj;
 
     // 畫面下方的主要功能按鈕.
@@ -37,7 +39,13 @@ public class UIMainLobbyView : MonoBehaviour
     public UIUnlockButton ShopButton;
     public UIUnlockButton SocialButton;
     public UIUnlockButton MissionButton;
-    public UIUnlockButton MallButton;
+	public UIUnlockButton MallButton;
+
+	public TGymQueueObj[] GymQueueObj = new TGymQueueObj[3];
+	public GameObject QueueButton;
+	public GameObject QueueGroup;
+	public GameObject QueueLockObj;
+	public UILabel QueueLockPrice;
 
     [UsedImplicitly]
     private void Awake()
@@ -110,10 +118,76 @@ public class UIMainLobbyView : MonoBehaviour
         set { MallNoticeObj.SetActive(value); }
     }
 
+	public bool QueueNotice
+	{
+		set {QueueNoticeObj.SetActive(value);} 
+	}
+
+	public bool QueueLock
+	{
+		set {QueueLockObj.SetActive(value);}
+	}
+
+	public bool IsQueueOpen 
+	{
+		get {return QueueGroup.activeSelf;}
+		set {QueueGroup.SetActive(value);}
+	}
+
+	public string QueuePrice 
+	{
+		set {QueueLockPrice.text = value;}
+	}
+
+	public Color QueuePriceColor
+	{
+		set {QueueLockPrice.color = value;}
+	}
+
 //    public bool LoginNotice
 //    {
 //        set { LoginNoticeObj.SetActive(value); }
 //    }
+
+	public void SetQueueState (int index, string name, float cd = 0, string time = "", bool isEmpty = true, string emptyText = "", int buildIndex = -1) {
+		if(index >= 0 && index < GymQueueObj.Length) {
+			GymQueueObj[index].NameLabel.text = name;
+			GymQueueObj[index].CDBar.gameObject.SetActive(!isEmpty);
+			GymQueueObj[index].GoEmpty.SetActive(isEmpty);
+			if(isEmpty) {
+				GymQueueObj[index].EmptyLabel.text = emptyText;
+			} else {
+				GymQueueObj[index].CDBar.value = cd;
+				GymQueueObj[index].TimeLabel.text = time;
+			}
+			GymQueueObj[index].ToolSprite.spriteName = GameFunction.GetBuildSpriteName(buildIndex);
+		}
+	}
+
+	//閒置中
+	public void SetQueueBreak (int index) {
+		if(index >= 0 && index < GymQueueObj.Length) {
+			GymQueueObj[index].NameLabel.text = string.Format(TextConst.S(11018), index + 1);
+			GymQueueObj[index].CDBar.gameObject.SetActive(false);
+			GymQueueObj[index].CDBar.value = 0;
+			GymQueueObj[index].TimeLabel.text = "";
+			GymQueueObj[index].GoEmpty.SetActive(true);
+			GymQueueObj[index].EmptyLabel.text = TextConst.S(11002);
+			GymQueueObj[index].ToolSprite.spriteName = GameFunction.GetBuildSpriteName(-1);
+		}
+	}
+
+	//update 跑ＣＤ
+	public void SetQueueBuildState (int index, int buildIndex) {
+		if(index >=0 && index < GymQueueObj.Length) {
+			GymQueueObj[index].NameLabel.text = GameFunction.GetBuildName(buildIndex);
+			GymQueueObj[index].CDBar.gameObject.SetActive(true);
+			GymQueueObj[index].CDBar.value = TextConst.DeadlineStringPercent(GameFunction.GetOriTime(buildIndex, GameFunction.GetBuildLv(buildIndex) - 1, GameFunction.GetBuildTime(buildIndex).ToUniversalTime()) ,GameFunction.GetBuildTime(buildIndex).ToUniversalTime());
+			GymQueueObj[index].TimeLabel.text = TextConst.SecondString((int)(new System.TimeSpan(GameData.Team.GymBuild[buildIndex].Time.ToUniversalTime().Ticks - DateTime.UtcNow.Ticks).TotalSeconds));
+			GymQueueObj[index].GoEmpty.SetActive(false);
+			GymQueueObj[index].ToolSprite.spriteName = GameFunction.GetBuildSpriteName(buildIndex);
+		}
+	}
 
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)

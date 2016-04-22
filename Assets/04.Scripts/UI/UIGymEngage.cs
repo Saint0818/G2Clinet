@@ -708,8 +708,8 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymQueue = result.GymQueue;
 
 			UIMainLobby.Get.UpdateUI();
+			UIMainLobby.Get.RefreshQueue();
 			RefreshUI();
-			UIGym.Get.RefreshQueue();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
@@ -730,8 +730,8 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymQueue = result.GymQueue;
 
 			UIMainLobby.Get.UpdateUI();
+			UIMainLobby.Get.RefreshQueue();
 			RefreshUI();
-			UIGym.Get.RefreshQueue();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 

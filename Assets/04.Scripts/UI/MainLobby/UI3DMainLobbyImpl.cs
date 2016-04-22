@@ -92,7 +92,6 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     {
         if (delay > 0)
             delay -= Time.deltaTime;
-
 //        Move();
     }
 
@@ -103,46 +102,43 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
 		int index = buildIndex + 1;
 
-//        if (!UITutorial.Visible && int.TryParse(UIButton.current.name, out index))
 		if (!UITutorial.Visible)
         {
 			if(index == 0)
 				return;
 
-			if(LimitTable.Ins.HasByOpenID(GetEOpenID(index + 50))) {
-				if(GameData.Team.HighestLv >= LimitTable.Ins.GetLv(GetEOpenID(index + 50))) {
-					if (selectIndex == index)
+			if(GameData.IsOpenUIEnable(GetEOpenID(index + 50))) {
+				if (selectIndex == index)
+				{
+					//back 
+					selectIndex = -1;
+					SetCameraAnimator(index, false);
+					UpdateButtonCollider(index, true);
+					UIMainLobby.Get.View.PlayEnterAnimation();
+					delay = 1;
+				}
+				else
+				{
+					//go
+					if (selectIndex == -1)
 					{
-						//back 
-						selectIndex = -1;
-						SetCameraAnimator(index, false);
-						UpdateButtonCollider(index, true);
-						UIMainLobby.Get.View.PlayEnterAnimation();
-						delay = 1;
-					}
-					else
-					{
-						//go
-						if (selectIndex == -1)
+						if (index == 0)
 						{
-							if (index == 0)
-							{
-								Play();
-							}
-							else
-							{
-								selectIndex = index;
-								SetCameraAnimator(index, true);
-								UpdateButtonCollider(index, false);
-								UIMainLobby.Get.View.PlayExitAnimation();
-								delay = 1;
-							}
+							Play();
+						}
+						else
+						{
+							selectIndex = index;
+							SetCameraAnimator(index, true);
+							UpdateButtonCollider(index, false);
+							UIMainLobby.Get.View.PlayExitAnimation();
+							delay = 1;
 						}
 					}
-					AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
-				} else
-					UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(index + 50)), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
-			} 
+				}
+				AudioMgr.Get.PlaySound(SoundType.SD_LobbyCamara);
+			} else
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(index + 50)), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
         }
     }
 

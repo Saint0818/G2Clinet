@@ -422,8 +422,8 @@ public class UIRecharge : UIBase {
 				}
 			    if(UIMall.Visible)
 					UIMall.Get.RefreshTextColor();
-				if(UIGym.Visible)
-					UIGym.Get.RefreshDiamondColor();
+//				if(UIGym.Visible)
+//					UIGym.Get.RefreshDiamondColor();
 			}
 		}
 
