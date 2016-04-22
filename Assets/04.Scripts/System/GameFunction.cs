@@ -1164,6 +1164,34 @@ public static class GameFunction
 		return "";
 	}
 
+	public static string GetBuildSpriteName (int index) {
+		switch (index) {
+		case -2:
+			return "Icon_lock";
+		case -1:
+			return "Icon_court";
+		case 0:
+			return "Icon_Basket";
+		case 1:
+			return "Icon_Advertisement";
+		case 2:
+			return "Icon_Store";
+		case 3:
+			return "Icon_Gym";
+		case 4:
+			return "Icon_Door";
+		case 5:
+			return "Icon_Logo";
+		case 6:
+			return "Icon_Chair";
+		case 7:
+			return "Icon_Calendar";
+		case 8:
+			return "Icon_Mail";
+		}
+		return "";
+	}
+
 	public static int GetUnlockNumber (int openid) {
 		return 1500 + openid;
 	}
