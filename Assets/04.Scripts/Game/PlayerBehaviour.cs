@@ -42,9 +42,9 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction5 OnReviveAnger = null;
     public OnPlayerAction4 OnDoubleClickMoment = null;
     public OnPlayerAction3 OnUIJoystick = null;
-    public bool IsJumpBallPlayer = false;
-    public GameObject PlayerRefGameObject;
-    public int ShowPos = -1;
+    [HideInInspector]public bool IsJumpBallPlayer = false;
+    [HideInInspector]public GameObject PlayerRefGameObject;
+    [HideInInspector]public int ShowPos = -1;
 
     [Tooltip("Just for Debug."), UsedImplicitly]
     public string TacticalName = "";
@@ -52,7 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     private const float MoveCheckValue = 1;
     private bool stop = false;
     private bool NeedResetFlag = false;
-    public bool CanUseTipIn = false;
+    [HideInInspector]public bool CanUseTipIn = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
     //    private float ProactiveTime = 0;
@@ -61,10 +61,12 @@ public class PlayerBehaviour : MonoBehaviour
     private float canDunkDis = 30f;
     private readonly Queue<TMoveData> moveQueue = new Queue<TMoveData>();
     private Vector3 translate;
+    [HideInInspector]
     public Rigidbody PlayerRigidbody;
     private GameObject selectTexture;
     private GameObject DefPoint;
     private GameObject TopPoint;
+    [HideInInspector]
     public GameObject CatchBallPoint;
 //    private GameObject FingerPoint;
 	private GameObject blockTrigger;
@@ -73,15 +75,15 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject dashSmoke;
 	private GameObject reboundTrigger;
     private BlockCatchTrigger blockCatchTrigger;
-    public GameObject AIActiveHint = null;
-    public GameObject DoubleClick = null;
-    public GameObject DummyBall;
-    public UISprite SpeedUpView = null;
-    public Animator SpeedAnimator = null;
+    [HideInInspector]public GameObject AIActiveHint = null;
+    [HideInInspector]public GameObject DoubleClick = null;
+    [HideInInspector]public GameObject DummyBall;
+    [HideInInspector]public UISprite SpeedUpView = null;
+    [HideInInspector]public Animator SpeedAnimator = null;
     private bool isSpeedStay = true;
-    public UISprite AngerView = null;
-    public GameObject AngryFull = null;
-    public GameObject BodyHeight;
+    [HideInInspector]public UISprite AngerView = null;
+    [HideInInspector]public GameObject AngryFull = null;
+    [HideInInspector]public GameObject BodyHeight;
     private GameObject bodyTrigger;
 
 	[HideInInspector]public Transform Pelvis;
@@ -89,13 +91,12 @@ public class PlayerBehaviour : MonoBehaviour
 	public TPlayer Attribute; // 對應到 Server 的 Team.Player 資料結構, greatplayer 表格 + 數值裝 + 潛能點數.
 	public TPlayer BaseAttribute = new TPlayer(); //球員沒加入base跟buff的值 
 	private int shootNoScore;
-	private int shootNoScoreLimit;
+    public int shootNoScoreLimit;
 	private int shootScore;
-	private int shootScoreLimit;
-    [HideInInspector]
-    public TScoreRate ScoreRate;
+    public int shootScoreLimit;
+    [HideInInspector]public TScoreRate ScoreRate;
     public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
-    public ETeamKind Team;
+    [HideInInspector] public ETeamKind Team;
 
     public EPlayerPostion Index;
     public EPlayerPostion Postion;
@@ -134,9 +135,9 @@ public class PlayerBehaviour : MonoBehaviour
     public int MoveIndex = -1;
     public bool isJoystick = false;
     [CanBeNull]
-    public PlayerAI AI = null;
+    [HideInInspector]public PlayerAI AI = null;
     private PlayerBehaviour defencePlayer = null;
-    public float CloseDef = 0;
+    [HideInInspector]public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
         
@@ -148,21 +149,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     //For Active
     private bool isFakeShoot = false;
-
     //Push
     public bool IsPushCalculate = false;
-
     //Elbow
     public bool IsElbowCalculate = false;
-
     //Steal
     public bool IsStealCalculate = false;
-
 	//MoveDodge CoolDown
 	public float CoolDownCrossover = 0;
 
     //Skill
-    public SkillController PlayerSkillController;
+    [HideInInspector]public SkillController PlayerSkillController;
     private ESkillKind skillKind;
     // For Shoot and Layup
     private bool isUsePass = false;
@@ -172,7 +169,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float angerValue = 0;
 
     //ShowWord
-    public GameObject ShowWord;
+	[HideInInspector]public GameObject ShowWord;
     private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool isSpeedup = false;
@@ -196,7 +193,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float yAxizOffset = 0;
 
     //Select
-    public GameObject SelectMe;
+	[HideInInspector]public GameObject SelectMe;
 
     /// <summary>
     /// true: 可以做空中傳球;
@@ -210,7 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private bool mStateChangable = true;
 
-    public AnimatorController AnimatorControl;
+	[HideInInspector]public AnimatorController AnimatorControl;
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -393,6 +390,13 @@ public class PlayerBehaviour : MonoBehaviour
         initSkill();
 		BaseAttribute = Attribute;
 		initAttr();
+		/*
+		 * 必進的校正公式(記錄不進)    100 / (玩家換算後的  “實際命中率”  )
+		   必不進的校正公式（紀錄進球）   (玩家換算後的  “實際命中率”  ) / 10
+		*/
+		shootNoScoreLimit = Mathf.RoundToInt(100f / (GameFunction.ShootingCalculate(this, Attr.PointRate2, 0, 0, 11)));
+		shootScoreLimit = Mathf.RoundToInt((GameFunction.ShootingCalculate(this, Attr.PointRate2, 0, 0, 11)) / 10f);
+
 		if (Attr.StaminaValue > 0)
 			setMovePower(Attr.StaminaValue);
     }
@@ -447,14 +451,7 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.ElbowExtraAngle = GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
 		
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
-
-		/*
-		 * 必進的校正公式(記錄不進)    100 / (玩家換算後的  “實際命中率”  )
-		   必不進的校正公式（紀錄進球）   (玩家換算後的  “實際命中率”  ) / 10
-		*/
-		shootNoScoreLimit = Mathf.RoundToInt( 100f / (GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)));
-		shootScoreLimit = Mathf.RoundToInt((GameFunction.ShootingCalculate(this, GameFunction.GetAttributeFormula(EPlayerAttributeRate.Point2Rate, (BaseAttribute.Point2 + GameData.BaseAttr[Attribute.AILevel].PointRate2)), 0, 0, 11)) / 10 );
-            
+   
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 		interceptTrigger.transform.localScale = new Vector3(1, 1.5f, 1); //因還未有成長先(1, 1.5, 1)， 有成長就變成(0,5 1 0,5)
 		if(Attribute.BodyType == 0){
