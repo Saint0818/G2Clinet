@@ -8,7 +8,7 @@ public class GameSettingView
 	private GameObject self;
 	private UIButton musicBtn;
 	private UIButton soundBtn;
-    private UIButton[] effectBtn = new UIButton[3];
+	private UIButton[] effectBtn = new UIButton[3];
     private UIToggle[] effectBtnToggle = new UIToggle[3];
 	private UIButton[] aiBtns = new UIButton[6];
 	private UIToggle[] aiBtnsToggle = new UIToggle[6];
@@ -187,6 +187,9 @@ public class UISetting : UIBase {
 	private const string UIName = "UISetting";
 	private GameObject[] pages = new GameObject[4];
 	private GameObject[] tabs = new GameObject[4];
+
+	private UIToggle toggleMove;
+	private UIToggle toggleRotation;
 	private GameSettingView gameSetting = new GameSettingView();
 	private LanguageView languageSetting = new LanguageView();
 	private AccountView accountSetting = new AccountView();
@@ -235,12 +238,16 @@ public class UISetting : UIBase {
         SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
         SetBtnFun(UIName + "Window/Center/Pages/2/GameNews/0", OnNotic);
         SetBtnFun(UIName + "/Window/Center/Pages/2/Pubgame/Widge", OnPubgameWidge);
+		SetBtnFun (UIName + "/Window/Center/Pages/0/CheckMove", OnMove);
+		SetBtnFun (UIName + "/Window/Center/Pages/0/CheckRotation", OnRotation);
+
+		toggleMove = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckMove").GetComponent<UIToggle> ();
+		toggleRotation = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckRotation").GetComponent<UIToggle> ();
 
 		for (int i = 0; i < pages.Length; i++) {
 			pages[i] = GameObject.Find(UIName + string.Format("Window/Center/Pages/{0}", i));
 			tabs[i] = GameObject.Find(UIName + string.Format("Window/Center/Tabs/{0}", i));
 			SetBtnFun(UIName + string.Format("Window/Center/Tabs/{0}", i), OnPage);
-			
 
 			switch(i)
 			{
@@ -296,6 +303,14 @@ public class UISetting : UIBase {
 		}
 
 		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
+	}
+
+	public void OnMove() {
+		GameData.Setting.GameMove = toggleMove.value;
+	}
+
+	public void OnRotation() {
+		GameData.Setting.GameRotation = toggleRotation.value;
 	}
 
 	public void OnNotic()

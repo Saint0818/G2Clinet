@@ -610,16 +610,18 @@ namespace GameStruct
 		public int AnnouncementDate;
 		public int AnnouncementDaily;
 		public int AIChangeTimeLv;
-		public ELanguage Language;
-        public int Quality;
+		public int Quality;
+		public bool GameMove;
+		public bool GameRotation;
 		public bool Effect;
 		public bool Music;
 		public bool Sound;
-		public Dictionary<int, int> NewAvatar;
-        public bool ShowEvent;
+		public bool ShowEvent;
         public bool ShowWatchFriend;
+		public ELanguage Language;
         public DateTime SocialEventTime;
         public DateTime WatchFriendTime;
+		public Dictionary<int, int> NewAvatar;
 	}
 
 	public struct TPlayerPackage {

@@ -829,23 +829,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         float aniTime = AnimatorControl.Controler.GetCurrentAnimatorStateInfo(0).length;
-//      aiTime += aniTime;
         mManually.StartCounting(mManually.RemainTime + aniTime);
     }
 
-    //    public float AIRemainTime
-    //    {
-    //        get
-    //        {
-    //            if(aiTime <= 0)
-    //                return 0;
-    //            return aiTime - Time.time;
-    //        }
-    //    }
-
     public void SetAITime(float time)
     {
-//        aiTime = Time.time + time;
         mManually.StartCounting(time);
         StartCoroutine(GetCurrentClipLength());
 
@@ -881,7 +869,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetToAI()
     {
-//        aiTime = 0;
         mManually.Clear();
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
@@ -942,7 +929,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
 			if (IsGameAttack || LobbyStart.Get.TestMode != EGameTest.None)
             {
-                EPlayerState ps = EPlayerState.Run0;
+				EPlayerState ps = EPlayerState.Run0;
                 if (IsBallOwner)
                     ps = EPlayerState.Dribble1;
 
@@ -969,8 +956,11 @@ public class PlayerBehaviour : MonoBehaviour
 					animationSpeed = Vector2.Distance(new Vector2(v.x, 0), new Vector2(0, v.y));
 					if (!IsPass)
 					{
-						float angle = Mathf.Atan2(v.x, v.y) * Mathf.Rad2Deg;
-						float a = 90 + yAxizOffset;
+						float angle = Mathf.Atan2 (v.x, v.y) * Mathf.Rad2Deg;
+						float a = 90;
+						if (!GameData.Setting.GameRotation)
+							a += yAxizOffset;
+						
 						Vector3 rotation = new Vector3(0, angle + a, 0);
 						transform.rotation = Quaternion.Euler(rotation);
 					}
@@ -1040,6 +1030,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if (LobbyStart.Get.TestMode == EGameTest.Skill || LobbyStart.Get.TestMode == EGameTest.PassiveSkill)
 						calculateSpeed = GameConst.AttackSpeedup;
+					
 					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * timeScale;
 					transform.Translate(translate); 
 					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
