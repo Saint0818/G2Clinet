@@ -61,13 +61,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float canDunkDis = 30f;
     private readonly Queue<TMoveData> moveQueue = new Queue<TMoveData>();
     private Vector3 translate;
-    [HideInInspector]
-    public Rigidbody PlayerRigidbody;
+    [HideInInspector]public Rigidbody PlayerRigidbody;
     private GameObject selectTexture;
     private GameObject DefPoint;
     private GameObject TopPoint;
-    [HideInInspector]
-    public GameObject CatchBallPoint;
+    [HideInInspector]public GameObject CatchBallPoint;
 //    private GameObject FingerPoint;
 	private GameObject blockTrigger;
 	private GameObject pushThroughTigger;

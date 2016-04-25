@@ -268,7 +268,7 @@ public class UISuitCard {
 	private void refreshUI () {
 		costNow = GameData.Team.SuitCardExecuteCost;
 		labelSuitCost.text = costNow + " / " + costMax.ToString();
-		UISkillFormation.Get.RefreshTabsRedPoint();
+//		UISkillFormation.Get.RefreshTabsRedPoint();
 
 		for(int i=0; i<itemSuitCards.Count; i++)
 			itemSuitCards[i].LaunchSuit(itemSuitCards[i].IsAllGet ,GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitID));

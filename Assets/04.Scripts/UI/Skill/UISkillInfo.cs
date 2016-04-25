@@ -167,8 +167,8 @@ public class UISkillInfo : UIBase {
 	public void OnSuitCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			UISkillFormation.Get.ClickTab(1);
-			UISkillFormation.Get.SuitCard.MoveToID(result);
+//			UISkillFormation.Get.ClickTab(1);
+//			UISkillFormation.Get.SuitCard.MoveToID(result);
 			Visible = false;
 		}
 	}

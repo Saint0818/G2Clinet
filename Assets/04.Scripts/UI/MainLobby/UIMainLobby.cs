@@ -166,6 +166,7 @@ public class UIMainLobby : UIBase
 	{
 		initDefaultText(View.TopLeftGroup);
 		initDefaultText(View.BottomGroup);
+		RefreshQueue();
 	}
 
     public void Hide(bool playAnimation = true)

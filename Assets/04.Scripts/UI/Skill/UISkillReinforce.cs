@@ -634,7 +634,7 @@ public class UISkillReinforce : UIBase {
 		reinForceInfo.UpdateView(skill);
 		RefreshSlot ();
 
-		UISkillFormation.Get.RefreshSuitCard();
+//		UISkillFormation.Get.RefreshSuitCard();
 		skillEvolution.RefreshReinForce(skill, targetIndex);
 		refreshTabRed();
 	}
