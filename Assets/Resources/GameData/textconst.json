@@ -665,70 +665,70 @@
         "explain": "解鎖數值裝功能",
         "uipath": "1.解鎖數值裝",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1502,
         "explain": "解鎖造型功能",
         "uipath": "2.解鎖Avatar",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1503,
         "explain": "解鎖商店功能",
         "uipath": "3.商店按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1504,
         "explain": "解鎖社交功能",
         "uipath": "4.社群按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1505,
         "explain": "解鎖技能功能",
         "uipath": "5.解鎖技能介面",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1506,
         "explain": "解鎖任務功能",
         "uipath": "6.任務主按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1507,
         "explain": "解鎖晶片抽取功能",
         "uipath": "7.抽卡牌(Mall)",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1508,
         "explain": "解鎖PVP",
         "uipath": "8.PVP功能",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1509,
         "explain": "解鎖副本",
         "uipath": "9.副本",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1510,
         "explain": "解鎖第三支球員",
         "uipath": "10.創角介面的第三位角色",
         "tw": "LV{0}時可開啟此功能，獲得第三隻球員",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1511,
@@ -739,14 +739,14 @@
         "explain": "解鎖技能進化",
         "uipath": "21.技能進化",
         "tw": "LV{0}時可開啟此功能，可提升技能品質",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1522,
         "explain": "解鎖技能升星",
         "uipath": "22.技能升星",
         "tw": "LV{0}時可開啟此功能，可提升技能能力",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1513
@@ -762,63 +762,63 @@
         "explain": "解鎖套卡",
         "uipath": "26.套卡按鈕",
         "tw": "LV{0}時可開啟此功能，可蒐集套卡提升技能能力",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1527,
         "explain": "解鎖套裝",
         "uipath": "27.套裝按鈕",
         "tw": "LV{0}時可開啟此功能，可蒐集造型套裝提升能力",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1550,
         "uipath": "50.建築序列2 ",
         "tw": "LV{0}時可開啟此功能，可增加建築序列",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1551,
         "uipath": "51.Basket = 1,",
         "tw": "LV{0}時可開啟此功能，可開啟踢館功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1552,
         "uipath": "52.Advertisement = 2,",
         "tw": "LV{0}時可開啟此功能，可增加金幣收入",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1553,
         "uipath": "53.Store = 3,",
         "tw": "LV{0}時可開啟此功能，可購買優惠物品",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1554,
         "explain": "解鎖球場",
         "uipath": "54.Gym = 4,",
         "tw": "LV{0}時可開啟此功能，加快士氣恢復速度",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1555,
         "uipath": "55.Door = 5,",
         "tw": "LV{0}時可開啟此功能，前往參觀其他球員的球館",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1556,
         "uipath": "56.Logo = 6,",
         "tw": "LV{0}時可開啟此功能，可增加進入競賽時的士氣值",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1557,
         "uipath": "57.Chair = 7,",
         "tw": "LV{0}時可開啟此功能，可增加士氣值的上限",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0} "
     },
     {
         "id": 1558,
@@ -900,7 +900,7 @@
         "explain": "解鎖第三支球員",
         "uipath": "10.創角介面的第三位角色",
         "tw": "成功解鎖[FFDD33]新球員[-]",
-        "en": "Successfully unlocked [FFDD33] New Player [-]"
+        "en": "Successfully unlocked [FFDD33] New Player [-] "
     },
     {
         "id": 1611,
@@ -913,28 +913,28 @@
         "explain": "解鎖技能進化",
         "uipath": "21.技能進化",
         "tw": "成功解鎖[FFDD33]晶片進化[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Evolution [-]"
+        "en": "Successfully unlocked [FFDD33] CARD Evolution [-] "
     },
     {
         "id": 1622,
         "explain": "解鎖技能升星",
         "uipath": "22.技能升星",
         "tw": "成功解鎖[FFDD33]晶片升級[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Upgrade [-]"
+        "en": "Successfully unlocked [FFDD33] CARD Upgrade [-] "
     },
     {
         "id": 1626,
         "explain": "解鎖套卡",
         "uipath": "26.套卡按鈕",
         "tw": "成功解鎖[FFDD33]晶片圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33] CARD Collection [-]"
+        "en": "Successfully unlocked [FFDD33] CARD Collection [-] "
     },
     {
         "id": 1627,
         "explain": "解鎖套裝",
         "uipath": "27.套裝按鈕",
         "tw": "成功解鎖[FFDD33]套裝圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33] Style Collection [-]"
+        "en": "Successfully unlocked [FFDD33] Style Collection [-] "
     },
     {
         "id": 1650,
@@ -3213,13 +3213,14 @@
     {
         "id": 7701,
         "explain": "套卡介面說明",
+        "uipath": "ItemSuitCardLaunch",
         "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下[33FFDD]啟動[-]，取得組合加成效果。再點擊即可關閉。\n3.注意[33FFDD]啟動上限值[-]。",
         "en": "1. Find the same series of skill cards and combine them.\n2. After you combine the cards press  [33FFDD]start[-] to for it to take effect. Click again to close.\n3. Note that the [33FFDD]upper limit[-] has increased. "
     },
     {
         "id": 7702,
         "explain": "啟動按鈕 未啟動狀態",
-        "tw": "啟動組合",
+        "tw": "啟動",
         "en": "Start combination"
     },
     {
@@ -3256,6 +3257,36 @@
         "id": 7708,
         "explain": "啟動值超過",
         "tw": "啟動值超過，無法啟動"
+    },
+    {
+        "id": 7709,
+        "explain": "物件文字",
+        "uipath": "ItemSuitCardGroup",
+        "tw": "目前累積數："
+    },
+    {
+        "id": 7710,
+        "explain": "物件文字",
+        "uipath": "ItemSuitCardGroup",
+        "tw": "下一階段："
+    },
+    {
+        "id": 7711,
+        "explain": "物件文字",
+        "uipath": "ItemSuitCardLaunch",
+        "tw": "需求累積數："
+    },
+    {
+        "id": 7712,
+        "explain": "物件文字",
+        "uipath": "ItemSuitCardLaunch",
+        "tw": "加成數值："
+    },
+    {
+        "id": 7713
+    },
+    {
+        "id": 7714
     },
     {
         "id": 8001,
@@ -3879,13 +3910,13 @@
     {
         "id": 9722,
         "uipath": "CombatLabel0/Label",
-        "tw": "對手戰力值",
+        "tw": "對手平均積分",
         "en": "OPPONENT POWER"
     },
     {
         "id": 9723,
         "uipath": "CombatLabel1/Label",
-        "tw": "我方戰力值",
+        "tw": "你的積分",
         "en": "YOUR POWER"
     },
     {
@@ -4057,6 +4088,21 @@
         "explain": "獎勵頁籤",
         "tw": "PVP積分",
         "en": "PVP SCORE"
+    },
+    {
+        "id": 9762,
+        "explain": "戰前選擇注射劑UIEquipList",
+        "tw": "裝備注射劑"
+    },
+    {
+        "id": 9763,
+        "explain": "UIEquipList"
+    },
+    {
+        "id": 9764
+    },
+    {
+        "id": 9765
     },
     {
         "id": 9800,
