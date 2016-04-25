@@ -267,7 +267,7 @@ public class RealBall : MonoBehaviour
             case EPlayerState.Dunk3:
             case EPlayerState.Dunk5:
             case EPlayerState.Dunk7:
-                ColliderEnable = true;
+			ColliderEnable = false;
                 Gravity = false;
 
                 if (player)
