@@ -1832,7 +1832,6 @@ public class GameController : KnightSingleton<GameController>
 		nearshotRate = 0;
 		layupRate = 0;
 
-
 		float rate = (Random.Range(0f, 100f) + 1);
 		randomrate = rate;
 		int airRate = (Random.Range(0, 100) + 1);
@@ -1916,7 +1915,7 @@ public class GameController : KnightSingleton<GameController>
 		} 
 		else 
 		{
-			calculateShooting(player);
+			calculateShooting(player, ShootDistance);
 		}
 		
 		CourtMgr.Get.JudgeBasketAnimationName (judgeShootAngle(player));
@@ -1934,26 +1933,27 @@ public class GameController : KnightSingleton<GameController>
 		player.GameRecord.PushShot(new Vector2(player.PlayerRefGameObject.transform.position.x, player.PlayerRefGameObject.transform.position.z), BasketSituation.GetHashCode(), rate);
 	}
 
-	private void calculateShooting (PlayerBehaviour player) {
-		if(player.IsNeedScore) {
-			if(Random.Range(0,2) == 0) 
-				BasketSituation = EBasketSituation.Swish;
-			else
-				BasketSituation = EBasketSituation.Score;
+	private void calculateShooting (PlayerBehaviour player, float dis) {
+		if(dis <= 13) {
+			if(player.IsNeedScore) {
+				if(Random.Range(0,2) == 0) 
+					BasketSituation = EBasketSituation.Swish;
+				else
+					BasketSituation = EBasketSituation.Score;
+			}
+			
+			if(player.IsNeedNoScore) {
+				if(Random.Range(0,2) == 0) 
+					BasketSituation = EBasketSituation.AirBall;
+				else
+					BasketSituation = EBasketSituation.NoScore;
+			}
+			
+			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.Swish) 
+				player.ShootScore ++;
+			else 
+				player.ShootNoScore ++;
 		}
-
-		if(player.IsNeedNoScore) {
-			if(Random.Range(0,2) == 0) 
-				BasketSituation = EBasketSituation.AirBall;
-			else
-				BasketSituation = EBasketSituation.NoScore;
-		}
-
-		if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.Swish) 
-			player.ShootScore ++;
-		else 
-			player.ShootNoScore ++;
-
 	}
 
 	public void AddExtraScoreRate(float rate) {
