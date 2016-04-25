@@ -43,7 +43,6 @@ public class UIResource : UIBase
 
         mCountDownTimer.TimeUpListener += updateCountDownPower;
 
-        View.Settings.GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UISetting.UIShow(true)));
         View.MoneyObj.GetComponent<UIButton>().onClick.Add(new EventDelegate(() =>
         {
             if(!UIRecharge.Visible)
@@ -114,9 +113,9 @@ public class UIResource : UIBase
         mCountDownTimer.Update(Time.deltaTime);
     }
 
-    public void Hide(bool playAnimation = true)
+    public void Hide()
     {
-        View.Hide(playAnimation);
+        View.Hide();
 
         mCountDownTimer.Stop();
         View.PowerCountDownVisible = false;

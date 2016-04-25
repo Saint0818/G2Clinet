@@ -706,7 +706,7 @@ public class UISkillReinforce : UIBase {
 			Visible = false;
 			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
 			UIMainLobby.Get.Hide(false);
-            UIResource.Get.Hide(false);
+            UIResource.Get.Hide();
 		}
 	} 
 

@@ -485,7 +485,7 @@ public class UISelectRole : UIBase {
 		stageData = StageTable.Ins.GetByID(GameData.StageID);
 
         UIMainLobby.Get.Hide(false);
-        UIResource.Get.Hide(false);
+        UIResource.Get.Hide();
 
         Visible = true;
 

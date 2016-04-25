@@ -49,6 +49,8 @@ public class UIMainLobby : UIBase
 
 		initQueue();
 
+        View.Settings.GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UISetting.UIShow(true)));
+
         var events = GetComponent<UIMainLobbyEvents>();
         View.RaceButton.onClick.Add(new EventDelegate(events.ShowStage));
         View.SkillButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowSkillFormation));

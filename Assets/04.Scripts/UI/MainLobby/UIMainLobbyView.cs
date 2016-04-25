@@ -18,6 +18,8 @@ public class UIMainLobbyView : MonoBehaviour
 
     public UILabel NameLabel;
 
+    public GameObject Settings;
+
     // 紅點.
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
@@ -69,6 +71,11 @@ public class UIMainLobbyView : MonoBehaviour
     public string PlayerPosition
     {
         set { PlayerPositionSprite.spriteName = value; }
+    }
+
+    public bool IsSettingsVisible
+    {
+        get { return Settings.activeSelf; }
     }
 
     public bool EquipmentNotice
@@ -206,11 +213,13 @@ public class UIMainLobbyView : MonoBehaviour
 
     public void Show()
     {
+        Settings.SetActive(true);
         PlayEnterAnimation();
     }
 
     public void Hide(bool playAnimation = true)
     {
+        Settings.SetActive(false);
         if(playAnimation)
             PlayExitAnimation();
     }

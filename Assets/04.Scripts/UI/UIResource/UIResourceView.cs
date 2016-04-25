@@ -19,8 +19,6 @@ public class UIResourceView : MonoBehaviour
     private TweenScale mDiamondTweenScale;
     private TweenScale mPowerTweenScale;
 
-    public GameObject Settings;
-
     [UsedImplicitly]
     private void Awake()
     {
@@ -84,41 +82,20 @@ public class UIResourceView : MonoBehaviour
         set { PowerCountDownLabel.gameObject.SetActive(value);}
     }
 
-    public bool IsSettingsVisible
-    {
-        get { return Settings.activeSelf; }
-    }
-
     public void Show(int kind = 3)
     {
-        PlayEnterAnimation();
-        Settings.SetActive(true);
-
         MoneyObj.SetActive(kind >= 2);
         DiamondObj.SetActive(kind >= 1);
         PowerObj.SetActive(kind >= 3);
     }
 
-    public void Hide(bool playAnimation = true)
+    public void Hide()
     {
-        if(playAnimation)
-            PlayExitAnimation();
+        EnableFullScreenBlock();
 
-        Settings.SetActive(false);
         MoneyObj.SetActive(false);
         DiamondObj.SetActive(false);
         PowerObj.SetActive(false);
-    }
-
-    public void PlayEnterAnimation()
-    {
-//        GetComponent<Animator>().SetTrigger("MainLobby_Up");
-    }
-
-    public void PlayExitAnimation()
-    {
-//        GetComponent<Animator>().SetTrigger("MainLobby_Down");
-        EnableFullScreenBlock();
     }
 
     /// <summary>
