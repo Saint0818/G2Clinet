@@ -54,7 +54,8 @@
         "buy": 700,
         "namecn": "中锋身体3",
         "nameen": "Center body 3",
-        "namejp": "センターボディ3"
+        "namejp": "センターボディ3",
+        "explaintw": "奶油小生必備"
     },
     {
         "id": 4,
@@ -246,7 +247,8 @@
         "buy": 700,
         "namecn": "中锋身体15",
         "nameen": "Center body 15",
-        "namejp": "センターボディ15"
+        "namejp": "センターボディ15",
+        "explaintw": "滿佈岩漿的惡魔皮膚"
     },
     {
         "id": 16,
@@ -264,7 +266,7 @@
         "namecn": "中锋身体16",
         "nameen": "Center body 16",
         "namejp": "センターボディ16",
-        "explaintw": "來自未來的大魔王布魯托，散發著黑暗邪惡的氣息。"
+        "explaintw": "來自未來的大魔王布魯托，散發著黑暗邪惡的氣息"
     },
     {
         "id": 17,
@@ -403,7 +405,8 @@
         "buy": 700,
         "namecn": "前锋身体4",
         "nameen": "Forward body 4",
-        "namejp": "フォワードボディ4"
+        "namejp": "フォワードボディ4",
+        "explaintw": "配上陰險笑容，笑得你心底發寒"
     },
     {
         "id": 105,
@@ -420,7 +423,8 @@
         "buy": 700,
         "namecn": "前锋身体5",
         "nameen": "Forward body 5",
-        "namejp": "フォワードボディ5"
+        "namejp": "フォワードボディ5",
+        "explaintw": "沈穩的青銅色，帶點歷史痕跡"
     },
     {
         "id": 106,
@@ -437,7 +441,8 @@
         "buy": 700,
         "namecn": "前锋身体6",
         "nameen": "Forward body 6",
-        "namejp": "フォワードボディ6"
+        "namejp": "フォワードボディ6",
+        "explaintw": "機械版本前鋒限定款"
     },
     {
         "id": 107,
@@ -564,9 +569,11 @@
     },
     {
         "id": 115,
-        "nametw": "前鋒身體15",
+        "nametw": "海藍幽靈",
         "kind": 0,
         "atlas": 0,
+        "icon": 115,
+        "avatar": 15,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -579,9 +586,11 @@
     },
     {
         "id": 116,
-        "nametw": "前鋒身體16",
+        "nametw": "魔化黑綠皮膚",
         "kind": 0,
         "atlas": 0,
+        "icon": 116,
+        "avatar": 16,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -710,7 +719,8 @@
         "buy": 700,
         "namecn": "后卫身体3",
         "nameen": "Body guard 3",
-        "namejp": "ボディガード3"
+        "namejp": "ボディガード3",
+        "explaintw": "神秘東方的白膚美人色"
     },
     {
         "id": 204,
@@ -889,9 +899,11 @@
     },
     {
         "id": 215,
-        "nametw": "後衛身體15",
+        "nametw": "邪惡燻紅膚色",
         "kind": 0,
         "atlas": 0,
+        "icon": 215,
+        "avatar": 15,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -904,9 +916,11 @@
     },
     {
         "id": 216,
-        "nametw": "後衛身體16",
+        "nametw": "美杜莎之鱗",
         "kind": 0,
         "atlas": 0,
+        "icon": 216,
+        "avatar": 16,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -1111,7 +1125,8 @@
         "buy": 700,
         "namecn": "中锋头发7",
         "nameen": "Hair center 7",
-        "namejp": "髪のセンター7"
+        "namejp": "髪のセンター7",
+        "explaintw": "基礎的紳士髮型。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 1008,
@@ -1128,7 +1143,8 @@
         "buy": 700,
         "namecn": "中锋头发8",
         "nameen": "Hair center 8",
-        "namejp": "髪のセンター8"
+        "namejp": "髪のセンター8",
+        "explaintw": "基礎的紳士髮型。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 1009,
@@ -1145,7 +1161,8 @@
         "buy": 700,
         "namecn": "中锋头发9",
         "nameen": "Hair center 9",
-        "namejp": "髪のセンター9"
+        "namejp": "髪のセンター9",
+        "explaintw": "基礎的紳士髮型。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 1010,
@@ -1341,9 +1358,11 @@
     },
     {
         "id": 1020,
-        "nametw": "中鋒頭髮20",
+        "nametw": "阿耳戈斯髮型",
         "kind": 1,
         "atlas": 1,
+        "icon": 1020,
+        "avatar": 37001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -1353,7 +1372,64 @@
         "flag": 1,
         "namecn": "中锋头发20",
         "nameen": "Hair center 20",
-        "namejp": "髪のセンター20"
+        "namejp": "髪のセンター20",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 1021,
+        "nametw": "布魯托髮型",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1021,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋头发21",
+        "nameen": "Hair center 21",
+        "namejp": "髪のセンター21",
+        "explaintw": "魔王布魯托的專屬造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 1022,
+        "nametw": "暴力衝冠髮型",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1022,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋头发22",
+        "nameen": "Hair center 22",
+        "namejp": "髪のセンター22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 1023,
+        "nametw": "中鋒頭髮23",
+        "kind": 1,
+        "atlas": 1
+    },
+    {
+        "id": 1024,
+        "nametw": "中鋒頭髮24",
+        "kind": 1,
+        "atlas": 1
+    },
+    {
+        "id": 1025,
+        "nametw": "中鋒頭髮25",
+        "kind": 1,
+        "atlas": 1
     },
     {
         "id": 1100,
@@ -1490,7 +1566,8 @@
         "buy": 700,
         "namecn": "前锋头发7",
         "nameen": "Striker hair 7",
-        "namejp": "ストライカーの毛7"
+        "namejp": "ストライカーの毛7",
+        "explaintw": "基礎的迷人旁分。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 1108,
@@ -1507,7 +1584,8 @@
         "buy": 700,
         "namecn": "前锋头发8",
         "nameen": "8 forward hair",
-        "namejp": "8前進髪"
+        "namejp": "8前進髪",
+        "explaintw": "基礎的迷人旁分。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 1109,
@@ -1524,7 +1602,8 @@
         "buy": 700,
         "namecn": "前锋头发9",
         "nameen": "9 forward hair",
-        "namejp": "9前方髪"
+        "namejp": "9前方髪",
+        "explaintw": "基礎的迷人旁分。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 1110,
@@ -1724,9 +1803,11 @@
     },
     {
         "id": 1120,
-        "nametw": "前鋒頭髮20",
+        "nametw": "幽鬼髮型",
         "kind": 1,
         "atlas": 1,
+        "icon": 1120,
+        "avatar": 38001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -1734,9 +1815,69 @@
         "sell": 3000,
         "buy": 700,
         "flag": 1,
-        "namecn": "前锋头发20",
-        "nameen": "Hair striker 20",
-        "namejp": "髪のストライカー20"
+        "namecn": "前锋头发21",
+        "nameen": "Hair striker 21",
+        "namejp": "髪のストライカー21",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 1121,
+        "nametw": "吉爾髮型",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1121,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋头发21",
+        "nameen": "Hair striker 21",
+        "namejp": "髪のストライカー21",
+        "explaintw": "魔化吉爾的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 1122,
+        "nametw": "暴力閃電金髮",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1122,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋头发22",
+        "nameen": "Hair striker 22",
+        "namejp": "髪のストライカー22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 1123,
+        "nametw": "前鋒頭髮23",
+        "namecn": "前锋头发23",
+        "nameen": "Hair striker 23",
+        "namejp": "髪のストライカー23"
+    },
+    {
+        "id": 1124,
+        "nametw": "前鋒頭髮24",
+        "namecn": "前锋头发24",
+        "nameen": "Hair striker 24",
+        "namejp": "髪のストライカー24"
+    },
+    {
+        "id": 1125,
+        "nametw": "前鋒頭髮25",
+        "namecn": "前锋头发25",
+        "nameen": "Hair striker 25",
+        "namejp": "髪のストライカー25"
     },
     {
         "id": 1200,
@@ -1873,7 +2014,8 @@
         "buy": 700,
         "namecn": "后卫头发7",
         "nameen": "7 guard hair",
-        "namejp": "7ガード髪"
+        "namejp": "7ガード髪",
+        "explaintw": "基礎的豔麗造型。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1208,
@@ -1890,7 +2032,8 @@
         "buy": 700,
         "namecn": "后卫头发8",
         "nameen": "8 guard hair",
-        "namejp": "8ガード髪"
+        "namejp": "8ガード髪",
+        "explaintw": "基礎的豔麗造型。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1209,
@@ -1907,7 +2050,8 @@
         "buy": 700,
         "namecn": "后卫头发9",
         "nameen": "9 guard hair",
-        "namejp": "9ガード髪"
+        "namejp": "9ガード髪",
+        "explaintw": "基礎的豔麗造型。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 1210,
@@ -2114,9 +2258,11 @@
     },
     {
         "id": 1220,
-        "nametw": "後衛頭髮20",
+        "nametw": "塞壬髮型",
         "kind": 1,
         "atlas": 1,
+        "icon": 1220,
+        "avatar": 39001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -2126,7 +2272,67 @@
         "flag": 1,
         "namecn": "后卫头发20",
         "nameen": "Guard hair 20",
-        "namejp": "ガード毛20"
+        "namejp": "ガード毛20",
+        "explaintw": "三大天王之一 塞壬的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 1221,
+        "nametw": "美杜莎髮型",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1221,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫头发21",
+        "nameen": "Guard hair 21",
+        "namejp": "ガード毛21",
+        "explaintw": "蛇女美杜莎的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 1222,
+        "nametw": "暴力桃紅蓬髮",
+        "kind": 1,
+        "atlas": 1,
+        "icon": 1222,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫头发22",
+        "nameen": "Guard hair 22",
+        "namejp": "ガード毛22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 1223,
+        "nametw": "後衛頭髮23",
+        "namecn": "后卫头发23",
+        "nameen": "Guard hair 23",
+        "namejp": "ガード毛23"
+    },
+    {
+        "id": 1224,
+        "nametw": "後衛頭髮24",
+        "namecn": "后卫头发24",
+        "nameen": "Guard hair 24",
+        "namejp": "ガード毛24"
+    },
+    {
+        "id": 1225,
+        "nametw": "後衛頭髮25",
+        "namecn": "后卫头发25",
+        "nameen": "Guard hair 25",
+        "namejp": "ガード毛25"
     },
     {
         "id": 2000,
@@ -2467,9 +2673,11 @@
     },
     {
         "id": 2020,
-        "nametw": "中鋒手飾20",
+        "nametw": "阿耳戈斯手甲",
         "kind": 2,
         "atlas": 2,
+        "icon": 2020,
+        "avatar": 37001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -2479,7 +2687,67 @@
         "flag": 1,
         "namecn": "中锋手饰20",
         "nameen": "Jewelry center 20",
-        "namejp": "ジュエリーセンター20"
+        "namejp": "ジュエリーセンター20",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 2021,
+        "nametw": "布魯托手甲",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2021,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋手饰21",
+        "nameen": "Jewelry center 21",
+        "namejp": "ジュエリーセンター21",
+        "explaintw": "魔王布魯托的專屬造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 2022,
+        "nametw": "暴力露指拳套",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2022,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋手饰22",
+        "nameen": "Jewelry center 22",
+        "namejp": "ジュエリーセンター22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 2023,
+        "nametw": "中鋒手飾23",
+        "namecn": "中锋手饰23",
+        "nameen": "Jewelry center 23",
+        "namejp": "ジュエリーセンター23"
+    },
+    {
+        "id": 2024,
+        "nametw": "中鋒手飾24",
+        "namecn": "中锋手饰24",
+        "nameen": "Jewelry center 24",
+        "namejp": "ジュエリーセンター24"
+    },
+    {
+        "id": 2025,
+        "nametw": "中鋒手飾25",
+        "namecn": "中锋手饰25",
+        "nameen": "Jewelry center 25",
+        "namejp": "ジュエリーセンター25"
     },
     {
         "id": 2100,
@@ -2728,9 +2996,11 @@
     },
     {
         "id": 2115,
-        "nametw": "前鋒手飾15",
+        "nametw": "邪惡金屬護手",
         "kind": 2,
         "atlas": 2,
+        "icon": 2115,
+        "avatar": 6001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -2740,7 +3010,8 @@
         "flag": 1,
         "namecn": "前锋手饰15",
         "nameen": "Forward jewelry 15",
-        "namejp": "フォワードジュエリー15"
+        "namejp": "フォワードジュエリー15",
+        "explaintw": "潛水員？生化兵？\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 2116,
@@ -2804,7 +3075,7 @@
         "kind": 2,
         "atlas": 2,
         "icon": 2119,
-        "avatar": 25001,
+        "avatar": 35001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -2820,9 +3091,11 @@
     },
     {
         "id": 2120,
-        "nametw": "前鋒手飾20",
+        "nametw": "幽鬼腕甲",
         "kind": 2,
         "atlas": 2,
+        "icon": 2120,
+        "avatar": 38001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -2832,7 +3105,67 @@
         "flag": 1,
         "namecn": "前锋手饰20",
         "nameen": "Forward jewelry 20",
-        "namejp": "フォワードジュエリー20"
+        "namejp": "フォワードジュエリー20",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 2121,
+        "nametw": "吉爾腕甲",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2121,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋手饰21",
+        "nameen": "Forward jewelry 21",
+        "namejp": "フォワードジュエリー21",
+        "explaintw": "魔化吉爾的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 2122,
+        "nametw": "暴力金屬護肘",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2122,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋手饰22",
+        "nameen": "Forward jewelry 22",
+        "namejp": "フォワードジュエリー22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 2123,
+        "nametw": "前鋒手飾23",
+        "namecn": "前锋手饰23",
+        "nameen": "Forward jewelry 23",
+        "namejp": "フォワードジュエリー23"
+    },
+    {
+        "id": 2124,
+        "nametw": "前鋒手飾24",
+        "namecn": "前锋手饰24",
+        "nameen": "Forward jewelry 24",
+        "namejp": "フォワードジュエリー24"
+    },
+    {
+        "id": 2125,
+        "nametw": "前鋒手飾25",
+        "namecn": "前锋手饰25",
+        "nameen": "Forward jewelry 25",
+        "namejp": "フォワードジュエリー25"
     },
     {
         "id": 2200,
@@ -3180,9 +3513,11 @@
     },
     {
         "id": 2220,
-        "nametw": "後衛手飾20",
+        "nametw": "塞壬護手",
         "kind": 2,
         "atlas": 2,
+        "icon": 2220,
+        "avatar": 39001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -3192,7 +3527,67 @@
         "flag": 1,
         "namecn": "后卫手饰20",
         "nameen": "Defender jewelry 20",
-        "namejp": "ディフェンダーの宝石20"
+        "namejp": "ディフェンダーの宝石20",
+        "explaintw": "三大天王之一 塞壬的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 2221,
+        "nametw": "美杜莎護手",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2221,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫手饰21",
+        "nameen": "Defender jewelry 21",
+        "namejp": "ディフェンダーの宝石21",
+        "explaintw": "蛇女美杜莎的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 2222,
+        "nametw": "暴力露指長手套",
+        "kind": 2,
+        "atlas": 2,
+        "icon": 2222,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫手饰22",
+        "nameen": "Defender jewelry 22",
+        "namejp": "ディフェンダーの宝石22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 2223,
+        "nametw": "後衛手飾23",
+        "namecn": "后卫手饰23",
+        "nameen": "Defender jewelry 23",
+        "namejp": "ディフェンダーの宝石23"
+    },
+    {
+        "id": 2224,
+        "nametw": "後衛手飾24",
+        "namecn": "后卫手饰24",
+        "nameen": "Defender jewelry 24",
+        "namejp": "ディフェンダーの宝石24"
+    },
+    {
+        "id": 2225,
+        "nametw": "後衛手飾25",
+        "namecn": "后卫手饰25",
+        "nameen": "Defender jewelry 25",
+        "namejp": "ディフェンダーの宝石25"
     },
     {
         "id": 3000,
@@ -3328,7 +3723,8 @@
         "buy": 700,
         "namecn": "中锋衣服7",
         "nameen": "Clothes center 7",
-        "namejp": "服センター7"
+        "namejp": "服センター7",
+        "explaintw": "基礎的運動上衣。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 3008,
@@ -3345,7 +3741,8 @@
         "buy": 700,
         "namecn": "中锋衣服8",
         "nameen": "Clothes center 8",
-        "namejp": "服センター8"
+        "namejp": "服センター8",
+        "explaintw": "基礎的運動上衣。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 3009,
@@ -3362,7 +3759,8 @@
         "buy": 700,
         "namecn": "中锋衣服9",
         "nameen": "Clothes center 9",
-        "namejp": "服センター9"
+        "namejp": "服センター9",
+        "explaintw": "基礎的運動上衣。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 3010,
@@ -3563,9 +3961,11 @@
     },
     {
         "id": 3020,
-        "nametw": "中鋒衣服20",
+        "nametw": "阿耳戈斯戰甲",
         "kind": 3,
         "atlas": 3,
+        "icon": 3020,
+        "avatar": 37001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -3575,7 +3975,67 @@
         "flag": 1,
         "namecn": "中锋衣服20",
         "nameen": "Clothes center 20",
-        "namejp": "服センタ20"
+        "namejp": "服センタ20",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 3021,
+        "nametw": "布魯托戰甲",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3021,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋衣服21",
+        "nameen": "Clothes center 21",
+        "namejp": "服センタ21",
+        "explaintw": "魔王布魯托的專屬造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 3022,
+        "nametw": "暴力閃電上衣",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3022,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋衣服22",
+        "nameen": "Clothes center 22",
+        "namejp": "服センタ22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 3023,
+        "nametw": "中鋒衣服23",
+        "namecn": "中锋衣服23",
+        "nameen": "Clothes center 23",
+        "namejp": "服センタ23"
+    },
+    {
+        "id": 3024,
+        "nametw": "中鋒衣服24",
+        "namecn": "中锋衣服24",
+        "nameen": "Clothes center 24",
+        "namejp": "服センタ24"
+    },
+    {
+        "id": 3025,
+        "nametw": "中鋒衣服25",
+        "namecn": "中锋衣服25",
+        "nameen": "Clothes center 25",
+        "namejp": "服センタ25"
     },
     {
         "id": 3100,
@@ -3711,7 +4171,8 @@
         "buy": 700,
         "namecn": "前锋衣服7",
         "nameen": "Clothes 7 forward",
-        "namejp": "服7前進"
+        "namejp": "服7前進",
+        "explaintw": "基礎的科技排汗衫。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 3108,
@@ -3728,7 +4189,8 @@
         "buy": 700,
         "namecn": "前锋衣服8",
         "nameen": "8 forward clothes",
-        "namejp": "8前進服"
+        "namejp": "8前進服",
+        "explaintw": "基礎的科技排汗衫。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 3109,
@@ -3745,7 +4207,8 @@
         "buy": 700,
         "namecn": "前锋衣服9",
         "nameen": "9 forward clothes",
-        "namejp": "9前方服"
+        "namejp": "9前方服",
+        "explaintw": "基礎的科技排汗衫。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 3110,
@@ -3854,9 +4317,11 @@
     },
     {
         "id": 3115,
-        "nametw": "前鋒衣服15",
+        "nametw": "邪惡金屬護甲",
         "kind": 3,
         "atlas": 3,
+        "icon": 3115,
+        "avatar": 6001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -3866,7 +4331,8 @@
         "flag": 1,
         "namecn": "前锋衣服15",
         "nameen": "15 striker clothes",
-        "namejp": "15ストライカー服"
+        "namejp": "15ストライカー服",
+        "explaintw": "潛水員？生化兵？\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 3116,
@@ -3946,9 +4412,11 @@
     },
     {
         "id": 3120,
-        "nametw": "前鋒衣服20",
+        "nametw": "幽鬼護甲",
         "kind": 3,
         "atlas": 3,
+        "icon": 3120,
+        "avatar": 38001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -3958,7 +4426,67 @@
         "flag": 1,
         "namecn": "前锋衣服20",
         "nameen": "20 striker clothes",
-        "namejp": "20ストライカー服"
+        "namejp": "20ストライカー服",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 3121,
+        "nametw": "吉爾護甲",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3121,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋衣服21",
+        "nameen": "21 striker clothes",
+        "namejp": "21ストライカー服",
+        "explaintw": "魔化吉爾的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 3122,
+        "nametw": "暴力連帽上衣",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3122,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋衣服22",
+        "nameen": "22 striker clothes",
+        "namejp": "22ストライカー服",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 3123,
+        "nametw": "前鋒衣服23",
+        "namecn": "前锋衣服23",
+        "nameen": "23 striker clothes",
+        "namejp": "23ストライカー服"
+    },
+    {
+        "id": 3124,
+        "nametw": "前鋒衣服24",
+        "namecn": "前锋衣服24",
+        "nameen": "24 striker clothes",
+        "namejp": "24ストライカー服"
+    },
+    {
+        "id": 3125,
+        "nametw": "前鋒衣服25",
+        "namecn": "前锋衣服25",
+        "nameen": "25 striker clothes",
+        "namejp": "25ストライカー服"
     },
     {
         "id": 3200,
@@ -4094,7 +4622,8 @@
         "buy": 700,
         "namecn": "后卫衣服7",
         "nameen": "7 guard clothes",
-        "namejp": "7ガード服"
+        "namejp": "7ガード服",
+        "explaintw": "基礎的運動上衣。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 3208,
@@ -4111,7 +4640,8 @@
         "buy": 700,
         "namecn": "后卫衣服8",
         "nameen": "8 guard clothes",
-        "namejp": "8ガード服"
+        "namejp": "8ガード服",
+        "explaintw": "基礎的運動上衣。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 3209,
@@ -4128,7 +4658,8 @@
         "buy": 700,
         "namecn": "后卫衣服9",
         "nameen": "9 guard clothes",
-        "namejp": "9ガード服"
+        "namejp": "9ガード服",
+        "explaintw": "基礎的運動上衣。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 3210,
@@ -4336,9 +4867,11 @@
     },
     {
         "id": 3220,
-        "nametw": "後衛衣服20",
+        "nametw": "塞壬護胸",
         "kind": 3,
         "atlas": 3,
+        "icon": 3220,
+        "avatar": 39001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -4348,7 +4881,67 @@
         "flag": 1,
         "namecn": "后卫衣服20",
         "nameen": "Guard clothes 20",
-        "namejp": "Guardは20服"
+        "namejp": "Guardは20服",
+        "explaintw": "三大天王之一 塞壬的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 3221,
+        "nametw": "美杜莎護胸",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3221,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫衣服21",
+        "nameen": "Guard clothes 21",
+        "namejp": "Guardは21服",
+        "explaintw": "蛇女美杜莎的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 3222,
+        "nametw": "暴力低調上衣",
+        "kind": 3,
+        "atlas": 3,
+        "icon": 3222,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫衣服22",
+        "nameen": "Guard clothes 22",
+        "namejp": "Guardは22服",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 3223,
+        "nametw": "後衛衣服23",
+        "namecn": "后卫衣服23",
+        "nameen": "Guard clothes 23",
+        "namejp": "Guardは23服"
+    },
+    {
+        "id": 3224,
+        "nametw": "後衛衣服24",
+        "namecn": "后卫衣服24",
+        "nameen": "Guard clothes 24",
+        "namejp": "Guardは24服"
+    },
+    {
+        "id": 3225,
+        "nametw": "後衛衣服25",
+        "namecn": "后卫衣服25",
+        "nameen": "Guard clothes 25",
+        "namejp": "Guardは25服"
     },
     {
         "id": 4000,
@@ -4484,7 +5077,8 @@
         "buy": 700,
         "namecn": "中锋裤子7",
         "nameen": "Pants center 7",
-        "namejp": "パンツセンター7"
+        "namejp": "パンツセンター7",
+        "explaintw": "基礎的街頭風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 4008,
@@ -4501,7 +5095,8 @@
         "buy": 700,
         "namecn": "中锋裤子8",
         "nameen": "Pants center 8",
-        "namejp": "パンツセンター8"
+        "namejp": "パンツセンター8",
+        "explaintw": "基礎的街頭風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 4009,
@@ -4518,7 +5113,8 @@
         "buy": 700,
         "namecn": "中锋裤子9",
         "nameen": "Pants center 9",
-        "namejp": "パンツセンター9"
+        "namejp": "パンツセンター9",
+        "explaintw": "基礎的街頭風格。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 4010,
@@ -4719,9 +5315,11 @@
     },
     {
         "id": 4020,
-        "nametw": "中鋒褲子20",
+        "nametw": "阿耳戈斯脛甲",
         "kind": 4,
         "atlas": 4,
+        "icon": 4020,
+        "avatar": 37001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -4731,7 +5329,67 @@
         "flag": 1,
         "namecn": "中锋裤子20",
         "nameen": "Pants center 20",
-        "namejp": "パンツ・センター20"
+        "namejp": "パンツ・センター20",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 4021,
+        "nametw": "布魯托脛甲",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4021,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋裤子21",
+        "nameen": "Pants center 21",
+        "namejp": "パンツ・センター21",
+        "explaintw": "魔王布魯托的專屬造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 4022,
+        "nametw": "暴力運動短褲",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4022,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋裤子22",
+        "nameen": "Pants center 22",
+        "namejp": "パンツ・センター22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 4023,
+        "nametw": "中鋒褲子23",
+        "namecn": "中锋裤子23",
+        "nameen": "Pants center 23",
+        "namejp": "パンツ・センター23"
+    },
+    {
+        "id": 4024,
+        "nametw": "中鋒褲子24",
+        "namecn": "中锋裤子24",
+        "nameen": "Pants center 24",
+        "namejp": "パンツ・センター24"
+    },
+    {
+        "id": 4025,
+        "nametw": "中鋒褲子25",
+        "namecn": "中锋裤子25",
+        "nameen": "Pants center 25",
+        "namejp": "パンツ・センター25"
     },
     {
         "id": 4100,
@@ -4867,7 +5525,8 @@
         "buy": 700,
         "namecn": "前锋裤子7",
         "nameen": "Forward pants 7",
-        "namejp": "フォワードパンツ7"
+        "namejp": "フォワードパンツ7",
+        "explaintw": "基礎的運通球褲。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 4108,
@@ -4884,7 +5543,8 @@
         "buy": 700,
         "namecn": "前锋裤子8",
         "nameen": "Forward pants 8",
-        "namejp": "フォワードパンツ8"
+        "namejp": "フォワードパンツ8",
+        "explaintw": "基礎的運通球褲。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 4109,
@@ -4901,7 +5561,8 @@
         "buy": 700,
         "namecn": "前锋裤子9",
         "nameen": "Forward pants 9",
-        "namejp": "フォワードパンツ9"
+        "namejp": "フォワードパンツ9",
+        "explaintw": "基礎的運通球褲。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 4110,
@@ -5010,9 +5671,11 @@
     },
     {
         "id": 4115,
-        "nametw": "前鋒褲子15",
+        "nametw": "邪惡金屬護腿",
         "kind": 4,
         "atlas": 4,
+        "icon": 4115,
+        "avatar": 15001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -5022,7 +5685,8 @@
         "flag": 1,
         "namecn": "前锋裤子15",
         "nameen": "Forward pants 15",
-        "namejp": "フォワードパンツ15"
+        "namejp": "フォワードパンツ15",
+        "explaintw": "潛水員？生化兵？\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 4116,
@@ -5102,9 +5766,11 @@
     },
     {
         "id": 4120,
-        "nametw": "前鋒褲子20",
+        "nametw": "幽鬼腿甲",
         "kind": 4,
         "atlas": 4,
+        "icon": 4120,
+        "avatar": 38001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -5114,7 +5780,67 @@
         "flag": 1,
         "namecn": "前锋裤子20",
         "nameen": "Forward pants 20",
-        "namejp": "フォワードパンツ20"
+        "namejp": "フォワードパンツ20",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 4121,
+        "nametw": "吉爾腿甲",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4121,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋裤子21",
+        "nameen": "Forward pants 21",
+        "namejp": "フォワードパンツ21",
+        "explaintw": "魔化吉爾的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 4122,
+        "nametw": "暴力內搭球褲",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4122,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋裤子22",
+        "nameen": "Forward pants 22",
+        "namejp": "フォワードパンツ22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 4123,
+        "nametw": "前鋒褲子23",
+        "namecn": "前锋裤子23",
+        "nameen": "Forward pants 23",
+        "namejp": "フォワードパンツ23"
+    },
+    {
+        "id": 4124,
+        "nametw": "前鋒褲子24",
+        "namecn": "前锋裤子24",
+        "nameen": "Forward pants 24",
+        "namejp": "フォワードパンツ24"
+    },
+    {
+        "id": 4125,
+        "nametw": "前鋒褲子25",
+        "namecn": "前锋裤子25",
+        "nameen": "Forward pants 25",
+        "namejp": "フォワードパンツ25"
     },
     {
         "id": 4200,
@@ -5250,7 +5976,8 @@
         "buy": 700,
         "namecn": "后卫裤子7",
         "nameen": "Defender pants 7",
-        "namejp": "ディフェンダーパンツ7"
+        "namejp": "ディフェンダーパンツ7",
+        "explaintw": "基礎的運動短褲。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4208,
@@ -5267,7 +5994,8 @@
         "buy": 700,
         "namecn": "后卫裤子8",
         "nameen": "8 guard pants",
-        "namejp": "8ガードパンツ"
+        "namejp": "8ガードパンツ",
+        "explaintw": "基礎的運動短褲。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4209,
@@ -5284,7 +6012,8 @@
         "buy": 700,
         "namecn": "后卫裤子9",
         "nameen": "9 guard pants",
-        "namejp": "9ガードパンツ"
+        "namejp": "9ガードパンツ",
+        "explaintw": "基礎的運動短褲。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 4210,
@@ -5492,9 +6221,11 @@
     },
     {
         "id": 4220,
-        "nametw": "後衛褲子20",
+        "nametw": "塞壬護腿",
         "kind": 4,
         "atlas": 4,
+        "icon": 4220,
+        "avatar": 39001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -5504,7 +6235,67 @@
         "flag": 1,
         "namecn": "后卫裤子20",
         "nameen": "Defender pants 20",
-        "namejp": "ディフェンダーパンツ20"
+        "namejp": "ディフェンダーパンツ20",
+        "explaintw": "三大天王之一 塞壬的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 4221,
+        "nametw": "美杜莎護腿",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4221,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫裤子21",
+        "nameen": "Defender pants 21",
+        "namejp": "ディフェンダーパンツ21",
+        "explaintw": "蛇女美杜莎的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 4222,
+        "nametw": "暴力低調熱褲",
+        "kind": 4,
+        "atlas": 4,
+        "icon": 4222,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫裤子22",
+        "nameen": "Defender pants 22",
+        "namejp": "ディフェンダーパンツ22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 4223,
+        "nametw": "後衛褲子23",
+        "namecn": "后卫裤子23",
+        "nameen": "Defender pants 23",
+        "namejp": "ディフェンダーパンツ23"
+    },
+    {
+        "id": 4224,
+        "nametw": "後衛褲子24",
+        "namecn": "后卫裤子24",
+        "nameen": "Defender pants 24",
+        "namejp": "ディフェンダーパンツ24"
+    },
+    {
+        "id": 4225,
+        "nametw": "後衛褲子25",
+        "namecn": "后卫裤子25",
+        "nameen": "Defender pants 25",
+        "namejp": "ディフェンダーパンツ25"
     },
     {
         "id": 5000,
@@ -5640,7 +6431,8 @@
         "buy": 700,
         "namecn": "中锋鞋子7",
         "nameen": "Shoes center 7",
-        "namejp": "靴センター7"
+        "namejp": "靴センター7",
+        "explaintw": "基礎的保護球鞋。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5008,
@@ -5657,7 +6449,8 @@
         "buy": 700,
         "namecn": "中锋鞋子8",
         "nameen": "Shoes center 8",
-        "namejp": "靴センター8"
+        "namejp": "靴センター8",
+        "explaintw": "基礎的保護球鞋。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5009,
@@ -5674,7 +6467,8 @@
         "buy": 700,
         "namecn": "中锋鞋子9",
         "nameen": "Shoes center 9",
-        "namejp": "靴センター9"
+        "namejp": "靴センター9",
+        "explaintw": "基礎的保護球鞋。\n\n限定[ff0000]中鋒[-]裝備。"
     },
     {
         "id": 5010,
@@ -5875,9 +6669,11 @@
     },
     {
         "id": 5020,
-        "nametw": "中鋒鞋子20",
+        "nametw": "阿耳戈斯戰靴",
         "kind": 5,
         "atlas": 5,
+        "icon": 5020,
+        "avatar": 37001,
         "quality": 3,
         "position": 0,
         "maxstack": 1,
@@ -5887,7 +6683,67 @@
         "flag": 1,
         "namecn": "中锋鞋子20",
         "nameen": "Shoes center 20",
-        "namejp": "靴・センター20"
+        "namejp": "靴・センター20",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 5021,
+        "nametw": "布魯托戰靴",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5021,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋鞋子21",
+        "nameen": "Shoes center 21",
+        "namejp": "靴・センター21",
+        "explaintw": "魔王布魯托的專屬造型！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 5022,
+        "nametw": "暴力金屬戰鞋",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5022,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 0,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "中锋鞋子22",
+        "nameen": "Shoes center 22",
+        "namejp": "靴・センター22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[ff0000]中鋒[-]裝備。"
+    },
+    {
+        "id": 5023,
+        "nametw": "中鋒鞋子23",
+        "namecn": "中锋鞋子23",
+        "nameen": "Shoes center 23",
+        "namejp": "靴・センター23"
+    },
+    {
+        "id": 5024,
+        "nametw": "中鋒鞋子24",
+        "namecn": "中锋鞋子24",
+        "nameen": "Shoes center 24",
+        "namejp": "靴・センター24"
+    },
+    {
+        "id": 5025,
+        "nametw": "中鋒鞋子25",
+        "namecn": "中锋鞋子25",
+        "nameen": "Shoes center 25",
+        "namejp": "靴・センター25"
     },
     {
         "id": 5100,
@@ -6022,7 +6878,8 @@
         "buy": 700,
         "namecn": "前锋鞋子7",
         "nameen": "Forward shoes 7",
-        "namejp": "フォワード靴7"
+        "namejp": "フォワード靴7",
+        "explaintw": "基礎的室內籃球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 5108,
@@ -6039,7 +6896,8 @@
         "buy": 700,
         "namecn": "前锋鞋子8",
         "nameen": "Forward Shoes 8",
-        "namejp": "フォワードシューズ8"
+        "namejp": "フォワードシューズ8",
+        "explaintw": "基礎的室內籃球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 5109,
@@ -6056,7 +6914,8 @@
         "buy": 700,
         "namecn": "前锋鞋子9",
         "nameen": "Forward Shoes 9",
-        "namejp": "フォワードシューズ9"
+        "namejp": "フォワードシューズ9",
+        "explaintw": "基礎的室內籃球鞋。\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 5110,
@@ -6165,9 +7024,11 @@
     },
     {
         "id": 5115,
-        "nametw": "前鋒鞋子15",
+        "nametw": "邪惡金屬鋼鞋",
         "kind": 5,
         "atlas": 5,
+        "icon": 5115,
+        "avatar": 6001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -6177,7 +7038,8 @@
         "flag": 1,
         "namecn": "前锋鞋子15",
         "nameen": "Forward Shoes 15",
-        "namejp": "フォワードシューズ15"
+        "namejp": "フォワードシューズ15",
+        "explaintw": "潛水員？生化兵？\n\n限定[3960CEFF]前鋒[-]裝備。"
     },
     {
         "id": 5116,
@@ -6257,9 +7119,11 @@
     },
     {
         "id": 5120,
-        "nametw": "前鋒鞋子20",
+        "nametw": "幽鬼護靴",
         "kind": 5,
         "atlas": 5,
+        "icon": 5120,
+        "avatar": 38001,
         "quality": 3,
         "position": 1,
         "maxstack": 1,
@@ -6269,7 +7133,67 @@
         "flag": 1,
         "namecn": "前锋鞋子20",
         "nameen": "Forward Shoes 20",
-        "namejp": "フォワードシューズ20"
+        "namejp": "フォワードシューズ20",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 5121,
+        "nametw": "吉爾護靴",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5121,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋鞋子21",
+        "nameen": "Forward Shoes 21",
+        "namejp": "フォワードシューズ21",
+        "explaintw": "魔化吉爾的專屬造型！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 5122,
+        "nametw": "暴力閃電戰靴",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5122,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "前锋鞋子22",
+        "nameen": "Forward Shoes 22",
+        "namejp": "フォワードシューズ22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[3960CEFF]前鋒[-]裝備。"
+    },
+    {
+        "id": 5123,
+        "nametw": "前鋒鞋子23",
+        "namecn": "前锋鞋子23",
+        "nameen": "Forward Shoes 23",
+        "namejp": "フォワードシューズ23"
+    },
+    {
+        "id": 5124,
+        "nametw": "前鋒鞋子24",
+        "namecn": "前锋鞋子24",
+        "nameen": "Forward Shoes 24",
+        "namejp": "フォワードシューズ24"
+    },
+    {
+        "id": 5125,
+        "nametw": "前鋒鞋子25",
+        "namecn": "前锋鞋子25",
+        "nameen": "Forward Shoes 25",
+        "namejp": "フォワードシューズ25"
     },
     {
         "id": 5200,
@@ -6405,7 +7329,8 @@
         "buy": 700,
         "namecn": "后卫鞋子7",
         "nameen": "Defender shoes 7",
-        "namejp": "ディフェンダーの靴7"
+        "namejp": "ディフェンダーの靴7",
+        "explaintw": "基礎的訓練用鞋。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 5208,
@@ -6422,7 +7347,8 @@
         "buy": 700,
         "namecn": "后卫鞋子8",
         "nameen": "8 guard shoes",
-        "namejp": "8ガード靴"
+        "namejp": "8ガード靴",
+        "explaintw": "基礎的訓練用鞋。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 5209,
@@ -6439,7 +7365,8 @@
         "buy": 700,
         "namecn": "后卫鞋子9",
         "nameen": "Defender Shoes 9",
-        "namejp": "ディフェンダーシューズ9"
+        "namejp": "ディフェンダーシューズ9",
+        "explaintw": "基礎的訓練用鞋。\n\n限定[00BA7BFF]後衛[-]裝備。"
     },
     {
         "id": 5210,
@@ -6647,9 +7574,11 @@
     },
     {
         "id": 5220,
-        "nametw": "後衛鞋子20",
+        "nametw": "塞壬戰鞋",
         "kind": 5,
         "atlas": 5,
+        "icon": 5220,
+        "avatar": 39001,
         "quality": 3,
         "position": 2,
         "maxstack": 1,
@@ -6659,7 +7588,67 @@
         "flag": 1,
         "namecn": "后卫鞋子20",
         "nameen": "Defender Shoes 20",
-        "namejp": "ディフェンダーシューズ20"
+        "namejp": "ディフェンダーシューズ20",
+        "explaintw": "三大天王之一 塞壬的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 5221,
+        "nametw": "美杜莎戰鞋",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5221,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫鞋子21",
+        "nameen": "Defender Shoes 21",
+        "namejp": "ディフェンダーシューズ21",
+        "explaintw": "蛇女美杜莎的專屬造型！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 5222,
+        "nametw": "暴力低調長靴",
+        "kind": 5,
+        "atlas": 5,
+        "icon": 5222,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 2,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "后卫鞋子22",
+        "nameen": "Defender Shoes 22",
+        "namejp": "ディフェンダーシューズ22",
+        "explaintw": "搖滾金屬，閃電低調！\n\n限定[00BA7BFF]後衛[-]裝備。"
+    },
+    {
+        "id": 5223,
+        "nametw": "後衛鞋子23",
+        "namecn": "后卫鞋子23",
+        "nameen": "Defender Shoes 23",
+        "namejp": "ディフェンダーシューズ23"
+    },
+    {
+        "id": 5224,
+        "nametw": "後衛鞋子24",
+        "namecn": "后卫鞋子24",
+        "nameen": "Defender Shoes 24",
+        "namejp": "ディフェンダーシューズ24"
+    },
+    {
+        "id": 5225,
+        "nametw": "後衛鞋子25",
+        "namecn": "后卫鞋子25",
+        "nameen": "Defender Shoes 25",
+        "namejp": "ディフェンダーシューズ25"
     },
     {
         "id": 6000,
@@ -7075,6 +8064,212 @@
         "explainen": "Armored scout dedicated communication device, the effective distance of 500 meters."
     },
     {
+        "id": 6022,
+        "nametw": "阿耳戈斯護目鏡",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6022,
+        "avatar": 37001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰22",
+        "nameen": "Headdress 22",
+        "namejp": "頭飾り22",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！"
+    },
+    {
+        "id": 6023,
+        "nametw": "幽鬼眼罩",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6023,
+        "avatar": 38001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰23",
+        "nameen": "Headdress 23",
+        "namejp": "頭飾り23",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！"
+    },
+    {
+        "id": 6024,
+        "nametw": "塞壬眼鏡",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6024,
+        "avatar": 39001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰24",
+        "nameen": "Headdress 24",
+        "namejp": "頭飾り24",
+        "explaintw": "三大天王之一 塞壬的專屬造型！"
+    },
+    {
+        "id": 6025,
+        "nametw": "布魯托面具",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6025,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰25",
+        "nameen": "Headdress 25",
+        "namejp": "頭飾り25",
+        "explaintw": "魔王布魯托的專屬造型！"
+    },
+    {
+        "id": 6026,
+        "nametw": "吉爾眼罩",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6026,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰26",
+        "nameen": "Headdress 26",
+        "namejp": "頭飾り26",
+        "explaintw": "魔化吉爾的專屬造型！"
+    },
+    {
+        "id": 6027,
+        "nametw": "美杜莎護目鏡",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6027,
+        "avatar": 42001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰27",
+        "nameen": "Headdress 27",
+        "namejp": "頭飾り27",
+        "explaintw": "蛇女美杜莎的專屬造型！"
+    },
+    {
+        "id": 6028,
+        "nametw": "暴力蝴蝶護目鏡",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6028,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰28",
+        "nameen": "Headdress 28",
+        "namejp": "頭飾り28",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 6029,
+        "nametw": "暴力耳機眼罩",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6029,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰29",
+        "nameen": "Headdress 29",
+        "namejp": "頭飾り29",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 6030,
+        "nametw": "暴力閃電護目鏡",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6030,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰30",
+        "nameen": "Headdress 30",
+        "namejp": "頭飾り30",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 6031,
+        "nametw": "邪惡金屬面罩",
+        "kind": 6,
+        "atlas": 6,
+        "icon": 6031,
+        "avatar": 6001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "头饰31",
+        "nameen": "Headdress 31",
+        "namejp": "頭飾り31",
+        "explaintw": "潛水員？生化兵？"
+    },
+    {
+        "id": 6032,
+        "nametw": "頭飾32"
+    },
+    {
+        "id": 6033,
+        "nametw": "頭飾33"
+    },
+    {
+        "id": 6034,
+        "nametw": "頭飾34"
+    },
+    {
+        "id": 6035,
+        "nametw": "頭飾35"
+    },
+    {
         "id": 7000,
         "nametw": "背飾",
         "usetime": 48
@@ -7372,7 +8567,8 @@
         "flag": 1,
         "namecn": "背饰15",
         "nameen": "Back decorated 15",
-        "namejp": "戻る15装飾"
+        "namejp": "戻る15装飾",
+        "explaintw": "星際特工系列，守護宇宙和平。"
     },
     {
         "id": 7016,
@@ -7494,6 +8690,219 @@
         "namejp": "戻る21装飾",
         "explaintw": "斥侯加速用雙飛翼，有效助於空中偵察。",
         "explainen": "Scout speedup Flying wing, effective means of aerial reconnaissance."
+    },
+    {
+        "id": 7022,
+        "nametw": "阿耳戈斯背盾",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7022,
+        "avatar": 37001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰22",
+        "nameen": "Back decorated 22",
+        "namejp": "戻る22装飾",
+        "explaintw": "三大天王之一 阿耳戈斯的獨特造型！"
+    },
+    {
+        "id": 7023,
+        "nametw": "幽鬼飛翼",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7023,
+        "avatar": 38001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰23",
+        "nameen": "Back decorated 23",
+        "namejp": "戻る23装飾",
+        "explaintw": "三大天王之一 幽鬼的專屬造型！"
+    },
+    {
+        "id": 7024,
+        "nametw": "塞壬飛行器",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7024,
+        "avatar": 39001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰24",
+        "nameen": "Back decorated 24",
+        "namejp": "戻る24装飾",
+        "explaintw": "三大天王之一 塞壬的專屬造型！"
+    },
+    {
+        "id": 7025,
+        "nametw": "布魯托輔助手臂",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7025,
+        "avatar": 40001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰25",
+        "nameen": "Back decorated 25",
+        "namejp": "戻る25装飾",
+        "explaintw": "魔王布魯托的專屬造型！"
+    },
+    {
+        "id": 7026,
+        "nametw": "吉爾獵槍",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7026,
+        "avatar": 41001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰26",
+        "nameen": "Back decorated 26",
+        "namejp": "戻る26装飾",
+        "explaintw": "魔化吉爾的專屬造型！"
+    },
+    {
+        "id": 7027,
+        "nametw": "暴力大型喇叭",
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰27",
+        "nameen": "Back decorated 27",
+        "namejp": "戻る27装飾",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 7028,
+        "nametw": "暴力中型喇叭",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7028,
+        "avatar": 43001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰28",
+        "nameen": "Back decorated 28",
+        "namejp": "戻る28装飾",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 7029,
+        "nametw": "暴力小型喇叭",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7029,
+        "avatar": 44001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰29",
+        "nameen": "Back decorated 29",
+        "namejp": "戻る29装飾",
+        "explaintw": "搖滾金屬，閃電低調！"
+    },
+    {
+        "id": 7030,
+        "nametw": "邪惡金屬氧氣筒",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7030,
+        "avatar": 45001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰30",
+        "nameen": "Back decorated 30",
+        "namejp": "戻る30装飾",
+        "explaintw": "潛水員？生化兵？"
+    },
+    {
+        "id": 7031,
+        "nametw": "背飾31",
+        "kind": 7,
+        "atlas": 7,
+        "icon": 7031,
+        "avatar": 6001,
+        "quality": 3,
+        "position": 3,
+        "maxstack": 1,
+        "usetime": 48,
+        "sell": 3000,
+        "buy": 700,
+        "flag": 1,
+        "namecn": "背饰31",
+        "nameen": "Back decorated 31",
+        "namejp": "戻る31装飾"
+    },
+    {
+        "id": 7032,
+        "nametw": "背飾32",
+        "namecn": "背饰32",
+        "nameen": "Back decorated 32",
+        "namejp": "戻る32装飾"
+    },
+    {
+        "id": 7033,
+        "nametw": "背飾33",
+        "namecn": "背饰33",
+        "nameen": "Back decorated 33",
+        "namejp": "戻る33装飾"
+    },
+    {
+        "id": 7034,
+        "nametw": "背飾34",
+        "namecn": "背饰34",
+        "nameen": "Back decorated 34",
+        "namejp": "戻る34装飾"
+    },
+    {
+        "id": 7035,
+        "nametw": "背飾35",
+        "namecn": "背饰35",
+        "nameen": "Back decorated 35",
+        "namejp": "戻る35装飾"
     },
     {
         "id": 11001,
@@ -10153,7 +11562,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXC-2 Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's 2-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10168,7 +11577,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXC-3 Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's 3-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10183,7 +11592,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXP-1 Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's speed for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10198,7 +11607,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXT-0 Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's stamina for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10213,7 +11622,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "STR-9 Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's strenght for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10228,7 +11637,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "DNK-X Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's dunking ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10243,7 +11652,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "RV-D Left ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's rebounding ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10258,7 +11667,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "BKK-5 Right ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's blocking skills for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10273,7 +11682,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "AD-X",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's defense skills for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10288,7 +11697,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "STL-0 Right Ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's stealing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10303,7 +11712,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "PSS-3 Right ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's passing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10318,7 +11727,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "PSS-4 Right ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's passing ability for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10333,7 +11742,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXC-2 Right ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's 2-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10348,7 +11757,7 @@
         "attrvalue1": 20,
         "uisource": [10,11,12],
         "nameen": "SXC-3 Right ear chip",
-        "explaintw": "消耗型物品。於《突觸強化》中裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
+        "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "This microchip will considerably enhance a player's 3-point shooting% for one game.\n[ff0000] Note: This is a consumable item, each  [-] [33FFDD] unit [-] [ff0000] can only be used once. [-] "
     },
     {
@@ -10429,7 +11838,7 @@
     },
     {
         "id": 19006,
-        "nametw": "七彩原石",
+        "nametw": "虹色原石",
         "kind": 19,
         "atlas": 11,
         "icon": 19006,
@@ -10438,7 +11847,7 @@
         "stagesource": [191],
         "uisource": [10,11,12],
         "nameen": "Dimond Core",
-        "explaintw": "突觸強化合成材料。可協助所有 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助所有 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Rare material that can help you upgrade your plugs."
     },
     {
@@ -11004,7 +12413,7 @@
         "stagesource": [194],
         "uisource": [10,11,12],
         "nameen": "Alpha atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -11018,7 +12427,7 @@
         "stagesource": [194],
         "uisource": [10,11,12],
         "nameen": "Beta atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -11032,7 +12441,7 @@
         "stagesource": [194],
         "uisource": [10,11,12],
         "nameen": "Gamma atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -11046,7 +12455,7 @@
         "stagesource": [196],
         "uisource": [10,11,12],
         "nameen": "Glick atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -11060,7 +12469,7 @@
         "stagesource": [196],
         "uisource": [10,11,12],
         "nameen": "Omega atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -11074,7 +12483,7 @@
         "stagesource": [196],
         "uisource": [10,11,12],
         "nameen": "Delta atom",
-        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]七彩[-] 品質的插件進行強化。",
+        "explaintw": "突觸強化合成材料。可協助部分 [ff00db]紅色[-] 品質的插件進行強化。",
         "explainen": "Synaptic strengthening synthetic materials. May assist part [ff00db] Colorful [-] to strengthen the quality of plug-ins."
     },
     {
@@ -16853,7 +18262,7 @@
     },
     {
         "id": 32100,
-        "nametw": "自我2分鼓舞 ",
+        "nametw": "自我命中鼓舞 ",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -16863,13 +18272,13 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "2 Points Battle Cry ",
-        "explaintw": "當士氣值達到需求，施放於自己身上的2分數值加成\n\n[F0FF00]發動條件：士氣值達到[-] [33FFDD]{0}[-]\n[F0FF00]發動效果：自身2分球命中率＋{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於自己身上的命中數值加成\n\n[F0FF00]發動條件：士氣值達到[-] [33FFDD]{0}[-]\n[F0FF00]發動效果：自身命中率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will boost the player's personal 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 2 point shooting ability {3}＋{4} Duration {5} Seconds[-]"
     },
     {
         "id": 32101,
-        "nametw": "自我3分鼓舞 ",
+        "nametw": "自我外線鼓舞 ",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -16879,7 +18288,7 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "3 Points Battle Cry",
-        "explaintw": "當士氣值達到需求，施放於自己身上的3分數值加成\n\n[F0FF00]發動條件：士氣值達到[-] [FF3355]{0}[-]\n[F0FF00]發動效果：自身3分球命中率＋{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於自己身上的外線數值加成\n\n[F0FF00]發動條件：士氣值達到[-] [FF3355]{0}[-]\n[F0FF00]發動效果：自身外線成功率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的3分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will boost the player's personal 3 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 3 point shooting ability{3}＋{4}Duration{5}Seconds[-]"
     },
@@ -17045,7 +18454,7 @@
     },
     {
         "id": 32150,
-        "nametw": "全隊2分鼓舞",
+        "nametw": "全隊命中鼓舞",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -17055,13 +18464,13 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "2 Points Team Battle Shout",
-        "explaintw": "當士氣值達到需求，施放於我方全隊的2分數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方2分球命中率＋{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的命中數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方命中率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will boost the team's 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 2 point shooting ability {3}＋{4} Duration {5}Seconds[-]"
     },
     {
         "id": 32151,
-        "nametw": "全隊3分鼓舞",
+        "nametw": "全隊外線鼓舞",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -17071,7 +18480,7 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "3 Points Team Battle Shout",
-        "explaintw": "當士氣值達到需求，施放於我方全隊的3分數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方3分球命中率＋{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於我方全隊的外線數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方外線成功率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的3分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will boost the team's 3 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 3 point shooting ability{3}＋{4}Duration{5}Seconds[-]"
     },
@@ -17269,7 +18678,7 @@
     },
     {
         "id": 32180,
-        "nametw": "2分衰減詛咒",
+        "nametw": "命中衰減詛咒",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -17279,13 +18688,13 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "2 Point Diminishing Curse",
-        "explaintw": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手2分球命中率{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的命中衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手命中率{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 2 point shooting ability {6}% duration {5}seconds[-]"
     },
     {
         "id": 32181,
-        "nametw": "3分衰減詛咒",
+        "nametw": "外線衰減詛咒",
         "kind": 21,
         "atlas": 21,
         "icon": 10001,
@@ -17295,7 +18704,7 @@
         "maxstack": 1,
         "uisource": [1,10,11,12],
         "nameen": "3 Point Diminishing Curse",
-        "explaintw": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手3分球命中率{6}%持續{5}秒[-]",
+        "explaintw": "當士氣值達到需求，施放於敵方全隊的外線衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手外線成功率{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
         "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 3 point shooting ability {6}% duration {5}seconds[-]"
     },
@@ -17733,7 +19142,7 @@
     },
     {
         "id": 52000,
-        "nametw": "簡易佈告欄",
+        "nametw": "廣告看板",
         "kind": 52,
         "avatar": 101,
         "nameen": "Simple Bulletin Board"
@@ -17778,14 +19187,14 @@
     },
     {
         "id": 57000,
-        "nametw": "塑膠板凳",
+        "nametw": "休息板凳",
         "kind": 57,
         "avatar": 101,
         "nameen": "Plastic bench"
     },
     {
         "id": 58000,
-        "nametw": "再生紙行事曆",
+        "nametw": "留言板",
         "kind": 58,
         "avatar": 101,
         "nameen": "Recycled Calendar"
