@@ -51,7 +51,7 @@ public class TextureManager : KnightSingleton<TextureManager> {
             }
             else
             {
-                string path = "Textures/SkillCards/" + id.ToString();
+				string path = "Textures/SkillCards/Big/" + id.ToString();
                 Texture2D obj = Resources.Load(path) as Texture2D;
                 if (obj)
                 {
@@ -81,7 +81,7 @@ public class TextureManager : KnightSingleton<TextureManager> {
                 }
                 else
                 {
-                    string path = "Textures/SkillCards/" + GameData.DSkillData[id].RectanglePicture;
+                    string path = "Textures/SkillCards/Rectangle/" + GameData.DSkillData[id].RectanglePicture;
                     Texture2D obj = Resources.Load(path) as Texture2D;
                     if (obj)
                     {

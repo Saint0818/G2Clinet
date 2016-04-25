@@ -1015,7 +1015,6 @@ public static class GameFunction
 		float decayRate = 0;
 		float wristRate = 0;
 		//1 動作影響的機率
-//		beginRate = (originalRate + (originalRate * (scoreRate / 100f)) + extraScoreRate);
 		beginRate = Mathf.Max (0, (originalRate + scoreRate));
 
 
