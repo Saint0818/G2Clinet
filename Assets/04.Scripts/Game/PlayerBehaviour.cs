@@ -1652,11 +1652,13 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
             case EPlayerState.Dribble3:
-                if (mStateChangable && IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot && !IsElbow && !IsFall)
-                if ((!CanMove && IsFirstDribble) || (CanMove && CurrentState != state) || (CurrentState == EPlayerState.MoveDodge0 || CurrentState == EPlayerState.MoveDodge1))
-                {
+                if(IsInGround && mStateChangable && IsBallOwner && 
+                   !IsPickBall && !IsPass && !IsAllShoot && !IsElbow && !IsFall)
+                if((!CanMove && IsFirstDribble) || 
+                    (CanMove && CurrentState != state) || 
+                    CurrentState == EPlayerState.MoveDodge0 || 
+                    CurrentState == EPlayerState.MoveDodge1)
                     return true;
-                }
                 break;
             
             case EPlayerState.Run0:   
@@ -1665,7 +1667,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.RunningDefence:
             case EPlayerState.Defence0:
             case EPlayerState.Defence1:
-                if (mStateChangable && CurrentState != state && !IsAllShoot && !IsFall && !IsJump)
+                if(IsInGround && mStateChangable && CurrentState != state && !IsAllShoot && !IsFall && !IsJump)
                     return true;
                 break;
             case EPlayerState.MoveDodge0:
@@ -3378,8 +3380,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            // 用 0.1 來判斷, 是因為我認為這樣才比較不會有數值誤差的問題.
-            return transform.position.y >= 0.1f;
+            // 用 0.03 來判斷, 是因為我認為這樣才比較不會有數值誤差的問題.
+            return transform.position.y >= 0.03f;
         }
     }
 
