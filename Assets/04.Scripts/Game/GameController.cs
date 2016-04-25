@@ -837,7 +837,8 @@ public class GameController : KnightSingleton<GameController>
 			passIcon[index].Face = passIcon[index].Obj.transform.Find("View/HeadPic").GetComponent<UISprite>();
 			passIcon[index].UpdateFace(player.Attribute.FacePicture);
 			if(player != Joysticker)
-				passIcon[index].FaceVisible = !string.IsNullOrEmpty(player.Attribute.Identifier);
+				passIcon[index].FaceVisible = false;
+//				passIcon[index].FaceVisible = !string.IsNullOrEmpty(player.Attribute.Identifier);
 		}
 	}
 
