@@ -990,6 +990,7 @@ public class UIGame : UIBase
     {
 		if(IsPlayerMe)
 			PlayerMe.PlayerSkillController.ResetUseActive();
+        
         if (IsAttack)
             UIMaskState(EUIControl.AttackA);
         else

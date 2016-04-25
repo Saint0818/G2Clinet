@@ -243,6 +243,8 @@ public class UISetting : UIBase {
 
 		toggleMove = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckMove").GetComponent<UIToggle> ();
 		toggleRotation = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckRotation").GetComponent<UIToggle> ();
+        toggleMove.value = GameData.Setting.GameMove;
+        toggleRotation.value = GameData.Setting.GameRotation;
 
 		for (int i = 0; i < pages.Length; i++) {
 			pages[i] = GameObject.Find(UIName + string.Format("Window/Center/Pages/{0}", i));

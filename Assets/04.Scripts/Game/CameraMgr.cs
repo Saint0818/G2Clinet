@@ -131,6 +131,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             Destroy(showCamera.gameObject);
     }
 
+    public override string ResName
+    {
+        get
+        {
+            return "CameraMgr";
+        }
+    }
+
     public void PlayShake()
     {
         mShake.Play();
@@ -374,6 +382,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
+    private bool rotationByJoysticker() {
+        if (GameData.Setting.GameRotation && situation != ECameraSituation.Skiller)
+            return true;
+        else
+            return false;
+    }
+
     private void SetTestToolPosition()
     {
         if (LobbyStart.Get.TestCameraMode == ECameraTest.RGB)
@@ -446,8 +461,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         //GroupOffset
         if (situation != ECameraSituation.Skiller && situation != ECameraSituation.JumpBall)
-            cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[situation.GetHashCode()], groupOffsetSpeed);
-
+                cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[situation.GetHashCode()], groupOffsetSpeed);
+       
         CameraOffset();
         CameraFocus();
     }
@@ -524,8 +539,22 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 break;
         }
 
-		if (GameData.Setting.GameRotation)
-			cameraOffsetPos.z = GameController.Get.Joysticker.transform.position.z+5;
+        if (rotationByJoysticker()) {
+            cameraGroupObj.transform.position = Vector3.zero;
+            if (CourtMgr.Get.RealBall.State == EPlayerState.Shooting) 
+                cameraOffsetPos.z = CourtMgr.Get.RealBall.transform.position.z;
+            else
+            if (GameController.Get.Joysticker != GameController.Get.BallOwner)
+                cameraOffsetPos.z = (GameController.Get.Joysticker.transform.position.z + CourtMgr.Get.RealBall.transform.position.z) / 2;
+            else
+                cameraOffsetPos.z = GameController.Get.Joysticker.transform.position.z;
+            
+            if (cameraOffsetPos.z < -8)
+                cameraOffsetPos.z = -8;
+            else
+            if (cameraOffsetPos.z > 8)
+                cameraOffsetPos.z = 8;
+        }
 
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
     }
@@ -542,22 +571,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 break;
 
             case ECameraSituation.Self:
+            case ECameraSituation.Npc:
                 Lookat(Vector3.zero);
-				if (GameData.Setting.GameRotation)
+                if (rotationByJoysticker())
 					cameraRotationObj.transform.localEulerAngles = jumpBallRotate;
 				else
                 	cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
                 
 				break;
-
-            case ECameraSituation.Npc:
-                Lookat(Vector3.zero);
-				if (GameData.Setting.GameRotation)
-					cameraRotationObj.transform.localEulerAngles = jumpBallRotate;
-				else
-					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
-				
-                break;
 
             case ECameraSituation.Skiller:
                 focusTargetOne.transform.position = new Vector3(skiller.transform.position.x, skiller.transform.position.y + 2, skiller.transform.position.z);
@@ -625,7 +646,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			sp = overRangeRotationSpeed * Time.deltaTime;
             Vector3 dirMidle = focusTarget.transform.position - cameraRotationObj.transform.position;
             Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
-			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rotMidle, sp);
+            cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rotMidle, sp);
         }
         else
         {
@@ -639,7 +660,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             sp = cameraRotationSpeed * Time.deltaTime;
         }
 
-		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, sp);
+        cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, sp);
     }
 
     private void focusObjectOffset()
@@ -731,14 +752,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             case 2://reset all player's layer
                 GameController.Get.SetAllPlayerLayer("Player");
                 break;
-        }
-    }
-
-    public override string ResName
-    {
-        get
-        {
-            return "CameraMgr";
         }
     }
 

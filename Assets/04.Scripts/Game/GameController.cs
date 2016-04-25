@@ -996,10 +996,12 @@ public class GameController : KnightSingleton<GameController>
 			else {
 				if(!playerSelectMe.activeInHierarchy)
 					playerSelectMe.SetActive(true);
+                
 				if(Situation == EGameSituation.GamerAttack) {
 					NpcSelectMe = FindNearNpc();
 					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[ETeamKind.Self.GetHashCode()].transform.position), 0);
-				} else if(Situation == EGameSituation.NPCAttack) {
+				} else 
+                if(Situation == EGameSituation.NPCAttack) {
 					NpcSelectMe = FindNearNpc();
 					showEnemySelect(NpcSelectMe);
 					PlayerSelectArrow.transform.localEulerAngles = new Vector3(0, MathUtils.FindAngle(Joysticker.PlayerRefGameObject.transform.position, NpcSelectMe.transform.position), 0);
@@ -2735,16 +2737,16 @@ public class GameController : KnightSingleton<GameController>
 		if (combo < 2)
 			ShowWord(EShowWordType.DC5, 0, Joysticker.ShowWord);
 		else
-			if (combo < 3)
-				ShowWord(EShowWordType.DC10, 0, Joysticker.ShowWord);
-			else
-				if (combo < 4)
-					ShowWord(EShowWordType.DC15, 0, Joysticker.ShowWord);
-				else
-					if (combo < 5)
-						ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
-					else
-						ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
+		if (combo < 3)
+			ShowWord(EShowWordType.DC10, 0, Joysticker.ShowWord);
+		else
+		if (combo < 4)
+			ShowWord(EShowWordType.DC15, 0, Joysticker.ShowWord);
+		else
+		if (combo < 5)
+			ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
+		else
+			ShowWord(EShowWordType.DC20, 0, Joysticker.ShowWord);
 		
 	}
 
