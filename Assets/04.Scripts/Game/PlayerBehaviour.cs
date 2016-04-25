@@ -958,7 +958,7 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						float angle = Mathf.Atan2 (v.x, v.y) * Mathf.Rad2Deg;
 						float a = 90;
-						if (!GameData.Setting.GameRotation)
+						if (!GameData.Setting.GameMove)
 							a += yAxizOffset;
 						
 						Vector3 rotation = new Vector3(0, angle + a, 0);

@@ -269,7 +269,7 @@ public class UIShop : UIBase {
 
     void FixedUpdate() {
         if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
-            labelFreshTime.text = TextConst.DeadlineString(GameData.Team.FreshShopTime.ToUniversalTime());
+            labelFreshTime.text = TextConst.SecondString(GameData.Team.FreshShopTime.ToUniversalTime());
         else {
             labelFreshTime.text = TextConst.S(4510);
             labelFreshDiamond.text = "0";
@@ -307,7 +307,8 @@ public class UIShop : UIBase {
     public void OnClose() {
         Visible = false;
         UIPlayerAvatar.Visible = false;
-        UIMainLobby.Get.Show();
+        if (!UIPVP.Visible)
+            UIMainLobby.Get.Show();
     }
 
     public void OpenPage(int page) {
@@ -469,23 +470,9 @@ public class UIShop : UIBase {
             GameData.Team.FreshShopTime = result.FreshShopTime;
             GameData.Team.DailyCount.FreshShop = result.DailyCount.FreshShop;
             labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
-
-            switch (result.Kind) {
-                case 0:
-                    GameData.Team.ShopItems1 = result.ShopItems1;
-                    GameData.Team.ShopItems2 = result.ShopItems2;
-                    GameData.Team.ShopItems3 = result.ShopItems3;
-                    break;
-                case 1:
-                    GameData.Team.ShopItems1 = result.ShopItems1;
-                    break;
-                case 2:
-                    GameData.Team.ShopItems2 = result.ShopItems2;
-                    break;
-                case 3:
-                    GameData.Team.ShopItems3 = result.ShopItems3;
-                    break;
-            }
+            GameData.Team.ShopItems1 = result.ShopItems1;
+            GameData.Team.ShopItems2 = result.ShopItems2;
+            GameData.Team.ShopItems3 = result.ShopItems3;
 
             initList(nowPage);
         }

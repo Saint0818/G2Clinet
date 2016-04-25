@@ -665,67 +665,70 @@
         "explain": "解鎖數值裝功能",
         "uipath": "1.解鎖數值裝",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 2"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1502,
         "explain": "解鎖造型功能",
         "uipath": "2.解鎖Avatar",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 3"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1503,
         "explain": "解鎖商店功能",
         "uipath": "3.商店按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1504,
         "explain": "解鎖社交功能",
         "uipath": "4.社群按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "FEATURE HASN'T BEEN UNLOCKED YET"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1505,
         "explain": "解鎖技能功能",
         "uipath": "5.解鎖技能介面",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 1"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1506,
         "explain": "解鎖任務功能",
         "uipath": "6.任務主按鈕",
         "tw": "LV{0}時可開啟此功能",
-        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL 5"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1507,
         "explain": "解鎖晶片抽取功能",
         "uipath": "7.抽卡牌(Mall)",
         "tw": "LV{0}時可開啟此功能",
-        "en": "Will unlock when publicity reaches level 6"
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1508,
         "explain": "解鎖PVP",
         "uipath": "8.PVP功能",
-        "tw": "LV{0}時可開啟此功能"
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1509,
         "explain": "解鎖副本",
         "uipath": "9.副本",
-        "tw": "LV{0}時可開啟此功能"
+        "tw": "LV{0}時可開啟此功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1510,
         "explain": "解鎖第三支球員",
         "uipath": "10.創角介面的第三位角色",
-        "tw": "LV{0}時可開啟此功能，獲得第三隻球員"
+        "tw": "LV{0}時可開啟此功能，獲得第三隻球員",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1511,
@@ -735,13 +738,15 @@
         "id": 1521,
         "explain": "解鎖技能進化",
         "uipath": "21.技能進化",
-        "tw": "LV{0}時可開啟此功能，可提升技能品質"
+        "tw": "LV{0}時可開啟此功能，可提升技能品質",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1522,
         "explain": "解鎖技能升星",
         "uipath": "22.技能升星",
-        "tw": "LV{0}時可開啟此功能，可提升技能能力"
+        "tw": "LV{0}時可開啟此功能，可提升技能能力",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1513
@@ -756,54 +761,64 @@
         "id": 1526,
         "explain": "解鎖套卡",
         "uipath": "26.套卡按鈕",
-        "tw": "LV{0}時可開啟此功能，可蒐集套卡提升技能能力"
+        "tw": "LV{0}時可開啟此功能，可蒐集套卡提升技能能力",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1527,
         "explain": "解鎖套裝",
         "uipath": "27.套裝按鈕",
-        "tw": "LV{0}時可開啟此功能，可蒐集造型套裝提升能力"
+        "tw": "LV{0}時可開啟此功能，可蒐集造型套裝提升能力",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1550,
         "uipath": "50.建築序列2 ",
-        "tw": "LV{0}時可開啟此功能，可增加建築序列"
+        "tw": "LV{0}時可開啟此功能，可增加建築序列",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1551,
         "uipath": "51.Basket = 1,",
-        "tw": "LV{0}時可開啟此功能，可開啟踢館功能"
+        "tw": "LV{0}時可開啟此功能，可開啟踢館功能",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1552,
         "uipath": "52.Advertisement = 2,",
-        "tw": "LV{0}時可開啟此功能，可增加金幣收入"
+        "tw": "LV{0}時可開啟此功能，可增加金幣收入",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1553,
         "uipath": "53.Store = 3,",
-        "tw": "LV{0}時可開啟此功能，可購買優惠物品"
+        "tw": "LV{0}時可開啟此功能，可購買優惠物品",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1554,
         "explain": "解鎖球場",
         "uipath": "54.Gym = 4,",
-        "tw": "LV{0}時可開啟此功能，加快士氣恢復速度"
+        "tw": "LV{0}時可開啟此功能，加快士氣恢復速度",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1555,
         "uipath": "55.Door = 5,",
-        "tw": "LV{0}時可開啟此功能，前往參觀其他球員的球館"
+        "tw": "LV{0}時可開啟此功能，前往參觀其他球員的球館",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1556,
         "uipath": "56.Logo = 6,",
-        "tw": "LV{0}時可開啟此功能，可增加進入競賽時的士氣值"
+        "tw": "LV{0}時可開啟此功能，可增加進入競賽時的士氣值",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1557,
         "uipath": "57.Chair = 7,",
-        "tw": "LV{0}時可開啟此功能，可增加士氣值的上限"
+        "tw": "LV{0}時可開啟此功能，可增加士氣值的上限",
+        "en": "UNLOCKED WHEN REPUTATION REACHES LEVEL {0}"
     },
     {
         "id": 1558,
@@ -3223,7 +3238,7 @@
         "id": 7705,
         "explain": "說明按鈕",
         "tw": "說明",
-        "en": "Explanation"
+        "en": "More"
     },
     {
         "id": 7706,
@@ -3474,6 +3489,11 @@
         "explain": "尚未通過前一關卡",
         "tw": "請先通過前一關卡",
         "en": "First through a checkpoint before"
+    },
+    {
+        "id": 9252,
+        "explain": "星星計數",
+        "tw": "章節進度"
     },
     {
         "id": 9301,
@@ -3729,7 +3749,10 @@
         "tw": "[FF0000FF]{0}[-]日聘僱中"
     },
     {
-        "id": 9522
+        "id": 9522,
+        "explain": "鎖定中",
+        "uipath": "LockLabel",
+        "tw": "未聘僱自由球員"
     },
     {
         "id": 9523
@@ -3773,8 +3796,8 @@
     {
         "id": 9705,
         "uipath": "tabs/04",
-        "tw": "獎勵兌換",
-        "en": "Awards"
+        "tw": "聯盟商店",
+        "en": "PVP SHOP"
     },
     {
         "id": 9706,
@@ -4022,12 +4045,12 @@
     {
         "id": 9752,
         "tw": "上一階",
-        "en": "Previous Step"
+        "en": "Prev"
     },
     {
         "id": 9753,
         "tw": "下一階",
-        "en": "Next Step"
+        "en": "Next"
     },
     {
         "id": 9761,

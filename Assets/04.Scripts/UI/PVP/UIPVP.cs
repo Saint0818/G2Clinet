@@ -112,6 +112,7 @@ public class UIPVP : UIBase
         SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/ButtonGroup/LButton", OnLeft);
         SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/ButtonGroup/RButton", OnRight);
         SetBtnFun(UIName + "/Center/Window/Pages/0/MainView/DailyAwardBtn", OnAward);
+        SetBtnFun(UIName + "/Center/Window/Tabs/Shop", OnShop);
 
 		itemPVPRankGroup = Resources.Load("Prefab/UI/Items/ItemRankGroup") as GameObject;
         GameObject itemPVPLeague = Resources.Load("Prefab/UI/Items/PvPLeagueGroup") as GameObject;
@@ -184,7 +185,7 @@ public class UIPVP : UIBase
 				rankObjects [i].SetParent (anchorObj);
 				rankObjects [i].Enable = true;
 				rankObjects [i].UpdateView (data [i]);
-				rankObjects [i].LocalPosititon = new Vector3 (0, -10 -110 * i, 0);
+				rankObjects [i].LocalPosititon = new Vector3 (0, 40 -110 * i, 0);
 			}
 		}
 	}
@@ -342,6 +343,11 @@ public class UIPVP : UIBase
             WWWForm form = new WWWForm();
             SendHttp.Get.Command(URLConst.PVPAward, WaitPVPAward, form, false); 
         }
+    }
+
+    public void OnShop() {
+        UIShop.Visible = true;
+        UIShop.Get.OpenPage(1);
     }
 
     private void WaitPVPAward(bool ok, WWW www)

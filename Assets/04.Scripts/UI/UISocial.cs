@@ -214,7 +214,7 @@ public class UISocial : UIBase {
 
         if (nowPage == 2) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
-                labelFreshTime.text = TextConst.DeadlineString(GameData.Team.FreshFriendTime.ToUniversalTime());
+                labelFreshTime.text = TextConst.SecondString(GameData.Team.FreshFriendTime.ToUniversalTime());
             else {
                 labelFreshTime.text = TextConst.S(4510);
                 labelFreshDiamond.text = "0";

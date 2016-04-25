@@ -368,6 +368,7 @@ public class UIMission : UIBase {
 
                     if (missionData.Diamond[lv] > 0) {
                         missionItem.LabelAwardDiamond.text = missionData.Diamond[lv].ToString();
+                        missionItem.LabelAwardDiamond.color = GameData.CoinEnoughTextColor(true, missionData.SpendKind);
                         missionItem.SpriteAwardDiamond.spriteName = GameFunction.SpendKindTexture(missionData.SpendKind);
                     }
 
