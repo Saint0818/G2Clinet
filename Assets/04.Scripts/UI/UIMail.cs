@@ -164,8 +164,10 @@ public class UIMail : UIBase {
 	private static UIMail instance = null;
 	private const string UIName = "UIMail";
 
+	private int nowGroup = 0;
 	//ui
 	private GameObject window;
+	private UIButton changeBtn;
 
 	private const int pageNum = 3;
 	private int nowPage = 1;
@@ -225,6 +227,7 @@ public class UIMail : UIBase {
 		subPages [2] = new MailSubPageSocial (UIName, 2);
 
 		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn", OnOpenDailyLogin);
+		changeBtn = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/ChangeBtn").GetComponent<UIButton>();
 		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGotoGroup1);
 
 		// group 1
@@ -239,36 +242,46 @@ public class UIMail : UIBase {
 	{
 		UIDailyLogin.Get.Show ();
 	}
-
-	private IEnumerator showGymCenter() {
-		yield return new WaitForSeconds(1);
-		UIGym.Get.CenterVisible = true;
-		Visible = false;
-	}
-
-
+		
 	private void OnGotoGroup1()
 	{
+		if (UI3DMainLobby.Visible)
+			UI3DMainLobby.Get.Impl.OnSelect (8);
+		changeBtn.gameObject.SetActive (false);
+		nowGroup = 1;
 		
 	}
 
 	private void OnGotoGroup0()
 	{
-		
+		if (UI3DMainLobby.Visible) {
+			UI3DMainLobby.Get.Impl.OnSelect (8);
+			UIMainLobby.Get.View.PlayExitAnimation();
+		}
+		changeBtn.gameObject.SetActive (true);
+		nowGroup = 0;	
 	}
 
 	private void OnClose()
 	{
+		switch(nowGroup) {
+		case 0:
+			window.SetActive (false);
+			UIMainLobby.Get.View.PlayEnterAnimation();
+			UIGym.Get.CenterVisible = true;
+			Visible = false;
+			break;
 
-		if(UI3DMainLobby.Visible)
-			UI3DMainLobby.Get.Impl.OnSelect(8);
-		window.SetActive(false);
-		StartCoroutine(showGymCenter());
+		case 1:
+			OnGotoGroup0 ();
+			break;
+
+		default:
+			break;
+		}
 
 	}
 
-
-	
 	protected override void OnShow(bool isShow) {
 		base.OnShow(isShow);
 		if (isShow) {
