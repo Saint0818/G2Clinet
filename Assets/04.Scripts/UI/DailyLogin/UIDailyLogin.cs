@@ -91,7 +91,7 @@ public class UIDailyLogin : UIBase
 
     public void Show()
     {
-        UIMainLobby.Get.Hide();
+		//UIMainLobby.Get.Hide();// 因改在mail介面下, 所以不需要自己開啟主UI
         Show(DateTime.Now.Year, DateTime.Now.Month);
     }
 
@@ -193,7 +193,7 @@ public class UIDailyLogin : UIBase
 
     public void Hide()
     {
-        UIMainLobby.Get.Show();
+        //UIMainLobby.Get.Show(); // 因改在mail介面下, 所以不需要自己開啟主UI
         RemoveUI(instance.gameObject);
     }
 
