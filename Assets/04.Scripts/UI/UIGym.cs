@@ -101,14 +101,23 @@ public class UIGym : UIBase {
 		int result = 0;
 		if (int.TryParse (UIButton.current.name, out result)) {
 			if (isCanUse(result + 1)) {
-				if(UI3DMainLobby.Visible) 
-					UI3DMainLobby.Get.Impl.OnSelect(result);
+				// todo: need to refactor
+				if (result != 8) {
+					if (UI3DMainLobby.Visible)
+						UI3DMainLobby.Get.Impl.OnSelect (result);
+				} else {
+					UIMainLobby.Get.View.PlayExitAnimation();
+				}
 
-				if(UIMainLobby.Get.IsVisible)
-					UIMainLobby.Get.View.QueueGroup.SetActive(false);
+				if (UIMainLobby.Get.IsVisible)
+					UIMainLobby.Get.View.QueueGroup.SetActive (false);
 				
 				CenterVisible = false;
-				StartCoroutine(ShowEngage(result));
+				// todo: need to refactor
+				if (result==8)
+					UIMail.Visible = true;
+				else
+					StartCoroutine(ShowEngage(result));
 			} else
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(result + 1 + 50)), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
 
@@ -117,11 +126,7 @@ public class UIGym : UIBase {
 
 	private IEnumerator ShowEngage (int index) {
 		yield return new WaitForSeconds(1);
-		// todo: need to refactor
-		if (index==8)
-			UIMail.Visible = true;
-		else
-			UIGymEngage.Get.ShowView(index);
+		UIGymEngage.Get.ShowView(index);
 		
 	}
 
