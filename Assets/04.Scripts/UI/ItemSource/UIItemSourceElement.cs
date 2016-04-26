@@ -82,7 +82,7 @@ public class UIItemSourceElement : MonoBehaviour
             UIItemSource.Get.Hide();
         }
         else
-            UIHint.Get.ShowHint(mData.StartWarningMessage, Color.white);
+            UIHint.Get.ShowHint(mData.StartWarningMessage, Color.black);
 
         if(mData.StartCallback != null)
             mData.StartCallback(mData.StartEnabled);

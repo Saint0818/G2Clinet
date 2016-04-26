@@ -14,6 +14,7 @@ public class EFriendKind {
     public const int Waiting = 3;
     public const int Friend = 4;
     public const int Ask = 5;
+    public const int Mercenary = 6;
 }
 
 public class TSocialEventItem {
@@ -496,8 +497,8 @@ public class UISocial : UIBase {
             friendList[nowPage][nowIndex].Friend = GameData.Team.Friends[id];
             setGoodSprite(nowPage, friendList[nowPage][nowIndex]);
             if (GameData.Team.Friends[id].Kind == 2) {
-                UIHint.Get.ShowHint(string.Format(TextConst.S(5027), GameData.Team.Friends[id].Player.Name), Color.white);
-                UIHint.Get.ShowHint(TextConst.S(5028), Color.white);
+                UIHint.Get.ShowHint(string.Format(TextConst.S(5027), GameData.Team.Friends[id].Player.Name), Color.black);
+                UIHint.Get.ShowHint(TextConst.S(5028), Color.black);
             }
         }
     }
@@ -516,7 +517,7 @@ public class UISocial : UIBase {
                     else
                         GameData.Team.Friends.Add(friend.Identifier, friend);
 
-                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.white);
+                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.black);
                 } else 
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                     GameData.Team.Friends.Remove(friend.Identifier);
@@ -674,7 +675,7 @@ public class UISocial : UIBase {
                                 } else
                                     SendHttp.Get.MakeFriend(waitMakeFriend, friendList[nowPage][nowIndex].Friend.Identifier);
                             } else
-                                UIHint.Get.ShowHint(TextConst.S(5042), Color.white);
+                                UIHint.Get.ShowHint(TextConst.S(5042), Color.black);
 
                             break;
                     }

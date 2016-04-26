@@ -57,7 +57,7 @@ public class UIMainStageElement : MonoBehaviour
             if(mData.IsEnable)
                 Main.Info.Show(StageID, mInfoData);
             else
-                UIHint.Get.ShowHint(mData.ErrMsg, Color.white);
+                UIHint.Get.ShowHint(mData.ErrMsg, Color.black);
         }));
     }
 

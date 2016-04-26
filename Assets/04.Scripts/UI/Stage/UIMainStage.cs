@@ -114,7 +114,7 @@ public class UIMainStage : UIBase
                 break;
             default:
                 Debug.LogWarning(errMsg);
-                UIHint.Get.ShowHint(errMsg, Color.green);
+                UIHint.Get.ShowHint(errMsg, Color.red);
                 break;
         }
     }

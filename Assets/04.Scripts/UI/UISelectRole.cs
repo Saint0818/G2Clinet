@@ -181,15 +181,33 @@ public class UISelectRole : UIBase {
             return ids;
     }
 
+    private void addMercenary() {
+        if (stageData.MercenaryID != null && stageData.MercenaryID.Length > 0) {
+            for (int i = 0; i < stageData.MercenaryID.Length; i ++) {
+                if (GameData.DPlayers.ContainsKey(stageData.MercenaryID[i])) {
+                    TPlayer player = new TPlayer();
+                    player.SetID(stageData.MercenaryID[i]);
+                    player.Name = GameData.DPlayers[stageData.MercenaryID[i]].Name;
+                    player.RoleIndex = playerList.Count;
+                    player.FriendKind = EFriendKind.Mercenary;
+                    playerList.Add(player);
+                }
+            }
+        }
+    }
+
 	private void initPlayerList(int[] ids) {
 		playerList.Clear();
         if (ids != null) {
+            if (stageData.IDKind != TStageData.EKind.PVP && !GameData.Team.RentExpire)
+                addMercenary();
+
             for (int i = 0; i < ids.Length; i ++) {
                 if (GameData.DPlayers.ContainsKey(ids[i])) {
                     TPlayer player = new TPlayer();
                     player.SetID(ids[i]);
                     player.Name = GameData.DPlayers[ids[i]].Name;
-                    player.RoleIndex = i;
+                    player.RoleIndex = playerList.Count;
                     playerList.Add(player);
                 }
             }
@@ -197,18 +215,8 @@ public class UISelectRole : UIBase {
             if (stageData.IDKind == TStageData.EKind.PVP)
                 initPVPTeammate();
             else {
-                if (stageData.MercenaryID != null && stageData.MercenaryID.Length > 0) {
-                    for (int i = 0; i < stageData.MercenaryID.Length; i ++) {
-                        if (GameData.DPlayers.ContainsKey(stageData.MercenaryID[i])) {
-                            TPlayer player = new TPlayer();
-                            player.SetID(stageData.MercenaryID[i]);
-                            player.Name = GameData.DPlayers[stageData.MercenaryID[i]].Name;
-                            player.RoleIndex = i + ids.Length;
-                            player.FriendKind = EFriendKind.Friend;
-                            playerList.Add(player);
-                        }
-                    }
-                }
+                if (GameData.Team.RentExpire)
+                    addMercenary();
 
                 initPVETeammate();
             }

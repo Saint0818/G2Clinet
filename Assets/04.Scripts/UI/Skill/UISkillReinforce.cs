@@ -692,10 +692,10 @@ public class UISkillReinforce : UIBase {
 							}
 						} else {
 							AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-							UIHint.Get.ShowHint(TextConst.S(510), Color.white);
+                            UIHint.Get.ShowHint(TextConst.S(510), Color.black);
 						}
 					} else 
-						UIHint.Get.ShowHint(TextConst.S(557), Color.white);
+                        UIHint.Get.ShowHint(TextConst.S(557), Color.black);
 				}
 			}
 		}

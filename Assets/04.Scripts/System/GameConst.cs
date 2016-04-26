@@ -254,4 +254,5 @@
     public const int PVPMaxTickket = 5;
     public const int PVPCD_Price = 50;
 	public const int MaxLotteryFreeTime = 10;
+    public const int Diamond_RentPlayer = 50;
 }

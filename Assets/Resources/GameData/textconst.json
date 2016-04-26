@@ -2190,7 +2190,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -3771,13 +3771,13 @@
         "id": 9520,
         "explain": "聘請自由球員",
         "uipath": "BtnLabel",
-        "tw": "聘請自由球員[00ff00]{0}[-]日"
+        "tw": "聘請自由球員[00ff00]{0}[-]天"
     },
     {
         "id": 9521,
         "explain": "已聘僱",
         "uipath": "BtnLabel",
-        "tw": "[FF0000FF]{0}[-]日聘僱中"
+        "tw": "聘僱倒數[FF0000FF]{0}[-]"
     },
     {
         "id": 9522,
@@ -3786,7 +3786,8 @@
         "tw": "未聘僱自由球員"
     },
     {
-        "id": 9523
+        "id": 9523,
+        "tw": "花費{0}鑽石雇用自由球員？"
     },
     {
         "id": 9601,
@@ -4091,18 +4092,23 @@
     },
     {
         "id": 9762,
-        "explain": "戰前選擇注射劑UIEquipList",
+        "explain": "戰前選擇注射劑",
+        "uipath": "UIEquipList",
         "tw": "裝備注射劑"
     },
     {
         "id": 9763,
-        "explain": "UIEquipList"
+        "explain": "介面說明",
+        "uipath": "UIEquipList",
+        "tw": "點擊裝備，再次點擊卸下。"
     },
     {
-        "id": 9764
+        "id": 9764,
+        "uipath": "UIEquipList"
     },
     {
-        "id": 9765
+        "id": 9765,
+        "uipath": "UIEquipList"
     },
     {
         "id": 9800,

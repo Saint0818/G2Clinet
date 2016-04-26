@@ -241,9 +241,10 @@ public class UIPVP : UIBase
 
     private int GetShopIndex()
     {
-        for (int i = 0; i < GameData.DShops.Length; i++)
-            if (GameData.DShops[i].Kind == 2)
-                return i;
+        if (GameData.DShops != null)
+            for (int i = 0; i < GameData.DShops.Length; i++)
+                if (GameData.DShops[i].Kind == 2)
+                    return i;
 
         return -1;
     }

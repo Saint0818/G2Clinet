@@ -103,6 +103,7 @@ public static class URLConst {
 	public const string PlayerKind = "playerkind";
 	public const string AutoPower = "autopower";
 	public const string Rank = "rank";
+    public const string RentPlayer = "rentplayer";
 
 	//gym
 	public const string GymBuyType = "gymbuytype";
@@ -778,7 +779,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                                     GameData.Team.Friends[events[i].TargetID] = friend;
 
                                 if (GameData.Setting.WatchFriendTime.CompareTo(events[i].Time.ToUniversalTime()) < 0) {
-                                    UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.white);
+                                    UIHint.Get.ShowHint(friend.Player.Name + TextConst.S(5029), Color.black);
                                     if (UIMainLobby.Get.IsVisible)
                                         UIMainLobby.Get.View.SocialNotice = true;
 
@@ -827,7 +828,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     else
                         GameData.Team.Friends.Add(friend.Identifier, friend);
 
-                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.white);
+                    UIHint.Get.ShowHint(string.Format(TextConst.S(5035), friend.Player.Name), Color.black);
                     if (UISocial.Visible)
                         UISocial.Get.FreshFriend(3);
                     

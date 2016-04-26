@@ -409,7 +409,7 @@ public class UIShop : UIBase {
                     UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, equipAvatar);
                 } else {
                     UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
-                    UIHint.Get.ShowHint(TextConst.S(4514), Color.white);
+                    UIHint.Get.ShowHint(TextConst.S(4514), Color.black);
                 }
             }
         }
@@ -441,14 +441,14 @@ public class UIShop : UIBase {
                 break;
             case 2:
                 if (GameData.Team.PVPCoin < shopItemList[nowPage][nowIndex].Data.Price) {
-                    UIHint.Get.ShowHint(TextConst.S(4515), Color.white);
+                    UIHint.Get.ShowHint(TextConst.S(4515), Color.black);
                     return;
                 }
 
                 break;
             case 3:
                 if (GameData.Team.SocialCoin < shopItemList[nowPage][nowIndex].Data.Price) {
-                    UIHint.Get.ShowHint(TextConst.S(4516), Color.white);
+                    UIHint.Get.ShowHint(TextConst.S(4516), Color.black);
                     return;
                 }
 

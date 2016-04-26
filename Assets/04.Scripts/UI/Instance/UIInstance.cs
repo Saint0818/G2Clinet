@@ -56,7 +56,7 @@ public class UIInstance : UIBase
                     break;
                 default:
                     Debug.LogWarning(errorMsg);
-                    UIHint.Get.ShowHint(errorMsg, Color.green);
+                        UIHint.Get.ShowHint(errorMsg, Color.red);
                     break;
             }
         };

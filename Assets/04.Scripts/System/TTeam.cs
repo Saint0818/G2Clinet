@@ -20,6 +20,7 @@ namespace GameStruct
         public DateTime FreshFriendTime;
         public DateTime SocialEventTime;
         public DateTime WatchFriendsTime;
+        public DateTime RentPlayerTime;
         public DateTime FreeLuckBox;
 		public DateTime PVPCD;
 		public DateTime[] LotteryFreeTime;
@@ -128,6 +129,10 @@ namespace GameStruct
 				return 0;
 			}
 		}
+
+        public bool RentExpire {
+            get { return RentPlayerTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0; }
+        }
 
         //PVP
         public int PVPCoin; //聯盟幣
