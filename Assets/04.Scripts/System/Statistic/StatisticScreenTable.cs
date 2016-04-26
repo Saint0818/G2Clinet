@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -43,5 +44,11 @@ public class StatisticScreenTable
     private void clear()
     {
         mScreens.Clear();
+    }
+
+    [CanBeNull]
+    public TStatisticScreenData Get(int id)
+    {
+        return mScreens.ContainsKey(id) ? mScreens[id] : null;
     }
 }

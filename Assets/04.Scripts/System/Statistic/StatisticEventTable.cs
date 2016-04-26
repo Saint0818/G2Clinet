@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -44,4 +45,11 @@ public class StatisticEventTable
     {
         mEvents.Clear();
     }
+
+    [CanBeNull]
+    public TStatisticEventData Get(int id)
+    {
+        return mEvents.ContainsKey(id) ? mEvents[id] : null;
+    }
+
 }
