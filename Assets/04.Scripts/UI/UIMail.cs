@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public struct TMailItem
@@ -37,18 +39,138 @@ public struct TMail
 	public bool isRead;
 }
 
-public class UIMail : UIBase {
-	/*
-	private static UIMail instance = null;
-	private static int mailKind = 0;
-	private const string UIName = "UIMail";
-	private Transform disableGroup;
-	private Transform enablePool;
-	private UIScrollView scrollView;
-	private GameObject mailContents;
-	private UILabel mailContentsHead;
-	private UILabel mailContentsBody;
+public class MailSubPage {
+	public GameObject redPoint;
+	public GameObject pageObject;
+
+	public virtual void HookUI(string UIName, int i)
+	{
+			redPoint = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/" + i.ToString() + "/RedPoint");
+			pageObject = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString());
+
+			UIBase.SetBtnFun (UIName + "/Window/Center/Tabs/" + i.ToString (), OnPage);
+			redPoint.SetActive(false);
+			pageObject.SetActive(false);
+	}
+
+	public virtual void OnPage() {
+	}
+
+	public void SetActive(bool a){
+		pageObject.SetActive (a);
+	}
+}
+
+public class MailSubPageHtml : MailSubPage {
+
+	public MailSubPageHtml(string UIName, int i){
+		HookUI (UIName, i);
+	}
+
+	public override void HookUI(string UIName, int i)
+	{
+		base.HookUI (UIName, i);
+
+	}
+
+	public override void OnPage() {
+		//		if (waitForAnimator)
+		//			return;
+		//
+		//		for (int i = 0; i < pageObjects.Length; i++)
+		//			pageObjects[i].SetActive(false);
+		//
+		//		int index = -1;
+		//		if (int.TryParse(UIButton.current.name, out index)) {
+		//			pageObjects[index].SetActive(true);
+		//			nowPage = index;
+		//
+		//			initMissionList(index);
+		//		}
+	}
+}
 	
+public class MailSubPagePrize : MailSubPage {
+	private UIPanel pagePanel;
+	private UIScrollView pageScrollView;
+	public int totalCount;
+	public int finishCount;
+
+	public MailSubPagePrize(string UIName, int i){
+		HookUI (UIName, i);
+	}
+
+	public override void HookUI(string UIName, int i)
+	{
+		base.HookUI (UIName, i);
+		pageScrollView = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
+		pagePanel = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
+
+	}
+
+	public override void OnPage() {
+		//		if (waitForAnimator)
+		//			return;
+		//
+		//		for (int i = 0; i < pageObjects.Length; i++)
+		//			pageObjects[i].SetActive(false);
+		//
+		//		int index = -1;
+		//		if (int.TryParse(UIButton.current.name, out index)) {
+		//			pageObjects[index].SetActive(true);
+		//			nowPage = index;
+		//
+		//			initMissionList(index);
+		//		}
+	}
+}
+
+public class MailSubPageSocial : MailSubPage {
+	private UIPanel pagePanel;
+	private UIScrollView pageScrollView;
+	public int totalCount;
+	public int finishCount;
+
+	public MailSubPageSocial(string UIName, int i){
+		HookUI (UIName, i);
+	}
+	public override void HookUI(string UIName, int i)
+	{
+		base.HookUI (UIName, i);
+		pageScrollView = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
+		pagePanel = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
+
+	}
+
+	public override void OnPage() {
+		//		if (waitForAnimator)
+		//			return;
+		//
+		//		for (int i = 0; i < pageObjects.Length; i++)
+		//			pageObjects[i].SetActive(false);
+		//
+		//		int index = -1;
+		//		if (int.TryParse(UIButton.current.name, out index)) {
+		//			pageObjects[index].SetActive(true);
+		//			nowPage = index;
+		//
+		//			initMissionList(index);
+		//		}
+	}
+}
+
+public class UIMail : UIBase {
+	
+	private static UIMail instance = null;
+	private const string UIName = "UIMail";
+
+	//ui
+	private GameObject window;
+
+	private const int pageNum = 3;
+	private int nowPage = 1;
+	private MailSubPage[] subPages = new MailSubPage[pageNum];
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -56,110 +178,108 @@ public class UIMail : UIBase {
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (value)
+					instance.Show(value);
+				else
+					RemoveUI(instance.gameObject);
+			} else
+				if (value)
+					Get.Show(value);
+		}
 	}
-	
-	public static UIMail Get {
+
+	public static UIMail Get
+	{
+		
 		get {
 			if (!instance) 
 				instance = LoadUI(UIName) as UIMail;
-			
+
 			return instance;
 		}
 	}
 
-	public static void UIShow(bool isShow, int kind = 0){
-		SetKind(kind);
-
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else{
-				instance.Show(isShow);
-			}
-		} else
-			if (isShow)
-				Get.Show(isShow);
-	}
-
-	protected override void InitCom() {
-
-		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
-
-		for (int i = 0; i < 3; i++) {
-			string path = string.Format("UIMail/MainView/Center/TypeButton/MailBtn{0}", i + 1);
-			SetBtnFun (path, OnMailKind);
-			GameObject go = GameObject.Find(path);
-			go.name = i.ToString();
-		}
-
-		scrollView = GameObject.Find (UIName + "/MainView/Center/MailList/ListView").GetComponent<UIScrollView>();
-		enablePool = GameObject.Find (UIName + "/MainView/Left/ItemList").transform;
-		GameObject disableObj = new GameObject();
-		disableObj = new GameObject ();
-		disableObj.name = "disableGroup";
-		disableGroup = disableObj.transform;
-		disableGroup.transform.parent = scrollView.transform;
-
-		mailContents = GameObject.Find (UIName + "/MainView/Center/MailList/MailContents");
-		SetBtnFun (UIName + "/MainView/Center/MailList/MailContents/Remove", OnRemove);
-		SetBtnFun (UIName + "/MainView/Center/MailList/MailContents/Get", OnGet);
-
-
-		if (mailContents) {
-			mailContentsHead = mailContents.transform.FindChild("MailTitleLabel").gameObject.GetComponent<UILabel>();	
-			mailContentsBody = mailContents.transform.FindChild("ContentsView/ContentsArea/ContentsLabel").gameObject.GetComponent<UILabel>();	
-		}
-
-		mailContents.SetActive (false);
-	}
-
-	private void OnReturn()
+	public static UIMail dynamicGet
 	{
-	  UIShow (false);
-	}
+		get {
+			if (!instance) 
+				instance = LoadUI(UIName) as UIMail;
 
-	private void OnRemove()
-	{
-		//select mail
-	}
-
-	private void OnGet()
-	{
-		//select mail
-	}
-
-	private void OnMailKind()
-	{
-		int index;
-		if (int.TryParse (UIButton.current.name, out index)) {
-			UpdateGroup(index);
+			return instance;
 		}
 	}
 
 	protected override void InitData() {
+
+	}
+
+	protected override void InitCom() {
+		window = GameObject.Find(UIName + "/Window");
+
+		// group 0
+		subPages [0] = new MailSubPageHtml (UIName, 0);
+		subPages [1] = new MailSubPagePrize (UIName, 1);
+		subPages [2] = new MailSubPageSocial (UIName, 2);
+
+		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn", OnOpenDailyLogin);
+		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGotoGroup1);
+
+		// group 1
+
+		// BottomLeft
+		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
+
+
+	}
+
+	private void OnOpenDailyLogin()
+	{
+		UIDailyLogin.Get.Show ();
+	}
+
+	private IEnumerator showGymCenter() {
+		yield return new WaitForSeconds(1);
+		UIGym.Get.CenterVisible = true;
+		Visible = false;
+	}
+
+
+	private void OnGotoGroup1()
+	{
 		
 	}
+
+	private void OnGotoGroup0()
+	{
+		
+	}
+
+	private void OnClose()
+	{
+
+		if(UI3DMainLobby.Visible)
+			UI3DMainLobby.Get.Impl.OnSelect(8);
+		window.SetActive(false);
+		StartCoroutine(showGymCenter());
+
+	}
+
+
 	
 	protected override void OnShow(bool isShow) {
+		base.OnShow(isShow);
 		if (isShow) {
-			UpdateGroup(mailKind);	
+			for (int i = 0; i < subPages.Length; i++) {
+				subPages[i].SetActive(false);
+				//initRedPoint(i);
+			}
+
+			subPages [nowPage].OnPage ();
+
 		}
 	}
 
-	public static void SetKind(int kind)
-	{
-		mailKind = kind;
-	}
-
-	public void UpdateGroup(int kind)
-	{
-		for (int i = 0; i < GameData.Team.Mails.Length; i++) {
-		}
-	}
-
-	public void OnSeletMail()
-	{
-//		mailContents
-	}
-	*/
 }

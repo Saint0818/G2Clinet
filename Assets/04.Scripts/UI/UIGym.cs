@@ -117,7 +117,12 @@ public class UIGym : UIBase {
 
 	private IEnumerator ShowEngage (int index) {
 		yield return new WaitForSeconds(1);
-		UIGymEngage.Get.ShowView(index);
+		// todo: need to refactor
+		if (index==8)
+			UIMail.Visible = true;
+		else
+			UIGymEngage.Get.ShowView(index);
+		
 	}
 
 	public void ShowView() {
