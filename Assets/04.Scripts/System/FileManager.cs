@@ -87,8 +87,8 @@ public class FileManager : KnightSingleton<FileManager>
         "greatplayer", "tactical", "baseattr", "ballposition", "skill", "stage", "item", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst", 
         "skillrecommend", "mission", "pickcost", "shop", "mall", "pvp", "limit", "daily", "suitcard", "suititem",
-		"lifetime", "potential", "diamonds", "architectureexp"
-	};
+		"lifetime", "potential", "diamonds", "architectureexp", "statisticscreen", "statisticevent"
+    };
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
 	private static List<TDownloadData> dataList = new List<TDownloadData>();
@@ -229,6 +229,8 @@ public class FileManager : KnightSingleton<FileManager>
         downloadCallBack[27] = ParsePotentital;
         downloadCallBack[28] = ParseDiamonds;
 		downloadCallBack[29] = ParseArchitectureExp;
+		downloadCallBack[30] = parseStatisticScreenData;
+		downloadCallBack[31] = parseStatisticEventData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -676,6 +678,22 @@ public class FileManager : KnightSingleton<FileManager>
 
         if(isSaveVersion)
             SaveDataVersionAndJson(text, "chapter", version);
+    }
+
+    private void parseStatisticScreenData(string version, string text, bool isSaveVersion)
+    {
+        StatisticScreenTable.Ins.Load(text);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(text, "statisticscreen", version);
+    }
+
+    private void parseStatisticEventData(string version, string text, bool isSaveVersion)
+    {
+        StatisticEventTable.Ins.Load(text);
+
+        if (isSaveVersion)
+            SaveDataVersionAndJson(text, "statisticevent", version);
     }
 
     private void parseTutorialData(string version, string text, bool isSaveVersion) {

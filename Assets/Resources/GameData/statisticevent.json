@@ -1,0 +1,170 @@
+[
+    {
+        "id": 1,
+        "title": "遊戲幣消耗"
+    },
+    {
+        "id": 2,
+        "category": "Economic_Money",
+        "action": "Upgrade",
+        "label": "Upgrade_Equipment"
+    },
+    {
+        "id": 3,
+        "action": "Upgrade",
+        "label": "Upgrade_Skill"
+    },
+    {
+        "id": 4,
+        "action": "Upgrade",
+        "label": "Evolution_Skill"
+    },
+    {
+        "id": 5,
+        "title": "球場升級",
+        "label": "UpgradeBtn"
+    },
+    {
+        "id": 6
+    },
+    {
+        "id": 7,
+        "title": "鑽石消耗"
+    },
+    {
+        "id": 8,
+        "title": "購買造型",
+        "category": "Economic_Diamond"
+    },
+    {
+        "id": 9,
+        "title": "重置商店",
+        "label": "ResetBtn"
+    },
+    {
+        "id": 10,
+        "title": "重置推薦好友",
+        "label": "ResetBtn"
+    },
+    {
+        "id": 11,
+        "title": "購買佇列",
+        "label": "Queue Unlock"
+    },
+    {
+        "id": 12,
+        "title": "重置投點",
+        "label": "ResetBtn"
+    },
+    {
+        "id": 13,
+        "title": "改名",
+        "label": "CheckBtn"
+    },
+    {
+        "id": 14,
+        "title": "購買建築"
+    },
+    {
+        "id": 15,
+        "title": "低階抽卡 免費"
+    },
+    {
+        "id": 16,
+        "title": "低階抽卡 1抽"
+    },
+    {
+        "id": 17,
+        "title": "低階抽卡 5抽"
+    },
+    {
+        "id": 18,
+        "title": "低階抽卡 10抽"
+    },
+    {
+        "id": 19,
+        "title": "中階抽卡 免費"
+    },
+    {
+        "id": 20,
+        "title": "中階抽卡 1抽"
+    },
+    {
+        "id": 21,
+        "title": "中階抽卡 5抽"
+    },
+    {
+        "id": 22,
+        "title": "中階抽卡 10抽"
+    },
+    {
+        "id": 23,
+        "title": "高階抽卡 1抽"
+    },
+    {
+        "id": 24,
+        "title": "高階抽卡 5抽"
+    },
+    {
+        "id": 25,
+        "title": "高階抽卡 10抽"
+    },
+    {
+        "id": 26
+    },
+    {
+        "id": 27
+    },
+    {
+        "id": 28
+    },
+    {
+        "id": 29
+    },
+    {
+        "id": 30
+    },
+    {
+        "id": 31,
+        "title": "遊戲幣獲得"
+    },
+    {
+        "id": 32,
+        "title": "完成任務"
+    },
+    {
+        "id": 33
+    },
+    {
+        "id": 34
+    },
+    {
+        "id": 35
+    },
+    {
+        "id": 36
+    },
+    {
+        "id": 37
+    },
+    {
+        "id": 38
+    },
+    {
+        "id": 39
+    },
+    {
+        "id": 40
+    },
+    {
+        "id": 41
+    },
+    {
+        "id": 42,
+        "title": "鑽石獲得"
+    },
+    {
+        "id": 43,
+        "title": "完成任務"
+    }
+]
