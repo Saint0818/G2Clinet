@@ -24,6 +24,10 @@ public class Statistic
 
     private Statistic() {}
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> statisticscreen.json 表格的 id. </param>
     public void LogScreen(int id)
     {
         TStatisticScreenData data = StatisticScreenTable.Ins.Get(id);
@@ -37,10 +41,14 @@ public class Statistic
 
         for(var i = 0; i < mServices.Count; i++)
         {
-            mServices[i].LogScreen(data);
+            mServices[i].LogScreen(data.ID, data.Name);
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> statisticevent.json 表格的 id. </param>
     public void LogEvent(int id)
     {
         TStatisticEventData data = StatisticEventTable.Ins.Get(id);
@@ -50,9 +58,34 @@ public class Statistic
             return;
         }
 
+//        Debug.LogFormat("LogEvent, ID:{0}", id);
+
         for (var i = 0; i < mServices.Count; i++)
         {
-            mServices[i].LogEvent(data);
+            mServices[i].LogEvent(data.ID, data.Category, data.Action, data.Label, data.Value);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> statisticevent.json 表格的 id. </param>
+    /// <param name="customLabel"> 不使用 statisticevent.json 表格的 Label, 改用這個值. </param>
+    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值. </param>
+    public void LogEvent(int id, string customLabel, int customValue)
+    {
+        TStatisticEventData data = StatisticEventTable.Ins.Get(id);
+        if (data == null)
+        {
+            Debug.LogWarningFormat("ID({0}) don't exist.", id);
+            return;
+        }
+
+//        Debug.LogFormat("LogEvent, ID:{0}, CustomLabel:{1}, CustomValue:{2}", id, customLabel, customValue);
+
+        for(var i = 0; i < mServices.Count; i++)
+        {
+            mServices[i].LogEvent(data.ID, data.Category, data.Action, customLabel, customValue);
         }
     }
 }

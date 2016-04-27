@@ -13,7 +13,7 @@ public class StatisticGA : IStatisticService
         mGA = Object.FindObjectOfType<GoogleAnalyticsV4>();
     }
 
-    public void LogScreen(TStatisticScreenData data)
+    public void LogScreen(int id, string name)
     {
         if(!mGA)
         {
@@ -21,10 +21,10 @@ public class StatisticGA : IStatisticService
             return;
         }
 
-        mGA.LogScreen(string.Format("{0}.{1}", data.ID, data.Name));
+        mGA.LogScreen(string.Format("{0}.{1}", id, name));
     }
 
-    public void LogEvent(TStatisticEventData data)
+    public void LogEvent(int id, string category, string action, string label, int value)
     {
         if(!mGA)
         {
@@ -33,11 +33,11 @@ public class StatisticGA : IStatisticService
         }
 
         var builder = new EventHitBuilder();
-        builder.SetEventCategory(data.Category).SetEventAction(data.Action);
-        if(!string.IsNullOrEmpty(data.Label)) // 官方文件說 Label 是可選的項目.
-            builder.SetEventLabel(data.Label);
-        if(data.Value < 0) // 可選的項目. 官方文件說不支援負整數.
-            builder.SetEventValue(data.Value);
+        builder.SetEventCategory(category).SetEventAction(action);
+        if(!string.IsNullOrEmpty(label)) // 官方文件說 Label 是可選的項目.
+            builder.SetEventLabel(label);
+        if(value >= 0) // 可選的項目. 官方文件說不支援負整數.
+            builder.SetEventValue(value);
         mGA.LogEvent(builder);
     }
 }
