@@ -1586,10 +1586,10 @@
         "line": 1,
         "title": "踏上意外旅程-1",
         "kind": 1,
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "萊達，你到底是什麼人呀？",
+        "talkindex": 0,
+        "talkl": 1102,
+        "actionl": 6,
+        "texttw": "立正！我是地獄司令。接下來我會特訓你！",
         "texten": "Aranja, WHO ARE YOU?"
     },
     {
@@ -1597,9 +1597,10 @@
         "line": 2,
         "title": "踏上意外旅程-1",
         "kind": 1,
-        "talkl": 10,
-        "actionl": 3,
-        "texttw": "唉，其實我來自未來，來自那個即將被毀滅的時空。",
+        "talkindex": 0,
+        "talkl": 1102,
+        "actionl": 6,
+        "texttw": "確保我們有實力擊敗黑幫老大，拿到他提供的冠軍獎金！",
         "texten": "Well, in fact I'm from the future."
     },
     {
@@ -1607,9 +1608,10 @@
         "line": 3,
         "title": "踏上意外旅程-1",
         "kind": 1,
-        "talkl": 10,
+        "talkindex": 0,
+        "talkl": 1102,
         "actionl": 6,
-        "texttw": "我的主人－喬，令我回到過去，找尋可以改變未來的機會。",
+        "texttw": "接著便是拿到正式球員的資格，繼續努力！稍息！",
         "texten": "My master - Joe, Let me return to the past, to find future opportunities can be changed."
     },
     {
@@ -1619,45 +1621,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 5,
-        "texttw": "那你的主人⋯喬呢？",
+        "texttw": "黑、黑幫老大？",
         "texten": "And where is your master ⋯ Joe?"
-    },
-    {
-        "id": 1010,
-        "line": 5,
-        "title": "踏上意外旅程-1",
-        "talkl": 10,
-        "actionl": 3,
-        "texttw": "他犧牲了自己，在未來沉眠中。所以我需要你的幫助，收集能夠擊敗邪惡的力量，並且拯救我的主人。",
-        "texten": "He sacrificed himself. So I need your help to collect able to defeat the forces of evil and save my master."
-    },
-    {
-        "id": 1010,
-        "line": 6,
-        "title": "踏上意外旅程-1",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "好吧，雖然聽起來有點不容易，但打籃球的感覺真好。我們接下來要先做什麼呢？",
-        "texten": "Well, although it sounds a bit easy, but playing basketball in my life. Next we want to do what to do first?"
-    },
-    {
-        "id": 1010,
-        "line": 7,
-        "title": "踏上意外旅程-1",
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "首先得取得正式球員的資格。我打聽好了，先贏得黑幫老大的獎金，我們就能參加資格賽！",
-        "texten": "We have to win the qualify!"
-    },
-    {
-        "id": 1010,
-        "line": 8,
-        "title": "踏上意外旅程-1",
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "我已經替你報名好了，你看！你的對手多熱情啊！",
-        "texten": "I have signed up for you. Look! Your opponents are really enthusiasm!"
     },
     {
         "id": 1020,
@@ -1683,9 +1648,9 @@
         "title": "踏上意外旅程-4",
         "kind": 3,
         "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "太好了、太好了！你越來越厲害了呢！",
+        "talkl": 1401,
+        "actionl": 4,
+        "texttw": "情報顯示，黑幫老大是個神射手，最擅長的是三分球。",
         "texten": "Great, great! You're getting much too!"
     },
     {
@@ -1694,9 +1659,9 @@
         "title": "踏上意外旅程-4",
         "kind": 3,
         "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "這場和『絕殺比爾』比賽三分球吧！",
+        "talkl": 1401,
+        "actionl": 4,
+        "texttw": "不過別擔心，你的勝率是50%！",
         "texten": "Just a few games that just make you! And this \"lore Bill\" contest pointers it!"
     },
     {
@@ -1704,80 +1669,30 @@
         "line": 3,
         "title": "踏上意外旅程-4",
         "talkindex": 1,
-        "talkr": -1,
-        "actionr": 3,
-        "texttw": "這場比賽不僅需要投進[ff6060]3分球[-]還需要[ff6060]2分球[-]！！",
+        "talkr": 1411,
+        "actionr": 2,
+        "texttw": "不知死活的傢伙，我可不是好惹的！",
         "texten": "OK.. you can dunk, but can you shoot? [fff400] Show me a 3-pointer[-]and [fff400] 2-pointer[-]  if you wanna move on."
     },
     {
         "id": 1041,
         "line": 4,
         "title": "踏上意外旅程-4",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛...",
+        "talkindex": 0,
+        "talkl": 1401,
+        "actionl": 6,
+        "texttw": "打敗絕殺比爾，拿到獎金吧！",
         "texten": "Come on! Last level was hell and now this?"
     },
     {
-        "id": 1041,
-        "line": 5,
-        "title": "踏上意外旅程-4",
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "別擔心，這次我們的另一個夥伴是個神射手。",
-        "texten": "Don't worry, this time your teammates will all  be skilled shooters."
-    },
-    {
-        "id": 1041,
-        "line": 6,
-        "title": "踏上意外旅程-4",
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 4,
-        "texttw": "我們把機會做給他吧！！",
-        "texten": "If you can't shoot yourself, try to assist one of your teammates."
-    },
-    {
-        "id": 1041,
-        "line": 7,
-        "title": "踏上意外旅程-4",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "好！！就這麼辦！！",
-        "texten": "Yeah!  Let's do this!"
-    },
-    {
         "id": 1050,
-        "line": 8,
+        "line": 1,
         "title": "成為勇士吧-1",
         "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "每次比賽前，千萬別忘了檢查『技能晶片』的搭配－",
+        "talkl": 2101,
+        "actionl": 6,
+        "texttw": "要確實提高比賽的勝率，千萬別忘了在賽前檢查技能晶片的裝備、戰術的配置！",
         "texten": "Before into the game, do not forget to check out the \"Skill Card\"."
-    },
-    {
-        "id": 1050,
-        "line": 9,
-        "title": "成為勇士吧-1",
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 5,
-        "texttw": "也別忘了在比賽中，適時地發動技能！技能能夠讓你輕鬆突破難關！",
-        "texten": "And do not forget in the race, timely launch skills! Skill will enable you to easily break the storm!"
-    },
-    {
-        "id": 1050,
-        "line": 10,
-        "title": "成為勇士吧-1",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 1,
-        "texttw": "好～我知道了，我一定會贏得資格賽！",
-        "texten": "Well - I know, I will win the qualifying!"
     },
     {
         "id": 1060,
@@ -1793,35 +1708,76 @@
         "id": 1080,
         "line": 1,
         "title": "成為勇士吧-4",
-        "texttw": "你贏得了資格賽，但你居住的貧民窟卻傳來了不好的消息－有神秘的大軍正在攻擊貧民窟！",
+        "talkindex": 0,
+        "talkl": 2100,
+        "actionl": 1,
+        "texttw": "太好了！我們現在是正式球員，將可以參加星際聯盟大賽。",
         "texten": "You won the qualifying, but you live in slums has heard the bad news - there is a mysterious army is attacking the slums!"
     },
     {
         "id": 1080,
         "line": 2,
         "title": "成為勇士吧-4",
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 2,
-        "texttw": "不好了！我得回去看看才行！",
+        "talkindex": 0,
+        "talkl": 2100,
+        "actionl": 6,
+        "texttw": "但在星際聯盟大賽開始前，我們要多多參加其他比賽，好增加實力！",
         "texten": "Oh no! I have to go back!"
     },
     {
         "id": 1080,
         "line": 3,
         "title": "成為勇士吧-4",
-        "talkl": 10,
-        "actionl": 4,
-        "texttw": "這是當然囉！快走吧！",
+        "talkindex": 0,
+        "texttw": "這時候貧民窟傳來了遭到攻擊的消息！",
         "texten": "Of Course! Hurry up!"
+    },
+    {
+        "id": 1080,
+        "line": 4,
+        "title": "成為勇士吧-4",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "什麼！我必須回去看看！"
     },
     {
         "id": 1090,
         "line": 1,
         "title": "突然出現的強敵-1",
         "kind": 1,
-        "texttw": "回到家鄉，迎面對上了強悍的敵人！",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "天啊！這些傢伙是誰？連絕殺比爾都…",
         "texten": "You came home, and face of powerful enemies!"
+    },
+    {
+        "id": 1090,
+        "line": 2,
+        "title": "突然出現的強敵-1",
+        "talkindex": 0,
+        "talkl": 3111,
+        "actionl": 6,
+        "texttw": "嘖！又來了礙事的傢伙…"
+    },
+    {
+        "id": 1090,
+        "line": 3,
+        "title": "突然出現的強敵-1",
+        "talkindex": 0,
+        "talkl": 3112,
+        "actionl": 6,
+        "texttw": "吉爾老大吩咐了，全部解決掉！"
+    },
+    {
+        "id": 1090,
+        "line": 4,
+        "title": "突然出現的強敵-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 2,
+        "texttw": "可惡，我不會讓你們得逞的！"
     },
     {
         "id": 1100,
@@ -1840,7 +1796,10 @@
         "line": 1,
         "title": "突然出現的強敵-4",
         "kind": 1,
-        "texttw": "你擊敗了強大的敵人，他們卻突然的消失了。",
+        "talkindex": 0,
+        "talkl": 3402,
+        "actionl": 6,
+        "texttw": "這傢伙…是腐化者吉爾！我們果然碰上了。",
         "texten": "You beat a powerful enemy, they suddenly disappeared."
     },
     {
@@ -1848,19 +1807,38 @@
         "line": 2,
         "title": "突然出現的強敵-4",
         "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "真是奇怪的對手！",
+        "talkr": 3410,
+        "actionr": 6,
+        "texttw": "呵呵呵…原來是將宙能之聚據為己有的守護者們啊…你們也追來了…",
         "texten": "What strange opponent!"
     },
     {
         "id": 1120,
         "line": 3,
         "title": "突然出現的強敵-4",
-        "talkl": 10,
-        "actionl": 6,
-        "texttw": "他們透露著黑暗的氣息，不過我們有更重要的事要做了！",
-        "texten": "\nThey are really strange and evil, but now we have more important things to do it!"
+        "talkindex": 0,
+        "talkl": 3402,
+        "actionl": 2,
+        "texttw": "少耍嘴皮子，你們別想找到宙能之聚！",
+        "texten": "They are really strange and evil, but now we have more important things to do it!"
+    },
+    {
+        "id": 1120,
+        "line": 4,
+        "title": "突然出現的強敵-4",
+        "talkindex": 1,
+        "talkr": 3410,
+        "actionr": 6,
+        "texttw": "呵呵…看來是要比比…哪方陣營先找到囉？"
+    },
+    {
+        "id": 1120,
+        "line": 5,
+        "title": "突然出現的強敵-4",
+        "talkindex": 1,
+        "talkr": 3410,
+        "actionr": 1,
+        "texttw": "這個人是…我知道了，我知道了！哈哈哈哈哈！"
     },
     {
         "id": 1130,
@@ -1869,27 +1847,38 @@
         "kind": 1,
         "talkindex": 1,
         "talkr": -1,
-        "actionr": 5,
-        "texttw": "列車上的球場！？",
+        "actionr": 6,
+        "texttw": "阿隆加，那個叫吉爾的男人，究竟是什麼人啊？",
         "texten": "Stadium on the train! ?"
     },
     {
         "id": 1130,
         "line": 2,
-        "title": "列車競賽開始！-2",
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "沒錯！這是星際聯盟大賽前夕最重要的資格賽！",
+        "title": "列車競賽開始！-1",
+        "talkindex": 0,
+        "talkl": 4101,
+        "actionl": 6,
+        "texttw": "他是後期的腐化者，也是導致星球毀滅的元凶之一！一定要小心他。",
         "texten": "Yes! This is the most important contest before the Star Alliance Game!"
     },
     {
         "id": 1130,
         "line": 3,
-        "title": "列車競賽開始！-3",
-        "talkl": 10,
-        "actionl": 4,
-        "texttw": "我們可要好好表現！",
+        "title": "列車競賽開始！-1",
+        "talkindex": 0,
+        "talkl": 4101,
+        "actionl": 6,
+        "texttw": "對了，爭霸賽的積分一定要拿高，可以減少將來在星際聯盟大賽的比賽場次。",
         "texten": "We had better make a good showing!"
+    },
+    {
+        "id": 1130,
+        "line": 4,
+        "title": "列車競賽開始！-1",
+        "talkindex": 0,
+        "talkl": 4101,
+        "actionl": 4,
+        "texttw": "不過這次我們對上的都是各地種子隊，可千萬別輕敵。"
     },
     {
         "id": 1140,
@@ -1914,20 +1903,40 @@
         "line": 1,
         "title": "列車競賽開始！-5",
         "kind": 1,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "我們表現得太棒了！順利通過第一階段！",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "太好了，這一階段的比賽積分輕鬆到手。",
         "texten": "Our performance was great! Successfully Passed!"
+    },
+    {
+        "id": 1170,
+        "line": 2,
+        "title": "列車競賽開始！-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 1,
+        "texttw": "看來打進高級聯盟，真是小事一件！"
     },
     {
         "id": 1180,
         "line": 1,
         "title": "相知相惜的英雄-1",
         "kind": 1,
-        "talkl": 10,
-        "actionl": 1,
-        "texttw": "很好、很好！繼續努力吧！",
+        "talkindex": 0,
+        "talkl": 5112,
+        "actionl": 6,
+        "texttw": "嘿！我是布魯托，想和我們鬥一場牛嗎？",
         "texten": "Very Good! Keep working hard!"
+    },
+    {
+        "id": 1180,
+        "line": 2,
+        "title": "相知相惜的英雄-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "你就是布魯托？這有什麼問題！"
     },
     {
         "id": 1190,
@@ -1952,7 +1961,10 @@
         "line": 1,
         "title": "相知相惜的英雄-5",
         "kind": 1,
-        "texttw": "你遇到了一位旗鼓相當的對手。",
+        "talkindex": 0,
+        "talkl": 5112,
+        "actionl": 1,
+        "texttw": "哈哈哈！很久沒有痛快地打一場球了！對了，你為什麼要參加比賽？",
         "texten": "You met a worthy adversary."
     },
     {
@@ -1961,17 +1973,18 @@
         "title": "相知相惜的英雄-5",
         "talkindex": 1,
         "talkr": -1,
-        "actionr": 4,
-        "texttw": "你的實力很不賴！你的名字是什麼？",
+        "actionr": 6,
+        "texttw": "我要打入星際聯盟大賽，成為星際球王！你呢？",
         "texten": "Your strength is very strong! What's your name?"
     },
     {
         "id": 1220,
         "line": 3,
         "title": "相知相惜的英雄-5",
-        "talkl": 5512,
-        "actionl": 1,
-        "texttw": "我叫布魯托！除了你以外，其他人都不是我的對手！",
+        "talkindex": 0,
+        "talkl": 5112,
+        "actionl": 6,
+        "texttw": "我也要成為星際球王！看來我們將來一定會對決的。",
         "texten": "My name is Pluto! Except you, no competition for me!"
     },
     {
@@ -1980,24 +1993,56 @@
         "title": "相知相惜的英雄-5",
         "talkindex": 1,
         "talkr": -1,
-        "actionr": 6,
-        "texttw": "看來我們能打上一場真正的籃球！",
+        "actionr": 1,
+        "texttw": "哈哈哈，那就約在星際聯盟大賽上見了！",
         "texten": "We can play a real basketball game!"
     },
     {
         "id": 1220,
         "line": 5,
         "title": "相知相惜的英雄-5",
-        "talkl": 5512,
+        "talkindex": 0,
+        "talkl": 5112,
         "actionl": 1,
-        "texttw": "下次再見面，就在星際聯盟大賽上！",
+        "texttw": "對，到時候見！",
         "texten": "Next time, we will meet on the Star Alliance Game!"
     },
     {
         "id": 1230,
         "line": 1,
         "title": "急凍地帶-1",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 0,
+        "talkl": 6100,
+        "actionl": 4,
+        "texttw": "那位布魯托，身上有著熟悉的氣息…。"
+    },
+    {
+        "id": 1230,
+        "line": 2,
+        "title": "急凍地帶-1",
+        "talkindex": 0,
+        "talkl": 6100,
+        "actionl": 3,
+        "texttw": "是什麼呢…唔，想不起來！頭痛、頭痛！"
+    },
+    {
+        "id": 1230,
+        "line": 3,
+        "title": "急凍地帶-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "萊達、萊達！別想了，我發現有些球隊落敗後，完全失去籃球技能！"
+    },
+    {
+        "id": 1230,
+        "line": 4,
+        "title": "急凍地帶-1",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "還有個很像夢境中三天王的球員！"
     },
     {
         "id": 1240,
@@ -2013,21 +2058,122 @@
     },
     {
         "id": 1260,
-        "line": 0,
+        "line": 1,
         "title": "急凍地帶-4",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "那是三天王的…"
+    },
+    {
+        "id": 1260,
+        "line": 2,
+        "title": "急凍地帶-4",
+        "talkindex": 0,
+        "talkl": 6102,
+        "actionl": 2,
+        "texttw": "是三天王裡的幽鬼！這傢伙居然敢出現在這裡，那些失去能力的球隊與他脫不了關係！"
+    },
+    {
+        "id": 1260,
+        "line": 3,
+        "title": "急凍地帶-4",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "那我們快追上去！"
     },
     {
         "id": 1270,
-        "line": 0,
+        "line": 1,
         "title": "急凍地帶-5",
-        "kind": 1
+        "talkindex": 0,
+        "talkl": 6510,
+        "actionl": 6,
+        "texttw": "嘿嘿，是守護者們！還有他們找到的救世英雄呀。"
+    },
+    {
+        "id": 1270,
+        "line": 2,
+        "title": "急凍地帶-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 2,
+        "texttw": "別囉嗦了，那些球隊是怎麼回事！你幹了什麼！"
+    },
+    {
+        "id": 1270,
+        "line": 3,
+        "title": "急凍地帶-5",
+        "talkindex": 0,
+        "talkl": 6510,
+        "actionl": 6,
+        "texttw": "嘿嘿，別擔心～我只是抽走他們的技能晶片，不會死的。"
+    },
+    {
+        "id": 1270,
+        "line": 4,
+        "title": "急凍地帶-5",
+        "talkindex": 0,
+        "talkl": 6510,
+        "actionl": 6,
+        "texttw": "再說了，技能晶片本來就是大家都可以拿的。"
+    },
+    {
+        "id": 1270,
+        "line": 5,
+        "title": "急凍地帶-5",
+        "talkindex": 0,
+        "talkl": 6510,
+        "actionl": 1,
+        "texttw": "因為它本來就是宙能之聚的碎片呀！哈嘿嘿嘿嘿嘿！"
     },
     {
         "id": 1280,
-        "line": 0,
+        "line": 1,
         "title": "被撕裂的時空-1",
-        "kind": 1
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "幽鬼！你說宙能之聚就是技能晶片？怎麼可能！"
+    },
+    {
+        "id": 1280,
+        "line": 2,
+        "title": "被撕裂的時空-1",
+        "talkindex": 0,
+        "talkl": 7512,
+        "actionl": 6,
+        "texttw": "…很簡單，宙能之聚在穿越時空時遭到擠壓碎裂而化為技能晶片。"
+    },
+    {
+        "id": 1280,
+        "line": 3,
+        "title": "被撕裂的時空-1",
+        "talkindex": 0,
+        "talkl": 7512,
+        "actionl": 6,
+        "texttw": "但這些技能晶片連能量碎片都稱不上呢…真正的主體可還沒出現。"
+    },
+    {
+        "id": 1280,
+        "line": 4,
+        "title": "被撕裂的時空-1",
+        "talkindex": 0,
+        "talkl": 7512,
+        "actionl": 6,
+        "texttw": "喔，在下阿耳戈斯，廢物幽鬼的夥伴。"
+    },
+    {
+        "id": 1280,
+        "line": 5,
+        "title": "被撕裂的時空-1",
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "三天王中的阿耳戈斯…！"
     },
     {
         "id": 1290,
@@ -2049,15 +2195,68 @@
     },
     {
         "id": 1320,
-        "line": 0,
+        "line": 1,
         "title": "被撕裂的時空-5",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 2,
+        "texttw": "是布魯托！布魯托被他們帶走了！可惡！"
+    },
+    {
+        "id": 1320,
+        "line": 2,
+        "title": "被撕裂的時空-5",
+        "talkindex": 0,
+        "talkl": 8100,
+        "actionl": 6,
+        "texttw": "布魯托與腐化者有著類似的氣息，他們之間或許有些關聯。"
+    },
+    {
+        "id": 1320,
+        "line": 3,
+        "title": "被撕裂的時空-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "不僅如此…還要阻止他們繼續強奪技能晶片！"
+    },
+    {
+        "id": 1320,
+        "line": 4,
+        "title": "被撕裂的時空-5",
+        "talkindex": 0,
+        "talkl": 8100,
+        "actionl": 6,
+        "texttw": "不過我們找回了競球戰甲，總算可以發揮最大能量了！"
     },
     {
         "id": 1330,
-        "line": 0,
+        "line": 1,
         "title": "戛然而止的混亂-1",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 3,
+        "texttw": "真是太不公平了…我們可是拯救了許多人，卻得從頭來過！"
+    },
+    {
+        "id": 1330,
+        "line": 2,
+        "title": "戛然而止的混亂-1",
+        "talkindex": 0,
+        "talkl": 8110,
+        "actionl": 6,
+        "texttw": "少廢話！這個世界哪裡公平過！實力才是一切！"
+    },
+    {
+        "id": 1330,
+        "line": 3,
+        "title": "戛然而止的混亂-1",
+        "talkindex": 0,
+        "talkl": 8111,
+        "actionl": 6,
+        "texttw": "快點比賽！我還趕著要往上爬！"
     },
     {
         "id": 1340,
@@ -2079,15 +2278,41 @@
     },
     {
         "id": 1370,
-        "line": 0,
+        "line": 1,
         "title": "戛然而止的混亂-5",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 0,
+        "talkl": 8502,
+        "actionl": 6,
+        "texttw": "這是守關的魔王，許多人在他們的手裡敗下陣來！"
+    },
+    {
+        "id": 1370,
+        "line": 2,
+        "title": "戛然而止的混亂-5",
+        "talkindex": 0,
+        "talkl": 8502,
+        "actionl": 6,
+        "texttw": "他們不同於地面上的比賽對手，千萬小心了。"
     },
     {
         "id": 1380,
-        "line": 0,
+        "line": 1,
         "title": "世界的另一端-1",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 0,
+        "talkl": 9100,
+        "actionl": 6,
+        "texttw": "快振作起來！我們還有重要的任務要完成！"
+    },
+    {
+        "id": 1380,
+        "line": 2,
+        "title": "世界的另一端-1",
+        "talkindex": 0,
+        "talkl": 9100,
+        "actionl": 6,
+        "texttw": "可別輕易放棄了！"
     },
     {
         "id": 1390,
@@ -2109,15 +2334,77 @@
     },
     {
         "id": 1420,
-        "line": 0,
+        "line": 1,
         "title": "世界的另一端-5",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 0,
+        "talkl": 9101,
+        "actionl": 6,
+        "texttw": "似乎某些球隊有著腐化者的能力，許多敗陣的球隊完全失去籃球技能了！"
+    },
+    {
+        "id": 1420,
+        "line": 2,
+        "title": "世界的另一端-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "難道腐化者能夠同化其他人嗎？"
+    },
+    {
+        "id": 1420,
+        "line": 3,
+        "title": "世界的另一端-5",
+        "talkindex": 0,
+        "talkl": 9101,
+        "actionl": 6,
+        "texttw": "根據資料…是有這個可能的。"
+    },
+    {
+        "id": 1420,
+        "line": 4,
+        "title": "世界的另一端-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "如果這樣可就不妙了！我們會來不及阻止他們收集宙能之聚。"
+    },
+    {
+        "id": 1420,
+        "line": 5,
+        "title": "世界的另一端-5",
+        "talkindex": 0,
+        "talkl": 9101,
+        "actionl": 6,
+        "texttw": "他們越強大我們的勝算越低，得加快腳步才行。"
     },
     {
         "id": 1430,
-        "line": 0,
+        "line": 1,
         "title": "迎接真正的挑戰-1",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "能夠離開地獄球賽的高級聯盟通關證！"
+    },
+    {
+        "id": 1430,
+        "line": 2,
+        "title": "迎接真正的挑戰-1",
+        "talkindex": 0,
+        "talkl": 10110,
+        "actionl": 2,
+        "texttw": "那是我的東西！喵！"
+    },
+    {
+        "id": 1430,
+        "line": 3,
+        "title": "迎接真正的挑戰-1",
+        "talkindex": 0,
+        "talkl": 10110,
+        "actionl": 1,
+        "texttw": "別以為你們能輕易拿到，能離開這裡的只有我！！喵！"
     },
     {
         "id": 1440,
@@ -2139,9 +2426,49 @@
     },
     {
         "id": 1470,
-        "line": 0,
+        "line": 1,
         "title": "迎接真正的挑戰-5",
-        "kind": 1
+        "kind": 1,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "布魯托！還有賽壬與阿耳戈斯…！布魯托你的眼神，發生什麼事了！"
+    },
+    {
+        "id": 1470,
+        "line": 2,
+        "title": "迎接真正的挑戰-5",
+        "talkindex": 0,
+        "talkl": 10512,
+        "actionl": 6,
+        "texttw": "…你別想離開這，只有我能離開，只有我！"
+    },
+    {
+        "id": 1470,
+        "line": 3,
+        "title": "迎接真正的挑戰-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 6,
+        "texttw": "布、布魯托，我們不是約好，要在星際聯盟大賽對決嗎？"
+    },
+    {
+        "id": 1470,
+        "line": 4,
+        "title": "迎接真正的挑戰-5",
+        "talkindex": 0,
+        "talkl": 10512,
+        "actionl": 6,
+        "texttw": "只有我可以得到星際球王頭銜…只有他們能幫我！！！"
+    },
+    {
+        "id": 1470,
+        "line": 5,
+        "title": "迎接真正的挑戰-5",
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 3,
+        "texttw": "布魯托…。"
     },
     {
         "id": 1480,
