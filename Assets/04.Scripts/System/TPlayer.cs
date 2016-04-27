@@ -104,6 +104,9 @@ namespace GameStruct
         /// </summary>
         public TItem[] Items;
 
+        public const int MinValueItemKind = 11;
+        public const int MaxValueItemKind = 18;
+
         /// <summary>
         /// <para> 玩家身上的數值裝備. 不要直接使用, 改用 GetValueItem(). </para>
         /// <para> key: TItemData.Kind, 11 ~ 16 是晶片, 17,18 是次數型數值裝. </para>

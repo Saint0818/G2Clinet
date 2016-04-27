@@ -62,6 +62,10 @@ namespace GameStruct
         public TSellItem[] ShopItems1;
         public TSellItem[] ShopItems2;
         public TSellItem[] ShopItems3;
+
+        /// <summary>
+        /// 倉庫的數值裝.
+        /// </summary>
         public TValueItem[] ValueItems;
         public TMaterialItem[] MaterialItems;
         public TSkill[] SkillCards;
