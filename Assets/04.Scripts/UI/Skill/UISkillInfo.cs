@@ -157,11 +157,13 @@ public class UISkillInfo : UIBase {
 
 	protected override void OnShow(bool isShow) {
 		base.OnShow(isShow);
-		UIResource.Get.Hide();
+		if(UIResource.Visible)
+			UIResource.Get.Hide();
 	}
 
 	void Destroy () {
-		UIResource.Get.Show();
+		if(UIResource.Visible)
+			UIResource.Get.Show();
 	}
 
 	public void OnSuitCard (GameObject go) {
@@ -348,15 +350,14 @@ public class UISkillInfo : UIBase {
 
 	public void OnClose() {
 		Visible = false;
-		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) {
+		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
 			UIGameResult.Get.ShowBonusItem();
-		}
 
-        if (!UISelectRole.Visible)
-        {
-            UIMainLobby.Get.Hide(false);
-            UIResource.Get.Show();
-        }
+		if (!UISelectRole.Visible && !GameController.Visible)
+		{
+			UIMainLobby.Get.Hide(false);
+			UIResource.Get.Show();
+		}
     }
 
 	public void OpenCard() {

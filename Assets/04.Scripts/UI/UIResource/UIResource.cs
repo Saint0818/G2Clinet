@@ -182,4 +182,24 @@ public class UIResource : UIBase
             return instance;
         }
     }
+
+	public static bool Visible {
+		get {
+			if(instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
+		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(instance.gameObject);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
+		}
+	}
 }

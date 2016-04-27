@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using GameEnum;
 
 public struct TGamePersonalValue {
 	public string Identifier;
@@ -11,6 +12,9 @@ public struct TGamePersonalValue {
 	public string FacePic;
 	public string PositionPic;
 	public int Lv;
+	public int FriendKind;
+	public bool isJoystick;
+	public ETeamKind Team;
 }
 
 public struct TGamePersonalView {
@@ -21,6 +25,7 @@ public struct TGamePersonalView {
 	public UISprite spriteFace;
 	public UISprite spritePosition;
 	public UILabel labelLevel;
+	public UILabel IDCheckLabel;
 
 	public void UpdateView (TGamePersonalValue value) {
 		labelName.text = value.Name;
@@ -32,6 +37,16 @@ public struct TGamePersonalView {
 		labelLevel.text = value.Lv.ToString();
 		spritePvPRank.gameObject.SetActive(value.PVPScore > 0);
 		labelLevel.gameObject.SetActive(value.Lv > 0);
+
+		if(value.FriendKind == EFriendKind.Mercenary)
+			IDCheckLabel.text = TextConst.S(9526);
+		else if(value.FriendKind == 0)
+			IDCheckLabel.text = TextConst.S(9524);
+		else
+			IDCheckLabel.text = TextConst.S(9525);
+		
+		IDCheckLabel.gameObject.SetActive((value.Team == ETeamKind.Self) && !value.isJoystick);
+			
 	}
 }
 
@@ -43,6 +58,8 @@ public class UIGamePlayerInfo : UIBase {
 	private TGamePersonalView gamePersonalView = new TGamePersonalView();
 	private UILabel[] normalAbilitys = new UILabel[12];
 	private UILabel[] buffAbilitys = new UILabel[12];
+	private UISprite[] buffLines = new UISprite[12];
+	private UISprite[] buffArrow = new UISprite[12];
 	private UIScrollView scrollView;
 	private UIPanel skillPanel;
 	private UIButton buttonMakeFriend;
@@ -99,10 +116,13 @@ public class UIGamePlayerInfo : UIBase {
 		gamePersonalView.spriteFace = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerInGameBtn/PlayerPic").GetComponent<UISprite>();
 		gamePersonalView.spritePosition = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerInGameBtn/PlayerPic/PositionIcon").GetComponent<UISprite>();
 		gamePersonalView.labelLevel = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+		gamePersonalView.IDCheckLabel = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerName/IDCheckLabel").GetComponent<UILabel>();
 
 		for(int i=0; i<12; i++) {
 			normalAbilitys[i] = GameObject.Find(UIName + "/Window/Right/View/AbilityView/AttrGroup/" + i.ToString() + "/ValueBaseLabel").GetComponent<UILabel>();
 			buffAbilitys[i] = GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString()).GetComponent<UILabel>();
+			buffLines[i] =  GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString() + "/BuffLine").GetComponent<UISprite>();
+			buffArrow[i] =  GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString() + "/Arrow").GetComponent<UISprite>();
 		}
 
 		scrollView = GameObject.Find(UIName + "/Window/Right/View/SkillView/CardScroll/List").GetComponent<UIScrollView>();
@@ -155,6 +175,9 @@ public class UIGamePlayerInfo : UIBase {
 		gamePersonalvalue.FacePic = team.Player.FacePicture;
 		gamePersonalvalue.PositionPic = GameFunction.PositionIcon(team.Player.BodyType);
 		gamePersonalvalue.Lv = team.Player.Lv;
+		gamePersonalvalue.FriendKind = team.Player.FriendKind;
+		gamePersonalvalue.isJoystick = (GameController.Get.Joysticker == player);
+		gamePersonalvalue.Team = player.Team;
 		gamePersonalView.UpdateView(gamePersonalvalue);
 		updateNormalAttr(player.BaseAttribute);
 		updateBuffAttr(player.BaseAttribute, player.Attribute);
@@ -204,10 +227,15 @@ public class UIGamePlayerInfo : UIBase {
 			float normalValue = getAttrValue(normal, i);
 			float afterValue = getAttrValue(after, i);
 			buffAbilitys[i].text = (afterValue - normalValue).ToString();
-			if(afterValue - normalValue > 0)
+			if(afterValue - normalValue > 0) {
 				buffAbilitys[i].color = Color.green;
-			else
+				buffLines[i].spriteName = "Buff_outline";
+				buffArrow[i].spriteName = "Buff_Up";
+			} else {
 				buffAbilitys[i].color = Color.red;
+				buffLines[i].spriteName = "DeBuff_outline";
+				buffArrow[i].spriteName = "Buff_Down";
+			}
 
 			buffAbilitys[i].gameObject.SetActive((afterValue - normalValue != 0));
 		}
