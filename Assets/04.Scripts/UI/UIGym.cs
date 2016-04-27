@@ -102,6 +102,8 @@ public class UIGym : UIBase {
 		if (int.TryParse (UIButton.current.name, out result)) {
 			if (isCanUse(result + 1)) {
 				// todo: need to refactor
+				Statistic.Ins.LogScreen(24 + result);
+
 				if (result != 8) {
 					if (UI3DMainLobby.Visible)
 						UI3DMainLobby.Get.Impl.OnSelect (result);

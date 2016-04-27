@@ -304,6 +304,8 @@ public class UIMainLobby : UIBase
 	}
 	public void OnClickQueue (GameObject go) {
 		View.QueueGroup.SetActive(!View.QueueGroup.activeSelf);
+		if(View.QueueGroup.activeSelf)
+			Statistic.Ins.LogScreen(18);
 	}
 
 	public void OnClickLock (GameObject go) {
