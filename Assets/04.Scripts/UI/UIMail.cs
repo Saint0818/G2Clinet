@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameStruct;
+using Newtonsoft.Json;
 
 public struct TMailItem
 {
@@ -164,15 +166,31 @@ public class UIMail : UIBase {
 	private static UIMail instance = null;
 	private const string UIName = "UIMail";
 
-	private int nowGroup = 0;
-	//ui
+	// ui
+	private GameObject itemBuild;// Resource.Load
 	private GameObject window;
 	private UIButton changeBtn;
 
+	// group stage
+	private int nowGroup = 0;
+
+	// group0
 	private const int pageNum = 3;
 	private int nowPage = 1;
 	private MailSubPage[] subPages = new MailSubPage[pageNum];
 
+	// group 1
+	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
+	private int mItemGymObjIndex = 0;
+	private UIScrollView decoScrollView;
+
+	private int mAvatarIndex;
+	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
+	//
+	void Destroy () {
+		itemGymObjs.Clear();
+	}
+	//
 	public static bool Visible {
 		get {
 			if(instance)
@@ -231,6 +249,8 @@ public class UIMail : UIBase {
 		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGotoGroup1);
 
 		// group 1
+		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
+		decoScrollView = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/ScrollView").GetComponent<UIScrollView>();
 
 		// BottomLeft
 		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
@@ -249,7 +269,94 @@ public class UIMail : UIBase {
 			UI3DMainLobby.Get.Impl.OnSelect (8);
 		changeBtn.gameObject.SetActive (false);
 		nowGroup = 1;
-		
+		GetComponent<Animator>().SetTrigger("Group1");
+	}
+
+	private void setDecoScrollView () {
+		int kind = 51 + 8;
+		int index = 0;
+		for(int i=0; i<GameData.DBuildData.Count; i++) {
+			if(GameData.DBuildData[i].Kind == kind) {
+				itemGymObjs.Add(addItems(index, GameData.DBuildData[i]));
+				index ++;
+			}
+		}
+
+	}
+
+	private TITemGymObj addItems (int index, TItemData data) {
+		bool isSelect = false;
+		if(8 >= 0 && 8 < GameData.Team.GymBuild.Length)
+			isSelect = (GameData.Team.GymBuild[8].ItemID == data.ID);
+
+		if(isSelect)
+			mAvatarIndex = data.Avatar;
+
+		GameObject go = Instantiate(itemBuild) as GameObject;
+		go.transform.parent = decoScrollView.gameObject.transform;
+		go.transform.localPosition = new Vector3(170 * index, 0, 0);
+		TITemGymObj obj = new TITemGymObj();
+		obj.Init(go, GameFunction.GetBuildEnName(8));
+		obj.UpdateUI(index, data, isSelect, GameData.Team.IsGymOwn(data.ID));
+		UIEventListener.Get(go).onClick = OnChooseBuildType;
+		UIEventListener.Get(obj.Buy).onClick = OnBuyBuildType;
+		return obj;
+	}
+
+	public void OnChooseBuildType (GameObject go) {
+		int result = 0;
+		//itemObj index
+		if(int.TryParse(go.name, out result)) {
+			if(result >= 0 && result < itemGymObjs.Count) {
+				if(!itemGymObjs[result].IsSelect) {
+					mItemGymObjIndex = result;
+					if(GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
+						if(itemGymObjs[result].IsBuy) {
+							int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
+							if(itemIndex != -1) {
+								isRealChange = true;
+								SendChangeBuildType(itemIndex);
+							}
+						} else {
+							isRealChange = false;
+						}
+						UI3DMainLobby.Get.Impl.ReplaceObj(8, GameData.DItemData[itemGymObjs[result].ItemID].Avatar);
+						refreshSelectBuild(mItemGymObjIndex);
+					}
+				}
+			}
+		}
+	}
+
+	public void OnBuyBuildType (GameObject go) {
+		int result = 0;
+		//itemObj index
+		if(int.TryParse(go.name, out result)) {
+			if(result >=0 && result < itemGymObjs.Count && GameData.DItemData.ContainsKey(itemGymObjs[result].ItemID)) {
+				mItemGymObjIndex = result;
+				CheckDiamond(GameData.DItemData[itemGymObjs[result].ItemID].Buy, true, string.Format(TextConst.S(11016),GameData.DItemData[itemGymObjs[result].ItemID].Buy, GameData.DItemData[itemGymObjs[result].ItemID].Name), ConfirmBuyBuildType, refreshLabelColor);
+			}
+		}
+	}
+
+	public void ConfirmBuyBuildType () {
+		int itemIndex = GameData.GetBuildItemIndex(itemGymObjs[mItemGymObjIndex].ItemID);
+		if(itemIndex != -1) 
+			SendBuyBuildType(itemIndex);
+	}
+
+	private void refreshSelectBuild (int gymObjIndex) {
+		for(int i=0; i<itemGymObjs.Count; i++) 
+			itemGymObjs[i].SelectBuild((i == gymObjIndex));
+
+	}
+
+
+	private void refreshLabelColor () {
+		//labelUpgradePrice.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(architectureValue.SpendKind, architectureValue.Cost), architectureValue.SpendKind);
+		for(int i=0; i<itemGymObjs.Count; i++) {
+			itemGymObjs[i].RefreshColor ();
+		}
 	}
 
 	private void OnGotoGroup0()
@@ -260,19 +367,32 @@ public class UIMail : UIBase {
 		}
 		changeBtn.gameObject.SetActive (true);
 		nowGroup = 0;	
+		GetComponent<Animator>().SetTrigger("Group0");
+	}
+
+	private void OnExitGroup0()
+	{
+		window.SetActive (false);
+		UIMainLobby.Get.View.PlayEnterAnimation();
+		UIGym.Get.CenterVisible = true;
+		Visible = false;
+	}
+
+	private void OnExitGroup1()
+	{
 	}
 
 	private void OnClose()
 	{
+
 		switch(nowGroup) {
 		case 0:
-			window.SetActive (false);
-			UIMainLobby.Get.View.PlayEnterAnimation();
-			UIGym.Get.CenterVisible = true;
-			Visible = false;
+			OnExitGroup0 ();
+
 			break;
 
 		case 1:
+			OnExitGroup1 ();
 			OnGotoGroup0 ();
 			break;
 
@@ -291,8 +411,108 @@ public class UIMail : UIBase {
 			}
 
 			subPages [nowPage].OnPage ();
+			setDecoScrollView ();
 
 		}
+	}
+
+	private int getIdleIndex {
+		get {
+			for(int i=0; i<GameData.Team.GymQueue.Length; i++) 
+				if(GameData.Team.GymQueue[i].IsOpen && GameData.Team.GymQueue[i].BuildIndex == -1)
+					return i;
+
+			return -1;
+		}
+	}
+
+	private int getNowCDIndex (int buildIndex) {
+		for(int i=0; i<GameData.Team.GymQueue.Length; i++) 
+			if(GameData.Team.GymQueue[i].IsOpen && GameData.Team.GymQueue[i].BuildIndex == buildIndex)
+				return i;
+
+		return -1;
+	}
+
+	private void SendUpdateBuild () {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", getIdleIndex);
+		form.AddField("BuildIndex", 8);
+		SendHttp.Get.Command(URLConst.GymUpdateBuild, waitUpdateBuild, form);
+	}
+
+	private void waitUpdateBuild(bool ok, WWW www) {
+		if (ok) {
+			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.Money = result.Money;
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.GymBuild = result.GymBuild;
+			GameData.Team.GymQueue = result.GymQueue;
+
+			UIMainLobby.Get.UpdateUI();
+			UIMainLobby.Get.RefreshQueue();
+			//RefreshUI();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+//	private void SendBuyBuildCD () {
+//		WWWForm form = new WWWForm();
+//		form.AddField("Index", getNowCDIndex(8));
+//		form.AddField("BuildIndex", 8);
+//		SendHttp.Get.Command(URLConst.GymBuyCD, waitBuyBuildCD, form);
+//	}
+//
+//	private void waitBuyBuildCD(bool ok, WWW www) {
+//		if (ok) {
+//			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+//			GameData.Team.Diamond = result.Diamond;
+//			GameData.Team.GymBuild = result.GymBuild;
+//			GameData.Team.GymQueue = result.GymQueue;
+//
+//			UIMainLobby.Get.UpdateUI();
+//			UIMainLobby.Get.RefreshQueue();
+//			RefreshUI();
+//		} else {
+//			Debug.LogError("text:"+www.text);
+//		} 
+//	}
+
+	private void SendBuyBuildType (int itemIndex) {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", itemIndex);//itemData Array index
+		SendHttp.Get.Command(URLConst.GymBuyType, waitBuyBuildType, form);
+	}
+
+	private void waitBuyBuildType(bool ok, WWW www) {
+		if (ok) {
+			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.Diamond = result.Diamond;
+			GameData.Team.GymOwn = result.GymOwn;
+
+			UIMainLobby.Get.UpdateUI();
+			if(mItemGymObjIndex >= 0 && mItemGymObjIndex < itemGymObjs.Count)
+				itemGymObjs[mItemGymObjIndex].RefreshUI();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+	private void SendChangeBuildType (int itemIndex) {
+		WWWForm form = new WWWForm();
+		form.AddField("Index", itemIndex);//itemData Array index
+		form.AddField("BuildIndex", 8);
+		SendHttp.Get.Command(URLConst.GymChangeBuildType, waitChangeBuildType, form);
+	}
+
+	private void waitChangeBuildType(bool ok, WWW www) {
+		if (ok) {
+			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+			GameData.Team.GymBuild = result.GymBuild;
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
 	}
 
 }
