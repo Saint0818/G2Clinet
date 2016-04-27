@@ -191,6 +191,8 @@ public class UILoading : UIBase
         {
             Get.initLoadingPic(kind);
             Get.Show(true);
+
+            Statistic.Ins.LogScreen(1);
         }
         else 
         if (instance)

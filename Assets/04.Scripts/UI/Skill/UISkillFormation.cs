@@ -334,7 +334,8 @@ public class UISkillFormation : UIBase {
 				return false;
 		}
 
-        set {
+        set
+        {
             if (instance) {
                 if (!value)
                     RemoveUI(instance.gameObject);
@@ -343,6 +344,9 @@ public class UISkillFormation : UIBase {
             } else
             if (value)
                 Get.Show(value);
+
+            if(value)
+                Statistic.Ins.LogScreen(11);
         }
 	}
 	
@@ -361,7 +365,7 @@ public class UISkillFormation : UIBase {
 		} else
 		if (isShow)
 			Get.Show(isShow);
-	}
+    }
 
 	void FixedUpdate () {
 		if(runShine > 0) {

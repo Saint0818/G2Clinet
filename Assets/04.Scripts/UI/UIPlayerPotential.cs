@@ -306,8 +306,9 @@ public class UIPlayerPotential : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow){
-		if (instance) {
+	public static void UIShow(bool isShow)
+	{
+	    if (instance) {
 			if (!isShow){
                 RemoveUI(instance.gameObject);
 			}
@@ -318,9 +319,12 @@ public class UIPlayerPotential : UIBase {
 		if (isShow){
 			Get.Show(isShow);
 		}
-	}
-	
-	protected override void InitCom() {
+
+	    if(isShow)
+            Statistic.Ins.LogScreen(21);
+    }
+
+    protected override void InitCom() {
 		GameObject obj = GameObject.Find(UIName + "Window/Center/UpgradeView");
 
 		if (obj) 

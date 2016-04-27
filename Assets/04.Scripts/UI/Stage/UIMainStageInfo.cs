@@ -18,6 +18,11 @@ public class UIMainStageInfo : MonoBehaviour
     /// </summary>
     public event Action<int, UIStageVerification.EErrorCode, string> StartListener;
 
+    /// <summary>
+    /// <para> 呼叫時機: 視窗顯示(出現). </para>
+    /// </summary>
+    public event Action ShowListener;
+
     public class Data
     {
         public string Name { set; get; }
@@ -162,6 +167,9 @@ public class UIMainStageInfo : MonoBehaviour
         updateUI(data);
 
         mHint.UpdateUI(mStageID);
+
+        if(ShowListener != null)
+            ShowListener();
     }
 
     private void updateUI(Data data)

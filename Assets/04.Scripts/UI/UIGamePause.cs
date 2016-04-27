@@ -62,15 +62,19 @@ public class UIGamePause : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow) {
-        if (instance) 
+	public static void UIShow(bool isShow)
+	{
+	    if (instance) 
             instance.Show(isShow);
         else
 			if (isShow)
 				Get.Show(isShow);
-	}
-	
-	protected override void InitCom() {
+
+	    if(isShow)
+            Statistic.Ins.LogScreen(9);
+    }
+
+    protected override void InitCom() {
 		uiStageHint = GameObject.Find(UIName + "/Window/Right/View/UIStageHint").GetComponent<UIStageHint>();
 
 		uiGameResult = GameObject.Find(UIName + "/Window/Right/View/GameResult");

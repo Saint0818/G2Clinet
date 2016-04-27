@@ -199,8 +199,9 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
-        if (instance) {
+	public static void UIShow(bool isShow)
+	{
+	    if (instance) {
             if (!isShow) {
                 FreshUICallback = null;
                 RemoveUI(instance.gameObject);
@@ -209,9 +210,12 @@ public class UIRecharge : UIBase {
         } else
 		if (isShow) 
 			Get.Show(isShow);
-	}
 
-	public static UIRecharge Get
+	    if(isShow)
+            Statistic.Ins.LogScreen(17);
+    }
+
+    public static UIRecharge Get
 	{
 		get {
 			if (!instance) 

@@ -35,6 +35,7 @@ public class UIMainStage : UIBase
         mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
         mMain.Info.StartListener += enterSelectRole;
+        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
     private void onPowerChange(int power)
@@ -67,6 +68,8 @@ public class UIMainStage : UIBase
             playUnlokAnimation();
         else
             selectChapter();
+
+        Statistic.Ins.LogScreen(6);
     }
 
     public void Show(int stageID)
@@ -78,6 +81,8 @@ public class UIMainStage : UIBase
 
         buildChapters();
         selectStage(stageID);
+
+        Statistic.Ins.LogScreen(6);
     }
 
     private void selectStage(int stageID)

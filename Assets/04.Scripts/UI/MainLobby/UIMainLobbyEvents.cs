@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class UIMainLobbyEvents : MonoBehaviour
 {
-//    public void ShowSettings()
-//    {
-//        UISetting.UIShow(true);
-//    }
-
     public void ShowAvatarFitted()
     {
         if(GameData.IsOpenUIEnable(EOpenID.Avatar))

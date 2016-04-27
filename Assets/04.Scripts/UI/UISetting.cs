@@ -216,8 +216,9 @@ public class UISetting : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow, bool isMainLobby = true){
-		if (instance) {
+	public static void UIShow(bool isShow, bool isMainLobby = true)
+	{
+	    if (instance) {
 			if (!isShow){
                 RemoveUI(instance.gameObject);
 			}
@@ -232,9 +233,12 @@ public class UISetting : UIBase {
 							Get.tabs[i].SetActive(false);			
 			}
 		}
-	}
 
-	protected override void InitCom() {
+	    if(isShow)
+            Statistic.Ins.LogScreen(23);
+    }
+
+    protected override void InitCom() {
         SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
         SetBtnFun(UIName + "Window/Center/Pages/2/GameNews/0", OnNotic);
         SetBtnFun(UIName + "/Window/Center/Pages/2/Pubgame/Widge", OnPubgameWidge);

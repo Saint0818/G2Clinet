@@ -69,6 +69,8 @@ public class UIShop : UIBase {
             } else
             if (value)
                 Get.Show(value);
+
+            Statistic.Ins.LogScreen(15);
         }
     }
 

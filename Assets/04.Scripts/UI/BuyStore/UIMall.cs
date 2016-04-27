@@ -33,18 +33,22 @@ public class UIMall : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
-		if (instance) {
+	public static void UIShow(bool isShow)
+	{
+	    if (instance) {
 			if (!isShow)
                 RemoveUI(instance.gameObject);
 			else
 				instance.Show(isShow);
 		} else
 			if (isShow)
-				Get.Show(isShow);	
-	}
+				Get.Show(isShow);
 
-	public static UIMall Get
+	    if(isShow)
+            Statistic.Ins.LogScreen(16);
+    }
+
+    public static UIMall Get
 	{
 		get {
 			if (!instance) 

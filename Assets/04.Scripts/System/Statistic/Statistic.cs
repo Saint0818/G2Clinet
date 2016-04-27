@@ -29,9 +29,11 @@ public class Statistic
         TStatisticScreenData data = StatisticScreenTable.Ins.Get(id);
         if(data == null)
         {
-            Debug.LogWarningFormat("ID({0}) don't exist.");
+            Debug.LogWarningFormat("ID({0}) don't exist.", id);
             return;
         }
+
+//        Debug.LogFormat("LogScreen:{0}", data);
 
         for(var i = 0; i < mServices.Count; i++)
         {
@@ -44,7 +46,7 @@ public class Statistic
         TStatisticEventData data = StatisticEventTable.Ins.Get(id);
         if(data == null)
         {
-            Debug.LogWarningFormat("ID({0}) don't exist.");
+            Debug.LogWarningFormat("ID({0}) don't exist.", id);
             return;
         }
 

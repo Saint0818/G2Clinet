@@ -83,7 +83,8 @@ public class UIMission : UIBase {
                 return false;
         }
 
-        set {
+        set
+        {
             if (instance) {
                 if (value)
                     instance.Show(value);
@@ -92,6 +93,9 @@ public class UIMission : UIBase {
             } else
             if (value)
                 Get.Show(value);
+
+            if(value)
+                Statistic.Ins.LogScreen(20);
         }
     }
 

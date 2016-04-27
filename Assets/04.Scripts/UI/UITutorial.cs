@@ -53,9 +53,12 @@ public class UITutorial : UIBase {
 
 	public static void UIShow(bool isShow) {
         if (isShow)
+        {
             UINotic.Visible = false;
-        
-        if (instance) {
+            Statistic.Ins.LogScreen(8);
+        }
+
+	    if (instance) {
 			if (!isShow) {
                 if (instance.tweenScale != null)
                     instance.tweenScale.enabled = false;

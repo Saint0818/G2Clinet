@@ -1,7 +1,194 @@
 [
     {
         "id": 1,
+        "title": "Loading",
+        "name": "UILoading",
+        "inunity": "UILoading"
+    },
+    {
+        "id": 2,
         "title": "主介面",
-        "name": "UIMainLobby"
+        "name": "UIMainLobby",
+        "inunity": "UIMainLobby"
+    },
+    {
+        "id": 3,
+        "title": "競賽大廳",
+        "name": "UIGameLobby",
+        "inunity": "UIGameLobby"
+    },
+    {
+        "id": 4,
+        "title": "PVP",
+        "name": "UIPVP",
+        "inunity": "UIPVP"
+    },
+    {
+        "id": 5,
+        "title": "選隊友",
+        "name": "UISelectRole",
+        "inunity": "UISelectRole"
+    },
+    {
+        "id": 6,
+        "title": "主線",
+        "name": "UIMainStage",
+        "inunity": "UIMainStage"
+    },
+    {
+        "id": 7,
+        "title": "關卡說明",
+        "name": "UIStageInfo",
+        "inunity": "UIStageInfo"
+    },
+    {
+        "id": 8,
+        "title": "教學",
+        "name": "UITutorial",
+        "inunity": "UITutorial"
+    },
+    {
+        "id": 9,
+        "title": "戰鬥暫停",
+        "name": "UIGamePause",
+        "inunity": "UIGamePause"
+    },
+    {
+        "id": 10,
+        "title": "副本",
+        "name": "UIBossStage",
+        "inunity": "UIInstance"
+    },
+    {
+        "id": 11,
+        "title": "技能",
+        "name": "UISkill",
+        "inunity": "UISkillFormation"
+    },
+    {
+        "id": 12,
+        "title": "造型",
+        "name": "UIAvatar",
+        "inunity": "UIAvatarFitted"
+    },
+    {
+        "id": 13,
+        "title": "裝備",
+        "name": "UIEquipment",
+        "inunity": "UIEquipment"
+    },
+    {
+        "id": 14,
+        "title": "社群",
+        "name": "UISocial",
+        "inunity": "UISocial"
+    },
+    {
+        "id": 15,
+        "title": "商店",
+        "name": "UIShop",
+        "inunity": "UIShop"
+    },
+    {
+        "id": 16,
+        "title": "抽卡",
+        "name": "UIPickCard",
+        "inunity": "UIMall"
+    },
+    {
+        "id": 17,
+        "title": "商城購買",
+        "name": "UIRecharge",
+        "inunity": "UIRecharge"
+    },
+    {
+        "id": 18,
+        "title": "設施小視窗",
+        "name": "UIQueue",
+        "inunity": "QueueGroup"
+    },
+    {
+        "id": 19,
+        "title": "圖鑑",
+        "name": "UIGuide",
+        "inunity": "UISuitAvatar"
+    },
+    {
+        "id": 20,
+        "title": "任務",
+        "name": "UIMission",
+        "inunity": "UIMission"
+    },
+    {
+        "id": 21,
+        "title": "投點",
+        "name": "UIPotential",
+        "inunity": "UIPlayerPotential"
+    },
+    {
+        "id": 22,
+        "title": "角色資訊",
+        "name": "UIPlayerInfo",
+        "inunity": "UIPlayerInfo"
+    },
+    {
+        "id": 23,
+        "title": "設定",
+        "name": "UISetting",
+        "inunity": "UISetting"
+    },
+    {
+        "id": 24,
+        "title": "籃框",
+        "name": "UIGym_Basket",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 25,
+        "title": "廣告",
+        "name": "UIGym_AD",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 26,
+        "title": "販賣機",
+        "name": "UIGym_GymStore",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 27,
+        "title": "球場",
+        "name": "UIGym_Gym",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 28,
+        "title": "大門",
+        "name": "UIGym_Gate",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 29,
+        "title": "旗幟",
+        "name": "UIGym_Flag",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 30,
+        "title": "椅子",
+        "name": "UIGym_Chair",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 31,
+        "title": "佈告欄",
+        "name": "UIGym_Note",
+        "inunity": "UIGymEngage"
+    },
+    {
+        "id": 32,
+        "title": "信箱",
+        "name": "UIGym_Mail",
+        "inunity": "UIGymEngage"
     }
 ]

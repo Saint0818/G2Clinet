@@ -85,6 +85,9 @@ public class UISocial : UIBase {
             } else
             if (value)
                 Get.Show(value);
+
+            if(value)
+                Statistic.Ins.LogScreen(14);
         }
     }
 

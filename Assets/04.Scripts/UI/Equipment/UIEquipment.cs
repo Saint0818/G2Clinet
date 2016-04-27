@@ -49,6 +49,8 @@ public class UIEquipment : UIBase
         Show(true);
 
         updateUI();
+
+        Statistic.Ins.LogScreen(13);
     }
 
     private void updateUI()

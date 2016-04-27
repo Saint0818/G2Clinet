@@ -85,6 +85,8 @@ public class UIMainLobby : UIBase
 
         if(GameData.Team.NeedForSyncRecord)
             SendHttp.Get.SyncDailyRecord();
+
+        Statistic.Ins.LogScreen(2);
     }
 
     /// <summary>

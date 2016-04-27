@@ -74,6 +74,9 @@ public class UISelectRole : UIBase {
                 UISkillFormation.Visible = false;
 				UIStrategy.Visible = false;
             }
+
+            if(value)
+                Statistic.Ins.LogScreen(5);
         }
 	}
 	

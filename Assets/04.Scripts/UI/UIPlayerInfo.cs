@@ -521,7 +521,9 @@ public class UIPlayerInfo : UIBase
 		if (isShow) {
 			team.PlayerInit();
             teamdata = team;
-		}
+
+            Statistic.Ins.LogScreen(22);
+        }
 
         if (instance)
         {

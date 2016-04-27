@@ -180,8 +180,9 @@ public class UISuitAvatar : UIBase {
 				return false;
 		}
 
-		set {
-			if (instance) {
+		set
+		{
+		    if (instance) {
 				if (!value)
                     RemoveUI(instance.gameObject);
 				else
@@ -189,7 +190,10 @@ public class UISuitAvatar : UIBase {
 			} else
 				if (value)
 					Get.Show(value);
-		}
+
+		    if(value)
+                Statistic.Ins.LogScreen(19);
+        }
 	}
 
 	public static UISuitAvatar Get

@@ -86,6 +86,8 @@ public class UIPVP : UIBase
         {
             UIMainLobby.Get.Hide(false);
             UIResource.Get.Show(2);
+
+            Statistic.Ins.LogScreen(4);
         }
         else
         {

@@ -89,6 +89,8 @@ public class UIInstance : UIBase
         buildChapters();
         mMain.ShowChapters();
         mMain.SelectChapter(chapter);
+
+        Statistic.Ins.LogScreen(10);
     }
 
     /// <summary>
@@ -126,6 +128,8 @@ public class UIInstance : UIBase
             mMain.ShowStages(stageData.Chapter);
             mMain.SelectStage(findUIStageIndex(stageData.Chapter));
         }
+
+        Statistic.Ins.LogScreen(10);
     }
 
     private void buildChapters()
