@@ -15,13 +15,12 @@ public class UIMainLobbyEvents : MonoBehaviour
             UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Avatar)), LimitTable.Ins.GetLv(EOpenID.Avatar)), Color.black);
     }
 
-    public void ShowStage()
+    public void ShowGameLobby()
     {
         UIGameLobby.Get.Show();
+
         UIMainLobby.Get.Hide();
         UIResource.Get.Show();
-
-    	Statistic.Ins.LogEvent(1);
     }
 
     public void ShowSkillFormation()

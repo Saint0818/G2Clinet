@@ -52,7 +52,7 @@ public class UIMainLobby : UIBase
         View.Settings.GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UISetting.UIShow(true)));
 
         var events = GetComponent<UIMainLobbyEvents>();
-        View.RaceButton.onClick.Add(new EventDelegate(events.ShowStage));
+        View.RaceButton.onClick.Add(new EventDelegate(events.ShowGameLobby));
         View.SkillButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowSkillFormation));
         View.AvatarButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowAvatarFitted));
         View.EquipButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowEquipment));
