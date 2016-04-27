@@ -20,6 +20,8 @@ public class UIMainLobbyEvents : MonoBehaviour
         UIGameLobby.Get.Show();
         UIMainLobby.Get.Hide();
         UIResource.Get.Show();
+
+    	Statistic.Ins.LogEvent(1);
     }
 
     public void ShowSkillFormation()

@@ -1,170 +1,926 @@
 [
     {
         "id": 1,
-        "title": "遊戲幣消耗"
-    },
-    {
-        "id": 2,
-        "category": "Economic_Money",
-        "action": "Upgrade",
-        "label": "Upgrade_Equipment"
-    },
-    {
-        "id": 3,
-        "action": "Upgrade",
-        "label": "Upgrade_Skill"
-    },
-    {
-        "id": 4,
-        "action": "Upgrade",
-        "label": "Evolution_Skill"
-    },
-    {
-        "id": 5,
-        "title": "球場升級",
-        "label": "UpgradeBtn"
-    },
-    {
-        "id": 6
-    },
-    {
-        "id": 7,
-        "title": "鑽石消耗"
-    },
-    {
-        "id": 8,
-        "title": "購買造型",
-        "category": "Economic_Diamond"
-    },
-    {
-        "id": 9,
-        "title": "重置商店",
-        "label": "ResetBtn"
+        "title": "競賽",
+        "category": "UIBtn",
+        "action": "OpenUI_MainLobby",
+        "label": "UIMainLobby",
+        "value": 1,
+        "inunity": "RaceBt",
+        "undefined": "done"
     },
     {
         "id": 10,
-        "title": "重置推薦好友",
-        "label": "ResetBtn"
+        "title": "PVP模式",
+        "category": "UIBtn",
+        "action": "OpenUI_PVP",
+        "label": "UIPVP",
+        "value": 1,
+        "inunity": "PvPStageBtn"
     },
     {
         "id": 11,
-        "title": "購買佇列",
-        "label": "Queue Unlock"
+        "title": "CD重置",
+        "category": "Spend_Diamond",
+        "action": "Reset_PVP_Time",
+        "label": "UIPVP",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIPVP/Center/Window/Pages/0/MainView/NextBtn"
     },
     {
         "id": 12,
-        "title": "重置投點",
-        "label": "ResetBtn"
+        "title": "找對手",
+        "category": "Spend_Money",
+        "action": "Reset_PVP_Opponent",
+        "label": "UIPVP",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIPVP/Center/Window/Pages/0/MainView/NextBtn"
     },
     {
         "id": 13,
-        "title": "改名",
-        "label": "CheckBtn"
+        "title": "刷新",
+        "category": "Spend_Money",
+        "action": "Reset_PVP_Opponent",
+        "label": "UIPVP",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UISelectRole/Left/ResteBtn"
     },
     {
         "id": 14,
-        "title": "購買建築"
+        "title": "選戰術",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Strategy",
+        "label": "紀錄戰術",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
     },
     {
         "id": 15,
-        "title": "低階抽卡 免費"
+        "title": "選技能",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Skill",
+        "label": "UIPVP",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
         "id": 16,
-        "title": "低階抽卡 1抽"
+        "title": "裝數值裝",
+        "category": "Equip_Equip",
+        "action": "Equip_Equip",
+        "label": "紀錄物品編號",
+        "undefined": "done"
     },
     {
         "id": 17,
-        "title": "低階抽卡 5抽"
+        "title": "競賽開始",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Game",
+        "label": "紀錄玩家等級",
+        "value": 1
     },
     {
-        "id": 18,
-        "title": "低階抽卡 10抽"
+        "id": 51,
+        "title": "主線模式",
+        "category": "UIBtn",
+        "action": "OpenUI_MainStage",
+        "label": "UIMainStage",
+        "value": 1,
+        "inunity": "MainStageBtn"
     },
     {
-        "id": 19,
-        "title": "中階抽卡 免費"
+        "id": 52,
+        "title": "關卡次數重置",
+        "category": "Spend_Diamond",
+        "action": "Reset_MainStage_Number ",
+        "label": "UIMainStage",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
-        "id": 20,
-        "title": "中階抽卡 1抽"
+        "id": 53,
+        "title": "選戰術",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Strategy",
+        "label": "紀錄戰術",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
     },
     {
-        "id": 21,
-        "title": "中階抽卡 5抽"
+        "id": 54,
+        "title": "選技能",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Skill",
+        "label": "UIMainStage",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 22,
-        "title": "中階抽卡 10抽"
+        "id": 55,
+        "title": "選技能",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Skill",
+        "label": "紀錄技能編號",
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 23,
-        "title": "高階抽卡 1抽"
+        "id": 56,
+        "title": "租傭兵按鈕",
+        "category": "Spend_Diamond",
+        "action": "Rent_Mercenary",
+        "label": "UIMainStage",
+        "valueexplain": "紀錄金額",
+        "inunity": "RentBtn"
     },
     {
-        "id": 24,
-        "title": "高階抽卡 5抽"
+        "id": 57,
+        "title": "選擇傭兵",
+        "category": "Equip_Player",
+        "action": "Equip_Mercenary",
+        "label": "紀錄球員編號"
     },
     {
-        "id": 25,
-        "title": "高階抽卡 10抽"
+        "id": 58,
+        "title": "選隊友",
+        "category": "Equip_Player",
+        "action": "Equip_Player",
+        "label": "紀錄球員編號"
     },
     {
-        "id": 26
+        "id": 59,
+        "title": "獎勵3選1",
+        "category": "Spend_Diamond",
+        "action": "3Pick1_MainStage",
+        "label": "紀錄關卡編號",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 27
+        "id": 60,
+        "title": "獎勵3選1",
+        "category": "Spend_Diamond",
+        "action": "3Pick1_MainStage",
+        "label": "紀錄關卡編號",
+        "value": 1
     },
     {
-        "id": 28
+        "id": 61,
+        "title": "關卡得遊戲幣",
+        "category": "Earn_Money",
+        "action": "Complete_MainStage",
+        "label": "UIMainStage",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 29
+        "id": 62,
+        "title": "關卡得鑽石",
+        "category": "Earn_Diamond",
+        "action": "Complete_MainStage",
+        "label": "UIMainStage",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 30
+        "id": 101,
+        "title": "副本模式",
+        "category": "UIBtn",
+        "action": "OpenUI_BossStage",
+        "label": "UIBossStage",
+        "value": 1,
+        "inunity": "InstanceBtn"
     },
     {
-        "id": 31,
-        "title": "遊戲幣獲得"
+        "id": 102,
+        "title": "關卡次數重置",
+        "category": "Spend_Diamond",
+        "action": "Reset_BossStage_Number ",
+        "label": "UIBossStage",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
-        "id": 32,
-        "title": "完成任務"
+        "id": 103,
+        "title": "選戰術",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Strategy",
+        "label": "紀錄戰術",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
     },
     {
-        "id": 33
+        "id": 104,
+        "title": "選技能",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Skill",
+        "label": "UIBossStage",
+        "value": 1,
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 34
+        "id": 105,
+        "title": "選技能",
+        "category": "SubUIBtn",
+        "action": "OpenUI_Skill",
+        "label": "紀錄技能編號",
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 35
+        "id": 106,
+        "title": "租傭兵按鈕",
+        "category": "Spend_Diamond",
+        "action": "Rent_Mercenary",
+        "label": "UIBossStage",
+        "valueexplain": "紀錄金額",
+        "inunity": "RentBtn"
     },
     {
-        "id": 36
+        "id": 107,
+        "title": "選擇傭兵",
+        "category": "Equip_Player",
+        "action": "Equip_Mercenary",
+        "label": "紀錄球員編號"
     },
     {
-        "id": 37
+        "id": 108,
+        "title": "選隊友",
+        "category": "Equip_Player",
+        "action": "Equip_Player",
+        "label": "紀錄球員編號"
     },
     {
-        "id": 38
+        "id": 109,
+        "title": "獎勵3選1",
+        "category": "Spend_Diamond",
+        "action": "3Pick1_BossStage",
+        "label": "紀錄關卡編號",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 39
+        "id": 110,
+        "title": "獎勵3選1",
+        "category": "Spend_Diamond",
+        "action": "3Pick1_BossStage",
+        "label": "紀錄關卡編號",
+        "value": 1
     },
     {
-        "id": 40
+        "id": 111,
+        "title": "關卡得遊戲幣",
+        "category": "Earn_Money",
+        "action": "Complete_BossStage",
+        "label": "UIBossStage",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 41
+        "id": 112,
+        "title": "關卡得鑽石",
+        "category": "Earn_Diamond",
+        "action": "Complete_BossStage",
+        "label": "UIBossStage",
+        "valueexplain": "紀錄金額"
     },
     {
-        "id": 42,
-        "title": "鑽石獲得"
+        "id": 151,
+        "title": "技能",
+        "category": "UIBtn",
+        "action": "OpenUI_Skill",
+        "label": "UISkill",
+        "value": 1,
+        "inunity": "SkillBt"
     },
     {
-        "id": 43,
-        "title": "完成任務"
+        "id": 152,
+        "title": "安裝技能",
+        "category": "Equip_Skill",
+        "action": "Equip_Skill",
+        "label": "紀錄技能編號"
+    },
+    {
+        "id": 153,
+        "title": "技能升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Skill_Upgrade",
+        "label": "紀錄技能編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "ReinforceBtn"
+    },
+    {
+        "id": 154,
+        "title": "技能進化",
+        "category": "Spend_Money",
+        "action": "Upgrade_Skill_Revolution",
+        "label": "紀錄技能編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "DemountBtn"
+    },
+    {
+        "id": 201,
+        "title": "造型",
+        "category": "UIBtn",
+        "action": "OpenUI_Avatar",
+        "label": "UIAvatar",
+        "value": 1,
+        "inunity": "AvatarBt"
+    },
+    {
+        "id": 202,
+        "title": "購買造型_頭髮",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Hair",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 203,
+        "title": "購買造型_衣服",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Clothes",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 204,
+        "title": "購買造型_手飾",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Wristband",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 205,
+        "title": "購買造型_褲子",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Pants",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 206,
+        "title": "購買造型_鞋子",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Shoes",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 207,
+        "title": "購買造型_面飾",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Mask",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 208,
+        "title": "購買造型_背飾",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Backpack",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 251,
+        "title": "裝備",
+        "category": "UIBtn",
+        "action": "OpenUI_Equipment",
+        "label": "UIEquipment",
+        "value": 1,
+        "inunity": "EquipmentBt"
+    },
+    {
+        "id": 252,
+        "title": "裝備合成",
+        "category": "Spend_Money",
+        "action": "Upgrade_Equip_Upgrade",
+        "label": "紀錄物品編號",
+        "value": 1,
+        "inunity": "MaterialItem(Clone)"
+    },
+    {
+        "id": 253,
+        "title": "裝備進化",
+        "category": "Spend_Money",
+        "action": "Upgrade_Equip_Revolution",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 301,
+        "title": "社群",
+        "category": "UIBtn",
+        "action": "OpenUI_Social",
+        "label": "UISocial",
+        "value": 1,
+        "inunity": "SocialBt"
+    },
+    {
+        "id": 302,
+        "title": "刷新好友",
+        "category": "Spend_Diamond",
+        "action": "Reset_Social_Friend",
+        "label": "UISocial",
+        "valueexplain": "紀錄金額",
+        "inunity": "ResetBtn"
+    },
+    {
+        "id": 351,
+        "title": "商店",
+        "category": "UIBtn",
+        "action": "OpenUI_Shop",
+        "label": "UIShop",
+        "value": 1,
+        "inunity": "ShopBt"
+    },
+    {
+        "id": 352,
+        "title": "重置商店",
+        "category": "Spend_Diamond",
+        "action": "Reset_Shop_Item",
+        "label": "UIShop",
+        "valueexplain": "紀錄金額",
+        "inunity": "ResetBtn"
+    },
+    {
+        "id": 401,
+        "title": "抽卡",
+        "category": "UIBtn",
+        "action": "OpenUI_PickCard",
+        "label": "UIPickCard",
+        "value": 1,
+        "inunity": "MallBt"
+    },
+    {
+        "id": 402,
+        "title": "低階抽卡 免費",
+        "category": "Spend_Money",
+        "action": "PickCard_Low_Free",
+        "label": "UIPickCard",
+        "value": 1,
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/0"
+    },
+    {
+        "id": 403,
+        "title": "低階抽卡 1抽",
+        "category": "Spend_Money",
+        "action": "PickCard_Low_1Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/0"
+    },
+    {
+        "id": 404,
+        "title": "低階抽卡 5抽",
+        "category": "Spend_Money",
+        "action": "PickCard_Low_5Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/Tween/0"
+    },
+    {
+        "id": 405,
+        "title": "低階抽卡 10抽",
+        "category": "Spend_Money",
+        "action": "PickCard_Low_10Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/Tween/0"
+    },
+    {
+        "id": 406,
+        "title": "中階抽卡 免費",
+        "category": "Spend_Diamond",
+        "action": "PickCard_Mid_Free",
+        "label": "UIPickCard",
+        "value": 1,
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/2"
+    },
+    {
+        "id": 407,
+        "title": "中階抽卡 1抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_Mid_1Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/2"
+    },
+    {
+        "id": 408,
+        "title": "中階抽卡 5抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_Mid_5Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/Tween/2"
+    },
+    {
+        "id": 409,
+        "title": "中階抽卡 10抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_Mid_10Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/Tween/2"
+    },
+    {
+        "id": 410,
+        "title": "高階抽卡 1抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_High_1Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/1"
+    },
+    {
+        "id": 411,
+        "title": "高階抽卡 5抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_High_5Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/Tween/1"
+    },
+    {
+        "id": 412,
+        "title": "高階抽卡 10抽",
+        "category": "Spend_Diamond",
+        "action": "PickCard_High_10Pick",
+        "label": "UIPickCard",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/Tween/1"
+    },
+    {
+        "id": 451,
+        "title": "鑽石購買",
+        "category": "UIBtn",
+        "action": "OpenUI_DiamondRecharge",
+        "label": "UIRecharge",
+        "value": 1,
+        "inunity": "Diamond"
+    },
+    {
+        "id": 452,
+        "title": "遊戲幣購買",
+        "category": "UIBtn",
+        "action": "OpenUI_MoneyRecharge",
+        "label": "UIRecharge",
+        "value": 1,
+        "inunity": "Money"
+    },
+    {
+        "id": 453,
+        "title": "體力購買",
+        "category": "UIBtn",
+        "action": "OpenUI_PowerRecharge",
+        "label": "UIRecharge",
+        "value": 1,
+        "inunity": "Power"
+    },
+    {
+        "id": 501,
+        "title": "設施",
+        "category": "UIBtn",
+        "action": "OpenUI_Queue",
+        "label": "UIQueue",
+        "value": 1,
+        "inunity": "GymQueue"
+    },
+    {
+        "id": 502,
+        "title": "購買佇列",
+        "category": "Spend_Diamond",
+        "action": "Buy_Queue",
+        "label": "UIQueue",
+        "valueexplain": "紀錄金額",
+        "inunity": "Queue Unlock"
+    },
+    {
+        "id": 551,
+        "title": "圖鑑",
+        "category": "UIBtn",
+        "action": "OpenUI_Guide",
+        "label": "UIGuide",
+        "value": 1,
+        "inunity": "AlbumBtn"
+    },
+    {
+        "id": 552,
+        "title": "任務",
+        "category": "UIBtn",
+        "action": "OpenUI_Mission",
+        "label": "UIMission",
+        "value": 1,
+        "inunity": "MissionBtn"
+    },
+    {
+        "id": 553,
+        "title": "完成任務",
+        "category": "Earn_Money",
+        "action": "Complete_Mission",
+        "label": "紀錄任務編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
+    },
+    {
+        "id": 554,
+        "title": "完成任務",
+        "category": "Earn_Diamond",
+        "action": "Complete_Mission",
+        "label": "紀錄任務編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
+    },
+    {
+        "id": 601,
+        "title": "潛能",
+        "category": "UIBtn",
+        "action": "OpenUI_Potential",
+        "label": "UIPotential",
+        "value": 1,
+        "inunity": "PlayerPotentialBtn"
+    },
+    {
+        "id": 602,
+        "title": "重置投點",
+        "category": "Spend_Diamond",
+        "action": "Reset_Potential",
+        "label": "UIPotential",
+        "valueexplain": "紀錄金額",
+        "inunity": "ResetBtn"
+    },
+    {
+        "id": 651,
+        "title": "玩家資訊",
+        "category": "UIBtn",
+        "action": "OpenUI_PlayerInfo",
+        "label": "UIPlayerInfo",
+        "value": 1,
+        "inunity": "PlayerInGameBtn"
+    },
+    {
+        "id": 652,
+        "title": "改名",
+        "category": "Spend_Diamond",
+        "action": "Reset_Name",
+        "label": "UIPlayerInfo",
+        "valueexplain": "紀錄金額",
+        "inunity": "CheckBtn"
+    },
+    {
+        "id": 701,
+        "title": "設定",
+        "category": "UIBtn",
+        "action": "OpenUI_Setting",
+        "label": "UISetting",
+        "value": 1,
+        "inunity": "Settings"
+    },
+    {
+        "id": 702,
+        "title": "設施＿籃框",
+        "category": "UIBtn",
+        "action": "OpenUI_Basket",
+        "label": "UIGym_Basket",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/0"
+    },
+    {
+        "id": 801,
+        "title": "籃框升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Basket",
+        "label": "UIGym_Basket",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 802,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Basket",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 803,
+        "title": "設施＿廣告",
+        "category": "UIBtn",
+        "action": "OpenUI_AD",
+        "label": "UIGym_AD",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/1"
+    },
+    {
+        "id": 804,
+        "title": "廣告升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_AD",
+        "label": "UIGym_AD",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 805,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_AD",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 806,
+        "title": "設施＿販賣機",
+        "category": "UIBtn",
+        "action": "OpenUI_GymStore",
+        "label": "UIGym_GymStore",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/2"
+    },
+    {
+        "id": 807,
+        "title": "販賣機升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Store",
+        "label": "UIGym_GymStore",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 808,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Store",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 809,
+        "title": "設施＿球場",
+        "category": "UIBtn",
+        "action": "OpenUI_Gym",
+        "label": "UIGym_Gym",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/3"
+    },
+    {
+        "id": 810,
+        "title": "球場升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Gym",
+        "label": "UIGym_Gym",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 811,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Gym",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 812,
+        "title": "設施＿大門",
+        "category": "UIBtn",
+        "action": "OpenUI_Gate",
+        "label": "UIGym_Gate",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/4"
+    },
+    {
+        "id": 813,
+        "title": "大門升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Gate",
+        "label": "UIGym_Gate",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 814,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Gate",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 815,
+        "title": "設施＿旗幟",
+        "category": "UIBtn",
+        "action": "OpenUI_Flag",
+        "label": "UIGym_Flag",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/5"
+    },
+    {
+        "id": 816,
+        "title": "旗幟升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Flag",
+        "label": "UIGym_Flag",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 817,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Flag",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 818,
+        "title": "設施＿椅子",
+        "category": "UIBtn",
+        "action": "OpenUI_Chair",
+        "label": "UIGym_Chair",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/6"
+    },
+    {
+        "id": 819,
+        "title": "椅子升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Chair",
+        "label": "UIGym_Chair",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 820,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Chair",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 821,
+        "title": "設施＿佈告欄",
+        "category": "UIBtn",
+        "action": "OpenUI_Note",
+        "label": "UIGym_Note",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/7"
+    },
+    {
+        "id": 822,
+        "title": "佈告欄升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Note",
+        "label": "UIGym_Note",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 823,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Note",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 824,
+        "title": "設施＿信箱",
+        "category": "UIBtn",
+        "action": "OpenUI_Mail",
+        "label": "UIGym_Mail",
+        "value": 1,
+        "inunity": "UI2D/UIGym/Window/Center/8"
+    },
+    {
+        "id": 825,
+        "title": "信箱升級",
+        "category": "Spend_Money",
+        "action": "Upgrade_Gym_Mail",
+        "label": "UIGym_Mail",
+        "valueexplain": "紀錄金額",
+        "inunity": "UpgradeBtn"
+    },
+    {
+        "id": 826,
+        "title": "購買建築",
+        "category": "Spend_Diamond",
+        "action": "Buy_Gym_Mail",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     }
 ]
