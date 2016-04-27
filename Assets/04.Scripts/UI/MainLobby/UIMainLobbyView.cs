@@ -30,6 +30,7 @@ public class UIMainLobbyView : MonoBehaviour
     public GameObject PlayerNoticeObj;
     public GameObject MallNoticeObj;
 	public GameObject QueueNoticeObj;
+	public GameObject AlbumNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIButton RaceButton;
@@ -126,6 +127,11 @@ public class UIMainLobbyView : MonoBehaviour
 	public bool QueueNotice
 	{
 		set {QueueNoticeObj.SetActive(value);} 
+	}
+
+	public bool AlbumNotice 
+	{
+		set {AlbumNoticeObj.SetActive(value);}
 	}
 
 	public bool QueueLock

@@ -970,7 +970,7 @@ public class UIGameResult : UIBase {
 		}
 		else {
 			isGetAward = false;
-			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+			UIHint.Get.ShowHint("Stage Reward fail!", Color.black);
 		}
 	}
 
@@ -994,7 +994,7 @@ public class UIGameResult : UIBase {
 			chooseItem(resultThree.ChooseIndex);
 		}
 		else
-			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+			UIHint.Get.ShowHint("Stage Reward fail!", Color.black);
 	}
 
 

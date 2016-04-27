@@ -70,7 +70,7 @@ public class GetTenItem : MonoBehaviour {
 		if(itemData.Length > 0 && itemData.Length == 10 && itemAwardGroups.Length == 10) {
 			for(int i=0; i<itemData.Length; i++) {
 				if(itemData[i].Kind == 21)
-					isNeedPause[i] = GameData.Team.CheckSkillCardisNew(itemData[i].Avatar);
+					isNeedPause[i] = !GameData.Team.IsGetItem(itemData[i].ID);
 				else 
 					isNeedPause[i] = false;
 				

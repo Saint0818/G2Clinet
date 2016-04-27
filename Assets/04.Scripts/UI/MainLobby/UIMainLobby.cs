@@ -99,11 +99,16 @@ public class UIMainLobby : UIBase
         updateSkillButton();
         updateMissionButton();
         updateMallButton();
+		updateAlbumButton ();
         
         View.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
 //        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
 //                           UIDailyLoginHelper.HasLifetimeLoginReward();
     }
+
+	private void updateAlbumButton () {
+		View.AlbumNotice = (GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard) && GameData.Team.SuitCardRedPoint);
+	}
 
     private void updateMallButton()
 	{
@@ -281,7 +286,7 @@ public class UIMainLobby : UIBase
 		}
 
 		bubbleList ();
-		View.QueueNoticeObj.SetActive(GameFunction.GetIdleQueue != 0);
+		View.QueueNotice = (GameFunction.GetIdleQueue != 0);
 		updateQueue ();
 	}
 

@@ -314,13 +314,6 @@ public class UISkillFormation : UIBase {
 	private int infoIndex = -1;
 	private bool isAlreadyEquip = false;
 
-//	private GameObject[] tabs = new GameObject[2];
-//	private GameObject tabLock;
-//	private GameObject[] redPoints = new GameObject[2];
-//	private GameObject[] views = new GameObject[2];
-	//ForSuitCard
-//	private UISuitCard uiSuitCard;
-
 	void OnDestroy() {
 		activeOriginalSN.Clear();
 		sellNames.Clear();
@@ -414,8 +407,6 @@ public class UISkillFormation : UIBase {
 		UIEventListener.Get(GameObject.Find (UIName + "/Center/MainView/Right/STitle/ActiveCheck")).onClick = DoOpenActive;
 		UIEventListener.Get(GameObject.Find (UIName + "/Center/MainView/Right/STitle/PassiveCheck")).onClick = DoOpenPassive;
 
-
-
 		labelCostValue = GameObject.Find (UIName + "/Center/LabelCost/CostValue").GetComponent<UILabel>();
 		labelFrameCount = GameObject.Find (UIName + "/Center/FrameCount").GetComponent<UILabel>();
 
@@ -425,7 +416,6 @@ public class UISkillFormation : UIBase {
 		scrollViewCardList.onDragStarted = CardDragStart;
 		scrollViewCardList.onDragFinished = CardDragFinish;
 		scrollViewCardList.onStoppedMoving = CardDragEnd;
-
 
 		cardSell = new TSkillCardSell();
 		cardSell.LabelSell = GameObject.Find (UIName + "/Center/SellBtn/Icon").GetComponent<UILabel>();
@@ -440,19 +430,6 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/Center/SellBtn", DoSellState);
 		SetBtnFun (UIName + "/Center/SellBtn/SellCount/CancelBtn", DoCloseSell);
 
-
-//		views[0] = GameObject.Find(UIName + "/Center");
-//		views[1] = GameObject.Find(UIName + "/SuitCardsView");
-//
-//		uiSuitCard = new UISuitCard();
-//		uiSuitCard.InitCom(this, UIName);
-//		for(int i=0; i<tabs.Length; i++) {
-//			tabs[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/Selected");
-//			redPoints[i] = GameObject.Find(UIName + "/Top/Tabs/"+i.ToString() + "/RedPoint");
-//			SetBtnFun(UIName + "/Top/Tabs/"+i.ToString(), OnTab);
-//		}
-//		tabLock = GameObject.Find(UIName + "/Top/Tabs/1/Lock");
-//		ClickTab(0);
 		initCards ();
 		PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
 		UpdateSort();
@@ -478,57 +455,8 @@ public class UISkillFormation : UIBase {
 		isLeave = false;
 	}
 
-	/// <summary>
-	/// tab  0 : SkillFormation 1: SuitCard
-	/// </summary>
-	/// <param name="tab">Tab.</param>
 	public void ShowView (int tab = 0, int suitId = 0) {
-		UIShow(true);
-//		if(tab == 1) {
-//			ClickTab(1);
-//			uiSuitCard.MoveToID(suitId);
-//		}
-	}
-
-//	public void OnTab() {
-//		int result = 0;
-//		if(int.TryParse(UIButton.current.name, out result)) {
-//			ClickTab(result);
-//		}
-//	}
-
-//	public void ClickTab (int no) {
-//		if(no == 1) {
-//			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)){
-//				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.red);
-//				return ;
-//			}
-//		}
-//		if(no >= 0 && no < views.Length) {
-//			for (int i=0; i<views.Length; i++) {
-//				tabs[i].SetActive(i == no);
-//				views[i].SetActive(i == no);
-//			}
-//		}
-//	}
-
-//	public void RefreshTabsRedPoint (bool isInit = false) {
-//		//合成不須判斷紅點(20160324 GameData.Team.IsExtraCard)
-//		if(isInit) 
-//			redPoints[0].SetActive(GameData.Team.IsSurplusCost || GameData.Team.IsAnyCardReinEvo || CheckCardnoInstall);
-//		else
-//			redPoints[0].SetActive(isSurplusCost || GameData.Team.IsAnyCardReinEvo || CheckCardnoInstall);
-//        
-//		redPoints[1].SetActive(uiSuitCard.CheckRedPoint && (GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)));
-//		tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard));
-//	}
-
-	public void SetBtn (string path, EventDelegate.Callback callback) {
-		SetBtnFun(path, callback);
-	}
-
-	public GameObject Duplicate (GameObject obj) {
-		return Instantiate(obj);
+		Visible = true;
 	}
 
 	private void hide() {
@@ -691,7 +619,6 @@ public class UISkillFormation : UIBase {
 		resetScrollPostion ();
 		refreshActiveItems ();
 		viewRight.RefreshPassiveItem();
-//		RefreshTabsRedPoint (true);
 		refreshRedPoint();
 
 		if(IsOpenThirdActive) 
@@ -722,11 +649,6 @@ public class UISkillFormation : UIBase {
 				}
 			}
 		}
-	}
-
-	private int getID (string name) {
-		string[] strs = name.Split("_"[0]);
-		return int.Parse(strs[1]);
 	}
 
 	private bool IsEquip (string name) {
@@ -809,14 +731,14 @@ public class UISkillFormation : UIBase {
 
 	public void OnSuitCard (GameObject go) {
 		int result = 0;
-		if(int.TryParse(go.name, out result))
-            OpenSuitCard(result);
-	}
+		if(int.TryParse(go.name, out result)) {
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) 
+				UISuitAvatar.Get.ShowView(1, 1, result);
+			else 
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.red);
+		}
 
-    public void OpenSuitCard (int id) {
-//        ClickTab(1);
-//        uiSuitCard.MoveToID(id);
-    }
+	}
 
 	public void OnSuitItem (GameObject go) {
 		int result = 0;
@@ -974,7 +896,6 @@ public class UISkillFormation : UIBase {
 					//Passive
 					if(addItems(uiCards[name])) {
 						AudioMgr.Get.PlaySound(SoundType.SD_Compose);
-//						refreshPassiveItems();
 						viewRight.RefreshPassiveItem();
 					}
 						
@@ -982,7 +903,6 @@ public class UISkillFormation : UIBase {
 			}
 			refreshRedPoint();
 			refreshFrameCount ();
-//			RefreshTabsRedPoint ();
 		}
 	}
 
@@ -1012,7 +932,6 @@ public class UISkillFormation : UIBase {
 				
 			} else {
 				IsCardActive = false;
-//				itemPassiveSelected.SetActive(isShow);
 				viewRight.ItemPassiveSelectedVisible = isShow;
 			}
 		}

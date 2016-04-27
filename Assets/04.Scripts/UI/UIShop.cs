@@ -247,7 +247,7 @@ public class UIShop : UIBase {
                 sp.spriteName = "SuitLight";
                 int id = GameData.DItemData[itemID].SuitCard;
                 if (GameData.DSuitCard.ContainsKey(id)) 
-                    lab.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].Items.Length);
+					lab.text = string.Format("{0}/{1}", GameData.Team.SuitCardCompleteCount(id).ToString(), GameData.DSuitCard[id].ItemCount);
                 else
                     btn.gameObject.SetActive(false);
             } else
@@ -341,8 +341,11 @@ public class UIShop : UIBase {
         if (int.TryParse(UIButton.current.name, out id)) {
             if (GameData.DItemData.ContainsKey(id)) {
                 if (GameData.DItemData[id].Kind == 21) {
-                    UISkillFormation.UIShow(true);
-                    UISkillFormation.Get.OpenSuitCard(GameData.DItemData[id].SuitCard);
+					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard))
+						UISuitAvatar.Get.ShowView(1, 1, GameData.DItemData[id].SuitCard);
+					else 
+						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitCard)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) , Color.black);
+					
                     Visible = false;
                     UIPlayerAvatar.Visible = false;
                 } else
@@ -350,7 +353,7 @@ public class UIShop : UIBase {
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
 						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
 					else 
-						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitItem)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.red);
+						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitItem)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.black);
             }
         }
     }

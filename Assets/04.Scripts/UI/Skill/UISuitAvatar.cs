@@ -49,17 +49,6 @@ public struct TMiddleItemView {
 
 	private int mID;
 
-	public void Init (GameObject obj) {
-		itemAwardGroup = new ItemAwardGroup[7];
-		itemNameLabel = new UILabel[7];
-		SuitCover = new GameObject[7];
-		for (int i=0; i<itemAwardGroup.Length; i++) {
-			itemAwardGroup[i] = obj.transform.Find(i.ToString() + "/View/ItemAwardGroup").GetComponent<ItemAwardGroup>();
-			itemNameLabel[i] = obj.transform.Find(i.ToString() + "/ItemNameLabel").GetComponent<UILabel>();
-			SuitCover[i] = obj.transform.Find(i.ToString() + "/SuitCover").gameObject;
-		}
-	}
-
 	//id是指套裝id
 	public void UpdateView (int id) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
@@ -86,13 +75,6 @@ public struct TMiddleItemView {
 
 public struct TMiddleBonusView {
 	public UILabel[] BonusLabel;
-
-	public void Init (GameObject obj) {
-		BonusLabel = new UILabel[6];
-		for (int i=0; i<BonusLabel.Length; i++) {
-			BonusLabel[i] = obj.transform.Find(i.ToString()).GetComponent<UILabel>();
-		}
-	}
 
 	public void UpdateView (int id) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
@@ -137,25 +119,6 @@ public struct TSuitItemRight {
 	public UILabel CostCaptionLabel;
 	public TPassiveSkillCard[] itemCards;
 
-	public void Init (GameObject obj) {
-		NoCardLabel = obj.transform.Find("NoCardLabel").gameObject;
-		CostCaptionLabel = obj.transform.Find("CostCaptionLabel").GetComponent<UILabel>();
-		itemCards = new TPassiveSkillCard[5];
-		for(int i=0; i<itemCards.Length; i++) {
-			itemCards[i] = new TPassiveSkillCard();
-			itemCards[i].InitSuitItem(obj.transform.Find("CardsView/" +i.ToString()).gameObject, ClickCard);
-		}
-		NoCardLabel.SetActive(false);
-	}
-
-	public void ClickCard (GameObject go) {
-		int result = 0;
-		if(int.TryParse(go.name, out result)) {
-			UIItemHint.Get.OnShowForSuit(result);
-		}
-	}
-		
-
 	private void hideAllCard () {
 		for(int i=0; i<itemCards.Length; i++)
 			itemCards[i].Enable = false;
@@ -183,6 +146,10 @@ public struct TSuitItemRight {
 		} else 
 			Debug.LogError("SuitItem can't find id:"+ id);
 	}
+
+	public bool NoCardLabelVisible  {
+		set {NoCardLabel.SetActive(value);}
+	}
 }
 
 public class UISuitAvatar : UIBase {
@@ -194,9 +161,16 @@ public class UISuitAvatar : UIBase {
     private Dictionary<int,TItemSuitAvatarGroup>  tItemSuitAvatarGroup = new Dictionary<int, TItemSuitAvatarGroup>();
 
 	private UIScrollView leftScorllView;
-	private TMiddleItemView middleItemView;
-	private TMiddleBonusView middleBonusView;
-	private TSuitItemRight suitItemRight;
+	private TMiddleItemView middleItemView = new TMiddleItemView();
+	private TMiddleBonusView middleBonusView = new TMiddleBonusView();
+	private TSuitItemRight suitItemRight = new TSuitItemRight();
+
+	private GameObject[] tabs = new GameObject[2];
+	private GameObject[] views = new GameObject[2];
+	private GameObject tabLock;
+	private GameObject redPoint;
+	//SuitCard
+	private UISuitCard uiSuitCard = new UISuitCard();
 
 	public static bool Visible {
 		get {
@@ -228,25 +202,67 @@ public class UISuitAvatar : UIBase {
 		}
 	}
 
+	void OnDestroy() {
+		if (tItemSuitAvatarGroup != null)
+			tItemSuitAvatarGroup.Clear();
+
+		uiSuitCard.OnDestroy();
+	}
+
 	protected override void InitCom() {
 		itemAward = Resources.Load(UIPrefabPath.ItemSuitAvatarGroup) as GameObject;
 
 		leftScorllView = GameObject.Find(UIName + "/Window/Center/Left/ScrollView").GetComponent<UIScrollView>();
-		middleItemView = new TMiddleItemView();
-		middleItemView.Init(GameObject.Find(UIName + "/Window/Center/Middle/ItemsView"));
-		middleBonusView = new TMiddleBonusView();
-		middleBonusView.Init(GameObject.Find(UIName + "Window/Center/Middle/BonusLabelView"));
-		suitItemRight = new TSuitItemRight();
-		suitItemRight.Init(GameObject.Find(UIName + "/Window/Center/Right"));
+		middleItemView.itemAwardGroup = new ItemAwardGroup[7];
+		middleItemView.itemNameLabel = new UILabel[7];
+		middleItemView.SuitCover = new GameObject[7];
+		for (int i=0; i<middleItemView.itemAwardGroup.Length; i++) {
+			middleItemView.itemAwardGroup[i] = GameObject.Find(UIName + "/Window/Center/Middle/ItemsView/" + i.ToString() + "/View/ItemAwardGroup").GetComponent<ItemAwardGroup>();
+			middleItemView.itemNameLabel[i] = GameObject.Find(UIName + "/Window/Center/Middle/ItemsView/" + i.ToString() + "/ItemNameLabel").GetComponent<UILabel>();
+			middleItemView.SuitCover[i] = GameObject.Find(UIName + "/Window/Center/Middle/ItemsView/" + i.ToString() + "/SuitCover");
+		}
+
+		middleBonusView.BonusLabel = new UILabel[6];
+		for (int i=0; i<middleBonusView.BonusLabel.Length; i++) 
+			middleBonusView.BonusLabel[i] = GameObject.Find(UIName + "/Window/Center/Middle/BonusLabelView/" + i.ToString()).GetComponent<UILabel>();
+		
+		suitItemRight.NoCardLabel = GameObject.Find(UIName + "/Window/Center/Right/NoCardLabel").gameObject;
+		suitItemRight.CostCaptionLabel = GameObject.Find(UIName + "/Window/Center/Right/CostCaptionLabel").GetComponent<UILabel>();
+		suitItemRight.itemCards = new TPassiveSkillCard[5];
+		for(int i=0; i<suitItemRight.itemCards.Length; i++) {
+			suitItemRight.itemCards[i] = new TPassiveSkillCard();
+			suitItemRight.itemCards[i].InitSuitItem(GameObject.Find(UIName + "/Window/Center/Right/CardsView/" +i.ToString()).gameObject, ClickCard);
+		}
+		suitItemRight.NoCardLabelVisible = false;
+
+		views[0] = GameObject.Find(UIName + "/Window");
+		views[1] = GameObject.Find(UIName + "/Window1");
+		uiSuitCard.InitCom(this, UIName);
+		for(int i=0; i<tabs.Length; i++) {
+			tabs[i] = GameObject.Find(UIName + "/Window2/Center/Tabs/" + i.ToString() + "/Selected");
+			SetBtnFun(UIName + "/Window2/Center/Tabs/" + i.ToString(), OnTab);
+		}
+		redPoint =  GameObject.Find(UIName + "/Window2/Center/Tabs/1/RedPoint");
+		tabLock = GameObject.Find(UIName + "/Window2/Center/Tabs/1/Lock");
 
 		SetBtnFun(UIName + "/BG/NoBtn", OnClose);
+	}
+
+	public void ClickCard (GameObject go) {
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			UIItemHint.Get.OnShowForSuit(result);
+		}
 	}
 
 	public void OnClose () {
 		Visible = false;
 	}
-
-	public void ShowView (int suitItemID = 1) {
+	/// <summary>
+	/// tab  0 : SuitAvatar 1: SuitCard
+	/// </summary>
+	/// <param name="tab">Tab.</param>
+	public void ShowView (int suitItemID = 1, int tab = 0, int suitId = 0) {
 		Visible = true;
 		initScrollView ();
 		clickSuit (suitItemID);
@@ -257,6 +273,12 @@ public class UISuitAvatar : UIBase {
 		else 
 			leftScorllView.Scroll(0);
 		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
+
+		ClickTab(tab);
+		if(tab == 1) 
+			uiSuitCard.MoveToID(suitId);
+		
+		RefreshTabsRedPoint();
 	}
 
 	private void initScrollView () {
@@ -272,8 +294,15 @@ public class UISuitAvatar : UIBase {
 	}
 
 	private void hideAllSelect () {
-		foreach(KeyValuePair<int, TItemSuitAvatarGroup> item in tItemSuitAvatarGroup) {
+		foreach(KeyValuePair<int, TItemSuitAvatarGroup> item in tItemSuitAvatarGroup) 
 			tItemSuitAvatarGroup[item.Key].SelectActive = false;
+		
+	}
+
+	public void OnClickSuit (GameObject go) {
+		int result = 0;
+		if(int.TryParse(go.name, out result)) {
+			clickSuit(result);
 		}
 	}
 
@@ -287,15 +316,39 @@ public class UISuitAvatar : UIBase {
 			tItemSuitAvatarGroup[id].SelectActive = true;
 	} 
 
-	public void OnClickSuit (GameObject go) {
+	public void OnTab() {
 		int result = 0;
-		if(int.TryParse(go.name, out result)) {
-			clickSuit(result);
+		if(int.TryParse(UIButton.current.name, out result)) {
+			ClickTab(result);
 		}
 	}
 
-	void OnDestroy() {
-        if (tItemSuitAvatarGroup != null)
-		    tItemSuitAvatarGroup.Clear();
+	public void ClickTab (int no) {
+		if(no == 1) {
+			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)){
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.black);
+				return ;
+			}
+		}
+		if(no >= 0 && no < views.Length) {
+			for (int i=0; i<views.Length; i++) {
+				tabs[i].SetActive(i == no);
+				views[i].SetActive(i == no);
+			}
+		}
+	}
+
+	public void RefreshTabsRedPoint () {
+		redPoint.SetActive(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard) && GameData.Team.SuitCardRedPoint);
+		tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard));
+	}
+
+	//SuitCard
+	public void SetBtn (string path, EventDelegate.Callback callback) {
+		SetBtnFun(path, callback);
+	}
+
+	public GameObject Duplicate (GameObject obj) {
+		return Instantiate(obj);
 	}
 }

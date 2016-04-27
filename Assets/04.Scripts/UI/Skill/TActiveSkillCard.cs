@@ -171,11 +171,11 @@ public class TActiveSkillCard
 		}
 	}
 
-	public void UpdateViewItemDataForSuit(TItemData itemData)
+	public void UpdateViewItemDataForSuit(TItemData itemData, int lv)
 	{
 		if(isInit){
 			if (GameData.DSkillData.ContainsKey(itemData.Avatar)) {
-				self.name = itemData.ID.ToString();
+				self.name = string.Format("{0}_{1}", itemData.ID, lv);
                 SkillPic.mainTexture = TextureManager.Get.CardTexture(itemData.Avatar);
 				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
 				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
@@ -184,7 +184,7 @@ public class TActiveSkillCard
 				else 
 					SkillKind.spriteName = "PassiveIcon";
 				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
-				GameFunction.ShowStar(ref SkillStars, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+				GameFunction.ShowStar(ref SkillStars, lv , GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 				if(SuitCard != null) 
 					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
 

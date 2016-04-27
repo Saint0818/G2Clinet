@@ -71,7 +71,7 @@ public class HintSkillView : MonoBehaviour {
 		AmountLabel.text = "";
 	}
 
-	public void UpdateUIForSuit(TItemData itemData)
+	public void UpdateUIForSuit(TItemData itemData, int lv = -1)
 	{
 		if(GameFunction.IsActiveSkill(itemData.Avatar))
 			SkillKindLabel.text = TextConst.S(7111);
@@ -83,7 +83,10 @@ public class HintSkillView : MonoBehaviour {
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar)) {
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].MiniPicture;
 			QualityCards.spriteName = GameFunction.CardLevelName(itemData.Avatar);
-			GameFunction.ShowStar(ref SkillStar, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+			if(lv == -1)
+				GameFunction.ShowStar(ref SkillStar, GameData.DSkillData[itemData.Avatar].MaxStar, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+			else
+				GameFunction.ShowStar(ref SkillStar, lv, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
 		}
 
 		AmountLabel.text = "";

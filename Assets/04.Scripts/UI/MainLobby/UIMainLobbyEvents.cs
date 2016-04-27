@@ -116,4 +116,15 @@ public class UIMainLobbyEvents : MonoBehaviour
     {
         UIDailyLogin.Get.Show();
     }
+
+	public void OnAlbum () 
+	{
+		if(GameData.IsOpenUIEnable(EOpenID.SuitItem))
+		{
+			UIResource.Get.Show();
+			UISuitAvatar.Get.ShowView();
+		}
+		else
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Shop)), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.black);
+	}
 }

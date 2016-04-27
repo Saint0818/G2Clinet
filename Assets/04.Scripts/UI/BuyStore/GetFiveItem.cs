@@ -67,7 +67,7 @@ public class GetFiveItem : MonoBehaviour {
 		if(itemData.Length > 0 && itemData.Length == 5 && itemAwardGroups.Length == 5) {
 			for(int i=0; i<itemData.Length; i++) {
 				if(itemData[i].Kind == 21)
-					isNeedPause[i] = GameData.Team.CheckSkillCardisNew(itemData[i].Avatar);
+					isNeedPause[i] = !GameData.Team.IsGetItem(itemData[i].ID);
 				else 
 					isNeedPause[i] = false;
 

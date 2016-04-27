@@ -25,6 +25,7 @@ public class UIPrefabPath
 	public static readonly string ItemSkillCard = "Prefab/UI/Items/ItemSkillCard";
 	public static readonly string ItemCardEquipped = "Prefab/UI/Items/ItemCardEquipped";
 	public static readonly string ItemSuitCardGroup = "Prefab/UI/Items/ItemSuitCardGroup";
+	public static readonly string ItemSuitCardLaunch = "Prefab/UI/Items/ItemSuitCardLaunch";
 	public static readonly string ItemSuitAvatarGroup = "Prefab/UI/Items/ItemSuitAvatarGroup";
 
 	public static readonly string UICreateRoleStyleViewPartsWindowButton = "Prefab/UI/Items/UICreateRoleStyleViewPartsWindowButton";

@@ -1600,20 +1600,26 @@ namespace GameStruct
 		public string SuitNameCN;
 		public string SuitNameEN;
 		public string SuitNameJP;
-		public int Item1;
-		public int Item2;
-		public int Item3;
+		public int[] Item1;
+		public int[] Item2;
+		public int[] Item3;
 		public int CardPower;
-		public int AttrKind1;
-		public int Value1;
-		public int AttrKind2;
-		public int Value2;
-		public int AttrKind3;
-		public int Value3;
+		public int[] StarNum;
+		public int[] AttrKind1;
+		public int[] Value1;
+		public int[] AttrKind2;
+		public int[] Value2;
 
-		public int[] Items {
+		public int ItemCount {
 			get {
-				int[] items = new int[3];
+				return 3;
+			}
+		}
+
+		public int[][] Items {
+			get 
+			{
+				int[][] items = new int[3][];
 				items[0] = Item1;
 				items[1] = Item2;
 				items[2] = Item3;
@@ -1621,25 +1627,31 @@ namespace GameStruct
 			}
 		}
 
-		public int[] AttrKind {
-			get {
-				int[] attrKinds = new int[3];
-				attrKinds[0] = AttrKind1;
-				attrKinds[1] = AttrKind2;
-				attrKinds[2] = AttrKind3;
-				return attrKinds;
+		public struct TAttrSet {
+			public int AttrKind;
+			public int AttrValue;
+		}
+
+		public int[][] AttrKinds {
+			get 
+			{
+				int[][] attrKind = new int[2][];
+				attrKind[0] = AttrKind1;
+				attrKind[1] = AttrKind2;
+				return attrKind;
 			}
 		}
 
-		public int[] Value {
-			get {
-				int[] values = new int[3];
+		public int[][] Values {
+			get 
+			{
+				int[][] values = new int[2][];
 				values[0] = Value1;
 				values[1] = Value2;
-				values[2] = Value3;
 				return values;
 			}
 		}
+
 
 		public string SuitName {
 			get

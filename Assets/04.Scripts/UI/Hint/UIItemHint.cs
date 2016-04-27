@@ -107,14 +107,17 @@ public class UIItemHint : UIBase {
 				hintSkillView.UpdateUI(GameData.DItemData[itemID]);
 				if(GameData.Team.SkillCardCounts == null)
 					GameData.Team.InitSkillCardCount();
+				
 				if(GameData.Team.SkillCardCounts.ContainsKey(GameData.DItemData[itemID].Avatar))
 					setHaveCount(GameData.Team.SkillCardCounts[GameData.DItemData[itemID].Avatar]);
 				else
 					setHaveCount(0);
+				
 				if(GameData.DSkillData.ContainsKey(GameData.DItemData[itemID].Avatar)) 
 					uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
 				else
 					uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DItemData[itemID].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+				
 			} else if(GameData.DItemData[itemID].Kind == 19) {//材料
 				hintInlayView.Show();
 				hintInlayView.UpdateUI(GameData.DItemData[itemID]);
@@ -122,6 +125,7 @@ public class UIItemHint : UIBase {
 					setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(GameData.DItemData[itemID].ID)].Num);
 				else
 					setHaveCount(0);
+				
 				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
 			} else {// Avatar
 				hintAvatarView.Show();
@@ -190,7 +194,7 @@ public class UIItemHint : UIBase {
 		}
 	}
 
-	public void OnShowForSuit(int itemID) {
+	public void OnShowForSuit(int itemID, int lv = -1) {
 		if(GameData.DItemData.ContainsKey (itemID)) {
 			uiBuy.SetActive(false);
 			hideAll ();
@@ -200,7 +204,7 @@ public class UIItemHint : UIBase {
 			if(GameData.DItemData[itemID].Kind == 21) { //技能卡
 				//For First Get
 				hintSkillView.Show();
-				hintSkillView.UpdateUIForSuit(GameData.DItemData[itemID]);
+				hintSkillView.UpdateUIForSuit(GameData.DItemData[itemID], lv);
 				if(GameData.Team.SkillCardCounts == null)
 					GameData.Team.InitSkillCardCount();
 				if(GameData.Team.SkillCardCounts.ContainsKey(GameData.DItemData[itemID].Avatar))
