@@ -19,6 +19,7 @@
 	public const int Max_ActiveSkill = 3;
 	public const int Max_CostSpace = 20;
 	public const float Min_TimePause = 0.03f;
+	public const float StarSizeX = 30;
 
 	public static int PotentialCount = 6;
 	public static int PreLvPotential = 10;

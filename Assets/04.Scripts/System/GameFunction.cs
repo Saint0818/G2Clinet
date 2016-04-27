@@ -804,7 +804,7 @@ public static class GameFunction
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].transform.localPosition = new Vector3(-(stars[i].XSize * 0.5f) * (max -1)+ i * stars[i].XSize, 0, 0);
+			stars[i].transform.localPosition = new Vector3(-(GameConst.StarSizeX * 0.5f) * (max -1)+ i * GameConst.StarSizeX, 0, 0);
 		}
 	}
 
@@ -817,7 +817,7 @@ public static class GameFunction
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * stars[i].XSize, 0, 0);
+			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * GameConst.StarSizeX, 0, 0);
 		}
 	}
 

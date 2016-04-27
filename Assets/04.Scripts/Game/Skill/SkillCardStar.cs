@@ -5,13 +5,10 @@ public class SkillCardStar : MonoBehaviour {
 	public UISprite Star;
 	public GameObject GetStarPreview;
 	public GameObject GetStar;
-	public float XSize;
 	public void Awake () {
 		if(Star == null){
 			Star = transform.FindChild("Star").GetComponent<UISprite>();
 		} 
-		if(Star != null) 
-			XSize = Star.width;
 	}
 
 	public void Show () {
