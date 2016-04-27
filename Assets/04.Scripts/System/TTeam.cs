@@ -1231,7 +1231,6 @@ namespace GameStruct
 
 		public bool SuitCardRedPoint {
 			get{
-				bool result = false;
 				bool isAllGet = true;
 				foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) {
 					if(!isContainSuitCard(item.Value.Item1)) 
@@ -1312,7 +1311,7 @@ namespace GameStruct
 			int ap = 0;
 			int starCount = 0;
 			int level = 0;
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)){
+			if(GameData.IsOpenUIEnable(EOpenID.SuitCard)){
 				if(SuitCardCost != null) {
 					for(int i=0; i<SuitCardCost.Length; i++) {
 						starCount += findSuitCardStars(GameData.DSuitCard[SuitCardCost[i]].Item1);
@@ -1327,7 +1326,7 @@ namespace GameStruct
 				}
 			}
 
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
+			if(GameData.IsOpenUIEnable(EOpenID.SuitItem)) {
 				foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 					int count = SuitItemCompleteCount(item.Key);
 					if(count >= 2) {
@@ -1412,19 +1411,17 @@ namespace GameStruct
 		public void AddSuitCardEffect (int[] suitCardCost, int lv) {
 			int count = 0;
 			int level = 0;
-			if(LimitTable.Ins.HasByOpenID(EOpenID.SuitCard)) {
-				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitCard)) {
-					if(suitCardCost != null) {
-						for(int i=0; i<suitCardCost.Length; i++) {
-							count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item1);
-							count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item2);
-							count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item3);
-							level = GetStarLevel(count, GameData.DSuitCard[suitCardCost[i]]);
-							suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind1[level], GameData.DSuitCard[suitCardCost[i]].Value1[level]);
-							suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind2[level], GameData.DSuitCard[suitCardCost[i]].Value2[level]);
-							count = 0;
-							level = 0;
-						}
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) {
+				if(suitCardCost != null) {
+					for(int i=0; i<suitCardCost.Length; i++) {
+						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item1);
+						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item2);
+						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item3);
+						level = GetStarLevel(count, GameData.DSuitCard[suitCardCost[i]]);
+						suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind1[level], GameData.DSuitCard[suitCardCost[i]].Value1[level]);
+						suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind2[level], GameData.DSuitCard[suitCardCost[i]].Value2[level]);
+						count = 0;
+						level = 0;
 					}
 				}
 			}
@@ -1495,8 +1492,8 @@ namespace GameStruct
 
 		//加入套裝加成的效果
 		public void AddSuitItemEffect (Dictionary<int, int> gotAvatar, int lv) {
-			if(GotAvatar != null && LimitTable.Ins.HasByOpenID(EOpenID.SuitItem)) {
-				if(lv >= LimitTable.Ins.GetLv(EOpenID.SuitItem)) {
+			if(GotAvatar != null) {
+				if(GameData.IsOpenUIEnable(EOpenID.SuitItem)) {
 					foreach (KeyValuePair<int, TSuitItem> item in GameData.DSuitItem) {
 						int count = SuitItemCompleteCountFriend(gotAvatar, item.Key);
 						if(count >= 2) {

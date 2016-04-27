@@ -120,6 +120,7 @@ public class UIGamePlayerInfo : UIBase {
 
 		for(int i=0; i<12; i++) {
 			normalAbilitys[i] = GameObject.Find(UIName + "/Window/Right/View/AbilityView/AttrGroup/" + i.ToString() + "/ValueBaseLabel").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Window/Right/View/AbilityView/AttrGroup/" + i.ToString(), OnAttributeHint);
 			buffAbilitys[i] = GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString()).GetComponent<UILabel>();
 			buffLines[i] =  GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString() + "/BuffLine").GetComponent<UISprite>();
 			buffArrow[i] =  GameObject.Find(UIName + "/Window/Right/View/AbilityView/BuffGroup/" + i.ToString() + "/Arrow").GetComponent<UISprite>();
@@ -137,6 +138,57 @@ public class UIGamePlayerInfo : UIBase {
 
 	public void OnClose () {
 		UIShow (false);
+	}
+
+	private void OnAttributeHint()
+	{
+		int index;
+		EAttribute att = EAttribute.Point2;
+
+		if (int.TryParse(UIButton.current.name, out index))
+		{
+			switch (index)
+			{
+			case 0:
+				att = EAttribute.Point2;
+				break;
+			case 1:
+				att = EAttribute.Point3;
+				break;
+			case 2:
+				att = EAttribute.Dunk;
+				break;
+			case 3:
+				att = EAttribute.Rebound;
+				break;
+			case 4:
+				att = EAttribute.Block;
+				break;
+			case 5:
+				att = EAttribute.Steal;
+				break;
+			case 6:
+				att = EAttribute.Speed;
+				break;
+			case 7:
+				att = EAttribute.Stamina;
+				break;
+			case 8:
+				att = EAttribute.Strength;
+				break;
+			case 9:
+				att = EAttribute.Defence;
+				break;
+			case 10:
+				att = EAttribute.Dribble;
+				break;
+			case 11:
+				att = EAttribute.Pass;
+				break;
+			}
+			int kind = GameFunction.GetEBounsIndexByAttribute(att);
+			UIAttributeHint.Get.UpdateView(kind);
+		}
 	}
 
 	private bool checkIsFriend (string id) {
