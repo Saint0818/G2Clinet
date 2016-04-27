@@ -276,6 +276,7 @@ public class UISuitCard {
 				groupValue.IsGetItem[i] = (groupValue.Items[i].ID != 0);
 				if(groupValue.IsGetAllCard)
 					groupValue.IsGetAllCard = (groupValue.Items[i].ID != 0);
+				
 				if(groupValue.Items[i].ID == 0) {
 					groupValue.Items[i] = GameData.DItemData[groupValue.SuitCard.Items[i][0]];
 					groupValue.ItemsLv[i] = 0;

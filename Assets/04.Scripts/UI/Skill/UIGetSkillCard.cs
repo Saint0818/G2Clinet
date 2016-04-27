@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GameStruct;
+using System.Collections.Generic;
 
 public class UIGetSkillCard : UIBase {
 	private static UIGetSkillCard instance = null;
@@ -16,6 +17,7 @@ public class UIGetSkillCard : UIBase {
 	private UISprite[] spriteSkillKind = new UISprite[3];
 
 	private UILabel labelSkillExplain ;
+	private GameObject goGetSuitSkillCard;
 
 	public static bool Visible {
 		get {
@@ -61,7 +63,8 @@ public class UIGetSkillCard : UIBase {
 			sloganView[i].SetActive(false);
 		}
 		labelSkillExplain = GameObject.Find(UIName + "/Center/Window/DownBoard/MainView/SkillArea/SkillExplain").GetComponent<UILabel>();
-		
+		goGetSuitSkillCard = GameObject.Find(UIName + "/Center/Window/GetSuitSkillCard");
+		goGetSuitSkillCard.SetActive(false);
 		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/NextLabel")).onClick = OnClose;
 	}
 
@@ -95,8 +98,19 @@ public class UIGetSkillCard : UIBase {
 				labelSkillExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[id].Avatar].Explain, GameData.DItemData[id].Avatar, GameData.DItemData[id].LV);
 				sloganView[getQuality(GameData.DSkillData[GameData.DItemData[id].Avatar].Quality)].SetActive(true);
 				setSloganLabel(GameData.DItemData[id].Avatar, GameData.DSkillData[GameData.DItemData[id].Avatar].Quality);
+				goGetSuitSkillCard.SetActive(isSuitCard(id));
 			}
 		}
+	}
+
+	private bool isSuitCard (int itemID) {
+		foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) 
+			for(int i=0; i<item.Value.Items.Length; i++) 
+				for(int j=0; j<item.Value.Items.Length; j++) 
+					if(item.Value.Items[i][j] == itemID)
+						return true;
+
+		return false;
 	}
 
 	public void OnOpenImage () {

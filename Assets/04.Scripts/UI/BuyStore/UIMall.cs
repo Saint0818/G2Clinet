@@ -249,6 +249,8 @@ public class UIMall : UIBase {
 			newSkillCard = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
+			GameData.Team.GotItemCount = result.GotItemCount;
+			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
@@ -274,6 +276,7 @@ public class UIMall : UIBase {
 		Hide ();
 		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, choosetype, itemDatas);
 		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
+		UIResource.Get.Hide();
 		UI3DBuyStore.Get.Show();
 	}
 }

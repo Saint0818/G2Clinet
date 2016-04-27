@@ -183,7 +183,7 @@ public class UIBuyStore : UIBase {
 
 	public void FinishDrawLottery () {
         UIMainLobby.Get.Hide(false);
-        UIResource.Get.Show(2);
+        UIResource.Get.Show();
 		animationBuy.SetTrigger("Finish");
 		GameData.Team.SkillCards = newSkillCard;
 	}
