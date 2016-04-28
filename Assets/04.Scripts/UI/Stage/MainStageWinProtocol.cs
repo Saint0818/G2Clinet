@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class MainStageWinProtocol
@@ -10,12 +9,15 @@ public class MainStageWinProtocol
     /// </summary>
     private Action<bool, TStageReward> mCallback;
 
+    private int mStageID;
+
     public void Send(int stageID, Action<bool, TStageReward> callback)
     {
         mCallback = callback;
+        mStageID = stageID;
 
         WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
+        form.AddField("StageID", mStageID);
         SendHttp.Get.Command(URLConst.StageWin, waitMainStageWin, form);
     }
 
@@ -28,6 +30,10 @@ public class MainStageWinProtocol
             TStageReward reward = JsonConvertWrapper.DeserializeObject<TStageReward>(www.text);
 
 //            Debug.LogFormat("waitMainStageWin:{0}", reward);
+
+            TStageData stageData = StageTable.Ins.GetByID(mStageID);
+            if(stageData.IsValid() && stageData.HasRandomRewards()) 
+                Statistic.Ins.LogEvent(59, mStageID.ToString(), GameData.Team.Diamond - reward.Diamond);
 
             GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
