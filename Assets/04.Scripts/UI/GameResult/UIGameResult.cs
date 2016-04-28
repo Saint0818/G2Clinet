@@ -257,7 +257,7 @@ public struct TGameResultThreeAward {
 			setPayDiamond(20);
 		} else if (ChooseCount == 1) {
 			DiamondPay[index].gameObject.SetActive(false);
-			setPayDiamond(20);
+			setPayDiamond(100);
 		}else {
 			DiamondPay[index].gameObject.SetActive(false);
 		}
