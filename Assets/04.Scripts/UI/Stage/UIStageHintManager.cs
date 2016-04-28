@@ -56,6 +56,7 @@ public class UIStageHintManager{
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		} else 
+        if (GameController.Visible)
 		{
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			hintIndex = 0;
@@ -67,7 +68,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				describe = string.Format (GameFunction.GetHintText(1, value, 8), LobbyStart.Get.GameWinTimeValue);
+                describe = string.Format (GameFunction.GetHintText(1, value, 8), GameController.Get.GameWinTime);
 				mTargets[hintIndex].UpdateUI(describe, false);
 				hintIndex++;
 			}
@@ -75,7 +76,7 @@ public class UIStageHintManager{
 			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
-				describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), LobbyStart.Get.GameWinValue);
+                describe = string.Format (GameFunction.GetHintText(2, hintBits[1], 8), GameController.Get.GameWinScore);
 				mTargets[hintIndex].UpdateUI(describe, false);
 			}
 		}
@@ -97,8 +98,8 @@ public class UIStageHintManager{
 		if(StageTable.Ins.HasByID(stageID)){
 			TStageData stageData = StageTable.Ins.GetByID(stageID);
 			int[] hintBits = stageData.HintBit;
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
@@ -107,7 +108,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 	
-				if(GameController.Get.GameTime >= 0)
+				if(GameController.Get.GameWinTime >= 0)
 					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
 				else 
 					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
@@ -153,8 +154,8 @@ public class UIStageHintManager{
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			hintIndex = 0;
 
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
@@ -205,8 +206,8 @@ public class UIStageHintManager{
 		if(StageTable.Ins.HasByID(stageID)) {
 			TStageData stageData = StageTable.Ins.GetByID(stageID);
 			int[] hintBits = stageData.HintBit;
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 			if(hintBits.Length > 0 && hintBits[0] > 0){
 				mTargets[hintIndex].Show();
 				int value = 0;
@@ -259,8 +260,8 @@ public class UIStageHintManager{
 		} else 
 		{
 			int[] hintBits = GameController.Get.StageData.HintBit;
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 			hintIndex = 0;
 
 			if(hintBits.Length > 0 && hintBits[0] > 0)
@@ -313,8 +314,8 @@ public class UIStageHintManager{
 			int[] hintBits = stageData.HintBit;
 			hintIndex = 0;
 			bool isFin = false;
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
@@ -323,7 +324,7 @@ public class UIStageHintManager{
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 
-				if(GameController.Get.GameTime >= 0)
+				if(GameController.Get.GameWinTime >= 0)
 					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", (minute * 60 + second));
 				else 
 					describe = string.Format (GameFunction.GetHintText(1, value, 7), stageData.Bit0Num, "", 0);
@@ -373,8 +374,8 @@ public class UIStageHintManager{
 			}
 		} else 
 		{
-			int minute = (int) (GameController.Get.GameTime / 60f);
-			int second = (int) (GameController.Get.GameTime % 60f);
+			int minute = (int) (GameController.Get.GameWinTime / 60f);
+			int second = (int) (GameController.Get.GameWinTime % 60f);
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			hintIndex = 0;
 			bool isFin = false;

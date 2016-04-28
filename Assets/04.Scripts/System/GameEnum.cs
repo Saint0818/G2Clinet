@@ -26,7 +26,6 @@
     public enum ELoading
     {
         Null = -2,
-        SelectRole = -1,
         Login = 0,
         CreateRole = 1,
         Lobby = 2,

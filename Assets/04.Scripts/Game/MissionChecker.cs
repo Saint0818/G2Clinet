@@ -196,6 +196,7 @@ public class MissionChecker {
 		int enemy = 0;
 		if(self == (int) ETeamKind.Self)
 			enemy = 1;
+        
 		if(StageTable.Ins.HasByID(mStageData.ID))
 		{
 
@@ -207,10 +208,8 @@ public class MissionChecker {
 				else if (mStageData.HintBit[1] == 3 && (UIGame.Get.Scores[enemy] <= mStageData.WinValue)) return true;
 				else if (mStageData.HintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= mStageData.WinValue) return true;
 			}
-		} else if(!LobbyStart.Get.ConnectToServer)
-		{
-			if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[team] >= mStageData.WinValue)) return true;
 		}
+
 		return false;
 	}
 
@@ -225,10 +224,8 @@ public class MissionChecker {
 					if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= mStageData.WinValue)) return true;
 					else if (mStageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] > mStageData.WinValue)) return true;
 				}
-			} else if(!LobbyStart.Get.ConnectToServer)
-			{
-				if (mStageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= mStageData.WinValue)) return true;
 			}
+
 			return false;
 		}
 	}
@@ -246,10 +243,8 @@ public class MissionChecker {
 				if(!checkCountEnough(mStageData.HintBit[3], mStageData.BitNum[3]))
 					return false;
 				return true;
-			} else if(!LobbyStart.Get.ConnectToServer)
-			{
-				return true;
 			}
+
 			return false;
 		}
 	}

@@ -16,8 +16,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 {
     private const string DefaultRealBallPath = "Prefab/Stadium/RealBall";
     private const string PrefabRealBallPath = "Prefab/Stadium/RealBall";
-    public string BasketAnimationName = "BasketballAction_1";
 
+    public int CourtMode = ECourtMode.Full;
+    public string BasketAnimationName = "BasketballAction_1";
+    public bool IsDebugAnimation;
     private bool isPve = true;
     private int attackDirection = 0;
     private int crtBasketIndex = -1;
@@ -138,6 +140,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         loadSkillComponents();
 
         CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
+        CameraMgr.Get.CourtMode = CourtMode;
     }
 
     public void InitBasketAnimator(RuntimeAnimatorController controller)
@@ -296,7 +299,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                 DBasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
                 BasketHoopDummy[1].localPosition = position;
 
-                if (LobbyStart.Get.CourtMode == ECourtMode.Full)
+                if (CourtMode == ECourtMode.Full)
                     DBasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
                 else
                     DBasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
@@ -470,16 +473,17 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					RealBallDoMoveFinish();
 					switch (GameController.Get.BasketSituation) {
 					case EBasketSituation.Swish:
-						if(LobbyStart.Get.IsDebugAnimation && GameController.Visible){
+						if(IsDebugAnimation && GameController.Visible){
 							Debug.LogWarning("RealBall Swish IN:"+ Time.time);
 							GameController.Get.shootSwishTimes++;
 						}
+
 						isSwishIn = true;
 						SetBasketState(EPlayerState.BasketActionSwish, Team);
 						break;
 					case EBasketSituation.Score:
 					case EBasketSituation.NoScore:
-						if(LobbyStart.Get.IsDebugAnimation && GameController.Visible) {
+						if(IsDebugAnimation && GameController.Visible) {
 							Debug.LogWarning("RealBall IN:"+ BasketAnimationName);
 							string[] nameSplit = BasketAnimationName.Split("_"[0]);
 							if(int.Parse(nameSplit[1]) < 100)
@@ -548,14 +552,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = transform;
 		
-        EndPlayerPosition[0] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
-        EndPlayerPosition[1] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
-        EndPlayerPosition[2] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/3", crtCollider.name)).transform;
-        EndPlayerPosition[3] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
-        EndPlayerPosition[4] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
-        EndPlayerPosition[5] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
+            EndPlayerPosition[0] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
+            EndPlayerPosition[1] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
+            EndPlayerPosition[2] = GameObject.Find(string.Format("{0}/GameFinishPos/Win/3", crtCollider.name)).transform;
+            EndPlayerPosition[3] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
+            EndPlayerPosition[4] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
+            EndPlayerPosition[5] = GameObject.Find(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
             
-            if (LobbyStart.Get.CourtMode == ECourtMode.Full) {
+            if (CourtMode == ECourtMode.Full) {
                 Walls[0] = GameObject.Find(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
                 Walls[1] = GameObject.Find(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
                 Hood[0] = GameObject.Find(string.Format("{0}/HoodA", crtCollider.name));
@@ -733,7 +737,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         if (isSwishIn)
         {
             isSwishIn = false;
-            if (LobbyStart.Get.IsDebugAnimation)
+            if (IsDebugAnimation)
             {
                 GameController.Get.shootScoreSwishTimes++;
                 Debug.LogWarning("RealBall Swish Out:" + Time.time);
@@ -780,7 +784,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     GameController.Get.BallState = EBallState.None;
                     break;
                 case EPlayerState.BasketActionEnd:
-                    if (LobbyStart.Get.IsDebugAnimation)
+                    if (IsDebugAnimation)
                     {
                         GameController.Get.shootScoreTimes++;
                         Debug.LogWarning("RealBall Score Out:" + BasketAnimationName);
@@ -795,8 +799,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     GameController.Get.BallState = EBallState.None;
                     break;
                 case EPlayerState.BasketActionNoScoreEnd:
-                    if (LobbyStart.Get.IsDebugAnimation)
+                    if (IsDebugAnimation)
                         Debug.LogWarning("RealBall NoScore Out:" + BasketAnimationName);
+                    
                     isBallOffensive = false;
                     GameController.Get.ShowShootSate(false, team);
 					RealBall.SetBallOwnerNull();

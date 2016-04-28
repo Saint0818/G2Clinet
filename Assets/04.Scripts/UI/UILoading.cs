@@ -244,13 +244,14 @@ public class UILoading : UIBase
             StartCoroutine(doLoading(loadingKind));
         else
         {
+            toProgress = 0;
             nowProgress = 0;
             ProgressValue = 0;
             uiLoadingProgress.fillAmount = 0;
         }
     }
 
-    private void initLoadingPic(ELoading kind = ELoading.SelectRole)
+    private void initLoadingPic(ELoading kind)
     {
         loadingKind = kind;
         startTimer = Time.time;
@@ -357,7 +358,7 @@ public class UILoading : UIBase
         loadingPic.SetActive(true);
     }
 
-    IEnumerator doLoading(ELoading kind = ELoading.SelectRole)
+    IEnumerator doLoading(ELoading kind)
     {
         float minWait = 2;
         float maxWait = 4;
@@ -369,13 +370,10 @@ public class UILoading : UIBase
         yield return new WaitForEndOfFrame();
 
         switch (kind) {
-            case ELoading.SelectRole:
-                yield return new WaitForSeconds(0.2f);
-                ProgressValue = 1;
-                loadSelectRole();
-                waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
-                yield return new WaitForSeconds(waitTime);
-				AudioMgr.Get.PlayMusic(EMusicType.MU_Create);
+            case ELoading.Null:
+                ProgressValue = 0.3f;
+                yield return new WaitForSeconds(0.5f);
+
                 break;
             case ELoading.Login:
                 ProgressValue = 1;
@@ -418,18 +416,7 @@ public class UILoading : UIBase
 
                 yield return new WaitForSeconds(1);
                 GameController.Get.ChangeSituation(EGameSituation.None);
-
-                if (LobbyStart.Get.TestMode == EGameTest.None)
-                    GameController.Get.LoadStage(GameData.StageID);
-                else {
-                    CourtMgr.Get.ShowEnd();
-                    GameController.Get.LoadStage(101);
-                    GameController.Get.InitIngameAnimator();
-                    GameController.Get.SetBornPositions();
-                    GameController.Get.ChangeSituation(EGameSituation.JumpBall);
-                    AIController.Get.ChangeState(EGameSituation.JumpBall);
-                    CameraMgr.Get.ShowPlayerInfoCamera(true);
-                }
+                GameController.Get.LoadStage(GameData.StageID);
 
 			    buttonNext.SetActive(true);
 			    loadingPic.SetActive(false);
@@ -493,7 +480,7 @@ public class UILoading : UIBase
         }
         set{ 
             if (toProgress < value)
-            toProgress = value; 
+                toProgress = value; 
         }
     }
 

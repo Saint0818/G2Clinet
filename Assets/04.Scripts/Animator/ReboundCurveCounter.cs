@@ -41,7 +41,7 @@ public class ReboundCurveCounter
         }
         mCurrentTime = 0;
         mIsPlaying = mCurve != null;
-        if (curveName != string.Empty && mCurve == null && LobbyStart.Get.IsDebugAnimation)
+        if (curveName != string.Empty && mCurve == null)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
 

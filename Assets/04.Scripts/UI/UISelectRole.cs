@@ -310,14 +310,9 @@ public class UISelectRole : UIBase {
 		bool init = playerObjects [0] == null;
 
 		if (init) {
-			if (LobbyStart.Get.ConnectToServer) {
-				GameData.Team.PlayerInit ();
-				playerData [0] = GameData.Team.Player;
-				playerData [0].RoleIndex = -1;
-			} else {
-				playerData [0].SetID (21);
-				playerData [0].RoleIndex = -1;
-			}
+			GameData.Team.PlayerInit ();
+			playerData [0] = GameData.Team.Player;
+			playerData [0].RoleIndex = -1;
 
             if (string.IsNullOrEmpty(playerData[0].Name))
                 playerData[0].Name = TextConst.S(3404);
@@ -392,14 +387,9 @@ public class UISelectRole : UIBase {
 	}
 
     private void initPVETeammate() {
-        if (LobbyStart.Get.ConnectToServer) {
-        	GameData.Team.PlayerInit();
-        	playerData[0] = GameData.Team.Player;
-        	playerData[0].RoleIndex = -1;
-        } else {
-            playerData[0].SetID(21);
-            playerData[0].RoleIndex = -1;
-        }
+        GameData.Team.PlayerInit();
+    	playerData[0] = GameData.Team.Player;
+    	playerData[0].RoleIndex = -1;
 
         if (string.IsNullOrEmpty(playerData[0].Name))
             playerData[0].Name = TextConst.S(3404);
@@ -511,7 +501,7 @@ public class UISelectRole : UIBase {
 
 		GameData.Team.PlayerInit();
 		playerData[0] = GameData.Team.Player;
-        if (LobbyStart.Get.ConnectToServer && stageData.IsOnlineFriend) {
+        if (stageData.IsOnlineFriend) {
             if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
 				SendHttp.Get.FreshFriends(waitLookFriends, true);
 				if (UILoading.Visible)
@@ -526,16 +516,10 @@ public class UISelectRole : UIBase {
 	}
 
 	public void OnStart(){
-        if (GameData.TestStage || !LobbyStart.Get.ConnectToServer)
-            enterGame();
-        else {
-            if (GameData.IsPVP)
-                SendPVPStart();
-            else 
-                mainStageStart(GameData.StageID);
-        }
-
-        GameData.TestStage = false;
+        if (GameData.IsPVP)
+            SendPVPStart();
+        else 
+            mainStageStart(GameData.StageID);
 	}
 
     public void OnExit() {

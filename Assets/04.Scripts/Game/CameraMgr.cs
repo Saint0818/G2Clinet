@@ -24,6 +24,10 @@ public enum ECameraSituation
 
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
+    public int CourtMode = ECourtMode.Full;
+    public ECameraTest TestCameraMode = ECameraTest.None;
+    public bool IsOpenColorfulFX = true;
+
     //Game const
     private Shake mShake;
     private const float safeZ = 16.5f;
@@ -147,7 +151,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private void setHalfCourtCamera()
     {
-        if (LobbyStart.Get.CourtMode == ECourtMode.Half)
+        if (CourtMode == ECourtMode.Half)
         {
             cameraOffsetObj.transform.localPosition = new Vector3(0, 10.35f, -15);
             cameraOffsetObj.transform.eulerAngles = Vector3.zero;
@@ -158,7 +162,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.fieldOfView = 25;
 
         if (cameraAnimator)
-            cameraAnimator.enabled = LobbyStart.Get.CourtMode != ECourtMode.Half;
+            cameraAnimator.enabled = CourtMode != ECourtMode.Half;
     }
 
     public void SetCourtCamera(string scene)
@@ -174,7 +178,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.gameObject.name = scene.ToString();
             cameraAnimator = cameraFx.GetComponent<Animator>();
 
-			if (!LobbyStart.Get.IsOpenColorfulFX && cameraFx) 
+			if (!IsOpenColorfulFX && cameraFx) 
 			{
 				if (cameraFx.GetComponent<CC_Sharpen> ())
 					cameraFx.GetComponent<CC_Sharpen> ().enabled = false;
@@ -349,7 +353,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         focusMoveAeraObj.name = "ColorG";
         Renderer r = focusMoveAeraObj.GetComponent<Renderer>();
 
-        if (LobbyStart.Get.TestCameraMode == ECameraTest.RGB) {
+        if (TestCameraMode == ECameraTest.RGB) {
             cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
             cameraOffsetAeraObj.name = "ColorR";
@@ -367,9 +371,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
             SetTestToolPosition();
 
-            cameraOffsetAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
-            focusMoveAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
-            focusStopAeraObj.GetComponent<Renderer>().enabled = LobbyStart.Get.TestCameraMode == ECameraTest.RGB;
+            cameraOffsetAeraObj.GetComponent<Renderer>().enabled = TestCameraMode == ECameraTest.RGB;
+            focusMoveAeraObj.GetComponent<Renderer>().enabled = TestCameraMode == ECameraTest.RGB;
+            focusStopAeraObj.GetComponent<Renderer>().enabled = TestCameraMode == ECameraTest.RGB;
             focusTargetOne.GetComponent<Renderer>().enabled = true;
             focusTargetTwo.GetComponent<Renderer>().enabled = true;
 
@@ -391,7 +395,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private void SetTestToolPosition()
     {
-        if (LobbyStart.Get.TestCameraMode == ECameraTest.RGB)
+        if (TestCameraMode == ECameraTest.RGB)
         {
             if (situation == ECameraSituation.Self)
             {
@@ -427,7 +431,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     void Update()
     {
-        if (LobbyStart.Get.CourtMode == ECourtMode.Full && 
+        if (CourtMode == ECourtMode.Full && 
 		   (situation == ECameraSituation.Self ||
         	situation == ECameraSituation.Npc || 
 			situation == ECameraSituation.Skiller)) {

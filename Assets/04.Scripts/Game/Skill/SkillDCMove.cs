@@ -12,6 +12,7 @@ public class SkillDCMove : MonoBehaviour {
 	void Awake(){
 		instance = this;
 	}
+
 	void FixedUpdate() {
 		if(IsMove){
 			distance = Vector3.Distance(transform.position, Target.transform.position);

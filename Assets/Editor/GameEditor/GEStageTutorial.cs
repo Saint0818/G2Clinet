@@ -89,7 +89,7 @@ public class GEStageTutorial : GEBase {
 			if (stageData.FriendKind == 4) {
 				SceneMgr.Get.ChangeLevel(stageData.CourtNo);
 			} else
-				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+                UISelectRole.Visible = true;
 
 			this.Close();
 		} else 

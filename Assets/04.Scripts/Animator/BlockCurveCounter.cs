@@ -47,7 +47,7 @@ public class BlockCurveCounter
         blockCurveTime = 0;
         isplaying = true;
 
-        if (curveName != string.Empty && !isFindCurve && LobbyStart.Get.IsDebugAnimation)
+        if (curveName != string.Empty && !isFindCurve)
             LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
     }
         

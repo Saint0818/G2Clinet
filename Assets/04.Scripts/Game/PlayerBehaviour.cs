@@ -22,7 +22,10 @@ public delegate void OnPlayerAction5(float max,float anger,int count);
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public EGameTest TestMode = EGameTest.None;
     public ETimerKind TimerKind;
+    public bool IsDebugAnimation = false;
+
     public OnPlayerAction1 OnShooting = null;
     public Func<PlayerBehaviour, bool> OnPass = null;
     public Func<PlayerBehaviour, bool> OnBlockJump = null;
@@ -55,7 +58,6 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector]public bool CanUseTipIn = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
-    //    private float ProactiveTime = 0;
     private float animationSpeed = 0;
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
@@ -66,7 +68,6 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject DefPoint;
     private GameObject TopPoint;
     [HideInInspector]public GameObject CatchBallPoint;
-//    private GameObject FingerPoint;
 	private GameObject blockTrigger;
 	private GameObject pushThroughTigger;
 	private GameObject interceptTrigger;
@@ -83,6 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector]public GameObject AngryFull = null;
     [HideInInspector]public GameObject BodyHeight;
     private GameObject bodyTrigger;
+    private GameObject TestGameObject;
 
 	[HideInInspector]public Transform Pelvis;
     public TPlayerAttribute Attr = new TPlayerAttribute(); // 球員最終的數值.
@@ -212,7 +214,8 @@ public class PlayerBehaviour : MonoBehaviour
         int v = (int)(Mathf.Abs(value) / 2);
         if (v <= 0)
             v = 0;
-        if (GameController.Get.Situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0)
+        
+        if (situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0)
         {
             if (this == GameController.Get.Joysticker && value > 0)
             {
@@ -359,7 +362,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (TestGameObject.GetComponent<SphereCollider>())
             TestGameObject.GetComponent<SphereCollider>().enabled = false;
 				
-        TestGameObject.GetComponent<MeshRenderer>().enabled = LobbyStart.Get.IsDebugAnimation;
+        TestGameObject.GetComponent<MeshRenderer>().enabled = IsDebugAnimation;
     }
 
     private void manuallyTimeUp()
@@ -648,7 +651,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(gameObject.transform.position, TestGameObject.transform.position);
@@ -657,20 +660,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameController.Get.IsShowSituation || !GameController.Get.IsStart)
+        if (IsShowSituation || !GameController.Get.IsStart)
             return;
-
-//        timeScale = TimerMgr.Get.CrtTime;
-//
-//        if (AnimatorControl.TimeScaleTime != timeScale)
-//            AnimatorControl.TimeScaleTime = timeScale;
-
-//		if (IsAllShoot || IsRebound || IsSteal || IsFall || IsBlock || IsBuff || IsPush) {
-//
-//				AnimatorControl.TimeScaleTime = timeScale;
-//		} else {
-//		}			
-				
+        
         CantMoveTimer.Update(Time.deltaTime);
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
@@ -845,7 +837,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
         {
-			if (IsGameAttack || LobbyStart.Get.TestMode != EGameTest.None)
+			if (IsGameAttack || TestMode != EGameTest.None)
             {
                 isJoystick = true;
                 mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv] + aiAddTime);
@@ -882,7 +874,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 	
-	private const float ReviseAnimationInterval = 3f;
+	private const float ReviseAnimationInterval = 1f;
 	private float mReviseElapsedTime = ReviseAnimationInterval;
 
     private void tryReviseAnimation()
@@ -905,7 +897,7 @@ public class PlayerBehaviour : MonoBehaviour
         mReviseElapsedTime -= Time.deltaTime; 
         if (mReviseElapsedTime <= 0)
         {
-            if(LobbyStart.Get.IsDebugAnimation)
+            if(IsDebugAnimation)
 				Debug.LogErrorFormat("Animation stuck(asynchronous). {0} - {1}", name, CurrentState);
 
             AniState(IsBallOwner ? EPlayerState.HoldBall : EPlayerState.Idle, false);
@@ -923,7 +915,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (timeScale > 0 && (CanMove || HoldBallCanMove))
         {
-			if (IsGameAttack || LobbyStart.Get.TestMode != EGameTest.None)
+			if (IsGameAttack || TestMode != EGameTest.None)
             {
 				EPlayerState ps = EPlayerState.Run0;
                 if (IsBallOwner)
@@ -934,7 +926,7 @@ public class PlayerBehaviour : MonoBehaviour
                 RemoveMoveData();
 
                 #if UNITY_EDITOR
-                if (IsFall && LobbyStart.Get.IsDebugAnimation)
+                if (IsFall && IsDebugAnimation)
                 {
                     LogMgr.Get.LogError("CanMove : " + CanMove);
                     LogMgr.Get.LogError("stop : " + stop);
@@ -1024,7 +1016,7 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					}
 
-					if (LobbyStart.Get.TestMode == EGameTest.Skill || LobbyStart.Get.TestMode == EGameTest.PassiveSkill)
+					if (TestMode == EGameTest.Skill || TestMode == EGameTest.PassiveSkill)
 						calculateSpeed = GameConst.AttackSpeedup;
 					
 					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * timeScale;
@@ -1132,15 +1124,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             result = data.Target;
             resultBool = true;
-//            if (IsDribble)
-//                Debug.Log("catch you");
         }
 
         return resultBool;
     }
-
-    private GameObject TestGameObject;
-
 
     private void AttackerMove(bool first, TMoveData data, bool isshort)
     {
@@ -1152,10 +1139,10 @@ public class PlayerBehaviour : MonoBehaviour
             else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
                 AniState(EPlayerState.Dribble0);
 
-            if (first || LobbyStart.Get.TestMode == EGameTest.Edit)
-						//                        WaitMoveTime = 0;
-						CantMoveTimer.Clear();
-			else if (IsGameAttack && GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+            if (first || TestMode == EGameTest.Edit)
+				CantMoveTimer.Clear();
+			else 
+            if (IsGameAttack && GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
             {
                 // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
                 // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
@@ -1440,7 +1427,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ResetFlag(bool clearMove = true)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
         if (CheckAnimatorSate(EPlayerState.Idle) || CheckAnimatorSate(EPlayerState.Dribble1) || CheckAnimatorSate(EPlayerState.Dribble0))
@@ -1556,7 +1543,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (CurrentState != EPlayerState.Alleyoop && !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && !IsBallOwner && (LobbyStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (CurrentState != EPlayerState.Alleyoop && !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && !IsBallOwner && (TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -1726,18 +1713,17 @@ public class PlayerBehaviour : MonoBehaviour
         set
         {
             PlayerRigidbody.isKinematic = value;
-//            Timer.rigidbody.isKinematic = value;
         }
     }
 
     public bool AniState(EPlayerState newState, Vector3 lookAtPoint)
     {
-//        Debug.Log("state : " + state.ToString() + ". lookAtPoint : " + lookAtPoint);
         if(AniState(newState))
         {
             RotateTo(lookAtPoint.x, lookAtPoint.z);
-            if (LobbyStart.Get.TestMode == EGameTest.Pass)
+            if (TestMode == EGameTest.Pass)
                 LogMgr.Get.Log("name:" + PlayerRefGameObject.name + "Rotate");
+            
             return true;
         }
         return false;
@@ -2017,7 +2003,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Shooter))
             LayerMgr.Get.SetLayer(PlayerRefGameObject, ELayer.Player);
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogWarningFormat("{0}, CurrentState:{1}, NewState:{2}, Time:{3}, StateChangable:{4}", 
                                    name, CurrentState, newState, Time.time, mStateChangable);
 
@@ -2288,50 +2274,54 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void GotStealing()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
-        if (OnGotSteal != null)
-        if (OnGotSteal(this))
+        
+        if (OnGotSteal != null && OnGotSteal(this))
             GameRecord.BeSteal++; 
     }
 
     private void FakeShootBlockMoment()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         if (!IsAllShoot && OnFakeShootBlockMoment != null)
             OnFakeShootBlockMoment(this);
     }
 
     private void BlockMoment()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         if (OnBlockMoment != null)
             OnBlockMoment(this);
     }
 
     private void AirPassMoment()
     {
-        if(GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         mIsPassAirMoment = true;
     }
 
     private void DoubleClickMoment()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         if (OnDoubleClickMoment != null)
             OnDoubleClickMoment(this, CurrentState);
     }
 
     private void buffEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. buffEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2342,24 +2332,24 @@ public class PlayerBehaviour : MonoBehaviour
         {
             AniState(EPlayerState.HoldBall);
             IsFirstDribble = true;
-        }
-        else
+        } else
             AniState(EPlayerState.Idle);
     }
 
     private void BlockCatchMomentStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         blockCatchTrigger.SetEnable(true); 
     }
 
     private void blockCatchMomentEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. blockCatchMomentEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
@@ -2368,7 +2358,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void BlockJump()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
         if (OnBlockJump != null)
             OnBlockJump(this); 
@@ -2376,10 +2366,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void blockCatchingEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. blockCatchingEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
@@ -2396,14 +2386,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Shooting()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         mIsPassAirMoment = false;
         if (OnShooting != null)
         {
             if (CurrentState != EPlayerState.Pass4)
                 OnShooting(this, false);
-            else if (CurrentState == EPlayerState.Layup0)
+            else 
+            if (CurrentState == EPlayerState.Layup0)
             {
                 if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform)
                 {
@@ -2416,10 +2408,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void moveDodgeEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. moveDodgeEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2435,8 +2427,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Passing()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         //0.Flat
         //2.Floor
         //1 3.Parabola(Tee)
@@ -2454,10 +2447,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void passEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. passEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2471,7 +2464,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void showEnd(EAnimatorState state)
     {
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. showEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2482,19 +2475,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void PickUp()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
-        if (OnPickUpBall != null)
-        if (OnPickUpBall(this))
+        
+        if (OnPickUpBall != null && OnPickUpBall(this))
             GameRecord.SaveBall++;
     }
 
     private void pickEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. pickEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2504,24 +2497,24 @@ public class PlayerBehaviour : MonoBehaviour
         {
             IsFirstDribble = true;
             AniState(EPlayerState.HoldBall);
-        }
-        else
+        } else
             AniState(EPlayerState.Idle); 
     }
 
     private void stealing()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         IsStealCalculate = true; 
     }
 
     private void stealingEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. stealingEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
@@ -2531,22 +2524,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void PushCalculateStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         IsPushCalculate = true;
     }
 
     private void PushCalculateEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         IsPushCalculate = false; 
     }
 
     private void ElbowCalculateStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         IsElbowCalculate = true;  
     }
 
@@ -2557,15 +2553,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void BlockCalculateStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         blockTrigger.SetActive(true);
     }
 
     private void BlockCalculateEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         blockTrigger.SetActive(false); 
     }
 
@@ -2581,25 +2579,29 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CloneMesh()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         if (!IsBallOwner)
             AnimatorControl.PlayDunkCloneMesh();   
     }
 
     private void DunkBasketStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.StateNo); 
     }
 
     private void OnlyScore()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         if (OnOnlyScore != null)
             OnOnlyScore(this);
+        
         CourtMgr.Get.IsBallOffensive = true;
     }
 
@@ -2608,15 +2610,16 @@ public class PlayerBehaviour : MonoBehaviour
         OnUI(this);
         if (OnDunkBasket != null)
             OnDunkBasket(this);
+        
         CourtMgr.Get.IsBallOffensive = false;
     }
 
     private void elbowEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. elbowEnd. Time:{1}", name, Time.time);
 
         if(state == CurrentAnimatorState)
@@ -2633,10 +2636,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void fallEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. fallEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2649,10 +2652,10 @@ public class PlayerBehaviour : MonoBehaviour
 				
     private void catchEnd(EAnimatorState state)
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. catchEnd. Time:{1}", name, Time.time);
 
         if (state == CurrentAnimatorState)
@@ -2685,10 +2688,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void fakeShootEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. fakeShootEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
@@ -2704,17 +2707,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void tipInStart()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
+        
         CanUseTipIn = true;
     }
 
     private void tipInEnd()
     {
-        if (GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. tipInEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
@@ -2723,10 +2727,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void animationEnd(EAnimatorState animatorState)
     {
-        if(GameController.Get.IsShowSituation)
+        if (IsShowSituation)
             return;
 
-        if (LobbyStart.Get.IsDebugAnimation)
+        if (IsDebugAnimation)
             Debug.LogFormat("{0}. animationEnd. Time:{1}", name, Time.time);
 
         if(animatorState == CurrentAnimatorState)
@@ -3038,7 +3042,7 @@ public class PlayerBehaviour : MonoBehaviour
     //=====Skill=====
     public bool DoActiveSkill(GameObject target = null)
     {
-        if (CanUseActiveSkill(ActiveSkillUsed) || LobbyStart.Get.TestMode == EGameTest.Skill)
+        if (CanUseActiveSkill(ActiveSkillUsed) || TestMode == EGameTest.Skill)
         {
             GameRecord.Skill++;
             SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
@@ -3542,6 +3546,16 @@ public class PlayerBehaviour : MonoBehaviour
 			return (situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack);
 		}
 	}
+
+    public bool IsShowSituation
+    {
+        get{
+            if(situation <= EGameSituation.Opening)
+                return true;
+            else
+                return false;
+        }
+    }
 
     public Vector2 GetStealPostion(Vector3 p1, Vector3 p2, EPlayerPostion index)
     {

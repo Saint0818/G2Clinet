@@ -455,12 +455,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		Command(URLConst.Version, waitVersion, form);
 	}
 
-	public void CheckServerData(bool connectToServer)
+	public void CheckServerData()
 	{
-		if (connectToServer)
-			checkVersion();
-		else 
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+		checkVersion();
 	}
 
     public bool CheckServerMessage(string text) {

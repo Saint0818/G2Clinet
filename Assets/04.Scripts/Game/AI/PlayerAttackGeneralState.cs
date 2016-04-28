@@ -146,7 +146,7 @@ namespace AI
                 moveData.Shooting = tacticalActions[i].Shooting;
 
                 int signZ = 1;
-                if(LobbyStart.Get.CourtMode == ECourtMode.Full && mPlayer.Team == ETeamKind.Npc)
+                if(CourtMgr.Get.CourtMode == ECourtMode.Full && mPlayer.Team == ETeamKind.Npc)
                     signZ = -1;
 
                 moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z * signZ);

@@ -55,6 +55,7 @@ public class UIGame : UIBase
     private static UIGame instance = null;
     private const string UIName = "UIGame";
 
+    public EGameTest TestMode = EGameTest.None;
     private PlayerBehaviour PlayerMe;
     //Game const
     public float ButtonBTime = 0.08f;
@@ -484,14 +485,14 @@ public class UIGame : UIBase
         else
         {
             uiLimitTime.SetActive(true);
-            labelLimitTime.text = GameController.Get.GameTime.ToString();
+            labelLimitTime.text = GameController.Get.GameWinTime.ToString();
         }
     }
 
     private void setGameTime()
     {
-        int minute = (int)(GameController.Get.GameTime / 60f);
-        int second = (int)(GameController.Get.GameTime % 60f);
+        int minute = (int)(GameController.Get.GameWinTime / 60f);
+        int second = (int)(GameController.Get.GameWinTime % 60f);
         if (second < 10)
             labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
         else
@@ -527,8 +528,9 @@ public class UIGame : UIBase
 
     private GameObject getSkillRangeTarget()
     {
-        if (LobbyStart.Get.TestMode == EGameTest.AttackA)
+        if (TestMode == EGameTest.AttackA)
             return PlayerMe.PlayerRefGameObject;
+        
 		if (IsPlayerMe && GameData.DSkillData.ContainsKey(ActiveSkillUsedTemp.ID))
         {
 			switch (GameData.DSkillData[ActiveSkillUsedTemp.ID].TargetKind)
@@ -808,7 +810,7 @@ public class UIGame : UIBase
             Time.timeScale = 1;
         #endif
 		refreshSpeedLabel ();
-        LobbyStart.Get.GameSpeed = Time.timeScale;
+        GameController.Get.GameSpeed = Time.timeScale;
         GameController.Get.RecordTimeScale = Time.timeScale;
     }
 
@@ -1090,7 +1092,7 @@ public class UIGame : UIBase
 
     public void SetPassButton()
     {
-        if (LobbyStart.Get.TestMode != EGameTest.None && LobbyStart.Get.TestMode != EGameTest.Pass && LobbyStart.Get.TestMode != EGameTest.Alleyoop)
+        if (TestMode != EGameTest.None && TestMode != EGameTest.Pass && TestMode != EGameTest.Alleyoop)
             return;
 
         if (GameController.Get.IsShowSituation)
@@ -1458,10 +1460,8 @@ public class UIGame : UIBase
                 viewTopLeft.SetActive(true);
                 viewBottomRight.SetActive(true);
 
-                if (!GameController.Get.StageData.IsTutorial || !LobbyStart.Get.ConnectToServer)
-                {
+                if (!GameController.Get.StageData.IsTutorial)
                     showGameJoystick(true);
-                }
 
                 viewPass.SetActive(GameController.Get.Situation == EGameSituation.GamerAttack);
                 controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.GamerAttack);
@@ -1563,7 +1563,7 @@ public class UIGame : UIBase
             case EUISituation.ReSelect:
                 Time.timeScale = 1;
                 UIGameResult.UIShow(false);
-                SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+
                 break;
         }
     }

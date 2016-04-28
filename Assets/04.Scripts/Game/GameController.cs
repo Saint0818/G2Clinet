@@ -66,19 +66,33 @@ public struct TPassIcon
 
 public class GameController : KnightSingleton<GameController>
 {
-    public OnSkillDCComplete onSkillDCComplete = null;
+    public EModelTest TestModel = EModelTest.None;
+    public EGameTest TestMode = EGameTest.None;
+    public ETestActive TestID = ETestActive.Dunk20;
+    public EPlayerState SelectAniState = EPlayerState.Dunk6;
+    public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.BasketballAction_0;
+    public int[] TestPlayerID = {31, 32, 33, 100, 101, 102};
+    public bool IsDebugAnimation = false;
+    public bool IsShowShootRate = false;
+    public bool IsShowPlayerInfo = false;
+    public bool IsAutoReplay = false;
+    public int TestLv = 2;
+    public float GameWinTime = 0;
+    public int GameWinScore = 13;
+    public float GameSpeed = 1f;
+
     public bool IsStart = false;
     public bool IsFinish = false;
     public bool IsReset = false;
     public bool IsJumpBall = false;
     private bool isPassing = false;
-    //    public float CoolDownPass = 0;
-    public readonly CountDownTimer PassCD = new CountDownTimer(GameConst.CoolDownPassTime);
+
     public float ShootDistance = 0;
     public float StealBtnLiftTime = 1f;
-
-    public float GameTime = 0;
     private float passingStealBallTime = 0;
+
+    public OnSkillDCComplete onSkillDCComplete = null;
+    public readonly CountDownTimer PassCD = new CountDownTimer(GameConst.CoolDownPassTime);
 
     private GameObject playerInfoModel = null;
     private GameObject defPointObject = null;
@@ -246,14 +260,13 @@ public class GameController : KnightSingleton<GameController>
     [UsedImplicitly]
     private void Awake()
     {
+        StageData.Clear();
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
         AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
-		//ModelManager.Get.PreloadAnimator();
         initModel();
-		StageData.Clear();
 		InitAniState();
     }
 
@@ -336,7 +349,7 @@ public class GameController : KnightSingleton<GameController>
 	public void LoadStage(int id) {
 		if (StageTable.Ins.HasByID(id)) {
             StageData = StageTable.Ins.GetByID(id);
-			GameTime = StageData.BitNum[0];
+			GameWinTime = StageData.BitNum[0];
 			StageData.WinValue = StageData.BitNum[1];
 			UIGame.Get.MaxScores[0] = StageData.WinValue;
 			UIGame.Get.MaxScores[1] = StageData.WinValue;
@@ -352,15 +365,15 @@ public class GameController : KnightSingleton<GameController>
 			}
 		} else {
 			StageData.Clear();
-			int a = LobbyStart.Get.GameWinTimeValue > 0 ? 1 : 0;
-			int b = LobbyStart.Get.GameWinValue > 0 ? 2 : 0;
+			int a = GameWinTime > 0 ? 1 : 0;
+			int b = GameWinScore > 0 ? 2 : 0;
 			StageData.Hint = b.ToString() + a.ToString();
-			StageData.Bit0Num = LobbyStart.Get.GameWinTimeValue;
-			StageData.Bit1Num = LobbyStart.Get.GameWinValue;
-			StageData.WinValue = LobbyStart.Get.GameWinValue;
-			GameTime = LobbyStart.Get.GameWinTimeValue;
-			UIGame.Get.MaxScores[0] = LobbyStart.Get.GameWinValue;
-			UIGame.Get.MaxScores[1] = LobbyStart.Get.GameWinValue;
+            StageData.Bit0Num = (int)GameWinTime;
+			StageData.Bit1Num = GameWinScore;
+			StageData.WinValue = GameWinScore;
+			GameWinTime = GameWinTime;
+			UIGame.Get.MaxScores[0] = GameWinScore;
+			UIGame.Get.MaxScores[1] = GameWinScore;
 			MissionChecker.Get.Init(StageData);
 		}
 
@@ -377,7 +390,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
     public void StageStart() {
-        if (LobbyStart.Get.TestMode == EGameTest.None && LobbyStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
+        if (TestMode == EGameTest.None && LobbyStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
             GamePlayTutorial.Get.SetTutorialData(StageData.ID);
 
         if (Situation == EGameSituation.None)
@@ -388,7 +401,7 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
-		switch (LobbyStart.Get.TestMode) {
+		switch (TestMode) {
             case EGameTest.Rebound:
         	    CourtMgr.Get.RealBall.Gravity = false; 
                 CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
@@ -433,11 +446,11 @@ public class GameController : KnightSingleton<GameController>
 	private void checkPlayerID() {
 		for (int i = 0; i < GameData.TeamMembers.Length; i ++)
 			if (!GameData.DPlayers.ContainsKey(GameData.TeamMembers[i].Player.ID))
-				GameData.TeamMembers[i].Player.SetID(20 + i);
+                GameData.TeamMembers[i].Player.SetID(TestPlayerID[i]);
 
 		for (int i = 0; i < GameData.EnemyMembers.Length; i ++)
 			if (!GameData.DPlayers.ContainsKey(GameData.EnemyMembers[i].Player.ID))
-				GameData.EnemyMembers[i].Player.SetID(31 + i);
+                GameData.EnemyMembers[i].Player.SetID(TestPlayerID[i+3]);
 	}
 
 	public void SetBornPositions()
@@ -578,18 +591,6 @@ public class GameController : KnightSingleton<GameController>
         playerSelectMe.SetActive(true);
         for (int i = 0; i < PlayerList.Count; i++)
             PlayerList[i].PlayerRefGameObject.SetActive(true);
-         
-        /*
-        if (PlayerList.Count > 0 && PlayerList[0].AnimatorControl && PlayerList[0].AnimatorControl.runtimeAnimatorController &&
-            PlayerList[0].AnimatorControl.runtimeAnimatorController.name == EAnimatorType.ShowControl.ToString()) {
-            for(int i = 0; i < PlayerList.Count; i++)
-                if(PlayerList[i])
-                    ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType, EAnimatorType.AnimationControl);
-
-            for(int i = 0; i < PlayerList.Count; i++)
-                if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)
-                    PlayerList[i].AniState(EPlayerState.Idle);
-        }*/
 	}
 
     public PlayerBehaviour CreateGamePlayer(int teamIndex, ETeamKind team, Vector3 bornPos, TPlayer player, GameObject res = null)
@@ -599,8 +600,8 @@ public class GameController : KnightSingleton<GameController>
             if (player.BodyType < 0 || player.BodyType  > 2)
                 player.BodyType = 0;
 
-            if (LobbyStart.Get.TestModel != EModelTest.None && LobbyStart.Get.TestMode != EGameTest.None)
-                player.BodyType = (int)LobbyStart.Get.TestModel;
+            if (TestModel != EModelTest.None && TestMode != EGameTest.None)
+                player.BodyType = (int)TestModel;
 
             TLoadParameter p = new TLoadParameter(ELayer.Player, team.ToString() + teamIndex.ToString(), false, false, false, true, false, EAnimatorType.AnimationControl);
             TAvatarLoader.Load(player.BodyType, player.Avatar, ref res, playerInfoModel, p);
@@ -630,6 +631,9 @@ public class GameController : KnightSingleton<GameController>
 
             playerBehaviour.AI = res.AddComponent<PlayerAI>();
 
+            playerBehaviour.TestMode = TestMode;
+            playerBehaviour.IsDebugAnimation = IsDebugAnimation;
+
             return playerBehaviour;
         }
         else
@@ -641,8 +645,9 @@ public class GameController : KnightSingleton<GameController>
 	
 	public void CreateTeam()
     {
+        checkPlayerID();
         int num = 0;
-        switch (LobbyStart.Get.TestMode)
+        switch (TestMode)
         {
             case EGameTest.None:
                 if (StageData.FriendKind == 4)
@@ -669,12 +674,10 @@ public class GameController : KnightSingleton<GameController>
                 }
                 else
                 {
-                    checkPlayerID();
-                    num = Mathf.Min(LobbyStart.Get.FriendNumber, GameData.Max_GamePlayer);
-                    for (int i = 0; i < num; i++)
+                    for (int i = 0; i < GameData.Max_GamePlayer; i++)
                         PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
 
-                    for (int i = 0; i < num; i++)
+                    for (int i = 0; i < GameData.Max_GamePlayer; i++)
                         PlayerList.Add(CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player));
                 }
 
@@ -688,89 +691,70 @@ public class GameController : KnightSingleton<GameController>
 				setPlayerBornTarget ();
                 break;
             case EGameTest.All:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], new GameStruct.TPlayer(0)));	
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], new GameStruct.TPlayer(0)));	
-                PlayerList.Add(CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], new GameStruct.TPlayer(0)));	
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], new GameStruct.TPlayer(0)));	
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new GameStruct.TPlayer(0)));	
-                PlayerList.Add(CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], new GameStruct.TPlayer(0)));
+                for (int i = 0; i < GameData.Max_GamePlayer; i++)
+                    PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
 
+                for (int i = 0; i < GameData.Max_GamePlayer; i++)
+                    PlayerList.Add(CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player));
+                
                 break;
             case EGameTest.AttackA:
             case EGameTest.Shoot:
             case EGameTest.Dunk:
             case EGameTest.Rebound:
                 PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new TPlayer(0)));	
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[0].Player));
                 SetBornPositions();
                 UIGame.Get.ChangeControl(true);
                 SetPlayerAI(false);
                 break;
             case EGameTest.AnimationUnit:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
                 SetPlayerAI(false);
                 break;
             case EGameTest.AttackB:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, Vector3.zero, new TPlayer(0)));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, Vector3.zero, GameData.EnemyMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
                 SetPlayerAI(false);
                 break;
             case EGameTest.Block:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, -8.4f), new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, new Vector3(0, 0, -4.52f), new TPlayer(0)));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, -8.4f), GameData.TeamMembers[0].Player));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, -4.52f), GameData.EnemyMembers[0].Player));
+
                 PlayerList[0].IsJumpBallPlayer = true;
                 PlayerList[1].IsJumpBallPlayer = true;
                 SetPlayerAI(false);
                 break;
-            case EGameTest.OneByOne: 
-                TPlayer Self = new TPlayer(0);
-                Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
 
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, Self));
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, 5), new TPlayer(0)));
-                PlayerList[0].IsJumpBallPlayer = true;
-                PlayerList[1].IsJumpBallPlayer = true;
-                break;
             case EGameTest.Alleyoop:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Self, new Vector3(0, 0, 3), new TPlayer(0)));
+                for (int i = 0; i < 2; i++)
+                    PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+
                 PlayerList[0].IsJumpBallPlayer = true;
                 PlayerList[1].IsJumpBallPlayer = true;
                 break;
             case EGameTest.Pass:
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Self, new Vector3(-5, 0, -2), new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(2, ETeamKind.Self, new Vector3(5, 0, -2), new TPlayer(0)));
+            case EGameTest.Edit:
+                for (int i = 0; i < GameData.Max_GamePlayer; i++)
+                    PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+                
                 PlayerList[0].IsJumpBallPlayer = true;
                 SetPlayerAI(false);
                 break;
-            case EGameTest.Edit:
-                createEditTeam();
-                break;
+            case EGameTest.OneByOne:
             case EGameTest.CrossOver:
-                Self = new TPlayer(0);
-                Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
+                GameData.TeamMembers[0].Player.Steal = UnityEngine.Random.Range(20, 100) + 1;			
 			
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, Self));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, new Vector3(0, 0, 5), new TPlayer(0)));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
                 PlayerList[1].IsJumpBallPlayer = true;
                 break;
             case EGameTest.Skill:
-                if (GameData.Team.Player.ID == 0)
-                    GameData.Team.Player.SetID(14);
-
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, new Vector3(0, 0, 5), new TPlayer(0)));
-                SetPlayerAI(false);
-                break;
             case EGameTest.PassiveSkill:
-                if (GameData.Team.Player.ID == 0)
-                    GameData.Team.Player.SetID(14);
-			
-                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, Vector3.zero, new TPlayer(0)));
-                PlayerList.Add(CreateGamePlayer(1, ETeamKind.Npc, new Vector3(0, 0, 5), new TPlayer(0)));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
+                PlayerList.Add(CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
                 SetPlayerAI(false);
                 break;
 		}
@@ -838,7 +822,6 @@ public class GameController : KnightSingleton<GameController>
 			passIcon[index].UpdateFace(player.Attribute.FacePicture);
 			if(player != Joysticker)
 				passIcon[index].FaceVisible = false;
-//				passIcon[index].FaceVisible = !string.IsNullOrEmpty(player.Attribute.Identifier);
 		}
 	}
 
@@ -907,7 +890,7 @@ public class GameController : KnightSingleton<GameController>
 	void FixedUpdate() {
 		#if UNITY_EDITOR
 		if (Joysticker) {
-			switch(LobbyStart.Get.TestMode){
+			switch(TestMode){
 				case EGameTest.Rebound:
 					if (Input.GetKeyDown (KeyCode.Z)) 
 						resetTestMode();
@@ -918,11 +901,11 @@ public class GameController : KnightSingleton<GameController>
                 case EGameTest.Block:
 				case EGameTest.PassiveSkill:
 					if (Input.GetKeyDown (KeyCode.S)){
-                        Joysticker.AniState(LobbyStart.Get.SelectAniState);
+                        Joysticker.AniState(SelectAniState);
 						TSkill skill = new TSkill();
-                        skill.ID = (int )LobbyStart.Get.SelectAniState;
+                        skill.ID = (int )SelectAniState;
 						Joysticker.PassiveSkillUsed = skill;
-                        if((int)LobbyStart.Get.SelectAniState > 100 && LobbyStart.Get.TestMode == EGameTest.AnimationUnit) 
+                        if((int)SelectAniState > 100 && TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}
 
@@ -1052,25 +1035,25 @@ public class GameController : KnightSingleton<GameController>
 			
 			if (Input.GetKeyDown (KeyCode.S))
 			{
-				if(LobbyStart.Get.TestMode != EGameTest.Skill) 
+				if(TestMode != EGameTest.Skill) 
 					UIGame.Get.DoShoot(null, true);
 			}
 			
 			if (Input.GetKeyUp (KeyCode.S))
 			{
-				if(LobbyStart.Get.TestMode == EGameTest.Skill) {
+				if(TestMode == EGameTest.Skill) {
 					TSkill skill = new TSkill();
-					skill.ID = LobbyStart.Get.TestID.GetHashCode();
-					skill.Lv = LobbyStart.Get.TestLv;
+					skill.ID = TestID.GetHashCode();
+					skill.Lv = TestLv;
 					if (GameData.DSkillData[skill.ID].Kind == 171){
-						CourtMgr.Get.ShowArrowOfAction(true,
-							Joysticker,
+						CourtMgr.Get.ShowArrowOfAction(true, Joysticker,
 							GameData.DSkillData[skill.ID].Distance(skill.Lv));
 					}
+
 				 	DoSkill(Joysticker, skill);
 					CourtMgr.Get.ShowArrowOfAction(false);
 				} else
-				if(LobbyStart.Get.TestMode != EGameTest.AnimationUnit)
+				if(TestMode != EGameTest.AnimationUnit)
 					UIGame.Get.DoShoot(null, false);
 
 			}
@@ -1082,10 +1065,10 @@ public class GameController : KnightSingleton<GameController>
 			}
 			
 			if(Input.GetKeyDown (KeyCode.S)){
-				if(LobbyStart.Get.TestMode == EGameTest.Skill) {
+				if(TestMode == EGameTest.Skill) {
 					TSkill skill = new TSkill();
-					skill.ID = LobbyStart.Get.TestID.GetHashCode();
-					skill.Lv = LobbyStart.Get.TestLv;
+					skill.ID = TestID.GetHashCode();
+					skill.Lv = TestLv;
 					if (GameData.DSkillData[skill.ID].Kind == 171){
 						CourtMgr.Get.ShowArrowOfAction(true,
 							Joysticker,
@@ -1154,7 +1137,7 @@ public class GameController : KnightSingleton<GameController>
 	}
         
     public void SendGameRecord() {
-        if (!string.IsNullOrEmpty(GameRecord.Identifier) && LobbyStart.Get.TestMode == EGameTest.None) {
+        if (!string.IsNullOrEmpty(GameRecord.Identifier) && TestMode == EGameTest.None) {
             string str = JsonConvert.SerializeObject(GameRecord);
             if (SendHttp.Get.CheckNetwork(false)) {
                 WWWForm form = new WWWForm();
@@ -1186,7 +1169,7 @@ public class GameController : KnightSingleton<GameController>
 	private bool isOpen = true;
 	void OnGUI()
     {
-        if (LobbyStart.Get.IsShowPlayerInfo) {
+        if (IsShowPlayerInfo) {
 			if(isOpen){
 				if(GUILayout.Button("Close"))
 					isOpen = false;
@@ -1214,13 +1197,13 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-        if (LobbyStart.Get.TestMode == EGameTest.Rebound) {
+        if (TestMode == EGameTest.Rebound) {
 			if (GUI.Button(new Rect(100, 100, 100, 100), "Reset")) {
 				resetTestMode();
 			}
 		}
 
-        if (LobbyStart.Get.TestMode == EGameTest.CrossOver) {
+        if (TestMode == EGameTest.CrossOver) {
 			if (GUI.Button(new Rect(20, 50, 100, 100), "Left")) {
 				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameConst.CrossTimeZ).SetEase(Ease.Linear);
@@ -1234,14 +1217,14 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-        if (LobbyStart.Get.TestMode == EGameTest.Shoot) {
+        if (TestMode == EGameTest.Shoot) {
 			for(int i = 0 ; i < ShootStates.Length; i++){
 				if (GUI.Button(new Rect(Screen.width / 2, 50 + i * 50, 100, 50), ShootStates[i].ToString())) {	
 					testState = ShootStates[i];
 				}
 			}
 		}
-        if(LobbyStart.Get.IsDebugAnimation){
+        if(IsDebugAnimation){
 			GUI.Label(new Rect(Screen.width * 0.5f - 25, 100, 300, 50), "Play Counts:" + PlayCount.ToString());
 			GUI.Label(new Rect(Screen.width * 0.25f - 25, 100, 300, 50), "Self Wins:" + SelfWin.ToString());
 			GUI.Label(new Rect(Screen.width * 0.75f - 25, 100, 300, 50), "Npc Wins:" + NpcWin.ToString());
@@ -1252,7 +1235,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 
-        if(LobbyStart.Get.IsShowShootRate) {
+        if (IsShowShootRate) {
 			GUILayout.Label("random rate:"+ randomrate);
 			GUILayout.Label("normal rate:"+ normalRate);
 			GUILayout.Label("uphand rate:"+ uphandRate);
@@ -1261,7 +1244,7 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("layup rate:"+ layupRate);
 		}
 
-        if(LobbyStart.Get.TestMode == EGameTest.Skill || LobbyStart.Get.TestMode == EGameTest.PassiveSkill) {
+        if(TestMode == EGameTest.Skill || TestMode == EGameTest.PassiveSkill) {
 			if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 50), "player get Ball")) {
 				SetBall(PlayerList[0]);
 				PlayerList[1].AniState(EPlayerState.Idle);
@@ -1270,7 +1253,7 @@ public class GameController : KnightSingleton<GameController>
 				SetBall(PlayerList[1]);
 				PlayerList[0].AniState(EPlayerState.Idle);
 			}
-			if (GUI.Button(new Rect(Screen.width - 100, 200, 100, 50), "shoot")) {
+            if (GUI.Button(new Rect(Screen.width - 100, 200, 100, 50), "shoot") && BallOwner) {
 //				DoShoot();
 				TSkill skill = new TSkill();
 				skill.ID = 10700;
@@ -1304,7 +1287,7 @@ public class GameController : KnightSingleton<GameController>
             return;
 
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
-        if(LobbyStart.Get.CourtMode == ECourtMode.Full)
+        if(CourtMgr.Get.CourtMode == ECourtMode.Full)
         {
             AITools.RandomCorrespondingTactical(
                 ETacticalAuto.Inbounds, ETacticalAuto.InboundsDef, 
@@ -1346,7 +1329,7 @@ public class GameController : KnightSingleton<GameController>
     {
 		if(PlayerList.Count > 0 && BallOwner)
 		{
-		    if(LobbyStart.Get.CourtMode == ECourtMode.Full)
+            if(CourtMgr.Get.CourtMode == ECourtMode.Full)
             {
                 AITools.RandomCorrespondingTactical(
                     ETacticalAuto.Inbounds, ETacticalAuto.InboundsDef, BallOwner.Index, 
@@ -1446,7 +1429,7 @@ public class GameController : KnightSingleton<GameController>
                     {
                         // 我不是持球人.
                         int index = player.DefPlayer.Postion.GetHashCode();
-                        float sign = LobbyStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+                        float sign = CourtMgr.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 
                         // HomePosition 和 DefPlayer 的距離.
                         float distance = Vector2.Distance(
@@ -1477,7 +1460,7 @@ public class GameController : KnightSingleton<GameController>
                             else
                             {
 								player.DefPlayer.ResetMove();
-								sign = LobbyStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+                                sign = CourtMgr.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
                                 moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                                 
                                 if (BallOwner != null)
@@ -1719,7 +1702,7 @@ public class GameController : KnightSingleton<GameController>
         if (PlayerList.Count > 0)
         {
             //Action
-			if(LobbyStart.Get.TestMode == EGameTest.All || LobbyStart.Get.TestMode == EGameTest.None) 
+			if(TestMode == EGameTest.All || TestMode == EGameTest.None) 
             {
 	            switch(Situation)
 	            {
@@ -1909,7 +1892,7 @@ public class GameController : KnightSingleton<GameController>
 				BasketSituation = EBasketSituation.NoScore;
 		}
 
-		if(isActive || LobbyStart.Get.TestMode == EGameTest.AttackA)
+		if(isActive || TestMode == EGameTest.AttackA)
         {
 			BasketSituation = EBasketSituation.Swish;
 		} 
@@ -1920,9 +1903,11 @@ public class GameController : KnightSingleton<GameController>
 		
 		CourtMgr.Get.JudgeBasketAnimationName (judgeShootAngle(player));
 		
-		if(LobbyStart.Get.TestMode == EGameTest.PassiveSkill) {
+		if (TestMode == EGameTest.PassiveSkill) {
 			BasketSituation = EBasketSituation.Score;
-			CourtMgr.Get.BasketAnimationName = LobbyStart.Get.SelectBasketState.ToString();	
+
+            if (LobbyStart.Visible)
+			    CourtMgr.Get.BasketAnimationName = SelectBasketState.ToString();	
 		}
 
 		if (ShootDistance >= GameConst.Point3Distance)
@@ -1974,7 +1959,7 @@ public class GameController : KnightSingleton<GameController>
 
 			ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
 
-			if(LobbyStart.Get.TestMode == EGameTest.Shoot)
+			if(TestMode == EGameTest.Shoot)
             {
 				BallOwner.AniState(testState, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position);
 				return true;
@@ -1986,7 +1971,7 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.DoPassNone();
 				CourtMgr.Get.ResetBasketEntra();
 
-                if(LobbyStart.Get.TestMode == EGameTest.Dunk)
+                if(TestMode == EGameTest.Dunk)
                 {
                     BallOwner.AniState(EPlayerState.Dunk20);
 					return true;
@@ -2272,7 +2257,7 @@ public class GameController : KnightSingleton<GameController>
 						Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
 						return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
 					} else {
-						if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && LobbyStart.Get.TestMode == EGameTest.None)
+						if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && TestMode == EGameTest.None)
 							return Rebound(Joysticker);
 						else
 							return Joysticker.PlayerSkillController.DoPassiveSkill(ESkillSituation.Block0);
@@ -2296,9 +2281,9 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
 	{
 		bool result = false;
-		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode()) && player.IsInGround) || LobbyStart.Get.TestMode == EGameTest.Skill)
+		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode()) && player.IsInGround) || TestMode == EGameTest.Skill)
 		{
-			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || LobbyStart.Get.TestMode == EGameTest.Skill) {
+			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || TestMode == EGameTest.Skill) {
 //                TimerMgr.Get.SetTimeController(ref player);
 				if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
 					if(GameData.DSkillData[tSkill.ID].Kind == 40){//鷹眼神射
@@ -2852,7 +2837,7 @@ public class GameController : KnightSingleton<GameController>
             for(int i = 0; i < tacticalActions.Length; i++)
             {
                 moveData.Clear();
-                if (LobbyStart.Get.CourtMode == ECourtMode.Full && team == ETeamKind.Self)
+                if (CourtMgr.Get.CourtMode == ECourtMode.Full && team == ETeamKind.Self)
                     moveData.SetTarget(tacticalActions[i].X, -tacticalActions[i].Z);
                 else
                     moveData.SetTarget(tacticalActions[i].X, tacticalActions[i].Z);
@@ -2861,7 +2846,7 @@ public class GameController : KnightSingleton<GameController>
 					moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
                 else
                 {
-                    if (team == ETeamKind.Self || LobbyStart.Get.CourtMode == ECourtMode.Half)
+                    if (team == ETeamKind.Self || CourtMgr.Get.CourtMode == ECourtMode.Half)
                         moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
                     else
                         moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
@@ -2892,7 +2877,7 @@ public class GameController : KnightSingleton<GameController>
             // Debug.LogFormat("InboundsBall, tactical:{0}", tacticalData);
 
             moveData.Clear();
-			if(LobbyStart.Get.CourtMode == ECourtMode.Full)
+            if(CourtMgr.Get.CourtMode == ECourtMode.Full)
 			    inboundsFull(someone, team, data);
 			else
 			    inboundsHalf(someone, data);
@@ -3589,7 +3574,7 @@ public class GameController : KnightSingleton<GameController>
 	        PickBallPlayer = null;
 	    }
 
-        if(LobbyStart.Get.TestMode == EGameTest.Shoot)
+        if(TestMode == EGameTest.Shoot)
         {
             SetBall(Joysticker);    
             Joysticker.AniState(EPlayerState.HoldBall);
@@ -3718,10 +3703,10 @@ public class GameController : KnightSingleton<GameController>
 //                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
             else 
-            if((isEnter || LobbyStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner &&
+            if((isEnter || TestMode == EGameTest.Rebound) && player != BallOwner &&
 					CourtMgr.Get.RealBall.transform.position.y >= 3 && IsGameAttack)
             {
-				if (LobbyStart.Get.TestMode == EGameTest.Rebound)
+				if (TestMode == EGameTest.Rebound)
 					Rebound(player);
 				else 
                 if(GameController.Get.BallState == EBallState.CanRebound)
@@ -3737,7 +3722,7 @@ public class GameController : KnightSingleton<GameController>
 //				GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
 			}
 			else if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
-				if (LobbyStart.Get.TestMode == EGameTest.Rebound || IsGameAttack || LobbyStart.Get.TestMode == EGameTest.Block) {
+				if (TestMode == EGameTest.Rebound || IsGameAttack || TestMode == EGameTest.Block) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
 						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
@@ -3862,7 +3847,7 @@ public class GameController : KnightSingleton<GameController>
     
 	public void PlayerEnterPaint(int team, GameObject obj) {
 		if (BallOwner && canPassToAlleyoop(BallOwner.CurrentState) &&
-			(LobbyStart.Get.TestMode == EGameTest.Alleyoop || IsGameAttack)) {
+			(TestMode == EGameTest.Alleyoop || IsGameAttack)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList[i].CurrentState == EPlayerState.Alleyoop) {
@@ -3874,7 +3859,7 @@ public class GameController : KnightSingleton<GameController>
 				PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 				if (player && player.Team.GetHashCode() == team) {
 					if (player != BallOwner && player.Team == BallOwner.Team) {
-						if (Random.Range(0, 100) < player.Attr.AlleyOopRate || LobbyStart.Get.TestMode == EGameTest.Alleyoop) {
+						if (Random.Range(0, 100) < player.Attr.AlleyOopRate || TestMode == EGameTest.Alleyoop) {
 							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
@@ -3898,10 +3883,10 @@ public class GameController : KnightSingleton<GameController>
 		SetGameRecord ();
 		setEndShowScene();
 		isEndShowScene = true;
-		if(LobbyStart.Get.IsAutoReplay){
+		if(IsAutoReplay){
 			UIGamePause.Get.OnAgain();
 			Invoke("JumpBallForReplay", 2);
-            Time.timeScale = LobbyStart.Get.GameSpeed;
+            Time.timeScale = GameSpeed;
 			UIGameLoseResult.UIShow(false);
 		}
 	}
@@ -3922,14 +3907,12 @@ public class GameController : KnightSingleton<GameController>
 
 	private void pveEnd(int stageID)
 	{
-		if(LobbyStart.Get.ConnectToServer) {
+        if(!GameData.TestStage) {
 			WWWForm form = new WWWForm();
 			form.AddField("StageID", stageID);
 
 			if(!StageData.IsTutorial)
-			{
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
-			}
 			else {
                 if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
     				form.AddField("Cause", 1);
@@ -3941,14 +3924,14 @@ public class GameController : KnightSingleton<GameController>
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}
 		} else {
-			if(!LobbyStart.Get.IsAutoReplay){
+			if(!IsAutoReplay)
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
-			}
 		}
 	}
+
 	//GM Tools
 	public void GMGameResult (bool isSelfWin) {
-		GameTime = 0;
+		GameWinTime = 0;
 		if(isSelfWin) {
 			UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] = 100;
 			Joysticker.GameRecord.FGIn = 16;
@@ -3983,8 +3966,9 @@ public class GameController : KnightSingleton<GameController>
 		//Player
         int num = Mathf.Min(PlayerList.Count, CourtMgr.Get.EndPlayerPosition.Length);
 		for (int i=0; i< num; i++) {
-			if(!LobbyStart.Get.IsAutoReplay)
+			if(!IsAutoReplay)
            		PlayerList[i].DefPlayer = null;
+            
             PlayerList[i].Reset();
             PlayerList[i].ResetMove();
             PlayerList[i].AniState(EPlayerState.Idle);
@@ -4036,7 +4020,7 @@ public class GameController : KnightSingleton<GameController>
 	//投進的buff要從AI呼叫PlayerList[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.ShowOwnIn);
 	public void ShowShootSate(bool isIn, int team)
 	{
-		if (LobbyStart.Get.CourtMode == ECourtMode.Half && Shooter)
+        if (CourtMgr.Get.CourtMode == ECourtMode.Half && Shooter)
 			team = Shooter.Team.GetHashCode();
 
 		for (int i = 0; i < PlayerList.Count; i++)
@@ -4071,12 +4055,12 @@ public class GameController : KnightSingleton<GameController>
 
 
 	public bool IsTimePass() {
-		if (LobbyStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) 
-			return MissionChecker.Get.IsTimePass(ref GameTime);
+		if (TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameWinTime > 0) 
+			return MissionChecker.Get.IsTimePass(ref GameWinTime);
 
-		if(GameTime <= 0) {
-			GameTime -= Time.deltaTime;
-			if(GameTime < -2)
+		if(GameWinTime <= 0) {
+			GameWinTime -= Time.deltaTime;
+			if(GameWinTime < -2)
 				CourtMgr.Get.IsBallOffensive = false;
 		}
 			
@@ -4085,7 +4069,7 @@ public class GameController : KnightSingleton<GameController>
 	public void CheckConditionText () {MissionChecker.Get.CheckConditionText(StageData.ID);}
 	public bool IsScorePass(int team) {return MissionChecker.Get.IsScorePass(team);}
 	public bool IsConditionPass  {get {return MissionChecker.Get.IsConditionPass;}}
-	public bool IsWinner {get {return MissionChecker.Get.IsWinner(GameTime);}}
+	public bool IsWinner {get {return MissionChecker.Get.IsWinner(GameWinTime);}}
 
 	public bool IsGameFinish (){
 		CheckConditionText ();
@@ -4109,7 +4093,7 @@ public class GameController : KnightSingleton<GameController>
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
-        if (LobbyStart.Get.CourtMode == ECourtMode.Half && Shooter != null)
+        if (CourtMgr.Get.CourtMode == ECourtMode.Half && Shooter != null)
 			team = Shooter.Team.GetHashCode();
 
 		BallState = EBallState.None;	
@@ -4122,10 +4106,10 @@ public class GameController : KnightSingleton<GameController>
 				ShowWord(EShowWordType.NiceShot, team);
 		}
 
-		if (LobbyStart.Get.TestMode == EGameTest.Skill)
+		if (TestMode == EGameTest.Skill)
 			UIGame.Get.PlusScore(team, score);
 		else
-		if (IsStart && LobbyStart.Get.TestMode == EGameTest.None) {
+		if (IsStart && TestMode == EGameTest.None) {
 			if (Shooter) {
 				if (score == 3){
 					Shooter.GameRecord.FG3In++;
@@ -4156,12 +4140,13 @@ public class GameController : KnightSingleton<GameController>
 
 			if(isChangeSituation)
 			{
-				if(LobbyStart.Get.IsDebugAnimation) {
+				if(IsDebugAnimation) {
 					Debug.LogWarning ("UIGame.Get.Scores [0] : " + UIGame.Get.Scores [0]);
 					Debug.LogWarning ("UIGame.Get.MaxScores [0] : " + UIGame.Get.MaxScores [0]);
 					Debug.LogWarning ("UIGame.Get.Scores [1] : " + UIGame.Get.Scores [1]);
 					Debug.LogWarning ("UIGame.Get.MaxScores [1] : " + UIGame.Get.MaxScores [1]);
 				}
+
 				if(!IsGameFinish ()) {
 					if(team == ETeamKind.Self.GetHashCode())
 					{
@@ -4185,13 +4170,14 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		ShootDistance = 0;
 
-		if(LobbyStart.Get.IsDebugAnimation) {
+		if(IsDebugAnimation) {
 			if(shootSwishTimes != shootScoreSwishTimes)
 				Debug.LogWarning("shootSwishTimes != shootScoreSwishTimes");
+            
 			if(shootTimes != shootScoreTimes)
 				Debug.LogWarning("shootTimes != shootScoreTimes");
 		}
-		if (LobbyStart.Get.TestMode == EGameTest.AttackA) {
+		if (TestMode == EGameTest.AttackA) {
 			SetBall(Joysticker);
 		}
     }
@@ -4452,7 +4438,7 @@ public class GameController : KnightSingleton<GameController>
 		GameRecord.Init(PlayerList.Count);
 		SetPlayerAI(true);
 		SetBallOwnerNull();
-		GameTime = MissionChecker.Get.MaxGameTime;
+		GameWinTime = MissionChecker.Get.MaxGameTime;
 		MissionChecker.Get.Reset();
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);

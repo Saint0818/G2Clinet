@@ -40,7 +40,7 @@ public class ShootCurveCounter
 //        mIsLookAt = false;
 
 //        if(!string.IsNullOrEmpty(curveName) && mCurve == null && LobbyStart.Get.IsDebugAnimation)
-        if(mCurve == null && LobbyStart.Get.IsDebugAnimation)
+        if(mCurve == null)
             Debug.LogErrorFormat("Can't Found Curve: {0}", curveName);
     }
 

@@ -579,8 +579,7 @@ public class FileManager : KnightSingleton<FileManager>
 					GameData.DItemData.Add(data[i].ID, data[i]);
 				else 
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
-
-
+                
 				if(data[i].Kind >= 51 && data[i].Kind <= 59) {
 					data[i].Index = i;
 					GameData.DBuildData.Add(data[i]);

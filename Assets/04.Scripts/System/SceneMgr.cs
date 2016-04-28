@@ -7,7 +7,6 @@ public static class ESceneName
 {
 	public const string Null = "Null";
 	public const string Lobby = "Lobby";
-	public const string SelectRole = "SelectRole";
 	public const string Court = "Court_";
 }
 
@@ -44,17 +43,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 Resources.UnloadUnusedAssets();
                 break;
 
-			case ESceneName.SelectRole:
-                if (GameData.StageID >= 0)
-                    UILoading.UIShow(true, ELoading.Stage);
-                else
-                    UILoading.UIShow(true, ELoading.SelectRole);
-
-                SceneManager.UnloadScene(ESceneName.Null);
-                break;
-
-            default:
-                //Court:
+            default: //Court:
                 UILoading.UIShow(true, ELoading.Game);
                 SceneManager.UnloadScene(ESceneName.Null);
                 break;

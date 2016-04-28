@@ -3435,7 +3435,7 @@
         "nameen": "Forzen queen grommet",
         "namejp": "ディフェンダーの宝石14",
         "explaintw": "屬於女王的霸氣手裝。\n\n限定[00BA7BFF]後衛[-]裝備。",
-        "explainen": "Belongs to the queen's domineering hand loaded.\n\nLimited [00BA7BFF] Guard [-] equipment. \""
+        "explainen": "Belongs to the queen's domineering hand loaded.\n\nLimited [00BA7BFF] Guard [-] equipment."
     },
     {
         "id": 2215,
@@ -8329,13 +8329,10 @@
     {
         "id": 6032,
         "nametw": "頭飾32",
-<<<<<<< Updated upstream
-=======
         "kind": 6,
         "atlas": 6,
         "icon": 6032,
         "avatar": 30001,
->>>>>>> Stashed changes
         "sell": 0
     },
     {
@@ -8964,13 +8961,10 @@
     {
         "id": 7032,
         "nametw": "背飾32",
-<<<<<<< Updated upstream
-=======
         "kind": 7,
         "atlas": 7,
         "icon": 7032,
         "avatar": 30001,
->>>>>>> Stashed changes
         "sell": 0,
         "namecn": "背饰32",
         "nameen": "Back decorated 32",
@@ -20608,41 +20602,5 @@
         "nameen": " {0} Social coin ",
         "explaintw": "獲得{0}社群幣",
         "explainen": "Get {0} Social coin "
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
-    },
-    {
-        "sell": 0
     }
 ]

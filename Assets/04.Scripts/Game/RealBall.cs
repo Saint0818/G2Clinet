@@ -11,6 +11,7 @@ using UnityEngine;
 /// </summary>
 public class RealBall : MonoBehaviour
 {
+    public EGameTest TestMode;
     private GameObject goRefBall;
     public EPlayerState State;
     public BallTrigger Trigger;
@@ -142,7 +143,7 @@ public class RealBall : MonoBehaviour
     public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
     {
         if (!GameController.Get.IsStart && state != EPlayerState.Start &&
-        state != EPlayerState.Reset && LobbyStart.Get.TestMode == EGameTest.None)
+            state != EPlayerState.Reset && TestMode == EGameTest.None)
             return;
         
        	SetBallOwnerNull();
