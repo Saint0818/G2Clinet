@@ -52,6 +52,8 @@ public class UIGameLobby : UIBase
 
     public void GoToMainStage()
     {
+        Statistic.Ins.LogEvent(51);
+
         UIMainStageTools.ClearSelectChapter();
         UIMainStage.Get.Show();
         Hide();
