@@ -286,6 +286,25 @@ public class SkillController : MonoBehaviour {
 		
 		return directState;
 	}
+
+	private string getPassAnimation (int direct) {
+		switch (direct) {
+		case 1://Forward
+			return "Pass5";
+		case 2://Back
+			if(Random.Range(0, 2) == 0)
+				return "Pass6";
+			else
+				return "Pass9";
+		case 3://Left
+			return "Pass7";
+		case 4://Right
+			return "Pass8";
+		}
+
+		return "Pass5";
+	}
+
 	
 	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
@@ -327,9 +346,11 @@ public class SkillController : MonoBehaviour {
 		if(DPassiveSkills.ContainsKey(skillKind)) {
 			for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
 				if(kind == ESkillKind.Pass) {
-					if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Direct == passDirect) 
-						if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
-							skills.Add(DPassiveSkills[skillKind][i]);
+//					if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Direct == passDirect) 
+					//傳球只有一招技能，用方向去判斷動作
+					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate) 
+						skills.Add(DPassiveSkills[skillKind][i]);
+						
 				} else 
 				if(kind == ESkillKind.UpHand || kind == ESkillKind.DownHand) { 
 					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate) {
@@ -403,7 +424,10 @@ public class SkillController : MonoBehaviour {
 				if(!randomizer.IsEmpty()) {
 					TPassiveType type = randomizer.GetNext();
 					PassiveSkillUsed = type.Tskill;
-					return GameData.DSkillData[type.Tskill.ID].Animation;
+					if(kind == ESkillKind.Pass)
+						return getPassAnimation(passDirect);
+					else
+						return GameData.DSkillData[type.Tskill.ID].Animation;
 				} else 
 					return string.Empty;
 			} else 
