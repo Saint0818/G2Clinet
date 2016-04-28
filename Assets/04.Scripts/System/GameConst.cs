@@ -256,4 +256,10 @@
     public const int PVPCD_Price = 50;
 	public const int MaxLotteryFreeTime = 10;
     public const int Diamond_RentPlayer = 50;
+
+    /// <summary>
+    /// 關卡獲勝後, 獎勵 3 選 1 要扣的鑽石數量.
+    /// </summary>
+    public const int Stage3Pick1Diamond2 = 20; // 選擇第 2 個亂數獎勵要扣的鑽石.
+    public const int Stage3Pick1Diamond3 = 100; // 選擇第 3 個亂數獎勵要扣的鑽石.
 }

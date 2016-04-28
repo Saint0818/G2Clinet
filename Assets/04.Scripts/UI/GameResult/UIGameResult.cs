@@ -254,10 +254,10 @@ public struct TGameResultThreeAward {
 		ItemAwardGroup[index].gameObject.SetActive(true);
 		if(ChooseCount == 0) {
 			showPayDiamond(index);
-			setPayDiamond(20);
+			setPayDiamond(GameConst.Stage3Pick1Diamond2);
 		} else if (ChooseCount == 1) {
 			DiamondPay[index].gameObject.SetActive(false);
-			setPayDiamond(100);
+			setPayDiamond(GameConst.Stage3Pick1Diamond3);
 		}else {
 			DiamondPay[index].gameObject.SetActive(false);
 		}
@@ -776,17 +776,17 @@ public class UIGameResult : UIBase {
 
 	public bool PayChooseReward () {
 		if(resultThree.ChooseCount == 0) {
-			stageRewardAgain(GameData.StageID);
+			stageRewardAgain(GameData.StageID, 0);
 			return true;
 		} else if (resultThree.ChooseCount == 1) {
-			if(GameData.Team.Diamond >= 20) {
-				stageRewardAgain(GameData.StageID);
+			if(GameData.Team.Diamond >= GameConst.Stage3Pick1Diamond2) {
+				stageRewardAgain(GameData.StageID, GameConst.Stage3Pick1Diamond2);
 				return true;
 			} else
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
 		} else if(resultThree.ChooseCount == 2) {
-			if(GameData.Team.Diamond >= 100) {
-				stageRewardAgain(GameData.StageID);
+			if(GameData.Team.Diamond >= GameConst.Stage3Pick1Diamond3) {
+				stageRewardAgain(GameData.StageID, GameConst.Stage3Pick1Diamond3);
 				return true;
 			} else
 				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
@@ -974,19 +974,24 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	/// <summary>
-	/// Stages the reward again.
-	/// </summary>
-	/// <param name="stageID">Stage I.</param>
-	private void stageRewardAgain(int stageID)
+    /// <summary>
+    /// Stages the reward again.
+    /// </summary>
+    /// <param name="stageID">Stage I.</param>
+    /// <param name="payDiamond"></param>
+    private void stageRewardAgain(int stageID, int payDiamond)
 	{
 	    var again = new StageRewardAgainProtocol();
         again.Send(stageID, waitMainStageRewardAgain);
-	}
+
+        TStageData stageData = StageTable.Ins.GetByID(stageID);
+        if (stageData.IsValid() && stageData.HasRandomRewards())
+            Statistic.Ins.LogEvent(59, stageID.ToString(), payDiamond);
+    }
 	
 	private void waitMainStageRewardAgain(bool ok, TStageRewardAgain reward)
 	{
-		Debug.LogFormat("WaitMainStageRewardAgain, ok:{0}", ok);
+//		Debug.LogFormat("WaitMainStageRewardAgain, ok:{0}", ok);
 		
 		if (ok)
 		{
@@ -996,6 +1001,4 @@ public class UIGameResult : UIBase {
 		else
 			UIHint.Get.ShowHint("Stage Reward fail!", Color.black);
 	}
-
-
 }

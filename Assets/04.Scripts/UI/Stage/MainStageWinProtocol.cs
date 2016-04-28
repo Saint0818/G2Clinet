@@ -1,4 +1,5 @@
 ﻿using System;
+using GameStruct;
 using UnityEngine;
 
 public class MainStageWinProtocol
@@ -31,13 +32,7 @@ public class MainStageWinProtocol
 
 //            Debug.LogFormat("waitMainStageWin:{0}", reward);
 
-            TStageData stageData = StageTable.Ins.GetByID(mStageID);
-            if(stageData.IsValid() && stageData.HasRandomRewards()) 
-                Statistic.Ins.LogEvent(59, mStageID.ToString(), GameData.Team.Diamond - reward.Diamond);
-
-            int addMoney = reward.Money - GameData.Team.Money;
-            if(addMoney > 0)
-                Statistic.Ins.LogEvent(60, addMoney);
+            trySendStatisticEvents(reward);
 
             GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
@@ -54,6 +49,23 @@ public class MainStageWinProtocol
         {
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
             mCallback(false, new TStageReward());
+        }
+    }
+
+    private void trySendStatisticEvents(TStageReward reward)
+    {
+        TStageData stageData = StageTable.Ins.GetByID(mStageID);
+        if(stageData.IsValid() && stageData.HasRandomRewards())
+            Statistic.Ins.LogEvent(59, mStageID.ToString(), 0);
+
+        if(GameData.DItemData.ContainsKey(reward.RandomItemID))
+        {
+            TItemData item = GameData.DItemData[reward.RandomItemID];
+            if(item.Kind == 31)
+                Statistic.Ins.LogEvent(60, item.Value);
+
+            if(item.Kind == 32)
+                Statistic.Ins.LogEvent(61, item.Value);
         }
     }
 }
