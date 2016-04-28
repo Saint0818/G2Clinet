@@ -51,6 +51,7 @@ public class UIEquipment : UIBase
         updateUI();
 
         Statistic.Ins.LogScreen(13);
+        Statistic.Ins.LogEvent(203);
     }
 
     private void updateUI()
