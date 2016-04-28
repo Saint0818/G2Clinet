@@ -56,10 +56,10 @@ public class StageRewardAgainProtocol
         {
             TItemData item = GameData.DItemData[reward.RandomItemID];
             if(item.Kind == 31)
-                Statistic.Ins.LogEvent(60, item.Value);
+                Statistic.Ins.LogEvent(60, mStageID.ToString(), item.Value);
 
             if(item.Kind == 32)
-                Statistic.Ins.LogEvent(61, item.Value);
+                Statistic.Ins.LogEvent(61, mStageID.ToString(), item.Value);
         }
     }
 }
