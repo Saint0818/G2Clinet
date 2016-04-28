@@ -58,12 +58,42 @@ public class Statistic
             return;
         }
 
-//        Debug.LogFormat("LogEvent, ID:{0}", id);
+        logEvent(data.ID, data.Category, data.Action, data.Label, data.Value);
+    }
 
-        for (var i = 0; i < mServices.Count; i++)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> statisticevent.json 表格的 id. </param>
+    /// <param name="customLabel"> 不使用 statisticevent.json 表格的 Value, 改用這個值. </param>
+    public void LogEvent(int id, string customLabel)
+    {
+        TStatisticEventData data = StatisticEventTable.Ins.Get(id);
+        if (data == null)
         {
-            mServices[i].LogEvent(data.ID, data.Category, data.Action, data.Label, data.Value);
+            Debug.LogWarningFormat("ID({0}) don't exist.", id);
+            return;
         }
+
+        // 因為僅自定 label, value 不需要傳送. 所以傳送 -1.
+        logEvent(data.ID, data.Category, data.Action, customLabel, -1);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"> statisticevent.json 表格的 id. </param>
+    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值. </param>
+    public void LogEvent(int id, int customValue)
+    {
+        TStatisticEventData data = StatisticEventTable.Ins.Get(id);
+        if (data == null)
+        {
+            Debug.LogWarningFormat("ID({0}) don't exist.", id);
+            return;
+        }
+
+        logEvent(data.ID, data.Category, data.Action, data.Label, customValue);
     }
 
     /// <summary>
@@ -75,17 +105,30 @@ public class Statistic
     public void LogEvent(int id, string customLabel, int customValue)
     {
         TStatisticEventData data = StatisticEventTable.Ins.Get(id);
-        if (data == null)
+        if(data == null)
         {
             Debug.LogWarningFormat("ID({0}) don't exist.", id);
             return;
         }
 
-//        Debug.LogFormat("LogEvent, ID:{0}, CustomLabel:{1}, CustomValue:{2}", id, customLabel, customValue);
+        logEvent(data.ID, data.Category, data.Action, customLabel, customValue);
+    }
 
-        for(var i = 0; i < mServices.Count; i++)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="category"></param>
+    /// <param name="action"></param>
+    /// <param name="label"> (Optional) 空字串表示不送此資訊. </param>
+    /// <param name="value"> (Optional) 小於 0 表示此參數不送. </param>
+    private void logEvent(int id, string category, string action, string label, int value)
+    {
+//        Debug.LogFormat("LogEvent, ID:{0}, Category:{1}, Action:{2}, CustomLabel:{3}, CustomValue:{4}", id, category, action, label, value);
+
+        for (var i = 0; i < mServices.Count; i++)
         {
-            mServices[i].LogEvent(data.ID, data.Category, data.Action, customLabel, customValue);
+            mServices[i].LogEvent(id, category, action, label, value);
         }
     }
 }
