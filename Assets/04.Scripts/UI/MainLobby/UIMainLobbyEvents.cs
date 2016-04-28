@@ -121,6 +121,6 @@ public class UIMainLobbyEvents : MonoBehaviour
 			UISuitAvatar.Get.ShowView();
 		}
 		else
-			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Shop)), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.black);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)), LimitTable.Ins.GetLv(EOpenID.SuitItem)), Color.black);
 	}
 }
