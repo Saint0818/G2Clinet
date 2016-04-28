@@ -21,6 +21,8 @@ public class UIMainLobbyEvents : MonoBehaviour
 
         UIMainLobby.Get.Hide();
         UIResource.Get.Show();
+
+        Statistic.Ins.LogEvent(1);
     }
 
     public void ShowSkillFormation()
