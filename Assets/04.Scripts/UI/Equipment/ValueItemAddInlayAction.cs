@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 數值裝材料鑲嵌.
+/// </summary>
 public class ValueItemAddInlayAction : ActionQueue.IAction
 {
     private readonly int mPlayerValueItemKind;

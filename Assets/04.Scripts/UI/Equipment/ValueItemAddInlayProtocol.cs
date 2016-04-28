@@ -17,6 +17,8 @@ public class ValueItemAddInlayProtocol
         public TTeamRecord LifetimeRecord;
     }
 
+    private int mPlayerValueItemKind;
+
     /// <summary>
     /// 
     /// </summary>
@@ -27,9 +29,10 @@ public class ValueItemAddInlayProtocol
                      Action<bool> callback)
     {
         mCallback = callback;
+        mPlayerValueItemKind = playerValueItemKind;
 
         WWWForm form = new WWWForm();
-        form.AddField("ValueItemKind", playerValueItemKind);
+        form.AddField("ValueItemKind", mPlayerValueItemKind);
         form.AddField("MaterialItemIndex", storageMaterialItemIndex);
         SendHttp.Get.Command(URLConst.ValueItemAddInlay, waitAddValueItemInlay, form);
     }
@@ -45,6 +48,10 @@ public class ValueItemAddInlayProtocol
             GameData.Team.MaterialItems = data.MaterialItems;
             GameData.Team.LifetimeRecord = data.LifetimeRecord;
             GameData.Team.PlayerInit();
+
+            TValueItem valueItem = GameData.Team.Player.GetValueItem(mPlayerValueItemKind);
+            if(valueItem != null)
+                Statistic.Ins.LogEvent(204, valueItem.ID.ToString());
         }
         else
             UIHint.Get.ShowHint(www.text, Color.red);

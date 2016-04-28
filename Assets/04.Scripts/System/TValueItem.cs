@@ -3,6 +3,7 @@ using System.Linq;
 using GameStruct;
 using JetBrains.Annotations;
 
+[UsedImplicitly]
 public class TValueItem
 {
     public int ID;

@@ -75,8 +75,7 @@ public class Statistic
             return;
         }
 
-        // 因為僅自定 label, value 不需要傳送. 所以傳送 -1.
-        logEvent(data.ID, data.Category, data.Action, customLabel, -1);
+        logEvent(data.ID, data.Category, data.Action, customLabel, data.Value);
     }
 
     /// <summary>
