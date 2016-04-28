@@ -38,6 +38,8 @@ public class ResetStageDailyChallengeProtocol
         {
             var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
 
+            Statistic.Ins.LogEvent(52, GameData.Team.Diamond - data.Diamond);
+
             GameData.Team.Diamond = data.Diamond;
             GameData.Team.Player.StageDailyChallengeNums = data.StageDailyChallengeNums;
             GameData.Team.Player.ResetStageDailyChallengeNums = data.ResetStageDailyChallengeNums;

@@ -83,7 +83,7 @@ public class Statistic
     /// 
     /// </summary>
     /// <param name="id"> statisticevent.json 表格的 id. </param>
-    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值. </param>
+    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值(要給 >= 0 的數值). </param>
     public void LogEvent(int id, int customValue)
     {
         TStatisticEventData data = StatisticEventTable.Ins.Get(id);
@@ -101,7 +101,7 @@ public class Statistic
     /// </summary>
     /// <param name="id"> statisticevent.json 表格的 id. </param>
     /// <param name="customLabel"> 不使用 statisticevent.json 表格的 Label, 改用這個值. </param>
-    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值. </param>
+    /// <param name="customValue"> 不使用 statisticevent.json 表格的 Value, 改用這個值(要給 >= 0 的數值). </param>
     public void LogEvent(int id, string customLabel, int customValue)
     {
         TStatisticEventData data = StatisticEventTable.Ins.Get(id);
