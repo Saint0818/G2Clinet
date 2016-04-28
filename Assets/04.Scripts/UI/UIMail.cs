@@ -44,51 +44,92 @@ public struct TMail
 public class MailSubPage {
 	public GameObject redPoint;
 	public GameObject pageObject;
+	public bool isActive;
 
 	public virtual void HookUI(string UIName, int i)
 	{
 			redPoint = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/" + i.ToString() + "/RedPoint");
 			pageObject = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString());
 
-			UIBase.SetBtnFun (UIName + "/Window/Center/Tabs/" + i.ToString (), OnPage);
+			UIBase.SetBtnFun (UIName + "/Window/Center/Group0/Tabs/" + i.ToString (), OnPage);
 			redPoint.SetActive(false);
 			pageObject.SetActive(false);
 	}
 
 	public virtual void OnPage() {
+		UIMail.Get.HideAllPage ();
+		SetActive (true);
 	}
 
-	public void SetActive(bool a){
+	public virtual void SetActive(bool a){
+		isActive = a;
 		pageObject.SetActive (a);
 	}
 }
 
 public class MailSubPageHtml : MailSubPage {
-
+	public GameObject webViewGameObject;
+	private bool loadComplete = false;
+	public UniWebView webView;
 	public MailSubPageHtml(string UIName, int i){
 		HookUI (UIName, i);
+	}
+
+	void Destroy(){
+		GameObject.Destroy (webViewGameObject);
 	}
 
 	public override void HookUI(string UIName, int i)
 	{
 		base.HookUI (UIName, i);
 
+		webViewGameObject = GameObject.Find("WebView");
+		if (webViewGameObject == null)
+			webViewGameObject = new GameObject("WebView");
+
+		webView = webViewGameObject.AddComponent<UniWebView>();
+		webView.OnLoadComplete += OnLoadComplete;
+		webView.InsetsForScreenOreitation += InsetsForScreenOreitation;
+		webView.toolBarShow = true;
+
+		string host = "http://nicemarket.com.tw/";
+		//string host = "http://localhost:3300/";
+		string url = string.Format(host + "notic?game={0}&company={1}&os={2}&language={3}&version={4}", "g2", 
+			GameData.Company, GameData.OS, GameData.Setting.Language.ToString(), GameData.SaveVersion);
+
+		Debug.Log (url);
+		webView.url = url;
+		webView.Load();
+
 	}
 
+	public override void SetActive(bool a){
+		base.SetActive (a);
+		if (a == false)
+			webView.Hide ();
+		else
+			webView.Show ();
+	}
+
+	UniWebViewEdgeInsets InsetsForScreenOreitation(UniWebView webView, UniWebViewOrientation orientation) {
+		return new UniWebViewEdgeInsets(160,110,70,110);
+	}
+
+	void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {
+		if (success) {
+			loadComplete = true;
+			if(isActive)
+				webView.Show();
+
+		} else {
+			Debug.Log("Something wrong in webview loading: " + errorMessage);
+		}
+	}
+		
 	public override void OnPage() {
-		//		if (waitForAnimator)
-		//			return;
-		//
-		//		for (int i = 0; i < pageObjects.Length; i++)
-		//			pageObjects[i].SetActive(false);
-		//
-		//		int index = -1;
-		//		if (int.TryParse(UIButton.current.name, out index)) {
-		//			pageObjects[index].SetActive(true);
-		//			nowPage = index;
-		//
-		//			initMissionList(index);
-		//		}
+		base.OnPage ();
+		if(loadComplete)
+			webView.Show();
 	}
 }
 	
@@ -110,7 +151,12 @@ public class MailSubPagePrize : MailSubPage {
 
 	}
 
+	public override void SetActive(bool a){
+		base.SetActive (a);
+	}
+
 	public override void OnPage() {
+		base.OnPage ();
 		//		if (waitForAnimator)
 		//			return;
 		//
@@ -144,7 +190,12 @@ public class MailSubPageSocial : MailSubPage {
 
 	}
 
+	public override void SetActive(bool a){
+		base.SetActive (a);
+	}
+
 	public override void OnPage() {
+		base.OnPage ();
 		//		if (waitForAnimator)
 		//			return;
 		//
@@ -176,7 +227,7 @@ public class UIMail : UIBase {
 
 	// group0
 	private const int pageNum = 3;
-	private int nowPage = 1;
+	private int nowPage = 0;
 	private MailSubPage[] subPages = new MailSubPage[pageNum];
 
 	// group 1
@@ -202,9 +253,13 @@ public class UIMail : UIBase {
 		set {
 			if (instance) {
 				if (value)
-					instance.Show(value);
-				else
-					RemoveUI(instance.gameObject);
+					instance.Show (value);
+				else {
+					MailSubPageHtml tmp = (MailSubPageHtml)(instance.subPages [0]);
+					if (tmp.webViewGameObject)
+						Destroy(tmp.webViewGameObject);
+					RemoveUI (instance.gameObject);
+				}
 			} else
 				if (value)
 					Get.Show(value);
@@ -265,6 +320,9 @@ public class UIMail : UIBase {
 		
 	private void OnGotoGroup1()
 	{
+		// todo: 公告藏起來
+
+		//
 		if (UI3DMainLobby.Visible)
 			UI3DMainLobby.Get.Impl.OnSelect (8);
 		changeBtn.gameObject.SetActive (false);
@@ -380,6 +438,9 @@ public class UIMail : UIBase {
 
 	private void OnExitGroup1()
 	{
+		if(!isRealChange) 
+			UI3DMainLobby.Get.Impl.ReplaceObj(8, mAvatarIndex);
+		
 	}
 
 	private void OnClose()
@@ -402,14 +463,16 @@ public class UIMail : UIBase {
 
 	}
 
+	public void HideAllPage(){
+		for (int i = 0; i < subPages.Length; i++) {
+			subPages[i].SetActive(false);
+
+		}
+	}
 	protected override void OnShow(bool isShow) {
 		base.OnShow(isShow);
 		if (isShow) {
-			for (int i = 0; i < subPages.Length; i++) {
-				subPages[i].SetActive(false);
-				//initRedPoint(i);
-			}
-
+			//initRedPoint(i);
 			subPages [nowPage].OnPage ();
 			setDecoScrollView ();
 
