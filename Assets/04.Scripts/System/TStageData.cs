@@ -283,6 +283,15 @@ public class TStageData
         return String.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);
     }
 
+	public bool IsNeedOverTime {
+		get {
+			if(HintBit[0] == 2 && HintBit[1] == 1 && HintBit[2] == 0 && HintBit[3] == 0)
+				return true;
+			else
+				return false;
+		}
+	}
+
     public int[] HintBit
     {
         get

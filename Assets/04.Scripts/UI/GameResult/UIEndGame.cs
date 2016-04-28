@@ -5,8 +5,9 @@ public class UIEndGame : UIBase {
 	private static UIEndGame instance = null;
 	private const string UIName = "UIEndGame";
 
-	private UILabel labelEndGame;
 	private Animator animator;
+
+	private bool isShowOneMinute = true;
 
 	public static bool Visible {
 		get {
@@ -28,6 +29,14 @@ public class UIEndGame : UIBase {
 		}
 	}
 
+	public static void UIShow(bool isShow){
+		if (instance)
+			instance.Show(isShow);
+		else
+			if (isShow)
+				Get.Show(isShow);
+	}
+
 	public static UIEndGame Get
 	{
 		get {
@@ -40,12 +49,23 @@ public class UIEndGame : UIBase {
 
 	protected override void InitCom() {
 		animator = gameObject.GetComponent<Animator>();
-		labelEndGame = GameObject.Find(UIName + "/Center/Window/EndGameLabel").GetComponent<UILabel>();
+
+		isShowOneMinute = true;
 	}
 
-	public void ShowView () {
-		Visible = true;
-		animator.SetTrigger("EndGame");
+	public void ShowFinish () {
+		animator.SetTrigger("TimeUp");
+	}
+
+	public void ShowOneMinute () {
+		if(isShowOneMinute) {
+			animator.SetTrigger("OneMinute");
+			isShowOneMinute = false;
+		}
+	}
+
+	public void ShowOverTime () {
+		animator.SetTrigger("Overtime");
 	}
 }
 

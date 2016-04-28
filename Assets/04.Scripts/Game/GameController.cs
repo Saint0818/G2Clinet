@@ -45,25 +45,6 @@ struct TPlayerDisData
     public float Distance;
 }
 
-public struct TPassIcon
-{
-    public GameObject Obj;
-    public UISprite Face;
-
-    public void UpdateFace(string faceName)
-    {
-        Face.spriteName = faceName;
-    }
-
-    public bool FaceVisible
-    {
-        set
-        {
-            Face.gameObject.SetActive(value);
-        }
-    }
-}
-
 public class GameController : KnightSingleton<GameController>
 {
     public EModelTest TestModel = EModelTest.None;
@@ -200,19 +181,15 @@ public class GameController : KnightSingleton<GameController>
 
 	//Basket
 	public EBasketSituation BasketSituation;
-   
-	//Effect
-	public TPassIcon[] passIcon = new TPassIcon[3];
 
 	//Player Anger 每秒回復的士氣值（浮動值會依據套卡而變化）
 	private float recoverTime = 1;
 	private float recoverAngerBase = 0.5f;
+	private float extraIncrease = 1;
 
 	//SelectMe
 	private GameObject playerSelectMe;
 	private Transform PlayerSelectArrow;
-	private Vector3 playerTarget;
-	private Vector3 enemyTarget;
 	public PlayerBehaviour NpcSelectMe;
 
 	public EPlayerState testState = EPlayerState.Shoot0;
@@ -816,12 +793,12 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private void setPassIcon (int index, string effectname, PlayerBehaviour player) {
-		if(index >=0 && index < passIcon.Length) {
-			passIcon[index].Obj = EffectManager.Get.PlayEffect(effectname, player.BodyHeight.transform.localPosition, player.PlayerRefGameObject);
-			passIcon[index].Face = passIcon[index].Obj.transform.Find("View/HeadPic").GetComponent<UISprite>();
-			passIcon[index].UpdateFace(player.Attribute.FacePicture);
+		if(index >=0 && index < 3) {
+			GameObject obj = EffectManager.Get.PlayEffect(effectname, player.BodyHeight.transform.localPosition, player.PlayerRefGameObject);
+			UISprite sprite = obj.transform.Find("View/HeadPic").GetComponent<UISprite>();
+			sprite.spriteName = player.Attribute.FacePicture;
 			if(player != Joysticker)
-				passIcon[index].FaceVisible = false;
+				sprite.gameObject.SetActive(false);
 		}
 	}
 
@@ -951,8 +928,8 @@ public class GameController : KnightSingleton<GameController>
 		{
 			if (!GameRecord.Done && !CourtMgr.Get.IsBallOffensive) 
 			{
-				UIEndGame.Get.ShowView();
 				GameRecord.Done = true;
+				UIInGameMission.UIShow(false);
 				StartCoroutine (playFinish ());
 			}
 		}
@@ -965,7 +942,7 @@ public class GameController : KnightSingleton<GameController>
 					recoverTime -= Time.deltaTime;	
 					if(recoverTime <= 0) {
 						recoverTime = GameConst.AngerReviveTime;
-						Joysticker.ReviveAnger(recoverAngerBase);
+						Joysticker.ReviveAnger(recoverAngerBase * extraIncrease);
 					}
 				}
 			}
@@ -1572,6 +1549,7 @@ public class GameController : KnightSingleton<GameController>
 				UICourtInstant.UIShow(false);
 				UIInGameMission.UIShow(true);
 				UIInGameMission.UIShow(false);
+				UIEndGame.Visible = true;
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
@@ -1619,8 +1597,6 @@ public class GameController : KnightSingleton<GameController>
 					SendHttp.Get.Command(URLConst.PVPEnd, waitPVPEnd, form, false);
 					GameData.PVPEnemyMembers[0].Identifier = string.Empty;
 				}
-					
-//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }
 
@@ -3898,10 +3874,15 @@ public class GameController : KnightSingleton<GameController>
 	private void gameResult()
 	{
 		UITutorial.UIShow(false);
-		UIInGameMission.UIShow(false);
 		if(Situation != EGameSituation.End) {
-			ChangeSituation(EGameSituation.End);
-			AIController.Get.ChangeState(EGameSituation.End);
+			if(StageData.IsNeedOverTime && UIGame.Get.IsScoreEqual) {
+				UIEndGame.Get.ShowOverTime();
+				GameWinTime = 60;
+			} else {
+				UIEndGame.Get.ShowFinish();
+				ChangeSituation(EGameSituation.End);
+				AIController.Get.ChangeState(EGameSituation.End);
+			}
 		}
 	}
 
@@ -4055,9 +4036,15 @@ public class GameController : KnightSingleton<GameController>
 
 
 	public bool IsTimePass() {
-		if (TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameWinTime > 0) 
+		if (TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameWinTime > 0) {
+			if(GameWinTime <= 60) {
+				extraIncrease = 2;
+				UIEndGame.Get.ShowOneMinute();
+				UIGame.Get.SetTimeColor(Color.red);
+			}
 			return MissionChecker.Get.IsTimePass(ref GameWinTime);
-
+		}
+		
 		if(GameWinTime <= 0) {
 			GameWinTime -= Time.deltaTime;
 			if(GameWinTime < -2)

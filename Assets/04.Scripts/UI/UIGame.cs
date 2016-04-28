@@ -160,6 +160,8 @@ public class UIGame : UIBase
     private float skillHintTime;
     private int skillHintIndex;
 
+	private bool isOneMinute = true;
+
     public static UIGame Get
     {
         get
@@ -196,6 +198,7 @@ public class UIGame : UIBase
                 UILevelUp.Visible = false;
                 UIAchievement.Visible = false;
 				UIGamePlayerInfo.Visible = false;
+				UIEndGame.Visible = false;
             }
 
             if (instance)
@@ -1734,6 +1737,13 @@ public class UIGame : UIBase
             joystickController.Joysticker = player;
     }
 
+	public void SetTimeColor (Color color) {
+		if(isOneMinute) {
+			labelLimitTime.effectColor = color;
+			isOneMinute = false;
+		}
+	}
+
     public bool IsPlayerMe
     {
         get { return (PlayerMe != null); }
@@ -1756,4 +1766,8 @@ public class UIGame : UIBase
     {
         get { return StageTable.Ins.HasByID(GameData.StageID); }
     }
+
+	public bool IsScoreEqual {
+		get { return (Scores[0] == Scores[1]);}
+	}
 }

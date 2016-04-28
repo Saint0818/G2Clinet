@@ -2964,8 +2964,6 @@ public class PlayerBehaviour : MonoBehaviour
 				
                 CameraMgr.Get.SkillShowActive(this, skillEffectKind, skillTime);
                 AudioMgr.Get.PlaySound(SoundType.SD_ActiveLaunch);
-                
-
                 switch (skillEffectKind)
                 {
                     case 0://show self and rotate camera
