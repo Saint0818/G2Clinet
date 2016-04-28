@@ -35,6 +35,10 @@ public class MainStageWinProtocol
             if(stageData.IsValid() && stageData.HasRandomRewards()) 
                 Statistic.Ins.LogEvent(59, mStageID.ToString(), GameData.Team.Diamond - reward.Diamond);
 
+            int addMoney = reward.Money - GameData.Team.Money;
+            if(addMoney > 0)
+                Statistic.Ins.LogEvent(60, addMoney);
+
             GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
