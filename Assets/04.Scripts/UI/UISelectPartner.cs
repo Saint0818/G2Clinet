@@ -252,7 +252,7 @@ public class UISelectPartner : UIBase {
 
     private void waitRent(bool ok, WWW www) {
         if (ok) {
-            TRentPlayerResult result = JsonConvert.DeserializeObject <TRentPlayerResult>(www.text, SendHttp.Get.JsonSetting);
+            TRentPlayerResult result = JsonConvertWrapper.DeserializeObject <TRentPlayerResult>(www.text);
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.RentPlayerTime = result.RentPlayerTime;
             updateRentDate();

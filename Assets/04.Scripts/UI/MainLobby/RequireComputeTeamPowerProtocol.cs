@@ -34,7 +34,7 @@ public class RequireComputeTeamPowerProtocol
 
         if(ok)
         {
-			var data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
 
             Debug.Log(data);
 

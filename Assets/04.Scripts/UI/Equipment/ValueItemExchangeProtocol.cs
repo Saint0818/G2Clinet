@@ -24,7 +24,7 @@ public class ValueItemExchangeProtocol
     {
         if(ok)
         {
-			var team = JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
+            var team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
             trySendNewValueTimeEvent(GameData.Team.Player.ValueItems, team.Player.ValueItems);
             GameData.Team.Player = team.Player;
             GameData.Team.ValueItems = team.ValueItems;

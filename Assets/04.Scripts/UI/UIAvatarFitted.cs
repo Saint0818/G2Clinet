@@ -1319,7 +1319,7 @@ public class UIAvatarFitted : UIBase
     {
         if (ok)
         {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
+            TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
             GameData.Team.Items = team.Items;
             GameData.Team.Money = team.Money;
             UIMainLobby.Get.UpdateUI();
@@ -1332,7 +1332,7 @@ public class UIAvatarFitted : UIBase
     {
         if (ok)
         {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
+            TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
 			if(team.Items != null)
             	GameData.Team.Items = team.Items;
 			
@@ -1354,7 +1354,7 @@ public class UIAvatarFitted : UIBase
     {
         if (ok)
         {
-			TTeam team = (TTeam)JsonConvert.DeserializeObject<TTeam>(www.text, SendHttp.Get.JsonSetting);
+            TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
             GameData.Team.Items = team.Items;
             GameData.Team.Player.Items = team.Player.Items;
             GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);

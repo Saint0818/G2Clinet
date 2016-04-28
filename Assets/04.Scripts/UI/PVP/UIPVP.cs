@@ -357,7 +357,7 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-            TPVPReward data = JsonConvert.DeserializeObject <TPVPReward>(www.text, SendHttp.Get.JsonSetting);
+            TPVPReward data = JsonConvertWrapper.DeserializeObject <TPVPReward>(www.text);
             GameData.Team.DailyCount = data.DailyCount;
             UIGetItem.Get.AddExp(2, data.PVPCoin - GameData.Team.PVPCoin);
             UIGetItem.Get.SetTitle(TextConst.S(9707));
@@ -435,7 +435,7 @@ public class UIPVP : UIBase
 		if (ok)
 		{
 			if (SendHttp.Get.CheckServerMessage (www.text)) {
-				TPVPBuyResult data = JsonConvert.DeserializeObject <TPVPBuyResult> (www.text, SendHttp.Get.JsonSetting);
+                TPVPBuyResult data = JsonConvertWrapper.DeserializeObject <TPVPBuyResult> (www.text);
 				GameData.Team.Diamond = data.Diamond;
 				GameData.Team.PVPTicket = data.PVPTicket;
 				GameData.Team.PVPCD = data.PVPCD;
@@ -455,7 +455,7 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-            TPVPEnemyTeams data = JsonConvert.DeserializeObject <TPVPEnemyTeams>(www.text, SendHttp.Get.JsonSetting);
+            TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject <TPVPEnemyTeams>(www.text);
             GameData.Team.Money = data.Money;
             GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
 			pvpLv = GameData.Team.PVPLv;
@@ -491,7 +491,7 @@ public class UIPVP : UIBase
 	{
 		if (ok)
 		{
-			TTeamRank data = JsonConvert.DeserializeObject <TTeamRank>(www.text, SendHttp.Get.JsonSetting);
+            TTeamRank data = JsonConvertWrapper.DeserializeObject <TTeamRank>(www.text);
 			lvRange.LabelMyRank.text = TextConst.S (9742) + data.Index.ToString();
 		}
 	}
@@ -511,7 +511,7 @@ public class UIPVP : UIBase
     {
         if (ok)
         {
-			TTeamRank[] data = JsonConvert.DeserializeObject <TTeamRank[]> (www.text, SendHttp.Get.JsonSetting);
+            TTeamRank[] data = JsonConvertWrapper.DeserializeObject <TTeamRank[]> (www.text);
 			if (currecntPage == 1) {
 				if (leaderBoardLocalItems == null) 
 					initLeaderBoard (ref data, ref leaderBoardLocalItems, anchorLocalList);

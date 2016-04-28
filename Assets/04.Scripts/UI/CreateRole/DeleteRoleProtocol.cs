@@ -33,7 +33,7 @@ public class DeleteRoleProtocol
 
         if(ok)
         {
-			var data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
             GameData.Team.Player = data.Player;
             GameData.Team.PlayerInit();
             GameData.Team.PlayerBank = data.PlayerBank;

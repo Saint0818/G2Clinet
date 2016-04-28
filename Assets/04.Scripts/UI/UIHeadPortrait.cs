@@ -293,7 +293,7 @@ public class UIHeadPortrait : UIBase
     {
         if (ok)
         {
-			TChangeHeadTextureResult result = JsonConvert.DeserializeObject<TChangeHeadTextureResult>(www.text, SendHttp.Get.JsonSetting);
+            TChangeHeadTextureResult result = JsonConvertWrapper.DeserializeObject<TChangeHeadTextureResult>(www.text);
             GameData.Team.Player.HeadTextureNo = result.HeadTextureNo;
             UIMainLobby.Get.UpdateUI();
             UIPlayerInfo.teamdata = GameData.Team;

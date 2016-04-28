@@ -36,7 +36,7 @@ public class ResetStageDailyChallengeProtocol
 
         if(ok)
         {
-            var data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
 
             GameData.Team.Diamond = data.Diamond;
             GameData.Team.Player.StageDailyChallengeNums = data.StageDailyChallengeNums;

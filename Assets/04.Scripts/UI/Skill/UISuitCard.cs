@@ -443,7 +443,7 @@ public class UISuitCard {
 
 	private void waitAddSuitCardExecute(bool ok, WWW www) {
 		if (ok) {
-			TSuitCardResult result = JsonConvert.DeserializeObject <TSuitCardResult>(www.text, SendHttp.Get.JsonSetting); 
+            TSuitCardResult result = JsonConvertWrapper.DeserializeObject <TSuitCardResult>(www.text); 
 			GameData.Team.SuitCardCost = result.SuitCardCost;
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 
@@ -461,7 +461,7 @@ public class UISuitCard {
 
 	private void waitRemoveSuitCardExecute(bool ok, WWW www) {
 		if (ok) {
-			TSuitCardResult result = JsonConvert.DeserializeObject <TSuitCardResult>(www.text, SendHttp.Get.JsonSetting); 
+            TSuitCardResult result = JsonConvertWrapper.DeserializeObject <TSuitCardResult>(www.text); 
 			GameData.Team.SuitCardCost = result.SuitCardCost;
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 

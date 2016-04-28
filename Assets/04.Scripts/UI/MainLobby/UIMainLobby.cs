@@ -343,7 +343,7 @@ public class UIMainLobby : UIBase
 
 	private void waitBuyQueue(bool ok, WWW www) {
 		if (ok) {
-			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+            TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymQueue = result.GymQueue;
 			RefreshQueue();
@@ -362,7 +362,7 @@ public class UIMainLobby : UIBase
 
 	private void waitRefreshQueue(bool ok, WWW www) {
 		if (ok) {
-			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+            TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymBuild = result.GymBuild;
 			GameData.Team.GymQueue = result.GymQueue;

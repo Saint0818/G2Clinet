@@ -565,7 +565,7 @@ public class UIMission : UIBase {
     private void waitMissionFinish(bool ok, WWW www) {
         if (ok) {
             waitForAnimator = true;
-            TMissionFinishResult result = JsonConvert.DeserializeObject <TMissionFinishResult>(www.text, SendHttp.Get.JsonSetting);
+            TMissionFinishResult result = JsonConvertWrapper.DeserializeObject <TMissionFinishResult>(www.text);
             float sec = checkAnimator(finishID, finishLv);
             StartCoroutine(waitUpdateMission(result, sec));
         } else

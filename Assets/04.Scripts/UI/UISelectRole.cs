@@ -606,7 +606,7 @@ public class UISelectRole : UIBase {
 	{
 		if (ok)
 		{
-			TPVPEnemyTeams data = JsonConvert.DeserializeObject <TPVPEnemyTeams>(www.text, SendHttp.Get.JsonSetting);
+            TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject <TPVPEnemyTeams>(www.text);
 			GameData.Team.Money = data.Money;
 			GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
 
@@ -749,7 +749,7 @@ public class UISelectRole : UIBase {
     {
         if (ok)
         {
-            TPVPStart data = JsonConvert.DeserializeObject <TPVPStart>(www.text, SendHttp.Get.JsonSetting);
+            TPVPStart data = JsonConvertWrapper.DeserializeObject <TPVPStart>(www.text);
             GameData.Team.PVPTicket = data.PVPTicket;
             GameData.Team.PVPCD = data.PVPCD;
             enterGame();

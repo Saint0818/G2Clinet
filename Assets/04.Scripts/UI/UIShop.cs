@@ -413,7 +413,7 @@ public class UIShop : UIBase {
 
                     UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, equipAvatar);
                 } else {
-                    UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+                    //UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
                     UIHint.Get.ShowHint(TextConst.S(4514), Color.black);
                 }
             }
@@ -470,7 +470,7 @@ public class UIShop : UIBase {
 
     private void waitRefreshShop(bool ok, WWW www) {
         if (ok) {
-            TFreshShopResult result = JsonConvert.DeserializeObject <TFreshShopResult>(www.text, SendHttp.Get.JsonSetting);
+            TFreshShopResult result = JsonConvertWrapper.DeserializeObject <TFreshShopResult>(www.text);
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.FreshShopTime = result.FreshShopTime;
             GameData.Team.DailyCount.FreshShop = result.DailyCount.FreshShop;
@@ -485,7 +485,7 @@ public class UIShop : UIBase {
 
     private void waitBuy(bool ok, WWW www) {
         if (ok) {
-            TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
+            TTeam result = JsonConvertWrapper.DeserializeObject <TTeam>(www.text);
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.Money = result.Money;
             GameData.Team.PVPCoin = result.PVPCoin;

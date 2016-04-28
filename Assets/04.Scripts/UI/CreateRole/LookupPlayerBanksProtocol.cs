@@ -34,7 +34,7 @@ public class LookupPlayerBanksProtocol
         Data data = null;
         if(isSuccess)
         {
-			data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
             GameData.Team.PlayerBank = data.PlayerBank;
         }
         else

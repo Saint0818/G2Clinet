@@ -34,7 +34,7 @@ public class GMSetStageDailyChallengeNumProtocol
 
         if(ok)
         {
-            var data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
             GameData.Team.Player.StageDailyChallengeNums = data.StageDailyChallengeNums;
         }
 

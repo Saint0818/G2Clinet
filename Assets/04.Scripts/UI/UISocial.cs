@@ -451,7 +451,7 @@ public class UISocial : UIBase {
 
     private void waitLookAvatar(bool ok, WWW www) {
         if (ok) {
-            TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+            TFriend friend = JsonConvertWrapper.DeserializeObject <TFriend>(www.text);
             friend.PlayerInit();
             if (GameData.Team.Friends.ContainsKey(friend.Identifier)) {
                 friend.Kind = GameData.Team.Friends[friend.Identifier].Kind;
@@ -480,7 +480,7 @@ public class UISocial : UIBase {
         if (ok) {
             if (SendHttp.Get.CheckServerMessage(www.text)) {
                 if (nowPage == 2) {
-                    TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                    TFriend friend = JsonConvertWrapper.DeserializeObject <TFriend>(www.text);
                     friend.PlayerInit();
 
                     if (!GameData.Team.Friends.ContainsKey(friend.Identifier))
@@ -509,7 +509,7 @@ public class UISocial : UIBase {
     private void waitConfirm(bool ok, WWW www) {
         if (ok) {
             if (SendHttp.Get.CheckServerMessage(www.text)) {
-                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                TFriend friend = JsonConvertWrapper.DeserializeObject <TFriend>(www.text);
 
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;
@@ -559,7 +559,7 @@ public class UISocial : UIBase {
 
     private void waitGood(bool ok, WWW www) {
         if (ok) {
-            TSocialEvent result = JsonConvert.DeserializeObject<TSocialEvent>(www.text, SendHttp.Get.JsonSetting);
+            TSocialEvent result = JsonConvertWrapper.DeserializeObject<TSocialEvent>(www.text);
             GameData.Team.LifetimeRecord.GoodCount = result.GoodCount;
             GameData.Team.NeedForSyncRecord = true;
             if (result.Good != null) {

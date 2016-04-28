@@ -70,7 +70,7 @@ public class GEUIMission : GEBase {
     private void waitClearMission(bool ok, WWW www) {
         if (ok) {
             if (!string.IsNullOrEmpty(www.text)) {
-                TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
+                TTeam result = JsonConvertWrapper.DeserializeObject <TTeam>(www.text);
                 if (result.MissionLv != null)
                     GameData.Team.MissionLv = result.MissionLv;
 

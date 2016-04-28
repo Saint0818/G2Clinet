@@ -450,7 +450,7 @@ public class UIRecharge : UIBase {
 	{
 		if(ok)
 		{
-			TBuyDiamond result = (TBuyDiamond)JsonConvert.DeserializeObject<TBuyDiamond>(www.text, SendHttp.Get.JsonSetting);
+            TBuyDiamond result = JsonConvertWrapper.DeserializeObject<TBuyDiamond>(www.text);
 			GameData.Team.Diamond = result.Diamond;
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
 
@@ -487,7 +487,7 @@ public class UIRecharge : UIBase {
 	{
 		if(ok)
 		{
-			TBuyFromShop result = (TBuyFromShop)JsonConvert.DeserializeObject<TBuyFromShop>(www.text, SendHttp.Get.JsonSetting);
+            TBuyFromShop result = JsonConvertWrapper.DeserializeObject<TBuyFromShop>(www.text);
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.Power = result.Power;

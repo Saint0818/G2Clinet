@@ -21,7 +21,7 @@ public class StageRewardAgainProtocol
 
         if(ok)
         {
-			var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text, SendHttp.Get.JsonSetting);
+            var reward = JsonConvertWrapper.DeserializeObject<TStageRewardAgain>(www.text);
 
 //            Debug.LogFormat("waitMainStageRewardAgain:{0}", reward);
 

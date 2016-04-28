@@ -117,7 +117,7 @@ public class UITutorial : UIBase {
 
 	private void waitAddTutorialFlag(bool ok, WWW www) {
 		if (ok) {
-			TTeam team = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting); 
+            TTeam team = JsonConvertWrapper.DeserializeObject <TTeam>(www.text); 
 			if (team.TutorialFlags != null)
 				GameData.Team.TutorialFlags = team.TutorialFlags;
 		}

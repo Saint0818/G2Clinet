@@ -443,7 +443,7 @@ public class UIMail : UIBase {
 
 	private void waitUpdateBuild(bool ok, WWW www) {
 		if (ok) {
-			TGymResult result = JsonConvert.DeserializeObject <TGymResult>(www.text, SendHttp.Get.JsonSetting); 
+            TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
 			GameData.Team.Money = result.Money;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymBuild = result.GymBuild;
@@ -487,7 +487,7 @@ public class UIMail : UIBase {
 
 	private void waitBuyBuildType(bool ok, WWW www) {
 		if (ok) {
-			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+            TGymBuildResult result = JsonConvertWrapper.DeserializeObject <TGymBuildResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymOwn = result.GymOwn;
 
@@ -508,7 +508,7 @@ public class UIMail : UIBase {
 
 	private void waitChangeBuildType(bool ok, WWW www) {
 		if (ok) {
-			TGymBuildResult result = JsonConvert.DeserializeObject <TGymBuildResult>(www.text, SendHttp.Get.JsonSetting); 
+            TGymBuildResult result = JsonConvertWrapper.DeserializeObject <TGymBuildResult>(www.text); 
 			GameData.Team.GymBuild = result.GymBuild;
 		} else {
 			Debug.LogError("text:"+www.text);

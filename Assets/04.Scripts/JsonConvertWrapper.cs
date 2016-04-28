@@ -2,12 +2,17 @@
 
 public static class JsonConvertWrapper
 {
+    private static JsonSerializerSettings jsonSetting = null;
+
     public static T DeserializeObject<T>(string jsonText)
     {
-        JsonSerializerSettings settings = new JsonSerializerSettings
-        {
-            ContractResolver = new ForceJSONSerializePrivatesResolver()
-        };
-        return JsonConvert.DeserializeObject<T>(jsonText, settings);
+        if (jsonSetting == null) {
+            jsonSetting = new JsonSerializerSettings {
+                ContractResolver = new ForceJSONSerializePrivatesResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            };
+        }
+
+        return JsonConvert.DeserializeObject<T>(jsonText, jsonSetting);
     }
 }

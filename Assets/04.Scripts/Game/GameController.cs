@@ -1156,7 +1156,7 @@ public class GameController : KnightSingleton<GameController>
 
     private void waitGameRecord(bool ok, WWW www) {
         if (ok) {
-            TTeam result = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting);
+            TTeam result = JsonConvertWrapper.DeserializeObject <TTeam>(www.text);
             GameData.Team.TeamRecord = result.TeamRecord;
             GameData.Team.Player.PlayerRecord = result.Player.PlayerRecord;
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
@@ -1635,7 +1635,7 @@ public class GameController : KnightSingleton<GameController>
 			beforeTeam.PVPLv = GameData.Team.PVPLv;
 			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
 			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-			TPVPResult reslut = JsonConvert.DeserializeObject <TPVPResult>(www.text, SendHttp.Get.JsonSetting); 
+            TPVPResult reslut = JsonConvertWrapper.DeserializeObject <TPVPResult>(www.text); 
 			afterTeam.PVPLv = reslut.PVPLv;
 			afterTeam.PVPIntegral = reslut.PVPIntegral;
 			afterTeam.PVPCoin = reslut.PVPCoin;

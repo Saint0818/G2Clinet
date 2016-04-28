@@ -207,7 +207,6 @@ public static class URLConst {
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {
-	public JsonSerializerSettings JsonSetting = new JsonSerializerSettings();
 	private Dictionary<string, string> cookieHeaders = new Dictionary<string, string>();
 	private bool versionChecked = false;
 	private int focusCount = 0;
@@ -223,7 +222,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private EventDelegate.Callback BuySkillCardBagEvent;
 
 	protected override void Init() {
-		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
 		DontDestroyOnLoad(gameObject);
 	}
 
@@ -430,7 +428,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private void waitResetToday(bool Value, WWW www) {
 		if(Value){
 			if(string.Empty != www.text){
-				TTeam result = JsonConvert.DeserializeObject<TTeam> (www.text, JsonSetting);		
+                TTeam result = JsonConvertWrapper.DeserializeObject<TTeam> (www.text);		
 				GameData.Team.LoginTime = result.LoginTime;
 			}
 		}
@@ -438,7 +436,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
 	private void waitCheckSession(bool ok, WWW www) {
 		if (ok) {
-			TSessionResult result = (TSessionResult)JsonConvert.DeserializeObject(www.text, (typeof(TSessionResult)));
+            TSessionResult result = JsonConvertWrapper.DeserializeObject<TSessionResult>(www.text);
 			GameData.Team.sessionID = result.sessionID;
 			UIMessage.Get.ShowMessage(TextConst.S(505), TextConst.S(507));
 			
@@ -515,7 +513,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (ok) {
 			try {
 				string text = GSocket.Get.OnHttpText(www.text);
-				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
+                GameData.Team = JsonConvertWrapper.DeserializeObject <TTeam>(text); 
 				GameData.Team.Init();
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
@@ -561,7 +559,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
     private void waitSyncDailyRecord(bool ok, WWW www) {
         if (ok) {
-            TDailyRecordResult result = JsonConvert.DeserializeObject<TDailyRecordResult>(www.text, JsonSetting);
+            TDailyRecordResult result = JsonConvertWrapper.DeserializeObject<TDailyRecordResult>(www.text);
             GameData.Team.DailyRecord = result.DailyRecord;
             GameData.Team.WeeklyRecord = result.WeeklyRecord;
             GameData.Team.MonthlyRecord = result.MonthlyRecord;
@@ -583,7 +581,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
             try {
                 string text = GSocket.Get.OnHttpText(www.text);
                 if (!string.IsNullOrEmpty(text)) {
-                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                    TTeam team = JsonConvertWrapper.DeserializeObject <TTeam>(text);
                     team.InitFriends();
                     GameData.Team.Friends = team.Friends;
                 }
@@ -608,7 +606,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
             if (CheckServerMessage(www.text)) {
                 string text = GSocket.Get.OnHttpText(www.text);
                 if (!string.IsNullOrEmpty(text)) {
-                    TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+                    TTeam team = JsonConvertWrapper.DeserializeObject <TTeam>(text);
                     team.InitFriends();
 
                     GameData.Team.FreshFriendTime = team.FreshFriendTime;
@@ -641,7 +639,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                 if (GameData.Team.Friends == null)
                     GameData.Team.Friends = new Dictionary<string, TFriend>();
                 
-                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                TFriend friend = JsonConvertWrapper.DeserializeObject <TFriend>(www.text);
                 friend.PlayerInit();
                 if (GameData.Team.Friends.ContainsKey(friend.Identifier))
                     GameData.Team.Friends[friend.Identifier] = friend;
@@ -663,7 +661,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
 	private void waitAddSkillCardBag(bool flag, WWW www) {
 		if (flag) {
-			TSkillCardBag bag = JsonConvert.DeserializeObject <TSkillCardBag>(www.text, SendHttp.Get.JsonSetting);
+            TSkillCardBag bag = JsonConvertWrapper.DeserializeObject <TSkillCardBag>(www.text);
 			GameData.Team.Diamond = bag.Diamond;
 			GameData.Team.SkillCardMax = bag.SkillCardBagCount;
 
@@ -693,7 +691,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
         if (ok) {
 			bool needSave = false;
             if (!string.IsNullOrEmpty(www.text)) {
-                TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
+                TSocialEvent[] events = JsonConvertWrapper.DeserializeObject <TSocialEvent[]>(www.text);
                 for (int i = 0; i < events.Length; i++) {
                     bool flag = false;
                     if (events[i].Identifier == GameData.Team.Identifier) {
@@ -753,7 +751,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
         GameData.Team.WatchFriendsTime = DateTime.UtcNow;
         if (ok) {
             if (!string.IsNullOrEmpty(www.text)) {
-                TSocialEvent[] events = JsonConvert.DeserializeObject <TSocialEvent[]>(www.text, SendHttp.Get.JsonSetting);
+                TSocialEvent[] events = JsonConvertWrapper.DeserializeObject <TSocialEvent[]>(www.text);
 
                 if (events.Length > 0) {
                     if (GameData.Team.Friends == null)
@@ -814,7 +812,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private void waitConfirm(bool ok, WWW www) {
         if (ok) {
             if (SendHttp.Get.CheckServerMessage(www.text)) {
-                TFriend friend = JsonConvert.DeserializeObject <TFriend>(www.text, SendHttp.Get.JsonSetting);
+                TFriend friend = JsonConvertWrapper.DeserializeObject <TFriend>(www.text);
 
                 if (friend.Kind == EFriendKind.Friend) {
                     GameData.Team.LifetimeRecord.FriendCount++;

@@ -255,7 +255,7 @@ public class UIBuyStore : UIBase {
 	{
 		if(ok)
 		{
-			TPickLotteryResult result = (TPickLotteryResult)JsonConvert.DeserializeObject<TPickLotteryResult>(www.text, SendHttp.Get.JsonSetting);
+            TPickLotteryResult result = JsonConvertWrapper.DeserializeObject<TPickLotteryResult>(www.text);
 			GameData.Team.Items = result.Items;
 			newSkillCard = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;

@@ -60,7 +60,7 @@ public class MainStageStartProtocol
         var data = new Data();
         if(ok)
         {
-			data = JsonConvert.DeserializeObject<Data>(www.text, SendHttp.Get.JsonSetting);
+            data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
 
 //            Debug.Log(data);
 
