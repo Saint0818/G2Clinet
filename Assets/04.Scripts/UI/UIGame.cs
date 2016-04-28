@@ -56,7 +56,8 @@ public class UIGame : UIBase
     private const string UIName = "UIGame";
 
     public EGameTest TestMode = EGameTest.None;
-    private PlayerBehaviour PlayerMe;
+	private PlayerBehaviour PlayerMe;
+	public OnSkillDCComplete onSkillDCComplete = null;
     //Game const
     public float ButtonBTime = 0.08f;
     public int[] MaxScores = { 13, 13 };
@@ -309,7 +310,7 @@ public class UIGame : UIBase
 
     protected override void InitCom()
     {
-        GameController.Get.onSkillDCComplete += AddForceValue;
+        onSkillDCComplete += AddForceValue;
         SetBtnFun(UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
         //GameJoystick

@@ -72,7 +72,6 @@ public class GameController : KnightSingleton<GameController>
     public float StealBtnLiftTime = 1f;
     private float passingStealBallTime = 0;
 
-    public OnSkillDCComplete onSkillDCComplete = null;
     public readonly CountDownTimer PassCD = new CountDownTimer(GameConst.CoolDownPassTime);
 
     private GameObject playerInfoModel = null;
@@ -747,8 +746,9 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 		}
 
-        playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, Joysticker.PlayerRefGameObject);
+        playerSelectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero);
         if (playerSelectMe) {
+			playerSelectMe.AddComponent<FollowGameObject>().SetTarget(Joysticker.PlayerRefGameObject);
             PlayerSelectArrow = playerSelectMe.transform.FindChild("SelectArrow");
             Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
             Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();

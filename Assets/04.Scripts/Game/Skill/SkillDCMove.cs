@@ -20,8 +20,8 @@ public class SkillDCMove : MonoBehaviour {
 			if(distance <= 0.2f){
 				gameObject.SetActive(false);
 				transform.position = Born.transform.position;
-				if(GameController.Get.onSkillDCComplete != null)
-					GameController.Get.onSkillDCComplete();
+				if(UIGame.Get.onSkillDCComplete != null)
+					UIGame.Get.onSkillDCComplete();
 			}
 		}
 	}

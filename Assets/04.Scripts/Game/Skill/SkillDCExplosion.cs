@@ -3,10 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 
+public struct TDCValue {
+	public GameObject Obj;
+	public SkillDCMove DCMove;
+
+	public bool ObjVisible {
+		set {Obj.SetActive(value);}
+		get {return Obj.activeInHierarchy;}
+	}
+}
+
 public class SkillDCExplosion : MonoBehaviour {
 	private static SkillDCExplosion instance = null;
 
-	private List<GameObject> pooledObjects;
+	private List<TDCValue> pooledObjects;
 	private int completeCount;
 
 	public static SkillDCExplosion Get {
@@ -22,11 +32,14 @@ public class SkillDCExplosion : MonoBehaviour {
 	}
 
 	void Awake() {
-		pooledObjects = new List<GameObject>();
+		pooledObjects = new List<TDCValue>();
 	}
 
-	void FixedUpdate() {
+	void Destroy() {
+		for(int i=0; i<pooledObjects.Count ;i++)
+			Destroy(pooledObjects[i].Obj);
 
+		pooledObjects.Clear();
 	}
 
 	public void BornDC (int count, GameObject position, GameObject target, GameObject parent = null) {
@@ -43,55 +56,57 @@ public class SkillDCExplosion : MonoBehaviour {
 				}
 			}
 			for (int i=0; i<count; i++) {
-				GameObject obj =  getPooledObject();
-				obj.name = i.ToString();
-				Transform t = obj.transform.FindChild("Trail");
+				TDCValue obj =  getPooledObject();
+				obj.Obj.name = i.ToString();
+				Transform t = obj.Obj.transform.FindChild("Trail");
 				if(t)
 					t.gameObject.SetActive(false);
-				obj.transform.parent = transform;
-				obj.transform.localPosition = Vector3.zero;
-				obj.SetActive(true);
-				if(!obj.GetComponent<SkillDCMove>())
-					obj.AddComponent<SkillDCMove>();
-
-				obj.GetComponent<SkillDCMove>().IsMove = false;
-				obj.GetComponent<SkillDCMove>().Born = gameObject;
-				obj.GetComponent<SkillDCMove>().Target = target;
+				
+				obj.Obj.transform.parent = transform;
+				obj.Obj.transform.localPosition = Vector3.zero;
+				obj.ObjVisible = true;
+				obj.DCMove.IsMove = false;
+				obj.DCMove.Born = gameObject;
+				obj.DCMove.Target = target;
 				if(t)
 					t.gameObject.SetActive(true);
+				
 				moveTo (obj);
 			}
 		}
 	}
 
-	private void moveTo (GameObject skillSoul) {
-		Tweener tweener =  skillSoul.transform.DOLocalMove(new Vector3(skillSoul.transform.localPosition.x + Random.Range(-2, 2) ,
-		                                                               skillSoul.transform.localPosition.y + Random.Range(-2, 2),
-		                                                               skillSoul.transform.localPosition.z + Random.Range(-2, 2)),0.5f);
+	private void moveTo (TDCValue skillSoul) {
+		Tweener tweener =  skillSoul.Obj.transform.DOLocalMove(new Vector3(skillSoul.Obj.transform.localPosition.x + Random.Range(-2, 2) ,
+																			skillSoul.Obj.transform.localPosition.y + Random.Range(-2, 2),
+																			skillSoul.Obj.transform.localPosition.z + Random.Range(-2, 2)),0.5f);
 
 		tweener.SetEase(Ease.InOutBack);
 		tweener.OnComplete(delegate(){
-			skillSoul.GetComponent<SkillDCMove>().IsMove = true;
+			skillSoul.DCMove.IsMove = true;
 		});
 	}
 
-	private GameObject getPooledObject () {
-		if(pooledObjects.Count > 0) {
-			for(int i=0; i<pooledObjects.Count; i++) {
-				if(!pooledObjects[i].activeInHierarchy)
+	private TDCValue getPooledObject () {
+		if(pooledObjects.Count > 0) 
+			for(int i=0; i<pooledObjects.Count; i++) 
+				if(!pooledObjects[i].ObjVisible)
 					return pooledObjects[i];
-			}
-		}
 
-		GameObject obj = Instantiate(Resources.Load("Effect/DC_Soul") as GameObject);
-		pooledObjects.Add(obj);
-		return obj;
+		TDCValue value = new TDCValue();
+		value.Obj = Instantiate(Resources.Load("Effect/DC_Soul") as GameObject);
+		if(!value.Obj.GetComponent<SkillDCMove>())
+			value.Obj.AddComponent<SkillDCMove>();
+		
+		value.DCMove = value.Obj.GetComponent<SkillDCMove>();
+		pooledObjects.Add(value);
+		return value;
 	}
 
 	public bool IsHaveDC {
 		get {
 			for(int i=0; i<pooledObjects.Count; i++) {
-				if(pooledObjects[i].activeInHierarchy)
+				if(pooledObjects[i].ObjVisible)
 					return true;
 			}
 			return false;
