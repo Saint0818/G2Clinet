@@ -22,6 +22,10 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	private bool isJudgeDistance;
 
     void OnDestroy() {
+		foreach (KeyValuePair<string, List<GameObject>> value in skillEffectPositions) 
+			for(int i=0; i<value.Value.Count; i++) 
+				Destroy(value.Value[i]);
+			
         skillEffectPositions.Clear();
         skillEffects.Clear();
 		for(int i=0; i<objs.Length; i++) 
@@ -71,12 +75,13 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
 		int skillID = 0;
 
-		if(isPassiveID) 
+		if(isPassiveID) {
 			if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID) && player.PlayerSkillController.IsPassiveUse) 
 				skillID = player.PassiveSkillUsed.ID;
-		else 
+		} else {
 			if(GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID) && player.PlayerSkillController.IsActiveUse)
 				skillID = player.ActiveSkillUsed.ID;
+		}
 
 		if(skillID > 0) {
 			for(int i=0; i<objs.Length; i++) {
@@ -221,7 +226,6 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			}
 			skillEffectPositions.Add(key, objs);
 
-            objs.Clear();
 			return skillEffectPositions[key];
 		}
 		return null;

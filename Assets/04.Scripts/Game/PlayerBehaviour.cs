@@ -874,7 +874,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 	
-	private const float ReviseAnimationInterval = 1f;
+	private const float ReviseAnimationInterval = 3f;
 	private float mReviseElapsedTime = ReviseAnimationInterval;
 
     private void tryReviseAnimation()
