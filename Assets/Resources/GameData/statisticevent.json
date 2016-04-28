@@ -94,7 +94,7 @@
         "title": "關卡次數重置",
         "category": "Spend_Diamond",
         "action": "Reset_MainStage_Number ",
-        "label": "UIMainStage",
+        "label": "紀錄關卡編號",
         "valueexplain": "紀錄金額",
         "inunity": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton",
         "undefined": "done"
@@ -154,7 +154,8 @@
         "category": "Spend_Diamond",
         "action": "3Pick1_MainStage",
         "label": "紀錄關卡編號",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 60,
@@ -162,7 +163,8 @@
         "category": "Earn_Money",
         "action": "Complete_MainStage",
         "label": "UIMainStage",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 61,
@@ -170,7 +172,8 @@
         "category": "Earn_Diamond",
         "action": "Complete_MainStage",
         "label": "UIMainStage",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 62,
@@ -179,19 +182,11 @@
         "action": "OpenUI_BossStage",
         "label": "UIBossStage",
         "value": 1,
-        "inunity": "InstanceBtn"
+        "inunity": "InstanceBtn",
+        "undefined": "done"
     },
     {
         "id": 101,
-        "title": "關卡次數重置",
-        "category": "Spend_Diamond",
-        "action": "Reset_BossStage_Number ",
-        "label": "UIBossStage",
-        "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
-    },
-    {
-        "id": 102,
         "title": "選戰術",
         "category": "SubUIBtn",
         "action": "OpenUI_Strategy",
@@ -200,7 +195,7 @@
         "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
     },
     {
-        "id": 103,
+        "id": 102,
         "title": "選技能",
         "category": "SubUIBtn",
         "action": "OpenUI_Skill",
@@ -209,7 +204,7 @@
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 104,
+        "id": 103,
         "title": "選技能",
         "category": "SubUIBtn",
         "action": "OpenUI_Skill",
@@ -217,7 +212,7 @@
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
     {
-        "id": 105,
+        "id": 104,
         "title": "租傭兵按鈕",
         "category": "Spend_Diamond",
         "action": "Rent_Mercenary",
@@ -226,21 +221,21 @@
         "inunity": "RentBtn"
     },
     {
-        "id": 106,
+        "id": 105,
         "title": "選擇傭兵",
         "category": "Equip_Player",
         "action": "Equip_Mercenary",
         "label": "紀錄球員編號"
     },
     {
-        "id": 107,
+        "id": 106,
         "title": "選隊友",
         "category": "Equip_Player",
         "action": "Equip_Player",
         "label": "紀錄球員編號"
     },
     {
-        "id": 108,
+        "id": 107,
         "title": "關卡得遊戲幣",
         "category": "Earn_Money",
         "action": "Complete_BossStage",
@@ -248,7 +243,7 @@
         "valueexplain": "紀錄金額"
     },
     {
-        "id": 109,
+        "id": 108,
         "title": "關卡得鑽石",
         "category": "Earn_Diamond",
         "action": "Complete_BossStage",
@@ -256,7 +251,7 @@
         "valueexplain": "紀錄金額"
     },
     {
-        "id": 110,
+        "id": 109,
         "title": "技能",
         "category": "UIBtn",
         "action": "OpenUI_Skill",
@@ -265,14 +260,14 @@
         "inunity": "SkillBt"
     },
     {
-        "id": 111,
+        "id": 110,
         "title": "安裝技能",
         "category": "Equip_Skill",
         "action": "Equip_Skill",
         "label": "紀錄技能編號"
     },
     {
-        "id": 112,
+        "id": 111,
         "title": "技能升級",
         "category": "Spend_Money",
         "action": "Upgrade_Skill_Upgrade",
@@ -281,7 +276,7 @@
         "inunity": "ReinforceBtn"
     },
     {
-        "id": 151,
+        "id": 112,
         "title": "技能進化",
         "category": "Spend_Money",
         "action": "Upgrade_Skill_Revolution",
@@ -290,7 +285,7 @@
         "inunity": "DemountBtn"
     },
     {
-        "id": 152,
+        "id": 151,
         "title": "造型",
         "category": "UIBtn",
         "action": "OpenUI_Avatar",
@@ -299,7 +294,7 @@
         "inunity": "AvatarBt"
     },
     {
-        "id": 153,
+        "id": 152,
         "title": "購買造型_頭髮",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Hair",
@@ -308,7 +303,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 154,
+        "id": 153,
         "title": "購買造型_衣服",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Clothes",
@@ -317,7 +312,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 201,
+        "id": 154,
         "title": "購買造型_手飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Wristband",
@@ -326,7 +321,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 202,
+        "id": 201,
         "title": "購買造型_褲子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Pants",
@@ -335,7 +330,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 203,
+        "id": 202,
         "title": "購買造型_鞋子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Shoes",
@@ -344,7 +339,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 204,
+        "id": 203,
         "title": "購買造型_面飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Mask",
@@ -353,7 +348,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 205,
+        "id": 204,
         "title": "購買造型_背飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Backpack",
@@ -362,7 +357,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 206,
+        "id": 205,
         "title": "裝備",
         "category": "UIBtn",
         "action": "OpenUI_Equipment",
@@ -371,7 +366,7 @@
         "inunity": "EquipmentBt"
     },
     {
-        "id": 207,
+        "id": 206,
         "title": "裝備合成",
         "category": "Spend_Money",
         "action": "Upgrade_Equip_Upgrade",
@@ -380,7 +375,7 @@
         "inunity": "MaterialItem(Clone)"
     },
     {
-        "id": 208,
+        "id": 207,
         "title": "裝備進化",
         "category": "Spend_Money",
         "action": "Upgrade_Equip_Revolution",
@@ -389,7 +384,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 251,
+        "id": 208,
         "title": "社群",
         "category": "UIBtn",
         "action": "OpenUI_Social",
@@ -398,7 +393,7 @@
         "inunity": "SocialBt"
     },
     {
-        "id": 252,
+        "id": 251,
         "title": "刷新好友",
         "category": "Spend_Diamond",
         "action": "Reset_Social_Friend",
@@ -407,7 +402,7 @@
         "inunity": "ResetBtn"
     },
     {
-        "id": 253,
+        "id": 252,
         "title": "商店",
         "category": "UIBtn",
         "action": "OpenUI_Shop",
@@ -416,7 +411,7 @@
         "inunity": "ShopBt"
     },
     {
-        "id": 301,
+        "id": 253,
         "title": "重置商店",
         "category": "Spend_Diamond",
         "action": "Reset_Shop_Item",
@@ -425,7 +420,7 @@
         "inunity": "ResetBtn"
     },
     {
-        "id": 302,
+        "id": 301,
         "title": "抽卡",
         "category": "UIBtn",
         "action": "OpenUI_PickCard",
@@ -434,7 +429,7 @@
         "inunity": "MallBt"
     },
     {
-        "id": 351,
+        "id": 302,
         "title": "低階抽卡 免費",
         "category": "Spend_Money",
         "action": "PickCard_Low_Free",
@@ -443,7 +438,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/0"
     },
     {
-        "id": 352,
+        "id": 351,
         "title": "低階抽卡 1抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_1Pick",
@@ -452,7 +447,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/0"
     },
     {
-        "id": 401,
+        "id": 352,
         "title": "低階抽卡 5抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_5Pick",
@@ -461,7 +456,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/Tween/0"
     },
     {
-        "id": 402,
+        "id": 401,
         "title": "低階抽卡 10抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_10Pick",
@@ -470,7 +465,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/Tween/0"
     },
     {
-        "id": 403,
+        "id": 402,
         "title": "中階抽卡 免費",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_Free",
@@ -479,7 +474,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/2"
     },
     {
-        "id": 404,
+        "id": 403,
         "title": "中階抽卡 1抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_1Pick",
@@ -488,7 +483,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/2"
     },
     {
-        "id": 405,
+        "id": 404,
         "title": "中階抽卡 5抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_5Pick",
@@ -497,7 +492,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/Tween/2"
     },
     {
-        "id": 406,
+        "id": 405,
         "title": "中階抽卡 10抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_10Pick",
@@ -506,7 +501,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond2(Clone)/Tween/2"
     },
     {
-        "id": 407,
+        "id": 406,
         "title": "高階抽卡 1抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_1Pick",
@@ -515,7 +510,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/1"
     },
     {
-        "id": 408,
+        "id": 407,
         "title": "高階抽卡 5抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_5Pick",
@@ -524,7 +519,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/Tween/1"
     },
     {
-        "id": 409,
+        "id": 408,
         "title": "高階抽卡 10抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_10Pick",
@@ -533,7 +528,7 @@
         "inunity": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond1(Clone)/Tween/1"
     },
     {
-        "id": 410,
+        "id": 409,
         "title": "鑽石購買",
         "category": "UIBtn",
         "action": "OpenUI_DiamondRecharge",
@@ -542,7 +537,7 @@
         "inunity": "Diamond"
     },
     {
-        "id": 411,
+        "id": 410,
         "title": "遊戲幣購買",
         "category": "UIBtn",
         "action": "OpenUI_MoneyRecharge",
@@ -551,7 +546,7 @@
         "inunity": "Money"
     },
     {
-        "id": 412,
+        "id": 411,
         "title": "體力購買",
         "category": "UIBtn",
         "action": "OpenUI_PowerRecharge",
@@ -560,7 +555,7 @@
         "inunity": "Power"
     },
     {
-        "id": 451,
+        "id": 412,
         "title": "設施",
         "category": "UIBtn",
         "action": "OpenUI_Queue",
@@ -569,7 +564,7 @@
         "inunity": "GymQueue"
     },
     {
-        "id": 452,
+        "id": 451,
         "title": "購買佇列",
         "category": "Spend_Diamond",
         "action": "Buy_Queue",
@@ -578,7 +573,7 @@
         "inunity": "Queue Unlock"
     },
     {
-        "id": 453,
+        "id": 452,
         "title": "圖鑑",
         "category": "UIBtn",
         "action": "OpenUI_Guide",
@@ -587,7 +582,7 @@
         "inunity": "AlbumBtn"
     },
     {
-        "id": 501,
+        "id": 453,
         "title": "任務",
         "category": "UIBtn",
         "action": "OpenUI_Mission",
@@ -596,7 +591,7 @@
         "inunity": "MissionBtn"
     },
     {
-        "id": 502,
+        "id": 501,
         "title": "完成任務",
         "category": "Earn_Money",
         "action": "Complete_Mission",
@@ -605,7 +600,7 @@
         "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
     },
     {
-        "id": 551,
+        "id": 502,
         "title": "完成任務",
         "category": "Earn_Diamond",
         "action": "Complete_Mission",
@@ -614,7 +609,7 @@
         "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
     },
     {
-        "id": 552,
+        "id": 551,
         "title": "潛能",
         "category": "UIBtn",
         "action": "OpenUI_Potential",
@@ -623,7 +618,7 @@
         "inunity": "PlayerPotentialBtn"
     },
     {
-        "id": 553,
+        "id": 552,
         "title": "重置投點",
         "category": "Spend_Diamond",
         "action": "Reset_Potential",
@@ -632,7 +627,7 @@
         "inunity": "ResetBtn"
     },
     {
-        "id": 554,
+        "id": 553,
         "title": "玩家資訊",
         "category": "UIBtn",
         "action": "OpenUI_PlayerInfo",
@@ -641,7 +636,7 @@
         "inunity": "PlayerInGameBtn"
     },
     {
-        "id": 601,
+        "id": 554,
         "title": "改名",
         "category": "Spend_Diamond",
         "action": "Reset_Name",
@@ -650,7 +645,7 @@
         "inunity": "CheckBtn"
     },
     {
-        "id": 602,
+        "id": 601,
         "title": "設定",
         "category": "UIBtn",
         "action": "OpenUI_Setting",
@@ -659,7 +654,7 @@
         "inunity": "Settings"
     },
     {
-        "id": 651,
+        "id": 602,
         "title": "設施＿籃框",
         "category": "UIBtn",
         "action": "OpenUI_Basket",
@@ -668,7 +663,7 @@
         "inunity": "UI2D/UIGym/Window/Center/0"
     },
     {
-        "id": 652,
+        "id": 651,
         "title": "籃框升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Basket",
@@ -677,7 +672,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 701,
+        "id": 652,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Basket",
@@ -686,7 +681,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 702,
+        "id": 701,
         "title": "設施＿廣告",
         "category": "UIBtn",
         "action": "OpenUI_AD",
@@ -695,7 +690,7 @@
         "inunity": "UI2D/UIGym/Window/Center/1"
     },
     {
-        "id": 801,
+        "id": 702,
         "title": "廣告升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_AD",
@@ -704,7 +699,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 802,
+        "id": 801,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_AD",
@@ -713,7 +708,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 803,
+        "id": 802,
         "title": "設施＿販賣機",
         "category": "UIBtn",
         "action": "OpenUI_GymStore",
@@ -722,7 +717,7 @@
         "inunity": "UI2D/UIGym/Window/Center/2"
     },
     {
-        "id": 804,
+        "id": 803,
         "title": "販賣機升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Store",
@@ -731,7 +726,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 805,
+        "id": 804,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Store",
@@ -740,7 +735,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 806,
+        "id": 805,
         "title": "設施＿球場",
         "category": "UIBtn",
         "action": "OpenUI_Gym",
@@ -749,7 +744,7 @@
         "inunity": "UI2D/UIGym/Window/Center/3"
     },
     {
-        "id": 807,
+        "id": 806,
         "title": "球場升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Gym",
@@ -758,7 +753,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 808,
+        "id": 807,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Gym",
@@ -767,7 +762,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 809,
+        "id": 808,
         "title": "設施＿大門",
         "category": "UIBtn",
         "action": "OpenUI_Gate",
@@ -776,7 +771,7 @@
         "inunity": "UI2D/UIGym/Window/Center/4"
     },
     {
-        "id": 810,
+        "id": 809,
         "title": "大門升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Gate",
@@ -785,7 +780,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 811,
+        "id": 810,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Gate",
@@ -794,7 +789,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 812,
+        "id": 811,
         "title": "設施＿旗幟",
         "category": "UIBtn",
         "action": "OpenUI_Flag",
@@ -803,7 +798,7 @@
         "inunity": "UI2D/UIGym/Window/Center/5"
     },
     {
-        "id": 813,
+        "id": 812,
         "title": "旗幟升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Flag",
@@ -812,7 +807,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 814,
+        "id": 813,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Flag",
@@ -821,7 +816,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 815,
+        "id": 814,
         "title": "設施＿椅子",
         "category": "UIBtn",
         "action": "OpenUI_Chair",
@@ -830,7 +825,7 @@
         "inunity": "UI2D/UIGym/Window/Center/6"
     },
     {
-        "id": 816,
+        "id": 815,
         "title": "椅子升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Chair",
@@ -839,7 +834,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 817,
+        "id": 816,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Chair",
@@ -848,7 +843,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 818,
+        "id": 817,
         "title": "設施＿佈告欄",
         "category": "UIBtn",
         "action": "OpenUI_Note",
@@ -857,7 +852,7 @@
         "inunity": "UI2D/UIGym/Window/Center/7"
     },
     {
-        "id": 819,
+        "id": 818,
         "title": "佈告欄升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Note",
@@ -866,7 +861,7 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 820,
+        "id": 819,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Note",
@@ -875,7 +870,7 @@
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
     },
     {
-        "id": 821,
+        "id": 820,
         "title": "設施＿信箱",
         "category": "UIBtn",
         "action": "OpenUI_Mail",
@@ -884,7 +879,7 @@
         "inunity": "UI2D/UIGym/Window/Center/8"
     },
     {
-        "id": 822,
+        "id": 821,
         "title": "信箱升級",
         "category": "Spend_Money",
         "action": "Upgrade_Gym_Mail",
@@ -893,12 +888,15 @@
         "inunity": "UpgradeBtn"
     },
     {
-        "id": 823,
+        "id": 822,
         "title": "購買建築",
         "category": "Spend_Diamond",
         "action": "Buy_Gym_Mail",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
         "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+    },
+    {
+        "id": 823
     }
 ]

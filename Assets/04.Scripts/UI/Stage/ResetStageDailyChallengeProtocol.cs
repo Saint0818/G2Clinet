@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class ResetStageDailyChallengeProtocol
@@ -21,12 +20,15 @@ public class ResetStageDailyChallengeProtocol
 
     private Action<bool> mCallback;
 
+    private int mStageID;
+
     public void Send(int stageID, Action<bool> callback)
     {
         mCallback = callback;
+        mStageID = stageID;
 
         WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
+        form.AddField("StageID", mStageID);
         SendHttp.Get.Command(URLConst.ResetStageDailyChallenge, waitResetStageDailyChallenge, form);
     }
 
@@ -38,7 +40,7 @@ public class ResetStageDailyChallengeProtocol
         {
             var data = JsonConvertWrapper.DeserializeObject<Data>(www.text);
 
-            Statistic.Ins.LogEvent(52, GameData.Team.Diamond - data.Diamond);
+            Statistic.Ins.LogEvent(52, mStageID.ToString(), GameData.Team.Diamond - data.Diamond);
 
             GameData.Team.Diamond = data.Diamond;
             GameData.Team.Player.StageDailyChallengeNums = data.StageDailyChallengeNums;
