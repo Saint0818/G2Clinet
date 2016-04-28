@@ -248,16 +248,15 @@ public class PlayerBehaviour : MonoBehaviour
 			if(shootNoScore > shootNoScoreLimit) {
 				shootNoScore = 0;
 				return true;
-			} else {
-				shootNoScore++;
+			} else 
 				return false;
-			}
+			
 		}
 	}
 
 	public int ShootScore {
 		get {return shootScore;}
-		set {shootScoreLimit = value;}
+		set {shootScore = value;}
 	}
 
 	public bool IsNeedNoScore {
@@ -265,10 +264,9 @@ public class PlayerBehaviour : MonoBehaviour
 			if(shootScore > shootScoreLimit) {
 				shootScore = 0;
 				return true;
-			} else {
-				shootScore++;
+			} else 
 				return false;
-			}
+			
 		}
 	}
 
