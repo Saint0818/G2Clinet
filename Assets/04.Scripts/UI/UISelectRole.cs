@@ -31,8 +31,6 @@ public class UISelectRole : UIBase {
     private GameObject uiTopPVP;
     private GameObject uiCenterPVP;
 	private GameObject playerInfoModel = null;
-	private GameObject uiChangPlayerA;
-	private GameObject uiChangPlayerB;
 	private GameObject uiRedPoint;
     private GameObject uiPVPWin;
     private GameObject uiPVPLose;
@@ -133,8 +131,6 @@ public class UISelectRole : UIBase {
         labelCombatPower[2] = GameObject.Find(UIName + "/Top/PVE/SelectB/CombatPower/Label").GetComponent<UILabel>();
         labelPlayerName[0] = GameObject.Find(UIName + "/Top/PVE/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
         labelPlayerName[1] = GameObject.Find(UIName + "/Top/PVE/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-        uiChangPlayerA = GameObject.Find(UIName + "/Top/PVE/SelectA");
-        uiChangPlayerB = GameObject.Find(UIName + "/Top/PVE/SelectB");
         uiRedPoint = GameObject.Find(UIName + "/Bottom/SkillCard/RedPoint");
 
         for (int i = 0; i < playerNum * 2; i++) {
