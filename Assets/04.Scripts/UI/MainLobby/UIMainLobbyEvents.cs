@@ -117,12 +117,12 @@ public class UIMainLobbyEvents : MonoBehaviour
 
 	public void OnAlbum () 
 	{
-		if(GameData.IsOpenUIEnable(EOpenID.SuitItem))
+		if(GameData.IsOpenUIEnable(EOpenID.SuitCard))
 		{
 			UIResource.Get.Show();
 			UISuitAvatar.Get.ShowView();
 		}
 		else
-			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)), LimitTable.Ins.GetLv(EOpenID.SuitItem)), Color.black);
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)), LimitTable.Ins.GetLv(EOpenID.SuitCard)), Color.black);
 	}
 }

@@ -241,14 +241,14 @@ public class UISuitAvatar : UIBase {
 		}
 		suitItemRight.NoCardLabelVisible = false;
 
-		views[0] = GameObject.Find(UIName + "/Window");
-		views[1] = GameObject.Find(UIName + "/Window1");
+		views[0] = GameObject.Find(UIName + "/Window1");
+		views[1] = GameObject.Find(UIName + "/Window");
 		uiSuitCard.InitCom(this, UIName);
 		for(int i=0; i<tabs.Length; i++) {
 			tabs[i] = GameObject.Find(UIName + "/Window2/Center/Tabs/" + i.ToString() + "/Selected");
 			SetBtnFun(UIName + "/Window2/Center/Tabs/" + i.ToString(), OnTab);
 		}
-		redPoint =  GameObject.Find(UIName + "/Window2/Center/Tabs/1/RedPoint");
+		redPoint =  GameObject.Find(UIName + "/Window2/Center/Tabs/0/RedPoint");
 		tabLock = GameObject.Find(UIName + "/Window2/Center/Tabs/1/Lock");
 
 		SetBtnFun(UIName + "/BG/NoBtn", OnClose);
@@ -272,7 +272,7 @@ public class UISuitAvatar : UIBase {
 		Visible = false;
 	}
 	/// <summary>
-	/// tab  0 : SuitAvatar 1: SuitCard
+	/// tab  0 : SuitCard 1: SuitAvatar
 	/// </summary>
 	/// <param name="tab">Tab.</param>
 	public void ShowView (int suitItemID = 1, int tab = 0, int suitId = 0) {
@@ -288,7 +288,7 @@ public class UISuitAvatar : UIBase {
 		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
 
 		ClickTab(tab);
-		if(tab == 1) 
+		if(tab == 0) 
 			uiSuitCard.MoveToID(suitId);
 		
 		RefreshTabsRedPoint();
@@ -338,8 +338,8 @@ public class UISuitAvatar : UIBase {
 
 	public void ClickTab (int no) {
 		if(no == 1) {
-			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)){
-				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.black);
+			if(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)){
+				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.black);
 				return ;
 			}
 		}
@@ -348,13 +348,13 @@ public class UISuitAvatar : UIBase {
 				tabs[i].SetActive(i == no);
 				views[i].SetActive(i == no);
 			}
-			isRunStar = (no == 1);
+			isRunStar = (no == 0);
 		}
 	}
 
 	public void RefreshTabsRedPoint () {
-		redPoint.SetActive(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard) && GameData.Team.SuitCardRedPoint);
-		tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard));
+		redPoint.SetActive(GameData.Team.SuitCardRedPoint);
+		tabLock.SetActive(!GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem));
 	}
 
 	//SuitCard

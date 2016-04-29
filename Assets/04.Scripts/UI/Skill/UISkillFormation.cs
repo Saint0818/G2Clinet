@@ -740,7 +740,7 @@ public class UISkillFormation : UIBase {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) 
-				UISuitAvatar.Get.ShowView(1, 1, result);
+				UISuitAvatar.Get.ShowView(1, 0, result);
 			else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.black);
 		}
@@ -751,7 +751,7 @@ public class UISkillFormation : UIBase {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
-				UISuitAvatar.Get.ShowView(result);
+				UISuitAvatar.Get.ShowView(result, 1);
 			else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.black);
 		}

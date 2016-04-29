@@ -169,7 +169,7 @@ public class UISkillInfo : UIBase {
 	public void OnSuitCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			UISuitAvatar.Get.ShowView(1, 1, result);
+			UISuitAvatar.Get.ShowView(1, 0, result);
 			Visible = false;
 		}
 	}
@@ -178,7 +178,7 @@ public class UISkillInfo : UIBase {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) {
-				UISuitAvatar.Get.ShowView(result);
+				UISuitAvatar.Get.ShowView(result, 1);
 				Visible = false;
 			} else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);

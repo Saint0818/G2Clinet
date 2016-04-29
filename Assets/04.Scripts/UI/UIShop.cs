@@ -348,7 +348,7 @@ public class UIShop : UIBase {
             if (GameData.DItemData.ContainsKey(id)) {
                 if (GameData.DItemData[id].Kind == 21) {
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard))
-						UISuitAvatar.Get.ShowView(1, 1, GameData.DItemData[id].SuitCard);
+						UISuitAvatar.Get.ShowView(1, 0, GameData.DItemData[id].SuitCard);
 					else 
 						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitCard)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) , Color.black);
 					
@@ -357,7 +357,7 @@ public class UIShop : UIBase {
                 } else
                 if (GameData.DItemData[id].Kind <= 7)
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
-						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem);
+						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem, 1);
 					else 
 						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitItem)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.black);
             }
