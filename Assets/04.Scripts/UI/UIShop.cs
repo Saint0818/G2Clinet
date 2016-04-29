@@ -70,7 +70,11 @@ public class UIShop : UIBase {
             if (value)
                 Get.Show(value);
 
-            Statistic.Ins.LogScreen(15);
+            if(value)
+            {
+                Statistic.Ins.LogScreen(15);
+                Statistic.Ins.LogEvent(208);
+            }
         }
     }
 
