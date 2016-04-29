@@ -105,6 +105,10 @@ public static class URLConst {
 	public const string Rank = "rank";
     public const string RentPlayer = "rentplayer";
 
+	//
+	public const string ListMail = "listmail";
+
+
 	//gym
 	public const string GymBuyType = "gymbuytype";
 	public const string GymChangeBuildType = "gymchangebuildtype";
