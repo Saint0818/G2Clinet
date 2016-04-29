@@ -573,31 +573,31 @@
         "id": 1003,
         "explain": "商店按鈕",
         "tw": "商 店",
-        "en": "SHOP"
+        "en": "Shop"
     },
     {
         "id": 1004,
         "explain": "xx功能按鈕",
         "tw": "社 群 ",
-        "en": "SOCIAL"
+        "en": "Social"
     },
     {
         "id": 1005,
         "explain": "裝備按鈕",
         "tw": "裝 備",
-        "en": "EQUIPMENT"
+        "en": "Equipment"
     },
     {
         "id": 1006,
         "explain": "技能按鈕",
         "tw": "技 能",
-        "en": "SKILL CARD"
+        "en": "Skill Card"
     },
     {
         "id": 1007,
         "explain": "造型按鈕",
         "tw": "造 型",
-        "en": "STYLE"
+        "en": "Style"
     },
     {
         "id": 1008,
@@ -609,7 +609,7 @@
         "id": 1009,
         "explain": "抽包按鈕",
         "tw": "抽 卡",
-        "en": "LOTTERY BOX"
+        "en": "Lottery Box"
     },
     {
         "id": 1010,
@@ -633,7 +633,7 @@
         "id": 1013,
         "explain": "圖鑑",
         "tw": "圖 鑑",
-        "en": "Album"
+        "en": "Guide"
     },
     {
         "id": 1014,
@@ -2083,6 +2083,12 @@
         "en": "SOLD OUT"
     },
     {
+        "id": 4204,
+        "explain": "UIFukubukuro/BuyBtn",
+        "tw": "立刻購買！",
+        "en": "BUY NOW!"
+    },
+    {
         "id": 4501,
         "explain": "隨機商品商店",
         "tw": "商 店",
@@ -2190,7 +2196,7 @@
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]COPPER [-] "
+        "en": " [C17269FF]COPPER [-] "
     },
     {
         "id": 4603,
@@ -3765,7 +3771,7 @@
     {
         "id": 9519,
         "tw": "自由球員",
-        "en": "FREE AGENCY"
+        "en": "FREE AGENT"
     },
     {
         "id": 9520,
@@ -3788,6 +3794,24 @@
     {
         "id": 9523,
         "tw": "花費{0}鑽石雇用自由球員？"
+    },
+    {
+        "id": 9524,
+        "explain": "玩家info身份判定",
+        "uipath": "IDCheckLabel",
+        "tw": "線上玩家"
+    },
+    {
+        "id": 9525,
+        "explain": "玩家info身份判定",
+        "uipath": "IDCheckLabel",
+        "tw": "夥 伴"
+    },
+    {
+        "id": 9526,
+        "explain": "玩家info身份判定",
+        "uipath": "IDCheckLabel",
+        "tw": "自由球員"
     },
     {
         "id": 9601,
@@ -3997,7 +4021,8 @@
     {
         "id": 9737,
         "tw": " {0}階鬥牛場",
-        "en": "Step {0} Court"
+        "en": "ARENA {0} ",
+        "jp": "ARENA {0} "
     },
     {
         "id": 9738,
@@ -4057,7 +4082,8 @@
     {
         "id": 9748,
         "tw": "目前階級",
-        "en": "Now Step"
+        "en": "YOUR ARENA",
+        "jp": "YOUR ARENA"
     },
     {
         "id": 9749,
@@ -5003,6 +5029,10 @@
         "en": "Queue{0} "
     },
     {
+        "id": 11020,
+        "explain": "設施_球場"
+    },
+    {
         "id": 11021,
         "explain": "目前等級",
         "tw": "LV{0} ",
@@ -5076,10 +5106,82 @@
         "en": "LOGO"
     },
     {
+        "id": 11602,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11603,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11604,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11605,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11606,
+        "explain": "升級需求",
+        "tw": "升級需求：",
+        "en": "Materials:"
+    },
+    {
+        "id": 11607,
+        "explain": "升級CD",
+        "tw": "升級CD：",
+        "en": "CD Times:"
+    },
+    {
         "id": 11701,
         "explain": "椅子(Chair)",
         "tw": "椅子",
         "en": "CHAIR"
+    },
+    {
+        "id": 11702,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11703,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11704,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11705,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11706,
+        "explain": "升級需求",
+        "tw": "升級需求：",
+        "en": "Materials:"
+    },
+    {
+        "id": 11707,
+        "explain": "升級CD",
+        "tw": "升級CD：",
+        "en": "CD Times:"
     },
     {
         "id": 11801,
