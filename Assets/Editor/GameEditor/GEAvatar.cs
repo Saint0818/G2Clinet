@@ -1,15 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
-using System;
-using System.IO;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class GEAvatar : GEBase {
 	private enum Flag {
 		B,C,H,M,P,S,A,Z,NONE
 	}
 
-	private string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
+//	private string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 //	private int bodyPart = 0;
 	private GameObject selectGameObject = null;
 	
@@ -20,12 +18,12 @@ public class GEAvatar : GEBase {
 	public Vector2 scrollPositionAnimation = Vector2.zero;
 
     private GameObject[] modelArray = new GameObject[3];
-	public List<UnityEngine.GameObject> allBody = new List<UnityEngine.GameObject> ();
-	public List<UnityEngine.Material> allMaterial = new List<UnityEngine.Material> ();
-	public List<UnityEngine.Texture> allTextures = new List<UnityEngine.Texture> ();
+	public List<GameObject> allBody = new List<GameObject> ();
+	public List<Material> allMaterial = new List<Material> ();
+	public List<Texture> allTextures = new List<Texture> ();
 
-	public List<UnityEngine.GameObject> showBody = new List<GameObject> ();
-	public List<UnityEngine.Texture> showBodyTexture = new List<Texture> ();
+	public List<GameObject> showBody = new List<GameObject> ();
+	public List<Texture> showBodyTexture = new List<Texture> ();
 
 	public bool isAvatar = false;
 	public int chooseCount = 0;
