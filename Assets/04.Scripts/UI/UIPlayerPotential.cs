@@ -287,6 +287,9 @@ public class UIPlayerPotential : UIBase {
 	private UIButton resetBtn;
 	private UIButton saveBtn;
 	private UIButton cancelBtn;
+
+	private float bCombatPower;
+	private float aCombatPower;
 	
 	public static bool Visible {
 		get {
@@ -413,8 +416,11 @@ public class UIPlayerPotential : UIBase {
 	{
 		if (ok) {
             TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
+			bCombatPower = GameData.Team.Player.CombatPower();
 			GameData.Team.Player.Potential = team.Player.Potential;
 			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
+			aCombatPower = GameData.Team.Player.CombatPower();;
+			UIOverallHint.Get.ShowView(bCombatPower, aCombatPower);
 			upgradeView.OnCancel();
 			UpdateView();
 			SetUseState (EPotential.none);
