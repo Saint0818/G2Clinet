@@ -64,7 +64,7 @@ public class UISocial : UIBase {
     private UIPanel[] pagePanels = new UIPanel[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TSocialEventItem>[] friendList = new List<TSocialEventItem>[pageNum];
-    private Queue<TSocialEventItem> modelLoader = new Queue<TSocialEventItem>();
+//    private Queue<TSocialEventItem> modelLoader = new Queue<TSocialEventItem>();
     private Queue<TSocialEventItem> avatarDownloader = new Queue<TSocialEventItem>();
     private TSocialEventItem waitDownloadItem;
 
