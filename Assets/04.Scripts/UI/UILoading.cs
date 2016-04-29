@@ -16,7 +16,6 @@ public class UILoading : UIBase
     private GameObject buttonNext;
     private GameObject uiAbilityDisc;
     private GameObject uiSkillDisk;
-    private UITexture uiBG;
     private UITexture uiLoadingProgress;
     private UISprite spriteTip;
     private UILabel labelLoading;
@@ -341,7 +340,6 @@ public class UILoading : UIBase
         spriteTip = GameObject.Find(UIName + "/StageInfo/Bottom/Tip/Tip_Icon").GetComponent<UISprite>();
         labelStageTitle = GameObject.Find(UIName + "/StageInfo/Center/SingalStage/StageNameLabel").GetComponent<UILabel>();
         labelStageExplain = GameObject.Find(UIName + "/StageInfo/Center/SingalStage/StageExplainLabel").GetComponent<UILabel>();
-        uiBG = GameObject.Find(UIName + "/StageInfo/Center/StageKindTexture").GetComponent<UITexture>();
         buttonNext = GameObject.Find(UIName + "/StageInfo/Right/Next");
 
         skillCard.Init(uiSkillDisk);

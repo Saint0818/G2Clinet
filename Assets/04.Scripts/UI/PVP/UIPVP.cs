@@ -457,17 +457,20 @@ public class UIPVP : UIBase
     
     private void waitPVPGetEnemy(bool ok, WWW www)
     {
-        if (ok)
+        if(ok)
         {
-            TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject <TPVPEnemyTeams>(www.text);
+            TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject<TPVPEnemyTeams>(www.text);
+
+            Statistic.Ins.LogEvent(12, GameData.Team.Money - data.Money);
+
             GameData.Team.Money = data.Money;
             GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
-			pvpLv = GameData.Team.PVPLv;
-   
-            if (data.Teams != null)
+            pvpLv = GameData.Team.PVPLv;
+
+            if(data.Teams != null)
             {
                 int num = Mathf.Min(data.Teams.Length, GameData.EnemyMembers.Length);
-                for (int i = 0; i < num; i++)
+                for(int i = 0; i < num; i++)
                 {
                     data.Teams[i].PlayerInit();
                     GameData.PVPEnemyMembers[i] = data.Teams[i];
@@ -476,8 +479,9 @@ public class UIPVP : UIBase
             }
 
             UIShow(false);
-			UISelectRole.Get.LoadStage(GameData.DPVPData[pvpLv].Stage);
-        } else
+            UISelectRole.Get.LoadStage(GameData.DPVPData[pvpLv].Stage);
+        }
+        else
             UIHint.Get.ShowHint(TextConst.S(255), Color.red);
     }
 
