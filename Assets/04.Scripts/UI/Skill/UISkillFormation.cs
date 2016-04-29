@@ -346,7 +346,10 @@ public class UISkillFormation : UIBase {
                 Get.Show(value);
 
             if(value)
+            {
                 Statistic.Ins.LogScreen(11);
+                Statistic.Ins.LogEvent(107);
+            }
         }
 	}
 	
