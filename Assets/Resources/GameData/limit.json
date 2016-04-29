@@ -61,14 +61,14 @@
     },
     {
         "lv": 12,
-        "openid": 27,
-        "name": "27.套裝按鈕",
+        "openid": 26,
+        "name": "26.套卡按鈕",
         "visiblelv": 6
     },
     {
         "lv": 13,
-        "openid": 26,
-        "name": "26.套卡按鈕",
+        "openid": 27,
+        "name": "27.套裝按鈕",
         "visiblelv": 6
     },
     {
@@ -89,42 +89,42 @@
         "lv": 50,
         "openid": 51,
         "name": "51.Basket = 1,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 51,
         "openid": 52,
         "name": "52.Advertisement = 2,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 52,
         "openid": 53,
         "name": "53.Store = 3,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 54,
         "openid": 55,
         "name": "55.Door = 5,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 55,
         "openid": 56,
         "name": "56.Logo = 6,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 56,
         "openid": 57,
         "name": "57.Chair = 7,",
-        "visiblelv": 100
+        "visiblelv": 50
     },
     {
         "lv": 57,
         "openid": 58,
         "name": "58.Calendar = 8,",
-        "visiblelv": 100
+        "visiblelv": 50
     }
 ]
