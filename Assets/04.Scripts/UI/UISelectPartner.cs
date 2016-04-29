@@ -137,7 +137,7 @@ public class UISelectPartner : UIBase {
         obj.GetComponent<UIDragScrollView>().scrollView = partnerScrollView[page];
         obj.transform.parent = partnerScrollView[page].gameObject.transform;
         obj.transform.localScale = Vector3.one;
-        float y = memberList[page].Count * -180 - extandLine * 80 + 40;
+        float y = memberList[page].Count * -185 - extandLine * 80 + 55;
         obj.transform.localPosition = new Vector3(0, y, 0);
         extandLine ++;
     }
@@ -176,7 +176,7 @@ public class UISelectPartner : UIBase {
 
             rentMercenaryDaily.Item.transform.parent = partnerScrollView[page].gameObject.transform;
             rentMercenaryDaily.Item.transform.localScale = Vector3.one;
-            float y = memberList[page].Count * -180 - extandLine * 80 + 50;
+            float y = memberList[page].Count * -185 - extandLine * 80 + 50;
             rentMercenaryDaily.Item.transform.localPosition = new Vector3(0, y, 0);
             extandLine ++;
         }
@@ -305,7 +305,8 @@ public class UISelectPartner : UIBase {
 
             if (line1) {
                 addTitle(isPVP ? TextConst.S(9503): TextConst.S(9519));
-                addRent(0);
+                if (!isPVP)
+                    addRent(0);
             }
 
             for (int i = 0; i < playerList.Count; i++) {
@@ -422,7 +423,7 @@ public class UISelectPartner : UIBase {
 
         item.Item.transform.parent = partnerScrollView[page].gameObject.transform;
         item.Item.transform.localScale = Vector3.one;
-        item.Item.transform.localPosition = new Vector3(0, index * -180 - extandLine*80, 0);
+        item.Item.transform.localPosition = new Vector3(0, index * -185 - extandLine*80, 0);
 
         memberList[page].Add(item);
 	}
