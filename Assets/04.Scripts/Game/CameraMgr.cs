@@ -464,8 +464,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void HorizontalCameraHandle()
     {
         //GroupOffset
-        if (situation != ECameraSituation.Skiller && situation != ECameraSituation.JumpBall)
-                cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[situation.GetHashCode()], groupOffsetSpeed);
+        if (situation != ECameraSituation.Skiller && situation != ECameraSituation.JumpBall && Time.timeScale > 0)
+            cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[situation.GetHashCode()], groupOffsetSpeed);
        
         CameraOffset();
         CameraFocus();
