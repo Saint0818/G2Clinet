@@ -60,7 +60,7 @@ public class UIStrategy : UIBase {
     }
 
     protected override void InitCom() {
-        SetBtnFun(UIName + "/Window/Center/NoBtn", OnClose);
+        SetBtnFun(UIName + "/Window/Center/NoBtn", onClose);
 
         for (int i = 0; i < 3; i++)
             SetBtnFun(UIName + "/Window/Center/MainView/" + i.ToString(), OnSelect);
@@ -69,43 +69,51 @@ public class UIStrategy : UIBase {
             toggleStrantegy[i] = GameObject.Find(UIName + "/Window/Center/MainView/" + i.ToString()).GetComponent<UIToggle>();
     }
 
-    public void OnClose() {
+    private void onClose()
+    {
         Visible = false;
+        Statistic.Ins.LogEvent(14, GameData.Team.AttackTactical.ToString());
     }
 
-    public void OnSelect() {
-        int index = -1;
-        if (int.TryParse(UIButton.current.name, out index) && GameData.Team.Player.Strategy != index) {
-            try {
+    public void OnSelect()
+    {
+        int index;
+        if(int.TryParse(UIButton.current.name, out index) && GameData.Team.Player.Strategy != index)
+        {
+            try
+            {
                 GameData.Team.Player.Strategy = index;
 
-                if (index == 0)
+                if(index == 0)
                     GameData.Team.AttackTactical = ETacticalAuto.AttackNormal;
-                else
-                if (index == 1)
+                else if(index == 1)
                     GameData.Team.AttackTactical = ETacticalAuto.AttackShoot2;
                 else
                     GameData.Team.AttackTactical = ETacticalAuto.AttackShoot3;
 
-                if (AIController.Visible) {
-                    try {
-                    AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
-                    } catch (System.Exception e) {
-                        
+                if (AIController.Visible)
+                {
+                    try
+                    {
+                        AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
+                    }
+                    catch(System.Exception e)
+                    {
                     }
                 }
 
-                if (LabelStrategy != null)
+                if(LabelStrategy != null)
                     LabelStrategy.text = GameData.Team.Player.StrategyText;
 
-				if(PauseLabelStrategy != null)
-					PauseLabelStrategy.text = GameData.Team.Player.StrategyText;
+                if(PauseLabelStrategy != null)
+                    PauseLabelStrategy.text = GameData.Team.Player.StrategyText;
 
                 WWWForm form = new WWWForm();
                 form.AddField("Strategy", index.ToString());
                 SendHttp.Get.Command(URLConst.ChangeStrategy, waitStrantegy, form, false);
-            } catch (System.Exception e) {
-                
+            }
+            catch(System.Exception e)
+            {
             }
         }
     }

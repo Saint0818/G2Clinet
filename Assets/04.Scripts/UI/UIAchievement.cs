@@ -4,7 +4,6 @@ public class UIAchievement : UIBase {
 	private static UIAchievement instance = null;
 	private const string UIName = "UIAchievement";
 	private UILabel descLabel;
-	private int playerLv;
 	
 	public static bool Visible {
 		get {
@@ -60,7 +59,6 @@ public class UIAchievement : UIBase {
 
 	public void ShowView (int lv){
 		UIShow(true);
-		playerLv = lv;
 		if(GameData.DExpData.ContainsKey(lv)) {
 			if(GameData.DExpData[lv].UnlockName != 0)
 				descLabel.text = TextConst.S(GameData.DExpData[lv].UnlockName);
