@@ -10,7 +10,7 @@ public class GEAvatar : GEBase {
 	}
 
 	private string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
-	private int bodyPart = 0;
+//	private int bodyPart = 0;
 	private GameObject selectGameObject = null;
 	
 	private GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
@@ -318,7 +318,7 @@ public class GEAvatar : GEBase {
 		GUI.Label (new Rect(0, 150, 500, 50), "Choose Body");
 		if (GUI.Button (new Rect(0, 170, 70, 50), "B")) {
 			judgeBody(Flag.B);
-			bodyPart = 0;
+//			bodyPart = 0;
 			showBody.Clear ();
 			judgeBodyTextureName("B","0");
 		}
@@ -330,7 +330,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(75, 170, 70, 50), "C")) {
 			judgeBody(Flag.C);
-			bodyPart = 1;
+//			bodyPart = 1;
 			judgeBodyName("C");
 		}
 
@@ -341,7 +341,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(150, 170, 70, 50), "H")) {
 			judgeBody(Flag.H);
-			bodyPart = 2;
+//			bodyPart = 2;
 			judgeBodyName("H");
 		}
 		
@@ -352,7 +352,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(225, 170, 70, 50), "M")) {
 			judgeBody(Flag.M);
-			bodyPart = 3;
+//			bodyPart = 3;
 			judgeBodyName("M");
 		}
 		
@@ -363,7 +363,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(300, 170, 70, 50), "P")) {
 			judgeBody(Flag.P);
-			bodyPart = 4;
+//			bodyPart = 4;
 			judgeBodyName("P");
 		}
 		
@@ -374,7 +374,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(375, 170, 70, 50), "S")) {
 			judgeBody(Flag.S);
-			bodyPart = 5;
+//			bodyPart = 5;
 			judgeBodyName("S");
 		}
 		
@@ -385,7 +385,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(450, 170, 70, 50), "A")) {
 			judgeBody(Flag.A);
-			bodyPart = 6;
+//			bodyPart = 6;
 			judgeBodyName("A");
 		}
 		
@@ -396,7 +396,7 @@ public class GEAvatar : GEBase {
 
 		if (GUI.Button (new Rect(525, 170, 70, 50), "Z")) {
 			judgeBody(Flag.Z);
-			bodyPart = 7;
+//			bodyPart = 7;
 			judgeBodyName("Z");
 		}
 		GUI.backgroundColor = Color.white;
@@ -439,35 +439,35 @@ public class GEAvatar : GEBase {
 						int bodyPartTemp = 0;
 						if(name[1].Equals("B")){
 							bodyPartTemp = attr.Body / 1000;
-							bodyPart = 0;
+//							bodyPart = 0;
 							attr.Body = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("C")){
 							bodyPartTemp = attr.Cloth / 1000;
-							bodyPart = 3;
+//							bodyPart = 3;
 							attr.Cloth = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("H")){
 							bodyPartTemp = attr.Hair / 1000;
-							bodyPart = 1;
+//							bodyPart = 1;
 							attr.Hair = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("M")){
 							bodyPartTemp = attr.MHandDress / 1000;
-							bodyPart = 2;
+//							bodyPart = 2;
 							attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("P")){
 							bodyPartTemp = attr.Pants / 1000;
-							bodyPart = 4;
+//							bodyPart = 4;
 							attr.Pants = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("S")){
 							bodyPartTemp = attr.Shoes / 1000;
-							bodyPart = 5;
+//							bodyPart = 5;
 							attr.Shoes = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("A")){
 							bodyPartTemp = attr.AHeadDress / 1000;
-							bodyPart = 6;
+//							bodyPart = 6;
 							attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("Z")){
 							bodyPartTemp = attr.ZBackEquip / 1000;
-							bodyPart = 7;
+//							bodyPart = 7;
 							attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 						}
 
@@ -519,7 +519,7 @@ public class GEAvatar : GEBase {
 	}
 	void randomPlayer(){
 		//B
-		bodyPart = 0;
+//		bodyPart = 0;
 		showBody.Clear ();
 		judgeBodyTextureName("B","0");
 		if (showBodyTexture.Count > 0) {
@@ -533,12 +533,12 @@ public class GEAvatar : GEBase {
 			else if(int.Parse(name[3]) >= 100)
 				attrString = name[3];
 			attr.Body = int.Parse(bodyPartTemp + attrString);
-			bodyPart = Array.IndexOf(strPart, name[1]);
+//			bodyPart = Array.IndexOf(strPart, name[1]);
             //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 		}
 
 		//C
-		bodyPart = 1;
+//		bodyPart = 1;
 		judgeBodyName("C");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -558,13 +558,13 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.Cloth = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 		//H
-		bodyPart = 2;
+//		bodyPart = 2;
 		judgeBodyName("H");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -584,14 +584,14 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.Hair = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 
 		//M
-		bodyPart = 3;
+//		bodyPart = 3;
 		judgeBodyName("M");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -611,14 +611,14 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.MHandDress = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 
 		//P
-		bodyPart = 4;
+//		bodyPart = 4;
 		judgeBodyName("P");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -638,14 +638,14 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.Pants = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 
 		//S
-		bodyPart = 5;
+//		bodyPart = 5;
 		judgeBodyName("S");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -665,14 +665,14 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.Shoes = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 
 		//A
-		bodyPart = 6;
+//		bodyPart = 6;
 		judgeBodyName("A");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -692,14 +692,14 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
 
 		//Z
-		bodyPart = 7;
+//		bodyPart = 7;
 		judgeBodyName("Z");
 		if (showBody.Count > 0) {
 			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
@@ -719,7 +719,7 @@ public class GEAvatar : GEBase {
 					else if(int.Parse(name[3]) >= 100)
 						attrString = name[3];
 					attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
-					bodyPart = Array.IndexOf(strPart, name[1]);
+//					bodyPart = Array.IndexOf(strPart, name[1]);
                     //ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
