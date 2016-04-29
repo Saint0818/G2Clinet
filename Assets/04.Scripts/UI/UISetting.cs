@@ -235,8 +235,11 @@ public class UISetting : UIBase {
 		}
 
 	    if(isShow)
-            Statistic.Ins.LogScreen(23);
-    }
+	    {
+	        Statistic.Ins.LogScreen(23);
+            Statistic.Ins.LogEvent(553);
+        }
+	}
 
     protected override void InitCom() {
         SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);

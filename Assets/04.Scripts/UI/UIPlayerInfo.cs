@@ -523,6 +523,7 @@ public class UIPlayerInfo : UIBase
             teamdata = team;
 
             Statistic.Ins.LogScreen(22);
+            Statistic.Ins.LogEvent(551);
         }
 
         if (instance)

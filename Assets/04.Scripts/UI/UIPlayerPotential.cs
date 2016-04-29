@@ -20,7 +20,6 @@ public class TUpgradeBtn
 	private UIButton btnMinus;
 	private int demandValue;
 	private int curPoint;
-	private int addPoint;
 
 	public void Init(GameObject go)
 	{
@@ -68,7 +67,7 @@ public class TUpgradeBtn
 	public void Update()
 	{
 		CanUseAdd = demandValue > GameData.Team.AvatarPotential? true : false;
-		CanUseMinus = addPoint > 0;
+		CanUseMinus = false;
 	}
 
 	public void SetValue(int curt, int add)
