@@ -250,9 +250,17 @@ public class UISelectPartner : UIBase {
         }
     }
 
-    private void waitRent(bool ok, WWW www) {
-        if (ok) {
-            TRentPlayerResult result = JsonConvertWrapper.DeserializeObject <TRentPlayerResult>(www.text);
+    private void waitRent(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            TRentPlayerResult result = JsonConvertWrapper.DeserializeObject<TRentPlayerResult>(www.text);
+
+            if(GameData.IsMainStage)
+                Statistic.Ins.LogEvent(56, GameData.Team.Diamond - result.Diamond);
+            else if(GameData.IsInstance)
+                Statistic.Ins.LogEvent(104, GameData.Team.Diamond - result.Diamond);
+
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.RentPlayerTime = result.RentPlayerTime;
             updateRentDate();
