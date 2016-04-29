@@ -347,7 +347,6 @@ public class GameController : KnightSingleton<GameController>
             StageData.Bit0Num = (int)GameWinTime;
 			StageData.Bit1Num = GameWinScore;
 			StageData.WinValue = GameWinScore;
-			GameWinTime = GameWinTime;
 			UIGame.Get.MaxScores[0] = GameWinScore;
 			UIGame.Get.MaxScores[1] = GameWinScore;
 			MissionChecker.Get.Init(StageData);
