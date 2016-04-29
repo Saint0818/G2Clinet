@@ -1,14 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
-using JetBrains.Annotations;
+﻿using DG.Tweening;
 using GameEnum;
+using JetBrains.Annotations;
+using UnityEngine;
 
 public class BallTrigger : MonoBehaviour
 {
     private Rigidbody ParentRigidbody;
-    private GameObject followObject;
-    private GameObject ballObject;
     private BoxCollider box;
     private GameObject HintObject;
     private Vector3 Parabolatarget;
@@ -23,7 +20,6 @@ public class BallTrigger : MonoBehaviour
 
     void Awake()
     {
-        ballObject = gameObject.transform.parent.gameObject;
         ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
         box = gameObject.GetComponent<BoxCollider>();
     }
@@ -355,7 +351,6 @@ public class BallTrigger : MonoBehaviour
     public void Reset()
     {
         ParentRigidbody.velocity = Vector3.zero;
-        followObject = null;
         Parabolamove = false;
     }
 

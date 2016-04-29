@@ -319,6 +319,7 @@ public class GameController : KnightSingleton<GameController>
         CreateTeam();
 		SetBallOwnerNull (); 
 		MissionChecker.Get.SetPlayer(Joysticker);
+		recoverAngerBase = GameData.GetReviveValue;
 		Joysticker.ReviveAnger(GameData.Team.InitGetAP());
     }
 

@@ -330,12 +330,21 @@ public class UISuitCard {
 					if(GameData.Team.IsGetItem(itemids[i])) {
 						itemdata = GameData.DItemData[itemids[i]];
 						itemlv = GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
-						count += i * GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].MaxStar + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
+						count += findItemIDStars(i, itemids) + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
 						return ;
 					}
 				}
 			}
 		}
+	}
+	 //加總前面卡牌的星星數
+	private int findItemIDStars (int index, int[] itemids) {
+		int count = 0;
+		for (int i=0; i<itemids.Length; i++) 
+			if(i<index)
+				count += GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].MaxStar;
+			
+		return count;
 	}
 
 	public void MoveToID (int id) {
