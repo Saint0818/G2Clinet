@@ -1,18 +1,20 @@
 using System;
 using GameStruct;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class ValueItemUpgradeProtocol
 {
     private Action<bool> mCallback;
 
+    private int mValueItemKind;
+
     public void Send(int valueItemKind, Action<bool> callback)
     {
         mCallback = callback;
+        mValueItemKind = valueItemKind;
 
         WWWForm form = new WWWForm();
-        form.AddField("ValueItemKind", valueItemKind);
+        form.AddField("ValueItemKind", mValueItemKind);
         SendHttp.Get.Command(URLConst.ValueItemUpgrade, waitValueItemUpgrade, form);
     }
 
@@ -23,6 +25,11 @@ public class ValueItemUpgradeProtocol
         if(ok)
         {
             var team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
+
+            TValueItem valueItem = team.Player.GetValueItem(mValueItemKind);
+            if(valueItem != null)
+                Statistic.Ins.LogEvent(205, valueItem.ID.ToString(), GameData.Team.Money - team.Money);
+
             GameData.Team.Player.ValueItems = team.Player.ValueItems;
             GameData.Team.LifetimeRecord = team.LifetimeRecord;
             GameData.Team.Money = team.Money;
