@@ -324,8 +324,11 @@ public class UIPlayerPotential : UIBase {
 		}
 
 	    if(isShow)
-            Statistic.Ins.LogScreen(21);
-    }
+	    {
+	        Statistic.Ins.LogScreen(21);
+	        Statistic.Ins.LogEvent(501);
+	    }
+	}
 
     protected override void InitCom() {
 		GameObject obj = GameObject.Find(UIName + "Window/Center/UpgradeView");
