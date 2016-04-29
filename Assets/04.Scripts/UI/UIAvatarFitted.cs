@@ -14,7 +14,6 @@ public class TItemAvatar
     private int usekind;
     private bool isEquip;
     private bool isInitBtn;
-    private bool isRental;
     private bool isSelect;
     private EAvatarMode mode;
     private UILabel name;

@@ -600,26 +600,30 @@ public class UISelectRole : UIBase {
 
 	private void waitPVPGetEnemy(bool ok, WWW www)
 	{
-		if (ok)
-		{
-            TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject <TPVPEnemyTeams>(www.text);
-			GameData.Team.Money = data.Money;
-			GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
+	    if(ok)
+	    {
+	        TPVPEnemyTeams data = JsonConvertWrapper.DeserializeObject<TPVPEnemyTeams>(www.text);
 
-			if (data.Teams != null)
-			{
-				int num = Mathf.Min(data.Teams.Length, GameData.EnemyMembers.Length);
-				for (int i = 0; i < num; i++)
-				{
-					data.Teams[i].PlayerInit();
-					GameData.PVPEnemyMembers[i] = data.Teams[i];
-					GameData.EnemyMembers[i] = data.Teams[i];
-				}
+	        Statistic.Ins.LogEvent(13, GameData.Team.Money - data.Money);
 
-				initPVPTeammate ();
-			}
-		} else
-			UIHint.Get.ShowHint(TextConst.S(255), Color.red);
+	        GameData.Team.Money = data.Money;
+	        GameData.Team.PVPEnemyIntegral = data.PVPEnemyIntegral;
+
+	        if(data.Teams != null)
+	        {
+	            int num = Mathf.Min(data.Teams.Length, GameData.EnemyMembers.Length);
+	            for(int i = 0; i < num; i++)
+	            {
+	                data.Teams[i].PlayerInit();
+	                GameData.PVPEnemyMembers[i] = data.Teams[i];
+	                GameData.EnemyMembers[i] = data.Teams[i];
+	            }
+
+	            initPVPTeammate();
+	        }
+	    }
+	    else
+	        UIHint.Get.ShowHint(TextConst.S(255), Color.red);
 	}
 
 	private void sendRefreshOpponent() {
