@@ -306,8 +306,10 @@ public class UIMainLobby : UIBase
 	}
 	public void OnClickQueue (GameObject go) {
 		View.QueueGroup.SetActive(!View.QueueGroup.activeSelf);
-		if(View.QueueGroup.activeSelf)
+		if(View.QueueGroup.activeSelf) {
 			Statistic.Ins.LogScreen(18);
+			Statistic.Ins.LogEvent(410);
+		}
 	}
 
 	public void OnClickLock (GameObject go) {
@@ -346,6 +348,7 @@ public class UIMainLobby : UIBase
             TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymQueue = result.GymQueue;
+			Statistic.Ins.LogEvent(411, ThirdQueueDiamonds);
 			RefreshQueue();
 			UIMainLobby.Get.UpdateUI();
 		} else {

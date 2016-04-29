@@ -189,8 +189,10 @@ public class UISuitAvatar : UIBase {
 				if (value)
 					Get.Show(value);
 
-		    if(value)
-                Statistic.Ins.LogScreen(19);
+			if(value) {
+				Statistic.Ins.LogScreen(19);
+				Statistic.Ins.LogEvent(412);
+			}
         }
 	}
 

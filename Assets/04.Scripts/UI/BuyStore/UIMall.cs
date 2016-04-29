@@ -44,8 +44,10 @@ public class UIMall : UIBase {
 			if (isShow)
 				Get.Show(isShow);
 
-	    if(isShow)
+		if(isShow) {
             Statistic.Ins.LogScreen(16);
+			Statistic.Ins.LogEvent(252);
+		}
     }
 
     public static UIMall Get
@@ -271,6 +273,7 @@ public class UIMall : UIBase {
 	}
 
 	public void OpenLottery (TItemData[] itemDatas) {
+		recordStatistic ();
 		UIMainLobby.Get.Hide();
 		UI3DMainLobby.Get.Hide();
 		Hide ();
@@ -278,5 +281,43 @@ public class UIMall : UIBase {
 		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
 		UIResource.Get.Hide();
 		UI3DBuyStore.Get.Show();
+	}
+
+	/// <summary>
+	/// chooseIndex : 表格順序  (0:中階技能 1:高階技能 2:初階技能)
+	/// choosetype : 決定幾連抽
+	/// </summary>
+	private void recordStatistic () {
+		if(chooseIndex == 0) {
+			if(mallBoxs[chooseIndex].IsPickFree)
+				Statistic.Ins.LogEvent(352);
+			else {
+				if(choosetype == EPickSpendType.ONE.GetHashCode())
+					Statistic.Ins.LogEvent(401, mallBoxs[chooseIndex].mPickCost.OnePick);
+				else if(choosetype == EPickSpendType.FIVE.GetHashCode())
+					Statistic.Ins.LogEvent(402, mallBoxs[chooseIndex].mPickCost.FivePick);
+				else if(choosetype == EPickSpendType.TEN.GetHashCode())
+					Statistic.Ins.LogEvent(403, mallBoxs[chooseIndex].mPickCost.TenPick);
+			}
+		} else if(chooseIndex == 1) {
+			if(choosetype == EPickSpendType.ONE.GetHashCode()) {
+				Statistic.Ins.LogEvent(404, mallBoxs[chooseIndex].mPickCost.OnePick);
+			} else if(choosetype == EPickSpendType.FIVE.GetHashCode()) {
+				Statistic.Ins.LogEvent(405, mallBoxs[chooseIndex].mPickCost.FivePick);
+			} else if(choosetype == EPickSpendType.TEN.GetHashCode()) {
+				Statistic.Ins.LogEvent(406, mallBoxs[chooseIndex].mPickCost.TenPick);
+			}
+		} else if(chooseIndex == 2) {
+			if(mallBoxs[chooseIndex].IsPickFree) 
+				Statistic.Ins.LogEvent(253);
+			else {
+				if(choosetype == EPickSpendType.ONE.GetHashCode()) 
+					Statistic.Ins.LogEvent(301, mallBoxs[chooseIndex].mPickCost.OnePick);
+				else if(choosetype == EPickSpendType.FIVE.GetHashCode()) 
+					Statistic.Ins.LogEvent(302, mallBoxs[chooseIndex].mPickCost.FivePick);
+				else if(choosetype == EPickSpendType.TEN.GetHashCode()) 
+					Statistic.Ins.LogEvent(351, mallBoxs[chooseIndex].mPickCost.TenPick);
+			}
+		}
 	}
 }

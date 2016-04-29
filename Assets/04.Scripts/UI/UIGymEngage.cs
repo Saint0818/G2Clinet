@@ -151,7 +151,7 @@ public class UIGymEngage : UIBase {
 
 	private UIScrollView scrollView;
 
-	private int mBuildIndex;
+	private int mBuildIndex;//建築物的順序 0:球館  ~8
 	private int mAvatarIndex;
 	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
 
@@ -313,11 +313,15 @@ public class UIGymEngage : UIBase {
 			labelBuildName.text = GameFunction.GetBuildName(index);
 	}
 
+	private int getEffectText (int index, int value) {
+		return 11100 + 100*index + value;
+	}
+
 	private void setHighLvInfo(int index) {
 		if(index >= 0 && index < GameData.Team.GymBuild.Length && GameData.DArchitectureExp.ContainsKey(GameData.Team.GymBuild[index].LV)) {
 			labelHighestLV.text = TextConst.S(11012);
 			if(index == 3) { //gym
-				labelHighestEffect.text = string.Format(TextConst.S(11023), architectureValue.AttrValue);
+				labelHighestEffect.text = string.Format(TextConst.S(getEffectText(index, 4)), architectureValue.AttrValue);
 			} else {
 				if(architectureValue.AttrValue > 0)
 					labelHighestEffect.text = TextConst.S(10500 + architectureValue.AttrKind) +"[00ff00] + "+ architectureValue.AttrValue +"[-]";
@@ -329,11 +333,11 @@ public class UIGymEngage : UIBase {
 
 	private void setInfo (int index) {
 		if(index >= 0 && index < GameData.Team.GymBuild.Length) {
-			labelNowLevel.text = string.Format(TextConst.S(11021), GameData.Team.GymBuild[index].LV);
-			labelNextLevel.text = string.Format(TextConst.S(11021), GameData.Team.GymBuild[index].LV + 1);
+			labelNowLevel.text = string.Format(TextConst.S(getEffectText(index, 2)), GameData.Team.GymBuild[index].LV);
+			labelNextLevel.text = string.Format(TextConst.S(getEffectText(index, 3)), GameData.Team.GymBuild[index].LV + 1);
 			if(index == 3) { //gym
-				labelNowAttr.text = string.Format(TextConst.S(11023), architectureValue.AttrValue);
-				labelNextAttr.text = string.Format(TextConst.S(11023), architectureNextValue.AttrValue);
+				labelNowAttr.text = string.Format(TextConst.S(getEffectText(index, 4)), architectureValue.AttrValue);
+				labelNextAttr.text = string.Format(TextConst.S(getEffectText(index, 4)), architectureNextValue.AttrValue);
 			} else {
 				if(architectureValue.AttrValue > 0)
 					labelNowAttr.text = TextConst.S(10500 + architectureValue.AttrKind) +"[00ff00] + "+ architectureValue.AttrValue +"[-]";
@@ -711,6 +715,8 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymBuild = result.GymBuild;
 			GameData.Team.GymQueue = result.GymQueue;
 
+			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 2 , architectureValue.Cost);
+
 			UIMainLobby.Get.UpdateUI();
 			UIMainLobby.Get.RefreshQueue();
 			RefreshUI();
@@ -733,6 +739,8 @@ public class UIGymEngage : UIBase {
 			GameData.Team.GymBuild = result.GymBuild;
 			GameData.Team.GymQueue = result.GymQueue;
 
+			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 4 , computeTimeDiamond(secToMin((int)GameData.Team.GymBuild[mBuildIndex].Time.ToUniversalTime().Subtract(DateTime.UtcNow).TotalSeconds)));
+
 			UIMainLobby.Get.UpdateUI();
 			UIMainLobby.Get.RefreshQueue();
 			RefreshUI();
@@ -752,6 +760,8 @@ public class UIGymEngage : UIBase {
             TGymBuildResult result = JsonConvertWrapper.DeserializeObject <TGymBuildResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymOwn = result.GymOwn;
+
+			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 3 , GameData.DItemData[itemGymObjs[mItemGymObjIndex].ItemID].Buy);
 
 			UIMainLobby.Get.UpdateUI();
 			if(mItemGymObjIndex >= 0 && mItemGymObjIndex < itemGymObjs.Count)

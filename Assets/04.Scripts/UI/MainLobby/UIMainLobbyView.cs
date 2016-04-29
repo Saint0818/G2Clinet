@@ -142,7 +142,6 @@ public class UIMainLobbyView : MonoBehaviour
 	public bool IsQueueOpen 
 	{
 		get {return QueueGroup.activeSelf;}
-		set {QueueGroup.SetActive(value);}
 	}
 
 	public string QueuePrice 

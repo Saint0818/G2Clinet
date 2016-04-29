@@ -187,6 +187,7 @@ public class UIRecharge : UIBase {
 
 	private bool isInit = false;
 	private int buyIndex = -1;
+	private bool isBuyCoin = false;
 	private int recordType = 0;
 	private bool isRecord = false;
 
@@ -211,8 +212,8 @@ public class UIRecharge : UIBase {
 		if (isShow) 
 			Get.Show(isShow);
 
-	    if(isShow)
-            Statistic.Ins.LogScreen(17);
+		if(isShow) 
+			Statistic.Ins.LogScreen(17);
     }
 
     public static UIRecharge Get
@@ -327,7 +328,7 @@ public class UIRecharge : UIBase {
 
 	public void OnBuyDiamond (GameObject go) {
         if (FileManager.NowMode == VersionMode.Release)
-		    UIHint.Get.ShowHint(TextConst.S(502), Color.red);
+			UIHint.Get.ShowHint(TextConst.S(502), Color.black);
         else {
     		int result = -1;
     		if(int.TryParse(go.name, out result)) {
@@ -343,11 +344,12 @@ public class UIRecharge : UIBase {
 		if(int.TryParse(go.name, out result)) {
 			if(result >= 0 && result < kindBuyCoin.Length && GameData.DItemData.ContainsKey(kindBuyCoin[result].mShop.ItemID)) {
 				buyIndex = kindBuyCoin[result].mIndex;
-				if(kindBuyCoin[result].mShop.SpendKind == 0 ) {
+				isBuyCoin = true;
+				if(kindBuyCoin[result].mShop.SpendKind == 0 ) 
 					CheckDiamond(kindBuyCoin[result].mPrice, true, string.Format(TextConst.S(250), kindBuyCoin[result].mPrice, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
-				}else {
+				else 
 					CheckMoney(kindBuyCoin[result].mPrice, true, string.Format(TextConst.S(251), kindBuyCoin[result].mPrice, GameData.DItemData[kindBuyCoin[result].mShop.ItemID].Name), ConfirmBuy);
-				}
+				
 			}
 		}
 	}
@@ -371,12 +373,12 @@ public class UIRecharge : UIBase {
 
 				if(GameData.Team.Power < GameConst.Max_Power){
 					buyIndex = kindBuyStamina[result].mIndex;
-					if(kindBuyStamina[result].mShop.SpendKind == 0) {
+					isBuyCoin = false;
+					if(kindBuyStamina[result].mShop.SpendKind == 0) 
 						CheckDiamond(kindBuyStamina[result].mPrice, true, string.Format(TextConst.S(250), kindBuyStamina[result].mPrice, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
-					} else if(kindBuyStamina[result].mShop.SpendKind == 1) {
+					else if(kindBuyStamina[result].mShop.SpendKind == 1) 
 						CheckMoney(kindBuyStamina[result].mPrice, true, string.Format(TextConst.S(251), kindBuyStamina[result].mPrice, GameData.DItemData[kindBuyStamina[result].mShop.ItemID].Name), ConfirmBuy);
-					}
-
+					
 				} else
 					UIHint.Get.ShowHint(TextConst.S(536), Color.blue);
 			}
@@ -389,11 +391,11 @@ public class UIRecharge : UIBase {
 
 	private void refreshPriceUI () {
 		for(int i=0; i<GameData.DShops.Length; i++) {
-			if(GameData.DShops[i].Kind == 0) {
+			if(GameData.DShops[i].Kind == 0) 
 				kindBuyCoin[GameData.DShops[i].Order].RefreshPrice();
-			} else if(GameData.DShops[i].Kind == 1) {
+			else if(GameData.DShops[i].Kind == 1) 
 				kindBuyStamina[GameData.DShops[i].Order].RefreshPrice();
-			}
+			
 		}
 	}
 
@@ -455,6 +457,7 @@ public class UIRecharge : UIBase {
             TBuyDiamond result = JsonConvertWrapper.DeserializeObject<TBuyDiamond>(www.text);
 			GameData.Team.Diamond = result.Diamond;
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
+			Statistic.Ins.LogEvent(407);
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
@@ -496,11 +499,15 @@ public class UIRecharge : UIBase {
 			GameData.Team.DailyCount = result.DailyCount;
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
-
+			if(isBuyCoin)
+				Statistic.Ins.LogEvent(408);
+			else
+				Statistic.Ins.LogEvent(409);
 
 			UIMainLobby.Get.UpdateUI();
 			if(isRecord)
 				showTab(recordType);
+			
 			refreshPriceUI ();
 
             if (FreshUICallback != null)

@@ -5075,16 +5075,88 @@
         "en": "BASKET"
     },
     {
+        "id": 11102,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11103,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11104,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11107,
+        "explain": "升級CD",
+        "tw": "升級CD：",
+        "en": "CD Times:"
+    },
+    {
         "id": 11201,
         "explain": "廣告看板(Advertisement)",
         "tw": "廣告看板",
         "en": "ADVERTISEMENT"
     },
     {
+        "id": 11202,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11203,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11204,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11205,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
         "id": 11301,
         "explain": "隨機商店(Store)",
         "tw": "隨機商店",
         "en": "STORE"
+    },
+    {
+        "id": 11302,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11303,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11304,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11305,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
     },
     {
         "id": 11401,
@@ -5094,10 +5166,58 @@
         "en": "GYM"
     },
     {
+        "id": 11402,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11403,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11404,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11405,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
         "id": 11501,
         "explain": "大門(Door)",
         "tw": "大門",
         "en": "GATE"
+    },
+    {
+        "id": 11502,
+        "explain": "目前等級",
+        "tw": "LV{0} ",
+        "en": "LV{0} "
+    },
+    {
+        "id": 11503,
+        "explain": "下一級",
+        "tw": "下一級：LV{0} ",
+        "en": "NEXT：LV{0}  "
+    },
+    {
+        "id": 11504,
+        "explain": "球場目前效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
+    },
+    {
+        "id": 11505,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
     },
     {
         "id": 11601,
@@ -5130,18 +5250,6 @@
         "en": "Action Skill Point adding rate {0} / s"
     },
     {
-        "id": 11606,
-        "explain": "升級需求",
-        "tw": "升級需求：",
-        "en": "Materials:"
-    },
-    {
-        "id": 11607,
-        "explain": "升級CD",
-        "tw": "升級CD：",
-        "en": "CD Times:"
-    },
-    {
         "id": 11701,
         "explain": "椅子(Chair)",
         "tw": "椅子",
@@ -5170,18 +5278,6 @@
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
         "en": "Action Skill Point adding rate {0} / s"
-    },
-    {
-        "id": 11706,
-        "explain": "升級需求",
-        "tw": "升級需求：",
-        "en": "Materials:"
-    },
-    {
-        "id": 11707,
-        "explain": "升級CD",
-        "tw": "升級CD：",
-        "en": "CD Times:"
     },
     {
         "id": 11801,

@@ -77,7 +77,7 @@ public class UIGame : UIBase
 	 
     //GameJoystick
     private GameJoystick gameJoystick = null;
-    private JoystickController joystickController;
+    private JoystickController joystickController = null;
 
     //Center
     private GameObject viewStart;

@@ -203,7 +203,6 @@ public class UISkillInfo : UIBase {
 			labelEquip.text = TextConst.S(7214);
 
 		if(GameData.DSkillData.ContainsKey(uicard.skillCard.Skill.ID)) {
-			TSkillData skillData = GameData.DSkillData[uicard.skillCard.Skill.ID];
 			RefreshUICard(uicard);
 			goSuitCard.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard) && (GameData.DSuitCard.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].SuitCard)));
 			goSuitItem.gameObject.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitItem) && (GameData.DSuitItem.ContainsKey(GameData.DSkillData[uicard.skillCard.Skill.ID].Suititem)));

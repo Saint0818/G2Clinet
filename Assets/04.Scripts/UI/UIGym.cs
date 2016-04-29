@@ -103,6 +103,7 @@ public class UIGym : UIBase {
 			if (isCanUse(result + 1)) {
 				// todo: need to refactor
 				Statistic.Ins.LogScreen(24 + result);
+				Statistic.Ins.LogEvent(600 + (50 * result) + 1);
 
 				if (result != 8) {
 					if (UI3DMainLobby.Visible)
@@ -124,6 +125,10 @@ public class UIGym : UIBase {
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(result + 1 + 50)), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
 
 		}
+	}
+
+	private void setStatistic (int buildIndex) {
+		Statistic.Ins.LogEvent(600 + (50 * buildIndex) + (buildIndex + 1));
 	}
 
 	private IEnumerator ShowEngage (int index) {

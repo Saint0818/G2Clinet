@@ -278,7 +278,7 @@ public class UISuitCard {
 			item.NowStarSprite = obj.transform.Find("AttriGroup/NowLaunch/LabelIcon").GetComponent<UISprite>();
 			item.NextCountLabel = obj.transform.Find("AttriGroup/NextLaunch/CountLabel").GetComponent<UILabel>();
 			item.NextStarSprite = obj.transform.Find("AttriGroup/NextLaunch/LabelIcon").GetComponent<UISprite>();
-			item.MoreButton = obj.transform.Find("MoreBtn").gameObject;
+			item.MoreButton = obj.transform.Find("More/MoreBtn").gameObject;
 			item.MoreButton.name = index.ToString();
 			UIEventListener.Get(item.MoreButton).onClick = OnCaption;
 
