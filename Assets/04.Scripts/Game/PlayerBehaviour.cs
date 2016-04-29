@@ -881,7 +881,8 @@ public class PlayerBehaviour : MonoBehaviour
     {	
         if(GameController.Get.IsStart && 
            TimerMgr.Get.CrtTime > GameConst.Min_TimePause && 
-			GameController.Get.IsGameAttack)
+			GameController.Get.IsGameAttack &&
+			(!PlayerSkillController.IsActiveUse || !PlayerSkillController.IsPassiveUse))
         {
 			if(!AnimatorControl.IsEqual(CurrentState) && !AnimatorMgr.Get.IsLoopState(CurrentState))
                 synchronousAnimation();
