@@ -452,7 +452,10 @@ public class UIAvatarFitted : UIBase
             Get.Show(isShow);
 
         if(isShow)
+        {
             Statistic.Ins.LogScreen(12);
+            Statistic.Ins.LogEvent(111);
+        }
     }
 
     void FixedUpdate()
