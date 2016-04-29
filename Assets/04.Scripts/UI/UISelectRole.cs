@@ -113,7 +113,7 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Top/PVE/SelectB/2", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player1/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player2/2", OnChangePlayer);
-        SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
+        SetBtnFun (UIName + "/Bottom/SkillCard", onSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
 
@@ -592,11 +592,14 @@ public class UISelectRole : UIBase {
         UISelectPartner.Get.InitMemberList(ref playerList, ref playerData, index, stageData.FriendKind == 3);
     }
 
-	public void OnSkillCard() {
+    private void onSkillCard()
+    {
         UISelectPartner.Visible = false;
-		UIStrategy.Visible = false;
-		UISkillFormation.Visible = true;
-	}
+        UIStrategy.Visible = false;
+        UISkillFormation.Visible = true;
+
+        Statistic.Ins.LogEvent(15);
+    }
 
 	private void waitPVPGetEnemy(bool ok, WWW www)
 	{

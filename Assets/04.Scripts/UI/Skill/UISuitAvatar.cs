@@ -47,12 +47,9 @@ public struct TMiddleItemView {
 	public UILabel[] itemNameLabel;
 	public GameObject[] SuitCover;
 
-	private int mID;
-
 	//id是指套裝id
 	public void UpdateView (int id) {
 		if(GameData.DSuitItem.ContainsKey(id)) {
-			mID = id;
 			if(GameData.DSuitItem[id].Items.Length == itemAwardGroup.Length) {
 				for (int i=0; i<itemAwardGroup.Length; i++) {
 					if(GameData.DSuitItem[id].Items[i] != 0) {
