@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using GameStruct;
-using GameItem;
-using Newtonsoft.Json;
+﻿using System;
 using DG.Tweening;
-using System;
+using GameItem;
+using GameStruct;
+using UnityEngine;
 
 public class UIPVP : UIBase
 {
@@ -88,6 +87,7 @@ public class UIPVP : UIBase
             UIResource.Get.Show(2);
 
             Statistic.Ins.LogScreen(4);
+            Statistic.Ins.LogEvent(10);
         }
         else
         {
