@@ -144,7 +144,7 @@ public class UISelectPartner : UIBase {
 
     private void updateRentDate() {
         if (GameData.Team.RentExpire) {
-            rentMercenaryDaily.SpriteRentBG.color = Color.red;
+            //rentMercenaryDaily.SpriteRentBG.color = Color.red;
             rentMercenaryDaily.LabelMercenary.text = string.Format(TextConst.S(9520), 1);
             if (!rentExpire)
                 initRentPlayer();
@@ -152,7 +152,7 @@ public class UISelectPartner : UIBase {
             rentExpire = true;
         } else {
             rentExpire = false;
-            rentMercenaryDaily.SpriteRentBG.color = new Color32(0, 230, 255, 255);
+            //rentMercenaryDaily.SpriteRentBG.color = new Color32(0, 230, 255, 255);
             rentMercenaryDaily.LabelMercenary.text = string.Format(TextConst.S(9521), TextConst.SecondString(GameData.Team.RentPlayerTime.ToUniversalTime()));
         }
     }

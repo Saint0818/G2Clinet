@@ -561,6 +561,7 @@ public class UISocial : UIBase {
         if (ok) {
             TSocialEvent result = JsonConvertWrapper.DeserializeObject<TSocialEvent>(www.text);
             GameData.Team.LifetimeRecord.GoodCount = result.GoodCount;
+            GameData.Team.SocialCoin = result.Num;
             GameData.Team.NeedForSyncRecord = true;
             if (result.Good != null) {
                 friendList[nowPage][nowIndex].Event.Good = result.Good;
@@ -660,10 +661,13 @@ public class UISocial : UIBase {
                     WWWForm form = new WWWForm();
                     switch (nowPage) {
                         case 0:
-                            form.AddField("Identifier", GameData.Team.Identifier);
-                            form.AddField("Name", GameData.Team.Player.Name);
-                            form.AddField("_id", friendList[nowPage][nowIndex].Event._id);
-                            SendHttp.Get.Command(URLConst.Good, waitGood, form);
+                            if (friendList[nowPage][nowIndex].Event.Good == null ||
+                               !friendList[nowPage][nowIndex].Event.Good.ContainsKey(GameData.Team.Identifier)) {
+                                form.AddField("Identifier", GameData.Team.Identifier);
+                                form.AddField("Name", GameData.Team.Player.Name);
+                                form.AddField("_id", friendList[nowPage][nowIndex].Event._id);
+                                SendHttp.Get.Command(URLConst.Good, waitGood, form);
+                            }
 
                             break;
                         case 1:
