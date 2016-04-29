@@ -1241,13 +1241,22 @@ namespace GameStruct
         public int[] AwardID;
         public int[] AwardNum;
         public string OpenUI;
+
+        [UsedImplicitly]
         private string nameTW;
+        [UsedImplicitly]
         private string nameCN;
+        [UsedImplicitly]
         private string nameEN;
+        [UsedImplicitly]
         private string nameJP;
+        [UsedImplicitly]
         private string explainTW;
+        [UsedImplicitly]
         private string explainCN;
+        [UsedImplicitly]
         private string explainEN;
+        [UsedImplicitly]
         private string explainJP;
 
         public string Name
