@@ -71,7 +71,13 @@ public class UIStrategy : UIBase {
 
     private void onClose()
     {
-        Statistic.Ins.LogEvent(GameData.IsPVP ? 14 : 53, GameData.Team.AttackTactical.ToString());
+        if(GameData.IsPVP)
+            Statistic.Ins.LogEvent(14, GameData.Team.AttackTactical.ToString());
+        else if(GameData.IsMainStage)
+            Statistic.Ins.LogEvent(53, GameData.Team.AttackTactical.ToString());
+        else if(GameData.IsInstance)
+            Statistic.Ins.LogEvent(101, GameData.Team.AttackTactical.ToString());
+
         Visible = false;
     }
 

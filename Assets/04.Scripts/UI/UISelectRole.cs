@@ -598,7 +598,12 @@ public class UISelectRole : UIBase {
         UIStrategy.Visible = false;
         UISkillFormation.Visible = true;
 
-        Statistic.Ins.LogEvent(15);
+        if(GameData.IsPVP)
+            Statistic.Ins.LogEvent(15);
+        else if(GameData.IsMainStage)
+            Statistic.Ins.LogEvent(54);
+        else if(GameData.IsInstance)
+            Statistic.Ins.LogEvent(102);
     }
 
 	private void waitPVPGetEnemy(bool ok, WWW www)
