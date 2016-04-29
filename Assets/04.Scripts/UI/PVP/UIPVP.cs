@@ -427,26 +427,30 @@ public class UIPVP : UIBase
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("ShopIndex", kind);
-		SendHttp.Get.Command(URLConst.PVPBuyTicket, waitPVPBuyPVP, form, true);  
+		SendHttp.Get.Command(URLConst.PVPBuyTicket, waitPVPBuyPVP, form);
 	}
 
 	private void waitPVPBuyPVP(bool ok, WWW www)
 	{
-		if (ok)
-		{
-			if (SendHttp.Get.CheckServerMessage (www.text)) {
-                TPVPBuyResult data = JsonConvertWrapper.DeserializeObject <TPVPBuyResult> (www.text);
-				GameData.Team.Diamond = data.Diamond;
-				GameData.Team.PVPTicket = data.PVPTicket;
-				GameData.Team.PVPCD = data.PVPCD;
-				GameData.Team.DailyCount = data.DailyCount;
+	    if(!ok)
+            return;
 
-				updateUI ();
-			}
-		}
+	    if(SendHttp.Get.CheckServerMessage(www.text))
+	    {
+	        TPVPBuyResult data = JsonConvertWrapper.DeserializeObject<TPVPBuyResult>(www.text);
+
+            Statistic.Ins.LogEvent(11, GameData.Team.Diamond - data.Diamond);
+
+	        GameData.Team.Diamond = data.Diamond;
+	        GameData.Team.PVPTicket = data.PVPTicket;
+	        GameData.Team.PVPCD = data.PVPCD;
+	        GameData.Team.DailyCount = data.DailyCount;
+
+	        updateUI();
+	    }
 	}
 
-	private void openRecharge()
+    private void openRecharge()
 	{
 		UIRecharge.UIShow(true);
 	}

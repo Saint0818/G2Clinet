@@ -37,7 +37,6 @@ public class UILoading : UIBase
     private static int achievementTutorialID = -1;
     private float nowProgress;
     private float toProgress;
-    private float startTimer = 0;
     private float loadingTimer = 0;
     private float textCount = 0;
     private string loadingText = "";
@@ -254,7 +253,6 @@ public class UILoading : UIBase
     private void initLoadingPic(ELoading kind)
     {
         loadingKind = kind;
-        startTimer = Time.time;
         closeAfterFinished = false;
 
         if (kind == ELoading.Game)
