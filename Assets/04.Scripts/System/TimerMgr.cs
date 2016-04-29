@@ -18,13 +18,10 @@ public enum ETimerKind
 
 public class TimerMgr : KnightSingleton<TimerMgr>
 {
-    public ETimerKind SeleckKind = ETimerKind.Default;
     public float CrtTime = 1f;
     private Vector3 ballvelocity = Vector3.zero;
     private bool tempGravity = true;
-    public bool IsPause = false;
-    public PlayerBehaviour TimeController;
-    private Dictionary<ETimerKind, float> timeRecorder = new Dictionary<ETimerKind, float>();
+    public bool IsPause;
 
     void Start()
     {

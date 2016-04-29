@@ -755,6 +755,9 @@ public class UISelectRole : UIBase {
             TPVPStart data = JsonConvertWrapper.DeserializeObject <TPVPStart>(www.text);
             GameData.Team.PVPTicket = data.PVPTicket;
             GameData.Team.PVPCD = data.PVPCD;
+
+            Statistic.Ins.LogEvent(17, GameData.Team.Player.Lv.ToString());
+
             enterGame();
         }
     }
