@@ -1480,6 +1480,8 @@ namespace GameStruct
 		public int Diamonds;
 		public int Diamondcn;
 		public string Android;
+		public int Kind;
+		public int Rate;
 		public int Order;
 		public int Sale;
 		public string pricetw;

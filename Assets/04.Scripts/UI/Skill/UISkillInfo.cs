@@ -250,7 +250,7 @@ public class UISkillInfo : UIBase {
 			spriteSkillCard.spriteName =  GameFunction.CardLevelName(skill.ID);
             textureSkillPic.mainTexture = TextureManager.Get.CardTexture(skill.ID);
 			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
-			GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar);
+			GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar, 40);
 			if(GameFunction.IsActiveSkill(skill.ID)) {
 				spriteSkillKind.spriteName = "ActiveIcon";
 				labelSkillInfoKind4.text = TextConst.S(7207);

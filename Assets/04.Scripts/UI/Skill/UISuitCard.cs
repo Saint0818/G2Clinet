@@ -18,12 +18,17 @@ public struct TSuitCardLaunch {
 	public UILabel LabelCount;
 	public UILabel[] LabelBonus;
 	public UISprite BG;
+	public UISprite SpriteIcon;
 
 	public void Init (GameObject obj, Transform parent) {
 		mSelf = obj;
 		mSelf.transform.SetParent(parent);
 		mSelf.transform.localScale = Vector3.one;
 		LabelBonus = new UILabel[2];
+	}
+
+	public void UpdateStar(int starIndex) {
+		SpriteIcon.spriteName = "Staricon" + starIndex.ToString();
 	}
 
 	public void UpdateView (int index, int starCount, int attrKind1, int attrValue1, int attrKind2, int attrValue2) {
@@ -90,7 +95,9 @@ public struct TSuitCardGroup {
 	public TActiveSkillCard[] SuitCards;
 	public UILabel[] AttrBonus;
 	public UILabel NowCountLabel;
+	public UISprite NowStarSprite;
 	public UILabel NextCountLabel;
+	public UISprite NextStarSprite;
 	public GameObject MoreButton;
 
 	private TSuitCard mSuitCard;
@@ -99,6 +106,11 @@ public struct TSuitCardGroup {
 	public void Init () {
 		SuitCards = new TActiveSkillCard[3];
 		AttrBonus = new UILabel[2];
+	}
+
+	public void UpdateStar(int starIndex) {
+		NowStarSprite.spriteName = "Staricon" + starIndex.ToString();
+		NextStarSprite.spriteName = "Staricon" + starIndex.ToString();
 	}
 
 	public void UpdateView (GameObject obj, Transform parent, TSuitCardGroupValue value) {
@@ -213,6 +225,8 @@ public class UISuitCard {
 	private int costNow;
 	private int costMax;//啟動值最大值
 
+	private int starIndex = 1;
+
 	public void OnDestroy() {
 		itemSuitCards.Clear();
 	}
@@ -261,7 +275,9 @@ public class UISuitCard {
 				item.AttrBonus[i] = obj.transform.Find("AttriGroup/BonusLabel" + i.ToString()).GetComponent<UILabel>();
 			
 			item.NowCountLabel = obj.transform.Find("AttriGroup/NowLaunch/CountLabel").GetComponent<UILabel>();
+			item.NowStarSprite = obj.transform.Find("AttriGroup/NowLaunch/LabelIcon").GetComponent<UISprite>();
 			item.NextCountLabel = obj.transform.Find("AttriGroup/NextLaunch/CountLabel").GetComponent<UILabel>();
+			item.NextStarSprite = obj.transform.Find("AttriGroup/NextLaunch/LabelIcon").GetComponent<UISprite>();
 			item.MoreButton = obj.transform.Find("MoreBtn").gameObject;
 			item.MoreButton.name = index.ToString();
 			UIEventListener.Get(item.MoreButton).onClick = OnCaption;
@@ -375,16 +391,19 @@ public class UISuitCard {
 		}
 	}
 
-//	public bool CheckRedPoint {
-//		get {
-//			if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard)) 
-//				for (int i=0; i<itemSuitCards.Count; i++) 
-//					if(itemSuitCards[i].IsAllGet && !GameData.Team.IsExecuteSuitCard(itemSuitCards[i].SuitCard.ID))
-//						return true;
-//			
-//			return false;
-//		}
-//	}
+	public void RunStar () {
+		starIndex ++;
+		if(starIndex > 5)
+			starIndex = 1;
+		
+		if(viewCaption.activeSelf) 
+			if(suitCardCaption != null) 
+				for(int i=0; i<suitCardCaption.Length; i++) 
+					suitCardCaption[i].UpdateStar(starIndex);
+
+		for(int i=0; i<itemSuitCards.Count; i++)
+			itemSuitCards[i].UpdateStar(starIndex);
+	}
 
 	private void createCaption (int index) {
 		suitCardCaption = new TSuitCardLaunch[4];
@@ -395,6 +414,7 @@ public class UISuitCard {
 				suitCardCaption[i].LabelBonus[j] = suitCardCaption[i].mSelf.transform.Find("BonusLabel" + j.ToString()).GetComponent<UILabel>();
 			
 			suitCardCaption[i].BG = suitCardCaption[i].mSelf.transform.Find("BG").GetComponent<UISprite>();
+			suitCardCaption[i].SpriteIcon = suitCardCaption[i].mSelf.transform.Find("LabelIcon").GetComponent<UISprite>();
 		}
 		refreshCaption(index);
 	}

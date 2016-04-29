@@ -171,6 +171,7 @@ public class UISuitAvatar : UIBase {
 	private GameObject redPoint;
 	//SuitCard
 	private UISuitCard uiSuitCard = new UISuitCard();
+	private bool isRunStar = false;
 
 	public static bool Visible {
 		get {
@@ -211,6 +212,7 @@ public class UISuitAvatar : UIBase {
 			tItemSuitAvatarGroup.Clear();
 
 		uiSuitCard.OnDestroy();
+		CancelInvoke("RunStar");
 	}
 
 	protected override void InitCom() {
@@ -250,6 +252,13 @@ public class UISuitAvatar : UIBase {
 		tabLock = GameObject.Find(UIName + "/Window2/Center/Tabs/1/Lock");
 
 		SetBtnFun(UIName + "/BG/NoBtn", OnClose);
+		InvokeRepeating("RunStar", 0, 0.5f);
+	}
+
+	private void RunStar () {
+		if(isRunStar)
+			uiSuitCard.RunStar();
+
 	}
 
 	public void ClickCard (GameObject go) {
@@ -339,6 +348,7 @@ public class UISuitAvatar : UIBase {
 				tabs[i].SetActive(i == no);
 				views[i].SetActive(i == no);
 			}
+			isRunStar = (no == 1);
 		}
 	}
 

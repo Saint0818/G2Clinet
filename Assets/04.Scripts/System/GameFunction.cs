@@ -795,7 +795,7 @@ public static class GameFunction
 		}
 	}
 
-	public static void ShowStar (ref SkillCardStar[] stars, int lv, int quality, int max) {
+	public static void ShowStar (ref SkillCardStar[] stars, int lv, int quality, int max, int sizeX = 30) {
 		for (int i=0; i<stars.Length; i++) {
 			if(i < lv) stars[i].ShowStar();
 			else stars[i].HideStar();
@@ -804,11 +804,11 @@ public static class GameFunction
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].transform.localPosition = new Vector3(-(GameConst.StarSizeX * 0.5f) * (max -1)+ i * GameConst.StarSizeX, 0, 0);
+			stars[i].transform.localPosition = new Vector3(-(sizeX * 0.5f) * (max -1)+ i * sizeX, 0, 0);
 		}
 	}
 
-	public static void ShowStar_Item (ref SkillCardStar[] stars, int lv, int quality, int max) {
+	public static void ShowStar_Item (ref SkillCardStar[] stars, int lv, int quality, int max, int sizeX = 30) {
 		for (int i=0; i<stars.Length; i++) {
 			if(i < lv) stars[i].ShowStar();
 			else stars[i].HideStar();
@@ -817,7 +817,7 @@ public static class GameFunction
 			else stars[i].Hide();
 
 			stars[i].SetQuality(quality);
-			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * GameConst.StarSizeX, 0, 0);
+			stars[i].gameObject.transform.localPosition = new Vector3(-145 + i * sizeX, 0, 0);
 		}
 	}
 

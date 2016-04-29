@@ -317,9 +317,11 @@ public class UIRecharge : UIBase {
 				Debug.LogError("Order is Wrong. Order = " + GameData.DMalls[i].Order );
 				break;
 			}
-			kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
-			kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
-			UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].mSelf).onClick = OnBuyDiamond;
+			if(GameData.DMalls[i].Kind == 0) {
+				kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
+				kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
+				UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].mSelf).onClick = OnBuyDiamond;
+			}
 		}
 	}
 
