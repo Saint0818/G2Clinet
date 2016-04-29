@@ -95,7 +95,10 @@ public class UIMission : UIBase {
                 Get.Show(value);
 
             if(value)
+            {
                 Statistic.Ins.LogScreen(20);
+                Statistic.Ins.LogEvent(451);
+            }
         }
     }
 
