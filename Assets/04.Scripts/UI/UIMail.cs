@@ -5,32 +5,36 @@ using UnityEngine;
 using GameStruct;
 using Newtonsoft.Json;
 
-public struct TMailItem
-{
-	public int Index;
-	public UILabel Head;
-	public UILabel Body;
-	public UILabel Data;
-
-	public GameObject gameobject;
-	public Transform DisablePool;
-	public Transform EnablePool;
-
-	private bool isEnable;
-
-	public bool Enable
-	{
-		set{
-			isEnable = value;
-
-			if(gameobject){
-				gameobject.SetActive(value);
-				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
-			}
-		}
-		get{return isEnable;}
-	}
+public struct TListMailResult{
+	public int MailKind; // 1=prize, 2=social
+	public TMailInfo[] Mails;
 }
+//public struct TMailItem
+//{
+//	public int Index;
+//	public UILabel Head;
+//	public UILabel Body;
+//	public UILabel Data;
+//
+//	public GameObject gameobject;
+//	public Transform DisablePool;
+//	public Transform EnablePool;
+//
+//	private bool isEnable;
+//
+//	public bool Enable
+//	{
+//		set{
+//			isEnable = value;
+//
+//			if(gameobject){
+//				gameobject.SetActive(value);
+//				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
+//			}
+//		}
+//		get{return isEnable;}
+//	}
+//}
 
 public struct TMail
 {
@@ -45,6 +49,8 @@ public class MailSubPage {
 	public GameObject redPoint;
 	public GameObject pageObject;
 	public bool isActive;
+
+	public List<TMailInfo> MailList = new List<TMailInfo>();
 
 	public virtual void HookUI(string UIName, int i)
 	{
@@ -64,6 +70,10 @@ public class MailSubPage {
 	public virtual void SetActive(bool a){
 		isActive = a;
 		pageObject.SetActive (a);
+	}
+
+	public virtual void ListMail(TMailInfo[] Mails)
+	{			
 	}
 }
 
@@ -170,6 +180,31 @@ public class MailSubPagePrize : MailSubPage {
 		//
 		//			initMissionList(index);
 		//		}
+		SendListMail(1);
+	}
+
+	public override void ListMail(TMailInfo[] Mails)
+	{
+		MailList.Clear ();
+		for (int i = 0; i < Mails.Length; i++)
+			MailList.Add (Mails [i]);
+	}
+
+	private void SendListMail (int mailKind) {
+		WWWForm form = new WWWForm();
+		form.AddField("MailKind", 1);// 1=prize, 2=social
+		SendHttp.Get.Command(URLConst.ListMail, waitListMail, form);
+	}
+
+	private void waitListMail(bool ok, WWW www) {
+		if (ok) {
+			TListMailResult result = JsonConvertWrapper.DeserializeObject <TListMailResult>(www.text); 
+			//GameData.Team.GymBuild = result.GymBuild;
+			ListMail(result.Mails);
+
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
 	}
 }
 
@@ -209,6 +244,29 @@ public class MailSubPageSocial : MailSubPage {
 		//
 		//			initMissionList(index);
 		//		}
+		SendListMail(2);
+	}
+
+	public override void ListMail(TMailInfo[] Mails)
+	{
+		
+	}
+
+	private void SendListMail (int mailKind) {
+		WWWForm form = new WWWForm();
+		form.AddField("MailKind", 2);// 1=prize, 2=social
+		SendHttp.Get.Command(URLConst.ListMail, waitListMail, form);
+	}
+
+	private void waitListMail(bool ok, WWW www) {
+		if (ok) {
+			TListMailResult result = JsonConvertWrapper.DeserializeObject <TListMailResult>(www.text); 
+			//GameData.Team.GymBuild = result.GymBuild;
+			ListMail(result.Mails);
+
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
 	}
 }
 

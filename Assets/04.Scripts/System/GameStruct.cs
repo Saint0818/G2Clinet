@@ -1859,5 +1859,22 @@ namespace GameStruct
 		public void ChangePos(int buildIndex) {
 			BuildIndex = buildIndex;
 		}
-	} 
+	}
+
+	public struct TMailItem{
+		public int ItemID;
+		public int Count;
+	}
+
+	// datetime應該可以當key
+	public struct TMailInfo{
+		public string SenderIdentifier;
+		public int SenderHeadTextureNo;
+		public int SenderLv;
+		public int MailKind; // 1=prize, 2=social
+		public int ContextType; // 1=native string, 2=string id
+		public DateTime Time;
+		public TMailItem[] Items;
+
+	}
 }
