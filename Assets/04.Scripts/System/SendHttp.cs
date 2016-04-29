@@ -671,7 +671,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
     private IEnumerator longPollingSocialEvent(int kind) {
-        yield return new WaitForSeconds(20); //every 20 seconds request once
+        yield return new WaitForSeconds(19); //every 19 seconds request once
 
         lookSocialEvent(kind);
     }
