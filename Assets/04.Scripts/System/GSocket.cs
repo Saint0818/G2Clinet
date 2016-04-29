@@ -78,7 +78,6 @@ public class TRec2_1 : TRecBase{
 }
 
 public class GSocket : KnightSingleton<GSocket> {
-	private static GSocket instance = null;
 	private SocketIOComponent WebSocket = null;
 	private TNetMessageProc[,] NetMsgProcs = new TNetMessageProc[10, 20];
 	private Action onConnectFunc = null;

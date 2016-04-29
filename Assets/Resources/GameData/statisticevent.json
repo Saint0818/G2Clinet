@@ -51,9 +51,9 @@
     },
     {
         "id": 14,
-        "title": "選戰術",
+        "title": "PVP 選戰術",
         "category": "SubUIBtn",
-        "action": "OpenUI_Strategy",
+        "action": "OpenUI_PVP_Strategy",
         "label": "紀錄戰術",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn",
@@ -63,7 +63,7 @@
         "id": 15,
         "title": "選技能",
         "category": "SubUIBtn",
-        "action": "OpenUI_Skill",
+        "action": "OpenUI_PVP_Skill",
         "label": "UIPVP",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard",
@@ -83,7 +83,8 @@
         "category": "SubUIBtn",
         "action": "OpenUI_Game",
         "label": "紀錄玩家等級",
-        "value": 1
+        "value": 1,
+        "undefined": "done"
     },
     {
         "id": 51,
@@ -107,9 +108,9 @@
     },
     {
         "id": 53,
-        "title": "選戰術",
+        "title": "主線關卡選戰術",
         "category": "SubUIBtn",
-        "action": "OpenUI_Strategy",
+        "action": "OpenUI_MainStage_Strategy",
         "label": "紀錄戰術",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
@@ -118,7 +119,7 @@
         "id": 54,
         "title": "選技能",
         "category": "SubUIBtn",
-        "action": "OpenUI_Skill",
+        "action": "OpenUI_MainStage_Skill",
         "label": "UIMainStage",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
@@ -127,7 +128,7 @@
         "id": 55,
         "title": "選技能",
         "category": "SubUIBtn",
-        "action": "OpenUI_Skill",
+        "action": "OpenUI_MainStage_Skill",
         "label": "紀錄技能編號",
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
@@ -195,7 +196,7 @@
         "id": 101,
         "title": "選戰術",
         "category": "SubUIBtn",
-        "action": "OpenUI_Strategy",
+        "action": "OpenUI_BossStage_Strategy",
         "label": "紀錄戰術",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
@@ -204,7 +205,7 @@
         "id": 102,
         "title": "選技能",
         "category": "SubUIBtn",
-        "action": "OpenUI_Skill",
+        "action": "OpenUI_BossStage_Skill",
         "label": "UIBossStage",
         "value": 1,
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
@@ -213,7 +214,7 @@
         "id": 103,
         "title": "選技能",
         "category": "SubUIBtn",
-        "action": "OpenUI_Skill",
+        "action": "OpenUI_BossStage_Skill",
         "label": "紀錄技能編號",
         "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
     },
