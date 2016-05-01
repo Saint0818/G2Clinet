@@ -1064,7 +1064,7 @@ namespace GameStruct
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        private int getStorageBestValueItemTotalPoints(int kind)
+        public int getStorageBestValueItemTotalPoints(int kind)
         {
             int maxTotalPoint = Int32.MinValue;
             foreach(TValueItem valueItem in ValueItems)
@@ -1418,14 +1418,16 @@ namespace GameStruct
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) {
 				if(suitCardCost != null) {
 					for(int i=0; i<suitCardCost.Length; i++) {
-						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item1);
-						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item2);
-						count += findSuitCardStars(GameData.DSuitCard[suitCardCost[i]].Item3);
-						level = GetStarLevel(count, GameData.DSuitCard[suitCardCost[i]]);
-						suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind1[level], GameData.DSuitCard[suitCardCost[i]].Value1[level]);
-						suitCardEffectValue(GameData.DSuitCard[suitCardCost[i]].AttrKind2[level], GameData.DSuitCard[suitCardCost[i]].Value2[level]);
-						count = 0;
-						level = 0;
+						if (GameData.DSuitCard.ContainsKey (suitCardCost [i])) {
+							count += findSuitCardStars (GameData.DSuitCard [suitCardCost [i]].Item1);
+							count += findSuitCardStars (GameData.DSuitCard [suitCardCost [i]].Item2);
+							count += findSuitCardStars (GameData.DSuitCard [suitCardCost [i]].Item3);
+							level = GetStarLevel (count, GameData.DSuitCard [suitCardCost [i]]);
+							suitCardEffectValue (GameData.DSuitCard [suitCardCost [i]].AttrKind1 [level], GameData.DSuitCard [suitCardCost [i]].Value1 [level]);
+							suitCardEffectValue (GameData.DSuitCard [suitCardCost [i]].AttrKind2 [level], GameData.DSuitCard [suitCardCost [i]].Value2 [level]);
+							count = 0;
+							level = 0;
+						}
 					}
 				}
 			}

@@ -53,7 +53,7 @@ public class UIBase: MonoBehaviour
 				} else
                     Debug.LogError("Loading prefab fail: " + path);
 			} else
-                Debug.LogError("Split path fail: " + path);
+                Debug.LogError("UI prefab path fail: " + path);
 		}
 
 		return null;

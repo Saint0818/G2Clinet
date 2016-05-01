@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -8,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class UIEquipListButton : MonoBehaviour
 {
+	private event Action<int> onClickListener;
+
     public UISprite Icon;
     public UISprite Frame;
     public UILabel AmountLabel;
@@ -27,6 +30,13 @@ public class UIEquipListButton : MonoBehaviour
     private void Awake()
     {
     }
+
+	public void Init(Action<int> onClick, int index) {
+		onClickListener = onClick;
+		mIndex = index;
+
+		RedPointVisible = false;
+	}
 
     public void Init(UIEquipItemList parent, int index)
     {
@@ -101,6 +111,10 @@ public class UIEquipListButton : MonoBehaviour
     [UsedImplicitly]
     private void OnClick()
     {
-        mParent.NotifyClick(mIndex);
+		if (mParent)
+        	mParent.NotifyClick(mIndex);
+
+		if (onClickListener != null)
+			onClickListener (mIndex);
     }
 }

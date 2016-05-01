@@ -18,6 +18,7 @@ public class UISelectRole : UIBase {
     private const float Y_Down = 4.5f;
 	private const float Y_Player = 0;
 	private const int playerNum = 3;
+	private const int itemNum = 2;
 
 	private int tempIndex = -1;
 	private Vector3 tempPosition;
@@ -27,7 +28,8 @@ public class UISelectRole : UIBase {
 	private List<TPlayer> playerList = new List<TPlayer>();
 	public TPlayer [] playerData = new TPlayer[playerNum];
 	private GameObject [] playerObjects = new GameObject[playerNum*2];
-    private GameObject uiTopPVE;
+	private GameObject uiBottom;
+	private GameObject uiTopPVE;
     private GameObject uiTopPVP;
     private GameObject uiCenterPVP;
 	private GameObject playerInfoModel = null;
@@ -35,6 +37,7 @@ public class UISelectRole : UIBase {
     private GameObject uiPVPWin;
     private GameObject uiPVPLose;
     private GameObject uiPVPFresh;
+	private GameObject uiEquipement;
     private UILabel labelStrategy;
 	private UILabel labelPVPFresh;
 	private UILabel labelMyPower;
@@ -46,6 +49,9 @@ public class UISelectRole : UIBase {
     private UILabel [] labelPVPPlayerName = new UILabel[playerNum*2];
     private UILabel [] labelPVPCombatPower = new UILabel[playerNum*2];
     private TAvatarLoader [] avatarLoaders = new TAvatarLoader[playerNum*2];
+	private UISprite [] spriteEquipEffect = new UISprite[itemNum];
+	private UIEquipPartSlot [] equipSlot = new UIEquipPartSlot[itemNum];
+	private UIValueItemData [] equipItemData = new UIValueItemData[itemNum];
 
 	public static bool Visible {
 		get {
@@ -71,6 +77,7 @@ public class UISelectRole : UIBase {
                 UISelectPartner.Visible = false;
                 UISkillFormation.Visible = false;
 				UIStrategy.Visible = false;
+				UIEquipList.Visible = false;
             }
 
             if(value)
@@ -117,6 +124,8 @@ public class UISelectRole : UIBase {
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
 
+		uiBottom = GameObject.Find (UIName + "/Bottom");
+		uiEquipement = GameObject.Find (UIName + "/Bottom/EquipItemView");
         uiPVPWin = GameObject.Find (UIName + "/Right/Win");
         uiPVPLose = GameObject.Find (UIName + "/Right/Lose");
         uiPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn");
@@ -138,6 +147,16 @@ public class UISelectRole : UIBase {
             labelPVPPlayerName[i] = GameObject.Find(UIName + string.Format("/Top/PVP/Player{0}/PlayerName/Label", i)).GetComponent<UILabel>();
         }
 
+		for (int i = 0; i < 2; i++) {
+			string path = UIName + string.Format ("/Bottom/EquipItemView/Slot{0}/{0}", i + 6);
+			equipSlot[i] = GameObject.Find (path).GetComponent<UIEquipPartSlot>();
+			equipSlot [i].Index = i + 6;
+			equipSlot [i].GetComponentInChildren<UIEquipItem> ().OnClickListener += OnEquip;
+			equipSlot [i].GetComponentInChildren<UIEquipItem> ().name = (i+6).ToString ();
+			spriteEquipEffect [i] = GameObject.Find (path + "/Effect").GetComponent<UISprite>();
+			spriteEquipEffect [i].gameObject.SetActive (false);
+		}
+
         uiTopPVE = GameObject.Find (UIName + "/Top/PVE");
         uiTopPVP = GameObject.Find (UIName + "/Top/PVP");
         uiCenterPVP = GameObject.Find (UIName + "/Center/PVP");
@@ -155,7 +174,47 @@ public class UISelectRole : UIBase {
             GameData.TeamMembers[i] = new TTeam();
             GameData.EnemyMembers[i] = new TTeam();
         }
+
+		initItem ();
     }
+
+	private void initItem() {
+		bool flag = false;
+		for (int i = 0; i < equipSlot.Length; i++) {
+			if (GameData.Team.Player.ValueItems.ContainsKey (i+17) && 
+				GameData.DItemData.ContainsKey(GameData.Team.Player.ValueItems[i+17].ID)) {
+				setEquiptItem(i, UIValueItemDataBuilder.Build(
+					GameData.DItemData[GameData.Team.Player.ValueItems[i+17].ID],
+					GameData.Team.Player.ValueItems[i+17].InlayItemIDs,
+					GameData.Team.Player.ValueItems[i+17].Num));
+				
+				flag = true;
+			}
+		}
+
+		if (flag ||
+		    GameData.Team.getStorageBestValueItemTotalPoints (17) > 0 ||
+		    GameData.Team.getStorageBestValueItemTotalPoints (18) > 0) {
+			uiEquipement.SetActive (true);
+			for (int i = 0; i < equipSlot.Length; i++)
+				if (!GameData.Team.Player.ValueItems.ContainsKey (i + 17)) {
+					spriteEquipEffect [i].gameObject.SetActive (false);
+					equipItemData[i] = UIValueItemDataBuilder.BuildEmpty();
+					equipSlot [i].Set (equipItemData[i], true);
+				}
+		} else
+			uiEquipement.SetActive (false);
+	}
+
+	private void setEquiptItem(int index, UIValueItemData itemData) {
+		equipItemData [index] = itemData;
+		equipSlot [index].Set (equipItemData[index], GameData.Team.IsPlayerBestValueItem (index+17));
+		spriteEquipEffect [index].gameObject.SetActive (false);
+		foreach (KeyValuePair<EAttribute, UIValueItemData.BonusData> item in itemData.Values) {
+			spriteEquipEffect [index].spriteName = item.Value.Icon;
+			spriteEquipEffect [index].gameObject.SetActive (true);
+		}
+	}
 
     private void showPVPUI(bool flag) {
         uiPVPWin.SetActive(flag);
@@ -350,16 +409,16 @@ public class UISelectRole : UIBase {
 
 	private void computePower() {
 		float power = 0;
-		for (int i = 0; i < playerData.Length; i++) 
-			power += playerData [i].CombatPower ();
-
-		labelMyPower.text = string.Format("{0:F0}", power);
+		/*for (int i = 0; i < playerData.Length; i++) 
+			power += playerData [i].CombatPower ();*/
+		
+		labelMyPower.text = string.Format("{0:F0}", GameData.Team.PVPIntegral);
 
 		power = 0;
 		for (int i = 0; i < GameData.PVPEnemyMembers.Length; i++)
-			power += GameData.PVPEnemyMembers [i].Player.CombatPower ();
+			power += GameData.PVPEnemyMembers [i].PVPIntegral; //.Player.CombatPower ();
 
-		labelOpponentPower.text = string.Format("{0:F0}", power);
+		labelOpponentPower.text = string.Format("{0:F0}", power / 3);
 
 		int winpoint = 0;
 		int lostpoint = 0;
@@ -422,6 +481,7 @@ public class UISelectRole : UIBase {
     }
 
 	public void InitPartnerPosition() {
+		uiBottom.SetActive (true);
 		if (stageData.IDKind == TStageData.EKind.PVP) {
             showPVPUI(true);
 		} else
@@ -511,6 +571,18 @@ public class UISelectRole : UIBase {
 			initPlayerList(selectRoleID);
 	}
 
+	public void OnEquip() {
+		int index = -1;
+		if (int.TryParse (UIButton.current.name, out index)) {
+			UIEquipList.Visible = true;
+			UIEquipList.Get.InitItemData (index-6, onItemChange);
+		}
+	}
+
+	private void onItemChange(int index, UIValueItemData item) {
+		setEquiptItem (index, item);
+	}
+
 	public void OnStart(){
         if (GameData.IsPVP)
             SendPVPStart();
@@ -564,6 +636,7 @@ public class UISelectRole : UIBase {
         if (UISelectPartner.Visible)
             return;
 
+		uiBottom.SetActive (false);
 		uiTopPVE.SetActive (false);
         showPVPUI(false);
 

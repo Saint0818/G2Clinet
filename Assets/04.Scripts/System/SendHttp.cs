@@ -69,12 +69,12 @@ public static class URLConst {
 	public const string EvolutionSkillcard = "evolutionskillcard";
 	public const string BuySkillcardBag = "buyskillcardbag";
 	public const string PickLottery = "picklottery";
-	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
 	public const string StageStart = "stagestart";
 	public const string StageWin = "stagewin";
 	public const string StageRewardAgain = "stagerewardagain";
 	public const string ResetStageDailyChallenge = "resetstagedailychallenge";
+	public const string CheckResetStage = "checkresetstage";
 	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
     public const string SyncDailyRecord = "syncdailyrecord";
@@ -95,19 +95,19 @@ public static class URLConst {
     public const string RefreshShop = "refreshshop";
     public const string BuyMyShop = "buymyshop";
     public const string ChangeStrategy = "changestrategy";
-	public const string LinkFB = "linkfb";
-	public const string Conference = "conference";
-	public const string IsSeePVPList = "isseepvplist";
-	public const string Revenge = "revenge";
-	public const string Tutorial = "tutorial";
-	public const string PlayerKind = "playerkind";
-	public const string AutoPower = "autopower";
-	public const string Rank = "rank";
     public const string RentPlayer = "rentplayer";
-
-	//
+	public const string SellItem = "sellitem";
+	public const string ChangeAvatar = "changeavatar";
+	public const string Potential = "potential";
+	public const string ValueItemExchange = "valueitemexchange";
+	public const string ValueItemAddInlay = "valueitemaddinlay";
+	public const string ValueItemUpgrade = "valueitemupgrade";
+	public const string ChangeHeadTexture = "changeheadtexture";
+	public const string ChangeLanguage = "changelanguage";
+	public const string RequireComputeTeamPower = "requirecomputeteampower";
+	public const string ReceivedDailyLoginReward = "receivedailyloginreward";
+	public const string ReceivedLifetimeLoginReward = "receivelifetimeloginreward";
 	public const string ListMail = "listmail";
-
 
 	//gym
 	public const string GymBuyType = "gymbuytype";
@@ -126,57 +126,6 @@ public static class URLConst {
     public const string PVPAward = "pvpaward";
     public const string PVPBuyTicket = "pvpbuyticket";
 
-	public const string MatchRank = "matchrank";
-	public const string MatchAward = "matchaward";
-	public const string MatchExchange = "matchexchange";
-	public const string FBGift = "fbgift";
-	public const string DayGift = "daygift";
-	public const string ChangeLogo = "changelogo";
-	public const string MaxLogo = "maxlogo";
-	public const string FBRank = "fbrank";
-	public const string UseItem = "useitem";
-	public const string BuyMoney = "buymoney";
-	public const string Polling = "polling";
-	public const string ItemUp = "itemup";
-	public const string SellItem = "sellitem";
-	public const string FullPower = "fullPower";
-	public const string BuyLuckBox = "buyluckbox";
-	public const string BuyStoreItem = "buystoreitem";
-	public const string PlayerEvo = "playerevo";
-	public const string BingoItem = "bingoitem";
-	public const string RecordGameStart = "recordgamestart";
-	public const string RecordGameEnd = "recordgameend";
-	public const string RecordGameRank = "recordgamerank";
-	public const string CrusadeData = "crusadedata";
-	public const string CrusadeStart = "crusadestart";
-	public const string CrusadeEnd = "crusadeend";
-	public const string ResetCrusade = "resetcrusade";
-	public const string CrusadeAward = "crusadeaward";
-	public const string SkillUpgrade = "skillupgrade";
-	public const string ChangeSkillEffect = "changeskilleffect";
-	public const string MissionAward = "missionaward";
-	public const string CheckResetStage = "checkresetstage";
-	public const string GetGymData = "getgymdata";
-	public const string SearchGym = "searchgym";
-	public const string GymStart = "gymstart";
-	public const string GymEnd = "gymend";
-	public const string GymDef = "gymdef";
-	public const string GymAward = "gymaward";
-	public const string PVEQuickFinish = "pvequickfinish";
-	public const string ResetPVE = "resetpve";
-	public const string RecordAward = "recordaward";
-	public const string LiveTime = "livetime";
-	public const string SaveTalk = "savetalk";
-	public const string OpenLogoBox = "openlogobox";
-	public const string BuildUpgrade = "buildupgrade";
-	public const string QuickTrainPlayer = "quicktrainplayer";
-	public const string ChangeItemEffect = "changeitemeffect";
-	public const string PlayoffPair = "playoffpair";
-	public const string PlayoffStart = "playoffstart";
-	public const string PlayoffEnd = "playoffend";
-	public const string PlayoffReset = "playoffreset";
-	public const string PlayoffExchange = "playoffexchange";
-	public const string TeamStarting = "teamstarting";
 	public const string GMAddItem = "gmadditem";
 	public const string GMRemoveItem = "gmremoveitem";
 	public const string GMAddMoney = "gmaddmoney";
@@ -198,16 +147,6 @@ public static class URLConst {
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
 	public const string GMSetStageDailyChallengeNum = "gmsetstagedailychallengenum";
-    public const string ChangeAvatar = "changeavatar";
-	public const string Potential = "potential";
-	public const string ValueItemExchange = "valueitemexchange";
-	public const string ValueItemAddInlay = "valueitemaddinlay";
-	public const string ValueItemUpgrade = "valueitemupgrade";
-    public const string ChangeHeadTexture = "changeheadtexture";
-    public const string ChangeLanguage = "changelanguage";
-    public const string RequireComputeTeamPower = "requirecomputeteampower";
-    public const string ReceivedDailyLoginReward = "receivedailyloginreward";
-    public const string ReceivedLifetimeLoginReward = "receivelifetimeloginreward";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {
@@ -288,10 +227,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			#endif
 			
 			if (UIWaitingHttp.Visible) { 
-				if (www.url == URLConst.Polling || www.url == URLConst.AutoPower) {
-					
-				} else
-					UIWaitingHttp.UIShow(false);
+				UIWaitingHttp.UIShow(false);
 			}
 			
 			flag = true;

@@ -39,7 +39,9 @@ public class UIEquipPartSlot : MonoBehaviour
     /// </summary>
     private void onItemClick()
     {
-        Parent.OnSlotClick(Index);
+		if (Parent != null)
+        	Parent.OnSlotClick(Index);
+		
         GetComponent<UIToggle>().Set(true);
     }
 }
