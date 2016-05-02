@@ -148,7 +148,7 @@ public class UILoading : UIBase
         UIPVP.UIShow(true);
 
         UIMainLobby.Get.Hide();
-        UIResource.Get.Show(2);
+        UIResource.Get.Show(UIResource.EMode.PVP);
 
         if (!checkTutorialUI(achievementTutorialID))
             if (GameData.DTutorialStageEnd.ContainsKey(StageID) && checkTutorialUI(GameData.DTutorialStageEnd[StageID]))

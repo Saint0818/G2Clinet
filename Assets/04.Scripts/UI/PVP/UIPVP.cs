@@ -84,7 +84,7 @@ public class UIPVP : UIBase
         if (isShow)
         {
             UIMainLobby.Get.Hide(false);
-            UIResource.Get.Show(2);
+            UIResource.Get.Show(UIResource.EMode.PVP);
 
             Statistic.Ins.LogScreen(4);
             Statistic.Ins.LogEvent(10);

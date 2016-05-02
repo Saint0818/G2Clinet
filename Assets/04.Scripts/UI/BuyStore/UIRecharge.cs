@@ -251,7 +251,7 @@ public class UIRecharge : UIBase {
 			if(UIShop.Visible)
 			{
 			    UIMainLobby.Get.Hide();
-                UIResource.Get.Show();
+                UIResource.Get.Show(UIResource.EMode.PvpSocial);
 			}
 		}
 		isRecord = isNeedRecord;
@@ -426,7 +426,7 @@ public class UIRecharge : UIBase {
 				if(UIShop.Visible)
 				{
 				    UIMainLobby.Get.Hide();
-                    UIResource.Get.Show(2);
+                    UIResource.Get.Show(UIResource.EMode.PvpSocial);
 				}
 			    if(UIMall.Visible)
 					UIMall.Get.RefreshTextColor();

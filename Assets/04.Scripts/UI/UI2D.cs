@@ -159,7 +159,7 @@ public class UI2D : MonoBehaviour {
             case "UIShop":
                 UIShop.Visible = true;
                 UIMainLobby.Get.Hide();
-                UIResource.Get.Show(2);
+                UIResource.Get.Show(UIResource.EMode.PvpSocial);
                 break;
             case "UIMall":
                 UIMall.Get.ShowView();

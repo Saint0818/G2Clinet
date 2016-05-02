@@ -45,7 +45,7 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
 
         UIMainLobby.Get.Hide();
-        UIResource.Get.Show(1);
+        UIResource.Get.Show(UIResource.EMode.Basic);
     }
 
     public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex)
@@ -57,7 +57,7 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
 
         UIMainLobby.Get.Hide();
-        UIResource.Get.Show(1);
+        UIResource.Get.Show(UIResource.EMode.Basic);
     }
 
     public void ShowPositionView()

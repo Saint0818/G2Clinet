@@ -91,7 +91,7 @@ public class UIMainLobbyEvents : MonoBehaviour
         if(GameData.IsOpenUIEnable(EOpenID.Shop))
         {
             UIMainLobby.Get.Hide();
-            UIResource.Get.Show(2);
+            UIResource.Get.Show(UIResource.EMode.PvpSocial);
             UIShop.Visible = true;
         }
         else

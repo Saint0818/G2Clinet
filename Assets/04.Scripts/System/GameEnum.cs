@@ -66,6 +66,8 @@
         MoneyChange,
         DiamondChange,
         PowerChange,
+        PVPCoinChange,
+        SocialCoinChange,
         NewAvatar1,
         NewAvatar2,
         NewAvatar3,
