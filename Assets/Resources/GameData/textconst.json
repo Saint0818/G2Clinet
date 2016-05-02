@@ -2655,6 +2655,12 @@
         "en": " [33FFDD]OWNED：[-][33FFDD]{0}[-]"
     },
     {
+        "id": 6111,
+        "explain": "秀出來源按鈕",
+        "tw": "查看來源",
+        "en": "View Resource"
+    },
+    {
         "id": 6201,
         "explain": "物品來源hint"
     },
@@ -3220,7 +3226,7 @@
         "id": 7701,
         "explain": "套卡介面說明",
         "uipath": "ItemSuitCardLaunch",
-        "tw": "1.尋找同樣系列的技能晶片，成為組合。\n2.收集完成後按下[33FFDD]啟動[-]，取得組合加成效果。再點擊即可關閉。\n3.注意[33FFDD]啟動上限值[-]。",
+        "tw": "1.收集完成[00ff00]指定的三張晶片卡[-]後方可啟動。單一晶片卡無法啟動套卡功能唷！\n2.累積三張晶片卡的[00ff00]星星總數[-]，可以獲得更佳的屬性加成！\n3.按下[00ff00]啟動[-]即可運行套卡功能，再點擊關閉套卡。注意[FF0000FF]啟動上限值[-]。",
         "en": "1. Find the same series of skill cards and combine them.\n2. After you combine the cards press  [33FFDD]start[-] to for it to take effect. Click again to close.\n3. Note that the [33FFDD]upper limit[-] has increased. "
     },
     {
@@ -3268,25 +3274,29 @@
         "id": 7709,
         "explain": "物件文字",
         "uipath": "ItemSuitCardGroup",
-        "tw": "目前累積數："
+        "tw": "目前累積數：",
+        "en": "Now cumulative number:"
     },
     {
         "id": 7710,
         "explain": "物件文字",
         "uipath": "ItemSuitCardGroup",
-        "tw": "下一階段："
+        "tw": "下一階段：",
+        "en": "Next stage:"
     },
     {
         "id": 7711,
         "explain": "物件文字",
         "uipath": "ItemSuitCardLaunch",
-        "tw": "需求累積數："
+        "tw": "需求累積數：",
+        "en": "Number of demand:"
     },
     {
         "id": 7712,
         "explain": "物件文字",
         "uipath": "ItemSuitCardLaunch",
-        "tw": "加成數值："
+        "tw": "加成數值：",
+        "en": "Bonus Value:"
     },
     {
         "id": 7713
@@ -3530,7 +3540,8 @@
     {
         "id": 9252,
         "explain": "星星計數",
-        "tw": "章節進度"
+        "tw": "章節進度",
+        "en": "Chapter progress"
     },
     {
         "id": 9301,
@@ -3777,41 +3788,48 @@
         "id": 9520,
         "explain": "聘請自由球員",
         "uipath": "BtnLabel",
-        "tw": "聘請自由球員[00ff00]{0}[-]天"
+        "tw": "聘請自由球員[00ff00]{0}[-]天",
+        "en": "Hire free agents [00ff00] {0} [-] Days"
     },
     {
         "id": 9521,
         "explain": "已聘僱",
         "uipath": "BtnLabel",
-        "tw": "聘僱倒數[FF0000FF]{0}[-]"
+        "tw": "聘僱倒數[FF0000FF]{0}[-]",
+        "en": "Hiring Countdown [FF0000FF] {0} [-] "
     },
     {
         "id": 9522,
         "explain": "鎖定中",
         "uipath": "LockLabel",
-        "tw": "未聘僱自由球員"
+        "tw": "未聘僱自由球員",
+        "en": "Not hiring free agent"
     },
     {
         "id": 9523,
-        "tw": "花費{0}鑽石雇用自由球員？"
+        "tw": "花費{0}鑽石雇用自由球員？",
+        "en": " {0} Diamond spent hiring free agent?"
     },
     {
         "id": 9524,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
-        "tw": "線上玩家"
+        "tw": "線上玩家",
+        "en": "Players online"
     },
     {
         "id": 9525,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
-        "tw": "夥 伴"
+        "tw": "夥 伴",
+        "en": "Partnerships"
     },
     {
         "id": 9526,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
-        "tw": "自由球員"
+        "tw": "自由球員",
+        "en": "Free agent"
     },
     {
         "id": 9601,
@@ -4066,13 +4084,12 @@
     {
         "id": 9745,
         "explain": "獎勵，依照玩家打進的聯盟每日得到",
-        "tw": "每日獎勵：",
-        "en": "DAILY AWARD"
+        "tw": "每日獎勵："
     },
     {
         "id": 9746,
         "tw": "聯盟獎勵",
-        "en": "League Award"
+        "en": "DAILY AWARD"
     },
     {
         "id": 9747,
@@ -4120,13 +4137,15 @@
         "id": 9762,
         "explain": "戰前選擇注射劑",
         "uipath": "UIEquipList",
-        "tw": "裝備注射劑"
+        "tw": "裝備注射劑",
+        "en": "Injection equipment"
     },
     {
         "id": 9763,
         "explain": "介面說明",
         "uipath": "UIEquipList",
-        "tw": "點擊裝備，再次點擊卸下。"
+        "tw": "點擊裝備，再次點擊卸下。",
+        "en": "Click on the equipment, remove the set point again."
     },
     {
         "id": 9764,
@@ -5093,10 +5112,10 @@
         "en": "Action Skill Point adding rate {0} / s"
     },
     {
-        "id": 11107,
-        "explain": "升級CD",
-        "tw": "升級CD：",
-        "en": "CD Times:"
+        "id": 11105,
+        "explain": "升級效果",
+        "tw": "士氣每秒恢復速度 {0}  ",
+        "en": "Action Skill Point adding rate {0} / s"
     },
     {
         "id": 11201,
@@ -5294,31 +5313,37 @@
     {
         "id": 11902,
         "explain": "頁籤",
-        "tw": "公告"
+        "tw": "公告",
+        "en": "Notice"
     },
     {
         "id": 11903,
         "explain": "頁籤",
-        "tw": "獎勵"
+        "tw": "獎勵",
+        "en": "Reward"
     },
     {
         "id": 11904,
         "explain": "頁籤",
-        "tw": "社群"
+        "tw": "社群",
+        "en": "Social"
     },
     {
         "id": 11905,
-        "tw": "變更信箱外觀"
+        "tw": "變更信箱外觀",
+        "en": "Change the appearance of the mailbox"
     },
     {
         "id": 11906,
         "explain": "介面提示",
-        "tw": "信箱內獎勵訊息保管期限：[00ff00]{0}天[-]。超過時效將刪除訊息唷！"
+        "tw": "信箱內獎勵訊息保管期限：[00ff00]{0}天[-]。超過時效將刪除訊息唷！",
+        "en": "Mail message retention period within the award: [00ff00] {0} days [-]. Aging will delete messages over."
     },
     {
         "id": 11907,
         "explain": "一鍵領取按鈕",
-        "tw": "領取全部"
+        "tw": "領取全部",
+        "en": "Receive all"
     },
     {
         "id": 11908
@@ -5838,19 +5863,22 @@
         "id": 91001,
         "explain": "標題－PVP每日",
         "uipath": "SubheadLabel",
-        "tw": "聯盟對戰的每日獎勵"
+        "tw": "聯盟對戰的每日獎勵",
+        "en": "PVP Daily Award"
     },
     {
         "id": 91002,
         "explain": "標題－好友按讚",
         "uipath": "SubheadLabel",
-        "tw": "玩家[FFFFC9FF]{0}[-]按你讚！"
+        "tw": "玩家[FFFFC9FF]{0}[-]按你讚！",
+        "en": "Players [FFFFC9FF] {0} [-] as you like!"
     },
     {
         "id": 91003,
         "explain": "標題－官方系統",
         "uipath": "SubheadLabel",
-        "tw": "來自[33FFDD]籃球黑幫2[-]製作團隊"
+        "tw": "來自[33FFDD]籃球黑幫2[-]製作團隊",
+        "en": "From [33FFDD] Basketball gangs 2 [-] production team"
     },
     {
         "id": 91004
@@ -5859,13 +5887,15 @@
         "id": 91101,
         "explain": "內文－PVP每日",
         "uipath": "ContentLabel",
-        "tw": "[000000FF]恭喜獲得聯盟對戰獎勵，目前你的階級為[00ff00]{0}[-]。[-]"
+        "tw": "[000000FF]恭喜獲得聯盟對戰獎勵，目前你的階級為[00ff00]{0}[-]。[-]",
+        "en": "[000000FF] Congratulations to get the league battle reward, your class is currently [00ff00] {0} [-]. [-] "
     },
     {
         "id": 91102,
         "explain": "內文－好友按讚",
         "uipath": "ContentLabel",
-        "tw": "[000000FF]他按了你的成就[00ff00]{0}[-]一個讚！[-]"
+        "tw": "[000000FF]他按了你的成就[00ff00]{0}[-]一個讚！[-]",
+        "en": "[000000FF] him by your achievement [00ff00] {0} [-] a praise! [-] "
     },
     {
         "id": 91103,
