@@ -5,6 +5,7 @@ public class UIItemHint : UIBase {
 	private static UIItemHint instance = null;
 	private const string UIName = "UIItemHint";
     private TSellItem sellItemData;
+	private int mItemId;
 
     private EventDelegate.Callback callbackBuy;
     private GameObject uiBuy;
@@ -12,6 +13,8 @@ public class UIItemHint : UIBase {
     private UISprite spriteCoin;
     private UILabel labelPrice;
     private UILabel labelCount;
+
+	private UIButton buttonSearch;
 
 	private UILabel uiLabelName;
 	private UIScrollView scrollViewExplain;
@@ -28,6 +31,17 @@ public class UIItemHint : UIBase {
 				return instance.gameObject.activeInHierarchy;
 			else
 				return false;
+		}
+		set
+		{
+			if (instance) {
+				if (!value)
+					RemoveUI(instance.gameObject);
+				else
+					instance.Show(value);
+			} else
+				if (value)
+					Get.Show(value);
 		}
 	}
 	
@@ -78,9 +92,12 @@ public class UIItemHint : UIBase {
 		hintInlayView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup1").GetComponent<HintInlayView>();
 		hintSkillView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup2").GetComponent<HintSkillView>();
 
+		buttonSearch = GameObject.Find(UIName + "/Window/Center/HintView/SourceButton").GetComponent<UIButton>();
+
 		SetBtnFun (UIName + "/Window/Center/CoverBackground", OnClose);
 		SetBtnFun (UIName + "/Window/Center/HintView/NoBtn", OnClose);
         SetBtnFun (UIName + "/Window/Center/BuyItem/Buy", OnBuy);
+		SetBtnFun (ref buttonSearch, OnSource);
 	}
 
 	private void hideAll () {
@@ -93,9 +110,57 @@ public class UIItemHint : UIBase {
 		uiLabelHave.text = string.Format(TextConst.S(6110), value);
 	}
 
+	public void OnSource () {
+		if(GameData.DItemData.ContainsKey(mItemId)) {			
+			if(GameData.DItemData[mItemId].Kind == 19) {
+				UIItemSource.Get.ShowMaterial(GameData.DItemData[mItemId], enable => {if(enable){ 
+						closeViewBySource ();
+					}
+				});
+			} else if(GameData.DItemData[mItemId].Kind == 21) {
+				UIItemSource.Get.ShowSkill(GameData.DItemData[mItemId], enable => {if(enable){ 
+						closeViewBySource ();
+					}
+				});
+			} else {
+				UIItemSource.Get.ShowAvatar(GameData.DItemData[mItemId], enable => {if(enable){ 
+						closeViewBySource ();
+					}
+				});
+			}
+		}
+	}
+
+	private void closeViewBySource () {
+		if(UISuitAvatar.Visible)
+			UISuitAvatar.Visible = false;
+
+		if(UIAvatarFitted.Visible)
+			UIAvatarFitted.UIShow(false);
+
+		if(UISkillInfo.Visible)
+			UISkillInfo.Visible = false;
+
+		if(UISkillFormation.Visible)
+			UISkillFormation.Visible = false;
+
+		if(UIMall.Visible) {
+			if(UIShop.Visible) 
+				UIShop.Visible = false;
+
+			if(UIPlayerAvatar.Visible)
+				UIPlayerAvatar.Visible = false;
+		}
+
+		UIMainLobby.Get.Hide();
+		Visible = false;
+	}
+
 	//For First Get
 	public void OnShow(int itemID) {
 		if(GameData.DItemData.ContainsKey (itemID)) {
+			mItemId = itemID;
+			buttonSearch.gameObject.SetActive(false);
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
@@ -160,6 +225,7 @@ public class UIItemHint : UIBase {
 	public void OnShowOther (int kind, int value = 0) {
 		int id = 0;
 		int textid = 0;
+		buttonSearch.gameObject.SetActive(false);
 		uiBuy.SetActive(false);
 		hideAll ();
 		scrollViewExplain.ResetPosition();
@@ -196,6 +262,8 @@ public class UIItemHint : UIBase {
 
 	public void OnShowForSuit(int itemID, int lv = -1) {
 		if(GameData.DItemData.ContainsKey (itemID)) {
+			mItemId = itemID;
+			buttonSearch.gameObject.SetActive(true);
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
@@ -220,6 +288,8 @@ public class UIItemHint : UIBase {
 
 	public void OnShowPartnerItem (int itemID, TPlayer player) {
 		if(GameData.DItemData.ContainsKey (itemID)) {
+			mItemId = itemID;
+			buttonSearch.gameObject.SetActive(false);
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
@@ -242,6 +312,8 @@ public class UIItemHint : UIBase {
 	
 	public void OnShowSkill(TSkill skill) {
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
+			mItemId = skill.ID + 20000;
+			buttonSearch.gameObject.SetActive(false);
 			uiBuy.SetActive(false);
 			hideAll ();
 			UIShow(true);
