@@ -291,9 +291,9 @@ public class UIRecharge : UIBase {
 				kindBuyCoin[GameData.DShops[i].Order].init(Instantiate(prefabKind[1]), scrollviews[1]);
 				kindBuyCoin[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
 				if(GameData.DShops[i].Kind == 0)
-					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
+					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].PriceButton.gameObject).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].mSelf).onClick = OnPower;
+					UIEventListener.Get(kindBuyCoin[GameData.DShops[i].Order].PriceButton.gameObject).onClick = OnPower;
 			} else if(GameData.DShops[i].Kind == 1) {
 				if(GameData.DShops[i].Order >= BuyStaminaLen) {
 					Debug.LogError("Order is Wrong. Kind = " + GameData.DShops[i].Kind );
@@ -303,9 +303,9 @@ public class UIRecharge : UIBase {
 				kindBuyStamina[GameData.DShops[i].Order].UpdateView(i, GameData.DShops[i].Order ,GameData.DShops[i]);
 				kindBuyStamina[GameData.DShops[i].Order].RefreshTextColor();
 				if(GameData.DShops[i].Kind == 0)
-					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnBuyCoin;
+					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].PriceButton.gameObject).onClick = OnBuyCoin;
 				else if(GameData.DShops[i].Kind == 1) 
-					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].mSelf).onClick = OnPower;
+					UIEventListener.Get(kindBuyStamina[GameData.DShops[i].Order].PriceButton.gameObject).onClick = OnPower;
 			}
 
 		}
@@ -321,7 +321,7 @@ public class UIRecharge : UIBase {
 			if(GameData.DMalls[i].Kind == 0) {
 				kindBuyDiamond[GameData.DMalls[i].Order].init(Instantiate(prefabKind[0]), scrollviews[0]);
 				kindBuyDiamond[GameData.DMalls[i].Order].UpdateViewForMall(i, GameData.DMalls[i].Order, GameData.DMalls[i]);
-				UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].mSelf).onClick = OnBuyDiamond;
+				UIEventListener.Get(kindBuyDiamond[GameData.DMalls[i].Order].PriceButton.gameObject).onClick = OnBuyDiamond;
 			}
 		}
 	}

@@ -53,9 +53,8 @@ public struct TMiddleItemView {
 			if(GameData.DSuitItem[id].Items.Length == itemAwardGroup.Length) {
 				for (int i=0; i<itemAwardGroup.Length; i++) {
 					if(GameData.DSuitItem[id].Items[i] != 0) {
-
 						if(GameData.DItemData.ContainsKey(GameData.DSuitItem[id].Items[i])) {
-							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]]);
+							itemAwardGroup[i].Show(GameData.DItemData[GameData.DSuitItem[id].Items[i]], true);
 							itemNameLabel[i].text = GameData.DItemData[GameData.DSuitItem[id].Items[i]].Name;
 							SuitCover[i].SetActive(!GameData.Team.IsGetAvatar(GameData.DSuitItem[id].Items[i]));
 						}
@@ -284,6 +283,7 @@ public class UISuitAvatar : UIBase {
 			leftScorllView.Scroll(-0.25f);
 		else 
 			leftScorllView.Scroll(0);
+		
 		middleBonusView.SetColor(GameData.Team.SuitItemCompleteCount(suitItemID));
 
 		ClickTab(tab);

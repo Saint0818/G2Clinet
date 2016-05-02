@@ -15,6 +15,8 @@ public class ItemAwardGroup : MonoBehaviour
 	private int otherKind = -1;
 	private int otherValue = 0;
 
+	private bool isFromSuit;
+
     [UsedImplicitly]
 	void Awake()
     {
@@ -33,8 +35,9 @@ public class ItemAwardGroup : MonoBehaviour
 		awardSkillView.Hide ();
 	}
 
-	public void Show(TItemData itemData)
+	public void Show(TItemData itemData, bool isSuit = false)
     {
+		isFromSuit = isSuit;
 		Window.SetActive(true);
 
 	    mItemData = itemData;
@@ -84,11 +87,15 @@ public class ItemAwardGroup : MonoBehaviour
 
     public void NotifyClick()
     {
-		if(otherKind > -1) {
-			UIItemHint.Get.OnShowOther(otherKind, otherValue);
-		} else
-			if(mItemData.ID > 0 && !UILevelUp.Visible)
-				UIItemHint.Get.OnShow(mItemData.ID);
+		if(isFromSuit) {
+			UIItemHint.Get.OnShowForSuit(mItemData.ID);
+		} else {
+			if(otherKind > -1) {
+				UIItemHint.Get.OnShowOther(otherKind, otherValue);
+			} else
+				if(mItemData.ID > 0 && !UILevelUp.Visible)
+					UIItemHint.Get.OnShow(mItemData.ID);
+		}
 			
     }
 

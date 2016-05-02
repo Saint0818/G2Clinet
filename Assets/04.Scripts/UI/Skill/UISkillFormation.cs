@@ -1628,6 +1628,8 @@ public class UISkillFormation : UIBase {
 				Statistic.Ins.LogEvent(55, statisticStr);
 			else if(GameData.IsInstance)
 				Statistic.Ins.LogEvent(104, statisticStr);
+			else
+				Statistic.Ins.LogEvent(109, statisticStr);
 		}
 		
 		bool flag = false;

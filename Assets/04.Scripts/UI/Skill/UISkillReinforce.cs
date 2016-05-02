@@ -586,8 +586,10 @@ public class UISkillReinforce : UIBase {
 	public void RefreshView (TSkill skill) {
 		//Delete list
 
-		if(reinforceGrid.mTrans != null)
-			reinforceGrid.mTrans.DestroyChildren();
+		if(reinforceGrid.mTrans != null){
+			for(int i=0; i<reinforceGrid.mChildren.Count; i++)
+				Destroy(reinforceGrid.mChildren[i]);
+		}
 		
 		if(reinforceItems.Count > 0) {
 			foreach(KeyValuePair<string, GameObject> obj in reinforceItems) {
@@ -634,7 +636,6 @@ public class UISkillReinforce : UIBase {
 		reinForceInfo.UpdateView(skill);
 		RefreshSlot ();
 
-//		UISkillFormation.Get.RefreshSuitCard();
 		skillEvolution.RefreshReinForce(skill, targetIndex);
 		refreshTabRed();
 	}
@@ -801,6 +802,7 @@ public class UISkillReinforce : UIBase {
 	private void finishExp () {
 		if(isNeedShowLevelUp) 
 			UILevelUp.Get.ShowSkill(mOldSkill, mSkill);
+		
 		RefreshView(mSkill);
 		initRightCards ();
 		isInReinforce = false;
@@ -828,6 +830,8 @@ public class UISkillReinforce : UIBase {
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
+
+			Statistic.Ins.LogEvent(110, mSkill.ID.ToString(), reinforceMoney);
 
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
@@ -865,10 +869,12 @@ public class UISkillReinforce : UIBase {
 			SetMoney(result.Money);
 			UIMainLobby.Get.UpdateUI();
 
+			Statistic.Ins.LogEvent(111, skillEvolution.NextSkill.ID.ToString(), skillEvolution.EvolutionPrice);
+
 			if(UISkillFormation.Visible)
 				UISkillFormation.Get.RefreshAddCard();
+			
 			startEvolutionAni ();
-
 
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -905,6 +911,7 @@ public class UISkillReinforce : UIBase {
 
 	private void finishEvolution () {
 		isInEvolution = false;
+
 		UILevelUp.Get.ShowSkill(skillEvolution.MySkill, skillEvolution.NextSkill);
 
 		if(isEquiped)
