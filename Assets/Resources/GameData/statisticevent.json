@@ -87,6 +87,40 @@
         "undefined": "done"
     },
     {
+        "id": 18,
+        "title": "選擇好友",
+        "category": "Equip_Player",
+        "action": "Equip_PVP_Friend",
+        "label": "紀錄球員編號",
+        "undefined": "done"
+    },
+    {
+        "id": 19,
+        "title": "選隊友",
+        "category": "Equip_Player",
+        "action": "Equip_PVP_Recommond",
+        "label": "紀錄球員編號",
+        "undefined": "done"
+    },
+    {
+        "id": 20,
+        "title": "PVP獲勝",
+        "category": "Earn_PVPCoin",
+        "action": "PVP_Win",
+        "label": "紀錄PVP Lv",
+        "valueexplain": "紀錄聯盟幣",
+        "undefined": "done"
+    },
+    {
+        "id": 21,
+        "title": "PVP每日領獎",
+        "category": "Earn_PVPCoin",
+        "action": "Collect_Daily_PVP_Coin",
+        "label": "UIPVP",
+        "valueexplain": "紀錄聯盟幣",
+        "undefined": "done"
+    },
+    {
         "id": 51,
         "title": "主線模式",
         "category": "UIBtn",
@@ -149,15 +183,17 @@
         "id": 57,
         "title": "選擇傭兵",
         "category": "Equip_Player",
-        "action": "Equip_Mercenary",
-        "label": "紀錄球員編號"
+        "action": "Equip_MainStage_Mercenary",
+        "label": "紀錄球員編號",
+        "undefined": "done"
     },
     {
         "id": 58,
         "title": "選隊友",
         "category": "Equip_Player",
-        "action": "Equip_Player",
-        "label": "紀錄球員編號"
+        "action": "Equip_MainStage_Player",
+        "label": "紀錄球員編號",
+        "undefined": "done"
     },
     {
         "id": 59,
@@ -187,7 +223,7 @@
         "undefined": "done"
     },
     {
-        "id": 62,
+        "id": 101,
         "title": "副本模式",
         "category": "UIBtn",
         "action": "OpenUI_BossStage",
@@ -197,7 +233,7 @@
         "undefined": "done"
     },
     {
-        "id": 101,
+        "id": 102,
         "title": "副本選戰術",
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Strategy",
@@ -207,7 +243,7 @@
         "undefined": "done"
     },
     {
-        "id": 102,
+        "id": 103,
         "title": "副本開啟技能介面",
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Skill",
@@ -217,7 +253,7 @@
         "undefined": "done"
     },
     {
-        "id": 103,
+        "id": 104,
         "title": "選技能",
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Skill",
@@ -226,7 +262,7 @@
         "undefined": "紀錄更新的晶片ID，用’_‘來連接"
     },
     {
-        "id": 104,
+        "id": 105,
         "title": "副本租傭兵",
         "category": "Spend_Diamond",
         "action": "Rent_Mercenary",
@@ -236,21 +272,23 @@
         "undefined": "done"
     },
     {
-        "id": 105,
+        "id": 106,
         "title": "選擇傭兵",
         "category": "Equip_Player",
-        "action": "Equip_Mercenary",
-        "label": "紀錄球員編號"
-    },
-    {
-        "id": 106,
-        "title": "選隊友",
-        "category": "Equip_Player",
-        "action": "Equip_Player",
-        "label": "紀錄球員編號"
+        "action": "Equip_BossStage_Mercenary",
+        "label": "紀錄球員編號",
+        "undefined": "done"
     },
     {
         "id": 107,
+        "title": "選隊友",
+        "category": "Equip_Player",
+        "action": "Equip_BossStage_Player",
+        "label": "紀錄球員編號",
+        "undefined": "done"
+    },
+    {
+        "id": 108,
         "title": "開啟技能介面",
         "category": "UIBtn",
         "action": "OpenUI_Skill",
@@ -260,14 +298,14 @@
         "undefined": "done"
     },
     {
-        "id": 108,
+        "id": 109,
         "title": "安裝技能",
         "category": "Equip_Skill",
         "action": "Equip_Skill",
         "label": "紀錄技能編號"
     },
     {
-        "id": 109,
+        "id": 110,
         "title": "技能升級",
         "category": "Spend_Money",
         "action": "Upgrade_Skill_Upgrade",
@@ -276,7 +314,7 @@
         "inunity": "ReinforceBtn"
     },
     {
-        "id": 110,
+        "id": 111,
         "title": "技能進化",
         "category": "Spend_Money",
         "action": "Upgrade_Skill_Revolution",
@@ -285,7 +323,7 @@
         "inunity": "DemountBtn"
     },
     {
-        "id": 111,
+        "id": 151,
         "title": "造型",
         "category": "UIBtn",
         "action": "OpenUI_Avatar",
@@ -295,70 +333,77 @@
         "undefined": "done"
     },
     {
-        "id": 112,
+        "id": 152,
         "title": "購買造型_頭髮",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Hair",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 113,
+        "id": 153,
         "title": "購買造型_手飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Wristband",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 114,
+        "id": 154,
         "title": "購買造型_衣服",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Clothes",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 115,
+        "id": 155,
         "title": "購買造型_褲子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Pants",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 116,
+        "id": 156,
         "title": "購買造型_鞋子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Shoes",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 117,
+        "id": 157,
         "title": "購買造型_面飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Mask",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 118,
+        "id": 158,
         "title": "購買造型_背飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Backpack",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0",
+        "undefined": "done"
     },
     {
-        "id": 203,
+        "id": 201,
         "title": "裝備",
         "category": "UIBtn",
         "action": "OpenUI_Equipment",
@@ -368,7 +413,7 @@
         "undefined": "done"
     },
     {
-        "id": 204,
+        "id": 202,
         "title": "裝備合成(材料鑲嵌)",
         "category": "Spend_Money",
         "action": "Upgrade_Equip_Upgrade",
@@ -378,7 +423,7 @@
         "undefined": "done"
     },
     {
-        "id": 205,
+        "id": 203,
         "title": "裝備進化(升級)",
         "category": "Spend_Money",
         "action": "Upgrade_Equip_Revolution",
@@ -388,7 +433,7 @@
         "undefined": "done"
     },
     {
-        "id": 206,
+        "id": 204,
         "title": "社群",
         "category": "UIBtn",
         "action": "OpenUI_Social",
@@ -398,7 +443,7 @@
         "undefined": "done"
     },
     {
-        "id": 207,
+        "id": 205,
         "title": "刷新好友",
         "category": "Spend_Diamond",
         "action": "Reset_Social_Friend",
@@ -408,7 +453,7 @@
         "undefined": "done"
     },
     {
-        "id": 208,
+        "id": 206,
         "title": "商店",
         "category": "UIBtn",
         "action": "OpenUI_Shop",
@@ -418,7 +463,26 @@
         "undefined": "done"
     },
     {
-        "id": 251,
+        "id": 207,
+        "title": "按讚",
+        "category": "Earn_SocialCoin",
+        "action": "Good_Social_",
+        "label": "UISocial",
+        "valueexplain": "紀錄社群幣",
+        "inunity": "ResetBtn",
+        "undefined": "done"
+    },
+    {
+        "id": 208,
+        "title": "收讚",
+        "category": "Earn_SocialCoin",
+        "action": "Good_Mail",
+        "label": "UIMail",
+        "valueexplain": "紀錄社群幣",
+        "inunity": "ResetBtn"
+    },
+    {
+        "id": 209,
         "title": "重置商店",
         "category": "Spend_Diamond",
         "action": "Reset_Shop_Item",
@@ -428,7 +492,43 @@
         "undefined": "done"
     },
     {
-        "id": 252,
+        "id": 210,
+        "title": "商店花費鑽石",
+        "category": "Spend_Diamond",
+        "action": "Shop_Diamond",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄鑽石",
+        "undefined": "done"
+    },
+    {
+        "id": 211,
+        "title": "商店花費金錢",
+        "category": "Spend_Money",
+        "action": "Shop_Money",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
+    },
+    {
+        "id": 212,
+        "title": "商店花費聯盟幣",
+        "category": "Spend_PVPCoin",
+        "action": "Shop_PVPCoin",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄聯盟幣",
+        "undefined": "done"
+    },
+    {
+        "id": 213,
+        "title": "商店花費社群幣",
+        "category": "Spend_SocialCoin",
+        "action": "Shop_SocialCoin",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄社群幣",
+        "undefined": "done"
+    },
+    {
+        "id": 251,
         "title": "抽卡",
         "category": "UIBtn",
         "action": "OpenUI_PickCard",
@@ -438,7 +538,7 @@
         "undefined": "done"
     },
     {
-        "id": 253,
+        "id": 252,
         "title": "低階抽卡 免費",
         "category": "Spend_Money",
         "action": "PickCard_Low_Free",
@@ -448,7 +548,7 @@
         "undefined": "done"
     },
     {
-        "id": 301,
+        "id": 253,
         "title": "低階抽卡 1抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_1Pick",
@@ -458,7 +558,7 @@
         "undefined": "done"
     },
     {
-        "id": 302,
+        "id": 254,
         "title": "低階抽卡 5抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_5Pick",
@@ -468,7 +568,7 @@
         "undefined": "done"
     },
     {
-        "id": 351,
+        "id": 255,
         "title": "低階抽卡 10抽",
         "category": "Spend_Money",
         "action": "PickCard_Low_10Pick",
@@ -478,7 +578,7 @@
         "undefined": "done"
     },
     {
-        "id": 352,
+        "id": 301,
         "title": "中階抽卡 免費",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_Free",
@@ -488,7 +588,7 @@
         "undefined": "done"
     },
     {
-        "id": 401,
+        "id": 302,
         "title": "中階抽卡 1抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_1Pick",
@@ -498,7 +598,7 @@
         "undefined": "done"
     },
     {
-        "id": 402,
+        "id": 303,
         "title": "中階抽卡 5抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_5Pick",
@@ -508,7 +608,7 @@
         "undefined": "done"
     },
     {
-        "id": 403,
+        "id": 304,
         "title": "中階抽卡 10抽",
         "category": "Spend_Diamond",
         "action": "PickCard_Mid_10Pick",
@@ -518,7 +618,7 @@
         "undefined": "done"
     },
     {
-        "id": 404,
+        "id": 351,
         "title": "高階抽卡 1抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_1Pick",
@@ -528,7 +628,7 @@
         "undefined": "done"
     },
     {
-        "id": 405,
+        "id": 352,
         "title": "高階抽卡 5抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_5Pick",
@@ -538,7 +638,7 @@
         "undefined": "done"
     },
     {
-        "id": 406,
+        "id": 353,
         "title": "高階抽卡 10抽",
         "category": "Spend_Diamond",
         "action": "PickCard_High_10Pick",
@@ -548,7 +648,7 @@
         "undefined": "done"
     },
     {
-        "id": 407,
+        "id": 401,
         "title": "鑽石購買",
         "category": "UIBtn",
         "action": "OpenUI_DiamondRecharge",
@@ -558,7 +658,7 @@
         "undefined": "done"
     },
     {
-        "id": 408,
+        "id": 402,
         "title": "遊戲幣購買",
         "category": "UIBtn",
         "action": "OpenUI_MoneyRecharge",
@@ -568,7 +668,7 @@
         "undefined": "done"
     },
     {
-        "id": 409,
+        "id": 403,
         "title": "體力購買",
         "category": "UIBtn",
         "action": "OpenUI_PowerRecharge",
@@ -578,7 +678,7 @@
         "undefined": "done"
     },
     {
-        "id": 410,
+        "id": 404,
         "title": "設施",
         "category": "UIBtn",
         "action": "OpenUI_Queue",
@@ -588,7 +688,7 @@
         "undefined": "done"
     },
     {
-        "id": 411,
+        "id": 405,
         "title": "購買佇列",
         "category": "Spend_Diamond",
         "action": "Buy_Queue",
@@ -598,7 +698,7 @@
         "undefined": "done"
     },
     {
-        "id": 412,
+        "id": 406,
         "title": "圖鑑",
         "category": "UIBtn",
         "action": "OpenUI_Guide",
@@ -620,20 +720,52 @@
     {
         "id": 452,
         "title": "完成任務",
-        "category": "Earn_Money",
+        "category": "Earn_Diamond",
         "action": "Complete_Mission",
         "label": "紀錄任務編號",
-        "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
+        "valueexplain": "紀錄鑽石",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120",
+        "undefined": "done"
     },
     {
         "id": 453,
         "title": "完成任務",
-        "category": "Earn_Diamond",
+        "category": "Earn_Money",
         "action": "Complete_Mission",
         "label": "紀錄任務編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120"
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120",
+        "undefined": "done"
+    },
+    {
+        "id": 454,
+        "title": "完成任務",
+        "category": "Earn_PVPCoin",
+        "action": "Complete_Mission",
+        "label": "紀錄任務編號",
+        "valueexplain": "紀錄聯盟幣",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120",
+        "undefined": "done"
+    },
+    {
+        "id": 455,
+        "title": "完成任務",
+        "category": "Earn_SocialCoin",
+        "action": "Complete_Mission",
+        "label": "紀錄任務編號",
+        "valueexplain": "紀錄社群幣",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120",
+        "undefined": "done"
+    },
+    {
+        "id": 456,
+        "title": "完成任務",
+        "category": "Earn_Exp",
+        "action": "Complete_Mission",
+        "label": "紀錄任務編號",
+        "valueexplain": "紀錄Exp",
+        "inunity": "UI2D/UIMission/Window/Center/Pages/1/ScrollView/2120/Window/2120",
+        "undefined": "done"
     },
     {
         "id": 501,
@@ -652,7 +784,8 @@
         "action": "Reset_Potential",
         "label": "UIPotential",
         "valueexplain": "紀錄金額",
-        "inunity": "ResetBtn"
+        "inunity": "ResetBtn",
+        "undefined": "done"
     },
     {
         "id": 551,
@@ -671,7 +804,8 @@
         "action": "Reset_Name",
         "label": "UIPlayerInfo",
         "valueexplain": "紀錄金額",
-        "inunity": "CheckBtn"
+        "inunity": "CheckBtn",
+        "undefined": "done"
     },
     {
         "id": 553,

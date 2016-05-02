@@ -532,6 +532,7 @@ public class UIMission : UIBase {
             diamond = result.Diamond - GameData.Team.Diamond;
             GameData.Team.Diamond = result.Diamond;
             UIGetItem.Get.AddExp(0, diamond);
+            Statistic.Ins.LogEvent(452, result.MissionID.ToString(), diamond);
         }
 
         int money = 0;
@@ -539,6 +540,7 @@ public class UIMission : UIBase {
             money = result.Money - GameData.Team.Money;
             GameData.Team.Money = result.Money;
             UIGetItem.Get.AddExp(1, money);
+            Statistic.Ins.LogEvent(453, result.MissionID.ToString(), money);
         }
 
         int pvpCoin = 0;
@@ -546,6 +548,7 @@ public class UIMission : UIBase {
             pvpCoin = result.PVPCoin - GameData.Team.PVPCoin;
             GameData.Team.PVPCoin = result.PVPCoin;
             UIGetItem.Get.AddExp(2, pvpCoin);
+            Statistic.Ins.LogEvent(454, result.MissionID.ToString(), pvpCoin);
         }
 
         int socialCoin = 0;
@@ -553,11 +556,14 @@ public class UIMission : UIBase {
             socialCoin = result.SocialCoin - GameData.Team.SocialCoin;
             GameData.Team.SocialCoin = result.SocialCoin;
             UIGetItem.Get.AddExp(3, socialCoin);
+            Statistic.Ins.LogEvent(455, result.MissionID.ToString(), socialCoin);
         }
 
         GameData.Team.Player.Exp = result.Exp;
-        if (missionExp > 0)
+        if (missionExp > 0) {
             UIGetItem.Get.AddExp(4, missionExp);
+            Statistic.Ins.LogEvent(456, result.MissionID.ToString(), missionExp);
+        }
 
         if (haveNextMission(result.MissionID))
             removeAllMission(nowPage);

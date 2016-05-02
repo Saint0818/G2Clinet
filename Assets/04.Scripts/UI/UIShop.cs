@@ -41,8 +41,6 @@ public class UIShop : UIBase {
     private TAvatar equipAvatar = new TAvatar();
 
     private GameObject itemSellItem;
-    private UILabel labelPVPCoin;
-    private UILabel labelSocialCoin;
     private UILabel labelFreshTime;
     private UILabel labelFreshDiamond;
     private UIButton buttonFreshDiamond;
@@ -51,6 +49,8 @@ public class UIShop : UIBase {
     private UIToggle[] pageToggle = new UIToggle[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TShopItemObj>[] shopItemList = new List<TShopItemObj>[pageNum];
+
+    private int diamondFresh = 0;
 
     public static bool Visible {
         get {
@@ -104,8 +104,6 @@ public class UIShop : UIBase {
             pageObjects[i].SetActive(false);
         }
 
-        labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
-        labelSocialCoin = GameObject.Find(UIName + "/TopRight/SocialCoin/Label").GetComponent<UILabel>();
 		labelFreshTime = GameObject.Find(UIName + "/BottomLeft/WarningsLabel").GetComponent<UILabel>();
 		labelFreshDiamond = GameObject.Find(UIName + "/BottomLeft/ResetBtn/PriceLabel").GetComponent<UILabel>();
         buttonFreshDiamond = GameObject.Find(UIName + "/BottomLeft/ResetBtn").GetComponent<UIButton>();
@@ -303,8 +301,6 @@ public class UIShop : UIBase {
 
             OpenPage(nowPage);
 
-            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
-            labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
             labelFreshTime.text = "";
             labelFreshDiamond.text = (50 * (GameData.Team.DailyCount.FreshShop +1)).ToString();
         } 
@@ -425,11 +421,11 @@ public class UIShop : UIBase {
     }
 
     public void OnFreshShop() {
-        int diamond = 0;
+        diamondFresh = 0;
         if (GameData.Team.FreshShopTime.ToUniversalTime() > DateTime.UtcNow)
-            diamond = 50 * (GameData.Team.DailyCount.FreshShop +1);
+            diamondFresh = 50 * (GameData.Team.DailyCount.FreshShop +1);
         
-        CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshShop, updateUI);
+        CheckDiamond(diamondFresh, true, TextConst.S(4511) + diamondFresh.ToString(), doFreshShop, updateUI);
     }
 
     private void doFreshShop() {
@@ -484,18 +480,38 @@ public class UIShop : UIBase {
             GameData.Team.ShopItems3 = result.ShopItems3;
 
             initList(nowPage);
+            Statistic.Ins.LogEvent(209, diamondFresh);
         }
     }
 
     private void waitBuy(bool ok, WWW www) {
         if (ok) {
             TTeam result = JsonConvertWrapper.DeserializeObject <TTeam>(www.text);
+
+            //record GA event
+            if (nowPage < shopItemList.Length && nowIndex < shopItemList[nowPage].Count) {
+                string id = shopItemList[nowPage][nowIndex].Data.ID.ToString();
+                int diamond = GameData.Team.Diamond - result.Diamond;
+                int money = GameData.Team.Money - result.Money;
+                int pvpCoin = GameData.Team.PVPCoin - result.PVPCoin;
+                int socialCoin = GameData.Team.SocialCoin - result.SocialCoin;
+                if (diamond > 0) 
+                    Statistic.Ins.LogEvent(210, id, diamond);
+
+                if (money > 0) 
+                    Statistic.Ins.LogEvent(211, id, money);
+
+                if (pvpCoin > 0) 
+                    Statistic.Ins.LogEvent(212, id, pvpCoin);
+
+                if (socialCoin > 0) 
+                    Statistic.Ins.LogEvent(213, id, socialCoin);
+            }
+
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.Money = result.Money;
             GameData.Team.PVPCoin = result.PVPCoin;
             GameData.Team.SocialCoin = result.SocialCoin;
-            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
-            labelSocialCoin.text = GameData.Team.SocialCoin.ToString();
             GameData.Team.LifetimeRecord = result.LifetimeRecord;
 
             if (result.AvatarPotential > GameData.Team.AvatarPotential)

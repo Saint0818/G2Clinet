@@ -17,7 +17,6 @@ public class UIPVP : UIBase
 
     private GameObject[] pages = new GameObject[pageCount];
     private GameObject[] redPoints = new GameObject[pageCount];
-    private UILabel labelPVPCoin;
 	private TimeSpan checktime;
  
     //page0
@@ -102,8 +101,6 @@ public class UIPVP : UIBase
         if (isShow)
         {
             DoPage(0);
-            //sendMyRank();
-            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
         }
     }
         
@@ -120,8 +117,7 @@ public class UIPVP : UIBase
         GameObject itemPVPLeague = Resources.Load("Prefab/UI/Items/PvPLeagueGroup") as GameObject;
 
         uiSort = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/PvPLeagueBoard/ScrollView/Sort");
-        labelPVPCoin = GameObject.Find(UIName + "/TopRight/PVPCoin/Label").GetComponent<UILabel>();
-		labelStatus = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/NextBtn/StatusLabel").GetComponent<UILabel>();
+        labelStatus = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/NextBtn/StatusLabel").GetComponent<UILabel>();
 		labelStart = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/NextBtn/Label").GetComponent<UILabel>();
 		labelTime = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/Trim/TimesLabel").GetComponent<UILabel>();
 		labelRank = GameObject.Find(UIName + "/Center/Window/Pages/0/MainView/EXPView/Rank").GetComponent<UILabel>();
@@ -359,12 +355,14 @@ public class UIPVP : UIBase
         {
             TPVPReward data = JsonConvertWrapper.DeserializeObject <TPVPReward>(www.text);
             GameData.Team.DailyCount = data.DailyCount;
-            UIGetItem.Get.AddExp(2, data.PVPCoin - GameData.Team.PVPCoin);
+            int pvpCoin = data.PVPCoin - GameData.Team.PVPCoin;
+            UIGetItem.Get.AddExp(2, pvpCoin);
             UIGetItem.Get.SetTitle(TextConst.S(9707));
             GameData.Team.PVPCoin = data.PVPCoin;
-            labelPVPCoin.text = GameData.Team.PVPCoin.ToString();
             buttonGetAward.isEnabled = false;
             redPoints[0].SetActive(false);
+
+            Statistic.Ins.LogEvent(21, pvpCoin);
         }
     }
 

@@ -51,6 +51,9 @@ public static class URLConst {
 
 	public const string Version = "version";
 	public const string CheckSession = "checksession";
+    public const string LastEventID = "lasteventid";
+    public const string LastScreenID = "lastscreenid";
+    public const string GameTime = "gametime";
 	public const string DeviceLogin = "devicelogin";
 	public const string LookPlayerBank = "lookplayerbank";
 	public const string CreateRole = "createrole";
@@ -153,6 +156,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private Dictionary<string, string> cookieHeaders = new Dictionary<string, string>();
 	private bool versionChecked = false;
 	private int focusCount = 0;
+    private float gameTime = 0;
 
 	private string waitingURL;
 	private TBooleanWWWObj waitingCallback = null;
@@ -164,13 +168,19 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private EventDelegate.Callback MakeFriendEvent;
 	private EventDelegate.Callback BuySkillCardBagEvent;
 
+    void FixedUpdate() {
+        gameTime += Time.deltaTime;
+        if (gameTime >= 13)
+            sendGameTime(ref gameTime);
+    }
+
 	protected override void Init() {
 		DontDestroyOnLoad(gameObject);
 	}
 
 	void OnApplicationFocus(bool focusStatus) {
 		if (!focusStatus) {
-
+            sendGameTime(ref gameTime);
 		} else {
 			focusCount++;
 			if (focusCount > 1 && CheckNetwork(true)) {
@@ -354,6 +364,17 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		
 		return false;
 	}
+
+    private void sendGameTime(ref float time) {
+        if (time > 0) {
+            WWWForm form = new WWWForm();
+            form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+            string t = ((int) time).ToString();
+            form.AddField("Time", t);
+            Command(URLConst.GameTime, null, form, false);
+            time = 0;
+        }
+    }
 
     private void addLoginInfo(ref WWWForm form, string openID="") {
         form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
