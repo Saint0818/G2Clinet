@@ -1611,15 +1611,15 @@ public class GameController : KnightSingleton<GameController>
 			beforeTeam.PVPLv = GameData.Team.PVPLv;
 			beforeTeam.PVPIntegral = GameData.Team.PVPIntegral;
 			beforeTeam.PVPCoin = GameData.Team.PVPCoin;
-            TPVPResult reslut = JsonConvertWrapper.DeserializeObject <TPVPResult>(www.text); 
-			afterTeam.PVPLv = reslut.PVPLv;
-			afterTeam.PVPIntegral = reslut.PVPIntegral;
-			afterTeam.PVPCoin = reslut.PVPCoin;
+            TPVPResult result = JsonConvertWrapper.DeserializeObject <TPVPResult>(www.text); 
+			afterTeam.PVPLv = result.PVPLv;
+			afterTeam.PVPIntegral = result.PVPIntegral;
+			afterTeam.PVPCoin = result.PVPCoin;
 
-            GameData.Team.PVPLv = reslut.PVPLv;
-			GameData.Team.PVPIntegral = reslut.PVPIntegral;
-			GameData.Team.PVPCoin = reslut.PVPCoin;
-			GameData.Team.LifetimeRecord = reslut.LifetimeRecord;
+            GameData.Team.PVPLv = result.PVPLv;
+			GameData.Team.PVPIntegral = result.PVPIntegral;
+			GameData.Team.PVPCoin = result.PVPCoin;
+			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			if(isEndShowScene) { //進去的話就表示還沒回傳就跑完End Game
 				if(IsWinner) {
 					UIGameResult.UIShow(true);
@@ -1630,6 +1630,9 @@ public class GameController : KnightSingleton<GameController>
 					UIGameLoseResult.Get.SetPVPData(beforeTeam, afterTeam);
 				}
 			}
+
+            if (result.PVPCoin > 0) 
+                Statistic.Ins.LogEvent(20, result.PVPLv.ToString(), result.PVPCoin);
 		}
 	}
 
@@ -4508,6 +4511,9 @@ public class GameController : KnightSingleton<GameController>
 			}
 			PlayerList[i].ReviveAnger(PlayerList[i].APBegin);
 		}
+
+		if(Joysticker.APBegin > 0)
+			UIGame.Get.PlayGetDCSoul();
 
 		//會放在這裡是為了可以把BaseAttr跟數值裝的值取出來
 		AddValueItemAttributes();

@@ -28,7 +28,7 @@ public class ValueItemUpgradeProtocol
 
             TValueItem valueItem = team.Player.GetValueItem(mValueItemKind);
             if(valueItem != null)
-                Statistic.Ins.LogEvent(205, valueItem.ID.ToString(), GameData.Team.Money - team.Money);
+                Statistic.Ins.LogEvent(203, valueItem.ID.ToString(), GameData.Team.Money - team.Money);
 
             GameData.Team.Player.ValueItems = team.Player.ValueItems;
             GameData.Team.LifetimeRecord = team.LifetimeRecord;

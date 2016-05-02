@@ -76,7 +76,7 @@ public class UIStrategy : UIBase {
         else if(GameData.IsMainStage)
             Statistic.Ins.LogEvent(53, GameData.Team.AttackTactical.ToString());
         else if(GameData.IsInstance)
-            Statistic.Ins.LogEvent(101, GameData.Team.AttackTactical.ToString());
+            Statistic.Ins.LogEvent(102, GameData.Team.AttackTactical.ToString());
 
         Visible = false;
     }

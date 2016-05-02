@@ -280,6 +280,27 @@ public class UIItemHint : UIBase {
 				else
 					setHaveCount(0);
 				uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[itemID].Avatar].Explain, GameData.DItemData[itemID].Avatar, GameData.DItemData[itemID].LV);
+			} else if(GameData.DItemData[itemID].Kind == 19) {//材料
+				hintInlayView.Show();
+				hintInlayView.UpdateUI(GameData.DItemData[itemID]);
+				if(GameData.Team.HasMaterialItem(GameData.Team.FindMaterialItemIndex(GameData.DItemData[itemID].ID)))
+					setHaveCount(GameData.Team.MaterialItems[GameData.Team.FindMaterialItemIndex(GameData.DItemData[itemID].ID)].Num);
+				else
+					setHaveCount(0);
+
+				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+			} else {// Avatar
+				hintAvatarView.Show();
+				hintAvatarView.UpdateUI(GameData.DItemData[itemID]);
+				//TODO : 等待來源
+				setHaveCount(GameData.Team.GetAvatarCount(GameData.DItemData[itemID].ID));
+				if(GameData.DItemData[itemID].Kind == 31 || GameData.DItemData[itemID].Kind == 32 || GameData.DItemData[itemID].Kind == 33) {
+					uiLabelHave.gameObject.SetActive(false);
+				}
+
+				uiLabelExplain.text = GameData.DItemData[itemID].Explain;
+				if(GameData.DItemData[GameData.DItemData[itemID].ID].Potential > 0 && !GameData.Team.GotAvatar.ContainsKey(GameData.DItemData[itemID].ID))
+					uiLabelExplain.text += "\n\n" + TextConst.S(3207) + TextConst.S(3202) + "+" + GameData.DItemData[GameData.DItemData[itemID].ID].Potential.ToString();
 			}
 			uiLabelName.text = GameData.DItemData[itemID].Name;
 			uiLabelName.color = TextConst.Color(GameData.DItemData[itemID].Quality);

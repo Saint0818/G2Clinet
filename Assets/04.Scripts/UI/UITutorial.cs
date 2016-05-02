@@ -189,7 +189,6 @@ public class UITutorial : UIBase {
             }
 			
 			NowMessageIndex  = id * 100 + line;
-			
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
 				if (!Visible) {
 					UIShow(true);
@@ -232,6 +231,10 @@ public class UITutorial : UIBase {
                         StartCoroutine(waitNextTutorial(0.5f));
                     }
 				}
+
+                if (id < 100 && GameData.DTutorial[NowMessageIndex].Kind != 1 && GameData.DTutorial[NowMessageIndex].Kind != 3)
+                    Statistic.Ins.LogScreen(20000+NowMessageIndex, "UITutorial");
+                
 			} else {
 				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
 				UIShow(false);

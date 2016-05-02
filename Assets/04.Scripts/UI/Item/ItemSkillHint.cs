@@ -18,11 +18,15 @@ public class ItemSkillHint : MonoBehaviour {
 		Window.SetActive(false);
 	}
 
+	public bool IsVisible {
+		get {return Window.activeSelf;}
+	}
+
 	public void UpdateUI (int index) {
 		itemSkillHintView.UpdateUI(GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Name,
 		                           GameController.Get.Joysticker.Attribute.ActiveSkills[index].Lv,
 		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Quality,
-		                           GameController.Get.Joysticker.AngerPower.ToString(),
+									Mathf.RoundToInt(GameController.Get.Joysticker.AngerPower).ToString(),
 			"/" + GameController.Get.Joysticker.Attribute.MaxAngerOne(GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID, GameController.Get.Joysticker.Attribute.ActiveSkills[index].Lv).ToString(),
 		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].PictureNo);
 	}

@@ -455,7 +455,7 @@ public class UIAvatarFitted : UIBase
         if(isShow)
         {
             Statistic.Ins.LogScreen(12);
-            Statistic.Ins.LogEvent(111);
+            Statistic.Ins.LogEvent(151);
         }
     }
 
@@ -1341,19 +1341,19 @@ public class UIAvatarFitted : UIBase
 
             // 1頭髮, 2手飾, 3上身, 4下身, 5鞋, 6頭飾(共用）, 7背部(共用)
             if(backpackItems[BuyIndex].Kind == 1)
-                Statistic.Ins.LogEvent(112, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(152, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if(backpackItems[BuyIndex].Kind == 2)
-                Statistic.Ins.LogEvent(113, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(153, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if (backpackItems[BuyIndex].Kind == 3)
-                Statistic.Ins.LogEvent(114, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(154, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if (backpackItems[BuyIndex].Kind == 4)
-                Statistic.Ins.LogEvent(115, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(155, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if (backpackItems[BuyIndex].Kind == 5)
-                Statistic.Ins.LogEvent(116, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(156, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if (backpackItems[BuyIndex].Kind == 6)
-                Statistic.Ins.LogEvent(117, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(157, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
             else if (backpackItems[BuyIndex].Kind == 7)
-                Statistic.Ins.LogEvent(118, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+                Statistic.Ins.LogEvent(158, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
 
             if (team.Items != null)
             	GameData.Team.Items = team.Items;

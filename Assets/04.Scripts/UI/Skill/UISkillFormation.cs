@@ -348,7 +348,7 @@ public class UISkillFormation : UIBase {
             if(value)
             {
                 Statistic.Ins.LogScreen(11);
-                Statistic.Ins.LogEvent(107);
+                Statistic.Ins.LogEvent(108);
             }
         }
 	}
@@ -1627,7 +1627,9 @@ public class UISkillFormation : UIBase {
 			if(GameData.IsMainStage)
 				Statistic.Ins.LogEvent(55, statisticStr);
 			else if(GameData.IsInstance)
-				Statistic.Ins.LogEvent(103, statisticStr);
+				Statistic.Ins.LogEvent(104, statisticStr);
+			else
+				Statistic.Ins.LogEvent(109, statisticStr);
 		}
 		
 		bool flag = false;

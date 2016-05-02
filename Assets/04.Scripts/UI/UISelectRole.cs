@@ -676,7 +676,7 @@ public class UISelectRole : UIBase {
         else if(GameData.IsMainStage)
             Statistic.Ins.LogEvent(54);
         else if(GameData.IsInstance)
-            Statistic.Ins.LogEvent(102);
+            Statistic.Ins.LogEvent(103);
     }
 
 	private void waitPVPGetEnemy(bool ok, WWW www)
@@ -815,6 +815,26 @@ public class UISelectRole : UIBase {
             GameData.TeamMembers[i].Player = playerData[i];
 
         initEnemy ();
+
+        int eventID = 0;
+        if (stageData.IDKind == TStageData.EKind.MainStage)
+            eventID = 57;
+        else
+        if (stageData.IDKind == TStageData.EKind.Instance)
+            eventID = 106;
+        else
+        if (stageData.IDKind == TStageData.EKind.PVP)
+            eventID = 18;
+
+        if (eventID > 0) {
+            for (int i = 1; i < playerData.Length; i++) {
+                int id = eventID;
+                if (playerData[i].FriendKind != EFriendKind.Friend && playerData[i].FriendKind != EFriendKind.Mercenary)
+                    id++;
+                
+                Statistic.Ins.LogEvent(id, playerData[i].ID.ToString());
+            }
+        }
 
 		int courtNo = stageData.CourtNo;
         SceneMgr.Get.ChangeLevel (courtNo);

@@ -38,16 +38,29 @@ public class UIMainStage : UIBase
         mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
+    [UsedImplicitly]
+    private void Start()
+    {
+        GameData.Team.OnPowerChangeListener += onPowerChange;
+        GameData.Team.OnDiamondChangeListener += onDiamondChange;
+    }
+
     private void onPowerChange(int power)
     {
         if(mMain.Info.Visible)
             Show(mMain.Info.StageID);
     }
 
-    [UsedImplicitly]
-    private void Start()
+    private void onDiamondChange(int diamond)
     {
-        GameData.Team.OnPowerChangeListener += onPowerChange;
+        if(mMain.Info.Visible)
+            Show(mMain.Info.StageID);
+    }
+
+    private void OnDestroy()
+    {
+        GameData.Team.OnPowerChangeListener -= onPowerChange;
+        GameData.Team.OnDiamondChangeListener -= onDiamondChange;
     }
 
     public bool Visible { get { return gameObject.activeSelf; } }

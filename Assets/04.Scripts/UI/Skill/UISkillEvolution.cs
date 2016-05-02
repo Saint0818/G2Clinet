@@ -24,6 +24,9 @@ public class UISkillEvolution {
 	private TSkill nextSkill;
 	private TSkill mSkill;
 	private int evolutionPrice;
+	public int EvolutionPrice {
+		get{return evolutionPrice;}
+	}
 	private bool isEquiped;
 
 	private GameObject goEvolution;

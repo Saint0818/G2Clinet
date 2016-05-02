@@ -29,7 +29,25 @@ namespace GameStruct
         public int AvatarPotential;
         public int OccupyLv; //佔領球館等級
         public int StatiumLv; //經營球館等級
-        public int SocialCoin; //社群幣
+
+        private int mSocialCoin; //社群幣
+        public event Action<int> OnSocialCoinChangeListener;
+        public int SocialCoin 
+        {
+            get { return mSocialCoin; }
+            set
+            {
+                if(mSocialCoin == value)
+                    return;
+
+                mSocialCoin = value;
+
+                PlayerPrefs.SetInt(ESave.SocialCoinChange.ToString(), 1);
+
+                if(OnSocialCoinChangeListener != null)
+                    OnSocialCoinChangeListener(mSocialCoin);
+            }
+        } 
 
 		public int SkillCardMax;//背包空間數
 		/// <summary>
@@ -139,7 +157,24 @@ namespace GameStruct
         }
 
         //PVP
-        public int PVPCoin; //聯盟幣
+        private int mPVPCoin;
+        public event Action<int> OnPVPCoinChangeListener;
+        public int PVPCoin //聯盟幣
+        {
+            get { return mPVPCoin; }
+            set
+            {
+                if(mPVPCoin == value)
+                    return;
+
+                mPVPCoin = value;
+
+                PlayerPrefs.SetInt(ESave.PVPCoinChange.ToString(), 1);
+
+                if(OnPVPCoinChangeListener != null)
+                    OnPVPCoinChangeListener(mPVPCoin);
+            }
+        } 
         public int PVPLv;
         public int PVPIntegral;
 		public int PVPDailyReaward;

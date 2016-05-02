@@ -69,8 +69,6 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 				UI3DTutorial.UIShow(false);
 				UITutorial.UIShow(true);
 				UITutorial.UIShow(false);
-				//int[] ay = talkManList.ToArray();
-				//ModelManager.Get.LoadAllSelectPlayer(ref ay);
 			}
 
 			BegeingEvent();
@@ -89,6 +87,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public void HandleEvent(int i, GameObject player=null) {
 		CurrentEventID = eventList[i].ID;
 		int otherEventID = 0;
+
+        if (GameData.StageID == 4 && eventList[i].ConditionKind > 0)
+            Statistic.Ins.LogScreen(10000+GameData.StageID*1000+CurrentEventID, "GameTutorial");
 
 		switch (eventList[i].ConditionKind) {
 		case 1:

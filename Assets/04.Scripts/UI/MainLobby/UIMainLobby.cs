@@ -308,7 +308,7 @@ public class UIMainLobby : UIBase
 		View.QueueGroup.SetActive(!View.QueueGroup.activeSelf);
 		if(View.QueueGroup.activeSelf) {
 			Statistic.Ins.LogScreen(18);
-			Statistic.Ins.LogEvent(410);
+			Statistic.Ins.LogEvent(404);
 		}
 	}
 
@@ -348,7 +348,7 @@ public class UIMainLobby : UIBase
             TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymQueue = result.GymQueue;
-			Statistic.Ins.LogEvent(411, ThirdQueueDiamonds);
+			Statistic.Ins.LogEvent(405, ThirdQueueDiamonds);
 			RefreshQueue();
 			UIMainLobby.Get.UpdateUI();
 		} else {

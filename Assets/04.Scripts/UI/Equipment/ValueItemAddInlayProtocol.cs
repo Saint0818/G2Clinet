@@ -51,7 +51,7 @@ public class ValueItemAddInlayProtocol
 
             TValueItem valueItem = GameData.Team.Player.GetValueItem(mPlayerValueItemKind);
             if(valueItem != null)
-                Statistic.Ins.LogEvent(204, valueItem.ID.ToString());
+                Statistic.Ins.LogEvent(202, valueItem.ID.ToString());
         }
         else
             UIHint.Get.ShowHint(www.text, Color.red);

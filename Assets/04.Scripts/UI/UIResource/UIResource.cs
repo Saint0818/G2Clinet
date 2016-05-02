@@ -5,14 +5,14 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 大廳主程式.
+/// <para> 玩家的資源(鑽石, 體力, 錢, 社群幣, PVP 幣) </para>
 /// </summary>
 /// <remarks>
 /// 使用方法:
 /// <list type="number">
 /// <item> 用 Get 取得 instance. </item>
-/// <item> Call Show() 顯示某個頁面. </item>
-/// <item> Call Hide() 將大廳關閉. </item>
+/// <item> Call Show() 顯示資源. </item>
+/// <item> Call Hide() 隱藏資源. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -24,7 +24,7 @@ public class UIResource : UIBase
     // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
     private const float AnimDelay = 3f;
 
-    public UIResourceView View { get; private set; }
+    private UIResourceView View { get; set; }
 
     private readonly CountDownTimer mCountDownTimer = new CountDownTimer(1);
 
@@ -40,6 +40,8 @@ public class UIResource : UIBase
         GameData.Team.OnMoneyChangeListener += onMoneyChange;
         GameData.Team.OnDiamondChangeListener += onDiamondChange;
         GameData.Team.OnPowerChangeListener += onPowerChange;
+        GameData.Team.OnPVPCoinChangeListener += onPVPChange;
+        GameData.Team.OnSocialCoinChangeListener += onSocialChange;
 
         mCountDownTimer.TimeUpListener += updateCountDownPower;
 
@@ -66,17 +68,24 @@ public class UIResource : UIBase
         GameData.Team.OnMoneyChangeListener -= onMoneyChange;
         GameData.Team.OnDiamondChangeListener -= onDiamondChange;
         GameData.Team.OnPowerChangeListener -= onPowerChange;
+        GameData.Team.OnPVPCoinChangeListener -= onPVPChange;
+        GameData.Team.OnSocialCoinChangeListener -= onSocialChange;
 
         mCountDownTimer.TimeUpListener -= updateCountDownPower;
     }
 
-    public void Show(int kind = 3)
+    public enum EMode
+    {
+        Basic, // 僅顯示鑽石和金錢.
+        Power, PVP, PvpSocial
+    }
+    public void Show(EMode mode = EMode.Power)
     {
         Show(true);
         
-        UpdateUI();
+        updateUI();
 
-        View.Show(kind);
+        View.Show(mode);
 
         playMoneyAnimation(AnimDelay);
         playPowerAnimation(AnimDelay);
@@ -101,11 +110,13 @@ public class UIResource : UIBase
         View.PowerCountDownVisible = GameData.Team.Power < GameConst.Max_Power;
     }
 
-    public void UpdateUI()
+    private void updateUI()
     {
         View.Money = GameData.Team.Money;
         View.Diamond = GameData.Team.Diamond;
         View.Power = GameData.Team.Power;
+        View.PVPCoin = GameData.Team.PVPCoin;
+        View.SocialCoin = GameData.Team.SocialCoin;
     }
 
     private void Update()
@@ -139,6 +150,18 @@ public class UIResource : UIBase
         playPowerAnimation();
     }
 
+    private void onPVPChange(int pvpCoin)
+    {
+        View.PVPCoin = pvpCoin;
+        playPVPAnimation();
+    }
+
+    private void onSocialChange(int socialCoin)
+    {
+        View.SocialCoin = socialCoin;
+        playSocialAnimation();
+    }
+
     private void playMoneyAnimation(float delay = 0)
     {
         if(PlayerPrefs.HasKey(ESave.MoneyChange.ToString()))
@@ -155,6 +178,26 @@ public class UIResource : UIBase
         {
             View.PlayDiamondAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.DiamondChange.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void playPVPAnimation(float delay = 0)
+    {
+        if (PlayerPrefs.HasKey(ESave.PVPCoinChange.ToString()))
+        {
+            View.PlayPVPAnimation(delay);
+            PlayerPrefs.DeleteKey(ESave.PVPCoinChange.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void playSocialAnimation(float delay = 0)
+    {
+        if (PlayerPrefs.HasKey(ESave.SocialCoinChange.ToString()))
+        {
+            View.PlaySocialAnimation(delay);
+            PlayerPrefs.DeleteKey(ESave.SocialCoinChange.ToString());
             PlayerPrefs.Save();
         }
     }
@@ -183,23 +226,8 @@ public class UIResource : UIBase
         }
     }
 
-	public static bool Visible {
-		get {
-			if(instance)
-				return instance.gameObject.activeInHierarchy;
-			else
-				return false;
-		}
-
-		set {
-			if (instance) {
-				if (!value)
-					RemoveUI(instance.gameObject);
-				else
-					instance.Show(value);
-			} else
-				if (value)
-					Get.Show(value);
-		}
-	}
+    public static bool Visible
+    {
+        get { return instance && instance.gameObject.activeInHierarchy; }
+    }
 }

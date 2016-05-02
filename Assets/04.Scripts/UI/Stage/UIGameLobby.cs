@@ -66,7 +66,7 @@ public class UIGameLobby : UIBase
             UIPVP.UIShow(true);
 
             UIMainLobby.Get.Hide(false);
-            UIResource.Get.Show(2);
+            UIResource.Get.Show(UIResource.EMode.PVP);
 
             Hide();
         }

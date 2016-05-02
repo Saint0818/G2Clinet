@@ -259,7 +259,7 @@ public class UISelectPartner : UIBase {
             if(GameData.IsMainStage)
                 Statistic.Ins.LogEvent(56, GameData.Team.Diamond - result.Diamond);
             else if(GameData.IsInstance)
-                Statistic.Ins.LogEvent(104, GameData.Team.Diamond - result.Diamond);
+                Statistic.Ins.LogEvent(105, GameData.Team.Diamond - result.Diamond);
 
             GameData.Team.Diamond = result.Diamond;
             GameData.Team.RentPlayerTime = result.RentPlayerTime;

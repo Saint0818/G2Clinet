@@ -38,11 +38,7 @@ public class Statistic
         }
 
 //        Debug.LogFormat("LogScreen:{0}", data);
-
-        for(var i = 0; i < mServices.Count; i++)
-        {
-            mServices[i].LogScreen(data.ID, data.Name);
-        }
+        LogScreen(data.ID, data.Name);
     }
 
     public void LogScreen(int customID, string customName)
@@ -51,6 +47,11 @@ public class Statistic
         {
             mServices[i].LogScreen(customID, customName);
         }
+
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("ID", customID);
+        SendHttp.Get.Command(URLConst.LastScreenID, null, form, false);
     }
 
     /// <summary>
@@ -137,5 +138,10 @@ public class Statistic
         {
             mServices[i].LogEvent(id, category, action, label, value);
         }
+
+        WWWForm form = new WWWForm();
+        form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+        form.AddField("ID", id);
+        SendHttp.Get.Command(URLConst.LastEventID, null, form, false);
     }
 }

@@ -64,9 +64,10 @@ public class UISocial : UIBase {
     private UIPanel[] pagePanels = new UIPanel[pageNum];
     private UIScrollView[] pageScrollViews = new UIScrollView[pageNum];
     private List<TSocialEventItem>[] friendList = new List<TSocialEventItem>[pageNum];
-//    private Queue<TSocialEventItem> modelLoader = new Queue<TSocialEventItem>();
     private Queue<TSocialEventItem> avatarDownloader = new Queue<TSocialEventItem>();
     private TSocialEventItem waitDownloadItem;
+
+    private int diamondFresh = 0;
 
     public static bool Visible {
         get {
@@ -88,8 +89,9 @@ public class UISocial : UIBase {
 
             if(value)
             {
+                UIResource.Get.Show(UIResource.EMode.PvpSocial);
                 Statistic.Ins.LogScreen(14);
-                Statistic.Ins.LogEvent(206);
+                Statistic.Ins.LogEvent(204);
             }
         }
     }
@@ -448,8 +450,11 @@ public class UISocial : UIBase {
     }
         
     private void waitFreshFriends(bool ok) {
-        freshDiamond();
-        initList(nowPage);
+        if (ok) {
+            freshDiamond();
+            initList(nowPage);
+            Statistic.Ins.LogEvent(205, diamondFresh);
+        }
     }
 
     private void waitLookAvatar(bool ok, WWW www) {
@@ -573,6 +578,7 @@ public class UISocial : UIBase {
                         GameData.SocialEvents[i] = friendList[nowPage][nowIndex].Event;
 
                 setGoodSprite(nowPage, friendList[nowPage][nowIndex]);
+                Statistic.Ins.LogEvent(207, 2);
             }
         }
     }
@@ -597,12 +603,12 @@ public class UISocial : UIBase {
     }
 
     public void OnFresh() {
-        int diamond = 0;
+        
         if (GameData.Team.FreshFriendTime.ToUniversalTime() > DateTime.UtcNow)
-            diamond = 50 * (GameData.Team.DailyCount.FreshFriend +1);
+            diamondFresh = 50 * (GameData.Team.DailyCount.FreshFriend +1);
 
-		if (diamond > 0)
-            CheckDiamond(diamond, true, TextConst.S(4511) + diamond.ToString(), doFreshFriend, freshDiamond);
+        if (diamondFresh > 0)
+            CheckDiamond(diamondFresh, true, TextConst.S(4511) + diamondFresh.ToString(), doFreshFriend, freshDiamond);
 		else
 			doFreshFriend();
     }

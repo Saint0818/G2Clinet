@@ -14,10 +14,16 @@ public class UIResourceView : MonoBehaviour
     public GameObject PowerObj;
     public UILabel PowerLabel; // 體力.
     public UILabel PowerCountDownLabel; // 體力倒數計時.
+    public GameObject SocialObj;
+    public UILabel SocialLabel;
+    public GameObject PVPObj;
+    public UILabel PVPLabel;
 
     private TweenScale mMoneyTweenScale;
     private TweenScale mDiamondTweenScale;
     private TweenScale mPowerTweenScale;
+    private TweenScale mPVPTweenScale;
+    private TweenScale mSocialTweenScale;
 
     [UsedImplicitly]
     private void Awake()
@@ -25,6 +31,8 @@ public class UIResourceView : MonoBehaviour
         mMoneyTweenScale = MoneyLabel.GetComponent<TweenScale>();
         mDiamondTweenScale = DiamondLabel.GetComponent<TweenScale>();
         mPowerTweenScale = PowerLabel.GetComponent<TweenScale>();
+        mPVPTweenScale = PowerLabel.GetComponent<TweenScale>();
+        mSocialTweenScale = PowerLabel.GetComponent<TweenScale>();
     }
 
     public int Money
@@ -61,6 +69,28 @@ public class UIResourceView : MonoBehaviour
         mDiamondTweenScale.PlayForward();
     }
 
+    public int PVPCoin
+    {
+        set { PVPLabel.text = NumFormater.Convert(value); }
+    }
+
+    public void PlayPVPAnimation(float delay = 0)
+    {
+        mPVPTweenScale.delay = delay;
+        mPVPTweenScale.PlayForward();
+    }
+
+    public int SocialCoin
+    {
+        set { SocialLabel.text = NumFormater.Convert(value); }
+    }
+
+    public void PlaySocialAnimation(float delay = 0)
+    {
+        mSocialTweenScale.delay = delay;
+        mSocialTweenScale.PlayForward();
+    }
+
     public int Power
     {
         set { PowerLabel.text = string.Format("{0}/{1}", value, GameConst.Max_Power); }
@@ -82,11 +112,18 @@ public class UIResourceView : MonoBehaviour
         set { PowerCountDownLabel.gameObject.SetActive(value);}
     }
 
-    public void Show(int kind = 3)
+    public void Show(UIResource.EMode mode)
     {
-        MoneyObj.SetActive(kind >= 2);
-        DiamondObj.SetActive(kind >= 1);
-        PowerObj.SetActive(kind >= 3);
+//        DiamondObj.SetActive(kind >= 1);
+//        MoneyObj.SetActive(kind >= 2);
+//        PowerObj.SetActive(kind >= 3);
+
+        DiamondObj.SetActive(true);
+        MoneyObj.SetActive(true);
+
+        PowerObj.SetActive(mode == UIResource.EMode.Power);
+        PVPObj.SetActive(mode == UIResource.EMode.PVP || mode == UIResource.EMode.PvpSocial);
+        SocialObj.SetActive(mode == UIResource.EMode.PvpSocial);
     }
 
     public void Hide()
