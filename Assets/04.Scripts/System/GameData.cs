@@ -127,16 +127,6 @@ public static class GameData
             return false;
     }
 
-	public static float GetReviveValue {
-		get {
-			if(Team.GymBuild != null && Team.GymBuild.Length == 9) 
-			if(DArchitectureExp.ContainsKey(Team.GymBuild[3].LV) && DArchitectureExp[Team.GymBuild[3].LV].GymAttrKind == 50)
-				return DArchitectureExp[Team.GymBuild[3].LV].GymAttrValue;
-			
-			return 0 ;
-		}
-	}
-
 	public static int GetBuildItemIndex (int itemID) {
 		for(int i=0; i<DBuildData.Count; i++) 
 			if(DBuildData[i].ID == itemID)

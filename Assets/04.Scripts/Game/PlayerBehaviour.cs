@@ -133,7 +133,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float JumpHight = 450f;
     public int MoveIndex = -1;
-    public bool isJoystick = false;
+	public bool isJoystick = false; //搖桿的判斷，不是指玩家
+	public bool IsGameJoysticker = false;//玩家的判斷，不是指搖桿
     [CanBeNull]
     [HideInInspector]public PlayerAI AI = null;
     private PlayerBehaviour defencePlayer = null;
@@ -209,6 +210,64 @@ public class PlayerBehaviour : MonoBehaviour
 
 	[HideInInspector]public AnimatorController AnimatorControl;
 
+	private float recoverTime = 1;
+	/// <summary>
+	/// 如果是玩家的話會有建築物影響
+	/// </summary>
+	public int SelfAPMax = 0;
+	public float SelfAPGrowth = 0;
+	public int SelfAPBegin = 0;
+
+	//建築物＋BaseAttr
+	private int apMax = 0;
+	//每秒回復士氣的值
+	private float apGrowth = 0.5f;
+	//起手士氣
+	private int apBegin = 0;
+	public int APBegin {
+		get{return apBegin;}
+	}
+
+	/// <summary>
+	/// 倒數一分鐘AP成長速度會改變
+	/// </summary>
+	private float extraAPIncrease = 1;
+	public float ExtraAPIncrease {
+		set {extraAPIncrease = value;}
+	}
+
+	public void ReviveAnger(float value)
+	{
+		angerValue += value;
+		if (angerValue > TotalMaxAnger)
+		{
+			angerValue = TotalMaxAnger;
+		}
+		if (OnReviveAnger != null)
+			OnReviveAnger(TotalMaxAnger, angerValue, 0);
+	}
+
+	private void angerRecoveryUpdate () {
+		if(IsGameJoysticker) {
+			if(Attribute.IsHaveActiveSkill && AngerPower < TotalMaxAnger) {
+				if(recoverTime > 0) {
+					recoverTime -= Time.deltaTime;	
+					if(recoverTime <= 0) {
+						recoverTime = GameConst.AngerReviveTime;
+						ReviveAnger(apGrowth * extraAPIncrease);
+					}
+				}
+			}
+		}
+	}
+
+	//會另外寫在這是因為建築物也會影響士氣最大值
+	public int TotalMaxAnger {
+		get {
+			return Attribute.BaseMaxAnger + apMax;
+		}
+	}
+
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
         int v = (int)(Mathf.Abs(value) / 2);
@@ -217,16 +276,16 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0)
         {
-            if (this == GameController.Get.Joysticker && value > 0)
+			if (IsGameJoysticker && value > 0)
             {
                 if (target)
                     SkillDCExplosion.Get.BornDC(v, target, CameraMgr.Get.SkillDCTarget, parent);
             }
         }
         angerValue += value;
-        if (angerValue > Attribute.MaxAnger)
+		if (angerValue > TotalMaxAnger)
         {
-            angerValue = Attribute.MaxAnger;
+			angerValue = TotalMaxAnger;
         }
         
         if (angerValue < 0)
@@ -235,7 +294,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (Team == ETeamKind.Self && Index == 0)
         {
             if (OnUIAnger != null)
-                OnUIAnger(Attribute.MaxAnger, angerValue, v);
+				OnUIAnger(TotalMaxAnger, angerValue, v);
             if (value > 0)
                 GameRecord.AngerAdd += value;
         }
@@ -283,17 +342,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set{ AnimatorControl.Speed = value;}
         get{ return AnimatorControl.Speed;}
-    }
-
-    public void ReviveAnger(float value)
-    {
-        angerValue += value;
-        if (angerValue > Attribute.MaxAnger)
-        {
-            angerValue = Attribute.MaxAnger;
-        }
-        if (OnReviveAnger != null)
-            OnReviveAnger(Attribute.MaxAnger, angerValue, 0);
     }
 
     public void SetSlowDown(float Value)
@@ -450,6 +498,10 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.ElbowExtraAngle = GameConst.ElbowFanAngle + GameFunction.GetAttributeFormula(EPlayerAttributeRate.ElbowExtraAngle, Attribute.Strength);
 		
         Attr.AutoFollowTime = GameData.BaseAttr[Attribute.AILevel].AutoFollowTime;
+
+		apMax = SelfAPMax + GameData.BaseAttr[Attribute.AILevel].APMax;
+		apBegin = SelfAPBegin + GameData.BaseAttr[Attribute.AILevel].APBegin;
+		apGrowth = SelfAPGrowth + GameData.BaseAttr[Attribute.AILevel].APGrowth;
    
         DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 		interceptTrigger.transform.localScale = new Vector3(1, 1.5f, 1); //因還未有成長先(1, 1.5, 1)， 有成長就變成(0,5 1 0,5)
@@ -632,7 +684,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void speedBarColor()
     {
-        if (SpeedUpView != null && this == GameController.Get.Joysticker)
+		if (SpeedUpView != null && IsGameJoysticker)
         {
             SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
             SpeedUpView.color = new Color32(255, (byte)(200 * SpeedUpView.fillAmount), (byte)(15 * SpeedUpView.fillAmount), 255);
@@ -663,6 +715,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsShowSituation || !GameController.Get.IsStart)
             return;
         
+		angerRecoveryUpdate ();
         CantMoveTimer.Update(Time.deltaTime);
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
@@ -835,7 +888,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// <param name="aiAddTime"> 微調手動切換成 AI 的時間. 單位: 秒. </param>
     public void SetManually(float aiAddTime = 0)
     {
-        if (Team == ETeamKind.Self && GameController.Get.Joysticker == this)
+		if (Team == ETeamKind.Self && IsGameJoysticker)
         {
 			if (IsGameAttack || TestMode != EGameTest.None)
             {
@@ -881,7 +934,7 @@ public class PlayerBehaviour : MonoBehaviour
     {	
         if(GameController.Get.IsStart && 
            TimerMgr.Get.CrtTime > GameConst.Min_TimePause && 
-			GameController.Get.IsGameAttack &&
+			IsGameAttack &&
 			(!PlayerSkillController.IsActiveUse || !PlayerSkillController.IsPassiveUse))
         {
 			if(!AnimatorControl.IsEqual(CurrentState) && !AnimatorMgr.Get.IsLoopState(CurrentState))
@@ -1309,7 +1362,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             isMoving = true;
-            if (mMovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
+			if (mMovePower > 0 && canSpeedup && !IsGameJoysticker && !IsTee)
             {
                 setSpeed(1, 0);
                 transform.position = Vector3.MoveTowards(transform.position, 
@@ -2835,7 +2888,7 @@ public class PlayerBehaviour : MonoBehaviour
 				OnShooting(this, true);
 			break;
 		case "PushDistancePlayer":
-			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && GameController.Get.IsGameAttack)
+			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && IsGameAttack)
 			{
 				GameRecord.PushLaunch++;
 				for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)

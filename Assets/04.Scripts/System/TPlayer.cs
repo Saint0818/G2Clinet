@@ -633,19 +633,8 @@ namespace GameStruct
             }
         }
 
-		public int MaxAnger{
-            get{
-                //				if(ActiveSkills.Count > 0) {
-                //					int maxAnger = 0;
-                //					for (int i=0; i<ActiveSkills.Count; i++) {
-                //						if (GameData.DSkillData.ContainsKey(ActiveSkills[i].ID))
-                //							maxAnger += GameData.DSkillData[ActiveSkills[i].ID].MaxAnger;
-                //					}
-                //					return maxAnger;
-                //				} else
-                //					return 0;
-                return 150;
-            }
+		public int BaseMaxAnger {
+			get{return 150;}
         }
 
 		public bool IsHaveActiveSkill {

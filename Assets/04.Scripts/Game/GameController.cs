@@ -181,11 +181,6 @@ public class GameController : KnightSingleton<GameController>
 	//Basket
 	public EBasketSituation BasketSituation;
 
-	//Player Anger 每秒回復的士氣值（浮動值會依據套卡而變化）
-	private float recoverTime = 1;
-	private float recoverAngerBase = 0.5f;
-	private float extraIncrease = 1;
-
 	//SelectMe
 	private GameObject playerSelectMe;
 	private Transform PlayerSelectArrow;
@@ -319,8 +314,7 @@ public class GameController : KnightSingleton<GameController>
         CreateTeam();
 		SetBallOwnerNull (); 
 		MissionChecker.Get.SetPlayer(Joysticker);
-		recoverAngerBase = GameData.GetReviveValue;
-		Joysticker.ReviveAnger(GameData.Team.InitGetAP());
+		Joysticker.ReviveAnger(0);
     }
 
 	public void LoadStage(int id) {
@@ -634,7 +628,11 @@ public class GameController : KnightSingleton<GameController>
                         if (GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i]))
                         {
                             GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
-                            PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+							PlayerBehaviour p = CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
+							p.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
+							p.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
+							p.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
+                            PlayerList.Add(p);
                         }
                     }
 
@@ -643,18 +641,32 @@ public class GameController : KnightSingleton<GameController>
                     {
                         if (GameData.EnemyMembers[i].Player.SetID(StageData.PlayerID[i]))
                         {
-                            GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
-                            PlayerList.Add(CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i], GameData.EnemyMembers[i].Player));
+							GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
+							PlayerBehaviour p = CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i], GameData.EnemyMembers[i].Player);
+							p.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
+							p.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
+							p.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
+                            PlayerList.Add(p);
                         }
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < GameData.Max_GamePlayer; i++)
-                        PlayerList.Add(CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+					for (int i = 0; i < GameData.Max_GamePlayer; i++) {
+						PlayerBehaviour p = CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
+						p.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
+						p.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
+						p.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
+						PlayerList.Add(p);
+					}
 
-                    for (int i = 0; i < GameData.Max_GamePlayer; i++)
-                        PlayerList.Add(CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player));
+					for (int i = 0; i < GameData.Max_GamePlayer; i++) {
+						PlayerBehaviour p = CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player);
+						p.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
+						p.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
+						p.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
+	                    PlayerList.Add(p);
+					}
                 }
 
                 GameRecord.Init(PlayerList.Count);
@@ -736,6 +748,10 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		Joysticker = PlayerList[0];
+		Joysticker.SelfAPMax = GameData.Team.GetAPMaxAdd;
+		Joysticker.SelfAPBegin = GameData.Team.InitGetAP();
+		Joysticker.SelfAPGrowth = GameData.Team.GetAPGrowthAdd;
+		Joysticker.IsGameJoysticker = true;
 		Joysticker.NameColor = Color.red;
 		UIGame.Get.SetJoystick(Joysticker);
 
@@ -910,7 +926,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 		#endif
 		selectMeEvent();
-		angerRecoveryUpdate ();
         PassCD.Update(Time.deltaTime);
 
         handleSituation();
@@ -933,21 +948,6 @@ public class GameController : KnightSingleton<GameController>
 				StartCoroutine (playFinish ());
 			}
 		}
-	}
-
-	private void angerRecoveryUpdate () {
-		if(IsStart) {
-			if(Joysticker != null && Joysticker.Attribute.IsHaveActiveSkill && Joysticker.AngerPower < Joysticker.Attribute.MaxAnger) {
-				if(recoverTime > 0) {
-					recoverTime -= Time.deltaTime;	
-					if(recoverTime <= 0) {
-						recoverTime = GameConst.AngerReviveTime;
-						Joysticker.ReviveAnger(recoverAngerBase * extraIncrease);
-					}
-				}
-			}
-		}
-			
 	}
 
 	private void selectMeEvent() {
@@ -1060,13 +1060,13 @@ public class GameController : KnightSingleton<GameController>
 		
 		if(Input.GetKeyDown(KeyCode.L)) {
 			for (int i = 0; i < PlayerList.Count; i ++){
-				PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
+				PlayerList[i].SetAnger(PlayerList[i].TotalMaxAnger);
 				UIGame.Get.RefreshSkillUI();
 			}
 		}
 		
 		if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
-			Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
+			Joysticker.SetAnger(Joysticker.TotalMaxAnger);
 			UIGame.Get.RefreshSkillUI();
 		}
 	}
@@ -4038,7 +4038,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsTimePass() {
 		if (TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameWinTime > 0) {
 			if(GameWinTime <= 60) {
-				extraIncrease = 2;
+				setExtraAPIncrease(2);
 				UIEndGame.Get.ShowOneMinute();
 				UIGame.Get.SetTimeColor(Color.red);
 			}
@@ -4053,6 +4053,12 @@ public class GameController : KnightSingleton<GameController>
 			
 		return false;
 	}
+
+	private void setExtraAPIncrease (float value) {
+		for(int i=0; i<PlayerList.Count; i++)
+			PlayerList[i].ExtraAPIncrease = value;
+	}
+
 	public void CheckConditionText () {MissionChecker.Get.CheckConditionText(StageData.ID);}
 	public bool IsScorePass(int team) {return MissionChecker.Get.IsScorePass(team);}
 	public bool IsConditionPass  {get {return MissionChecker.Get.IsConditionPass;}}
@@ -4446,7 +4452,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].CurrentState = EPlayerState.Idle;
 			PlayerList [i].AnimatorControl.Play("Idle");
 			PlayerList [i].Reset();
-			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
+			PlayerList [i].SetAnger (-PlayerList[i].TotalMaxAnger);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{
@@ -4494,16 +4500,13 @@ public class GameController : KnightSingleton<GameController>
 //		Joysticker.InitAttr();
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(PlayerList[i].Team == ETeamKind.Self) {
-				if(StageData.PlayerAI != 0) {
-					PlayerList[i].Attribute.AILevel = StageData.PlayerAI;
-					PlayerList[i].InitAttr();
-				}
+				PlayerList[i].Attribute.AILevel = StageData.PlayerAI;
+				PlayerList[i].InitAttr();
 			} else {
-				if(StageData.OppenentAI != 0) {
-					PlayerList[i].Attribute.AILevel = StageData.OppenentAI;
-					PlayerList[i].InitAttr();
-				}
+				PlayerList[i].Attribute.AILevel = StageData.OppenentAI;
+				PlayerList[i].InitAttr();
 			}
+			PlayerList[i].ReviveAnger(PlayerList[i].APBegin);
 		}
 
 		//會放在這裡是為了可以把BaseAttr跟數值裝的值取出來

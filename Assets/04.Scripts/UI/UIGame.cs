@@ -849,7 +849,7 @@ public class UIGame : UIBase
     {
         if (IsPlayerMe && isPressA)
         {
-            PlayerMe.SetAnger(PlayerMe.Attribute.MaxAnger);
+			PlayerMe.SetAnger(PlayerMe.TotalMaxAnger);
         }
         UIControllerState(EUIControl.PassB, obj, state);
     }
@@ -885,7 +885,7 @@ public class UIGame : UIBase
     public void RefreshSkillUI()
     {
         ShowSkillEnableUI(true);
-        SetAngerUI(PlayerMe.Attribute.MaxAnger, PlayerMe.AngerPower, 0);
+		SetAngerUI(PlayerMe.TotalMaxAnger, PlayerMe.AngerPower, 0);
         runSkillValue();
     }
 
@@ -976,7 +976,7 @@ public class UIGame : UIBase
         if (IsPlayerMe && PlayerMe.Attribute.IsHaveActiveSkill)
             for (int i = 0; i < PlayerMe.Attribute.ActiveSkills.Count; i++)
                 if (uiButtonSkill[i].activeSelf)
-					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, newForceValue * PlayerMe.Attribute.MaxAnger, PlayerMe.Attribute.ActiveSkills[i].Lv);
+					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, newForceValue * PlayerMe.TotalMaxAnger, PlayerMe.Attribute.ActiveSkills[i].Lv);
     }
 
     public void PlusScore(int team, int score)

@@ -157,6 +157,10 @@ namespace GameStruct
 		public float ElbowDistance;
 		public float ElbowExtraAngle;
 
+		public int APMax;
+		public int APBegin;
+		public float APGrowth ;
+
         /// <summary>
         /// 懲罰時間, 單位:秒. 
         /// </summary>

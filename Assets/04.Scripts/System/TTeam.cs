@@ -1342,6 +1342,8 @@ namespace GameStruct
 				}
 			}
 
+			ap += GetAPBeginAdd;
+			
 			return ap;
 		}
 
@@ -1548,6 +1550,48 @@ namespace GameStruct
 						}
 					}
 				}
+			}
+		}
+
+		/*
+		 * 20.起手的士氣值
+			21.士氣 (單次）
+			22.士氣 (時間內+%)時間內獲得到的  士氣都會額外乘上一個％
+			23.士氣的上限值
+		*/
+		//士氣每秒恢復速度(Gym)
+		public float GetAPGrowthAdd {
+			get {
+				if(GameData.IsOpenUIEnable(EOpenID.OperateGym))
+					if(GymBuild != null && GymBuild.Length == 9) 
+						if(GameData.DArchitectureExp.ContainsKey(GymBuild[3].LV) && GameData.DArchitectureExp[GymBuild[3].LV].GymAttrKind == 50)
+							return GameData.DArchitectureExp[GymBuild[3].LV].GymAttrValue;
+
+				return 0 ;
+			}
+		}
+
+		//起手的士氣值增加(Logo)
+		public int GetAPBeginAdd {
+			get {
+				if(GameData.IsOpenUIEnable(EOpenID.OperateLogo)) 
+					if(GymBuild != null && GymBuild.Length == 9) 
+						if(GameData.DArchitectureExp.ContainsKey(GymBuild[5].LV) && GameData.DArchitectureExp[GymBuild[5].LV].LogoAttrKind == 20)
+							return Mathf.RoundToInt(GameData.DArchitectureExp[GymBuild[5].LV].LogoAttrValue);
+
+				return 0 ;
+			}
+		}
+
+		//士氣最大值增加(Chair)
+		public int GetAPMaxAdd {
+			get {
+				if(GameData.IsOpenUIEnable(EOpenID.OperateChair))
+					if(GymBuild != null && GymBuild.Length == 9) 
+						if(GameData.DArchitectureExp.ContainsKey(GymBuild[6].LV) && GameData.DArchitectureExp[GymBuild[6].LV].ChairAttrKind == 23)
+							return Mathf.RoundToInt(GameData.DArchitectureExp[GymBuild[6].LV].ChairAttrValue);
+
+				return 0 ;
 			}
 		}
     }
