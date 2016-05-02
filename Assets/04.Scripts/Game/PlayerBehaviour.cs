@@ -935,7 +935,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(GameController.Get.IsStart && 
            TimerMgr.Get.CrtTime > GameConst.Min_TimePause && 
 			IsGameAttack &&
-			(!PlayerSkillController.IsActiveUse || !PlayerSkillController.IsPassiveUse))
+			(!PlayerSkillController.IsActiveUse && !PlayerSkillController.IsPassiveUse))
         {
 			if(!AnimatorControl.IsEqual(CurrentState) && !AnimatorMgr.Get.IsLoopState(CurrentState))
                 synchronousAnimation();
@@ -2566,14 +2566,15 @@ public class PlayerBehaviour : MonoBehaviour
     private void stealingEnd()
     {
         if (IsShowSituation)
-            return;
+			return;
+		
+		PlayerSkillController.ResetUseSkill();
 
         if (IsDebugAnimation)
             Debug.LogFormat("{0}. stealingEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
         IsStealCalculate = false; 
-        PlayerSkillController.ResetUseSkill();
     }
 
     private void PushCalculateStart()
@@ -2661,7 +2662,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void DunkFallBall()
     {
-        OnUI(this);
+		OnUI(this);
+		PlayerSkillController.ResetUseSkill();
         if (OnDunkBasket != null)
             OnDunkBasket(this);
         
@@ -2691,7 +2693,8 @@ public class PlayerBehaviour : MonoBehaviour
     private void fallEnd(EAnimatorState state)
     {
         if (IsShowSituation)
-            return;
+			return;
+		PlayerSkillController.ResetUseSkill();
 
         if (IsDebugAnimation)
             Debug.LogFormat("{0}. fallEnd. Time:{1}", name, Time.time);
@@ -2712,6 +2715,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsDebugAnimation)
             Debug.LogFormat("{0}. catchEnd. Time:{1}", name, Time.time);
 
+		PlayerSkillController.ResetUseSkill();
         if (state == CurrentAnimatorState)
             mStateChangable = true;
 
@@ -2776,7 +2780,8 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogFormat("{0}. tipInEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
-        CanUseTipIn = false;
+		CanUseTipIn = false;
+		PlayerSkillController.ResetUseSkill();
     }
 
     private void animationEnd(EAnimatorState animatorState)
