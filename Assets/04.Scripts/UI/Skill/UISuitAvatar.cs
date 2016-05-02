@@ -191,7 +191,7 @@ public class UISuitAvatar : UIBase {
 
 			if(value) {
 				Statistic.Ins.LogScreen(19);
-				Statistic.Ins.LogEvent(412);
+				Statistic.Ins.LogEvent(406);
 			}
         }
 	}

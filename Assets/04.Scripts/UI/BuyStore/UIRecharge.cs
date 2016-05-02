@@ -457,7 +457,7 @@ public class UIRecharge : UIBase {
             TBuyDiamond result = JsonConvertWrapper.DeserializeObject<TBuyDiamond>(www.text);
 			GameData.Team.Diamond = result.Diamond;
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
-			Statistic.Ins.LogEvent(407);
+			Statistic.Ins.LogEvent(401);
 
 			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
@@ -500,9 +500,9 @@ public class UIRecharge : UIBase {
 			GameData.Team.LifetimeRecord = result.LifetimeRecord;
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
 			if(isBuyCoin)
-				Statistic.Ins.LogEvent(408);
+				Statistic.Ins.LogEvent(402);
 			else
-				Statistic.Ins.LogEvent(409);
+				Statistic.Ins.LogEvent(403);
 
 			UIMainLobby.Get.UpdateUI();
 			if(isRecord)
