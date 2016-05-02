@@ -5,36 +5,6 @@ using UnityEngine;
 using GameStruct;
 using Newtonsoft.Json;
 
-public struct TListMailResult{
-	public int MailKind; // 1=prize, 2=social
-	public TMailInfo[] Mails;
-}
-//public struct TMailItem
-//{
-//	public int Index;
-//	public UILabel Head;
-//	public UILabel Body;
-//	public UILabel Data;
-//
-//	public GameObject gameobject;
-//	public Transform DisablePool;
-//	public Transform EnablePool;
-//
-//	private bool isEnable;
-//
-//	public bool Enable
-//	{
-//		set{
-//			isEnable = value;
-//
-//			if(gameobject){
-//				gameobject.SetActive(value);
-//				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
-//			}
-//		}
-//		get{return isEnable;}
-//	}
-//}
 
 public struct TMail
 {
@@ -45,7 +15,7 @@ public struct TMail
 	public bool isRead;
 }
 
-public class MailSubPage {
+public class MailSubPage: MonoBehaviour {
 	public GameObject redPoint;
 	public GameObject pageObject;
 	public bool isActive;
@@ -117,15 +87,29 @@ public class MailSubPageHtml : MailSubPage {
 		base.SetActive (a);
 		if (a == false)
 			webView.Hide ();
-		else
-			webView.Show ();
+		else {
+			webView.Show();
+		}
 	}
 
 	UniWebViewEdgeInsets InsetsForScreenOreitation(UniWebView webView, UniWebViewOrientation orientation) {
-		return new UniWebViewEdgeInsets(160,110,70,110);
+
+
+		float zoomRatioW = (float)UniWebViewHelper.screenWidth / UI2D.Get.RootWidth;
+		float zoomRatioH = (float)UniWebViewHelper.screenHeight / UI2D.Get.RootHeight;
+		//float zoomRatioW = (float)UniWebViewHelper.screenWidth / Screen.width;
+		//float zoomRatioH = (float)UniWebViewHelper.screenHeight / Screen.height;
+//		UIWidget webViewWidget;
+		int top = (int)(160*zoomRatioH);//- webViewWidget.topAnchor.absolute * zoomRatio;
+		int left = (int)(130*zoomRatioW);//webViewWidget.leftAnchor.absolute * zoomRatio;
+		int bottom = (int)(70*zoomRatioH);//webViewWidget.bottomAnchor.absolute * zoomRatio;
+		int right = (int)(130*zoomRatioW);//- webViewWidget.rightAnchor.absolute * zoomRatio;
+
+		//return new UniWebViewEdgeInsets(top, left, bottom, right);
+		return new UniWebViewEdgeInsets(top, left, bottom, right);
 	}
 
-	void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {
+	public void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {
 		if (success) {
 			loadComplete = true;
 			if(isActive)
@@ -141,6 +125,7 @@ public class MailSubPageHtml : MailSubPage {
 		if(loadComplete)
 			webView.Show();
 	}
+
 }
 	
 public class MailSubPagePrize : MailSubPage {
@@ -192,15 +177,16 @@ public class MailSubPagePrize : MailSubPage {
 
 	private void SendListMail (int mailKind) {
 		WWWForm form = new WWWForm();
+		form.AddField("Identifier", GameData.Team.Identifier);
 		form.AddField("MailKind", 1);// 1=prize, 2=social
 		SendHttp.Get.Command(URLConst.ListMail, waitListMail, form);
 	}
 
 	private void waitListMail(bool ok, WWW www) {
 		if (ok) {
-			TListMailResult result = JsonConvertWrapper.DeserializeObject <TListMailResult>(www.text); 
+			TMailInfo[] result = JsonConvertWrapper.DeserializeObject <TMailInfo[]>(www.text); 
 			//GameData.Team.GymBuild = result.GymBuild;
-			ListMail(result.Mails);
+			ListMail(result);
 
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -249,20 +235,23 @@ public class MailSubPageSocial : MailSubPage {
 
 	public override void ListMail(TMailInfo[] Mails)
 	{
-		
+		MailList.Clear ();
+		for (int i = 0; i < Mails.Length; i++)
+			MailList.Add (Mails [i]);		
 	}
 
 	private void SendListMail (int mailKind) {
 		WWWForm form = new WWWForm();
+		form.AddField("Identifier", GameData.Team.Identifier);
 		form.AddField("MailKind", 2);// 1=prize, 2=social
 		SendHttp.Get.Command(URLConst.ListMail, waitListMail, form);
 	}
 
 	private void waitListMail(bool ok, WWW www) {
 		if (ok) {
-			TListMailResult result = JsonConvertWrapper.DeserializeObject <TListMailResult>(www.text); 
+			TMailInfo[] result = JsonConvertWrapper.DeserializeObject <TMailInfo[]>(www.text); 
 			//GameData.Team.GymBuild = result.GymBuild;
-			ListMail(result.Mails);
+			ListMail(result);
 
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -378,11 +367,12 @@ public class UIMail : UIBase {
 		
 	private void OnGotoGroup1()
 	{
-		// todo: 公告藏起來
-
+		// 公告藏起來
+		if (subPages [0].isActive)
+			subPages [0].SetActive (false);
 		//
 		if (UI3DMainLobby.Visible)
-			UI3DMainLobby.Get.Impl.OnSelect (8);
+			UI3DMainLobby.Get.Impl.OnSelect (8, true);
 		changeBtn.gameObject.SetActive (false);
 		nowGroup = 1;
 		GetComponent<Animator>().SetTrigger("Group1");
@@ -478,11 +468,12 @@ public class UIMail : UIBase {
 	private void OnGotoGroup0()
 	{
 		if (UI3DMainLobby.Visible) {
-			UI3DMainLobby.Get.Impl.OnSelect (8);
-			UIMainLobby.Get.View.PlayExitAnimation();
+			UI3DMainLobby.Get.Impl.OnSelect (8, true);
+			//UIMainLobby.Get.View.PlayExitAnimation();
 		}
 		changeBtn.gameObject.SetActive (true);
 		nowGroup = 0;	
+		subPages [nowPage].OnPage ();
 		GetComponent<Animator>().SetTrigger("Group0");
 	}
 

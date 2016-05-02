@@ -95,7 +95,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 //        Move();
     }
 
-	public void OnSelect(int buildIndex)
+	public void OnSelect(int buildIndex, bool manualCtrlUIAnim=false)
     {
         if (delay > 0)
             return;
@@ -113,8 +113,10 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					//back 
 					selectIndex = -1;
 					SetCameraAnimator(index, false);
-					UpdateButtonCollider(index, true);
-					UIMainLobby.Get.View.PlayEnterAnimation();
+					if (!manualCtrlUIAnim) {
+						UpdateButtonCollider (index, true);
+						UIMainLobby.Get.View.PlayEnterAnimation ();
+					}
 					delay = 1;
 				}
 				else
@@ -130,8 +132,10 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 						{
 							selectIndex = index;
 							SetCameraAnimator(index, true);
-							UpdateButtonCollider(index, false);
-							UIMainLobby.Get.View.PlayExitAnimation();
+							if (!manualCtrlUIAnim) {
+								UpdateButtonCollider (index, false);
+								UIMainLobby.Get.View.PlayExitAnimation ();
+							}
 							delay = 1;
 						}
 					}
@@ -141,6 +145,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(index + 50)), LimitTable.Ins.GetLv(GetEOpenID(index + 50))), Color.red);
         }
     }
+
 
 	private EOpenID GetEOpenID(int index)
 	{

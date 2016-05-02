@@ -1865,20 +1865,25 @@ namespace GameStruct
 		}
 	}
 
-	public struct TMailItem{
-		public int ItemID;
-		public int Count;
+	public struct TMailGift{
+		public int Kind;
+		public int Param1;
+		public int Param2;
 	}
 
-	// datetime應該可以當key
+
 	public struct TMailInfo{
-		public string SenderIdentifier;
-		public int SenderHeadTextureNo;
-		public int SenderLv;
+		public string _id;
+		public DateTime Time;
+		public string FromIdentifier;
+		public string FromName;
+		public string FromLv;
+		public int FromHeadTextureNo;
+		public string ToIdentifier;
 		public int MailKind; // 1=prize, 2=social
 		public int ContextType; // 1=native string, 2=string id
-		public DateTime Time;
-		public TMailItem[] Items;
+		public string Context;
+		public TMailGift[] Gifts;
 
 	}
 }
