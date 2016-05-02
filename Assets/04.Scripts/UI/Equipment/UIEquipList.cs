@@ -10,7 +10,6 @@ public delegate void ItemChangeCallback(int index, UIValueItemData item);
 public class UIEquipList : UIBase {
 	private static UIEquipList instance = null;
 	private const string UIName = "UIEquipList";
-	private readonly Vector3 mStartPos = new Vector3(0, 110, 0);
 	private ItemChangeCallback itemChangeCallback;
 
 	private int mItemIndex;
@@ -81,17 +80,20 @@ public class UIEquipList : UIBase {
 		mItemIndex = index;
 		if (playerItems[0] == null) {
 			for (int i = 0; i < playerItems.Length; i++) {
-				playerItems [i] = findPlayerValueItemByKind (i + 17);
-				storageItems [i] = findStorageItemsByKind (i + 17);
+                playerItems [i] = findPlayerValueItemByKind (i + 17);
+                storageItems [i] = findStorageItemsByKind (i + 17);
 			}
 		}
 
+
+        bool redFlag = !playerItems [index].IsValid();
 		var localPos = Vector3.zero;
 		for (int i = 0; i < storageItems[index].Count; i++) {
 			GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.UIEquipListButton, scrollView.transform, localPos);
 			var element = obj.GetComponent<UIEquipListButton>();
 			element.Set (storageItems [index][i], true);
 			element.Init (OnEquip, i);
+            element.RedPointVisible = redFlag;
 			itemButtonList.Add (element);
 			localPos.y -= 130;
 		}
@@ -178,7 +180,10 @@ public class UIEquipList : UIBase {
 	public void OnEquip(int index) {
 		UIValueItemData item = playerItems [mItemIndex];
 		playerItems [mItemIndex] = storageItems [mItemIndex][index];
-		storageItems [mItemIndex][index] = item;
+        if (item.IsValid())
+		    storageItems [mItemIndex][index] = item;
+        else
+            storageItems [mItemIndex].RemoveAt(index);
 
 		InitItemData (mItemIndex, itemChangeCallback);
 		if (itemChangeCallback != null)
@@ -188,7 +193,8 @@ public class UIEquipList : UIBase {
 	public void OnDemount() {
 		if (playerItems [mItemIndex].Status != UIValueItemData.EStatus.CannotDemount) {
 			storageItems [mItemIndex].Add (playerItems [mItemIndex]);
-			playerItems [mItemIndex] = UIValueItemDataBuilder.BuildEmpty ();
+            playerItems [mItemIndex] = UIValueItemDataBuilder.BuildDemount ();
+            InitItemData (mItemIndex, itemChangeCallback);
 			if (itemChangeCallback != null)
 				itemChangeCallback (mItemIndex, playerItems [mItemIndex]);
 		}

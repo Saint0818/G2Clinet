@@ -208,7 +208,7 @@ public class UISelectRole : UIBase {
 
 	private void setEquiptItem(int index, UIValueItemData itemData) {
 		equipItemData [index] = itemData;
-		equipSlot [index].Set (equipItemData[index], GameData.Team.IsPlayerBestValueItem (index+17));
+        equipSlot [index].Set (equipItemData[index], !itemData.IsValid());
 		spriteEquipEffect [index].gameObject.SetActive (false);
 		foreach (KeyValuePair<EAttribute, UIValueItemData.BonusData> item in itemData.Values) {
 			spriteEquipEffect [index].spriteName = item.Value.Icon;
