@@ -2,107 +2,100 @@
     {
         "id": 1,
         "chapter": 1,
-        "nametw": "從天而降的巨大使命",
+        "nametw": "夢想就是成為星際球王！\t\t",
         "namecn": "從天而降的巨大使命",
         "nameen": "Heaven great mission",
         "namejp": "発端",
-        "explaintw": "從天而降的巨大使命",
-        "explaincn": "從天而降的巨大使命",
+        "explaintw": "和奇怪的守護者小組拯救未來！成為星際球王！",
+        "explaincn": "故事的开端",
         "explainen": "Heaven great mission",
         "explainjp": "物語が始まります"
     },
     {
         "id": 2,
         "chapter": 2,
-        "nametw": "勇者之路的開始",
+        "nametw": "可能就是命運吧！球王之路開始！",
         "namecn": "勇者之路的開始",
         "nameen": "Began to brave the road",
         "namejp": "小テストのスキル",
-        "explaintw": "勇者之路的開始",
-        "explaincn": "勇者之路的開始",
+        "explaintw": "正朝著星際聯盟大賽前進！但沒有正式球員資格是不能參加的。",
+        "explaincn": "惊艳众人的开始",
         "explainen": "Began to brave the road",
         "explainjp": "みんなの見事なスタート"
     },
     {
         "id": 3,
         "chapter": 3,
-        "nametw": "來自未知的敵人",
+        "nametw": "腐化者首次現蹤！",
         "namecn": "來自未知的敵人",
         "nameen": "From an unknown enemy",
         "namejp": "良くなります",
-        "explaintw": "來自未知的敵人",
-        "explaincn": "來自未知的敵人",
+        "explaintw": "好不容易得到正式球員的資格，同時卻收到貧民窟遭到攻擊的壞消息！",
+        "explaincn": "立足篮坛的表现",
         "explainen": "From an unknown enemy",
         "explainjp": "バスケットボールのパフォーマンスに基づいて、"
     },
     {
         "id": 4,
         "chapter": 4,
-        "nametw": "列車競賽開始！",
+        "nametw": "籃球巡迴爭霸賽，首戰！\t",
         "namecn": "列車競賽開始！",
         "nameen": "Trains start of the competition!",
-        "explaintw": "列車競賽開始！",
-        "explaincn": "列車競賽開始！",
+        "explaintw": "進入籃球巡迴爭霸賽！盡你所能取得高積分、晉級高級聯盟！",
         "explainen": "Trains start of the competition!"
     },
     {
         "id": 5,
         "chapter": 5,
-        "nametw": "相知相惜的英雄",
+        "nametw": "劃時代的天才，布魯托！",
         "namecn": "相知相惜的英雄",
         "nameen": "Knowing each other hero",
-        "explaintw": "相知相惜的英雄",
-        "explaincn": "相知相惜的英雄",
+        "explaintw": "籃球巡迴爭霸戰的第一戰告一段落，進入短暫的休停期！這時候…",
         "explainen": "Knowing each other hero"
     },
     {
         "id": 6,
         "chapter": 6,
-        "nametw": "急凍地帶",
+        "nametw": "遇上真正的三天王！上",
         "namecn": "急凍地帶",
         "nameen": "Frozen zone",
-        "explaintw": "急凍地帶",
-        "explaincn": "急凍地帶",
+        "explaintw": "巡迴戰要繼續啟動了！但你總覺得哪裡不太對勁…",
         "explainen": "Frozen zone"
     },
     {
         "id": 7,
         "chapter": 7,
-        "nametw": "被撕裂的時空",
+        "nametw": "遇上真正的三天王！下",
         "namecn": "被撕裂的時空",
         "nameen": "Torn temporal",
-        "explaintw": "被撕裂的時空",
-        "explaincn": "被撕裂的時空",
+        "explaintw": "沒想到尋尋覓覓的宙能之聚，居然就是技能晶片！",
         "explainen": "Torn temporal"
     },
     {
         "id": 8,
         "chapter": 8,
-        "nametw": "戛然而止的混亂",
+        "nametw": "入選…低分聯盟！",
         "namecn": "戛然而止的混亂",
         "nameen": "Stopped short of chaos",
-        "explaintw": "戛然而止的混亂",
-        "explaincn": "戛然而止的混亂",
+        "explaintw": "籃球巡迴爭霸賽開始結算成績了，沒想到我們居然落入了低分聯盟…",
         "explainen": "Stopped short of chaos"
     },
     {
         "id": 9,
         "chapter": 9,
-        "nametw": "世界的另一端",
+        "nametw": "地．獄．球．賽，浴血！",
         "namecn": "世界的另一端",
         "nameen": "The other side of the world",
-        "explaintw": "世界的另一端",
-        "explaincn": "世界的另一端",
+        "explaintw": "腐化者的觸手已經伸向了許多球隊，人們便得貪婪又瘋狂，許多被攻擊的球隊因此失去鬥志…",
         "explainen": "The other side of the world"
     },
     {
         "id": 10,
         "chapter": 10,
-        "nametw": "迎接真正的挑戰",
+        "nametw": "地．獄．球．賽，死鬥！",
         "namecn": "迎接真正的挑戰",
         "nameen": "Meet real challenge",
-        "explaintw": "迎接真正的挑戰",
-        "explaincn": "迎接真正的挑戰",
+        "explaintw": "登上浮空塔的最高層，就能獲得高級聯盟的通關證！簡單的規則，卻是地獄般的過程！",
         "explainen": "Meet real challenge"
     },
     {
@@ -198,47 +191,47 @@
     {
         "id": 2001,
         "chapter": 1,
-        "nametw": "別讓比爾絕殺你",
+        "nametw": "關主 01",
         "nameen": "BOSS 1",
-        "explaintw": "三分球的傳說，互飆三分",
+        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Trey legend, mutual soared one-third"
     },
     {
         "id": 2002,
         "chapter": 2,
-        "nametw": "尚恩的武士道",
+        "nametw": "關主 02",
         "nameen": "BOSS 2",
-        "explaintw": "灌籃王傳說",
+        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Slam dunk king legend"
     },
     {
         "id": 2003,
         "chapter": 3,
-        "nametw": "誰不認識雙刀凱樂",
+        "nametw": "關主 03",
         "nameen": "BOSS 3",
-        "explaintw": "神之手抄截",
+        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Hand of God steals"
     },
     {
         "id": 2004,
         "chapter": 4,
-        "nametw": "銀電來了",
+        "nametw": "關主 04",
         "nameen": "BOSS 4",
-        "explaintw": "想辦法突破對方銅牆鐵壁的防守",
+        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Think of a way to break the other's defense impregnable fortress"
     },
     {
         "id": 2005,
         "chapter": 5,
-        "nametw": "天縱奇才布魯托",
+        "nametw": "關主 05",
         "nameen": "BOSS 5",
-        "explaintw": "暴力籃球，想辦法不要被擊倒",
+        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Violence basketball, to find ways not to be knocked down"
     },
     {
         "id": 2006,
         "chapter": 6,
-        "nametw": "無情的冰女皇",
+        "nametw": "關主 06",
         "nameen": "BOSS 6",
         "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
@@ -246,7 +239,7 @@
     {
         "id": 2007,
         "chapter": 7,
-        "nametw": "神秘東方的忍術",
+        "nametw": "關主 07",
         "nameen": "BOSS 7",
         "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
@@ -254,7 +247,7 @@
     {
         "id": 2008,
         "chapter": 8,
-        "nametw": "重金搖滾王者",
+        "nametw": "關主 08",
         "nameen": "BOSS 8",
         "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
@@ -262,7 +255,7 @@
     {
         "id": 2009,
         "chapter": 9,
-        "nametw": "凍結你的腳步",
+        "nametw": "關主 09",
         "nameen": "BOSS 9",
         "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
@@ -270,7 +263,7 @@
     {
         "id": 2010,
         "chapter": 10,
-        "nametw": "不敢越雷池一步",
+        "nametw": "關主 10",
         "nameen": "BOSS 10",
         "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
         "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
