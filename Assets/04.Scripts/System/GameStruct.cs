@@ -1627,7 +1627,17 @@ namespace GameStruct
 
 		public int ItemCount {
 			get {
-				return 3;
+                int count = 3;
+                if (Item1 == null)
+                    count--;
+
+                if (Item2 == null)
+                    count--;
+
+                if (Item3 == null)
+                    count--;
+
+                return count;
 			}
 		}
 
