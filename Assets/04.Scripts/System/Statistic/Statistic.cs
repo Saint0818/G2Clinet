@@ -45,6 +45,14 @@ public class Statistic
         }
     }
 
+    public void LogScreen(int customID, string customName)
+    {
+        for(var i = 0; i < mServices.Count; i++)
+        {
+            mServices[i].LogScreen(customID, customName);
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
