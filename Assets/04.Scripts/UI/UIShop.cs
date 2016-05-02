@@ -73,7 +73,7 @@ public class UIShop : UIBase {
             if(value)
             {
                 Statistic.Ins.LogScreen(15);
-                Statistic.Ins.LogEvent(208);
+                Statistic.Ins.LogEvent(206);
             }
         }
     }

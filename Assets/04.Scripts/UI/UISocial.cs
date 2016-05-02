@@ -89,7 +89,7 @@ public class UISocial : UIBase {
             if(value)
             {
                 Statistic.Ins.LogScreen(14);
-                Statistic.Ins.LogEvent(206);
+                Statistic.Ins.LogEvent(204);
             }
         }
     }
