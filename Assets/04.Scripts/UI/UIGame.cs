@@ -119,15 +119,16 @@ public class UIGame : UIBase
     private GameObject viewTopRight;
     private GameObject[] uiButtonSkill = new GameObject[3];
     private GameObject[] uiSkillEnables = new GameObject[3];
-    private GameObject[] uiDCs = new GameObject[3];
     private UISprite[] spriteSkills = new UISprite[3];
     private UISprite[] spriteEmptys = new UISprite[3];
     private UISprite spriteForce;
     private UISprite spriteForceFirst;
     private GameObject uiSpriteFull;
-    private UILabel uiForceNum;
+	private UILabel uiForceNum;
+	private GameObject uiDCs;
 
     //DC
+	private float dcTime = 1;
     private int dcCount = 0;
     private float baseForceValue;
     private float oldForceValue;
@@ -217,7 +218,6 @@ public class UIGame : UIBase
     void OnDestroy() {
         uiButtonSkill = new GameObject[0];
         uiSkillEnables = new GameObject[0];
-        uiDCs = new GameObject[0];
         spriteSkills = new UISprite[0];
         spriteEmptys = new UISprite[0];
         spriteForce = null;
@@ -268,7 +268,10 @@ public class UIGame : UIBase
                         CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
                 }
             }
-			
+
+			if(skillHint.IsVisible)
+				skillHint.UpdateUI(skillHintIndex);
+
             if (skillHintTime > 0)
             {
                 skillHintTime -= Time.deltaTime;
@@ -305,6 +308,12 @@ public class UIGame : UIBase
 			
             judgePlayerScreenPosition();
             setGameTime();
+
+			if(dcTime > 0) {
+				dcTime -= Time.deltaTime;
+				if(dcTime <= 0)
+					hideDCSoul();
+			}
         }
     }
 
@@ -386,13 +395,13 @@ public class UIGame : UIBase
         spriteForce = GameObject.Find(UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
         spriteForceFirst = GameObject.Find(UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
         uiSpriteFull = GameObject.Find(UIName + "/TopRight/ViewForceBar/ForcebarFull");
+		uiDCs = GameObject.Find(UIName + "/TopRight/ViewForceBar/GetDCSoul");
+		uiDCs.SetActive(false);
         for (int i = 0; i < uiSkillEnables.Length; i++)
         {
             uiButtonSkill[i] = GameObject.Find(UIName + "/TopRight/ButtonSkill" + i.ToString());
             uiButtonSkill[i].name = i.ToString();
             uiSkillEnables[i] = GameObject.Find(uiButtonSkill[i].name + "/SpriteFull");
-            uiDCs[i] = GameObject.Find(uiButtonSkill[i].name + "/GetDCSoul");
-            uiDCs[i].SetActive(false);
             spriteSkills[i] = GameObject.Find(uiButtonSkill[i].name + "/SpriteSkill").GetComponent<UISprite>();
             spriteEmptys[i] = GameObject.Find(uiButtonSkill[i].name + "/SkillEmpty").GetComponent<UISprite>();
             UIEventListener.Get(uiButtonSkill[i]).onPress = DoSkill;
@@ -470,6 +479,16 @@ public class UIGame : UIBase
         uiSpeed.SetActive(false);
         buttonPause.enabled = false;
     }
+
+	public void PlayGetDCSoul () {
+		uiDCs.SetActive(false);
+		uiDCs.SetActive(true);
+		dcTime = 0.1f;
+	}
+
+	private void hideDCSoul () {
+		uiDCs.SetActive(false);
+	}
 
     private void initJoystickPos()
     {
@@ -948,7 +967,7 @@ public class UIGame : UIBase
 
         if (max > 0)
         {
-            uiForceNum.text = anger + "/[13CECEFF]" + max + "[-]";
+			uiForceNum.text = Mathf.RoundToInt(anger) + "/[13CECEFF]" + max + "[-]";
             oldForceValue = spriteForce.fillAmount;
             newForceValue = anger / max;
             if (count != 0)
@@ -1020,12 +1039,13 @@ public class UIGame : UIBase
         oldForceValue = (anger / max);
         newForceValue = oldForceValue;
         spriteForce.fillAmount = oldForceValue;
-		uiForceNum.text = Mathf.Floor(anger) + "/[13CECEFF]" + max + "[-]";
+		uiForceNum.text = Mathf.RoundToInt(anger) + "/[13CECEFF]" + max + "[-]";
         runSkillValue();
     }
 
     public bool AddForceValue()
     {
+		PlayGetDCSoul();
         oldForceValue += baseForceValue;
         if (dcCount >= 0)
             dcCount--;

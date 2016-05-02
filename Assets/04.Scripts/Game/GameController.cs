@@ -4509,6 +4509,9 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList[i].ReviveAnger(PlayerList[i].APBegin);
 		}
 
+		if(Joysticker.APBegin > 0)
+			UIGame.Get.PlayGetDCSoul();
+
 		//會放在這裡是為了可以把BaseAttr跟數值裝的值取出來
 		AddValueItemAttributes();
 	}
