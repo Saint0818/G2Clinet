@@ -224,15 +224,9 @@ public static class GameFunction
 
     public static int GetItemKind(int id)
     {
-        if (GameData.DItemData.ContainsKey(id))
-        {
-            return  GameData.DItemData [id].Kind;
-        } else
-        {
-            return -1;
-        }
+        return GameData.DItemData.ContainsKey(id) ? GameData.DItemData[id].Kind : -1;
     }
-    
+
     public static int GetItemAvatarIndex(int id)
     {
         if (GameData.DItemData.ContainsKey(id))

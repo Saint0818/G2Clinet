@@ -61,7 +61,7 @@
     },
     {
         "id": 15,
-        "title": "選技能",
+        "title": "PVP 開啟技能介面",
         "category": "SubUIBtn",
         "action": "OpenUI_PVP_Skill",
         "label": "UIPVP",
@@ -113,33 +113,37 @@
         "action": "OpenUI_MainStage_Strategy",
         "label": "紀錄戰術",
         "value": 1,
-        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
+        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn",
+        "undefined": "done"
     },
     {
         "id": 54,
-        "title": "選技能",
+        "title": "主線開啟技能介面",
         "category": "SubUIBtn",
         "action": "OpenUI_MainStage_Skill",
         "label": "UIMainStage",
         "value": 1,
-        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard",
+        "undefined": "done"
     },
     {
         "id": 55,
-        "title": "選技能",
+        "title": "主線關卡選技能",
         "category": "SubUIBtn",
         "action": "OpenUI_MainStage_Skill",
         "label": "紀錄技能編號",
-        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard",
+        "undefined": "紀錄更新的晶片ID，用’_‘來連接"
     },
     {
         "id": 56,
-        "title": "租傭兵按鈕",
+        "title": "主線關卡租傭兵",
         "category": "Spend_Diamond",
         "action": "Rent_Mercenary",
         "label": "UIMainStage",
         "valueexplain": "紀錄金額",
-        "inunity": "RentBtn"
+        "inunity": "RentBtn",
+        "undefined": "done"
     },
     {
         "id": 57,
@@ -194,21 +198,23 @@
     },
     {
         "id": 101,
-        "title": "選戰術",
+        "title": "副本選戰術",
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Strategy",
         "label": "紀錄戰術",
         "value": 1,
-        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn"
+        "inunity": "UI2D/UISelectRole/Bottom/StrategyBtn",
+        "undefined": "done"
     },
     {
         "id": 102,
-        "title": "選技能",
+        "title": "副本開啟技能介面",
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Skill",
         "label": "UIBossStage",
         "value": 1,
-        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard",
+        "undefined": "done"
     },
     {
         "id": 103,
@@ -216,16 +222,18 @@
         "category": "SubUIBtn",
         "action": "OpenUI_BossStage_Skill",
         "label": "紀錄技能編號",
-        "inunity": "UI2D/UISelectRole/Bottom/SkillCard"
+        "inunity": "UI2D/UISelectRole/Bottom/SkillCard",
+        "undefined": "紀錄更新的晶片ID，用’_‘來連接"
     },
     {
         "id": 104,
-        "title": "租傭兵按鈕",
+        "title": "副本租傭兵",
         "category": "Spend_Diamond",
         "action": "Rent_Mercenary",
         "label": "UIBossStage",
         "valueexplain": "紀錄金額",
-        "inunity": "RentBtn"
+        "inunity": "RentBtn",
+        "undefined": "done"
     },
     {
         "id": 105,
@@ -243,7 +251,7 @@
     },
     {
         "id": 107,
-        "title": "技能",
+        "title": "開啟技能介面",
         "category": "UIBtn",
         "action": "OpenUI_Skill",
         "label": "UISkill",
@@ -296,16 +304,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 151,
-        "title": "購買造型_衣服",
-        "category": "Spend_Diamond",
-        "action": "Buy_Avatar_Clothes",
-        "label": "紀錄物品編號",
-        "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
-    },
-    {
-        "id": 152,
+        "id": 113,
         "title": "購買造型_手飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Wristband",
@@ -314,7 +313,16 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 153,
+        "id": 114,
+        "title": "購買造型_衣服",
+        "category": "Spend_Diamond",
+        "action": "Buy_Avatar_Clothes",
+        "label": "紀錄物品編號",
+        "valueexplain": "紀錄金額",
+        "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
+    },
+    {
+        "id": 115,
         "title": "購買造型_褲子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Pants",
@@ -323,7 +331,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 154,
+        "id": 116,
         "title": "購買造型_鞋子",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Shoes",
@@ -332,7 +340,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 201,
+        "id": 117,
         "title": "購買造型_面飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Mask",
@@ -341,7 +349,7 @@
         "inunity": "UI2D/UIAvatarFitted/MainView/Left/ItemList/0/0"
     },
     {
-        "id": 202,
+        "id": 118,
         "title": "購買造型_背飾",
         "category": "Spend_Diamond",
         "action": "Buy_Avatar_Backpack",
@@ -396,7 +404,8 @@
         "action": "Reset_Social_Friend",
         "label": "UISocial",
         "valueexplain": "紀錄金額",
-        "inunity": "ResetBtn"
+        "inunity": "ResetBtn",
+        "undefined": "done"
     },
     {
         "id": 208,
@@ -415,7 +424,8 @@
         "action": "Reset_Shop_Item",
         "label": "UIShop",
         "valueexplain": "紀錄金額",
-        "inunity": "ResetBtn"
+        "inunity": "ResetBtn",
+        "undefined": "done"
     },
     {
         "id": 252,
@@ -680,7 +690,8 @@
         "action": "OpenUI_Basket",
         "label": "UIGym_Basket",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/0"
+        "inunity": "UI2D/UIGym/Window/Center/0",
+        "undefined": "done"
     },
     {
         "id": 602,
@@ -689,7 +700,8 @@
         "action": "Upgrade_Gym_Basket",
         "label": "UIGym_Basket",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 603,
@@ -698,7 +710,8 @@
         "action": "Buy_Gym_Basket",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 604,
@@ -706,7 +719,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Basket",
         "label": "UIGym_Basket",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 651,
@@ -715,7 +729,8 @@
         "action": "OpenUI_AD",
         "label": "UIGym_AD",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/1"
+        "inunity": "UI2D/UIGym/Window/Center/1",
+        "undefined": "done"
     },
     {
         "id": 652,
@@ -724,7 +739,8 @@
         "action": "Upgrade_Gym_AD",
         "label": "UIGym_AD",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 653,
@@ -733,7 +749,8 @@
         "action": "Buy_Gym_AD",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 654,
@@ -741,7 +758,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_AD",
         "label": "UIGym_GymStore",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 701,
@@ -750,7 +768,8 @@
         "action": "OpenUI_GymStore",
         "label": "UIGym_GymStore",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/2"
+        "inunity": "UI2D/UIGym/Window/Center/2",
+        "undefined": "done"
     },
     {
         "id": 702,
@@ -759,7 +778,8 @@
         "action": "Upgrade_Gym_Store",
         "label": "UIGym_GymStore",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 703,
@@ -768,7 +788,8 @@
         "action": "Buy_Gym_Store",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 704,
@@ -776,7 +797,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Store",
         "label": "UIGym_GymStore",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 751,
@@ -785,7 +807,8 @@
         "action": "OpenUI_Gym",
         "label": "UIGym_Gym",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/3"
+        "inunity": "UI2D/UIGym/Window/Center/3",
+        "undefined": "done"
     },
     {
         "id": 752,
@@ -794,7 +817,8 @@
         "action": "Upgrade_Gym_Gym",
         "label": "UIGym_Gym",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 753,
@@ -803,7 +827,8 @@
         "action": "Buy_Gym_Gym",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 754,
@@ -811,7 +836,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Gym",
         "label": "UIGym_Gym",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 801,
@@ -820,7 +846,8 @@
         "action": "OpenUI_Gate",
         "label": "UIGym_Gate",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/4"
+        "inunity": "UI2D/UIGym/Window/Center/4",
+        "undefined": "done"
     },
     {
         "id": 802,
@@ -829,7 +856,8 @@
         "action": "Upgrade_Gym_Gate",
         "label": "UIGym_Gate",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 803,
@@ -838,7 +866,8 @@
         "action": "Buy_Gym_Gate",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 804,
@@ -846,7 +875,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Gate",
         "label": "UIGym_Gate",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 851,
@@ -855,7 +885,8 @@
         "action": "OpenUI_Flag",
         "label": "UIGym_Flag",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/5"
+        "inunity": "UI2D/UIGym/Window/Center/5",
+        "undefined": "done"
     },
     {
         "id": 852,
@@ -864,7 +895,8 @@
         "action": "Upgrade_Gym_Flag",
         "label": "UIGym_Flag",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 853,
@@ -873,7 +905,8 @@
         "action": "Buy_Gym_Flag",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 854,
@@ -881,7 +914,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Flag",
         "label": "UIGym_Flag",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 901,
@@ -890,7 +924,8 @@
         "action": "OpenUI_Chair",
         "label": "UIGym_Chair",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/6"
+        "inunity": "UI2D/UIGym/Window/Center/6",
+        "undefined": "done"
     },
     {
         "id": 902,
@@ -899,7 +934,8 @@
         "action": "Upgrade_Gym_Chair",
         "label": "UIGym_Chair",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 903,
@@ -908,7 +944,8 @@
         "action": "Buy_Gym_Chair",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 904,
@@ -916,7 +953,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Chair",
         "label": "UIGym_Chair",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 951,
@@ -925,7 +963,8 @@
         "action": "OpenUI_Note",
         "label": "UIGym_Note",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/7"
+        "inunity": "UI2D/UIGym/Window/Center/7",
+        "undefined": "done"
     },
     {
         "id": 952,
@@ -934,7 +973,8 @@
         "action": "Upgrade_Gym_Note",
         "label": "UIGym_Note",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 953,
@@ -943,7 +983,8 @@
         "action": "Buy_Gym_Note",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 954,
@@ -951,7 +992,8 @@
         "category": "Spend_Diamond",
         "action": "Reset_Gym_Note",
         "label": "UIGym_Note",
-        "valueexplain": "紀錄金額"
+        "valueexplain": "紀錄金額",
+        "undefined": "done"
     },
     {
         "id": 1001,
@@ -960,7 +1002,8 @@
         "action": "OpenUI_Mail",
         "label": "UIGym_Mail",
         "value": 1,
-        "inunity": "UI2D/UIGym/Window/Center/8"
+        "inunity": "UI2D/UIGym/Window/Center/8",
+        "undefined": "done"
     },
     {
         "id": 1002,
@@ -969,7 +1012,8 @@
         "action": "Upgrade_Gym_Mail",
         "label": "UIGym_Mail",
         "valueexplain": "紀錄金額",
-        "inunity": "UpgradeBtn"
+        "inunity": "UpgradeBtn",
+        "undefined": "done"
     },
     {
         "id": 1003,
@@ -978,7 +1022,8 @@
         "action": "Buy_Gym_Mail",
         "label": "紀錄物品編號",
         "valueexplain": "紀錄金額",
-        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1"
+        "inunity": "UI2D/UIGymEngage/Window/Bottom/BuildingView/ScrollView/1/1",
+        "undefined": "done"
     },
     {
         "id": 1004,

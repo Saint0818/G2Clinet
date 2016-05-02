@@ -10,7 +10,7 @@ public class TItemAvatar
     private GameObject self;
     private Transform DisablePool;
     private Transform EnablePool;
-    private int id;
+    private int id; // ItemID.
     private int usekind;
     private bool isEquip;
     private bool isInitBtn;
@@ -36,10 +36,12 @@ public class TItemAvatar
     private UISprite spriteSuit;
     private UIButton buttonSuit; 
     private TimeSpan currentTime;
-    public int BackageSort;
-    //-1 : Player.Item
+
+    //-1 : player.items else team.items
+    public int BackageSort; 
+
     public int Position;
-    public int Kind;
+    public int Kind; // Item Kind.
     public bool IsInit = false;
     public DateTime EndUseTime;
 
@@ -884,7 +886,7 @@ public class UIAvatarFitted : UIBase
                 item.ID = itemData.ID;
                 item.Price = itemData.Buy;
                 item.Num = 1;
-                UIItemHint.Get.OpenBuyUI(item, OnYesBuy);
+                UIItemHint.Get.OpenBuyUI(item, onYesBuy);
 
                 //string ask = string.Format(TextConst.S(208), GameData.DItemData[backpackItems[index].ID].Buy, GameData.DItemData[backpackItems[index].ID].Name);
                 //UIMessage.Get.ShowMessage(TextConst.S(201), ask, OnYesBuy);
@@ -893,30 +895,31 @@ public class UIAvatarFitted : UIBase
         }
     }
 
-    public void OnYesBuy()
+    private void onYesBuy()
     {
-        if (BuyIndex != -1)
-        {
-            int from = 0;//0:team.items -1:player.Items
-            int buyIndex = 0;
-            if (backpackItems[BuyIndex].BackageSort == -1)
-            {
-                from = -1;
-                buyIndex = avatarPart;
-				
-            }
-            else
-            {
-                from = 0;
-                buyIndex = BuyIndex;
-            }
+        if(BuyIndex == -1)
+            return;
 
-            UIItemHint.UIShow(false);
-            WWWForm form = new WWWForm();
-            form.AddField("From", from);
-            form.AddField("Index", buyIndex);
-            SendHttp.Get.Command(URLConst.BuyAvatarItem, waitBuyItem, form);
+        int from; //0:team.items -1:player.Items
+        int buyIndex;
+        if(backpackItems[BuyIndex].BackageSort == -1)
+        {
+            // 購買玩家身上的 Avatar Item.
+            from = -1;
+            buyIndex = avatarPart;
         }
+        else
+        {
+            // 購買倉庫上的 Avatar Item.
+            from = 0;
+            buyIndex = BuyIndex;
+        }
+
+        UIItemHint.UIShow(false);
+        WWWForm form = new WWWForm();
+        form.AddField("From", from);
+        form.AddField("Index", buyIndex);
+        SendHttp.Get.Command(URLConst.BuyAvatarItem, waitBuyItem, form);
     }
 
     public void OnSellMode()
@@ -1335,7 +1338,24 @@ public class UIAvatarFitted : UIBase
         if (ok)
         {
             TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
-			if(team.Items != null)
+
+            // 1頭髮, 2手飾, 3上身, 4下身, 5鞋, 6頭飾(共用）, 7背部(共用)
+            if(backpackItems[BuyIndex].Kind == 1)
+                Statistic.Ins.LogEvent(112, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if(backpackItems[BuyIndex].Kind == 2)
+                Statistic.Ins.LogEvent(113, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if (backpackItems[BuyIndex].Kind == 3)
+                Statistic.Ins.LogEvent(114, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if (backpackItems[BuyIndex].Kind == 4)
+                Statistic.Ins.LogEvent(115, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if (backpackItems[BuyIndex].Kind == 5)
+                Statistic.Ins.LogEvent(116, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if (backpackItems[BuyIndex].Kind == 6)
+                Statistic.Ins.LogEvent(117, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+            else if (backpackItems[BuyIndex].Kind == 7)
+                Statistic.Ins.LogEvent(118, backpackItems[BuyIndex].ID.ToString(), GameData.Team.Diamond - team.Diamond);
+
+            if (team.Items != null)
             	GameData.Team.Items = team.Items;
 			
 			if(team.Player.Items != null)
