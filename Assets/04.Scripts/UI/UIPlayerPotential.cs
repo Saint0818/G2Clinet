@@ -429,18 +429,22 @@ public class UIPlayerPotential : UIBase {
 		}
 	}
 
-	public void waitResetPotential(bool ok, WWW www)
+    private void waitResetPotential(bool ok, WWW www)
 	{
-		if (ok) {
+        if(ok)
+        {
             TTeam team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
-			GameData.Team.Player.Potential = team.Player.Potential;
-			GameData.Team.Diamond = team.Diamond;
-			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
-			upgradeView.OnCancel();
-			UpdateView();
-			UIMainLobby.Get.UpdateUI();
-			SetUseState (EPotential.none);
-		}
+
+            Statistic.Ins.LogEvent(502, GameData.Team.Diamond - team.Diamond);
+
+            GameData.Team.Player.Potential = team.Player.Potential;
+            GameData.Team.Diamond = team.Diamond;
+            GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
+            upgradeView.OnCancel();
+            UpdateView();
+            UIMainLobby.Get.UpdateUI();
+            SetUseState(EPotential.none);
+        }
 	}
 
 	public void OnCheck()
