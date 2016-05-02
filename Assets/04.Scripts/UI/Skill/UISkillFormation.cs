@@ -1613,9 +1613,22 @@ public class UISkillFormation : UIBase {
 				tempAddIndex.Add(skillsRecord[i]);	
 
 		addIndexs = new int[tempAddIndex.Count];
-		if(tempAddIndex.Count > 0) 
-			for(int i=0; i<addIndexs.Length; i++) 
+		if(tempAddIndex.Count > 0) {
+			string statisticStr = "";
+			for(int i=0; i<addIndexs.Length; i++) {
 				addIndexs[i] = uiCards[tempAddIndex[i]].CardIndex;
+
+				if(i > 0)
+					statisticStr += "_";
+				
+				statisticStr += uiCards[tempAddIndex[i]].skillCard.Skill.ID.ToString();
+			}
+
+			if(GameData.IsMainStage)
+				Statistic.Ins.LogEvent(55, statisticStr);
+			else if(GameData.IsInstance)
+				Statistic.Ins.LogEvent(103, statisticStr);
+		}
 		
 		bool flag = false;
 
