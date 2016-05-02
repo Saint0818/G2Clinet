@@ -187,22 +187,28 @@ public class UINamed : UIBase {
 
 	private void waitChangePlayerName(bool ok, WWW www)
 	{
-		if (ok)
-		{
-            if (SendHttp.Get.CheckServerMessage(www.text)) {
-                TRenameResult result = JsonConvertWrapper.DeserializeObject<TRenameResult>(www.text);
-    			GameData.Team.Player.Name = result.Name;
-    			GameData.Team.Diamond = result.Diamond;
-                GameData.Team.LifetimeRecord.RenameCount = result.RenameCount;
-    			UIMainLobby.Get.UpdateUI();
-                if (UIPlayerInfo.Visible) {
-    				UIPlayerInfo.UIShow(true,ref GameData.Team);
-                    UIPlayerInfo.Get.UpdatePage (0);
-                }
+	    if(ok)
+	    {
+	        if(SendHttp.Get.CheckServerMessage(www.text))
+	        {
+	            TRenameResult result = JsonConvertWrapper.DeserializeObject<TRenameResult>(www.text);
 
-                UIShow (false);
-            }
-        } else
-            UIHint.Get.ShowHint(TextConst.S(3409), Color.red);
+                Statistic.Ins.LogEvent(552, GameData.Team.Diamond - result.Diamond);
+
+	            GameData.Team.Player.Name = result.Name;
+	            GameData.Team.Diamond = result.Diamond;
+	            GameData.Team.LifetimeRecord.RenameCount = result.RenameCount;
+	            UIMainLobby.Get.UpdateUI();
+	            if(UIPlayerInfo.Visible)
+	            {
+	                UIPlayerInfo.UIShow(true, ref GameData.Team);
+	                UIPlayerInfo.Get.UpdatePage(0);
+	            }
+
+	            UIShow(false);
+	        }
+	    }
+	    else
+	        UIHint.Get.ShowHint(TextConst.S(3409), Color.red);
 	}
 }

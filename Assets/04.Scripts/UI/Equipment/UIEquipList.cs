@@ -1,14 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameStruct;
-using Newtonsoft.Json;
+using UnityEngine;
 
 public delegate void ItemChangeCallback(int index, UIValueItemData item);
 
 //Use in UISelectRole
 public class UIEquipList : UIBase {
-	private static UIEquipList instance = null;
+	private static UIEquipList instance;
 	private const string UIName = "UIEquipList";
 	private ItemChangeCallback itemChangeCallback;
 
@@ -19,8 +17,8 @@ public class UIEquipList : UIBase {
 	private UIScrollView scrollView;
 	private List<UIEquipListButton> itemButtonList = new List<UIEquipListButton>();
 
-	private int[] exchangeIndices = new int[8];
-	private int[] stackIndices = new int[2];
+//	private int[] exchangeIndices = new int[8];
+//	private int[] stackIndices = new int[2];
 
 	public static bool Visible {
 		get {
