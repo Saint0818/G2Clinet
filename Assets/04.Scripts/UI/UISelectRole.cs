@@ -676,7 +676,7 @@ public class UISelectRole : UIBase {
         else if(GameData.IsMainStage)
             Statistic.Ins.LogEvent(54);
         else if(GameData.IsInstance)
-            Statistic.Ins.LogEvent(102);
+            Statistic.Ins.LogEvent(103);
     }
 
 	private void waitPVPGetEnemy(bool ok, WWW www)

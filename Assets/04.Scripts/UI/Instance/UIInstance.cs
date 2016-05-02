@@ -91,7 +91,7 @@ public class UIInstance : UIBase
         mMain.SelectChapter(chapter);
 
         Statistic.Ins.LogScreen(10);
-        Statistic.Ins.LogEvent(62);
+        Statistic.Ins.LogEvent(101);
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public class UIInstance : UIBase
         }
 
         Statistic.Ins.LogScreen(10);
-        Statistic.Ins.LogEvent(62);
+        Statistic.Ins.LogEvent(101);
     }
 
     private void buildChapters()

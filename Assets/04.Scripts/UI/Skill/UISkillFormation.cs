@@ -1627,7 +1627,7 @@ public class UISkillFormation : UIBase {
 			if(GameData.IsMainStage)
 				Statistic.Ins.LogEvent(55, statisticStr);
 			else if(GameData.IsInstance)
-				Statistic.Ins.LogEvent(103, statisticStr);
+				Statistic.Ins.LogEvent(104, statisticStr);
 		}
 		
 		bool flag = false;
