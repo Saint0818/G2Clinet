@@ -46,7 +46,7 @@ public class UIMall : UIBase {
 
 		if(isShow) {
             Statistic.Ins.LogScreen(16);
-			Statistic.Ins.LogEvent(252);
+			Statistic.Ins.LogEvent(251);
 		}
     }
 
@@ -290,33 +290,33 @@ public class UIMall : UIBase {
 	private void recordStatistic () {
 		if(chooseIndex == 0) {
 			if(mallBoxs[chooseIndex].IsPickFree)
-				Statistic.Ins.LogEvent(352);
+				Statistic.Ins.LogEvent(301);
 			else {
 				if(choosetype == EPickSpendType.ONE.GetHashCode())
-					Statistic.Ins.LogEvent(401, mallBoxs[chooseIndex].mPickCost.OnePick);
+					Statistic.Ins.LogEvent(302, mallBoxs[chooseIndex].mPickCost.OnePick);
 				else if(choosetype == EPickSpendType.FIVE.GetHashCode())
-					Statistic.Ins.LogEvent(402, mallBoxs[chooseIndex].mPickCost.FivePick);
+					Statistic.Ins.LogEvent(303, mallBoxs[chooseIndex].mPickCost.FivePick);
 				else if(choosetype == EPickSpendType.TEN.GetHashCode())
-					Statistic.Ins.LogEvent(403, mallBoxs[chooseIndex].mPickCost.TenPick);
+					Statistic.Ins.LogEvent(304, mallBoxs[chooseIndex].mPickCost.TenPick);
 			}
 		} else if(chooseIndex == 1) {
 			if(choosetype == EPickSpendType.ONE.GetHashCode()) {
-				Statistic.Ins.LogEvent(404, mallBoxs[chooseIndex].mPickCost.OnePick);
+				Statistic.Ins.LogEvent(351, mallBoxs[chooseIndex].mPickCost.OnePick);
 			} else if(choosetype == EPickSpendType.FIVE.GetHashCode()) {
-				Statistic.Ins.LogEvent(405, mallBoxs[chooseIndex].mPickCost.FivePick);
+				Statistic.Ins.LogEvent(352, mallBoxs[chooseIndex].mPickCost.FivePick);
 			} else if(choosetype == EPickSpendType.TEN.GetHashCode()) {
-				Statistic.Ins.LogEvent(406, mallBoxs[chooseIndex].mPickCost.TenPick);
+				Statistic.Ins.LogEvent(353, mallBoxs[chooseIndex].mPickCost.TenPick);
 			}
 		} else if(chooseIndex == 2) {
 			if(mallBoxs[chooseIndex].IsPickFree) 
-				Statistic.Ins.LogEvent(253);
+				Statistic.Ins.LogEvent(252);
 			else {
 				if(choosetype == EPickSpendType.ONE.GetHashCode()) 
-					Statistic.Ins.LogEvent(301, mallBoxs[chooseIndex].mPickCost.OnePick);
+					Statistic.Ins.LogEvent(253, mallBoxs[chooseIndex].mPickCost.OnePick);
 				else if(choosetype == EPickSpendType.FIVE.GetHashCode()) 
-					Statistic.Ins.LogEvent(302, mallBoxs[chooseIndex].mPickCost.FivePick);
+					Statistic.Ins.LogEvent(254, mallBoxs[chooseIndex].mPickCost.FivePick);
 				else if(choosetype == EPickSpendType.TEN.GetHashCode()) 
-					Statistic.Ins.LogEvent(351, mallBoxs[chooseIndex].mPickCost.TenPick);
+					Statistic.Ins.LogEvent(255, mallBoxs[chooseIndex].mPickCost.TenPick);
 			}
 		}
 	}
