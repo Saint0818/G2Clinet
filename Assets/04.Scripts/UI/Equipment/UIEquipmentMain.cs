@@ -149,7 +149,8 @@ public class UIEquipmentMain : MonoBehaviour
     /// <param name="slotIndex"> 群組編號. </param>
     private void onDetailItemClick(int slotIndex)
     {
-        mEquipList.Show(PlayerValueItems[slotIndex], ListItems[slotIndex], true, isNumberEquip(slotIndex));
+        if(isNumberEquip(slotIndex)) 
+            mEquipList.Show(PlayerValueItems[slotIndex], ListItems[slotIndex], true, isNumberEquip(slotIndex));
     }
 
     private void onDemountClick(int slotIndex)
