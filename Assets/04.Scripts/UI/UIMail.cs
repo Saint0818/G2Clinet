@@ -5,7 +5,6 @@ using UnityEngine;
 using GameStruct;
 using Newtonsoft.Json;
 
-
 public struct TMail
 {
 	public int Kind;
@@ -13,6 +12,51 @@ public struct TMail
 	public string Contents;
 	public DateTime Data;
 	public bool isRead;
+}
+
+
+/*
+	public struct TMailInfo{
+		public string _id;
+		public DateTime Time;
+		public string FromIdentifier;
+		public string FromName;
+		public string FromLv;
+		public int FromHeadTextureNo;
+		public string ToIdentifier;
+		public int MailKind; // 1=prize, 2=social
+		public int ContextType; // 1=native string, 2=string id
+		public string Context;
+		public TMailGift[] Gifts;
+
+	}
+
+*/
+public class TMailItem{
+	public TMailInfo MailInfo;
+
+	public GameObject Item;
+	public GameObject UIFinished;
+	public GameObject UIExp;
+	public GameObject FXGetAward;
+	public UIButton UIGetAwardBtn;
+
+	public ItemAwardGroup AwardGroup;
+	public UILabel LabelName;
+	public UILabel LabelExplain;
+	public UILabel LabelAwardDiamond;
+	public UILabel LabelAwardExp;
+	public UILabel LabelAwardMoney;
+	public UILabel LabelExp;
+	public UILabel LabelGot;
+	public UILabel LabelScore;
+	public UIButton ButtonGot;
+	public UISlider SliderExp;
+	public UISprite SpriteAwardDiamond;
+	public UISprite SpriteColor;
+	public UISprite[] SpriteLvs;
+	public Animator[] AniLvs;
+	public Animator AniFinish;
 }
 
 public class MailSubPage: MonoBehaviour {
@@ -134,6 +178,8 @@ public class MailSubPagePrize : MailSubPage {
 	public int totalCount;
 	public int finishCount;
 
+	private List<TMailItem> mailItemList = new List<TMailItem>();
+	private GameObject itemMail;
 	public MailSubPagePrize(string UIName, int i){
 		HookUI (UIName, i);
 	}
@@ -143,6 +189,8 @@ public class MailSubPagePrize : MailSubPage {
 		base.HookUI (UIName, i);
 		pageScrollView = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
 		pagePanel = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
+
+		itemMail = Resources.Load("Prefab/UI/Items/ItemMailBtn") as GameObject;
 
 	}
 
@@ -173,6 +221,8 @@ public class MailSubPagePrize : MailSubPage {
 		MailList.Clear ();
 		for (int i = 0; i < Mails.Length; i++)
 			MailList.Add (Mails [i]);
+
+		LoadMails ();
 	}
 
 	private void SendListMail (int mailKind) {
@@ -192,6 +242,107 @@ public class MailSubPagePrize : MailSubPage {
 			Debug.LogError("text:"+www.text);
 		} 
 	}
+
+	private void LoadMails()
+	{
+		pageScrollView.restrictWithinPanel = false;
+		//yield return new WaitForEndOfFrame();
+
+		//totalScore = 0;
+		//missionScore = 0;
+		//missionLine = 0;
+
+			for (int i = 0; i < MailList.Count; i++)
+				addMailItem(MailList[i], i);
+
+			SortMailPosition();
+			//totalCount[page] = totalScore;
+			//finishCount[page] = missionScore;
+		 
+
+
+		//initRedPoint(page);
+		//totalLabel.text = finishCount[page].ToString() + "/" + totalCount[page].ToString();
+		//yield return new WaitForEndOfFrame();
+		pageScrollView.restrictWithinPanel = true;
+		
+	}
+
+	private void SortMailPosition()
+	{
+//		missionLine = 0;
+//		for (int i = 0; i < missionList[page].Count; i++)
+//			if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+//				missionList[page][i].ButtonGot.normalSprite == "button_orange1") {
+//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+//				missionLine++;
+//			}
+//
+//		for (int i = 0; i < missionList[page].Count; i++)
+//			if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+//				missionList[page][i].ButtonGot.normalSprite != "button_orange1") {
+//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+//				missionLine++;
+//			}
+//
+//		for (int i = 0; i < missionList[page].Count; i++)
+//			if (missionList[page][i].Item.activeInHierarchy && !missionList[page][i].ButtonGot.gameObject.activeInHierarchy) {
+//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+//				missionLine++;
+//			}
+	
+	}
+
+	private void addMailItem(TMailInfo mf, int index) {
+
+			TMailItem mi = new TMailItem();
+			mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
+//			initDefaultText(mi.Item);
+//			string name = data.ID.ToString();
+//			mi.Item.name = name;
+//			mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
+//			mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
+//			mi.FXGetAward = GameObject.Find(name + "/Window/GetBtn/FXGet");
+//			mi.SliderExp = GameObject.Find(name + "/Window/EXPView/ProgressBar").GetComponent<UISlider>();
+//			mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
+//			mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
+//			mi.LabelExp = GameObject.Find(name + "/Window/EXPView/ExpLabel").GetComponent<UILabel>();
+//			mi.LabelAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond").GetComponent<UILabel>();
+//			mi.LabelAwardExp = GameObject.Find(name + "/Window/AwardGroup/AwardExp").GetComponent<UILabel>();
+//			mi.LabelAwardMoney = GameObject.Find(name + "/Window/AwardGroup/AwardMoney").GetComponent<UILabel>();
+//			mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
+//			mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
+//			mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+//			mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
+//			mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
+//			mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
+//			mi.SpriteLvs = new UISprite[5];
+//			mi.AniLvs = new Animator[5];
+//			for (int i = 0; i < mi.SpriteLvs.Length; i++) {
+//				mi.AniLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString()).GetComponent<Animator>();
+//				mi.SpriteLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString() + "/Get").GetComponent<UISprite>();
+//			}
+//
+//			GameObject obj = GameObject.Find(name + "/Window/ItemAwardGroup");
+//			if (obj)
+//				mi.AwardGroup = obj.GetComponent<ItemAwardGroup>();
+//
+//			mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+//			mi.UIGetAwardBtn.name = name;
+//			SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
+//
+//			mi.Index = missionList[page].Count;
+//			mi.Mission = data;
+			mi.Item.transform.parent = pageScrollView.gameObject.transform;
+
+			mi.Item.transform.localPosition = new Vector3(0, 170 - index * 160, 0);
+
+
+			mi.Item.transform.localScale = Vector3.one;
+
+			mailItemList.Add(mi);
+
+	}
 }
 
 public class MailSubPageSocial : MailSubPage {
@@ -200,14 +351,19 @@ public class MailSubPageSocial : MailSubPage {
 	public int totalCount;
 	public int finishCount;
 
+	private List<TMailItem> mailItemList = new List<TMailItem>();
+	private GameObject itemMail;
 	public MailSubPageSocial(string UIName, int i){
 		HookUI (UIName, i);
 	}
+
 	public override void HookUI(string UIName, int i)
 	{
 		base.HookUI (UIName, i);
 		pageScrollView = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIScrollView>();
 		pagePanel = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
+
+		itemMail = Resources.Load("Prefab/UI/Items/ItemMailBtn") as GameObject;
 
 	}
 
@@ -236,8 +392,14 @@ public class MailSubPageSocial : MailSubPage {
 	public override void ListMail(TMailInfo[] Mails)
 	{
 		MailList.Clear ();
+		for (int i = 0; i < mailItemList.Count; i++)
+			GameObject.Destroy (mailItemList [i].Item);
+		mailItemList.Clear ();
+
 		for (int i = 0; i < Mails.Length; i++)
-			MailList.Add (Mails [i]);		
+			MailList.Add (Mails [i]);
+
+		LoadMails ();
 	}
 
 	private void SendListMail (int mailKind) {
@@ -257,7 +419,111 @@ public class MailSubPageSocial : MailSubPage {
 			Debug.LogError("text:"+www.text);
 		} 
 	}
+
+	private void LoadMails()
+	{
+		pageScrollView.restrictWithinPanel = false;
+		//yield return new WaitForEndOfFrame();
+
+		//totalScore = 0;
+		//missionScore = 0;
+		//missionLine = 0;
+
+		for (int i = 0; i < MailList.Count; i++)
+			addMailItem(MailList[i], i);
+
+		SortMailPosition();
+		//totalCount[page] = totalScore;
+		//finishCount[page] = missionScore;
+
+
+
+		//initRedPoint(page);
+		//totalLabel.text = finishCount[page].ToString() + "/" + totalCount[page].ToString();
+		//yield return new WaitForEndOfFrame();
+		pageScrollView.restrictWithinPanel = true;
+
+	}
+
+	private void SortMailPosition()
+	{
+		//		missionLine = 0;
+		//		for (int i = 0; i < missionList[page].Count; i++)
+		//			if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+		//				missionList[page][i].ButtonGot.normalSprite == "button_orange1") {
+		//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+		//				missionLine++;
+		//			}
+		//
+		//		for (int i = 0; i < missionList[page].Count; i++)
+		//			if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
+		//				missionList[page][i].ButtonGot.normalSprite != "button_orange1") {
+		//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+		//				missionLine++;
+		//			}
+		//
+		//		for (int i = 0; i < missionList[page].Count; i++)
+		//			if (missionList[page][i].Item.activeInHierarchy && !missionList[page][i].ButtonGot.gameObject.activeInHierarchy) {
+		//				missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+		//				missionLine++;
+		//			}
+
+	}
+
+	private void addMailItem(TMailInfo mf, int index) {
+
+		TMailItem mi = new TMailItem();
+		mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
+		//			initfDefaultText(mi.Item);
+		//			string name = data.ID.ToString();
+		//			mi.Item.name = name;
+		//			mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
+		//			mi.UIExp = GameObject.Find(name + "/Window/AwardExp");
+		//			mi.FXGetAward = GameObject.Find(name + "/Window/GetBtn/FXGet");
+		//			mi.SliderExp = GameObject.Find(name + "/Window/EXPView/ProgressBar").GetComponent<UISlider>();
+		//			mi.LabelName = GameObject.Find(name + "/Window/TitleLabel").GetComponent<UILabel>();
+		//			mi.LabelExplain = GameObject.Find(name + "/Window/ContentLabel").GetComponent<UILabel>();
+		//			mi.LabelExp = GameObject.Find(name + "/Window/EXPView/ExpLabel").GetComponent<UILabel>();
+		//			mi.LabelAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond").GetComponent<UILabel>();
+		//			mi.LabelAwardExp = GameObject.Find(name + "/Window/AwardGroup/AwardExp").GetComponent<UILabel>();
+		//			mi.LabelAwardMoney = GameObject.Find(name + "/Window/AwardGroup/AwardMoney").GetComponent<UILabel>();
+		//			mi.LabelGot = GameObject.Find(name + "/Window/GetBtn/BtnLabel").GetComponent<UILabel>();
+		//			mi.LabelScore = GameObject.Find(name + "/Window/AwardScore").GetComponent<UILabel>();
+		//			mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+		//			mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
+		//			mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
+		//			mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
+		//			mi.SpriteLvs = new UISprite[5];
+		//			mi.AniLvs = new Animator[5];
+		//			for (int i = 0; i < mi.SpriteLvs.Length; i++) {
+		//				mi.AniLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString()).GetComponent<Animator>();
+		//				mi.SpriteLvs[i] = GameObject.Find(name + "/Window/AchievementTarget/Target" + i.ToString() + "/Get").GetComponent<UISprite>();
+		//			}
+		//
+		//			GameObject obj = GameObject.Find(name + "/Window/ItemAwardGroup");
+		//			if (obj)
+		//				mi.AwardGroup = obj.GetComponent<ItemAwardGroup>();
+		//
+		//			mi.UIGetAwardBtn = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
+		//			mi.UIGetAwardBtn.name = name;
+		//			SetBtnFun(ref mi.UIGetAwardBtn, OnGetAward);
+		//
+		//			mi.Index = missionList[page].Count;
+		//			mi.Mission = data;
+		mi.Item.transform.parent = pageScrollView.gameObject.transform;
+
+		mi.Item.transform.localPosition = new Vector3(0, 10 - index * 120, 0);
+
+
+		mi.Item.transform.localScale = Vector3.one;
+		mi.Item.SetActive(true);
+		//pageScrollView.a
+		mailItemList.Add(mi);
+
+	}
 }
+
+
 
 public class UIMail : UIBase {
 	
