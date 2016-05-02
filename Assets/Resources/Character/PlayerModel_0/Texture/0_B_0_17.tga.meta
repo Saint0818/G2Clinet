@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 362ffdf4b5fa24d6bb078d1d89f69e79
-timeCreated: 1462176595
+guid: b08c63a2ac7462c438d3417870428e74
+timeCreated: 1462176926
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -19,20 +19,20 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: 12
-  maxTextureSize: 4096
+  textureFormat: 10
+  maxTextureSize: 512
   textureSettings:
-    filterMode: 2
-    aniso: 4
+    filterMode: -1
+    aniso: -1
     mipBias: -1
-    wrapMode: 1
+    wrapMode: -1
   nPOTScale: 1
   lightmap: 0
   rGBM: 0
@@ -45,14 +45,9 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   textureType: 5
-  buildTargetSettings:
-  - buildTarget: iPhone
-    maxTextureSize: 512
-    textureFormat: 13
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
     sprites: []
     outline: []
