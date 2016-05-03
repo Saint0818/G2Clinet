@@ -11,6 +11,7 @@ public class UISelectRole : UIBase {
 	private const string UIName = "UISelectRole";
 
 	private static int[] selectRoleID = new int[6]{101, 102, 103, 104, 105, 106};
+    private const int kind_item = 17;
 	private const int MaxValue = 100;
 	private const float X_Partner = 2.6f;
 	private const float Y_Partner = 0;
@@ -179,36 +180,25 @@ public class UISelectRole : UIBase {
     }
 
 	private void initItem() {
-		bool flag = false;
 		for (int i = 0; i < equipSlot.Length; i++) {
-			if (GameData.Team.Player.ValueItems.ContainsKey (i+17) && 
-				GameData.DItemData.ContainsKey(GameData.Team.Player.ValueItems[i+17].ID)) {
-				setEquiptItem(i, UIValueItemDataBuilder.Build(
-					GameData.DItemData[GameData.Team.Player.ValueItems[i+17].ID],
-					GameData.Team.Player.ValueItems[i+17].InlayItemIDs,
-					GameData.Team.Player.ValueItems[i+17].Num));
-				
-				flag = true;
-			}
+            if (GameData.Team.Player.ValueItems.ContainsKey (i+kind_item)) {
+                int id = GameData.Team.Player.ValueItems[i+kind_item].ID;
+                if (GameData.DItemData.ContainsKey(id))
+    				setEquiptItem(i, UIValueItemDataBuilder.Build(
+                        GameData.DItemData[GameData.Team.Player.ValueItems[i+kind_item].ID],
+                        GameData.Team.Player.ValueItems[i+kind_item].InlayItemIDs,
+                        GameData.Team.Player.ValueItems[i+kind_item].Num));
+            } else {
+                equipItemData[i] = UIValueItemDataBuilder.BuildEmpty();
+                equipSlot [i].Set (equipItemData[i], GameData.Team.getStorageBestValueItemTotalPoints (i+kind_item) > 0);
+            }       
 		}
-
-		if (flag ||
-		    GameData.Team.getStorageBestValueItemTotalPoints (17) > 0 ||
-		    GameData.Team.getStorageBestValueItemTotalPoints (18) > 0) {
-			uiEquipement.SetActive (true);
-			for (int i = 0; i < equipSlot.Length; i++)
-				if (!GameData.Team.Player.ValueItems.ContainsKey (i + 17)) {
-					spriteEquipEffect [i].gameObject.SetActive (false);
-					equipItemData[i] = UIValueItemDataBuilder.BuildEmpty();
-					equipSlot [i].Set (equipItemData[i], true);
-				}
-		} else
-			uiEquipement.SetActive (false);
 	}
 
 	private void setEquiptItem(int index, UIValueItemData itemData) {
+        bool redFlag = !itemData.IsValid() && GameData.Team.getStorageBestValueItemTotalPoints (index+kind_item) > 0;
 		equipItemData [index] = itemData;
-        equipSlot [index].Set (equipItemData[index], !itemData.IsValid());
+        equipSlot [index].Set (equipItemData[index], redFlag);
 		spriteEquipEffect [index].gameObject.SetActive (false);
 		foreach (KeyValuePair<EAttribute, UIValueItemData.BonusData> item in itemData.Values) {
 			spriteEquipEffect [index].spriteName = item.Value.Icon;

@@ -78,7 +78,8 @@ public class TMailItem{
 public class MailSubPage: MonoBehaviour {
 	public GameObject redPoint;
 	public GameObject pageObject;
-	public bool isActive;
+	protected bool isActive;
+	protected bool isFocused = true;
 
 	public List<TMailInfo> MailList = new List<TMailInfo>();
 
@@ -105,11 +106,16 @@ public class MailSubPage: MonoBehaviour {
 	public virtual void ListMail(TMailInfo[] Mails)
 	{			
 	}
+
+	public virtual void SetFocus(bool f)
+	{
+	}
 }
 
 public class MailSubPageHtml : MailSubPage {
 	public GameObject webViewGameObject;
 	private bool loadComplete = false;
+
 	public UniWebView webView;
 	public MailSubPageHtml(string UIName, int i){
 		HookUI (UIName, i);
@@ -145,11 +151,12 @@ public class MailSubPageHtml : MailSubPage {
 
 	public override void SetActive(bool a){
 		base.SetActive (a);
-		if (a == false)
-			webView.Hide ();
-		else {
-			webView.Show();
-		}
+		SetFocus (a);
+//		if (a == false)
+//			webView.Hide ();
+//		else {
+//			webView.Show();
+//		}
 	}
 
 	UniWebViewEdgeInsets InsetsForScreenOreitation(UniWebView webView, UniWebViewOrientation orientation) {
@@ -172,8 +179,9 @@ public class MailSubPageHtml : MailSubPage {
 	public void OnLoadComplete(UniWebView webView, bool success, string errorMessage) {
 		if (success) {
 			loadComplete = true;
-			if(isActive)
-				webView.Show();
+			SetFocus (isActive);
+			//if(isActive)
+			//	webView.Show();
 
 		} else {
 			Debug.Log("Something wrong in webview loading: " + errorMessage);
@@ -182,8 +190,23 @@ public class MailSubPageHtml : MailSubPage {
 		
 	public override void OnPage() {
 		base.OnPage ();
-		if(loadComplete)
-			webView.Show();
+		if (loadComplete) {
+			SetFocus (true);
+			webView.Show ();
+		}
+		UIMail.Get.SetNowPage (0);
+	}
+
+	public override void SetFocus(bool f){
+		isFocused = f;
+
+
+		if (isFocused) {
+			if(isActive)
+				webView.Show ();
+		} else {
+			webView.Hide ();
+		}
 	}
 
 }
@@ -230,6 +253,7 @@ public class MailSubPagePrize : MailSubPage {
 		//			initMissionList(index);
 		//		}
 		SendListMail(1);
+		UIMail.Get.SetNowPage (1);
 	}
 
 	public override void ListMail(TMailInfo[] Mails)
@@ -409,6 +433,7 @@ public class MailSubPageSocial : MailSubPage {
 		//			initMissionList(index);
 		//		}
 		SendListMail(2);
+		UIMail.Get.SetNowPage (2);
 	}
 
 	public override void ListMail(TMailInfo[] Mails)
@@ -648,16 +673,35 @@ public class UIMail : UIBase {
 
 	}
 
+	public void SetNowPage(int np)
+	{
+		nowPage = np;
+	}
+
+	public static void SetFocus (bool f)
+	{
+		if (instance == null)
+			return;
+		
+		if (f) {
+			instance.subPages [0].SetFocus (f);
+		} else {
+			instance.subPages [0].SetFocus (f);
+		}
+
+	}
 	private void OnOpenDailyLogin()
 	{
+		UIMail.SetFocus (false);
 		UIDailyLogin.Get.Show ();
 	}
 		
 	private void OnGotoGroup1()
 	{
 		// 公告藏起來
-		if (subPages [0].isActive)
-			subPages [0].SetActive (false);
+		subPages [0].SetFocus(false);
+		//if (subPages [0].SetFocus(false)isActive)
+		//	subPages [0].SetActive (false);
 		//
 		if (UI3DMainLobby.Visible)
 			UI3DMainLobby.Get.Impl.OnSelect (8, true);

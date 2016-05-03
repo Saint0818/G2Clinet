@@ -340,6 +340,8 @@ public class UISetting : UIBase {
             SendChangeLanguage();
         
 		UIShow (false);
+
+		UIMail.SetFocus (true);
 	}
 
     private void SendChangeLanguage()
