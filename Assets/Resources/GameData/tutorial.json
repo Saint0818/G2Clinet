@@ -599,7 +599,8 @@
         "talkindex": 0,
         "talkl": 1411,
         "actionl": 4,
-        "texttw": "我輸了，為了履行承諾，我有一個大禮要給你！"
+        "texttw": "我輸了，為了履行承諾，我有一個大禮要給你！",
+        "texten": "You have my word. I have something for you."
     },
     {
         "id": 7,
@@ -607,7 +608,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "真的嗎？是什麼大禮？"
+        "texttw": "真的嗎？是什麼大禮？",
+        "texten": "What?"
     },
     {
         "id": 7,
@@ -674,7 +676,8 @@
         "id": 7,
         "line": 12,
         "kind": 4,
-        "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。"
+        "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
+        "texten": "I will teach you my talant."
     },
     {
         "id": 7,
@@ -683,7 +686,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "那有什麼問題，一言為定！"
+        "texttw": "那有什麼問題，一言為定！",
+        "texten": "A Deal."
     },
     {
         "id": 7,

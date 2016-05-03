@@ -43,7 +43,8 @@ public static class UIInstanceBuilder
             ShowClear = GameData.Team.Player.NextInstanceIDs != null && 
                         GameData.Team.Player.NextInstanceIDs.ContainsKey(stageData.Chapter) &&
                         GameData.Team.Player.NextInstanceIDs[stageData.Chapter] > stageData.ID,
-            ShowMask = UIStageVerification.VerifyPlayerProgress(stageData)
+            ShowMask = UIStageVerification.VerifyPlayerProgress(stageData),
+            RewardTitle = UIStageHelper.FindRewardTitle(stageData)
         };
 
         data.ErrorCode = UIStageVerification.VerifyQualification(stageData, out data.ErrorMsg);
@@ -73,19 +74,13 @@ public static class UIInstanceBuilder
                 data.IconValue = stageData.CostValue;
                 break;
         }
-//        data.ShowBuyPower = !UIStageVerification.VerifyCost(stageData);
 
-        data.RewardItems.AddRange(FindRewardItems(stageData));
+        data.RewardItems.AddRange(findRewardItems(stageData));
 
         return data;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="stageData"></param>
-    /// <returns></returns>
-    public static List<TItemData> FindRewardItems(TStageData stageData)
+    private static List<TItemData> findRewardItems(TStageData stageData)
     {
         List<TItemData> foundRewardItems = new List<TItemData>();
 
@@ -95,7 +90,8 @@ public static class UIInstanceBuilder
         var pos = (EPlayerPostion)GameData.DPlayers[GameData.Team.Player.ID].BodyType;
 
         int[] items;
-        if(stageData.HasSurelyRewards(pos))
+        if(GameData.Team.Player.GetNextInstanceID(stageData.Chapter) == stageData.ID &&
+           stageData.HasSurelyRewards(pos))
         {
             // 打最新進度的關卡, 並且有必給獎勵, 那就要顯示必給獎勵.
             items = stageData.GetSurelyRewards(pos);

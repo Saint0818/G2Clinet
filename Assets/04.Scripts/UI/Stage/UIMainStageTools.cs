@@ -96,18 +96,6 @@ public static class UIMainStageTools
         PlayerPrefs.SetInt(SelectChapterKey, 2);
     }
 
-    public static string FindRewardTitle(TStageData stageData)
-    {
-        if (!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
-            return TextConst.S(9304);
-
-        EPlayerPostion pos = (EPlayerPostion)GameData.DPlayers[GameData.Team.Player.ID].BodyType;
-        if (GameData.Team.Player.NextMainStageID == stageData.ID && stageData.HasSurelyRewards(pos))
-            return TextConst.S(9310); // 文字是:必給獎勵.
-
-        return TextConst.S(9304); // 文字是:亂數獎勵.
-    }
-
     /// <summary>
     /// 
     /// </summary>
