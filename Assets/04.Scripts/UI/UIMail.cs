@@ -411,7 +411,7 @@ public class UIMail : UIBase {
 	//
 	public static bool HaveRedPt()
 	{
-		return NewMail01 || NewMail01 || UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ();
+		return NewMail01 || NewMail02 || UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ();
 	}
 	//
 	public static bool Visible {
@@ -483,8 +483,8 @@ public class UIMail : UIBase {
 		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
 		// redpoint
-		redPtPrize = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/0/RedPoint");
-		redPtSocial = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/1/RedPoint");;
+		redPtPrize = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/1/RedPoint");
+		redPtSocial = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/2/RedPoint");;
 		redPtDaily = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn/AvailableIcon");;
 
 		//        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
@@ -645,6 +645,7 @@ public class UIMail : UIBase {
 		UIMainLobby.Get.View.PlayEnterAnimation();
 		UIGym.Get.CenterVisible = true;
 		Visible = false;
+		UIGym.Get.RefreshBuild ();
 	}
 
 	private void OnExitGroup1()
