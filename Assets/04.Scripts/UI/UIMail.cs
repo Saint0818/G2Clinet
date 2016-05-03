@@ -36,27 +36,43 @@ public class TMailItem{
 	public TMailInfo MailInfo;
 
 	public GameObject Item;
-	public GameObject UIFinished;
-	public GameObject UIExp;
-	public GameObject FXGetAward;
-	public UIButton UIGetAwardBtn;
 
-	public ItemAwardGroup AwardGroup;
-	public UILabel LabelName;
-	public UILabel LabelExplain;
-	public UILabel LabelAwardDiamond;
-	public UILabel LabelAwardExp;
-	public UILabel LabelAwardMoney;
-	public UILabel LabelExp;
-	public UILabel LabelGot;
-	public UILabel LabelScore;
-	public UIButton ButtonGot;
-	public UISlider SliderExp;
-	public UISprite SpriteAwardDiamond;
-	public UISprite SpriteColor;
-	public UISprite[] SpriteLvs;
-	public Animator[] AniLvs;
-	public Animator AniFinish;
+	public UILabel LabelTime;
+	public UILabel LabelSubhead;
+	public UILabel LabelContent;
+	public UIButton BtnGetGift;
+	//PlayerHead
+	//PlayerLv
+
+//	public GameObject UIFinished;
+//	public GameObject UIExp;
+//	public GameObject FXGetAward;
+//	public UIButton UIGetAwardBtn;
+//
+//	public ItemAwardGroup AwardGroup;
+//	public UILabel LabelName;
+//	public UILabel LabelExplain;
+//	public UILabel LabelAwardDiamond;
+//	public UILabel LabelAwardExp;
+//	public UILabel LabelAwardMoney;
+//	public UILabel LabelExp;
+//	public UILabel LabelGot;
+//	public UILabel LabelScore;
+//	public UIButton ButtonGot;
+//	public UISlider SliderExp;
+//	public UISprite SpriteAwardDiamond;
+//	public UISprite SpriteColor;
+//	public UISprite[] SpriteLvs;
+//	public Animator[] AniLvs;
+//	public Animator AniFinish;
+	public void OnGetGift()
+	{
+//		WWWForm form = new WWWForm();
+//		form.AddField("Index", itemIndex);//itemData Array index
+//		form.AddField("BuildIndex", 8);
+//		SendHttp.Get.Command(URLConst.GymChangeBuildType, waitChangeBuildType, form);
+//
+	}
 }
 
 public class MailSubPage: MonoBehaviour {
@@ -295,9 +311,19 @@ public class MailSubPagePrize : MailSubPage {
 
 	private void addMailItem(TMailInfo mf, int index) {
 
-			TMailItem mi = new TMailItem();
-			mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
-//			initDefaultText(mi.Item);
+		TMailItem mi = new TMailItem();
+		mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
+		string tmpName = "uimailbtnprefab31415";
+		mi.Item.name = tmpName;
+		mi.LabelTime = GameObject.Find(name + "/View/TimeLabel").GetComponent<UILabel>();
+		mi.LabelTime.text = mf.Time.ToShortDateString();
+		mi.LabelSubhead = GameObject.Find(name + "/View/SubheadLabel").GetComponent<UILabel>();
+		mi.LabelSubhead.text = "Header";
+		mi.LabelContent = GameObject.Find(name + "/View/ContentLabel").GetComponent<UILabel>();
+		mi.LabelContent.text = mf.Context;
+		mi.BtnGetGift = GameObject.Find(name + "/View/GetBtn").GetComponent<UIButton>();
+		UIBase.SetBtnFun(ref mi.BtnGetGift, mi.OnGetGift);
+			//UIBase.initDefaultText(mi.Item);
 //			string name = data.ID.ToString();
 //			mi.Item.name = name;
 //			mi.UIFinished = GameObject.Find(name + "/Window/CompletedLabel");
@@ -334,12 +360,8 @@ public class MailSubPagePrize : MailSubPage {
 //			mi.Index = missionList[page].Count;
 //			mi.Mission = data;
 			mi.Item.transform.parent = pageScrollView.gameObject.transform;
-
 			mi.Item.transform.localPosition = new Vector3(0, 170 - index * 160, 0);
-
-
 			mi.Item.transform.localScale = Vector3.one;
-
 			mailItemList.Add(mi);
 
 	}
