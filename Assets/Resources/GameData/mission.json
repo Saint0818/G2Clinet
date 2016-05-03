@@ -87,7 +87,7 @@
     {
         "id": 16,
         "kind": 1,
-        "lv": -1,
+        "lv": 0,
         "color": 1,
         "score": 1,
         "nametw": "等級3",
@@ -103,7 +103,7 @@
     {
         "id": 17,
         "kind": 1,
-        "lv": -1,
+        "lv": 0,
         "color": 1,
         "score": 1,
         "nametw": "等級4",
