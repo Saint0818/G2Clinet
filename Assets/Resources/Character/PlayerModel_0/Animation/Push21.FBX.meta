@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 5da04c93e349e0c4290c426df8022196
-timeCreated: 1461750692
-licenseType: Free
+timeCreated: 1462268385
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -125,7 +125,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.25
+        functionName: SkillEvent
+        data: CameraAction
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.25
+        functionName: SkillEvent
+        data: PushDistancePlayer
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.25
+        functionName: SkillEvent
+        data: ActiveSkillEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -184,6 +205,10 @@ ModelImporter:
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head
+        weight: 1
+      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1
+        weight: 1
+      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle
         weight: 1
