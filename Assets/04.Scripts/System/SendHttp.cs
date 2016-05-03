@@ -549,9 +549,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	public void waitCheckNewMail(bool ok, WWW www){
 		if (ok) {
 			TMailState result = JsonConvertWrapper.DeserializeObject <TMailState>(www.text); 
-			//UIMail.NewMail01 = result.NewMail01 > 0;
-			//UIMail.NewMail02 = result.NewMail02 > 0;
-
+			UIMail.NewMail01 = result.NewMail01 > 0;
+			UIMail.NewMail02 = result.NewMail02 > 0;
+			UIGym.Get.RefreshBuild ();
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 	
