@@ -4187,6 +4187,11 @@
         "en": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-] "
     },
     {
+        "id": 9804,
+        "tw": "機率獲得",
+        "en": "CHANCE TO RECEIVE"
+    },
+    {
         "id": 9811,
         "explain": "關主副本條件文字9811~9860-1",
         "tw": "完成第一章後開啟",
