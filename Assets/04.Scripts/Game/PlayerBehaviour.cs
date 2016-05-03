@@ -24,7 +24,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public EGameTest TestMode = EGameTest.None;
     public ETimerKind TimerKind;
-    public bool IsDebugAnimation = false;
+    public bool IsDebugAnimation;
 
     public OnPlayerAction1 OnShooting = null;
     public Func<PlayerBehaviour, bool> OnPass = null;
@@ -182,7 +182,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float mMaxMovePower = 0;
     private float mMovePowerTime = 0;
     private Vector2 MoveTarget;
-    private float dis;
+//    private float dis;
     private bool canSpeedup = true;
     private float SlowDownTime = 0;
     public float DribbleTime = 0;
@@ -1183,33 +1183,32 @@ public class PlayerBehaviour : MonoBehaviour
         return resultBool;
     }
 
-    private void AttackerMove(bool first, TMoveData data, bool isshort)
+    private void AttackerMove(bool first, TMoveData data, bool isShort)
     {
-        if (isshort)
+        if(isShort)
         {
             // 移動距離很短 or 不移動, 球員又是在進攻狀態.
-            if (!IsBallOwner)
+            if(!IsBallOwner)
                 AniState(EPlayerState.Idle);
-            else if (situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
+            else if(situation == EGameSituation.GamerInbounds || situation == EGameSituation.NPCInbounds)
                 AniState(EPlayerState.Dribble0);
 
-            if (first || TestMode == EGameTest.Edit)
-				CantMoveTimer.Clear();
-			else 
-            if (IsGameAttack && GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+            if(first || TestMode == EGameTest.Edit)
+                CantMoveTimer.Clear();
+            else if(IsGameAttack && GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
             {
                 // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
                 // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
                 // 所以當 AI 做防守邏輯的時候, 會 1 秒下 30 的命令, 命令跑到某位球員的旁邊.
                 // 就會造成防守球員會一直的轉向.(因為距離很近的時候, 對方移動一點距離, 防守者就必須轉向很多度
                 // , 才可以正確的面相對方)
-                dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);
-                if (dis <= 8)
-								//                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 1.1f);
-								CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
-                else
-								//                          WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 2.1f);
-								CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 2.1f));
+//                var dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);
+//                if(dis <= 8)
+//                    CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
+//                else
+//                    CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
+
+                CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 0.7f));
             }
 
             if (IsBallOwner)
@@ -1304,7 +1303,7 @@ public class PlayerBehaviour : MonoBehaviour
             CantMoveTimer.Clear();
             if (data.DefPlayer != null)
             {
-                dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
+                var dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
 
                 if (data.LookTarget != null)
                 {
@@ -1336,9 +1335,9 @@ public class PlayerBehaviour : MonoBehaviour
             // 防守移動.
             if (data.DefPlayer != null)
             {
-                dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
+                var dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[data.DefPlayer.Team.GetHashCode()].transform.position);
 
-                if (dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
+                if(dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
                 {
                     MoveTargetPos(new Vector3(data.LookTarget.position.x, 0, data.LookTarget.position.z));
                     RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
@@ -1402,14 +1401,10 @@ public class PlayerBehaviour : MonoBehaviour
                 MoveTurn = 0;
                 isMoving = false;
 
-                if (IsDefence)
-                {
-                    DefenderMove(data, doMove, true);                       
-                }
+                if(IsDefence)
+                    DefenderMove(data, doMove, true);
                 else
-                {
                     AttackerMove(first, data, true);
-                }
 
                 // 移動到非常接近 target, 所以刪除這筆, 接著移動到下一個 target.
                 if (moveQueue.Count > 0)
