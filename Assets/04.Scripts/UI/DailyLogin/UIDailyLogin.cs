@@ -193,6 +193,7 @@ public class UIDailyLogin : UIBase
 
     public void Hide()
     {
+		UIMail.SetFocus (true);
         //UIMainLobby.Get.Show(); // 因改在mail介面下, 所以不需要自己開啟主UI
         RemoveUI(instance.gameObject);
     }

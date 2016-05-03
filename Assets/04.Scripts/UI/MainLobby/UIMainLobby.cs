@@ -49,7 +49,10 @@ public class UIMainLobby : UIBase
 
 		initQueue();
 
-        View.Settings.GetComponent<UIButton>().onClick.Add(new EventDelegate(() => UISetting.UIShow(true)));
+        View.Settings.GetComponent<UIButton>().onClick.Add(new EventDelegate(() => {
+				UISetting.UIShow(true);
+				UIMail.SetFocus (false);
+		}));
 
         var events = GetComponent<UIMainLobbyEvents>();
         View.RaceButton.onClick.Add(new EventDelegate(events.ShowGameLobby));

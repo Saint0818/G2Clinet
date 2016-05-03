@@ -432,11 +432,14 @@ public class UIRecharge : UIBase {
 					UIMall.Get.RefreshTextColor();
 //				if(UIGym.Visible)
 //					UIGym.Get.RefreshDiamondColor();
+
 			}
 		}
 
         if(UIInstance.Get.Visible)
             UIInstance.Get.ShowByChapter(UIInstance.Get.Main.CurrentChapter);
+
+		UIMail.SetFocus (true);
 	}
 
 	private void SendBuyDiamond(int index, string receipt)
