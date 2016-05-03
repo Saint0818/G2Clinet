@@ -135,6 +135,7 @@ public class UIGymEngage : UIBase {
 	private UILabel labelUpgradePrice;
 	private UISprite spriteUpgradeIcon;
 	private UILabel labelUpgradeCD;
+	private GameObject goUpgradeRedPoint;
 
 	private GameObject goBuyCD;
 	private UISlider sliderCDBar;
@@ -215,6 +216,7 @@ public class UIGymEngage : UIBase {
 		labelUpgradePrice = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/PriceLabel").GetComponent<UILabel>();
 		spriteUpgradeIcon = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/PriceLabel/Icon").GetComponent<UISprite>();
 		labelUpgradeCD = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/CD/CDLabel").GetComponent<UILabel>();
+		goUpgradeRedPoint = GameObject.Find (UIName + "/Window/Center/MainView/Normal/UpgradeBtn/RedPoint");
 
 		goBuyCD = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn");
 		sliderCDBar = GameObject.Find (UIName + "/Window/Center/MainView/BuyCDBtn/CDBar").GetComponent<UISlider>();
@@ -361,7 +363,11 @@ public class UIGymEngage : UIBase {
 			labelUpgradePrice.text = architectureValue.Cost.ToString();
 			spriteUpgradeIcon.spriteName = GameFunction.SpendKindTexture(architectureValue.SpendKind);
 			labelUpgradeCD.text = timeConvert(architectureValue.Time);
-
+			if(GameFunction.GetBuildLv(mBuildIndex) >= GameFunction.GetGymLv) 
+				goUpgradeRedPoint.SetActive(false);
+			else 
+				goUpgradeRedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(mBuildIndex));
+			
 		} else {
 			goUpgrade.SetActive(false);
 			goBuyCD.SetActive(true);
