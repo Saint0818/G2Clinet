@@ -118,6 +118,7 @@ public static class URLConst {
 	public const string GymChangeBuildType = "gymchangebuildtype";
 	public const string GymBuyCD = "gymbuycd";
 	public const string GymBuyQueue = "gymbuyqueue";
+	public const string GymCheckQueue = "gymcheckqueue";
 	public const string GymRefreshQueue = "gymrefreshqueue";
 	public const string GymUpdateBuild = "gymupdatebuild";
 

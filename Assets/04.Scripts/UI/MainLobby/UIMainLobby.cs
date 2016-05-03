@@ -105,11 +105,19 @@ public class UIMainLobby : UIBase
         updateMissionButton();
         updateMallButton();
 		updateAlbumButton ();
+		updateGymQueue();
         
         View.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
 //        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
 //                           UIDailyLoginHelper.HasLifetimeLoginReward();
+
     }
+
+	private void updateGymQueue() {
+		if(GameData.Team.GymQueue != null && !GameData.Team.GymQueue [1].IsOpen && GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.OperateQueue)) {
+			SendCheckQueue();
+		}
+	}
 
 	private void updateAlbumButton () {
 		View.AlbumNotice = (GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard) && GameData.Team.SuitCardRedPoint);
@@ -380,6 +388,26 @@ public class UIMainLobby : UIBase
 			UIMainLobby.Get.UpdateUI();
 			if (UIGymEngage.Visible)
 				UIGymEngage.Get.RefreshUI ();
+
+			isCheckUpdateOnLoad = true;
+			tempSendBuild.Clear ();
+			tempSendIndex.Clear ();
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 
+	}
+
+	//（如果沒離開遊戲的話）等級到了就上傳第二個佇列
+	private void SendCheckQueue () {
+		WWWForm form = new WWWForm();
+		SendHttp.Get.Command(URLConst.GymCheckQueue, waitCheckQueue, form);
+	}
+
+	private void waitCheckQueue(bool ok, WWW www) {
+		if (ok) {
+			TGymResult result = JsonConvertWrapper.DeserializeObject <TGymResult>(www.text); 
+			GameData.Team.GymQueue = result.GymQueue;
+			RefreshQueue();
 
 			isCheckUpdateOnLoad = true;
 			tempSendBuild.Clear ();
