@@ -24,6 +24,7 @@ public struct TGymObj {
 	public UILabel LevelLabel;
 	public UISlider CDBar;
 	public UILabel TimeLabel;
+	public GameObject RedPoint;
 }
 
 [System.Serializable]
@@ -88,6 +89,7 @@ public class UIGym : UIBase {
 			gymObj[i].LevelLabel = GameObject.Find(UIName + "/Window/Center/" + i.ToString() + "/LevelLabel").GetComponent<UILabel>();
 			gymObj[i].CDBar = GameObject.Find(UIName + "/Window/Center/" + i.ToString() + "/CDBar").GetComponent<UISlider>();
 			gymObj[i].TimeLabel  = GameObject.Find(UIName + "/Window/Center/" + i.ToString() + "/CDBar/TimeLabel").GetComponent<UILabel>();
+			gymObj[i].RedPoint  = GameObject.Find(UIName + "/Window/Center/" + i.ToString() + "/RedPoint");
 			SetBtnFun (UIName + "/Window/Center/" + i.ToString(), OnClickBuild);
 		}
 	}
@@ -150,6 +152,7 @@ public class UIGym : UIBase {
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
 			gymObj[i].LevelLabel.gameObject.SetActive(true);
 			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
+			gymObj[i].RedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
 		}
 	}
 

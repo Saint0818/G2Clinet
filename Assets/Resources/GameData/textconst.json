@@ -4809,13 +4809,6 @@
         "en": "Max Morale "
     },
     {
-        "id": 10523,
-        "explain": "23.士氣的上限值",
-        "tw": "士氣的上限值",
-        "en": "Morale Max",
-        "jp": "Morale"
-    },
-    {
         "id": 10530,
         "explain": "30.卡牌的Cost值",
         "tw": "空間",

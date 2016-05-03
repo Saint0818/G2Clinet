@@ -1133,6 +1133,14 @@ public static class GameFunction
 		}
 	}
 
+	public static bool IsBuildQueue (int buildIndex) {
+		for(int i=0; i<GameData.Team.GymQueue.Length; i++) 
+			if(GameData.Team.GymQueue[i].IsOpen && GameData.Team.GymQueue[i].BuildIndex == buildIndex)
+				return true;
+
+		return false;
+	}
+
 	public static string GetBuildEnName (int index) {
 		switch (index) {
 		case 0:

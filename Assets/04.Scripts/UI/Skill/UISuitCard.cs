@@ -125,8 +125,10 @@ public struct TSuitCardGroup {
 		SuitNameLabel.text = mSuitCard.SuitName;
 
 		for(int i=0; i<value.Items.Length; i++) {
-			SuitCards[i].UpdateViewItemDataForSuit(value.Items[i], value.ItemsLv[i]);
-			SuitCards[i].IsCanUseForSuit = !value.IsGetItem[i];
+			if(value.Items[i].ID > 0) {
+				SuitCards[i].UpdateViewItemDataForSuit(value.Items[i], value.ItemsLv[i]);
+				SuitCards[i].IsCanUseForSuit = !value.IsGetItem[i];
+			}
 		}
 
 		for(int i=0; i<value.AttrKinds.Length; i++) {
