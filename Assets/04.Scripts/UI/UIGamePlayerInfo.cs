@@ -40,7 +40,7 @@ public struct TGamePersonalView {
 
 		if(value.FriendKind == EFriendKind.Mercenary)
 			IDCheckLabel.text = TextConst.S(9526);
-		else if(value.FriendKind == 0)
+		else if(!string.IsNullOrEmpty(value.Identifier))
 			IDCheckLabel.text = TextConst.S(9524);
 		else
 			IDCheckLabel.text = TextConst.S(9525);

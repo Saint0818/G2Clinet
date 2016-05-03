@@ -224,31 +224,33 @@ public class UIMainLobby : UIBase
 	//GymQueue
 
 	public void CheckUpdate () {
-		tempSendIndex = new List<int> ();
-		tempSendBuild = new List<int> ();
-		for (int i = 0; i < GameData.Team.GymQueue.Length; i++) {
-			if (GameData.Team.GymQueue [i].BuildIndex >= 0 && GameData.Team.GymQueue [i].BuildIndex < GameData.Team.GymBuild.Length) {
-				if (GameData.Team.GymBuild [GameData.Team.GymQueue [i].BuildIndex].Time.ToUniversalTime () < DateTime.UtcNow) {
-					tempSendIndex.Add (i);
-					tempSendBuild.Add (GameData.Team.GymQueue [i].BuildIndex);
+		if(GameData.Team.GymQueue != null) {
+			tempSendIndex = new List<int> ();
+			tempSendBuild = new List<int> ();
+			for (int i = 0; i < GameData.Team.GymQueue.Length; i++) {
+				if (GameData.Team.GymQueue [i].BuildIndex >= 0 && GameData.Team.GymQueue [i].BuildIndex < GameData.Team.GymBuild.Length) {
+					if (GameData.Team.GymBuild [GameData.Team.GymQueue [i].BuildIndex].Time.ToUniversalTime () < DateTime.UtcNow) {
+						tempSendIndex.Add (i);
+						tempSendBuild.Add (GameData.Team.GymQueue [i].BuildIndex);
+					}
 				}
 			}
-		}
-
-		if (tempSendBuild.Count > 0 && tempSendIndex.Count > 0) {
-			sendBuildIndexs = new int[tempSendBuild.Count];
-			sendIndexs = new int[tempSendIndex.Count];
-			for (int i = 0; i < sendBuildIndexs.Length; i++) {
-				sendBuildIndexs [i] = tempSendBuild [i];
+			
+			if (tempSendBuild.Count > 0 && tempSendIndex.Count > 0) {
+				sendBuildIndexs = new int[tempSendBuild.Count];
+				sendIndexs = new int[tempSendIndex.Count];
+				for (int i = 0; i < sendBuildIndexs.Length; i++) {
+					sendBuildIndexs [i] = tempSendBuild [i];
+				}
+				for (int i = 0; i < sendIndexs.Length; i++) {
+					sendIndexs [i] = tempSendIndex [i];
+				}
+				SendRefreshQueue ();
+			} else {
+				isCheckUpdateOnLoad = true;
+				tempSendBuild.Clear ();
+				tempSendIndex.Clear ();
 			}
-			for (int i = 0; i < sendIndexs.Length; i++) {
-				sendIndexs [i] = tempSendIndex [i];
-			}
-			SendRefreshQueue ();
-		} else {
-			isCheckUpdateOnLoad = true;
-			tempSendBuild.Clear ();
-			tempSendIndex.Clear ();
 		}
 	}
 
