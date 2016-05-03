@@ -598,6 +598,7 @@
         "title": "晶片抽取",
         "talkindex": 0,
         "talkl": 1411,
+        "actionl": 4,
         "texttw": "我輸了，為了履行承諾，我有一個大禮要給你！"
     },
     {
@@ -613,7 +614,7 @@
         "line": 3,
         "kind": 4,
         "talkindex": 0,
-        "talkl": 10,
+        "talkl": 1411,
         "actionl": 6,
         "texttw": "這裡的[ff6060]技能抽取[-]可以讓你快速擁有更多的籃球技巧，每天都有[ff6060]免費[-]的次數可以進行抽取！！",
         "texten": "[Ff6060] Skill Extraction [-] allows you to quickly increase your overall power. Every day [ff6060] you have a free [-] number of extractions!"
@@ -664,7 +665,7 @@
         "line": 11,
         "kind": 4,
         "talkindex": 0,
-        "talkl": 10,
+        "talkl": 1411,
         "actionl": 1,
         "texttw": "記得在倒數時間結束後再回來抽取。",
         "texten": "Don't forget to return at the end of the countdown."
