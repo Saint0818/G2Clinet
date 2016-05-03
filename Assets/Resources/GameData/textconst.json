@@ -938,45 +938,54 @@
     },
     {
         "id": 1650,
+        "explain": "50.建築序列2 ",
         "uipath": "50.建築序列2 "
     },
     {
         "id": 1651,
+        "explain": "51.Basket = 1,",
         "uipath": "51.Basket = 1,"
     },
     {
         "id": 1652,
+        "explain": "52.Advertisement = 2,",
         "uipath": "52.Advertisement = 2,"
     },
     {
         "id": 1653,
+        "explain": "53.Store = 3,",
         "uipath": "53.Store = 3,"
     },
     {
         "id": 1654,
-        "explain": "解鎖球場",
+        "explain": "54.Gym = 4,",
         "uipath": "54.Gym = 4,",
         "tw": "成功解鎖[FFDD33]球館設施[-] ",
         "en": "Successfully unlocked [FFDD33] Gym [-] "
     },
     {
         "id": 1655,
+        "explain": "55.Door = 5,",
         "uipath": "55.Door = 5,"
     },
     {
         "id": 1656,
+        "explain": "56.Logo = 6,",
         "uipath": "56.Logo = 6,"
     },
     {
         "id": 1657,
+        "explain": "57.Chair = 7,",
         "uipath": "57.Chair = 7,"
     },
     {
         "id": 1658,
+        "explain": "58.Calendar = 8,",
         "uipath": "58.Calendar = 8,"
     },
     {
         "id": 1659,
+        "explain": "59.Mail = 9",
         "uipath": "59.Mail = 9"
     },
     {
@@ -4791,6 +4800,19 @@
         "explain": "20.起手的士氣值",
         "tw": "初始士氣",
         "en": "Morale",
+        "jp": "Morale"
+    },
+    {
+        "id": 10523,
+        "explain": "士氣上限",
+        "tw": "士氣上限",
+        "en": "Max Morale "
+    },
+    {
+        "id": 10523,
+        "explain": "23.士氣的上限值",
+        "tw": "士氣的上限值",
+        "en": "Morale Max",
         "jp": "Morale"
     },
     {
