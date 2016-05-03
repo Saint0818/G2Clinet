@@ -55,7 +55,7 @@ public class TMailItem{
 //	public Animator[] AniLvs;
 //	public Animator AniFinish;
 
-	public void OnGetGift ()//(TMailInfo MailInfo)
+	public void OnGetGift ()
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("Identifier", MailInfo.ToIdentifier);
@@ -68,6 +68,8 @@ public class TMailItem{
 		if (ok) {
 			TMailGetGiftResult[] result = JsonConvertWrapper.DeserializeObject <TMailGetGiftResult[]>(www.text); 
 			//ListMail(result);
+			// todo: 需要優化, 現在直接重新點tab
+			UIMail.Get.OnClickNowPage();
 
 		} else {
 			Debug.LogError("text:"+www.text);
@@ -219,6 +221,8 @@ public class MailSubPageMail : MailSubPage {
 	public int totalCount;
 	public int finishCount;
 
+	private System.Random rnd;
+
 	private List<TMailItem> mailItemList = new List<TMailItem>();
 	private GameObject itemMail;
 	public int MailKind;
@@ -226,6 +230,8 @@ public class MailSubPageMail : MailSubPage {
 		HookUI (UIName, pageIdx);
 		PageIndex = pageIdx;
 		MailKind = mk;
+
+		rnd = new System.Random(Guid.NewGuid().GetHashCode());  //產生亂數初始值
 	}
 
 	public override void HookUI(string UIName, int i)
@@ -235,7 +241,6 @@ public class MailSubPageMail : MailSubPage {
 		pagePanel = GameObject.Find(UIName + "/Window/Center/Group0/Pages/" + i.ToString() + "/ScrollView").GetComponent<UIPanel>();
 
 		itemMail = Resources.Load("Prefab/UI/Items/ItemMailBtn") as GameObject;
-
 	}
 
 	public override void SetActive(bool a){
@@ -264,13 +269,6 @@ public class MailSubPageMail : MailSubPage {
 	public override void ListMail(TMailInfo[] Mails)
 	{
 		MailList.Clear ();
-		for (int i = 0; i < mailItemList.Count; i++) {
-			
-			GameObject.Destroy (mailItemList [i].Item);
-			mailItemList [i].Item = null;
-		}
-		mailItemList.Clear ();
-
 		for (int i = 0; i < Mails.Length; i++)
 			MailList.Add (Mails [i]);
 
@@ -287,7 +285,6 @@ public class MailSubPageMail : MailSubPage {
 	private void waitListMail(bool ok, WWW www) {
 		if (ok) {
 			TMailInfo[] result = JsonConvertWrapper.DeserializeObject <TMailInfo[]>(www.text); 
-			//GameData.Team.GymBuild = result.GymBuild;
 			ListMail(result);
 
 		} else {
@@ -297,6 +294,14 @@ public class MailSubPageMail : MailSubPage {
 
 	private void LoadMails()
 	{
+		// todo: 需要優化
+		for (int i = 0; i < mailItemList.Count; i++) {
+
+			Destroy (mailItemList [i].Item);
+			mailItemList [i].Item = null;
+		}
+		mailItemList.Clear ();
+		//
 		pageScrollView.restrictWithinPanel = false;
 
 		for (int i = 0; i < MailList.Count; i++)
@@ -316,7 +321,9 @@ public class MailSubPageMail : MailSubPage {
 		TMailItem mi = new TMailItem();
 		mi.MailInfo = mf;
 		mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
-		string tmpName = "uimailbtnprefab31415";
+
+
+		string tmpName = string.Format("itemmail{0}", rnd.Next(1, 99999));
 		mi.Item.name = tmpName;
 		mi.LabelTime = GameObject.Find(tmpName + "/View/TimeLabel").GetComponent<UILabel>();
 		mi.LabelTime.text = mf.Time.ToShortDateString();
@@ -345,6 +352,7 @@ public class MailSubPageMail : MailSubPage {
 		mailItemList.Add(mi);
 
 	}
+
 }
 
 	
@@ -449,6 +457,10 @@ public class UIMail : UIBase {
 
 	}
 
+	public void OnClickNowPage()
+	{
+		subPages [nowPage].OnPage ();
+	}
 	public void SetNowPage(int np)
 	{
 		nowPage = np;
