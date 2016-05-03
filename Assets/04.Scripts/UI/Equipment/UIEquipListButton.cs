@@ -17,6 +17,7 @@ public class UIEquipListButton : MonoBehaviour
     public UILabel NameLabel;
 
     public UISprite[] Attrs;
+    public UILabel[] AttrNames;
     public UILabel[] AttrValues;
     public GameObject RedPoint;
 
@@ -85,6 +86,7 @@ public class UIEquipListButton : MonoBehaviour
             AttrValues[index].gameObject.SetActive(true);
 
             Attrs[index].spriteName = pair.Value.Icon;
+            AttrNames[index].text = pair.Value.Name;
             AttrValues[index].text = pair.Value.Value.ToString();
             ++index;
         }

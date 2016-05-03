@@ -29,7 +29,6 @@ public class UIMainLobbyView : MonoBehaviour
     public GameObject MissionNoticeObj;
     public GameObject PlayerNoticeObj;
     public GameObject MallNoticeObj;
-	public GameObject QueueNoticeObj;
 	public GameObject AlbumNoticeObj;
 
     // 畫面下方的主要功能按鈕.
@@ -123,11 +122,6 @@ public class UIMainLobbyView : MonoBehaviour
     {
         set { MallNoticeObj.SetActive(value); }
     }
-
-	public bool QueueNotice
-	{
-		set {QueueNoticeObj.SetActive(value);} 
-	}
 
 	public bool AlbumNotice 
 	{

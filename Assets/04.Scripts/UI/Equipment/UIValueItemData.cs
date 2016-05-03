@@ -89,6 +89,7 @@ public class UIValueItemData
                             dest.Add(pair.Key, new BonusData());
 
                         dest[pair.Key].Icon = pair.Value.Icon;
+                        dest[pair.Key].Name = pair.Value.Name;
                         dest[pair.Key].Value += pair.Value.Value;
                     }
                 };

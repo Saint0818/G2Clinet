@@ -291,7 +291,7 @@ public class UIMainLobby : UIBase
 		}
 
 		bubbleList ();
-		View.QueueNotice = (GameFunction.GetIdleQueue != 0);
+//		View.QueueNotice = (GameFunction.GetIdleQueue != 0);
 		updateQueue ();
 	}
 
