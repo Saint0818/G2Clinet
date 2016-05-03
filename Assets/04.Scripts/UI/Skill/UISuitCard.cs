@@ -335,14 +335,12 @@ public class UISuitCard {
 
 	private void findItemIDMax (int[] itemids, ref TItemData itemdata, ref int itemlv , ref int count) {
 		for(int i = itemids.Length - 1; i >= 0; i--) {
-			if(GameData.DItemData.ContainsKey(itemids[i])) {
-				if(GameData.DSkillData.ContainsKey(GameData.DItemData[itemids[i]].Avatar)) {
-					if(GameData.Team.IsGetItem(itemids[i])) {
-						itemdata = GameData.DItemData[itemids[i]];
-						itemlv = GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
-						count += findItemIDStars(i, itemids) + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
-						return ;
-					}
+			if(GameData.DItemData.ContainsKey(itemids[i]) && GameData.DSkillData.ContainsKey(GameData.DItemData[itemids[i]].Avatar)) {
+				if(GameData.Team.IsGetItem(itemids[i])) {
+					itemdata = GameData.DItemData[itemids[i]];
+					itemlv = GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
+					count += findItemIDStars(i, itemids) + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
+					return ;
 				}
 			}
 		}

@@ -147,12 +147,20 @@ public class UIGym : UIBase {
 		RefreshBuild ();
 	}
 
+	//3為球館，其他建築物等級不可以超過
 	public void RefreshBuild () {
 		for (int i=0; i<gymObj.Length; i++) {
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
 			gymObj[i].LevelLabel.gameObject.SetActive(true);
 			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
-			gymObj[i].RedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
+			if(i == 3)
+				gymObj[i].RedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
+			else { 
+				if(GameFunction.GetBuildLv(i) >= GameFunction.GetGymLv) 
+					gymObj[i].RedPoint.SetActive(false);
+				else 
+					gymObj[i].RedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
+			}
 		}
 	}
 

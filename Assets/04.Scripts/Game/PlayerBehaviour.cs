@@ -231,7 +231,7 @@ public class PlayerBehaviour : MonoBehaviour
 	/// <summary>
 	/// 倒數一分鐘AP成長速度會改變
 	/// </summary>
-	private float extraAPIncrease = 1;
+	private float extraAPIncrease = 0;
 	public float ExtraAPIncrease {
 		set {extraAPIncrease = value;}
 	}
@@ -254,7 +254,7 @@ public class PlayerBehaviour : MonoBehaviour
 					recoverTime -= Time.deltaTime;	
 					if(recoverTime <= 0) {
 						recoverTime = GameConst.AngerReviveTime;
-						ReviveAnger(apGrowth * extraAPIncrease);
+						ReviveAnger(apGrowth + extraAPIncrease);
 					}
 				}
 			}
@@ -3004,8 +3004,7 @@ public class PlayerBehaviour : MonoBehaviour
 				return;
 			} else
 				PlayerSkillController.ResetUsePassive();
-		} else 
-            return;
+		}
 	
         if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {

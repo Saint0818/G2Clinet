@@ -4041,7 +4041,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsTimePass() {
 		if (TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameWinTime > 0) {
 			if(GameWinTime <= 60) {
-				setExtraAPIncrease(2);
+				setExtraAPIncrease(0.5f);
 				UIEndGame.Get.ShowOneMinute();
 				UIGame.Get.SetTimeColor(Color.red);
 			}

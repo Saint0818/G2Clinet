@@ -34,6 +34,9 @@
         "line": 4,
         "kind": 4,
         "value": 3,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 1,
         "texttw": "只要點擊右邊的[ff6060]鑲嵌材料[-]，即可進行第一階段的強化囉。",
         "texten": "Click on the [ff6060] materials [-] to complete the first part of the upgrade."
     },
@@ -635,40 +638,30 @@
     {
         "id": 7,
         "line": 7,
-        "kind": 4
-    },
-    {
-        "id": 7,
-        "line": 8,
-        "kind": 4,
-        "uipath": "UI2D/UIMessage/Window/CheckBtn"
-    },
-    {
-        "id": 7,
-        "line": 9,
         "kind": 4,
         "wait": 1
     },
     {
         "id": 7,
-        "line": 10,
+        "line": 8,
         "kind": 4,
         "uipath": "UI2D/UIBuyStore/Center/Touch"
     },
     {
         "id": 7,
-        "line": 11,
-        "kind": 4
+        "line": 9,
+        "kind": 4,
+        "wait": 3
     },
     {
         "id": 7,
-        "line": 12,
+        "line": 10,
         "kind": 4,
         "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt"
     },
     {
         "id": 7,
-        "line": 13,
+        "line": 11,
         "kind": 4,
         "talkindex": 0,
         "talkl": 10,
@@ -678,13 +671,13 @@
     },
     {
         "id": 7,
-        "line": 14,
+        "line": 12,
         "kind": 4,
         "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。"
     },
     {
         "id": 7,
-        "line": 15,
+        "line": 13,
         "kind": 4,
         "talkindex": 1,
         "talkr": -1,
@@ -693,9 +686,20 @@
     },
     {
         "id": 7,
-        "line": 16,
+        "line": 14,
         "kind": 4,
         "uipath": "UI2D/UIMall/BottomLeft/BackBtn"
+    },
+    {
+        "id": 7,
+        "line": 15,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 16,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
         "id": 7,
@@ -706,39 +710,28 @@
         "id": 7,
         "line": 18,
         "kind": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
-    },
-    {
-        "id": 7,
-        "line": 19,
-        "kind": 4
-    },
-    {
-        "id": 7,
-        "line": 20,
-        "kind": 4,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
     },
     {
         "id": 7,
-        "line": 21,
+        "line": 19,
         "kind": 4,
         "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 7,
-        "line": 22,
+        "line": 20,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 7,
-        "line": 23,
+        "line": 21,
         "kind": 4
     },
     {
         "id": 7,
-        "line": 24,
+        "line": 22,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
@@ -1158,7 +1151,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 1,
-        "texttw": "嘿！看這裡！我為你設計了一個超酷的新系統，快來瞧瞧！"
+        "texttw": "嘿！看這裡！我為你設計了一個超酷的新系統，快來瞧瞧！",
+        "texten": "Hey! Look here! I created a new system for you!"
     },
     {
         "id": 26,
@@ -1173,7 +1167,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 5,
-        "texttw": "哇⋯這是什麼呀？"
+        "texttw": "哇⋯這是什麼呀？",
+        "texten": "Wow ⋯ What is this?"
     },
     {
         "id": 26,
@@ -1182,7 +1177,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "這是[ff6060]『圖鑑系統』[-]，現在先介紹第一個[ff6060]『晶片圖鑑』[-]。"
+        "texttw": "這是[ff6060]『圖鑑系統』[-]，現在先介紹第一個[ff6060]『晶片圖鑑』[-]。",
+        "texten": "This is [ff6060] \"GUIDE\" [-], and now introduce the first one - [ff6060] \"Card Album\" [-]."
     },
     {
         "id": 26,
@@ -1196,7 +1192,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "這裏收集了可以集合成[ff6060]『套卡』[-]的技能晶片卡！"
+        "texttw": "這裏收集了可以集合成[ff6060]『套卡』[-]的技能晶片卡！",
+        "texten": "There are many Skill Cards what can be [ff6060] \"Card Sets\" [-]. "
     },
     {
         "id": 26,
@@ -1205,7 +1202,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 4,
-        "texttw": "套卡皆由[ff6060]指定的三張技能晶片卡[-]組成，必須三張都收集到了才能啟動套卡功能！"
+        "texttw": "套卡皆由[ff6060]指定的三張技能晶片卡[-]組成，必須三張都收集到了才能啟動套卡功能！",
+        "texten": "Combination of [ff6060] 3 cards[-] into a Card Sets. And tap the [ff6060] LAUNCH BUTTON[-] !"
     },
     {
         "id": 26,
@@ -1214,7 +1212,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "接著[ff6060]提升技能晶片卡的星等[-]來收集星星數，[ff6060]總數[-]越多、能夠加成的能力就越好！"
+        "texttw": "接著[ff6060]提升技能晶片卡的星等[-]來收集星星數，[ff6060]總數[-]越多、能夠加成的能力就越好！",
+        "texten": "Improve the level of cards to get more stars. The more stars in a Card Set, the more additions are unlocked."
     },
     {
         "id": 26,
@@ -1229,7 +1228,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "這是這組套卡可以啟動的第一階段能力加成。"
+        "texttw": "這是這組套卡可以啟動的第一階段能力加成。",
+        "texten": "This is the first phase of this Card Set can be start."
     },
     {
         "id": 26,
@@ -1244,7 +1244,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 5,
-        "texttw": "這裏可以查看該[ff6060]套卡的各個階段[-]，不同階段有不同的數量目標，也會有更佳的能力加成！"
+        "texttw": "這裏可以查看該[ff6060]套卡的各個階段[-]，不同階段有不同的數量目標，也會有更佳的能力加成！",
+        "texten": "Here you can see [ff6060]each phase[-] of Card Sets."
     },
     {
         "id": 26,
@@ -1253,7 +1254,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 1,
-        "texttw": "這個新系統如何？還不賴吧！"
+        "texttw": "這個新系統如何？還不賴吧！",
+        "texten": "It's a nice system, right?"
     },
     {
         "id": 27,
@@ -1264,7 +1266,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 1,
-        "texttw": "太好了！我完成了[ff6060]『圖鑑』[-]系統的另一個功能，讓我為你介紹！"
+        "texttw": "太好了！我完成了[ff6060]『圖鑑』[-]系統的另一個功能，讓我為你介紹！",
+        "texten": "Wonderful! I finished the system of[ff6060] \"GUIDE\" [-], let me introduce you!"
     },
     {
         "id": 27,
@@ -1279,7 +1282,8 @@
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "上次的是晶片圖鑑，那這次的就是[ff6060]『套裝圖鑑』[-]囉！"
+        "texttw": "上次的是晶片圖鑑，那這次的就是[ff6060]『套裝圖鑑』[-]囉！",
+        "texten": "Last time is the Card Album, and this time is[ff6060] \"Style Album\" [-]."
     },
     {
         "id": 27,
@@ -1294,13 +1298,14 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 1,
-        "texttw": "沒錯！這裡可以一覽所有的造型，而所有造型皆有各自的完整套裝。"
+        "texttw": "沒錯！這裡可以一覽所有的造型，而所有造型皆有各自的完整套裝。",
+        "texten": "Yes! You can check out all of Styles here. "
     },
     {
         "id": 27,
         "line": 6,
         "kind": 4,
-        "uipath": "UI2D/UISuitAvatar/Window/Center/Left/ScrollView/1"
+        "uipath": "UI2D/UISuitAvatar/Window/Center/Left/ScrollView/5"
     },
     {
         "id": 27,
@@ -1309,7 +1314,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 4,
-        "texttw": "造型套裝不需要啟動，只要在同組套裝中擁有[ff6060]兩件以上的造型[-]，就會有收集加成！"
+        "texttw": "造型套裝不需要啟動，只要在同組套裝中擁有[ff6060]兩件以上的造型[-]，就會有收集加成！",
+        "texten": "Style Sets do not need to be activated. Characters who own [ff6060]more than one[-] style from a [ff6060]particular Set[-] receive special bonuses. "
     },
     {
         "id": 27,
@@ -1324,7 +1330,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 4,
-        "texttw": "同時擁有右側的『對應晶片』就能降低裝備該晶片的空間值。"
+        "texttw": "同時擁有右側的『對應晶片』就能降低裝備該晶片的空間值。",
+        "texten": "While reducing the Cards Cost if you have [ff6060]Specified Cards[-] on the right side. "
     },
     {
         "id": 27,
@@ -1333,7 +1340,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 5,
-        "texttw": "最後要注意，[ff6060]『買斷造型』[-]才能算入圖鑑收集裡，[ff6060]時效性造型沒有收集效果[-]！"
+        "texttw": "最後要注意，[ff6060]『買斷造型』[-]才能算入圖鑑收集裡，[ff6060]時效性造型沒有收集效果[-]！",
+        "texten": "Attention! [ff6060]Time-limited Styles[-] CAN NOT unlock bonuses! You have to BUY and OWN the Styles!"
     },
     {
         "id": 27,
@@ -1342,7 +1350,8 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "這些就是我為你設計的圖鑑系統啦！這可是我的傑作！"
+        "texttw": "這些就是我為你設計的圖鑑系統啦！這可是我的傑作！",
+        "texten": "That's all! This is my masterpiece!"
     },
     {
         "id": 30,
@@ -1522,7 +1531,7 @@
     {
         "id": 31,
         "line": 8,
-        "uipath": "UI2D/UIEquipList/Center/ScrollView/UIEquipListButton(Clone)"
+        "uipath": "UI2D/UIEquipList/Center/ScrollView/"
     },
     {
         "id": 31,
@@ -1644,7 +1653,7 @@
         "talkr": 10,
         "actionr": 5,
         "texttw": "真是糟糕，居然掉進時空夢境中，我們必須擊敗對面的腐化者三天王才行！",
-        "texten": "Awful! We have to win this game!"
+        "texten": "Oh no! They are Argus, Spectre and Siren! We have to win this game!"
     },
     {
         "id": 40,
@@ -1653,7 +1662,7 @@
         "talkr": 10,
         "actionr": 6,
         "texttw": "不過別擔心，跟著我的指示做就能離開夢境！",
-        "texten": "But don't worry about that."
+        "texten": "But don't worry about that! Stick with me!"
     },
     {
         "id": 40,
@@ -1870,6 +1879,16 @@
         "uipath": "UI2D/UIGame/TopRight/2"
     },
     {
+        "id": 50,
+        "line": 1
+    },
+    {
+        "line": 2
+    },
+    {
+        "line": 3
+    },
+    {
         "id": 1021,
         "line": 1,
         "kind": 3,
@@ -1918,7 +1937,7 @@
         "talkl": 1102,
         "actionl": 6,
         "texttw": "立正！我是地獄司令。接下來我會特訓你！",
-        "texten": "Aranja, WHO ARE YOU?"
+        "texten": "WHO ARE YOU?"
     },
     {
         "id": 1010,

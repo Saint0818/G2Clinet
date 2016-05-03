@@ -4146,7 +4146,7 @@
         "id": 9762,
         "explain": "戰前選擇注射劑",
         "uipath": "UIEquipList",
-        "tw": "裝備注射劑",
+        "tw": "裝備注射劑，每場比賽[FF0000FF]扣除1個[-] ",
         "en": "Injection equipment"
     },
     {
@@ -4807,6 +4807,13 @@
         "explain": "士氣上限",
         "tw": "士氣上限",
         "en": "Max Morale "
+    },
+    {
+        "id": 10523,
+        "explain": "23.士氣的上限值",
+        "tw": "士氣的上限值",
+        "en": "Morale Max",
+        "jp": "Morale"
     },
     {
         "id": 10530,
@@ -5886,14 +5893,14 @@
         "explain": "標題－好友按讚",
         "uipath": "SubheadLabel",
         "tw": "玩家[FFFFC9FF]{0}[-]按你讚！",
-        "en": "Players [FFFFC9FF] {0} [-] as you like!"
+        "en": "Player [FFFFC9FF] {0} [-] likes you!"
     },
     {
         "id": 91003,
         "explain": "標題－官方系統",
         "uipath": "SubheadLabel",
         "tw": "來自[33FFDD]籃球黑幫2[-]製作團隊",
-        "en": "From [33FFDD] Basketball gangs 2 [-] production team"
+        "en": "From [33FFDD] Basketball gang 2 [-] production team"
     },
     {
         "id": 91004
@@ -5909,8 +5916,8 @@
         "id": 91102,
         "explain": "內文－好友按讚",
         "uipath": "ContentLabel",
-        "tw": "[000000FF]他按了你的成就[00ff00]{0}[-]一個讚！[-]",
-        "en": "[000000FF] him by your achievement [00ff00] {0} [-] a praise! [-] "
+        "tw": "[000000FF]他按了你的[00ff00]動態[-]一個讚！[-]",
+        "en": "[000000FF] He likes your [00ff00] Post [-]!  "
     },
     {
         "id": 91103,

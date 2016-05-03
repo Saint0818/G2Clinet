@@ -932,7 +932,7 @@ public class UIGameResult : UIBase {
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
 					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
 						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {
-							if(GameData.Team.IsGetItem(reward.SurelyItemIDs[i])) {
+							if(!GameData.Team.IsGetItem(reward.SurelyItemIDs[i])) {
 								GetCardLists.Add(reward.SurelyItemIDs[i]);
 								IsShowFirstCard = true;
 							}

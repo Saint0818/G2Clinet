@@ -1087,6 +1087,10 @@ public static class GameFunction
 		return 1;
 	}
 
+	public static int GetGymLv {
+		get {return GameData.Team.GymBuild[3].LV;}
+	}
+
 	public static DateTime GetBuildTime (int index) {
 		if(index >= 0 && index < GameData.Team.GymBuild.Length) {
 			return GameData.Team.GymBuild[index].Time;
