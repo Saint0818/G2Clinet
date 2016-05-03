@@ -24,6 +24,7 @@ public class UIInstanceStage : MonoBehaviour
     public GameObject DiamondObj;
     public UILabel DiamondLabel;
 
+    public UILabel RewardTitle;
     public Transform[] RewardParents; // 獎勵圖示的位置.
 
     public enum EIcon
@@ -39,20 +40,10 @@ public class UIInstanceStage : MonoBehaviour
         public int Money;
         public int Exp;
 
-//        /// <summary>
-//        /// 進入關卡所需的體力.
-//        /// </summary>
-//        public int Power;
-
         /// <summary>
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
         public string RemainDailyCount;
-
-//        /// <summary>
-//        /// 是否可以進入關卡.
-//        /// </summary>
-//        public bool StartEnable;
 
         public UIStageVerification.EErrorCode ErrorCode;
 
@@ -60,11 +51,6 @@ public class UIInstanceStage : MonoBehaviour
         /// 不可進入關卡的錯誤訊息.
         /// </summary>
         public string ErrorMsg;
-
-//        /// <summary>
-//        /// 要不要顯示買體力介面.
-//        /// </summary>
-//        public bool ShowBuyPower;
 
         public string StartButtonSprite;
         public string StartButtonText;
@@ -84,6 +70,11 @@ public class UIInstanceStage : MonoBehaviour
         /// true: 右上角顯示 Clear 圖示.(表示關卡已通過)
         /// </summary>
         public bool ShowClear;
+
+        /// <summary>
+        /// 必定獲得 or 亂數獲得的文字.
+        /// </summary>
+        public string RewardTitle;
 
         /// <summary>
         /// <para> 顯示該關卡會得到的獎勵. </para>
@@ -142,6 +133,7 @@ public class UIInstanceStage : MonoBehaviour
         ClearIcon.SetActive(data.ShowClear);
         Mask.SetActive(data.ShowMask);
 
+        RewardTitle.text = data.RewardTitle;
         for (int i = 0; i < mRewardIcons.Count; i++)
         {
             if (data.RewardItems.Count > i)
