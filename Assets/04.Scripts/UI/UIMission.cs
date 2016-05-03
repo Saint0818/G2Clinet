@@ -243,7 +243,7 @@ public class UIMission : UIBase {
 
     private bool checkMissionShow(TMission missionData) {
         totalScore += missionData.Score;
-        if (missionData.Lv == 0 || GameData.Team.Player.Lv >= missionData.Lv) {
+        if (missionData.Lv > 0 && GameData.Team.Player.Lv >= missionData.Lv) {
             if (!GameData.DMissionData.ContainsKey(missionData.PrivousID) || 
                 GameData.Team.FindMissionLv(missionData.PrivousID, missionData.TimeKind) >= 
                 GameData.DMissionData[missionData.PrivousID].Value.Length) {

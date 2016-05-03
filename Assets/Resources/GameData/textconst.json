@@ -3609,8 +3609,8 @@
     {
         "id": 9310,
         "uipath": "AwardLabel1",
-        "tw": " [FFDD33]可能獲得[-]",
-        "en": "[FFFD33] CHANCE TO RECEIVE [-]"
+        "tw": " [FFDD33]必定獲得[-]",
+        "en": "[FFFD33] MUST GET [-]"
     },
     {
         "id": 9311,
@@ -4185,6 +4185,11 @@
         "explain": "目標文字",
         "tw": "擊敗關主機率獲得\n[33FFDD]技能晶片進化材料[-]及[33FFDD]關主服飾[-] ",
         "en": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-] "
+    },
+    {
+        "id": 9804,
+        "tw": "機率獲得",
+        "en": "CHANCE TO RECEIVE"
     },
     {
         "id": 9811,
