@@ -1,5 +1,5 @@
 public static class BundleVersion
 {
-	public static readonly float Version = 0.251f;
+	public static readonly float Version = 0.261f;
 }
 
