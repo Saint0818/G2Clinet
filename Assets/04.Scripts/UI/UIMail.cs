@@ -264,8 +264,11 @@ public class MailSubPageMail : MailSubPage {
 	public override void ListMail(TMailInfo[] Mails)
 	{
 		MailList.Clear ();
-		for (int i = 0; i < mailItemList.Count; i++)
+		for (int i = 0; i < mailItemList.Count; i++) {
+			
 			GameObject.Destroy (mailItemList [i].Item);
+			mailItemList [i].Item = null;
+		}
 		mailItemList.Clear ();
 
 		for (int i = 0; i < Mails.Length; i++)
@@ -322,8 +325,20 @@ public class MailSubPageMail : MailSubPage {
 		mi.LabelContent = GameObject.Find(tmpName + "/View/ContentLabel").GetComponent<UILabel>();
 		mi.LabelContent.text = mf.Content;
 		mi.BtnGetGift = GameObject.Find(tmpName + "/View/GetBtn").GetComponent<UIButton>();
+		var btnLabel = mi.BtnGetGift.GetComponentInChildren<UILabel> ();
+		btnLabel.text = TextConst.S (3706);
 		UIBase.SetBtnFun(ref mi.BtnGetGift, mi.OnGetGift);
+		// post proc text
+		if (mf.ContextType == 2) {
+			int headId;
+			int.TryParse (mf.Header, out headId);
+			mi.LabelSubhead.text = string.Format (TextConst.S (headId), mf.FromName);
 
+			int contentId;
+			int.TryParse (mf.Content, out contentId);
+			mi.LabelContent.text = string.Format (TextConst.S (contentId), mf.FromName);
+		}
+		//
 		mi.Item.transform.parent = pageScrollView.gameObject.transform;
 		mi.Item.transform.localPosition = new Vector3(0, 10 - index * 120, 0);
 		mi.Item.transform.localScale = Vector3.one;
