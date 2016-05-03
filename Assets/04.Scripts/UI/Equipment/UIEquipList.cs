@@ -83,16 +83,21 @@ public class UIEquipList : UIBase {
 			}
 		}
 
-
         bool redFlag = !playerItems [index].IsValid();
 		var localPos = Vector3.zero;
 		for (int i = 0; i < storageItems[index].Count; i++) {
 			GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.UIEquipListButton, scrollView.transform, localPos);
 			var element = obj.GetComponent<UIEquipListButton>();
+            element.gameObject.name = i.ToString();
 			element.Set (storageItems [index][i], true);
-			element.Init (OnEquip, i);
+			//element.Init (OnEquip, i);
             element.RedPointVisible = redFlag;
 			itemButtonList.Add (element);
+
+            var btn = obj.GetComponent<UIButton>();
+            if (btn)
+                SetBtnFun(ref btn, OnEquip);
+            
 			localPos.y -= 130;
 		}
 	}
@@ -175,17 +180,20 @@ public class UIEquipList : UIBase {
 		Visible = false;
 	}
 
-	public void OnEquip(int index) {
-		UIValueItemData item = playerItems [mItemIndex];
-		playerItems [mItemIndex] = storageItems [mItemIndex][index];
-        if (item.IsValid())
-		    storageItems [mItemIndex][index] = item;
-        else
-            storageItems [mItemIndex].RemoveAt(index);
+	public void OnEquip() {
+        int index = -1;
+        if (int.TryParse(UIButton.current.name, out index)) {
+    		UIValueItemData item = playerItems [mItemIndex];
+    		playerItems [mItemIndex] = storageItems [mItemIndex][index];
+            if (item.IsValid())
+    		    storageItems [mItemIndex][index] = item;
+            else
+                storageItems [mItemIndex].RemoveAt(index);
 
-		InitItemData (mItemIndex, itemChangeCallback);
-		if (itemChangeCallback != null)
-			itemChangeCallback (mItemIndex, playerItems [mItemIndex]);
+    		InitItemData (mItemIndex, itemChangeCallback);
+    		if (itemChangeCallback != null)
+    			itemChangeCallback (mItemIndex, playerItems [mItemIndex]);
+        }
 	}
 
 	public void OnDemount() {
