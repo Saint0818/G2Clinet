@@ -3609,8 +3609,8 @@
     {
         "id": 9310,
         "uipath": "AwardLabel1",
-        "tw": " [FFDD33]可能獲得[-]",
-        "en": "[FFFD33] CHANCE TO RECEIVE [-]"
+        "tw": " [FFDD33]必定獲得[-]",
+        "en": "[FFFD33] MUST GET [-]"
     },
     {
         "id": 9311,
