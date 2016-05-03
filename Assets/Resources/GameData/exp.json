@@ -1,119 +1,95 @@
 [
     {
         "lv": 1,
-        "lvupexp": 8
+        "lvupexp": 10,
+        "mallrate": 30
     },
     {
         "lv": 2,
-        "lvupexp": 8,
+        "lvupexp": 10,
+        "unlockname": 1607,
         "ui": 1,
-        "unlockname": 1602,
-        "test": 2,
-        "tutorialid": 2,
-        "unlockhint": 1502
+        "tutorialid": 7,
+        "test": 7,
+        "unlockhint": 1507,
+        "mallrate": 30
     },
     {
         "lv": 3,
-        "lvupexp": 8,
+        "lvupexp": 10,
         "unlockname": 1608,
-        "test": 8,
         "tutorialid": 8,
-        "unlockhint": 1508
+        "test": 8,
+        "unlockhint": 1508,
+        "mallrate": 30
     },
     {
         "lv": 4,
         "lvupexp": 12,
-        "ui": 1,
         "unlockname": 1606,
-        "test": 6,
+        "ui": 1,
         "tutorialid": 6,
+        "test": 6,
         "unlockhint": 1506
     },
     {
         "lv": 5,
         "lvupexp": 16,
-        "ui": 1,
         "unlockname": 1604,
+        "ui": 1,
+        "tutorialid": 4,
         "test": 4,
-        "tutorialid": 34,
         "unlockhint": 1504
     },
     {
         "lv": 6,
         "lvupexp": 20,
+        "unlockname": 1601,
         "ui": 1,
-        "unlockname": 1607,
-        "test": 7,
-        "tutorialid": 7,
-        "unlockhint": 1507
+        "tutorialid": 1,
+        "test": 1,
+        "unlockhint": 1501
     },
     {
         "lv": 7,
-        "lvupexp": 20,
-        "ui": 2,
-        "unlockname": 1609,
-        "test": 9,
-        "tutorialid": 9,
-        "unlockhint": 1509
+        "lvupexp": 20
     },
     {
         "lv": 8,
-        "lvupexp": 25,
-        "ui": 1,
-        "unlockname": 1622,
-        "test": 22,
-        "tutorialid": 22,
-        "unlockhint": 1522
+        "lvupexp": 25
     },
     {
         "lv": 9,
-        "lvupexp": 30,
-        "ui": 1,
-        "unlockname": 1601,
-        "test": 1,
-        "tutorialid": 1,
-        "unlockhint": 1501
+        "lvupexp": 30
     },
     {
         "lv": 10,
         "lvupexp": 35,
+        "unlockname": 1611,
         "ui": 1,
-        "unlockname": 1654,
         "test": 54,
         "unlockhint": 1554
     },
     {
         "lv": 11,
-        "lvupexp": 50,
-        "unlockname": 1621,
-        "test": 21,
-        "unlockhint": 1521
+        "lvupexp": 50
     },
     {
         "lv": 12,
-        "lvupexp": 60,
-        "unlockname": 1627,
-        "test": 27,
-        "unlockhint": 1527
+        "lvupexp": 60
     },
     {
         "lv": 13,
-        "lvupexp": 65,
-        "unlockname": 1626,
-        "test": 26,
-        "unlockhint": 1526
+        "lvupexp": 65
     },
     {
         "lv": 14,
-        "lvupexp": 70,
-        "unlockhint": 1500
+        "lvupexp": 70
     },
     {
         "lv": 15,
         "lvupexp": 80,
-        "unlockname": 1611,
-        "test": 11,
-        "unlockhint": 1511
+        "unlockname": 1650
     },
     {
         "lv": 16,
@@ -134,9 +110,7 @@
     {
         "lv": 20,
         "lvupexp": 130,
-        "unlockname": 1610,
-        "test": 10,
-        "unlockhint": 1510
+        "unlockname": 1610
     },
     {
         "lv": 21,
@@ -156,10 +130,7 @@
     },
     {
         "lv": 25,
-        "lvupexp": 180,
-        "unlockname": 1650,
-        "test": 50,
-        "unlockhint": 1550
+        "lvupexp": 180
     },
     {
         "lv": 26,
@@ -260,56 +231,48 @@
     {
         "lv": 50,
         "lvupexp": 430,
-        "unlockname": 1651,
         "test": 51,
         "unlockhint": 1551
     },
     {
         "lv": 51,
         "lvupexp": 440,
-        "unlockname": 1652,
         "test": 52,
         "unlockhint": 1552
     },
     {
         "lv": 52,
         "lvupexp": 450,
-        "unlockname": 1653,
         "test": 53,
         "unlockhint": 1553
     },
     {
         "lv": 53,
         "lvupexp": 460,
-        "unlockname": 1655,
         "test": 55,
         "unlockhint": 1555
     },
     {
         "lv": 54,
         "lvupexp": 470,
-        "unlockname": 1656,
         "test": 56,
         "unlockhint": 1556
     },
     {
         "lv": 55,
         "lvupexp": 480,
-        "unlockname": 1657,
         "test": 57,
         "unlockhint": 1557
     },
     {
         "lv": 56,
         "lvupexp": 490,
-        "unlockname": 1658,
         "test": 58,
         "unlockhint": 1558
     },
     {
         "lv": 57,
         "lvupexp": 500,
-        "unlockname": 1659,
         "test": 59,
         "unlockhint": 1559
     },

@@ -1292,9 +1292,10 @@ namespace GameStruct
 		}
 
 		private bool isContainSuitCard (int[] items) {
-			for(int i=0; i<items.Length; i++) 
-				if(IsGetItem(items [i])) 
-					return true;
+            if(items != null)
+			    for(int i=0; i<items.Length; i++) 
+				    if(IsGetItem(items [i])) 
+					    return true;
 
 			return false;
 		}
@@ -1426,11 +1427,12 @@ namespace GameStruct
 		//SuitCard其中一組一系列(itemids) 
 		private int findSuitCardStars (int[] itemids) {
 			int count = 0;
-			for(int i = itemids.Length - 1; i >= 0; i--) 
-				if(GameData.DItemData.ContainsKey(itemids[i])) 
-					if(GameData.DSkillData.ContainsKey(GameData.DItemData[itemids[i]].Avatar)) 
-						if(GameData.Team.IsGetItem(itemids[i])) 
-							count += i * GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].MaxStar + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
+            if(itemids != null)
+			    for(int i = itemids.Length - 1; i >= 0; i--) 
+				    if(GameData.DItemData.ContainsKey(itemids[i])) 
+					    if(GameData.DSkillData.ContainsKey(GameData.DItemData[itemids[i]].Avatar)) 
+						    if(GameData.Team.IsGetItem(itemids[i])) 
+							    count += i * GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].MaxStar + GameData.Team.GetSkillCardStar(GameData.DItemData[itemids[i]].Avatar);
 				
 			return count;
 		}

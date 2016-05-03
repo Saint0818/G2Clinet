@@ -106,9 +106,10 @@ public class UIGetSkillCard : UIBase {
 	private bool isSuitCard (int itemID) {
 		foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) 
 			for(int i=0; i<item.Value.Items.Length; i++) 
-				for(int j=0; j<item.Value.Items.Length; j++) 
-					if(item.Value.Items[i][j] == itemID)
-						return true;
+                if(item.Value.Items[i] != null)
+				    for(int j=0; j<item.Value.Items.Length; j++) 
+					    if(item.Value.Items[i][j] == itemID)
+						    return true;
 
 		return false;
 	}

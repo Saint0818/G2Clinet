@@ -2,129 +2,152 @@
     {
         "lv": 2,
         "openid": 2,
-        "name": "2.解鎖Avatar"
+        "name": "2.解鎖Avatar",
+        "openid2": 2,
+        "name2": "2.解鎖Avatar"
+    },
+    {
+        "lv": 2,
+        "openid": 9,
+        "name": "9.副本",
+        "openid2": 9,
+        "name2": "9.副本"
+    },
+    {
+        "lv": 2,
+        "openid": 7,
+        "name": "7.抽卡牌(Mall)",
+        "openid2": 7,
+        "name2": "7.抽卡牌(Mall)"
     },
     {
         "lv": 3,
         "openid": 8,
-        "name": "8.PVP功能"
+        "name": "8.PVP功能",
+        "openid2": 8,
+        "name2": "8.PVP功能"
     },
     {
         "lv": 3,
         "openid": 3,
-        "name": "3.商店按鈕"
+        "name": "3.商店按鈕",
+        "openid2": 3,
+        "name2": "3.商店按鈕"
+    },
+    {
+        "lv": 3,
+        "openid": 22,
+        "name": "22.技能升星",
+        "openid2": 22,
+        "name2": "22.技能升星"
+    },
+    {
+        "lv": 3,
+        "openid": 21,
+        "name": "21.技能進化",
+        "openid2": 21,
+        "name2": "21.技能進化"
+    },
+    {
+        "lv": 3,
+        "openid": 54,
+        "name": "54.Gym = 4,",
+        "openid2": 54,
+        "name2": "54.Gym = 4,"
     },
     {
         "lv": 4,
         "openid": 6,
         "name": "6.任務主按鈕",
+        "openid2": 6,
+        "name2": "6.任務主按鈕"
+    },
+    {
+        "lv": 4,
+        "openid": 56,
+        "name": "56.Logo = 6,",
+        "openid2": 56,
+        "name2": "56.Logo = 6,",
         "visiblelv": 3
     },
     {
         "lv": 5,
-        "openid": 4,
-        "name": "4.社群按鈕"
-    },
-    {
-        "lv": 6,
-        "openid": 7,
-        "name": "7.抽卡牌(Mall)"
-    },
-    {
-        "lv": 7,
-        "openid": 9,
-        "name": "9.副本",
+        "openid": 57,
+        "name": "57.Chair = 7,",
+        "openid2": 57,
+        "name2": "57.Chair = 7,",
         "visiblelv": 4
     },
     {
-        "lv": 8,
-        "openid": 22,
-        "name": "22.技能升星",
-        "visiblelv": 5
+        "lv": 5,
+        "openid": 4,
+        "name": "4.社群按鈕",
+        "openid2": 4,
+        "name2": "4.社群按鈕"
     },
     {
-        "lv": 9,
+        "lv": 6,
         "openid": 1,
-        "name": "1.解鎖數值裝"
+        "name": "1.解鎖數值裝",
+        "openid2": 1,
+        "name2": "1.解鎖數值裝"
     },
     {
         "lv": 10,
-        "openid": 54,
-        "name": "54.Gym = 4,",
-        "visiblelv": 6
-    },
-    {
-        "lv": 11,
-        "openid": 21,
-        "name": "21.技能進化",
-        "visiblelv": 6
-    },
-    {
-        "lv": 12,
-        "openid": 26,
-        "name": "26.套卡按鈕",
-        "visiblelv": 6
-    },
-    {
-        "lv": 13,
-        "openid": 27,
-        "name": "27.套裝按鈕",
-        "visiblelv": 6
+        "openid": 11,
+        "name": "11.第三招主動技",
+        "openid2": 11,
+        "name2": "11.第三招主動技"
     },
     {
         "lv": 15,
-        "openid": 11,
-        "name": "11.第三招主動技"
+        "openid": 50,
+        "openid2": 50
     },
     {
         "lv": 20,
         "openid": 10,
+        "openid2": 10,
         "diamond": 200
-    },
-    {
-        "lv": 25,
-        "openid": 50
     },
     {
         "lv": 50,
         "openid": 51,
         "name": "51.Basket = 1,",
+        "openid2": 51,
+        "name2": "51.Basket = 1,",
         "visiblelv": 50
     },
     {
         "lv": 51,
         "openid": 52,
         "name": "52.Advertisement = 2,",
+        "openid2": 52,
+        "name2": "52.Advertisement = 2,",
         "visiblelv": 50
     },
     {
         "lv": 52,
         "openid": 53,
         "name": "53.Store = 3,",
+        "openid2": 53,
+        "name2": "53.Store = 3,",
         "visiblelv": 50
     },
     {
         "lv": 54,
         "openid": 55,
         "name": "55.Door = 5,",
-        "visiblelv": 50
-    },
-    {
-        "lv": 55,
-        "openid": 56,
-        "name": "56.Logo = 6,",
-        "visiblelv": 50
-    },
-    {
-        "lv": 56,
-        "openid": 57,
-        "name": "57.Chair = 7,",
+        "openid2": 55,
+        "name2": "55.Door = 5,",
         "visiblelv": 50
     },
     {
         "lv": 57,
         "openid": 58,
         "name": "58.Calendar = 8,",
+        "openid2": 58,
+        "name2": "58.Calendar = 8,",
         "visiblelv": 50
     }
 ]

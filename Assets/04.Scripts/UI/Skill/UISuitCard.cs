@@ -288,16 +288,24 @@ public class UISuitCard {
 			groupValue.SuitCard = suitcard.Value;
 
 			for(int i=0; i<groupValue.SuitCard.Items.Length; i++) {
-				findItemIDMax(groupValue.SuitCard.Items[i], ref groupValue.Items[i], ref groupValue.ItemsLv[i], ref groupValue.NowStar);
-				groupValue.IsGetItem[i] = (groupValue.Items[i].ID != 0);
-				if(groupValue.IsGetAllCard)
-					groupValue.IsGetAllCard = (groupValue.Items[i].ID != 0);
-				
-				if(groupValue.Items[i].ID == 0) {
-					groupValue.Items[i] = GameData.DItemData[groupValue.SuitCard.Items[i][0]];
-					groupValue.ItemsLv[i] = 0;
-				}
-			}
+                if (groupValue.SuitCard.Items[i] != null)
+                {
+                    findItemIDMax(groupValue.SuitCard.Items[i], ref groupValue.Items[i], ref groupValue.ItemsLv[i], ref groupValue.NowStar);
+                    groupValue.IsGetItem[i] = (groupValue.Items[i].ID != 0);
+                    if (groupValue.IsGetAllCard)
+                        groupValue.IsGetAllCard = (groupValue.Items[i].ID != 0);
+
+                    if (groupValue.Items[i].ID == 0)
+                    {
+                        groupValue.Items[i] = GameData.DItemData[groupValue.SuitCard.Items[i][0]];
+                        groupValue.ItemsLv[i] = 0;
+                    }
+                }
+                else
+                    item.SuitCards[i].Enable = false;
+
+
+            }
 
 			int executeLevel = 0;
 

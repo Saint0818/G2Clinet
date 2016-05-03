@@ -326,7 +326,7 @@
         "id": 4,
         "line": 3,
         "kind": 0,
-        "uipath": "UI2D/UISocial/Window/Center/Tabs/2"
+        "uipath": "UI2D/UISocial/Window/BottomLeft/Tabs/2"
     },
     {
         "id": 4,
@@ -593,39 +593,154 @@
         "id": 7,
         "line": 1,
         "title": "晶片抽取",
-        "kind": 4,
         "talkindex": 0,
-        "talkl": 10,
-        "actionl": 6,
-        "texttw": "[ff6060]技能抽取[-]可以快速增加你的戰力，每天都有[ff6060]免費[-]的次數可以進行抽取！！",
-        "texten": "[Ff6060] Skill Extraction [-] allows you to quickly increase your overall power. Every day [ff6060] you have a free [-] number of extractions!"
+        "talkl": 1411,
+        "texttw": "我輸了，為了履行承諾，我有一個大禮要給你！"
     },
     {
         "id": 7,
         "line": 2,
-        "kind": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/MallBt"
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "真的嗎？是什麼大禮？"
     },
     {
         "id": 7,
         "line": 3,
-        "kind": 4
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 10,
+        "actionl": 6,
+        "texttw": "這裡的[ff6060]技能抽取[-]可以讓你快速擁有更多的籃球技巧，每天都有[ff6060]免費[-]的次數可以進行抽取！！",
+        "texten": "[Ff6060] Skill Extraction [-] allows you to quickly increase your overall power. Every day [ff6060] you have a free [-] number of extractions!"
     },
     {
         "id": 7,
         "line": 4,
         "kind": 4,
-        "uipath": "UI2D/UIMall/Center/Window/ScrollView"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/MallBt"
     },
     {
         "id": 7,
         "line": 5,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 6,
+        "kind": 4,
+        "uipath": "UI2D/UIMall/Center/Window/ScrollView/Table/MallBoxDiamond3(Clone)/0"
+    },
+    {
+        "id": 7,
+        "line": 7,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 8,
+        "kind": 4,
+        "uipath": "UI2D/UIMessage/Window/CheckBtn"
+    },
+    {
+        "id": 7,
+        "line": 9,
+        "kind": 4,
+        "wait": 1
+    },
+    {
+        "id": 7,
+        "line": 10,
+        "kind": 4,
+        "uipath": "UI2D/UIBuyStore/Center/Touch"
+    },
+    {
+        "id": 7,
+        "line": 11,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 12,
+        "kind": 4,
+        "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt"
+    },
+    {
+        "id": 7,
+        "line": 13,
         "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "記得在倒數時間結束後再回來抽喔．",
+        "texttw": "記得在倒數時間結束後再回來抽取。",
         "texten": "Don't forget to return at the end of the countdown."
+    },
+    {
+        "id": 7,
+        "line": 14,
+        "kind": 4,
+        "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。"
+    },
+    {
+        "id": 7,
+        "line": 15,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "那有什麼問題，一言為定！"
+    },
+    {
+        "id": 7,
+        "line": 16,
+        "kind": 4,
+        "uipath": "UI2D/UIMall/BottomLeft/BackBtn"
+    },
+    {
+        "id": 7,
+        "line": 17,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 18,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "id": 7,
+        "line": 19,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 20,
+        "kind": 4,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
+    },
+    {
+        "id": 7,
+        "line": 21,
+        "kind": 4,
+        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
+    },
+    {
+        "id": 7,
+        "line": 22,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
+    },
+    {
+        "id": 7,
+        "line": 23,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 24,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
     {
         "id": 8,
@@ -910,8 +1025,8 @@
         "id": 22,
         "line": 1,
         "title": "技能升星",
-        "kind": 2,
-        "value": 2112,
+        "kind": 0,
+        "value": 2113,
         "talkindex": 1,
         "actionl": 5,
         "talkr": -1,
@@ -1033,6 +1148,201 @@
         "actionl": 1,
         "texttw": "這樣就強化成功囉！！",
         "texten": "That's over!!"
+    },
+    {
+        "id": 26,
+        "line": 1,
+        "title": "套卡教學",
+        "kind": 4,
+        "uiname": "UISuitAvatar-Cards",
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 1,
+        "texttw": "嘿！看這裡！我為你設計了一個超酷的新系統，快來瞧瞧！"
+    },
+    {
+        "id": 26,
+        "line": 2,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/TopLeft/AlbumBtn"
+    },
+    {
+        "id": 26,
+        "line": 3,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 5,
+        "texttw": "哇⋯這是什麼呀？"
+    },
+    {
+        "id": 26,
+        "line": 4,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 6,
+        "texttw": "這是[ff6060]『圖鑑系統』[-]，現在先介紹第一個[ff6060]『晶片圖鑑』[-]。"
+    },
+    {
+        "id": 26,
+        "line": 5,
+        "uipath": "UI2D/UISuitAvatar/Window2/Center/Tabs/0"
+    },
+    {
+        "id": 26,
+        "line": 6,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 6,
+        "texttw": "這裏收集了可以集合成[ff6060]『套卡』[-]的技能晶片卡！"
+    },
+    {
+        "id": 26,
+        "line": 7,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 4,
+        "texttw": "套卡皆由[ff6060]指定的三張技能晶片卡[-]組成，必須三張都收集到了才能啟動套卡功能！"
+    },
+    {
+        "id": 26,
+        "line": 8,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 6,
+        "texttw": "接著[ff6060]提升技能晶片卡的星等[-]來收集星星數，[ff6060]總數[-]越多、能夠加成的能力就越好！"
+    },
+    {
+        "id": 26,
+        "line": 9,
+        "kind": 4,
+        "hintpath": "UI2D/UISuitAvatar/Window1/SuitCardsView/MainView/ScrollView/1/AttriGroup/NowLaunch/LabelIcon"
+    },
+    {
+        "id": 26,
+        "line": 10,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 6,
+        "texttw": "這是這組套卡可以啟動的第一階段能力加成。"
+    },
+    {
+        "id": 26,
+        "line": 11,
+        "kind": 4,
+        "uipath": "UI2D/UISuitAvatar/Window1/SuitCardsView/MainView/ScrollView/1/More/0"
+    },
+    {
+        "id": 26,
+        "line": 12,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 5,
+        "texttw": "這裏可以查看該[ff6060]套卡的各個階段[-]，不同階段有不同的數量目標，也會有更佳的能力加成！"
+    },
+    {
+        "id": 26,
+        "line": 13,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 1,
+        "texttw": "這個新系統如何？還不賴吧！"
+    },
+    {
+        "id": 27,
+        "line": 1,
+        "title": "套裝教學",
+        "kind": 4,
+        "uiname": "UISuitAvatar-Item",
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 1,
+        "texttw": "太好了！我完成了[ff6060]『圖鑑』[-]系統的另一個功能，讓我為你介紹！"
+    },
+    {
+        "id": 27,
+        "line": 2,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/TopLeft/AlbumBtn"
+    },
+    {
+        "id": 27,
+        "line": 3,
+        "kind": 4,
+        "talkindex": 1,
+        "talkr": -1,
+        "actionr": 4,
+        "texttw": "上次的是晶片圖鑑，那這次的就是[ff6060]『套裝圖鑑』[-]囉！"
+    },
+    {
+        "id": 27,
+        "line": 4,
+        "kind": 4,
+        "uipath": "UI2D/UISuitAvatar/Window2/Center/Tabs/1"
+    },
+    {
+        "id": 27,
+        "line": 5,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 1,
+        "texttw": "沒錯！這裡可以一覽所有的造型，而所有造型皆有各自的完整套裝。"
+    },
+    {
+        "id": 27,
+        "line": 6,
+        "kind": 4,
+        "uipath": "UI2D/UISuitAvatar/Window/Center/Left/ScrollView/1"
+    },
+    {
+        "id": 27,
+        "line": 7,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 4,
+        "texttw": "造型套裝不需要啟動，只要在同組套裝中擁有[ff6060]兩件以上的造型[-]，就會有收集加成！"
+    },
+    {
+        "id": 27,
+        "line": 8,
+        "kind": 4,
+        "hintpath": "UI2D/UISuitAvatar/Window/Center/Right/CardsView"
+    },
+    {
+        "id": 27,
+        "line": 9,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 4,
+        "texttw": "同時擁有右側的『對應晶片』就能降低裝備該晶片的空間值。"
+    },
+    {
+        "id": 27,
+        "line": 10,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 5,
+        "texttw": "最後要注意，[ff6060]『買斷造型』[-]才能算入圖鑑收集裡，[ff6060]時效性造型沒有收集效果[-]！"
+    },
+    {
+        "id": 27,
+        "line": 11,
+        "kind": 4,
+        "talkindex": 0,
+        "talkl": 1101,
+        "actionl": 6,
+        "texttw": "這些就是我為你設計的圖鑑系統啦！這可是我的傑作！"
     },
     {
         "id": 30,
@@ -1165,7 +1475,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "哇，連續取得獲勝耶，我們繼續挑戰下一組對手吧！！",
+        "texttw": "哇，連續取得獲勝耶，接下來我們將要直接挑戰黑幫之王絕殺比爾，為了確保勝利，這裏有一個可以瞬間強化我們自身能力的注射劑，我來教你如何使用吧！",
         "texten": "Awesome! You're on a winning strike! Let's go to the next match."
     },
     {
@@ -1197,13 +1507,13 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "這場競賽的勝利條件需要投進[ff6060]三分球[-]，我們可以更換這場的戰術，讓大家的跑位能夠適合三分球目標・",
+        "texttw": "選擇剛剛獲得到的注射劑。",
         "texten": "Now show me you can shooting [fff400]3 point[-]to beat this level.Seems like this a little to hard for ya! Change the strategy to help you beat this level."
     },
     {
         "id": 31,
         "line": 6,
-        "uipath": "UI2D/UISelectRole/Bottom/StrategyBtn"
+        "uipath": "UI2D/UISelectRole/Bottom/EquipItemView/Slot7/7/View/7"
     },
     {
         "id": 31,
@@ -1212,7 +1522,7 @@
     {
         "id": 31,
         "line": 8,
-        "uipath": "UI2D/UIStrategy/Window/Center/MainView/2"
+        "uipath": "UI2D/UIEquipList/Center/ScrollView/UIEquipListButton(Clone)"
     },
     {
         "id": 31,
@@ -1330,17 +1640,35 @@
     {
         "id": 40,
         "line": 1,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 5,
+        "texttw": "真是糟糕，居然掉進時空夢境中，我們必須擊敗對面的腐化者三天王才行！",
+        "texten": "Awful! We have to win this game!"
+    },
+    {
+        "id": 40,
+        "line": 2,
+        "talkindex": 1,
+        "talkr": 10,
+        "actionr": 6,
+        "texttw": "不過別擔心，跟著我的指示做就能離開夢境！",
+        "texten": "But don't worry about that."
+    },
+    {
+        "id": 40,
+        "line": 3,
         "title": "新教學",
         "kind": 3,
         "talkindex": 1,
         "talkr": 10,
         "actionr": 6,
-        "texttw": "頭頂[ff6666]紅色[-]三角形的球員是你自己．你也只能移動你自己的角色。",
+        "texttw": "頭頂[ff6666]紅色[-]三角形的球員是你自己，你只能移動你自己的角色。",
         "texten": "The avatar with the [ff6666] red triangle [-] is your character! You can only control your own character."
     },
     {
         "id": 40,
-        "line": 2,
+        "line": 4,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self0/PassMe/View",
         "texttw": "你只可以操作紅色三角形頭標球員移動。",
@@ -1348,7 +1676,7 @@
     },
     {
         "id": 40,
-        "line": 3,
+        "line": 5,
         "kind": 3,
         "hintpath": "UI2D/UIGame/BottomLeft/JoystickHint",
         "offsetx": -390,
@@ -1650,7 +1978,7 @@
         "talkindex": 0,
         "talkl": 1401,
         "actionl": 4,
-        "texttw": "情報顯示，黑幫老大是個神射手，最擅長的是三分球。",
+        "texttw": "情報顯示，黑幫老大是個灌籃好手，最擅長的是雙手爆扣。",
         "texten": "Great, great! You're getting much too!"
     },
     {
