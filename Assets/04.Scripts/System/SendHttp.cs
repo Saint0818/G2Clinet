@@ -111,6 +111,7 @@ public static class URLConst {
 	public const string ReceivedDailyLoginReward = "receivedailyloginreward";
 	public const string ReceivedLifetimeLoginReward = "receivelifetimeloginreward";
 	public const string ListMail = "listmail";
+	public const string GetMailGift = "getmailgift";
 
 	//gym
 	public const string GymBuyType = "gymbuytype";

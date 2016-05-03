@@ -1892,7 +1892,8 @@ namespace GameStruct
 		public string ToIdentifier;
 		public int MailKind; // 1=prize, 2=social
 		public int ContextType; // 1=native string, 2=string id
-		public string Context;
+		public string Header;
+		public string Content;
 		public TMailGift[] Gifts;
 
 	}
