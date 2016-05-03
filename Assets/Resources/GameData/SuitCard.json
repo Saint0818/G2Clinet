@@ -4,7 +4,7 @@
         "suitnametw": "出神入化 I",
         "suitnamecn": "B",
         "suitnameen": "Superb I",
-        "item1": [20630,20631,20632,20633,20634],
+        "item1": [30630,30631,30632,30633,30634],
         "name1": "雙手爆扣 I",
         "item2": [20610,20611,20612,20613,20614],
         "name2": "假動作灌籃 I",
@@ -130,7 +130,7 @@
     },
     {
         "id": 300,
-        "suitnametw": "阻斷狙擊 I",
+        "suitnametw": "大車輪爆扣 I",
         "suitnamecn": "I",
         "suitnameen": "I blocked sniper",
         "item1": [20410,20411,20412,20413,20414],
