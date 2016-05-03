@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 2441e6a154f1ce742bbd69f21f81db96
-timeCreated: 1461827424
-licenseType: Free
+timeCreated: 1462268382
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -125,7 +125,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.25
+        functionName: SkillEvent
+        data: CameraAction
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: 0.25
+        functionName: SkillEvent
+        data: PushDistancePlayer
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.25
+        functionName: SkillEvent
+        data: ActiveSkillEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

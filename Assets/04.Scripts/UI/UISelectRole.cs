@@ -833,16 +833,19 @@ public class UISelectRole : UIBase {
     private void SendPVPStart()
     {
         WWWForm form = new WWWForm();
-        SendHttp.Get.Command(URLConst.PVPStart, WaitPVPStart, form, true);  
+        SendHttp.Get.Command(URLConst.PVPStart, waitPVPStart, form, true);  
     }
    
-    private void WaitPVPStart(bool ok, WWW www)
+    private void waitPVPStart(bool ok, WWW www)
     {
         if (ok)
         {
             TPVPStart data = JsonConvertWrapper.DeserializeObject <TPVPStart>(www.text);
             GameData.Team.PVPTicket = data.PVPTicket;
             GameData.Team.PVPCD = data.PVPCD;
+
+            GameData.Team.Player.ValueItems = data.Player.ValueItems;
+            GameData.Team.Player.ConsumeValueItems = data.Player.ConsumeValueItems;
 
             Statistic.Ins.LogEvent(17, GameData.Team.Player.Lv.ToString());
 

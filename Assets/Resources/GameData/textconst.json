@@ -3609,8 +3609,8 @@
     {
         "id": 9310,
         "uipath": "AwardLabel1",
-        "tw": " [FFDD33]必定獲得[-]",
-        "en": "[FFFD33] MUST GET [-]"
+        "tw": " [FFDD33]可能獲得[-]",
+        "en": "[FFFD33] CHANCE TO RECEIVE [-]"
     },
     {
         "id": 9311,
@@ -4146,15 +4146,15 @@
         "id": 9762,
         "explain": "戰前選擇注射劑",
         "uipath": "UIEquipList",
-        "tw": "裝備注射劑，每場比賽[FF0000FF]扣除1個[-] ",
+        "tw": "裝備注射劑",
         "en": "Injection equipment"
     },
     {
         "id": 9763,
         "explain": "介面說明",
         "uipath": "UIEquipList",
-        "tw": "點擊裝備，再次點擊卸下。",
-        "en": "Click on the equipment, remove the set point again."
+        "tw": "每場比賽扣除[FF0000FF]1個注射劑[-]",
+        "en": "Every game deduct [FF0000FF] 1 Injection [-]"
     },
     {
         "id": 9764,
