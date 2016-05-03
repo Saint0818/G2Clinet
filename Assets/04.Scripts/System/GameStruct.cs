@@ -1575,8 +1575,12 @@ namespace GameStruct
 
     public struct TPVPStart
     {
+        [UsedImplicitly]
 		public int PVPTicket;
-		public DateTime PVPCD;
+        [UsedImplicitly]
+        public DateTime PVPCD;
+        [UsedImplicitly]
+        public TPlayer Player;
     }
 
 	public struct TPVPResult
