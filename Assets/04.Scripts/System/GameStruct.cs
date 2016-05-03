@@ -1901,4 +1901,9 @@ namespace GameStruct
 		public TMailGift[] Gifts;
 
 	}
+
+	public struct TMailState{
+		public int NewMail01;
+		public int NewMail02;
+	}
 }

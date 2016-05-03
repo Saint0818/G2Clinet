@@ -272,6 +272,23 @@ public class MailSubPageMail : MailSubPage {
 		for (int i = 0; i < Mails.Length; i++)
 			MailList.Add (Mails [i]);
 
+		switch (PageIndex) {
+		case 1:
+			if (Mails.Length > 0)
+				UIMail.NewMail01 = true;
+			else
+				UIMail.NewMail01 = false;
+			break;
+		case 2:
+			if (Mails.Length > 0)
+				UIMail.NewMail02 = true;
+			else
+				UIMail.NewMail02 = false;
+			break;
+		default:
+			break;
+		}
+
 		LoadMails ();
 	}
 
@@ -357,7 +374,8 @@ public class MailSubPageMail : MailSubPage {
 
 	
 public class UIMail : UIBase {
-	
+	public static bool NewMail01 = false;
+	public static bool NewMail02 = false;
 	private static UIMail instance = null;
 	private const string UIName = "UIMail";
 
@@ -381,9 +399,19 @@ public class UIMail : UIBase {
 
 	private int mAvatarIndex;
 	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
-	//
+
+	// red point
+	public GameObject redPtPrize;
+	public GameObject redPtSocial;
+	public GameObject redPtDaily;
+
 	void Destroy () {
 		itemGymObjs.Clear();
+	}
+	//
+	public static bool HaveRedPt()
+	{
+		return NewMail01 || NewMail01 || UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ();
 	}
 	//
 	public static bool Visible {
@@ -454,9 +482,22 @@ public class UIMail : UIBase {
 		// BottomLeft
 		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
+		// redpoint
+		redPtPrize = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/0/RedPoint");
+		redPtSocial = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/1/RedPoint");;
+		redPtDaily = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn/AvailableIcon");;
 
+		//        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
+		//                           UIDailyLoginHelper.HasLifetimeLoginReward();
 	}
 
+	public void RefreshRedPt()
+	{
+		redPtDaily.SetActive (UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ());
+		redPtPrize.SetActive (UIMail.NewMail01);
+		redPtSocial.SetActive (UIMail.NewMail02);
+		
+	}
 	public void OnClickNowPage()
 	{
 		subPages [nowPage].OnPage ();
@@ -470,7 +511,8 @@ public class UIMail : UIBase {
 	{
 		if (instance == null)
 			return;
-		
+
+		instance.RefreshRedPt ();
 		if (f) {
 			instance.subPages [0].SetFocus (f);
 		} else {
@@ -638,12 +680,14 @@ public class UIMail : UIBase {
 
 		}
 	}
+
 	protected override void OnShow(bool isShow) {
 		base.OnShow(isShow);
 		if (isShow) {
 			//initRedPoint(i);
 			subPages [nowPage].OnPage ();
 			setDecoScrollView ();
+			RefreshRedPt ();
 
 		}
 	}

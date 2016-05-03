@@ -112,6 +112,7 @@ public static class URLConst {
 	public const string ReceivedLifetimeLoginReward = "receivelifetimeloginreward";
 	public const string ListMail = "listmail";
 	public const string GetMailGift = "getmailgift";
+	public const string CheckNewMail = "checknewmail";
 
 	//gym
 	public const string GymBuyType = "gymbuytype";
@@ -499,7 +500,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
                     LookFriends(null, GameData.Team.Identifier, false);
                     StartCoroutine(longPollingSocialEvent(0));
                     StartCoroutine(longPollingWatchFriends(0));
-
+					CheckNewMail(GameData.Team.Identifier);
 					//UILoading.OpenUI = UILoading.OpenNotic;
                     UILoading.UIShow(true, ELoading.Lobby);
 				}
@@ -537,6 +538,23 @@ public class SendHttp : KnightSingleton<SendHttp> {
         form.AddField("Identifier", id);
         SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form, waiting);
     }
+
+	public void CheckNewMail(string myid){
+		WWWForm form = new WWWForm ();
+		form.AddField("Identifier", myid);
+		SendHttp.Get.Command(URLConst.CheckNewMail, waitCheckNewMail, form);
+	}
+
+	public void waitCheckNewMail(bool ok, WWW www){
+		if (ok) {
+			TMailState result = JsonConvertWrapper.DeserializeObject <TMailState>(www.text); 
+			//UIMail.NewMail01 = result.NewMail01 > 0;
+			//UIMail.NewMail02 = result.NewMail02 > 0;
+
+		} else {
+			Debug.LogError("text:"+www.text);
+		} 	
+	}
 
     private void waitLookFriends(bool flag, WWW www) {
         if (flag && www.text != "") {
