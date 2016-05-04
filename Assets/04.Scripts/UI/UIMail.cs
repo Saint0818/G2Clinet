@@ -442,6 +442,7 @@ public class UIMail : UIBase {
 					MailSubPageHtml tmp = (MailSubPageHtml)(instance.subPages [0]);
 					if (tmp.webViewGameObject)
 						Destroy(tmp.webViewGameObject);
+					Destroy (instance.uiView);
 					RemoveUI (instance.gameObject);
 				}
 			} else
@@ -585,6 +586,7 @@ public class UIMail : UIBase {
 		GameObject go = Instantiate(itemBuild) as GameObject;
 		UIDragCamera dc = go.GetComponent<UIDragCamera> ();
 		dc.draggableCamera = uiCamera.GetComponent<UIDraggableCamera> ();
+
 		go.transform.parent = uiOffset.gameObject.transform;
 		go.transform.localPosition = new Vector3(170 * index, 0, 0);
 		TITemGymObj obj = new TITemGymObj();

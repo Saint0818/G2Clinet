@@ -150,7 +150,10 @@ public class UIGymEngage : UIBase {
 	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
 	private int mItemGymObjIndex = 0;
 
-	private UIScrollView scrollView;
+	//private UIScrollView scrollView;
+	private GameObject uiView;
+	private GameObject uiCamera;
+	private GameObject uiOffset;
 
 	private int mBuildIndex;//建築物的順序 0:球館  ~8
 	private int mAvatarIndex;
@@ -170,8 +173,10 @@ public class UIGymEngage : UIBase {
 
 		set {
 			if (instance) {
-				if (!value)
-					RemoveUI(instance.gameObject);
+				if (!value) {
+					Destroy (instance.uiView);
+					RemoveUI (instance.gameObject);
+				}
 				else
 					instance.Show(value);
 			} else
@@ -226,8 +231,19 @@ public class UIGymEngage : UIBase {
 		for(int i=0; i<awardGroup.Length; i++) 
 			awardGroup[i] = GameObject.Find (UIName + "/Window/Center/MainView/Normal/NextCondition/View/ItemAwardGroup" + i.ToString()).GetComponent<ItemAwardGroup>();
 
-		scrollView = GameObject.Find (UIName + "/Window/Bottom/BuildingView/ScrollView").GetComponent<UIScrollView>();
-
+		//scrollView = GameObject.Find (UIName + "/Window/Bottom/BuildingView/ScrollView").GetComponent<UIScrollView>();
+		//
+		GameObject tmpView = Resources.Load (UIPrefabPath.UIView) as GameObject;
+		uiView = Instantiate(tmpView) as GameObject;
+		uiCamera = uiView.transform.Find ("ViewCamera").gameObject;
+		UIViewport uiViewPort = uiCamera.GetComponent<UIViewport> ();
+		uiOffset = uiView.transform.Find("Center/Offset").gameObject;
+		GameObject viewTL = GameObject.Find (UIName + "/Window/Center/View_TL");
+		GameObject viewBR = GameObject.Find (UIName + "/Window/Center/View_BR");
+		uiViewPort.sourceCamera = GameObject.Find ("UI2D/2DCamera").GetComponent<Camera> ();
+		uiViewPort.topLeft = viewTL.transform;
+		uiViewPort.bottomRight = viewBR.transform;
+		//
 		SetBtnFun (UIName + "/Window/BottomLeft/BackBtn", OnClose);
 		SetBtnFun (UIName + "/Window/Center/MainView/Normal/UpgradeBtn", OnUpgrade);
 		SetBtnFun (UIName + "/Window/Center/MainView/BuyCDBtn", OnBuyCD);
@@ -418,7 +434,10 @@ public class UIGymEngage : UIBase {
 			mAvatarIndex = data.Avatar;
 
 		GameObject go = Instantiate(itemBuild) as GameObject;
-		go.transform.parent = scrollView.gameObject.transform;
+		UIDragCamera dc = go.GetComponent<UIDragCamera> ();
+		dc.draggableCamera = uiCamera.GetComponent<UIDraggableCamera> ();
+
+		go.transform.parent = uiOffset.gameObject.transform;
 		go.transform.localPosition = new Vector3(170 * index, 0, 0);
 		TITemGymObj obj = new TITemGymObj();
 		obj.Init(go, GameFunction.GetBuildEnName(mBuildIndex));
