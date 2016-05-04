@@ -1551,6 +1551,8 @@ public class GameController : KnightSingleton<GameController>
 				UICourtInstant.UIShow(false);
 				UIInGameMission.UIShow(true);
 				UIInGameMission.UIShow(false);
+				UIGamePlayerInfo.UIShow(true);
+				UIGamePlayerInfo.UIShow(false);
 				UIEndGame.Visible = true;
 				break;
 			case EGameSituation.Opening:

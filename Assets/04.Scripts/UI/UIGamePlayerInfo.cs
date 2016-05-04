@@ -108,6 +108,12 @@ public class UIGamePlayerInfo : UIBase {
 		}
 	}
 
+	void OnDestroy() {
+		for (int i = 0; i < skillList.Count; i++)
+			if (skillList[i].item)
+				Destroy(skillList[i].item);
+	}
+
 	protected override void InitCom() {
 		gamePersonalView.labelName = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerName/NameLabel").GetComponent<UILabel>();
 		gamePersonalView.labelCombat = GameObject.Find(UIName + "/Window/Right/View/PersonalView/CombatView/CombatLabel").GetComponent<UILabel>();
