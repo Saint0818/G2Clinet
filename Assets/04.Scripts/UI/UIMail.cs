@@ -398,13 +398,16 @@ public class UIMail : UIBase {
 
 	// group0
 	private const int pageNum = 3;
-	private int nowPage = 0;
+	private int nowPage = 1;
 	private MailSubPage[] subPages = new MailSubPage[pageNum];
 
 	// group 1
 	private List<TITemGymObj> itemGymObjs = new List<TITemGymObj>();
 	private int mItemGymObjIndex = 0;
-	private UIScrollView decoScrollView;
+	//private UIScrollView decoScrollView;// to delete
+	private GameObject uiView;
+	private GameObject uiCamera;
+	private GameObject uiOffset;
 
 	private int mAvatarIndex;
 	private bool isRealChange = true; //false表示預覽而已，Back的時候要回復
@@ -486,8 +489,18 @@ public class UIMail : UIBase {
 
 		// group 1
 		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
-		decoScrollView = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/ScrollView").GetComponent<UIScrollView>();
-
+		//decoScrollView = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/ScrollView").GetComponent<UIScrollView>();
+		//
+		GameObject tmpView = Resources.Load (UIPrefabPath.UIView) as GameObject;
+		uiView = Instantiate(tmpView) as GameObject;
+		uiCamera = uiView.transform.Find ("ViewCamera").gameObject;
+		UIViewport uiViewPort = uiCamera.GetComponent<UIViewport> ();
+		uiOffset = uiView.transform.Find("Center/Offset").gameObject;
+		GameObject viewTL = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/View_TL");
+		GameObject viewBR = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/View_BR");
+		uiViewPort.sourceCamera = GameObject.Find ("UI2D/2DCamera").GetComponent<Camera> ();
+		uiViewPort.topLeft = viewTL.transform;
+		uiViewPort.bottomRight = viewBR.transform;
 		// BottomLeft
 		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
 
@@ -570,7 +583,9 @@ public class UIMail : UIBase {
 			mAvatarIndex = data.Avatar;
 
 		GameObject go = Instantiate(itemBuild) as GameObject;
-		go.transform.parent = decoScrollView.gameObject.transform;
+		UIDragCamera dc = go.GetComponent<UIDragCamera> ();
+		dc.draggableCamera = uiCamera.GetComponent<UIDraggableCamera> ();
+		go.transform.parent = uiOffset.gameObject.transform;
 		go.transform.localPosition = new Vector3(170 * index, 0, 0);
 		TITemGymObj obj = new TITemGymObj();
 		obj.Init(go, GameFunction.GetBuildEnName(8));

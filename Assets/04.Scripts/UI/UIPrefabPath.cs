@@ -41,6 +41,7 @@ public class UIPrefabPath
 	public static readonly string ItemRechargeStamina = "Prefab/UI/Items/ItemRechargeStamina";
 
 	public static readonly string ItemGymEngage = "Prefab/UI/Items/ItemGymEngage";
+	public static readonly string UIView = "Prefab/UI/UIView";
 
     public static GameObject LoadUI(string path)
     {
