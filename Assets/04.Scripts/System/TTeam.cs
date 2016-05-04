@@ -1451,7 +1451,7 @@ namespace GameStruct
 		//找出SuitCard一組的星星數的執行等級
 		public int GetStarLevel (int count, TSuitCard suitcard) {
 			for(int i=0; i<suitcard.StarNum.Length; i++) {
-				if(count < suitcard.StarNum[i]) 
+				if(count <= suitcard.StarNum[i]) 
 					return i;
 
 				if(i == suitcard.StarNum.Length - 1)
