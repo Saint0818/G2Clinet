@@ -96,7 +96,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 45,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 10,
@@ -107,7 +107,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 25,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 10,
@@ -118,7 +118,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 15,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 10,
@@ -129,7 +129,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 10,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 10,
@@ -152,7 +152,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 9,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 10,
@@ -164,7 +164,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 5,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 10,
@@ -176,7 +176,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 3,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 10,
@@ -188,7 +188,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 2,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 10,
@@ -210,7 +210,7 @@
         "itemid": 17001,
         "name": "左耳命中試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -221,7 +221,7 @@
         "itemid": 17002,
         "name": "左耳外線試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -232,7 +232,7 @@
         "itemid": 17003,
         "name": "左耳速度試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -243,7 +243,7 @@
         "itemid": 17004,
         "name": "左耳耐力試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -254,7 +254,7 @@
         "itemid": 17005,
         "name": "左耳力量試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -265,7 +265,7 @@
         "itemid": 17006,
         "name": "左耳灌籃試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -276,7 +276,7 @@
         "itemid": 17007,
         "name": "左耳籃板試管",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -287,7 +287,7 @@
         "itemid": 18001,
         "name": "右耳火鍋注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -298,7 +298,7 @@
         "itemid": 18002,
         "name": "右耳防守注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -309,7 +309,7 @@
         "itemid": 18003,
         "name": "右耳抄截注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -320,7 +320,7 @@
         "itemid": 18004,
         "name": "右耳控球注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -331,7 +331,7 @@
         "itemid": 18005,
         "name": "右耳傳球注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -342,7 +342,7 @@
         "itemid": 18006,
         "name": "右耳命中注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -353,7 +353,7 @@
         "itemid": 18007,
         "name": "右耳外線注射劑",
         "num": 20,
-        "rate": 10,
+        "rate": 20,
         "star": 2
     },
     {
@@ -365,7 +365,7 @@
         "itemid": 17001,
         "name": "左耳命中試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -377,7 +377,7 @@
         "itemid": 17002,
         "name": "左耳外線試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -389,7 +389,7 @@
         "itemid": 17003,
         "name": "左耳速度試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -401,7 +401,7 @@
         "itemid": 17004,
         "name": "左耳耐力試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -413,7 +413,7 @@
         "itemid": 17005,
         "name": "左耳力量試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -425,7 +425,7 @@
         "itemid": 17006,
         "name": "左耳灌籃試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -437,7 +437,7 @@
         "itemid": 17007,
         "name": "左耳籃板試管",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -449,7 +449,7 @@
         "itemid": 18001,
         "name": "右耳火鍋注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -461,7 +461,7 @@
         "itemid": 18002,
         "name": "右耳防守注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -473,7 +473,7 @@
         "itemid": 18003,
         "name": "右耳抄截注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -485,7 +485,7 @@
         "itemid": 18004,
         "name": "右耳控球注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -497,7 +497,7 @@
         "itemid": 18005,
         "name": "右耳傳球注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -509,7 +509,7 @@
         "itemid": 18006,
         "name": "右耳命中注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
@@ -521,11 +521,11 @@
         "itemid": 18007,
         "name": "右耳外線注射劑",
         "num": 20,
-        "rate": 1,
+        "rate": 10,
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -536,7 +536,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -547,7 +547,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -558,7 +558,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -569,7 +569,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -580,7 +580,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -591,7 +591,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -602,7 +602,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -613,7 +613,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -624,7 +624,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -635,7 +635,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -646,7 +646,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -657,7 +657,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -668,7 +668,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -679,7 +679,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -690,7 +690,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -701,7 +701,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -712,7 +712,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -723,7 +723,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -734,7 +734,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -745,7 +745,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -756,7 +756,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -767,7 +767,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -778,7 +778,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -789,7 +789,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -800,7 +800,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -811,7 +811,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -822,7 +822,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -833,7 +833,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 940,
@@ -844,7 +844,7 @@
         "star": 6
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 940,
@@ -855,7 +855,7 @@
         "star": 6
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -866,7 +866,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -877,7 +877,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 500,
@@ -888,7 +888,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -899,7 +899,7 @@
         "star": 2
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -910,7 +910,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -921,7 +921,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -932,7 +932,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -943,7 +943,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 570,
@@ -954,7 +954,7 @@
         "star": 3
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -965,7 +965,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -976,7 +976,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -987,7 +987,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -998,7 +998,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1009,7 +1009,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1020,7 +1020,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1031,7 +1031,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1042,7 +1042,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1053,7 +1053,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1064,7 +1064,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1075,7 +1075,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1086,7 +1086,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1097,7 +1097,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1108,7 +1108,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 640,
@@ -1119,7 +1119,7 @@
         "star": 4
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -1130,7 +1130,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -1141,7 +1141,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 770,
@@ -1152,7 +1152,7 @@
         "star": 5
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 940,
@@ -1163,7 +1163,7 @@
         "star": 6
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 940,
@@ -1174,7 +1174,7 @@
         "star": 6
     },
     {
-        "kind": 12,
+        "kind": 10,
         "kind2": 2,
         "spendkind": 0,
         "price": 940,
@@ -9842,7 +9842,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 45,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 11,
@@ -9853,7 +9853,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 25,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -9864,7 +9864,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 15,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 11,
@@ -9875,7 +9875,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 10,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 11,
@@ -9898,7 +9898,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 9,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 11,
@@ -9910,7 +9910,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 5,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -9922,7 +9922,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 3,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 11,
@@ -9934,7 +9934,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 2,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 11,
@@ -10727,7 +10727,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 4,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -11266,7 +11266,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 8,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -11805,7 +11805,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 8,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -12432,7 +12432,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 8,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -12586,7 +12586,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 4,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 11,
@@ -12685,7 +12685,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 3,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 11,
@@ -13202,7 +13202,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 8,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -13444,7 +13444,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 3,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 11,
@@ -13642,7 +13642,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 2,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 11,
@@ -13895,7 +13895,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 2,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 11,
@@ -14093,7 +14093,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 45,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 12,
@@ -14104,7 +14104,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 25,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 12,
@@ -14115,7 +14115,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 15,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 12,
@@ -14126,7 +14126,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 10,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 12,
@@ -14148,7 +14148,7 @@
         "name": "我愛籃球黑幫 I",
         "num": 1,
         "rate": 9,
-        "star": 5
+        "star": 1
     },
     {
         "kind": 12,
@@ -14160,7 +14160,7 @@
         "name": "我愛籃球黑幫 II",
         "num": 1,
         "rate": 5,
-        "star": 5
+        "star": 2
     },
     {
         "kind": 12,
@@ -14172,7 +14172,7 @@
         "name": "我愛籃球黑幫 III",
         "num": 1,
         "rate": 3,
-        "star": 5
+        "star": 3
     },
     {
         "kind": 12,
@@ -14184,7 +14184,7 @@
         "name": "我愛籃球黑幫 IV",
         "num": 1,
         "rate": 2,
-        "star": 5
+        "star": 4
     },
     {
         "kind": 12,

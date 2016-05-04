@@ -23,17 +23,17 @@
     {
         "id": 205,
         "tw": "角 色",
-        "en": "Character"
+        "en": "Player"
     },
     {
         "id": 206,
-        "tw": "確定刪除此角色？",
-        "en": "Do you want to delete this character?"
+        "tw": "確定刪除此球員？",
+        "en": "Do you want to delete this player?"
     },
     {
         "id": 207,
-        "tw": "確定花費 [FF00FFFF]{0}[-] 寶石購買角色欄位？",
-        "en": "Do you want to spend [FF00FFFF]{0}[-]  gems to purchase character column?"
+        "tw": "確定花費 [FF00FFFF]{0}[-] 寶石購買球員欄位？",
+        "en": "Do you want to spend [FF00FFFF]{0}[-]  gems to purchase player column?"
     },
     {
         "id": 208,
@@ -49,8 +49,8 @@
     {
         "id": 210,
         "explain": "前往創角大廳確認",
-        "tw": "確認前往選擇其他角色？",
-        "en": "Do you want to select other characters?"
+        "tw": "確認前往選擇其他球員？",
+        "en": "Do you want to select other player?"
     },
     {
         "id": 211,
@@ -272,8 +272,8 @@
     },
     {
         "id": 306,
-        "tw": "三種體型的人物角色有自己的能力特色喔！！",
-        "en": "The 3 characters will different body types each have their own ability and features!!"
+        "tw": "三種體型的人物球員有自己的能力特色喔！！",
+        "en": "The 3 player will different body types each have their own ability and features!!"
     },
     {
         "id": 307,
@@ -372,9 +372,9 @@
     },
     {
         "id": 513,
-        "explain": "第三個角色欄位",
-        "tw": "購買角色欄位需花費 [FF00FFFF]{0}[-] 寶石。",
-        "en": "You need to spend [FF00FFFF]{0}[-]  gems to purchase character column."
+        "explain": "第三個球員欄位",
+        "tw": "購買球員欄位需花費 [FF00FFFF]{0}[-] 寶石。",
+        "en": "You need to spend [FF00FFFF]{0}[-]  gems to purchase player column."
     },
     {
         "id": 514,
@@ -727,7 +727,7 @@
     {
         "id": 1510,
         "explain": "解鎖第三支球員",
-        "uipath": "10.創角介面的第三位角色",
+        "uipath": "10.創角介面的第三位球員",
         "tw": "LV{0}時可開啟此功能，獲得第三隻球員",
         "en": "You can activate this function at LV{0} and acquire the third player."
     },
@@ -899,7 +899,7 @@
     {
         "id": 1610,
         "explain": "解鎖第三支球員",
-        "uipath": "10.創角介面的第三位角色",
+        "uipath": "10.創角介面的第三位球員",
         "tw": "成功解鎖[FFDD33]新球員[-]",
         "en": "Successfully unlocked [FFDD33]New Player[-] "
     },
@@ -993,7 +993,7 @@
     {
         "id": 2001,
         "explain": "創角流程",
-        "tw": "創立角色",
+        "tw": "創立球員",
         "en": "CREATE PLAYER"
     },
     {
@@ -1053,14 +1053,14 @@
     {
         "id": 3001,
         "explain": "玩家資訊",
-        "tw": "角色資訊",
-        "en": "Character Information"
+        "tw": "球員資訊",
+        "en": "Player Information"
     },
     {
         "id": 3002,
         "uipath": "0/BtnLabel",
-        "tw": "角 色",
-        "en": "Character"
+        "tw": "球 員",
+        "en": "Player"
     },
     {
         "id": 3003,
@@ -1615,7 +1615,7 @@
     },
     {
         "id": 3601,
-        "explain": "變更角色顯示用的大頭圖片",
+        "explain": "變更球員顯示用的大頭圖片",
         "tw": "變更頭像",
         "en": "Change Icon"
     },
@@ -5558,14 +5558,14 @@
     {
         "id": 12031,
         "uipath": "SubheadLabel0",
-        "tw": "切換角色",
-        "en": "Switch Character"
+        "tw": "切換球員",
+        "en": "Switch Player"
     },
     {
         "id": 12032,
         "uipath": "0/BtnLabel",
-        "tw": "選擇其他角色",
-        "en": "Select other character"
+        "tw": "選擇其他球員",
+        "en": "Select other player"
     },
     {
         "id": 12033,

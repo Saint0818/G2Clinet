@@ -3,8 +3,8 @@
         "id": 1,
         "line": 1,
         "title": "裝備",
-        "kind": 4,
-        "value": 3,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -14,15 +14,8 @@
     {
         "id": 1,
         "line": 2,
-        "kind": 4,
-        "value": 3,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/EquipmentBt"
-    },
-    {
-        "id": 1,
-        "line": 3,
-        "kind": 4,
-        "value": 3,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -31,9 +24,9 @@
     },
     {
         "id": 1,
-        "line": 4,
-        "kind": 4,
-        "value": 3,
+        "line": 3,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -42,37 +35,58 @@
     },
     {
         "id": 1,
-        "line": 5,
-        "kind": 4,
-        "value": 3,
+        "line": 4,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0/View/MaterialItem(Clone)"
     },
     {
         "id": 1,
-        "line": 6,
-        "kind": 4,
-        "value": 3,
+        "line": 5,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "wait": 1
     },
     {
         "id": 1,
-        "line": 7,
-        "kind": 4,
-        "value": 3,
+        "line": 6,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot1/View/MaterialItem(Clone)"
     },
     {
         "id": 1,
+        "line": 7,
+        "kind": 0,
+        "uiname": "UIEquipment",
+        "wait": 1
+    },
+    {
+        "id": 1,
         "line": 8,
-        "kind": 4,
-        "value": 3,
-        "wait": 2
+        "kind": 0,
+        "uiname": "UIEquipment",
+        "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UpgradeBtn"
     },
     {
         "id": 1,
         "line": 9,
-        "kind": 4,
-        "value": 3,
+        "kind": 0,
+        "uiname": "UIEquipment",
+        "wait": 3
+    },
+    {
+        "id": 1,
+        "line": 10,
+        "kind": 0,
+        "uiname": "UIEquipment",
+        "uipath": "UI2D/UILevelUp/Window/BottomRight/NextLabel"
+    },
+    {
+        "id": 1,
+        "line": 11,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -81,9 +95,9 @@
     },
     {
         "id": 1,
-        "line": 10,
-        "kind": 4,
-        "value": 3,
+        "line": 12,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -92,9 +106,9 @@
     },
     {
         "id": 1,
-        "line": 11,
-        "kind": 4,
-        "value": 3,
+        "line": 13,
+        "kind": 0,
+        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/BottomLeft/BackBtn"
     },
     {
@@ -651,7 +665,7 @@
         "id": 7,
         "line": 7,
         "kind": 4,
-        "wait": 1
+        "wait": 2
     },
     {
         "id": 7,
@@ -669,20 +683,11 @@
         "id": 7,
         "line": 10,
         "kind": 4,
-        "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt"
+        "uipath": "UI2D/UIGetSkillCard/BottomRight/NextLabel"
     },
     {
         "id": 7,
-        "line": 11
-    },
-    {
-        "id": 7,
-        "line": 12,
-        "uipath": "UI2D/UIGetSkillCard/BottomRight"
-    },
-    {
-        "id": 7,
-        "line": 13,
+        "line": 11,
         "kind": 4,
         "talkindex": 0,
         "talkl": 1411,
@@ -692,14 +697,14 @@
     },
     {
         "id": 7,
-        "line": 14,
+        "line": 12,
         "kind": 4,
         "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
         "texten": "I will teach you my talant."
     },
     {
         "id": 7,
-        "line": 15,
+        "line": 13,
         "kind": 4,
         "talkindex": 1,
         "talkr": -1,
@@ -709,9 +714,20 @@
     },
     {
         "id": 7,
-        "line": 16,
+        "line": 14,
         "kind": 4,
         "uipath": "UI2D/UIMall/BottomLeft/BackBtn"
+    },
+    {
+        "id": 7,
+        "line": 15,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 16,
+        "kind": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
         "id": 7,
@@ -722,39 +738,28 @@
         "id": 7,
         "line": 18,
         "kind": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
-    },
-    {
-        "id": 7,
-        "line": 19,
-        "kind": 4
-    },
-    {
-        "id": 7,
-        "line": 20,
-        "kind": 4,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
     },
     {
         "id": 7,
-        "line": 21,
+        "line": 19,
         "kind": 4,
         "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 7,
-        "line": 22,
+        "line": 20,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 7,
-        "line": 23,
+        "line": 21,
         "kind": 4
     },
     {
         "id": 7,
-        "line": 24,
+        "line": 22,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
@@ -1041,7 +1046,7 @@
         "id": 22,
         "line": 1,
         "title": "技能升星",
-        "kind": 0,
+        "kind": 2,
         "value": 2113,
         "talkindex": 1,
         "actionl": 5,
