@@ -3597,13 +3597,13 @@
         "id": 9303,
         "uipath": "ConditionTitle/TitleLabel",
         "tw": "限制條件",
-        "en": "Limited Requirements"
+        "en": "LIMITED REQUIREMENTS"
     },
     {
         "id": 9304,
         "uipath": "Awards/AwardLabel",
         "tw": "— 有機率獲得 —",
-        "en": "— Has a probability of obtaining — "
+        "en": "— Possible Reward — "
     },
     {
         "id": 9305,
@@ -3633,13 +3633,13 @@
         "id": 9309,
         "uipath": "StageHint/TargetLabel",
         "tw": "競賽目標",
-        "en": "Game Targets"
+        "en": "GAME TARGETS"
     },
     {
         "id": 9310,
         "uipath": "AwardLabel1",
         "tw": " [FFDD33]必定獲得[-]",
-        "en": " [FFDD33]Will definitely obtain[-] "
+        "en": " [FFDD33]Definitely Obtain[-] "
     },
     {
         "id": 9311,
@@ -3657,7 +3657,7 @@
         "id": 9313,
         "uipath": "AwardLabel2",
         "tw": "過關獎勵",
-        "en": "Clearance Rewards"
+        "en": "REWARDS"
     },
     {
         "id": 9314,
@@ -6115,17 +6115,17 @@
     {
         "id": 2000107,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-]  has to be higher than your opponent."
+        "en": "[33FFDD]Your Final Score[-] higher than opponent."
     },
     {
         "id": 2000108,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-]  has to be higher than your opponent."
+        "en": "[33FFDD]Your Final Score[-] higher than opponent."
     },
     {
         "id": 2000109,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-]  has to be higher than your opponent."
+        "en": "[33FFDD]Your Final Score[-] higher than opponent."
     },
     {
         "id": 2000200,
