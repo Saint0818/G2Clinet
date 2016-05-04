@@ -42,6 +42,7 @@ public class MainStageWinProtocol
             GameData.Team.Items = reward.Items;
             GameData.Team.ValueItems = reward.ValueItems;
             GameData.Team.MaterialItems = reward.MaterialItems;
+            GameData.Team.GotItemCount = reward.GotItemCount;
 
             mCallback(true, reward);
         }
