@@ -1145,6 +1145,30 @@ public static class GameFunction
 		return false;
 	}
 
+	public static bool IsBuildLvEnough (int buildIndex) {
+		switch (buildIndex) {
+		case 0:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateBasket);
+		case 1:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateAdvertisement);
+		case 2:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateStore);
+		default:
+		case 3:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateGym);
+		case 4:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateDoor);
+		case 5:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateLogo);
+		case 6:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateChair);
+		case 7:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateCalendar);
+		case 8:
+			return GameData.IsOpenUIEnable(GameEnum.EOpenID.OperateMail);
+		}
+	}
+
 	public static string GetBuildEnName (int index) {
 		switch (index) {
 		case 0:

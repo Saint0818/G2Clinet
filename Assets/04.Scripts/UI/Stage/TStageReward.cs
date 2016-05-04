@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 
@@ -90,6 +91,9 @@ public class TStageReward
     /// </summary>
     [UsedImplicitly]
     public TSkill[] SkillCards;
+
+    [UsedImplicitly]
+    public Dictionary<int, int> GotItemCount;
 
     public override string ToString()
     {

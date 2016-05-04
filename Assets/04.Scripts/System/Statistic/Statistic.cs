@@ -17,13 +17,19 @@ public class Statistic
         get { return INSTANCE; }
     }
 
-    private readonly List<IStatisticService> mServices = new List<IStatisticService>
-    {
-        new StatisticGA(),
-        new StatisticNodeJs()
-    };
+    private readonly List<IStatisticService> mServices = new List<IStatisticService>();
 
-    private Statistic() {}
+    private Statistic()
+    {
+        if(Application.platform == RuntimePlatform.Android ||
+           Application.platform == RuntimePlatform.WindowsEditor ||
+           Application.platform == RuntimePlatform.OSXEditor)
+        {
+            mServices.Add(new StatisticGA());
+        }
+
+        mServices.Add(new StatisticNodeJs());
+    }
 
     /// <summary>
     /// 

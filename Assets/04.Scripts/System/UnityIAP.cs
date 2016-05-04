@@ -192,7 +192,7 @@ public class UnityIAP : MonoBehaviour, IStoreListener
         // The FakeStore supports: no-ui (always succeeding), basic ui (purchase pass/fail), and 
         // developer ui (initialization, purchase, failure code setting). These correspond to 
         // the FakeStoreUIMode Enum values passed into StandardPurchasingModule.useFakeStoreUIMode.
-        module.useFakeStoreUIMode = FakeStoreUIMode.StandardUser;
+        module.useFakeStoreUIMode = FakeStoreUIMode.DeveloperUser;
 
         var builder = ConfigurationBuilder.Instance(module);
         // This enables the Microsoft IAP simulator for local testing.
