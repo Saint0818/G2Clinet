@@ -441,7 +441,8 @@ public class UIPlayerPotential : UIBase {
 
             GameData.Team.Player.Potential = team.Player.Potential;
             GameData.Team.Diamond = team.Diamond;
-            GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
+			//GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
+			GameData.Team.PlayerInit();
             upgradeView.OnCancel();
             UpdateView();
             UIMainLobby.Get.UpdateUI();
