@@ -987,8 +987,14 @@
     },
     {
         "id": 2001,
-        "explain": "創角",
-        "tw": "創立角色"
+        "explain": "創角流程",
+        "tw": "創立角色",
+        "en": "CREATE PLAYER"
+    },
+    {
+        "id": 2101,
+        "explain": "選擇職業",
+        "en": "SELECT POSITION"
     },
     {
         "id": 2102,
@@ -3762,47 +3768,54 @@
         "explain": "聘請自由球員",
         "uipath": "BtnLabel",
         "tw": "聘請自由球員[00ff00]{0}[-]天",
-        "en": "Hire free agents [00ff00] {0} [-] Days"
+        "en": "Hire free agents [00ff00] {0} [-] Days",
+        "jp": "ok"
     },
     {
         "id": 9521,
         "explain": "已聘僱",
         "uipath": "BtnLabel",
         "tw": "聘僱倒數[FF0000FF]{0}[-]",
-        "en": "Hiring Countdown [FF0000FF] {0} [-] "
+        "en": "Hiring Countdown [FF0000FF] {0} [-] ",
+        "jp": "ok"
     },
     {
         "id": 9522,
         "explain": "鎖定中",
         "uipath": "LockLabel",
         "tw": "未聘僱自由球員",
-        "en": "Not hiring free agent"
+        "en": "Not hiring free agent",
+        "jp": "ok"
     },
     {
         "id": 9523,
         "tw": "花費{0}鑽石雇用自由球員？",
-        "en": " {0} Diamond spent hiring free agent?"
+        "en": "Do you spend {0} diamond to hiring free agent?",
+        "jp": "ok"
     },
     {
         "id": 9524,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
         "tw": "線上玩家",
-        "en": "Players online"
+        "en": "Players",
+        "jp": "ok"
     },
     {
         "id": 9525,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
         "tw": "夥 伴",
-        "en": "Partnerships"
+        "en": "Partner",
+        "jp": "ok"
     },
     {
         "id": 9526,
         "explain": "玩家info身份判定",
         "uipath": "IDCheckLabel",
         "tw": "自由球員",
-        "en": "Free agent"
+        "en": "Free Agent",
+        "jp": "ok"
     },
     {
         "id": 9601,
