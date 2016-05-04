@@ -54,8 +54,8 @@ public class UIGamePlayerInfo : UIBase {
 	private static UIGamePlayerInfo instance = null;
 	private const string UIName = "UIGamePlayerInfo";
 
-	private TGamePersonalValue gamePersonalvalue = new TGamePersonalValue();
-	private TGamePersonalView gamePersonalView = new TGamePersonalView();
+	private TGamePersonalValue gamePersonalvalue;
+	private TGamePersonalView gamePersonalView;
 	private UILabel[] normalAbilitys = new UILabel[12];
 	private UILabel[] buffAbilitys = new UILabel[12];
 	private UISprite[] buffLines = new UISprite[12];
@@ -115,6 +115,7 @@ public class UIGamePlayerInfo : UIBase {
 	}
 
 	protected override void InitCom() {
+		gamePersonalView = new TGamePersonalView();
 		gamePersonalView.labelName = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PlayerName/NameLabel").GetComponent<UILabel>();
 		gamePersonalView.labelCombat = GameObject.Find(UIName + "/Window/Right/View/PersonalView/CombatView/CombatLabel").GetComponent<UILabel>();
 		gamePersonalView.spritePvPRank = GameObject.Find(UIName + "/Window/Right/View/PersonalView/PvPRankIcon").GetComponent<UISprite>();
@@ -226,6 +227,7 @@ public class UIGamePlayerInfo : UIBase {
 		isFriend = checkIsFriend(playerID);
 		skillCards = team.Player.SkillCards;
 		buttonMakeFriend.gameObject.SetActive(!isFriend);
+		gamePersonalvalue = new TGamePersonalValue();
 		gamePersonalvalue.Name = team.Player.Name;
 		gamePersonalvalue.Identifier = team.Identifier;
 		gamePersonalvalue.CombatPower = team.Player.CombatPower();
