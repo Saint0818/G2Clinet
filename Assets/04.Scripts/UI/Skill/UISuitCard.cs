@@ -217,7 +217,7 @@ public class UISuitCard {
 
 	private UILabel labelSuitCost;
 	private UIScrollView scrollView;
-	private UISuitCardGrid suitCardGrid;
+//	private UISuitCardGrid suitCardGrid;
 	private GameObject viewCaption;
 	private UILabel labelCaptionSuitName;
 	private UIScrollView scrollViewCaption;
@@ -244,7 +244,8 @@ public class UISuitCard {
 			
 			labelSuitCost = GameObject.Find(UIName + "/Window1/SuitCardsView/Top/SuitCostLabel").GetComponent<UILabel>();
 			scrollView = GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView").GetComponent<UIScrollView>();
-			suitCardGrid =  GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView/Grid").GetComponent<UISuitCardGrid>();
+//			scrollView.onDragFinished = dragFinish;
+//			suitCardGrid =  GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView/Grid").GetComponent<UISuitCardGrid>();
 			viewCaption = GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView");
 			UIEventListener.Get(GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView/CoverCollider")).onClick = HideCaption;
 			labelCaptionSuitName = GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView/View/SuitNameLabel").GetComponent<UILabel>();
@@ -327,17 +328,21 @@ public class UISuitCard {
 			if(executeLevel != groupValue.SuitCard.StarNum.Length -1) 
 				groupValue.NextStar = groupValue.SuitCard.StarNum[executeLevel + 1];
 
-			item.UpdateView(obj, suitCardGrid.transform, groupValue);
+			item.UpdateView(obj, scrollView.transform, groupValue);
 			itemSuitCards.Add(item);
 			index ++;
 		}
 
-		suitCardGrid.init();
-		suitCardGrid.mChildren = itemSuitCards;
-		suitCardGrid.WrapContent(false);
+//		suitCardGrid.init();
+//		suitCardGrid.mChildren = itemSuitCards;
+//		dragFinish ();
 
 		labelSuitCost.text = costNow + " / " + costMax.ToString();
 	}
+			
+//	private void dragFinish () {
+//		suitCardGrid.WrapContent(false);	
+//	}
 
 	private void findItemIDMax (int[] itemids, ref TItemData itemdata, ref int itemlv , ref int count) {
 		int id = 0;
@@ -374,10 +379,9 @@ public class UISuitCard {
 //	}
 
 	public void MoveToID (int id) {
-		if(id >0) {
-			scrollView.gameObject.transform.localPosition = new Vector3(15, 75 + (200 * (id-1)), 0);
-			scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 70));
-		}
+		int index = GameData.Team.GetSuitCardIndex(id);
+		scrollView.gameObject.transform.localPosition = new Vector3(15, 30 + (345 * index), 0);
+		scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 20));
 	}
 
 	public void ClickCard (GameObject go) {

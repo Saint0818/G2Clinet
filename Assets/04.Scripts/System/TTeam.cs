@@ -1317,6 +1317,21 @@ namespace GameStruct
 			return false;
 		}
 
+		public int GetSuitCardIndex (int suitcardID) {
+			int index = 0;
+			int tempIndex = -1;
+			foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) {
+				tempIndex ++ ;
+				if(item.Key == suitcardID) 
+					break;
+			}
+			if(tempIndex == -1)
+				index = 0;
+			else 
+				index = tempIndex;
+			return index;
+		}
+
 		/// <summary>
 		/// 套卡啟動值使用的數量
 		/// </summary>

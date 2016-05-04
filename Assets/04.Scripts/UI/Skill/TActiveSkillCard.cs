@@ -268,7 +268,6 @@ public class TActiveSkillCard
 			SuitCard.gameObject.name = suitcardID.ToString();
 			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
 		}
-		SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID) && GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard));
 	}
 
 	public void UpdateSuitItem (int suitItemID) {
