@@ -653,7 +653,7 @@
         "id": 7,
         "line": 7,
         "kind": 4,
-        "wait": 2
+        "wait": 0.2
     },
     {
         "id": 7,
@@ -665,7 +665,7 @@
         "id": 7,
         "line": 9,
         "kind": 4,
-        "wait": 4
+        "wait": 6
     },
     {
         "id": 7,
@@ -687,6 +687,7 @@
         "id": 7,
         "line": 12,
         "kind": 4,
+        "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt",
         "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
         "texten": "I will teach you my talant."
     },
