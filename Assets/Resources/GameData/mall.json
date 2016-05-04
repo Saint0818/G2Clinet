@@ -1,80 +1,80 @@
 [
     {
-        "android": "com.nicemarket.g2.1",
+        "android": "com.nicemarket.g2candan.diamond1",
         "diamonds": 200,
         "diamondcn": 200,
         "order": 5,
         "pricetw": "NTD 90",
         "priceen": "USD 2.99",
-        "pricecn": "¥6",
-        "pricejp": "¥6",
+        "pricecn": "¥ 18 ",
+        "pricejp": "¥ 320",
         "nametw": "一小堆寶石",
         "nameen": "Handful of Gems"
     },
     {
-        "android": "com.nicemarket.g2.2",
+        "android": "com.nicemarket.g2candan.diamond2",
         "diamonds": 650,
         "diamondcn": 650,
         "order": 1,
         "pricetw": "NTD 300",
-        "priceen": "USD 9.99",
-        "pricecn": "¥30",
-        "pricejp": "¥30",
+        "priceen": "USD 8.99",
+        "pricecn": "¥ 60",
+        "pricejp": "¥ 1050",
         "nametw": "一小袋寶石\n[FFCC00FF](＋5%)[-] ",
-        "nameen": "Bundle of gems \n[FFCC00FF](＋5%)[-] "
+        "nameen": "Bundle of Gems \n[FFCC00FF](＋5%)[-] "
     },
     {
-        "android": "com.nicemarket.g2.3",
+        "android": "com.nicemarket.g2candan.diamond3",
         "diamonds": 1500,
         "diamondcn": 1500,
         "order": 0,
         "sale": 2,
         "pricetw": "NTD 590",
-        "priceen": "USD 19.99",
-        "pricecn": "¥60",
-        "pricejp": "¥60",
+        "priceen": "USD 17.99",
+        "pricecn": "¥ 120",
+        "pricejp": "¥ 2100",
         "nametw": "一大袋寶石 \n[FFCC00FF](＋20%)[-] ",
-        "nameen": "Pile of gems \n[FFCC00FF](＋20%)[-] "
+        "nameen": "Pile of Gems \n[FFCC00FF](＋20%)[-] "
     },
     {
-        "android": "com.nicemarket.g2.4",
+        "android": "com.nicemarket.g2candan.diamond4",
         "diamonds": 2350,
         "diamondcn": 2350,
         "order": 2,
         "pricetw": "NTD 890",
-        "priceen": "USD 29.99",
-        "pricecn": "¥120",
-        "pricejp": "¥120",
+        "priceen": "USD 26.99",
+        "pricecn": "¥ 180",
+        "pricejp": "¥ 3150",
         "nametw": "一小箱寶石 \n[FFCC00FF](＋25%)[-] ",
-        "nameen": "Bag of gems \n[FFCC00FF](＋25%)[-] "
+        "nameen": "Bag of Gems \n[FFCC00FF](＋25%)[-] "
     },
     {
-        "android": "com.nicemarket.g2.5",
+        "android": "com.nicemarket.g2candan.diamond5",
         "diamonds": 4100,
         "diamondcn": 4100,
         "order": 4,
         "pricetw": "NTD 1490",
-        "priceen": "USD 49.99",
-        "pricecn": "¥300",
-        "pricejp": "¥300",
+        "priceen": "USD 44.99",
+        "pricecn": "¥ 300",
+        "pricejp": "¥ 5300",
         "nametw": "一大箱寶石 \n[FFCC00FF](＋30%)[-] ",
-        "nameen": "Box of gems \n[FFCC00FF](＋30%)[-] "
+        "nameen": "Box of Gems \n[FFCC00FF](＋30%)[-] "
     },
     {
-        "android": "com.nicemarket.g2.6",
+        "android": "com.nicemarket.g2candan.diamond6",
         "diamonds": 9500,
         "diamondcn": 9500,
         "order": 3,
         "sale": 1,
         "pricetw": "NTD 2990",
-        "priceen": "USD 99.99",
-        "pricecn": "¥500",
-        "pricejp": "¥500",
+        "priceen": "USD 89.99",
+        "pricecn": "¥ 500",
+        "pricejp": "¥ 10500",
         "nametw": "一倉庫寶石 \n[FFCC00FF](＋50%)[-] ",
-        "nameen": "Strongbox of gems \n[FFCC00FF](＋50%)[-] "
+        "nameen": "Strongbox of Gems \n[FFCC00FF](＋50%)[-] "
     },
     {
-        "android": "com.nicemarket.g2.ReBuy1",
+        "android": "com.nicemarket.g2candan.set1",
         "position": 0,
         "skill": 31403,
         "item": "(1020,2020,3020,4020,5020,6022,7022)",
@@ -83,15 +83,15 @@
         "rate": 10,
         "sale": 1,
         "pricetw": "腐化優惠價  NTD 990",
-        "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "priceen": "BUY OR CRY? USD 29.99",
+        "pricecn": "¥ 200",
         "pricejp": "¥500",
         "nametw": "腐化三天王－阿耳戈斯",
         "nameen": "Argus Super Set",
         "explaintw": "技能晶片卡[00ff00]『籃板王傳說 IV』[-]、\n[00ff00]阿耳戈斯套裝[-]七件組！\n\n阿耳戈斯籃板之威，僅此一檔！"
     },
     {
-        "android": "com.nicemarket.g2.ReBuy2",
+        "android": "com.nicemarket.g2candan.set2",
         "position": 1,
         "skill": 31603,
         "item": "(1120,2120,3120,4120,5120,6023,7023)",
@@ -100,15 +100,15 @@
         "rate": 10,
         "sale": 1,
         "pricetw": "腐化優惠價  NTD 990",
-        "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "priceen": "BUY OR CRY? USD 29.99",
+        "pricecn": "¥ 200",
         "pricejp": "¥500",
         "nametw": "腐化三天王－幽鬼",
         "nameen": "Spectre Super Set",
         "explaintw": "技能晶片卡[00ff00]『投籃剋星 IV』[-]、\n[00ff00]幽鬼套裝[-]七件組！\n\n成為對手懼怕的存在！"
     },
     {
-        "android": "com.nicemarket.g2.ReBuy3",
+        "android": "com.nicemarket.g2candan.set3",
         "position": 2,
         "skill": 20523,
         "item": "(1220,2220,3220,4220,5220,6024,7024)",
@@ -117,15 +117,15 @@
         "rate": 10,
         "sale": 1,
         "pricetw": "腐化優惠價  NTD 990",
-        "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "priceen": "BUY OR CRY? USD 29.99",
+        "pricecn": "¥ 200",
         "pricejp": "¥500",
         "nametw": "腐化三天王－塞壬",
         "nameen": "Siren Super Set",
         "explaintw": "技能晶片卡[00ff00]『換手拉杆上籃 IV』[-]、\n[00ff00]塞壬套裝[-]七件組！\n\n現在就擁有塞壬的靈巧身手！"
     },
     {
-        "android": "com.nicemarket.g2.ReBuy4",
+        "android": "com.nicemarket.g2candan.Rset4",
         "position": 0,
         "skill": 31703,
         "item": "(1011,2011,3011,4011,5011,6004,7004)",
@@ -135,14 +135,14 @@
         "sale": 3,
         "pricetw": "街頭獨賣 NTD 750",
         "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "pricecn": "¥ 150",
         "pricejp": "¥500",
         "nametw": "街頭武道家",
         "nameen": "Monk",
         "explaintw": "技能晶片卡[00ff00]『飛身衝撞 IV』[-]、\n[00ff00]街頭武道家套裝[-]七件組！\n\n活動期間獨賣，錯過不再！"
     },
     {
-        "android": "com.nicemarket.g2.ReBuy5",
+        "android": "com.nicemarket.g2candan.set5",
         "position": 1,
         "skill": 30703,
         "item": "(1111,2111,3111,4111,5111,6005,7005)",
@@ -152,14 +152,14 @@
         "sale": 3,
         "pricetw": "街頭獨賣 NTD 750",
         "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "pricecn": "¥ 150",
         "pricejp": "¥500",
         "nametw": "搖滾樂團主唱",
         "nameen": "Vocal",
         "explaintw": "技能晶片卡[00ff00]『狂野雙爆扣 IV』[-]、\n[00ff00]搖滾樂團主唱套裝[-]七件組！\n\n活動期間獨賣，錯過不再！"
     },
     {
-        "android": "com.nicemarket.g2.ReBuy6",
+        "android": "com.nicemarket.g2candan.set6",
         "position": 2,
         "skill": 31503,
         "item": "(1221,2221,3221,4221,5221,6006,7006)",
@@ -169,50 +169,10 @@
         "sale": 3,
         "pricetw": "街頭獨賣 NTD 750",
         "priceen": "BUY OR CRY? USD 24.99",
-        "pricecn": "¥500",
+        "pricecn": "¥ 150",
         "pricejp": "¥500",
         "nametw": "嘻哈靈魂舞者",
         "nameen": "Dancer",
         "explaintw": "技能晶片卡[00ff00]『瞬移抄截 IV』[-]、\n[00ff00]嘻哈靈魂舞者套裝[-]七件組！\n\n活動期間獨賣，錯過不再！"
-    },
-    {
-        "android": "com.nicemarket.g2.NoDiamond1",
-        "kind": 2
-    },
-    {
-        "android": "com.nicemarket.g2.NoDiamond2",
-        "kind": 2
-    },
-    {
-        "android": "com.nicemarket.g2.NoDiamond3",
-        "kind": 2
-    },
-    {
-        "android": "com.nicemarket.g2.NoDiamond4",
-        "kind": 2
-    },
-    {
-        "android": "com.nicemarket.g2.NoDiamond5",
-        "kind": 2
-    },
-    {
-        "android": "com.nicemarket.g2.AfterLose1",
-        "kind": 3
-    },
-    {
-        "android": "com.nicemarket.g2.AfterLose2",
-        "kind": 3
-    },
-    {
-        "android": "com.nicemarket.g2.AfterLose3",
-        "kind": 3
-    },
-    {
-        "android": "com.nicemarket.g2.AfterLose4",
-        "kind": 3
-    },
-    {
-        "android": "com.nicemarket.g2.AfterLose5",
-        "kind": 3
     }
 ]

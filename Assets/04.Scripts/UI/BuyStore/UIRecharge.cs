@@ -327,13 +327,18 @@ public class UIRecharge : UIBase {
 	}
 
 	public void OnBuyDiamond (GameObject go) {
-        if (FileManager.NowMode == VersionMode.Release)
-			UIHint.Get.ShowHint(TextConst.S(502), Color.black);
-        else {
+        if (!SendHttp.Get.IAPinProcess) {
     		int result = -1;
     		if(int.TryParse(go.name, out result)) {
     			if(result >= 0 && result < kindBuyDiamond.Length && result < GameData.DMalls.Length) {
-    				SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
+                    #if UNITY_IOS
+                    if (FileManager.NowMode == VersionMode.Release)
+                        UIHint.Get.ShowHint(TextConst.S(502), Color.black);
+                    else
+                        SendBuyDiamond(kindBuyDiamond[result].mIndex, GameData.DMalls[kindBuyDiamond[result].mIndex].Android);
+                    #else
+                    SendHttp.Get.SendIAP(kindBuyDiamond[result].mIndex, SendBuyDiamond);
+                    #endif
     			}
     		}
         }
@@ -393,9 +398,9 @@ public class UIRecharge : UIBase {
 		for(int i=0; i<GameData.DShops.Length; i++) {
 			if(GameData.DShops[i].Kind == 0) 
 				kindBuyCoin[GameData.DShops[i].Order].RefreshPrice();
-			else if(GameData.DShops[i].Kind == 1) 
+			else 
+            if(GameData.DShops[i].Kind == 1) 
 				kindBuyStamina[GameData.DShops[i].Order].RefreshPrice();
-			
 		}
 	}
 
@@ -475,7 +480,7 @@ public class UIRecharge : UIBase {
                 UIItemHint.Get.FreshUI();
 
 			if(GameData.IsMainStage || GameData.IsInstance || GameData.IsPVP)
-				UIHint.Get.ShowHint(TextConst.S(535), Color.red);
+                UIHint.Get.ShowHint(TextConst.S(535), Color.blue);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.BuyDiamond);

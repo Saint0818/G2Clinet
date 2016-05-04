@@ -7,8 +7,11 @@ using GameEnum;
 using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Purchasing;
 
 public delegate void BoolCallback(bool flag);
+public delegate void BoolWWWCallback(bool ok, WWW www);
+public delegate void IntStringCallback(int index, string str);
 
 public struct TSessionResult {
 	public string sessionID;
@@ -24,8 +27,6 @@ public struct TSkillCardBag {
 	public int Diamond;
 	public int SkillCardBagCount;
 }
-
-public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
 	//public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
@@ -162,14 +163,18 @@ public class SendHttp : KnightSingleton<SendHttp> {
     private float gameTime = 0;
 
 	private string waitingURL;
-	private TBooleanWWWObj waitingCallback = null;
+	private BoolWWWCallback waitingCallback = null;
 	private WWWForm waitingForm = null;
     private Queue<string> confirmFriends = new Queue<string>();
 
-    private EventDelegate.Callback LookFriendsEvent;
+    private int purchaseIndex;
+    private IntStringCallback purchaseCallback;
     private BoolCallback FreshFriendsEvent;
+    private EventDelegate.Callback LookFriendsEvent;
 	private EventDelegate.Callback MakeFriendEvent;
 	private EventDelegate.Callback BuySkillCardBagEvent;
+
+    private UnityIAP unityIAP;
 
     void FixedUpdate() {
         gameTime += Time.deltaTime;
@@ -181,6 +186,22 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		DontDestroyOnLoad(gameObject);
 	}
 
+    public void InitIAP() {
+        if (unityIAP == null) {
+            unityIAP = gameObject.AddComponent<UnityIAP>();
+            unityIAP.InitProducts(GameData.DMalls, ProcessPurchase);
+        }
+    }
+
+    public bool IAPinProcess {
+        get {
+            if (unityIAP != null)
+                return unityIAP.IAPinProcess;
+            else
+                return false;
+        }
+    }
+
 	void OnApplicationFocus(bool focusStatus) {
 		if (!focusStatus) {
             sendGameTime(ref gameTime);
@@ -188,7 +209,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			focusCount++;
 			if (focusCount > 1 && CheckNetwork(true)) {
                 if (needResendLogin()) {
-					checkVersion ();
+                    #if !UNITY_EDITOR
+					CheckVersion ();
+                    #endif
 				} else
 				if (GameData.Team.Player.Lv > 0) {
 
@@ -202,7 +225,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		}
 	}
 
-	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
+	public void Command(string url, BoolWWWCallback callback, WWWForm form = null, bool waiting = true){
 		waitingURL = url;
 		waitingCallback = callback;
 		waitingForm = form;
@@ -230,7 +253,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		}
 	}
 	
-	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj callback) {
+	private IEnumerator WaitForRequest(WWW www,BoolWWWCallback callback) {
 		yield return www;
 		
 		bool flag = false;
@@ -293,18 +316,19 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			if (www.text.Contains("{err:")) {
 				string e = www.text.Substring(6, www.text.Length - 7);
                 #if ShowHttpLog
-				Debug.Log(www.url);
-				Debug.Log(e);
+				Debug.Log(www.url + " " + e);
                 #endif
 				
+                #if !UNITY_EDITOR
                 if (needResendLogin()) {
 					if (!versionChecked)
-						checkVersion();
+						CheckVersion();
 					else
 						SendLogin();
 					
 					return false;
 				}
+                #endif
 				
 				if (e == "Please login first.") {
 					if (UIWaitingHttp.Visible) {
@@ -315,33 +339,27 @@ public class SendHttp : KnightSingleton<SendHttp> {
 							UIWaitingHttp.Get.WaitForCheckSession();
 					}
 				} else
-					if (e == "Team not Found." ||
-					    e == "You have not created." ||
-					   e.Contains("connect")) {
+				if (e == "Team not Found." ||e == "You have not created." || e.Contains("connect")) {
 					if (UIWaitingHttp.Visible)
 						UIWaitingHttp.Get.ShowResend(TextConst.S (508));
 				} else
-				if (e == "Fight end." || e == "Receipt error.") {
 					UIWaitingHttp.UIShow(false);
-				} else {
-					UIWaitingHttp.UIShow(false);
-				}
 			} else
 				return true;
-		} else
-		{
+		} else {
             #if ShowHttpLog
 			Debug.Log(www.url + " : " + www.error);
             #endif
+
             if (www.error.Contains("Failed to connect to") ||
                 www.error.Contains("couldn't connect to host") || 
                 www.error.Contains("Couldn't resolve host")) {
 				UIWaitingHttp.UIShow(false);
-                UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion, openNotic);
+                UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), CheckVersion, openNotic);
 			} else
             if (needResendLogin()) {
 				if (!versionChecked)
-					checkVersion();
+					CheckVersion();
 				else
 					SendLogin();
 			} else
@@ -353,16 +371,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			    www.error.Contains("request")|| 
 			    www.error.Contains("connect") ||
 			    www.error.Contains("Connection") ||
-			    www.error == "Empty reply from server")
-			{
+			    www.error == "Empty reply from server") {
 				if (UIWaitingHttp.Visible)
 					UIWaitingHttp.Get.ShowResend(TextConst.S (508));
 			} else 
-			if (www.error.Contains("404 Not Found")){
+			if (www.error.Contains("404 Not Found"))
 				UIWaitingHttp.UIShow(false);
-			} else {
-				//UIMessage.Get.ShowMessage(TextConst.S(36), www.error);
-			}
 		}
 		
 		return false;
@@ -411,15 +425,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		}
 	}
 
-	public void checkVersion() {
+    public void CheckVersion() {
 		WWWForm form = new WWWForm();
 		addLoginInfo(ref form);
 		Command(URLConst.Version, waitVersion, form);
-	}
-
-	public void CheckServerData()
-	{
-		checkVersion();
 	}
 
     public bool CheckServerMessage(string text) {
@@ -514,6 +523,21 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else
 			UIHint.Get.ShowHint("Login fail.", Color.red);
 	}
+
+    public bool SendIAP(int index, IntStringCallback callback) {
+        if (unityIAP != null) {
+            purchaseIndex = index;
+            purchaseCallback = callback;
+            unityIAP.OnBuy(index);
+            return true;
+        } else
+            return false;
+    }
+
+    public void ProcessPurchase(PurchaseEventArgs e) {
+        if (purchaseCallback != null)
+            purchaseCallback(purchaseIndex, e.purchasedProduct.receipt);
+    }
 
     public void SyncDailyRecord() {
         WWWForm form = new WWWForm();

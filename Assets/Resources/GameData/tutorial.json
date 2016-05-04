@@ -1685,6 +1685,8 @@
         "line": 4,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self0/PassMe/View",
+        "offsety": -0.3,
+        "wait": 1.5,
         "texttw": "你只可以操作紅色三角形頭標球員移動。",
         "texten": "Now, move the joystick to the place you wanna go!"
     },
@@ -1718,6 +1720,8 @@
         "line": 2,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self1/PassA/View",
+        "offsety": -0.3,
+        "wait": 1.5,
         "texttw": "[6666ff]藍色[-]頭標是隊友A",
         "texten": "[6666ff] Blue [-] mark is teammate A."
     },
@@ -1726,6 +1730,8 @@
         "line": 3,
         "kind": 3,
         "scalepath": "PlayerInfoModel/Self2/PassB/View",
+        "offsety": -0.3,
+        "wait": 1.5,
         "texttw": "[66ff66]綠色[-]頭標是隊友B",
         "texten": "[66ff66] Green [-] mark is teammate B."
     },
