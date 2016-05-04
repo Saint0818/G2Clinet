@@ -193,8 +193,12 @@ public class UISelectPartner : UIBase {
 	private void initSkillList(int index) {
         if (index < memberList[nowPage].Count) {
             labelSelect.text = memberList[nowPage][index].Player.Name;
+            int count = 0;
     		for (int i = 0; i < memberList[nowPage][index].Player.SkillCards.Length; i++)
-                addSkillItem(i, memberList[nowPage][index].Player.SkillCards[i]);
+                if (GameData.DSkillData.ContainsKey(memberList[nowPage][index].Player.SkillCards[i].ID)) {
+                    addSkillItem(count, memberList[nowPage][index].Player.SkillCards[i]);
+                    count++;
+                }
 
             for (int i = memberList[nowPage][index].Player.SkillCards.Length; i < skillList.Count; i++)
                 skillList[i].Enable = false;
@@ -207,7 +211,7 @@ public class UISelectPartner : UIBase {
     }
 
 	private void addSkillItem(int index, TSkill skill) {
-		if (index >= skillList.Count) {
+        if (index >= skillList.Count) {
 			TPassiveSkillCard sc = new TPassiveSkillCard();
 			GameObject obj = Instantiate(itemSkill) as GameObject;
 			sc.Init(skillScrollView.gameObject, obj, new EventDelegate(OnSkillHint));
