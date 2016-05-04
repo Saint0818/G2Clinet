@@ -5121,13 +5121,13 @@
         "id": 11104,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11105,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11201,
@@ -5151,13 +5151,13 @@
         "id": 11204,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11205,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11301,
@@ -5181,13 +5181,13 @@
         "id": 11304,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11305,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11401,
@@ -5212,13 +5212,13 @@
         "id": 11404,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11405,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11501,
@@ -5242,13 +5242,13 @@
         "id": 11504,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11505,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "en": "Morale adding rate {0} / s"
     },
     {
         "id": 11601,
@@ -5274,14 +5274,14 @@
         "id": 11604,
         "explain": "球場目前效果",
         "tw": "競賽起手士氣值 {0}  ",
-        "en": "Enhances {0} action skill point entering the game",
+        "en": "Enhances {0} morale entering the game",
         "jp": "ok"
     },
     {
         "id": 11605,
         "explain": "升級效果",
         "tw": "競賽起手士氣值 {0}  ",
-        "en": "Enhances {0} action skill point entering the game",
+        "en": "Enhances {0} morale entering the game",
         "jp": "ok"
     },
     {
@@ -5308,14 +5308,14 @@
         "id": 11704,
         "explain": "球場目前效果",
         "tw": "士氣上限增加 {0}  ",
-        "en": "Increase Max Action Skill Point {0}  ",
+        "en": "Increase Max morale {0}  ",
         "jp": "ok"
     },
     {
         "id": 11705,
         "explain": "升級效果",
         "tw": "士氣上限增加 {0}  ",
-        "en": "Increase Max Action Skill Point {0}  ",
+        "en": "Increase Max morale {0}  ",
         "jp": "ok"
     },
     {
