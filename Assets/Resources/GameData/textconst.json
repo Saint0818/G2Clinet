@@ -497,7 +497,7 @@
         "id": 558,
         "explain": "COST值滿",
         "tw": "你的空間值不足以安裝此技能晶片。",
-        "en": "You cannot install this skill chip due to insufficient space."
+        "en": "You cannot install this skill chip due to insufficient COST."
     },
     {
         "id": 559,
@@ -602,7 +602,8 @@
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "競 賽",
-        "en": "Games"
+        "en": "Play",
+        "jp": "ok"
     },
     {
         "id": 1009,
@@ -614,19 +615,22 @@
         "id": 1010,
         "explain": "任務按鈕",
         "tw": "任 務",
-        "en": "Missions"
+        "en": "Quest",
+        "jp": "ok"
     },
     {
         "id": 1011,
         "explain": "潛能按鈕",
         "tw": "潛 能",
-        "en": "Potentials"
+        "en": "Attribute",
+        "jp": "ok"
     },
     {
         "id": 1012,
         "explain": "簽到",
         "tw": "簽 到",
-        "en": "Sign Up"
+        "en": "Daily",
+        "jp": "ok"
     },
     {
         "id": 1013,
@@ -1067,101 +1071,118 @@
         "id": 3004,
         "uipath": "PlayerLeague/Label",
         "tw": "球 隊",
-        "en": "TEAM"
+        "en": "TEAM",
+        "jp": "ok"
     },
     {
         "id": 3005,
         "uipath": "ExpLabel/Label",
         "tw": "EXP",
-        "en": "EXP"
+        "en": "EXP",
+        "jp": "ok"
     },
     {
         "id": 3006,
         "uipath": "AttrKind0/KindLabel",
         "tw": "命中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 3007,
         "uipath": "AttrKind1/KindLabel",
         "tw": "外線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 3008,
         "uipath": "AttrKind2/KindLabel",
         "tw": "速度",
-        "en": "SPD"
+        "en": "SPD",
+        "jp": "ok"
     },
     {
         "id": 3009,
         "uipath": "AttrKind3/KindLabel",
         "tw": "耐力",
-        "en": "STA"
+        "en": "STA",
+        "jp": "ok"
     },
     {
         "id": 3010,
         "uipath": "AttrKind4/KindLabel",
         "tw": "力量",
-        "en": "STR"
+        "en": "STR",
+        "jp": "ok"
     },
     {
         "id": 3011,
         "uipath": "AttrKind5/KindLabel",
         "tw": "灌籃",
-        "en": "DNK"
+        "en": "DNK",
+        "jp": "ok"
     },
     {
         "id": 3012,
         "uipath": "AttrKind6/KindLabel",
         "tw": "籃板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 3013,
         "uipath": "AttrKind7/KindLabel",
         "tw": "火鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 3014,
         "uipath": "AttrKind8/KindLabel",
         "tw": "防守",
-        "en": "DEF"
+        "en": "DEF",
+        "jp": "ok"
     },
     {
         "id": 3015,
         "uipath": "AttrKind9/KindLabel",
         "tw": "抄截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 3016,
         "uipath": "AttrKind10/KindLabel",
         "tw": "控球",
-        "en": "DRB"
+        "en": "DRB",
+        "jp": "ok"
     },
     {
         "id": 3017,
         "uipath": "AttrKind11/KindLabel",
         "tw": "傳球",
-        "en": "PAS"
+        "en": "PAS",
+        "jp": "ok"
     },
     {
         "id": 3018,
         "uipath": "SkillPointBtn/Icon",
         "tw": "潛能分配",
-        "en": "Potential Distribution"
+        "en": "Attribute Distribution",
+        "jp": "ok"
     },
     {
         "id": 3019,
         "tw": "戰力值",
-        "en": "Ability Numbers"
+        "en": "Ability Numbers",
+        "jp": "ok"
     },
     {
         "id": 3020,
         "tw": "數 據",
-        "en": "Record"
+        "en": "Record",
+        "jp": "ok"
     },
     {
         "id": 3021,
@@ -1171,43 +1192,50 @@
         "id": 3022,
         "uipath": "Attribute1/Label",
         "tw": "火鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 3023,
         "uipath": "Attribute2/Label",
         "tw": "籃板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 3024,
         "uipath": "Attribute3/Label",
         "tw": "灌籃",
-        "en": "DNK"
+        "en": "DNK",
+        "jp": "ok"
     },
     {
         "id": 3025,
         "uipath": "Attribute4/Label",
         "tw": "外線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 3026,
         "uipath": "Attribute5/Label",
         "tw": "命中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 3027,
         "uipath": "Attribute6/Label",
         "tw": "抄截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 3028,
         "explain": "秀戰力值",
         "tw": "完整戰力值",
-        "en": "Complete Ability Numbers"
+        "en": "Complete Ability Numbers",
+        "jp": "ok"
     },
     {
         "id": 3101,
@@ -1532,7 +1560,7 @@
         "id": 3505,
         "uipath": "Label1",
         "tw": "空間上限",
-        "en": "Space Limit"
+        "en": "COST Limit"
     },
     {
         "id": 3506,
@@ -2809,7 +2837,7 @@
         "id": 7105,
         "uipath": "CostCheck",
         "tw": "空間",
-        "en": "Space"
+        "en": "COST"
     },
     {
         "id": 7106,
@@ -2870,7 +2898,7 @@
         "explain": "不可以裝備或是出售",
         "uipath": "UnavailableLabel",
         "tw": "空間不足",
-        "en": "Insufficient Space"
+        "en": "Insufficient COST"
     },
     {
         "id": 7116,
@@ -3071,7 +3099,7 @@
         "id": 7403,
         "uipath": "Cost",
         "tw": "空間",
-        "en": "Space"
+        "en": "COST"
     },
     {
         "id": 7404,
@@ -3402,7 +3430,7 @@
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
         "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[33FFDD] 2 [-] 件即降低 [33FFDD] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
-        "en": "Collect the styles on the left and own the skill chips on top to save chip spaces.  [33FFDD] 1 [-]  space can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  spaces saved so far."
+        "en": "Collect the styles on the left and own the skill chips on top to save chip COST.  [33FFDD] 1 [-]  COST can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  COST saved so far."
     },
     {
         "id": 8204,
