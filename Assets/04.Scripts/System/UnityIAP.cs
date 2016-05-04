@@ -192,7 +192,7 @@ public class UnityIAP : MonoBehaviour, IStoreListener
         // The FakeStore supports: no-ui (always succeeding), basic ui (purchase pass/fail), and 
         // developer ui (initialization, purchase, failure code setting). These correspond to 
         // the FakeStoreUIMode Enum values passed into StandardPurchasingModule.useFakeStoreUIMode.
-        module.useFakeStoreUIMode = FakeStoreUIMode.DeveloperUser;
+        module.useFakeStoreUIMode = FakeStoreUIMode.StandardUser;
 
         var builder = ConfigurationBuilder.Instance(module);
         // This enables the Microsoft IAP simulator for local testing.
@@ -209,7 +209,9 @@ public class UnityIAP : MonoBehaviour, IStoreListener
 
         for (int i = 0; i < malls.Length; i++) {
             if (!string.IsNullOrEmpty(malls[i].Android)) 
-                builder.AddProduct(malls[i].Android, ProductType.Consumable);
+                builder.AddProduct(malls[i].Android, ProductType.Consumable, new IDs
+                    {{malls[i].Android, GooglePlay.Name}}
+                );
         }
 
         // Write Amazon's JSON description of our products to storage when using Amazon's local sandbox.

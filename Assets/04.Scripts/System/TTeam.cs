@@ -671,11 +671,22 @@ namespace GameStruct
         }
 
         public bool MissionFinished(ref TMission mission) {
-            if (mission.Value != null && Player.Lv >= mission.Lv && (mission.Lv <= 0 ||
-                FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length))
-                return true;
-            else
-                return false;
+            if (mission.Value != null && Player.Lv >= mission.Lv) {
+                int missionLv = FindMissionLv(mission.ID, mission.TimeKind);
+                if (mission.Lv <= 0) {
+                    int mValue = GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);
+                    for (int i = 0; i < mission.Value.Length; i++)
+                        if (mValue >= mission.Value[i])
+                            missionLv = i+1;
+                }
+
+                if (missionLv >= mission.Value.Length)
+                    return true;
+                else 
+                    return false;
+            }
+                
+            return false;
         }
 
         public bool HaveMissionAward(ref TMission mission) {
