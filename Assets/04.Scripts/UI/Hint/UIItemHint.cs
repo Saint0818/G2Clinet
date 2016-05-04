@@ -40,8 +40,8 @@ public class UIItemHint : UIBase {
 				else
 					instance.Show(value);
 			} else
-				if (value)
-					Get.Show(value);
+			if (value)
+				Get.Show(value);
 		}
 	}
 	
@@ -55,17 +55,10 @@ public class UIItemHint : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
-		if (instance) {
-			instance.Show(isShow);
-		} else
-		if (isShow)
-			Get.Show(isShow);
-	}
-
     public void OpenBuyUI(TSellItem data, EventDelegate.Callback callback) {
         if (GameData.DItemData.ContainsKey(data.ID)) {
-            UIShow(true);
+            Visible = true;
+            LayerMgr.Get.SetLayerAllChildren(gameObject, ELayer.UI);
             OnShow(data.ID);
             uiBuy.SetActive(true);
             callbackBuy = callback;
@@ -164,7 +157,7 @@ public class UIItemHint : UIBase {
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
-			UIShow(true);
+            Visible = true;
 			gameObject.transform.localPosition = new Vector3(0, 0, -10);
 			if(GameData.DItemData[itemID].Kind == 21) { //技能卡
 				//For First Get
@@ -229,7 +222,7 @@ public class UIItemHint : UIBase {
 		uiBuy.SetActive(false);
 		hideAll ();
 		scrollViewExplain.ResetPosition();
-		UIShow(true);
+        Visible = true;
 		gameObject.transform.localPosition = new Vector3(0, 0, -10);
 		hintAvatarView.Show();
 		if(kind == 1){
@@ -267,7 +260,7 @@ public class UIItemHint : UIBase {
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
-			UIShow(true);
+            Visible = true;
 			gameObject.transform.localPosition = new Vector3(0, 0, -10);
 			if(GameData.DItemData[itemID].Kind == 21) { //技能卡
 				//For First Get
@@ -314,7 +307,7 @@ public class UIItemHint : UIBase {
 			uiBuy.SetActive(false);
 			hideAll ();
 			scrollViewExplain.ResetPosition();
-			UIShow(true);
+            Visible = true;
 			gameObject.transform.localPosition = new Vector3(0, 0, -10);
 
 			hintAvatarView.Show();
@@ -337,7 +330,7 @@ public class UIItemHint : UIBase {
 			buttonSearch.gameObject.SetActive(false);
 			uiBuy.SetActive(false);
 			hideAll ();
-			UIShow(true);
+            Visible = true;
 			scrollViewExplain.ResetPosition();
 			hintSkillView.Show();
 			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
@@ -356,8 +349,7 @@ public class UIItemHint : UIBase {
 	}
 
 	public void OnClose () {
-		hideAll ();
-		UIShow(false);
+        Visible = false;
 	}
 
     public void OnBuy() {

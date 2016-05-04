@@ -460,7 +460,7 @@ public class UIShop : UIBase {
                 break;
         }
 
-        UIItemHint.UIShow(false);
+        UIItemHint.Visible = false;
         WWWForm form = new WWWForm();
         form.AddField("Identifier", GameData.Team.Identifier);
         form.AddField("Kind", nowPage.ToString());

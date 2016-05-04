@@ -54,11 +54,11 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 		}
 	}
 
-	public void SetLayerAllChildren(GameObject obj, string layer) {
+    public void SetLayerAllChildren(GameObject obj, ELayer layer) {
 		if (obj == null) return;
 		
 		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
-				trans.gameObject.layer = LayerMask.NameToLayer(layer);
+            trans.gameObject.layer = LayerMask.NameToLayer(layer.ToString());
 		}
 	}
 

@@ -915,7 +915,7 @@ public class UIAvatarFitted : UIBase
             buyIndex = BuyIndex;
         }
 
-        UIItemHint.UIShow(false);
+        UIItemHint.Visible = false;;
         WWWForm form = new WWWForm();
         form.AddField("From", from);
         form.AddField("Index", buyIndex);
