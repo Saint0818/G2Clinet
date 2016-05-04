@@ -464,7 +464,7 @@ public class UIGame : UIBase
         {
             for (int i = 0; i < PlayerMe.Attribute.ActiveSkills.Count; i++)
             {
-                uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
+				uiButtonSkill[i].SetActive((GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) && (i < PlayerMe.Attribute.ActiveSkills.Count));
             }
         }
         ChangeControl(true);
@@ -1476,7 +1476,7 @@ public class UIGame : UIBase
                 }
                 break;
             case EUISituation.Start:
-                AudioMgr.Get.PlaySound(SoundType.SD_BattleStart_Btn);
+//                AudioMgr.Get.PlaySound(SoundType.SD_BattleStart_Btn);
                 GameController.Get.PlayCount++;
                 InitUI();
 

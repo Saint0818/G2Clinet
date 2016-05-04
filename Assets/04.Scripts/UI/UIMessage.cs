@@ -66,7 +66,6 @@ public class UIMessage : UIBase {
 		if (RechargeBtn.onClick.Count > 1)
 			RechargeBtn.onClick.RemoveAt(0);
 
-		AudioMgr.Get.PlaySound(SoundType.SD_Check_Btn);
 		UIShow(false);
 	}
 
@@ -74,7 +73,6 @@ public class UIMessage : UIBase {
 		if (NoFunc != null)
 			NoFunc ();
 
-		AudioMgr.Get.PlaySound(SoundType.SD_Cancel_Btn);
 		UIShow(false);
 	}
 

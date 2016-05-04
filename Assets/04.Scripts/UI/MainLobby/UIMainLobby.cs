@@ -106,6 +106,9 @@ public class UIMainLobby : UIBase
         updateMallButton();
 		updateAlbumButton ();
 		updateGymQueue();
+
+		if(UIGym.Visible)
+			UIGym.Get.RefreshBuild();
         
         View.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
 //        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||

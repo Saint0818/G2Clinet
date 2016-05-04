@@ -265,7 +265,7 @@ public class UIGamePlayerInfo : UIBase {
 			skillList.Add(sc);
 		}
 
-		skillList[index].Enable = true;
+		skillList[index].Enable = (GameData.DSkillData.ContainsKey(skill.ID));
 		skillList[index].UpdateView(index, skill, new Vector3(0, 148 -index * 70, 0));
 	}
 		
