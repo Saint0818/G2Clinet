@@ -8,7 +8,7 @@
     {
         "id": 202,
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 203,
@@ -187,12 +187,12 @@
     {
         "id": 252,
         "tw": "確認花費 [FF00FFFF]{0}[-] 寶石抽取晶片？",
-        "en": "Do you want to spend [FF00FFFF]{0}[-]  gems to draw chips?"
+        "en": "Do you want to spend [FF00FFFF]{0}[-]  gems to draw Cards?"
     },
     {
         "id": 253,
         "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？",
-        "en": "Do you want to spend [FF00FFFF]{0}[-]  coins to draw chips?"
+        "en": "Do you want to spend [FF00FFFF]{0}[-]  coins to draw Cards?"
     },
     {
         "id": 254,
@@ -237,7 +237,7 @@
         "id": 260,
         "explain": "卡牌空間",
         "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
-        "en": "Insufficient skill chip storage space. Do you want to spend [FF00FFFF]15[-]  gems to purchase [33FFDD]Chip Space X1[-]  ?"
+        "en": "Insufficient Skill Card storage space. Do you want to spend [FF00FFFF]15[-]  gems to purchase [33FFDD]Card Space X1[-]  ?"
     },
     {
         "id": 261,
@@ -397,7 +397,7 @@
         "id": 533,
         "explain": "技能晶片裝備成功",
         "tw": "技能晶片變更完成。",
-        "en": "Skill Chip Changing Completed"
+        "en": "Skill Card Changing Completed"
     },
     {
         "id": 534,
@@ -497,13 +497,13 @@
         "id": 558,
         "explain": "COST值滿",
         "tw": "你的空間值不足以安裝此技能晶片。",
-        "en": "You cannot install this skill chip due to insufficient COST."
+        "en": "You cannot install this Skill Card due to insufficient COST."
     },
     {
         "id": 559,
         "explain": "卡牌插滿",
         "tw": "技能晶片數量已滿。",
-        "en": "Reached skill chip limit."
+        "en": "Reached Skill Card limit."
     },
     {
         "id": 601,
@@ -609,7 +609,8 @@
         "id": 1009,
         "explain": "抽包按鈕",
         "tw": "抽 卡",
-        "en": "Draw Cards"
+        "en": "Raffle",
+        "jp": "ok"
     },
     {
         "id": 1010,
@@ -629,7 +630,7 @@
         "id": 1012,
         "explain": "簽到",
         "tw": "簽 到",
-        "en": "Daily",
+        "en": "Login",
         "jp": "ok"
     },
     {
@@ -872,14 +873,14 @@
         "explain": "解鎖任務功能",
         "uipath": "6.任務主按鈕",
         "tw": "成功解鎖[FFDD33]任務[-]功能",
-        "en": "Successfully unlocked [FFDD33]Missions[-]  function"
+        "en": "Successfully unlocked [FFDD33]Quest[-]  function"
     },
     {
         "id": 1607,
         "explain": "解鎖晶片抽取功能",
         "uipath": "7.抽卡牌(Mall)",
         "tw": "成功解鎖[FFDD33]抽卡[-]功能",
-        "en": "Successfully unlocked [FFDD33]Draw Cards[-]  function"
+        "en": "Successfully unlocked [FFDD33]Raffle[-]  function"
     },
     {
         "id": 1608,
@@ -914,21 +915,21 @@
         "explain": "解鎖技能進化",
         "uipath": "21.技能進化",
         "tw": "成功解鎖[FFDD33]晶片進化[-]",
-        "en": "Successfully unlocked [FFDD33]Chip Evolution[-] "
+        "en": "Successfully unlocked [FFDD33]Card Evolution[-] "
     },
     {
         "id": 1622,
         "explain": "解鎖技能升星",
         "uipath": "22.技能升星",
         "tw": "成功解鎖[FFDD33]晶片升級[-]",
-        "en": "Successfully unlocked [FFDD33]Chip Upgrade[-] "
+        "en": "Successfully unlocked [FFDD33]Card Upgrade[-] "
     },
     {
         "id": 1626,
         "explain": "解鎖套卡",
         "uipath": "26.套卡按鈕",
         "tw": "成功解鎖[FFDD33]晶片圖鑑[-]",
-        "en": "Successfully unlocked [FFDD33]Chip Handbook[-] "
+        "en": "Successfully unlocked [FFDD33]Card Handbook[-] "
     },
     {
         "id": 1627,
@@ -1267,18 +1268,21 @@
         "id": 3201,
         "explain": "玩家資訊-潛能成長",
         "tw": "潛能成長",
-        "en": "Potential Growth"
+        "en": "Attribute Growth",
+        "jp": "ok"
     },
     {
         "id": 3202,
         "uipath": "PointView/HeadingLabel",
         "tw": "潛能點",
-        "en": "Potential Points"
+        "en": "Attribute Points",
+        "jp": "ok"
     },
     {
         "id": 3203,
         "tw": "可用潛能點：",
-        "en": "Potential Points Available:"
+        "en": "AP Available:",
+        "jp": "ok"
     },
     {
         "id": 3204
@@ -1287,7 +1291,7 @@
         "id": 3205,
         "uipath": "WarningLabel",
         "tw": "潛能取得：\n透過等級提升取得[3EBBBCFF]潛能點[-] \n \n注意：\n每一屬性需求的[3EBBBCFF]潛能點[-]數量不同，請詳閱各數值下方說明。",
-        "en": "Acquire Potentials:\nWin [3EBBBCFF]Potential Points[-]  through level promotion. \n \nAttention:\nThe [3EBBBCFF]Potential Points[-]  needed for each attribute is different. Please inquire on the requirements below."
+        "en": "Acquire Potentials:\n[3EBBBCFF]AP[-] [ff0000](Attribute Points) [-] \nWin [3EBBBCFF]AP[-]  through level promotion. \n \nAttention:\nThe [3EBBBCFF]AP[-]  needed for each attribute is different. Please inquire on the requirements below."
     },
     {
         "id": 3206,
@@ -1308,97 +1312,113 @@
     {
         "id": 3209,
         "tw": "花費寶石[FF00FFFF] {0} [-]重置潛能點配置？",
-        "en": "Do you want to spend gems to [FF00FFFF] {0} [-] Reset Potential Points Distribution?"
+        "en": "Do you want to spend gems to [FF00FFFF] {0} [-] Reset Attribute Points Distribution?",
+        "jp": "ok"
     },
     {
         "id": 3210,
         "explain": "單一屬性投點說明",
         "tw": "提升 [3EBBBCFF]1[-] 屬性值\n須扣除[FF0000FF]潛能點[-] ",
-        "en": "[FF0000FF]Potential Points[-]   needed to raise [3EBBBCFF]1[-]  attribute number."
+        "en": "[FF0000FF]AP[-]  needed to raise [3EBBBCFF]1[-]  attribute number.",
+        "jp": "ok"
     },
     {
         "id": 3211,
         "explain": "自動配點",
         "tw": "自動配點",
-        "en": "Auto Distribution"
+        "en": "Auto Distribution",
+        "jp": "ok"
     },
     {
         "id": 3301,
         "explain": "屬性說明介面",
         "tw": "屬性說明",
-        "en": "Attribute Description"
+        "en": "Attribute Description",
+        "jp": "ok"
     },
     {
         "id": 3302,
         "uipath": "AttrKind0/KindLabel",
         "tw": "命 中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 3303,
         "uipath": "AttrKind1/KindLabel",
         "tw": "外 線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 3304,
         "uipath": "AttrKind5/KindLabel",
         "tw": "速 度",
-        "en": "SPD"
+        "en": "SPD",
+        "jp": "ok"
     },
     {
         "id": 3305,
         "uipath": "AttrKind6/KindLabel",
         "tw": "耐 力",
-        "en": "STA"
+        "en": "STA",
+        "jp": "ok"
     },
     {
         "id": 3306,
         "uipath": "AttrKind7/KindLabel",
         "tw": "力 量",
-        "en": "STR"
+        "en": "STR",
+        "jp": "ok"
     },
     {
         "id": 3307,
         "uipath": "AttrKind9/KindLabel",
         "tw": "灌 籃",
-        "en": "DNK"
+        "en": "DNK",
+        "jp": "ok"
     },
     {
         "id": 3308,
         "uipath": "AttrKind2/KindLabel",
         "tw": "籃 板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 3309,
         "uipath": "AttrKind3/KindLabel",
         "tw": "火 鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 3310,
         "uipath": "AttrKind4/KindLabel",
         "tw": "防 守",
-        "en": "DEF"
+        "en": "DEF",
+        "jp": "ok"
     },
     {
         "id": 3311,
         "uipath": "AttrKind8/KindLabel",
         "tw": "抄 截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 3312,
         "uipath": "AttrKind10/KindLabel",
         "tw": "控 球",
-        "en": "DRB"
+        "en": "DRB",
+        "jp": "ok"
     },
     {
         "id": 3313,
         "uipath": "AttrKind11/KindLabel",
         "tw": "傳 球",
-        "en": "PAS"
+        "en": "PAS",
+        "jp": "ok"
     },
     {
         "id": 3322,
@@ -1433,7 +1453,8 @@
         "explain": "力 量",
         "uipath": "AttrKind7/ExplainLabel",
         "tw": "1.被對手衝撞時不會倒地的機率\n2.AI開啟時，自動發動肘擊的機率\n3.增加肘擊的距離與範圍\n4.降低防禦灌籃時，被對手撞開的機率",
-        "en": "1.Probability of not falling down when being bumped by opponent.\n2.Automatic elbow probability when you activate AI.\n3.Increases the distance and range of elbowing."
+        "en": "1.Probability of not falling down when being bumped by opponent.\n2.Automatic elbow probability when you activate AI.\n3.Increases the distance and range of elbowing.\n4.Decrease  falling down probability when you defense dunk.",
+        "jp": "ok"
     },
     {
         "id": 3327,
@@ -1610,7 +1631,7 @@
         "explain": "必須得到技能晶片後才會取得",
         "uipath": "頭圖分類2",
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 3701,
@@ -1628,7 +1649,8 @@
         "id": 3703,
         "uipath": "Tab1",
         "tw": "任 務",
-        "en": "Missions"
+        "en": "Quest",
+        "jp": "ok"
     },
     {
         "id": 3704,
@@ -1655,17 +1677,20 @@
     {
         "id": 3708,
         "tw": "每日任務",
-        "en": "Daily Mission"
+        "en": "Daily",
+        "jp": "ok"
     },
     {
         "id": 3709,
         "tw": "每週任務",
-        "en": "Weekly Mission"
+        "en": "Weekly",
+        "jp": "ok"
     },
     {
         "id": 3710,
         "tw": "每月任務",
-        "en": "Monthly Mission"
+        "en": "Monthly",
+        "jp": "ok"
     },
     {
         "id": 3711,
@@ -1828,12 +1853,12 @@
     {
         "id": 3767,
         "tw": "技能晶片收集數",
-        "en": "Skill Chip Collections"
+        "en": "Skill Card Collections"
     },
     {
         "id": 3768,
         "tw": "技能晶片套卡收集數",
-        "en": "Skill Chip Set Collections"
+        "en": "Skill Card Set Collections"
     },
     {
         "id": 3769
@@ -1964,13 +1989,13 @@
         "id": 4001,
         "explain": "晶片收集",
         "tw": "晶片抽取",
-        "en": "Draw Chips"
+        "en": "Raffle Card"
     },
     {
         "id": 4002,
         "uipath": "Disk",
         "tw": "獲得技能晶片",
-        "en": "Obtain Skill Chip"
+        "en": "Obtain Skill Card"
     },
     {
         "id": 4003
@@ -2000,19 +2025,19 @@
         "id": 4101,
         "uipath": "SubheadLabelDisk",
         "tw": "可能獲得晶片",
-        "en": "May acquire chips"
+        "en": "May acquire Card"
     },
     {
         "id": 4102,
         "uipath": "SubheadLabelItem",
         "tw": "可能獲得物品",
-        "en": "May acquire items"
+        "en": "May acquire Items"
     },
     {
         "id": 4103,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]5星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]Five Star Card[-]  X1"
+        "en": "If you draw 10 straight times, you will definitely get [33FFDD]5 Star Card[-]  X1"
     },
     {
         "id": 4104,
@@ -2042,7 +2067,7 @@
         "id": 4108,
         "uipath": "FreeQA",
         "tw": "確認免費抽取晶片？",
-        "en": "Want to draw chips for free?"
+        "en": "Want to draw Cards for free?"
     },
     {
         "id": 4109,
@@ -2072,13 +2097,13 @@
         "id": 4120,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]2星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]Two Star Card[-]  X1."
+        "en": "If you draw 10 straight times, you will definitely get [33FFDD]2 Star Card[-]  X1."
     },
     {
         "id": 4121,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]3星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]Three Star Card[-]  X1."
+        "en": "If you draw 10 straight times, you will definitely get [33FFDD]3 Star Card[-]  X1."
     },
     {
         "id": 4200,
@@ -2211,37 +2236,37 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]鐵質晶片[-]",
-        "en": " [B3B3B3FF]Iron Chip[-] "
+        "en": " [B3B3B3FF]Iron Card[-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]Copper Chip[-] "
+        "en": " [C17269FF]Copper Card[-] "
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF]Silver Chip[-] "
+        "en": " [99B3D4FF]Silver Card[-] "
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [EFC653FF]金質晶片[-] ",
-        "en": " [EFC653FF]Golden Chip[-]  "
+        "en": " [EFC653FF]Golden Card[-]  "
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "[11F5F1FF]鑽石晶片[-] ",
-        "en": "[11F5F1FF]Diamond Chip[-]  "
+        "en": "[11F5F1FF]Diamond Card[-]  "
     },
     {
         "id": 4606,
         "explain": "介面上的大標題",
         "tw": "獲得技能晶片",
-        "en": "Acquired Skill Chip"
+        "en": "Acquired Skill Card"
     },
     {
         "id": 4607
@@ -2679,7 +2704,7 @@
         "id": 6111,
         "explain": "秀出來源按鈕",
         "tw": "查看來源",
-        "en": "View Resource"
+        "en": "Source"
     },
     {
         "id": 6201,
@@ -2732,7 +2757,7 @@
         "id": 7001,
         "explain": "技能介面",
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 7002,
@@ -2785,19 +2810,19 @@
     {
         "id": 7010,
         "tw": "晶片數",
-        "en": "Number of Chips"
+        "en": "Number of Cards"
     },
     {
         "id": 7011,
         "explain": "技能介面頁籤1",
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 7012,
         "explain": "技能介面頁籤2",
         "tw": "晶片圖鑑",
-        "en": "Chip Handbook"
+        "en": "Card Handbook"
     },
     {
         "id": 7013,
@@ -2809,7 +2834,7 @@
         "id": 7014,
         "explain": "尚未安裝晶片",
         "tw": "尚未安裝晶片",
-        "en": "Yet to install chips"
+        "en": "Yet to install Cards"
     },
     {
         "id": 7101,
@@ -2920,13 +2945,13 @@
         "id": 7202,
         "uipath": "SkillInfo/LabelSubhead",
         "tw": "晶片資訊",
-        "en": "Chip Information"
+        "en": "Card Information"
     },
     {
         "id": 7203,
         "uipath": "LabelKind1",
         "tw": "晶片品質",
-        "en": "Chip Quality"
+        "en": "Card Quality"
     },
     {
         "id": 7204,
@@ -2938,7 +2963,7 @@
         "id": 7205,
         "uipath": "LabelKind3",
         "tw": "晶片經驗值",
-        "en": "Chip EXP"
+        "en": "Card EXP"
     },
     {
         "id": 7206,
@@ -2980,25 +3005,25 @@
         "id": 7212,
         "uipath": "EvolutionBtn/Label",
         "tw": "晶片進化",
-        "en": "Chip Evolution"
+        "en": "Card Evolution"
     },
     {
         "id": 7213,
         "uipath": "UpgradeBtn/Label",
         "tw": "晶片合成",
-        "en": "Chip Synthesis"
+        "en": "Card Synthesis"
     },
     {
         "id": 7214,
         "uipath": "EquipBtn/Label",
         "tw": "裝備晶片",
-        "en": "Install Chip"
+        "en": "Install Card"
     },
     {
         "id": 7215,
         "uipath": "EquipBtn/Label",
         "tw": "卸下晶片",
-        "en": "Uninstall Chip"
+        "en": "Uninstall Card"
     },
     {
         "id": 7216,
@@ -3035,7 +3060,7 @@
         "explain": "晶片類型",
         "uipath": "LabelKind5",
         "tw": "晶片類型",
-        "en": "Type of Chips"
+        "en": "Type of Cards"
     },
     {
         "id": 7222,
@@ -3159,13 +3184,13 @@
         "id": 7413,
         "explain": "頁籤1",
         "tw": "晶片升級",
-        "en": "Chip Upgrade"
+        "en": "Card Upgrade"
     },
     {
         "id": 7414,
         "explain": "頁籤2",
         "tw": "晶片進化",
-        "en": "Chip Evolution"
+        "en": "Card Evolution"
     },
     {
         "id": 7415,
@@ -3178,7 +3203,7 @@
         "id": 7416,
         "explain": "進化按鈕",
         "tw": "－蒐集完材料後進化晶片－",
-        "en": "─ Evolve chips after collecting materials ─"
+        "en": "─ Evolve Cards after collecting materials ─"
     },
     {
         "id": 7417,
@@ -3205,13 +3230,13 @@
         "id": 7601,
         "explain": "技能卡進化",
         "tw": "晶片進化",
-        "en": "Chip Evolution"
+        "en": "Card Evolution"
     },
     {
         "id": 7651,
         "explain": "技能卡星等未滿",
         "tw": "技能晶片星等未滿。",
-        "en": "Skill Chip Star Level is not full."
+        "en": "Skill Card Star Level is not full."
     },
     {
         "id": 7652,
@@ -3229,26 +3254,28 @@
         "id": 7654,
         "explain": "達到最高等",
         "tw": "技能晶片已達最高級。",
-        "en": "Skill Chip has reached its highest level."
+        "en": "Skill Card has reached its highest level."
     },
     {
         "id": 7700,
         "explain": "套卡介面",
         "tw": "晶片圖鑑",
-        "en": "Chip Handbook"
+        "en": "Card Handbook"
     },
     {
         "id": 7701,
         "explain": "套卡介面說明",
         "uipath": "ItemSuitCardLaunch",
         "tw": "1.收集完成[00ff00]指定的三張晶片卡[-]後方可啟動。單一晶片卡無法啟動套卡功能唷！\n2.累積三張晶片卡的[00ff00]星星總數[-]，可以獲得更佳的屬性加成！\n3.按下[00ff00]啟動[-]即可運行套卡功能，再點擊關閉套卡。注意[FF0000FF]啟動上限值[-]。",
-        "en": "1. Find the same series of skill chips and combine them.\n2. After you have completed the collection, press [33FFDD]Activate[-]  to get combination bonus effects. Press again to close the window.\n3. Take notice of your [33FFDD]Activate Number Limit[-] ."
+        "en": "1. Find the same series of Skill Cards and combine them.\n2. After you have completed the collection, press [33FFDD]Activate[-]  to get combination bonus effects. Press again to close the window.\n3. Take notice of your [33FFDD]Activate Number Limit[-] .",
+        "jp": "ok"
     },
     {
         "id": 7702,
         "explain": "啟動按鈕 未啟動狀態",
         "tw": "啟動",
-        "en": "Activating Combination"
+        "en": "Activate",
+        "jp": "ok"
     },
     {
         "id": 7703,
@@ -3272,7 +3299,7 @@
         "id": 7706,
         "explain": "Hint-未收集完成點擊按鈕",
         "tw": "晶片組合尚未收集完成。",
-        "en": "Yet to gather the whole chip collection"
+        "en": "Yet to gather the whole Card collection"
     },
     {
         "id": 7707,
@@ -3423,14 +3450,14 @@
         "id": 8202,
         "explain": "Right list標題",
         "tw": "對應晶片",
-        "en": "Corresponding Chips"
+        "en": "Corresponding Cards"
     },
     {
         "id": 8203,
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
         "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[33FFDD] 2 [-] 件即降低 [33FFDD] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
-        "en": "Collect the styles on the left and own the skill chips on top to save chip COST.  [33FFDD] 1 [-]  COST can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  COST saved so far."
+        "en": "Collect the styles on the left and own the Skill Cards on top to save Card COST.  [33FFDD] 1 [-]  COST can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  COST saved so far."
     },
     {
         "id": 8204,
@@ -3451,14 +3478,15 @@
         "explain": "無對應晶片時的說明",
         "uipath": "NoCardLabel",
         "tw": "此套造型無對應技能晶片",
-        "en": "This costume has no corresponding skill chips."
+        "en": "This costume has no corresponding Skill Cards."
     },
     {
         "id": 8207,
         "explain": "套裝不需要全部位時",
         "uipath": "ItemNameLabel",
         "tw": "無此部位造型",
-        "en": "There is no style costume for this part."
+        "en": "There is no style costume for this part.",
+        "jp": "ok"
     },
     {
         "id": 8208,
@@ -3680,7 +3708,7 @@
         "explain": "在Loading的畫面中為玩家推薦的技能晶片",
         "uipath": "UILoading/ShowAbilityDisc/TitleLabel",
         "tw": "推薦晶片",
-        "en": "Chips Recommended"
+        "en": "Card Recommended"
     },
     {
         "id": 9501,
@@ -3743,7 +3771,7 @@
     {
         "id": 9511,
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 9512,
@@ -4188,7 +4216,7 @@
         "id": 9803,
         "explain": "目標文字",
         "tw": "擊敗關主機率獲得\n[33FFDD]技能晶片進化材料[-]及[33FFDD]關主服飾[-] ",
-        "en": "Defeat the BOSS to receive\n[33FFDD]Skill Chip Evolution Material[-]  and [33FFDD]BOSS Costume[-]  "
+        "en": "Defeat the BOSS to receive\n[33FFDD]Skill Card Evolution Material[-]  and [33FFDD]BOSS Costume[-]  "
     },
     {
         "id": 9804,
@@ -4427,55 +4455,64 @@
         "id": 10306,
         "uipath": "FG/LabelTitle",
         "tw": "命中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 10307,
         "uipath": "3FG/LabelTitle",
         "tw": "外線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 10308,
         "uipath": "REB/LabelTitle",
         "tw": "籃板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 10309,
         "uipath": "AST/LabelTitle",
         "tw": "助攻",
-        "en": "AST"
+        "en": "AST",
+        "jp": "ok"
     },
     {
         "id": 10310,
         "uipath": "STL/LabelTitle",
         "tw": "抄截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 10311,
         "uipath": "BLK/LabelTitle",
         "tw": "火鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 10312,
         "uipath": "TOV/LabelTitle",
         "tw": "失誤",
-        "en": "TOV"
+        "en": "TOV",
+        "jp": "ok"
     },
     {
         "id": 10313,
         "uipath": "PUSH/LabelTitle",
         "tw": "推人",
-        "en": "PUSH"
+        "en": "PUSH",
+        "jp": "ok"
     },
     {
         "id": 10314,
         "uipath": "KNOCK/LabelTitle",
         "tw": "擊倒",
-        "en": "KNOCK"
+        "en": "KNOCK",
+        "jp": "ok"
     },
     {
         "id": 10315,
@@ -4629,43 +4666,50 @@
         "id": 10410,
         "uipath": "2PTLabel",
         "tw": "命中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 10411,
         "uipath": "3PTLabel",
         "tw": "外線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 10412,
         "uipath": "DNKLabel",
         "tw": "灌籃",
-        "en": "DNK"
+        "en": "DNK",
+        "jp": "ok"
     },
     {
         "id": 10413,
         "uipath": "REBLabel",
         "tw": "籃板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 10414,
         "uipath": "STLLabel",
         "tw": "抄截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 10415,
         "uipath": "ASTLabel",
         "tw": "助攻",
-        "en": "AST"
+        "en": "AST",
+        "jp": "ok"
     },
     {
         "id": 10416,
         "uipath": "BLKLabel",
         "tw": "火鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 10417,
@@ -4681,73 +4725,85 @@
         "id": 10501,
         "explain": "1.命中 Offensuve OFF",
         "tw": "命中",
-        "en": "OFF"
+        "en": "OFF",
+        "jp": "ok"
     },
     {
         "id": 10502,
         "explain": "2.外線 Outside OUT",
         "tw": "外線",
-        "en": "OUT"
+        "en": "OUT",
+        "jp": "ok"
     },
     {
         "id": 10503,
         "explain": "3.速度 Speed（SPD)  撲球",
         "tw": "速度",
-        "en": "SPD"
+        "en": "SPD",
+        "jp": "ok"
     },
     {
         "id": 10504,
         "explain": "4.耐力 Stamina（STA) 跌倒起身",
         "tw": "耐力",
-        "en": "STA"
+        "en": "STA",
+        "jp": "ok"
     },
     {
         "id": 10505,
         "explain": "5.力量 Strength（STR）肘擊",
         "tw": "力量",
-        "en": "STR"
+        "en": "STR",
+        "jp": "ok"
     },
     {
         "id": 10506,
         "explain": "6.灌籃 Dunk（DNK）灌籃",
         "tw": "灌籃",
-        "en": "DNK"
+        "en": "DNK",
+        "jp": "ok"
     },
     {
         "id": 10507,
         "explain": "7.籃板 Rebound（REB)搶籃板",
         "tw": "籃板",
-        "en": "REB"
+        "en": "REB",
+        "jp": "ok"
     },
     {
         "id": 10508,
         "explain": "8.火鍋 Block（BLK）火鍋",
         "tw": "火鍋",
-        "en": "BLK"
+        "en": "BLK",
+        "jp": "ok"
     },
     {
         "id": 10509,
         "explain": "9.防守 Defence（DEF)  推人",
         "tw": "防守",
-        "en": "DEF"
+        "en": "DEF",
+        "jp": "ok"
     },
     {
         "id": 10510,
         "explain": "10.抄截 Steal（STL）抄截",
         "tw": "抄截",
-        "en": "STL"
+        "en": "STL",
+        "jp": "ok"
     },
     {
         "id": 10511,
         "explain": "11.控球 Dribble（DRB)  運球過人",
         "tw": "控球",
-        "en": "DRB"
+        "en": "DRB",
+        "jp": "ok"
     },
     {
         "id": 10512,
         "explain": "12.傳球 Pass（PAS）傳球",
         "tw": "傳球",
-        "en": "PAS"
+        "en": "PAS",
+        "jp": "ok"
     },
     {
         "id": 10520,
@@ -4765,7 +4821,8 @@
         "id": 10530,
         "explain": "30.卡牌的Cost值",
         "tw": "空間",
-        "en": "COST"
+        "en": "COST",
+        "jp": "ok"
     },
     {
         "id": 10550,
@@ -5101,7 +5158,7 @@
         "id": 11301,
         "explain": "隨機商店(Store)",
         "tw": "隨機商店",
-        "en": "Random Shops"
+        "en": "Shops"
     },
     {
         "id": 11302,
@@ -5380,7 +5437,7 @@
         "explain": "較差的畫面品質",
         "uipath": "0/BtnLabel",
         "tw": "低階效能",
-        "en": "Low-class Efficacy"
+        "en": "Low-Class Efficacy"
     },
     {
         "id": 12013,
@@ -5486,7 +5543,7 @@
         "id": 12031,
         "uipath": "SubheadLabel0",
         "tw": "切換角色",
-        "en": "Switch character"
+        "en": "Switch Character"
     },
     {
         "id": 12032,
@@ -5497,12 +5554,14 @@
     {
         "id": 12033,
         "tw": "通 知",
-        "en": "Notification"
+        "en": "Notice",
+        "jp": "ok"
     },
     {
         "id": 12034,
         "tw": "遊戲公告",
-        "en": "Game Announcement"
+        "en": "News",
+        "jp": "ok"
     },
     {
         "id": 12035,
@@ -5652,7 +5711,7 @@
         "id": 13021,
         "uipath": "21.技能卡牌",
         "tw": "技能晶片",
-        "en": "Skill Chip"
+        "en": "Skill Card"
     },
     {
         "id": 13031,
@@ -5683,11 +5742,40 @@
         "en": "Strength"
     },
     {
+        "id": 13035,
+        "explain": "入場券",
+        "tw": "聯盟入場券",
+        "en": "League Pass"
+    },
+    {
+        "id": 13036,
+        "explain": "入場券",
+        "tw": " {0}入場券",
+        "en": " {0} Pass"
+    },
+    {
+        "id": 13037,
+        "explain": "入場券",
+        "tw": " {0}入場券",
+        "en": " {0} Pass"
+    },
+    {
+        "id": 13038,
+        "explain": "入場券",
+        "tw": " {0}入場券",
+        "en": " {0} Pass"
+    },
+    {
+        "id": 13039,
+        "explain": "包裝成物品的聯盟幣",
+        "tw": "聯盟幣",
+        "en": "League Coin"
+    },
+    {
         "id": 13040,
-        "explain": "強化卡牌用的材料",
-        "uipath": "40.卡片材料",
-        "tw": "進化材料",
-        "en": "Evolution Material"
+        "explain": "社群幣",
+        "tw": "社群幣",
+        "en": "Society Coin"
     },
     {
         "id": 15000,
@@ -5875,13 +5963,13 @@
         "id": 100010,
         "explain": "抽包介面標題",
         "tw": "[f000ff]晶片抽取[-]",
-        "en": "[f000ff]Draw Chips[-] "
+        "en": "[f000ff]Raffle[-] "
     },
     {
         "id": 100011,
         "explain": "抽包說明",
         "tw": "有機會抽取此技能晶片",
-        "en": "Has the opportunity to draw skill chips."
+        "en": "Has the opportunity to draw Skill Cards."
     },
     {
         "id": 100019,
@@ -5967,7 +6055,7 @@
     {
         "id": 2000009,
         "tw": "挑戰章節關主",
-        "en": "Challenge Chapter BOSS"
+        "en": "Challenge BOSS"
     },
     {
         "id": 2000010,
