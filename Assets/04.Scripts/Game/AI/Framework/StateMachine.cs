@@ -16,7 +16,7 @@ namespace AI
     /// <item> call Update() in every frame. </item>
     /// <item> call AddState() and ChangeState() in setup state machine. </item>
     /// <item> call MessageDispatcher.AddListener to receive message. </item>
-    /// <item> (Optional) Call SetGlobalState. </item>
+    /// <item> (Optional) 設定 GlobalState. </item>
     /// <item> (Optional) 用 indexer property 取出 State. </item>
     /// </list>
     /// 
@@ -33,7 +33,8 @@ namespace AI
         where TEnumState : struct, IConvertible, IComparable, IFormattable
         where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        private State<TEnumState, TEnumMsg> mGlobalState;
+        [CanBeNull]
+        public State<TEnumState, TEnumMsg> GlobalState { get; set; }
 
         private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
 
@@ -59,16 +60,22 @@ namespace AI
             mUpdateInterval = updateInterval;
         }
 
-        public bool AddState(State<TEnumState, TEnumMsg> state)
+        public void AddState(State<TEnumState, TEnumMsg> state)
         {
             if(mStates.ContainsKey(state.ID))
             {
                 Debug.LogWarningFormat("State({0}) already exist!", state.ID);
-                return false;
+                return;
             }
 
             mStates.Add(state.ID, state);
-            return true;
+        }
+
+        public void ClearAllStates()
+        {
+            mStates.Clear();
+            CurrentState = null;
+            GlobalState = null;
         }
 
         [CanBeNull]
@@ -99,15 +106,15 @@ namespace AI
             {
                 mNextUpdateAITime = Time.time + mUpdateInterval;
 
-                if(mGlobalState != null)
-                    mGlobalState.UpdateAI();
+                if(GlobalState != null)
+                    GlobalState.UpdateAI();
 
                 if(CurrentState != null)
                     CurrentState.UpdateAI();
             }
 
-            if(mGlobalState != null)
-                mGlobalState.Update();
+            if(GlobalState != null)
+                GlobalState.Update();
 
             if(CurrentState != null)
                 CurrentState.Update();
@@ -128,11 +135,6 @@ namespace AI
                 CurrentState.Exit();
             CurrentState = mStates[newState];
             CurrentState._Enter(this, extraInfo);
-        }
-
-        public void SetGlobalState(State<TEnumState, TEnumMsg> state)
-        {
-            mGlobalState = state;
         }
 
         public void HandleMessage(Telegram<TEnumMsg> msg)

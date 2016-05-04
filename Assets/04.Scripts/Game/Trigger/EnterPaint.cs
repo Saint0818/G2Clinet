@@ -1,25 +1,33 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using GameEnum;
+using UnityEngine;
 
-public class EnterPaint : MonoBehaviour {
-	public int Team;
-	private float timer;
+public class EnterPaint : MonoBehaviour
+{
+    private const int TriggerAgainTime = 2;
 
-	void OnTriggerEnter(Collider c) {
-		if (c.CompareTag("Player")) {
-			timer = 0;
-			GameController.Get.PlayerEnterPaint(Team, c.gameObject);
-		}
-	}
+    public ETeamKind Team;
+    private float mElapsedTime;
 
-	void OnTriggerStay(Collider c) {
-		if (timer >= 2 && c.CompareTag("Player")) {
-			timer = 0;
-			GameController.Get.PlayerEnterPaint(Team, c.gameObject);
-		}
-	}
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.CompareTag("Player"))
+        {
+            mElapsedTime = 0;
+            GameController.Get.PlayerEnterPaint(Team, col.gameObject);
+        }
+    }
 
-	void Update() {
-		timer += Time.deltaTime;
-	}
+    void OnTriggerStay(Collider col)
+    {
+        if(mElapsedTime >= TriggerAgainTime && col.CompareTag("Player"))
+        {
+            mElapsedTime = 0;
+            GameController.Get.PlayerEnterPaint(Team, col.gameObject);
+        }
+    }
+
+    void Update()
+    {
+        mElapsedTime += Time.deltaTime;
+    }
 }

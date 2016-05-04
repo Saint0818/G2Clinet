@@ -151,9 +151,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 		case 7: //turn on / off AI
 			if (eventList[i].Value1 > 0)
-				GameController.Get.SetPlayerAI(true);
+				GameController.Get.SetAllPlayerAI(true);
 			else {
-				GameController.Get.SetPlayerAI(false);
+				GameController.Get.SetAllPlayerAI(false);
 				GameController.Get.ClearAutoFollowTime();
 			}
 

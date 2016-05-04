@@ -135,8 +135,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int MoveIndex = -1;
 	public bool isJoystick = false; //搖桿的判斷，不是指玩家
 	public bool IsGameJoysticker = false;//玩家的判斷，不是指搖桿
-    [CanBeNull]
-    [HideInInspector]public PlayerAI AI = null;
+//    [CanBeNull]
+//    [HideInInspector]public PlayerAI AI = null;
     private PlayerBehaviour defencePlayer = null;
     [HideInInspector]public float CloseDef = 0;
     public bool AutoFollow = false;
@@ -415,7 +415,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void manuallyTimeUp()
     {
-        RemoveMoveData();
+        clearMoveData();
 
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
@@ -977,7 +977,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 int moveKind = 0;
                 float calculateSpeed = 1;
-                RemoveMoveData();
+                clearMoveData();
 
                 #if UNITY_EDITOR
                 if (IsFall && IsDebugAnimation)
@@ -1252,7 +1252,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             // 進攻移動.                 
             RotateTo(MoveTarget.x, MoveTarget.y); 
-            MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
+            setTestObjectPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
             isMoving = true;
 
             if (IsBallOwner)
@@ -1339,12 +1339,12 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if(dis <= GameConst.Point3Distance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
                 {
-                    MoveTargetPos(new Vector3(data.LookTarget.position.x, 0, data.LookTarget.position.z));
+                    setTestObjectPos(new Vector3(data.LookTarget.position.x, 0, data.LookTarget.position.z));
                     RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                 }
                 else
                 {
-                    MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
+                    setTestObjectPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
                     RotateTo(MoveTarget.x, MoveTarget.y);
                 }
 
@@ -1355,7 +1355,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
+                setTestObjectPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
                 RotateTo(MoveTarget.x, MoveTarget.y);
                 AniState(EPlayerState.Run0);
             }
@@ -1369,7 +1369,7 @@ public class PlayerBehaviour : MonoBehaviour
                     Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * timeScale);
                 isSpeedup = true;
 
-                MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
+                setTestObjectPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
             }
             else
             {
@@ -1377,12 +1377,12 @@ public class PlayerBehaviour : MonoBehaviour
                     new Vector3(MoveTarget.x, 0, MoveTarget.y), 
                     Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * timeScale);
                 isSpeedup = false;
-                MoveTargetPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
+                setTestObjectPos(new Vector3(MoveTarget.x, 0, MoveTarget.y));
             }
         }
     }
 
-    private void MoveTargetPos(Vector3 pos)
+    private void setTestObjectPos(Vector3 pos)
     {
         TestGameObject.transform.position = pos;
     }
@@ -1492,10 +1492,8 @@ public class PlayerBehaviour : MonoBehaviour
                 AniState(EPlayerState.Dribble0);
 
             //When AI disabled player has to run all path
-            if (clearMove && AI.enabled)
-            {
-                RemoveMoveData();
-            }
+            if(clearMove)
+                clearMoveData();
 
             CantMoveTimer.Clear();
             NeedShooting = false;
@@ -1592,7 +1590,10 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (CurrentState != EPlayerState.Alleyoop && !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && !IsBallOwner && (TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if(CurrentState != EPlayerState.Alleyoop && 
+                   !GameController.Get.CheckOthersUseSkill(TimerKind.GetHashCode()) && 
+                   !IsBallOwner && 
+                   (TestMode == EGameTest.Alleyoop || situation.GetHashCode() == Team.GetHashCode() + 3))
                     return true;
 
                 break;
@@ -3063,17 +3064,14 @@ public class PlayerBehaviour : MonoBehaviour
     public void ResetMove()
     {
         DribbleTime = 0;
-        if (AI != null && AI.enabled)
-        {
-            RemoveMoveData();
-            CantMoveTimer.Clear();
-        }
+        clearMoveData();
+        CantMoveTimer.Clear();
     }
 
-    private void RemoveMoveData()
+    private void clearMoveData()
     {
         moveQueue.Clear(); 
-        MoveTargetPos(gameObject.transform.position);
+        setTestObjectPos(transform.position);
     }
 
     public void SetAutoFollowTime()
@@ -3563,20 +3561,12 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    [CanBeNull]
     public PlayerBehaviour DefPlayer
     {
-        get
-        {
-            if (AI.enabled)
-                return defencePlayer;
-            else
-                return null;
-        }
-
-        set
-        {
-            defencePlayer = value;
-        }
+//        get { return AI.enabled ? defencePlayer : null; }
+        get { return defencePlayer; }
+        set { defencePlayer = value; }
     }
 
     private void setMovePower(float value)
