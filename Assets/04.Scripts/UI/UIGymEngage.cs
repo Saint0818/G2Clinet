@@ -116,6 +116,7 @@ public class UIGymEngage : UIBase {
 
 	private GameObject itemBuild;// Resource.Load
 	private GameObject window;
+	private GameObject center;
 	private GameObject windowNormal;
 	private GameObject windowHighest;
 
@@ -202,6 +203,7 @@ public class UIGymEngage : UIBase {
 	protected override void InitCom() {
 		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
 		window = GameObject.Find(UIName + "/Window");
+		center = GameObject.Find(UIName + "/Window/Center");
 		windowNormal = GameObject.Find(UIName + "/Window/Center/MainView/Normal");
 		windowHighest = GameObject.Find(UIName + "/Window/Center/MainView/Highest");
 
@@ -247,6 +249,10 @@ public class UIGymEngage : UIBase {
 		SetBtnFun (UIName + "/Window/BottomLeft/BackBtn", OnClose);
 		SetBtnFun (UIName + "/Window/Center/MainView/Normal/UpgradeBtn", OnUpgrade);
 		SetBtnFun (UIName + "/Window/Center/MainView/BuyCDBtn", OnBuyCD);
+	}
+
+	public bool CenterVisible {
+		set {center.SetActive(value);}
 	}
 
 	public void UpdateText () {
