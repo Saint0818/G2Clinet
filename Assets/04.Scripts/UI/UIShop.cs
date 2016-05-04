@@ -22,6 +22,7 @@ public class TShopItemObj {
     public GameObject UISuit;
     public GameObject UISoldout;
     public ItemAwardGroup AwardGroup;
+    public UIButton ButtonAwardGroup;
     public UILabel LabelName;
     public UILabel LabelPrice;
     public UILabel LabelSuitCount;
@@ -182,24 +183,15 @@ public class UIShop : UIBase {
             item.LabelSuitCount = GameObject.Find(name + "/SuitItem/CountLabel").GetComponent<UILabel>();
             item.SpriteSuit = GameObject.Find(name + "/SuitItem").GetComponent<UISprite>();
             item.ButtonSuit = GameObject.Find(name + "/SuitItem").GetComponent<UIButton>();
-            if (item.ButtonSuit) {
+            if (item.ButtonSuit)
                 SetBtnFun(ref item.ButtonSuit, OnSuitItem);
-                item.ButtonSuit.name = data.ID.ToString();
-            }
 
             item.UISuit = GameObject.Find(name + "/FittingIcon");
             item.UISoldout = GameObject.Find(name + "/SoldOutIcon");
             GameObject obj = GameObject.Find(name + "/ItemAwardGroup");
             if (obj) {
                 item.AwardGroup = obj.GetComponent<ItemAwardGroup>();
-                UIButton btn = obj.GetComponent<UIButton>();
-                if (btn) {
-                    btn.onClick.Clear();
-                    if (GameData.DItemData[data.ID].Kind <= 7)
-                        SetBtnFun(ref btn, OnSuit);
-                    else
-                        SetBtnFun(ref btn, OnBuy);
-                }
+                item.ButtonAwardGroup = obj.GetComponent<UIButton>();
             }
 
             item.LabelName = GameObject.Find(name + "/ItemName").GetComponent<UILabel>();
@@ -225,6 +217,15 @@ public class UIShop : UIBase {
         shopItemList[page][index].UISuit.SetActive(false);
         shopItemList[page][index].LabelPrice.text = NumFormater.Convert(data.Price);
         shopItemList[page][index].SpriteSpendKind.spriteName = GameFunction.SpendKindTexture(data.SpendKind);
+        shopItemList[page][index].ButtonSuit.name = data.ID.ToString();
+
+        if (shopItemList[page][index].ButtonAwardGroup) {
+            shopItemList[page][index].ButtonAwardGroup.onClick.Clear();
+            if (GameData.DItemData[data.ID].Kind <= 7)
+                SetBtnFun(ref shopItemList[page][index].ButtonAwardGroup, OnSuit);
+            else
+                SetBtnFun(ref shopItemList[page][index].ButtonAwardGroup, OnBuy);
+        }
 
         bool flag = GameData.Team.CoinEnough(shopItemList[page][index].Data.SpendKind, shopItemList[page][index].Data.Price);
         shopItemList[page][index].ButtonBuy.normalSprite = GameData.CoinEnoughSprite(flag, 1);
@@ -240,6 +241,7 @@ public class UIShop : UIBase {
 
     private void SetSuitItem(int itemID, UIButton btn, UISprite sp, UILabel lab) {
         if (btn && sp && lab) {
+            btn.gameObject.SetActive(true);
             if (GameData.DItemData[itemID].Kind < 8) {
                 int id = GameData.DItemData[itemID].SuitItem;
                 if (GameData.DSuitItem.ContainsKey(id))

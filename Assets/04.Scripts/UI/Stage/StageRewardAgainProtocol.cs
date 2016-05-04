@@ -39,6 +39,10 @@ public class StageRewardAgainProtocol
             GameData.Team.ValueItems = reward.ValueItems;
             GameData.Team.MaterialItems = reward.MaterialItems;
 			GameData.Team.SkillCards = reward.SkillCards;
+
+            if (reward.GotAvatar != null)
+                GameData.Team.GotAvatar = reward.GotAvatar;
+
 			GameData.Team.InitSkillCardCount();
 
             mCallback(true, reward);
