@@ -2,6 +2,7 @@
     {
         "id": 10,
         "nametw": "我愛籃球黑幫 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 1,
         "quality": 5,
@@ -29,6 +30,7 @@
     {
         "id": 11,
         "nametw": "我愛籃球黑幫 II",
+        "basicstar": 1,
         "maxstar": 2,
         "kind": 1,
         "quality": 5,
@@ -56,6 +58,7 @@
     {
         "id": 12,
         "nametw": "我愛籃球黑幫 III",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 1,
         "quality": 5,
@@ -83,6 +86,7 @@
     {
         "id": 13,
         "nametw": "我愛籃球黑幫 IV",
+        "basicstar": 6,
         "maxstar": 4,
         "kind": 1,
         "quality": 5,
@@ -110,6 +114,7 @@
     {
         "id": 14,
         "nametw": "我愛籃球黑幫 V",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 1,
         "quality": 5,
@@ -137,6 +142,7 @@
     {
         "id": 410,
         "nametw": "小勾射 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 40,
         "quality": 1,
@@ -189,6 +195,7 @@
     {
         "id": 411,
         "nametw": "小勾射 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 40,
         "quality": 2,
@@ -242,6 +249,7 @@
     {
         "id": 412,
         "nametw": "小勾射 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 40,
         "quality": 3,
@@ -295,6 +303,7 @@
     {
         "id": 413,
         "nametw": "小勾射 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 40,
         "quality": 4,
@@ -348,6 +357,7 @@
     {
         "id": 414,
         "nametw": "小勾射 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 40,
         "quality": 5,
@@ -397,6 +407,7 @@
     {
         "id": 420,
         "nametw": "大勾射 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 40,
         "quality": 1,
@@ -450,6 +461,7 @@
     {
         "id": 421,
         "nametw": "大勾射 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 40,
         "quality": 2,
@@ -503,6 +515,7 @@
     {
         "id": 422,
         "nametw": "大勾射 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 40,
         "quality": 3,
@@ -556,6 +569,7 @@
     {
         "id": 423,
         "nametw": "大勾射 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 40,
         "quality": 4,
@@ -609,6 +623,7 @@
     {
         "id": 424,
         "nametw": "大勾射 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 40,
         "quality": 5,
@@ -658,6 +673,7 @@
     {
         "id": 430,
         "nametw": "後仰跳投 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 40,
         "quality": 1,
@@ -713,6 +729,7 @@
     {
         "id": 431,
         "nametw": "後仰跳投 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 40,
         "quality": 2,
@@ -768,6 +785,7 @@
     {
         "id": 432,
         "nametw": "後仰跳投 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 40,
         "quality": 3,
@@ -823,6 +841,7 @@
     {
         "id": 433,
         "nametw": "後仰跳投 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 40,
         "quality": 4,
@@ -878,6 +897,7 @@
     {
         "id": 434,
         "nametw": "後仰跳投 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 40,
         "quality": 5,
@@ -929,6 +949,7 @@
     {
         "id": 499,
         "nametw": "究極後仰神射",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 40,
         "quality": 3,
@@ -983,6 +1004,7 @@
     {
         "id": 510,
         "nametw": "拉杆挑籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 50,
         "quality": 1,
@@ -1025,6 +1047,7 @@
     {
         "id": 511,
         "nametw": "拉杆挑籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 50,
         "quality": 2,
@@ -1068,6 +1091,7 @@
     {
         "id": 512,
         "nametw": "拉杆挑籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 50,
         "quality": 3,
@@ -1111,6 +1135,7 @@
     {
         "id": 513,
         "nametw": "拉杆挑籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 50,
         "quality": 4,
@@ -1154,6 +1179,7 @@
     {
         "id": 514,
         "nametw": "拉杆挑籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 50,
         "quality": 5,
@@ -1193,6 +1219,7 @@
     {
         "id": 520,
         "nametw": "換手拉杆上籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 50,
         "quality": 1,
@@ -1235,6 +1262,7 @@
     {
         "id": 521,
         "nametw": "換手拉杆上籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 50,
         "quality": 2,
@@ -1279,6 +1307,7 @@
     {
         "id": 522,
         "nametw": "換手拉杆上籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 50,
         "quality": 3,
@@ -1323,6 +1352,7 @@
     {
         "id": 523,
         "nametw": "換手拉杆上籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 50,
         "quality": 4,
@@ -1367,6 +1397,7 @@
     {
         "id": 524,
         "nametw": "換手拉杆上籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 50,
         "quality": 5,
@@ -1407,6 +1438,7 @@
     {
         "id": 530,
         "nametw": "假動作上籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 50,
         "quality": 1,
@@ -1449,6 +1481,7 @@
     {
         "id": 531,
         "nametw": "假動作上籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 50,
         "quality": 2,
@@ -1493,6 +1526,7 @@
     {
         "id": 532,
         "nametw": "假動作上籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 50,
         "quality": 3,
@@ -1537,6 +1571,7 @@
     {
         "id": 533,
         "nametw": "假動作上籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 50,
         "quality": 4,
@@ -1581,6 +1616,7 @@
     {
         "id": 534,
         "nametw": "假動作上籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 50,
         "quality": 5,
@@ -1621,6 +1657,7 @@
     {
         "id": 610,
         "nametw": "假動作灌籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -1660,6 +1697,7 @@
     {
         "id": 611,
         "nametw": "假動作灌籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -1701,6 +1739,7 @@
     {
         "id": 612,
         "nametw": "假動作灌籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -1742,6 +1781,7 @@
     {
         "id": 613,
         "nametw": "假動作灌籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -1783,6 +1823,7 @@
     {
         "id": 614,
         "nametw": "假動作灌籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -1820,6 +1861,7 @@
     {
         "id": 620,
         "nametw": "環腰扣籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -1863,6 +1905,7 @@
     {
         "id": 621,
         "nametw": "環腰扣籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -1908,6 +1951,7 @@
     {
         "id": 622,
         "nametw": "環腰扣籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -1953,6 +1997,7 @@
     {
         "id": 623,
         "nametw": "環腰扣籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -1998,6 +2043,7 @@
     {
         "id": 624,
         "nametw": "環腰扣籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -2039,6 +2085,7 @@
     {
         "id": 630,
         "nametw": "(偽)雙手爆扣 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -2078,6 +2125,7 @@
     {
         "id": 631,
         "nametw": "(偽)雙手爆扣 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -2119,6 +2167,7 @@
     {
         "id": 632,
         "nametw": "(偽)雙手爆扣 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -2160,6 +2209,7 @@
     {
         "id": 633,
         "nametw": "(偽)雙手爆扣 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -2201,6 +2251,7 @@
     {
         "id": 634,
         "nametw": "(偽)雙手爆扣 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -2238,6 +2289,7 @@
     {
         "id": 640,
         "nametw": "(偽)胯下灌籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -2282,6 +2334,7 @@
     {
         "id": 641,
         "nametw": "(偽)胯下灌籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -2329,6 +2382,7 @@
     {
         "id": 642,
         "nametw": "(偽)胯下灌籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -2376,6 +2430,7 @@
     {
         "id": 643,
         "nametw": "(偽)胯下灌籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -2423,6 +2478,7 @@
     {
         "id": 644,
         "nametw": "(偽)胯下灌籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -2466,6 +2522,7 @@
     {
         "id": 650,
         "nametw": "(偽)飛人灌籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -2505,6 +2562,7 @@
     {
         "id": 651,
         "nametw": "(偽)飛人灌籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -2547,6 +2605,7 @@
     {
         "id": 652,
         "nametw": "(偽)飛人灌籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -2589,6 +2648,7 @@
     {
         "id": 653,
         "nametw": "(偽)飛人灌籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -2631,6 +2691,7 @@
     {
         "id": 654,
         "nametw": "(偽)飛人灌籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -2669,6 +2730,7 @@
     {
         "id": 660,
         "nametw": "大車輪灌籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -2713,6 +2775,7 @@
     {
         "id": 661,
         "nametw": "大車輪灌籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -2759,6 +2822,7 @@
     {
         "id": 662,
         "nametw": "大車輪灌籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -2805,6 +2869,7 @@
     {
         "id": 663,
         "nametw": "大車輪灌籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -2851,6 +2916,7 @@
     {
         "id": 664,
         "nametw": "大車輪灌籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -2893,6 +2959,7 @@
     {
         "id": 670,
         "nametw": "爆扣灌籃 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 1,
@@ -2939,6 +3006,7 @@
     {
         "id": 671,
         "nametw": "爆扣灌籃 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 60,
         "quality": 2,
@@ -2984,6 +3052,7 @@
     {
         "id": 672,
         "nametw": "爆扣灌籃 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 60,
         "quality": 3,
@@ -3029,6 +3098,7 @@
     {
         "id": 673,
         "nametw": "爆扣灌籃 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 60,
         "quality": 4,
@@ -3074,6 +3144,7 @@
     {
         "id": 674,
         "nametw": "爆扣灌籃 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -3115,6 +3186,7 @@
     {
         "id": 698,
         "nametw": "究極環腰扣籃",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -3154,6 +3226,7 @@
     {
         "id": 699,
         "nametw": "究極大車輪灌籃",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 60,
         "quality": 5,
@@ -3193,6 +3266,7 @@
     {
         "id": 1100,
         "nametw": "轉身過人 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 110,
         "quality": 1,
@@ -3234,6 +3308,7 @@
     {
         "id": 1101,
         "nametw": "轉身過人 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 110,
         "quality": 2,
@@ -3276,6 +3351,7 @@
     {
         "id": 1102,
         "nametw": "轉身過人 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 110,
         "quality": 3,
@@ -3318,6 +3394,7 @@
     {
         "id": 1103,
         "nametw": "轉身過人 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 110,
         "quality": 4,
@@ -3360,6 +3437,7 @@
     {
         "id": 1104,
         "nametw": "轉身過人 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 110,
         "quality": 5,
@@ -3398,6 +3476,7 @@
     {
         "id": 1198,
         "nametw": "轉身過人 ",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 110,
         "quality": 1,
@@ -3439,6 +3518,7 @@
     {
         "id": 1210,
         "nametw": "絕妙傳球 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 120,
         "quality": 1,
@@ -3489,6 +3569,7 @@
     {
         "id": 1211,
         "nametw": "絕妙傳球 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 120,
         "quality": 2,
@@ -3541,6 +3622,7 @@
     {
         "id": 1212,
         "nametw": "絕妙傳球 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 120,
         "quality": 3,
@@ -3593,6 +3675,7 @@
     {
         "id": 1213,
         "nametw": "絕妙傳球 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 120,
         "quality": 4,
@@ -3645,6 +3728,7 @@
     {
         "id": 1214,
         "nametw": "絕妙傳球 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 120,
         "quality": 5,
@@ -3693,6 +3777,7 @@
     {
         "id": 1220,
         "nametw": "(偽)胯下跑傳 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 120,
         "quality": 1,
@@ -3743,6 +3828,7 @@
     {
         "id": 1221,
         "nametw": "(偽)胯下跑傳 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 120,
         "quality": 2,
@@ -3794,6 +3880,7 @@
     {
         "id": 1222,
         "nametw": "(偽)胯下跑傳 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 120,
         "quality": 3,
@@ -3845,6 +3932,7 @@
     {
         "id": 1223,
         "nametw": "(偽)胯下跑傳 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 120,
         "quality": 4,
@@ -3896,6 +3984,7 @@
     {
         "id": 1224,
         "nametw": "(偽)胯下跑傳 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 120,
         "quality": 5,
@@ -3943,6 +4032,7 @@
     {
         "id": 1230,
         "nametw": "(偽)肩上跑傳 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 120,
         "quality": 1,
@@ -3993,6 +4083,7 @@
     {
         "id": 1231,
         "nametw": "(偽)肩上跑傳 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 120,
         "quality": 2,
@@ -4044,6 +4135,7 @@
     {
         "id": 1232,
         "nametw": "(偽)肩上跑傳 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 120,
         "quality": 3,
@@ -4095,6 +4187,7 @@
     {
         "id": 1233,
         "nametw": "(偽)肩上跑傳 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 120,
         "quality": 4,
@@ -4146,6 +4239,7 @@
     {
         "id": 1234,
         "nametw": "(偽)肩上跑傳 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 120,
         "quality": 5,
@@ -4193,6 +4287,7 @@
     {
         "id": 1240,
         "nametw": "(偽)左側背後跑傳 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 120,
         "quality": 1,
@@ -4243,6 +4338,7 @@
     {
         "id": 1241,
         "nametw": "(偽)左側背後跑傳 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 120,
         "quality": 2,
@@ -4293,6 +4389,7 @@
     {
         "id": 1242,
         "nametw": "(偽)左側背後跑傳 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 120,
         "quality": 3,
@@ -4343,6 +4440,7 @@
     {
         "id": 1243,
         "nametw": "(偽)左側背後跑傳 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 120,
         "quality": 4,
@@ -4393,6 +4491,7 @@
     {
         "id": 1244,
         "nametw": "(偽)左側背後跑傳 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 120,
         "quality": 5,
@@ -4439,6 +4538,7 @@
     {
         "id": 1250,
         "nametw": "(偽)右側背後跑傳 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 120,
         "quality": 1,
@@ -4489,6 +4589,7 @@
     {
         "id": 1251,
         "nametw": "(偽)右側背後跑傳 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 120,
         "quality": 2,
@@ -4539,6 +4640,7 @@
     {
         "id": 1252,
         "nametw": "(偽)右側背後跑傳 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 120,
         "quality": 3,
@@ -4589,6 +4691,7 @@
     {
         "id": 1253,
         "nametw": "(偽)右側背後跑傳 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 120,
         "quality": 4,
@@ -4639,6 +4742,7 @@
     {
         "id": 1254,
         "nametw": "(偽)右側背後跑傳 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 120,
         "quality": 5,
@@ -4685,6 +4789,7 @@
     {
         "id": 1310,
         "nametw": "飛身搶球 I",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 130,
         "quality": 1,
@@ -4731,6 +4836,7 @@
     {
         "id": 1311,
         "nametw": "飛身搶球 II",
+        "basicstar": 2,
         "maxstar": 2,
         "kind": 130,
         "quality": 2,
@@ -4777,6 +4883,7 @@
     {
         "id": 1312,
         "nametw": "飛身搶球 III",
+        "basicstar": 4,
         "maxstar": 2,
         "kind": 130,
         "quality": 3,
@@ -4823,6 +4930,7 @@
     {
         "id": 1313,
         "nametw": "飛身搶球 IV",
+        "basicstar": 6,
         "maxstar": 2,
         "kind": 130,
         "quality": 4,
@@ -4869,6 +4977,7 @@
     {
         "id": 1314,
         "nametw": "飛身搶球 V",
+        "basicstar": 8,
         "maxstar": 2,
         "kind": 130,
         "quality": 5,
@@ -4911,6 +5020,7 @@
     {
         "id": 1398,
         "nametw": "飛身搶球 ",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 130,
         "quality": 1,
@@ -4957,6 +5067,7 @@
     {
         "id": 1399,
         "nametw": "究極飛身搶球 ",
+        "basicstar": 0,
         "maxstar": 2,
         "kind": 130,
         "quality": 2,
@@ -5000,6 +5111,7 @@
     {
         "id": 1400,
         "nametw": "籃板之王 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 140,
         "quality": 1,
@@ -5039,6 +5151,7 @@
     {
         "id": 1401,
         "nametw": "籃板之王 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 140,
         "quality": 2,
@@ -5079,6 +5192,7 @@
     {
         "id": 1402,
         "nametw": "籃板之王 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 140,
         "quality": 3,
@@ -5119,6 +5233,7 @@
     {
         "id": 1403,
         "nametw": "籃板之王 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 140,
         "quality": 4,
@@ -5159,6 +5274,7 @@
     {
         "id": 1404,
         "nametw": "籃板之王 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 140,
         "quality": 5,
@@ -5195,6 +5311,7 @@
     {
         "id": 1500,
         "nametw": "妙手抄截 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 150,
         "quality": 1,
@@ -5233,6 +5350,7 @@
     {
         "id": 1501,
         "nametw": "妙手抄截 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 150,
         "quality": 2,
@@ -5272,6 +5390,7 @@
     {
         "id": 1502,
         "nametw": "妙手抄截 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 150,
         "quality": 3,
@@ -5311,6 +5430,7 @@
     {
         "id": 1503,
         "nametw": "妙手抄截 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 150,
         "quality": 4,
@@ -5350,6 +5470,7 @@
     {
         "id": 1504,
         "nametw": "妙手抄截 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 150,
         "quality": 5,
@@ -5385,6 +5506,7 @@
     {
         "id": 1599,
         "nametw": "究極妙手抄截",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 150,
         "quality": 4,
@@ -5422,6 +5544,7 @@
     {
         "id": 1610,
         "nametw": "火鍋之王 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 160,
         "quality": 1,
@@ -5461,6 +5584,7 @@
     {
         "id": 1611,
         "nametw": "火鍋之王 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 160,
         "quality": 2,
@@ -5500,6 +5624,7 @@
     {
         "id": 1612,
         "nametw": "火鍋之王 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 160,
         "quality": 3,
@@ -5539,6 +5664,7 @@
     {
         "id": 1613,
         "nametw": "火鍋之王 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 160,
         "quality": 4,
@@ -5578,6 +5704,7 @@
     {
         "id": 1614,
         "nametw": "火鍋之王 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 160,
         "quality": 5,
@@ -5613,6 +5740,7 @@
     {
         "id": 1700,
         "nametw": "奮力一擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 170,
         "quality": 1,
@@ -5651,6 +5779,7 @@
     {
         "id": 1701,
         "nametw": "奮力一擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 170,
         "quality": 2,
@@ -5690,6 +5819,7 @@
     {
         "id": 1702,
         "nametw": "奮力一擊 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 170,
         "quality": 3,
@@ -5729,6 +5859,7 @@
     {
         "id": 1703,
         "nametw": "奮力一擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 170,
         "quality": 4,
@@ -5768,6 +5899,7 @@
     {
         "id": 1704,
         "nametw": "奮力一擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 170,
         "quality": 5,
@@ -5803,6 +5935,7 @@
     {
         "id": 1800,
         "nametw": "拐子肘擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 180,
         "quality": 1,
@@ -5841,6 +5974,7 @@
     {
         "id": 1801,
         "nametw": "拐子肘擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 180,
         "quality": 2,
@@ -5880,6 +6014,7 @@
     {
         "id": 1802,
         "nametw": "拐子肘擊 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 180,
         "quality": 3,
@@ -5919,6 +6054,7 @@
     {
         "id": 1803,
         "nametw": "拐子肘擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 180,
         "quality": 4,
@@ -5958,6 +6094,7 @@
     {
         "id": 1804,
         "nametw": "拐子肘擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 180,
         "quality": 5,
@@ -5993,6 +6130,7 @@
     {
         "id": 1899,
         "nametw": "究極拐子肘擊",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 180,
         "quality": 3,
@@ -6030,6 +6168,7 @@
     {
         "id": 1900,
         "nametw": "倒地快起 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 190,
         "quality": 1,
@@ -6066,6 +6205,7 @@
     {
         "id": 1901,
         "nametw": "倒地快起 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 190,
         "quality": 2,
@@ -6103,6 +6243,7 @@
     {
         "id": 1902,
         "nametw": "倒地快起 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 190,
         "quality": 3,
@@ -6140,6 +6281,7 @@
     {
         "id": 1903,
         "nametw": "倒地快起 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 190,
         "quality": 4,
@@ -6177,6 +6319,7 @@
     {
         "id": 1904,
         "nametw": "倒地快起 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 190,
         "quality": 5,
@@ -6210,6 +6353,7 @@
     {
         "id": 1998,
         "nametw": "倒地快起 ",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 190,
         "quality": 1,
@@ -6246,6 +6390,7 @@
     {
         "id": 2200,
         "nametw": "籃板追擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6285,6 +6430,7 @@
     {
         "id": 2201,
         "nametw": "籃板追擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6323,6 +6469,7 @@
     {
         "id": 2202,
         "nametw": "籃板追擊 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6361,6 +6508,7 @@
     {
         "id": 2203,
         "nametw": "籃板追擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6399,6 +6547,7 @@
     {
         "id": 2204,
         "nametw": "籃板追擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6433,6 +6582,7 @@
     {
         "id": 2210,
         "nametw": "火鍋追擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6471,6 +6621,7 @@
     {
         "id": 2211,
         "nametw": "火鍋追擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6509,6 +6660,7 @@
     {
         "id": 2212,
         "nametw": "火鍋追擊 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6547,6 +6699,7 @@
     {
         "id": 2213,
         "nametw": "火鍋追擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6585,6 +6738,7 @@
     {
         "id": 2214,
         "nametw": "火鍋追擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6619,6 +6773,7 @@
     {
         "id": 2220,
         "nametw": "防線追擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6657,6 +6812,7 @@
     {
         "id": 2221,
         "nametw": "防線追擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6695,6 +6851,7 @@
     {
         "id": 2222,
         "nametw": "防線追擊III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6733,6 +6890,7 @@
     {
         "id": 2223,
         "nametw": "防線追擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6771,6 +6929,7 @@
     {
         "id": 2224,
         "nametw": "防線追擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6805,6 +6964,7 @@
     {
         "id": 2230,
         "nametw": "火鍋追擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6843,6 +7003,7 @@
     {
         "id": 2231,
         "nametw": "火鍋追擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6881,6 +7042,7 @@
     {
         "id": 2232,
         "nametw": "火鍋追擊 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6919,6 +7081,7 @@
     {
         "id": 2233,
         "nametw": "火鍋追擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6957,6 +7120,7 @@
     {
         "id": 2234,
         "nametw": "火鍋追擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -6991,6 +7155,7 @@
     {
         "id": 2240,
         "nametw": "防線追擊 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7029,6 +7194,7 @@
     {
         "id": 2241,
         "nametw": "防線追擊 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7067,6 +7233,7 @@
     {
         "id": 2242,
         "nametw": "防線追擊III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7105,6 +7272,7 @@
     {
         "id": 2243,
         "nametw": "防線追擊 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7143,6 +7311,7 @@
     {
         "id": 2244,
         "nametw": "防線追擊 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7177,6 +7346,7 @@
     {
         "id": 2250,
         "nametw": "放槍激勵 1 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7215,6 +7385,7 @@
     {
         "id": 2251,
         "nametw": "放槍激勵 1 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7253,6 +7424,7 @@
     {
         "id": 2252,
         "nametw": "放槍激勵 1 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7291,6 +7463,7 @@
     {
         "id": 2253,
         "nametw": "放槍激勵 1 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7329,6 +7502,7 @@
     {
         "id": 2254,
         "nametw": "放槍激勵 1 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7363,6 +7537,7 @@
     {
         "id": 2260,
         "nametw": "放槍激勵 2 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7401,6 +7576,7 @@
     {
         "id": 2261,
         "nametw": "放槍激勵 2 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7439,6 +7615,7 @@
     {
         "id": 2262,
         "nametw": "放槍激勵 2 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7477,6 +7654,7 @@
     {
         "id": 2263,
         "nametw": "放槍激勵 2 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7515,6 +7693,7 @@
     {
         "id": 2264,
         "nametw": "放槍激勵 2 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 220,
         "quality": 1,
@@ -7549,6 +7728,7 @@
     {
         "id": 2300,
         "nametw": "命中激勵 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7587,6 +7767,7 @@
     {
         "id": 2301,
         "nametw": "命中激勵 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7626,6 +7807,7 @@
     {
         "id": 2302,
         "nametw": "命中激勵 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7665,6 +7847,7 @@
     {
         "id": 2303,
         "nametw": "命中激勵 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7704,6 +7887,7 @@
     {
         "id": 2304,
         "nametw": "命中激勵 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7739,6 +7923,7 @@
     {
         "id": 2310,
         "nametw": "外線激勵 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7777,6 +7962,7 @@
     {
         "id": 2311,
         "nametw": "外線激勵 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7816,6 +8002,7 @@
     {
         "id": 2312,
         "nametw": "外線激勵 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7855,6 +8042,7 @@
     {
         "id": 2313,
         "nametw": "外線激勵 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7894,6 +8082,7 @@
     {
         "id": 2314,
         "nametw": "外線激勵 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7929,6 +8118,7 @@
     {
         "id": 2320,
         "nametw": "命中激勵 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -7967,6 +8157,7 @@
     {
         "id": 2321,
         "nametw": "命中激勵 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8006,6 +8197,7 @@
     {
         "id": 2322,
         "nametw": "命中激勵 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8045,6 +8237,7 @@
     {
         "id": 2323,
         "nametw": "命中激勵 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8084,6 +8277,7 @@
     {
         "id": 2324,
         "nametw": "命中激勵 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8119,6 +8313,7 @@
     {
         "id": 2330,
         "nametw": "外線激勵 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8157,6 +8352,7 @@
     {
         "id": 2331,
         "nametw": "外線激勵 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8196,6 +8392,7 @@
     {
         "id": 2332,
         "nametw": "外線激勵 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8235,6 +8432,7 @@
     {
         "id": 2333,
         "nametw": "外線激勵 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8274,6 +8472,7 @@
     {
         "id": 2334,
         "nametw": "外線激勵 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8309,6 +8508,7 @@
     {
         "id": 2340,
         "nametw": "命中激勵 I",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8347,6 +8547,7 @@
     {
         "id": 2341,
         "nametw": "命中激勵 II",
+        "basicstar": 1,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8386,6 +8587,7 @@
     {
         "id": 2342,
         "nametw": "命中激勵 III",
+        "basicstar": 2,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8425,6 +8627,7 @@
     {
         "id": 2343,
         "nametw": "命中激勵 IV",
+        "basicstar": 3,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8464,6 +8667,7 @@
     {
         "id": 2344,
         "nametw": "命中激勵 V",
+        "basicstar": 4,
         "maxstar": 1,
         "kind": 230,
         "quality": 1,
@@ -8499,6 +8703,7 @@
     {
         "id": 10400,
         "nametw": "鷹眼神射 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 40,
         "quality": 1,
@@ -8556,6 +8761,7 @@
     {
         "id": 10401,
         "nametw": "鷹眼神射 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 40,
         "quality": 2,
@@ -8615,6 +8821,7 @@
     {
         "id": 10402,
         "nametw": "鷹眼神射 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 40,
         "quality": 3,
@@ -8674,6 +8881,7 @@
     {
         "id": 10403,
         "nametw": "鷹眼神射 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 40,
         "quality": 4,
@@ -8733,6 +8941,7 @@
     {
         "id": 10404,
         "nametw": "鷹眼神射 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 40,
         "quality": 5,
@@ -8788,6 +8997,7 @@
     {
         "id": 10410,
         "nametw": "究極鷹眼神射 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 40,
         "quality": 1,
@@ -8845,6 +9055,7 @@
     {
         "id": 10411,
         "nametw": "究極鷹眼神射 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 40,
         "quality": 2,
@@ -8904,6 +9115,7 @@
     {
         "id": 10412,
         "nametw": "究極鷹眼神射 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 40,
         "quality": 3,
@@ -8963,6 +9175,7 @@
     {
         "id": 10413,
         "nametw": "究極鷹眼神射 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 40,
         "quality": 4,
@@ -9022,6 +9235,7 @@
     {
         "id": 10414,
         "nametw": "究極鷹眼神射 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 40,
         "quality": 5,
@@ -9077,6 +9291,7 @@
     {
         "id": 10498,
         "nametw": "鷹眼神射",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 40,
         "quality": 1,
@@ -9129,6 +9344,7 @@
     {
         "id": 10499,
         "nametw": "究極鷹眼神射",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 40,
         "quality": 3,
@@ -9179,6 +9395,7 @@
     {
         "id": 10600,
         "nametw": "大車輪爆扣 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 60,
         "quality": 1,
@@ -9230,6 +9447,7 @@
     {
         "id": 10601,
         "nametw": "大車輪爆扣 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 60,
         "quality": 2,
@@ -9283,6 +9501,7 @@
     {
         "id": 10602,
         "nametw": "大車輪爆扣 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 60,
         "quality": 3,
@@ -9336,6 +9555,7 @@
     {
         "id": 10603,
         "nametw": "大車輪爆扣 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 60,
         "quality": 4,
@@ -9389,6 +9609,7 @@
     {
         "id": 10604,
         "nametw": "大車輪爆扣 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 60,
         "quality": 5,
@@ -9438,6 +9659,7 @@
     {
         "id": 10630,
         "nametw": "雙手爆扣 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 60,
         "quality": 1,
@@ -9479,6 +9701,7 @@
     {
         "id": 10631,
         "nametw": "雙手爆扣 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 60,
         "quality": 2,
@@ -9520,6 +9743,7 @@
     {
         "id": 10632,
         "nametw": "雙手爆扣 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 60,
         "quality": 3,
@@ -9561,6 +9785,7 @@
     {
         "id": 10633,
         "nametw": "雙手爆扣 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 60,
         "quality": 4,
@@ -9602,6 +9827,7 @@
     {
         "id": 10634,
         "nametw": "雙手爆扣 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 60,
         "quality": 5,
@@ -9639,6 +9865,7 @@
     {
         "id": 10640,
         "nametw": "胯下灌籃 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 60,
         "quality": 1,
@@ -9684,6 +9911,7 @@
     {
         "id": 10641,
         "nametw": "胯下灌籃 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 60,
         "quality": 2,
@@ -9731,6 +9959,7 @@
     {
         "id": 10642,
         "nametw": "胯下灌籃 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 60,
         "quality": 3,
@@ -9778,6 +10007,7 @@
     {
         "id": 10643,
         "nametw": "胯下灌籃 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 60,
         "quality": 4,
@@ -9825,6 +10055,7 @@
     {
         "id": 10644,
         "nametw": "胯下灌籃 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 60,
         "quality": 5,
@@ -9868,6 +10099,7 @@
     {
         "id": 10650,
         "nametw": "飛人爆扣 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 60,
         "quality": 1,
@@ -9919,6 +10151,7 @@
     {
         "id": 10651,
         "nametw": "飛人爆扣 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 60,
         "quality": 2,
@@ -9972,6 +10205,7 @@
     {
         "id": 10652,
         "nametw": "飛人爆扣 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 60,
         "quality": 3,
@@ -10025,6 +10259,7 @@
     {
         "id": 10653,
         "nametw": "飛人爆扣 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 60,
         "quality": 4,
@@ -10078,6 +10313,7 @@
     {
         "id": 10654,
         "nametw": "飛人爆扣 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 60,
         "quality": 5,
@@ -10127,6 +10363,7 @@
     {
         "id": 10698,
         "nametw": "雙手爆扣 ",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 60,
         "quality": 1,
@@ -10178,6 +10415,7 @@
     {
         "id": 10700,
         "nametw": "狂野雙爆扣 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 70,
         "quality": 1,
@@ -10229,6 +10467,7 @@
     {
         "id": 10701,
         "nametw": "狂野雙爆扣 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 70,
         "quality": 2,
@@ -10280,6 +10519,7 @@
     {
         "id": 10702,
         "nametw": "狂野雙爆扣 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 70,
         "quality": 3,
@@ -10331,6 +10571,7 @@
     {
         "id": 10703,
         "nametw": "狂野雙爆扣 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 70,
         "quality": 4,
@@ -10382,6 +10623,7 @@
     {
         "id": 10704,
         "nametw": "狂野雙爆扣 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 70,
         "quality": 5,
@@ -10429,6 +10671,7 @@
     {
         "id": 10705,
         "nametw": "究極雙爆扣 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 70,
         "quality": 1,
@@ -10480,6 +10723,7 @@
     {
         "id": 10706,
         "nametw": "究極雙爆扣 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 70,
         "quality": 2,
@@ -10531,6 +10775,7 @@
     {
         "id": 10707,
         "nametw": "究極雙爆扣 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 70,
         "quality": 3,
@@ -10582,6 +10827,7 @@
     {
         "id": 10708,
         "nametw": "究極雙爆扣 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 70,
         "quality": 4,
@@ -10633,6 +10879,7 @@
     {
         "id": 10709,
         "nametw": "究極雙爆扣 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 70,
         "quality": 5,
@@ -10680,6 +10927,7 @@
     {
         "id": 10710,
         "nametw": "狂野三爆扣 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 70,
         "quality": 1,
@@ -10731,6 +10979,7 @@
     {
         "id": 10711,
         "nametw": "狂野三爆扣 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 70,
         "quality": 2,
@@ -10783,6 +11032,7 @@
     {
         "id": 10712,
         "nametw": "狂野三爆扣 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 70,
         "quality": 3,
@@ -10835,6 +11085,7 @@
     {
         "id": 10713,
         "nametw": "狂野三爆扣 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 70,
         "quality": 4,
@@ -10887,6 +11138,7 @@
     {
         "id": 10714,
         "nametw": "狂野三爆扣 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 70,
         "quality": 5,
@@ -10935,6 +11187,7 @@
     {
         "id": 10715,
         "nametw": "究極三爆扣 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 70,
         "quality": 1,
@@ -10986,6 +11239,7 @@
     {
         "id": 10716,
         "nametw": "究極三爆扣 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 70,
         "quality": 2,
@@ -11038,6 +11292,7 @@
     {
         "id": 10717,
         "nametw": "究極三爆扣 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 70,
         "quality": 3,
@@ -11090,6 +11345,7 @@
     {
         "id": 10718,
         "nametw": "究極三爆扣 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 70,
         "quality": 4,
@@ -11142,6 +11398,7 @@
     {
         "id": 10719,
         "nametw": "究極三爆扣 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 70,
         "quality": 5,
@@ -11190,6 +11447,7 @@
     {
         "id": 10798,
         "nametw": "究極雙爆扣",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 70,
         "quality": 3,
@@ -11234,6 +11492,7 @@
     {
         "id": 10799,
         "nametw": "究極三爆扣",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 70,
         "quality": 3,
@@ -11278,6 +11537,7 @@
     {
         "id": 11400,
         "nametw": "籃板王傳說 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 140,
         "quality": 1,
@@ -11324,6 +11584,7 @@
     {
         "id": 11401,
         "nametw": "籃板王傳說 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 140,
         "quality": 2,
@@ -11371,6 +11632,7 @@
     {
         "id": 11402,
         "nametw": "籃板王傳說 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 140,
         "quality": 3,
@@ -11418,6 +11680,7 @@
     {
         "id": 11403,
         "nametw": "籃板王傳說 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 140,
         "quality": 4,
@@ -11465,6 +11728,7 @@
     {
         "id": 11404,
         "nametw": "籃板王傳說 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 140,
         "quality": 5,
@@ -11508,6 +11772,7 @@
     {
         "id": 11405,
         "nametw": "(偽)究極籃板王傳說 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 140,
         "quality": 1,
@@ -11554,6 +11819,7 @@
     {
         "id": 11406,
         "nametw": "(偽)究極籃板王傳說 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 140,
         "quality": 2,
@@ -11601,6 +11867,7 @@
     {
         "id": 11407,
         "nametw": "(偽)究極籃板王傳說 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 140,
         "quality": 3,
@@ -11648,6 +11915,7 @@
     {
         "id": 11408,
         "nametw": "(偽)究極籃板王傳說 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 140,
         "quality": 4,
@@ -11695,6 +11963,7 @@
     {
         "id": 11409,
         "nametw": "(偽)究極籃板王傳說 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 140,
         "quality": 5,
@@ -11738,6 +12007,7 @@
     {
         "id": 11450,
         "nametw": "究極籃板王傳說 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 140,
         "quality": 1,
@@ -11784,6 +12054,7 @@
     {
         "id": 11451,
         "nametw": "究極籃板王傳說 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 140,
         "quality": 2,
@@ -11831,6 +12102,7 @@
     {
         "id": 11452,
         "nametw": "究極籃板王傳說 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 140,
         "quality": 3,
@@ -11878,6 +12150,7 @@
     {
         "id": 11453,
         "nametw": "究極籃板王傳說 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 140,
         "quality": 4,
@@ -11925,6 +12198,7 @@
     {
         "id": 11454,
         "nametw": "究極籃板王傳說 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 140,
         "quality": 5,
@@ -11968,6 +12242,7 @@
     {
         "id": 11500,
         "nametw": "瞬移抄截 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 150,
         "quality": 1,
@@ -12025,6 +12300,7 @@
     {
         "id": 11501,
         "nametw": "瞬移抄截 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 150,
         "quality": 2,
@@ -12082,6 +12358,7 @@
     {
         "id": 11502,
         "nametw": "瞬移抄截 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 150,
         "quality": 3,
@@ -12139,6 +12416,7 @@
     {
         "id": 11503,
         "nametw": "瞬移抄截 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 150,
         "quality": 4,
@@ -12196,6 +12474,7 @@
     {
         "id": 11504,
         "nametw": "瞬移抄截 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 150,
         "quality": 5,
@@ -12253,6 +12532,7 @@
     {
         "id": 11505,
         "nametw": "(偽)究極瞬移抄截 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 150,
         "quality": 1,
@@ -12309,6 +12589,7 @@
     {
         "id": 11506,
         "nametw": "(偽)究極瞬移抄截 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 150,
         "quality": 2,
@@ -12366,6 +12647,7 @@
     {
         "id": 11507,
         "nametw": "(偽)究極瞬移抄截 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 150,
         "quality": 3,
@@ -12423,6 +12705,7 @@
     {
         "id": 11508,
         "nametw": "(偽)究極瞬移抄截 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 150,
         "quality": 4,
@@ -12480,6 +12763,7 @@
     {
         "id": 11509,
         "nametw": "(偽)究極瞬移抄截 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 150,
         "quality": 5,
@@ -12533,6 +12817,7 @@
     {
         "id": 11550,
         "nametw": "究極瞬移抄截 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 150,
         "quality": 1,
@@ -12585,6 +12870,7 @@
     {
         "id": 11551,
         "nametw": "究極瞬移抄截 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 150,
         "quality": 2,
@@ -12642,6 +12928,7 @@
     {
         "id": 11552,
         "nametw": "究極瞬移抄截 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 150,
         "quality": 3,
@@ -12699,6 +12986,7 @@
     {
         "id": 11553,
         "nametw": "究極瞬移抄截 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 150,
         "quality": 4,
@@ -12756,6 +13044,7 @@
     {
         "id": 11554,
         "nametw": "究極瞬移抄截 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 150,
         "quality": 5,
@@ -12859,6 +13148,7 @@
     {
         "id": 11600,
         "nametw": "投籃剋星 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 160,
         "quality": 1,
@@ -12901,6 +13191,7 @@
     {
         "id": 11601,
         "nametw": "投籃剋星 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 160,
         "quality": 2,
@@ -12943,6 +13234,7 @@
     {
         "id": 11602,
         "nametw": "投籃剋星 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 160,
         "quality": 3,
@@ -12985,6 +13277,7 @@
     {
         "id": 11603,
         "nametw": "投籃剋星 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 160,
         "quality": 4,
@@ -13027,6 +13320,7 @@
     {
         "id": 11604,
         "nametw": "投籃剋星 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 160,
         "quality": 5,
@@ -13065,6 +13359,7 @@
     {
         "id": 11605,
         "nametw": "(偽)究極投籃剋星 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 160,
         "quality": 1,
@@ -13106,6 +13401,7 @@
     {
         "id": 11606,
         "nametw": "(偽)究極投籃剋星 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 160,
         "quality": 2,
@@ -13148,6 +13444,7 @@
     {
         "id": 11607,
         "nametw": "(偽)究極投籃剋星 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 160,
         "quality": 3,
@@ -13190,6 +13487,7 @@
     {
         "id": 11608,
         "nametw": "(偽)究極投籃剋星 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 160,
         "quality": 4,
@@ -13232,6 +13530,7 @@
     {
         "id": 11609,
         "nametw": "(偽)究極投籃剋星 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 160,
         "quality": 5,
@@ -13270,6 +13569,7 @@
     {
         "id": 11610,
         "nametw": "究極投籃剋星 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 160,
         "quality": 1,
@@ -13311,6 +13611,7 @@
     {
         "id": 11611,
         "nametw": "究極投籃剋星 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 160,
         "quality": 2,
@@ -13353,6 +13654,7 @@
     {
         "id": 11612,
         "nametw": "究極投籃剋星 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 160,
         "quality": 3,
@@ -13395,6 +13697,7 @@
     {
         "id": 11613,
         "nametw": "究極投籃剋星 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 160,
         "quality": 4,
@@ -13437,6 +13740,7 @@
     {
         "id": 11614,
         "nametw": "究極投籃剋星 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 160,
         "quality": 5,
@@ -13475,6 +13779,7 @@
     {
         "id": 11615,
         "nametw": "(偽)究極灌籃剋星 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 161,
         "quality": 1,
@@ -13516,6 +13821,7 @@
     {
         "id": 11616,
         "nametw": "(偽)究極灌籃剋星 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 161,
         "quality": 2,
@@ -13559,6 +13865,7 @@
     {
         "id": 11617,
         "nametw": "(偽)究極灌籃剋星 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 161,
         "quality": 3,
@@ -13602,6 +13909,7 @@
     {
         "id": 11618,
         "nametw": "(偽)究極灌籃剋星 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 161,
         "quality": 4,
@@ -13645,6 +13953,7 @@
     {
         "id": 11619,
         "nametw": "(偽)究極灌籃剋星 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 161,
         "quality": 5,
@@ -13684,6 +13993,7 @@
     {
         "id": 11650,
         "nametw": "灌籃剋星 I",
+        "basicstar": 0,
         "maxstar": 3,
         "kind": 161,
         "quality": 1,
@@ -13726,6 +14036,7 @@
     {
         "id": 11651,
         "nametw": "灌籃剋星 II",
+        "basicstar": 3,
         "maxstar": 3,
         "kind": 161,
         "quality": 2,
@@ -13769,6 +14080,7 @@
     {
         "id": 11652,
         "nametw": "灌籃剋星 III",
+        "basicstar": 6,
         "maxstar": 3,
         "kind": 161,
         "quality": 3,
@@ -13812,6 +14124,7 @@
     {
         "id": 11653,
         "nametw": "灌籃剋星 IV",
+        "basicstar": 9,
         "maxstar": 3,
         "kind": 161,
         "quality": 4,
@@ -13855,6 +14168,7 @@
     {
         "id": 11654,
         "nametw": "灌籃剋星 V",
+        "basicstar": 12,
         "maxstar": 3,
         "kind": 161,
         "quality": 5,
@@ -13894,6 +14208,7 @@
     {
         "id": 11660,
         "nametw": "究極灌籃剋星 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 161,
         "quality": 1,
@@ -13935,6 +14250,7 @@
     {
         "id": 11661,
         "nametw": "究極灌籃剋星 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 161,
         "quality": 2,
@@ -13978,6 +14294,7 @@
     {
         "id": 11662,
         "nametw": "究極灌籃剋星 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 161,
         "quality": 3,
@@ -14021,6 +14338,7 @@
     {
         "id": 11663,
         "nametw": "究極灌籃剋星 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 161,
         "quality": 4,
@@ -14064,6 +14382,7 @@
     {
         "id": 11664,
         "nametw": "究極灌籃剋星 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 161,
         "quality": 5,
@@ -14103,6 +14422,7 @@
     {
         "id": 11700,
         "nametw": "飛身衝撞 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 170,
         "quality": 1,
@@ -14158,6 +14478,7 @@
     {
         "id": 11701,
         "nametw": "飛身衝撞 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 170,
         "quality": 2,
@@ -14214,6 +14535,7 @@
     {
         "id": 11702,
         "nametw": "飛身衝撞 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 170,
         "quality": 3,
@@ -14270,6 +14592,7 @@
     {
         "id": 11703,
         "nametw": "飛身衝撞 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 170,
         "quality": 4,
@@ -14326,6 +14649,7 @@
     {
         "id": 11704,
         "nametw": "飛身衝撞 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 170,
         "quality": 5,
@@ -14378,6 +14702,7 @@
     {
         "id": 11710,
         "nametw": "究極飛身衝撞 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 170,
         "quality": 1,
@@ -14432,6 +14757,7 @@
     {
         "id": 11711,
         "nametw": "究極飛身衝撞 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 170,
         "quality": 2,
@@ -14488,6 +14814,7 @@
     {
         "id": 11712,
         "nametw": "究極飛身衝撞 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 170,
         "quality": 3,
@@ -14544,6 +14871,7 @@
     {
         "id": 11713,
         "nametw": "究極飛身衝撞 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 170,
         "quality": 4,
@@ -14600,6 +14928,7 @@
     {
         "id": 11714,
         "nametw": "究極飛身衝撞 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 170,
         "quality": 5,
@@ -14652,6 +14981,7 @@
     {
         "id": 11715,
         "nametw": "(偽)究極直線暴衝 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 171,
         "quality": 1,
@@ -14703,6 +15033,7 @@
     {
         "id": 11716,
         "nametw": "(偽)究極直線暴衝 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 171,
         "quality": 2,
@@ -14756,6 +15087,7 @@
     {
         "id": 11717,
         "nametw": "(偽)究極直線暴衝 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 171,
         "quality": 3,
@@ -14809,6 +15141,7 @@
     {
         "id": 11718,
         "nametw": "(偽)究極直線暴衝 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 171,
         "quality": 4,
@@ -14862,6 +15195,7 @@
     {
         "id": 11719,
         "nametw": "(偽)究極直線暴衝 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 171,
         "quality": 5,
@@ -14911,6 +15245,7 @@
     {
         "id": 11750,
         "nametw": "直線暴衝 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 171,
         "quality": 1,
@@ -14966,6 +15301,7 @@
     {
         "id": 11751,
         "nametw": "直線暴衝 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 171,
         "quality": 2,
@@ -15022,6 +15358,7 @@
     {
         "id": 11752,
         "nametw": "直線暴衝 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 171,
         "quality": 3,
@@ -15078,6 +15415,7 @@
     {
         "id": 11753,
         "nametw": "直線暴衝 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 171,
         "quality": 4,
@@ -15134,6 +15472,7 @@
     {
         "id": 11754,
         "nametw": "直線暴衝 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 171,
         "quality": 5,
@@ -15190,6 +15529,7 @@
     {
         "id": 11760,
         "nametw": "究極直線暴衝 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 171,
         "quality": 1,
@@ -15245,6 +15585,7 @@
     {
         "id": 11761,
         "nametw": "究極直線暴衝 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 171,
         "quality": 2,
@@ -15301,6 +15642,7 @@
     {
         "id": 11762,
         "nametw": "究極直線暴衝 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 171,
         "quality": 3,
@@ -15357,6 +15699,7 @@
     {
         "id": 11763,
         "nametw": "究極直線暴衝 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 171,
         "quality": 4,
@@ -15413,6 +15756,7 @@
     {
         "id": 11764,
         "nametw": "究極直線暴衝 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 171,
         "quality": 5,
@@ -15465,6 +15809,7 @@
     {
         "id": 11800,
         "nametw": "大地震波 I",
+        "basicstar": 0,
         "maxstar": 4,
         "kind": 180,
         "quality": 1,
@@ -15510,6 +15855,7 @@
     {
         "id": 11801,
         "nametw": "大地震波 II",
+        "basicstar": 4,
         "maxstar": 4,
         "kind": 180,
         "quality": 2,
@@ -15556,6 +15902,7 @@
     {
         "id": 11802,
         "nametw": "大地震波 III",
+        "basicstar": 8,
         "maxstar": 4,
         "kind": 180,
         "quality": 3,
@@ -15602,6 +15949,7 @@
     {
         "id": 11803,
         "nametw": "大地震波 IV",
+        "basicstar": 12,
         "maxstar": 4,
         "kind": 180,
         "quality": 4,
@@ -15648,6 +15996,7 @@
     {
         "id": 11804,
         "nametw": "大地震波 V",
+        "basicstar": 16,
         "maxstar": 4,
         "kind": 180,
         "quality": 5,
@@ -15694,6 +16043,7 @@
     {
         "id": 11805,
         "nametw": "(偽)究極大地震波 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 180,
         "quality": 1,
@@ -15735,6 +16085,7 @@
     {
         "id": 11806,
         "nametw": "(偽)究極大地震波 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 180,
         "quality": 2,
@@ -15778,6 +16129,7 @@
     {
         "id": 11807,
         "nametw": "(偽)究極大地震波 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 180,
         "quality": 3,
@@ -15821,6 +16173,7 @@
     {
         "id": 11808,
         "nametw": "(偽)究極大地震波 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 180,
         "quality": 4,
@@ -15864,6 +16217,7 @@
     {
         "id": 11809,
         "nametw": "(偽)究極大地震波 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 180,
         "quality": 5,
@@ -15903,6 +16257,7 @@
     {
         "id": 11850,
         "nametw": "究極大地震波 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 180,
         "quality": 1,
@@ -15947,6 +16302,7 @@
     {
         "id": 11851,
         "nametw": "究極大地震波 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 180,
         "quality": 2,
@@ -15993,6 +16349,7 @@
     {
         "id": 11852,
         "nametw": "究極大地震波 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 180,
         "quality": 3,
@@ -16039,6 +16396,7 @@
     {
         "id": 11853,
         "nametw": "究極大地震波 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 180,
         "quality": 4,
@@ -16085,6 +16443,7 @@
     {
         "id": 11854,
         "nametw": "究極大地震波 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 180,
         "quality": 5,
@@ -16127,6 +16486,7 @@
     {
         "id": 12100,
         "nametw": "自我命中鼓舞 ",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16178,6 +16538,7 @@
     {
         "id": 12101,
         "nametw": "自我外線鼓舞 ",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16229,6 +16590,7 @@
     {
         "id": 12102,
         "nametw": "自我加速鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16280,6 +16642,7 @@
     {
         "id": 12103,
         "nametw": "自我耐力鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16331,6 +16694,7 @@
     {
         "id": 12104,
         "nametw": "自我力量鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16382,6 +16746,7 @@
     {
         "id": 12105,
         "nametw": "自我灌籃鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16433,6 +16798,7 @@
     {
         "id": 12106,
         "nametw": "自我籃板鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16484,6 +16850,7 @@
     {
         "id": 12107,
         "nametw": "自我火鍋鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16535,6 +16902,7 @@
     {
         "id": 12108,
         "nametw": "自我防守鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16586,6 +16954,7 @@
     {
         "id": 12109,
         "nametw": "自我抄截鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16637,6 +17006,7 @@
     {
         "id": 12110,
         "nametw": "自我控球鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16688,6 +17058,7 @@
     {
         "id": 12111,
         "nametw": "自我傳球鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16739,6 +17110,7 @@
     {
         "id": 12150,
         "nametw": "全隊命中鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16795,6 +17167,7 @@
     {
         "id": 12151,
         "nametw": "全隊外線鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16851,6 +17224,7 @@
     {
         "id": 12152,
         "nametw": "全隊加速鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16907,6 +17281,7 @@
     {
         "id": 12153,
         "nametw": "全隊耐力鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -16963,6 +17338,7 @@
     {
         "id": 12154,
         "nametw": "全隊力量鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17019,6 +17395,7 @@
     {
         "id": 12155,
         "nametw": "全隊灌籃鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17075,6 +17452,7 @@
     {
         "id": 12156,
         "nametw": "全隊籃板鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17131,6 +17509,7 @@
     {
         "id": 12157,
         "nametw": "全隊火鍋鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17187,6 +17566,7 @@
     {
         "id": 12158,
         "nametw": "全隊防守鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17243,6 +17623,7 @@
     {
         "id": 12159,
         "nametw": "全隊抄截鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17299,6 +17680,7 @@
     {
         "id": 12160,
         "nametw": "全隊控球鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17355,6 +17737,7 @@
     {
         "id": 12161,
         "nametw": "全隊傳球鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17411,6 +17794,7 @@
     {
         "id": 12170,
         "nametw": "全隊士氣鼓舞",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17467,6 +17851,7 @@
     {
         "id": 12171,
         "nametw": "全隊士氣激昂",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17523,6 +17908,7 @@
     {
         "id": 12180,
         "nametw": "命中衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17574,6 +17960,7 @@
     {
         "id": 12181,
         "nametw": "外線衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17625,6 +18012,7 @@
     {
         "id": 12182,
         "nametw": "加速衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17676,6 +18064,7 @@
     {
         "id": 12183,
         "nametw": "耐力衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17727,6 +18116,7 @@
     {
         "id": 12184,
         "nametw": "力量衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17778,6 +18168,7 @@
     {
         "id": 12185,
         "nametw": "灌籃衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17829,6 +18220,7 @@
     {
         "id": 12186,
         "nametw": "籃板衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17880,6 +18272,7 @@
     {
         "id": 12187,
         "nametw": "火鍋衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17931,6 +18324,7 @@
     {
         "id": 12188,
         "nametw": "防守衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -17982,6 +18376,7 @@
     {
         "id": 12189,
         "nametw": "抄截衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -18033,6 +18428,7 @@
     {
         "id": 12190,
         "nametw": "控球衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -18084,6 +18480,7 @@
     {
         "id": 12191,
         "nametw": "傳球衰減詛咒",
+        "basicstar": 0,
         "maxstar": 1,
         "kind": 210,
         "quality": 1,
@@ -18135,6 +18532,7 @@
     {
         "id": 13000,
         "nametw": "禁區陷阱 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 300,
         "quality": 1,
@@ -18184,6 +18582,7 @@
     {
         "id": 13001,
         "nametw": "禁區陷阱 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 300,
         "quality": 2,
@@ -18235,6 +18634,7 @@
     {
         "id": 13002,
         "nametw": "禁區陷阱 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 300,
         "quality": 3,
@@ -18286,6 +18686,7 @@
     {
         "id": 13003,
         "nametw": "禁區陷阱 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 300,
         "quality": 4,
@@ -18337,6 +18738,7 @@
     {
         "id": 13004,
         "nametw": "禁區陷阱 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 300,
         "quality": 5,
@@ -18384,6 +18786,7 @@
     {
         "id": 13100,
         "nametw": "外線結界 I",
+        "basicstar": 0,
         "maxstar": 5,
         "kind": 310,
         "quality": 1,
@@ -18433,6 +18836,7 @@
     {
         "id": 13101,
         "nametw": "外線結界 II",
+        "basicstar": 5,
         "maxstar": 5,
         "kind": 310,
         "quality": 2,
@@ -18483,6 +18887,7 @@
     {
         "id": 13102,
         "nametw": "外線結界 III",
+        "basicstar": 10,
         "maxstar": 5,
         "kind": 310,
         "quality": 3,
@@ -18533,6 +18938,7 @@
     {
         "id": 13103,
         "nametw": "外線結界 IV",
+        "basicstar": 15,
         "maxstar": 5,
         "kind": 310,
         "quality": 4,
@@ -18583,6 +18989,7 @@
     {
         "id": 13104,
         "nametw": "外線結界 V",
+        "basicstar": 20,
         "maxstar": 5,
         "kind": 310,
         "quality": 5,
