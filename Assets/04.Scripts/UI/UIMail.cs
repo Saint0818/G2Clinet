@@ -288,7 +288,7 @@ public class MailSubPageMail : MailSubPage {
 		default:
 			break;
 		}
-
+		UIMail.Get.RefreshRedPt ();
 		LoadMails ();
 	}
 
