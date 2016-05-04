@@ -312,10 +312,16 @@ public class UITutorial : UIBase {
                 if (obj) {
                     tweenScale = obj.AddComponent<TweenScale>();
                     tweenScale.from = Vector3.one;
-                    tweenScale.to = new Vector3(2f, 2f, 2f);
+                    float scale = 1;
+                    if (tu.Wait > 0)
+                        scale = tu.Wait;
+
+                    tweenScale.to = new Vector3(scale, scale, scale);
                     tweenScale.duration = 0.3f;
                     tweenScale.style = UITweener.Style.PingPong;
                     tweenScale.PlayForward();
+
+                    obj.transform.localPosition = new Vector3(obj.transform.localPosition.x + tu.Offsetx, obj.transform.localPosition.y + tu.Offsety, obj.transform.localPosition.z);
                 }
 
                 if (!string.IsNullOrEmpty(tu.Text)) {

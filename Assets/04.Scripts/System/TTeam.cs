@@ -679,7 +679,7 @@ namespace GameStruct
         }
 
         public bool HaveMissionAward(ref TMission mission) {
-            if (mission.Value != null && Player.Lv >= mission.Lv) {
+            if (mission.Value != null && mission.Lv > 0 && Player.Lv >= mission.Lv) {
                 int mLv = FindMissionLv(mission.ID, mission.TimeKind);
                 if (mLv < mission.Value.Length) {
                     int mValue = GetMissionValue(mission.Kind, mission.TimeKind, mission.TimeValue);

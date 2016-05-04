@@ -47,7 +47,7 @@ public class LobbyStart : MonoBehaviour {
         if (GameData.Init()) {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             UILoading.UIShow(true, ELoading.Login);
-            SendHttp.Get.checkVersion();
+            SendHttp.Get.CheckVersion();
             if (IsUseFpsLimiter) {
                 FpsLimiter fl = gameObject.GetComponent<FpsLimiter>();
                 if (!fl)
@@ -55,13 +55,15 @@ public class LobbyStart : MonoBehaviour {
             }
 
             #if UNITY_ANDROID
-            #if PUSHWOOSH
-            SendHttp.Get.gameObject.AddComponent<Pushwoosh>();
-            #endif
+                SendHttp.Get.InitIAP();
 
-            #if APPSFLYER
-            SendHttp.Get.gameObject.AddComponent<StartUp>();
-            #endif
+                #if PUSHWOOSH
+                SendHttp.Get.gameObject.AddComponent<Pushwoosh>();
+                #endif
+
+                #if APPSFLYER
+                SendHttp.Get.gameObject.AddComponent<StartUp>();
+                #endif
             #endif
         }
     }

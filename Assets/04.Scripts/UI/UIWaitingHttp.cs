@@ -11,7 +11,7 @@ public class UIWaitingHttp : UIBase {
 	private int resendCount = 0;
 	private float sendedTime = 0;
 	private string waitingURL;
-	private TBooleanWWWObj waitingCallback = null;
+	private BoolWWWCallback waitingCallback = null;
 	private WWWForm waitingForm = null;
 
 	public static bool Visible {
@@ -110,7 +110,7 @@ public class UIWaitingHttp : UIBase {
 		UIShow(false);
 	}
 
-	public void SaveProtocol(string url, TBooleanWWWObj callback, WWWForm form = null) {
+	public void SaveProtocol(string url, BoolWWWCallback callback, WWWForm form = null) {
 		waitingURL = url;
 		waitingCallback = callback;
 		waitingForm = form;
