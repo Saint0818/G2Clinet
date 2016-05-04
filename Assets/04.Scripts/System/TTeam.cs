@@ -1482,11 +1482,7 @@ namespace GameStruct
 			for(int i=suitcard.StarNum.Length - 1; i >= 0; i--) {
 				if(count >= suitcard.StarNum[i]) 
 					return i;
-
-				if(i == suitcard.StarNum.Length - 1)
-					return suitcard.StarNum.Length - 1;
 			}
-
 			return 0;
 		}
 
