@@ -395,7 +395,7 @@
         "zbackequip": 50001,
         "ailevel": 10,
         "namecn": "队友A",
-        "nameen": "TeammateA",
+        "nameen": "Aranja",
         "namejp": "TeammateA"
     },
     {
@@ -467,7 +467,7 @@
         "zbackequip": 49001,
         "ailevel": 10,
         "namecn": "队友B",
-        "nameen": "TeammateB",
+        "nameen": "Hell Commander",
         "namejp": "TeammateB"
     },
     {
@@ -609,7 +609,7 @@
         "zbackequip": 39001,
         "ailevel": 110,
         "namecn": "双刀凯乐",
-        "nameen": "Double Knife Killer",
+        "nameen": "Siren",
         "namejp": "Double Knife Killer"
     },
     {
@@ -639,7 +639,7 @@
         "zbackequip": 38001,
         "ailevel": 110,
         "namecn": "绝杀比尔",
-        "nameen": "Buzzer Beater Bill ",
+        "nameen": "Spectre",
         "namejp": "Buzzer Beater Bill "
     },
     {
@@ -669,7 +669,7 @@
         "zbackequip": 37001,
         "ailevel": 110,
         "namecn": "武士刀尚恩",
-        "nameen": "Samurai Sword Shawn",
+        "nameen": "Argus",
         "namejp": "Samurai Sword Shawn"
     },
     {
@@ -13771,8 +13771,8 @@
         "skilllv1": 4,
         "skill4": 1312,
         "skilllv4": 2,
-        "namecn": "熔岩防線-安",
-        "nameen": "Jenny",
+        "namecn": "塞壬",
+        "nameen": "Siren",
         "namejp": "Emma"
     },
     {
@@ -13805,8 +13805,8 @@
         "skilllv1": 4,
         "skill4": 1612,
         "skilllv4": 1,
-        "namecn": "熔岩防線-龍",
-        "nameen": "Lava -Ryo",
+        "namecn": "阿耳戈斯",
+        "nameen": "Argus",
         "namejp": "Lava -Ryo"
     },
     {
