@@ -67,6 +67,15 @@ public class TMailItem{
 	public void waitGetGift(bool ok, WWW www) {
 		if (ok) {
 			TMailGetGiftResult[] result = JsonConvertWrapper.DeserializeObject <TMailGetGiftResult[]>(www.text); 
+
+			// GS Log
+			switch (MailInfo.cause) {
+			case 1001:
+				Statistic.Ins.LogEvent (208);
+					break;
+				default:
+					break;
+			}
 			//ListMail(result);
 			// todo: 需要優化, 現在直接重新點tab
 			UIMail.Get.OnClickNowPage();

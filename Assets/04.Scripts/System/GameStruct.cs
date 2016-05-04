@@ -1887,6 +1887,7 @@ namespace GameStruct
 
 
 	public struct TMailInfo{
+		public int cause;
 		public string _id;
 		public DateTime Time;
 		public string FromIdentifier;
