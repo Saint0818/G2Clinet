@@ -379,9 +379,11 @@ public class UISuitCard {
 //	}
 
 	public void MoveToID (int id) {
-		int index = GameData.Team.GetSuitCardIndex(id);
-		scrollView.gameObject.transform.localPosition = new Vector3(15, 30 + (345 * index), 0);
-		scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 20));
+		if(id > 0) {
+			int index = GameData.Team.GetSuitCardIndex(id);
+			scrollView.gameObject.transform.localPosition = new Vector3(15, 30 + (345 * index), 0);
+			scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 20));
+		}
 	}
 
 	public void ClickCard (GameObject go) {

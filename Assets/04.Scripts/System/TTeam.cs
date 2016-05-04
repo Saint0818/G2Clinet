@@ -1299,9 +1299,11 @@ namespace GameStruct
 						isAllGet = false;
 					
 					if(isAllGet && !IsExecuteSuitCard(item.Key))
-						return true;
-					
+						if(item.Value.CardPower <= SuitCardExtraCost)
+							return true;
+
 					isAllGet = true;
+					
 				}
 				
 				return false;
@@ -1345,6 +1347,12 @@ namespace GameStruct
 							count += GameData.DSuitCard[SuitCardCost[i]].CardPower;
 				
 				return count;
+			}
+		}
+
+		public int SuitCardExtraCost {
+			get {
+				return 10 - SuitCardExecuteCost;
 			}
 		}
 

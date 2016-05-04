@@ -8,7 +8,7 @@ public class UIMall : UIBase {
 	private static UIMall instance = null;
 	private const string UIName = "UIMall";
 
-	private List<TMallBox> mallBoxs ;
+	private List<TMallBox> mallBoxs = new List<TMallBox>() ;
 
 	private TPickCost choosePickCost;
 	private int chooseIndex;
