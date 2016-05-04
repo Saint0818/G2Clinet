@@ -246,14 +246,17 @@ public class UIRecharge : UIBase {
 		if(!UISkillReinforce.Visible) {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();
+            
 			if(IsNeedShowPlayer)
 				UIPlayerAvatar.Get.Enable = false;
+            
 			if(UIShop.Visible)
 			{
 			    UIMainLobby.Get.Hide();
                 UIResource.Get.Show(UIResource.EMode.PvpSocial);
 			}
 		}
+
 		isRecord = isNeedRecord;
 		if(!UIRecharge.Visible)
 			recordType = type;

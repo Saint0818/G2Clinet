@@ -412,10 +412,8 @@ public class UIShop : UIBase {
                     }
 
                     UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, equipAvatar);
-                } else {
-                    //UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+                } else 
                     UIHint.Get.ShowHint(TextConst.S(4514), Color.black);
-                }
             }
         }
     }

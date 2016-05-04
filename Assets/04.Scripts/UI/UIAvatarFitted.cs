@@ -772,13 +772,8 @@ public class UIAvatarFitted : UIBase
                 backpackItems[i].Mode = Mode;
                 if (backpackItems[i].Kind < 6)
                 {
-                    if (backpackItems[i].Position != GameData.Team.Player.BodyType)
-                        backpackItems[i].Enable = false;
-                    else
-                    {
-                        backpackItems[i].Enable = true;
-                        enableCount++;
-                    }
+                    backpackItems[i].Enable = true;
+                    enableCount++;
                 }
                 else
                 {
@@ -1059,60 +1054,63 @@ public class UIAvatarFitted : UIBase
         {
             if (index < backpackItems.Length)
             {
-                TEquip equip = new TEquip();
-                int kind = GameFunction.GetItemKind(backpackItems[index].ID);
-                equip.ID = backpackItems[index].ID;
-                equip.Kind = kind;
-                equip.BackageSort = backpackItems[index].BackageSort;
-                equip.BackageSortNoLimit = index;
-				
-                if (!backpackItems[index].Equip)
-                {
-					
-                    //裝備Item
-                    backpackItems[index].Equip = true;
-					
-                    //卸除已裝備的Item
-                    for (int i = 0; i < backpackItems.Length; i++)
-                        if (index != i && backpackItems[i].Kind == avatarPart)
-                            backpackItems[i].Equip = false;
-					
-                    if (Equips.ContainsKey(kind))
+                if (backpackItems[index].Position == GameData.Team.Player.BodyType) {
+                    TEquip equip = new TEquip();
+                    int kind = GameFunction.GetItemKind(backpackItems[index].ID);
+                    equip.ID = backpackItems[index].ID;
+                    equip.Kind = kind;
+                    equip.BackageSort = backpackItems[index].BackageSort;
+                    equip.BackageSortNoLimit = index;
+    				
+                    if (!backpackItems[index].Equip)
                     {
-                        //檢查同部位是否有裝裝備
-                        if (Equips[kind].ID > 0)
-                        { 
-                            AddUnEquipItem(kind, Equips[kind]);
-                            Equips[kind] = equip;
+    					
+                        //裝備Item
+                        backpackItems[index].Equip = true;
+    					
+                        //卸除已裝備的Item
+                        for (int i = 0; i < backpackItems.Length; i++)
+                            if (index != i && backpackItems[i].Kind == avatarPart)
+                                backpackItems[i].Equip = false;
+    					
+                        if (Equips.ContainsKey(kind))
+                        {
+                            //檢查同部位是否有裝裝備
+                            if (Equips[kind].ID > 0)
+                            { 
+                                AddUnEquipItem(kind, Equips[kind]);
+                                Equips[kind] = equip;
+                            }
+                            else
+                            { 
+                                //此部位未裝備任何裝備
+                                AddEquipItem(kind, equip);
+                                Equips[kind] = equip;
+                            }
                         }
                         else
-                        { 
-                            //此部位未裝備任何裝備
+                        {
                             AddEquipItem(kind, equip);
-                            Equips[kind] = equip;
+                            DeleteUnEquipItem(kind, equip);
                         }
-                    }
-                    else
-                    {
-                        AddEquipItem(kind, equip);
-                        DeleteUnEquipItem(kind, equip);
-                    }
-					
-                    ItemIdTranslateAvatar();
-                    UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
-                }
-                else
-                {
-                    if (kind == 2 || kind == 6 || kind == 7)
-                    {	
-                        AddUnEquipItem(kind, equip);
-                        backpackItems[index].Equip = false;
-                        equip.ID = 0;
-                        Equips[kind] = equip;
+    					
                         ItemIdTranslateAvatar();
                         UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
                     }
-                }
+                    else
+                    {
+                        if (kind == 2 || kind == 6 || kind == 7)
+                        {	
+                            AddUnEquipItem(kind, equip);
+                            backpackItems[index].Equip = false;
+                            equip.ID = 0;
+                            Equips[kind] = equip;
+                            ItemIdTranslateAvatar();
+                            UIPlayerAvatar.Get.ChangeAvatar(GameData.Team.Player.BodyType, EquipsAvatar);	
+                        }
+                    }
+                } else
+                    UIHint.Get.ShowHint(TextConst.S(4514), Color.black);
             }
         }
     }
