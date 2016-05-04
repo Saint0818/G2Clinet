@@ -306,8 +306,8 @@
         "id": 4,
         "line": 1,
         "title": "社群",
-        "kind": 0,
-        "uiname": "UISocial",
+        "kind": 3,
+        "value": 5,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -328,12 +328,21 @@
     {
         "id": 4,
         "line": 3,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SocialBt"
+    },
+    {
+        "id": 4,
+        "line": 4
+    },
+    {
+        "id": 4,
+        "line": 5,
         "kind": 0,
         "uipath": "UI2D/UISocial/Window/BottomLeft/Tabs/2"
     },
     {
         "id": 4,
-        "line": 4,
+        "line": 6,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -343,13 +352,13 @@
     },
     {
         "id": 4,
-        "line": 5,
+        "line": 7,
         "kind": 0,
         "uipath": "UI2D/UISocial/Window/Center/Pages/2/ScrollView/2-0/Window/Good"
     },
     {
         "id": 4,
-        "line": 6,
+        "line": 8,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -359,13 +368,13 @@
     },
     {
         "id": 4,
-        "line": 7,
+        "line": 9,
         "kind": 0,
         "uipath": "UI2D/UISocial/Window/Center/Tabs/0"
     },
     {
         "id": 4,
-        "line": 8,
+        "line": 10,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -375,13 +384,13 @@
     },
     {
         "id": 4,
-        "line": 9,
+        "line": 11,
         "kind": 0,
         "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView/0-0/Window/Good"
     },
     {
         "id": 4,
-        "line": 10,
+        "line": 12,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -600,7 +609,7 @@
         "talkl": 1411,
         "actionl": 4,
         "texttw": "我輸了，為了履行承諾，我有一個大禮要給你！",
-        "texten": "You have my word. I have something for you."
+        "texten": "I lose. I have something special for you."
     },
     {
         "id": 7,
@@ -619,7 +628,7 @@
         "talkl": 1411,
         "actionl": 6,
         "texttw": "這裡的[ff6060]技能抽取[-]可以讓你快速擁有更多的籃球技巧，每天都有[ff6060]免費[-]的次數可以進行抽取！！",
-        "texten": "[ff6060]Skill Draw[-]  can enhance your ability rapidly. [ff6060]Free[-]  drawing turns are available everyday!!"
+        "texten": "[ff6060]Ruffle Cards[-] can enhance your ability rapidly. There are many [ff6060]Free[-] drawing times are available everyday!!"
     },
     {
         "id": 7,
@@ -664,7 +673,16 @@
     },
     {
         "id": 7,
-        "line": 11,
+        "line": 11
+    },
+    {
+        "id": 7,
+        "line": 12,
+        "uipath": "UI2D/UIGetSkillCard/BottomRight"
+    },
+    {
+        "id": 7,
+        "line": 13,
         "kind": 4,
         "talkindex": 0,
         "talkl": 1411,
@@ -674,14 +692,14 @@
     },
     {
         "id": 7,
-        "line": 12,
+        "line": 14,
         "kind": 4,
         "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
         "texten": "I will teach you my talant."
     },
     {
         "id": 7,
-        "line": 13,
+        "line": 15,
         "kind": 4,
         "talkindex": 1,
         "talkr": -1,
@@ -691,20 +709,9 @@
     },
     {
         "id": 7,
-        "line": 14,
-        "kind": 4,
-        "uipath": "UI2D/UIMall/BottomLeft/BackBtn"
-    },
-    {
-        "id": 7,
-        "line": 15,
-        "kind": 4
-    },
-    {
-        "id": 7,
         "line": 16,
         "kind": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+        "uipath": "UI2D/UIMall/BottomLeft/BackBtn"
     },
     {
         "id": 7,
@@ -715,28 +722,39 @@
         "id": 7,
         "line": 18,
         "kind": 4,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
         "id": 7,
         "line": 19,
-        "kind": 4,
-        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
+        "kind": 4
     },
     {
         "id": 7,
         "line": 20,
         "kind": 4,
-        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/InstanceBtn"
     },
     {
         "id": 7,
         "line": 21,
-        "kind": 4
+        "kind": 4,
+        "hintpath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
     },
     {
         "id": 7,
         "line": 22,
+        "kind": 4,
+        "uipath": "UI2D/UIInstance/Center/Window/ChapterView/ScrollView/UIInstanceChapter(Clone)(1)"
+    },
+    {
+        "id": 7,
+        "line": 23,
+        "kind": 4
+    },
+    {
+        "id": 7,
+        "line": 24,
         "kind": 4,
         "uipath": "UI2D/UIInstance/Center/Window/StageView/ScrollView/UIInstanceStage0(Clone)(2111)/StartButton"
     },
@@ -1423,8 +1441,8 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "哈哈哈，先別說這個了！我們進入[ff6060]生涯競賽[-]－",
-        "texten": "Ha ha ha, forget about that! Let's now proceed to [ff6060]Career Games[-]  -"
+        "texttw": "哈哈哈，先別說這個了！我們進入[ff6060]生涯競賽[-]",
+        "texten": "Ha ha ha, forget about that! Let's now proceed to [ff6060]Career Games[-] "
     },
     {
         "id": 30,
@@ -1440,7 +1458,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "再來選擇第一場競賽－",
-        "texten": "Then let's select the first game -"
+        "texten": "Then let's select the first game"
     },
     {
         "id": 30,
@@ -1522,7 +1540,7 @@
         "talkl": 10,
         "actionl": 1,
         "texttw": "選擇剛剛獲得到的注射劑。",
-        "texten": "This game's winning requirements require us to make [ff6060]3PT FG[-] . We can change the tactic of this game so everybody can take 3s."
+        "texten": "Choose the injection to enhance your ability."
     },
     {
         "id": 31,
