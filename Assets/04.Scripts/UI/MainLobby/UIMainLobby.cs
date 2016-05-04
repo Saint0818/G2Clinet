@@ -236,8 +236,6 @@ public class UIMainLobby : UIBase
 
 	public void CheckUpdate () {
 		if(GameData.Team.GymQueue != null) {
-			tempSendIndex = new List<int> ();
-			tempSendBuild = new List<int> ();
 			for (int i = 0; i < GameData.Team.GymQueue.Length; i++) {
 				if (GameData.Team.GymQueue [i].BuildIndex >= 0 && GameData.Team.GymQueue [i].BuildIndex < GameData.Team.GymBuild.Length) {
 					if (GameData.Team.GymBuild [GameData.Team.GymQueue [i].BuildIndex].Time.ToUniversalTime () < DateTime.UtcNow) {

@@ -640,6 +640,7 @@ namespace GameStruct
 		public int ID;
 		public int Kind; 
 		public int Quality; //Card Color
+		public int BasicStar;
 		public int MaxStar;
 		public int PictureNo;
 		public string MiniPicture;

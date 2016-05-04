@@ -26,6 +26,9 @@ public delegate void PurchaseCallback(PurchaseEventArgs e);
 [AddComponentMenu("Unity IAP/Demo")]
 public class UnityIAP : MonoBehaviour, IStoreListener
 {
+    private const string google_BundleID = "com.nicemarket.g2candan";
+    private const string google_Key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg5VOnFNmCKbpGvWJIDT73ocwTvZc0iaHwitsog6KyvuPHT+ioohvYGQPxya83noWlrjGJ/H2To+rc1zVd/dMQLAOZ3zHFzbJf8jUEuIjiuTzfyxiaLeW8Gsvct5NSZ/tTvUjxJqWnSbpwzhl80tMGKjDNY7IBSVa3WjAz2ukq3bHdRTldXp+N2zY4NXy4KNO+lhRoSgnEVqPs+PSvV8OGBHmC0uivHsBE1XXMbvjCv5VO3LsJGa+zKd0cvJs8HlKX8JH7we5JaAa1McFvJ5/SS4WJjbkxNYCATtK0wvTb/oG0ktCjewvr7ES+WCAhqsHdDuAisSzz+qFrpgZfsTbxwIDAQAB";
+
     // Unity IAP objects 
     private IStoreController m_Controller;
     private IAppleExtensions m_AppleExtensions;
@@ -79,40 +82,39 @@ public class UnityIAP : MonoBehaviour, IStoreListener
         if (Application.platform == RuntimePlatform.Android ||
         Application.platform == RuntimePlatform.IPhonePlayer ||
         Application.platform == RuntimePlatform.OSXPlayer) {
-        try {
-        var result = validator.Validate(e.purchasedProduct.receipt);
-        Debug.Log("Receipt is valid. Contents:");
-        foreach (IPurchaseReceipt productReceipt in result) {
-        Debug.Log(productReceipt.productID);
-        Debug.Log(productReceipt.purchaseDate);
-        Debug.Log(productReceipt.transactionID);
+            try {
+            var result = validator.Validate(e.purchasedProduct.receipt);
+            Debug.Log("Receipt is valid. Contents:");
+            foreach (IPurchaseReceipt productReceipt in result) {
+                Debug.Log(productReceipt.productID);
+                Debug.Log(productReceipt.purchaseDate);
+                Debug.Log(productReceipt.transactionID);
 
-        GooglePlayReceipt google = productReceipt as GooglePlayReceipt;
-        if (null != google) {
-        Debug.Log(google.purchaseState);
-        Debug.Log(google.purchaseToken);
-        }
+                GooglePlayReceipt google = productReceipt as GooglePlayReceipt;
+                if (null != google) {
+                    Debug.Log(google.purchaseState);
+                    Debug.Log(google.purchaseToken);
+                }
 
-        AppleInAppPurchaseReceipt apple = productReceipt as AppleInAppPurchaseReceipt;
-        if (null != apple) {
-        Debug.Log(apple.originalTransactionIdentifier);
-        Debug.Log(apple.cancellationDate);
-        Debug.Log(apple.quantity);
-        }
-        }
-        } catch (IAPSecurityException) {
-        Debug.Log("Invalid receipt, not unlocking content");
-        return PurchaseProcessingResult.Complete;
-        }
+                AppleInAppPurchaseReceipt apple = productReceipt as AppleInAppPurchaseReceipt;
+                if (null != apple) {
+                    Debug.Log(apple.originalTransactionIdentifier);
+                    Debug.Log(apple.cancellationDate);
+                    Debug.Log(apple.quantity);
+                }
+            }
+            } catch (IAPSecurityException) {
+                Debug.Log("Invalid receipt, not unlocking content");
+                return PurchaseProcessingResult.Complete;
+            }
         }
         #endif
 
         // You should unlock the content here.
-
-        // Indicate we have handled this purchase, we will not be informed of it again.x
         if (purchaseCallback != null)
             purchaseCallback(e);
         
+        // Indicate we have handled this purchase, we will not be informed of it again.x
         return PurchaseProcessingResult.Complete;
     }
 
@@ -175,6 +177,8 @@ public class UnityIAP : MonoBehaviour, IStoreListener
     }
 
     public void OnBuy(int index) {
+       
+
         if (!m_PurchaseInProgress) {
             m_PurchaseInProgress = true;
             if (index < m_Controller.products.all.Length)
@@ -192,13 +196,13 @@ public class UnityIAP : MonoBehaviour, IStoreListener
         // The FakeStore supports: no-ui (always succeeding), basic ui (purchase pass/fail), and 
         // developer ui (initialization, purchase, failure code setting). These correspond to 
         // the FakeStoreUIMode Enum values passed into StandardPurchasingModule.useFakeStoreUIMode.
-        module.useFakeStoreUIMode = FakeStoreUIMode.StandardUser;
+        module.useFakeStoreUIMode = FakeStoreUIMode.Default;
 
         var builder = ConfigurationBuilder.Instance(module);
         // This enables the Microsoft IAP simulator for local testing.
         // You would remove this before building your release package.
         //builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = true;
-        builder.Configure<IGooglePlayConfiguration>().SetPublicKey("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg5VOnFNmCKbpGvWJIDT73ocwTvZc0iaHwitsog6KyvuPHT+ioohvYGQPxya83noWlrjGJ/H2To+rc1zVd/dMQLAOZ3zHFzbJf8jUEuIjiuTzfyxiaLeW8Gsvct5NSZ/tTvUjxJqWnSbpwzhl80tMGKjDNY7IBSVa3WjAz2ukq3bHdRTldXp+N2zY4NXy4KNO+lhRoSgnEVqPs+PSvV8OGBHmC0uivHsBE1XXMbvjCv5VO3LsJGa+zKd0cvJs8HlKX8JH7we5JaAa1McFvJ5/SS4WJjbkxNYCATtK0wvTb/oG0ktCjewvr7ES+WCAhqsHdDuAisSzz+qFrpgZfsTbxwIDAQAB");
+        builder.Configure<IGooglePlayConfiguration>().SetPublicKey(google_Key);
 
         // Define our products.
         // In this case our products have the same identifier across all the App stores,
@@ -217,9 +221,8 @@ public class UnityIAP : MonoBehaviour, IStoreListener
         // Write Amazon's JSON description of our products to storage when using Amazon's local sandbox.
         // This should be removed from a production build.
         //builder.Configure<IAmazonConfiguration>().WriteSandboxJSON(builder.products);
-
         #if RECEIPT_VALIDATION
-        validator = new CrossPlatformValidator(GooglePlayTangle.Data(), AppleTangle.Data(), Application.bundleIdentifier);
+        validator = new CrossPlatformValidator(GooglePlayTangle.Data(), AppleTangle.Data(), google_BundleID);
         #endif
 
         // Now we're ready to initialize Unity IAP.

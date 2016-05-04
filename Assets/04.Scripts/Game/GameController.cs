@@ -3822,7 +3822,9 @@ public class GameController : KnightSingleton<GameController>
 		if (state == EPlayerState.Idle ||
 		    state == EPlayerState.HoldBall ||
 		    state == EPlayerState.Dribble0 ||
-		    state == EPlayerState.Dribble1)
+		    state == EPlayerState.Dribble1 ||
+            state == EPlayerState.Dribble2 ||
+            state == EPlayerState.Dribble3)
 			return true;
 		else
 			return false;
