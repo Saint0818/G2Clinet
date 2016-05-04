@@ -564,7 +564,7 @@ namespace GameStruct
                 str += "\nWeekly Record\n" + statsText(ref WeeklyRecord);
                 str += "\nMonthly Record\n" + statsText(ref MonthlyRecord);
 
-                if (FileManager.Get.NowMode == VersionMode.Debug) {
+                if (FileManager.NowMode == VersionMode.Debug) {
                     str += "\nGraphics Mem " + SystemInfo.graphicsMemorySize.ToString();
                     str += "\nSystem Mem " + SystemInfo.systemMemorySize.ToString();
                 }
