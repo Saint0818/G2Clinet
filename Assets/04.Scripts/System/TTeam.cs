@@ -671,8 +671,8 @@ namespace GameStruct
         }
 
         public bool MissionFinished(ref TMission mission) {
-            if (mission.Value != null && Player.Lv >= mission.Lv && 
-                FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length)
+            if (mission.Value != null && Player.Lv >= mission.Lv && (mission.Lv <= 0 ||
+                FindMissionLv(mission.ID, mission.TimeKind) >= mission.Value.Length))
                 return true;
             else
                 return false;
