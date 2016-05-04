@@ -560,9 +560,15 @@ namespace GameStruct
                 GroupRecord.TeamRecord.Lv = Player.Lv;
                 GroupRecord.PlayerRecord = Player.PlayerRecord;
                 string str = statsText(ref GroupRecord);
-                str += "\n" + "Daily Record\n" + statsText(ref DailyRecord);
-                str += "\n" + "Weekly Record\n" + statsText(ref WeeklyRecord);
-                str += "\n" + "Monthly Record\n" + statsText(ref MonthlyRecord);
+                str += "\nDaily Record\n" + statsText(ref DailyRecord);
+                str += "\nWeekly Record\n" + statsText(ref WeeklyRecord);
+                str += "\nMonthly Record\n" + statsText(ref MonthlyRecord);
+
+                if (FileManager.Get.NowMode == VersionMode.Debug) {
+                    str += "\nGraphics Mem " + SystemInfo.graphicsMemorySize.ToString();
+                    str += "\nSystem Mem " + SystemInfo.systemMemorySize.ToString();
+                }
+
                 return str;
             }
         }
