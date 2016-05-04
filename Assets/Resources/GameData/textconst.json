@@ -3,7 +3,7 @@
         "id": 201,
         "explain": "確認訊息",
         "tw": "造 型",
-        "en": "Style"
+        "en": "Costumes"
     },
     {
         "id": 202,
@@ -67,7 +67,7 @@
         "id": 230,
         "explain": "體力不足/標題",
         "tw": "體力不足",
-        "en": "Insufficient Strength"
+        "en": "Insufficient Stamina"
     },
     {
         "id": 231,
@@ -308,7 +308,7 @@
     {
         "id": 313,
         "tw": "Icon_TokenSocial=社群幣，可用於商店中的消費，在社群中邀請其他玩家成為好友，並對他們[33FFDD]按讚[-]！",
-        "en": "Icon_TokenSocial=Society Coins can be used at shops. Invite other players to become your friend in the society and [33FFDD]Like[-]  their status!"
+        "en": "Icon_TokenSocial=Social Coins can be used at shops. Invite other players to become your friend in the society and [33FFDD]Like[-]  their status!"
     },
     {
         "id": 501,
@@ -391,7 +391,7 @@
         "id": 532,
         "explain": "造型裝備成功",
         "tw": "造型變更完成。",
-        "en": "Style Changing Completed"
+        "en": "Costumes Changing Completed"
     },
     {
         "id": 533,
@@ -415,7 +415,7 @@
         "id": 536,
         "explain": "體力已滿1，滿體狀態下點擊購買",
         "tw": "體力已滿，先消耗一點吧。",
-        "en": "Your strength is full. Use some first."
+        "en": "Your stamina is full. Use some first."
     },
     {
         "id": 537,
@@ -578,7 +578,7 @@
         "id": 1004,
         "explain": "xx功能按鈕",
         "tw": "社 群 ",
-        "en": "Society"
+        "en": "Social"
     },
     {
         "id": 1005,
@@ -596,7 +596,7 @@
         "id": 1007,
         "explain": "造型按鈕",
         "tw": "造 型",
-        "en": "Style"
+        "en": "Costumes"
     },
     {
         "id": 1008,
@@ -845,7 +845,7 @@
         "explain": "解鎖造型功能",
         "uipath": "2.解鎖Avatar",
         "tw": "成功解鎖[FFDD33]造型[-]功能",
-        "en": "Successfully unlocked [FFDD33]Style[-]  function"
+        "en": "Successfully unlocked [FFDD33]Costumes[-]  function"
     },
     {
         "id": 1603,
@@ -859,7 +859,7 @@
         "explain": "解鎖社交功能",
         "uipath": "4.社群按鈕",
         "tw": "成功解鎖[FFDD33]社群[-]功能",
-        "en": "Successfully unlocked [FFDD33]Society[-]  function"
+        "en": "Successfully unlocked [FFDD33]Social[-]  function"
     },
     {
         "id": 1605,
@@ -1705,7 +1705,7 @@
     {
         "id": 3713,
         "tw": "社群",
-        "en": "Society"
+        "en": "Social"
     },
     {
         "id": 3714,
@@ -1843,7 +1843,7 @@
     {
         "id": 3765,
         "tw": "造型收集數",
-        "en": "Style Collections"
+        "en": "Costumes Collections"
     },
     {
         "id": 3766,
@@ -1998,7 +1998,10 @@
         "en": "Obtain Skill Card"
     },
     {
-        "id": 4003
+        "id": 4003,
+        "explain": "獲得晶片套卡",
+        "tw": "圖鑑系列晶片－",
+        "en": "GUIDE Skill Card"
     },
     {
         "id": 4004
@@ -2159,7 +2162,7 @@
         "explain": "限定使用社群取得的貨幣",
         "uipath": "Tabs/2/社群商店",
         "tw": "社群商店",
-        "en": "Society Shop"
+        "en": "Social Shop"
     },
     {
         "id": 4505,
@@ -2226,7 +2229,7 @@
     {
         "id": 4516,
         "tw": "社群幣不足",
-        "en": "Insufficient Society Coin"
+        "en": "Insufficient Social Coin"
     },
     {
         "id": 4600,
@@ -2380,7 +2383,7 @@
         "id": 5001,
         "explain": "社交介面",
         "tw": "社 群",
-        "en": "Society"
+        "en": "Social"
     },
     {
         "id": 5002,
@@ -2410,7 +2413,7 @@
         "id": 5006,
         "uipath": "頁籤5",
         "tw": "社群\n連結",
-        "en": "Society\nLink"
+        "en": "Social\nLink"
     },
     {
         "id": 5007,
@@ -2704,7 +2707,8 @@
         "id": 6111,
         "explain": "秀出來源按鈕",
         "tw": "查看來源",
-        "en": "Source"
+        "en": "Source",
+        "jp": "ok"
     },
     {
         "id": 6201,
@@ -3318,34 +3322,35 @@
         "explain": "物件文字",
         "uipath": "ItemSuitCardGroup",
         "tw": "目前累積數：",
-        "en": "Now cumulative number:"
+        "en": "Total Star :"
     },
     {
         "id": 7710,
         "explain": "物件文字",
         "uipath": "ItemSuitCardGroup",
         "tw": "下一階段：",
-        "en": "Next stage:"
+        "en": "Next Section:"
     },
     {
         "id": 7711,
         "explain": "物件文字",
         "uipath": "ItemSuitCardLaunch",
         "tw": "需求累積數：",
-        "en": "Number of demand:"
+        "en": "Numbers of demand:"
     },
     {
         "id": 7712,
         "explain": "物件文字",
         "uipath": "ItemSuitCardLaunch",
         "tw": "加成數值：",
-        "en": "Bonus Value:"
+        "en": "Bonus Attribute:",
+        "jp": "ok"
     },
     {
         "id": 8001,
         "explain": "紙娃娃介面",
         "tw": "造 型",
-        "en": "Style"
+        "en": "Costumes"
     },
     {
         "id": 8002,
@@ -3457,14 +3462,14 @@
         "explain": "Right下方對應晶片說明",
         "uipath": "CaptionLabel",
         "tw": "收集左列造型，且同時擁有上列技能晶片，即能降低晶片空間，每[33FFDD] 2 [-] 件即降低 [33FFDD] 1 [-] 空間，以此類推。\n\n目前已降低 [00ff00] {0} [-] 空間。",
-        "en": "Collect the styles on the left and own the Skill Cards on top to save Card COST.  [33FFDD] 1 [-]  COST can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  COST saved so far."
+        "en": "Collect the costumes on the left and own the Skill Cards on top to save Card COST.  [33FFDD] 1 [-]  COST can be saved for every [33FFDD] 2 [-]  items and so on.\n\n[00ff00] {0} [-]  COST saved so far."
     },
     {
         "id": 8204,
         "explain": "Middle下方套裝說明",
         "uipath": "CaptionLabel",
         "tw": "收集同系列造型套裝，擁有 2 件以上即可開啟加成效果，收集越多加成越多！",
-        "en": "Collect costumes with the same style. Owning 2 costumes with the same style to activate bonus effect. The more you collect, the better the bonus effects are!"
+        "en": "Collect costumes with the same costumes. Owning 2 costumes with the same style to activate bonus effect. The more you collect, the better the bonus effects are!"
     },
     {
         "id": 8205,
@@ -3824,7 +3829,7 @@
         "explain": "聘請自由球員",
         "uipath": "BtnLabel",
         "tw": "聘請自由球員[00ff00]{0}[-]天",
-        "en": "Hire free agents [00ff00] {0} [-] Days",
+        "en": "Hire free agents for[00ff00] {0} [-] Days",
         "jp": "ok"
     },
     {
@@ -3832,7 +3837,7 @@
         "explain": "已聘僱",
         "uipath": "BtnLabel",
         "tw": "聘僱倒數[FF0000FF]{0}[-]",
-        "en": "Hiring Countdown [FF0000FF] {0} [-] ",
+        "en": "Last [FF0000FF] {0} [-]days hiring ",
         "jp": "ok"
     },
     {
@@ -3840,7 +3845,7 @@
         "explain": "鎖定中",
         "uipath": "LockLabel",
         "tw": "未聘僱自由球員",
-        "en": "Not hiring free agent",
+        "en": "Not yet hiring free agent",
         "jp": "ok"
     },
     {
@@ -4186,7 +4191,7 @@
         "explain": "介面說明",
         "uipath": "UIEquipList",
         "tw": "每場比賽扣除[FF0000FF]1個注射劑[-]",
-        "en": "Every game deduct [FF0000FF] 1 Injection [-] "
+        "en": "Consume [FF0000FF] 1 Injection [-] every game "
     },
     {
         "id": 9764,
@@ -4221,7 +4226,7 @@
     {
         "id": 9804,
         "tw": "機率獲得",
-        "en": "CHANCE TO RECEIVE"
+        "en": "Chance to acquire"
     },
     {
         "id": 9811,
@@ -5104,13 +5109,13 @@
         "id": 11102,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} "
     },
     {
         "id": 11103,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0}  "
+        "en": "NEXT：LEVEL{0} "
     },
     {
         "id": 11104,
@@ -5134,13 +5139,13 @@
         "id": 11202,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} "
     },
     {
         "id": 11203,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0}  "
+        "en": "NEXT：LEVEL{0} "
     },
     {
         "id": 11204,
@@ -5164,13 +5169,13 @@
         "id": 11302,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} "
     },
     {
         "id": 11303,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0} "
+        "en": "NEXT：LEVEL{0} "
     },
     {
         "id": 11304,
@@ -5195,13 +5200,13 @@
         "id": 11402,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} "
     },
     {
         "id": 11403,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0} "
+        "en": "NEXT：LEVEL{0} "
     },
     {
         "id": 11404,
@@ -5225,13 +5230,13 @@
         "id": 11502,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} "
     },
     {
         "id": 11503,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0} "
+        "en": "NEXT：LEVEL{0} "
     },
     {
         "id": 11504,
@@ -5255,25 +5260,29 @@
         "id": 11602,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} ",
+        "jp": "ok"
     },
     {
         "id": 11603,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0} "
+        "en": "NEXT：LEVEL{0} ",
+        "jp": "ok"
     },
     {
         "id": 11604,
         "explain": "球場目前效果",
-        "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "tw": "競賽起手士氣值 {0}  ",
+        "en": "Enhances {0} action skill point entering the game",
+        "jp": "ok"
     },
     {
         "id": 11605,
         "explain": "升級效果",
-        "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "tw": "競賽起手士氣值 {0}  ",
+        "en": "Enhances {0} action skill point entering the game",
+        "jp": "ok"
     },
     {
         "id": 11701,
@@ -5285,25 +5294,29 @@
         "id": 11702,
         "explain": "目前等級",
         "tw": "LV{0} ",
-        "en": "LV{0} "
+        "en": "LEVEL{0} ",
+        "jp": "ok"
     },
     {
         "id": 11703,
         "explain": "下一級",
         "tw": "下一級：LV{0} ",
-        "en": "NEXT：LV{0} "
+        "en": "NEXT：LEVEL{0} ",
+        "jp": "ok"
     },
     {
         "id": 11704,
         "explain": "球場目前效果",
-        "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "tw": "士氣上限增加 {0}  ",
+        "en": "Increase Max Action Skill Point {0}  ",
+        "jp": "ok"
     },
     {
         "id": 11705,
         "explain": "升級效果",
-        "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Action Skill Point adding rate {0} / s"
+        "tw": "士氣上限增加 {0}  ",
+        "en": "Increase Max Action Skill Point {0}  ",
+        "jp": "ok"
     },
     {
         "id": 11801,
@@ -5321,19 +5334,22 @@
         "id": 11902,
         "explain": "頁籤",
         "tw": "公告",
-        "en": "Notice"
+        "en": "Notice",
+        "jp": "ok"
     },
     {
         "id": 11903,
         "explain": "頁籤",
         "tw": "獎勵",
-        "en": "Reward"
+        "en": "Reward",
+        "jp": "ok"
     },
     {
         "id": 11904,
         "explain": "頁籤",
         "tw": "社群",
-        "en": "Social"
+        "en": "Social",
+        "jp": "ok"
     },
     {
         "id": 11905,
@@ -5594,7 +5610,7 @@
         "id": 13000,
         "explain": "物品Hint 的物品Kind說明  0身體",
         "tw": "造型",
-        "en": "Style"
+        "en": "Costumes"
     },
     {
         "id": 13001,
@@ -5775,7 +5791,7 @@
         "id": 13040,
         "explain": "社群幣",
         "tw": "社群幣",
-        "en": "Society Coin"
+        "en": "Social Coin"
     },
     {
         "id": 15000,
@@ -5859,7 +5875,7 @@
         "id": 90005,
         "explain": "物品",
         "tw": " {0} 社群幣",
-        "en": " {0} Society Coin"
+        "en": " {0} Social Coin"
     },
     {
         "id": 90006,
@@ -5889,7 +5905,7 @@
         "id": 90010,
         "explain": "物品",
         "tw": "獲得{0}社群幣",
-        "en": "Obtains {0} Society Coins"
+        "en": "Obtains {0} Social Coins"
     },
     {
         "id": 91000,
@@ -5902,35 +5918,43 @@
         "explain": "標題－PVP每日",
         "uipath": "SubheadLabel",
         "tw": "聯盟對戰的每日獎勵",
-        "en": "PVP Daily Award"
+        "en": "PVP Daily Reward",
+        "jp": "ok"
     },
     {
         "id": 91002,
         "explain": "標題－好友按讚",
         "uipath": "SubheadLabel",
         "tw": "玩家[FFFFC9FF]{0}[-]按你讚！",
-        "en": "Player [FFFFC9FF] {0} [-] likes you! "
+        "en": "Other players [FFFFC9FF] {0} [-] likes you post! ",
+        "jp": "ok"
     },
     {
         "id": 91003,
         "explain": "標題－官方系統",
         "uipath": "SubheadLabel",
         "tw": "來自[33FFDD]籃球黑幫2[-]製作團隊",
-        "en": "From [33FFDD] Basketball gang 2 [-] production team"
+        "en": "From [33FFDD] Basketball gang 2 [-] production team",
+        "jp": "ok"
+    },
+    {
+        "jp": "ok"
     },
     {
         "id": 91101,
         "explain": "內文－PVP每日",
         "uipath": "ContentLabel",
         "tw": "[000000FF]恭喜獲得聯盟對戰獎勵，目前你的階級為[00ff00]{0}[-]。[-]",
-        "en": "[000000FF] Congratulations to get the league battle reward, your class is currently [00ff00] {0} [-]. [-] "
+        "en": "[000000FF] Congratulations to get the PVP reward, your class is currently [00ff00] {0} [-]. [-] ",
+        "jp": "ok"
     },
     {
         "id": 91102,
         "explain": "內文－好友按讚",
         "uipath": "ContentLabel",
         "tw": "[000000FF]他按了你的[00ff00]動態[-]一個讚！[-]",
-        "en": "[000000FF] He likes your [00ff00] Post [-]!  "
+        "en": "[000000FF] He likes your [00ff00] post [-]!  ",
+        "jp": "ok"
     },
     {
         "id": 91103,
@@ -6017,7 +6041,7 @@
         "id": 100120,
         "explain": "社群商店介面標題",
         "tw": "[ff8000]社群商店[-]",
-        "en": "[ff8000]Society Shop[-] "
+        "en": "[ff8000]Social Shop[-] "
     },
     {
         "id": 100121,
@@ -6071,7 +6095,7 @@
     {
         "id": 2000012,
         "tw": "競賽剩下倒數[FF3355]{0}[-]秒！！！",
-        "en": "Only [FF3355]{0}[-]  seconds left in the game!!!"
+        "en": "Only [FF3355]{0}[-]  seconds left in the game!"
     },
     {
         "id": 2000017,
@@ -6106,7 +6130,7 @@
     {
         "id": 2000200,
         "tw": "[FF3355]{1}[-]已達成得分目標！！！",
-        "en": "[FF3355]{1}[-] Reached scoring target!!!"
+        "en": "[FF3355]{1}[-] Reached scoring target!"
     },
     {
         "id": 2000201,
@@ -6116,7 +6140,7 @@
     {
         "id": 2000202,
         "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}[-]分即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just [FFDD33]{0}[-]  more points and you can reach the target!!!"
+        "en": "[FF3355]{1}[-] Just [FFDD33]{0}[-]  more points and you can reach the target!"
     },
     {
         "id": 2000207,
@@ -6141,7 +6165,7 @@
     {
         "id": 2000302,
         "tw": "[FF3355]{1}[-]要守住最後的[FFDD33]{0}[-]分啊！！！",
-        "en": "[FF3355]{1}[-] We have the defend the last [FFDD33]{0}[-]  points!!!"
+        "en": "[FF3355]{1}[-] We have the defend the last [FFDD33]{0}[-]  points!"
     },
     {
         "id": 2000307,
@@ -6161,12 +6185,12 @@
     {
         "id": 2000401,
         "tw": "[FF3355]{1}[-]只要再得[FFDD33]{0}分[-]即可達成目標！！！。",
-        "en": "[FF3355]{1}[-] Just score another [FFDD33]{0} points [-]  to meet the target!!!"
+        "en": "[FF3355]{1}[-] Just score another [FFDD33]{0} points [-]  to meet the target!"
     },
     {
         "id": 2000402,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}[-]分！！！",
-        "en": "[FF3355]{1}[-] Only [FFDD33]{0}[-]  points to victory!!!"
+        "en": "[FF3355]{1}[-] Only [FFDD33]{0}[-]  points to victory!"
     },
     {
         "id": 2000407,
@@ -6186,17 +6210,17 @@
     {
         "id": 2001000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]2分球[-][BBFF33]目標！！！[-]",
-        "en": "[FF3355]{1}[-] [BBFF33]Has reached [-] [33FFDD]2PT FG[-] [BBFF33] target!!![-] "
+        "en": "[FF3355]{1}[-] [BBFF33]Has reached [-] [33FFDD]2PT FG[-] [BBFF33] target![-] "
     },
     {
         "id": 2001001,
         "tw": "[FF3355]{1}[-]只要再投進[FFDD33]{0}顆[-][33FFDD]2分球[-]即可即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Make another[FFDD33]{0} [-] [33FFDD]2PT FGs[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Make another[FFDD33]{0} [-] [33FFDD]2PT FGs[-]  to reach target!"
     },
     {
         "id": 2001002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}顆[-][33FFDD]2分球[-]！！！",
-        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]2Pt FGS [-] to win!!!"
+        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]2Pt FGS [-] to win!"
     },
     {
         "id": 2001007,
@@ -6251,12 +6275,12 @@
     {
         "id": 2003001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]灌籃[-]即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Dunks[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Dunks[-]  to reach target!"
     },
     {
         "id": 2003002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]灌籃[-]！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Dunks[-]  to victory!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Dunks[-]  to victory!"
     },
     {
         "id": 2003007,
@@ -6276,17 +6300,17 @@
     {
         "id": 2004000,
         "tw": "[FF3355]{1}[-][BBFF33]已達成[-][33FFDD]推倒[-][BBFF33]目標！！！[-]",
-        "en": "[FF3355]{1}[-] [BBFF33]Reached [-] [33FFDD]Push[-] [BBFF33]target!!![-] "
+        "en": "[FF3355]{1}[-] [BBFF33]Reached [-] [33FFDD]Push[-] [BBFF33]target![-] "
     },
     {
         "id": 2004001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]推倒[-]即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Pushes[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Pushes[-]  to reach target!"
     },
     {
         "id": 2004002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]推倒！！！[-]",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Pushed[-]  to victory!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Pushed[-]  to victory!"
     },
     {
         "id": 2004007,
@@ -6311,12 +6335,12 @@
     {
         "id": 2005001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]抄截[-]即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Steals[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Steals[-]  to reach target!"
     },
     {
         "id": 2005002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]抄截！！！[-]",
-        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Steals[-]  to victory!!!"
+        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Steals[-]  to victory!"
     },
     {
         "id": 2005007,
@@ -6341,12 +6365,12 @@
     {
         "id": 2006001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]火鍋[-]即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Blocks[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Blocks[-]  to reach target!"
     },
     {
         "id": 2006002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]火鍋！！！[-]",
-        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Blocks[-]  to victory!!!"
+        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Blocks[-]  to victory!"
     },
     {
         "id": 2006007,
@@ -6371,12 +6395,12 @@
     {
         "id": 2007001,
         "tw": "[FF3355]{1}[-]只要再[FFDD33]{0}次[-][33FFDD]肘擊[-]即可達成目標！！！",
-        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Elbows[-]  to reach target!!!"
+        "en": "[FF3355]{1}[-] Just another [FFDD33]{0} [-] [33FFDD]Elbows[-]  to reach target!"
     },
     {
         "id": 2007002,
         "tw": "[FF3355]{1}[-]距離獲勝只差[FFDD33]{0}次[-][33FFDD]肘擊！！！[-]",
-        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Elbows[-]  to victory!!!"
+        "en": "[FF3355]{1}[-] Only [FFDD33]{0} [-] [33FFDD]Elbows[-]  to victory!"
     },
     {
         "id": 2007007,
