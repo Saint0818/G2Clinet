@@ -15,7 +15,6 @@
         "id": 1,
         "line": 2,
         "kind": 0,
-        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -26,7 +25,6 @@
         "id": 1,
         "line": 3,
         "kind": 0,
-        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -37,56 +35,48 @@
         "id": 1,
         "line": 4,
         "kind": 0,
-        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot0/View/MaterialItem(Clone)"
     },
     {
         "id": 1,
         "line": 5,
         "kind": 0,
-        "uiname": "UIEquipment",
         "wait": 1
     },
     {
         "id": 1,
         "line": 6,
         "kind": 0,
-        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/Center/View/RightPart/ElementSlot1/View/MaterialItem(Clone)"
     },
     {
         "id": 1,
         "line": 7,
         "kind": 0,
-        "uiname": "UIEquipment",
         "wait": 1
     },
     {
         "id": 1,
         "line": 8,
         "kind": 0,
-        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UpgradeBtn"
     },
     {
         "id": 1,
         "line": 9,
         "kind": 0,
-        "uiname": "UIEquipment",
         "wait": 3
     },
     {
         "id": 1,
         "line": 10,
         "kind": 0,
-        "uiname": "UIEquipment",
         "uipath": "UI2D/UILevelUp/Window/BottomRight/NextLabel"
     },
     {
         "id": 1,
         "line": 11,
         "kind": 0,
-        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -97,7 +87,6 @@
         "id": 1,
         "line": 12,
         "kind": 0,
-        "uiname": "UIEquipment",
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
@@ -108,7 +97,6 @@
         "id": 1,
         "line": 13,
         "kind": 0,
-        "uiname": "UIEquipment",
         "uipath": "UI2D/UIEquipment/Window/BottomLeft/BackBtn"
     },
     {
@@ -677,7 +665,7 @@
         "id": 7,
         "line": 9,
         "kind": 4,
-        "wait": 3
+        "wait": 4
     },
     {
         "id": 7,
@@ -1164,6 +1152,16 @@
     {
         "id": 22,
         "line": 21,
+        "wait": 3
+    },
+    {
+        "id": 22,
+        "line": 22,
+        "uipath": "UI2D/UIGetSkillCard/BottomRight/NextLabel"
+    },
+    {
+        "id": 22,
+        "line": 23,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
