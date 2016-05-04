@@ -1309,7 +1309,11 @@ namespace GameStruct
 		public Transform LookTarget;
 		public Transform FollowTarget;
 		public PlayerBehaviour DefPlayer;
-		public OnPlayerAction2 MoveFinish;
+
+        /// <summary>
+        /// <para> bool: speed up. </para>
+        /// </summary>
+		public Action<PlayerBehaviour, bool> MoveFinish;
 		public bool Speedup;
 		public bool Catcher;
 		public bool Shooting;

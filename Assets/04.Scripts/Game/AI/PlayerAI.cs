@@ -8,7 +8,8 @@ namespace AI
         None,
         Attack,
         Defense,
-        ReturnToHome
+        ReturnToHome,
+        DebugAlleyoop
     }
 
     /// <summary>
@@ -37,6 +38,17 @@ namespace AI
             mFSM.ChangeState(EPlayerAIState.None);
 
             GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
+        }
+
+        public void AddState(State<EPlayerAIState, EGameMsg> state)
+        {
+            mFSM.AddState(state);
+        }
+
+        public void ClearAllStates()
+        {
+            mFSM.ClearAllStates();
+            GameMsgDispatcher.Ins.RemoveListener(this, EGameMsg.GamePlayersCreated);
         }
 
         [UsedImplicitly]

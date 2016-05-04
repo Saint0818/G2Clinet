@@ -658,12 +658,7 @@ public class GameController : KnightSingleton<GameController>
                 SetAllPlayerAI(false);
                 break;
             case EGameTest.Alleyoop:
-                PlayerList.Add(createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
-                PlayerList.Add(createGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[1].Player));
-
-                PlayerList[0].IsJumpBallPlayer = true;
-                PlayerList[1].IsJumpBallPlayer = true;
-                SetAllPlayerAI(false);
+                createTeamAlleyoop();
                 break;
             case EGameTest.Pass:
             case EGameTest.Edit:
@@ -750,6 +745,27 @@ public class GameController : KnightSingleton<GameController>
         playerSelectMe.SetActive(false);
         preLoadSkillEffect();
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
+    }
+
+    private void createTeamAlleyoop()
+    {
+        var player = createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player);
+        var playerAI = player.GetComponent<PlayerAI>();
+        playerAI.ClearAllStates();
+        PlayerList.Add(player);
+
+        player = createGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[1].Player);
+        playerAI = player.GetComponent<PlayerAI>();
+        playerAI.ClearAllStates();
+        var runState = new PlayerDebugAlleyoop(player);
+        runState.AddPosition(0, 13);
+        runState.AddPosition(-6, 8);
+        playerAI.AddState(runState);
+        playerAI.ChangeState(EPlayerAIState.DebugAlleyoop);
+        PlayerList.Add(player);
+
+        PlayerList[0].IsJumpBallPlayer = true;
+        PlayerList[1].IsJumpBallPlayer = true;
     }
 
     private void createTeamNone()
@@ -3814,12 +3830,14 @@ public class GameController : KnightSingleton<GameController>
             if(alleyoopPlayer != BallOwner && 
                alleyoopPlayer.Team == BallOwner.Team)
             {
-                if(Random.Range(0, 100) < alleyoopPlayer.Attr.AlleyOopRate)
+                if(Random.Range(0, 100) < alleyoopPlayer.Attr.AlleyOopRate ||
+                   TestMode == EGameTest.Alleyoop) // 如果是測試模式, 不跑機率, 一定跳.
                 {
                     alleyoopPlayer.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint[paintTeam.GetHashCode()].transform.position);
 
+                    // 如果是測試模式, 不跑機率, 一定傳.
                     if((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) &&
-                       Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate)
+                       (Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate || TestMode == EGameTest.Alleyoop))
                     {
                         if(BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0,
                             alleyoopPlayer.transform.position))
