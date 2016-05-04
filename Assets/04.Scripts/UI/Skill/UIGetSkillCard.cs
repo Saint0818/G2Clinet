@@ -52,6 +52,7 @@ public class UIGetSkillCard : UIBase {
 	}
 
 	protected override void InitCom() {
+        SetBtnFun(UIName + "/BottomRight/NextLabel", OnClose);
 		animator = gameObject.GetComponent<Animator>();
 		isOpenImage = false;
 		skillCard = new TActiveSkillCard();
@@ -67,7 +68,7 @@ public class UIGetSkillCard : UIBase {
 		labelSkillExplain = GameObject.Find(UIName + "/Center/Window/DownBoard/MainView/SkillArea/SkillExplain").GetComponent<UILabel>();
 		goGetSuitSkillCard = GameObject.Find(UIName + "/Center/Window/GetSuitSkillCard");
 		goGetSuitSkillCard.SetActive(false);
-		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/NextLabel")).onClick = OnClose;
+		//UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/NextLabel")).onClick = OnClose;
 	}
 
 	private void setSloganLabel (int id, int quality){
@@ -139,7 +140,7 @@ public class UIGetSkillCard : UIBase {
 		isOpenImage = !isOpenImage;
 	}
 
-	public void OnClose (GameObject go) {
+	public void OnClose () {
 		if(UIGameResult.Visible) { 
 			UIGameResult.Get.ShowBonusItem();
 			UIGameResult.Get.ShowReturnButton();
@@ -147,6 +148,7 @@ public class UIGetSkillCard : UIBase {
 		
 		if(UIBuyStore.Visible)
 			UIBuyStore.Get.Gohead();
+        
 		Visible = false;
 	}
 }
