@@ -1170,13 +1170,23 @@ public static class GameFunction
 	}
 
 	public static void SetGymRedPoint (ref GameObject redPoint, int buildIndex) {
-		if(buildIndex == 3) 
-			redPoint.SetActive(GetBuildLv(buildIndex) < GameData.DBuildHightestLvs[buildIndex] && GameFunction.IsBuildLvEnough(buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
-		else {
-			if(GetBuildLv(buildIndex) >= GetGymLv) 
-				redPoint.SetActive(false);
-			else 
-				redPoint.SetActive(IsBuildLvEnough(buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
+		switch(buildIndex){ 
+		case 3:
+			redPoint.SetActive (GetBuildLv (buildIndex) < GameData.DBuildHightestLvs [buildIndex] && GameFunction.IsBuildLvEnough (buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue (buildIndex));
+			break;
+
+		case 8:
+			redPoint.SetActive (UIMail.HaveRedPt());
+
+			break;
+
+		default:
+
+			if (GetBuildLv (buildIndex) >= GetGymLv)
+				redPoint.SetActive (false);
+			else
+				redPoint.SetActive (IsBuildLvEnough (buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue (buildIndex));
+			break;
 		}
 	}
 
