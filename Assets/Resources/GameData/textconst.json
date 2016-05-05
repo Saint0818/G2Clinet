@@ -602,7 +602,7 @@
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "競 賽",
-        "en": "Play",
+        "en": "PLAY",
         "jp": "ok"
     },
     {
@@ -894,7 +894,7 @@
         "explain": "解鎖副本",
         "uipath": "9.副本",
         "tw": "成功解鎖[FFDD33]關主挑戰[-]功能",
-        "en": "Successfully unlocked [FFDD33]Boss Challenge[-]  function"
+        "en": "Successfully unlocked [FFDD33]BOSS Challenge[-]  function"
     },
     {
         "id": 1610,
@@ -2058,7 +2058,7 @@
         "id": 4106,
         "uipath": "FreeLabel",
         "tw": "免費倒數 [33FFDD]{0} [-]   ",
-        "en": "Free Countdown [33FFDD]{0} [-]    "
+        "en": "Free in: [33FFDD]{0} [-]    "
     },
     {
         "id": 4107,
@@ -2129,7 +2129,7 @@
     {
         "id": 4203,
         "tw": "已售完",
-        "en": "Sold Out"
+        "en": "SOLD OUT"
     },
     {
         "id": 4204,
@@ -3526,7 +3526,7 @@
         "id": 9104,
         "uipath": "ChallengeBtn/BtnLabel",
         "tw": "關 主 挑 戰",
-        "en": "Boss Challenge"
+        "en": "BOSS Challenge"
     },
     {
         "id": 9152,
@@ -3544,7 +3544,7 @@
         "id": 9154,
         "explain": "副本關卡",
         "tw": "[06b225]關主挑戰[-]",
-        "en": "[06b225]Boss Challenge[-] "
+        "en": "[06b225]BOSS Challenge[-] "
     },
     {
         "id": 9155
@@ -3995,7 +3995,7 @@
         "id": 9721,
         "uipath": "StartBtn",
         "tw": "對 戰",
-        "en": "Games"
+        "en": "BATTLE"
     },
     {
         "id": 9722,
@@ -4209,7 +4209,7 @@
         "id": 9801,
         "explain": "標題使用",
         "tw": "關主挑戰",
-        "en": "Boss Challenge"
+        "en": "BOSS Challenge"
     },
     {
         "id": 9802,
