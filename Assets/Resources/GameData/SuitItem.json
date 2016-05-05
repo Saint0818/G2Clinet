@@ -22,7 +22,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Indian wrestling suit"
+        "suitnameen": "Wrestler Suit"
     },
     {
         "id": 2,
@@ -65,7 +65,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Resorting to violence at home suit"
+        "suitnameen": "Gladiator Suit"
     },
     {
         "id": 3,
@@ -108,7 +108,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Zodiac Set Takeo"
+        "suitnameen": "Vicious Suit"
     },
     {
         "id": 4,
@@ -151,7 +151,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Bingfeng Warrior Set"
+        "suitnameen": "Ice Soldier Suit"
     },
     {
         "id": 5,
@@ -194,7 +194,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Punk gentleman suit"
+        "suitnameen": "Punk Suit"
     },
     {
         "id": 101,
@@ -223,7 +223,7 @@
         "value4": 5,
         "attrkind5": 20,
         "value5": 5,
-        "suitnameen": "Biochemical armor suit"
+        "suitnameen": "Biochemical Armor"
     },
     {
         "id": 102,
@@ -266,7 +266,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Rock star suits"
+        "suitnameen": "Rock Band Suit"
     },
     {
         "id": 103,
@@ -301,7 +301,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "SCIENCE diversion Set"
+        "suitnameen": "Metal Deflector Suit"
     },
     {
         "id": 104,
@@ -340,7 +340,7 @@
         "value4": 5,
         "attrkind5": 20,
         "value5": 5,
-        "suitnameen": "Frost Fighter Set"
+        "suitnameen": "Frost Warrior Suit"
     },
     {
         "id": 105,
@@ -375,7 +375,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Zodiac handsome suit"
+        "suitnameen": "Hitman Suit"
     },
     {
         "id": 201,
@@ -400,7 +400,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Bartender Kit"
+        "suitnameen": "Bartender Suit"
     },
     {
         "id": 202,
@@ -443,7 +443,7 @@
         "value5": 5,
         "attrkind6": 20,
         "value6": 5,
-        "suitnameen": "Hip-Hop Bikini Set"
+        "suitnameen": "Hip-hop Suit"
     },
     {
         "id": 203,
@@ -478,7 +478,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Agile Girl Set"
+        "suitnameen": "Agile Girl Suit"
     },
     {
         "id": 204,
@@ -517,7 +517,7 @@
         "value4": 5,
         "attrkind5": 20,
         "value5": 5,
-        "suitnameen": "Zodiac Girl Set"
+        "suitnameen": "Badass Suit"
     },
     {
         "id": 205,
@@ -552,7 +552,7 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Ice Queen Set"
+        "suitnameen": "Icy Queen Suit"
     },
     {
         "id": 206,
@@ -591,6 +591,6 @@
         "value3": 5,
         "attrkind4": 20,
         "value4": 5,
-        "suitnameen": "Kitty Suits"
+        "suitnameen": "Kitten Sensor Suit"
     }
 ]

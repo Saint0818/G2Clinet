@@ -245,7 +245,7 @@ public class UISelectPartner : UIBase {
                         int kind = GameData.DItemData[id].Kind;
                         if (memberList[page][index].Player.ValueItems != null && 
                             memberList[page][index].Player.ValueItems.ContainsKey(kind)) {
-                            UIItemHint.UIShow(true);
+                            UIItemHint.Visible = true;;
 							UIItemHint.Get.OnShowPartnerItem(id, memberList[page][index].Player);
                         }
                     }

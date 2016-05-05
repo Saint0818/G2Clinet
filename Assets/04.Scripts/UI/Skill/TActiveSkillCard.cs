@@ -171,6 +171,34 @@ public class TActiveSkillCard
 		}
 	}
 
+	public void UpdateViewGetNewCard(TItemData itemData)
+	{
+		if(isInit){
+			if (GameData.DSkillData.ContainsKey(itemData.Avatar)) {
+				self.name = itemData.ID.ToString();
+				SkillPic.mainTexture = TextureManager.Get.CardTexture(itemData.Avatar);
+				SkillCard.spriteName = GameFunction.CardLevelName(itemData.Avatar);
+				SkillName.text = GameData.DSkillData[itemData.Avatar].Name;
+				if(GameFunction.IsActiveSkill(itemData.Avatar))
+					SkillKind.spriteName = "ActiveIcon";
+				else 
+					SkillKind.spriteName = "PassiveIcon";
+				SkillKindBg.spriteName = "APIcon" + GameData.DSkillData[itemData.Avatar].Quality.ToString();
+				GameFunction.ShowStar(ref SkillStars, itemData.LV, GameData.DSkillData[itemData.Avatar].Quality, GameData.DSkillData[itemData.Avatar].MaxStar);
+				if(SuitCard != null) 
+					SuitCard.spriteName = GameFunction.CardLevelBallName(itemData.Avatar);
+
+				if(SuitItem != null) 
+					SuitItem.spriteName = GameFunction.CardSuitItemBg(itemData.Avatar);
+			} else
+				Debug.LogError("TActiveSkillCard.UpdateView skill id error " + itemData.Avatar.ToString());
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
 	public void UpdateViewItemDataForSuit(TItemData itemData, int lv)
 	{
 		if(isInit){
@@ -268,7 +296,11 @@ public class TActiveSkillCard
 			SuitCard.gameObject.name = suitcardID.ToString();
 			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(suitcardID));
 		}
-		SuitCardEnable = (GameData.DSuitCard.ContainsKey(suitcardID) && GameData.IsOpenUIVisibleByPlayer(EOpenID.SuitCard));
+	}
+
+	public void UpdateSuitCardLightForNewCard (int count) {
+		if(SuitCardFinish != null)
+			SuitCardFinish.spriteName = GameFunction.CardSuitLightName(count);
 	}
 
 	public void UpdateSuitItem (int suitItemID) {

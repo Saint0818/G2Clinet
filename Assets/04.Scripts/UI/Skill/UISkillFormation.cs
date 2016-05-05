@@ -110,7 +110,10 @@ public struct TUICard{
 			if(suitItemBtn != null)
 				skillCard.UpdateSuitItemButton(suitItemBtn);
 
+
 			skillCard.UpdateSuitCardLight(GameData.DSkillData[skill.ID].SuitCard);
+			skillCard.SuitCardEnable = (GameData.DSuitCard.ContainsKey(GameData.DSkillData[skill.ID].SuitCard));
+
 			skillCard.UpdateSuitItem(GameData.DSkillData[skill.ID].Suititem);
 			UpdateRedPoint(isEquip, skill);
 		}

@@ -1,63 +1,13 @@
 [
     {
         "kind": 0,
-        "id": 21400,
+        "id": 20610,
         "rate": 10,
-        "name": "籃板之王 I",
+        "name": "假動作灌籃 I",
         "fakeid": 10,
         "itewmid": 20010,
         "nametw2": "我愛籃球黑幫 I",
         "maxstar2": 1
-    },
-    {
-        "kind": 0,
-        "id": 21500,
-        "rate": 10,
-        "name": "妙手抄截 I",
-        "fakeid": 11,
-        "itewmid": 20011,
-        "nametw2": "我愛籃球黑幫 II",
-        "maxstar2": 2
-    },
-    {
-        "kind": 0,
-        "id": 21610,
-        "rate": 10,
-        "name": "火鍋之王 I",
-        "fakeid": 12,
-        "itewmid": 20012,
-        "nametw2": "我愛籃球黑幫 III",
-        "maxstar2": 3
-    },
-    {
-        "kind": 0,
-        "id": 21700,
-        "rate": 10,
-        "name": "奮力一擊 I",
-        "fakeid": 13,
-        "itewmid": 20013,
-        "nametw2": "我愛籃球黑幫 IV",
-        "maxstar2": 4
-    },
-    {
-        "kind": 0,
-        "id": 21800,
-        "rate": 10,
-        "name": "拐子肘擊 I",
-        "fakeid": 14,
-        "itewmid": 20014,
-        "nametw2": "我愛籃球黑幫 V",
-        "maxstar2": 5
-    },
-    {
-        "kind": 0,
-        "id": 21210,
-        "rate": 10,
-        "name": "正面跑傳 I",
-        "fakeid": 410,
-        "itewmid": 20410,
-        "nametw2": "小勾射 I",
-        "maxstar2": 2
     },
     {
         "kind": 1,
@@ -65,6 +15,66 @@
         "rate": 20,
         "tenpick": 1,
         "name": "我愛籃球黑幫 I",
+        "maxstar": 3,
+        "fakeid": 11,
+        "itewmid": 20011,
+        "nametw2": "我愛籃球黑幫 II",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 30400,
+        "rate": 10,
+        "tenpick": 1,
+        "name": "鷹眼神射 I",
+        "maxstar": 3,
+        "fakeid": 12,
+        "itewmid": 20012,
+        "nametw2": "我愛籃球黑幫 III",
+        "maxstar2": 3
+    },
+    {
+        "kind": 1,
+        "id": 30600,
+        "rate": 10,
+        "tenpick": 1,
+        "name": "大車輪爆扣 I",
+        "maxstar": 3,
+        "fakeid": 13,
+        "itewmid": 20013,
+        "nametw2": "我愛籃球黑幫 IV",
+        "maxstar2": 4
+    },
+    {
+        "kind": 1,
+        "id": 30630,
+        "rate": 10,
+        "tenpick": 1,
+        "name": "雙手爆扣 I",
+        "maxstar": 3,
+        "fakeid": 14,
+        "itewmid": 20014,
+        "nametw2": "我愛籃球黑幫 V",
+        "maxstar2": 5
+    },
+    {
+        "kind": 1,
+        "id": 30640,
+        "rate": 10,
+        "tenpick": 1,
+        "name": "胯下灌籃 I",
+        "maxstar": 3,
+        "fakeid": 410,
+        "itewmid": 20410,
+        "nametw2": "小勾射 I",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 31400,
+        "rate": 10,
+        "tenpick": 1,
+        "name": "籃板王傳說 I",
         "maxstar": 3,
         "fakeid": 411,
         "itewmid": 20411,
@@ -75,74 +85,14 @@
     },
     {
         "kind": 1,
-        "id": 30400,
-        "rate": 10,
-        "tenpick": 1,
-        "name": "鷹眼神射 I",
-        "maxstar": 3,
-        "fakeid": 412,
-        "itewmid": 20412,
-        "nametw2": "小勾射 III",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 30600,
-        "rate": 10,
-        "tenpick": 1,
-        "name": "大車輪爆扣 I",
-        "maxstar": 3,
-        "fakeid": 413,
-        "itewmid": 20413,
-        "nametw2": "小勾射 IV",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 30630,
-        "rate": 10,
-        "tenpick": 1,
-        "name": "雙手爆扣 I",
-        "maxstar": 3,
-        "fakeid": 414,
-        "itewmid": 20414,
-        "nametw2": "小勾射 V",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 30640,
-        "rate": 10,
-        "tenpick": 1,
-        "name": "胯下灌籃 I",
-        "maxstar": 3,
-        "fakeid": 420,
-        "itewmid": 20420,
-        "nametw2": "大勾射 I",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 31400,
-        "rate": 10,
-        "tenpick": 1,
-        "name": "籃板王傳說 I",
-        "maxstar": 3,
-        "fakeid": 421,
-        "itewmid": 20421,
-        "nametw2": "大勾射 II",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
         "id": 31500,
         "rate": 10,
         "tenpick": 1,
         "name": "瞬移抄截 I",
         "maxstar": 3,
-        "fakeid": 422,
-        "itewmid": 20422,
-        "nametw2": "大勾射 III",
+        "fakeid": 412,
+        "itewmid": 20412,
+        "nametw2": "小勾射 III",
         "maxstar2": 2
     },
     {
@@ -152,9 +102,9 @@
         "tenpick": 1,
         "name": "投籃剋星 I",
         "maxstar": 3,
-        "fakeid": 423,
-        "itewmid": 20423,
-        "nametw2": "大勾射 IV",
+        "fakeid": 413,
+        "itewmid": 20413,
+        "nametw2": "小勾射 IV",
         "maxstar2": 2
     },
     {
@@ -164,9 +114,9 @@
         "tenpick": 1,
         "name": "究極投籃剋星 I",
         "maxstar": 3,
-        "fakeid": 424,
-        "itewmid": 20424,
-        "nametw2": "大勾射 V",
+        "fakeid": 414,
+        "itewmid": 20414,
+        "nametw2": "小勾射 V",
         "maxstar2": 2
     },
     {
@@ -174,6 +124,61 @@
         "id": 20011,
         "rate": 80,
         "name": "我愛籃球黑幫 II",
+        "maxstar": 2,
+        "fakeid": 420,
+        "itewmid": 20420,
+        "nametw2": "大勾射 I",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 20410,
+        "rate": 40,
+        "name": "小勾射 I",
+        "maxstar": 2,
+        "fakeid": 421,
+        "itewmid": 20421,
+        "nametw2": "大勾射 II",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 20420,
+        "rate": 40,
+        "name": "大勾射 I",
+        "maxstar": 2,
+        "fakeid": 422,
+        "itewmid": 20422,
+        "nametw2": "大勾射 III",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 20430,
+        "rate": 40,
+        "name": "後仰跳投 I",
+        "maxstar": 2,
+        "fakeid": 423,
+        "itewmid": 20423,
+        "nametw2": "大勾射 IV",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 20510,
+        "rate": 40,
+        "name": "拉杆挑籃 I",
+        "maxstar": 2,
+        "fakeid": 424,
+        "itewmid": 20424,
+        "nametw2": "大勾射 V",
+        "maxstar2": 2
+    },
+    {
+        "kind": 1,
+        "id": 20520,
+        "rate": 40,
+        "name": "換手拉杆上籃 I",
         "maxstar": 2,
         "fakeid": 430,
         "itewmid": 20430,
@@ -184,9 +189,9 @@
     },
     {
         "kind": 1,
-        "id": 20410,
+        "id": 20530,
         "rate": 40,
-        "name": "小勾射 I",
+        "name": "假動作上籃 I",
         "maxstar": 2,
         "fakeid": 431,
         "itewmid": 20431,
@@ -195,9 +200,9 @@
     },
     {
         "kind": 1,
-        "id": 20420,
+        "id": 20610,
         "rate": 40,
-        "name": "大勾射 I",
+        "name": "假動作灌籃 I",
         "maxstar": 2,
         "fakeid": 432,
         "itewmid": 20432,
@@ -206,9 +211,9 @@
     },
     {
         "kind": 1,
-        "id": 20430,
+        "id": 20620,
         "rate": 40,
-        "name": "後仰跳投 I",
+        "name": "環腰扣籃 I",
         "maxstar": 2,
         "fakeid": 433,
         "itewmid": 20433,
@@ -217,9 +222,9 @@
     },
     {
         "kind": 1,
-        "id": 20510,
+        "id": 20660,
         "rate": 40,
-        "name": "拉杆挑籃 I",
+        "name": "大車輪灌籃 I",
         "maxstar": 2,
         "fakeid": 434,
         "itewmid": 20434,
@@ -228,9 +233,9 @@
     },
     {
         "kind": 1,
-        "id": 20520,
+        "id": 20670,
         "rate": 40,
-        "name": "換手拉杆上籃 I",
+        "name": "爆扣灌籃 I",
         "maxstar": 2,
         "fakeid": 499,
         "itewmid": 20499,
@@ -239,9 +244,9 @@
     },
     {
         "kind": 1,
-        "id": 20530,
+        "id": 21100,
         "rate": 40,
-        "name": "假動作上籃 I",
+        "name": "轉身過人 I",
         "maxstar": 2,
         "fakeid": 510,
         "itewmid": 20510,
@@ -250,9 +255,9 @@
     },
     {
         "kind": 1,
-        "id": 20610,
+        "id": 21210,
         "rate": 40,
-        "name": "假動作灌籃 I",
+        "name": "正面跑傳 I",
         "maxstar": 2,
         "fakeid": 511,
         "itewmid": 20511,
@@ -261,68 +266,13 @@
     },
     {
         "kind": 1,
-        "id": 20620,
-        "rate": 40,
-        "name": "環腰扣籃 I",
-        "maxstar": 2,
-        "fakeid": 512,
-        "itewmid": 20512,
-        "nametw2": "拉杆挑籃 III",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 20660,
-        "rate": 40,
-        "name": "大車輪灌籃 I",
-        "maxstar": 2,
-        "fakeid": 513,
-        "itewmid": 20513,
-        "nametw2": "拉杆挑籃 IV",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 20670,
-        "rate": 40,
-        "name": "爆扣灌籃 I",
-        "maxstar": 2,
-        "fakeid": 514,
-        "itewmid": 20514,
-        "nametw2": "拉杆挑籃 V",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 21100,
-        "rate": 40,
-        "name": "轉身過人 I",
-        "maxstar": 2,
-        "fakeid": 520,
-        "itewmid": 20520,
-        "nametw2": "換手拉杆上籃 I",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
-        "id": 21210,
-        "rate": 40,
-        "name": "正面跑傳 I",
-        "maxstar": 2,
-        "fakeid": 521,
-        "itewmid": 20521,
-        "nametw2": "換手拉杆上籃 II",
-        "maxstar2": 2
-    },
-    {
-        "kind": 1,
         "id": 21310,
         "rate": 40,
         "name": "飛身搶球 I",
         "maxstar": 2,
-        "fakeid": 522,
-        "itewmid": 20522,
-        "nametw2": "換手拉杆上籃 III",
+        "fakeid": 512,
+        "itewmid": 20512,
+        "nametw2": "拉杆挑籃 III",
         "maxstar2": 2
     },
     {
@@ -333,9 +283,10 @@
         "notify": 1,
         "name": "我愛籃球黑幫 V",
         "maxstar": 5,
-        "nametw2": "#N/A",
-        "ratetest": 0.03278688524590164,
-        "expectations": 13725
+        "fakeid": 513,
+        "itewmid": 20513,
+        "nametw2": "拉杆挑籃 IV",
+        "maxstar2": 2
     },
     {
         "kind": 2,
@@ -345,9 +296,9 @@
         "notify": 1,
         "name": "究極雙爆扣 I",
         "maxstar": 5,
-        "fakeid": 523,
-        "itewmid": 20523,
-        "nametw2": "換手拉杆上籃 IV",
+        "fakeid": 514,
+        "itewmid": 20514,
+        "nametw2": "拉杆挑籃 V",
         "maxstar2": 2
     },
     {
@@ -356,11 +307,11 @@
         "rate": 10,
         "tenpick": 1,
         "notify": 1,
-        "name": "究極三灌籃 I",
+        "name": "究極三爆扣 I",
         "maxstar": 5,
-        "fakeid": 524,
-        "itewmid": 20524,
-        "nametw2": "換手拉杆上籃 V",
+        "fakeid": 520,
+        "itewmid": 20520,
+        "nametw2": "換手拉杆上籃 I",
         "maxstar2": 2
     },
     {
@@ -371,9 +322,9 @@
         "notify": 1,
         "name": "究極飛身衝撞 I",
         "maxstar": 5,
-        "fakeid": 530,
-        "itewmid": 20530,
-        "nametw2": "假動作上籃 I",
+        "fakeid": 521,
+        "itewmid": 20521,
+        "nametw2": "換手拉杆上籃 II",
         "maxstar2": 2
     },
     {
@@ -384,9 +335,9 @@
         "notify": 1,
         "name": "直線暴衝 I",
         "maxstar": 5,
-        "fakeid": 531,
-        "itewmid": 20531,
-        "nametw2": "假動作上籃 II",
+        "fakeid": 522,
+        "itewmid": 20522,
+        "nametw2": "換手拉杆上籃 III",
         "maxstar2": 2
     },
     {
@@ -397,10 +348,9 @@
         "notify": 1,
         "name": "究極大地震波 I",
         "maxstar": 5,
-        "fakeid": 532,
-        "itewmid": 20532,
-        "nametw2": "假動作上籃 III",
-        "maxstar2": 2
+        "nametw2": "#N/A",
+        "ratetest": 0.03278688524590164,
+        "expectations": 13725
     },
     {
         "kind": 2,
@@ -410,9 +360,9 @@
         "notify": 1,
         "name": "禁區陷阱 I",
         "maxstar": 5,
-        "fakeid": 533,
-        "itewmid": 20533,
-        "nametw2": "假動作上籃 IV",
+        "fakeid": 523,
+        "itewmid": 20523,
+        "nametw2": "換手拉杆上籃 IV",
         "maxstar2": 2
     },
     {
@@ -423,9 +373,9 @@
         "notify": 1,
         "name": "外線結界 I",
         "maxstar": 5,
-        "fakeid": 534,
-        "itewmid": 20534,
-        "nametw2": "假動作上籃 V",
+        "fakeid": 524,
+        "itewmid": 20524,
+        "nametw2": "換手拉杆上籃 V",
         "maxstar2": 2
     },
     {
@@ -434,9 +384,10 @@
         "rate": 80,
         "name": "我愛籃球黑幫 IV",
         "maxstar": 4,
-        "nametw2": "#N/A",
-        "ratetest": 0.13114754098360656,
-        "expectations": 4575
+        "fakeid": 530,
+        "itewmid": 20530,
+        "nametw2": "假動作上籃 I",
+        "maxstar2": 2
     },
     {
         "kind": 2,
@@ -444,9 +395,9 @@
         "rate": 40,
         "name": "究極鷹眼神射 I",
         "maxstar": 4,
-        "fakeid": 610,
-        "itewmid": 20610,
-        "nametw2": "假動作灌籃 I",
+        "fakeid": 531,
+        "itewmid": 20531,
+        "nametw2": "假動作上籃 II",
         "maxstar2": 2
     },
     {
@@ -455,9 +406,9 @@
         "rate": 40,
         "name": "飛人爆扣 I",
         "maxstar": 4,
-        "fakeid": 611,
-        "itewmid": 20611,
-        "nametw2": "假動作灌籃 II",
+        "fakeid": 532,
+        "itewmid": 20532,
+        "nametw2": "假動作上籃 III",
         "maxstar2": 2
     },
     {
@@ -466,20 +417,20 @@
         "rate": 40,
         "name": "狂野雙爆扣 I",
         "maxstar": 4,
-        "fakeid": 612,
-        "itewmid": 20612,
-        "nametw2": "假動作灌籃 III",
+        "fakeid": 533,
+        "itewmid": 20533,
+        "nametw2": "假動作上籃 IV",
         "maxstar2": 2
     },
     {
         "kind": 2,
         "id": 30710,
         "rate": 40,
-        "name": "狂野三灌籃 I",
+        "name": "狂野三爆扣 I",
         "maxstar": 4,
-        "fakeid": 613,
-        "itewmid": 20613,
-        "nametw2": "假動作灌籃 IV",
+        "fakeid": 534,
+        "itewmid": 20534,
+        "nametw2": "假動作上籃 V",
         "maxstar2": 2
     },
     {
@@ -488,10 +439,9 @@
         "rate": 40,
         "name": "究極籃板王傳說 I",
         "maxstar": 4,
-        "fakeid": 614,
-        "itewmid": 20614,
-        "nametw2": "假動作灌籃 V",
-        "maxstar2": 2
+        "nametw2": "#N/A",
+        "ratetest": 0.13114754098360656,
+        "expectations": 4575
     },
     {
         "kind": 2,
@@ -499,9 +449,9 @@
         "rate": 40,
         "name": "究極瞬移抄截 I",
         "maxstar": 4,
-        "fakeid": 620,
-        "itewmid": 20620,
-        "nametw2": "環腰扣籃 I",
+        "fakeid": 610,
+        "itewmid": 20610,
+        "nametw2": "假動作灌籃 I",
         "maxstar2": 2
     },
     {
@@ -510,9 +460,9 @@
         "rate": 40,
         "name": "究極投籃剋星 I",
         "maxstar": 4,
-        "fakeid": 621,
-        "itewmid": 20621,
-        "nametw2": "環腰扣籃 II",
+        "fakeid": 611,
+        "itewmid": 20611,
+        "nametw2": "假動作灌籃 II",
         "maxstar2": 2
     },
     {
@@ -521,9 +471,9 @@
         "rate": 40,
         "name": "究極灌籃剋星 I",
         "maxstar": 4,
-        "fakeid": 622,
-        "itewmid": 20622,
-        "nametw2": "環腰扣籃 III",
+        "fakeid": 612,
+        "itewmid": 20612,
+        "nametw2": "假動作灌籃 III",
         "maxstar2": 2
     },
     {
@@ -532,9 +482,9 @@
         "rate": 40,
         "name": "飛身衝撞 I",
         "maxstar": 4,
-        "fakeid": 623,
-        "itewmid": 20623,
-        "nametw2": "環腰扣籃 IV",
+        "fakeid": 613,
+        "itewmid": 20613,
+        "nametw2": "假動作灌籃 IV",
         "maxstar2": 2
     },
     {
@@ -543,9 +493,9 @@
         "rate": 40,
         "name": "究極飛身衝撞 I",
         "maxstar": 4,
-        "fakeid": 624,
-        "itewmid": 20624,
-        "nametw2": "環腰扣籃 V",
+        "fakeid": 614,
+        "itewmid": 20614,
+        "nametw2": "假動作灌籃 V",
         "maxstar2": 2
     },
     {
@@ -554,9 +504,9 @@
         "rate": 40,
         "name": "大地震波 I",
         "maxstar": 4,
-        "fakeid": 630,
-        "itewmid": 20630,
-        "nametw2": "雙手爆扣 I",
+        "fakeid": 620,
+        "itewmid": 20620,
+        "nametw2": "環腰扣籃 I",
         "maxstar2": 2
     },
     {
@@ -566,11 +516,10 @@
         "tenpick": 1,
         "name": "我愛籃球黑幫 II",
         "maxstar": 2,
-        "fakeid": 631,
-        "itewmid": 20631,
-        "nametw2": "雙手爆扣 II",
-        "maxstar2": 2,
-        "ratetest": 0.022988505747126436
+        "fakeid": 621,
+        "itewmid": 20621,
+        "nametw2": "環腰扣籃 II",
+        "maxstar2": 2
     },
     {
         "kind": 3,
@@ -579,9 +528,9 @@
         "tenpick": 1,
         "name": "小勾射 I",
         "maxstar": 2,
-        "fakeid": 632,
-        "itewmid": 20632,
-        "nametw2": "雙手爆扣 III",
+        "fakeid": 622,
+        "itewmid": 20622,
+        "nametw2": "環腰扣籃 III",
         "maxstar2": 2
     },
     {
@@ -591,9 +540,9 @@
         "tenpick": 1,
         "name": "大勾射 I",
         "maxstar": 2,
-        "fakeid": 633,
-        "itewmid": 20633,
-        "nametw2": "雙手爆扣 IV",
+        "fakeid": 623,
+        "itewmid": 20623,
+        "nametw2": "環腰扣籃 IV",
         "maxstar2": 2
     },
     {
@@ -603,9 +552,9 @@
         "tenpick": 1,
         "name": "後仰跳投 I",
         "maxstar": 2,
-        "fakeid": 634,
-        "itewmid": 20634,
-        "nametw2": "雙手爆扣 V",
+        "fakeid": 624,
+        "itewmid": 20624,
+        "nametw2": "環腰扣籃 V",
         "maxstar2": 2
     },
     {
@@ -615,9 +564,9 @@
         "tenpick": 1,
         "name": "拉杆挑籃 I",
         "maxstar": 2,
-        "fakeid": 640,
-        "itewmid": 20640,
-        "nametw2": "胯下灌籃 I",
+        "fakeid": 630,
+        "itewmid": 20630,
+        "nametw2": "雙手爆扣 I",
         "maxstar2": 2
     },
     {
@@ -627,10 +576,11 @@
         "tenpick": 1,
         "name": "換手拉杆上籃 I",
         "maxstar": 2,
-        "fakeid": 641,
-        "itewmid": 20641,
-        "nametw2": "胯下灌籃 II",
-        "maxstar2": 2
+        "fakeid": 631,
+        "itewmid": 20631,
+        "nametw2": "雙手爆扣 II",
+        "maxstar2": 2,
+        "ratetest": 0.022988505747126436
     },
     {
         "kind": 3,
@@ -639,9 +589,9 @@
         "tenpick": 1,
         "name": "假動作上籃 I",
         "maxstar": 2,
-        "fakeid": 642,
-        "itewmid": 20642,
-        "nametw2": "胯下灌籃 III",
+        "fakeid": 632,
+        "itewmid": 20632,
+        "nametw2": "雙手爆扣 III",
         "maxstar2": 2
     },
     {
@@ -651,9 +601,9 @@
         "tenpick": 1,
         "name": "假動作灌籃 I",
         "maxstar": 2,
-        "fakeid": 643,
-        "itewmid": 20643,
-        "nametw2": "胯下灌籃 IV",
+        "fakeid": 633,
+        "itewmid": 20633,
+        "nametw2": "雙手爆扣 IV",
         "maxstar2": 2
     },
     {
@@ -663,9 +613,9 @@
         "tenpick": 1,
         "name": "環腰扣籃 I",
         "maxstar": 2,
-        "fakeid": 644,
-        "itewmid": 20644,
-        "nametw2": "胯下灌籃 V",
+        "fakeid": 634,
+        "itewmid": 20634,
+        "nametw2": "雙手爆扣 V",
         "maxstar2": 2
     },
     {
@@ -675,9 +625,9 @@
         "tenpick": 1,
         "name": "大車輪灌籃 I",
         "maxstar": 2,
-        "fakeid": 650,
-        "itewmid": 20650,
-        "nametw2": "飛人灌籃 I",
+        "fakeid": 640,
+        "itewmid": 20640,
+        "nametw2": "胯下灌籃 I",
         "maxstar2": 2
     },
     {
@@ -687,9 +637,9 @@
         "tenpick": 1,
         "name": "爆扣灌籃 I",
         "maxstar": 2,
-        "fakeid": 651,
-        "itewmid": 20651,
-        "nametw2": "飛人灌籃 II",
+        "fakeid": 641,
+        "itewmid": 20641,
+        "nametw2": "胯下灌籃 II",
         "maxstar2": 2
     },
     {
@@ -699,9 +649,9 @@
         "tenpick": 1,
         "name": "轉身過人 I",
         "maxstar": 2,
-        "fakeid": 652,
-        "itewmid": 20652,
-        "nametw2": "飛人灌籃 III",
+        "fakeid": 642,
+        "itewmid": 20642,
+        "nametw2": "胯下灌籃 III",
         "maxstar2": 2
     },
     {
@@ -711,9 +661,9 @@
         "tenpick": 1,
         "name": "正面跑傳 I",
         "maxstar": 2,
-        "fakeid": 653,
-        "itewmid": 20653,
-        "nametw2": "飛人灌籃 IV",
+        "fakeid": 643,
+        "itewmid": 20643,
+        "nametw2": "胯下灌籃 IV",
         "maxstar2": 2
     },
     {
@@ -723,9 +673,9 @@
         "tenpick": 1,
         "name": "飛身搶球 I",
         "maxstar": 2,
-        "fakeid": 654,
-        "itewmid": 20654,
-        "nametw2": "飛人灌籃 V",
+        "fakeid": 644,
+        "itewmid": 20644,
+        "nametw2": "胯下灌籃 V",
         "maxstar2": 2
     },
     {
@@ -733,6 +683,61 @@
         "id": 20010,
         "rate": 80,
         "name": "我愛籃球黑幫 I",
+        "maxstar": 1,
+        "fakeid": 650,
+        "itewmid": 20650,
+        "nametw2": "飛人灌籃 I",
+        "maxstar2": 2
+    },
+    {
+        "kind": 3,
+        "id": 21400,
+        "rate": 40,
+        "name": "籃板之王 I",
+        "maxstar": 1,
+        "fakeid": 651,
+        "itewmid": 20651,
+        "nametw2": "飛人灌籃 II",
+        "maxstar2": 2
+    },
+    {
+        "kind": 3,
+        "id": 21500,
+        "rate": 40,
+        "name": "妙手抄截 I",
+        "maxstar": 1,
+        "fakeid": 652,
+        "itewmid": 20652,
+        "nametw2": "飛人灌籃 III",
+        "maxstar2": 2
+    },
+    {
+        "kind": 3,
+        "id": 21610,
+        "rate": 40,
+        "name": "火鍋之王 I",
+        "maxstar": 1,
+        "fakeid": 653,
+        "itewmid": 20653,
+        "nametw2": "飛人灌籃 IV",
+        "maxstar2": 2
+    },
+    {
+        "kind": 3,
+        "id": 21700,
+        "rate": 40,
+        "name": "奮力一擊 I",
+        "maxstar": 1,
+        "fakeid": 654,
+        "itewmid": 20654,
+        "nametw2": "飛人灌籃 V",
+        "maxstar2": 2
+    },
+    {
+        "kind": 3,
+        "id": 21800,
+        "rate": 40,
+        "name": "拐子肘擊 I",
         "maxstar": 1,
         "fakeid": 660,
         "itewmid": 20660,
@@ -742,9 +747,9 @@
     },
     {
         "kind": 3,
-        "id": 21400,
+        "id": 21900,
         "rate": 40,
-        "name": "籃板之王 I",
+        "name": "倒地快起 I",
         "maxstar": 1,
         "fakeid": 661,
         "itewmid": 20661,
@@ -753,9 +758,9 @@
     },
     {
         "kind": 3,
-        "id": 21500,
+        "id": 22200,
         "rate": 40,
-        "name": "妙手抄截 I",
+        "name": "籃板追擊 I",
         "maxstar": 1,
         "fakeid": 662,
         "itewmid": 20662,
@@ -764,9 +769,9 @@
     },
     {
         "kind": 3,
-        "id": 21610,
+        "id": 22210,
         "rate": 40,
-        "name": "火鍋之王 I",
+        "name": "火鍋追擊 I",
         "maxstar": 1,
         "fakeid": 663,
         "itewmid": 20663,
@@ -775,9 +780,9 @@
     },
     {
         "kind": 3,
-        "id": 21700,
+        "id": 22220,
         "rate": 40,
-        "name": "奮力一擊 I",
+        "name": "防線追擊 I",
         "maxstar": 1,
         "fakeid": 664,
         "itewmid": 20664,
@@ -786,9 +791,9 @@
     },
     {
         "kind": 3,
-        "id": 21800,
+        "id": 22230,
         "rate": 40,
-        "name": "拐子肘擊 I",
+        "name": "火鍋追擊 I",
         "maxstar": 1,
         "fakeid": 670,
         "itewmid": 20670,
@@ -797,9 +802,9 @@
     },
     {
         "kind": 3,
-        "id": 21900,
+        "id": 22240,
         "rate": 40,
-        "name": "倒地快起 I",
+        "name": "防線追擊 I",
         "maxstar": 1,
         "fakeid": 671,
         "itewmid": 20671,
@@ -808,9 +813,9 @@
     },
     {
         "kind": 3,
-        "id": 22200,
+        "id": 22300,
         "rate": 40,
-        "name": "籃板追擊 I",
+        "name": "命中激勵 I",
         "maxstar": 1,
         "fakeid": 672,
         "itewmid": 20672,
@@ -819,9 +824,9 @@
     },
     {
         "kind": 3,
-        "id": 22210,
+        "id": 22310,
         "rate": 40,
-        "name": "火鍋追擊 I",
+        "name": "外線激勵 I",
         "maxstar": 1,
         "fakeid": 673,
         "itewmid": 20673,
@@ -830,9 +835,9 @@
     },
     {
         "kind": 3,
-        "id": 22220,
+        "id": 22320,
         "rate": 40,
-        "name": "防線追擊 I",
+        "name": "命中激勵 I",
         "maxstar": 1,
         "fakeid": 674,
         "itewmid": 20674,
@@ -841,9 +846,9 @@
     },
     {
         "kind": 3,
-        "id": 22230,
+        "id": 22330,
         "rate": 40,
-        "name": "火鍋追擊 I",
+        "name": "外線激勵 I",
         "maxstar": 1,
         "fakeid": 698,
         "itewmid": 20698,
@@ -852,9 +857,9 @@
     },
     {
         "kind": 3,
-        "id": 22240,
+        "id": 22340,
         "rate": 40,
-        "name": "防線追擊 I",
+        "name": "命中激勵 I",
         "maxstar": 1,
         "fakeid": 699,
         "itewmid": 20699,
@@ -862,55 +867,30 @@
         "maxstar2": 2
     },
     {
-        "kind": 3,
-        "id": 22300,
-        "rate": 40,
-        "name": "命中激勵 I",
-        "maxstar": 1,
         "fakeid": 1100,
         "itewmid": 21100,
         "nametw2": "轉身過人 I",
         "maxstar2": 2
     },
     {
-        "kind": 3,
-        "id": 22310,
-        "rate": 40,
-        "name": "外線激勵 I",
-        "maxstar": 1,
         "fakeid": 1101,
         "itewmid": 21101,
         "nametw2": "轉身過人 II",
         "maxstar2": 2
     },
     {
-        "kind": 3,
-        "id": 22320,
-        "rate": 40,
-        "name": "命中激勵 I",
-        "maxstar": 1,
         "fakeid": 1102,
         "itewmid": 21102,
         "nametw2": "轉身過人 III",
         "maxstar2": 2
     },
     {
-        "kind": 3,
-        "id": 22330,
-        "rate": 40,
-        "name": "外線激勵 I",
-        "maxstar": 1,
         "fakeid": 1103,
         "itewmid": 21103,
         "nametw2": "轉身過人 IV",
         "maxstar2": 2
     },
     {
-        "kind": 3,
-        "id": 22340,
-        "rate": 40,
-        "name": "命中激勵 I",
-        "maxstar": 1,
         "fakeid": 1104,
         "itewmid": 21104,
         "nametw2": "轉身過人 V",
@@ -1807,7 +1787,7 @@
     {
         "fakeid": 10698,
         "itewmid": 30698,
-        "nametw2": "飛人爆扣 ",
+        "nametw2": "雙手爆扣 ",
         "maxstar2": 4
     },
     {
@@ -1873,61 +1853,61 @@
     {
         "fakeid": 10710,
         "itewmid": 30710,
-        "nametw2": "狂野三灌籃 I",
+        "nametw2": "狂野三爆扣 I",
         "maxstar2": 4
     },
     {
         "fakeid": 10711,
         "itewmid": 30711,
-        "nametw2": "狂野三灌籃 II",
+        "nametw2": "狂野三爆扣 II",
         "maxstar2": 4
     },
     {
         "fakeid": 10712,
         "itewmid": 30712,
-        "nametw2": "狂野三灌籃 III",
+        "nametw2": "狂野三爆扣 III",
         "maxstar2": 4
     },
     {
         "fakeid": 10713,
         "itewmid": 30713,
-        "nametw2": "狂野三灌籃 IV",
+        "nametw2": "狂野三爆扣 IV",
         "maxstar2": 4
     },
     {
         "fakeid": 10714,
         "itewmid": 30714,
-        "nametw2": "狂野三灌籃 V",
+        "nametw2": "狂野三爆扣 V",
         "maxstar2": 4
     },
     {
         "fakeid": 10715,
         "itewmid": 30715,
-        "nametw2": "究極三灌籃 I",
+        "nametw2": "究極三爆扣 I",
         "maxstar2": 5
     },
     {
         "fakeid": 10716,
         "itewmid": 30716,
-        "nametw2": "究極三灌籃 II",
+        "nametw2": "究極三爆扣 II",
         "maxstar2": 5
     },
     {
         "fakeid": 10717,
         "itewmid": 30717,
-        "nametw2": "究極三灌籃 III",
+        "nametw2": "究極三爆扣 III",
         "maxstar2": 5
     },
     {
         "fakeid": 10718,
         "itewmid": 30718,
-        "nametw2": "究極三灌籃 IV",
+        "nametw2": "究極三爆扣 IV",
         "maxstar2": 5
     },
     {
         "fakeid": 10719,
         "itewmid": 30719,
-        "nametw2": "究極三灌籃 V",
+        "nametw2": "究極三爆扣 V",
         "maxstar2": 5
     },
     {
@@ -1939,7 +1919,7 @@
     {
         "fakeid": 10799,
         "itewmid": 30799,
-        "nametw2": "究極連環爆扣",
+        "nametw2": "究極三爆扣",
         "maxstar2": 5
     },
     {
@@ -1975,31 +1955,31 @@
     {
         "fakeid": 11405,
         "itewmid": 31405,
-        "nametw2": "#N/A",
+        "nametw2": "究極籃板王傳說 I",
         "maxstar2": 4
     },
     {
         "fakeid": 11406,
         "itewmid": 31406,
-        "nametw2": "#N/A",
+        "nametw2": "究極籃板王傳說 II",
         "maxstar2": 4
     },
     {
         "fakeid": 11407,
         "itewmid": 31407,
-        "nametw2": "#N/A",
+        "nametw2": "究極籃板王傳說 III",
         "maxstar2": 4
     },
     {
         "fakeid": 11408,
         "itewmid": 31408,
-        "nametw2": "#N/A",
+        "nametw2": "究極籃板王傳說 IV",
         "maxstar2": 4
     },
     {
         "fakeid": 11409,
         "itewmid": 31409,
-        "nametw2": "#N/A",
+        "nametw2": "究極籃板王傳說 V",
         "maxstar2": 4
     },
     {
@@ -2035,31 +2015,31 @@
     {
         "fakeid": 11505,
         "itewmid": 31505,
-        "nametw2": "#N/A",
+        "nametw2": "究極瞬移抄截 I",
         "maxstar2": 4
     },
     {
         "fakeid": 11506,
         "itewmid": 31506,
-        "nametw2": "#N/A",
+        "nametw2": "究極瞬移抄截 II",
         "maxstar2": 4
     },
     {
         "fakeid": 11507,
         "itewmid": 31507,
-        "nametw2": "#N/A",
+        "nametw2": "究極瞬移抄截 III",
         "maxstar2": 4
     },
     {
         "fakeid": 11508,
         "itewmid": 31508,
-        "nametw2": "#N/A",
+        "nametw2": "究極瞬移抄截 IV",
         "maxstar2": 4
     },
     {
         "fakeid": 11509,
         "itewmid": 31509,
-        "nametw2": "#N/A",
+        "nametw2": "究極瞬移抄截 V",
         "maxstar2": 4
     },
     {
@@ -2101,31 +2081,31 @@
     {
         "fakeid": 11605,
         "itewmid": 31605,
-        "nametw2": "#N/A",
+        "nametw2": "究極投籃剋星 I",
         "maxstar2": 4
     },
     {
         "fakeid": 11606,
         "itewmid": 31606,
-        "nametw2": "#N/A",
+        "nametw2": "究極投籃剋星 II",
         "maxstar2": 4
     },
     {
         "fakeid": 11607,
         "itewmid": 31607,
-        "nametw2": "#N/A",
+        "nametw2": "究極投籃剋星 III",
         "maxstar2": 4
     },
     {
         "fakeid": 11608,
         "itewmid": 31608,
-        "nametw2": "#N/A",
+        "nametw2": "究極投籃剋星 IV",
         "maxstar2": 4
     },
     {
         "fakeid": 11609,
         "itewmid": 31609,
-        "nametw2": "#N/A",
+        "nametw2": "究極投籃剋星 V",
         "maxstar2": 4
     },
     {
@@ -2161,31 +2141,31 @@
     {
         "fakeid": 11615,
         "itewmid": 31615,
-        "nametw2": "#N/A",
+        "nametw2": "究極灌籃剋星 I",
         "maxstar2": 4
     },
     {
         "fakeid": 11616,
         "itewmid": 31616,
-        "nametw2": "#N/A",
+        "nametw2": "究極灌籃剋星 II",
         "maxstar2": 4
     },
     {
         "fakeid": 11617,
         "itewmid": 31617,
-        "nametw2": "#N/A",
+        "nametw2": "究極灌籃剋星 III",
         "maxstar2": 4
     },
     {
         "fakeid": 11618,
         "itewmid": 31618,
-        "nametw2": "#N/A",
+        "nametw2": "究極灌籃剋星 IV",
         "maxstar2": 4
     },
     {
         "fakeid": 11619,
         "itewmid": 31619,
-        "nametw2": "#N/A",
+        "nametw2": "究極灌籃剋星 V",
         "maxstar2": 4
     },
     {
@@ -2281,31 +2261,31 @@
     {
         "fakeid": 11715,
         "itewmid": 31715,
-        "nametw2": "#N/A",
+        "nametw2": "究極直線暴衝 I",
         "maxstar2": 5
     },
     {
         "fakeid": 11716,
         "itewmid": 31716,
-        "nametw2": "#N/A",
+        "nametw2": "究極直線暴衝 II",
         "maxstar2": 5
     },
     {
         "fakeid": 11717,
         "itewmid": 31717,
-        "nametw2": "#N/A",
+        "nametw2": "究極直線暴衝 III",
         "maxstar2": 5
     },
     {
         "fakeid": 11718,
         "itewmid": 31718,
-        "nametw2": "#N/A",
+        "nametw2": "究極直線暴衝 IV",
         "maxstar2": 5
     },
     {
         "fakeid": 11719,
         "itewmid": 31719,
-        "nametw2": "#N/A",
+        "nametw2": "究極直線暴衝 V",
         "maxstar2": 5
     },
     {
@@ -2341,31 +2321,31 @@
     {
         "fakeid": 11805,
         "itewmid": 31805,
-        "nametw2": "#N/A",
+        "nametw2": "究極大地震波 I",
         "maxstar2": 5
     },
     {
         "fakeid": 11806,
         "itewmid": 31806,
-        "nametw2": "#N/A",
+        "nametw2": "究極大地震波 II",
         "maxstar2": 5
     },
     {
         "fakeid": 11807,
         "itewmid": 31807,
-        "nametw2": "#N/A",
+        "nametw2": "究極大地震波 III",
         "maxstar2": 5
     },
     {
         "fakeid": 11808,
         "itewmid": 31808,
-        "nametw2": "#N/A",
+        "nametw2": "究極大地震波 IV",
         "maxstar2": 5
     },
     {
         "fakeid": 11809,
         "itewmid": 31809,
-        "nametw2": "#N/A",
+        "nametw2": "究極大地震波 V",
         "maxstar2": 5
     },
     {

@@ -45,7 +45,9 @@ public class UI3DBuyStore :  UIBase {
 	}
 
 	public void StartRaffle () {
-		animator3DBuy.SetTrigger("Go");
+        animator3DBuy.SetTrigger("Go");
+        if (UITutorial.Visible)
+            UITutorial.Get.ForceNextStep();
 	}
 
 	public void AgainRaffle() {

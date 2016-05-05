@@ -8,7 +8,7 @@ public class UIMall : UIBase {
 	private static UIMall instance = null;
 	private const string UIName = "UIMall";
 
-	private List<TMallBox> mallBoxs ;
+	private List<TMallBox> mallBoxs = new List<TMallBox>() ;
 
 	private TPickCost choosePickCost;
 	private int chooseIndex;
@@ -18,7 +18,8 @@ public class UIMall : UIBase {
 	private GameObject skillCard;
 	private GameObject itemIcon;
 
-	private TSkill[] newSkillCard;
+//	private TSkill[] newSkillCard;
+	private Dictionary<int, int> newItemCount;
 
 	void OnDestroy () {
 		mallBoxs.Clear();
@@ -248,10 +249,11 @@ public class UIMall : UIBase {
 		{
             TPickLotteryResult result = JsonConvertWrapper.DeserializeObject<TPickLotteryResult>(www.text);
 			GameData.Team.Items = result.Items;
-			newSkillCard = result.SkillCards;
+			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
-			GameData.Team.GotItemCount = result.GotItemCount;
+//			GameData.Team.GotItemCount = result.GotItemCount;
+			newItemCount = result.GotItemCount;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			UIMainLobby.Get.UpdateUI();
@@ -278,7 +280,8 @@ public class UIMall : UIBase {
 		UI3DMainLobby.Get.Hide();
 		Hide ();
 		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, choosetype, itemDatas);
-		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
+//		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
+		UIBuyStore.Get.SetNewSkillCard(newItemCount);
 		UIResource.Get.Hide();
 		UI3DBuyStore.Get.Show();
 	}

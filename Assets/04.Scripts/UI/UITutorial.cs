@@ -127,6 +127,13 @@ public class UITutorial : UIBase {
 		textFinish = true;
 	}
 
+    public void ForceNextStep() {
+        if (Visible) {
+            uiClick.SetActive(false);
+            OnTutorial();
+        }
+    }
+
 	public void OnTutorial() {
         if (Visible && !uiClick.activeInHierarchy){
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1)) {

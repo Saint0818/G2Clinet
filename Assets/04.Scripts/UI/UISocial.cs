@@ -196,6 +196,8 @@ public class UISocial : UIBase {
                             count++;
                         }
                     }
+
+                    totalLabel.text = count.ToString() + " / 300"; 
                 }
 
                 break;
@@ -617,7 +619,7 @@ public class UISocial : UIBase {
         for (int i = 0; i < pageObjects.Length; i++)
             pageObjects[i].SetActive(false);
 
-        totalLabel.text = GameData.Team.LifetimeRecord.FriendCount.ToString() + " / 300"; 
+        //totalLabel.text = GameData.Team.LifetimeRecord.FriendCount.ToString() + " / 300"; 
         pageObjects[page].SetActive(true);
         redPoints[page].SetActive(false);
         nowPage = page;

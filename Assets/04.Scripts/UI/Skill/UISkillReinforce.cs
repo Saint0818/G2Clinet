@@ -374,7 +374,7 @@ public class UISkillReinforce : UIBase {
 		GameObject obj = Instantiate(itemCardEquipped, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = scrollView.transform;
 		obj.transform.name =  skill.ID.ToString() + "_" + skill.SN.ToString() + "_" + skill.Lv.ToString();
-		LayerMgr.Get.SetLayerAllChildren(obj, "TopUI");
+        LayerMgr.Get.SetLayerAllChildren(obj, ELayer.TopUI);
 
 		TPassiveSkillCard passiveSkillCard = new TPassiveSkillCard();
 		passiveSkillCard.InitReinforce(obj, skillCardIndex);
@@ -393,7 +393,7 @@ public class UISkillReinforce : UIBase {
 		obj.transform.parent = parent;
 		obj.transform.localScale = Vector3.one;
 		obj.transform.localPosition = Vector3.zero;
-		LayerMgr.Get.SetLayerAllChildren(obj, "TopUI");
+        LayerMgr.Get.SetLayerAllChildren(obj, ELayer.TopUI);
 
 		obj.GetComponent<ItemAwardGroup>().ShowSkill(skill);
 		return obj;

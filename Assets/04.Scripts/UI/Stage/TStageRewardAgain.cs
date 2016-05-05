@@ -69,6 +69,9 @@ public class TStageRewardAgain
     [UsedImplicitly]
     public Dictionary<int, int> GotItemCount;
 
+    [UsedImplicitly]
+    public Dictionary<int, int> GotAvatar;
+
     public override string ToString()
     {
         return string.Format("Money:{3}, Diamond:{0}, RandomItemID:{1}, CandidateItem:{2}", 

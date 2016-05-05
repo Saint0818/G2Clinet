@@ -42,8 +42,10 @@ public class MainStageWinProtocol
             GameData.Team.Items = reward.Items;
             GameData.Team.ValueItems = reward.ValueItems;
             GameData.Team.MaterialItems = reward.MaterialItems;
-            GameData.Team.GotItemCount = reward.GotItemCount;
 
+            if (reward.GotAvatar != null)
+                GameData.Team.GotAvatar = reward.GotAvatar;
+            
             mCallback(true, reward);
         }
         else

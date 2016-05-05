@@ -10,6 +10,19 @@ public struct TMailGetGiftResult
 	public string _id; // _id=''表示全部取得
 	public int MailKind; // 1=prize, 2=social
 	public TMailGift[] Gifts;
+	public int Cause;
+	//身上的屬性
+	public TItem[] Items;
+	public TValueItem[] ValueItems;
+	public TMaterialItem[] MaterialItems;
+	public TSkill[] SkillCards;
+
+	public int Diamond;
+	public int Money;
+	public int Power;
+	public int SocialCoin;
+	public int PVPCoin;
+
 }
 
 public struct TMail
@@ -67,6 +80,18 @@ public class TMailItem{
 	public void waitGetGift(bool ok, WWW www) {
 		if (ok) {
 			TMailGetGiftResult[] result = JsonConvertWrapper.DeserializeObject <TMailGetGiftResult[]>(www.text); 
+
+			// 會收到server更新的相關屬性
+			GameData.Team.Items = result[0].Items;
+			GameData.Team.ValueItems = result [0].ValueItems;
+			GameData.Team.MaterialItems = result [0].MaterialItems;
+			GameData.Team.SkillCards = result [0].SkillCards;
+
+			GameData.Team.Diamond = result [0].Diamond;
+			GameData.Team.Money = result [0].Money;
+			GameData.Team.Power = result [0].Power;
+			GameData.Team.SocialCoin = result [0].SocialCoin;
+			GameData.Team.PVPCoin = result [0].PVPCoin;
 
 			// GS Log
 			switch (MailInfo.cause) {

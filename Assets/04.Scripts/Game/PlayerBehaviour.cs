@@ -2404,7 +2404,8 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogFormat("{0}. blockCatchMomentEnd. Time:{1}", name, Time.time);
 
         mStateChangable = true;
-        IsPerfectBlockCatch = false;
+		IsPerfectBlockCatch = false;
+		PlayerSkillController.ResetUseSkill();
     }
 
     private void BlockJump()
@@ -2501,6 +2502,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsShowSituation)
             return;
 
+		PlayerSkillController.ResetUseSkill();
         if (IsDebugAnimation)
             Debug.LogFormat("{0}. passEnd. Time:{1}", name, Time.time);
 
@@ -2521,6 +2523,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (state == CurrentAnimatorState)
             mStateChangable = true;
 
+		PlayerSkillController.ResetUseSkill();
         AniState(!IsBallOwner ? EPlayerState.Idle : EPlayerState.HoldBall);
     }
 
@@ -2746,6 +2749,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsShowSituation)
             return;
 
+		PlayerSkillController.ResetUseSkill();
         if (IsDebugAnimation)
             Debug.LogFormat("{0}. fakeShootEnd. Time:{1}", name, Time.time);
 
@@ -2874,7 +2878,8 @@ public class PlayerBehaviour : MonoBehaviour
 		switch (skillString)
 		{
 		case "CameraAction": 
-			CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
+			if(IsGameAttack)
+				CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_" + skillInt);
 			break;
 		case "Shooting":
 			CourtMgr.Get.IsRealBallActive = true;

@@ -11,9 +11,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Newbie in the streets",
+        "nameen": "Streetball Rookie",
         "explaintw": "提升知名度等級",
-        "explainen": "Level up"
+        "explainen": "Raise one's reputation level."
     },
     {
         "id": 11,
@@ -28,9 +28,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Got a new playar",
+        "nameen": "Amateur Player",
         "explaintw": "提升知名度等級",
-        "explainen": "Level up"
+        "explainen": "Raise one's reputation level."
     },
     {
         "id": 12,
@@ -45,9 +45,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Going pro",
+        "nameen": "Professional Player",
         "explaintw": "提升知名度等級",
-        "explainen": "Level up"
+        "explainen": "Raise one's reputation level."
     },
     {
         "id": 13,
@@ -62,9 +62,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Making a name for yourself",
+        "nameen": "Well-known Star",
         "explaintw": "提升知名度等級",
-        "explainen": "Level up"
+        "explainen": "Raise one's reputation level."
     },
     {
         "id": 14,
@@ -80,9 +80,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Rising Star",
+        "nameen": "World Star",
         "explaintw": "提升知名度等級",
-        "explainen": "Level up"
+        "explainen": "Raise one's reputation level."
     },
     {
         "id": 16,
@@ -128,9 +128,9 @@
         "money": [40,40,60],
         "exp": [10,10,10],
         "diamond": [200,200,250],
-        "nameen": "Street league",
+        "nameen": "Streetball League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 21,
@@ -146,9 +146,9 @@
         "money": [250,250,270],
         "exp": [10,10,10],
         "diamond": [250,250,300],
-        "nameen": "Township league",
+        "nameen": "Town League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 22,
@@ -163,9 +163,9 @@
         "money": [250,250,270],
         "exp": [10,10,10],
         "diamond": [350,350,350],
-        "nameen": "Regional league",
+        "nameen": "Regional League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 23,
@@ -180,9 +180,9 @@
         "money": [330,330,350],
         "exp": [10,10,10],
         "diamond": [500,500,600],
-        "nameen": "National League",
+        "nameen": "National League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 24,
@@ -197,9 +197,9 @@
         "money": [700,700,760],
         "exp": [10,10,10],
         "diamond": [650,650,750],
-        "nameen": "World league",
+        "nameen": "World League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 25,
@@ -214,9 +214,9 @@
         "money": [820,820,880],
         "exp": [10,10,10],
         "diamond": [800,800,900],
-        "nameen": "Starcraft league",
+        "nameen": "Star League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 26,
@@ -231,9 +231,9 @@
         "money": [940,940,1000],
         "exp": [10,10,10],
         "diamond": [950,950,1100],
-        "nameen": "Galaxy league",
+        "nameen": "Galactic League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 27,
@@ -249,9 +249,9 @@
         "money": [1100],
         "exp": [10],
         "diamond": [1300],
-        "nameen": "Universe league",
+        "nameen": "Cosmos League Career",
         "explaintw": "提升聯盟對戰積分，提高聯盟等級",
-        "explainen": "Earn league points, improve the league level"
+        "explainen": "Raise your League Points to enter a higher league."
     },
     {
         "id": 50,
@@ -265,9 +265,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [200],
-        "nameen": "Street punk",
+        "nameen": "Streetball Trender",
         "explaintw": "購買造型物件，提升自己時尚品味",
-        "explainen": "Buy style items, improve your fashion sense"
+        "explainen": "Purchase accessories to increase your fashion sense."
     },
     {
         "id": 51,
@@ -282,9 +282,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [250,300],
-        "nameen": "Swag",
+        "nameen": "Stylish Player",
         "explaintw": "購買造型物件，提升自己時尚品味",
-        "explainen": "Buy style items, improve your fashion sense"
+        "explainen": "Purchase accessories to increase your fashion sense."
     },
     {
         "id": 52,
@@ -301,7 +301,7 @@
         "diamond": [350,350,450],
         "nameen": "Fashion Rookie",
         "explaintw": "購買造型物件，提升自己時尚品味",
-        "explainen": "Buy style items, improve your fashion sense"
+        "explainen": "Purchase accessories to increase your fashion sense."
     },
     {
         "id": 53,
@@ -316,9 +316,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [500,500,600,750],
-        "nameen": "fashion icon",
+        "nameen": "Fashion Expert",
         "explaintw": "購買造型物件，提升自己時尚品味",
-        "explainen": "Buy style items, improve your fashion sense"
+        "explainen": "Purchase accessories to increase your fashion sense."
     },
     {
         "id": 54,
@@ -334,9 +334,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [800,800,900,900,1100],
-        "nameen": "World Supermodel",
+        "nameen": "World-class Model",
         "explaintw": "購買造型物件，提升自己時尚品味",
-        "explainen": "Buy style items, improve your fashion sense"
+        "explainen": "Purchase accessories to increase your fashion sense."
     },
     {
         "id": 70,
@@ -350,9 +350,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [200],
-        "nameen": "Basketball beginner",
+        "nameen": "Basketball Beginner",
         "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
-        "explainen": "Collect skills cards, time to take it to the next level."
+        "explainen": "Collect Skill Chips to increase balling skills."
     },
     {
         "id": 71,
@@ -367,9 +367,9 @@
         "money": [120,130],
         "exp": [10,10],
         "diamond": [250,300],
-        "nameen": "Basketball player",
+        "nameen": "Basketball Player",
         "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
-        "explainen": "Collect skills cards, time to take it to the next level."
+        "explainen": "Collect Skill Chips to increase balling skills."
     },
     {
         "id": 72,
@@ -384,9 +384,9 @@
         "money": [310,330,350],
         "exp": [10,10,10],
         "diamond": [350,350,450],
-        "nameen": "Basketball expert",
+        "nameen": "Basketball Expert",
         "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
-        "explainen": "Collect skills cards, time to take it to the next level."
+        "explainen": "Collect Skill Chips to increase balling skills."
     },
     {
         "id": 73,
@@ -401,9 +401,9 @@
         "money": [370,390,410,430],
         "exp": [10,10,10,10],
         "diamond": [500,500,600,750],
-        "nameen": "Basketball master",
+        "nameen": "Basketball Ace",
         "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
-        "explainen": "Collect skills cards, time to take it to the next level."
+        "explainen": "Collect Skill Chips to increase balling skills."
     },
     {
         "id": 74,
@@ -419,9 +419,9 @@
         "money": [760,820,880,940,1000],
         "exp": [10,10,10,10,10],
         "diamond": [800,800,900,900,1100],
-        "nameen": "Basketball legend",
+        "nameen": "Basketball Master",
         "explaintw": "收集技能晶片，讓自己的球技更上一層樓。",
-        "explainen": "Collect skills cards, time to take it to the next level."
+        "explainen": "Collect Skill Chips to increase balling skills."
     },
     {
         "id": 90,
@@ -435,9 +435,9 @@
         "money": [10],
         "exp": [5],
         "diamond": [5],
-        "nameen": "Build your crew",
+        "nameen": "Making Friends",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 91,
@@ -453,9 +453,9 @@
         "exp": [5],
         "diamond": [240],
         "spendkind": 3,
-        "nameen": "Building the crew I",
+        "nameen": "Making Friends I",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 92,
@@ -471,9 +471,9 @@
         "exp": [5,5],
         "diamond": [300,360],
         "spendkind": 3,
-        "nameen": "Building the crew II",
+        "nameen": "Making Friends II",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 93,
@@ -489,9 +489,9 @@
         "exp": [5,5,5],
         "diamond": [420,420,540],
         "spendkind": 3,
-        "nameen": "Building the crew III",
+        "nameen": "Making Friends III",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 94,
@@ -507,9 +507,9 @@
         "exp": [5,5,5,5],
         "diamond": [600,600,720,900],
         "spendkind": 3,
-        "nameen": "Building the crew IV",
+        "nameen": "Making Friends IV",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 95,
@@ -526,9 +526,9 @@
         "exp": [5,5,5,5,5],
         "diamond": [960,960,1080,1080,1320],
         "spendkind": 3,
-        "nameen": "Building the crew V",
+        "nameen": "Making Friends V",
         "explaintw": "與其他球員互相關注成為朋友",
-        "explainen": "Follow and befriend other players."
+        "explainen": "Follow other players and be friends with them."
     },
     {
         "id": 100,
@@ -543,9 +543,9 @@
         "exp": [10],
         "diamond": [240],
         "spendkind": 3,
-        "nameen": "I like ya I",
+        "nameen": "Like your Friend I",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 101,
@@ -561,9 +561,9 @@
         "exp": [10,10],
         "diamond": [300,360],
         "spendkind": 3,
-        "nameen": "I like ya II",
+        "nameen": "Like your Friend II",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 102,
@@ -579,9 +579,9 @@
         "exp": [10,10,10],
         "diamond": [420,420,540],
         "spendkind": 3,
-        "nameen": "I like ya III",
+        "nameen": "Like your Friend III",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 103,
@@ -597,9 +597,9 @@
         "exp": [10,10,10,10],
         "diamond": [600,600,720,900],
         "spendkind": 3,
-        "nameen": "I like ya IV",
+        "nameen": "Like your Friend IV",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 104,
@@ -616,9 +616,9 @@
         "exp": [10,10,10,10,10],
         "diamond": [960,960,1080,1080,1320],
         "spendkind": 3,
-        "nameen": "I like ya V",
+        "nameen": "Like your Friend V",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 110,
@@ -632,9 +632,9 @@
         "money": [100],
         "exp": [10],
         "diamond": [20],
-        "nameen": "Wrap it up I",
+        "nameen": "Challenge the Boss I",
         "explaintw": "成功挑戰章節關卡",
-        "explainen": "Finish all the challenges of this chapter."
+        "explainen": "Successfully challenge the chapter stage."
     },
     {
         "id": 111,
@@ -649,9 +649,9 @@
         "money": [120,130],
         "exp": [10,10],
         "diamond": [25,30],
-        "nameen": "Wrap it up II",
+        "nameen": "Challenge the Boss II",
         "explaintw": "成功挑戰章節關卡",
-        "explainen": "Finish all the challenges of this chapter."
+        "explainen": "Successfully challenge the chapter stage."
     },
     {
         "id": 112,
@@ -666,9 +666,9 @@
         "money": [310,330,350],
         "exp": [10,10,10],
         "diamond": [35,35,45],
-        "nameen": "Wrap it up III",
+        "nameen": "Challenge the Boss III",
         "explaintw": "成功挑戰章節關卡",
-        "explainen": "Finish all the challenges of this chapter."
+        "explainen": "Successfully challenge the chapter stage."
     },
     {
         "id": 113,
@@ -683,9 +683,9 @@
         "money": [370,390,410,430],
         "exp": [10,10,10,10],
         "diamond": [50,50,60,75],
-        "nameen": "Wrap it up IV",
+        "nameen": "Challenge the Boss IV",
         "explaintw": "成功挑戰章節關卡",
-        "explainen": "Finish all the challenges of this chapter."
+        "explainen": "Successfully challenge the chapter stage."
     },
     {
         "id": 114,
@@ -701,9 +701,9 @@
         "money": [760,820,880,940,1000],
         "exp": [10,10,10,10,10],
         "diamond": [80,80,90,90,110],
-        "nameen": "Wrap it up V",
+        "nameen": "Challenge the Boss V",
         "explaintw": "成功挑戰章節關卡",
-        "explainen": "Finish all the challenges of this chapter."
+        "explainen": "Successfully challenge the chapter stage."
     },
     {
         "id": 120,
@@ -713,13 +713,13 @@
         "score": 1,
         "nametw": "勝利的開始",
         "openui": "UIMainStage",
-        "value": [4],
+        "value": [3],
         "money": [100],
         "exp": [5],
         "diamond": [100],
-        "nameen": "Victory Beginning",
+        "nameen": "The Start of Victory",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 121,
@@ -734,9 +734,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Victory maker I",
+        "nameen": "Winning Machine I",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 122,
@@ -751,9 +751,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Victory maker II",
+        "nameen": "Winning Machine II",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 123,
@@ -768,9 +768,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Victory maker III",
+        "nameen": "Winning Machine III",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 124,
@@ -785,9 +785,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Victory maker IV",
+        "nameen": "Winning Machine IV",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 125,
@@ -803,9 +803,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Victory maker V",
+        "nameen": "Winning Machine V",
         "explaintw": "取得生涯競賽與關主挑戰的勝場數",
-        "explainen": "Finish the main challenge with a win streak"
+        "explainen": "Get the wins you need to challenge Career Games and Challenge the Boss."
     },
     {
         "id": 170,
@@ -819,9 +819,9 @@
         "money": [100],
         "exp": [10],
         "diamond": [20],
-        "nameen": "League Rookie",
+        "nameen": "League's New Star",
         "explaintw": "提升聯盟對戰勝場數",
-        "explainen": "Improve your leage's number of victories"
+        "explainen": "Increase wins in your league."
     },
     {
         "id": 171,
@@ -836,9 +836,9 @@
         "money": [120,130],
         "exp": [10,10],
         "diamond": [25,30],
-        "nameen": "Future League Star ",
+        "nameen": "League's Future Star",
         "explaintw": "提升聯盟對戰勝場數",
-        "explainen": "Improve your leage's number of victories"
+        "explainen": "Increase wins in your league."
     },
     {
         "id": 172,
@@ -853,9 +853,9 @@
         "money": [310,330,350],
         "exp": [10,10,10],
         "diamond": [35,35,45],
-        "nameen": "Popular League player",
+        "nameen": "League's Well-known Player",
         "explaintw": "提升聯盟對戰勝場數",
-        "explainen": "Improve your leage's number of victories"
+        "explainen": "Increase wins in your league."
     },
     {
         "id": 173,
@@ -870,9 +870,9 @@
         "money": [370,390,410,430],
         "exp": [10,10,10,10],
         "diamond": [50,50,60,75],
-        "nameen": "Senior league player",
+        "nameen": "League's All Star Player",
         "explaintw": "提升聯盟對戰勝場數",
-        "explainen": "Improve your leage's number of victories"
+        "explainen": "Increase wins in your league."
     },
     {
         "id": 174,
@@ -888,9 +888,9 @@
         "money": [760,820,880,940,1000],
         "exp": [10,10,10,10,10],
         "diamond": [80,80,90,90,110],
-        "nameen": "The league's top dog",
+        "nameen": "League's Franchise Player",
         "explaintw": "提升聯盟對戰勝場數",
-        "explainen": "Improve your leage's number of victories"
+        "explainen": "Increase wins in your league."
     },
     {
         "id": 310,
@@ -904,9 +904,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Score punk",
+        "nameen": "Scoring Rookie",
         "explaintw": "增加生涯總得分",
-        "explainen": "Increse your Career total score "
+        "explainen": "Increase career points."
     },
     {
         "id": 311,
@@ -921,9 +921,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Score rookie",
+        "nameen": "Scoring Expert",
         "explaintw": "增加生涯總得分",
-        "explainen": "Increse your Career total score "
+        "explainen": "Increase career points."
     },
     {
         "id": 312,
@@ -938,9 +938,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Score baller",
+        "nameen": "Scoring Ace",
         "explaintw": "增加生涯總得分",
-        "explainen": "Increse your Career total score "
+        "explainen": "Increase career points."
     },
     {
         "id": 313,
@@ -955,9 +955,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Score legend",
+        "nameen": "Scoring Master",
         "explaintw": "增加生涯總得分",
-        "explainen": "Increse your Career total score "
+        "explainen": "Increase career points."
     },
     {
         "id": 314,
@@ -973,9 +973,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Score King",
+        "nameen": "King of Scoring",
         "explaintw": "增加生涯總得分",
-        "explainen": "Increse your Career total score "
+        "explainen": "Increase career points."
     },
     {
         "id": 320,
@@ -989,9 +989,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "2 point punk",
+        "nameen": "2 Pointer Rookie",
         "explaintw": "增加生涯2分球進球數",
-        "explainen": "Increse your Career total 2 points score "
+        "explainen": "Increase career 2 FGs made."
     },
     {
         "id": 321,
@@ -1006,9 +1006,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "2 point rookie",
+        "nameen": "2 Pointer Expert",
         "explaintw": "增加生涯2分球進球數",
-        "explainen": "Increse your Career total 2 points score "
+        "explainen": "Increase career 2 FGs made."
     },
     {
         "id": 322,
@@ -1023,9 +1023,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "2 point baller",
+        "nameen": "2 Pointer Ace",
         "explaintw": "增加生涯2分球進球數",
-        "explainen": "Increse your Career total 2 points score "
+        "explainen": "Increase career 2 FGs made."
     },
     {
         "id": 323,
@@ -1040,9 +1040,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "2 point pro",
+        "nameen": "2 Pointer Master",
         "explaintw": "增加生涯2分球進球數",
-        "explainen": "Increse your Career total 2 points score "
+        "explainen": "Increase career 2 FGs made."
     },
     {
         "id": 324,
@@ -1058,9 +1058,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "2 point legend",
+        "nameen": "King of Two Pointer",
         "explaintw": "增加生涯2分球進球數",
-        "explainen": "Increse your Career total 2 points score "
+        "explainen": "Increase career 2 FGs made."
     },
     {
         "id": 330,
@@ -1074,9 +1074,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "3 point punk",
+        "nameen": "3 Pointer Rookie",
         "explaintw": "增加生涯3分球進球數",
-        "explainen": "Increse your Career total 3 points score "
+        "explainen": "Increase career 3 FGs made."
     },
     {
         "id": 331,
@@ -1091,9 +1091,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "3 point rookie",
+        "nameen": "3 Pointer Expert",
         "explaintw": "增加生涯3分球進球數",
-        "explainen": "Increse your Career total 3 points score "
+        "explainen": "Increase career 3 FGs made."
     },
     {
         "id": 332,
@@ -1108,9 +1108,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "3 point baller",
+        "nameen": "3 Pointer Ace",
         "explaintw": "增加生涯3分球進球數",
-        "explainen": "Increse your Career total 3 points score "
+        "explainen": "Increase career 3 FGs made."
     },
     {
         "id": 333,
@@ -1125,9 +1125,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "3 point pro",
+        "nameen": "3 Pointer Master",
         "explaintw": "增加生涯3分球進球數",
-        "explainen": "Increse your Career total 3 points score "
+        "explainen": "Increase career 3 FGs made."
     },
     {
         "id": 334,
@@ -1143,9 +1143,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "3 point legend",
+        "nameen": "King of 3 Pointer",
         "explaintw": "增加生涯3分球進球數",
-        "explainen": "Increse your Career total 3 points score "
+        "explainen": "Increase career 3 FGs made."
     },
     {
         "id": 340,
@@ -1159,9 +1159,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Dunk punk",
+        "nameen": "Slam Dunk Rookie",
         "explaintw": "增加生涯灌籃數",
-        "explainen": "Increase the number of career dunks"
+        "explainen": "Increase career dunks."
     },
     {
         "id": 341,
@@ -1176,9 +1176,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Dunk rookie",
+        "nameen": "Slam Dunk Expert",
         "explaintw": "增加生涯灌籃數",
-        "explainen": "Increase the number of career dunks"
+        "explainen": "Increase career dunks."
     },
     {
         "id": 342,
@@ -1193,9 +1193,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Dunk baller",
+        "nameen": "Slam Dunk Ace",
         "explaintw": "增加生涯灌籃數",
-        "explainen": "Increase the number of career dunks"
+        "explainen": "Increase career dunks."
     },
     {
         "id": 343,
@@ -1210,9 +1210,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Dunk pro",
+        "nameen": "Slam Dunk Master",
         "explaintw": "增加生涯灌籃數",
-        "explainen": "Increase the number of career dunks"
+        "explainen": "Increase career dunks."
     },
     {
         "id": 344,
@@ -1228,9 +1228,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Dunk legend",
+        "nameen": "King of Slam Dunk",
         "explaintw": "增加生涯灌籃數",
-        "explainen": "Increase the number of career dunks"
+        "explainen": "Increase career dunks."
     },
     {
         "id": 350,
@@ -1244,9 +1244,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Backboard punk",
+        "nameen": "Rebound Rookie",
         "explaintw": "增加生涯籃板數",
-        "explainen": "Increase the numeber of career rebounds"
+        "explainen": "Increase career rebounds."
     },
     {
         "id": 351,
@@ -1261,9 +1261,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Rebound rookie",
+        "nameen": "Rebound Expert",
         "explaintw": "增加生涯籃板數",
-        "explainen": "Increase the numeber of career rebounds"
+        "explainen": "Increase career rebounds."
     },
     {
         "id": 352,
@@ -1278,9 +1278,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Rebounder",
+        "nameen": "Rebound Ace",
         "explaintw": "增加生涯籃板數",
-        "explainen": "Increase the numeber of career rebounds"
+        "explainen": "Increase career rebounds."
     },
     {
         "id": 353,
@@ -1295,9 +1295,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Rebound pro",
+        "nameen": "Rebound Master",
         "explaintw": "增加生涯籃板數",
-        "explainen": "Increase the numeber of career rebounds"
+        "explainen": "Increase career rebounds."
     },
     {
         "id": 354,
@@ -1313,9 +1313,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "The king rebounds",
+        "nameen": "King of Rebound",
         "explaintw": "增加生涯籃板數",
-        "explainen": "Increase the numeber of career rebounds"
+        "explainen": "Increase career rebounds."
     },
     {
         "id": 360,
@@ -1329,9 +1329,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Assists punk",
+        "nameen": "Assist Rookie",
         "explaintw": "增加生涯助攻數",
-        "explainen": "Increase the number of career assists"
+        "explainen": "Increase career assists."
     },
     {
         "id": 361,
@@ -1346,9 +1346,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Assits rookie",
+        "nameen": "Assist Expert",
         "explaintw": "增加生涯助攻數",
-        "explainen": "Increase the number of career assists"
+        "explainen": "Increase career assists."
     },
     {
         "id": 362,
@@ -1363,9 +1363,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Assists teamate",
+        "nameen": "Assist Ace",
         "explaintw": "增加生涯助攻數",
-        "explainen": "Increase the number of career assists"
+        "explainen": "Increase career assists."
     },
     {
         "id": 363,
@@ -1380,9 +1380,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Assits pro",
+        "nameen": "Assist Master",
         "explaintw": "增加生涯助攻數",
-        "explainen": "Increase the number of career assists"
+        "explainen": "Increase career assists."
     },
     {
         "id": 364,
@@ -1398,9 +1398,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "The King of assists",
+        "nameen": "King of Assist",
         "explaintw": "增加生涯助攻數",
-        "explainen": "Increase the number of career assists"
+        "explainen": "Increase career assists."
     },
     {
         "id": 370,
@@ -1414,9 +1414,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Street rat",
+        "nameen": "Steal Rookie",
         "explaintw": "提加生涯抄截數",
-        "explainen": "Increase career steals Number"
+        "explainen": "Increase career shots."
     },
     {
         "id": 371,
@@ -1431,9 +1431,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Bank breaker",
+        "nameen": "Steal Expert",
         "explaintw": "提加生涯抄截數",
-        "explainen": "Increase career steals Number"
+        "explainen": "Increase career shots."
     },
     {
         "id": 372,
@@ -1448,9 +1448,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "white collar criminal",
+        "nameen": "Steal Ace",
         "explaintw": "提加生涯抄截數",
-        "explainen": "Increase career steals Number"
+        "explainen": "Increase career shots."
     },
     {
         "id": 373,
@@ -1465,9 +1465,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Museum burglar",
+        "nameen": "Steal Master",
         "explaintw": "提加生涯抄截數",
-        "explainen": "Increase career steals Number"
+        "explainen": "Increase career shots."
     },
     {
         "id": 374,
@@ -1483,9 +1483,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Thief of the century",
+        "nameen": "King of Steal",
         "explaintw": "提加生涯抄截數",
-        "explainen": "Increase career steals Number"
+        "explainen": "Increase career shots."
     },
     {
         "id": 380,
@@ -1499,9 +1499,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Container",
+        "nameen": "Block Shot Rookie",
         "explaintw": "提加生涯火鍋數",
-        "explainen": "Increase the number of carrer blocks"
+        "explainen": "Increase career blocks."
     },
     {
         "id": 381,
@@ -1516,9 +1516,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Plastic Lid",
+        "nameen": "Block Shot Expert",
         "explaintw": "提加生涯火鍋數",
-        "explainen": "Increase the number of carrer blocks"
+        "explainen": "Increase career blocks."
     },
     {
         "id": 382,
@@ -1533,9 +1533,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Glass Lid",
+        "nameen": "Block Shot Ace",
         "explaintw": "提加生涯火鍋數",
-        "explainen": "Increase the number of carrer blocks"
+        "explainen": "Increase career blocks."
     },
     {
         "id": 383,
@@ -1550,9 +1550,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Steel Lid",
+        "nameen": "Block Shot Master",
         "explaintw": "提加生涯火鍋數",
-        "explainen": "Increase the number of carrer blocks"
+        "explainen": "Increase career blocks."
     },
     {
         "id": 384,
@@ -1568,9 +1568,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "The Great Wall of China",
+        "nameen": "King of Block Shot",
         "explaintw": "提加生涯火鍋數",
-        "explainen": "Increase the number of carrer blocks"
+        "explainen": "Increase career blocks."
     },
     {
         "id": 390,
@@ -1584,9 +1584,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Street Brawler",
+        "nameen": "Push Rookie",
         "explaintw": "提加生涯推人數",
-        "explainen": "Increase the number of career push"
+        "explainen": "Increase career pushes."
     },
     {
         "id": 391,
@@ -1601,9 +1601,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Wrestler",
+        "nameen": "Push Expert",
         "explaintw": "提加生涯推人數",
-        "explainen": "Increase the number of career push"
+        "explainen": "Increase career pushes."
     },
     {
         "id": 392,
@@ -1618,9 +1618,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Boxing Champ",
+        "nameen": "Push Ace",
         "explaintw": "提加生涯推人數",
-        "explainen": "Increase the number of career push"
+        "explainen": "Increase career pushes."
     },
     {
         "id": 393,
@@ -1635,9 +1635,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "MMA Heavyweight Champ",
+        "nameen": "Push Master",
         "explaintw": "提加生涯推人數",
-        "explainen": "Increase the number of career push"
+        "explainen": "Increase career pushes."
     },
     {
         "id": 394,
@@ -1653,9 +1653,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Best pound per pond Champ",
+        "nameen": "King Push",
         "explaintw": "提加生涯推人數",
-        "explainen": "Increase the number of career push"
+        "explainen": "Increase career pushes."
     },
     {
         "id": 400,
@@ -1669,9 +1669,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Novice down",
+        "nameen": "KO Rookie",
         "explaintw": "提加生涯擊倒對手次數",
-        "explainen": "Increase the number career knockouts times"
+        "explainen": "Increase career KOs."
     },
     {
         "id": 401,
@@ -1686,9 +1686,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Ace down",
+        "nameen": "KO Expert",
         "explaintw": "提加生涯擊倒對手次數",
-        "explainen": "Increase the number career knockouts times"
+        "explainen": "Increase career KOs."
     },
     {
         "id": 402,
@@ -1703,9 +1703,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Knock players",
+        "nameen": "KO Ace",
         "explaintw": "提加生涯擊倒對手次數",
-        "explainen": "Increase the number career knockouts times"
+        "explainen": "Increase career KOs."
     },
     {
         "id": 403,
@@ -1720,9 +1720,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Master down",
+        "nameen": "KO Master",
         "explaintw": "提加生涯擊倒對手次數",
-        "explainen": "Increase the number career knockouts times"
+        "explainen": "Increase career KOs."
     },
     {
         "id": 404,
@@ -1738,9 +1738,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "The king down",
+        "nameen": "King of KO",
         "explaintw": "提加生涯擊倒對手次數",
-        "explainen": "Increase the number career knockouts times"
+        "explainen": "Increase career KOs."
     },
     {
         "id": 410,
@@ -1754,9 +1754,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Perfect punk",
+        "nameen": "Perfect Rookie",
         "explaintw": "提高 Perfect 點擊成功次數",
-        "explainen": "Increase the number of successful Perfect shots"
+        "explainen": "Increase perfect success frequency."
     },
     {
         "id": 411,
@@ -1771,9 +1771,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Perfect rookie",
+        "nameen": "Perfect Expert",
         "explaintw": "提高 Perfect 點擊成功次數",
-        "explainen": "Increase the number of successful Perfect shots"
+        "explainen": "Increase perfect success frequency."
     },
     {
         "id": 412,
@@ -1788,9 +1788,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Perfect baller",
+        "nameen": "Perfect Ace",
         "explaintw": "提高 Perfect 點擊成功次數",
-        "explainen": "Increase the number of successful Perfect shots"
+        "explainen": "Increase perfect success frequency."
     },
     {
         "id": 413,
@@ -1805,9 +1805,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Perfect pro",
+        "nameen": "Perfect Master",
         "explaintw": "提高 Perfect 點擊成功次數",
-        "explainen": "Increase the number of successful Perfect shots"
+        "explainen": "Increase perfect success frequency."
     },
     {
         "id": 414,
@@ -1823,9 +1823,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "King's Perfect",
+        "nameen": "King of Perfect",
         "explaintw": "提高 Perfect 點擊成功次數",
-        "explainen": "Increase the number of successful Perfect shots"
+        "explainen": "Increase perfect success frequency."
     },
     {
         "id": 420,
@@ -1839,9 +1839,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Alley oops novice",
+        "nameen": "Alley-oops Rookie",
         "explaintw": "提高Alley oops 成功次數",
-        "explainen": "Increase the number of successful Alley oops"
+        "explainen": "Increase alley-oops success frequency."
     },
     {
         "id": 421,
@@ -1856,9 +1856,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Alley oops ace",
+        "nameen": "Alley-oops Expert",
         "explaintw": "提高Alley oops 成功次數",
-        "explainen": "Increase the number of successful Alley oops"
+        "explainen": "Increase alley-oops success frequency."
     },
     {
         "id": 422,
@@ -1873,9 +1873,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Alley oops player",
+        "nameen": "Alley-oops Ace",
         "explaintw": "提高Alley oops 成功次數",
-        "explainen": "Increase the number of successful Alley oops"
+        "explainen": "Increase alley-oops success frequency."
     },
     {
         "id": 423,
@@ -1890,9 +1890,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Alley oops master",
+        "nameen": "Alley-oops Master",
         "explaintw": "提高Alley oops 成功次數",
-        "explainen": "Increase the number of successful Alley oops"
+        "explainen": "Increase alley-oops success frequency."
     },
     {
         "id": 424,
@@ -1908,9 +1908,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Alley oops King",
+        "nameen": "King of Alley-oops",
         "explaintw": "提高Alley oops 成功次數",
-        "explainen": "Increase the number of successful Alley oops"
+        "explainen": "Increase alley-oops success frequency."
     },
     {
         "id": 810,
@@ -1924,9 +1924,9 @@
         "money": [100],
         "exp": [15],
         "diamond": [20],
-        "nameen": "Tech newbie",
+        "nameen": "Upgrade Skill Chip I",
         "explaintw": "提升技能晶片等級次數",
-        "explainen": "Upgrade the level of your skill cards"
+        "explainen": "Increase upgrade frequency of skill chips."
     },
     {
         "id": 811,
@@ -1941,9 +1941,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Tech support",
+        "nameen": "Upgrade Skill Chip II",
         "explaintw": "提升技能晶片等級次數",
-        "explainen": "Upgrade the level of your skill cards"
+        "explainen": "Increase upgrade frequency of skill chips."
     },
     {
         "id": 812,
@@ -1958,9 +1958,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Tech geek",
+        "nameen": "Upgrade Skill Chip III",
         "explaintw": "提升技能晶片等級次數",
-        "explainen": "Upgrade the level of your skill cards"
+        "explainen": "Increase upgrade frequency of skill chips."
     },
     {
         "id": 813,
@@ -1975,9 +1975,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Tech researcher",
+        "nameen": "Upgrade Skill Chip IV",
         "explaintw": "提升技能晶片等級次數",
-        "explainen": "Upgrade the level of your skill cards"
+        "explainen": "Increase upgrade frequency of skill chips."
     },
     {
         "id": 814,
@@ -1993,9 +1993,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Tech king",
+        "nameen": "Upgrade Skill Chip V",
         "explaintw": "提升技能晶片等級次數",
-        "explainen": "Upgrade the level of your skill cards"
+        "explainen": "Increase upgrade frequency of skill chips."
     },
     {
         "id": 820,
@@ -2009,9 +2009,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Skill Card evolution I",
+        "nameen": "Skill Chip Evolution I",
         "explaintw": "提升技能晶片進化次數",
-        "explainen": "Upgrade the skills of a card several times"
+        "explainen": "Increase evolution frequency of skill chips."
     },
     {
         "id": 821,
@@ -2026,9 +2026,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Skill Card evolution II",
+        "nameen": "Skill Chip Evolution II",
         "explaintw": "提升技能晶片進化次數",
-        "explainen": "Upgrade the skills of a card several times"
+        "explainen": "Increase evolution frequency of skill chips."
     },
     {
         "id": 822,
@@ -2043,9 +2043,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Skill Card evolution III",
+        "nameen": "Skill Chip Evolution III",
         "explaintw": "提升技能晶片進化次數",
-        "explainen": "Upgrade the skills of a card several times"
+        "explainen": "Increase evolution frequency of skill chips."
     },
     {
         "id": 823,
@@ -2060,9 +2060,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Skill Card evolution IV",
+        "nameen": "Skill Chip Evolution IV",
         "explaintw": "提升技能晶片進化次數",
-        "explainen": "Upgrade the skills of a card several times"
+        "explainen": "Increase evolution frequency of skill chips."
     },
     {
         "id": 824,
@@ -2078,9 +2078,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Skill Card evolution V",
+        "nameen": "Skill Chip Evolution V",
         "explaintw": "提升技能晶片進化次數",
-        "explainen": "Upgrade the skills of a card several times"
+        "explainen": "Increase evolution frequency of skill chips."
     },
     {
         "id": 830,
@@ -2094,9 +2094,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Parts Upgrader I",
+        "nameen": "Synaptic Embedding I",
         "explaintw": "提高突觸裝備的鑲嵌次數",
-        "explainen": "Increase the number of  equipment upgrades"
+        "explainen": "Increase embedding turns of your synaptic equipment."
     },
     {
         "id": 831,
@@ -2111,9 +2111,9 @@
         "money": [120,130],
         "exp": [5,5],
         "diamond": [25,30],
-        "nameen": "Parts Upgrader II",
+        "nameen": "Synaptic Embedding II",
         "explaintw": "提高突觸裝備的鑲嵌次數",
-        "explainen": "Increase the number of  equipment upgrades"
+        "explainen": "Increase embedding turns of your synaptic equipment."
     },
     {
         "id": 832,
@@ -2128,9 +2128,9 @@
         "money": [310,330,350],
         "exp": [5,5,5],
         "diamond": [35,35,45],
-        "nameen": "Parts Upgrader III",
+        "nameen": "Synaptic Embedding III",
         "explaintw": "提高突觸裝備的鑲嵌次數",
-        "explainen": "Increase the number of  equipment upgrades"
+        "explainen": "Increase embedding turns of your synaptic equipment."
     },
     {
         "id": 833,
@@ -2145,9 +2145,9 @@
         "money": [370,390,410,430],
         "exp": [5,5,5,5],
         "diamond": [50,50,60,75],
-        "nameen": "Parts Upgrader IV",
+        "nameen": "Synaptic Embedding IV",
         "explaintw": "提高突觸裝備的鑲嵌次數",
-        "explainen": "Increase the number of  equipment upgrades"
+        "explainen": "Increase embedding turns of your synaptic equipment."
     },
     {
         "id": 834,
@@ -2163,9 +2163,9 @@
         "money": [760,820,880,940,1000],
         "exp": [5,5,5,5,5],
         "diamond": [80,80,90,90,110],
-        "nameen": "Parts Upgrader V",
+        "nameen": "Synaptic Embedding V",
         "explaintw": "提高突觸裝備的鑲嵌次數",
-        "explainen": "Increase the number of  equipment upgrades"
+        "explainen": "Increase embedding turns of your synaptic equipment."
     },
     {
         "id": 840,
@@ -2179,9 +2179,9 @@
         "money": [100],
         "exp": [5],
         "diamond": [20],
-        "nameen": "Synaptic evolution I",
+        "nameen": "Synaptic Evolution I",
         "explaintw": "提高突觸裝備的進化次數",
-        "explainen": "Increase the number of synapses equipment evolution"
+        "explainen": "Increase evolution turns of your synaptic equipment."
     },
     {
         "id": 841,
@@ -2198,7 +2198,7 @@
         "diamond": [25,30],
         "nameen": "Synaptic Evolution II",
         "explaintw": "提高突觸裝備的進化次數",
-        "explainen": "Increase the number of synapses equipment evolution"
+        "explainen": "Increase evolution turns of your synaptic equipment."
     },
     {
         "id": 842,
@@ -2215,7 +2215,7 @@
         "diamond": [35,35,45],
         "nameen": "Synaptic Evolution III",
         "explaintw": "提高突觸裝備的進化次數",
-        "explainen": "Increase the number of synapses equipment evolution"
+        "explainen": "Increase evolution turns of your synaptic equipment."
     },
     {
         "id": 843,
@@ -2232,7 +2232,7 @@
         "diamond": [50,50,60,75],
         "nameen": "Synaptic Evolution IV",
         "explaintw": "提高突觸裝備的進化次數",
-        "explainen": "Increase the number of synapses equipment evolution"
+        "explainen": "Increase evolution turns of your synaptic equipment."
     },
     {
         "id": 844,
@@ -2250,7 +2250,7 @@
         "diamond": [80,80,90,90,110],
         "nameen": "Synaptic Evolution V",
         "explaintw": "提高突觸裝備的進化次數",
-        "explainen": "Increase the number of synapses equipment evolution"
+        "explainen": "Increase evolution turns of your synaptic equipment."
     },
     {
         "id": 2100,
@@ -2268,9 +2268,9 @@
         "exp": [15],
         "diamond": [50],
         "spendkind": 3,
-        "nameen": "Keep in touch",
+        "nameen": "Making Good Friends",
         "explaintw": "給其他朋友一些讚吧",
-        "explainen": "Like some of your friends' profiles."
+        "explainen": "Like the status of other friends."
     },
     {
         "id": 2120,
@@ -2287,9 +2287,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [5],
-        "nameen": "Career progress",
+        "nameen": "Career Progress",
         "explaintw": "取得生涯競賽的勝利",
-        "explainen": "Obtain career race victory"
+        "explainen": "Win a Career Game."
     },
     {
         "id": 2130,
@@ -2306,9 +2306,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [15],
-        "nameen": "You're on fire",
+        "nameen": "Winning In A Roll",
         "explaintw": "取得生涯競賽或者魔王挑戰的連勝",
-        "explainen": "Career race winning streak"
+        "explainen": "Get consecutive wins in Career Game or Boss Challenge."
     },
     {
         "id": 2150,
@@ -2325,9 +2325,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [5],
-        "nameen": "Challenge the devil",
+        "nameen": "Challenge the Boss",
         "explaintw": "取得魔王挑戰的勝利",
-        "explainen": "Career race winning streak"
+        "explainen": "Win Boss Challenge."
     },
     {
         "id": 2170,
@@ -2344,9 +2344,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Union victory",
+        "nameen": "League Victory",
         "explaintw": "取得聯盟對戰的勝利",
-        "explainen": "Career race winning streak"
+        "explainen": "Win a League Game."
     },
     {
         "id": 2180,
@@ -2363,9 +2363,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [15],
-        "nameen": "League winning streak",
+        "nameen": "League Consecutive Wins",
         "explaintw": "取得聯盟競賽的連續勝利",
-        "explainen": "Career race winning streak"
+        "explainen": "Get consecutive wins in League Game."
     },
     {
         "id": 2410,
@@ -2382,9 +2382,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [5],
-        "nameen": "Timing Ace",
+        "nameen": "Seize the Timing",
         "explaintw": "成功掌握投籃的Perfect時機次數",
-        "explainen": "Successfully master the shooting times"
+        "explainen": "Successfully seize the perfect shooting timing."
     },
     {
         "id": 2810,
@@ -2401,9 +2401,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [5],
-        "nameen": "Skills Growth",
+        "nameen": "Skill Upgrade",
         "explaintw": "技能晶片升級合成次數",
-        "explainen": "Upgrade skill cards"
+        "explainen": "Synthesis times for skill chips."
     },
     {
         "id": 2820,
@@ -2420,9 +2420,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Skills breakthrough",
+        "nameen": "Skill Break Through",
         "explaintw": "技能晶片進化次數",
-        "explainen": "Upgrade skill cards"
+        "explainen": "Evolution times for skill chips."
     },
     {
         "id": 2830,
@@ -2439,9 +2439,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [5],
-        "nameen": "Strengthening synapses",
+        "nameen": "Synaptic Upgrade",
         "explaintw": "突觸強化鑲嵌次數",
-        "explainen": "Upgrade Plugs"
+        "explainen": "Embedding times for synaptic upgrade."
     },
     {
         "id": 2840,
@@ -2458,9 +2458,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Synaptic evolution",
+        "nameen": "Synaptic Evolution",
         "explaintw": "突觸強化合成次數",
-        "explainen": "Upgrade Plugs"
+        "explainen": "Synthesis times for synaptic upgrade."
     },
     {
         "id": 3200,
@@ -2477,9 +2477,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Gold Daren",
+        "nameen": "Coin Ace",
         "explaintw": "消費金幣數量",
-        "explainen": "Number of gold consumption"
+        "explainen": "Coins consumed."
     },
     {
         "id": 3210,
@@ -2496,9 +2496,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Gem Daren",
+        "nameen": "Gem Ace",
         "explaintw": "消費寶石數量",
-        "explainen": "Number of consumer Gem"
+        "explainen": "Gems consumed."
     },
     {
         "id": 3220,
@@ -2515,9 +2515,9 @@
         "money": [10],
         "exp": [15],
         "diamond": [10],
-        "nameen": "Physical Daren",
+        "nameen": "Strength Ace",
         "explaintw": "消費體力數量",
-        "explainen": "Number of physical consumption"
+        "explainen": "Strength consumed."
     },
     {
         "id": 4010,
@@ -2534,9 +2534,9 @@
         "money": [200,400,800],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "nameen": "Playing career",
+        "nameen": "Player Career",
         "explaintw": "每週提升等級",
-        "explainen": "Several wins on a week!"
+        "explainen": "Upgrade your level weekly."
     },
     {
         "id": 4120,
@@ -2553,9 +2553,9 @@
         "money": [200,400,800],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "nameen": "Career progress",
+        "nameen": "Career Progress",
         "explaintw": "每週獲得大量勝利",
-        "explainen": "Several wins on a week!"
+        "explainen": "Get many wins weekly."
     },
     {
         "id": 4310,
@@ -2572,9 +2572,9 @@
         "money": [200,400,800],
         "exp": [20,20,20],
         "diamond": [10,20,40],
-        "nameen": "Cumulative score",
+        "nameen": "Accumulated Points",
         "explaintw": "每週獲得大量分數",
-        "explainen": "Lots of points every week"
+        "explainen": "Get many scores weekly."
     },
     {
         "id": 6011,
@@ -2591,9 +2591,9 @@
         "money": [800,1600,2400,3200,4000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "nameen": "Playing career",
+        "nameen": "Player Career",
         "explaintw": "每週提升等級",
-        "explainen": "Enhance yuor level each week"
+        "explainen": "Upgrade your level weekly."
     },
     {
         "id": 6120,
@@ -2610,9 +2610,9 @@
         "money": [800,1600,2400,3200,4000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "nameen": "Career progress",
+        "nameen": " Career Progress",
         "explaintw": "每週獲得大量勝利",
-        "explainen": "Get a lot of victory each week"
+        "explainen": "Get many wins weekly."
     },
     {
         "id": 6310,
@@ -2629,8 +2629,8 @@
         "money": [800,1600,2400,3200,4000],
         "exp": [50,50,50,50,50],
         "diamond": [50,100,150,200,250],
-        "nameen": "Cumulative score",
+        "nameen": "Accumulated Points",
         "explaintw": "每週獲得大量分數",
-        "explainen": "Get a lot of points every week"
+        "explainen": "Get many scores weekly."
     }
 ]

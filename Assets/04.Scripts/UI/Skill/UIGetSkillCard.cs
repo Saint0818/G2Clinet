@@ -19,6 +19,8 @@ public class UIGetSkillCard : UIBase {
 	private UILabel labelSkillExplain ;
 	private GameObject goGetSuitSkillCard;
 
+	private int suitCardCount;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -50,6 +52,7 @@ public class UIGetSkillCard : UIBase {
 	}
 
 	protected override void InitCom() {
+        SetBtnFun(UIName + "/BottomRight/NextLabel", OnClose);
 		animator = gameObject.GetComponent<Animator>();
 		isOpenImage = false;
 		skillCard = new TActiveSkillCard();
@@ -65,7 +68,7 @@ public class UIGetSkillCard : UIBase {
 		labelSkillExplain = GameObject.Find(UIName + "/Center/Window/DownBoard/MainView/SkillArea/SkillExplain").GetComponent<UILabel>();
 		goGetSuitSkillCard = GameObject.Find(UIName + "/Center/Window/GetSuitSkillCard");
 		goGetSuitSkillCard.SetActive(false);
-		UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/NextLabel")).onClick = OnClose;
+		//UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/NextLabel")).onClick = OnClose;
 	}
 
 	private void setSloganLabel (int id, int quality){
@@ -94,13 +97,26 @@ public class UIGetSkillCard : UIBase {
 		if(GameData.DItemData.ContainsKey(id)){
 			if(GameData.DSkillData.ContainsKey(GameData.DItemData[id].Avatar)) {
 				Visible = true;
-				skillCard.UpdateViewItemData(GameData.DItemData[id]);
+				skillCard.UpdateViewGetNewCard(GameData.DItemData[id]);
+				skillCard.SuitCardEnable = GameData.DSuitCard.ContainsKey(GameData.DItemData[id].SuitCard);
+				if(GameData.DSuitCard.ContainsKey(GameData.DItemData[id].SuitCard)) {
+					suitCardCount = GameData.Team.SuitCardCompleteCount(GameData.DItemData[id].SuitCard);
+					skillCard.UpdateSuitCardLightForNewCard(suitCardCount);
+					Invoke("showSuitCard", 1.3f);
+				}
 				labelSkillExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[id].Avatar].Explain, GameData.DItemData[id].Avatar, GameData.DItemData[id].LV);
 				sloganView[getQuality(GameData.DSkillData[GameData.DItemData[id].Avatar].Quality)].SetActive(true);
 				setSloganLabel(GameData.DItemData[id].Avatar, GameData.DSkillData[GameData.DItemData[id].Avatar].Quality);
 				goGetSuitSkillCard.SetActive(isSuitCard(id));
 			}
 		}
+	}
+
+	private void showSuitCard () {
+		if(suitCardCount < 3)
+			skillCard.UpdateSuitCardLightForNewCard(suitCardCount + 1);
+		else
+			skillCard.UpdateSuitCardLightForNewCard(3);
 	}
 
 	private bool isSuitCard (int itemID) {
@@ -124,7 +140,7 @@ public class UIGetSkillCard : UIBase {
 		isOpenImage = !isOpenImage;
 	}
 
-	public void OnClose (GameObject go) {
+	public void OnClose () {
 		if(UIGameResult.Visible) { 
 			UIGameResult.Get.ShowBonusItem();
 			UIGameResult.Get.ShowReturnButton();
@@ -132,6 +148,7 @@ public class UIGetSkillCard : UIBase {
 		
 		if(UIBuyStore.Visible)
 			UIBuyStore.Get.Gohead();
+        
 		Visible = false;
 	}
 }

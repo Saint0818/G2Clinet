@@ -560,9 +560,15 @@ namespace GameStruct
                 GroupRecord.TeamRecord.Lv = Player.Lv;
                 GroupRecord.PlayerRecord = Player.PlayerRecord;
                 string str = statsText(ref GroupRecord);
-                str += "\n" + "Daily Record\n" + statsText(ref DailyRecord);
-                str += "\n" + "Weekly Record\n" + statsText(ref WeeklyRecord);
-                str += "\n" + "Monthly Record\n" + statsText(ref MonthlyRecord);
+                str += "\nDaily Record\n" + statsText(ref DailyRecord);
+                str += "\nWeekly Record\n" + statsText(ref WeeklyRecord);
+                str += "\nMonthly Record\n" + statsText(ref MonthlyRecord);
+
+                if (FileManager.NowMode == VersionMode.Debug) {
+                    str += "\nGraphics Mem " + SystemInfo.graphicsMemorySize.ToString();
+                    str += "\nSystem Mem " + SystemInfo.systemMemorySize.ToString();
+                }
+
                 return str;
             }
         }
@@ -1293,9 +1299,11 @@ namespace GameStruct
 						isAllGet = false;
 					
 					if(isAllGet && !IsExecuteSuitCard(item.Key))
-						return true;
-					
+						if(item.Value.CardPower <= SuitCardExtraCost)
+							return true;
+
 					isAllGet = true;
+					
 				}
 				
 				return false;
@@ -1311,6 +1319,21 @@ namespace GameStruct
 			return false;
 		}
 
+		public int GetSuitCardIndex (int suitcardID) {
+			int index = 0;
+			int tempIndex = -1;
+			foreach(KeyValuePair<int, TSuitCard> item in GameData.DSuitCard) {
+				tempIndex ++ ;
+				if(item.Key == suitcardID) 
+					break;
+			}
+			if(tempIndex == -1)
+				index = 0;
+			else 
+				index = tempIndex;
+			return index;
+		}
+
 		/// <summary>
 		/// 套卡啟動值使用的數量
 		/// </summary>
@@ -1324,6 +1347,12 @@ namespace GameStruct
 							count += GameData.DSuitCard[SuitCardCost[i]].CardPower;
 				
 				return count;
+			}
+		}
+
+		public int SuitCardExtraCost {
+			get {
+				return 10 - SuitCardExecuteCost;
 			}
 		}
 
@@ -1450,14 +1479,10 @@ namespace GameStruct
 
 		//找出SuitCard一組的星星數的執行等級
 		public int GetStarLevel (int count, TSuitCard suitcard) {
-			for(int i=0; i<suitcard.StarNum.Length; i++) {
-				if(count < suitcard.StarNum[i]) 
+			for(int i=suitcard.StarNum.Length - 1; i >= 0; i--) {
+				if(count >= suitcard.StarNum[i]) 
 					return i;
-
-				if(i == suitcard.StarNum.Length - 1)
-					return suitcard.StarNum.Length - 1;
 			}
-
 			return 0;
 		}
 

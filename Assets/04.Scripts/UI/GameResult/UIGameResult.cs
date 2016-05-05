@@ -320,7 +320,8 @@ public class UIGameResult : UIBase {
 	//Three
 	private TGameResultThreeAward resultThree = new TGameResultThreeAward();
 
-	private TSkill[] oldSkillCards;
+//	private TSkill[] oldSkillCards;
+	private Dictionary<int, int> newGotItems = new Dictionary<int, int>();
 	private bool isGetAward = false;
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
@@ -867,8 +868,11 @@ public class UIGameResult : UIBase {
 				awardScrollView.MoveRelative(new Vector3(-90 * (resultAwardParam.AwardCount - 7), 0, 0));
 			
 			if(GameData.DItemData[id].Kind == 21) 
-			if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar, oldSkillCards))
+//			if(GameData.Team.CheckSkillCardisNew(GameData.DItemData[id].Avatar, oldSkillCards))
+			if(!GameData.Team.IsGetItem(id))
 				showSkillInfo(id);
+
+			GameData.Team.GotItemCount = newGotItems;
 		}
 	}
 
@@ -954,8 +958,9 @@ public class UIGameResult : UIBase {
 				if(GameData.DItemData.ContainsKey(reward.RandomItemID) && GameData.DItemData[reward.RandomItemID].Kind > 0 && GameData.DItemData[reward.RandomItemID].Kind < 8)
 					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
 						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
-				
-				oldSkillCards = GameData.Team.SkillCards;
+
+				newGotItems = reward.GotItemCount;
+				GameData.Team.GotItemCount = reward.GotItemCount;
 				GameData.Team.SkillCards = reward.SkillCards;
 
 				isGetAward = true;
@@ -997,6 +1002,7 @@ public class UIGameResult : UIBase {
 		{
 			resultAwardParam.AlreadGetBonusID = reward.RandomItemID;
 			chooseItem(resultThree.ChooseIndex);
+			newGotItems = reward.GotItemCount;
 		}
 		else
 			UIHint.Get.ShowHint("Stage Reward fail!", Color.black);

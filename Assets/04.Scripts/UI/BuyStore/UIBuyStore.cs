@@ -40,8 +40,9 @@ public class UIBuyStore : UIBase {
 	private UISprite spritePay;
 	private bool isClickTouch = false;
 
-	public TSkill[] newSkillCard;
+//	public TSkill[] newSkillCard;
 //	private bool isOneAware = true; 
+	public Dictionary<int, int> newGetItemCount = new Dictionary<int, int>();
 
 	public static bool Visible {
 		get {
@@ -110,8 +111,9 @@ public class UIBuyStore : UIBase {
 		refreshLabelColor ();
 	}
 
-	public void SetNewSkillCard (TSkill[] skill) {
-		newSkillCard = skill;
+	public void SetNewSkillCard (Dictionary<int, int> gotItems) {
+//		newSkillCard = skill;
+		newGetItemCount = gotItems;
 	}
 
 	private void updateView (int type) {
@@ -148,6 +150,7 @@ public class UIBuyStore : UIBase {
 		tenItem.ShowAni(false);
 		animationBuy.SetTrigger("Five");
 		UI3DBuyStore.Get.StartRaffle();
+		GameData.Team.GotItemCount = newGetItemCount;
 	}
 
 	private void showTen (TItemData[] itemDatas) {
@@ -156,6 +159,7 @@ public class UIBuyStore : UIBase {
 		fiveItem.ShowAni(false);
 		animationBuy.SetTrigger("Ten");
 		UI3DBuyStore.Get.StartRaffle();
+		GameData.Team.GotItemCount = newGetItemCount;
 	}
 
 	public void Gohead () {
@@ -185,7 +189,8 @@ public class UIBuyStore : UIBase {
         UIMainLobby.Get.Hide(false);
         UIResource.Get.Show();
 		animationBuy.SetTrigger("Finish");
-		GameData.Team.SkillCards = newSkillCard;
+//		GameData.Team.SkillCards = newSkillCard;
+		GameData.Team.GotItemCount = newGetItemCount;
 	}
 
 	private void reset() {
@@ -257,11 +262,11 @@ public class UIBuyStore : UIBase {
 		{
             TPickLotteryResult result = JsonConvertWrapper.DeserializeObject<TPickLotteryResult>(www.text);
 			GameData.Team.Items = result.Items;
-			newSkillCard = result.SkillCards;
+			newGetItemCount = result.GotItemCount;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
-			GameData.Team.GotItemCount = result.GotItemCount;
+			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();

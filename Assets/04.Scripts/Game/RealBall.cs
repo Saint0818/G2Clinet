@@ -336,7 +336,7 @@ public class RealBall : MonoBehaviour
     public void SetBallStateByLobby(EPlayerState state, Transform dummyTransfrom)
     {
         spotlight.SetActive(false);
-		LayerMgr.Get.SetLayerAllChildren(goRefBall, "Player");
+        LayerMgr.Get.SetLayerAllChildren(goRefBall, ELayer.Player);
         switch (state)
         {
             case EPlayerState.Dribble0:
