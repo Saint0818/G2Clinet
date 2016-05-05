@@ -3894,7 +3894,7 @@
         "id": 9701,
         "explain": "聯盟對戰",
         "tw": "聯盟對戰",
-        "en": "League Games"
+        "en": "Pick-up Games"
     },
     {
         "id": 9702,
@@ -3906,7 +3906,7 @@
         "id": 9703,
         "uipath": "tabs/02",
         "tw": "聯盟排行",
-        "en": "League Ranking"
+        "en": "Level Ranking"
     },
     {
         "id": 9704,
@@ -3918,7 +3918,7 @@
         "id": 9705,
         "uipath": "tabs/04",
         "tw": "聯盟商店",
-        "en": "Exchange Rewards"
+        "en": "Battle Shop"
     },
     {
         "id": 9706,
