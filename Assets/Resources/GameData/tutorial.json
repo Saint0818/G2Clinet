@@ -411,7 +411,7 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
-        "texten": "I just got a piece of [ff6060]Skill Chip[-] . What is this for?"
+        "texten": "I just got a piece of [ff6060]Skill Card[-] . What is this for?"
     },
     {
         "id": 5,
@@ -422,7 +422,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "[ff6060]技能晶片[-]是運用科技，讓我們能夠獲得超乎常人的能力，如果晶片運用得當，將對比賽的結果造成[ff6060]決定性的影響[-]。我來教你怎麼安裝它。",
-        "texten": "[ff6060]Skill Chips[-]  are items that can provide us with super powered with technology. If we use them properly, it will bring about [ff6060]Decisive Influence[-]  to the games. Let me teach you how to install them."
+        "texten": "[ff6060]Skill Card[-]  are items that can provide us with super powered with technology. If we use them properly, it will bring about [ff6060]Decisive Influence[-]  to the games. Let me teach you how to install them."
     },
     {
         "id": 5,
@@ -463,7 +463,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "在開始競賽前，我們快把剛剛獲得的[ff6060]技能晶片[-]裝上吧！！",
-        "texten": "Before the game, now let's install the [ff6060]Skill Chip[-]  we just got!!"
+        "texten": "Before the game, now let's install the [ff6060]Skill Card[-]  we just got!!"
     },
     {
         "id": 5,
@@ -481,7 +481,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "技能晶片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，只要[ff6060]點擊[-]技能晶片，即可開啟對應的功能。",
-        "texten": "Skill chips can be divided into [ff6060]Active Skills[-]  and [ff6060]Passive Skills[-] . You can open corresponding skills by just [ff6060]Pressing [-]  \"Skill Chip\"."
+        "texten": "Skill Cards can be divided into [ff6060]Active Skills[-]  and [ff6060]Passive Skills[-] . You can open corresponding skills by just [ff6060]Pressing [-]  \"Skill Card\"."
     },
     {
         "id": 5,
@@ -499,7 +499,7 @@
         "talkl": 10,
         "actionl": 6,
         "texttw": "接下來點擊[ff6060]裝備晶片[-]即可將晶片安裝到自己身上。",
-        "texten": "Then press [ff6060]Install Chip[-]  to install it into your body."
+        "texten": "Then press [ff6060]Install Card[-]  to install it into your body."
     },
     {
         "id": 5,
@@ -653,7 +653,7 @@
         "id": 7,
         "line": 7,
         "kind": 4,
-        "wait": 0.2
+        "wait": 0.05
     },
     {
         "id": 7,
@@ -679,27 +679,34 @@
         "kind": 4,
         "talkindex": 0,
         "talkl": 1411,
-        "actionl": 1,
+        "actionl": 4,
         "texttw": "記得在倒數時間結束後再回來抽取。",
         "texten": "Remember to come back for more draws before the time limit ends."
     },
     {
-        "id": 7,
-        "line": 12,
-        "kind": 4,
-        "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt",
+        "talkindex": 0,
+        "talkl": 1411,
+        "actionl": 1,
         "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
         "texten": "I will teach you my talant."
     },
     {
-        "id": 7,
-        "line": 13,
-        "kind": 4,
         "talkindex": 1,
         "talkr": -1,
         "actionr": 4,
         "texttw": "那有什麼問題，一言為定！",
         "texten": "A Deal."
+    },
+    {
+        "id": 7,
+        "line": 12,
+        "kind": 4,
+        "uipath": "UI2D/UIBuyStore/Center/ItemGet/EnterBt"
+    },
+    {
+        "id": 7,
+        "line": 13,
+        "kind": 4
     },
     {
         "id": 7,
@@ -891,7 +898,7 @@
         "talkl": 10,
         "actionl": 1,
         "texttw": "生涯競賽中的每個關主都有屬於他們的籃球故事，快來挑戰他們體驗他們的故事，打贏他們甚至有機會獲得他們身上的[ff6060]寶物[-]或珍貴的[ff6060]技能晶片[-]喔！！",
-        "texten": "In career games, each BOSS has a basketball story of their own. Challenge these games to experience their story. If you beat them, you may acquire [ff6060]Items[-]  or precious [ff6060]Skill Chips[-]  they carry!!"
+        "texten": "In career games, each BOSS has a basketball story of their own. Challenge these games to experience their story. If you beat them, you may acquire [ff6060]Items[-]  or precious [ff6060]Skill Card[-]  they carry!!"
     },
     {
         "id": 9,
@@ -1042,7 +1049,7 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "剛剛獲得[ff6060]我愛籃球黑幫[-]技能晶片，這又是幹嘛的呀？",
-        "texten": "I just got a skill chip called [ff6060]I Love Basketball Gang[-] . What is this for?"
+        "texten": "I just got a skill Card called [ff6060]I Love Basketball Gang[-] . What is this for?"
     },
     {
         "id": 22,
@@ -1051,7 +1058,7 @@
         "talkl": 10,
         "actionl": 1,
         "texttw": "這是個好東西！！這張晶片可以幫助你提升你擁有的技能晶片強度喔！！",
-        "texten": "This is great stuff!! This chip can help you upgrade the skill chips you already have!!"
+        "texten": "This is great stuff!! This Card can help you upgrade the skill card you already have!!"
     },
     {
         "id": 22,
@@ -1120,7 +1127,7 @@
         "talkl": 10,
         "actionl": 1,
         "texttw": "右側有一些你現在擁有的技能晶片，所有晶片都可以作為強化的材料，不過注意，晶片被當作強化後就會消失了！！",
-        "texten": "The skill chips you now own are showed on your right side and all of them can be used for upgrades. But remember, once you've used a chip to make na upgrade, it will disappear!!"
+        "texten": "The skill card you now own are showed on your right side and all of them can be used for upgrades. But remember, once you've used a card to make na upgrade, it will disappear!!"
     },
     {
         "id": 22,
@@ -1133,8 +1140,8 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "選擇剛剛的[ff6060]我愛籃球黑幫[-]技能晶片作為材料吧。",
-        "texten": "Let's select the [ff6060]I Love Basketball Gang[-]  skill chip as upgrade material."
+        "texttw": "選擇剛剛的獲得的 [ff6060]雙手爆扣I[-] 技能晶片作為材料吧。",
+        "texten": "Let's select the [ff6060]Two-handed Slam Dunk I[-]  skill card as upgrade material."
     },
     {
         "id": 22,
@@ -1933,7 +1940,7 @@
         "talkl": 10,
         "actionl": 5,
         "texttw": "條件有點困難，所以要記得要好好利用剛剛所安裝的[fff400]技能晶片[-]喔！！",
-        "texten": "It's a bit hard, so we need to utilize the [fff400]Skill Chip[-]  we just installed!!"
+        "texten": "It's a bit hard, so we need to utilize the [fff400]Skill Card[-]  we just installed!!"
     },
     {
         "id": 1022,
