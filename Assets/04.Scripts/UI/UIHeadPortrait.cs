@@ -78,6 +78,7 @@ public class UIHeadPortrait : UIBase
     private static UIHeadPortrait instance = null;
     private const string UIName = "UIHeadPortrait";
     public Dictionary<int, List<int>> DHeadTexture = new Dictionary<int, List<int>>();
+	public Dictionary<int, List<int>> DHeadTextureOpenDontCare = new Dictionary<int, List<int>>();
     private ItemHeadBtn[] headTexutres;
     private int equipTextureNo = 0;
 
@@ -142,6 +143,7 @@ public class UIHeadPortrait : UIBase
 
     void OnDestroy() {
         DHeadTexture.Clear();
+		DHeadTextureOpenDontCare.Clear ();
         headTexutres = new ItemHeadBtn[0];
     }
 
@@ -167,23 +169,42 @@ public class UIHeadPortrait : UIBase
         for (int i = 0; i < 3; i++)
             if (!DHeadTexture.ContainsKey(i))
                 DHeadTexture.Add(i, new List<int>());
-			
+		for(int i=0; i<3; i++)
+			if(!DHeadTextureOpenDontCare.ContainsKey(i))
+			DHeadTextureOpenDontCare.Add(i, new List<int>());
+		
         int picno = 0;
 		
         //SkillHead
         foreach (KeyValuePair<int, TItemData> item in GameData.DItemData)
         {
-			if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar) && GameData.DSkillData[item.Value.Avatar].Open > 0)
+			if (item.Value.Kind == 21 && GameData.DSkillData.ContainsKey(item.Value.Avatar))
             {
-                picno = GameData.DSkillData[item.Value.Avatar].PictureNo;
+				if(GameData.DSkillData[item.Value.Avatar].Open > 0)
+				{
+	                picno = GameData.DSkillData[item.Value.Avatar].PictureNo;
 
-                if (picno > 3)
-                {
-                    if (!DHeadTexture.ContainsKey(picno))
-                        DHeadTexture.Add(picno, new List<int>());
-                    
-                    DHeadTexture[picno].Add(item.Value.ID);
-                }
+	                if (picno > 3)
+	                {
+	                    if (!DHeadTexture.ContainsKey(picno))
+	                        DHeadTexture.Add(picno, new List<int>());
+	                    
+	                    DHeadTexture[picno].Add(item.Value.ID);
+					}
+				}
+
+				//DHeadTextureOpenDontCare 不用管open
+				picno = GameData.DSkillData[item.Value.Avatar].PictureNo;
+
+				if (picno > 3)
+				{
+					if (!DHeadTextureOpenDontCare.ContainsKey(picno))
+						DHeadTextureOpenDontCare.Add(picno, new List<int>());
+
+					DHeadTextureOpenDontCare[picno].Add(item.Value.ID);
+				}
+
+				
             }
         }
     }
@@ -276,13 +297,30 @@ public class UIHeadPortrait : UIBase
         }     
     }
 
+	private int HasItemEx(int picNo)
+	{
+		if (picNo > 2)
+		{
+			foreach (KeyValuePair<int, int> item in GameData.Team.GotItemCount)
+			{
+				if (GameData.DItemData.ContainsKey(item.Key))
+				if (GameData.DItemData[item.Key].Kind == 21)
+				if (GameData.DSkillData.ContainsKey(GameData.DItemData[item.Key].Avatar))//企劃把avatar當作skill item的技能編號
+				if (GameData.DSkillData[GameData.DItemData[item.Key].Avatar].PictureNo == picNo)
+					return item.Key;
+			}
+			return picNo;   
+		}
+		else
+			return picNo;
+	}
     public void OnReturn()
     {
         if (equipTextureNo != GameData.Team.Player.HeadTextureNo && DHeadTexture.ContainsKey(equipTextureNo))
         {
             WWWForm form = new WWWForm();
             form.AddField("HeadTextureNo", equipTextureNo);
-            form.AddField("AddIndexs", JsonConvert.SerializeObject(DHeadTexture[equipTextureNo]));
+            form.AddField("AddIndexs", HasItemEx(equipTextureNo));
             SendHttp.Get.Command(URLConst.ChangeHeadTexture, waitChangeHeadTexture, form);
         }
         else
