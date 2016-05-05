@@ -27,7 +27,7 @@ public struct TGamePersonalView {
 	public UILabel labelLevel;
 	public UILabel IDCheckLabel;
 
-	public void UpdateView (TGamePersonalValue value) {
+	public void UpdateView (TGamePersonalValue value, bool isPVP) {
 		labelName.text = value.Name;
 		labelCombat.text = value.CombatPower.ToString();
 		spritePvPRank.spriteName = GameFunction.PVPRankIconName(GameFunction.GetPVPLv(value.PVPScore));
@@ -44,8 +44,11 @@ public struct TGamePersonalView {
 			IDCheckLabel.text = TextConst.S(9524);
 		else
 			IDCheckLabel.text = TextConst.S(9525);
-		
-		IDCheckLabel.gameObject.SetActive((value.Team == ETeamKind.Self) && !value.isJoystick);
+
+		if(isPVP)
+			IDCheckLabel.gameObject.SetActive(!value.isJoystick);
+		else
+			IDCheckLabel.gameObject.SetActive((value.Team == ETeamKind.Self) && !value.isJoystick);
 			
 	}
 }
@@ -139,7 +142,7 @@ public class UIGamePlayerInfo : UIBase {
 
 		itemSkill =  Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
 
-		SetBtnFun (ref buttonMakeFriend, OnClose);
+		SetBtnFun (ref buttonMakeFriend, OnMakeFriend);
 		SetBtnFun (UIName + "/Window/Right/View/NoBtn", OnClose);
 	}
 
@@ -219,17 +222,22 @@ public class UIGamePlayerInfo : UIBase {
 
 	public void CheckFriendLike () {
 		buttonMakeFriend.gameObject.SetActive(false);
+		UIHint.Get.ShowHint(string.Format(TextConst.S(5027), gamePersonalvalue.Name), Color.black);
 	}
 
 	public void ShowView (TTeam team, PlayerBehaviour player) {
 		UIShow(true);
-		playerID = team.Player.Identifier;
+		string identify = "";
+		if(!string.IsNullOrEmpty(team.Identifier)) 
+			identify = team.Identifier;
+		
+		playerID = identify;
 		isFriend = checkIsFriend(playerID);
 		skillCards = team.Player.SkillCards;
 		buttonMakeFriend.gameObject.SetActive(!isFriend);
 		gamePersonalvalue = new TGamePersonalValue();
 		gamePersonalvalue.Name = team.Player.Name;
-		gamePersonalvalue.Identifier = team.Identifier;
+		gamePersonalvalue.Identifier = identify;
 		gamePersonalvalue.CombatPower = team.Player.CombatPower();
 		gamePersonalvalue.PVPScore = team.PVPIntegral;
 		gamePersonalvalue.FacePic = team.Player.FacePicture;
@@ -238,7 +246,7 @@ public class UIGamePlayerInfo : UIBase {
 		gamePersonalvalue.FriendKind = team.Player.FriendKind;
 		gamePersonalvalue.isJoystick = (GameController.Get.Joysticker == player);
 		gamePersonalvalue.Team = player.Team;
-		gamePersonalView.UpdateView(gamePersonalvalue);
+		gamePersonalView.UpdateView(gamePersonalvalue, GameData.IsPVP);
 		updateNormalAttr(player.BaseAttribute);
 		updateBuffAttr(player.BaseAttribute, player.Attribute);
 		initSkillList();
