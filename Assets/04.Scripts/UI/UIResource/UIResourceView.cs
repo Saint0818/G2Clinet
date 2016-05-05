@@ -14,6 +14,7 @@ public class UIResourceView : MonoBehaviour
     public GameObject PowerObj;
     public UILabel PowerLabel; // 體力.
     public UILabel PowerCountDownLabel; // 體力倒數計時.
+    public UISlider PowerSlider; 
     public GameObject SocialObj;
     public UILabel SocialLabel;
     public GameObject PVPObj;
@@ -93,7 +94,11 @@ public class UIResourceView : MonoBehaviour
 
     public int Power
     {
-        set { PowerLabel.text = string.Format("{0}/{1}", value, GameConst.Max_Power); }
+        set
+        {
+            PowerLabel.text = string.Format("{0}/{1}", value, GameConst.Max_Power);
+            PowerSlider.value = (float)value / GameConst.Max_Power;
+        }
     }
 
     public void PlayPowerAnimation(float delay = 0)
