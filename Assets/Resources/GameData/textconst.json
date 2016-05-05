@@ -1935,7 +1935,7 @@
         "id": 3804,
         "explain": "LifeTime領取Cover 已領取",
         "tw": "完 成",
-        "en": "Completed"
+        "en": "CLEAR"
     },
     {
         "id": 3805,
@@ -1995,7 +1995,7 @@
         "id": 4002,
         "uipath": "Disk",
         "tw": "獲得技能晶片",
-        "en": "Obtain Skill Card"
+        "en": "OBTAIN NEW CARD"
     },
     {
         "id": 4003,
@@ -2040,7 +2040,7 @@
         "id": 4103,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]5星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]5 Star Card[-]  X1"
+        "en": "10x Draws gift 1[33FFDD]5 Star Card[-]"
     },
     {
         "id": 4104,
@@ -2052,7 +2052,7 @@
         "id": 4105,
         "uipath": "OpenBtn10/SaleLabel",
         "tw": "最划算",
-        "en": "Best Deal"
+        "en": "5x Draws"
     },
     {
         "id": 4106,
@@ -2100,13 +2100,13 @@
         "id": 4120,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]2星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]2 Star Card[-]  X1."
+        "en": "10x Draws gift 1[33FFDD]2 Star Card[-]"
     },
     {
         "id": 4121,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]3星卡[-] X1",
-        "en": "If you draw 10 straight times, you will definitely get [33FFDD]3 Star Card[-]  X1."
+        "en": "10x Draws gift 1[33FFDD]3 Star Card[-]"
     },
     {
         "id": 4200,
@@ -3014,20 +3014,20 @@
     {
         "id": 7213,
         "uipath": "UpgradeBtn/Label",
-        "tw": "晶片合成",
-        "en": "Card Synthesis"
+        "tw": "晶片升級",
+        "en": "Card Upgrade"
     },
     {
         "id": 7214,
         "uipath": "EquipBtn/Label",
         "tw": "裝備晶片",
-        "en": "Install Card"
+        "en": "Install"
     },
     {
         "id": 7215,
         "uipath": "EquipBtn/Label",
         "tw": "卸下晶片",
-        "en": "Uninstall Card"
+        "en": "Uninstall"
     },
     {
         "id": 7216,
@@ -3082,13 +3082,13 @@
         "id": 7224,
         "explain": "技能buff時間單位",
         "tw": "秒",
-        "en": "Second"
+        "en": "S"
     },
     {
         "id": 7225,
         "explain": "技能發動距離單位",
         "tw": "公尺",
-        "en": "Meter"
+        "en": "M"
     },
     {
         "id": 7250,
@@ -3322,7 +3322,7 @@
         "explain": "物件文字",
         "uipath": "ItemSuitCardGroup",
         "tw": "目前累積數：",
-        "en": "Total Star :"
+        "en": "Total Stars :"
     },
     {
         "id": 7710,
@@ -3425,7 +3425,7 @@
         "id": 8106,
         "uipath": "AvailableCheck",
         "tw": "未裝備",
-        "en": "Yet to equip"
+        "en": "Yet to Equip"
     },
     {
         "id": 8107,
@@ -4436,13 +4436,13 @@
         "id": 10302,
         "uipath": "HomeBtn/SpriteHome",
         "tw": "我 方",
-        "en": "Ally"
+        "en": "HOME"
     },
     {
         "id": 10303,
         "uipath": "AwayBtn/SpriteAway",
         "tw": "對 手",
-        "en": "Opponent"
+        "en": "AWAY"
     },
     {
         "id": 10304,
@@ -5453,13 +5453,13 @@
         "explain": "較差的畫面品質",
         "uipath": "0/BtnLabel",
         "tw": "低階效能",
-        "en": "Low-Class Efficacy"
+        "en": "LOW"
     },
     {
         "id": 12013,
         "uipath": "WarningLabel",
         "tw": "目前AI接管時間為：[ff0000]{0}[-]秒",
-        "en": "Present time of AI takeover: [ff0000]{0}[-]  seconds"
+        "en": "Present time of AI takeover: [ff0000]{0}[-]  S"
     },
     {
         "id": 12014,
@@ -5583,13 +5583,13 @@
         "id": 12035,
         "explain": "一般的畫面品質",
         "tw": "中階效能",
-        "en": "Middle-class Efficacy"
+        "en": "MED"
     },
     {
         "id": 12036,
         "explain": "較好的畫面品質",
         "tw": "高階效能",
-        "en": "High-class Efficacy"
+        "en": "HIGH"
     },
     {
         "id": 12037,
