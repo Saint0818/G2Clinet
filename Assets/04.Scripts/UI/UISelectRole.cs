@@ -121,7 +121,7 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Top/PVE/SelectB/2", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player1/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player2/2", OnChangePlayer);
-        SetBtnFun (UIName + "/Bottom/SkillCard", onSkillCard);
+        SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
 		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
 
@@ -564,6 +564,8 @@ public class UISelectRole : UIBase {
 	public void OnEquip() {
 		int index = -1;
 		if (int.TryParse (UIButton.current.name, out index)) {
+            UIStrategy.Visible = false;
+            UISkillFormation.Visible = false;
 			UIEquipList.Visible = true;
 			UIEquipList.Get.InitItemData (index-6, onItemChange);
 		}
@@ -606,6 +608,7 @@ public class UISelectRole : UIBase {
     }
 
     public void OnStrategy() {
+        UIEquipList.Visible = false;
         UIStrategy.Visible = true;
         UIStrategy.Get.LabelStrategy = labelStrategy;
     }
@@ -626,6 +629,7 @@ public class UISelectRole : UIBase {
         if (UISelectPartner.Visible)
             return;
 
+        UIEquipList.Visible = false;
 		uiBottom.SetActive (false);
 		uiTopPVE.SetActive (false);
         showPVPUI(false);
@@ -655,8 +659,9 @@ public class UISelectRole : UIBase {
         UISelectPartner.Get.InitMemberList(ref playerList, ref playerData, index, stageData.FriendKind == 3);
     }
 
-    private void onSkillCard()
+    public void OnSkillCard()
     {
+        UIEquipList.Visible = false;
         UISelectPartner.Visible = false;
         UIStrategy.Visible = false;
         UISkillFormation.Visible = true;

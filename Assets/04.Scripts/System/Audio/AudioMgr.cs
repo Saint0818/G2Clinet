@@ -84,11 +84,23 @@ public class AudioMgr : MonoBehaviour
 
     public static AudioMgr Get {
         get {
+            if (!instance) {
+                GameObject obj = GameObject.Find("AudioMgr");
+                if (!obj) {
+                    obj = Resources.Load("Prefab/AudioMgr") as GameObject;
+                    obj = Instantiate(obj) as GameObject;
+                    obj.name = "AudioMgr";
+                }
+
+                instance = obj.GetComponent<AudioMgr>();
+            }
+            
             return instance;
         }
     }
 
-    void Awake()
+
+    void Awake ()
     {
         DontDestroyOnLoad(gameObject);
         instance = gameObject.GetComponent<AudioMgr>();

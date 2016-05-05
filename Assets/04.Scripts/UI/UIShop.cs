@@ -298,7 +298,7 @@ public class UIShop : UIBase {
         if (isShow) {
             equipAvatar = GameData.Team.Player.Avatar;
             UIPlayerAvatar.Get.ShowUIPlayer(EUIPlayerMode.UIShop, GameData.Team.Player.BodyType, equipAvatar);
-            if (GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
+            if (GameData.Team.ShopItems1 == null || GameData.Team.FreshShopTime.ToUniversalTime().CompareTo(DateTime.UtcNow) < 0)
                 refreshShop(0);
 
             OpenPage(nowPage);
