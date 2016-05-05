@@ -1169,6 +1169,17 @@ public static class GameFunction
 		}
 	}
 
+	public static void SetGymRedPoint (ref GameObject redPoint, int buildIndex) {
+		if(buildIndex == 3) 
+			redPoint.SetActive(GetBuildLv(buildIndex) < GameData.DBuildHightestLvs[buildIndex] && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
+		else {
+			if(GetBuildLv(buildIndex) >= GetGymLv) 
+				redPoint.SetActive(false);
+			else 
+				redPoint.SetActive(IsBuildLvEnough(buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
+		}
+	}
+
 	public static string GetBuildEnName (int index) {
 		switch (index) {
 		case 0:

@@ -257,6 +257,9 @@ public class UIRecharge : UIBase {
 			}
 		}
 
+		if(UIGymEngage.Visible)
+			UIGymEngage.Get.CenterVisible = false;
+
 		isRecord = isNeedRecord;
 		if(!UIRecharge.Visible)
 			recordType = type;
@@ -443,6 +446,9 @@ public class UIRecharge : UIBase {
 
 			}
 		}
+
+		if(UIGymEngage.Visible)
+			UIGymEngage.Get.CenterVisible = true;
 
         if(UIInstance.Get.Visible)
             UIInstance.Get.ShowByChapter(UIInstance.Get.Main.CurrentChapter);

@@ -153,14 +153,15 @@ public class UIGym : UIBase {
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
 			gymObj[i].LevelLabel.gameObject.SetActive(true);
 			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
-			if(i == 3)
-				gymObj[i].RedPoint.SetActive(GameFunction.GetBuildLv(i) < GameData.DBuildHightestLvs[i] && GameFunction.IsBuildLvEnough(i) && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
-			else { 
-				if(GameFunction.GetBuildLv(i) >= GameFunction.GetGymLv) 
-					gymObj[i].RedPoint.SetActive(false);
-				else 
-					gymObj[i].RedPoint.SetActive(GameFunction.IsBuildLvEnough(i) && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
-			}
+			GameFunction.SetGymRedPoint(ref gymObj[i].RedPoint, i);
+//			if(i == 3)
+//				gymObj[i].RedPoint.SetActive(GameFunction.GetBuildLv(i) < GameData.DBuildHightestLvs[i] && GameFunction.IsBuildLvEnough(i) && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
+//			else { 
+//				if(GameFunction.GetBuildLv(i) >= GameFunction.GetGymLv) 
+//					gymObj[i].RedPoint.SetActive(false);
+//				else 
+//					gymObj[i].RedPoint.SetActive(GameFunction.IsBuildLvEnough(i) && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(i));
+//			}
 		}
 	}
 

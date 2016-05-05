@@ -385,10 +385,15 @@ public class UIGymEngage : UIBase {
 			labelUpgradePrice.text = architectureValue.Cost.ToString();
 			spriteUpgradeIcon.spriteName = GameFunction.SpendKindTexture(architectureValue.SpendKind);
 			labelUpgradeCD.text = timeConvert(architectureValue.Time);
-			if(GameFunction.GetBuildLv(mBuildIndex) >= GameFunction.GetGymLv) 
-				goUpgradeRedPoint.SetActive(false);
-			else 
-				goUpgradeRedPoint.SetActive((GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(mBuildIndex));
+			GameFunction.SetGymRedPoint(ref goUpgradeRedPoint, mBuildIndex);
+//			if(mBuildIndex == 3) 
+//				goUpgradeRedPoint.SetActive(GameFunction.GetBuildLv(mBuildIndex) < GameData.DBuildHightestLvs[mBuildIndex] && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(mBuildIndex));
+//			else {
+//				if(GameFunction.GetBuildLv(mBuildIndex) >= GameFunction.GetGymLv) 
+//					goUpgradeRedPoint.SetActive(false);
+//				else 
+//					goUpgradeRedPoint.SetActive(GameFunction.IsBuildLvEnough(mBuildIndex) && (GameFunction.GetIdleQueue != 0) && !GameFunction.IsBuildQueue(mBuildIndex));
+//			}
 			
 		} else {
 			goUpgrade.SetActive(false);
