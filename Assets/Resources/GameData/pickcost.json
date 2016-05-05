@@ -11,7 +11,7 @@
         "showitem": [20011,20410,20420,20430,20510,20520,20530,20610,20620,20660,20670,21100,21210,21310],
         "prefab": "MallboxDiamond2",
         "order": 2,
-        "nameen": "[C17269FF]2-3 Star[-] STAR RAFFLE",
+        "nameen": "2-3 STAR RAFFLE",
         "explaintw": "機率獲得 [c94a4a]2-3 星[-] 技能晶片 ",
         "explaincn": "持續進攻，成為無堅不摧的戰矛吧！",
         "explainen": "Would you like to purchase [C17269FF]2-3 Star[-] Skill Cards ?"
@@ -27,7 +27,7 @@
         "showitem": [20013,30410,30650,30700,30710,31405,31550,31610,31660,31700,31700,31710,31800],
         "prefab": "MallboxDiamond1",
         "order": 1,
-        "nameen": "[EFC653FF]4-5 Star[-] RAFFLE",
+        "nameen": "4-5 STAR RAFFLE",
         "explaintw": "機率獲得 [fffc00]4-5 星[-] 技能晶片 ",
         "explaincn": "銅牆鐵壁、固若金湯，有效阻斷你的對手！",
         "explainen": "Would you like to purchase [EFC653FF]4-5 Star[-] Skill Cards ?"
