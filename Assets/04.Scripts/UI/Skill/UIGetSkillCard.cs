@@ -102,7 +102,7 @@ public class UIGetSkillCard : UIBase {
 				if(GameData.DSuitCard.ContainsKey(GameData.DItemData[id].SuitCard)) {
 					suitCardCount = GameData.Team.SuitCardCompleteCount(GameData.DItemData[id].SuitCard);
 					skillCard.UpdateSuitCardLightForNewCard(suitCardCount);
-					Invoke("showSuitCard", 1.3f);
+					Invoke("showSuitCard", 1.5f);
 				}
 				labelSkillExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[GameData.DItemData[id].Avatar].Explain, GameData.DItemData[id].Avatar, GameData.DItemData[id].LV);
 				sloganView[getQuality(GameData.DSkillData[GameData.DItemData[id].Avatar].Quality)].SetActive(true);
