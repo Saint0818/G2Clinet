@@ -1205,7 +1205,7 @@
         "talkl": 1101,
         "actionl": 6,
         "texttw": "這是[ff6060]『圖鑑系統』[-]，現在先介紹第一個[ff6060]『晶片圖鑑』[-]。",
-        "texten": "This is [ff6060] \"GUIDE\" [-], and now introduce the first one - [ff6060] \"Card Album\" [-]."
+        "texten": "This is [ff6060] \"CODEX\" [-], and now introduce the first one - [ff6060] \"Card Handbook\" [-]."
     },
     {
         "id": 26,
@@ -1294,7 +1294,7 @@
         "talkl": 1101,
         "actionl": 1,
         "texttw": "太好了！我完成了[ff6060]『圖鑑』[-]系統的另一個功能，讓我為你介紹！",
-        "texten": "Wonderful! I finished the system of[ff6060] \"GUIDE\" [-], let me introduce you!"
+        "texten": "Wonderful! I finished the system of[ff6060] \"CODEX\" [-], let me introduce you!"
     },
     {
         "id": 27,
@@ -1310,7 +1310,7 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "上次的是晶片圖鑑，那這次的就是[ff6060]『套裝圖鑑』[-]囉！",
-        "texten": "Last time is the Card Album, and this time is[ff6060] \"Style Album\" [-]."
+        "texten": "Last time is the Card Handbook, and this time is[ff6060] \"Costume Handbook\" [-]."
     },
     {
         "id": 27,
@@ -1326,7 +1326,7 @@
         "talkl": 1101,
         "actionl": 1,
         "texttw": "沒錯！這裡可以一覽所有的造型，而所有造型皆有各自的完整套裝。",
-        "texten": "Yes! You can check out all of Styles here. "
+        "texten": "Yes! You can check out all of Costumes here. "
     },
     {
         "id": 27,
@@ -1342,7 +1342,7 @@
         "talkl": 1101,
         "actionl": 4,
         "texttw": "造型套裝不需要啟動，只要在同組套裝中擁有[ff6060]兩件以上的造型[-]，就會有收集加成！",
-        "texten": "Style Sets do not need to be activated. Characters who own [ff6060]more than one[-] style from a [ff6060]particular Set[-] receive special bonuses. "
+        "texten": "Costumes Sets do not need to be activated. Characters who own [ff6060]more than one[-] Costumes from a [ff6060]particular Set[-] receive special bonuses. "
     },
     {
         "id": 27,
@@ -1368,7 +1368,7 @@
         "talkl": 1101,
         "actionl": 5,
         "texttw": "最後要注意，[ff6060]『買斷造型』[-]才能算入圖鑑收集裡，[ff6060]時效性造型沒有收集效果[-]！",
-        "texten": "Attention! [ff6060]Time-limited Styles[-] CAN NOT unlock bonuses! You have to BUY and OWN the Styles!"
+        "texten": "Attention! [ff6060]Time-limited Styles[-] CAN NOT unlock bonuses! You have to BUY and OWN the Costumes!"
     },
     {
         "id": 27,
