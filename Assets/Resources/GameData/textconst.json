@@ -191,7 +191,7 @@
     },
     {
         "id": 253,
-        "tw": "確認花費 [FF00FFFF]{0}[-] 金幣抽取晶片？",
+        "tw": "確認花費 [FFCC00FF]{0}[-] 金幣抽取晶片？",
         "en": "Do you want to spend [FF00FFFF]{0}[-]  coins to draw Cards?"
     },
     {
@@ -2000,7 +2000,7 @@
     {
         "id": 4003,
         "explain": "獲得晶片套卡",
-        "tw": "圖鑑系列晶片－",
+        "tw": "圖鑑系列晶片",
         "en": "IN CODEX"
     },
     {
@@ -2239,31 +2239,31 @@
         "id": 4601,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [B3B3B3FF]鐵質晶片[-]",
-        "en": " [B3B3B3FF]Iron Card[-] "
+        "en": " [B3B3B3FF]IRON CARD[-] "
     },
     {
         "id": 4602,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [C17269FF]銅質晶片[-]",
-        "en": " [C17269FF]Copper Card[-] "
+        "en": " [C17269FF]COPPER CARD[-] "
     },
     {
         "id": 4603,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [99B3D4FF]銀質晶片[-]",
-        "en": " [99B3D4FF]Silver Card[-] "
+        "en": " [99B3D4FF]SILVER CARD[-] "
     },
     {
         "id": 4604,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": " [EFC653FF]金質晶片[-] ",
-        "en": " [EFC653FF]Golden Card[-]  "
+        "en": " [EFC653FF]GOLDEN CARD[-]  "
     },
     {
         "id": 4605,
         "explain": "晶片的品質等第(獲得時的標語",
         "tw": "[11F5F1FF]鑽石晶片[-] ",
-        "en": "[11F5F1FF]Diamond Card[-]  "
+        "en": "[11F5F1FF]DIAMOND CARD[-]  "
     },
     {
         "id": 4606,
@@ -5419,7 +5419,7 @@
         "id": 12007,
         "uipath": "SubheadLabel0",
         "tw": "音 效",
-        "en": "SE"
+        "en": "Sound"
     },
     {
         "id": 12008,
@@ -5457,7 +5457,7 @@
         "id": 12013,
         "uipath": "WarningLabel",
         "tw": "目前AI接管時間為：[ff0000]{0}[-]秒",
-        "en": "Present time of AI takeover: [ff0000]{0}[-]  S"
+        "en": "Present time of AI takeover: [ff0000]{0}[-] sec."
     },
     {
         "id": 12014,
