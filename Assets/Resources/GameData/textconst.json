@@ -2040,19 +2040,19 @@
         "id": 4103,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]5星卡[-] X1",
-        "en": "10x Draws gift 1[33FFDD]5 Star Card[-]"
+        "en": "10x Draws gift 1 card with [33FFDD]5 Star[-] "
     },
     {
         "id": 4104,
         "uipath": "Open5Label",
         "tw": "5 連抽",
-        "en": "Draw 5 Straight Times"
+        "en": "5x Draws"
     },
     {
         "id": 4105,
         "uipath": "OpenBtn10/SaleLabel",
         "tw": "最划算",
-        "en": "5x Draws"
+        "en": "Best Deal"
     },
     {
         "id": 4106,
@@ -2100,13 +2100,13 @@
         "id": 4120,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]2星卡[-] X1",
-        "en": "10x Draws gift 1[33FFDD]2 Star Card[-]"
+        "en": "10x Draws gift 1 card with [33FFDD]2 Star[-] "
     },
     {
         "id": 4121,
         "uipath": "Open10Label",
         "tw": "10 連抽，必得[33FFDD]3星卡[-] X1",
-        "en": "10x Draws gift 1[33FFDD]3 Star Card[-]"
+        "en": "10x Draws gift 1 card with [33FFDD]3 Star[-] "
     },
     {
         "id": 4200,
@@ -2187,7 +2187,7 @@
         "id": 4508,
         "uipath": "ItemShopBtn/FittingIcon",
         "tw": "試穿中",
-        "en": "Trying Out"
+        "en": "Trying On"
     },
     {
         "id": 4509,
@@ -5119,13 +5119,13 @@
         "id": 11104,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11105,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11201,
@@ -5149,13 +5149,13 @@
         "id": 11204,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11205,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11301,
@@ -5179,13 +5179,13 @@
         "id": 11304,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11305,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11401,
@@ -5210,13 +5210,13 @@
         "id": 11404,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11405,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11501,
@@ -5240,13 +5240,13 @@
         "id": 11504,
         "explain": "球場目前效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11505,
         "explain": "升級效果",
         "tw": "士氣每秒恢復速度 {0}  ",
-        "en": "Morale adding rate {0} / s"
+        "en": "Morale adding rate\n {0} / s"
     },
     {
         "id": 11601,

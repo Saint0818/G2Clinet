@@ -22670,9 +22670,9 @@
         "quality": 1,
         "value": 5,
         "sell": 0,
-        "nameen": "Strength Supplement M",
+        "nameen": "Stamina Supplement M",
         "explaintw": "獲得5體力",
-        "explainen": "Get 5 strength."
+        "explainen": "Get 5 stamina"
     },
     {
         "id": 93402,
@@ -22683,9 +22683,9 @@
         "quality": 2,
         "value": 10,
         "sell": 0,
-        "nameen": "Strength Supplement L",
+        "nameen": "Stamina Supplement L",
         "explaintw": "獲得10體力",
-        "explainen": "Get 10 strength."
+        "explainen": "Get 10 stamina."
     },
     {
         "id": 93403,
@@ -22696,9 +22696,9 @@
         "quality": 3,
         "value": 15,
         "sell": 0,
-        "nameen": "Strength Supplement XL",
+        "nameen": "Stamina Supplement XL",
         "explaintw": "獲得15體力",
-        "explainen": "Get 15 strength."
+        "explainen": "Get 15 stamina."
     },
     {
         "id": 93404,
@@ -22710,9 +22710,9 @@
         "value": 20,
         "sell": 0,
         "flag": 1,
-        "nameen": "Strength Supplement S\n[FFCC00FF](＋15%)[-] ",
+        "nameen": "Stamina Supplement S\n[FFCC00FF](＋15%)[-] ",
         "explaintw": "獲得20體力",
-        "explainen": "Get 20 strength."
+        "explainen": "Get 20 stamina."
     },
     {
         "id": 93501,
