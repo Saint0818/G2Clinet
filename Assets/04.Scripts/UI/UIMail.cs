@@ -420,6 +420,7 @@ public class UIMail : UIBase {
 
 	// group stage
 	private int nowGroup = 0;
+	private bool switchingGroup = false;
 
 	// group0
 	private const int pageNum = 3;
@@ -511,7 +512,7 @@ public class UIMail : UIBase {
 
 		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn", OnOpenDailyLogin);
 		changeBtn = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/ChangeBtn").GetComponent<UIButton>();
-		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGotoGroup1);
+		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGoForward);
 
 		// group 1
 		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
@@ -528,7 +529,7 @@ public class UIMail : UIBase {
 		uiViewPort.topLeft = viewTL.transform;
 		uiViewPort.bottomRight = viewBR.transform;
 		// BottomLeft
-		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnClose);
+		SetBtnFun(UIName + "/Window/BottomLeft/BackBtn", OnGoBackward);
 
 		// redpoint
 		redPtPrize = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/1/RedPoint");
@@ -563,8 +564,10 @@ public class UIMail : UIBase {
 		instance.RefreshRedPt ();
 		if (f) {
 			instance.subPages [0].SetFocus (f);
+			instance.uiCamera.SetActive (f);
 		} else {
 			instance.subPages [0].SetFocus (f);
+			instance.uiCamera.SetActive (f);
 		}
 
 	}
@@ -573,7 +576,14 @@ public class UIMail : UIBase {
 		UIMail.SetFocus (false);
 		UIDailyLogin.Get.Show ();
 	}
-		
+
+
+	private void OnGoForward()
+	{
+		if (switchingGroup)
+			return;
+		OnGotoGroup1 ();
+	}
 	private void OnGotoGroup1()
 	{
 		// 公告藏起來
@@ -586,6 +596,14 @@ public class UIMail : UIBase {
 		changeBtn.gameObject.SetActive (false);
 		nowGroup = 1;
 		GetComponent<Animator>().SetTrigger("Group1");
+		switchingGroup = true;
+		StartCoroutine(switchingGroupState());
+	}
+
+	private IEnumerator switchingGroupState()
+	{
+		yield return new WaitForSeconds(1.5f);
+		switchingGroup = false;
 	}
 
 	private void setDecoScrollView () {
@@ -706,9 +724,11 @@ public class UIMail : UIBase {
 		
 	}
 
-	private void OnClose()
+	private void OnGoBackward()
 	{
-
+		if (switchingGroup)
+			return;
+		
 		switch(nowGroup) {
 		case 0:
 			OnExitGroup0 ();
