@@ -269,6 +269,7 @@ public class UISelectPartner : UIBase {
             GameData.Team.RentPlayerTime = result.RentPlayerTime;
             updateRentDate();
             updateRentPrice();
+            initRentPlayer();
         }
     }
 
@@ -369,6 +370,7 @@ public class UISelectPartner : UIBase {
         item.UISelected = GameObject.Find(name + "/UISelected");
         item.UIEquiptment = GameObject.Find(name + "/EquipmentGroup");
         item.UILocked = GameObject.Find(name + "/UILocked");
+        SetLabel(name + "/UILocked/LockLabel", TextConst.S(9522));
         item.LabelSelected = GameObject.Find(name + "/UISelected/Label").GetComponent<UILabel>();
 		GameObject obj = GameObject.Find(name + "/UISelected/Label");
 		if (obj) {

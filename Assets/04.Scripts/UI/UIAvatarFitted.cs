@@ -770,16 +770,8 @@ public class UIAvatarFitted : UIBase
             if (backpackItems[i].Kind == avatarPart)
             {
                 backpackItems[i].Mode = Mode;
-                if (backpackItems[i].Kind < 6)
-                {
-                    backpackItems[i].Enable = true;
-                    enableCount++;
-                }
-                else
-                {
-                    backpackItems[i].Enable = true;
-                    enableCount++;
-                }
+                backpackItems[i].Enable = true;
+                enableCount++;
 
                 /*
                 switch (filter)
@@ -1054,7 +1046,7 @@ public class UIAvatarFitted : UIBase
         {
             if (index < backpackItems.Length)
             {
-                if (backpackItems[index].Position == GameData.Team.Player.BodyType) {
+                if (backpackItems[index].Position == 3 || backpackItems[index].Position == GameData.Team.Player.BodyType) {
                     TEquip equip = new TEquip();
                     int kind = GameFunction.GetItemKind(backpackItems[index].ID);
                     equip.ID = backpackItems[index].ID;
