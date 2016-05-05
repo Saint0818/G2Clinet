@@ -151,7 +151,7 @@ public class UIGym : UIBase {
 	public void RefreshBuild () {
 		for (int i=0; i<gymObj.Length; i++) {
 			gymObj[i].LevelLabel.text = string.Format(TextConst.S(11021), GameFunction.GetBuildLv(i));
-			gymObj[i].LevelLabel.gameObject.SetActive(true);
+			gymObj[i].LevelLabel.gameObject.SetActive((i != 8));
 			gymObj[i].CDBar.gameObject.SetActive(isBuildRun(i));
 			GameFunction.SetGymRedPoint(ref gymObj[i].RedPoint, i);
 //			if(i == 3)

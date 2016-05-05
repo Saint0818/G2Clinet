@@ -1294,9 +1294,10 @@ namespace GameStruct
 					
 					if(!isContainSuitCard(item.Value.Item2)) 
 						isAllGet = false;
-					
-					if(!isContainSuitCard(item.Value.Item3)) 
-						isAllGet = false;
+
+					if(item.Value.ItemCount == 3)
+						if(!isContainSuitCard(item.Value.Item3)) 
+							isAllGet = false;
 					
 					if(isAllGet && !IsExecuteSuitCard(item.Key))
 						if(item.Value.CardPower <= SuitCardExtraCost)
