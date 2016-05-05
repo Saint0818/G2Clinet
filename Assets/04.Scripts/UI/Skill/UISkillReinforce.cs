@@ -382,7 +382,7 @@ public class UISkillReinforce : UIBase {
 
 //		UIEventListener.Get(obj).onClick = ChooseItem;
 		UIButton btn = obj.GetComponent<UIButton>();
-		SetBtnFun(ref btn, ChooseItem);
+		SetBtnFun(ref btn, ChooseItemCallback);
 
 		return passiveSkillCard;
 	}
@@ -541,9 +541,12 @@ public class UISkillReinforce : UIBase {
 	public void RemoveChooseItem () {
 		int index = -1;
 		if(int.TryParse(UIButton.current.name, out index)) {
-//			ChooseItem(reinforceCards[index].item);
 			ChooseItem(true);
 		}
+	}
+
+	public void ChooseItemCallback() {
+		ChooseItem();
 	}
 
 	public void ChooseItem (bool isRemove = false) {
