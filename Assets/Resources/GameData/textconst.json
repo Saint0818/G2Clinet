@@ -213,7 +213,7 @@
         "explain": "PVP撮合不到對手標題",
         "uipath": "請用UIMessage",
         "tw": "聯盟對戰",
-        "en": "League Games"
+        "en": "Pick-up Games"
     },
     {
         "id": 257,
@@ -303,7 +303,7 @@
     {
         "id": 312,
         "tw": "Icon_TokenPvp=聯盟幣，可用於商店與對戰獎勵中的消費，加入[33FFDD]聯盟對戰[-]就能得到囉！",
-        "en": "Icon_TokenPvp=League Coins can be used at shops and Game Rewards. Join the [33FFDD]League Games[-]  to get them!"
+        "en": "Icon_TokenPvp=Battle Coins can be used at shops and Game Rewards. Join the [33FFDD]Pick-up Games[-]  to get them!"
     },
     {
         "id": 313,
@@ -887,7 +887,7 @@
         "explain": "解鎖PVP",
         "uipath": "8.PVP功能",
         "tw": "成功解鎖[FFDD33]聯盟對戰[-]功能",
-        "en": "Successfully unlocked [FFDD33]League Games[-]  function"
+        "en": "Successfully unlocked [FFDD33]Pick-up Games[-]  function"
     },
     {
         "id": 1609,
@@ -1176,7 +1176,7 @@
     {
         "id": 3019,
         "tw": "戰力值",
-        "en": "Ability Numbers",
+        "en": "OVERALL",
         "jp": "ok"
     },
     {
@@ -1235,7 +1235,7 @@
         "id": 3028,
         "explain": "秀戰力值",
         "tw": "完整戰力值",
-        "en": "Complete Ability Numbers",
+        "en": "Complete Overall",
         "jp": "ok"
     },
     {
@@ -2155,7 +2155,7 @@
         "explain": "限定使用聯盟對戰貨幣",
         "uipath": "Tabs/1/聯盟商店（天梯）",
         "tw": "聯盟商店",
-        "en": "League Shop"
+        "en": "Battle Shop"
     },
     {
         "id": 4504,
@@ -2224,7 +2224,7 @@
     {
         "id": 4515,
         "tw": "聯盟幣不足",
-        "en": "Insufficient League Coin"
+        "en": "Insufficient Battle Coin"
     },
     {
         "id": 4516,
@@ -2728,9 +2728,7 @@
     },
     {
         "id": 6302,
-        "explain": "引導開啟選單",
-        "tw": "點擊開啟裝備選單",
-        "en": "Press to open equipment menu"
+        "explain": "引導開啟選單"
     },
     {
         "id": 6303,
@@ -3520,13 +3518,13 @@
         "id": 9103,
         "uipath": "PvPStageBtn/BtnLabel",
         "tw": "聯 盟 對 戰",
-        "en": "League Games"
+        "en": "PICK-UP GAMES"
     },
     {
         "id": 9104,
         "uipath": "ChallengeBtn/BtnLabel",
         "tw": "關 主 挑 戰",
-        "en": "BOSS Challenge"
+        "en": "BOSS CHALLENGE"
     },
     {
         "id": 9152,
@@ -3538,7 +3536,7 @@
         "id": 9153,
         "explain": "PVP關卡",
         "tw": "[ff0074]聯盟對戰[-]",
-        "en": "[ff0074]League Games[-] "
+        "en": "[ff0074]Pick-up Games[-] "
     },
     {
         "id": 9154,
@@ -3766,7 +3764,7 @@
     {
         "id": 9509,
         "tw": "戰鬥力 {0:F1} ",
-        "en": "Ability Number {0:F1} "
+        "en": "OVERALL {0:F1} "
     },
     {
         "id": 9510,
@@ -3982,7 +3980,7 @@
         "explain": "Hint顯示：領取完畢",
         "uipath": "UIHint",
         "tw": "每日聯盟排名獎勵領取完畢。",
-        "en": "You have received the rewards for daily league ranking."
+        "en": "You have received the rewards for daily ranking."
     },
     {
         "id": 9716,
@@ -4136,7 +4134,7 @@
     {
         "id": 9746,
         "tw": "聯盟獎勵",
-        "en": "League Rewards"
+        "en": "Level Rewards"
     },
     {
         "id": 9747,
@@ -4226,7 +4224,7 @@
     {
         "id": 9804,
         "tw": "機率獲得",
-        "en": "Chance to acquire"
+        "en": "- Possible Rewards -"
     },
     {
         "id": 9811,
@@ -5761,7 +5759,7 @@
         "id": 13035,
         "explain": "入場券",
         "tw": "聯盟入場券",
-        "en": "League Pass"
+        "en": "Pick-up Game Pass"
     },
     {
         "id": 13036,
@@ -5785,7 +5783,7 @@
         "id": 13039,
         "explain": "包裝成物品的聯盟幣",
         "tw": "聯盟幣",
-        "en": "League Coin"
+        "en": "Battle Coin"
     },
     {
         "id": 13040,
@@ -5869,7 +5867,7 @@
         "id": 90004,
         "explain": "物品",
         "tw": " {0} 聯盟幣",
-        "en": " {0} League Coin"
+        "en": " {0} Battle Coin"
     },
     {
         "id": 90005,
@@ -5899,7 +5897,7 @@
         "id": 90009,
         "explain": "物品",
         "tw": "獲得{0}聯盟幣",
-        "en": "Obtains {0} League Coins"
+        "en": "Obtains {0} Battle Coins"
     },
     {
         "id": 90010,
@@ -6023,7 +6021,7 @@
         "id": 100110,
         "explain": "聯盟商店介面標題",
         "tw": "[ff8000]聯盟商店[-]",
-        "en": "[ff8000]League Shop[-] "
+        "en": "[ff8000]Battle Shop[-] "
     },
     {
         "id": 100111,

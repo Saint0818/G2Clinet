@@ -22723,9 +22723,9 @@
         "quality": 3,
         "value": 1,
         "sell": 0,
-        "nameen": "League Game Entrance Ticket",
+        "nameen": "Pick-up Game Entrance Ticket",
         "explaintw": "可獲得額外參加聯盟賽的機會",
-        "explainen": "Can acquire extra opportunities to participate league games."
+        "explainen": "Can acquire extra opportunities to participate Pick-up games."
     },
     {
         "id": 93601,
@@ -22759,9 +22759,9 @@
         "icon": 93901,
         "value": 1,
         "sell": 0,
-        "nameen": " {0} League Coin",
+        "nameen": " {0} Battle Coin",
         "explaintw": "獲得{0}聯盟幣",
-        "explainen": "Get {0} League Coin."
+        "explainen": "Get {0} Battle Coin."
     },
     {
         "id": 94001,
