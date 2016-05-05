@@ -286,6 +286,7 @@ public class UISkillFormation : UIBase {
 	private UILabel labelFrameCount;
 	//Left CardView
 	private GameObject gridCardList;
+	private UIPanel scrollViewCardPanel;
 	private UIScrollView scrollViewCardList;
 	private UIBetterGrid betterGrid;
 	//Sell
@@ -422,6 +423,7 @@ public class UISkillFormation : UIBase {
 
 		gridCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList/Grid");
 		betterGrid = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList/Grid").GetComponent<UIBetterGrid>();
+		scrollViewCardPanel = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList").GetComponent<UIPanel>();
 		scrollViewCardList = GameObject.Find (UIName + "/Center/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
 		scrollViewCardList.onDragStarted = CardDragStart;
 		scrollViewCardList.onDragFinished = CardDragFinish;
@@ -1456,7 +1458,7 @@ public class UISkillFormation : UIBase {
 	}
 	
 	public void UpdateSort () {
-		resetScrollPostion ();
+//		resetScrollPostion ();
 		eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
 		sortSkillCondition(eCondition);
 
@@ -1491,6 +1493,8 @@ public class UISkillFormation : UIBase {
 			viewRight.ToggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
 		
 		CardDragFinish();
+		scrollViewCardList.transform.localPosition = new Vector3(40, -25 ,0);
+		scrollViewCardPanel.clipOffset = Vector2.zero;
 	}
 
 	public void DoOpenPassive (GameObject go){
@@ -1518,6 +1522,8 @@ public class UISkillFormation : UIBase {
 			viewRight.ToggleCheckBoxSkill[1].value = (eFilter == EFilter.Passive.GetHashCode());
 		
 		CardDragFinish();
+		scrollViewCardList.transform.localPosition = new Vector3(40, -25 ,0);
+		scrollViewCardPanel.clipOffset = Vector2.zero;
 	}
 
 	public void DoSellState() {

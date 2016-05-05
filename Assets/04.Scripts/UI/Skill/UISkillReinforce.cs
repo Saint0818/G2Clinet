@@ -542,15 +542,23 @@ public class UISkillReinforce : UIBase {
 		int index = -1;
 		if(int.TryParse(UIButton.current.name, out index)) {
 //			ChooseItem(reinforceCards[index].item);
-			ChooseItem();
+			ChooseItem(true);
 		}
 	}
 
-	public void ChooseItem () {
+	public void ChooseItem (bool isRemove = false) {
 //		string name = go.name;
-		string name = UIButton.current.name;
-		if(!isRunExp && IsCanClick) {
-			if(passiveSkillCards.ContainsKey(name)) {
+		int result = 0;
+		string name = "";
+		if(isRemove) {
+			if(int.TryParse(UIButton.current.name, out result)) 
+				name = reinforceCards[result].item.name;
+		} else {
+			name = UIButton.current.name;
+		} 
+
+		if(!string.IsNullOrEmpty(name)) {
+			if(!isRunExp && IsCanClick) {
 				if(reinforceCards.Count < 6) {
 					if(reinforceItems.ContainsKey(name)) {
 						Destroy(reinforceItems[name]);
