@@ -1171,7 +1171,7 @@ public static class GameFunction
 
 	public static void SetGymRedPoint (ref GameObject redPoint, int buildIndex) {
 		if(buildIndex == 3) 
-			redPoint.SetActive(GetBuildLv(buildIndex) < GameData.DBuildHightestLvs[buildIndex] && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
+			redPoint.SetActive(GetBuildLv(buildIndex) < GameData.DBuildHightestLvs[buildIndex] && GameFunction.IsBuildLvEnough(buildIndex) && (GetIdleQueue != 0) && !IsBuildQueue(buildIndex));
 		else {
 			if(GetBuildLv(buildIndex) >= GetGymLv) 
 				redPoint.SetActive(false);
