@@ -563,122 +563,63 @@ public class GameController : KnightSingleton<GameController>
             PlayerList[i].PlayerRefGameObject.SetActive(true);
 	}
 
-    private PlayerBehaviour createGamePlayer(int teamIndex, ETeamKind team, Vector3 bornPos, TPlayer player, GameObject res = null)
+    private PlayerBehaviour createGamePlayer(int teamIndex, ETeamKind team, Vector3 bornPos, TPlayer player,
+                                             GameObject res = null)
     {
-        if (GameData.DPlayers.ContainsKey(player.ID))
-        {
-            if (player.BodyType < 0 || player.BodyType  > 2)
-                player.BodyType = 0;
-
-            if (TestModel != EModelTest.None && TestMode != EGameTest.None)
-                player.BodyType = (int)TestModel;
-
-            TLoadParameter p = new TLoadParameter(ELayer.Player, team.ToString() + teamIndex.ToString(), false, false, false, true, false, EAnimatorType.AnimationControl);
-            TAvatarLoader.Load(player.BodyType, player.Avatar, ref res, playerInfoModel, p);
-            initRigbody(res);
-            ETimerKind timeKey;
-            if (team == ETeamKind.Self)
-                timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Self{0}", teamIndex));
-            else
-                timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Npc{0}", teamIndex));
-
-            res.transform.localPosition = bornPos;
-            PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
-
-            playerBehaviour.Team = team;
-            playerBehaviour.MoveIndex = -1;
-            playerBehaviour.Attribute = player;
-            playerBehaviour.Index = (EPlayerPostion)teamIndex;
-            playerBehaviour.Postion = playerBehaviour.Index;
-            playerBehaviour.TimerKind = timeKey;
-
-            playerBehaviour.InitTrigger(defPointObject, bodyTriggerRes[player.BodyType]);
-            playerBehaviour.InitDoubleClick();
-            playerBehaviour.InitAttr();
-
-            if (team == ETeamKind.Npc)
-                res.transform.localEulerAngles = new Vector3(0, 180, 0);
-
-            playerBehaviour.AI = res.AddComponent<PlayerAI>();
-
-            playerBehaviour.TestMode = TestMode;
-            playerBehaviour.IsDebugAnimation = IsDebugAnimation;
-
-            return playerBehaviour;
-        }
-        else
+        if(!GameData.DPlayers.ContainsKey(player.ID))
         {
             Debug.LogError("PlayerID don't exist in great player");
             return null;
         }
+
+        if(player.BodyType < 0 || player.BodyType > 2)
+            player.BodyType = 0;
+
+        if(TestModel != EModelTest.None && TestMode != EGameTest.None)
+            player.BodyType = (int)TestModel;
+
+        TLoadParameter p = new TLoadParameter(ELayer.Player, team.ToString() + teamIndex.ToString(), false, false,
+            false, true, false, EAnimatorType.AnimationControl);
+        TAvatarLoader.Load(player.BodyType, player.Avatar, ref res, playerInfoModel, p);
+        initRigbody(res);
+        ETimerKind timeKey;
+        if(team == ETeamKind.Self)
+            timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Self{0}", teamIndex));
+        else
+            timeKey = (ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Npc{0}", teamIndex));
+
+        res.transform.localPosition = bornPos;
+        PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
+
+        playerBehaviour.Team = team;
+        playerBehaviour.MoveIndex = -1;
+        playerBehaviour.Attribute = player;
+        playerBehaviour.Index = (EPlayerPostion)teamIndex;
+        playerBehaviour.Postion = playerBehaviour.Index;
+        playerBehaviour.TimerKind = timeKey;
+
+        playerBehaviour.InitTrigger(defPointObject, bodyTriggerRes[player.BodyType]);
+        playerBehaviour.InitDoubleClick();
+        playerBehaviour.InitAttr();
+
+        if(team == ETeamKind.Npc)
+            res.transform.localEulerAngles = new Vector3(0, 180, 0);
+
+        res.AddComponent<PlayerAI>();
+
+        playerBehaviour.TestMode = TestMode;
+        playerBehaviour.IsDebugAnimation = IsDebugAnimation;
+
+        return playerBehaviour;
     }
 
     private void createTeam()
     {
         checkPlayerID();
-        int num = 0;
         switch (TestMode)
         {
             case EGameTest.None:
-                if (StageData.FriendKind == 4)
-                {
-                    num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
-                    for (int i = 0; i < num; i++)
-                    {
-                        if (GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i]))
-                        {
-                            GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
-							PlayerBehaviour p = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
-							p.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
-							p.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
-							p.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
-                            PlayerList.Add(p);
-                        }
-                    }
-
-                    num = Mathf.Min(StageData.PlayerID.Length, GameData.EnemyMembers.Length);
-                    for (int i = 0; i < num; i++)
-                    {
-                        if (GameData.EnemyMembers[i].Player.SetID(StageData.PlayerID[i]))
-                        {
-							GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
-							PlayerBehaviour p = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i], GameData.EnemyMembers[i].Player);
-							p.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
-							p.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
-							p.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
-                            PlayerList.Add(p);
-                        }
-                    }
-                }
-                else
-                {
-					for (int i = 0; i < GameData.Max_GamePlayer; i++) {
-						PlayerBehaviour p = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
-						p.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
-						p.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
-						p.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
-						PlayerList.Add(p);
-					}
-
-                    for(int i = 0; i < GameData.Max_GamePlayer; i++)
-                    {
-                        PlayerBehaviour p = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3],
-                            GameData.EnemyMembers[i].Player);
-                        p.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
-                        p.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
-                        p.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
-                        PlayerList.Add(p);
-                    }
-                }
-
-                GameRecord.Init(PlayerList.Count);
-                for (int i = 0; i < PlayerList.Count; i++)
-                    if (PlayerList[i])
-                        PlayerList[i].GameRecord.Init();
-                
-			    //1.G(Dribble) 2.C(Rebound) 3.F
-				SetBornPositions();
-				setPlayerBornTarget ();
+                createTeamNone();
                 break;
             case EGameTest.All:
                 for (int i = 0; i < GameData.Max_GamePlayer; i++)
@@ -696,17 +637,17 @@ public class GameController : KnightSingleton<GameController>
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[0].Player));
                 SetBornPositions();
                 UIGame.Get.ChangeControl(true);
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
             case EGameTest.AnimationUnit:
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
             case EGameTest.AttackB:
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Npc, Vector3.zero, GameData.EnemyMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
             case EGameTest.Block:
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, -8.4f), GameData.TeamMembers[0].Player));
@@ -714,15 +655,10 @@ public class GameController : KnightSingleton<GameController>
 
                 PlayerList[0].IsJumpBallPlayer = true;
                 PlayerList[1].IsJumpBallPlayer = true;
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
-
             case EGameTest.Alleyoop:
-                for (int i = 0; i < 2; i++)
-                    PlayerList.Add(createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
-
-                PlayerList[0].IsJumpBallPlayer = true;
-                PlayerList[1].IsJumpBallPlayer = true;
+                createTeamAlleyoop();
                 break;
             case EGameTest.Pass:
             case EGameTest.Edit:
@@ -730,22 +666,23 @@ public class GameController : KnightSingleton<GameController>
                     PlayerList.Add(createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
                 
                 PlayerList[0].IsJumpBallPlayer = true;
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
             case EGameTest.OneByOne:
             case EGameTest.CrossOver:
-                GameData.TeamMembers[0].Player.Steal = UnityEngine.Random.Range(20, 100) + 1;			
+                GameData.TeamMembers[0].Player.Steal = Random.Range(20, 100) + 1;			
 			
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
                 PlayerList[0].IsJumpBallPlayer = true;
                 PlayerList[1].IsJumpBallPlayer = true;
+                SetAllPlayerAI(false);
                 break;
             case EGameTest.Skill:
             case EGameTest.PassiveSkill:
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
                 PlayerList.Add(createGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-                SetPlayerAI(false);
+                SetAllPlayerAI(false);
                 break;
 		}
 
@@ -810,7 +747,94 @@ public class GameController : KnightSingleton<GameController>
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
 
-	private void setPassIcon (int index, string effectname, PlayerBehaviour player) {
+    private void createTeamAlleyoop()
+    {
+        var player = createGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player);
+        var playerAI = player.GetComponent<PlayerAI>();
+        playerAI.ClearAllStates();
+        PlayerList.Add(player);
+
+        player = createGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[1].Player);
+        playerAI = player.GetComponent<PlayerAI>();
+        playerAI.ClearAllStates();
+        var runState = new PlayerDebugAlleyoop(player);
+        runState.AddPosition(0, 13);
+        runState.AddPosition(-6, 8);
+        playerAI.AddState(runState);
+        playerAI.ChangeState(EPlayerAIState.DebugAlleyoop);
+        PlayerList.Add(player);
+
+        PlayerList[0].IsJumpBallPlayer = true;
+        PlayerList[1].IsJumpBallPlayer = true;
+    }
+
+    private void createTeamNone()
+    {
+        if(StageData.FriendKind == 4)
+        {
+            int num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
+            for(int i = 0; i < num; i++)
+            {
+                if(GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i]))
+                {
+                    GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
+                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i],
+                        GameData.TeamMembers[i].Player);
+                    player.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
+                    player.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
+                    player.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
+                    PlayerList.Add(player);
+                }
+            }
+
+            num = Mathf.Min(StageData.PlayerID.Length, GameData.EnemyMembers.Length);
+            for(int i = 0; i < num; i++)
+            {
+                if(GameData.EnemyMembers[i].Player.SetID(StageData.PlayerID[i]))
+                {
+                    GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
+                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i],
+                        GameData.EnemyMembers[i].Player);
+                    player.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
+                    player.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
+                    player.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
+                    PlayerList.Add(player);
+                }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < GameData.Max_GamePlayer; i++)
+            {
+                PlayerBehaviour player = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
+                player.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
+                player.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
+                player.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
+                PlayerList.Add(player);
+            }
+
+            for(int i = 0; i < GameData.Max_GamePlayer; i++)
+            {
+                PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3],
+                    GameData.EnemyMembers[i].Player);
+                player.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
+                player.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
+                player.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
+                PlayerList.Add(player);
+            }
+        }
+
+        GameRecord.Init(PlayerList.Count);
+        for(int i = 0; i < PlayerList.Count; i++)
+            if(PlayerList[i])
+                PlayerList[i].GameRecord.Init();
+
+        //1.G(Dribble) 2.C(Rebound) 3.F
+        SetBornPositions();
+        setPlayerBornTarget();
+    }
+
+    private void setPassIcon (int index, string effectname, PlayerBehaviour player) {
 		if(index >=0 && index < 3) {
 			GameObject obj = EffectManager.Get.PlayEffect(effectname, player.BodyHeight.transform.localPosition, player.PlayerRefGameObject);
 			UISprite sprite = obj.transform.Find("View/HeadPic").GetComponent<UISprite>();
@@ -820,26 +844,26 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-    private void createEditTeam()
-    {
-        var playerC = new TPlayer(0) {ID = 3};
-        playerC.SetID(3);
-        PlayerList.Add(createGamePlayer(0, ETeamKind.Self, Vector3.zero, playerC));
-
-        var playerF = new TPlayer(0) {ID = 2};
-        playerF.SetID(2);
-        PlayerList.Add(createGamePlayer(1, ETeamKind.Self, new Vector3(-5, 0, -2), playerF));
-
-        var playerG = new TPlayer(0) {ID = 1};
-        playerG.SetID(1);
-        PlayerList.Add(createGamePlayer(2, ETeamKind.Self, new Vector3(5, 0, -2), playerG));
-
-        PlayerList[0].IsJumpBallPlayer = true;
-        SetPlayerAI(false);
-
-        PlayerList[0].IsJumpBallPlayer = true;
-        SetPlayerAI(false);
-    }
+//    private void createEditTeam()
+//    {
+//        var playerC = new TPlayer(0) {ID = 3};
+//        playerC.SetID(3);
+//        PlayerList.Add(createGamePlayer(0, ETeamKind.Self, Vector3.zero, playerC));
+//
+//        var playerF = new TPlayer(0) {ID = 2};
+//        playerF.SetID(2);
+//        PlayerList.Add(createGamePlayer(1, ETeamKind.Self, new Vector3(-5, 0, -2), playerF));
+//
+//        var playerG = new TPlayer(0) {ID = 1};
+//        playerG.SetID(1);
+//        PlayerList.Add(createGamePlayer(2, ETeamKind.Self, new Vector3(5, 0, -2), playerG));
+//
+//        PlayerList[0].IsJumpBallPlayer = true;
+//        SetPlayerAI(false);
+//
+//        PlayerList[0].IsJumpBallPlayer = true;
+//        SetPlayerAI(false);
+//    }
 
 	//加數值裝的數值
     private void AddValueItemAttributes()
@@ -872,9 +896,9 @@ public class GameController : KnightSingleton<GameController>
 				EffectManager.Get.PreLoadSkillEffect(PlayerList[i].Attribute.SkillCards[j].ID);
 	}
 
-	public void SetPlayerAI(bool enable){
+	public void SetAllPlayerAI(bool enable){
 		for(int i = 0; i < PlayerList.Count; i++)
-			PlayerList[i].AI.enabled = enable;
+			PlayerList[i].GetComponent<PlayerAI>().enabled = enable;
 	}
 
 	public void ClearAutoFollowTime(){
@@ -1335,45 +1359,6 @@ public class GameController : KnightSingleton<GameController>
 		    }
 		}
     }
-
-//    /// <summary>
-//    /// 不見得真的會傳球.
-//    /// </summary>
-//    /// <param name="player"> 持球者, 嘗試要傳球的人. </param>
-//	public void AIPass([NotNull]PlayerBehaviour player)
-//    {
-//		float angle = 90;
-//		if ((player.Team == ETeamKind.Self && player.transform.position.z > 0) ||
-//		    (player.Team == ETeamKind.Npc && player.transform.position.z < 0))
-//			angle = 180;
-//
-//		PlayerBehaviour teammate = findTeammate(player, 20, angle);
-//
-//		if(teammate != null)
-//			TryPass(teammate);
-//		else
-//        {
-//			int who = Random.Range(0, 2);
-//			int find = 0;
-//			
-//			for(int i = 0; i < PlayerList.Count; i++)
-//            {
-//				if(PlayerList[i].gameObject.activeInHierarchy && 
-//                   PlayerList[i].Team == player.Team && PlayerList[i] != player)
-//                {
-//					PlayerBehaviour someone = PlayerList[i];
-//					
-//					if(HasDefPlayer(someone, 1.5f, 40) == 0 || who == find)
-//                    {
-//						TryPass(PlayerList[i]);
-//						break;
-//					}
-//					
-//					find++;
-//				}
-//			}
-//		}
-//	}
 
     /// <summary>
     /// 僅用在玩家 or NPC 進攻時使用. 這部份都是對 player.DefPlayer 做移動邏輯.
@@ -3818,50 +3803,69 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private bool canPassToAlleyoop(EPlayerState state) {
-		if (state == EPlayerState.Idle ||
-		    state == EPlayerState.HoldBall ||
-		    state == EPlayerState.Dribble0 ||
-		    state == EPlayerState.Dribble1 ||
-            state == EPlayerState.Dribble2 ||
-            state == EPlayerState.Dribble3)
-			return true;
-		else
-			return false;
+    private bool canPassToAlleyoop(EPlayerState state)
+    {
+        return state == EPlayerState.Idle ||
+               state == EPlayerState.HoldBall ||
+               state == EPlayerState.Dribble0 ||
+               state == EPlayerState.Dribble1 ||
+               state == EPlayerState.Dribble2 ||
+               state == EPlayerState.Dribble3;
     }
-    
-	public void PlayerEnterPaint(int team, GameObject obj) {
-		if (BallOwner && canPassToAlleyoop(BallOwner.CurrentState) &&
-			(TestMode == EGameTest.Alleyoop || IsGameAttack)) {
-			bool flag = true;
-			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList[i].CurrentState == EPlayerState.Alleyoop) {
-					flag = false;
-					break;
-				}
 
-			if (flag) {
-				PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
-				if (player && player.Team.GetHashCode() == team) {
-					if (player != BallOwner && player.Team == BallOwner.Team) {
-						if (Random.Range(0, 100) < player.Attr.AlleyOopRate || TestMode == EGameTest.Alleyoop) {
-							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
+    public void PlayerEnterPaint(ETeamKind paintTeam, GameObject alleyoopPlayerObj)
+    {
+        if(BallOwner && 
+           canPassToAlleyoop(BallOwner.CurrentState) &&
+           (TestMode == EGameTest.Alleyoop || IsGameAttack))
+        {
+            if(IsAnyoneAlleyoop)
+                return;
 
-							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
-								if (BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position))
-									Catcher = player;
-							} else
-								UIGame.Get.ShowAlleyoop(true, player.Index.GetHashCode());
+            var alleyoopPlayer = alleyoopPlayerObj.GetComponent<PlayerBehaviour>();
+            if(!alleyoopPlayer || 
+               alleyoopPlayer.Team != paintTeam)
+                return;
 
-							player.GameRecord.AlleyoopLaunch++;
-						}
-					}
-				}
-			}
-		}
-	}
+            if(alleyoopPlayer != BallOwner && 
+               alleyoopPlayer.Team == BallOwner.Team)
+            {
+                if(Random.Range(0, 100) < alleyoopPlayer.Attr.AlleyOopRate ||
+                   TestMode == EGameTest.Alleyoop) // 如果是測試模式, 不跑機率, 一定跳.
+                {
+                    alleyoopPlayer.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint[paintTeam.GetHashCode()].transform.position);
 
-	IEnumerator playFinish() {
+                    // 如果是測試模式, 不跑機率, 一定傳.
+                    if((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) &&
+                       (Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate || TestMode == EGameTest.Alleyoop))
+                    {
+                        if(BallOwner.PlayerSkillController.DoPassiveSkill(ESkillSituation.Pass0,
+                            alleyoopPlayer.transform.position))
+                            Catcher = alleyoopPlayer;
+                    }
+                    else
+                        UIGame.Get.ShowAlleyoop(true, alleyoopPlayer.Index.GetHashCode());
+
+                    alleyoopPlayer.GameRecord.AlleyoopLaunch++;
+                }
+            }
+        }
+    }
+
+    private bool IsAnyoneAlleyoop
+    {
+        get
+        {
+            for(int i = 0; i < PlayerList.Count; i++)
+            {
+                if(PlayerList[i].CurrentState == EPlayerState.Alleyoop)
+                    return true;
+            }
+            return false;
+        }
+    }
+
+    IEnumerator playFinish() {
 		isEndShowScene = false;
 		yield return new WaitForSeconds(2.5f);
 	    IsStart = false;
@@ -3947,7 +3951,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private void setEndShowScene () {
 		UITutorial.UIShow(false);
-		SetPlayerAI(false);
+		SetAllPlayerAI(false);
 		AIController.Get.ChangeState(EGameSituation.End);
 
         SetBallOwnerNull();
@@ -4416,7 +4420,7 @@ public class GameController : KnightSingleton<GameController>
 		IsStart = false;
 		IsFinish = false;
 		GameRecord.Init(PlayerList.Count);
-		SetPlayerAI(true);
+		SetAllPlayerAI(true);
 		SetBallOwnerNull();
 		GameWinTime = MissionChecker.Get.MaxGameTime;
 		MissionChecker.Get.Reset();
@@ -4794,13 +4798,15 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	//true: 有人在使用 
-	public bool CheckOthersUseSkill (int myTimerKind) {
-		for (int i=0; i<PlayerList.Count; i++) 
-			if(PlayerList[i].TimerKind.GetHashCode() != myTimerKind)
-				if(PlayerList[i].IsUseActiveSkill)
-					return true;
-					return false;
-	}
+    public bool CheckOthersUseSkill(int myTimerKind)
+    {
+        for(int i = 0; i < PlayerList.Count; i++)
+            if(PlayerList[i].TimerKind.GetHashCode() != myTimerKind)
+                if(PlayerList[i].IsUseActiveSkill)
+                    return true;
+
+        return false;
+    }
 
 	public bool CheckAllPlayerIdle {
 		get {
@@ -4827,23 +4833,17 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsGameAttack 
 	{
-		get
-		{
-			if(Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack)
-				return true;
-			
-			return false;
-		}		
+		get { return Situation == EGameSituation.GamerAttack || Situation == EGameSituation.NPCAttack; }
 	}
 
 	public bool CandoBtn
 	{
 		get
-		{
-			if(Situation == EGameSituation.GamerInbounds || Situation == EGameSituation.NPCInbounds || Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall)
-				return false;
-			else
-				return true;
+        {
+		    return Situation != EGameSituation.GamerInbounds && 
+                   Situation != EGameSituation.NPCInbounds && 
+                   Situation != EGameSituation.GamerPickBall && 
+                   Situation != EGameSituation.NPCPickBall;
 		}
 	}
 

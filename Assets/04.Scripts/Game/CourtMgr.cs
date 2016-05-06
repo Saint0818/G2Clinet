@@ -64,23 +64,17 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     private UITexture textureArrow;
     public Transform[] EndPlayerPosition = new Transform[6];
     public GameObject[] CameraHood = new GameObject[2];
-    public Material BasketMaterial;
     public BallCurve RealBallCurve;
 
     public Dictionary<string, Vector3> DBasketShootWorldPosition = new Dictionary<string, Vector3>();
     public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>();
     public Dictionary<int, List<string>> DBasketAnimationNoneState = new Dictionary<int, List<string>>();
 
-	private int scoreTeam = 0;
-	private bool isSwishIn = false;
+	private int scoreTeam;
+	private bool isSwishIn;
 
-    [UsedImplicitly]
-    void Awake()
+    void OnDestroy()
     {
-       
-    }
-
-    void OnDestroy() {
         DBasketShootWorldPosition.Clear();
         DBasketAnimationName.Clear();
         DBasketAnimationNoneState.Clear();

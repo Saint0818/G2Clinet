@@ -8,7 +8,8 @@ namespace AI
         None,
         Attack,
         Defense,
-        ReturnToHome
+        ReturnToHome,
+        DebugAlleyoop
     }
 
     /// <summary>
@@ -39,6 +40,17 @@ namespace AI
             GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
         }
 
+        public void AddState(State<EPlayerAIState, EGameMsg> state)
+        {
+            mFSM.AddState(state);
+        }
+
+        public void ClearAllStates()
+        {
+            mFSM.ClearAllStates();
+            GameMsgDispatcher.Ins.RemoveListener(this, EGameMsg.GamePlayersCreated);
+        }
+
         [UsedImplicitly]
         private void FixedUpdate()
         {
@@ -64,10 +76,6 @@ namespace AI
 
         public override string ToString()
         {
-//            mBuilder.AppendFormat("{0}, AI Enable:{1}, State:{2}: Ani:{3}, MoveTarget:{4}",
-//                    mPlayers[i].name, mPlayers[i].enabled, mPlayers[i].GetCurrentStateName(),
-//                    mPlayers[i].GetCurrentAnimationName(), mPlayers[i].GetCurrentMoveTarget());
-
             return string.Format("Name:{0}, {1}", name, mFSM);
         }
 
@@ -75,27 +83,6 @@ namespace AI
         {
             mFSM.ChangeState(newState, extraInfo);
         }
-
-//        public string GetCurrentStateName()
-//        {
-//            if(mFSM.CurrentState.ID == EPlayerAIState.Attack)
-//            {
-//                var attack = (PlayerAttackState)mFSM.CurrentState;
-//                return string.Format("{0}.{1}", attack.ID, attack.GetCurrentState());
-//            }
-//
-//            return string.Format("{0}", mFSM.CurrentState.ID);
-//        }
-//
-//        public string GetCurrentAnimationName()
-//        {
-//            return string.Format("{0}", mPlayer.crtState);
-//        }
-//
-//        public Vector3 GetCurrentMoveTarget()
-//        {
-//            return mPlayer.TargetPosNum > 0 ? mPlayer.CurrentTargetPos : Vector3.zero;
-//        }
 
         public void HandleMessage(Telegram<EGameMsg> msg)
         {

@@ -95,7 +95,7 @@ namespace AI
         private PlayerBehaviour randomReceiveBallPlayer([NotNull] PlayerBehaviour exceptPlayer)
         {
             var team = AIController.Get.GetTeam(exceptPlayer.Team);
-            PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.AI);
+            PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.GetComponent<PlayerAI>());
 
             if (receivalBallPlayer != null)
                 return receivalBallPlayer.GetComponent<PlayerBehaviour>();
