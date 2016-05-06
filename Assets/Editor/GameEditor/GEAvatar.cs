@@ -421,7 +421,7 @@ public class GEAvatar : GEBase {
 		//Body Texture
 		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture: "+ bodyTextureText);
 		if(isAvatar) {
-			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 100, 50));
+			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBodyTexture.Count * 100, 50));
 			if (showBodyTexture.Count > 0) {
 				for (int i=0; i<showBodyTexture.Count; i++) {
 					if(GUI.Button(new Rect(90 * i, 0, 90, 30), showBodyTexture[i].name)) {
