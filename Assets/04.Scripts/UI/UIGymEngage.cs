@@ -797,7 +797,7 @@ public class UIGymEngage : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymOwn = result.GymOwn;
 
-			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 3 , GameData.DItemData[itemGymObjs[mItemGymObjIndex].ItemID].Buy);
+			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 3, itemGymObjs[mItemGymObjIndex].ItemID.ToString() , GameData.DItemData[itemGymObjs[mItemGymObjIndex].ItemID].Buy);
 
 			UIMainLobby.Get.UpdateUI();
 			if(mItemGymObjIndex >= 0 && mItemGymObjIndex < itemGymObjs.Count)
