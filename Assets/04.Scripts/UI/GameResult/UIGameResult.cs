@@ -516,7 +516,7 @@ public class UIGameResult : UIBase {
 		if(GameData.IsPVP) {
 			ShowMissionBoard ();
 		}else
-			stageRewardStart(GameData.StageID);
+			stageRewardStart(GameData.StageID, record.Score1, record.Score2);
 	}
 	//Click Event
 //	public void OnShowPlayerInfo (GameObject go) {}
@@ -912,22 +912,26 @@ public class UIGameResult : UIBase {
 		uiAwardSkip.SetActive(true);
 	}
 
-	/// <summary>
-	/// Stages the reward start.
-	/// </summary>
-	/// <param name="stageID">Stage I.</param>
-	private void stageRewardStart(int stageID)
+    /// <summary>
+    /// Stages the reward start.
+    /// </summary>
+    /// <param name="stageID">Stage I.</param>
+    /// <param name="points"></param>
+    /// <param name="lostPoints"></param>
+    private void stageRewardStart(int stageID, int points, int lostPoints)
 	{
-		ShowMissionBoard ();
+	    ShowMissionBoard();
 		beforePlayer = GameData.Team.Player;
-		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
-			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  
-				return;
-            else {
-                MainStageWinProtocol winProtocol = new MainStageWinProtocol();
-                winProtocol.Send(stageID, waitMainStageWin);
-			}
-		}
+	    if(!string.IsNullOrEmpty(GameData.Team.Identifier))
+	    {
+	        if(GameController.Visible && GameController.Get.StageData.Chapter == 0)
+	            return;
+	        else
+	        {
+	            var winProtocol = new StageWinProtocol();
+	            winProtocol.Send(stageID, points, lostPoints, waitMainStageWin);
+	        }
+	    }
 	}
 
 	private void waitMainStageWin(bool ok, TStageReward reward) {

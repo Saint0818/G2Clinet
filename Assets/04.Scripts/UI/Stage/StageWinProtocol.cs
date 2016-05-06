@@ -2,7 +2,7 @@
 using GameStruct;
 using UnityEngine;
 
-public class MainStageWinProtocol
+public class StageWinProtocol
 {
     /// <summary>
     /// <para>[bool]: true 為 server command 成功.</para>
@@ -12,13 +12,22 @@ public class MainStageWinProtocol
 
     private int mStageID;
 
-    public void Send(int stageID, Action<bool, TStageReward> callback)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stageID"></param>
+    /// <param name="points"> 玩家得分. </param>
+    /// <param name="lostPoints"> 玩家失分. </param>
+    /// <param name="callback"></param>
+    public void Send(int stageID, int points, int lostPoints, Action<bool, TStageReward> callback)
     {
         mCallback = callback;
         mStageID = stageID;
 
         WWWForm form = new WWWForm();
         form.AddField("StageID", mStageID);
+        form.AddField("Points", points);
+        form.AddField("LostPoints", lostPoints);
         SendHttp.Get.Command(URLConst.StageWin, waitMainStageWin, form);
     }
 
