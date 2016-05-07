@@ -54,9 +54,8 @@ public class LobbyStart : MonoBehaviour {
                     SendHttp.Get.gameObject.AddComponent<FpsLimiter>();
             }
 
+			SendHttp.Get.InitIAP();
             #if UNITY_ANDROID
-                SendHttp.Get.InitIAP();
-
                 #if PUSHWOOSH
                 SendHttp.Get.gameObject.AddComponent<Pushwoosh>();
                 #endif
