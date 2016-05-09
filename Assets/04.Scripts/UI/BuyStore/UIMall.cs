@@ -132,6 +132,7 @@ public class UIMall : UIBase {
 		obj.transform.localScale = Vector3.one;
 	}
 
+	//判斷活動是否開始
 	private bool IsStart (TPickCost pickCost) {
 		if(pickCost.StartTimeYear == 0 || pickCost.StartTimeMonth == 0 || pickCost.StartTimeDay == 0)
 			return true;
@@ -143,16 +144,6 @@ public class UIMall : UIBase {
 		return false;
 	}
 
-	private int howMuch (TPickCost pickCost, int spendType) {
-		if(spendType == EPickSpendType.ONE.GetHashCode())
-			return pickCost.OnePick;
-		else if(spendType == EPickSpendType.FIVE.GetHashCode())
-			return pickCost.FivePick;
-		else if(spendType == EPickSpendType.TEN.GetHashCode())
-			return pickCost.TenPick;
-		return -1;
-	}
-
 	public void OnOneBtn () {
 		int result = 0;
 		if(int.TryParse(UIButton.current.name, out result)) {
@@ -161,20 +152,10 @@ public class UIMall : UIBase {
 			choosetype = EPickSpendType.ONE.GetHashCode();
 			if(mallBoxs[chooseIndex].IsPickFree)
 				ConfirmUse ();
-			else {
-				if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-					if (!CheckDiamond (choosePickCost.OnePick, true, string.Format (TextConst.S (252), choosePickCost.OnePick), ConfirmUse, RefreshTextColor))
-						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-				} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-					if (!CheckMoney (choosePickCost.OnePick, true, string.Format (TextConst.S (253), choosePickCost.OnePick), ConfirmUse, RefreshTextColor))
-						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-				}
-			}
+			else 
+				onBtn(chooseIndex, choosePickCost.OnePick);
+			
 		}
-	}
-
-	public void ConfirmUse () {
-		SendPickLottery(choosePickCost.Order, choosetype);
 	}
 
 	public void OnFiveBtn () {
@@ -183,13 +164,7 @@ public class UIMall : UIBase {
 			chooseIndex = findIndexFromOrder(result);
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
 			choosetype = EPickSpendType.FIVE.GetHashCode();
-			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-				if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse, RefreshTextColor))
-					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-				if(!CheckMoney(choosePickCost.FivePick, true, string.Format(TextConst.S(253) , choosePickCost.FivePick), ConfirmUse, RefreshTextColor))
-					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			}
+			onBtn(chooseIndex, choosePickCost.FivePick);
 		}
 	}
 
@@ -199,13 +174,21 @@ public class UIMall : UIBase {
 			chooseIndex = findIndexFromOrder(result);
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
 			choosetype = EPickSpendType.TEN.GetHashCode();
-			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-				if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse, RefreshTextColor))
-					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-				if(!CheckMoney(choosePickCost.TenPick, true, string.Format(TextConst.S(253) , choosePickCost.TenPick), ConfirmUse, RefreshTextColor))
-					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
-			}
+			onBtn(chooseIndex, choosePickCost.TenPick);
+		}
+	}
+
+	public void ConfirmUse () {
+		SendPickLottery(choosePickCost.Order, choosetype);
+	}
+
+	private void onBtn (int index, int coin) {
+		if (mallBoxs[index].mPickCost.SpendKind == 0) {
+			if(!CheckDiamond(coin, true, string.Format(TextConst.S(252) , coin), ConfirmUse, RefreshTextColor))
+				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
+		} else if(mallBoxs[index].mPickCost.SpendKind == 1) {
+			if(!CheckMoney(coin, true, string.Format(TextConst.S(253) , coin), ConfirmUse, RefreshTextColor))
+				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		}
 	}
 
@@ -256,7 +239,6 @@ public class UIMall : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.Money = result.Money;
-//			GameData.Team.GotItemCount = result.GotItemCount;
 			newItemCount = result.GotItemCount;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;

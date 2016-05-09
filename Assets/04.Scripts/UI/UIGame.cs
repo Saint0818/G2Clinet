@@ -824,10 +824,10 @@ public class UIGame : UIBase
             Time.timeScale = 1;
         #else
         if (Time.timeScale == 1) 
-            Time.timeScale = 2;
-        else if (Time.timeScale == 2) 
-			Time.timeScale = 4;
-		else if (Time.timeScale == 4) 
+            Time.timeScale = 1.5f;
+		else if (Time.timeScale == 1.5f) 
+			Time.timeScale = 2;
+		else if (Time.timeScale == 2) 
 			Time.timeScale = 0.5f;
 		else if (Time.timeScale == 0.5f) 
             Time.timeScale = 1;
