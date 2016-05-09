@@ -1234,8 +1234,8 @@
     {
         "id": 3028,
         "explain": "秀戰力值",
-        "tw": "完整戰力值",
-        "en": "Complete Overall",
+        "tw": "戰力值",
+        "en": "Overall",
         "jp": "ok"
     },
     {
@@ -2977,7 +2977,7 @@
         "id": 7207,
         "uipath": "LabelKind4",
         "tw": "士氣需求",
-        "en": "REQUIRED ENERGY"
+        "en": "REQUIRED MORALE"
     },
     {
         "id": 7208,
@@ -4313,13 +4313,13 @@
         "explain": "按鈕",
         "uipath": "ViewAttack-Shoot",
         "tw": "跳 投",
-        "en": "Jump Shot"
+        "en": "SHOOT"
     },
     {
         "id": 10108,
         "uipath": "ViewAttack-PASS",
         "tw": "傳球",
-        "en": "Passing"
+        "en": "PASS"
     },
     {
         "id": 10109,
@@ -4343,25 +4343,25 @@
         "id": 10112,
         "uipath": "ViewDefance-Block",
         "tw": "火 鍋",
-        "en": "Block"
+        "en": "BLOCK"
     },
     {
         "id": 10113,
         "uipath": "ViewDefance-Steal",
         "tw": "抄 截",
-        "en": "Steal"
+        "en": "STEAL"
     },
     {
         "id": 10114,
         "uipath": "ButtonAttack-Elbow",
         "tw": "肘 擊",
-        "en": "Elbow"
+        "en": "ELBOW"
     },
     {
         "id": 10115,
         "uipath": "ButtonAttack-Push",
         "tw": "推 人",
-        "en": "Push"
+        "en": "PUSH"
     },
     {
         "id": 10201,
@@ -4719,6 +4719,11 @@
         "uipath": "三選一",
         "tw": "獎勵三選一",
         "en": "Choose 1 out of 3 as a reward"
+    },
+    {
+        "id": 10418,
+        "tw": "點擊繼續",
+        "en": "Tap to Continue"
     },
     {
         "id": 10500,
@@ -5967,7 +5972,7 @@
         "id": 100001,
         "explain": "生涯關卡",
         "tw": "[FFDD33]生  涯[-]",
-        "en": "[FFDD33]Career[-] "
+        "en": "[FFDD33]Story[-] "
     },
     {
         "id": 100002,
