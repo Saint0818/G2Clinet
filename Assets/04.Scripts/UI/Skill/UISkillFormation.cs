@@ -1448,6 +1448,8 @@ public class UISkillFormation : UIBase {
 				return ;
 			}
 		}
+		scrollViewCardList.transform.localPosition = new Vector3(40, -25 ,0);
+		scrollViewCardPanel.clipOffset = Vector2.zero;
 	}
 
 	//From Item RemoveButton

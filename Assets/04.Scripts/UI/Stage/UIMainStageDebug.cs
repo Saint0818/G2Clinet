@@ -17,8 +17,8 @@ public class UIMainStageDebug
         Debug.LogFormat("waitStart, ok:{0}", ok);
         Debug.Log(data);
 
-        var win = new MainStageWinProtocol();
-        win.Send(mStageID, waitMainStageWin);
+        var win = new StageWinProtocol();
+        win.Send(mStageID, 0, 0, waitMainStageWin);
     }
 
     private void waitMainStageWin(bool ok, TStageReward reward)

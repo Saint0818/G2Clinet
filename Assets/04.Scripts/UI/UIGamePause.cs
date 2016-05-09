@@ -32,6 +32,8 @@ public class UIGamePause : UIBase {
 	private UISprite[] spritePlayerPosition = new UISprite[3];
 	private UILabel[] labelPlayerLv = new UILabel[3];
 
+	private GameObject[] tabSelect = new GameObject[3];
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -89,6 +91,10 @@ public class UIGamePause : UIBase {
 			labelPlayerLv[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
 		}
 
+		tabSelect[0] = GameObject.Find(UIName + "/Window/Right/View/HomeBtn/Select");
+		tabSelect[1] = GameObject.Find(UIName + "/Window/Right/View/TargetBtn/Select");
+		tabSelect[2] = GameObject.Find(UIName + "/Window/Right/View/AwayBtn/Select");
+
 		labelStrategy = GameObject.Find(UIName + "/Window/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
 
 		SetBtnFun(UIName + "/Window/Bottom/ButtonResume", OnResume);
@@ -138,6 +144,11 @@ public class UIGamePause : UIBase {
 		}
 	}
 
+	private void setTabSelect (int index) {
+		for (int i=0; i<tabSelect.Length; i++) 
+			tabSelect[i].SetActive((i == index));
+	}
+
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
 		labelStrategy.text =  GameData.Team.Player.StrategyText;
@@ -145,6 +156,7 @@ public class UIGamePause : UIBase {
 		uiStageHint.UpdateValue(GameController.Get.StageData.ID);
 		UIShow(true);
 		uiGameResult.SetActive(false);
+		setTabSelect(1);
 	}	
 
 	private void hideSelect () {
@@ -186,7 +198,7 @@ public class UIGamePause : UIBase {
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/AST/LabelValue", player.Assist.ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/STL/LabelValue", (player.Steal + player.Intercept).ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/BLK/LabelValue", player.Block.ToString());
-		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
+//		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/PUSH/LabelValue", player.Push.ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/KNOCK/LabelValue", player.Knock.ToString());
 		
@@ -257,6 +269,7 @@ public class UIGamePause : UIBase {
 		uiStageHint.Hide();
 		uiGameResult.SetActive(true);
 		setInfo(0, ref gameRecord);
+		setTabSelect(0);
 	}
 
 	public void OnAwayResult () {
@@ -264,12 +277,14 @@ public class UIGamePause : UIBase {
 		uiStageHint.Hide();
 		uiGameResult.SetActive(true);
 		setInfo(3, ref gameRecord);
+		setTabSelect(2);
 	}
 
 	public void OnBackToTarget (){
 		pauseType = EPauseType.Target;
 		uiStageHint.Show();
 		uiGameResult.SetActive(false);
+		setTabSelect(1);
 	}
 
     public void OnStrategy() {

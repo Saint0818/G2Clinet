@@ -208,8 +208,7 @@ public class UISuitAvatar : UIBase {
 	void OnDestroy() {
 		if (tItemSuitAvatarGroup != null)
 			tItemSuitAvatarGroup.Clear();
-
-		uiSuitCard.OnDestroy();
+		
 		CancelInvoke("RunStar");
 	}
 
@@ -289,7 +288,8 @@ public class UISuitAvatar : UIBase {
 		ClickTab(tab);
 		if(tab == 0) 
 			uiSuitCard.MoveToID(suitId);
-		
+
+
 		RefreshTabsRedPoint();
 	}
 

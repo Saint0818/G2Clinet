@@ -296,7 +296,7 @@ public class TAvatarLoader : MonoBehaviour {
                                 avatarPartObj.transform.localPosition = Vector3.zero;
                                 avatarPartObj.transform.localEulerAngles = Vector3.zero;
                                 avatarPartObj.transform.localScale = Vector3.one;
-                                LayerMgr.Get.SetLayer(avatarPartObj, layer);
+								LayerMgr.Get.SetLayerAllChildren(avatarPartObj, layer);
                             }
                         }
 					}
@@ -485,7 +485,7 @@ public class TAvatarLoader : MonoBehaviour {
                                 avatarPartObj.transform.localPosition = Vector3.zero;
                                 avatarPartObj.transform.localEulerAngles = Vector3.zero;
                                 avatarPartObj.transform.localScale = Vector3.one;
-                                LayerMgr.Get.SetLayer(avatarPartObj, layer);
+								LayerMgr.Get.SetLayerAllChildren(avatarPartObj, layer);
                             }
                         }
                     }
