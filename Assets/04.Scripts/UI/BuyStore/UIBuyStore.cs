@@ -186,10 +186,8 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void FinishDrawLottery () {
-        UIMainLobby.Get.Hide(false);
         UIResource.Get.Show();
 		animationBuy.SetTrigger("Finish");
-//		GameData.Team.SkillCards = newSkillCard;
 		GameData.Team.GotItemCount = newGetItemCount;
 	}
 
@@ -197,8 +195,6 @@ public class UIBuyStore : UIBase {
 		oneItem.Reset();
 		fiveItem.Reset();
 		tenItem.Reset();
-
-        UIMainLobby.Get.Hide(false);
 
         animationBuy.SetTrigger("Again");	
 		UI3DBuyStore.Get.AgainRaffle();
@@ -216,6 +212,7 @@ public class UIBuyStore : UIBase {
 	}
 
 	public void ConfirmUse () {
+		UIResource.Get.Hide();
 		SendPickLottery(mPickCost.Order, mSpendType);
 	}
 
@@ -268,7 +265,6 @@ public class UIBuyStore : UIBase {
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;
-			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 			refreshLabelColor ();
 			if(result.ItemIDs != null) {

@@ -121,6 +121,9 @@ public class UIMall : UIBase {
 		}
 		if(mallBoxs.Count > 0)
 			mallBoxs[1].Tween.gameObject.SetActive(true);
+
+		RefreshTextColor ();
+
 	}
 
 	private void setParentInit (GameObject obj, GameObject parent) {
@@ -160,10 +163,10 @@ public class UIMall : UIBase {
 				ConfirmUse ();
 			else {
 				if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-					if (!CheckDiamond (choosePickCost.OnePick, true, string.Format (TextConst.S (252), choosePickCost.OnePick), ConfirmUse))
+					if (!CheckDiamond (choosePickCost.OnePick, true, string.Format (TextConst.S (252), choosePickCost.OnePick), ConfirmUse, RefreshTextColor))
 						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 				} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-					if (!CheckMoney (choosePickCost.OnePick, true, string.Format (TextConst.S (253), choosePickCost.OnePick), ConfirmUse))
+					if (!CheckMoney (choosePickCost.OnePick, true, string.Format (TextConst.S (253), choosePickCost.OnePick), ConfirmUse, RefreshTextColor))
 						AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 				}
 			}
@@ -181,10 +184,10 @@ public class UIMall : UIBase {
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
 			choosetype = EPickSpendType.FIVE.GetHashCode();
 			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-				if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse))
+				if(!CheckDiamond(choosePickCost.FivePick, true, string.Format(TextConst.S(252) , choosePickCost.FivePick), ConfirmUse, RefreshTextColor))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-				if(!CheckMoney(choosePickCost.FivePick, true, string.Format(TextConst.S(253) , choosePickCost.FivePick), ConfirmUse))
+				if(!CheckMoney(choosePickCost.FivePick, true, string.Format(TextConst.S(253) , choosePickCost.FivePick), ConfirmUse, RefreshTextColor))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			}
 		}
@@ -197,10 +200,10 @@ public class UIMall : UIBase {
 			choosePickCost = mallBoxs[chooseIndex].mPickCost;
 			choosetype = EPickSpendType.TEN.GetHashCode();
 			if (mallBoxs[chooseIndex].mPickCost.SpendKind == 0) {
-				if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse))
+				if(!CheckDiamond(choosePickCost.TenPick, true, string.Format(TextConst.S(252) , choosePickCost.TenPick), ConfirmUse, RefreshTextColor))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			} else if(mallBoxs[chooseIndex].mPickCost.SpendKind == 1) {
-				if(!CheckMoney(choosePickCost.TenPick, true, string.Format(TextConst.S(253) , choosePickCost.TenPick), ConfirmUse))
+				if(!CheckMoney(choosePickCost.TenPick, true, string.Format(TextConst.S(253) , choosePickCost.TenPick), ConfirmUse, RefreshTextColor))
 					AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 			}
 		}
@@ -247,6 +250,7 @@ public class UIMall : UIBase {
 	{
 		if(ok)
 		{
+			recordStatistic ();
             TPickLotteryResult result = JsonConvertWrapper.DeserializeObject<TPickLotteryResult>(www.text);
 			GameData.Team.Items = result.Items;
 			GameData.Team.SkillCards = result.SkillCards;
@@ -256,7 +260,6 @@ public class UIMall : UIBase {
 			newItemCount = result.GotItemCount;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.LotteryFreeTime = result.LotteryFreeTime;
-			UIMainLobby.Get.UpdateUI();
 			GameData.Team.InitSkillCardCount();
 
 			if(result.ItemIDs != null) {
@@ -275,12 +278,10 @@ public class UIMall : UIBase {
 	}
 
 	public void OpenLottery (TItemData[] itemDatas) {
-		recordStatistic ();
 		UIMainLobby.Get.Hide();
 		UI3DMainLobby.Get.Hide();
 		Hide ();
 		UIBuyStore.Get.ShowView(choosePickCost, chooseIndex, choosetype, itemDatas);
-//		UIBuyStore.Get.SetNewSkillCard(newSkillCard);
 		UIBuyStore.Get.SetNewSkillCard(newItemCount);
 		UIResource.Get.Hide();
 		UI3DBuyStore.Get.Show();

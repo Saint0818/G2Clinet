@@ -214,15 +214,6 @@ public class UISkillReinforce : UIBase {
 		SetBtnFun(path, callback);
 	}
 
-	public void OnShowDiamond () {
-		if(IsCanClick)
-			UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), RefreshPriceUI);
-	}
-
-	public void OnCoin () {
-		if(IsCanClick)
-			UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode(), RefreshPriceUI);
-	}
 	/// <summary>
 	/// Show the specified skill, index, isAlreadyEquip and showType.
 	/// 0: Reinforce 1: Evolution
@@ -382,7 +373,7 @@ public class UISkillReinforce : UIBase {
 
 //		UIEventListener.Get(obj).onClick = ChooseItem;
 		UIButton btn = obj.GetComponent<UIButton>();
-		SetBtnFun(ref btn, ChooseItem);
+		SetBtnFun(ref btn, ChooseItemCallback);
 
 		return passiveSkillCard;
 	}
@@ -546,7 +537,7 @@ public class UISkillReinforce : UIBase {
 	}
 
 	//TODO:使用多型
-	public void ChooseItem () {
+	public void ChooseItemCallback () {
 		ChooseItem(false);
 	}
 

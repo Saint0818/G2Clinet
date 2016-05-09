@@ -48,21 +48,21 @@ public class UIResource : UIBase
         View.MoneyObj.GetComponent<UIButton>().onClick.Add(new EventDelegate(() =>
         {
             if(!UIRecharge.Visible)
-                UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode(), null, false);
+                UIRecharge.Get.ShowView(ERechargeType.Coin.GetHashCode(), false);
 				
 			UIMail.SetFocus (false);
         }));
         View.DiamondObj.GetComponent<UIButton>().onClick.Add(new EventDelegate(() =>
         {
             if (!UIRecharge.Visible)
-                UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
+                UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), false);
 
 			UIMail.SetFocus (false);
         }));
         View.PowerObj.GetComponent<UIButton>().onClick.Add(new EventDelegate(() =>
         {
             if (!UIRecharge.Visible)
-                UIRecharge.Get.ShowView(ERechargeType.Power.GetHashCode(), null, false);
+                UIRecharge.Get.ShowView(ERechargeType.Power.GetHashCode(), false);
 
 			UIMail.SetFocus (false);
         }));

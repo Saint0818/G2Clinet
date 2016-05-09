@@ -242,7 +242,7 @@ public class UIRecharge : UIBase {
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 	}
 
-	public void ShowView (int type, EventDelegate.Callback uiUpdate = null ,bool isNeedRecord = true) {
+	public void ShowView (int type ,bool isNeedRecord = true) {
 		if(!UISkillReinforce.Visible) {
 			if(IsNeedShowLobbyMenu)
 				UIMainLobby.Get.Hide();
@@ -265,8 +265,6 @@ public class UIRecharge : UIBase {
 			recordType = type;
 		
 		UIShow(true);
-		if (uiUpdate != null)
-			UIRecharge.FreshUICallback = uiUpdate;
 
 		showTab(type);
 		if(!isInit) {
@@ -439,8 +437,8 @@ public class UIRecharge : UIBase {
 				    UIMainLobby.Get.Hide();
                     UIResource.Get.Show(UIResource.EMode.PvpSocial);
 				}
-			    if(UIMall.Visible)
-					UIMall.Get.RefreshTextColor();
+//			    if(UIMall.Visible)
+//					UIMall.Get.RefreshTextColor();
 //				if(UIGym.Visible)
 //					UIGym.Get.RefreshDiamondColor();
 

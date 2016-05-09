@@ -784,13 +784,13 @@ public class UIGameResult : UIBase {
 				stageRewardAgain(GameData.StageID, GameConst.Stage3Pick1Diamond2);
 				return true;
 			} else
-				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
+				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), false);
 		} else if(resultThree.ChooseCount == 2) {
 			if(GameData.Team.Diamond >= GameConst.Stage3Pick1Diamond3) {
 				stageRewardAgain(GameData.StageID, GameConst.Stage3Pick1Diamond3);
 				return true;
 			} else
-				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), null, false);
+				UIRecharge.Get.ShowView(ERechargeType.Diamond.GetHashCode(), false);
 		}
 		return false;
 	}
