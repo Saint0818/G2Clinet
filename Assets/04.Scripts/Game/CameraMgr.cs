@@ -177,7 +177,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
             cameraFx.gameObject.name = scene.ToString();
             cameraAnimator = cameraFx.GetComponent<Animator>();
-
+            /*
 			if (!IsOpenColorfulFX && cameraFx) 
 			{
 				if (cameraFx.GetComponent<CC_Sharpen> ())
@@ -188,7 +188,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 				if (cameraFx.GetComponent<CC_RadialBlur> ())
 					cameraFx.GetComponent<CC_RadialBlur> ().enabled = false;
-			}
+			}*/
 
             cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
             cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;

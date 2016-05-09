@@ -350,8 +350,8 @@ public class UIShop : UIBase {
 					else 
 						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitCard)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) , Color.black);
 					
-                    Visible = false;
-                    UIPlayerAvatar.Visible = false;
+                    //Visible = false;
+                    //UIPlayerAvatar.Visible = false;
                 } else
                 if (GameData.DItemData[id].Kind <= 7)
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
