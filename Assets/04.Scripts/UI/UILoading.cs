@@ -377,10 +377,6 @@ public class UILoading : UIBase
 
     IEnumerator doLoading(ELoading kind)
     {
-        float minWait = 2;
-        float maxWait = 4;
-        float waitTime = 1;
-
         if (kind != ELoading.Login)
             ProgressValue = 0.3f;
 
@@ -434,14 +430,17 @@ public class UILoading : UIBase
                 yield return new WaitForSeconds(1);
                 GameController.Get.ChangeSituation(EGameSituation.None);
                 GameController.Get.LoadStage(GameData.StageID);
+                GameController.Get.StageStart();
 
+                UIShow(false);
+                /*
 			    buttonNext.SetActive(true);
 			    loadingPic.SetActive(false);
 				if(GameData.IsPVP)
 					AudioMgr.Get.PlayMusic(EMusicType.MU_BattlePVP);
 				else
 					AudioMgr.Get.PlayMusic(EMusicType.MU_BattleNormal);
-                
+                */
                 break;
             case ELoading.Stage:
                 ProgressValue = 1;

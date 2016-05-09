@@ -8,7 +8,8 @@ public class UITutorial : UIBase {
 	private const string UIName = "UITutorial";
 
 	public int NextEventID = 0;
-	private int NowMessageIndex = -1;
+    private int nowMessageIndex = -1;
+    private int autoMessageIndex = -1;
 	private int clickLayer;
 	private bool textFinish = false;
 
@@ -124,7 +125,10 @@ public class UITutorial : UIBase {
 	}
 
 	public void OnTextFinish() {
-		textFinish = true;
+        textFinish = true;
+        if (autoMessageIndex == nowMessageIndex) {
+            StartCoroutine(waitAutoTutorial(1));
+        }
 	}
 
     public void ForceNextStep() {
@@ -136,9 +140,9 @@ public class UITutorial : UIBase {
 
 	public void OnTutorial() {
         if (Visible && !uiClick.activeInHierarchy){
-			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1)) {
+			if (GameData.DTutorial.ContainsKey(nowMessageIndex + 1)) {
 				if (textFinish || string.IsNullOrEmpty(labelMessage.text) || labelMessage.text ==" ")
-					ShowTutorial(NowMessageIndex / 100, NowMessageIndex % 100 + 1);
+					ShowTutorial(nowMessageIndex / 100, nowMessageIndex % 100 + 1);
 				else 
 					writeEffect.Finish();
 			} else 
@@ -154,6 +158,14 @@ public class UITutorial : UIBase {
     IEnumerator waitNextTutorial(float sec) {
         yield return new WaitForSeconds(sec);
         OnTutorial();
+    }
+
+    IEnumerator waitAutoTutorial(float sec) {
+        if (autoMessageIndex == nowMessageIndex) {
+            yield return new WaitForSeconds(sec);
+            autoMessageIndex = -1;
+            OnTutorial();
+        }
     }
 
 	IEnumerator showPlayer(TTutorial tu) {
@@ -195,15 +207,15 @@ public class UITutorial : UIBase {
                 return;
             }
 			
-			NowMessageIndex  = id * 100 + line;
-			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
+			nowMessageIndex  = id * 100 + line;
+			if (GameData.DTutorial.ContainsKey(nowMessageIndex)) {
 				if (!Visible) {
 					UIShow(true);
 					GameFunction.FindTalkManID(id, ref talkManID);
-					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
-						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
+					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[nowMessageIndex].ID)) {
+						GameData.Team.AddTutorialFlag(GameData.DTutorial[nowMessageIndex].ID);
 						WWWForm form = new WWWForm();
-						form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
+						form.AddField("ID", GameData.DTutorial[nowMessageIndex].ID);
 						SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
 					}
 				}
@@ -217,7 +229,7 @@ public class UITutorial : UIBase {
                 uiMessage.SetActive(false);
                 uiBackground.SetActive(false);
 
-				TTutorial tu = GameData.DTutorial[NowMessageIndex];
+				TTutorial tu = GameData.DTutorial[nowMessageIndex];
 
                 if (tu.Wait >= 0.1f)
                     StartCoroutine(waitNextTutorial(tu.Wait));
@@ -239,11 +251,11 @@ public class UITutorial : UIBase {
                     }
 				}
 
-                if (id < 100 && GameData.DTutorial[NowMessageIndex].Kind != 1 && GameData.DTutorial[NowMessageIndex].Kind != 3)
-                    Statistic.Ins.LogScreen(20000+NowMessageIndex, "UITutorial");
+                if (id < 100 && GameData.DTutorial[nowMessageIndex].Kind != 1 && GameData.DTutorial[nowMessageIndex].Kind != 3)
+                    Statistic.Ins.LogScreen(20000+nowMessageIndex, "UITutorial");
                 
 			} else {
-				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
+				Debug.Log(nowMessageIndex.ToString() + " tutorial message index not found.");
 				UIShow(false);
 			}
 		} catch (UnityException e) {
@@ -412,7 +424,7 @@ public class UITutorial : UIBase {
                 } else
                     uiTalk[i].SetActive(false);
         }
-
+        autoMessageIndex = nowMessageIndex;
         StartCoroutine(showPlayer(tu));
     }
 }

@@ -359,12 +359,23 @@ public class GameController : KnightSingleton<GameController>
 		InitGame();	
 	}
 
+    IEnumerator playBMG() {
+        yield return new WaitForSeconds(1);
+
+        if(GameData.IsPVP)
+            AudioMgr.Get.PlayMusic(EMusicType.MU_BattlePVP);
+        else
+            AudioMgr.Get.PlayMusic(EMusicType.MU_BattleNormal);
+    }
+
     public void StageStart() {
         if (TestMode == EGameTest.None && LobbyStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
             GamePlayTutorial.Get.SetTutorialData(StageData.ID);
 
         if (Situation == EGameSituation.None)
-            CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+            CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+
+        StartCoroutine(playBMG());
     }
 
 	public void StartGame(bool jumpBall=true) {
