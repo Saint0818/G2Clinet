@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using GameEnum;
 
 /// <summary>
 /// 每日登入獎勵介面.
@@ -92,6 +93,11 @@ public class UIDailyLogin : UIBase
     public void Show()
     {
 		//UIMainLobby.Get.Hide();// 因改在mail介面下, 所以不需要自己開啟主UI
+		int day = DateTime.Now.Day;
+		PlayerPrefs.SetInt(ESave.AutoShowDailyLoginDate.ToString(), day);
+		PlayerPrefs.SetInt(ESave.AutoShowDailyLoginDone.ToString(), 1);
+
+
         Show(DateTime.Now.Year, DateTime.Now.Month);
     }
 

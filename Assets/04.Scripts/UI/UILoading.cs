@@ -177,6 +177,27 @@ public class UILoading : UIBase
         }
     }
 
+	public static void OpenDailyLogin()
+	{
+
+		int check = PlayerPrefs.GetInt(ESave.AutoShowDailyLoginDone.ToString(), 0);
+
+		if (check == 0)
+			UIDailyLogin.Get.Show ();//.Visible = true;
+		else
+		{
+			int day = DateTime.Now.Day;
+			int date = PlayerPrefs.GetInt(ESave.AutoShowDailyLoginDate.ToString(), -1);
+			if (day != date)
+				UIDailyLogin.Get.Show ();//.Visible = true;
+		}
+
+//		if(!UITutorial.Visible && 
+//			(UIDailyLoginHelper.HasTodayDailyLoginReward() || UIDailyLoginHelper.HasLifetimeLoginReward()))
+//			UIDailyLogin.Get.Show();
+
+	}
+
     public void OnStageStart() {
         UIShow(false);
         if (GameController.Visible)

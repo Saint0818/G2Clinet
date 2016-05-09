@@ -81,6 +81,8 @@
         // 2:Get New Card
         NoticDate,
         NoticDaily,
+		AutoShowDailyLoginDate,
+		AutoShowDailyLoginDone,
         Quality,
         ShowEvent,
         ShowWatchFriend,
