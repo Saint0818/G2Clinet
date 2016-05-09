@@ -217,7 +217,7 @@ public class UISuitCard {
 
 	private UILabel labelSuitCost;
 	private UIScrollView scrollView;
-//	private UISuitCardGrid suitCardGrid;
+	private UISuitCardGrid suitCardGrid;
 	private GameObject viewCaption;
 	private UILabel labelCaptionSuitName;
 	private UIScrollView scrollViewCaption;
@@ -244,8 +244,8 @@ public class UISuitCard {
 			
 			labelSuitCost = GameObject.Find(UIName + "/Window1/SuitCardsView/Top/SuitCostLabel").GetComponent<UILabel>();
 			scrollView = GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView").GetComponent<UIScrollView>();
-//			scrollView.onDragFinished = dragFinish;
-//			suitCardGrid =  GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView/Grid").GetComponent<UISuitCardGrid>();
+			scrollView.onDragFinished = dragFinish;
+			suitCardGrid =  GameObject.Find(UIName + "/Window1/SuitCardsView/MainView/ScrollView/Grid").GetComponent<UISuitCardGrid>();
 			viewCaption = GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView");
 			UIEventListener.Get(GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView/CoverCollider")).onClick = HideCaption;
 			labelCaptionSuitName = GameObject.Find(UIName + "/Window1/SuitCardsView/CaptionView/View/SuitNameLabel").GetComponent<UILabel>();
@@ -328,31 +328,29 @@ public class UISuitCard {
 			if(executeLevel != groupValue.SuitCard.StarNum.Length -1) 
 				groupValue.NextStar = groupValue.SuitCard.StarNum[executeLevel + 1];
 
-			item.UpdateView(obj, scrollView.transform, groupValue);
+			item.UpdateView(obj, suitCardGrid.transform, groupValue);
 			itemSuitCards.Add(item);
 			index ++;
 		}
 
-//		suitCardGrid.init();
-//		suitCardGrid.mChildren = itemSuitCards;
-//		dragFinish ();
+		suitCardGrid.init();
+		suitCardGrid.mChildren = itemSuitCards;
+		dragFinish ();
 
 		labelSuitCost.text = costNow + " / " + costMax.ToString();
 	}
 			
-//	private void dragFinish () {
-//		suitCardGrid.WrapContent(false);	
-//	}
+	private void dragFinish () {
+		suitCardGrid.WrapContent(false);	
+	}
 
 	private void findItemIDMax (int[] itemids, ref TItemData itemdata, ref int itemlv , ref int count) {
 		int id = 0;
 		int basicStar = 0;
-		int index = 0;
 		for(int i = 0; i < itemids.Length; i++) {
 			if(GameData.DItemData.ContainsKey(itemids[i]) && GameData.DSkillData.ContainsKey(GameData.DItemData[itemids[i]].Avatar)) {
 				if(GameData.Team.IsGetItem(itemids[i])) {
 					if(GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].BasicStar >= basicStar) {
-						index = i;
 						id = itemids[i];
 						basicStar = GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].BasicStar;
 					}
@@ -366,24 +364,14 @@ public class UISuitCard {
 		}
 	}
 
-
-
-	 //加總前面卡牌的星星數
-//	private int findItemIDStars (int index, int[] itemids) {
-//		int count = 0;
-//		for (int i=0; i<itemids.Length; i++) 
-//			if(i<index)
-//				count += GameData.DSkillData[GameData.DItemData[itemids[i]].Avatar].MaxStar;
-//			
-//		return count;
-//	}
-
 	public void MoveToID (int id) {
 		if(id > 0) {
 			int index = GameData.Team.GetSuitCardIndex(id);
 			scrollView.gameObject.transform.localPosition = new Vector3(15, 30 + (345 * index), 0);
 			scrollView.panel.clipOffset = new Vector2(0, -(scrollView.gameObject.transform.localPosition.y - 20));
 		}
+
+		dragFinish ();
 	}
 
 	public void ClickCard (GameObject go) {

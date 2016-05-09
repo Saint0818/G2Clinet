@@ -186,7 +186,7 @@ public class UIGamePause : UIBase {
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/AST/LabelValue", player.Assist.ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/STL/LabelValue", (player.Steal + player.Intercept).ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/BLK/LabelValue", player.Block.ToString());
-		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
+//		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/TOV/LabelValue", (player.BeIntercept + player.BeSteal).ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/PUSH/LabelValue", player.Push.ToString());
 		SetLabel(UIName + "/Window/Right/View/GameResult/ScrollView/View/GameAttribute"+ index.ToString() +"/KNOCK/LabelValue", player.Knock.ToString());
 		

@@ -249,7 +249,9 @@ public class UIGamePlayerInfo : UIBase {
 		gamePersonalView.UpdateView(gamePersonalvalue, GameData.IsPVP);
 		updateNormalAttr(player.BaseAttribute);
 		updateBuffAttr(player.BaseAttribute, player.Attribute);
-		initSkillList();
+//		Invoke("initSkillList", 1f);
+//		initSkillList();
+		StartCoroutine(initSkillList());
 	}
 
 	public void OnSkillHint() {
@@ -258,12 +260,22 @@ public class UIGamePlayerInfo : UIBase {
 			UISkillInfo.Get.ShowFromNewCard(skillList[index].Skill);
 	}
 
-	private void initSkillList() {
+	IEnumerator WaitForRealSeconds(float time) {
+		float start = Time.realtimeSinceStartup;
+		while (Time.realtimeSinceStartup < start + time)
+		{
+			yield return null;
+		}
+	}
+
+	private IEnumerator initSkillList() {
+		for (int i = 0; i < skillList.Count; i++)
+			skillList[i].Enable = false;
+		
+		yield return StartCoroutine(WaitForRealSeconds(0.5f));
+
 		for (int i = 0; i < skillCards.Length; i++)
 			addSkillItem(i, skillCards[i]);
-
-		for (int i = skillCards.Length; i < skillList.Count; i++)
-			skillList[i].Enable = false;
 
 		scrollView.gameObject.transform.localPosition = Vector3.zero;
 		scrollView.Scroll(0);
