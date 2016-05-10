@@ -1385,14 +1385,6 @@ namespace GameStruct
 			}
 	}
 
-	public class TSkillAttribute
-	{
-			public int ID;
-			public int Kind;
-			public float Value;
-			public float CDTime;
-	}
-
 	public struct TPickCost {
 		public int ID;
 		public int Order;

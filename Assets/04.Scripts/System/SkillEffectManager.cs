@@ -61,7 +61,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private bool isInRange (GameObject obj, PlayerBehaviour player) {
 		return Vector2.Distance(new Vector2(GameController.Get.Joysticker.PlayerRefGameObject.transform.position.x, GameController.Get.Joysticker.PlayerRefGameObject.transform.position.z), 
-			new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[player.ActiveSkillUsed.ID].Distance(player.ActiveSkillUsed.Lv);
+			new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[player.PlayerSkillController.ActiveSkillUsed.ID].Distance(player.PlayerSkillController.ActiveSkillUsed.Lv);
 	}
 
 	private bool IsJudgeDistance (int[] targetkind) {
@@ -76,11 +76,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		int skillID = 0;
 
 		if(isPassiveID) {
-			if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID) && player.PlayerSkillController.IsPassiveUse) 
-				skillID = player.PassiveSkillUsed.ID;
+			if(GameData.DSkillData.ContainsKey(player.PlayerSkillController.PassiveSkillUsed.ID) && player.PlayerSkillController.IsPassiveUse) 
+				skillID = player.PlayerSkillController.PassiveSkillUsed.ID;
 		} else {
-			if(GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID) && player.PlayerSkillController.IsActiveUse)
-				skillID = player.ActiveSkillUsed.ID;
+			if(GameData.DSkillData.ContainsKey(player.PlayerSkillController.ActiveSkillUsed.ID) && player.PlayerSkillController.IsActiveUse)
+				skillID = player.PlayerSkillController.ActiveSkillUsed.ID;
 		}
 
 		if(skillID > 0) {
@@ -137,9 +137,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	private List<GameObject> getSkillEffectPosition (PlayerBehaviour player, int index, int effectkind, bool isPassive) {
 		string key = string.Empty;
 		if(isPassive) 
-			key = player.TimerKind.GetHashCode() + "_"+ player.PassiveSkillUsed.ID + "_"+ index + "_" + effectkind;
+			key = player.TimerKind.GetHashCode() + "_"+ player.PlayerSkillController.PassiveSkillUsed.ID + "_"+ index + "_" + effectkind;
 		else 
-			key = player.TimerKind.GetHashCode() + "_"+ player.ActiveSkillUsed.ID + "_"  + index + "_" + effectkind;
+			key = player.TimerKind.GetHashCode() + "_"+ player.PlayerSkillController.ActiveSkillUsed.ID + "_"  + index + "_" + effectkind;
 		
 		if(skillEffectPositions.ContainsKey (key)) 
 			return skillEffectPositions[key];

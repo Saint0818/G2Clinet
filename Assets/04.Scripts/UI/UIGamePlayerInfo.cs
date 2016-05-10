@@ -247,7 +247,7 @@ public class UIGamePlayerInfo : UIBase {
 		gamePersonalvalue.isJoystick = (GameController.Get.Joysticker == player);
 		gamePersonalvalue.Team = player.Team;
 		gamePersonalView.UpdateView(gamePersonalvalue, GameData.IsPVP);
-		updateNormalAttr(player.BaseAttribute);
+		updateNormalAttr(player.Attribute);
 		updateBuffAttr(player.BaseAttribute, player.Attribute);
 //		Invoke("initSkillList", 1f);
 //		initSkillList();

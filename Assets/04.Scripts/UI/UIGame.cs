@@ -605,9 +605,7 @@ public class UIGame : UIBase
     {
         skillRangeTarget = null;
 
-		if (state && IsPlayerMe && !PlayerMe.IsJump && !PlayerMe.IsUseActiveSkill && 
-            (GameController.Get.Situation == EGameSituation.GamerAttack ||
-            GameController.Get.Situation == EGameSituation.NPCAttack))
+		if (state && IsPlayerMe && !PlayerMe.IsJump && !PlayerMe.IsUseActiveSkill && GameController.Get.IsGameAttack)
         {
             switch (type)
             {
@@ -905,7 +903,6 @@ public class UIGame : UIBase
     {
         ShowSkillEnableUI(true);
 		SetAngerUI(PlayerMe.TotalMaxAnger, PlayerMe.AngerPower, 0);
-        runSkillValue();
     }
 
     public void ShowSkillEnableUI(bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false)
@@ -988,7 +985,35 @@ public class UIGame : UIBase
             }
         }
         runSkillValue();
-    }
+	}
+
+	public void AddForceReviveValue(float max, float anger, int count)
+	{
+		oldForceValue = (anger / max);
+		newForceValue = oldForceValue;
+        spriteForce.fillAmount = oldForceValue;
+		uiForceNum.text = Mathf.RoundToInt(anger) + "/[13CECEFF]" + max + "[-]";
+        runSkillValue();
+	}
+
+	public bool AddForceValue()
+	{
+		PlayGetDCSoul();
+		oldForceValue += baseForceValue;
+		if (dcCount >= 0)
+			dcCount--;
+
+		oldForceValue = Mathf.Clamp(oldForceValue, 0, newForceValue);
+		spriteForce.fillAmount = oldForceValue;
+		if (!SkillDCExplosion.Get.IsHaveDC)
+		{
+			dcCount = 0;
+			spriteForce.fillAmount = newForceValue;
+		}
+
+		runSkillValue();
+		return true;
+	}
 
     private void runSkillValue()
     {
@@ -1032,34 +1057,6 @@ public class UIGame : UIBase
             }
         }
         return false;
-    }
-
-    public void AddForceReviveValue(float max, float anger, int count)
-    {
-        oldForceValue = (anger / max);
-        newForceValue = oldForceValue;
-        spriteForce.fillAmount = oldForceValue;
-		uiForceNum.text = Mathf.RoundToInt(anger) + "/[13CECEFF]" + max + "[-]";
-        runSkillValue();
-    }
-
-    public bool AddForceValue()
-    {
-		PlayGetDCSoul();
-        oldForceValue += baseForceValue;
-        if (dcCount >= 0)
-            dcCount--;
-
-        oldForceValue = Mathf.Clamp(oldForceValue, 0, newForceValue);
-        spriteForce.fillAmount = oldForceValue;
-        if (!SkillDCExplosion.Get.IsHaveDC)
-        {
-            dcCount = 0;
-            spriteForce.fillAmount = newForceValue;
-        }
-		
-        runSkillValue();
-        return true;
     }
 
     public bool UICantUse(PlayerBehaviour p = null)
@@ -1322,7 +1319,7 @@ public class UIGame : UIBase
                         //Push
                         if (isCanDefenceBtnPress &&
                         !PlayerMe.IsFall &&
-                        (GameController.Get.Situation == EGameSituation.NPCAttack || GameController.Get.Situation == EGameSituation.GamerAttack) &&
+						GameController.Get.IsGameAttack &&
                         PlayerMe.CanUseState(EPlayerState.Push0))
                         {
                             noAI = GameController.Get.DoPush(nearP);

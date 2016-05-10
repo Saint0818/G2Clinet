@@ -709,6 +709,7 @@ public class GameController : KnightSingleton<GameController>
 			if(i < 3 && PlayerList[i].Team == Joysticker.Team)
 				setPassIcon(0 , passIconName[i], PlayerList[i]);
 				
+			PlayerList[i].GamePlayers = PlayerList;
             PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 		}
 
@@ -934,7 +935,7 @@ public class GameController : KnightSingleton<GameController>
                         Joysticker.AniState(SelectAniState);
 						TSkill skill = new TSkill();
                         skill.ID = (int )SelectAniState;
-						Joysticker.PassiveSkillUsed = skill;
+						Joysticker.PlayerSkillController.PassiveSkillUsed = skill;
                         if((int)SelectAniState > 100 && TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}
@@ -2260,18 +2261,17 @@ public class GameController : KnightSingleton<GameController>
 		bool result = false;
 		if((player.CanUseActiveSkill(tSkill) && !CheckOthersUseSkill(player.TimerKind.GetHashCode()) && player.IsInGround) || TestMode == EGameTest.Skill)
 		{
-			if ((player.CheckSkillDistance(tSkill) && player.PlayerSkillController.CheckSkillKind(tSkill)) || TestMode == EGameTest.Skill) {
-//                TimerMgr.Get.SetTimeController(ref player);
+			if (player.PlayerSkillController.CanDoSkill(tSkill) || TestMode == EGameTest.Skill) {
 				if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
 					if(GameData.DSkillData[tSkill.ID].Kind == 40){//鷹眼神射
 						Vector3 v = CourtMgr.Get.GetShootPointPosition(BallOwner.Team);
 						ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
 					}
 				}
-				player.ActiveSkillUsed = tSkill;
+				player.PlayerSkillController.ActiveSkillUsed = tSkill;
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
 				if(result){
-					player.PlayerSkillController.CheckSkillValueAdd(tSkill);
+					player.PlayerSkillAttribute.CheckSkillValueAdd(tSkill);
 					UIGame.Get.RefreshSkillUI();
 				}
 			}
@@ -3785,13 +3785,13 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-				if(player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
+				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
-				if(player1.IsSkillPushThrough && player1.Team != player2.Team)
+				if(IsGameAttack && player1.IsSkillPushThrough && player1.Team != player2.Team)
 					player2.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player1.transform.position);
 			
-				if(player2.IsSkillPushThrough && player1.Team != player2.Team)
+				if(IsGameAttack && player2.IsSkillPushThrough && player1.Team != player2.Team)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, player2.transform.position);
 				
 				if(!player2.IsDefence && player1.IsDefence)

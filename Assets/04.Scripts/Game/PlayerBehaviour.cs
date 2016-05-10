@@ -104,7 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
     private readonly StatusTimer mManually = new StatusTimer();
 
     public EGameSituation situation = EGameSituation.None;
-
+	public List<PlayerBehaviour> GamePlayers = new List<PlayerBehaviour>();
     public EPlayerState CurrentState = EPlayerState.Idle;
     public EAnimatorState CurrentAnimatorState = EAnimatorState.Idle;
 
@@ -161,6 +161,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Skill
     [HideInInspector]public SkillController PlayerSkillController;
+	[HideInInspector]public SkillAttribute PlayerSkillAttribute;
+	[HideInInspector]public SkillBuff PlayerSkillBuffView;
     private ESkillKind skillKind;
     // For Shoot and Layup
     private bool isUsePass = false;
@@ -254,7 +256,7 @@ public class PlayerBehaviour : MonoBehaviour
 					recoverTime -= Time.deltaTime;	
 					if(recoverTime <= 0) {
 						recoverTime = GameConst.AngerReviveTime;
-						ReviveAnger(apGrowth + extraAPIncrease);
+						ReviveAnger((apGrowth + extraAPIncrease) * GameConst.AngerReviveTime);
 					}
 				}
 			}
@@ -394,7 +396,17 @@ public class PlayerBehaviour : MonoBehaviour
 
         PlayerRefGameObject = gameObject;
         LayerMgr.Get.SetLayerAndTag(PlayerRefGameObject, ELayer.Player, ETag.Player);
-        PlayerSkillController = gameObject.AddComponent<SkillController>();
+
+		PlayerSkillController = gameObject.AddComponent<SkillController>();
+		PlayerSkillController.DoPassive = doPassive;
+		PlayerSkillController.ExecutePlayer = this;
+		PlayerSkillAttribute = gameObject.AddComponent<SkillAttribute>();
+		PlayerSkillAttribute.OnAddAttribute = attrStartCD;
+		PlayerSkillAttribute.OnFinishAttribute = attrFinishCD;
+		PlayerSkillAttribute.ExecutePlayer = this;
+		PlayerSkillBuffView = gameObject.AddComponent<SkillBuff>();
+		PlayerSkillBuffView.InitBuff(this);
+		PlayerSkillBuffView.ExecutePlayer = this;
 
         InitAnmator();
         PlayerRigidbody = PlayerRefGameObject.GetComponent<Rigidbody>();
@@ -545,21 +557,43 @@ public class PlayerBehaviour : MonoBehaviour
 															  GameConst.ReboundBlockYG + (Attr.ReboundHandDistance * 0.03f),
 															  GameConst.ReboundBlockZG + (Attr.ReboundHandDistance * 0.02f));
 		}
-    }
+	}
+
+	public void SetAttribute(int kind, float value)
+	{
+		Attribute.AddAttribute(kind, value);
+		initAttr();
+	}
+
+	private void attrStartCD (int skillID, int kind, float value, float lifetime) {
+		SetAttribute(kind, value);
+		PlayerSkillBuffView.AddBuff(skillID, kind, lifetime, value);
+	}
+
+	private void attrFinishCD (int index, int kind, float value) {
+		SetAttribute(kind, value);
+	}
+
+	private void doPassive (TSkill skill) {
+		PlayerSkillAttribute.CheckSkillValueAdd(skill);
+		if(!IsUseActiveSkill)
+			UIPassiveEffect.Get.ShowView(skill, this);
+		
+		SkillEffectManager.Get.OnShowEffect(this, true);
+		GameRecord.PassiveSkill++;
+	}
 
     private void initSkill()
     {
         isSkillShow = false;
-        PlayerSkillController.initSkillController(Attribute, this, AnimatorControl.Controler);
+        PlayerSkillController.initSkillController(this, AnimatorControl.Controler);
 
         if (Team == ETeamKind.Npc)
-            PlayerSkillController.HidePlayerName();
+			PlayerSkillBuffView.HideName();
     }
 		
 	public Color NameColor {
-		set {
-			PlayerSkillController.NameColor = value;
-		}
+		set {PlayerSkillBuffView.NameColor = value;}
 	}
 
     public void InitDoubleClick()
@@ -722,6 +756,9 @@ public class PlayerBehaviour : MonoBehaviour
         PushCD.Update(Time.deltaTime);
         ElbowCD.Update(Time.deltaTime);
         mManually.Update(Time.deltaTime);
+		PlayerSkillController.SkillUpdate(situation, IsGameJoysticker, this);
+		PlayerSkillAttribute.UpdateSkillAttribute();
+		PlayerSkillBuffView.UpdateBuff();
 
 		if (CoolDownCrossover > 0) {
 			CoolDownCrossover -= Time.deltaTime;
@@ -1509,7 +1546,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Reset()
     {
-        PlayerSkillController.Reset();
+		PlayerSkillAttribute.ResetGame();
+		PlayerSkillBuffView.ResetGame ();
         angerValue = 0;
         AnimatorControl.Reset();
         isBlock = false;
@@ -2895,26 +2933,26 @@ public class PlayerBehaviour : MonoBehaviour
 				OnShooting(this, true);
 			break;
 		case "PushDistancePlayer":
-			if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && IsGameAttack)
+			if (GameData.DSkillData.ContainsKey(PlayerSkillController.ActiveSkillUsed.ID) && IsGameAttack)
 			{
 				GameRecord.PushLaunch++;
-				for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+				for (int i = 0; i < GamePlayers.Count; i++)
 				{
-					if (GameController.Get.GamePlayers[i].Team != Team)
+					if (GamePlayers[i].Team != Team)
 					{
-						if(GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171) {
+						if(GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].Kind == 171) {
 							//直線碰撞
 							pushThroughTigger.SetActive(true);
-							transform.DOMove(CourtMgr.Get.GetArrowPosition(PlayerRefGameObject, GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)), 0.5f);
+							transform.DOMove(CourtMgr.Get.GetArrowPosition(PlayerRefGameObject, GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].Distance(PlayerSkillController.ActiveSkillUsed.Lv)), 0.5f);
 						} else {
 							//圓形碰撞
-							if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
-								new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
+							if (GameController.Get.GetDis(new Vector2(GamePlayers[i].transform.position.x, GamePlayers[i].transform.position.z), 
+								new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].Distance(PlayerSkillController.ActiveSkillUsed.Lv))
 							{
-								if (GameController.Get.GamePlayers[i].IsAllShoot || GameController.Get.GamePlayers[i].IsDunk){ 
-									GameController.Get.GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
+								if (GamePlayers[i].IsAllShoot || GamePlayers[i].IsDunk){ 
+									GamePlayers[i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
 								} else {
-									GameController.Get.GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
+									GamePlayers[i].PlayerSkillController.DoPassiveSkill(ESkillSituation.Fall1, PlayerRefGameObject.transform.position);
 								}
 								GameRecord.Push++;
 							}
@@ -3001,17 +3039,17 @@ public class PlayerBehaviour : MonoBehaviour
     public void StartSkillCamera(int no)
     {
 		if (no >= 20) {
-			if (GameData.DSkillData.ContainsKey(PassiveSkillUsed.ID) && !PlayerSkillController.IsActiveUse) {
-            	UIPassiveEffect.Get.ShowView(PassiveSkillUsed, this);
+			if (GameData.DSkillData.ContainsKey(PlayerSkillController.PassiveSkillUsed.ID) && !PlayerSkillController.IsActiveUse) {
+				UIPassiveEffect.Get.ShowView(PlayerSkillController.PassiveSkillUsed, this);
 				return;
 			} else
 				PlayerSkillController.ResetUsePassive();
 		}
 	
-        if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+		if (GameData.DSkillData.ContainsKey(PlayerSkillController.ActiveSkillUsed.ID))
         {
-            int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
-            float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
+			int skillEffectKind = GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].ActiveCamera;
+			float skillTime = GameData.DSkillData[PlayerSkillController.ActiveSkillUsed.ID].ActiveCameraTime;
             TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
             if (!isSkillShow)
             {
@@ -3032,7 +3070,7 @@ public class PlayerBehaviour : MonoBehaviour
 						Invoke("showEffect", skillTime);
 						if (UIPassiveEffect.Visible)
 							UIPassiveEffect.UIShow(false);
-						UISkillEffect.Get.ShowView(ActiveSkillUsed);
+					UISkillEffect.Get.ShowView(PlayerSkillController.ActiveSkillUsed);
 						TimerMgr.Get.PauseTimeByUseSkill(skillTime, ResetTimeCallBack);
                         LayerMgr.Get.SetLayerRecursively(PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
                         break;
@@ -3040,7 +3078,7 @@ public class PlayerBehaviour : MonoBehaviour
                     case 2://show all Player
 						// kind= 2, time = 0.5f
 							showActiveEffect();
-							UIPassiveEffect.Get.ShowView(ActiveSkillUsed, this);
+					UIPassiveEffect.Get.ShowView(PlayerSkillController.ActiveSkillUsed, this);
 							GameController.Get.SetAllPlayerLayer("SkillPlayer");
 							TimerMgr.Get.PauseTimeByUseSkill(0.5f, ResetTimeCallBack);
 							Pause = false;
@@ -3097,20 +3135,20 @@ public class PlayerBehaviour : MonoBehaviour
     //=====Skill=====
     public bool DoActiveSkill(GameObject target = null)
     {
-        if (CanUseActiveSkill(ActiveSkillUsed) || TestMode == EGameTest.Skill)
+		if (CanUseActiveSkill(PlayerSkillController.ActiveSkillUsed) || TestMode == EGameTest.Skill)
         {
             GameRecord.Skill++;
-            SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID, ActiveSkillUsed.Lv));
+			SetAnger(-Attribute.MaxAngerOne(PlayerSkillController.ActiveSkillUsed.ID, PlayerSkillController.ActiveSkillUsed.Lv));
 
-            if (Attribute.SkillAnimation(ActiveSkillUsed.ID) != "")
+			if (Attribute.SkillAnimation(PlayerSkillController.ActiveSkillUsed.ID) != "")
             {
                 if (target)
-                    return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(ActiveSkillUsed.ID)), target.transform.position);
+					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(PlayerSkillController.ActiveSkillUsed.ID)), target.transform.position);
                 else
                 {
                     try
                     {
-                        return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(ActiveSkillUsed.ID)));
+						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(PlayerSkillController.ActiveSkillUsed.ID)));
                     }
                     catch
                     {
@@ -3123,38 +3161,9 @@ public class PlayerBehaviour : MonoBehaviour
         return false;
     }
 
-    public void SetAttribute(int kind, float value)
-    {
-        Attribute.AddAttribute(kind, value);
-        initAttr();
-    }
-
-    public bool CheckSkillDistance(TSkill tSkill)
-    {
-        bool result = false;
-        if (PlayerSkillController.GetActiveSkillTarget(tSkill) != null && PlayerSkillController.GetActiveSkillTarget(tSkill).Count > 0)
-            for (int i = 0; i < PlayerSkillController.GetActiveSkillTarget(tSkill).Count; i++)
-                if (PlayerSkillController.CheckSkillDistance(tSkill, PlayerSkillController.GetActiveSkillTarget(tSkill)[i]))
-                    result = true;
-        
-        return result;
-    }
-
 	public float GetPushThroughW {
 		get {return pushThroughTigger.transform.localScale.x;}
 	}
-
-    public TSkill ActiveSkillUsed
-    {
-        get { return PlayerSkillController.ActiveSkillUsed; }
-        set { PlayerSkillController.ActiveSkillUsed = value; }
-    }
-
-    public TSkill PassiveSkillUsed
-    {
-        get { return PlayerSkillController.PassiveSkillUsed; }
-        set { PlayerSkillController.PassiveSkillUsed = value; }
-    }
 
     public ESkillKind GetSkillKind
     {
