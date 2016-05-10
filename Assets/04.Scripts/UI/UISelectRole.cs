@@ -10,7 +10,7 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 
-	private static int[] selectRoleID = new int[6]{101, 102, 103, 104, 105, 106};
+    private static int[] selectRoleID = new int[3]{2100, 2101, 2102};
     private const int kind_item = 17;
 	private const int MaxValue = 100;
 	private const float X_Partner = 2.6f;

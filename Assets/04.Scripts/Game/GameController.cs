@@ -52,7 +52,7 @@ public class GameController : KnightSingleton<GameController>
     public ETestActive TestID = ETestActive.Dunk20;
     public EPlayerState SelectAniState = EPlayerState.Dunk6;
     public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.BasketballAction_0;
-    public int[] TestPlayerID = {31, 32, 33, 100, 101, 102};
+    public int[] TestPlayerID = {2100, 2101, 2102, 31, 32, 33};
     public bool IsDebugAnimation = false;
     public bool IsShowShootRate = false;
     public bool IsShowPlayerInfo = false;
@@ -369,7 +369,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
     public void StageStart() {
-        if (TestMode == EGameTest.None && LobbyStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
+        if (TestMode == EGameTest.None && GameData.OpenTutorial && GameData.DStageTutorial.ContainsKey(StageData.ID)) 
             GamePlayTutorial.Get.SetTutorialData(StageData.ID);
 
         if (Situation == EGameSituation.None)
@@ -1884,9 +1884,7 @@ public class GameController : KnightSingleton<GameController>
 		
 		if (TestMode == EGameTest.PassiveSkill) {
 			BasketSituation = EBasketSituation.Score;
-
-            if (LobbyStart.Visible)
-			    CourtMgr.Get.BasketAnimationName = SelectBasketState.ToString();	
+            CourtMgr.Get.BasketAnimationName = SelectBasketState.ToString();	
 		}
 
 		if (ShootDistance >= GameConst.Point3Distance)

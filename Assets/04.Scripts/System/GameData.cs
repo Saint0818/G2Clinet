@@ -110,16 +110,20 @@ public static class GameData
 				   StageTable.Ins.GetByID(StageID).IDKind == TStageData.EKind.PVP;
 		}			
 	}
+
+    public static bool OpenTutorial = false;
+    public static bool IsUseFpsLimiter = true;
+
     public static float ExtraGreatRate = 5;
     public static float ExtraPerfectRate = 10;
 
-    private static bool isLoaded = false;
+    public static bool IsLoaded = false;
 
     public static bool Init()
     {
-        if (!isLoaded)
+        if (!IsLoaded)
         {
-            isLoaded = true;
+            IsLoaded = true;
             initGameSetting();
             FileManager.Get.LoadFileResource();
             return true;

@@ -224,8 +224,10 @@ public class UICreateRoleStyleView : MonoBehaviour
 
 			if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			else
-				LobbyStart.Get.EnterLobby();
+            else {
+                UILoading.UIShow(false);
+                UIMainLobby.Get.Show();
+            }
         }
         else
 			UIHint.Get.ShowHint("Create Role fail!", Color.red);

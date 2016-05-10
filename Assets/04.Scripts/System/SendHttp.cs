@@ -435,8 +435,12 @@ public class SendHttp : KnightSingleton<SendHttp> {
         if (!string.IsNullOrEmpty(text)) {
             if (text.Length <= 6) {
                 int index = -1;
-                if (int.TryParse(text, out index))
-                    UIHint.Get.ShowHint(TextConst.S(index), Color.red);
+                if (int.TryParse(text, out index)) {
+                    if (index != 5020)
+                        UIHint.Get.ShowHint(TextConst.S(index), Color.red);
+                    else
+                        Debug.Log(TextConst.S(index));
+                }
             } else
                 return true;
         }
@@ -499,13 +503,13 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
                 if (GameData.Team.StageTutorial == 0)
                     GameData.Team.StageTutorial = 3;
-
+                /*
 				GameData.StageID = GameData.Team.StageTutorial + 1;
 				if (GameData.Team.Player.Lv == 0 && StageTable.Ins.HasByID(GameData.StageID)) {
 					int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
 					SceneMgr.Get.CurrentScene = "";
 					SceneMgr.Get.ChangeLevel (courtNo);
-				} else {
+				} else {*/
                     SyncDailyRecord();
                     LookFriends(null, GameData.Team.Identifier, false);
                     StartCoroutine(longPollingSocialEvent(0));
@@ -513,7 +517,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					CheckNewMail(GameData.Team.Identifier);
 					//UILoading.OpenUI = UILoading.OpenNotic;
                     UILoading.UIShow(true, ELoading.Lobby);
-				}
+                //}
 
                 //if (GameData.Company == ECompany.NiceMarket)
                 //    Pubgame.PubgameSdk.Get.SetPgToolsActive(false);

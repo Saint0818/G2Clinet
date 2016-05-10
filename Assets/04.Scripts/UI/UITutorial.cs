@@ -202,7 +202,7 @@ public class UITutorial : UIBase {
 				return;
 			}*/
 
-            if (!LobbyStart.Get.OpenTutorial) {
+            if (!GameData.OpenTutorial) {
                 UIShow(false);
                 return;
             }

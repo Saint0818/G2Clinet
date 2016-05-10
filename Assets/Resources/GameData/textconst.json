@@ -445,7 +445,7 @@
         "id": 541,
         "explain": "關卡條件未達城",
         "tw": "任務條件尚未完成。",
-        "en": "Yet to complete mission requirements."
+        "en": "Yet to complete quest requirements."
     },
     {
         "id": 550,
@@ -1307,7 +1307,7 @@
     {
         "id": 3208,
         "tw": "確認投點",
-        "en": "Confirm Distribution"
+        "en": "Confirm"
     },
     {
         "id": 3209,
@@ -1318,8 +1318,8 @@
     {
         "id": 3210,
         "explain": "單一屬性投點說明",
-        "tw": "提升 [3EBBBCFF]1[-] 屬性值\n須扣除[FF0000FF]潛能點[-] ",
-        "en": "[FF0000FF]AP[-]  needed to raise [3EBBBCFF]1[-]  attribute number.",
+        "tw": "提升 [3EBBBCFF]1[-] 扣潛能點",
+        "en": "Raising [3EBBBCFF]1[-] use AP",
         "jp": "ok"
     },
     {
@@ -1637,13 +1637,13 @@
         "id": 3701,
         "explain": "成就與任務",
         "tw": "任務成就",
-        "en": "Mission Accomplishment"
+        "en": "Quests"
     },
     {
         "id": 3702,
         "uipath": "Tab0",
         "tw": "成 就",
-        "en": "Accomplishments"
+        "en": "Achievement"
     },
     {
         "id": 3703,
@@ -1710,12 +1710,12 @@
     {
         "id": 3714,
         "tw": "任務已完成",
-        "en": "Mission Completed"
+        "en": "Quest Completed"
     },
     {
         "id": 3715,
         "tw": "領取獎勵失敗，請確認任務完成條件。",
-        "en": "Reward receiving failure. Please reconfirm the mission requirements."
+        "en": "Reward receiving failure. Please reconfirm the quest requirements."
     },
     {
         "id": 3716,
@@ -1730,7 +1730,7 @@
     {
         "id": 3718,
         "tw": "成就積分",
-        "en": "Accomplishment Points"
+        "en": "Achievement Points"
     },
     {
         "id": 3741,
@@ -2587,22 +2587,22 @@
     {
         "id": 5038,
         "tw": "達成成就",
-        "en": "Accomplishment Achieved"
+        "en": "Achievement Achieved"
     },
     {
         "id": 5039,
         "tw": "完成每日任務",
-        "en": "Daily Mission Accomplished"
+        "en": "Daily Quest Accomplished"
     },
     {
         "id": 5040,
         "tw": "完成每週任務",
-        "en": "Weekly Mission Accomplished"
+        "en": "Weekly Quest Accomplished"
     },
     {
         "id": 5041,
         "tw": "完成每月任務",
-        "en": "Monthly Mission Accomplished"
+        "en": "Monthly Quest Accomplished"
     },
     {
         "id": 5042,
@@ -2743,17 +2743,17 @@
     {
         "id": 6402,
         "tw": "完成成就獎勵",
-        "en": "Accomplishment Completing Rewards"
+        "en": "Achievement Completing Rewards"
     },
     {
         "id": 6403,
         "tw": "每日任務獎勵",
-        "en": "Daily Missions Rewards"
+        "en": "Daily Quests Rewards"
     },
     {
         "id": 6404,
         "tw": "請點擊畫面繼續",
-        "en": "Press screen to continue"
+        "en": "Tap to continue"
     },
     {
         "id": 7001,
@@ -2830,7 +2830,7 @@
         "id": 7013,
         "explain": "主動技限制",
         "tw": "等級達到 [33FFDD]{0}[-] 開啟",
-        "en": "Unlocked after reaching LV [33FFDD]{0}[-]  "
+        "en": "Unlocked after LV [33FFDD]{0}[-]  "
     },
     {
         "id": 7014,
@@ -4533,13 +4533,13 @@
         "id": 10317,
         "uipath": "ButtonReturnSelect/Label",
         "tw": "離開比賽",
-        "en": "Quit Game"
+        "en": "Quit"
     },
     {
         "id": 10318,
         "uipath": "ButtonResume/Label",
         "tw": "回到比賽",
-        "en": "Resume Game"
+        "en": "Resume"
     },
     {
         "id": 10319,
@@ -4599,7 +4599,7 @@
         "id": 10328,
         "uipath": "解鎖成就-戰果",
         "tw": "解鎖成就",
-        "en": "Unlock Accomplishment"
+        "en": "Unlock Achievement"
     },
     {
         "id": 10329,
@@ -6108,27 +6108,27 @@
     {
         "id": 2000018,
         "tw": "[33FFDD]時間[-]限制[FFDD33]{0}[-][33FFDD]秒[-]",
-        "en": "[33FFDD]Time[-]  Limit[FFDD33]{0}[-] [33FFDD] seconds[-] "
+        "en": "[33FFDD]Time[-]  Limit [FFDD33]{0}[-] [33FFDD] seconds[-] "
     },
     {
         "id": 2000019,
         "tw": "[33FFDD]競賽時間[-][FFDD33]{2}[-][33FFDD]秒[-]",
-        "en": "[33FFDD]Game Time[-] [FFDD33]{2}[-] [33FFDD] seconds[-] "
+        "en": "[33FFDD]Game Time [-] [FFDD33]{2}[-] [33FFDD] seconds[-] "
     },
     {
         "id": 2000107,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-] higher than opponent."
+        "en": "[33FFDD]Score[-] higher than opponent."
     },
     {
         "id": 2000108,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-] higher than opponent."
+        "en": "[33FFDD]Score[-] higher than opponent."
     },
     {
         "id": 2000109,
         "tw": "[33FFDD]最後得分[-]高於對手",
-        "en": "[33FFDD]Your Final Score[-] higher than opponent."
+        "en": "[33FFDD]Score[-] higher than opponent."
     },
     {
         "id": 2000200,
@@ -6178,12 +6178,12 @@
     {
         "id": 2000308,
         "tw": "[33FFDD]失分[-]不超過[FFDD33]{0}[-]分",
-        "en": "[33FFDD]Opponent scoring [-]  no more than [FFDD33]{0}[-]  points"
+        "en": "[33FFDD]Opponent scoring [-]  less than [FFDD33]{0}[-]  "
     },
     {
         "id": 2000309,
         "tw": "[33FFDD]失分[-]不超過[FFDD33]{2}[-][FFFFFF]/{0}[-][33FFDD]分[-]",
-        "en": "[33FFDD]Opponent scoring[-]  no more than [FFDD33]{2}[-] [FFFFFF]/{0}[-] [33FFDD] points[-] "
+        "en": "[33FFDD]Opponent scoring[-]  less than [FFDD33]{2}[-] [FFFFFF]/{0}[-] "
     },
     {
         "id": 2000401,

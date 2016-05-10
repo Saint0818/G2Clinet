@@ -136,6 +136,11 @@ public class UICreateRoleFrameView : MonoBehaviour
             throw new NotImplementedException(data.Status.ToString());
     }
 
+    private void enterLobby() {
+        UILoading.UIShow(false);
+        UIMainLobby.Get.Show();
+    }
+
     private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
         UICreateRole.Get.EnableBlock(true);
@@ -158,7 +163,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
-                LobbyStart.Get.EnterLobby();
+                enterLobby();
 
             AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
         }
@@ -202,7 +207,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
-                LobbyStart.Get.EnterLobby();
+                enterLobby();
 
             AudioMgr.Get.PlayMusic(EMusicType.MU_ThemeSong);
         }
@@ -217,7 +222,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 		if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
         else
-            LobbyStart.Get.EnterLobby();
+            enterLobby();
     }
 
     private void onDeletePlayer(int index, UICreateRolePlayerSlot.Data data)
