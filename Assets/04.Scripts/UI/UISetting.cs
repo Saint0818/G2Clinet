@@ -247,6 +247,11 @@ public class UISetting : UIBase {
         SetBtnFun(UIName + "/Window/Center/Pages/2/Pubgame/Widge", OnPubgameWidge);
 		SetBtnFun (UIName + "/Window/Center/Pages/0/CheckMove", OnMove);
 		SetBtnFun (UIName + "/Window/Center/Pages/0/CheckRotation", OnRotation);
+		SetBtnFun(UIName + "/Window/Center/Pages/0/BtnRemoveAccount", () =>
+		{
+            var protocol = new GMDeleteTeamProtocol();
+            protocol.Send(SystemInfo.deviceUniqueIdentifier);
+        });
 
 		toggleMove = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckMove").GetComponent<UIToggle> ();
 		toggleRotation = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckRotation").GetComponent<UIToggle> ();

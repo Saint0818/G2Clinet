@@ -3,10 +3,14 @@ using UnityEngine;
 public class UIMainStageDebug
 {
     private int mStageID;
+    private int mWinPoints;
+    private int mLostPoints;
 
-    public void Send(int stageID)
+    public void Send(int stageID, int winPoints, int lostPoints)
     {
         mStageID = stageID;
+        mWinPoints = winPoints;
+        mLostPoints = lostPoints;
 
         var start = new MainStageStartProtocol();
         start.Send(stageID, waitStart);
@@ -18,7 +22,7 @@ public class UIMainStageDebug
         Debug.Log(data);
 
         var win = new StageWinProtocol();
-        win.Send(mStageID, 0, 0, waitMainStageWin);
+        win.Send(mStageID, mWinPoints, mLostPoints, waitMainStageWin);
     }
 
     private void waitMainStageWin(bool ok, TStageReward reward)
@@ -26,8 +30,8 @@ public class UIMainStageDebug
         Debug.LogFormat("waitMainStageWin, ok:{0}", ok);
         Debug.Log(reward);
 
-        var again = new StageRewardAgainProtocol();
-        again.Send(mStageID, waitMainStageRewardAgain);
+//        var again = new StageRewardAgainProtocol();
+//        again.Send(mStageID, waitMainStageRewardAgain);
     }
 
     private void waitMainStageRewardAgain(bool ok, TStageRewardAgain reward)

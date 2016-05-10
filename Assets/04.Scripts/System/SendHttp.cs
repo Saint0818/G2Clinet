@@ -154,6 +154,7 @@ public static class URLConst {
     public const string GMSetNextInstanceID = "gmsetnextinstanceid";
 	public const string GMChangeAvatarUseKind = "gmchangeavatarusekind";
 	public const string GMSetStageDailyChallengeNum = "gmsetstagedailychallengenum";
+	public const string GMDeleteTeam = "gmdeleteteam";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {
