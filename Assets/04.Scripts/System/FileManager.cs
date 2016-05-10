@@ -573,7 +573,7 @@ public class FileManager : KnightSingleton<FileManager>
         {
 			GameData.DItemData.Clear();
 
-			TItemData[] data = JsonConvertWrapper.DeserializeObject<TItemData[]>(text);
+			TItemData[] data = JsonConvert.DeserializeObject<TItemData[]>(text);
 			for (int i = 0; i < data.Length; i++) {
                 if(!GameData.DItemData.ContainsKey(data[i].ID) && data[i].ID > 0)
 					GameData.DItemData.Add(data[i].ID, data[i]);
@@ -803,7 +803,7 @@ public class FileManager : KnightSingleton<FileManager>
 
     public void ParseMission(string version, string text, bool isSaveVersion) {
         try {
-            GameData.MissionData = JsonConvertWrapper.DeserializeObject<TMission[]>(text);
+			GameData.MissionData = JsonConvert.DeserializeObject<TMission[]>(text);
 			for (int i = 0; i < GameData.MissionData.Length; i++)
                 if (!GameData.DMissionData.ContainsKey(GameData.MissionData[i].ID)) {
                     if (GameData.MissionData[i].Value != null && GameData.MissionData[i].Value.Length > 0 &&
@@ -829,7 +829,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 	public void ParsePickCost(string version, string text, bool isSaveVersion) {
 		try {
-			TPickCost[] data = JsonConvertWrapper.DeserializeObject<TPickCost[]>(text);
+			TPickCost[] data = JsonConvert.DeserializeObject<TPickCost[]>(text);
 			GameData.DPickCost = new TPickCost[data.Length];
 			for (int i = 0; i < data.Length; i++) {
 				GameData.DPickCost[i] = data[i];
@@ -849,7 +849,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 	public void ParseShop(string version, string text, bool isSaveVersion) {
 		try {
-			GameData.DShops = JsonConvertWrapper.DeserializeObject<TShop[]>(text);
+			GameData.DShops = JsonConvert.DeserializeObject<TShop[]>(text);
 
 			if (isSaveVersion)
 				SaveDataVersionAndJson(text, "shop", version);
@@ -862,7 +862,7 @@ public class FileManager : KnightSingleton<FileManager>
 
 	public void ParseMall(string version, string text, bool isSaveVersion) {
 		try {
-			GameData.DMalls = JsonConvertWrapper.DeserializeObject<TMall[]>(text);
+			GameData.DMalls = JsonConvert.DeserializeObject<TMall[]>(text);
 
 			if (isSaveVersion)
 				SaveDataVersionAndJson(text, "mall", version);
@@ -878,7 +878,7 @@ public class FileManager : KnightSingleton<FileManager>
         try
         {
             GameData.DPVPData.Clear();
-            TPVPData[] data = JsonConvertWrapper.DeserializeObject<TPVPData[]>(text);
+			TPVPData[] data = JsonConvert.DeserializeObject<TPVPData[]>(text);
 
             for (int i = 0; i < data.Length; i++) {
                 if(!GameData.DPVPData.ContainsKey(data[i].Lv))
@@ -900,7 +900,7 @@ public class FileManager : KnightSingleton<FileManager>
 	{
 		try
 		{
-			TSuitCard[] data = JsonConvertWrapper.DeserializeObject<TSuitCard[]>(text);
+			TSuitCard[] data = JsonConvert.DeserializeObject<TSuitCard[]>(text);
 
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DSuitCard.ContainsKey(data[i].ID))
@@ -922,7 +922,7 @@ public class FileManager : KnightSingleton<FileManager>
 	{
 		try
 		{
-			TSuitItem[] data = JsonConvertWrapper.DeserializeObject<TSuitItem[]>(text);
+			TSuitItem[] data = JsonConvert.DeserializeObject<TSuitItem[]>(text);
 
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DSuitItem.ContainsKey(data[i].ID)) {
@@ -945,7 +945,7 @@ public class FileManager : KnightSingleton<FileManager>
     {
         try
         {
-            TPotentital[] data = JsonConvertWrapper.DeserializeObject<TPotentital[]>(text);
+			TPotentital[] data = JsonConvert.DeserializeObject<TPotentital[]>(text);
 
             for (int i = 0; i < data.Length; i++) {
                 if(!GameData.DPotential.ContainsKey(data[i].ID)) {
@@ -974,7 +974,7 @@ public class FileManager : KnightSingleton<FileManager>
 	public void ParseArchitectureExp (string version, string text, bool isSaveVersion) {
 		try
 		{
-			TArchitectureExp[] data = JsonConvertWrapper.DeserializeObject<TArchitectureExp[]>(text);
+			TArchitectureExp[] data = JsonConvert.DeserializeObject<TArchitectureExp[]>(text);
 
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DArchitectureExp.ContainsKey(data[i].LV)) {
