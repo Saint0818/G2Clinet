@@ -1005,19 +1005,19 @@
         "id": 2102,
         "explain": "中鋒",
         "tw": "中 鋒",
-        "en": "Center"
+        "en": "CENTER"
     },
     {
         "id": 2103,
         "explain": "前鋒",
         "tw": "前 鋒",
-        "en": "Forward"
+        "en": "FORWARD"
     },
     {
         "id": 2104,
         "explain": "後衛",
         "tw": "後 衛",
-        "en": "Guard"
+        "en": "GUARD"
     },
     {
         "id": 2105,
@@ -1247,12 +1247,12 @@
     {
         "id": 3102,
         "tw": "等級",
-        "en": "Level"
+        "en": "LEVEL"
     },
     {
         "id": 3103,
         "tw": "位置",
-        "en": "Position"
+        "en": "POSITION"
     },
     {
         "id": 3104,
@@ -2517,12 +2517,12 @@
     {
         "id": 5024,
         "tw": "取消關注",
-        "en": "Cancel Follow"
+        "en": "Unfollow"
     },
     {
         "id": 5025,
         "tw": "刪除好友",
-        "en": "Delete Friend"
+        "en": "Unfriend"
     },
     {
         "id": 5026,
@@ -2562,7 +2562,7 @@
     {
         "id": 5033,
         "tw": "刪除邀請",
-        "en": "Delete Invitation"
+        "en": "Cancel Request"
     },
     {
         "id": 5034,
@@ -3481,14 +3481,14 @@
         "explain": "無對應晶片時的說明",
         "uipath": "NoCardLabel",
         "tw": "此套造型無對應技能晶片",
-        "en": "This costume has no corresponding Skill Cards."
+        "en": "No corresponding Skill Cards."
     },
     {
         "id": 8207,
         "explain": "套裝不需要全部位時",
         "uipath": "ItemNameLabel",
         "tw": "無此部位造型",
-        "en": "There is no style costume for this part.",
+        "en": "No costume for this part.",
         "jp": "ok"
     },
     {
@@ -5929,7 +5929,7 @@
         "explain": "標題－好友按讚",
         "uipath": "SubheadLabel",
         "tw": "玩家[FFFFC9FF]{0}[-]按你讚！",
-        "en": "Other players [FFFFC9FF] {0} [-] likes you post! ",
+        "en": " [FFFFC9FF] {0} [-] likes you post! ",
         "jp": "ok"
     },
     {

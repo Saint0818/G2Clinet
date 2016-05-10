@@ -266,8 +266,8 @@
         "talkindex": 1,
         "talkr": 10,
         "actionr": 6,
-        "texttw": "隨著競賽的進行，可能會有些資源上的不足，聯盟這邊有一個[ff6060]購物商店[-]可以讓您補充自己想要的東西。",
-        "texten": "As the game goes own, you may lack some resources. There is a [ff6060]Shopping Mall[-]  in the league that can help provide you with with necessities."
+        "texttw": "隨著競賽的進行，可能會有些資源上的不足，聯盟的[ff6060]購物商店[-]可以讓您補充自己想要的東西。",
+        "texten": "As the game goes own, you may lack some resources. There is a [ff6060]Shopping Mall[-]  in the league that can help provide you with necessities."
     },
     {
         "id": 3,
@@ -276,7 +276,7 @@
         "talkindex": 1,
         "talkr": 10,
         "actionr": 6,
-        "texttw": "這邊有眾多豐富的商品，分別可以使用 [ff00eb]寶石[-]、[fff300]金幣[-]、[a200ff]聯盟幣[-]、[00ff6b]社群幣[-] 來進行購買。",
+        "texttw": "這裡有眾多豐富的商品，分別可以使用 [ff00eb]寶石[-]、[fff300]金幣[-]、[a200ff]聯盟幣[-]、[00ff6b]社群幣[-] 來進行購買。",
         "texten": "There are many items available. You can use [ff00eb]Gems[-] , [fff300]Coins[-] , [a200ff]League Coins[-]  or [00ff6b]Society Coins[-]  to buy them."
     },
     {
@@ -308,7 +308,7 @@
         "id": 4,
         "line": 1,
         "title": "社群",
-        "kind": 3,
+        "kind": 4,
         "value": 5,
         "talkindex": 0,
         "talkl": 10,
@@ -319,7 +319,7 @@
     {
         "id": 4,
         "line": 2,
-        "kind": 0,
+        "kind": 4,
         "talkindex": 1,
         "actionl": 5,
         "talkr": -1,
@@ -330,38 +330,40 @@
     {
         "id": 4,
         "line": 3,
+        "kind": 4,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SocialBt"
     },
     {
         "id": 4,
-        "line": 4
+        "line": 4,
+        "kind": 4
     },
     {
         "id": 4,
         "line": 5,
-        "kind": 0,
+        "kind": 4,
         "uipath": "UI2D/UISocial/Window/BottomLeft/Tabs/2"
     },
     {
         "id": 4,
         "line": 6,
-        "kind": 0,
+        "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
-        "texttw": "這邊有許多來自各地的優秀球員，你可以選擇其中一位球員進行[ff6060]關注[-]！！",
+        "texttw": "社群裡有許多來自各地的優秀球員，你可以選擇其中一位球員進行[ff6060]關注[-]！！",
         "texten": "There are many great players from other places. You can choose one player to [ff6060]Follow[-] !!"
     },
     {
         "id": 4,
         "line": 7,
-        "kind": 0,
+        "kind": 4,
         "uipath": "UI2D/UISocial/Window/Center/Pages/2/ScrollView/2-0/Window/Good"
     },
     {
         "id": 4,
         "line": 8,
-        "kind": 0,
+        "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -371,13 +373,13 @@
     {
         "id": 4,
         "line": 9,
-        "kind": 0,
+        "kind": 4,
         "uipath": "UI2D/UISocial/Window/Center/Tabs/0"
     },
     {
         "id": 4,
         "line": 10,
-        "kind": 0,
+        "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -387,13 +389,13 @@
     {
         "id": 4,
         "line": 11,
-        "kind": 0,
+        "kind": 4,
         "uipath": "UI2D/UISocial/Window/Center/Pages/0/ScrollView/0-0/Window/Good"
     },
     {
         "id": 4,
         "line": 12,
-        "kind": 0,
+        "kind": 4,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -411,7 +413,7 @@
         "talkr": -1,
         "actionr": 4,
         "texttw": "剛剛獲得到一張[ff6060]技能晶片[-]，這是幹嘛的呀？",
-        "texten": "I just got a piece of [ff6060]Skill Card[-] . What is this for?"
+        "texten": "I just got a [ff6060]Skill Card[-] . What is this for?"
     },
     {
         "id": 5,
@@ -443,6 +445,11 @@
     {
         "id": 5,
         "line": 5,
+        "wait": 1.5
+    },
+    {
+        "id": 5,
+        "line": 6,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -451,14 +458,19 @@
     },
     {
         "id": 5,
-        "line": 6,
+        "line": 7,
+        "wait": 1.5
+    },
+    {
+        "id": 5,
+        "line": 8,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
         "id": 5,
-        "line": 7,
+        "line": 9,
         "talkindex": 0,
         "talkl": 10,
         "actionl": 6,
@@ -467,14 +479,19 @@
     },
     {
         "id": 5,
-        "line": 8,
+        "line": 10,
+        "wait": 1.5
+    },
+    {
+        "id": 5,
+        "line": 11,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISelectRole/Bottom/SkillCard/"
     },
     {
         "id": 5,
-        "line": 9,
+        "line": 12,
         "kind": 2,
         "value": 101,
         "talkindex": 0,
@@ -485,14 +502,19 @@
     },
     {
         "id": 5,
-        "line": 10,
+        "line": 13,
+        "wait": 1.5
+    },
+    {
+        "id": 5,
+        "line": 14,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISkillFormation/Center/CardsView/Left/CardsGroup/CardList"
     },
     {
         "id": 5,
-        "line": 11,
+        "line": 15,
         "kind": 2,
         "value": 101,
         "talkindex": 0,
@@ -503,14 +525,14 @@
     },
     {
         "id": 5,
-        "line": 12,
+        "line": 16,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISkillInfo/Center/TopRight/EquipBtn"
     },
     {
         "id": 5,
-        "line": 13,
+        "line": 17,
         "kind": 2,
         "value": 101,
         "talkindex": 0,
@@ -521,14 +543,14 @@
     },
     {
         "id": 5,
-        "line": 14,
+        "line": 18,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISkillFormation/BottomLeft/BackBtn"
     },
     {
         "id": 5,
-        "line": 15,
+        "line": 19,
         "kind": 2,
         "value": 101,
         "talkindex": 0,
@@ -539,7 +561,7 @@
     },
     {
         "id": 5,
-        "line": 16,
+        "line": 20,
         "kind": 2,
         "value": 101,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
@@ -641,7 +663,8 @@
     {
         "id": 7,
         "line": 5,
-        "kind": 4
+        "kind": 4,
+        "wait": 1.5
     },
     {
         "id": 7,
@@ -684,20 +707,6 @@
         "texten": "Remember to come back for more draws before the time limit ends."
     },
     {
-        "talkindex": 0,
-        "talkl": 1411,
-        "actionl": 1,
-        "texttw": "既然你已經從我這得到好處，那你就得再和我打一場比賽，如果我還是輸給你，我會把我的絕活傳授給你。",
-        "texten": "I will teach you my talant."
-    },
-    {
-        "talkindex": 1,
-        "talkr": -1,
-        "actionr": 4,
-        "texttw": "那有什麼問題，一言為定！",
-        "texten": "A Deal."
-    },
-    {
         "id": 7,
         "line": 12,
         "kind": 4,
@@ -706,7 +715,8 @@
     {
         "id": 7,
         "line": 13,
-        "kind": 4
+        "kind": 4,
+        "wait": 1.5
     },
     {
         "id": 7,
@@ -717,7 +727,8 @@
     {
         "id": 7,
         "line": 15,
-        "kind": 4
+        "kind": 4,
+        "wait": 1
     },
     {
         "id": 7,
@@ -728,7 +739,8 @@
     {
         "id": 7,
         "line": 17,
-        "kind": 4
+        "kind": 4,
+        "wait": 1
     },
     {
         "id": 7,
@@ -751,7 +763,8 @@
     {
         "id": 7,
         "line": 21,
-        "kind": 4
+        "kind": 4,
+        "wait": 1
     },
     {
         "id": 7,
@@ -829,6 +842,11 @@
     {
         "id": 8,
         "line": 8,
+        "wait": 2
+    },
+    {
+        "id": 8,
+        "line": 9,
         "kind": 4,
         "talkindex": 0,
         "talkl": 10,
@@ -838,13 +856,13 @@
     },
     {
         "id": 8,
-        "line": 9,
+        "line": 10,
         "kind": 4,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/PvPStageBtn"
     },
     {
         "id": 8,
-        "line": 10,
+        "line": 11,
         "kind": 4,
         "hintpath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/DailyAwardBtn",
         "talkindex": 0,
@@ -855,37 +873,37 @@
     },
     {
         "id": 8,
-        "line": 11,
+        "line": 12,
         "kind": 4,
         "texttw": "現在來開始您的第一次挑戰吧！！",
         "texten": "Now let's start your first challenge!!"
     },
     {
         "id": 8,
-        "line": 12,
+        "line": 13,
         "kind": 4,
         "uipath": "UI2D/UIPVP/Center/Window/Pages/0/MainView/NextBtn"
     },
     {
         "id": 8,
-        "line": 13,
-        "kind": 4
-    },
-    {
-        "id": 8,
         "line": 14,
-        "kind": 4,
-        "uipath": "UI2D/UIMessage/Window/CheckBtn"
+        "kind": 4
     },
     {
         "id": 8,
         "line": 15,
         "kind": 4,
-        "wait": 3
+        "uipath": "UI2D/UIMessage/Window/CheckBtn"
     },
     {
         "id": 8,
         "line": 16,
+        "kind": 4,
+        "wait": 3
+    },
+    {
+        "id": 8,
+        "line": 17,
         "kind": 4,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
@@ -952,7 +970,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "隨著您的成長，聯盟這邊有準備一些[ff6060]每日考驗[-]給您，只要您完成考驗，就可以獲得到獎勵喔！！",
+        "texttw": "隨著您的成長，聯盟準備了一些[ff6060]每日考驗[-]給你，只要你完成考驗，就可以獲得到獎勵喔！！",
         "texten": "While you improve, the league has prepared some [ff6060]Daily Trials[-]  for you. You will be awarded if you accomplish these trials!!"
     },
     {
@@ -979,7 +997,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "這邊的考驗都是[ff6060]每天計算[-]一次喔，所以要把握時間完成他們喔！！",
+        "texttw": "任務中的考驗都是[ff6060]每天計算[-]一次喔，所以要把握時間完成！",
         "texten": "The trials here will be [ff6060]Recalculated Daily[-] . Remember to seize your opportunities to accomplish them!!"
     },
     {
@@ -989,7 +1007,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "我現在來帶你完成",
+        "texttw": "我現在來帶你完成。",
         "texten": "Let me guide you to accomplish them."
     },
     {
@@ -1007,7 +1025,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 5,
-        "texttw": "嗨，這裡是[ff6060]潛能成長[-]區，在這裏可以激發自己的潛能，讓自己的能力更上一層樓喔！！",
+        "texttw": "嗨，這裡是[ff6060]潛能成長[-]區，在這裡可以激發自己的潛能，讓自己的能力更上一層樓喔！！",
         "texten": "Hello, here is [ff6060]Potential Growth[-]  area. Here we can educe your potential and improve your ability!!"
     },
     {
@@ -1048,7 +1066,7 @@
         "actionl": 5,
         "talkr": -1,
         "actionr": 4,
-        "texttw": "剛剛獲得[ff6060]我愛籃球黑幫[-]技能晶片，這又是幹嘛的呀？",
+        "texttw": "剛剛獲得[ff6060]雙手爆扣I[-]技能晶片，這又是幹嘛的呀？",
         "texten": "I just got a skill Card called [ff6060]I Love Basketball Gang[-] . What is this for?"
     },
     {
@@ -1226,7 +1244,7 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 6,
-        "texttw": "這裏收集了可以集合成[ff6060]『套卡』[-]的技能晶片卡！",
+        "texttw": "這裡收集了可以集合成[ff6060]『套卡』[-]的技能晶片卡！",
         "texten": "There are many Skill Cards what can be [ff6060] \"Card Sets\" [-]. "
     },
     {
@@ -1278,7 +1296,7 @@
         "talkindex": 0,
         "talkl": 1101,
         "actionl": 5,
-        "texttw": "這裏可以查看該[ff6060]套卡的各個階段[-]，不同階段有不同的數量目標，也會有更佳的能力加成！",
+        "texttw": "這裡可以查看該[ff6060]套卡的各個階段[-]，不同階段有不同的數量目標，也會有更佳的能力加成！",
         "texten": "Here you can see [ff6060]each phase[-] of Card Sets."
     },
     {
@@ -1458,12 +1476,17 @@
     {
         "id": 30,
         "line": 8,
+        "wait": 1
+    },
+    {
+        "id": 30,
+        "line": 9,
         "kind": 0,
         "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
     },
     {
         "id": 30,
-        "line": 9,
+        "line": 10,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -1473,13 +1496,13 @@
     },
     {
         "id": 30,
-        "line": 10,
+        "line": 11,
         "kind": 0,
         "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/Chapter1/Open/StageElement101"
     },
     {
         "id": 30,
-        "line": 11,
+        "line": 12,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -1489,13 +1512,18 @@
     },
     {
         "id": 30,
-        "line": 12,
+        "line": 13,
+        "wait": 1
+    },
+    {
+        "id": 30,
+        "line": 14,
         "kind": 0,
         "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/SingalStage/StartButton"
     },
     {
         "id": 30,
-        "line": 13,
+        "line": 15,
         "kind": 0,
         "talkindex": 0,
         "talkl": 10,
@@ -1505,7 +1533,12 @@
     },
     {
         "id": 30,
-        "line": 14,
+        "line": 16,
+        "wait": 1
+    },
+    {
+        "id": 30,
+        "line": 17,
         "kind": 0,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
@@ -1518,7 +1551,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "哇，連續取得獲勝耶，接下來我們將要直接挑戰黑幫之王絕殺比爾，為了確保勝利，這裏有一個可以瞬間強化我們自身能力的注射劑，我來教你如何使用吧！",
+        "texttw": "哇，連續取得獲勝耶，接下來我們將要直接挑戰黑幫之王絕殺比爾，為了確保勝利，這裡有一個可以瞬間強化我們自身能力的注射劑，我來教你如何使用吧！",
         "texten": "Wow, we are getting consecutive wins. Let's challenge our next opponents!!"
     },
     {
@@ -1533,9 +1566,7 @@
         "line": 3,
         "kind": 2,
         "value": 102,
-        "talkindex": 0,
-        "talkl": 10,
-        "actionl": 1
+        "wait": 1.5
     },
     {
         "id": 31,
@@ -1677,7 +1708,7 @@
         "talkindex": 0,
         "talkl": 10,
         "actionl": 1,
-        "texttw": "今後您可以每天回來這裏領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！",
+        "texttw": "今後您可以每天回來這裡領取您的[ff6060]聯盟薪資[-]，切記，聯盟層級越高，報酬也越高喔！！",
         "texten": "From now on, you can come back and get your [ff6060]League Salary[-]  everyday. Remember, the higher your league level, the better the pay!!"
     },
     {
