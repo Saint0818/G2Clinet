@@ -47,6 +47,7 @@ public class TMissionItem{
     public UISlider SliderExp;
 	public UISprite SpriteAwardDiamond;
 	public UISprite SpriteColor;
+    public UISprite SpriteBG;
 	public UISprite[] SpriteLvs;
     public Animator[] AniLvs;
     public Animator AniFinish;
@@ -201,22 +202,30 @@ public class UIMission : UIBase {
 
     private void sortMissionPosition(int page) {
         missionLine = 0;
+
+        for (int i = 0; i < missionList[page].Count; i++)
+            if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].Mission.Kind == 21) {
+                missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
+                missionLine++;
+            }
+        
         for (int i = 0; i < missionList[page].Count; i++)
             if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
-                missionList[page][i].ButtonGot.normalSprite == "button_orange1") {
+                missionList[page][i].Mission.Kind != 21 && missionList[page][i].ButtonGot.normalSprite == "button_orange1") {
                 missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
                 missionLine++;
             }
 
         for (int i = 0; i < missionList[page].Count; i++)
             if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].ButtonGot.gameObject.activeInHierarchy && 
-                missionList[page][i].ButtonGot.normalSprite != "button_orange1") {
+                missionList[page][i].Mission.Kind != 21 && missionList[page][i].ButtonGot.normalSprite != "button_orange1") {
                 missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
                 missionLine++;
             }
 
         for (int i = 0; i < missionList[page].Count; i++)
-            if (missionList[page][i].Item.activeInHierarchy && !missionList[page][i].ButtonGot.gameObject.activeInHierarchy) {
+            if (missionList[page][i].Item.activeInHierarchy && missionList[page][i].Mission.Kind != 21 && 
+                !missionList[page][i].ButtonGot.gameObject.activeInHierarchy) {
                 missionList[page][i].Item.transform.localPosition = new Vector3(0, 170 - missionLine * 160, 0);
                 missionLine++;
             }
@@ -296,6 +305,10 @@ public class UIMission : UIBase {
             mi.ButtonGot = GameObject.Find(name + "/Window/GetBtn").GetComponent<UIButton>();
     		mi.SpriteAwardDiamond = GameObject.Find(name + "/Window/AwardGroup/AwardDiamond/Icon").GetComponent<UISprite>();
     		mi.SpriteColor = GameObject.Find(name + "/Window/ObjectLevel").GetComponent<UISprite>();
+            mi.SpriteBG = GameObject.Find(name + "/Window/BG").GetComponent<UISprite>();
+            if (data.Kind == 21)
+                mi.SpriteBG.spriteName = "ButtonCompose";
+            
             mi.AniFinish = GameObject.Find(name).GetComponent<Animator>();
     		mi.SpriteLvs = new UISprite[5];
             mi.AniLvs = new Animator[5];

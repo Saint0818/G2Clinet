@@ -595,6 +595,16 @@ namespace GameStruct
                 case 18: return record.TeamRecord.PVPKeepWin; //PVP連勝數 
                 case 19: return record.TeamRecord.OccupyWin; //踢館獲勝數
                 case 20: return record.TeamRecord.OccupyKeepWin; //踢館連勝數
+                case 21: 
+                    int score = 0;
+                    if (record.MissionLv != null && record.MissionLv.Count > 0) {
+                        foreach (KeyValuePair<int, int> item in record.MissionLv) {
+                            score += item.Value;
+                        }
+                    }
+
+                    return score; //任務完成次數
+                    
                 case 31: return record.PlayerRecord.Score; //總得分
                 case 32: return record.PlayerRecord.FGIn; //兩分球
                 case 33: return record.PlayerRecord.FG3In; //三分球
@@ -623,15 +633,6 @@ namespace GameStruct
                 case 121: return record.TeamRecord.TotalDelDiamond;
                 case 122: return record.TeamRecord.TotalDelPower;
                 /*
-                81 技能卡升級合成
-                82 技能卡進階
-                83 數值裝鑲嵌
-                84 數值裝合成
-
-                101 購買體力次數
-                102 購買鑽石次數
-                103 購買遊戲幣次數
-                104 購買挑戰券(PVP)
                 110 重置關卡次數
                 */
             }
@@ -640,6 +641,7 @@ namespace GameStruct
         }
 
         private int getLifetimeMissionValue(int kind) {
+            GroupRecord.MissionLv = MissionLv;
             GroupRecord.TeamRecord.PVPLv = PVPLv;
             GroupRecord.TeamRecord.StatiumLv = StatiumLv;
             GroupRecord.TeamRecord.OccupyLv = OccupyLv;
