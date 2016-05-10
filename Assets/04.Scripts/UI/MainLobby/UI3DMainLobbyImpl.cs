@@ -35,6 +35,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private GameObject mAvatarPlayer;
 	private string[] mAnimationName = new string[]{"Talk1","Talk2","Talk3","Talk4","Talk6","Show"};
 	private Animator mAvatarAnimator;
+	private float doAnimationTime = 5;
 //    private Transform DummyBall;
 //    private AnimatorController playerControl;
     private EPlayerState crtState;
@@ -96,6 +97,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		if(mAvatarAnimator == null)
 			mAvatarAnimator = mAvatarPlayer.GetComponent<Animator>();
 
+		doAnimationTime = 5;
 		mAvatarAnimator.SetTrigger(mAnimationName[UnityEngine.Random.Range(0, mAnimationName.Length)]);
 	}
 
@@ -106,6 +108,12 @@ public class UI3DMainLobbyImpl : MonoBehaviour
         if (delay > 0)
             delay -= Time.deltaTime;
 //        Move();
+
+		if(doAnimationTime > 0) {
+			doAnimationTime -= Time.deltaTime;
+			if(doAnimationTime <= 0) 
+				doPlayerAni ();
+		}
     }
 
 	public void OnSelect(int buildIndex, bool manualCtrlUIAnim=false)
