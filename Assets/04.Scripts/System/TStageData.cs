@@ -143,7 +143,7 @@ public class TStageData
     /// 成就: (最低)得分.
     /// </summary>
     [UsedImplicitly]
-    public int AchPoints { get; private set; }
+    public int AchWinPoints { get; private set; }
 
     /// <summary>
     /// 成就: (最高)失分.
