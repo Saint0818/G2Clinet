@@ -30,8 +30,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     public GameObject[] BuildPos = new GameObject[BuildCount];
     public GameObject[] Builds = new GameObject[BuildCount];
 //    private UIButton[] Btns = new UIButton[BuildCount];
+	private UIButton btnPlayer;
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
+	private string[] mAnimationName = new string[]{"Talk1","Talk2","Talk3","Talk4","Talk6","Show"};
+	private Animator mAvatarAnimator;
 //    private Transform DummyBall;
 //    private AnimatorController playerControl;
     private EPlayerState crtState;
@@ -60,7 +63,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             }
             //TODO:Read Server Data
             InitBuilds(temp);
-//            InitButtons();
+            InitButtons();
 
             if (advertisementPic == null)
             {
@@ -75,8 +78,11 @@ public class UI3DMainLobbyImpl : MonoBehaviour
             Debug.LogError("Setting Prefab Error");
     }
 
-//    private void InitButtons()
-//    {
+    private void InitButtons()
+    {
+		btnPlayer = BuildPos[0].transform.parent.GetComponent<UIButton>();
+		if(btnPlayer)
+			btnPlayer.onClick.Add(new EventDelegate(doPlayerAni));
 //        for (int i = 0; i < BuildPos.Length; i++)
 //        {
 //            Btns[i] = BuildPos[i].transform.parent.GetComponent<UIButton>();
@@ -84,7 +90,14 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 //            if (Btns[i])
 //                Btns[i].onClick.Add(new EventDelegate(OnSelect));
 //        }
-//    }
+    }
+
+	private void doPlayerAni () {
+		if(mAvatarAnimator == null)
+			mAvatarAnimator = mAvatarPlayer.GetComponent<Animator>();
+
+		mAvatarAnimator.SetTrigger(mAnimationName[UnityEngine.Random.Range(0, mAnimationName.Length)]);
+	}
 
 
     [UsedImplicitly]
