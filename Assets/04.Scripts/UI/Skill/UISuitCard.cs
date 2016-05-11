@@ -376,7 +376,7 @@ public class UISuitCard {
 
 	public void ClickCard (GameObject go) {
 		string[] value = go.name.Split("_"[0]); // ID_LV
-		UISkillInfo.Get.ShowFromSuit(int.Parse(value[0]), int.Parse(value[1]));
+		UISkillInfo.Get.ShowFromSuit(int.Parse(value[0]), int.Parse(value[1]), null, mSelf.ClickInfoSource);
 //		UIItemHint.Get.OnShowForSuit(int.Parse(value[0]), int.Parse(value[1]));
 	}
 

@@ -31,6 +31,7 @@ public class UISkillEvolution {
 
 	private GameObject goEvolution;
 	private GameObject labelWarning;
+	private GameObject goRedPoint;
 
 	public void InitCom(UISkillReinforce skillReinforce, string UIName) {
 		mSelf = skillReinforce;
@@ -52,6 +53,8 @@ public class UISkillEvolution {
 		skillCardMaterial.Init(GameObject.Find(UIName + "/Window2/Center/View/RightPart/Evolution"));
 		materialIndexs = new int[3];//目前訂三種
 		refreshMaterialIndex ();
+
+		goRedPoint = GameObject.Find(UIName + "/Window2/Center/View/RightPart/DemountBtn/RedPoint");
 
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot0/View/MaterialItem", OnSearchMaterial1);
 		mSelf.SetBtn(UIName + "/Window2/Center/View/RightPart/Evolution/ElementSlot1/View/MaterialItem", OnSearchMaterial2);
@@ -139,6 +142,8 @@ public class UISkillEvolution {
 		refreshMaterialIndex ();
 		skillCanEvolution.SetActive(GameData.Team.IsEnoughMaterial(skill));
 		skillArrow.SetActive(!skillCanEvolution.activeSelf);
+		goRedPoint.SetActive((GameData.Team.IsEnoughMaterial(mSkill)) && GameData.DSkillData[mSkill.ID].EvolutionSkill != 0 && (mSkill.Lv == GameData.DSkillData[mSkill.ID].MaxStar));
+
 		if(GameData.DSkillData.ContainsKey(mSkill.ID)) {
 			nextSkill = new TSkill();
 			if(GameData.DSkillData[mSkill.ID].EvolutionSkill != 0) {

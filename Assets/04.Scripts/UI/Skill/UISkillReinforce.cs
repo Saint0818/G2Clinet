@@ -69,11 +69,11 @@ public class UISkillReinforce : UIBase {
 	private UILabel labelPrice;
 	private UIReinForceGrid reinforceGrid;
 
-	private List<GameObject> queueMaterial;
-	private List<GameObject> queueBuff;
-	private List<GameObject> queuePassive;
-	private List<GameObject> queueActive;
-	private List<GameObject> reinforceGoCards;
+	private List<GameObject> queueMaterial = new List<GameObject>();
+	private List<GameObject> queueBuff = new List<GameObject>();
+	private List<GameObject> queuePassive = new List<GameObject>();
+	private List<GameObject> queueActive = new List<GameObject>();
+	private List<GameObject> reinforceGoCards = new List<GameObject>();
 
 	private int reinforceMoney;
 	private int originalExp;
@@ -86,15 +86,16 @@ public class UISkillReinforce : UIBase {
 	private bool isNeedShowLevelUp = false;
 	private int addInterVal = 10;
 
-	private Dictionary<string, TPassiveSkillCard> passiveSkillCards;
+	private Dictionary<string, TPassiveSkillCard> passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
 	//card Right
-	private List<TPassiveSkillCard> reinforceCards;
+	private List<TPassiveSkillCard> reinforceCards = new List<TPassiveSkillCard>();
 	//item Center
-	private Dictionary<string, GameObject> reinforceItems;
+	private Dictionary<string, GameObject> reinforceItems = new Dictionary<string, GameObject>();
 
 	private Animator reinforceAnimator;
 
 	private bool isEquiped = false;
+	private GameObject goEmptyLabel;
 
 	private UISkillEvolution skillEvolution;
 
@@ -191,6 +192,7 @@ public class UISkillReinforce : UIBase {
 		uiScrollView.onDragFinished = ScrollViewDragFinish;
 		buttonReinforce = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn").GetComponent<UIButton>();
 		labelPrice = GameObject.Find(UIName + "/Window/Center/RightView/ReinforceBtn/PriceLabel").GetComponent<UILabel>();
+		goEmptyLabel = GameObject.Find(UIName + "/Window/Center/RightView/EmptyLabel");
 
 		reinforceCards = new List<TPassiveSkillCard>();
 		reinforceGoCards = new List<GameObject>();
@@ -310,7 +312,9 @@ public class UISkillReinforce : UIBase {
 				}
 			}
 		}
+
 		sortCard(ref reinforceGoCards);
+		goEmptyLabel.SetActive(reinforceGoCards.Count <= 0);
 		uiScrollView.ResetPosition();
 		reinforceGrid.init();
 		reinforceGrid.mChildren = reinforceGoCards;

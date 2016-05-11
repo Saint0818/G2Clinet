@@ -744,9 +744,10 @@ public class UISkillFormation : UIBase {
 	public void OnSuitCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) 
-				UISuitAvatar.Get.ShowView(1, 0, result);
-			else 
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitCard)) {
+				DoFinish();
+				UISuitAvatar.Get.ShowView(1, 0, result, clickSource);
+			} else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)),LimitTable.Ins.GetLv(EOpenID.SuitCard)) , Color.black);
 		}
 
@@ -755,11 +756,16 @@ public class UISkillFormation : UIBase {
 	public void OnSuitItem (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
-				UISuitAvatar.Get.ShowView(result, 1);
-			else 
+			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) {
+				DoFinish();
+				UISuitAvatar.Get.ShowView(result, 1, 0, clickSource);
+			} else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.black);
 		}
+	}
+
+	public void clickSource () {
+		Visible = false;
 	}
 
 	private GameObject addUICards (int skillCardIndex, int positionIndex, TSkill skill, GameObject parent, bool isEquip) {

@@ -53,6 +53,8 @@ public class UIShop : UIBase {
 
     private int diamondFresh = 0;
 
+	private bool isFromSource = false;
+
     public static bool Visible {
         get {
             if(instance)
@@ -317,7 +319,11 @@ public class UIShop : UIBase {
             UIMainLobby.Get.Show();
     }
 
-    public void OpenPage(int page) {
+	public void OpenPage(int page, bool isSource = false) {
+		isFromSource = isSource;
+		if(isSource)
+			UIResource.Get.Show(UIResource.EMode.PvpSocial);
+
         for (int i = 0; i < pageObjects.Length; i++) {
             pageObjects[i].SetActive(false);
             pageToggle[i].value = false;
@@ -364,13 +370,21 @@ public class UIShop : UIBase {
 		UIResource.Get.Show(UIResource.EMode.PvpSocial);
 	}
 
+	private void suitToSource () {
+		if(!isFromSource) {
+			Visible = false;
+			UIPlayerAvatar.Visible = false;
+		} else
+			isFromSource = false;
+	}
+
     public void OnSuitItem() {
         int id = -1;
         if (int.TryParse(UIButton.current.name, out id)) {
             if (GameData.DItemData.ContainsKey(id)) {
                 if (GameData.DItemData[id].Kind == 21) {
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitCard))
-						UISuitAvatar.Get.ShowView(1, 0, GameData.DItemData[id].SuitCard);
+						UISuitAvatar.Get.ShowView(1, 0, GameData.DItemData[id].SuitCard, suitToSource);
 					else 
 						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitCard)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitCard)) , Color.black);
 					
@@ -379,7 +393,7 @@ public class UIShop : UIBase {
                 } else
                 if (GameData.DItemData[id].Kind <= 7)
 					if(GameData.IsOpenUIEnableByPlayer(GameEnum.EOpenID.SuitItem))
-						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem, 1);
+						UISuitAvatar.Get.ShowView(GameData.DItemData[id].SuitItem, 1, 0, suitToSource);
 					else 
 						UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)GameEnum.EOpenID.SuitItem)),LimitTable.Ins.GetLv(GameEnum.EOpenID.SuitItem)) , Color.black);
             }

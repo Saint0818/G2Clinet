@@ -148,7 +148,10 @@ public struct TSuitItemRight {
 	}
 }
 
+public delegate void OnClickInfoSource ();
+
 public class UISuitAvatar : UIBase {
+	public OnClickInfoSource onClickInfoSource = null;
 	private static UISuitAvatar instance = null;
 	private const string UIName = "UISuitAvatar";
 
@@ -180,9 +183,10 @@ public class UISuitAvatar : UIBase {
 		set
 		{
 		    if (instance) {
-				if (!value)
+				if (!value) {
                     RemoveUI(instance.gameObject);
-				else
+					Get.onClickInfoSource = null;
+				} else
 					instance.Show(value);
 			} else
 				if (value)
@@ -261,14 +265,15 @@ public class UISuitAvatar : UIBase {
 	public void ClickCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-//			UIItemHint.Get.OnShowForSuit(result);
 			if(GameData.DItemData.ContainsKey(result) && GameData.DSkillData.ContainsKey(GameData.DItemData[result].Avatar)) {
-				TSkill skill = new TSkill();
-				skill.ID = GameData.DItemData[result].Avatar;
-				skill.Lv = GameData.DSkillData[skill.ID].MaxStar;
-				UISkillInfo.Get.ShowFromNewCard(skill);
+				UISkillInfo.Get.ShowFromSuit(result, GameData.DSkillData[GameData.DItemData[result].Avatar].MaxStar, null, ClickInfoSource);
 			}
 		}
+	}
+
+	public  void ClickInfoSource () {
+		if(onClickInfoSource != null)
+			onClickInfoSource();
 	}
 
 	public void OnClose () {
@@ -278,8 +283,11 @@ public class UISuitAvatar : UIBase {
 	/// tab  0 : SuitCard 1: SuitAvatar
 	/// </summary>
 	/// <param name="tab">Tab.</param>
-	public void ShowView (int suitItemID = 1, int tab = 0, int suitId = 0) {
+	public void ShowView (int suitItemID = 1, int tab = 0, int suitId = 0, OnClickInfoSource clickSource = null) {
 		Visible = true;
+		if(clickSource != null)
+			onClickInfoSource = clickSource;
+
 		initScrollView ();
 		clickSuit (suitItemID);
 		if(suitItemID >= 200)

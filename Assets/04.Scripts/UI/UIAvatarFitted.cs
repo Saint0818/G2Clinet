@@ -535,7 +535,7 @@ public class UIAvatarFitted : UIBase
         int index = -1;
 		if (int.TryParse(UIButton.current.name, out index) && GameData.DItemData.ContainsKey(backpackItems[index].ID)){
 			if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
-            	UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem, 1);
+				UISuitAvatar.Get.ShowView(GameData.DItemData[backpackItems[index].ID].SuitItem, 1, 0, clickSource);
 			else 
 				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
 		}
@@ -543,9 +543,13 @@ public class UIAvatarFitted : UIBase
 
 	public void DoAvatarCollection () {
 		if(GameData.IsOpenUIEnableByPlayer(EOpenID.SuitItem)) 
-			UISuitAvatar.Get.ShowView(1 , 1);
+			UISuitAvatar.Get.ShowView(1 , 1, 0 ,clickSource);
 		else 
 			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitItem)),LimitTable.Ins.GetLv(EOpenID.SuitItem)) , Color.red);
+	}
+
+	private void clickSource () {
+		OnReturn();
 	}
 
     public void DoAvatarTab()

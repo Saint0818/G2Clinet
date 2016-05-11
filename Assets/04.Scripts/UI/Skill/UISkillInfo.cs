@@ -3,10 +3,12 @@ using GameStruct;
 using UnityEngine;
 using GameEnum;
 
+public delegate void OnClickSource();
 public delegate void OnCloseSkillInfo();
 
 public class UISkillInfo : UIBase {
 	public OnCloseSkillInfo onCloseSkillInfo = null;
+	public OnClickSource onClickSource = null;
 	private static UISkillInfo instance = null;
 	private const string UIName = "UISkillInfo";
 
@@ -82,6 +84,7 @@ public class UISkillInfo : UIBase {
 				if (!value) {
                     RemoveUI(instance.gameObject);
 					Get.onCloseSkillInfo = null;
+					Get.onClickSource = null;
 				} else
 					instance.Show(value);
 			} else
@@ -176,18 +179,15 @@ public class UISkillInfo : UIBase {
 
 	protected override void OnShow(bool isShow) {
 		base.OnShow(isShow);
-		if(UIResource.Visible)
-			UIResource.Get.Hide();
-	}
-
-	void Destroy () {
-		if(UIResource.Visible)
-			UIResource.Get.Show();
 	}
 	
 	public void OnSource () {
 		UIItemSource.Get.ShowSkill(GameData.DItemData[mItemID], enable => {if(enable){ 
 				Visible = false;
+				UISuitAvatar.Visible = false;
+				UIMainLobby.Get.Hide();
+				if(onClickSource != null)
+					onClickSource();
 			}
 		});
 	}
@@ -235,8 +235,14 @@ public class UISkillInfo : UIBase {
 		}
 	}
 
-	public void ShowFromSuit (int itemID, int lv) {
+	public void ShowFromSuit (int itemID, int lv, OnCloseSkillInfo callback = null, OnClickSource source = null) {
 		if(GameData.DItemData.ContainsKey(itemID)) {
+			if(callback != null)
+				onCloseSkillInfo = callback;
+
+			if(source != null)
+				onClickSource = source;
+			
 			Visible = true;
 			btnEquip.SetActive(false);
 			btnUpgrade.SetActive(false);

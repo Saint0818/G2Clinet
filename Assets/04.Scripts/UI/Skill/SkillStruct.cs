@@ -116,14 +116,16 @@ public struct TSkillCardMaterial {
 	public UISprite[] ElementPic;
 	public UILabel[] NameLabel;
 	public UILabel[] AmountLabel; // 99/99
-	public GameObject[] RedPoint;
+	public GameObject[] goGoTo;
+//	public GameObject[] RedPoint;
 
 	public GameObject[] MaterialSkill;
 	public UISprite[] MaterialItemSkill;
 	public UISprite[] ElementPicSkill;
 	public UILabel[] NameLabelSkill;
 	public UILabel[] AmountLabelSkill; // 99/99
-	public GameObject[] RedPointSkill;
+	public GameObject[] goGoToSkill;
+//	public GameObject[] RedPointSkill;
 
 	public TSkill mSkill;
 	public int material1index;
@@ -143,14 +145,16 @@ public struct TSkillCardMaterial {
 		ElementPic = new UISprite[3];
 		NameLabel = new UILabel[3];
 		AmountLabel = new UILabel[3];
-		RedPoint = new GameObject[3];
+		goGoTo = new GameObject[3];
+//		RedPoint = new GameObject[3];
 
 		MaterialSkill = new GameObject[3];
 		MaterialItemSkill = new UISprite[3];
 		ElementPicSkill = new UISprite[3];
 		NameLabelSkill = new UILabel[3];
 		AmountLabelSkill = new UILabel[3];
-		RedPointSkill = new GameObject[3];
+		goGoToSkill = new GameObject[3];
+//		RedPointSkill = new GameObject[3];
 
 		skill1 = new List<TSkill>();
 		skill2 = new List<TSkill>();
@@ -162,14 +166,16 @@ public struct TSkillCardMaterial {
 			ElementPic[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/ElementPic").GetComponent<UISprite>();
 			NameLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/NameLabel").GetComponent<UILabel>();
 			AmountLabel[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/AmountLabel").GetComponent<UILabel>();
-			RedPoint[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/RedPoint").gameObject;
+			goGoTo[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/GoTo").gameObject;
+//			RedPoint[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/MaterialItem/RedPoint").gameObject;
 
 			MaterialSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem").gameObject;
 			MaterialItemSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/Quality").GetComponent<UISprite>();
 			ElementPicSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/ElementPic").GetComponent<UISprite>();
 			NameLabelSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/NameLabel").GetComponent<UILabel>();
 			AmountLabelSkill[i] = obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/AmountLabel").GetComponent<UILabel>();
-			RedPointSkill[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/RedPoint").gameObject;
+			goGoToSkill[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/GoTo").gameObject;
+//			RedPointSkill[i] =  obj.transform.Find("ElementSlot" + i.ToString() + "/View/SkillCardItem/RedPoint").gameObject;
 		}
 	}
 
@@ -203,7 +209,7 @@ public struct TSkillCardMaterial {
 						else
 							AmountLabelSkill[0].text = material1count + "/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 
-						RedPointSkill[0].SetActive(material1count >= GameData.DSkillData[skill.ID].MaterialNum1);
+						goGoToSkill[0].SetActive(material1count < GameData.DSkillData[skill.ID].MaterialNum1);
 
 					} else {
 						MaterialSkill[0].gameObject.SetActive(false);
@@ -224,7 +230,7 @@ public struct TSkillCardMaterial {
 						} else 
 							AmountLabel[0].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum1.ToString();
 
-						RedPoint[0].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum1));
+						goGoTo[0].SetActive((materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum1));
 
 						material1count = materialSkillCard.Num;
 					}
@@ -253,7 +259,7 @@ public struct TSkillCardMaterial {
 						else
 							AmountLabelSkill[1].text = material2count + "/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
 
-						RedPointSkill[1].SetActive(material2count >= GameData.DSkillData[skill.ID].MaterialNum2);
+						goGoToSkill[1].SetActive(material2count < GameData.DSkillData[skill.ID].MaterialNum2);
 
 					} else {
 						MaterialSkill[1].gameObject.SetActive(false);
@@ -275,7 +281,7 @@ public struct TSkillCardMaterial {
 							AmountLabel[1].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum2.ToString();
 
 
-						RedPoint[1].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum2));
+						goGoTo[1].SetActive((materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum2));
 
 						material2count = materialSkillCard.Num;
 					}
@@ -305,7 +311,7 @@ public struct TSkillCardMaterial {
 						else
 							AmountLabelSkill[2].text = material3count + "/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 
-						RedPointSkill[2].SetActive(material3count >= GameData.DSkillData[skill.ID].MaterialNum3);
+						goGoToSkill[2].SetActive(material3count < GameData.DSkillData[skill.ID].MaterialNum3);
 
 					} else {
 						MaterialSkill[2].gameObject.SetActive(false);
@@ -326,7 +332,7 @@ public struct TSkillCardMaterial {
 						} else 
 							AmountLabel[2].text = "[FF0000]0[-]/" + GameData.DSkillData[skill.ID].MaterialNum3.ToString();
 
-						RedPoint[2].SetActive((materialSkillCard.Num >= GameData.DSkillData[skill.ID].MaterialNum3));
+						goGoTo[2].SetActive((materialSkillCard.Num < GameData.DSkillData[skill.ID].MaterialNum3));
 
 						material3count = materialSkillCard.Num;
 					}
