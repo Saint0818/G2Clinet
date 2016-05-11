@@ -585,7 +585,7 @@ public static class GameData
 		{
 			_DItemData.Clear();
 
-			TItemData[] data = JsonConvert.DeserializeObject<TItemData[]>(text);
+			TItemData[] data = JsonConvertWrapper.DeserializeObject<TItemData[]>(text);
 			for (int i = 0; i < data.Length; i++) {
 				if(!_DItemData.ContainsKey(data[i].ID) && data[i].ID > 0)
 					_DItemData.Add(data[i].ID, data[i]);
@@ -666,7 +666,7 @@ public static class GameData
 	public static void LoadShopData (string version, string text, bool isSaveVersion){
 
 		try {
-			_DShops = JsonConvert.DeserializeObject<TShop[]>(text);
+			_DShops = JsonConvertWrapper.DeserializeObject<TShop[]>(text);
 
 			//if (isSaveVersion)
 			//	SaveDataVersionAndJson(text, "shop", version);
