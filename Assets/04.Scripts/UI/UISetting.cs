@@ -257,9 +257,13 @@ public class UISetting : UIBase {
 		toggleRotation = GameObject.Find (UIName + "/Window/Center/Pages/0/CheckRotation").GetComponent<UIToggle> ();
         toggleMove.value = GameData.Setting.GameMove;
         toggleRotation.value = GameData.Setting.GameRotation;
-        if (FileManager.NowMode == VersionMode.Release) {
+        if(FileManager.NowMode == VersionMode.Release)
+        {
             toggleMove.gameObject.SetActive(false);
             toggleRotation.gameObject.SetActive(false);
+
+            GameObject removeAccount = GameObject.Find(UIName + "/Window/Center/Pages/0/BtnRemoveAccount");
+            removeAccount.SetActive(false);
         }
 
 		for (int i = 0; i < pages.Length; i++) {
