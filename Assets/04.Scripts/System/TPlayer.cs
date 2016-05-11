@@ -92,6 +92,31 @@ namespace GameStruct
             return ResetStageDailyChallengeNums[stageID];
         }
 
+        /// <summary>
+        /// key: StageID.
+        /// </summary>
+        [UsedImplicitly]
+        public Dictionary<int, bool[]> StageAchievement;
+
+        /// <summary>
+        /// 關卡星等數.
+        /// </summary>
+        /// <param name="stageID"></param>
+        /// <returns></returns>
+        public int GetStageStarNum(int stageID)
+        {
+            if(!StageAchievement.ContainsKey(stageID))
+                return 0;
+
+            var startNum = 0;
+            for(var i = 0; i < StageAchievement[stageID].Length; i++)
+            {
+                if(StageAchievement[stageID][i])
+                    ++startNum;
+            }
+            return startNum;
+        }
+
         public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
         public TAvatar Avatar;
@@ -214,6 +239,7 @@ namespace GameStruct
             NextInstanceIDs = new Dictionary<int, int>();
             StageDailyChallengeNums = new Dictionary<int, int>();
             ResetStageDailyChallengeNums = new Dictionary<int, int>();
+            StageAchievement = new Dictionary<int, bool[]>();
             ConsumeValueItems = new int[0];
         }
 

@@ -5,6 +5,10 @@ public class UIPrefabPath
 {
     public static readonly string AttriuteHexagon = "Prefab/UI/UIAttributeHexagon";
 
+    public static string UIMainStageElement = "Prefab/UI/UIMainStageElement";
+    // Kind = 9 的特殊關卡.
+    public static string UIMainStageElement9 = "Prefab/UI/UIMainStageElement9";
+
     public static readonly string EquipPartSlot = "Prefab/UI/Items/EquipPartSlot";
     public static readonly string UIEquipItem = "Prefab/UI/Items/UIEquipItem";
     public static readonly string UIEquipListButton = "Prefab/UI/Items/UIEquipListButton";

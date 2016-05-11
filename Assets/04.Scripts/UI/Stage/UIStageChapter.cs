@@ -45,9 +45,6 @@ public class UIStageChapter : MonoBehaviour
     public GameObject Lock;
     public GameObject Open;
 
-    private readonly string PathStage = "Prefab/UI/UIStageElement";
-    // Kind = 9 的特殊關卡.
-    private readonly string PathBossStage = "Prefab/UI/UIStageElement9";
     private readonly string TexturePath = "Textures/Chapter/Chapter_{0}";
 
     /// <summary>
@@ -82,7 +79,15 @@ public class UIStageChapter : MonoBehaviour
                          UIMainStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(PathStage, stageID, localPos));
+        {
+            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement, Open.transform, localPos);
+            obj.name = string.Format("StageElement{0}", stageID);
+            var stage = obj.GetComponent<UIMainStageElement>();
+            stage.StageID = stageID;
+
+//            mStages.Add(stageID, createStage(UIPrefabPath.UIMainStageElement, stageID, localPos));
+            mStages.Add(stageID, stage);
+        }
         mStages[stageID].Set(elementData, infoData);
     }
 
@@ -90,7 +95,15 @@ public class UIStageChapter : MonoBehaviour
                              UIMainStageInfo.Data infoData)
     {
         if(!mStages.ContainsKey(stageID))
-            mStages.Add(stageID, createStage(PathBossStage, stageID, localPos));
+        {
+            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement9, Open.transform, localPos);
+            obj.name = string.Format("StageElement{0}", stageID);
+            var stage = obj.GetComponent<UIMainStageElement>();
+            stage.StageID = stageID;
+
+//            mStages.Add(stageID, createStage(UIPrefabPath.UIMainStageElement9, stageID, localPos));
+            mStages.Add(stageID, stage);
+        }
         mStages[stageID].Set(elementData, infoData);
     }
 
@@ -131,19 +144,19 @@ public class UIStageChapter : MonoBehaviour
         Show();
     }
 
-    private UIMainStageElement createStage(string path, int stageID, Vector3 localPos)
-    {
-        GameObject obj = Instantiate(Resources.Load<GameObject>(path));
-        obj.transform.parent = Open.transform;
-        obj.transform.localPosition = localPos;
-        obj.transform.localRotation = Quaternion.identity;
-        obj.transform.localScale = mDefaultStageScale;
-        obj.name = string.Format("StageElement{0}", stageID);
-
-        var stage = obj.GetComponent<UIMainStageElement>();
-        stage.StageID = stageID;
-        return stage;
-    }
+//    private UIMainStageElement createStage(string path, int stageID, Vector3 localPos)
+//    {
+//        GameObject obj = Instantiate(Resources.Load<GameObject>(path));
+//        obj.transform.parent = Open.transform;
+//        obj.transform.localPosition = localPos;
+//        obj.transform.localRotation = Quaternion.identity;
+//        obj.transform.localScale = mDefaultStageScale;
+//        obj.name = string.Format("StageElement{0}", stageID);
+//
+//        var stage = obj.GetComponent<UIMainStageElement>();
+//        stage.StageID = stageID;
+//        return stage;
+//    }
 
     public void Hide()
     {
