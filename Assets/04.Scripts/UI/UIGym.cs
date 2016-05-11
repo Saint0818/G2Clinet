@@ -17,6 +17,7 @@ public struct TGymResult {
 	public int Diamond;
 	public TGymBuild[] GymBuild;
 	public TGymQueue[] GymQueue;
+	public int StatiumLv;
 }
 
 public struct TGymObj {

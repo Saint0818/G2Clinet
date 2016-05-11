@@ -407,6 +407,7 @@ public class UISkillInfo : UIBase {
 
 	public void OnClose() {
 		Visible = false;
+		UIResource.Get.Show();
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
 			UIGameResult.Get.ShowBonusItem();
 
@@ -425,7 +426,6 @@ public class UISkillInfo : UIBase {
 		if(isAlreadyEquip) {
 			UISkillFormation.Get.DoUnEquipCard(mUICard);
 			OnClose();
-			UIResource.Get.Show();
 		} else {
 			if(mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) {
 				UISkillFormation.Get.DoEquipCard(mUICard);

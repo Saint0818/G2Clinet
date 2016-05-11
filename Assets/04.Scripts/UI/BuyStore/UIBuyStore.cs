@@ -108,7 +108,7 @@ public class UIBuyStore : UIBase {
 		updateView(type);
 		mItemDatas = itemDatas;
 		spritePay.spriteName = GameFunction.SpendKindTexture(pick.SpendKind);
-		refreshLabelColor ();
+		RefreshTextColor ();
 	}
 
 	public void SetNewSkillCard (Dictionary<int, int> gotItems) {
@@ -120,7 +120,7 @@ public class UIBuyStore : UIBase {
 		labelPay.text = getLabelPay(type);
 	}
 
-	private void refreshLabelColor () {
+	public void RefreshTextColor () {
 		labelPay.color = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(mPickCost.SpendKind, getLabelPayCount(mSpendType)), mPickCost.SpendKind);
 	}
 
@@ -203,10 +203,10 @@ public class UIBuyStore : UIBase {
 
 	public void OnAgain() {
 		if(mPickCost.SpendKind == 0) { // Diamond
-			if(!CheckDiamond(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(252), howMuch(mPickCost, mSpendType)), ConfirmUse, refreshLabelColor))
+			if(!CheckDiamond(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(252), howMuch(mPickCost, mSpendType)), ConfirmUse, RefreshTextColor))
 				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		} else if (mPickCost.SpendKind == 1) { // Money
-			if(!CheckMoney(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(253), howMuch(mPickCost, mSpendType)), ConfirmUse, refreshLabelColor))
+			if(!CheckMoney(howMuch(mPickCost, mSpendType), true, string.Format(TextConst.S(253), howMuch(mPickCost, mSpendType)), ConfirmUse, RefreshTextColor))
 				AudioMgr.Get.PlaySound (SoundType.SD_Prohibit);
 		}
 	}
@@ -266,7 +266,7 @@ public class UIBuyStore : UIBase {
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.MaterialItems = result.MaterialItems;
 			GameData.Team.InitSkillCardCount();
-			refreshLabelColor ();
+			RefreshTextColor ();
 			if(result.ItemIDs != null) {
 				mItemDatas = new TItemData[result.ItemIDs.Length];
 				for(int i=0; i<result.ItemIDs.Length; i++) {

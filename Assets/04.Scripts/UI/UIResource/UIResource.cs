@@ -28,6 +28,12 @@ public class UIResource : UIBase
 
     private readonly CountDownTimer mCountDownTimer = new CountDownTimer(1);
 
+	//給recharge判斷
+	private EMode currentmode;
+	public EMode CurrentMode {
+		get {return currentmode;}
+	}
+
     [UsedImplicitly]
     private void Awake()
     {
@@ -85,10 +91,11 @@ public class UIResource : UIBase
         Basic, // 僅顯示鑽石和金錢.
         Power, PVP, PvpSocial
     }
-    public void Show(EMode mode = EMode.Power)
+	public void Show(EMode mode = EMode.Power , bool isRecord = true)
     {
         Show(true);
-        
+		if(isRecord)
+			currentmode = mode;
         updateUI();
 
         View.Show(mode);

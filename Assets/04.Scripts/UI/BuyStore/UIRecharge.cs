@@ -243,23 +243,14 @@ public class UIRecharge : UIBase {
 	}
 
 	public void ShowView (int type ,bool isNeedRecord = true) {
-		if(!UISkillReinforce.Visible) {
-			if(IsOpenHideLobbyMenu)
-				UIMainLobby.Get.Hide();
+		UIResource.Get.Show(UIResource.EMode.Power, false);
             
-			if(IsNeedShowPlayer)
-				UIPlayerAvatar.Get.Enable = false;
-            
-			if(UIShop.Visible)
-			{
-			    UIMainLobby.Get.Hide();
-                UIResource.Get.Show(UIResource.EMode.PvpSocial);
-			}
-		}
-
 		if(UIGymEngage.Visible)
 			UIGymEngage.Get.CenterVisible = false;
 
+		if(IsNeedShowPlayer)
+			UIPlayerAvatar.Get.Enable = false;
+		
 		isRecord = isNeedRecord;
 		if(!UIRecharge.Visible)
 			recordType = type;
@@ -271,6 +262,22 @@ public class UIRecharge : UIBase {
 			initMall ();
 			initScroll();
 		}
+	}
+
+	public void OnClose () {
+		UIShow(false);
+		UIResource.Get.Show(UIResource.Get.CurrentMode, false);
+		if(IsNeedShowPlayer)
+			UIPlayerAvatar.Get.Enable = true;
+
+		if(UIGymEngage.Visible)
+			UIGymEngage.Get.CenterVisible = true;
+
+		if(UIInstance.Get.Visible)
+			UIInstance.Get.ShowByChapter(UIInstance.Get.Main.CurrentChapter);
+
+		RefreshTextUIColor ();
+		UIMail.SetFocus (true);
 	}
 
 	private void initScroll () {
@@ -423,34 +430,6 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public void OnClose () {
-		UIShow(false);
-		if(!GameData.IsMainStage && !GameData.IsInstance && !GameData.IsPVP)
-		{
-			if(!UISkillReinforce.Visible) {
-				if(IsCloseShowLobbyMenu)
-					UIMainLobby.Get.Show();
-				
-				if(IsNeedShowPlayer)
-					UIPlayerAvatar.Get.Enable = true;
-				
-				if(UIShop.Visible)
-				{
-                    UIResource.Get.Show(UIResource.EMode.PvpSocial);
-				}
-
-			}
-		}
-
-		if(UIGymEngage.Visible)
-			UIGymEngage.Get.CenterVisible = true;
-
-        if(UIInstance.Get.Visible)
-            UIInstance.Get.ShowByChapter(UIInstance.Get.Main.CurrentChapter);
-
-		UIMail.SetFocus (true);
-	}
-
 	private void SendBuyDiamond(int index, string receipt)
 	{
 		if(index >=0 && !string.IsNullOrEmpty(receipt) && !string.IsNullOrEmpty(GameData.Team.Identifier)) {
@@ -539,18 +518,23 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public bool IsCloseShowLobbyMenu {
-		get {
-			return (UIGameLobby.Get.gameObject.activeInHierarchy);
-		}
-	}
+	public void RefreshTextUIColor () {
+		if(UIBuyStore.Visible)
+			UIBuyStore.Get.RefreshTextColor();
 
-	public bool IsOpenHideLobbyMenu {
-		get {
-			return (UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
-				UISkillFormation.Visible || UISkillReinforce.Visible || UIPlayerInfo.Visible || UIMission.Visible || UIAvatarFitted.Visible ||
-				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible || UIPlayerPotential.Visible || 
-				UICreateRole.Visible || UIGymEngage.Visible || UIMail.Visible);
-		}
+		if(UIMall.Visible)
+			UIMall.Get.RefreshTextColor();
+
+		if(UIMainLobby.Get.IsVisible)
+			UIMainLobby.Get.RefreshTextColor();
+
+		if(UIShop.Visible)
+			UIShop.Get.RefreshTextColor();
+
+		if(UISkillReinforce.Visible)
+			UISkillReinforce.Get.RefreshPriceUI();
+
+		if(UIPVP.Visible)
+			UIPVP.Get.RefreshTextColor();
 	}
 }
