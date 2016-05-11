@@ -15,11 +15,11 @@ public class GMDeleteTeamProtocol
 
         if(ok)
         {
-            if(Application.platform == RuntimePlatform.WindowsEditor ||
-               Application.platform == RuntimePlatform.OSXEditor)
-                UnityEditor.EditorApplication.isPlaying = false;
-            else
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
                 Application.Quit();
+            #endif
         }
     }
 }
