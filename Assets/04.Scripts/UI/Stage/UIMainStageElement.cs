@@ -18,12 +18,21 @@ public class UIMainStageElement : MonoBehaviour
         public bool IsSelected;
 
         public bool ShowClear;
+
+        /// <summary>
+        /// 要顯示幾顆星.
+        /// </summary>
+        public int StarNum;
+
+        /// <summary>
+        /// 要不要顯示星星.
+        /// </summary>
+        public bool StarVisible;
     }
 
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
     public int StageID;
 
-    public UISprite KindSprite;
     public GameObject SelectedMark;
     public GameObject ClearMark;
 
@@ -46,11 +55,14 @@ public class UIMainStageElement : MonoBehaviour
     }
     private UIMainStageMain mMain;
 
+    private UIMainStageStars mStar;
+
     [UsedImplicitly]
     private void Awake()
     {
         mAnimator = GetComponent<Animator>();
         mButton = GetComponent<UIButton>();
+        mStar = GetComponent<UIMainStageStars>();
 
         mButton.onClick.Add(new EventDelegate(() =>
         {
@@ -72,6 +84,11 @@ public class UIMainStageElement : MonoBehaviour
 
         SelectedMark.SetActive(data.IsSelected);
         ClearMark.SetActive(data.ShowClear);
+
+        if(data.StarVisible)
+            mStar.Show(data.StarNum);
+        else
+            mStar.Hide();
     }
 
     public void PlayUnlockAnimation()
@@ -92,11 +109,4 @@ public class UIMainStageElement : MonoBehaviour
 
         mButton.isEnabled = true;
     }
-
-//    public void ShowLock(string kindSpriteName)
-//    {
-//        KindSprite.spriteName = kindSpriteName;
-//
-//        SelectedMark.SetActive(false);
-//    }
 }

@@ -71,13 +71,13 @@ public static class UIMainStageBuilder
             IsSelected = stageData.ID == GameData.Team.Player.NextMainStageID
         };
         elementData.IsEnable = UIStageVerification.VerifyPlayerProgress(stageData, out elementData.ErrMsg);
-        if (elementData.IsEnable) // 再一次驗證關卡是不是只能打一次.
+        if(elementData.IsEnable) // 再一次驗證關卡是不是只能打一次.
         {
             elementData.IsEnable = UIStageVerification.VerifyPlayerChallengeOnlyOnce(stageData, out elementData.ErrMsg);
             elementData.ShowClear = !elementData.IsEnable;
         }
 
-        if (stageData.Kind != 9)
+        if(stageData.Kind != 9)
         {
             elementData.BGNormalIcon = elementData.IsEnable ? "StageButton01" : "StageButton03";
             elementData.BGPressIcon = elementData.IsEnable ? "StageButton02" : "StageButton03";
@@ -87,6 +87,10 @@ public static class UIMainStageBuilder
             elementData.BGNormalIcon = elementData.IsEnable ? "2000009" : "StageButton09";
             elementData.BGPressIcon = elementData.IsEnable ? "StageButton08" : "StageButton09";
         }
+
+        elementData.StarVisible = !stageData.ChallengeOnlyOnce;
+        if(elementData.StarVisible)
+            elementData.StarNum = GameData.Team.Player.GetStageStarNum(stageData.ID);
 
         return elementData;
     }
