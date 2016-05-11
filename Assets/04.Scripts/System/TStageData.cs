@@ -143,19 +143,19 @@ public class TStageData
     /// 成就: (最低)得分.
     /// </summary>
     [UsedImplicitly]
-    public int AchWinPoints { get; private set; }
+    public int StarWinPoints { get; private set; }
 
     /// <summary>
     /// 成就: (最高)失分.
     /// </summary>
     [UsedImplicitly]
-    public int AchLostPoints { get; private set; }
+    public int StarLostPoints { get; private set; }
 
     /// <summary>
     /// 成就: (最低)勝分差.
     /// </summary>
     [UsedImplicitly]
-    public int AchWinDiff { get; private set; }
+    public int StarWinDiffPoints { get; private set; }
 
 
     public bool HasSurelyRewards(EPlayerPostion pos)

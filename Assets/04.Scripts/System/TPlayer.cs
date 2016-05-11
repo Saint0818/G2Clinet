@@ -96,7 +96,7 @@ namespace GameStruct
         /// key: StageID.
         /// </summary>
         [UsedImplicitly]
-        public Dictionary<int, bool[]> StageAchievement;
+        public Dictionary<int, bool[]> StageStars;
 
         /// <summary>
         /// 關卡星等數.
@@ -105,13 +105,13 @@ namespace GameStruct
         /// <returns></returns>
         public int GetStageStarNum(int stageID)
         {
-            if(!StageAchievement.ContainsKey(stageID))
+            if(!StageStars.ContainsKey(stageID))
                 return 0;
 
             var startNum = 0;
-            for(var i = 0; i < StageAchievement[stageID].Length; i++)
+            for(var i = 0; i < StageStars[stageID].Length; i++)
             {
-                if(StageAchievement[stageID][i])
+                if(StageStars[stageID][i])
                     ++startNum;
             }
             return startNum;
@@ -239,7 +239,7 @@ namespace GameStruct
             NextInstanceIDs = new Dictionary<int, int>();
             StageDailyChallengeNums = new Dictionary<int, int>();
             ResetStageDailyChallengeNums = new Dictionary<int, int>();
-            StageAchievement = new Dictionary<int, bool[]>();
+            StageStars = new Dictionary<int, bool[]>();
             ConsumeValueItems = new int[0];
         }
 
