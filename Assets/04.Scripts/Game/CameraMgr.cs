@@ -38,7 +38,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float groupOffsetSpeed = 0.005f;
 	private const float zoomNormal = 30;
 	private const float zoomRange = 20;
-	private float zoomTime = 1;
+	private float zoomTime = 0.25f;
 	private const float focusOffsetSpeed = 0.8f;
 
     private float[] focusStopPoint = new float[]{ 21f, -25f };
@@ -49,9 +49,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private Vector2 cameraMoveAera = new Vector2(14f, 25f);
     private Vector3 cameraOffsetRate = Vector3.zero;
     private Vector2 basketballCourt = new Vector2(21f, 30.5f);
-    private Vector3 restrictedAreaAngle = new Vector3(14f, 1, 0);
+    private Vector3 restrictedAreaAngle = new Vector3(18, 1, 0);
     private Vector3 cameraOffsetPos = Vector3.zero;
-    private Vector3 startPos = new Vector3(-17.36f, 10f, 0.67f);
+    private Vector3 startPos = new Vector3(-17.36f, 13, 0.67f);
     private Vector3[] groupOffsetPoint = new Vector3[]
     {
         new Vector3(0, 0, -8f),
@@ -60,10 +60,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private Vector3[] offsetLimit = new Vector3[]
     {
         new Vector3(-12f, 0, 1.63f),
-        new Vector3(-31f, 0, -1.63f)
+        new Vector3(-30f, 0, -1.63f)
     };
-    private Vector3 jumpBallPos = new Vector3(-25f, 8, 0);
-    private Vector3 jumpBallRotate = new Vector3(12.5f, 90, 0);
+    private Vector3 jumpBallPos = new Vector3(-25f, 11, 0);
+    private Vector3 jumpBallRotate = new Vector3(17.5f, 90, 0);
     private Vector3 endShowPos = new Vector3(-25f, 8, 0);
     private Vector3 endShowRotate = new Vector3(0, 90, 0);
     private GameObject cameraGroupObj;
@@ -790,13 +790,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             case 0: //rotate
             case 1://take self
-				TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
+				TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 12.5f);
 				cameraSkill.gameObject.transform.DOLookAt(player.PlayerRefGameObject.transform.position + new Vector3(0, 2, 0), 0.5f).SetEase(Ease.Linear);
 				cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), t , RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
 
                 break;
             case 2://take all player
-                TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 45);
+                TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 35);
                 Invoke("StopSkill", (t - 0.3f));
                 break;
         }
@@ -804,7 +804,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     public void StopSkill()
     {
-        TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 25);
+        TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 12.5f);
         cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
         cameraSkill.gameObject.transform.DOLocalMove(Vector3.zero, 0.3f);
         cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
