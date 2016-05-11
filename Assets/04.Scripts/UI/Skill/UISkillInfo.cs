@@ -3,7 +3,10 @@ using GameStruct;
 using UnityEngine;
 using GameEnum;
 
+public delegate void OnCloseSkillInfo();
+
 public class UISkillInfo : UIBase {
+	public OnCloseSkillInfo onCloseSkillInfo = null;
 	private static UISkillInfo instance = null;
 	private const string UIName = "UISkillInfo";
 
@@ -45,6 +48,8 @@ public class UISkillInfo : UIBase {
 	private GameObject btnCrafting;
 	private GameObject btnUpgrade;
 
+	private UIButton btnSource;
+
 	private GameObject goEquipUnuse;
 	private GameObject goCraftUnuse;
 	private GameObject goUpgradeUnuse;
@@ -59,6 +64,8 @@ public class UISkillInfo : UIBase {
 	private bool isOpen = false;
 	private float openCardSpeed = 0.1f;
 
+	private int mItemID;
+
 	private TUICard mUICard;
 	private bool isAlreadyEquip;
 
@@ -72,14 +79,23 @@ public class UISkillInfo : UIBase {
 
 		set {
 			if (instance) {
-				if (!value)
+				if (!value) {
                     RemoveUI(instance.gameObject);
-				else
+					Get.onCloseSkillInfo = null;
+				} else
 					instance.Show(value);
 			} else
 				if (value)
 					Get.Show(value);
 		}
+	}
+
+	public static void UIShow(bool isShow){
+		if (instance)
+			instance.Show(isShow);
+		else
+			if (isShow) 							
+				Get.Show(isShow);
 	}
 	
 	public static UISkillInfo Get {
@@ -147,6 +163,9 @@ public class UISkillInfo : UIBase {
 		UIEventListener.Get(goSuitCard.gameObject).onClick = OnSuitCard;
 		UIEventListener.Get(goSuitItem.gameObject).onClick = OnSuitItem;
 
+		btnSource = GameObject.Find (UIName + "/Center/TopRight/SourceButton").GetComponent<UIButton>();
+
+		SetBtnFun(ref btnSource, OnSource);
 		SetBtnFun(UIName + "/Center/BG", OnClose);
 		SetBtnFun(UIName + "/BottomLeft/BackBtn", OnClose);
 		SetBtnFun(UIName + "/Center/TopRight/EquipBtn", OnEquip);
@@ -164,6 +183,13 @@ public class UISkillInfo : UIBase {
 	void Destroy () {
 		if(UIResource.Visible)
 			UIResource.Get.Show();
+	}
+	
+	public void OnSource () {
+		UIItemSource.Get.ShowSkill(GameData.DItemData[mItemID], enable => {if(enable){ 
+				Visible = false;
+			}
+		});
 	}
 
 	public void OnSuitCard (GameObject go) {
@@ -188,9 +214,9 @@ public class UISkillInfo : UIBase {
 	
 	public void ShowFromSkill (TUICard uicard, bool isEquip, bool isMaskOpen) {
 		Visible = true;
-		UIMainLobby.Get.Hide(false);
 		isAlreadyEquip = isEquip;
 		btnEquip.SetActive(true);
+		btnSource.gameObject.SetActive(false);
 		btnUpgrade.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SkillReinforce));
 		btnCrafting.SetActive(GameData.IsOpenUIVisibleByPlayer(EOpenID.SkillEvolution));
 	
@@ -209,12 +235,33 @@ public class UISkillInfo : UIBase {
 		}
 	}
 
-	public void ShowFromNewCard (TSkill skill) {
+	public void ShowFromSuit (int itemID, int lv) {
+		if(GameData.DItemData.ContainsKey(itemID)) {
+			Visible = true;
+			btnEquip.SetActive(false);
+			btnUpgrade.SetActive(false);
+			btnCrafting.SetActive(false);
+			btnSource.gameObject.SetActive(true);
+			mItemID = itemID;
+			TSkill skill = new TSkill();
+			skill.ID = GameData.DItemData[itemID].Avatar;
+			skill.Lv = lv;
+			refreshInfo(skill);
+			goSuitCard.gameObject.SetActive(false);
+			goSuitItem.gameObject.SetActive(false);
+		}
+	}
+
+	public void ShowFromNewCard (TSkill skill, OnCloseSkillInfo callback = null) {
 		Visible = true;
+		if(callback != null)
+			onCloseSkillInfo = callback;
+		
 		btnEquip.SetActive(false);
 		btnUpgrade.SetActive(false);
 		btnCrafting.SetActive(false);
-		Refresh(skill, -1);
+		btnSource.gameObject.SetActive(false);
+		refreshInfo(skill);
 
 		if(GameData.DSkillData.ContainsKey(skill.ID)) {
 			goSuitCard.gameObject.SetActive(false);
@@ -234,8 +281,8 @@ public class UISkillInfo : UIBase {
 				mUICard.CardIndex = cardIndex;
 				mUICard.Cost = GameData.DSkillData[skill.ID].Space(skill.Lv);
 			}
-			TSkillData skillData = GameData.DSkillData[skill.ID];
 			if(cardIndex != -1) {
+				TSkillData skillData = GameData.DSkillData[skill.ID];
 				goEquipUnuse.SetActive(!isAlreadyEquip && (mUICard.Cost > UISkillFormation.Get.ExtraCostSpace) && UISkillFormation.Get.CheckCardnoInstallIgnoreSelf(mUICard.Card.name));
 				goCraftUnuse.SetActive((skillData.EvolutionSkill == 0));
 				goUpgradeUnuse.SetActive((skill.Lv == skillData.MaxStar));
@@ -245,75 +292,80 @@ public class UISkillInfo : UIBase {
 				goUpgradeRedPoint.SetActive(false);
 			}
 
-			//MediumCard
-			spriteSkillCard.spriteName =  GameFunction.CardLevelName(skill.ID);
-            textureSkillPic.mainTexture = TextureManager.Get.CardTexture(skill.ID);
-			labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
-			GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar, 40);
-			if(GameFunction.IsActiveSkill(skill.ID)) {
-				spriteSkillKind.spriteName = "ActiveIcon";
-				labelSkillInfoKind4.text = TextConst.S(7207);
-				labelSkillKind.text = TextConst.S(7002);
-			} else {
-				spriteSkillKind.spriteName = "PassiveIcon";
-				labelSkillInfoKind4.text = TextConst.S(7206);
-				labelSkillKind.text = TextConst.S(7003);
-			}
-			spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
-
-			if(GameData.DSkillData[skill.ID].SuitCard > 0) {
-				goSuitCard.gameObject.SetActive(true);
-				goSuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
-				goSuitCard.gameObject.name = GameData.DSkillData[skill.ID].SuitCard.ToString();
-				suitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(GameData.DSkillData[skill.ID].SuitCard));
-			} else
-				goSuitCard.gameObject.SetActive(false);
-
-			if(GameData.DSkillData[skill.ID].Suititem > 0 && GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)) {
-				goSuitItem.gameObject.SetActive(true);
-				goSuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
-				goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
-				suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength);
-				GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
-			} else 
-				goSuitItem.gameObject.SetActive(false);
-
-			//SkillInfo
-			labelSkillQuality.text =GameFunction.QualityName(GameData.DSkillData[skill.ID].Quality);
-			labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
-			if(skill.Lv >= GameData.DSkillData[skill.ID].MaxStar) {
-				labelSkillExp.text = TextConst.S(7250); 
-				sliderSkillExpBar.value = 1;
-			}  else {
-				labelSkillExp.text = skill.Exp.ToString() + "/" + GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv).ToString(); 
-				sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv);
-			}
-
-			if(GameFunction.IsActiveSkill(skill.ID))
-				labelSkillDemandValue.text = skillData.MaxAnger(skill.Lv).ToString();
-			else 
-				labelSkillDemandValue.text = skillData.Rate(skill.Lv).ToString() + "%";
-
-			//Buff Ability
-			int index = 0;
-			if(skillData.Distance(skill.Lv) > 0) {
-				buffViews[index].ShowDistance(skillData.Distance(skill.Lv));
-				index ++;
-			}
-
-			if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
-				buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(skill.Lv), skillData.Value(skill.Lv));
-				index ++;
-			}
-
-			if(index == 0)
-			{
-				labelSubhead.gameObject.SetActive(false);
-			}
-
-			//Explain
-			labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, skill.ID, skill.Lv);
+			refreshInfo(skill);
 		}
+	}
+
+	private void refreshInfo (TSkill skill) {
+		TSkillData skillData = GameData.DSkillData[skill.ID];
+		//MediumCard
+		spriteSkillCard.spriteName =  GameFunction.CardLevelName(skill.ID);
+		textureSkillPic.mainTexture = TextureManager.Get.CardTexture(skill.ID);
+		labelSkillCardName.text = GameData.DSkillData[skill.ID].Name;
+		GameFunction.ShowStar(ref skillStars, skill.Lv, GameData.DSkillData[skill.ID].Quality, GameData.DSkillData[skill.ID].MaxStar, 40);
+		if(GameFunction.IsActiveSkill(skill.ID)) {
+			spriteSkillKind.spriteName = "ActiveIcon";
+			labelSkillInfoKind4.text = TextConst.S(7207);
+			labelSkillKind.text = TextConst.S(7002);
+		} else {
+			spriteSkillKind.spriteName = "PassiveIcon";
+			labelSkillInfoKind4.text = TextConst.S(7206);
+			labelSkillKind.text = TextConst.S(7003);
+		}
+		spriteSkillKindBg.spriteName = "APIcon" + GameData.DSkillData[skill.ID].Quality.ToString();
+
+		if(GameData.DSkillData[skill.ID].SuitCard > 0) {
+			goSuitCard.gameObject.SetActive(true);
+			goSuitCard.spriteName = GameFunction.CardLevelBallName(skill.ID);
+			goSuitCard.gameObject.name = GameData.DSkillData[skill.ID].SuitCard.ToString();
+			suitCardFinish.spriteName = GameFunction.CardSuitLightName(GameData.Team.SuitCardCompleteCount(GameData.DSkillData[skill.ID].SuitCard));
+		} else
+			goSuitCard.gameObject.SetActive(false);
+
+		if(GameData.DSkillData[skill.ID].Suititem > 0 && GameData.DSuitItem.ContainsKey(GameData.DSkillData[skill.ID].Suititem)) {
+			goSuitItem.gameObject.SetActive(true);
+			goSuitItem.spriteName = GameFunction.CardSuitItemBg(skill.ID);
+			goSuitItem.gameObject.name = GameData.DSkillData[skill.ID].Suititem.ToString();
+			suitItemStarBg.spriteName = GameFunction.CardSuitItemStarBg(GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength);
+			GameFunction.CardSuitItemStar(ref suitItemFinish, GameData.DSuitItem[GameData.DSkillData[skill.ID].Suititem].ItemLength, GameData.Team.SuitItemCompleteCount(GameData.DSkillData[skill.ID].Suititem));
+		} else 
+			goSuitItem.gameObject.SetActive(false);
+
+		//SkillInfo
+		labelSkillQuality.text =GameFunction.QualityName(GameData.DSkillData[skill.ID].Quality);
+		labelSkillSpace.text = skillData.Space(skill.Lv).ToString();
+		if(skill.Lv >= GameData.DSkillData[skill.ID].MaxStar) {
+			labelSkillExp.text = TextConst.S(7250); 
+			sliderSkillExpBar.value = 1;
+		}  else {
+			labelSkillExp.text = skill.Exp.ToString() + "/" + GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv).ToString(); 
+			sliderSkillExpBar.value = (float)skill.Exp / (float)GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv);
+		}
+
+		if(GameFunction.IsActiveSkill(skill.ID))
+			labelSkillDemandValue.text = skillData.MaxAnger(skill.Lv).ToString();
+		else 
+			labelSkillDemandValue.text = skillData.Rate(skill.Lv).ToString() + "%";
+
+		//Buff Ability
+		int index = 0;
+		if(skillData.Distance(skill.Lv) > 0) {
+			buffViews[index].ShowDistance(skillData.Distance(skill.Lv));
+			index ++;
+		}
+
+		if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
+			buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(skill.Lv), skillData.Value(skill.Lv));
+			index ++;
+		}
+
+		if(index == 0)
+		{
+			labelSubhead.gameObject.SetActive(false);
+		}
+
+		//Explain
+		labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, skill.ID, skill.Lv);
 	}
 
 	private void openCardTurn(bool isRight) {
@@ -352,23 +404,14 @@ public class UISkillInfo : UIBase {
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
 			UIGameResult.Get.ShowBonusItem();
 
-		if (!UISelectRole.Visible && !GameController.Visible)
-		{
-			UIMainLobby.Get.Hide(false);
-			UIResource.Get.Show();
-		}
+		if(onCloseSkillInfo != null)
+			onCloseSkillInfo();
     }
 
 	public void OpenCard() {
-		if(!isOpen) {
-//			if(Screen.orientation == ScreenOrientation.LandscapeLeft) {
-//				openCardTurn(true);
-//			} else if(Screen.orientation == ScreenOrientation.LandscapeRight) {
-//				openCardTurn(false);
-//			} else {
-				openCardTurn(true);
-//			}
-		} else
+		if(!isOpen) 
+			openCardTurn(true);
+		else
 			closeCardTurn();
 	}
 
@@ -376,6 +419,7 @@ public class UISkillInfo : UIBase {
 		if(isAlreadyEquip) {
 			UISkillFormation.Get.DoUnEquipCard(mUICard);
 			OnClose();
+			UIResource.Get.Show();
 		} else {
 			if(mUICard.Cost <= UISkillFormation.Get.ExtraCostSpace) {
 				UISkillFormation.Get.DoEquipCard(mUICard);

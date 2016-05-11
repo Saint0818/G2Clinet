@@ -518,13 +518,19 @@ public class UIGameResult : UIBase {
 		}else
 			stageRewardStart(GameData.StageID, record.Score1, record.Score2);
 	}
-	//Click Event
-//	public void OnShowPlayerInfo (GameObject go) {}
+	//Click EventSho
 	public void OnShowAwardInfo (GameObject go) {
 		int index = -1;
-		if(int.TryParse(go.name, out index)) 
-			if(GameData.DItemData.ContainsKey(index))
-				UIItemHint.Get.OnShow(GameData.DItemData[index].ID);
+		if(int.TryParse(go.name, out index)) {
+			if(GameData.DItemData.ContainsKey(index)) {
+				if(GameData.DItemData[index].Kind == 21) {
+					TSkill skill = new TSkill();
+					skill.ID = GameData.DItemData[index].Avatar;
+					UISkillInfo.Get.ShowFromNewCard(skill);
+				} else
+					UIItemHint.Get.OnShow(GameData.DItemData[index].ID);
+			}
+		}
 	}
 
 	public void OnShowHomeStats () {resultCenter.ShowHomeStats(showTeamStats);}

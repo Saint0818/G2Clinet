@@ -6,11 +6,12 @@ public class ItemAwardGroup : MonoBehaviour
 {
 	public GameObject Window;
 
-	private AwardAvatarView awardAvatarView;
-	private AwardInlayView awardInlayView;
-	private AwardSkillView awardSkillView;
+	public AwardAvatarView awardAvatarView;
+	public AwardInlayView awardInlayView;
+	public AwardSkillView awardSkillView;
 
 	public  TItemData mItemData;
+	private TSkill mSkill;
 
 	private int otherKind = -1;
 	private int otherValue = 0;
@@ -20,9 +21,14 @@ public class ItemAwardGroup : MonoBehaviour
     [UsedImplicitly]
 	void Awake()
     {
-		awardAvatarView = GetComponentInChildren<AwardAvatarView>();
-		awardInlayView = GetComponentInChildren<AwardInlayView>();
-		awardSkillView = GetComponentInChildren<AwardSkillView>();
+		if(awardAvatarView == null)
+			awardAvatarView = transform.GetComponentInChildren<AwardAvatarView>();
+		
+		if(awardInlayView == null)
+			awardInlayView = transform.GetComponentInChildren<AwardInlayView>();
+		
+		if(awardSkillView == null)
+			awardSkillView = transform.GetComponentInChildren<AwardSkillView>();
 	}
 
 	public void Hide () {
@@ -48,6 +54,8 @@ public class ItemAwardGroup : MonoBehaviour
         {
 			awardSkillView.Show();
 			awardSkillView.UpdateUI(itemData);
+			mSkill.ID = itemData.Avatar;
+			mSkill.Lv = itemData.LV;
 		}
         else if(itemData.Kind == 19)
         {
@@ -66,6 +74,7 @@ public class ItemAwardGroup : MonoBehaviour
 		hideAllGroup();
 		awardSkillView.Show();
 		awardSkillView.UpdateUI(skill);
+		mSkill = skill;
 	}
 
 	/// <summary>
@@ -88,13 +97,20 @@ public class ItemAwardGroup : MonoBehaviour
     public void NotifyClick()
     {
 		if(isFromSuit) {
-			UIItemHint.Get.OnShowForSuit(mItemData.ID);
+			if(mSkill.ID > 0) 
+				UISkillInfo.Get.ShowFromNewCard(mSkill);
+			else
+				UIItemHint.Get.OnShowForSuit(mItemData.ID);
 		} else {
 			if(otherKind > -1) {
 				UIItemHint.Get.OnShowOther(otherKind, otherValue);
 			} else
-				if(mItemData.ID > 0 && !UILevelUp.Visible)
-					UIItemHint.Get.OnShow(mItemData.ID);
+				if(mItemData.ID > 0 && !UILevelUp.Visible) {
+					if(mItemData.Kind == 21) {
+						UISkillInfo.Get.ShowFromNewCard(mSkill);
+					}else
+						UIItemHint.Get.OnShow(mItemData.ID);
+				}
 		}
 			
     }

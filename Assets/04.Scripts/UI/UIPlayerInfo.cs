@@ -268,7 +268,8 @@ public class TSkillView
         int index;
         if (int.TryParse(UIButton.current.name, out index))
         {
-            UIItemHint.Get.OnShowSkill(GameData.Team.Player.SkillCards[index]);
+//            UIItemHint.Get.OnShowSkill(GameData.Team.Player.SkillCards[index]);
+			UISkillInfo.Get.ShowFromNewCard(GameData.Team.Player.SkillCards[index]);
         }
     }
 
@@ -717,10 +718,13 @@ public class UIPlayerInfo : UIBase
     public void OnAvatarItemHint()
     {
         int index;
-        if (int.TryParse(UIButton.current.name, out index))
-        if (index < GameData.Team.Player.Items.Length && index < personalView.ValueItems.Length)
-        if (personalView.ValueItems[index].ID > 0 && GameData.DItemData.ContainsKey(personalView.ValueItems[index].ID))
-            UIItemHint.Get.OnShow(personalView.ValueItems[index].ID);
+		if (int.TryParse(UIButton.current.name, out index)) {
+			if (index < GameData.Team.Player.Items.Length && index < personalView.ValueItems.Length) {
+				if (personalView.ValueItems[index].ID > 0 && GameData.DItemData.ContainsKey(personalView.ValueItems[index].ID)) {
+            		UIItemHint.Get.OnShow(personalView.ValueItems[index].ID);
+				}
+			}
+		}
     }
 
     public void OnChangePlayerName()

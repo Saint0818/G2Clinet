@@ -83,7 +83,7 @@ public class UIItemSourceMain : MonoBehaviour
         // 所以我必須要用呼叫兩次 Show(), 才可以真正的介面打開.(因為 Awake 會關閉介面)
         mHintSkill.Show();
         mHintSkill.Show();
-		mHintSkill.UpdateUIForSuit(item);
+		mHintSkill.UpdateUIForSuit(item, item.LV);
     }
 
     private void clearSources()

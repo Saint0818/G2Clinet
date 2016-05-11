@@ -224,7 +224,7 @@ public class UISkillReinforce : UIBase {
 	/// <param name="showType">Show type.</param>
 	public void Show (TSkill skill, int index, bool isAlreadyEquip, int showType) {
 		Visible = true;
-
+		UISkillInfo.UIShow(false);
 		UIMainLobby.Get.Hide(false);
         UIResource.Get.Show();
 
@@ -714,7 +714,8 @@ public class UISkillReinforce : UIBase {
 			Visible = false;
 			UISkillFormation.Get.RefreshFromReinEvo(mSkill.SN);
 			UIMainLobby.Get.Hide(false);
-            UIResource.Get.Hide();
+			UIResource.Get.Hide();
+			UISkillInfo.UIShow(true);
 		}
 	} 
 

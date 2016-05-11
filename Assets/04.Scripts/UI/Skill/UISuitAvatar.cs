@@ -261,7 +261,13 @@ public class UISuitAvatar : UIBase {
 	public void ClickCard (GameObject go) {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
-			UIItemHint.Get.OnShowForSuit(result);
+//			UIItemHint.Get.OnShowForSuit(result);
+			if(GameData.DItemData.ContainsKey(result) && GameData.DSkillData.ContainsKey(GameData.DItemData[result].Avatar)) {
+				TSkill skill = new TSkill();
+				skill.ID = GameData.DItemData[result].Avatar;
+				skill.Lv = GameData.DSkillData[skill.ID].MaxStar;
+				UISkillInfo.Get.ShowFromNewCard(skill);
+			}
 		}
 	}
 

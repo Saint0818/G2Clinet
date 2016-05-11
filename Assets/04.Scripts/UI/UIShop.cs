@@ -223,7 +223,9 @@ public class UIShop : UIBase {
             shopItemList[page][index].ButtonAwardGroup.onClick.Clear();
             if (GameData.DItemData[data.ID].Kind <= 7)
                 SetBtnFun(ref shopItemList[page][index].ButtonAwardGroup, OnSuit);
-            else
+			else if (GameData.DItemData[data.ID].Kind == 21)
+				SetBtnFun(ref shopItemList[page][index].ButtonAwardGroup, OnSkillInfo);
+			else
                 SetBtnFun(ref shopItemList[page][index].ButtonAwardGroup, OnBuy);
         }
 
@@ -336,9 +338,31 @@ public class UIShop : UIBase {
     public void OnBuy() {
         if (UIButton.current.transform.parent.gameObject && 
             int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
-            shopItemList[nowPage][nowIndex].Data.Num > 0)
-            UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+			shopItemList[nowPage][nowIndex].Data.Num > 0)
+		{
+			if (GameData.DItemData.ContainsKey(shopItemList[nowPage][nowIndex].Data.ID)) 
+            	UIItemHint.Get.OpenBuyUI(shopItemList[nowPage][nowIndex].Data, sendBuyItem);
+			
+		}
     }
+
+	public void OnSkillInfo () {
+		if (UIButton.current.transform.parent.gameObject && 
+			int.TryParse(UIButton.current.transform.parent.gameObject.name, out nowIndex) &&
+			shopItemList[nowPage][nowIndex].Data.Num > 0)
+		{
+			if (GameData.DItemData.ContainsKey(shopItemList[nowPage][nowIndex].Data.ID)) {
+				TSkill skill = new TSkill();
+				skill.ID = GameData.DItemData[shopItemList[nowPage][nowIndex].Data.ID].Avatar;
+				skill.Lv = GameData.DItemData[shopItemList[nowPage][nowIndex].Data.ID].LV;
+				UISkillInfo.Get.ShowFromNewCard (skill, closeSkillInfo);
+			}
+		}
+	}
+
+	private void closeSkillInfo () {
+		UIResource.Get.Show(UIResource.EMode.PvpSocial);
+	}
 
     public void OnSuitItem() {
         int id = -1;

@@ -244,7 +244,7 @@ public class UIRecharge : UIBase {
 
 	public void ShowView (int type ,bool isNeedRecord = true) {
 		if(!UISkillReinforce.Visible) {
-			if(IsNeedShowLobbyMenu)
+			if(IsOpenHideLobbyMenu)
 				UIMainLobby.Get.Hide();
             
 			if(IsNeedShowPlayer)
@@ -428,19 +428,16 @@ public class UIRecharge : UIBase {
 		if(!GameData.IsMainStage && !GameData.IsInstance && !GameData.IsPVP)
 		{
 			if(!UISkillReinforce.Visible) {
-				if(IsNeedShowLobbyMenu)
+				if(IsCloseShowLobbyMenu)
 					UIMainLobby.Get.Show();
+				
 				if(IsNeedShowPlayer)
 					UIPlayerAvatar.Get.Enable = true;
+				
 				if(UIShop.Visible)
 				{
-				    UIMainLobby.Get.Hide();
                     UIResource.Get.Show(UIResource.EMode.PvpSocial);
 				}
-//			    if(UIMall.Visible)
-//					UIMall.Get.RefreshTextColor();
-//				if(UIGym.Visible)
-//					UIGym.Get.RefreshDiamondColor();
 
 			}
 		}
@@ -474,7 +471,6 @@ public class UIRecharge : UIBase {
 			AudioMgr.Get.PlaySound (SoundType.SD_Buy);
 			Statistic.Ins.LogEvent(401);
 
-			UIMainLobby.Get.UpdateUI();
 			refreshPriceUI ();
 
 			if(isRecord)
@@ -519,10 +515,9 @@ public class UIRecharge : UIBase {
 			else
 				Statistic.Ins.LogEvent(403);
 
-			UIMainLobby.Get.UpdateUI();
 			if(isRecord)
 				showTab(recordType);
-			
+
 			refreshPriceUI ();
 
             if (FreshUICallback != null)
@@ -544,9 +539,15 @@ public class UIRecharge : UIBase {
 		}
 	}
 
-	public bool IsNeedShowLobbyMenu {
+	public bool IsCloseShowLobbyMenu {
 		get {
-			return !(UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
+			return (UIGameLobby.Get.gameObject.activeInHierarchy);
+		}
+	}
+
+	public bool IsOpenHideLobbyMenu {
+		get {
+			return (UIMainStage.Get.Visible || UIGameLobby.Get.gameObject.activeInHierarchy || UIPVP.Visible || UIInstance.Get.Visible ||
 				UISkillFormation.Visible || UISkillReinforce.Visible || UIPlayerInfo.Visible || UIMission.Visible || UIAvatarFitted.Visible ||
 				UIEquipment.Get.Visible || UISocial.Visible || UIShop.Visible || UIMall.Visible || UIBuyStore.Visible || UIPlayerPotential.Visible || 
 				UICreateRole.Visible || UIGymEngage.Visible || UIMail.Visible);

@@ -215,8 +215,13 @@ public class UIMall : UIBase {
 	public void ShowSkillCardHint () {
 		int result = -1;
 		if(int.TryParse(UIButton.current.name,out result)) {
-			if(GameData.DItemData.ContainsKey(result))
-				UIItemHint.Get.OnShow(GameData.DItemData[result].ID);
+			if(GameData.DItemData.ContainsKey(result) && GameData.DSkillData.ContainsKey(GameData.DItemData[result].Avatar)){
+				TSkill skill = new TSkill();
+				skill.ID = GameData.DItemData[result].Avatar;
+				skill.Lv = GameData.DItemData[result].LV;
+				UISkillInfo.Get.ShowFromNewCard(skill);
+//				UIItemHint.Get.OnShow(GameData.DItemData[result].ID);
+			}
 		}
 	}
 	//order = 0 can used

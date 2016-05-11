@@ -745,8 +745,10 @@ public class UISocial : UIBase {
 
     public void OnSkillInfo() {
         int index = -1;
-        if (int.TryParse(UIButton.current.name, out index) && index >= -1 && index < friendList[0].Count)
-            UIItemHint.Get.OnShowSkill(friendList[0][index].SkillCard.Skill);
+		if (int.TryParse(UIButton.current.name, out index) && index >= -1 && index < friendList[0].Count) {
+			UISkillInfo.Get.ShowFromNewCard(friendList[0][index].SkillCard.Skill);
+//            UIItemHint.Get.OnShowSkill(friendList[0][index].SkillCard.Skill);
+		}
     }
 
     public void OnInfo() {
