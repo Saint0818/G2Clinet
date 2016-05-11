@@ -90,6 +90,7 @@ public class UIMainLobby : UIBase
             SendHttp.Get.SyncDailyRecord();
 
         Statistic.Ins.LogScreen(2);
+		UILoading.OpenDailyLogin ();
     }
 
     /// <summary>
