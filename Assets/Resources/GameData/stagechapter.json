@@ -99,253 +99,83 @@
         "explainen": "Meet real challenge"
     },
     {
-        "id": 11,
-        "chapter": 11,
-        "nametw": "第11章",
-        "namecn": "第11章",
-        "nameen": "Chapter11",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 12,
-        "chapter": 12,
-        "nametw": "第12章",
-        "namecn": "第12章",
-        "nameen": "Chapter12",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 13,
-        "chapter": 13,
-        "nametw": "第13章",
-        "namecn": "第13章",
-        "nameen": "Chapter13",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 14,
-        "chapter": 14,
-        "nametw": "第14章",
-        "namecn": "第14章",
-        "nameen": "Chapter14",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 15,
-        "chapter": 15,
-        "nametw": "第15章",
-        "namecn": "第15章",
-        "nameen": "Chapter15",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 16,
-        "chapter": 16,
-        "nametw": "第16章",
-        "namecn": "第16章",
-        "nameen": "Chapter16",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 17,
-        "chapter": 17,
-        "nametw": "第17章",
-        "namecn": "第17章",
-        "nameen": "Chapter17",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 18,
-        "chapter": 18,
-        "nametw": "第18章",
-        "namecn": "第18章",
-        "nameen": "Chapter18",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 19,
-        "chapter": 19,
-        "nametw": "第19章",
-        "namecn": "第19章",
-        "nameen": "Chapter19",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
-        "id": 20,
-        "chapter": 20,
-        "nametw": "第20章",
-        "namecn": "第20章",
-        "nameen": "Chapter20",
-        "explaintw": "關卡未開放",
-        "explainen": "This stage has not open"
-    },
-    {
         "id": 2001,
         "chapter": 1,
-        "nametw": "絕殺比爾",
-        "nameen": "Buzzer Beater Bill ",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Buzzer Beater Bill "
+        "nametw": "挑戰黑幫老大！！",
+        "nameen": "Chapter 1",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2002,
         "chapter": 2,
-        "nametw": "熔岩防線-龍",
-        "nameen": "Guitarist Roger",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Guitarist Roger"
+        "nametw": "突破防線吧！！",
+        "nameen": "Chapter 2",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2003,
         "chapter": 3,
-        "nametw": "吉爾",
-        "nameen": "Jill",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Jill"
+        "nametw": "出戰腐化者！！",
+        "nameen": "Chapter 3",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2004,
         "chapter": 4,
-        "nametw": "嘻哈緹雅",
-        "nameen": "Gentleman Lal",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Gentleman Lal"
+        "nametw": "鬥牛也能嘻哈！！",
+        "nameen": "Chapter 4",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2005,
         "chapter": 5,
-        "nametw": "布魯托",
-        "nameen": "Pluto",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Pluto"
+        "nametw": "一決高下吧！！",
+        "nameen": "Chapter 5",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2006,
         "chapter": 6,
-        "nametw": "幽鬼",
-        "nameen": "Spectre",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Spectre"
+        "nametw": "迎戰三天王！！",
+        "nameen": "Chapter 6",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2007,
         "chapter": 7,
-        "nametw": "阿耳戈斯",
-        "nameen": "Argus",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Argus"
+        "nametw": "迎戰三天王！！",
+        "nameen": "Chapter 7",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2008,
         "chapter": 8,
-        "nametw": "冰女皇艾爾莎",
-        "nameen": "Lava -Ryo",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Lava -Ryo"
+        "nametw": "對決冰霜之后！！",
+        "nameen": "Chapter 8",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2009,
         "chapter": 9,
-        "nametw": "搖滾珍妮佛",
-        "nameen": "Robot Silver",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Robot Silver"
+        "nametw": "搖滾派對！！",
+        "nameen": "Chapter 9",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     },
     {
         "id": 2010,
         "chapter": 10,
-        "nametw": "布魯托",
-        "nameen": "Pluto",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat Pluto"
-    },
-    {
-        "id": 2011,
-        "chapter": 11,
-        "nametw": "關主 11",
-        "nameen": "BOSS 11",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2012,
-        "chapter": 12,
-        "nametw": "關主 12",
-        "nameen": "BOSS 12",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2013,
-        "chapter": 13,
-        "nametw": "關主 13",
-        "nameen": "BOSS 13",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2014,
-        "chapter": 14,
-        "nametw": "關主 14",
-        "nameen": "BOSS 14",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2015,
-        "chapter": 15,
-        "nametw": "關主 15",
-        "nameen": "BOSS 15",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2016,
-        "chapter": 16,
-        "nametw": "關主 16",
-        "nameen": "BOSS 16",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2017,
-        "chapter": 17,
-        "nametw": "關主 17",
-        "nameen": "BOSS 17",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2018,
-        "chapter": 18,
-        "nametw": "關主 18",
-        "nameen": "BOSS 18",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2019,
-        "chapter": 19,
-        "nametw": "關主 19",
-        "nameen": "BOSS 19",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
-    },
-    {
-        "id": 2020,
-        "chapter": 20,
-        "nametw": "關主 20",
-        "nameen": "BOSS 20",
-        "explaintw": "擊敗關主獲得技能[33FFDD]晶片進化材料[-]及[33FFDD]關主造型[-]",
-        "explainen": "Beat off the main access to skills [33FFDD] evolution wafer material [-] and [33FFDD] Off Main Clothing [-]"
+        "nametw": "宿命來襲！！",
+        "nameen": "Chapter 10",
+        "explaintw": "再次對決！在達成條件的情況下獲勝吧！",
+        "explainen": "Keep fighting !! Complete the mission to win the game !!"
     }
 ]
