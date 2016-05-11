@@ -275,7 +275,7 @@ public class UIMainLobby : UIBase
 		View.QueueButton.SetActive(GameData.IsOpenUIEnable(EOpenID.OperateGym));
 		View.QueueGroup.SetActive(false);
 		View.QueueLockPrice.text = ThirdQueueDiamonds.ToString();
-		RefreshDiamondColor ();
+		RefreshTextColor ();
 	}
 
 	public void RefreshQueue () {
@@ -328,10 +328,10 @@ public class UIMainLobby : UIBase
 	}
 
 	public void OnClickLock (GameObject go) {
-		CheckDiamond(ThirdQueueDiamonds, true, string.Format(TextConst.S (11008), ThirdQueueDiamonds), SendBuyQueue, RefreshDiamondColor);
+		CheckDiamond(ThirdQueueDiamonds, true, string.Format(TextConst.S (11008), ThirdQueueDiamonds), SendBuyQueue, RefreshTextColor);
 	}
 
-	public void RefreshDiamondColor () {
+	public void RefreshTextColor () {
 		View.QueuePriceColor = GameData.CoinEnoughTextColor(GameData.Team.CoinEnough(0, ThirdQueueDiamonds), 0);
 	}
 

@@ -286,6 +286,10 @@ public class UIShop : UIBase {
         }
     }
 
+	public void RefreshTextColor () {
+		updateUI();
+	}
+
     private void updateUI() {
         OpenPage(nowPage);
     }

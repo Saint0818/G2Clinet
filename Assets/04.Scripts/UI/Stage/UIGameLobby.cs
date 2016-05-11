@@ -21,6 +21,12 @@ public class UIGameLobby : UIBase
 
     private UIGameLobbyMain mMain;
 
+	public bool Visible {
+		get {
+			return instance.gameObject.activeSelf;
+		}
+	}
+
     [UsedImplicitly]
     private void Awake()
     {

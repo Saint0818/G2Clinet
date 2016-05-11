@@ -750,6 +750,7 @@ public class UIGymEngage : UIBase {
 			GameData.Team.Diamond = result.Diamond;
 			GameData.Team.GymBuild = result.GymBuild;
 			GameData.Team.GymQueue = result.GymQueue;
+			GameData.Team.StatiumLv = result.StatiumLv;
 
 			Statistic.Ins.LogEvent(600 + (50 * mBuildIndex) + 2 , architectureValue.Cost);
 

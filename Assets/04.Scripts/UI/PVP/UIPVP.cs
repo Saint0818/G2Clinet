@@ -195,6 +195,10 @@ public class UIPVP : UIBase
 			updateUI();
     }
 
+	public void RefreshTextColor () {
+		updateUI();
+	}
+
 	private void updateUI()
 	{
 		spriteTicket.spriteName = GameFunction.SpendKindTexture(0);
