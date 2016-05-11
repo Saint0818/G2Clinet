@@ -90,6 +90,41 @@ public class FileManager : KnightSingleton<FileManager>
 		"lifetime", "potential", "diamonds", "architectureexp", "statisticscreen", "statisticevent"
     };
 
+	public enum DataIndex{
+		greatplayer = 0,
+		tactical = 1,
+		baseattr = 2,
+		ballposition = 3,
+		skill,
+		stage,
+		item,
+		stagechapter,
+		createroleitem,
+		aiskilllv,
+		preloadeffect, 
+		tutorial,
+		stagetutorial,
+		exp,
+		teamname,
+		textconst,
+		skillrecommend,
+		mission,
+		pickcost,
+		shop,
+		mall,
+		pvp,
+		limit,
+		daily,
+		suitcard,
+		suititem,
+		lifetime,
+		potential,
+		diamonds,
+		architectureexp,
+		statisticscreen,
+		statisticevent
+	}
+
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
 	private static List<TDownloadData> dataList = new List<TDownloadData>();
 	private static List<TDownloadData> downloadList = new List<TDownloadData>();
@@ -117,16 +152,52 @@ public class FileManager : KnightSingleton<FileManager>
 			downloadList.Add (DataList[i]);
 	}
 
+	public void LoadFileResourceEx(DataIndex i, DownloadFileText callbackfun){
+
+		TextAsset tx = Resources.Load (ClientFilePath + dataList[(int)i].fileName) as TextAsset;
+		if (tx) {
+			if(callbackfun!=null){
+				callbackfun(dataList[(int)i].version, tx.text, false);
+				//AlreadyDownlandCount++;
+
+			}else
+				Debug.LogError("No handle function : " + dataList[(int)i].fileName);
+		}	
+
+	}
+
 	public void LoadFileResource(DownloadFinsh callback = null){
 		DownlandCount = dataList.Count;
 		AlreadyDownlandCount = 0;
 		FinishCallBack = callback;
 
+		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();//引用stopwatch物件
+		System.Diagnostics.Stopwatch sw2 = new System.Diagnostics.Stopwatch();//引用stopwatch物件
+		sw2.Reset();
+		sw2.Start();
+
 		for (int i = 0; i < dataList.Count; i++) {
+			switch(i){
+			case (int)DataIndex.item:
+			case (int)DataIndex.greatplayer:
+			case (int)DataIndex.shop:
+			case (int)DataIndex.skill:
+			case (int)DataIndex.tactical:
+				continue;
+			default:
+				break;
+			}
+			//
             TextAsset tx = Resources.Load (ClientFilePath + dataList[i].fileName) as TextAsset;
 			if (tx) {
 				if(CallBackFun.ContainsKey(dataList[i].fileName)){
+
+					sw.Reset(); sw.Start();//碼表開始計時
+
 					CallBackFun[dataList[i].fileName](dataList[i].version, tx.text, false);
+					sw.Stop();//碼錶停止
+					Debug.LogError(string.Format("@@@ data = {0}, time = {1}ms", dataList[i].fileName, sw.Elapsed.TotalMilliseconds));
+
 					AlreadyDownlandCount++;
 					if (UILoading.Visible)
 						UILoading.Get.UpdateProgress();
@@ -134,6 +205,8 @@ public class FileManager : KnightSingleton<FileManager>
 					Debug.LogError("No handle function : " + dataList[i].fileName);
 			}	
 		}
+		sw2.Stop();
+		Debug.LogError(string.Format("@@@ total data load, time = {0}ms", sw2.Elapsed.TotalMilliseconds));
 
 		DownloadFinish ();
 	}

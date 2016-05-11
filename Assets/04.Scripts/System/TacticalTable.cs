@@ -89,7 +89,16 @@ public class TacticalTable
 
     private TacticalTable()
     {
+		// 效能問題, dennis改成延遲載入
+		FileManager.Get.LoadFileResourceEx (FileManager.DataIndex.tactical, LoadTacticalData);
     }
+	private void LoadTacticalData(string version, string jsonText, bool isSaveVersion)
+	{
+		Load(jsonText);
+
+		//if(isSaveVersion)
+		//	SaveDataVersionAndJson(jsonText, "tactical", version);
+	}
 
     public void Load(string jsonText)
     {

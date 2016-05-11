@@ -25,15 +25,60 @@ public static class GameData
     /// <summary>
     /// key: ID.
     /// </summary>
-    public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer>();
-    public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
+	private static Dictionary<int, TGreatPlayer> _DPlayers = new Dictionary<int, TGreatPlayer>();
+	private static bool _isLoad_DPlayers = false;
+    public static Dictionary<int, TGreatPlayer> DPlayers
+	{
+		get{ 
+			if (!_isLoad_DPlayers)
+				FileManager.Get.LoadFileResourceEx (FileManager.DataIndex.greatplayer, LoadGreatPlayerData);
+			return _DPlayers;	
+		}
+
+		set{ _DPlayers = value; }
+	}
+	/// <summary>
+    /// The D skill data.
+    /// </summary>
+	private static Dictionary<int, TSkillData> _DSkillData = new Dictionary<int, TSkillData>();
+	private static bool _isLoad_DSkillData = false;
+	public static Dictionary<int, TSkillData> DSkillData
+	{
+		get{ 
+			if (!_isLoad_DSkillData)
+				FileManager.Get.LoadFileResourceEx (FileManager.DataIndex.skill, LoadSkillData);
+			return _DSkillData;	
+		}
+
+		set{ _DSkillData = value; }
+		
+	}
+	/// <summary>
+	/// The skill recommends.
+	/// </summary>
     public static TSkillRecommend[] SkillRecommends;
     public static TMission[] MissionData;
     public static Dictionary<int, TMission> DMissionData = new Dictionary<int, TMission>();
     /// <summary>
     /// Key: ID.
     /// </summary>
-    public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
+	/// 
+	private static Dictionary<int, TItemData> _DItemData = new Dictionary<int, TItemData>();
+	private static bool _isLoad_DItemData = false;
+    public static Dictionary<int, TItemData> DItemData 
+	{
+		get{ 
+			if (!_isLoad_DItemData)
+				FileManager.Get.LoadFileResourceEx (FileManager.DataIndex.item, LoadItemData);
+			return _DItemData;	
+		}
+
+		set{ _DItemData = value; }
+	}
+
+	/// <summary>
+	/// /
+	/// </summary>
     public static Dictionary<int, TTutorial> DTutorial = new Dictionary<int, TTutorial>();
     public static Dictionary<string, int> DTutorialUI = new Dictionary<string, int>();
     public static Dictionary<int, int> DTutorialStageStart = new Dictionary<int, int>();
@@ -50,7 +95,25 @@ public static class GameData
     public static TPreloadEffect[] PreloadEffect;
 
 	public static TPickCost[] DPickCost; // Order 排列順序
-    public static TShop[] DShops;
+    /// <summary>
+    /// The D shops.
+    /// </summary>
+	private static TShop[] _DShops;
+	private static bool _isLoad_DShops = false;
+	public static TShop[] DShops
+	{
+		get{ 
+			if (!_isLoad_DShops)
+				FileManager.Get.LoadFileResourceEx (FileManager.DataIndex.shop, LoadShopData);
+			return _DShops;	
+		}
+
+		set{ _DShops = value; }
+	}
+
+	/// <summary>
+	/// The D malls.
+	/// </summary>
     public static TMall[] DMalls;
 	public static Dictionary<int, TSuitCard> DSuitCard = new Dictionary<int, TSuitCard>();
 	public static Dictionary<int, TSuitItem> DSuitItem = new Dictionary<int, TSuitItem>();
@@ -514,4 +577,106 @@ public static class GameData
 
 		return Team.Player.Lv >= LimitTable.Ins.GetByOpenID(openID).VisibleLv;
 	}
+
+	// data load extension
+	public static void LoadItemData (string version, string text, bool isSaveVersion){
+
+		try
+		{
+			_DItemData.Clear();
+
+			TItemData[] data = JsonConvert.DeserializeObject<TItemData[]>(text);
+			for (int i = 0; i < data.Length; i++) {
+				if(!_DItemData.ContainsKey(data[i].ID) && data[i].ID > 0)
+					_DItemData.Add(data[i].ID, data[i]);
+				else 
+					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
+
+				if(data[i].Kind >= 51 && data[i].Kind <= 59) {
+					data[i].Index = i;
+					GameData.DBuildData.Add(data[i]);
+				}
+
+				#if UNITY_EDITOR
+				if (data[i].StageSource != null) {
+					for (int j = 0; j < data[i].StageSource.Length; j++)
+						if (StageTable.Ins.GetByID(data[i].StageSource[j]).ChallengeOnlyOnce)
+							Debug.LogError(string.Format("Item source error stage item id {0} stage id {1}", data[i].ID, data[i].StageSource[j]));
+				}
+				#endif
+			}
+			_isLoad_DItemData = true;
+			//if(isSaveVersion)
+			//	SaveDataVersionAndJson(text, "item", version);
+
+			Debug.Log ("[item parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[item parsed error] " + ex.Message);
+		}
+	}
+
+	public static void LoadGreatPlayerData (string version, string text, bool isSaveVersion){
+
+		try {
+			_DPlayers.Clear();
+
+			TGreatPlayer[] data = (TGreatPlayer[])JsonConvert.DeserializeObject (text, typeof(TGreatPlayer[]));
+			if (data != null) {
+				for (int i = 0; i < data.Length; i++) 
+					if (data[i].ID > 0 && !_DPlayers.ContainsKey(data[i].ID))
+						_DPlayers.Add(data[i].ID, data[i]);
+			}
+
+			//if(isSaveVersion)
+			//	SaveDataVersionAndJson(text, "greatplayer", version);
+			_isLoad_DPlayers = true;
+			Debug.Log ("[greatplayer parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[greatplayer parsed error] " + ex.Message);
+		}
+	}
+
+	public static void LoadSkillData (string version, string text, bool isSaveVersion){
+
+		try {
+			_DSkillData.Clear();
+
+			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
+			for (int i = 0; i < data.Length; i++) {
+				if(!_DSkillData.ContainsKey(data[i].ID)) {
+					_DSkillData.Add(data[i].ID, data[i]);
+					#if UNITY_EDITOR
+					if(data[i].UpgradeExp != null && data[i].UpgradeExp.Length != data[i].UpgradeMoney.Length)
+						Debug.LogError("UpgradeExp or UpgradeMoney is wrong:"+ data[i].ID);
+					#endif
+				} else
+					Debug.LogError("GameData.DSkillData is ContainsKey:"+ data[i].ID);
+			}
+
+			//if(isSaveVersion)
+			//	SaveDataVersionAndJson(text, "skill", version);
+			_isLoad_DSkillData = true;
+
+			Debug.Log ("[skill parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[skill parsed error] " + ex.Message);
+		}
+	}
+
+	public static void LoadShopData (string version, string text, bool isSaveVersion){
+
+		try {
+			_DShops = JsonConvert.DeserializeObject<TShop[]>(text);
+
+			//if (isSaveVersion)
+			//	SaveDataVersionAndJson(text, "shop", version);
+			_isLoad_DShops = true;
+
+			Debug.Log ("[Shop parsed finished.]");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Shop parsed error : " + ex.Message);
+		}
+	}
+
+
 }
