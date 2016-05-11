@@ -71,6 +71,11 @@ public class UIMainStageInfo : MonoBehaviour
         public int MissionCurrentValue; // 任務目前的數值.
         public int MissionGoalValue; // 達成任務所需的數值.
         public Action MissionAction; // 任務的前往按鈕按下後會執行的行為.
+
+        public bool StarVisible;
+        public string WinPoins;
+        public string LostPoins;
+        public string WinDiffPoins;
     }
 
     public GameObject Window;
@@ -102,6 +107,11 @@ public class UIMainStageInfo : MonoBehaviour
     public UILabel PowerLabel;
     public GameObject DiamondObj;
     public UILabel DiamondLabel;
+
+    public GameObject Stars;
+    public UILabel WinPointsLabel;
+    public UILabel LostPointsLabel;
+    public UILabel WinDiffPointsLabel;
 
     private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
 
@@ -214,6 +224,11 @@ public class UIMainStageInfo : MonoBehaviour
         MissionValue.text = string.Format("{0}/{1}", data.MissionCurrentValue, data.MissionGoalValue);
         MissionProgress.value = data.MissionCurrentValue / (float)data.MissionGoalValue;
         mMissionAction = data.MissionAction;
+
+        Stars.SetActive(data.StarVisible);
+        WinPointsLabel.text = data.WinPoins;
+        LostPointsLabel.text = data.LostPoins;
+        WinDiffPointsLabel.text = data.WinDiffPoins;
     }
 
     public void Hide()

@@ -17,7 +17,11 @@ public static class UIMainStageBuilder
             Exp = stageData.Exp,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             RemainDailyCount = String.Format(TextConst.S(9312), UIStageHelper.FindPlayerRemainDailyCount(stageData)),
-            RewardTitle = UIStageHelper.FindRewardTitle(stageData)
+            RewardTitle = UIStageHelper.FindRewardTitle(stageData),
+            StarVisible = !stageData.ChallengeOnlyOnce,
+            WinPoins = String.Format(TextConst.S(9320), stageData.StarWinPoints),
+            LostPoins = String.Format(TextConst.S(9321), stageData.StarLostPoints),
+            WinDiffPoins = String.Format(TextConst.S(9322), stageData.StarWinDiffPoints),
         };
 
         infoData.ErrorCode = UIStageVerification.VerifyQualification(stageData, out infoData.ErrorMsg);
