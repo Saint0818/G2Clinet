@@ -771,6 +771,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     isBallOffensive = false;
                     break;
                 case EPlayerState.BasketAnimationStart:
+					//球到籃框上的偵測區前的事件
                     RealBall.Gravity = false;
                     RealBall.TriggerEnable = false;
 					RealBall.Parent = BasketHoopDummy[team];					
@@ -778,6 +779,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     GameController.Get.BallState = EBallState.None;
                     break;
                 case EPlayerState.BasketActionEnd:
+					//球離開籃框上偵測區的事件(投進)
                     if (IsDebugAnimation)
                     {
                         GameController.Get.shootScoreTimes++;
@@ -792,12 +794,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
                     GameController.Get.IsPassing = false;
                     GameController.Get.BallState = EBallState.None;
                     break;
-                case EPlayerState.BasketActionNoScoreEnd:
-                    if (IsDebugAnimation)
-                        Debug.LogWarning("RealBall NoScore Out:" + BasketAnimationName);
-                    
-                    isBallOffensive = false;
-                    GameController.Get.ShowShootSate(false, team);
+				case EPlayerState.BasketActionNoScoreEnd:
+						//球離開籃框上偵測區的事件(沒投進)
+					if (IsDebugAnimation)
+						Debug.LogWarning ("RealBall NoScore Out:" + BasketAnimationName);
+	                    
+					isBallOffensive = false;
+					GameController.Get.ShowShootSate (false, team);
+					RealBall.SpotLight = true;
 					RealBall.SetBallOwnerNull();
                     RealBall.AddForce(new Vector3(1, 0, 0) * (70 + GameController.Get.ShootDistance * 2), ForceMode.Impulse);
 					RealBallDoMoveFinish();

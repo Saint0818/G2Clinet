@@ -21,6 +21,13 @@ public class RealBall : MonoBehaviour
     private GameObject ballShadow;
     private GameObject spotlight;
 
+	public bool SpotLight {
+		set { 
+			if(spotlight)
+				spotlight.SetActive(value);
+		}
+	}
+
     // 特效顯示的時間. 單位: 秒.
     private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1);
 
@@ -33,7 +40,7 @@ public class RealBall : MonoBehaviour
         {
             ballShadow.GetComponent<AutoFollowGameObject>().SetTarget(goRefBall);
             spotlight = ballShadow.transform.FindChild("SpotLight").gameObject;
-            spotlight.SetActive(false);
+			SpotLight = false;
         }
     }
 
@@ -161,8 +168,7 @@ public class RealBall : MonoBehaviour
                 TriggerEnable = false;
                 HideBallSFX();
 
-                if(spotlight)
-                    spotlight.SetActive(false);
+				SpotLight = false;
                 break;
 
             case EPlayerState.Shoot0: 
@@ -185,43 +191,39 @@ public class RealBall : MonoBehaviour
                 Gravity = false;
                 break;
 
-            case EPlayerState.Shooting: 
-                if (spotlight)
-                    spotlight.SetActive(false);
-
+			case EPlayerState.Shooting: 
+				SpotLight = false;
                 Parent = null;
 
                 Gravity = true;
                 break;
 
-            case EPlayerState.Pass0: 
-            case EPlayerState.Pass2: 
-            case EPlayerState.Pass1: 
-            case EPlayerState.Pass3: 
-            case EPlayerState.Pass4: 
-            case EPlayerState.Pass5: 
-            case EPlayerState.Pass6: 
-            case EPlayerState.Pass7: 
-            case EPlayerState.Pass8: 
-            case EPlayerState.Pass9: 
-                Gravity = false;
-                if(spotlight)
-                    spotlight.SetActive(false);
+			case EPlayerState.Pass0: 
+			case EPlayerState.Pass2: 
+			case EPlayerState.Pass1: 
+			case EPlayerState.Pass3: 
+			case EPlayerState.Pass4: 
+			case EPlayerState.Pass5: 
+			case EPlayerState.Pass6: 
+			case EPlayerState.Pass7: 
+			case EPlayerState.Pass8: 
+			case EPlayerState.Pass9: 
+				Gravity = false;
+				SpotLight = false;
                 break;
 
-            case EPlayerState.Steal0:
-            case EPlayerState.Steal1:
-            case EPlayerState.Steal2:
-                GameController.Get.IsPassing = false;
+			case EPlayerState.Steal0:
+			case EPlayerState.Steal1:
+			case EPlayerState.Steal2:
+				GameController.Get.IsPassing = false;
 
-                Vector3 newDir = Vector3.zero;
-                newDir.Set(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+				Vector3 newDir = Vector3.zero;
+				newDir.Set (Random.Range (-1, 1), 0, Random.Range (-1, 1));
 
-				// 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
-                MoveVelocity = newDir.normalized * 10;
-                ShowBallSFX();
-                if(spotlight)
-                    spotlight.SetActive(true);
+					// 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
+				MoveVelocity = newDir.normalized * 10;
+				ShowBallSFX ();
+				SpotLight = true;
                 break;
             case EPlayerState.JumpBall:
                 if (!GameController.Get.IsJumpBall)
@@ -238,8 +240,7 @@ public class RealBall : MonoBehaviour
 					goRefBall.transform.DOKill();
 					MoveVelocity = GameFunction.GetVelocity(goRefBall.transform.position, v1, 60);
                     ShowBallSFX();
-                    if(spotlight)
-                        spotlight.SetActive(false);
+					SpotLight = false;
                     AudioMgr.Get.PlaySound(SoundType.SD_Rebound);
                 }
                 break;
@@ -259,8 +260,7 @@ public class RealBall : MonoBehaviour
 
                 MoveVelocity = v;
                 ShowBallSFX();
-                if(spotlight)
-                    spotlight.SetActive(true);
+				SpotLight = true;
                 break;
 
             case EPlayerState.Dunk0:
@@ -275,8 +275,7 @@ public class RealBall : MonoBehaviour
                     Parent = player.DummyBall.transform;
                 TriggerEnable = false;
                 HideBallSFX();
-                if(spotlight)
-                    spotlight.SetActive(false);
+				SpotLight = false;
                 break;
 
             case EPlayerState.DunkBasket:
@@ -290,15 +289,13 @@ public class RealBall : MonoBehaviour
                 Gravity = false;
 				goRefBall.transform.position = new Vector3(0, 3.5f, 0);
                 ShowBallSFX();
-                if(spotlight)
-                    spotlight.SetActive(false);
+				SpotLight = false;
                 break;
 
             case EPlayerState.Start:
 				goRefBall.transform.localPosition = new Vector3(0, 3.5f, 0);
                 Gravity = true;
-                if(spotlight)
-                    spotlight.SetActive(false);
+				SpotLight = false;
                 break;
 
             case EPlayerState.HoldBall:
@@ -315,8 +312,7 @@ public class RealBall : MonoBehaviour
                 Gravity = false;
                 TriggerEnable = false;
                 HideBallSFX();
-                if(spotlight)
-                    spotlight.SetActive(false);
+				SpotLight = false;
                 break;
         }
     }
@@ -335,7 +331,7 @@ public class RealBall : MonoBehaviour
 
     public void SetBallStateByLobby(EPlayerState state, Transform dummyTransfrom)
     {
-        spotlight.SetActive(false);
+		SpotLight = false;
         LayerMgr.Get.SetLayerAllChildren(goRefBall, ELayer.Player);
         switch (state)
         {
