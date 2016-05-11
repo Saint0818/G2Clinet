@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(UIButton))]
 public class UIUnlockButton : MonoBehaviour
 {
+    [Tooltip("會變色的 Icon")]
     public UISprite Icon;
 
     [Tooltip("Exp 企劃表格的 OpenIndex 欄位")]
