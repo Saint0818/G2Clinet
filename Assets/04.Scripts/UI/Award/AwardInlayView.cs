@@ -42,7 +42,7 @@ public class AwardInlayView : MonoBehaviour {
 
 	public void UpdateUI (TItemData itemData) {
 		ItemPic.atlas = TextureManager.Get.ItemAtlas(itemData.Atlas);
-		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 6).ToString();
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

@@ -78,7 +78,7 @@ public class HintAvatarView : MonoBehaviour {
 	{
 		hideAllStart ();
 		isHaveValue = false;
-		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 6).ToString();
 		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, GameData.Team.Player, itemData.Kind);
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			if(itemData.Bonus[i] != EBonus.None) {
@@ -123,7 +123,7 @@ public class HintAvatarView : MonoBehaviour {
 	{
 		hideAllStart ();
 		isHaveValue = false;
-		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualitySquare.spriteName = "Equipment_" + Mathf.Clamp(itemData.Quality, 1, 6).ToString();
 		GameFunction.ShowInlay(ref EmptyStars, ref AvatarStars, player, itemData.Kind);
 		for (int i=0; i<itemData.Bonus.Length; i++) {
 			if(itemData.Bonus[i] != EBonus.None) {
