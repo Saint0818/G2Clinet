@@ -105,7 +105,7 @@ namespace GameStruct
         /// <returns></returns>
         public int GetStageStarNum(int stageID)
         {
-            if(!StageStars.ContainsKey(stageID))
+            if(StageStars != null && !StageStars.ContainsKey(stageID))
                 return 0;
 
             var startNum = 0;
