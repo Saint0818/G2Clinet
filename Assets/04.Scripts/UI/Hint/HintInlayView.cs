@@ -46,7 +46,7 @@ public class HintInlayView : MonoBehaviour {
 	public void UpdateUI(TItemData itemData)
 	{
 
-		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 6).ToString();
 		
 		for(int i=0; i < itemData.Bonus.Length; i++)
         {
