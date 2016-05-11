@@ -67,7 +67,7 @@
         "id": 230,
         "explain": "體力不足/標題",
         "tw": "體力不足",
-        "en": "Insufficient Stamina"
+        "en": "Not enough Stamina"
     },
     {
         "id": 231,
@@ -85,7 +85,7 @@
         "id": 233,
         "explain": "鑽石不足/標題",
         "tw": "寶石不足",
-        "en": "Insufficient gem"
+        "en": "Not enough gem"
     },
     {
         "id": 234,
@@ -109,19 +109,19 @@
         "id": 237,
         "explain": "金幣不足/標題",
         "tw": "金幣不足",
-        "en": "Insufficient coin"
+        "en": "Not enough coin"
     },
     {
         "id": 238,
         "explain": "鑽石不足/內文",
         "tw": "你的[FF00FFFF]寶 石[-]不夠囉，是否前往購買？",
-        "en": "Insufficient [FF00FFFF]Gem[-] . Do you want to purchase more?"
+        "en": "Not enough [FF00FFFF]Gem[-] . Do you want to purchase more?"
     },
     {
         "id": 239,
         "explain": "金幣不足/內文",
         "tw": "你的[FFCC00FF]金 幣[-]不夠囉，是否前往購買？",
-        "en": "Insufficient [FFCC00FF]Coin[-] . Do you want to purchase more?"
+        "en": "Not enough [FFCC00FF]Coin[-] . Do you want to purchase more?"
     },
     {
         "id": 240,
@@ -131,13 +131,13 @@
         "id": 241,
         "explain": "其他貨幣不足/內文",
         "tw": "你的[33FFDD] {0} [-]不夠囉，是否前往購買？",
-        "en": "Insufficient [33FFDD] {0} [-] . Do you want to purchase more?"
+        "en": "Not enough [33FFDD] {0} [-] . Do you want to purchase more?"
     },
     {
         "id": 242,
         "explain": "其他貨幣不足/標題",
         "tw": " {0} 不足",
-        "en": "Insufficient {0} "
+        "en": "Not enough {0} "
     },
     {
         "id": 243,
@@ -237,7 +237,7 @@
         "id": 260,
         "explain": "卡牌空間",
         "tw": "技能晶片存放空間不足，確認花費 [FF00FFFF]15[-] 寶石購買 [33FFDD]晶片空間X1[-] ？",
-        "en": "Insufficient Skill Card storage space. Do you want to spend [FF00FFFF]15[-]  gems to purchase [33FFDD]Card Space X1[-]  ?"
+        "en": "Not enough Skill Card storage space. Do you want to spend [FF00FFFF]15[-]  gems to purchase [33FFDD]Card Space X1[-]  ?"
     },
     {
         "id": 261,
@@ -358,12 +358,12 @@
     {
         "id": 510,
         "tw": "金幣不足。",
-        "en": "Insufficient coins"
+        "en": "Not enough coins"
     },
     {
         "id": 511,
         "tw": "寶石不足。",
-        "en": "Insufficient gems"
+        "en": "Not enough gems"
     },
     {
         "id": 512,
@@ -421,7 +421,8 @@
         "id": 537,
         "explain": "體力已滿2，購買完後顯示",
         "tw": "體力補充完畢。",
-        "en": "Strength recovery completed."
+        "en": "Strength recovery completed.",
+        "jp": " "
     },
     {
         "id": 538,
@@ -461,7 +462,7 @@
         "id": 552,
         "explain": "需求金幣不足",
         "tw": "需求金幣不足。",
-        "en": "Insufficient coin."
+        "en": "Not enough coin."
     },
     {
         "id": 553,
@@ -497,7 +498,7 @@
         "id": 558,
         "explain": "COST值滿",
         "tw": "你的空間值不足以安裝此技能晶片。",
-        "en": "You cannot install this Skill Card due to insufficient COST."
+        "en": "Not enough COST to install this Skill Card."
     },
     {
         "id": 559,
@@ -1608,6 +1609,12 @@
         "id": 3510
     },
     {
+        "id": 3511,
+        "explain": "Cost上限提升",
+        "tw": "空間{0} ",
+        "en": "Cost {0} "
+    },
+    {
         "id": 3521,
         "explain": "物品卡牌合成升級",
         "tw": "升級成功",
@@ -2224,12 +2231,12 @@
     {
         "id": 4515,
         "tw": "聯盟幣不足",
-        "en": "Insufficient Battle Coin"
+        "en": "Not enough Battle Coin"
     },
     {
         "id": 4516,
         "tw": "社群幣不足",
-        "en": "Insufficient Social Coin"
+        "en": "Not enough Social Coin"
     },
     {
         "id": 4600,
@@ -2648,8 +2655,8 @@
     {
         "id": 6006,
         "uipath": "卸下次數型裝備",
-        "tw": "卸下此物品",
-        "en": "Uninstall this Item"
+        "tw": "卸下",
+        "en": "UNEQUIP"
     },
     {
         "id": 6007,
@@ -2718,7 +2725,7 @@
         "id": 6202,
         "uipath": "StartBtn/BtnLabel",
         "tw": "前往",
-        "en": "Go to"
+        "en": "GO"
     },
     {
         "id": 6301,
@@ -2894,7 +2901,7 @@
         "id": 7110,
         "uipath": "SelectedCheck",
         "tw": "裝備中",
-        "en": "Equipping"
+        "en": "EQUIPED"
     },
     {
         "id": 7111,
@@ -2925,7 +2932,7 @@
         "explain": "不可以裝備或是出售",
         "uipath": "UnavailableLabel",
         "tw": "空間不足",
-        "en": "Insufficient COST"
+        "en": "Not enough COST"
     },
     {
         "id": 7116,
@@ -3007,13 +3014,13 @@
         "id": 7212,
         "uipath": "EvolutionBtn/Label",
         "tw": "晶片進化",
-        "en": "CARD EVOLUTION"
+        "en": "EVOLUTION"
     },
     {
         "id": 7213,
         "uipath": "UpgradeBtn/Label",
         "tw": "晶片升級",
-        "en": "CARD FUSION"
+        "en": "FUSION"
     },
     {
         "id": 7214,
@@ -3106,9 +3113,9 @@
     },
     {
         "id": 7302,
-        "uipath": "LabelMaxAnger",
-        "tw": "AP",
-        "en": "AP"
+        "uipath": "Morale",
+        "tw": "士氣值",
+        "en": "Morale"
     },
     {
         "id": 7401,
@@ -3186,13 +3193,13 @@
         "id": 7413,
         "explain": "頁籤1",
         "tw": "晶片升級",
-        "en": "Card Upgrade"
+        "en": "Upgrade"
     },
     {
         "id": 7414,
         "explain": "頁籤2",
         "tw": "晶片進化",
-        "en": "Card Evolution"
+        "en": "Evolution"
     },
     {
         "id": 7415,
@@ -3212,6 +3219,12 @@
         "explain": "進化材料",
         "tw": "需求材料",
         "en": "Materials Needed"
+    },
+    {
+        "id": 7418,
+        "explain": "空槽的時候",
+        "tw": "需要[00ff00]相同的技能晶片[-]，或是[00ff00]『我愛籃球黑幫』[-]才能進行合成。",
+        "en": "Need same Skill Cards to Upgrade."
     },
     {
         "id": 7501,
@@ -3244,13 +3257,13 @@
         "id": 7652,
         "explain": "進化材料不足",
         "tw": "進化材料不足。",
-        "en": "Insufficient Evolution Material."
+        "en": "Not enough Evolution Material."
     },
     {
         "id": 7653,
         "explain": "進化金額不足",
         "tw": "進化金幣不足。",
-        "en": "Insufficient Evolution Coin."
+        "en": "Not enough Evolution Coin."
     },
     {
         "id": 7654,
@@ -3429,7 +3442,7 @@
         "id": 8107,
         "uipath": "SelectedCheck",
         "tw": "裝備中",
-        "en": "Equipping"
+        "en": "EQUIPED"
     },
     {
         "id": 8108,
@@ -4189,11 +4202,14 @@
         "explain": "介面說明",
         "uipath": "UIEquipList",
         "tw": "每場比賽扣除[FF0000FF]1個注射劑[-]",
-        "en": "Consume [FF0000FF] 1 Injection [-] every game "
+        "en": "Consume [FF0000FF] 1 Buff Item [-] every game "
     },
     {
         "id": 9764,
-        "uipath": "UIEquipList"
+        "explain": "空介面顯示",
+        "uipath": "EmptyLabel",
+        "tw": "沒有物品可以使用，前往商店購買輔助道具吧！",
+        "en": "You have no items."
     },
     {
         "id": 9765,
