@@ -12440,7 +12440,7 @@
         "attrvalue3": 40,
         "uisource": [10,11,12],
         "sell": 0,
-        "nameen": "Left ear chip",
+        "nameen": "Left ear card",
         "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Consuming item. Equip it [33FFDD]before the game[-]  to increase your ability greatly.\n[ff0000]Notice: Can only use [-] [33FFDD]1[-] [ff0000] for each game.[-] "
     },
@@ -12572,12 +12572,12 @@
         "attrvalue3": 40,
         "uisource": [10,11,12],
         "sell": 0,
-        "nameen": "Right ear chip",
+        "nameen": "Right ear card",
         "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Consuming item. Equip it [33FFDD]before the game[-]  to increase your ability greatly.\n[ff0000]Notice: Can only use [-] [33FFDD]1[-] [ff0000] for each game.[-] "
     },
     {
-        "id": 18099,
+        "id": 18100,
         "nametw": "右耳進攻注射劑",
         "kind": 18,
         "atlas": 11,
@@ -12593,7 +12593,7 @@
         "attrvalue3": 40,
         "uisource": [10,11,12],
         "sell": 0,
-        "nameen": "Right ear chip",
+        "nameen": "Right ear card",
         "explaintw": "消耗型物品。於[33FFDD]競賽前[-]裝備，大幅提升自身能力。\n[ff0000]注意：每場競賽即使用[-][33FFDD]1[-][ff0000]件。[-]",
         "explainen": "Consuming item. Equip it [33FFDD]before the game[-]  to increase your ability greatly.\n[ff0000]Notice: Can only use [-] [33FFDD]1[-] [ff0000] for each game.[-] "
     },
@@ -13440,7 +13440,7 @@
         "sell": 0,
         "nameen": "I Love Basketball Gangs I",
         "explaintw": "將對籃球黑幫2的熱愛轉化成能量，可提升所有技能晶片的 EXP 。",
-        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill chips."
+        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill cards."
     },
     {
         "id": 20011,
@@ -13456,7 +13456,7 @@
         "sell": 0,
         "nameen": "I Love Basketball Gangs II",
         "explaintw": "將對籃球黑幫2的熱愛轉化成能量，可提升所有技能晶片的 EXP 。",
-        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill chips."
+        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill cards."
     },
     {
         "id": 20012,
@@ -13472,7 +13472,7 @@
         "sell": 0,
         "nameen": "I Love Basketball Gangs III",
         "explaintw": "將對籃球黑幫2的熱愛轉化成能量，可提升所有技能晶片的 EXP 。",
-        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill chips."
+        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill cards."
     },
     {
         "id": 20013,
@@ -13489,7 +13489,7 @@
         "flag": 1,
         "nameen": "I Love Basketball Gangs IV",
         "explaintw": "將對籃球黑幫2的熱愛轉化成能量，可提升所有技能晶片的 EXP 。",
-        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill chips."
+        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill cards."
     },
     {
         "id": 20014,
@@ -13506,7 +13506,7 @@
         "flag": 1,
         "nameen": "I Love Basketball Gangs V",
         "explaintw": "將對籃球黑幫2的熱愛轉化成能量，可提升所有技能晶片的 EXP 。",
-        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill chips."
+        "explainen": "Converts the passion of Basketball Gangs 2 into one's energy and greatly increase the EXP of skill cards."
     },
     {
         "id": 20410,
@@ -21883,10 +21883,10 @@
         "stagesource": [2112,2122,2132,2143,2153,2163,2173,2183,2193,2203,2213,2223,2233,2243,2253,2263,2273,2283,2293,2303],
         "uisource": [1,10,11,12],
         "sell": 0,
-        "nameen": "Skill Chip Blueprint",
+        "nameen": "Skill card Blueprint",
         "explaintw": "可將技能晶片進化的特殊材料",
-        "explaincn": "Skills can be evolved into [76231a] High Level [-] chip of special materials",
-        "explainen": "Special material that can evolve skill chips."
+        "explaincn": "Skills can be evolved into [76231a] High Level [-] card of special materials",
+        "explainen": "Special material that can evolve skill cards."
     },
     {
         "id": 40001,
@@ -21898,9 +21898,9 @@
         "maxstack": 999,
         "uisource": [10],
         "sell": 0,
-        "nameen": "Simple Chip Blueprint",
+        "nameen": "Simple card Blueprint",
         "explaintw": "可將技能晶片進化成[C17269FF]銅質外框[-]的特殊材料",
-        "explainen": "Special material that can evolve skill chips into [C17269FF]bronze frames[-] ."
+        "explainen": "Special material that can evolve skill cards into [C17269FF]bronze frames[-] ."
     },
     {
         "id": 40002,
@@ -21912,9 +21912,9 @@
         "maxstack": 999,
         "uisource": [10],
         "sell": 0,
-        "nameen": "Intermediate Chip Blueprint",
+        "nameen": "Intermediate card Blueprint",
         "explaintw": "可將技能晶片進化成[99B3D4FF]銀質外框[-]的特殊材料",
-        "explainen": "Special material that can evolve skill chips into [99B3D4FF]silver frames[-] ."
+        "explainen": "Special material that can evolve skill cards into [99B3D4FF]silver frames[-] ."
     },
     {
         "id": 40003,
@@ -21926,9 +21926,9 @@
         "maxstack": 999,
         "uisource": [10],
         "sell": 0,
-        "nameen": "High Class Chip Blueprint",
+        "nameen": "High Class card Blueprint",
         "explaintw": "可將技能晶片進化成[EFC653FF]金質外框[-]的特殊材料",
-        "explainen": "Special material that can evolve skill chips into [EFC653FF]gold frames[-] ."
+        "explainen": "Special material that can evolve skill cards into [EFC653FF]gold frames[-] ."
     },
     {
         "id": 40004,
@@ -21941,9 +21941,9 @@
         "uisource": [10],
         "sell": 0,
         "flag": 1,
-        "nameen": "Deluxe Chip Blueprint",
+        "nameen": "Deluxe card Blueprint",
         "explaintw": "可將技能晶片進化成[11F5F1FF]鑽石外框[-]的特殊材料",
-        "explainen": "Special material that can evolve skill chips into [11F5F1FF]diamond frames[-] ."
+        "explainen": "Special material that can evolve skill cards into [11F5F1FF]diamond frames[-] ."
     },
     {
         "id": 40100,
@@ -21956,9 +21956,9 @@
         "uisource": [10],
         "sell": 0,
         "flag": 1,
-        "nameen": "Offense IC Design Chip",
+        "nameen": "Offense IC Design card",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "A rare IC chip. You can upgrade a certain skill chip to its highest level with \"Deluxe Chip Blueprint\"."
+        "explainen": "A rare IC card. You can upgrade a certain skill card to its highest level with \"Deluxe card Blueprint\"."
     },
     {
         "id": 40101,
@@ -21971,9 +21971,9 @@
         "uisource": [10],
         "sell": 0,
         "flag": 1,
-        "nameen": "Defense IC Design Chip",
+        "nameen": "Defense IC Design card",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "A rare IC chip. You can upgrade a certain skill chip to its highest level with \"Deluxe Chip Blueprint\"."
+        "explainen": "A rare IC card. You can upgrade a certain skill card to its highest level with \"Deluxe card Blueprint\"."
     },
     {
         "id": 40102,
@@ -21986,9 +21986,9 @@
         "uisource": [10],
         "sell": 0,
         "flag": 1,
-        "nameen": "Intelligence IC Design Chip",
+        "nameen": "Intelligence IC Design card",
         "explaintw": "稀有的IC晶片，搭配《頂級晶片設計圖》即能將特定技能晶片提升至最高層級。",
-        "explainen": "A rare IC chip. You can upgrade a certain skill chip to its highest level with \"Deluxe Chip Blueprint\"."
+        "explainen": "A rare IC card. You can upgrade a certain skill card to its highest level with \"Deluxe card Blueprint\"."
     },
     {
         "id": 51000,
