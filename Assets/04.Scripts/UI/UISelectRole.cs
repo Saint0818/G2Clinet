@@ -838,6 +838,7 @@ public class UISelectRole : UIBase {
     private void SendPVPStart()
     {
         WWWForm form = new WWWForm();
+        form.AddField("StageID", GameData.StageID);
         SendHttp.Get.Command(URLConst.PVPStart, waitPVPStart, form, true);  
     }
    

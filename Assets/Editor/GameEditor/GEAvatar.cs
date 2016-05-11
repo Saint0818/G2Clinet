@@ -11,7 +11,7 @@ public class GEAvatar : GEBase {
 //	private int bodyPart = 0;
 	private GameObject selectGameObject = null;
 	
-	private GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
+    private GameStruct.TAvatar attr;// = new GameStruct.TAvatar(1);
 
 	public Vector2 scrollPosition = Vector2.zero;
 	public Vector2 scrollPositionTexture = Vector2.zero;
@@ -56,6 +56,9 @@ public class GEAvatar : GEBase {
         loadParameter.AddSpin = true;
         loadParameter.AddDummyBall = true;
 
+        if (allBody == null)
+            allBody = new List<GameObject>();
+        
 		if(allBody.Count == 0) {
 			UnityEngine.Object[] obj_0 = Resources.LoadAll ("Character/PlayerModel_0/Model", typeof(GameObject));
 			for (int i=0; i<obj_0.Length; i++) {
@@ -82,6 +85,10 @@ public class GEAvatar : GEBase {
 				}
 			}
 		}
+
+        if (allMaterial == null)
+            allMaterial = new List<Material>();
+        
 		if(allMaterial.Count == 0) {
 			UnityEngine.Object[] mat = Resources.LoadAll ("Character/Materials"); 
 			for (int i=0; i<mat.Length; i++) {
@@ -90,6 +97,10 @@ public class GEAvatar : GEBase {
 				}
 			}
 		}
+
+        if (allTextures == null)
+            allTextures = new List<Texture>();
+        
 		if(allTextures.Count == 0) {
 			UnityEngine.Object[] tex_0 = Resources.LoadAll ("Character/PlayerModel_0/Texture"); 
 			for (int i=0; i<tex_0.Length; i++) {
@@ -112,8 +123,13 @@ public class GEAvatar : GEBase {
 		isModel1Choose = false;
 		isModel2Choose = false;
 		judgeBody(Flag.NONE);
-		showBody.Clear();
-		showBodyTexture.Clear();
+
+        if (showBody != null)
+		    showBody.Clear();
+
+        if (showBodyTexture != null)
+		    showBodyTexture.Clear();
+        
 		bodyPartText = "";
 		bodyTextureText = "";
 	}
@@ -214,6 +230,9 @@ public class GEAvatar : GEBase {
 
 	void createPlayer(string name){
         int index = 0;
+        if (modelArray == null)
+            modelArray = new GameObject[3];
+        
         if(Application.isPlaying && GameObject.Find(name) == null && int.TryParse(name, out index) && index >= 0 && index < modelArray.Length) {
             loadParameter.Name = name;
             TAvatarLoader.Load(int.Parse(name), attr, ref modelArray[index], null, loadParameter);
