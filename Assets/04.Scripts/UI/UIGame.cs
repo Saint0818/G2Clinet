@@ -476,6 +476,7 @@ public class UIGame : UIBase
         uiAlleyoopB.SetActive(false);
         viewTopLeft.SetActive(false);
         uiSpriteFull.SetActive(false);
+
         if (PlayerMe && PlayerMe.Attribute.IsHaveActiveSkill)
         {
             for (int i = 0; i < PlayerMe.Attribute.ActiveSkills.Count; i++)
@@ -483,10 +484,20 @@ public class UIGame : UIBase
 				uiButtonSkill[i].SetActive((GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) && (i < PlayerMe.Attribute.ActiveSkills.Count));
             }
         }
+
+        initPassUI();
         ChangeControl(true);
         showViewForceBar(true);
 		ShowSkillEnableUI(false);
 		refreshSpeedLabel ();
+    }
+
+    private void initPassUI() {
+        if (GameController.Get.GamePlayers.Count < 3)
+            viewPass.SetActive(false);
+        else 
+        if (GameController.Get.GamePlayers.Count < 5)
+            uiPassB.SetActive(false);
     }
 
     public void InitTutorialUI()
@@ -1194,6 +1205,8 @@ public class UIGame : UIBase
                 }
                 break;
         }
+
+        initPassUI();
     }
 
     public void UIMaskState(EUIControl controllerState)
@@ -1502,6 +1515,8 @@ public class UIGame : UIBase
                         uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
                     }
                 }
+
+                initPassUI();
                 break;
             case EUISituation.Start:
 //                AudioMgr.Get.PlaySound(SoundType.SD_BattleStart_Btn);
