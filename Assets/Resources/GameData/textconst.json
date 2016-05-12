@@ -3902,6 +3902,13 @@
         "en": "Using {0} "
     },
     {
+        "id": 9603,
+        "explain": "秀士氣增加速度",
+        "uipath": "MoraleHint",
+        "tw": "士氣回復：{0} /秒",
+        "en": "Morale per Second：{0} "
+    },
+    {
         "id": 9701,
         "explain": "聯盟對戰",
         "tw": "聯盟對戰",

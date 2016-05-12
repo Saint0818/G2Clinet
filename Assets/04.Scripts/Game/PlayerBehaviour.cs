@@ -249,6 +249,12 @@ public class PlayerBehaviour : MonoBehaviour
 			OnReviveAnger(TotalMaxAnger, angerValue, 0);
 	}
 
+	public float ReviveAngerValue {
+		get {
+			return  (apGrowth + extraAPIncrease);
+		}
+	}
+
 	private void angerRecoveryUpdate () {
 		if(IsGameJoysticker) {
 			if(Attribute.IsHaveActiveSkill && AngerPower < TotalMaxAnger) {
@@ -256,7 +262,7 @@ public class PlayerBehaviour : MonoBehaviour
 					recoverTime -= Time.deltaTime;	
 					if(recoverTime <= 0) {
 						recoverTime = GameConst.AngerReviveTime;
-						ReviveAnger((apGrowth + extraAPIncrease) * GameConst.AngerReviveTime);
+						ReviveAnger(ReviveAngerValue * GameConst.AngerReviveTime);
 					}
 				}
 			}

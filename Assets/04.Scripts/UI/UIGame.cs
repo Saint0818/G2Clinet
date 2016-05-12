@@ -103,14 +103,19 @@ public class UIGame : UIBase
     private GameObject[] uiTutorial2 = new GameObject[2];
 
     //TopLeft
-    private GameObject uiSpeed;
-	private UILabel labelSpeed;
     private UIButton buttonPause;
     private GameObject viewTopLeft;
     private UILabel[] labelTopLeftScore = new UILabel[2];
     private GameObject uiLimitTime;
     private UILabel labelLimitTime;
     public UILabel LabelStrategy;
+	private GameObject goMoraleHint;
+	private UILabel labelMoraleHint;
+
+	private GameObject goBottom;
+	private GameObject uiSpeed;
+	private UILabel labelSpeed;
+	private GameObject goAISpeed;
 
     //Right
     private GameObject uiPlayerLocation;
@@ -238,7 +243,7 @@ public class UIGame : UIBase
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < (Screen.width * 0.5f) && Input.mousePosition.y < (Screen.height * 0.55f))
+		if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < (Screen.width * 0.5f) && Input.mousePosition.y < (Screen.height * 0.55f) && Input.mousePosition.y >= (Screen.height * 0.1f))
         {
             screenPosition = Input.mousePosition;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(gameJoystick.GetCanvas.rectTransform(), screenPosition, gameJoystick.GetCanvas.worldCamera, out mPosition);
@@ -320,7 +325,7 @@ public class UIGame : UIBase
     protected override void InitCom()
     {
         onSkillDCComplete += AddForceValue;
-        SetBtnFun(UIName + "/TopLeft/ButtonSpeed", OnSpeed);
+		SetBtnFun(UIName + "/Bottom/ButtonSpeed", OnSpeed);
 
         //GameJoystick
         GameObject obj2 = GameObject.Find("GameJoystick");
@@ -370,8 +375,6 @@ public class UIGame : UIBase
         uiPassObjectGroup[2] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/SpriteB");
 		
         //TopLeft
-        uiSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed");
-		labelSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
         buttonPause = GameObject.Find(UIName + "/TopLeft/ButtonPause").GetComponent<UIButton>();
         viewTopLeft = GameObject.Find(UIName + "TopLeft");
         labelTopLeftScore[0] = GameObject.Find(UIName + "TopLeft/ButtonPause/ScoreBoard/Home").GetComponent<UILabel>();
@@ -380,9 +383,16 @@ public class UIGame : UIBase
         labelLimitTime = GameObject.Find(UIName + "/TopLeft/Countdown/TimeLabel").GetComponent<UILabel>();
         LabelStrategy = GameObject.Find(UIName + "/TopLeft/StrategyLabel").GetComponent<UILabel>();
         SetBtnFun(UIName + "/TopLeft/ButtonPause", OnPause);
-		
+
+		//Bottom
+		goBottom =GameObject.Find(UIName + "/Bottom"); 
+		uiSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed");
+		labelSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
+		goAISpeed =  GameObject.Find(UIName + "/Bottom/ButtonAI/SpeedLabel");
+
         //Right
-        uiPlayerLocation = GameObject.Find(UIName + "/Right");
+		uiPlayerLocation = GameObject.Find(UIName + "/Right");
+		uiPlayerLocation.SetActive(false);
 
         //TopRight
         viewTopRight = GameObject.Find(UIName + "/TopRight");
@@ -410,9 +420,14 @@ public class UIGame : UIBase
             uiSkillEnables[i].SetActive(false);
         }
 
+		goMoraleHint = GameObject.Find(UIName + "/TopRight/MoraleHint");
+		labelMoraleHint = GameObject.Find(UIName + "/TopRight/MoraleHint/MoraleLabel").GetComponent<UILabel>();
+
         SetBtnFun(UIName + "/Center/ViewStart/ButtonStart", StartGame);
         SetBtnFun(UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
+		SetBtnFun(UIName + "/Bottom/ButtonAI", OnChangeAI);
 
+		UIEventListener.Get(GameObject.Find(UIName + "/TopRight/ViewForceBar/ShowMoraleBtn")).onPress = OnShowMorale;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
         UIEventListener.Get(GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
         UIEventListener.Get(uiPassA).onPress = DoPassTeammateA;
@@ -428,6 +443,8 @@ public class UIGame : UIBase
         uiAlleyoopB.SetActive(false);
         uiSpriteFull.SetActive(false);
         showViewForceBar(false);
+		goMoraleHint.SetActive(false);
+		goBottom.SetActive(false);
 
         //toturial button
         uiTutorial2[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock");
@@ -454,8 +471,7 @@ public class UIGame : UIBase
         spriteForce.fillAmount = 0;
         spriteForceFirst.fillAmount = 0;
         showUITime();
-		
-        uiPlayerLocation.SetActive(false);
+
         uiAlleyoopA.SetActive(false);
         uiAlleyoopB.SetActive(false);
         viewTopLeft.SetActive(false);
@@ -532,6 +548,21 @@ public class UIGame : UIBase
         CourtMgr.Get.ShowArrowOfAction(false);
         showSkillHint(false);
     }
+
+	public void OnChangeAI () {
+		if(goAISpeed.activeSelf) 
+			PlayerMe.SetManually(999);
+		else 
+			PlayerMe.SetToAI();
+
+		goAISpeed.SetActive(!goAISpeed.activeSelf);
+	}
+
+	public void OnShowMorale (GameObject go, bool state) {
+		goMoraleHint.SetActive(state);
+		if(IsPlayerMe)
+			labelMoraleHint.text = string.Format(TextConst.S(9603), PlayerMe.ReviveAngerValue);
+	}
 
     public void InitPlayerSkillUI(PlayerBehaviour p)
     {
@@ -1480,6 +1511,7 @@ public class UIGame : UIBase
                 viewStart.SetActive(false);
                 viewTopLeft.SetActive(true);
                 viewBottomRight.SetActive(true);
+				goBottom.SetActive(true);
 
                 if (!GameController.Get.StageData.IsTutorial)
                     showGameJoystick(true);
@@ -1501,7 +1533,8 @@ public class UIGame : UIBase
                     showViewForceBar(false);
 
                     showGameJoystick(false);
-                    ShowSkillEnableUI(false);
+					ShowSkillEnableUI(false);
+					goBottom.SetActive(false);
 
                     if (UIPassiveEffect.Visible)
                         UIPassiveEffect.UIShow(false);
@@ -1528,7 +1561,8 @@ public class UIGame : UIBase
                     showViewForceBar(true);
 
                     showGameJoystick(true);
-                    ShowSkillEnableUI(true);
+					ShowSkillEnableUI(true);
+					goBottom.SetActive(true);
 			
                     UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
                     UIGamePause.UIShow(false);
@@ -1540,7 +1574,8 @@ public class UIGame : UIBase
                 Time.timeScale = 1;
                 GameController.Get.RecordTimeScale = Time.timeScale;
                 viewBottomRight.SetActive(false);
-                viewTopLeft.SetActive(false);
+				viewTopLeft.SetActive(false);
+				goBottom.SetActive(false);
 
 //			showGameJoystick(false);
                 gameJoystick.gameObject.SetActive(false);

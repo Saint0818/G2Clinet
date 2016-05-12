@@ -10,8 +10,8 @@ public class GameSettingView
 	private UIButton soundBtn;
 	private UIButton[] effectBtn = new UIButton[3];
     private UIToggle[] effectBtnToggle = new UIToggle[3];
-	private UIButton[] aiBtns = new UIButton[6];
-	private UIToggle[] aiBtnsToggle = new UIToggle[6];
+	private UIButton[] aiBtns = new UIButton[5];
+	private UIToggle[] aiBtnsToggle = new UIToggle[5];
 	private UISprite[] musicSp = new UISprite[2];
 	private UISprite[] soundSp = new UISprite[2];
 	private UILabel warningLabel;

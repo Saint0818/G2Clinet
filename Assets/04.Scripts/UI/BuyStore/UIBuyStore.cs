@@ -38,7 +38,7 @@ public class UIBuyStore : UIBase {
 
 	private UILabel labelPay;
 	private UISprite spritePay;
-	private bool isClickTouch = false;
+	private bool isClickTouch = true;
 
 //	public TSkill[] newSkillCard;
 //	private bool isOneAware = true; 
@@ -94,10 +94,14 @@ public class UIBuyStore : UIBase {
 		labelPay = GameObject.Find(UIName + "/Center/ItemGet/AgainBt/PayLabel").GetComponent<UILabel>();
 		spritePay = GameObject.Find(UIName + "/Center/ItemGet/AgainBt/PayIcon").GetComponent<UISprite>();
 
-		isClickTouch = false;
+		Invoke("delayTap", 2);
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/Touch")).onClick = StartDrawLottery;
 		SetBtnFun(UIName + "/Center/ItemGet/AgainBt", OnAgain);
 		SetBtnFun(UIName + "/Center/ItemGet/EnterBt", OnBack);
+	}
+
+	private void delayTap () {
+		isClickTouch = false;
 	}
 
 	public void ShowView (TPickCost pick, int index, int type, TItemData[] itemDatas) {
