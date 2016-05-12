@@ -312,5 +312,13 @@ public class UniWebViewPlugin {
             _UniWebViewSetHeaderField(name, key, value);
         }
     }
+    
+    public static void SetVerticalScrollBarShow(string name, bool show) {
+        // Not implemented.
+    }
+    
+    public static void SetHorizontalScrollBarShow(string name, bool show) {
+        //Not implemented.
+    }
 }
 #endif

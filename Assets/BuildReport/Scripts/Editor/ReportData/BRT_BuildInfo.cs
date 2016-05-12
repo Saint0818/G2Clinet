@@ -2,7 +2,6 @@ using UnityEditor;
 using System;
 using System.Linq;
 using System.Xml.Serialization;
-using UnityEngine;
 
 namespace BuildReportTool
 {
@@ -180,6 +179,11 @@ public class BuildInfo
 
 	long GetSizeSumForUsedAssets(string assetFolderName, Func<string, bool> fileTypePredicate)
 	{
+		if (UsedAssets == null || UsedAssets.All == null)
+		{
+			return 0;
+		}
+
 		return UsedAssets.All.Where(part => BuildReportTool.Util.IsFileInAPath(part.Name, assetFolderName) && fileTypePredicate(part.Name))
 					.Sum(part => BRT_LibCacheUtil.GetImportedFileSize(part.Name));
 	}

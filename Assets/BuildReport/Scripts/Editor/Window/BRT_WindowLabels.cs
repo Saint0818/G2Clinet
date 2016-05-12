@@ -9,11 +9,11 @@ public static class Labels
 
 	public const string WAITING_FOR_BUILD_TO_COMPLETE_MSG = "Waiting for build to complete... Click this window if not in focus to refresh.";
 
-	public const string NO_BUILD_INFO_FOUND_MSG = "No Build Info.\n\nClick \"Get From Log\" to retrieve the last build info from the Editor log.\n\nClick Open to manually open a previously saved build report file.";
+	public const string NO_BUILD_INFO_FOUND_MSG = "No Build Info.\n\nClick \"Get Log\" to retrieve the last build info from the Editor log.\n\nClick Open to manually open a previously saved build report file.";
 
 
 
-	public const string MONO_DLLS_LABEL = "Included DLLs:";
+	public const string MONO_DLLS_LABEL = "System DLLs:";
 	public const string SCRIPT_DLLS_LABEL = "Script DLLs:";
 
 

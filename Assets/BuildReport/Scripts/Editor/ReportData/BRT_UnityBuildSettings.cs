@@ -27,7 +27,7 @@ public class UnityBuildSettings
 
 	public string ActionOnDotNetUnhandledException; // Unity 5: PlayerSettings.actionOnDotNetUnhandledException
 
-	public bool ForceOptimizeScriptCompilation; // Unity 5.2: EditorUserBuildSettings.forceOptimizeScriptCompilation
+	public bool ForceOptimizeScriptCompilation; // Unity 5.2.2: EditorUserBuildSettings.forceOptimizeScriptCompilation
 	
 
 

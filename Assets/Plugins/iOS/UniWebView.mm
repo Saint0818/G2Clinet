@@ -441,6 +441,7 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
     }
     
     if (!show) {
+        [webView endEditing:YES];
         [webView.spinner hide];
     }
 }
@@ -718,6 +719,16 @@ typedef NS_ENUM(NSInteger, UniWebViewTransitionEdge) {
     }
 }
 
+-(void) webViewName:(NSString *)name setVerticalScrollBarShow:(BOOL)show {
+    UniWebView *webView = [_webViewDic objectForKey:name];
+    webView.scrollView.showsVerticalScrollIndicator = show;
+}
+
+-(void) webViewName:(NSString *)name setHorizontalScrollBarShow:(BOOL)show {
+    UniWebView *webView = [_webViewDic objectForKey:name];
+    webView.scrollView.showsHorizontalScrollIndicator = show;
+}
+
 @end
 
 
@@ -777,6 +788,8 @@ extern "C" {
     float _UniWebViewGetAlpha(const char *name);
     void _UniWebViewSetAlpha(const char *name, float alpha);
     void _UniWebViewSetHeaderField(const char *name, const char *key, const char *value);
+    void _UniWebViewSetVerticalScrollBarShow(const char *name, BOOL show);
+    void _UniWebViewSetHorizontalScrollBarShow(const char *name, BOOL show);
 }
 
 void _UniWebViewInit(const char *name, int top, int left, int bottom, int right) {
@@ -951,3 +964,10 @@ void _UniWebViewSetHeaderField(const char *name, const char *key, const char *va
      ];
 }
 
+void _UniWebViewSetVerticalScrollBarShow(const char *name, BOOL show) {
+    [[UniWebViewManager sharedManager] webViewName:UniWebViewMakeNSString(name) setVerticalScrollBarShow:show];
+}
+
+void _UniWebViewSetHorizontalScrollBarShow(const char *name, BOOL show) {
+    [[UniWebViewManager sharedManager] webViewName:UniWebViewMakeNSString(name) setHorizontalScrollBarShow:show];
+}

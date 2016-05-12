@@ -76,6 +76,10 @@ public class UniWebViewPlugin {
     private static extern void _UniWebViewSetAlpha(string name, float alpha);
     [DllImport("__Internal")]
     private static extern void _UniWebViewSetHeaderField(string name, string key, string value);
+    [DllImport("__Internal")]
+    private static extern void _UniWebViewSetVerticalScrollBarShow(string name, bool show);
+    [DllImport("__Internal")]
+    private static extern void _UniWebViewSetHorizontalScrollBarShow(string name, bool show);
 
     public static void Init(string name, int top, int left, int bottom, int right) {
         if (Application.platform == RuntimePlatform.IPhonePlayer) {
@@ -296,6 +300,18 @@ public class UniWebViewPlugin {
     public static void SetHeaderField(string name, string key, string value) {
         if (Application.platform == RuntimePlatform.IPhonePlayer) {
             _UniWebViewSetHeaderField(name, key, value);
+        }
+    }
+    
+    public static void SetVerticalScrollBarShow(string name, bool show) {
+        if (Application.platform == RuntimePlatform.IPhonePlayer) {
+            _UniWebViewSetVerticalScrollBarShow(name, show);
+        }
+    }
+    
+    public static void SetHorizontalScrollBarShow(string name, bool show) {
+        if (Application.platform == RuntimePlatform.IPhonePlayer) {
+            _UniWebViewSetHorizontalScrollBarShow(name, show);
         }
     }
 }

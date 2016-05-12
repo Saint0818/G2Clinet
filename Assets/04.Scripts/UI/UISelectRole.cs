@@ -534,31 +534,38 @@ public class UISelectRole : UIBase {
         UIMainLobby.Get.Hide(false);
         UIResource.Get.Hide();
 
-        Visible = true;
-
-        if (stageData.IDKind == TStageData.EKind.PVP) {
-            UI3DPVP.Visible = true;
-            uiCenterPVP.SetActive(true);
-            showPVPUI(true);
+        if (stageData.FriendKind == 4) {
+            if (stageData.IDKind == TStageData.EKind.PVP)
+                SendPVPStart();
+            else
+                mainStageStart(stageData.ID);
         } else {
-            UI3DSelectRole.UIShow(true);
-            uiTopPVE.SetActive(true);
-        }
+            Visible = true;
 
-		GameData.Team.PlayerInit();
-		playerData[0] = GameData.Team.Player;
-        if (stageData.IsOnlineFriend) {
-            if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
-				SendHttp.Get.FreshFriends(waitLookFriends, true);
-				if (UILoading.Visible)
-					UILoading.Get.ProgressValue = 0.7f;
-			} else 
-				waitLookFriends(true);
-		} else
-        if (stageData.FriendID != null) {
-            initPlayerList(stageData.FriendID);
-        } else
-			initPlayerList(selectRoleID);
+            if (stageData.IDKind == TStageData.EKind.PVP) {
+                UI3DPVP.Visible = true;
+                uiCenterPVP.SetActive(true);
+                showPVPUI(true);
+            } else {
+                UI3DSelectRole.UIShow(true);
+                uiTopPVE.SetActive(true);
+            }
+
+    		GameData.Team.PlayerInit();
+    		playerData[0] = GameData.Team.Player;
+            if (stageData.IsOnlineFriend) {
+                if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
+    				SendHttp.Get.FreshFriends(waitLookFriends, true);
+    				if (UILoading.Visible)
+    					UILoading.Get.ProgressValue = 0.7f;
+    			} else 
+    				waitLookFriends(true);
+    		} else
+            if (stageData.FriendID != null) {
+                initPlayerList(stageData.FriendID);
+            } else
+    			initPlayerList(selectRoleID);
+        }
 	}
 
 	public void OnEquip() {

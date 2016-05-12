@@ -120,6 +120,8 @@ public class TAvatarLoader : MonoBehaviour {
 
         clearDress();
 
+        controllorCache.Clear();
+
         if (aniController != null) 
             aniController.runtimeAnimatorController = null;
 
