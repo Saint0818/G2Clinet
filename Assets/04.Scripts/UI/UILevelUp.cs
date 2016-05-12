@@ -37,8 +37,8 @@ public struct TPlayerLevelUp {
 		labelAfterLevel.text = afterPlayer.Lv.ToString();
 		labelGetPotential.text = string.Format(labelGetPotential.text, GameConst.PreLvPotential);
 		goCostGroup.SetActive(beforePlayer.SkillCardCost != afterPlayer.SkillCardCost);
-		labelBeforeCost.text = beforePlayer.SkillCardCost.ToString();
-		labelAfterCost.text = afterPlayer.SkillCardCost.ToString();
+		labelBeforeCost.text = string.Format(TextConst.S(3511), beforePlayer.SkillCardCost);
+		labelAfterCost.text = string.Format(TextConst.S(3511), afterPlayer.SkillCardCost);
 	}
 }
 

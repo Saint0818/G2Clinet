@@ -486,16 +486,16 @@ public class UIMission : UIBase {
         yield return new WaitForSeconds(sec);
         waitForAnimator = false;
         GameData.Team.TeamRecord = result.LifetimeRecord;
-		GameData.Team.Player.SkillCardCost = result.SkillCardCost;
 
         bool flag = false;
         TPlayer player = GameData.Team.Player;
         if (result.Lv > GameData.Team.Player.Lv)
             flag = true;
 
-        GameData.Team.Player.Lv = result.Lv;
+		GameData.Team.Player.Lv = result.Lv;
+		GameData.Team.Player.SkillCardCost = result.SkillCardCost;
         if (flag) {
-            UILevelUp.Get.Show(player, GameData.Team.Player);
+			UILevelUp.Get.Show(player, GameData.Team.Player);
             if (GameData.DExpData.ContainsKey(result.Lv) && LimitTable.Ins.HasOpenIDByLv(result.Lv))
                 PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[result.Lv].UI);
 
