@@ -105,22 +105,24 @@ public class UIHint : UIBase
 
 	public void ShowHint(string text, Color color, bool isForce = false)
     {
-        if (GameData.Team.Player.Lv == 0)
-            return;
-
-		if(!isForce) {
-			if(!Visible){
-				Show(true);
+		if(!string.IsNullOrEmpty(text)) {
+			if (GameData.Team.Player.Lv == 0)
+				return;
+			
+			if(!isForce) {
+				if(!Visible){
+					Show(true);
+					showText(text, color);
+					StartCoroutine(autoHide());
+				} else 
+					if(!haveText(text))
+						addText(text, color);
+			} else {
+				if(!Visible)
+					Show(true);
+				textList.Clear();
 				showText(text, color);
-				StartCoroutine(autoHide());
-			} else 
-				if(!haveText(text))
-					addText(text, color);
-		} else {
-			if(!Visible)
-				Show(true);
-			textList.Clear();
-			showText(text, color);
+			}
 		}
 	}
 }
