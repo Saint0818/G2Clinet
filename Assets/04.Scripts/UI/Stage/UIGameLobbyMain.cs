@@ -12,38 +12,38 @@ public class UIGameLobbyMain : MonoBehaviour
 
     public UIButton BackButton;
     public UIButton MainStageButton;
-    public UIButton PvpButton;
-    public UIButton InstanceButton;
+    public UIUnlockButton PvpUnlockButton;
+    public UIUnlockButton InstanceUnlockButton;
 	public UISprite Reddot;
 
     [UsedImplicitly]
     private void Awake()
     {
-        BackButton.onClick.Add(new EventDelegate(OnBackClick));
-        MainStageButton.onClick.Add(new EventDelegate(OnMainStageClick));
-        PvpButton.onClick.Add(new EventDelegate(OnPvpClick));
-        InstanceButton.onClick.Add(new EventDelegate(OnInstanceClick));
+        BackButton.onClick.Add(new EventDelegate(onBackClick));
+        MainStageButton.onClick.Add(new EventDelegate(onMainStageClick));
+        PvpUnlockButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(onPvpClick));
+        InstanceUnlockButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(onInstanceClick));
     }
 
-    public void OnBackClick()
+    private void onBackClick()
     {
         if(BackListener != null)
             BackListener();
     }
 
-    public void OnMainStageClick()
+    private void onMainStageClick()
     {
         if(MainStageListener != null)
             MainStageListener();
     }
 
-    public void OnPvpClick()
+    private void onPvpClick()
     {
         if(PVPListener != null)
             PVPListener();
     }
 
-    public void OnInstanceClick()
+    private void onInstanceClick()
     {
         if(InstanceListener != null)
             InstanceListener();

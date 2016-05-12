@@ -56,12 +56,14 @@ public class UIMainLobby : UIBase
 
         var events = GetComponent<UIMainLobbyEvents>();
         View.RaceButton.onClick.Add(new EventDelegate(events.ShowGameLobby));
-        View.SkillButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowSkillFormation));
-        View.AvatarButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowAvatarFitted));
-        View.EquipButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.ShowEquipment));
-        View.SocialButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnSocial));
-        View.ShopButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnShop));
-        View.MallButton.GetComponent<UIButton>().onClick.Add(new EventDelegate(events.OnMall));
+        View.SkillButton.Event = new EventDelegate(events.ShowSkillFormation);
+        View.AvatarButton.Event = new EventDelegate(events.ShowAvatarFitted);
+        View.EquipButton.Event = new EventDelegate(events.ShowEquipment);
+        View.SocialButton.Event = new EventDelegate(events.OnSocial);
+        View.ShopButton.Event = new EventDelegate(events.OnShop);
+        View.MallButton.Event = new EventDelegate(events.OnMall);
+        View.MissionButton.Event = new EventDelegate(events.OnMission);
+        View.AlbumButton.Event = new EventDelegate(events.OnAlbum);
     }
 
     public bool IsVisible
@@ -112,8 +114,6 @@ public class UIMainLobby : UIBase
 			UIGym.Get.RefreshBuild();
         
         View.PlayerNotice = GameData.PotentialNoticeEnable(ref GameData.Team);
-//        View.LoginNotice = UIDailyLoginHelper.HasTodayDailyLoginReward() ||
-//                           UIDailyLoginHelper.HasLifetimeLoginReward();
 
     }
 
@@ -162,14 +162,12 @@ public class UIMainLobby : UIBase
 
     private void updateAvatarButton()
     {
-//        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Avatar);
         View.AvatarButton.CheckEnable();
         View.AvatarNotice = View.AvatarButton.IsEnable && GameData.AvatarNoticeEnable();
     }
 
     private void updateEquipmentButton()
     {
-//        bool isEnable = GameData.Team.Player.Lv >= LimitTable.Ins.GetLv(EOpenID.Equipment);
         View.EquipButton.CheckEnable();
         View.EquipmentNotice = View.EquipButton.IsEnable && 
               (!GameData.Team.IsPlayerAllBestValueItem() || GameData.Team.HasInlayableValueItem() ||
