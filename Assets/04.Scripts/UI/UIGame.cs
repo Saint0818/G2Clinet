@@ -535,18 +535,24 @@ public class UIGame : UIBase
         else
         {
             uiLimitTime.SetActive(true);
-            labelLimitTime.text = GameController.Get.GameWinTime.ToString();
+			int minute = (int)(GameController.Get.GameWinTime / 60f);
+			int second = (int)(GameController.Get.GameWinTime % 60f);
+			labelLimitTime.text = minute.ToString() + ":" + second.ToString();
         }
     }
 
     private void setGameTime()
-    {
-        int minute = (int)(GameController.Get.GameWinTime / 60f);
-        int second = (int)(GameController.Get.GameWinTime % 60f);
-        if (second < 10)
-            labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
-        else
+	{
+		int minute = (int)(GameController.Get.GameWinTime / 60f);
+		int second = (int)(GameController.Get.GameWinTime % 60f);
+
+		if (GameController.Get.GameWinTime < 10)
+			labelLimitTime.text = string.Format("{0:F}", GameController.Get.GameWinTime);
+		else if (second < 10)
+			labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
+		else 
             labelLimitTime.text = minute.ToString() + ":" + second.ToString();
+		
     }
 
     public void ResetRange()
