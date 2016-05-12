@@ -417,6 +417,7 @@ public class UIMail : UIBase {
 	private GameObject itemBuild;// Resource.Load
 	private GameObject window;
 	private UIButton changeBtn;
+	private UIUnlockButton unlock;
 
 	// group stage
 	private int nowGroup = 0;
@@ -517,6 +518,7 @@ public class UIMail : UIBase {
 		// group 1
 		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
 		//decoScrollView = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/ScrollView").GetComponent<UIScrollView>();
+		unlock = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn").GetComponent<UIUnlockButton>();
 		//
 		GameObject tmpView = Resources.Load (UIPrefabPath.UIView) as GameObject;
 		uiView = Instantiate(tmpView) as GameObject;
@@ -542,7 +544,7 @@ public class UIMail : UIBase {
 
 	public void RefreshRedPt()
 	{
-		redPtDaily.SetActive (UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ());
+		redPtDaily.SetActive((UIDailyLoginHelper.HasTodayDailyLoginReward () || UIDailyLoginHelper.HasLifetimeLoginReward ()) && unlock.IsEnable);
 		redPtPrize.SetActive (UIMail.NewMail01);
 		redPtSocial.SetActive (UIMail.NewMail02);
 		

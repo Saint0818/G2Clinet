@@ -126,6 +126,8 @@
         PVP = 8,
         Instance = 9,
         CreateRole = 10,
+		ActiveSkill = 11,
+		DailyLogin = 12,
         SuitCard = 26,
         SuitItem = 27,
         SkillEvolution = 21,

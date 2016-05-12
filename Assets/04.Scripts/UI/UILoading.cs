@@ -179,6 +179,8 @@ public class UILoading : UIBase
 
 	public static void OpenDailyLogin()
 	{
+		if (UITutorial.Visible)
+			return;
 
 		int check = PlayerPrefs.GetInt(ESave.AutoShowDailyLoginDone.ToString(), 0);
 
