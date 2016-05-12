@@ -47,7 +47,7 @@ public class SkillController : MonoBehaviour {
 	}
 
 	private bool isShowSkillUI (TSkill tSkill) {
-		return (checkSkillBaseSituation(tSkill) && checkSkillDistance(tSkill) && checkSkillKind(tSkill));
+		return (checkSkillBaseSituation(tSkill) && checkTargetDistance(tSkill) && checkSkillKind(tSkill));
 	}
 
 	public void SkillUpdate(EGameSituation situation, bool isPlayerMe, PlayerBehaviour player)
