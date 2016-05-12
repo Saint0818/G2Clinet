@@ -22,6 +22,7 @@ public struct TMissionFinishResult {
     public TSkill[] SkillCards;
     public Dictionary<int, int> GotItemCount; //key: item id, value: got number
     public Dictionary<int, int> MissionLv; //key: mission id, value: lv
+	public int SkillCardCost;
 }
 
 public class TMissionItem{
@@ -485,6 +486,7 @@ public class UIMission : UIBase {
         yield return new WaitForSeconds(sec);
         waitForAnimator = false;
         GameData.Team.TeamRecord = result.LifetimeRecord;
+		GameData.Team.Player.SkillCardCost = result.SkillCardCost;
 
         bool flag = false;
         TPlayer player = GameData.Team.Player;

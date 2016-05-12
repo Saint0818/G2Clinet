@@ -49,7 +49,8 @@ namespace GameStruct
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
 		public int SkillCardMax;
-		public int SkillCost;
+		public int SkillCardCost;//依等級所得到的額外空間
+		public int SkillCost;//已安裝卡牌的空間
         public int NowStageID;
         public int HeadTextureNo;
         public int FriendKind;
@@ -220,6 +221,7 @@ namespace GameStruct
             AISkillLv = 0;
             SkillPage = 0;
 			SkillCardMax = 10;
+			SkillCardCost = 0;
 			SkillCost = 0;
             NowStageID = 0;
             Exp = 0;
@@ -528,6 +530,7 @@ namespace GameStruct
             }
         }
 
+		//已安裝卡牌的空間數
 		public int GetSkillCost {
 			get {
 				int cost = 0;

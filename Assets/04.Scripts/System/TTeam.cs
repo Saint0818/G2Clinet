@@ -712,7 +712,7 @@ namespace GameStruct
 		//檢查空間是否有卡牌可以安裝
 		public bool IsSurplusCost {
 			get {
-				int surplus = GameConst.Max_CostSpace - Player.GetSkillCost;
+				int surplus = (GameConst.Max_CostSpace + Player.SkillCardCost) - Player.GetSkillCost;
 				if(SkillCards != null) {
 					for(int i=0; i<SkillCards.Length; i++) {
 						if(GameData.DSkillData.ContainsKey(SkillCards[i].ID)) {
@@ -726,7 +726,7 @@ namespace GameStruct
 		}
 		public bool CheckCardCost (TSkill skill) {
 			if(GameData.DSkillData.ContainsKey(skill.ID)) {
-				int surplus = GameConst.Max_CostSpace - Player.GetSkillCost;
+				int surplus = (GameConst.Max_CostSpace + Player.SkillCardCost) - Player.GetSkillCost;
 				if(GameData.DSkillData[skill.ID].Space(skill.Lv) <= surplus)
 					return true;
 			}

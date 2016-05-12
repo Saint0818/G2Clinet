@@ -552,7 +552,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	private void initCards (bool isCheckBuy = false) {
-//		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
+		costSpaceMax = GameConst.Max_CostSpace + GameData.Team.Player.SkillCardCost;
 		runShine = runShineInternal;
 		int index = -1;
 		int actvieIndex = -1;
@@ -1344,7 +1344,7 @@ public class UISkillFormation : UIBase {
 	//檢查空間是否有卡牌可以安裝
 	private bool isSurplusCost {
 		get {
-			int surplus = GameConst.Max_CostSpace - getSkillCost;
+			int surplus = costSpaceMax - getSkillCost;
 			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
 				if (!skillsRecord.Contains(uicard.Value.Card.name))
 					if(uicard.Value.Cost <= surplus)	
@@ -1852,6 +1852,6 @@ public class UISkillFormation : UIBase {
 	}
 
 	public int ExtraCostSpace {
-		get {return GameConst.Max_CostSpace - costSpace;}
+		get {return costSpaceMax - costSpace;}
 	}
 }

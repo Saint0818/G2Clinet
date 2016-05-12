@@ -9,6 +9,9 @@ public struct TPlayerLevelUp {
 	private UILabel labelBeforeLevel;
 	private UILabel labelAfterLevel;
 	private UILabel labelGetPotential;
+	private GameObject goCostGroup;
+	private UILabel labelBeforeCost;
+	private UILabel labelAfterCost;
 
 	public void Init (GameObject obj) {
 		playerIcon = new TPlayerInGameBtn[2];
@@ -20,6 +23,9 @@ public struct TPlayerLevelUp {
 		labelBeforeLevel = obj.transform.Find("LevelGroup/BeforeLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
 		labelAfterLevel = obj.transform.Find("LevelGroup/AfterLevel/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
 		labelGetPotential = obj.transform.Find("GetPotentialLabel").GetComponent<UILabel>();
+		goCostGroup = obj.transform.Find("CostGroup").gameObject;
+		labelBeforeCost = obj.transform.Find("CostGroup/BeforeLabel").GetComponent<UILabel>();
+		labelAfterCost = obj.transform.Find("CostGroup/AfterLabel").GetComponent<UILabel>();
 	}
 
 	public void UpdateView (TPlayer beforePlayer, TPlayer afterPlayer) {
@@ -30,6 +36,9 @@ public struct TPlayerLevelUp {
 		labelBeforeLevel.text = beforePlayer.Lv.ToString();
 		labelAfterLevel.text = afterPlayer.Lv.ToString();
 		labelGetPotential.text = string.Format(labelGetPotential.text, GameConst.PreLvPotential);
+		goCostGroup.SetActive(beforePlayer.SkillCardCost != afterPlayer.SkillCardCost);
+		labelBeforeCost.text = beforePlayer.SkillCardCost.ToString();
+		labelAfterCost.text = afterPlayer.SkillCardCost.ToString();
 	}
 }
 
@@ -257,7 +266,7 @@ public class UILevelUp : UIBase {
 	public void OnReturn (GameObject go) {
 		if(SceneMgr.Get.IsCourt) {
             UILoading.LvUpUI(lv);
-			if(GameData.DExpData.ContainsKey(lv) && LimitTable.Ins.HasOpenIDByLv(lv)) {
+			if(GameData.DExpData.ContainsKey(lv) && GameData.DExpData[lv].UnlockName > 0) {
 				UIShow(false);
 				UIAchievement.Get.ShowView(lv);
 			} else {

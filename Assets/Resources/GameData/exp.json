@@ -2,7 +2,8 @@
     {
         "lv": 1,
         "lvupexp": 10,
-        "mallrate": 30
+        "mallrate": 30,
+        "addcost": 0
     },
     {
         "lv": 2,
@@ -12,7 +13,8 @@
         "tutorialid": 7,
         "test": 7,
         "unlockhint": 1507,
-        "mallrate": 30
+        "mallrate": 30,
+        "addcost": 1
     },
     {
         "lv": 3,
@@ -21,7 +23,8 @@
         "tutorialid": 8,
         "test": 8,
         "unlockhint": 1508,
-        "mallrate": 30
+        "mallrate": 30,
+        "addcost": 1
     },
     {
         "lv": 4,
@@ -30,7 +33,8 @@
         "ui": 1,
         "tutorialid": 6,
         "test": 6,
-        "unlockhint": 1506
+        "unlockhint": 1506,
+        "addcost": 2
     },
     {
         "lv": 5,
@@ -39,26 +43,31 @@
         "ui": 1,
         "tutorialid": 4,
         "test": 4,
-        "unlockhint": 1504
+        "unlockhint": 1504,
+        "addcost": 2
     },
     {
         "lv": 6,
         "lvupexp": 20,
         "unlockname": 1601,
         "test": 1,
-        "unlockhint": 1501
+        "unlockhint": 1501,
+        "addcost": 3
     },
     {
         "lv": 7,
-        "lvupexp": 20
+        "lvupexp": 20,
+        "addcost": 3
     },
     {
         "lv": 8,
-        "lvupexp": 25
+        "lvupexp": 25,
+        "addcost": 4
     },
     {
         "lv": 9,
-        "lvupexp": 30
+        "lvupexp": 30,
+        "addcost": 4
     },
     {
         "lv": 10,
@@ -66,264 +75,325 @@
         "unlockname": 1611,
         "ui": 1,
         "test": 54,
-        "unlockhint": 1554
+        "unlockhint": 1554,
+        "addcost": 5
     },
     {
         "lv": 11,
-        "lvupexp": 50
+        "lvupexp": 50,
+        "addcost": 5
     },
     {
         "lv": 12,
-        "lvupexp": 60
+        "lvupexp": 60,
+        "addcost": 6
     },
     {
         "lv": 13,
-        "lvupexp": 65
+        "lvupexp": 65,
+        "addcost": 6
     },
     {
         "lv": 14,
-        "lvupexp": 70
+        "lvupexp": 70,
+        "addcost": 7
     },
     {
         "lv": 15,
         "lvupexp": 80,
-        "unlockname": 1650
+        "unlockname": 1650,
+        "addcost": 7
     },
     {
         "lv": 16,
-        "lvupexp": 90
+        "lvupexp": 90,
+        "addcost": 8
     },
     {
         "lv": 17,
-        "lvupexp": 100
+        "lvupexp": 100,
+        "addcost": 8
     },
     {
         "lv": 18,
-        "lvupexp": 110
+        "lvupexp": 110,
+        "addcost": 9
     },
     {
         "lv": 19,
-        "lvupexp": 120
+        "lvupexp": 120,
+        "addcost": 9
     },
     {
         "lv": 20,
         "lvupexp": 130,
-        "unlockname": 1610
+        "unlockname": 1610,
+        "addcost": 10
     },
     {
         "lv": 21,
-        "lvupexp": 140
+        "lvupexp": 140,
+        "addcost": 10
     },
     {
         "lv": 22,
-        "lvupexp": 150
+        "lvupexp": 150,
+        "addcost": 11
     },
     {
         "lv": 23,
-        "lvupexp": 160
+        "lvupexp": 160,
+        "addcost": 11
     },
     {
         "lv": 24,
-        "lvupexp": 170
+        "lvupexp": 170,
+        "addcost": 12
     },
     {
         "lv": 25,
-        "lvupexp": 180
+        "lvupexp": 180,
+        "addcost": 12
     },
     {
         "lv": 26,
-        "lvupexp": 190
+        "lvupexp": 190,
+        "addcost": 13
     },
     {
         "lv": 27,
-        "lvupexp": 200
+        "lvupexp": 200,
+        "addcost": 13
     },
     {
         "lv": 28,
-        "lvupexp": 210
+        "lvupexp": 210,
+        "addcost": 14
     },
     {
         "lv": 29,
-        "lvupexp": 220
+        "lvupexp": 220,
+        "addcost": 14
     },
     {
         "lv": 30,
-        "lvupexp": 230
+        "lvupexp": 230,
+        "addcost": 15
     },
     {
         "lv": 31,
-        "lvupexp": 240
+        "lvupexp": 240,
+        "addcost": 15
     },
     {
         "lv": 32,
-        "lvupexp": 250
+        "lvupexp": 250,
+        "addcost": 16
     },
     {
         "lv": 33,
-        "lvupexp": 260
+        "lvupexp": 260,
+        "addcost": 16
     },
     {
         "lv": 34,
-        "lvupexp": 270
+        "lvupexp": 270,
+        "addcost": 17
     },
     {
         "lv": 35,
-        "lvupexp": 280
+        "lvupexp": 280,
+        "addcost": 17
     },
     {
         "lv": 36,
-        "lvupexp": 290
+        "lvupexp": 290,
+        "addcost": 18
     },
     {
         "lv": 37,
-        "lvupexp": 300
+        "lvupexp": 300,
+        "addcost": 18
     },
     {
         "lv": 38,
-        "lvupexp": 310
+        "lvupexp": 310,
+        "addcost": 19
     },
     {
         "lv": 39,
-        "lvupexp": 320
+        "lvupexp": 320,
+        "addcost": 19
     },
     {
         "lv": 40,
-        "lvupexp": 330
+        "lvupexp": 330,
+        "addcost": 20
     },
     {
         "lv": 41,
-        "lvupexp": 340
+        "lvupexp": 340,
+        "addcost": 20
     },
     {
         "lv": 42,
-        "lvupexp": 350
+        "lvupexp": 350,
+        "addcost": 21
     },
     {
         "lv": 43,
-        "lvupexp": 360
+        "lvupexp": 360,
+        "addcost": 21
     },
     {
         "lv": 44,
-        "lvupexp": 370
+        "lvupexp": 370,
+        "addcost": 22
     },
     {
         "lv": 45,
-        "lvupexp": 380
+        "lvupexp": 380,
+        "addcost": 22
     },
     {
         "lv": 46,
-        "lvupexp": 390
+        "lvupexp": 390,
+        "addcost": 23
     },
     {
         "lv": 47,
-        "lvupexp": 400
+        "lvupexp": 400,
+        "addcost": 23
     },
     {
         "lv": 48,
-        "lvupexp": 410
+        "lvupexp": 410,
+        "addcost": 24
     },
     {
         "lv": 49,
-        "lvupexp": 420
+        "lvupexp": 420,
+        "addcost": 24
     },
     {
         "lv": 50,
         "lvupexp": 430,
         "test": 51,
-        "unlockhint": 1551
+        "unlockhint": 1551,
+        "addcost": 25
     },
     {
         "lv": 51,
         "lvupexp": 440,
         "test": 52,
-        "unlockhint": 1552
+        "unlockhint": 1552,
+        "addcost": 25
     },
     {
         "lv": 52,
         "lvupexp": 450,
         "test": 53,
-        "unlockhint": 1553
+        "unlockhint": 1553,
+        "addcost": 26
     },
     {
         "lv": 53,
         "lvupexp": 460,
         "test": 55,
-        "unlockhint": 1555
+        "unlockhint": 1555,
+        "addcost": 26
     },
     {
         "lv": 54,
         "lvupexp": 470,
         "test": 56,
-        "unlockhint": 1556
+        "unlockhint": 1556,
+        "addcost": 27
     },
     {
         "lv": 55,
         "lvupexp": 480,
         "test": 57,
-        "unlockhint": 1557
+        "unlockhint": 1557,
+        "addcost": 27
     },
     {
         "lv": 56,
         "lvupexp": 490,
         "test": 58,
-        "unlockhint": 1558
+        "unlockhint": 1558,
+        "addcost": 28
     },
     {
         "lv": 57,
         "lvupexp": 500,
         "test": 59,
-        "unlockhint": 1559
+        "unlockhint": 1559,
+        "addcost": 28
     },
     {
         "lv": 58,
-        "lvupexp": 510
+        "lvupexp": 510,
+        "addcost": 29
     },
     {
         "lv": 59,
-        "lvupexp": 520
+        "lvupexp": 520,
+        "addcost": 29
     },
     {
         "lv": 60,
-        "lvupexp": 530
+        "lvupexp": 530,
+        "addcost": 30
     },
     {
         "lv": 61,
-        "lvupexp": 540
+        "lvupexp": 540,
+        "addcost": 30
     },
     {
         "lv": 62,
-        "lvupexp": 550
+        "lvupexp": 550,
+        "addcost": 31
     },
     {
         "lv": 63,
-        "lvupexp": 560
+        "lvupexp": 560,
+        "addcost": 31
     },
     {
         "lv": 64,
-        "lvupexp": 570
+        "lvupexp": 570,
+        "addcost": 32
     },
     {
         "lv": 65,
-        "lvupexp": 580
+        "lvupexp": 580,
+        "addcost": 32
     },
     {
         "lv": 66,
-        "lvupexp": 590
+        "lvupexp": 590,
+        "addcost": 33
     },
     {
         "lv": 67,
-        "lvupexp": 600
+        "lvupexp": 600,
+        "addcost": 33
     },
     {
         "lv": 68,
-        "lvupexp": 610
+        "lvupexp": 610,
+        "addcost": 34
     },
     {
         "lv": 69,
-        "lvupexp": 620
+        "lvupexp": 620,
+        "addcost": 34
     },
     {
         "lv": 70,
-        "lvupexp": 630
+        "lvupexp": 630,
+        "addcost": 35
     }
 ]
