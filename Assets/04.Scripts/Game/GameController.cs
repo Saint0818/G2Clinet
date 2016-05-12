@@ -853,8 +853,7 @@ public class GameController : KnightSingleton<GameController>
         }
         else
         {
-            int num = Mathf.Min(GameData.Max_GamePlayer, StageData.FriendNumber);
-            for(int i = 0; i < num; i++)
+            for(int i = 0; i < GameData.Max_GamePlayer; i++)
             {
                 PlayerBehaviour player = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
                 player.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
@@ -863,7 +862,7 @@ public class GameController : KnightSingleton<GameController>
                 PlayerList.Add(player);
             }
 
-            for(int i = 0; i < num; i++)
+            for(int i = 0; i < GameData.Max_GamePlayer; i++)
             {
                 PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player);
                 
