@@ -306,6 +306,10 @@ public class UIGameResult : UIBase {
 	private GameObject uiItem;
 	private GameObject uiItemEffect;
 
+	//TopView Star
+	private GameObject goStageStars;
+	private GameObject[] goStars = new GameObject[3];
+
 	private Animator animatorAward;//AwardViewStart, AwardViewDown, EXPViewStart, PVPView
 	//Center StageHint
 	private TGameResultCenter resultCenter = new TGameResultCenter();
@@ -453,6 +457,10 @@ public class UIGameResult : UIBase {
 		uiAwardSkip = GameObject.Find(UIName + "/BottomRight/AwardSkipLabel");
 		animatorAward = gameObject.GetComponent<Animator>();
 
+		goStageStars = GameObject.Find(UIName + "/Center/TopView/StageStars");
+		for (int i=0; i<goStars.Length; i++) 
+			goStars[i] = GameObject.Find(UIName + "/Center/TopView/StageStars/Star" + i.ToString());
+
 		hintValue.Init();
 		hintValue.WinTargets = gameObject.GetComponentsInChildren<UIStageHintTarget>();
 
@@ -513,6 +521,8 @@ public class UIGameResult : UIBase {
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 
+		goStageStars.SetActive(GameData.IsMainStage);
+
 		if(GameData.IsPVP) {
 			ShowMissionBoard ();
 		}else
@@ -556,9 +566,9 @@ public class UIGameResult : UIBase {
 					animatorAward.SetTrigger("AwardViewStart");
 					Invoke("showAward", 1);
 				} else {
-					if(resultExpView.IsRunFin && !isShow3Dbasket) {
-						ExpRunFinishDelay();
-					} else 
+//					if(resultExpView.IsRunFin && !isShow3Dbasket) {
+//						ExpRunFinishDelay();
+//					} else 
 					if(isShow3Dbasket) {
 						show3DBasket();
 						isShow3Dbasket = false;
@@ -705,10 +715,11 @@ public class UIGameResult : UIBase {
 	}
 
 	public void ExpRunFinish () {
-		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
-			uiStatsNext.gameObject.SetActive(true);
-		else
-			ShowReturnButton();
+		moveBonusItem ();
+//		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
+//			uiStatsNext.gameObject.SetActive(true);
+//		else
+//			ShowReturnButton();
 	}
 
 	public void ExpRunFinishDelay () {
@@ -816,7 +827,6 @@ public class UIGameResult : UIBase {
 	private void showTwoItem () {showItem (1);}
 	private void showThreeItem () {showItem (2);}
 
-	
 	private void showItem (int index) {
 		if(GameData.DItemData.ContainsKey(resultAwardParam.AlreadGetBonusID)) 
 			resultThree.ItemAwardGroup[index].Show(GameData.DItemData[resultAwardParam.AlreadGetBonusID]);
@@ -943,6 +953,11 @@ public class UIGameResult : UIBase {
 	private void waitMainStageWin(bool ok, TStageReward reward) {
 		if(ok) {
 			try {
+				if(GameData.IsMainStage) 
+					for(int i=goStars.Length - 1; i>=0; i--) 
+						goStars[i].SetActive(i <= (GameData.Team.Player.GetStageStarNum(GameData.StageID) - 1)) ;
+				
+
 				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
 					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
 						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {

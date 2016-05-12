@@ -407,7 +407,9 @@ public class UISkillInfo : UIBase {
 
 	public void OnClose() {
 		Visible = false;
-		UIResource.Get.Show();
+		if(!GameData.IsPVP && !GameData.IsMainStage && !GameData.IsInstance && !UISelectRole.Visible)
+			UIResource.Get.Show();
+		
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
 			UIGameResult.Get.ShowBonusItem();
 

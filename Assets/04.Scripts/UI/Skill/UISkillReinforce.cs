@@ -812,8 +812,8 @@ public class UISkillReinforce : UIBase {
 	}
 
 	private void finishExp () {
-		if(isNeedShowLevelUp) 
-			UILevelUp.Get.ShowSkill(mOldSkill, mSkill);
+//		if(isNeedShowLevelUp) 
+//			UILevelUp.Get.ShowSkill(mOldSkill, mSkill);
 		
 		RefreshView(mSkill);
 		initRightCards ();
