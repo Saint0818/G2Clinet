@@ -847,6 +847,7 @@ public class GEGMTool : GEBase
         setNextInstanceID();
         setStageStars();
         resetStageStars();
+        resetStageStarReward();
     }
 
     private void setNextMainStageID()
@@ -927,6 +928,31 @@ public class GEGMTool : GEBase
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMResetStageStars);
+    }
+
+    private void resetStageStarReward()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("主線關卡星等獎勵: ");
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            SendHttp.Get.Command(URLConst.GMResetStageStarReward, waitGMResetStageStarReward, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMResetStageStarReward(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMResetStageStarReward, ok:{0}", ok);
+
+        if(ok)
+        {
+            GameData.Team.Player.MainStageStarReceived.Clear();
+            updateUIMainStage();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMResetStageStarReward);
     }
 
     private int mStageStar1 = 1;
