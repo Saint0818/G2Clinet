@@ -76,7 +76,7 @@ public static class URLConst {
 	public const string ChangePlayerName = "changeplayername";
 	public const string StageStart = "stagestart";
 	public const string StageWin = "stagewin";
-//	public const string StageStarReward = "stagestarreward";
+	public const string StageStarReward = "stagestarreward";
 	public const string StageRewardAgain = "stagerewardagain";
 	public const string ResetStageDailyChallenge = "resetstagedailychallenge";
 	public const string CheckResetStage = "checkresetstage";

@@ -118,6 +118,21 @@ namespace GameStruct
             return startNum;
         }
 
+        /// <summary>
+        /// <para> 主線關卡星等的領獎記錄. </para>
+        /// <para> key: Chapter, 1: 第 1 章, 2:第 2 章, 以此類推. </para>
+        /// <para> value: [獎勵1是否領取, 獎勵2是否領取] </para>
+        /// </summary>
+        public Dictionary<int, bool[]> MainStageStarReceived;
+
+        public bool IsStarReceived(int chapter, int index)
+        {
+            if(MainStageStarReceived.ContainsKey(chapter) &&
+               index < MainStageStarReceived[chapter].Length)
+                return MainStageStarReceived[chapter][index];
+            return false;
+        }
+
         public bool NeedForSyncRecord;
         public TGamePlayerRecord LifetimeRecord;
         public TAvatar Avatar;
@@ -242,6 +257,7 @@ namespace GameStruct
             StageDailyChallengeNums = new Dictionary<int, int>();
             ResetStageDailyChallengeNums = new Dictionary<int, int>();
             StageStars = new Dictionary<int, bool[]>();
+            MainStageStarReceived = new Dictionary<int, bool[]>();
             ConsumeValueItems = new int[0];
         }
 
