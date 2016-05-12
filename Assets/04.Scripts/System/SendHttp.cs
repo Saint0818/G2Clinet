@@ -76,6 +76,7 @@ public static class URLConst {
 	public const string ChangePlayerName = "changeplayername";
 	public const string StageStart = "stagestart";
 	public const string StageWin = "stagewin";
+//	public const string StageStarReward = "stagestarreward";
 	public const string StageRewardAgain = "stagerewardagain";
 	public const string ResetStageDailyChallenge = "resetstagedailychallenge";
 	public const string CheckResetStage = "checkresetstage";
@@ -145,6 +146,8 @@ public static class URLConst {
     public const string GMSavePotential = "gmsavepotential";
     public const string GMSetNextMainStageID = "gmsetnextmainstageid";
     public const string GMResetStage = "gmresetstage";
+    public const string GMResetStageStars = "gmresetstagestars";
+    public const string GMSetStageStar = "gmsetstagestar";
     public const string GMResetDailyLoginNums = "gmresetdailyloginnums";
     public const string GMResetReceivedDailyLoginNums = "gmresetreceiveddailyloginnums";
     public const string GMSetDailyLoginNums = "gmsetdailyloginnums";

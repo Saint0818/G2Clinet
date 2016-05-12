@@ -845,6 +845,8 @@ public class GEGMTool : GEBase
         setStageDailyChallengeNum();
         resetInstanceIDs();
         setNextInstanceID();
+        setStageStars();
+        resetStageStars();
     }
 
     private void setNextMainStageID()
@@ -900,7 +902,67 @@ public class GEGMTool : GEBase
             updateUIInstance();
         }
         else
-            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMResetStage);
+    }
+
+    private void resetStageStars()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("主線關卡星等: ");
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            SendHttp.Get.Command(URLConst.GMResetStageStars, waitGMResetStageStars, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMResetStageStars(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMResetStageStars, ok:{0}", ok);
+        if(ok)
+        {
+            GameData.Team.Player.StageStars.Clear();
+            updateUIMainStage();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMResetStageStars);
+    }
+
+    private int mStageStar1 = 1;
+    private int mStageStar2 = 1;
+    private int mStageStar3 = 1;
+    private void setStageStars()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("主線關卡星等: ", GUILayout.Width(100));
+        mStageID = EditorGUILayout.IntField(mStageID);
+        mStageStar1 = EditorGUILayout.IntField(mStageStar1);
+        mStageStar2 = EditorGUILayout.IntField(mStageStar2);
+        mStageStar3 = EditorGUILayout.IntField(mStageStar3);
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("StageID", mStageID);
+            form.AddField("Star1", mStageStar1);
+            form.AddField("Star2", mStageStar2);
+            form.AddField("Star3", mStageStar3);
+            SendHttp.Get.Command(URLConst.GMSetStageStar, waitGMSetStageStars, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMSetStageStars(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMSetStageStars, ok:{0}", ok);
+        if(ok)
+        {
+            var team = JsonConvertWrapper.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player.StageStars = team.Player.StageStars;
+            updateUIMainStage();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}, Error:{1}", URLConst.GMSetStageStar, www.text);
     }
 
     private int mStageID = 101;

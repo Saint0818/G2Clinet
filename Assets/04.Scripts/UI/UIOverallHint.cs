@@ -112,8 +112,12 @@ public class UIOverallHint : UIBase {
 		hideArrow ();
 	}
 
-	//bValue之前數值  aValue之後變成的數值
-	public void ShowView (float bValue, float aValue) {
+    /// <summary>
+    /// 說明.
+    /// </summary>
+    /// <param name="bValue"> 之前數值 </param>
+    /// <param name="aValue"> 之後變成的數值 </param>
+    public void ShowView (float bValue, float aValue) {
 		if(!Visible)
 			waitTime = 0.5f;
 		Visible = true;

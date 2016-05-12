@@ -50,9 +50,9 @@ public class StageChapterTable
         foreach(ChapterData data in chapters)
         {
             if(MinChapterID <= data.ID && data.ID <= MaxChapterID)
-                AddMainChapter(data);
+                addMainChapter(data);
             else if(MinInstanceID <= data.ID && data.ID <= MaxInstanceID)
-                AddInstance(data);
+                addInstance(data);
             else
                 Debug.LogErrorFormat("Chapter ID({0}) out of range!", data.ID);
         }
@@ -65,7 +65,7 @@ public class StageChapterTable
         mMainChapters.Clear();
     }
 
-    private void AddMainChapter(ChapterData data)
+    private void addMainChapter(ChapterData data)
     {
         if (mMainChapters.ContainsKey(data.Chapter))
         {
@@ -76,7 +76,7 @@ public class StageChapterTable
         mMainChapters.Add(data.Chapter, data);
     }
 
-    private void AddInstance(ChapterData data)
+    private void addInstance(ChapterData data)
     {
         if(mInstanceChapters.ContainsKey(data.Chapter))
         {
