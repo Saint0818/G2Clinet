@@ -10,7 +10,9 @@ public class UIInGameMission : UIBase {
 	private int[] hintBits;
 	private int hintIndex;
 	private string describe;
-	private Animator missionAnimator;
+//	private Animator missionAnimator;
+	private UISprite spriteBG;
+	private GameObject goMissionInfo;
 	private UIInGameMissionView[] missionViews;
 	private Dictionary<int, UIInGameMissionView> missionDic = new Dictionary<int, UIInGameMissionView>();
 	private bool isShow = true;
@@ -55,8 +57,10 @@ public class UIInGameMission : UIBase {
 	}
 
 	protected override void InitCom() {
-		missionAnimator = GetComponent<Animator>();
+//		missionAnimator = GetComponent<Animator>();
 		missionViews = GetComponentsInChildren<UIInGameMissionView>(true);
+		spriteBG = GameObject.Find(UIName + "/TopLeft/ButtomMission/SpriteBG").GetComponent<UISprite>();
+		goMissionInfo = GameObject.Find(UIName + "/TopLeft/MissionInfo");
 
 		SetBtnFun(UIName + "/TopLeft/ButtomMission", ShowView);
 	}
@@ -131,13 +135,11 @@ public class UIInGameMission : UIBase {
         if(missionDic.ContainsKey(1)) { 
             if (!missionDic[1].IsFinish) {
     			int score = UIGame.Get.Scores[ETeamKind.Self.GetHashCode()];
-    //			isFin = (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] > UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]);
     			isFin = false;
     			if(hintBits[1] == 2){
     				isFin = (score >= stageData.Bit1Num);
     			} else if(hintBits[1] == 3){
     				score = UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()];
-    //				isFin = (score < stageData.Bit1Num);
     				isFin = false;
     			} else if(hintBits[1] == 4){
     				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
@@ -213,10 +215,14 @@ public class UIInGameMission : UIBase {
 	public void ShowView () {
 		if(isShow) {
 			isShow = false;
-			missionAnimator.SetTrigger("Close");
+//			missionAnimator.SetTrigger("Close");
+			goMissionInfo.SetActive(false);
+			spriteBG.color = Color.red;
 		} else  {
 			isShow = true;
-			missionAnimator.SetTrigger("Open");
+//			missionAnimator.SetTrigger("Open");
+			goMissionInfo.SetActive(true);
+			spriteBG.color = Color.white;
 		}
 	}
 }

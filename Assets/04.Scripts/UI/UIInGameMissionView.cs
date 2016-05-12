@@ -9,8 +9,20 @@ public class UIInGameMissionView : MonoBehaviour {
 	public UILabel DescLabel;
 	public GameObject AddTarget;
 
+	private bool isRecordUpdate = false;
+	private bool isRecordFin = false;
+
 	void OnEnable() {
 		AddTarget.SetActive(false);
+		if(isRecordUpdate) {
+			StartCoroutine(targetInvisible ());
+			isRecordUpdate = false;
+		}
+
+		if(isRecordFin) {
+			FinishAnimator.SetTrigger("Finish");
+			isRecordFin = false;
+		}
 	}
 
 	public void Show()
@@ -28,15 +40,23 @@ public class UIInGameMissionView : MonoBehaviour {
 
 	public void UpdateUI(string desc)
 	{
-		if(!DescLabel.text.Equals (desc))
-			StartCoroutine(targetInvisible ());
+		if(!DescLabel.text.Equals (desc)) {
+			if(gameObject.activeInHierarchy)
+				StartCoroutine(targetInvisible ());
+			else
+				isRecordUpdate = true;
+		}
+		
 		DescLabel.text = desc;
 
 	}
 
 	public void UpdateFin () {
 		IsFinish = true;
-		FinishAnimator.SetTrigger("Finish");
+		if(gameObject.activeInHierarchy)
+			FinishAnimator.SetTrigger("Finish");
+		else
+			isRecordFin = true;
 	}
 		
 	IEnumerator targetInvisible () {
