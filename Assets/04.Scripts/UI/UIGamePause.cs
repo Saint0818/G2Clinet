@@ -34,6 +34,9 @@ public class UIGamePause : UIBase {
 
 	private GameObject[] tabSelect = new GameObject[3];
 
+	private UIButton btnHome;
+	private UIButton btnAway;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -91,6 +94,9 @@ public class UIGamePause : UIBase {
 			labelPlayerLv[i] = GameObject.Find(UIName + "/Window/Right/View/GameResult/Player" + i.ToString() + "/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
 		}
 
+		btnHome = GameObject.Find(UIName + "/Window/Right/View/HomeBtn").GetComponent<UIButton>();
+		btnAway = GameObject.Find(UIName + "/Window/Right/View/AwayBtn").GetComponent<UIButton>();
+
 		tabSelect[0] = GameObject.Find(UIName + "/Window/Right/View/HomeBtn/Select");
 		tabSelect[1] = GameObject.Find(UIName + "/Window/Right/View/TargetBtn/Select");
 		tabSelect[2] = GameObject.Find(UIName + "/Window/Right/View/AwayBtn/Select");
@@ -99,8 +105,8 @@ public class UIGamePause : UIBase {
 
 		SetBtnFun(UIName + "/Window/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Window/Bottom/ButtonReturnSelect", OnReturn);
-		SetBtnFun(UIName + "/Window/Right/View/HomeBtn", OnHomeResult);
-		SetBtnFun(UIName + "/Window/Right/View/AwayBtn", OnAwayResult);
+		SetBtnFun(ref btnHome, OnHomeResult);
+		SetBtnFun(ref btnAway, OnAwayResult);
 		SetBtnFun(UIName + "/Window/Right/View/TargetBtn", OnBackToTarget);
 		SetBtnFun (UIName + "/Window/TopRight/ViewTools/ButtonOption", OptionSelect);
 		SetBtnFun (UIName + "/Window/Bottom/StrategyBtn", OnStrategy);
@@ -157,6 +163,9 @@ public class UIGamePause : UIBase {
 		UIShow(true);
 		uiGameResult.SetActive(false);
 		setTabSelect(1);
+
+		btnHome.gameObject.SetActive(GameController.Get.GamePlayers.Count == 6);
+		btnAway.gameObject.SetActive(GameController.Get.GamePlayers.Count == 6);
 	}	
 
 	private void hideSelect () {
@@ -212,9 +221,9 @@ public class UIGamePause : UIBase {
 			hideSelect ();
 			goSelect[result].SetActive(true);
 			if(pauseType == EPauseType.Away) {
-				moveCamera(result + 3);
+				moveCamera(result + (GameController.Get.GamePlayers.Count / 2));
 				if(result >= 0 && result < GameData.EnemyMembers.Length)
-					UIGamePlayerInfo.Get.ShowView(GameData.EnemyMembers[result], GameController.Get.GamePlayers[result + 3]);
+					UIGamePlayerInfo.Get.ShowView(GameData.EnemyMembers[result], GameController.Get.GamePlayers[result + (GameController.Get.GamePlayers.Count / 2)]);
 			}else {
 				moveCamera(result);
 				if(result >= 0 && result < GameData.TeamMembers.Length)

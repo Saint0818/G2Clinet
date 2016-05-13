@@ -239,6 +239,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     public void SetCameraSituation(ECameraSituation s, bool isTee = false)
     {
+        cameraGroupObj.SetActive(true);
         IsTee = isTee;
         situation = s;
         SetTestToolPosition();

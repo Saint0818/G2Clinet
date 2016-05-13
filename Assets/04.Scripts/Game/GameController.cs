@@ -235,7 +235,6 @@ public class GameController : KnightSingleton<GameController>
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
         AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
-		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
         initModel();
 		InitAniState();
@@ -296,6 +295,8 @@ public class GameController : KnightSingleton<GameController>
 
     public void InitGame()
     {
+        IsFinish = false;
+        IsReset = false;
 		IsPassing = false;
 		Shooter = null;
 		BallOwner = null; 
@@ -3821,7 +3822,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
+				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && player1.IsInGround && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
 				if(IsGameAttack && player1.IsSkillPushThrough && player1.Team != player2.Team)

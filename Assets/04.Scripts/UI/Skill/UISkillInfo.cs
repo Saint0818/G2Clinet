@@ -411,7 +411,7 @@ public class UISkillInfo : UIBase {
 			UIResource.Get.Show();
 		
 		if(UIGameResult.Visible && UIGameResult.Get.IsShowFirstCard) 
-			UIGameResult.Get.ShowBonusItem();
+			UIGameResult.Get.ShowNewCard();
 
 		if(onCloseSkillInfo != null)
 			onCloseSkillInfo();
