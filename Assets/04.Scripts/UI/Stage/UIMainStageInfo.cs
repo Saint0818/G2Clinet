@@ -79,13 +79,13 @@ public class UIMainStageInfo : MonoBehaviour
     }
 
     public GameObject Window;
-    public UILabel NameLabel; // 關卡名稱.
+    public UILabel TitleLabel; // 關卡名稱.
     public UITexture BgTexture; // 背景的大圖片.
     public UILabel DescriptionLabel;
-    public UISprite KindSprite;
-    public UILabel KindLabel;
+//    public UISprite KindSprite;
+//    public UILabel KindLabel;
     
-    public GameObject Completed; // 標示是否關卡打過的圖片.
+//    public GameObject Completed; // 標示是否關卡打過的圖片.
     public UIButton StartButton; // 右下角的開始按鈕.
     public UILabel StartButtonLabel; // 右下角的開始按鈕.
     public Transform[] RewardParents; // 獎勵圖示的位置.
@@ -184,11 +184,11 @@ public class UIMainStageInfo : MonoBehaviour
 
     private void updateUI(Data data)
     {
-        NameLabel.text = data.Name;
+        TitleLabel.text = data.Name;
         BgTexture.mainTexture = Resources.Load<Texture2D>(string.Format(TexturePath, data.BgTextureName));
         DescriptionLabel.text = data.Description;
-        KindSprite.spriteName = data.KindSpriteName;
-        KindLabel.text = data.KindName;
+//        KindSprite.spriteName = data.KindSpriteName;
+//        KindLabel.text = data.KindName;
 
         RewardTitle.text = data.RewardTitle;
         for(int i = 0; i < mRewardIcons.Count; i++)
@@ -205,7 +205,7 @@ public class UIMainStageInfo : MonoBehaviour
         DiamondLabel.text = string.Format("{0}", data.Diamond);
         mDiamond = data.Diamond;
 
-        Completed.SetActive(data.ShowCompleted);
+//        Completed.SetActive(data.ShowCompleted);
 
         StartButton.normalSprite = data.StartButtonSprite;
         StartButton.GetComponent<UISprite>().spriteName = data.StartButtonSprite;
