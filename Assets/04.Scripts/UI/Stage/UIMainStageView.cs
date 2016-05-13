@@ -282,25 +282,14 @@ public class UIMainStageView : MonoBehaviour
         mChapters.Clear();
     }
 
-//    public void ShowStageInfo(int chapter, int stageID)
-//    {
-//        if(!mChapters.ContainsKey(chapter))
-//        {
-//            Debug.LogErrorFormat("Can't find Chapter({0})", chapter);
-//            return;
-//        }
-//
-//        if(!mChapters[chapter].HasStage(stageID))
-//        {
-//            Debug.LogErrorFormat("Can't find StageID({0})", stageID);
-//            return;
-//        }
-//
-//        SelectChapter(chapter);
-//
-//        UIMainStageElement element = mChapters[chapter].GetStageByID(stageID);
-//        Info.Show(stageID, element.InfoData);
-//    }
+    public void ShowStageInfo(int chapter, int stageID)
+    {
+        if(!mChapters.ContainsKey(chapter) || !mChapters[chapter].HasStage(stageID))
+            return;
+
+        UIMainStageElement element = mChapters[chapter].GetStageByID(stageID);
+        mChapters[chapter].Info.Show(stageID, element.InfoData);
+    }
 
     private void FixedUpdate()
     {

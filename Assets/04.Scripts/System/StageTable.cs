@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -116,6 +117,14 @@ public class StageTable : IComparer<TStageData>
     public bool HasMainStageByChapter(int chapter)
     {
         return mMainStagesByChapter.ContainsKey(chapter);
+    }
+
+    [CanBeNull]
+    public List<TStageData> GetMainStageByChapter(int chapter)
+    {
+        if(mMainStagesByChapter.ContainsKey(chapter))
+            return mMainStagesByChapter[chapter];
+        return null;
     }
 
     public void GetMainStageByChapterRange(int minChapter, int maxChapter, ref List<TStageData> data)

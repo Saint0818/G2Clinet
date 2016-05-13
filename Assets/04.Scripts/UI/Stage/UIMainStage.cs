@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -177,11 +178,33 @@ public class UIMainStage : UIBase
         // 主線關卡是從第一章開始顯示.
         StageTable.Ins.GetMainStageByChapterRange(1, maxChapter, ref allMainStage);
 
-        // 3. 設定每一個小關卡.
+        // 加入章節和關卡.
         foreach(TStageData data in allMainStage)
         {
             addChapter(data.Chapter);
             addStageElement(data);
+        }
+
+        // 關卡資訊預設是顯示該章 StageID 最大的, 可以打的關卡.
+        for(int chapter = 1; chapter <= maxChapter; chapter++)
+        {
+            List<TStageData> allStageData = StageTable.Ins.GetMainStageByChapter(chapter);
+            if(allStageData == null)
+                continue;
+
+            // 由大排到小.
+            var sortStages = from stage in allStageData
+                          orderby stage.ID descending
+                          select stage;
+            foreach(TStageData stageData in sortStages)
+            {
+                if((GameData.Team.Player.NextMainStageID > stageData.ID && !stageData.ChallengeOnlyOnce) ||
+                    GameData.Team.Player.NextMainStageID == stageData.ID)
+                {
+                    mView.ShowStageInfo(chapter, stageData.ID);
+                    break;
+                }
+            } 
         }
 
         addLastLockChapter();
@@ -256,7 +279,6 @@ public class UIMainStage : UIBase
     {
         GameData.Team.OnPowerChangeListener -= onPowerChange;
 
-//        RemoveUI(instance.gameObject);
         Destroy(instance.gameObject);
     }
 

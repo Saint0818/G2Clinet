@@ -48,6 +48,7 @@ public class UIMainStageElement : MonoBehaviour
     /// </summary>
     private const float EnableTime = 1.8f;
 
+    public UIMainStageInfo.Data InfoData { get { return mInfoData; } }
     private UIMainStageInfo.Data mInfoData;
 
     private Data mData;

@@ -45,10 +45,19 @@ public class UIStageChapter : MonoBehaviour
 
     private readonly string TexturePath = "Textures/Chapter/Chapter_{0}";
 
+    public bool HasStage(int stageID)
+    {
+        return mStageElements.ContainsKey(stageID);
+    }
+
+    public UIMainStageElement GetStageByID(int stageID)
+    {
+        return mStageElements[stageID];
+    }
     /// <summary>
     /// key: StageID.
     /// </summary>
-    private readonly Dictionary<int, UIMainStageElement> mStages = new Dictionary<int, UIMainStageElement>();
+    private readonly Dictionary<int, UIMainStageElement> mStageElements = new Dictionary<int, UIMainStageElement>();
 
     private Animator mAnimator;
 
@@ -90,10 +99,10 @@ public class UIStageChapter : MonoBehaviour
         addStage(stageID, UIPrefabPath.UIMainStageElement9, localPos, elementData, infoData);
     }
 
-    private void addStage(int stageID, string prefabPath, Vector3 localPos, UIMainStageElement.Data elementData,
-                          UIMainStageInfo.Data infoData)
+    private void addStage(int stageID, string prefabPath, Vector3 localPos, 
+                          UIMainStageElement.Data elementData, UIMainStageInfo.Data infoData)
     {
-        if(!mStages.ContainsKey(stageID))
+        if(!mStageElements.ContainsKey(stageID))
         {
             var obj = UIPrefabPath.LoadUI(prefabPath, Open.transform, localPos);
             obj.name = string.Format("StageElement{0}", stageID);
@@ -101,22 +110,9 @@ public class UIStageChapter : MonoBehaviour
             stage.StageID = stageID;
             stage.OnClickListener += (clickStageID, data) => mInfo.Show(clickStageID, data);
 
-            if(mStages.Count == 0)
-                mInfo.Show(stageID, infoData);
-
-            mStages.Add(stageID, stage);
+            mStageElements.Add(stageID, stage);
         }
-        mStages[stageID].Set(elementData, infoData);
-    }
-
-    public bool HasStage(int stageID)
-    {
-        return mStages.ContainsKey(stageID);
-    }
-
-    public UIMainStageElement GetStageByID(int stageID)
-    {
-        return mStages[stageID];
+        mStageElements[stageID].Set(elementData, infoData);
     }
 
     public void PlayUnlockAnimation(int unlockStageID)
@@ -136,7 +132,7 @@ public class UIStageChapter : MonoBehaviour
 
         Open.SetActive(true);
 
-        mStages[unlockStageID].PlayUnlockAnimation();
+        mStageElements[unlockStageID].PlayUnlockAnimation();
     }
 
     private IEnumerator delayShow(float delayTime)
