@@ -82,10 +82,6 @@ public class UIMainStageInfo : MonoBehaviour
     public UILabel TitleLabel; // 關卡名稱.
     public UITexture BgTexture; // 背景的大圖片.
     public UILabel DescriptionLabel;
-//    public UISprite KindSprite;
-//    public UILabel KindLabel;
-    
-//    public GameObject Completed; // 標示是否關卡打過的圖片.
     public UIButton StartButton; // 右下角的開始按鈕.
     public UILabel StartButtonLabel; // 右下角的開始按鈕.
     public Transform[] RewardParents; // 獎勵圖示的位置.
@@ -123,14 +119,11 @@ public class UIMainStageInfo : MonoBehaviour
     private string mErrMsg;
     private int mDiamond;
 
-//    private UIStageHint mHint;
     private Action mMissionAction;
 
     [UsedImplicitly]
 	void Awake()
     {
-//        mHint = GetComponent<UIStageHint>();
-
         for(var i = 0; i < RewardParents.Length; i++)
         {
             var obj = UIPrefabPath.LoadUI(UIPrefabPath.ItemAwardGroup, RewardParents[i]);
@@ -175,8 +168,6 @@ public class UIMainStageInfo : MonoBehaviour
         mErrMsg = data.ErrorMsg;
 
         updateUI(data);
-
-//        mHint.UpdateUI(mStageID);
 
         if(ShowListener != null)
             ShowListener();

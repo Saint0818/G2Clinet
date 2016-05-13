@@ -28,12 +28,12 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    private UIMainStageView mMain;
+    private UIMainStageView mView;
 
     private void Awake()
     {
-        mMain = GetComponent<UIMainStageView>();
-        mMain.BackListener += goToGameLobby;
+        mView = GetComponent<UIMainStageView>();
+        mView.BackListener += goToGameLobby;
 //        mMain.Info.StartListener += enterSelectRole;
 //        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
@@ -148,15 +148,15 @@ public class UIMainStage : UIBase
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
             if(stageData.IsValid())
-                mMain.PlayUnlockChapterAnimation(stageData.Chapter, stageData.ID);
+                mView.PlayUnlockChapterAnimation(stageData.Chapter, stageData.ID);
         }
         else if(UIMainStageTools.HasNewStage())
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
             if(stageData.IsValid())
             {
-                mMain.SelectChapter(stageData.Chapter);
-                mMain.GetChapter(stageData.Chapter).GetStageByID(stageData.ID).PlayUnlockAnimation();
+                mView.SelectChapter(stageData.Chapter);
+                mView.GetChapter(stageData.Chapter).GetStageByID(stageData.ID).PlayUnlockAnimation();
             }
         }
 
@@ -168,7 +168,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildChapters()
     {
-        mMain.RemoveAllChapters();
+        mView.RemoveAllChapters();
 
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
@@ -190,12 +190,12 @@ public class UIMainStage : UIBase
     private void selectChapter()
     {
         if(UIMainStageTools.HasSelectChapter())
-            mMain.SelectChapter(UIMainStageTools.GetSelectChapter());
+            mView.SelectChapter(UIMainStageTools.GetSelectChapter());
         else
         {
             // 切換到最新章節.
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            mMain.SelectChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
+            mView.SelectChapter(stageData.IsValid() ? stageData.Chapter : mView.ChapterCount);
         }
     }
 
@@ -208,7 +208,9 @@ public class UIMainStage : UIBase
         }
 
         ChapterData data = StageChapterTable.Ins.GetMain(chapter);
-        mMain.AddChapter(chapter, data.Name);
+        UIStageChapter stageChapter = mView.AddChapter(chapter, data.Name);
+        stageChapter.Info.StartListener += enterSelectRole;
+        stageChapter.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
     private void addStageElement(TStageData stageData)
@@ -224,9 +226,9 @@ public class UIMainStage : UIBase
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
         if(stageData.Kind != 9)
-            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+            mView.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
         else
-            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+            mView.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
     }
 
     /// <summary>
@@ -247,14 +249,15 @@ public class UIMainStage : UIBase
         }
 
         if(StageTable.Ins.HasMainStageByChapter(nextChapter))
-            mMain.AddLockChapter(nextChapter, nextChapterTitle);
+            mView.AddLockChapter(nextChapter, nextChapterTitle);
     }
 
     public void Hide()
     {
         GameData.Team.OnPowerChangeListener -= onPowerChange;
 
-        RemoveUI(instance.gameObject);
+//        RemoveUI(instance.gameObject);
+        Destroy(instance.gameObject);
     }
 
     private void goToGameLobby()

@@ -90,11 +90,12 @@ public class UIMainStageView : MonoBehaviour
     }
 
     /// <summary>
-    /// 顯示某一個章節.
+    /// 加入新的 1 章.
     /// </summary>
     /// <param name="chapter"> 1: 第一章, 2: 第二章. </param>
     /// <param name="title"></param>
-    public void AddChapter(int chapter, string title)
+    /// <returns> instance. </returns>
+    public UIStageChapter AddChapter(int chapter, string title)
     {
         if(!mChapters.ContainsKey(chapter))
             mChapters.Add(chapter, createChapter(chapter, title));
@@ -103,6 +104,8 @@ public class UIMainStageView : MonoBehaviour
         // 其實每個章節的大小都相同, 所以我這邊用稍微取巧的方法取值.
         if(mChapterWidth <= 0)
             mChapterWidth = mChapters[chapter].GetComponent<UITexture>().width;
+
+        return mChapters[chapter];
     }
 
     /// <summary>

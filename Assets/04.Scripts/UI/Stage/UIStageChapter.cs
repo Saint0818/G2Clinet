@@ -33,8 +33,6 @@ public class UIStageChapter : MonoBehaviour
     }
     private int mChapter;
 
-    private readonly Vector3 mDefaultStageScale = new Vector3(1, 1, 1);
-
     public string Title
     {
         set { ChapterNameLabel.text = value; }
@@ -53,6 +51,8 @@ public class UIStageChapter : MonoBehaviour
     private readonly Dictionary<int, UIMainStageElement> mStages = new Dictionary<int, UIMainStageElement>();
 
     private Animator mAnimator;
+
+    public UIMainStageInfo Info { get { return mInfo; } }
     private UIMainStageInfo mInfo;
 
     [UsedImplicitly]
