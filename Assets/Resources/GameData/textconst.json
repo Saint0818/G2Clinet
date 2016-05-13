@@ -4407,6 +4407,21 @@
         "en": "PUSH"
     },
     {
+        "id": 10116,
+        "tw": "下一關",
+        "en": "Next Stage"
+    },
+    {
+        "id": 10117,
+        "tw": "再次挑戰",
+        "en": "Play Again"
+    },
+    {
+        "id": 10118,
+        "tw": "離開",
+        "en": "Exit"
+    },
+    {
         "id": 10201,
         "explain": "Gameplay主介面"
     },

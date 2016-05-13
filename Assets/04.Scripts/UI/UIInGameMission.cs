@@ -83,8 +83,10 @@ public class UIInGameMission : UIBase {
 
 	public void InitView (int stageID) {
 		UIShow(true);
+        missionDic.Clear();
 		initPosition ();
 		hideAllTargets();
+
 		if(StageTable.Ins.HasByID(stageID)) {
 			stageData = StageTable.Ins.GetByID(stageID);
 			hintBits = stageData.HintBit;
