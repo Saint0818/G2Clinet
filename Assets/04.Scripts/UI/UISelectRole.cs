@@ -116,25 +116,24 @@ public class UISelectRole : UIBase {
         } else
             playerInfoModel = obj;
 
-        SetBtnFun (UIName + "/Left/Back", OnExit);
-        SetBtnFun (UIName + "/Right/GameStart", OnStart);
+		SetBtnFun (UIName + "/BottomLeft/Back", OnExit);
+		SetBtnFun (UIName + "/Bottom/GameStart", OnStart);
 		SetBtnFun (UIName + "/Top/PVE/SelectA/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVE/SelectB/2", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player1/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player2/2", OnChangePlayer);
         SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
-		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
+		SetBtnFun (UIName + "/BottomLeft/ResteBtn/", OnRefreshOpponent);
 
 		uiBottom = GameObject.Find (UIName + "/Bottom");
-		uiEquipement = GameObject.Find (UIName + "/Bottom/EquipItemView");
-        uiPVPWin = GameObject.Find (UIName + "/Right/Win");
-        uiPVPLose = GameObject.Find (UIName + "/Right/Lose");
-        uiPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn");
-        spritePVPFresh = GameObject.Find (UIName + "/Left/ResteBtn/Icon").GetComponent<UISprite>();
-        labelPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn/PriceLabel").GetComponent<UILabel>();
-        labelPVPWin = GameObject.Find (UIName + "/Right/Win/Label").GetComponent<UILabel>();
-		labelPVPLose = GameObject.Find (UIName + "/Right/Lose/Label").GetComponent<UILabel>();
+		uiEquipement = GameObject.Find (UIName + "/BottomRight/EquipItemView");
+		uiPVPWin = GameObject.Find (UIName + "/BottomRight/Win");
+		uiPVPLose = GameObject.Find (UIName + "/BottomRight/Lose");
+		uiPVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn");
+		labelPVPWin = GameObject.Find (UIName + "/BottomRight/Win/Label").GetComponent<UILabel>();
+		labelPVPLose = GameObject.Find (UIName + "/BottomRight/Lose/Label").GetComponent<UILabel>();
+		labelPVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn/PriceLabel").GetComponent<UILabel>();
         labelMyPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel1").GetComponent<UILabel>();
 		labelOpponentPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel0").GetComponent<UILabel>();
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
@@ -151,7 +150,7 @@ public class UISelectRole : UIBase {
         }
 
 		for (int i = 0; i < 2; i++) {
-			string path = UIName + string.Format ("/Bottom/EquipItemView/Slot{0}/{0}", i + 6);
+			string path = UIName + string.Format ("/BottomRight/EquipItemView/Slot{0}/{0}", i + 6);
 			equipSlot[i] = GameObject.Find (path).GetComponent<UIEquipPartSlot>();
 			equipSlot [i].Index = i + 6;
 			equipSlot [i].GetComponentInChildren<UIEquipItem> ().OnClickListener += OnEquip;
