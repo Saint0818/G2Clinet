@@ -396,7 +396,7 @@
         "explainen": "Learn basic offensive.",
         "explainjp": "Learn basic offensive.",
         "positionx": -200,
-        "positiony": 50
+        "positiony": 180
     },
     {
         "id": 100,
@@ -438,7 +438,7 @@
         "explainen": "Learn basic defensive.",
         "explainjp": "Learn basic defensive.",
         "positionx": 200,
-        "positiony": 50
+        "positiony": 190
     },
     {
         "id": 101,
@@ -475,8 +475,8 @@
         "explaincn": "初次展現身手，在時間內贏過對手",
         "explainen": "Show the world what you got and defeat your opponent in the time restriction",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -350,
-        "positiony": 70
+        "positionx": -250,
+        "positiony": 180
     },
     {
         "id": 102,
@@ -512,8 +512,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Lisen to the sound of the shot going through the hoop",
         "explainjp": "攻撃コンテスト",
-        "positionx": -40,
-        "positiony": -70
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 103,
@@ -549,8 +549,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "There are more than one ways to play basketball",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 300,
-        "positiony": 90
+        "positionx": 250,
+        "positiony": 190
     },
     {
         "id": 104,
@@ -591,8 +591,8 @@
         "explaincn": "新的階段開始",
         "explainen": "There are more than one ways to play basketball",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -65
+        "positionx": -340,
+        "positiony": 180
     },
     {
         "id": 105,
@@ -626,8 +626,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "スコアコンテスト",
-        "positionx": -145,
-        "positiony": 25
+        "positionx": -120,
+        "positiony": 180
     },
     {
         "id": 106,
@@ -664,8 +664,8 @@
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Crucial blocks alternate the game",
         "explainjp": "攻撃コンテスト",
-        "positionx": 135,
-        "positiony": -124
+        "positionx": 120,
+        "positiony": 180
     },
     {
         "id": 107,
@@ -702,8 +702,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 378,
-        "positiony": 89
+        "positionx": 340,
+        "positiony": 190
     },
     {
         "id": 108,
@@ -741,8 +741,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -65
+        "positionx": -340,
+        "positiony": 180
     },
     {
         "id": 109,
@@ -776,8 +776,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Get the ball, period.",
         "explainjp": "スコアコンテスト",
-        "positionx": -186,
-        "positiony": 56
+        "positionx": -120,
+        "positiony": 180
     },
     {
         "id": 110,
@@ -814,8 +814,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "攻撃コンテスト",
-        "positionx": 13,
-        "positiony": -124
+        "positionx": 120,
+        "positiony": 180
     },
     {
         "id": 111,
@@ -852,8 +852,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Get the ball, period.",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 186,
-        "positiony": 135
+        "positionx": 340,
+        "positiony": 190
     },
     {
         "id": 112,
@@ -884,8 +884,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": 188
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 113,
@@ -919,8 +919,8 @@
         "explaincn": "趕在時間結束前，達到需求分數",
         "explainen": "Lisen to the sound of the shot going through the hoop",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": -10
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 114,
@@ -951,8 +951,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Reach certain score before the game is over",
         "explainjp": "攻撃コンテスト",
-        "positionx": 8,
-        "positiony": -124
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 115,
@@ -986,8 +986,8 @@
         "explaincn": "分數與條件的雙重考驗",
         "explainen": "The double challenge of defeating your opponent while matching the criterias!",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 186,
-        "positiony": 59
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 116,
@@ -1021,8 +1021,8 @@
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Crucial steals alternate the game",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 439,
-        "positiony": -23
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 117,
@@ -1053,8 +1053,8 @@
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Crucial elbows alternate the game",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": 118
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 118,
@@ -1088,8 +1088,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": -10
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 119,
@@ -1120,8 +1120,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "攻撃コンテスト",
-        "positionx": 8,
-        "positiony": -124
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 120,
@@ -1155,8 +1155,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 222,
-        "positiony": -7
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 121,
@@ -1190,8 +1190,8 @@
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Crucial pushes alternate the game",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 439,
-        "positiony": 114
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 122,
@@ -1222,8 +1222,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Get the ball, period.",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -75
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 123,
@@ -1257,8 +1257,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": 79
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 124,
@@ -1290,7 +1290,7 @@
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "攻撃コンテスト",
         "positionx": 0,
-        "positiony": 24
+        "positiony": 180
     },
     {
         "id": 125,
@@ -1324,8 +1324,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Lisen to the sound of the shot going through the hoop",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 222,
-        "positiony": -34
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 126,
@@ -1358,8 +1358,8 @@
         "explaintw": "這次可是對上真正的幽鬼！",
         "explaincn": "趕在時間結束前，達到需求分數",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 426,
-        "positiony": 112
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 127,
@@ -1390,8 +1390,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Lisen to the sound of the shot going through the hoop",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -75
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 128,
@@ -1425,8 +1425,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Get the ball, period.",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": 43
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 129,
@@ -1457,8 +1457,8 @@
         "explaincn": "推人將是決定戰局的關鍵",
         "explainen": "Crucial elbows alternate the game",
         "explainjp": "攻撃コンテスト",
-        "positionx": -6,
-        "positiony": 140
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 130,
@@ -1492,8 +1492,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 209,
-        "positiony": 40
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 131,
@@ -1527,8 +1527,8 @@
         "explaincn": "新的階段開始",
         "explainen": "There are more than one ways to play basketball",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 426,
-        "positiony": -84
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 132,
@@ -1559,8 +1559,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": 118
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 133,
@@ -1594,8 +1594,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Crucial pushes alternate the game",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": -10
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 134,
@@ -1626,8 +1626,8 @@
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Get the ball, period.",
         "explainjp": "攻撃コンテスト",
-        "positionx": 8,
-        "positiony": -124
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 135,
@@ -1661,8 +1661,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 222,
-        "positiony": -7
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 136,
@@ -1696,8 +1696,8 @@
         "explaincn": "趕在時間結束前，達到需求分數",
         "explainen": "Reach certain score before the game is over",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 439,
-        "positiony": 114
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 137,
@@ -1728,8 +1728,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -75
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 138,
@@ -1763,8 +1763,8 @@
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Lisen to the sound of the shot going through the hoop",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": 79
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 139,
@@ -1796,7 +1796,7 @@
         "explainen": "Reach certain score before the game is over",
         "explainjp": "攻撃コンテスト",
         "positionx": 0,
-        "positiony": 24
+        "positiony": 180
     },
     {
         "id": 140,
@@ -1830,8 +1830,8 @@
         "explaincn": "推人將是決定戰局的關鍵",
         "explainen": "Crucial elbows alternate the game",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 222,
-        "positiony": -34
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 141,
@@ -1865,8 +1865,8 @@
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Crucial blocks alternate the game",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 426,
-        "positiony": 112
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 142,
@@ -1897,8 +1897,8 @@
         "explaincn": "推人將是決定戰局的關鍵",
         "explainen": "Crucial pushes alternate the game",
         "explainjp": "伝統的なコンテスト",
-        "positionx": -430,
-        "positiony": -75
+        "positionx": -460,
+        "positiony": 180
     },
     {
         "id": 143,
@@ -1932,8 +1932,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "スコアコンテスト",
-        "positionx": -217,
-        "positiony": 43
+        "positionx": -230,
+        "positiony": 180
     },
     {
         "id": 144,
@@ -1964,8 +1964,8 @@
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Nothing as refreshing as a thunderous slam",
         "explainjp": "攻撃コンテスト",
-        "positionx": -6,
-        "positiony": 140
+        "positionx": 0,
+        "positiony": 180
     },
     {
         "id": 145,
@@ -1999,8 +1999,8 @@
         "explaincn": "顛覆",
         "explainen": "Defense wins championships",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 209,
-        "positiony": 40
+        "positionx": 230,
+        "positiony": 180
     },
     {
         "id": 146,
@@ -2034,8 +2034,8 @@
         "explaincn": "新的階段開始",
         "explainen": "There are more than one ways to play basketball",
         "explainjp": "主な課題セクションオフ",
-        "positionx": 426,
-        "positiony": -84
+        "positionx": 460,
+        "positiony": 190
     },
     {
         "id": 2111,

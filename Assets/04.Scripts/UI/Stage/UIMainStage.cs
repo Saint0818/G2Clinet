@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -28,14 +29,14 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    private UIMainStageMain mMain;
+    private UIMainStageView mView;
 
     private void Awake()
     {
-        mMain = GetComponent<UIMainStageMain>();
-        mMain.BackListener += goToGameLobby;
-        mMain.Info.StartListener += enterSelectRole;
-        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
+        mView = GetComponent<UIMainStageView>();
+        mView.BackListener += goToGameLobby;
+//        mMain.Info.StartListener += enterSelectRole;
+//        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
     [UsedImplicitly]
@@ -47,14 +48,14 @@ public class UIMainStage : UIBase
 
     private void onPowerChange(int power)
     {
-        if(mMain.Info.Visible)
-            Show(mMain.Info.StageID);
+//        if(mMain.Info.Visible)
+//            Show(mMain.Info.StageID);
     }
 
     private void onDiamondChange(int diamond)
     {
-        if(mMain.Info.Visible)
-            Show(mMain.Info.StageID);
+//        if(mMain.Info.Visible)
+//            Show(mMain.Info.StageID);
     }
 
     private void OnDestroy()
@@ -93,22 +94,22 @@ public class UIMainStage : UIBase
         Show(true);
 
         buildChapters();
-        selectStage(stageID);
+//        selectStage(stageID);
 
         Statistic.Ins.LogScreen(6);
     }
 
-    private void selectStage(int stageID)
-    {
-        if(!StageTable.Ins.HasByID(stageID))
-        {
-            Debug.LogErrorFormat("Can't find Stage({0})", stageID);
-            return;
-        }
-
-        TStageData stageData = StageTable.Ins.GetByID(stageID);
-        mMain.ShowStageInfo(stageData.Chapter, stageID);
-    }
+//    private void selectStage(int stageID)
+//    {
+//        if(!StageTable.Ins.HasByID(stageID))
+//        {
+//            Debug.LogErrorFormat("Can't find Stage({0})", stageID);
+//            return;
+//        }
+//
+//        TStageData stageData = StageTable.Ins.GetByID(stageID);
+//        mMain.ShowStageInfo(stageData.Chapter, stageID);
+//    }
 
     private void enterSelectRole(int stageID, UIStageVerification.EErrorCode errorCode, string errMsg)
     {
@@ -148,15 +149,15 @@ public class UIMainStage : UIBase
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
             if(stageData.IsValid())
-                mMain.PlayUnlockChapterAnimation(stageData.Chapter, stageData.ID);
+                mView.PlayUnlockChapterAnimation(stageData.Chapter, stageData.ID);
         }
         else if(UIMainStageTools.HasNewStage())
         {
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
             if(stageData.IsValid())
             {
-                mMain.SelectChapter(stageData.Chapter);
-                mMain.GetChapter(stageData.Chapter).GetStageByID(stageData.ID).PlayUnlockAnimation();
+                mView.SelectChapter(stageData.Chapter);
+                mView.GetChapter(stageData.Chapter).GetStageByID(stageData.ID).PlayUnlockAnimation();
             }
         }
 
@@ -168,7 +169,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void buildChapters()
     {
-        mMain.RemoveAllChapters();
+        mView.RemoveAllChapters();
 
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
@@ -177,11 +178,33 @@ public class UIMainStage : UIBase
         // 主線關卡是從第一章開始顯示.
         StageTable.Ins.GetMainStageByChapterRange(1, maxChapter, ref allMainStage);
 
-        // 3. 設定每一個小關卡.
+        // 加入章節和關卡.
         foreach(TStageData data in allMainStage)
         {
             addChapter(data.Chapter);
             addStageElement(data);
+        }
+
+        // 關卡資訊預設是顯示該章 StageID 最大的, 可以打的關卡.
+        for(int chapter = 1; chapter <= maxChapter; chapter++)
+        {
+            List<TStageData> allStageData = StageTable.Ins.GetMainStageByChapter(chapter);
+            if(allStageData == null)
+                continue;
+
+            // 由大排到小.
+            var sortStages = from stage in allStageData
+                          orderby stage.ID descending
+                          select stage;
+            foreach(TStageData stageData in sortStages)
+            {
+                if((GameData.Team.Player.NextMainStageID > stageData.ID && !stageData.ChallengeOnlyOnce) ||
+                    GameData.Team.Player.NextMainStageID == stageData.ID)
+                {
+                    mView.ShowStageInfo(chapter, stageData.ID);
+                    break;
+                }
+            } 
         }
 
         addLastLockChapter();
@@ -190,12 +213,12 @@ public class UIMainStage : UIBase
     private void selectChapter()
     {
         if(UIMainStageTools.HasSelectChapter())
-            mMain.SelectChapter(UIMainStageTools.GetSelectChapter());
+            mView.SelectChapter(UIMainStageTools.GetSelectChapter());
         else
         {
             // 切換到最新章節.
             TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
-            mMain.SelectChapter(stageData.IsValid() ? stageData.Chapter : mMain.ChapterCount);
+            mView.SelectChapter(stageData.IsValid() ? stageData.Chapter : mView.ChapterCount);
         }
     }
 
@@ -208,7 +231,9 @@ public class UIMainStage : UIBase
         }
 
         ChapterData data = StageChapterTable.Ins.GetMain(chapter);
-        mMain.AddChapter(chapter, data.Name);
+        UIStageChapter stageChapter = mView.AddChapter(chapter, data.Name);
+        stageChapter.Info.StartListener += enterSelectRole;
+        stageChapter.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
     private void addStageElement(TStageData stageData)
@@ -224,9 +249,9 @@ public class UIMainStage : UIBase
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
 
         if(stageData.Kind != 9)
-            mMain.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+            mView.AddStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
         else
-            mMain.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
+            mView.AddBossStage(stageData.Chapter, stageData.ID, localPos, elementData, infoData);
     }
 
     /// <summary>
@@ -247,14 +272,14 @@ public class UIMainStage : UIBase
         }
 
         if(StageTable.Ins.HasMainStageByChapter(nextChapter))
-            mMain.AddLockChapter(nextChapter, nextChapterTitle);
+            mView.AddLockChapter(nextChapter, nextChapterTitle);
     }
 
     public void Hide()
     {
         GameData.Team.OnPowerChangeListener -= onPowerChange;
 
-        RemoveUI(instance.gameObject);
+        Destroy(instance.gameObject);
     }
 
     private void goToGameLobby()
@@ -263,12 +288,12 @@ public class UIMainStage : UIBase
         Hide();
     }
 
-    protected override void OnShow(bool isShow)
-    {
-        base.OnShow(isShow);
-
-        mMain.Info.Hide();
-    }
+//    protected override void OnShow(bool isShow)
+//    {
+//        base.OnShow(isShow);
+//
+//        mMain.Info.Hide();
+//    }
 
     public static UIMainStage Get
     {

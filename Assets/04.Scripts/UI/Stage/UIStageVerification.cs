@@ -9,6 +9,7 @@ public static class UIStageVerification
     public enum EErrorCode
     {
         Pass,
+        CannotEnter, // 關卡進度不足.
         NoPower, 
         NoDailyChallenge, // 每日挑戰次數用完, 但是每日重置次數還有(所以可以重置).
         NoDailyChallengeNoDiamond, // 每日挑戰次數用完, 但是每日重置次數還有(所以可以重置), 但是鑽石不夠.
@@ -25,6 +26,9 @@ public static class UIStageVerification
     /// <returns></returns>
     public static EErrorCode VerifyQualification(TStageData stageData, out string errMsg)
     {
+        if(!VerifyNextMainStageID(stageData, out errMsg))
+            return EErrorCode.CannotEnter;
+
         if(!VerifyCost(stageData, out errMsg))
             return EErrorCode.NoPower;
 
@@ -51,6 +55,12 @@ public static class UIStageVerification
 
         errMsg = String.Empty;
         return EErrorCode.Pass;
+    }
+
+    public static bool VerifyNextMainStageID(TStageData stageData, out string errMsg)
+    {
+        errMsg = String.Empty;
+        return GameData.Team.Player.NextMainStageID >= stageData.ID;
     }
 
     /// <summary>
