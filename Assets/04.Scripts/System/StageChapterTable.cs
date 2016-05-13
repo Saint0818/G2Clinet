@@ -46,7 +46,7 @@ public class StageChapterTable
     {
         clear();
 
-        var chapters = (ChapterData[])JsonConvert.DeserializeObject(jsonText, typeof(ChapterData[]));
+        var chapters = JsonConvertWrapper.DeserializeObject<ChapterData[]>(jsonText);
         foreach(ChapterData data in chapters)
         {
             if(MinChapterID <= data.ID && data.ID <= MaxChapterID)

@@ -57,4 +57,9 @@ public class TStageStarReward
 
     [UsedImplicitly]
     public Dictionary<int, int> GotAvatar;
+
+    public override string ToString()
+    {
+        return string.Format("Power: {0}, Diamond: {1}", Power, Diamond);
+    }
 }
