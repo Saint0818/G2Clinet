@@ -8,7 +8,7 @@
 	public const int Default_RoleNum = 2;
 	public const int Max_Money = 1000000;
 
-	public const int GameEndWait = 4;
+	public const int GameEndWait = 3;
     public const int Max_Power = 20;
     /// <summary>
     /// 幾秒回復 1 點體力.
@@ -17,7 +17,7 @@
 
 	public const int Default_MainStageID = 101;
 	public const int Max_ActiveSkill = 3;
-	public const int Max_CostSpace = 20;
+	public const int Max_CostSpace = 20;//基礎
 	public const float Min_TimePause = 0.03f;
 
 	public static int PotentialCount = 6;

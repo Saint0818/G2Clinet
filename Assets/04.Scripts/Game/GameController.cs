@@ -3821,7 +3821,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
+				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && player1.IsInGround && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
 				if(IsGameAttack && player1.IsSkillPushThrough && player1.Team != player2.Team)

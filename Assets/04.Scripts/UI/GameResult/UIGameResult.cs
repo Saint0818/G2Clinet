@@ -731,7 +731,7 @@ public class UIGameResult : UIBase {
 			resultExpView.IsShowExp = true;
 		
 
-		Invoke("showBonus", 1.5f);
+		Invoke("showBonus", 1f);
 	}
 
 	//假如有新卡Show
