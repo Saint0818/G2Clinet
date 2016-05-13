@@ -34,8 +34,8 @@ public class UIMainStage : UIBase
     {
         mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
-        mMain.Info.StartListener += enterSelectRole;
-        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
+//        mMain.Info.StartListener += enterSelectRole;
+//        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);
     }
 
     [UsedImplicitly]
@@ -47,14 +47,14 @@ public class UIMainStage : UIBase
 
     private void onPowerChange(int power)
     {
-        if(mMain.Info.Visible)
-            Show(mMain.Info.StageID);
+//        if(mMain.Info.Visible)
+//            Show(mMain.Info.StageID);
     }
 
     private void onDiamondChange(int diamond)
     {
-        if(mMain.Info.Visible)
-            Show(mMain.Info.StageID);
+//        if(mMain.Info.Visible)
+//            Show(mMain.Info.StageID);
     }
 
     private void OnDestroy()
@@ -93,22 +93,22 @@ public class UIMainStage : UIBase
         Show(true);
 
         buildChapters();
-        selectStage(stageID);
+//        selectStage(stageID);
 
         Statistic.Ins.LogScreen(6);
     }
 
-    private void selectStage(int stageID)
-    {
-        if(!StageTable.Ins.HasByID(stageID))
-        {
-            Debug.LogErrorFormat("Can't find Stage({0})", stageID);
-            return;
-        }
-
-        TStageData stageData = StageTable.Ins.GetByID(stageID);
-        mMain.ShowStageInfo(stageData.Chapter, stageID);
-    }
+//    private void selectStage(int stageID)
+//    {
+//        if(!StageTable.Ins.HasByID(stageID))
+//        {
+//            Debug.LogErrorFormat("Can't find Stage({0})", stageID);
+//            return;
+//        }
+//
+//        TStageData stageData = StageTable.Ins.GetByID(stageID);
+//        mMain.ShowStageInfo(stageData.Chapter, stageID);
+//    }
 
     private void enterSelectRole(int stageID, UIStageVerification.EErrorCode errorCode, string errMsg)
     {
@@ -263,12 +263,12 @@ public class UIMainStage : UIBase
         Hide();
     }
 
-    protected override void OnShow(bool isShow)
-    {
-        base.OnShow(isShow);
-
-        mMain.Info.Hide();
-    }
+//    protected override void OnShow(bool isShow)
+//    {
+//        base.OnShow(isShow);
+//
+//        mMain.Info.Hide();
+//    }
 
     public static UIMainStage Get
     {

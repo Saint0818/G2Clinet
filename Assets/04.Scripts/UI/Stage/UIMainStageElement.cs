@@ -64,13 +64,13 @@ public class UIMainStageElement : MonoBehaviour
         mButton = GetComponent<UIButton>();
         mStar = GetComponent<UIMainStageStars>();
 
-        mButton.onClick.Add(new EventDelegate(() =>
-        {
-            if(mData.IsEnable)
-                Main.Info.Show(StageID, mInfoData);
-            else
-                UIHint.Get.ShowHint(mData.ErrMsg, Color.black);
-        }));
+//        mButton.onClick.Add(new EventDelegate(() =>
+//        {
+//            if(mData.IsEnable)
+//                Main.Info.Show(StageID, mInfoData);
+//            else
+//                UIHint.Get.ShowHint(mData.ErrMsg, Color.black);
+//        }));
     }
 
     public void Set(Data data, UIMainStageInfo.Data infoData)

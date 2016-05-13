@@ -26,14 +26,14 @@ public class UIMainStageMain : MonoBehaviour
     /// </summary>
     public event Action BackListener;
 
-    /// <summary>
-    /// Index 0: 第一章, Index 2: 第二章.
-    /// </summary>
-    public UIMainStageInfo Info
-    {
-        get { return mInfo ?? (mInfo = GetComponent<UIMainStageInfo>()); }
-    }
-    private UIMainStageInfo mInfo;
+//    /// <summary>
+//    /// Index 0: 第一章, Index 2: 第二章.
+//    /// </summary>
+//    public UIMainStageInfo Info
+//    {
+//        get { return mInfo ?? (mInfo = GetComponent<UIMainStageInfo>()); }
+//    }
+//    private UIMainStageInfo mInfo;
 
     public UIButton BackButton;
     public UIButton PreviousChapterButton;
@@ -279,25 +279,25 @@ public class UIMainStageMain : MonoBehaviour
         mChapters.Clear();
     }
 
-    public void ShowStageInfo(int chapter, int stageID)
-    {
-        if(!mChapters.ContainsKey(chapter))
-        {
-            Debug.LogErrorFormat("Can't find Chapter({0})", chapter);
-            return;
-        }
-
-        if(!mChapters[chapter].HasStage(stageID))
-        {
-            Debug.LogErrorFormat("Can't find StageID({0})", stageID);
-            return;
-        }
-
-        SelectChapter(chapter);
-
-        UIMainStageElement element = mChapters[chapter].GetStageByID(stageID);
-        Info.Show(stageID, element.InfoData);
-    }
+//    public void ShowStageInfo(int chapter, int stageID)
+//    {
+//        if(!mChapters.ContainsKey(chapter))
+//        {
+//            Debug.LogErrorFormat("Can't find Chapter({0})", chapter);
+//            return;
+//        }
+//
+//        if(!mChapters[chapter].HasStage(stageID))
+//        {
+//            Debug.LogErrorFormat("Can't find StageID({0})", stageID);
+//            return;
+//        }
+//
+//        SelectChapter(chapter);
+//
+//        UIMainStageElement element = mChapters[chapter].GetStageByID(stageID);
+//        Info.Show(stageID, element.InfoData);
+//    }
 
     private void FixedUpdate()
     {
