@@ -155,12 +155,15 @@ public class UISocial : UIBase {
         switch (page) {
             case 0: //event
                 GameData.SocialEvents = GameData.SocialEvents.OrderBy(x => -x.Time.Ticks).ToList();
-                int num = Mathf.Min(20, GameData.SocialEvents.Count);
+                int num = Mathf.Min(50, GameData.SocialEvents.Count);
                 for (int i = 0; i < num; i++) {
                         addEvent(page, count, GameData.SocialEvents[i]);
                         count++;
                     }
-                
+
+                if (num > 0 && !GameData.Team.HaveTutorialFlag(35))
+                    UITutorial.Get.ShowTutorial(35, 1);
+
                 break;
             case 1: //follow
                 if (GameData.Team.Friends != null) {

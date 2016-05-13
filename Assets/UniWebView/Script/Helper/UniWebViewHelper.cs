@@ -84,6 +84,8 @@ public class UniWebViewHelper{
         return "file:///android_asset/" + path;
 #elif UNITY_WP8
         return "Data/StreamingAssets/" + path;
+#else
+        return string.Empty;
 #endif
     }
 }

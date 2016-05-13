@@ -4,77 +4,77 @@
         "nametw": "街頭聯盟I",
         "nameen": "Street League I",
         "lowscore": 1,
-        "highscore": 100,
+        "highscore": 25,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 60,
         "pvpcoindaily": 50,
         "stage": 10,
-        "searchcost": 30
+        "searchcost": 0
     },
     {
         "lv": 2,
         "nametw": "街頭聯盟II",
         "nameen": "Street League II",
-        "lowscore": 101,
-        "highscore": 200,
+        "lowscore": 25,
+        "highscore": 100,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 70,
         "pvpcoindaily": 60,
         "stage": 11,
-        "searchcost": 30
+        "searchcost": 0
     },
     {
         "lv": 3,
         "nametw": "街頭聯盟III",
         "nameen": "Street League III",
-        "lowscore": 201,
-        "highscore": 400,
+        "lowscore": 101,
+        "highscore": 300,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 85,
         "pvpcoindaily": 70,
         "stage": 12,
-        "searchcost": 30
+        "searchcost": 0
     },
     {
         "lv": 4,
         "nametw": "鄉鎮聯盟I",
         "nameen": "Country League I",
-        "lowscore": 401,
-        "highscore": 600,
+        "lowscore": 301,
+        "highscore": 500,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 120,
         "pvpcoindaily": 100,
         "stage": 13,
-        "searchcost": 30
+        "searchcost": 0
     },
     {
         "lv": 5,
         "nametw": "鄉鎮聯盟II",
         "nameen": "Country League II",
-        "lowscore": 601,
-        "highscore": 800,
+        "lowscore": 501,
+        "highscore": 700,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 130,
         "pvpcoindaily": 110,
         "stage": 14,
-        "searchcost": 30
+        "searchcost": 0
     },
     {
         "lv": 6,
         "nametw": "鄉鎮聯盟III",
         "nameen": "Country League III",
-        "lowscore": 801,
-        "highscore": 1000,
+        "lowscore": 701,
+        "highscore": 900,
         "basicscore": 30,
         "calculate": 30,
         "pvpcoin": 145,
         "pvpcoindaily": 120,
         "stage": 15,
-        "searchcost": 30
+        "searchcost": 0
     }
 ]

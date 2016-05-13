@@ -647,14 +647,44 @@ public class UniWebView : MonoBehaviour {
     /// </description>
     /// <param name="key">Key of the header field. Empty string or null will be ignored.</param>
     /// <param name="value">Value of the header field. Pass null to remove an existing value. Empty string will be ignored.</param>
-    public void SetHeaderField(string key, string value)  {
+    public void SetHeaderField(string key, string value) {
         #if UNITY_WP8
         Debug.LogWarning("Not implemented for Windows Phone 8.");
         #else
         UniWebViewPlugin.SetHeaderField(gameObject.name, key, value);
         #endif
     }
-
+    
+    /// <summary>
+    /// Set visibility of vertical bar for the web view.
+    /// </summary>
+    /// <description>
+    /// This method will not work for editor and Windows Phone 8. 
+    /// </description>
+    /// <param name="show">Whether the vertical scroll bar should be visible or not when the web view is being scrolled.</param>
+    public void SetVerticalScrollBarShow(bool show) {
+        #if UNITY_WP8
+        Debug.LogWarning("Not implemented for Windows Phone 8.");        
+        #else
+        UniWebViewPlugin.SetVerticalScrollBarShow(gameObject.name, show);
+        #endif
+    }
+    
+    /// <summary>
+    /// Set visibility of horizontal bar for the web view.
+    /// </summary>
+    /// <description>
+    /// This method will not work for editor and Windows Phone 8. 
+    /// </description>
+    /// <param name="show">Whether the horizontal scroll bar should be visible or not when the web view is being scrolled.</param>
+    public void SetHorizontalScrollBarShow(bool show) {
+        #if UNITY_WP8
+        Debug.LogWarning("Not implemented for Windows Phone 8.");        
+        #else
+        UniWebViewPlugin.SetHorizontalScrollBarShow(gameObject.name, show);
+        #endif
+    }
+    
     private bool OrientationChanged() {
         int newHeight = UniWebViewHelper.screenHeight;
         if (_lastScreenHeight != newHeight) {

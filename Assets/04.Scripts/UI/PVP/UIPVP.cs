@@ -214,12 +214,17 @@ public class UIPVP : UIBase
 				labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Diamond >= GameConst.PVPCD_Price);
 			} else {
 				if (GameData.DPVPData.ContainsKey (pvpLv)) {
-					labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
-					spriteTicket.spriteName = GameFunction.SpendKindTexture (1);
-					if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) 
-						labelStatus.text = "0";
-                    else 
-					    labelStatus.text = GameData.DPVPData [pvpLv].SearchCost.ToString ();
+                    if (GameData.DPVPData [pvpLv].SearchCost > 0) {
+    					labelStatus.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
+    					spriteTicket.spriteName = GameFunction.SpendKindTexture (1);
+    					if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) 
+    						labelStatus.text = "0";
+                        else 
+    					    labelStatus.text = GameData.DPVPData [pvpLv].SearchCost.ToString ();
+                    } else {
+                        labelStatus.text = "";
+                        spriteTicket.spriteName = "";
+                    }
 				}
 			}
 		} else {
@@ -375,7 +380,7 @@ public class UIPVP : UIBase
 		if (GameData.Team.PVPTicket > 0) {
 			int sec = (int)GameData.Team.PVPCD.ToUniversalTime ().Subtract (DateTime.UtcNow).TotalSeconds;
 			if (sec <= 0) {
-				if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) {
+                if (!string.IsNullOrEmpty (GameData.PVPEnemyMembers [0].Identifier)) {
 					UIShow (false);
 					UISelectRole.Get.LoadStage (GameData.DPVPData [GameData.Team.PVPLv].Stage);
 				} else
@@ -391,11 +396,14 @@ public class UIPVP : UIBase
 	}
 
 	private void askSearchEnemy() {
-		if (GameData.DPVPData.ContainsKey (pvpLv)) 
-			CheckMoney(GameData.DPVPData [pvpLv].SearchCost, true,
-				string.Format (TextConst.S (9749), GameData.DPVPData [pvpLv].SearchCost), 
-				searchEnemy, updateUI);
-			
+        if (GameData.DPVPData.ContainsKey (pvpLv))  {
+            if (GameData.DPVPData [pvpLv].SearchCost > 0) {
+    			CheckMoney(GameData.DPVPData [pvpLv].SearchCost, true,
+    				string.Format (TextConst.S (9749), GameData.DPVPData [pvpLv].SearchCost), 
+    				searchEnemy, updateUI);
+            } else 
+                searchEnemy();
+        }	
 	}
 
 	private void searchEnemy()

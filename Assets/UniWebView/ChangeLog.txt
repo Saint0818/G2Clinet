@@ -1,5 +1,22 @@
 ## UniWebView - An easier solution for integrating WebView to your mobile games
 
+2.7.1
+
+Fix: Now the keyboard will also be dismissed in iOS when you call Hide on the web view with the keyboard showing.
+Fix: A potential problem of activity type casting which might cause the app crashes when you use UniWebView with some other third party activity.
+Fix: Add "singleTop" to launch mode in Android to prevent crash from multiple activity racing.
+
+------------------------
+2.7.0
+
+New: Add APIs for setting visibility of vertical and horizontal scroll bar of the web view.
+Fix: Update pre-compiled jar file for Prime31 and CardBoard, to be compatible to their latest SDKs.
+Fix: Return an empty string for asset path string API, so it will compile even you switch to a platform that UniWebView does not support.
+Fix: Fix a problem which prevents you from settings background color to transparent ones. It is a regression in version 2.6.0 and now it will not show a black background color anymore.
+Fix: Not disabling hardware accelerating when Settings background color with alpha for Android. This would improve the performance of using a transparent background a lot.
+Fix: A potential issue that will fail in type casting in Android activity type. This would improve the compatibility when working with other third party packages which tries to convert the Unity activity.
+
+------------------------
 2.6.0
 
 New: Rewrite video playing for Android web view. Now you could expect a better and stable video playback for both Youtube and Vimeo.
