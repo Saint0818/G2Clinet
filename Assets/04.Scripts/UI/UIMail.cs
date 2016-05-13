@@ -38,7 +38,8 @@ public class TMailItem{
 	public TMailInfo MailInfo;
 
 	public GameObject Item;
-
+	public UISprite SpriteHead;
+	public UILabel LabelLv;
 	public UILabel LabelTime;
 	public UILabel LabelSubhead;
 	public UILabel LabelContent;
@@ -338,6 +339,32 @@ public class MailSubPageMail : MailSubPage {
 			TMailInfo[] result = JsonConvertWrapper.DeserializeObject <TMailInfo[]>(www.text); 
 			ListMail(result);
 
+			//
+//			#if DEBUG
+//
+//			for(int i=0; i<10; i++){
+//				TMailInfo testMail = new TMailInfo();
+//				//testMail.
+//				//public int cause;
+//				//public string _id;
+//				//public DateTime Time;
+//				//public string FromIdentifier;
+//				testMail.FromName = "aaa";
+//				testMail.FromLv = "10";
+//				testMail.FromHeadTextureNo = 3;
+//				//public string ToIdentifier;
+//				testMail.MailKind = 1; // 1=prize, 2=social
+//				testMail.ContextType = 1; // 1=native string, 2=string id
+//				testMail.Header = "hello";
+//				testMail.Content = "sdfasdfdsafsada";
+//				//public TMailGift[] Gifts;
+//
+//				addMailItem(testMail, i);
+//			}
+//			#endif
+
+				//
+
 		} else {
 			Debug.LogError("text:"+www.text);
 		} 
@@ -372,10 +399,16 @@ public class MailSubPageMail : MailSubPage {
 		TMailItem mi = new TMailItem();
 		mi.MailInfo = mf;
 		mi.Item = Instantiate(itemMail, Vector3.zero, Quaternion.identity) as GameObject;
-
-
 		string tmpName = string.Format("itemmail{0}", rnd.Next(1, 99999));
 		mi.Item.name = tmpName;
+
+		mi.SpriteHead = GameObject.Find(tmpName + "/View/PlayerInGameBtn/PlayerPic").GetComponent<UISprite>();
+		mi.SpriteHead.spriteName = string.Format ("{0}s", mf.FromHeadTextureNo);
+		var o = GameObject.Find (tmpName + "/View/PlayerInGameBtn/LevelGroup") as GameObject;
+		o.SetActive (true);
+		mi.LabelLv = GameObject.Find(tmpName + "/View/PlayerInGameBtn/LevelGroup").GetComponent<UILabel>();
+		mi.LabelLv.text = mf.FromLv;
+
 		mi.LabelTime = GameObject.Find(tmpName + "/View/TimeLabel").GetComponent<UILabel>();
 		mi.LabelTime.text = mf.Time.ToShortDateString();
 		mi.LabelSubhead = GameObject.Find(tmpName + "/View/SubheadLabel").GetComponent<UILabel>();
@@ -398,7 +431,7 @@ public class MailSubPageMail : MailSubPage {
 		}
 		//
 		mi.Item.transform.parent = pageScrollView.gameObject.transform;
-		mi.Item.transform.localPosition = new Vector3(0, 10 - index * 120, 0);
+		mi.Item.transform.localPosition = new Vector3(0, 10 - index * 140, 0);
 		mi.Item.transform.localScale = Vector3.one;
 		mailItemList.Add(mi);
 
