@@ -115,6 +115,7 @@ public class UIGame : UIBase
 	private GameObject goBottom;
 	private GameObject uiSpeed;
 	private UILabel labelSpeed;
+	private GameObject goSpeedOpen;
 	private GameObject goAISpeed;
 
     //Right
@@ -388,7 +389,8 @@ public class UIGame : UIBase
 		goBottom =GameObject.Find(UIName + "/Bottom"); 
 		uiSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed");
 		labelSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
-		goAISpeed =  GameObject.Find(UIName + "/Bottom/ButtonAI/SpeedLabel");
+		goSpeedOpen = GameObject.Find(UIName + "/Bottom/ButtonSpeed/SpeedOpen");
+		goAISpeed =  GameObject.Find(UIName + "/Bottom/ButtonAI/AIOpen");
 
         //Right
 		uiPlayerLocation = GameObject.Find(UIName + "/Right");
@@ -884,6 +886,7 @@ public class UIGame : UIBase
     }
 
 	private void refreshSpeedLabel () {
+		goSpeedOpen.SetActive((Time.timeScale != 1));
 		labelSpeed.text = "X" + Time.timeScale.ToString();
 	}
 
