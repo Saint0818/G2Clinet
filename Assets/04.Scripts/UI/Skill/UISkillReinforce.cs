@@ -42,7 +42,7 @@ public class UISkillReinforce : UIBase {
 	private int targetIndex;
 	private int[] removeIndexs;
 
-	private TSkill mOldSkill;
+//	private TSkill mOldSkill;
 	private TSkill mSkill;
 
 	private GameObject itemCardEquipped;
@@ -83,7 +83,7 @@ public class UISkillReinforce : UIBase {
 	private int newCardLv;
 	private int recordGreenExp;
 	private bool isRunExp = false;
-	private bool isNeedShowLevelUp = false;
+//	private bool isNeedShowLevelUp = false;
 	private int addInterVal = 10;
 
 	private Dictionary<string, TPassiveSkillCard> passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
@@ -231,7 +231,7 @@ public class UISkillReinforce : UIBase {
         UIResource.Get.Show();
 
         mSkill = skill;
-		mOldSkill = mSkill;
+//		mOldSkill = mSkill;
 		RefreshView(skill);
 		initRightCards ();
 		targetIndex = index;
@@ -614,9 +614,9 @@ public class UISkillReinforce : UIBase {
 			}
 		}
 
-		mOldSkill = mSkill;
+//		mOldSkill = mSkill;
 		isRunExp = false;
-		isNeedShowLevelUp = false;
+//		isNeedShowLevelUp = false;
 		addInterVal = 1;
 		skillCard.HideAllGetStar();
 		skillCard.HideAllPreviewStar();
@@ -803,7 +803,7 @@ public class UISkillReinforce : UIBase {
 			Destroy(obj.Value);
 		}
 		isRunExp = true;
-		isNeedShowLevelUp = (oldCardLv != newCardLv);
+//		isNeedShowLevelUp = (oldCardLv != newCardLv);
 	}
 
 	private void finishExp () {
@@ -847,6 +847,7 @@ public class UISkillReinforce : UIBase {
 				mSkill = findNewSkillFromPlayer(mSkill);
 			else
 				mSkill = findNewSkillFromTeam(mSkill);
+
 			awakeRunExp();
 
 		} else {

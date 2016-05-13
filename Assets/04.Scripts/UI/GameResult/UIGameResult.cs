@@ -7,56 +7,60 @@ using Newtonsoft.Json;
 using GameEnum;
 
 public struct TGameResultCenter {
-	public Animator AnimatorBottomView;// Down, HomePlayer, AwayPlayer, TeamStats
+//	public Animator AnimatorBottomView;// Down, HomePlayer, AwayPlayer, TeamStats
 	public PlayerStats PlayerStats;
-	public TeamValue TeamValue;
 	public PlayerValue[] PlayerValue;
-	private int StatsPage;
+//	public TeamValue TeamValue;
+//	private int StatsPage;
 	public UILabel Away;
 	public UILabel Home;
 
 	public void Init () {
 		PlayerValue = new PlayerValue[6];
-		StatsPage = 1;
+//		StatsPage = 1;
 	}
 
-	public void PlayAnimation(string name) {
-		AnimatorBottomView.SetTrigger(name);
-	}
+//	public void PlayAnimation(string name) {
+//		AnimatorBottomView.SetTrigger(name);
+//	}
 
-	public void SetTeamValue (TGameRecord record) {
-		TeamValue.SetValue(record);
-	}
+//	public void SetTeamValue (TGameRecord record) {
+//		TeamValue.SetValue(record);
+//	}
 
-	public void SetPlayerStat(int index, PlayerBehaviour player) {
-		PlayerStats.SetID(index, player.Attribute.Identifier);
-		PlayerStats.SetPlayerName(index, player.Attribute.Name);
-		PlayerStats.SetPlayerIcon(index, player.Attribute.FacePicture);
-		PlayerStats.SetPositionIcon(index, player.Attribute.BodyType);
-		PlayerStats.ShowAddFriendBtn(index);
-		if(index >= 0 && index < PlayerValue.Length)
-			PlayerValue[index].SetValue(player.GameRecord);
-	}
+	public void SetPlayerStat(int index, string identifier, PlayerBehaviour player, bool isShow = true) {
+		PlayerStats.PlayerViewVisible(index, isShow);
+		if(isShow) {
+			PlayerStats.SetID(index, identifier);
+			PlayerStats.SetPlayerName(index, player.Attribute.Name);
+			PlayerStats.SetPlayerIcon(index, player.Attribute.FacePicture);
+			PlayerStats.SetPositionIcon(index, player.Attribute.BodyType);
+			PlayerStats.ShowAddFriendBtn(index);
+			if(index >= 0 && index < PlayerValue.Length)
+				PlayerValue[index].SetValue(player.GameRecord);
 
-	public void ShowHomeStats (EventDelegate.Callback callback) {
-		if(StatsPage == 0) {
-			StatsPage = 1;
-			callback ();
-		} else if(StatsPage == 1) {
-			StatsPage = 2;
-			PlayAnimation("HomePlayer");
 		}
 	}
 
-	public void ShowAwayStats (EventDelegate.Callback callback) {
-		if(StatsPage == 2) {
-			StatsPage = 1;
-			callback ();
-		} else if(StatsPage == 1) {
-			StatsPage = 0;
-			PlayAnimation("AwayPlayer");
-		}
-	}
+//	public void ShowHomeStats (EventDelegate.Callback callback) {
+//		if(StatsPage == 0) {
+//			StatsPage = 1;
+//			callback ();
+//		} else if(StatsPage == 1) {
+//			StatsPage = 2;
+//			PlayAnimation("HomePlayer");
+//		}
+//	}
+//
+//	public void ShowAwayStats (EventDelegate.Callback callback) {
+//		if(StatsPage == 2) {
+//			StatsPage = 1;
+//			callback ();
+//		} else if(StatsPage == 1) {
+//			StatsPage = 0;
+//			PlayAnimation("AwayPlayer");
+//		}
+//	}
 
 	public void SetScore (int home, int away) {
 		Away.text = away.ToString();
@@ -168,12 +172,9 @@ public struct TGameResultExpView {
 	private int nextMaxExp;
 	private bool isRunFin;
 
-	private EventDelegate.Callback runFinish;
-
-	public void Init (EventDelegate.Callback expFinish) {
+	public void Init () {
 		LvUpFx.SetActive(false);
 		isShowExp = false;
-		runFinish = expFinish;
 		isRunFin = false;
 	}
 
@@ -198,9 +199,6 @@ public struct TGameResultExpView {
 					AddLevelUpValue();
 				}
 			} else {
-				if(runFinish != null)
-					runFinish();
-				
 				isShowExp = false;
 				isRunFin = true;
 			}
@@ -310,10 +308,10 @@ public class UIGameResult : UIBase {
 	private GameObject goStageStars;
 	private GameObject[] goStars = new GameObject[3];
 
-	private Animator animatorAward;//AwardViewStart, AwardViewDown, EXPViewStart, PVPView
+	private Animator animatorAward;//AwardViewStart, AwardViewDown(有三選一才需要), PVPView
 	//Center StageHint
 	private TGameResultCenter resultCenter = new TGameResultCenter();
-	private THintValue hintValue = new THintValue();
+//	private THintValue hintValue = new THintValue();
 	//AwardView
 	private GameObject awardScaleView;
 	private UIScrollView awardScrollView;
@@ -326,11 +324,11 @@ public class UIGameResult : UIBase {
 
 //	private TSkill[] oldSkillCards;
 	private Dictionary<int, int> newGotItems = new Dictionary<int, int>();
-	private bool isGetAward = false;
+	private bool isGetAward = false;//確定server有傳成功回來
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
 	private bool isShow3Dbasket = false;
-	public List<int> GetCardLists = new List<int>();
+	public List<int> GetCardLists = new List<int>();//取得所有新卡的列表
 	public bool IsShowFirstCard = true;
 
 	//BottomRight
@@ -395,7 +393,7 @@ public class UIGameResult : UIBase {
 
 	void FixedUpdate () {
 		//Show StageHint
-		hintValue.UpdateUI(Time.deltaTime, HintAchieveOne, HintComplete);
+//		hintValue.UpdateUI(Time.deltaTime, HintAchieveOne, HintComplete);
 
 		//Show Award
 		if(resultAwardParam.CanShowAward) {
@@ -403,8 +401,9 @@ public class UIGameResult : UIBase {
 			if(resultAwardParam.AwardGetTime <= 0) {
 				if(resultAwardParam.AwardIndex == -1) {
 					resultAwardParam.IsShowAward = false;
-					if(!GameData.IsPVP)
-						ShowBonusItem ();
+					ShowNewCard();
+//					if(!GameData.IsPVP)
+//						ShowBonusItem ();
 				} else {
 					if(resultAwardParam.ExtraAward < resultAwardParam.AwardMax){
 						if(resultAwardParam.AwardItemTempIDs[(resultAwardParam.ExtraAward)] > 0){
@@ -439,16 +438,16 @@ public class UIGameResult : UIBase {
 		resultExpView.UpdateUI();
 	}
 
-	public void HintAchieveOne () {
-		if(hintValue.HintIndex >= 0 && hintValue.HintIndex < hintValue.WinTargets.Length) {
-			hintValue.WinTargets[hintValue.ExtraHint].UpdateFin(true);
-			AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
-		}
-	}
+//	public void HintAchieveOne () {
+//		if(hintValue.HintIndex >= 0 && hintValue.HintIndex < hintValue.WinTargets.Length) {
+//			hintValue.WinTargets[hintValue.ExtraHint].UpdateFin(true);
+//			AudioMgr.Get.PlaySound(SoundType.SD_ResultCount);
+//		}
+//	}
 
-	public void HintComplete () {
-		Invoke("finishStageHint", 1);
-	}
+//	public void HintComplete () {
+//		Invoke("finishStageHint", 1);
+//	}
 	
 	protected override void InitCom() {
 		uiItem = Resources.Load(UIPrefabPath.ItemAwardGroup) as GameObject;
@@ -461,21 +460,16 @@ public class UIGameResult : UIBase {
 		for (int i=0; i<goStars.Length; i++) 
 			goStars[i] = GameObject.Find(UIName + "/Center/TopView/StageStars/Star" + i.ToString());
 
-		hintValue.Init();
-		hintValue.WinTargets = gameObject.GetComponentsInChildren<UIStageHintTarget>();
+//		hintValue.Init();
+//		hintValue.WinTargets = gameObject.GetComponentsInChildren<UIStageHintTarget>();
 
 		resultCenter.Init();
-		resultCenter.AnimatorBottomView = GameObject.Find (UIName + "/Center/BottomView").GetComponent<Animator>();
 		resultCenter.PlayerStats = GetComponentInChildren<PlayerStats>();
 		resultCenter.PlayerValue = GetComponentsInChildren<PlayerValue>();
-		resultCenter.TeamValue = GetComponentInChildren<TeamValue>();
+//		resultCenter.TeamValue = GetComponentInChildren<TeamValue>();
 		resultCenter.Away = GameObject.Find (UIName + "/Center/TopView/ScoreBoard/Away").GetComponent<UILabel>();
 		resultCenter.Home = GameObject.Find (UIName + "/Center/TopView/ScoreBoard/Home").GetComponent<UILabel>();
 
-//		for (int i=0; i<resultCenter.PlayerStats.PlayerInGameBtn.Length; i++) {
-//			resultCenter.PlayerStats.PlayerInGameBtn[i].name = i.ToString();
-//			UIEventListener.Get (resultCenter.PlayerStats.PlayerInGameBtn[i]).onClick = OnShowPlayerInfo;
-//		}
 		awardScaleView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
 		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView").GetComponent<UIScrollView>();
 		resultAwardParam.Init();
@@ -483,7 +477,7 @@ public class UIGameResult : UIBase {
 		resultExpView.ProgressBar = GameObject.Find(UIName + "/EXPView/ProgressBar").GetComponent<UISlider>();
 		resultExpView.ExpLabel = GameObject.Find(UIName + "/EXPView/ExpLabel").GetComponent<UILabel>();
 		resultExpView.LvUpFx = GameObject.Find(UIName + "/EXPView/LvUpFX");
-		resultExpView.Init(ExpRunFinish);
+		resultExpView.Init();
 
 		resultThree.Init();
 		for(int i=0; i<resultThree.ItemAwardGroup.Length; i++)
@@ -504,28 +498,55 @@ public class UIGameResult : UIBase {
 
 		UIEventListener.Get (uiStatsNext).onClick = OnNext;
 		UIEventListener.Get (uiAwardSkip).onClick = OnReturn;
-		SetBtnFun(UIName + "/Center/BottomView/StatsView/LeftBtn", OnShowAwayStats);
-		SetBtnFun(UIName + "/Center/BottomView/StatsView/RightBtn", OnShowHomeStats);
+//		SetBtnFun(UIName + "/Center/BottomView/StatsView/LeftBtn", OnShowAwayStats);
+//		SetBtnFun(UIName + "/Center/BottomView/StatsView/RightBtn", OnShowHomeStats);
 	}
 	//此介面開啟的入口
 	public void SetGameRecord(ref TGameRecord record) {
 		UIShow(true);
 		resultCenter.SetScore(record.Score1, record.Score2);
-		resultCenter.SetTeamValue(record);
 		if(record.Done) {
-			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) 
-				resultCenter.SetPlayerStat(i, GameController.Get.GamePlayers[i]);
+			for(int i=0; i<6; i++)
+				resultCenter.SetPlayerStat(i,"",null, false);
+
+			int half = (int)(GameController.Get.GamePlayers.Count * 0.5f);
+			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+				if(i < half) {
+					if(i < GameData.TeamMembers.Length) 
+						resultCenter.SetPlayerStat(i, GameData.TeamMembers[i].Identifier, GameController.Get.GamePlayers[i]);
+				} else {
+					string identifier = string.Empty;
+					if((i - half) < GameData.EnemyMembers.Length) 
+						identifier =  GameData.EnemyMembers[i - half].Identifier;
+					
+					switch(GameController.Get.GamePlayers.Count) {
+					case 2:
+						resultCenter.SetPlayerStat(i + 2, identifier, GameController.Get.GamePlayers[i]);
+						break;
+					case 4:
+						resultCenter.SetPlayerStat(i + 1, identifier, GameController.Get.GamePlayers[i]);
+						break;
+					default:
+					case 6:
+						resultCenter.SetPlayerStat(i, identifier, GameController.Get.GamePlayers[i]);
+						break;
+					}
+				}
+			}
 
 			resultCenter.PlayerStats.CheckFriend();
 		}
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
 
-		goStageStars.SetActive(GameData.IsMainStage);
+		goStageStars.SetActive(GameData.IsMainStage && !StageTable.Ins.GetByID(GameData.StageID).ChallengeOnlyOnce);
+		Invoke("showFinish", GameConst.GameEndWait);
+//		if(GameData.IsPVP) {
+//			ShowMissionBoard ();
+//		}else
 
-		if(GameData.IsPVP) {
-			ShowMissionBoard ();
-		}else
+		//PVP已經有另外上傳
+		if(!GameData.IsPVP)
 			stageRewardStart(GameData.StageID, record.Score1, record.Score2);
 	}
 	//Click EventSho
@@ -543,15 +564,17 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	public void OnShowHomeStats () {resultCenter.ShowHomeStats(showTeamStats);}
-	public void OnShowAwayStats () {resultCenter.ShowAwayStats(showTeamStats);}
+//	public void OnShowHomeStats () {resultCenter.ShowHomeStats(showTeamStats);}
+//	public void OnShowAwayStats () {resultCenter.ShowAwayStats(showTeamStats);}
 
+	//下一步
 	public void OnNext (GameObject go) {
 		uiStatsNext.gameObject.SetActive(false);
 		if (GameController.Visible && GameData.IsPVP) {
-			backToLobby();
-		}
-		else if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
+			animatorAward.SetTrigger("PVPView");
+			Invoke("showAward", 1);
+		} else 
+		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
 			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
 				UIShow(false);
 				GameData.StageID = GameController.Get.StageData.ID + 1;
@@ -565,10 +588,13 @@ public class UIGameResult : UIBase {
 				if(resultAwardParam.IsAwardExtra) {
 					animatorAward.SetTrigger("AwardViewStart");
 					Invoke("showAward", 1);
+					if(GameData.DExpData.ContainsKey(beforePlayer.Lv) && GameData.DExpData.ContainsKey(afterPlayer.Lv)) 
+						resultExpView.SetValue(beforePlayer.Exp, GameData.DExpData[beforePlayer.Lv].LvUpExp, GameData.DExpData[afterPlayer.Lv].LvUpExp, resultAwardParam.TempExp);
 				} else {
 //					if(resultExpView.IsRunFin && !isShow3Dbasket) {
 //						ExpRunFinishDelay();
 //					} else 
+
 					if(isShow3Dbasket) {
 						show3DBasket();
 						isShow3Dbasket = false;
@@ -619,17 +645,20 @@ public class UIGameResult : UIBase {
         }
 		else if (GameData.IsPVP)
 		{
-			if(!pvpValue.IsShowRank) {
-				pvpNext();
-			} else {
-				UIShow(false);
-				if(afterTeam.PVPLv != beforeTeam.PVPLv) {
-					UILevelUp.Get.ShowRank(afterTeam.PVPLv, beforeTeam.PVPLv);
-				} else {
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-					UILoading.OpenUI = UILoading.OpenPVPUI;
-				}
-			}
+//			if(!pvpValue.IsShowRank) {
+//				pvpNext();
+//			} else {
+//				UIShow(false);
+//				if(afterTeam.PVPLv != beforeTeam.PVPLv) {
+//					UILevelUp.Get.ShowRank(afterTeam.PVPLv, beforeTeam.PVPLv);
+//				} else {
+//					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//					UILoading.OpenUI = UILoading.OpenPVPUI;
+//				}
+//			}
+
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			UILoading.OpenUI = UILoading.OpenPVPUI;
 		}
         else
 		{
@@ -638,10 +667,10 @@ public class UIGameResult : UIBase {
         }
 	}
 
-	public void ShowMissionBoard () {
-		hintValue.SetHintCount(UIStageHintManager.UpdateHintResult(GameData.StageID, ref hintValue.WinTargets));
-		Invoke("showFinish", GameConst.GameEndWait);
-	}
+//	public void ShowMissionBoard () {
+//		hintValue.SetHintCount(UIStageHintManager.UpdateHintResult(GameData.StageID, ref hintValue.WinTargets));
+//		Invoke("showFinish", GameConst.GameEndWait);
+//	}
 
 	public void SetPVPData (TPVPResult before, TPVPResult after) {
 		resultAwardParam.SetPVPAward(addItemToAward(0, new TItemData(), true, true), Mathf.Abs(after.PVPCoin - before.PVPCoin));
@@ -668,87 +697,144 @@ public class UIGameResult : UIBase {
 	}
 	/*
 	 * 1.PVE + 三選一
-	 * 顯示競賽目標 ＋下一步
-	 * 出現獲得獎賞（隔0.25秒出現一個）
-	 * 跑經驗值
+	 * 自動跑球員資料（隔1秒出現NEXT）
+	 * 出現獲得獎賞（隔0.25秒出現一個）跟 跑經驗值結束後自動跑下一步
 	 * 出現三選一
-	 * 點選獎賞之後出現結束
+	 * 點選獎賞之後
+	 * 出現結束
 	 * 
 	 * 2.PVE 
-	 * 顯示競賽目標 ＋下一步
-	 * 出現獲得獎賞（隔0.25秒出現一個）
-	 * 跑經驗值之後出現結束
+	 * 自動跑球員資料（隔1秒出現NEXT）
+	 * 出現獲得獎賞（隔0.25秒出現一個）跟 跑經驗值結束後自動跑下一步
+	 * 出現結束
 	 * 
 	 * 3.PVP
-	 * 顯示競賽目標 ＋下一步
-	 * 出現獲得獎賞（隔0.25秒出現一個）
-	 * 跑PVP經驗值之後出現結束
+	 * 自動跑球員資料（隔1秒出現NEXT）
+	 * 出現獲得獎賞（隔0.25秒出現一個）跟 跑PVP經驗值結束後自動跑下一步
+	 * 出現結束
 	*/
 
 	private void showFinish () {
 		uiStatsNext.SetActive (true); 
-		hintValue.InitFinish();
+//		hintValue.InitFinish();
 	}
-
+	//點擊第一次NEXT跑這一步
+	//跑得到的物品跟經驗值
 	private void showAward () {
-		if(resultAwardParam.IsAwardEmpty)
-			ShowBonusItem ();
+//		if(resultAwardParam.IsAwardEmpty)
+//			ShowBonusItem ();
+//		else 
+		resultAwardParam.ShowAward();
+		if(GameData.IsPVP)
+			pvpValue.IsShowRank = true;
 		else 
-			resultAwardParam.ShowAward();
+			resultExpView.IsShowExp = true;
+		
+
+		Invoke("showBonus", 1.5f);
 	}
 
-	public void ShowBonusItem () {
+	//假如有新卡Show
+	public void ShowNewCard () {
 		if(GetCardLists.Count > 0) {
 			showSkillInfo(GetCardLists[0]);
 			GetCardLists.RemoveAt(0);
-		} else {
-			animatorAward.SetTrigger("EXPViewStart");
-			if(GameData.DExpData.ContainsKey(beforePlayer.Lv) && GameData.DExpData.ContainsKey(afterPlayer.Lv)) 
-				resultExpView.SetValue(beforePlayer.Exp, GameData.DExpData[beforePlayer.Lv].LvUpExp, GameData.DExpData[afterPlayer.Lv].LvUpExp, resultAwardParam.TempExp);
-			
-			Invoke("ShowExpRun", 0.5f);
 		}
 	}
 
-	public void ShowExpRun () {
-		resultExpView.IsShowExp = true;
+	private void showSkillInfo (int itemID) {
+		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
+		UIGetSkillCard.Get.ShowView(itemID);
 	}
 
-	public void ExpRunFinish () {
-		moveBonusItem ();
-//		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
-//			uiStatsNext.gameObject.SetActive(true);
-//		else
-//			ShowReturnButton();
-	}
-
-	public void ExpRunFinishDelay () {
+	//跑完物品跟經驗值
+	//如果有三選一就跑AwardViewDown
+	//如果沒有就出現Return
+	private void showBonus () {
 		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
-			moveBonusItem ();
+			movetoBonusItem ();
 		else 
 			ShowReturnButton();
 	}
 
-	private void pvpNext () {
-		animatorAward.SetTrigger ("AwardViewStart");
-		Invoke("showAward", 1);
-		Invoke("pvpDown", 1.5f);
-	}
-
-	private void pvpDown () {
+	private void movetoBonusItem () {
+		IsShowFirstCard = false;
 		animatorAward.SetTrigger ("AwardViewDown");
-		Invoke("pvpShowRank", 0.5f);
+		Invoke("showLuckyThree", 0.5f);
+//		if(resultAwardParam.IsHaveBonus)
+//		else 
+//			ShowReturnButton ();
 	}
 
-	private void pvpShowRank() {
-		animatorAward.SetTrigger("PVPView");
-		Invoke("showRank", 1f);
+	private void showLuckyThree () {
+		setThreeVisible (true);
+		isShow3Dbasket = true;
+		uiStatsNext.SetActive(true);
 	}
 
-	private void showRank () {
-		pvpValue.IsShowRank = true;
-		uiAwardSkip.SetActive(true);
+	private void setThreeVisible (bool isShow) {
+		if(resultAwardParam.IsHaveBonus) 
+			resultThree.SetThreeVisible(isShow);
 	}
+
+	//出現三選一
+	private void show3DBasket () {
+		setThreeVisible (false);
+		UI3DGameResult.UIShow(true);
+		Invoke("showChooseLucky", 3);
+	}
+
+//	public void ShowBonusItem () {
+//		if(GetCardLists.Count > 0) {
+//			showSkillInfo(GetCardLists[0]);
+//			GetCardLists.RemoveAt(0);
+//		} else {
+//			if(GameData.DExpData.ContainsKey(beforePlayer.Lv) && GameData.DExpData.ContainsKey(afterPlayer.Lv)) 
+//				resultExpView.SetValue(beforePlayer.Exp, GameData.DExpData[beforePlayer.Lv].LvUpExp, GameData.DExpData[afterPlayer.Lv].LvUpExp, resultAwardParam.TempExp);
+//			resultExpView.IsShowExp = true;
+//			Invoke("ShowExpRun", 0.5f);
+//		}
+//	}
+
+//	public void ShowExpRun () {
+//		resultExpView.IsShowExp = true;
+//	}
+
+//	public void ExpRunFinish () {
+//		moveBonusItem ();
+//		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
+//			uiStatsNext.gameObject.SetActive(true);
+//		else
+//			ShowReturnButton();
+//	}
+
+//	public void ExpRunFinishDelay () {
+//		if(resultAwardParam.IsHaveBonus && resultThree.ChooseCount == 0)
+//			moveBonusItem ();
+//		else 
+//			ShowReturnButton();
+//	}
+
+//	private void pvpNext () {
+//		animatorAward.SetTrigger ("AwardViewStart");
+//		Invoke("showAward", 1);
+//		Invoke("pvpDown", 1.5f);
+//	}
+//
+//	private void pvpDown () {
+//		animatorAward.SetTrigger ("AwardViewDown");
+//		Invoke("pvpShowRank", 0.5f);
+//	}
+//
+//	private void pvpShowRank() {
+//		animatorAward.SetTrigger("PVPView");
+//		Invoke("showRank", 1f);
+//	}
+//
+//	private void showRank () {
+//		pvpValue.IsShowRank = true;
+//		uiAwardSkip.SetActive(true);
+//	}
 
 	private void init () {
 		if(resultAwardParam.IsHaveBonus) {
@@ -771,13 +857,9 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private void finishStageHint (){resultCenter.PlayAnimation("Down");}
-	private void showTeamStats () {resultCenter.PlayAnimation("TeamStats");}
+//	private void finishStageHint (){resultCenter.PlayAnimation("Down");}
+//	private void showTeamStats () {resultCenter.PlayAnimation("TeamStats");}
 
-	private void setThreeVisible (bool isShow) {
-		if(resultAwardParam.IsHaveBonus) 
-			resultThree.SetThreeVisible(isShow);
-	}
 
 	public bool ChooseLucky(int index) {
 		if(isCanChooseLucky) {
@@ -892,32 +974,6 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private void showSkillInfo (int itemID) {
-		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
-		UIGetSkillCard.Get.ShowView(itemID);
-	}
-
-	private void moveBonusItem () {
-		IsShowFirstCard = false;
-		animatorAward.SetTrigger ("AwardViewDown");
-		if(resultAwardParam.IsHaveBonus)
-			Invoke("showLuckyThree", 0.5f);
-		else 
-			ShowReturnButton ();
-	}
-
-	private void showLuckyThree () {
-		setThreeVisible (true);
-		isShow3Dbasket = true;
-		uiStatsNext.SetActive(true);
-	}
-
-	private void show3DBasket () {
-		setThreeVisible (false);
-		UI3DGameResult.UIShow(true);
-		Invoke("showChooseLucky",3);
-	}
-
 	private void showChooseLucky () {
 		isCanChooseLucky = true;
 		resultThree.ClickTipVisible = true;
@@ -936,7 +992,7 @@ public class UIGameResult : UIBase {
     /// <param name="lostPoints"></param>
     private void stageRewardStart(int stageID, int points, int lostPoints)
 	{
-	    ShowMissionBoard();
+//	    ShowMissionBoard();
 		beforePlayer = GameData.Team.Player;
 	    if(!string.IsNullOrEmpty(GameData.Team.Identifier))
 	    {
@@ -968,6 +1024,7 @@ public class UIGameResult : UIBase {
 						}
 					}
 				}
+
 				afterPlayer = reward.Player;
 				if(beforePlayer.Lv != reward.Player.Lv) {
 					isLevelUp = true;
