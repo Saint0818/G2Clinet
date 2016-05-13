@@ -134,6 +134,7 @@ public class UISelectRole : UIBase {
 		labelPVPWin = GameObject.Find (UIName + "/BottomRight/Win/Label").GetComponent<UILabel>();
 		labelPVPLose = GameObject.Find (UIName + "/BottomRight/Lose/Label").GetComponent<UILabel>();
 		labelPVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn/PriceLabel").GetComponent<UILabel>();
+        spritePVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn/Icon").GetComponent<UISprite>();
         labelMyPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel1").GetComponent<UILabel>();
 		labelOpponentPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel0").GetComponent<UILabel>();
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
