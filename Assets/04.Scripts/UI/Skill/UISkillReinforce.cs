@@ -375,7 +375,6 @@ public class UISkillReinforce : UIBase {
 		passiveSkillCard.InitReinforce(obj, skillCardIndex);
 		passiveSkillCard.UpdateViewReinforce(skill);
 
-//		UIEventListener.Get(obj).onClick = ChooseItem;
 		UIButton btn = obj.GetComponent<UIButton>();
 		SetBtnFun(ref btn, ChooseItemCallback);
 
@@ -618,7 +617,7 @@ public class UISkillReinforce : UIBase {
 		mOldSkill = mSkill;
 		isRunExp = false;
 		isNeedShowLevelUp = false;
-		addInterVal = 5;
+		addInterVal = 1;
 		skillCard.HideAllGetStar();
 		skillCard.HideAllPreviewStar();
 		oldCardLv = skill.Lv;
@@ -733,19 +732,14 @@ public class UISkillReinforce : UIBase {
 	private void runExp () {
 		if(isRunExp) {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID) && newCardLv >= oldCardLv && reinforceExp > 0) {
-				if( oldCardLv <= GameData.DSkillData[mSkill.ID].MaxStar) {
+				if(oldCardLv <= GameData.DSkillData[mSkill.ID].MaxStar) {
 					expView.SetProgressView(mSkill.ID, 
-						oldCardLv, 
-						originalExp, 
-						recordGreenExp,
-						reinforceExp);
+											oldCardLv, 
+											originalExp, 
+											recordGreenExp,
+											reinforceExp);
 					
-					if(reinforceExp > 500) 
-						addInterVal = 30;
-					else if(reinforceExp > 100)
-						addInterVal = 10;
-					else 
-						addInterVal = 5;
+					addInterVal = 1;
 					
 					if(reinforceExp >= addInterVal)
 						reinforceExp -= addInterVal;
@@ -764,11 +758,12 @@ public class UISkillReinforce : UIBase {
 					}
 					
 					if(reinforceExp <= 0) {
-						expView.SetProgressView(mSkill.ID, 
-							oldCardLv, 
-							recordGreenExp, 
-							recordGreenExp,
-							GameData.DSkillData[mSkill.ID].GetUpgradeExp(oldCardLv));
+						expView.UpdateView(mSkill);
+//						expView.SetProgressView(mSkill.ID, 
+//												oldCardLv, 
+//												recordGreenExp, 
+//												recordGreenExp,
+//												GameData.DSkillData[mSkill.ID].GetUpgradeExp(oldCardLv));
 						stopRunExp ();
 					}
 				} else {
@@ -800,7 +795,7 @@ public class UISkillReinforce : UIBase {
 	private void stopRunExp () {
 		reinforceExp = 0;
 		isRunExp = false;
-		finishExp ();
+		Invoke("finishExp", 1);
 	}
 
 	private void delayRunExp () {
