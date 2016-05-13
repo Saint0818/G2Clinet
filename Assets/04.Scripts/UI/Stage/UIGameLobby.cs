@@ -21,11 +21,10 @@ public class UIGameLobby : UIBase
 
     private UIGameLobbyMain mMain;
 
-	public bool Visible {
-		get {
-			return instance.gameObject.activeSelf;
-		}
-	}
+    public bool Visible
+    {
+        get { return instance.gameObject.activeSelf; }
+    }
 
     [UsedImplicitly]
     private void Awake()
@@ -35,6 +34,8 @@ public class UIGameLobby : UIBase
         mMain.MainStageListener += GoToMainStage;
         mMain.PVPListener += GoToPvp;
         mMain.InstanceListener += GoToInstance;
+        mMain.PvpUnlockButton.Event = new EventDelegate(GoToPvp);
+        mMain.InstanceUnlockButton.Event = new EventDelegate(GoToInstance);
     }
 
     public void Show()
@@ -67,27 +68,16 @@ public class UIGameLobby : UIBase
 
     public void GoToPvp()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.PVP))
-        {
-            UIPVP.UIShow(true);
+        UIPVP.UIShow(true);
 
-            UIMainLobby.Get.Hide(false);
-            UIResource.Get.Show(UIResource.EMode.PVP);
+        UIMainLobby.Get.Hide(false);
+        UIResource.Get.Show(UIResource.EMode.PVP);
 
-            Hide();
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.PVP)), LimitTable.Ins.GetLv(EOpenID.PVP)), Color.black);
+        Hide();
     }
 
     public void GoToInstance()
     {
-        if(!GameData.IsOpenUIEnable(EOpenID.Instance))
-        {
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Instance)), LimitTable.Ins.GetLv(EOpenID.Instance)), Color.black);
-            return;
-        }
-
         if(!UIInstanceHelper.IsMainStagePass(1))
         {
             UIHint.Get.ShowHint(TextConst.S(100009), Color.black);
@@ -107,7 +97,7 @@ public class UIGameLobby : UIBase
                 UI2D.UIShow(true);
                 instance = LoadUI(UIName) as UIGameLobby;
             }
-			
+
             return instance;
         }
     }

@@ -438,6 +438,7 @@ public struct TExpView {
 				NextLevelLabel.text = string.Format(TextConst.S(7407), GameData.DSkillData[skill.ID].GetUpgradeExp(skill.Lv) - currentExp);
 			}
 			GetLevelLabel.text = string.Format(TextConst.S(7408), 0);
+			BarFullFX.SetActive(false);
 		}
 	}
 

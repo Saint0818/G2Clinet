@@ -511,7 +511,7 @@ public class UIMail : UIBase {
 		subPages [1] = new MailSubPageMail (UIName, 1, 1);
 		subPages [2] = new MailSubPageMail (UIName, 2, 2);
 
-		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn", OnOpenDailyLogin);
+//        SetBtnFun(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn", OnOpenDailyLogin);
 		changeBtn = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/ChangeBtn").GetComponent<UIButton>();
 		SetBtnFun(UIName + "/Window/Center/Group0/Tabs/ChangeBtn", OnGoForward);
 
@@ -519,6 +519,7 @@ public class UIMail : UIBase {
 		itemBuild = Resources.Load(UIPrefabPath.ItemGymEngage) as GameObject;
 		//decoScrollView = GameObject.Find (UIName + "/Window/Center/Group1/BuildingView/ScrollView").GetComponent<UIScrollView>();
 		unlock = GameObject.Find(UIName + "/Window/Center/Group0/Tabs/DailyLoginBtn").GetComponent<UIUnlockButton>();
+	    unlock.Event = new EventDelegate(onOpenDailyLogin);
 		//
 		GameObject tmpView = Resources.Load (UIPrefabPath.UIView) as GameObject;
 		uiView = Instantiate(tmpView) as GameObject;
@@ -573,12 +574,12 @@ public class UIMail : UIBase {
 		}
 
 	}
-	private void OnOpenDailyLogin()
-	{
-		UIMail.SetFocus (false);
-		UIDailyLogin.Get.Show ();
-	}
 
+	private void onOpenDailyLogin()
+	{
+	    SetFocus(false);
+	    UIDailyLogin.Get.Show();
+	}
 
 	private void OnGoForward()
 	{

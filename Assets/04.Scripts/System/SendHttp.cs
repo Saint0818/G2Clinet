@@ -148,6 +148,7 @@ public static class URLConst {
     public const string GMResetStage = "gmresetstage";
     public const string GMResetStageStars = "gmresetstagestars";
     public const string GMSetStageStar = "gmsetstagestar";
+    public const string GMResetStageStarReward = "gmresetstagestarreward";
     public const string GMResetDailyLoginNums = "gmresetdailyloginnums";
     public const string GMResetReceivedDailyLoginNums = "gmresetreceiveddailyloginnums";
     public const string GMSetDailyLoginNums = "gmsetdailyloginnums";

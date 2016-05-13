@@ -40,6 +40,7 @@ public class UIMainLobbyView : MonoBehaviour
     public UIUnlockButton SocialButton;
     public UIUnlockButton MissionButton;
 	public UIUnlockButton MallButton;
+	public UIUnlockButton AlbumButton;
 
 	public TGymQueueObj[] GymQueueObj = new TGymQueueObj[3];
 	public GameObject QueueButton;

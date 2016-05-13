@@ -734,7 +734,21 @@
     },
     {
         "id": 1511,
-        "uipath": "11.第三招主動技"
+        "uipath": "11.第三招主動技",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "You can activate this function at LV{0}."
+    },
+    {
+        "id": 1512,
+        "explain": "解鎖簽到",
+        "uipath": "12.每日登入",
+        "tw": "LV{0}時可開啟此功能，每日登入可領取獎勵"
+    },
+    {
+        "id": 1512,
+        "explain": "解鎖簽到",
+        "uipath": "12.每日登入",
+        "tw": "LV{0}時可開啟此功能，每日登入可領取獎勵"
     },
     {
         "id": 1521,
@@ -824,11 +838,15 @@
     },
     {
         "id": 1558,
-        "uipath": "58.Calendar = 8,"
+        "uipath": "58.Calendar = 8,",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "You can activate this function at LV{0}."
     },
     {
         "id": 1559,
-        "uipath": "59.Mail = 9"
+        "uipath": "59.Mail = 9",
+        "tw": "LV{0}時可開啟此功能",
+        "en": "You can activate this function at LV{0}."
     },
     {
         "id": 1600,
@@ -942,7 +960,9 @@
     {
         "id": 1650,
         "explain": "50.建築序列2 ",
-        "uipath": "50.建築序列2 "
+        "uipath": "50.建築序列2 ",
+        "tw": "成功解鎖[FFDD33]建築序列[-] ",
+        "en": "Successfully unlocked [FFDD33]New Queue[-]  "
     },
     {
         "id": 1651,
@@ -3613,8 +3633,8 @@
     {
         "id": 9304,
         "uipath": "Awards/AwardLabel",
-        "tw": "— 有機率獲得 —",
-        "en": "— Possible Rewards — "
+        "tw": "機率獲得",
+        "en": "Possible Rewards"
     },
     {
         "id": 9305,
@@ -3685,7 +3705,7 @@
     {
         "id": 9320,
         "tw": "得分達到 [33FFDD]{0}[-] 分",
-        "en": "SCORE YOU MUST GET [33FFDD]{0}[-] POINTS"
+        "en": "GET [33FFDD]{0}[-] POINTS"
     },
     {
         "id": 9321,
@@ -3695,7 +3715,7 @@
     {
         "id": 9322,
         "tw": "勝分達到 [33FFDD]{0}[-] 分",
-        "en": "YOU MUST BEAT OPPONENT BY MORE THAN [33FFDD]{0}[-] POINTS"
+        "en": "BEAT OPPONENT BY MORE THAN [33FFDD]{0}[-] POINTS"
     },
     {
         "id": 9391,
@@ -4385,6 +4405,21 @@
         "uipath": "ButtonAttack-Push",
         "tw": "推 人",
         "en": "PUSH"
+    },
+    {
+        "id": 10116,
+        "tw": "下一關",
+        "en": "Next Stage"
+    },
+    {
+        "id": 10117,
+        "tw": "再次挑戰",
+        "en": "Play Again"
+    },
+    {
+        "id": 10118,
+        "tw": "離開",
+        "en": "Exit"
     },
     {
         "id": 10201,

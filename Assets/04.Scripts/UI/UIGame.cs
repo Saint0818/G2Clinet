@@ -115,6 +115,7 @@ public class UIGame : UIBase
 	private GameObject goBottom;
 	private GameObject uiSpeed;
 	private UILabel labelSpeed;
+	private GameObject goSpeedOpen;
 	private GameObject goAISpeed;
 
     //Right
@@ -388,7 +389,8 @@ public class UIGame : UIBase
 		goBottom =GameObject.Find(UIName + "/Bottom"); 
 		uiSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed");
 		labelSpeed = GameObject.Find(UIName + "/Bottom/ButtonSpeed/SpeedLabel").GetComponent<UILabel>();
-		goAISpeed =  GameObject.Find(UIName + "/Bottom/ButtonAI/SpeedLabel");
+		goSpeedOpen = GameObject.Find(UIName + "/Bottom/ButtonSpeed/SpeedOpen");
+		goAISpeed =  GameObject.Find(UIName + "/Bottom/ButtonAI/AIOpen");
 
         //Right
 		uiPlayerLocation = GameObject.Find(UIName + "/Right");
@@ -476,6 +478,7 @@ public class UIGame : UIBase
         uiAlleyoopB.SetActive(false);
         viewTopLeft.SetActive(false);
         uiSpriteFull.SetActive(false);
+
         if (PlayerMe && PlayerMe.Attribute.IsHaveActiveSkill)
         {
             for (int i = 0; i < PlayerMe.Attribute.ActiveSkills.Count; i++)
@@ -483,10 +486,20 @@ public class UIGame : UIBase
 				uiButtonSkill[i].SetActive((GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) && (i < PlayerMe.Attribute.ActiveSkills.Count));
             }
         }
+
+        initPassUI();
         ChangeControl(true);
         showViewForceBar(true);
 		ShowSkillEnableUI(false);
 		refreshSpeedLabel ();
+    }
+
+    private void initPassUI() {
+        if (GameController.Get.GamePlayers.Count < 3)
+            viewPass.SetActive(false);
+        else 
+        if (GameController.Get.GamePlayers.Count < 5)
+            uiPassB.SetActive(false);
     }
 
     public void InitTutorialUI()
@@ -524,18 +537,24 @@ public class UIGame : UIBase
         else
         {
             uiLimitTime.SetActive(true);
-            labelLimitTime.text = GameController.Get.GameWinTime.ToString();
+			int minute = (int)(GameController.Get.GameWinTime / 60f);
+			int second = (int)(GameController.Get.GameWinTime % 60f);
+			labelLimitTime.text = minute.ToString() + ":" + second.ToString();
         }
     }
 
     private void setGameTime()
-    {
-        int minute = (int)(GameController.Get.GameWinTime / 60f);
-        int second = (int)(GameController.Get.GameWinTime % 60f);
-        if (second < 10)
-            labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
-        else
+	{
+		int minute = (int)(GameController.Get.GameWinTime / 60f);
+		int second = (int)(GameController.Get.GameWinTime % 60f);
+
+		if (GameController.Get.GameWinTime < 10)
+			labelLimitTime.text = string.Format("{0:F}", GameController.Get.GameWinTime);
+		else if (second < 10)
+			labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
+		else 
             labelLimitTime.text = minute.ToString() + ":" + second.ToString();
+		
     }
 
     public void ResetRange()
@@ -867,6 +886,7 @@ public class UIGame : UIBase
     }
 
 	private void refreshSpeedLabel () {
+		goSpeedOpen.SetActive((Time.timeScale != 1));
 		labelSpeed.text = "X" + Time.timeScale.ToString();
 	}
 
@@ -1194,6 +1214,8 @@ public class UIGame : UIBase
                 }
                 break;
         }
+
+        initPassUI();
     }
 
     public void UIMaskState(EUIControl controllerState)
@@ -1502,6 +1524,8 @@ public class UIGame : UIBase
                         uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
                     }
                 }
+
+                initPassUI();
                 break;
             case EUISituation.Start:
 //                AudioMgr.Get.PlaySound(SoundType.SD_BattleStart_Btn);

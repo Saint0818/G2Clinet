@@ -1,12 +1,26 @@
 #if UNITY_5 && (!UNITY_5_0 && !UNITY_5_1)
 #define UNITY_5_2_AND_GREATER
 #endif
+
 #if UNITY_5 && (!UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2)
 #define UNITY_5_3_AND_GREATER
 #endif
 
+#if UNITY_4 || UNITY_5_0 || UNITY_5_1
+#define UNITY_5_1_AND_LESSER
+#endif
+
+#if UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#define UNITY_5_2_AND_LESSER
+#endif
+
+#if UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3
+#define UNITY_5_3_AND_LESSER
+#endif
+
 using System.Collections.Generic;
 using System.Linq;
+using DldUtil;
 using UnityEditor;
 using UnityEngine;
 
@@ -224,7 +238,10 @@ public static class UnityBuildSettingsUtility
 
 		settings.ConnectProfiler = EditorUserBuildSettings.connectProfiler;
 		
-#if UNITY_5_2_AND_GREATER
+#if UNITY_5_3_AND_GREATER
+		// this setting actually started appearing in Unity 5.2.2 (it is not present in 5.2.1)
+		// but our script compilation defines can't detect the patch number in the version,
+		// so we have no choice but to restrict this to 5.3
 		settings.ForceOptimizeScriptCompilation = EditorUserBuildSettings.forceOptimizeScriptCompilation;
 #endif
 
@@ -318,7 +335,7 @@ public static class UnityBuildSettingsUtility
 		}
 		settings.AspectRatiosAllowed = aspectRatiosList.ToArray();
 
-#if UNITY_5_3_AND_GREATER
+#if UNITY_5_2_AND_GREATER
 		settings.GraphicsAPIsUsed = PlayerSettings.GetGraphicsAPIs(EditorUserBuildSettings.activeBuildTarget).Select(type => type.ToString()).ToArray();
 #endif
 
@@ -342,17 +359,31 @@ public static class UnityBuildSettingsUtility
 		settings.WebPlayerEnableStreaming = EditorUserBuildSettings.webPlayerStreamed;
 		settings.WebPlayerDeployOffline = EditorUserBuildSettings.webPlayerOfflineDeployment;
 
-#if UNITY_5_3
+#if UNITY_5_3_AND_GREATER
 		settings.WebPlayerFirstStreamedLevelWithResources = 0;
 #else
 		settings.WebPlayerFirstStreamedLevelWithResources = PlayerSettings.firstStreamedLevelWithResources;
 #endif
 
-#if UNITY_5
+#if UNITY_5_3_AND_LESSER
 		settings.WebGLOptimizationLevel = EditorUserBuildSettings.webGLOptimizationLevel.ToString();
 #endif
 	}
 
+	public static string GetReadableWebGLOptimizationLevel(string optimizationLevelCode)
+	{
+		switch(optimizationLevelCode)
+		{
+			case "1":
+				return "1: Slow (fast builds)";
+			case "2":
+				return "2: Fast";
+			case "3":
+				return "3: Fastest (very slow builds)";
+		}
+
+		return optimizationLevelCode;
+	}
 
 
 	public static void PopulateStandaloneSettings(UnityBuildSettings settings)
@@ -378,7 +409,7 @@ public static class UnityBuildSettingsUtility
 
 		// windows only build settings
 		// ---------------------------------------------------------------
-#if !UNITY_5_3
+#if UNITY_5_1_AND_LESSER
 		settings.WinUseDirect3D11IfAvailable = PlayerSettings.useDirect3D11;
 #endif
 		settings.WinDirect3D9FullscreenModeUsed = PlayerSettings.d3d9FullscreenMode.ToString();
@@ -386,7 +417,9 @@ public static class UnityBuildSettingsUtility
 		settings.WinDirect3D11FullscreenModeUsed = PlayerSettings.d3d11FullscreenMode.ToString();
 #endif
 
+#if UNITY_5_3_AND_LESSER
 		settings.StandaloneUseStereoscopic3d = PlayerSettings.stereoscopic3D;
+#endif
 
 		
 
@@ -449,7 +482,7 @@ public static class UnityBuildSettingsUtility
 
 		settings.iOSTargetDevice = PlayerSettings.iOS.targetDevice.ToString();
 
-#if UNITY_5_3
+#if UNITY_5_3_AND_GREATER
 		// not sure what the equivalent is for PlayerSettings.iOS.targetResolution in Unity 5.3
 		// Unity 5.3 has a Screen.resolutions but I don't know which of those in the array would be the iOS target resolution
 #else
@@ -473,11 +506,11 @@ public static class UnityBuildSettingsUtility
 #if UNITY_5
 		settings.iOSLogObjCUncaughtExceptions = PlayerSettings.logObjCUncaughtExceptions;
 #endif
-
-#if UNITY_5_3
-		settings.iOSTargetGraphics = string.Join(",", PlayerSettings.GetGraphicsAPIs(BuildTarget.iOS).Select(type => type.ToString()).ToArray());
-#else
+		
+#if UNITY_5_1_AND_LESSER
 		settings.iOSTargetGraphics = PlayerSettings.targetIOSGraphics.ToString();
+#else
+		settings.iOSTargetGraphics = string.Join(",", PlayerSettings.GetGraphicsAPIs(BuildTarget.iOS).Select(type => type.ToString()).ToArray());
 #endif
 
 		// Android only build settings
@@ -522,7 +555,7 @@ public static class UnityBuildSettingsUtility
 		settings.AndroidKeystoreName = PlayerSettings.Android.keystoreName;
 		
 
-
+#if UNITY_5_3_AND_LESSER // blackberry build option no longer in Unity 5.4
 		// BlackBerry only build settings
 		// ---------------------------------------------------------------
 
@@ -545,6 +578,7 @@ public static class UnityBuildSettingsUtility
 		settings.BlackBerryHasGpsPermissions = PlayerSettings.BlackBerry.HasGPSPermissions();
 		settings.BlackBerryHasIdPermissions = PlayerSettings.BlackBerry.HasIdentificationPermissions();
 		settings.BlackBerryHasSharedPermissions = PlayerSettings.BlackBerry.HasSharedPermissions();
+#endif
 	}
 
 
@@ -678,14 +712,18 @@ public static class UnityBuildSettingsUtility
 		settings.PSVUpgradable = PlayerSettings.PSVita.upgradable;
 		settings.PSVTvBootMode = PlayerSettings.PSVita.tvBootMode.ToString();
 		settings.PSVAcquireBgm = PlayerSettings.PSVita.acquireBGM;
+#if UNITY_5_2_AND_LESSER
 		settings.PSVAllowTwitterDialog = PlayerSettings.PSVita.AllowTwitterDialog;
+#endif
 
 		settings.PSVMediaCapacity = PlayerSettings.PSVita.mediaCapacity.ToString();
 		settings.PSVStorageType = PlayerSettings.PSVita.storageType.ToString();
 		settings.PSVTvDisableEmu = PlayerSettings.PSVita.tvDisableEmu;
 		settings.PSVNpSupportGbmOrGjp = PlayerSettings.PSVita.npSupportGBMorGJP;
 		settings.PSVPowerMode = PlayerSettings.PSVita.powerMode.ToString();
+#if UNITY_5_2_AND_LESSER
 		settings.PSVUseLibLocation = PlayerSettings.PSVita.useLibLocation;
+#endif
 	
 		settings.PSVHealthWarning = PlayerSettings.PSVita.healthWarning;
 		settings.PSVEnterButtonAssignment = PlayerSettings.PSVita.enterButtonAssignment.ToString();

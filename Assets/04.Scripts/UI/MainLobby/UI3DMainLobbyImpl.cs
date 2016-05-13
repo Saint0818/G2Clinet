@@ -29,7 +29,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
     private const int BuildCount = 10;
     public GameObject[] BuildPos = new GameObject[BuildCount];
     public GameObject[] Builds = new GameObject[BuildCount];
-//    private UIButton[] Btns = new UIButton[BuildCount];
+    private UIButton[] Btns = new UIButton[BuildCount - 1]; //扣掉０ :Player
 	private UIButton btnPlayer;
     private GameObject advertisementPic;
     private GameObject mAvatarPlayer;
@@ -84,13 +84,16 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 		btnPlayer = BuildPos[0].transform.parent.GetComponent<UIButton>();
 		if(btnPlayer)
 			btnPlayer.onClick.Add(new EventDelegate(doPlayerAni));
-//        for (int i = 0; i < BuildPos.Length; i++)
-//        {
-//            Btns[i] = BuildPos[i].transform.parent.GetComponent<UIButton>();
-//            BuildPos[i].transform.parent.name = i.ToString();
-//            if (Btns[i])
-//                Btns[i].onClick.Add(new EventDelegate(OnSelect));
-//        }
+		
+        for (int i = 0; i < BuildPos.Length; i++)
+        {
+			BuildPos[i].transform.parent.name = i.ToString();
+			if(i > 0) {
+				Btns[i - 1] = BuildPos[i].transform.parent.GetComponent<UIButton>();
+				if (Btns[i - 1])
+					Btns[i - 1].onClick.Add(new EventDelegate(OnClickBuild));
+			}
+        }
     }
 
 	private void doPlayerAni () {
@@ -115,6 +118,14 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				doPlayerAni ();
 		}
     }
+
+	public void OnClickBuild () {
+		int result = 0;
+		if(int.TryParse(UIButton.current.name, out result)) {
+			if (UIGym.Visible)
+				UIGym.Get.On3DClickBuild(result - 1);
+		}
+	}
 
 	public void OnSelect(int buildIndex, bool manualCtrlUIAnim=false)
     {

@@ -12,12 +12,12 @@ public class TStageData
 	/// PVP ID 的範圍.
 	/// </summary>
 	public const int MinPVPStageID = 10;
-	public const int MaxPVPStageID = 100;
+	public const int MaxPVPStageID = 50;
 
     /// <summary>
     /// 主線關卡 ID 的範圍.
     /// </summary>
-    public const int MinMainStageID = 101;
+    public const int MinMainStageID = 99;
     public const int MaxMainStageID = 2000;
     public static bool IsMainStage(int stageID)
     {

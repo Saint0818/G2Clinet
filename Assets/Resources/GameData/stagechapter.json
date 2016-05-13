@@ -2,6 +2,21 @@
     {
         "id": 1,
         "chapter": 1,
+        "nametw": "基礎練習",
+        "namecn": "基础练习",
+        "nameen": "Basic Practice",
+        "namejp": "Basic Practice",
+        "explaintw": "在成為偉大球員前，必先把基礎打好。",
+        "explaincn": "在成为伟大球员前，必先把基础打好。",
+        "explainen": "Before becoming a great player you must learn basic skills well first."
+    },
+    {
+        "id": 2,
+        "chapter": 2,
+        "starnum1": 1,
+        "starnum2": 3,
+        "starreward1": 17001,
+        "starreward2": 18001,
         "nametw": "夢想就是成為星際球王！\t\t",
         "namecn": "從天而降的巨大使命",
         "nameen": "Heaven great mission",
@@ -12,8 +27,8 @@
         "explainjp": "物語が始まります"
     },
     {
-        "id": 2,
-        "chapter": 2,
+        "id": 3,
+        "chapter": 3,
         "nametw": "可能就是命運吧！球王之路開始！",
         "namecn": "勇者之路的開始",
         "nameen": "Began to brave the road",
@@ -24,8 +39,8 @@
         "explainjp": "みんなの見事なスタート"
     },
     {
-        "id": 3,
-        "chapter": 3,
+        "id": 4,
+        "chapter": 4,
         "nametw": "腐化者首次現蹤！",
         "namecn": "來自未知的敵人",
         "nameen": "From an unknown enemy",
@@ -36,8 +51,8 @@
         "explainjp": "バスケットボールのパフォーマンスに基づいて、"
     },
     {
-        "id": 4,
-        "chapter": 4,
+        "id": 5,
+        "chapter": 5,
         "nametw": "籃球巡迴爭霸賽，首戰！\t",
         "namecn": "列車競賽開始！",
         "nameen": "Trains start of the competition!",
@@ -45,8 +60,8 @@
         "explainen": "Trains start of the competition!"
     },
     {
-        "id": 5,
-        "chapter": 5,
+        "id": 6,
+        "chapter": 6,
         "nametw": "劃時代的天才，布魯托！",
         "namecn": "相知相惜的英雄",
         "nameen": "Knowing each other hero",
@@ -54,8 +69,8 @@
         "explainen": "Knowing each other hero"
     },
     {
-        "id": 6,
-        "chapter": 6,
+        "id": 7,
+        "chapter": 7,
         "nametw": "遇上真正的三天王！上",
         "namecn": "急凍地帶",
         "nameen": "Frozen zone",
@@ -63,8 +78,8 @@
         "explainen": "Frozen zone"
     },
     {
-        "id": 7,
-        "chapter": 7,
+        "id": 8,
+        "chapter": 8,
         "nametw": "遇上真正的三天王！下",
         "namecn": "被撕裂的時空",
         "nameen": "Torn temporal",
@@ -72,8 +87,8 @@
         "explainen": "Torn temporal"
     },
     {
-        "id": 8,
-        "chapter": 8,
+        "id": 9,
+        "chapter": 9,
         "nametw": "入選…低分聯盟！",
         "namecn": "戛然而止的混亂",
         "nameen": "Stopped short of chaos",
@@ -81,8 +96,8 @@
         "explainen": "Stopped short of chaos"
     },
     {
-        "id": 9,
-        "chapter": 9,
+        "id": 10,
+        "chapter": 10,
         "nametw": "地．獄．球．賽，浴血！",
         "namecn": "世界的另一端",
         "nameen": "The other side of the world",
@@ -90,8 +105,8 @@
         "explainen": "The other side of the world"
     },
     {
-        "id": 10,
-        "chapter": 10,
+        "id": 11,
+        "chapter": 11,
         "nametw": "地．獄．球．賽，死鬥！",
         "namecn": "迎接真正的挑戰",
         "nameen": "Meet real challenge",

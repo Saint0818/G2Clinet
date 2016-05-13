@@ -1,5 +1,13 @@
-#if UNITY_5 && (!UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2)
-#define UNITY_5_3_AND_GREATER
+#if UNITY_5 && (!UNITY_5_0 && !UNITY_5_1)
+#define UNITY_5_2_AND_GREATER
+#endif
+
+#if (UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2)
+#define UNITY_5_2_AND_LESS
+#endif
+
+#if UNITY_4 || UNITY_5_0 || UNITY_5_1
+#define UNITY_5_1_AND_LESSER
 #endif
 
 using UnityEngine;
@@ -54,7 +62,7 @@ public class BuildSettings : BaseScreen
 			GUILayout.Space(2);
 			if (!string.IsNullOrEmpty(val))
 			{
-			GUILayout.TextField(val, BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
+				GUILayout.TextField(val, BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
 			}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(SETTING_SPACING);
@@ -352,7 +360,7 @@ public class BuildSettings : BaseScreen
 		}
 		else if (IsShowingWebGlSettings)
 		{
-			DrawSetting("WebGL optimization level:", settings.WebGLOptimizationLevel);
+			DrawSetting("WebGL optimization level:", UnityBuildSettingsUtility.GetReadableWebGLOptimizationLevel(settings.WebGLOptimizationLevel));
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 		}
 		else if (IsShowingiOSSettings)
@@ -570,8 +578,17 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Physics code stripped:", settings.StripPhysicsCode);
 		}
 
-		DrawSetting("Bake collision meshes:", settings.BakeCollisionMeshes);
-		DrawSetting("Strip unused mesh components:", settings.StripUnusedMeshComponents);
+		DrawSetting("Prebake collision meshes:", settings.BakeCollisionMeshes);
+		DrawSetting("Optimize mesh data:", settings.StripUnusedMeshComponents);
+
+		if (IsShowingMobileSettings)
+		{
+			DrawSetting("Stripping level:", settings.StrippingLevelUsed);
+		}
+		else if (IsShowingWebGlSettings)
+		{
+			DrawSetting("Strip engine code (IL2CPP):", settings.StripEngineCode);
+		}
 	}
 
 	void DrawRuntimeSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
@@ -678,8 +695,6 @@ public class BuildSettings : BaseScreen
 
 		DrawSetting("Script Compilation Defines:", settings.CompileDefines);
 		
-		DrawSetting("Stripping level:", settings.StrippingLevelUsed);
-		DrawSetting("Strip unused engine code:", settings.StripEngineCode);
 		DrawSetting(".NET API compatibility level:", settings.NETApiCompatibilityLevel);
 		DrawSetting("AOT options:", settings.AOTOptions, true);
 		DrawSetting("Location usage description:", settings.LocationUsageDescription);
@@ -707,7 +722,7 @@ public class BuildSettings : BaseScreen
 		DrawSetting("Use multi-threaded rendering:", settings.UseMultithreadedRendering);
 		DrawSetting("Use GPU skinning:", settings.UseGPUSkinning);
 		DrawSetting("Enable Virtual Reality Support:", settings.EnableVirtualRealitySupport);
-#if UNITY_5_3_AND_GREATER
+#if UNITY_5_2_AND_GREATER
 		DrawSetting("Graphics APIs Used:", settings.GraphicsAPIsUsed);
 #endif
 		GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
@@ -729,10 +744,30 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Default screen size:", standaloneScreenSize);
 			DrawSetting("Resolution dialog:", settings.StandaloneResolutionDialogSettingUsed);
 			DrawSetting("Full-screen by default:", settings.StandaloneFullScreenByDefault);
+			DrawSetting("Resizable window:", settings.StandaloneEnableResizableWindow);
+
+			if (IsShowingWindowsDesktopSettings)
+			{
+#if UNITY_5_2_AND_LESS
+				// not needed in Unity 5.3 since settings.GraphicsAPIsUsed shows better information
+				DrawSetting("Use Direct3D11 if available:", settings.WinUseDirect3D11IfAvailable);
+#endif
+				DrawSetting("Direct3D9 Fullscreen Mode:", settings.WinDirect3D9FullscreenModeUsed);
+#if UNITY_5
+				DrawSetting("Direct3D11 Fullscreen Mode:", settings.WinDirect3D11FullscreenModeUsed);
+#endif
+				DrawSetting("Visible in background (for Fullscreen Windowed mode):", settings.VisibleInBackground);
+			}
+			else if (IsShowingMacSettings)
+			{
+				DrawSetting("Fullscreen mode:", settings.MacFullscreenModeUsed);
+				GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
+			}
+
 			DrawSetting("Allow OS switching between full-screen and window mode:", settings.StandaloneAllowFullScreenSwitch);
 			DrawSetting("Darken secondary monitors on full-screen:", settings.StandaloneCaptureSingleScreen);
 			DrawSetting("Force single instance:", settings.StandaloneForceSingleInstance);
-			DrawSetting("Resizable window:", settings.StandaloneEnableResizableWindow);
+
 			DrawSetting("Stereoscopic Rendering:", settings.StandaloneUseStereoscopic3d);
 			DrawSetting("Supported aspect ratios:", settings.AspectRatiosAllowed);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
@@ -744,21 +779,10 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Screen size:", webScreenSize);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 		}
-		else if (IsShowingWindowsDesktopSettings)
+		else if (IsShowingWebGlSettings)
 		{
-#if !UNITY_5_3
-			// not needed in Unity 5.3 since settings.GraphicsAPIsUsed shows better information
-			DrawSetting("Use Direct3D11 if available:", settings.WinUseDirect3D11IfAvailable);
-#endif
-			DrawSetting("Direct3D9 Fullscreen Mode:", settings.WinDirect3D9FullscreenModeUsed);
-#if UNITY_5
-			DrawSetting("Direct3D11 Fullscreen Mode:", settings.WinDirect3D11FullscreenModeUsed);
-#endif
-			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
-		}
-		else if (IsShowingMacSettings)
-		{
-			DrawSetting("Fullscreen mode:", settings.MacFullscreenModeUsed);
+			string webScreenSize = settings.WebPlayerDefaultScreenWidth + " x " + settings.WebPlayerDefaultScreenHeight;
+			DrawSetting("Screen size:", webScreenSize);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 		}
 		else if (IsShowingiOSSettings)
@@ -766,10 +790,12 @@ public class BuildSettings : BaseScreen
 #if !UNITY_5_3
 			// Unity 5.3 has a Screen.resolutions but I don't know which of those in the array would be the iOS target resolution
 			DrawSetting("Target resolution:", settings.iOSTargetResolution);
-
-			// not used in Unity 5.3 since settings.GraphicsAPIsUsed shows better information
+#endif
+#if UNITY_5_1_AND_LESSER
+			// not used in Unity 5.2 since settings.GraphicsAPIsUsed shows better information
 			DrawSetting("Target graphics:", settings.iOSTargetGraphics);
 #endif
+
 			DrawSetting("App icon pre-rendered:", settings.iOSIsIconPrerendered);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 		}

@@ -63,9 +63,16 @@ public class SizeStats : BaseScreen
 		else
 		{
 			// Total Build Size
-			if (!string.IsNullOrEmpty(buildReportToDisplay.TotalBuildSize))
+			if (!string.IsNullOrEmpty(buildReportToDisplay.TotalBuildSize) && !string.IsNullOrEmpty(buildReportToDisplay.BuildFilePath))
 			{
-				BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.BUILD_TOTAL_SIZE_LABEL, BuildReportTool.Window.Utility.GetProperBuildSizeDesc(buildReportToDisplay), buildReportToDisplay.TotalBuildSize);
+				GUILayout.BeginVertical();
+					GUILayout.Label(Labels.BUILD_TOTAL_SIZE_LABEL, BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+					
+					GUILayout.Label(BuildReportTool.Util.GetBuildSizePathDescription(buildReportToDisplay), BuildReportTool.Window.Settings.TINY_HELP_STYLE_NAME);
+
+					GUILayout.Label(buildReportToDisplay.TotalBuildSize, BuildReportTool.Window.Settings.BIG_NUMBER_STYLE_NAME);
+				GUILayout.EndVertical();
+
 				DrawAuxiliaryBuildSizes(buildReportToDisplay);
 				GUILayout.Space(40);
 			}
@@ -183,6 +190,8 @@ public class SizeStats : BaseScreen
 
 	void DrawDLLList(BuildInfo buildReportToDisplay)
 	{
+		BuildReportTool.BuildPlatform buildPlatform = BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType, buildReportToDisplay.BuildTargetUsed);
+
 		GUILayout.BeginHorizontal();
 
 			GUILayout.BeginVertical();
@@ -202,7 +211,11 @@ public class SizeStats : BaseScreen
 				{
 					GUILayout.BeginHorizontal(GUILayout.MaxWidth(500));
 						DrawNames(buildReportToDisplay.ScriptDLLs);
-						DrawReadableSizes(buildReportToDisplay.ScriptDLLs);
+
+						if (buildPlatform != BuildPlatform.WebGL)
+						{
+							DrawReadableSizes(buildReportToDisplay.ScriptDLLs);
+						}
 					GUILayout.EndHorizontal();
 				}
 			GUILayout.EndVertical();

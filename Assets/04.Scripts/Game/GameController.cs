@@ -235,7 +235,6 @@ public class GameController : KnightSingleton<GameController>
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
         AIController.Get.PlayerAttackTactical = GameData.Team.AttackTactical;
-		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
         initModel();
 		InitAniState();
@@ -296,6 +295,8 @@ public class GameController : KnightSingleton<GameController>
 
     public void InitGame()
     {
+        IsFinish = false;
+        IsReset = false;
 		IsPassing = false;
 		Shooter = null;
 		BallOwner = null; 
@@ -402,7 +403,10 @@ public class GameController : KnightSingleton<GameController>
 	IEnumerator playerJumpBall () {
 		CourtMgr.Get.RealBall.SetJumpBallPathUp();
 		yield return new WaitForSeconds(0.55f);
-		GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, getJumpTeam);
+        if (PlayerList.Count > 2)
+		    GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, getJumpTeam);
+        else
+            SetBall(PlayerList[0]);
 	}
 
     private PlayerBehaviour FindDefMen(PlayerBehaviour npc)
@@ -523,6 +527,8 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].transform.position = mJumpBallPos[5];
 		PlayerList[bPosAy[2]].ShowPos = 5;
 		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
+
+        setPlayerBornTarget();
 	}
 
 	/// <summary>
@@ -530,18 +536,45 @@ public class GameController : KnightSingleton<GameController>
 	/// Player is forward, stand JumpballPos[2]
 	/// </summary>
 	private void setPlayerBornTarget () {
-		PlayerList[0].Postion = EPlayerPostion.F;
-		PlayerList[0].transform.position = mJumpBallPos[2];
-		PlayerList[0].ShowPos = 2;
-		PlayerList[0].IsJumpBallPlayer = false;
-		PlayerList[1].Postion = EPlayerPostion.C;
-		PlayerList[1].transform.position = mJumpBallPos[1];
-		PlayerList[1].ShowPos = 0;
-		PlayerList[1].IsJumpBallPlayer = true;
-		PlayerList[2].Postion = EPlayerPostion.G;
-		PlayerList[2].transform.position = mJumpBallPos[0];
-		PlayerList[2].ShowPos = 1;
-		PlayerList[2].IsJumpBallPlayer = false;
+        //1 vs 1
+        if (PlayerList.Count == 2) {
+            PlayerList[0].Postion = EPlayerPostion.C;
+            PlayerList[0].transform.position = mJumpBallPos[1];
+            PlayerList[0].ShowPos = 0;
+            PlayerList[0].IsJumpBallPlayer = true;
+
+            PlayerList[1].Postion = EPlayerPostion.C;
+            PlayerList[1].transform.position = mJumpBallPos[4];
+            PlayerList[1].ShowPos = 0;
+            PlayerList[1].IsJumpBallPlayer = true;
+        } else {
+            for (int i = 0; i < PlayerList.Count; i++) {
+                if (PlayerList[i].Team == 0) {
+                    switch (i) {
+                        case 0:
+                            PlayerList[i].Postion = EPlayerPostion.F;
+                            PlayerList[i].transform.position = mJumpBallPos[2];
+                            PlayerList[i].ShowPos = 2;
+                            PlayerList[i].IsJumpBallPlayer = false;
+                            break;
+                        case 1:
+                            PlayerList[i].Postion = EPlayerPostion.C;
+                            PlayerList[i].transform.position = mJumpBallPos[1];
+                            PlayerList[i].ShowPos = 0;
+                            PlayerList[i].IsJumpBallPlayer = true;
+                            break;
+                        case 2:
+                            PlayerList[i].Postion = EPlayerPostion.G;
+                            PlayerList[i].transform.position = mJumpBallPos[0];
+                            PlayerList[i].ShowPos = 1;
+                            PlayerList[i].IsJumpBallPlayer = false;
+                            break;
+                    }
+                }
+
+                doLookAtBall(PlayerList[i]);
+            }
+        }
 	}
 
 	private PlayerBehaviour getJumpTeam {
@@ -784,14 +817,21 @@ public class GameController : KnightSingleton<GameController>
     {
         if(StageData.FriendKind == 4)
         {
-            int num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
+            if (GameData.Team.Player.Lv > 0) {
+                GameData.TeamMembers[0] = GameData.Team;
+                if (string.IsNullOrEmpty(GameData.TeamMembers[0].Player.Name))
+                    GameData.TeamMembers[0].Player.Name = TextConst.S(3404);
+            }
+
+            int num = Mathf.Min(StageData.FriendID.Length, StageData.FriendNumber);
             for(int i = 0; i < num; i++)
             {
-                if(GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i]))
+                if (GameData.TeamMembers[i].Player.Lv > 0 || GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i]))
                 {
-                    GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
-                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i],
-                        GameData.TeamMembers[i].Player);
+                    if (string.IsNullOrEmpty(GameData.TeamMembers[i].Player.Name))
+                        GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
+                    
+                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player);
                     player.SelfAPMax = GameData.TeamMembers[i].GetAPMaxAdd;
                     player.SelfAPBegin = GameData.TeamMembers[i].InitGetAP();
                     player.SelfAPGrowth = GameData.TeamMembers[i].GetAPGrowthAdd;
@@ -799,14 +839,12 @@ public class GameController : KnightSingleton<GameController>
                 }
             }
 
-            num = Mathf.Min(StageData.PlayerID.Length, GameData.EnemyMembers.Length);
             for(int i = 0; i < num; i++)
             {
                 if(GameData.EnemyMembers[i].Player.SetID(StageData.PlayerID[i]))
                 {
                     GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
-                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i],
-                        GameData.EnemyMembers[i].Player);
+                    PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3 + i], GameData.EnemyMembers[i].Player);
                     player.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
                     player.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
                     player.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
@@ -827,8 +865,8 @@ public class GameController : KnightSingleton<GameController>
 
             for(int i = 0; i < GameData.Max_GamePlayer; i++)
             {
-                PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3],
-                    GameData.EnemyMembers[i].Player);
+                PlayerBehaviour player = createGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i + 3], GameData.EnemyMembers[i].Player);
+                
                 player.SelfAPMax = GameData.EnemyMembers[i].GetAPMaxAdd;
                 player.SelfAPBegin = GameData.EnemyMembers[i].InitGetAP();
                 player.SelfAPGrowth = GameData.EnemyMembers[i].GetAPGrowthAdd;
@@ -843,7 +881,6 @@ public class GameController : KnightSingleton<GameController>
 
         //1.G(Dribble) 2.C(Rebound) 3.F
         SetBornPositions();
-        setPlayerBornTarget();
     }
 
     private void setPassIcon (int index, string effectname, PlayerBehaviour player) {
@@ -3785,7 +3822,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case 1: //FR
 			case 2:
-				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && !player1.IsInAir && player1.CoolDownCrossover == 0)
+				if(IsGameAttack && player1.PlayerSkillController.IsHaveMoveDodge && player1.IsInGround && player1.CoolDownCrossover == 0)
 					player1.PlayerSkillController.DoPassiveSkill(ESkillSituation.MoveDodge);
 
 				if(IsGameAttack && player1.IsSkillPushThrough && player1.Team != player2.Team)
@@ -4179,6 +4216,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
+        
 		if(isChangeSituation)
 			Shooter = null;
 
@@ -4192,6 +4230,7 @@ public class GameController : KnightSingleton<GameController>
 			if(shootTimes != shootScoreTimes)
 				Debug.LogWarning("shootTimes != shootScoreTimes");
 		}
+
 		if (TestMode == EGameTest.AttackA) {
 			SetBall(Joysticker);
 		}

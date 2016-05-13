@@ -80,6 +80,50 @@ public static class BigFileReader
 		return string.Empty;
 	}
 
+	public struct FoundText
+	{
+		public long LineNumber;
+		public string Text;
+	}
+
+	public static List<FoundText> SeekAllText(string path, params string[] seekText)
+	{
+		FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+		BufferedStream bs = new BufferedStream(fs);
+		StreamReader sr = new StreamReader(bs);
+
+		string line = string.Empty;
+		
+		List<FoundText> returnValue = new List<FoundText>();
+
+		long currentLine = 0;
+		while (true)
+		{
+			++currentLine;
+			line = sr.ReadLine();
+			//Debug.LogFormat("seeking... line number {0}: {1}", currentLine, line);
+
+			// reached end of file?
+			if (line == null)
+			{
+				break;
+			}
+			
+			for (var seekTextIdx = 0; seekTextIdx < seekText.Length; ++seekTextIdx)
+			{
+				if (line.IndexOf(seekText[seekTextIdx], StringComparison.Ordinal) >= 0)
+				{
+					FoundText newFoundText;
+					newFoundText.LineNumber = currentLine;
+					newFoundText.Text = line;
+					returnValue.Add(newFoundText);
+				}
+			}
+		}
+
+		return returnValue;
+	}
+	
 	public static IEnumerable<string> ReadFile(string path, params string[] seekText)
 	{
 		return ReadFile(path, true, seekText);

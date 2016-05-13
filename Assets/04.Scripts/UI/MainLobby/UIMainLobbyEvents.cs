@@ -1,18 +1,12 @@
-﻿using GameEnum;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIMainLobbyEvents : MonoBehaviour
 {
     public void ShowAvatarFitted()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Avatar))
-        {
-            UIAvatarFitted.UIShow(true);
-            UIMainLobby.Get.Hide();
-            UIResource.Get.Show();
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Avatar)), LimitTable.Ins.GetLv(EOpenID.Avatar)), Color.black);
+        UIAvatarFitted.UIShow(true);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
     }
 
     public void ShowGameLobby()
@@ -27,21 +21,16 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void ShowSkillFormation()
     {
-		UISkillFormation.Get.ShowView();
+        UISkillFormation.Get.ShowView();
         UIMainLobby.Get.Hide();
         UIResource.Get.Show();
     }
 
     public void ShowEquipment()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Equipment))
-        {
-            UIEquipment.Get.Show();
-            UIMainLobby.Get.Hide();
-            UIResource.Get.Show();
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Equipment)), LimitTable.Ins.GetLv(EOpenID.Equipment)), Color.black);
+        UIEquipment.Get.Show();
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
     }
 
     public void ShowPlayerInfo()
@@ -60,69 +49,40 @@ public class UIMainLobbyEvents : MonoBehaviour
 
     public void OnMission()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Mission))
-        {
-            UIMainLobby.Get.Hide();
-            UIResource.Get.Show();
-            UIMission.Visible = true;
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Mission)), LimitTable.Ins.GetLv(EOpenID.Mission)), Color.black);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
+        UIMission.Visible = true;
     }
 
     public void OnSocial()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Social))
-        {
-            if(string.IsNullOrEmpty(GameData.Team.Player.Name)) 
-                UITutorial.Get.ShowTutorial(34, 1);
-            else {
-                UIMainLobby.Get.Hide();
-                UIResource.Get.Show();
-                UISocial.Visible = true;
-            }
-        }
+        if(string.IsNullOrEmpty(GameData.Team.Player.Name))
+            UITutorial.Get.ShowTutorial(34, 1);
         else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Social)), LimitTable.Ins.GetLv(EOpenID.Social)), Color.black);
+        {
+            UIMainLobby.Get.Hide();
+            UIResource.Get.Show();
+            UISocial.Visible = true;
+        }
     }
 
     public void OnShop()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Shop))
-        {
-            UIMainLobby.Get.Hide();
-            UIResource.Get.Show(UIResource.EMode.PvpSocial);
-            UIShop.Visible = true;
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Shop)), LimitTable.Ins.GetLv(EOpenID.Shop)), Color.black);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show(UIResource.EMode.PvpSocial);
+        UIShop.Visible = true;
     }
 
     public void OnMall()
     {
-        if(GameData.IsOpenUIEnable(EOpenID.Mall))
-        {
-            UIMainLobby.Get.Hide();
-            UIResource.Get.Show();
-            UIMall.Get.ShowView();
-        }
-        else
-            UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.Mall)), LimitTable.Ins.GetLv(EOpenID.Mall)), Color.black);
+        UIMainLobby.Get.Hide();
+        UIResource.Get.Show();
+        UIMall.Get.ShowView();
     }
 
-    public void OnDailyLogin()
+    public void OnAlbum()
     {
-        UIDailyLogin.Get.Show();
+        UIResource.Get.Show();
+        UISuitAvatar.Get.ShowView();
     }
-
-	public void OnAlbum () 
-	{
-		if(GameData.IsOpenUIEnable(EOpenID.SuitCard))
-		{
-			UIResource.Get.Show();
-			UISuitAvatar.Get.ShowView();
-		}
-		else
-			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber((int)EOpenID.SuitCard)), LimitTable.Ins.GetLv(EOpenID.SuitCard)), Color.black);
-	}
 }

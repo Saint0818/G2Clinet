@@ -42,7 +42,7 @@ public class UISkillReinforce : UIBase {
 	private int targetIndex;
 	private int[] removeIndexs;
 
-	private TSkill mOldSkill;
+//	private TSkill mOldSkill;
 	private TSkill mSkill;
 
 	private GameObject itemCardEquipped;
@@ -83,7 +83,7 @@ public class UISkillReinforce : UIBase {
 	private int newCardLv;
 	private int recordGreenExp;
 	private bool isRunExp = false;
-	private bool isNeedShowLevelUp = false;
+//	private bool isNeedShowLevelUp = false;
 	private int addInterVal = 10;
 
 	private Dictionary<string, TPassiveSkillCard> passiveSkillCards = new Dictionary<string, TPassiveSkillCard>();
@@ -231,7 +231,7 @@ public class UISkillReinforce : UIBase {
         UIResource.Get.Show();
 
         mSkill = skill;
-		mOldSkill = mSkill;
+//		mOldSkill = mSkill;
 		RefreshView(skill);
 		initRightCards ();
 		targetIndex = index;
@@ -375,7 +375,6 @@ public class UISkillReinforce : UIBase {
 		passiveSkillCard.InitReinforce(obj, skillCardIndex);
 		passiveSkillCard.UpdateViewReinforce(skill);
 
-//		UIEventListener.Get(obj).onClick = ChooseItem;
 		UIButton btn = obj.GetComponent<UIButton>();
 		SetBtnFun(ref btn, ChooseItemCallback);
 
@@ -615,10 +614,10 @@ public class UISkillReinforce : UIBase {
 			}
 		}
 
-		mOldSkill = mSkill;
+//		mOldSkill = mSkill;
 		isRunExp = false;
-		isNeedShowLevelUp = false;
-		addInterVal = 5;
+//		isNeedShowLevelUp = false;
+		addInterVal = 1;
 		skillCard.HideAllGetStar();
 		skillCard.HideAllPreviewStar();
 		oldCardLv = skill.Lv;
@@ -733,19 +732,14 @@ public class UISkillReinforce : UIBase {
 	private void runExp () {
 		if(isRunExp) {
 			if(GameData.DSkillData.ContainsKey(mSkill.ID) && newCardLv >= oldCardLv && reinforceExp > 0) {
-				if( oldCardLv <= GameData.DSkillData[mSkill.ID].MaxStar) {
+				if(oldCardLv <= GameData.DSkillData[mSkill.ID].MaxStar) {
 					expView.SetProgressView(mSkill.ID, 
-						oldCardLv, 
-						originalExp, 
-						recordGreenExp,
-						reinforceExp);
+											oldCardLv, 
+											originalExp, 
+											recordGreenExp,
+											reinforceExp);
 					
-					if(reinforceExp > 500) 
-						addInterVal = 30;
-					else if(reinforceExp > 100)
-						addInterVal = 10;
-					else 
-						addInterVal = 5;
+					addInterVal = 1;
 					
 					if(reinforceExp >= addInterVal)
 						reinforceExp -= addInterVal;
@@ -764,11 +758,12 @@ public class UISkillReinforce : UIBase {
 					}
 					
 					if(reinforceExp <= 0) {
-						expView.SetProgressView(mSkill.ID, 
-							oldCardLv, 
-							recordGreenExp, 
-							recordGreenExp,
-							GameData.DSkillData[mSkill.ID].GetUpgradeExp(oldCardLv));
+						expView.UpdateView(mSkill);
+//						expView.SetProgressView(mSkill.ID, 
+//												oldCardLv, 
+//												recordGreenExp, 
+//												recordGreenExp,
+//												GameData.DSkillData[mSkill.ID].GetUpgradeExp(oldCardLv));
 						stopRunExp ();
 					}
 				} else {
@@ -800,7 +795,7 @@ public class UISkillReinforce : UIBase {
 	private void stopRunExp () {
 		reinforceExp = 0;
 		isRunExp = false;
-		finishExp ();
+		Invoke("finishExp", 1);
 	}
 
 	private void delayRunExp () {
@@ -808,7 +803,7 @@ public class UISkillReinforce : UIBase {
 			Destroy(obj.Value);
 		}
 		isRunExp = true;
-		isNeedShowLevelUp = (oldCardLv != newCardLv);
+//		isNeedShowLevelUp = (oldCardLv != newCardLv);
 	}
 
 	private void finishExp () {
@@ -852,6 +847,7 @@ public class UISkillReinforce : UIBase {
 				mSkill = findNewSkillFromPlayer(mSkill);
 			else
 				mSkill = findNewSkillFromTeam(mSkill);
+
 			awakeRunExp();
 
 		} else {

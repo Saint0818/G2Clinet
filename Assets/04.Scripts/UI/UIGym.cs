@@ -103,32 +103,40 @@ public class UIGym : UIBase {
 	public void OnClickBuild () {
 		int result = 0;
 		if (int.TryParse (UIButton.current.name, out result)) {
-			if (isCanUse(result + 1)) {
-				// todo: need to refactor
-				Statistic.Ins.LogScreen(24 + result);
-				Statistic.Ins.LogEvent(600 + (50 * result) + 1);
-
-				if (result != 8) {
-					if (UI3DMainLobby.Visible)
-						UI3DMainLobby.Get.Impl.OnSelect (result);
-				} else {
-					UIMainLobby.Get.View.PlayExitAnimation();
-				}
-
-				if (UIMainLobby.Get.IsVisible)
-					UIMainLobby.Get.View.QueueGroup.SetActive (false);
-				
-				CenterVisible = false;
-				// todo: need to refactor
-				if (result==8)
-					UIMail.Visible = true;
-				else
-					StartCoroutine(ShowEngage(result));
-			} else
-				UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(result + 1 + 50)), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
-
+			showBuild(result);
 		}
 	}
+
+	public void On3DClickBuild (int result) {
+		showBuild(result);
+	}
+
+	private void showBuild (int result) {
+		if (isCanUse(result + 1)) {
+			// todo: need to refactor
+			Statistic.Ins.LogScreen(24 + result);
+			Statistic.Ins.LogEvent(600 + (50 * result) + 1);
+
+			if (result != 8) {
+				if (UI3DMainLobby.Visible)
+					UI3DMainLobby.Get.Impl.OnSelect (result);
+			} else {
+				UIMainLobby.Get.View.PlayExitAnimation();
+			}
+
+			if (UIMainLobby.Get.IsVisible)
+				UIMainLobby.Get.View.QueueGroup.SetActive (false);
+
+			CenterVisible = false;
+			// todo: need to refactor
+			if (result==8)
+				UIMail.Visible = true;
+			else
+				StartCoroutine(ShowEngage(result));
+		} else
+			UIHint.Get.ShowHint(string.Format(TextConst.S(GameFunction.GetUnlockNumber(result + 1 + 50)), LimitTable.Ins.GetLv((EOpenID)(result + 1 + 50))), Color.red);
+	}
+
 
 	private void setStatistic (int buildIndex) {
 		Statistic.Ins.LogEvent(600 + (50 * buildIndex) + (buildIndex + 1));

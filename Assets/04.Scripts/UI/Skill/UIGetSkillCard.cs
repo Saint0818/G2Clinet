@@ -142,8 +142,7 @@ public class UIGetSkillCard : UIBase {
 
 	public void OnClose () {
 		if(UIGameResult.Visible) { 
-			UIGameResult.Get.ShowBonusItem();
-			UIGameResult.Get.ShowReturnButton();
+			UIGameResult.Get.ShowNewCard();
 		}
 		
 		if(UIBuyStore.Visible)

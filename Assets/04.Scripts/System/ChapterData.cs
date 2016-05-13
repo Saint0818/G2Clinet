@@ -1,4 +1,5 @@
 ﻿using GameEnum;
+using JetBrains.Annotations;
 
 public struct ChapterData
 {
@@ -7,16 +8,34 @@ public struct ChapterData
     /// <summary>
     /// 章節. 1: 第一章, 2: 第二章.
     /// </summary>
-    public int Chapter;
-    
-    public string NameTW;
-    public string NameCN;
-    public string NameEN;
-    public string NameJP;
-    public string ExplainTW;
-    public string ExplainCN;
-    public string ExplainEN;
-    public string ExplainJP;
+    [UsedImplicitly]
+    public int Chapter { get; private set; }
+
+    [UsedImplicitly]
+    public int StarNum1 { get; private set; }
+    [UsedImplicitly]
+    public int StarNum2 { get; private set; }
+    [UsedImplicitly]
+    public int StarReward1 { get; private set; }
+    [UsedImplicitly]
+    public int StarReward2 { get; private set; }
+
+    [UsedImplicitly]
+    public string NameTW { get; private set; }
+    [UsedImplicitly]
+    public string NameCN { get; private set; }
+    [UsedImplicitly]
+    public string NameEN { get; private set; }
+    [UsedImplicitly]
+    public string NameJP { get; private set; }
+    [UsedImplicitly]
+    public string ExplainTW { get; private set; }
+    [UsedImplicitly]
+    public string ExplainCN { get; private set; }
+    [UsedImplicitly]
+    public string ExplainEN { get; private set; }
+    [UsedImplicitly]
+    public string ExplainJP { get; private set; }
 
     public bool IsValid()
     {

@@ -226,6 +226,18 @@ public class UniWebViewPlugin {
             webView.CallStatic("_UniWebViewSetHeaderField", name, key, value);
         }
     }
+    
+    public static void SetVerticalScrollBarShow(string name, bool show) {
+        if (Application.platform == RuntimePlatform.Android) {
+            webView.CallStatic("_UniWebViewSetVerticalScrollBarShow", name, show);
+        }
+    }
+    
+    public static void SetHorizontalScrollBarShow(string name, bool show) {
+        if (Application.platform == RuntimePlatform.Android) {
+            webView.CallStatic("_UniWebViewSetHorizontalScrollBarShow", name, show);
+        }
+    }
 
 }
 #endif

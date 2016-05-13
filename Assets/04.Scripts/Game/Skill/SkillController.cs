@@ -46,10 +46,6 @@ public class SkillController : MonoBehaviour {
 		return (situation == EGameSituation.JumpBall || situation == EGameSituation.GamerAttack || situation == EGameSituation.NPCAttack);
 	}
 
-	private bool isShowSkillUI (TSkill tSkill) {
-		return (checkSkillBaseSituation(tSkill) && checkTargetDistance(tSkill) && checkSkillKind(tSkill));
-	}
-
 	public void SkillUpdate(EGameSituation situation, bool isPlayerMe, PlayerBehaviour player)
 	{
 		//只在跳球跟進攻防守執行SkillUI
@@ -60,7 +56,7 @@ public class SkillController : MonoBehaviour {
 					UIGame.Get.ShowSkillEnableUI(GameController.Get.IsStart, 
 					                             i, 
 												 player.IsAngerFull(player.Attribute.ActiveSkills[i]), 
-												 isShowSkillUI(player.Attribute.ActiveSkills[i])
+													CanDoSkill(player.Attribute.ActiveSkills[i])
 					                             );
 				}
 			}
@@ -646,7 +642,7 @@ public class SkillController : MonoBehaviour {
 	}
 
 	public bool CanDoSkill (TSkill tSkill) {
-		return (checkSkillDistance(tSkill) && checkSkillKind(tSkill));
+		return (checkSkillBaseSituation(tSkill) && checkTargetDistance(tSkill) && checkSkillKind(tSkill));
 	}
 
 	public bool IsHaveMoveDodge

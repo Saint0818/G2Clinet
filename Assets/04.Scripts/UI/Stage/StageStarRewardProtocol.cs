@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// 領取關卡星等獎勵.
+/// </summary>
 public class StageStarRewardProtocol
 {
     /// <summary>
@@ -33,6 +36,8 @@ public class StageStarRewardProtocol
         {
             var reward = JsonConvertWrapper.DeserializeObject<TStageStarReward>(www.text);
 
+            Debug.Log(reward);
+
             GameData.Team.Power = reward.Power;
             GameData.Team.Money = reward.Money;
             GameData.Team.Diamond = reward.Diamond;
@@ -48,7 +53,7 @@ public class StageStarRewardProtocol
         }
         else
         {
-            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+            UIHint.Get.ShowHint("Stage Star Reward fail!", Color.red);
             mCallback(false, new TStageStarReward());
         }
     }

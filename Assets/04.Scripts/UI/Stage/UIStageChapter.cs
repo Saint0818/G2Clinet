@@ -119,7 +119,8 @@ public class UIStageChapter : MonoBehaviour
 
     public void PlayUnlockAnimation(int unlockStageID)
     {
-        mAnimator.SetTrigger("Unlock");
+        if (mAnimator != null)
+            mAnimator.SetTrigger("Unlock");
 
         StartCoroutine(showAllStages(unlockStageID, ShowAllStagesTime));
 

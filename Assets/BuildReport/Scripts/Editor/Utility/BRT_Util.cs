@@ -1,17 +1,21 @@
-#if (UNITY_4 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6)
+#if (UNITY_4 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5)
 	#define UNITY_4_AND_GREATER
 #endif
 
-#if (UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6)
+#if (UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5)
 	#define UNITY_4_1_AND_GREATER
 #endif
 
-#if (UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6)
+#if (UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5)
 	#define UNITY_4_2_AND_GREATER
 #endif
 
-#if (UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6)
+#if (UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5)
 	#define UNITY_4_3_AND_GREATER
+#endif
+
+#if UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3
+#define UNITY_5_3_AND_LESSER
 #endif
 
 using UnityEngine;
@@ -73,10 +77,12 @@ public static class Util
 	{
 		switch (b)
 		{
+#if UNITY_5_3_AND_LESSER
 			case BuildTarget.WebPlayer:
 				return BuildPlatform.Web;
 			case BuildTarget.WebPlayerStreamed:
 				return BuildPlatform.Web;
+#endif
 				
 #if !UNITY_5
 			case BuildTarget.NaCl:
@@ -246,14 +252,64 @@ public static class Util
 	}
 
 
+	static string GetPathParentFolder(string path)
+	{
+		if (string.IsNullOrEmpty(path))
+		{
+			return string.Empty;
+		}
 
+		return Path.GetDirectoryName(path);
+	}
+
+	public static string GetBuildSizePathDescription(BuildInfo buildReport)
+	{
+		if (string.IsNullOrEmpty(buildReport.BuildFilePath))
+		{
+			return string.Empty;
+		}
+
+		BuildReportTool.BuildPlatform buildPlatform = BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReport.BuildType, buildReport.BuildTargetUsed);
+		
+		if (buildPlatform == BuildPlatform.Windows32 ||
+			buildPlatform == BuildPlatform.Windows64 ||
+			buildPlatform == BuildPlatform.Linux32 ||
+			buildPlatform == BuildPlatform.Linux64)
+		{
+			// in windows builds, `buildFilePath` is the executable file
+			// we additionaly need to get the size of the Data folder
+
+			// in 32 bit builds, `buildFilePath` is the executable file (.x86 file). we still need the Data folder
+			// in 64 bit builds, `buildFilePath` is the executable file (.x86_64 file). we still need the Data folder
+
+			var exeFile = Path.GetFileName(buildReport.BuildFilePath);
+			var dataFolder = BuildReportTool.Util.ReplaceFileType(exeFile, "_Data");
+			var buildParentFolder = GetPathParentFolder(buildReport.BuildFilePath);
+
+			return string.Format("File size of {0} and the {1} folder in <b>{2}</b>", exeFile, dataFolder, buildParentFolder);
+		}
+
+		if (buildPlatform == BuildPlatform.LinuxUniversal)
+		{
+			// in universal builds, `buildFilePath` is the 32-bit executable. we still need the 64-bit executable and the Data folder
+			
+			var exe32File = Path.GetFileName(buildReport.BuildFilePath);
+			var exe64File = BuildReportTool.Util.ReplaceFileType(exe32File, ".x86_64");
+			var dataFolder = BuildReportTool.Util.ReplaceFileType(exe32File, "_Data");
+			var buildParentFolder = GetPathParentFolder(buildReport.BuildFilePath);
+
+			return string.Format("File size of {0}, {1}, and the {2} folder in <b>{3}</b>", exe32File, exe64File, dataFolder, buildParentFolder);
+		}
+
+		return string.Format("File size of <b>{0}</b>", buildReport.BuildFilePath);
+	}
 
 
 
 
 	public static double GetObbSizeInEclipseProject(string eclipseProjectPath)
 	{
-		if (!Directory.Exists(eclipseProjectPath))
+		if (string.IsNullOrEmpty(eclipseProjectPath) || !Directory.Exists(eclipseProjectPath))
 		{
 			return 0;
 		}
@@ -270,14 +326,25 @@ public static class Util
 
 		return obbSize;
 	}
+
 	public static string GetObbSizeInEclipseProjectReadable(string eclipseProjectPath)
 	{
+		if (string.IsNullOrEmpty(eclipseProjectPath) || !Directory.Exists(eclipseProjectPath))
+		{
+			return string.Empty;
+		}
+
 		return GetBytesReadable( GetObbSizeInEclipseProject(eclipseProjectPath) );
 	}
 
 
 	public static string GetPathSizeReadable(string fileOrFolder)
 	{
+		if (string.IsNullOrEmpty(fileOrFolder))
+		{
+			return string.Empty;
+		}
+
 		return GetBytesReadable( GetPathSizeInBytes(fileOrFolder) );
 	}
 
@@ -296,7 +363,7 @@ public static class Util
 
 	public static double GetFolderSizeInBytes(string folderPath)
 	{
-		if (!Directory.Exists(folderPath))
+		if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
 		{
 			return 0;
 		}
@@ -312,9 +379,9 @@ public static class Util
 
 	public static string GetFolderSizeReadable(string folderPath)
 	{
-		if (!Directory.Exists(folderPath))
+		if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
 		{
-			return "0 B";
+			return string.Empty;
 		}
 
 		return GetBytesReadable(GetFolderSizeInBytes(folderPath));
@@ -335,7 +402,7 @@ public static class Util
 	// expects filename given to be full path
 	public static long GetFileSizeInBytes(string filename)
 	{
-		if (!File.Exists(filename))
+		if (string.IsNullOrEmpty(filename) || !File.Exists(filename))
 		{
 			return 0;
 		}
@@ -346,6 +413,11 @@ public static class Util
 
 	public static string GetFileSizeReadable(string filename)
 	{
+		if (string.IsNullOrEmpty(filename))
+		{
+			return string.Empty;
+		}
+
 		return GetBytesReadable(GetFileSizeInBytes(filename));
 	}
 
@@ -538,26 +610,46 @@ public static class Util
 
 	public static bool IsFileInAPath(string filepath, string pathToCheck)
 	{
+		if (string.IsNullOrEmpty(filepath))
+		{
+			return false;
+		}
+
 		return filepath.ToLower().IndexOf(pathToCheck.ToLower()) != -1;
 	}
 
 	public static bool IsFileOfType(string filepath, string typeExtenstion)
 	{
+		if (string.IsNullOrEmpty(filepath))
+		{
+			return false;
+		}
+
 		return filepath.ToLower().EndsWith(typeExtenstion.ToLower());
 	}
 
 	public static bool IsFileName(string filepath, string filenameToCheck)
 	{
-		return Path.GetFileName(filepath).ToLower() == filenameToCheck.ToLower();
+		return string.Equals(Path.GetFileName(filepath), filenameToCheck, StringComparison.CurrentCultureIgnoreCase);
 	}
 
 	public static bool IsFileAUnixHiddenFile(string filepath)
 	{
+		if (string.IsNullOrEmpty(filepath))
+		{
+			return false;
+		}
+
 		return Path.GetFileName(filepath).StartsWith(".");
 	}
 
 	public static bool DoesFileBeginWith(string filepath, string stringToCheck)
 	{
+		if (string.IsNullOrEmpty(filepath))
+		{
+			return false;
+		}
+
 		return Path.GetFileName(filepath).ToLower().StartsWith(stringToCheck.ToLower());
 	}
 

@@ -26,6 +26,10 @@ public class PlayerStats : MonoBehaviour {
 			FollowLabel[i].text = TextConst.S(5023);
 	}
 
+	public void PlayerViewVisible(int index, bool isShow) {
+		PlayerNameView[index].SetActive(isShow);
+	}
+
 	public void SetID (int index, string id) {
 		if(index >= 0 && index < 6) 
 			tempID[index] = id;
@@ -39,16 +43,14 @@ public class PlayerStats : MonoBehaviour {
 	public void CheckFriend () {
 		for(int i=0; i<tempID.Length; i++) {
 			if(!string.IsNullOrEmpty(tempID[i])) {
-				if(GameData.Team.CheckFriend(tempID[i])){
-					if(GameData.Team.Friends[tempID[i]].Kind == EFriendKind.Advice.GetHashCode()){
-						AddFriendBtn[i].gameObject.SetActive(true);
-						AddFriendBtn[i].normalSprite = "IconLike";
-					}else 
-						AddFriendBtn[i].gameObject.SetActive(false);
+				if(GameData.Team.CheckFriend(tempID[i]) || tempID[i].Equals(GameData.Team.Identifier))
+					AddFriendBtn[i].gameObject.SetActive(false);
+				else {
+					AddFriendBtn[i].gameObject.SetActive(true);
+					AddFriendBtn[i].normalSprite = "IconLike";
 				}
-			} else {
+			} else 
 				AddFriendBtn[i].gameObject.SetActive(false);
-			}
 		}
 	}
 

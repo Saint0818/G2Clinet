@@ -39,8 +39,9 @@ public class UISelectRole : UIBase {
     private GameObject uiPVPLose;
     private GameObject uiPVPFresh;
 	private GameObject uiEquipement;
+    private UISprite spritePVPFresh;
+    private UILabel labelPVPFresh;
     private UILabel labelStrategy;
-	private UILabel labelPVPFresh;
 	private UILabel labelMyPower;
 	private UILabel labelOpponentPower;
 	private UILabel labelPVPWin;
@@ -115,24 +116,25 @@ public class UISelectRole : UIBase {
         } else
             playerInfoModel = obj;
 
-        SetBtnFun (UIName + "/Left/Back", OnExit);
-        SetBtnFun (UIName + "/Right/GameStart", OnStart);
+		SetBtnFun (UIName + "/BottomLeft/Back", OnExit);
+		SetBtnFun (UIName + "/Bottom/GameStart", OnStart);
 		SetBtnFun (UIName + "/Top/PVE/SelectA/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVE/SelectB/2", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player1/1", OnChangePlayer);
 		SetBtnFun (UIName + "/Top/PVP/Player2/2", OnChangePlayer);
         SetBtnFun (UIName + "/Bottom/SkillCard", OnSkillCard);
         SetBtnFun (UIName + "/Bottom/StrategyBtn/", OnStrategy);
-		SetBtnFun (UIName + "/Left/ResteBtn/", OnRefreshOpponent);
+		SetBtnFun (UIName + "/BottomLeft/ResteBtn/", OnRefreshOpponent);
 
 		uiBottom = GameObject.Find (UIName + "/Bottom");
-		uiEquipement = GameObject.Find (UIName + "/Bottom/EquipItemView");
-        uiPVPWin = GameObject.Find (UIName + "/Right/Win");
-        uiPVPLose = GameObject.Find (UIName + "/Right/Lose");
-        uiPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn");
-		labelPVPWin = GameObject.Find (UIName + "/Right/Win/Label").GetComponent<UILabel>();
-		labelPVPLose = GameObject.Find (UIName + "/Right/Lose/Label").GetComponent<UILabel>();
-        labelPVPFresh = GameObject.Find (UIName + "/Left/ResteBtn/PriceLabel").GetComponent<UILabel>();
+		uiEquipement = GameObject.Find (UIName + "/BottomRight/EquipItemView");
+		uiPVPWin = GameObject.Find (UIName + "/BottomRight/Win");
+		uiPVPLose = GameObject.Find (UIName + "/BottomRight/Lose");
+		uiPVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn");
+		labelPVPWin = GameObject.Find (UIName + "/BottomRight/Win/Label").GetComponent<UILabel>();
+		labelPVPLose = GameObject.Find (UIName + "/BottomRight/Lose/Label").GetComponent<UILabel>();
+		labelPVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn/PriceLabel").GetComponent<UILabel>();
+        spritePVPFresh = GameObject.Find (UIName + "/BottomLeft/ResteBtn/Icon").GetComponent<UISprite>();
         labelMyPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel1").GetComponent<UILabel>();
 		labelOpponentPower = GameObject.Find (UIName + "/Center/PVP/CombatGroup/CombatLabel0").GetComponent<UILabel>();
         labelStrategy = GameObject.Find (UIName + "/Bottom/StrategyBtn/StrategyLabel").GetComponent<UILabel>();
@@ -149,7 +151,7 @@ public class UISelectRole : UIBase {
         }
 
 		for (int i = 0; i < 2; i++) {
-			string path = UIName + string.Format ("/Bottom/EquipItemView/Slot{0}/{0}", i + 6);
+			string path = UIName + string.Format ("/BottomRight/EquipItemView/Slot{0}/{0}", i + 6);
 			equipSlot[i] = GameObject.Find (path).GetComponent<UIEquipPartSlot>();
 			equipSlot [i].Index = i + 6;
 			equipSlot [i].GetComponentInChildren<UIEquipItem> ().OnClickListener += OnEquip;
@@ -163,6 +165,7 @@ public class UISelectRole : UIBase {
         uiCenterPVP = GameObject.Find (UIName + "/Center/PVP");
 
         showPVPUI(false);
+        refreshOpponetUI();
         uiCenterPVP.SetActive(false);
         uiTopPVE.SetActive(false);
         uiRedPoint.SetActive(false);
@@ -392,8 +395,14 @@ public class UISelectRole : UIBase {
 	private void refreshOpponetUI() {
 		int pvpLv = GameData.Team.PVPLv;
 		if (GameData.DPVPData.ContainsKey (pvpLv)) {
-			labelPVPFresh.text = GameData.DPVPData [pvpLv].SearchCost.ToString();
-			labelPVPFresh.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
+            if (GameData.DPVPData [pvpLv].SearchCost > 0) {
+                spritePVPFresh.gameObject.SetActive(true);
+			    labelPVPFresh.text = GameData.DPVPData [pvpLv].SearchCost.ToString();
+			    labelPVPFresh.color = GameData.CoinEnoughTextColor (GameData.Team.Money >= GameData.DPVPData [pvpLv].SearchCost, 1);
+            } else {
+                spritePVPFresh.gameObject.SetActive(false);
+                labelPVPFresh.text = "";
+            }
 		}
 	}
 
@@ -534,31 +543,38 @@ public class UISelectRole : UIBase {
         UIMainLobby.Get.Hide(false);
         UIResource.Get.Hide();
 
-        Visible = true;
-
-        if (stageData.IDKind == TStageData.EKind.PVP) {
-            UI3DPVP.Visible = true;
-            uiCenterPVP.SetActive(true);
-            showPVPUI(true);
+        if (stageData.FriendKind == 4) {
+            if (stageData.IDKind == TStageData.EKind.PVP)
+                SendPVPStart();
+            else
+                mainStageStart(stageData.ID);
         } else {
-            UI3DSelectRole.UIShow(true);
-            uiTopPVE.SetActive(true);
-        }
+            Visible = true;
 
-		GameData.Team.PlayerInit();
-		playerData[0] = GameData.Team.Player;
-        if (stageData.IsOnlineFriend) {
-            if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
-				SendHttp.Get.FreshFriends(waitLookFriends, true);
-				if (UILoading.Visible)
-					UILoading.Get.ProgressValue = 0.7f;
-			} else 
-				waitLookFriends(true);
-		} else
-        if (stageData.FriendID != null) {
-            initPlayerList(stageData.FriendID);
-        } else
-			initPlayerList(selectRoleID);
+            if (stageData.IDKind == TStageData.EKind.PVP) {
+                UI3DPVP.Visible = true;
+                uiCenterPVP.SetActive(true);
+                showPVPUI(true);
+            } else {
+                UI3DSelectRole.UIShow(true);
+                uiTopPVE.SetActive(true);
+            }
+
+    		GameData.Team.PlayerInit();
+    		playerData[0] = GameData.Team.Player;
+            if (stageData.IsOnlineFriend) {
+                if (GameData.Team.FreshFriendTime.ToUniversalTime() <= DateTime.UtcNow) {
+    				SendHttp.Get.FreshFriends(waitLookFriends, true);
+    				if (UILoading.Visible)
+    					UILoading.Get.ProgressValue = 0.7f;
+    			} else 
+    				waitLookFriends(true);
+    		} else
+            if (stageData.FriendID != null) {
+                initPlayerList(stageData.FriendID);
+            } else
+    			initPlayerList(selectRoleID);
+        }
 	}
 
 	public void OnEquip() {
@@ -711,8 +727,12 @@ public class UISelectRole : UIBase {
 
 	public void OnRefreshOpponent() {
 		int pvpLv = GameData.Team.PVPLv;
-		if (GameData.DPVPData.ContainsKey (pvpLv))
-			CheckMoney (GameData.DPVPData [pvpLv].SearchCost, true, string.Format(TextConst.S(9740), GameData.DPVPData [pvpLv].SearchCost), sendRefreshOpponent, refreshOpponetUI);
+        if (GameData.DPVPData.ContainsKey (pvpLv)) {
+            if (GameData.DPVPData [pvpLv].SearchCost > 0)
+			    CheckMoney (GameData.DPVPData [pvpLv].SearchCost, true, string.Format(TextConst.S(9740), GameData.DPVPData [pvpLv].SearchCost), sendRefreshOpponent, refreshOpponetUI);
+            else
+                sendRefreshOpponent();
+        }
 	}
 		
 	public void SelectPartner(int roleIndex, int index) {

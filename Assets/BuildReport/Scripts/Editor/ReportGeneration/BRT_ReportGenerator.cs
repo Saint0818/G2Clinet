@@ -1,8 +1,12 @@
 //#define BUILD_REPORT_TOOL_EXPERIMENTS
 
+#if UNITY_5 && (!UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2)
+#define UNITY_5_3_AND_GREATER
+#endif
+
 using UnityEngine;
 using UnityEditor;
-#if UNITY_5_3
+#if UNITY_5_3_AND_GREATER
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 #endif
@@ -13,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using DldUtil;
 
 /*
 
@@ -271,6 +276,11 @@ public class ReportGenerator
 	[UnityEditor.Callbacks.PostProcessScene]
 	static void OnPostprocessScene()
 	{
+		if (Application.isPlaying)
+		{
+			return;
+		}
+
 		// get used prefabs on each scene
 		//
 
@@ -306,7 +316,7 @@ public class ReportGenerator
 
 	static void AddAllPrefabsUsedInCurrentSceneToList()
 	{
-#if UNITY_5_3
+#if UNITY_5_3_AND_GREATER
 		AddAllPrefabsUsedInScene(SceneManager.GetActiveScene().path);
 #else
 		AddAllPrefabsUsedInScene(EditorApplication.currentScene);
@@ -350,8 +360,8 @@ public class ReportGenerator
 
 	static string GetBuildTypeFromEditorLog(string editorLogPath)
 	{
-		const string BUILD_TYPE_KEY = "*** Completed 'Build.Player.";
-		const string CANCELLED_BUILD_TYPE_KEY = "*** Cancelled 'Build.Player.";
+		const string BUILD_TYPE_KEY = "*** Completed 'Build.";
+		const string CANCELLED_BUILD_TYPE_KEY = "*** Cancelled 'Build.";
 
 		string returnValue = GetBuildTypeFromEditorLog(editorLogPath, BUILD_TYPE_KEY);
 		if (string.IsNullOrEmpty(returnValue))
@@ -365,13 +375,21 @@ public class ReportGenerator
 	static string GetBuildTypeFromEditorLog(string editorLogPath, string buildTypeKey)
 	{
 		//Debug.Log("GetBuildTypeFromEditorLog path: " + editorLogPath);
-		string line = DldUtil.BigFileReader.SeekText(editorLogPath, buildTypeKey);
+		var gotLines = DldUtil.BigFileReader.SeekAllText(editorLogPath, buildTypeKey);
 
-		if (!string.IsNullOrEmpty(line))
+		if (gotLines.Count == 0)
+		{
+			//Debug.LogFormat("no buildType got");
+			return string.Empty;
+		}
+
+		var lastLine = gotLines[gotLines.Count - 1].Text;
+
+		if (!string.IsNullOrEmpty(lastLine))
 		{
 			//Debug.LogFormat("GetBuildTypeFromEditorLog line: {0} for key: {1}", line, buildTypeKey);
 
-			int buildTypeIdx = line.LastIndexOf(buildTypeKey, StringComparison.Ordinal);
+			int buildTypeIdx = lastLine.LastIndexOf(buildTypeKey, StringComparison.Ordinal);
 			//Debug.Log("buildTypeIdx: " + buildTypeIdx);
 
 			if (buildTypeIdx == -1)
@@ -379,14 +397,25 @@ public class ReportGenerator
 				return string.Empty;
 			}
 
-			int buildTypeEndIdx = line.IndexOf("' in ", buildTypeIdx, StringComparison.Ordinal);
+			int buildTypeEndIdx = lastLine.IndexOf("' in ", buildTypeIdx, StringComparison.Ordinal);
 			//Debug.Log("buildTypeEndIdx: " + buildTypeEndIdx);
 
-			string buildType = line.Substring(buildTypeIdx + buildTypeKey.Length, buildTypeEndIdx - buildTypeIdx - buildTypeKey.Length);
-			//Debug.Log("buildType got: " + buildType);
+			string buildType = lastLine.Substring(buildTypeIdx + buildTypeKey.Length,
+				buildTypeEndIdx - buildTypeIdx - buildTypeKey.Length);
 
+			int anotherDotIdx = buildType.IndexOf(".", StringComparison.Ordinal);
+			if (anotherDotIdx > -1)
+			{
+				buildType = buildType.Substring(anotherDotIdx + 1, buildType.Length - anotherDotIdx - 1);
+			}
+			
+			//Debug.LogFormat("buildType got: {0}", buildType);
 			return buildType;
 		}
+		//else
+		//{
+		//	Debug.LogFormat("no buildType got");
+		//}
 
 		return string.Empty;
 	}
@@ -846,20 +875,33 @@ public class ReportGenerator
 
 				bool foundMatch = false;
 
-				// is current asset found in the script DLLs list?
+				// is current asset found in the script/managed DLLs list?
 				for (int mdllIdx = 0; mdllIdx < scriptDLLs.Length; ++mdllIdx)
 				{
 					if (scriptDLLs[mdllIdx].Name == assetFilenameOnly)
 					{
 						// it's a managed DLL. Managed DLLs are always included in the build.
 						foundMatch = true;
-						inOutAllUsedAssets.Add(BuildReportTool.Util.CreateSizePartFromFile(currentAsset, fullAssetPath));
+						var sizePartForThisScriptDLL = BuildReportTool.Util.CreateSizePartFromFile(currentAsset, fullAssetPath);
+						inOutAllUsedAssets.Add(sizePartForThisScriptDLL);
+
+						// update the file size in the build report with the values that we found
+						scriptDLLs[mdllIdx].Percentage = sizePartForThisScriptDLL.Percentage;
+						scriptDLLs[mdllIdx].RawSize = sizePartForThisScriptDLL.RawSize;
+						scriptDLLs[mdllIdx].RawSizeBytes = sizePartForThisScriptDLL.RawSizeBytes;
+						scriptDLLs[mdllIdx].DerivedSize = sizePartForThisScriptDLL.DerivedSize;
+						scriptDLLs[mdllIdx].ImportedSize = sizePartForThisScriptDLL.ImportedSize;
+						scriptDLLs[mdllIdx].ImportedSizeBytes = sizePartForThisScriptDLL.ImportedSizeBytes;
+
+
 						break;
 					}
 				}
 
 				if (foundMatch)
 				{
+					// this DLL file has been taken into account since it was detected to be a managed DLL
+					// so move on to the next file
 					continue;
 				}
 			}
@@ -1282,11 +1324,13 @@ public class ReportGenerator
 			case BuildPlatform.LinuxUniversal:
 				return BuildSettingCategory.LinuxStandalone;
 
-
+				
 			case BuildPlatform.Web:
 				return BuildSettingCategory.WebPlayer;
 			case BuildPlatform.Flash:
 				return BuildSettingCategory.FlashPlayer;
+			case BuildPlatform.WebGL:
+				return BuildSettingCategory.WebGL;
 
 
 			case BuildPlatform.iOS:
@@ -1309,21 +1353,31 @@ public class ReportGenerator
 	{
 		BuildPlatform buildPlatform = BuildPlatform.None;
 
+
+		// mobile
+
 		if (gotBuildType.IndexOf("Android") != -1)
 		{
 			buildPlatform = BuildPlatform.Android;
-		}
-		else if (gotBuildType.IndexOf("WebPlayer") != -1)
-		{
-			buildPlatform = BuildPlatform.Web;
 		}
 		else if (gotBuildType.IndexOf("iPhone") != -1)
 		{
 			buildPlatform = BuildPlatform.iOS;
 		}
+		
+		// browser
+
+		else if (gotBuildType.IndexOf("WebPlayer") != -1)
+		{
+			buildPlatform = BuildPlatform.Web;
+		}
 		else if (gotBuildType.IndexOf("Flash") != -1)
 		{
 			buildPlatform = BuildPlatform.Flash;
+		}
+		else if (gotBuildType.IndexOf("WebGL") != -1)
+		{
+			buildPlatform = BuildPlatform.WebGL;
 		}
 
 		// Windows
@@ -1373,6 +1427,10 @@ public class ReportGenerator
 	}
 
 
+	/// <summary>
+	/// Note: This doesn't work anymore in Unity 5.3.2
+	/// </summary>
+	/// <returns></returns>
 	public static string GetCompressedSizeReadingFromLog()
 	{
 		const string COMPRESSED_BUILD_SIZE_STA_KEY = "Total compressed size ";
@@ -1409,18 +1467,23 @@ public class ReportGenerator
 	{
 		if (Directory.Exists(buildFilePath))
 		{
+			Debug.LogFormat("{0} is a folder", buildFilePath);
+
 			// build location is a folder. normally it would be a file instead (the executable file for the build)
 
 			// for windows, attempt to find the .exe file within this folder and use that
 			// what if there are multiple unity builds in this folder???
 			string[] potentialBuildExeFiles = Directory.GetFiles(buildFilePath, "*.exe");
 
-			for (int n = 0, len = potentialBuildExeFiles.Length; n < len; ++n)
+			if (potentialBuildExeFiles.Length > 0)
 			{
-				if (IsUnityExecutableFile(potentialBuildExeFiles[n]))
+				for (int n = 0, len = potentialBuildExeFiles.Length; n < len; ++n)
 				{
-					//Debug.Log("found unity .exe file: " + potentialBuildExeFiles[n]);
-					return GetStandaloneBuildWithDataFolderSize(potentialBuildExeFiles[n]);
+					if (IsUnityExecutableFile(potentialBuildExeFiles[n]))
+					{
+						//Debug.Log("found unity .exe file: " + potentialBuildExeFiles[n]);
+						return GetStandaloneBuildWithDataFolderSize(potentialBuildExeFiles[n]);
+					}
 				}
 			}
 
@@ -1456,7 +1519,7 @@ public class ReportGenerator
 		{
 			string dataFolderPath = string.Empty;
 
-			if (BuildReportTool.Util.IsFileOfType(filepath, ".exe"))
+			if (BuildReportTool.Util.IsFileOfType(filepath, ".exe") || BuildReportTool.Util.IsFileOfType(filepath, ".x86") || BuildReportTool.Util.IsFileOfType(filepath, ".x86_64"))
 			{
 				dataFolderPath = BuildReportTool.Util.ReplaceFileType(filepath, "_Data");
 			}
@@ -1642,10 +1705,17 @@ public class ReportGenerator
 				// in web builds, `buildFilePath` is the folder
 				buildInfo.TotalBuildSize = BuildReportTool.Util.GetPathSizeReadable(buildFilePath);
 
-				// find a .unity3d file inside the build folder and get its file size
-
-				// compressed file size found in log is actually the .unity3d file size
-				buildInfo.WebFileBuildSize = GetCompressedSizeReadingFromLog();
+				if (Directory.Exists(buildFilePath))
+				{
+					// find a .unity3d file inside the build folder and get its file size
+					foreach (
+						var file in TraverseDirectory.Do(buildFilePath).Where(file => BuildReportTool.Util.IsFileOfType(file, ".unity3d"))
+						)
+					{
+						buildInfo.WebFileBuildSize = BuildReportTool.Util.GetPathSizeReadable(file);
+						break;
+					}
+				}
 			}
 			else if (
 				buildPlatform == BuildPlatform.Windows32 ||
@@ -1659,7 +1729,9 @@ public class ReportGenerator
 				// in 32 bit builds, `buildFilePath` is the executable file (.x86 file). we still need the Data folder
 				// in 64 bit builds, `buildFilePath` is the executable file (.x86_64 file). we still need the Data folder
 
-				buildInfo.TotalBuildSize = BuildReportTool.Util.GetBytesReadable( GetStandaloneBuildSize(buildFilePath) );
+				//Debug.LogFormat("getting build size for {0} using file and data folder method", buildPlatform);
+
+				buildInfo.TotalBuildSize = BuildReportTool.Util.GetBytesReadable(GetStandaloneBuildSize(buildFilePath));
 			}
 			else if (buildPlatform == BuildPlatform.LinuxUniversal)
 			{
@@ -2019,8 +2091,9 @@ public class ReportGenerator
 		//window.ShowUtility();
 
 		//Debug.Log("showing build report window...");
-
-		BRT_BuildReportWindow brtWindow = EditorWindow.GetWindow<BRT_BuildReportWindow>("Build Report", true, typeof(SceneView));
+		
+		//BRT_BuildReportWindow brtWindow = EditorWindow.GetWindow<BRT_BuildReportWindow>("Build Report", true, typeof(SceneView));
+		BRT_BuildReportWindow brtWindow = (BRT_BuildReportWindow)EditorWindow.GetWindow(typeof(BRT_BuildReportWindow), false, "Build Report", true);
 		//BRT_BuildReportWindow brtWindow = EditorWindow.GetWindow(typeof(BRT_BuildReportWindow), false, "Build Report", true) as BRT_BuildReportWindow;
 		brtWindow.Init(_lastKnownBuildInfo);
 	}

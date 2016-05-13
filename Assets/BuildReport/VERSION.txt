@@ -1,4 +1,28 @@
-﻿Version 3.0.15
+﻿Version 3.0.19
+- FIX: Got rid of warnings in Unity 5.3.1
+- FIX: Added compatibility for Unity 5.4.0b15
+
+
+Version 3.0.18
+- FIX: Fixed exception if the last known build path is an empty string (happens when build was created using BuildPipeline.BuildPlayer)
+
+
+Version 3.0.17
+- FIX: Added fix for null error when generating a report with minimal info.
+- FIX: Added fix for bug when getting stuck on the "Getting values..." message.
+- FIX: Removed compilation warnings.
+
+
+Version 3.0.16
+- FIX: Fixed bug where file size for Script DLLs sometimes do not show up.
+- FIX: Fixed bug where code could not find build path of a Linux build.
+- FIX: Fixed bug where code could not determine what platform the build was being made for if it was changed.
+- FIX: Fixed a syntax error when using Build Report Tool on Unity 5.2.1 and below.
+- FIX: Fixed bug where size for the .unity3d file for WebPlayer build was not showing.
+- EDT: Build Size displayed now also indicates the path of the build folder.
+
+
+Version 3.0.15
 - FIX: Fixed bug where assets in Resources folder are not taken into account in the Used Assets list and the Size Assets table.
 
 
