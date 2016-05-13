@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 小關卡, 也就是關卡介面上的小圓點, 點擊後, 玩家可以進入關卡.
+/// 小關卡, 也就是關卡介面上的小圓點.
 /// </summary>
 public class UIMainStageElement : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class UIMainStageElement : MonoBehaviour
         public bool StarVisible;
     }
 
+    /// <summary>
+    /// <para> 呼叫時機: 點擊. </para>
+    /// <para> int: StageID. </para>
+    /// </summary>
+    public event Action<int, UIMainStageInfo.Data> OnClickListener;
+
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
     public int StageID;
 
@@ -41,19 +48,12 @@ public class UIMainStageElement : MonoBehaviour
     /// </summary>
     private const float EnableTime = 1.8f;
 
-    public UIMainStageInfo.Data InfoData { get { return mInfoData; } }
     private UIMainStageInfo.Data mInfoData;
 
     private Data mData;
 
     private Animator mAnimator;
     private UIButton mButton;
-
-    private UIMainStageMain Main
-    {
-        get { return mMain ?? (mMain = GetComponentInParent<UIMainStageMain>()); }
-    }
-    private UIMainStageMain mMain;
 
     private UIMainStageStars mStar;
 
@@ -64,13 +64,19 @@ public class UIMainStageElement : MonoBehaviour
         mButton = GetComponent<UIButton>();
         mStar = GetComponent<UIMainStageStars>();
 
-//        mButton.onClick.Add(new EventDelegate(() =>
-//        {
-//            if(mData.IsEnable)
-//                Main.Info.Show(StageID, mInfoData);
-//            else
-//                UIHint.Get.ShowHint(mData.ErrMsg, Color.black);
-//        }));
+        mButton.onClick.Add(new EventDelegate(() =>
+        {
+            if(mData.IsEnable)
+                fireClickEvent();
+            else
+                UIHint.Get.ShowHint(mData.ErrMsg, Color.black);
+        }));
+    }
+
+    private void fireClickEvent()
+    {
+        if(OnClickListener != null)
+            OnClickListener(StageID, mInfoData);
     }
 
     public void Set(Data data, UIMainStageInfo.Data infoData)

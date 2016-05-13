@@ -123,13 +123,13 @@ public class UIMainStageInfo : MonoBehaviour
     private string mErrMsg;
     private int mDiamond;
 
-    private UIStageHint mHint;
+//    private UIStageHint mHint;
     private Action mMissionAction;
 
     [UsedImplicitly]
 	void Awake()
     {
-        mHint = GetComponent<UIStageHint>();
+//        mHint = GetComponent<UIStageHint>();
 
         for(var i = 0; i < RewardParents.Length; i++)
         {
@@ -176,7 +176,7 @@ public class UIMainStageInfo : MonoBehaviour
 
         updateUI(data);
 
-        mHint.UpdateUI(mStageID);
+//        mHint.UpdateUI(mStageID);
 
         if(ShowListener != null)
             ShowListener();

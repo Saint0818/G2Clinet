@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 關卡介面主程式.
+/// 主線關卡介面主程式.
 /// </summary>
 /// 使用方法:
 /// <list type="number">
 /// <item> Call RemoveAllChapters() 將整個關卡介面重置. </item>
-/// <item> Call AddXXX() 加入章節和關卡. </item>
+/// <item> Call AddChapter() 加入章節</item>
+/// <item> Call AddStage() 加入章節小關卡. </item>
 /// <item> Call SelectChapter() 控制預設顯示哪一個章節. </item>
-/// <item> 向 UIMainStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
-public class UIMainStageMain : MonoBehaviour
+public class UIMainStageView : MonoBehaviour
 {
     /// <summary>
     /// ScrollView 捲動幾秒後, 開始撥 Unlock Animation.

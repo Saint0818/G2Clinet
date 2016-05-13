@@ -28,11 +28,11 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    private UIMainStageMain mMain;
+    private UIMainStageView mMain;
 
     private void Awake()
     {
-        mMain = GetComponent<UIMainStageMain>();
+        mMain = GetComponent<UIMainStageView>();
         mMain.BackListener += goToGameLobby;
 //        mMain.Info.StartListener += enterSelectRole;
 //        mMain.Info.ShowListener += () => Statistic.Ins.LogScreen(7);

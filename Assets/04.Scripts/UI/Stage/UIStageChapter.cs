@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 代表關卡中的某個章節.
+/// 主線關卡中的某一章.
 /// </summary>
 [DisallowMultipleComponent]
 public class UIStageChapter : MonoBehaviour
@@ -53,12 +53,14 @@ public class UIStageChapter : MonoBehaviour
     private readonly Dictionary<int, UIMainStageElement> mStages = new Dictionary<int, UIMainStageElement>();
 
     private Animator mAnimator;
+    private UIMainStageInfo mInfo;
 
     [UsedImplicitly]
 	private void Awake()
     {
         LockNameLabel.text = TextConst.S(int.Parse(LockNameLabel.text));
         mAnimator = GetComponentInChildren<Animator>();
+        mInfo = GetComponent<UIMainStageInfo>();
     }
 
     public void Show()
@@ -78,30 +80,49 @@ public class UIStageChapter : MonoBehaviour
     public void AddStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
                          UIMainStageInfo.Data infoData)
     {
-        if(!mStages.ContainsKey(stageID))
-        {
-            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement, Open.transform, localPos);
-            obj.name = string.Format("StageElement{0}", stageID);
-            var stage = obj.GetComponent<UIMainStageElement>();
-            stage.StageID = stageID;
-
-//            mStages.Add(stageID, createStage(UIPrefabPath.UIMainStageElement, stageID, localPos));
-            mStages.Add(stageID, stage);
-        }
-        mStages[stageID].Set(elementData, infoData);
+//        if(!mStages.ContainsKey(stageID))
+//        {
+//            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement, Open.transform, localPos);
+//            obj.name = string.Format("StageElement{0}", stageID);
+//            var stage = obj.GetComponent<UIMainStageElement>();
+//            stage.StageID = stageID;
+//
+//            mStages.Add(stageID, stage);
+//        }
+//        mStages[stageID].Set(elementData, infoData);
+        addStage(stageID, UIPrefabPath.UIMainStageElement, localPos, elementData, infoData);
     }
 
     public void AddBossStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
                              UIMainStageInfo.Data infoData)
     {
+//        if(!mStages.ContainsKey(stageID))
+//        {
+//            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement9, Open.transform, localPos);
+//            obj.name = string.Format("StageElement{0}", stageID);
+//            var stage = obj.GetComponent<UIMainStageElement>();
+//            stage.StageID = stageID;
+//
+//            mStages.Add(stageID, stage);
+//        }
+//        mStages[stageID].Set(elementData, infoData);
+        addStage(stageID, UIPrefabPath.UIMainStageElement9, localPos, elementData, infoData);
+    }
+
+    private void addStage(int stageID, string prefabPath, Vector3 localPos, UIMainStageElement.Data elementData,
+                          UIMainStageInfo.Data infoData)
+    {
         if(!mStages.ContainsKey(stageID))
         {
-            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement9, Open.transform, localPos);
+            var obj = UIPrefabPath.LoadUI(prefabPath, Open.transform, localPos);
             obj.name = string.Format("StageElement{0}", stageID);
             var stage = obj.GetComponent<UIMainStageElement>();
             stage.StageID = stageID;
+            stage.OnClickListener += (clickStageID, data) => mInfo.Show(clickStageID, data);
 
-//            mStages.Add(stageID, createStage(UIPrefabPath.UIMainStageElement9, stageID, localPos));
+            if(mStages.Count == 0)
+                mInfo.Show(stageID, infoData);
+
             mStages.Add(stageID, stage);
         }
         mStages[stageID].Set(elementData, infoData);
@@ -143,20 +164,6 @@ public class UIStageChapter : MonoBehaviour
 
         Show();
     }
-
-//    private UIMainStageElement createStage(string path, int stageID, Vector3 localPos)
-//    {
-//        GameObject obj = Instantiate(Resources.Load<GameObject>(path));
-//        obj.transform.parent = Open.transform;
-//        obj.transform.localPosition = localPos;
-//        obj.transform.localRotation = Quaternion.identity;
-//        obj.transform.localScale = mDefaultStageScale;
-//        obj.name = string.Format("StageElement{0}", stageID);
-//
-//        var stage = obj.GetComponent<UIMainStageElement>();
-//        stage.StageID = stageID;
-//        return stage;
-//    }
 
     public void Hide()
     {
