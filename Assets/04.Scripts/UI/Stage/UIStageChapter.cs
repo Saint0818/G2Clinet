@@ -61,6 +61,7 @@ public class UIStageChapter : MonoBehaviour
         LockNameLabel.text = TextConst.S(int.Parse(LockNameLabel.text));
         mAnimator = GetComponentInChildren<Animator>();
         mInfo = GetComponent<UIMainStageInfo>();
+        mInfo.Hide();
     }
 
     public void Show()
@@ -80,32 +81,12 @@ public class UIStageChapter : MonoBehaviour
     public void AddStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
                          UIMainStageInfo.Data infoData)
     {
-//        if(!mStages.ContainsKey(stageID))
-//        {
-//            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement, Open.transform, localPos);
-//            obj.name = string.Format("StageElement{0}", stageID);
-//            var stage = obj.GetComponent<UIMainStageElement>();
-//            stage.StageID = stageID;
-//
-//            mStages.Add(stageID, stage);
-//        }
-//        mStages[stageID].Set(elementData, infoData);
         addStage(stageID, UIPrefabPath.UIMainStageElement, localPos, elementData, infoData);
     }
 
     public void AddBossStage(int stageID, Vector3 localPos, UIMainStageElement.Data elementData, 
                              UIMainStageInfo.Data infoData)
     {
-//        if(!mStages.ContainsKey(stageID))
-//        {
-//            var obj = UIPrefabPath.LoadUI(UIPrefabPath.UIMainStageElement9, Open.transform, localPos);
-//            obj.name = string.Format("StageElement{0}", stageID);
-//            var stage = obj.GetComponent<UIMainStageElement>();
-//            stage.StageID = stageID;
-//
-//            mStages.Add(stageID, stage);
-//        }
-//        mStages[stageID].Set(elementData, infoData);
         addStage(stageID, UIPrefabPath.UIMainStageElement9, localPos, elementData, infoData);
     }
 
