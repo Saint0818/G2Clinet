@@ -37,6 +37,8 @@ public class TItemAvatar
     private UIButton buttonSuit; 
     private TimeSpan currentTime;
 
+	private UISprite spritePosition;
+
     //-1 : player.items else team.items
     public int BackageSort; 
 
@@ -196,34 +198,36 @@ public class TItemAvatar
             self.transform.parent = enablepool;
             self.transform.localScale = Vector3.one;
 
-            name = self.transform.FindChild("ItemName").gameObject.GetComponent<UILabel>();
-            usetime = self.transform.FindChild("DeadlineLabel").gameObject.GetComponent<UILabel>();
-            getModeLabel = self.transform.FindChild("GetModeLabel").gameObject.GetComponent<UILabel>();
-            pic = self.transform.FindChild("ItemPic").gameObject.GetComponent<UISprite>();
-            qualityBG = self.transform.FindChild("ItemPic/QualityBG").gameObject.GetComponent<UISprite>();
-            OutLine = self.transform.FindChild("ItemPic/OutLine").gameObject.GetComponent<UISprite>();
-            TrimBottom = self.transform.FindChild("TrimBottom").gameObject.GetComponent<UISprite>();
-            sellBtn = self.transform.FindChild("SellBtn").gameObject.GetComponent<UIButton>();
-            sellPrice = sellBtn.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>();
+            name = self.transform.Find("ItemName").gameObject.GetComponent<UILabel>();
+            usetime = self.transform.Find("DeadlineLabel").gameObject.GetComponent<UILabel>();
+            getModeLabel = self.transform.Find("GetModeLabel").gameObject.GetComponent<UILabel>();
+            pic = self.transform.Find("ItemPic").gameObject.GetComponent<UISprite>();
+            qualityBG = self.transform.Find("ItemPic/QualityBG").gameObject.GetComponent<UISprite>();
+            OutLine = self.transform.Find("ItemPic/OutLine").gameObject.GetComponent<UISprite>();
+            TrimBottom = self.transform.Find("TrimBottom").gameObject.GetComponent<UISprite>();
+            sellBtn = self.transform.Find("SellBtn").gameObject.GetComponent<UIButton>();
+            sellPrice = sellBtn.transform.Find("SellLabel").gameObject.GetComponent<UILabel>();
             sellBtn.GetComponent<BoxCollider>().enabled = false;
-            SellSelect = self.transform.FindChild("SellSelect").gameObject.GetComponent<UISprite>();
-            SellSelect.transform.FindChild("SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(8007);
-            self.transform.FindChild("EquipedIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(8107);
-            labelSuitCount = self.transform.FindChild("SuitItem/CountLabel").gameObject.GetComponent<UILabel>();
-            spriteSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UISprite>();
-            buttonSuit = self.transform.FindChild("SuitItem").gameObject.GetComponent<UIButton>();
+            SellSelect = self.transform.Find("SellSelect").gameObject.GetComponent<UISprite>();
+            SellSelect.transform.Find("SellLabel").gameObject.GetComponent<UILabel>().text = TextConst.S(8007);
+            self.transform.Find("EquipedIcon/Label").gameObject.GetComponent<UILabel>().text = TextConst.S(8107);
+            labelSuitCount = self.transform.Find("SuitItem/CountLabel").gameObject.GetComponent<UILabel>();
+            spriteSuit = self.transform.Find("SuitItem").gameObject.GetComponent<UISprite>();
+            buttonSuit = self.transform.Find("SuitItem").gameObject.GetComponent<UIButton>();
             buttonSuit.name = self.name;
 
             Selected = false;
-            EquipedIcon = self.transform.FindChild("EquipedIcon").gameObject.GetComponent<UISprite>();
+            EquipedIcon = self.transform.Find("EquipedIcon").gameObject.GetComponent<UISprite>();
             equipBtn = self.transform.GetComponent<UIButton>();
-            buyBtn = self.transform.FindChild("BuyBtn").gameObject.GetComponent<UIButton>();
+            buyBtn = self.transform.Find("BuyBtn").gameObject.GetComponent<UIButton>();
+
+			spritePosition = self.transform.Find("PositionIcon").GetComponent<UISprite>();
 				
             if (buyBtn)
             {
                 buyBtn.name = self.name;
-                PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
-                BuyInfoLabel = buyBtn.transform.FindChild("InfoLabel").gameObject.GetComponent<UILabel>();
+                PriceLabel = buyBtn.transform.Find("PriceLabel").gameObject.GetComponent<UILabel>();
+                BuyInfoLabel = buyBtn.transform.Find("InfoLabel").gameObject.GetComponent<UILabel>();
             }
 
             if (equipBtn && sellBtn)
@@ -286,6 +290,10 @@ public class TItemAvatar
             
             SetSuitItem(id, buttonSuit, spriteSuit, labelSuitCount);
             UpdateBtnUseState();
+
+			spritePosition.gameObject.SetActive((GameData.DItemData[id].Kind <= 7) && (Position != 3));
+			spritePosition.spriteName = GameFunction.PositionIcon(Position);
+
         } else {
             id = 0;
             Kind = 0;
@@ -490,7 +498,7 @@ public class UIAvatarFitted : UIBase
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
         SetBtnFun(UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
         SellCount = GameObject.Find(UIName + "/MainView/BottomLeft/SellBtn/SellCount");
-        TotalPriceLabel = SellCount.transform.FindChild("TotalPrice").gameObject.GetComponent<UILabel>();
+        TotalPriceLabel = SellCount.transform.Find("TotalPrice").gameObject.GetComponent<UILabel>();
         SellCount.SetActive(false);
 	
         item = Resources.Load("Prefab/UI/Items/ItemAvatarBtn") as GameObject;

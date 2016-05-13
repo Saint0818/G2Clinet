@@ -21,18 +21,28 @@ public class AwardAvatarView : MonoBehaviour {
 	public UISprite QualityBG;
 
 	private Transform specialEffect;
-
 	private GameObject mGameObject;
+	public UISprite spritePosition;
 	private void Awake()
 	{
+		if(spritePosition == null) {
+			Transform t = transform.Find("ItemView/PositionIcon");
+			if(t != null)
+				spritePosition = t.GetComponent<UISprite>();
+		}
+
 		if(QualityBG == null)
 			goQuality = GameFunction.FindQualityBG(transform);
+		
 		if(goQuality != null)
 			QualityBG = goQuality.GetComponent<UISprite>();
+		
 		if(specialEffect == null)
 			specialEffect = transform.Find("ItemView/SpecialEffect");
+		
 		if(PVPCoin == null)
 			PVPCoin = transform.Find("ItemView/PVPCoin");
+		
 		if(labelItemName == null) {
 			Transform t = transform.Find("ItemLabel");
 			if(t != null)
@@ -44,6 +54,7 @@ public class AwardAvatarView : MonoBehaviour {
 	}
 
 	private void hideAll () {
+		
 		ItemPic.gameObject.SetActive(false);
 		EXP.SetActive(false);
 		Money.SetActive(false);
@@ -99,6 +110,14 @@ public class AwardAvatarView : MonoBehaviour {
 			if(labelItemName != null) 
 				labelItemName.text = itemData.Name;
 		}
+
+		if(spritePosition != null){
+			spritePosition.gameObject.SetActive((itemData.Kind <= 7) && itemData.Position != 3);
+			if(itemData.Kind <= 7){
+				spritePosition.spriteName = GameFunction.PositionIcon(itemData.Position);
+			}
+		}
+			
 	}
 
 	/// <summary>
@@ -127,8 +146,12 @@ public class AwardAvatarView : MonoBehaviour {
 		AmountLabel.text = value.ToString();
 		if(QualityBG != null)
 			QualityBG.color = TextConst.ColorBG(1);
+		
 		if(specialEffect != null)
 			specialEffect.gameObject.SetActive(false);
+
+		if(spritePosition != null)
+			spritePosition.gameObject.SetActive(false);
 	}
 
 }
