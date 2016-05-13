@@ -13,9 +13,9 @@ using PushwooshInstanceType = Pushwoosh;
 
 public class Pushwoosh : MonoBehaviour
 {
-	public static string ApplicationCode { get { return "B184A-F7E8A"; }}
+	public static string ApplicationCode { get; set; }
 	
-	public static string GcmProjectNumber { get { return "854327390035"; }}
+	public static string GcmProjectNumber { get; set; }
 
 	public delegate void RegistrationSuccessHandler(string token);
 	

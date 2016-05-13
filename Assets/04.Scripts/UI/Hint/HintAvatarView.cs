@@ -21,12 +21,21 @@ public class HintAvatarView : MonoBehaviour {
 	public UISprite QualityBG;
 	private GameObject mGameObject;
 	private bool isHaveValue = false;
+
+	private UISprite spritePosition;
 	private void Awake()
 	{
 		if(QualityBG == null)
 			goQuality = GameFunction.FindQualityBG(transform);
+		
 		if(goQuality != null)
 			QualityBG = goQuality.GetComponent<UISprite>();
+
+		if(spritePosition == null) {
+			Transform t = transform.Find("ItemView/PositionIcon");
+			if(t != null)
+				spritePosition = t.GetComponent<UISprite>();
+		}
 		
 		mGameObject = gameObject;
 
@@ -117,6 +126,12 @@ public class HintAvatarView : MonoBehaviour {
 			QualityBG.color = TextConst.ColorBG(itemData.Quality);
 
 		AmountLabel.text = "";
+
+		if(spritePosition != null) {
+			spritePosition.gameObject.SetActive((itemData.Kind <= 7) && (itemData.Position != 3));
+			spritePosition.spriteName = GameFunction.PositionIcon(itemData.Position);
+		}
+		
 	}
 
 	public void UpdateUI(TItemData itemData, TPlayer player)
@@ -162,5 +177,10 @@ public class HintAvatarView : MonoBehaviour {
 			QualityBG.color = TextConst.ColorBG(itemData.Quality);
 
 		AmountLabel.text = "";
+
+		if(spritePosition != null) {
+			spritePosition.gameObject.SetActive((itemData.Kind <= 7) && (itemData.Position != 3));
+			spritePosition.spriteName = GameFunction.PositionIcon(itemData.Position);
+		}
 	}
 }
